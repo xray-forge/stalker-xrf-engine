@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback } from "xray16";
 
-import { CrowBinder } from "@/engine/core/binders";
+import { CrowBinder } from "@/engine/core/binders/creature/CrowBinder";
 import { IRegistryObjectState, registerCrow, registerSimulator, registry } from "@/engine/core/database";
 import { EScheme, ESchemeType, GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
@@ -11,6 +11,7 @@ import {
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
+  MockObjectBinder,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
@@ -22,31 +23,43 @@ describe("CrowBinder class", () => {
 
   it("should correctly reinit", () => {
     const object: GameObject = MockGameObject.mock();
-    const crowBinder: CrowBinder = new CrowBinder(object);
+    const binder: CrowBinder = new CrowBinder(object);
 
-    crowBinder.diedAt = 5000;
-    expect(crowBinder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(true);
+    binder.diedAt = 5000;
+    expect(binder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(true);
 
     const firstState: IRegistryObjectState = registry.objects.get(object.id());
 
-    crowBinder.reinit();
+    binder.reinit();
 
     expect(registry.objects.get(object.id())).not.toBe(firstState);
-    expect(crowBinder.diedAt).toBe(0);
+    expect(binder.diedAt).toBe(0);
   });
 
   it("should correctly handle going online/offline", () => {
     const object: GameObject = MockGameObject.mock();
-    const crowBinder: CrowBinder = new CrowBinder(object);
+    const binder: CrowBinder = new CrowBinder(object);
 
-    expect(crowBinder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(true);
-    expect(crowBinder.object.set_callback).toHaveBeenCalledWith(callback.death, crowBinder.onDeath, crowBinder);
+    expect(binder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(true);
+    expect(binder.object.set_callback).toHaveBeenCalledWith(callback.death, binder.onDeath, binder);
     expect(registry.crows.count).toBe(1);
     expect(registry.crows.storage.get(object.id())).toBe(object.id());
 
-    crowBinder.net_destroy();
+    binder.net_destroy();
 
-    expect(crowBinder.object.set_callback).toHaveBeenCalledWith(callback.death, null);
+    expect(binder.object.set_callback).toHaveBeenCalledWith(callback.death, null);
+    expect(registry.crows.count).toBe(0);
+    expect(registry.crows.storage.length()).toBe(0);
+  });
+
+  it("should correctly handle going online/offline when spawn check is falsy", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: CrowBinder = new CrowBinder(object);
+
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    expect(binder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(false);
+
     expect(registry.crows.count).toBe(0);
     expect(registry.crows.storage.length()).toBe(0);
   });
@@ -54,42 +67,42 @@ describe("CrowBinder class", () => {
   it("should correctly handle update event", () => {
     const object: GameObject = MockGameObject.mock();
     const serverObject: ServerObject = mockServerAlifeObject({ id: object.id() });
-    const crowBinder: CrowBinder = new CrowBinder(object);
+    const binder: CrowBinder = new CrowBinder(object);
 
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
-    crowBinder.diedAt = 1;
-    crowBinder.update(0);
+    binder.diedAt = 1;
+    binder.update(0);
 
     expect(registry.simulator.release).not.toHaveBeenCalled();
 
     jest.spyOn(Date, "now").mockImplementation(() => 60000);
-    crowBinder.update(0);
+    binder.update(0);
 
     expect(registry.simulator.release).not.toHaveBeenCalled();
 
     jest.spyOn(Date, "now").mockImplementation(() => 121000);
-    crowBinder.update(0);
+    binder.update(0);
     expect(registry.simulator.release).not.toHaveBeenCalled();
 
     jest.spyOn(object, "alive").mockImplementation(() => false);
-    crowBinder.update(0);
+    binder.update(0);
     expect(registry.simulator.release).toHaveBeenCalledWith(serverObject, true);
   });
 
   it("should correctly handle update event", () => {
     const firstObject: GameObject = MockGameObject.mock();
-    const firstCrowBinder: CrowBinder = new CrowBinder(firstObject);
+    const firstBinder: CrowBinder = new CrowBinder(firstObject);
 
-    expect(firstCrowBinder.net_save_relevant()).toBe(true);
+    expect(firstBinder.net_save_relevant()).toBe(true);
   });
 
   it("should correctly handle save/load", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     const firstObject: GameObject = MockGameObject.mock();
-    const firstCrowBinder: CrowBinder = new CrowBinder(firstObject);
+    const firstBinder: CrowBinder = new CrowBinder(firstObject);
 
-    expect(firstCrowBinder.net_spawn(mockServerAlifeObject({ id: firstObject.id() }))).toBe(true);
+    expect(firstBinder.net_spawn(mockServerAlifeObject({ id: firstObject.id() }))).toBe(true);
 
     const firstState: IRegistryObjectState = registry.objects.get(firstObject.id());
 
@@ -103,8 +116,8 @@ describe("CrowBinder class", () => {
 
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
-    firstCrowBinder.diedAt = 400;
-    firstCrowBinder.save(mockNetPacket(netProcessor));
+    firstBinder.diedAt = 400;
+    firstBinder.save(mockNetPacket(netProcessor));
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -136,15 +149,15 @@ describe("CrowBinder class", () => {
     ]);
 
     const secondObject: GameObject = MockGameObject.mock();
-    const secondCrowBinder: CrowBinder = new CrowBinder(secondObject);
+    const secondBinder: CrowBinder = new CrowBinder(secondObject);
 
-    expect(secondCrowBinder.net_spawn(mockServerAlifeObject({ id: secondObject.id() }))).toBe(true);
-    secondCrowBinder.load(mockNetReader(netProcessor));
+    expect(secondBinder.net_spawn(mockServerAlifeObject({ id: secondObject.id() }))).toBe(true);
+    secondBinder.load(mockNetReader(netProcessor));
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
 
-    expect(secondCrowBinder.diedAt).toBe(400);
+    expect(secondBinder.diedAt).toBe(400);
 
     expect(registry.objects.get(secondObject.id())).toEqualLuaTables({
       activationGameTime: null,
@@ -161,11 +174,11 @@ describe("CrowBinder class", () => {
 
   it("should correctly handle death event", () => {
     const object: GameObject = MockGameObject.mock();
-    const crowBinder: CrowBinder = new CrowBinder(object);
+    const binder: CrowBinder = new CrowBinder(object);
 
     registerCrow(object);
 
-    crowBinder.onDeath();
+    binder.onDeath();
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.crows.storage.length()).toBe(0);

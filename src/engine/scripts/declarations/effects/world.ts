@@ -1,6 +1,6 @@
 import { level, patrol } from "xray16";
 
-import { AnomalyZoneBinder } from "@/engine/core/binders";
+import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
   getManager,
   getObjectByStoryId,

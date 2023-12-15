@@ -1,17 +1,17 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { updateStalkerLogic } from "@/engine/core/binders";
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { breakObjectDialog, getNpcSpeaker, isObjectName, updateObjectDialog } from "@/engine/core/utils/dialog";
+import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/schemes/stalker/meet/utils", () => ({ updateObjectMeetAvailability: jest.fn() }));
-jest.mock("@/engine/core/binders/creature/StalkerBinder", () => ({ updateStalkerLogic: jest.fn() }));
+jest.mock("@/engine/core/schemes/stalker/meet/utils");
+jest.mock("@/engine/core/utils/logics");
 
 describe("reward utils", () => {
   beforeEach(() => {

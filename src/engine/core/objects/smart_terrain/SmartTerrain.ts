@@ -90,7 +90,6 @@ import {
   ESchemeType,
   GameObject,
   IniFile,
-  LuaArray,
   NetPacket,
   Optional,
   ServerCreatureObject,
@@ -159,7 +158,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   // Stalkers that are entering smart, but still not in correct vertex
   public arrivingObjects: LuaTable<TNumberId, ServerCreatureObject> = new LuaTable();
-  public objectsToRegister: LuaArray<ServerCreatureObject> = new LuaTable();
+  public objectsToRegister: LuaTable<TNumberId, ServerCreatureObject> = new LuaTable();
 
   public smartTerrainAlifeTask!: ALifeSmartTerrainTask;
 
@@ -233,13 +232,19 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
   public override register_npc(object: ServerCreatureObject): void {
     // Calling register npc to smart terrain before registering smart terrain.
-    if (!this.isRegistered) {
-      logger.info("Smart terrain not registered, delay object:", this.name(), object.name());
-
-      return table.insert(this.objectsToRegister, object);
-    } else {
+    if (this.isRegistered) {
       logger.info("Register object in smart:", this.name(), object.name());
       this.stayingObjectsCount += 1;
+    } else {
+      if (this.objectsToRegister.has(object.id)) {
+        logger.info("Smart terrain not registered, skip already queued object:", this.name(), object.name());
+      } else {
+        logger.info("Smart terrain not registered, delay object:", this.name(), object.name());
+
+        this.objectsToRegister.set(object.id, object);
+      }
+
+      return;
     }
 
     if (!isStalker(object)) {
@@ -252,14 +257,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     // In other cases track it and wait for arrival.
 
     if (isObjectArrivedToSmartTerrain(object, this)) {
-      logger.info("Assign to job on register:", this.name(), object.name());
-
       this.jobDeadTimeById = new LuaTable();
       this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
 
-      selectSmartTerrainObjectJob(this, this.objectJobDescriptors.get(object.id));
+      const [jobId, job] = selectSmartTerrainObjectJob(this, this.objectJobDescriptors.get(object.id));
+
+      logger.format("Assign to job on register: %s, %s, %s - %s", this.name(), object.name(), jobId, job?.section);
     } else {
-      logger.info("Mark as arriving:", this.name(), object.name(), this.stayingObjectsCount);
+      logger.format("Mark as arriving: %s, %s, %s", this.name(), object.name(), this.stayingObjectsCount);
       this.arrivingObjects.set(object.id, object);
     }
   }

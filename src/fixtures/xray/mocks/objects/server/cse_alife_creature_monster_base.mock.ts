@@ -2,7 +2,13 @@ import { jest } from "@jest/globals";
 import { CALifeMonsterBrain } from "xray16";
 
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ServerMonsterAbstractObject, ServerMonsterBaseObject, TNumberId } from "@/engine/lib/types";
+import {
+  ServerCreatureObject,
+  ServerMonsterAbstractObject,
+  ServerMonsterBaseObject,
+  TNumberId,
+  TSection,
+} from "@/engine/lib/types";
 import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import { MockCAlifeMonsterBrain } from "@/fixtures/xray/mocks/objects/CAlifeMonsterBrain.mock";
 import {
@@ -14,6 +20,10 @@ import {
  * Mock alife monster creature server object.
  */
 export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract {
+  public static override mock(section: TSection = "test_alife_object"): ServerCreatureObject {
+    return new MockAlifeMonsterBase(section) as unknown as ServerCreatureObject;
+  }
+
   public override m_smart_terrain_id: TNumberId = MAX_U16;
   public aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
 

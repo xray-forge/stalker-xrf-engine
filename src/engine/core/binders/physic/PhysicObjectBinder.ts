@@ -5,6 +5,7 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
+  IBaseSchemeState,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -67,10 +68,8 @@ export class PhysicObjectBinder extends object_binder {
         this.itemBox = new PhysicObjectItemBox(this.object);
       }
 
-      if (spawnIni.section_exist("level_spot")) {
-        if (spawnIni.line_exist("level_spot", "actor_box")) {
-          level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
-        }
+      if (spawnIni.section_exist("level_spot") && spawnIni.line_exist("level_spot", "actor_box")) {
+        level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
       }
     }
 
@@ -117,8 +116,9 @@ export class PhysicObjectBinder extends object_binder {
 
     const spawnIni: Optional<IniFile> = this.object.spawn_ini();
 
-    if (this.state.activeSection !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeScheme || (spawnIni && spawnIni.section_exist("drop_box"))) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme as EScheme]!, ESchemeEvent.UPDATE, delta);
+
       this.object.set_callback(callback.hit, this.onHit, this);
       this.object.set_callback(callback.death, this.onDeath, this);
       this.object.set_callback(callback.use_object, this.onUse, this);
@@ -159,8 +159,14 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public onUse(object: GameObject, who: GameObject): void {
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, this);
+    if (this.state.activeScheme) {
+      emitSchemeEvent(
+        this.object,
+        this.state[this.state.activeScheme] as IBaseSchemeState,
+        ESchemeEvent.USE,
+        object,
+        this
+      );
     }
   }
 
@@ -181,10 +187,10 @@ export class PhysicObjectBinder extends object_binder {
       );
     }
 
-    if (this.state.activeSection) {
+    if (this.state.activeScheme) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.activeScheme!]!,
+        this.state[this.state.activeScheme] as IBaseSchemeState,
         ESchemeEvent.HIT,
         object,
         amount,
@@ -199,15 +205,21 @@ export class PhysicObjectBinder extends object_binder {
    * todo: Description.
    */
   public onDeath(victim: GameObject, who: GameObject): void {
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
+    if (this.state.activeScheme) {
+      emitSchemeEvent(
+        this.object,
+        this.state[this.state.activeScheme] as IBaseSchemeState,
+        ESchemeEvent.DEATH,
+        victim,
+        who
+      );
     }
 
-    if (this.particle !== null) {
+    if (this.particle) {
       this.particle.stop();
     }
 
-    if (this.itemBox !== null) {
+    if (this.itemBox) {
       this.itemBox.spawnBoxItems();
     }
   }

@@ -32,6 +32,7 @@ import {
   Optional,
   Reader,
   ServerActorObject,
+  TCount,
   TDuration,
   TTaskState,
 } from "@/engine/lib/types";
@@ -77,16 +78,7 @@ export class ActorBinder extends object_binder {
 
     level.show_weapon(true);
 
-    this.object.set_callback(callback.inventory_info, null);
-    this.object.set_callback(callback.article_info, null);
-    this.object.set_callback(callback.on_item_take, null);
-    this.object.set_callback(callback.on_item_drop, null);
-    this.object.set_callback(callback.trade_sell_buy_item, null);
-    this.object.set_callback(callback.task_state, null);
-    this.object.set_callback(callback.level_border_enter, null);
-    this.object.set_callback(callback.level_border_exit, null);
-    this.object.set_callback(callback.take_item_from_box, null);
-    this.object.set_callback(callback.use_object, null);
+    this.resetCallbacks();
 
     this.eventsManager.emitEvent(EGameEvent.ACTOR_GO_OFFLINE, this);
 
@@ -98,39 +90,12 @@ export class ActorBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    const actor: GameObject = this.object;
-    const eventsManager: EventsManager = this.eventsManager;
-
     logger.info("Re-init actor");
 
     registerActor(this.object);
     resetPortableStore(ACTOR_ID);
 
-    actor.set_callback(callback.inventory_info, (object: GameObject, info: string) => {
-      eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
-    });
-    actor.set_callback(callback.take_item_from_box, (box: GameObject, item: GameObject) => {
-      eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
-    });
-    actor.set_callback(callback.on_item_take, (object: GameObject) => {
-      eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, object);
-    });
-    actor.set_callback(callback.on_item_drop, (item: GameObject) => {
-      eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_DROP, item);
-    });
-    actor.set_callback(callback.trade_sell_buy_item, (item: GameObject, sellBuy: boolean, money: number) => {
-      eventsManager.emitEvent(EGameEvent.ACTOR_TRADE, item, sellBuy, money);
-    });
-    actor.set_callback(callback.task_state, (task: GameTask, state: TTaskState) => {
-      eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, task, state);
-    });
-    actor.set_callback(callback.use_object, (object: GameObject) => {
-      eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
-    });
-
-    // todo: article_info info callback.
-    // todo: level_border_enter info callback.
-    // todo: level_border_exit info callback.
+    this.setupCallbacks();
 
     // At re-init allow alife to do batched updates.
     setUnlimitedAlifeObjectsUpdate();
@@ -203,5 +168,57 @@ export class ActorBinder extends object_binder {
     }
 
     closeLoadMarker(reader, ActorBinder.__name);
+  }
+
+  /**
+   * Setup binder callback on going online.
+   */
+  public setupCallbacks(): void {
+    const object: GameObject = this.object;
+    const eventsManager: EventsManager = this.eventsManager;
+
+    object.set_callback(callback.inventory_info, (object: GameObject, info: string) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_INFO_UPDATE, object, info);
+    });
+    object.set_callback(callback.take_item_from_box, (box: GameObject, item: GameObject) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
+    });
+    object.set_callback(callback.on_item_take, (object: GameObject) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_TAKE, object);
+    });
+    object.set_callback(callback.on_item_drop, (item: GameObject) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_ITEM_DROP, item);
+    });
+    object.set_callback(callback.trade_sell_buy_item, (item: GameObject, sellBuy: boolean, money: TCount) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_TRADE, item, sellBuy, money);
+    });
+    object.set_callback(callback.task_state, (task: GameTask, state: TTaskState) => {
+      eventsManager.emitEvent(EGameEvent.TASK_STATE_UPDATE, task, state);
+    });
+    object.set_callback(callback.use_object, (object: GameObject) => {
+      eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
+    });
+
+    // todo: article_info info callback.
+    // todo: level_border_enter info callback.
+    // todo: level_border_exit info callback.
+  }
+
+  /**
+   * Reset callbacks and unsubscribe from events on going offline.
+   */
+  public resetCallbacks(): void {
+    const object: GameObject = this.object;
+
+    object.set_callback(callback.inventory_info, null);
+    object.set_callback(callback.article_info, null);
+    object.set_callback(callback.on_item_take, null);
+    object.set_callback(callback.on_item_drop, null);
+    object.set_callback(callback.trade_sell_buy_item, null);
+    object.set_callback(callback.task_state, null);
+    object.set_callback(callback.level_border_enter, null);
+    object.set_callback(callback.level_border_exit, null);
+    object.set_callback(callback.take_item_from_box, null);
+    object.set_callback(callback.use_object, null);
   }
 }

@@ -1,14 +1,21 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { StalkerBinder } from "@/engine/core/binders";
-import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
+import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
+import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade";
-import { GameObject } from "@/engine/lib/types";
+import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
+import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
+import { setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object";
+import { setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/scheme";
+import { ESchemeType, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
+import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
+  MockAlifeHumanStalker,
   MockCTime,
   MockGameObject,
   mockNetPacket,
@@ -16,9 +23,20 @@ import {
   mockNetReader,
 } from "@/fixtures/xray";
 
+jest.mock("@/engine/core/utils/object");
+
+jest.mock("@/engine/core/managers/sounds/utils");
+
+jest.mock("@/engine/core/utils/scheme", () => ({
+  setupObjectSmartJobsAndLogicOnSpawn: jest.fn(),
+}));
+
 describe("StalkerBinder class", () => {
   beforeEach(() => {
     resetRegistry();
+    registerSimulator();
+
+    resetFunctionMock(setupObjectSmartJobsAndLogicOnSpawn);
   });
 
   it.todo("should correctly initialize");
@@ -27,7 +45,41 @@ describe("StalkerBinder class", () => {
 
   it.todo("should correctly initialize/reset callbacks");
 
-  it.todo("should correctly handle going online/offline");
+  it("should correctly handle going online/offline", () => {
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const object: GameObject = MockGameObject.mock();
+    const binder: StalkerBinder = new StalkerBinder(object);
+
+    jest.spyOn(SchemeReachTask, "setup").mockImplementation(jest.fn());
+    jest.spyOn(SchemePostCombatIdle, "setup").mockImplementation(jest.fn());
+
+    binder.reinit();
+    binder.net_spawn(serverObject);
+
+    expect(registry.objects.length()).toBe(1);
+    expect(registry.stalkers.length()).toBe(1);
+    expect(registry.helicopter.enemies.length()).toBe(1);
+
+    expect(binder.helicopterEnemyIndex).toBe(0);
+
+    expect(object.set_callback).toBe;
+
+    expect(setupObjectStalkerVisual).toHaveBeenCalledTimes(1);
+    expect(setupObjectInfoPortions).toHaveBeenCalledTimes(1);
+    expect(setupObjectSmartJobsAndLogicOnSpawn).toHaveBeenCalledWith(object, binder.state, ESchemeType.STALKER, false);
+    expect(initializeObjectThemes).toHaveBeenCalledWith(object);
+    expect(SchemeReachTask.setup).toHaveBeenCalledWith(object);
+    expect(SchemePostCombatIdle.setup).toHaveBeenCalledWith(object);
+    expect(object.group_throw_time_interval).toHaveBeenCalledWith(2000);
+    expect(object.apply_loophole_direction_distance).toHaveBeenCalledWith(1);
+
+    binder.net_destroy();
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.stalkers.length()).toBe(0);
+  });
+
+  it.todo("should correctly handle going online/offline when spawn check is falsy");
 
   it.todo("should correctly handle update event");
 

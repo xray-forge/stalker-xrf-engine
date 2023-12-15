@@ -12,6 +12,7 @@ import { mockWeaponLtx } from "@/fixtures/xray/mocks/ini/files/weapons.ltx.mock"
  * Mock ini files for testing.
  */
 export const FILES_MOCKS: Record<TPath, AnyObject> = {
+  "scripts\\dummy.ltx": {},
   "system.ini": {
     ...mockUpgradesLtx,
     ...mockWeaponLtx,

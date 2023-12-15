@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { callback, level } from "xray16";
+import { callback, CGameTask, level } from "xray16";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
@@ -20,10 +20,13 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
+  IGameObjectExtended,
+  MockCGameTask,
   MockGameObject,
   mockNetPacket,
   MockNetProcessor,
   mockNetReader,
+  MockObjectBinder,
   mockServerAlifeCreatureActor,
 } from "@/fixtures/xray";
 
@@ -82,6 +85,24 @@ describe("ActorBinder class", () => {
     expect(actor.set_callback).toHaveBeenCalledWith(callback.level_border_exit, null);
     expect(actor.set_callback).toHaveBeenCalledWith(callback.take_item_from_box, null);
     expect(actor.set_callback).toHaveBeenCalledWith(callback.use_object, null);
+  });
+
+  it("should correctly handle net spawn / destroy when spawn check is falsy", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
+    const binder: ActorBinder = new ActorBinder(actor);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    jest.spyOn(eventsManager, "emitEvent");
+
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    binder.net_spawn(serverActor);
+
+    expect(registry.actor).toBeNull();
+    expect(registry.objects.length()).toBe(0);
+    expect(eventsManager.emitEvent).toHaveBeenCalledTimes(0);
+    expect(actor.set_callback).toHaveBeenCalledTimes(0);
   });
 
   it("should correctly handle re-init", () => {
@@ -258,5 +279,45 @@ describe("ActorBinder class", () => {
     expect(saveManager.clientLoad).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
+  });
+
+  it("should correctly handle actor object callbacks emit", () => {
+    const actor: GameObject & IGameObjectExtended = MockGameObject.mockActor() as GameObject & IGameObjectExtended;
+    const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
+    const binder: ActorBinder = new ActorBinder(actor);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    const box: GameObject = MockGameObject.mock();
+    const item: GameObject = MockGameObject.mock();
+    const task: CGameTask = MockCGameTask.mock();
+
+    jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
+
+    binder.net_spawn(serverActor);
+    binder.reinit();
+
+    actor.callCallback(callback.inventory_info, actor, "test-info");
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_INFO_UPDATE, actor, "test-info");
+
+    actor.callCallback(callback.take_item_from_box, box, item);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
+
+    actor.callCallback(callback.on_item_take, item);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_ITEM_TAKE, item);
+
+    actor.callCallback(callback.on_item_drop, item);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_ITEM_DROP, item);
+
+    actor.callCallback(callback.on_item_drop, item);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_ITEM_DROP, item);
+
+    actor.callCallback(callback.trade_sell_buy_item, item, "sell", 100);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_TRADE, item, "sell", 100);
+
+    actor.callCallback(callback.task_state, task, 0);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.TASK_STATE_UPDATE, task, 0);
+
+    actor.callCallback(callback.use_object, box);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_USE_ITEM, box);
   });
 });

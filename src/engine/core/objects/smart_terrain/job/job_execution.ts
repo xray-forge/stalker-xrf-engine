@@ -124,7 +124,10 @@ export function switchSmartTerrainObjectToDesiredJob(smartTerrain: SmartTerrain,
  * @param smartTerrain - target smart terrain to select job in
  * @param objectJobDescriptor - descriptor of active job for an object
  */
-export function selectSmartTerrainObjectJob(smartTerrain: SmartTerrain, objectJobDescriptor: IObjectJobState): void {
+export function selectSmartTerrainObjectJob(
+  smartTerrain: SmartTerrain,
+  objectJobDescriptor: IObjectJobState
+): LuaMultiReturn<[Optional<TNumberId>, Optional<ISmartTerrainJobDescriptor>]> {
   const [selectedJobId, selectedJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, objectJobDescriptor);
 
   if (selectedJobId === null) {
@@ -179,4 +182,6 @@ export function selectSmartTerrainObjectJob(smartTerrain: SmartTerrain, objectJo
       setupSmartTerrainObjectJobLogic(smartTerrain, state.object!);
     }
   }
+
+  return $multi(selectedJobId, selectedJob);
 }

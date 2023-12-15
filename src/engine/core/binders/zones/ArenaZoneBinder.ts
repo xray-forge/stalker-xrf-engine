@@ -1,16 +1,28 @@
 import { callback, clsid, LuabindClass, object_binder } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  openLoadMarker,
+  openSaveMarker,
+  registerZone,
+  registry,
+  unregisterZone,
+} from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AlifeSimulator, GameObject, NetPacket, Reader, ServerObject, TNumberId } from "@/engine/lib/types";
+import {
+  AlifeSimulator,
+  GameObject,
+  NetPacket,
+  Reader,
+  ServerObject,
+  TClassId,
+  TCount,
+  TNumberId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-// todo: Move to db.
-// todo: Move to db.
-// todo: Move to db.
-const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();
 
 /**
  * Binder for arena zone restrictor game object.
@@ -19,21 +31,15 @@ const arena_zones: LuaTable<string, ArenaZoneBinder> = new LuaTable();
 export class ArenaZoneBinder extends object_binder {
   public savedObjects: LuaTable<TNumberId, boolean> = new LuaTable();
 
-  public constructor(object: GameObject) {
-    super(object);
-    arena_zones.set(object.name(), this);
-  }
-
-  /**
-   * todo: Description.
-   */
   public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
       return false;
     }
 
-    this.object.set_callback(callback.zone_enter, this.on_enter, this);
-    this.object.set_callback(callback.zone_exit, this.on_exit, this);
+    registerZone(this.object);
+
+    this.object.set_callback(callback.zone_enter, this.onEnterArenaZone, this);
+    this.object.set_callback(callback.zone_exit, this.onExitArenaZone, this);
 
     return true;
   }
@@ -42,44 +48,33 @@ export class ArenaZoneBinder extends object_binder {
     this.object.set_callback(callback.zone_enter, null);
     this.object.set_callback(callback.zone_exit, null);
 
+    unregisterZone(this.object);
+
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
-  public purge_items(): void {
-    const simulator: AlifeSimulator = registry.simulator;
-
-    for (const [k, v] of this.savedObjects) {
-      const object = simulator.object(k);
-
-      simulator.release(object, true);
-    }
-  }
-
   public override save(packet: NetPacket): void {
-    super.save(packet);
-
     openSaveMarker(packet, ArenaZoneBinder.__name);
+
+    super.save(packet);
 
     packet.w_u8(table.size(this.savedObjects));
 
-    for (const [k, v] of this.savedObjects) {
-      packet.w_u16(k);
+    for (const [id] of this.savedObjects) {
+      packet.w_u16(id);
     }
 
     closeSaveMarker(packet, ArenaZoneBinder.__name);
   }
 
   public override load(reader: Reader): void {
-    super.load(reader);
-
     openLoadMarker(reader, ArenaZoneBinder.__name);
 
-    const num = reader.r_u8();
+    super.load(reader);
 
-    for (const i of $range(1, num)) {
+    const count: TCount = reader.r_u8();
+
+    for (const _ of $range(1, count)) {
       this.savedObjects.set(reader.r_u16(), true);
     }
 
@@ -87,34 +82,44 @@ export class ArenaZoneBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Purge memoized items that entered arena and should be reset for next fight/scenario.
    */
-  public on_enter(zone: GameObject, object: GameObject): void {
-    if (
-      object.id() === ACTOR_ID ||
-      object.clsid() === clsid.obj_physic ||
-      object.clsid() === clsid.hanging_lamp ||
-      object.clsid() === clsid.obj_phys_destroyable
-    ) {
-      return;
+  public purgeItems(): void {
+    const simulator: AlifeSimulator = registry.simulator;
+
+    for (const [id] of this.savedObjects) {
+      simulator.release(simulator.object(id), true);
     }
 
-    this.savedObjects.set(object.id(), true);
+    this.savedObjects = new LuaTable();
   }
 
   /**
-   * todo: Description.
+   * Handle entering arena zone.
+   *
+   * @param zone - game object representing arena zone
+   * @param object - game object entering zone
    */
-  public on_exit(zone: GameObject, object: GameObject): void {
-    if (
-      object.id() === ACTOR_ID ||
-      object.clsid() === clsid.obj_physic ||
-      object.clsid() === clsid.hanging_lamp ||
-      object.clsid() === clsid.obj_phys_destroyable
-    ) {
+  public onEnterArenaZone(zone: GameObject, object: GameObject): void {
+    const objectId: TNumberId = object.id();
+    const classId: TClassId = object.clsid();
+
+    if (objectId === ACTOR_ID) {
       return;
     }
 
+    if (classId !== clsid.obj_physic && classId !== clsid.hanging_lamp && classId !== clsid.obj_phys_destroyable) {
+      this.savedObjects.set(objectId, true);
+    }
+  }
+
+  /**
+   * Handle leaving arena zone.
+   *
+   * @param zone - game object representing arena zone
+   * @param object - game object leaving zone
+   */
+  public onExitArenaZone(zone: GameObject, object: GameObject): void {
     this.savedObjects.delete(object.id());
   }
 }

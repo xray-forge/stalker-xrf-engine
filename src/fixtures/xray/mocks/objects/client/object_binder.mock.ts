@@ -6,6 +6,8 @@ import { MockNetProcessor } from "@/fixtures/xray/mocks/save";
  * Mocking binder object that wraps client objects lifecycle.
  */
 export class MockObjectBinder extends MockLuabindClass {
+  public canSpawn: boolean = true;
+
   public constructor(public object: GameObject) {
     super();
   }
@@ -23,7 +25,7 @@ export class MockObjectBinder extends MockLuabindClass {
   }
 
   public net_spawn(): boolean {
-    return true;
+    return this.canSpawn;
   }
 
   public reinit(): void {}

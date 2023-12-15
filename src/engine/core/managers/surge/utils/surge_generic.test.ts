@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { SignalLightBinder } from "@/engine/core/binders";
+import { SignalLightBinder } from "@/engine/core/binders/physic/SignalLightBinder";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
   isImmuneToSurgeSquad,

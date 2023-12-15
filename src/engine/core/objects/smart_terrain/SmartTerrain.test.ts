@@ -11,15 +11,11 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_t
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
 import { ServerHumanObject } from "@/engine/lib/types";
-import {
-  MockSmartTerrain,
-  mockSmartTerrain,
-  mockSmartTerrainWithConfiguration,
-  resetRegistry,
-} from "@/fixtures/engine";
+import { MockSmartTerrain, mockSmartTerrainWithConfiguration, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
+  MockAlifeHumanStalker,
   MockCALifeSmartTerrainTask,
   MockCTime,
   mockIniFile,
@@ -111,7 +107,7 @@ describe("SmartTerrain class generic logic", () => {
   });
 
   it("should correctly handle before register", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     smartTerrain.on_before_register();
 
@@ -376,6 +372,31 @@ describe("SmartTerrain class generic logic", () => {
     expect(anotherSmartTerrain.lastRespawnUpdatedAt).toBeNull();
     expect(anotherSmartTerrain.stayingObjectsCount).toBe(0);
   });
+
+  it("register_npc should queue objects correctly if not registered", () => {
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    expect(smartTerrain.isRegistered).toBe(false);
+    expect(smartTerrain.objectsToRegister.length()).toBe(0);
+
+    smartTerrain.register_npc(first);
+    smartTerrain.register_npc(first);
+
+    expect(smartTerrain.objectsToRegister.length()).toBe(1);
+    expect(smartTerrain.objectsToRegister.get(first.id)).toBe(first);
+
+    smartTerrain.register_npc(second);
+    smartTerrain.register_npc(second);
+
+    expect(smartTerrain.objectsToRegister.length()).toBe(2);
+    expect(smartTerrain.objectsToRegister.get(first.id)).toBe(first);
+    expect(smartTerrain.objectsToRegister.get(second.id)).toBe(second);
+  });
+
+  it.todo("register_npc should correctly count and assign objects after registration");
 
   it.todo("should handle simulation callbacks");
 

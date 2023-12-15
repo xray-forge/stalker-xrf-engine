@@ -1,6 +1,5 @@
 import { hit, level, patrol } from "xray16";
 
-import { updateStalkerLogic } from "@/engine/core/binders/creature/StalkerBinder";
 import {
   getManager,
   getObjectByStoryId,
@@ -31,6 +30,7 @@ import {
   readIniString,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { getObjectSmartTerrain } from "@/engine/core/utils/position";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
@@ -527,7 +527,7 @@ extern("xr_effects.update_npc_logic", (actor: GameObject, object: GameObject, pa
   for (const [, storyId] of params) {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-    if (storyObject !== null) {
+    if (storyObject) {
       updateStalkerLogic(storyObject);
 
       const planner: ActionPlanner = storyObject.motivation_action_manager();

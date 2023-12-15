@@ -1,4 +1,4 @@
-import { command_line, LuabindClass, object_binder } from "xray16";
+import { LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -11,7 +11,7 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { LevelChanger } from "@/engine/core/objects/LevelChanger";
+import { LevelChanger } from "@/engine/core/objects/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NetPacket, Reader, ServerObject } from "@/engine/lib/types";
 
@@ -27,32 +27,28 @@ export class LevelChangerBinder extends object_binder {
     resetObject(this.object);
   }
 
-  public override net_spawn(cse_object: ServerObject): boolean {
-    if (!super.net_spawn(cse_object)) {
+  public override net_spawn(object: ServerObject): boolean {
+    if (!super.net_spawn(object)) {
       return false;
-    }
-
-    const [index] = string.find(command_line(), "-designer");
-
-    if (index !== null) {
-      return true;
     }
 
     registerObject(this.object);
 
     const serverObject: LevelChanger = registry.simulator.object(this.object.id()) as LevelChanger;
 
+    logger.info("Go online:", this.object.name(), serverObject.isEnabled, serverObject.invitationHint);
+
     this.object.enable_level_changer(serverObject.isEnabled);
     this.object.set_level_changer_invitation(serverObject.invitationHint);
-
-    logger.info("Go online:", this.object.name(), serverObject.isEnabled, serverObject.invitationHint);
 
     return true;
   }
 
   public override net_destroy(): void {
     logger.info("Go offline:", this.object.name());
+
     unregisterObject(this.object);
+
     super.net_destroy();
   }
 

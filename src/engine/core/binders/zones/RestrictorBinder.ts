@@ -4,6 +4,7 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
+  IBaseSchemeState,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -26,7 +27,7 @@ import { ESchemeType } from "@/engine/lib/types/scheme";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Client side object binder for restrictor zone objects.
+ * Object binder for restrictor zones.
  */
 @LuabindClass()
 export class RestrictorBinder extends object_binder {
@@ -63,22 +64,26 @@ export class RestrictorBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.info("Go offline:", this.object.name());
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
+    logger.info("Go offline:", object.name());
 
-    const state: IRegistryObjectState = registry.objects.get(this.object.id());
+    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
 
-    if (state.activeScheme !== null) {
-      emitSchemeEvent(this.object, state[state.activeScheme!]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
+    if (state.activeScheme) {
+      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
-    unregisterZone(this.object);
+    unregisterZone(object);
 
     super.net_destroy();
   }
 
   public override update(delta: TDuration): void {
+    super.update(delta);
+
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = registry.objects.get(objectId);
@@ -97,8 +102,8 @@ export class RestrictorBinder extends object_binder {
       EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_VISITED, object, this);
     }
 
-    if (state.activeSection !== null) {
-      emitSchemeEvent(object, state[state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
+    if (state.activeScheme) {
+      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
     }
 
     getManager(GlobalSoundManager).update(objectId);
@@ -112,6 +117,7 @@ export class RestrictorBinder extends object_binder {
     openSaveMarker(packet, RestrictorBinder.__name);
 
     super.save(packet);
+
     saveObjectLogic(this.object, packet);
 
     packet.w_bool(this.isVisited);
@@ -125,6 +131,7 @@ export class RestrictorBinder extends object_binder {
     openLoadMarker(reader, RestrictorBinder.__name);
 
     super.load(reader);
+
     loadObjectLogic(this.object, reader);
 
     this.isVisited = reader.r_bool();

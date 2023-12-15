@@ -18,7 +18,7 @@ import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/in
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { NetPacket, Optional, ServerCreatureObject, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,11 +28,6 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class Stalker extends cse_alife_human_stalker {
   public isCorpseLootDropped: boolean = false;
-
-  public constructor(section: TSection) {
-    super(section);
-    registerOfflineObject(this.id);
-  }
 
   public override can_switch_offline(): boolean {
     if (this.group_id !== MAX_U16) {
@@ -59,8 +54,8 @@ export class Stalker extends cse_alife_human_stalker {
   public override on_register(): void {
     super.on_register();
 
-    registerObjectStoryLinks(this);
     registerOfflineObject(this.id);
+    registerObjectStoryLinks(this);
 
     this.brain().can_choose_alife_tasks(false);
 

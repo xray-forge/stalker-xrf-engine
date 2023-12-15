@@ -9,7 +9,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { Helicopter } from "@/engine/core/objects/Helicopter";
+import { Helicopter } from "@/engine/core/objects/helicopter/Helicopter";
 import { mockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("Helicopter server class", () => {

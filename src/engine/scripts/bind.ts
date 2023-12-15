@@ -1,29 +1,26 @@
 import { clsid } from "xray16";
 
+import { ActorBinder, CrowBinder, MonsterBinder, StalkerBinder } from "@/engine/core/binders/creature";
+import { HelicopterBinder } from "@/engine/core/binders/helicopter";
+import { HelmetBinder, OutfitBinder, WeaponBinder } from "@/engine/core/binders/item";
 import {
-  ActorBinder,
+  ArtefactBinder,
+  CampfireBinder,
+  LabX8DoorBinder,
+  PhantomBinder,
+  PhysicObjectBinder,
+  SignalLightBinder,
+} from "@/engine/core/binders/physic";
+import { SmartCoverBinder } from "@/engine/core/binders/smart_cover";
+import { SmartTerrainBinder } from "@/engine/core/binders/smart_terrain";
+import {
   AnomalyFieldBinder,
   AnomalyZoneBinder,
   ArenaZoneBinder,
-  ArtefactBinder,
-  CampfireBinder,
   CampZoneBinder,
-  CrowBinder,
-  HelicopterBinder,
-  HelmetBinder,
-  LabX8DoorBinder,
   LevelChangerBinder,
-  MonsterBinder,
-  OutfitBinder,
-  PhantomBinder,
-  PhysicObjectBinder,
   RestrictorBinder,
-  SignalLightBinder,
-  SmartCoverBinder,
-  SmartTerrainBinder,
-  StalkerBinder,
-  WeaponBinder,
-} from "@/engine/core/binders";
+} from "@/engine/core/binders/zones";
 import { extern } from "@/engine/core/utils/binding";
 import { GameObject, IniFile, Optional } from "@/engine/lib/types";
 
@@ -51,6 +48,7 @@ extern("bind", {
       object.bind_object(new HelicopterBinder(object, ini));
     }
   },
+  // todo: Rename to full name 'doorBinder' / 'door'.
   labX8Door: (object: GameObject) => object.bind_object(new LabX8DoorBinder(object)),
   levelChanger: (object: GameObject) => object.bind_object(new LevelChangerBinder(object)),
   monster: (object: GameObject) => object.bind_object(new MonsterBinder(object)),

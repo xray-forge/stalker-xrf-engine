@@ -54,6 +54,7 @@ export function resetRegistry(): void {
   registry.simulator = null as unknown as AlifeSimulator;
   registry.smartCovers = new LuaTable();
   registry.smartTerrainsCampfires = new LuaTable();
+  registry.spawnedVertexes = new LuaTable();
   registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
   registry.trade = new LuaTable();
   registry.zones = new LuaTable();

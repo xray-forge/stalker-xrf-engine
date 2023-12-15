@@ -1,4 +1,4 @@
-import { callback, clsid, cond, hit, level, LuabindClass, move, object_binder } from "xray16";
+import { callback, clsid, hit, level, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -6,7 +6,6 @@ import {
   getManager,
   IBaseSchemeState,
   IRegistryObjectState,
-  IRegistryOfflineState,
   loadObjectLogic,
   openLoadMarker,
   openSaveMarker,
@@ -14,31 +13,28 @@ import {
   registry,
   resetObject,
   saveObjectLogic,
+  softResetOfflineObject,
   unregisterObject,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { ESquadActionType } from "@/engine/core/objects/squad";
 import { Squad } from "@/engine/core/objects/squad/Squad";
+import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   emitSchemeEvent,
-  isMonsterScriptCaptured,
-  scriptCaptureMonster,
-  scriptCommandMonster,
   scriptReleaseMonster,
   setupObjectSmartJobsAndLogicOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   ALifeSmartTerrainTask,
   EScheme,
@@ -50,7 +46,6 @@ import {
   Optional,
   Reader,
   ServerCreatureObject,
-  TClassId,
   TCount,
   TDuration,
   TIndex,
@@ -76,163 +71,136 @@ export class MonsterBinder extends object_binder {
 
     this.state = resetObject(this.object);
 
-    this.object.set_callback(callback.patrol_path_in_point, this.onWaypoint, this);
-    this.object.set_callback(callback.hit, this.onHit, this);
-    this.object.set_callback(callback.death, this.onDeath, this);
-    this.object.set_callback(callback.sound, this.onHearSound, this);
+    this.setupCallbacks();
   }
 
-  public override update(delta: TDuration): void {
-    super.update(delta);
-
-    if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
-      registry.actorCombat.delete(this.object.id());
-    }
-
-    if (!this.object.alive()) {
-      return;
-    }
-
-    this.object.set_tip_text("");
-
-    if (this.state.activeScheme !== null) {
-      trySwitchToAnotherSection(this.object, this.state[this.state.activeScheme as EScheme] as IBaseSchemeState);
-    }
-
-    const squad: Optional<Squad> = getObjectSquad(this.object);
-
-    if (squad !== null && squad.commander_id() === this.object.id()) {
-      squad.update();
-    }
-
-    if (registry.simulator.object(this.object.id()) === null) {
-      return;
-    }
-
-    if (this.object.get_enemy()) {
-      if (isMonsterScriptCaptured(this.object)) {
-        scriptReleaseMonster(this.object);
-      }
-
-      return;
-    }
-
-    if (squad?.currentAction?.type === ESquadActionType.REACH_TARGET) {
-      const currentTarget: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
-
-      if (currentTarget === null) {
-        return;
-      }
-
-      const targetPosition: Vector = currentTarget.position;
-
-      scriptCaptureMonster(this.object, true);
-
-      if (squad.commander_id() === this.object.id()) {
-        scriptCommandMonster(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
-      } else {
-        const commanderPosition: Vector = registry.simulator.object(squad.commander_id())!.position;
-
-        if (commanderPosition.distance_to_sqr(this.object.position()) > 100) {
-          scriptCommandMonster(this.object, new move(move.run_with_leader, targetPosition), new cond(cond.move_end));
-        } else {
-          scriptCommandMonster(this.object, new move(move.walk_with_leader, targetPosition), new cond(cond.move_end));
-        }
-      }
-
-      return;
-    }
-
-    if (this.state.activeSection !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
-    }
-  }
-
-  public override net_spawn(object: ServerCreatureObject): boolean {
-    if (!super.net_spawn(object)) {
+  public override net_spawn(serverObject: ServerCreatureObject): boolean {
+    if (!super.net_spawn(serverObject)) {
       return false;
     }
 
-    const state: IRegistryObjectState = registry.objects.get(this.object.id());
-    const onOfflineConditionsList: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
 
-    if (onOfflineConditionsList !== null) {
-      pickSectionFromCondList(registry.actor, this.object, onOfflineConditionsList);
-    }
-
-    if (!this.object.alive()) {
+    if (!object.alive()) {
       return true;
     }
 
+    const monster: Optional<ServerCreatureObject> = registry.simulator.object(objectId);
+
     // todo: Is it possible?
-    if (registry.simulator.object(this.object.id()) === null) {
+    if (!monster) {
       return false;
     }
 
-    registerObject(this.object);
+    this.state = registerObject(object);
 
-    // todo: Just use parameter?
-    const serverObject: ServerCreatureObject = registry.simulator.object(this.object.id())!;
+    if (registry.spawnedVertexes.has(objectId)) {
+      object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(objectId)));
+      registry.spawnedVertexes.delete(objectId);
+    } else if (registry.offlineObjects.get(objectId)?.levelVertexId) {
+      object.set_npc_position(level.vertex_position(registry.offlineObjects.get(objectId).levelVertexId as TNumberId));
+    } else if (monster.m_smart_terrain_id !== MAX_U16) {
+      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object<SmartTerrain>(monster.m_smart_terrain_id);
 
-    if (registry.spawnedVertexes.has(serverObject.id)) {
-      this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
-      registry.spawnedVertexes.delete(serverObject.id);
-    } else if (registry.offlineObjects.get(serverObject.id)?.levelVertexId !== null) {
-      this.object.set_npc_position(
-        level.vertex_position(registry.offlineObjects.get(serverObject.id).levelVertexId as TNumberId)
-      );
-    } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
-      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object<SmartTerrain>(
-        serverObject.m_smart_terrain_id
-      );
-
-      if (smartTerrain !== null && smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-        const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(serverObject.id).job;
-        const smartTask: ALifeSmartTerrainTask = job?.alifeTask as ALifeSmartTerrainTask;
+      if (smartTerrain && !smartTerrain.arrivingObjects.get(objectId)) {
+        const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(objectId).job;
+        const task: ALifeSmartTerrainTask = job?.alifeTask as ALifeSmartTerrainTask;
 
         assert(
-          smartTask,
+          task,
           "Expected terrain task to exist when spawning in smart terrain: '%s' in '%s', job: '%s'.",
-          this.object.name(),
+          object.name(),
           smartTerrain.name(),
           job?.section
         );
 
-        this.object.set_npc_position(smartTask.position());
+        object.set_npc_position(task.position());
       }
     }
 
-    setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.MONSTER, this.isLoaded);
+    setupObjectSmartJobsAndLogicOnSpawn(object, this.state, ESchemeType.MONSTER, this.isLoaded);
 
     return true;
   }
 
   public override net_destroy(): void {
-    this.object.set_callback(callback.death, null);
-    this.object.set_callback(callback.patrol_path_in_point, null);
-    this.object.set_callback(callback.hit, null);
-    this.object.set_callback(callback.sound, null);
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const state: IRegistryObjectState = this.state;
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
-    registry.actorCombat.delete(this.object.id());
+    this.resetCallbacks();
 
-    if (this.state.activeScheme !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
+    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
+
+    registry.actorCombat.delete(objectId);
+
+    if (state.activeScheme) {
+      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
-    const offlineObject: Optional<IRegistryOfflineState> = registry.offlineObjects.get(
-      this.object.id()
-    ) as Optional<IRegistryOfflineState>;
+    const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
 
-    if (offlineObject) {
-      offlineObject.levelVertexId = this.object.level_vertex_id();
-      offlineObject.activeSection = this.state.activeSection;
+    if (onOfflineConditionList) {
+      pickSectionFromCondList(registry.actor, object, onOfflineConditionList);
     }
 
-    unregisterObject(this.object);
-    registry.objects.delete(this.object.id());
+    softResetOfflineObject(objectId, {
+      levelVertexId: object.level_vertex_id(),
+      activeSection: state.activeSection,
+    });
+
+    unregisterObject(object);
 
     super.net_destroy();
+  }
+
+  public override update(delta: TDuration): void {
+    super.update(delta);
+
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const state: IRegistryObjectState = this.state;
+    const squad: Optional<Squad> = getObjectSquad(object);
+    const isSquadCommander: boolean = squad?.commander_id() === objectId;
+
+    // todo: Probably not needed, handle with death event.
+    if (registry.actorCombat.has(objectId) && !object.best_enemy()) {
+      registry.actorCombat.delete(objectId);
+    }
+
+    // Nothing to do after death.
+    if (!object.alive()) {
+      return;
+    }
+
+    object.set_tip_text("");
+
+    if (state.activeScheme) {
+      trySwitchToAnotherSection(object, state[state.activeScheme] as IBaseSchemeState);
+    }
+
+    if (isSquadCommander) {
+      (squad as Squad).update();
+    }
+
+    // todo: Is it possible?
+    if (!registry.simulator.object(objectId)) {
+      return;
+    }
+
+    // In combat do not handle other logics elements.
+    if (object.get_enemy()) {
+      return scriptReleaseMonster(object);
+    }
+
+    if (squad) {
+      updateMonsterSquadAction(object, squad);
+    }
+
+    if (state.activeScheme) {
+      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
+    }
   }
 
   public override net_save_relevant(): boolean {
@@ -260,13 +228,33 @@ export class MonsterBinder extends object_binder {
   }
 
   /**
+   * Setup binder callback on going online.
+   */
+  public setupCallbacks(): void {
+    this.object.set_callback(callback.patrol_path_in_point, this.onWaypoint, this);
+    this.object.set_callback(callback.hit, this.onHit, this);
+    this.object.set_callback(callback.death, this.onDeath, this);
+    this.object.set_callback(callback.sound, this.onHearSound, this);
+  }
+
+  /**
+   * Reset callbacks and unsubscribe from events on going offline.
+   */
+  public resetCallbacks(): void {
+    this.object.set_callback(callback.patrol_path_in_point, null);
+    this.object.set_callback(callback.death, null);
+    this.object.set_callback(callback.sound, null);
+    this.object.set_callback(callback.hit, null);
+  }
+
+  /**
    * On waypoint callback.
    */
   public onWaypoint(object: GameObject, actionType: number, index: TIndex): void {
-    if (this.state.activeSection !== null) {
+    if (this.state.activeScheme) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.activeScheme!]!,
+        this.state[this.state.activeScheme] as IBaseSchemeState,
         ESchemeEvent.WAYPOINT,
         object,
         actionType,
@@ -278,45 +266,49 @@ export class MonsterBinder extends object_binder {
   /**
    * On monster death.
    */
-  public onDeath(victim: GameObject, killer: GameObject): void {
-    logger.info("Monster death:", this.object.name());
+  public onDeath(object: GameObject, killer: GameObject): void {
+    const objectId: TNumberId = object.id();
+    const state: IRegistryObjectState = this.state;
 
-    registry.actorCombat.delete(this.object.id());
+    logger.info("Monster death:", object.name());
 
-    this.onHit(victim, 1, createEmptyVector(), killer, "from_death_callback");
+    this.resetCallbacks();
 
-    if (this.state[EScheme.MOB_DEATH]) {
-      emitSchemeEvent(this.object, this.state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, victim, killer);
+    registry.actorCombat.delete(objectId);
+
+    this.onHit(object, 1, ZERO_VECTOR, killer, "from_death_callback");
+
+    if (state[EScheme.MOB_DEATH]) {
+      emitSchemeEvent(object, state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);
     }
 
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, killer);
+    if (state.activeScheme) {
+      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.DEATH, object, killer);
     }
 
     const hitObject: Hit = new hit();
 
-    hitObject.draftsman = this.object;
+    hitObject.draftsman = object;
     hitObject.type = hit.fire_wound;
-    hitObject.direction = registry.actor.position().sub(this.object.position());
+    hitObject.direction = registry.actor.position().sub(object.position());
     hitObject.bone("pelvis");
     hitObject.power = 1;
     hitObject.impulse = 10;
 
-    this.object.hit(hitObject);
+    object.hit(hitObject);
 
-    const objectClsId: TClassId = this.object.clsid();
+    // todo: Is it legacy code from SHOC or it is needed?
+    if (object.clsid() === clsid.poltergeist_s) {
+      logger.info("Releasing poltergeist_s:", object.name());
 
-    if (objectClsId === clsid.poltergeist_s) {
-      logger.info("Releasing poltergeist_s:", this.object.name());
+      const targetServerObject: Optional<ServerCreatureObject> = registry.simulator.object(objectId);
 
-      const targetServerObject: Optional<ServerCreatureObject> = registry.simulator.object(this.object.id());
-
-      if (targetServerObject !== null) {
+      if (targetServerObject) {
         registry.simulator.release(targetServerObject, true);
       }
     }
 
-    EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, this.object, killer);
+    EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, object, killer);
   }
 
   /**
@@ -333,21 +325,12 @@ export class MonsterBinder extends object_binder {
       emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
-    EventsManager.emitEvent(
-      EGameEvent.MONSTER_HIT,
-      this.object,
-      this.state.hit,
-      ESchemeEvent.HIT,
-      object,
-      amount,
-      direction,
-      who,
-      boneIndex
-    );
+    EventsManager.emitEvent(EGameEvent.MONSTER_HIT, object, amount, direction, who, boneIndex);
   }
 
   /**
    * On monster hear sound.
+   * Handle surrounding sounds and process danger / aggression based on sound type and power.
    */
   public onHearSound(
     object: GameObject,

@@ -3,13 +3,10 @@ import { actor_stats, callback, game_graph, level, LuabindClass, object_binder, 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup";
 import { StalkerStateManager } from "@/engine/core/ai/state";
-import { EActionId } from "@/engine/core/ai/types";
 import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
-  IBaseSchemeState,
-  ILogicsOverrides,
   IRegistryObjectState,
   loadObjectLogic,
   openLoadMarker,
@@ -19,6 +16,7 @@ import {
   registry,
   resetObject,
   saveObjectLogic,
+  softResetOfflineObject,
   unregisterHelicopterEnemy,
   unregisterStalker,
 } from "@/engine/core/database";
@@ -32,9 +30,8 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import type { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { Squad } from "@/engine/core/objects/squad";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
-import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
-import { SchemeCombat } from "@/engine/core/schemes/stalker/combat/SchemeCombat";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
@@ -44,22 +41,21 @@ import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { getObjectStalkerIni, setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object";
 import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import {
   emitSchemeEvent,
   initializeObjectInvulnerability,
   setupObjectSmartJobsAndLogicOnSpawn,
-  trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
-  ActionPlanner,
   EGameObjectRelation,
   EScheme,
   ESchemeEvent,
@@ -75,7 +71,6 @@ import {
   TName,
   TNumberId,
   TRate,
-  TSection,
   TSoundType,
   TTimestamp,
   Vector,
@@ -113,15 +108,15 @@ export class StalkerBinder extends object_binder {
     }
   }
 
-  public override net_spawn(object: ServerCreatureObject): boolean {
+  public override net_spawn(serverObject: ServerCreatureObject): boolean {
     setupObjectStalkerVisual(this.object);
 
-    if (!super.net_spawn(object)) {
+    if (!super.net_spawn(serverObject)) {
       return false;
     }
 
-    const objectId: TNumberId = this.object.id();
-    const actor: GameObject = registry.actor;
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
 
     logger.info("Go online:", object.name());
 
@@ -135,106 +130,106 @@ export class StalkerBinder extends object_binder {
       setupObjectInfoPortions(this.object, getObjectStalkerIni(this.object));
     }
 
-    if (!this.object.alive()) {
-      this.object.death_sound_enabled(false);
-      getManager(ReleaseBodyManager).addDeadBody(this.object);
+    if (!object.alive()) {
+      object.death_sound_enabled(false);
+      getManager(ReleaseBodyManager).addDeadBody(object);
 
       return true;
     }
 
-    const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId);
+    const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId) as Optional<ERelation>;
 
-    if (relation !== null) {
-      setGameObjectRelation(this.object, actor, relation);
+    if (relation) {
+      setGameObjectRelation(object, registry.actor, relation);
     }
 
-    const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId);
+    const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId) as Optional<TCount>;
 
-    if (sympathy !== null) {
-      setObjectSympathy(this.object, sympathy);
+    if (sympathy) {
+      setObjectSympathy(object, sympathy);
     }
 
-    this.helicopterEnemyIndex = registerHelicopterEnemy(this.object);
+    this.helicopterEnemyIndex = registerHelicopterEnemy(object);
 
-    initializeObjectThemes(this.object);
-    SchemeReachTask.setup(this.object);
+    initializeObjectThemes(object);
+    SchemeReachTask.setup(object);
 
-    // todo: Why? Already same ref in parameter?
-    const serverObject: Optional<ServerHumanObject> = registry.simulator.object(objectId);
+    const stalker: Optional<ServerHumanObject> = registry.simulator.object(objectId);
 
-    if (serverObject !== null) {
-      if (registry.spawnedVertexes.get(serverObject.id) !== null) {
-        this.object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(serverObject.id)));
-        registry.spawnedVertexes.delete(serverObject.id);
-      } else if (registry.offlineObjects.get(serverObject.id)?.levelVertexId !== null) {
-        this.object.set_npc_position(
-          level.vertex_position(registry.offlineObjects.get(serverObject.id).levelVertexId as TNumberId)
+    if (stalker) {
+      if (registry.spawnedVertexes.has(stalker.id)) {
+        object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(stalker.id)));
+        registry.spawnedVertexes.delete(stalker.id);
+      } else if (registry.offlineObjects.get(stalker.id)?.levelVertexId) {
+        object.set_npc_position(
+          level.vertex_position(registry.offlineObjects.get(stalker.id).levelVertexId as TNumberId)
         );
-      } else if (serverObject.m_smart_terrain_id !== MAX_U16) {
-        const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
+      } else if (stalker.m_smart_terrain_id !== MAX_U16) {
+        const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(stalker.m_smart_terrain_id)!;
 
-        if (smartTerrain.arrivingObjects.get(serverObject.id) === null) {
-          const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(serverObject.id)?.job;
+        if (!smartTerrain.arrivingObjects.get(stalker.id)) {
+          const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(stalker.id)?.job;
 
           assert(
             job?.alifeTask,
             "Expected terrain task to exist when spawning in smart terrain: '%s' in '%s', job: '%s'.",
-            this.object.name(),
+            object.name(),
             smartTerrain.name(),
             job?.section
           );
 
-          this.object.set_npc_position(job.alifeTask.position());
+          object.set_npc_position(job.alifeTask.position());
         }
       }
     }
 
-    setupObjectSmartJobsAndLogicOnSpawn(this.object, this.state, ESchemeType.STALKER, this.isLoaded);
+    setupObjectSmartJobsAndLogicOnSpawn(object, this.state, ESchemeType.STALKER, this.isLoaded);
 
-    SchemePostCombatIdle.setup(this.object);
+    SchemePostCombatIdle.setup(object);
 
-    this.object.group_throw_time_interval(2_000); // todo: Interval to check danger from group objects?
+    object.group_throw_time_interval(2_000); // todo: Interval to check danger from group objects?
 
     return true;
   }
 
   public override net_destroy(): void {
-    logger.info("Go offline:", this.object.name());
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const state: IRegistryObjectState = this.state;
 
-    const objectId: TNumberId = this.object.id();
+    logger.info("Go offline:", object.name());
 
-    registry.actorCombat.delete(objectId);
+    this.resetCallbacks();
+
     getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
 
-    const state: IRegistryObjectState = registry.objects.get(objectId);
+    registry.actorCombat.delete(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
+      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
-    if (this.state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.SWITCH_OFFLINE, this.object);
+    if (state[EScheme.REACH_TASK]) {
+      emitSchemeEvent(object, state[EScheme.REACH_TASK], ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     // Call logics on offline.
     const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
 
-    if (onOfflineConditionList !== null) {
-      pickSectionFromCondList(registry.actor, this.object, onOfflineConditionList);
+    if (onOfflineConditionList) {
+      pickSectionFromCondList(registry.actor, object, onOfflineConditionList);
     }
 
-    if (registry.offlineObjects.get(objectId) !== null) {
-      registry.offlineObjects.get(objectId).levelVertexId = this.object.level_vertex_id();
-      registry.offlineObjects.get(objectId).activeSection = state.activeSection as TSection;
+    softResetOfflineObject(objectId, {
+      levelVertexId: object.level_vertex_id(),
+      activeSection: state.activeSection,
+    });
+
+    if (this.helicopterEnemyIndex) {
+      unregisterHelicopterEnemy(this.helicopterEnemyIndex);
     }
 
     unregisterStalker(this);
-
-    this.resetCallbacks();
-
-    if (this.helicopterEnemyIndex !== null) {
-      unregisterHelicopterEnemy(this.helicopterEnemyIndex);
-    }
 
     super.net_destroy();
   }
@@ -242,33 +237,37 @@ export class StalkerBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (registry.actorCombat.get(this.object.id()) && this.object.best_enemy() === null) {
-      registry.actorCombat.delete(this.object.id());
-    }
-
+    const now: TTimestamp = time_global();
     const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const squad: Optional<Squad> = getObjectSquad(this.object);
     const isObjectAlive: boolean = object.alive();
+    const isSquadCommander: boolean = squad?.commander_id() === objectId;
+
+    if (registry.actorCombat.get(objectId) && !object.best_enemy()) {
+      registry.actorCombat.delete(objectId);
+    }
 
     updateStalkerLogic(object);
 
-    if (this.isFirstUpdate === false) {
-      if (isObjectAlive === false) {
-        getManager(DropManager).createCorpseReleaseItems(this.object);
-      }
-
+    if (!this.isFirstUpdate) {
       this.isFirstUpdate = true;
+
+      if (!isObjectAlive) {
+        getManager(DropManager).createCorpseReleaseItems(object);
+      }
     }
 
-    if (time_global() - this.lastUpdatedAt > 1000) {
+    if (now - this.lastUpdatedAt > 1000) {
+      this.lastUpdatedAt = now;
       this.updateLightState(object);
-      this.lastUpdatedAt = time_global();
     }
 
     if (this.state.stateManager) {
       if (isObjectAlive) {
         this.state.stateManager.update();
 
-        if (this.state.stateManager.isCombat === false && this.state.stateManager.isAlife === false) {
+        if (!this.state.stateManager.isCombat && !this.state.stateManager.isAlife) {
           // --and this.st.state_mgr.planner:current_action_id() == this.st.state_mgr.operators["}"]
           getManager(TradeManager).updateForObject(object);
         }
@@ -281,16 +280,12 @@ export class StalkerBinder extends object_binder {
       getManager(GlobalSoundManager).update(object.id());
       updateObjectMeetAvailability(object);
       initializeObjectInvulnerability(this.object);
-    }
-
-    const squad = getObjectSquad(this.object);
-
-    if (squad !== null && squad.commander_id() === this.object.id()) {
-      squad.update();
-    }
-
-    if (!isObjectAlive) {
+    } else {
       object.set_tip_text_default();
+    }
+
+    if (isSquadCommander) {
+      (squad as Squad).update();
     }
   }
 
@@ -401,7 +396,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * Setup stalker binder callback on going online.
+   * Setup binder callback on going online.
    */
   public setupCallbacks(): void {
     this.object.set_patrol_extrapolate_callback(this.onPatrolExtrapolate, this);
@@ -425,53 +420,55 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onHearSound(
-    target: GameObject,
+    object: GameObject,
     whoId: TNumberId,
     soundType: TSoundType,
     soundPosition: Vector,
     soundPower: TRate
   ): void {
-    // Dont handle own sounds.
-    if (whoId === target.id()) {
+    // Don't handle own sounds.
+    if (whoId === object.id()) {
       return;
     }
 
-    SchemeHear.onObjectHearSound(target, whoId, soundType, soundPosition, soundPower);
+    SchemeHear.onObjectHearSound(object, whoId, soundType, soundPosition, soundPower);
   }
 
   /**
    * todo: Description.
    */
   public onDeath(victim: GameObject, who: Optional<GameObject>): void {
-    logger.info("Stalker death:", this.object.name());
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+    const state: IRegistryObjectState = this.state;
 
-    this.onHit(victim, 1, createEmptyVector(), who, "from_death_callback");
+    logger.info("Stalker death:", object.name());
 
-    registry.actorCombat.delete(this.object.id());
+    this.onHit(victim, 1, ZERO_VECTOR, who, "from_death_callback");
 
-    const state: IRegistryObjectState = registry.objects.get(this.object.id());
+    registry.actorCombat.delete(object.id());
 
-    getManager(MapDisplayManager).removeObjectMapSpot(this.object, state);
+    getManager(MapDisplayManager).removeObjectMapSpot(object, state);
 
-    setupObjectInfoPortions(this.object, state.ini, readIniString(state.ini, state.sectionLogic, "known_info", false));
+    setupObjectInfoPortions(object, state.ini, readIniString(state.ini, state.sectionLogic, "known_info", false));
 
-    if (this.state.stateManager !== null) {
-      this.state.stateManager!.animation.setState(null, true);
+    if (state.stateManager) {
+      state.stateManager.animation.setState(null, true);
     }
 
-    this.updateLightState(this.object);
-    getManager(DropManager).onObjectDeath(this.object);
+    this.updateLightState(object);
+    getManager(DropManager).onObjectDeath(object);
 
-    if (this.state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(this.object, this.state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
+    if (state[EScheme.REACH_TASK]) {
+      emitSchemeEvent(object, state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
     }
 
-    if (this.state[EScheme.DEATH]) {
-      emitSchemeEvent(this.object, this.state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
+    if (state[EScheme.DEATH]) {
+      emitSchemeEvent(this.object, state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
     }
 
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.DEATH, victim, who);
+    if (state.activeScheme) {
+      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.DEATH, victim, who);
     }
 
     unregisterHelicopterEnemy(this.helicopterEnemyIndex!);
@@ -480,16 +477,17 @@ export class StalkerBinder extends object_binder {
     this.resetCallbacks();
 
     if (actor_stats.remove_from_ranking !== null) {
-      const community: TCommunity = getObjectCommunity(this.object);
+      const community: TCommunity = getObjectCommunity(object);
 
       if (community !== communities.zombied && community !== communities.monolith) {
-        actor_stats.remove_from_ranking(this.object.id());
+        actor_stats.remove_from_ranking(objectId);
       }
     }
 
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, this.object, who);
+    // todo: Handle with event subscription?
+    getManager(ReleaseBodyManager).addDeadBody(object);
 
-    getManager(ReleaseBodyManager).addDeadBody(this.object);
+    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, object, who);
   }
 
   /**
@@ -504,8 +502,8 @@ export class StalkerBinder extends object_binder {
 
       activateMeetWithObject(object);
 
-      if (this.state.activeSection) {
-        emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.USE, object, who);
+      if (this.state.activeScheme) {
+        emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.USE, object, who);
       }
     }
   }
@@ -514,8 +512,8 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onPatrolExtrapolate(pointIndex: TIndex): boolean {
-    if (this.state.activeSection) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.EXTRAPOLATE, pointIndex);
+    if (this.state.activeScheme) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.EXTRAPOLATE, pointIndex);
       (this.state.patrolManager as StalkerPatrolManager).onExtrapolate(this.object, pointIndex);
     }
 
@@ -616,48 +614,5 @@ export class StalkerBinder extends object_binder {
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_HIT, this.object, amount, direction, who, boneIndex);
-  }
-}
-
-/**
- * todo: Description.
- * todo: move out?
- * todo: move out?
- * todo: move out?
- */
-export function updateStalkerLogic(object: GameObject): void {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
-  const actor: GameObject = registry.actor;
-  const combatState: ISchemeCombatState = state.combat as ISchemeCombatState;
-
-  if (state !== null && state.activeScheme !== null && object.alive()) {
-    const manager: ActionPlanner = object.motivation_action_manager();
-    let switched: boolean = false;
-
-    if (manager.initialized() && manager.current_action_id() === EActionId.COMBAT) {
-      const overrides: Optional<ILogicsOverrides> = state.overrides;
-
-      if (overrides !== null) {
-        if (overrides.onCombat) {
-          pickSectionFromCondList(actor, object, overrides.onCombat.condlist);
-        }
-
-        if (combatState?.logic) {
-          if (!trySwitchToAnotherSection(object, combatState) && overrides.combatType) {
-            SchemeCombat.setCombatType(object, actor, overrides);
-          } else {
-            switched = true;
-          }
-        }
-      } else {
-        SchemeCombat.setCombatType(object, actor, combatState);
-      }
-    }
-
-    if (!switched) {
-      trySwitchToAnotherSection(object, state[state.activeScheme as EScheme] as IBaseSchemeState);
-    }
-  } else {
-    SchemeCombat.setCombatType(object, actor, combatState);
   }
 }

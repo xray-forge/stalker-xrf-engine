@@ -12,10 +12,8 @@ import { GameObject } from "@/engine/lib/types";
  * @param object - game object that should hit actor
  */
 export function objectPunchActor(object: GameObject): void {
-  const actor: GameObject = registry.actor;
-
   // Too far to hit.
-  if (actor.position().distance_to_sqr(object.position()) > 4) {
+  if (registry.actor.position().distance_to_sqr(object.position()) > 4) {
     return;
   }
 
