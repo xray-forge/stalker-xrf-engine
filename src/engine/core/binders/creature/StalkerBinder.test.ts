@@ -8,7 +8,11 @@ import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
-import { setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object";
+import {
+  setupObjectInfoPortions,
+  setupObjectStalkerVisual,
+  syncSpawnedObjectPosition,
+} from "@/engine/core/utils/object";
 import { setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/scheme";
 import { ESchemeType, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
@@ -37,6 +41,7 @@ describe("StalkerBinder class", () => {
     registerSimulator();
 
     resetFunctionMock(setupObjectSmartJobsAndLogicOnSpawn);
+    resetFunctionMock(syncSpawnedObjectPosition);
   });
 
   it.todo("should correctly initialize");
@@ -47,13 +52,12 @@ describe("StalkerBinder class", () => {
 
   it("should correctly handle going online/offline", () => {
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const object: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: StalkerBinder = new StalkerBinder(object);
 
     jest.spyOn(SchemeReachTask, "setup").mockImplementation(jest.fn());
     jest.spyOn(SchemePostCombatIdle, "setup").mockImplementation(jest.fn());
 
-    binder.reinit();
     binder.net_spawn(serverObject);
 
     expect(registry.objects.length()).toBe(1);
@@ -72,6 +76,9 @@ describe("StalkerBinder class", () => {
     expect(SchemePostCombatIdle.setup).toHaveBeenCalledWith(object);
     expect(object.group_throw_time_interval).toHaveBeenCalledWith(2000);
     expect(object.apply_loophole_direction_distance).toHaveBeenCalledWith(1);
+
+    expect(syncSpawnedObjectPosition).toHaveBeenCalledTimes(1);
+    expect(syncSpawnedObjectPosition).toHaveBeenCalledWith(object, serverObject.m_smart_terrain_id);
 
     binder.net_destroy();
 

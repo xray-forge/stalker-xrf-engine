@@ -1,4 +1,4 @@
-import { callback, clsid, hit, level, LuabindClass, object_binder } from "xray16";
+import { callback, clsid, hit, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -18,14 +18,12 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
-import { ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
-import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
-import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import { syncSpawnedObjectPosition } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   scriptReleaseMonster,
@@ -33,10 +31,8 @@ import {
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
-  ALifeSmartTerrainTask,
   EScheme,
   ESchemeEvent,
   ESchemeType,
@@ -81,43 +77,19 @@ export class MonsterBinder extends object_binder {
 
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
+    const monster: Optional<ServerCreatureObject> = registry.simulator.object(objectId);
+
+    if (!monster) {
+      return false;
+    }
 
     if (!object.alive()) {
       return true;
     }
 
-    const monster: Optional<ServerCreatureObject> = registry.simulator.object(objectId);
-
-    // todo: Is it possible?
-    if (!monster) {
-      return false;
-    }
-
     this.state = registerObject(object);
 
-    if (registry.spawnedVertexes.has(objectId)) {
-      object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(objectId)));
-      registry.spawnedVertexes.delete(objectId);
-    } else if (registry.offlineObjects.get(objectId)?.levelVertexId) {
-      object.set_npc_position(level.vertex_position(registry.offlineObjects.get(objectId).levelVertexId as TNumberId));
-    } else if (monster.m_smart_terrain_id !== MAX_U16) {
-      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object<SmartTerrain>(monster.m_smart_terrain_id);
-
-      if (smartTerrain && !smartTerrain.arrivingObjects.get(objectId)) {
-        const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(objectId).job;
-        const task: ALifeSmartTerrainTask = job?.alifeTask as ALifeSmartTerrainTask;
-
-        assert(
-          task,
-          "Expected terrain task to exist when spawning in smart terrain: '%s' in '%s', job: '%s'.",
-          object.name(),
-          smartTerrain.name(),
-          job?.section
-        );
-
-        object.set_npc_position(task.position());
-      }
-    }
+    syncSpawnedObjectPosition(object, monster.m_smart_terrain_id);
 
     setupObjectSmartJobsAndLogicOnSpawn(object, this.state, ESchemeType.MONSTER, this.isLoaded);
 

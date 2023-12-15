@@ -19,6 +19,7 @@ import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
+import { syncSpawnedObjectPosition } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   scriptReleaseMonster,
@@ -27,8 +28,8 @@ import {
 } from "@/engine/core/utils/scheme";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { X_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { EScheme, ESchemeEvent, ESchemeType, GameObject, ServerCreatureObject, Vector } from "@/engine/lib/types";
-import { mockRegisteredActor, mockSchemeState, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { EScheme, ESchemeEvent, ESchemeType, GameObject, ServerCreatureObject } from "@/engine/lib/types";
+import { mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
@@ -39,7 +40,6 @@ import {
   MockNetProcessor,
   mockNetReader,
   MockObjectBinder,
-  MockVector,
 } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme", () => ({
@@ -53,6 +53,8 @@ jest.mock("@/engine/core/objects/squad/update", () => ({
   updateMonsterSquadAction: jest.fn(),
 }));
 
+jest.mock("@/engine/core/utils/object");
+
 describe("MonsterBinder class", () => {
   beforeEach(() => {
     resetRegistry();
@@ -63,6 +65,7 @@ describe("MonsterBinder class", () => {
     resetFunctionMock(setupObjectSmartJobsAndLogicOnSpawn);
     resetFunctionMock(scriptReleaseMonster);
     resetFunctionMock(updateMonsterSquadAction);
+    resetFunctionMock(syncSpawnedObjectPosition);
   });
 
   it("should correctly initialize", () => {
@@ -128,57 +131,6 @@ describe("MonsterBinder class", () => {
     expect(registry.objects.length()).toBe(0);
   });
 
-  it("should handle going online with defined spawn vertex", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
-    const binder: MonsterBinder = new MonsterBinder(object);
-    const position: Vector = MockVector.mock();
-
-    registry.spawnedVertexes.set(object.id(), 400);
-    jest.spyOn(level, "vertex_position").mockImplementationOnce(() => position);
-
-    binder.net_spawn(serverObject);
-
-    expect(object.set_npc_position).toHaveBeenCalledWith(position);
-    expect(level.vertex_position).toHaveBeenCalledWith(400);
-    expect(registry.spawnedVertexes.length()).toBe(0);
-  });
-
-  it("should handle going online with existing offline state", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
-    const binder: MonsterBinder = new MonsterBinder(object);
-    const position: Vector = MockVector.mock();
-
-    registerOfflineObject(object.id(), { levelVertexId: 500, activeSection: null });
-
-    jest.spyOn(level, "vertex_position").mockImplementationOnce(() => position);
-
-    binder.net_spawn(serverObject);
-
-    expect(level.vertex_position).toHaveBeenCalledWith(500);
-    expect(object.set_npc_position).toHaveBeenCalledWith(position);
-  });
-
-  it("should handle going online when have assigned job", () => {
-    mockRegisteredActor();
-
-    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
-    const binder: MonsterBinder = new MonsterBinder(object);
-
-    serverObject.m_smart_terrain_id = smartTerrain.id;
-
-    smartTerrain.register_npc(serverObject);
-    binder.net_spawn(serverObject);
-
-    expect(object.set_npc_position).toHaveBeenCalledTimes(1);
-    expect(object.set_npc_position).toHaveBeenCalledWith(
-      smartTerrain.objectJobDescriptors.get(object.id()).job?.alifeTask?.position()
-    );
-  });
-
   it("should handle going online/offline", () => {
     mockRegisteredActor();
 
@@ -204,6 +156,9 @@ describe("MonsterBinder class", () => {
     registry.actorCombat.set(object.id(), true);
     state.activeScheme = EScheme.ANIMPOINT;
     state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+
+    expect(syncSpawnedObjectPosition).toHaveBeenCalledTimes(1);
+    expect(syncSpawnedObjectPosition).toHaveBeenCalledWith(object, serverObject.m_smart_terrain_id);
 
     binder.net_destroy();
 

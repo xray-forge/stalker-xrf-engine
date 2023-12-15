@@ -29,20 +29,24 @@ import { SimulationManager } from "@/engine/core/managers/simulation/SimulationM
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
-import type { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
 import { activateMeetWithObject, updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task/SchemeReachTask";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { assert } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
-import { getObjectStalkerIni, setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object";
+import {
+  getObjectStalkerIni,
+  setupObjectInfoPortions,
+  setupObjectStalkerVisual,
+  syncSpawnedObjectPosition,
+} from "@/engine/core/utils/object";
 import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import {
   emitSchemeEvent,
@@ -53,7 +57,6 @@ import { getObjectSquad } from "@/engine/core/utils/squad";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   EGameObjectRelation,
@@ -117,17 +120,21 @@ export class StalkerBinder extends object_binder {
 
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
+    const stalker: Optional<ServerHumanObject> = registry.simulator.object(objectId);
+
+    if (!stalker) {
+      return false;
+    }
 
     logger.info("Go online:", object.name());
 
-    registerStalker(this);
-
+    this.state = registerStalker(this);
     this.setupCallbacks();
 
     this.object.apply_loophole_direction_distance(1.0);
 
     if (!this.isLoaded) {
-      setupObjectInfoPortions(this.object, getObjectStalkerIni(this.object));
+      setupObjectInfoPortions(object, getObjectStalkerIni(object));
     }
 
     if (!object.alive()) {
@@ -154,34 +161,7 @@ export class StalkerBinder extends object_binder {
     initializeObjectThemes(object);
     SchemeReachTask.setup(object);
 
-    const stalker: Optional<ServerHumanObject> = registry.simulator.object(objectId);
-
-    if (stalker) {
-      if (registry.spawnedVertexes.has(stalker.id)) {
-        object.set_npc_position(level.vertex_position(registry.spawnedVertexes.get(stalker.id)));
-        registry.spawnedVertexes.delete(stalker.id);
-      } else if (registry.offlineObjects.get(stalker.id)?.levelVertexId) {
-        object.set_npc_position(
-          level.vertex_position(registry.offlineObjects.get(stalker.id).levelVertexId as TNumberId)
-        );
-      } else if (stalker.m_smart_terrain_id !== MAX_U16) {
-        const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(stalker.m_smart_terrain_id)!;
-
-        if (!smartTerrain.arrivingObjects.get(stalker.id)) {
-          const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(stalker.id)?.job;
-
-          assert(
-            job?.alifeTask,
-            "Expected terrain task to exist when spawning in smart terrain: '%s' in '%s', job: '%s'.",
-            object.name(),
-            smartTerrain.name(),
-            job?.section
-          );
-
-          object.set_npc_position(job.alifeTask.position());
-        }
-      }
-    }
+    syncSpawnedObjectPosition(object, stalker.m_smart_terrain_id);
 
     setupObjectSmartJobsAndLogicOnSpawn(object, this.state, ESchemeType.STALKER, this.isLoaded);
 
