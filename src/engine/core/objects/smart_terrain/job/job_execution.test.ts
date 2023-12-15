@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { registerActorServer, registerSimulator } from "@/engine/core/database";
+import { registerSimulator } from "@/engine/core/database";
 import {
   selectSmartTerrainObjectJob,
   switchSmartTerrainObjectToDesiredJob,
@@ -10,12 +10,14 @@ import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyObject, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
-import { mockServerAlifeCreatureActor, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_execution logic", () => {
   beforeEach(() => {
+    resetRegistry();
     registerSimulator();
-    registerActorServer(mockServerAlifeCreatureActor());
+    mockRegisteredActor();
   });
 
   it("should correctly create jobs on register", () => {
@@ -35,23 +37,39 @@ describe("job_execution logic", () => {
 
   it("should correctly assign jobs on new stalker arriving when not registered", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     smartTerrain.ini = smartTerrain.spawn_ini();
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
-    smartTerrain.register_npc(stalker);
+    smartTerrain.register_npc(first);
+    smartTerrain.register_npc(first);
+    smartTerrain.register_npc(first);
 
     expect(smartTerrain.stayingObjectsCount).toBe(0);
     expect(smartTerrain.objectsToRegister.length()).toBe(1);
-    expect(smartTerrain.objectsToRegister.get(1)).toBe(stalker);
-    expect(stalker.smart_terrain_task_activate).not.toHaveBeenCalled();
-    expect(stalker.m_smart_terrain_id).toBe(MAX_U16);
+    expect(smartTerrain.objectsToRegister.get(first.id)).toBe(first);
+    expect(first.smart_terrain_task_activate).not.toHaveBeenCalled();
+    expect(first.m_smart_terrain_id).toBe(MAX_U16);
+
+    smartTerrain.register_npc(second);
+    smartTerrain.register_npc(second);
+    smartTerrain.register_npc(second);
+
+    expect(smartTerrain.stayingObjectsCount).toBe(0);
+    expect(smartTerrain.objectsToRegister.length()).toBe(2);
+    expect(smartTerrain.objectsToRegister.get(first.id)).toBe(first);
+    expect(smartTerrain.objectsToRegister.get(second.id)).toBe(second);
+    expect(first.smart_terrain_task_activate).not.toHaveBeenCalled();
+    expect(first.m_smart_terrain_id).toBe(MAX_U16);
+    expect(second.smart_terrain_task_activate).not.toHaveBeenCalled();
+    expect(second.m_smart_terrain_id).toBe(MAX_U16);
   });
 
   it("should correctly assign jobs on new stalker arriving when registered and arriving", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     smartTerrain.ini = smartTerrain.spawn_ini();
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
@@ -73,7 +91,7 @@ describe("job_execution logic", () => {
 
   it("should correctly assign jobs on new stalker arriving when registered and arrived", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     smartTerrain.ini = smartTerrain.spawn_ini();
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
@@ -136,8 +154,8 @@ describe("job_execution logic", () => {
 
   it("should correctly assign jobs on few stalkers", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-    const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     smartTerrain.ini = smartTerrain.spawn_ini();
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
@@ -312,11 +330,17 @@ describe("job_execution logic", () => {
       schemeType: 2,
     });
   });
+});
 
-  it("should correctly re-select jobs with few stalkers", () => {
+describe("switchSmartTerrainObjectToDesiredJob util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly switch objects to desired jobs", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-    const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     smartTerrain.ini = smartTerrain.spawn_ini();
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
@@ -330,10 +354,85 @@ describe("job_execution logic", () => {
     smartTerrain.register_npc(firstStalker);
     smartTerrain.register_npc(secondStalker);
 
-    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
-    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
-    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(secondStalker.id));
-    selectSmartTerrainObjectJob(smartTerrain, smartTerrain.objectJobDescriptors.get(firstStalker.id));
+    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+      "logic@test_smart_camper_1_walk": firstStalker.id,
+      "logic@test_smart_sniper_1_walk": secondStalker.id,
+    });
+
+    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
+
+    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+      "logic@test_smart_sniper_1_walk": firstStalker.id,
+      "logic@test_smart_camper_1_walk": secondStalker.id,
+    });
+
+    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_camper_1_walk";
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
+
+    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+      "logic@test_smart_camper_1_walk": firstStalker.id,
+      "logic@test_smart_sniper_1_walk": secondStalker.id,
+    });
+
+    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
+    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
+    updateSmartTerrainJobs(smartTerrain);
+
+    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+      "logic@test_smart_sniper_1_walk": firstStalker.id,
+      "logic@test_smart_camper_1_walk": secondStalker.id,
+    });
+  });
+});
+
+describe("selectSmartTerrainObjectJob util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly re-select jobs with few stalkers", () => {
+    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    smartTerrain.ini = smartTerrain.spawn_ini();
+    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+
+    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (firstStalker as AnyObject).m_game_vertex_id = 512;
+    (secondStalker as AnyObject).m_game_vertex_id = 512;
+
+    smartTerrain.on_register();
+
+    smartTerrain.register_npc(firstStalker);
+    smartTerrain.register_npc(secondStalker);
+
+    const [firstJobId, firstJob] = selectSmartTerrainObjectJob(
+      smartTerrain,
+      smartTerrain.objectJobDescriptors.get(secondStalker.id)
+    );
+
+    const [secondJobId, secondJob] = selectSmartTerrainObjectJob(
+      smartTerrain,
+      smartTerrain.objectJobDescriptors.get(firstStalker.id)
+    );
+    const [thirdJobId, thirdJob] = selectSmartTerrainObjectJob(
+      smartTerrain,
+      smartTerrain.objectJobDescriptors.get(secondStalker.id)
+    );
+    const [fourthJobId, fourthJob] = selectSmartTerrainObjectJob(
+      smartTerrain,
+      smartTerrain.objectJobDescriptors.get(firstStalker.id)
+    );
+
+    expect(firstJobId).toBe(5);
+    expect(secondJobId).toBe(4);
+    expect(thirdJobId).toBe(5);
+    expect(fourthJobId).toBe(4);
+
+    expect(firstJob).toBe(thirdJob);
+    expect(secondJob).toBe(fourthJob);
 
     // Works in determined way, always same even after multiple calls.
 
@@ -419,54 +518,6 @@ describe("job_execution logic", () => {
         desiredJob: "nil",
         schemeType: 1,
       },
-    });
-  });
-
-  it("should correctly switch objects to desired jobs", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-    const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-
-    smartTerrain.ini = smartTerrain.spawn_ini();
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
-
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
-    (firstStalker as AnyObject).m_game_vertex_id = 512;
-    (secondStalker as AnyObject).m_game_vertex_id = 512;
-
-    smartTerrain.on_register();
-
-    smartTerrain.register_npc(firstStalker);
-    smartTerrain.register_npc(secondStalker);
-
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
-      "logic@test_smart_camper_1_walk": firstStalker.id,
-      "logic@test_smart_sniper_1_walk": secondStalker.id,
-    });
-
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
-
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
-      "logic@test_smart_sniper_1_walk": firstStalker.id,
-      "logic@test_smart_camper_1_walk": secondStalker.id,
-    });
-
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_camper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
-
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
-      "logic@test_smart_camper_1_walk": firstStalker.id,
-      "logic@test_smart_sniper_1_walk": secondStalker.id,
-    });
-
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
-    updateSmartTerrainJobs(smartTerrain);
-
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
-      "logic@test_smart_sniper_1_walk": firstStalker.id,
-      "logic@test_smart_camper_1_walk": secondStalker.id,
     });
   });
 });
