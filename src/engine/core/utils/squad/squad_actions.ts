@@ -1,6 +1,5 @@
 import { registry } from "@/engine/core/database";
-import type { Squad } from "@/engine/core/objects/squad";
-import { ESquadActionType } from "@/engine/core/objects/squad";
+import type { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { getSquadCommunity } from "@/engine/core/utils/community";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";

@@ -472,6 +472,7 @@ describe("MonsterBinder class", () => {
 
     jest.spyOn(manager, "emitEvent");
     jest.spyOn(binder, "onHit").mockImplementation(jest.fn());
+    jest.spyOn(binder, "resetCallbacks").mockImplementation(jest.fn());
 
     binder.reinit();
     binder.net_spawn(serverObject);
@@ -490,6 +491,7 @@ describe("MonsterBinder class", () => {
     expect(registry.actorCombat.length()).toBe(0);
     expect(binder.onHit).toHaveBeenCalledTimes(1);
     expect(binder.onHit).toHaveBeenCalledWith(object, 1, ZERO_VECTOR, killer, "from_death_callback");
+    expect(binder.resetCallbacks).toHaveBeenCalledTimes(1);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(2);
     expect(emitSchemeEvent).toHaveBeenCalledWith(object, state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);

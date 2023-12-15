@@ -71,10 +71,7 @@ export class MonsterBinder extends object_binder {
 
     this.state = resetObject(this.object);
 
-    this.object.set_callback(callback.patrol_path_in_point, this.onWaypoint, this);
-    this.object.set_callback(callback.hit, this.onHit, this);
-    this.object.set_callback(callback.death, this.onDeath, this);
-    this.object.set_callback(callback.sound, this.onHearSound, this);
+    this.setupCallbacks();
   }
 
   public override net_spawn(serverObject: ServerCreatureObject): boolean {
@@ -132,11 +129,7 @@ export class MonsterBinder extends object_binder {
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = this.state;
 
-    // todo: Reset callbacks method, reset also on death.
-    object.set_callback(callback.patrol_path_in_point, null);
-    object.set_callback(callback.death, null);
-    object.set_callback(callback.sound, null);
-    object.set_callback(callback.hit, null);
+    this.resetCallbacks();
 
     getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
 
@@ -235,6 +228,26 @@ export class MonsterBinder extends object_binder {
   }
 
   /**
+   * Setup binder callback on going online.
+   */
+  public setupCallbacks(): void {
+    this.object.set_callback(callback.patrol_path_in_point, this.onWaypoint, this);
+    this.object.set_callback(callback.hit, this.onHit, this);
+    this.object.set_callback(callback.death, this.onDeath, this);
+    this.object.set_callback(callback.sound, this.onHearSound, this);
+  }
+
+  /**
+   * Reset callbacks and unsubscribe from events on going offline.
+   */
+  public resetCallbacks(): void {
+    this.object.set_callback(callback.patrol_path_in_point, null);
+    this.object.set_callback(callback.death, null);
+    this.object.set_callback(callback.sound, null);
+    this.object.set_callback(callback.hit, null);
+  }
+
+  /**
    * On waypoint callback.
    */
   public onWaypoint(object: GameObject, actionType: number, index: TIndex): void {
@@ -258,6 +271,8 @@ export class MonsterBinder extends object_binder {
     const state: IRegistryObjectState = this.state;
 
     logger.info("Monster death:", object.name());
+
+    this.resetCallbacks();
 
     registry.actorCombat.delete(objectId);
 

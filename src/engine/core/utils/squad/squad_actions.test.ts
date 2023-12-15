@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator, registry } from "@/engine/core/database";
-import type { Squad } from "@/engine/core/objects/squad";
-import { ESquadActionType, SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad";
+import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
+import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import {
   canSquadHelpActor,

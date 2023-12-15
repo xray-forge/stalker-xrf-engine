@@ -50,7 +50,6 @@ import {
   setupObjectSmartJobsAndLogicOnSpawn,
 } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { createEmptyVector } from "@/engine/core/utils/vector";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -397,7 +396,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * Setup stalker binder callback on going online.
+   * Setup binder callback on going online.
    */
   public setupCallbacks(): void {
     this.object.set_patrol_extrapolate_callback(this.onPatrolExtrapolate, this);

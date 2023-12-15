@@ -68,10 +68,8 @@ export class PhysicObjectBinder extends object_binder {
         this.itemBox = new PhysicObjectItemBox(this.object);
       }
 
-      if (spawnIni.section_exist("level_spot")) {
-        if (spawnIni.line_exist("level_spot", "actor_box")) {
-          level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
-        }
+      if (spawnIni.section_exist("level_spot") && spawnIni.line_exist("level_spot", "actor_box")) {
+        level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
       }
     }
 
@@ -118,8 +116,9 @@ export class PhysicObjectBinder extends object_binder {
 
     const spawnIni: Optional<IniFile> = this.object.spawn_ini();
 
-    if (this.state.activeSection !== null || (spawnIni !== null && spawnIni.section_exist("drop_box"))) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeScheme || (spawnIni && spawnIni.section_exist("drop_box"))) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme as EScheme]!, ESchemeEvent.UPDATE, delta);
+
       this.object.set_callback(callback.hit, this.onHit, this);
       this.object.set_callback(callback.death, this.onDeath, this);
       this.object.set_callback(callback.use_object, this.onUse, this);
