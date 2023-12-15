@@ -78,7 +78,7 @@ describe("MonsterBinder class", () => {
     expect(object.set_callback).toHaveBeenCalledWith(callback.sound, binder.onHearSound, binder);
   });
 
-  it("should correctly handle going online/offline when spawn check is falsy", () => {
+  it("should handle going online/offline when spawn check is falsy", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
@@ -91,7 +91,7 @@ describe("MonsterBinder class", () => {
     expect(registry.objects.length()).toBe(0);
   });
 
-  it("should correctly handle going online/offline when released", () => {
+  it("should handle going online/offline when released", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
@@ -104,7 +104,7 @@ describe("MonsterBinder class", () => {
     expect(registry.objects.length()).toBe(0);
   });
 
-  it("should correctly handle going online/offline when spawn dead", () => {
+  it("should handle going online/offline when spawn dead", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
@@ -117,7 +117,7 @@ describe("MonsterBinder class", () => {
     expect(registry.objects.length()).toBe(0);
   });
 
-  it("should correctly handle going online with defined spawn vertex", () => {
+  it("should handle going online with defined spawn vertex", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
@@ -133,7 +133,7 @@ describe("MonsterBinder class", () => {
     expect(registry.spawnedVertexes.length()).toBe(0);
   });
 
-  it("should correctly handle going online with existing offline state", () => {
+  it("should handle going online with existing offline state", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
@@ -149,7 +149,7 @@ describe("MonsterBinder class", () => {
     expect(object.set_npc_position).toHaveBeenCalledWith(position);
   });
 
-  it("should correctly handle going online when have assigned job", () => {
+  it("should handle going online when have assigned job", () => {
     mockRegisteredActor();
 
     const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
@@ -168,7 +168,7 @@ describe("MonsterBinder class", () => {
     );
   });
 
-  it("should correctly handle going online/offline", () => {
+  it("should handle going online/offline", () => {
     mockRegisteredActor();
 
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
@@ -220,7 +220,7 @@ describe("MonsterBinder class", () => {
     expect(hasInfoPortion("on_offline_info")).toBe(true);
   });
 
-  it("should correctly handle update event when dead", () => {
+  it("should handle update event when dead", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
@@ -235,7 +235,7 @@ describe("MonsterBinder class", () => {
     expect(trySwitchToAnotherSection).toHaveBeenCalledTimes(0);
   });
 
-  it("should correctly handle generic update event with combat tracking", () => {
+  it("should handle generic update event with combat tracking", () => {
     const { actorGameObject } = mockRegisteredActor();
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
@@ -263,6 +263,12 @@ describe("MonsterBinder class", () => {
       ESchemeEvent.UPDATE,
       100
     );
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => null);
+
+    binder.update(100);
+
+    expect(registry.actorCombat.length()).toBe(0);
   });
 
   it("should be net save relevant", () => {
@@ -272,7 +278,7 @@ describe("MonsterBinder class", () => {
     expect(binder.net_save_relevant()).toBe(true);
   });
 
-  it("should correctly handle save/load", () => {
+  it("should handle save/load", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: MonsterBinder = new MonsterBinder(object);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
@@ -341,7 +347,7 @@ describe("MonsterBinder class", () => {
     expect(netProcessor.dataList).toHaveLength(0);
   });
 
-  it("should correctly handle waypoint event", () => {
+  it("should handle waypoint event", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
@@ -369,7 +375,7 @@ describe("MonsterBinder class", () => {
     );
   });
 
-  it("should correctly handle death event", () => {
+  it("should handle death event", () => {
     mockRegisteredActor();
 
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
@@ -409,7 +415,7 @@ describe("MonsterBinder class", () => {
     expect(registry.simulator.release).toHaveBeenCalledTimes(0);
   });
 
-  it("should correctly handle death event for poltergeist", () => {
+  it("should handle death event for poltergeist", () => {
     mockRegisteredActor();
 
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
@@ -427,7 +433,7 @@ describe("MonsterBinder class", () => {
     expect(registry.simulator.release).toHaveBeenCalledWith(serverObject, true);
   });
 
-  it("should correctly handle hit event", () => {
+  it("should handle hit event", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
@@ -462,7 +468,7 @@ describe("MonsterBinder class", () => {
     expect(manager.emitEvent).toHaveBeenCalledTimes(2);
   });
 
-  it("should correctly handle hear event", () => {
+  it("should handle hear event", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: MonsterBinder = new MonsterBinder(object);
 
