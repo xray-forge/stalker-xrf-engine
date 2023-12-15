@@ -281,7 +281,7 @@ describe("ActorBinder class", () => {
     expect(netProcessor.dataList).toHaveLength(0);
   });
 
-  it("should correctly handle callbacks", () => {
+  it("should correctly handle actor object callbacks emit", () => {
     const actor: GameObject & IGameObjectExtended = MockGameObject.mockActor() as GameObject & IGameObjectExtended;
     const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
     const binder: ActorBinder = new ActorBinder(actor);

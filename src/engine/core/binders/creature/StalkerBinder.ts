@@ -213,7 +213,7 @@ export class StalkerBinder extends object_binder {
     // Call logics on offline.
     const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
 
-    if (onOfflineConditionList !== null) {
+    if (onOfflineConditionList) {
       pickSectionFromCondList(registry.actor, this.object, onOfflineConditionList);
     }
 
