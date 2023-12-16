@@ -9,15 +9,13 @@ import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treas
 import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { GameObject, ServerObject } from "@/engine/lib/types";
-import { resetManagers } from "@/fixtures/engine";
+import { ServerObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("TreasureManager class", () => {
   beforeEach(() => {
-    registry.actor = null as unknown as GameObject;
-
-    resetManagers();
+    resetRegistry();
 
     treasureConfig.ENHANCED_MODE_ENABLED = true;
     treasureConfig.TREASURES = readIniTreasuresList(TREASURE_MANAGER_CONFIG_LTX);

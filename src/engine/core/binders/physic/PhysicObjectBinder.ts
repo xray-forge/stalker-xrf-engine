@@ -1,4 +1,4 @@
-import { callback, clsid, level, LuabindClass, object_binder } from "xray16";
+import { callback, level, LuabindClass, object_binder } from "xray16";
 
 import { PhysicObjectItemBox } from "@/engine/core/binders/physic/PhysicObjectItemBox";
 import {
@@ -27,7 +27,6 @@ import {
   IniFile,
   NetPacket,
   Optional,
-  ParticlesObject,
   Reader,
   ServerObject,
   TCount,
@@ -46,9 +45,7 @@ export class PhysicObjectBinder extends object_binder {
   public isInitialized: boolean = false;
   public isLoaded: boolean = false;
 
-  public particle: Optional<ParticlesObject> = null;
   public itemBox: Optional<PhysicObjectItemBox> = null;
-
   public state!: IRegistryObjectState;
 
   public override reinit(): void {
@@ -75,6 +72,8 @@ export class PhysicObjectBinder extends object_binder {
 
     registerObject(this.object);
 
+    this.setupCallbacks();
+
     return true;
   }
 
@@ -97,10 +96,6 @@ export class PhysicObjectBinder extends object_binder {
       pickSectionFromCondList(registry.actor, this.object, onOfflineCondlist);
     }
 
-    if (this.particle) {
-      this.particle.stop();
-    }
-
     unregisterObject(this.object);
 
     super.net_destroy();
@@ -109,23 +104,13 @@ export class PhysicObjectBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (!this.isInitialized) {
+    if (!this.isInitialized && registry.actor !== null) {
       this.isInitialized = true;
       initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.OBJECT);
     }
 
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
-
-    if (this.state.activeScheme || (spawnIni && spawnIni.section_exist("drop_box"))) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme as EScheme]!, ESchemeEvent.UPDATE, delta);
-
-      this.object.set_callback(callback.hit, this.onHit, this);
-      this.object.set_callback(callback.death, this.onDeath, this);
-      this.object.set_callback(callback.use_object, this.onUse, this);
-    }
-
-    if (this.object.clsid() === clsid.inventory_box) {
-      this.object.set_callback(callback.use_object, this.onUse, this);
+    if (this.state.activeScheme) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
     }
 
     getManager(GlobalSoundManager).update(this.object.id());
@@ -156,7 +141,19 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Setup binder callback on going online.
+   */
+  public setupCallbacks(): void {
+    this.object.set_callback(callback.hit, this.onHit, this);
+    this.object.set_callback(callback.death, this.onDeath, this);
+    this.object.set_callback(callback.use_object, this.onUse, this);
+  }
+
+  /**
+   * Handle object being used.
+   *
+   * @param object - game object being used
+   * @param who - game object using it
    */
   public onUse(object: GameObject, who: GameObject): void {
     if (this.state.activeScheme) {
@@ -165,23 +162,30 @@ export class PhysicObjectBinder extends object_binder {
         this.state[this.state.activeScheme] as IBaseSchemeState,
         ESchemeEvent.USE,
         object,
-        this
+        who
       );
     }
   }
 
   /**
-   * todo: Description.
+   * Handle object being hit.
+   * Emit corresponding event to capture them with activated schemes.
+   *
+   * @param object - game object being hit
+   * @param amount - amount of damage with hit
+   * @param direction - direction of the hit relative to current object
+   * @param who - object hitting current object
+   * @param boneIndex - index of the bone being hit
    */
-  public onHit(object: GameObject, amount: TCount, constDirection: Vector, who: GameObject, boneIndex: TIndex): void {
+  public onHit(object: GameObject, amount: TCount, direction: Vector, who: GameObject, boneIndex: TIndex): void {
     if (this.state[EScheme.HIT]) {
       emitSchemeEvent(
         this.object,
-        this.state[EScheme.HIT]!,
+        this.state[EScheme.HIT] as IBaseSchemeState,
         ESchemeEvent.HIT,
         object,
         amount,
-        constDirection,
+        direction,
         who,
         boneIndex
       );
@@ -194,7 +198,7 @@ export class PhysicObjectBinder extends object_binder {
         ESchemeEvent.HIT,
         object,
         amount,
-        constDirection,
+        direction,
         who,
         boneIndex
       );
@@ -202,21 +206,20 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Handle destruction of the physical object.
+   *
+   * @param object - target game object that was killed/destroyed
+   * @param killer - game object that destroyed it
    */
-  public onDeath(victim: GameObject, who: GameObject): void {
+  public onDeath(object: GameObject, killer: GameObject): void {
     if (this.state.activeScheme) {
       emitSchemeEvent(
         this.object,
         this.state[this.state.activeScheme] as IBaseSchemeState,
         ESchemeEvent.DEATH,
-        victim,
-        who
+        object,
+        killer
       );
-    }
-
-    if (this.particle) {
-      this.particle.stop();
     }
 
     if (this.itemBox) {

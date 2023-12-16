@@ -81,7 +81,7 @@ export class PhysicObjectItemBox {
   public constructor(object: GameObject) {
     this.object = object;
 
-    for (const [k, v] of pairs(communityList)) {
+    for (const [, v] of pairs(communityList)) {
       itemByCommunity.set(v, new LuaTable());
       if (PH_BOX_GENERIC_LTX.section_exist(v)) {
         const n = PH_BOX_GENERIC_LTX.line_count(v);

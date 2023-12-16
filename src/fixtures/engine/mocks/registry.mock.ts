@@ -61,31 +61,3 @@ export function resetRegistry(): void {
 
   registerRanks();
 }
-
-/**
- * Reset managers registry state.
- */
-export function resetManagers(): void {
-  registry.managers = new LuaTable();
-}
-
-/**
- * Reset managers registry state.
- */
-export function resetRanks(): void {
-  registerRanks();
-}
-
-/**
- * Reset offline objects registry state.
- */
-export function resetOfflineObjects(): void {
-  registry.offlineObjects = new LuaTable();
-}
-
-/**
- * Reset story objects registry state.
- */
-export function resetStoryObjects(): void {
-  registry.storyLink = { sidById: new LuaTable(), idBySid: new LuaTable() };
-}

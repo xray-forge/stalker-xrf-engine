@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { level, particles_object } from "xray16";
+import { callback, level } from "xray16";
 
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
 import { PhysicObjectItemBox } from "@/engine/core/binders/physic/PhysicObjectItemBox";
@@ -7,9 +7,11 @@ import { getManager, ILogicsOverrides, IRegistryObjectState, registerObject, reg
 import { GlobalSoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { emitSchemeEvent } from "@/engine/core/utils/scheme";
-import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
+import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
+import { EScheme, ESchemeEvent, ESchemeType, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
   MockGameObject,
@@ -21,11 +23,26 @@ import {
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/utils/scheme/scheme_event");
+jest.mock("@/engine/core/utils/scheme");
 
 describe("PhysicObjectBinder class", () => {
   beforeEach(() => {
     resetRegistry();
+    resetFunctionMock(emitSchemeEvent);
+  });
+
+  it("should correctly handle going online/offline when spawn check is falsy", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
+    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+
+    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    (binder as unknown as MockObjectBinder).canSpawn = false;
+
+    binder.net_spawn(mockServerAlifeObject({ id: object.id() }));
+
+    expect(registry.objects.length()).toBe(0);
+    expect(soundManager.stopSoundByObjectId).not.toHaveBeenCalled();
   });
 
   it("should correctly handle going online/offline with defaults", () => {
@@ -42,6 +59,11 @@ describe("PhysicObjectBinder class", () => {
     expect(state).not.toBeNull();
     expect(binder.itemBox).toBeNull();
 
+    expect(object.set_callback).toHaveBeenCalledTimes(3);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.hit, binder.onHit, binder);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.death, binder.onDeath, binder);
+    expect(object.set_callback).toHaveBeenCalledWith(callback.use_object, binder.onUse, binder);
+
     binder.reinit();
 
     expect(registry.objects.get(object.id())).not.toBe(state);
@@ -51,20 +73,6 @@ describe("PhysicObjectBinder class", () => {
 
     expect(registry.objects.has(object.id())).toBe(false);
     expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(object.id());
-  });
-
-  it("should correctly handle going online/offline when spawn check is falsy", () => {
-    const object: GameObject = MockGameObject.mock();
-    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
-
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
-    (binder as unknown as MockObjectBinder).canSpawn = false;
-
-    binder.net_spawn(mockServerAlifeObject({ id: object.id() }));
-
-    expect(registry.objects.length()).toBe(0);
-    expect(soundManager.stopSoundByObjectId).not.toHaveBeenCalled();
   });
 
   it("should correctly handle with extended config", () => {
@@ -100,7 +108,6 @@ describe("PhysicObjectBinder class", () => {
 
     state.activeScheme = EScheme.ANIMPOINT;
     state.overrides = { onOffline: parseConditionsList("%+test_info_pb% test") } as ILogicsOverrides;
-    binder.particle = { stop: jest.fn() } as unknown as particles_object;
     state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
 
     binder.net_destroy();
@@ -108,7 +115,6 @@ describe("PhysicObjectBinder class", () => {
     expect(registry.objects.has(binder.object.id())).toBe(false);
     expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(binder.object.id());
     expect(level.map_remove_object_spot).toHaveBeenCalledWith(binder.object.id(), "ui_pda2_actor_box_location");
-    expect(binder.particle.stop).toHaveBeenCalled();
 
     expect(emitSchemeEvent).toHaveBeenCalledWith(
       binder.object,
@@ -119,7 +125,28 @@ describe("PhysicObjectBinder class", () => {
     expect(hasInfoPortion("test_info_pb")).toBe(true);
   });
 
-  it.todo("should correctly handle update events");
+  it("should correctly handle update events", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
+
+    mockRegisteredActor();
+
+    jest.spyOn(getManager(GlobalSoundManager), "update").mockImplementation(jest.fn());
+
+    expect(binder.isInitialized).toBe(false);
+
+    binder.reinit();
+
+    binder.state.activeScheme = EScheme.ANIMPOINT;
+    binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+
+    binder.update(150);
+
+    expect(binder.isInitialized).toBe(true);
+    expect(initializeObjectSchemeLogic).toHaveBeenCalledWith(object, binder.state, false, ESchemeType.OBJECT);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(object, binder.state[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, 150);
+    expect(getManager(GlobalSoundManager).update).toHaveBeenCalledWith(object.id());
+  });
 
   it("should be save relevant", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
@@ -186,11 +213,84 @@ describe("PhysicObjectBinder class", () => {
     expect(netProcessor.dataList).toHaveLength(0);
   });
 
-  it.todo("should correctly handle hit events");
+  it("should correctly handle use events", () => {
+    const object: GameObject = MockGameObject.mock();
+    const who: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
 
-  it.todo("should correctly handle death events");
+    binder.reinit();
 
-  it.todo("should correctly handle use events");
+    binder.state.activeScheme = EScheme.ANIMPOINT;
+    binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
 
-  it.todo("should correctly handle death events");
+    binder.onUse(object, who);
+
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      object,
+      binder.state[EScheme.ANIMPOINT],
+      ESchemeEvent.USE,
+      object,
+      who
+    );
+  });
+
+  it("should correctly handle hit events", () => {
+    const object: GameObject = MockGameObject.mock();
+    const who: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
+
+    binder.reinit();
+
+    binder.state.activeScheme = EScheme.ANIMPOINT;
+    binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    binder.state[EScheme.HIT] = mockSchemeState(EScheme.HIT);
+
+    binder.onHit(object, 0.5, ZERO_VECTOR, who, 10);
+
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      object,
+      binder.state[EScheme.HIT],
+      ESchemeEvent.HIT,
+      object,
+      0.5,
+      ZERO_VECTOR,
+      who,
+      10
+    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      object,
+      binder.state[binder.state.activeScheme],
+      ESchemeEvent.HIT,
+      object,
+      0.5,
+      ZERO_VECTOR,
+      who,
+      10
+    );
+  });
+
+  it("should correctly handle death events", () => {
+    const object: GameObject = MockGameObject.mock();
+    const killer: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
+
+    binder.reinit();
+
+    binder.itemBox = new PhysicObjectItemBox(object);
+    binder.state.activeScheme = EScheme.ANIMPOINT;
+    binder.state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+
+    jest.spyOn(binder.itemBox, "spawnBoxItems").mockImplementation(jest.fn());
+
+    binder.onDeath(object, killer);
+
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      object,
+      binder.state[binder.state.activeScheme],
+      ESchemeEvent.DEATH,
+      object,
+      killer
+    );
+    expect(binder.itemBox?.spawnBoxItems).toHaveBeenCalled();
+  });
 });
