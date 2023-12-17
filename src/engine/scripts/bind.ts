@@ -22,7 +22,10 @@ import {
   RestrictorBinder,
 } from "@/engine/core/binders/zones";
 import { extern } from "@/engine/core/utils/binding";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, IniFile, Optional } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register binders of engine client side objects.

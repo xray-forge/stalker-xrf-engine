@@ -4,6 +4,7 @@ import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundMan
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
   GameObject,
@@ -19,6 +20,8 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
+const logger: LuaLogger = new LuaLogger($filename);
+
 /**
  * todo;
  */
@@ -33,6 +36,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public hiLimits: number = 0;
 
   public override activate(): void {
+    logger.format("Activate door: %s %s", this.object.name(), this.state.section);
+
     this.state.signals = new LuaTable();
     this.isInitialized = false;
 
@@ -74,6 +79,9 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   public override deactivate(): void {
+    logger.format("Deactivate door: %s %s", this.object.name(), this.state.section);
+    logger.printStack();
+
     this.object.set_tip_text("");
   }
 
@@ -171,6 +179,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public openDoor(disableSound?: boolean): void {
+    logger.info("Open door:", this.object.name(), this.state.section);
+
     if (!disableSound) {
       if (this.state.sndOpenStart) {
         getManager(GlobalSoundManager).playSound(this.object.id(), this.state.sndOpenStart, null, null);
@@ -210,6 +220,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public closeDoor(disableSound: boolean): void {
+    logger.info("Close door:", this.object.name(), this.state.section);
+
     if (!disableSound) {
       if (this.state.sndCloseStart !== null) {
         getManager(GlobalSoundManager).playSound(this.object.id(), this.state.sndCloseStart, null, null);
@@ -244,7 +256,9 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     }
   }
 
-  public override onUse(target: GameObject, who: Optional<GameObject>): void {
+  public override onUse(object: GameObject, who: Optional<GameObject>): void {
+    logger.format("Use door: %s", object.name());
+
     if (this.state.locked && this.state.sndOpenStart) {
       getManager(GlobalSoundManager).playSound(this.object.id(), this.state.sndOpenStart);
     }
@@ -265,6 +279,8 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
+    logger.format("Hit door: %s", object.name());
+
     if (this.state.hitOnBone.has(boneIndex)) {
       const section: Optional<TSection> = pickSectionFromCondList(
         registry.actor,
