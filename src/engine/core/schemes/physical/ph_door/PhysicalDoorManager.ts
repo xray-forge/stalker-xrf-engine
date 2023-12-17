@@ -80,7 +80,6 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
   public override deactivate(): void {
     logger.format("Deactivate door: %s %s", this.object.name(), this.state.section);
-    logger.printStack();
 
     this.object.set_tip_text("");
   }

@@ -1,6 +1,11 @@
-import { TCount, TName, TRate, TSection } from "@/engine/lib/types";
+import { ini_file } from "xray16";
+
+import { IniFile, TCount, TName, TRate, TSection } from "@/engine/lib/types";
+
+export const PH_BOX_GENERIC_LTX: IniFile = new ini_file("misc\\ph_box_generic.ltx");
 
 export const boxConfig = {
+  LOT_BOX_DEFAULT: "def_box",
   LOOT_BOX_SECTIONS: $fromArray<TSection>([
     "def_box",
     "small_box_generic",

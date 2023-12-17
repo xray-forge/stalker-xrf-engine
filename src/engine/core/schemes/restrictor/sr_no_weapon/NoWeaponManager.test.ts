@@ -13,7 +13,7 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeCondition, GameObject } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("NoWeaponManager class", () => {
   beforeEach(() => {
@@ -81,7 +81,11 @@ describe("NoWeaponManager class", () => {
 
   it("should correctly update schema with scheme change", () => {
     const object: GameObject = MockGameObject.mock();
-    const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON);
+    const state: ISchemeNoWeaponState = mockSchemeState(EScheme.SR_NO_WEAPON, {
+      ini: MockIniFile.mock("test.ltx", {
+        "sr_no_weapon@another": {},
+      }),
+    });
     const manager: NoWeaponManager = new NoWeaponManager(object, state);
 
     registerObject(object);
