@@ -1,7 +1,7 @@
 import { AbstractManager } from "@/engine/core/managers/base";
 import { IBoxDropProbabilityDescriptor } from "@/engine/core/managers/box/box_types";
 import { boxConfig } from "@/engine/core/managers/box/BoxConfig";
-import { initializeDropBoxesLoot } from "@/engine/core/managers/box/utils/box_read_utils";
+import { initializeDropBoxesLoot } from "@/engine/core/managers/box/utils";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
@@ -32,13 +32,13 @@ export class BoxManager extends AbstractManager {
       boxConfig.LOT_BOX_DEFAULT
     );
     const items: LuaTable<TSection, TProbability> =
-      boxConfig.ITEMS_BY_BOX_SECTION.get(section) ?? boxConfig.ITEMS_BY_BOX_SECTION.get(boxConfig.LOT_BOX_DEFAULT);
+      boxConfig.DROP_ITEMS_BY_SECTION.get(section) ?? boxConfig.DROP_ITEMS_BY_SECTION.get(boxConfig.LOT_BOX_DEFAULT);
 
     logger.format("Spawn items for: %s %s", object.name(), section);
 
     for (const [section, probability] of items) {
-      const it: IBoxDropProbabilityDescriptor = boxConfig.DROP_COUNT_BY_LEVEL.get(section);
-      const count: TCount = math.ceil(math.random(it.min, it.max));
+      const descriptor: IBoxDropProbabilityDescriptor = boxConfig.DROP_COUNT_BY_LEVEL.get(section);
+      const count: TCount = math.ceil(math.random(descriptor.min, descriptor.max));
 
       spawnItemsForObject(object, section, count, probability);
     }

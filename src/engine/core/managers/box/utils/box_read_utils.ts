@@ -17,7 +17,7 @@ export function initializeDropBoxesLoot(): void {
   logger.format("Initialize box items at level: %s", levelName);
 
   for (const [, section] of boxConfig.LOOT_BOX_SECTIONS) {
-    boxConfig.ITEMS_BY_BOX_SECTION.set(section, new LuaTable());
+    boxConfig.DROP_ITEMS_BY_SECTION.set(section, new LuaTable());
 
     if (PH_BOX_GENERIC_LTX.section_exist(section)) {
       const count: TCount = PH_BOX_GENERIC_LTX.line_count(section);
@@ -25,7 +25,7 @@ export function initializeDropBoxesLoot(): void {
       for (const it of $range(0, count - 1)) {
         const [, id, value] = PH_BOX_GENERIC_LTX.r_line(section, it, "", "");
 
-        boxConfig.ITEMS_BY_BOX_SECTION.get(section).set(id as TInventoryItem, 100 * (tonumber(value) as TRate));
+        boxConfig.DROP_ITEMS_BY_SECTION.get(section).set(id as TInventoryItem, 100 * (tonumber(value) as TRate));
       }
     }
   }
@@ -43,12 +43,16 @@ export function initializeDropBoxesLoot(): void {
   const itemCountSection: TSection = "item_count_" + level.get_game_difficulty();
 
   for (const it of $range(0, PH_BOX_GENERIC_LTX.line_count(itemCountSection) - 1)) {
-    const [, id, value] = PH_BOX_GENERIC_LTX.r_line(itemCountSection, it, "", "");
+    const [, section, value] = PH_BOX_GENERIC_LTX.r_line(itemCountSection, it, "", "");
 
     const nums: LuaArray<TCount> = parseNumbersList(value);
 
     if (nums.get(1) === null) {
-      abort("Error on [PH_BOX_GENERIC_LTX] declaration. Section [%s], line [%s]", itemCountSection, tostring(id));
+      abort(
+        "Error on [PH_BOX_GENERIC_LTX] loot declaration. Section [%s], line [%s].",
+        itemCountSection,
+        tostring(section)
+      );
     }
 
     let min: TCount = nums.get(1);
@@ -58,13 +62,13 @@ export function initializeDropBoxesLoot(): void {
       max = min;
     }
 
-    if (!boxConfig.DROP_RATE_BY_LEVEL.get(id)) {
-      boxConfig.DROP_RATE_BY_LEVEL.set(id, 0);
+    if (!boxConfig.DROP_RATE_BY_LEVEL.get(section)) {
+      boxConfig.DROP_RATE_BY_LEVEL.set(section, 0);
     }
 
-    min = tonumber(min)! * boxConfig.DROP_RATE_BY_LEVEL.get(id);
-    max = tonumber(max)! * boxConfig.DROP_RATE_BY_LEVEL.get(id);
+    min = tonumber(min)! * boxConfig.DROP_RATE_BY_LEVEL.get(section);
+    max = tonumber(max)! * boxConfig.DROP_RATE_BY_LEVEL.get(section);
 
-    boxConfig.DROP_COUNT_BY_LEVEL.set(id, { min: min, max: max });
+    boxConfig.DROP_COUNT_BY_LEVEL.set(section, { min: min, max: max });
   }
 }
