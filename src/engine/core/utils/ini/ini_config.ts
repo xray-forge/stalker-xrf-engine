@@ -15,6 +15,7 @@ import {
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
 import { TConditionList } from "@/engine/core/utils/ini/ini_types";
+import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NEVER, NIL } from "@/engine/lib/constants/words";
 import {
@@ -98,7 +99,7 @@ export function pickSectionFromCondList<T extends TSection>(
           );
         }
 
-        if (condition(actor, object, configCondition.params)) {
+        if (condition(actor, object, configCondition.params ?? EMPTY_LUA_ARRAY)) {
           if (!configCondition.expected) {
             areInfoPortionConditionsMet = false;
             break;
@@ -139,7 +140,7 @@ export function pickSectionFromCondList<T extends TSection>(
             );
           }
 
-          effect(actor, object, configCondition.params);
+          effect(actor, object, configCondition.params ?? EMPTY_LUA_ARRAY);
         } else if (configCondition.required) {
           if (configCondition.name && !hasInfoPortion(configCondition.name)) {
             giveInfoPortion(configCondition.name as TName);

@@ -14,7 +14,7 @@ import { create2dVector, createEmpty2dVector, vectorToString } from "@/engine/co
 import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { LuaArray, Optional, TPath, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Optional, TName, TPath, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTeleportSection.component";
@@ -101,15 +101,17 @@ export class DebugTeleportSection extends AbstractDebugSection {
    * Add item to spawn list UI element.
    */
   public addSmartTerrainToList(smartTerrain: SmartTerrain): void {
+    let smartTerrainName: TName = getSmartTerrainNameCaption(smartTerrain);
+
+    if (smartTerrainName.endsWith("smart_terrain_name")) {
+      smartTerrainName = smartTerrainName.replace("smart_terrain_name", "name");
+    }
+
     const teleportItem: DebugTeleportListEntry = new DebugTeleportListEntry(
       this.uiItemListMainSize.y,
       this.uiItemListDdSize.x,
       smartTerrain.name(),
-      string.format(
-        "%s - %s",
-        game.translate_string(getSmartTerrainNameCaption(smartTerrain)),
-        vectorToString(smartTerrain.position)
-      ),
+      string.format("%s - %s", game.translate_string(smartTerrainName), vectorToString(smartTerrain.position)),
       smartTerrain.position,
       smartTerrain.m_level_vertex_id,
       smartTerrain.m_game_vertex_id

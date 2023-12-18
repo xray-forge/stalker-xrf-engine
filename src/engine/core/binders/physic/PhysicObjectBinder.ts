@@ -14,7 +14,7 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { BoxManager } from "@/engine/core/managers/box";
+import { BoxManager, isBoxObject } from "@/engine/core/managers/box";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -227,10 +227,12 @@ export class PhysicObjectBinder extends object_binder {
       );
     }
 
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini();
-
-    if (spawnIni && spawnIni.section_exist("drop_box")) {
+    if (this.object.spawn_ini()?.section_exist("drop_box")) {
       getManager(BoxManager).spawnDropBoxItems(this.object);
+    } else if (isBoxObject(this.object)) {
+      getManager(BoxManager).spawnDropBoxItems(this.object);
+    } else {
+      logger.format("Skip box drop spawn: %s", object.name());
     }
   }
 }

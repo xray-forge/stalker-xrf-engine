@@ -3,11 +3,9 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { getManager } from "@/engine/core/database";
 import { boxConfig } from "@/engine/core/managers/box/BoxConfig";
 import { BoxManager } from "@/engine/core/managers/box/BoxManager";
-import { initializeDropBoxesLoot } from "@/engine/core/managers/box/utils";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { GameObject, IniFile } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/spawn");

@@ -1,18 +1,4 @@
-; Communities ������:
-; def_box - �� �� ������ �� ��������.
-; small_box_generic - ����� ������� � ����������� �����������
-; small_box_ussr - ������������� ������� � ����������� �����������. ���������� ������� � �����.
-; small_box_nato - ��������� ������� � ����������� �����������. ���������� ������� � ��������, �������.
-; small_box_army - �� ��, ��� � small_box_ussr, �� ������� - ������ ���������. ���������� ������� � �������.
-; small_box_science - �� ��, ��� � small_box_ussr, �� ������� - ������ �������. ���������� ������� � ������.
-; big_box_generic - ���������, ������� ������� � ������������, �����.
-; big_box_dungeons - �� ��, ��� � big_box_generic, ���� ������ � ������� ���� �� ������� ��������.
-; ���������� ������� ���, ��� ����� ��� (����������� ���� ��������������� �����).
-; big_box_arsenal - ������� ������� � ������������, �����, ������� ���� �������� ������.
-; ���������� ������� � ������ ��������� ������������ (��������� ������).
-
 [def_box]
-;���������
 af_medusa = 0
 af_cristall_flower = 0
 af_night_star = 0
@@ -41,7 +27,6 @@ af_dummy_dummy = 0
 af_dummy_spring = 0
 af_fuzz_kolobok = 0
 
-;���������
 ammo_9x18_fmj = 0
 ammo_9x18_pmm = 0
 ammo_9x19_pbp = 0
@@ -64,7 +49,6 @@ grenade_rgd5 = 0
 ammo_m209 = 0
 ammo_gauss = 0
 
-;������
 wpn_fort = 0
 wpn_walther = 0
 wpn_sig220 = 0
@@ -89,7 +73,6 @@ wpn_svd = 0
 wpn_g36 = 0
 wpn_fn2000 = 0
 
-;�������
 novice_outfit = 0
 specops_outfit = 0
 stalker_outfit = 0
@@ -97,21 +80,18 @@ svoboda_light_outfit = 0
 svoboda_heavy_outfit = 0
 dolg_outfit = 0
 
-;�����
 helm_respirator = 0
 helm_hardhat = 0
 helm_protective = 0
 helm_tactic = 0
 helm_battle = 0
 
-;�����������
 bandage = 0
 medkit = 0
 medkit_army = 0
 medkit_scientic = 0
 antirad = 0
 
-;�������
 drug_booster = 0
 drug_coagulant = 0
 drug_psy_blockade = 0
@@ -119,7 +99,6 @@ drug_antidot = 0
 drug_radioprotector = 0
 drug_anabiotic = 0
 
-;���
 bread = 0
 kolbasa = 0
 conserva = 0
@@ -127,7 +106,6 @@ vodka = 0
 energy_drink = 0
 
 [med_box_low]:def_box
-;�����������
 bandage = 1
 medkit = 1
 medkit_army = 0
@@ -135,7 +113,6 @@ medkit_scientic = 0
 antirad = 0
 
 [med_box_advanced]:def_box
-;�����������
 bandage = 1
 medkit = 0
 medkit_army = 1
@@ -143,15 +120,13 @@ medkit_scientic = 0
 antirad = 1
 
 [med_box_high]:def_box
-;�����������
 bandage = 1
 medkit = 0
 medkit_army = 0
 medkit_scientic = 1
 antirad = 1
 
-[small_box_generic]:def_box ;� ��������, ���������, ��������
-;���������
+[small_box_generic]:def_box
 ammo_9x18_fmj = 0.3
 ammo_9x19_fmj = 0.3
 ammo_12x70_buck = 0.3
@@ -171,14 +146,14 @@ ammo_5.56x45_ss190 = 0.15
 ammo_5.56x45_ap = 0.05
 ammo_7.62x54_7h1 = 0.05
 
-;�����������
 bandage = 0.2
 medkit = 0.1
 
 antirad = 0.05
 
-[small_box_ussr]:small_box_generic ;� �����
-;���������
+conserva = 0.1
+
+[small_box_ussr]:small_box_generic
 ammo_9x19_pbp = 0
 ammo_9x19_fmj = 0
 ammo_12x70_buck = 0
@@ -189,14 +164,12 @@ ammo_12x76_zhekan = 0
 ammo_5.56x45_ss190 = 0
 ammo_5.56x45_ap = 0
 
-;�����������
 bandage = 0.1
 medkit = 0.05
 antirad = 0.05
 medkit_army = 0.05
 
-[small_box_nato]:small_box_generic ;� ��������, �������
-;���������
+[small_box_nato]:small_box_generic
 ammo_9x18_fmj = 0
 ammo_9x18_pmm = 0
 ammo_12x70_buck = 0
@@ -207,25 +180,23 @@ ammo_9x39_ap = 0
 ammo_9x39_pab9 = 0
 ammo_7.62x54_7h1 = 0
 
-[small_box_army]:small_box_ussr ;� �������
+[small_box_army]:small_box_ussr
 medkit = 0
 medkit_army = 0.05
 
-[small_box_science]:small_box_ussr ;� ������
+[small_box_science]:small_box_ussr
 medkit = 0
 medkit_scientic = 0.8
 bandage = 0.25
 antirad = 0.25
 
-[big_box_generic]:def_box ;���, ��� ������������ ����
-;���������
+[big_box_generic]:def_box
 ammo_vog-25 = 0.1
 grenade_f1 = 0.1
 grenade_rgd5 = 0.1
 ammo_m209 = 0.1
 
-[big_box_dungeons]:big_box_generic ; ���, ��� ����� ���
-;���������
+[big_box_dungeons]:big_box_generic
 af_medusa = 0.03
 af_cristall_flower = 0.018
 af_night_star = 0.012
@@ -248,7 +219,6 @@ af_drops = 0.03
 af_fireball = 0.018
 af_cristall = 0.012
 
-;������
 wpn_fort = 0.003
 wpn_walther = 0.003
 wpn_sig220 = 0.003
@@ -273,8 +243,7 @@ wpn_svd = 0.003
 wpn_g36 = 0.003
 wpn_fn2000 = 0.003
 
-[big_box_arsenal]:big_box_dungeons ; � ������������
-;���������
+[big_box_arsenal]:big_box_dungeons
 af_medusa = 0
 af_cristall_flower = 0
 af_night_star = 0
@@ -297,7 +266,6 @@ af_drops = 0
 af_fireball = 0
 af_cristall = 0
 
-;������
 wpn_fort = 0.01
 wpn_walther = 0.01
 wpn_sig220 = 0.01

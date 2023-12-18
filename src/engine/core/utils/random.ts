@@ -4,7 +4,7 @@ import { assert } from "@/engine/core/utils/assertion";
  * Get math random based chance to happen by base of provided parameter.
  * By default, calculates 'rate' of 100.
  *
- * @param rate - chance to happen
+ * @param rate - chance to happen (0 - base)
  * @param base - chance base
  * @returns whether thing should happen
  */

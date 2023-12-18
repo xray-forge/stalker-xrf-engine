@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
 import { boxConfig } from "@/engine/core/managers/box";
-import { initializeDropBoxesLoot } from "@/engine/core/managers/box/utils/box_read_utils";
+import { initializeDropBoxesLoot } from "@/engine/core/managers/box/utils/box_loot_utils";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("initializeDropBoxesLoot util", () => {
@@ -97,4 +97,8 @@ describe("initializeDropBoxesLoot util", () => {
       wpn_pm: 1,
     });
   });
+});
+
+describe("spawnLootForSections util", () => {
+  it.todo("should correctly handle spawning of items for drop boxes");
 });

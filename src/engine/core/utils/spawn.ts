@@ -4,12 +4,13 @@ import { getManager, registry, SYSTEM_INI } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { isAmmoSection } from "@/engine/core/utils/section";
 import { createEmptyVector } from "@/engine/core/utils/vector";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   AlifeSimulator,
   AnyGameObject,
@@ -36,36 +37,75 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Spawn items of provided section for an object.
  *
  * @param object - target object to spawn items for
- * @param itemSection - section of item
+ * @param section - section of item
  * @param count - count of items to spawn
  * @param probability - probability to spawn item, 100% by default
  * @returns count of spawned items
  */
 export function spawnItemsForObject(
   object: AnyGameObject,
-  itemSection: TSection,
+  section: TSection,
   count: TCount = 1,
   probability: TProbability = 100
 ): TCount {
-  if (count < 1 || probability < 0) {
+  if (count < 1 || probability <= 0) {
     return 0;
-  } else if (isAmmoSection(itemSection)) {
-    return spawnAmmoForObject(object, itemSection, count, probability);
+  } else if (isAmmoSection(section)) {
+    return spawnAmmoForObject(object, section, count, probability);
   }
 
-  let itemsSpawned: TCount = 0;
+  let spawnedCount: TCount = 0;
 
   const simulator: AlifeSimulator = registry.simulator;
   const [id, gvid, lvid, position] = getObjectPositioning(object);
 
   for (const _ of $range(1, count)) {
     if (math.random(100) <= probability) {
-      simulator.create(itemSection, position, lvid, gvid, id);
-      itemsSpawned += 1;
+      simulator.create(section, position, lvid, gvid, id);
+      spawnedCount += 1;
     }
   }
 
-  return itemsSpawned;
+  return spawnedCount;
+}
+
+/**
+ * Spawn items of provided section for an object.
+ *
+ * @param section - section of item
+ * @param gameVertexId - game vertex to spawn in
+ * @param levelVertexId - level vertex to spawn in
+ * @param position - target position to place items at
+ * @param count - count of items to spawn
+ * @param probability - probability to spawn item, 100% by default
+ * @returns count of spawned items
+ */
+export function spawnItemsAtPosition(
+  section: TSection,
+  gameVertexId: TNumberId,
+  levelVertexId: TNumberId,
+  position: Vector,
+  count: TCount = 1,
+  probability: TProbability = 100
+): TCount {
+  if (count < 1 || probability <= 0) {
+    return 0;
+  } else if (isAmmoSection(section)) {
+    return spawnAmmoAtPosition(section, gameVertexId, levelVertexId, position, count, probability);
+  }
+
+  let spawnedCount: TCount = 0;
+
+  const simulator: AlifeSimulator = registry.simulator;
+
+  for (const _ of $range(1, count)) {
+    if (math.random(100) <= probability) {
+      simulator.create(section, position, levelVertexId, gameVertexId, MAX_U16);
+      spawnedCount += 1;
+    }
+  }
+
+  return spawnedCount;
 }
 
 /**
@@ -83,7 +123,7 @@ export function spawnAmmoForObject(
   count: TCount,
   probability: TProbability = 100
 ): TCount {
-  if (count < 1 || probability < 0) {
+  if (count < 1 || probability <= 0) {
     return 0;
   }
 
@@ -105,6 +145,52 @@ export function spawnAmmoForObject(
     }
 
     registry.simulator.create_ammo(section, position, lvid, gvid, id, count);
+    ammoSpawned += count;
+  }
+
+  return ammoSpawned;
+}
+
+/**
+ * Spawn ammo objects at provided position.
+ *
+ * @param section - section of ammo item
+ * @param gameVertexId - game vertex to spawn in
+ * @param levelVertexId - level vertex to spawn in
+ * @param position - target position to place items at
+ * @param count - count of ammo to spawn
+ * @param probability - probability to spawn item, 100% by default
+ * @returns count of spawned ammo
+ */
+export function spawnAmmoAtPosition(
+  section: TSection,
+  gameVertexId: TNumberId,
+  levelVertexId: TNumberId,
+  position: Vector,
+  count: TCount,
+  probability: TProbability = 100
+): TCount {
+  if (count < 1 || probability <= 0) {
+    return 0;
+  }
+
+  const countInBox: TCount = SYSTEM_INI.r_u32(section, "box_size");
+
+  let ammoSpawned: TCount = 0;
+
+  /**
+   * Game engine limits ammo to spawn in boxes.
+   * Everything in one transaction bigger than `box_size` will cause an exception.
+   */
+  if (math.random(100) <= probability) {
+    while (count > countInBox) {
+      registry.simulator.create_ammo(section, position, levelVertexId, gameVertexId, MAX_U16, countInBox);
+
+      count -= countInBox;
+      ammoSpawned += countInBox;
+    }
+
+    registry.simulator.create_ammo(section, position, levelVertexId, gameVertexId, MAX_U16, count);
     ammoSpawned += count;
   }
 
@@ -176,8 +262,8 @@ export function spawnObject<T extends ServerObject>(
 ): T {
   logger.info("Spawn object:", section, pathName);
 
-  assertDefined(section, "Wrong spawn section for 'spawnObject' function '%s'.", section);
-  assertDefined(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", pathName);
+  assert(section, "Wrong spawn section for 'spawnObject' function '%s'.", section);
+  assert(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", pathName);
   assert(level.patrol_path_exists(pathName), "Path %s doesnt exist. Function 'spawnObject'.", pathName);
 
   const objectPatrol: Patrol = new patrol(pathName);

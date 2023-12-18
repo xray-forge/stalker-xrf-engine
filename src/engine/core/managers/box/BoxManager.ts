@@ -1,11 +1,17 @@
 import { AbstractManager } from "@/engine/core/managers/base";
-import { IBoxDropProbabilityDescriptor } from "@/engine/core/managers/box/box_types";
-import { boxConfig } from "@/engine/core/managers/box/BoxConfig";
-import { initializeDropBoxesLoot } from "@/engine/core/managers/box/utils";
+import {
+  BOX_METAL_01,
+  BOX_WOOD_01,
+  BOX_WOOD_02,
+  boxConfig,
+  LOT_BOX_DEFAULT,
+  LOT_BOX_SMALL_GENERIC,
+} from "@/engine/core/managers/box/BoxConfig";
+import { initializeDropBoxesLoot, spawnLootForSections } from "@/engine/core/managers/box/utils";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { GameObject, TCount, TProbability, TSection } from "@/engine/lib/types";
+import { chance } from "@/engine/core/utils/random";
+import { GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,24 +29,35 @@ export class BoxManager extends AbstractManager {
    * @param object - target game object to spawn box items for
    */
   public spawnDropBoxItems(object: GameObject): void {
-    const section: TSection = readIniString(
-      object.spawn_ini(),
-      "drop_box",
-      "community",
-      false,
-      null,
-      boxConfig.LOT_BOX_DEFAULT
-    );
-    const items: LuaTable<TSection, TProbability> =
-      boxConfig.DROP_ITEMS_BY_SECTION.get(section) ?? boxConfig.DROP_ITEMS_BY_SECTION.get(boxConfig.LOT_BOX_DEFAULT);
+    const spawnIni: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;
+    const section: Optional<TSection> = spawnIni
+      ? readIniString(spawnIni, "drop_box", "community", false, null, LOT_BOX_DEFAULT)
+      : null;
 
-    logger.format("Spawn items for: %s %s", object.name(), section);
+    if (section) {
+      logger.format("Spawn items for: %s %s", object.name(), section);
 
-    for (const [section, probability] of items) {
-      const descriptor: IBoxDropProbabilityDescriptor = boxConfig.DROP_COUNT_BY_LEVEL.get(section);
-      const count: TCount = math.ceil(math.random(descriptor.min, descriptor.max));
+      spawnLootForSections(
+        object,
+        boxConfig.DROP_ITEMS_BY_SECTION.get(section) ?? boxConfig.DROP_ITEMS_BY_SECTION.get(LOT_BOX_DEFAULT)
+      );
+    } else {
+      if (!chance(boxConfig.GENERIC_LOOT_BOX_DROP_CHANCE)) {
+        return;
+      }
 
-      spawnItemsForObject(object, section, count, probability);
+      logger.format("Spawn items for generic box: %s", object.name());
+
+      switch (object.get_visual_name()) {
+        case BOX_METAL_01:
+          return spawnLootForSections(object, boxConfig.DROP_ITEMS_BY_SECTION.get(LOT_BOX_SMALL_GENERIC));
+
+        case BOX_WOOD_01:
+          return spawnLootForSections(object, boxConfig.DROP_ITEMS_BY_SECTION.get(LOT_BOX_SMALL_GENERIC));
+
+        case BOX_WOOD_02:
+          return spawnLootForSections(object, boxConfig.DROP_ITEMS_BY_SECTION.get(LOT_BOX_SMALL_GENERIC));
+      }
     }
   }
 }
