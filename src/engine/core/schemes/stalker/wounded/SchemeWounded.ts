@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { IRegistryObjectState } from "@/engine/core/database";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators";

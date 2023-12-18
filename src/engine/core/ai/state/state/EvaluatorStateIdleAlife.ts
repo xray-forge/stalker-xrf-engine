@@ -1,8 +1,9 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
+import { EActionId, NO_IDLE_ALIFE_IDS } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { EActionId, EStateEvaluatorId, NO_IDLE_ALIFE_IDS } from "@/engine/core/ai/types";
-import { EStalkerState } from "@/engine/core/animation/types/state_types";
+import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 
@@ -49,16 +50,18 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
       return true;
     }
 
+    const planner: ActionPlanner = this.stateManager.planner;
+
     if (
       this.stateManager.targetState === EStalkerState.IDLE &&
       currentActionId === EActionId.STATE_TO_IDLE_ALIFE &&
       // --not this.st.planner.evaluator(this.st.properties["locked"]).evaluate() and
-      !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
-      !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT_SET).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()
+      !planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
+      !planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
+      planner.evaluator(EStateEvaluatorId.MOVEMENT_SET).evaluate() &&
+      planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
+      planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
+      planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()
     ) {
       this.stateManager.isAlife = true;
 

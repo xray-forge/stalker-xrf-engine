@@ -1,8 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
+import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { EActionId } from "@/engine/core/ai/types";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";

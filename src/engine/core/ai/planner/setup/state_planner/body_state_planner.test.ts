@@ -8,7 +8,7 @@ import {
   ActionBodyStateStandingFree,
 } from "@/engine/core/ai/state/body_state";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";

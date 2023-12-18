@@ -1,7 +1,7 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { states } from "@/engine/core/animation/states";
 import { EAnimationType, EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
 import {

@@ -7,7 +7,7 @@ import {
   ActionBodyStateStanding,
   ActionBodyStateStandingFree,
 } from "@/engine/core/ai/state/body_state";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**

@@ -1,7 +1,7 @@
 import { cast_planner, world_property } from "xray16";
 
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_task/actions";
 import { EvaluatorReachedTaskLocation } from "@/engine/core/schemes/stalker/reach_task/evaluators";
 import { ISchemeReachTaskState } from "@/engine/core/schemes/stalker/reach_task/reach_task_types";

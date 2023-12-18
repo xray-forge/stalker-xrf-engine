@@ -1,7 +1,7 @@
 import { world_property } from "xray16";
 
+import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
-import { EEvaluatorId } from "@/engine/core/ai/types";
 import { registry } from "@/engine/core/database";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";

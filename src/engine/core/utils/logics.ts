@@ -1,4 +1,4 @@
-import { EActionId } from "@/engine/core/ai/types/motivator_actions";
+import { EActionId } from "@/engine/core/ai/planner/types/motivator_actions";
 import { IBaseSchemeState, ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeCombatState, SchemeCombat } from "@/engine/core/schemes/stalker/combat";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";

@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { EActionId } from "@/engine/core/ai/types/index";
+import { EActionId } from "@/engine/core/ai/planner/types/index";
 
 describe("motivator_actions constants integrity", () => {
   it("should contain only unique identifier values", () => {

@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { EEvaluatorId } from "@/engine/core/ai/types";
+import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorWounded";

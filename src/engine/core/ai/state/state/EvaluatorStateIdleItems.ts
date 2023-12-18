@@ -1,8 +1,9 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
+import { NO_IDLE_ALIFE_IDS } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { EStateEvaluatorId, NO_IDLE_ALIFE_IDS } from "@/engine/core/ai/types";
-import { EStalkerState } from "@/engine/core/animation/types/state_types";
+import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
+import { EStalkerState } from "@/engine/core/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 
@@ -41,14 +42,16 @@ export class EvaluatorStateIdleItems extends property_evaluator {
       return false;
     }
 
+    const planner: ActionPlanner = this.stateManager.planner;
+
     return (
       this.stateManager.targetState === EStalkerState.IDLE &&
-      !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
-      !this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.MOVEMENT_SET).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
-      this.stateManager.planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()
+      !planner.evaluator(EStateEvaluatorId.ANIMSTATE_LOCKED).evaluate() &&
+      !planner.evaluator(EStateEvaluatorId.ANIMATION_LOCKED).evaluate() &&
+      planner.evaluator(EStateEvaluatorId.MOVEMENT_SET).evaluate() &&
+      planner.evaluator(EStateEvaluatorId.ANIMSTATE).evaluate() &&
+      planner.evaluator(EStateEvaluatorId.ANIMATION).evaluate() &&
+      planner.evaluator(EStateEvaluatorId.SMARTCOVER).evaluate()
     );
   }
 }

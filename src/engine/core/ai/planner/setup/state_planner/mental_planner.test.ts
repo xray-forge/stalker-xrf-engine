@@ -3,7 +3,7 @@ import { describe, it } from "@jest/globals";
 import { setupStalkerMentalStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/mental_planner";
 import { ActionMentalDanger, ActionMentalFree, ActionMentalPanic } from "@/engine/core/ai/state/mental";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";

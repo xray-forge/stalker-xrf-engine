@@ -1,8 +1,8 @@
 import { world_property } from "xray16";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { ActionRemarkActivity } from "@/engine/core/schemes/stalker/remark/actions/ActionRemarkActivity";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";

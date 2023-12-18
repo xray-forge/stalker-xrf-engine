@@ -1,7 +1,7 @@
 import { cast_planner, world_property } from "xray16";
 
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { registry } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";

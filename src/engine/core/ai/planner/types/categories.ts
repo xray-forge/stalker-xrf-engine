@@ -1,4 +1,4 @@
-import { EActionId } from "@/engine/core/ai/types/motivator_actions";
+import { EActionId } from "@/engine/core/ai/planner/types/motivator_actions";
 import { TNumberId } from "@/engine/lib/types";
 
 /**

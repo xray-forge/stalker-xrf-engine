@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
-import { EEvaluatorId } from "@/engine/core/ai/types";
 import { registry } from "@/engine/core/database";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";

@@ -41,6 +41,7 @@ import {
   EvaluatorSmartCoverNeed,
 } from "@/engine/core/ai/state/smart_cover";
 import { EvaluatorStateEnd, EvaluatorStateLocked, EvaluatorStateLockedExternal } from "@/engine/core/ai/state/state";
+import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import {
   EvaluatorWeaponDropTarget,
   EvaluatorWeaponFireTarget,
@@ -53,7 +54,6 @@ import {
   EvaluatorWeaponUnstrappedNow,
   EvaluatorWeaponUnstrappedTarget,
 } from "@/engine/core/ai/state/weapon";
-import { EStateEvaluatorId } from "@/engine/core/ai/types";
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**

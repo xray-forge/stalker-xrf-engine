@@ -1,12 +1,12 @@
 import { world_property } from "xray16";
 
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionStateToIdle } from "@/engine/core/ai/state/state/ActionStateToIdle";
 import { EvaluatorStateIdleAlife } from "@/engine/core/ai/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleCombat } from "@/engine/core/ai/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/ai/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/ai/state/state/EvaluatorStateLogicActive";
-import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner } from "@/engine/lib/types";
 

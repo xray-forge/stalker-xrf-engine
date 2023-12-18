@@ -1,13 +1,13 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { setupStalkerMotivationPlanner } from "@/engine/core/ai/planner/setup/setup_motivation_planner";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EvaluatorStateIdleAlife } from "@/engine/core/ai/state/state/EvaluatorStateIdleAlife";
 import { EvaluatorStateIdleCombat } from "@/engine/core/ai/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/ai/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/ai/state/state/EvaluatorStateLogicActive";
-import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
 import { EAnimationType } from "@/engine/core/animation/types/animation_types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";

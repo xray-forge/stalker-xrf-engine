@@ -3,7 +3,7 @@ import { describe, it } from "@jest/globals";
 import { setupStalkerSmartCoverStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/smart_cover_planner";
 import { ActionSmartCoverEnter, ActionSmartCoverExit } from "@/engine/core/ai/state/smart_cover";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";

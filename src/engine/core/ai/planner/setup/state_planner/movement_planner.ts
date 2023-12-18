@@ -12,7 +12,7 @@ import {
   ActionMovementWalkSearch,
   ActionMovementWalkTurn,
 } from "@/engine/core/ai/state/movement";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**

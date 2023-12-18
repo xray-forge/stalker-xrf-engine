@@ -1,7 +1,8 @@
 import { cast_planner, CTime, relation_registry } from "xray16";
 
+import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state";
-import { EActionId, EStateActionId } from "@/engine/core/ai/types";
+import { EStateActionId } from "@/engine/core/ai/state/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";

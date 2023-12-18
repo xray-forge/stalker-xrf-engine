@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/ai/planner/setup/state_planner";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { ActionStateEnd } from "@/engine/core/ai/state/state";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockActionPlanner, MockGameObject, MockWorldState } from "@/fixtures/xray";

@@ -44,6 +44,7 @@ import {
 } from "@/engine/core/ai/state/smart_cover";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EvaluatorStateEnd, EvaluatorStateLocked, EvaluatorStateLockedExternal } from "@/engine/core/ai/state/state";
+import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import {
   EvaluatorWeaponDropTarget,
   EvaluatorWeaponFireTarget,
@@ -56,7 +57,6 @@ import {
   EvaluatorWeaponUnstrappedNow,
   EvaluatorWeaponUnstrappedTarget,
 } from "@/engine/core/ai/state/weapon";
-import { EStateEvaluatorId } from "@/engine/core/ai/types";
 import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
 

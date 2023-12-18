@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { EStateActionId } from "@/engine/core/ai/types/index";
+import { EStateActionId } from "@/engine/core/ai/state/types/state_actions";
 
 describe("state_actions constants integrity", () => {
   it("should contain only unique identifier values", () => {

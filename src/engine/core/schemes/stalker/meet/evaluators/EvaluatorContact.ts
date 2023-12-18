@@ -1,6 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
-import { EEvaluatorId } from "@/engine/core/ai/types";
+import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { EActionId, EEvaluatorId } from "@/engine/core/ai/types";
+import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions";
 import { EvaluatorCanFight, EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators";

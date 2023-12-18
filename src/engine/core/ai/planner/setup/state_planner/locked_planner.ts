@@ -2,7 +2,7 @@ import { world_property } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionStateLocked } from "@/engine/core/ai/state/state";
-import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/types";
+import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { ActionPlanner } from "@/engine/lib/types";
 
 /**

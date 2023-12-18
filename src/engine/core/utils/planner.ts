@@ -1,4 +1,4 @@
-import { EActionId } from "@/engine/core/ai/types";
+import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";

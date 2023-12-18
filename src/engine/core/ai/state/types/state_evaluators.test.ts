@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-import { EStateEvaluatorId } from "@/engine/core/ai/types/index";
+import { EStateEvaluatorId } from "@/engine/core/ai/state/types/state_evaluators";
 
 describe("state_evaluators constants integrity", () => {
   it("should contain only unique identifier values", () => {
