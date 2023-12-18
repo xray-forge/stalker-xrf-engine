@@ -16,13 +16,13 @@ export const LOT_BOX_BIG_GENERIC: TName = "big_box_generic";
 export const LOT_BOX_BIG_DUNGEONS: TName = "big_box_dungeons";
 export const LOT_BOX_BIG_ARSENAL: TName = "big_box_arsenal";
 
-export const PH_BOX_GENERIC_LTX: IniFile = new ini_file("misc\\ph_box_generic.ltx");
+export const PH_BOX_GENERIC_LTX: IniFile = new ini_file("managers\\box_manager.ltx");
 
 /**
  * Configuration of drop boxes looting and drop items.
  */
 export const boxConfig = {
-  GENERIC_LOOT_BOX_DROP_CHANCE: 15,
+  GENERIC_LOOT_BOX_DROP_CHANCE: 20,
   LOOT_BOX_SECTIONS: $fromArray<TSection>([
     LOT_BOX_DEFAULT,
     LOT_BOX_SMALL_GENERIC,
