@@ -7,11 +7,13 @@ import { isSquad } from "@/engine/core/utils/class_ids";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { ACTOR, DEFAULT, DEFAULT_SQUAD } from "@/engine/lib/constants/words";
 import { IniFile, TCount, TSection } from "@/engine/lib/types";
+import { MockAlifeSimulator } from "@/fixtures/xray";
 
 /**
  * Register simulator instance in the registry.
  */
 export function registerSimulator(): void {
+  MockAlifeSimulator.reset();
   registry.simulator = alife();
 }
 

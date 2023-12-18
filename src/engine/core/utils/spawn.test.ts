@@ -24,18 +24,12 @@ import {
   TSection,
 } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import {
-  MockAlifeSimulator,
-  MockGameObject,
-  mockServerAlifeCreatureActor,
-  mockServerAlifeObject,
-} from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeCreatureActor, mockServerAlifeObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("spawning utils", () => {
   beforeEach(() => {
     resetRegistry();
-    MockAlifeSimulator.reset();
     registerSimulator();
   });
 

@@ -76,6 +76,7 @@ describe("actor effects implementation", () => {
 
   beforeEach(() => {
     resetRegistry();
+    registerSimulator();
 
     resetFunctionMock(game.start_tutorial);
     resetFunctionMock(giveItemsToActor);
@@ -172,8 +173,6 @@ describe("actor effects implementation", () => {
     const { actorGameObject } = mockRegisteredActor({ inventory: [["test_section", item]] });
 
     jest.spyOn(notificationManager, "sendItemRelocatedNotification").mockImplementation(jest.fn());
-
-    registerSimulator();
 
     expect(() => callXrEffect("remove_item", actorGameObject, MockGameObject.mock())).toThrow(
       "Wrong parameters in function 'remove_item'."
@@ -362,7 +361,6 @@ describe("actor effects implementation", () => {
     const secondServer: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
     const secondGame: GameObject = MockGameObject.mock({ idOverride: secondServer.id });
 
-    registerSimulator();
     registerObject(firstGame);
     registerStoryLink(squad.id, "test-sid");
 

@@ -7,7 +7,7 @@ import {
   LOT_BOX_DEFAULT,
   LOT_BOX_SMALL_GENERIC,
 } from "@/engine/core/managers/box/BoxConfig";
-import { initializeDropBoxesLoot, spawnLootForSections } from "@/engine/core/managers/box/utils";
+import { initializeDropBoxesLootTables, spawnLootForSections } from "@/engine/core/managers/box/utils";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/random";
@@ -20,7 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class BoxManager extends AbstractManager {
   public override initialize(): void {
-    initializeDropBoxesLoot();
+    initializeDropBoxesLootTables();
   }
 
   /**

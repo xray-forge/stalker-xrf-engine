@@ -2,10 +2,10 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
 import { boxConfig } from "@/engine/core/managers/box";
-import { initializeDropBoxesLoot } from "@/engine/core/managers/box/utils/box_loot_utils";
+import { initializeDropBoxesLootTables } from "@/engine/core/managers/box/utils/box_loot_utils";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("initializeDropBoxesLoot util", () => {
+describe("initializeDropBoxesLootTables util", () => {
   beforeEach(() => {
     resetRegistry();
 
@@ -18,7 +18,7 @@ describe("initializeDropBoxesLoot util", () => {
     jest.spyOn(level, "name").mockImplementationOnce(() => "zaton");
     jest.spyOn(level, "get_game_difficulty").mockImplementationOnce(() => 3);
 
-    initializeDropBoxesLoot();
+    initializeDropBoxesLootTables();
 
     expect(boxConfig.DROP_ITEMS_BY_SECTION).toEqualLuaTables({
       big_box_arsenal: {},
@@ -59,7 +59,7 @@ describe("initializeDropBoxesLoot util", () => {
     jest.spyOn(level, "name").mockImplementationOnce(() => "jupiter");
     jest.spyOn(level, "get_game_difficulty").mockImplementationOnce(() => 0);
 
-    initializeDropBoxesLoot();
+    initializeDropBoxesLootTables();
 
     expect(boxConfig.DROP_ITEMS_BY_SECTION).toEqualLuaTables({
       big_box_arsenal: {},

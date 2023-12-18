@@ -27,7 +27,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Initialize list of items drop based on current difficulty and level.
  */
-export function initializeDropBoxesLoot(): void {
+export function initializeDropBoxesLootTables(): void {
   let levelName: TName = level.name();
 
   if (!PH_BOX_GENERIC_LTX.section_exist(levelName)) {
