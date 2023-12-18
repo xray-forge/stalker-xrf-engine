@@ -63,6 +63,10 @@ export function checkXrCondition(name: TName, container: AnyObject = _G): void {
 export function callXrCondition(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): boolean {
   const effects: Optional<AnyObject> = (_G as AnyObject)["xr_conditions"];
 
+  if (!name) {
+    throw new Error(`Unexpected condition name provided - '${name}'.`);
+  }
+
   if (effects && name in effects) {
     const result = (_G as AnyObject)["xr_conditions"][name](actor, object, parameters);
 
@@ -100,6 +104,10 @@ export function checkXrEffect(name: TName, container: AnyObject = _G): void {
  */
 export function callXrEffect(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): void {
   const effects: Optional<AnyObject> = (_G as AnyObject)["xr_effects"];
+
+  if (!name) {
+    throw new Error(`Unexpected condition name provided - '${name}'.`);
+  }
 
   if (effects && name in effects) {
     (_G as AnyObject)["xr_effects"][name](actor, object, parameters);

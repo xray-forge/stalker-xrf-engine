@@ -1,11 +1,11 @@
 import { level } from "xray16";
 
-import { getManager, registry } from "@/engine/core/database";
+import { registry } from "@/engine/core/database";
 import {
   hasAchievedInformationDealer,
   hasAchievedWealthy,
 } from "@/engine/core/managers/achievements/preconditions/achievements_preconditions";
-import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
+import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
@@ -34,12 +34,16 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Whether `wealthy` is achieved.
  */
-extern("xr_conditions.wealthy_functor", (): boolean => hasAchievedWealthy());
+extern("xr_conditions.wealthy_functor", (): boolean => {
+  return hasAchievedWealthy();
+});
 
 /**
  * Whether `information dealer` is achieved.
  */
-extern("xr_conditions.information_dealer_functor", (): boolean => hasAchievedInformationDealer());
+extern("xr_conditions.information_dealer_functor", (): boolean => {
+  return hasAchievedInformationDealer();
+});
 
 /**
  * todo;
@@ -59,12 +63,16 @@ extern("xr_conditions.is_enemy_actor", (object: GameObject): boolean => {
 /**
  * Check whether actor is alive at the moment.
  */
-extern("xr_conditions.actor_alive", (actor: GameObject): boolean => actor.alive());
+extern("xr_conditions.actor_alive", (actor: GameObject): boolean => {
+  return actor.alive();
+});
 
 /**
  * Check whether actor sees object at the moment.
  */
-extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): boolean => actor.see(object));
+extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): boolean => {
+  return actor.see(object);
+});
 
 /**
  * todo;
@@ -201,12 +209,12 @@ extern(
 );
 
 /**
- * todo;
+ * Check whether actor is on level with one of provided names.
  */
 extern("xr_conditions.actor_on_level", (actor: GameObject, object: GameObject, levels: LuaArray<TName>): boolean => {
   const currentLevelName: TName = level.name();
 
-  for (const [, levelName] of levels) {
+  for (const [, levelName] of pairs(levels)) {
     if (levelName === currentLevelName) {
       return true;
     }
@@ -265,6 +273,6 @@ extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject, objec
 /**
  * @returns whether actor is currently searching dead body
  */
-extern("xr_conditions.dead_body_searching", (actor: GameObject, object: GameObject): boolean => {
-  return getManager(ActorInventoryMenuManager).isActiveMode(EActorMenuMode.DEAD_BODY_SEARCH);
+extern("xr_conditions.dead_body_searching", (): boolean => {
+  return actorConfig.ACTOR_MENU_MODE === EActorMenuMode.DEAD_BODY_SEARCH;
 });

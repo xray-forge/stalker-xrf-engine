@@ -1,6 +1,10 @@
-import { beforeAll, describe, it } from "@jest/globals";
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
+import { level } from "xray16";
 
-import { checkXrCondition } from "@/fixtures/engine";
+import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
+import { EActorMenuMode, GameObject } from "@/engine/lib/types";
+import { callXrCondition, checkXrCondition } from "@/fixtures/engine";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("actor conditions declaration", () => {
   beforeAll(() => {
@@ -76,9 +80,53 @@ describe("actor conditions implementation", () => {
 
   it.todo("actor_active_detector should check currently active actor detector");
 
-  it.todo("actor_on_level should check if actor is on level");
+  it("actor_on_level should check if actor is on level", () => {
+    expect(
+      callXrCondition(
+        "actor_on_level",
+        MockGameObject.mockActor(),
+        MockGameObject.mock(),
+        "not-existing",
+        "not-existing-2"
+      )
+    ).toBe(false);
 
-  it.todo("talking should check if actor is talking");
+    jest.spyOn(level, "name").mockImplementationOnce(() => "zaton");
+
+    expect(
+      callXrCondition(
+        "actor_on_level",
+        MockGameObject.mockActor(),
+        MockGameObject.mock(),
+        "jupiter",
+        "pripyat",
+        "zaton"
+      )
+    ).toBe(true);
+
+    jest.spyOn(level, "name").mockImplementationOnce(() => "another");
+
+    expect(
+      callXrCondition(
+        "actor_on_level",
+        MockGameObject.mockActor(),
+        MockGameObject.mock(),
+        "jupiter",
+        "pripyat",
+        "zaton"
+      )
+    ).toBe(false);
+  });
+
+  it("talking should check if actor is talking", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+
+    jest.spyOn(actor, "is_talking").mockImplementation(() => false);
+    expect(callXrCondition("talking", actor, MockGameObject.mock())).toBe(false);
+
+    jest.spyOn(actor, "is_talking").mockImplementation(() => true);
+    expect(callXrCondition("talking", actor, MockGameObject.mock())).toBe(true);
+  });
 
   it.todo("actor_nomove_nowpn should check if actor is talking without weapon");
 
@@ -86,5 +134,14 @@ describe("actor conditions implementation", () => {
 
   it.todo("actor_has_active_nimble_weapon should check if actor has active nimble weapon");
 
-  it.todo("dead_body_searching should check if actor is searching dead body");
+  it("dead_body_searching should check if actor is searching dead body", () => {
+    actorConfig.ACTOR_MENU_MODE = EActorMenuMode.TALK_DIALOG;
+    expect(callXrCondition("dead_body_searching", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
+
+    actorConfig.ACTOR_MENU_MODE = EActorMenuMode.DEAD_BODY_SEARCH;
+    expect(callXrCondition("dead_body_searching", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
+
+    actorConfig.ACTOR_MENU_MODE = EActorMenuMode.UNDEFINED;
+    expect(callXrCondition("dead_body_searching", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
+  });
 });

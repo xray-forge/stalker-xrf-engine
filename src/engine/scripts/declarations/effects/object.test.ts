@@ -76,7 +76,7 @@ describe("object effects implementation", () => {
 
   it.todo("anim_obj_backward should correctly play backward animation");
 
-  it.todo("anim_obj_backward should correctly stop animation");
+  it.todo("anim_obj_stop should correctly stop animation");
 
   it.todo("hit_obj should hit object based on parameters");
 
