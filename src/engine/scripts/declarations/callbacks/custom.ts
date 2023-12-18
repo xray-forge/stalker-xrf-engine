@@ -1,13 +1,12 @@
 import { getManager } from "@/engine/core/database";
-import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
-import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
+import { achievementsPreconditionsMap } from "@/engine/core/managers/achievements/preconditions";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig } from "@/engine/core/managers/tasks";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyCallable, PartialRecord, TStringId } from "@/engine/lib/types";
+import { TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -65,13 +64,4 @@ extern("engine.effector_callback", () => emitCutsceneEndedEvent());
  * Checkers for achievements called from C++.
  * Creates set of callbacks in generic way.
  */
-extern(
-  "engine.check_achievement",
-  Object.values(EAchievement).reduce<PartialRecord<EAchievement, AnyCallable>>((acc, it) => {
-    const manager: AchievementsManager = getManager(AchievementsManager);
-
-    acc[it] = () => manager.checkAchieved(it);
-
-    return acc;
-  }, {})
-);
+extern("engine.check_achievement", achievementsPreconditionsMap);

@@ -9,7 +9,6 @@ import {
   registerStoryLink,
   registry,
 } from "@/engine/core/database";
-import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
 import { AchievementsManager } from "@/engine/core/managers/achievements/AchievementsManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -103,27 +102,6 @@ describe("AchievementManager class", () => {
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
     expect(newAchievementsManager).toBe(achievementsManager);
-  });
-
-  it("should correctly check achievements by with generic method", () => {
-    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
-
-    expect(achievementsManager.checkAchieved(EAchievement.DETECTIVE)).toBeFalsy();
-    expect(achievementsManager.checkAchieved(EAchievement.ONE_OF_THE_LADS)).toBeFalsy();
-
-    giveInfoPortion(infoPortions.zat_b22_barmen_gave_reward);
-    giveInfoPortion(infoPortions.zat_b30_sultan_loose);
-    giveInfoPortion(infoPortions.zat_b7_actor_help_stalkers);
-
-    expect(achievementsManager.checkAchieved(EAchievement.DETECTIVE)).toBeTruthy();
-    expect(achievementsManager.checkAchieved(EAchievement.ONE_OF_THE_LADS)).toBeTruthy();
-  });
-
-  it("should correctly fail on unknown achievement checks", () => {
-    const achievementsManager: AchievementsManager = getManager(AchievementsManager);
-
-    expect(() => achievementsManager.checkAchieved("unknown" as unknown as EAchievement)).toThrow();
-    Object.values(EAchievement).forEach((it) => expect(() => achievementsManager.checkAchieved(it)).not.toThrow());
   });
 
   it("should correctly handle update with no achievements", () => {

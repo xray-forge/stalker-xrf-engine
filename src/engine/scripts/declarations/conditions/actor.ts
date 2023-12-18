@@ -4,7 +4,7 @@ import { getManager, registry } from "@/engine/core/database";
 import {
   hasAchievedInformationDealer,
   hasAchievedWealthy,
-} from "@/engine/core/managers/achievements/achievements_preconditions";
+} from "@/engine/core/managers/achievements/preconditions/achievements_preconditions";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";

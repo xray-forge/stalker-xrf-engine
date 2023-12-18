@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Enumeration of possible in-game achievements.
  */
 export enum EAchievement {
   PIONEER = "pioneer",

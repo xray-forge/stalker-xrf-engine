@@ -2,9 +2,9 @@ import { EAchievement } from "@/engine/core/managers/achievements/achievements_t
 import { notificationsIcons, TNotificationIcon } from "@/engine/core/managers/notifications/notifications_icons";
 
 /**
- * todo;
+ * Map of icons used for achievements display in PDA/notifications.
  */
-export const achievementIcons: Record<EAchievement, TNotificationIcon> = {
+export const achievementsIcons: Record<EAchievement, TNotificationIcon> = {
   [EAchievement.PIONEER]: notificationsIcons.pioneer,
   [EAchievement.MUTANT_HUNTER]: notificationsIcons.mutant_hunter,
   [EAchievement.DETECTIVE]: notificationsIcons.detective,

@@ -2,6 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 
 import { getManager } from "@/engine/core/database";
 import { EAchievement } from "@/engine/core/managers/achievements";
+import { achievementsPreconditionsMap } from "@/engine/core/managers/achievements/preconditions";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig, TaskObject } from "@/engine/core/managers/tasks";
@@ -114,6 +115,8 @@ describe("custom external callbacks", () => {
   });
 
   it("engine.effector_callback should correctly check achievements", () => {
+    expect((_G as AnyObject)["engine"]["check_achievement"]).toBe(achievementsPreconditionsMap);
+
     Object.keys((_G as AnyObject)["engine"]["check_achievement"]).forEach(
       (it) => ((_G as AnyObject)["engine"]["check_achievement"][it as string] = jest.fn(() => true))
     );

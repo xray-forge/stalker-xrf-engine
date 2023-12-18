@@ -1,0 +1,51 @@
+import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
+import {
+  hasAchievedBalanceAdvocate,
+  hasAchievedBattleSystemsMaster,
+  hasAchievedDetective,
+  hasAchievedDiplomat,
+  hasAchievedFriendOfDuty,
+  hasAchievedFriendOfFreedom,
+  hasAchievedFriendOfStalkers,
+  hasAchievedHeraldOfJustice,
+  hasAchievedHighTechMaster,
+  hasAchievedInformationDealer,
+  hasAchievedKeeperOfSecrets,
+  hasAchievedKingpin,
+  hasAchievedLeader,
+  hasAchievedMarkedByZone,
+  hasAchievedMutantHunter,
+  hasAchievedOneOfLads,
+  hasAchievedPioneer,
+  hasAchievedResearchMan,
+  hasAchievedSeeker,
+  hasAchievedSkilledStalker,
+  hasAchievedWealthy,
+} from "@/engine/core/managers/achievements/preconditions/achievements_preconditions";
+
+/**
+ * Map of preconditions based on type of achievement.
+ */
+export const achievementsPreconditionsMap = {
+  [EAchievement.PIONEER]: hasAchievedPioneer,
+  [EAchievement.MUTANT_HUNTER]: hasAchievedMutantHunter,
+  [EAchievement.DETECTIVE]: hasAchievedDetective,
+  [EAchievement.ONE_OF_THE_LADS]: hasAchievedOneOfLads,
+  [EAchievement.KINGPIN]: hasAchievedKingpin,
+  [EAchievement.HERALD_OF_JUSTICE]: hasAchievedHeraldOfJustice,
+  [EAchievement.SEEKER]: hasAchievedSeeker,
+  [EAchievement.BATTLE_SYSTEMS_MASTER]: hasAchievedBattleSystemsMaster,
+  [EAchievement.HIGH_TECH_MASTER]: hasAchievedHighTechMaster,
+  [EAchievement.SKILLED_STALKER]: hasAchievedSkilledStalker,
+  [EAchievement.LEADER]: hasAchievedLeader,
+  [EAchievement.DIPLOMAT]: hasAchievedDiplomat,
+  [EAchievement.RESEARCH_MAN]: hasAchievedResearchMan,
+  [EAchievement.FRIEND_OF_DUTY]: hasAchievedFriendOfDuty,
+  [EAchievement.FRIEND_OF_FREEDOM]: hasAchievedFriendOfFreedom,
+  [EAchievement.BALANCE_ADVOCATE]: hasAchievedBalanceAdvocate,
+  [EAchievement.WEALTHY]: hasAchievedWealthy,
+  [EAchievement.KEEPER_OF_SECRETS]: hasAchievedKeeperOfSecrets,
+  [EAchievement.MARKED_BY_ZONE]: hasAchievedMarkedByZone,
+  [EAchievement.INFORMATION_DEALER]: hasAchievedInformationDealer,
+  [EAchievement.FRIEND_OF_STALKERS]: hasAchievedFriendOfStalkers,
+};
