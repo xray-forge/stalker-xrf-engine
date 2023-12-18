@@ -9,11 +9,11 @@ import { GameObject, IniFile, Optional, TCount, TName, TSection } from "@/engine
  *
  * @param object - target game object to initialize visuals for
  */
-export function getObjectStalkerIni(object: GameObject): IniFile {
-  const spawnIni: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;
-  const stalkerIniFilename: Optional<TName> = spawnIni ? readIniString(spawnIni, "logic", "cfg", false) : null;
+export function getObjectSpawnIni(object: GameObject): IniFile {
+  const ini: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;
+  const name: Optional<TName> = ini ? readIniString(ini, "logic", "cfg", false) : null;
 
-  return (stalkerIniFilename ? new ini_file(stalkerIniFilename) : spawnIni) ?? DUMMY_LTX;
+  return (name ? new ini_file(name) : ini) ?? DUMMY_LTX;
 }
 
 /**

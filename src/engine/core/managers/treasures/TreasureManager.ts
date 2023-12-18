@@ -295,9 +295,9 @@ export class TreasureManager extends AbstractManager {
    * todo: Description.
    */
   public onRegisterItem(object: ServerObject): boolean {
-    const spawnIni: IniFile = object.spawn_ini();
+    const spawnIni: Optional<IniFile> = object.spawn_ini();
 
-    if (!spawnIni.section_exist(SECRET_SECTION)) {
+    if (!spawnIni || !spawnIni.section_exist(SECRET_SECTION)) {
       return false;
     }
 
@@ -342,7 +342,7 @@ export class TreasureManager extends AbstractManager {
    * @param object - restrictor zone server object
    */
   public onRegisterRestrictor(object: ServerObject): boolean {
-    if (object.spawn_ini().section_exist(SECRET_SECTION)) {
+    if (object.spawn_ini()?.section_exist(SECRET_SECTION)) {
       this.treasuresRestrictorByName.set(object.name(), object.id);
 
       return true;

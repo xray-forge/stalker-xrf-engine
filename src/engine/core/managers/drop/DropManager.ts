@@ -44,7 +44,7 @@ export class DropManager extends AbstractManager {
     alifeObject.isCorpseLootDropped = true;
     object.iterate_inventory((object, item) => this.filterLootItem(object, item), object);
 
-    if (object.spawn_ini().section_exist(dropConfig.DONT_SPAWN_LOOT_LTX_SECTION)) {
+    if (object.spawn_ini()?.section_exist(dropConfig.DONT_SPAWN_LOOT_LTX_SECTION)) {
       return;
     }
 
@@ -84,9 +84,9 @@ export class DropManager extends AbstractManager {
    */
   protected filterLootItem(object: GameObject, item: GameObject): void {
     const section: TSection = item.section();
-    const ini: IniFile = object.spawn_ini();
+    const ini: Optional<IniFile> = object.spawn_ini();
 
-    if (ini !== null && ini.section_exist("keep_items")) {
+    if (ini && ini.section_exist("keep_items")) {
       // logger.info("Keep item, listed in config:", object.name(), item.name(), section);
 
       return;
