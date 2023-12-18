@@ -7,7 +7,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy";
 import { GameSettingsManager } from "@/engine/core/managers/settings";
 import { SimulationManager } from "@/engine/core/managers/simulation";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { SurgeManager } from "@/engine/core/managers/surge";
 import { TaskManager } from "@/engine/core/managers/tasks";
@@ -45,7 +45,7 @@ export class SaveManager extends AbstractManager {
     getManager(ReleaseBodyManager).save(packet);
     getManager(SurgeManager).save(packet);
     getManager(PsyAntennaManager).save(packet);
-    getManager(GlobalSoundManager).save(packet);
+    getManager(SoundManager).save(packet);
     getManager(StatisticsManager).save(packet);
     getManager(TreasureManager).save(packet);
     getManager(TaskManager).save(packet);
@@ -64,7 +64,7 @@ export class SaveManager extends AbstractManager {
     getManager(ReleaseBodyManager).load(reader);
     getManager(SurgeManager).load(reader);
     PsyAntennaManager.load(reader);
-    getManager(GlobalSoundManager).load(reader);
+    getManager(SoundManager).load(reader);
     getManager(StatisticsManager).load(reader);
     getManager(TreasureManager).load(reader);
     getManager(TaskManager).load(reader);

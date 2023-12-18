@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { getManager } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
@@ -17,22 +17,22 @@ export function playSurgeStartingSound(): void {
     return;
   }
 
-  const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+  const soundManager: SoundManager = getManager(SoundManager);
   const levelName: TName = level.name();
 
   switch (levelName) {
     case levels.zaton:
-      globalSoundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_1");
+      soundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_1");
       break;
 
     case levels.jupiter:
-      globalSoundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_phase_1");
+      soundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_phase_1");
       break;
 
     case levels.pripyat:
       // After game end no one is on radio.
       if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
-        globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_1");
+        soundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_1");
       }
 
       break;
@@ -48,22 +48,22 @@ export function playSurgeWillHappenSoonSound(): void {
     return;
   }
 
-  const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+  const soundManager: SoundManager = getManager(SoundManager);
   const levelName: TName = level.name();
 
   switch (levelName) {
     case levels.zaton:
-      globalSoundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_2");
+      soundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_2");
       break;
 
     case levels.jupiter:
-      globalSoundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_phase_2");
+      soundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_phase_2");
       break;
 
     case levels.pripyat:
       // After game end no one is on radio.
       if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
-        globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_2");
+        soundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_2");
       }
 
       break;
@@ -79,22 +79,22 @@ export function playSurgeEndedSound(): void {
     return;
   }
 
-  const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+  const soundManager: SoundManager = getManager(SoundManager);
   const levelName: TName = level.name();
 
   switch (levelName) {
     case levels.zaton:
-      globalSoundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_after_surge");
+      soundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_after_surge");
       break;
 
     case levels.jupiter:
-      globalSoundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_after_surge");
+      soundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_after_surge");
       break;
 
     case levels.pripyat:
       // After game end no one is on radio.
       if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
-        globalSoundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_after_surge");
+        soundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_after_surge");
       }
 
       break;

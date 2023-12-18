@@ -12,7 +12,7 @@ import {
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
   getNearestAvailableSurgeCover,
@@ -262,14 +262,14 @@ export class SurgeManager extends AbstractManager {
     this.surgeTaskSection = "";
     this.isTaskGiven = false;
 
-    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
 
     if (this.isEffectorSet) {
-      globalSoundManager.stopLoopedSound(ACTOR_ID, "blowout_rumble");
+      soundManager.stopLoopedSound(ACTOR_ID, "blowout_rumble");
     }
 
     if (this.isSecondMessageGiven) {
-      globalSoundManager.stopLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+      soundManager.stopLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
     }
 
     level.remove_pp_effector(surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID);
@@ -372,7 +372,7 @@ export class SurgeManager extends AbstractManager {
         return;
       }
 
-      const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+      const soundManager: SoundManager = getManager(SoundManager);
 
       if (surgeDuration >= surgeConfig.DURATION) {
         playSurgeEndedSound();
@@ -382,7 +382,7 @@ export class SurgeManager extends AbstractManager {
 
         if (this.isAfterGameLoad) {
           if (this.isBlowoutSoundStarted) {
-            globalSoundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
+            soundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
           }
 
           if (this.isEffectorSet) {
@@ -390,7 +390,7 @@ export class SurgeManager extends AbstractManager {
           }
 
           if (this.isSecondMessageGiven) {
-            globalSoundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+            soundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
             level.add_cam_effector(
               animations.camera_effects_earthquake,
               surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID,
@@ -407,7 +407,7 @@ export class SurgeManager extends AbstractManager {
         }
 
         if (this.isBlowoutSoundStarted) {
-          globalSoundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", surgeDuration / 180);
+          soundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", surgeDuration / 180);
         }
 
         const coverObject: Optional<GameObject> = getNearestAvailableSurgeCover(registry.actor);
@@ -447,7 +447,7 @@ export class SurgeManager extends AbstractManager {
         } else if (surgeDuration >= 140 && !this.isSecondMessageGiven) {
           playSurgeWillHappenSoonSound();
 
-          globalSoundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+          soundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
           level.add_cam_effector(
             animations.camera_effects_earthquake,
             surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID,
@@ -460,9 +460,9 @@ export class SurgeManager extends AbstractManager {
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.isBlowoutSoundStarted) {
-          globalSoundManager.playSound(ACTOR_ID, "blowout_begin");
-          globalSoundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
-          globalSoundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", 0.25);
+          soundManager.playSound(ACTOR_ID, "blowout_begin");
+          soundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
+          soundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", 0.25);
 
           this.isBlowoutSoundStarted = true;
         } else if (surgeDuration >= 0 && !this.isTaskGiven) {

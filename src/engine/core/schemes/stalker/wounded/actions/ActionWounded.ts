@@ -9,7 +9,7 @@ import {
   setStalkerState,
 } from "@/engine/core/database";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { schemeWoundedConfig } from "@/engine/core/schemes/stalker/wounded/SchemeWoundedConfig";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
@@ -119,7 +119,7 @@ export class ActionWounded extends action_base {
 
     // Play call for help not more often than once per 5 seconds.
     if (now > this.nextSoundPlayAt) {
-      getManager(GlobalSoundManager).playSound(this.object.id(), woundManagerSound === NIL ? null : woundManagerSound);
+      getManager(SoundManager).playSound(this.object.id(), woundManagerSound === NIL ? null : woundManagerSound);
 
       this.nextSoundPlayAt = now + schemeWoundedConfig.CALL_FOR_HELP_PERIOD;
     }

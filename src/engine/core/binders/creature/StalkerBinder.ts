@@ -26,7 +26,7 @@ import { DropManager } from "@/engine/core/managers/drop";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -181,7 +181,7 @@ export class StalkerBinder extends object_binder {
 
     this.resetCallbacks();
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
+    getManager(SoundManager).stopSoundByObjectId(objectId);
 
     registry.actorCombat.delete(objectId);
 
@@ -257,7 +257,7 @@ export class StalkerBinder extends object_binder {
     }
 
     if (isObjectAlive) {
-      getManager(GlobalSoundManager).update(object.id());
+      getManager(SoundManager).update(object.id());
       updateObjectMeetAvailability(object);
       initializeObjectInvulnerability(this.object);
     } else {
@@ -354,7 +354,7 @@ export class StalkerBinder extends object_binder {
     saveObjectLogic(this.object, packet);
 
     getManager(TradeManager).saveObjectState(packet, this.object);
-    getManager(GlobalSoundManager).saveObject(packet, this.object);
+    getManager(SoundManager).saveObject(packet, this.object);
     getManager(DialogManager).saveObjectDialogs(packet, this.object);
 
     closeSaveMarker(packet, StalkerBinder.__name);
@@ -369,7 +369,7 @@ export class StalkerBinder extends object_binder {
     loadObjectLogic(this.object, reader);
 
     getManager(TradeManager).loadObjectState(reader, this.object);
-    getManager(GlobalSoundManager).loadObject(reader, this.object);
+    getManager(SoundManager).loadObject(reader, this.object);
     getManager(DialogManager).loadObjectDialogs(reader, this.object);
 
     closeLoadMarker(reader, StalkerBinder.__name);

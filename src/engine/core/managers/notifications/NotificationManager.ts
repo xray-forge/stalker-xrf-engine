@@ -23,7 +23,7 @@ import {
 import { notificationsConfig } from "@/engine/core/managers/notifications/NotificationsConfig";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
 import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/utils";
@@ -362,7 +362,7 @@ export class NotificationManager extends AbstractManager {
    * Play default sound notification of PDA updates.
    */
   public onPlayPdaNotificationSound(): void {
-    getManager(GlobalSoundManager).playSound(ACTOR_ID, "pda_task");
+    getManager(SoundManager).playSound(ACTOR_ID, "pda_task");
   }
 
   /**

@@ -13,7 +13,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { Squad } from "@/engine/core/objects/squad";
 import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
@@ -137,7 +137,7 @@ describe("MonsterBinder class", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
-    const manager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const manager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(manager, "stopSoundByObjectId").mockImplementation(jest.fn());
 

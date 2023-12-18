@@ -2,7 +2,7 @@ import { action_base, LuabindClass } from "xray16";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, getStalkerState, setStalkerState } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -104,7 +104,7 @@ export class ActionHelpWounded extends action_base {
 
     // Say That everything will be ok once per healing action.
     if (!this.isHelpingSoundPlayed) {
-      getManager(GlobalSoundManager).playSound(this.object.id(), "wounded_medkit");
+      getManager(SoundManager).playSound(this.object.id(), "wounded_medkit");
       this.isHelpingSoundPlayed = true;
     }
   }

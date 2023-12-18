@@ -3,7 +3,7 @@ import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_glo
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { getManager, registry, setStalkerState } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import {
   getNextCampPatrolPoint,
@@ -167,7 +167,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
           { animation: true }
         );
 
-        getManager(GlobalSoundManager).playSound(this.object.id(), this.state.attackSound);
+        getManager(SoundManager).playSound(this.object.id(), this.state.attackSound);
       } else {
         const memoryPosition: Vector = this.object.memory_position(this.enemy);
 

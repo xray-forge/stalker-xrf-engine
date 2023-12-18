@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { SmartTerrainBinder } from "@/engine/core/binders/smart_terrain/index";
 import { getManager, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { ServerObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
@@ -39,9 +39,9 @@ describe("SmartTerrainBinder class", () => {
   it("should correctly handle going online/offline", () => {
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(globalSoundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
     binder.net_spawn(serverObject);
 
@@ -56,17 +56,17 @@ describe("SmartTerrainBinder class", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
-    expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
-    expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledWith(serverObject.id);
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(serverObject.id);
   });
 
   it("should correctly handle going online/offline when check to spawn is falsy", () => {
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
-    jest.spyOn(globalSoundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
     binder.net_spawn(serverObject);
 
@@ -74,7 +74,7 @@ describe("SmartTerrainBinder class", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
-    expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledTimes(0);
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(0);
   });
 
   it("should correctly handle update event", () => {

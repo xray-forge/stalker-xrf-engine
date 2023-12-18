@@ -12,7 +12,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -45,7 +45,7 @@ export class SmartTerrainBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Go offline:", this.object.name());
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
+    getManager(SoundManager).stopSoundByObjectId(this.object.id());
 
     unregisterSmartTerrain(this.object, this.serverObject);
 

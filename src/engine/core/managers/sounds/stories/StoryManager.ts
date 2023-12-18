@@ -1,7 +1,7 @@
 import { time_global } from "xray16";
 
 import { getManager, registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/managers/sounds/sounds_types";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { SoundStory } from "@/engine/core/managers/sounds/stories/SoundStory";
@@ -167,7 +167,7 @@ export class StoryManager {
 
       for (const [index, descriptor] of this.objects) {
         if (descriptor.objectId !== this.storyteller) {
-          getManager(GlobalSoundManager).playSound(descriptor.objectId, nextPhraseDescriptor.theme, null, null);
+          getManager(SoundManager).playSound(descriptor.objectId, nextPhraseDescriptor.theme, null, null);
           objectId = descriptor.objectId;
         }
       }
@@ -200,7 +200,7 @@ export class StoryManager {
     this.phraseIdle = nextPhraseDescriptor.timeout * 1000;
 
     if (nextPhraseDescriptor.theme !== NIL) {
-      getManager(GlobalSoundManager).playSound(nextSpeakerObjectId, nextPhraseDescriptor.theme, null, null);
+      getManager(SoundManager).playSound(nextSpeakerObjectId, nextPhraseDescriptor.theme, null, null);
     }
   }
 }

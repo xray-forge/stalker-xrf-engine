@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-describe("GlobalSoundManager class", () => {
+describe("SoundManager class", () => {
   it.todo("should correctly initialize and destroy");
 
   it.todo("should correctly initialize state for objects with statics");

@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { DialogManager } from "@/engine/core/managers/dialogs";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
@@ -92,13 +92,13 @@ describe("StalkerBinder class", () => {
 
   it("should correctly handle save/load", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
-    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
     const dialogManager: DialogManager = getManager(DialogManager);
 
     jest.spyOn(tradeManager, "saveObjectState").mockImplementation(jest.fn());
     jest.spyOn(tradeManager, "loadObjectState").mockImplementation(jest.fn());
-    jest.spyOn(globalSoundManager, "saveObject").mockImplementation(jest.fn());
-    jest.spyOn(globalSoundManager, "loadObject").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "saveObject").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "loadObject").mockImplementation(jest.fn());
     jest.spyOn(dialogManager, "saveObjectDialogs").mockImplementation(jest.fn());
     jest.spyOn(dialogManager, "loadObjectDialogs").mockImplementation(jest.fn());
 
@@ -125,7 +125,7 @@ describe("StalkerBinder class", () => {
     binder.save(mockNetPacket(netProcessor));
 
     expect(tradeManager.saveObjectState).toHaveBeenCalledWith(netProcessor, object);
-    expect(globalSoundManager.saveObject).toHaveBeenCalledWith(netProcessor, object);
+    expect(soundManager.saveObject).toHaveBeenCalledWith(netProcessor, object);
     expect(dialogManager.saveObjectDialogs).toHaveBeenCalledWith(netProcessor, object);
 
     expect(netProcessor.writeDataOrder).toEqual([
@@ -170,7 +170,7 @@ describe("StalkerBinder class", () => {
     binder.load(mockNetReader(netProcessor));
 
     expect(tradeManager.loadObjectState).toHaveBeenCalledWith(netProcessor, object);
-    expect(globalSoundManager.loadObject).toHaveBeenCalledWith(netProcessor, object);
+    expect(soundManager.loadObject).toHaveBeenCalledWith(netProcessor, object);
     expect(dialogManager.loadObjectDialogs).toHaveBeenCalledWith(netProcessor, object);
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);

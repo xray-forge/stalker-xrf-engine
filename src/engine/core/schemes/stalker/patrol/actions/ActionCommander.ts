@@ -4,7 +4,7 @@ import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState, EWaypointArrivalType } from "@/engine/core/animation/types";
 import { getManager, getStalkerState, registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
@@ -82,19 +82,19 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
     const previousState: Optional<EStalkerState> = this.previousState;
 
     if (previousState !== nextState) {
-      const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+      const soundManager: SoundManager = getManager(SoundManager);
 
       if (this.state.silent !== true) {
         if (nextState === EStalkerState.SNEAK) {
-          globalSoundManager.playSound(this.object.id(), "patrol_sneak", null, null);
+          soundManager.playSound(this.object.id(), "patrol_sneak", null, null);
         } else if (nextState === EStalkerState.SNEAK_RUN) {
-          globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
+          soundManager.playSound(this.object.id(), "patrol_run", null, null);
         } else if (nextState === EStalkerState.RUN) {
-          globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
+          soundManager.playSound(this.object.id(), "patrol_run", null, null);
         } else if (nextState === EStalkerState.ASSAULT) {
-          globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
+          soundManager.playSound(this.object.id(), "patrol_run", null, null);
         } else if (nextState === EStalkerState.RUSH) {
-          globalSoundManager.playSound(this.object.id(), "patrol_run", null, null);
+          soundManager.playSound(this.object.id(), "patrol_run", null, null);
         } else if (
           previousState === EStalkerState.SNEAK ||
           previousState === EStalkerState.SNEAK_RUN ||
@@ -102,7 +102,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
           previousState === EStalkerState.ASSAULT ||
           previousState === EStalkerState.RUSH
         ) {
-          globalSoundManager.playSound(this.object.id(), "patrol_walk", null, null);
+          soundManager.playSound(this.object.id(), "patrol_walk", null, null);
         }
       }
 

@@ -17,7 +17,7 @@ import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager"
 import { SaveManager } from "@/engine/core/managers/save";
 import { GameSettingsManager } from "@/engine/core/managers/settings/GameSettingsManager";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
@@ -86,7 +86,7 @@ describe("SaveManager class", () => {
       ReleaseBodyManager,
       SurgeManager,
       PsyAntennaManager,
-      GlobalSoundManager,
+      SoundManager,
       StatisticsManager,
       TreasureManager,
       TaskManager,

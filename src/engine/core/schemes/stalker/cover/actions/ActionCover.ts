@@ -3,7 +3,7 @@ import { action_base, level, LuabindClass } from "xray16";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
@@ -54,7 +54,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
 
       // Play idle state sounds from stalkers like complaining etc.
       if (this.state.soundIdle !== null) {
-        getManager(GlobalSoundManager).playSound(this.object.id(), this.state.soundIdle);
+        getManager(SoundManager).playSound(this.object.id(), this.state.soundIdle);
       }
     } else {
       this.object.set_dest_level_vertex_id(this.coverVertexId);

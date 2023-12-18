@@ -12,7 +12,7 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database";
 import { registerWoundedObject } from "@/engine/core/database/wounded";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions/ActionWounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
@@ -110,14 +110,14 @@ describe("ActionWounded class", () => {
       woundManager: { eatMedkit: jest.fn() } as unknown as WoundManager,
     });
 
-    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
     const action: ActionWounded = new ActionWounded(schemeState);
 
     state.stateManager = { setState: jest.fn() } as unknown as StalkerStateManager;
 
     schemeState.useMedkit = true;
 
-    jest.spyOn(globalSoundManager, "playSound").mockImplementation(() => null);
+    jest.spyOn(soundManager, "playSound").mockImplementation(() => null);
     replaceFunctionMockOnce(time_global, () => 1000);
 
     action.nextSoundPlayAt = 0;
@@ -129,7 +129,7 @@ describe("ActionWounded class", () => {
     action.execute();
 
     expect(object.hit).not.toHaveBeenCalled();
-    expect(globalSoundManager.playSound).toHaveBeenCalledWith(object.id(), "test_snd");
+    expect(soundManager.playSound).toHaveBeenCalledWith(object.id(), "test_snd");
     expect(action.nextSoundPlayAt).toBe(6000);
     expect(schemeState.woundManager.eatMedkit).toHaveBeenCalled();
     expect(state.stateManager.setState).toHaveBeenCalled();

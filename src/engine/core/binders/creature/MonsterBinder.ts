@@ -17,7 +17,7 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
@@ -103,7 +103,7 @@ export class MonsterBinder extends object_binder {
 
     this.resetCallbacks();
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
+    getManager(SoundManager).stopSoundByObjectId(objectId);
 
     registry.actorCombat.delete(objectId);
 

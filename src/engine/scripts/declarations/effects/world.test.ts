@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { getManager, IRegistryObjectState, registerObject, registerStoryLink } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { EScheme, GameObject, SoundObject } from "@/engine/lib/types";
 import {
   callXrEffect,
@@ -63,7 +63,7 @@ describe("world effects implementation", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mock({ clsid: <T>() => mockClsid.script_stalker as T });
     const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "playSound").mockImplementation(jest.fn(() => null as unknown as SoundObject));
 
@@ -80,7 +80,7 @@ describe("world effects implementation", () => {
   });
 
   it("stop_sound should stop sounds", () => {
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
@@ -92,7 +92,7 @@ describe("world effects implementation", () => {
   });
 
   it("play_sound_looped should play looped sounds", () => {
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(soundManager, "playLoopedSound").mockImplementation(jest.fn());
@@ -104,7 +104,7 @@ describe("world effects implementation", () => {
   });
 
   it("stop_sound_looped should stop looped sounds", () => {
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(soundManager, "stopLoopedSound").mockImplementation(jest.fn());
@@ -119,7 +119,7 @@ describe("world effects implementation", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     const object: GameObject = MockGameObject.mock();
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
     const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
 
     jest.spyOn(soundManager, "playSound").mockImplementation(jest.fn(() => null as unknown as SoundObject));

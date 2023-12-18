@@ -4,7 +4,7 @@ import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/en
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
 import { getManager, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
@@ -172,7 +172,7 @@ export class CampManager {
       // todo: Simplify with table random.
       if (objectsCount !== 0) {
         this.idleTalkerId = talkers.get(math.random(talkers.length()));
-        getManager(GlobalSoundManager).playSound(this.idleTalkerId, "state");
+        getManager(SoundManager).playSound(this.idleTalkerId, "state");
       }
     }
   }

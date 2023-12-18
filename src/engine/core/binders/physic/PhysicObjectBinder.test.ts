@@ -4,7 +4,7 @@ import { callback, level } from "xray16";
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
 import { getManager, ILogicsOverrides, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { BoxManager } from "@/engine/core/managers/box";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
@@ -34,7 +34,7 @@ describe("PhysicObjectBinder class", () => {
   it("should handle going online/offline when spawn check is falsy", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
     (binder as unknown as MockObjectBinder).canSpawn = false;
@@ -48,7 +48,7 @@ describe("PhysicObjectBinder class", () => {
   it("should handle going online/offline with defaults", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
@@ -73,7 +73,7 @@ describe("PhysicObjectBinder class", () => {
     mockRegisteredActor();
 
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
-    const soundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
     jest.spyOn(binder.object, "spawn_ini").mockImplementation(() => {
@@ -121,7 +121,7 @@ describe("PhysicObjectBinder class", () => {
 
     mockRegisteredActor();
 
-    jest.spyOn(getManager(GlobalSoundManager), "update").mockImplementation(jest.fn());
+    jest.spyOn(getManager(SoundManager), "update").mockImplementation(jest.fn());
 
     expect(binder.isInitialized).toBe(false);
 
@@ -140,7 +140,7 @@ describe("PhysicObjectBinder class", () => {
     expect(binder.isInitialized).toBe(true);
     expect(initializeObjectSchemeLogic).toHaveBeenCalledWith(object, binder.state, false, ESchemeType.OBJECT);
     expect(emitSchemeEvent).toHaveBeenCalledWith(object, binder.state[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, 150);
-    expect(getManager(GlobalSoundManager).update).toHaveBeenCalledWith(object.id());
+    expect(getManager(SoundManager).update).toHaveBeenCalledWith(object.id());
   });
 
   it("should be save relevant", () => {

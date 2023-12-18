@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { BoxManager, isBoxObject } from "@/engine/core/managers/box";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
@@ -81,7 +81,7 @@ export class PhysicObjectBinder extends object_binder {
       level.map_remove_object_spot(objectId, "ui_pda2_actor_box_location");
     }
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
+    getManager(SoundManager).stopSoundByObjectId(objectId);
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
@@ -112,7 +112,7 @@ export class PhysicObjectBinder extends object_binder {
       emitSchemeEvent(this.object, this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
     }
 
-    getManager(GlobalSoundManager).update(this.object.id());
+    getManager(SoundManager).update(this.object.id());
 
     this.setupCallbacks();
   }

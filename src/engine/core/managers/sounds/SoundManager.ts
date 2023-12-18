@@ -25,7 +25,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export class GlobalSoundManager extends AbstractManager {
+export class SoundManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
@@ -218,7 +218,7 @@ export class GlobalSoundManager extends AbstractManager {
    * todo: Description.
    */
   public override save(packet: NetPacket): void {
-    openSaveMarker(packet, GlobalSoundManager.name + "Actor");
+    openSaveMarker(packet, SoundManager.name + "Actor");
 
     for (const [, playableTheme] of soundsConfig.themes) {
       playableTheme.save(packet);
@@ -242,14 +242,14 @@ export class GlobalSoundManager extends AbstractManager {
       }
     }
 
-    closeSaveMarker(packet, GlobalSoundManager.name + "Actor");
+    closeSaveMarker(packet, SoundManager.name + "Actor");
   }
 
   /**
    * todo: Description.
    */
   public override load(reader: NetProcessor): void {
-    openLoadMarker(reader, GlobalSoundManager.name + "Actor");
+    openLoadMarker(reader, SoundManager.name + "Actor");
 
     for (const [, theme] of soundsConfig.themes) {
       theme.load(reader);
@@ -284,32 +284,32 @@ export class GlobalSoundManager extends AbstractManager {
       }
     }
 
-    closeLoadMarker(reader, GlobalSoundManager.name + "Actor");
+    closeLoadMarker(reader, SoundManager.name + "Actor");
   }
 
   /**
    * todo: Description.
    */
   public saveObject(packet: NetPacket, object: GameObject): void {
-    openSaveMarker(packet, GlobalSoundManager.name + "Object");
+    openSaveMarker(packet, SoundManager.name + "Object");
 
     for (const [, theme] of soundsConfig.themes) {
       theme.saveObject(packet, object);
     }
 
-    closeSaveMarker(packet, GlobalSoundManager.name + "Object");
+    closeSaveMarker(packet, SoundManager.name + "Object");
   }
 
   /**
    * todo: Description.
    */
   public loadObject(reader: NetProcessor, object: GameObject): void {
-    openLoadMarker(reader, GlobalSoundManager.name + "Object");
+    openLoadMarker(reader, SoundManager.name + "Object");
 
     for (const [, theme] of soundsConfig.themes) {
       theme.loadObject(reader, object);
     }
 
-    closeLoadMarker(reader, GlobalSoundManager.name + "Object");
+    closeLoadMarker(reader, SoundManager.name + "Object");
   }
 }

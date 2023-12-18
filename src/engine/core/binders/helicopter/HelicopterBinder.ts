@@ -15,7 +15,7 @@ import {
   unregisterHelicopter,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { getHeliHealth } from "@/engine/core/schemes/helicopter/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/helicopter/heli_move/HeliCombat";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/helicopter/heli_move/HeliFire";
@@ -107,7 +107,7 @@ export class HelicopterBinder extends object_binder {
 
     this.checkHealth();
 
-    getManager(GlobalSoundManager).update(this.object.id());
+    getManager(SoundManager).update(this.object.id());
   }
 
   public override net_spawn(object: ServerObject): boolean {

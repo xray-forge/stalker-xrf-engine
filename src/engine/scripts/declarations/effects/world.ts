@@ -9,7 +9,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
@@ -63,7 +63,7 @@ extern(
       abort("Stalker '%s' is dead while trying to play theme sound '%s'.", object.name(), theme);
     }
 
-    getManager(GlobalSoundManager).playSound(object.id(), theme, faction, smartTerrainId);
+    getManager(SoundManager).playSound(object.id(), theme, faction, smartTerrainId);
   }
 );
 
@@ -71,21 +71,21 @@ extern(
  * Stop playing sound for an object.
  */
 extern("xr_effects.stop_sound", (actor: GameObject, object: GameObject): void => {
-  getManager(GlobalSoundManager).stopSoundByObjectId(object.id());
+  getManager(SoundManager).stopSoundByObjectId(object.id());
 });
 
 /**
  * Start looped sound playback by theme name.
  */
 extern("xr_effects.play_sound_looped", (actor: GameObject, object: GameObject, [name]: [TName]): void => {
-  getManager(GlobalSoundManager).playLoopedSound(object.id(), name);
+  getManager(SoundManager).playLoopedSound(object.id(), name);
 });
 
 /**
  * Stop looped sound playback for an object.
  */
 extern("xr_effects.stop_sound_looped", (actor: GameObject, object: GameObject): void => {
-  getManager(GlobalSoundManager).stopLoopedSound(object.id(), null);
+  getManager(SoundManager).stopLoopedSound(object.id(), null);
 });
 
 /**
@@ -105,7 +105,7 @@ extern(
     );
     const smartTerrainId: TNumberId = smartTerrain ? smartTerrain.id : (smartTerrainNameOrId as number);
 
-    getManager(GlobalSoundManager).playSound(getObjectIdByStoryId(storyId) as number, theme, faction, smartTerrainId);
+    getManager(SoundManager).playSound(getObjectIdByStoryId(storyId) as number, theme, faction, smartTerrainId);
   }
 );
 

@@ -1,5 +1,5 @@
 import { getManager, registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
@@ -76,7 +76,7 @@ export function activateMeetWithObject(object: GameObject): void {
 
   if (tostring(sound) !== NIL) {
     logger.format("Play meet sound: '%s' - '%s'", object.name(), sound);
-    getManager(GlobalSoundManager).playSound(object.id(), sound);
+    getManager(SoundManager).playSound(object.id(), sound);
   }
 
   const meetManager: MeetManager = state.meetManager;

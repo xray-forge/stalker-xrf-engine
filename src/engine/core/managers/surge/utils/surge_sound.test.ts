@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
 import { getManager } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import {
   playSurgeEndedSound,
   playSurgeStartingSound,
@@ -20,7 +20,7 @@ describe("surge_sound utils", () => {
   });
 
   it("playSurgeStartingSound should correctly play sound", () => {
-    const manager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const manager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(manager, "playSound").mockImplementation(() => null);
 
@@ -42,7 +42,7 @@ describe("surge_sound utils", () => {
   });
 
   it("playSurgeWillHappenSoonSound should correctly play sound", () => {
-    const manager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const manager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(manager, "playSound").mockImplementation(() => null);
 
@@ -64,7 +64,7 @@ describe("surge_sound utils", () => {
   });
 
   it("playSurgeEndedSound should correctly play sound", () => {
-    const manager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const manager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(manager, "playSound").mockImplementation(() => null);
 

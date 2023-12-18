@@ -2,7 +2,7 @@ import { cond, game, move, patrol, sound_object } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
 import {
   scriptCaptureMonster,
@@ -112,7 +112,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         this.current = copyVector(targetPosition);
       }
 
-      this.soundObject = getManager(GlobalSoundManager).playSound(this.object.id(), this.state.soundObject, null, null);
+      this.soundObject = getManager(SoundManager).playSound(this.object.id(), this.state.soundObject, null, null);
       if (this.soundObject && this.soundObject.playing()) {
         this.soundObject.set_position(this.current);
       }

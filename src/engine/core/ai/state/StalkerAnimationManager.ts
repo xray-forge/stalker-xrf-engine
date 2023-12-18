@@ -13,7 +13,7 @@ import {
 } from "@/engine/core/animation/types/animation_types";
 import type { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { getManager } from "@/engine/core/database";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
@@ -389,7 +389,7 @@ export class StalkerAnimationManager {
 
     // Play sound.
     if (actionTable.get("s") !== null) {
-      getManager(GlobalSoundManager).playSound(this.object.id(), actionTable.get("s"), null, null);
+      getManager(SoundManager).playSound(this.object.id(), actionTable.get("s"), null, null);
     }
 
     // Hit object.

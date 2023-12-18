@@ -16,7 +16,7 @@ import {
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -53,10 +53,10 @@ export class RestrictorBinder extends object_binder {
     const objectId: TNumberId = this.object.id();
 
     if (soundsConfig.looped.has(objectId)) {
-      const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+      const soundManager: SoundManager = getManager(SoundManager);
 
       for (const [sound] of soundsConfig.looped.get(objectId)) {
-        globalSoundManager.playLoopedSound(objectId, sound);
+        soundManager.playLoopedSound(objectId, sound);
       }
     }
 
@@ -70,7 +70,7 @@ export class RestrictorBinder extends object_binder {
 
     logger.info("Go offline:", object.name());
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
+    getManager(SoundManager).stopSoundByObjectId(objectId);
 
     if (state.activeScheme) {
       emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
@@ -106,7 +106,7 @@ export class RestrictorBinder extends object_binder {
       emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
     }
 
-    getManager(GlobalSoundManager).update(objectId);
+    getManager(SoundManager).update(objectId);
   }
 
   public override net_save_relevant(): boolean {

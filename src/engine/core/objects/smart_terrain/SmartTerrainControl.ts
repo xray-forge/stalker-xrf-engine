@@ -9,7 +9,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
@@ -74,7 +74,7 @@ export class SmartTerrainControl {
       );
 
       if (sound !== null) {
-        getManager(GlobalSoundManager).playSound(ACTOR_ID, sound);
+        getManager(SoundManager).playSound(ACTOR_ID, sound);
       }
 
       for (const [id, squad] of getManager(SimulationManager).getSmartTerrainDescriptor(this.smartTerrain.id)!
@@ -135,7 +135,7 @@ export class SmartTerrainControl {
       );
 
       if (sound) {
-        getManager(GlobalSoundManager).playSound(ACTOR_ID, sound);
+        getManager(SoundManager).playSound(ACTOR_ID, sound);
       }
 
       for (const [squadId] of getManager(SimulationManager).getSmartTerrainDescriptor(this.smartTerrain.id)!

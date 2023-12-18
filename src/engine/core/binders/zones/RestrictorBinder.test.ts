@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { RestrictorBinder } from "@/engine/core/binders/zones/RestrictorBinder";
 import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -61,11 +61,11 @@ describe("RestrictorBinder class", () => {
   it("should correctly handle going online and offline", () => {
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
     const mockSound: AbstractPlayableSound = {} as AnyObject as AbstractPlayableSound;
 
-    jest.spyOn(globalSoundManager, "playLoopedSound").mockImplementation(jest.fn());
-    jest.spyOn(globalSoundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "playLoopedSound").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
     soundsConfig.looped.set(serverObject.id, $fromObject<TName, AbstractPlayableSound>({ first: mockSound }));
 
@@ -78,13 +78,13 @@ describe("RestrictorBinder class", () => {
 
     expect(registry.zones.length()).toBe(1);
     expect(registry.objects.length()).toBe(1);
-    expect(globalSoundManager.playLoopedSound).toHaveBeenCalledTimes(1);
-    expect(globalSoundManager.playLoopedSound).toHaveBeenCalledWith(serverObject.id, "first");
+    expect(soundManager.playLoopedSound).toHaveBeenCalledTimes(1);
+    expect(soundManager.playLoopedSound).toHaveBeenCalledWith(serverObject.id, "first");
 
     binder.net_destroy();
 
-    expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
-    expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledWith(serverObject.id);
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(serverObject.id);
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
       binder.object,
@@ -100,17 +100,17 @@ describe("RestrictorBinder class", () => {
   it("should correctly handle going online and offline when check to spawn is falsy", () => {
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(globalSoundManager, "playLoopedSound").mockImplementation(jest.fn());
-    jest.spyOn(globalSoundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "playLoopedSound").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
 
     binder.net_spawn(serverObject);
 
-    expect(globalSoundManager.stopSoundByObjectId).toHaveBeenCalledTimes(0);
-    expect(globalSoundManager.playLoopedSound).toHaveBeenCalledTimes(0);
+    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(0);
+    expect(soundManager.playLoopedSound).toHaveBeenCalledTimes(0);
     expect(emitSchemeEvent).toHaveBeenCalledTimes(0);
 
     expect(registry.zones.length()).toBe(0);
@@ -122,12 +122,12 @@ describe("RestrictorBinder class", () => {
 
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
-    const globalSoundManager: GlobalSoundManager = getManager(GlobalSoundManager);
+    const soundManager: SoundManager = getManager(SoundManager);
     const onVisit = jest.fn();
 
     getManager(EventsManager).registerCallback(EGameEvent.RESTRICTOR_ZONE_VISITED, onVisit);
 
-    jest.spyOn(globalSoundManager, "update").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "update").mockImplementation(jest.fn());
 
     binder.net_spawn(serverObject);
 
@@ -142,8 +142,8 @@ describe("RestrictorBinder class", () => {
     expect(initializeObjectSchemeLogic).toHaveBeenCalledTimes(1);
     expect(initializeObjectSchemeLogic).toHaveBeenCalledWith(binder.object, objectState, false, ESchemeType.RESTRICTOR);
 
-    expect(globalSoundManager.update).toHaveBeenCalledTimes(1);
-    expect(globalSoundManager.update).toHaveBeenCalledWith(serverObject.id);
+    expect(soundManager.update).toHaveBeenCalledTimes(1);
+    expect(soundManager.update).toHaveBeenCalledWith(serverObject.id);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(

@@ -3,7 +3,7 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
 import { getManager, getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
+import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { getSmartTerrainObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
@@ -165,7 +165,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
     } else if (this.state === stateSound) {
       if (this.sndScheduled === true) {
         this.sndStarted = true;
-        getManager(GlobalSoundManager).playSound(this.object.id(), this.st.snd, null, null);
+        getManager(SoundManager).playSound(this.object.id(), this.st.snd, null, null);
       }
 
       if (this.animEndSignalled === false) {

@@ -15,7 +15,7 @@ import { SaveManager } from "@/engine/core/managers/save";
 import { GameSettingsManager } from "@/engine/core/managers/settings";
 import { SimulationManager } from "@/engine/core/managers/simulation";
 import { SleepManager } from "@/engine/core/managers/sleep";
-import { DynamicMusicManager, GlobalSoundManager } from "@/engine/core/managers/sounds";
+import { DynamicMusicManager, SoundManager } from "@/engine/core/managers/sounds";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TradeManager } from "@/engine/core/managers/trade";
@@ -39,7 +39,7 @@ export function registerManagers(): void {
     DynamicMusicManager,
     EventsManager,
     GameSettingsManager,
-    GlobalSoundManager,
+    SoundManager,
     UpgradesManager,
     LoadScreenManager,
     MapDisplayManager,
