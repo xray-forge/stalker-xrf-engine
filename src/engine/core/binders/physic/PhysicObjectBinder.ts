@@ -32,6 +32,7 @@ import {
   TCount,
   TDuration,
   TIndex,
+  TNumberId,
   Vector,
 } from "@/engine/lib/types";
 
@@ -59,12 +60,10 @@ export class PhysicObjectBinder extends object_binder {
 
     logger.format("Go online: %s", object.name());
 
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini() as Optional<IniFile>;
+    const ini: Optional<IniFile> = this.object.spawn_ini() as Optional<IniFile>;
 
-    if (spawnIni) {
-      if (spawnIni.section_exist("level_spot") && spawnIni.line_exist("level_spot", "actor_box")) {
-        level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
-      }
+    if (ini && ini.section_exist("level_spot") && ini.line_exist("level_spot", "actor_box")) {
+      level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
     }
 
     registerObject(this.object);
@@ -73,27 +72,30 @@ export class PhysicObjectBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.format("Go offline: %s", this.object.name());
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
 
-    if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
-      level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
+    logger.format("Go offline: %s", object.name());
+
+    if (level.map_has_object_spot(objectId, "ui_pda2_actor_box_location") !== 0) {
+      level.map_remove_object_spot(objectId, "ui_pda2_actor_box_location");
     }
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
+    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
 
-    const state: IRegistryObjectState = registry.objects.get(this.object.id());
+    const state: IRegistryObjectState = registry.objects.get(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
+      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     const onOfflineCondlist: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
 
     if (onOfflineCondlist) {
-      pickSectionFromCondList(registry.actor, this.object, onOfflineCondlist);
+      pickSectionFromCondList(registry.actor, object, onOfflineCondlist);
     }
 
-    unregisterObject(this.object);
+    unregisterObject(object);
 
     super.net_destroy();
   }
@@ -227,12 +229,8 @@ export class PhysicObjectBinder extends object_binder {
       );
     }
 
-    if (this.object.spawn_ini()?.section_exist("drop_box")) {
+    if (this.object.spawn_ini()?.section_exist("drop_box") || isBoxObject(this.object)) {
       getManager(BoxManager).spawnDropBoxItems(this.object);
-    } else if (isBoxObject(this.object)) {
-      getManager(BoxManager).spawnDropBoxItems(this.object);
-    } else {
-      logger.format("Skip box drop spawn: %s", object.name());
     }
   }
 }

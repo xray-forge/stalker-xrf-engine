@@ -41,11 +41,7 @@ export class BoxManager extends AbstractManager {
         object,
         boxConfig.DROP_ITEMS_BY_SECTION.get(section) ?? boxConfig.DROP_ITEMS_BY_SECTION.get(LOT_BOX_DEFAULT)
       );
-    } else {
-      if (!chance(boxConfig.GENERIC_LOOT_BOX_DROP_CHANCE)) {
-        return;
-      }
-
+    } else if (chance(boxConfig.GENERIC_LOOT_BOX_DROP_CHANCE)) {
       logger.format("Spawn items for generic box: %s", object.name());
 
       switch (object.get_visual_name()) {
