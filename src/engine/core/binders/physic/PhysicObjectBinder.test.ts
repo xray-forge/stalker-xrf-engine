@@ -280,7 +280,7 @@ describe("PhysicObjectBinder class", () => {
       });
     });
 
-    jest.spyOn(getManager(BoxManager), "spawnDropBoxItems").mockImplementation(jest.fn());
+    jest.spyOn(getManager(BoxManager), "spawnBoxObjectItems").mockImplementation(jest.fn());
 
     binder.reinit();
 
@@ -296,6 +296,6 @@ describe("PhysicObjectBinder class", () => {
       object,
       killer
     );
-    expect(getManager(BoxManager).spawnDropBoxItems).toHaveBeenCalledWith(object);
+    expect(getManager(BoxManager).spawnBoxObjectItems).toHaveBeenCalledWith(object);
   });
 });

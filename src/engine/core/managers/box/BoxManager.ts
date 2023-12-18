@@ -32,7 +32,7 @@ export class BoxManager extends AbstractManager {
    *
    * @param object - target game object to spawn box items for
    */
-  public spawnDropBoxItems(object: GameObject): void {
+  public spawnBoxObjectItems(object: GameObject): void {
     const spawnIni: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;
     const section: Optional<TSection> = spawnIni
       ? readIniString(spawnIni, "drop_box", "community", false, null, BOX_DEFAULT)
@@ -41,7 +41,7 @@ export class BoxManager extends AbstractManager {
     if (section) {
       logger.format("Spawn items for: %s %s", object.name(), section);
 
-      this.spawnLootForSections(
+      this.spawnBoxObjectItemsFromList(
         object,
         boxConfig.DROP_ITEMS_BY_SECTION.get(section) ?? boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_DEFAULT)
       );
@@ -50,13 +50,13 @@ export class BoxManager extends AbstractManager {
 
       switch (object.get_visual_name()) {
         case BOX_METAL_01:
-          return this.spawnLootForSections(object, boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC));
+          return this.spawnBoxObjectItemsFromList(object, boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC));
 
         case BOX_WOOD_01:
-          return this.spawnLootForSections(object, boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC));
+          return this.spawnBoxObjectItemsFromList(object, boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC));
 
         case BOX_WOOD_02:
-          return this.spawnLootForSections(object, boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC));
+          return this.spawnBoxObjectItemsFromList(object, boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC));
       }
     }
   }
@@ -71,7 +71,7 @@ export class BoxManager extends AbstractManager {
    * @param object - target object to spawn for
    * @param items - list of item section to check and try to spawn
    */
-  public spawnLootForSections(object: GameObject, items: LuaTable<TSection, TProbability>): void {
+  public spawnBoxObjectItemsFromList(object: GameObject, items: LuaTable<TSection, TProbability>): void {
     const [, gvid, lvid, position] = getObjectPositioning(object);
 
     const destination: Vector = copyVector(position);
@@ -81,6 +81,7 @@ export class BoxManager extends AbstractManager {
       const descriptor: IBoxDropProbabilityDescriptor = boxConfig.DROP_COUNT_BY_LEVEL.get(section);
       const count: TCount = math.ceil(math.random(descriptor.min, descriptor.max));
 
+      // Varying height for less clipping and unexpected physical impacts.
       destination.y = baseline + math.random(0.2, 0.5);
 
       spawnItemsAtPosition(section, gvid, lvid, destination, count, probability);

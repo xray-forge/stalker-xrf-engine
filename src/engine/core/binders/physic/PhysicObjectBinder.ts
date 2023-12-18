@@ -230,7 +230,7 @@ export class PhysicObjectBinder extends object_binder {
     }
 
     if (this.object.spawn_ini()?.section_exist("drop_box") || isBoxObject(this.object)) {
-      getManager(BoxManager).spawnDropBoxItems(this.object);
+      getManager(BoxManager).spawnBoxObjectItems(this.object);
     }
   }
 }
