@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { ITEM_UPGRADES, STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { getRepairPrice } from "@/engine/core/managers/upgrades/utils";

@@ -1,6 +1,6 @@
 import { profile_timer } from "xray16";
 
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";

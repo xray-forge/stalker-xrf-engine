@@ -9,8 +9,8 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
-import { AbstractManager } from "@/engine/core/managers/base";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";

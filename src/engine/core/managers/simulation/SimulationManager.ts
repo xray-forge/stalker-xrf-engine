@@ -1,7 +1,7 @@
 import { actor_stats, clsid, game_graph, level } from "xray16";
 
 import { getManager, registry } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { groupIdByLevelName, ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConfig";

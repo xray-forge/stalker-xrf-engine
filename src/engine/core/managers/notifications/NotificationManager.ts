@@ -1,7 +1,7 @@
 import { clsid, game } from "xray16";
 
 import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   notificationsIcons,

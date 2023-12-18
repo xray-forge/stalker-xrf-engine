@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database/registry";
-import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
+import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TName } from "@/engine/lib/types";
 

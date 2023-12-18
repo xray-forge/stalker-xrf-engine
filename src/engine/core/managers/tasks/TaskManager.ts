@@ -1,7 +1,7 @@
 import { task } from "xray16";
 
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";

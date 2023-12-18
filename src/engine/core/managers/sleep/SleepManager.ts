@@ -1,8 +1,8 @@
 import { level } from "xray16";
 
 import { getManager, registry } from "@/engine/core/database";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager } from "@/engine/core/managers/actor";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { sleepConfig } from "@/engine/core/managers/sleep/SleepConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";

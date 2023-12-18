@@ -10,7 +10,7 @@ import {
   isManagerInitialized,
 } from "@/engine/core/database/managers";
 import { registry } from "@/engine/core/database/registry";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("managers module of the database", () => {

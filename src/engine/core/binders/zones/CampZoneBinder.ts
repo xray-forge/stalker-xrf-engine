@@ -26,23 +26,25 @@ export class CampZoneBinder extends object_binder {
       return false;
     }
 
-    // logger.info("Spawn camp:", this.object.name());
+    // logger.info("Go online:", this.object.name());
 
     const ini: Optional<IniFile> = this.object.spawn_ini();
 
     // If camp logic description present, try to read it from spawn ini or from defined `cfg` file.
     if (ini?.section_exist("camp")) {
       const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false);
-      const manager: CampManager = new CampManager(this.object, filename === null ? ini : new ini_file(filename));
+      const manager: CampManager = new CampManager(this.object, filename ? new ini_file(filename) : ini);
 
       registerCampZone(this.object, manager);
+    } else {
+      registerCampZone(this.object, null);
     }
 
     return true;
   }
 
   public override net_destroy(): void {
-    // logger.info("Destroy camp:", this.object.name());
+    // logger.info("Go offline:", this.object.name());
 
     unregisterCampZone(this.object);
 
@@ -55,7 +57,7 @@ export class CampZoneBinder extends object_binder {
     const manager: Optional<CampManager> = registry.camps.get(this.object.id()) as Optional<CampManager>;
 
     if (manager) {
-      manager.update();
+      manager.update(delta);
     }
   }
 

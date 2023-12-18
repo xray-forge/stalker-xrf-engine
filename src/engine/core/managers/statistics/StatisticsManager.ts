@@ -1,7 +1,7 @@
 import { clsid } from "xray16";
 
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import type { IActorStatistics } from "@/engine/core/managers/statistics/statistics_types";
 import type { TaskObject } from "@/engine/core/managers/tasks";

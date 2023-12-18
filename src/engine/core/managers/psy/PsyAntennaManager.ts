@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { getWeakManager, isManagerInitialized } from "@/engine/core/database/managers";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PhantomManager } from "@/engine/core/managers/psy/PhantomManager";
 import { IPsyPostProcessDescriptor } from "@/engine/core/managers/psy/psy_antenna_types";

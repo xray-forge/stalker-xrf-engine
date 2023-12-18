@@ -54,9 +54,12 @@ export function getCampZoneForPosition(position: Optional<Vector>): Optional<Cam
  * @param object - target camp game object to register
  * @param manager - linked manager to register
  */
-export function registerCampZone(object: GameObject, manager: CampManager): void {
+export function registerCampZone(object: GameObject, manager: Optional<CampManager>): void {
   registerZone(object);
-  registry.camps.set(object.id(), manager);
+
+  if (manager) {
+    registry.camps.set(object.id(), manager);
+  }
 }
 
 /**

@@ -10,7 +10,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IReleaseDescriptor } from "@/engine/core/managers/death/death_types";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";

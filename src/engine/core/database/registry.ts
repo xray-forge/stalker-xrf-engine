@@ -8,7 +8,7 @@ import type {
   IRegistryObjectState,
   IRegistryOfflineState,
 } from "@/engine/core/database/database_types";
-import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
+import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { ITradeManagerDescriptor } from "@/engine/core/managers/trade";
 import type { Actor } from "@/engine/core/objects/creature/Actor";

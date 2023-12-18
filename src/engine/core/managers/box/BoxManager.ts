@@ -1,4 +1,4 @@
-import { AbstractManager } from "@/engine/core/managers/base";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IBoxDropProbabilityDescriptor } from "@/engine/core/managers/box/box_types";
 import {
   BOX_DEFAULT,

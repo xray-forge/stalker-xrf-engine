@@ -1,7 +1,7 @@
 import { game, level, time_global } from "xray16";
 
 import { getManager, getObjectIdByStoryId, IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { IMapMarkDescriptor } from "@/engine/core/managers/map/map_types";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";

@@ -1,7 +1,7 @@
 import { initializeManager } from "@/engine/core/database";
+import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager, ActorInventoryMenuManager } from "@/engine/core/managers/actor";
-import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { DialogManager } from "@/engine/core/managers/dialogs";

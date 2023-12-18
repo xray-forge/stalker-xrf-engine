@@ -1,7 +1,7 @@
 import { game } from "xray16";
 
 import { getManager } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EPdaStatSection, killedMonstersDisplay } from "@/engine/core/managers/pda/pda_types";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { LuaLogger } from "@/engine/core/utils/logging";

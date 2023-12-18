@@ -1,6 +1,6 @@
 import { SYSTEM_INI } from "@/engine/core/database";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

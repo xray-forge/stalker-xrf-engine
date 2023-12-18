@@ -1,8 +1,8 @@
 import { CUIGameCustom, game, get_hud, sound_object } from "xray16";
 
 import { getManager } from "@/engine/core/database";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager } from "@/engine/core/managers/actor";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { calculateSoundFade } from "@/engine/core/managers/outro/utils/outro_sound_utils";
 import { getExtern } from "@/engine/core/utils/binding";

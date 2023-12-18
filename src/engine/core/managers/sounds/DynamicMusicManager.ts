@@ -1,7 +1,7 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
 
 import { getManager, getManagerByName, registry } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { StereoSound } from "@/engine/core/managers/sounds/objects";

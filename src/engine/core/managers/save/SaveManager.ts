@@ -1,7 +1,7 @@
 import { getManager, IDynamicSaveData, initializeManager, registry } from "@/engine/core/database";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
-import { AbstractManager } from "@/engine/core/managers/base";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy";

@@ -1,5 +1,5 @@
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects/LoopedSound";

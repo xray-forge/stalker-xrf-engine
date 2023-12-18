@@ -1,4 +1,4 @@
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TIndex, TName } from "@/engine/lib/types";
 

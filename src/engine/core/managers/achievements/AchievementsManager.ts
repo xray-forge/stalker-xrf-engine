@@ -1,9 +1,9 @@
 import { game } from "xray16";
 
 import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification, notificationsIcons } from "@/engine/core/managers/notifications";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";

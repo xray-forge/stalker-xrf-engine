@@ -9,7 +9,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ITradeManagerDescriptor } from "@/engine/core/managers/trade/trade_types";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";

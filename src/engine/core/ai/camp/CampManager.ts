@@ -108,7 +108,7 @@ export class CampManager {
   /**
    * Handle client side update tick.
    */
-  public update(): void {
+  public update(delta: TDuration): void {
     // Process story telling if not finished.
     if (!this.storyManager.isFinished()) {
       return this.storyManager.update();

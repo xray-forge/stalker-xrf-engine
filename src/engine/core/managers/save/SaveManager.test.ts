@@ -8,9 +8,9 @@ import {
   registerActor,
   registry,
 } from "@/engine/core/database";
+import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
-import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/base/AbstractManager";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";

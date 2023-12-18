@@ -1,7 +1,7 @@
 import { game, level, patrol, time_global } from "xray16";
 
 import { getManager, getStoryIdByObjectId, registry } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";

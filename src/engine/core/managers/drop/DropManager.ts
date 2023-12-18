@@ -1,5 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
 import { DROP_MANAGER_CONFIG_LTX, dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { readIniDropCountByLevel } from "@/engine/core/managers/drop/utils";

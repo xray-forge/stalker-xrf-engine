@@ -1,6 +1,6 @@
 import { level } from "xray16";
 
-import { AbstractManager } from "@/engine/core/managers/base/AbstractManager";
+import { AbstractManager } from "@/engine/core/managers/abstract";
 import { TCount, Vector } from "@/engine/lib/types";
 
 /**
