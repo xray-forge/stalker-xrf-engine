@@ -20,7 +20,7 @@ describe("isBoxObject util", () => {
     expect(isBoxObject(object)).toBe(true);
 
     jest.spyOn(object, "get_visual_name").mockImplementation(() => "test2");
-    expect(isBoxObject(object)).toBe(true);
+    expect(isBoxObject(object)).toBe(false);
 
     jest.spyOn(object, "get_visual_name").mockImplementation(() => BOX_METAL_01);
     expect(isBoxObject(object)).toBe(true);

@@ -3,7 +3,9 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { getManager } from "@/engine/core/database";
 import { boxConfig } from "@/engine/core/managers/box/BoxConfig";
 import { BoxManager } from "@/engine/core/managers/box/BoxManager";
-import { spawnItemsForObject } from "@/engine/core/utils/spawn";
+import { getObjectPositioning } from "@/engine/core/utils/position";
+import { spawnItemsAtPosition } from "@/engine/core/utils/spawn";
+import { copyVector } from "@/engine/core/utils/vector";
 import { GameObject, IniFile } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
@@ -38,11 +40,36 @@ describe("BoxManager.test.ts class", () => {
 
     jest.spyOn(object, "spawn_ini").mockImplementation(() => spawnIni);
 
+    const [, gvid, lvid, position] = getObjectPositioning(object);
+
+    const destination = { ...copyVector(position), y: expect.any(Number) };
+
     manager.spawnDropBoxItems(object);
 
-    expect(spawnItemsForObject).toHaveBeenCalledTimes(3);
-    expect(spawnItemsForObject).toHaveBeenCalledWith(object, "ammo_9x19_pbp", expect.any(Number), 100);
-    expect(spawnItemsForObject).toHaveBeenCalledWith(object, "ammo_9x18_pmm", expect.any(Number), 100);
-    expect(spawnItemsForObject).toHaveBeenCalledWith(object, "ammo_9x19_pbp", expect.any(Number), 100);
+    expect(spawnItemsAtPosition).toHaveBeenCalledTimes(3);
+    expect(spawnItemsAtPosition).toHaveBeenCalledWith(
+      "ammo_9x19_pbp",
+      gvid,
+      lvid,
+      destination,
+      expect.any(Number),
+      100
+    );
+    expect(spawnItemsAtPosition).toHaveBeenCalledWith(
+      "ammo_9x18_pmm",
+      gvid,
+      lvid,
+      destination,
+      expect.any(Number),
+      100
+    );
+    expect(spawnItemsAtPosition).toHaveBeenCalledWith(
+      "ammo_9x19_pbp",
+      gvid,
+      lvid,
+      destination,
+      expect.any(Number),
+      100
+    );
   });
 });
