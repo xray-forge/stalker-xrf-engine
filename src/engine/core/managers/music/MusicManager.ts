@@ -34,7 +34,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * todo;
  */
-export class DynamicMusicManager extends AbstractManager {
+export class MusicManager extends AbstractManager {
   public static readonly MAX_DIST: TDistance = 100;
   public static readonly MIN_DIST: TDistance = 75;
 
@@ -107,7 +107,7 @@ export class DynamicMusicManager extends AbstractManager {
     }
 
     if (this.currentThemeTrackIndex < this.themes.get(this.currentThemeIndex).length()) {
-      this.currentThemeTrackIndex = this.currentThemeTrackIndex + 1;
+      this.currentThemeTrackIndex += 1;
     } else {
       this.currentThemeTrackIndex = 1;
     }
@@ -115,10 +115,10 @@ export class DynamicMusicManager extends AbstractManager {
     if (this.theme) {
       this.nextTrackStartTime =
         this.theme.playAtTime(
-          this.nextTrackStartTime + DynamicMusicManager.TRACK_SWITCH_DELTA,
+          this.nextTrackStartTime + MusicManager.TRACK_SWITCH_DELTA,
           this.themes.get(this.currentThemeIndex).get(this.currentThemeTrackIndex),
           this.dynamicThemeVolume
-        ) - DynamicMusicManager.TRACK_SWITCH_DELTA;
+        ) - MusicManager.TRACK_SWITCH_DELTA;
     }
   }
 
@@ -184,13 +184,13 @@ export class DynamicMusicManager extends AbstractManager {
         }
 
         if (nearestEnemy !== null) {
-          if (nearestEnemyDistanceSqr < DynamicMusicManager.MIN_DIST * DynamicMusicManager.MIN_DIST) {
+          if (nearestEnemyDistanceSqr < MusicManager.MIN_DIST * MusicManager.MIN_DIST) {
             this.forceFade = true;
             this.fadeToThemeVolume = this.gameAmbientVolume;
             this.fadeToAmbientVolume = 0;
 
             return this.theme ? EDynamicMusicState.IDLE : EDynamicMusicState.START;
-          } else if (nearestEnemyDistanceSqr > DynamicMusicManager.MAX_DIST * DynamicMusicManager.MAX_DIST) {
+          } else if (nearestEnemyDistanceSqr > MusicManager.MAX_DIST * MusicManager.MAX_DIST) {
             if (this.theme) {
               this.fadeToThemeVolume = 0;
               this.fadeToAmbientVolume = this.gameAmbientVolume;
@@ -239,7 +239,7 @@ export class DynamicMusicManager extends AbstractManager {
   public fadeTheme(): void {
     const now: TTimestamp = time_global();
 
-    if (now - this.previousFadeStepAppliedAt <= DynamicMusicManager.THEME_FADE_UPDATE_STEP) {
+    if (now - this.previousFadeStepAppliedAt <= MusicManager.THEME_FADE_UPDATE_STEP) {
       return;
     }
 
@@ -272,7 +272,7 @@ export class DynamicMusicManager extends AbstractManager {
   public fadeAmbient(): void {
     const now: TTimestamp = time_global();
 
-    if (now - this.previousFadeStepAppliedAt <= DynamicMusicManager.AMBIENT_FADE_UPDATE_DELTA) {
+    if (now - this.previousFadeStepAppliedAt <= MusicManager.AMBIENT_FADE_UPDATE_DELTA) {
       return;
     }
 
@@ -334,7 +334,7 @@ export class DynamicMusicManager extends AbstractManager {
       this.themes.get(this.currentThemeIndex).get(this.currentThemeTrackIndex),
       this.dynamicThemeVolume
     );
-    this.nextTrackStartTime = this.theme.play() - DynamicMusicManager.TRACK_SWITCH_DELTA;
+    this.nextTrackStartTime = this.theme.play() - MusicManager.TRACK_SWITCH_DELTA;
     this.theme.update(this.dynamicThemeVolume);
   }
 
@@ -371,7 +371,7 @@ export class DynamicMusicManager extends AbstractManager {
   public onActorUpdate(delta: TDuration): void {
     this.updateDelta += delta;
 
-    if (this.updateDelta > DynamicMusicManager.LOGIC_UPDATE_STEP) {
+    if (this.updateDelta > MusicManager.LOGIC_UPDATE_STEP) {
       this.updateDelta = 0;
     } else {
       return;

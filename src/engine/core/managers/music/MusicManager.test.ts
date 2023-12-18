@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-describe("DynamicMusicManager class", () => {
+describe("MusicManager class", () => {
   it.todo("should correctly initialize and destroy");
 
   it.todo("should correctly check current music/ambient states");

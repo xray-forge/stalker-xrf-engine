@@ -8,6 +8,7 @@ import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EventsManager } from "@/engine/core/managers/events";
 import { LoadScreenManager } from "@/engine/core/managers/interface";
 import { MapDisplayManager } from "@/engine/core/managers/map";
+import { MusicManager } from "@/engine/core/managers/music";
 import { NotificationManager } from "@/engine/core/managers/notifications";
 import { PdaManager } from "@/engine/core/managers/pda";
 import { PhantomManager } from "@/engine/core/managers/psy";
@@ -15,7 +16,7 @@ import { SaveManager } from "@/engine/core/managers/save";
 import { GameSettingsManager } from "@/engine/core/managers/settings";
 import { SimulationManager } from "@/engine/core/managers/simulation";
 import { SleepManager } from "@/engine/core/managers/sleep";
-import { DynamicMusicManager, SoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager } from "@/engine/core/managers/sounds";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TradeManager } from "@/engine/core/managers/trade";
@@ -36,7 +37,7 @@ export function registerManagers(): void {
     ActorInputManager,
     ActorInventoryMenuManager,
     DialogManager,
-    DynamicMusicManager,
+    MusicManager,
     EventsManager,
     GameSettingsManager,
     SoundManager,
