@@ -98,7 +98,3 @@ describe("initializeDropBoxesLootTables util", () => {
     });
   });
 });
-
-describe("spawnLootForSections util", () => {
-  it.todo("should correctly handle spawning of items for drop boxes");
-});

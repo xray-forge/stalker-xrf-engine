@@ -6,15 +6,15 @@ export const BOX_METAL_01: TName = "dynamics\\box\\box_metall_01";
 export const BOX_WOOD_01: TName = "dynamics\\box\\box_wood_01";
 export const BOX_WOOD_02: TName = "dynamics\\box\\box_wood_02";
 
-export const LOT_BOX_DEFAULT: TName = "def_box";
-export const LOT_BOX_SMALL_GENERIC: TName = "small_box_generic";
-export const LOT_BOX_SMALL_USSR: TName = "small_box_ussr";
-export const LOT_BOX_SMALL_NATO: TName = "small_box_nato";
-export const LOT_BOX_SMALL_ARMY: TName = "small_box_army";
-export const LOT_BOX_SCIENCE: TName = "small_box_science";
-export const LOT_BOX_BIG_GENERIC: TName = "big_box_generic";
-export const LOT_BOX_BIG_DUNGEONS: TName = "big_box_dungeons";
-export const LOT_BOX_BIG_ARSENAL: TName = "big_box_arsenal";
+export const BOX_DEFAULT: TName = "def_box";
+export const BOX_SMALL_GENERIC: TName = "small_box_generic";
+export const BOX_SMALL_USSR: TName = "small_box_ussr";
+export const BOX_SMALL_NATO: TName = "small_box_nato";
+export const BOX_SMALL_ARMY: TName = "small_box_army";
+export const BOX_SCIENCE: TName = "small_box_science";
+export const BOX_BIG_GENERIC: TName = "big_box_generic";
+export const BOX_BIG_DUNGEONS: TName = "big_box_dungeons";
+export const BOX_BIG_ARSENAL: TName = "big_box_arsenal";
 
 export const PH_BOX_GENERIC_LTX: IniFile = new ini_file("managers\\box_manager.ltx");
 
@@ -24,15 +24,15 @@ export const PH_BOX_GENERIC_LTX: IniFile = new ini_file("managers\\box_manager.l
 export const boxConfig = {
   GENERIC_LOOT_BOX_DROP_CHANCE: 20,
   LOOT_BOX_SECTIONS: $fromArray<TSection>([
-    LOT_BOX_DEFAULT,
-    LOT_BOX_SMALL_GENERIC,
-    LOT_BOX_SMALL_USSR,
-    LOT_BOX_SMALL_NATO,
-    LOT_BOX_SMALL_ARMY,
-    LOT_BOX_SCIENCE,
-    LOT_BOX_BIG_GENERIC,
-    LOT_BOX_BIG_DUNGEONS,
-    LOT_BOX_BIG_ARSENAL,
+    BOX_DEFAULT,
+    BOX_SMALL_GENERIC,
+    BOX_SMALL_USSR,
+    BOX_SMALL_NATO,
+    BOX_SMALL_ARMY,
+    BOX_SCIENCE,
+    BOX_BIG_GENERIC,
+    BOX_BIG_DUNGEONS,
+    BOX_BIG_ARSENAL,
   ]),
   LOOT_BOX_VISUALS: $fromObject<TSection, boolean>({
     [BOX_METAL_01]: true,

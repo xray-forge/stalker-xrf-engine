@@ -1,7 +1,14 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { getManager } from "@/engine/core/database";
-import { boxConfig } from "@/engine/core/managers/box/BoxConfig";
+import {
+  BOX_METAL_01,
+  BOX_SCIENCE,
+  BOX_SMALL_GENERIC,
+  BOX_WOOD_01,
+  BOX_WOOD_02,
+  boxConfig,
+} from "@/engine/core/managers/box/BoxConfig";
 import { BoxManager } from "@/engine/core/managers/box/BoxManager";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { spawnItemsAtPosition } from "@/engine/core/utils/spawn";
@@ -29,19 +36,80 @@ describe("BoxManager.test.ts class", () => {
     expect(boxConfig.DROP_COUNT_BY_LEVEL.length()).toBe(3);
   });
 
-  it("should correctly spawn drop box items", async () => {
+  it("should correctly spawn drop box items when have strict box definition", async () => {
     const manager: BoxManager = getManager(BoxManager);
     const object: GameObject = MockGameObject.mock();
     const spawnIni: IniFile = MockIniFile.mock("test.ltx", {
       drop_box: {
-        community: "def_box",
+        community: BOX_SCIENCE,
       },
     });
 
     jest.spyOn(object, "spawn_ini").mockImplementation(() => spawnIni);
+    jest.spyOn(manager, "spawnLootForSections").mockImplementation(jest.fn());
+
+    manager.spawnDropBoxItems(object);
+
+    expect(manager.spawnLootForSections).toHaveBeenCalledTimes(1);
+    expect(manager.spawnLootForSections).toHaveBeenCalledWith(object, boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SCIENCE));
+  });
+
+  it("should correctly spawn drop box items when have use one of generic boxes", async () => {
+    const manager: BoxManager = getManager(BoxManager);
+
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+    const third: GameObject = MockGameObject.mock();
+    const fourth: GameObject = MockGameObject.mock();
+
+    jest.spyOn(manager, "spawnLootForSections").mockImplementation(jest.fn());
+
+    jest.spyOn(first, "spawn_ini").mockImplementation(() => null as unknown as IniFile);
+    jest.spyOn(first, "get_visual_name").mockImplementationOnce(() => BOX_METAL_01);
+    jest.spyOn(second, "spawn_ini").mockImplementation(() => null as unknown as IniFile);
+    jest.spyOn(second, "get_visual_name").mockImplementationOnce(() => BOX_WOOD_01);
+    jest.spyOn(third, "spawn_ini").mockImplementation(() => null as unknown as IniFile);
+    jest.spyOn(third, "get_visual_name").mockImplementationOnce(() => BOX_WOOD_02);
+    jest.spyOn(fourth, "spawn_ini").mockImplementation(() => null as unknown as IniFile);
+
+    jest.spyOn(math, "random").mockImplementationOnce(() => 0);
+    manager.spawnDropBoxItems(first);
+
+    expect(manager.spawnLootForSections).toHaveBeenCalledTimes(1);
+    expect(manager.spawnLootForSections).toHaveBeenCalledWith(
+      first,
+      boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC)
+    );
+
+    jest.spyOn(math, "random").mockImplementationOnce(() => 0);
+    manager.spawnDropBoxItems(second);
+
+    expect(manager.spawnLootForSections).toHaveBeenCalledTimes(2);
+    expect(manager.spawnLootForSections).toHaveBeenCalledWith(
+      second,
+      boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC)
+    );
+
+    jest.spyOn(math, "random").mockImplementationOnce(() => 0);
+    manager.spawnDropBoxItems(third);
+
+    expect(manager.spawnLootForSections).toHaveBeenCalledTimes(3);
+    expect(manager.spawnLootForSections).toHaveBeenCalledWith(
+      third,
+      boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_SMALL_GENERIC)
+    );
+
+    jest.spyOn(math, "random").mockImplementationOnce(() => 0);
+    manager.spawnDropBoxItems(fourth);
+
+    expect(manager.spawnLootForSections).toHaveBeenCalledTimes(3);
+  });
+
+  it("spawnLootForSections should correctly spawn drop box items", async () => {
+    const manager: BoxManager = getManager(BoxManager);
+    const object: GameObject = MockGameObject.mock();
 
     const [, gvid, lvid, position] = getObjectPositioning(object);
-
     const destination = { ...copyVector(position), y: expect.any(Number) };
 
     manager.spawnDropBoxItems(object);

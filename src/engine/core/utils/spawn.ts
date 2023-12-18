@@ -14,6 +14,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   AlifeSimulator,
   AnyGameObject,
+  GameObject,
   LuaArray,
   Optional,
   Patrol,
@@ -317,13 +318,12 @@ export function spawnObjectInObject<T extends ServerObject>(
  * @param objectId - object id to release
  */
 export function releaseObject(objectId: TNumberId): void {
-  const simulator: AlifeSimulator = registry.simulator;
-  const serverObject: Optional<ServerObject> = simulator.object(objectId);
+  const serverObject: Optional<ServerObject> = registry.simulator.object(objectId);
 
   logger.info("Destroying object:", objectId);
 
   if (serverObject) {
-    simulator.release(serverObject, true);
+    registry.simulator.release(serverObject, true);
   } else {
     logger.warn("No existing object to destroy:", objectId);
   }
@@ -337,9 +337,12 @@ export function releaseObject(objectId: TNumberId): void {
  * @returns newly created server object
  */
 export function spawnCreatureNearActor<T extends ServerObject>(section: TSection, distance: TDistance): T {
-  const simulator: AlifeSimulator = registry.simulator;
-  const direction: Vector = registry.actor.direction();
-  const position: Vector = registry.actor.position().add(direction.mul(distance));
+  const actor: GameObject = registry.actor;
 
-  return simulator.create(section, position, registry.actor.level_vertex_id(), registry.actor.game_vertex_id());
+  return registry.simulator.create(
+    section,
+    actor.position().add(actor.direction().mul(distance)),
+    actor.level_vertex_id(),
+    actor.game_vertex_id()
+  );
 }
