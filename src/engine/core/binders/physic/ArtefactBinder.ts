@@ -75,7 +75,7 @@ export class ArtefactBinder extends object_binder {
         ini && ini.section_exist("fixed_bone") ? this.object.get_physics_shell() : null;
 
       if (shell) {
-        const element: PhysicsElement = shell.get_element_by_bone_name(ini.r_string("fixed_bone", "name"));
+        const element: PhysicsElement = shell.get_element_by_bone_name((ini as IniFile).r_string("fixed_bone", "name"));
 
         if (!element.is_fixed()) {
           element.fix();

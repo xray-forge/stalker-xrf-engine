@@ -84,11 +84,11 @@ export class HelicopterBinder extends object_binder {
 
     this.flameStartHealth = readIniNumber(SYSTEM_INI, "helicopter", "flame_start_health", true);
 
-    const objectIni: IniFile = this.object.spawn_ini();
+    const ini: IniFile = this.object.spawn_ini() as IniFile;
 
-    this.sndHit = readIniString(objectIni, "helicopter", "snd_hit", false, null, "heli_hit");
-    this.sndDamage = readIniString(objectIni, "helicopter", "snd_damage", false, null, "heli_damaged");
-    this.sndDown = readIniString(objectIni, "helicopter", "snd_down", false, null, "heli_down");
+    this.sndHit = readIniString(ini, "helicopter", "snd_hit", false, null, "heli_hit");
+    this.sndDamage = readIniString(ini, "helicopter", "snd_damage", false, null, "heli_damaged");
+    this.sndDown = readIniString(ini, "helicopter", "snd_down", false, null, "heli_down");
   }
 
   public override update(delta: number): void {

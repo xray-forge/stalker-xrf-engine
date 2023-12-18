@@ -18,7 +18,7 @@ import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/in
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
+import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -61,7 +61,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     const simulationBoardManager: SimulationManager = getManager(SimulationManager);
 
-    const smartName: TName = readIniString(this.spawn_ini(), "logic", "smart_terrain", false, null, "");
+    const smartName: TName = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain", false, null, "");
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
 
     if (smartTerrain) {

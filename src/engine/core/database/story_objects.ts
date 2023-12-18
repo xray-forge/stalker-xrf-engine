@@ -21,7 +21,7 @@ import {
  * @param serverObject - server object to register links
  */
 export function registerObjectStoryLinks(serverObject: ServerObject): void {
-  const spawnIni: IniFile = serverObject.spawn_ini();
+  const spawnIni: IniFile = serverObject.spawn_ini() as IniFile;
 
   if (spawnIni.section_exist("story_object")) {
     const [, field, value] = spawnIni.r_line("story_object", 0, "", "");

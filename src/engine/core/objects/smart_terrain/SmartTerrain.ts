@@ -517,7 +517,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * Initialize smart terrain from ini files.
    */
   public initialize(): void {
-    this.ini = this.spawn_ini();
+    this.ini = this.spawn_ini() as IniFile;
 
     const smartTerrainName: TName = this.name();
 

@@ -42,7 +42,7 @@ import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import {
-  getObjectStalkerIni,
+  getObjectSpawnIni,
   setupObjectInfoPortions,
   setupObjectStalkerVisual,
   syncSpawnedObjectPosition,
@@ -134,7 +134,7 @@ export class StalkerBinder extends object_binder {
     this.object.apply_loophole_direction_distance(1.0);
 
     if (!this.isLoaded) {
-      setupObjectInfoPortions(object, getObjectStalkerIni(object));
+      setupObjectInfoPortions(object, getObjectSpawnIni(object));
     }
 
     if (!object.alive()) {
