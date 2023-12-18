@@ -22,38 +22,41 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 @LuabindClass()
 export class ArtefactBinder extends object_binder {
-  public isInitializing: boolean = false;
+  // Whether net spawn event was triggered recently and should be handled.
+  public isNetSpawnToggled: boolean = false;
 
-  public override net_spawn(object: ServerObject): boolean {
-    if (!super.net_spawn(object)) {
+  public override net_spawn(serverObject: ServerObject): boolean {
+    if (!super.net_spawn(serverObject)) {
       return false;
     }
 
-    logger.info("Spawn artefact to network");
+    logger.info("Go online:", this.object.name());
 
     registerObject(this.object);
 
+    const objectId: TNumberId = this.object.id();
     const artefact: CArtefact = this.object.get_artefact();
-    const id: TNumberId = this.object.id();
 
-    if (registry.artefacts.ways.has(id)) {
-      const anomalyZone: AnomalyZoneBinder = registry.artefacts.parentZones.get(id);
+    if (registry.artefacts.ways.has(objectId)) {
+      const anomalyZone: AnomalyZoneBinder = registry.artefacts.parentZones.get(objectId);
       const forceXZ: TRate = anomalyZone.applyingForceXZ;
       const forceY: TRate = anomalyZone.applyingForceY;
 
       artefact.FollowByPath(
-        registry.artefacts.ways.get(id),
-        registry.artefacts.points.get(id),
+        registry.artefacts.ways.get(objectId),
+        registry.artefacts.points.get(objectId),
         createVector(forceXZ, forceY, forceXZ)
       );
     }
 
-    this.isInitializing = true;
+    this.isNetSpawnToggled = true;
 
     return true;
   }
 
   public override net_destroy(): void {
+    logger.info("Go offline:", this.object.name());
+
     unregisterObject(this.object);
     super.net_destroy();
   }
@@ -61,26 +64,23 @@ export class ArtefactBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (this.isInitializing) {
+    // todo: Move to net spawn instead of overloading of update tick?
+    // todo: Move to net spawn instead of overloading of update tick?
+    // todo: Move to net spawn instead of overloading of update tick?
+    if (this.isNetSpawnToggled) {
+      this.isNetSpawnToggled = false;
+
       const ini: Optional<IniFile> = this.object.spawn_ini();
+      const shell: Optional<PhysicsShell> =
+        ini && ini.section_exist("fixed_bone") ? this.object.get_physics_shell() : null;
 
-      if (!ini?.section_exist("fixed_bone")) {
-        return;
+      if (shell) {
+        const element: PhysicsElement = shell.get_element_by_bone_name(ini.r_string("fixed_bone", "name"));
+
+        if (!element.is_fixed()) {
+          element.fix();
+        }
       }
-
-      const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
-
-      if (!physicsShell) {
-        return;
-      }
-
-      const physicsElement: PhysicsElement = physicsShell.get_element_by_bone_name(ini.r_string("fixed_bone", "name"));
-
-      if (!physicsElement.is_fixed()) {
-        physicsElement.fix();
-      }
-
-      this.isInitializing = false;
     }
   }
 }
