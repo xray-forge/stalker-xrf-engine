@@ -3,7 +3,7 @@ import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
 import { AlifeSimulator, GameObject, ServerActorObject, TName, TNumberId, TSection } from "@/engine/lib/types";
-import { MockGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
+import { MockAlifeSimulator, MockGameObject, mockServerAlifeCreatureActor } from "@/fixtures/xray/mocks/objects";
 
 export interface IMockActorDetails {
   actorGameObject: GameObject;
@@ -60,4 +60,6 @@ export function resetRegistry(): void {
   registry.zones = new LuaTable();
 
   registerRanks();
+
+  MockAlifeSimulator.reset();
 }
