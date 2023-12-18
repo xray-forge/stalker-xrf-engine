@@ -343,7 +343,7 @@ export class DialogManager extends AbstractManager {
   /**
    * todo;
    */
-  public saveObjectDialogs(packet: NetPacket, object: GameObject): void {
+  public saveObjectDialogs(object: GameObject, packet: NetPacket): void {
     openSaveMarker(packet, DialogManager.name);
 
     const objectId: TNumberId = object.id();
@@ -360,7 +360,7 @@ export class DialogManager extends AbstractManager {
   /**
    * todo;
    */
-  public loadObjectDialogs(reader: NetProcessor, object: GameObject): void {
+  public loadObjectDialogs(object: GameObject, reader: NetProcessor): void {
     openLoadMarker(reader, DialogManager.name);
 
     reader.r_bool();

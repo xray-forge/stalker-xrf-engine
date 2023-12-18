@@ -23,7 +23,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Manager of game effects/sounds/voices triggered from script engine.
  */
 export class SoundManager extends AbstractManager {
   public override initialize(): void {
@@ -40,37 +40,150 @@ export class SoundManager extends AbstractManager {
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate);
   }
 
+  public override update(objectId: TNumberId): void {
+    const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId);
+
+    if (sound && !sound.isPlaying(objectId)) {
+      sound.onSoundPlayEnded(objectId);
+      soundsConfig.playing.delete(objectId);
+    }
+  }
+
+  public override save(packet: NetPacket): void {
+    openSaveMarker(packet, SoundManager.name + "Actor");
+
+    for (const [, sound] of soundsConfig.themes) {
+      sound.save(packet);
+    }
+
+    packet.w_u16(table.size(soundsConfig.playing));
+
+    for (const [id, sound] of soundsConfig.playing) {
+      packet.w_u16(id);
+      packet.w_stringZ(sound.section);
+    }
+
+    packet.w_u16(table.size(soundsConfig.looped));
+
+    for (const [id, loopedThemes] of soundsConfig.looped) {
+      packet.w_u16(id);
+      packet.w_u16(table.size(loopedThemes));
+
+      for (const [themeId] of loopedThemes) {
+        packet.w_stringZ(themeId);
+      }
+    }
+
+    closeSaveMarker(packet, SoundManager.name + "Actor");
+  }
+
+  public override load(reader: NetProcessor): void {
+    openLoadMarker(reader, SoundManager.name + "Actor");
+
+    for (const [, theme] of soundsConfig.themes) {
+      theme.load(reader);
+    }
+
+    const themesCount: TCount = reader.r_u16();
+
+    soundsConfig.playing = new LuaTable();
+
+    for (const _ of $range(1, themesCount)) {
+      const id: TNumberId = reader.r_u16();
+      const theme: TStringId = reader.r_stringZ();
+
+      soundsConfig.playing.set(id, soundsConfig.themes.get(theme));
+    }
+
+    const loopedSoundsCount: TCount = reader.r_u16();
+
+    soundsConfig.looped = new LuaTable();
+
+    for (const _ of $range(1, loopedSoundsCount)) {
+      const id = reader.r_u16();
+
+      soundsConfig.looped.set(id, new LuaTable());
+
+      const loopedThemesCount = reader.r_u16();
+
+      for (const _ of $range(1, loopedThemesCount)) {
+        const sound: TStringId = reader.r_stringZ();
+
+        soundsConfig.looped.get(id).set(sound, soundsConfig.themes.get(sound));
+      }
+    }
+
+    closeLoadMarker(reader, SoundManager.name + "Actor");
+  }
+
+  /**
+   * Perform sound state saving for provided object.
+   *
+   * @param object - target game object to save
+   * @param packet - net packet to save data into
+   */
+  public saveObject(object: GameObject, packet: NetPacket): void {
+    openSaveMarker(packet, SoundManager.name + "Object");
+
+    for (const [, sound] of soundsConfig.themes) {
+      sound.saveObject(packet, object);
+    }
+
+    closeSaveMarker(packet, SoundManager.name + "Object");
+  }
+
+  /**
+   * Perform sound state saving for provided object.
+   *
+   * @param object - target game object to save
+   * @param reader - net reader to read data from
+   */
+  public loadObject(object: GameObject, reader: NetProcessor): void {
+    openLoadMarker(reader, SoundManager.name + "Object");
+
+    for (const [, sound] of soundsConfig.themes) {
+      sound.loadObject(reader, object);
+    }
+
+    closeLoadMarker(reader, SoundManager.name + "Object");
+  }
+
   /**
    * todo: Description.
    */
   public playSound(
     objectId: TNumberId,
-    sound: Optional<TStringId>,
+    soundName: Optional<TStringId>,
     faction: Optional<string> = null,
     point: Optional<TNumberId> = null
   ): Optional<SoundObject> {
-    if (sound === null) {
+    if (!soundName) {
       return null;
     }
 
-    const playableTheme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(sound);
-    const soundItem: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId);
+    const theme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(soundName);
+    const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(
+      objectId
+    ) as Optional<AbstractPlayableSound>;
 
-    assert(playableTheme, "'playSound': Wrong sound theme [%s], object [%s].", tostring(sound), objectId);
-    assert(playableTheme.type !== LoopedSound.type, "You trying to play sound [%s] which type is looped.", sound);
+    assert(theme, "'playSound': Wrong sound theme [%s], object [%s].", tostring(soundName), objectId);
+    assert(theme.type !== LoopedSound.type, "You trying to play sound [%s] which type is looped.", soundName);
 
-    if (soundItem === null || playableTheme.shouldPlayAlways) {
-      if (soundItem !== null) {
-        logger.info("Reset sound before forced play:", objectId, sound, faction, point);
-        soundsConfig.playing.get(objectId).reset(objectId);
+    if (!sound || theme.shouldPlayAlways) {
+      if (sound) {
+        logger.info("Reset sound before forced play:", objectId, soundName, faction, point);
+        sound.reset(objectId);
       }
 
-      if (playableTheme.play(objectId, faction, point)) {
-        logger.info("Start sound play:", objectId, sound, faction, point);
-        soundsConfig.playing.set(objectId, playableTheme);
+      if (theme.play(objectId, faction, point)) {
+        logger.info("Start sound play:", objectId, soundName, faction, point);
+
+        soundsConfig.playing.set(objectId, theme);
+
+        return theme.soundObject;
       }
 
-      return soundsConfig.playing.get(objectId)?.soundObject;
+      return theme?.soundObject;
     } else {
       return soundsConfig.playing.get(objectId).soundObject;
     }
@@ -80,20 +193,24 @@ export class SoundManager extends AbstractManager {
    * todo: Description.
    */
   public stopSoundByObjectId(objectId: TNumberId): void {
-    const theme: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId);
+    const theme: Optional<AbstractPlayableSound> = soundsConfig.playing.get(
+      objectId
+    ) as Optional<AbstractPlayableSound>;
 
-    if (theme !== null) {
+    if (theme) {
       logger.info("Stop sound play:", objectId, theme.section);
       theme.stop(objectId);
     }
 
-    const loopedSounds: Optional<LuaTable<string, AbstractPlayableSound>> = soundsConfig.looped.get(objectId);
+    const loopedSounds: Optional<LuaTable<TName, AbstractPlayableSound>> = soundsConfig.looped.get(
+      objectId
+    ) as Optional<LuaTable<TName, AbstractPlayableSound>>;
 
-    if (loopedSounds !== null) {
-      for (const [, theme] of loopedSounds) {
-        if (theme.isPlaying(objectId)) {
-          logger.info("Stop looped sound play:", objectId, theme.section);
-          theme.stop(objectId);
+    if (loopedSounds) {
+      for (const [, sound] of loopedSounds) {
+        if (sound.isPlaying(objectId)) {
+          logger.info("Stop looped sound play:", objectId, sound.section);
+          sound.stop(objectId);
         }
       }
     }
@@ -111,7 +228,7 @@ export class SoundManager extends AbstractManager {
 
     const soundTheme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(sound);
 
-    assert(soundTheme !== null, "'playLoopedSound': Wrong sound theme [%s], object [%s]", tostring(sound), objectId);
+    assert(soundTheme, "'playLoopedSound': Wrong sound theme [%s], object [%s]", tostring(sound), objectId);
     assert(soundTheme.type === "looped", "Trying to play sound [%s] which type is not looped.", sound);
 
     if (soundTheme.play(objectId)) {
@@ -140,11 +257,9 @@ export class SoundManager extends AbstractManager {
         loopedCollection.delete(sound);
       }
     } else {
-      if (loopedCollection !== null) {
-        for (const [, theme] of loopedCollection) {
-          if (theme.isPlaying(objectId)) {
-            theme.stop();
-          }
+      for (const [, theme] of loopedCollection) {
+        if (theme.isPlaying(objectId)) {
+          theme.stop();
         }
 
         soundsConfig.looped.delete(objectId);
@@ -156,47 +271,16 @@ export class SoundManager extends AbstractManager {
    * todo: Description.
    */
   public setLoopedSoundVolume(objectId: TNumberId, sound: TStringId, volume: TRate): void {
-    const loopedSound: Optional<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(objectId);
+    const loopedSound: Optional<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(
+      objectId
+    ) as Optional<LuaTable<TStringId, AbstractPlayableSound>>;
 
-    if (loopedSound !== null) {
+    if (loopedSound) {
       const soundItem: Optional<AbstractPlayableSound> = loopedSound.get(sound);
 
       if (soundItem?.isPlaying(objectId)) {
         soundItem.setVolume(volume);
       }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public stopAllSounds(): void {
-    logger.info("Stop all sounds");
-
-    for (const [, theme] of soundsConfig.playing) {
-      if (type(theme) !== "string") {
-        theme.stop();
-      }
-    }
-
-    for (const [id] of soundsConfig.looped) {
-      for (const [, theme] of soundsConfig.looped.get(id)) {
-        if (theme.isPlaying()) {
-          theme.stop();
-        }
-      }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override update(objectId: TNumberId): void {
-    const playableSound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId);
-
-    if (playableSound !== null && !playableSound.isPlaying(objectId)) {
-      playableSound.onSoundPlayEnded(objectId);
-      soundsConfig.playing.delete(objectId);
     }
   }
 
@@ -212,104 +296,5 @@ export class SoundManager extends AbstractManager {
    */
   public onActorUpdate(): void {
     this.update(ACTOR_ID);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override save(packet: NetPacket): void {
-    openSaveMarker(packet, SoundManager.name + "Actor");
-
-    for (const [, playableTheme] of soundsConfig.themes) {
-      playableTheme.save(packet);
-    }
-
-    packet.w_u16(table.size(soundsConfig.playing));
-
-    for (const [k, v] of soundsConfig.playing) {
-      packet.w_u16(k);
-      packet.w_stringZ(v.section);
-    }
-
-    packet.w_u16(table.size(soundsConfig.looped));
-
-    for (const [id] of soundsConfig.looped) {
-      packet.w_u16(id);
-      packet.w_u16(table.size(soundsConfig.looped.get(id)));
-
-      for (const [loopedThemeId] of soundsConfig.looped.get(id)) {
-        packet.w_stringZ(loopedThemeId);
-      }
-    }
-
-    closeSaveMarker(packet, SoundManager.name + "Actor");
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override load(reader: NetProcessor): void {
-    openLoadMarker(reader, SoundManager.name + "Actor");
-
-    for (const [, theme] of soundsConfig.themes) {
-      theme.load(reader);
-    }
-
-    const themesCount: TCount = reader.r_u16();
-
-    soundsConfig.playing = new LuaTable();
-
-    for (const it of $range(1, themesCount)) {
-      const id: TNumberId = reader.r_u16();
-      const theme: TStringId = reader.r_stringZ();
-
-      soundsConfig.playing.set(id, soundsConfig.themes.get(theme));
-    }
-
-    const loopedSoundsCount: TCount = reader.r_u16();
-
-    soundsConfig.looped = new LuaTable();
-
-    for (const it of $range(1, loopedSoundsCount)) {
-      const id = reader.r_u16();
-
-      soundsConfig.looped.set(id, new LuaTable());
-
-      const loopedThemesCount = reader.r_u16();
-
-      for (const themeIndex of $range(1, loopedThemesCount)) {
-        const sound: TStringId = reader.r_stringZ();
-
-        soundsConfig.looped.get(id).set(sound, soundsConfig.themes.get(sound));
-      }
-    }
-
-    closeLoadMarker(reader, SoundManager.name + "Actor");
-  }
-
-  /**
-   * todo: Description.
-   */
-  public saveObject(packet: NetPacket, object: GameObject): void {
-    openSaveMarker(packet, SoundManager.name + "Object");
-
-    for (const [, theme] of soundsConfig.themes) {
-      theme.saveObject(packet, object);
-    }
-
-    closeSaveMarker(packet, SoundManager.name + "Object");
-  }
-
-  /**
-   * todo: Description.
-   */
-  public loadObject(reader: NetProcessor, object: GameObject): void {
-    openLoadMarker(reader, SoundManager.name + "Object");
-
-    for (const [, theme] of soundsConfig.themes) {
-      theme.loadObject(reader, object);
-    }
-
-    closeLoadMarker(reader, SoundManager.name + "Object");
   }
 }
