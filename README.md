@@ -9,8 +9,7 @@
 [![codecov](https://codecov.io/gh/xray-forge/stalker-xrf-engine/graph/badge.svg?token=4D1ZLNG8YJ)](https://codecov.io/gh/xray-forge/stalker-xrf-engine)
 
 <p>
-Fully rewritten stalker script engine with typescript. <br/>
-Template for stalker mods and modded game packages. <br/>
+Fully rewritten stalker lua script engine with typescript. <br/>
 </p>
 
 ## 📦 In short
@@ -25,13 +24,13 @@ Template for stalker mods and modded game packages. <br/>
 - [Modular extensions](https://xray-forge.github.io/stalker-xrf-book/extensions/extensions.html)
 - [Debugging tools](https://xray-forge.github.io/stalker-xrf-book/xrf/debugging.html)
 - [Unit testing](https://xray-forge.github.io/stalker-xrf-book/xrf/testing.html)
-- [Consistent formatted and linted codebase](https://xray-forge.github.io/stalker-xrf-book/xrf/formatting_and_linting.html)
+- [Consistent code formatting, static analysis and linting](https://xray-forge.github.io/stalker-xrf-book/xrf/formatting_and_linting.html)
 
 ## 📍 Purpose
 
 - Provide shared up-to-date template and tools for mod development
 - Produce documented and readable code, document xray SDK
-- Simplify development and building process, involve more people
+- Simplify development and building process, automate some steps
 
 ---
 
@@ -55,10 +54,10 @@ Template for stalker mods and modded game packages. <br/>
 
 Full changes list: [changelist](https://xray-forge.github.io/stalker-xrf-book/changes/changes.html)
 
-The intention of this engine template is to allow easier mod development without introducing breaking changes to the original plot. <br/>
+The intention of this engine is to allow easier modding without introducing breaking changes to the original plot. <br/>
 Optimizations, quality and logics updates are welcome.
 
-Breaking / radical changes should be implemented as custom extensions.
+Breaking / radical changes can be implemented as extensions.
 
 ## 🌓 TODOs / tasks
 
@@ -69,6 +68,6 @@ Breaking / radical changes should be implemented as custom extensions.
 
 ## 🧰 State / bugs
 
-It took 3 months just to migrate all the 20 years of LUA codebase to typescript and create custom transformers to support luabind. <br/>
+It took ~3 months just to migrate all the 20 years of LUA codebase to typescript / support luabind. <br/>
 Further game testing and re-architecture produces new bugs and issues which are easier to prevent with unit tests. <br/>
-As for now, main focus is separation and clarification of logics and unit testing coverage.
+As for now, main focus is separation and clarification of logics, unit tests coverage.
