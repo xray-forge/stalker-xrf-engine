@@ -160,11 +160,6 @@ describe("bind entry point", () => {
     callBinding("physicObject", physicObject);
     expect(physicObject.bind_object).not.toHaveBeenCalled();
 
-    jest.spyOn(physicObject, "clsid").mockImplementation(() => clsid.inventory_box);
-
-    callBinding("physicObject", physicObject);
-    expect(physicObject.bind_object).toHaveBeenCalledTimes(1);
-
     jest.spyOn(physicObject, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         logic: "test",
@@ -172,13 +167,13 @@ describe("bind entry point", () => {
     });
 
     callBinding("physicObject", physicObject);
-    expect(physicObject.bind_object).toHaveBeenCalledTimes(2);
+    expect(physicObject.bind_object).toHaveBeenCalledTimes(1);
 
     jest.spyOn(physicObject, "spawn_ini").mockImplementation(() => mockIniFile("test.ltx", {}));
     jest.spyOn(physicObject, "clsid").mockImplementation(() => clsid.obj_physic);
 
     callBinding("physicObject", physicObject);
-    expect(physicObject.bind_object).toHaveBeenCalledTimes(2);
+    expect(physicObject.bind_object).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly bind restrictor", () => {

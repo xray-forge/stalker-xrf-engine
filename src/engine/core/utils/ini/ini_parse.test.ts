@@ -21,6 +21,7 @@ import {
   parseWaypointsDataFromList,
 } from "@/engine/core/utils/ini/ini_parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
+import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 import { NIL } from "@/engine/lib/constants/words";
 import { Flags32, GameObject, IniFile, LuaArray } from "@/engine/lib/types";
 import { MockFlags32, MockGameObject, mockIniFile } from "@/fixtures/xray";
@@ -519,7 +520,7 @@ describe("ini_data parsing utils", () => {
     expect(pickSectionFromCondList(actor, target, parseConditionsList("{!first =second}a%=third%,b"))).toBe("b");
 
     expect(firstEffect.mock.calls[0]).toEqualLuaArrays([actor, target, { "1": "a", "2": 1 }]);
-    expect(secondEffect).toHaveBeenCalledWith(actor, target, null);
+    expect(secondEffect).toHaveBeenCalledWith(actor, target, EMPTY_LUA_ARRAY);
     expect(thirdEffect).not.toHaveBeenCalled();
   });
 

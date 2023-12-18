@@ -1,13 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, level } from "xray16";
 
-import { AnyObject } from "#/utils/types";
-
 import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EventsManager } from "@/engine/core/managers/events";
-import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
+import { AnyObject, EActiveItemSlot, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockCTime, MockGameObject } from "@/fixtures/xray";

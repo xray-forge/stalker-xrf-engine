@@ -1,5 +1,3 @@
-import { clsid } from "xray16";
-
 import { ActorBinder, CrowBinder, MonsterBinder, StalkerBinder } from "@/engine/core/binders/creature";
 import { HelicopterBinder } from "@/engine/core/binders/helicopter";
 import { HelmetBinder, OutfitBinder, WeaponBinder } from "@/engine/core/binders/item";
@@ -21,8 +19,12 @@ import {
   LevelChangerBinder,
   RestrictorBinder,
 } from "@/engine/core/binders/zones";
+import { isBoxObject } from "@/engine/core/managers/box/utils";
 import { extern } from "@/engine/core/utils/binding";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, IniFile, Optional } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register binders of engine client side objects.
@@ -54,7 +56,7 @@ extern("bind", {
   monster: (object: GameObject) => object.bind_object(new MonsterBinder(object)),
   phantom: (object: GameObject) => object.bind_object(new PhantomBinder(object)),
   physicObject: (object: GameObject) => {
-    if (object.spawn_ini()?.section_exist("logic") || object.clsid() === clsid.inventory_box) {
+    if (object.spawn_ini()?.section_exist("logic") || isBoxObject(object)) {
       object.bind_object(new PhysicObjectBinder(object));
     }
   },

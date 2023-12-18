@@ -18,7 +18,7 @@ export function mockRegistryState(base: Partial<IRegistryObjectState> = {}): IRe
 export function mockSchemeState<T extends IBaseSchemeState>(
   scheme: EScheme,
   {
-    ini = mockIniFile("scheme_mock.ltx"),
+    ini = mockIniFile("scheme_mock.ltx", {}),
     logic = new LuaTable(),
     signals = null,
     overrides = null,

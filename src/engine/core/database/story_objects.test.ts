@@ -21,18 +21,15 @@ import { resetRegistry } from "@/fixtures/engine";
 import { FILES_MOCKS, MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("story_objects module of the database", () => {
-  const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
-  const secondObject: ServerObject = mockServerAlifeObject({ id: 36 });
-
-  MockAlifeSimulator.addToRegistry(firstObject);
-  MockAlifeSimulator.addToRegistry(secondObject);
-
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
   });
 
   it("should correctly register object story links", () => {
+    const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
+    const secondObject: ServerObject = mockServerAlifeObject({ id: 36 });
+
     FILES_MOCKS["spawn.ini"].story_object["story_id"] = "SID_1";
     registerObjectStoryLinks(firstObject);
 
@@ -81,6 +78,7 @@ describe("story_objects module of the database", () => {
   });
 
   it("should correctly handle lifecycle and get links with utils", () => {
+    const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
     const object: GameObject = MockGameObject.mock({ idOverride: 12 });
 
     registerObject(object);

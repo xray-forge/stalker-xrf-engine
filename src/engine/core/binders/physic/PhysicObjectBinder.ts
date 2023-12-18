@@ -1,6 +1,5 @@
 import { callback, level, LuabindClass, object_binder } from "xray16";
 
-import { PhysicObjectItemBox } from "@/engine/core/binders/physic/PhysicObjectItemBox";
 import {
   closeLoadMarker,
   closeSaveMarker,
@@ -15,6 +14,7 @@ import {
   unregisterObject,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
+import { BoxManager, isBoxObject } from "@/engine/core/managers/box";
 import { GlobalSoundManager } from "@/engine/core/managers/sounds/GlobalSoundManager";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -32,6 +32,7 @@ import {
   TCount,
   TDuration,
   TIndex,
+  TNumberId,
   Vector,
 } from "@/engine/lib/types";
 
@@ -45,7 +46,6 @@ export class PhysicObjectBinder extends object_binder {
   public isInitialized: boolean = false;
   public isLoaded: boolean = false;
 
-  public itemBox: Optional<PhysicObjectItemBox> = null;
   public state!: IRegistryObjectState;
 
   public override reinit(): void {
@@ -58,45 +58,44 @@ export class PhysicObjectBinder extends object_binder {
       return false;
     }
 
-    const spawnIni: Optional<IniFile> = this.object.spawn_ini() as Optional<IniFile>;
+    logger.format("Go online: %s", object.name());
 
-    if (spawnIni) {
-      if (spawnIni.section_exist("drop_box")) {
-        this.itemBox = new PhysicObjectItemBox(this.object);
-      }
+    const ini: Optional<IniFile> = this.object.spawn_ini() as Optional<IniFile>;
 
-      if (spawnIni.section_exist("level_spot") && spawnIni.line_exist("level_spot", "actor_box")) {
-        level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
-      }
+    if (ini && ini.section_exist("level_spot") && ini.line_exist("level_spot", "actor_box")) {
+      level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
     }
 
     registerObject(this.object);
-
-    this.setupCallbacks();
 
     return true;
   }
 
   public override net_destroy(): void {
-    if (level.map_has_object_spot(this.object.id(), "ui_pda2_actor_box_location") !== 0) {
-      level.map_remove_object_spot(this.object.id(), "ui_pda2_actor_box_location");
+    const object: GameObject = this.object;
+    const objectId: TNumberId = object.id();
+
+    logger.format("Go offline: %s", object.name());
+
+    if (level.map_has_object_spot(objectId, "ui_pda2_actor_box_location") !== 0) {
+      level.map_remove_object_spot(objectId, "ui_pda2_actor_box_location");
     }
 
-    getManager(GlobalSoundManager).stopSoundByObjectId(this.object.id());
+    getManager(GlobalSoundManager).stopSoundByObjectId(objectId);
 
-    const state: IRegistryObjectState = registry.objects.get(this.object.id());
+    const state: IRegistryObjectState = registry.objects.get(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(this.object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, this.object);
+      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     const onOfflineCondlist: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
 
     if (onOfflineCondlist) {
-      pickSectionFromCondList(registry.actor, this.object, onOfflineCondlist);
+      pickSectionFromCondList(registry.actor, object, onOfflineCondlist);
     }
 
-    unregisterObject(this.object);
+    unregisterObject(object);
 
     super.net_destroy();
   }
@@ -114,6 +113,8 @@ export class PhysicObjectBinder extends object_binder {
     }
 
     getManager(GlobalSoundManager).update(this.object.id());
+
+    this.setupCallbacks();
   }
 
   public override net_save_relevant(): boolean {
@@ -156,6 +157,8 @@ export class PhysicObjectBinder extends object_binder {
    * @param who - game object using it
    */
   public onUse(object: GameObject, who: GameObject): void {
+    logger.format("Object used: %s by %s", object.name(), object.section(), who.name());
+
     if (this.state.activeScheme) {
       emitSchemeEvent(
         this.object,
@@ -178,6 +181,8 @@ export class PhysicObjectBinder extends object_binder {
    * @param boneIndex - index of the bone being hit
    */
   public onHit(object: GameObject, amount: TCount, direction: Vector, who: GameObject, boneIndex: TIndex): void {
+    // logger.format("Object hit: %s by %s", object.name(), object.section(), who.name());
+
     if (this.state[EScheme.HIT]) {
       emitSchemeEvent(
         this.object,
@@ -209,21 +214,23 @@ export class PhysicObjectBinder extends object_binder {
    * Handle destruction of the physical object.
    *
    * @param object - target game object that was killed/destroyed
-   * @param killer - game object that destroyed it
+   * @param who - game object that destroyed it
    */
-  public onDeath(object: GameObject, killer: GameObject): void {
+  public onDeath(object: GameObject, who: GameObject): void {
+    logger.format("Object destroyed: %s by %s", object.name(), object.section(), who.name());
+
     if (this.state.activeScheme) {
       emitSchemeEvent(
         this.object,
         this.state[this.state.activeScheme] as IBaseSchemeState,
         ESchemeEvent.DEATH,
         object,
-        killer
+        who
       );
     }
 
-    if (this.itemBox) {
-      this.itemBox.spawnBoxItems();
+    if (this.object.spawn_ini()?.section_exist("drop_box") || isBoxObject(this.object)) {
+      getManager(BoxManager).spawnBoxObjectItems(this.object);
     }
   }
 }
