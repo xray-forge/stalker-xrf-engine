@@ -1,47 +1,48 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { CArtefact, clsid } from "xray16";
 
-import { disposeManager, getManager } from "@/engine/core/database";
+import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
+import { disposeManager, getManager, registry } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
+import { initializeSurgeCovers } from "@/engine/core/managers/surge/utils";
+import { createVector } from "@/engine/core/utils/vector";
+import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray";
+import { resetFunctionMock } from "@/fixtures/jest";
+import {
+  EPacketDataType,
+  MockCArtefact,
+  MockGameObject,
+  mockNetPacket,
+  mockNetProcessor,
+  MockNetProcessor,
+} from "@/fixtures/xray";
+
+jest.mock("@/engine/core/managers/surge/utils");
 
 describe("SurgeManager class", () => {
   beforeEach(() => {
     resetRegistry();
+
+    resetFunctionMock(initializeSurgeCovers);
   });
 
-  it.todo("should correctly initialize and destroy");
+  it("should correctly initialize and destroy", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
 
-  it.todo("should correctly initialize covers");
+    getManager(SurgeManager);
 
-  it.todo("should correctly get nearest available cover");
+    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_ONLINE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(1);
 
-  it.todo("should correctly set skip resurrect message");
+    disposeManager(SurgeManager);
 
-  it.todo("should correctly set surge task");
-
-  it.todo("should correctly set surge message");
-
-  it.todo("should correctly check if is killing all now");
-
-  it.todo("should correctly request surge start");
-
-  it.todo("should correctly request surge stop");
-
-  it.todo("should correctly start");
-
-  it.todo("should correctly skip surges");
-
-  it.todo("should correctly end surges");
-
-  it.todo("should correctly replace anomalies and respawn artefacts");
-
-  it.todo("should correctly handle actor going online");
-
-  it.todo("should correctly handle actor taking items");
-
-  it.todo("should correctly handle update event");
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+  });
 
   it("should correctly handle saving/loading in general case", () => {
     const manager: SurgeManager = getManager(SurgeManager);
@@ -192,5 +193,89 @@ describe("SurgeManager class", () => {
     });
 
     surgeConfig.IS_STARTED = false;
+  });
+
+  it.todo("should correctly get nearest available cover");
+
+  it.todo("should correctly set skip resurrect message");
+
+  it.todo("should correctly set surge task");
+
+  it.todo("should correctly set surge message");
+
+  it.todo("should correctly check if is killing all now");
+
+  it.todo("should correctly request surge start");
+
+  it.todo("should correctly request surge stop");
+
+  it.todo("should correctly start");
+
+  it.todo("should correctly skip surges");
+
+  it.todo("should correctly end surges");
+
+  it.todo("should correctly handle update event");
+
+  it.todo("should correctly replace anomalies and respawn artefacts");
+
+  it("should correctly handle actor going online", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    expect(initializeSurgeCovers).toHaveBeenCalledTimes(0);
+
+    manager.onActorGoOnline();
+
+    expect(initializeSurgeCovers).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly handle actor taking generic items", () => {
+    const object: GameObject = MockGameObject.mock();
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    manager.onActorItemTake(object);
+
+    expect(object.get_artefact).toHaveBeenCalledTimes(0);
+  });
+
+  it("should correctly handle actor taking artefacts from anomaly zones", () => {
+    const object: GameObject = MockGameObject.mock();
+    const manager: SurgeManager = getManager(SurgeManager);
+    const artefact: CArtefact = MockCArtefact.mock();
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
+
+    jest.spyOn(object, "clsid").mockImplementation(() => clsid.artefact_s);
+    jest.spyOn(object, "get_artefact").mockImplementation(() => artefact);
+    jest.spyOn(zone, "onArtefactTaken").mockImplementation(jest.fn());
+
+    registry.artefacts.parentZones.set(object.id(), zone);
+
+    manager.onActorItemTake(object);
+
+    expect(zone.onArtefactTaken).toHaveBeenCalledTimes(1);
+    expect(zone.onArtefactTaken).toHaveBeenCalledWith(object);
+    expect(object.get_artefact).toHaveBeenCalledTimes(1);
+    expect(artefact.FollowByPath).toHaveBeenCalledTimes(1);
+    expect(artefact.FollowByPath).toHaveBeenCalledWith("NULL", 0, createVector(500, 500, 500));
+  });
+
+  it("should correctly handle actor taking artefacts from world", () => {
+    const object: GameObject = MockGameObject.mock();
+    const manager: SurgeManager = getManager(SurgeManager);
+    const artefact: CArtefact = MockCArtefact.mock();
+
+    jest.spyOn(object, "clsid").mockImplementation(() => clsid.artefact_s);
+    jest.spyOn(object, "get_artefact").mockImplementation(() => artefact);
+
+    registry.artefacts.ways.set(object.id(), "path_example");
+
+    expect(registry.artefacts.ways.has(object.id())).toBe(true);
+
+    manager.onActorItemTake(object);
+
+    expect(object.get_artefact).toHaveBeenCalledTimes(1);
+    expect(artefact.FollowByPath).toHaveBeenCalledTimes(1);
+    expect(artefact.FollowByPath).toHaveBeenCalledWith("NULL", 0, createVector(500, 500, 500));
+    expect(registry.artefacts.ways.has(object.id())).toBe(false);
   });
 });
