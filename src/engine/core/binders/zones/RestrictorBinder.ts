@@ -52,11 +52,12 @@ export class RestrictorBinder extends object_binder {
 
     const objectId: TNumberId = this.object.id();
 
+    // todo: ???
     if (soundsConfig.looped.has(objectId)) {
       const soundManager: SoundManager = getManager(SoundManager);
 
       for (const [sound] of soundsConfig.looped.get(objectId)) {
-        soundManager.playLoopedSound(objectId, sound);
+        soundManager.playLooped(objectId, sound);
       }
     }
 
@@ -70,7 +71,7 @@ export class RestrictorBinder extends object_binder {
 
     logger.info("Go offline:", object.name());
 
-    getManager(SoundManager).stopSoundByObjectId(objectId);
+    getManager(SoundManager).stop(objectId);
 
     if (state.activeScheme) {
       emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);

@@ -91,6 +91,6 @@ export class ActionPostCombatIdleWait extends action_base {
     (this.state.animation as StalkerAnimationManager).setState(EStalkerState.HIDE);
     (this.state.animation as StalkerAnimationManager).setControl();
 
-    getManager(SoundManager).play(this.object.id(), "post_combat_wait", null, null);
+    getManager(SoundManager).play(this.object.id(), "post_combat_wait");
   }
 }

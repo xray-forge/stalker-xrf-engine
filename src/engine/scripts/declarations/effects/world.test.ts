@@ -83,36 +83,36 @@ describe("world effects implementation", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
 
     callXrEffect("stop_sound", MockGameObject.mockActor(), object);
 
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(object.id());
+    expect(soundManager.stop).toHaveBeenCalledTimes(1);
+    expect(soundManager.stop).toHaveBeenCalledWith(object.id());
   });
 
   it("play_sound_looped should play looped sounds", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
-    jest.spyOn(soundManager, "playLoopedSound").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "playLooped").mockImplementation(jest.fn());
 
     callXrEffect("play_sound_looped", MockGameObject.mockActor(), object, "test_sound");
 
-    expect(soundManager.playLoopedSound).toHaveBeenCalledTimes(1);
-    expect(soundManager.playLoopedSound).toHaveBeenCalledWith(object.id(), "test_sound");
+    expect(soundManager.playLooped).toHaveBeenCalledTimes(1);
+    expect(soundManager.playLooped).toHaveBeenCalledWith(object.id(), "test_sound");
   });
 
   it("stop_sound_looped should stop looped sounds", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
 
-    jest.spyOn(soundManager, "stopLoopedSound").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stopAllLooped").mockImplementation(jest.fn());
 
     callXrEffect("stop_sound_looped", MockGameObject.mockActor(), object);
 
-    expect(soundManager.stopLoopedSound).toHaveBeenCalledTimes(1);
-    expect(soundManager.stopLoopedSound).toHaveBeenCalledWith(object.id(), null);
+    expect(soundManager.stopAllLooped).toHaveBeenCalledTimes(1);
+    expect(soundManager.stopAllLooped).toHaveBeenCalledWith(object.id());
   });
 
   it("play_sound_by_story should play sound by story id", () => {

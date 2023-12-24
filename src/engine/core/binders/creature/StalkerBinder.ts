@@ -181,7 +181,7 @@ export class StalkerBinder extends object_binder {
 
     this.resetCallbacks();
 
-    getManager(SoundManager).stopSoundByObjectId(objectId);
+    getManager(SoundManager).stop(objectId);
 
     registry.actorCombat.delete(objectId);
 

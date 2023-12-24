@@ -6,6 +6,7 @@ import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { SCRIPT_SOUND_LTX, soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { NIL } from "@/engine/lib/constants/words";
 import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
@@ -15,8 +16,9 @@ describe("SoundManager class", () => {
   beforeEach(() => {
     resetRegistry();
 
-    soundsConfig.playing = new LuaTable();
     soundsConfig.themes = readIniThemesList(SCRIPT_SOUND_LTX);
+    soundsConfig.playing = new LuaTable();
+    soundsConfig.looped = new LuaTable();
   });
 
   it("should correctly initialize and destroy", () => {
@@ -195,19 +197,160 @@ describe("SoundManager class", () => {
     expect(theme.play).toHaveBeenCalledTimes(2);
   });
 
-  it.todo("should correctly initialize state for objects");
+  it("should correctly start looped sounds for objects", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("should correctly stop/start sounds for objects");
+    expect(() => manager.playLooped(object.id(), "attack_end")).toThrow(
+      `Not existing sound theme 'attack_end' provided for loop playing with object '${object.id()}'.`
+    );
+    expect(() => manager.playLooped(object.id(), "play_always_example")).toThrow(
+      "Trying to start sound 'play_always_example' with incorrect play looped method."
+    );
 
-  it.todo("should correctly stop/start looped sounds for objects");
+    expect(soundsConfig.looped.length()).toBe(0);
 
-  it.todo("should correctly stop/start looped sounds for objects");
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
 
-  it.todo("should correctly stop all sounds");
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
 
-  it.todo("should correctly handle update event");
+    manager.playLooped(object.id(), "looped_example");
 
-  it.todo("should correctly handle update event for actor");
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
+    expect(theme.play).toHaveBeenCalledTimes(1);
+    expect(theme.play).toHaveBeenCalledWith(object.id());
 
-  it.todo("should correctly handle actor going offline");
+    jest.spyOn(theme, "isPlaying").mockImplementation(() => true);
+
+    manager.playLooped(object.id(), "looped_example");
+
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
+    expect(theme.play).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly stop looped sounds for objects", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
+    jest.spyOn(theme, "stop").mockImplementation(jest.fn(() => true));
+
+    manager.playLooped(object.id(), "looped_example");
+
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
+    expect(theme.play).toHaveBeenCalledTimes(1);
+    expect(theme.play).toHaveBeenCalledWith(object.id());
+
+    manager.stopLooped(object.id(), "looped_example");
+
+    expect(theme.stop).toHaveBeenCalledTimes(0);
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(0);
+
+    jest.spyOn(theme, "isPlaying").mockImplementation(() => true);
+
+    manager.playLooped(object.id(), "looped_example");
+
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
+    expect(theme.play).toHaveBeenCalledTimes(2);
+
+    manager.stopLooped(object.id(), "looped_example");
+
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(0);
+    expect(theme.stop).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly stop all looped sounds for objects", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
+    jest.spyOn(theme, "stop").mockImplementation(jest.fn(() => true));
+
+    manager.playLooped(object.id(), "looped_example");
+
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
+    expect(theme.play).toHaveBeenCalledTimes(1);
+    expect(theme.play).toHaveBeenCalledWith(object.id());
+
+    manager.stopAllLooped(object.id());
+
+    expect(theme.stop).toHaveBeenCalledTimes(0);
+    expect(soundsConfig.looped.length()).toBe(0);
+
+    jest.spyOn(theme, "isPlaying").mockImplementation(() => true);
+
+    manager.playLooped(object.id(), "looped_example");
+
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
+    expect(theme.play).toHaveBeenCalledTimes(2);
+
+    manager.stopAllLooped(object.id());
+
+    expect(soundsConfig.looped.length()).toBe(0);
+    expect(theme.stop).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly set looped sound volume", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("looped_example");
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
+    jest.spyOn(theme, "stop").mockImplementation(jest.fn(() => true));
+    jest.spyOn(theme, "setVolume").mockImplementation(jest.fn(() => true));
+
+    expect(() => manager.setLoopedSoundVolume(object.id(), "looped_example", 10)).not.toThrow();
+
+    manager.playLooped(object.id(), "looped_example");
+
+    expect(soundsConfig.looped.length()).toBe(1);
+    expect(soundsConfig.looped.get(object.id()).length()).toBe(1);
+    expect(theme.setVolume).toHaveBeenCalledTimes(0);
+
+    manager.setLoopedSoundVolume(object.id(), "looped_example", 10);
+
+    expect(theme.setVolume).toHaveBeenCalledTimes(0);
+
+    jest.spyOn(theme, "isPlaying").mockImplementation(() => true);
+
+    manager.setLoopedSoundVolume(object.id(), "looped_example", 10);
+
+    expect(theme.setVolume).toHaveBeenCalledTimes(1);
+    expect(theme.setVolume).toHaveBeenCalledWith(10);
+  });
+
+  it("should correctly handle update event for actor", () => {
+    const manager: SoundManager = getManager(SoundManager);
+
+    jest.spyOn(manager, "update").mockImplementation(jest.fn());
+
+    manager.onActorUpdate();
+
+    expect(manager.update).toHaveBeenCalledTimes(1);
+    expect(manager.update).toHaveBeenCalledWith(ACTOR_ID);
+  });
+
+  it("should correctly handle actor going offline", () => {
+    const manager: SoundManager = getManager(SoundManager);
+
+    jest.spyOn(manager, "stop").mockImplementation(jest.fn());
+
+    manager.onActorNetworkDestroy();
+
+    expect(manager.stop).toHaveBeenCalledTimes(1);
+    expect(manager.stop).toHaveBeenCalledWith(ACTOR_ID);
+  });
 });

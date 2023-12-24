@@ -36,13 +36,13 @@ describe("PhysicObjectBinder class", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
     const soundManager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
     (binder as unknown as MockObjectBinder).canSpawn = false;
 
     binder.net_spawn(mockServerAlifeObject({ id: object.id() }));
 
     expect(registry.objects.length()).toBe(0);
-    expect(soundManager.stopSoundByObjectId).not.toHaveBeenCalled();
+    expect(soundManager.stop).not.toHaveBeenCalled();
   });
 
   it("should handle going online/offline with defaults", () => {
@@ -50,7 +50,7 @@ describe("PhysicObjectBinder class", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
     const soundManager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
 
     binder.net_spawn(mockServerAlifeObject({ id: object.id() }));
 
@@ -66,7 +66,7 @@ describe("PhysicObjectBinder class", () => {
     binder.net_destroy();
 
     expect(registry.objects.has(object.id())).toBe(false);
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(object.id());
+    expect(soundManager.stop).toHaveBeenCalledWith(object.id());
   });
 
   it("should handle with extended config", () => {
@@ -75,7 +75,7 @@ describe("PhysicObjectBinder class", () => {
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const soundManager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
     jest.spyOn(binder.object, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         level_spot: {
@@ -103,7 +103,7 @@ describe("PhysicObjectBinder class", () => {
     binder.net_destroy();
 
     expect(registry.objects.has(binder.object.id())).toBe(false);
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(binder.object.id());
+    expect(soundManager.stop).toHaveBeenCalledWith(binder.object.id());
     expect(level.map_remove_object_spot).toHaveBeenCalledWith(binder.object.id(), "ui_pda2_actor_box_location");
 
     expect(emitSchemeEvent).toHaveBeenCalledWith(

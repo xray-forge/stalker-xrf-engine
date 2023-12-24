@@ -167,7 +167,7 @@ export class StoryManager {
 
       for (const [index, descriptor] of this.objects) {
         if (descriptor.objectId !== this.storyteller) {
-          getManager(SoundManager).play(descriptor.objectId, nextPhraseDescriptor.theme, null, null);
+          getManager(SoundManager).play(descriptor.objectId, nextPhraseDescriptor.theme);
           objectId = descriptor.objectId;
         }
       }
@@ -200,7 +200,7 @@ export class StoryManager {
     this.phraseIdle = nextPhraseDescriptor.timeout * 1000;
 
     if (nextPhraseDescriptor.theme !== NIL) {
-      getManager(SoundManager).play(nextSpeakerObjectId, nextPhraseDescriptor.theme, null, null);
+      getManager(SoundManager).play(nextSpeakerObjectId, nextPhraseDescriptor.theme);
     }
   }
 }

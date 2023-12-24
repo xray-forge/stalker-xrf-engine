@@ -170,7 +170,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.block = false;
 
     if (!this.soundlessBlock && this.state.sndCloseStop) {
-      getManager(SoundManager).play(this.object.id(), this.state.sndCloseStop, null, null);
+      getManager(SoundManager).play(this.object.id(), this.state.sndCloseStop);
     }
   }
 
@@ -182,7 +182,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     if (!disableSound) {
       if (this.state.sndOpenStart) {
-        getManager(SoundManager).play(this.object.id(), this.state.sndOpenStart, null, null);
+        getManager(SoundManager).play(this.object.id(), this.state.sndOpenStart);
       }
     }
 
@@ -223,7 +223,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     if (!disableSound) {
       if (this.state.sndCloseStart !== null) {
-        getManager(SoundManager).play(this.object.id(), this.state.sndCloseStart, null, null);
+        getManager(SoundManager).play(this.object.id(), this.state.sndCloseStart);
       }
     }
 

@@ -214,7 +214,7 @@ export class ActionSmartCoverActivity extends action_base implements ISchemeEven
     }
 
     if (this.state.soundIdle !== null) {
-      getManager(SoundManager).play(this.object.id(), this.state.soundIdle, null, null);
+      getManager(SoundManager).play(this.object.id(), this.state.soundIdle);
     }
   }
 

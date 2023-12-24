@@ -45,7 +45,7 @@ export class SmartTerrainBinder extends object_binder {
   public override net_destroy(): void {
     logger.info("Go offline:", this.object.name());
 
-    getManager(SoundManager).stopSoundByObjectId(this.object.id());
+    getManager(SoundManager).stop(this.object.id());
 
     unregisterSmartTerrain(this.object, this.serverObject);
 

@@ -265,11 +265,11 @@ export class SurgeManager extends AbstractManager {
     const soundManager: SoundManager = getManager(SoundManager);
 
     if (this.isEffectorSet) {
-      soundManager.stopLoopedSound(ACTOR_ID, "blowout_rumble");
+      soundManager.stopLooped(ACTOR_ID, "blowout_rumble");
     }
 
     if (this.isSecondMessageGiven) {
-      soundManager.stopLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+      soundManager.stopLooped(ACTOR_ID, "surge_earthquake_sound_looped");
     }
 
     level.remove_pp_effector(surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID);
@@ -382,7 +382,7 @@ export class SurgeManager extends AbstractManager {
 
         if (this.isAfterGameLoad) {
           if (this.isBlowoutSoundStarted) {
-            soundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
+            soundManager.playLooped(ACTOR_ID, "blowout_rumble");
           }
 
           if (this.isEffectorSet) {
@@ -390,7 +390,7 @@ export class SurgeManager extends AbstractManager {
           }
 
           if (this.isSecondMessageGiven) {
-            soundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+            soundManager.playLooped(ACTOR_ID, "surge_earthquake_sound_looped");
             level.add_cam_effector(
               animations.camera_effects_earthquake,
               surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID,
@@ -447,7 +447,7 @@ export class SurgeManager extends AbstractManager {
         } else if (surgeDuration >= 140 && !this.isSecondMessageGiven) {
           playSurgeWillHappenSoonSound();
 
-          soundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+          soundManager.playLooped(ACTOR_ID, "surge_earthquake_sound_looped");
           level.add_cam_effector(
             animations.camera_effects_earthquake,
             surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID,
@@ -461,7 +461,7 @@ export class SurgeManager extends AbstractManager {
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.isBlowoutSoundStarted) {
           soundManager.play(ACTOR_ID, "blowout_begin");
-          soundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
+          soundManager.playLooped(ACTOR_ID, "blowout_rumble");
           soundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", 0.25);
 
           this.isBlowoutSoundStarted = true;

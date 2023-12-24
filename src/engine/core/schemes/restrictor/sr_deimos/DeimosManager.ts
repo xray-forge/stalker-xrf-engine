@@ -42,12 +42,12 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
 
       if (this.state.intensity > this.state.disableBound) {
         level.add_pp_effector(this.state.ppEffector + ".ppe", DeimosManager.POST_PROCESS_EFFECTOR_ID, true);
-        soundManager.playLoopedSound(actorId, this.state.noiseSound);
+        soundManager.playLooped(actorId, this.state.noiseSound);
         this.phase = 1;
       }
 
       if (this.state.intensity > this.state.switchLowerBound) {
-        soundManager.playLoopedSound(actorId, this.state.heartbeetSound);
+        soundManager.playLooped(actorId, this.state.heartbeetSound);
         this.phase = 2;
       }
     }
@@ -98,7 +98,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
         }
       } else if (this.state.intensity > this.state.switchLowerBound) {
         if (this.phase < 2) {
-          soundManager.playLoopedSound(actorId, this.state.heartbeetSound);
+          soundManager.playLooped(actorId, this.state.heartbeetSound);
           soundManager.setLoopedSoundVolume(actorId, this.state.heartbeetSound, heartbeetIntensity);
           this.phase = 2;
         }
@@ -106,7 +106,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
         if (this.phase < 1) {
           level.add_pp_effector(this.state.ppEffector + ".ppe", DeimosManager.POST_PROCESS_EFFECTOR_ID, true);
           level.set_pp_effector_factor(DeimosManager.POST_PROCESS_EFFECTOR_ID, ppIntensity);
-          soundManager.playLoopedSound(actorId, this.state.noiseSound);
+          soundManager.playLooped(actorId, this.state.noiseSound);
           soundManager.setLoopedSoundVolume(actorId, this.state.noiseSound, noiseIntensity);
           this.phase = 1;
         }
@@ -114,13 +114,13 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
     } else {
       if (this.state.intensity < this.state.disableBound) {
         if (this.phase > 0) {
-          soundManager.stopLoopedSound(actorId, this.state.noiseSound);
+          soundManager.stopLooped(actorId, this.state.noiseSound);
           level.remove_pp_effector(DeimosManager.POST_PROCESS_EFFECTOR_ID);
           this.phase = 0;
         }
       } else if (this.state.intensity < this.state.switchLowerBound) {
         if (this.phase > 1) {
-          soundManager.stopLoopedSound(actorId, this.state.heartbeetSound);
+          soundManager.stopLooped(actorId, this.state.heartbeetSound);
           this.phase = 1;
         }
       } else if (this.state.intensity < this.state.switchUpperBound) {
@@ -131,10 +131,10 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
 
     if (trySwitchToAnotherSection(this.object, this.state)) {
       if (this.phase > 0) {
-        soundManager.stopLoopedSound(actorId, this.state.noiseSound);
+        soundManager.stopLooped(actorId, this.state.noiseSound);
         level.remove_pp_effector(DeimosManager.POST_PROCESS_EFFECTOR_ID);
         if (this.phase > 1) {
-          soundManager.stopLoopedSound(actorId, this.state.heartbeetSound);
+          soundManager.stopLooped(actorId, this.state.heartbeetSound);
           level.remove_cam_effector(DeimosManager.POST_PROCESS_EFFECTOR_SECONDARY_ID);
           level.remove_pp_effector(DeimosManager.CAMERA_EFFECTOR_ID);
         }

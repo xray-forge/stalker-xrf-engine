@@ -139,7 +139,7 @@ describe("MonsterBinder class", () => {
     const binder: MonsterBinder = new MonsterBinder(object);
     const manager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(manager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(manager, "stop").mockImplementation(jest.fn());
 
     binder.net_spawn(serverObject);
 
@@ -171,7 +171,7 @@ describe("MonsterBinder class", () => {
     expect(object.set_callback).toHaveBeenCalledWith(callback.hit, null);
     expect(object.set_callback).toHaveBeenCalledWith(callback.sound, null);
 
-    expect(manager.stopSoundByObjectId).toHaveBeenCalledWith(object.id());
+    expect(manager.stop).toHaveBeenCalledWith(object.id());
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
       object,

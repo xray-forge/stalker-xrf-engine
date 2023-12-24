@@ -24,6 +24,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manager of game effects/sounds/voices triggered from script engine.
+ *
+ * todo: Unify looped and non-looped play-stop methods?
  */
 export class SoundManager extends AbstractManager {
   public override initialize(): void {
@@ -199,24 +201,26 @@ export class SoundManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Stops all sounds for provided object ID.
+   *
+   * @param objectId - target object ID to stop all sounds for
    */
-  public stopSoundByObjectId(objectId: TNumberId): void {
-    const theme: Optional<AbstractPlayableSound> = soundsConfig.playing.get(
+  public stop(objectId: TNumberId): void {
+    const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(
       objectId
     ) as Optional<AbstractPlayableSound>;
 
-    if (theme) {
-      logger.info("Stop sound play:", objectId, theme.section);
-      theme.stop(objectId);
+    if (sound) {
+      logger.info("Stop sound play:", objectId, sound.section);
+      sound.stop(objectId);
     }
 
-    const loopedSounds: Optional<LuaTable<TName, AbstractPlayableSound>> = soundsConfig.looped.get(
-      objectId
-    ) as Optional<LuaTable<TName, AbstractPlayableSound>>;
+    const looped: Optional<LuaTable<TName, AbstractPlayableSound>> = soundsConfig.looped.get(objectId) as Optional<
+      LuaTable<TName, AbstractPlayableSound>
+    >;
 
-    if (loopedSounds) {
-      for (const [, sound] of loopedSounds) {
+    if (looped) {
+      for (const [, sound] of looped) {
         if (sound.isPlaying(objectId)) {
           logger.info("Stop looped sound play:", objectId, sound.section);
           sound.stop(objectId);
@@ -226,70 +230,85 @@ export class SoundManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Start looped sound playing for provided object ID.
+   *
+   * @param objectId - target object ID to play sound for
+   * @param name - name of the looped sound to start
    */
-  public playLoopedSound(objectId: TNumberId, sound: TName): void {
-    const loopedItem: Optional<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(objectId);
+  public playLooped(objectId: TNumberId, name: TName): void {
+    const looped: Optional<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(objectId);
 
-    if (loopedItem?.get(sound)?.isPlaying(objectId)) {
+    if (looped && looped.get(name)?.isPlaying(objectId)) {
       return;
     }
 
-    const soundTheme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(sound);
+    const theme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(name);
 
-    assert(soundTheme, "'playLoopedSound': Wrong sound theme [%s], object [%s]", tostring(sound), objectId);
-    assert(soundTheme.type === "looped", "Trying to play sound [%s] which type is not looped.", sound);
+    assert(theme, "Not existing sound theme '%s' provided for loop playing with object '%s'.", name, objectId);
+    assert(theme.type === LoopedSound.type, "Trying to start sound '%s' with incorrect play looped method.", name);
 
-    if (soundTheme.play(objectId)) {
-      let collection: Optional<LuaTable<TStringId, AbstractPlayableSound>> = loopedItem;
+    if (theme.play(objectId)) {
+      let collection: Optional<LuaTable<TStringId, AbstractPlayableSound>> = looped;
 
-      if (collection === null) {
+      if (!collection) {
         collection = new LuaTable();
         soundsConfig.looped.set(objectId, collection);
       }
 
-      collection.set(sound, soundTheme);
+      collection.set(name, theme);
     }
   }
 
   /**
-   * todo: Description.
+   * Stop looped sound by object ID and name.
+   *
+   * @param objectId - target object ID to stop sound for
+   * @param name - name of the looped sound to stop
    */
-  public stopLoopedSound(objectId: TNumberId, sound: Optional<TStringId>): void {
-    const loopedCollection: LuaTable<TStringId, AbstractPlayableSound> = soundsConfig.looped.get(objectId);
+  public stopLooped(objectId: TNumberId, name: TName): void {
+    const collection: LuaTable<TStringId, AbstractPlayableSound> = soundsConfig.looped.get(objectId);
+    const sound: Optional<AbstractPlayableSound> = collection?.get(name);
 
-    if (sound) {
-      const loopedTheme: Optional<AbstractPlayableSound> = loopedCollection.get(sound);
-
-      if (loopedTheme?.isPlaying(objectId)) {
-        loopedTheme.stop();
-        loopedCollection.delete(sound);
-      }
-    } else {
-      for (const [, theme] of loopedCollection) {
-        if (theme.isPlaying(objectId)) {
-          theme.stop();
-        }
-
-        soundsConfig.looped.delete(objectId);
-      }
+    if (!sound) {
+      return;
     }
+
+    if (sound.isPlaying(objectId)) {
+      sound.stop();
+    }
+
+    collection.delete(name);
+
+    // todo: Remove collection if it is empty?
   }
 
   /**
-   * todo: Description.
+   * Stop all looped sounds for object.
+   *
+   * @param objectId - target object ID to stop sounds for
    */
-  public setLoopedSoundVolume(objectId: TNumberId, sound: TStringId, volume: TRate): void {
-    const loopedSound: Optional<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(
-      objectId
-    ) as Optional<LuaTable<TStringId, AbstractPlayableSound>>;
+  public stopAllLooped(objectId: TNumberId): void {
+    const collection: LuaTable<TStringId, AbstractPlayableSound> = soundsConfig.looped.get(objectId);
 
-    if (loopedSound) {
-      const soundItem: Optional<AbstractPlayableSound> = loopedSound.get(sound);
-
-      if (soundItem?.isPlaying(objectId)) {
-        soundItem.setVolume(volume);
+    for (const [, sound] of collection) {
+      if (sound.isPlaying(objectId)) {
+        sound.stop();
       }
+    }
+
+    soundsConfig.looped.delete(objectId);
+  }
+
+  /**
+   * @param objectId - target object ID to set sound volume for
+   * @param name - name of the sound to set volume for
+   * @param volume - value of volume to set
+   */
+  public setLoopedSoundVolume(objectId: TNumberId, name: TName, volume: TRate): void {
+    const sound: Optional<AbstractPlayableSound> = soundsConfig.looped.get(objectId)?.get(name);
+
+    if (sound && sound.isPlaying(objectId)) {
+      sound.setVolume(volume);
     }
   }
 
@@ -297,7 +316,7 @@ export class SoundManager extends AbstractManager {
    * Handle actor destroy and mute all sounds.
    */
   public onActorNetworkDestroy(): void {
-    this.stopSoundByObjectId(ACTOR_ID);
+    this.stop(ACTOR_ID);
   }
 
   /**
