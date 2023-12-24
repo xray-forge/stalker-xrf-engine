@@ -124,9 +124,9 @@ describe("StalkerBinder class", () => {
 
     binder.save(mockNetPacket(netProcessor));
 
-    expect(tradeManager.saveObjectState).toHaveBeenCalledWith(netProcessor, object);
-    expect(soundManager.saveObject).toHaveBeenCalledWith(netProcessor, object);
-    expect(dialogManager.saveObjectDialogs).toHaveBeenCalledWith(netProcessor, object);
+    expect(tradeManager.saveObjectState).toHaveBeenCalledWith(object, netProcessor);
+    expect(soundManager.saveObject).toHaveBeenCalledWith(object, netProcessor);
+    expect(dialogManager.saveObjectDialogs).toHaveBeenCalledWith(object, netProcessor);
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -169,9 +169,9 @@ describe("StalkerBinder class", () => {
 
     binder.load(mockNetReader(netProcessor));
 
-    expect(tradeManager.loadObjectState).toHaveBeenCalledWith(netProcessor, object);
-    expect(soundManager.loadObject).toHaveBeenCalledWith(netProcessor, object);
-    expect(dialogManager.loadObjectDialogs).toHaveBeenCalledWith(netProcessor, object);
+    expect(tradeManager.loadObjectState).toHaveBeenCalledWith(object, netProcessor);
+    expect(soundManager.loadObject).toHaveBeenCalledWith(object, netProcessor);
+    expect(dialogManager.loadObjectDialogs).toHaveBeenCalledWith(object, netProcessor);
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
