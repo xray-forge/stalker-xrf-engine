@@ -64,8 +64,8 @@ describe("RestrictorBinder class", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const mockSound: AbstractPlayableSound = {} as AnyObject as AbstractPlayableSound;
 
-    jest.spyOn(soundManager, "playLoopedSound").mockImplementation(jest.fn());
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "playLooped").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
 
     soundsConfig.looped.set(serverObject.id, $fromObject<TName, AbstractPlayableSound>({ first: mockSound }));
 
@@ -78,13 +78,13 @@ describe("RestrictorBinder class", () => {
 
     expect(registry.zones.length()).toBe(1);
     expect(registry.objects.length()).toBe(1);
-    expect(soundManager.playLoopedSound).toHaveBeenCalledTimes(1);
-    expect(soundManager.playLoopedSound).toHaveBeenCalledWith(serverObject.id, "first");
+    expect(soundManager.playLooped).toHaveBeenCalledTimes(1);
+    expect(soundManager.playLooped).toHaveBeenCalledWith(serverObject.id, "first");
 
     binder.net_destroy();
 
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(serverObject.id);
+    expect(soundManager.stop).toHaveBeenCalledTimes(1);
+    expect(soundManager.stop).toHaveBeenCalledWith(serverObject.id);
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
       binder.object,
@@ -102,15 +102,15 @@ describe("RestrictorBinder class", () => {
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
     const soundManager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(soundManager, "playLoopedSound").mockImplementation(jest.fn());
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "playLooped").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
 
     binder.net_spawn(serverObject);
 
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(0);
-    expect(soundManager.playLoopedSound).toHaveBeenCalledTimes(0);
+    expect(soundManager.stop).toHaveBeenCalledTimes(0);
+    expect(soundManager.playLooped).toHaveBeenCalledTimes(0);
     expect(emitSchemeEvent).toHaveBeenCalledTimes(0);
 
     expect(registry.zones.length()).toBe(0);

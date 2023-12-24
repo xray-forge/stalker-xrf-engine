@@ -44,7 +44,7 @@ export abstract class AbstractPlayableSound {
    * todo: Description.
    */
   public stop(...args: AnyArgs): void {
-    if (this.soundObject !== null) {
+    if (this.soundObject) {
       this.soundObject.stop();
     }
   }
@@ -53,7 +53,7 @@ export abstract class AbstractPlayableSound {
    * todo: Description.
    */
   public setVolume(level: TRate): void {
-    if (this.soundObject !== null) {
+    if (this.soundObject) {
       this.soundObject.volume = level;
     }
   }

@@ -76,7 +76,7 @@ export function activateMeetWithObject(object: GameObject): void {
 
   if (tostring(sound) !== NIL) {
     logger.format("Play meet sound: '%s' - '%s'", object.name(), sound);
-    getManager(SoundManager).playSound(object.id(), sound);
+    getManager(SoundManager).play(object.id(), sound);
   }
 
   const meetManager: MeetManager = state.meetManager;

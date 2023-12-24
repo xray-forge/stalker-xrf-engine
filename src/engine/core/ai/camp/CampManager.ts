@@ -172,7 +172,7 @@ export class CampManager {
       // todo: Simplify with table random.
       if (objectsCount !== 0) {
         this.idleTalkerId = talkers.get(math.random(talkers.length()));
-        getManager(SoundManager).playSound(this.idleTalkerId, "state");
+        getManager(SoundManager).play(this.idleTalkerId, "state");
       }
     }
   }

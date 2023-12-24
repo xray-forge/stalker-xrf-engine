@@ -112,7 +112,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
         this.current = copyVector(targetPosition);
       }
 
-      this.soundObject = getManager(SoundManager).playSound(this.object.id(), this.state.soundObject, null, null);
+      this.soundObject = getManager(SoundManager).play(this.object.id(), this.state.soundObject);
       if (this.soundObject && this.soundObject.playing()) {
         this.soundObject.set_position(this.current);
       }

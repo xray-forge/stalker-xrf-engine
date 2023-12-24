@@ -112,14 +112,14 @@ describe("TradeManager class implementation", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(time_global, () => 30_000);
-    tradeManager.saveObjectState(netProcessor.asMockNetPacket(), object);
+    tradeManager.saveObjectState(object, netProcessor.asMockNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN, EPacketDataType.U16]);
     expect(netProcessor.dataList).toEqual([false, 1]);
 
     registry.objects.delete(object.id());
 
-    tradeManager.loadObjectState(netProcessor.asMockNetProcessor(), object);
+    tradeManager.loadObjectState(object, netProcessor.asMockNetProcessor());
 
     expect(netProcessor.writeDataOrder).toEqual(netProcessor.readDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -137,7 +137,7 @@ describe("TradeManager class implementation", () => {
     tradeManager.initializeForObject(object, "misc\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
-    tradeManager.saveObjectState(netProcessor.asMockNetPacket(), object);
+    tradeManager.saveObjectState(object, netProcessor.asMockNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
@@ -153,7 +153,7 @@ describe("TradeManager class implementation", () => {
 
     registry.objects.delete(object.id());
 
-    tradeManager.loadObjectState(netProcessor.asMockNetProcessor(), object);
+    tradeManager.loadObjectState(object, netProcessor.asMockNetProcessor());
 
     expect(netProcessor.writeDataOrder).toEqual(netProcessor.readDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -184,7 +184,7 @@ describe("TradeManager class implementation", () => {
     tradeManager.updateForObject(object);
 
     replaceFunctionMock(time_global, () => 30_000);
-    tradeManager.saveObjectState(netProcessor.asMockNetPacket(), object);
+    tradeManager.saveObjectState(object, netProcessor.asMockNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
@@ -209,7 +209,7 @@ describe("TradeManager class implementation", () => {
 
     registry.objects.delete(object.id());
 
-    tradeManager.loadObjectState(netProcessor.asMockNetProcessor(), object);
+    tradeManager.loadObjectState(object, netProcessor.asMockNetProcessor());
 
     expect(netProcessor.writeDataOrder).toEqual(netProcessor.readDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

@@ -86,15 +86,15 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
 
       if (this.state.silent !== true) {
         if (nextState === EStalkerState.SNEAK) {
-          soundManager.playSound(this.object.id(), "patrol_sneak", null, null);
+          soundManager.play(this.object.id(), "patrol_sneak", null, null);
         } else if (nextState === EStalkerState.SNEAK_RUN) {
-          soundManager.playSound(this.object.id(), "patrol_run", null, null);
+          soundManager.play(this.object.id(), "patrol_run", null, null);
         } else if (nextState === EStalkerState.RUN) {
-          soundManager.playSound(this.object.id(), "patrol_run", null, null);
+          soundManager.play(this.object.id(), "patrol_run", null, null);
         } else if (nextState === EStalkerState.ASSAULT) {
-          soundManager.playSound(this.object.id(), "patrol_run", null, null);
+          soundManager.play(this.object.id(), "patrol_run", null, null);
         } else if (nextState === EStalkerState.RUSH) {
-          soundManager.playSound(this.object.id(), "patrol_run", null, null);
+          soundManager.play(this.object.id(), "patrol_run", null, null);
         } else if (
           previousState === EStalkerState.SNEAK ||
           previousState === EStalkerState.SNEAK_RUN ||
@@ -102,7 +102,7 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
           previousState === EStalkerState.ASSAULT ||
           previousState === EStalkerState.RUSH
         ) {
-          soundManager.playSound(this.object.id(), "patrol_walk", null, null);
+          soundManager.play(this.object.id(), "patrol_walk", null, null);
         }
       }
 

@@ -104,6 +104,71 @@ export class SurgeManager extends AbstractManager {
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
   }
 
+  public override save(packet: NetPacket): void {
+    openSaveMarker(packet, SurgeManager.name);
+
+    packet.w_bool(surgeConfig.IS_FINISHED);
+    packet.w_bool(surgeConfig.IS_STARTED);
+
+    writeTimeToPacket(packet, this.lastSurgeAt);
+
+    if (surgeConfig.IS_STARTED) {
+      writeTimeToPacket(packet, this.initializedAt);
+
+      packet.w_bool(this.isTaskGiven);
+      packet.w_bool(this.isEffectorSet);
+      packet.w_bool(this.isSecondMessageGiven);
+      packet.w_bool(this.isUiDisabled);
+      packet.w_bool(this.isBlowoutSoundStarted);
+
+      packet.w_stringZ(this.surgeMessage);
+      packet.w_stringZ(this.surgeTaskSection);
+    }
+
+    packet.w_u32(this.nextScheduledSurgeDelay);
+
+    packet.w_u16(table.size(this.respawnArtefactsForLevel));
+
+    for (const [level] of this.respawnArtefactsForLevel) {
+      packet.w_stringZ(level);
+    }
+
+    closeSaveMarker(packet, SurgeManager.name);
+  }
+
+  public override load(reader: NetProcessor): void {
+    openLoadMarker(reader, SurgeManager.name);
+
+    surgeConfig.IS_FINISHED = reader.r_bool();
+    surgeConfig.IS_STARTED = reader.r_bool();
+
+    this.lastSurgeAt = readTimeFromPacket(reader)!;
+
+    if (surgeConfig.IS_STARTED) {
+      this.initializedAt = readTimeFromPacket(reader)!;
+
+      this.isTaskGiven = reader.r_bool();
+      this.isEffectorSet = reader.r_bool();
+      this.isSecondMessageGiven = reader.r_bool();
+      this.isUiDisabled = reader.r_bool();
+      this.isBlowoutSoundStarted = reader.r_bool();
+
+      this.surgeMessage = reader.r_stringZ();
+      this.surgeTaskSection = reader.r_stringZ();
+    }
+
+    this.nextScheduledSurgeDelay = reader.r_u32();
+    this.isAfterGameLoad = true;
+
+    const count: TCount = reader.r_u16();
+
+    for (const _ of $range(1, count)) {
+      this.respawnArtefactsForLevel.set(reader.r_stringZ(), true);
+    }
+
+    closeLoadMarker(reader, SurgeManager.name);
+  }
+
   /**
    * todo
    */
@@ -265,11 +330,11 @@ export class SurgeManager extends AbstractManager {
     const soundManager: SoundManager = getManager(SoundManager);
 
     if (this.isEffectorSet) {
-      soundManager.stopLoopedSound(ACTOR_ID, "blowout_rumble");
+      soundManager.stopLooped(ACTOR_ID, "blowout_rumble");
     }
 
     if (this.isSecondMessageGiven) {
-      soundManager.stopLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+      soundManager.stopLooped(ACTOR_ID, "surge_earthquake_sound_looped");
     }
 
     level.remove_pp_effector(surgeConfig.SURGE_SHOCK_PP_EFFECTOR_ID);
@@ -318,9 +383,6 @@ export class SurgeManager extends AbstractManager {
     getManager(MapDisplayManager).updateAnomalyZonesDisplay();
   }
 
-  /**
-   * todo: Description.
-   */
   public override update(): void {
     if (isBlackScreen()) {
       return;
@@ -382,7 +444,7 @@ export class SurgeManager extends AbstractManager {
 
         if (this.isAfterGameLoad) {
           if (this.isBlowoutSoundStarted) {
-            soundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
+            soundManager.playLooped(ACTOR_ID, "blowout_rumble");
           }
 
           if (this.isEffectorSet) {
@@ -390,7 +452,7 @@ export class SurgeManager extends AbstractManager {
           }
 
           if (this.isSecondMessageGiven) {
-            soundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+            soundManager.playLooped(ACTOR_ID, "surge_earthquake_sound_looped");
             level.add_cam_effector(
               animations.camera_effects_earthquake,
               surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID,
@@ -447,7 +509,7 @@ export class SurgeManager extends AbstractManager {
         } else if (surgeDuration >= 140 && !this.isSecondMessageGiven) {
           playSurgeWillHappenSoonSound();
 
-          soundManager.playLoopedSound(ACTOR_ID, "surge_earthquake_sound_looped");
+          soundManager.playLooped(ACTOR_ID, "surge_earthquake_sound_looped");
           level.add_cam_effector(
             animations.camera_effects_earthquake,
             surgeConfig.EARTHQUAKE_CAM_EFFECTOR_ID,
@@ -460,8 +522,8 @@ export class SurgeManager extends AbstractManager {
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.isBlowoutSoundStarted) {
-          soundManager.playSound(ACTOR_ID, "blowout_begin");
-          soundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
+          soundManager.play(ACTOR_ID, "blowout_begin");
+          soundManager.playLooped(ACTOR_ID, "blowout_rumble");
           soundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", 0.25);
 
           this.isBlowoutSoundStarted = true;
@@ -476,15 +538,19 @@ export class SurgeManager extends AbstractManager {
 
   /**
    * Handle actor taking artefacts.
+   *
+   * @param object - taken by actor game object
    */
   public onActorItemTake(object: GameObject): void {
     if (isArtefact(object)) {
       logger.info("On artefact take:", object.name());
 
-      const anomalyZone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(object.id());
+      const zone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(
+        object.id()
+      ) as Optional<AnomalyZoneBinder>;
 
-      if (anomalyZone !== null) {
-        anomalyZone.onArtefactTaken(object);
+      if (zone) {
+        zone.onArtefactTaken(object);
       } else {
         registry.artefacts.ways.delete(object.id());
       }
@@ -498,70 +564,5 @@ export class SurgeManager extends AbstractManager {
    */
   public onActorGoOnline(): void {
     initializeSurgeCovers();
-  }
-
-  public override save(packet: NetPacket): void {
-    openSaveMarker(packet, SurgeManager.name);
-
-    packet.w_bool(surgeConfig.IS_FINISHED);
-    packet.w_bool(surgeConfig.IS_STARTED);
-
-    writeTimeToPacket(packet, this.lastSurgeAt);
-
-    if (surgeConfig.IS_STARTED) {
-      writeTimeToPacket(packet, this.initializedAt);
-
-      packet.w_bool(this.isTaskGiven);
-      packet.w_bool(this.isEffectorSet);
-      packet.w_bool(this.isSecondMessageGiven);
-      packet.w_bool(this.isUiDisabled);
-      packet.w_bool(this.isBlowoutSoundStarted);
-
-      packet.w_stringZ(this.surgeMessage);
-      packet.w_stringZ(this.surgeTaskSection);
-    }
-
-    packet.w_u32(this.nextScheduledSurgeDelay);
-
-    packet.w_u16(table.size(this.respawnArtefactsForLevel));
-
-    for (const [level] of this.respawnArtefactsForLevel) {
-      packet.w_stringZ(level);
-    }
-
-    closeSaveMarker(packet, SurgeManager.name);
-  }
-
-  public override load(reader: NetProcessor): void {
-    openLoadMarker(reader, SurgeManager.name);
-
-    surgeConfig.IS_FINISHED = reader.r_bool();
-    surgeConfig.IS_STARTED = reader.r_bool();
-
-    this.lastSurgeAt = readTimeFromPacket(reader)!;
-
-    if (surgeConfig.IS_STARTED) {
-      this.initializedAt = readTimeFromPacket(reader)!;
-
-      this.isTaskGiven = reader.r_bool();
-      this.isEffectorSet = reader.r_bool();
-      this.isSecondMessageGiven = reader.r_bool();
-      this.isUiDisabled = reader.r_bool();
-      this.isBlowoutSoundStarted = reader.r_bool();
-
-      this.surgeMessage = reader.r_stringZ();
-      this.surgeTaskSection = reader.r_stringZ();
-    }
-
-    this.nextScheduledSurgeDelay = reader.r_u32();
-    this.isAfterGameLoad = true;
-
-    const count: TCount = reader.r_u16();
-
-    for (const _ of $range(1, count)) {
-      this.respawnArtefactsForLevel.set(reader.r_stringZ(), true);
-    }
-
-    closeLoadMarker(reader, SurgeManager.name);
   }
 }

@@ -391,12 +391,12 @@ export class NpcSound extends AbstractPlayableSound {
   public override stop(objectId: TNumberId): void {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
 
-    if (object !== null && object.alive()) {
+    if (object && object.alive()) {
       object.set_sound_mask(-1);
       object.set_sound_mask(0);
     }
 
-    if (this.pdaSoundObject !== null && this.pdaSoundObject.playing()) {
+    if (this.pdaSoundObject && this.pdaSoundObject.playing()) {
       this.pdaSoundObject.stop();
       this.pdaSoundObject = null;
     }

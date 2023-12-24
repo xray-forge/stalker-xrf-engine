@@ -41,7 +41,7 @@ describe("SmartTerrainBinder class", () => {
     const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
     const soundManager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
 
     binder.net_spawn(serverObject);
 
@@ -56,8 +56,8 @@ describe("SmartTerrainBinder class", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(1);
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledWith(serverObject.id);
+    expect(soundManager.stop).toHaveBeenCalledTimes(1);
+    expect(soundManager.stop).toHaveBeenCalledWith(serverObject.id);
   });
 
   it("should correctly handle going online/offline when check to spawn is falsy", () => {
@@ -66,7 +66,7 @@ describe("SmartTerrainBinder class", () => {
     const soundManager: SoundManager = getManager(SoundManager);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
-    jest.spyOn(soundManager, "stopSoundByObjectId").mockImplementation(jest.fn());
+    jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
 
     binder.net_spawn(serverObject);
 
@@ -74,7 +74,7 @@ describe("SmartTerrainBinder class", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
-    expect(soundManager.stopSoundByObjectId).toHaveBeenCalledTimes(0);
+    expect(soundManager.stop).toHaveBeenCalledTimes(0);
   });
 
   it("should correctly handle update event", () => {

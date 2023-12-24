@@ -81,7 +81,7 @@ export class PhysicObjectBinder extends object_binder {
       level.map_remove_object_spot(objectId, "ui_pda2_actor_box_location");
     }
 
-    getManager(SoundManager).stopSoundByObjectId(objectId);
+    getManager(SoundManager).stop(objectId);
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 

@@ -117,7 +117,7 @@ describe("ActionWounded class", () => {
 
     schemeState.useMedkit = true;
 
-    jest.spyOn(soundManager, "playSound").mockImplementation(() => null);
+    jest.spyOn(soundManager, "play").mockImplementation(() => null);
     replaceFunctionMockOnce(time_global, () => 1000);
 
     action.nextSoundPlayAt = 0;
@@ -129,7 +129,7 @@ describe("ActionWounded class", () => {
     action.execute();
 
     expect(object.hit).not.toHaveBeenCalled();
-    expect(soundManager.playSound).toHaveBeenCalledWith(object.id(), "test_snd");
+    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test_snd");
     expect(action.nextSoundPlayAt).toBe(6000);
     expect(schemeState.woundManager.eatMedkit).toHaveBeenCalled();
     expect(state.stateManager.setState).toHaveBeenCalled();

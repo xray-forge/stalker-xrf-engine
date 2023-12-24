@@ -181,7 +181,7 @@ export class StalkerBinder extends object_binder {
 
     this.resetCallbacks();
 
-    getManager(SoundManager).stopSoundByObjectId(objectId);
+    getManager(SoundManager).stop(objectId);
 
     registry.actorCombat.delete(objectId);
 
@@ -353,9 +353,9 @@ export class StalkerBinder extends object_binder {
     super.save(packet);
     saveObjectLogic(this.object, packet);
 
-    getManager(TradeManager).saveObjectState(packet, this.object);
-    getManager(SoundManager).saveObject(packet, this.object);
-    getManager(DialogManager).saveObjectDialogs(packet, this.object);
+    getManager(TradeManager).saveObjectState(this.object, packet);
+    getManager(SoundManager).saveObject(this.object, packet);
+    getManager(DialogManager).saveObjectDialogs(this.object, packet);
 
     closeSaveMarker(packet, StalkerBinder.__name);
   }
@@ -368,9 +368,9 @@ export class StalkerBinder extends object_binder {
     super.load(reader);
     loadObjectLogic(this.object, reader);
 
-    getManager(TradeManager).loadObjectState(reader, this.object);
-    getManager(SoundManager).loadObject(reader, this.object);
-    getManager(DialogManager).loadObjectDialogs(reader, this.object);
+    getManager(TradeManager).loadObjectState(this.object, reader);
+    getManager(SoundManager).loadObject(this.object, reader);
+    getManager(DialogManager).loadObjectDialogs(this.object, reader);
 
     closeLoadMarker(reader, StalkerBinder.__name);
   }

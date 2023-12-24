@@ -389,7 +389,7 @@ export class StalkerAnimationManager {
 
     // Play sound.
     if (actionTable.get("s") !== null) {
-      getManager(SoundManager).playSound(this.object.id(), actionTable.get("s"), null, null);
+      getManager(SoundManager).play(this.object.id(), actionTable.get("s"));
     }
 
     // Hit object.

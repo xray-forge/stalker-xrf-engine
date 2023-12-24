@@ -362,7 +362,7 @@ export class NotificationManager extends AbstractManager {
    * Play default sound notification of PDA updates.
    */
   public onPlayPdaNotificationSound(): void {
-    getManager(SoundManager).playSound(ACTOR_ID, "pda_task");
+    getManager(SoundManager).play(ACTOR_ID, "pda_task");
   }
 
   /**

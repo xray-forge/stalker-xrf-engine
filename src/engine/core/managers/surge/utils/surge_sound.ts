@@ -22,17 +22,17 @@ export function playSurgeStartingSound(): void {
 
   switch (levelName) {
     case levels.zaton:
-      soundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_1");
+      soundManager.play(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_1");
       break;
 
     case levels.jupiter:
-      soundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_phase_1");
+      soundManager.play(ACTOR_ID, "jup_a6_stalker_medik_phase_1");
       break;
 
     case levels.pripyat:
       // After game end no one is on radio.
       if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
-        soundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_1");
+        soundManager.play(ACTOR_ID, "pri_a17_kovalsky_surge_phase_1");
       }
 
       break;
@@ -53,17 +53,17 @@ export function playSurgeWillHappenSoonSound(): void {
 
   switch (levelName) {
     case levels.zaton:
-      soundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_2");
+      soundManager.play(ACTOR_ID, "zat_a2_stalker_barmen_surge_phase_2");
       break;
 
     case levels.jupiter:
-      soundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_phase_2");
+      soundManager.play(ACTOR_ID, "jup_a6_stalker_medik_phase_2");
       break;
 
     case levels.pripyat:
       // After game end no one is on radio.
       if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
-        soundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_surge_phase_2");
+        soundManager.play(ACTOR_ID, "pri_a17_kovalsky_surge_phase_2");
       }
 
       break;
@@ -84,17 +84,17 @@ export function playSurgeEndedSound(): void {
 
   switch (levelName) {
     case levels.zaton:
-      soundManager.playSound(ACTOR_ID, "zat_a2_stalker_barmen_after_surge");
+      soundManager.play(ACTOR_ID, "zat_a2_stalker_barmen_after_surge");
       break;
 
     case levels.jupiter:
-      soundManager.playSound(ACTOR_ID, "jup_a6_stalker_medik_after_surge");
+      soundManager.play(ACTOR_ID, "jup_a6_stalker_medik_after_surge");
       break;
 
     case levels.pripyat:
       // After game end no one is on radio.
       if (!hasInfoPortion(infoPortions.pri_b305_fifth_cam_end)) {
-        soundManager.playSound(ACTOR_ID, "pri_a17_kovalsky_after_surge");
+        soundManager.play(ACTOR_ID, "pri_a17_kovalsky_after_surge");
       }
 
       break;

@@ -63,7 +63,7 @@ extern(
       abort("Stalker '%s' is dead while trying to play theme sound '%s'.", object.name(), theme);
     }
 
-    getManager(SoundManager).playSound(object.id(), theme, faction, smartTerrainId);
+    getManager(SoundManager).play(object.id(), theme, faction, smartTerrainId);
   }
 );
 
@@ -71,21 +71,21 @@ extern(
  * Stop playing sound for an object.
  */
 extern("xr_effects.stop_sound", (actor: GameObject, object: GameObject): void => {
-  getManager(SoundManager).stopSoundByObjectId(object.id());
+  getManager(SoundManager).stop(object.id());
 });
 
 /**
  * Start looped sound playback by theme name.
  */
 extern("xr_effects.play_sound_looped", (actor: GameObject, object: GameObject, [name]: [TName]): void => {
-  getManager(SoundManager).playLoopedSound(object.id(), name);
+  getManager(SoundManager).playLooped(object.id(), name);
 });
 
 /**
  * Stop looped sound playback for an object.
  */
 extern("xr_effects.stop_sound_looped", (actor: GameObject, object: GameObject): void => {
-  getManager(SoundManager).stopLoopedSound(object.id(), null);
+  getManager(SoundManager).stopAllLooped(object.id());
 });
 
 /**
@@ -105,7 +105,7 @@ extern(
     );
     const smartTerrainId: TNumberId = smartTerrain ? smartTerrain.id : (smartTerrainNameOrId as number);
 
-    getManager(SoundManager).playSound(getObjectIdByStoryId(storyId) as number, theme, faction, smartTerrainId);
+    getManager(SoundManager).play(getObjectIdByStoryId(storyId) as number, theme, faction, smartTerrainId);
   }
 );
 

@@ -123,7 +123,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     if (optionalSound !== null) {
       logger.format("Execute play sound: '%s', '%s'", this.object.name(), optionalSound);
-      getManager(SoundManager).playSound(this.object.id(), optionalSound);
+      getManager(SoundManager).play(this.object.id(), optionalSound);
     }
   }
 
@@ -147,7 +147,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
         if (sound !== null && !isObjectInCombat(this.object)) {
           logger.format("Execute play sound hello: '%s', '%s'", this.object.name(), sound);
-          getManager(SoundManager).playSound(this.object.id(), sound);
+          getManager(SoundManager).play(this.object.id(), sound);
         }
 
         this.isHelloPassed = true;
@@ -162,7 +162,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
         if (sound !== null && !isObjectInCombat(this.object)) {
           logger.format("Execute play sound bye: '%s', '%s'", this.object.name(), sound);
-          getManager(SoundManager).playSound(this.object.id(), sound);
+          getManager(SoundManager).play(this.object.id(), sound);
         }
 
         this.isByePassed = true;

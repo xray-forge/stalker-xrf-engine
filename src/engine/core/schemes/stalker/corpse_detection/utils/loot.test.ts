@@ -30,7 +30,7 @@ describe("loot utils for corpse_detection scheme", () => {
 
     const state: IRegistryObjectState = registerObject(object);
 
-    jest.spyOn(soundManager, "playSound").mockImplementation(() => null);
+    jest.spyOn(soundManager, "play").mockImplementation(() => null);
     jest.spyOn(math, "random").mockImplementation(() => 0);
     loadSchemeImplementation(SchemeCorpseDetection);
 
@@ -44,13 +44,13 @@ describe("loot utils for corpse_detection scheme", () => {
     finishCorpseLooting(object);
     expect(corpse.object(questItem.section())).toBe(questItem);
     expect(corpse.object(ak74.section())).toBe(ak74);
-    expect(soundManager.playSound).not.toHaveBeenCalled();
+    expect(soundManager.play).not.toHaveBeenCalled();
 
     registerObject(corpse);
     finishCorpseLooting(object);
     expect(corpse.object(questItem.section())).toBe(questItem);
     expect(corpse.object(ak74.section())).toBe(ak74);
-    expect(soundManager.playSound).not.toHaveBeenCalled();
+    expect(soundManager.play).not.toHaveBeenCalled();
 
     (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState).selectedCorpseId = corpse.id();
 
@@ -60,9 +60,9 @@ describe("loot utils for corpse_detection scheme", () => {
     expect(corpse.object(questItem.section())).toBe(questItem);
     expect(corpse.object(ak74.section())).toBeNull();
     expect(object.object(ak74.section())).toBe(ak74);
-    expect(soundManager.playSound).toHaveBeenCalledWith(object.id(), "corpse_loot_good");
+    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "corpse_loot_good");
 
-    replaceFunctionMock(soundManager.playSound, () => 0);
+    replaceFunctionMock(soundManager.play, () => 0);
 
     finishCorpseLooting(object);
 
@@ -70,6 +70,6 @@ describe("loot utils for corpse_detection scheme", () => {
     expect(corpse.object(questItem.section())).toBe(questItem);
     expect(corpse.object(ak74.section())).toBeNull();
     expect(object.object(ak74.section())).toBe(ak74);
-    expect(soundManager.playSound).toHaveBeenCalledWith(object.id(), "corpse_loot_bad");
+    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "corpse_loot_bad");
   });
 });

@@ -195,10 +195,10 @@ export class TradeManager extends AbstractManager {
   /**
    * Save object state in net processor.
    *
-   * @param packet - net packet to save data in
    * @param object - game object to save data for
+   * @param packet - net packet to save data in
    */
-  public saveObjectState(packet: NetPacket, object: GameObject): void {
+  public saveObjectState(object: GameObject, packet: NetPacket): void {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(object.id());
 
     openSaveMarker(packet, TradeManager.name);
@@ -225,10 +225,10 @@ export class TradeManager extends AbstractManager {
   /**
    * Load state for object and store in registry.
    *
+   * @param object - game object to read for
    * @param reader - net processor to read from
-   * @Param object - game object to read for
    */
-  public loadObjectState(reader: NetProcessor, object: GameObject): void {
+  public loadObjectState(object: GameObject, reader: NetProcessor): void {
     openLoadMarker(reader, TradeManager.name);
 
     const hasTrade: boolean = reader.r_bool();
