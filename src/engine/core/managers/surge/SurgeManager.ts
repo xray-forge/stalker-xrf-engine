@@ -545,7 +545,9 @@ export class SurgeManager extends AbstractManager {
     if (isArtefact(object)) {
       logger.info("On artefact take:", object.name());
 
-      const zone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(object.id());
+      const zone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(
+        object.id()
+      ) as Optional<AnomalyZoneBinder>;
 
       if (zone) {
         zone.onArtefactTaken(object);
