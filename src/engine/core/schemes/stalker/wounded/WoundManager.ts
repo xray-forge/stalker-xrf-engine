@@ -102,7 +102,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       const beginAt: Optional<TTimestamp> = getPortableStoreValue(this.object.id(), "begin_wounded");
 
       if (beginAt !== null && now - beginAt <= 60_000) {
-        getManager(SoundManager).playSound(this.object.id(), "help_thanks");
+        getManager(SoundManager).play(this.object.id(), "help_thanks");
       }
 
       setPortableStoreValue(this.object.id(), "begin_wounded", null);

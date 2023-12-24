@@ -124,7 +124,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     }
 
     if (!this.isInCamp && this.state.soundIdle !== null) {
-      getManager(SoundManager).playSound(this.object.id(), this.state.soundIdle);
+      getManager(SoundManager).play(this.object.id(), this.state.soundIdle);
     }
   }
 

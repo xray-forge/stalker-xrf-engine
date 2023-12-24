@@ -74,7 +74,7 @@ export class ActionZombieShoot extends action_base {
     this.state.currentAction = EZombieCombatAction.SHOOT;
 
     if (chance(25)) {
-      getManager(SoundManager).playSound(this.object.id(), "fight_attack");
+      getManager(SoundManager).play(this.object.id(), "fight_attack");
     }
   }
 

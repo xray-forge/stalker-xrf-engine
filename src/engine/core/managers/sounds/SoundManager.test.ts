@@ -81,11 +81,12 @@ describe("SoundManager class", () => {
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
+      EPacketDataType.STRING,
       EPacketDataType.U16,
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([NIL, NIL, NIL, 0, 0, 5]);
+    expect(netProcessor.dataList).toEqual([NIL, NIL, NIL, NIL, 0, 0, 6]);
 
     disposeManager(SoundManager);
 
@@ -94,6 +95,7 @@ describe("SoundManager class", () => {
     another.load(netProcessor.asMockNetProcessor());
 
     expect(netProcessor.readDataOrder).toEqual([
+      EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -114,9 +116,10 @@ describe("SoundManager class", () => {
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
+      EPacketDataType.BOOLEAN,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([false, false, 2]);
+    expect(netProcessor.dataList).toEqual([false, false, false, 3]);
 
     disposeManager(SoundManager);
 
@@ -124,13 +127,73 @@ describe("SoundManager class", () => {
 
     another.loadObject(object, netProcessor.asMockNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual([EPacketDataType.BOOLEAN, EPacketDataType.BOOLEAN, EPacketDataType.U16]);
+    expect(netProcessor.readDataOrder).toEqual([
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.U16,
+    ]);
     expect(netProcessor.dataList).toEqual([]);
   });
 
   it.todo("should correctly save/load with custom state");
 
-  it.todo("should correctly initialize state for objects with statics");
+  it("should correctly play sound for objects once", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    expect(() => manager.play(object.id(), "attack_end")).toThrow(
+      `Not existing sound theme 'attack_end' provided for playing with object '${object.id()}'.`
+    );
+    expect(() => manager.play(object.id(), "looped_example")).toThrow(
+      "Trying to start sound 'looped_example' with incorrect play method."
+    );
+
+    expect(soundsConfig.playing.length()).toBe(0);
+
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("attack_begin");
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
+    jest.spyOn(theme, "reset").mockImplementation(jest.fn());
+
+    expect(manager.play(object.id(), "attack_begin", "faction", 1)).toBe(theme.soundObject);
+
+    expect(soundsConfig.playing.length()).toBe(1);
+    expect(theme.reset).toHaveBeenCalledTimes(0);
+    expect(theme.play).toHaveBeenCalledTimes(1);
+    expect(theme.play).toHaveBeenCalledWith(object.id(), "faction", 1);
+
+    expect(manager.play(object.id(), "attack_begin", "faction", 1)).toBe(theme.soundObject);
+
+    expect(soundsConfig.playing.length()).toBe(1);
+    expect(theme.reset).toHaveBeenCalledTimes(0);
+    expect(theme.play).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly play sound for objects with forced play and reset", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const object: GameObject = MockGameObject.mock();
+
+    expect(soundsConfig.playing.length()).toBe(0);
+
+    const theme: AbstractPlayableSound = soundsConfig.themes.get("play_always_example");
+
+    jest.spyOn(theme, "play").mockImplementation(jest.fn(() => true));
+    jest.spyOn(theme, "reset").mockImplementation(jest.fn());
+
+    expect(manager.play(object.id(), "play_always_example", "faction", 1)).toBe(theme.soundObject);
+
+    expect(soundsConfig.playing.length()).toBe(1);
+    expect(theme.reset).toHaveBeenCalledTimes(0);
+    expect(theme.play).toHaveBeenCalledTimes(1);
+    expect(theme.play).toHaveBeenCalledWith(object.id(), "faction", 1);
+
+    expect(manager.play(object.id(), "play_always_example", "faction", 1)).toBe(theme.soundObject);
+
+    expect(soundsConfig.playing.length()).toBe(1);
+    expect(theme.reset).toHaveBeenCalledTimes(1);
+    expect(theme.play).toHaveBeenCalledTimes(2);
+  });
 
   it.todo("should correctly initialize state for objects");
 

@@ -149,34 +149,43 @@ export class SoundManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Play sound for provided object.
+   * Based on parsed themes library defined with `script_sounds.ltx`.
+   *
+   * todo: Get rid of nullable name type.
+   *
+   * @param objectId - target object ID to play sound for
+   * @param name - name of the sound
+   * @param faction - faction of the object to play sound
+   * @param point - ? todo;
+   * @returns playing sound object
    */
-  public playSound(
+  public play(
     objectId: TNumberId,
-    soundName: Optional<TStringId>,
-    faction: Optional<string> = null,
+    name: Optional<TStringId>,
+    faction: Optional<TName> = null,
     point: Optional<TNumberId> = null
   ): Optional<SoundObject> {
-    if (!soundName) {
+    if (!name) {
       return null;
     }
 
-    const theme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(soundName);
+    const theme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(name);
     const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(
       objectId
     ) as Optional<AbstractPlayableSound>;
 
-    assert(theme, "'playSound': Wrong sound theme [%s], object [%s].", tostring(soundName), objectId);
-    assert(theme.type !== LoopedSound.type, "You trying to play sound [%s] which type is looped.", soundName);
+    assert(theme, "Not existing sound theme '%s' provided for playing with object '%s'.", name, objectId);
+    assert(theme.type !== LoopedSound.type, "Trying to start sound '%s' with incorrect play method.", name);
 
     if (!sound || theme.shouldPlayAlways) {
       if (sound) {
-        logger.info("Reset sound before forced play:", objectId, soundName, faction, point);
+        logger.info("Reset sound before forced play:", objectId, name, faction, point);
         sound.reset(objectId);
       }
 
       if (theme.play(objectId, faction, point)) {
-        logger.info("Start sound play:", objectId, soundName, faction, point);
+        logger.info("Start sound play:", objectId, name, faction, point);
 
         soundsConfig.playing.set(objectId, theme);
 
@@ -185,7 +194,7 @@ export class SoundManager extends AbstractManager {
 
       return theme?.soundObject;
     } else {
-      return soundsConfig.playing.get(objectId).soundObject;
+      return sound.soundObject;
     }
   }
 

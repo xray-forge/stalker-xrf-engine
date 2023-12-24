@@ -167,7 +167,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
           { animation: true }
         );
 
-        getManager(SoundManager).playSound(this.object.id(), this.state.attackSound);
+        getManager(SoundManager).play(this.object.id(), this.state.attackSound);
       } else {
         const memoryPosition: Vector = this.object.memory_position(this.enemy);
 

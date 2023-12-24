@@ -460,7 +460,7 @@ export class SurgeManager extends AbstractManager {
           // --                level.set_pp_effector_factor(surge_shock_pp_eff, 0, 10)
           this.isEffectorSet = true;
         } else if (surgeDuration >= 35 && !this.isBlowoutSoundStarted) {
-          soundManager.playSound(ACTOR_ID, "blowout_begin");
+          soundManager.play(ACTOR_ID, "blowout_begin");
           soundManager.playLoopedSound(ACTOR_ID, "blowout_rumble");
           soundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", 0.25);
 

@@ -119,7 +119,7 @@ export class ActionWounded extends action_base {
 
     // Play call for help not more often than once per 5 seconds.
     if (now > this.nextSoundPlayAt) {
-      getManager(SoundManager).playSound(this.object.id(), woundManagerSound === NIL ? null : woundManagerSound);
+      getManager(SoundManager).play(this.object.id(), woundManagerSound === NIL ? null : woundManagerSound);
 
       this.nextSoundPlayAt = now + schemeWoundedConfig.CALL_FOR_HELP_PERIOD;
     }

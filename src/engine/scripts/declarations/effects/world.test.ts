@@ -65,12 +65,12 @@ describe("world effects implementation", () => {
     const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
     const soundManager: SoundManager = getManager(SoundManager);
 
-    jest.spyOn(soundManager, "playSound").mockImplementation(jest.fn(() => null as unknown as SoundObject));
+    jest.spyOn(soundManager, "play").mockImplementation(jest.fn(() => null as unknown as SoundObject));
 
     callXrEffect("play_sound", actorGameObject, object, "test_theme", "test_faction", smartTerrain.name());
 
-    expect(soundManager.playSound).toHaveBeenCalledTimes(1);
-    expect(soundManager.playSound).toHaveBeenCalledWith(object.id(), "test_theme", "test_faction", smartTerrain.id);
+    expect(soundManager.play).toHaveBeenCalledTimes(1);
+    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test_theme", "test_faction", smartTerrain.id);
 
     jest.spyOn(object, "alive").mockImplementation(() => false);
 
@@ -122,7 +122,7 @@ describe("world effects implementation", () => {
     const soundManager: SoundManager = getManager(SoundManager);
     const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
 
-    jest.spyOn(soundManager, "playSound").mockImplementation(jest.fn(() => null as unknown as SoundObject));
+    jest.spyOn(soundManager, "play").mockImplementation(jest.fn(() => null as unknown as SoundObject));
 
     registerStoryLink(object.id(), "test-sid");
 
@@ -136,8 +136,8 @@ describe("world effects implementation", () => {
       smartTerrain.name()
     );
 
-    expect(soundManager.playSound).toHaveBeenCalledTimes(1);
-    expect(soundManager.playSound).toHaveBeenCalledWith(object.id(), "test-theme", "test-faction", smartTerrain.id);
+    expect(soundManager.play).toHaveBeenCalledTimes(1);
+    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test-theme", "test-faction", smartTerrain.id);
   });
 
   it.todo("reset_sound_npc should reset sound");

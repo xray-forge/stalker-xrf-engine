@@ -74,7 +74,7 @@ export class SmartTerrainControl {
       );
 
       if (sound !== null) {
-        getManager(SoundManager).playSound(ACTOR_ID, sound);
+        getManager(SoundManager).play(ACTOR_ID, sound);
       }
 
       for (const [id, squad] of getManager(SimulationManager).getSmartTerrainDescriptor(this.smartTerrain.id)!
@@ -135,7 +135,7 @@ export class SmartTerrainControl {
       );
 
       if (sound) {
-        getManager(SoundManager).playSound(ACTOR_ID, sound);
+        getManager(SoundManager).play(ACTOR_ID, sound);
       }
 
       for (const [squadId] of getManager(SimulationManager).getSmartTerrainDescriptor(this.smartTerrain.id)!

@@ -54,7 +54,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
 
       // Play idle state sounds from stalkers like complaining etc.
       if (this.state.soundIdle !== null) {
-        getManager(SoundManager).playSound(this.object.id(), this.state.soundIdle);
+        getManager(SoundManager).play(this.object.id(), this.state.soundIdle);
       }
     } else {
       this.object.set_dest_level_vertex_id(this.coverVertexId);

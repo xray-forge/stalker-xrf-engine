@@ -63,7 +63,7 @@ extern(
       abort("Stalker '%s' is dead while trying to play theme sound '%s'.", object.name(), theme);
     }
 
-    getManager(SoundManager).playSound(object.id(), theme, faction, smartTerrainId);
+    getManager(SoundManager).play(object.id(), theme, faction, smartTerrainId);
   }
 );
 
@@ -105,7 +105,7 @@ extern(
     );
     const smartTerrainId: TNumberId = smartTerrain ? smartTerrain.id : (smartTerrainNameOrId as number);
 
-    getManager(SoundManager).playSound(getObjectIdByStoryId(storyId) as number, theme, faction, smartTerrainId);
+    getManager(SoundManager).play(getObjectIdByStoryId(storyId) as number, theme, faction, smartTerrainId);
   }
 );
 

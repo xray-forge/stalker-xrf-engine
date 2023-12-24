@@ -19,7 +19,7 @@ describe("ActionZombieShoot", () => {
   beforeEach(() => {
     resetRegistry();
 
-    getManager(SoundManager).playSound = jest.fn(() => null);
+    getManager(SoundManager).play = jest.fn(() => null);
   });
 
   it("should correctly initialize", () => {
@@ -51,13 +51,13 @@ describe("ActionZombieShoot", () => {
     expect(action.isValidPath).toBe(false);
     expect(action.turnTime).toBe(0);
     expect(state.currentAction).toBe(EZombieCombatAction.SHOOT);
-    expect(getManager(SoundManager).playSound).not.toHaveBeenCalled();
+    expect(getManager(SoundManager).play).not.toHaveBeenCalled();
 
     jest.spyOn(math, "random").mockImplementationOnce(() => 25);
 
     action.initialize();
 
-    expect(getManager(SoundManager).playSound).toHaveBeenCalledWith(object.id(), "fight_attack");
+    expect(getManager(SoundManager).play).toHaveBeenCalledWith(object.id(), "fight_attack");
   });
 
   it("should correctly finalize", () => {

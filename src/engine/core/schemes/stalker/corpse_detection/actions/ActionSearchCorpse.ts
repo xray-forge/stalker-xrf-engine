@@ -86,7 +86,7 @@ export class ActionSearchCorpse extends action_base {
 
     // Play looting start sound once.
     if (!this.isLootingSoundPlayed) {
-      getManager(SoundManager).playSound(this.object.id(), "corpse_loot_begin");
+      getManager(SoundManager).play(this.object.id(), "corpse_loot_begin");
       this.isLootingSoundPlayed = true;
     }
   }

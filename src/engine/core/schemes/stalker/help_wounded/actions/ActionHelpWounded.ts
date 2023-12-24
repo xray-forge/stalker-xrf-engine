@@ -104,7 +104,7 @@ export class ActionHelpWounded extends action_base {
 
     // Say That everything will be ok once per healing action.
     if (!this.isHelpingSoundPlayed) {
-      getManager(SoundManager).playSound(this.object.id(), "wounded_medkit");
+      getManager(SoundManager).play(this.object.id(), "wounded_medkit");
       this.isHelpingSoundPlayed = true;
     }
   }
