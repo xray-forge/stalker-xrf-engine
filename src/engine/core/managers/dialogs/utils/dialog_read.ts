@@ -41,11 +41,11 @@ export function readIniGenericDialogs(
         const phrase: IPhrasesDescriptor = {
           id: tostring(getPhraseId()),
           name: id,
-          npc_community: ini.line_exist(id, "npc_community")
+          npcCommunity: ini.line_exist(id, "npc_community")
             ? parseStringsList(ini.r_string(id, "npc_community"))
             : "not_set",
           level: ini.line_exist(id, "level") ? parseStringsList(ini.r_string(id, "level")) : "not_set",
-          actor_community: ini.line_exist(id, "actor_community")
+          actorCommunity: ini.line_exist(id, "actor_community")
             ? parseStringsList(ini.r_string(id, "actor_community"))
             : "not_set",
           wounded: ini.line_exist(id, "wounded") ? (ini.r_string(id, "wounded") as TStringifiedBoolean) : FALSE,

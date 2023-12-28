@@ -1,14 +1,7 @@
 import { level } from "xray16";
 
-import { getManager, registry } from "@/engine/core/database";
-import { DialogManager } from "@/engine/core/managers/dialogs";
-import {
-  EGenericPhraseCategory,
-  IPhrasesDescriptor,
-  TAvailablePhrasesMap,
-  TPRTTable,
-} from "@/engine/core/managers/dialogs/dialog_types";
-import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
+import { registry } from "@/engine/core/database";
+import { IPhrasesDescriptor, TAvailablePhrasesMap, TPRTTable } from "@/engine/core/managers/dialogs/dialog_types";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -17,77 +10,6 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { GameObject, Optional, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export function shouldShowPhrase(
-  object: GameObject,
-  PTsubtable: TAvailablePhrasesMap,
-  PRTsubtable: TPRTTable,
-  phraseId: TStringId
-): boolean {
-  const objectId: TNumberId = object.id();
-
-  if (PRTsubtable.get(objectId)?.told) {
-    return false;
-  }
-
-  // Recalculate current phrase priority
-  calculatePhrasePriority(PRTsubtable, PTsubtable.get(phraseId), object, phraseId);
-
-  // If current phrase is with the highest priority - show it.
-  return isHighestPriorityPhrase(PTsubtable, PRTsubtable, object, phraseId);
-}
-
-/**
- * todo;
- */
-export function shouldHidePhraseCategory(object: GameObject, category: EGenericPhraseCategory): boolean {
-  const dialogManager: DialogManager = getManager(DialogManager);
-
-  const [priority, id] = getHighestPriorityPhrase(
-    dialogConfig.PHRASES.get(category),
-    dialogManager.priorityTable.get(category),
-    object
-  );
-
-  return priority < 0 || id === 0;
-}
-
-/**
- * todo;
- */
-export function isHighestPriorityPhrase(
-  PTsubtable: TAvailablePhrasesMap,
-  PRTsubtable: TPRTTable,
-  object: GameObject,
-  phraseId: string
-) {
-  const objectId: TNumberId = object.id();
-
-  if (PRTsubtable.get(objectId) !== null) {
-    const pr: TRate = PRTsubtable.get(objectId).get(phraseId);
-
-    if (pr < 0) {
-      return false;
-    }
-
-    for (const [phrId, priority] of PRTsubtable.get(objectId)) {
-      if (phrId !== "ignore_once" && phrId !== "told") {
-        if (priority > pr) {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  } else {
-    resetPhrasePriority(PTsubtable, PRTsubtable, object, phraseId);
-
-    return false;
-  }
-}
 
 /**
  * todo;
@@ -188,14 +110,14 @@ export function calculatePhrasePriority(
   let fComm: boolean = false;
   let priority: number = -1;
 
-  if (PTIDSubtable.npc_community === "not_set") {
+  if (PTIDSubtable.npcCommunity === "not_set") {
     fComm = true;
-  } else if (PTIDSubtable.npc_community.get(1) === "all") {
+  } else if (PTIDSubtable.npcCommunity.get(1) === "all") {
     priority = priority + 1;
     fComm = true;
   } else {
-    for (const i of $range(1, PTIDSubtable.npc_community.length())) {
-      if (PTIDSubtable.npc_community.get(i) === getObjectCommunity(object)) {
+    for (const i of $range(1, PTIDSubtable.npcCommunity.length())) {
+      if (PTIDSubtable.npcCommunity.get(i) === getObjectCommunity(object)) {
         priority = priority + 2;
         fComm = true;
         break;
@@ -220,13 +142,13 @@ export function calculatePhrasePriority(
     }
   }
 
-  if (PTIDSubtable.actor_community === "not_set") {
+  if (PTIDSubtable.actorCommunity === "not_set") {
     priority = priority + 0;
-  } else if (PTIDSubtable.actor_community === "all") {
+  } else if (PTIDSubtable.actorCommunity === "all") {
     priority = priority + 1;
   } else {
-    for (const i of $range(1, PTIDSubtable.actor_community.length())) {
-      if (PTIDSubtable.actor_community.get(i) === getObjectCommunity(registry.actor)) {
+    for (const i of $range(1, PTIDSubtable.actorCommunity.length())) {
+      if (PTIDSubtable.actorCommunity.get(i) === getObjectCommunity(registry.actor)) {
         priority = priority + 2;
         break;
       }

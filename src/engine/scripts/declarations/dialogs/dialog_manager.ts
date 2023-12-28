@@ -3,17 +3,16 @@ import { game } from "xray16";
 import { getManager } from "@/engine/core/database";
 import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
-import { processPhraseAction, shouldHidePhraseCategory } from "@/engine/core/managers/dialogs/utils";
+import { processPhraseAction, shouldHidePhraseCategory, shouldShowPhrase } from "@/engine/core/managers/dialogs/utils";
 import { initializeNewDialog, initializeStartDialogs } from "@/engine/core/managers/dialogs/utils/dialog_init";
-import { fillPriorityTable, shouldShowPhrase } from "@/engine/core/managers/dialogs/utils/dialog_priority";
+import { fillPriorityTable } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain } from "@/engine/core/utils/position";
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { GameObject, Optional, PhraseDialog, TName, TStringId } from "@/engine/lib/types";
+import { GameObject, Optional, PhraseDialog, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -26,7 +25,6 @@ extern("dialog_manager.init_new_dialog", (dialog: PhraseDialog): void => {
 
 /**
  * todo;
- * todo: correct case
  */
 extern("dialog_manager.initialize_start_dialogs", (dialog: PhraseDialog, data: EGenericPhraseCategory): void => {
   initializeStartDialogs(dialog, data);
@@ -349,19 +347,19 @@ extern(
  */
 extern(
   "dialog_manager.action_disable_quest_phrase",
-  (firstSpeaker: GameObject, secondSpeaker: GameObject, dialogName: string, phraseId: string): void => {
+  (firstSpeaker: GameObject, secondSpeaker: GameObject, dialogName: TName, phraseId: TStringId): void => {
     const manager: DialogManager = getManager(DialogManager);
-    const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const objectId: TNumberId = getNpcSpeaker(firstSpeaker, secondSpeaker).id();
 
     if (phraseId === "0") {
       phraseId = dialogName;
     }
 
-    if (manager.questDisabledPhrases.get(object.id()) === null) {
-      manager.questDisabledPhrases.set(object.id(), new LuaTable());
+    if (!manager.questDisabledPhrases.get(objectId)) {
+      manager.questDisabledPhrases.set(objectId, new LuaTable());
     }
 
-    manager.questDisabledPhrases.get(object.id()).set(phraseId, true);
+    manager.questDisabledPhrases.get(objectId).set(phraseId, true);
   }
 );
 
@@ -388,16 +386,8 @@ extern("dialog_manager.create_bye_phrase", (): string => {
 });
 
 /**
- * todo;
+ * Check whether universal generic options can be shown in current dialog.
  */
 extern("dialog_manager.uni_dialog_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
-  const community: TCommunity = getObjectCommunity(object);
-
-  return (
-    community === communities.stalker ||
-    community === communities.bandit ||
-    community === communities.freedom ||
-    community === communities.dolg
-  );
+  return dialogConfig.UNIVERSAL_DIALOGS_COMMUNITIES.has(getObjectCommunity(getNpcSpeaker(firstSpeaker, secondSpeaker)));
 });

@@ -12,45 +12,45 @@ describe("readIniGenericDialogs util", () => {
     expect(readIniGenericDialogs(DIALOG_MANAGER_CONFIG_LTX, () => ++id)).toEqualLuaTables({
       anomalies: {
         "6": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "6",
           info: [],
           level: ["zaton"],
           name: "dm_anomalies_1",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: "zat_b14_smart_terrain",
           wounded: "false",
         },
         "7": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "7",
           info: [],
           level: ["all"],
           name: "dm_anomalies_2",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: "",
           wounded: "false",
         },
         "8": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "8",
           info: [],
           level: ["zaton"],
           name: "dm_anomalies_3",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: "zat_b101",
           wounded: "false",
         },
         "9": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "9",
           info: [],
           level: ["zaton"],
           name: "dm_anomalies_4",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: "zat_b100",
           wounded: "false",
@@ -58,45 +58,45 @@ describe("readIniGenericDialogs util", () => {
       },
       hello: {
         "14": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "14",
           info: [],
           level: ["all"],
           name: "dm_help_0",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: null,
           wounded: true,
         },
         "15": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "15",
           info: [],
           level: ["all"],
           name: "dm_help_1",
-          npc_community: ["bandit"],
+          npcCommunity: ["bandit"],
           once: "always",
           smart: null,
           wounded: true,
         },
         "16": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "16",
           info: [],
           level: ["all"],
           name: "dm_hello_1",
-          npc_community: ["bandit"],
+          npcCommunity: ["bandit"],
           once: "always",
           smart: null,
           wounded: "false",
         },
         "17": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "17",
           info: [],
           level: ["all"],
           name: "dm_hello_2",
-          npc_community: ["freedom"],
+          npcCommunity: ["freedom"],
           once: "always",
           smart: null,
           wounded: "false",
@@ -104,7 +104,7 @@ describe("readIniGenericDialogs util", () => {
       },
       information: {
         "10": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "10",
           info: [
             {
@@ -114,13 +114,13 @@ describe("readIniGenericDialogs util", () => {
           ],
           level: ["zaton"],
           name: "dm_information_1",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: null,
           wounded: "false",
         },
         "11": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "11",
           info: [
             {
@@ -134,13 +134,13 @@ describe("readIniGenericDialogs util", () => {
           ],
           level: ["zaton"],
           name: "dm_information_2",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: null,
           wounded: "false",
         },
         "12": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "12",
           info: [
             {
@@ -150,13 +150,13 @@ describe("readIniGenericDialogs util", () => {
           ],
           level: ["zaton"],
           name: "dm_information_3",
-          npc_community: ["bandit"],
+          npcCommunity: ["bandit"],
           once: "always",
           smart: null,
           wounded: "false",
         },
         "13": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "13",
           info: [
             {
@@ -170,7 +170,7 @@ describe("readIniGenericDialogs util", () => {
           ],
           level: ["zaton"],
           name: "dm_information_4",
-          npc_community: ["bandit"],
+          npcCommunity: ["bandit"],
           once: "always",
           smart: null,
           wounded: "false",
@@ -178,7 +178,7 @@ describe("readIniGenericDialogs util", () => {
       },
       job: {
         "2": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "2",
           info: [
             {
@@ -188,13 +188,13 @@ describe("readIniGenericDialogs util", () => {
           ],
           level: ["zaton"],
           name: "dm_job_1",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: null,
           wounded: "false",
         },
         "3": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "3",
           info: [
             {
@@ -204,13 +204,13 @@ describe("readIniGenericDialogs util", () => {
           ],
           level: ["zaton"],
           name: "dm_job_2",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: null,
           wounded: "false",
         },
         "4": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "4",
           info: [
             {
@@ -220,13 +220,13 @@ describe("readIniGenericDialogs util", () => {
           ],
           level: ["zaton"],
           name: "dm_job_3",
-          npc_community: ["bandit"],
+          npcCommunity: ["bandit"],
           once: "always",
           smart: null,
           wounded: "false",
         },
         "5": {
-          actor_community: "not_set",
+          actorCommunity: "not_set",
           id: "5",
           info: [
             {
@@ -236,7 +236,7 @@ describe("readIniGenericDialogs util", () => {
           ],
           level: ["zaton"],
           name: "dm_job_4",
-          npc_community: ["stalker"],
+          npcCommunity: ["stalker"],
           once: "always",
           smart: null,
           wounded: "false",

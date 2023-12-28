@@ -1,7 +1,8 @@
-import { beforeAll, describe, it } from "@jest/globals";
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { TName } from "@/engine/lib/types";
-import { checkNestedBinding } from "@/fixtures/engine";
+import { AnyArgs, AnyObject, GameObject, Optional, TName } from "@/engine/lib/types";
+import { checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("dialogs external callbacks declaration", () => {
   const checkManagerBinding = (name: TName) => checkNestedBinding("dialog_manager", name);
@@ -39,8 +40,24 @@ describe("dialogs external callbacks declaration", () => {
 });
 
 describe("dialogs external callbacks implementation", () => {
+  function callDialogBinding<T = void>(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): T {
+    const effects: Optional<AnyObject> = (_G as AnyObject)["dialog_manager"];
+
+    if (effects && name in effects) {
+      return (_G as AnyObject)["dialog_manager"][name](actor, object, parameters);
+    } else if (!effects) {
+      throw new Error("Unexpected call - 'dialog_manager' global is not registered.");
+    } else {
+      throw new Error(`Unexpected method provided - '${name}', no matching methods in dialog_manager globals.`);
+    }
+  }
+
   beforeAll(() => {
     require("@/engine/scripts/declarations/dialogs/dialog_manager");
+  });
+
+  beforeEach(() => {
+    resetRegistry();
   });
 
   it.todo("init_new_dialog should initialize correctly");
@@ -89,5 +106,26 @@ describe("dialogs external callbacks implementation", () => {
 
   it.todo("create_bye_phrase should correctly create bye option");
 
-  it.todo("uni_dialog_precond should correctly check dialog preconditions");
+  it("uni_dialog_precond should correctly check dialog preconditions", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    jest.spyOn(object, "character_community").mockImplementation(() => "stalker");
+    expect(callDialogBinding("uni_dialog_precond", actorGameObject, object)).toBe(true);
+
+    jest.spyOn(object, "character_community").mockImplementation(() => "bandit");
+    expect(callDialogBinding("uni_dialog_precond", actorGameObject, object)).toBe(true);
+
+    jest.spyOn(object, "character_community").mockImplementation(() => "dolg");
+    expect(callDialogBinding("uni_dialog_precond", actorGameObject, object)).toBe(true);
+
+    jest.spyOn(object, "character_community").mockImplementation(() => "freedom");
+    expect(callDialogBinding("uni_dialog_precond", actorGameObject, object)).toBe(true);
+
+    jest.spyOn(object, "character_community").mockImplementation(() => "zombied");
+    expect(callDialogBinding("uni_dialog_precond", actorGameObject, object)).toBe(false);
+
+    jest.spyOn(object, "character_community").mockImplementation(() => "monolith");
+    expect(callDialogBinding("uni_dialog_precond", actorGameObject, object)).toBe(false);
+  });
 });

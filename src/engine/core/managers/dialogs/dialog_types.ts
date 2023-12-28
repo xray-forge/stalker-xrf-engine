@@ -7,9 +7,9 @@ import type { LuaArray, Optional, TName, TStringId, TStringifiedBoolean } from "
 export interface IPhrasesDescriptor {
   id: TStringId;
   name: TName;
-  npc_community: LuaArray<TName> | "not_set";
+  actorCommunity: LuaArray<TName> | "not_set" | "all";
+  npcCommunity: LuaArray<TName> | "not_set";
   level: LuaArray<TName> | "not_set";
-  actor_community: LuaArray<TName> | "not_set" | "all";
   wounded: TStringifiedBoolean;
   once: string;
   info: LuaArray<IConfigCondition>;
