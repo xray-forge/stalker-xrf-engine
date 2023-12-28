@@ -76,9 +76,7 @@ export class CampManager {
       case EObjectCampActivity.STORY:
         this.isStoryStarted = true;
         this.storyManager.setStoryTeller(this.directorId);
-        this.storyManager.setActiveStory(
-          this.availableSoundStories.get(math.random(this.availableSoundStories.length()))
-        );
+        this.storyManager.setActiveStory(table.random(this.availableSoundStories)[1]);
 
         return;
 
@@ -171,7 +169,7 @@ export class CampManager {
 
       // todo: Simplify with table random.
       if (objectsCount !== 0) {
-        this.idleTalkerId = talkers.get(math.random(talkers.length()));
+        this.idleTalkerId = table.random(talkers)[1];
         getManager(SoundManager).play(this.idleTalkerId, "state");
       }
     }

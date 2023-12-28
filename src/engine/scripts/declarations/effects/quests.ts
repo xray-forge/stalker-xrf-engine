@@ -645,7 +645,7 @@ extern("xr_effects.jup_b221_play_main", (actor: GameObject, object: GameObject, 
   }
 
   if (reachableTheme.length() !== 0) {
-    const themeToPlay = reachableTheme.get(math.random(1, reachableTheme.length()));
+    const themeToPlay = table.random(reachableTheme)[1];
 
     disableInfoPortion(infoNeedReply);
     setPortableStoreValue(ACTOR_ID, "jup_b221_played_main_theme", tostring(themeToPlay));

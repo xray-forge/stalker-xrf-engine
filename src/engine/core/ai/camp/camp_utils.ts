@@ -23,9 +23,7 @@ export function startPlayingGuitar(object: GameObject): void {
 
   manager.isStoryStarted = true;
   manager.storyManager.setStoryTeller(manager.directorId);
-  manager.storyManager.setActiveStory(
-    manager.availableGuitarStories.get(math.random(manager.availableGuitarStories.length()))
-  );
+  manager.storyManager.setActiveStory(table.random(manager.availableGuitarStories)[1]);
   manager.storyManager.update();
 }
 
@@ -46,9 +44,7 @@ export function startPlayingHarmonica(object: GameObject): void {
 
   manager.isStoryStarted = true;
   manager.storyManager.setStoryTeller(manager.directorId);
-  manager.storyManager.setActiveStory(
-    manager.availableHarmonicaStories.get(math.random(manager.availableHarmonicaStories.length()))
-  );
+  manager.storyManager.setActiveStory(table.random(manager.availableHarmonicaStories)[1]);
   manager.storyManager.update();
 }
 
@@ -179,7 +175,7 @@ export function getObjectCampActivityRole(objectId: TNumberId, activity: EObject
 
     case EObjectCampActivity.STORY:
       for (const [, action] of objectActions) {
-        if (action.name === stalkerState || action.name === stalkerState + WEAPON_POSTFIX) {
+        if (action.name === stalkerState || action.name === `${stalkerState}${WEAPON_POSTFIX}`) {
           return EObjectCampRole.DIRECTOR;
         }
       }

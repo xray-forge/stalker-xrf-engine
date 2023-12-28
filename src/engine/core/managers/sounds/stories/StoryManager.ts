@@ -42,13 +42,6 @@ export class StoryManager {
   }
 
   /**
-   * todo: Description.
-   */
-  public chooseRandomStoryteller(): void {
-    this.storyteller = this.objects.get(math.random(1, this.objects.length())).objectId;
-  }
-
-  /**
    * @returns whether sound story is finished
    */
   public isFinished(): boolean {
@@ -136,8 +129,8 @@ export class StoryManager {
     }
 
     if (nextPhraseDescriptor.who === ESoundStoryParticipant.TELLER) {
-      if (this.storyteller === null) {
-        this.chooseRandomStoryteller();
+      if (!this.storyteller) {
+        this.storyteller = table.random(this.objects)[1].objectId;
       }
 
       nextSpeakerObjectId = this.storyteller;
@@ -178,7 +171,7 @@ export class StoryManager {
 
       return;
     } else {
-      nextSpeakerObjectId = this.objects.get(math.random(1, this.objects.length())).objectId;
+      nextSpeakerObjectId = table.random(this.objects)[1].objectId;
     }
 
     if (nextSpeakerObjectId === null || registry.objects.get(nextSpeakerObjectId) === null) {

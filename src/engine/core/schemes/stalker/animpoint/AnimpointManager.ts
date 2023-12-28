@@ -60,7 +60,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
         if (currentStateAnimstate === targetStateAnimstate) {
           if (targetAction !== this.currentAction) {
-            this.currentAction = this.state.approvedActions.get(math.random(this.state.approvedActions.length())).name;
+            this.currentAction = table.random(this.state.approvedActions)[1].name;
           }
 
           return;
@@ -96,7 +96,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
         }
       }
 
-      this.currentAction = actionsList.get(math.random(actionsList.length()));
+      this.currentAction = table.random(actionsList)[1];
 
       return;
     }
@@ -131,7 +131,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
       if (action === description + WEAPON_POSTFIX && this.state.actionNameBase === description) {
         table.remove(actionsList, randomIndex);
-        action = actionsList.get(math.random(actionsList.length()));
+        action = table.random(actionsList)[1];
       }
     } else {
       this.state.actionNameBase = action === description + WEAPON_POSTFIX ? action : description;
@@ -268,7 +268,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     if (this.campManager) {
       this.campManager.registerObject(this.object.id());
     } else {
-      this.currentAction = this.state.approvedActions!.get(math.random(this.state.approvedActions!.length())).name;
+      this.currentAction = table.random(this.state.approvedActions)[1].name;
     }
 
     this.isStarted = true;

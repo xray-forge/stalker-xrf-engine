@@ -997,19 +997,16 @@ export function getGoodGunsInInventory(object: GameObject): LuaArray<TWeapon> {
 /**
  * todo;
  */
-extern(
-  "dialogs_zaton.zat_b29_actor_has_exchange_item",
-  (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-    const actor: GameObject = registry.actor;
-    const actorWeaponsTable: LuaArray<TWeapon> = getGoodGunsInInventory(actor);
+extern("dialogs_zaton.zat_b29_actor_has_exchange_item", (): boolean => {
+  const actor: GameObject = registry.actor;
+  const actorWeaponsTable: LuaArray<TWeapon> = getGoodGunsInInventory(actor);
 
-    if (actorWeaponsTable.length() > 0) {
-      (actor as AnyObject).goodGun = actorWeaponsTable.get(math.random(1, actorWeaponsTable.length()));
-    }
-
-    return (actor as AnyObject).goodGun !== null;
+  if (actorWeaponsTable.length() > 0) {
+    (actor as AnyObject).goodGun = table.random(actorWeaponsTable)[1];
   }
-);
+
+  return (actor as AnyObject).goodGun !== null;
+});
 
 /**
  * todo;
@@ -1201,10 +1198,7 @@ extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: GameObject, sec
   }
 
   if (actorHasItem.length() > 0) {
-    transferItemsFromActor(
-      getNpcSpeaker(firstSpeaker, secondSpeaker),
-      actorHasItem.get(math.random(1, actorHasItem.length()))
-    );
+    transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), table.random(actorHasItem)[1]);
   }
 });
 

@@ -634,12 +634,10 @@ export class AnomalyZoneBinder extends object_binder {
     }
 
     if (paths.length() === 0) {
-      const layerPathsList: LuaArray<TName> = this.artefactsPathsList.get(this.currentZoneLayer);
-
-      return layerPathsList.get(math.random(1, layerPathsList.length()));
+      return table.random(this.artefactsPathsList.get(this.currentZoneLayer))[1];
     }
 
-    return paths.get(math.random(1, paths.length()));
+    return table.random(paths)[1];
   }
 
   /**

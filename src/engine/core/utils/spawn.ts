@@ -215,7 +215,7 @@ export function spawnItemsForObjectFromList<T extends TSection>(
   }
 
   for (const _ of $range(1, count)) {
-    spawnItemsForObject(object, itemSections.get(math.random(itemSections.length())), 1);
+    spawnItemsForObject(object, table.random(itemSections)[1]);
   }
 }
 

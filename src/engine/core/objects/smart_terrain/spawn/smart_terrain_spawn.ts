@@ -98,24 +98,23 @@ export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): Optional<S
     return null;
   }
 
-  const simulationBoardManager: SimulationManager = smartTerrain.simulationManager;
-  const sectionToSpawn: TSection = availableSections.get(math.random(1, availableSections.length()));
-  const sectionParams: ISmartTerrainSpawnConfiguration = smartTerrain.spawnSquadsConfiguration.get(sectionToSpawn);
-  const squadSection: TSection = sectionParams.squads.get(math.random(1, sectionParams.squads.length()));
+  const simulationManager: SimulationManager = smartTerrain.simulationManager;
+  const spawnSection: TSection = table.random(availableSections)[1];
+  const squadSection: TSection = table.random(smartTerrain.spawnSquadsConfiguration.get(spawnSection).squads)[1];
 
-  const squad: Squad = simulationBoardManager.createSquad(smartTerrain, squadSection);
+  const squad: Squad = simulationManager.createSquad(smartTerrain, squadSection);
 
   squad.respawnPointId = smartTerrain.id;
-  squad.respawnPointSection = sectionToSpawn;
+  squad.respawnPointSection = spawnSection;
 
-  simulationBoardManager.assignSquadToSmartTerrain(squad, smartTerrain.id);
+  simulationManager.assignSquadToSmartTerrain(squad, smartTerrain.id);
 
   // Is it duplicated with create squad method? Should we do it twice?
   for (const squadMember of squad.squad_members()) {
-    simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
+    simulationManager.setupObjectSquadAndGroup(squadMember.object);
   }
 
-  smartTerrain.spawnedSquadsList.get(sectionToSpawn).num += 1;
+  smartTerrain.spawnedSquadsList.get(spawnSection).num += 1;
 
   return squad;
 }

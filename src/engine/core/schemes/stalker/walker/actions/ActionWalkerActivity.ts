@@ -140,9 +140,8 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     }
 
     const list = ASSOC_TBL[campAction as keyof typeof ASSOC_TBL].director as any as LuaTable<number>;
-    const anim = list.get(math.random(list.length()));
 
-    setStalkerState(this.object, anim);
+    setStalkerState(this.object, table.random(list)[1]);
   }
 
   public onSwitchOffline(object: GameObject): void {
