@@ -1,14 +1,10 @@
 import { game } from "xray16";
 
 import { getManager } from "@/engine/core/database";
-import {
-  DialogManager,
-  EGenericDialogCategory,
-  IPhrasesDescriptor,
-  TPHRTable,
-  TPRTTable,
-} from "@/engine/core/managers/dialogs";
+import { DialogManager, EGenericPhraseCategory, TPHRTable, TPRTTable } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
+import { initializeNewDialog, initializeStartDialogs } from "@/engine/core/managers/dialogs/utils/dialog_init";
+import { calculatePhrasePriority, fillPriorityTable } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
@@ -40,10 +36,8 @@ export function precondition(
     return false;
   }
 
-  const dialogManager: DialogManager = getManager(DialogManager);
-
   // -- recalculate current phrase priority
-  dialogManager.calculatePhrasePriority(PRTsubtable, PTsubtable.get(phraseId), object, phraseId);
+  calculatePhrasePriority(PRTsubtable, PTsubtable.get(phraseId), object, phraseId);
 
   // -- if (current phrase is with highest priority - show it
   return isHighestPriorityPhrase(PTsubtable, PRTsubtable, object, phraseId);
@@ -52,15 +46,8 @@ export function precondition(
 /**
  * todo;
  */
-export function told(PRTsubtable: TPRTTable, object: GameObject): void {
-  PRTsubtable.get(object.id()).told = true;
-}
-
-/**
- * todo;
- */
-export function action(
-  PTsubtable: LuaTable<TStringId, IPhrasesDescriptor>,
+export function processPhraseAction(
+  PTsubtable: TPHRTable,
   PRTsubtable: TPRTTable,
   currentPhraseId: TStringId,
   object: GameObject
@@ -94,7 +81,6 @@ export function resetPhrasePriority(
   object: GameObject,
   phraseId: Optional<string>
 ): void {
-  const dialogManager: DialogManager = getManager(DialogManager);
   const objectId: TNumberId = object.id();
 
   if (phraseId === null) {
@@ -107,7 +93,7 @@ export function resetPhrasePriority(
     PRTsubtable.set(objectId, new LuaTable());
     PRTsubtable.get(objectId).set(
       phraseId!,
-      dialogManager.calculatePhrasePriority(PRTsubtable, PTsubtable.get(phraseId!), object, phraseId!)
+      calculatePhrasePriority(PRTsubtable, PTsubtable.get(phraseId!), object, phraseId!)
     );
   }
 }
@@ -180,7 +166,7 @@ export function getHighestPriorityPhrase(
 /**
  * todo;
  */
-export function preconditionNoMore(object: GameObject, category: EGenericDialogCategory): boolean {
+export function preconditionNoMore(object: GameObject, category: EGenericPhraseCategory): boolean {
   const dialogManager: DialogManager = getManager(DialogManager);
 
   const [priority, id] = getHighestPriorityPhrase(
@@ -196,22 +182,22 @@ export function preconditionNoMore(object: GameObject, category: EGenericDialogC
  * todo;
  */
 extern("dialog_manager.init_new_dialog", (dialog: PhraseDialog): void => {
-  getManager(DialogManager).initializeNewDialog(dialog);
+  initializeNewDialog(dialog);
 });
 
 /**
  * todo;
  * todo: correct case
  */
-extern("dialog_manager.initializeStartDialogs", (dialog: PhraseDialog, data: EGenericDialogCategory): void => {
-  getManager(DialogManager).initializeStartDialogs(dialog, data);
+extern("dialog_manager.initializeStartDialogs", (dialog: PhraseDialog, data: EGenericPhraseCategory): void => {
+  initializeStartDialogs(dialog, data);
 });
 
 /**
  * todo;
  */
 extern("dialog_manager.init_hello_dialogs", (dialog: PhraseDialog): void => {
-  getManager(DialogManager).initializeStartDialogs(dialog, EGenericDialogCategory.HELLO);
+  initializeStartDialogs(dialog, EGenericPhraseCategory.HELLO);
 });
 
 /**
@@ -220,12 +206,10 @@ extern("dialog_manager.init_hello_dialogs", (dialog: PhraseDialog): void => {
 extern(
   "dialog_manager.fill_priority_hello_table",
   (actor: GameObject, object: GameObject, dialogName: string, phraseId: string): void => {
-    const dialogManager: DialogManager = getManager(DialogManager);
-
-    dialogManager.fillPriorityTable(
+    fillPriorityTable(
       object,
-      dialogConfig.PHRASES.get(EGenericDialogCategory.HELLO),
-      dialogManager.priorityTable.get(EGenericDialogCategory.HELLO)
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO)
     );
   }
 );
@@ -236,12 +220,10 @@ extern(
 extern(
   "dialog_manager.fill_priority_job_table",
   (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
-    const dialogManager: DialogManager = getManager(DialogManager);
-
-    dialogManager.fillPriorityTable(
+    fillPriorityTable(
       object,
-      dialogConfig.PHRASES.get(EGenericDialogCategory.JOB),
-      dialogManager.priorityTable.get(EGenericDialogCategory.JOB)
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.JOB)
     );
   }
 );
@@ -252,12 +234,10 @@ extern(
 extern(
   "dialog_manager.fill_priority_anomalies_table",
   (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
-    const dialogManager: DialogManager = getManager(DialogManager);
-
-    dialogManager.fillPriorityTable(
+    fillPriorityTable(
       object,
-      dialogConfig.PHRASES.get(EGenericDialogCategory.ANOMALIES),
-      dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES)
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.ANOMALIES)
     );
   }
 );
@@ -268,12 +248,10 @@ extern(
 extern(
   "dialog_manager.fill_priority_information_table",
   (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
-    const dialogManager: DialogManager = getManager(DialogManager);
-
-    dialogManager.fillPriorityTable(
+    fillPriorityTable(
       object,
-      dialogConfig.PHRASES.get(EGenericDialogCategory.INFORMATION),
-      dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION)
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.INFORMATION)
     );
   }
 );
@@ -284,12 +262,10 @@ extern(
 extern(
   "dialog_manager.precondition_hello_dialogs",
   (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
-    const dialogManager: DialogManager = getManager(DialogManager);
-
     return precondition(
       object,
-      dialogConfig.PHRASES.get(EGenericDialogCategory.HELLO),
-      dialogManager.priorityTable.get(EGenericDialogCategory.HELLO),
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO),
       id
     );
   }
@@ -301,11 +277,9 @@ extern(
 extern(
   "dialog_manager.action_hello_dialogs",
   (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
-    const dialogManager: DialogManager = getManager(DialogManager);
-
-    action(
-      dialogConfig.PHRASES.get(EGenericDialogCategory.HELLO),
-      dialogManager.priorityTable.get(EGenericDialogCategory.HELLO),
+    processPhraseAction(
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO),
       id,
       object
     );
@@ -318,9 +292,7 @@ extern(
 extern(
   "dialog_manager.precondition_job_dialogs_no_more",
   (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
-    const dialogManager: DialogManager = getManager(DialogManager);
-
-    return dialogManager.isTold(object, EGenericDialogCategory.JOB);
+    return getManager(DialogManager).isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.JOB);
   }
 );
 
@@ -330,7 +302,7 @@ extern(
 extern(
   "dialog_manager.precondition_job_dialogs_do_not_know",
   (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId) => {
-    return preconditionNoMore(object, EGenericDialogCategory.JOB);
+    return preconditionNoMore(object, EGenericPhraseCategory.JOB);
   }
 );
 
@@ -344,8 +316,8 @@ extern(
 
     return precondition(
       object,
-      dialogConfig.PHRASES.get(EGenericDialogCategory.JOB),
-      dialogManager.priorityTable.get(EGenericDialogCategory.JOB),
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
+      dialogManager.priorityTable.get(EGenericPhraseCategory.JOB),
       id
     );
   }
@@ -359,13 +331,14 @@ extern(
   (object: GameObject, actor: GameObject, dialogName: string, id: string): void => {
     const dialogManager: DialogManager = getManager(DialogManager);
 
-    action(
-      dialogConfig.PHRASES.get(EGenericDialogCategory.JOB),
-      dialogManager.priorityTable.get(EGenericDialogCategory.JOB),
+    processPhraseAction(
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
+      dialogManager.priorityTable.get(EGenericPhraseCategory.JOB),
       id,
       object
     );
-    told(dialogManager.priorityTable.get(EGenericDialogCategory.JOB), object);
+
+    dialogManager.priorityTable.get(EGenericPhraseCategory.JOB).get(object.id()).told = true;
   }
 );
 
@@ -375,7 +348,7 @@ extern(
 extern(
   "dialog_manager.precondition_anomalies_dialogs_no_more",
   (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
-    return getManager(DialogManager).isTold(object, EGenericDialogCategory.ANOMALIES);
+    return getManager(DialogManager).isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.ANOMALIES);
   }
 );
 
@@ -385,7 +358,7 @@ extern(
 extern(
   "dialog_manager.precondition_anomalies_dialogs_do_not_know",
   (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
-    return preconditionNoMore(object, EGenericDialogCategory.ANOMALIES);
+    return preconditionNoMore(object, EGenericPhraseCategory.ANOMALIES);
   }
 );
 
@@ -400,17 +373,17 @@ extern(
 
     if (
       smartTerrain !== null &&
-      tostring(smartTerrain.name()) === dialogConfig.PHRASES.get(EGenericDialogCategory.ANOMALIES).get(id).smart
+      tostring(smartTerrain.name()) === dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES).get(id).smart
     ) {
-      dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES).get(object.id()).id = -1;
+      dialogManager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(object.id()).id = -1;
 
       return false;
     }
 
     return precondition(
       object,
-      dialogConfig.PHRASES.get(EGenericDialogCategory.ANOMALIES),
-      dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES),
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
+      dialogManager.priorityTable.get(EGenericPhraseCategory.ANOMALIES),
       id
     );
   }
@@ -424,13 +397,14 @@ extern(
   (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     const dialogManager: DialogManager = getManager(DialogManager);
 
-    action(
-      dialogConfig.PHRASES.get(EGenericDialogCategory.ANOMALIES),
-      dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES),
+    processPhraseAction(
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
+      dialogManager.priorityTable.get(EGenericPhraseCategory.ANOMALIES),
       id,
       object
     );
-    told(dialogManager.priorityTable.get(EGenericDialogCategory.ANOMALIES), object);
+
+    dialogManager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(object.id()).told = true;
   }
 );
 
@@ -441,7 +415,7 @@ extern(
 extern(
   "dialog_manager.precondition_information_dialogs_no_more",
   (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
-    return getManager(DialogManager).isTold(object, EGenericDialogCategory.INFORMATION);
+    return getManager(DialogManager).isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.INFORMATION);
   }
 );
 
@@ -451,7 +425,7 @@ extern(
 extern(
   "dialog_manager.precondition_information_dialogs_do_not_know",
   (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
-    return preconditionNoMore(object, EGenericDialogCategory.INFORMATION);
+    return preconditionNoMore(object, EGenericPhraseCategory.INFORMATION);
   }
 );
 
@@ -465,8 +439,8 @@ extern(
 
     return precondition(
       object,
-      dialogConfig.PHRASES.get(EGenericDialogCategory.INFORMATION),
-      dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION),
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
+      dialogManager.priorityTable.get(EGenericPhraseCategory.INFORMATION),
       id
     );
   }
@@ -480,13 +454,14 @@ extern(
   (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     const dialogManager: DialogManager = getManager(DialogManager);
 
-    action(
-      dialogConfig.PHRASES.get(EGenericDialogCategory.INFORMATION),
-      dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION),
+    processPhraseAction(
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
+      dialogManager.priorityTable.get(EGenericPhraseCategory.INFORMATION),
       id,
       object
     );
-    told(dialogManager.priorityTable.get(EGenericDialogCategory.INFORMATION), object);
+
+    dialogManager.priorityTable.get(EGenericPhraseCategory.INFORMATION).get(object.id()).told = true;
   }
 );
 
@@ -529,19 +504,11 @@ extern(
 extern(
   "dialog_manager.action_disable_phrase",
   (firstSpeaker: GameObject, secondSpeaker: GameObject, dialogName: TName, phraseId: TStringId): void => {
-    const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
-
     if (phraseId === "0") {
       phraseId = dialogName;
     }
 
-    const dialogManager: DialogManager = getManager(DialogManager);
-
-    if (dialogManager.disabledPhrases.get(object.id()) === null) {
-      dialogManager.disabledPhrases.set(object.id(), new LuaTable());
-    }
-
-    dialogManager.disabledPhrases.get(object.id()).set(phraseId, true);
+    getManager(DialogManager).disableObjectPhrase(getNpcSpeaker(firstSpeaker, secondSpeaker).id(), phraseId);
   }
 );
 

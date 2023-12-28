@@ -20,7 +20,7 @@ export interface IPhrasesDescriptor {
 /**
  * todo;
  */
-export type TPHRTable = LuaTable<string, IPhrasesDescriptor>;
+export type TPHRTable = LuaTable<TStringId, IPhrasesDescriptor>;
 
 /**
  * todo;
@@ -33,7 +33,7 @@ export type TPRTTable = LuaTable<
 /**
  * todo;
  */
-export enum EGenericDialogCategory {
+export enum EGenericPhraseCategory {
   HELLO = "hello",
   ANOMALIES = "anomalies",
   PLACE = "place",

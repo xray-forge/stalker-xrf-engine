@@ -96,15 +96,7 @@ describe("SoundManager class", () => {
 
     another.load(netProcessor.asMockNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-      EPacketDataType.U16,
-    ]);
+    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);
   });
 
@@ -129,12 +121,7 @@ describe("SoundManager class", () => {
 
     another.loadObject(object, netProcessor.asMockNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual([
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.BOOLEAN,
-      EPacketDataType.U16,
-    ]);
+    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);
   });
 

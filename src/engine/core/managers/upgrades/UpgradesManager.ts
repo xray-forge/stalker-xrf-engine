@@ -2,6 +2,7 @@ import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
+import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { ITEM_UPGRADES, STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { getRepairPrice } from "@/engine/core/managers/upgrades/utils";
@@ -23,7 +24,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class UpgradesManager extends AbstractManager {
   /**
-   * @param hints - list of hints to set as current
+   * @param hints - list of hints to set as current upgrading values
    */
   public setCurrentHints(hints: Optional<LuaArray<TLabel>>): void {
     upgradesConfig.UPGRADES_HINTS = hints;
@@ -119,7 +120,7 @@ export class UpgradesManager extends AbstractManager {
           const possibilitiesConditionList: TConditionList = parseConditionsList(param);
           const possibility: Optional<TSection> = pickSectionFromCondList(
             registry.actor,
-            registry.activeSpeaker,
+            dialogConfig.ACTIVE_SPEAKER,
             possibilitiesConditionList
           );
 
@@ -161,7 +162,7 @@ export class UpgradesManager extends AbstractManager {
           const possibilitiesConditionList: TConditionList = parseConditionsList(param);
           const possibility: Optional<TSection> = pickSectionFromCondList(
             actor,
-            registry.activeSpeaker,
+            dialogConfig.ACTIVE_SPEAKER,
             possibilitiesConditionList
           );
 
