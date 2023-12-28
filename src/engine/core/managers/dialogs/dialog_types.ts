@@ -1,5 +1,5 @@
 import type { IConfigCondition } from "@/engine/core/utils/ini";
-import type { LuaArray, Optional, TName, TStringId } from "@/engine/lib/types";
+import type { LuaArray, Optional, TName, TStringId, TStringifiedBoolean } from "@/engine/lib/types";
 
 /**
  * todo;
@@ -7,10 +7,10 @@ import type { LuaArray, Optional, TName, TStringId } from "@/engine/lib/types";
 export interface IPhrasesDescriptor {
   id: TStringId;
   name: TName;
-  npc_community: LuaArray<any> | "not_set";
-  level: LuaArray<any> | "not_set";
-  actor_community: LuaArray<any> | "not_set" | "all";
-  wounded: string;
+  npc_community: LuaArray<TName> | "not_set";
+  level: LuaArray<TName> | "not_set";
+  actor_community: LuaArray<TName> | "not_set" | "all";
+  wounded: TStringifiedBoolean;
   once: string;
   info: LuaArray<IConfigCondition>;
   smart: Optional<string>;
@@ -18,9 +18,10 @@ export interface IPhrasesDescriptor {
 }
 
 /**
- * todo;
+ * Map of available in-game phrases.
+ * Where key is id of phrases group and descriptor is meta-info about specific phrase.
  */
-export type TPHRTable = LuaTable<TStringId, IPhrasesDescriptor>;
+export type TAvailablePhrasesMap = LuaTable<TStringId, IPhrasesDescriptor>;
 
 /**
  * todo;
@@ -34,10 +35,9 @@ export type TPRTTable = LuaTable<
  * todo;
  */
 export enum EGenericPhraseCategory {
-  HELLO = "hello",
   ANOMALIES = "anomalies",
-  PLACE = "place",
-  JOB = "job",
+  HELLO = "hello",
   INFORMATION = "information",
-  DEFAULT = "default",
+  JOB = "job",
+  PLACE = "place",
 }

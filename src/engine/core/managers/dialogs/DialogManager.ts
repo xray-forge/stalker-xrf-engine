@@ -18,7 +18,6 @@ export class DialogManager extends AbstractManager {
   public questDisabledPhrases: LuaTable<TNumberId, LuaTable<TStringId, boolean>> = new LuaTable();
 
   public priorityTable: LuaTable<EGenericPhraseCategory, TPRTTable> = $fromObject({
-    [EGenericPhraseCategory.DEFAULT]: new LuaTable(),
     [EGenericPhraseCategory.HELLO]: new LuaTable(),
     [EGenericPhraseCategory.JOB]: new LuaTable(),
     [EGenericPhraseCategory.ANOMALIES]: new LuaTable(),

@@ -12,7 +12,7 @@ describe("dialogs external callbacks declaration", () => {
 
   it("should correctly inject dialog functors", () => {
     checkManagerBinding("init_new_dialog");
-    checkManagerBinding("initializeStartDialogs");
+    checkManagerBinding("initialize_start_dialogs");
     checkManagerBinding("init_hello_dialogs");
     checkManagerBinding("action_disable_quest_phrase");
     checkManagerBinding("action_anomalies_dialogs");
@@ -45,7 +45,7 @@ describe("dialogs external callbacks implementation", () => {
 
   it.todo("init_new_dialog should initialize correctly");
 
-  it.todo("initializeStartDialogs should initialize correctly");
+  it.todo("initialize_start_dialogs should initialize correctly");
 
   it.todo("init_hello_dialogs should initialize correctly");
 

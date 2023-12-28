@@ -1,92 +1,12 @@
 import { CPhraseScript } from "xray16";
 
-import { EGenericPhraseCategory, IPhrasesDescriptor, TPHRTable } from "@/engine/core/managers/dialogs/dialog_types";
+import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
-import { assert } from "@/engine/core/utils/assertion";
-import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import {
-  IniFile,
-  LuaArray,
-  Optional,
-  Phrase,
-  PhraseDialog,
-  PhraseScript,
-  TIndex,
-  TName,
-  TNumberId,
-} from "@/engine/lib/types";
+import { TRUE } from "@/engine/lib/constants/words";
+import { LuaArray, Phrase, PhraseDialog, PhraseScript, TIndex, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
-
-/**
- * todo;
- */
-export function readIniGenericDialogs(
-  ini: IniFile,
-  generatePhraseId: () => TNumberId
-): LuaTable<EGenericPhraseCategory, TPHRTable> {
-  const list: LuaTable<EGenericPhraseCategory, TPHRTable> = $fromObject({
-    [EGenericPhraseCategory.HELLO]: new LuaTable(),
-    [EGenericPhraseCategory.JOB]: new LuaTable(),
-    [EGenericPhraseCategory.ANOMALIES]: new LuaTable(),
-    [EGenericPhraseCategory.PLACE]: new LuaTable(),
-    [EGenericPhraseCategory.INFORMATION]: new LuaTable(),
-  } as Record<EGenericPhraseCategory, TPHRTable>);
-
-  for (const it of $range(0, ini.line_count("list") - 1)) {
-    const [, id] = ini.r_line("list", it, "", "");
-
-    assert(ini.line_exist(id, "category"), "Dialog manager error. ! categoried section [%s].", id);
-
-    let category: EGenericPhraseCategory = ini.r_string(id, "category") as EGenericPhraseCategory;
-
-    switch (category) {
-      case EGenericPhraseCategory.HELLO:
-      case EGenericPhraseCategory.ANOMALIES:
-      case EGenericPhraseCategory.PLACE:
-      case EGenericPhraseCategory.JOB:
-      case EGenericPhraseCategory.INFORMATION:
-        // nothing
-        break;
-
-      default:
-        category = EGenericPhraseCategory.DEFAULT;
-        break;
-    }
-
-    if (category !== EGenericPhraseCategory.DEFAULT) {
-      const phrases: IPhrasesDescriptor = {
-        id: tostring(generatePhraseId()),
-        name: id,
-        npc_community: ini.line_exist(id, "npc_community")
-          ? parseStringsList(ini.r_string(id, "npc_community"))
-          : "not_set",
-        level: ini.line_exist(id, "level") ? parseStringsList(ini.r_string(id, "level")) : "not_set",
-        actor_community: ini.line_exist(id, "actor_community")
-          ? parseStringsList(ini.r_string(id, "actor_community"))
-          : "not_set",
-        wounded: ini.line_exist(id, "wounded") ? ini.r_string(id, "wounded") : FALSE,
-        once: ini.line_exist(id, "once") ? ini.r_string(id, "once") : "always",
-        info: new LuaTable(),
-        smart: null as Optional<TName>,
-      };
-
-      if (ini.line_exist(id, "info") && ini.r_string(id, "info") !== "") {
-        parseInfoPortions(phrases.info, ini.r_string(id, "info"));
-      }
-
-      if (category === EGenericPhraseCategory.ANOMALIES || category === EGenericPhraseCategory.PLACE) {
-        phrases.smart = ini.line_exist(id, "smart") ? ini.r_string(id, "smart") : "";
-      }
-
-      list.get(category).set(phrases.id, phrases);
-    }
-  }
-
-  return list;
-}
 
 /**
  * todo;
@@ -164,7 +84,7 @@ export function initializeNewDialog(dialog: PhraseDialog): void {
   ]);
 
   const actorPhrase: Phrase = dialog.AddPhrase("dm_universal_actor_start", tostring(0), "", -10000);
-  const actorScript: PhraseScript = actorPhrase.GetPhraseScript();
+  const actorScript: PhraseScript = actorPhrase.GetPhraseScript(); // Do not remove, getter has side effect.
 
   for (const j of $range(1, 4)) {
     const npcPhrase: Phrase = dialog.AddPhrase(startPhraseTable.get(j), tostring(j), tostring(0), -10000);

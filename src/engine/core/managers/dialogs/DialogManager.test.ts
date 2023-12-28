@@ -112,7 +112,6 @@ describe("DialogManager class", () => {
       manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES)
     );
 
-    expect(manager.isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.DEFAULT)).toBe(false);
     expect(manager.isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.ANOMALIES)).toBe(false);
     expect(manager.isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.INFORMATION)).toBe(false);
     expect(manager.isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.PLACE)).toBe(false);
@@ -120,7 +119,6 @@ describe("DialogManager class", () => {
     manager.priorityTable.get(EGenericPhraseCategory.INFORMATION).get(object.id()).told = true;
     manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(object.id()).told = true;
 
-    expect(manager.isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.DEFAULT)).toBe(false);
     expect(manager.isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.ANOMALIES)).toBe(true);
     expect(manager.isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.INFORMATION)).toBe(true);
     expect(manager.isObjectPhraseCategoryTold(object.id(), EGenericPhraseCategory.PLACE)).toBe(false);
