@@ -56,6 +56,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "travel", mode: ELuaL
  * Manager to handle fast traveling of actor.
  *
  * todo: Fix faction-specific labels and answers. Originally commented and hardcoded to stalkers?
+ * todo: Move some pure methods to utils.
  */
 export class TravelManager extends AbstractManager {
   public isTraveling: boolean = false;

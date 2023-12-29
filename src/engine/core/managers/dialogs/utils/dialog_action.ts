@@ -7,10 +7,10 @@ import { GameObject, TStringId } from "@/engine/lib/types";
  * todo;
  */
 export function processPhraseAction(
+  object: GameObject,
   PTsubtable: TAvailablePhrasesMap,
   PRTsubtable: TPRTTable,
-  currentPhraseId: TStringId,
-  object: GameObject
+  currentPhraseId: TStringId
 ): void {
   if (!PRTsubtable.get(object.id()).ignore_once) {
     if (PTsubtable.get(currentPhraseId).once === TRUE) {

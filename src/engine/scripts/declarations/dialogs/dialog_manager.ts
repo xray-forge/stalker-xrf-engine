@@ -16,29 +16,33 @@ import { GameObject, Optional, PhraseDialog, TName, TNumberId, TStringId } from 
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+// todo: Verify object vs actor in some methods.
+// todo: Verify object vs actor in some methods.
+// todo: Verify object vs actor in some methods.
+
 /**
- * todo;
+ * Initialize dialog phrases / priorities and order.
  */
 extern("dialog_manager.init_new_dialog", (dialog: PhraseDialog): void => {
   initializeNewDialog(dialog);
 });
 
 /**
- * todo;
+ * Initialize dialog phrases / priorities and order for specific category.
  */
-extern("dialog_manager.initialize_start_dialogs", (dialog: PhraseDialog, data: EGenericPhraseCategory): void => {
-  initializeStartDialogs(dialog, data);
+extern("dialog_manager.initialize_start_dialogs", (dialog: PhraseDialog, category: EGenericPhraseCategory): void => {
+  initializeStartDialogs(dialog, category);
 });
 
 /**
- * todo;
+ * Initialize dialog phrases / priorities and order for hello category.
  */
 extern("dialog_manager.init_hello_dialogs", (dialog: PhraseDialog): void => {
   initializeStartDialogs(dialog, EGenericPhraseCategory.HELLO);
 });
 
 /**
- * todo;
+ * Recalculate priority for hello phrases.
  */
 extern(
   "dialog_manager.fill_priority_hello_table",
@@ -52,7 +56,7 @@ extern(
 );
 
 /**
- * todo;
+ * Recalculate priority for job phrases.
  */
 extern(
   "dialog_manager.fill_priority_job_table",
@@ -66,7 +70,7 @@ extern(
 );
 
 /**
- * todo;
+ * Recalculate priority for anomaly phrases.
  */
 extern(
   "dialog_manager.fill_priority_anomalies_table",
@@ -80,7 +84,7 @@ extern(
 );
 
 /**
- * todo;
+ * Recalculate priority for information phrases.
  */
 extern(
   "dialog_manager.fill_priority_information_table",
@@ -94,7 +98,7 @@ extern(
 );
 
 /**
- * todo;
+ * Check whether default hello dialogs should be shown.
  */
 extern(
   "dialog_manager.precondition_hello_dialogs",
@@ -109,22 +113,22 @@ extern(
 );
 
 /**
- * todo;
+ * Process action on hello dialogs.
  */
 extern(
   "dialog_manager.action_hello_dialogs",
   (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     processPhraseAction(
+      object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO),
-      id,
-      object
+      id
     );
   }
 );
 
 /**
- * todo;
+ * Check whether job dialogs are available to show in the list.
  */
 extern(
   "dialog_manager.precondition_job_dialogs_no_more",
@@ -134,7 +138,7 @@ extern(
 );
 
 /**
- * todo;
+ * Check whether no more options to show about finding job exist.
  */
 extern(
   "dialog_manager.precondition_job_dialogs_do_not_know",
@@ -144,7 +148,7 @@ extern(
 );
 
 /**
- * todo;
+ * Check whether possible dialogs options about job exist.
  */
 extern(
   "dialog_manager.precondition_job_dialogs",
@@ -167,10 +171,10 @@ extern(
     const manager: DialogManager = getManager(DialogManager);
 
     processPhraseAction(
+      object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
       manager.priorityTable.get(EGenericPhraseCategory.JOB),
-      id,
-      object
+      id
     );
 
     manager.priorityTable.get(EGenericPhraseCategory.JOB).get(object.id()).told = true;
@@ -233,10 +237,10 @@ extern(
     const manager: DialogManager = getManager(DialogManager);
 
     processPhraseAction(
+      object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
       manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES),
-      id,
-      object
+      id
     );
 
     manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(object.id()).told = true;
@@ -288,10 +292,10 @@ extern(
     const manager: DialogManager = getManager(DialogManager);
 
     processPhraseAction(
+      object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
       manager.priorityTable.get(EGenericPhraseCategory.INFORMATION),
-      id,
-      object
+      id
     );
 
     manager.priorityTable.get(EGenericPhraseCategory.INFORMATION).get(object.id()).told = true;

@@ -1,8 +1,25 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { AnyArgs, AnyObject, GameObject, Optional, TName } from "@/engine/lib/types";
+import { getManager } from "@/engine/core/database";
+import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
+import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
+import {
+  fillPriorityTable,
+  initializeNewDialog,
+  initializeStartDialogs,
+  processPhraseAction,
+  shouldHidePhraseCategory,
+  shouldShowPhrase,
+} from "@/engine/core/managers/dialogs/utils";
+import { AnyArgs, AnyObject, GameObject, Optional, PhraseDialog, TName } from "@/engine/lib/types";
 import { checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
+import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
+import { MockGameObject, MockPhraseDialog } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/managers/dialogs/utils/dialog_action");
+jest.mock("@/engine/core/managers/dialogs/utils/dialog_check");
+jest.mock("@/engine/core/managers/dialogs/utils/dialog_init");
+jest.mock("@/engine/core/managers/dialogs/utils/dialog_priority");
 
 describe("dialogs external callbacks declaration", () => {
   const checkManagerBinding = (name: TName) => checkNestedBinding("dialog_manager", name);
@@ -40,11 +57,11 @@ describe("dialogs external callbacks declaration", () => {
 });
 
 describe("dialogs external callbacks implementation", () => {
-  function callDialogBinding<T = void>(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): T {
+  function callDialogBinding<T = void>(name: TName, ...parameters: AnyArgs): T {
     const effects: Optional<AnyObject> = (_G as AnyObject)["dialog_manager"];
 
     if (effects && name in effects) {
-      return (_G as AnyObject)["dialog_manager"][name](actor, object, parameters);
+      return (_G as AnyObject)["dialog_manager"][name](...parameters);
     } else if (!effects) {
       throw new Error("Unexpected call - 'dialog_manager' global is not registered.");
     } else {
@@ -58,37 +75,179 @@ describe("dialogs external callbacks implementation", () => {
 
   beforeEach(() => {
     resetRegistry();
+
+    resetFunctionMock(fillPriorityTable);
+    resetFunctionMock(initializeNewDialog);
+    resetFunctionMock(initializeStartDialogs);
+    resetFunctionMock(processPhraseAction);
+    resetFunctionMock(shouldHidePhraseCategory);
+    resetFunctionMock(shouldShowPhrase);
   });
 
-  it.todo("init_new_dialog should initialize correctly");
+  it("init_new_dialog should initialize correctly", () => {
+    const dialog: PhraseDialog = MockPhraseDialog.mock();
 
-  it.todo("initialize_start_dialogs should initialize correctly");
+    callDialogBinding("init_new_dialog", dialog);
 
-  it.todo("init_hello_dialogs should initialize correctly");
+    expect(initializeNewDialog).toHaveBeenCalledTimes(1);
+    expect(initializeNewDialog).toHaveBeenCalledWith(dialog);
+  });
 
-  it.todo("action_disable_quest_phrase should disable phrases");
+  it("initialize_start_dialogs should initialize correctly", () => {
+    const dialog: PhraseDialog = MockPhraseDialog.mock();
+
+    callDialogBinding("initialize_start_dialogs", dialog, EGenericPhraseCategory.JOB);
+
+    expect(initializeStartDialogs).toHaveBeenCalledTimes(1);
+    expect(initializeStartDialogs).toHaveBeenCalledWith(dialog, EGenericPhraseCategory.JOB);
+  });
+
+  it("init_hello_dialogs should initialize correctly", () => {
+    const dialog: PhraseDialog = MockPhraseDialog.mock();
+
+    callDialogBinding("init_hello_dialogs", dialog);
+
+    expect(initializeStartDialogs).toHaveBeenCalledTimes(1);
+    expect(initializeStartDialogs).toHaveBeenCalledWith(dialog, EGenericPhraseCategory.HELLO);
+  });
+
+  it("fill_priority_hello_table should correctly handle priorities", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    callDialogBinding("fill_priority_hello_table", actorGameObject, object);
+
+    expect(fillPriorityTable).toHaveBeenCalledTimes(1);
+    expect(fillPriorityTable).toHaveBeenCalledWith(
+      object,
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO)
+    );
+  });
+
+  it("fill_priority_job_table should correctly handle priorities", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    callDialogBinding("fill_priority_job_table", actorGameObject, object);
+
+    expect(fillPriorityTable).toHaveBeenCalledTimes(1);
+    expect(fillPriorityTable).toHaveBeenCalledWith(
+      object,
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.JOB)
+    );
+  });
+
+  it("fill_priority_anomalies_table should correctly handle priorities", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    callDialogBinding("fill_priority_anomalies_table", actorGameObject, object);
+
+    expect(fillPriorityTable).toHaveBeenCalledTimes(1);
+    expect(fillPriorityTable).toHaveBeenCalledWith(
+      object,
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.ANOMALIES)
+    );
+  });
+
+  it("fill_priority_information_table should correctly handle priorities", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    callDialogBinding("fill_priority_information_table", actorGameObject, object);
+
+    expect(fillPriorityTable).toHaveBeenCalledTimes(1);
+    expect(fillPriorityTable).toHaveBeenCalledWith(
+      object,
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.INFORMATION)
+    );
+  });
+
+  it("precondition_hello_dialogs should correctly check preconditions", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    replaceFunctionMockOnce(shouldShowPhrase, () => true);
+
+    expect(
+      callDialogBinding("precondition_hello_dialogs", actorGameObject, object, "dialog_name", "parent_id", "phrase_id")
+    ).toBe(true);
+
+    expect(shouldShowPhrase).toHaveBeenCalledTimes(1);
+    expect(shouldShowPhrase).toHaveBeenCalledWith(
+      actorGameObject,
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO),
+      "phrase_id"
+    );
+  });
+
+  it("action_hello_dialogs should correctly switch", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    callDialogBinding("action_hello_dialogs", actorGameObject, object, "dialog_name", "parent_id");
+
+    expect(processPhraseAction).toHaveBeenCalledTimes(1);
+    expect(processPhraseAction).toHaveBeenCalledWith(
+      actorGameObject,
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO),
+      "parent_id"
+    );
+  });
+
+  it("precondition_job_dialogs_no_more should correctly check preconditions", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const manager: DialogManager = getManager(DialogManager);
+
+    jest.spyOn(manager, "isObjectPhraseCategoryTold").mockImplementationOnce(() => true);
+
+    replaceFunctionMockOnce(shouldShowPhrase, () => true);
+
+    expect(callDialogBinding("precondition_job_dialogs_no_more", actorGameObject)).toBe(true);
+
+    expect(manager.isObjectPhraseCategoryTold).toHaveBeenCalledTimes(1);
+    expect(manager.isObjectPhraseCategoryTold).toHaveBeenCalledWith(actorGameObject.id(), EGenericPhraseCategory.JOB);
+  });
+
+  it("precondition_job_dialogs_do_not_know should correctly check preconditions", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    replaceFunctionMockOnce(shouldHidePhraseCategory, () => true);
+
+    expect(callDialogBinding("precondition_job_dialogs_do_not_know", actorGameObject)).toBe(true);
+
+    expect(shouldHidePhraseCategory).toHaveBeenCalledTimes(1);
+    expect(shouldHidePhraseCategory).toHaveBeenCalledWith(actorGameObject, EGenericPhraseCategory.JOB);
+  });
+
+  it("precondition_job_dialogs should correctly check preconditions", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+
+    replaceFunctionMockOnce(shouldShowPhrase, () => true);
+
+    expect(
+      callDialogBinding("precondition_job_dialogs", actorGameObject, object, "dialog_name", "parent_id", "phrase_id")
+    ).toBe(true);
+
+    expect(shouldShowPhrase).toHaveBeenCalledTimes(1);
+    expect(shouldShowPhrase).toHaveBeenCalledWith(
+      actorGameObject,
+      dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
+      getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.JOB),
+      "phrase_id"
+    );
+  });
 
   it.todo("action_anomalies_dialogs should correctly switch");
 
   it.todo("action_job_dialogs should correctly switch");
-
-  it.todo("action_hello_dialogs should correctly switch");
-
-  it.todo("fill_priority_hello_table should correctly handle priorities");
-
-  it.todo("fill_priority_job_table should correctly handle priorities");
-
-  it.todo("fill_priority_anomalies_table should correctly handle priorities");
-
-  it.todo("fill_priority_information_table should correctly handle priorities");
-
-  it.todo("precondition_hello_dialogs should correctly check preconditions");
-
-  it.todo("precondition_job_dialogs_no_more should correctly check preconditions");
-
-  it.todo("precondition_job_dialogs_do_not_know should correctly check preconditions");
-
-  it.todo("precondition_job_dialogs should correctly check preconditions");
 
   it.todo("precondition_anomalies_dialogs_no_more should correctly check preconditions");
 
