@@ -261,7 +261,18 @@ describe("dialogs external callbacks implementation", () => {
 
   it.todo("precondition_is_phrase_disabled should correctly check preconditions");
 
-  it.todo("action_disable_phrase should correctly disable phrases");
+  it("action_disable_phrase should correctly disable phrases", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mockStalker();
+    const manager: DialogManager = getManager(DialogManager);
+
+    jest.spyOn(manager, "disableObjectPhrase").mockImplementation(jest.fn());
+
+    callDialogBinding("action_disable_phrase", actorGameObject, object, "dialog_name", "0");
+
+    expect(manager.disableObjectPhrase).toHaveBeenCalledTimes(1);
+    expect(manager.disableObjectPhrase).toHaveBeenCalledWith(object.id(), "dialog_name");
+  });
 
   it.todo("create_bye_phrase should correctly create bye option");
 

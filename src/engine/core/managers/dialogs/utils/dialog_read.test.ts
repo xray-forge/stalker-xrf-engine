@@ -256,6 +256,38 @@ describe("readIniGenericDialogs util", () => {
     });
   });
 
+  it("correctly read minimalistic dialogs lists", () => {
+    let id: TNumberId = 1;
+
+    expect(
+      readIniGenericDialogs(
+        MockIniFile.mock("test.ltx", {
+          list: ["a"],
+          a: { category: "job" },
+        }),
+        () => ++id
+      )
+    ).toEqualLuaTables({
+      anomalies: {},
+      hello: {},
+      information: {},
+      job: {
+        "2": {
+          actorCommunity: "not_set",
+          id: "2",
+          info: [],
+          level: "not_set",
+          name: "a",
+          npcCommunity: "not_set",
+          once: "always",
+          smart: null,
+          wounded: "false",
+        },
+      },
+      place: {},
+    });
+  });
+
   it("should fail on wrong data", () => {
     expect(() => {
       readIniGenericDialogs(

@@ -5,6 +5,7 @@ import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/i
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/reward";
 import { GameObject, Optional, TCount, TName } from "@/engine/lib/types";
+
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
