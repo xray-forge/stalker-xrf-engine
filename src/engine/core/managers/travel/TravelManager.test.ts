@@ -93,7 +93,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "1002",
         script: {
-          text: "travel_callbacks.getTravelCost",
+          text: "travel_callbacks.get_travel_cost",
         },
         text: "1002_1",
       },
@@ -109,7 +109,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "1",
         script: {
-          precondition: "travel_callbacks.canActorMoveWithSquad",
+          precondition: "travel_callbacks.can_actor_move_with_squad",
         },
         text: "11",
       },
@@ -118,7 +118,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "1002_1",
         script: {
-          precondition: "travel_callbacks.isEnoughMoneyToTravel",
+          precondition: "travel_callbacks.is_enough_money_to_travel",
         },
         text: "1002_11",
       },
@@ -134,7 +134,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "111",
         script: {
-          precondition: "travel_callbacks.onTravelTogetherWithSquad",
+          precondition: "travel_callbacks.on_travel_together_with_squad",
         },
         text: "1111",
       },
@@ -143,7 +143,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "1002_1",
         script: {
-          precondition: "travel_callbacks.isNotEnoughMoneyToTravel",
+          precondition: "travel_callbacks.is_not_enough_money_to_travel",
         },
         text: "1002_13",
       },
@@ -166,7 +166,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "11",
         script: {
-          precondition: "travel_callbacks.cannotSquadTakeActor",
+          precondition: "travel_callbacks.cannot_squad_take_actor",
         },
         text: "112",
       },
@@ -175,7 +175,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "11",
         script: {
-          precondition: "travel_callbacks.canSquadTakeActor",
+          precondition: "travel_callbacks.can_squad_take_actor",
         },
         text: "111",
       },
@@ -184,7 +184,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "12",
         script: {
-          precondition: "travel_callbacks.cannotSquadTravel",
+          precondition: "travel_callbacks.cannot_squad_travel",
         },
         text: "122",
       },
@@ -193,7 +193,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "12",
         script: {
-          precondition: "travel_callbacks.canSquadTravel",
+          precondition: "travel_callbacks.can_squad_travel",
         },
         text: "121",
       },
@@ -209,7 +209,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "121",
         script: {
-          precondition: "travel_callbacks.canNegotiateTravelToSmart",
+          precondition: "travel_callbacks.can_negotiate_travel_to_smart",
         },
         text: "1000",
       },
@@ -218,7 +218,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "121",
         script: {
-          precondition: "travel_callbacks.canNegotiateTravelToSmart",
+          precondition: "travel_callbacks.can_negotiate_travel_to_smart",
         },
         text: "1002",
       },
@@ -227,7 +227,7 @@ describe("TravelManager class", () => {
         goodwillLevel: -10000,
         prevPhraseId: "121",
         script: {
-          precondition: "travel_callbacks.canNegotiateTravelToSmart",
+          precondition: "travel_callbacks.can_negotiate_travel_to_smart",
         },
         text: "1001",
       },

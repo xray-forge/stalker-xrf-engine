@@ -96,36 +96,36 @@ export class TravelManager extends AbstractManager {
     let npcPhrase: Phrase = dialog.AddPhrase("if you see this - this is bad", "1", "0", -10000);
     let npcPhraseScript: PhraseScript = npcPhrase.GetPhraseScript();
 
-    npcPhraseScript.SetScriptText("travel_callbacks.getSquadCurrentActionDescription");
+    npcPhraseScript.SetScriptText("travel_callbacks.get_squad_current_action_description");
 
     actorPhrase = dialog.AddPhrase("dm_traveler_can_i_go_with_you", "11", "1", -10000);
     actorScript = actorPhrase.GetPhraseScript();
-    actorScript.AddPrecondition("travel_callbacks.canActorMoveWithSquad");
+    actorScript.AddPrecondition("travel_callbacks.can_actor_move_with_squad");
 
     npcPhrase = dialog.AddPhrase("dm_traveler_" + community + "_actor_companion_yes", "111", "11", -10000);
     npcPhraseScript = npcPhrase.GetPhraseScript();
-    npcPhraseScript.AddPrecondition("travel_callbacks.canSquadTakeActor");
+    npcPhraseScript.AddPrecondition("travel_callbacks.can_squad_take_actor");
 
     actorPhrase = dialog.AddPhrase("dm_traveler_actor_go_with_squad", "1111", "111", -10000);
     actorScript = actorPhrase.GetPhraseScript();
-    actorScript.AddAction("travel_callbacks.onTravelTogetherWithSquad");
+    actorScript.AddAction("travel_callbacks.on_travel_together_with_squad");
 
     dialog.AddPhrase("dm_traveler_actor_dont_go_with_squad", "1112", "111", -10000);
 
     npcPhrase = dialog.AddPhrase("dm_traveler_" + community + "_actor_companion_no", "112", "11", -10000);
     npcPhraseScript = npcPhrase.GetPhraseScript();
-    npcPhraseScript.AddPrecondition("travel_callbacks.cannotSquadTakeActor");
+    npcPhraseScript.AddPrecondition("travel_callbacks.cannot_squad_take_actor");
 
     actorPhrase = dialog.AddPhrase("dm_traveler_take_me_to", "12", "1", -10000);
 
     npcPhrase = dialog.AddPhrase("dm_traveler_" + community + "_where_do_you_want", "121", "12", -10000);
     npcPhraseScript = npcPhrase.GetPhraseScript();
-    npcPhraseScript.AddPrecondition("travel_callbacks.canSquadTravel");
+    npcPhraseScript.AddPrecondition("travel_callbacks.can_squad_travel");
 
     for (const [, descriptor] of travelConfig.TRAVEL_DESCRIPTORS_BY_NAME) {
       actorPhrase = dialog.AddPhrase(game.translate_string(descriptor.name) + ".", descriptor.phraseId, "121", -10000);
       actorScript = actorPhrase.GetPhraseScript();
-      actorScript.AddPrecondition("travel_callbacks.canNegotiateTravelToSmart");
+      actorScript.AddPrecondition("travel_callbacks.can_negotiate_travel_to_smart");
 
       npcPhrase = dialog.AddPhrase(
         "if you see this - this is bad",
@@ -134,7 +134,7 @@ export class TravelManager extends AbstractManager {
         -10000
       );
       npcPhraseScript = npcPhrase.GetPhraseScript();
-      npcPhraseScript.SetScriptText("travel_callbacks.getTravelCost");
+      npcPhraseScript.SetScriptText("travel_callbacks.get_travel_cost");
 
       actorPhrase = dialog.AddPhrase(
         "dm_traveler_actor_agree",
@@ -143,8 +143,8 @@ export class TravelManager extends AbstractManager {
         -10000
       );
       actorScript = actorPhrase.GetPhraseScript();
-      actorScript.AddAction("travel_callbacks.onTravelToSpecificSmartWithSquad");
-      actorScript.AddPrecondition("travel_callbacks.isEnoughMoneyToTravel");
+      actorScript.AddAction("travel_callbacks.on_travel_to_specific_smart_with_squad");
+      actorScript.AddPrecondition("travel_callbacks.is_enough_money_to_travel");
 
       actorPhrase = dialog.AddPhrase(
         "dm_traveler_actor_has_no_money",
@@ -153,7 +153,7 @@ export class TravelManager extends AbstractManager {
         -10000
       );
       actorScript = actorPhrase.GetPhraseScript();
-      actorScript.AddPrecondition("travel_callbacks.isNotEnoughMoneyToTravel");
+      actorScript.AddPrecondition("travel_callbacks.is_not_enough_money_to_travel");
 
       actorPhrase = dialog.AddPhrase(
         "dm_traveler_actor_refuse",
@@ -167,7 +167,7 @@ export class TravelManager extends AbstractManager {
 
     npcPhrase = dialog.AddPhrase("dm_traveler_" + community + "_i_cant_travel", "122", "12", -10000);
     npcPhraseScript = npcPhrase.GetPhraseScript();
-    npcPhraseScript.AddPrecondition("travel_callbacks.cannotSquadTravel");
+    npcPhraseScript.AddPrecondition("travel_callbacks.cannot_squad_travel");
 
     dialog.AddPhrase("dm_traveler_bye", "13", "1", -10000);
   }

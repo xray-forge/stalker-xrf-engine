@@ -76,46 +76,48 @@ describe("actor external callbacks", () => {
     const callTravelBinding = (name: TName, args: AnyArgs = []) =>
       callBinding(name, args, (_G as AnyObject)["travel_callbacks"]);
 
-    callTravelBinding("initializeTravellerDialog", ["test"]);
+    callTravelBinding("initialize_traveller_dialog", ["test"]);
     expect(travelManager.initializeTravellerDialog).toHaveBeenCalledWith("test");
 
-    callTravelBinding("canStartTravelingDialogs", [first, second]);
+    callTravelBinding("can_start_traveling_dialogs", [first, second]);
     expect(travelManager.canStartTravelingDialogs).toHaveBeenCalledWith(first, second);
 
-    callTravelBinding("getSquadCurrentActionDescription", [first, second]);
+    callTravelBinding("get_squad_current_action_description", [first, second]);
     expect(travelManager.getSquadCurrentActionDescription).toHaveBeenCalledWith(first, second);
 
-    callTravelBinding("canActorMoveWithSquad", [first, second]);
+    callTravelBinding("can_actor_move_with_squad", [first, second]);
     expect(travelManager.canActorMoveWithSquad).toHaveBeenCalledWith(first, second);
 
-    expect(callTravelBinding("canSquadTakeActor", [first, second])).toBe(true);
+    expect(callTravelBinding("can_squad_take_actor", [first, second])).toBe(true);
     expect(travelManager.canSquadTakeActor).toHaveBeenCalledWith(first, second);
 
-    expect(callTravelBinding("cannotSquadTakeActor", [first, second, "test", "phrase"])).toBe(false);
+    expect(callTravelBinding("cannot_squad_take_actor", [first, second, "test", "phrase"])).toBe(false);
     expect(travelManager.canSquadTakeActor).toHaveBeenCalledWith(first, second, "test", "phrase");
 
-    callTravelBinding("onTravelTogetherWithSquad", [first, second, "test", "phrase"]);
+    callTravelBinding("on_travel_together_with_squad", [first, second, "test", "phrase"]);
     expect(travelManager.onTravelTogetherWithSquad).toHaveBeenCalledWith(first, second, "test", "phrase");
 
-    callTravelBinding("onTravelToSpecificSmartWithSquad", [first, second, "test", "phrase"]);
+    callTravelBinding("on_travel_to_specific_smart_with_squad", [first, second, "test", "phrase"]);
     expect(travelManager.onTravelToSpecificSmartWithSquad).toHaveBeenCalledWith(first, second, "test", "phrase");
 
-    expect(callTravelBinding("canSquadTravel", [first, second, "test", "phrase"])).toBe(true);
+    expect(callTravelBinding("can_squad_travel", [first, second, "test", "phrase"])).toBe(true);
     expect(travelManager.canSquadTravel).toHaveBeenCalledWith(first, second, "test", "phrase");
 
-    expect(callTravelBinding("cannotSquadTravel", [first, second, "test", "phrase"])).toBe(false);
+    expect(callTravelBinding("cannot_squad_travel", [first, second, "test", "phrase"])).toBe(false);
     expect(travelManager.canSquadTravel).toHaveBeenCalledWith(first, second, "test", "phrase");
 
-    expect(callTravelBinding("canNegotiateTravelToSmart", [first, second, "test", "p-phrase", "n-phrase"])).toBe(true);
+    expect(callTravelBinding("can_negotiate_travel_to_smart", [first, second, "test", "p-phrase", "n-phrase"])).toBe(
+      true
+    );
     expect(travelManager.canNegotiateTravelToSmart).toHaveBeenCalledWith(first, second, "test", "p-phrase", "n-phrase");
 
-    expect(callTravelBinding("getTravelCost", [first, second, "test", "phrase"])).toBe("5000");
+    expect(callTravelBinding("get_travel_cost", [first, second, "test", "phrase"])).toBe("5000");
     expect(travelManager.getTravelCostLabel).toHaveBeenCalledWith(first, second, "test", "phrase");
 
-    expect(callTravelBinding("isEnoughMoneyToTravel", [first, second, "test", "phrase"])).toBe(true);
+    expect(callTravelBinding("is_enough_money_to_travel", [first, second, "test", "phrase"])).toBe(true);
     expect(travelManager.isEnoughMoneyToTravel).toHaveBeenCalledWith(first, second, "test", "phrase");
 
-    expect(callTravelBinding("isNotEnoughMoneyToTravel", [first, second, "test", "phrase"])).toBe(false);
+    expect(callTravelBinding("is_not_enough_money_to_travel", [first, second, "test", "phrase"])).toBe(false);
     expect(travelManager.isEnoughMoneyToTravel).toHaveBeenCalledWith(first, second, "test", "phrase");
   });
 });

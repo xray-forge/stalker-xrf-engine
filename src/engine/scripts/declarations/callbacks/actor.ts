@@ -68,36 +68,40 @@ extern("on_actor_psy", () => {
  * Handle zone traveling with different set of callbacks.
  */
 extern("travel_callbacks", {
-  initializeTravellerDialog: (dialog: PhraseDialog) => getManager(TravelManager).initializeTravellerDialog(dialog),
-  canStartTravelingDialogs: (actor: GameObject, object: GameObject) =>
+  initialize_traveller_dialog: (dialog: PhraseDialog) => getManager(TravelManager).initializeTravellerDialog(dialog),
+  can_start_traveling_dialogs: (actor: GameObject, object: GameObject) =>
     getManager(TravelManager).canStartTravelingDialogs(actor, object),
-  getSquadCurrentActionDescription: (actor: GameObject, object: GameObject): TLabel =>
+  get_squad_current_action_description: (actor: GameObject, object: GameObject): TLabel =>
     getManager(TravelManager).getSquadCurrentActionDescription(actor, object),
-  canActorMoveWithSquad: (actor: GameObject, object: GameObject): boolean =>
+  can_actor_move_with_squad: (actor: GameObject, object: GameObject): boolean =>
     getManager(TravelManager).canActorMoveWithSquad(actor, object),
-  canSquadTakeActor: (actor: GameObject, object: GameObject) =>
+  can_squad_take_actor: (actor: GameObject, object: GameObject) =>
     getManager(TravelManager).canSquadTakeActor(actor, object),
-  cannotSquadTakeActor: (object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId) =>
+  cannot_squad_take_actor: (object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId) =>
     !getManager(TravelManager).canSquadTakeActor(object, actor, dialogId, phraseId),
-  onTravelTogetherWithSquad: (object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId) =>
+  on_travel_together_with_squad: (object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId) =>
     getManager(TravelManager).onTravelTogetherWithSquad(object, actor, dialogId, phraseId),
-  onTravelToSpecificSmartWithSquad: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId) =>
-    getManager(TravelManager).onTravelToSpecificSmartWithSquad(actor, object, dialogId, phraseId),
-  canSquadTravel: (object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId) =>
+  on_travel_to_specific_smart_with_squad: (
+    actor: GameObject,
+    object: GameObject,
+    dialogId: TStringId,
+    phraseId: TStringId
+  ) => getManager(TravelManager).onTravelToSpecificSmartWithSquad(actor, object, dialogId, phraseId),
+  can_squad_travel: (object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId) =>
     getManager(TravelManager).canSquadTravel(object, actor, dialogId, phraseId),
-  cannotSquadTravel: (object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId) =>
+  cannot_squad_travel: (object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId) =>
     !getManager(TravelManager).canSquadTravel(object, actor, dialogId, phraseId),
-  canNegotiateTravelToSmart: (
+  can_negotiate_travel_to_smart: (
     actor: GameObject,
     object: GameObject,
     dialogId: TStringId,
     prevPhraseId: TStringId,
     phraseId: TStringId
   ) => getManager(TravelManager).canNegotiateTravelToSmart(actor, object, dialogId, prevPhraseId, phraseId),
-  getTravelCost: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId): TLabel =>
+  get_travel_cost: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId): TLabel =>
     getManager(TravelManager).getTravelCostLabel(actor, object, dialogId, phraseId),
-  isEnoughMoneyToTravel: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId) =>
+  is_enough_money_to_travel: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId) =>
     getManager(TravelManager).isEnoughMoneyToTravel(actor, object, dialogId, phraseId),
-  isNotEnoughMoneyToTravel: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId) =>
+  is_not_enough_money_to_travel: (actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId) =>
     !getManager(TravelManager).isEnoughMoneyToTravel(actor, object, dialogId, phraseId),
 });
