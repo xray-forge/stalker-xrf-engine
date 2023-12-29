@@ -4,7 +4,7 @@ import { getManager } from "@/engine/core/database";
 import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import {
-  fillPriorityTable,
+  fillPhrasesPriorities,
   initializeNewDialog,
   initializeStartDialogs,
   processPhraseAction,
@@ -76,7 +76,7 @@ describe("dialogs external callbacks implementation", () => {
   beforeEach(() => {
     resetRegistry();
 
-    resetFunctionMock(fillPriorityTable);
+    resetFunctionMock(fillPhrasesPriorities);
     resetFunctionMock(initializeNewDialog);
     resetFunctionMock(initializeStartDialogs);
     resetFunctionMock(processPhraseAction);
@@ -117,8 +117,8 @@ describe("dialogs external callbacks implementation", () => {
 
     callDialogBinding("fill_priority_hello_table", actorGameObject, object);
 
-    expect(fillPriorityTable).toHaveBeenCalledTimes(1);
-    expect(fillPriorityTable).toHaveBeenCalledWith(
+    expect(fillPhrasesPriorities).toHaveBeenCalledTimes(1);
+    expect(fillPhrasesPriorities).toHaveBeenCalledWith(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO)
@@ -131,8 +131,8 @@ describe("dialogs external callbacks implementation", () => {
 
     callDialogBinding("fill_priority_job_table", actorGameObject, object);
 
-    expect(fillPriorityTable).toHaveBeenCalledTimes(1);
-    expect(fillPriorityTable).toHaveBeenCalledWith(
+    expect(fillPhrasesPriorities).toHaveBeenCalledTimes(1);
+    expect(fillPhrasesPriorities).toHaveBeenCalledWith(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.JOB)
@@ -145,8 +145,8 @@ describe("dialogs external callbacks implementation", () => {
 
     callDialogBinding("fill_priority_anomalies_table", actorGameObject, object);
 
-    expect(fillPriorityTable).toHaveBeenCalledTimes(1);
-    expect(fillPriorityTable).toHaveBeenCalledWith(
+    expect(fillPhrasesPriorities).toHaveBeenCalledTimes(1);
+    expect(fillPhrasesPriorities).toHaveBeenCalledWith(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.ANOMALIES)
@@ -159,8 +159,8 @@ describe("dialogs external callbacks implementation", () => {
 
     callDialogBinding("fill_priority_information_table", actorGameObject, object);
 
-    expect(fillPriorityTable).toHaveBeenCalledTimes(1);
-    expect(fillPriorityTable).toHaveBeenCalledWith(
+    expect(fillPhrasesPriorities).toHaveBeenCalledTimes(1);
+    expect(fillPhrasesPriorities).toHaveBeenCalledWith(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.INFORMATION)
@@ -194,7 +194,7 @@ describe("dialogs external callbacks implementation", () => {
 
     expect(processPhraseAction).toHaveBeenCalledTimes(1);
     expect(processPhraseAction).toHaveBeenCalledWith(
-      actorGameObject,
+      actorGameObject.id(),
       dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO),
       "parent_id"

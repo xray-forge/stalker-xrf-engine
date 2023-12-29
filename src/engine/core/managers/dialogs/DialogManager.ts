@@ -1,6 +1,6 @@
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import { EGenericPhraseCategory, TPRTTable } from "@/engine/core/managers/dialogs/dialog_types";
+import { EGenericPhraseCategory, TPhrasesPriorityMap } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -17,13 +17,13 @@ export class DialogManager extends AbstractManager {
   // Table of phrases which have been disabled during a conversation | object id -> phrase id -> boolean.
   public questDisabledPhrases: LuaTable<TNumberId, LuaTable<TStringId, boolean>> = new LuaTable();
 
-  public priorityTable: LuaTable<EGenericPhraseCategory, TPRTTable> = $fromObject({
+  public priorityTable: LuaTable<EGenericPhraseCategory, TPhrasesPriorityMap> = $fromObject({
     [EGenericPhraseCategory.HELLO]: new LuaTable(),
     [EGenericPhraseCategory.JOB]: new LuaTable(),
     [EGenericPhraseCategory.ANOMALIES]: new LuaTable(),
     [EGenericPhraseCategory.PLACE]: new LuaTable(),
     [EGenericPhraseCategory.INFORMATION]: new LuaTable(),
-  } as Record<EGenericPhraseCategory, TPRTTable>);
+  } as Record<EGenericPhraseCategory, TPhrasesPriorityMap>);
 
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);

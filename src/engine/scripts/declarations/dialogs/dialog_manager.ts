@@ -5,7 +5,7 @@ import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/di
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { processPhraseAction, shouldHidePhraseCategory, shouldShowPhrase } from "@/engine/core/managers/dialogs/utils";
 import { initializeNewDialog, initializeStartDialogs } from "@/engine/core/managers/dialogs/utils/dialog_init";
-import { fillPriorityTable } from "@/engine/core/managers/dialogs/utils/dialog_priority";
+import { fillPhrasesPriorities } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
 import { getObjectCommunity } from "@/engine/core/utils/community";
@@ -47,7 +47,7 @@ extern("dialog_manager.init_hello_dialogs", (dialog: PhraseDialog): void => {
 extern(
   "dialog_manager.fill_priority_hello_table",
   (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
-    fillPriorityTable(
+    fillPhrasesPriorities(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO)
@@ -61,7 +61,7 @@ extern(
 extern(
   "dialog_manager.fill_priority_job_table",
   (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
-    fillPriorityTable(
+    fillPhrasesPriorities(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.JOB)
@@ -75,7 +75,7 @@ extern(
 extern(
   "dialog_manager.fill_priority_anomalies_table",
   (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
-    fillPriorityTable(
+    fillPhrasesPriorities(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.ANOMALIES)
@@ -89,7 +89,7 @@ extern(
 extern(
   "dialog_manager.fill_priority_information_table",
   (actor: GameObject, object: GameObject, dialogName: TName, phraseId: TStringId): void => {
-    fillPriorityTable(
+    fillPhrasesPriorities(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.INFORMATION)
@@ -119,7 +119,7 @@ extern(
   "dialog_manager.action_hello_dialogs",
   (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     processPhraseAction(
-      object,
+      object.id(),
       dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
       getManager(DialogManager).priorityTable.get(EGenericPhraseCategory.HELLO),
       id
@@ -169,15 +169,16 @@ extern(
   "dialog_manager.action_job_dialogs",
   (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     const manager: DialogManager = getManager(DialogManager);
+    const objectId: TNumberId = object.id();
 
     processPhraseAction(
-      object,
+      objectId,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.JOB),
       manager.priorityTable.get(EGenericPhraseCategory.JOB),
       id
     );
 
-    manager.priorityTable.get(EGenericPhraseCategory.JOB).get(object.id()).told = true;
+    manager.priorityTable.get(EGenericPhraseCategory.JOB).get(objectId).told = true;
   }
 );
 
@@ -206,15 +207,17 @@ extern(
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs",
-  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, id: TStringId): boolean => {
+  (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, phraseId: TStringId): boolean => {
     const manager: DialogManager = getManager(DialogManager);
     const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+    const objectId: TNumberId = object.id();
 
     if (
-      smartTerrain !== null &&
-      tostring(smartTerrain.name()) === dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES).get(id).smart
+      smartTerrain &&
+      manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).has(objectId) &&
+      smartTerrain.name() === dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES).get(phraseId).smart
     ) {
-      manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(object.id()).id = -1;
+      manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(objectId).id = -1;
 
       return false;
     }
@@ -223,7 +226,7 @@ extern(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
       manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES),
-      id
+      phraseId
     );
   }
 );
@@ -235,19 +238,19 @@ extern(
   "dialog_manager.action_anomalies_dialogs",
   (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     const manager: DialogManager = getManager(DialogManager);
+    const objectId: TNumberId = object.id();
 
     processPhraseAction(
-      object,
+      objectId,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
       manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES),
       id
     );
 
-    manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(object.id()).told = true;
+    manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(objectId).told = true;
   }
 );
 
-// -- Calculate precondition for default phrase in information dialog
 /**
  * todo;
  */
@@ -290,15 +293,16 @@ extern(
   "dialog_manager.action_information_dialogs",
   (object: GameObject, actor: GameObject, dialogName: TName, id: TStringId): void => {
     const manager: DialogManager = getManager(DialogManager);
+    const objectId: TNumberId = object.id();
 
     processPhraseAction(
-      object,
+      objectId,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
       manager.priorityTable.get(EGenericPhraseCategory.INFORMATION),
       id
     );
 
-    manager.priorityTable.get(EGenericPhraseCategory.INFORMATION).get(object.id()).told = true;
+    manager.priorityTable.get(EGenericPhraseCategory.INFORMATION).get(objectId).told = true;
   }
 );
 
@@ -315,25 +319,21 @@ extern(
     phraseId: TStringId
   ): boolean => {
     const manager: DialogManager = getManager(DialogManager);
-    const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
+    const objectId: TNumberId = getNpcSpeaker(firstSpeaker, secondSpeaker).id();
 
     if (phraseId === "") {
       phraseId = dialogName;
     }
 
-    if (
-      (manager.disabledPhrases.get(object.id()) && manager.disabledPhrases.get(object.id()).get(phraseId)) ||
-      (manager.questDisabledPhrases.get(object.id()) && manager.questDisabledPhrases.get(object.id()).get(phraseId))
-    ) {
-      return false;
-    } else {
-      return true;
-    }
+    return (
+      !manager.disabledPhrases.get(objectId)?.get(phraseId) &&
+      !manager.questDisabledPhrases.get(objectId)?.get(phraseId)
+    );
   }
 );
 
 /**
- * todo;
+ * Disable provided dialog phrase for further exclusion in options list.
  */
 extern(
   "dialog_manager.action_disable_phrase",

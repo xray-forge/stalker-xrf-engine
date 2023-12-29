@@ -20,7 +20,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: "zat_b14_smart_terrain",
-          wounded: "false",
+          wounded: false,
         },
         "7": {
           actorCommunity: "not_set",
@@ -31,7 +31,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: "",
-          wounded: "false",
+          wounded: false,
         },
         "8": {
           actorCommunity: "not_set",
@@ -42,7 +42,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: "zat_b101",
-          wounded: "false",
+          wounded: false,
         },
         "9": {
           actorCommunity: "not_set",
@@ -53,7 +53,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: "zat_b100",
-          wounded: "false",
+          wounded: false,
         },
       },
       hello: {
@@ -88,7 +88,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["bandit"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
         "17": {
           actorCommunity: "not_set",
@@ -99,7 +99,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["freedom"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
       },
       information: {
@@ -117,7 +117,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
         "11": {
           actorCommunity: "not_set",
@@ -137,7 +137,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
         "12": {
           actorCommunity: "not_set",
@@ -153,7 +153,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["bandit"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
         "13": {
           actorCommunity: "not_set",
@@ -173,7 +173,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["bandit"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
       },
       job: {
@@ -191,7 +191,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
         "3": {
           actorCommunity: "not_set",
@@ -207,7 +207,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
         "4": {
           actorCommunity: "not_set",
@@ -223,7 +223,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["bandit"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
         "5": {
           actorCommunity: "not_set",
@@ -239,7 +239,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: ["stalker"],
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
       },
       place: {},
@@ -281,7 +281,7 @@ describe("readIniGenericDialogs util", () => {
           npcCommunity: "not_set",
           once: "always",
           smart: null,
-          wounded: "false",
+          wounded: false,
         },
       },
       place: {},

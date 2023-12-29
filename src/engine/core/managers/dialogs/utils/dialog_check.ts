@@ -1,5 +1,10 @@
 import { getManager } from "@/engine/core/database";
-import { DialogManager, EGenericPhraseCategory, TAvailablePhrasesMap, TPRTTable } from "@/engine/core/managers/dialogs";
+import {
+  DialogManager,
+  EGenericPhraseCategory,
+  TPhrasesAvailableMap,
+  TPhrasesPriorityMap,
+} from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import {
   calculatePhrasePriority,
@@ -13,19 +18,19 @@ import { GameObject, TNumberId, TRate, TStringId } from "@/engine/lib/types";
  */
 export function shouldShowPhrase(
   object: GameObject,
-  PTsubtable: TAvailablePhrasesMap,
-  PRTsubtable: TPRTTable,
+  phrases: TPhrasesAvailableMap,
+  priorities: TPhrasesPriorityMap,
   phraseId: TStringId
 ): boolean {
-  if (PRTsubtable.get(object.id())?.told) {
+  if (priorities.get(object.id())?.told) {
     return false;
   }
 
   // Recalculate current phrase priority
-  calculatePhrasePriority(PRTsubtable, PTsubtable.get(phraseId), object, phraseId);
+  calculatePhrasePriority(phrases.get(phraseId), priorities, object, phraseId);
 
   // If current phrase is with the highest priority - show it.
-  return isHighestPriorityPhrase(PTsubtable, PRTsubtable, object, phraseId);
+  return isHighestPriorityPhrase(phrases, priorities, object, phraseId);
 }
 
 /**
@@ -47,11 +52,11 @@ export function shouldHidePhraseCategory(object: GameObject, category: EGenericP
  * todo;
  */
 export function isHighestPriorityPhrase(
-  PTsubtable: TAvailablePhrasesMap,
-  PRTsubtable: TPRTTable,
+  PTsubtable: TPhrasesAvailableMap,
+  PRTsubtable: TPhrasesPriorityMap,
   object: GameObject,
   phraseId: string
-) {
+): boolean {
   const objectId: TNumberId = object.id();
 
   if (PRTsubtable.get(objectId) !== null) {
@@ -62,7 +67,7 @@ export function isHighestPriorityPhrase(
     }
 
     for (const [phrId, priority] of PRTsubtable.get(objectId)) {
-      if (phrId !== "ignore_once" && phrId !== "told") {
+      if (phrId !== "ignoreOnce" && phrId !== "told") {
         if (priority > pr) {
           return false;
         }

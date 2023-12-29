@@ -3,8 +3,8 @@ import { CPhraseScript } from "xray16";
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Phrase, PhraseDialog, PhraseScript, TIndex, TName, TNumberId } from "@/engine/lib/types";
+import { NIL } from "@/engine/lib/constants/words";
+import { LuaArray, Phrase, PhraseDialog, PhraseScript, TIndex, TName, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -21,10 +21,10 @@ export function initializeStartDialogs(dialog: PhraseDialog, category: EGenericP
 
   script.AddAction(string.format("dialog_manager.fill_priority_%s_table", category));
 
-  let ph: boolean = false;
+  let hasAnyPhrase: boolean = false;
 
   for (const [, phraseDescriptor] of dialogConfig.PHRASES.get(category)) {
-    ph = true;
+    hasAnyPhrase = true;
 
     phrase = dialog.AddPhrase(phraseDescriptor.name, tostring(phraseDescriptor.id), tostring(1), -10000);
 
@@ -32,18 +32,18 @@ export function initializeStartDialogs(dialog: PhraseDialog, category: EGenericP
     script.AddPrecondition(string.format("dialog_manager.precondition_%s_dialogs", category));
     script.AddAction(string.format("dialog_manager.action_%s_dialogs", category));
 
-    if (phraseDescriptor.wounded === TRUE) {
+    if (phraseDescriptor.wounded) {
       script.AddPrecondition("dialogs.is_wounded");
 
-      const medkitId: TNumberId = dialogConfig.NEXT_PHRASE_ID();
-      const sorryId: TNumberId = dialogConfig.NEXT_PHRASE_ID();
+      const medkitId: TStringId = tostring(dialogConfig.NEXT_PHRASE_ID());
+      const sorryId: TStringId = tostring(dialogConfig.NEXT_PHRASE_ID());
 
-      phrase = dialog.AddPhrase("dm_wounded_medkit", tostring(medkitId), tostring(phraseDescriptor.id), -10000);
+      phrase = dialog.AddPhrase("dm_wounded_medkit", medkitId, tostring(phraseDescriptor.id), -10_000);
       script = phrase.GetPhraseScript();
       script.AddPrecondition("dialogs.actor_have_medkit");
       script.AddAction("dialogs.transfer_medkit");
       script.AddAction("dialogs.break_dialog");
-      phrase = dialog.AddPhrase("dm_wounded_sorry", tostring(sorryId), tostring(phraseDescriptor.id), -10000);
+      phrase = dialog.AddPhrase("dm_wounded_sorry", sorryId, tostring(phraseDescriptor.id), -10_000);
       script = phrase.GetPhraseScript();
       script.AddAction("dialogs.break_dialog");
     } else {
@@ -51,9 +51,9 @@ export function initializeStartDialogs(dialog: PhraseDialog, category: EGenericP
     }
   }
 
-  if (!ph) {
-    logger.warn("Unexpected code reached.");
-    phrase = dialog.AddPhrase(string.format("dm_%s_general", category), tostring(null), tostring(1), -10000);
+  if (!hasAnyPhrase) {
+    logger.warn("Unexpected code reached with no NPC phrases");
+    phrase = dialog.AddPhrase(string.format("dm_%s_general", category), NIL, tostring(1), -10_000);
   }
 }
 
@@ -63,7 +63,7 @@ export function initializeStartDialogs(dialog: PhraseDialog, category: EGenericP
  * @param dialog
  */
 export function initializeNewDialog(dialog: PhraseDialog): void {
-  logger.info("Init new dialog");
+  logger.info("Initialize new dialog");
 
   const actorTable: LuaArray<EGenericPhraseCategory> = $fromArray<EGenericPhraseCategory>([
     EGenericPhraseCategory.JOB,
@@ -76,7 +76,7 @@ export function initializeNewDialog(dialog: PhraseDialog): void {
     "dm_universal_npc_start_2",
     "dm_universal_npc_start_3",
   ]);
-  const precondTable: LuaArray<TName> = $fromArray([
+  const preconditions: LuaArray<TName> = $fromArray([
     "dialogs.npc_stalker",
     "dialogs.npc_bandit",
     "dialogs.npc_freedom",
@@ -90,7 +90,7 @@ export function initializeNewDialog(dialog: PhraseDialog): void {
     const npcPhrase: Phrase = dialog.AddPhrase(startPhraseTable.get(j), tostring(j), tostring(0), -10000);
     const npcPhraseScript: PhraseScript = npcPhrase.GetPhraseScript();
 
-    npcPhraseScript.AddPrecondition(precondTable.get(j));
+    npcPhraseScript.AddPrecondition(preconditions.get(j));
 
     for (const it of $range(1, actorTable.length())) {
       const index: TIndex = dialogConfig.NEXT_PHRASE_ID();

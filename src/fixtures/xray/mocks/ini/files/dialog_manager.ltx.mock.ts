@@ -94,13 +94,13 @@ export const mockDialogManager = {
     category: "hello",
     npc_community: "stalker",
     level: "all",
-    wounded: true,
+    wounded: "true",
   },
   dm_help_1: {
     category: "hello",
     npc_community: "bandit",
     level: "all",
-    wounded: true,
+    wounded: "true",
   },
   dm_hello_0: {
     category: "hello",

@@ -10,8 +10,8 @@ export interface IPhrasesDescriptor {
   actorCommunity: LuaArray<TName> | "not_set" | "all";
   npcCommunity: LuaArray<TName> | "not_set";
   level: LuaArray<TName> | "not_set";
-  wounded: TStringifiedBoolean;
-  once: string;
+  wounded: boolean;
+  once: TStringifiedBoolean | "always";
   info: LuaArray<IConfigCondition>;
   smart: Optional<string>;
   told?: boolean;
@@ -21,14 +21,14 @@ export interface IPhrasesDescriptor {
  * Map of available in-game phrases.
  * Where key is id of phrases group and descriptor is meta-info about specific phrase.
  */
-export type TAvailablePhrasesMap = LuaTable<TStringId, IPhrasesDescriptor>;
+export type TPhrasesAvailableMap = LuaTable<TStringId, IPhrasesDescriptor>;
 
 /**
  * todo;
  */
-export type TPRTTable = LuaTable<
+export type TPhrasesPriorityMap = LuaTable<
   number,
-  LuaTable<string, number> & { told?: boolean; ignore_once?: Optional<boolean>; id?: -1 }
+  LuaTable<string, number> & { told?: boolean; ignoreOnce?: Optional<boolean>; id?: -1 }
 >;
 
 /**

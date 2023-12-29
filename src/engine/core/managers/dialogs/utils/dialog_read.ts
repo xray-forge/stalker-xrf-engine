@@ -1,11 +1,11 @@
 import {
   EGenericPhraseCategory,
   IPhrasesDescriptor,
-  TAvailablePhrasesMap,
+  TPhrasesAvailableMap,
 } from "@/engine/core/managers/dialogs/dialog_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
-import { FALSE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import { IniFile, Optional, TName, TNumberId, TStringifiedBoolean } from "@/engine/lib/types";
 
 /**
@@ -16,14 +16,14 @@ import { IniFile, Optional, TName, TNumberId, TStringifiedBoolean } from "@/engi
 export function readIniGenericDialogs(
   ini: IniFile,
   getPhraseId: () => TNumberId
-): LuaTable<EGenericPhraseCategory, TAvailablePhrasesMap> {
-  const list: LuaTable<EGenericPhraseCategory, TAvailablePhrasesMap> = $fromObject({
+): LuaTable<EGenericPhraseCategory, TPhrasesAvailableMap> {
+  const list: LuaTable<EGenericPhraseCategory, TPhrasesAvailableMap> = $fromObject({
     [EGenericPhraseCategory.HELLO]: new LuaTable(),
     [EGenericPhraseCategory.JOB]: new LuaTable(),
     [EGenericPhraseCategory.ANOMALIES]: new LuaTable(),
     [EGenericPhraseCategory.PLACE]: new LuaTable(),
     [EGenericPhraseCategory.INFORMATION]: new LuaTable(),
-  } as Record<EGenericPhraseCategory, TAvailablePhrasesMap>);
+  } as Record<EGenericPhraseCategory, TPhrasesAvailableMap>);
 
   for (const index of $range(0, ini.line_count("list") - 1)) {
     const [, id] = ini.r_line("list", index, "", "");
@@ -48,8 +48,8 @@ export function readIniGenericDialogs(
           actorCommunity: ini.line_exist(id, "actor_community")
             ? parseStringsList(ini.r_string(id, "actor_community"))
             : "not_set",
-          wounded: ini.line_exist(id, "wounded") ? (ini.r_string(id, "wounded") as TStringifiedBoolean) : FALSE,
-          once: ini.line_exist(id, "once") ? ini.r_string(id, "once") : "always",
+          wounded: ini.line_exist(id, "wounded") ? ini.r_string(id, "wounded") === TRUE : false,
+          once: ini.line_exist(id, "once") ? (ini.r_string(id, "once") as TStringifiedBoolean) : "always",
           info: new LuaTable(),
           smart: null as Optional<TName>,
         };

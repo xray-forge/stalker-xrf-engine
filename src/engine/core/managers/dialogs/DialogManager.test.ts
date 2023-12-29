@@ -4,7 +4,7 @@ import { disposeManager, getManager } from "@/engine/core/database";
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { DialogManager } from "@/engine/core/managers/dialogs/DialogManager";
-import { fillPriorityTable } from "@/engine/core/managers/dialogs/utils/dialog_priority";
+import { fillPhrasesPriorities } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
@@ -62,13 +62,13 @@ describe("DialogManager class", () => {
     const manager: DialogManager = getManager(DialogManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    fillPriorityTable(
+    fillPhrasesPriorities(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.HELLO),
       manager.priorityTable.get(EGenericPhraseCategory.HELLO)
     );
 
-    fillPriorityTable(
+    fillPhrasesPriorities(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
       manager.priorityTable.get(EGenericPhraseCategory.INFORMATION)
@@ -100,13 +100,13 @@ describe("DialogManager class", () => {
     const manager: DialogManager = getManager(DialogManager);
     const object: GameObject = MockGameObject.mock();
 
-    fillPriorityTable(
+    fillPhrasesPriorities(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.INFORMATION),
       manager.priorityTable.get(EGenericPhraseCategory.INFORMATION)
     );
 
-    fillPriorityTable(
+    fillPhrasesPriorities(
       object,
       dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES),
       manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES)
