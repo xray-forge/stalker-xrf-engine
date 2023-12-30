@@ -53,6 +53,8 @@ describe("NotificationManager class", () => {
     initializeManager(NotificationManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.SURGE_SKIPPED)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.NOTIFICATION)).toBe(1);
 
     disposeManager(NotificationManager);
 

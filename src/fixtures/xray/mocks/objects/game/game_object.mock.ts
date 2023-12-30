@@ -20,6 +20,7 @@ import {
   TSightType,
   Vector,
 } from "@/engine/lib/types";
+import { mockClsid } from "@/fixtures/xray";
 import {
   MockActionPlanner,
   mockDefaultActionPlanner,
@@ -37,6 +38,14 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 export class MockGameObject {
   public static mock(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
     return mockGameObject(base);
+  }
+
+  public static mockStalker(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
+    const object: GameObject = mockGameObject(base);
+
+    jest.spyOn(object, "clsid").mockImplementation(() => mockClsid.script_stalker as TClassId);
+
+    return object;
   }
 
   public static mockActor(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {

@@ -1,76 +1,121 @@
-import { EGenericDialogCategory, IPhrasesDescriptor, TPHRTable } from "@/engine/core/managers/dialogs/dialog_types";
+import { CPhraseScript } from "xray16";
+
+import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
+import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { assert } from "@/engine/core/utils/assertion";
-import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { FALSE } from "@/engine/lib/constants/words";
-import { IniFile, Optional, TName, TNumberId } from "@/engine/lib/types";
+import { isEmpty } from "@/engine/core/utils/table";
+import { Optional, Phrase, PhraseDialog, PhraseScript, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Generate dialog options and actions for provided category.
+ * Links dialog phrases, preconditions and action scripts for provided dialog object.
+ *
+ * @param dialog - instance to initialize with start options
+ * @param category - category to initialize with dialog
  */
-export function readIniGenericDialogs(
-  ini: IniFile,
-  generatePhraseId: () => TNumberId
-): LuaTable<EGenericDialogCategory, TPHRTable> {
-  const list: LuaTable<EGenericDialogCategory, TPHRTable> = $fromObject({
-    hello: new LuaTable(),
-    job: new LuaTable(),
-    anomalies: new LuaTable(),
-    place: new LuaTable(),
-    information: new LuaTable(),
-  } as Record<EGenericDialogCategory, TPHRTable>);
+export function initializeCategoryDialogs(dialog: PhraseDialog, category: EGenericPhraseCategory): void {
+  assert(dialogConfig.PHRASES.get(category), "Expected to have pre-defined phrases for category '%s'.", category);
+  assert(
+    !isEmpty(dialogConfig.PHRASES.get(category)),
+    "Expected to have at least one pre-defined phrase for category '%s'.",
+    category
+  );
 
-  for (const it of $range(0, ini.line_count("list") - 1)) {
-    const [, id] = ini.r_line("list", it, "", "");
+  logger.format("Initialize start dialogs: %s", category);
 
-    assert(ini.line_exist(id, "category"), "Dialog manager error. ! categoried section [%s].", id);
+  dialog.AddPhrase("", "0", "", -10_000);
 
-    let category: EGenericDialogCategory = ini.r_string(id, "category") as EGenericDialogCategory;
+  let script: CPhraseScript = dialog.AddPhrase("", "1", "0", -10_000).GetPhraseScript();
 
-    switch (category) {
-      case EGenericDialogCategory.HELLO:
-      case EGenericDialogCategory.ANOMALIES:
-      case EGenericDialogCategory.PLACE:
-      case EGenericDialogCategory.JOB:
-      case EGenericDialogCategory.INFORMATION:
-        // nothing
-        break;
+  script.AddAction(string.format("dialog_manager.fill_priority_%s_table", category));
 
-      default:
-        category = EGenericDialogCategory.DEFAULT;
-        break;
-    }
+  for (const [, descriptor] of dialogConfig.PHRASES.get(category)) {
+    script = dialog.AddPhrase(descriptor.name, tostring(descriptor.id), "1", -10_000).GetPhraseScript();
+    script.AddPrecondition(string.format("dialog_manager.precondition_%s_dialogs", category));
+    script.AddAction(string.format("dialog_manager.action_%s_dialogs", category));
 
-    if (category !== EGenericDialogCategory.DEFAULT) {
-      const phrases: IPhrasesDescriptor = {
-        id: tostring(generatePhraseId()),
-        name: id,
-        npc_community: ini.line_exist(id, "npc_community")
-          ? parseStringsList(ini.r_string(id, "npc_community"))
-          : "not_set",
-        level: ini.line_exist(id, "level") ? parseStringsList(ini.r_string(id, "level")) : "not_set",
-        actor_community: ini.line_exist(id, "actor_community")
-          ? parseStringsList(ini.r_string(id, "actor_community"))
-          : "not_set",
-        wounded: ini.line_exist(id, "wounded") ? ini.r_string(id, "wounded") : FALSE,
-        once: ini.line_exist(id, "once") ? ini.r_string(id, "once") : "always",
-        info: new LuaTable(),
-        smart: null as Optional<TName>,
-      };
+    if (descriptor.wounded) {
+      script.AddPrecondition("dialogs.is_wounded");
 
-      if (ini.line_exist(id, "info") && ini.r_string(id, "info") !== "") {
-        parseInfoPortions(phrases.info, ini.r_string(id, "info"));
-      }
+      script = dialog
+        .AddPhrase("dm_wounded_medkit", tostring(dialogConfig.NEXT_PHRASE_ID()), tostring(descriptor.id), -10_000)
+        .GetPhraseScript();
+      script.AddPrecondition("dialogs.actor_have_medkit");
+      script.AddAction("dialogs.transfer_medkit");
+      script.AddAction("dialogs.break_dialog");
 
-      if (category === EGenericDialogCategory.ANOMALIES || category === EGenericDialogCategory.PLACE) {
-        phrases.smart = ini.line_exist(id, "smart") ? ini.r_string(id, "smart") : "";
-      }
-
-      list.get(category).set(phrases.id, phrases);
+      script = dialog
+        .AddPhrase("dm_wounded_sorry", tostring(dialogConfig.NEXT_PHRASE_ID()), tostring(descriptor.id), -10_000)
+        .GetPhraseScript();
+      script.AddAction("dialogs.break_dialog");
+    } else {
+      script.AddPrecondition("dialogs.is_not_wounded");
     }
   }
+}
 
-  return list;
+/**
+ * Initialize generic phrases for object starting dialog.
+ *
+ * @param dialog - instance to initialize with default phrases
+ */
+export function initializeNewDialog(dialog: PhraseDialog): void {
+  logger.format("Initialize new dialog");
+
+  dialog.AddPhrase("dm_universal_actor_start", "0", "", -10_000);
+
+  for (const variant of $range(1, 4)) {
+    dialog
+      .AddPhrase(dialogConfig.NEW_DIALOG_START_PHRASES.get(variant), tostring(variant), "0", -10_000)
+      .GetPhraseScript()
+      .AddPrecondition(dialogConfig.NEW_DIALOG_PRECONDITIONS.get(variant));
+
+    for (const [, category] of dialogConfig.NEW_DIALOG_PHRASE_CATEGORIES) {
+      const id: TStringId = tostring(dialogConfig.NEXT_PHRASE_ID());
+
+      let script: PhraseScript = dialog
+        .AddPhrase(`dm_${category}_general`, id, tostring(variant), -10_000)
+        .GetPhraseScript();
+
+      if (category === EGenericPhraseCategory.ANOMALIES) {
+        script.AddPrecondition("dialogs.npc_stalker");
+      }
+
+      script.AddAction(`dialog_manager.fill_priority_${category}_table`);
+
+      for (const it of $range(1, 3)) {
+        dialog
+          .AddPhrase(`dm_${category}_no_more_${tostring(it)}`, tostring(dialogConfig.NEXT_PHRASE_ID()), id, -10_000)
+          .GetPhraseScript()
+          .AddPrecondition(`dialog_manager.precondition_${category}_dialogs_no_more`);
+
+        dialog
+          .AddPhrase(`dm_${category}_do_not_know_${tostring(it)}`, tostring(dialogConfig.NEXT_PHRASE_ID()), id, -10_000)
+          .GetPhraseScript()
+          .AddPrecondition(`dialog_manager.precondition_${category}_dialogs_do_not_know`);
+      }
+
+      for (const [, descriptor] of dialogConfig.PHRASES.get(category as EGenericPhraseCategory)) {
+        const phrase: Optional<Phrase> = dialog.AddPhrase(
+          descriptor.name,
+          descriptor.id,
+          id,
+          -10_000
+        ) as Optional<Phrase>;
+
+        // If phrase is not added, null is returned.
+        if (phrase) {
+          script = phrase.GetPhraseScript();
+
+          script.AddPrecondition(`dialog_manager.precondition_${category}_dialogs`);
+          script.AddAction(`dialog_manager.action_${category}_dialogs`);
+        }
+      }
+    }
+
+    dialog.AddPhrase("dm_universal_actor_exit", tostring(dialogConfig.NEXT_PHRASE_ID()), tostring(variant), -10_000);
+  }
 }

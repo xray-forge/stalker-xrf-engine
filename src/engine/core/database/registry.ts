@@ -53,10 +53,6 @@ export const registry = {
    */
   actorServer: null as unknown as Actor,
   /**
-   * Currently active speaker in dialogs.
-   */
-  activeSpeaker: null as Optional<GameObject>,
-  /**
    * Currently active smart terrain id.
    * If not null, assume actor is in it.
    */

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="windows-1251" ?>
 <game_dialogs>
     <dialog id="dm_traveler_dialog">
-        <precondition>travel_callbacks.canStartTravelingDialogs</precondition>
-        <init_func>travel_callbacks.initializeTravellerDialog</init_func>
+        <precondition>travel_callbacks.can_start_traveling_dialogs</precondition>
+        <init_func>travel_callbacks.initialize_traveller_dialog</init_func>
     </dialog>
     <dialog id="dm_universal_dialog">
         <precondition>dialog_manager.uni_dialog_precond</precondition>
@@ -16,7 +16,7 @@
                 <text>actor_break_dialog_0</text>
                 <script_text>dialog_manager.create_bye_phrase</script_text>
                 <action>dialogs.break_dialog</action>
-				<is_final>1</is_final>
+                <is_final>1</is_final>
             </phrase>
         </phrase_list>
     </dialog>
@@ -236,7 +236,7 @@
             <phrase id="301">
                 <text>about_quests_dialog_dolg_301</text>
                 <give_info>zat_b100_guide_need_maps</give_info>
-           </phrase>
+            </phrase>
             <phrase id="163">
                 <text>about_quests_dialog_dolg_163</text>
                 <precondition>dialogs.level_jupiter</precondition>
@@ -482,11 +482,11 @@
                 <next>98</next>
             </phrase>
             <phrase id="501">
-		        <precondition>dialogs.level_zaton</precondition>
+                <precondition>dialogs.level_zaton</precondition>
                 <text>about_quests_dialog_dolg_501</text>
             </phrase>
             <phrase id="502">
-		        <precondition>dialogs.level_jupiter</precondition>
+                <precondition>dialogs.level_jupiter</precondition>
                 <text>about_quests_dialog_dolg_502</text>
             </phrase>
             <phrase id="503">
@@ -823,11 +823,11 @@
                 <dont_has_info>jup_b213_toolkit_1_on_board</dont_has_info>
             </phrase>
             <phrase id="501">
-		        <precondition>dialogs.level_zaton</precondition>
+                <precondition>dialogs.level_zaton</precondition>
                 <text>about_quests_dialog_freedom_501</text>
             </phrase>
             <phrase id="502">
-		        <precondition>dialogs.level_jupiter</precondition>
+                <precondition>dialogs.level_jupiter</precondition>
                 <text>about_quests_dialog_freedom_502</text>
             </phrase>
             <phrase id="503">
@@ -1477,11 +1477,11 @@
                 <next>98</next>
             </phrase>
             <phrase id="501">
-		        <precondition>dialogs.level_zaton</precondition>
+                <precondition>dialogs.level_zaton</precondition>
                 <text>about_quests_dialog_stalkers_501</text>
             </phrase>
             <phrase id="502">
-		        <precondition>dialogs.level_jupiter</precondition>
+                <precondition>dialogs.level_jupiter</precondition>
                 <text>about_quests_dialog_stalkers_502</text>
             </phrase>
             <phrase id="503">
@@ -1919,11 +1919,11 @@
                 <next>98</next>
             </phrase>
             <phrase id="501">
-		        <precondition>dialogs.level_zaton</precondition>
+                <precondition>dialogs.level_zaton</precondition>
                 <text>about_quests_dialog_bandit_501</text>
             </phrase>
             <phrase id="502">
-		        <precondition>dialogs.level_jupiter</precondition>
+                <precondition>dialogs.level_jupiter</precondition>
                 <text>about_quests_dialog_bandit_502</text>
             </phrase>
             <phrase id="503">

@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database/registry";
 
 describe("registry storage", () => {
   it("storage to contain all fields", () => {
-    expect(Object.keys(registry)).toHaveLength(45);
+    expect(Object.keys(registry)).toHaveLength(44);
   });
 
   it("storage to initialize with correct data", () => {
@@ -13,7 +13,6 @@ describe("registry storage", () => {
     expect(registry.simulator).toBeNull();
     expect(registry.actorServer).toBeNull();
     expect(registry.actor).toBeNull();
-    expect(registry.activeSpeaker).toBeNull();
     expect(registry.activeSmartTerrainId).toBeNull();
     expect(registry.managers).toBeInstanceOf(LuaTable);
     expect(registry.managersByName).toBeInstanceOf(LuaTable);
