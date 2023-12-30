@@ -1,4 +1,4 @@
-import { PhraseScript } from "@/engine/lib/types";
+import { Optional, PhraseScript, TName } from "@/engine/lib/types";
 
 /**
  * Mock phrase script entry for game dialogs.
@@ -8,19 +8,19 @@ export class MockPhraseScript {
     return new MockPhraseScript() as unknown as PhraseScript;
   }
 
-  public text?: string;
-  public action?: string;
-  public precondition?: string;
+  public text: Optional<string> = null;
+  public actions: Array<TName> = [];
+  public preconditions: Array<TName> = [];
 
   public SetScriptText(text: string): void {
     this.text = text;
   }
 
   public AddPrecondition(precondition: string): void {
-    this.precondition = precondition;
+    this.preconditions.push(precondition);
   }
 
   public AddAction(action: string): void {
-    this.precondition = action;
+    this.actions.push(action);
   }
 }

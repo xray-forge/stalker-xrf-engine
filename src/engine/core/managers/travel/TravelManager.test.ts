@@ -88,148 +88,302 @@ describe("TravelManager class", () => {
     manager.initializeTravellerDialog(MockPhraseDialog.mock(dialog));
 
     expect(dialog.list).toEqual({
-      "if you see this - this is bad": {
-        id: "if you see this - this is bad",
+      "0": {
         goodwillLevel: -10000,
-        prevPhraseId: "1002",
+        id: "0",
+        prevPhraseId: "",
         script: {
+          actions: [],
+          preconditions: [],
+          text: null,
+        },
+        text: "dm_traveler_what_are_you_doing",
+      },
+      "1": {
+        goodwillLevel: -10000,
+        id: "1",
+        prevPhraseId: "0",
+        script: {
+          actions: [],
+          preconditions: [],
+          text: "travel_callbacks.get_squad_current_action_description",
+        },
+        text: "if you see this - this is bad",
+      },
+      "1000": {
+        goodwillLevel: -10000,
+        id: "1000",
+        prevPhraseId: "121",
+        script: {
+          actions: [],
+          preconditions: ["travel_callbacks.can_negotiate_travel_to_smart"],
+          text: null,
+        },
+        text: "translated_st_zat_a2_name.",
+      },
+      "1000_1": {
+        goodwillLevel: -10000,
+        id: "1000_1",
+        prevPhraseId: "1000",
+        script: {
+          actions: [],
+          preconditions: [],
           text: "travel_callbacks.get_travel_cost",
         },
-        text: "1002_1",
+        text: "if you see this - this is bad",
       },
-      dm_traveler_what_are_you_doing: {
-        id: "dm_traveler_what_are_you_doing",
+      "1000_11": {
         goodwillLevel: -10000,
-        prevPhraseId: "",
-        script: {},
-        text: "0",
-      },
-      dm_traveler_can_i_go_with_you: {
-        id: "dm_traveler_can_i_go_with_you",
-        goodwillLevel: -10000,
-        prevPhraseId: "1",
+        id: "1000_11",
+        prevPhraseId: "1000_1",
         script: {
-          precondition: "travel_callbacks.can_actor_move_with_squad",
+          actions: ["travel_callbacks.on_travel_to_specific_smart_with_squad"],
+          preconditions: ["travel_callbacks.is_enough_money_to_travel"],
+          text: null,
         },
-        text: "11",
+        text: "dm_traveler_actor_agree",
       },
-      dm_traveler_actor_agree: {
-        id: "dm_traveler_actor_agree",
+      "1000_13": {
         goodwillLevel: -10000,
+        id: "1000_13",
+        prevPhraseId: "1000_1",
+        script: {
+          actions: [],
+          preconditions: ["travel_callbacks.is_not_enough_money_to_travel"],
+          text: null,
+        },
+        text: "dm_traveler_actor_has_no_money",
+      },
+      "1000_14": {
+        goodwillLevel: -10000,
+        id: "1000_14",
+        prevPhraseId: "1000_1",
+        script: {
+          actions: [],
+          preconditions: [],
+          text: null,
+        },
+        text: "dm_traveler_actor_refuse",
+      },
+      "1001": {
+        goodwillLevel: -10000,
+        id: "1001",
+        prevPhraseId: "121",
+        script: {
+          actions: [],
+          preconditions: ["travel_callbacks.can_negotiate_travel_to_smart"],
+          text: null,
+        },
+        text: "translated_st_zat_b55_name.",
+      },
+      "1001_1": {
+        goodwillLevel: -10000,
+        id: "1001_1",
+        prevPhraseId: "1001",
+        script: {
+          actions: [],
+          preconditions: [],
+          text: "travel_callbacks.get_travel_cost",
+        },
+        text: "if you see this - this is bad",
+      },
+      "1001_11": {
+        goodwillLevel: -10000,
+        id: "1001_11",
+        prevPhraseId: "1001_1",
+        script: {
+          actions: ["travel_callbacks.on_travel_to_specific_smart_with_squad"],
+          preconditions: ["travel_callbacks.is_enough_money_to_travel"],
+          text: null,
+        },
+        text: "dm_traveler_actor_agree",
+      },
+      "1001_13": {
+        goodwillLevel: -10000,
+        id: "1001_13",
+        prevPhraseId: "1001_1",
+        script: {
+          actions: [],
+          preconditions: ["travel_callbacks.is_not_enough_money_to_travel"],
+          text: null,
+        },
+        text: "dm_traveler_actor_has_no_money",
+      },
+      "1001_14": {
+        goodwillLevel: -10000,
+        id: "1001_14",
+        prevPhraseId: "1001_1",
+        script: {
+          actions: [],
+          preconditions: [],
+          text: null,
+        },
+        text: "dm_traveler_actor_refuse",
+      },
+      "1002": {
+        goodwillLevel: -10000,
+        id: "1002",
+        prevPhraseId: "121",
+        script: {
+          actions: [],
+          preconditions: ["travel_callbacks.can_negotiate_travel_to_smart"],
+          text: null,
+        },
+        text: "translated_st_zat_b100_name.",
+      },
+      "1002_1": {
+        goodwillLevel: -10000,
+        id: "1002_1",
+        prevPhraseId: "1002",
+        script: {
+          actions: [],
+          preconditions: [],
+          text: "travel_callbacks.get_travel_cost",
+        },
+        text: "if you see this - this is bad",
+      },
+      "1002_11": {
+        goodwillLevel: -10000,
+        id: "1002_11",
         prevPhraseId: "1002_1",
         script: {
-          precondition: "travel_callbacks.is_enough_money_to_travel",
+          actions: ["travel_callbacks.on_travel_to_specific_smart_with_squad"],
+          preconditions: ["travel_callbacks.is_enough_money_to_travel"],
+          text: null,
         },
-        text: "1002_11",
+        text: "dm_traveler_actor_agree",
       },
-      dm_traveler_actor_dont_go_with_squad: {
-        id: "dm_traveler_actor_dont_go_with_squad",
+      "1002_13": {
         goodwillLevel: -10000,
-        prevPhraseId: "111",
-        script: {},
-        text: "1112",
-      },
-      dm_traveler_actor_go_with_squad: {
-        id: "dm_traveler_actor_go_with_squad",
-        goodwillLevel: -10000,
-        prevPhraseId: "111",
-        script: {
-          precondition: "travel_callbacks.on_travel_together_with_squad",
-        },
-        text: "1111",
-      },
-      dm_traveler_actor_has_no_money: {
-        id: "dm_traveler_actor_has_no_money",
-        goodwillLevel: -10000,
+        id: "1002_13",
         prevPhraseId: "1002_1",
         script: {
-          precondition: "travel_callbacks.is_not_enough_money_to_travel",
+          actions: [],
+          preconditions: ["travel_callbacks.is_not_enough_money_to_travel"],
+          text: null,
         },
-        text: "1002_13",
+        text: "dm_traveler_actor_has_no_money",
       },
-      dm_traveler_actor_refuse: {
-        id: "dm_traveler_actor_refuse",
+      "1002_14": {
         goodwillLevel: -10000,
-        prevPhraseId: "121",
-        script: {},
-        text: "1211",
+        id: "1002_14",
+        prevPhraseId: "1002_1",
+        script: {
+          actions: [],
+          preconditions: [],
+          text: null,
+        },
+        text: "dm_traveler_actor_refuse",
       },
-      dm_traveler_bye: {
-        id: "dm_traveler_bye",
+      "11": {
         goodwillLevel: -10000,
+        id: "11",
         prevPhraseId: "1",
-        script: {},
-        text: "13",
+        script: {
+          actions: [],
+          preconditions: ["travel_callbacks.can_actor_move_with_squad"],
+          text: null,
+        },
+        text: "dm_traveler_can_i_go_with_you",
       },
-      dm_traveler_stalker_actor_companion_no: {
-        id: "dm_traveler_stalker_actor_companion_no",
+      "111": {
         goodwillLevel: -10000,
+        id: "111",
         prevPhraseId: "11",
         script: {
-          precondition: "travel_callbacks.cannot_squad_take_actor",
+          actions: [],
+          preconditions: ["travel_callbacks.can_squad_take_actor"],
+          text: null,
         },
-        text: "112",
+        text: "dm_traveler_stalker_actor_companion_yes",
       },
-      dm_traveler_stalker_actor_companion_yes: {
-        id: "dm_traveler_stalker_actor_companion_yes",
+      "1111": {
         goodwillLevel: -10000,
+        id: "1111",
+        prevPhraseId: "111",
+        script: {
+          actions: ["travel_callbacks.on_travel_together_with_squad"],
+          preconditions: [],
+          text: null,
+        },
+        text: "dm_traveler_actor_go_with_squad",
+      },
+      "1112": {
+        goodwillLevel: -10000,
+        id: "1112",
+        prevPhraseId: "111",
+        script: {
+          actions: [],
+          preconditions: [],
+          text: null,
+        },
+        text: "dm_traveler_actor_dont_go_with_squad",
+      },
+      "112": {
+        goodwillLevel: -10000,
+        id: "112",
         prevPhraseId: "11",
         script: {
-          precondition: "travel_callbacks.can_squad_take_actor",
+          actions: [],
+          preconditions: ["travel_callbacks.cannot_squad_take_actor"],
+          text: null,
         },
-        text: "111",
+        text: "dm_traveler_stalker_actor_companion_no",
       },
-      dm_traveler_stalker_i_cant_travel: {
-        id: "dm_traveler_stalker_i_cant_travel",
+      "12": {
         goodwillLevel: -10000,
-        prevPhraseId: "12",
-        script: {
-          precondition: "travel_callbacks.cannot_squad_travel",
-        },
-        text: "122",
-      },
-      dm_traveler_stalker_where_do_you_want: {
-        id: "dm_traveler_stalker_where_do_you_want",
-        goodwillLevel: -10000,
-        prevPhraseId: "12",
-        script: {
-          precondition: "travel_callbacks.can_squad_travel",
-        },
-        text: "121",
-      },
-      dm_traveler_take_me_to: {
-        id: "dm_traveler_take_me_to",
-        goodwillLevel: -10000,
+        id: "12",
         prevPhraseId: "1",
-        script: {},
-        text: "12",
+        script: {
+          actions: [],
+          preconditions: [],
+          text: null,
+        },
+        text: "dm_traveler_take_me_to",
       },
-      "translated_st_zat_a2_name.": {
-        id: "translated_st_zat_a2_name.",
+      "121": {
         goodwillLevel: -10000,
+        id: "121",
+        prevPhraseId: "12",
+        script: {
+          actions: [],
+          preconditions: ["travel_callbacks.can_squad_travel"],
+          text: null,
+        },
+        text: "dm_traveler_stalker_where_do_you_want",
+      },
+      "1211": {
+        goodwillLevel: -10000,
+        id: "1211",
         prevPhraseId: "121",
         script: {
-          precondition: "travel_callbacks.can_negotiate_travel_to_smart",
+          actions: [],
+          preconditions: [],
+          text: null,
         },
-        text: "1000",
+        text: "dm_traveler_actor_refuse",
       },
-      "translated_st_zat_b100_name.": {
-        id: "translated_st_zat_b100_name.",
+      "122": {
         goodwillLevel: -10000,
-        prevPhraseId: "121",
+        id: "122",
+        prevPhraseId: "12",
         script: {
-          precondition: "travel_callbacks.can_negotiate_travel_to_smart",
+          actions: [],
+          preconditions: ["travel_callbacks.cannot_squad_travel"],
+          text: null,
         },
-        text: "1002",
+        text: "dm_traveler_stalker_i_cant_travel",
       },
-      "translated_st_zat_b55_name.": {
-        id: "translated_st_zat_b55_name.",
+      "13": {
         goodwillLevel: -10000,
-        prevPhraseId: "121",
+        id: "13",
+        prevPhraseId: "1",
         script: {
-          precondition: "travel_callbacks.can_negotiate_travel_to_smart",
+          actions: [],
+          preconditions: [],
+          text: null,
         },
-        text: "1001",
+        text: "dm_traveler_bye",
       },
     });
   });

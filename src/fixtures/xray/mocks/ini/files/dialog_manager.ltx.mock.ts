@@ -14,6 +14,7 @@ export const mockDialogManager = {
     "dm_information_4",
     "dm_help_0",
     "dm_help_1",
+    "dm_hello_0",
     "dm_hello_1",
     "dm_hello_2",
   ],
