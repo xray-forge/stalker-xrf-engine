@@ -4,7 +4,8 @@ import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_ty
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { PhraseDialog, PhraseScript, TStringId } from "@/engine/lib/types";
+import { isEmpty } from "@/engine/core/utils/table";
+import { Optional, Phrase, PhraseDialog, PhraseScript, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +19,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function initializeCategoryDialogs(dialog: PhraseDialog, category: EGenericPhraseCategory): void {
   assert(dialogConfig.PHRASES.get(category), "Expected to have pre-defined phrases for category '%s'.", category);
   assert(
-    dialogConfig.PHRASES.get(category).length() > 0,
+    !isEmpty(dialogConfig.PHRASES.get(category)),
     "Expected to have at least one pre-defined phrase for category '%s'.",
     category
   );
@@ -98,10 +99,20 @@ export function initializeNewDialog(dialog: PhraseDialog): void {
       }
 
       for (const [, descriptor] of dialogConfig.PHRASES.get(category as EGenericPhraseCategory)) {
-        script = dialog.AddPhrase(descriptor.name, descriptor.id, id, -10_000).GetPhraseScript();
+        const phrase: Optional<Phrase> = dialog.AddPhrase(
+          descriptor.name,
+          descriptor.id,
+          id,
+          -10_000
+        ) as Optional<Phrase>;
 
-        script.AddPrecondition(`dialog_manager.precondition_${category}_dialogs`);
-        script.AddAction(`dialog_manager.action_${category}_dialogs`);
+        // If phrase is not added, null is returned.
+        if (phrase) {
+          script = phrase.GetPhraseScript();
+
+          script.AddPrecondition(`dialog_manager.precondition_${category}_dialogs`);
+          script.AddAction(`dialog_manager.action_${category}_dialogs`);
+        }
       }
     }
 
