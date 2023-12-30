@@ -4,7 +4,7 @@ import { getManager } from "@/engine/core/database";
 import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { processPhraseAction, shouldHidePhraseCategory, shouldShowPhrase } from "@/engine/core/managers/dialogs/utils";
-import { initializeNewDialog, initializeStartDialogs } from "@/engine/core/managers/dialogs/utils/dialog_init";
+import { initializeCategoryDialogs, initializeNewDialog } from "@/engine/core/managers/dialogs/utils/dialog_init";
 import { fillPhrasesPriorities } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { extern } from "@/engine/core/utils/binding";
@@ -31,14 +31,14 @@ extern("dialog_manager.init_new_dialog", (dialog: PhraseDialog): void => {
  * Initialize dialog phrases / priorities and order for specific category.
  */
 extern("dialog_manager.initialize_start_dialogs", (dialog: PhraseDialog, category: EGenericPhraseCategory): void => {
-  initializeStartDialogs(dialog, category);
+  initializeCategoryDialogs(dialog, category);
 });
 
 /**
  * Initialize dialog phrases / priorities and order for hello category.
  */
 extern("dialog_manager.init_hello_dialogs", (dialog: PhraseDialog): void => {
-  initializeStartDialogs(dialog, EGenericPhraseCategory.HELLO);
+  initializeCategoryDialogs(dialog, EGenericPhraseCategory.HELLO);
 });
 
 /**

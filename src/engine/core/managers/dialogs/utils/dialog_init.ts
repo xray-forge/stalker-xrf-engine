@@ -4,7 +4,7 @@ import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_ty
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { LuaArray, Phrase, PhraseDialog, PhraseScript, TIndex, TName } from "@/engine/lib/types";
+import { PhraseDialog, PhraseScript, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -15,7 +15,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param dialog - instance to initialize with start options
  * @param category - category to initialize with dialog
  */
-export function initializeStartDialogs(dialog: PhraseDialog, category: EGenericPhraseCategory): void {
+export function initializeCategoryDialogs(dialog: PhraseDialog, category: EGenericPhraseCategory): void {
   assert(dialogConfig.PHRASES.get(category), "Expected to have pre-defined phrases for category '%s'.", category);
   assert(
     dialogConfig.PHRASES.get(category).length() > 0,
@@ -23,7 +23,7 @@ export function initializeStartDialogs(dialog: PhraseDialog, category: EGenericP
     category
   );
 
-  logger.info("Initialize start dialogs:", category);
+  logger.format("Initialize start dialogs: %s", category);
 
   dialog.AddPhrase("", "0", "", -10_000);
 
@@ -57,88 +57,54 @@ export function initializeStartDialogs(dialog: PhraseDialog, category: EGenericP
 }
 
 /**
- * todo;
+ * Initialize generic phrases for object starting dialog.
  *
- * @param dialog
+ * @param dialog - instance to initialize with default phrases
  */
 export function initializeNewDialog(dialog: PhraseDialog): void {
-  logger.info("Initialize new dialog");
+  logger.format("Initialize new dialog");
 
-  const actorTable: LuaArray<EGenericPhraseCategory> = $fromArray<EGenericPhraseCategory>([
-    EGenericPhraseCategory.JOB,
-    EGenericPhraseCategory.ANOMALIES,
-    EGenericPhraseCategory.INFORMATION,
-  ]);
-  const startPhraseTable: LuaArray<TName> = $fromArray([
-    "dm_universal_npc_start_0",
-    "dm_universal_npc_start_1",
-    "dm_universal_npc_start_2",
-    "dm_universal_npc_start_3",
-  ]);
-  const preconditions: LuaArray<TName> = $fromArray([
-    "dialogs.npc_stalker",
-    "dialogs.npc_bandit",
-    "dialogs.npc_freedom",
-    "dialogs.npc_dolg",
-  ]);
+  dialog.AddPhrase("dm_universal_actor_start", "0", "", -10_000);
 
-  const actorPhrase: Phrase = dialog.AddPhrase("dm_universal_actor_start", tostring(0), "", -10_000);
-  const actorScript: PhraseScript = actorPhrase.GetPhraseScript(); // Do not remove, getter has side effect.
+  for (const variant of $range(1, 4)) {
+    dialog
+      .AddPhrase(dialogConfig.NEW_DIALOG_START_PHRASES.get(variant), tostring(variant), "0", -10_000)
+      .GetPhraseScript()
+      .AddPrecondition(dialogConfig.NEW_DIALOG_PRECONDITIONS.get(variant));
 
-  for (const j of $range(1, 4)) {
-    const npcPhrase: Phrase = dialog.AddPhrase(startPhraseTable.get(j), tostring(j), tostring(0), -10_000);
-    const npcPhraseScript: PhraseScript = npcPhrase.GetPhraseScript();
+    for (const [, category] of dialogConfig.NEW_DIALOG_PHRASE_CATEGORIES) {
+      const id: TStringId = tostring(dialogConfig.NEXT_PHRASE_ID());
 
-    npcPhraseScript.AddPrecondition(preconditions.get(j));
+      let script: PhraseScript = dialog
+        .AddPhrase(`dm_${category}_general`, id, tostring(variant), -10_000)
+        .GetPhraseScript();
 
-    for (const it of $range(1, actorTable.length())) {
-      const index: TIndex = dialogConfig.NEXT_PHRASE_ID();
-      const str: string = actorTable.get(it);
-      let phrase: Phrase = dialog.AddPhrase("dm_" + str + "_general", tostring(index), tostring(j), -10_000);
-      let script: PhraseScript = phrase.GetPhraseScript();
-
-      if (str === EGenericPhraseCategory.ANOMALIES) {
+      if (category === EGenericPhraseCategory.ANOMALIES) {
         script.AddPrecondition("dialogs.npc_stalker");
       }
 
-      // --script.AddPrecondition("dialog_manager.precondition_is_phrase_disabled")
-      script.AddAction("dialog_manager.fill_priority_" + str + "_table");
-      // --script.AddAction("dialog_manager.action_disable_phrase")
+      script.AddAction(`dialog_manager.fill_priority_${category}_table`);
 
-      for (const k of $range(1, 3)) {
-        const answerNoMore: Phrase = dialog.AddPhrase(
-          "dm_" + str + "_no_more_" + tostring(k),
-          tostring(dialogConfig.NEXT_PHRASE_ID()),
-          tostring(index),
-          -10_000
-        );
-        const scriptNoMore: PhraseScript = answerNoMore.GetPhraseScript();
+      for (const it of $range(1, 3)) {
+        dialog
+          .AddPhrase(`dm_${category}_no_more_${tostring(it)}`, tostring(dialogConfig.NEXT_PHRASE_ID()), id, -10_000)
+          .GetPhraseScript()
+          .AddPrecondition(`dialog_manager.precondition_${category}_dialogs_no_more`);
 
-        scriptNoMore.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs_no_more");
-
-        const answerDoNotKnow: Phrase = dialog.AddPhrase(
-          "dm_" + str + "_do_not_know_" + tostring(k),
-          tostring(dialogConfig.NEXT_PHRASE_ID()),
-          tostring(index),
-          -10_000
-        );
-        const scriptDoNotKnow: PhraseScript = answerDoNotKnow.GetPhraseScript();
-
-        scriptDoNotKnow.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs_do_not_know");
+        dialog
+          .AddPhrase(`dm_${category}_do_not_know_${tostring(it)}`, tostring(dialogConfig.NEXT_PHRASE_ID()), id, -10_000)
+          .GetPhraseScript()
+          .AddPrecondition(`dialog_manager.precondition_${category}_dialogs_do_not_know`);
       }
 
-      for (const [, phraseDescriptor] of dialogConfig.PHRASES.get(str as EGenericPhraseCategory)) {
-        phrase = dialog.AddPhrase(phraseDescriptor.name, tostring(phraseDescriptor.id), tostring(index), -10_000);
+      for (const [, descriptor] of dialogConfig.PHRASES.get(category as EGenericPhraseCategory)) {
+        script = dialog.AddPhrase(descriptor.name, descriptor.id, id, -10_000).GetPhraseScript();
 
-        // todo: Unreal condition?
-        if (phrase !== null) {
-          script = phrase.GetPhraseScript();
-          script.AddPrecondition("dialog_manager.precondition_" + str + "_dialogs");
-          script.AddAction("dialog_manager.action_" + str + "_dialogs");
-        }
+        script.AddPrecondition(`dialog_manager.precondition_${category}_dialogs`);
+        script.AddAction(`dialog_manager.action_${category}_dialogs`);
       }
     }
 
-    dialog.AddPhrase("dm_universal_actor_exit", tostring(dialogConfig.NEXT_PHRASE_ID()), tostring(j), -10_000);
+    dialog.AddPhrase("dm_universal_actor_exit", tostring(dialogConfig.NEXT_PHRASE_ID()), tostring(variant), -10_000);
   }
 }

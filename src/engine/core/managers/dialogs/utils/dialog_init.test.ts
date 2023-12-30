@@ -2,14 +2,15 @@ import { describe, expect, it } from "@jest/globals";
 
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
-import { initializeStartDialogs } from "@/engine/core/managers/dialogs/utils/dialog_init";
+import { initializeCategoryDialogs, initializeNewDialog } from "@/engine/core/managers/dialogs/utils/dialog_init";
+import { range } from "@/engine/core/utils/number";
 import { MockPhraseDialog } from "@/fixtures/xray";
 
-describe("initializeStartDialogs util", () => {
+describe("initializeCategoryDialogs util", () => {
   it("should correctly generate phrases and scripts for generic categories", () => {
     const dialog: MockPhraseDialog = MockPhraseDialog.create();
 
-    initializeStartDialogs(dialog.asMock(), EGenericPhraseCategory.INFORMATION);
+    initializeCategoryDialogs(dialog.asMock(), EGenericPhraseCategory.INFORMATION);
 
     expect(dialog.AddPhrase).toHaveBeenCalledTimes(6);
 
@@ -55,7 +56,7 @@ describe("initializeStartDialogs util", () => {
   it("should correctly generate phrases and scripts for generic categories", () => {
     const dialog: MockPhraseDialog = MockPhraseDialog.create();
 
-    initializeStartDialogs(dialog.asMock(), EGenericPhraseCategory.HELLO);
+    initializeCategoryDialogs(dialog.asMock(), EGenericPhraseCategory.HELLO);
 
     expect(dialog.AddPhrase).toHaveBeenCalledTimes(11);
 
@@ -105,16 +106,80 @@ describe("initializeStartDialogs util", () => {
   });
 
   it("should correctly assert phrases and scripts for unknown categories", () => {
-    expect(() => initializeStartDialogs(MockPhraseDialog.mock(), "unknown" as EGenericPhraseCategory)).toThrow(
+    expect(() => initializeCategoryDialogs(MockPhraseDialog.mock(), "unknown" as EGenericPhraseCategory)).toThrow(
       "Expected to have pre-defined phrases for category 'unknown'."
     );
 
     dialogConfig.PHRASES.set("unknown" as EGenericPhraseCategory, new LuaTable());
 
-    expect(() => initializeStartDialogs(MockPhraseDialog.mock(), "unknown" as EGenericPhraseCategory)).toThrow(
+    expect(() => initializeCategoryDialogs(MockPhraseDialog.mock(), "unknown" as EGenericPhraseCategory)).toThrow(
       "Expected to have at least one pre-defined phrase for category 'unknown'."
     );
 
     dialogConfig.PHRASES.delete("unknown" as EGenericPhraseCategory);
+  });
+});
+
+describe("initializeNewDialog util", () => {
+  it("should correctly initialize phrases for new dialog", () => {
+    const dialog: MockPhraseDialog = MockPhraseDialog.create();
+
+    initializeNewDialog(dialog.asMock());
+
+    expect(dialog.AddPhrase).toHaveBeenCalledTimes(141);
+
+    expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_universal_actor_start", "0", "", -10_000);
+    expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_universal_npc_start_0", "1", "0", -10_000);
+    expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_universal_npc_start_1", "2", "0", -10_000);
+    expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_universal_npc_start_2", "3", "0", -10_000);
+    expect(dialog.AddPhrase).toHaveBeenCalledWith("dm_universal_npc_start_3", "4", "0", -10_000);
+
+    for (const category of [
+      EGenericPhraseCategory.JOB,
+      EGenericPhraseCategory.ANOMALIES,
+      EGenericPhraseCategory.INFORMATION,
+    ]) {
+      for (const it of range(4, 1)) {
+        for (const index of range(3, 1)) {
+          expect(dialog.AddPhrase).toHaveBeenCalledWith(
+            `dm_${category}_no_more_${index}`,
+            expect.any(String),
+            expect.any(String),
+            -10_000
+          );
+
+          expect(dialog.AddPhrase).toHaveBeenCalledWith(
+            `dm_${category}_do_not_know_${index}`,
+            expect.any(String),
+            expect.any(String),
+            -10_000
+          );
+        }
+
+        expect(dialog.AddPhrase).toHaveBeenCalledWith(
+          `dm_${category}_general`,
+          expect.any(String),
+          String(it),
+          -10_000
+        );
+
+        for (const [, descriptor] of dialogConfig.PHRASES.get(category as EGenericPhraseCategory)) {
+          expect(dialog.AddPhrase).toHaveBeenCalledWith(descriptor.name, descriptor.id, expect.any(String), -10_000);
+
+          expect(dialog.GetPhrase(descriptor.id).GetPhraseScript()).toEqual({
+            text: null,
+            actions: [`dialog_manager.action_${category}_dialogs`],
+            preconditions: [`dialog_manager.precondition_${category}_dialogs`],
+          });
+        }
+
+        expect(dialog.AddPhrase).toHaveBeenCalledWith(
+          "dm_universal_actor_exit",
+          expect.any(String),
+          String(it),
+          -10_000
+        );
+      }
+    }
   });
 });

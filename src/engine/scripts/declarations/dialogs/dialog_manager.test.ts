@@ -5,8 +5,8 @@ import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/di
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import {
   fillPhrasesPriorities,
+  initializeCategoryDialogs,
   initializeNewDialog,
-  initializeStartDialogs,
   processPhraseAction,
   shouldHidePhraseCategory,
   shouldShowPhrase,
@@ -78,7 +78,7 @@ describe("dialogs external callbacks implementation", () => {
 
     resetFunctionMock(fillPhrasesPriorities);
     resetFunctionMock(initializeNewDialog);
-    resetFunctionMock(initializeStartDialogs);
+    resetFunctionMock(initializeCategoryDialogs);
     resetFunctionMock(processPhraseAction);
     resetFunctionMock(shouldHidePhraseCategory);
     resetFunctionMock(shouldShowPhrase);
@@ -98,8 +98,8 @@ describe("dialogs external callbacks implementation", () => {
 
     callDialogBinding("initialize_start_dialogs", dialog, EGenericPhraseCategory.JOB);
 
-    expect(initializeStartDialogs).toHaveBeenCalledTimes(1);
-    expect(initializeStartDialogs).toHaveBeenCalledWith(dialog, EGenericPhraseCategory.JOB);
+    expect(initializeCategoryDialogs).toHaveBeenCalledTimes(1);
+    expect(initializeCategoryDialogs).toHaveBeenCalledWith(dialog, EGenericPhraseCategory.JOB);
   });
 
   it("init_hello_dialogs should initialize correctly", () => {
@@ -107,8 +107,8 @@ describe("dialogs external callbacks implementation", () => {
 
     callDialogBinding("init_hello_dialogs", dialog);
 
-    expect(initializeStartDialogs).toHaveBeenCalledTimes(1);
-    expect(initializeStartDialogs).toHaveBeenCalledWith(dialog, EGenericPhraseCategory.HELLO);
+    expect(initializeCategoryDialogs).toHaveBeenCalledTimes(1);
+    expect(initializeCategoryDialogs).toHaveBeenCalledWith(dialog, EGenericPhraseCategory.HELLO);
   });
 
   it("fill_priority_hello_table should correctly handle priorities", () => {
