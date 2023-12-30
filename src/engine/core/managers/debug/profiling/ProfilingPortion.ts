@@ -16,9 +16,7 @@ export class ProfilingPortion {
    */
   public static mark(name: Optional<TName | AnyCallable> = null): ProfilingPortion {
     const manager: ProfilingManager = getManager(ProfilingManager);
-    const functionInfo: debug.FunctionInfo = debug.getinfo(2)!;
-    const functionRef: AnyCallable = functionInfo.func as AnyCallable;
-    const key: AnyCallable | TName = name ?? functionRef;
+    const key: AnyCallable | TName = name ?? (debug?.getinfo(2)?.func as AnyCallable) ?? "unknown";
 
     let target: Optional<LuaArray<TDuration>> = manager.profilingPortions.get(key) as Optional<LuaArray<TDuration>>;
 
