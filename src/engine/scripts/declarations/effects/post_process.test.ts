@@ -149,13 +149,13 @@ describe("post process effects implementation", () => {
     }).toThrow("Complex effector section does not exist in system ini: 'not_existing'.");
     expect(level.add_complex_effector).toHaveBeenCalledTimes(0);
 
-    callXrEffect("run_postprocess", MockGameObject.mockActor(), MockGameObject.mock(), "existing");
+    callXrEffect("run_postprocess", MockGameObject.mockActor(), MockGameObject.mock(), "bobbing_effector");
     expect(level.add_complex_effector).toHaveBeenCalledTimes(1);
-    expect(level.add_complex_effector).toHaveBeenCalledWith("existing", expect.any(Number));
+    expect(level.add_complex_effector).toHaveBeenCalledWith("bobbing_effector", expect.any(Number));
 
-    callXrEffect("run_postprocess", MockGameObject.mockActor(), MockGameObject.mock(), "existing", 55);
+    callXrEffect("run_postprocess", MockGameObject.mockActor(), MockGameObject.mock(), "bobbing_effector", 55);
     expect(level.add_complex_effector).toHaveBeenCalledTimes(2);
-    expect(level.add_complex_effector).toHaveBeenCalledWith("existing", 55);
+    expect(level.add_complex_effector).toHaveBeenCalledWith("bobbing_effector", 55);
   });
 
   it("stop_postprocess should correctly remove level effectors", () => {

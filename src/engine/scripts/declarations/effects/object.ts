@@ -306,28 +306,29 @@ extern(
  */
 extern(
   "xr_effects.destroy_object",
-  (actor: GameObject, object: GameObject, p: [string, string, Optional<string>]): void => {
-    if (p === null) {
-      releaseObject(object.id());
-    } else {
-      if (p[0] === null || p[1] === null) {
-        abort("Wrong parameters in destroy_object function.");
-      }
-
-      const targetString = p[2] !== null ? [0] + "|" + p[1] + "," + p[2] : p[0] + "|" + p[1];
-      const [targetPosition, targetId, targetInit] = initTarget(object, targetString);
-
-      if (targetId === null) {
-        logger.info(
-          "You are trying to set non-existant target [%s] for object [%s] in section [%s]:",
-          targetString,
-          targetId,
-          registry.objects.get(object.id()).activeSection
-        );
-      }
-
-      releaseObject(targetId as TNumberId);
+  (actor: GameObject, object: GameObject, parameters: [Optional<string>, Optional<string>, Optional<string>]): void => {
+    if (!parameters[0] && !parameters[1]) {
+      return releaseObject(object.id());
     }
+
+    if (!parameters[0] || !parameters[1]) {
+      abort("Wrong parameters in destroy_object function.");
+    }
+
+    const targetString =
+      parameters[2] !== null ? [0] + "|" + parameters[1] + "," + parameters[2] : parameters[0] + "|" + parameters[1];
+    const [, targetId] = initTarget(object, targetString);
+
+    if (targetId === null) {
+      logger.info(
+        "You are trying to set non-existant target [%s] for object [%s] in section [%s]:",
+        targetString,
+        targetId,
+        registry.objects.get(object.id()).activeSection
+      );
+    }
+
+    releaseObject(targetId as TNumberId);
   }
 );
 

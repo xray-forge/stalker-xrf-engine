@@ -33,37 +33,16 @@ sound_enemy_lost_no_allies =
 sound_enemy_lost_with_allies =
 sound_throw_grenade =
 
-[default_duty]:stalker
-$spawn = "respawn\default_dolg"
-character_profile = default_dolg
-
-[default_freedom]:stalker
-$spawn = "respawn\default_freedom"
-character_profile = default_freedom
-
-[default_bandit]:stalker
-$spawn = "respawn\default_bandit"
-character_profile = sim_default_bandit_0
-
-[default_stalker]:stalker
-$spawn = "respawn\default_stalker"
-character_profile = sim_default_duty_0
-
-[stalker_regular]:stalker
-$spawn = "respawn\dolg_regular"
-character_profile = default
+[actor_visual_stalker]:stalker_silent
+$spawn = "respawn\actor_visual_stalker"
+character_profile = actor_visual_stalker
+set_visual = actor_visual
 
 [stalker_monolith_default]:stalker
 $spawn = "respawn\stalker_monolith_default"
 character_profile = sim_default_monolith_0
 
-;****************************************************************
-; Simulation
-;****************************************************************
-
-;****************************************************************
-; duty
-;****************************************************************
+;***** sim duty *****
 
 [sim_default_duty_0]:stalker
 $spawn = "respawn\sim_default_duty_0"
@@ -96,6 +75,7 @@ spec_rank = master
 community = dolg
 
 ;***** sim monolith *****
+
 [sim_default_monolith_0]:stalker
 $spawn = "respawn\sim_default_monolith_0"
 character_profile = sim_default_monolith_0
@@ -317,8 +297,3 @@ $spawn = "respawn\sim_default_zombied_4"
 character_profile = sim_default_zombied_4
 spec_rank = novice
 community = zombied
-
-[actor_visual_stalker]:stalker_silent
-$spawn = "respawn\actor_visual_stalker"
-character_profile = actor_visual_stalker
-set_visual = actor_visual

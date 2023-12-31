@@ -23,7 +23,7 @@ export function readIniString<D = string>(
   ini: IniFile,
   section: Optional<TSection>,
   field: TName,
-  required: boolean,
+  required?: boolean,
   prefix: Optional<string> = null,
   defaultValue: D = null as unknown as D
 ): D {
@@ -59,7 +59,7 @@ export function readIniStringWB<D = string>(
   ini: IniFile,
   section: Optional<TSection>,
   field: TName,
-  required: boolean,
+  required?: boolean,
   prefix: Optional<string> = null,
   defaultValue: D = null as unknown as D
 ): D {
@@ -93,7 +93,7 @@ export function readIniStringList<D = string>(
   ini: IniFile,
   section: Optional<TSection>,
   field: TName,
-  required: boolean,
+  required?: boolean,
   defaultValue: Optional<string> = null
 ): LuaArray<D> {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
@@ -123,18 +123,18 @@ export function readIniNumber<D = number>(
   ini: IniFile,
   section: TSection,
   field: TName,
-  required: boolean,
+  required?: boolean,
   defaultValue: D = null as unknown as D
 ): number | D {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return ini.r_float(section, field);
   }
 
-  if (!required) {
-    return defaultValue as number;
+  if (required) {
+    return abort("Attempt to read a non-existent number field '%s' in section '%s'.", field, section);
   }
 
-  return abort("Attempt to read a non-existent number field '%s' in section '%s'.", field, section);
+  return defaultValue as number;
 }
 
 /**
@@ -151,22 +151,22 @@ export function readIniBoolean(
   ini: IniFile,
   section: Optional<TSection>,
   field: TName,
-  required: boolean,
+  required?: boolean,
   defaultValue: Optional<boolean> = null
 ): boolean {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return ini.r_bool(section, field);
   }
 
-  if (!required) {
-    if (defaultValue !== null) {
-      return defaultValue;
-    }
-
-    return false;
+  if (required) {
+    return abort("Attempt to read a non-existent boolean field '%s' in section '%s'", field, section);
   }
 
-  return abort("Attempt to read a non-existent boolean field '%s' in section '%s'", field, section);
+  if (defaultValue !== null) {
+    return defaultValue;
+  }
+
+  return false;
 }
 
 /**

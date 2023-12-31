@@ -8,6 +8,8 @@ import { isGameStarted } from "@/engine/core/utils/game";
 import {
   getAmmoSections,
   getArtefactsSections,
+  getBoosterSections,
+  getDetectorsSections,
   getHelmetsSections,
   getOutfitSections,
   getWeaponSections,
@@ -18,8 +20,6 @@ import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { food } from "@/engine/lib/constants/items/food";
 import { LuaArray, Optional, TPath, TSection, Vector2D } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugItemsSection.component";
@@ -29,8 +29,9 @@ enum EItemCategory {
   AMMO = "ammo",
   ARTEFACTS = "artefacts",
   CONSUMABLES = "consumables",
-  OUTFITS = "outfits",
+  DETECTORS = "detectors",
   HELMETS = "helmets",
+  OUTFITS = "outfits",
   WEAPONS = "weapons",
 }
 
@@ -108,12 +109,16 @@ export class DebugItemsSection extends AbstractDebugSection {
         this.addItemsToList(getArtefactsSections());
         break;
 
+      case EItemCategory.DETECTORS:
+        this.addItemsToList(getDetectorsSections());
+        break;
+
       case EItemCategory.AMMO:
         this.addItemsToList(getAmmoSections());
         break;
 
       case EItemCategory.CONSUMABLES:
-        this.addItemsToList(Object.values({ ...drugs, ...food }));
+        this.addItemsToList(getBoosterSections());
         break;
     }
   }
