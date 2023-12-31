@@ -275,10 +275,10 @@ describe("spawnSquadInSmart utils", () => {
     squad.addMember("test", MockVector.mock(1, 1, 1), 1, 2);
     squad.addMember("test", MockVector.mock(2, 2, 2), 1, 2);
 
-    const createdSquad: ServerGroupObject = spawnSquadInSmart("squad", smartTerrain.name());
+    const createdSquad: ServerGroupObject = spawnSquadInSmart("test_squad", smartTerrain.name());
 
     expect(createdSquad).toBe(squad);
-    expect(simulationManager.createSquad).toHaveBeenCalledWith(smartTerrain, "squad");
+    expect(simulationManager.createSquad).toHaveBeenCalledWith(smartTerrain, "test_squad");
     expect(simulationManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(2);
     expect(squad.update).toHaveBeenCalled();
   });
