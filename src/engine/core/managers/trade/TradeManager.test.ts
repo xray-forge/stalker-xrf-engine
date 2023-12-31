@@ -18,14 +18,14 @@ describe("TradeManager class implementation", () => {
   it("should correctly initialize for objects", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
+    const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
 
     expect(registry.trade.length()).toBe(0);
 
     expect(() => tradeManager.initializeForObject(object, "trade_manager_not_existing.ltx")).toThrow();
     expect(registry.trade.length()).toBe(0);
 
-    tradeManager.initializeForObject(object, "misc\\trade\\trade_generic.ltx");
+    tradeManager.initializeForObject(object, "managers\\trade\\trade_generic.ltx");
 
     expect(registry.trade.length()).toBe(1);
     expect(registry.trade.get(object.id())).toEqualLuaTables({
@@ -46,7 +46,7 @@ describe("TradeManager class implementation", () => {
   it("should correctly update for objects", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
+    const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
     tradeManager.initializeForObject(object, ini.fname());
@@ -87,7 +87,7 @@ describe("TradeManager class implementation", () => {
   it("should correctly get sell discount for objects", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
+    const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
     tradeManager.initializeForObject(object, ini.fname());
@@ -98,7 +98,7 @@ describe("TradeManager class implementation", () => {
   it("should correctly get buy discount for objects", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
+    const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
     tradeManager.initializeForObject(object, ini.fname());
@@ -130,11 +130,11 @@ describe("TradeManager class implementation", () => {
   it("TradeManager should correctly save and load data when not updated", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
+    const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(time_global, () => 10_000);
-    tradeManager.initializeForObject(object, "misc\\trade\\trade_generic.ltx");
+    tradeManager.initializeForObject(object, "managers\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
     tradeManager.saveObjectState(object, netProcessor.asMockNetPacket());
@@ -149,7 +149,16 @@ describe("TradeManager class implementation", () => {
       EPacketDataType.I32,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([true, "misc\\trade\\trade_generic.ltx", "", "", "", -30_001, -30_001, 7]);
+    expect(netProcessor.dataList).toEqual([
+      true,
+      "managers\\trade\\trade_generic.ltx",
+      "",
+      "",
+      "",
+      -30_001,
+      -30_001,
+      7,
+    ]);
 
     registry.objects.delete(object.id());
 
@@ -174,11 +183,11 @@ describe("TradeManager class implementation", () => {
   it("TradeManager should correctly save and load data when updated", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = loadIniFile("misc\\trade\\trade_generic.ltx");
+    const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(time_global, () => 10_000);
-    tradeManager.initializeForObject(object, "misc\\trade\\trade_generic.ltx");
+    tradeManager.initializeForObject(object, "managers\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 20_000);
     tradeManager.updateForObject(object);
@@ -198,7 +207,7 @@ describe("TradeManager class implementation", () => {
     ]);
     expect(netProcessor.dataList).toEqual([
       true,
-      "misc\\trade\\trade_generic.ltx",
+      "managers\\trade\\trade_generic.ltx",
       "generic_buy",
       "generic_sell",
       "tier1",
