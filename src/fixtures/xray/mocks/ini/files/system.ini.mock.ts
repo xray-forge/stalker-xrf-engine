@@ -1,8 +1,16 @@
 import { detectors } from "@/engine/lib/constants/items/detectors";
+import { mockArtefacts } from "@/fixtures/xray/mocks/ini/files/artefacts.ltx.mock";
+import { mockOutfit } from "@/fixtures/xray/mocks/ini/files/outfit.ltx.mock";
+import { mockSpawnSections } from "@/fixtures/xray/mocks/ini/files/spawn_sections.ltx.mock";
+import { mockSquadDescription } from "@/fixtures/xray/mocks/ini/files/squad_descr.ltx.mock";
 import { mockUpgradesLtx } from "@/fixtures/xray/mocks/ini/files/upgrades.ltx.mock";
 import { mockWeaponLtx } from "@/fixtures/xray/mocks/ini/files/weapons.ltx.mock";
 
 export const mockSystemIni = {
+  ...mockArtefacts,
+  ...mockOutfit,
+  ...mockSpawnSections,
+  ...mockSquadDescription,
   ...mockUpgradesLtx,
   ...mockWeaponLtx,
   actor: {
@@ -15,32 +23,12 @@ export const mockSystemIni = {
     inv_name: "st_detector2",
   },
   existing: {},
-  sim_default_first: {},
-  sim_default_second: {},
-  simulation_first: {},
-  first_sim_squad_example: {},
-  without_outfit: {},
-  outfit_base: {},
-  first_outfit: {},
-  first_outfit_immunities: {},
-  second_outfit: {},
-  second_outfit_bones: {},
-  up_outfit: {},
-  sect_outfit: {},
-  prop_outfit: {},
   af_base: {},
   af_first: {},
   af_second: {},
   af_second_absorbation: {},
   af_activation_first: {},
-  ammo_base: {},
-  helm_first: {},
-  helm_second: {},
   squad: {},
-  test_squad: {
-    faction: "stalker",
-    npc: "test_npc_1, test_npc_2",
-  },
   stalker_none_1: {
     set_visual: "",
   },

@@ -5,50 +5,109 @@ import {
   getArtefactsSections,
   getHelmetsSections,
   getOutfitSections,
+  getSectionsWithoutStoryIDs,
   getSimulationGroupSections,
   getStalkerSections,
+  getWeaponAddonsSections,
   getWeaponSections,
 } from "@/engine/core/utils/ini/ini_sections";
+import { LuaArray, TSection } from "@/engine/lib/types";
 
-describe("ini_sections utils for ini file", () => {
-  it("getStalkerSections utils should correctly get list of sections", () => {
-    expect(getStalkerSections()).toEqualLuaArrays(["sim_default_first", "sim_default_second"]);
+describe("getSectionsWithoutStoryIDs util", () => {
+  it("should get list of sections without story IDs", () => {
+    const all: LuaArray<TSection> = getSimulationGroupSections();
+
+    expect(all).toEqualLuaArrays([
+      "test_squad",
+      "simulation_stalker",
+      "stalker_sim_squad_novice",
+      "simulation_bandit",
+      "simulation_duty_1",
+      "jup_a10_bandit_squad",
+    ]);
+
+    expect(getSectionsWithoutStoryIDs(all)).toEqualLuaArrays([
+      "test_squad",
+      "simulation_stalker",
+      "stalker_sim_squad_novice",
+      "simulation_bandit",
+      "simulation_duty_1",
+    ]);
   });
+});
 
-  it("getSimulationGroupSections utils should correctly get list of sections", () => {
-    expect(getSimulationGroupSections()).toEqualLuaArrays(["simulation_first", "first_sim_squad_example"]);
+describe("getStalkerSections util", () => {
+  it("should get list of sections", () => {
+    expect(getStalkerSections()).toEqualLuaArrays(["default_duty", "sim_default_monolith_1", "sim_default_freedom_3"]);
   });
+});
 
-  it("getOutfitSections utils should correctly get list of sections", () => {
-    expect(getOutfitSections()).toEqualLuaArrays(["first_outfit", "second_outfit"]);
+describe("getSimulationGroupSections util", () => {
+  it("should get list of sections", () => {
+    expect(getSimulationGroupSections()).toEqualLuaArrays([
+      "test_squad",
+      "simulation_stalker",
+      "stalker_sim_squad_novice",
+      "simulation_bandit",
+      "simulation_duty_1",
+      "jup_a10_bandit_squad",
+    ]);
   });
+});
 
-  it("getArtefactsSections utils should correctly get list of sections", () => {
-    expect(getArtefactsSections()).toEqualLuaArrays(["af_first", "af_second"]);
+describe("getOutfitSections util", () => {
+  it("should get list of sections", () => {
+    expect(getOutfitSections()).toEqualLuaArrays(["specops_outfit", "svoboda_heavy_outfit", "cs_heavy_outfit"]);
   });
+});
 
-  it("getAmmoSections utils should correctly get list of sections", () => {
+describe("getArtefactsSections util", () => {
+  it("should get list of sections", () => {
+    expect(getArtefactsSections()).toEqualLuaArrays([
+      "af_electra_sparkler",
+      "af_electra_flash",
+      "af_electra_moonlight",
+      "af_dummy_battery",
+      "af_dummy_dummy",
+    ]);
+  });
+});
+
+describe("getAmmoSections util", () => {
+  it("should get list of sections", () => {
     expect(getAmmoSections()).toEqualLuaArrays([
       "ammo_9x18_pmm",
       "ammo_5.45x39_ap",
       "ammo_9x39_ap",
       "ammo_5.56x45_ap",
       "ammo_12x76_zhekan",
+      "ammo_m209",
+      "ammo_og-7b",
     ]);
   });
+});
 
-  it("getHelmetsSections utils should correctly get list of sections", () => {
-    expect(getHelmetsSections()).toEqualLuaArrays(["helm_first", "helm_second"]);
+describe("getHelmetsSections util", () => {
+  it("should get list of sections", () => {
+    expect(getHelmetsSections()).toEqualLuaArrays(["helm_respirator", "helm_hardhat", "helm_protective"]);
   });
+});
 
-  it("getWeaponSections utils should correctly get list of sections", () => {
+describe("getWeaponSections util", () => {
+  it("should get list of sections", () => {
     expect(getWeaponSections()).toEqualLuaArrays([
+      "pri_a17_gauss_rifle",
       "wpn_ak74",
       "wpn_ak74u",
       "wpn_svu",
       "wpn_abakan",
-      "wpn_addon_scope",
       "grenade_f1",
     ]);
+  });
+});
+
+describe("getWeaponAddonsSections util", () => {
+  it("should get list of sections", () => {
+    expect(getWeaponAddonsSections()).toEqualLuaArrays(["wpn_addon_scope"]);
   });
 });

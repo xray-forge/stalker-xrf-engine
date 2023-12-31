@@ -1,11 +1,17 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events } from "xray16";
 
+import { SYSTEM_INI } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
 import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/caption";
 import { isGameStarted } from "@/engine/core/utils/game";
-import { getSimulationGroupSections, getStalkerSections } from "@/engine/core/utils/ini";
+import {
+  getSectionsWithoutStoryIDs,
+  getSimulationGroupSections,
+  getStalkerSections,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestServerObject } from "@/engine/core/utils/registry";
 import { spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/spawn";
@@ -84,12 +90,13 @@ export class DebugSpawnSection extends AbstractDebugSection {
 
     switch (category) {
       case ESpawnCategory.SIMULATION_GROUP:
-        this.addItemsToList(getSimulationGroupSections());
+        this.addItemsToList(getSectionsWithoutStoryIDs(getSimulationGroupSections()));
         break;
 
-      case ESpawnCategory.STALKER:
-        this.addItemsToList(getStalkerSections());
+      case ESpawnCategory.STALKER: {
+        this.addItemsToList(getSectionsWithoutStoryIDs(getStalkerSections()));
         break;
+      }
     }
   }
 
