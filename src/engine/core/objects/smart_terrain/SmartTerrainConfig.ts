@@ -1,3 +1,9 @@
+import { ini_file } from "xray16";
+
+import { IniFile } from "@/engine/lib/types";
+
+export const SMART_TERRAIN_MASKS_LTX: IniFile = new ini_file("managers\\simulation\\smart_terrain_masks.ltx");
+
 export const smartTerrainConfig = {
   // Timeout for smart terrain controlled base (like Yanov).
   ALARM_SMART_TERRAIN_BASE: 2 * 60 * 60,

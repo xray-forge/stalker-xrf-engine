@@ -19,7 +19,6 @@ import {
   registerObjectStoryLinks,
   registerSimulationObject,
   registry,
-  SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
   unregisterSimulationObject,
   unregisterStoryLinkByObjectId,
@@ -51,7 +50,7 @@ import {
   ISmartTerrainSpawnConfiguration,
   ISmartTerrainSpawnItemsDescriptor,
 } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
-import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
+import { SMART_TERRAIN_MASKS_LTX, smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { SmartTerrainControl } from "@/engine/core/objects/smart_terrain/SmartTerrainControl";
 import {
   applySmartTerrainRespawnSectionsConfig,

@@ -5,9 +5,7 @@ import {
   DYNAMIC_LTX_PREFIX,
   DYNAMIC_WEATHER_GRAPHS,
   GAME_LTX,
-  SMART_TERRAIN_MASKS_LTX,
   SOUND_STORIES_LTX,
-  SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
 } from "@/engine/core/database/ini_registry";
 import { IniFile } from "@/engine/lib/types";
@@ -24,8 +22,6 @@ describe("ini_registry database module", () => {
       DUMMY_LTX,
       GAME_LTX,
       DYNAMIC_WEATHER_GRAPHS,
-      SQUAD_BEHAVIOURS_LTX,
-      SMART_TERRAIN_MASKS_LTX,
       SOUND_STORIES_LTX,
     ];
 

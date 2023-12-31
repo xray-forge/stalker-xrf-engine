@@ -9,9 +9,7 @@ import {
   registerObjectStoryLinks,
   registerSimulationObject,
   registry,
-  SMART_TERRAIN_MASKS_LTX,
   softResetOfflineObject,
-  SQUAD_BEHAVIOURS_LTX,
   SYSTEM_INI,
   unregisterSimulationObject,
   unregisterStoryLinkByObjectId,
@@ -30,8 +28,10 @@ import { getSquadSimulationTarget } from "@/engine/core/managers/simulation/util
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { SMART_TERRAIN_MASKS_LTX } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
+import { SQUAD_BEHAVIOURS_LTX } from "@/engine/core/objects/squad/SquadConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { isSmartTerrain } from "@/engine/core/utils/class_ids";
 import {
