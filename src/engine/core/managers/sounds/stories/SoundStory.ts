@@ -1,5 +1,5 @@
-import { SOUND_STORIES_LTX } from "@/engine/core/database";
 import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/managers/sounds/sounds_types";
+import { SOUND_STORIES_LTX } from "@/engine/core/managers/sounds/SoundsConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
 import { LuaLogger } from "@/engine/core/utils/logging";

@@ -6,7 +6,8 @@ import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils/sounds_init";
 import { IniFile, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
-export const SCRIPT_SOUND_LTX: IniFile = new ini_file("sounds\\script_sound.ltx");
+export const SCRIPT_SOUND_LTX: IniFile = new ini_file("managers\\sounds\\script_sound.ltx");
+export const SOUND_STORIES_LTX: IniFile = new ini_file("managers\\sounds\\sound_stories.ltx");
 
 export const soundsConfig = {
   themes: readIniThemesList(SCRIPT_SOUND_LTX),

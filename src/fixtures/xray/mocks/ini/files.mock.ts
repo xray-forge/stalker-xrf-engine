@@ -37,6 +37,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
   "managers\\map_display_manager.ltx": mockMapDisplayManager,
   "managers\\simulation\\simulation_objects_props.ltx": mockSimulationObjectsProps,
   "managers\\simulation\\squad_behaviours.ltx": mockSquadBehaviours,
+  "managers\\sounds\\script_sound.ltx": mockScriptSound,
   "managers\\surge_manager.ltx": mockSurgeManager,
   "managers\\task_manager.ltx": mockTaskManager,
   "managers\\trade\\trade_generic.ltx": mockTradeGeneric,
@@ -47,7 +48,6 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
   "managers\\upgrades_manager.ltx": mockUpgradesManager,
   "object_spawn.ini": {},
   "scripts\\dummy.ltx": {},
-  "sounds\\script_sound.ltx": mockScriptSound,
   "spawn.ini": mockSpawnIni,
   "system.ini": mockSystemIni,
 };

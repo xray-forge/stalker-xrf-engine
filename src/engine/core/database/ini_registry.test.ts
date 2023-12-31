@@ -5,7 +5,6 @@ import {
   DYNAMIC_LTX_PREFIX,
   DYNAMIC_WEATHER_GRAPHS,
   GAME_LTX,
-  SOUND_STORIES_LTX,
   SYSTEM_INI,
 } from "@/engine/core/database/ini_registry";
 import { IniFile } from "@/engine/lib/types";
@@ -17,13 +16,7 @@ describe("ini_registry database module", () => {
   });
 
   it("should correctly define ini files globals", () => {
-    const expectedIniFiles: Array<IniFile> = [
-      SYSTEM_INI,
-      DUMMY_LTX,
-      GAME_LTX,
-      DYNAMIC_WEATHER_GRAPHS,
-      SOUND_STORIES_LTX,
-    ];
+    const expectedIniFiles: Array<IniFile> = [SYSTEM_INI, DUMMY_LTX, GAME_LTX, DYNAMIC_WEATHER_GRAPHS];
 
     expectedIniFiles.forEach((it) => expect(it instanceof MockIniFile).toBeTruthy());
   });
