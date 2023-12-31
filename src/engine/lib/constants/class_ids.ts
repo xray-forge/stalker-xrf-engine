@@ -300,6 +300,16 @@ export const ARTEFACT_CONFIG_CLASSES: LuaTable<EConfigClassId, boolean> = $fromO
 } as Record<EConfigClassId, boolean>);
 
 /**
+ * Detectors defining config classes.
+ */
+export const DETECTOR_CONFIG_CLASSES: LuaTable<EConfigClassId, boolean> = $fromObject({
+  [EConfigClassId.DET_ELIT]: true,
+  [EConfigClassId.DET_SCIE]: true,
+  [EConfigClassId.DET_SIMP]: true,
+  [EConfigClassId.DET_ADVA]: true,
+} as Record<EConfigClassId, boolean>);
+
+/**
  * Ammo defining config classes.
  */
 export const AMMO_CONFIG_CLASSES: LuaTable<EConfigClassId, boolean> = $fromObject({

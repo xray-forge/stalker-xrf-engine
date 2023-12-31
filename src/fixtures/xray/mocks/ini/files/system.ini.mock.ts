@@ -1,5 +1,7 @@
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { mockArtefacts } from "@/fixtures/xray/mocks/ini/files/artefacts.ltx.mock";
+import { mockConsumables } from "@/fixtures/xray/mocks/ini/files/consumable.ltx.mock";
+import { mockDevices } from "@/fixtures/xray/mocks/ini/files/devices.ltx.mock";
 import { mockOutfit } from "@/fixtures/xray/mocks/ini/files/outfit.ltx.mock";
 import { mockSpawnSections } from "@/fixtures/xray/mocks/ini/files/spawn_sections.ltx.mock";
 import { mockSquadDescription } from "@/fixtures/xray/mocks/ini/files/squad_descr.ltx.mock";
@@ -8,6 +10,8 @@ import { mockWeaponLtx } from "@/fixtures/xray/mocks/ini/files/weapons.ltx.mock"
 
 export const mockSystemIni = {
   ...mockArtefacts,
+  ...mockConsumables,
+  ...mockDevices,
   ...mockOutfit,
   ...mockSpawnSections,
   ...mockSquadDescription,
@@ -19,16 +23,6 @@ export const mockSystemIni = {
     quick_item_3: "qi_3",
     quick_item_4: "qi_4",
   },
-  [detectors.detector_advanced]: {
-    inv_name: "st_detector2",
-  },
-  existing: {},
-  af_base: {},
-  af_first: {},
-  af_second: {},
-  af_second_absorbation: {},
-  af_activation_first: {},
-  squad: {},
   stalker_none_1: {
     set_visual: "",
   },

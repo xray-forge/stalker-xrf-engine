@@ -8,6 +8,9 @@ export const mockOutfit = {
   cs_heavy_outfit: {
     class: "E_STLK",
   },
+  helmet: {
+    class: "E_HLMET",
+  },
   helm_respirator: {
     class: "E_HLMET",
   },

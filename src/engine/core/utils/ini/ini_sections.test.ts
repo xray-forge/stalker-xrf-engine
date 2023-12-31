@@ -3,6 +3,8 @@ import { describe, expect, it } from "@jest/globals";
 import {
   getAmmoSections,
   getArtefactsSections,
+  getBoosterSections,
+  getDetectorsSections,
   getHelmetsSections,
   getOutfitSections,
   getSectionsWithoutStoryIDs,
@@ -73,6 +75,17 @@ describe("getArtefactsSections util", () => {
   });
 });
 
+describe("getDetectorsSections util", () => {
+  it("should get list of sections", () => {
+    expect(getDetectorsSections()).toEqualLuaArrays([
+      "detector_simple",
+      "detector_advanced",
+      "detector_elite",
+      "detector_scientific",
+    ]);
+  });
+});
+
 describe("getAmmoSections util", () => {
   it("should get list of sections", () => {
     expect(getAmmoSections()).toEqualLuaArrays([
@@ -109,5 +122,11 @@ describe("getWeaponSections util", () => {
 describe("getWeaponAddonsSections util", () => {
   it("should get list of sections", () => {
     expect(getWeaponAddonsSections()).toEqualLuaArrays(["wpn_addon_scope"]);
+  });
+});
+
+describe("getBoosterSections util", () => {
+  it("should get list of sections", () => {
+    expect(getBoosterSections()).toEqualLuaArrays(["bread", "bandage", "kolbasa", "conserva"]);
   });
 });
