@@ -3,7 +3,6 @@ import { CTime, game, level } from "xray16";
 import {
   closeLoadMarker,
   closeSaveMarker,
-  DYNAMIC_WEATHER_GRAPHS,
   GAME_LTX,
   getManager,
   getManagerByName,
@@ -22,6 +21,7 @@ import {
   isTransitionWeather,
 } from "@/engine/core/managers/weather/utils";
 import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
+import { DYNAMIC_WEATHER_GRAPHS } from "@/engine/core/managers/weather/WeatherConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { executeConsoleCommandsFromSection } from "@/engine/core/utils/console";
 import {
