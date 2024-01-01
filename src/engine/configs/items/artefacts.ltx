@@ -1,8 +1,3 @@
-; Artefacts
-
-; -------------------------------------------------------------------------------
-; ���� ���� ������������ �������
-; -------------------------------------------------------------------------------
 ; dynamics\artefacts\af_baloon.ogf
 ; dynamics\artefacts\af_blood.ogf
 ; dynamics\artefacts\af_cristall.ogf
@@ -28,7 +23,6 @@
 ; dynamics\artefacts\af_vyvert.ogf
 ; dynamics\artefacts\artefact_electra_blue.ogf
 ; dynamics\artefacts\artefact_electra_green.ogf
-; -------------------------------------------------------------------------------
 
 ; ���������, ������� ��� ����������� ������� ���������� ����
 ; ������: {������_���������} = {������_����},Radius,Power
@@ -51,36 +45,28 @@ mp_af_cta_green = mp_zone_witches_galantine, 3, 50.0
 mp_af_cta_blue = mp_zone_witches_galantine, 3, 50.0
 
 [af_activation_gravi]
-; ----------------------------------------------------------------------------------------------------------------------------------------
 ; format: time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
-; ----------------------------------------------------------------------------------------------------------------------------------------
 starting = 5.0, anomaly\gravi_idle00, 0.5, 1.0, 1.5, 5.0, "anomaly2\artefact_gravi_blast_start", "idle"
 flying = 2.0, anomaly\gravi_idle01, 0.8, 1.0, 1.2, 3.0, "artefact\artefact_gravi", "idle"
 idle_before_spawning = 5.0, anomaly\gravi_blowout5, 1.0, 1.0, 1, 0.0, "anomaly2\artefact_gravi_blast_finished", "idle"
 spawning = 1, anomaly\gravity_entrance, 0.9, 1.1, 1.01, 0.0, "", "idle"
 
 [af_activation_bold]
-; ----------------------------------------------------------------------------------------------------------------------------------------
 ; format: time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
-; ----------------------------------------------------------------------------------------------------------------------------------------
 starting = 5.0, anomaly\gravi_idle00, 0.8, 1.5, 0.9, 5.0, "anomaly2\artefact_bold_blast_start", "idle"
 flying = 2.0, anomaly\gravi_idle01, 0.8, 0.9, 0.8, 2.0, "artefact\artefact_zharka", "idle"
 idle_before_spawning = 2.0, anomaly\gravity_entrance,1.0, 1.1, 1.0, 0.0, "anomaly2\artefact_bold_blast_finished", "idle"
 spawning = 0.5, anomaly\pux_blast, 1.0, 1.0, 0.5, 5.0, "anomaly2\gravi_anomaly_00", "idle"
 
 [af_activation_mincer]
-; ----------------------------------------------------------------------------------------------------------------------------------------
 ; format: time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
-; ----------------------------------------------------------------------------------------------------------------------------------------
 starting = 5.0, anomaly\gravi_idle00, 0.5, 1.0, 1.5, 5.0, "anomaly2\artefact_gravi_blast_start", "idle"
 flying = 2.0, anomaly\gravi_idle01, 0.8, 1.0, 1.2, 3.0, "artefact\artefact_mincer", "idle"
 idle_before_spawning = 5.0, anomaly\gravi_blowout2, 1.0, 1.0, 1.0, 0.0, "anomaly2\artefact_gravi_blast_finished", "idle"
 spawning = 0.0, "", 1.0, 1.0, 0.5, 0.0, "", "idle"
 
 [af_activation_electra]
-; ----------------------------------------------------------------------------------------------------------------------------------------
 ; format: time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
-; ----------------------------------------------------------------------------------------------------------------------------------------
 starting = 5.0, anomaly\bfuzz_blowout, 0.8, 1.0, 1.5, 5.0, "anomaly2\artefact_electra_blast_start", "idle"
 flying = 2.0, anomaly\electra_idle1, 1.0, 1.0, 1.0, 5.0, "artefact\artefact_electra", "idle"
 idle_before_spawning = 0.0, "", 1.0, 1.0, 2.5, 0, "", "idle"
@@ -141,10 +127,6 @@ anm_hide = dev_artefact_holster
 anm_show = dev_artefact_draw
 anm_activate = dev_artefact_use
 
-; ------------------------------------------------------------------------------------------
-; ------------------ ��������� ��� �������������� �������� ---------------------------------
-; ------------------------------------------------------------------------------------------
-
 [af_medusa]:af_base
 $spawn = "artefacts\gravitational_1_medusa"
 class = ARTEFACT ; ����� ������������
@@ -195,8 +177,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_cristall_flower]:af_base
 $spawn = "artefacts\gravitational_2_cristall_flower"
@@ -251,8 +231,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_night_star]:af_base
 $spawn = "artefacts\gravitational_3_night_star"
 class = ARTEFACT
@@ -304,8 +282,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_vyvert]:af_base
 $spawn = "artefacts\gravitational_4_vyvert"
@@ -362,8 +338,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_gravi]:af_base
 $spawn = "artefacts\gravitational_5_gravi"
 class = ARTEFACT
@@ -413,8 +387,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_gold_fish]:af_base
 $spawn = "artefacts\gravitational_6_gold_fish"
@@ -467,10 +439,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-; ------------------ ��������� ��� ���������� �������� -------------------------------------
-; ------------------------------------------------------------------------------------------
-
 [af_cristall]:af_base
 $spawn = "artefacts\thermal_1_cristall"
 class = ARTEFACT
@@ -521,8 +489,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_fireball]:af_base
 $spawn = "artefacts\thermal_2_fireball"
@@ -577,8 +543,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_dummy_glassbeads]:af_base
 $spawn = "artefacts\thermal_3_dummy_glassbeads"
 class = ARTEFACT
@@ -631,8 +595,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_eye]:af_base
 $spawn = "artefacts\thermal_4_eye"
 class = ARTEFACT
@@ -683,8 +645,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_fire]:af_base
 $spawn = "artefacts\thermal_5_fire"
 class = ARTEFACT
@@ -734,10 +694,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
-; ------------------ ��������� ��� ���������� �������� -------------------------------------
-; ------------------------------------------------------------------------------------------
 
 [af_blood]:af_base
 $spawn = "artefacts\acidic_1_blood"
@@ -791,8 +747,6 @@ chemical_burn_immunity = 0.02
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_mincer_meat]:af_base
 $spawn = "artefacts\acidic_2_mincer_meat"
 class = ARTEFACT
@@ -844,8 +798,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0.04
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_soul]:af_base
 $spawn = "artefacts\acidic_3_soul"
@@ -900,8 +852,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_fuzz_kolobok]:af_base
 $spawn = "artefacts\acidic_4_fuzz_kolobok"
 class = SCRPTART
@@ -950,8 +900,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_baloon]:af_base
 $spawn = "artefacts\acidic_5_baloon"
@@ -1002,8 +950,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_glass]:af_base
 $spawn = "artefacts\acidic_6_glass"
 class = ARTEFACT
@@ -1052,10 +998,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
-; ------------------ ��������� ��� ������������� �������� ----------------------------------
-; ------------------------------------------------------------------------------------------
 
 [af_electra_sparkler]:af_base
 $spawn = "artefacts\electric_1_electra_sparkler"
@@ -1109,8 +1051,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_electra_flash]:af_base
 $spawn = "artefacts\electric_2_electra_flash"
 class = SCRPTART
@@ -1162,8 +1102,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_electra_moonlight]:af_base
 $spawn = "artefacts\electric_3_electra_moonlight"
@@ -1218,8 +1156,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_dummy_battery]:af_base
 $spawn = "artefacts\electric_4_dummy_battery"
 class = ARTEFACT
@@ -1270,8 +1206,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-
 [af_dummy_dummy]:af_base
 $spawn = "artefacts\electric_5_dummy_dummy"
 class = ARTEFACT
@@ -1320,8 +1254,6 @@ telepatic_immunity = 0
 chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_ice]:af_base
 $spawn = "artefacts\electric_6_ice"
@@ -1372,12 +1304,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ------------------------------------------------------------------------------------------
-; ------------------------------------------------------------------------------------------
-; ------------------------------------------------------------------------------------------
-; ------------------------------------------------------------------------------------------
-; ------------------------------------------------------------------------------------------
-
 [af_compass]:af_base
 $spawn = "artefacts\compass"
 class = SCRPTART
@@ -1427,8 +1353,6 @@ telepatic_immunity = 0.01
 chemical_burn_immunity = 0.02
 explosion_immunity = 0
 fire_wound_immunity = 0
-
-; ------------------------------------------------------------------------------------------
 
 [af_oasis_heart]:af_base
 $spawn = "artefacts\af_oasis_heart"
@@ -1481,7 +1405,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ---------------------------------
 [jup_b1_half_artifact]:af_base
 $spawn = "artefacts\af_psi_field"
 class = SCRPTART
@@ -1536,7 +1459,6 @@ chemical_burn_immunity = 0
 explosion_immunity = 0
 fire_wound_immunity = 0
 
-; ---------------------------------
 [af_quest_b14_twisted]:af_base
 $spawn = "artefacts\af_control"
 class = SCRPTART

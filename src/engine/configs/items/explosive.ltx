@@ -23,7 +23,7 @@ inv_grid_y = 9
 can_take = false
 
 cost = 50
-; -------------------------------------------------------------------------------
+
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
@@ -39,7 +39,7 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
+
 wm_size = 0.1
 
 explode_particles = explosions\explosion_fuelcan
@@ -95,7 +95,7 @@ inv_grid_y = 9
 can_take = false
 
 cost = 50
-; -------------------------------------------------------------------------------
+
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
@@ -111,7 +111,7 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
+
 wm_size = 0.1
 
 explode_particles = explosions\explosion_mobiltank
@@ -124,7 +124,6 @@ light_time = 1
 fragment_speed = 100 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½/ï¿½)
 
 explode_duration = 5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½)
-; wallmarks
 wallmark_section = explosion_marks
 
 ; ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -164,7 +163,7 @@ inv_grid_y = 9
 can_take = false
 
 cost = 500
-; -------------------------------------------------------------------------------
+
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
@@ -180,7 +179,7 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
+
 wm_size = 0.1
 
 explode_particles = explosions\explosion_barrel
@@ -194,9 +193,7 @@ fragment_speed = 100 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½/ï¿
 
 explode_duration = 5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½)
 
-; wallmarks
 wallmark_section = explosion_marks
-; ï¿½ï¿½ï¿½ï¿½ï¿½
 snd_explode = weapons\f1_explode
 immunities_sect = explosive_barrel_low_immunities_sect
 
@@ -222,7 +219,6 @@ inv_grid_y = 9
 can_take = false
 
 cost = 500
-; -------------------------------------------------------------------------------
 blast = 2.50
 blast_r = 3
 blast_impulse = 250
@@ -238,7 +234,6 @@ hit_type_blast = explosion
 hit_type_frag = fire_wound
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_01
@@ -260,7 +255,6 @@ immunities_sect = explosive_explosive_grenade_immunities_sect
 
 ; time_to_explode = 0.f
 
-; ------------------------ pri_a25_enter_door_explosive_grenade --------------
 [pri_a25_enter_door_explosive_grenade]:explosive_grenade
 $spawn = "dynamic_objects\scene_objects\pri_a25_enter_door_explosive_grenade"
 story_id = pri_a25_enter_door_explosive_grenade
@@ -268,7 +262,6 @@ hit_type_blast = chemical_burn
 hit_type_frag = chemical_burn
 visual = dynamics\light\light_signal.ogf
 
-; ------------------------- pri_a25_antenna_grenade --------------
 [pri_a25_antenna_grenade]:explosive_grenade
 $spawn = "dynamic_objects\scene_objects\pri_a25_antenna_grenade"
 story_id = pri_a25_antenna_grenade
@@ -305,7 +298,6 @@ inv_grid_y = 9
 can_take = false
 
 cost = 500
-; -------------------------------------------------------------------------------
 blast = 1.00
 blast_r = 30
 blast_impulse = 500
@@ -321,7 +313,6 @@ hit_type_blast = explosion
 hit_type_frag = fire_wound
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_01
@@ -335,9 +326,7 @@ fragment_speed = 50 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½/ï¿½
 
 explode_duration = 5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½)
 
-; wallmarks
 wallmark_section = explosion_marks
-; ï¿½ï¿½ï¿½ï¿½ï¿½
 snd_explode = weapons\rpg7_explode
 immunities_sect = explosive_hide_immunities_sect
 
@@ -375,11 +364,9 @@ inv_grid_y = 9
 can_take = false
 
 cost = 500
-; -------------------------------------------------------------------------------
 blast = 0.25
 blast_r = 3
 blast_impulse = 50
-; delete
 blast_impulse_factor = 1
 
 frags = 5
@@ -391,7 +378,6 @@ hit_type_blast = explosion
 hit_type_frag = fire_wound
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_concrete_box
@@ -405,7 +391,6 @@ fragment_speed = 25 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½/ï¿½
 
 explode_duration = 2 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½)
 
-; wallmarks
 wallmark_section = explosion_marks
 ; ï¿½ï¿½ï¿½ï¿½ï¿½
 snd_explode = weapons\f1_explode_
@@ -445,7 +430,6 @@ inv_grid_y = 9
 can_take = false
 
 cost = 500
-; -------------------------------------------------------------------------------
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
@@ -461,7 +445,6 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_barrel
@@ -482,7 +465,6 @@ immunities_sect = explosive_barrel_immunities_sect
 wallmark_section = explosion_marks
 
 [explosive_barrel_immunities_sect]
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 burn_immunity = 0.0
 strike_immunity = 1
 shock_immunity = 1
@@ -513,7 +495,6 @@ inv_grid_y = 9
 can_take = false
 
 cost = 500
-; -------------------------------------------------------------------------------
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
@@ -529,7 +510,6 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_mobiltank
@@ -543,10 +523,8 @@ fragment_speed = 100 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½/ï¿
 
 explode_duration = 5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½)
 
-; ï¿½ï¿½ï¿½ï¿½ï¿½
 snd_explode = weapons\f1_explode
 immunities_sect = explosive_mobiltank_immunities_sect
-; wallmarks
 wallmark_section = explosion_marks
 
 [explosive_mobiltank_immunities_sect]
@@ -596,7 +574,6 @@ hit_type_blast = explosion ; chemical_burn
 hit_type_frag = chemical_burn ; burn
 
 up_throw_factor = 1.0
-; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_dynamite
@@ -613,11 +590,9 @@ explode_duration = 5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿
 snd_explode = weapons\f1_explode
 immunities_sect = dinamit_immunities_sect
 ; condition_to_explode =0.f
-; wallmarks
 wallmark_section = explosion_marks
 
 [dinamit_immunities_sect]
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 burn_immunity = 0.0
 strike_immunity = 0.0
 shock_immunity = 0.0

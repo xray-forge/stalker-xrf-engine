@@ -1,8 +1,8 @@
-import { detectors } from "@/engine/lib/constants/items/detectors";
 import { mockArtefacts } from "@/fixtures/xray/mocks/ini/files/artefacts.ltx.mock";
 import { mockConsumables } from "@/fixtures/xray/mocks/ini/files/consumable.ltx.mock";
 import { mockDevices } from "@/fixtures/xray/mocks/ini/files/devices.ltx.mock";
 import { mockEffectors } from "@/fixtures/xray/mocks/ini/files/effectors.ltx.mock";
+import { mockGameRelations } from "@/fixtures/xray/mocks/ini/files/game_relations.ltx.mock";
 import { mockOutfit } from "@/fixtures/xray/mocks/ini/files/outfit.ltx.mock";
 import { mockSpawnSections } from "@/fixtures/xray/mocks/ini/files/spawn_sections.ltx.mock";
 import { mockSquadDescription } from "@/fixtures/xray/mocks/ini/files/squad_descr.ltx.mock";
@@ -14,6 +14,7 @@ export const mockSystemIni = {
   ...mockConsumables,
   ...mockDevices,
   ...mockEffectors,
+  ...mockGameRelations,
   ...mockOutfit,
   ...mockSpawnSections,
   ...mockSquadDescription,
@@ -33,9 +34,5 @@ export const mockSystemIni = {
   },
   stalker_actor_1: {
     set_visual: "actor_visual",
-  },
-  game_relations: {
-    rating: "novice, 300, experienced, 600, veteran, 900, master",
-    monster_rating: "weak, 400, normal, 800, strong",
   },
 };

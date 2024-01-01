@@ -14,7 +14,6 @@ ef_weapon_type = 6
 default_to_ruck = false
 sprint_allowed = true
 
-; -------------------------------------------------------------------------------
 cost = 3000 ; the price of the item
 weapon_class = assault_rifle ; the type of the box that will be used in buy-menu in multiplayer mode
 inv_weight = 2.7 ; weight in inventory
@@ -22,7 +21,6 @@ inv_weight = 2.7 ; weight in inventory
 upgrades = up_gr_firstab_ak74u, up_gr_seconab_ak74u, up_gr_thirdab_ak74u, up_gr_fourtab_ak74u, up_gr_fifthab_ak74u
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_ak74u
-; -���---------------------------------------------------------------------------
 
 hit_power = 0.3, 0.3, 0.3, 0.3
 hit_impulse = 100 ; size of physic impulse by bullet
@@ -62,11 +60,9 @@ launch_speed = 0
 hand_dependence = 1
 single_handed = 0
 
-; ---DOF-------------------------------------------------------------------------
 zoom_dof = 0.5, 1.0, 180
 reload_dof = 0.0, 0.5, 5, 2
 
-; ----���������---------------------------------------------------------------------------
 fire_dispersion_base = 0.35 ; 0.19 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.1
 crosshair_inertion = 5.50
@@ -98,7 +94,6 @@ PDM_disp_accel_factor = 1.5
 PDM_disp_crouch = 1.0
 PDM_disp_crouch_no_acc = 1.0
 
-; ------- for AI ------------------------------------------------------------------------
 holder_range_modifier = 1.0 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -110,7 +105,6 @@ hit_probability_gd_stalker = 0.80
 hit_probability_gd_veteran = 0.80
 hit_probability_gd_master = 0.80
 
-; -------------------------------------------------------------------------------
 slot = 2 ; // secondary
 animation_slot = 8 ; type of the animation that will be used
 
@@ -144,7 +138,6 @@ grenade_flame_particles = weapons\generic_weapon01
 shell_point = 0.00, 0.262, 0.189 ; position (3rd person view) for shell to throw out
 shell_particles = weapons\generic_shells ; name of the particles for shells
 
-; --STRAP PARAMETERS-----------------------------------------------------------------
 ; ��� ������
 strap_position = -0.18,-0.45,0.2 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -10,-5,10 ; (3rd person view in degrees)
@@ -269,14 +262,9 @@ gl_hud_offset_rot_16x9 = 0,0,0 ; 0.052500,0.045000,-0.010000
 lean_hud_offset_pos = 0,0,0
 lean_hud_offset_rot = 0,0,0
 
-; -----------------------------------------------------------------------------
-; ����������
-; -----------------------------------------------------------------------------
 [wpn_ak74u_snag]:wpn_ak74u ; zaton b33
 $spawn = "weapons\wpn_ak74u_snag" ; option for Level Editor
-
 cost = 3200
-
 upgrades = up_gr_firstab_ak74u, up_gr_seconab_ak74u, up_gr_thirdab_ak74u, up_gr_fourtab_ak74u, up_gr_fifthab_ak74u
 installed_upgrades = up_fiftha_ak74u
 upgrade_scheme = upgrade_scheme_ak74u

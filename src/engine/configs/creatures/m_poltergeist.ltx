@@ -37,10 +37,6 @@ weapon_usage = 0 ; boolean
 
 type = flamer
 
-; ------------------------------------------------------------------------
-; Influences
-; ------------------------------------------------------------------------
-
 fire_max_distance = 0
 fire_max_power = 0.1
 fire_linear_factor = 1
@@ -58,9 +54,6 @@ radiation_max_power = 0.02
 radiation_linear_factor = 1
 radiation_quadratic_factor = 1
 
-; ---------------------------------------------------------------------
-; Physics
-; ---------------------------------------------------------------------
 ph_box0_center = 0.0, 0.2, 0.0 ; 0.0, 0.9, 0.0
 ph_box0_size = 0.50, 0.4, 0.50
 ph_box1_center = 0.0, 0.2, 0.0
@@ -72,7 +65,6 @@ ph_mass = 80 ; also it's the food
 
 destroyed_vis_name = dynamics\Dead_Body\skelet_crash
 
-; ---------------------------------------------------------------------
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.002 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.3 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5.0 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
@@ -81,11 +73,7 @@ ph_skeleton_ddelay = 15.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿
 ph_skel_fatal_impulse_factor = 6.0
 ph_after_death_velocity_factor= 0.75
 ph_skel_shot_up_factor = 0.25
-; ---------------------------------------------------------------------
 
-; ----------------------------------------------------------------------------
-; Movement::Velocities & Acceleration
-; ----------------------------------------------------------------------------
 ; speed factors linear | angular_real | angular_path | min | max
 Velocity_Stand = 0, 5.0, 5.0, 0.2, 0.5
 Velocity_WalkFwdNormal = 1.7, 2.0, 2.0, 0.2, 2.0
@@ -110,9 +98,6 @@ Height_Change_Max_Time = 10000
 Height_Min = 0.4
 Height_Max = 2.0
 
-; --------------------------------------------------------------------------
-; Attack parameters
-; --------------------------------------------------------------------------
 ; attack parameters
 MinAttackDist = 0.5 ; 2.1
 MaxAttackDist = 2.0
@@ -120,9 +105,6 @@ MaxAttackDist = 2.0
 as_min_dist = 0.1
 as_step = 0.3
 
-; -------------------------------------------------------------------------
-; Entity Conditions
-; -------------------------------------------------------------------------
 DayTime_Begin = 0
 DayTime_End = 21
 Min_Satiety = 0.7
@@ -133,8 +115,6 @@ distance_to_corpse = 1.8
 terrain = poltergeist_terrain
 protections_sect = poltergeist_protections
 hit_type = strike
-
-; entity condition
 
 satiety_v = 0.0001 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 radiation_v = 0.00001 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -166,9 +146,6 @@ eat_slice_weight = 10.0
 
 satiety_threshold = 0.5 ; below this value monster fill hunger
 
-; ---------------------------------------------------------
-; Sounds and sound parameters
-; ---------------------------------------------------------
 sound_idle = monsters\biting\def_
 sound_eat = monsters\biting\def_
 sound_aggressive = monsters\biting\def_
@@ -195,9 +172,6 @@ distant_idle_sound_range = 100.0
 SoundThreshold = 0.06 ; range [0..1]
 max_hear_dist = 60
 
-; -------------------------------------------------------------------------
-; Morale
-; -------------------------------------------------------------------------
 Morale_Hit_Quant = 0.01
 Morale_Attack_Success_Quant = 0.3
 Morale_Take_Heart_Speed = 0.1
@@ -205,9 +179,6 @@ Morale_Despondent_Speed = 0.1
 Morale_Stable_Speed = 0.3
 Morale_Despondent_Threashold = 0.5
 
-; -------------------------------------------------------------------------
-; Other Stuff (refactoring needed)
-; -------------------------------------------------------------------------
 DamagedThreshold = 0.4
 
 material = creatures\large ; objects\bullet
@@ -224,8 +195,6 @@ anger_loud_threshold = 0.7
 LegsCount = 2
 damage = m_poltergeist_damage
 
-; ---------------------------
-
 Invisible_Energy_Restore_Velocity = 0.1
 Invisible_Energy_Decline_Velocity = 0.0
 Invisible_Energy_Critical_Value = 0.01
@@ -236,8 +205,6 @@ Particles_Damage = monsters\polter_damage
 Particles_Death = monsters\polter_death_00
 Particles_Idle = monsters\polter_idle_00
 Particles_Hidden = monsters\polter_linza_00
-
-; -- Delays -------------------
 
 Delay_Flame_Min = 30000
 Delay_Flame_Normal = 30001
@@ -251,9 +218,6 @@ Delay_Scare_Min = 30000
 Delay_Scare_Normal = 30001
 Delay_Scare_Aggressive = 30001
 
-; ---------------------------
-
-; species of monster
 species = poltergeist
 rank = 11
 spec_rank = normal
@@ -262,9 +226,6 @@ community = poltergeist
 critical_wound_threshold = -1
 critical_wound_decrease_quant = 0.
 
-; -------------------------------------------------------------------------
-; Vision
-; -------------------------------------------------------------------------
 eye_fov = 100 ; 120
 eye_range = 40 ; 60
 
@@ -346,23 +307,15 @@ ce_period_number = 1.5 ; 2.0
 ce_power = 1.5 ; 0.7 ; power
 
 [m_poltergeist_step_params] left right right left
-; ------------------------------------------------------------------------------------------------------------------
 ; anim cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
-; -----------------------------------------------------------------------------------------------------------------
 stand_walk_fwd_0 = 1, 0.1, 1, 0.34, 1, 0.6, 1, 0.84, 1
 stand_walk_dmg_0 = 1, 0.2, 1, 0.25, 1, 0.5, 1, 0.7, 1
 stand_run_fwd_0 = 1, 0.1, 1, 0.3, 1, 0.5, 1, 0.55, 1
 stand_run_dmg_0 = 1, 0.2, 1, 0.25, 1, 0.7, 1, 0.75, 1
 
-; ===========================================================================
-; TERRAIN
-; ===========================================================================
 [poltergeist_terrain]
 255,000,255,255
 
-; ===========================================================================
-; IMMUNITIES
-; ===========================================================================
 [poltergeist_immunities]
 burn_immunity = 0.3 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 strike_immunity = 0.7
@@ -374,9 +327,6 @@ chemical_burn_immunity = 1.0
 explosion_immunity = 1.0
 fire_wound_immunity = 1.0
 
-; ===========================================================================
-; TELE
-; ===========================================================================
 [m_poltergeist_normal_tele]:m_poltergeist_e
 $spawn = "monsters\poltergeists\poltergeist_normal_tele"
 rank = 11
@@ -439,10 +389,6 @@ telepatic_immunity = 1.0
 chemical_burn_immunity = 1.0
 explosion_immunity = 0.1
 fire_wound_immunity = 1.0
-
-; ===========================================================================
-; FLAMER
-; ===========================================================================
 
 [m_poltergeist_normal_flame]:m_poltergeist_e
 $spawn = "monsters\poltergeists\poltergeist_normal_flame"

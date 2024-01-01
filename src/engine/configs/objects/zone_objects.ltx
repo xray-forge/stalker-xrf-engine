@@ -1,0 +1,50 @@
+[zone_team_base]
+$spawn = network\team base
+class = Z_TEAMBS
+GroupControlSection = spawn_group_zone
+
+[spawn_group_zone]
+GroupControlSection = spawn_group_zone
+$spawn = "ai\group zone"
+class = AI_SPGRP
+
+[space_restrictor]
+GroupControlSection = spawn_group_restrictor
+$spawn = "ai\space_restrictor"
+class = SPC_RS_S
+script_binding = bind.restrictor ; xrf change
+shape_transp_color = 0, 255, 0, 24
+shape_edge_color = 32, 32, 32, 255
+
+[anomal_zone]:space_restrictor
+GroupControlSection = spawn_group_zone
+$spawn = "ai\anomal_zone"
+$def_sphere = 2
+$prefetch = 16
+script_binding = bind.anomalyZone ; xrf change
+shape_transp_color = 240, 217, 182, 58
+shape_edge_color = 32, 32, 32, 255
+
+[camp_zone]
+GroupControlSection = spawn_group_restrictor
+$spawn = "ai\camp"
+$prefetch = 16
+$def_sphere = 2
+class = SPC_RS_S
+script_binding = bind.camp ; xrf change
+shape_transp_color = 0, 0, 255, 24
+shape_edge_color = 32, 32, 32, 255
+
+[level_changer]
+GroupControlSection =
+$spawn = "ai\level changer"
+class = LVL_CHNG
+script_binding = bind.levelChanger ; xrf change
+shape_transp_color = 255, 255, 255, 100
+shape_edge_color = 32, 32, 32, 255
+
+[script_zone]
+GroupControlSection =
+$spawn = "ai\script zone"
+class = SCRIPTZN
+script_binding = bind.arenaZone ; xrf change

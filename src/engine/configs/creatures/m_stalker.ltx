@@ -316,10 +316,8 @@ class = AI_STL_S ; Class identifier
 
 can_select_items = on
 
-; ---EVALUATION FUNCTIONS----------------------------------------------
 ef_creature_type = 17 ; option for evaluation functions
 
-; ---LEVEL EDITOR------------------------------------------------------
 $spawn = "stalkers\stalker" ; option for Level Editor
 $npc = on ; option for Level Editor
 visual = actors\stalker_hero\stalker_hero_1.ogf ; option for Level Editor
@@ -328,32 +326,25 @@ custom_data = misc\default_custom_data.ltx ; option for Level Editor
 character_profile = default ; option for Level Editor
 use_single_item_rule = off
 
-; ---GAME--------------------------------------------------------------
 $prefetch = 32
 cform = skeleton ; collision class
 ; ������ ��� ��������
 species = human
 
-; ---MATERIAL----------------------------------------------------------
 material = creatures\human
 
-; ---DEAD_VISUAL-------------------------------------------------------
 destroyed_vis_name = dynamics\Dead_Body\skelet_crash
 
-; ---SCRIPTS-----------------------------------------------------------
 script_binding = bind.stalker ; xrf change
 
-; ---GROUP SECTIONS----------------------------------------------------
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mine_field
 attachable_items = device_torch,attachable_item,hand_radio,hand_radio_r,bread, vodka, energy_drink, kolbasa, guitar_a, harmonica_a, wpn_binoc, detector_simple, pri_a15_wpn_svu, pri_a15_wpn_wincheaster1300, wpn_binoc1, pri_a15_wpn_ak74u, pri_a15_wpn_ak74, pri_a15_documents, af_quest_b14_twisted, detector_advanced, detector_elite, device_pda, anomaly_scaner
 
-; ---SECTIONS----------------------------------------------------------
 damage = stalker_damage
 immunities_sect = stalker_immunities
 condition_sect = stalker_condition
 
-; ---OFFLINE ALIFE------------------------------------------------------------------
 Health = 100 ; option for ALife Simulator
 money = 5000 ; option for ALife Simulator
 going_speed = 3 ; 2 ; option for ALife Simulator
@@ -366,15 +357,12 @@ inv_max_weight = 10000000.0 ; ���������� ��� ���
 MaxHealthValue = 100 ; option for ALife Simulator, range [0..200]
 smart_terrain_choose_interval = 00:15:00
 
-; ---ONLINE ALIFE-------------------------------------------------------------------
 time_to_search_for_artefacts = 60000 ; in milliseconds
 distance_to_search_for_artefacts= 30.0 ; in meters
 
-; ---ONLINE-OFFLINE ALIFE-----------------------------------------------------------
 terrain = 255,255,255,255,0,1
 ; terrain = stalker_terrain
 
-; ---SOUND-------------------------------------------------------------
 sound_threshold = 0.08
 self_sound_factor = 0.1 ; 1.0
 self_decrease_quant = 250 ; in milliseconds
@@ -382,7 +370,6 @@ self_decrease_factor = 0.95 ; fading factor
 killer_clsids = Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
 sound_perceive_section = stalker_sound_perceive
 
-; ---VISIBILITY--------------------------------------------------------
 vision_danger_section = stalker_vision_danger
 vision_free_section = stalker_vision_free
 eye_fov = 160 ; 110 ; 120
@@ -390,17 +377,14 @@ eye_range = 100
 far_plane_factor = 1.0 ; ������ ��������� ������
 fog_density_factor = 0.05 ; ������ ��������� ������
 
-; ---MEMORY------------------------------------------------------------
 DynamicObjectsCount = 32
 DynamicSoundsCount = 32
 DynamicHitCount = 32
 
-; ---ENEMY------------------------------------------------------------
 ignore_monster_threshold = 0.0 ; 0.6 ; 0.8
 max_ignore_distance = 15.0
 panic_threshold = 0.0
 
-; ---SOUND PLAYER------------------------------------------------------
 sound_death = fight\death\death_
 sound_anomaly_death = fight\death\anomaly_
 sound_hit = fight\hit\hit_
@@ -431,33 +415,26 @@ sound_enemy_lost_no_allies =
 sound_enemy_lost_with_allies = fight\searching_enemy\enemy_lost_
 sound_throw_grenade = fight\grenade\grenade_ready_
 
-; ---STEP MANAGER------------------------------------------------------
 LegsCount = 2
 step_params = stalker_step_manager
 foot_bones = stalker_foot_bones
 
-; ---MOVEMENT----------------------------------------------------------
 movement_speeds = stalker_movement_speeds
 
-; ---SIGHT-------------------------------------------------------------------------
 max_left_torso_angle = 45 ; ������������ ���� �������� ������ ��� �������� ����
 max_right_torso_angle = 30 ; ������������ ���� �������� ������� ��� �������� ����
 
-; ---WEAPON BONES------------------------------------------------------------------
 weapon_bone0 = bip01_r_finger1
 weapon_bone1 = bip01_l_finger1
 weapon_bone2 = bip01_r_finger11
 
-; ---ANIMATION BONES------------------------------------------------------------------
 bone_head = bip01_head
 bone_shoulder = bip01_spine2
 bone_spin = bip01_spine1
 bone_model = bip01
 
-; ---ANIMATION------------------------------------------------------------------------
 crouch_type = 0 ; 0 - crouch a little, 1 - crouch full ; -1 - random crouch
 
-; ---FIRE DISPERSIONS--------------------------------------------------
 disp_walk_stand = 3 ; 8 ; 6
 disp_walk_crouch = 2 ; 4 ; 3
 disp_run_stand = 5 ; 14 ; 12 ; 8
@@ -467,36 +444,29 @@ disp_stand_crouch = 2 ; 2
 disp_stand_stand_zoom = 1 ; 1.5 ; 1
 disp_stand_crouch_zoom = 1 ; 1.25 ; 1
 
-; ---FIRE QUEUE PARAMETERS
 fire_queue_section = fire_queue_params
 
-; ---CRITICAL WOUND------------------------------------------------------------------
 critical_wound_threshold = 0.4
 critical_wound_decrease_quant = 0.2
 body_parts_section_id = critical_wound_body_parts_section
 critical_wound_weights = 100,50,10
 
-; ---HIT INFO---------------------------------------------------------
 hit_power = 10
 hit_type = strike
 power_fx_factor = 50.0
 
-; ---PHYSICS-----------------------------------------------------------
 ph_box0_center = 0.0, 0.9, 0.0
 ph_box0_size = 0.35, 0.9, 0.35
 ph_box1_center = 0.0, 0.6, 0.0
 ph_box1_size = 0.40, 0.6, 0.40
 
-; ---------------------------------------------------------------------
 ph_crash_speed_min = 10
 ph_crash_speed_max = 30
 ph_collision_damage_factor = 0.1
-; ---------------------------------------------------------------------
+
 ph_mass = 80
 
-; ---------------------------------------------------------------------
 ph_character_have_wounded_state = true ; ����� �� �������� ��������� �������
-; --------------------------------------------------------------------------------------------------------------------
 
 ; --------------------------------------------------------------------------------------------------------------------
 ; -- �������� ��� ������

@@ -1,5 +1,3 @@
-; todo: Move to creatures / rename creatures folder?
-
 [physic_object]
 GroupControlSection = spawn_group
 $spawn = "physics\object"
@@ -36,6 +34,10 @@ is_ai_obstacle = false
 ; visual = dynamics\equipments\novice_suit
 ; startup_animation =
 ; fixed_bones =
+
+[ph_skeleton_object]
+class = P_SKELET
+remove_time = 120
 
 [jup_b43_af_fuzz_kolobok]:physic_object
 $spawn = "dynamic_objects\scene_objects\jup_b43_af_fuzz_kolobok"

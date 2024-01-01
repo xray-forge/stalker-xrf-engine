@@ -19,10 +19,6 @@ MaxHealthValue = 50 ; range [0..200]
 DynamicObjectsCount = 32
 smart_terrain_choose_interval = 00:15:00
 
-; ------------------------------------------------------------------------
-; Influences
-; ------------------------------------------------------------------------
-
 fire_max_distance = 0
 fire_max_power = 5
 fire_linear_factor = 0
@@ -40,7 +36,6 @@ radiation_quadratic_factor = 1
 radiation_pp_effector_name = postprocess_rad
 radiation_pp_highest_at = 0.02
 
-; ---EVALUATION FUNCTIONS----------------------------------------------
 ef_creature_type = 2 ; option for evaluation functions
 ef_weapon_type = 2
 ef_detector_type = 1
@@ -67,7 +62,6 @@ destroyed_vis_name = dynamics\Dead_Body\skelet_crash
 
 script_binding = bind.monster ; xrf change
 
-; ---------------------------------------------------------------------
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.002 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.3 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5.0 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
@@ -76,7 +70,6 @@ ph_skeleton_ddelay = 15.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿
 ph_skel_fatal_impulse_factor = 6.0
 ph_after_death_velocity_factor= 0.75
 ph_skel_shot_up_factor = 0.25
-; ---------------------------------------------------------------------
 
 SoundThreshold = 0.1 ; 0.06 ; range [0..1]
 
@@ -128,8 +121,6 @@ luminocity_factor = 0.5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½
 transparency_threshold = 0.25
 
 hit_type = wound
-
-; entity condition
 
 ; entity condition
 satiety_v = 0.00001 ; 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½

@@ -39,7 +39,6 @@ sleep_satiety = 1.0
 sleep_radiation = 1.0
 sleep_psy_health = 1.0
 
-; ---LIMPING STATE-----------------------------------------------------
 use_limping_state = off
 limping_threshold = 0.5
 
@@ -97,26 +96,20 @@ free_stand_run_forward = 0.8
 panic_stand_run_forward = 7.0
 
 [stalker_zombied]:stalker
-; ---LEVEL EDITOR------------------------------------------------------
 $spawn = "stalkers\stalker_zombied" ; option for Level Editor
 attachable_items = device_torch,attachable_item
 
-; ---SECTIONS----------------------------------------------------------
 condition_sect = stalker_zombied_condition
-; ---IMMUNITIES -------------------------------------------------------
 immunities_sect = stalker_zombied_immunities
-; ---VISIBILITY--------------------------------------------------------
 vision_danger_section = stalker_zombied_vision_danger
 vision_free_section = stalker_zombied_vision_free
 eye_fov = 160 ; 170
 eye_range = 50 ; 70
-; ---ENEMY------------------------------------------------------------
 ignore_monster_threshold = 0.8
 max_ignore_distance = 10.0
 panic_threshold = 0
 sound_threshold = 0.5
 
-; ---SOUND PLAYER------------------------------------------------------
 sound_death = fight\death\death_
 sound_anomaly_death = fight\death\death_
 sound_hit = fight\hit\hit_
@@ -146,10 +139,8 @@ sound_search1_no_allies = ; fight\threat\threat_distant_
 sound_search1_with_allies = ; fight\searching_enemy\search_,fight\searching_enemy\enemy_lost_
 sound_throw_grenade = ; fight\grenade\grenade_ready_
 
-; ---MOVEMENT----------------------------------------------------------
 movement_speeds = stalker_zombied_movement_speeds
 
-; ---FIRE DISPERSIONS--------------------------------------------------
 disp_walk_stand = 16
 disp_walk_crouch = 16
 disp_run_stand = 16
@@ -159,22 +150,17 @@ disp_stand_crouch = 5 ; 16
 disp_stand_stand_zoom = 1
 disp_stand_crouch_zoom = 1
 
-; ----------- MONSTR SPECIES ----------------------------
 species = zombie
 
-; ---CRITICAL WOUND------------------------------------------------------------------
 critical_wound_threshold = 1.1
 critical_wound_decrease_quant = 0.
 body_parts_section_id = critical_wound_body_parts_section
 
 [stalker_fresh_zombied]:stalker_zombied
-; ---LEVEL EDITOR------------------------------------------------------
 $spawn = "stalkers\stalker_fresh_zombied" ; option for Level Editor
 
-; ---MOVEMENT----------------------------------------------------------
 movement_speeds = stalker_movement_speeds
 
-; ---CRITICAL WOUND------------------------------------------------------------------
 critical_wound_threshold = 1.1
 critical_wound_decrease_quant = 0.
 body_parts_section_id = critical_wound_body_parts_section
