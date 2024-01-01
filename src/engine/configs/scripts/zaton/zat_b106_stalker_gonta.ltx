@@ -8,7 +8,7 @@ path_walk = gonta_1_walk
 path_look = garmata_1_walk
 def_state_standing = wait_na
 meet = no_meet
-on_info = {-zat_b106_start_dialogs} walker@infirmary ;%+zat_b106_start_dialogs%
+on_info = {-zat_b106_start_dialogs} walker@infirmary ; %+zat_b106_start_dialogs%
 on_info2 = {+zat_b106_start_dialogs -zat_b106_hunt_finish} animpoint@base
 on_info3 = {+zat_b106_start_dialogs +zat_b106_hunt_finish} walker@ya_doma %+zat_b106_gonta_free%
 combat_ignore_cond = true
@@ -86,7 +86,7 @@ path_look = gonta_2_look
 def_state_standing = wait_na
 meet = no_meet
 on_game_timer = 30 | remark@story_calm
-;on_signal = crab_look | remark@story_calm
+; on_signal = crab_look | remark@story_calm
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -97,7 +97,7 @@ corpse_detection_enabled = false
 def_state_moving = walk
 
 [remark@story_calm]
-anim = stoop_no_weap ;wait_na
+anim = stoop_no_weap ; wait_na
 target = story | zat_b106_stalker_crab
 on_info = %=play_sound(zat_b106_gonta_story_calm)%
 on_signal = anim_end | {!actor_in_zone(zat_b106_actor_go_on)} walker@story_calm %+zat_b106_gonta_story_calm_done%, {=actor_in_zone(zat_b106_actor_go_on)} walker@to_actor
@@ -132,7 +132,7 @@ path_look = gonta_1_look
 def_state_standing = wait_na
 meet = no_meet
 on_game_timer = 20 | {!is_playing_sound} remark@to_actor
-;on_signal = actor_look | {!is_playing_sound} remark@story_calm
+; on_signal = actor_look | {!is_playing_sound} remark@story_calm
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true
@@ -146,7 +146,7 @@ def_state_moving = walk
 anim = wait_na
 target = story | actor
 on_info = %=play_sound(zat_b106_gonta_to_actor)%
-on_signal = sound_end | {!actor_in_zone(zat_b106_actor_go_on)} walker@story_calm %+zat_b106_gonta_story_calm_done%, {=actor_in_zone(zat_b106_actor_go_on)} remark@wait_actor ;walker@wait_actor
+on_signal = sound_end | {!actor_in_zone(zat_b106_actor_go_on)} walker@story_calm %+zat_b106_gonta_story_calm_done%, {=actor_in_zone(zat_b106_actor_go_on)} remark@wait_actor ; walker@wait_actor
 meet = no_meet
 snd_anim_sync = true
 combat_ignore_cond = true
@@ -163,7 +163,7 @@ path_walk = gonta_1_walk
 path_look = gonta_1_look
 def_state_standing = wait_na
 on_game_timer = 10 | remark@wait_actor
-;on_info = {!actor_in_zone(zat_b106_actor_go_on)} walker@story_calm %+zat_b106_gonta_story_calm_done%
+; on_info = {!actor_in_zone(zat_b106_actor_go_on)} walker@story_calm %+zat_b106_gonta_story_calm_done%
 meet = no_meet
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -208,8 +208,8 @@ wounded = wounded
 cover_name = zat_a2_sc_zat_b106_stalker_gonta
 meet = meet
 use_camp = false
-;on_info = {+zat_b106_give_gonta_items -zat_b106_give_gonta_items_done} %=give_items(wpn_ak74:ammo_5.45x39_fmj) +zat_b106_give_gonta_items_done%
-;on_info2 = {+zat_b106_give_gonta_items_2 -zat_b106_give_gonta_items_2_done} %=give_items(wpn_ak74:ammo_5.45x39_fmj) +zat_b106_give_gonta_items_2_done%
+; on_info = {+zat_b106_give_gonta_items -zat_b106_give_gonta_items_done} %=give_items(wpn_ak74:ammo_5.45x39_fmj) +zat_b106_give_gonta_items_done%
+; on_info2 = {+zat_b106_give_gonta_items_2 -zat_b106_give_gonta_items_2_done} %=give_items(wpn_ak74:ammo_5.45x39_fmj) +zat_b106_give_gonta_items_2_done%
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true

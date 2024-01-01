@@ -2,10 +2,10 @@
 active = sr_idle@wait_for_start
 
 [sr_idle@wait_for_start]
-on_info = {+jup_b218_gather_squad_complete} sr_idle@destroy %=create_cutscene_actor_with_weapon(jup_b219_actor:jup_b219_spawn_spown:0:0:3) =run_postprocess(fade_in) =disable_ui% ;=run_postprocess(fade_in) =disable_ui
+on_info = {+jup_b218_gather_squad_complete} sr_idle@destroy %=create_cutscene_actor_with_weapon(jup_b219_actor:jup_b219_spawn_spown:0:0:3) =run_postprocess(fade_in) =disable_ui% ; =run_postprocess(fade_in) =disable_ui
 
 [sr_idle@destroy]
-on_game_timer = 30 | sr_idle@surge %=teleport_actor(jup_b219_actor_dark_walk:jup_b219_actor_dark_look) =run_postprocess(black:22219:true)% ;=run_postprocess(black:22219:true) =forward_game_time(3)
+on_game_timer = 30 | sr_idle@surge %=teleport_actor(jup_b219_actor_dark_walk:jup_b219_actor_dark_look) =run_postprocess(black:22219:true)% ; =run_postprocess(black:22219:true) =forward_game_time(3)
 
 [sr_idle@surge]
 on_info = {!surge_started} sr_idle@timer, sr_idle@timer %=stop_surge%

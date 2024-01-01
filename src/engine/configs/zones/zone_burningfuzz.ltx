@@ -1,6 +1,6 @@
 [zone_burning_fuzz]:zone_base
 GroupControlSection = spawn_group_zone
-;$prefetch = 16
+; $prefetch = 16
 class = ZS_BFUZZ
 visual = dynamics\anomaly\topolinypuh
 min_speed_to_react = 2.0
@@ -8,12 +8,12 @@ ef_anomaly_type = 6
 ef_weapon_type = 18
 
 hit_impulse_scale = 0.0
-postprocess = postprocess_fuzz ;postprocess_acidic
+postprocess = postprocess_fuzz ; postprocess_acidic
 
 shape_transp_color = 255, 0, 0, 60
 shape_edge_color = 32, 32, 32, 255
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0.4
 attenuation = 1
 
@@ -23,21 +23,21 @@ hit_effect = anomaly2\hit_metal_02
 idle_particles = anomaly2\pux_idle
 blowout_particles = anomaly2\pux_blast
 
-;hit_small_particles = hit_fx\hit_metal_02
-;hit_big_particles = anomaly2\
+; hit_small_particles = hit_fx\hit_metal_02
+; hit_big_particles = anomaly2\
 idle_small_particles = anomaly2\pux_damage_smoke_01
 idle_big_particles = anomaly2\pux_damage_smoke_02
-;entrance_small_particles = anomaly2\electra_entrance_small
-;entrance_big_particles = anomaly2\electra_entrance_big
+; entrance_small_particles = anomaly2\electra_entrance_small
+; entrance_big_particles = anomaly2\electra_entrance_big
 
-;idle_sound = anomaly\anomaly_gravy_idle
+; idle_sound = anomaly\anomaly_gravy_idle
 blowout_sound = anomaly\bfuzz_blowout
 hit_sound = anomaly\bfuzz_hit
-;entrance_sound = anomaly\electra_hit
+; entrance_sound = anomaly\electra_hit
 
-disable_time = 500 ;����� ������������� �������� ������� � ���� (-1 ���� �� �����)
-disable_time_small = 500 ;����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
-disable_idle_time = 1000 ;����� ���������� idle ���������
+disable_time = 500 ; ����� ������������� �������� ������� � ���� (-1 ���� �� �����)
+disable_time_small = 500 ; ����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
+disable_idle_time = 1000 ; ����� ���������� idle ���������
 
 awaking_time = 0
 blowout_time = 1000
@@ -46,8 +46,8 @@ accamulate_time = 5000
 attack_animation_start = 10
 attack_animation_end = 1000
 
-ignore_nonalive = false;
-ignore_small = false;
+ignore_nonalive = false ; 
+ignore_small = false ; 
 ignore_artefacts = true
 
 blowout_light = off

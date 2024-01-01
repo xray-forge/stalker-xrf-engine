@@ -13,15 +13,15 @@ description = st_knife
 
 ef_weapon_type = 1
 
-;---DOF-------------------------------------------------------------------------
+; ---DOF-------------------------------------------------------------------------
 zoom_dof = 0.5, 1.0, 180
 reload_dof = 0.0, 0.5, 5, 1.7
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 
-;--- scope weapons -------------------------------------------------------------
+; --- scope weapons -------------------------------------------------------------
 holder_range_modifier = 1.0 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 
 cost = 0
 
@@ -62,36 +62,36 @@ kill_msg_height = 16
 
 show_ammo = false
 
-;-------------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.5 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; -------------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.5 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 crosshair_inertion = 0.01
 
-;������
-cam_relax_speed = 8 ;�������� �������� � �������� ���������
-cam_dispersion = 0.65 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 0.0 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 1.0 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 20.0 ;������������ ���� ������
-cam_max_angle_horz = 10.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 0.9 ;(degree) size of step camera moved in horizontal position while shooting
+; ������
+cam_relax_speed = 8 ; �������� �������� � �������� ���������
+cam_dispersion = 0.65 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 0.0 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 1.0 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 20.0 ; ������������ ���� ������
+cam_max_angle_horz = 10.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 0.9 ; (degree) size of step camera moved in horizontal position while shooting
 
-fire_dispersion_condition_factor = 5 ;���������� ��������� � ��������� ��� ������������ ������
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+fire_dispersion_condition_factor = 5 ; ���������� ��������� � ��������� ��� ������������ ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.001
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.02
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.00001
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.00002
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 ; ttc
 hit_power = 1.0, 1.0, 1.0, 1.0
 hit_impulse = 10
@@ -100,7 +100,7 @@ hit_type = wound
 hit_power_2 = 1.5, 1.50, 1.50, 1.50
 hit_power_critical_2 = 0.0, 0.0, 0.0, 0.0
 hit_impulse_2 = 50
-hit_type_2 = wound ;wound_2
+hit_type_2 = wound ; wound_2
 
 hit_probability_gd_novice = 0.80
 hit_probability_gd_stalker = 0.80
@@ -113,32 +113,32 @@ PDM_disp_accel_factor = 0.8
 PDM_disp_crouch = 1.0
 PDM_disp_crouch_no_acc = 1.0
 
-use_aim_bullet = true ;�������������� �� ������ ������ ����
+use_aim_bullet = true ; �������������� �� ������ ������ ����
 time_to_aim = 1.0
 
-fire_distance = 1.8 ;1.4
+fire_distance = 1.8 ; 1.4
 bullet_speed = 1000
 rpm = 1000
 rpm_empty_click = 1000
 ; end ttc
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 ; splash parameters
 
 splash1_direction = 0.0, -0.3, 1.0
 splash2_direction = 0.0, 0.0, 1.0
 
-spash1_dist = 1.2 ;0.7 ; fire_distance / 2
+spash1_dist = 1.2 ; 0.7 ; fire_distance / 2
 spash2_dist = 1
 
-spash1_radius = 0.5 ;0.7
+spash1_radius = 0.5 ; 0.7
 spash2_radius = 0.25
 
 splash1_hits_count = 3
 splash1_pervictim_hcount = 1
 splash2_hits_count = 2
 splash_hit_divide_factor = 0.75
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 hud = wpn_knife_hud
 visual = dynamics\weapons\wpn_knife\wpn_knife.ogf
 
@@ -154,22 +154,22 @@ shell_point = 0.0, 0.133, 0.047
 shell_dir = 0.0, 0.0, 0.4
 shell_particles = weapons\generic_shells
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 startup_ammo = 1000
 wm_size = 0.10
 
 light_disabled = true
 
 ph_mass = 4
-;cost = 350
+; cost = 350
 
-;addons
+; addons
 scope_status = 0
 silencer_status = 0
 grenade_launcher_status = 0
 zoom_enabled = false
 
-;�����
+; �����
 snd_draw = weapons\walther_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\knife_1
@@ -203,9 +203,9 @@ anm_hide = knife_holster
 anm_idle = knife_idle
 anm_idle_aim = knife_idle
 anm_attack = knife_kick_1
-anm_attack_e = knife_kick_end1 ;--remove me
+anm_attack_e = knife_kick_end1 ; --remove me
 anm_attack2 = knife_kick_2
-anm_attack2_e = knife_kick_end2 ;--remove me
+anm_attack2_e = knife_kick_end2 ; --remove me
 anm_idle_moving = knife_idle_moving
 anm_idle_sprint = knife_idle_sprint
 anm_bore = knife_idle_bore

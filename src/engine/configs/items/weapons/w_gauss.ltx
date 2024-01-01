@@ -16,37 +16,37 @@ default_to_ruck = false
 sprint_allowed = true
 control_inertion_factor = 1.0
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 cost = 25000
 weapon_class = sniper_rifle
 inv_weight = 5.5
 
-;---TTX---------------------------------------------------------------------------
+; ---TTX---------------------------------------------------------------------------
 hit_power = 2.0, 2.0, 2.0, 2.0
 hit_impulse = 100
 hit_type = fire_wound
 fire_distance = 1000
-bullet_speed = 15000 ;��������� �������� ����
+bullet_speed = 15000 ; ��������� �������� ����
 rpm = 30
 rpm_empty_click = 200
 
-use_aim_bullet = false ;�������������� �� ������ ������ ����
+use_aim_bullet = false ; �������������� �� ������ ������ ����
 time_to_aim = 1.0
 
 hud = wpn_gauss_hud
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.002
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.02
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.0012
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0012
 
 ammo_limit = 60
@@ -58,25 +58,25 @@ ammo_class = ammo_gauss, ammo_gauss_cardan
 hand_dependence = 1
 single_handed = 0
 
-;---DOF-------------------------------------------------------------------------
-;zoom_dof = 0.5, 1.0, 180
+; ---DOF-------------------------------------------------------------------------
+; zoom_dof = 0.5, 1.0, 180
 reload_dof = 0.0, 0.5, 5, 1.7
 
-;--���������----------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.001 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; --���������----------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.001 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.4f
 crosshair_inertion = 5
 
-;������
-cam_relax_speed = 3 ;�������� �������� � �������� ���������
-cam_relax_speed_ai = 360 ;�������� �������� � �������� ���������
-cam_dispersion = 0.01 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 0.01 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 1.0 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 0.01 ;������������ ���� ������
-cam_max_angle_horz = 0.01 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 0.01 ;(degree) size of step camera moved in horizontal position while shooting
+; ������
+cam_relax_speed = 3 ; �������� �������� � �������� ���������
+cam_relax_speed_ai = 360 ; �������� �������� � �������� ���������
+cam_dispersion = 0.01 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 0.01 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 1.0 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 0.01 ; ������������ ���� ������
+cam_max_angle_horz = 0.01 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 0.01 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 2.0
 PDM_disp_vel_factor = 2.0
@@ -93,8 +93,8 @@ zoom_cam_max_angle = 0.01
 zoom_cam_max_angle_horz = 0.01
 zoom_cam_step_angle_horz = 0.01
 
-fire_dispersion_condition_factor = 5 ;���������� ��������� � ��������� ��� ������������ ������
-;-------------------------------------------------------------------------------
+fire_dispersion_condition_factor = 5 ; ���������� ��������� � ��������� ��� ������������ ������
+; -------------------------------------------------------------------------------
 holder_range_modifier = 2.85 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -106,7 +106,7 @@ hit_probability_gd_stalker = 1
 hit_probability_gd_veteran = 1
 hit_probability_gd_master = 1
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 slot = 2 ; // secondary
 animation_slot = 2 ; type of the animation that will be used
 
@@ -142,8 +142,8 @@ shell_point = 0.0, 0.129, 0.192
 shell_dir = 0.0, 0.0, 0.4
 shell_particles = weapons\generic_shells
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
 strap_position = -0.26,-0.11,0.15 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -15,-9,110 ; (3rd person view in degrees)
 strap_bone0 = bip01_spine2
@@ -161,21 +161,21 @@ light_time = 0.5
 
 ph_mass = 3
 
-;addons
+; addons
 scope_status = 1
 silencer_status = 0
 grenade_launcher_status = 0
 
 zoom_enabled = true
 zoom_rotate_time = 0.25
-scope_zoom_factor = 5 ;���-1 4X
+scope_zoom_factor = 5 ; ���-1 4X
 
 scope_texture = wpn_crosshair_l85
 scope_name = wpn_addon_scope
 scope_x = 60
 scope_y = -2
 
-;�����
+; �����
 snd_draw = weapons\svd_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\gauss_shoot
@@ -228,12 +228,12 @@ anm_idle_aim = gauss_idle_aim
 anm_idle_moving = gauss_idle_moving
 anm_idle_sprint = gauss_idle_sprint
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; ����������
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 
-;<--UMIROTVORITEL
-[pri_a17_gauss_rifle]:wpn_gauss ;Gauss UMIROTVORITEL
+; <--UMIROTVORITEL
+[pri_a17_gauss_rifle]:wpn_gauss ; Gauss UMIROTVORITEL
 $spawn = "weapons\uniq\pri_a17_gauss_rifle"
 quest_item = true
 story_id = pri_a17_gauss_rifle
@@ -258,8 +258,8 @@ hit_probability_gd_veteran = 1
 hit_probability_gd_master = 1
 
 fire_distance = 2000
-bullet_speed = 100000 ;��������� �������� ����
-;rpm = 20
+bullet_speed = 100000 ; ��������� �������� ����
+; rpm = 20
 
 ammo_limit = 10
 ammo_current = 10
@@ -268,15 +268,15 @@ ammo_elapsed = 0
 ammo_mag_size = 10
 ammo_class = ammo_gauss
 
-;������������, ��� ������� ���������� ���� ������
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.3
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 1
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 1
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.00001
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.00002

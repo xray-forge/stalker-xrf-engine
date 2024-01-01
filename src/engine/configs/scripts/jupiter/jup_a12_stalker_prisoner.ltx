@@ -193,7 +193,7 @@ combat_ignore_keep_when_attacked = true
 def_state_moving = sprint
 on_signal = path_end | %+jup_a12_stalker_prisoner_out_of_containers%
 on_info = {+jup_a12_stalker_prisoner_out_of_containers} walker@out_of_containers
-;on_info2 = {-jup_a12_stalker_prisoner_says_we_can_run_from_here} %+jup_a12_stalker_prisoner_says_we_can_run_from_here =play_sound(jup_a12_stalker_prisoner_says_we_can_run_from_here)%
+; on_info2 = {-jup_a12_stalker_prisoner_says_we_can_run_from_here} %+jup_a12_stalker_prisoner_says_we_can_run_from_here =play_sound(jup_a12_stalker_prisoner_says_we_can_run_from_here)%
 on_info3 = {-jup_a12_stalker_prisoner_out_of_containers =npc_in_zone(jup_a12_sr_containers_warnzone)} %+jup_a12_stalker_prisoner_out_of_containers%
 meet = no_meet
 gather_items_enabled = false
@@ -250,7 +250,7 @@ combat_ignore_cond = {!actor_enemy} true, {-jup_a12_actor_enemy_to_bandits} true
 combat_ignore_keep_when_attacked = true
 def_state_moving = assault
 on_signal = path_end | %+jup_a12_stalker_prisoner_out_of_containers%
-;on_game_timer = 1200 | %+jup_a12_stalker_prisoner_free_dialog_done%
+; on_game_timer = 1200 | %+jup_a12_stalker_prisoner_free_dialog_done%
 on_info = {-jup_a12_stalker_prisoner_free_dialog_done +jup_a12_stalker_prisoner_hit_by_actor} %+jup_a12_stalker_prisoner_free_dialog_done%
 on_info2 = {-jup_a12_stalker_prisoner_free_dialog_done =actor_enemy} %+jup_a12_stalker_prisoner_free_dialog_done%
 on_info3 = {+jup_a12_stalker_prisoner_out_of_containers =dist_to_actor_le(10)} remark@out_of_containers
@@ -271,7 +271,7 @@ on_info3 = {-jup_a12_stalker_prisoner_free_dialog_done =dist_to_actor_ge(75)} %+
 combat_ignore_cond = {!actor_enemy} true, {-jup_a12_actor_enemy_to_bandits} true, false
 combat_ignore_keep_when_attacked = true
 meet = meet@out_of_containers_meet
-;on_game_timer = 300 | %+jup_a12_stalker_prisoner_free_dialog_done%
+; on_game_timer = 300 | %+jup_a12_stalker_prisoner_free_dialog_done%
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false

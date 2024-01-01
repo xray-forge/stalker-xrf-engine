@@ -19,7 +19,7 @@ meet_on_talking = false
 
 [animpoint@base]
 cover_name = zat_a2_sc_zat_b38_stalker_cop
-;reach_distance = 1.5
+; reach_distance = 1.5
 use_camp = false
 meet = meet
 combat_ignore_cond = true
@@ -30,7 +30,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;*****************************************************************
+; *****************************************************************
 
 [logic@zat_b38_stalker_cop_in_lair]
 suitable = {+zat_b38_disappearance_stalkers_find_to_be_missing_hunter_give_task =check_npc_name(zat_b38_stalker_cop)} true
@@ -88,7 +88,7 @@ corpse_detection_enabled = false
 gather_items_enabled = false
 help_wounded_enabled = false
 
-;***********************************************************
+; ***********************************************************
 
 [walker@wait_for_actor]
 path_walk = research_first_hall_walk
@@ -257,7 +257,7 @@ on_info2 = {+zat_b38_bloodscukers_sleepers_stand_up} walker@runaway %=play_sound
 [walker@research_alert]:walker
 out_restr = zat_b38_sleepers_territory
 path_walk = research_alert_walk
-on_signal = zat_b38_lair_found | {-zat_b38_stalker_cop_bloodsuckers_sleep_done} animpoint@alert ;remark@alert
+on_signal = zat_b38_lair_found | {-zat_b38_stalker_cop_bloodsuckers_sleep_done} animpoint@alert ; remark@alert
 on_actor_not_in_zone = zat_b38_quest_line | {-zat_b38_underground_door_open} remark@quest_failed
 on_actor_in_zone = zat_b38_lift_floor | {-zat_b38_actor_jumped_earlier} %+zat_b38_actor_jumped_earlier%
 combat_ignore_cond = true

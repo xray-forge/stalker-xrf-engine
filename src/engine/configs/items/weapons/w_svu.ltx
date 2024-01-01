@@ -13,7 +13,7 @@ ef_weapon_type = 11
 default_to_ruck = false
 sprint_allowed = true
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 cost = 17000
 weapon_class = sniper_rifle
 inv_weight = 4.4
@@ -22,63 +22,63 @@ upgrades = up_gr_firstab_svu, up_gr_seconab_svu, up_gr_thirdab_svu, up_gr_fourta
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_svu
 
-;----TTX------------------------------------------------------------------------
+; ----TTX------------------------------------------------------------------------
 hit_power = 0.6, 0.6, 0.6, 0.6
 hit_impulse = 125
 hit_type = fire_wound
 fire_distance = 1000
-bullet_speed = 700 ;800 ;��������� �������� ����
+bullet_speed = 700 ; 800 ; ��������� �������� ����
 rpm = 75
 rpm_empty_click = 200
 
-use_aim_bullet = false ;�������������� �� ������ ������ ����
+use_aim_bullet = false ; �������������� �� ������ ������ ����
 time_to_aim = 1.0
 
 hud = wpn_svu_hud
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.0065
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.065
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.0065
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0065
 
 ammo_elapsed = 10
 ammo_mag_size = 10
-fire_modes = 1;, -1
+fire_modes = 1 ; , -1
 ammo_class = ammo_7.62x54_7h1
 hand_dependence = 1
 single_handed = 0
 
-;---���������-------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.15 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; ---���������-------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.15 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.7
 crosshair_inertion = 6.15
 
-;������
+; ������
 cam_return = 1
-cam_relax_speed = 3.0 ;�������� �������� � �������� ���������
-cam_relax_speed_ai = 360 ;�������� �������� � �������� ���������
-cam_dispersion = 1.8 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 1.8 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 1.0 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 12.0 ;������������ ���� ������
-cam_max_angle_horz = 3.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 1.5 ;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed = 3.0 ; �������� �������� � �������� ���������
+cam_relax_speed_ai = 360 ; �������� �������� � �������� ���������
+cam_dispersion = 1.8 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 1.8 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 1.0 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 12.0 ; ������������ ���� ������
+cam_max_angle_horz = 3.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 1.5 ; (degree) size of step camera moved in horizontal position while shooting
 
-;PDM_disp_base = 0.85
-;PDM_disp_vel_factor = 3.4
-;PDM_disp_accel_factor = 3.4
-;PDM_disp_crouch = 1.0
-;PDM_disp_crouch_no_acc = 1.0
+; PDM_disp_base = 0.85
+; PDM_disp_vel_factor = 3.4
+; PDM_disp_accel_factor = 3.4
+; PDM_disp_crouch = 1.0
+; PDM_disp_crouch_no_acc = 1.0
 
 PDM_disp_base = 2.0
 PDM_disp_vel_factor = 4.0
@@ -95,13 +95,13 @@ zoom_cam_max_angle = 10.0
 zoom_cam_max_angle_horz = 5.0
 zoom_cam_step_angle_horz = 0.5
 
-fire_dispersion_condition_factor = 10 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 10 ; ���������� ��������� � ��������� ��� ������������ ������
 
-;---DOF-------------------------------------------------------------------------
-;zoom_dof = 0.5, 1.0, 350
+; ---DOF-------------------------------------------------------------------------
+; zoom_dof = 0.5, 1.0, 350
 reload_dof = 0.0, 0.5, 5, 2
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 holder_range_modifier = 2.15 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -113,7 +113,7 @@ hit_probability_gd_stalker = 1
 hit_probability_gd_veteran = 1
 hit_probability_gd_master = 1
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 slot = 2 ; // secondary
 animation_slot = 2 ; type of the animation that will be used
 
@@ -135,7 +135,7 @@ kill_msg_y = 59
 kill_msg_width = 80
 kill_msg_height = 26
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 position = -0.026, -0.084, 0.0
 orientation = 0, 0, 0
 
@@ -150,8 +150,8 @@ shell_point = 0.0, 0.128, 0.0
 shell_dir = 0.0, 0.0, 0.4
 shell_particles = weapons\generic_shells
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
 strap_position = -0.26,-0.11,0.25 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -15,-9,110 ; (3rd person view in degrees)
 strap_bone0 = bip01_spine2
@@ -169,21 +169,21 @@ light_time = 0.2
 
 ph_mass = 3
 
-;addons
+; addons
 scope_status = 1
 silencer_status = 0
 grenade_launcher_status = 0
 
 zoom_enabled = true
 zoom_rotate_time = 0.35
-scope_zoom_factor = 20 ;���-1 4X
+scope_zoom_factor = 20 ; ���-1 4X
 
 scope_texture = wpn_crosshair
 scope_name = wpn_addon_scope
 scope_x = 60
 scope_y = -2
 
-;�����
+; �����
 snd_draw = weapons\svu_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_svu_shot
@@ -234,9 +234,9 @@ anm_idle_aim = svu_idle_aim
 anm_idle_moving = svu_idle_moving
 anm_idle_sprint = svu_idle_moving
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; ����������
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 [wpn_svu_nimble]:wpn_svu
 $spawn = "weapons\wpn_svu_nimble"
 class = WP_SVU
@@ -248,28 +248,28 @@ cost = 20000
 grenade_class = ammo_vog-25 ; name of the ltx-section of used grenades
 rpm = 150
 ammo_mag_size = 10
-fire_modes = 1;, -1
+fire_modes = 1 ; , -1
 
 scope_status = 1
 silencer_status = 0
 grenade_launcher_status = 0
 
 launch_speed = 0
-;---���������-------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.12 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; ---���������-------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.12 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.6f
 
-;������
+; ������
 cam_return = 0
-cam_relax_speed = 5 ;�������� �������� � �������� ���������
-cam_relax_speed_ai = 360 ;�������� �������� � �������� ���������
-cam_dispersion = 1.5 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 1.5 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 1.0 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 12.0 ;������������ ���� ������
-cam_max_angle_horz = 3.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 1.5 ;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed = 5 ; �������� �������� � �������� ���������
+cam_relax_speed_ai = 360 ; �������� �������� � �������� ���������
+cam_dispersion = 1.5 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 1.5 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 1.0 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 12.0 ; ������������ ���� ������
+cam_max_angle_horz = 3.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 1.5 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 1.8
 PDM_disp_vel_factor = 3.5
@@ -286,6 +286,6 @@ zoom_cam_max_angle = 10.0
 zoom_cam_max_angle_horz = 5.0
 zoom_cam_step_angle_horz = 1.5
 
-fire_dispersion_condition_factor = 8 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 8 ; ���������� ��������� � ��������� ��� ������������ ������
 
 grenade_flame_particles = weapons\generic_weapon01

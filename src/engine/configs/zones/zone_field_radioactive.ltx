@@ -1,27 +1,27 @@
 [zone_field_radioactive]:zone_base
 GroupControlSection = spawn_group_zone
 $def_sphere = 15
-;$prefetch = 16
+; $prefetch = 16
 class = ZS_RADIO
 hit_impulse_scale = .01
-effective_radius = 1.00 ;������ ������� � ��������� �� �������������, ��� ��������� ����
+effective_radius = 1.00 ; ������ ������� � ��������� �� �������������, ��� ��������� ����
 postprocess = postprocess_rad
 
 ef_anomaly_type = 3
 ef_weapon_type = 15
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0
 attenuation = 0.5
 
 hit_type = radiation
 
-disable_time = -1 ;����� ������������� �������� ������� � ���� (-1 ���� �� �����)
-disable_time_small = -1 ;����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
-disable_idle_time = -1 ;����� ���������� idle ���������
+disable_time = -1 ; ����� ������������� �������� ������� � ���� (-1 ���� �� �����)
+disable_time_small = -1 ; ����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
+disable_idle_time = -1 ; ����� ���������� idle ���������
 
-ignore_nonalive = true;
-ignore_small = false;
+ignore_nonalive = true ; 
+ignore_small = false ; 
 ignore_artefacts = true
 
 blowout_light = off
@@ -39,19 +39,19 @@ shape_edge_color = 32, 32, 32, 255
 [zone_field_radioactive_weak]:zone_field_radioactive
 $spawn = "zones\field_radioactive_weak"
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0.015
 
 [zone_field_radioactive_average]:zone_field_radioactive
 $spawn = "zones\field_radioactive_average"
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0.02
 
 [zone_field_radioactive_strong]:zone_field_radioactive
 $spawn = "zones\field_radioactive_strong"
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0.03
 
 [zone_radioactive]:zone_field_radioactive

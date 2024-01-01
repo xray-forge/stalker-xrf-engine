@@ -5,9 +5,9 @@ corpse_detection_enabled = false
 wounded = wounded
 danger = danger
 
-;----------------------------------------------------------------------------------------------------------
+; ----------------------------------------------------------------------------------------------------------
 
-[logic@jup_b1_stalker_1] ;�������� � �������
+[logic@jup_b1_stalker_1] ; �������� � �������
 suitable = {=check_npc_name(jup_b1_stalker_1) !actor_has_item(jup_b1_half_artifact) -jup_b1_task_done} true
 prior = 70
 active = walker@first
@@ -83,7 +83,7 @@ close_victim = actor
 abuse = false
 use = false
 
-;--------------------- ����� ����������� � �����
+; --------------------- ����� ����������� � �����
 
 [remark@psy_back]:walker@generic
 anim = psy_pain
@@ -146,7 +146,7 @@ on_signal = at_pos | %-jup_b1_st_mission%
 meet = no_meet
 on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
 
-;--------------------- ����������� � �����
+; --------------------- ����������� � �����
 
 [logic@jup_b1_zomb_stalker_1]
 suitable = {=check_npc_name(jup_b1_stalker_1) =actor_has_item(jup_b1_half_artifact)} true
@@ -198,7 +198,7 @@ meet = no_meet
 in_restr = jup_b1_anomal_place
 combat_ignore_cond = {=check_enemy_name(jup_b1_controller)} true
 
-;-------------------------------------------------------------
+; -------------------------------------------------------------
 [danger]
 ignore_distance = 0
 ignore_distance_grenade = 0

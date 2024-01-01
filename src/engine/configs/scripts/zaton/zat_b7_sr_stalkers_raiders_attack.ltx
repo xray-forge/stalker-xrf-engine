@@ -6,7 +6,7 @@ on_info = {+zat_b7_raider_plan !zat_b7_is_night} sr_idle@attack %=give_task(zat_
 on_info2 = {+zat_b7_raider_plan =zat_b7_is_night} sr_idle@wait_some_time %=give_task(zat_b7_stalkers_raiders)%
 on_info3 = {-zat_b7_no_stalkers_task =is_squad_enemy_to_actor(zat_b7_stalkers_victims_1)} %+zat_b7_no_stalkers_task%
 on_info4 = {!squad_exist(zat_b7_stalkers_victims_1)} sr_idle@destroy %+zat_b7_task_end +zat_b7_task_fail%
-;�������
+; �������
 on_info5 = {+zat_b5_actor_with_bandits} sr_idle@check_destroy %+zat_b7_task_end%
 on_info6 = {+zat_b5_actor_with_stalkers} sr_idle@check_destroy %+zat_b7_task_end%
 on_info7 = {+zat_b5_actor_with_dealer} sr_idle@check_destroy %+zat_b7_task_end%

@@ -10,9 +10,9 @@ corpse_visual = monsters\crow\crow.ogf
 speed = 6.0
 angular_speed = 0.1
 goal_change_delta = 5.0
-min_height = 30 ;35
-goal_variability = 50.0, 10.0, 50.0 ;10.0, 15.0, 200.0
-idle_sound_delta = 400.f ;100.f
+min_height = 30 ; 35
+goal_variability = 50.0, 10.0, 50.0 ; 10.0, 15.0, 200.0
+idle_sound_delta = 400.f ; 100.f
 
 Health = 1
 MaxHealthValue = 1
@@ -20,9 +20,9 @@ ef_creature_type = -1
 
 script_binding = bind.crow ; xrf change
 
-;------------------------------------------------------------------------
+; ------------------------------------------------------------------------
 ; Influences
-;------------------------------------------------------------------------
+; ------------------------------------------------------------------------
 
 fire_max_distance = 0
 fire_max_power = 5
@@ -39,7 +39,7 @@ radiation_max_power = 0.02
 radiation_linear_factor = 1
 radiation_quadratic_factor = 1
 
-;movement params
+; movement params
 ph_box0_center = 0.0, 0.025, 0.0
 ph_box0_size = 0.1, 0.05, 0.1
 ph_box1_center = 0.0, 0.025, 0.0
@@ -48,26 +48,26 @@ ph_crash_speed_min = 16
 ph_crash_speed_max = 30
 ph_mass = 1
 
-;�������� ����
-bleeding_v = 0 ;������ ����� ��� ����������� ���� � �������
-wound_incarnation_v = 0.0 ;�������� ������ ���������� (����� ������� ���� ��������� ����� ���������� � ������� �������)
+; �������� ����
+bleeding_v = 0 ; ������ ����� ��� ����������� ���� � �������
+wound_incarnation_v = 0.0 ; �������� ������ ���������� (����� ������� ���� ��������� ����� ���������� � ������� �������)
 min_wound_size = 0.01
 
-;entity condition
-satiety_v = 0.00 ;0.01 ;�������� ���������� ������� �� ��������
-radiation_v = 0.00001 ;0.004 ;�������� ���������� ��������
-satiety_power_v = 0.001 ;0.01 ;���������� ���� ��� ���������� �������
-satiety_health_v = 0.001 ;0.03 ;���������� �������� ��� ���������� �������
-satiety_critical = -1.0 ;0.25 ;����������� �������� ������� (� ��������� �� 0..1) ����� �������� ��������� �����������
-radiation_health_v = 0.01 ;0.006 ;���������� �������� ��� ����������� ��������
-bleeding_v = 0.05 ;0.02 ;������ ����� ��� ������������ ����
-wound_incarnation_v = 0.01 ;0.001 ;�������� ��������� ����
-morale_v = 0.01 ;�������� �������������� ������
-health_hit_part = 1.0 ;0.8 ;������� ����, �������� �� ��������� ��������
-power_hit_part = 1.0 ;0.9 ;������� ����, �������� �� ��������� ����
-psy_health_v = 0.1 ;�������� �������������� psy-��������
+; entity condition
+satiety_v = 0.00 ; 0.01 ; �������� ���������� ������� �� ��������
+radiation_v = 0.00001 ; 0.004 ; �������� ���������� ��������
+satiety_power_v = 0.001 ; 0.01 ; ���������� ���� ��� ���������� �������
+satiety_health_v = 0.001 ; 0.03 ; ���������� �������� ��� ���������� �������
+satiety_critical = -1.0 ; 0.25 ; ����������� �������� ������� (� ��������� �� 0..1) ����� �������� ��������� �����������
+radiation_health_v = 0.01 ; 0.006 ; ���������� �������� ��� ����������� ��������
+bleeding_v = 0.05 ; 0.02 ; ������ ����� ��� ������������ ����
+wound_incarnation_v = 0.01 ; 0.001 ; �������� ��������� ����
+morale_v = 0.01 ; �������� �������������� ������
+health_hit_part = 1.0 ; 0.8 ; ������� ����, �������� �� ��������� ��������
+power_hit_part = 1.0 ; 0.9 ; ������� ����, �������� �� ��������� ����
+psy_health_v = 0.1 ; �������� �������������� psy-��������
 
-;������������ ����������
+; ������������ ����������
 burn_immunity = 1.0
 strike_immunity = 3.0
 shock_immunity = 1.0
@@ -78,12 +78,12 @@ chemical_burn_immunity = 1.0
 explosion_immunity = 3.0
 fire_wound_immunity = 3.0
 
-;������������ ��������� ��������� ���������� �� ����� ���
-sleep_health = 1.0 ;1.5
-sleep_power = 1.0 ;1.5
-sleep_satiety = 1.0 ;0.8
-sleep_radiation = 1.0 ;1.1
+; ������������ ��������� ��������� ���������� �� ����� ���
+sleep_health = 1.0 ; 1.5
+sleep_power = 1.0 ; 1.5
+sleep_satiety = 1.0 ; 0.8
+sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
 
-;species of monster
+; species of monster
 species = bird

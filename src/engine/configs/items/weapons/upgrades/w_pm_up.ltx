@@ -1,14 +1,14 @@
 [up_sect_firsta_pm]
-;����������������(1)10%
-;----------------------
+; ����������������(1)10%
+; ----------------------
 cost = 200
 value = +10
 
 rpm = +20
 
 [up_sect_firstc_pm]
-;������������(2)20%
-;------------------
+; ������������(2)20%
+; ------------------
 cost = 400
 value = +20
 
@@ -16,51 +16,51 @@ bullet_speed = +45
 fire_dispersion_base = -0.01
 
 [up_sect_firstd_pm]
-;������(2)-20%
-;------------
+; ������(2)-20%
+; ------------
 cost = 400
 value = -20
 
-cam_dispersion = -0.2 ;0.5
-cam_dispersion_inc = -0.2 ;0.5
-cam_step_angle_horz = -0.25; ;1.0
+cam_dispersion = -0.2 ; 0.5
+cam_dispersion_inc = -0.2 ; 0.5
+cam_step_angle_horz = -0.25 ;  ; 1.0
 
 [up_sect_firste_pm]
-;����������������(3)25%
-;----------------------
+; ����������������(3)25%
+; ----------------------
 cost = 600
 value = +25
 
 rpm = +60
 
 [up_sect_secona_pm]
-;������������(1)10%
-;------------------
+; ������������(1)10%
+; ------------------
 cost = 200
 value = +10
 
 bullet_speed = +25
 
 [up_sect_seconc_pm]
-;����������(2)15%
-;---------------
+; ����������(2)15%
+; ---------------
 cost = 400
 value = +15
 
-;���������� ��������� � ��������� ��� ������������ ������
-fire_dispersion_condition_factor = -2 ;15
-;���������� ����������� ��� �������� ��������
-condition_queue_shot_dec = -0.001 ;0.0013
-;���������� ����������� ��� ��������� ��������
-condition_shot_dec = -0.001 ;0.0011
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = -2 ; 15
+; ���������� ����������� ��� �������� ��������
+condition_queue_shot_dec = -0.001 ; 0.0013
+; ���������� ����������� ��� ��������� ��������
+condition_shot_dec = -0.001 ; 0.0011
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = -0.002
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
-misfire_end_prob = -0.02 ;0.03
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
+misfire_end_prob = -0.02 ; 0.03
 
 [up_sect_thirda_pm]
-;���
-;------------------
+; ���
+; ------------------
 cost = 200
 value = -0.35
 
@@ -73,8 +73,8 @@ PDM_disp_vel_factor = -0.15
 PDM_disp_accel_factor = -0.15
 
 [up_sect_thirdc_pm]
-;��������(2)15%
-;--------------
+; ��������(2)15%
+; --------------
 cost = 400
 value = +15
 
@@ -85,18 +85,18 @@ PDM_disp_vel_factor = -0.35
 PDM_disp_accel_factor = -0.35
 
 [up_sect_thirdd_pm]
-;������(2)-20%
-;------------
+; ������(2)-20%
+; ------------
 cost = 400
 value = -20
 
-cam_dispersion = -0.2 ;0.5
-cam_dispersion_inc = -0.2 ;0.5
-cam_step_angle_horz = -0.25; ;1.0
+cam_dispersion = -0.2 ; 0.5
+cam_dispersion_inc = -0.2 ; 0.5
+cam_step_angle_horz = -0.25 ;  ; 1.0
 
 [up_sect_fourta_pm]
-;��������(1)10%
-;---------------
+; ��������(1)10%
+; ---------------
 cost = 200
 value = +10
 
@@ -104,8 +104,8 @@ fire_dispersion_base = -0.03
 fire_dispersion_condition_factor = -1
 
 [up_sect_fourtc_pm]
-;��������(2)20%
-;---------------
+; ��������(2)20%
+; ---------------
 cost = 400
 value = +20
 
@@ -113,34 +113,34 @@ fire_dispersion_base = -0.05
 fire_dispersion_condition_factor = -1
 
 [up_sect_fiftha_pm]
-;����������� ����� ��������
-;---------------
+; ����������� ����� ��������
+; ---------------
 cost = 350
 value = +4
 
 ammo_mag_size = +4
 
 [up_sect_fifthc_pm]
-;����� ������� �� 9�19
-;---------------
+; ����� ������� �� 9�19
+; ---------------
 cost = 550
 value = "9x19"
 
 ammo_class = ammo_9x19_fmj, ammo_9x19_pbp
 
-;���������� ����������� ��� �������� ��������
-condition_queue_shot_dec = 0.0002 ;0.0013
-;���������� ����������� ��� ��������� ��������
-condition_shot_dec = 0.0002 ;0.0011
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���������� ����������� ��� �������� ��������
+condition_queue_shot_dec = 0.0002 ; 0.0013
+; ���������� ����������� ��� ��������� ��������
+condition_shot_dec = 0.0002 ; 0.0011
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.0008
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
-misfire_end_prob = 0.008 ;0.03
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
+misfire_end_prob = 0.008 ; 0.03
 
 [up_firsta_pm]
 scheme_index = 0, 0
 known = 1
-;;invented = 1 ; 0
+; ; invented = 1 ; 0
 effects = up_gr_firstcd_pm
 section = up_sect_firsta_pm
 property = prop_rpm
@@ -159,7 +159,7 @@ name = st_up_zatp_a1_name
 description = st_up_zatp_a1_descr
 icon = ui_inGame2_upgrade_PMm_1
 
-;;...
+; ; ...
 [up_firstc_pm]
 scheme_index = 1, 0
 known = 1

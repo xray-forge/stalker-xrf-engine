@@ -5,7 +5,7 @@ prior = 35
 on_hit = hit1
 on_death = death1
 
-[walker@zombied1];:walker@z
+[walker@zombied1] ; :walker@z
 path_walk = zombied1_1_walk
 path_look = zombied1_1_look
 on_actor_dist_le_nvis = 5 | {-jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%
@@ -25,7 +25,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death1]
 on_info = %=inc_counter(zombied_dead)%
-;------------------------- 2 ------------------------------
+; ------------------------- 2 ------------------------------
 
 [logic@work2]
 active = walker@zombied2
@@ -54,7 +54,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death2]
 on_info = %=inc_counter(zombied_dead)%
-;------------------------- 3 ------------------------------
+; ------------------------- 3 ------------------------------
 
 [logic@work3]
 active = walker@zombied3
@@ -83,7 +83,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death3]
 on_info = %=inc_counter(zombied_dead)%
-;------------------------- 4 ------------------------------
+; ------------------------- 4 ------------------------------
 
 [logic@work4]
 active = walker@zombied4
@@ -112,7 +112,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death4]
 on_info = %=inc_counter(zombied_dead)%
-;------------------------- 5 ------------------------------
+; ------------------------- 5 ------------------------------
 
 [logic@work5]
 active = walker@zombied5
@@ -141,7 +141,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death5]
 on_info = %=inc_counter(zombied_dead)%
-;------------------------- 6 ------------------------------
+; ------------------------- 6 ------------------------------
 
 [logic@work6]
 active = walker@zombied6
@@ -170,7 +170,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death6]
 on_info = %=inc_counter(zombied_dead)%
-;----------------------- 7 ----------------------
+; ----------------------- 7 ----------------------
 
 [logic@work7]
 active = walker@zombied7
@@ -199,7 +199,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death7]
 on_info = %=inc_counter(zombied_dead)%
-;----------------------- 8 ----------------------
+; ----------------------- 8 ----------------------
 
 [logic@work8]
 active = walker@zombied8
@@ -228,7 +228,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 
 [death8]
 on_info = %=inc_counter(zombied_dead)%
-;----------------------- 9 ----------------------
+; ----------------------- 9 ----------------------
 
 [logic@work9]
 active = walker@zombied9
@@ -258,7 +258,7 @@ on_info = {=hit_by_actor -jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged
 [death9]
 on_info = %=inc_counter(zombied_dead)%
 
-;----------------------- 10 ----------------------
+; ----------------------- 10 ----------------------
 
 [logic@work10]
 active = walker@zombied10

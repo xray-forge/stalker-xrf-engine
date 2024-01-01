@@ -15,19 +15,18 @@ goodwill_neutal = 0
 goodwill_friend = 1000
 
 communities = actor, 0, bandit, 1, dolg, 2, ecolog, 3, freedom, 4, killer, 5, army, 6, monolith, 7, monster, 8, stalker, 9, zombied, 10
-;communities = actor, 0, actor_dolg, 1, actor_freedom, 2, stalker, 5, monolith, 6, army, 7, killer, 8, ecolog, 9, dolg, 10, freedom, 11, bandit, 12, zombied, 13, csky, 14, trader, 15, arena_enemy, 16, monster, 17
+; communities = actor, 0, actor_dolg, 1, actor_freedom, 2, stalker, 5, monolith, 6, army, 7, killer, 8, ecolog, 9, dolg, 10, freedom, 11, bandit, 12, zombied, 13, csky, 14, trader, 15, arena_enemy, 16, monster, 17
 
 ; ��������� ��������� � ������ (��� ������� NPC) ����������� �� �������
 ; attitude = personal_goodwill + //������ ��������� ��������� � ������ (���� ������ �� �����������, �� 0)
 ; community_goodwill + //��������� ����������� ��������� ����� � ������ (���� ������ ��������� �� ����, �� 0)
 ; community_to_community + //��������� ����������� ��������� � ����������� ������ �� [communities_relations]
-;reputation_goodwill + //��������� ��������� ��������� � ��������� ������ �� [reputation_relations]
+; reputation_goodwill + //��������� ��������� ��������� � ��������� ������ �� [reputation_relations]
 ; rank_goodwill //��������� ����� ��������� � ����� ������ �� [rank_relations]
 ; ������� � ������ ���������� � ���������� �������!
 
 [communities_relations]
-;|actor|bandit| dolg|ecolog|freedom|killer|army|monolith|monster|stalker| zombied|
-;===================================================================================================
+; |actor|bandit|dolg|ecolog|freedom|killer|army|monolith|monster|stalker|zombied|
 actor = 0, 0, 0, 0, 0, -1000, 0, -5000, -5000, 0, -5000
 bandit = 0,5000, -5000, 0, -5000, 0, -5000, -5000, -5000, -1000, -5000
 dolg = 0, -5000, 5000, 0, -5000, 0, 0, -5000, -5000, 0, -5000
@@ -42,7 +41,6 @@ zombied = -5000, -5000, -5000, 0, -5000, -5000, -5000,1000, -5000, -5000, 1000
 
 [rank_relations]
 ; novice, experienced, veteran, master
-;================================================================
 novice = 0, 0,0, 0
 experienced = 0, 0,0, 0
 veteran = 0,0,0,0
@@ -50,7 +48,6 @@ master = 0,0,0,0
 
 [reputation_relations]
 ; terrible, very_bad, bad, neutral, good, very_good, excellent
-;================================================================
 terrible = 0, 0, 0, 0, 0, 0, 0
 very_bad = 0, 0, 0, 0, 0, 0, 0
 bad = 0, 0, 0, 0, 0, 0, 0
@@ -65,11 +62,11 @@ experienced = 0
 veteran = 0
 master = 0
 
-;������������ "����������" �����������
-;����� ����������� �� ������ �� ������ �����������
-;goodwill ��� ��������������� �� ��������� ������ �����������
-;� ������������ �������������
-;(������� ������ ��������� � communities_relations)
+; ������������ "����������" �����������
+; ����� ����������� �� ������ �� ������ �����������
+; goodwill ��� ��������������� �� ��������� ������ �����������
+; � ������������ �������������
+; (������� ������ ��������� � communities_relations)
 [communities_sympathy]
 actor = 0.0
 bandit = 0.0
@@ -80,18 +77,18 @@ killer = 0.0
 army = 0.0
 monolith = 0.0
 monster = 0.0
-stalker = 0.0 ;0.01
+stalker = 0.0 ; 0.01
 zombied = 0.0
 
-;���� ��������, ��������� � ������������������ �����������
-;� ����������� �� ������������ ��������
+; ���� ��������, ��������� � ������������������ �����������
+; � ����������� �� ������������ ��������
 [action_points]
 personal_goodwill_limits = -3000, 1000
 community_goodwill_limits = -3000, 1000
 
-;-------------------------------------------------------
-;�������� ����� ����������� ���������� �� ���������
-;����������� (���������� �� communities_sympathy)
+; -------------------------------------------------------
+; �������� ����� ����������� ���������� �� ���������
+; ����������� (���������� �� communities_sympathy)
 community_member_kill_goodwill = -1000
 friend_kill_goodwill = -3000
 neutral_kill_goodwill = -3000
@@ -126,16 +123,16 @@ friend_fight_help_reputation= 0
 neutral_fight_help_reputation = 0
 enemy_fight_help_reputation = 0
 
-;--------------------------------------------------
-;(���) ����������� ����� ����� ������� ����� ����� ����������������
-;��������� �� ����� �� ���������, � �������������� ������� attack_goodwill � attack_reputation
-;(�������� ���������� � ��� ������ ������ ���������� � ���)
+; --------------------------------------------------
+; (���) ����������� ����� ����� ������� ����� ����� ����������������
+; ��������� �� ����� �� ���������, � �������������� ������� attack_goodwill � attack_reputation
+; (�������� ���������� � ��� ������ ������ ���������� � ���)
 min_attack_delta_time = 1
 fight_remember_time = 0.2
 
-;��������, ������� ���������� � ��������� �
-;����������� �� �� �����
-;������������ ������� ��������������� ��� ������ �� 0 (novice) �� 100 (experienced)
+; ��������, ������� ���������� � ��������� �
+; ����������� �� �� �����
+; ������������ ������� ��������������� ��� ������ �� 0 (novice) �� 100 (experienced)
 
 [ranks_properties]
 immunities_novice_k = 1.0
@@ -152,19 +149,18 @@ dispersion_experienced_k = 0.05
 min = 1
 max = 2
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; for monsters
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;
+; ; for monsters
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;
 
 [monster_communities]
-;������ team ������� ������������� ��������������� �����
-;255 - ������� �� ��������
+; ������ team ������� ������������� ��������������� �����
+; 255 - ������� �� ��������
 communities = actor, 255, human, 255, zoo_monster, 39, boar, 40, bloodsucker, 41, flesh, 42, dog, 43, pseudodog, 44, cat, 45, chimera, 46, giant, 47, zombie, 48, burer, 49, controller, 50, poltergeist, 51, snork, 52, fracture, 53, bird, 54, rat, 55, tushkano, 56
 
 [monster_relations]
 ; [1] ����, [0] �������, [-1] ����, [-2] ������� ����
 ; actor,human,zoo_monstr, boar, bloodsucker, flesh,dog, pseudodog, cat, chimera, giant, zombie,burer, controller, poltergeist, snork, fracture, bird, rat, tushkano
-;=======================================================================================================================
 actor = 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, -1
 human = 0, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, -1
 zoo_monster = 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0

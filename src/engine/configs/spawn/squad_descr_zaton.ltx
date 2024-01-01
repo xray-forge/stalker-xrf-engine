@@ -49,7 +49,7 @@ target_smart = zat_b38
 spawn_point = zat_b57_bloodsucker_spawn_point
 story_id = zat_b57_bloodsuckers
 
-[zat_b52_port_bandits]:online_offline_group ;������� � �������� ������
+[zat_b52_port_bandits]:online_offline_group ; ������� � �������� ������
 relationship = neutral
 faction = bandit
 npc = zat_b52_port_bandit_1, sim_default_bandit_1, sim_default_bandit_1, sim_default_bandit_1, sim_default_bandit_1
@@ -84,7 +84,7 @@ target_smart = zat_stalker_base_smart
 spawn_point = zat_stalker_base_smart_zat_a2_stalker_mechanic_walk
 story_id = zat_a2_stalker_mechanic_squad
 
-;-----------------------B 22---------------------------------
+; -----------------------B 22---------------------------------
 [zat_b22_barmen]:online_offline_group
 faction = stalker
 sympathy = 1
@@ -101,10 +101,10 @@ target_smart = {+zat_b22_medic_respawn} zat_medic_home_smart, zat_stalker_base_s
 spawn_point = {+zat_b22_medic_respawn} zat_medic_home_smart_zat_b22_stalker_medic_walk
 story_id = zat_b22_medic
 
-;-----------------------B 103----------------------------------
+; -----------------------B 103----------------------------------
 [zat_b103_lost_merc_squad1]:online_offline_group
 faction = killer
-relationship = neutral;friend
+relationship = neutral ; friend
 sympathy = 0
 npc = zat_b103_lost_merc_leader, zat_b103_lost_merc_1, zat_b103_lost_merc_2, zat_b103_lost_merc_3, zat_b103_lost_merc_4, zat_b103_lost_merc_5, zat_b103_lost_merc_6, zat_b103_lost_merc_7
 target_smart = zat_b103_merc_smart
@@ -128,7 +128,7 @@ target_smart = zat_b7
 spawn_point = zat_b7_stalkers_victims_spawn_1
 story_id = zat_b7_stalkers_victims_1
 
-;-----------------------zaton B104 -------------------
+; -----------------------zaton B104 -------------------
 [zat_b104_zombied_1]:online_offline_group
 faction = zombied
 npc = sim_default_zombied_1, sim_default_zombied_1, sim_default_zombied_1, sim_default_zombied_1, sim_default_zombied_2, sim_default_zombied_2, sim_default_zombied_3
@@ -150,11 +150,11 @@ target_smart = {-zat_b104_task_end} zat_b104_zombied, nil
 spawn_point = zat_b104_zombied_3_spawn
 story_id = zat_b104_zombied_3
 
-;-----------------------zaton B5-------------------
+; -----------------------zaton B5-------------------
 [zat_b5_stalkers_squad]:online_offline_group
 faction = stalker
 npc = zat_b5_stalker_1, zat_b5_stalker_2, zat_b5_stalker_3, zat_b5_stalker_4
-;relationship = friend
+; relationship = friend
 sympathy = 0
 target_smart = zat_b5_smart_terrain
 spawn_point = {+zat_b5_actor_with_stalkers} zat_b5_stalkers_spawn_point, {-zat_b5_actor_with_stalkers} zat_b5_stalkers_b_spawn_point
@@ -171,7 +171,7 @@ story_id = zat_b7_stalkers_base_squad
 [zat_b5_dolg_squad]:online_offline_group
 faction = dolg
 npc = zat_b7_duty_illicit_dealer
-;active_task = smart_terrain_3
+; active_task = smart_terrain_3
 relationship = neutral
 sympathy = 0
 target_smart = zat_b5_smart_terrain
@@ -181,7 +181,7 @@ story_id = zat_b5_dolg_squad
 [zat_b5_dolg_assist_squad]:online_offline_group
 faction = killer
 npc = zat_b5_dealer_assistant_1, zat_b5_dealer_assistant_2
-;active_task = smart_terrain_3
+; active_task = smart_terrain_3
 relationship = neutral
 sympathy = 0
 target_smart = zat_b5_smart_terrain
@@ -191,13 +191,13 @@ story_id = zat_b5_dolg_assist_squad
 [zat_b5_bandit_squad]:online_offline_group
 faction = bandit
 npc = zat_b5_stalker_raider_1, zat_b5_stalker_raider_2, zat_b5_stalker_raider_3, zat_b5_stalker_raider_4
-;relationship = friend
+; relationship = friend
 sympathy = 0
 target_smart = zat_b5_smart_terrain
 spawn_point = {+zat_b5_actor_with_stalkers} zat_b5_bandit_spawn_point, {+zat_b5_actor_with_dealer} zat_b5_bandit_b_spawn_point, {+zat_b5_actor_with_bandits} zat_b5_bandit_b_spawn_point
 story_id = zat_b5_bandit_squad
 
-;----------------------- zaton B56 -------------------
+; ----------------------- zaton B56 -------------------
 
 [zat_b56_polter_squad]:online_offline_group
 faction = monster
@@ -206,7 +206,7 @@ target_smart = zat_b56
 spawn_point = zat_b56_poltergeist_home
 story_id = zat_b56_polter_squad
 always_arrived = true
-;-----------------------zaton B33-------------------
+; -----------------------zaton B33-------------------
 
 [zat_b33_snork_first_wave]:online_offline_group
 faction = monster_zombied_day
@@ -228,7 +228,7 @@ npc = zat_b33_stalker_snag
 target_smart = zat_stalker_base_smart
 story_id = zat_b33_stalker_snag_squad
 
-;------------------------ Zaton B29 -------------------
+; ------------------------ Zaton B29 -------------------
 
 [zat_b29_stalker_rival_1_squad]:online_offline_group
 faction = stalker
@@ -258,7 +258,7 @@ target_smart = {+zat_b30_task_end} nil, {+zat_b29_rival_2_1} zat_b55, {+zat_b29_
 spawn_point = zat_b29_rival_2_spawn
 story_id = zat_b29_stalker_rival_default_2_squad
 
-;-----------------------zaton B18-------------------
+; -----------------------zaton B18-------------------
 
 [zat_b18_noah_squad]:online_offline_group
 faction = stalker
@@ -276,7 +276,7 @@ target_smart = {-zat_b18_dog_noah_free} zat_b18, nil
 spawn_point = zat_b18_noah_spawn_point
 story_id = zat_b18_dog_noah_squad
 
-;-----------------------B 215-----------------------
+; -----------------------B 215-----------------------
 
 [zat_b215_stalker_guide_zaton_squad]:online_offline_group
 faction = stalker
@@ -285,7 +285,7 @@ npc = zat_b215_stalker_guide_zaton
 target_smart = zat_stalker_base_smart
 story_id = zat_b215_stalker_guide_zaton_squad
 
-;-------------------------b28---------------------------------------
+; -------------------------b28---------------------------------------
 [zat_b28_snork_squad]:online_offline_group
 faction = monster_zombied_day
 npc = snork_weak, snork_weak, snork_weak, snork_weak
@@ -293,7 +293,7 @@ target_smart = {-zat_b28_heli_3_searched} zat_b28, nil
 spawn_point = zat_b28_smart_terrain_spawn_point
 story_id = zat_b28_snork_squad
 
-;-------------------------b42---------------------------------------
+; -------------------------b42---------------------------------------
 [zat_b42_controller_squad]:online_offline_group
 faction = monster_zombied_day
 npc = m_controller_normal
@@ -301,7 +301,7 @@ target_smart = zat_b42_smart_terrain
 spawn_point = zat_b42_smart_terrain_mob_home
 story_id = zat_b42_controller_squad
 
-;------------------------b40-------------------------------
+; ------------------------b40-------------------------------
 [zat_b40_merc_squad]:online_offline_group
 faction = killer
 sympathy = 0
@@ -310,7 +310,7 @@ target_smart = zat_b40_smart_terrain
 spawn_point = zat_b40_smart_terrain_spown_point
 story_id = zat_b40_merc_squad
 
-;-----------------------zaton B20-------------------
+; -----------------------zaton B20-------------------
 
 [zat_b20_noah_teleport_squad]:online_offline_group
 faction = stalker
@@ -320,7 +320,7 @@ sympathy = 0
 spawn_point = zat_b20_smart_terrain_zat_b20_noah_1_walk
 story_id = zat_b20_noah_teleport_squad
 
-;-----------------------zaton B39-------------------
+; -----------------------zaton B39-------------------
 [zat_b39_dogs_squad]:online_offline_group
 faction = monster_predatory_day
 npc = dog_normal, dog_normal, dog_normal
@@ -328,7 +328,7 @@ target_smart = zat_b39
 spawn_point = zat_b39_dogs_spawn_point
 story_id = zat_b39_dogs_squad
 
-;-----------------------zaton B53-------------------
+; -----------------------zaton B53-------------------
 [zat_b53_artefact_hunter_1_squad]:online_offline_group
 faction = stalker
 npc = zat_b53_artefact_hunter_1, zat_b53_artefact_hunter_2
@@ -336,7 +336,7 @@ target_smart = {-zat_b53_go_nil} zat_b53, nil
 spawn_point = zat_b53_artefact_hunter_2_walk
 story_id = zat_b53_artefact_hunter_1_squad
 
-;----------------------zaton a23----------------------
+; ----------------------zaton a23----------------------
 [zat_a23_zombie_squad]:online_offline_group
 faction = zombied
 npc = sim_default_zombied_4, sim_default_zombied_4, sim_default_zombied_3, sim_default_zombied_3, sim_default_zombied_2, sim_default_zombied_2
@@ -351,7 +351,7 @@ target_smart = zat_a23_smart_terrain
 spawn_point = zat_a23_smart_terrain_zat_a23_giant_walk
 story_id = zat_a23_giant_squad
 
-;----------------------zaton B106----------------------
+; ----------------------zaton B106----------------------
 
 [zat_b106_stalker_gonta_squad]:online_offline_group
 sympathy = 0
@@ -378,7 +378,7 @@ target_smart = zat_b106_smart_terrain
 spawn_point = zat_b106_smart_terrain_zat_b106_sleeper_chimera_walk
 story_id = zat_b106_chimera_squad
 
-;-------------------------------b100-------------------------------
+; -------------------------------b100-------------------------------
 [zat_b100_poltergeist_squad_01]:online_offline_group
 faction = monster
 npc = m_poltergeist_normal_tele
@@ -386,14 +386,14 @@ target_smart = {-zat_b100_heli_2_searched} zat_b100, nil
 spawn_point = zat_b100_poltergeist_01_walk
 story_id = zat_b100_poltergeist_squad_01
 
-;[zat_b100_poltergeist_squad_02]:online_offline_group
-;faction = monster
-;npc = m_poltergeist_normal_tele
-;target_smart = {-zat_b100_heli_2_searched} zat_b100, nil
-;spawn_point = zat_b100_poltergeist_02_walk
-;story_id = zat_b100_poltergeist_squad_02
+; [zat_b100_poltergeist_squad_02]:online_offline_group
+; faction = monster
+; npc = m_poltergeist_normal_tele
+; target_smart = {-zat_b100_heli_2_searched} zat_b100, nil
+; spawn_point = zat_b100_poltergeist_02_walk
+; story_id = zat_b100_poltergeist_squad_02
 
-;------------------------------- Simulation TEST -------------------------------
+; ------------------------------- Simulation TEST -------------------------------
 
 [zat_simulation_test]:online_offline_group
 faction = freedom

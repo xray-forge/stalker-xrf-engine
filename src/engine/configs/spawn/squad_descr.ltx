@@ -4,7 +4,7 @@
 #include "squad_descr_labx8.ltx"
 #include "squad_descr_underpass.ltx"
 
-;------------------------------- Simulation SQUADS -------------------------------
+; ------------------------------- Simulation SQUADS -------------------------------
 
 [simulation_stalker]:online_offline_group
 faction = stalker
@@ -26,7 +26,7 @@ faction = stalker
 npc_random = sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_3, sim_default_stalker_3, sim_default_stalker_4, sim_default_stalker_4
 npc_in_squad = 2, 3
 
-;--------------- stalkers simulation squads -----------------------
+; --------------- stalkers simulation squads -----------------------
 
 [stalker_sim_squad_novice]:online_offline_group
 faction = stalker
@@ -49,7 +49,7 @@ target_smart = {+zat_a1_atack_from_zat_sim_15} zat_a1:nil, nil
 spawn_point = zat_sim_15_spawn_for_a1
 npc = sim_default_stalker_2, sim_default_stalker_0
 
-;--------------- bandits simulation squads -----------------------
+; --------------- bandits simulation squads -----------------------
 
 [simulation_bandit]:online_offline_group
 faction = bandit
@@ -71,7 +71,7 @@ faction = bandit
 npc_random = sim_default_bandit_1, sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_3, sim_default_bandit_3, sim_default_bandit_4, sim_default_bandit_4
 npc_in_squad = 2, 3
 
-;--------------- bandits simulation squads new -----------------------
+; --------------- bandits simulation squads new -----------------------
 
 [bandit_sim_squad_novice]:online_offline_group
 faction = bandit
@@ -88,7 +88,7 @@ faction = bandit
 npc_random = sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_3, sim_default_bandit_3, sim_default_bandit_4
 npc_in_squad = 2, 3
 
-;--------------- merks simulation squads -----------------------
+; --------------- merks simulation squads -----------------------
 
 [simulation_killer]:online_offline_group
 faction = killer
@@ -110,7 +110,7 @@ faction = killer
 npc_random = sim_default_killer_2, sim_default_killer_2, sim_default_killer_3, sim_default_killer_3, sim_default_killer_4
 npc_in_squad = 2, 3
 
-;--------------- duty simulation squads -----------------------
+; --------------- duty simulation squads -----------------------
 
 [simulation_duty]:online_offline_group
 faction = dolg
@@ -147,7 +147,7 @@ faction = dolg
 npc_random = sim_default_duty_2, sim_default_duty_2, sim_default_duty_3, sim_default_duty_3, sim_default_duty_4
 npc_in_squad = 2, 3
 
-;--------------- freedom simulation squads -----------------------
+; --------------- freedom simulation squads -----------------------
 
 [simulation_freedom]:online_offline_group
 faction = freedom
@@ -184,7 +184,7 @@ faction = freedom
 npc_random = sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_3, sim_default_freedom_3, sim_default_freedom_4
 npc_in_squad = 2, 3
 
-;--------------- monolith simulation squads -----------------------
+; --------------- monolith simulation squads -----------------------
 
 [simulation_monolith_squad]:online_offline_group
 faction = monolith
@@ -206,7 +206,7 @@ faction = monolith
 npc = sim_default_monolith_3, sim_default_monolith_3, sim_default_monolith_4
 npc_in_squad = 2, 3
 
-;--------------- zombied simulation squads -----------------------
+; --------------- zombied simulation squads -----------------------
 
 [simulation_zombied_1]:online_offline_group
 faction = zombied
@@ -238,7 +238,7 @@ faction = zombied
 npc_random = sim_default_zombied_3, sim_default_zombied_4
 npc_in_squad = 2, 3
 
-;--------------- monster simulation squads -----------------------
+; --------------- monster simulation squads -----------------------
 
 [simulation_bloodsucker]:online_offline_group
 faction = monster_predatory_night
@@ -332,7 +332,7 @@ faction = monster_predatory_day
 npc_random = gigant_normal
 npc_in_squad = 1, 1
 
-;--------------- test --------------------------------------------
+; --------------- test --------------------------------------------
 
 [simulation_dog_01]:simulation_dog
 target_smart = smart_02:smart_01:loop
@@ -349,13 +349,13 @@ spawn_point = spawn_01
 [sim_stalker_squad_1]:online_offline_group
 faction = freedom
 npc = sim_default_freedom_2,sim_default_freedom_2,sim_default_freedom_2
-;npc_random = sim_default_zombied_1
+; npc_random = sim_default_zombied_1
 target_smart = nil
-;run_string xr_effects.create_squad_member(nil,nil,{"sim_default_freedom_2", "sim_stalker_squad_1"})
-;run_string alife():object(57):remove_squad()
-;run_string xr_effects.clear_smart_terrain(nil,nil,{"sim_smart_1"})
-;run_string level.object_by_id(42):set_npc_position(patrol("tst"):point(0))
-;run_string alife():object(56):set_squad_position(patrol("tst"):point(0))
+; run_string xr_effects.create_squad_member(nil,nil,{"sim_default_freedom_2", "sim_stalker_squad_1"})
+; run_string alife():object(57):remove_squad()
+; run_string xr_effects.clear_smart_terrain(nil,nil,{"sim_smart_1"})
+; run_string level.object_by_id(42):set_npc_position(patrol("tst"):point(0))
+; run_string alife():object(56):set_squad_position(patrol("tst"):point(0))
 
 [sim_stalker_squad_2]:online_offline_group
 faction = dolg

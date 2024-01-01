@@ -1,16 +1,16 @@
 [fireball_zone]:zone_base
 GroupControlSection = spawn_group_zone
 $spawn = "zones\fireball"
-;$prefetch = 8
+; $prefetch = 8
 class = ZS_TORRD
 hit_impulse_scale = 0
-effective_radius = 2.75 ;������ ������� � ��������� �� �������������, ��� ��������� ����
+effective_radius = 2.75 ; ������ ������� � ��������� �� �������������, ��� ��������� ����
 postprocess = postprocess_thermal_mine
 
 ef_anomaly_type = 1
 ef_weapon_type = 13
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0.9
 attenuation = 1
 
@@ -22,18 +22,18 @@ hit_big_particles = damage_fx\burn_creatures00
 idle_small_particles = damage_fx\burn_creatures
 idle_big_particles = damage_fx\burn_creatures00
 
-idle_particles_dont_stop = true;
+idle_particles_dont_stop = true ; 
 
-idle_sound = anomaly\fireball_idle ;���������� ����
-blowout_sound = anomaly\fireball_blow ;�� ����� �������(�����) � ������ ��������
-hit_sound = ambient\fire2 ;�� ���������, ����� ��� �������� ���
-entrance_sound = ambient\fire2 ;��� ��������� ������� � ��������
+idle_sound = anomaly\fireball_idle ; ���������� ����
+blowout_sound = anomaly\fireball_blow ; �� ����� �������(�����) � ������ ��������
+hit_sound = ambient\fire2 ; �� ���������, ����� ��� �������� ���
+entrance_sound = ambient\fire2 ; ��� ��������� ������� � ��������
 
 hit_type = light_burn
 
-disable_time = 0 ;����� ������������� �������� ������� � ���� (-1 ���� �� �����)
-disable_time_small = 0 ;����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
-disable_idle_time = 50000 ;����� ���������� idle ���������
+disable_time = 0 ; ����� ������������� �������� ������� � ���� (-1 ���� �� �����)
+disable_time_small = 0 ; ����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
+disable_idle_time = 50000 ; ����� ���������� idle ���������
 
 ignore_nonalive = true
 ignore_small = true
@@ -43,12 +43,12 @@ blowout_light = on
 light_color = 1.8,1.7,1.4
 light_range = 15.0
 light_time = 2
-light_height = 0.75 ;������ ��������� ����� �� ������
+light_height = 0.75 ; ������ ��������� ����� �� ������
 
 idle_light = on
 idle_light_range = 15.0
 idle_light_anim = koster_01
-idle_light_height = 0.75 ;������ ��������� ����� �� ������
+idle_light_height = 0.75 ; ������ ��������� ����� �� ������
 
 awaking_time = 100
 blowout_time = 100
@@ -96,10 +96,10 @@ hit_big_particles =
 idle_small_particles =
 idle_big_particles =
 
-idle_sound = anomaly\buzz_idle; bfuzz_blowout ;���������� ����
-blowout_sound = anomaly\buzz_hit; bfuzz_hit ;�� ����� �������(�����) � ������ ��������
-hit_sound = anomaly\buzz_hit; bfuzz_hit ;�� ���������, ����� ��� �������� ���
-entrance_sound = anomaly\buzz_hit; bfuzz_hit ;��� ��������� ������� � ��������
+idle_sound = anomaly\buzz_idle ; bfuzz_blowout ; ���������� ����
+blowout_sound = anomaly\buzz_hit ; bfuzz_hit ; �� ����� �������(�����) � ������ ��������
+hit_sound = anomaly\buzz_hit ; bfuzz_hit ; �� ���������, ����� ��� �������� ���
+entrance_sound = anomaly\buzz_hit ; bfuzz_hit ; ��� ��������� ������� � ��������
 
 hit_type = chemical_burn
 

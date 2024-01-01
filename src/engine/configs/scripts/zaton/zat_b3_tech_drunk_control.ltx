@@ -4,7 +4,7 @@ active = sr_idle
 [sr_idle]
 on_info = {+zat_b3_tech_have_one_dose} sr_idle@drunk_1
 on_info2 = {+zat_b3_tech_see_produce_62} sr_idle@sleep
-;��������� ����
+; ��������� ����
 on_game_timer = 120 | {-zat_b3_tech_waked_up} %+zat_b3_tech_waked_up%
 
 [sr_idle@drunk_1]
@@ -22,7 +22,7 @@ on_game_timer = 7200 | {+zat_b3_tech_see_produce_62 +zat_b3_tech_surprise_anim_e
 on_game_timer2 = 43200 | {-zat_b3_tech_see_produce_62} sr_idle %-zat_b3_tech_have_couple_dose -zat_b3_tech_have_one_dose -zat_b3_tech_out%
 
 [sr_idle@end]
-;��������� ����
+; ��������� ����
 on_game_timer = 120 | {-zat_b3_tech_waked_up} sr_idle@nil %+zat_b3_tech_waked_up%
 
 [sr_idle@nil]

@@ -26,9 +26,9 @@ def_state_moving = sprint
 [logic@jup_b47_merc_gen]
 prior = 200
 
-;attack works
+; attack works
 
-;01
+; 01
 
 [logic@jup_b47_merc_attack_01]:logic@jup_b47_merc_gen
 suitable = {=check_npc_name(jup_b47_merc_01)}
@@ -42,10 +42,10 @@ jup_b47_merc_attack_01_serchd
 [walker@jup_b47_merc_attack_01]:walker@jup_b47_attack_gen
 path_look = merc_guard_attak_spown
 path_walk = merc_guard_attak_01_walk
-on_info3 = {-jup_b47_merc_pda_spawned} %+jup_b47_merc_pda_spawned =spawn_object_in(jup_b47_merc_pda:jup_b47_merc_01)%;=jup_b47_npc_online(jup_b47_merc_01)
+on_info3 = {-jup_b47_merc_pda_spawned} %+jup_b47_merc_pda_spawned =spawn_object_in(jup_b47_merc_pda:jup_b47_merc_01)% ; =jup_b47_npc_online(jup_b47_merc_01)
 on_info4 = {=surge_started +jup_b47_merc_pda_spawned} walker@jup_b47_merc_surge_01
 
-;02
+; 02
 
 [logic@jup_b47_merc_attack_02]:logic@jup_b47_merc_gen
 suitable = {=check_npc_name(jup_b47_merc_02)}
@@ -57,7 +57,7 @@ path_walk = merc_guard_attak_02_walk
 path_look = merc_guard_attak_02_look
 on_info3 = {=surge_started} walker@jup_b47_merc_surge_02
 
-;03
+; 03
 
 [logic@jup_b47_merc_attack_03]:logic@jup_b47_merc_gen
 suitable = {=check_npc_name(jup_b47_merc_03)}
@@ -69,7 +69,7 @@ path_walk = merc_guard_attak_03_walk
 path_look = merc_guard_attak_03_look
 on_info3 = {=surge_started} walker@jup_b47_merc_surge_03
 
-;04
+; 04
 
 [logic@jup_b47_merc_attack_04]:logic@jup_b47_merc_gen
 suitable = {=check_npc_name(jup_b47_merc_04)}
@@ -87,7 +87,7 @@ path_look = merc_guard_attak_03_look
 on_info2 = {!actor_in_zone(jup_b47_actor_go_down_rest_67) !actor_in_zone(jup_b47_merc_4567_out_rest)} walker@jup_b47_merc_attack_04
 on_info3 = {=surge_started} walker@jup_b47_merc_surge_04
 
-;05
+; 05
 
 [logic@jup_b47_merc_attack_05]:logic@jup_b47_merc_gen
 suitable = {=check_npc_name(jup_b47_merc_05)}
@@ -105,7 +105,7 @@ path_look = merc_guard_attak_03_look
 on_info2 = {!actor_in_zone(jup_b47_actor_go_down_rest_67) !actor_in_zone(jup_b47_merc_4567_out_rest)} walker@jup_b47_merc_attack_05
 on_info3 = {=surge_started} walker@jup_b47_merc_surge_05
 
-;06
+; 06
 
 [logic@jup_b47_merc_attack_06]:logic@jup_b47_merc_gen
 suitable = {=check_npc_name(jup_b47_merc_06)}
@@ -123,7 +123,7 @@ path_look = merc_guard_attak_02_look
 on_info2 = {!actor_in_zone(jup_b47_actor_go_down_rest_45) !actor_in_zone(jup_b47_merc_4567_out_rest)} walker@jup_b47_merc_attack_06
 on_info3 = {=surge_started} walker@jup_b47_merc_surge_06
 
-;07
+; 07
 
 [logic@jup_b47_merc_attack_07]:logic@jup_b47_merc_gen
 suitable = {=check_npc_name(jup_b47_merc_07)}

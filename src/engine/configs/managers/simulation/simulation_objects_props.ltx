@@ -59,27 +59,27 @@ sim_avail = true
 [sim_smart_base]:default_base
 sim_avail = true
 
-;Zaton
-;base
+; Zaton
+; base
 [zat_stalker_base_smart]:default_base
 surge = 1
 sim_avail = true
 
-;no sim
+; no sim
 [zat_medic_home_smart]:default
 sim_avail = false
 
 [zat_b7_stalker_raider]:default
 sim_avail = false
 
-;technical, but with sim available, surge too
+; technical, but with sim available, surge too
 [zat_b33]:default_lair
 sim_avail = false
 
 [zat_a23_smart_terrain]:default
 sim_avail = false
 
-;surge
+; surge
 [zat_b7]:default
 surge = 1
 sim_avail = {+zat_b7_task_end} true, false
@@ -92,7 +92,7 @@ sim_avail = {+zat_b40_actor_has_notebook} true, false
 surge = 1
 sim_avail = false
 
-;!!!
+; !!!
 [zat_b42_smart_terrain]:default
 surge = 1
 territory = 1
@@ -114,7 +114,7 @@ sim_avail = false
 surge = 1
 sim_avail = {+zat_b57_bloodsucker_lair_clear} true, false
 
-;regular smarts
+; regular smarts
 [zat_b5_smart_terrain]:default
 surge = 1
 sim_avail = {+zat_b5_task_start +zat_b5_task_end} true, {-zat_b5_task_start -zat_b5_task_end} true, false
@@ -171,7 +171,7 @@ sim_avail = true
 territory = 1
 sim_avail = {+zat_a1_simulation_start} true, false
 
-;--------- SIMULATION --------
+; --------- SIMULATION --------
 
 [zat_sim_1]:default_lair
 territory = 1
@@ -291,7 +291,7 @@ sim_avail = true
 [zat_sim_30]:default
 sim_avail = true
 
-;--------- ZATON UNIQUE SQUADS --------
+; --------- ZATON UNIQUE SQUADS --------
 [zat_b38_bloodsucker_simulation]:default_squad
 sim_avail = false
 
@@ -356,13 +356,13 @@ sim_avail = {+zat_b104_task_end} true, false
 sim_avail = {+zat_b104_task_end} true, false
 
 [zat_b5_stalkers_squad]:default_squad
-sim_avail = false ;{+zat_b5_task_end} true,
+sim_avail = false ; {+zat_b5_task_end} true,
 
 [zat_b7_stalkers_base_squad]:default_squad
 sim_avail = false
 
-;[zat_b5_dolg_squad]:default_squad
-;sim_avail = {+zat_b5_task_end} true, false
+; [zat_b5_dolg_squad]:default_squad
+; sim_avail = {+zat_b5_task_end} true, false
 
 [zat_b5_bandit_squad]:default_squad
 sim_avail = false ; {+zat_b5_task_end} true,
@@ -433,8 +433,8 @@ sim_avail = false
 [zat_b106_stalker_crab_squad]:default_squad
 sim_avail = false
 
-;[zat_b106_stalker_garmata_squad]:default_squad
-;sim_avail = false
+; [zat_b106_stalker_garmata_squad]:default_squad
+; sim_avail = false
 
 [zat_b106_chimera_squad]:default_squad
 sim_avail = false
@@ -445,7 +445,7 @@ sim_avail = {+zat_b100_heli_2_searched} true, false
 [zat_simulation_test]:default_squad
 sim_avail = false
 
-;--------- JUPITER UNIQUE SQUADS --------
+; --------- JUPITER UNIQUE SQUADS --------
 [jup_b208_burers_squad]:default_squad
 sim_avail = false
 
@@ -596,8 +596,8 @@ sim_avail = false
 [jup_a6_stalker_barmen_squad]:default_squad
 sim_avail = false
 
-;[jup_b202_snag_wounded]:default_squad
-;sim_avail = false
+; [jup_b202_snag_wounded]:default_squad
+; sim_avail = false
 
 [jup_b202_bandit_squad]:default_squad
 sim_avail = {+jup_b202_bandit_go_away} true, false
@@ -710,8 +710,8 @@ sim_avail = false
 [jup_a9_dogs_normal]:default_squad
 sim_avail = false
 
-;--------- PRIPYAT UNIQUE SQUADS ----------------------------------------------
-;---------------------------------------------------------------------------------
+; --------- PRIPYAT UNIQUE SQUADS ----------------------------------------------
+; ---------------------------------------------------------------------------------
 [pri_b301_snorks_squad]:default_squad
 sim_avail = false
 
@@ -756,7 +756,7 @@ sim_avail = false
 
 [pri_a17_mon_ambush_5]:default_squad
 sim_avail = false
-;-------------------------------------
+; -------------------------------------
 
 [pri_a18_monolith_idol_squad]:default_squad
 sim_avail = false
@@ -962,8 +962,8 @@ sim_avail = false
 [pri_b306_mercs_squad_strong]:default_squad
 sim_avail = false
 
-;---------------------------------------------------------------------------------
-;------------------------------- Simulation SQUADS -------------------------------
+; ---------------------------------------------------------------------------------
+; ------------------------------- Simulation SQUADS -------------------------------
 [simulation_stalker]:default_squad
 sim_avail = true
 
@@ -1093,9 +1093,9 @@ sim_avail = true
 [zombied_sim_squad_veteran]:default_squad
 sim_avail = true
 
-;--------------------------------------------------------------------------------
+; --------------------------------------------------------------------------------
 
-;Jupiter
+; Jupiter
 [jup_a10_smart_terrain]:default_base
 sim_avail = {+jup_a10_vano_give_task_end} true, {+jup_a10_fals} true, false
 surge = 1
@@ -1116,7 +1116,7 @@ surge = 1
 sim_avail = {-jup_b19_agreed_to_go} true, {+jup_b19_complete} true, {+jup_b19_yar_enemy_or_dead} true, false
 
 [jup_b200]:default_base
-;sim_avail = {+jup_b200_tech_materials_brought_some} true, {+jup_b200_tech_materials_brought_all} true, false
+; sim_avail = {+jup_b200_tech_materials_brought_some} true, {+jup_b200_tech_materials_brought_all} true, false
 sim_avail = true
 surge = 1
 territory = 1
@@ -1140,7 +1140,7 @@ sim_avail = {+jup_b206_anomalous_grove_done} true, false
 
 [jup_b207]:default
 sim_avail = {-jup_b207_morgan_gived_depot -jup_b207_freedom_knows_about_depot -jup_b207_duty_knows_about_depot} false, true
-;surge = 1
+; surge = 1
 
 [jup_b208]:default
 sim_avail = {+jup_b208_burers_hunt_done} true, false
@@ -1159,7 +1159,7 @@ sim_avail = {+jup_b212_jupiter_chimera_hunt_done} true, false
 sim_avail = {+jup_b25_senya_dead} true, false
 
 [jup_b32]:default_resource
-;������ � ���������
+; ������ � ���������
 sim_avail = true
 
 [jup_b4]:default
@@ -1178,7 +1178,7 @@ sim_avail = {+jup_b47_products_info_complite} true, {+jup_b47_all_merc_dead} tru
 [jup_b6_anom_2]:default_resource
 sim_avail = {-jup_b6_give_task} true, {+jup_b6_task_fail} true, {+jup_b6_anom_2_count_end} true, false
 
-;technical
+; technical
 
 [jup_b200_tushkan_smart_terrain]:default_lair
 sim_avail = true
@@ -1201,7 +1201,7 @@ sim_avail = false
 [jup_a9]:default_lair
 sim_avail = false
 
-;--------- SIMULATION --------
+; --------- SIMULATION --------
 
 [jup_sim_1]:default_lair
 sim_avail = true
@@ -1390,7 +1390,7 @@ sim_avail = false
 [pri_a28_evac]:default
 sim_avail = false
 
-;underpass
+; underpass
 [lx8_smart_terrain]:default
 sim_avail = false
 

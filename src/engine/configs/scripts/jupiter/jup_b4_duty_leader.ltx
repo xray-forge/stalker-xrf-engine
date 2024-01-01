@@ -59,7 +59,7 @@ path_look = duty_leader_4_look
 combat_ignore_cond = {-jup_b4_monolith_squad_out} true
 on_signal = jup_b4_duty_walk_4 | {-jup_b4_duty_squad_leader_praise_sound} %=play_sound(jup_b4_duty_squad_leader_praise) +jup_b4_duty_squad_leader_praise_sound%
 on_signal1 = jup_b4_duty_speech | {-jup_b4_duty_squad_leader_speech_sound} walker@remark %=play_sound(jup_b4_duty_squad_leader_speech) +jup_b4_duty_squad_leader_speech_sound%
-;on_signal2 = jup_b4_duty_prisiaga | walker@final_sound %+jup_b4_duty_prisiaga%
+; on_signal2 = jup_b4_duty_prisiaga | walker@final_sound %+jup_b4_duty_prisiaga%
 on_info = {+jup_b4_monolith_squad_out -jup_b4_duty_leader_stop_sound} %=stop_sound +jup_b4_duty_leader_stop_sound%
 meet = no_meet
 gather_items_enabled = false

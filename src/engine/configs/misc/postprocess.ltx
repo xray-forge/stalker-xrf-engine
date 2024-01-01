@@ -13,14 +13,14 @@ pp_eff_name = radiation.ppe
 duality_h = 0
 duality_v = 0
 blur = 1
-gray = .7 ;.9
-noise = .2 ;.5
+gray = .7 ; .9
+noise = .2 ; .5
 noise_scale = 1
 noise_color = 155,155,155,70
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 ; New zone postprocess
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 [postprocess_steam_mine]
 pp_eff_cyclic = 1
 pp_eff_overlap = true
@@ -130,7 +130,7 @@ pp_eff_name = alcohol.ppe
 radius_min = 0.3
 radius_max = 1.0
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 [effector_alcohol]
 pp_eff_name = alcohol.ppe
 pp_eff_cyclic = 1
@@ -182,7 +182,7 @@ cam_eff_name = camera_effects\hit_front_right.anm
 cam_eff_name = camera_effects\hit_back_right.anm
 
 [snd_shock_effector]
-;pp_eff_name = duality_circle.ppe
+; pp_eff_name = duality_circle.ppe
 pp_eff_name = snd_shock.ppe
 pp_eff_overlap = true
 pp_eff_cyclic = 1
@@ -202,8 +202,8 @@ pp_eff_cyclic = 0
 cam_eff_cyclic = 0
 
 [effector_monster_hit]
-;pp_eff_name = fire_hit.ppe ; no postprocess
-;pp_eff_cyclic = 0
+; pp_eff_name = fire_hit.ppe ; no postprocess
+; pp_eff_cyclic = 0
 cam_eff_cyclic = 0
 
 [effector_monster_hit_0]:effector_monster_hit
@@ -230,9 +230,9 @@ cam_eff_name = camera_effects\hit_front_right.anm
 [effector_monster_hit_7]:effector_monster_hit
 cam_eff_name = camera_effects\hit_back_right.anm
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 ; Nightvision postprocess
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 [effector_nightvision_1]
 pp_eff_name = nightvision_1.ppe
 pp_eff_overlap = false
@@ -248,14 +248,14 @@ pp_eff_name = nightvision_3.ppe
 pp_eff_cyclic = 1
 pp_eff_overlap = false
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 ; ������ ��� ��������������
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 [poltergeist_detection_effector]
 pp_eff_name = poltergeist_scan.ppe
 pp_eff_cyclic = 1
 pp_eff_overlap = true
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 
 [_actor_death_effector]
 pp_eff_name = actor_death.ppe
@@ -270,9 +270,9 @@ pp_eff_name = brighten.ppe
 pp_eff_cyclic = 1
 pp_eff_overlap = true
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 ; Fade
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 
 [fade_in]
 pp_eff_name = fade_in.ppe

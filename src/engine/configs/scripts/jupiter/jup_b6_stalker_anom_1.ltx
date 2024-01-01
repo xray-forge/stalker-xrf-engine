@@ -4,7 +4,7 @@ help_wounded_enabled = true
 corpse_detection_enabled = false
 wounded = wounded
 
-;----------------------------------------------------------------------------------------------------------
+; ----------------------------------------------------------------------------------------------------------
 
 [logic@jup_b6_stalker_1_anom_1]
 suitable = {=target_squad_name(jup_b1_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_freedom_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_duty_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_stalker_) -jup_b6_anom_1_count_end} true
@@ -41,7 +41,7 @@ meet = no_meet
 on_info = {!has_enemy} walker@anom_1 %-jup_b6_stalkers_under_attack -jup_b6_anom_1_guard%
 on_game_timer = 20 | {-jup_b6_stalkers_under_attack} %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_1_guard%
 
-;-------------------------------------------------------
+; -------------------------------------------------------
 
 [logic@jup_b6_stalker_2_anom_1]
 suitable = {=target_squad_name(jup_b1_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_freedom_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_duty_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_stalker_) -jup_b6_anom_1_count_end} true
@@ -75,7 +75,7 @@ meet = no_meet
 on_info = {!has_enemy} walker@anom_2 %-jup_b6_stalkers_under_attack -jup_b6_anom_1_guard%
 on_game_timer = 15 | {-jup_b6_stalkers_under_attack } %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_1_guard%
 
-;-------------------------------------------------------
+; -------------------------------------------------------
 
 [logic@jup_b6_stalker_3_anom_1]
 suitable = {=target_squad_name(jup_b1_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_freedom_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_duty_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_stalker_) -jup_b6_anom_1_count_end} true
@@ -109,7 +109,7 @@ meet = no_meet
 on_info = {!has_enemy} walker@anom_3 %-jup_b6_stalkers_under_attack -jup_b6_anom_1_guard%
 on_game_timer = 15 | {-jup_b6_stalkers_under_attack } %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_1_guard%
 
-;-------------------------------------------------------
+; -------------------------------------------------------
 
 [logic@jup_b6_stalker_4_anom_1]
 suitable = {=target_squad_name(jup_b1_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_freedom_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_duty_stalker_) -jup_b6_anom_1_count_end} true, {=target_squad_name(jup_b6_stalker_) -jup_b6_anom_1_count_end} true
@@ -143,7 +143,7 @@ meet = no_meet
 on_info = {!has_enemy} walker@anom_4 %-jup_b6_stalkers_under_attack -jup_b6_anom_1_guard%
 on_game_timer = 15 | {-jup_b6_stalkers_under_attack} %+jup_b6_stalkers_under_attack =play_sound(jup_b6_stalker_1_monsters_coming_) +jup_b6_anom_1_guard%
 
-;-------------------------------------------------------
+; -------------------------------------------------------
 
 [logic@jup_b6_stalker_1_anom_1_def]
 suitable = {=target_squad_name(jup_b1_stalker_)} true, {=target_squad_name(jup_b6_freedom_stalker_)} true, {=target_squad_name(jup_b6_duty_stalker_)} true, {=target_squad_name(jup_b6_stalker_)} true
@@ -164,7 +164,7 @@ path_look = st_1_def_look
 on_game_timer = 20 | {-jup_b6_anom_1_ready_to_go} %+jup_b6_anom_1_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
 on_info = {=dist_to_actor_ge(130)} %-jup_b6_anom_1%
 
-;-----------------------------------------------------------
+; -----------------------------------------------------------
 
 [logic@jup_b6_stalker_2_anom_1_def]
 suitable = {=target_squad_name(jup_b1_stalker_)} true, {=target_squad_name(jup_b6_freedom_stalker_)} true, {=target_squad_name(jup_b6_duty_stalker_)} true, {=target_squad_name(jup_b6_stalker_)} true
@@ -185,7 +185,7 @@ path_look = st_2_def_look
 on_game_timer = 20 | {-jup_b6_anom_1_ready_to_go} %+jup_b6_anom_1_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
 on_info = {=dist_to_actor_ge(130)} %-jup_b6_anom_1%
 
-;-------------------------------------------------------------
+; -------------------------------------------------------------
 
 [logic@jup_b6_stalker_3_anom_1_def]
 suitable = {=target_squad_name(jup_b1_stalker_)} true, {=target_squad_name(jup_b6_freedom_stalker_)} true, {=target_squad_name(jup_b6_duty_stalker_)} true, {=target_squad_name(jup_b6_stalker_)} true
@@ -206,7 +206,7 @@ path_look = st_3_def_look
 on_game_timer = 20 | {-jup_b6_anom_1_ready_to_go} %+jup_b6_anom_1_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
 on_info = {=dist_to_actor_ge(130)} %-jup_b6_anom_1%
 
-;-------------------------------------------------------------
+; -------------------------------------------------------------
 
 [logic@jup_b6_stalker_4_anom_1_def]
 suitable = {=target_squad_name(jup_b1_stalker_)} true, {=target_squad_name(jup_b6_freedom_stalker_)} true, {=target_squad_name(jup_b6_duty_stalker_)} true, {=target_squad_name(jup_b6_stalker_)} true
@@ -227,7 +227,7 @@ path_look = st_4_def_look
 on_game_timer = 20 | {-jup_b6_anom_1_ready_to_go} %+jup_b6_anom_1_ready_to_go =play_sound(jup_b6_stalker_1_measurements_done)%
 on_info = {=dist_to_actor_ge(130)} %-jup_b6_anom_1%
 
-;-------------------------------------------------------------
+; -------------------------------------------------------------
 
 [wounded]
 hp_state = 0|wounded_heavy@help_heavy

@@ -7,7 +7,7 @@ on_death = death
 
 [walker@meet]
 path_walk = noah_walker_1_walk
-path_look = noah_door_shooting_mark ;noah_walker_1_look
+path_look = noah_door_shooting_mark ; noah_walker_1_look
 def_state_standing = guard_na
 out_restr = zat_b18_out_restrictor_noah
 on_info = {+zat_b18_noah_shot_door} remark@shoot_door
@@ -44,13 +44,13 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;----------�������� � �����---------
+; ----------�������� � �����---------
 [remark@shoot_door]
-anim = threat_fire ;threat_fire
+anim = threat_fire ; threat_fire
 target = path | zat_b18_noah_door_shooting_mark, 0
 meet = no_meet
 on_info = %=play_sound(zat_b18_noah_greetings)%
-on_game_timer = 15 | walker@stop %-zat_b18_noah_shot_door% ;remark@aim_to_actor %-zat_b18_noah_shot_door%
+on_game_timer = 15 | walker@stop %-zat_b18_noah_shot_door% ; remark@aim_to_actor %-zat_b18_noah_shot_door%
 on_info2 = {+zat_b18_actor_enemy} walker@fire %=actor_enemy%
 danger = danger
 combat_ignore_cond = {=check_enemy_name(zat_b18_dog_noah)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
@@ -61,7 +61,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 out_restr = zat_b18_out_restrictor_noah
 
-;----------�������� � ������---------
+; ----------�������� � ������---------
 
 [walker@stop]
 path_walk = noah_walker_1_walk
@@ -97,7 +97,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 out_restr = zat_b18_out_restrictor_noah
 
-;-------------�������� ������----------
+; -------------�������� ������----------
 [remark@fire]
 anim = threat_na
 target = story | actor

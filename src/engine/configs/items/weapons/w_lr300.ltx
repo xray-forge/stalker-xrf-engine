@@ -14,7 +14,7 @@ ef_weapon_type = 8
 default_to_ruck = false
 sprint_allowed = true
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 cost = 6000
 weapon_class = assault_rifle
 inv_weight = 2.7
@@ -23,33 +23,33 @@ upgrades = up_gr_firstab_lr300, up_gr_seconab_lr300, up_gr_thirdab_lr300, up_gr_
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_lr300
 
-;--TTX----------------------------------------------------------------------------
+; --TTX----------------------------------------------------------------------------
 
 hit_power = 0.3, 0.3, 0.3, 0.3
 hit_impulse = 100
 hit_type = fire_wound
 fire_distance = 200
-bullet_speed = 600 ;��������� �������� ����
+bullet_speed = 600 ; ��������� �������� ����
 rpm = 685
 rpm_empty_click = 200
 
-use_aim_bullet = false ;�������������� �� ������ ������ ����
+use_aim_bullet = false ; �������������� �� ������ ������ ����
 time_to_aim = 2.0
 
 hud = wpn_lr300_hud
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.006
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.072
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.0014
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0015
 
 ammo_elapsed = 30
@@ -64,26 +64,26 @@ launch_speed = 0
 hand_dependence = 1
 single_handed = 0
 
-;---DOF-------------------------------------------------------------------------
+; ---DOF-------------------------------------------------------------------------
 zoom_dof = 0.5, 1.0, 180
 reload_dof = 0.0, 0.5, 5, 2
 
-;---���������---------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.25 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; ---���������---------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.25 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.2f
 crosshair_inertion = 5.25
 
-;������
+; ������
 cam_return = 0
-cam_relax_speed = 5 ;�������� �������� � �������� ���������
+cam_relax_speed = 5 ; �������� �������� � �������� ���������
 cam_relax_speed_ai = 360
-cam_dispersion = 0.3 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 0.15 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 0.7 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 50.0 ;������������ ���� ������
-cam_max_angle_horz = 10.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 3.0 ;(degree) size of step camera moved in horizontal position while shooting
+cam_dispersion = 0.3 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 0.15 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 0.7 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 50.0 ; ������������ ���� ������
+cam_max_angle_horz = 10.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 3.0 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 0.5
 PDM_disp_vel_factor = 2.0
@@ -100,9 +100,9 @@ zoom_cam_max_angle = 50.0
 zoom_cam_max_angle_horz = 10.0
 zoom_cam_step_angle_horz = 2
 
-fire_dispersion_condition_factor = 17 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 17 ; ���������� ��������� � ��������� ��� ������������ ������
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 holder_range_modifier = 1.0 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -114,7 +114,7 @@ hit_probability_gd_stalker = 0.80
 hit_probability_gd_veteran = 0.80
 hit_probability_gd_master = 0.80
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 inv_name = st_wpn_lr300
 inv_name_short = st_wpn_lr300
 
@@ -136,7 +136,7 @@ kill_msg_height = 28
 slot = 2 ; // secondary
 animation_slot = 2 ; type of the animation that will be used
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 position = -0.026, -0.130, 0.0
 orientation = 0.0, 0.0, 0.0
 
@@ -151,8 +151,8 @@ shell_point = 0.120000,0.000000,0.070000
 shell_dir = 0.0, 0.0, 0.4
 shell_particles = weapons\generic_shells
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
 strap_position = -0.15,-0.37,0.2 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -10,-5,10 ; (3rd person view in degrees)
 strap_bone0 = bip01_spine2
@@ -169,9 +169,9 @@ light_var_range = 0.1
 light_time = 0.2
 
 ph_mass = 3
-;cost = 2100
+; cost = 2100
 
-;addons
+; addons
 scope_status = 2 ; 0 - no addon
 silencer_status = 2 ; 1 - permanent
 grenade_launcher_status = 2 ; 2 - attachable
@@ -184,12 +184,12 @@ scope_texture = wpn_crosshair_l85
 silencer_name = wpn_addon_silencer ; section name for the attachable silencer
 silencer_x = 210 ; offset in inventory icon
 silencer_y = 9
-grenade_launcher_name = wpn_addon_grenade_launcher_m203; section name for the attachable grenade launcher
+grenade_launcher_name = wpn_addon_grenade_launcher_m203 ; section name for the attachable grenade launcher
 grenade_launcher_x = 128 ; offset in inventory icon
 grenade_launcher_y = 28
 scopes_sect = scope_susat_lr, scope_susat_x1.6_lr, scope_susat_custom_lr, scope_susat_dusk_lr, scope_susat_night_lr
 
-;�����
+; �����
 snd_draw = weapons\generic_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_lr300_shot
@@ -203,8 +203,8 @@ snd_switch = weapons\groza_switch, 1.0, 0.5
 snd_bore = weapons\draw_silent
 snd_bore1 = weapons\mp5_bore
 
-;��������� ��� ���������
-;silencer_flame_particles = weapons\generic_weapon01
+; ��������� ��� ���������
+; silencer_flame_particles = weapons\generic_weapon01
 silencer_smoke_particles = weapons\generic_shoot_00
 
 snd_silncer_shot = weapons\w_ak74_shot1
@@ -247,8 +247,8 @@ anm_shots = lr300_shoot
 anm_reload = lr300_reload
 anm_idle_aim = lr300_idle_aim
 
-anm_switch = lr300_switch_off ;lr300_switch_off
-anm_switch_g = lr300_switch_on ;lr300_switch_on
+anm_switch = lr300_switch_off ; lr300_switch_off
+anm_switch_g = lr300_switch_on ; lr300_switch_on
 anm_bore = lr300_idle_bore
 
 anm_hide_w_gl = lr300_holster_w_gl
@@ -261,14 +261,14 @@ anm_idle_sprint_w_gl = lr300_idle_sprint_w_gl
 anm_idle_moving_w_gl = lr300_idle_moving_w_gl
 anm_bore_w_gl = lr300_idle_bore_w_gl
 
-anm_show_g = lr300_draw_grenade ;lr300_draw_grenade
-anm_hide_g = lr300_holster_grenade ;lr300_holster_grenade
-anm_idle_g = lr300_idle_grenade ;lr300_idle_grenade
+anm_show_g = lr300_draw_grenade ; lr300_draw_grenade
+anm_hide_g = lr300_holster_grenade ; lr300_holster_grenade
+anm_idle_g = lr300_idle_grenade ; lr300_idle_grenade
 anm_reload_g = lr300_reload_grenade
-anm_idle_g_aim = lr300_idle_grenade ;lr300_idle_grenade
+anm_idle_g_aim = lr300_idle_grenade ; lr300_idle_grenade
 anm_shots_g = lr300_shoot_grenade
-anm_idle_sprint_g = lr300_idle_sprint_grenade ;lr300_idle_sprint_grenade
-anm_idle_moving_g = lr300_idle_moving_grenade ;lr300_idle_moving_grenade
+anm_idle_sprint_g = lr300_idle_sprint_grenade ; lr300_idle_sprint_grenade
+anm_idle_moving_g = lr300_idle_moving_grenade ; lr300_idle_moving_grenade
 anm_bore_g = lr300_idle_bore_grenade
 
 aim_hud_offset_pos = -0.122500,0.010000,-0.022500
@@ -277,11 +277,11 @@ aim_hud_offset_rot = -0.010000,0.012500,0.007500
 aim_hud_offset_pos_16x9 = -0.119500,0.030000,0.029000
 aim_hud_offset_rot_16x9 = 0.012500,0.030000,-0.012504
 
-gl_hud_offset_pos = 0,0,0;-0.053000,-0.059000,0.000000
-gl_hud_offset_rot = 0,0,0;-0.145000,0.000000,0.000000
+gl_hud_offset_pos = 0,0,0 ; -0.053000,-0.059000,0.000000
+gl_hud_offset_rot = 0,0,0 ; -0.145000,0.000000,0.000000
 
-gl_hud_offset_pos_16x9 = 0,0,0;-0.130000,0.003500,0.000500
-gl_hud_offset_rot_16x9 = 0,0,0;0.052500,0.045000,-0.010000
+gl_hud_offset_pos_16x9 = 0,0,0 ; -0.130000,0.003500,0.000500
+gl_hud_offset_rot_16x9 = 0,0,0 ; 0.052500,0.045000,-0.010000
 
 lean_hud_offset_pos = 0,0,0
 lean_hud_offset_rot = 0,0,0
@@ -311,6 +311,6 @@ scope_name = wpn_addon_scope_susat_night
 scope_x = 75
 scope_y = -5
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; ����������
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------

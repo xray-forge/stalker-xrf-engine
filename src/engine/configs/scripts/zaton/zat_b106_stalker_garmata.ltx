@@ -37,7 +37,7 @@ def_state_moving = walk
 
 [remark@story_reply]
 anim = wait_na
-target = path| zat_stalker_base_smart_gonta_1_walk,0 ;story | zat_b106_stalker_gonta
+target = path| zat_stalker_base_smart_gonta_1_walk,0 ; story | zat_b106_stalker_gonta
 on_info = %=play_sound(zat_b106_garmata_story_reply)%
 on_signal = sound_end | walker@story_reply_wait %+zat_b106_garmata_story_reply_done%
 meet = no_meet
@@ -100,7 +100,7 @@ wounded = wounded
 cover_name = zat_a2_sc_zat_b106_stalker_garmata
 meet = meet@base
 use_camp = false
-;on_info = {!dist_to_actor_le(140) -zat_b106_free_stalker_crab -zat_b106_gonta_dead} %+zat_b106_free_stalker_garmata%
+; on_info = {!dist_to_actor_le(140) -zat_b106_free_stalker_crab -zat_b106_gonta_dead} %+zat_b106_free_stalker_garmata%
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
 invulnerable = true

@@ -8,45 +8,45 @@ class = C_HLCP_S
 script_binding = bind.heli ; xrf change
 visual = dynamics\vehicles\mi24\veh_mi24_u_01.ogf
 
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
 
 //��������� ���������� ����
-path_linear_acc_fw = 6 ;8; 3;5; 3.0 ;m/s ; �������� ��������� ��� �������
-path_linear_acc_bk = 4 ;2;4; 0.5; 3; 3.5;3 ;8.0 ;m/s ; �������� ��������� ����������
-flag_by_new_acc = 1 ;���� �� ��������, ��� 0 - ��������� �� ����� �������������� ������������� ��� ����� �����
+path_linear_acc_fw = 6 ; 8 ; 3 ; 5 ; 3.0 ; m/s ; �������� ��������� ��� �������
+path_linear_acc_bk = 4 ; 2 ; 4 ; 0.5 ; 3 ; 3.5 ; 3 ; 8.0 ; m/s ; �������� ��������� ����������
+flag_by_new_acc = 1 ; ���� �� ��������, ��� 0 - ��������� �� ����� �������������� ������������� ��� ����� �����
 
-path_angular_sp_pitch = 0.35 ;0.35; 0.65; 0.85; 0.45 ; �������� ��������� ������ ���� ��� �������� "velocity"
+path_angular_sp_pitch = 0.35 ; 0.35 ; 0.65 ; 0.85 ; 0.45 ; �������� ��������� ������ ���� ��� �������� "velocity"
 path_angular_sp_pitch_0 = 0.2 ; �������� ��������� ������ ���� ��� �������� "0"
-path_angular_sp_heading = 0.75 ;0.5 ;0.75 ; ������� �������� ���� ��� �������� "velocity"
-path_angular_sp_heading_0 = 1;0.9 ; ������� �������� ���� ��� �������� "0"m/s
+path_angular_sp_heading = 0.75 ; 0.5 ; 0.75 ; ������� �������� ���� ��� �������� "velocity"
+path_angular_sp_heading_0 = 1 ; 0.9 ; ������� �������� ���� ��� �������� "0"m/s
 
 magic_angle = 0.3
 
 //��������� ������� ������
-model_angular_sp_bank = 0.5 ;0.4 ; �������� �������� ������ �� ��� Z (��� ������ ������ ���������� �� ����� �������� � ������ ������� ��������)
-model_angular_sp_pitch = 0.1 ; ; �������� �������� ������ �� ��� X � ����������� �� ������� �������� ��������
-model_pitch_koef = 0.016;0.012;0.018 ; ; ���� ������� ������ �� ��� X � ����������� �� ������� �������� ��������
-model_bank_koef = 0.018 ;0.02 ; ���� ������� ������ �� ��� Z � ����������� �� ������� �������� � ������� ���������
+model_angular_sp_bank = 0.5 ; 0.4 ; �������� �������� ������ �� ��� Z (��� ������ ������ ���������� �� ����� �������� � ������ ������� ��������)
+model_angular_sp_pitch = 0.1 ;  ; �������� �������� ������ �� ��� X � ����������� �� ������� �������� ��������
+model_pitch_koef = 0.016 ; 0.012 ; 0.018 ;  ; ���� ������� ������ �� ��� X � ����������� �� ������� �������� ��������
+model_bank_koef = 0.018 ; 0.02 ; ���� ������� ������ �� ��� Z � ����������� �� ������� �������� � ������� ���������
 on_point_range_dist = 10.0 ; ��������� ����������
 
-;default, can be redefined by script
-velocity = 30;25 ;m/sec ��������, � ������� �������������
-min_altitude = 15;30 ;15 20 ;20.0 ;m min altitude in free state
-;attack_velocity = 15.0; 15; 10 ;m/sec ��������, � ������� ��������� �����
-;altitude = 50 ;20.0 ;m ������, �� ������� �������������
+; default, can be redefined by script
+velocity = 30 ; 25 ; m/sec ��������, � ������� �������������
+min_altitude = 15 ; 30 ; 15 20 ; 20.0 ; m min altitude in free state
+; attack_velocity = 15.0 ; 15 ; 10 ; m/sec ��������, � ������� ��������� �����
+; altitude = 50 ; 20.0 ; m ������, �� ������� �������������
 safe_altitude = 3.0 ; level_bound+5.0
 
 use_rocket = true ; ������������ ������ ��� �����
 use_mgun = true ; ������������ ������� ��� �����
 use_aim_bullet = false ; ������������ �� ������ "�������" ����
-min_mgun_attack_dist = 15 ;30 ;15.0 ;m ��� ���������� ��� ������� ����� ��� �������
-max_mgun_attack_dist = 300 ;m ���� ���������� ��� ������� ����� ��� �������
-min_rocket_attack_dist = 100.0 ;m ��� ���������� ��� ������� ����� ��� ������
-max_rocket_attack_dist = 250 ;150.0 ;m ���� ���������� ��� ������� ����� ��� ������
+min_mgun_attack_dist = 15 ; 30 ; 15.0 ; m ��� ���������� ��� ������� ����� ��� �������
+max_mgun_attack_dist = 300 ; m ���� ���������� ��� ������� ����� ��� �������
+min_rocket_attack_dist = 100.0 ; m ��� ���������� ��� ������� ����� ��� ������
+max_rocket_attack_dist = 250 ; 150.0 ; m ���� ���������� ��� ������� ����� ��� ������
 time_between_rocket_attack = 1250 ; 1500 ; msec �������� ����� ��������
 syncronize_rocket = false ; true ������� ������ ������ ��� �� ������� (���-����-���-����)
-fire_trail_length = 50 ;m
+fire_trail_length = 50 ; m
 use_fire_trail = true
 barrel_dir_tolerance = 2 ; degrees. ���������� ����, ����� �������, ��� ���� ���������� � ����
 
@@ -55,17 +55,17 @@ death_lin_vel_koeff = 1 ; ��� ������ � �������
 
 flame_start_health = 0.5 ; ������� ��������, ���� �������� ������� �������� ������
 
-fire_time = 1.5; ����� �������, ���� ������ ���� - �������� �����������
-no_fire_time = 0.3; ����� �������� ����� ���������, ���� ������ ���� - �������� �����������
+fire_time = 1.5 ; ����� �������, ���� ������ ���� - �������� �����������
+no_fire_time = 0.3 ; ����� �������� ����� ���������, ���� ������ ���� - �������� �����������
 
 ; ------------------------- ��������� ��� ������������� ������ �����
-flyby_attack_dist = 100 ;70
-search_attack_dist = 100 ;70 ;55 ;80
+flyby_attack_dist = 100 ; 70
+search_attack_dist = 100 ; 70 ; 55 ; 80
 
 search_velocity = 5 ; �������� (�/�) ����� ����� �� ����� � ������ ������
 round_velocity = 10 ; �������� (�/�) ����� ����� � ������ �����
 
-vis_time_quant = 200 ;�������� (� ��) ����� ���������� ���������
+vis_time_quant = 200 ; �������� (� ��) ����� ���������� ���������
 vis_threshold = 60 ; ����� ������� ��������� �����, ���� ����������� ������ �������� �������
 vis_inc = 30 ; �� ������� ��������� ���������� ��������� ������� �� 1�
 vis_dec = 30 ; �� ������� ��������� ��������� ��������� ������� �� 1�
@@ -79,40 +79,40 @@ light_brightness = 5.0
 light_color = 0.9,0.9,0.5
 light_color_animmator = koster_00
 
-smoke_particle = damage_fx\heli_burn ;�������� ��� �������
-explode_particle = explosions\expl_mushroom_01 ;�������� ��� ������
-explode_sound = weapons\heli_explosion ;���� ������������ ������
+smoke_particle = damage_fx\heli_burn ; �������� ��� �������
+explode_particle = explosions\expl_mushroom_01 ; �������� ��� ������
+explode_sound = weapons\heli_explosion ; ���� ������������ ������
 
-;------------------------------��� ��� ��������
-snd_shoot_rocket = weapons\heli_rocket_shoot ;���� �������� �������
+; ------------------------------��� ��� ��������
+snd_shoot_rocket = weapons\heli_rocket_shoot ; ���� �������� �������
 
-fire_dispersion_base = 5.0;1.0
-fire_dispersion_null = 1.0;0.5
+fire_dispersion_base = 5.0 ; 1.0
+fire_dispersion_null = 1.0 ; 0.5
 fire_trace_width = 1.0
 rpm = 1000
 hit_power = 0.5
 hit_impulse = 20
 fire_distance = 500
-bullet_speed = 900 ;��������� �������� ����
+bullet_speed = 900 ; ��������� �������� ����
 light_color = 0.9,0.8,0.4
 light_range = 5
 light_var_color = 0.05
 light_var_range = 0.5
 light_time = 0.2
-ammo_class = ammo_12x76_zhekan_heli ;ammo_12x70_buck
+ammo_class = ammo_12x76_zhekan_heli ; ammo_12x70_buck
 flame_particles = weapons\heli_weapon
-;smoke_particles = weapons\generic_shoot_00
+; smoke_particles = weapons\generic_shoot_00
 shell_point = 0.05, 0.22, 0.06
 shell_particles = weapons\generic_shells
 snd_shoot = weapons\weapon_heli
 
 broken_snd = vehicles\helicopter\helicopter_down
 
-;------------------------------��� ��� ���������
-rocket_class = helicopter_missile ;wpn_rpg7_missile
-launch_speed = 60 ;45 ;50 ;60 ;76 ;500
+; ------------------------------��� ��� ���������
+rocket_class = helicopter_missile ; wpn_rpg7_missile
+launch_speed = 60 ; 45 ; 50 ; 60 ; 76 ; 500
 wallmark_section = explosion_marks
-;------------------------------������������ ����������
+; ------------------------------������������ ����������
 immunities_sect = sect_heli_immunities
 
 [sect_heli_immunities]
@@ -136,11 +136,11 @@ class = G_RPG7
 immunities_sect = sect_hm_immunities
 
 cost = 200
-;---------------------------------------------------------------
+; ---------------------------------------------------------------
 blast = 5
 blast_r = 10
 blast_impulse = 350
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 0
@@ -151,8 +151,8 @@ frag_hit_impulse = 400
 hit_type_blast = explosion
 hit_type_frag = fire_wound
 
-up_throw_factor = 1.5 ;1.3
-;---------------------------------------------------------------
+up_throw_factor = 1.5 ; 1.3
+; ---------------------------------------------------------------
 
 wm_size = 0.3
 
@@ -166,19 +166,19 @@ engine_u = 90
 
 jump_height = 0
 
-explode_particles = explosions\explosion_heli_rocket_01;
+explode_particles = explosions\explosion_heli_rocket_01 ; 
 
-;������ �� ��������
+; ������ �� ��������
 fragment_speed = 100
 fragment_tracer_max_length = 4
-explode_duration = 2 ;���������������� ������ (�)
-;wallmarks
+explode_duration = 2 ; ���������������� ������ (�)
+; wallmarks
 wallmark_section = explosion_marks
-;�����
+; �����
 snd_explode = weapons\rpg7_explode
 snd_fly_sound = weapons\rocket_fly
 
-;�������� ������� ��������, �� �� ������������ (���� ������)
+; �������� ������� ��������, �� �� ������������ (���� ������)
 inv_name = "VOG-25"
 inv_name_short = "VOG-25"
 inv_weight = .2
@@ -188,25 +188,25 @@ inv_grid_height = 1
 inv_grid_x = 19
 inv_grid_y = 9
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; �������� CustomRocket
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-engine_present = true ;������������ �� � ������ ���������
-engine_work_time = 5000 ;����� ������ ��������� (� ������������)
-engine_impulse = 1000 ;
-engine_impulse_up = 137.34 ;215.58;137.34 = 2*9.81*7 - �������� ����� ��������� (������� �������� ����� ��������� �����, ������� ��������),
-;��� ������� ������ ������ 7�� �� ���������� ��� ��������
-;����������. 2*9.8=19.62 - ��������� ���������� ������� � ���� ���������
-;��� ������� ��������� ������ ����� ����������, ��� ������� �����������
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; �������� CustomRocket
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+engine_present = true ; ������������ �� � ������ ���������
+engine_work_time = 5000 ; ����� ������ ��������� (� ������������)
+engine_impulse = 1000 ; 
+engine_impulse_up = 137.34 ; 215.58 ; 137.34 = 2*9.81*7 - �������� ����� ��������� (������� �������� ����� ��������� �����, ������� ��������),
+; ��� ������� ������ ������ 7�� �� ���������� ��� ��������
+; ����������. 2*9.8=19.62 - ��������� ���������� ������� � ���� ���������
+; ��� ������� ��������� ������ ����� ����������, ��� ������� �����������
 
-lights_enabled = TRUE ;���� ������ ������, �� ����� ������
+lights_enabled = TRUE ; ���� ������ ������, �� ����� ������
 trail_light_color = 0.7,0.6,0.3
 trail_light_range = 20.0
 
 engine_particles = weapons\rpg_trail_01
-;fly_particles = weapons\rpg_trail_01
+; fly_particles = weapons\rpg_trail_01
 
-force_explode_time = 10000; msec
+force_explode_time = 10000 ; msec
 
 [sect_hm_immunities]
 burn_immunity = 1.0

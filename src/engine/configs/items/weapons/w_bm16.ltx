@@ -12,7 +12,7 @@ description = st_wpn_bm16_descr
 ef_main_weapon_type = 1
 ef_weapon_type = 9
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 cost = 200
 weapon_class = shotgun
 inv_weight = 1.9
@@ -21,7 +21,7 @@ upgrades = up_gr_firstab_bm16, up_gr_seconab_bm16, up_gr_thirdab_bm16
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_bm16
 
-;---TTX-------------------------------------------------------------------------
+; ---TTX-------------------------------------------------------------------------
 hit_power = 0.5, 0.5, 0.5, 0.5
 hit_impulse = 150
 hit_type = fire_wound
@@ -31,18 +31,18 @@ rpm = 1000
 
 hud = wpn_bm16_hud
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.002
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.03
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.0065
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0065
 
 ammo_elapsed = 2
@@ -51,25 +51,25 @@ ammo_class = ammo_12x70_buck
 hand_dependence = 1
 single_handed = 0
 
-;---DOF-------------------------------------------------------------------------
+; ---DOF-------------------------------------------------------------------------
 zoom_dof = 0.5, 1.0, 180
-;reload_dof = 0.0, 0.5, 5, 1.7
-;----���������--------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.44 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; reload_dof = 0.0, 0.5, 5, 1.7
+; ----���������--------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.44 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.0f
 crosshair_inertion = 4.7
 
-;������
+; ������
 cam_return = 1
-cam_relax_speed = 4.0 ;�������� �������� � �������� ���������
+cam_relax_speed = 4.0 ; �������� �������� � �������� ���������
 cam_relax_speed_ai = 360
-cam_dispersion = 5.5 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 5.5 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 0.5 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 15 ;������������ ���� ������
-cam_max_angle_horz = 15 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 5.5 ;(degree) size of step camera moved in horizontal position while shooting
+cam_dispersion = 5.5 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 5.5 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 0.5 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 15 ; ������������ ���� ������
+cam_max_angle_horz = 15 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 5.5 ; (degree) size of step camera moved in horizontal position while shooting
 
 zoom_cam_relax_speed = 4.0 ; scope & ironsight
 zoom_cam_relax_speed_ai = 120.75
@@ -80,9 +80,9 @@ zoom_cam_max_angle = 5.0
 zoom_cam_max_angle_horz = 5.0
 zoom_cam_step_angle_horz = 3.5
 
-fire_dispersion_condition_factor = 2 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 2 ; ���������� ��������� � ��������� ��� ������������ ������
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 holder_range_modifier = 1.0 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -94,7 +94,7 @@ hit_probability_gd_stalker = 0.80
 hit_probability_gd_veteran = 0.80
 hit_probability_gd_master = 0.80
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 slot = 2
 animation_slot = 3
 
@@ -117,11 +117,11 @@ kill_msg_width = 54
 kill_msg_height = 16
 
 position = -0.026, -0.096, 0.045
-orientation = 0, 30, 0 ;�������� ��������������� � ��������
+orientation = 0, 30, 0 ; �������� ��������������� � ��������
 
 shell_point = 0.0, 0.136, 0.07
-fire_point = 0.000000,0.136000,0.390000 ;r
-fire_point2 = 0.000000,0.136000,0.390000 ;l
+fire_point = 0.000000,0.136000,0.390000 ; r
+fire_point2 = 0.000000,0.136000,0.390000 ; l
 
 flame_particles = weapons\generic_weapon05
 smoke_particles = weapons\generic_shoot_00
@@ -133,11 +133,11 @@ PDM_disp_accel_factor = 1.1
 PDM_disp_crouch = 1.0
 PDM_disp_crouch_no_acc = 1.0
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
 strap_position = -0.26,-0.11,0.15
 strap_orientation = -15,-9,110
-;�� �����
+; �� �����
 strap_bone0 = bip01_spine2
 strap_bone1 = bip01_spine1
 
@@ -152,7 +152,7 @@ light_time = 0.2
 
 ph_mass = 3
 
-;addons
+; addons
 scope_status = 0
 silencer_status = 0
 grenade_launcher_status = 0
@@ -160,16 +160,16 @@ grenade_launcher_status = 0
 zoom_enabled = true
 scope_zoom_factor = 55
 
-;�����
+; �����
 snd_draw = weapons\generic_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_bm16_shot
 snd_empty = weapons\generic_empty
-snd_reload = weapons\bm16_reload_lr ;reload both
+snd_reload = weapons\bm16_reload_lr ; reload both
 snd_shoot_duplet = weapons\n_bm16_shot
 snd_shoot_1 = weapons\n_bm16_shot
 
-snd_reload_1 = weapons\bm16_reload_l ;reload left
+snd_reload_1 = weapons\bm16_reload_l ; reload left
 
 [wpn_bm16_hud]:hud_base
 zoom_hide_crosshair = true
@@ -231,8 +231,8 @@ aim_hud_offset_rot = -0.007500,-0.017500,0.007500
 
 aim_hud_offset_pos_16x9 = -0.079500,0.008000,0.043000
 aim_hud_offset_rot_16x9 = -0.047500,-0.005000,-0.030000
-;aim_hud_offset_pos_16x9 = -0.040500,0.032500,0.043000
-;aim_hud_offset_rot_16x9 = -0.017500,-0.022500,0.000000
+; aim_hud_offset_pos_16x9 = -0.040500,0.032500,0.043000
+; aim_hud_offset_rot_16x9 = -0.017500,-0.022500,0.000000
 
 gl_hud_offset_pos = 0,0,0
 gl_hud_offset_rot = 0,0,0
@@ -240,6 +240,6 @@ gl_hud_offset_rot = 0,0,0
 lean_hud_offset_pos = 0,0,0
 lean_hud_offset_rot = 0,0,0
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; ����������
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------

@@ -32,7 +32,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-[wounded] ;�� ������ ���� �������
+[wounded] ; �� ������ ���� �������
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
@@ -42,7 +42,7 @@ hp_cover = 0|false
 [death]
 on_info = %+jup_b1_zomb_is_dead%
 
-;----------------------------------------
+; ----------------------------------------
 [logic@jup_b1_zombie_2]
 active = walker@stay_2
 suitable = {=check_npc_name(jup_b1_zombie_2)} true
@@ -67,7 +67,7 @@ corpse_detection_enabled = false
 
 [death@1]
 on_info = %+jup_b1_zomb_2_is_dead%
-;---------------------------------------
+; ---------------------------------------
 [logic@jup_b1_zombie_3]
 active = walker@stay_3
 suitable = {=check_npc_name(jup_b1_zombie_3)} true

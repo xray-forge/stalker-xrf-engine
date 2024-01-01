@@ -9,11 +9,11 @@ post_combat_time = 0, 0
 [death]
 on_info = {=killed_by_actor =squad_exist(zat_b14_stalkers)} %+zat_b14_stalker_killed_by_actor =set_squad_enemy_to_actor(zat_b14_stalkers) =stop_sound%, %=stop_sound%
 
-[hit] ;���� ����� ����� ��������, ������, ����� �����
+[hit] ; ���� ����� ����� ��������, ������, ����� �����
 on_info = {=hit_by_actor =actor_has_item(af_quest_b14_twisted) =is_alive} %=play_sound(zat_b14_robbery_kill_actor_snd) +zat_b14_actor_enemy%
 on_info2 = {=actor_enemy -zat_b14_stop_sound} walker@fight %+zat_b14_stop_sound =stop_sound%
 
-[walker@stand] ;�������� � ����
+[walker@stand] ; �������� � ����
 path_walk = zat_b14_stalker_2_walk_1
 path_look = zat_b14_stalker_2_look_1
 on_info = {+zat_b14_stalker_robbery_cutscene_start} walker@go_robbery
@@ -21,9 +21,9 @@ in_restr = zat_b14_not_give_item_zone
 combat_ignore_cond = {!actor_enemy} true
 show_spot = {!actor_enemy} false, true
 meet = no_meet
-;group = 14
+; group = 14
 
-[walker@go_robbery] ;���� �������
+[walker@go_robbery] ; ���� �������
 def_state_moving1 = assault
 path_walk = zat_b14_stalker_2_walk_2
 path_look = zat_b14_stalker_2_look_2
@@ -31,7 +31,7 @@ on_info = {+zat_b14_stalker_robbery_cutscene_end} remark@robbery
 in_restr = zat_b14_not_give_item_zone
 meet = no_meet
 
-[remark@robbery] ;������������� ������
+[remark@robbery] ; ������������� ������
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -42,7 +42,7 @@ on_info3 = {=actor_enemy -zat_b14_stop_sound} walker@fight %+zat_b14_stop_sound 
 in_restr = zat_b14_not_give_item_zone
 meet = no_meet
 
-[remark@wait] ;���� ���� ������ �����
+[remark@wait] ; ���� ���� ������ �����
 target = story | actor
 anim = threat_na
 on_info = {=actor_nomove_nowpn()} %=play_sound(zat_b14_robbery_stand_still_snd)%
@@ -53,7 +53,7 @@ on_signal = sound_end | remark@wait_again %+zat_b14_robbery_nowpn_actor%
 in_restr = zat_b14_not_give_item_zone
 meet = no_meet
 
-[remark@wait_again] ;�������, ��� ������� �������� ��������
+[remark@wait_again] ; �������, ��� ������� �������� ��������
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -64,9 +64,9 @@ on_info4 = {=actor_enemy -zat_b14_stop_sound} walker@fight %+zat_b14_stop_sound 
 in_restr = zat_b14_not_give_item_zone
 meet = no_meet
 
-;�������� � �������� ������.
+; �������� � �������� ������.
 
-[remark@guard_backoff] ;��������, ������ �� ������
+[remark@guard_backoff] ; ��������, ������ �� ������
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -76,7 +76,7 @@ on_signal = sound_end | remark@guard_wait %+zat_b14_cover_st_1%
 in_restr = zat_b14_not_give_item_zone
 meet = no_meet
 
-[remark@guard_wait] ;��������, ���� ���� ����� ������� �����
+[remark@guard_wait] ; ��������, ���� ���� ����� ������� �����
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -85,7 +85,7 @@ on_game_timer = 20 | remark@guard_backoff %=inc_counter(zat_b14_reaction)%
 in_restr = zat_b14_not_give_item_zone
 meet = no_meet
 
-[walker@fight] ;� ���!
+[walker@fight] ; � ���!
 path_walk = zat_b14_stalker_2_walk_1
 path_look = zat_b14_stalker_2_look_1
 in_restr = zat_b14_not_give_item_zone

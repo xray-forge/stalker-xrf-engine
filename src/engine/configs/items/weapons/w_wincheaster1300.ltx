@@ -11,7 +11,7 @@ description = st_wpn_wincheaster1300_descr
 ef_main_weapon_type = 1
 ef_weapon_type = 9
 
-;----------------------------------------------------------------------------
+; ----------------------------------------------------------------------------
 cost = 2400
 weapon_class = shotgun
 inv_weight = 3.0
@@ -20,28 +20,28 @@ upgrades = up_gr_firstab_wincheaster1300, up_gr_seconab_wincheaster1300, up_gr_t
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_wincheaster1300
 
-;--TTX----------------------------------------------------------------------------
+; --TTX----------------------------------------------------------------------------
 hit_power = 0.51, 0.51, 0.51, 0.51
 hit_impulse = 120
 hit_type = fire_wound
 fire_distance = 100
-bullet_speed = 230 ;��������� �������� ����
-rpm = 85 ;60 = 1 �������
+bullet_speed = 230 ; ��������� �������� ����
+rpm = 85 ; 60 = 1 �������
 
 hud = wpn_winchester1300_hud
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.003
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0035
 
 tri_state_reload = on
@@ -51,22 +51,22 @@ ammo_mag_size = 7
 ammo_class = ammo_12x70_buck, ammo_12x76_zhekan
 fire_modes = 1
 
-;--���������----------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.3 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; --���������----------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.3 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.3f
 crosshair_inertion = 6.85
 
-;������
+; ������
 cam_return = 0
-cam_relax_speed = 10 ;�������� �������� � �������� ���������
+cam_relax_speed = 10 ; �������� �������� � �������� ���������
 cam_relax_speed_ai = 360
-cam_dispersion = 3.0 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 2.0 ;���������e cam_dispersion � ������ ���������
+cam_dispersion = 3.0 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 2.0 ; ���������e cam_dispersion � ������ ���������
 cam_dispersion_frac = 0.7
-cam_max_angle = 15.0 ;������������ ���� ������
-cam_max_angle_horz = 15.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 3.0 ;(degree) size of step camera moved in horizontal position while shooting
+cam_max_angle = 15.0 ; ������������ ���� ������
+cam_max_angle_horz = 15.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 3.0 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 0.5
 PDM_disp_vel_factor = 2.0
@@ -83,12 +83,12 @@ zoom_cam_max_angle = 15.0
 zoom_cam_max_angle_horz = 15.0
 zoom_cam_step_angle_horz = 3.0
 
-fire_dispersion_condition_factor = 2.5 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 2.5 ; ���������� ��������� � ��������� ��� ������������ ������
 
-;---DOF-------------------------------------------------------------------------
+; ---DOF-------------------------------------------------------------------------
 zoom_dof = 0.5, 1.0, 180
-;reload_dof = 0.0, 0.5, 5, 1.7
-;-------------------------------------------------------------------------------
+; reload_dof = 0.0, 0.5, 5, 1.7
+; -------------------------------------------------------------------------------
 holder_range_modifier = 1.0 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -100,9 +100,9 @@ hit_probability_gd_stalker = 0.70
 hit_probability_gd_veteran = 0.70
 hit_probability_gd_master = 0.70
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 position = -0.024, -0.097, 0.
-orientation = 0, -4, 0 ;�������� ��������������� � ��������
+orientation = 0, -4, 0 ; �������� ��������������� � ��������
 
 shell_point = 0.0, 0.180, 0.647
 shell_particles = weapons\generic_shells_shotgun
@@ -137,8 +137,8 @@ flame_particles = weapons\generic_weapon05
 smoke_particles = weapons\generic_shoot_00
 rpm_empty_click = 200
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
 strap_position = -0.26,-0.10,0.05 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -15,-9,110 ; (3rd person view in degrees)
 strap_bone0 = bip01_spine2
@@ -155,7 +155,7 @@ light_time = 0.2
 
 ph_mass = 3
 
-;addons
+; addons
 scope_status = 0
 silencer_status = 0
 grenade_launcher_status = 0
@@ -163,7 +163,7 @@ grenade_launcher_status = 0
 zoom_enabled = true
 scope_zoom_factor = 55
 
-;�����
+; �����
 snd_draw = weapons\generic_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_spas12_shot
@@ -201,8 +201,8 @@ aim_hud_offset_rot = 0.042500,0.012500,-0.02500
 
 aim_hud_offset_pos_16x9 = -0.100500,0.115500,0.000000
 aim_hud_offset_rot_16x9 = 0.067500,0.022500,-0.017500
-;aim_hud_offset_pos_16x9 = -0.044000,0.077000,0.000000
-;aim_hud_offset_rot_16x9 = 0.032500,0.002500,0.000000
+; aim_hud_offset_pos_16x9 = -0.044000,0.077000,0.000000
+; aim_hud_offset_rot_16x9 = 0.032500,0.002500,0.000000
 
 anm_show = winchester1300_draw
 anm_hide = winchester1300_holster
@@ -218,9 +218,9 @@ anm_open = winchester1300_reload_start
 anm_add_cartridge = winchester1300_reload
 anm_close = winchester1300_reload_end
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; "������" ��������
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 [wpn_wincheaster1300_trapper]:wpn_wincheaster1300
 $spawn = "weapons\wpn_wincheaster1300_trapper" ; option for Level Editor
 inv_name = st_wpn_wincheaster1300_trapper
@@ -228,6 +228,6 @@ description = st_wpn_wincheaster1300_trapper_descr
 
 cost = 5000
 
-rpm = 105 ;60 = 1 �������
+rpm = 105 ; 60 = 1 �������
 hit_power = 0.6, 0.6, 0.6, 0.6
 hit_impulse = 150

@@ -64,7 +64,8 @@ hit_probability_gd_veteran = 1
 hit_probability_gd_master = 1
 
 hit_sounds = actor_hit_snds
-;actor condition
+
+; actor condition
 
 immunities_sect = actor_immunities_gd_novice
 condition_sect = actor_condition
@@ -88,10 +89,11 @@ body_remove_time = 60000
 
 sleep_time_factor = 1000
 max_sleep_hours = 12
-;species of monster
+; species of monster
 species = actor
 
-;---STEP MANAGER------------------------------------------------------
+; step manager
+
 LegsCount = 2
 step_params = stalker_step_manager
 foot_bones = stalker_foot_bones
@@ -99,6 +101,7 @@ foot_bones = stalker_foot_bones
 memory_update_time = 100
 
 ; visibility parameters
+
 DynamicObjectsCount = 32
 min_view_distance = 1.0
 max_view_distance = 1.0
@@ -180,7 +183,8 @@ bleeding_v = 0.002
 wound_incarnation_v = 0.0003
 min_wound_size = 0.0256
 
-;--when actor in sleep
+; when actor in sleep
+
 satiety_v_sleep = 0.00001
 radiation_v_sleep = 0.0003
 satiety_power_v_sleep = 0.0001
@@ -196,7 +200,7 @@ wound_incarnation_v_sleep = 0.0
 max_power_leak_speed_sleep = -0.00001
 health_restore_v = 0.0001
 
-;actor_condition only
+; actor_condition only
 
 jump_power = 0.01
 jump_weight_power = 0.05
@@ -209,7 +213,6 @@ overweight_walk_k = 5
 accel_k = 3
 sprint_k = 100
 
-; �������
 limping_health_begin = 0.1
 limping_health_end = 0.2
 limping_power_begin = 0.1
@@ -258,10 +261,10 @@ last_chance_health = 0.0
 invulnerable_time = 0.0
 
 [actor_damage]
-;bone_name = <hit_scale>,<fwd_damage_anim_index>,<wound_scale>
-;<hit_scale> - �����. ��������� ���� (���������� ��������)
-;<wound_scale> - �����. ��������� �������� �������� ����
-;-1 - ��� ��������, ������ ����� - �������, �������� ����� - �����, ����������� ������ ��������!!! ������ �� ��������
+; bone_name = <hit_scale>,<fwd_damage_anim_index>,<wound_scale>
+; <hit_scale> - �����. ��������� ���� (���������� ��������)
+; <wound_scale> - �����. ��������� �������� �������� ����
+; -1 - ��� ��������, ������ ����� - �������, �������� ����� - �����, ����������� ������ ��������!!! ������ �� ��������
 default = 1.0, -1, 1.0
 
 bip01_pelvis = 1.0, 10, 1.0
@@ -321,14 +324,14 @@ l_strafe_yaw = 0
 r_strafe_yaw = 0
 
 [actor_hit_snds]
-burn = actor\pain1,actor\pain2,actor\pain3; ,actor\hurt4
-shock = actor\pain1,actor\pain2,actor\pain3; ,actor\hurt4
-strike = actor\pain1,actor\pain2,actor\pain3; ,actor\hurt4
-wound = actor\pain1,actor\pain2,actor\pain3; ,actor\hurt4
-radiation = monsters\biting\def_0; actor\hurt1,actor\hurt2,actor\hurt3,actor\hurt4
-telepatic = actor\pain1,actor\pain2,actor\pain3; ,actor\hurt4
+burn = actor\pain1,actor\pain2,actor\pain3 ; ,actor\hurt4
+shock = actor\pain1,actor\pain2,actor\pain3 ; ,actor\hurt4
+strike = actor\pain1,actor\pain2,actor\pain3 ; ,actor\hurt4
+wound = actor\pain1,actor\pain2,actor\pain3 ; ,actor\hurt4
+radiation = monsters\biting\def_0 ; actor\hurt1,actor\hurt2,actor\hurt3,actor\hurt4
+telepatic = actor\pain1,actor\pain2,actor\pain3 ; ,actor\hurt4
 fire_wound = actor\bullet_hit_1,actor\bullet_hit_2,actor\bullet_hit_3,actor\bullet_hit_4
-chemical_burn =actor\pain1,actor\pain2,actor\pain3; ,actor\hurt4
+chemical_burn = actor\pain1,actor\pain2,actor\pain3 ; ,actor\hurt4
 explosion = affects\tinnitus3a
 wound_2 = actor\hurt1,actor\hurt2,actor\hurt3,actor\hurt4
 light_burn = actor\pain1,actor\pain2,actor\pain3
@@ -337,7 +340,7 @@ light_burn = actor\pain1,actor\pain2,actor\pain3
 visual = dynamics\weapons\wpn_hand\wpn_hand_01
 position = -0.044000,-0.156000,0.100000
 orientation = -0.500000,1.000000,-2.000000
-ancor_0 = lead_gun ;r_hand
+ancor_0 = lead_gun ; r_hand
 ancor_1 = l_hand
 
 [actor_hud_01]:actor_hud

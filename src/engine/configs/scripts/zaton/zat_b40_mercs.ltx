@@ -12,7 +12,7 @@ on_actor_dist_le2 = 50 | {+zat_b40_worning_time_out} %+zat_b40_merc_in_combat%
 on_actor_dist_le_nvis = 10 | {+zat_b40_worning_time_out} %+zat_b40_merc_in_combat%
 corpse_detection_enabled = false
 on_sound = actor|WPN_shoot|60|0.2| %+zat_b40_merc_in_combat%
-;on_sound2 = any|MST_die|15|0.63| %+zat_b40_merc_in_combat%
+; on_sound2 = any|MST_die|15|0.63| %+zat_b40_merc_in_combat%
 
 [walker@zat_b40_mercs_gen]
 def_state_moving = sprint
@@ -163,7 +163,7 @@ on_info = {=surge_started} camper@zat_b40_surge_08
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_08 %+zat_b40_warning%
 on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_08
 
-;walker
+; walker
 
 [walker@zat_b40_mercs_01]:walker@zat_b40_mercs_gen
 path_walk = zat_b40_merc_01_walk
@@ -257,7 +257,7 @@ on_info4 = {=surge_started} camper@zat_b40_surge_09
 on_info3 = {+zat_b40_merc_combat_find_actor} walker@zat_b40_mercs_10
 on_info4 = {=surge_started} camper@zat_b40_surge_10
 
-;surge
+; surge
 
 [camper@zat_b40_surge_01]:camper@zat_b40_surge_gen
 path_walk = walker_1_walk

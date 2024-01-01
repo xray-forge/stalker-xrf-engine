@@ -7,7 +7,7 @@ on_info2 = {+pri_b305_fifth_cam_end =actor_in_zone(pri_a28_scene_end_zone)} sr_i
 on_info3 = {+pri_b305_fifth_cam_end +pri_a28_strelok_dead =actor_in_zone(pri_a28_scene_end_zone)} sr_idle@wait_for_mono_die %+pri_a28_defend_start%
 on_info4 = {+pri_a28_helis_leave =actor_in_zone(pri_a28_scene_end_zone)} sr_idle@add_final_wave
 on_info5 = {+pri_a28_cutscenes_end} sr_idle@nil
-;on_info6 = {+pri_a28_squad_dead} sr_idle@waves_done
+; on_info6 = {+pri_a28_squad_dead} sr_idle@waves_done
 
 [sr_idle@wait_for_mono_die]
 on_info = {!counter_greater(pri_a28_heli_mono_cnt:4)} sr_idle@wait_for_spawn

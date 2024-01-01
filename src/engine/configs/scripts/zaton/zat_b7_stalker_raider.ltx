@@ -136,7 +136,7 @@ meet = no_meet
 def_state_moving = sneak_run
 def_state_moving_fire = sneak_fire
 radius = 0
-;danger = danger@no_danger
+; danger = danger@no_danger
 gather_items_enabled = false
 corpse_detection_enabled = false
 
@@ -215,7 +215,7 @@ use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {+zat_b7_ac
 meet_dialog = zat_b7_stalkers_raiders_dialog
 snd_on_use = nil
 
-;Raider 1
+; Raider 1
 [logic@zat_b7_stalker_raider_1_attack]
 active = walker@attack_1
 prior = 100
@@ -256,7 +256,7 @@ def_state_moving = sneak_run
 def_state_moving_fire = sneak_fire
 on_signal = path_end | walker@attack_1_2
 on_info = {+zat_b7_attack_started +zat_b7_stalkers_victims_prepare} walker@attack_1_2
-;danger = danger@no_danger
+; danger = danger@no_danger
 gather_items_enabled = false
 corpse_detection_enabled = false
 
@@ -270,7 +270,7 @@ use_camp = false
 gather_items_enabled = false
 corpse_detection_enabled = false
 
-;Raider 2
+; Raider 2
 [logic@zat_b7_stalker_raider_2_attack]
 active = walker@attack_2
 prior = 100
@@ -311,7 +311,7 @@ def_state_moving = sneak_run
 def_state_moving_fire = sneak_fire
 on_signal = path_end | walker@attack_2_2
 on_info = {+zat_b7_attack_started +zat_b7_stalkers_victims_prepare} walker@attack_2_2
-;danger = danger@no_danger
+; danger = danger@no_danger
 gather_items_enabled = false
 corpse_detection_enabled = false
 
@@ -325,7 +325,7 @@ use_camp = false
 gather_items_enabled = false
 corpse_detection_enabled = false
 
-;Raider 3
+; Raider 3
 [logic@zat_b7_stalker_raider_3_attack]
 active = walker@attack_3
 prior = 100
@@ -366,7 +366,7 @@ def_state_moving = sneak_run
 def_state_moving_fire = sneak_fire
 on_signal = path_end | walker@attack_3_2
 on_info = {+zat_b7_attack_started +zat_b7_stalkers_victims_prepare} walker@attack_3_2
-;danger = danger@no_danger
+; danger = danger@no_danger
 gather_items_enabled = false
 corpse_detection_enabled = false
 

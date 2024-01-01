@@ -3,7 +3,7 @@
 [animpoint@a28_radio]
 cover_name = pri_a16_animp_radio_talk
 reach_movement = walk
-avail_animations = wait ;ward
+avail_animations = wait ; ward
 out_restr = pri_a16_sr_noweap
 meet = no_meet
 use_camp = false
@@ -14,12 +14,12 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;--------------------------------------
+; --------------------------------------
 
 [logic]
 active = animpoint@a28_radio_talking_1
 
-;--------------------------------------
+; --------------------------------------
 
 [animpoint@a28_radio_talking_1]:animpoint@a28_radio
 on_info = {=animpoint_reached -pri_a28_ssu_to_actor_1_sound_begin} %+pri_a28_ssu_to_actor_1_sound_begin%

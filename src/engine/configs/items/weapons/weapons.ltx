@@ -79,34 +79,34 @@
 #include "w_g36.ltx"
 #include "w_pkm.ltx"
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ������������� ������
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; ������������� ������
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [bullet_manager]
-tracer_shader = effects\bullet_tracer ;hud\default
+tracer_shader = effects\bullet_tracer ; hud\default
 tracer_texture = fx\fx_tracer_weapons
 fire_circle_k = 2.0f ; means tracer_width*2
 
 tracer_width = 0.08
-tracer_length_max = 225 ;10.0 ;24.0 ;14.0
-tracer_length_min = 0 ;1 ;2 ;0.2
+tracer_length_max = 225 ; 10.0 ; 24.0 ; 14.0
+tracer_length_min = 0 ; 1 ; 2 ; 0.2
 
-;���������� ����� �������� ����������� hit_probabilty ���������
-hit_probability_max_dist = 3;
+; ���������� ����� �������� ����������� hit_probabilty ���������
+hit_probability_max_dist = 3 ; 
 
 gravity_const = 9.81
-;������������� �������, �������, ������� ���������� �� �������� ������ ����
-air_resistance_k = 1 ;0.4;0.3
+; ������������� �������, �������, ������� ���������� �� �������� ������ ����
+air_resistance_k = 1 ; 0.4 ; 0.3
 
-;������ ���� ������� (� ������������), �� �������� �������������
+; ������ ���� ������� (� ������������), �� �������� �������������
 time_step = 33
-;����������� �������� (�/�), �� ������� ���� ��� ��������� � ������������
+; ����������� �������� (�/�), �� ������� ���� ��� ��������� � ������������
 min_bullet_speed = 3.0
-;c������ ��������� ������� �������� ���� ��� ������������ � ���������� (��� ������� ��� ������ �����)
-collision_energy_min = 0.80 ;0.75; 0.90
-;������� ��������� ������� ��������� � ���� ��� ����� ������������
-collision_energy_max = 0.5 ;0.7;0.50
+; c������ ��������� ������� �������� ���� ��� ������������ � ���������� (��� ������� ��� ������ �����)
+collision_energy_min = 0.80 ; 0.75 ; 0.90
+; ������� ��������� ������� ��������� � ���� ��� ����� ������������
+collision_energy_max = 0.5 ; 0.7 ; 0.50
 
 whine_sounds = weapons\whine_1, weapons\whine_2, weapons\whine_3, weapons\whine_4, weapons\whine01, weapons\whine02
 explode_particles = explosions\expl_bullet,explosions\expl_bullet_00,explosions\expl_bullet_01
@@ -117,19 +117,19 @@ color_1 = 255, 255, 255, 255 ; white
 color_2 = 255, 25, 0, 255 ; red
 color_3 = 77, 255, 77, 255 ; green
 color_4 = 0, 0, 25, 255 ; blue
-color_5 = 255, 127, 63, 150 ;79
+color_5 = 255, 127, 63, 150 ; 79
 
-;color_0 = 255, 255, 255, 255 ; white
-;color_1 = 255, 255, 255, 255 ; white
-;color_2 = 255, 255, 255, 255 ; white
-;color_3 = 255, 255, 255, 255 ; white
-;color_4 = 255, 255, 255, 255 ; white
+; color_0 = 255, 255, 255, 255 ; white
+; color_1 = 255, 255, 255, 255 ; white
+; color_2 = 255, 255, 255, 255 ; white
+; color_3 = 255, 255, 255, 255 ; white
+; color_4 = 255, 255, 255, 255 ; white
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; AMUNITION
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; AMUNITION
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_base]:identity_immunities,default_weapon_params
-;belt = true;
+; belt = true ; 
 slot = -1
 explosive = false
 
@@ -168,7 +168,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_9x18_pmm]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -204,7 +204,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_9x19_fmj]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -241,7 +241,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_9x19_pbp]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -277,7 +277,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_11.43x23_fmj]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -296,7 +296,7 @@ inv_name = ammo-11.43x23-fmj
 inv_name_short = ammo-11.43x23-fmj_s
 inv_weight = .3
 
-inv_grid_width = 2;1
+inv_grid_width = 2 ; 1
 inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 12
@@ -313,7 +313,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.6
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_11.43x23_hydro]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -332,7 +332,7 @@ inv_name = ammo-11.43x23-hydro
 inv_name_short = ammo-11.43x23-hydro_s
 inv_weight = .3
 
-inv_grid_width = 2;1
+inv_grid_width = 2 ; 1
 inv_grid_height = 1
 inv_grid_x = 7
 inv_grid_y = 12
@@ -349,7 +349,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.6
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_5.45x39_fmj]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -373,7 +373,7 @@ inv_grid_height = 1
 inv_grid_x = 16
 inv_grid_y = 11
 
-;;inv_icon = ui_hud2_res_back
+; ; inv_icon = ui_hud2_res_back
 
 k_dist = 1
 k_disp = 1
@@ -387,7 +387,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.6
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_5.45x39_ap]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -423,7 +423,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.6
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_5.56x45_ss190]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -460,7 +460,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_5.56x45_ap]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -495,7 +495,7 @@ buck_shot = 1
 tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_pkm_100]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -532,7 +532,7 @@ buck_shot = 1
 tracer = on
 wm_size = 0.07
 k_air_resistance = 2
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_7.62x54_7h1]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -553,7 +553,7 @@ inv_weight = .23
 
 inv_grid_width = 2
 inv_grid_height = 1
-inv_grid_x = 17 ;15
+inv_grid_x = 17 ; 15
 inv_grid_y = 9
 
 k_dist = 1
@@ -568,7 +568,7 @@ tracer = on
 wm_size = 0.05
 explosive = off
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_gauss]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -605,7 +605,7 @@ wm_size = 0.05
 
 explosive = on
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [ammo_gauss_cardan]:ammo_gauss
 $spawn = "weapons\ammo\ammo_gauss_cardan" ; option for Level Editor
@@ -622,7 +622,7 @@ inv_grid_height = 1
 inv_grid_x = 4
 inv_grid_y = 9
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [ammo_9x39_pab9]:ammo_base
 GroupControlSection = spawn_group
@@ -658,7 +658,7 @@ buck_shot = 1
 tracer = on
 wm_size = 0.05
 k_air_resistance = 1.4
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_9x39_ap]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -694,7 +694,7 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.4
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_12x70_buck]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -729,7 +729,7 @@ buck_shot = 15
 tracer = off
 wm_size = 0.05
 k_air_resistance = 3
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_12x76_zhekan]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -766,11 +766,11 @@ wm_size = 0.05
 explosive = off
 k_air_resistance = 1.3
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_12x76_zhekan_heli]:ammo_12x76_zhekan ; Do not use! Fake zhekan for helicopter
-$spawn = ;"weapons\ammo\ammo_12x76_zhekan_heli" ; option for Level Editor
+$spawn = ; "weapons\ammo\ammo_12x76_zhekan_heli" ; option for Level Editor
 explosive = on
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_og-7b]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -807,12 +807,12 @@ wm_size = 0.1
 
 wallmark_section = explosion_marks
 
-;����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
-can_be_unlimited = true ;false
+; ����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
+can_be_unlimited = true ; false
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Grenades for Attachable grenade launcher
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; Grenades for Attachable grenade launcher
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [ammo_vog-25]:ammo_base
 GroupControlSection = spawn_group
@@ -856,10 +856,10 @@ wm_size = 0.05
 
 fake_grenade_name = wpn_fake_missile
 
-;����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
-can_be_unlimited = true ;false
+; ����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
+can_be_unlimited = true ; false
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_m209]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -902,12 +902,12 @@ wm_size = 0.05
 
 fake_grenade_name = wpn_fake_missile2
 
-;����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
-can_be_unlimited = true ;false
+; ����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
+can_be_unlimited = true ; false
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Fake Missiles and Grenades
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; Fake Missiles and Grenades
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [wpn_fake_missile]:identity_immunities,default_weapon_params
 visual = dynamics\weapons\wpn_ammo\ammo_vog_25.ogf
 cform = skeleton
@@ -921,7 +921,7 @@ cost = 150
 blast = 3.0
 blast_r = 4
 blast_impulse = 100
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 10
@@ -934,7 +934,7 @@ hit_type_frag = fire_wound
 
 up_throw_factor = 0.7
 
-;trail = weapons\rpg_trail_01, weapons\rpg_trail_02
+; trail = weapons\rpg_trail_01, weapons\rpg_trail_02
 
 explode_particles = explosions\explosion_01
 
@@ -943,24 +943,24 @@ light_range = 25.0
 light_time = 0.5
 
 ph_mass = 5
-;engine_f = 530
-;engine_u = 90
+; engine_f = 530
+; engine_u = 90
 
 jump_height = 0
 
 wm_size = 0.05
 
-;������ �� ��������
+; ������ �� ��������
 fragment_speed = 100
 
-explode_duration = 5 ;���������������� ������ (�)
+explode_duration = 5 ; ���������������� ������ (�)
 
-;�����
+; �����
 snd_explode = weapons\f1_explode
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
 
-;�������� ������� ��������, �� �� ������������
+; �������� ������� ��������, �� �� ������������
 inv_name = ammo-vog-25
 inv_name_short = ammo-vog-25
 inv_weight = .2
@@ -974,11 +974,11 @@ kill_msg_x = 17
 kill_msg_y = 232
 kill_msg_width = 21
 kill_msg_height = 22
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; �������� CustomRocket
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-engine_present = false ;������������ �� � ������ ���������
-lights_enabled = false ;���� ������ ������, �� ����� ������
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; �������� CustomRocket
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+engine_present = false ; ������������ �� � ������ ���������
+lights_enabled = false ; ���� ������ ������, �� ����� ������
 force_explode_time = 10000
 
 [wpn_fake_missile1]:identity_immunities,default_weapon_params
@@ -991,10 +991,10 @@ inv_weight = 0
 
 cost = 150
 
-blast = 2.00;150
+blast = 2.00 ; 150
 blast_r = 4
 blast_impulse = 350
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 15
@@ -1007,7 +1007,7 @@ hit_type_frag = fire_wound
 
 up_throw_factor = 0.7
 
-;trail = weapons\rpg_trail_01, weapons\rpg_trail_02
+; trail = weapons\rpg_trail_01, weapons\rpg_trail_02
 
 explode_particles = explosions\explosion_01
 
@@ -1016,23 +1016,23 @@ light_range = 14.0
 light_time = 0.85
 
 ph_mass = 5
-;engine_f = 530
-;engine_u = 90
+; engine_f = 530
+; engine_u = 90
 
 jump_height = 1
 
-;������ �� ��������
+; ������ �� ��������
 fragment_speed = 100
 
 wm_size = 0.05
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
-explode_duration = 5 ;���������������� ������ (�)
+explode_duration = 5 ; ���������������� ������ (�)
 
-;�����
+; �����
 snd_explode = weapons\f1_explode
 
-;�������� ������� ��������, �� �� ������������
+; �������� ������� ��������, �� �� ������������
 inv_name = ammo-vog-25p
 inv_name_short = ammo-vog-25p
 inv_weight = .2
@@ -1047,11 +1047,11 @@ kill_msg_y = 233
 kill_msg_width = 21
 kill_msg_height = 22
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; �������� CustomRocket
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-engine_present = false ;������������ �� � ������ ���������
-lights_enabled = true ;���� ������ ������, �� ����� ������
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; �������� CustomRocket
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+engine_present = false ; ������������ �� � ������ ���������
+lights_enabled = true ; ���� ������ ������, �� ����� ������
 trail_light_color = 0.6,0.5,0.3
 trail_light_range = 8.0
 force_explode_time = 10000
@@ -1067,10 +1067,10 @@ inv_weight = 0
 
 cost = 150
 
-blast = 3.0;150
+blast = 3.0 ; 150
 blast_r = 4
 blast_impulse = 100
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 10
@@ -1083,7 +1083,7 @@ hit_type_frag = fire_wound
 
 up_throw_factor = 0.7
 
-;trail = weapons\rpg_trail_01, weapons\rpg_trail_02
+; trail = weapons\rpg_trail_01, weapons\rpg_trail_02
 
 explode_particles = explosions\explosion_01
 
@@ -1092,23 +1092,23 @@ light_range = 14.0
 light_time = 0.85
 
 ph_mass = 5
-;engine_f = 530
-;engine_u = 90
+; engine_f = 530
+; engine_u = 90
 
 jump_height = 1
 
-;������ �� ��������
+; ������ �� ��������
 fragment_speed = 100
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
-wm_size = 0.1 ;0.05
+wm_size = 0.1 ; 0.05
 
-explode_duration = 5 ;���������������� ������ (�)
+explode_duration = 5 ; ���������������� ������ (�)
 
-;�����
+; �����
 snd_explode = weapons\f1_explode
 
-;�������� ������� ��������, �� �� ������������
+; �������� ������� ��������, �� �� ������������
 inv_name = ammo-m209
 inv_name_short = "M209"
 inv_weight = .2
@@ -1123,18 +1123,18 @@ kill_msg_y = 232
 kill_msg_width = 19
 kill_msg_height = 22
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; �������� CustomRocket
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-engine_present = false ;������������ �� � ������ ���������
-lights_enabled = true ;���� ������ ������, �� ����� ������
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; �������� CustomRocket
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+engine_present = false ; ������������ �� � ������ ���������
+lights_enabled = true ; ���� ������ ������, �� ����� ������
 trail_light_color = 0.6,0.5,0.3
 trail_light_range = 8.0
 force_explode_time = 10000
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Explosive Inventory Items
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; Explosive Inventory Items
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [explosive_fuelcan]:identity_immunities,delayed_action_fuse,default_weapon_params
 
@@ -1154,15 +1154,15 @@ inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
 
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 50
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 5
@@ -1174,7 +1174,7 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_fuelcan
@@ -1183,18 +1183,18 @@ light_color = 1.9,1.3,0.5
 light_range = 30.0
 light_time = 1.5
 
-;������ �� ��������
+; ������ �� ��������
 fragment_speed = 100
 
-explode_duration = 5 ;���������������� ������ (�)
-;wallmarks
+explode_duration = 5 ; ���������������� ������ (�)
+; wallmarks
 wallmark_section = explosion_marks
-;�����
+; �����
 snd_explode = weapons\f1_explode
 immunities_sect = explosive_fuelcan_immunities_sect
 
 [explosive_fuelcan_immunities_sect]
-;������������ ��� ��������� ���������� ������ �����
+; ������������ ��� ��������� ���������� ������ �����
 burn_immunity = 0.0
 strike_immunity = 1.0
 shock_immunity = 1.0
@@ -1226,15 +1226,15 @@ inv_grid_width = 1
 inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 50
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 5
@@ -1246,7 +1246,7 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_mobiltank
@@ -1255,19 +1255,19 @@ light_color = 1.9,1.3,0.5
 light_range = 30.0
 light_time = 1
 
-;������ �� ��������
-fragment_speed = 100 ;�������� �������� (�/�)
+; ������ �� ��������
+fragment_speed = 100 ; �������� �������� (�/�)
 
-explode_duration = 5 ;���������������� ������ (�)
-;wallmarks
+explode_duration = 5 ; ���������������� ������ (�)
+; wallmarks
 wallmark_section = explosion_marks
 
-;�����
+; �����
 snd_explode = weapons\f1_explode
 immunities_sect = explosive_tank_immunities_sect
 
 [explosive_tank_immunities_sect]
-;������������ ��� ��������� ���������� ������ �����
+; ������������ ��� ��������� ���������� ������ �����
 burn_immunity = 0.0
 strike_immunity = 1.0
 shock_immunity = 1.0
@@ -1295,15 +1295,15 @@ inv_grid_width = 1
 inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 500
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 5
@@ -1315,7 +1315,7 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_barrel
@@ -1324,18 +1324,18 @@ light_color = 1.9,1.4,0.5
 light_range = 14.0
 light_time = 0.85
 
-;������ �� ��������
-fragment_speed = 100 ;�������� �������� (�/�)
+; ������ �� ��������
+fragment_speed = 100 ; �������� �������� (�/�)
 
-explode_duration = 5 ;���������������� ������ (�)
+explode_duration = 5 ; ���������������� ������ (�)
 
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
-;�����
+; �����
 snd_explode = weapons\f1_explode
 immunities_sect = explosive_barrel_low_immunities_sect
 
-;time_to_explode = 0.f
+; time_to_explode = 0.f
 
 [explosive_grenade]:identity_immunities,delayed_action_fuse,default_weapon_params
 
@@ -1354,15 +1354,15 @@ inv_grid_width = 1
 inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 500
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 2.50
 blast_r = 3
 blast_impulse = 250
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 15
@@ -1374,7 +1374,7 @@ hit_type_blast = explosion
 hit_type_frag = fire_wound
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_01
@@ -1383,20 +1383,20 @@ light_color = 1.9,1.4,0.5
 light_range = 14.0
 light_time = 0.85
 
-;������ �� ��������
-fragment_speed = 100 ;�������� �������� (�/�)
+; ������ �� ��������
+fragment_speed = 100 ; �������� �������� (�/�)
 
-explode_duration = 2 ;���������������� ������ (�)
+explode_duration = 2 ; ���������������� ������ (�)
 
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
-;�����
+; �����
 snd_explode = weapons\t_rgd5_explosion
 immunities_sect = explosive_explosive_grenade_immunities_sect
 
-;time_to_explode = 0.f
+; time_to_explode = 0.f
 
-;------------------------ pri_a25_enter_door_explosive_grenade --------------
+; ------------------------ pri_a25_enter_door_explosive_grenade --------------
 [pri_a25_enter_door_explosive_grenade]:explosive_grenade
 $spawn = "dynamic_objects\scene_objects\pri_a25_enter_door_explosive_grenade"
 story_id = pri_a25_enter_door_explosive_grenade
@@ -1404,7 +1404,7 @@ hit_type_blast = chemical_burn
 hit_type_frag = chemical_burn
 visual = dynamics\light\light_signal.ogf
 
-;------------------------- pri_a25_antenna_grenade --------------
+; ------------------------- pri_a25_antenna_grenade --------------
 [pri_a25_antenna_grenade]:explosive_grenade
 $spawn = "dynamic_objects\scene_objects\pri_a25_antenna_grenade"
 story_id = pri_a25_antenna_grenade
@@ -1438,15 +1438,15 @@ inv_grid_width = 1
 inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 500
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 1.00
 blast_r = 30
 blast_impulse = 500
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 15
@@ -1458,7 +1458,7 @@ hit_type_blast = explosion
 hit_type_frag = fire_wound
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_01
@@ -1467,21 +1467,21 @@ light_color = 1.9,1.4,0.5
 light_range = 14.0
 light_time = 0.85
 
-;������ �� ��������
-fragment_speed = 50 ;�������� �������� (�/�)
+; ������ �� ��������
+fragment_speed = 50 ; �������� �������� (�/�)
 
-explode_duration = 5 ;���������������� ������ (�)
+explode_duration = 5 ; ���������������� ������ (�)
 
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
-;�����
+; �����
 snd_explode = weapons\rpg7_explode
 immunities_sect = explosive_hide_immunities_sect
 
-;time_to_explode = 0.f
+; time_to_explode = 0.f
 
 [explosive_hide_immunities_sect]
-;������������ ��� ��������� ���������� ������ �����
+; ������������ ��� ��������� ���������� ������ �����
 burn_immunity = 0.0
 strike_immunity = 0.0
 shock_immunity = 0.0
@@ -1509,15 +1509,15 @@ inv_grid_width = 1
 inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 500
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 0.25
 blast_r = 3
 blast_impulse = 50
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 5
@@ -1529,7 +1529,7 @@ hit_type_blast = explosion
 hit_type_frag = fire_wound
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_concrete_box
@@ -1538,21 +1538,21 @@ light_color = 0,0,0
 light_range = 0.0
 light_time = 0.85
 
-;������ �� ��������
-fragment_speed = 25 ;�������� �������� (�/�)
+; ������ �� ��������
+fragment_speed = 25 ; �������� �������� (�/�)
 
-explode_duration = 2 ;���������������� ������ (�)
+explode_duration = 2 ; ���������������� ������ (�)
 
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
-;�����
+; �����
 snd_explode = weapons\f1_explode_
 immunities_sect = explosive_barrel_low_immunities_sect
 
-;time_to_explode = 0.f
+; time_to_explode = 0.f
 
 [explosive_barrel_low_immunities_sect]
-;������������ ��� ��������� ���������� ������ �����
+; ������������ ��� ��������� ���������� ������ �����
 burn_immunity = 1
 strike_immunity = 1
 shock_immunity = 1
@@ -1580,15 +1580,15 @@ inv_grid_width = 1
 inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 500
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 5
@@ -1600,7 +1600,7 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_barrel
@@ -1609,19 +1609,19 @@ light_color = 1.9,1.4,0.5
 light_range = 14.0
 light_time = 0.85
 
-;������ �� ��������
-fragment_speed = 100 ;�������� �������� (�/�)
+; ������ �� ��������
+fragment_speed = 100 ; �������� �������� (�/�)
 
-explode_duration = 5 ;���������������� ������ (�)
+explode_duration = 5 ; ���������������� ������ (�)
 
-;�����
+; �����
 snd_explode = weapons\f1_explode
 immunities_sect = explosive_barrel_immunities_sect
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
 
 [explosive_barrel_immunities_sect]
-;������������ ��� ��������� ���������� ������ �����
+; ������������ ��� ��������� ���������� ������ �����
 burn_immunity = 0.0
 strike_immunity = 1
 shock_immunity = 1
@@ -1649,15 +1649,15 @@ inv_grid_width = 1
 inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 500
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 1.50
 blast_r = 8
 blast_impulse = 250
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 5
@@ -1669,7 +1669,7 @@ hit_type_blast = explosion
 hit_type_frag = light_burn
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_mobiltank
@@ -1678,19 +1678,19 @@ light_color = 1.9,1.2,0.5
 light_range = 30.0
 light_time = 1
 
-;������ �� ��������
-fragment_speed = 100 ;�������� �������� (�/�)
+; ������ �� ��������
+fragment_speed = 100 ; �������� �������� (�/�)
 
-explode_duration = 5 ;���������������� ������ (�)
+explode_duration = 5 ; ���������������� ������ (�)
 
-;�����
+; �����
 snd_explode = weapons\f1_explode
 immunities_sect = explosive_mobiltank_immunities_sect
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
 
 [explosive_mobiltank_immunities_sect]
-;������������ ��� ��������� ���������� ������ �����
+; ������������ ��� ��������� ���������� ������ �����
 burn_immunity = 0.0
 strike_immunity = 1.0
 shock_immunity = 1.0
@@ -1719,15 +1719,15 @@ inv_grid_height = 1
 inv_grid_x = 9
 inv_grid_y = 9
 
-;���� ���������� ���������
+; ���� ���������� ���������
 can_take = false
 
 cost = 50
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 blast = 3.00
 blast_r = 10
 blast_impulse = 250
-;delete
+; delete
 blast_impulse_factor = 1
 
 frags = 100
@@ -1735,11 +1735,11 @@ frags_r = 10
 frag_hit = 100
 frag_hit_impulse = 100
 
-hit_type_blast = explosion ;chemical_burn
-hit_type_frag = chemical_burn ;burn
+hit_type_blast = explosion ; chemical_burn
+hit_type_frag = chemical_burn ; burn
 
 up_throw_factor = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 wm_size = 0.1
 
 explode_particles = explosions\explosion_dynamite
@@ -1748,20 +1748,20 @@ light_color = 1.9,1.3,0.5
 light_range = 30.0
 light_time = 1.5
 
-;������ �� ��������
+; ������ �� ��������
 fragment_speed = 200
 
-explode_duration = 5 ;���������������� ������ (�)
+explode_duration = 5 ; ���������������� ������ (�)
 
-;�����
+; �����
 snd_explode = weapons\f1_explode
 immunities_sect = dinamit_immunities_sect
-;condition_to_explode =0.f
-;wallmarks
+; condition_to_explode =0.f
+; wallmarks
 wallmark_section = explosion_marks
 
 [dinamit_immunities_sect]
-;������������ ��� ��������� ���������� ������ �����
+; ������������ ��� ��������� ���������� ������ �����
 burn_immunity = 0.0
 strike_immunity = 0.0
 shock_immunity = 0.0
@@ -1771,9 +1771,9 @@ telepatic_immunity = 0.0
 chemical_burn_immunity = 1.0
 explosion_immunity = 0.5
 fire_wound_immunity = 0.05
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; WEAPON ADDON
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; ; WEAPON ADDON
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [wpn_addon_scope]:identity_immunities
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -1797,7 +1797,7 @@ inv_grid_height = 1
 inv_grid_x = 10
 inv_grid_y = 17
 scope_texture = wpn_crosshair
-scope_zoom_factor = 25 ;���-1 2X
+scope_zoom_factor = 25 ; ���-1 2X
 
 [wpn_addon_scope_x2.7]:identity_immunities
 GroupControlSection = spawn_group
@@ -1822,7 +1822,7 @@ inv_grid_height = 1
 inv_grid_x = 10
 inv_grid_y = 16
 scope_texture = wpn_crosshair
-scope_zoom_factor = 40 ;���-1 2X
+scope_zoom_factor = 40 ; ���-1 2X
 
 [wpn_addon_scope_detector]:identity_immunities
 GroupControlSection = spawn_group
@@ -1848,7 +1848,7 @@ inv_grid_x = 4
 inv_grid_y = 16
 scope_texture = wpn_crosshair
 scope_alive_detector = scope_detector
-scope_zoom_factor = 30 ;���-1 2X
+scope_zoom_factor = 30 ; ���-1 2X
 
 [wpn_addon_scope_night]:identity_immunities
 GroupControlSection = spawn_group
@@ -1874,7 +1874,7 @@ inv_grid_x = 4
 inv_grid_y = 17
 scope_texture = wpn_crosshair
 scope_nightvision = scope_nightvision
-scope_zoom_factor = 30 ;���-1 2X
+scope_zoom_factor = 30 ; ���-1 2X
 
 [wpn_addon_scope_susat]:identity_immunities
 GroupControlSection = spawn_group
@@ -1885,7 +1885,7 @@ cform = skeleton
 visual = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
 description = st_addon_scope_susat_descr
 slot = -1
-;$prefetch = 64
+; $prefetch = 64
 
 cost = 900
 
@@ -1901,7 +1901,7 @@ inv_grid_height = 1
 inv_grid_x = 11
 inv_grid_y = 18
 scope_texture = wpn_crosshair_l85
-scope_zoom_factor = 30 ;SUSAT 2X
+scope_zoom_factor = 30 ; SUSAT 2X
 
 [wpn_addon_scope_susat_x1.6]:identity_immunities
 GroupControlSection = spawn_group
@@ -1912,7 +1912,7 @@ cform = skeleton
 visual = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
 description = st_addon_scope_susat_x1.6_descr
 slot = -1
-;$prefetch = 64
+; $prefetch = 64
 
 cost = 900
 
@@ -1928,7 +1928,7 @@ inv_grid_height = 1
 inv_grid_x = 10
 inv_grid_y = 18
 scope_texture = wpn_crosshair_l85
-scope_zoom_factor = 50 ;SUSAT 1.6X
+scope_zoom_factor = 50 ; SUSAT 1.6X
 
 [wpn_addon_scope_susat_custom]:identity_immunities
 GroupControlSection = spawn_group
@@ -1939,7 +1939,7 @@ cform = skeleton
 visual = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
 description = st_addon_scope_susat_custom_descr
 slot = -1
-;$prefetch = 64
+; $prefetch = 64
 
 cost = 5500
 
@@ -1956,7 +1956,7 @@ inv_grid_x = 15
 inv_grid_y = 22
 scope_texture = wpn_crosshair_l85
 scope_dynamic_zoom = on
-scope_zoom_factor = 30 ;SUSAT 2X
+scope_zoom_factor = 30 ; SUSAT 2X
 
 [wpn_addon_scope_susat_dusk]:identity_immunities
 GroupControlSection = spawn_group
@@ -1967,7 +1967,7 @@ cform = skeleton
 visual = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
 description = st_addon_scope_susat_dusk_descr
 slot = -1
-;$prefetch = 64
+; $prefetch = 64
 
 cost = 2500
 
@@ -1984,7 +1984,7 @@ inv_grid_x = 5
 inv_grid_y = 15
 scope_texture = wpn_crosshair_l85
 scope_nightvision = scope_contrast
-scope_zoom_factor = 50 ;SUSAT 2X
+scope_zoom_factor = 50 ; SUSAT 2X
 
 [wpn_addon_scope_susat_night]:identity_immunities
 GroupControlSection = spawn_group
@@ -1995,7 +1995,7 @@ cform = skeleton
 visual = dynamics\weapons\wpn_upgrade\wpn_scope_susat.ogf
 description = st_addon_scope_susat_night_vision_descr
 slot = -1
-;$prefetch = 64
+; $prefetch = 64
 
 cost = 3500
 
@@ -2012,9 +2012,9 @@ inv_grid_x = 14
 inv_grid_y = 22
 scope_texture = wpn_crosshair_l85
 scope_nightvision = scope_nightvision
-scope_zoom_factor = 30 ;SUSAT 2X
+scope_zoom_factor = 30 ; SUSAT 2X
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [wpn_addon_silencer]:identity_immunities
 GroupControlSection = spawn_group
@@ -2062,7 +2062,7 @@ inv_grid_width = 2
 inv_grid_height = 1
 inv_grid_x = 18
 inv_grid_y = 0
-grenade_vel = 32 ;55
+grenade_vel = 32 ; 55
 
 [wpn_addon_grenade_launcher_m203]:identity_immunities
 GroupControlSection = spawn_group
@@ -2083,9 +2083,9 @@ inv_grid_width = 2
 inv_grid_height = 1
 inv_grid_x = 17
 inv_grid_y = 3
-grenade_vel = 32 ;76
+grenade_vel = 32 ; 76
 
-;;;;;;;;;;;;;Advanced scope settings;;;;;;;;;;;;;;;;
+; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; Advanced scope settings ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [scope_detector]
 vis_frame_speed = 4 ; ��������, � ������� ��������� ����� �� ����

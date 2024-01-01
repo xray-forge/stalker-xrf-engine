@@ -7,7 +7,7 @@ prior = 100
 on_death = death
 post_combat_time = 0, 0
 
-[walker@wait] ;���� ������
+[walker@wait] ; ���� ������
 path_walk = port_bandit_1_walk_1
 path_look = port_bandit_1_look_1
 def_state_moving1 = walk
@@ -16,7 +16,7 @@ on_info = {!actor_enemy =dist_to_actor_le(20) -zat_b52_robbery_done} remark@tell
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 meet = no_meet
 
-[remark@tell_actor] ;����� ������
+[remark@tell_actor] ; ����� ������
 target = story | actor
 anim = hello_wpn
 meet = no_meet
@@ -24,7 +24,7 @@ on_info = %=play_sound(zat_b52_port_bandits_see_actor)% remark@wait_actor
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 on_info2 = {!actor_enemy =dist_to_actor_ge(40)} walker@wait
 
-[remark@wait_actor] ;���� ������
+[remark@wait_actor] ; ���� ������
 target = story | actor
 anim = wait_na
 meet = no_meet
@@ -32,7 +32,7 @@ on_info = {!actor_enemy =dist_to_actor_le(5)} walker@robbery %+zat_b52_robbery_s
 on_info2 = {!actor_enemy =dist_to_actor_ge(40)} walker@wait
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-[walker@robbery] ;������ ������ ������ ������
+[walker@robbery] ; ������ ������ ������ ������
 path_walk = port_bandit_1_walk_1
 path_look = port_bandit_1_look_1
 meet = meet@robbery
@@ -40,7 +40,7 @@ on_info = {+zat_b52_robbery_done} remark@guard_first_sound %+zat_b52_bandits_fre
 on_info2 = {+zat_b52_robbery_no} walker@fight %=set_squad_enemy_to_actor(zat_b52_port_bandits) =play_sound(zat_b52_port_bandits_kill_actor_snd)%
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-[meet@robbery] ;������ ������ ������ ������
+[meet@robbery] ; ������ ������ ������ ������
 close_victim = actor
 far_victim = actor
 close_distance = 6
@@ -52,13 +52,13 @@ allow_break = false
 trade_enable = false
 meet_dialog = {!actor_enemy} zat_b52_robbery_port_bandits_1
 
-[walker@fight] ;����� ��������������
+[walker@fight] ; ����� ��������������
 path_walk = port_bandit_1_walk_1
 path_look = port_bandit_1_look_1
 combat_ignore_cond = {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 meet = no_meet
 
-[remark@guard_first_sound] ;��������� ������ ���
+[remark@guard_first_sound] ; ��������� ������ ���
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -68,7 +68,7 @@ on_info2 = {=dist_to_actor_ge(120)} walker@wait %+zat_b52_actor_go_offline%
 on_signal = sound_end | remark@guard_second_sound_wait
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-[remark@guard_second_sound_wait] ;��������� ������ ��� ����
+[remark@guard_second_sound_wait] ; ��������� ������ ��� ����
 target = story | actor
 anim = backoff
 snd_anim_sync = true
@@ -77,7 +77,7 @@ on_info = {=actor_in_zone(zat_b52_smart_terrain_def)} remark@guard_second_sound
 on_info2 = {=dist_to_actor_ge(120)} walker@wait %+zat_b52_actor_go_offline%
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-[remark@guard_second_sound] ;��������� ������ ���
+[remark@guard_second_sound] ; ��������� ������ ���
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -87,7 +87,7 @@ on_signal = sound_end | remark@guard_last_sound_wait
 on_info2 = {=dist_to_actor_ge(120)} walker@wait %+zat_b52_actor_go_offline%
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-[remark@guard_last_sound_wait] ;��������� ������ ��� ����
+[remark@guard_last_sound_wait] ; ��������� ������ ��� ����
 target = story | actor
 anim = backoff
 snd_anim_sync = true
@@ -96,7 +96,7 @@ on_info = {=actor_in_zone(zat_b52_smart_terrain_def)} remark@guard_last_sound
 on_info2 = {=dist_to_actor_ge(120)} walker@wait %+zat_b52_actor_go_offline%
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-[remark@guard_last_sound] ;��������� ������ ���
+[remark@guard_last_sound] ; ��������� ������ ���
 target = story | actor
 anim = backoff2
 snd_anim_sync = true
@@ -106,7 +106,7 @@ on_signal = sound_end | remark@end
 on_info2 = {=dist_to_actor_ge(120)} walker@wait %+zat_b52_actor_go_offline%
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-[remark@end] ;����� ������ - �������� �� ����
+[remark@end] ; ����� ������ - �������� �� ����
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -116,7 +116,7 @@ on_game_timer = 50 | walker@fight %=set_squad_enemy_to_actor(zat_b52_port_bandit
 [death]
 on_info = %+zat_b52_bandit_leader_is_dead%
 
-;-------------------------------------������ ���--------------------------------------------
+; -------------------------------------������ ���--------------------------------------------
 
 [logic@port_bandit_2]
 active = walker@wait_bandit_2
@@ -124,14 +124,14 @@ suitable = {!check_npc_name(zat_b52_port_bandit_1) =target_squad_name(zat_b52_po
 prior = 90
 post_combat_time = 0, 0
 
-[walker@wait_bandit_2] ;���� ������
+[walker@wait_bandit_2] ; ���� ������
 path_walk = port_bandit_2_walk_1
 path_look = port_bandit_2_look_1
 on_info = {+zat_b52_robbery_start -zat_b52_robbery_done} remark@wait_bandit_2_robbery
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 meet = no_meet
 
-[remark@wait_bandit_2_robbery] ;������� ����� �� ������
+[remark@wait_bandit_2_robbery] ; ������� ����� �� ������
 target = story | actor
 anim = threat_na
 meet = no_meet
@@ -139,7 +139,7 @@ on_info = {=dist_to_actor_ge(120) +zat_b52_robbery_done} walker@wait_bandit_2 %+
 on_info2 = {+zat_b52_robbery_no} walker@wait_bandit_2
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-;-------------------------------------������ ����--------------------------------------------
+; -------------------------------------������ ����--------------------------------------------
 
 [logic@port_bandit_3]
 active = walker@wait_bandit_3
@@ -147,14 +147,14 @@ suitable = {!check_npc_name(zat_b52_port_bandit_1) =target_squad_name(zat_b52_po
 prior = 90
 post_combat_time = 0, 0
 
-[walker@wait_bandit_3] ;���� ������
+[walker@wait_bandit_3] ; ���� ������
 path_walk = port_bandit_3_walk_1
 path_look = port_bandit_3_look_1
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 on_info = {+zat_b52_robbery_start -zat_b52_robbery_done} remark@wait_bandit_3_robbery
 meet = no_meet
 
-[remark@wait_bandit_3_robbery] ;������� ����� �� ������
+[remark@wait_bandit_3_robbery] ; ������� ����� �� ������
 target = story | actor
 anim = threat_na
 meet = no_meet
@@ -162,7 +162,7 @@ on_info = {=dist_to_actor_ge(120) +zat_b52_robbery_done} walker@wait_bandit_3 %+
 on_info2 = {+zat_b52_robbery_no} walker@wait_bandit_3
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-;-------------------------------------������ ����--------------------------------------------
+; -------------------------------------������ ����--------------------------------------------
 
 [logic@port_bandit_4]
 active = walker@wait_bandit_4
@@ -170,14 +170,14 @@ suitable = {!check_npc_name(zat_b52_port_bandit_1) =target_squad_name(zat_b52_po
 prior = 90
 post_combat_time = 0, 0
 
-[walker@wait_bandit_4] ;���� ������
+[walker@wait_bandit_4] ; ���� ������
 path_walk = port_bandit_4_walk_1
 path_look = port_bandit_4_look_1
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 on_info = {+zat_b52_robbery_start -zat_b52_robbery_done} remark@wait_bandit_4_robbery
 meet = no_meet
 
-[remark@wait_bandit_4_robbery] ;������� ����� �� ������
+[remark@wait_bandit_4_robbery] ; ������� ����� �� ������
 target = story | actor
 anim = threat_na
 meet = no_meet
@@ -185,7 +185,7 @@ on_info = {=dist_to_actor_ge(120) +zat_b52_robbery_done} walker@wait_bandit_4 %+
 on_info2 = {+zat_b52_robbery_no} walker@wait_bandit_4
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 
-;-------------------------------------������ ������--------------------------------------------
+; -------------------------------------������ ������--------------------------------------------
 
 [logic@port_bandit_5]
 active = walker@wait_bandit_5
@@ -193,14 +193,14 @@ suitable = {!check_npc_name(zat_b52_port_bandit_1) =target_squad_name(zat_b52_po
 prior = 90
 post_combat_time = 0, 0
 
-[walker@wait_bandit_5] ;���� ������
+[walker@wait_bandit_5] ; ���� ������
 path_walk = port_bandit_5_walk_1
 path_look = port_bandit_5_look_1
 combat_ignore_cond = {!actor_enemy} true, {=check_enemy_name(zat_b38_stalker_cop_dead)} true, {=check_enemy_name(zat_b22_stalker_medic)} true, false
 on_info = {+zat_b52_robbery_start -zat_b52_robbery_done} remark@wait_bandit_5_robbery
 meet = no_meet
 
-[remark@wait_bandit_5_robbery] ;������� ����� �� ������
+[remark@wait_bandit_5_robbery] ; ������� ����� �� ������
 target = story | actor
 anim = threat_na
 meet = no_meet

@@ -15,42 +15,42 @@ default_to_ruck = false
 sprint_allowed = true
 control_inertion_factor = 1.0
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 cost = 10000
 weapon_class = assault_rifle ; Type of the weapon
 inv_weight = 3.6
 
 upgrades = up_gr_firstab_g36, up_gr_seconab_g36, up_gr_thirdab_g36, up_gr_fourtab_g36, up_gr_fourtcd_g36, up_gr_fourtef_g36
-;, up_gr_fifthab_g36
+; , up_gr_fifthab_g36
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_g36
 
-;--TTX----------------------------------------------------------------------------
+; --TTX----------------------------------------------------------------------------
 hit_power = 0.32, 0.32, 0.32, 0.32
 hit_impulse = 100
 hit_type = fire_wound
 fire_distance = 200
-bullet_speed = 570 ;��������� �������� ����
+bullet_speed = 570 ; ��������� �������� ����
 rpm = 630
 rpm_empty_click = 200
 
-use_aim_bullet = false ;�������������� �� ������ ������ ����
+use_aim_bullet = false ; �������������� �� ������ ������ ����
 time_to_aim = 3.0
 
 hud = wpn_g36_hud
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.004
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.05
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.0008
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0009
 
 ammo_elapsed = 30
@@ -62,25 +62,25 @@ launch_speed = 0
 hand_dependence = 1
 single_handed = 0
 
-;---DOF-------------------------------------------------------------------------
-;zoom_dof = 0.5, 1.0, 180
+; ---DOF-------------------------------------------------------------------------
+; zoom_dof = 0.5, 1.0, 180
 reload_dof = 0.0, 0.5, 5, 2
 
-;-------------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.24 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; -------------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.24 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.2f
 crosshair_inertion = 5.80
 
-;������
+; ������
 cam_return = 0
-cam_relax_speed = 10 ;�������� �������� � �������� ���������
+cam_relax_speed = 10 ; �������� �������� � �������� ���������
 cam_relax_speed_ai = 120.75
-cam_dispersion = 0.2 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 0.1 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 1.0 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 50.0 ;������������ ���� ������
-cam_max_angle_horz = 50.0 ;(degree) maximum shot horizontal degree
+cam_dispersion = 0.2 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 0.1 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 1.0 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 50.0 ; ������������ ���� ������
+cam_max_angle_horz = 50.0 ; (degree) maximum shot horizontal degree
 cam_step_angle_horz = 1.8 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 0.5
@@ -98,9 +98,9 @@ zoom_cam_max_angle = 50.0
 zoom_cam_max_angle_horz = 50.0
 zoom_cam_step_angle_horz = 1.6
 
-fire_dispersion_condition_factor = 7 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 7 ; ���������� ��������� � ��������� ��� ������������ ������
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 holder_range_modifier = 1.85 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -112,7 +112,7 @@ hit_probability_gd_stalker = 0.80
 hit_probability_gd_veteran = 0.80
 hit_probability_gd_master = 0.80
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 slot = 2 ; // secondary
 animation_slot = 2 ; type of the animation that will be used
 
@@ -134,7 +134,7 @@ kill_msg_y = 29
 kill_msg_width = 78
 kill_msg_height = 31
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 position = -0.026, -0.132, 0.0
 orientation = 0, -8 , 0
 
@@ -149,8 +149,8 @@ shell_point = 0.0, 0.21, 0.13
 shell_dir = 0.0, 0.0, 0.4
 shell_particles = weapons\generic_shells
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
 strap_position = -0.26,-0.11,0.25 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -15,-9,110 ; (3rd person view in degrees)
 strap_bone0 = bip01_spine2
@@ -167,15 +167,15 @@ light_var_range = 0.5
 light_time = 0.2
 
 ph_mass = 4
-;cost = 2100
+; cost = 2100
 
-;addons
+; addons
 scope_status = 1
-silencer_status = 0 ;0
-grenade_launcher_status = 0 ;0
+silencer_status = 0 ; 0
+grenade_launcher_status = 0 ; 0
 
 zoom_enabled = true ; (on,off)zoom mode (right mouse button)
-scope_zoom_factor = 33.3 ;1.8X ; fov for zoom mode
+scope_zoom_factor = 33.3 ; 1.8X ; fov for zoom mode
 
 scope_texture = wpn_crosshair_g36
 scope_name = wpn_addon_scope_susat
@@ -188,7 +188,7 @@ grenade_launcher_name = wpn_addon_grenade_launcher_m203
 grenade_launcher_x = 130
 grenade_launcher_y = 31
 
-;�����
+; �����
 snd_draw = weapons\ak74_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_g36_shot
@@ -201,7 +201,7 @@ snd_switch = weapons\groza_switch, 1.0, 0.5
 snd_bore = weapons\draw_silent
 snd_bore1 = weapons\mp5_bore
 
-;silencer_flame_particles = weapons\generic_weapon01
+; silencer_flame_particles = weapons\generic_weapon01
 silencer_smoke_particles = weapons\generic_shoot_00
 
 snd_silncer_shot = weapons\w_ak74_shot1
@@ -268,8 +268,8 @@ anm_idle_sprint_g = g36_idle_sprint_grenade
 anm_idle_moving_g = g36_idle_moving_grenade
 anm_bore_g = g36_idle_bore_grenade
 
-;aim_hud_offset_pos = -0.112000,0.034000,-0.018000
-;aim_hud_offset_rot = 0.017500,0.002500,-0.010000
+; aim_hud_offset_pos = -0.112000,0.034000,-0.018000
+; aim_hud_offset_rot = 0.017500,0.002500,-0.010000
 
 aim_hud_offset_pos = -0.112000,0.032000,-0.150000
 aim_hud_offset_rot = 0.015000,0.002500,-0.010000
@@ -277,18 +277,18 @@ aim_hud_offset_rot = 0.015000,0.002500,-0.010000
 aim_hud_offset_pos_16x9 = -0.112500,0.025000,-0.125000
 aim_hud_offset_rot_16x9 = 0.007500,0.002500,-0.010000
 
-gl_hud_offset_pos = 0,0,0;-0.053000,-0.059000,0.000000
-gl_hud_offset_rot = 0,0,0;-0.145000,0.000000,0.000000
+gl_hud_offset_pos = 0,0,0 ; -0.053000,-0.059000,0.000000
+gl_hud_offset_rot = 0,0,0 ; -0.145000,0.000000,0.000000
 
-gl_hud_offset_pos_16x9 = 0,0,0;-0.053000,-0.059000,0.000000
-gl_hud_offset_rot_16x9 = 0,0,0;-0.145000,0.000000,0.000000
+gl_hud_offset_pos_16x9 = 0,0,0 ; -0.053000,-0.059000,0.000000
+gl_hud_offset_rot_16x9 = 0,0,0 ; -0.145000,0.000000,0.000000
 
 lean_hud_offset_pos = 0,0,0
 lean_hud_offset_rot = 0,0,0
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; ����������
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 [wpn_g36_nimble]:wpn_g36
 $spawn = "weapons\wpn_g36_nimble" ; option for Level Editor
 

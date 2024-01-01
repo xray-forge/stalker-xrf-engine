@@ -7,7 +7,7 @@ prior = 100
 path_walk = walker_4_walk
 path_look = walker_4_look
 def_state_standing = wait
-on_info = {+pri_b36_ahtung} walker@walk ;camper@walk
+on_info = {+pri_b36_ahtung} walker@walk ; camper@walk
 on_info2 = {=health_le(0.5) !actor_enemy} %=restore_health%
 on_sound = actor|WPN_shoot|10000|0.2| {=dist_to_actor_le(70)} walker@walk %+pri_b36_ahtung%
 on_sound2 = actor|MST_step|35|0.2| walker@walk %+zat_b5_meat%
@@ -35,7 +35,7 @@ combat_ignore_cond = {=check_enemy_name(sim_default)} true
 path_walk = marine_4_2_walk
 path_look = marine_4_2_look
 out_restr = pri_b36_sr_half_out_restr
-;radius = 30
+; radius = 30
 def_state_moving = raid
 def_state_moving_fire = raid_fire
 def_state_campering = threat_na

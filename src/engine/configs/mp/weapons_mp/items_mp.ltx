@@ -44,7 +44,7 @@ trail_light_color = 0.6,0.7,0.9
 trail_light_range = 2.0
 
 artefact_activation_seq = af_activation_electra
-;᪮��� 㢥��祭�� (㬥��襭��)
+; ᪮��� 㢥��祭�� (㬥��襭��)
 health_restore_speed = 0.0
 radiation_restore_speed = 0.0
 satiety_restore_speed = 0.0
@@ -88,7 +88,7 @@ trail_light_color = 0.6,0.7,0.9
 trail_light_range = 2.0
 
 artefact_activation_seq = af_activation_electra
-;᪮��� 㢥��祭�� (㬥��襭��)
+; ᪮��� 㢥��祭�� (㬥��襭��)
 health_restore_speed = 0.0
 radiation_restore_speed = 0.0
 satiety_restore_speed = 0.0
@@ -103,11 +103,11 @@ item_visual = dynamics\artefacts\artefact_electra_green_hud
 [artefact_hud_blue]:artefact_hud
 item_visual = dynamics\artefacts\artefact_electra_blue_hud
 
-;new items
+; new items
 [mp_medkit]:medkit
 $spawn = "network\equipment\mp_medkit"
 class = II_MEDKI
-boost_time = 8 ;10.0
+boost_time = 8 ; 10.0
 boost_health_restore = 0.15
 boost_radiation_restore = 0.0
 boost_bleeding_restore = 0.05
@@ -151,7 +151,7 @@ class = II_FOOD
 $spawn = "network\equipment\mp_drug_radioprotector"
 class = II_FOOD
 
-;old items
+; old items
 [mp_medkit_old]:identity_immunities
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -224,12 +224,12 @@ cform = skeleton
 class = MP_PLBAG
 visual = dynamics\devices\dev_rukzak\dev_rukzak.ogf
 
-;--------
+; --------
 description = "rukzak"
 default_to_ruck = true
-sprint_allowed = false;
+sprint_allowed = false ; 
 control_inertion_factor = 0.0
-;----------
+; ----------
 
 inv_name = Rukzak
 inv_name_short = Rukzak
@@ -243,16 +243,16 @@ inv_grid_y = 18
 
 slot = 5
 
-;///////////////////////////////////////////////
-;// explosive items !!!
-;///////////////////////////////////////////////
+; ///////////////////////////////////////////////
+; // explosive items !!!
+; ///////////////////////////////////////////////
 
 [mp_wood_stolb_fixed]
 GroupControlSection = spawn_group
 $spawn = "network\fixed_objects\stolb"
 class = P_DSTRBL
 remove_time = 30 ; after this time unbreaked removable bone will be removed
-;script_binding = bind.physicObject ; xrf change
+; script_binding = bind.physicObject ; xrf change
 visual = dynamics\wood_doski\wood_stolb_fixed.ogf
 
 immunities_sect = mp_wood_stolb_fixed_immunities

@@ -26,7 +26,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;***********************************
+; ***********************************
 [logic@pri_a16_kovalski_start]
 active = walker@stand_base
 suitable = {-pri_a25_rfi_source_eliminated =check_npc_name(pri_a17_military_colonel_kovalski)} true
@@ -55,7 +55,7 @@ use = {!black_screen +pri_a16_kovalski_start -pri_a17_military_base_commander_ta
 trade_enable = false
 allow_break = false
 
-;--------------------------------
+; --------------------------------
 [walker@start_pri_a20]:walker@presets
 meet = no_meet
 path_walk = military_colonel_kovalski_walk
@@ -92,7 +92,7 @@ on_game_timer = 30 | %=play_sound(pri_a20_colonel_ask_check_recon_squad)%
 on_signal = sound_end | {-pri_a20_once_task_give} %+pri_a20_once_task_give =give_task(pri_a20_check_recon_squad_task)%
 on_info = {!actor_in_zone(pri_a21_meet_kovalski_restrictor) +pri_a20_task_gived} walker@stand_base
 
-;--------------------------------
+; --------------------------------
 [walker@pri_a21_start]:walker@presets
 meet = no_meet
 path_walk = military_colonel_kovalski_walk
@@ -112,7 +112,7 @@ def_state_standing = ward
 on_signal = sound_end | walker@stand_base
 on_info = {+pri_a21_give_task_no_base} walker@stand_base, {+pri_a21_give_task_base +pri_a21_colonel_give_sentry_task} walker@stand_base
 on_info2 = {-pri_a21_colonel_lets_talk} %=play_sound(pri_a21_colonel_lets_talk) +pri_a21_colonel_lets_talk%
-;---------------------------------
+; ---------------------------------
 [remark@b35_talk]:remark@presets
 anim = wait_rac
 target = story | actor
@@ -122,7 +122,7 @@ on_info = {+pri_b35_actor_rest} walker@stand_base
 on_game_timer = 50 | {-pri_b35_kovalski_calls_guide} %+pri_b35_kovalski_calls_guide =play_sound(pri_b35_kovalski_calls_guide)%
 meet = no_meet
 
-;---------------------------------
+; ---------------------------------
 [walker@pri_a22]:walker@presets
 meet = no_meet
 def_state_standing = wait_na

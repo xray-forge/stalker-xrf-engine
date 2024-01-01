@@ -23,6 +23,6 @@ on_info = {=actor_has_item(jup_b1_half_artifact) +jup_b1_spawn_controller} sr_id
 on_info = {+jup_b1_controller_is_dead} sr_idle@turn_anomaly_off %=run_postprocess(blink)%
 
 [sr_idle@turn_anomaly_off]
-on_info = {+jup_b1_task_done} sr_idle@end; %=anomaly_turn_off(jup_b1_anomal_zone)%
+on_info = {+jup_b1_task_done} sr_idle@end ; %=anomaly_turn_off(jup_b1_anomal_zone)%
 
 [sr_idle@end]

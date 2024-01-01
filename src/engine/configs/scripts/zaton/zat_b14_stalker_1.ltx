@@ -9,10 +9,10 @@ post_combat_time = 0, 0
 [death]
 on_info = {!killed_by_actor} %+zat_b14_stalker_death =stop_sound%, {=killed_by_actor =squad_exist(zat_b14_stalkers)} %+zat_b14_stalker_killed_by_actor =set_squad_enemy_to_actor(zat_b14_stalkers) =stop_sound%, %=stop_sound%
 
-[hit] ;���� ����� ����� ��������, ������, ����� �����
+[hit] ; ���� ����� ����� ��������, ������, ����� �����
 on_info = {=hit_by_actor =actor_has_item(af_quest_b14_twisted) =is_alive} %=play_sound(zat_b14_robbery_kill_actor_snd) +zat_b14_actor_enemy%
 
-[walker@go] ;���� ������
+[walker@go] ; ���� ������
 path_walk = zat_b14_stalker_1_walk_1
 path_look = zat_b14_stalker_1_look_1
 on_actor_dist_le_nvis = 5 | {!actor_in_zone(zat_b14_not_give_item_zone)} remark@ready
@@ -23,7 +23,7 @@ combat_igrore_cond = true
 danger = danger_condition@go
 meet = no_meet
 wounded = wounded
-;group = 14
+; group = 14
 
 [danger_condition@go]
 ignore_distance = 0
@@ -32,7 +32,7 @@ ignore_distance_corpse = 0
 ignore_distance_hit = 0
 ignore_distance_sound = 0
 
-[remark@ready] ;������� ������
+[remark@ready] ; ������� ������
 anim = wait_na
 target = story | actor
 meet = meet@story
@@ -43,7 +43,7 @@ combat_ignore_cond = {!actor_enemy} true
 wounded = wounded
 danger = danger_condition@go
 
-[meet@story] ;������ - ��� ��������!
+[meet@story] ; ������ - ��� ��������!
 close_anim = nil
 close_snd_hello = nil
 close_snd_bye = nil
@@ -53,9 +53,9 @@ trade_enable = false
 allow_break = false
 meet_dialog = zat_b14_stalker_start
 
-;���� ��������
+; ���� ��������
 
-[walker@item] ;������ ��������
+[walker@item] ; ������ ��������
 path_walk = zat_b14_stalker_1_sprint_1
 def_state_moving1 = run
 on_game_timer = 30 | walker@item_sprint_1
@@ -87,7 +87,7 @@ combat_ignore_cond = true
 wounded = wounded
 meet = no_meet
 
-[walker@item_2] ;������ ��������
+[walker@item_2] ; ������ ��������
 path_walk = zat_b14_stalker_1_walk_3
 path_look = zat_b14_stalker_1_look_3
 def_state_moving1 = sprint
@@ -119,9 +119,9 @@ on_info ={=npc_in_zone(zat_b14_bar_zone)} %+zat_b14_stalker_change_smart%
 meet = no_meet
 out_restr = zat_a2_sr_noweap
 
-;�� ���� ��������
+; �� ���� ��������
 
-[walker@no_item] ;����� �� ��� ��������, ���������
+[walker@no_item] ; ����� �� ��� ��������, ���������
 path_walk = zat_b14_stalker_1_walk_2
 path_look = zat_b14_stalker_1_look_2
 on_signal = zat_b14_stalker_sit | animpoint@offence
@@ -144,7 +144,7 @@ combat_ignore_cond = {!actor_enemy} true
 wounded = wounded
 meet = meet@stand
 
-[meet@stand] ;��������� ���� ������ ������ ��������
+[meet@stand] ; ��������� ���� ������ ������ ��������
 close_distance = 1
 far_distance = 1
 close_anim = nil
@@ -153,9 +153,9 @@ meet_dialog = {-zat_b14_dialog_last_chance_done} zat_b14_stalker_start_last_chan
 use = true
 trade_enable = false
 
-;������ ������
+; ������ ������
 
-[walker@prerobbery] ;����������
+[walker@prerobbery] ; ����������
 path_walk = zat_b14_stalker_1_walk_1
 path_look = zat_b14_stalker_1_look_1_1
 on_signal = end | remark@robbery
@@ -165,7 +165,7 @@ danger = danger_condition@go
 wounded = wounded
 meet = no_meet
 
-[remark@robbery] ;����������
+[remark@robbery] ; ����������
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -176,7 +176,7 @@ danger = danger_condition@go
 wounded = wounded
 meet = no_meet
 
-[companion@robbery] ;����� �������
+[companion@robbery] ; ����� �������
 on_actor_dist_le_nvis = 2 | remark@robbery_artefact
 meet = no_meet
 in_restr = zat_b14_not_give_item_zone
@@ -184,7 +184,7 @@ wounded = wounded
 combat_ignore_cond = {!actor_enemy} true
 danger = danger_condition@go
 
-[remark@robbery_artefact] ;������ ����������
+[remark@robbery_artefact] ; ������ ����������
 target = story | actor
 anim = threat_na
 snd_anim_sync = true
@@ -196,7 +196,7 @@ wounded = wounded
 combat_ignore_cond = {!actor_enemy} true
 danger = danger_condition@go
 
-[remark@punch] ;���� �� ����� � ��� ��������� ������ � �����
+[remark@punch] ; ���� �� ����� � ��� ��������� ������ � �����
 target = story | actor
 anim = punch
 on_timer = 1000 | {-zat_b14_robbery_punch_play_sound} walker@fight %=actor_punch =hit_npc_from_actor(zat_b14_stalker_1) =play_sound(zat_b14_robbery_punch) +zat_b14_robbery_punch_play_sound%
@@ -214,23 +214,23 @@ trade_enable = false
 allow_break = false
 meet_dialog = zat_b14_stalker_robbery
 
-[wounded] ;�� ������ ���� �������
+[wounded] ; �� ������ ���� �������
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
 hp_fight = 0|false
 hp_cover = 0|false
 
-;���
+; ���
 
-[walker@fight] ;� ���!
+[walker@fight] ; � ���!
 path_walk = zat_b14_stalker_1_walk_2
 path_look = zat_b14_stalker_1_look_2
 in_restr = zat_b14_not_give_item_zone
 wounded = wounded
 meet = no_meet
 
-[walker@fight_2] ;� ���!
+[walker@fight_2] ; � ���!
 path_walk = zat_b14_stalker_1_walk_3
 path_look = zat_b14_stalker_1_look_3
 wounded = wounded

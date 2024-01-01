@@ -14,7 +14,7 @@ ef_weapon_type = 7
 default_to_ruck = false
 sprint_allowed = true
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 cost = 12000
 weapon_class = sniper_rifle ; Type of the weapon
 inv_weight = 3.2
@@ -23,7 +23,7 @@ upgrades = up_gr_firstab_vintorez, up_gr_seconab_vintorez, up_gr_thirdab_vintore
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_vintorez
 
-;-TTX-----------------------------------------------------------------------------
+; -TTX-----------------------------------------------------------------------------
 hit_power = 0.42,0.42, 0.42, 0.42
 hit_impulse = 100
 hit_type = fire_wound
@@ -33,22 +33,22 @@ bullet_speed = 290
 rpm = 580
 rpm_empty_click = 200
 
-use_aim_bullet = false ;�������������� �� ������ ������ ����
+use_aim_bullet = false ; �������������� �� ������ ������ ����
 time_to_aim = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.005
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.063
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.0011
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0013
 
 ammo_elapsed = 10
@@ -61,22 +61,22 @@ launch_speed = 0
 hand_dependence = 1
 single_handed = 0
 
-;-------------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.17 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; -------------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.17 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.2f
 crosshair_inertion = 6.10
 
-;������
+; ������
 cam_return = 0
-cam_relax_speed = 3.5 ;�������� �������� � �������� ���������
-cam_relax_speed_ai = 360 ;�������� �������� � �������� ���������
-cam_dispersion = 0.4 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 0.2 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 1.0 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 50.0 ;������������ ���� ������
-cam_max_angle_horz = 50.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 0.5 ;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed = 3.5 ; �������� �������� � �������� ���������
+cam_relax_speed_ai = 360 ; �������� �������� � �������� ���������
+cam_dispersion = 0.4 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 0.2 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 1.0 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 50.0 ; ������������ ���� ������
+cam_max_angle_horz = 50.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 0.5 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 0.5
 PDM_disp_vel_factor = 1.5
@@ -93,12 +93,12 @@ zoom_cam_max_angle = 50.0
 zoom_cam_max_angle_horz = 50.0
 zoom_cam_step_angle_horz = 0.25
 
-fire_dispersion_condition_factor = 10 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 10 ; ���������� ��������� � ��������� ��� ������������ ������
 
-;---DOF-------------------------------------------------------------------------
-;zoom_dof = 0.5, 1.0, 180
+; ---DOF-------------------------------------------------------------------------
+; zoom_dof = 0.5, 1.0, 180
 reload_dof = 0.0, 0.5, 5, 2
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 holder_range_modifier = 2.0 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -109,7 +109,7 @@ hit_probability_gd_novice = 1.0
 hit_probability_gd_stalker = 1.0
 hit_probability_gd_veteran = 1.0
 hit_probability_gd_master = 1.0
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 hud = wpn_vintorez_hud
 
 slot = 2 ; // secondary
@@ -133,14 +133,14 @@ kill_msg_y = 0
 kill_msg_width = 78
 kill_msg_height = 25
 
-;---------------------------------------------------------------------------------
+; ---------------------------------------------------------------------------------
 position = -0.026, -0.097, 0.0
 orientation = 0, 0, 0
 
 fire_point = 0.000000,0.137000,0.649000
 fire_point2 = 0.0, 0.097, 0.722
 
-;flame_particles = weapons\generic_weapon05
+; flame_particles = weapons\generic_weapon05
 smoke_particles = weapons\generic_shoot_00
 grenade_flame_particles = weapons\generic_weapon01
 
@@ -148,8 +148,8 @@ shell_point = -0.020000,0.167000,0.082000
 shell_dir = 0.0, 0.0, 0.4
 shell_particles = weapons\generic_shells
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
 strap_position = -0.26,-0.11,0.25 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -15,-9,110 ; (3rd person view in degrees)
 strap_bone0 = bip01_spine2
@@ -167,7 +167,7 @@ light_time = 0.2
 
 ph_mass = 4
 
-;addons
+; addons
 scope_status = 1
 silencer_status = 1
 grenade_launcher_status = 0
@@ -176,7 +176,7 @@ scope_texture = wpn_crosshair
 
 zoom_enabled = true
 zoom_rotate_time = 0.25
-scope_zoom_factor = 15 ;���-1 4X
+scope_zoom_factor = 15 ; ���-1 4X
 
 scope_name = wpn_addon_scope
 scope_x = 78
@@ -188,7 +188,7 @@ grenade_launcher_name = wpn_addon_grenade_launcher_m203
 grenade_launcher_x = 109
 grenade_launcher_y = 30
 
-;�����
+; �����
 snd_draw = weapons\generic_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_vintorez_shot
@@ -199,7 +199,7 @@ snd_shoot_grenade = weapons\gen_grenshoot
 snd_reload_grenade = weapons\gen_grenload, 1.0, 0.8
 snd_switch = weapons\groza_switch, 1.0, 0.5
 
-;silencer_flame_particles = weapons\generic_weapon01
+; silencer_flame_particles = weapons\generic_weapon01
 silencer_smoke_particles = weapons\generic_shoot_00
 
 snd_silncer_shot = weapons\w_ak74_shot1
@@ -248,29 +248,29 @@ anm_shots = vintorez_shoot
 anm_reload = vintorez_reload
 anm_idle_aim = vintorez_idle_aim
 
-;anm_switch = vintorez_switch_off
-;anm_switch_g = vintorez_switch_on
+; anm_switch = vintorez_switch_off
+; anm_switch_g = vintorez_switch_on
 anm_bore = vintorez_idle_bore
 
-;anm_hide_w_gl = vintorez_holster_w_gl
-;anm_show_w_gl = vintorez_draw_w_gl
-;anm_idle_w_gl = vintorez_idle_w_gl
-;anm_shots_w_gl = vintorez_shoot_w_gl
-;anm_reload_w_gl = vintorez_reload_w_gl
-;anm_idle_w_gl_aim = vintorez_idle_w_gl_aim
-;anm_idle_sprint_w_gl = vintorez_idle_sprint_w_gl
-;anm_idle_moving_w_gl = vintorez_idle_moving_w_gl
-;anm_bore_w_gl = vintorez_idle_bore
+; anm_hide_w_gl = vintorez_holster_w_gl
+; anm_show_w_gl = vintorez_draw_w_gl
+; anm_idle_w_gl = vintorez_idle_w_gl
+; anm_shots_w_gl = vintorez_shoot_w_gl
+; anm_reload_w_gl = vintorez_reload_w_gl
+; anm_idle_w_gl_aim = vintorez_idle_w_gl_aim
+; anm_idle_sprint_w_gl = vintorez_idle_sprint_w_gl
+; anm_idle_moving_w_gl = vintorez_idle_moving_w_gl
+; anm_bore_w_gl = vintorez_idle_bore
 
-;anm_show_g = vintorez_draw_grenade
-;anm_hide_g = vintorez_holster_grenade
-;anm_idle_g = vintorez_idle_grenade
-;anm_reload_g = vintorez_reload_grenade
-;anm_idle_g_aim = vintorez_idle_grenade
-;anm_shots_g = vintorez_shoot_grenade
-;anm_idle_sprint_g = vintorez_idle_sprint_grenade
-;anm_idle_moving_g = vintorez_idle_moving_grenade
-;anm_bore_g = vintorez_idle_bore
+; anm_show_g = vintorez_draw_grenade
+; anm_hide_g = vintorez_holster_grenade
+; anm_idle_g = vintorez_idle_grenade
+; anm_reload_g = vintorez_reload_grenade
+; anm_idle_g_aim = vintorez_idle_grenade
+; anm_shots_g = vintorez_shoot_grenade
+; anm_idle_sprint_g = vintorez_idle_sprint_grenade
+; anm_idle_moving_g = vintorez_idle_moving_grenade
+; anm_bore_g = vintorez_idle_bore
 
 gl_hud_offset_pos = -0.053000,-0.059000,0.000000
 gl_hud_offset_rot = -0.145000,0.000000,0.000000
@@ -280,9 +280,9 @@ lean_hud_offset_rot = 0,0,0
 
 grenade_bone = grenade
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; ����������
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 [wpn_vintorez_nimble]:wpn_vintorez
 $spawn = "weapons\unique\vintorez_nimble" ; option for Level Editor
 inv_name = st_wpn_vintorez_nimble
@@ -295,20 +295,20 @@ hit_impulse = 140
 bullet_speed = 320
 rpm = 375
 
-fire_dispersion_base = 0.12 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+fire_dispersion_base = 0.12 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.2f
 crosshair_inertion = 6
 
-;������
+; ������
 cam_return = 1
-cam_relax_speed = 3.5 ;�������� �������� � �������� ���������
-cam_relax_speed_ai = 360 ;�������� �������� � �������� ���������
-cam_dispersion = 0.32 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 0.17 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 1.0 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 50.0 ;������������ ���� ������
-cam_max_angle_horz = 50.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 0.5 ;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed = 3.5 ; �������� �������� � �������� ���������
+cam_relax_speed_ai = 360 ; �������� �������� � �������� ���������
+cam_dispersion = 0.32 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 0.17 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 1.0 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 50.0 ; ������������ ���� ������
+cam_max_angle_horz = 50.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 0.5 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 0.6
 PDM_disp_vel_factor = 2.4
@@ -325,4 +325,4 @@ zoom_cam_max_angle = 50.0
 zoom_cam_max_angle_horz = 50.0
 zoom_cam_step_angle_horz = 0.25
 
-fire_dispersion_condition_factor = 5 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 5 ; ���������� ��������� � ��������� ��� ������������ ������

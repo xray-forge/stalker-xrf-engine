@@ -113,7 +113,7 @@ condlist = {=check_smart_alarm_status(zat_stalker_base_smart:normal)} true, fals
 condlist = {=squad_exist(zat_b40_merc_squad)} false, true
 
 [zat_surge_hide_b100]
-condlist = true;{-zat_a23_actor_used_access_card} false, true
+condlist = true ; {-zat_a23_actor_used_access_card} false, true
 
 [zat_surge_hide_b28]
 condlist = {=actor_in_zone(zat_sr_plateu)} true, false
@@ -130,8 +130,8 @@ condlist = {+zat_a23_actor_used_access_card} true, false
 [zat_b22_stalker_medic_identified]
 condlist = {+zat_b22_can_go_in} true, false
 
-;[zat_surge_hide_b38_side]
-;condlist = {-zat_b38_lift_opened} true, false
+; [zat_surge_hide_b38_side]
+; condlist = {-zat_b38_lift_opened} true, false
 
 [zat_surge_hide_b38_down]
 condlist = {+zat_b38_lift_opened} true, false

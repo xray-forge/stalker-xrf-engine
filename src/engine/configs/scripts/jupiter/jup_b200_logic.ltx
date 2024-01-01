@@ -10,7 +10,7 @@ on_info = sr_idle@3 %=set_counter(jup_b200_tech_materials_brought_counter:0)%
 [sr_idle@3]
 on_info = {+jup_b200_tech_materials_started -jup_b200_give_task} sr_idle@4 % =give_task(jup_b200_tech_materials) +jup_b200_give_task%
 on_info2 = %=jup_b200_count_found%
-;on_info2 = {-jup_b200_actor_begin_search_matirial =actor_in_zone(jup_b200_mill_sr)} %+jup_b200_actor_begin_search_matirial%
+; on_info2 = {-jup_b200_actor_begin_search_matirial =actor_in_zone(jup_b200_mill_sr)} %+jup_b200_actor_begin_search_matirial%
 
 [sr_idle@4]
 on_info = {=counter_greater(jup_b200_tech_materials_found_counter:0) !counter_greater(jup_b200_tech_materials_found_counter:9)} %+jup_b200_counter_found_some%

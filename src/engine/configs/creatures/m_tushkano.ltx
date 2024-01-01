@@ -9,8 +9,8 @@ Human = off ; option for ALife Simulator
 Health = 50 ; option for ALife Simulator
 MinSpeed = 1.0 ; option for ALife Simulator
 MaxSpeed = 5.0 ; option for ALife Simulator
-going_speed = 3;4.5 ; option for ALife Simulator
-current_level_going_speed = 3;2 ; option for ALife Simulator
+going_speed = 3 ; 4.5 ; option for ALife Simulator
+current_level_going_speed = 3 ; 2 ; option for ALife Simulator
 search_speed = 1.5 ; option for ALife Simulator
 visual = monsters\tushkano\tushkano
 corpse_visual = monsters\tushkano\tushkano_dead
@@ -19,9 +19,9 @@ MaxHealthValue = 50 ; range [0..200]
 DynamicObjectsCount = 32
 smart_terrain_choose_interval = 00:15:00
 
-;------------------------------------------------------------------------
+; ------------------------------------------------------------------------
 ; Influences
-;------------------------------------------------------------------------
+; ------------------------------------------------------------------------
 
 fire_max_distance = 0
 fire_max_power = 5
@@ -40,14 +40,14 @@ radiation_quadratic_factor = 1
 radiation_pp_effector_name = postprocess_rad
 radiation_pp_highest_at = 0.02
 
-;---EVALUATION FUNCTIONS----------------------------------------------
+; ---EVALUATION FUNCTIONS----------------------------------------------
 ef_creature_type = 2 ; option for evaluation functions
 ef_weapon_type = 2
 ef_detector_type = 1
 panic_threshold = 0.1
 
 cform = skeleton ; collision class
-class = SM_TUSHK ;AI_TUSH ; AI class
+class = SM_TUSHK ; AI_TUSH ; AI class
 
 bone_torso = bip01_spine1 ; bone name
 bone_head = bip01_head ; bone name
@@ -67,24 +67,24 @@ destroyed_vis_name = dynamics\Dead_Body\skelet_crash
 
 script_binding = bind.monster ; xrf change
 
-;---------------------------------------------------------------------
-ph_skeleton_airr_lin_factor = 2.0 ;550.0 (������� ��-�� ����, ��� ������ ���������� ����������� 0.002 �� ����)
-ph_skeleton_airr_ang_factor = 0.0 ;0.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 0.3 �� ���� (0.0*0.3=0.0))
-ph_skeleton_hinger_factor1 = 1.0 ;1.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 5.0 �� ����)
-ph_skeleton_ddelay = 15.0 ;����� ��������� �������� ������ � ������� � ������� �������� �����, ���
+; ---------------------------------------------------------------------
+ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (������� ��-�� ����, ��� ������ ���������� ����������� 0.002 �� ����)
+ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 0.3 �� ���� (0.0*0.3=0.0))
+ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 5.0 �� ����)
+ph_skeleton_ddelay = 15.0 ; ����� ��������� �������� ������ � ������� � ������� �������� �����, ���
 
 ph_skel_fatal_impulse_factor = 6.0
 ph_after_death_velocity_factor= 0.75
 ph_skel_shot_up_factor = 0.25
-;---------------------------------------------------------------------
+; ---------------------------------------------------------------------
 
-SoundThreshold = 0.1 ;0.06 ; range [0..1]
+SoundThreshold = 0.1 ; 0.06 ; range [0..1]
 
-eye_fov = 140;
-eye_range = 30 ;50 ;30
-max_hear_dist = 30 ;50
+eye_fov = 140 ; 
+eye_range = 30 ; 50 ; 30
+max_hear_dist = 30 ; 50
 
-hit_power = 20.0;
+hit_power = 20.0 ; 
 
 ImpulseMin = 20.0
 ImpulseMax = 35.0
@@ -103,9 +103,9 @@ Accel_Generic = 1.5
 Accel_Calm = 2.5
 Accel_Aggressive = 7.5
 
-;attack parameters
-MinAttackDist = 1.2 ;0.5
-MaxAttackDist = 1.8 ;3.8
+; attack parameters
+MinAttackDist = 1.2 ; 0.5
+MaxAttackDist = 1.8 ; 3.8
 
 as_min_dist = 0.9
 as_step = 0.1
@@ -129,29 +129,29 @@ transparency_threshold = 0.25
 
 hit_type = wound
 
-;entity condition
+; entity condition
 
 ; entity condition
-satiety_v = 0.00001 ;0.01 ;�������� ���������� ������� �� ��������
-radiation_v = 0.00001 ;0.004 ;�������� ���������� ��������
-satiety_power_v = 0.005 ;0.01 ;���������� ���� ��� ���������� �������
-satiety_health_v = 0.0001 ;0.03 ;���������� �������� ��� ���������� �������
-satiety_critical = -1.0 ;0.25 ;����������� �������� ������� (� ��������� �� 0..1) ����� �������� ��������� �����������
-radiation_health_v = 0.01 ;0.006 ;���������� �������� ��� ����������� ��������
-morale_v = 0.01 ;�������� �������������� ������
-health_hit_part = 1.0 ;0.8 ;������� ����, �������� �� ��������� ��������
-power_hit_part = 1.0 ;0.9 ;������� ����, �������� �� ��������� ����
-psy_health_v = 0.1 ;�������� �������������� psy-��������
+satiety_v = 0.00001 ; 0.01 ; �������� ���������� ������� �� ��������
+radiation_v = 0.00001 ; 0.004 ; �������� ���������� ��������
+satiety_power_v = 0.005 ; 0.01 ; ���������� ���� ��� ���������� �������
+satiety_health_v = 0.0001 ; 0.03 ; ���������� �������� ��� ���������� �������
+satiety_critical = -1.0 ; 0.25 ; ����������� �������� ������� (� ��������� �� 0..1) ����� �������� ��������� �����������
+radiation_health_v = 0.01 ; 0.006 ; ���������� �������� ��� ����������� ��������
+morale_v = 0.01 ; �������� �������������� ������
+health_hit_part = 1.0 ; 0.8 ; ������� ����, �������� �� ��������� ��������
+power_hit_part = 1.0 ; 0.9 ; ������� ����, �������� �� ��������� ����
+psy_health_v = 0.1 ; �������� �������������� psy-��������
 
-;�������� ����
-bleeding_v = 0.04 ;������ ����� ��� ����������� ���� � �������
-wound_incarnation_v = 0.05 ;�������� ������ ���������� (����� ������� ���� ��������� ����� ���������� � ������� �������)
+; �������� ����
+bleeding_v = 0.04 ; ������ ����� ��� ����������� ���� � �������
+wound_incarnation_v = 0.05 ; �������� ������ ���������� (����� ������� ���� ��������� ����� ���������� � ������� �������)
 min_wound_size = 0.01
 
-sleep_health = 1.0 ;1.5 ;�����������v ��������� ��������� ��������� �� ���� ���
-sleep_power = 1.0 ;1.5
-sleep_satiety = 1.0 ;0.8
-sleep_radiation = 1.0 ;1.1
+sleep_health = 1.0 ; 1.5 ; �����������v ��������� ��������� ��������� �� ���� ���
+sleep_power = 1.0 ; 1.5
+sleep_satiety = 1.0 ; 0.8
+sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
 
 eat_freq = 5.0 ; ����� ������ � ���
@@ -175,10 +175,10 @@ sound_attack_hit = monsters\tushkano\tushkano_attack_
 sound_take_damage = monsters\tushkano\tushkano_pain_
 sound_die = monsters\tushkano\tushkano_death_
 sound_threaten = monsters\tushkano\tushkano_threaten_
-sound_landing = monsters\tushkano\tushkano_pain_ ;monsters\tushkano\tush_idle_
-sound_steal = monsters\beeps_ ;monsters\tushkano\tush_idle_
-sound_panic = monsters\biting\def_ ;monsters\tushkano\tushkano_panic_
-sound_growling = monsters\beeps_ ;monsters\tushkano\tush_idle_
+sound_landing = monsters\tushkano\tushkano_pain_ ; monsters\tushkano\tush_idle_
+sound_steal = monsters\beeps_ ; monsters\tushkano\tush_idle_
+sound_panic = monsters\biting\def_ ; monsters\tushkano\tushkano_panic_
+sound_growling = monsters\beeps_ ; monsters\tushkano\tush_idle_
 sound_die_in_anomaly = monsters\tushkano\tushkano_anomaly_
 
 killer_clsids = Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
@@ -203,7 +203,7 @@ attack_effector = small_monster_attack_effector
 
 LegsCount = 2
 
-;species of monster
+; species of monster
 species = tushkano
 spec_rank = normal
 community = tushkano
@@ -248,9 +248,9 @@ skin_armor = 0
 hit_fraction_monster = 1.0
 
 [m_tushkano_damage]
-;bone_name = <hit_scale>,-1,<wound_scale>
-;<hit_scale> - �����. ��������� ���� (���������� ��������)
-;<wound_scale> - �����. ��������� �������� �������� ����
+; bone_name = <hit_scale>,-1,<wound_scale>
+; <hit_scale> - �����. ��������� ���� (���������� ��������)
+; <wound_scale> - �����. ��������� �������� �������� ����
 default = 1.0, -1, 0.3
 bip01_pelvis = 1.0, -1, 0.5
 bip01_spine = 1.0, -1, 0.5
@@ -259,7 +259,7 @@ bip01_neck = 1.0, -1, 1.5
 bip01_head = 2.0, -1, 0.5, 10
 
 [tushkano_immunities]
-burn_immunity = 1 ;������������ ����������
+burn_immunity = 1 ; ������������ ����������
 strike_immunity = 1
 shock_immunity = 1
 wound_immunity = 0.5
@@ -270,17 +270,17 @@ explosion_immunity = 1
 fire_wound_immunity = 6
 
 [m_tushkano_attack_params]
-;---------------------------------------------------------------------------------------------------------------------------------------------
+; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
-;---------------------------------------------------------------------------------------------------------------------------------------------
+; ---------------------------------------------------------------------------------------------------------------------------------------------
 stand_attack_0 = 0.25, 0.55, 20, 0.0, 1.0, 0.0, -1.2, 1.2, -1.6, 1.6, 1.0
 stand_attack_1 = 0.25, 0.55, 30, 0.0, 1.0, 0.0, -1.2, 1.2, -1.6, 1.6, 1.0
 stand_attack_2 = 0.25, 0.55, 35, 0.0, 1.0, 0.0, -1.2, 1.2, -1.6, 1.6, 1.0
 
 [m_tushkano_step_params]
-;---------------------------------------------------------------------------
+; ---------------------------------------------------------------------------
 ; anim | Cycles | time1 | power1 | time2 | power2 |
-;---------------------------------------------------------------------------
+; ---------------------------------------------------------------------------
 stand_walk_fwd_0 = 1, 0.2, 0.5, 0.7, 1,
 stand_run_0 = 1, 0.25, 1, 0.25, 1,
 

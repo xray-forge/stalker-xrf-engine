@@ -168,15 +168,15 @@ on_actor_in_zone = jup_a12_sr_containers_kampzone | {-jup_a12_actor_has_pass_to_
 on_info2 = {-jup_a12_actor_has_pass_to_containers -jup_a12_bandits_warning_actor =dist_to_actor_le(22)} %+jup_a12_bandits_warning_actor =play_sound(jup_a12_bandits_warning_actor)%
 
 [walker@jup_a12_surge_def]
-;path_walk = surge_hide_1_walk
-;path_look = surge_hide_1_look
+; path_walk = surge_hide_1_walk
+; path_look = surge_hide_1_look
 combat_ignore_cond = {=check_enemy_name(jup_a12_stalker_prisoner)} true, {-jup_a12_actor_enemy_to_bandits} true, false
 on_info = {-jup_a12_actor_enemy_to_bandits -jup_a12_actor_has_pass_to_containers =actor_in_zone(jup_a12_sr_bandit_bodyguard)} %+jup_a12_actor_enemy_to_bandits%
 def_state_standing = sit
 def_state_moving = assault
 
 [logic@jup_a12_surge_def]
-;active = walker@jup_a12_surge_work_1
+; active = walker@jup_a12_surge_work_1
 suitable = {=check_npc_name(bandit) =surge_started} true
 prior = 100
 

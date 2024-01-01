@@ -7,7 +7,7 @@ on_info2 = {=actor_in_zone(zat_b20_sr_actor_cross_the_teleport)} sr_idle@wait_to
 on_info3 = {=dist_to_actor_le(65)} sr_idle@play %=give_task(zat_b20_plateau_way)%
 
 [sr_idle@play]
-on_info = {+zat_b20_plateau_way_go} sr_idle@timer ;%=disable_ui%
+on_info = {+zat_b20_plateau_way_go} sr_idle@timer ; %=disable_ui%
 on_info2 = {+zat_b20_plateau_way_done} sr_idle@nil
 on_info3 = {=actor_in_zone(zat_b20_sr_actor_cross_the_teleport)} sr_idle@wait_to_fallen %+zat_b20_plateau_way_done%
 
@@ -35,14 +35,14 @@ on_signal = cameff_end | sr_idle@hour %+zat_b20_plateau_way_known%
 on_signal2 = cam_effector_stop | sr_idle@hour %+zat_b20_plateau_way_known%
 global_cameffect = true
 outdoor = true
-;on_info = {+zat_b18_noah_dead} %=stop_sr_cutscene +zat_b20_plateau_way_known%
+; on_info = {+zat_b18_noah_dead} %=stop_sr_cutscene +zat_b20_plateau_way_known%
 on_info = {+zat_b20_actor_hit} %=stop_sr_cutscene%
 on_game_timer = 20 | {-zat_b20_noah_ready_to_jump} %+zat_b20_noah_ready_to_jump%
 enable_ui_on_end = true
 
 [sr_idle@hour]
 on_game_timer = 3600 | sr_idle@hour_fail
-;on_info = {+zat_b20_plateau_way_done} sr_idle@play_snd
+; on_info = {+zat_b20_plateau_way_done} sr_idle@play_snd
 on_info = {=actor_in_zone(zat_b20_sr_actor_cross_the_teleport)} sr_idle@play_snd %+zat_b20_plateau_way_done%
 on_info2 = {-zat_b20_autosave} %+zat_b20_autosave =scenario_autosave(st_save_zat_b18_noah_showed_teleport)%
 

@@ -1,41 +1,41 @@
 [zone_field_acidic]:zone_base_noshadow
 GroupControlSection = spawn_group_zone
 $def_sphere = 15
-;$prefetch = 16
+; $prefetch = 16
 class = ZS_RADIO
 hit_impulse_scale = .01
-effective_radius = 1.00 ;������ ������� � ��������� �� �������������, ��� ��������� ����
+effective_radius = 1.00 ; ������ ������� � ��������� �� �������������, ��� ��������� ����
 
 postprocess = postprocess_acidic
 
 ef_anomaly_type = 3
 ef_weapon_type = 15
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0
 attenuation = 0.5
 
-idle_particles = ;zones\zone_acidic_idle
+idle_particles = ; zones\zone_acidic_idle
 idle_particles_dont_stop = true
 
-;hit_small_particles =
-;hit_big_particles =
-;idle_small_particles =
-;idle_big_particles =
+; hit_small_particles =
+; hit_big_particles =
+; idle_small_particles =
+; idle_big_particles =
 
-idle_sound = anomaly\buzz_idle; bfuzz_blowout ;���������� ����
-;blowout_sound = anomaly\buzz_hit; bfuzz_hit ;�� ����� �������(�����) � ������ ��������
-;hit_sound = anomaly\buzz_hit; bfuzz_hit ;�� ���������, ����� ��� �������� ���
-;entrance_sound = anomaly\buzz_hit; bfuzz_hit ;��� ��������� ������� � ��������
+idle_sound = anomaly\buzz_idle ; bfuzz_blowout ; ���������� ����
+; blowout_sound = anomaly\buzz_hit ; bfuzz_hit ; �� ����� �������(�����) � ������ ��������
+; hit_sound = anomaly\buzz_hit ; bfuzz_hit ; �� ���������, ����� ��� �������� ���
+; entrance_sound = anomaly\buzz_hit ; bfuzz_hit ; ��� ��������� ������� � ��������
 
 hit_type = chemical_burn
 
-disable_time = -1 ;����� ������������� �������� ������� � ���� (-1 ���� �� �����)
-disable_time_small = -1 ;����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
-disable_idle_time = -1 ;����� ���������� idle ���������
+disable_time = -1 ; ����� ������������� �������� ������� � ���� (-1 ���� �� �����)
+disable_time_small = -1 ; ����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
+disable_idle_time = -1 ; ����� ���������� idle ���������
 
-ignore_nonalive = true;
-ignore_small = false;
+ignore_nonalive = true ; 
+ignore_small = false ; 
 ignore_artefacts = true
 
 blowout_light = off
@@ -53,17 +53,17 @@ shape_edge_color = 32, 32, 32, 255
 [zone_field_acidic_weak]:zone_field_acidic
 $spawn = "zones\field_acidic_weak"
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0.1
 
 [zone_field_acidic_average]:zone_field_acidic
 $spawn = "zones\field_acidic_average"
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0.1
 
 [zone_field_acidic_strong]:zone_field_acidic
 $spawn = "zones\field_acidic_strong"
 
-;----------- Anomaly settings -----------------------
+; ----------- Anomaly settings -----------------------
 max_start_power = 0.1

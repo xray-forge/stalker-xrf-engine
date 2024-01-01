@@ -46,7 +46,7 @@ trade_enable = false
 allow_break = false
 meet_on_talking = false
 
-;************************************
+; ************************************
 [logic@pri_b305_kovalskiy]
 active = walker@b305
 suitable = {-pri_b305_fifth_cam_end +pri_a25_rfi_source_eliminated =check_npc_name(kovalski)} true
@@ -58,7 +58,7 @@ path_look = pri_b305_kirillov_walk
 def_state_standing = wait_na
 meet = no_meet
 on_info = {-pri_b305_kovalski_incase_tp} remark@info_wait %=teleport_npc(pri_a16_pri_b305_kovalskiy_walk) +pri_b305_kovalski_incase_tp%
-;on_info2 = {+pri_b305_second_cam_ready -pri_b305_second_cam_end} remark@info_1 ;%=teleport_npc(pri_a16_pri_b305_kovalskiy_walk)%
+; on_info2 = {+pri_b305_second_cam_ready -pri_b305_second_cam_end} remark@info_1 ; %=teleport_npc(pri_a16_pri_b305_kovalskiy_walk)%
 on_info3 = {+pri_b305_second_cam_end} animpoint@rest
 
 [remark@info_wait]:remark@def
@@ -93,7 +93,7 @@ meet = no_meet
 [animpoint@rest]:animpoint@b305_def
 reach_movement = walk
 on_info = {+pri_b305_third_cam_go} walker@strelok_operation_start %=teleport_npc(pri_a16_pri_b305_kovalskiy_strelok_operation_walk) +fuck%
-;meet = no_meet
+; meet = no_meet
 
 [walker@strelok_operation_start]:walker@def
 path_walk = pri_b305_kovalskiy_strelok_operation_walk

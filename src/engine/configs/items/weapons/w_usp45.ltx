@@ -15,7 +15,7 @@ default_to_ruck = false
 sprint_allowed = true
 control_inertion_factor = 1.0
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 cost = 1400 ; the price of the item
 inv_weight = .72
 
@@ -23,7 +23,7 @@ upgrades = up_gr_firstab_usp, up_gr_seconab_usp, up_gr_thirdab_usp, up_gr_fourta
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_usp
 
-;----TTX--------------------------------------------------------------------------
+; ----TTX--------------------------------------------------------------------------
 hit_power = 0.42, 0.42, 0.42, 0.42
 hit_impulse = 100
 hit_type = fire_wound
@@ -32,28 +32,28 @@ bullet_speed = 195
 rpm = 173
 rpm_empty_click = 250
 
-use_aim_bullet = false ;�������������� �� ������ ������ ����
+use_aim_bullet = false ; �������������� �� ������ ������ ����
 time_to_aim = 1.0
 
 hud = wpn_usp_hud
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.0055
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.055
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.0025
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0025
 
 ammo_elapsed = 12
 ammo_mag_size = 12 ; clip (magazine) size
-fire_modes = 1;, -1
+fire_modes = 1 ; , -1
 ammo_class = ammo_11.43x23_fmj, ammo_11.43x23_hydro
 grenade_class = ammo_vog-25 ; name of the ltx-section of used grenades
 
@@ -61,25 +61,25 @@ launch_speed = 0
 hand_dependence = 1
 single_handed = 1
 
-;---DOF-------------------------------------------------------------------------
+; ---DOF-------------------------------------------------------------------------
 zoom_dof = -1000, 1.0, 1000
 reload_dof = 0.0, 0.5, 5, 1.7
 
-;---���������---------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.19 ;0.7 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; ---���������---------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.19 ; 0.7 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.0
 crosshair_inertion = 3.65
 
-;������
+; ������
 cam_return = 0
-cam_relax_speed = 7 ;�������� �������� � �������� ���������
-cam_dispersion = 1.5 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 1.5 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 1.0 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 10.0 ;������������ ���� ������
-cam_max_angle_horz = 10.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 1.0 ;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed = 7 ; �������� �������� � �������� ���������
+cam_dispersion = 1.5 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 1.5 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 1.0 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 10.0 ; ������������ ���� ������
+cam_max_angle_horz = 10.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 1.0 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 0.5
 PDM_disp_vel_factor = 1.1
@@ -96,9 +96,9 @@ zoom_cam_max_angle = 5.0
 zoom_cam_max_angle_horz = 10.0
 zoom_cam_step_angle_horz = 1.5
 
-fire_dispersion_condition_factor = 8 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 8 ; ���������� ��������� � ��������� ��� ������������ ������
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 holder_range_modifier = 1.0 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -110,7 +110,7 @@ hit_probability_gd_stalker = 0.80
 hit_probability_gd_veteran = 0.80
 hit_probability_gd_master = 0.80
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 slot = 1
 animation_slot = 1 ; type of the animation that will be used
 inv_name = st_wpn_usp ; name in inventory
@@ -131,7 +131,7 @@ kill_msg_y = 177
 kill_msg_width = 31
 kill_msg_height = 25
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 position = -0.021, -0.085, 0.0
 orientation = 0, 0, 0
 
@@ -146,12 +146,12 @@ shell_point = 0.0, 0.133, 0.047
 shell_dir = 0.0, 0.0, 0.4
 shell_particles = weapons\generic_shells
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
-;strap_position = -0.16,-0.36,0.15 ; position (offset) and orientation of the weapon when it is strapped
-;strap_orientation = -10,-5,10 ; (3rd person view in degrees)
-;strap_bone0 = bip01_spine2
-;strap_bone1 = bip01_spine1
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
+; strap_position = -0.16,-0.36,0.15 ; position (offset) and orientation of the weapon when it is strapped
+; strap_orientation = -10,-5,10 ; (3rd person view in degrees)
+; strap_bone0 = bip01_spine2
+; strap_bone1 = bip01_spine1
 
 startup_ammo = 90
 visual = dynamics\weapons\wpn_usp45\wpn_usp45.ogf
@@ -165,7 +165,7 @@ light_time = 0.2
 
 ph_mass = 1
 
-;addons
+; addons
 scope_status = 0 ; 0 - no addon
 silencer_status = 2 ; 1 - permanent
 grenade_launcher_status = 0 ; 2 - attachable
@@ -180,11 +180,11 @@ scope_y = 0
 silencer_name = wpn_addon_silencer ; section name for the attachable silencer
 silencer_x = 48 ; offset in inventory icon
 silencer_y = -15
-grenade_launcher_name = wpn_addon_grenade_launcher; section name for the attachable grenade launcher
+grenade_launcher_name = wpn_addon_grenade_launcher ; section name for the attachable grenade launcher
 grenade_launcher_x = 126 ; offset in inventory icon
 grenade_launcher_y = 24
 
-;�����
+; �����
 snd_draw = weapons\usp_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_usp_shot
@@ -197,7 +197,7 @@ snd_switch = weapons\groza_switch, 1.0, 0.5
 snd_bore = weapons\mp5_bore
 snd_bore1 = weapons\draw_silent
 
-;silencer_flame_particles = weapons\generic_weapon01
+; silencer_flame_particles = weapons\generic_weapon01
 silencer_smoke_particles = weapons\generic_shoot_00
 snd_silncer_shot = weapons\n_pb_shot
 silencer_light_color = 0.6,0.5,0.3
@@ -214,10 +214,10 @@ hands_orientation = -0.500000,1.000000,1.149999
 hands_position_16x9 = 0.033000,-0.189500,0.039000
 hands_orientation_16x9 = 2.349998,2.749999,2.849998
 
-;hands_position = -0.022500,-0.159500,0.002500
-;hands_orientation = 0.350000,1.300000,1.599999
-;hands_position_16x9 = 0.006000,-0.176500,0.039000
-;hands_orientation_16x9 = 0.049999,1.500000,2.949998
+; hands_position = -0.022500,-0.159500,0.002500
+; hands_orientation = 0.350000,1.300000,1.599999
+; hands_position_16x9 = 0.006000,-0.176500,0.039000
+; hands_orientation_16x9 = 0.049999,1.500000,2.949998
 
 item_position = 0.000746,-0.000321,0.003479
 item_orientation = 1.239378,-0.134046,-2.052052
@@ -270,9 +270,9 @@ lean_hud_offset_rot = 0,0,0
 aim_hud_offset_pos_16x9 = -0.166000,0.059000,0.000000
 aim_hud_offset_rot_16x9 = 0.025000,0.055000,0.002500
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; ��������v�
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 
 [wpn_usp_nimble]:wpn_usp
 $spawn = "weapons\wpn_usp_nimble" ; name and section in level editor
@@ -283,21 +283,21 @@ cost = 3000
 
 rpm = 210
 
-;---���������---------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.08 ;0.7 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; ---���������---------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.08 ; 0.7 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.0
 crosshair_inertion = 3.25
 
-;������
+; ������
 cam_return = 0
-cam_relax_speed = 7 ;�������� �������� � �������� ���������
-cam_dispersion = 1.35 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 1.35 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 0.8 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 8.0 ;������������ ���� ������
-cam_max_angle_horz = 8.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 0.9 ;(degree) size of step camera moved in horizontal position while shooting
+cam_relax_speed = 7 ; �������� �������� � �������� ���������
+cam_dispersion = 1.35 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 1.35 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 0.8 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 8.0 ; ������������ ���� ������
+cam_max_angle_horz = 8.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 0.9 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 0.4
 PDM_disp_vel_factor = 1

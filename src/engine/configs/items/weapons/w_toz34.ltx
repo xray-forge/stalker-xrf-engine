@@ -10,7 +10,7 @@ description = st_wpn_toz34_descr
 ef_main_weapon_type = 1
 ef_weapon_type = 9
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 cost = 1200
 weapon_class = shotgun
 inv_weight = 3.1
@@ -19,28 +19,28 @@ upgrades = up_gr_firstab_toz34, up_gr_seconab_toz34, up_gr_thirdab_toz34
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_toz34
 
-;--TTX----------------------------------------------------------------------------
+; --TTX----------------------------------------------------------------------------
 hit_power = 0.52, 0.52, 0.52, 0.52
 hit_impulse = 100
 hit_type = fire_wound
 fire_distance = 100
-bullet_speed = 240 ;��������� �������� ����
+bullet_speed = 240 ; ��������� �������� ����
 rpm = 1000
 
 hud = wpn_toz34_hud
 
-misfire_probability = 0.005 ;����������� ������ ��� ������������ ������ !!!old - now not working
-;������������, ��� ������� ���������� ���� ������
+misfire_probability = 0.005 ; ����������� ������ ��� ������������ ������ !!!old - now not working
+; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-;����������� ��� ������� ���� ������ ���������� �����������
+; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-;���� ������ ��� ����������� ������ ��� misfireStartCondition
+; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.002
-;���� ������ ��� ����������� ������ ��� misfireEndCondition
+; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.03
-;���������� ����������� ��� ��������� ��������
+; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.0045
-;���������� ����������� ��� �������� ��������
+; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0045
 
 tri_state_reload = off
@@ -49,22 +49,22 @@ ammo_elapsed = 2
 ammo_mag_size = 2
 ammo_class = ammo_12x70_buck, ammo_12x76_zhekan
 
-;---���������---------------------------------------------------------------------------
-;������� ���������
-fire_dispersion_base = 0.2 ;���� (� ��������) ������� ��������� ������ (������ �������� � ������)
+; ---���������---------------------------------------------------------------------------
+; ������� ���������
+fire_dispersion_base = 0.2 ; ���� (� ��������) ������� ��������� ������ (������ �������� � ������)
 control_inertion_factor = 1.5f
 crosshair_inertion = 7.5
 
-;������
+; ������
 cam_return = 1
-cam_relax_speed = 5.0 ;�������� �������� � �������� ���������
+cam_relax_speed = 5.0 ; �������� �������� � �������� ���������
 cam_relax_speed_ai = 360
-cam_dispersion = 5.0 ;���������� ���� (� ��������) � ������ ���������
-cam_dispersion_inc = 5.0 ;���������e cam_dispersion � ������ ���������
-cam_dispersion_frac = 0.7 ;����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
-cam_max_angle = 10.0 ;������������ ���� ������
-cam_max_angle_horz = 10.0 ;(degree) maximum shot horizontal degree
-cam_step_angle_horz = 1.0 ;(degree) size of step camera moved in horizontal position while shooting
+cam_dispersion = 5.0 ; ���������� ���� (� ��������) � ������ ���������
+cam_dispersion_inc = 5.0 ; ���������e cam_dispersion � ������ ���������
+cam_dispersion_frac = 0.7 ; ����� ����� ���������� �� cam_dispersion*cam_dispersion_frac +- cam_dispersion*(1-cam_dispersion_frac)
+cam_max_angle = 10.0 ; ������������ ���� ������
+cam_max_angle_horz = 10.0 ; (degree) maximum shot horizontal degree
+cam_step_angle_horz = 1.0 ; (degree) size of step camera moved in horizontal position while shooting
 
 PDM_disp_base = 0.5
 PDM_disp_vel_factor = 1.7
@@ -81,12 +81,12 @@ zoom_cam_max_angle = 10.0
 zoom_cam_max_angle_horz = 10.0
 zoom_cam_step_angle_horz = 1.0
 
-fire_dispersion_condition_factor = 1.5 ;���������� ��������� � ��������� ��� ������������ ������
+fire_dispersion_condition_factor = 1.5 ; ���������� ��������� � ��������� ��� ������������ ������
 
-;---DOF-------------------------------------------------------------------------
+; ---DOF-------------------------------------------------------------------------
 zoom_dof = 0.5, 1.0, 180
-;reload_dof = 0.0, 0.5, 5, 3.2
-;-------------------------------------------------------------------------------
+; reload_dof = 0.0, 0.5, 5, 3.2
+; -------------------------------------------------------------------------------
 holder_range_modifier = 1.0 ; �� ������� ��� ������������� eye_range
 holder_fov_modifier = 1.0 ; �� ������� ��� ������������� eye_fov
 
@@ -98,9 +98,9 @@ hit_probability_gd_stalker = 0.80
 hit_probability_gd_veteran = 0.80
 hit_probability_gd_master = 0.80
 
-;-------------------------------------------------------------------------------
-position = -0.023, -0.14, 0.00 ;-0.026, -0.117, 0.0
-orientation = 0, 30, 0 ;�������� ��������������� � ��������
+; -------------------------------------------------------------------------------
+position = -0.023, -0.14, 0.00 ; -0.026, -0.117, 0.0
+orientation = 0, 30, 0 ; �������� ��������������� � ��������
 
 shell_point = 0.0, 0.183, 0.07
 fire_point = 0.0, 0.168, 0.755
@@ -134,8 +134,8 @@ flame_particles = weapons\generic_weapon05
 smoke_particles = weapons\generic_shoot_00
 rpm_empty_click = 200
 
-;--STRAP PARAMETERS-----------------------------------------------------------------
-;��� ������
+; --STRAP PARAMETERS-----------------------------------------------------------------
+; ��� ������
 strap_position = -0.26,-0.11,0.15 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -15,-9,110 ; (3rd person view in degrees)
 strap_bone0 = bip01_spine2
@@ -152,7 +152,7 @@ light_time = 0.2
 
 ph_mass = 3
 
-;addons
+; addons
 scope_status = 0
 silencer_status = 0
 grenade_launcher_status = 0
@@ -160,7 +160,7 @@ grenade_launcher_status = 0
 zoom_enabled = true
 scope_zoom_factor = 55
 
-;�����
+; �����
 snd_draw = weapons\generic_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_toz34_shot
@@ -171,7 +171,7 @@ snd_shoot_duplet = weapons\n_toz34_shot
 snd_shoot_1 = weapons\n_toz34_shot
 snd_reload_1 = weapons\toz34_reload_one
 snd_close_weapon = weapons\spas12_close
-snd_add_cartridge = weapons\w1300_load ;was gen_grenload
+snd_add_cartridge = weapons\w1300_load ; was gen_grenload
 snd_open_weapon = weapons\spas12_close
 
 [wpn_toz34_hud]:hud_base
@@ -236,6 +236,6 @@ aim_hud_offset_rot = -0.002500,-0.000000,0.095000
 aim_hud_offset_pos_16x9 = -0.072000,0.030000,-0.008500
 aim_hud_offset_rot_16x9 = 0.015000,-0.000000,-0.007500
 
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 ; ����������
-;-----------------------------------------------------------------------------
+; -----------------------------------------------------------------------------

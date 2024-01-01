@@ -4,25 +4,25 @@ hit_section = hit_bones ; hit section name
 wpn_rotate_x_bone = left_gun1 ; rotate X-axis(pitch) bone name
 wpn_rotate_y_bone = left_gun1_tower ; rotate Y-axis(head) bone name
 wpn_fire_bone = left_gun1_fire ; weapon axis (fire) bone name
-left_rocket_bone = left_gun2 ;
-left_rocket2_bone = left_gun2 ;
-right_rocket_bone = right_gun ;
-right_rocket2_bone = right_gun ;
+left_rocket_bone = left_gun2 ; 
+left_rocket2_bone = left_gun2 ; 
+right_rocket_bone = right_gun ; 
+right_rocket2_bone = right_gun ; 
 smoke_bone = front_propeller
 light_bone = front_propeller
 
 [hit_bones] ; per bones hit factor
-;root = 0.000015
-;korpus1 = 0.000015
-;korpus2 = 0.000015
+; root = 0.000015
+; korpus1 = 0.000015
+; korpus2 = 0.000015
 front_propeller = 0.00001
 korpus4 = 0.00001
 
 [on_death_mode]
 scale_bone = front_propeller2,back_propeller2
 
-;-------------------------------------------------------------------------------
-;------ destroyed part ---------------------------------------------------------
+; -------------------------------------------------------------------------------
+; ------ destroyed part ---------------------------------------------------------
 
 [destroyed]
 dynamics\vehicles\mi2\part\veh_mi2_part_01
@@ -37,18 +37,18 @@ dynamics\vehicles\mi2\part\veh_mi2_part_08
 [autoremove_parts]
 time = 60
 
-;-------------------------------------------------------------------------------
-;--- part impulse_transition ---------------------------------------------------
+; -------------------------------------------------------------------------------
+; --- part impulse_transition ---------------------------------------------------
 
 [impulse_transition_to_parts]
 random_min = 20.0 ; �������� �������� ������������� �������� ��������������� ����� ������ �������
 random_hit_imp = 30.0 ; �������� �������� ������������� �������� ��������������� ������������ ����
-;ref_bone = ; ����� �� �� ������� ������������ �������� ��� ������ � ������� ����� �� ������, �� ��������� ���
+; ref_bone = ; ����� �� �� ������� ������������ �������� ��� ������ � ������� ����� �� ������, �� ��������� ���
 imp_transition_factor = 1.0 ; ������ � ������� �������������� ��� �� ��������� ������� �� ���� ������
 lv_transition_factor = 2.0 ; ����������� �������� �������� ��������
 av_transition_factor = 2.0 ; ����������� �������� ������� ��������
 
-;-------------------------------------------------------------------------------
+; -------------------------------------------------------------------------------
 [explosion]
 hit_power_critical = 0.0, 0.0, 0.0, 0.0
 k_hit_critical = 0
@@ -70,14 +70,14 @@ light_color = 0.6,0.5,0.3
 light_range = 15.0
 light_time = 0.5
 
-;������ �� ��������
+; ������ �� ��������
 fragment_speed = 76
 fragment_tracer_max_length = 3
-explode_duration = 50 ;���������������� ������ (�)
+explode_duration = 50 ; ���������������� ������ (�)
 
-;�����
+; �����
 snd_explode = weapons\heli_explosion
-;wallmarks
+; wallmarks
 wallmark_section = explosion_marks
 
 [explode_effector]

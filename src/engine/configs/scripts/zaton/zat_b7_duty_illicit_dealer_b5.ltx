@@ -2,14 +2,14 @@
 active = walker@start
 suitable = {=check_npc_name(zat_b7_duty_illicit_dealer) -zat_b5_trader_death} true
 prior = 100
-post_combat_time = 0,0 ;5,5
+post_combat_time = 0,0 ; 5,5
 on_death = death
 on_hit = hit
 
 [walker@start]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = assault
 def_state_standing = guard_na
 on_info = {+zat_b5_actor_with_bandits} walker@start_work_bandit
@@ -26,7 +26,7 @@ wounded = wounded
 [walker@start_work_bandit]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_info = {+zat_b5_actor_bandit_go_to_trader} walker@start_work_bandit_2, {+zat_b5_actor_stalker_go_to_trader} walker@start_work_bandit_2
@@ -41,11 +41,11 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--���� ��������
+; --���� ��������
 [walker@start_work_bandit_2]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_info = {+zat_b5_sultan_close_by_trader +zat_b5_actor_with_bandits} walker@timer_to_remark, {+zat_b5_actor_with_stalkers +zat_b5_start_quest_stalkers} walker@timer_to_remark
@@ -60,11 +60,11 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--���� �������
+; --���� �������
 [walker@timer_to_remark]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_game_timer = 10 | remark@speak_sultan
@@ -78,7 +78,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--������ ����� "��� ��� � ���"
+; --������ ����� "��� ��� � ���"
 [remark@speak_sultan]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_bandit_sultan_2_walk,0
@@ -93,11 +93,11 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--���� ������
+; --���� ������
 [walker@wait]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_info = {+zat_b5_bandit_speak_1_done} remark@speak_sultan_2
@@ -111,7 +111,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--������ ����� "������ �� ��������"
+; --������ ����� "������ �� ��������"
 [remark@speak_sultan_2]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_bandit_sultan_2_walk,0
@@ -126,15 +126,15 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--���� ����� ���������
+; --���� ����� ���������
 [walker@wait_2]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_info = {+zat_b5_stalker_attack_dealer} remark@fire %=actor_enemy%
-;on_info2 = {+zat_b5_meat} walker@fight_bandit %=actor_enemy%
+; on_info2 = {+zat_b5_meat} walker@fight_bandit %=actor_enemy%
 on_info2 = {+zat_b5_actor_with_stalkers =actor_see_npc =see_actor} remark@see_actor
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(zat_b5_dealer_assistant_1:zat_b5_dealer_assistant_2:zat_b5_actor_with_bandits)} true, {=check_enemy_name(zat_b5_stalker_raider:zat_b7_bandit_boss)} true , {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
@@ -167,16 +167,16 @@ meet = no_meet
 on_info = {+zat_b5_bandits_death +zat_b5_stalker_death} walker@after_fight
 on_info2 = {-zat_b5_actor_with_dealer -zat_b5_actor_enemy} walker@fight %+zat_b5_actor_enemy =actor_enemy%
 combat_ignore_cond = {=check_enemy_name(zat_b5_stalker_raider:zat_b7_bandit_boss) -zat_b5_stalker_death +zat_b5_actor_with_stalkers} true, {=check_enemy_name(zat_b5_dealer_assistant_1:zat_b5_dealer_assistant_2) true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
-;gather_items_enabled = false
+; gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--------------------�� ��������-------------------------------
+; --------------------�� ��������-------------------------------
 [walker@start_work_dealer]
 path_walk = zat_b5_dolg_trader_11_walk
 path_look = zat_b5_dolg_trader_11_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = run
 def_state_standing = guard_na
 on_actor_dist_le_nvis = 55 | walker@wait_actor %=play_sound(zat_b5_dealer_want_speak_with_actor)%
@@ -192,7 +192,7 @@ wounded = wounded
 [walker@wait_actor]
 path_walk = zat_b5_dolg_trader_11_walk
 path_look = zat_b5_dolg_trader_11_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = run
 def_state_standing = guard_na
 on_info = {+zat_b5_actor_together_dealer} walker@timer_to_position
@@ -209,7 +209,7 @@ wounded = wounded
 [walker@timer_to_position]
 path_walk = zat_b5_dolg_trader_11_walk
 path_look = zat_b5_dolg_trader_11_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = assault
 def_state_standing = guard_na
 on_game_timer = 20 | walker@move_to_position
@@ -226,7 +226,7 @@ wounded = wounded
 [walker@move_to_position]
 path_walk = zat_b5_dolg_trader_2_walk
 path_look = zat_b5_dolg_trader_2_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_signal = dealer_2 | walker@move_to_position_2
@@ -243,7 +243,7 @@ wounded = wounded
 [walker@move_to_position_2]
 path_walk = zat_b5_dolg_trader_3_walk
 path_look = zat_b5_dolg_trader_3_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_signal = dealer_3 | walker@move_to_position_3
@@ -260,7 +260,7 @@ wounded = wounded
 [walker@move_to_position_3]
 path_walk = zat_b5_dolg_trader_4_walk
 path_look = zat_b5_dolg_trader_4_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_signal = dealer_4 | walker@on_position %=play_sound(zat_b5_dealer_wait_clients)%
@@ -277,7 +277,7 @@ wounded = wounded
 [walker@on_position]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_actor_in_zone = zat_b5_sr_actor_in_zone_spawn_enemy | walker@start_bandits %+zat_b5_spawn_enemy%
@@ -294,7 +294,7 @@ wounded = wounded
 [walker@start_bandits]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_game_timer = 30| walker@wait_bandits %+zat_b5_actor_bandit_go_to_trader%
@@ -311,7 +311,7 @@ wounded = wounded
 [walker@wait_bandits]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_info = {+zat_b5_meat} walker@fight_dealer
@@ -328,7 +328,7 @@ wounded = wounded
 [walker@see_bandits]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_info = {+zat_b5_meat} walker@fight_dealer
@@ -345,7 +345,7 @@ wounded = wounded
 [walker@dealer_timer_to_remark]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = walk
 def_state_standing = guard_na
 on_game_timer = 20 | remark@dealer_speak_sultan
@@ -359,7 +359,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--������ ����� "��� ��� � ���"
+; --������ ����� "��� ��� � ���"
 [remark@dealer_speak_sultan]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_bandit_sultan_2_walk,0
@@ -374,11 +374,11 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--���� ������
+; --���� ������
 [walker@dealer_wait]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = walk
 def_state_standing = guard_na
 on_info = {+zat_b5_bandit_speak_1_done} remark@dealer_speak_sultan_2
@@ -392,7 +392,7 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--������ ����� "������ �� ��������"
+; --������ ����� "������ �� ��������"
 [remark@dealer_speak_sultan_2]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_bandit_sultan_2_walk,0
@@ -407,11 +407,11 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-;--���� ����� ���������
+; --���� ����� ���������
 [walker@dealer_wait_2]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = walk
 def_state_standing = guard_na
 on_info = {+zat_b5_sultan_speak_for_stalkers} remark@dealer_fire
@@ -473,7 +473,7 @@ wounded = wounded
 [walker@after_fight]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 on_info = {+zat_b5_speak_dealer_done} walker@go_on
@@ -488,7 +488,7 @@ wounded = wounded
 [walker@go_on]
 path_walk = walker_7_walk
 path_look = walker_7_look
-;out_restr = zat_b5_dolg_trader_1_defence
+; out_restr = zat_b5_dolg_trader_1_defence
 def_state_moving1 = patrol
 def_state_standing = guard_na
 meet = no_meet
@@ -507,7 +507,7 @@ out_restr = zat_b5_smart_terrain_attack
 def_state_standing = guard_na
 combat_ignore_cond = {=check_enemy_name(zat_b5_dealer_assistant_1:zat_b5_dealer_assistant_2) true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 meet = no_meet
-;gather_items_enabled = false
+; gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded

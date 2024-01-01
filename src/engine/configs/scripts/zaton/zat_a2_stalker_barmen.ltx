@@ -13,7 +13,7 @@ use_camp = false
 meet = meet
 on_info = {+zat_b14_stalker_change_smart -zat_b14_cut_scene_1_point_03} remark@wait
 on_info2 = {+zat_b29_rival_sound_played} remark@b29_get_af
-;on_info3 = {!npc_in_zone(zat_a2_sr_barmen)} %=teleport_npc(zat_stalker_base_smart_spawn_barmen)%
+; on_info3 = {!npc_in_zone(zat_a2_sr_barmen)} %=teleport_npc(zat_stalker_base_smart_spawn_barmen)%
 out_restr = zat_a2_sr_noweap
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -38,7 +38,7 @@ allow_break = false
 meet_on_talking = false
 meet_on_talking = false
 
-;����� � ����
+; ����� � ����
 [remark@wait]
 target = story | zat_b14_stalker_1
 anim = ward_noweap
@@ -80,7 +80,7 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 
-;������� ����������
+; ������� ����������
 
 [remark@b29_get_af]
 target = job | zat_b29_stalker_rival, zat_stalker_base_smart
