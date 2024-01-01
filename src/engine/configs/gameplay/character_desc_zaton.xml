@@ -28,7 +28,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b30_owl_stalker_trader_start_dialog</start_dialog>
 		<actor_dialog>zat_b30_owl_stalker_trader_choose_task</actor_dialog>
@@ -91,7 +91,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 	</specific_character>
 
 	<specific_character id="zat_b106_stalker_garmata" team_default="1">
@@ -128,7 +128,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
         </specific_character>
 
@@ -165,7 +165,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
         </specific_character>
 
@@ -198,7 +198,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
         </specific_character>
 
 	<specific_character id="zat_a2_stalker_nimble" team_default="1">
@@ -228,7 +228,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b51_stalker_nimble_start</start_dialog>
 
@@ -267,7 +267,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b38_stalker_cop_start_dialog</start_dialog>
 
@@ -331,7 +331,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
         </specific_character>
 
@@ -364,7 +364,7 @@
 #include "gameplay\loadouts\character_drugs_mil.xml"
 
 	</supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail</actor_dialog>
 		<actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda</actor_dialog>
@@ -403,7 +403,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -436,7 +436,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -470,7 +470,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   	</specific_character>
 
@@ -503,7 +503,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   	</specific_character>
 
@@ -535,7 +535,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   	</specific_character>
 
@@ -567,7 +567,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   	</specific_character>
 
@@ -601,7 +601,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 
 	</specific_character>
@@ -635,7 +635,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 
 	</specific_character>
@@ -667,7 +667,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b7_bandit_boss_sultan_start_dialog</start_dialog>
 
@@ -717,7 +717,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<!--<start_dialog>zat_b5_stalker_commander_dialog</start_dialog>-->
 
@@ -753,7 +753,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<!--<start_dialog>zat_b5_stalker_commander_dialog</start_dialog>-->
 
@@ -790,7 +790,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -823,7 +823,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
@@ -857,7 +857,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 
 #include "gameplay\character_dialogs.xml"
@@ -892,7 +892,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 #include "gameplay\character_dialogs.xml"
 	</specific_character>
@@ -925,7 +925,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_a2_stalker_barmen_start_dialog</start_dialog>
 
@@ -991,7 +991,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
- #include "gameplay\loadouts\character_criticals_4.xml"
+ #include "gameplay\loadouts\character_criticals.xml"
 
         <start_dialog>zat_b22_stalker_medic_dialog_start</start_dialog>
 
@@ -1032,7 +1032,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b3_stalker_tech_start</start_dialog>
 
@@ -1331,7 +1331,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b7_stalkers_raiders_dialog</start_dialog>
 
@@ -1374,7 +1374,7 @@
 #include "gameplay\loadouts\character_drugs_2.xml"
 
    	 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
  	 </specific_character>
 
@@ -1409,7 +1409,7 @@
 #include "gameplay\loadouts\character_drugs_2.xml"
 
    	 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
  	 </specific_character>
 
@@ -1445,7 +1445,7 @@
 #include "gameplay\loadouts\character_drugs_2.xml"
 
    	 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
  	 </specific_character>
 
@@ -1479,7 +1479,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b7_stalkers_victims_dialog</start_dialog>
 
@@ -1523,7 +1523,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b33_stalker_snag_about_cache_dialog</start_dialog>
 
@@ -1556,7 +1556,7 @@
       [spawn] \n
     </supplies>
 #include "gameplay\loadouts\character_drugs.xml"
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 
@@ -1591,7 +1591,7 @@
 #include "gameplay\loadouts\character_drugs.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 	<specific_character id="zat_b28_umerov" team_default="1">
@@ -1623,7 +1623,7 @@
 #include "gameplay\loadouts\character_drugs.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 	<specific_character id="zat_b28_smoliak" team_default="1">
@@ -1655,7 +1655,7 @@
 #include "gameplay\loadouts\character_drugs.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 	<!------------------------------ Zaton B29 -------------------------------->
@@ -1691,7 +1691,7 @@
 #include "gameplay\loadouts\character_drugs_3.xml"
 #include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
 		<actor_dialog>zat_b30_stalker_rival_1_about_detector</actor_dialog>
@@ -1732,7 +1732,7 @@
 #include "gameplay\loadouts\character_drugs_3.xml"
 #include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
 		<actor_dialog>zat_b30_stalker_rival_1_about_detector</actor_dialog>
@@ -1773,7 +1773,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
 
@@ -1812,7 +1812,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
 
@@ -1849,7 +1849,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b18_noah_start</start_dialog>
 
@@ -1894,7 +1894,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   	</specific_character>
 
@@ -1925,7 +1925,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 		<start_dialog>zat_b215_stalker_guide_start</start_dialog>
 
@@ -1977,7 +1977,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -2012,7 +2012,7 @@
 #include "gameplay\loadouts\character_drugs_3.xml"
 #include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
@@ -2050,7 +2050,7 @@
 
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 	<!--------------------b44-------------------------------------->
@@ -2085,7 +2085,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 
@@ -2120,7 +2120,7 @@
 
     </supplies>
 		<start_dialog>zat_b53_artefact_hunter_1_gathering_artefacts</start_dialog>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
@@ -2157,7 +2157,7 @@
 
 		<start_dialog>zat_b53_artefact_hunter_2_gathering_artefacts</start_dialog>
 
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
@@ -2185,7 +2185,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
   <specific_character id="zat_b38_stalker_corpse_2" team_default = "1">
@@ -2212,7 +2212,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
   <specific_character id="zat_b38_stalker_corpse_3" team_default = "1">
@@ -2239,7 +2239,7 @@
 #include "gameplay\loadouts\character_drugs_3.xml"
 #include "gameplay\loadouts\character_drugs_sci.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 	<specific_character id="zat_b100_military_1" team_default="1">
@@ -2270,7 +2270,7 @@
 #include "gameplay\loadouts\character_drugs.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 	<specific_character id="zat_b100_military_2" team_default="1">
@@ -2302,7 +2302,7 @@
 #include "gameplay\loadouts\character_drugs.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 	<specific_character id="zat_b100_military_3" team_default="1">
@@ -2334,7 +2334,7 @@
 #include "gameplay\loadouts\character_drugs.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
 

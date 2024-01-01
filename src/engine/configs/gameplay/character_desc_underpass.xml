@@ -31,7 +31,7 @@ detector_elite \n
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 	  </specific_character>
 
 		<specific_character id="pas_b400_sokolov" team_default = "1">
@@ -63,7 +63,7 @@ ammo_9x18_pmm \n
 #include "gameplay\loadouts\character_drugs_2.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 	    </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 	  </specific_character>
 
 		<specific_character id="pas_b400_zulus" team_default = "1">
@@ -97,7 +97,7 @@ ammo_11.43x23_hydro \n
 #include "gameplay\loadouts\character_drugs_4.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 	    </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 	  </specific_character>
 
 		<specific_character id="pas_b400_wanderer" team_default="1">
@@ -128,7 +128,7 @@ ammo_11.43x23_fmj \n
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_4.xml"
 	    </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 	  </specific_character>
 
   <specific_character id="pas_b400_monolith_sniper_0" team_default = "1">
@@ -161,7 +161,7 @@ ammo_11.43x23_fmj \n
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
   <specific_character id="pas_b400_monolith_sniper_1" team_default = "1">
@@ -192,7 +192,7 @@ ammo_11.43x23_fmj \n
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
     </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
   </specific_character>
 
