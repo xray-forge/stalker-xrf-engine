@@ -37,12 +37,13 @@ async function formatLtxFile(file: string): Promise<void> {
   const formatted: string = buffer
     .toString()
     .trim()
+    .replace(/(?<!(\r\n)|(^)) *; */g, " ; ") // Replace semicolons with space-wrapped.
+    .replace(/(\r\n); */g, "\r\n; ") // Replace semicolons at start of line with space-wrapped.
+    .replace(/; *\r\n/g, "\r\n") // Replace semicolons at end of line with emptiness.
     // eslint-disable-next-line no-control-regex
     .replace(/([\x09 ])+/g, " ") // Replace all duplicated whitespaces with single spaces.
     .replace(/((\r\n( )+)|(( )+\r\n))/g, "\r\n") // Replace spaces on end of line / start of line.
-    .replace(/(\r\n){2,}/g, "\r\n\r\n") // Replace duplicated new lines with single \n.
-    .replace(/(?<!(\r\n)|(^)) *; */g, " ; ") // Replace semicolons with space-wrapped.
-    .replace(/(\r\n); */g, "\r\n; "); // Replace semicolons at start of string with space-wrapped.
+    .replace(/(\r\n){2,}/g, "\r\n\r\n"); // Replace duplicated new lines with single \n.
 
   const isEndingWithNewLine: boolean = formatted.endsWith("\r\n");
 

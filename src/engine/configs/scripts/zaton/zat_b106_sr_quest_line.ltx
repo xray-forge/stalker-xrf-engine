@@ -12,7 +12,7 @@ on_info = {+zat_b106_start_hunt} sr_idle@disable_ui ; %=disable_ui%
 ; on_info3 = {+zat_b106_garmata_dead +zat_b106_gonta_dead} sr_idle@nil %=enable_ui%, {+zat_b106_fail} sr_idle@nil %=enable_ui%
 
 [sr_idle@disable_ui]
-on_game_timer = 10 | sr_idle@timer %=run_postprocess(fade_in) =clear_smart_terrain(zat_b106_smart_terrain)% ; 
+on_game_timer = 10 | sr_idle@timer %=run_postprocess(fade_in) =clear_smart_terrain(zat_b106_smart_terrain)%
 ; on_info = {=is_squad_enemy_to_actor(zat_b106_stalker_gonta_squad)} sr_idle@nil %=enable_ui%
 ; on_info2 = {+zat_b106_garmata_dead +zat_b106_gonta_dead} sr_idle@nil %=enable_ui%, {+zat_b106_fail} sr_idle@nil %=enable_ui%
 
