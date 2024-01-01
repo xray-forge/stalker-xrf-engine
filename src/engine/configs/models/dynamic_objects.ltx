@@ -1,6 +1,4 @@
-;***************************************************************
-; * �� ��������!!!!!!!!!!!!!!! *
-; ***************************************************************
+; todo: Move to creatures / rename creatures folder?
 
 [physic_object]
 GroupControlSection = spawn_group
@@ -27,10 +25,6 @@ remove_time = 60 ; after this time unbreaked removable bone will be removed
 script_binding = bind.physicObject ; xrf change
 is_ai_obstacle = false
 
-; *******************************************************************************
-; * ������ ����� ������:-) *
-; *******************************************************************************
-
 ; [phys_obj_test]:physic_object
 ; $spawn = "dynamic_objects\test_object"
 ; visual = dynamics\equipments\novice_suit
@@ -43,7 +37,6 @@ is_ai_obstacle = false
 ; startup_animation =
 ; fixed_bones =
 
-; *** scene_objects ***************************************************************
 [jup_b43_af_fuzz_kolobok]:physic_object
 $spawn = "dynamic_objects\scene_objects\jup_b43_af_fuzz_kolobok"
 visual = dynamics\artefacts\af_fuzz_kolobok.ogf
@@ -143,17 +136,11 @@ fixed_bones = link
 story_id = jup_b206_plant_ph
 custom_data = models\objects\ignore_static.ltx
 
-; *******************************************************************************
-
-; *** armory_room ***************************************************************
 [shooting_target_1]:physic_destroyable_object
 $spawn = "dynamic_objects\armory_room\shooting_target_1"
 visual = dynamics\armory_room\shooting_target_1.ogf
 startup_animation = shooting_target_1_down
 fixed_bones = link
-; *******************************************************************************
-
-; *** balon *********************************************************************
 
 [balon_01]:physic_destroyable_object
 $spawn = "dynamic_objects\balon\balon_01"
@@ -195,13 +182,6 @@ visual = dynamics\balon\bochka_close_4.ogf
 [gaz_balon]:physic_destroyable_object
 $spawn = "dynamic_objects\balon\gaz_balon"
 visual = dynamics\balon\gaz_balon.ogf
-
-; *******************************************************************************
-
-; *** box ***********************************************************************
-; *******************************************************************************
-
-; *** el_tehnika ****************************************************************
 
 [disel_generator]:physic_destroyable_object
 $spawn = "dynamic_objects\el_tehnika\disel_generator"
@@ -296,11 +276,6 @@ visual = dynamics\el_tehnika\komp_klava.ogf
 $spawn = "dynamic_objects\el_tehnika\komp_block"
 visual = dynamics\el_tehnika\komp_blok.ogf
 
-; *******************************************************************************
-
-; *** fence *********************************************************************
-; *******************************************************************************
-
 [debris_01]:physic_destroyable_object
 $spawn = "dynamic_objects\fence\debris_01"
 visual = dynamics\fence\debris_01.ogf
@@ -325,8 +300,6 @@ $spawn = "dynamic_objects\fence\wood_fence_4"
 fixed_bones = link
 visual = dynamics\fence\wood_fence_4.ogf
 
-; *** workshop_room *************************************************************
-; *******************************************************************************
 [banka_kraski_1]:physic_destroyable_object
 $spawn = "dynamic_objects\workshop_room\banka_kraski_1"
 visual = dynamics\workshop_room\banka_kraski_1.ogf
@@ -436,9 +409,6 @@ visual = dynamics\kitchen_room\gaz_plita.ogf
 $spawn = "dynamic_objects\kitchen_room\gaz_plita_small"
 visual = dynamics\kitchen_room\gaz_plita_small.ogf
 
-; *******************************************************************************
-
-; *** box ***********************************************************************
 [box_1a]:physic_destroyable_object
 $spawn = "dynamic_objects\box\box_1a"
 visual = dynamics\box\box_1a.ogf
@@ -471,9 +441,6 @@ visual = dynamics\box\box_wood_02.ogf
 $spawn = "dynamic_objects\box\box_paper"
 visual = dynamics\box\box_paper.ogf
 
-; *******************************************************************************
-
-; ***medical_object**************************************************************
 [kolyaska_01]:physic_destroyable_object
 $spawn = "dynamic_objects\medical_object\kolyaska_01"
 visual = dynamics\medical_object\kolyaska_01.ogf
@@ -497,9 +464,7 @@ visual = dynamics\medical_object\wheel_litter_01_braked.ogf
 [med_stolik_01]:physic_destroyable_object
 $spawn = "dynamic_objects\medical_object\med_stolik_01"
 visual = dynamics\medical_object\med_stolik_01.ogf
-; *******************************************************************************
 
-; *** firestation ***************************************************************
 [fire_vedro]:physic_destroyable_object
 $spawn = "dynamic_objects\firestation\fire_vedro"
 visual = dynamics\firestation\fire_vedro.ogf
@@ -507,9 +472,7 @@ visual = dynamics\firestation\fire_vedro.ogf
 [ognetushitel]:physic_destroyable_object
 $spawn = "dynamic_objects\firestation\ognetushitel"
 visual = dynamics\firestation\ognetushitel.ogf
-; *******************************************************************************
 
-; *** stul **********************************************************************
 [stul_wood_01]:physic_destroyable_object
 $spawn = "dynamic_objects\stul\stul_wood_01"
 visual = dynamics\stul\stul_wood_01.ogf
@@ -538,9 +501,6 @@ visual = dynamics\stul\taburet_village.ogf
 $spawn = "dynamic_objects\stul\taburet_wood_01"
 visual = dynamics\stul\taburet_wood_01.ogf
 
-; *******************************************************************************
-
-; *** museum weapons ************************************************************
 [museum_abakan]:physic_destroyable_object
 $spawn = "dynamic_objects\museum_weapons\museum_abakan"
 visual = dynamics\weapons\wpn_abakan\wpn_abakan.ogf
@@ -630,7 +590,6 @@ fixed_bones = link
 $spawn = "dynamic_objects\museum_weapons\museum_ammo_762x54_7h14"
 visual = dynamics\weapons\wpn_ammo\ammo_762x54_7h14.ogf
 fixed_bones = link
-; *******************************************************************************
 
 [balloon_poison_gas]:physic_destroyable_object
 $spawn = "dynamic_objects\museum_weapons\balloon_poison_gas"
