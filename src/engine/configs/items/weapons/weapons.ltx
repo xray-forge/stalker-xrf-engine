@@ -79,10 +79,6 @@
 #include "w_g36.ltx"
 #include "w_pkm.ltx"
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; ������������� ������
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-
 [bullet_manager]
 tracer_shader = effects\bullet_tracer ; hud\default
 tracer_texture = fx\fx_tracer_weapons
@@ -93,7 +89,7 @@ tracer_length_max = 225 ; 10.0 ; 24.0 ; 14.0
 tracer_length_min = 0 ; 1 ; 2 ; 0.2
 
 ; ���������� ����� �������� ����������� hit_probabilty ���������
-hit_probability_max_dist = 3 ; 
+hit_probability_max_dist = 3 ;
 
 gravity_const = 9.81
 ; ������������� �������, �������, ������� ���������� �� �������� ������ ����
@@ -125,11 +121,9 @@ color_5 = 255, 127, 63, 150 ; 79
 ; color_3 = 255, 255, 255, 255 ; white
 ; color_4 = 255, 255, 255, 255 ; white
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; AMUNITION
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; AMUNITION
 [ammo_base]:identity_immunities,default_weapon_params
-; belt = true ; 
+; belt = true ;
 slot = -1
 explosive = false
 
@@ -168,7 +162,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_9x18_pmm]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -204,7 +197,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_9x19_fmj]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -241,7 +233,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_9x19_pbp]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -277,7 +268,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_11.43x23_fmj]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -313,7 +303,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.6
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_11.43x23_hydro]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -349,7 +338,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.6
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_5.45x39_fmj]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -373,7 +361,7 @@ inv_grid_height = 1
 inv_grid_x = 16
 inv_grid_y = 11
 
-; ; inv_icon = ui_hud2_res_back
+; inv_icon = ui_hud2_res_back
 
 k_dist = 1
 k_disp = 1
@@ -387,7 +375,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.6
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_5.45x39_ap]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -423,7 +410,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.6
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_5.56x45_ss190]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -460,7 +446,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_5.56x45_ap]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -495,7 +480,7 @@ buck_shot = 1
 tracer = on
 wm_size = 0.05
 k_air_resistance = 1.5
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+
 [ammo_pkm_100]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -532,7 +517,7 @@ buck_shot = 1
 tracer = on
 wm_size = 0.07
 k_air_resistance = 2
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+
 [ammo_7.62x54_7h1]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -568,7 +553,6 @@ tracer = on
 wm_size = 0.05
 explosive = off
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_gauss]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -605,8 +589,6 @@ wm_size = 0.05
 
 explosive = on
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-
 [ammo_gauss_cardan]:ammo_gauss
 $spawn = "weapons\ammo\ammo_gauss_cardan" ; option for Level Editor
 visual = dynamics\weapons\wpn_ammo\ammo_gauss_custom.ogf
@@ -621,8 +603,6 @@ inv_grid_width = 1
 inv_grid_height = 1
 inv_grid_x = 4
 inv_grid_y = 9
-
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [ammo_9x39_pab9]:ammo_base
 GroupControlSection = spawn_group
@@ -658,7 +638,7 @@ buck_shot = 1
 tracer = on
 wm_size = 0.05
 k_air_resistance = 1.4
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+
 [ammo_9x39_ap]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -694,7 +674,6 @@ tracer = on
 wm_size = 0.05
 k_air_resistance = 1.4
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_12x70_buck]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -729,7 +708,7 @@ buck_shot = 15
 tracer = off
 wm_size = 0.05
 k_air_resistance = 3
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+
 [ammo_12x76_zhekan]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -766,11 +745,10 @@ wm_size = 0.05
 explosive = off
 k_air_resistance = 1.3
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_12x76_zhekan_heli]:ammo_12x76_zhekan ; Do not use! Fake zhekan for helicopter
 $spawn = ; "weapons\ammo\ammo_12x76_zhekan_heli" ; option for Level Editor
 explosive = on
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+
 [ammo_og-7b]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -810,9 +788,7 @@ wallmark_section = explosion_marks
 ; ����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
 can_be_unlimited = true ; false
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; Grenades for Attachable grenade launcher
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; Grenades for Attachable grenade launcher
 
 [ammo_vog-25]:ammo_base
 GroupControlSection = spawn_group
@@ -859,7 +835,6 @@ fake_grenade_name = wpn_fake_missile
 ; ����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
 can_be_unlimited = true ; false
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 [ammo_m209]:ammo_base
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -905,9 +880,8 @@ fake_grenade_name = wpn_fake_missile2
 ; ����� �� ���������� ���� ��������������� : 1 - �����, 0 - �� �����
 can_be_unlimited = true ; false
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; Fake Missiles and Grenades
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; Fake Missiles and Grenades
+
 [wpn_fake_missile]:identity_immunities,default_weapon_params
 visual = dynamics\weapons\wpn_ammo\ammo_vog_25.ogf
 cform = skeleton
@@ -974,9 +948,7 @@ kill_msg_x = 17
 kill_msg_y = 232
 kill_msg_width = 21
 kill_msg_height = 22
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; �������� CustomRocket
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; CustomRocket
 engine_present = false ; ������������ �� � ������ ���������
 lights_enabled = false ; ���� ������ ������, �� ����� ������
 force_explode_time = 10000
@@ -1047,9 +1019,7 @@ kill_msg_y = 233
 kill_msg_width = 21
 kill_msg_height = 22
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; �������� CustomRocket
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; CustomRocket
 engine_present = false ; ������������ �� � ������ ���������
 lights_enabled = true ; ���� ������ ������, �� ����� ������
 trail_light_color = 0.6,0.5,0.3
@@ -1123,21 +1093,14 @@ kill_msg_y = 232
 kill_msg_width = 19
 kill_msg_height = 22
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; �������� CustomRocket
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+; CustomRocket
 engine_present = false ; ������������ �� � ������ ���������
 lights_enabled = true ; ���� ������ ������, �� ����� ������
 trail_light_color = 0.6,0.5,0.3
 trail_light_range = 8.0
 force_explode_time = 10000
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; Explosive Inventory Items
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-
 [explosive_fuelcan]:identity_immunities,delayed_action_fuse,default_weapon_params
-
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\explosive\fuelcan"
@@ -1771,9 +1734,7 @@ telepatic_immunity = 0.0
 chemical_burn_immunity = 1.0
 explosion_immunity = 0.5
 fire_wound_immunity = 0.05
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-; ; WEAPON ADDON
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
+
 [wpn_addon_scope]:identity_immunities
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -2014,8 +1975,6 @@ scope_texture = wpn_crosshair_l85
 scope_nightvision = scope_nightvision
 scope_zoom_factor = 30 ; SUSAT 2X
 
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
-
 [wpn_addon_silencer]:identity_immunities
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -2084,8 +2043,6 @@ inv_grid_height = 1
 inv_grid_x = 17
 inv_grid_y = 3
 grenade_vel = 32 ; 76
-
-; ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; Advanced scope settings ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ;  ; 
 
 [scope_detector]
 vis_frame_speed = 4 ; ��������, � ������� ��������� ����� �� ����
