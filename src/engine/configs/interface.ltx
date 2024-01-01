@@ -1,0 +1,145 @@
+; Depth of field rendering configuration.
+[zone_pick_dof]
+near = -1500
+far = 10
+
+[interface]
+font_game = font_game
+font_small = font_small
+
+[inventory]
+take_dist = 2
+max_weight = 50
+max_ruck = 56
+max_belt = 5
+slots_count = 12
+slot_persistent_1 = true
+slot_active_1 = true
+slot_persistent_2 = false
+slot_active_2 = true
+slot_persistent_3 = false
+slot_active_3 = true
+slot_persistent_4 = true
+slot_active_4 = true
+slot_persistent_5 = true
+slot_active_5 = true
+slot_persistent_6 = true
+slot_active_6 = true
+slot_persistent_7 = false
+slot_active_7 = false
+slot_persistent_8 = true
+slot_active_8 = false
+slot_persistent_9 = true
+slot_active_9 = false
+slot_persistent_10 = true
+slot_active_10 = false
+slot_persistent_11 = false
+slot_active_11 = true
+slot_persistent_12 = false
+slot_active_12 = false
+
+[maingame_ui]
+pda_msgs_max_show_time = 20000
+info_msgs_max_show_time = 10000
+snd_new_contact = detectors\contact_1
+snd_new_contact1 = detectors\contact_8
+
+[main_ingame_indicators_thresholds]
+radiation = 0.1, 0.25, 0.4, 0.55, 0.7
+wounds = 0.01, 0.2, 0.4, 0.6, 0.8
+jammed = 0.5, 0.6, 0.7, 0.8, 0.9
+starvation = 0.5, 0.6, 0.7, 0.8, 0.9
+fatigue = 0.3, 0.6, 0.7, 0.8, 0.9
+
+[tutorial_conditions_thresholds]
+max_power = 0.75
+power = 0.1
+bleeding = 0.4
+satiety = 0.5
+radiation = 0.1
+weapon_jammed = 0.9
+psy_health = 0.5
+
+[hud_sound]
+hud_sound_vol_k = 0.38
+hud_step_sound_vol_k = 0.21
+
+[hud_cursor]
+cross_length = 0.015
+min_radius = 0
+max_radius = 1
+cross_color = 0.7, 0.7, 0.7, 0.5
+
+[hud_hitmark]
+hit_mark_texture = ui\ui_hud_hit_mark
+grenade_mark_texture = ui\ui_hud_grenade_mark
+
+[stalker_names_stalker]
+name_cnt = 104
+last_name_cnt = 600
+
+[stalker_names_bandit]
+name_cnt = 38
+last_name_cnt = 182
+
+[stalker_names_science]
+name_cnt = 15
+last_name_cnt = 29
+
+[stalker_names_private]
+name_cnt = 1
+last_name_cnt = 200
+
+[stalker_names_sergeant]
+name_cnt = 1
+last_name_cnt = 200
+
+[stalker_names_lieutenant]
+name_cnt = 1
+last_name_cnt = 200
+
+[stalker_names_captain]
+name_cnt = 1
+last_name_cnt = 200
+
+[bloody_marks]
+wallmarks = wm\wm_blood_1,wm\wm_blood_2,wm\wm_blood_3
+dist = 2
+max_size = 0.4
+min_size = 0.06
+nominal_hit = 0.5
+blood_drops = wm\wm_blood_drop_1,wm\wm_blood_drop_2,wm\wm_blood_drop_3,wm\wm_blood_drop_4
+start_blood_size = 0.4
+stop_blood_size = 0.025
+blood_drop_time = 0.1
+blood_drop_time_min = 0.3
+blood_drop_time_max = 2
+blood_drop_size = 0.1
+
+[explosion_marks]
+wallmarks = wm\wm_grenade
+dist = 0.5
+size = 0.6
+max_count = 5
+
+[entity_fire_particles]
+fire_particles = damage_fx\burn_creatures
+start_burn_size = 0.0003
+stop_burn_size = 0.0001
+min_burn_time = 10000
+
+[multiplayer_skins]
+stalker_killer_head_1 = 0, 380
+stalker_killer_antigas = 128, 380
+stalker_killer_head_3 = 256, 380
+stalker_killer_mask = 384, 380
+stalker_killer_exoskeleton = 512, 380
+stalker_sci_killer = 640, 380
+stalker_killer_military = 768, 380
+stalker_sv_balon_10 = 0, 705
+stalker_sv_hood_9 = 128, 705
+stalker_sv_rukzak_3 = 256, 705
+stalker_sv_rukzak_2 = 384, 705
+stalker_sv_exoskeleton = 512, 705
+stalker_sci_svoboda = 640, 705
+stalker_sv_military = 768, 705

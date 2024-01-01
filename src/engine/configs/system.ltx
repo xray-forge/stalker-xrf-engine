@@ -1,20 +1,22 @@
+#include "alife.ltx"
+#include "camera.ltx"
 #include "defines.ltx"
-#include "prefetch\prefetch.ltx"
-#include "creatures\monsters.ltx"
-#include "creatures\stalkers.ltx"
-#include "items\inventory_upgrades.ltx"
-#include "items\items.ltx"
+#include "external.ltx"
+#include "fonts.ltx"
+#include "interface.ltx"
+#include "localization.ltx"
+
 #include "creatures\actor.ltx"
+#include "creatures\monsters.ltx"
+#include "creatures\objects.ltx"
+#include "creatures\stalkers.ltx"
+#include "creatures\helicopter.ltx"
+#include "creatures\game_relations.ltx"
+#include "items\items.ltx"
 #include "zones\zones.ltx"
-#include "misc\postprocess.ltx"
-#include "misc\radiation_counter.ltx"
+
 #include "models\dynamic_objects.ltx"
 #include "misc\m_online_offline_group.ltx"
-#include "spawn\squad_descr.ltx"
-#include "misc\effectors.ltx"
-#include "creatures\helicopter.ltx"
-#include "external.ltx"
-#include "creatures\game_relations.ltx"
 #include "mp\mp_actor.ltx"
 #include "mp\team_logo.ltx"
 #include "mp\weapons_mp\ammo_mp.ltx"
@@ -32,15 +34,94 @@
 #include "mp\artefacthunt_game.ltx"
 #include "mp\capturetheartefact_game.ltx"
 #include "mp\anticheat_active_params.ltx"
-#include "misc\evaluation.ltx"
-#include "fonts.ltx"
-#include "alife.ltx"
 
 #include "managers\achievements\list.ltx"
 #include "managers\simulation\simulation.ltx"
 
-#include "spawn\spawn_sections.ltx"
+#include "misc\effectors.ltx"
+#include "misc\evaluation.ltx"
 #include "misc\extracontent.ltx"
-#include "localization.ltx"
+#include "misc\postprocess.ltx"
+#include "misc\radiation_counter.ltx"
 #include "misc\smart_cover.ltx"
-#include "base.ltx"
+#include "prefetch\prefetch.ltx"
+#include "spawn\squad_descr.ltx"
+#include "spawn\spawn_sections.ltx"
+
+; todo: needs sharding
+
+[info_portions]
+files = info_portions, info_zaton, info_jupiter, info_pripyat, info_upgrades
+
+[dialogs]
+files = dialogs, dialogs_zaton, dialogs_jupiter, dialogs_pripyat
+
+[encyclopedia]
+files = encyclopedia_infos
+
+[profiles]
+files = npc_profile
+specific_characters_files = character_desc_general, character_desc_zaton, character_desc_pripyat, character_desc_jupiter, character_desc_underpass
+
+[script]
+current_server_entity_version = 12
+
+[physics]
+object_damage_factor = 1.2
+
+[sound]
+occlusion_scale = 0.4
+snd_collide_min_volume = 0.1
+snd_collide_max_volume = 200
+
+; todo: Is it needed?
+[??tg_event]
+class = EVENT
+
+[trade]
+buy_price_factor_hostile = 1
+buy_price_factor_friendly = 1
+sell_price_factor_hostile = 1
+sell_price_factor_friendly = 1
+
+[squad_manager]
+schedule_min = 1
+schedule_max = 999
+
+[agent_manager]
+schedule_min = 100
+schedule_max = 1000
+
+[collision_damage]
+bonce_damage_factor_for_objects = 1
+
+; todo: Move to weapon definitions (mounted).
+[pkm_visual_memory]
+min_view_distance = 1
+max_view_distance = 1
+visibility_threshold = 50
+always_visible_distance = 1
+time_quant = 0.00001
+decrease_value = 0.1
+velocity_factor = 0.5
+luminocity_factor = 0.5
+transparency_threshold = 0.4
+view_fov_deg = 90
+view_aspect = 1
+view_far_plane = 100
+
+; DetailManager.cpp configuration.
+[details]
+swing_normal_amp1 = 0.1
+swing_normal_amp2 = 0.05
+swing_normal_rot1 = 30
+swing_normal_rot2 = 1
+swing_normal_speed = 2
+swing_fast_amp1 = 0.35
+swing_fast_amp2 = 0.2
+swing_fast_rot1 = 5
+swing_fast_rot2 = 0.5
+swing_fast_speed = 0.5
+
+; todo: Probably not needed.
+[ph_capture_visuals]
