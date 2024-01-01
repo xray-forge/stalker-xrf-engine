@@ -4,6 +4,8 @@ import { createLoadout, ILoadoutItemDescriptor } from "@/engine/configs/gameplay
 
 export interface ICharacterDescriptionProps {
   id: string;
+  className?: string;
+  comment?: string;
   name: string;
   icon: string;
   bio?: string;
@@ -14,11 +16,16 @@ export interface ICharacterDescriptionProps {
   reputation?: number;
   money?: number;
   community: string;
-  className?: string;
+  terrainSection?: string;
   supplies?: Array<ILoadoutItemDescriptor>;
   noRandom?: boolean;
   infiniteMoney?: boolean;
+  mapIcon?: JSXNode;
   children?: JSXNode;
+}
+
+export function CharacterDescriptionMapIcon({ x, y }: { x: number; y: number }): JSXNode {
+  return <map_icon x={x} y={y}></map_icon>;
 }
 
 /**
@@ -40,24 +47,27 @@ export function CharacterDescription({
   supplies = [],
   noRandom,
   infiniteMoney,
+  terrainSection,
+  mapIcon = <CharacterDescriptionMapIcon x={1} y={0} />,
   children,
 }: ICharacterDescriptionProps): JSXNode {
   return (
     <specific_character id={id} no_random={noRandom ? 1 : 0} team_default={team ? 0 : 1}>
       <name>{name}</name>
       <icon>{icon}</icon>
+      {mapIcon}
       <bio>{bio ?? "Опытный сталкер. Детальная информация отсутствует."}</bio>
       {team ? <team>{team}</team> : null}
       <class>{className ?? id}</class>
       <community>{community}</community>
       <rank>{rank ?? 0}</rank>
       <reputation>{reputation ?? 0}</reputation>
-      <money min={money ?? 0} max={money ?? 0} infinitive={infiniteMoney ? 1 : 0} />
+      {typeof money === "number" ? <money min={money} max={money} infinitive={infiniteMoney ? 1 : 0} /> : null}
       <visual>{visual}</visual>
-      <map_icon x={2} y={5}></map_icon>
+      {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}
-      {supplies.length ? <supplies>{`[spawn]\n${createLoadout(supplies, "\n")}`}</supplies> : <supplies />}
       {children}
+      {supplies.length ? <supplies>{`[spawn]\n${createLoadout(supplies, "\n")}`}</supplies> : <supplies />}
     </specific_character>
   );
 }

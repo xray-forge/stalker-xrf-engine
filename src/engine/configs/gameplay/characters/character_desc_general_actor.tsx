@@ -5,7 +5,7 @@ import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/cha
 import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
 import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
 import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { CharacterDescription } from "@/engine/configs/gameplay/utils";
+import { CharacterDescription, CharacterDescriptionMapIcon } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
@@ -48,6 +48,7 @@ export function create(): JSXNode {
           { section: ammo.ammo_9x18_fmj, count: 3 },
           { section: ammo["ammo_5.45x39_fmj"], count: 3 },
         ]}
+        mapIcon={<CharacterDescriptionMapIcon x={2} y={5} />}
       />
 
       <CharacterDescription
@@ -58,6 +59,7 @@ export function create(): JSXNode {
         team={"mp_actor"}
         visual={"actors\\stalker_hero\\stalker_hero_1"}
         noRandom={true}
+        mapIcon={<CharacterDescriptionMapIcon x={2} y={5} />}
       />
 
       <CharacterDescription
