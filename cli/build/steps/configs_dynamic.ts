@@ -4,83 +4,117 @@ import * as path from "path";
 import { blue, blueBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
+import { getFolderReplicationDescriptors } from "#/build/utils";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
-import { createDirForConfigs, readDirContent } from "#/utils/fs";
+import { createDirForConfigs } from "#/utils/fs";
 import { NodeLogger } from "#/utils/logging";
 import { ILtxConfigDescriptor, renderJsonToLtx } from "#/utils/ltx";
-import { EAssetExtension, Optional, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";
+import { EAssetExtension, Optional, TFolderReplicationDescriptor } from "#/utils/types";
+import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_DYNAMIC");
 
 /**
- * Transform typescript config files to LTX configs.
+ * Transform typescript config files to LTX/XML configs.
+ *
+ * @param parameters - build command run parameters
  */
 export async function buildDynamicConfigs(parameters: IBuildCommandParameters): Promise<void> {
-  log.info(blueBright("Build dynamic configs"));
+  log.info(blueBright("Build dynamic configs:", parameters.filter));
 
-  const ltxConfigs: Array<TFolderReplicationDescriptor> = await getLtxConfigs(parameters.filter);
+  const [ltxConfigsReplication, xmlConfigsReplication] = await Promise.all([
+    await getFolderReplicationDescriptors({
+      fromDirectory: GAME_DATA_LTX_CONFIGS_DIR,
+      toDirectory: TARGET_GAME_DATA_CONFIGS_DIR,
+      fromExtension: EAssetExtension.TS,
+      toExtension: EAssetExtension.LTX,
+      filters: parameters.filter,
+    }),
+    await getFolderReplicationDescriptors({
+      fromDirectory: GAME_DATA_LTX_CONFIGS_DIR,
+      toDirectory: TARGET_GAME_DATA_CONFIGS_DIR,
+      fromExtension: EAssetExtension.TSX,
+      toExtension: EAssetExtension.XML,
+      filters: parameters.filter,
+    }),
+  ]);
 
-  if (ltxConfigs.length > 0) {
-    log.info("Found dynamic LTX configs");
+  await buildDynamicLtx(ltxConfigsReplication);
+  await buildDynamicXml(xmlConfigsReplication);
+}
 
-    let processedXmlConfigs: number = 0;
-    let skippedXmlConfigs: number = 0;
+/**
+ * @param descriptors - list of replication descriptors
+ */
+async function buildDynamicLtx(descriptors: Array<TFolderReplicationDescriptor>): Promise<void> {
+  if (descriptors.length) {
+    log.info("Found dynamic LTX configs:", descriptors.length);
 
-    createDirForConfigs(ltxConfigs, log);
+    let processedLtxConfigs: number = 0;
+    let skippedLtxConfigs: number = 0;
+
+    createDirForConfigs(descriptors, log);
 
     await Promise.all(
-      ltxConfigs.map(async ([from, to]) => {
+      descriptors.map(async ([from, to]) => {
         const ltxSource = await import(from);
         const ltxContent: Optional<ILtxConfigDescriptor> =
           (ltxSource?.create || ltxSource?.config) &&
           (typeof ltxSource?.create === "function" ? ltxSource?.create() : ltxSource?.config);
 
         if (ltxContent) {
-          log.debug("TRANSFORM:", blue(to));
+          log.debug("TRANSFORM LTX:", blue(to));
 
           const filename: string = path.parse(to).base;
 
           await fsp.writeFile(to, renderJsonToLtx(filename, ltxContent));
-          processedXmlConfigs += 1;
+          processedLtxConfigs += 1;
         } else {
           log.debug("SKIP, not valid LTX source:", blue(from));
+          skippedLtxConfigs += 1;
+        }
+      })
+    );
+
+    log.info("Dynamic LTX files processed:", processedLtxConfigs);
+    log.info("Dynamic LTX files skipped:", skippedLtxConfigs);
+  } else {
+    log.info("No dynamic LTX configs found");
+  }
+}
+
+/**
+ * @param descriptors - list of replication descriptors
+ */
+async function buildDynamicXml(descriptors: Array<TFolderReplicationDescriptor>): Promise<void> {
+  if (descriptors.length) {
+    log.info("Found dynamic XML configs:", descriptors.length);
+
+    let processedXmlConfigs: number = 0;
+    let skippedXmlConfigs: number = 0;
+
+    createDirForConfigs(descriptors, log);
+
+    await Promise.all(
+      descriptors.map(async ([from, to]) => {
+        const xmlSource = await import(from);
+        const xmlContent = typeof xmlSource?.create === "function" && xmlSource.create();
+        const xmlComment = typeof xmlSource?.comment === "string" ? xmlSource.comment : undefined;
+
+        if (xmlContent) {
+          log.debug("TRANSFORM XML:", blue(to));
+          await fsp.writeFile(to, renderJsxToXmlText(xmlContent, xmlComment));
+          processedXmlConfigs += 1;
+        } else {
+          log.debug("SKIP, not valid XML source:", blue(from));
           skippedXmlConfigs += 1;
         }
       })
     );
 
-    log.info("TSX files processed:", processedXmlConfigs);
-    log.info("TSX files skipped:", skippedXmlConfigs);
+    log.info("Dynamic XML files processed:", processedXmlConfigs);
+    log.info("Dynamic XML files skipped:", skippedXmlConfigs);
   } else {
-    log.info("No dynamic LTX configs found", parameters.filter);
+    log.info("No dynamic LTX configs found");
   }
-}
-
-/**
- * Get list of LTX transformable descriptors.
- */
-async function getLtxConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
-  /**
-   * Collect list of LTX configs for further transformation in typescript.
-   * Recursively find all ts files in configs dir.
-   */
-  function collectLtxConfigs(
-    acc: Array<TFolderReplicationDescriptor>,
-    it: TFolderFiles
-  ): Array<TFolderReplicationDescriptor> {
-    if (Array.isArray(it)) {
-      it.forEach((nested) => collectLtxConfigs(acc, nested));
-    } else if (path.extname(it) === EAssetExtension.TS) {
-      const to: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length).replace(/\.[^/.]+$/, "") + EAssetExtension.LTX;
-
-      // Filter.
-      if (!filters.length || filters.some((filter) => it.match(filter))) {
-        acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, to)]);
-      }
-    }
-
-    return acc;
-  }
-
-  return (await readDirContent(GAME_DATA_LTX_CONFIGS_DIR)).reduce(collectLtxConfigs, []);
 }
