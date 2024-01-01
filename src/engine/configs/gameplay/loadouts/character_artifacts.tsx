@@ -1,6 +1,6 @@
 import { JSXNode } from "jsx-xml";
 
-import { createLoadout } from "@/engine/configs/gameplay/utils/create_loadaout";
+import { createLoadout } from "@/engine/configs/gameplay/utils";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 
 export const comment: string = "";

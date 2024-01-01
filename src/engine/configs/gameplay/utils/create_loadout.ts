@@ -12,6 +12,6 @@ export interface ILoadoutItemDescriptor {
  */
 export function createLoadout(descriptors: Array<ILoadoutItemDescriptor>): string {
   return descriptors.reduce((acc, it) => {
-    return acc + `${it.section} = ${it.count ?? 1}${it.probability ? `, prob=${it.probability}` : ""} \\n\r\n`;
+    return acc + `${it.section} = ${it.count ?? 1}, prob = ${it.probability ?? 1} \\n\r\n`;
   }, "");
 }
