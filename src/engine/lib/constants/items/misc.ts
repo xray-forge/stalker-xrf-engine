@@ -5,6 +5,8 @@ export const misc = {
   device_pda: "device_pda",
   device_torch: "device_torch",
   guitar_a: "guitar_a",
+  hand_radio: "hand_radio",
+  hand_radio_r: "hand_radio_r",
   harmonica_a: "harmonica_a",
   medkit_script: "medkit_script",
   toolkit_1: "toolkit_1",

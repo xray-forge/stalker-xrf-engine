@@ -10,8 +10,8 @@ export interface ILoadoutItemDescriptor {
 /**
  * @returns stringified loadout items list
  */
-export function createLoadout(descriptors: Array<ILoadoutItemDescriptor>): string {
+export function createLoadout(descriptors: Array<ILoadoutItemDescriptor>, lineEnding: string = "\r\n"): string {
   return descriptors.reduce((acc, it) => {
-    return acc + `${it.section} = ${it.count ?? 1}, prob = ${it.probability ?? 1} \\n\r\n`;
+    return acc + `${it.section} = ${it.count ?? 1}, prob = ${it.probability ?? 1} \\n${lineEnding}`;
   }, "");
 }
