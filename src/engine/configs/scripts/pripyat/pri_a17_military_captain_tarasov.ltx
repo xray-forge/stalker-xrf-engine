@@ -4,8 +4,6 @@ help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
 
-; ----------------------------------------------------------------------------------------------------------
-
 [logic@pri_a17_military_captain_tarasov]
 suitable = {-pri_a17_actor_leaver =check_npc_name(pri_a17_military_captain_tarasov)} true
 prior = 70
@@ -224,8 +222,6 @@ path_look = taras_base_look
 def_state_standing = wait
 on_info = {=squad_in_zone_all(pri_a17_recon_squad:pri_surge_hide_a16) =check_smart_alarm_status(zat_stalker_base_smart:normal)} %+pri_a17_at_home =set_squad_neutral_to_actor(pri_a17_recon_squad)%
 out_restr = pri_a16_sr_noweap
-
-; -------------------------------------------------------------
 
 [wounded]
 hp_state = 0|wounded_heavy@help_heavy

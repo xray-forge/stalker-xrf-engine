@@ -22,7 +22,7 @@ export function create(): JSXNode {
     <xml>
       <SpecificCharacter
         id={"pas_b400_vano"}
-        className={"pas_b400_vano"}
+        class={"pas_b400_vano"}
         name={"jup_a10_stalker_vano"}
         icon={"ui_inGame2_neutral_nauchniy"}
         community={communities.stalker}
@@ -47,7 +47,7 @@ export function create(): JSXNode {
 
       <SpecificCharacter
         id={"pas_b400_sokolov"}
-        className={"pas_b400_sokolov"}
+        class={"pas_b400_sokolov"}
         name={"pri_a15_sokolov_name"}
         icon={"ui_inGame2_ecolog_military"}
         community={communities.stalker}
@@ -71,7 +71,7 @@ export function create(): JSXNode {
 
       <SpecificCharacter
         id={"pas_b400_zulus"}
-        className={"pas_b400_zulus"}
+        class={"pas_b400_zulus"}
         name={"jup_b15_zulus"}
         icon={"ui_inGame2_Dolg_1"}
         community={communities.stalker}
@@ -94,7 +94,7 @@ export function create(): JSXNode {
 
       <SpecificCharacter
         id={"pas_b400_wanderer"}
-        className={"pas_b400_wanderer"}
+        class={"pas_b400_wanderer"}
         name={"jup_b4_monolith_squad_leader_name"}
         icon={"ui_inGame2_monolit_1"}
         community={communities.stalker}
@@ -117,7 +117,7 @@ export function create(): JSXNode {
 
       <SpecificCharacter
         id={"pas_b400_monolith_sniper_0"}
-        className={"pas_b400_monolith_sniper"}
+        class={"pas_b400_monolith_sniper"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -143,7 +143,7 @@ export function create(): JSXNode {
 
       <SpecificCharacter
         id={"pas_b400_monolith_sniper_1"}
-        className={"pas_b400_monolith_sniper"}
+        class={"pas_b400_monolith_sniper"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
         community={communities.monolith}

@@ -23,7 +23,7 @@ export function StalkerLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"stalker_general_default"}
-        className={"Stalker_general"}
+        class={"Stalker_general"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_1"}
         community={communities.stalker}
@@ -45,7 +45,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"stalker_general_veteran_default"}
-        className={"Stalker_general_veteran"}
+        class={"Stalker_general_veteran"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_3"}
         community={communities.stalker}
@@ -68,7 +68,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_0_default_0"}
-        className={"sim_default_stalker_0"}
+        class={"sim_default_stalker_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_1"}
         community={communities.stalker}
@@ -93,7 +93,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_0_default_1"}
-        className={"sim_default_stalker_0"}
+        class={"sim_default_stalker_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_1"}
         community={communities.stalker}
@@ -118,7 +118,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_0_default_2"}
-        className={"sim_default_stalker_0"}
+        class={"sim_default_stalker_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_1"}
         community={communities.stalker}
@@ -143,7 +143,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_0_default_3"}
-        className={"sim_default_stalker_0"}
+        class={"sim_default_stalker_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_1"}
         community={communities.stalker}
@@ -168,7 +168,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_0"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -194,7 +194,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_1"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -220,7 +220,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_2"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -246,7 +246,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_3"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -272,7 +272,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_4"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -298,7 +298,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_5"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -324,7 +324,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_6"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -350,7 +350,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_7"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -376,7 +376,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_8"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -402,7 +402,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_1_default_9"}
-        className={"sim_default_stalker_1"}
+        class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -428,7 +428,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_0"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -454,7 +454,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_1"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -480,7 +480,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_2"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -506,7 +506,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_3"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -532,7 +532,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_4"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -558,7 +558,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_5"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -584,7 +584,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_6"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -610,7 +610,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_7"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -636,7 +636,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_8"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -663,7 +663,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_2_default_9"}
-        className={"sim_default_stalker_2"}
+        class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -689,7 +689,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_0"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -717,7 +717,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_1"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -745,7 +745,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_2"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -773,7 +773,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_3"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_nauchniy"}
         community={communities.stalker}
@@ -803,7 +803,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_4"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -831,7 +831,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_5"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2"}
         community={communities.stalker}
@@ -859,7 +859,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_6"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -887,7 +887,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_7"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_2_mask"}
         community={communities.stalker}
@@ -915,7 +915,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_8"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_nauchniy"}
         community={communities.stalker}
@@ -943,7 +943,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_3_default_9"}
-        className={"sim_default_stalker_3"}
+        class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_3"}
         community={communities.stalker}
@@ -971,7 +971,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_4_default_0"}
-        className={"sim_default_stalker_4"}
+        class={"sim_default_stalker_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_4"}
         community={communities.stalker}
@@ -999,7 +999,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_4_default_1"}
-        className={"sim_default_stalker_4"}
+        class={"sim_default_stalker_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_4"}
         community={communities.stalker}
@@ -1027,7 +1027,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_4_default_2"}
-        className={"sim_default_stalker_4"}
+        class={"sim_default_stalker_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_4"}
         community={communities.stalker}
@@ -1055,7 +1055,7 @@ export function StalkerLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_stalker_4_default_3"}
-        className={"sim_default_stalker_4"}
+        class={"sim_default_stalker_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_nauchniy"}
         community={communities.stalker}

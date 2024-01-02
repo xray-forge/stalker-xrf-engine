@@ -26,7 +26,7 @@ export function ZombiedLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"sim_default_zombied_1_default_0"}
-        className={"sim_default_zombied_1"}
+        class={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_1"}
         bio={""}
@@ -50,7 +50,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_1_default_1"}
-        className={"sim_default_zombied_1"}
+        class={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_1"}
         bio={""}
@@ -74,7 +74,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_1_default_2"}
-        className={"sim_default_zombied_1"}
+        class={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_1"}
         bio={""}
@@ -98,7 +98,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_2_default_0"}
-        className={"sim_default_zombied_2"}
+        class={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_2"}
         bio={""}
@@ -123,7 +123,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_2_default_1"}
-        className={"sim_default_zombied_2"}
+        class={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_2"}
         bio={""}
@@ -148,7 +148,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_2_default_2"}
-        className={"sim_default_zombied_2"}
+        class={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_2"}
         bio={""}
@@ -172,7 +172,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_2_default_3"}
-        className={"sim_default_zombied_2"}
+        class={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_2"}
         bio={""}
@@ -197,7 +197,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_3_default_0"}
-        className={"sim_default_zombied_3"}
+        class={"sim_default_zombied_3"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Zombied_3"}
         bio={""}
@@ -223,7 +223,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_3_default_1"}
-        className={"sim_default_zombied_3"}
+        class={"sim_default_zombied_3"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Zombied_3"}
         bio={""}
@@ -249,7 +249,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_3_default_2"}
-        className={"sim_default_zombied_3"}
+        class={"sim_default_zombied_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Zombied_3"}
         bio={""}
@@ -275,7 +275,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_3_default_3"}
-        className={"sim_default_zombied_3"}
+        class={"sim_default_zombied_3"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Zombied_3"}
         bio={""}
@@ -301,7 +301,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_4_default_0"}
-        className={"sim_default_zombied_4"}
+        class={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_4"}
         bio={""}
@@ -327,7 +327,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_4_default_1"}
-        className={"sim_default_zombied_4"}
+        class={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_4"}
         bio={""}
@@ -353,7 +353,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_4_default_2"}
-        className={"sim_default_zombied_4"}
+        class={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_4"}
         bio={""}
@@ -379,7 +379,7 @@ export function ZombiedLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_zombied_4_default_3"}
-        className={"sim_default_zombied_4"}
+        class={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Zombied_4"}
         bio={""}

@@ -14,12 +14,18 @@ describe("create_loadout util", () => {
     expect(createLoadout([{ section: "test_sect", count: 4, probability: 0.5, scope: true }])).toBe(
       "test_sect = 4, scope, prob = 0.5 \\n\r\n"
     );
+    expect(createLoadout([{ section: "test_sect", count: 4, probability: 0.5, launcher: true }])).toBe(
+      "test_sect = 4, launcher, prob = 0.5 \\n\r\n"
+    );
     expect(createLoadout([{ section: "test_sect", count: 4, probability: 0.5, silencer: true }])).toBe(
       "test_sect = 4, silencer, prob = 0.5 \\n\r\n"
     );
     expect(createLoadout([{ section: "test_sect", count: 4, probability: 0.5, scope: true, silencer: true }])).toBe(
       "test_sect = 4, scope, silencer, prob = 0.5 \\n\r\n"
     );
+    expect(
+      createLoadout([{ section: "test_sect", count: 4, probability: 0.5, scope: true, silencer: true, launcher: true }])
+    ).toBe("test_sect = 4, scope, silencer, launcher, prob = 0.5 \\n\r\n");
     expect(
       createLoadout([
         { section: "test_sect", count: 4, probability: 0.5, scope: true },

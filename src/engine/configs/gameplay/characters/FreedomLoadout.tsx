@@ -23,7 +23,7 @@ export function FreedomLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"stalker_freedom_default"}
-        className={"Stalker_freedom"}
+        class={"Stalker_freedom"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -46,7 +46,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_0_default_0"}
-        className={"sim_default_freedom_0"}
+        class={"sim_default_freedom_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -70,7 +70,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_0_default_1"}
-        className={"sim_default_freedom_0"}
+        class={"sim_default_freedom_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -95,7 +95,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_0_default_2"}
-        className={"sim_default_freedom_0"}
+        class={"sim_default_freedom_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -120,7 +120,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_0_default_3"}
-        className={"sim_default_freedom_0"}
+        class={"sim_default_freedom_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -144,7 +144,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_0_default_4"}
-        className={"sim_default_freedom_0"}
+        class={"sim_default_freedom_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -169,7 +169,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_0_default_5"}
-        className={"sim_default_freedom_0"}
+        class={"sim_default_freedom_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -194,7 +194,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_1_default_0"}
-        className={"sim_default_freedom_1"}
+        class={"sim_default_freedom_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -220,7 +220,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_1_default_1"}
-        className={"sim_default_freedom_1"}
+        class={"sim_default_freedom_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -246,7 +246,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_1_default_2"}
-        className={"sim_default_freedom_1"}
+        class={"sim_default_freedom_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -272,7 +272,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_1_default_3"}
-        className={"sim_default_freedom_1"}
+        class={"sim_default_freedom_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -298,7 +298,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_1_default_4"}
-        className={"sim_default_freedom_1"}
+        class={"sim_default_freedom_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
@@ -324,7 +324,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_1_default_5"}
-        className={"sim_default_freedom_1"}
+        class={"sim_default_freedom_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
@@ -350,7 +350,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_1_default_6"}
-        className={"sim_default_freedom_1"}
+        class={"sim_default_freedom_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
@@ -376,7 +376,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_1_default_7"}
-        className={"sim_default_freedom_1"}
+        class={"sim_default_freedom_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
@@ -402,7 +402,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_2_default_0"}
-        className={"sim_default_freedom_2"}
+        class={"sim_default_freedom_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -429,7 +429,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_2_default_1"}
-        className={"sim_default_freedom_2"}
+        class={"sim_default_freedom_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -456,7 +456,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_2_default_2"}
-        className={"sim_default_freedom_2"}
+        class={"sim_default_freedom_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -483,7 +483,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_2_default_3"}
-        className={"sim_default_freedom_2"}
+        class={"sim_default_freedom_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
@@ -508,7 +508,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_2_default_4"}
-        className={"sim_default_freedom_2"}
+        class={"sim_default_freedom_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
@@ -534,7 +534,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_2_default_5"}
-        className={"sim_default_freedom_2"}
+        class={"sim_default_freedom_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
@@ -560,7 +560,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_3_default_0"}
-        className={"sim_default_freedom_3"}
+        class={"sim_default_freedom_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -587,7 +587,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_3_default_1"}
-        className={"sim_default_freedom_3"}
+        class={"sim_default_freedom_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
@@ -615,7 +615,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_3_default_2"}
-        className={"sim_default_freedom_3"}
+        class={"sim_default_freedom_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_3"}
         community={communities.freedom}
@@ -643,7 +643,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_3_default_3"}
-        className={"sim_default_freedom_3"}
+        class={"sim_default_freedom_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_3"}
         community={communities.freedom}
@@ -671,7 +671,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_3_default_4"}
-        className={"sim_default_freedom_3"}
+        class={"sim_default_freedom_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -698,7 +698,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_3_default_5"}
-        className={"sim_default_freedom_3"}
+        class={"sim_default_freedom_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -725,7 +725,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_4_default_0"}
-        className={"sim_default_freedom_4"}
+        class={"sim_default_freedom_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
@@ -752,7 +752,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_4_default_1"}
-        className={"sim_default_freedom_4"}
+        class={"sim_default_freedom_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -779,7 +779,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_4_default_2"}
-        className={"sim_default_freedom_4"}
+        class={"sim_default_freedom_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
@@ -807,7 +807,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_4_default_3"}
-        className={"sim_default_freedom_4"}
+        class={"sim_default_freedom_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_4"}
         community={communities.freedom}
@@ -835,7 +835,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_4_default_4"}
-        className={"sim_default_freedom_4"}
+        class={"sim_default_freedom_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_4"}
         community={communities.freedom}
@@ -863,7 +863,7 @@ export function FreedomLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_freedom_4_default_5"}
-        className={"sim_default_freedom_4"}
+        class={"sim_default_freedom_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_4"}
         community={communities.freedom}

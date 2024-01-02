@@ -22,7 +22,7 @@ export function MonolithLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"stalker_monolith_default"}
-        className={"stalker_monolith_default"}
+        class={"stalker_monolith_default"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -44,7 +44,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_0_default_0"}
-        className={"sim_default_monolith_0"}
+        class={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -67,7 +67,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_0_default_1"}
-        className={"sim_default_monolith_0"}
+        class={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -90,7 +90,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_0_default_2"}
-        className={"sim_default_monolith_0"}
+        class={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -113,7 +113,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_1_default_0"}
-        className={"sim_default_monolith_1"}
+        class={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -136,7 +136,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_1_default_1"}
-        className={"sim_default_monolith_1"}
+        class={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -160,7 +160,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_1_default_2"}
-        className={"sim_default_monolith_1"}
+        class={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -184,7 +184,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_1_default_3"}
-        className={"sim_default_monolith_1"}
+        class={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -208,7 +208,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_2_default_0"}
-        className={"sim_default_monolith_2"}
+        class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -232,7 +232,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_2_default_1"}
-        className={"sim_default_monolith_2"}
+        class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
         community={communities.monolith}
@@ -256,7 +256,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_2_default_2"}
-        className={"sim_default_monolith_2"}
+        class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
         community={communities.monolith}
@@ -280,7 +280,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_2_default_3"}
-        className={"sim_default_monolith_2"}
+        class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
         community={communities.monolith}
@@ -304,7 +304,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_2_default_4"}
-        className={"sim_default_monolith_2"}
+        class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -328,7 +328,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_2_default_5"}
-        className={"sim_default_monolith_2"}
+        class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -352,7 +352,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_2_default_6"}
-        className={"sim_default_monolith_2"}
+        class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -376,7 +376,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_2_default_7"}
-        className={"sim_default_monolith_2"}
+        class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -400,7 +400,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_3_default_0"}
-        className={"sim_default_monolith_3"}
+        class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -426,7 +426,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_3_default_1"}
-        className={"sim_default_monolith_3"}
+        class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -452,7 +452,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_3_default_2"}
-        className={"sim_default_monolith_3"}
+        class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_3"}
         community={communities.monolith}
@@ -478,7 +478,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_3_default_3"}
-        className={"sim_default_monolith_3"}
+        class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
         community={communities.monolith}
@@ -503,7 +503,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_3_default_4"}
-        className={"sim_default_monolith_3"}
+        class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_3"}
         community={communities.monolith}
@@ -528,7 +528,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_4_default_0"}
-        className={"sim_default_monolith_4"}
+        class={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
@@ -553,7 +553,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_4_default_1"}
-        className={"sim_default_monolith_4"}
+        class={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_4"}
         community={communities.monolith}
@@ -579,7 +579,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_4_default_2"}
-        className={"sim_default_monolith_4"}
+        class={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_4"}
         community={communities.monolith}
@@ -605,7 +605,7 @@ export function MonolithLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_monolith_4_default_3"}
-        className={"sim_default_monolith_4"}
+        class={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_4"}
         community={communities.monolith}

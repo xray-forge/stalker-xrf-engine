@@ -29,7 +29,7 @@ export function DutyLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"stalker_dolg_default"}
-        className={"Stalker_dolg"}
+        class={"Stalker_dolg"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -52,7 +52,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_0_default_0"}
-        className={"sim_default_duty_0"}
+        class={"sim_default_duty_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -77,7 +77,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_0_default_1"}
-        className={"sim_default_duty_0"}
+        class={"sim_default_duty_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -102,7 +102,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_0_default_2"}
-        className={"sim_default_duty_0"}
+        class={"sim_default_duty_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -127,7 +127,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_0_default_3"}
-        className={"sim_default_duty_0"}
+        class={"sim_default_duty_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -152,7 +152,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_1_default_0"}
-        className={"sim_default_duty_1"}
+        class={"sim_default_duty_1"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -178,7 +178,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_1_default_1"}
-        className={"sim_default_duty_1"}
+        class={"sim_default_duty_1"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -204,7 +204,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_1_default_2"}
-        className={"sim_default_duty_1"}
+        class={"sim_default_duty_1"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -230,7 +230,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_1_default_3"}
-        className={"sim_default_duty_1"}
+        class={"sim_default_duty_1"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -256,7 +256,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_0"}
-        className={"sim_default_duty_2"}
+        class={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -283,7 +283,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_1"}
-        className={"sim_default_duty_2"}
+        class={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -310,7 +310,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_2"}
-        className={"sim_default_duty_2"}
+        class={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -337,7 +337,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_3"}
-        className={"sim_default_duty_2"}
+        class={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -364,7 +364,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_4"}
-        className={"sim_default_duty_2"}
+        class={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -390,7 +390,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_5"}
-        className={"sim_default_duty_2"}
+        class={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
@@ -417,7 +417,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_6"}
-        className={"sim_default_duty_2"}
+        class={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_1"}
         community={communities.dolg}
@@ -444,7 +444,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_7"}
-        className={"sim_default_duty_2"}
+        class={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_1"}
         community={communities.dolg}
@@ -471,7 +471,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_0"}
-        className={"sim_default_duty_3"}
+        class={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
@@ -499,7 +499,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_1"}
-        className={"sim_default_duty_3"}
+        class={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
@@ -527,7 +527,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_2"}
-        className={"sim_default_duty_3"}
+        class={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
@@ -555,7 +555,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_3"}
-        className={"sim_default_duty_3"}
+        class={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
@@ -583,7 +583,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_4"}
-        className={"sim_default_duty_3"}
+        class={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
@@ -611,7 +611,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_0"}
-        className={"sim_default_duty_4"}
+        class={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
@@ -639,7 +639,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_1"}
-        className={"sim_default_duty_4"}
+        class={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
@@ -667,7 +667,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_2"}
-        className={"sim_default_duty_4"}
+        class={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
@@ -695,7 +695,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_3"}
-        className={"sim_default_duty_4"}
+        class={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
@@ -723,7 +723,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_4"}
-        className={"sim_default_duty_4"}
+        class={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
@@ -751,7 +751,7 @@ export function DutyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_5"}
-        className={"sim_default_duty_4"}
+        class={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}

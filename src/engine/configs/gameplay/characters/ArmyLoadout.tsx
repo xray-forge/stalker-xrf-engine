@@ -21,7 +21,7 @@ export function ArmyLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"sim_default_military_0_default"}
-        className={"sim_default_military_0"}
+        class={"sim_default_military_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
@@ -44,7 +44,7 @@ export function ArmyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_military_1_default"}
-        className={"sim_default_military_1"}
+        class={"sim_default_military_1"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
@@ -68,7 +68,7 @@ export function ArmyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_military_2_default_0"}
-        className={"sim_default_military_2"}
+        class={"sim_default_military_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
@@ -92,7 +92,7 @@ export function ArmyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_military_2_default_1"}
-        className={"sim_default_military_2"}
+        class={"sim_default_military_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
@@ -116,7 +116,7 @@ export function ArmyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_military_3_default_0"}
-        className={"sim_default_military_3"}
+        class={"sim_default_military_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_3"}
@@ -140,7 +140,7 @@ export function ArmyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_military_4_default_0"}
-        className={"sim_default_military_4"}
+        class={"sim_default_military_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_4"}
@@ -164,7 +164,7 @@ export function ArmyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_military_4_default_1"}
-        className={"sim_default_military_4"}
+        class={"sim_default_military_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_4"}
@@ -188,7 +188,7 @@ export function ArmyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_military_4_default_2"}
-        className={"sim_default_military_4"}
+        class={"sim_default_military_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_4"}
@@ -212,7 +212,7 @@ export function ArmyLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_military_3_default_sniper"}
-        className={"sim_default_military_3_sniper"}
+        class={"sim_default_military_3_sniper"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}

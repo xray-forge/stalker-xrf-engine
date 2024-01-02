@@ -5,6 +5,7 @@ export interface ILoadoutItemDescriptor {
   section: string;
   count?: number;
   scope?: boolean;
+  launcher?: boolean;
   silencer?: boolean;
   probability?: number;
 }
@@ -26,6 +27,10 @@ export function createLoadout(descriptors: Array<ILoadoutItemDescriptor>, lineEn
 
     if (it.silencer) {
       current += ", silencer";
+    }
+
+    if (it.launcher) {
+      current += ", launcher";
     }
 
     if (typeof it.probability === "number" && it.probability !== 1) {

@@ -19,7 +19,7 @@ export function BanditLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"stalker_bandit_default"}
-        className={"Stalker_bandit"}
+        class={"Stalker_bandit"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
@@ -43,7 +43,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_0_default_0"}
-        className={"sim_default_bandit_0"}
+        class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
@@ -68,7 +68,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_0_default_1"}
-        className={"sim_default_bandit_0"}
+        class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
@@ -93,7 +93,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_0_default_2"}
-        className={"sim_default_bandit_0"}
+        class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
@@ -118,7 +118,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_1_default_0"}
-        className={"sim_default_bandit_1"}
+        class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
@@ -144,7 +144,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_1_default_1"}
-        className={"sim_default_bandit_1"}
+        class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3"}
@@ -170,7 +170,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_1_default_2"}
-        className={"sim_default_bandit_1"}
+        class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
@@ -196,7 +196,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_1_default_3"}
-        className={"sim_default_bandit_1"}
+        class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
@@ -222,7 +222,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_1_default_4"}
-        className={"sim_default_bandit_1"}
+        class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_4"}
@@ -248,7 +248,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_1_default_5"}
-        className={"sim_default_bandit_1"}
+        class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
@@ -274,7 +274,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_2_default_0"}
-        className={"sim_default_bandit_2"}
+        class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3"}
@@ -300,7 +300,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_2_default_1"}
-        className={"sim_default_bandit_2"}
+        class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
@@ -326,7 +326,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_2_default_2"}
-        className={"sim_default_bandit_2"}
+        class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
@@ -351,7 +351,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_2_default_3"}
-        className={"sim_default_bandit_2"}
+        class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
@@ -377,7 +377,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_2_default_4"}
-        className={"sim_default_bandit_2"}
+        class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
@@ -403,7 +403,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_2_default_5"}
-        className={"sim_default_bandit_2"}
+        class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_4"}
@@ -429,7 +429,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_3_default_0"}
-        className={"sim_default_bandit_3"}
+        class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3"}
@@ -456,7 +456,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_3_default_1"}
-        className={"sim_default_bandit_3"}
+        class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
@@ -483,7 +483,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_3_default_2"}
-        className={"sim_default_bandit_3"}
+        class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_4"}
@@ -510,7 +510,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_3_default_3"}
-        className={"sim_default_bandit_3"}
+        class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
@@ -537,7 +537,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_3_default_4"}
-        className={"sim_default_bandit_3"}
+        class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
@@ -564,7 +564,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_4_default_0"}
-        className={"sim_default_bandit_4"}
+        class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_4"}
@@ -591,7 +591,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_4_default_1"}
-        className={"sim_default_bandit_4"}
+        class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3"}
@@ -618,7 +618,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_4_default_2"}
-        className={"sim_default_bandit_4"}
+        class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
@@ -645,7 +645,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_4_default_3"}
-        className={"sim_default_bandit_4"}
+        class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
@@ -672,7 +672,7 @@ export function BanditLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_bandit_4_default_4"}
-        className={"sim_default_bandit_4"}
+        class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}

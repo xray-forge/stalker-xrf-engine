@@ -21,7 +21,7 @@ export function MercenaryLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"sim_default_killer_0_default_0"}
-        className={"sim_default_killer_0"}
+        class={"sim_default_killer_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={35}
@@ -45,7 +45,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_0_default_1"}
-        className={"sim_default_killer_0"}
+        class={"sim_default_killer_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={35}
@@ -70,7 +70,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_1_default_0"}
-        className={"sim_default_killer_1"}
+        class={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={40}
@@ -95,7 +95,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_1_default_1"}
-        className={"sim_default_killer_1"}
+        class={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={40}
@@ -121,7 +121,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_1_default_2"}
-        className={"sim_default_killer_1"}
+        class={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={40}
@@ -147,7 +147,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_2_default_0"}
-        className={"sim_default_killer_2"}
+        class={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={45}
@@ -173,7 +173,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_2_default_1"}
-        className={"sim_default_killer_2"}
+        class={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={45}
@@ -199,7 +199,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_2_default_2"}
-        className={"sim_default_killer_2"}
+        class={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={45}
@@ -225,7 +225,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_2_default_3"}
-        className={"sim_default_killer_2"}
+        class={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={45}
@@ -251,7 +251,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_2_default_4"}
-        className={"sim_default_killer_2"}
+        class={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={45}
@@ -277,7 +277,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_2_default_5"}
-        className={"sim_default_killer_2"}
+        class={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={45}
@@ -303,7 +303,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_3_default_0"}
-        className={"sim_default_killer_3"}
+        class={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={55}
@@ -331,7 +331,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_3_default_1"}
-        className={"sim_default_killer_3"}
+        class={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
         rank={55}
@@ -359,7 +359,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_3_default_2"}
-        className={"sim_default_killer_3"}
+        class={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
         rank={55}
@@ -387,7 +387,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_3_default_3"}
-        className={"sim_default_killer_3"}
+        class={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
         rank={55}
@@ -415,7 +415,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_3_default_4"}
-        className={"sim_default_killer_3"}
+        class={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
         rank={55}
@@ -443,7 +443,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_4_default_5"}
-        className={"sim_default_killer_3"}
+        class={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
         rank={55}
@@ -471,7 +471,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_4_default_0"}
-        className={"sim_default_killer_4"}
+        class={"sim_default_killer_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
         rank={60}
@@ -499,7 +499,7 @@ export function MercenaryLoadout(): JSXNode {
 
       <SpecificCharacter
         id={"sim_default_killer_4_default_1"}
-        className={"sim_default_killer_4"}
+        class={"sim_default_killer_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
         rank={60}
