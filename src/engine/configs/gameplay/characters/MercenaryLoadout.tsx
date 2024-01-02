@@ -10,7 +10,7 @@ import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadout
 import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
 import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
 import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
-import { CharacterDescription } from "@/engine/configs/gameplay/utils";
+import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -19,7 +19,7 @@ import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
 export function MercenaryLoadout(): JSXNode {
   return (
     <Fragment>
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_0_default_0"}
         className={"sim_default_killer_0"}
         name={GENERATE_STALKER_NAME}
@@ -42,9 +42,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_0_default_1"}
         className={"sim_default_killer_0"}
         name={GENERATE_STALKER_NAME}
@@ -68,9 +68,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_1_default_0"}
         className={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
@@ -94,9 +94,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_1_default_1"}
         className={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
@@ -121,9 +121,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_1_default_2"}
         className={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
@@ -148,9 +148,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_2_default_0"}
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
@@ -175,9 +175,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_2_default_1"}
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
@@ -202,9 +202,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_2_default_2"}
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
@@ -229,9 +229,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_2_default_3"}
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
@@ -256,9 +256,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_2_default_4"}
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
@@ -283,9 +283,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_2_default_5"}
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
@@ -310,9 +310,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_3_default_0"}
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
@@ -339,9 +339,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_3_default_1"}
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
@@ -368,9 +368,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_3_default_2"}
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
@@ -397,9 +397,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_3_default_3"}
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
@@ -426,9 +426,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_3_default_4"}
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
@@ -455,9 +455,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_4_default_5"}
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
@@ -484,9 +484,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_4_default_0"}
         className={"sim_default_killer_4"}
         name={GENERATE_STALKER_NAME}
@@ -513,9 +513,9 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_killer_4_default_1"}
         className={"sim_default_killer_4"}
         name={GENERATE_STALKER_NAME}
@@ -542,7 +542,7 @@ export function MercenaryLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
     </Fragment>
   );
 }

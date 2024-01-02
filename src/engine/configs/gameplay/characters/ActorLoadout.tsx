@@ -5,7 +5,7 @@ import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/cha
 import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
 import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
 import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { CharacterDescription, CharacterDescriptionMapIcon } from "@/engine/configs/gameplay/utils";
+import { CharacterDescriptionMapIcon, SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
@@ -20,7 +20,7 @@ import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
 export function ActorLoadout(): JSXNode {
   return (
     <Fragment>
-      <CharacterDescription
+      <SpecificCharacter
         id={"actor"}
         community={"actor"}
         name={"st_actor_name"}
@@ -51,7 +51,7 @@ export function ActorLoadout(): JSXNode {
         mapIcon={<CharacterDescriptionMapIcon x={2} y={5} />}
       />
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"mp_actor"}
         name={"actor_name"}
         community={"actor"}
@@ -62,7 +62,7 @@ export function ActorLoadout(): JSXNode {
         mapIcon={<CharacterDescriptionMapIcon x={2} y={5} />}
       />
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"actor_visual_stalker"}
         name={GENERATE_STALKER_NAME}
         community={communities.ecolog}
@@ -94,7 +94,7 @@ export function ActorLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
     </Fragment>
   );
 }

@@ -2,12 +2,12 @@ import { JSXNode, JSXXML } from "jsx-xml";
 
 import { includeXmlFile } from "#/utils/xml";
 
+import { ActorLoadout } from "@/engine/configs/gameplay/characters/ActorLoadout";
+import { ArmyLoadout } from "@/engine/configs/gameplay/characters/ArmyLoadout";
+import { BanditLoadout } from "@/engine/configs/gameplay/characters/BanditLoadout";
 import { MercenaryLoadout } from "@/engine/configs/gameplay/characters/MercenaryLoadout";
+import { MonolithLoadout } from "@/engine/configs/gameplay/characters/MonolithLoadout";
 import { ZombiedLoadout } from "@/engine/configs/gameplay/characters/ZombiedLoadout";
-
-import { ActorLoadout } from "./characters/ActorLoadout";
-import { ArmyLoadout } from "./characters/ArmyLoadout";
-import { BanditLoadout } from "./characters/BanditLoadout";
 
 export function create(): JSXNode {
   return (
@@ -17,10 +17,10 @@ export function create(): JSXNode {
       <BanditLoadout />
       <ZombiedLoadout />
       <MercenaryLoadout />
+      <MonolithLoadout />
 
       {includeXmlFile("gameplay\\characters\\character_desc_general_duty.xml")}
       {includeXmlFile("gameplay\\characters\\character_desc_general_freedom.xml")}
-      {includeXmlFile("gameplay\\characters\\character_desc_general_monolith.xml")}
       {includeXmlFile("gameplay\\characters\\character_desc_general_stalker.xml")}
     </xml>
   );

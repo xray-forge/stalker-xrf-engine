@@ -10,7 +10,7 @@ import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/charact
 import { defaultCharacterItemsWithoutTorch2 } from "@/engine/configs/gameplay/loadouts/character_items_2_nl";
 import { defaultCharacterItemsWithoutTorch3 } from "@/engine/configs/gameplay/loadouts/character_items_3_nl";
 import { defaultCharacterItemsWithoutTorch } from "@/engine/configs/gameplay/loadouts/character_items_nl";
-import { CharacterDescription } from "@/engine/configs/gameplay/utils";
+import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -24,7 +24,7 @@ import {
 export function ZombiedLoadout(): JSXNode {
   return (
     <Fragment>
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_1_default_0"}
         className={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
@@ -46,9 +46,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_1_default_1"}
         className={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
@@ -70,9 +70,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_1_default_2"}
         className={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
@@ -94,9 +94,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_2_default_0"}
         className={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
@@ -119,9 +119,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_2_default_1"}
         className={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
@@ -144,9 +144,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_2_default_2"}
         className={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
@@ -168,9 +168,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_2_default_3"}
         className={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
@@ -193,9 +193,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_3_default_0"}
         className={"sim_default_zombied_3"}
         name={GENERATE_ARMY_PRIVATE_NAME}
@@ -219,9 +219,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_3_default_1"}
         className={"sim_default_zombied_3"}
         name={GENERATE_ARMY_SERGEANT_NAME}
@@ -245,9 +245,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_3_default_2"}
         className={"sim_default_zombied_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
@@ -271,9 +271,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_3_default_3"}
         className={"sim_default_zombied_3"}
         name={GENERATE_ARMY_PRIVATE_NAME}
@@ -297,9 +297,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_4_default_0"}
         className={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
@@ -323,9 +323,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_4_default_1"}
         className={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
@@ -349,9 +349,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_4_default_2"}
         className={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
@@ -375,9 +375,9 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_zombied_4_default_3"}
         className={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
@@ -401,7 +401,7 @@ export function ZombiedLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
     </Fragment>
   );
 }

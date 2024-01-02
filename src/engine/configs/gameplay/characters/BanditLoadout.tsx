@@ -8,7 +8,7 @@ import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/charact
 import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
 import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
 import { defaultCharacterSellWeapons } from "@/engine/configs/gameplay/loadouts/character_sell_weapons";
-import { CharacterDescription } from "@/engine/configs/gameplay/utils";
+import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -17,7 +17,7 @@ import { GENERATE_BANDIT_NAME } from "@/engine/lib/constants/names";
 export function BanditLoadout(): JSXNode {
   return (
     <Fragment>
-      <CharacterDescription
+      <SpecificCharacter
         id={"stalker_bandit_default"}
         className={"Stalker_bandit"}
         name={GENERATE_BANDIT_NAME}
@@ -40,9 +40,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_0_default_0"}
         className={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
@@ -66,9 +66,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_0_default_1"}
         className={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
@@ -92,9 +92,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_0_default_2"}
         className={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
@@ -118,9 +118,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_1_default_0"}
         className={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
@@ -145,9 +145,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_1_default_1"}
         className={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
@@ -172,9 +172,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_1_default_2"}
         className={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
@@ -199,9 +199,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_1_default_3"}
         className={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
@@ -226,9 +226,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_1_default_4"}
         className={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
@@ -253,9 +253,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_1_default_5"}
         className={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
@@ -280,9 +280,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_2_default_0"}
         className={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
@@ -307,9 +307,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_2_default_1"}
         className={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
@@ -334,9 +334,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_2_default_2"}
         className={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
@@ -360,9 +360,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_2_default_3"}
         className={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
@@ -387,9 +387,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_2_default_4"}
         className={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
@@ -414,9 +414,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_2_default_5"}
         className={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
@@ -441,9 +441,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_3_default_0"}
         className={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
@@ -469,9 +469,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_3_default_1"}
         className={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
@@ -497,9 +497,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_3_default_2"}
         className={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
@@ -525,9 +525,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_3_default_3"}
         className={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
@@ -553,9 +553,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_3_default_4"}
         className={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
@@ -581,9 +581,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_4_default_0"}
         className={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
@@ -609,9 +609,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_4_default_1"}
         className={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
@@ -637,9 +637,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_4_default_2"}
         className={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
@@ -665,9 +665,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_4_default_3"}
         className={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
@@ -693,9 +693,9 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
 
-      <CharacterDescription
+      <SpecificCharacter
         id={"sim_default_bandit_4_default_4"}
         className={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
@@ -721,7 +721,7 @@ export function BanditLoadout(): JSXNode {
       >
         {defaultCharacterCritical}
         {defaultCharacterDialogs}
-      </CharacterDescription>
+      </SpecificCharacter>
     </Fragment>
   );
 }

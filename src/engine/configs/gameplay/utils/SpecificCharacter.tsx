@@ -32,8 +32,9 @@ export function CharacterDescriptionMapIcon({ x, y }: { x: number; y: number }):
 
 /**
  * Record describing specific character.
+ * C++ parses is implemented in `specific_character.cpp`.
  */
-export function CharacterDescription({
+export function SpecificCharacter({
   id,
   className,
   name,
