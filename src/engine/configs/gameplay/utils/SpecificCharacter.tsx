@@ -10,6 +10,7 @@ export interface ICharacterDescriptionProps {
   icon: string;
   bio?: string;
   team?: string;
+  community: string;
   soundConfig?: string;
   visual: string;
   rank?: number;
@@ -17,7 +18,6 @@ export interface ICharacterDescriptionProps {
   moneyMin?: number;
   moneyMax?: number;
   crouchType?: number;
-  community: string;
   terrainSection?: string;
   supplies?: Array<ILoadoutItemDescriptor>;
   noRandom?: boolean;
