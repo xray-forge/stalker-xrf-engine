@@ -32,10 +32,12 @@ export async function getFolderReplicationDescriptors({
     if (Array.isArray(it)) {
       it.forEach((nested) => collectConfigs(acc, nested));
     } else if (
-      // Support `from` search with multiple elements.
-      Array.isArray(fromExtension)
+      // Support `from` search with multiple elements or single extension.
+      (Array.isArray(fromExtension)
         ? fromExtension.includes(path.extname(it) as EAssetExtension)
-        : path.extname(it) === fromExtension
+        : path.extname(it) === fromExtension) &&
+      // Do not consider jest test files for copy.
+      !it.match(/.*\.test\..*/)
     ) {
       const to: string = it.slice(fromDirectory.length).replace(/\.[^/.]+$/, "") + toExtension;
 
