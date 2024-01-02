@@ -74,7 +74,7 @@ export function CharacterDescription({
       {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}
       {children}
-      {supplies.length ? <supplies>{`[spawn]\n${createLoadout(supplies, "\n")}`}</supplies> : <supplies />}
+      {supplies.length ? <supplies>{`\n[spawn]\\n\n${createLoadout(supplies, "\n")}`}</supplies> : <supplies />}
     </specific_character>
   );
 }
