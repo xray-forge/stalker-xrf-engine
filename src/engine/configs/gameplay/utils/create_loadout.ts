@@ -14,11 +14,24 @@ export interface ILoadoutItemDescriptor {
  */
 export function createLoadout(descriptors: Array<ILoadoutItemDescriptor>, lineEnding: string = "\r\n"): string {
   return descriptors.reduce((acc, it) => {
-    return (
-      acc +
-      `${it.section} = ${it.count ?? 1},${it.scope ? " scope," : ""}${it.silencer ? " silencer," : ""} prob = ${
-        it.probability ?? 1
-      } \\n${lineEnding}`
-    );
+    let current: string = it.section;
+
+    if (typeof it.count === "number" && it.count !== 1) {
+      current += ` = ${it.count}`;
+    }
+
+    if (it.scope) {
+      current += ", scope";
+    }
+
+    if (it.silencer) {
+      current += ", silencer";
+    }
+
+    if (typeof it.probability === "number" && it.probability !== 1) {
+      current += `, prob = ${it.probability}`;
+    }
+
+    return acc + current + ` \\n${lineEnding}`;
   }, "");
 }
