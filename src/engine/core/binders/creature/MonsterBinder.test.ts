@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { callback, clsid, level } from "xray16";
+import { callback, clsid } from "xray16";
 
 import { MonsterBinder } from "@/engine/core/binders/creature/MonsterBinder";
 import {

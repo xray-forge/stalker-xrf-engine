@@ -10,7 +10,5 @@ export class MockCUIScrollView extends MockCUIWindow {
     return new MockCUIScrollView() as unknown as CUIScrollView;
   }
 
-  public AddWindow(window: MockCUIWindow, flag: boolean): void {
-    // Mock.
-  }
+  public AddWindow(): void {}
 }

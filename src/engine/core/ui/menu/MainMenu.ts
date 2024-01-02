@@ -35,7 +35,6 @@ import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { gameTypes } from "@/engine/lib/constants/game_types";
 import {
   AccountManager,
-  GameObject,
   LoginManager,
   Optional,
   Profile,

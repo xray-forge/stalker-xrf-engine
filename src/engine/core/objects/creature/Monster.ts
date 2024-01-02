@@ -2,7 +2,6 @@ import { cse_alife_monster_base, level, LuabindClass } from "xray16";
 
 import {
   getManager,
-  hardResetOfflineObject,
   IRegistryOfflineState,
   registerObjectStoryLinks,
   registerOfflineObject,
@@ -18,7 +17,7 @@ import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/in
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

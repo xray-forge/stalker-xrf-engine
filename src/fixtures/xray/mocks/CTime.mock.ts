@@ -37,19 +37,9 @@ export class MockCTime {
   public sec: number = 0;
   public ms: number = 0;
 
-  public get = jest.fn(
-    (
-      y: number,
-      m: number,
-      d: number,
-      h: number,
-      min: number,
-      sec: number,
-      ms: number
-    ): [number, number, number, number, number, number, number] => {
-      return [this.y, this.m, this.d, this.h, this.min, this.sec, this.ms];
-    }
-  );
+  public get = jest.fn((): [number, number, number, number, number, number, number] => {
+    return [this.y, this.m, this.d, this.h, this.min, this.sec, this.ms];
+  });
 
   public set = jest.fn((y: number, m: number, d: number, h: number, min: number, sec: number, ms: number): void => {
     this.y = y;

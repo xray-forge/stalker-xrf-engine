@@ -1,6 +1,5 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events } from "xray16";
 
-import { SYSTEM_INI } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { DebugItemListEntry } from "@/engine/core/ui/debug/sections/DebugItemListEntry";
@@ -10,7 +9,6 @@ import {
   getSectionsWithoutStoryIDs,
   getSimulationGroupSections,
   getStalkerSections,
-  readIniString,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestServerObject } from "@/engine/core/utils/registry";

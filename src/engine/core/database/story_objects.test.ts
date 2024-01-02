@@ -18,7 +18,7 @@ import {
 } from "@/engine/core/database/story_objects";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { FILES_MOCKS, MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { FILES_MOCKS, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("story_objects module of the database", () => {
   beforeEach(() => {

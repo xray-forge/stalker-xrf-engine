@@ -19,5 +19,5 @@ export class MockPhysicsJoint {
     return angle;
   }
 
-  public set_max_force_and_velocity(a: TRate, b: TRate, c: TRate): void {}
+  public set_max_force_and_velocity(): void {}
 }

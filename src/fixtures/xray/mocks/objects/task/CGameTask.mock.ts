@@ -17,23 +17,23 @@ export class MockCGameTask implements GameTask {
   public id: string = "test_id";
   public state: TTaskState = 1;
 
-  public add_complete_func = jest.fn((value: string): void => {});
+  public add_complete_func = jest.fn((): void => {});
 
-  public add_complete_info = jest.fn((value: string): void => {});
+  public add_complete_info = jest.fn((): void => {});
 
-  public add_fail_func = jest.fn((value: string): void => {});
+  public add_fail_func = jest.fn((): void => {});
 
-  public add_fail_info = jest.fn((value: string): void => {});
+  public add_fail_info = jest.fn((): void => {});
 
-  public add_on_complete_func = jest.fn((value: string): void => {});
+  public add_on_complete_func = jest.fn((): void => {});
 
-  public add_on_complete_info = jest.fn((value: string): void => {});
+  public add_on_complete_info = jest.fn((): void => {});
 
-  public add_on_fail_func = jest.fn((value: string): void => {});
+  public add_on_fail_func = jest.fn((): void => {});
 
-  public add_on_fail_info = jest.fn((value: string): void => {});
+  public add_on_fail_info = jest.fn((): void => {});
 
-  public change_map_location = jest.fn((value: string, value2: number): void => {});
+  public change_map_location = jest.fn((): void => {});
 
   public get_description = jest.fn((): string => {
     return this.description;

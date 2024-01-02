@@ -1,4 +1,4 @@
-import { CUIGameCustom, game, get_hud, sound_object } from "xray16";
+import { game, get_hud, sound_object } from "xray16";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
