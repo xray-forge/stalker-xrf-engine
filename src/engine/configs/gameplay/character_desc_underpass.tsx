@@ -26,7 +26,6 @@ export function create(): JSXNode {
         name={"jup_a10_stalker_vano"}
         icon={"ui_inGame2_neutral_nauchniy"}
         community={communities.stalker}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         rank={45}
@@ -52,7 +51,6 @@ export function create(): JSXNode {
         name={"pri_a15_sokolov_name"}
         icon={"ui_inGame2_ecolog_military"}
         community={communities.stalker}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_soldier\\stalker_ecolog_military"}
         rank={50}
@@ -77,7 +75,6 @@ export function create(): JSXNode {
         name={"jup_b15_zulus"}
         icon={"ui_inGame2_Dolg_1"}
         community={communities.stalker}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_1"}
         rank={75}
@@ -101,7 +98,6 @@ export function create(): JSXNode {
         name={"jup_b4_monolith_squad_leader_name"}
         icon={"ui_inGame2_monolit_1"}
         community={communities.stalker}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_monolith\\stalker_monolith_1"}
         rank={98}
@@ -125,7 +121,6 @@ export function create(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
         community={communities.monolith}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
         visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         rank={80}
@@ -152,7 +147,6 @@ export function create(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
         community={communities.monolith}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
         visual={"actors\\stalker_monolith\\stalker_monolith_1"}
         rank={80}

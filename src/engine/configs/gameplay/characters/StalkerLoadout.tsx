@@ -27,7 +27,6 @@ export function StalkerLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_1"}
         community={communities.stalker}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
@@ -50,7 +49,6 @@ export function StalkerLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_neutral_3"}
         community={communities.stalker}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_3"}
         supplies={[
@@ -77,7 +75,6 @@ export function StalkerLoadout(): JSXNode {
         rank={25}
         moneyMin={250}
         moneyMax={1750}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
@@ -103,7 +100,6 @@ export function StalkerLoadout(): JSXNode {
         rank={25}
         moneyMin={250}
         moneyMax={1750}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
@@ -129,7 +125,6 @@ export function StalkerLoadout(): JSXNode {
         rank={25}
         moneyMin={250}
         moneyMax={1750}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
@@ -155,7 +150,6 @@ export function StalkerLoadout(): JSXNode {
         rank={25}
         moneyMin={250}
         moneyMax={1750}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
@@ -181,7 +175,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -208,7 +201,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -235,7 +227,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -262,7 +253,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -289,7 +279,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -316,7 +305,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -343,7 +331,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -370,7 +357,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -397,7 +383,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -424,7 +409,6 @@ export function StalkerLoadout(): JSXNode {
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -451,7 +435,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -478,7 +461,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -505,7 +487,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -532,7 +513,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -559,7 +539,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -586,7 +565,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -613,7 +591,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -640,7 +617,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -667,7 +643,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -695,7 +670,6 @@ export function StalkerLoadout(): JSXNode {
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -722,7 +696,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -751,7 +724,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -780,7 +752,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -809,7 +780,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         supplies={[
@@ -840,7 +810,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -869,7 +838,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
@@ -898,7 +866,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -927,7 +894,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
@@ -956,7 +922,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         supplies={[
@@ -985,7 +950,6 @@ export function StalkerLoadout(): JSXNode {
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_3"}
         supplies={[
@@ -1014,7 +978,6 @@ export function StalkerLoadout(): JSXNode {
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_4"}
         supplies={[
@@ -1043,7 +1006,6 @@ export function StalkerLoadout(): JSXNode {
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_4"}
         supplies={[
@@ -1072,7 +1034,6 @@ export function StalkerLoadout(): JSXNode {
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_4"}
         supplies={[
@@ -1101,7 +1062,6 @@ export function StalkerLoadout(): JSXNode {
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         supplies={[

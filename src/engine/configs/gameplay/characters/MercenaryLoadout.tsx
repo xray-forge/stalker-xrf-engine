@@ -24,7 +24,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={250}
         moneyMax={1750}
@@ -49,7 +48,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={250}
         moneyMax={1750}
@@ -75,7 +73,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={500}
         moneyMax={1750}
@@ -101,7 +98,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={500}
         moneyMax={1750}
@@ -128,7 +124,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={500}
         moneyMax={1750}
@@ -155,7 +150,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={45}
         moneyMin={1500}
         moneyMax={2500}
@@ -182,7 +176,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={45}
         moneyMin={1500}
         moneyMax={2500}
@@ -209,7 +202,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={45}
         moneyMin={1500}
         moneyMax={2500}
@@ -236,7 +228,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={45}
         moneyMin={1500}
         moneyMax={2500}
@@ -263,7 +254,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={45}
         moneyMin={1500}
         moneyMax={2500}
@@ -290,7 +280,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={45}
         moneyMin={1500}
         moneyMax={2500}
@@ -317,7 +306,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={55}
         moneyMin={2500}
         moneyMax={5000}
@@ -346,7 +334,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_2"}
-        terrainSection={"stalker_terrain"}
         rank={55}
         moneyMin={2500}
         moneyMax={5000}
@@ -375,7 +362,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
-        terrainSection={"stalker_terrain"}
         rank={55}
         moneyMin={2500}
         moneyMax={5000}
@@ -404,7 +390,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
-        terrainSection={"stalker_terrain"}
         rank={55}
         moneyMin={2500}
         moneyMax={5000}
@@ -433,7 +418,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
-        terrainSection={"stalker_terrain"}
         rank={55}
         moneyMin={2500}
         moneyMax={5000}
@@ -462,7 +446,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
-        terrainSection={"stalker_terrain"}
         rank={55}
         moneyMin={2500}
         moneyMax={5000}
@@ -491,7 +474,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
-        terrainSection={"stalker_terrain"}
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
@@ -520,7 +502,6 @@ export function MercenaryLoadout(): JSXNode {
         className={"sim_default_killer_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_merc_4"}
-        terrainSection={"stalker_terrain"}
         rank={60}
         moneyMin={5000}
         moneyMax={10000}

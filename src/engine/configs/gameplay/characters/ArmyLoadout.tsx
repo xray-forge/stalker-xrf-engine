@@ -25,7 +25,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_PRIVATE_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={30}
@@ -49,7 +48,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_PRIVATE_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={35}
@@ -74,7 +72,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_SERGEANT_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={45}
@@ -99,7 +96,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_SERGEANT_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={45}
@@ -124,7 +120,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_3"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_3"}
         rank={55}
@@ -149,7 +144,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_CAPTAIN_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_4"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         rank={60}
@@ -174,7 +168,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_CAPTAIN_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_4"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         rank={60}
@@ -199,7 +192,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_CAPTAIN_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_4"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         rank={60}
@@ -224,7 +216,6 @@ export function ArmyLoadout(): JSXNode {
         name={GENERATE_ARMY_CAPTAIN_NAME}
         community={communities.army}
         icon={"ui_inGame2_Soldier_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={60}

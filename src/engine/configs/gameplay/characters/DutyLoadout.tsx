@@ -32,7 +32,6 @@ export function DutyLoadout(): JSXNode {
         className={"Stalker_dolg"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_2"}
@@ -56,7 +55,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={500}
         moneyMax={1500}
@@ -82,7 +80,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={500}
         moneyMax={1500}
@@ -108,7 +105,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={500}
         moneyMax={1500}
@@ -134,7 +130,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_0"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={500}
         moneyMax={1500}
@@ -160,7 +155,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_1"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1000}
         moneyMax={3000}
@@ -187,7 +181,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_1"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1000}
         moneyMax={3000}
@@ -214,7 +207,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_1"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1000}
         moneyMax={3000}
@@ -241,7 +233,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_1"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1000}
         moneyMax={3000}
@@ -268,7 +259,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
@@ -296,7 +286,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
@@ -324,7 +313,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
@@ -352,7 +340,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
@@ -380,7 +367,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
@@ -407,7 +393,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
@@ -435,7 +420,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_1"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
@@ -463,7 +447,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_2"}
         name={GENERATE_ARMY_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_1"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
@@ -491,7 +474,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
@@ -520,7 +502,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
@@ -549,7 +530,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
@@ -578,7 +558,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
@@ -607,7 +586,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_3"}
         name={GENERATE_ARMY_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
@@ -636,7 +614,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
@@ -665,7 +642,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
@@ -694,7 +670,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
@@ -723,7 +698,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
@@ -752,7 +726,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
@@ -781,7 +754,6 @@ export function DutyLoadout(): JSXNode {
         className={"sim_default_duty_4"}
         name={GENERATE_ARMY_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}

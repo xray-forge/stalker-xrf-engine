@@ -1,6 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { createLoadout, ILoadoutItemDescriptor } from "@/engine/configs/gameplay/utils/create_loadout";
+import { Optional } from "@/engine/lib/types";
 
 export interface ICharacterDescriptionProps {
   id: string;
@@ -18,7 +19,7 @@ export interface ICharacterDescriptionProps {
   moneyMin?: number;
   moneyMax?: number;
   crouchType?: number;
-  terrainSection?: string;
+  terrainSection?: Optional<string>;
   supplies?: Array<ILoadoutItemDescriptor>;
   noRandom?: boolean;
   infiniteMoney?: boolean;
@@ -52,7 +53,7 @@ export function SpecificCharacter({
   supplies = [],
   noRandom,
   infiniteMoney,
-  terrainSection,
+  terrainSection = "stalker_terrain",
   mapIcon = <CharacterDescriptionMapIcon x={1} y={0} />,
   children,
 }: ICharacterDescriptionProps): JSXNode {

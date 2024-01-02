@@ -23,7 +23,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={0}
@@ -48,7 +47,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
@@ -74,7 +72,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
@@ -100,7 +97,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
@@ -126,7 +122,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={30}
@@ -153,7 +148,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={30}
@@ -180,7 +174,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={30}
@@ -207,7 +200,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={30}
@@ -234,7 +226,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_4"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={30}
@@ -261,7 +252,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_1"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={30}
@@ -288,7 +278,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={35}
@@ -315,7 +304,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
@@ -342,7 +330,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
@@ -368,7 +355,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={35}
@@ -395,7 +381,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
@@ -422,7 +407,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_4"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={35}
@@ -449,7 +433,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={45}
@@ -477,7 +460,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={45}
@@ -505,7 +487,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_4"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={45}
@@ -533,7 +514,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={45}
@@ -561,7 +541,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={45}
@@ -589,7 +568,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_4"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={55}
@@ -617,7 +595,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={55}
@@ -645,7 +622,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={55}
@@ -673,7 +649,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_2"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={55}
@@ -701,7 +676,6 @@ export function BanditLoadout(): JSXNode {
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
         icon={"ui_inGame2_bandit_3_mask"}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
         visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={55}

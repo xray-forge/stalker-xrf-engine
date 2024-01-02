@@ -25,7 +25,6 @@ export function MonolithLoadout(): JSXNode {
         className={"stalker_monolith_default"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
         visual={"actors\\stalker_monolith\\stalker_monolith_2"}
@@ -48,7 +47,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={30}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -72,7 +70,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={30}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -96,7 +93,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={30}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -120,7 +116,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={35}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -144,7 +139,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={35}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -169,7 +163,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={35}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -194,7 +187,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={35}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -219,7 +211,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -244,7 +235,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -269,7 +259,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -294,7 +283,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -319,7 +307,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -344,7 +331,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -369,7 +355,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -394,7 +379,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
@@ -419,7 +403,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
@@ -446,7 +429,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
@@ -473,7 +455,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_3"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
@@ -500,7 +481,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_1"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
@@ -526,7 +506,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_3"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
@@ -552,7 +531,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
@@ -578,7 +556,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
@@ -605,7 +582,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
@@ -632,7 +608,6 @@ export function MonolithLoadout(): JSXNode {
         className={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_4"}
-        terrainSection={"stalker_terrain"}
         community={communities.monolith}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}

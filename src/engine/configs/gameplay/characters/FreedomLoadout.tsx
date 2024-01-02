@@ -27,7 +27,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         visual={"actors\\stalker_freedom\\stalker_freedom_2_mask"}
         supplies={[
@@ -51,7 +50,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={30}
         moneyMin={500}
         moneyMax={1000}
@@ -76,7 +74,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={30}
         moneyMin={500}
         moneyMax={1000}
@@ -102,7 +99,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={30}
         moneyMin={500}
         moneyMax={1000}
@@ -128,7 +124,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={30}
         moneyMin={500}
         moneyMax={1000}
@@ -153,7 +148,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={30}
         moneyMin={500}
         moneyMax={1000}
@@ -179,7 +173,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={30}
         moneyMin={500}
         moneyMax={1000}
@@ -205,7 +198,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={1000}
         moneyMax={2000}
@@ -232,7 +224,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={1000}
         moneyMax={2000}
@@ -259,7 +250,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={1000}
         moneyMax={2000}
@@ -286,7 +276,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={1000}
         moneyMax={2000}
@@ -313,7 +302,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={1000}
         moneyMax={2000}
@@ -340,7 +328,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={1000}
         moneyMax={2000}
@@ -367,7 +354,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={1000}
         moneyMax={2000}
@@ -394,7 +380,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={35}
         moneyMin={1000}
         moneyMax={2000}
@@ -421,7 +406,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={1500}
         moneyMax={2500}
@@ -449,7 +433,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={1500}
         moneyMax={2500}
@@ -477,7 +460,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={1500}
         moneyMax={2500}
@@ -505,7 +487,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={1500}
         moneyMax={2500}
@@ -531,7 +512,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={1500}
         moneyMax={2500}
@@ -558,7 +538,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={40}
         moneyMin={1500}
         moneyMax={2500}
@@ -585,7 +564,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
@@ -613,7 +591,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
@@ -642,7 +619,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_3"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
@@ -671,7 +647,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_3"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
@@ -700,7 +675,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
@@ -728,7 +702,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
@@ -756,7 +729,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_1"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={70}
         moneyMin={5000}
         moneyMax={10000}
@@ -784,7 +756,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={70}
         moneyMin={5000}
         moneyMax={10000}
@@ -812,7 +783,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_2_mask"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={70}
         moneyMin={5000}
         moneyMax={10000}
@@ -841,7 +811,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_4"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={70}
         moneyMin={5000}
         moneyMax={10000}
@@ -870,7 +839,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_4"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={70}
         moneyMin={5000}
         moneyMax={10000}
@@ -899,7 +867,6 @@ export function FreedomLoadout(): JSXNode {
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_Freedom_4"}
         community={communities.freedom}
-        terrainSection={"stalker_terrain"}
         rank={70}
         moneyMin={5000}
         moneyMax={10000}

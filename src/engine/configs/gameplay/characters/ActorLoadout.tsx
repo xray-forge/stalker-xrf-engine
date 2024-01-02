@@ -29,6 +29,7 @@ export function ActorLoadout(): JSXNode {
         visual={"actors\\stalker_hero\\stalker_hero_1"}
         moneyMin={2500}
         noRandom={true}
+        terrainSection={null}
         supplies={[
           { section: misc.device_torch },
           { section: detectors.detector_simple },
@@ -59,6 +60,7 @@ export function ActorLoadout(): JSXNode {
         team={"mp_actor"}
         visual={"actors\\stalker_hero\\stalker_hero_1"}
         noRandom={true}
+        terrainSection={null}
         mapIcon={<CharacterDescriptionMapIcon x={2} y={5} />}
       />
 
@@ -69,6 +71,7 @@ export function ActorLoadout(): JSXNode {
         icon={"ui_inGame2_Hero"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         visual={"actors\\stalker_hero\\stalker_hero_1"}
+        terrainSection={null}
         supplies={[
           { section: misc.device_torch },
           { section: misc.hand_radio },
