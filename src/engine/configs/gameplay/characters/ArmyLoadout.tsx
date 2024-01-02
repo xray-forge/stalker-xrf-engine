@@ -14,9 +14,9 @@ import {
   GENERATE_ARMY_LIEUTENANT_NAME,
   GENERATE_ARMY_PRIVATE_NAME,
   GENERATE_ARMY_SERGEANT_NAME,
-} from "@/engine/lib/constants/words";
+} from "@/engine/lib/constants/names";
 
-export function create(): JSXNode {
+export function ArmyLoadout(): JSXNode {
   return (
     <Fragment>
       <CharacterDescription

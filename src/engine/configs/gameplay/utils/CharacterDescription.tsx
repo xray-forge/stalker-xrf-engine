@@ -14,7 +14,8 @@ export interface ICharacterDescriptionProps {
   visual: string;
   rank?: number;
   reputation?: number;
-  money?: number;
+  moneyMin?: number;
+  moneyMax?: number;
   community: string;
   terrainSection?: string;
   supplies?: Array<ILoadoutItemDescriptor>;
@@ -39,7 +40,8 @@ export function CharacterDescription({
   icon,
   team,
   community,
-  money,
+  moneyMin,
+  moneyMax,
   rank,
   reputation,
   visual,
@@ -62,7 +64,9 @@ export function CharacterDescription({
       <community>{community}</community>
       <rank>{rank ?? 0}</rank>
       <reputation>{reputation ?? 0}</reputation>
-      {typeof money === "number" ? <money min={money} max={money} infinitive={infiniteMoney ? 1 : 0} /> : null}
+      {typeof moneyMin === "number" ? (
+        <money min={moneyMin} max={moneyMax ?? moneyMin} infinitive={infiniteMoney ? 1 : 0} />
+      ) : null}
       <visual>{visual}</visual>
       {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}

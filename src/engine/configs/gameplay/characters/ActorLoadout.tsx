@@ -15,9 +15,9 @@ import { helmets } from "@/engine/lib/constants/items/helmets";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/words";
+import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
 
-export function create(): JSXNode {
+export function ActorLoadout(): JSXNode {
   return (
     <Fragment>
       <CharacterDescription
@@ -27,7 +27,7 @@ export function create(): JSXNode {
         icon={"ui_inGame2_Hero"}
         team={"Actor"}
         visual={"actors\\stalker_hero\\stalker_hero_1"}
-        money={2500}
+        moneyMin={2500}
         noRandom={true}
         supplies={[
           { section: misc.device_torch },
