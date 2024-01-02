@@ -22,19 +22,19 @@ export function create(): JSXNode {
  */
 function ExtensionsBackground(): JSXNode {
   return (
-    <background x="0" y="0" width="1024" height="768">
-      <auto_static x="102" y="0" width="819" height="768" stretch="1">
+    <background x={"0"} y={"0"} width={"1024"} height={"768"}>
+      <auto_static x={"102"} y={"0"} width={"819"} height={"768"} stretch={"1"}>
         <texture>ui_inGame2_opt_background</texture>
       </auto_static>
-      <auto_static x="253" y="250" width="269" height="176" stretch="1">
-        <texture x="1" y="1" width="335" height="174">
+      <auto_static x={"253"} y={"250"} width={"269"} height={"176"} stretch={"1"}>
+        <texture x={"1"} y={"1"} width={"335"} height={"174"}>
           {"ui\\video_window"}
         </texture>
       </auto_static>
-      <auto_static x="0" y="0" width="102" height="768" stretch="1">
+      <auto_static x={"0"} y={"0"} width={"102"} height={"768"} stretch={"1"}>
         <texture>ui_inGame2_opt_left_widepanel</texture>
       </auto_static>
-      <auto_static x="921" y="0" width="102" height="768" stretch="1">
+      <auto_static x={"921"} y={"0"} width={"102"} height={"768"} stretch={"1"}>
         <texture>ui_inGame2_opt_right_widepanel</texture>
       </auto_static>
     </background>
@@ -47,7 +47,7 @@ function ExtensionsBackground(): JSXNode {
 function ExtensionsBody(): JSXNode {
   return (
     <Fragment>
-      <frame x="484" y="274" width="389" height="462" stretch="1">
+      <frame x={"484"} y={"274"} width={"389"} height={"462"} stretch={"1"}>
         <texture>ui_inGame2_opt_main_window</texture>
       </frame>
 

@@ -9,8 +9,8 @@ export function create(): JSXNode {
   return (
     <w>
       <background width={SECTION_WIDTH} height={SECTION_HEIGHT}>
-        <auto_static width={SECTION_WIDTH} height={SECTION_HEIGHT} stretch="1">
-          <texture>{"ui_inGame2_picture_window"}</texture>
+        <auto_static width={SECTION_WIDTH} height={SECTION_HEIGHT} stretch={"1"}>
+          <texture>ui_inGame2_picture_window</texture>
         </auto_static>
       </background>
     </w>

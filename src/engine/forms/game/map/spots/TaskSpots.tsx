@@ -7,44 +7,60 @@ export function TaskSpots(): JSXNode {
   return (
     <Fragment>
       <storyline_task_location>
-        <level_map spot="storyline_task_spot" pointer="quest_pointer2" />
-        <mini_map spot="storyline_task_spot_mini" pointer="quest_pointer2" />
+        <level_map spot={"storyline_task_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"storyline_task_spot_mini"} pointer={"quest_pointer2"} />
       </storyline_task_location>
-      <storyline_task_spot x="0" y="0" width="19" height="19" stretch="1" alignment="c" location_level="5">
+      <storyline_task_spot
+        x={"0"}
+        y={"0"}
+        width={"19"}
+        height={"19"}
+        stretch={"1"}
+        alignment={"c"}
+        location_level={"5"}
+      >
         <texture>ui_inGame2_PDA_icon_Primary_mission</texture>
         <static_border
-          x="-4"
-          y="-5"
-          width="29"
-          height="29"
-          stretch="1"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"-4"}
+          y={"-5"}
+          width={"29"}
+          height={"29"}
+          stretch={"1"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02
           </texture>
         </static_border>
       </storyline_task_spot>
 
-      <storyline_task_spot_mini x="0" y="0" width="19" height="19" stretch="1" alignment="c" location_level="5">
+      <storyline_task_spot_mini
+        x={"0"}
+        y={"0"}
+        width={"19"}
+        height={"19"}
+        stretch={"1"}
+        alignment={"c"}
+        location_level={"5"}
+      >
         <texture>ui_inGame2_PDA_icon_Primary_mission</texture>
         <static_border
-          x="-4"
-          y="-5"
-          width="29"
-          height="29"
-          stretch="1"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"-4"}
+          y={"-5"}
+          width={"29"}
+          height={"29"}
+          stretch={"1"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_mmap_stask_last_02
           </texture>
         </static_border>
@@ -53,41 +69,57 @@ export function TaskSpots(): JSXNode {
       </storyline_task_spot_mini>
       {/** <!-- Второстепенные задания --> */}
       <secondary_task_location>
-        <level_map spot="secondary_task_spot" pointer="quest_pointer" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer" />
+        <level_map spot={"secondary_task_spot"} pointer={"quest_pointer"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer"} />
       </secondary_task_location>
 
-      <secondary_task_spot x="0" y="0" width="19" height="19" stretch="1" alignment="c" location_level="5">
+      <secondary_task_spot
+        x={"0"}
+        y={"0"}
+        width={"19"}
+        height={"19"}
+        stretch={"1"}
+        alignment={"c"}
+        location_level={"5"}
+      >
         <texture>ui_inGame2_PDA_icon_Secondary_mission</texture>
         <static_border
-          x="-4"
-          y="-5"
-          width="29"
-          height="29"
-          stretch="1"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"-4"}
+          y={"-5"}
+          width={"29"}
+          height={"29"}
+          stretch={"1"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
           <texture>ui_pda2_stask_last_02</texture>
         </static_border>
       </secondary_task_spot>
 
-      <secondary_task_spot_mini x="0" y="0" width="19" height="19" stretch="1" alignment="c" location_level="5">
+      <secondary_task_spot_mini
+        x={"0"}
+        y={"0"}
+        width={"19"}
+        height={"19"}
+        stretch={"1"}
+        alignment={"c"}
+        location_level={"5"}
+      >
         <texture>ui_inGame2_PDA_icon_Secondary_mission</texture>
         <static_border
-          x="-4"
-          y="-5"
-          width="29"
-          height="29"
-          stretch="1"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"-4"}
+          y={"-5"}
+          width={"29"}
+          height={"29"}
+          stretch={"1"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
           <texture>ui_mmap_stask_last_02</texture>
         </static_border>
@@ -96,42 +128,42 @@ export function TaskSpots(): JSXNode {
       </secondary_task_spot_mini>
 
       {/** <!--task_highlight --> */}
-      <ui_storyline_task_blink ttl="15" hint="disable_hint" location_level="-1">
-        <level_map spot="ui_storyline_task_blink_spot" />
+      <ui_storyline_task_blink ttl={"15"} hint={"disable_hint"} location_level={"-1"}>
+        <level_map spot={"ui_storyline_task_blink_spot"} />
       </ui_storyline_task_blink>
       <ui_storyline_task_blink_spot
-        x="-8"
-        y="-10"
-        width="39"
-        height="39"
-        stretch="1"
-        light_anim="new_task_highlight"
-        light_anim_cyclic="1"
-        la_texture="1"
-        xform_anim="new_task_highlight_xform"
-        xform_anim_cyclic="1"
-        alignment="c"
-        location_level="-1"
+        x={"-8"}
+        y={"-10"}
+        width={"39"}
+        height={"39"}
+        stretch={"1"}
+        light_anim={"new_task_highlight"}
+        light_anim_cyclic={"1"}
+        la_texture={"1"}
+        xform_anim={"new_task_highlight_xform"}
+        xform_anim_cyclic={"1"}
+        alignment={"c"}
+        location_level={"-1"}
       >
         <texture>ui_pda2_stask_last_01a</texture>
       </ui_storyline_task_blink_spot>
 
-      <ui_secondary_task_blink ttl="15" hint="disable_hint" location_level="-1">
-        <level_map spot="ui_secondary_task_blink_spot" />
+      <ui_secondary_task_blink ttl={"15"} hint={"disable_hint"} location_level={"-1"}>
+        <level_map spot={"ui_secondary_task_blink_spot"} />
       </ui_secondary_task_blink>
       <ui_secondary_task_blink_spot
-        x="-8"
-        y="-40"
-        width="39"
-        height="39"
-        stretch="1"
-        light_anim="new_task_highlight_00"
-        light_anim_cyclic="1"
-        la_texture="1"
-        xform_anim="new_task_highlight_xform"
-        xform_anim_cyclic="1"
-        alignment="c"
-        location_level="-1"
+        x={"-8"}
+        y={"-40"}
+        width={"39"}
+        height={"39"}
+        stretch={"1"}
+        light_anim={"new_task_highlight_00"}
+        light_anim_cyclic={"1"}
+        la_texture={"1"}
+        xform_anim={"new_task_highlight_xform"}
+        xform_anim_cyclic={"1"}
+        alignment={"c"}
+        location_level={"-1"}
       >
         <texture>ui_pda2_stask_last_01a</texture>
       </ui_secondary_task_blink_spot>
@@ -200,164 +232,164 @@ export function TaskSpots(): JSXNode {
    --> */}
 
       {/** <!-- Сюжетные задания --> */}
-      <no_spot x="0" y="0" width="0" height="0" stretch="1" alignment="c">
+      <no_spot x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} alignment={"c"}>
         <texture>ui_pda2_hl_seq_quest2</texture>
       </no_spot>
 
       <secondary_task_location_complex>
-        <complex_spot spot="secondary_task_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex>
       <secondary_task_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_secondary_task2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
       </secondary_task_complex_spot>
 
       <storyline_task_location_complex_timer>
-        <complex_spot spot="secondary_task_complex_spot_timer" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_complex_spot_mini_timer" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_complex_spot_timer"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_complex_spot_mini_timer"} pointer={"quest_pointer2"} />
       </storyline_task_location_complex_timer>
 
       <secondary_task_location_complex_timer>
-        <complex_spot spot="secondary_task_complex_spot_timer" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_complex_spot_mini_timer" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_complex_spot_timer"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_complex_spot_mini_timer"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_timer>
       <secondary_task_complex_spot_timer
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1" blink="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"} blink={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_secondary_alert2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
       </secondary_task_complex_spot_timer>
       <secondary_task_complex_spot_mini_timer
-        x="0"
-        y="0"
-        width="11"
-        height="11"
-        stretch="1"
-        alignment="c"
-        location_level="5"
+        x={"0"}
+        y={"0"}
+        width={"11"}
+        height={"11"}
+        stretch={"1"}
+        alignment={"c"}
+        location_level={"5"}
       >
-        <texture r="242" g="231" b="11">
+        <texture r={"242"} g={"231"} b={"11"}>
           ui_mmap_secondary_alert
         </texture>
-        <texture_below r="242" g="231" b="11">
+        <texture_below r={"242"} g={"231"} b={"11"}>
           ui_mini_sn_spot_below
         </texture_below>
-        <texture_above r="242" g="231" b="11">
+        <texture_above r={"242"} g={"231"} b={"11"}>
           ui_mini_sn_spot_above
         </texture_above>
       </secondary_task_complex_spot_mini_timer>
 
       <secondary_task_location_complex_eliminate_smart>
-        <complex_spot spot="secondary_task_eliminate_smart_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_eliminate_smart_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_eliminate_smart>
       <secondary_task_eliminate_smart_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_attack_base2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
@@ -372,98 +404,98 @@ export function TaskSpots(): JSXNode {
       </secondary_task_eliminate_smart_complex_spot>
 
       <secondary_task_location_complex_capture_smart>
-        <complex_spot spot="secondary_task_capture_smart_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_capture_smart_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_capture_smart>
       <secondary_task_capture_smart_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_capture_base2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
       </secondary_task_capture_smart_complex_spot>
 
       <secondary_task_location_complex_defend_smart>
-        <complex_spot spot="secondary_task_defend_smart_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_defend_smart_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_defend_smart>
       <secondary_task_defend_smart_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_defend_base2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
       </secondary_task_defend_smart_complex_spot>
 
       <secondary_task_location_complex_defend_smart_delay>
-        <complex_spot spot="secondary_task_complex_spot_timer" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_complex_spot_mini_timer" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_complex_spot_timer"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_complex_spot_mini_timer"} pointer={"quest_pointer2"} />
         {/**
           <!--
          <complex_spot spot="secondary_task_defend_smart_delay_complex_spot" pointer="quest_pointer2"/>
@@ -491,225 +523,225 @@ export function TaskSpots(): JSXNode {
         */}
 
       <secondary_task_location_complex_bring_item>
-        <complex_spot spot="secondary_task_bring_item_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_bring_item_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_bring_item>
       <secondary_task_bring_item_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_bring_item2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
       </secondary_task_bring_item_complex_spot>
 
       <secondary_task_location_complex_recover_item>
-        <complex_spot spot="secondary_task_recover_item_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_recover_item_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_recover_item>
       <secondary_task_recover_item_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_bring_item2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
       </secondary_task_recover_item_complex_spot>
 
       <secondary_task_location_complex_hide_from_surge>
-        <complex_spot spot="secondary_task_hide_from_surge_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_hide_from_surge_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_hide_from_surge>
       <secondary_task_hide_from_surge_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_secondary_task2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
       </secondary_task_hide_from_surge_complex_spot>
 
       <secondary_task_location_complex_eliminate_squad>
-        <complex_spot spot="secondary_task_eliminate_squad_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_eliminate_squad_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_eliminate_squad>
       <secondary_task_eliminate_squad_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_destroy_enemy2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>
       </secondary_task_eliminate_squad_complex_spot>
 
       <secondary_task_location_complex_take_reward>
-        <complex_spot spot="secondary_task_take_reward_complex_spot" pointer="quest_pointer2" />
-        <mini_map spot="secondary_task_spot_mini" pointer="quest_pointer2" />
+        <complex_spot spot={"secondary_task_take_reward_complex_spot"} pointer={"quest_pointer2"} />
+        <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer2"} />
       </secondary_task_location_complex_take_reward>
       <secondary_task_take_reward_complex_spot
-        x="0"
-        y="0"
-        width="30"
-        height="27"
-        stretch="0"
-        alignment="c"
-        location_level="5"
-        scale="0"
-        scale_min="2.5"
-        scale_max="5.1"
+        x={"0"}
+        y={"0"}
+        width={"30"}
+        height={"27"}
+        stretch={"0"}
+        alignment={"c"}
+        location_level={"5"}
+        scale={"0"}
+        scale_min={"2.5"}
+        scale_max={"5.1"}
       >
-        <left_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <right_icon x="0" y="0" width="0" height="0" stretch="1" />
-        <top_icon x="6" y="5.5" width="19" height="19" stretch="1">
-          <texture r="242" g="231" b="11">
+        <left_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <right_icon x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} />
+        <top_icon x={"6"} y={"5.5"} width={"19"} height={"19"} stretch={"1"}>
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_info2
           </texture>
         </top_icon>
-        <timer x="0" y="25" width="30" height="10">
-          <text font="letterica18" color="ui_4" align="c" stretch="1" />
+        <timer x={"0"} y={"25"} width={"30"} height={"10"}>
+          <text font={"letterica18"} color={"ui_4"} align={"c"} stretch={"1"} />
           <texture></texture>
         </timer>
         <static_border
-          x="2.5"
-          y="2.5"
-          width="25"
-          height="25"
-          stretch="0"
-          light_anim="ui_slow_blinking_alpha"
-          la_cyclic="1"
-          la_texture="1"
-          la_text="0"
-          la_alpha="1"
+          x={"2.5"}
+          y={"2.5"}
+          width={"25"}
+          height={"25"}
+          stretch={"0"}
+          light_anim={"ui_slow_blinking_alpha"}
+          la_cyclic={"1"}
+          la_texture={"1"}
+          la_text={"0"}
+          la_alpha={"1"}
         >
-          <texture r="242" g="231" b="11">
+          <texture r={"242"} g={"231"} b={"11"}>
             ui_pda2_stask_last_02a
           </texture>
         </static_border>

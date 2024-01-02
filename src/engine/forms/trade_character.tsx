@@ -29,19 +29,19 @@ export function create(): JSXNode {
 
   return (
     <w>
-      <icon_static x="64" y="18" width="145" height="104" />
+      <icon_static x={"64"} y={"18"} width={"145"} height={"104"} />
 
-      <name_static x="19" y="145" width="190" height="20">
-        <text font="graffiti22" color="ui_6" complex_mode="0" />
+      <name_static x={"19"} y={"145"} width={"190"} height={"20"}>
+        <text font={"graffiti22"} color={"ui_6"} complex_mode={"0"} />
       </name_static>
 
-      <community_caption x="19" y="168" width="60" height="15">
-        <text align="l" font="letterica16" color="ui_9">
+      <community_caption x={"19"} y={"168"} width={"60"} height={"15"}>
+        <text align={"l"} font={"letterica16"} color={"ui_9"}>
           ui_st_community
         </text>
       </community_caption>
-      <community_static x="80" y="168" width="130" height="15">
-        <text align="l" font="letterica16" color="ui_9" />
+      <community_static x={"80"} y={"168"} width={"130"} height={"15"}>
+        <text align={"l"} font={"letterica16"} color={"ui_9"} />
       </community_static>
     </w>
   );

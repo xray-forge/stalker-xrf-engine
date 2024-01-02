@@ -6,12 +6,12 @@ import { JSXNode, JSXXML } from "jsx-xml";
 export function create(): JSXNode {
   return (
     <w>
-      <file name="ui\ui_ingame2_back_add3_w">
-        <texture id="ui_inGame2_back_invw10_l" x="68" y="0" width="102" height="768" />
-        <texture id="ui_inGame2_back_invw10_r" x="170" y="0" width="102" height="768" />
+      <file name={"ui\\ui_ingame2_back_add3_w"}>
+        <texture id={"ui_inGame2_back_invw10_l"} x={"68"} y={"0"} width={"102"} height={"768"} />
+        <texture id={"ui_inGame2_back_invw10_r"} x={"170"} y={"0"} width={"102"} height={"768"} />
 
-        <texture id="ui_inGame2_back_pdaw10_l" x="408" y="0" width="102" height="768" />
-        <texture id="ui_inGame2_back_pdaw10_r" x="510" y="0" width="102" height="768" />
+        <texture id={"ui_inGame2_back_pdaw10_l"} x={"408"} y={"0"} width={"102"} height={"768"} />
+        <texture id={"ui_inGame2_back_pdaw10_r"} x={"510"} y={"0"} width={"102"} height={"768"} />
       </file>
     </w>
   );

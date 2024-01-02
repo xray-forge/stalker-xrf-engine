@@ -28,26 +28,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.jup_b32_place_scanner
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 jup_b209_scanner_place_tips
               </text>
             </auto_static>
@@ -61,26 +61,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.pri_b306_generator_start
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 pri_b306_generator_use
               </text>
             </auto_static>
@@ -94,26 +94,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.jup_b206_get_plant
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 jup_b206_use_plant
               </text>
             </auto_static>
@@ -127,26 +127,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.pas_b400_switcher
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 pas_b400_tip_switcher
               </text>
             </auto_static>
@@ -160,26 +160,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.pri_a18_use_idol
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 pri_a18_use_idol
               </text>
             </auto_static>
@@ -193,26 +193,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.jup_b209_place_scanner
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 jup_b209_scanner_place_tips
               </text>
             </auto_static>
@@ -226,26 +226,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.jup_b9_heli_1_searching
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 st_search_helicopter
               </text>
             </auto_static>
@@ -259,26 +259,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.jup_b8_heli_4_searching
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 st_search_helicopter
               </text>
             </auto_static>
@@ -292,26 +292,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.jup_b10_ufo_searching
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 jup_b10_ufo_searching_tips
               </text>
             </auto_static>
@@ -325,26 +325,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.zat_b101_heli_5_searching
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 st_search_helicopter
               </text>
             </auto_static>
@@ -358,26 +358,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.zat_b28_heli_3_searching
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 st_search_helicopter
               </text>
             </auto_static>
@@ -391,26 +391,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.zat_b100_heli_2_searching
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 st_search_helicopter
               </text>
             </auto_static>
@@ -424,26 +424,26 @@ export function GameQuestsObjectsInteractionTips(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.zat_b33_pic_snag_container
           </action>
           <guard_key>use</guard_key>
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 zat_b33_car_searching_tip
               </text>
             </auto_static>

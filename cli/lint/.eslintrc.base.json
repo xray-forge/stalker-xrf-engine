@@ -3,6 +3,11 @@
     "browser": true,
     "node": true
   },
+  "settings": {
+    "react": {
+      "version": "18"
+    }
+  },
   "ignorePatterns": ["target/*", "cli/bin/*", "src/resources/*", "cli/parse/utils/*"],
   "extends": [
     "eslint:recommended",
@@ -11,7 +16,8 @@
     "plugin:import/errors",
     "plugin:import/typescript",
     "plugin:jest/style",
-    "plugin:jsdoc/recommended"
+    "plugin:jsdoc/recommended",
+    "plugin:react/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "jest", "import", "sort-keys-fix"],
@@ -173,11 +179,14 @@
       }
     ],
     "quotes": ["error", "double"],
+    "react/jsx-curly-brace-presence": ["error", { "props": "always", "children": "never", "propElementValues": "always" }],
+    "react/jsx-key": "off",
+    "react/no-unknown-property": "off",
+    "react/react-in-jsx-scope": "off",
     "semi": "error",
     "space-in-parens": ["error", "never"],
     "spaced-comment": ["error", "always"],
     "template-tag-spacing": ["error", "never"],
     "yoda": "error"
-  },
-  "settings": {}
+  }
 }

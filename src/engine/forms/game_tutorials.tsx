@@ -58,30 +58,30 @@ function GameEndedChoicesModal(): JSXNode {
         <pause_state>off</pause_state>
         <guard_key>jump</guard_key>
         <function_on_stop>xr_effects.on_tutor_gameover_stop</function_on_stop>
-        <action id="quick_load" finalize="1">
+        <action id={"quick_load"} finalize={"1"}>
           xr_effects.on_tutor_gameover_quickload
         </action>
         <sound />
         <grab_input>1</grab_input>
         <main_wnd>
-          <auto_static start_time="0" length_sec="10000" x="350" y="360" width="300" height="60">
-            <text font="graffiti50" r="255" g="0" b="0" a="255" align="c">
+          <auto_static start_time={"0"} length_sec={"10000"} x={"350"} y={"360"} width={"300"} height={"60"}>
+            <text font={"graffiti50"} r={"255"} g={"0"} b={"0"} a={"255"} align={"c"}>
               st_game_over
             </text>
           </auto_static>
           <auto_static
-            start_time="3"
-            length_sec="10000"
-            x="350"
-            y="660"
-            width="300"
-            height="60"
-            light_anim="ui_pda_contacts"
-            la_cyclic="1"
-            la_text="1"
-            la_alpha="1"
+            start_time={"3"}
+            length_sec={"10000"}
+            x={"350"}
+            y={"660"}
+            width={"300"}
+            height={"60"}
+            light_anim={"ui_pda_contacts"}
+            la_cyclic={"1"}
+            la_text={"1"}
+            la_alpha={"1"}
           >
-            <text font="graffiti22" r="255" g="0" b="0" a="255" align="c">
+            <text font={"graffiti22"} r={"255"} g={"0"} b={"0"} a={"255"} align={"c"}>
               st_game_over_press_jump
             </text>
           </auto_static>
@@ -107,19 +107,19 @@ function GameLoadedPressAnyButton(): JSXNode {
         <grab_input>1</grab_input>
         <main_wnd>
           <auto_static
-            start_time="0"
-            length_sec="10000"
-            alignment="c"
-            x="512"
-            y="545"
-            width="600"
-            height="30"
-            light_anim="ui_slow_blinking_alpha"
-            la_cyclic="1"
-            la_text="1"
-            la_alpha="1"
+            start_time={"0"}
+            length_sec={"10000"}
+            alignment={"c"}
+            x={"512"}
+            y={"545"}
+            width={"600"}
+            height={"30"}
+            light_anim={"ui_slow_blinking_alpha"}
+            la_cyclic={"1"}
+            la_text={"1"}
+            la_alpha={"1"}
           >
-            <text font="letterica18" r="180" g="180" b="180" a="255" align="c">
+            <text font={"letterica18"} r={"180"} g={"180"} b={"180"} a={"255"} align={"c"}>
               st_press_any_key
             </text>
           </auto_static>
@@ -142,7 +142,7 @@ function GameObjectInteractionOverlays(): JSXNode {
         <item>
           <disabled_key>quit</disabled_key>
           <length_sec />
-          <action id="use" finalize="1">
+          <action id={"use"} finalize={"1"}>
             xr_effects.sleep
           </action>
           {/* <!--			<function_on_stop>xr_effects.sleep</function_on_stop> -->*/}
@@ -151,19 +151,19 @@ function GameObjectInteractionOverlays(): JSXNode {
           <grab_input>0</grab_input>
           <main_wnd>
             <auto_static
-              start_time="0"
-              length_sec="5000"
-              x="512"
-              y="660"
-              width="300"
-              height="60"
-              alignment="c"
-              stretch="1"
-              la_cyclic="1"
-              la_texture="1"
-              la_alpha="1"
+              start_time={"0"}
+              length_sec={"5000"}
+              x={"512"}
+              y={"660"}
+              width={"300"}
+              height={"60"}
+              alignment={"c"}
+              stretch={"1"}
+              la_cyclic={"1"}
+              la_texture={"1"}
+              la_alpha={"1"}
             >
-              <text font="graffiti22" r="225" g="225" b="250" a="255" align="c">
+              <text font={"graffiti22"} r={"225"} g={"225"} b={"250"} a={"255"} align={"c"}>
                 sleep_zone_tip
               </text>
             </auto_static>
