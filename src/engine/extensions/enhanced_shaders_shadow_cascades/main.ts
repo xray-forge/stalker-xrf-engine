@@ -38,3 +38,10 @@ export function register(): void {
     )
   );
 }
+
+export function unregister(): void {
+  logger.info("Enhanced shaders support shadow cascades disabled");
+
+  executeConsoleCommand("ssfx_shadow_cascades", "(0,0,0)");
+  executeConsoleCommand("ssfx_grass_shadows", "(0,0,0,0)");
+}
