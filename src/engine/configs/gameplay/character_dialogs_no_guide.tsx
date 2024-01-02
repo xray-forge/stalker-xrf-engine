@@ -2,7 +2,7 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 export const comment: string = "";
 
-export const defaultCharacterDialogs: JSXNode = (
+export const defaultCharacterDialogsNoGuide: JSXNode = (
   <Fragment>
     <start_dialog>hello_dialog</start_dialog>
     <actor_dialog>about_skadovsk_dialog_stalkers</actor_dialog>
@@ -17,5 +17,5 @@ export const defaultCharacterDialogs: JSXNode = (
 );
 
 export function create(): JSXNode {
-  return defaultCharacterDialogs;
+  return defaultCharacterDialogsNoGuide;
 }

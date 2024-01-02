@@ -259,8 +259,6 @@
 #include "gameplay\loadouts\character_criticals.xml"
         </specific_character>
 
-	<!----------------------------------- B207 --------------------------------->
-
 	<specific_character id="jup_b207_merc_illicit_dealer" team_default = "1">
     <name>GENERATE_NAME_stalker</name>
     <icon>ui_inGame2_merc_4</icon>
@@ -422,9 +420,6 @@
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
-
-	<!----------------------------------- A10 --------------------------------->
-
 	<!-- Лидер бандитов  -->
 	<specific_character id="jup_a10_bandit_leader" team_default="1">
 		<name>jup_a10_bandit_leader_name</name>
@@ -496,7 +491,6 @@
 #include "gameplay\loadouts\character_drugs_4.xml"
     </supplies>
 		<start_dialog>jup_a10_vano_help_dialog</start_dialog>
-		<!------------ <actor_dialog>jup_a10_vano_go_to_underground_dialog</actor_dialog> ----------------------------------->
 		<actor_dialog>jup_a10_stalker_vano_need_outfit</actor_dialog>
 		<actor_dialog>jup_a10_stalker_vano_outfit_money_yes</actor_dialog>
 		<actor_dialog>jup_a10_stalker_vano_pripyat_group</actor_dialog>
@@ -513,7 +507,6 @@
 
 #include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
-	<!---------------------------------------- B4 ------------------------------------------------->
 
 	<specific_character id="jup_b4_monolith_squad_leader_monolith_skin" team_default="1">
 		<name>jup_b4_monolith_squad_leader_name</name>
@@ -1377,8 +1370,6 @@
 #include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
-	<!---------------------------------------- B16 ------------------------------------------------->
-
 	<!-- Сталкер Биохимик   -->
 	<specific_character id="jup_b6_scientist_biochemist" team_default = "1">
 		<name>jup_b6_scientist_biochemist</name>
@@ -1479,7 +1470,6 @@
 
 #include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
-	<!----------------------------------- B9 --------------------------------->
 
   <specific_character id="jup_b9_shliachin" team_default = "1">
 	<name>jup_b9_shliachin_name</name>
@@ -1512,8 +1502,6 @@
     </supplies>
 #include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
-
-<!----------------------------------- B10 --------------------------------->
 
 	<!-- Сенька Пьяница  -->
 	<specific_character id="jup_b10_stalker_drunk" team_default="1">
@@ -1567,7 +1555,6 @@
       [spawn] \n
     </supplies>
   </specific_character>
-	<!----------------------------------- B200 --------------------------------->
 
 	<!-- Техник Азот   -->
 
@@ -1630,8 +1617,6 @@
 #include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
 
-	<!----------------------------------- B220 --------------------------------->
-
 	<!-- Зверобой   -->
 
 	<specific_character id="jup_b220_trapper" team_default = "1">
@@ -1683,8 +1668,6 @@
 		<actor_dialog>actor_break_dialog</actor_dialog>
 
   </specific_character>
-
-	<!----------------------------------- B1 --------------------------------->
 
 	<!-- Техник Новиков   -->
 	<specific_character id="jup_b6_scientist_tech" team_default = "1">
@@ -2651,8 +2634,6 @@
 #include "gameplay\character_dialogs_no_guide.xml"
   </specific_character>
 
-	<!---------------------------------------------------------------------------------------------->
-
 	<!-- Сталкер "Сеня Щепка"   -->
 
 	<specific_character id="jup_b25_stalker_senya" team_default = "1">
@@ -2733,8 +2714,6 @@
 
 #include "gameplay\loadouts\character_criticals.xml"
   </specific_character>
-
-	<!---------------------------------------------------------------------------------------------->
 
 	<!-- Сталкер медик "Костоправ"   -->
 
@@ -3698,7 +3677,6 @@
   </specific_character>
 
 
-	<!----------------------------------- B219 --------------------------------->
 	<specific_character id="jup_b219_stalker_tech" team_default = "1">
 		<name>jup_b217_stalker_tech</name>
 		<icon>ui_inGame2_Azot</icon>

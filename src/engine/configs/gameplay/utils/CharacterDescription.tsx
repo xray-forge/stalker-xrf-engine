@@ -16,6 +16,7 @@ export interface ICharacterDescriptionProps {
   reputation?: number;
   moneyMin?: number;
   moneyMax?: number;
+  crouchType?: number;
   community: string;
   terrainSection?: string;
   supplies?: Array<ILoadoutItemDescriptor>;
@@ -39,6 +40,7 @@ export function CharacterDescription({
   bio,
   icon,
   team,
+  crouchType,
   community,
   moneyMin,
   moneyMax,
@@ -67,6 +69,7 @@ export function CharacterDescription({
       {typeof moneyMin === "number" ? (
         <money min={moneyMin} max={moneyMax ?? moneyMin} infinitive={infiniteMoney ? 1 : 0} />
       ) : null}
+      {typeof crouchType === "number" ? <crouch_type>{crouchType}</crouch_type> : null}
       <visual>{visual}</visual>
       {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}
