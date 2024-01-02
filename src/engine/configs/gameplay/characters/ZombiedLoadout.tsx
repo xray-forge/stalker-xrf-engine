@@ -5,7 +5,7 @@ import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/cha
 import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
 import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
 import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
+import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
 import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
 import { defaultCharacterItemsWithoutTorch2 } from "@/engine/configs/gameplay/loadouts/character_items_2_nl";
 import { defaultCharacterItemsWithoutTorch3 } from "@/engine/configs/gameplay/loadouts/character_items_3_nl";
@@ -214,7 +214,7 @@ export function ZombiedLoadout(): JSXNode {
           ...defaultCharacterItemsWithoutTorch2,
           ...defaultCharacterFood,
           ...defaultCharacterDrugs2,
-          ...defaultDrugsMilitary,
+          ...defaultCharacterDrugsMilitary,
         ]}
       >
         {defaultCharacterCritical}
@@ -240,7 +240,7 @@ export function ZombiedLoadout(): JSXNode {
           ...defaultCharacterItemsWithoutTorch2,
           ...defaultCharacterFood,
           ...defaultCharacterDrugs2,
-          ...defaultDrugsMilitary,
+          ...defaultCharacterDrugsMilitary,
         ]}
       >
         {defaultCharacterCritical}
@@ -266,7 +266,7 @@ export function ZombiedLoadout(): JSXNode {
           ...defaultCharacterItemsWithoutTorch2,
           ...defaultCharacterFood,
           ...defaultCharacterDrugs2,
-          ...defaultDrugsMilitary,
+          ...defaultCharacterDrugsMilitary,
         ]}
       >
         {defaultCharacterCritical}
@@ -292,7 +292,7 @@ export function ZombiedLoadout(): JSXNode {
           ...defaultCharacterItemsWithoutTorch2,
           ...defaultCharacterFood,
           ...defaultCharacterDrugs2,
-          ...defaultDrugsMilitary,
+          ...defaultCharacterDrugsMilitary,
         ]}
       >
         {defaultCharacterCritical}
@@ -318,7 +318,7 @@ export function ZombiedLoadout(): JSXNode {
           ...defaultCharacterItemsWithoutTorch3,
           ...defaultCharacterFood,
           ...defaultCharacterDrugs4,
-          ...defaultDrugsMilitary,
+          ...defaultCharacterDrugsMilitary,
         ]}
       >
         {defaultCharacterCritical}
@@ -344,7 +344,7 @@ export function ZombiedLoadout(): JSXNode {
           ...defaultCharacterItemsWithoutTorch3,
           ...defaultCharacterFood,
           ...defaultCharacterDrugs4,
-          ...defaultDrugsMilitary,
+          ...defaultCharacterDrugsMilitary,
         ]}
       >
         {defaultCharacterCritical}
@@ -370,7 +370,7 @@ export function ZombiedLoadout(): JSXNode {
           ...defaultCharacterItemsWithoutTorch3,
           ...defaultCharacterFood,
           ...defaultCharacterDrugs4,
-          ...defaultDrugsMilitary,
+          ...defaultCharacterDrugsMilitary,
         ]}
       >
         {defaultCharacterCritical}
@@ -396,7 +396,7 @@ export function ZombiedLoadout(): JSXNode {
           ...defaultCharacterItemsWithoutTorch3,
           ...defaultCharacterFood,
           ...defaultCharacterDrugs4,
-          ...defaultDrugsMilitary,
+          ...defaultCharacterDrugsMilitary,
         ]}
       >
         {defaultCharacterCritical}

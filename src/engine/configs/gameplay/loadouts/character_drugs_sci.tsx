@@ -5,10 +5,10 @@ import { drugs } from "@/engine/lib/constants/items/drugs";
 
 export const comment: string = "";
 
-export const defaultDrugsMilitary: Array<ILoadoutItemDescriptor> = [
+export const defaultCharacterDrugsScientific: Array<ILoadoutItemDescriptor> = [
   { section: drugs.medkit_scientic, probability: 0.2 },
 ];
 
 export function create(): JSXNode {
-  return createLoadout(defaultDrugsMilitary);
+  return createLoadout(defaultCharacterDrugsScientific);
 }
