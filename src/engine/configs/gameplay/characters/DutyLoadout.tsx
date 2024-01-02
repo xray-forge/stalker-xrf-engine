@@ -156,7 +156,7 @@ export function DutyLoadout(): JSXNode {
       </SpecificCharacter>
 
       <SpecificCharacter
-        id={"sim_default_duty_0_default_2"}
+        id={"sim_default_duty_1_default_0"}
         className={"sim_default_duty_1"}
         name={GENERATE_ARMY_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}

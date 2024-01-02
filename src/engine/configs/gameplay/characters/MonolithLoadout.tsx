@@ -390,7 +390,7 @@ export function MonolithLoadout(): JSXNode {
       </SpecificCharacter>
 
       <SpecificCharacter
-        id={"sim_default_monolith_2_default_6"}
+        id={"sim_default_monolith_2_default_7"}
         className={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
         icon={"ui_inGame2_monolit_2"}

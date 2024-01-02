@@ -9,8 +9,8 @@ export interface ICharacterDescriptionProps {
   name: string;
   icon: string;
   bio?: string;
-  soundConfig?: string;
   team?: string;
+  soundConfig?: string;
   visual: string;
   rank?: number;
   reputation?: number;
