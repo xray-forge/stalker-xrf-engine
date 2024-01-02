@@ -45,7 +45,18 @@ export class OptionsVideo extends CUIWindow {
     xml.InitStatic("tab_video:cap_renderer", this);
     owner.uiCurrentRendererSelect = xml.InitComboBox("tab_video:list_renderer", this);
 
+    xml.InitStatic("tab_video:cap_color_grading_preset", this);
+    owner.uiShaderGradingSelect = xml.InitComboBox("tab_video:list_color_grading_presets", this);
+    owner.Register(owner.uiShaderGradingSelect, "combo_color_grading_preset");
+
+    xml.InitStatic("tab_video:cap_shader_preset", this);
+    owner.uiShaderPresetSelect = xml.InitComboBox("tab_video:list_shader_presets", this);
+    owner.Register(owner.uiShaderPresetSelect, "combo_shader_preset");
+
     owner.Register(owner.uiCurrentRendererSelect, "combo_renderer");
     owner.Register(xml.Init3tButton("tab_video:btn_advanced", this), "btn_advanced_graphic");
+
+    // Do not enable grading when shader is not selected.
+    owner.uiShaderGradingSelect.Enable(owner.uiShaderPresetSelect.CurrentID() !== 0);
   }
 }

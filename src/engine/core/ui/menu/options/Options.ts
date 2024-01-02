@@ -50,6 +50,8 @@ export class Options extends CUIScriptWnd {
 
   // From child sections:
   public uiCurrentPresetSelect!: CUIComboBox;
+  public uiShaderPresetSelect!: CUIComboBox;
+  public uiShaderGradingSelect!: CUIComboBox;
   public uiCurrentRendererSelect!: CUIComboBox;
   public uiTextureLodTrackBar!: CUITrackBar;
   public uiSSamplingTrackBar!: CUITrackBar;
@@ -167,6 +169,8 @@ export class Options extends CUIScriptWnd {
       this
     );
     this.AddCallback("combo_preset", ui_events.LIST_ITEM_SELECT, () => this.onPresetChanged(), this);
+    this.AddCallback("combo_color_grading_preset", ui_events.LIST_ITEM_SELECT, () => this.onPresetChanged(), this);
+    this.AddCallback("combo_shader_preset", ui_events.LIST_ITEM_SELECT, () => this.onShaderPresetChanged(), this);
     this.AddCallback("btn_simply_graphic", ui_events.BUTTON_CLICKED, () => this.onShowSimpleGraphicsClicked(), this);
     this.AddCallback("btn_keyb_default", ui_events.BUTTON_CLICKED, () => this.onDefaultKeybindsButtonClicked(), this);
     this.AddCallback("combo_renderer", ui_events.LIST_ITEM_SELECT, () => this.updateControls(), this);
@@ -194,6 +198,7 @@ export class Options extends CUIScriptWnd {
     }
 
     this.uiTextureLodTrackBar.SetOptIBounds(minTextureLod, maxTextureLod);
+    this.onShaderPresetChanged();
   }
 
   public onDefaultKeybindsButtonClicked(): void {
@@ -209,6 +214,15 @@ export class Options extends CUIScriptWnd {
     const optionsManager: COptionsManager = new COptionsManager();
 
     optionsManager.SetCurrentValues(EOptionGroup.OPTIONS_VIDEO_ADVANCED);
+  }
+
+  public onShaderPresetChanged(): void {
+    const optionsManager: COptionsManager = new COptionsManager();
+
+    optionsManager.SetCurrentValues("mm_opt_video_adv");
+
+    // Do not allow grading select when preset is not appropriate.
+    this.uiShaderGradingSelect.Enable(this.uiShaderPresetSelect.CurrentID() !== 0);
   }
 
   public onDefaultGraphicsButtonClicked(): void {

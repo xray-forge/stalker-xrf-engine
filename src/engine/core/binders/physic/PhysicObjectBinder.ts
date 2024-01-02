@@ -156,8 +156,8 @@ export class PhysicObjectBinder extends object_binder {
    * @param object - game object being used
    * @param who - game object using it
    */
-  public onUse(object: GameObject, who: GameObject): void {
-    logger.format("Object used: %s by %s", object.name(), object.section(), who.name());
+  public onUse(object: GameObject, who: Optional<GameObject>): void {
+    logger.format("Object used: %s by %s", object.name(), object.section(), who?.name());
 
     if (this.state.activeScheme) {
       emitSchemeEvent(
