@@ -1,18 +1,15 @@
-import * as fs from "fs";
 import * as fsPromises from "fs/promises";
-import * as path from "path";
 
-import { blueBright, yellow, yellowBright } from "chalk";
+import { blueBright, yellow } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
+import { getFolderReplicationDescriptors } from "#/build/utils";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
-import { readDirContent } from "#/utils/fs";
+import { createDirForConfigs } from "#/utils/fs";
 import { NodeLogger } from "#/utils/logging";
-import { EAssetExtension, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";
+import { EAssetExtension, TFolderReplicationDescriptor } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");
-
-const EXPECTED_CONFIG_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.LTX, EAssetExtension.XML];
 
 /**
  * Simply copy .xml and .ltx config statics to resulting gamedata directory.
@@ -20,62 +17,37 @@ const EXPECTED_CONFIG_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.LTX,
 export async function buildStaticConfigs(parameters: IBuildCommandParameters): Promise<void> {
   log.info(blueBright("Copy static configs"));
 
-  const staticConfigs: Array<TFolderReplicationDescriptor> = await getStaticConfigs(parameters.filter);
+  const ltxDescriptors: Array<TFolderReplicationDescriptor> = await getFolderReplicationDescriptors({
+    fromDirectory: GAME_DATA_LTX_CONFIGS_DIR,
+    toDirectory: TARGET_GAME_DATA_CONFIGS_DIR,
+    fromExtension: EAssetExtension.LTX,
+    toExtension: EAssetExtension.LTX,
+    filters: parameters.filter,
+  });
+  const xmlDescriptors: Array<TFolderReplicationDescriptor> = await getFolderReplicationDescriptors({
+    fromDirectory: GAME_DATA_LTX_CONFIGS_DIR,
+    toDirectory: TARGET_GAME_DATA_CONFIGS_DIR,
+    fromExtension: EAssetExtension.XML,
+    toExtension: EAssetExtension.XML,
+    filters: parameters.filter,
+  });
+  const descriptors: Array<TFolderReplicationDescriptor> = ltxDescriptors.concat(xmlDescriptors);
 
-  if (staticConfigs.length > 0) {
-    log.info("Found static configs:", staticConfigs.length);
+  if (descriptors.length) {
+    log.info("Found static configs:", descriptors.length);
 
-    /**
-     * Sync way for folder creation when needed.
-     */
-    staticConfigs.forEach(([from, to]) => {
-      const targetDir: string = path.dirname(to);
-
-      if (!fs.existsSync(targetDir)) {
-        log.debug("MKDIR:", yellowBright(targetDir));
-        fs.mkdirSync(targetDir, { recursive: true });
-      }
-    });
+    createDirForConfigs(descriptors, log);
 
     await Promise.all(
-      staticConfigs.map(([from, to]) => {
+      descriptors.map(([from, to]) => {
         log.debug("CP:", yellow(to));
 
         return fsPromises.copyFile(from, to);
       })
     );
 
-    log.info("Configs processed:", staticConfigs.length);
+    log.info("Configs processed:", descriptors.length);
   } else {
     log.info("No static configs found", parameters.filter);
   }
-}
-
-/**
- * Get list of static configs.
- */
-async function getStaticConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
-  /**
-   * Collect list of LTX configs for including in build.
-   * Recursively find all ltx files in configs dir.
-   */
-  function collectConfigs(
-    acc: Array<TFolderReplicationDescriptor>,
-    it: TFolderFiles
-  ): Array<TFolderReplicationDescriptor> {
-    if (Array.isArray(it)) {
-      it.forEach((nested) => collectConfigs(acc, nested));
-    } else if (EXPECTED_CONFIG_EXTENSIONS.includes(path.extname(it) as EAssetExtension)) {
-      const relativePath: string = it.slice(GAME_DATA_LTX_CONFIGS_DIR.length);
-
-      // Filter.
-      if (!filters.length || filters.some((filter) => it.match(filter))) {
-        acc.push([it, path.join(TARGET_GAME_DATA_CONFIGS_DIR, relativePath)]);
-      }
-    }
-
-    return acc;
-  }
-
-  return (await readDirContent(GAME_DATA_LTX_CONFIGS_DIR)).reduce(collectConfigs, []);
 }
