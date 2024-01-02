@@ -1,13 +1,13 @@
 import * as fsPromises from "fs/promises";
-import * as path from "path";
 
 import { blue, blueBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
+import { getFolderReplicationDescriptors } from "#/build/utils";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
-import { createDirForConfigs, readDirContent } from "#/utils/fs";
+import { createDirForConfigs } from "#/utils/fs";
 import { NodeLogger } from "#/utils/logging";
-import { EAssetExtension, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";
+import { EAssetExtension, TFolderReplicationDescriptor } from "#/utils/types";
 import { renderJsxToXmlText } from "#/utils/xml";
 
 const log: NodeLogger = new NodeLogger("BUILD_UI_DYNAMIC");
@@ -21,63 +21,41 @@ export async function buildDynamicUi(parameters: IBuildCommandParameters): Promi
   log.info(blueBright("Build dynamic UI schemas:", parameters.filter));
   log.debug("Parameters:", parameters);
 
-  const xmlConfigs: Array<TFolderReplicationDescriptor> = await getUiConfigs(parameters.filter);
+  const descriptors: Array<TFolderReplicationDescriptor> = await getFolderReplicationDescriptors({
+    fromDirectory: GAME_DATA_UI_DIR,
+    toDirectory: TARGET_GAME_DATA_UI_DIR,
+    fromExtension: EXPECTED_DYNAMIC_XML_EXTENSIONS,
+    toExtension: EAssetExtension.XML,
+    filters: parameters.filter,
+  });
 
-  if (xmlConfigs.length > 0) {
-    log.info("Found dynamic XML configs");
+  if (descriptors.length) {
+    log.info("Found dynamic UI XML configs:", descriptors.length);
 
     let processedXmlConfigs: number = 0;
     let skippedXmlConfigs: number = 0;
 
-    createDirForConfigs(xmlConfigs, log);
+    createDirForConfigs(descriptors, log);
 
     await Promise.all(
-      xmlConfigs.map(async ([from, to]) => {
+      descriptors.map(async ([from, to]) => {
         const xmlSource = await import(from);
         const xmlContent = typeof xmlSource?.create === "function" && xmlSource?.create();
 
         if (xmlContent) {
-          log.debug("TRANSFORM:", blue(to));
+          log.debug("TRANSFORM UI XML:", blue(to));
           await fsPromises.writeFile(to, renderJsxToXmlText(xmlContent));
           processedXmlConfigs += 1;
         } else {
-          log.debug("SKIP, not valid XML source:", blue(from));
+          log.debug("SKIP, not valid UI XML source:", blue(from));
           skippedXmlConfigs += 1;
         }
       })
     );
 
-    log.info("TSX files processed:", processedXmlConfigs);
-    log.info("TSX files skipped:", skippedXmlConfigs);
+    log.info("UI TSX files processed:", processedXmlConfigs);
+    log.info("UI TSX files skipped:", skippedXmlConfigs);
   } else {
     log.info("No dynamic UI typescript configs found");
   }
-}
-
-/**
- * Get list of UI config files in engine source files.
- */
-async function getUiConfigs(filters: Array<string> = []): Promise<Array<TFolderReplicationDescriptor>> {
-  /**
-   * Collect list of ts configs for including in build and correctly transforming to XML forms.
-   */
-  function collectXmlConfigs(
-    acc: Array<TFolderReplicationDescriptor>,
-    it: TFolderFiles
-  ): Array<TFolderReplicationDescriptor> {
-    if (Array.isArray(it)) {
-      it.forEach((nested) => collectXmlConfigs(acc, nested));
-    } else if (EXPECTED_DYNAMIC_XML_EXTENSIONS.includes(path.extname(it) as EAssetExtension)) {
-      const to: string = it.slice(GAME_DATA_UI_DIR.length).replace(/\.[^/.]+$/, "") + EAssetExtension.XML;
-
-      // Filter.
-      if (!filters.length || filters.some((filter) => it.match(filter))) {
-        acc.push([it, path.join(TARGET_GAME_DATA_UI_DIR, to)]);
-      }
-    }
-
-    return acc;
-  }
-
-  return (await readDirContent(GAME_DATA_UI_DIR)).reduce(collectXmlConfigs, []);
 }

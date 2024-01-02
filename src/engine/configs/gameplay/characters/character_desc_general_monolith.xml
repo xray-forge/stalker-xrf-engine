@@ -23,7 +23,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
   </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -55,7 +55,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 #include "gameplay\character_dialogs.xml"
 </specific_character>
@@ -86,7 +86,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 #include "gameplay\character_dialogs.xml"
 </specific_character>
@@ -117,7 +117,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 
 #include "gameplay\character_dialogs.xml"
 </specific_character>
@@ -151,7 +151,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -182,7 +182,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -213,7 +213,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -244,7 +244,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -277,7 +277,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -308,7 +308,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -339,7 +339,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_3.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -370,7 +370,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -401,7 +401,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -432,7 +432,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -463,7 +463,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -494,7 +494,7 @@
 #include "gameplay\loadouts\character_food.xml"
 #include "gameplay\loadouts\character_drugs_2.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -529,7 +529,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -562,7 +562,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -595,7 +595,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -627,7 +627,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -660,7 +660,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -694,7 +694,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -727,7 +727,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -760,7 +760,7 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
 
@@ -793,6 +793,6 @@
 #include "gameplay\loadouts\character_drugs_sci.xml"
 #include "gameplay\loadouts\character_drugs_mil.xml"
 </supplies>
-#include "gameplay\loadouts\character_criticals_4.xml"
+#include "gameplay\loadouts\character_criticals.xml"
 #include "gameplay\character_dialogs.xml"
 </specific_character>
