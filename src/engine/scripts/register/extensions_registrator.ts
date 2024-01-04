@@ -36,7 +36,7 @@ export function registerExtensions(isNewGame: boolean): void {
       registerExtension(extension);
       (extension.module as AnyCallablesModule).register(isNewGame, extension);
     } else {
-      (extension.module as AnyCallablesModule)?.unregister(isNewGame, extension);
+      (extension.module as AnyCallablesModule)?.unregister?.(isNewGame, extension);
     }
   }
 
