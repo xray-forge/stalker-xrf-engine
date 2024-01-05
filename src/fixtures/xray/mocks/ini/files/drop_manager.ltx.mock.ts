@@ -1,5 +1,5 @@
 export const mockDropManager = {
-  keep_items: {},
+  keep_items: ["keep_item_section"],
   item_dependence: {
     ammo_9x18_fmj: "wpn_pm, wpn_pb, wpn_fort",
     ammo_9x19_fmj: "wpn_hpsa, wpn_beretta, wpn_walther, wpn_mp5",

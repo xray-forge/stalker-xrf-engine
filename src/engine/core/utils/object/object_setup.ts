@@ -1,30 +1,17 @@
-import { ini_file } from "xray16";
-
-import { DUMMY_LTX, registry, SYSTEM_INI } from "@/engine/core/database";
+import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
 import { GameObject, IniFile, Optional, TCount, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Setup object visuals based on global section description.
+ * Used to copy current actor visual in cutscenes and display same armor/helmet as currently equipped by player.
  *
- * @param object - target game object to initialize visuals for
- */
-export function getObjectSpawnIni(object: GameObject): IniFile {
-  const ini: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;
-  const name: Optional<TName> = ini ? readIniString(ini, "logic", "cfg", false) : null;
-
-  return (name ? new ini_file(name) : ini) ?? DUMMY_LTX;
-}
-
-/**
- * Setup object visuals based on global section description.
- *
- * @param object - target game object to initialize visuals for
+ * @param object - game object to initialize visuals for
  */
 export function setupObjectStalkerVisual(object: GameObject): void {
-  const visual: TName = readIniString(SYSTEM_INI, object.section(), "set_visual", false);
+  const visual: Optional<TName> = readIniString(SYSTEM_INI, object.section(), "set_visual", false);
 
-  if (visual !== null && visual !== "") {
+  if (visual && visual !== "") {
     object.set_visual_name(visual === "actor_visual" ? registry.actor.get_visual_name() : visual);
   }
 }
@@ -32,7 +19,7 @@ export function setupObjectStalkerVisual(object: GameObject): void {
 /**
  * Setup object info portions for game object.
  *
- * @param object - target game to object to initialize info portions for
+ * @param object - game to object to initialize info portions for
  * @param ini - ini file to read info from
  * @param section - ini file section to read info from
  */

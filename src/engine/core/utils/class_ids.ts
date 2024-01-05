@@ -42,6 +42,20 @@ export function isStalker(object: AnyGameObject, classId: TClassId = object.clsi
 }
 
 /**
+ * Check whether object is matching stalker or monster class id.
+ *
+ * @param object - any game object to check
+ * @param classId - class id to check
+ * @returns whether object class id is a stalker or a monster
+ */
+export function isCreature(
+  object: AnyGameObject,
+  classId: TClassId = object.clsid()
+): object is Stalker | ServerMonsterAbstractObject | GameObject {
+  return classIds.stalker.has(classId) || classIds.monster.has(classId);
+}
+
+/**
  * Check whether object is matching trader class id.
  *
  * @param object - any game object to check

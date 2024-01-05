@@ -11,6 +11,10 @@ export class MockIniFile<T extends AnyObject> {
     return new MockIniFile(path, data, content) as unknown as IniFile;
   }
 
+  public static register(path: TPath, data: AnyObject): void {
+    FILES_MOCKS[path] = data;
+  }
+
   public path: TName;
   public content: string;
   public data: T;

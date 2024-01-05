@@ -14,6 +14,8 @@ export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisua
   public m_smart_terrain_id: TNumberId = MAX_U16;
   public group_id: TNumberId = MAX_U16;
 
+  public alive = jest.fn(() => true);
+
   public force_set_goodwill = jest.fn();
 
   public smart_terrain_task_activate = jest.fn();

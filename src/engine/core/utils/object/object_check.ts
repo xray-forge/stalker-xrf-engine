@@ -1,9 +1,16 @@
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { isStalker } from "@/engine/core/utils/class_ids";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { GameObject, Optional, ServerHumanObject, ServerObject, TNumberId, TStringId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
+import { readIniString } from "@/engine/core/utils/ini";
+import { getObjectSpawnIni } from "@/engine/core/utils/object/object_get";
+import {
+  GameObject,
+  IniFile,
+  Optional,
+  ServerHumanObject,
+  ServerObject,
+  TNumberId,
+  TStringId,
+} from "@/engine/lib/types";
 
 /**
  * @returns whether actor can start sleeping
@@ -43,7 +50,7 @@ export function isStalkerAlive(targetObject: GameObject | ServerObject | TString
 /**
  * Check whether object is alive and actor is seen by object.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether actor is seen by object
  */
 export function isActorSeenByObject(object: GameObject): boolean {
@@ -53,7 +60,7 @@ export function isActorSeenByObject(object: GameObject): boolean {
 /**
  * Check whether actor is alive and object is seen by actor.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether object is seen by actor
  */
 export function isObjectSeenByActor(object: GameObject): boolean {
@@ -63,9 +70,21 @@ export function isObjectSeenByActor(object: GameObject): boolean {
 /**
  * Check whether object is injured.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether object is injured/bleeding/contaminated
  */
 export function isObjectInjured(object: GameObject): boolean {
   return object.health < 1 || object.radiation > 0 || object.bleeding > 0;
+}
+
+/**
+ * @param object - game object to check
+ * @returns whether object has defined known_info section
+ */
+export function isObjectWithKnownInfo(object: GameObject): boolean {
+  const ini: IniFile = getObjectSpawnIni(object);
+
+  return ini.section_exist(
+    readIniString(ini, registry.objects.get(object.id()).sectionLogic, "known_info", false) || "known_info"
+  );
 }

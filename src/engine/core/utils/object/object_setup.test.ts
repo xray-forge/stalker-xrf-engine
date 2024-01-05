@@ -1,51 +1,10 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
-import { DUMMY_LTX, registerActor } from "@/engine/core/database";
-import {
-  getObjectSpawnIni,
-  setupObjectInfoPortions,
-  setupObjectStalkerVisual,
-} from "@/engine/core/utils/object/object_setup";
-import { GameObject, IniFile } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
+import { registerActor } from "@/engine/core/database";
+import { setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object/object_setup";
+import { GameObject } from "@/engine/lib/types";
 import { expectCallsToEqual } from "@/fixtures/jest";
-import { FILES_MOCKS, MockGameObject, mockIniFile } from "@/fixtures/xray";
-
-describe("getObjectSpawnIni utils", () => {
-  beforeEach(() => {
-    resetRegistry();
-  });
-
-  it("should correctly fallback to dummy ini", () => {
-    const object: GameObject = MockGameObject.mock();
-
-    jest.spyOn(object, "spawn_ini").mockImplementation(() => null as unknown as IniFile);
-
-    expect(getObjectSpawnIni(object)).toBe(DUMMY_LTX);
-  });
-
-  it("should correctly just return spawn ini without logics", () => {
-    const object: GameObject = MockGameObject.mock();
-
-    expect(getObjectSpawnIni(object)).toBe(object.spawn_ini());
-  });
-
-  it("should correctly return spawn ini from logics cfg", () => {
-    const object: GameObject = MockGameObject.mock();
-
-    FILES_MOCKS["test_for_util.ltx"] = mockIniFile("test_for_util.ltx", {});
-
-    jest.spyOn(object, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test_for_util.ltx", {
-        logic: {
-          cfg: "test_for_util.ltx",
-        },
-      });
-    });
-
-    expect(getObjectSpawnIni(object).fname()).toBe("test_for_util.ltx");
-  });
-});
+import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("setupObjectVisual utils", () => {
   it("should setup visuals", () => {

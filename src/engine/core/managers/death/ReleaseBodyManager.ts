@@ -1,41 +1,14 @@
-import { game_graph, getFS, ini_file, time_global } from "xray16";
+import { game_graph, time_global } from "xray16";
 
-import {
-  closeLoadMarker,
-  closeSaveMarker,
-  DUMMY_LTX,
-  getStoryIdByObjectId,
-  IRegistryObjectState,
-  openLoadMarker,
-  openSaveMarker,
-  registry,
-} from "@/engine/core/database";
+import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IReleaseDescriptor } from "@/engine/core/managers/death/death_types";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
-import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
-import { abort } from "@/engine/core/utils/assertion";
-import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
-import { readIniString } from "@/engine/core/utils/ini";
+import { canReleaseObjectCorpse, getNearestCorpseToRelease } from "@/engine/core/managers/death/utils/death_utils";
+import { isCreature } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
-import { roots } from "@/engine/lib/constants/roots";
-import {
-  GameObject,
-  IniFile,
-  LuaArray,
-  NetPacket,
-  NetProcessor,
-  Optional,
-  ServerObject,
-  TCount,
-  TDistance,
-  TIndex,
-  TName,
-  TNumberId,
-  TSection,
-  Vector,
-} from "@/engine/lib/types";
+import { GameObject, NetPacket, NetProcessor, Optional, ServerObject, TCount, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -44,145 +17,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Release the most further of them from time to time to keep up with limits.
  */
 export class ReleaseBodyManager extends AbstractManager {
-  /**
-   * todo: Description.
-   */
-  public addDeadBody(object: GameObject): void {
-    if (this.inspectionResult(object)) {
-      if (deathConfig.RELEASE_OBJECTS_REGISTRY.length() > deathConfig.MAX_BODY_COUNT) {
-        this.tryToReleaseCorpses();
-      }
-
-      logger.info("Add to release table:", object.name());
-
-      table.insert(deathConfig.RELEASE_OBJECTS_REGISTRY, {
-        id: object.id(),
-        diedAt: time_global(),
-      });
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public tryToReleaseCorpses(): void {
-    logger.info(
-      "Try to release dead bodies:",
-      deathConfig.RELEASE_OBJECTS_REGISTRY.length(),
-      deathConfig.MAX_BODY_COUNT
-    );
-
-    const overflowCount: TCount = deathConfig.RELEASE_OBJECTS_REGISTRY.length() - deathConfig.MAX_BODY_COUNT;
-
-    for (const _ of $range(1, overflowCount)) {
-      const positionInList: Optional<TIndex> = this.findNearestObjectToRelease(deathConfig.RELEASE_OBJECTS_REGISTRY);
-
-      if (positionInList === null) {
-        return;
-      }
-
-      const releaseObject: Optional<ServerObject> = registry.simulator.object(
-        deathConfig.RELEASE_OBJECTS_REGISTRY.get(positionInList).id
-      );
-
-      if (releaseObject !== null) {
-        logger.info("Releasing object:", releaseObject.name());
-
-        if (isStalker(releaseObject) || isMonster(releaseObject)) {
-          if (releaseObject.alive()) {
-            logger.warn("Detected alive object in release table:", releaseObject.name());
-          } else {
-            registry.simulator.release(releaseObject, true);
-          }
-        }
-      }
-
-      table.remove(deathConfig.RELEASE_OBJECTS_REGISTRY, positionInList);
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  protected inspectionResult(object: GameObject): boolean {
-    if (getStoryIdByObjectId(object.id()) !== null) {
-      // logger.info("Ignore corpse release, present in story:", object.name());
-
-      return false;
-    }
-
-    if (this.checkForKnownInfo(object)) {
-      // logger.info("Ignore corpse release, present in known info:", object.name());
-
-      return false;
-    }
-
-    for (const [section] of dropConfig.ITEMS_KEEP) {
-      if (object.object(section)) {
-        // logger.info("Ignore corpse release, contains keep item:", object.name(), k);
-
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  protected checkForKnownInfo(object: GameObject): boolean {
-    let characterIni: Optional<IniFile> = null;
-    const objectSpawnIni: Optional<IniFile> = object.spawn_ini();
-    const filename: Optional<TName> =
-      objectSpawnIni === null ? null : readIniString(objectSpawnIni, "logic", "cfg", false);
-
-    if (filename !== null) {
-      if (!getFS().exist(roots.gameConfig, filename)) {
-        abort("There is no configuration file [%s] in [%s]", filename, object.name());
-      }
-
-      characterIni = new ini_file(filename);
-    } else {
-      characterIni = object.spawn_ini() || DUMMY_LTX;
-    }
-
-    const state: IRegistryObjectState = registry.objects.get(object.id());
-    const knownInfo: TSection = readIniString(characterIni, state.sectionLogic, "known_info", false) || "known_info";
-
-    return characterIni.section_exist(knownInfo);
-  }
-
-  /**
-   * todo: Description.
-   */
-  protected findNearestObjectToRelease(releaseObjectsRegistry: LuaArray<IReleaseDescriptor>): Optional<TIndex> {
-    const actorPosition: Vector = registry.actor.position();
-
-    let releaseObjectIndex: Optional<TIndex> = null;
-    let maximalDistance: number = deathConfig.MAX_DISTANCE_SQR;
-
-    for (const [index, releaseDescriptor] of releaseObjectsRegistry) {
-      const object: Optional<ServerObject> = registry.simulator.object(releaseDescriptor.id);
-
-      // May also contain objects that are being registered after game load.
-      if (object) {
-        const distanceToCorpse: TDistance = actorPosition.distance_to_sqr(object.position);
-
-        if (
-          distanceToCorpse > maximalDistance &&
-          (releaseDescriptor.diedAt === null ||
-            time_global() >= releaseDescriptor.diedAt + deathConfig.IDLE_AFTER_DEATH)
-        ) {
-          maximalDistance = distanceToCorpse;
-          releaseObjectIndex = index;
-        }
-      }
-    }
-
-    return releaseObjectIndex;
-  }
-
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, ReleaseBodyManager.name);
 
@@ -208,11 +42,11 @@ export class ReleaseBodyManager extends AbstractManager {
 
     resetTable(deathConfig.RELEASE_OBJECTS_REGISTRY);
 
-    for (const it of $range(1, count)) {
-      const vid = reader.r_u16();
-
-      deathConfig.RELEASE_OBJECTS_REGISTRY.set(it, {} as IReleaseDescriptor);
-      deathConfig.RELEASE_OBJECTS_REGISTRY.get(it).id = vid;
+    for (const index of $range(1, count)) {
+      deathConfig.RELEASE_OBJECTS_REGISTRY.set(index, {
+        id: reader.r_u16(),
+        diedAt: null,
+      } as IReleaseDescriptor);
     }
 
     const levelId: TNumberId = reader.r_u16();
@@ -223,5 +57,61 @@ export class ReleaseBodyManager extends AbstractManager {
     }
 
     closeLoadMarker(reader, ReleaseBodyManager.name);
+  }
+
+  /**
+   * Register provided object as corpse and try to release other objects that are far from the actor.
+   *
+   * @param object - game object to register as corpse
+   */
+  public registerCorpse(object: GameObject): void {
+    // Nothing to do with corpse, is quest related / has quest items.
+    if (!canReleaseObjectCorpse(object)) {
+      return;
+    }
+
+    logger.format("Register corpse object: %s", object.name());
+
+    table.insert(deathConfig.RELEASE_OBJECTS_REGISTRY, {
+      id: object.id(),
+      diedAt: time_global(),
+    });
+
+    if (deathConfig.RELEASE_OBJECTS_REGISTRY.length() > deathConfig.MAX_BODY_COUNT) {
+      this.releaseCorpses();
+    }
+  }
+
+  /**
+   * Release corpses of game objects that are over current permitted corpses cap.
+   * Checks that corpses can be released (no quest items, no quest NPCs) and are far from the player.
+   */
+  public releaseCorpses(): void {
+    logger.format("Try to release corpses");
+
+    const countToRelease: TCount = deathConfig.RELEASE_OBJECTS_REGISTRY.length() - deathConfig.MAX_BODY_COUNT;
+
+    for (const _ of $range(1, countToRelease)) {
+      const [index, descriptor] = getNearestCorpseToRelease(deathConfig.RELEASE_OBJECTS_REGISTRY);
+
+      // Nothing to release, can skip further checks.
+      if (index === null) {
+        return;
+      }
+
+      const object: Optional<ServerObject> = registry.simulator.object(descriptor.id);
+
+      if (object && isCreature(object)) {
+        logger.format("Releasing object: %s", object.name());
+
+        if (object.alive()) {
+          logger.warn("Detected alive object in release table:", object.name());
+        } else {
+          registry.simulator.release(object, true);
+        }
+      }
+
+      table.remove(deathConfig.RELEASE_OBJECTS_REGISTRY, index);
+    }
   }
 }

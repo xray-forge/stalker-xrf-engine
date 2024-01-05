@@ -139,7 +139,7 @@ export class StalkerBinder extends object_binder {
 
     if (!object.alive()) {
       object.death_sound_enabled(false);
-      getManager(ReleaseBodyManager).addDeadBody(object);
+      getManager(ReleaseBodyManager).registerCorpse(object);
 
       return true;
     }
@@ -465,7 +465,7 @@ export class StalkerBinder extends object_binder {
     }
 
     // todo: Handle with event subscription?
-    getManager(ReleaseBodyManager).addDeadBody(object);
+    getManager(ReleaseBodyManager).registerCorpse(object);
 
     EventsManager.emitEvent(EGameEvent.STALKER_KILLED, object, who);
   }
