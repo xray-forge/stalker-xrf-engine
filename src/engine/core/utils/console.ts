@@ -10,11 +10,7 @@ import { AnyArgs, IniFile, TCount, TName, TSection } from "@/engine/lib/types";
  * @param args - list of arguments to provide for command
  */
 export function executeConsoleCommand(command: TName, ...args: AnyArgs): void {
-  if (args.length > 0) {
-    get_console().execute(command + " " + args.join(" "));
-  } else {
-    get_console().execute(command);
-  }
+  get_console().execute(args.length > 0 ? `${command} ${table.concat(args, " ")}` : command);
 }
 
 /**
@@ -45,9 +41,5 @@ export function executeConsoleCommandsFromSection(section: TSection, ini: IniFil
  * @returns float value from console
  */
 export function getConsoleFloatCommand<T extends number = number>(command: TName, ...args: AnyArgs): T {
-  if (args.length > 0) {
-    return get_console().get_float(command + " " + args.join(" ")) as T;
-  } else {
-    return get_console().get_float(command) as T;
-  }
+  return get_console().get_float(args.length > 0 ? `${command} ${table.concat(args, " ")}` : command) as T;
 }

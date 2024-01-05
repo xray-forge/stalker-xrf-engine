@@ -11,7 +11,7 @@ import { Console } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockConsole, mockIniFile } from "@/fixtures/xray";
 
-describe("console utils", () => {
+describe("executeConsoleCommand utils", () => {
   const gameConsole: Console = MockConsole.getInstanceMock();
 
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe("console utils", () => {
     resetFunctionMock(gameConsole.get_float);
   });
 
-  it("executeConsoleCommand should correctly generate commands", () => {
+  it("should correctly generate commands", () => {
     executeConsoleCommand(consoleCommands.g_game_difficulty, gameDifficulties.gd_master);
     expect(gameConsole.execute).toHaveBeenCalledWith("g_game_difficulty gd_master");
 
@@ -31,8 +31,17 @@ describe("console utils", () => {
     executeConsoleCommand(consoleCommands.start, "server(all/single/alife/new)", "client(localhost)");
     expect(gameConsole.execute).toHaveBeenCalledWith("start server(all/single/alife/new) client(localhost)");
   });
+});
 
-  it("executeConsoleCommandsFromSection should correctly execute commands from ini section", () => {
+describe("executeConsoleCommandsFromSection util", () => {
+  const gameConsole: Console = MockConsole.getInstanceMock();
+
+  beforeEach(() => {
+    resetFunctionMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.get_float);
+  });
+
+  it("should correctly execute commands from ini section", () => {
     executeConsoleCommandsFromSection("test");
     expect(gameConsole.execute).not.toHaveBeenCalled();
 
@@ -67,8 +76,17 @@ describe("console utils", () => {
     expect(gameConsole.execute).toHaveBeenCalledTimes(1);
     expect(gameConsole.execute).toHaveBeenCalledWith("c b a");
   });
+});
 
-  it("getConsoleFloatCommand should correctly generate commands", () => {
+describe("getConsoleFloatCommand utils", () => {
+  const gameConsole: Console = MockConsole.getInstanceMock();
+
+  beforeEach(() => {
+    resetFunctionMock(gameConsole.execute);
+    resetFunctionMock(gameConsole.get_float);
+  });
+
+  it("should correctly generate commands", () => {
     gameConsole.get_float = jest.fn((cmd: string) => (cmd.startsWith("snd_volume_eff") ? 50.4 : -1));
 
     expect(getConsoleFloatCommand(consoleCommands.snd_volume_eff)).toBe(50.4);
