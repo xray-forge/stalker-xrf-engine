@@ -13,14 +13,14 @@ import { MockGameObject } from "@/fixtures/xray";
 jest.mock("@/engine/core/schemes/stalker/meet/utils");
 jest.mock("@/engine/core/utils/logics");
 
-describe("reward utils", () => {
+describe("getNpcSpeaker utils", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
     registerSimulator();
   });
 
-  it("getNpcSpeaker should correctly pick speaker", () => {
+  it("should correctly pick speaker", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
@@ -30,8 +30,16 @@ describe("reward utils", () => {
     expect(getNpcSpeaker(first, registry.actor)).toBe(first);
     expect(getNpcSpeaker(second, registry.actor)).toBe(second);
   });
+});
 
-  it("isObjectName should correctly check name", () => {
+describe("isObjectName utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    mockRegisteredActor();
+    registerSimulator();
+  });
+
+  it("should correctly check name", () => {
     const object: GameObject = MockGameObject.mock({ name: () => "test_complex_name" } as Partial<GameObject>);
 
     expect(object.name()).toBe("test_complex_name");
@@ -43,6 +51,14 @@ describe("reward utils", () => {
     expect(isObjectName(object, "complex")).toBeTruthy();
     expect(isObjectName(object, "name")).toBeTruthy();
   });
+});
+
+describe("breakObjectDialog utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    mockRegisteredActor();
+    registerSimulator();
+  });
 
   it("breakObjectDialog should correctly break", () => {
     const { actorGameObject } = mockRegisteredActor();
@@ -53,8 +69,16 @@ describe("reward utils", () => {
     expect(actorGameObject.stop_talk).toHaveBeenCalledTimes(1);
     expect(object.stop_talk).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("updateObjectDialog should correctly update dialog state", () => {
+describe("updateObjectDialog utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    mockRegisteredActor();
+    registerSimulator();
+  });
+
+  it("should correctly update dialog state", () => {
     mockRegisteredActor();
 
     const object: GameObject = MockGameObject.mock();
