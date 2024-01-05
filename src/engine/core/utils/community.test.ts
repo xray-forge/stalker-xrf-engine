@@ -2,22 +2,50 @@ import { describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 
 import { registerObject } from "@/engine/core/database";
-import { getObjectCommunity, setObjectTeamSquadGroup } from "@/engine/core/utils/community";
+import { Squad } from "@/engine/core/objects/squad";
+import { getObjectCommunity, getSquadCommunity, setObjectTeamSquadGroup } from "@/engine/core/utils/community";
 import { GameObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
+import { MockSquad } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 
-describe("community utils", () => {
-  it.todo("getSquadCommunity should correctly get community for squads");
+describe("getSquadCommunity util", () => {
+  it("should correctly get community for squads", () => {
+    const squad: Squad = MockSquad.mock();
 
-  it("getObjectCommunity should correctly get community", () => {
+    squad.faction = "none";
+    expect(getSquadCommunity(squad)).toBeNull();
+
+    squad.faction = "monster_special";
+    expect(getSquadCommunity(squad)).toBe("monster");
+
+    squad.faction = "stalker";
+    expect(getSquadCommunity(squad)).toBe("stalker");
+
+    squad.faction = "killer";
+    expect(getSquadCommunity(squad)).toBe("killer");
+
+    squad.faction = "monolith";
+    expect(getSquadCommunity(squad)).toBe("monolith");
+
+    squad.faction = "monster_special";
+    expect(getSquadCommunity(squad)).toBe("monster");
+
+    squad.faction = "monster_vegetarian";
+    expect(getSquadCommunity(squad)).toBe("monster");
+
+    squad.faction = "monster_zombied_night";
+    expect(getSquadCommunity(squad)).toBe("monster");
+  });
+});
+
+describe("getObjectCommunity util", () => {
+  it("should correctly get community", () => {
     expect(getObjectCommunity(MockGameObject.mock())).toBe("monster");
-    expect(getObjectCommunity(mockServerAlifeHumanStalker())).toBe("stalker");
+    expect(getObjectCommunity(MockAlifeHumanStalker.mock())).toBe("stalker");
 
     const gameObject: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker as TClassId });
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      clsid: () => clsid.script_stalker as TClassId,
-    });
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mockWithClassId(clsid.script_stalker);
 
     expect(getObjectCommunity(gameObject)).toBe("stalker");
     expect(getObjectCommunity(serverObject)).toBe("stalker");
@@ -28,10 +56,12 @@ describe("community utils", () => {
     expect(getObjectCommunity(gameObject)).toBe("monolith");
     expect(getObjectCommunity(serverObject)).toBe("army");
   });
+});
 
-  it("setObjectTeamSquadGroup should correctly set object group details", () => {
-    const firstObject: GameObject = MockGameObject.mock();
-    const firstServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: firstObject.id() });
+describe("setObjectTeamSquadGroup util", () => {
+  it("should correctly set object group details", () => {
+    const firstServerObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const firstObject: GameObject = MockGameObject.mock({ idOverride: firstServerObject.id });
 
     setObjectTeamSquadGroup(firstServerObject, 432, 543, 654);
 
@@ -41,8 +71,8 @@ describe("community utils", () => {
 
     expect(firstObject.change_team).not.toHaveBeenCalled();
 
-    const secondObject: GameObject = MockGameObject.mock();
-    const secondServerObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: secondObject.id() });
+    const secondServerObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const secondObject: GameObject = MockGameObject.mock({ idOverride: secondServerObject.id });
 
     registerObject(secondObject);
     setObjectTeamSquadGroup(secondServerObject, 443, 444, 445);

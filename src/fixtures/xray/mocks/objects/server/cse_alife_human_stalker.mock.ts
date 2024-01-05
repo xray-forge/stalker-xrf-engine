@@ -1,9 +1,9 @@
 import { jest } from "@jest/globals";
 import { CALifeMonsterBrain, rotation } from "xray16";
 
-import { communities, TCommunity } from "@/engine/lib/constants/communities";
+import { communities } from "@/engine/lib/constants/communities";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ServerHumanObject, TNumberId, TSection } from "@/engine/lib/types";
+import { ServerHumanObject, TClassId, TNumberId, TSection } from "@/engine/lib/types";
 import { MockCAlifeMonsterBrain } from "@/fixtures/xray";
 import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import {
@@ -23,18 +23,26 @@ export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
     return new MockAlifeHumanStalker(section);
   }
 
+  public static override mockWithClassId(classId: TNumberId): ServerHumanObject {
+    const object: MockAlifeHumanStalker = new MockAlifeHumanStalker("test_alife_object");
+
+    jest.spyOn(object, "clsid").mockImplementation(() => classId as TClassId);
+
+    return object as unknown as ServerHumanObject;
+  }
+
   public override m_smart_terrain_id: TNumberId = MAX_U16;
   public aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
 
   public smart_terrain_id = jest.fn(() => this.m_smart_terrain_id);
 
-  public clsid = jest.fn(() => mockClsid.script_stalker);
+  public override clsid = jest.fn(() => mockClsid.script_stalker as TClassId);
 
   public brain = jest.fn(() => this.aiBrain);
 
-  public community(): TCommunity {
+  public community = jest.fn(() => {
     return communities.stalker;
-  }
+  });
 
   public override can_switch_online(): boolean {
     return false;
