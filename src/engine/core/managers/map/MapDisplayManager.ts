@@ -50,7 +50,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class MapDisplayManager extends AbstractManager {
   public isInitialized: boolean = false;
-  public lastUpdateAt: TTimestamp = 0;
+  public nextUpdateAt: TTimestamp = -1;
 
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
@@ -62,6 +62,27 @@ export class MapDisplayManager extends AbstractManager {
     const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+  }
+
+  public override update(): void {
+    const now: TTimestamp = time_global();
+
+    if (!this.isInitialized) {
+      this.nextUpdateAt = now + mapDisplayConfig.DISPLAY_UPDATE_THROTTLE;
+      this.isInitialized = true;
+
+      this.updateAnomalyZonesDisplay();
+      this.updateSleepZonesDisplay();
+      this.updateSmartTerrainsDisplay();
+
+      return;
+    }
+
+    if (now >= this.nextUpdateAt) {
+      this.nextUpdateAt = now + mapDisplayConfig.DISPLAY_UPDATE_THROTTLE;
+      this.updateSmartTerrainsDisplay();
+      this.updateSleepZonesDisplay();
+    }
   }
 
   /**
@@ -80,7 +101,6 @@ export class MapDisplayManager extends AbstractManager {
   ): void {
     // logger.info("Update object spot:", object.name());
 
-    const objectId: TNumberId = object.id();
     const simulator: Optional<AlifeSimulator> = registry.simulator;
 
     if (!simulator) {
@@ -117,6 +137,8 @@ export class MapDisplayManager extends AbstractManager {
     const serverObject: Optional<ServerObject> = simulator.object(object.id());
 
     if (serverObject?.online) {
+      const objectId: TNumberId = object.id();
+
       serverObject.visible_for_map(spot !== FALSE);
 
       if (mapSpot) {
@@ -490,24 +512,6 @@ export class MapDisplayManager extends AbstractManager {
           }
         }
       }
-    }
-  }
-
-  /**
-   * Handle update tick for map display.
-   */
-  public override update(): void {
-    const now: TTimestamp = time_global();
-
-    if (!this.isInitialized) {
-      this.isInitialized = true;
-      this.updateAnomalyZonesDisplay();
-      this.updateSleepZonesDisplay();
-      this.updateSmartTerrainsDisplay();
-    } else if (now - this.lastUpdateAt >= mapDisplayConfig.DISPLAY_UPDATE_THROTTLE) {
-      this.lastUpdateAt = now;
-      this.updateSmartTerrainsDisplay();
-      this.updateSleepZonesDisplay();
     }
   }
 }

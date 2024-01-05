@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
 import { getManager } from "@/engine/core/database";
@@ -13,6 +13,48 @@ describe("MapDisplayManager class", () => {
     resetRegistry();
     treasureConfig.ENHANCED_MODE_ENABLED = true;
   });
+
+  it("should correctly handle update event with init", () => {
+    const manager: MapDisplayManager = getManager(MapDisplayManager);
+
+    expect(manager.isInitialized).toBe(false);
+    expect(manager.nextUpdateAt).toBe(-1);
+
+    jest.spyOn(Date, "now").mockImplementation(() => 60_000);
+
+    jest.spyOn(manager, "updateAnomalyZonesDisplay").mockImplementation(jest.fn());
+    jest.spyOn(manager, "updateSleepZonesDisplay").mockImplementation(jest.fn());
+    jest.spyOn(manager, "updateSmartTerrainsDisplay").mockImplementation(jest.fn());
+
+    manager.update();
+
+    expect(manager.isInitialized).toBe(true);
+    expect(manager.nextUpdateAt).toBe(65_000);
+
+    expect(manager.updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
+    expect(manager.updateSleepZonesDisplay).toHaveBeenCalledTimes(1);
+    expect(manager.updateSmartTerrainsDisplay).toHaveBeenCalledTimes(1);
+
+    manager.update();
+
+    expect(manager.nextUpdateAt).toBe(65_000);
+
+    expect(manager.updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
+    expect(manager.updateSleepZonesDisplay).toHaveBeenCalledTimes(1);
+    expect(manager.updateSmartTerrainsDisplay).toHaveBeenCalledTimes(1);
+
+    jest.spyOn(Date, "now").mockImplementation(() => 65_000);
+
+    manager.update();
+
+    expect(manager.nextUpdateAt).toBe(70_000);
+
+    expect(manager.updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
+    expect(manager.updateSleepZonesDisplay).toHaveBeenCalledTimes(2);
+    expect(manager.updateSmartTerrainsDisplay).toHaveBeenCalledTimes(2);
+  });
+
+  it.todo("should correctly handle update event after init");
 
   it.todo("should correctly initialize and destroy");
 
@@ -31,8 +73,6 @@ describe("MapDisplayManager class", () => {
   it.todo("should correctly update primary objects map spots");
 
   it.todo("should correctly remove primary objects map spots");
-
-  it.todo("should correctly handle update event");
 
   it("should correctly get icon from treasure descriptor", () => {
     const mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
