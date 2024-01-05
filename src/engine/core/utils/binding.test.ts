@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { AnyObject } from "@/engine/lib/types";
 
-describe("binding utils", () => {
+describe("extern/getExtern utils", () => {
   it("binding utils should correctly work in pair with simple examples", () => {
     extern("sample1", 10);
     expect(getExtern("sample1")).toBe(10);

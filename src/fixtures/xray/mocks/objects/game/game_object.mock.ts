@@ -48,6 +48,22 @@ export class MockGameObject {
     return object;
   }
 
+  public static mockWithClassId(clsId: TNumberId): GameObject {
+    const object: GameObject = mockGameObject();
+
+    jest.spyOn(object, "clsid").mockImplementation(() => clsId as TClassId);
+
+    return object;
+  }
+
+  public static mockWithSection(section: TSection): GameObject {
+    const object: GameObject = mockGameObject();
+
+    jest.spyOn(object, "section").mockImplementation(() => section);
+
+    return object;
+  }
+
   public static mockActor(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
     return MockGameObject.mock({
       ...base,

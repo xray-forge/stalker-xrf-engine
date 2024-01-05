@@ -16,69 +16,75 @@ import {
   isTrader,
   isWeapon,
 } from "@/engine/core/utils/class_ids";
-import { ServerActorObject, ServerGroupObject, ServerHumanObject, TClassId, TSection } from "@/engine/lib/types";
+import { ServerActorObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
 import {
+  MockAlifeObject,
   MockGameObject,
   mockServerAlifeCreatureActor,
   mockServerAlifeHumanStalker,
-  mockServerAlifeObject,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
 
-describe("class_ids utils", () => {
-  const mockSectionGameObject = (section: TSection) => {
-    return MockGameObject.mock({ section: <T>() => section as T });
-  };
-  const mockClassIdGameObject = (classId: number) => {
-    return MockGameObject.mock({ clsid: () => classId as TClassId });
-  };
-  const mockClassIdServerObject = (classId: number) => {
-    return mockServerAlifeObject({ clsid: () => classId as TClassId });
-  };
-
+describe("isArtefact utils", () => {
   beforeEach(() => registerSimulator());
 
-  it("isArtefact should correctly check if object is an artefact", () => {
-    expect(isArtefact(mockClassIdGameObject(clsid.artefact))).toBe(true);
-    expect(isArtefact(mockClassIdGameObject(clsid.artefact_s))).toBe(true);
-    expect(isArtefact(mockClassIdGameObject(clsid.art_black_drops))).toBe(true);
-    expect(isArtefact(mockClassIdServerObject(clsid.artefact))).toBe(true);
-    expect(isArtefact(mockClassIdServerObject(clsid.artefact_s))).toBe(true);
-    expect(isArtefact(mockClassIdServerObject(clsid.art_black_drops))).toBe(true);
+  it("should correctly check if object is an artefact", () => {
+    expect(isArtefact(MockGameObject.mockWithClassId(clsid.artefact))).toBe(true);
+    expect(isArtefact(MockGameObject.mockWithClassId(clsid.artefact_s))).toBe(true);
+    expect(isArtefact(MockGameObject.mockWithClassId(clsid.art_black_drops))).toBe(true);
+    expect(isArtefact(MockAlifeObject.mockWithClassId(clsid.artefact))).toBe(true);
+    expect(isArtefact(MockAlifeObject.mockWithClassId(clsid.artefact_s))).toBe(true);
+    expect(isArtefact(MockAlifeObject.mockWithClassId(clsid.art_black_drops))).toBe(true);
 
-    expect(isArtefact(mockClassIdGameObject(clsid.script_stalker))).toBe(false);
-    expect(isArtefact(mockClassIdServerObject(clsid.zone_mbald_s))).toBe(false);
+    expect(isArtefact(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isArtefact(MockAlifeObject.mockWithClassId(clsid.zone_mbald_s))).toBe(false);
   });
+});
 
-  it("isGrenade should correctly check if object is a grenade", () => {
-    expect(isGrenade(mockClassIdGameObject(clsid.wpn_grenade_f1_s))).toBe(true);
-    expect(isGrenade(mockClassIdGameObject(clsid.wpn_grenade_rgd5_s))).toBe(true);
-    expect(isGrenade(mockClassIdServerObject(clsid.wpn_grenade_f1_s))).toBe(true);
-    expect(isGrenade(mockClassIdServerObject(clsid.wpn_grenade_rgd5_s))).toBe(true);
+describe("isGrenade utils", () => {
+  beforeEach(() => registerSimulator());
 
-    expect(isGrenade(mockClassIdGameObject(clsid.script_stalker))).toBe(false);
-    expect(isGrenade(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
+  it("should correctly check if object is a grenade", () => {
+    expect(isGrenade(MockGameObject.mockWithClassId(clsid.wpn_grenade_f1_s))).toBe(true);
+    expect(isGrenade(MockGameObject.mockWithClassId(clsid.wpn_grenade_rgd5_s))).toBe(true);
+    expect(isGrenade(MockAlifeObject.mockWithClassId(clsid.wpn_grenade_f1_s))).toBe(true);
+    expect(isGrenade(MockAlifeObject.mockWithClassId(clsid.wpn_grenade_rgd5_s))).toBe(true);
+
+    expect(isGrenade(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isGrenade(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
   });
+});
 
-  it("isActor should correctly check if object is an actor", () => {
-    expect(isActor(mockClassIdServerObject(clsid.online_offline_group_s))).toBe(false);
-    expect(isActor(mockClassIdServerObject(clsid.boar_s))).toBe(false);
-    expect(isActor(mockClassIdServerObject(clsid.dog_s))).toBe(false);
-    expect(isActor(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
-    expect(isActor(mockClassIdServerObject(clsid.script_actor))).toBe(true);
-    expect(isActor(mockClassIdServerObject(clsid.script_stalker))).toBe(false);
+describe("isActor utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly check if object is an actor", () => {
+    expect(isActor(MockAlifeObject.mockWithClassId(clsid.online_offline_group_s))).toBe(false);
+    expect(isActor(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+    expect(isActor(MockAlifeObject.mockWithClassId(clsid.dog_s))).toBe(false);
+    expect(isActor(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
+    expect(isActor(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(true);
+    expect(isActor(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(false);
   });
+});
 
-  it("isSquad should correctly check if object is a squad", () => {
-    expect(isSquad(mockClassIdServerObject(clsid.online_offline_group_s))).toBe(true);
-    expect(isSquad(mockClassIdServerObject(clsid.boar_s))).toBe(false);
-    expect(isSquad(mockClassIdServerObject(clsid.dog_s))).toBe(false);
-    expect(isSquad(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
-    expect(isSquad(mockClassIdServerObject(clsid.script_actor))).toBe(false);
-    expect(isSquad(mockClassIdServerObject(clsid.script_stalker))).toBe(false);
+describe("isSquad utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly check if object is a squad", () => {
+    expect(isSquad(MockAlifeObject.mockWithClassId(clsid.online_offline_group_s))).toBe(true);
+    expect(isSquad(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+    expect(isSquad(MockAlifeObject.mockWithClassId(clsid.dog_s))).toBe(false);
+    expect(isSquad(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
+    expect(isSquad(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(false);
+    expect(isSquad(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(false);
   });
+});
 
-  it("isSquadId should correctly check if id is a squad object", () => {
+describe("isSquadId utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("correctly check if id is a squad object", () => {
     const squad: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const actor: ServerActorObject = mockServerAlifeCreatureActor();
     const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
@@ -87,110 +93,142 @@ describe("class_ids utils", () => {
     expect(isSquadId(actor.id)).toBe(false);
     expect(isSquadId(stalker.id)).toBe(false);
   });
+});
 
-  it("isSmartTerrain should correctly check if object is a monster", () => {
-    expect(isSmartTerrain(mockClassIdServerObject(clsid.smart_terrain))).toBe(true);
-    expect(isSmartTerrain(mockClassIdServerObject(clsid.online_offline_group_s))).toBe(false);
-    expect(isSmartTerrain(mockClassIdServerObject(clsid.boar_s))).toBe(false);
-    expect(isSmartTerrain(mockClassIdServerObject(clsid.dog_s))).toBe(false);
-    expect(isSmartTerrain(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
-    expect(isSmartTerrain(mockClassIdServerObject(clsid.script_actor))).toBe(false);
-    expect(isSmartTerrain(mockClassIdServerObject(clsid.script_stalker))).toBe(false);
+describe("isSmartTerrain utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly check if object is a monster", () => {
+    expect(isSmartTerrain(MockAlifeObject.mockWithClassId(clsid.smart_terrain))).toBe(true);
+    expect(isSmartTerrain(MockAlifeObject.mockWithClassId(clsid.online_offline_group_s))).toBe(false);
+    expect(isSmartTerrain(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+    expect(isSmartTerrain(MockAlifeObject.mockWithClassId(clsid.dog_s))).toBe(false);
+    expect(isSmartTerrain(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
+    expect(isSmartTerrain(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(false);
+    expect(isSmartTerrain(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(false);
   });
+});
 
-  it("isMonster should correctly check if object is a monster", () => {
-    expect(isMonster(mockClassIdGameObject(clsid.boar_s))).toBe(true);
-    expect(isMonster(mockClassIdServerObject(clsid.boar_s))).toBe(true);
-    expect(isMonster(mockClassIdGameObject(clsid.dog_s))).toBe(true);
-    expect(isMonster(mockClassIdServerObject(clsid.dog_s))).toBe(true);
+describe("isMonster utils", () => {
+  beforeEach(() => registerSimulator());
 
-    expect(isMonster(mockClassIdGameObject(clsid.zone_mbald_s))).toBe(false);
-    expect(isMonster(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
-    expect(isMonster(mockClassIdServerObject(clsid.script_actor))).toBe(false);
-    expect(isMonster(mockClassIdServerObject(clsid.script_stalker))).toBe(false);
+  it("should correctly check if object is a monster", () => {
+    expect(isMonster(MockGameObject.mockWithClassId(clsid.boar_s))).toBe(true);
+    expect(isMonster(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(true);
+    expect(isMonster(MockGameObject.mockWithClassId(clsid.dog_s))).toBe(true);
+    expect(isMonster(MockAlifeObject.mockWithClassId(clsid.dog_s))).toBe(true);
+
+    expect(isMonster(MockGameObject.mockWithClassId(clsid.zone_mbald_s))).toBe(false);
+    expect(isMonster(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
+    expect(isMonster(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(false);
+    expect(isMonster(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(false);
   });
+});
 
-  it("isStalker should correctly check if object is a stalker", () => {
-    expect(isStalker(mockClassIdGameObject(clsid.script_actor))).toBe(true);
+describe("isStalker utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly check if object is a stalker", () => {
+    expect(isStalker(MockGameObject.mockWithClassId(clsid.script_actor))).toBe(true);
     expect(isStalker(MockGameObject.mock(), clsid.script_actor)).toBe(true);
-    expect(isStalker(mockClassIdGameObject(clsid.script_stalker))).toBe(true);
+    expect(isStalker(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(true);
     expect(isStalker(MockGameObject.mock(), clsid.script_stalker)).toBe(true);
-    expect(isStalker(mockClassIdServerObject(clsid.script_actor))).toBe(true);
-    expect(isStalker(mockClassIdServerObject(clsid.script_stalker))).toBe(true);
-    expect(isStalker(mockClassIdServerObject(clsid.trader))).toBe(false);
+    expect(isStalker(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(true);
+    expect(isStalker(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(true);
+    expect(isStalker(MockAlifeObject.mockWithClassId(clsid.trader))).toBe(false);
     expect(isStalker(MockGameObject.mock(), clsid.trader)).toBe(false);
 
     expect(isStalker(MockGameObject.mock(), clsid.zone_mbald_s)).toBe(false);
-    expect(isStalker(mockClassIdGameObject(clsid.zone_mbald_s))).toBe(false);
-    expect(isStalker(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
-    expect(isStalker(mockClassIdServerObject(clsid.boar_s))).toBe(false);
+    expect(isStalker(MockGameObject.mockWithClassId(clsid.zone_mbald_s))).toBe(false);
+    expect(isStalker(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
+    expect(isStalker(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
   });
+});
 
-  it("isCreature should correctly check if object is a stalker", () => {
-    expect(isCreature(mockClassIdGameObject(clsid.script_actor))).toBe(true);
+describe("isCreature utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly check if object is a stalker", () => {
+    expect(isCreature(MockGameObject.mockWithClassId(clsid.script_actor))).toBe(true);
     expect(isCreature(MockGameObject.mock(), clsid.script_actor)).toBe(true);
-    expect(isCreature(mockClassIdGameObject(clsid.script_stalker))).toBe(true);
+    expect(isCreature(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(true);
     expect(isCreature(MockGameObject.mock(), clsid.script_stalker)).toBe(true);
-    expect(isCreature(mockClassIdServerObject(clsid.script_actor))).toBe(true);
-    expect(isCreature(mockClassIdServerObject(clsid.script_stalker))).toBe(true);
-    expect(isCreature(mockClassIdServerObject(clsid.trader))).toBe(false);
+    expect(isCreature(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(true);
+    expect(isCreature(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(true);
+    expect(isCreature(MockAlifeObject.mockWithClassId(clsid.trader))).toBe(false);
     expect(isCreature(MockGameObject.mock(), clsid.trader)).toBe(false);
-    expect(isCreature(mockClassIdGameObject(clsid.boar_s))).toBe(true);
-    expect(isCreature(mockClassIdServerObject(clsid.boar_s))).toBe(true);
-    expect(isCreature(mockClassIdGameObject(clsid.dog_s))).toBe(true);
+    expect(isCreature(MockGameObject.mockWithClassId(clsid.boar_s))).toBe(true);
+    expect(isCreature(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(true);
+    expect(isCreature(MockGameObject.mockWithClassId(clsid.dog_s))).toBe(true);
 
     expect(isCreature(MockGameObject.mock(), clsid.zone_mbald_s)).toBe(false);
-    expect(isCreature(mockClassIdGameObject(clsid.zone_mbald_s))).toBe(false);
-    expect(isCreature(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
+    expect(isCreature(MockGameObject.mockWithClassId(clsid.zone_mbald_s))).toBe(false);
+    expect(isCreature(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
   });
+});
 
-  it("isTrader should correctly check if object is a stalker", () => {
-    expect(isTrader(mockClassIdServerObject(clsid.trader))).toBe(true);
+describe("isTrader utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly check if object is a stalker", () => {
+    expect(isTrader(MockAlifeObject.mockWithClassId(clsid.trader))).toBe(true);
     expect(isTrader(MockGameObject.mock(), clsid.trader)).toBe(true);
 
-    expect(isTrader(mockClassIdGameObject(clsid.script_actor))).toBe(false);
+    expect(isTrader(MockGameObject.mockWithClassId(clsid.script_actor))).toBe(false);
     expect(isTrader(MockGameObject.mock(), clsid.script_actor)).toBe(false);
-    expect(isTrader(mockClassIdGameObject(clsid.script_stalker))).toBe(false);
+    expect(isTrader(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
     expect(isTrader(MockGameObject.mock(), clsid.script_stalker)).toBe(false);
-    expect(isTrader(mockClassIdServerObject(clsid.script_actor))).toBe(false);
-    expect(isTrader(mockClassIdServerObject(clsid.script_stalker))).toBe(false);
+    expect(isTrader(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(false);
+    expect(isTrader(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(false);
     expect(isTrader(MockGameObject.mock(), clsid.zone_mbald_s)).toBe(false);
-    expect(isTrader(mockClassIdGameObject(clsid.zone_mbald_s))).toBe(false);
-    expect(isTrader(mockClassIdServerObject(clsid.wpn_ak74_s))).toBe(false);
-    expect(isTrader(mockClassIdServerObject(clsid.boar_s))).toBe(false);
+    expect(isTrader(MockGameObject.mockWithClassId(clsid.zone_mbald_s))).toBe(false);
+    expect(isTrader(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
+    expect(isTrader(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
   });
+});
 
-  it("isStrappableWeapon should correctly check if object can be strapped", () => {
-    expect(isStrappableWeapon(mockSectionGameObject("wpn_ak74"))).toBe(true);
-    expect(isStrappableWeapon(mockSectionGameObject("wpn_svu"))).toBe(true);
-    expect(isStrappableWeapon(mockSectionGameObject("wpn_another"))).toBe(false);
-    expect(isStrappableWeapon(mockSectionGameObject("grenade_f1"))).toBe(false);
+describe("isStrappableWeapon utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly check if object can be strapped", () => {
+    expect(isStrappableWeapon(MockGameObject.mockWithSection("wpn_ak74"))).toBe(true);
+    expect(isStrappableWeapon(MockGameObject.mockWithSection("wpn_svu"))).toBe(true);
+    expect(isStrappableWeapon(MockGameObject.mockWithSection("wpn_another"))).toBe(false);
+    expect(isStrappableWeapon(MockGameObject.mockWithSection("grenade_f1"))).toBe(false);
     expect(isStrappableWeapon(null)).toBe(false);
   });
+});
 
-  it("isWeapon utils should correctly check object class ids", () => {
+describe("isWeapon utils", () => {
+  beforeEach(() => registerSimulator());
+
+  it("utils should correctly check object class ids", () => {
     expect(isWeapon(null)).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(1))).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_ammo))).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_ammo_s))).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_ammo_vog25))).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_binocular))).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_binocular_s))).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(clsid.zone_mbald_s))).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(clsid.artefact_s))).toBeFalsy();
-    expect(isWeapon(mockClassIdGameObject(clsid.script_stalker))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(1))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_ammo))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_ammo_s))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_binocular))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_binocular_s))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.zone_mbald_s))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.artefact_s))).toBeFalsy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.script_stalker))).toBeFalsy();
 
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_knife))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_knife_s))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_silencer))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_silencer_s))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_ak74))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_grenade_rgd5))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_shotgun_s))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_shotgun))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_walther))).toBeTruthy();
-    expect(isWeapon(mockClassIdGameObject(clsid.wpn_walther))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_knife))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_knife_s))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_silencer))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_silencer_s))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_ak74))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_grenade_rgd5))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_shotgun_s))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_shotgun))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_walther))).toBeTruthy();
+    expect(isWeapon(MockGameObject.mockWithClassId(clsid.wpn_walther))).toBeTruthy();
   });
+});
 
-  it.todo("isMonsterSquad should correctly check if squad object assigned with monsters");
+describe("isMonsterSquad util", () => {
+  beforeEach(() => registerSimulator());
+
+  it.todo("should correctly check if squad object assigned with monsters");
 });

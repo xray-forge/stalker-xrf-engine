@@ -15,7 +15,16 @@ export class MockAlifeObject extends MockLuabindClass {
     return new MockAlifeObject(section) as unknown as ServerObject;
   }
 
+  public static mockWithClassId(classId: TNumberId): ServerObject {
+    const object: MockAlifeObject = new MockAlifeObject("test_alife_object");
+
+    jest.spyOn(object, "clsid").mockImplementation(() => classId as TClassId);
+
+    return object as unknown as ServerObject;
+  }
+
   public id: TNumberId = mockConfig.ID_COUNTER++;
+  public classId: TClassId = -1;
   public section: TSection;
   public position: Vector = MockVector.mock(0, 0, 0);
   public m_level_vertex_id: TNumberId = 255;
@@ -35,6 +44,10 @@ export class MockAlifeObject extends MockLuabindClass {
 
   public section_name(): string {
     return this.section;
+  }
+
+  public clsid(): TClassId {
+    return this.classId;
   }
 
   public on_spawn(): void {}

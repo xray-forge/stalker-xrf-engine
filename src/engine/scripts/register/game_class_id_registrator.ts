@@ -1,4 +1,4 @@
-import { abort, assertBoolean } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameClassId, TGameClassId } from "@/engine/lib/constants/class_ids";
 import { EGameType } from "@/engine/lib/constants/game_types";
@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @returns currently active game mode class id
  */
 export function getGameClassId(gameType: EGameType, isServer: boolean): TGameClassId {
-  assertBoolean(isServer);
+  assert(type(isServer) === "boolean", "Expected boolean value for game class getter as parameter.");
 
   logger.info("Return game class id:", gameType, isServer);
 
