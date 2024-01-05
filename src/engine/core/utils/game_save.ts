@@ -17,7 +17,6 @@ import {
   LuaArray,
   Optional,
   SavedGameWrapper,
-  TCount,
   TLabel,
   TName,
   TPath,
@@ -28,56 +27,50 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * @returns list of game saves file system items
  */
-export function getGameSavesList(): LuaArray<FSItem> {
-  const savesList: LuaArray<FSItem> = new LuaTable();
-  const fsList: FSFileListEX = getFS().file_list_open_ex(
+export function getGameSaves(): LuaArray<FSItem> {
+  const saves: LuaArray<FSItem> = new LuaTable();
+  const files: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     "*" + forgeConfig.SAVE.GAME_SAVE_EXTENSION
   );
 
-  fsList.Sort(FS.FS_sort_by_modif_down);
+  files.Sort(FS.FS_sort_by_modif_down);
 
-  for (let it = 0; it < fsList.Size(); it += 1) {
-    const file: FSItem = fsList.GetAt(it);
+  for (let it = 0; it < files.Size(); it += 1) {
+    const file: FSItem = files.GetAt(it);
 
     if (file.NameFull().endsWith(forgeConfig.SAVE.GAME_SAVE_EXTENSION)) {
-      table.insert(savesList, file);
+      table.insert(saves, file);
     }
   }
 
-  return savesList;
+  return saves;
 }
 
 /**
  * Check whether save file exists with provided name.
  *
- * @param filename - target name to search in saves folder
+ * @param name - target name to search in saves folder
  * @returns whether file exists
  */
-export function isGameSaveFileExist(filename: TName): boolean {
-  const filesList: FSFileListEX = getFS().file_list_open_ex(
-    roots.gameSaves,
-    bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
-    filename
-  );
-
-  return filesList.Size() > 0;
+export function isGameSaveFileExist(name: TName): boolean {
+  return getFS().file_list_open_ex(roots.gameSaves, bit_or(FS.FS_ListFiles, FS.FS_RootOnly), name).Size() > 0;
 }
 
 /**
  * Delete game save file and dds file.
  *
- * @param filename - target name to delete from saves folder
+ * @param name - target name to delete from saves folder
  */
-export function deleteGameSave(filename: TName): void {
-  const saveBaseFile: TName = filename + forgeConfig.SAVE.GAME_SAVE_EXTENSION;
-  const saveDynamicFile: TName = filename + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
-  const savePreviewFile: TName = filename + forgeConfig.SAVE.GAME_SAVE_PREVIEW_EXTENSION;
+export function deleteGameSave(name: TName): void {
+  const saveBaseFile: TName = name + forgeConfig.SAVE.GAME_SAVE_EXTENSION;
+  const saveDynamicFile: TName = name + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
+  const savePreviewFile: TName = name + forgeConfig.SAVE.GAME_SAVE_PREVIEW_EXTENSION;
 
   const fs: FS = getFS();
 
-  logger.info("Delete game save:", filename);
+  logger.info("Delete game save:", name);
 
   fs.file_delete(roots.gameSaves, saveBaseFile);
 
@@ -95,27 +88,24 @@ export function deleteGameSave(filename: TName): void {
 /**
  * Create dynamic game save based on stringified binary data.
  *
- * @param filename - target save filename base to create or overwrite it
+ * @param name - target save filename base to create or overwrite it
  * @param data - data to save
  */
-export function saveDynamicGameSave(filename: TName, data: AnyObject): void {
-  const savesFolder: TPath = getFS().update_path(roots.gameSaves, "");
-  const saveFile: TPath =
-    savesFolder + string.lower(string.sub(filename, 0, -6)) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
+export function saveDynamicGameSave(name: TName, data: AnyObject): void {
+  const folder: TPath = getFS().update_path(roots.gameSaves, "");
+  const file: TPath = folder + string.lower(string.sub(name, 0, -6)) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
 
-  saveObjectToFile(savesFolder, saveFile, data);
+  saveObjectToFile(folder, file, data);
 }
 
 /**
  * Read dynamic game save with stringified binary data.
  *
- * @param filename - target save filename full path
+ * @param name - target save filename full path
  * @returns stringified binary data or null
  */
-export function loadDynamicGameSave<T extends AnyObject>(filename: TName): Optional<T> {
-  const saveFile: TPath = string.sub(filename, 0, -6) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
-
-  return loadObjectFromFile(saveFile);
+export function loadDynamicGameSave<T extends AnyObject>(name: TName): Optional<T> {
+  return loadObjectFromFile(string.sub(name, 0, -6) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION);
 }
 
 /**
@@ -125,14 +115,13 @@ export function loadDynamicGameSave<T extends AnyObject>(filename: TName): Optio
  * @returns label with save file description
  */
 export function getFileDataForGameSave(name: TName): TLabel {
-  const fileList: FSFileListEX = getFS().file_list_open_ex(
+  const files: FSFileListEX = getFS().file_list_open_ex(
     roots.gameSaves,
     bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
     name + forgeConfig.SAVE.GAME_SAVE_EXTENSION
   );
-  const filesCount: TCount = fileList.Size();
 
-  if (filesCount > 0) {
+  if (files.Size() > 0) {
     const savedGame: SavedGameWrapper = new CSavedGameWrapper(name);
     const dateTime: TLabel = gameTimeToString(savedGame.game_time());
 
@@ -159,18 +148,18 @@ export function getFileDataForGameSave(name: TName): TLabel {
 /**
  * Save game on some scenario moments automatically.
  *
- * @param saveName - name of the file / record to save
+ * @param name - name of the file / record to save
  * @param translate - whether name should be translated
  */
-export function createGameAutoSave(saveName: Optional<TName>, translate: boolean = true): void {
-  assert(saveName, "You are trying to use scenario save without name.");
+export function createGameAutoSave(name: Optional<TName>, translate: boolean = true): void {
+  assert(name, "You are trying to use scenario save without name.");
 
   if (IsImportantSave()) {
-    const autoSaveName: TName = user_name() + " - " + (translate ? game.translate_string(saveName) : saveName);
+    const saveName: TName = user_name() + " - " + (translate ? game.translate_string(name) : name);
 
-    createGameSave(autoSaveName);
+    createGameSave(saveName);
   } else {
-    logger.info("Skip save, auto-saving is not turned on:", saveName);
+    logger.info("Skip save, auto-saving is not turned on:", name);
   }
 }
 

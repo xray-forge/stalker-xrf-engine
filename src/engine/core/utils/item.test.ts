@@ -24,38 +24,45 @@ import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
-describe("item utils", () => {
+const createObjectWithItems = () =>
+  MockGameObject.mock({
+    inventory: [
+      [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+      [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+      [3, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+      [4, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+      [5, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+      [40, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+      [41, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+      [50, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [51, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [52, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [53, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [54, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+    ],
+  });
+
+describe("getItemPrice utils", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
   });
 
-  const createObjectWithItems = () =>
-    MockGameObject.mock({
-      inventory: [
-        [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [3, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [4, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [5, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [40, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [41, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [50, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [51, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [52, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [53, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [54, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-      ],
-    });
-
-  it("getItemPrice should correctly get item price", () => {
+  it("should correctly get item price", () => {
     expect(getItemPrice("wpn_ak74u")).toBe(4000);
     expect(getItemPrice("wpn_abakan")).toBe(5000);
     expect(getItemPrice("wpn_addon_scope")).toBe(2100);
   });
+});
 
-  it("getItemOwnerId should correctly get owner ID", () => {
+describe("getItemOwnerId utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly get owner ID", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
@@ -68,8 +75,15 @@ describe("item utils", () => {
     expect(getItemOwnerId(second.id())).toBeNull();
     expect(getItemOwnerId(third.id())).toBeNull();
   });
+});
 
-  it("setItemCondition should correctly set condition", () => {
+describe("setItemCondition utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly set condition", () => {
     const object: GameObject = MockGameObject.mock();
 
     setItemCondition(object, 25);
@@ -81,8 +95,15 @@ describe("item utils", () => {
     setItemCondition(object, 0);
     expect(object.set_condition).toHaveBeenNthCalledWith(3, 0);
   });
+});
 
-  it("objectHasItem should correctly check if object has item", () => {
+describe("objectHasItem utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object has item", () => {
     const object: GameObject = createObjectWithItems();
 
     expect(objectHasItem(object, weapons.wpn_svd)).toBeTruthy();
@@ -100,8 +121,15 @@ describe("item utils", () => {
     expect(objectHasItem(object, 70)).toBeFalsy();
     expect(objectHasItem(object, 100)).toBeFalsy();
   });
+});
 
-  it("actorHasAtLeastOneItem should correctly check if object has item", () => {
+describe("actorHasAtLeastOneItem utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object has item", () => {
     registerActor(createObjectWithItems());
 
     expect(
@@ -121,8 +149,15 @@ describe("item utils", () => {
     expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, 500]))).toBeTruthy();
     expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([weapons.wpn_svd, 400]))).toBeTruthy();
   });
+});
 
-  it("actorHasItems should correctly check if object has items", () => {
+describe("actorHasItems utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object has items", () => {
     registerActor(createObjectWithItems());
 
     expect(
@@ -146,8 +181,47 @@ describe("item utils", () => {
     expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, 50]))).toBeTruthy();
     expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_svd, 40]))).toBeTruthy();
   });
+});
 
-  it("actorHasItem should correctly check if object has item", () => {
+describe("actorHasItems util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object has items", () => {
+    registerActor(createObjectWithItems());
+
+    expect(
+      actorHasItems(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army, medkits.medkit_scientic]))
+    ).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit_scientic]))).toBeFalsy();
+
+    expect(actorHasItems(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, medkits.medkit]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([medkits.medkit_army, weapons.wpn_svd]))).toBeTruthy();
+
+    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, 40, 50]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, 3, 4]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([40, 41, 50, 51]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([100, 101, 102, 50]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([100, 101, 102]))).toBeFalsy();
+
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, 500]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_val, 40]))).toBeFalsy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, 50]))).toBeTruthy();
+    expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_svd, 40]))).toBeTruthy();
+  });
+});
+
+describe("actorHasItem util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object has item", () => {
     registerActor(createObjectWithItems());
 
     expect(actorHasItem(weapons.wpn_svd)).toBeTruthy();
@@ -171,8 +245,15 @@ describe("item utils", () => {
     expect(actorHasItem(60)).toBeFalsy();
     expect(actorHasItem(61)).toBeFalsy();
   });
+});
 
-  it("actorHasMedKit should correctly check if object has any medkit", () => {
+describe("actorHasMedKit utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object has any medkit", () => {
     registerActor(createObjectWithItems());
 
     expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBeTruthy();
@@ -184,14 +265,28 @@ describe("item utils", () => {
 
     expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit]), MockGameObject.mock())).toBeFalsy();
   });
+});
 
-  it("getItemInstalledUpgradesList should correctly get list of installed upgrades", () => {
+describe("getItemInstalledUpgradesList util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly get list of installed upgrades", () => {
     expect(getItemInstalledUpgradesList(MockGameObject.mock())).toEqualLuaArrays([]);
     expect(getItemInstalledUpgradesList(MockGameObject.mock({ upgrades: ["a", "b"] }))).toEqualLuaArrays(["a", "b"]);
     expect(getItemInstalledUpgradesList(MockGameObject.mock({ upgrades: ["c"] }))).toEqualLuaArrays(["c"]);
   });
+});
 
-  it("getAnyObjectPistol should correctly get pistol from object inventory", () => {
+describe("getAnyObjectPistol util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly get pistol from object inventory", () => {
     const desertEagle: GameObject = MockGameObject.mock({ section: <T>() => pistols.wpn_desert_eagle as T });
     const fort: GameObject = MockGameObject.mock({ section: <T>() => pistols.wpn_fort as T });
 
@@ -223,8 +318,15 @@ describe("item utils", () => {
     expect(getAnyObjectPistol(third)).toBe(desertEagle);
     expect(getAnyObjectPistol(fourth)).toBe(fort);
   });
+});
 
-  it("getItemInstalledUpgradesSet should correctly get list of installed upgrades", () => {
+describe("getItemInstalledUpgradesSet util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly get list of installed upgrades", () => {
     expect(getItemInstalledUpgradesSet(MockGameObject.mock())).toEqualLuaTables({});
     expect(getItemInstalledUpgradesSet(MockGameObject.mock({ upgrades: ["a", "b"] }))).toEqualLuaTables({
       a: true,
@@ -232,8 +334,15 @@ describe("item utils", () => {
     });
     expect(getItemInstalledUpgradesSet(MockGameObject.mock({ upgrades: ["c"] }))).toEqualLuaTables({ c: true });
   });
+});
 
-  it("getActorAvailableMedKit should correctly check medkit", () => {
+describe("getActorAvailableMedKit util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check medkit", () => {
     registerActor(createObjectWithItems());
 
     expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);

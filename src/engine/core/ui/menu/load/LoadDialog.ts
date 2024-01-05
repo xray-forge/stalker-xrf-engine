@@ -19,7 +19,7 @@ import { LoadItem } from "@/engine/core/ui/menu/load/LoadItem";
 import {
   deleteGameSave,
   getFileDataForGameSave,
-  getGameSavesList,
+  getGameSaves,
   isGameSaveFileExist,
   loadGameSave,
 } from "@/engine/core/utils/game_save";
@@ -132,7 +132,7 @@ export class LoadDialog extends CUIScriptWnd {
   public fillList(): void {
     this.uiListBox.RemoveAll();
 
-    const savesList: LuaArray<FSItem> = getGameSavesList();
+    const savesList: LuaArray<FSItem> = getGameSaves();
 
     for (const [, file] of savesList) {
       const filename: TName = string.sub(

@@ -21,13 +21,11 @@ import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
 import { MockConsole, MockFileSystem, MockFileSystemList } from "@/fixtures/xray";
 
-describe("game_save utils", () => {
+describe("getFileDataForGameSave utils", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
     registerSimulator();
-
-    replaceFunctionMock(IsImportantSave, () => true);
 
     MockConsole.reset();
   });
@@ -42,6 +40,16 @@ describe("game_save utils", () => {
         "translated_st_ui_health_sensor %d100"
     );
   });
+});
+
+describe("isGameSaveFileExist utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(io.open);
+    registerSimulator();
+
+    MockConsole.reset();
+  });
 
   it("isGameSaveFileExist should correctly check if save file exists", () => {
     const fileSystem: MockFileSystem = MockFileSystem.getInstance();
@@ -51,6 +59,16 @@ describe("game_save utils", () => {
 
     fileSystem.file_list_open_ex.mockImplementation(() => new MockFileSystemList(["a"]));
     expect(isGameSaveFileExist("test")).toBe(true);
+  });
+});
+
+describe("game_save utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(io.open);
+    registerSimulator();
+
+    MockConsole.reset();
   });
 
   it("deleteGameSave should correctly delete file exists", () => {
@@ -67,8 +85,18 @@ describe("game_save utils", () => {
     expect(fileSystem.file_delete).toHaveBeenNthCalledWith(2, "$game_saves$", "another.scopx");
     expect(fileSystem.file_delete).toHaveBeenNthCalledWith(3, "$game_saves$", "another.dds");
   });
+});
 
-  it("createSave should correctly generate commands", () => {
+describe("createSave utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(io.open);
+    registerSimulator();
+
+    MockConsole.reset();
+  });
+
+  it("should correctly generate commands", () => {
     const console: Console = MockConsole.getInstanceMock();
 
     createGameSave("test");
@@ -83,6 +111,18 @@ describe("game_save utils", () => {
     expect(console.execute).toHaveBeenCalledWith("save st_another_test");
 
     expect(() => createGameSave(null)).toThrow();
+  });
+});
+
+describe("createAutoSave util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(io.open);
+    registerSimulator();
+
+    replaceFunctionMock(IsImportantSave, () => true);
+
+    MockConsole.reset();
   });
 
   it("createAutoSave should correctly generate commands", () => {
@@ -113,8 +153,18 @@ describe("game_save utils", () => {
 
     expect(() => createGameSave(null)).toThrow();
   });
+});
 
-  it("saveDynamicGameSave should correctly create dynamic file saves", () => {
+describe("saveDynamicGameSave utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(io.open);
+    registerSimulator();
+
+    MockConsole.reset();
+  });
+
+  it("should correctly create dynamic file saves", () => {
     const console: Console = MockConsole.getInstanceMock();
     const file: MockIoFile = new MockIoFile("test", "wb");
 
@@ -137,7 +187,7 @@ describe("game_save utils", () => {
     expect(file.close).toHaveBeenCalledTimes(1);
   });
 
-  it("loadDynamicGameSave should correctly load dynamic file saves", () => {
+  it("should correctly load dynamic file saves", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     file.content = JSON.stringify({ a: 1, b: 33 });
@@ -161,8 +211,16 @@ describe("game_save utils", () => {
     file.isOpen = false;
     expect(loadDynamicGameSave("F:\\\\parent\\\\example.scop")).toBeNull();
   });
+});
 
-  it("loadLastGameSave should correctly save last game and turn off menu", () => {
+describe("loadLastGameSave utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+
+    MockConsole.reset();
+  });
+
+  it("should correctly save last game and turn off menu", () => {
     const console: Console = MockConsole.getInstanceMock();
 
     loadLastGameSave();
@@ -171,8 +229,18 @@ describe("game_save utils", () => {
     expect(console.execute).toHaveBeenNthCalledWith(1, "main_menu off");
     expect(console.execute).toHaveBeenNthCalledWith(2, "load_last_save");
   });
+});
 
-  it("startNewGame should correctly create new server, set difficulty and disconnect from previous one", () => {
+describe("startNewGame util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(io.open);
+    registerSimulator();
+
+    MockConsole.reset();
+  });
+
+  it("should correctly create new server, set difficulty and disconnect from previous one", () => {
     const console: Console = MockConsole.getInstanceMock();
 
     startNewGame(gameDifficulties.gd_master);
@@ -185,7 +253,7 @@ describe("game_save utils", () => {
     expect(device().pause).toHaveBeenCalledWith(false);
   });
 
-  it("startNewGame should correctly be called when not started", () => {
+  it("should correctly be called when not started", () => {
     const console: Console = MockConsole.getInstanceMock();
 
     registry.simulator = null as unknown as AlifeSimulator;
@@ -196,6 +264,16 @@ describe("game_save utils", () => {
     expect(console.execute).toHaveBeenNthCalledWith(1, "start server(all/single/alife/new) client(localhost)");
     expect(console.execute).toHaveBeenNthCalledWith(2, "main_menu off");
     expect(device().pause).toHaveBeenCalledWith(false);
+  });
+});
+
+describe("loadGameSave util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(io.open);
+    registerSimulator();
+
+    MockConsole.reset();
   });
 
   it("loadGameSave should correctly be called when started", () => {
@@ -209,7 +287,7 @@ describe("game_save utils", () => {
     expect(console.execute).toHaveBeenNthCalledWith(1, "load text_example");
   });
 
-  it("loadGameSave should correctly be called when not started", () => {
+  it("should correctly be called when not started", () => {
     const console: Console = MockConsole.getInstanceMock();
 
     registry.simulator = null as unknown as AlifeSimulator;
@@ -223,6 +301,12 @@ describe("game_save utils", () => {
       "start server(text_example/single/alife/load) client(localhost)"
     );
   });
+});
 
-  it.todo("getGameSavesList should correctly get list of save files in proper order");
+describe("getGameSavesList utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it.todo("should correctly get list of save files in proper order");
 });

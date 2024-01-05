@@ -16,7 +16,7 @@ import {
 } from "xray16";
 
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
-import { createGameSave, deleteGameSave, getGameSavesList } from "@/engine/core/utils/game_save";
+import { createGameSave, deleteGameSave, getGameSaves } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
@@ -125,7 +125,7 @@ export class SaveDialog extends CUIScriptWnd {
   public fillList(): void {
     this.uiListBox.RemoveAll();
 
-    const savesList: LuaArray<FSItem> = getGameSavesList();
+    const savesList: LuaArray<FSItem> = getGameSaves();
 
     for (const [, file] of savesList) {
       const filename: TName = string.sub(
