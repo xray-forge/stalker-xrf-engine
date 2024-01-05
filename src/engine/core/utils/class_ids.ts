@@ -151,5 +151,7 @@ export function isSmartTerrain(object: ServerObject): object is SmartTerrain {
  * @returns whether provided squad is assigned with monsters
  */
 export function isMonsterSquad(squad: Squad): boolean {
-  return isMonster(registry.simulator.object(squad.commander_id()) as ServerObject);
+  const commander: Optional<ServerObject> = registry.simulator.object(squad.commander_id());
+
+  return commander !== null && isMonster(commander);
 }

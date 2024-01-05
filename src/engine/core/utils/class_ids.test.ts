@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
 import { registerSimulator } from "@/engine/core/database";
@@ -8,6 +8,7 @@ import {
   isCreature,
   isGrenade,
   isMonster,
+  isMonsterSquad,
   isSmartTerrain,
   isSquad,
   isSquadId,
@@ -16,7 +17,9 @@ import {
   isTrader,
   isWeapon,
 } from "@/engine/core/utils/class_ids";
-import { ServerActorObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
+import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { ServerActorObject, ServerGroupObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
+import { MockSquad } from "@/fixtures/engine";
 import {
   MockAlifeObject,
   MockGameObject,
@@ -230,5 +233,29 @@ describe("isWeapon utils", () => {
 describe("isMonsterSquad util", () => {
   beforeEach(() => registerSimulator());
 
-  it.todo("should correctly check if squad object assigned with monsters");
+  it("should correctly check if squad object assigned with no leader", () => {
+    const squad: MockSquad = MockSquad.mock();
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => MAX_U16);
+
+    expect(isMonsterSquad(squad)).toBe(false);
+  });
+
+  it("should correctly check if squad object assigned with monsters", () => {
+    const squad: MockSquad = MockSquad.mock();
+    const leader: ServerObject = MockAlifeObject.mockWithClassId(clsid.boar_s);
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => leader.id);
+
+    expect(isMonsterSquad(squad)).toBe(true);
+  });
+
+  it("should correctly check if squad object assigned with stalkers", () => {
+    const squad: MockSquad = MockSquad.mock();
+    const leader: ServerObject = MockAlifeObject.mockWithClassId(clsid.script_stalker);
+
+    jest.spyOn(squad, "commander_id").mockImplementation(() => leader.id);
+
+    expect(isMonsterSquad(squad)).toBe(false);
+  });
 });
