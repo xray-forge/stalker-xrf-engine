@@ -5,11 +5,11 @@ import { TIndex, TName } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo: Description.
+ * Manager generating load screen labels / tips.
  */
 export class LoadScreenManager extends AbstractManager {
   /**
-   * todo: Description.
+   * @returns random tip index for single player game
    */
   public getRandomTipIndex(levelName: TName): TIndex {
     logger.info("Get tip for single player game");
@@ -18,7 +18,7 @@ export class LoadScreenManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * @returns random tip index for multiplayer game
    */
   public getRandomMultiplayerTipIndex(levelName: TName): TIndex {
     logger.info("Get tip for multiplayer game");
