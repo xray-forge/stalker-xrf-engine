@@ -95,7 +95,7 @@ export function getSectionToActivate(object: GameObject, ini: IniFile, section: 
  * If no section provided (null), try to find any section from active smart terrain.
  * Emit activation signal for new scheme implementation.
  *
- * @param object - target game object
+ * @param object - game object
  * @param ini - target object logics ini file
  * @param section - target section to activate
  * @param smartTerrainName - smart terrain name
@@ -169,7 +169,7 @@ export function activateSchemeBySection(
 /**
  * Enable generic base schemes for object on logics activation.
  *
- * @param object - target game object
+ * @param object - game object
  * @param ini - target object ini configuration
  * @param schemeType - type of object applied scheme
  * @param logicsSection - next active logic section, source of object logic
@@ -286,7 +286,7 @@ export function enableObjectBaseSchemes(
  * Reset generic schemes on activation of new scheme.
  * Called after scheme switch to new section.
  *
- * @param object - target game object
+ * @param object - game object
  * @param scheme - new active scheme type
  * @param section - new active section
  */

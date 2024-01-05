@@ -14,7 +14,7 @@ import { EScheme, GameObject, IniFile, LuaArray, Optional, TDistance, TNumberId,
 /**
  * Synchronize object invulnerability state based.
  *
- * @param object - target game object
+ * @param object - game object
  */
 export function initializeObjectInvulnerability(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -33,7 +33,7 @@ export function initializeObjectInvulnerability(object: GameObject): void {
 /**
  * Synchronize object weapon selection state.
  *
- * @param object - target game object
+ * @param object - game object
  * @param scheme - active scheme of the object
  * @param state - object registry state
  * @param section - active logics section of the object
@@ -62,7 +62,7 @@ export function initializeObjectCanSelectWeaponState(
 /**
  * Synchronize object items taking state.
  *
- * @param object - target game object
+ * @param object - game object
  * @param scheme - active scheme of the object
  * @param state - object registry state
  * @param section - active logics section of the object
@@ -87,7 +87,7 @@ export function initializeObjectTakeItemsEnabledState(
 /**
  * Synchronize object group with ini section configuration.
  *
- * @param object - target game object
+ * @param object - game object
  * @param ini - target ini config
  * @param section - active logics section of the object
  */
@@ -102,7 +102,7 @@ export function initializeObjectGroup(object: GameObject, ini: IniFile, section:
 /**
  * Synchronize object info portions based on active ini logic section.
  *
- * @param object - target game object
+ * @param object - game object
  * @param ini - target ini config
  * @param section - active logics section of the object
  */
@@ -128,7 +128,7 @@ export function initializeObjectInfo(object: GameObject, ini: IniFile, section: 
 /**
  * Synchronize object info portions based on active ini logic section.
  *
- * @param object - target game object
+ * @param object - game object
  * @param scheme - active logics scheme
  * @param state - active object registry state
  * @param section - active logics section of the object

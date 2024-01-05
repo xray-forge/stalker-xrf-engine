@@ -35,7 +35,7 @@ export function isObjectAtWaypoint(object: GameObject, patrolPath: Patrol, patro
  * Check if object standing on terminal patrol waypoint.
  * Verifies that object is on one of terminal waypoints.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @param patrol - target patrol object to check
  * @returns [whether on terminal point, terminal point index]
  */

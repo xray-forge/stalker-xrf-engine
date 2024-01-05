@@ -21,7 +21,7 @@ import type {
 /**
  * Check whether object class id matches monster.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether provided object class id is matching monster
  */
 export function isMonster(object: GameObject): object is GameObject;
@@ -79,7 +79,7 @@ export function isWeapon(object: Optional<AnyGameObject>): boolean {
 /**
  * Check whether object is grenade.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether object class id matches grenade
  */
 export function isGrenade(object: Optional<AnyGameObject>): boolean {

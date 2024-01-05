@@ -150,14 +150,14 @@ export interface ISchemeEventHandler {
    *
    * Handle schema activation event.
    *
-   * @param object - target game object activation happen for
+   * @param object - game object activation happen for
    * @param isLoading - whether activation happen on load or during active game
    */
   activate?(object: GameObject, isLoading: boolean): void;
   /**
    * Handle schema deactivation event.
    *
-   * @param object - target game object deactivation happen for
+   * @param object - game object deactivation happen for
    */
   deactivate?(object: GameObject): void;
   /**
@@ -174,20 +174,20 @@ export interface ISchemeEventHandler {
   /**
    * Handle going online by game object.
    *
-   * @param object - target game object going online
+   * @param object - game object going online
    */
   onSwitchOnline?(object: GameObject): void;
   /**
    * Handle going offline by game object.
    *
-   * @param object - target game object going offline
+   * @param object - game object going offline
    */
   onSwitchOffline?(object: GameObject): void;
   /**
    * Handle scheme hit callback.
    * Emits when objects are hit by something.
    *
-   * @param object - target game object being hit
+   * @param object - game object being hit
    * @param amount - amount of hit applied
    * @param direction - direction of hit
    * @param who - game object which is source of hit
@@ -197,14 +197,14 @@ export interface ISchemeEventHandler {
   /**
    * Handle scheme use event.
    *
-   * @param object - target game object being used
+   * @param object - game object being used
    * @param who - game object using target object
    */
   onUse?(object: GameObject, who: Optional<GameObject>): void;
   /**
    * Handle scheme waypoint moving event.
    *
-   * @param object - target game object moving on waypoints
+   * @param object - game object moving on waypoints
    * @param actionType - type of action in the waypoint
    * @param index - index of the waypoint in patrol
    */
@@ -213,7 +213,7 @@ export interface ISchemeEventHandler {
    * Handle scheme death callback.
    * Emits when objects are dying.
    *
-   * @param victim - target game object dying
+   * @param victim - game object dying
    * @param who - game object who killed the object
    */
   onDeath?(victim: GameObject, who: Optional<GameObject>): void;

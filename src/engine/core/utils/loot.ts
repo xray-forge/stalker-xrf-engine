@@ -11,7 +11,7 @@ import { GameObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/
 /**
  * Check if object has valuable loot.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether object has any valuables to loot
  */
 export function isObjectWithValuableLoot(object: GameObject): boolean {
@@ -52,7 +52,7 @@ export function transferLoot(from: GameObject, to: GameObject): LuaArray<GameObj
 /**
  * Get nearest corpse for game object.
  *
- * @param object - target game object to get nearest corpse
+ * @param object - game object to get nearest corpse
  * @returns tuple with object, vertex id, position
  */
 export function getNearestCorpseToLoot(

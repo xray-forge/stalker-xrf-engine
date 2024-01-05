@@ -28,7 +28,7 @@ import {
 /**
  * Check whether object is facing any danger.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether object is facing any danger right now
  */
 export function isObjectFacingDanger(object: GameObject): boolean {

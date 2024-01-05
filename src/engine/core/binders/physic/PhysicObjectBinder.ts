@@ -213,7 +213,7 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * Handle destruction of the physical object.
    *
-   * @param object - target game object that was killed/destroyed
+   * @param object - game object that was killed/destroyed
    * @param who - game object that destroyed it
    */
   public onDeath(object: GameObject, who: GameObject): void {

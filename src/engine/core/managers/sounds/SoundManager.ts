@@ -121,7 +121,7 @@ export class SoundManager extends AbstractManager {
   /**
    * Perform sound state saving for provided object.
    *
-   * @param object - target game object to save
+   * @param object - game object to save
    * @param packet - net packet to save data into
    */
   public saveObject(object: GameObject, packet: NetPacket): void {
@@ -137,7 +137,7 @@ export class SoundManager extends AbstractManager {
   /**
    * Perform sound state saving for provided object.
    *
-   * @param object - target game object to save
+   * @param object - game object to save
    * @param reader - net reader to read data from
    */
   public loadObject(object: GameObject, reader: NetProcessor): void {

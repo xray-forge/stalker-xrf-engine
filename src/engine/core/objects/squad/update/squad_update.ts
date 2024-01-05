@@ -8,7 +8,7 @@ import { isSquadAction } from "@/engine/core/utils/squad";
 import { GameObject, Optional, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
- * @param object - target game object in squad to update actions for
+ * @param object - game object in squad to update actions for
  * @param squad - squad of the object to update
  */
 export function updateMonsterSquadAction(object: GameObject, squad: Squad): void {

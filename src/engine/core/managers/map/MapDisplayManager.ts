@@ -67,7 +67,7 @@ export class MapDisplayManager extends AbstractManager {
   /**
    * Update map display for game object.
    *
-   * @param object - target game object
+   * @param object - game object
    * @param scheme - active logic scheme
    * @param state - target object registry state
    * @param section - active logic section
@@ -142,7 +142,7 @@ export class MapDisplayManager extends AbstractManager {
   /**
    * Remove object map spot display.
    *
-   * @param object - target game object
+   * @param object - game object
    * @param state - target object registry state
    */
   public removeObjectMapSpot(object: GameObject, state: IRegistryObjectState): void {

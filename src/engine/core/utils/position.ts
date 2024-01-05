@@ -61,7 +61,7 @@ export function isObjectInSmartTerrain(object: GameObject, smartTerrainName: TNa
 /**
  * Check whether object is inside another zone object.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @param zone - target zone to check
  * @returns whether object is inside zone object.
  */
@@ -72,7 +72,7 @@ export function isObjectInZone(object: Optional<GameObject>, zone: Optional<Game
 /**
  * Check whether object is inside silence zone.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether object is inside silence zone
  */
 export function isObjectInSilenceZone(object: GameObject): boolean {

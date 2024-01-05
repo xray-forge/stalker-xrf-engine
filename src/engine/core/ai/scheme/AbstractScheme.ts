@@ -44,7 +44,7 @@ export abstract class AbstractScheme {
    * Assign scheme data for working with logics.
    * Initializes base state in object registry where key is current scheme.
    *
-   * @param object - target game object
+   * @param object - game object
    * @param ini - file to read scheme configuration from
    * @param scheme - type of scheme activated
    * @param section - section of activated logics
@@ -76,7 +76,7 @@ export abstract class AbstractScheme {
   /**
    * Initialize current state and add scheme state handlers for game object state.
    *
-   * @param object - target game object
+   * @param object - game object
    * @param ini - ini file describing object logic
    * @param scheme - new scheme type
    * @param section - new logic section
@@ -97,7 +97,7 @@ export abstract class AbstractScheme {
    * Scheme may be different or same, but expected section is different.
    * Mainly used for shared generic schemes that are always active.
    *
-   * @param object - target game object
+   * @param object - game object
    * @param scheme - new scheme type
    * @param state - target object registry state
    * @param section - new active section
@@ -110,7 +110,7 @@ export abstract class AbstractScheme {
    * Generic method to disable scheme logics.
    * Used with persistent schemes that are always active independently of current logics section.
    *
-   * @param object - target game object
+   * @param object - game object
    * @param scheme - target scheme to disable for
    */
   public static disable(object: GameObject, scheme: EScheme): void {

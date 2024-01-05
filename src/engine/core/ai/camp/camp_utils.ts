@@ -143,7 +143,7 @@ export function canTellCampStory(manager: CampManager): boolean {
 /**
  * Get object role based on id/state for current camp activity.
  *
- * @param objectId - target game object id
+ * @param objectId - game object ID
  * @param activity - camp activity name to check role for
  * @returns whether object animpoint state is correct and what role can be used for it
  */

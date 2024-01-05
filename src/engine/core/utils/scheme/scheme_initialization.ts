@@ -49,7 +49,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 /**
  * Configure object schemes and get ini config describing object scripts.
  *
- * @param object - target game object
+ * @param object - game object
  * @param ini - ini file containing object spawn or job info
  * @param iniName - ini file name
  * @param schemeType - object scheme type
@@ -142,7 +142,7 @@ export function configureObjectSchemes(
  * Initialize object scheme logics on object logics change/load/spawn.
  * Called on first object update or when smart terrain assignments change and object has to get new logic.
  *
- * @param object - target game object
+ * @param object - game object
  * @param state - target object registry state
  * @param isLoading - whether initialization is happening on object load
  * @param schemeType - type of object schemes applied
@@ -213,7 +213,7 @@ export function initializeObjectSchemeLogic(
 }
 
 /**
- * @param object - target game object to setup logic
+ * @param object - game object to setup logic
  * @param state - target object registry state
  * @param schemeType - target object active scheme type
  * @param isLoaded - whether object is initialized after game load
@@ -252,7 +252,7 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
  * Spawn object items on logics section change for an object.
  * Allows giving items to objects on specific logics activation.
  *
- * @param object - target game object
+ * @param object - game object
  * @param state - object registry state
  */
 export function initializeObjectSectionItems(object: GameObject, state: IRegistryObjectState): void {
@@ -286,7 +286,7 @@ export function initializeObjectSectionItems(object: GameObject, state: IRegistr
  * If object job descriptor is updated and linked, logics schemas will be activated as needed.
  *
  * @param smartTerrain - target smart terrain to setup logic in
- * @param object - target game object to setup logics
+ * @param object - game object to setup logics
  */
 export function setupSmartTerrainObjectJobLogic(smartTerrain: SmartTerrain, object: GameObject): void {
   // logger.info("Setup logic:", this.name(), object.name());

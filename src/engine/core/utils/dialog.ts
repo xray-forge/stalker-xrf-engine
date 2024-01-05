@@ -32,7 +32,7 @@ export function isObjectName(object: GameObject, name: TName): boolean {
 /**
  * Break current actor dialog with game object.
  *
- * @param object - target game object to break dialog with
+ * @param object - game object to break dialog with
  */
 export function breakObjectDialog(object: GameObject): void {
   registry.actor.stop_talk();
@@ -43,7 +43,7 @@ export function breakObjectDialog(object: GameObject): void {
  * Update current state of object dialog.
  * Run logics sync and updates.
  *
- * @param object - target game object to update dialog for
+ * @param object - game object to update dialog for
  */
 export function updateObjectDialog(object: GameObject): void {
   (registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState).meetManager.update();

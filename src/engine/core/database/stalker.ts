@@ -42,7 +42,7 @@ export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = tru
 /**
  * Set stalker object state related to animation and object behaviour.
  *
- * @param object - target game object
+ * @param object - game object
  * @param state - target animation state
  * @param callback - callback parameters to execute on animation / animation end
  * @param timeout - state execution timeout

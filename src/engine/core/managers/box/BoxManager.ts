@@ -30,7 +30,7 @@ export class BoxManager extends AbstractManager {
   /**
    * Spawn box items on destruction (or another event) to drop.
    *
-   * @param object - target game object to spawn box items for
+   * @param object - game object to spawn box items for
    */
   public spawnBoxObjectItems(object: GameObject): void {
     const spawnIni: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;

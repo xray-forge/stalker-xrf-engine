@@ -219,7 +219,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * Handle object death.
    * Unregister it from active patrol.
    *
-   * @param object - target game object to switch
+   * @param object - game object to switch
    */
   public onDeath(object: GameObject): void {
     if (!this.patrolManager) {
@@ -233,7 +233,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * Handle object switching offline.
    * Unregister it from active patrol.
    *
-   * @param object - target game object to switch
+   * @param object - game object to switch
    */
   public onSwitchOffline(object: GameObject): void {
     if (!this.patrolManager) {

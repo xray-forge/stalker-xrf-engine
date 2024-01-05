@@ -5,7 +5,7 @@ import { getPatrolFlag, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { GameObject, Optional, Patrol } from "@/engine/lib/types";
 
 /**
- * @param object - target game object to check
+ * @param object - game object to check
  * @param state - state of camper scheme
  * @returns whether object is on patrol waypoint and waypoint flag mask is matching
  */

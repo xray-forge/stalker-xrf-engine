@@ -81,7 +81,7 @@ export function getSquadHelpActorTargetId(squad: Squad): Optional<TNumberId> {
 /**
  * Check whether provided object is commander of squad.
  *
- * @param object - target game object to check
+ * @param object - game object to check
  * @returns whether object is commanding squad
  */
 export function isObjectSquadCommander(object: AnyGameObject): boolean {
@@ -96,7 +96,7 @@ export function isObjectSquadCommander(object: AnyGameObject): boolean {
 /**
  * Check whether provided object id is commander of squad.
  *
- * @param objectId - target game object id to check
+ * @param objectId - game object ID to check
  * @returns whether object is commanding squad
  */
 export function isObjectSquadCommanderById(objectId: TNumberId): boolean {

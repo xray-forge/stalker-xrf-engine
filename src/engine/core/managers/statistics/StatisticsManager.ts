@@ -170,7 +170,7 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle item pick up event.
    *
-   * @param item - target game object picked up
+   * @param item - game object picked up
    */
   public onActorCollectedItem(item: GameObject): void {
     if (!isArtefact(item)) {

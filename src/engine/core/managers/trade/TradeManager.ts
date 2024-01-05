@@ -77,7 +77,7 @@ export class TradeManager extends AbstractManager {
   /**
    * Perform trading schemes update for game object instance.
    *
-   * @param object - target game object to update trading state
+   * @param object - game object to update trading state
    */
   public updateForObject(object: GameObject): void {
     const tradeDescriptor: Optional<ITradeManagerDescriptor> = registry.trade.get(object.id());

@@ -39,7 +39,7 @@ import {
  * Parse array of `|` separated condition lists.
  * Original regexp - "(%|*[^%|]+%|*)%p*".
  *
- * @param object - target game object
+ * @param object - game object
  * @param data - target data list string to parse
  * @returns parsed list of sections from processed condition lists
  */
@@ -68,7 +68,7 @@ export function getSectionsFromConditionLists(object: GameObject, data: Optional
  * todo: Implement static condlists and check performance without parsing etc.
  *
  * @param actor - actor game object
- * @param object - target game object
+ * @param object - game object
  * @param condlist - target condlist to process
  * @returns picked section based on condlist and actual checks
  */
@@ -193,7 +193,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
  *
  * @param ini - target ini file
  * @param section - section name to read from ini file
- * @param object - target game object
+ * @param object - game object
  * @returns overrides object
  */
 export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: GameObject): ILogicsOverrides {
