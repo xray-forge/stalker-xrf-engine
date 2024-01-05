@@ -3,21 +3,21 @@ import { registry } from "@/engine/core/database";
 import { LuaArray, Optional, ServerObject, TName, TSection } from "@/engine/lib/types";
 
 /**
- * @param anomalyZoneName - name of anomaly zone to check
- * @param artefactSection - name of artefact to search in the anomaly
+ * @param name - name of anomaly zone to check
+ * @param section - name of artefact to search in the anomaly
  * @returns whether anomaly has artefact
  */
-export function anomalyHasArtefact(anomalyZoneName: TName, artefactSection: TSection): boolean {
-  const anomalyZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(anomalyZoneName);
+export function anomalyHasArtefact(name: TName, section: TSection): boolean {
+  const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(name);
 
-  if (!anomalyZone || anomalyZone.spawnedArtefactsCount < 1) {
+  if (!zone || zone.spawnedArtefactsCount < 1) {
     return false;
   }
 
-  for (const [artefactId] of anomalyZone.artefactWaysByArtefactId) {
-    const object: Optional<ServerObject> = registry.simulator.object(artefactId);
+  for (const [id] of zone.artefactWaysByArtefactId) {
+    const object: Optional<ServerObject> = registry.simulator.object(id);
 
-    if (object && object.section_name() === artefactSection) {
+    if (object && object.section_name() === section) {
       return true;
     }
   }
@@ -26,24 +26,24 @@ export function anomalyHasArtefact(anomalyZoneName: TName, artefactSection: TSec
 }
 
 /**
- * @param anomalyZoneName - name of anomaly zone to check
+ * @param name - name of anomaly zone to check
  * @returns list of artefacts in the anomaly
  */
-export function getAnomalyArtefacts(anomalyZoneName: TName): LuaArray<TSection> {
-  const anomalyZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(anomalyZoneName);
-  const artefactsList: LuaArray<TName> = new LuaTable();
+export function getAnomalyArtefacts(name: TName): LuaArray<TSection> {
+  const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(name);
+  const artefacts: LuaArray<TName> = new LuaTable();
 
-  if (!anomalyZone || anomalyZone.spawnedArtefactsCount < 1) {
-    return artefactsList;
+  if (!zone || zone.spawnedArtefactsCount < 1) {
+    return artefacts;
   }
 
-  for (const [artefactId] of anomalyZone.artefactWaysByArtefactId) {
-    const artefactObject: Optional<ServerObject> = registry.simulator.object(artefactId);
+  for (const [id] of zone.artefactWaysByArtefactId) {
+    const object: Optional<ServerObject> = registry.simulator.object(id);
 
-    if (artefactObject) {
-      table.insert(artefactsList, artefactObject.section_name());
+    if (object) {
+      table.insert(artefacts, object.section_name());
     }
   }
 
-  return artefactsList;
+  return artefacts;
 }

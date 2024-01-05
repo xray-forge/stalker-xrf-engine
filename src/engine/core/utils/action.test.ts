@@ -10,7 +10,7 @@ import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("action utils", () => {
+describe("objectPunchActor util", () => {
   beforeEach(() => {
     resetFunctionMock(level.add_cam_effector);
     resetRegistry();
