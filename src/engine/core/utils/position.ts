@@ -2,8 +2,7 @@ import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { vectorToString, yawDegree3d } from "@/engine/core/utils/vector";
+import { yawDegree3d } from "@/engine/core/utils/vector";
 import { graphDistance } from "@/engine/core/utils/vertex";
 import { MAX_U16, MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
@@ -20,8 +19,6 @@ import {
   TNumberId,
   Vector,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Get smart terrain linked to object.
@@ -206,16 +203,11 @@ export function sendToNearestAccessibleVertex(object: GameObject, vertexId: Opti
 }
 
 /**
- * Check whether object is actor frustum.
- *
  * @param object - target object to check
- * @returns whether object is in visibility frustum
+ * @returns whether object is in visibility frustum of actor point of view
  */
 export function isObjectInActorFrustum(object: GameObject): boolean {
-  const actorDirection: Vector = device().cam_dir;
-  const objectDirection: Vector = object.position().sub(registry.actor.position());
-
-  return yawDegree3d(actorDirection, objectDirection) < 35;
+  return yawDegree3d(device().cam_dir, object.position().sub(registry.actor.position())) < 35;
 }
 
 /**
@@ -226,8 +218,6 @@ export function isObjectInActorFrustum(object: GameObject): boolean {
  * @param direction - vector direction
  */
 export function teleportActorWithEffects(actor: GameObject, position: Vector, direction: Vector): void {
-  logger.info("Teleporting actor:", vectorToString(position));
-
   actor.set_actor_position(position);
   actor.set_actor_direction(-direction.getH());
 

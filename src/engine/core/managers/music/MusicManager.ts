@@ -12,7 +12,7 @@ import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { clampNumber } from "@/engine/core/utils/number";
+import { clamp } from "@/engine/core/utils/number";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import {
@@ -245,7 +245,7 @@ export class MusicManager extends AbstractManager {
 
     this.previousFadeStepAppliedAt = now;
 
-    this.fadeToThemeVolume = clampNumber(this.fadeToThemeVolume, 0, this.gameAmbientVolume);
+    this.fadeToThemeVolume = clamp(this.fadeToThemeVolume, 0, this.gameAmbientVolume);
 
     if (this.dynamicThemeVolume > this.fadeToThemeVolume) {
       if (this.forceFade) {
@@ -254,7 +254,7 @@ export class MusicManager extends AbstractManager {
         this.dynamicThemeVolume = this.dynamicThemeVolume - this.volumeChangeStep;
       }
 
-      this.dynamicThemeVolume = clampNumber(this.dynamicThemeVolume, this.fadeToThemeVolume, this.dynamicThemeVolume);
+      this.dynamicThemeVolume = clamp(this.dynamicThemeVolume, this.fadeToThemeVolume, this.dynamicThemeVolume);
     } else if (this.dynamicThemeVolume < this.fadeToThemeVolume) {
       if (this.forceFade) {
         this.dynamicThemeVolume = this.fadeToThemeVolume;
@@ -262,7 +262,7 @@ export class MusicManager extends AbstractManager {
         this.dynamicThemeVolume = this.dynamicThemeVolume + this.volumeChangeStep;
       }
 
-      this.dynamicThemeVolume = clampNumber(this.dynamicThemeVolume, this.dynamicThemeVolume, this.fadeToThemeVolume);
+      this.dynamicThemeVolume = clamp(this.dynamicThemeVolume, this.dynamicThemeVolume, this.fadeToThemeVolume);
     }
   }
 
@@ -277,7 +277,7 @@ export class MusicManager extends AbstractManager {
     }
 
     this.previousFadeStepAppliedAt = now;
-    this.fadeToAmbientVolume = clampNumber(this.fadeToAmbientVolume, 0, this.gameAmbientVolume);
+    this.fadeToAmbientVolume = clamp(this.fadeToAmbientVolume, 0, this.gameAmbientVolume);
 
     if (this.themeAmbientVolume > this.fadeToAmbientVolume) {
       if (this.forceFade) {
@@ -286,7 +286,7 @@ export class MusicManager extends AbstractManager {
         this.themeAmbientVolume = this.themeAmbientVolume - this.volumeChangeStep;
       }
 
-      this.themeAmbientVolume = clampNumber(this.themeAmbientVolume, this.fadeToAmbientVolume, this.themeAmbientVolume);
+      this.themeAmbientVolume = clamp(this.themeAmbientVolume, this.fadeToAmbientVolume, this.themeAmbientVolume);
     } else if (this.themeAmbientVolume < this.fadeToAmbientVolume) {
       if (this.forceFade) {
         this.themeAmbientVolume = this.fadeToAmbientVolume;
@@ -294,7 +294,7 @@ export class MusicManager extends AbstractManager {
         this.themeAmbientVolume = this.themeAmbientVolume + this.volumeChangeStep;
       }
 
-      this.themeAmbientVolume = clampNumber(this.themeAmbientVolume, this.themeAmbientVolume, this.fadeToAmbientVolume);
+      this.themeAmbientVolume = clamp(this.themeAmbientVolume, this.themeAmbientVolume, this.fadeToAmbientVolume);
     }
 
     this.setSoundVolume(this.themeAmbientVolume);

@@ -5,8 +5,8 @@ import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { TName } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 
-describe("level utils", () => {
-  it("isUndergroundLevel should correctly check if level is underground", () => {
+describe("isUndergroundLevel util", () => {
+  it("should correctly check if level is underground", () => {
     surgeConfig.UNDERGROUND_LEVELS = MockLuaTable.mockFromObject<TName, boolean>({
       zaton: false,
       jupiter: false,

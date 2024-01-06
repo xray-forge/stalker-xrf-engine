@@ -6,8 +6,8 @@ import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GameObject, LuaArray } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("loot utils", () => {
-  it("isObjectWithValuableLoot should correctly check object valuable loot", () => {
+describe("isObjectWithValuableLoot util", () => {
+  it("should correctly check object valuable loot", () => {
     expect(isObjectWithValuableLoot(MockGameObject.mock())).toBe(false);
     expect(
       isObjectWithValuableLoot(
@@ -40,8 +40,10 @@ describe("loot utils", () => {
       )
     ).toBe(true);
   });
+});
 
-  it("transferLoot should correctly transfer lootable items", () => {
+describe("transferLoot util", () => {
+  it("should correctly transfer lootable items", () => {
     const ak74: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_ak74u });
     const akAmmo: GameObject = MockGameObject.mock({ sectionOverride: ammo["ammo_5.45x39_ap"] });
     const questItem: GameObject = MockGameObject.mock({ sectionOverride: "secret_quest_container" });
@@ -64,4 +66,8 @@ describe("loot utils", () => {
     expect(from.object(questItem.section())).toBe(questItem);
     expect(to.object(questItem.section())).toBeNull();
   });
+});
+
+describe("getNearestCorpseToLoot util", () => {
+  it.todo("should get nearest corpses for looting");
 });

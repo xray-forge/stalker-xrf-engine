@@ -20,8 +20,8 @@ import { mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
 
-describe("object state utils", () => {
-  it("isObjectAsleep should check state correctly", () => {
+describe("isObjectAsleep util", () => {
+  it("should check state correctly", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(isObjectAsleep(object.id())).toBe(false);
@@ -42,8 +42,10 @@ describe("object state utils", () => {
     state.stateManager.animstate.state.currentState = EStalkerState.SALUT;
     expect(isObjectAsleep(object.id())).toBe(false);
   });
+});
 
-  it("isObjectWounded should correctly check wounded state", () => {
+describe("isObjectWounded util", () => {
+  it("should correctly check wounded state", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(isObjectWounded(object.id())).toBe(false);
@@ -69,8 +71,10 @@ describe("object state utils", () => {
     woundManager.woundState = "nil";
     expect(isObjectWounded(object.id())).toBe(false);
   });
+});
 
-  it("isObjectMeeting should correctly check meeting state", () => {
+describe("isObjectMeeting util", () => {
+  it("should correctly check meeting state", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(isObjectMeeting(object)).toBe(false);
@@ -90,7 +94,9 @@ describe("object state utils", () => {
     replaceFunctionMock(object.motivation_action_manager, () => null);
     expect(isObjectMeeting(object)).toBe(false);
   });
+});
 
+describe("object state utils", () => {
   it("isObjectInCombat should correctly check object combat state", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
@@ -112,8 +118,10 @@ describe("object state utils", () => {
     planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
     expect(isObjectInCombat(object)).toBe(false);
   });
+});
 
-  it("isObjectSearchingCorpse should correctly check object searching corpse state", () => {
+describe("isObjectSearchingCorpse util", () => {
+  it("should correctly check object searching corpse state", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 
@@ -134,8 +142,10 @@ describe("object state utils", () => {
     planner.currentActionId = EActionId.CRITICALLY_WOUNDED;
     expect(isObjectSearchingCorpse(object)).toBe(false);
   });
+});
 
-  it("isObjectHelpingWounded should correctly check object helping wounded state", () => {
+describe("isObjectHelpingWounded state utils", () => {
+  it("should correctly check object helping wounded state", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
 

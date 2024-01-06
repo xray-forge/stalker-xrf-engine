@@ -4,7 +4,7 @@ import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { clampNumber } from "@/engine/core/utils/number";
+import { clamp } from "@/engine/core/utils/number";
 import { EGoodwill, ERelation, mapRelationToGoodwill } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -107,7 +107,7 @@ export function increaseCommunityGoodwillToId(
  */
 export function setObjectSympathy(object: Optional<GameObject>, sympathy: TCount): void {
   assert(object, "Object not set in sympathy function.");
-  object.set_sympathy(clampNumber(sympathy, 0, 1));
+  object.set_sympathy(clamp(sympathy, 0, 1));
 }
 
 /**

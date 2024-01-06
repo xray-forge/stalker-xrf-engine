@@ -17,7 +17,7 @@ import { IPsyPostProcessDescriptor } from "@/engine/core/managers/psy/psy_antenn
 import { abort } from "@/engine/core/utils/assertion";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { clampNumber } from "@/engine/core/utils/number";
+import { clamp } from "@/engine/core/utils/number";
 import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import {
   ESoundObjectType,
@@ -190,7 +190,7 @@ export class PsyAntennaManager extends AbstractManager {
         ii = intensityBase < intensity ? intensity - di : intensity + di;
       }
 
-      return clampNumber(ii, 0.0, 1.0);
+      return clamp(ii, 0.0, 1.0);
     };
 
     this.generatePhantoms();

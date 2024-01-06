@@ -17,12 +17,11 @@ import type {
 } from "@/engine/lib/types";
 
 /**
- * Check whether object reached patrol point with specific index.
  *
  * @param object - target object to check
  * @param patrolPath - target patrol to check
  * @param patrolPointIndex - index of patrol to check
- * @returns whether object reached patrol point
+ * @returns whether object reached patrol point with provided index
  */
 export function isObjectAtWaypoint(object: GameObject, patrolPath: Patrol, patrolPointIndex: TIndex): boolean {
   const objectPosition: Vector = object.position();

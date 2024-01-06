@@ -25,19 +25,19 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { GameObject, ServerHumanObject, ServerObject, ServerSmartZoneObject, Vector } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
+  MockAlifeHumanStalker,
   MockGameObject,
-  mockServerAlifeHumanStalker,
   mockServerAlifeObject,
   mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("position utils", () => {
+describe("isObjectInSmartTerrain util", () => {
   beforeEach(() => {
     registerSimulator();
   });
 
-  it("isObjectInSmartTerrain check object inside smart terrain", () => {
+  it("should check object inside smart terrain", () => {
     const smartTerrain = mockServerAlifeSmartZone({ name: <T extends string>() => "test-smart" as T });
     const { actorGameObject } = mockRegisteredActor({}, { m_smart_terrain_id: smartTerrain.id });
 
@@ -45,8 +45,14 @@ describe("position utils", () => {
     expect(isObjectInSmartTerrain(actorGameObject, "test-smart-another")).toBe(false);
     expect(isObjectInSmartTerrain(actorGameObject, "another")).toBe(false);
   });
+});
 
-  it("isObjectInZone check object inside", () => {
+describe("isObjectInZone util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should check object inside", () => {
     const object: GameObject = MockGameObject.mock();
     const zone: GameObject = MockGameObject.mock();
 
@@ -56,8 +62,14 @@ describe("position utils", () => {
     expect(isObjectInZone(object, null)).toBe(false);
     expect(isObjectInZone(null, zone)).toBe(false);
   });
+});
 
-  it("isObjectInSilenceZone should check if object is in silence zone", () => {
+describe("isObjectInSilenceZone util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should check if object is in silence zone", () => {
     const object: GameObject = MockGameObject.mock();
     const zone: GameObject = MockGameObject.mock({ inside: () => true });
 
@@ -72,8 +84,14 @@ describe("position utils", () => {
 
     expect(isObjectInSilenceZone(object)).toBe(false);
   });
+});
 
-  it("isObjectOnLevel check object on level", () => {
+describe("isObjectOnLevel util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should check object on level", () => {
     const object: ServerObject = mockServerAlifeObject();
 
     expect(isObjectOnLevel(null, "zaton")).toBe(false);
@@ -82,8 +100,14 @@ describe("position utils", () => {
     expect(game_graph().vertex(object.m_game_vertex_id).level_id()).toBe(5120);
     expect(registry.simulator.level_name).toHaveBeenCalledWith(5120);
   });
+});
 
-  it("areObjectsOnSameLevel check objects on level", () => {
+describe("areObjectsOnSameLevel util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should check objects on level", () => {
     expect(areObjectsOnSameLevel(mockServerAlifeObject(), mockServerAlifeObject())).toBe(true);
     expect(areObjectsOnSameLevel(mockServerAlifeObject(), mockServerAlifeObject({ m_game_vertex_id: 990 }))).toBe(
       false
@@ -95,8 +119,14 @@ describe("position utils", () => {
       )
     ).toBe(true);
   });
+});
 
-  it("isDistanceBetweenObjectsGreaterOrEqual should correctly check", () => {
+describe("isDistanceBetweenObjectsGreaterOrEqual util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly check", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
@@ -109,8 +139,14 @@ describe("position utils", () => {
     jest.spyOn(first.position(), "distance_to").mockImplementation(() => 1000);
     expect(isDistanceBetweenObjectsGreaterOrEqual(first, second, 1000)).toBe(true);
   });
+});
 
-  it("isDistanceBetweenObjectsLessOrEqual should correctly check", () => {
+describe("isDistanceBetweenObjectsLessOrEqual util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly check", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
@@ -122,6 +158,12 @@ describe("position utils", () => {
 
     jest.spyOn(first.position(), "distance_to").mockImplementation(() => 1000);
     expect(isDistanceBetweenObjectsLessOrEqual(first, second, 1000)).toBe(true);
+  });
+});
+
+describe("getDistanceBetween util", () => {
+  beforeEach(() => {
+    registerSimulator();
   });
 
   it("getServerDistanceBetween should correctly get distance for offline objects", () => {
@@ -136,7 +178,7 @@ describe("position utils", () => {
     expect(getServerDistanceBetween(second, mockServerAlifeObject())).toBe(255);
   });
 
-  it("getDistanceBetween should correctly get distance for offline objects", () => {
+  it("should correctly get distance for game objects", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
@@ -144,6 +186,12 @@ describe("position utils", () => {
 
     jest.spyOn(first.position(), "distance_to").mockImplementation(() => 600);
     expect(getDistanceBetween(first, second)).toBe(600);
+  });
+});
+
+describe("getDistanceBetweenSqr utils", () => {
+  beforeEach(() => {
+    registerSimulator();
   });
 
   it("getDistanceBetweenSqr should correctly get distance for offline objects", () => {
@@ -155,8 +203,14 @@ describe("position utils", () => {
     jest.spyOn(first.position(), "distance_to_sqr").mockImplementation(() => 1600);
     expect(getDistanceBetweenSqr(first, second)).toBe(1600);
   });
+});
 
-  it("sendToNearestAccessibleVertex should correctly send object to nearest accesible vertex", () => {
+describe("sendToNearestAccessibleVertex utils", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly send object to nearest accesible vertex", () => {
     const first: GameObject = MockGameObject.mock();
 
     expect(sendToNearestAccessibleVertex(first, 150)).toBe(150);
@@ -181,8 +235,14 @@ describe("position utils", () => {
     expect(sendToNearestAccessibleVertex(third, MAX_U32 + 10)).toBe(1442);
     expect(sendToNearestAccessibleVertex(third, MAX_U32 * 2)).toBe(1442);
   });
+});
 
-  it("teleportActorWithEffects should correctly teleport actor", () => {
+describe("teleportActorWithEffects util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly teleport actor", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const destination: Vector = MockVector.mock(15, 14, 16);
     const direction: Vector = MockVector.mock(3, 5, 4);
@@ -191,6 +251,12 @@ describe("position utils", () => {
 
     expect(actor.set_actor_position).toHaveBeenCalledWith(destination);
     expect(actor.set_actor_direction).toHaveBeenCalledWith(-direction.getH());
+  });
+});
+
+describe("position utils", () => {
+  beforeEach(() => {
+    registerSimulator();
   });
 
   it("isObjectInActorFrustum should correctly check whether object is in actor frustum", () => {
@@ -214,17 +280,22 @@ describe("position utils", () => {
     jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0, 0, 0));
     expect(isObjectInActorFrustum(object)).toBe(false);
   });
+});
 
-  it("getObjectSmartTerrain should correctly get smart terrain of an object", () => {
+describe("getObjectSmartTerrain util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly get smart terrain of an object", () => {
     expect(getObjectSmartTerrain(MockGameObject.mock())).toBeNull();
-    expect(getObjectSmartTerrain(mockServerAlifeHumanStalker())).toBeNull();
+    expect(getObjectSmartTerrain(MockAlifeHumanStalker.mock())).toBeNull();
 
-    const gameObject: GameObject = MockGameObject.mock();
     const smartTerrainObject: ServerSmartZoneObject = mockServerAlifeSmartZone();
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      id: gameObject.id(),
-      m_smart_terrain_id: smartTerrainObject.id,
-    });
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+
+    serverObject.m_smart_terrain_id = smartTerrainObject.id;
 
     expect(getObjectSmartTerrain(gameObject)).toBe(smartTerrainObject);
     expect(getObjectSmartTerrain(serverObject)).toBe(smartTerrainObject);
@@ -234,8 +305,14 @@ describe("position utils", () => {
     expect(getObjectSmartTerrain(gameObject)).toBeNull();
     expect(getObjectSmartTerrain(serverObject)).toBeNull();
   });
+});
 
-  it("getObjectPositioning should correctly get positioning", () => {
+describe("getObjectPositioning util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly get positioning", () => {
     const gameObject: GameObject = MockGameObject.mock();
 
     expect(getObjectPositioning(gameObject)).toEqual([
@@ -249,21 +326,27 @@ describe("position utils", () => {
       },
     ]);
 
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     expect(getObjectPositioning(serverObject)).toEqual([
       serverObject.id,
       512,
       255,
       {
-        x: 0.25,
-        y: 0.25,
-        z: 0.25,
+        x: 0,
+        y: 0,
+        z: 0,
       },
     ]);
   });
+});
 
-  it("isActorInNoWeaponZone should correctly check if actor is in no weapon zone", () => {
+describe("isActorInNoWeaponZone util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly check if actor is in no weapon zone", () => {
     const zone: GameObject = MockGameObject.mock();
 
     expect(isActorInNoWeaponZone()).toBe(false);

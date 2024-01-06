@@ -8,7 +8,7 @@ import { TIndex } from "@/engine/lib/types";
  * @param max - maximal bound
  * @returns clamped to provided bounds number
  */
-export function clampNumber(value: number, min: number, max: number): number {
+export function clamp(value: number, min: number, max: number): number {
   if (value < min) {
     return min;
   } else if (value > max) {

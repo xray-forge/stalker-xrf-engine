@@ -5,7 +5,7 @@ import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import { getManager, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
-import { clampNumber } from "@/engine/core/utils/number";
+import { clamp } from "@/engine/core/utils/number";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { AnyObject, GameObject, Optional, TIndex, TNumberId, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
@@ -62,7 +62,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
       intensityDelta = this.state.loweringKoef * intensityDelta;
     }
 
-    this.state.intensity = clampNumber(this.state.intensity + intensityDelta, 0, 1);
+    this.state.intensity = clamp(this.state.intensity + intensityDelta, 0, 1);
 
     const ppIntensity: TRate = this.state.intensity;
     const noiseIntensity: TRate = this.state.intensity;
