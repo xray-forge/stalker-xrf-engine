@@ -7,6 +7,8 @@ import { MockLuaTable } from "@/fixtures/lua";
 export function mockLuaExtensions(): void {
   // @ts-ignore
   global.$filename = "JEST_TEST";
+  // @ts-ignore
+  global.$dirname = "JEST_TEST";
 
   /*
    * For jest env mock casting.
