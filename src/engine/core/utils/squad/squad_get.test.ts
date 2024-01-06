@@ -1,48 +1,54 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSimulator } from "@/engine/core/database";
+import { Squad } from "@/engine/core/objects/squad";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";
-import { GameObject, ServerGroupObject, ServerHumanObject } from "@/engine/lib/types";
-import { MockGameObject, mockServerAlifeHumanStalker, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import { GameObject, ServerHumanObject } from "@/engine/lib/types";
+import { MockSquad } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 
-describe("squad utils", () => {
+describe("getObjectSquad util", () => {
   beforeEach(() => {
     registerSimulator();
   });
 
-  it("getObjectSquad should correctly get squad of an object", () => {
+  it("should correctly get squad of an object", () => {
     expect(getObjectSquad(MockGameObject.mock())).toBeNull();
-    expect(getObjectSquad(mockServerAlifeHumanStalker())).toBeNull();
+    expect(getObjectSquad(MockAlifeHumanStalker.mock())).toBeNull();
 
-    const gameObject: GameObject = MockGameObject.mock();
-    const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      id: gameObject.id(),
-      group_id: groupObject.id,
-    });
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const squad: Squad = MockSquad.mock();
 
-    expect(getObjectSquad(gameObject)).toBe(groupObject);
-    expect(getObjectSquad(serverObject)).toBe(groupObject);
+    serverObject.group_id = squad.id;
+
+    expect(getObjectSquad(gameObject)).toBe(squad);
+    expect(getObjectSquad(serverObject)).toBe(squad);
 
     serverObject.group_id = 99_999;
 
     expect(getObjectSquad(gameObject)).toBeNull();
     expect(getObjectSquad(serverObject)).toBeNull();
   });
+});
 
-  it("getObjectSquadByObjectId should correctly get squad of an object", () => {
+describe("getObjectSquadByObjectId util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly get squad of an object", () => {
     expect(getObjectSquadByObjectId(MockGameObject.mock().id())).toBeNull();
-    expect(getObjectSquadByObjectId(mockServerAlifeHumanStalker().id)).toBeNull();
+    expect(getObjectSquadByObjectId(MockAlifeHumanStalker.mock().id)).toBeNull();
 
-    const gameObject: GameObject = MockGameObject.mock();
-    const groupObject: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      id: gameObject.id(),
-      group_id: groupObject.id,
-    });
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const squad: Squad = MockSquad.mock();
 
-    expect(getObjectSquadByObjectId(gameObject.id())).toBe(groupObject);
-    expect(getObjectSquadByObjectId(serverObject.id)).toBe(groupObject);
+    serverObject.group_id = squad.id;
+
+    expect(getObjectSquadByObjectId(gameObject.id())).toBe(squad);
+    expect(getObjectSquadByObjectId(serverObject.id)).toBe(squad);
 
     serverObject.group_id = 99_999;
 

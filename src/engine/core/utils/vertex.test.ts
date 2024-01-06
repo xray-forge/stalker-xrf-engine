@@ -23,8 +23,8 @@ describe("isGameVertexFromLevel util", () => {
   });
 });
 
-describe("graph distance utils", () => {
-  it("graphDistance should correctly get graph distance", () => {
+describe("graphDistance util", () => {
+  it("should correctly get graph distance", () => {
     expect(graphDistance(1, 2)).toBe(20);
 
     const vertex: Vertex = game_graph().vertex(500);
@@ -35,8 +35,10 @@ describe("graph distance utils", () => {
     jest.spyOn(vertex.game_point(), "distance_to").mockImplementation(() => 888);
     expect(graphDistance(500, 256)).toBe(888);
   });
+});
 
-  it("graphDistanceSqr should correctly get graph distance sqr", () => {
+describe("graphDistanceSqr util", () => {
+  it("should correctly get graph distance sqr", () => {
     expect(graphDistanceSqr(1, 2)).toBe(400);
 
     const vertex: Vertex = game_graph().vertex(500);

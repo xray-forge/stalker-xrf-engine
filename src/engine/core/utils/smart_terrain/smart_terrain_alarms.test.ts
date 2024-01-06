@@ -6,12 +6,12 @@ import {
   startSmartTerrainAlarm,
   updateSmartTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain/smart_terrain_alarms";
-import { mockSmartTerrain } from "@/fixtures/engine";
+import { MockSmartTerrain } from "@/fixtures/engine";
 import { MockCTime } from "@/fixtures/xray";
 
-describe("smart_terrain_alarms utils", () => {
-  it("startSmartTerrainAlarm should correctly start alarm", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+describe("startSmartTerrainAlarm util", () => {
+  it("should correctly start alarm", () => {
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
     const nowTime: CTime = MockCTime.mock(2015, 6, 14, 13, 25, 30, 500);
     const laterTime: CTime = MockCTime.mock(2015, 6, 15, 13, 25, 30, 500);
 
@@ -25,9 +25,11 @@ describe("smart_terrain_alarms utils", () => {
     startSmartTerrainAlarm(smartTerrain);
     expect(smartTerrain.alarmStartedAt).toBe(laterTime);
   });
+});
 
-  it("updateSmartTerrainAlarmStatus should correctly handle alarm", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+describe("updateSmartTerrainAlarmStatus util", () => {
+  it("should correctly handle alarm", () => {
+    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
     const startTime: CTime = MockCTime.mock(2015, 6, 14, 12, 25, 30, 500);
     const laterTime: CTime = MockCTime.mock(2015, 6, 14, 15, 25, 30, 500);
     const endedTime: CTime = MockCTime.mock(2015, 6, 14, 18, 25, 30, 500); // Exactly 6 hours.

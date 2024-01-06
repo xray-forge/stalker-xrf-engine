@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Add part of time digit to a data string.
  *
  * @param digit - number convert
- * @returns concatenated string
+ * @returns concatenated time string
  */
 export function toTimeDigit(digit: number): string {
   return digit > 9 ? tostring(digit) : "0" + digit;

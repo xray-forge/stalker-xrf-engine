@@ -32,22 +32,30 @@ import {
   initializeObjectSectionItems,
 } from "@/engine/core/utils/scheme/scheme_initialization";
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
-import { AnyObject, EGameObjectRelation, EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import {
+  AnyObject,
+  EGameObjectRelation,
+  EScheme,
+  ESchemeType,
+  GameObject,
+  IniFile,
+  ServerHumanObject,
+} from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { FILES_MOCKS, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { FILES_MOCKS, MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick", () => ({
   getSmartTerrainJobByObjectId: jest.fn(),
 }));
 
-describe("scheme initialization utils", () => {
+describe("configureObjectSchemes util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
   });
 
-  it("configureObjectSchemes should correctly configure scheme for objects if section does not exist", () => {
+  it(" should correctly configure scheme for objects if section does not exist", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {});
@@ -104,14 +112,12 @@ describe("scheme initialization utils", () => {
     expect(registry.simulator.create).not.toHaveBeenCalled();
   });
 
-  it("configureObjectSchemes should correctly configure scheme for objects if cfg section exists", () => {
-    const object: GameObject = MockGameObject.mock();
+  it("should correctly configure scheme for objects if cfg section exists", () => {
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
 
-    mockServerAlifeHumanStalker({
-      id: object.id(),
-      m_smart_terrain_id: smartTerrain.id,
-    });
+    serverObject.m_smart_terrain_id = smartTerrain.id;
 
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -183,8 +189,15 @@ describe("scheme initialization utils", () => {
     expect(registry.trade.get(object.id())).toBeDefined();
     expect(registry.simulator.create).toHaveBeenCalledTimes(2);
   });
+});
 
-  it("initializeObjectSchemeLogic should correctly initialize scheme logic on init", () => {
+describe("initializeObjectSchemeLogic util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly initialize scheme logic on init", () => {
     const ini: IniFile = mockIniFile("object-test.ltx", {
       logic: {
         active: "mob_combat@test",
@@ -235,7 +248,7 @@ describe("scheme initialization utils", () => {
     expect(SchemeMobCombat.activate).toHaveBeenCalled();
   });
 
-  it("initializeObjectSchemeLogic should correctly initialize scheme logic on load", () => {
+  it("should correctly initialize scheme logic on load", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -277,8 +290,15 @@ describe("scheme initialization utils", () => {
     expect(SchemeHear.reset).toHaveBeenCalled();
     expect(SchemeMobCombat.activate).toHaveBeenCalled();
   });
+});
 
-  it("initializeObjectSectionItems should correctly skip spawn if section does not exist", () => {
+describe("initializeObjectSectionItems util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly skip spawn if section does not exist", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -292,7 +312,7 @@ describe("scheme initialization utils", () => {
     expect(registry.simulator.create).not.toHaveBeenCalled();
   });
 
-  it("initializeObjectSectionItems should correctly spawn items on scheme activation", () => {
+  it("should correctly spawn items on scheme activation", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -328,8 +348,22 @@ describe("scheme initialization utils", () => {
       object.id()
     );
   });
+});
 
-  it.todo("setupObjectSmartJobsAndLogicOnSpawn should correctly setup jobs and logics");
+describe("setupObjectSmartJobsAndLogicOnSpawn util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
-  it.todo("setupSmartTerrainObjectJobLogic should correctly setup jobs and logics");
+  it.todo(" should correctly setup jobs and logics");
+});
+
+describe("setupSmartTerrainObjectJobLogic util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it.todo("should correctly setup jobs and logics");
 });

@@ -5,8 +5,8 @@ import { GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("object_weapon utils", () => {
-  it("getObjectActiveWeaponSlot should correctly get slot", () => {
+describe("getObjectActiveWeaponSlot util", () => {
+  it("should correctly get slot", () => {
     const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(object.active_item, () => null);
@@ -22,8 +22,10 @@ describe("object_weapon utils", () => {
     replaceFunctionMock(object.active_item, () => MockGameObject.mock({ animation_slot: () => 3 }));
     expect(getObjectActiveWeaponSlot(object)).toBe(3);
   });
+});
 
-  it("isObjectStrappingWeapon should correctly check weapon strap state", () => {
+describe("isObjectStrappingWeapon util", () => {
+  it("should correctly check weapon strap state", () => {
     const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(object.weapon_strapped, () => true);
@@ -42,12 +44,20 @@ describe("object_weapon utils", () => {
     replaceFunctionMock(object.weapon_unstrapped, () => false);
     expect(isObjectStrappingWeapon(object)).toBe(true);
   });
+});
 
-  it.todo("isObjectWeaponLocked should correctly check weapon locked state");
+describe("isObjectWeaponLocked util", () => {
+  it.todo("should correctly check weapon locked state");
+});
 
-  it.todo("setObjectBestWeapon should correctly set best weapon for object");
+describe("setObjectBestWeapon util", () => {
+  it.todo("should correctly set best weapon for object");
+});
 
+describe("getWeaponStateForAnimationState util", () => {
   it.todo("getWeaponStateForAnimationState should correctly get weapon state for animation");
+});
 
-  it.todo("getObjectWeaponForAnimationState should correctly get weapon for animation");
+describe("getObjectWeaponForAnimationState util", () => {
+  it.todo("should correctly get weapon for animation");
 });

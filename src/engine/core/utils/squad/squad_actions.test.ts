@@ -14,9 +14,9 @@ import {
 import { communities } from "@/engine/lib/constants/communities";
 import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 
-describe("isObjectSquadCommander utils", () => {
+describe("isObjectSquadCommander util", () => {
   beforeEach(() => {
     mockRegisteredActor();
     registerSimulator();
@@ -26,13 +26,11 @@ describe("isObjectSquadCommander utils", () => {
     expect(isObjectSquadCommander(MockGameObject.mock())).toBe(false);
     expect(isObjectSquadCommander(MockAlifeHumanStalker.mock())).toBe(false);
 
-    const gameObject: GameObject = MockGameObject.mock();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const squad: Squad = MockSquad.mock();
 
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      id: gameObject.id(),
-      group_id: squad.id,
-    });
+    serverObject.group_id = squad.id;
 
     expect(isObjectSquadCommander(gameObject)).toBe(false);
     expect(isObjectSquadCommander(serverObject)).toBe(false);
@@ -47,12 +45,11 @@ describe("isObjectSquadCommander utils", () => {
     expect(isObjectSquadCommanderById(MockGameObject.mock().id())).toBe(false);
     expect(isObjectSquadCommanderById(MockAlifeHumanStalker.mock().id)).toBe(false);
 
-    const gameObject: GameObject = MockGameObject.mock();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
     const squad: Squad = MockSquad.mock();
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      id: gameObject.id(),
-      group_id: squad.id,
-    });
+
+    serverObject.group_id = squad.id;
 
     expect(isObjectSquadCommanderById(gameObject.id())).toBe(false);
     expect(isObjectSquadCommanderById(serverObject.id)).toBe(false);

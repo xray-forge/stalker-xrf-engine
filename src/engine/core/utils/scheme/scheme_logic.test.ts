@@ -53,38 +53,38 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockAlifeSimulator, MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
+function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
+  const schemes: Array<TAbstractSchemeConstructor> = [
+    SchemeMeet,
+    SchemeHelpWounded,
+    SchemeCorpseDetection,
+    SchemeAbuse,
+    SchemeWounded,
+    SchemeDeath,
+    SchemeDanger,
+    SchemeGatherItems,
+    SchemeCombatIgnore,
+    SchemeHear,
+  ];
+
+  schemes.forEach((it) => jest.spyOn(it, "reset").mockImplementation(jest.fn()));
+
+  loadSchemeImplementations($fromArray(schemes));
+
+  return schemes;
+}
+
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick", () => ({
   getSmartTerrainJobByObjectId: jest.fn(),
 }));
 
-describe("scheme logic utils", () => {
-  function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
-    const schemes: Array<TAbstractSchemeConstructor> = [
-      SchemeMeet,
-      SchemeHelpWounded,
-      SchemeCorpseDetection,
-      SchemeAbuse,
-      SchemeWounded,
-      SchemeDeath,
-      SchemeDanger,
-      SchemeGatherItems,
-      SchemeCombatIgnore,
-      SchemeHear,
-    ];
-
-    schemes.forEach((it) => jest.spyOn(it, "reset").mockImplementation(jest.fn()));
-
-    loadSchemeImplementations($fromArray(schemes));
-
-    return schemes;
-  }
-
+describe("isActiveSection util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
   });
 
-  it("isActiveSection should correctly check active scheme state", () => {
+  it("should correctly check active scheme state", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -97,8 +97,15 @@ describe("scheme logic utils", () => {
     expect(isActiveSection(object, "test@test")).toBe(false);
     expect(isActiveSection(object, "another@test")).toBe(true);
   });
+});
 
-  it("getSectionToActivate should correctly determine active section", () => {
+describe("getSectionToActivate util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly determine active section", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
 
@@ -141,8 +148,15 @@ describe("scheme logic utils", () => {
 
     expect(registry.offlineObjects.get(object.id()).activeSection).toBeNull();
   });
+});
 
-  it("activateSchemeBySection should correctly activate NIL scheme", () => {
+describe("activateSchemeBySection util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly activate NIL scheme", () => {
     const first: GameObject = MockGameObject.mock();
     const firstState: IRegistryObjectState = registerObject(first);
     const second: GameObject = MockGameObject.mock();
@@ -173,7 +187,7 @@ describe("scheme logic utils", () => {
     expect(first.set_nonscript_usable).toHaveBeenCalled();
   });
 
-  it("activateSchemeBySection should correctly assign smart terrain jobs", () => {
+  it("should correctly assign smart terrain jobs", () => {
     const object: GameObject = MockGameObject.mock();
     const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: object.id() });
     const state: IRegistryObjectState = registerObject(object);
@@ -207,7 +221,7 @@ describe("scheme logic utils", () => {
     expect(state.activeScheme).toBe(EScheme.PATROL);
   });
 
-  it("activateSchemeBySection should correctly activate schemes for restrictors", () => {
+  it("should correctly activate schemes for restrictors", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -236,7 +250,7 @@ describe("scheme logic utils", () => {
     expect(getSchemeAction(state[EScheme.SR_IDLE] as IBaseSchemeState).activate).toHaveBeenCalledWith(object, false);
   });
 
-  it("activateSchemeBySection should correctly change generic sections", () => {
+  it("should correctly change generic sections", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -281,8 +295,15 @@ describe("scheme logic utils", () => {
       soundgroup: null,
     });
   });
+});
 
-  it("enableObjectBaseSchemes should correctly enables schemes for heli", () => {
+describe("enableObjectBaseSchemes util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly enables schemes for heli", () => {
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
@@ -302,7 +323,7 @@ describe("scheme logic utils", () => {
     expect(SchemeHit.activate).toHaveBeenCalledWith(object, ini, EScheme.HIT, "hit@another");
   });
 
-  it("enableObjectBaseSchemes should correctly enables schemes for items", () => {
+  it("should correctly enables schemes for items", () => {
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_idle@first": {},
@@ -322,7 +343,7 @@ describe("scheme logic utils", () => {
     expect(SchemePhysicalOnHit.activate).toHaveBeenCalledWith(object, ini, EScheme.PH_ON_HIT, "ph_on_hit@another");
   });
 
-  it("enableObjectBaseSchemes should correctly enables schemes for monsters", () => {
+  it("should correctly enables schemes for monsters", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -364,7 +385,7 @@ describe("scheme logic utils", () => {
     expect(object.invulnerable).toHaveBeenNthCalledWith(3, true);
   });
 
-  it("enableObjectBaseSchemes should correctly enables schemes for stalkers", () => {
+  it("should correctly enables schemes for stalkers", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -439,8 +460,15 @@ describe("scheme logic utils", () => {
     expect(object.disable_info_portion).toHaveBeenNthCalledWith(1, "c");
     expect(object.disable_info_portion).toHaveBeenNthCalledWith(2, "d");
   });
+});
 
-  it("resetObjectGenericSchemesOnSectionSwitch should correctly reset base schemes", () => {
+describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly reset base schemes", () => {
     registerActor(MockGameObject.mock());
 
     const stalker: GameObject = MockGameObject.mock();
@@ -543,7 +571,7 @@ describe("scheme logic utils", () => {
     resetObjectGenericSchemesOnSectionSwitch(helicopter, EScheme.SR_IDLE, "sr_idle@test");
   });
 
-  it("resetObjectGenericSchemesOnSectionSwitch should correctly reset bloodsucker state", () => {
+  it("should correctly reset bloodsucker state", () => {
     const monster: GameObject = MockGameObject.mock({
       clsid: () => clsid.bloodsucker_s,
     });

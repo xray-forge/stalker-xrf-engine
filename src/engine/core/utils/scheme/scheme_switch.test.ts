@@ -25,7 +25,7 @@ import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 // todo: Complex logic switch
-describe("switch logic utils", () => {
+describe("trySwitchToAnotherSection util", () => {
   const originalTime: MockCTime = MockCTime.nowTime.copy();
 
   afterAll(() => {
@@ -638,8 +638,16 @@ describe("switch logic utils", () => {
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@first");
   });
+});
 
-  it("switchObjectSchemeToSection should correctly reset base schemes", () => {
+describe("switchObjectSchemeToSection util", () => {
+  const originalTime: MockCTime = MockCTime.nowTime.copy();
+
+  afterAll(() => {
+    MockCTime.nowTime = originalTime;
+  });
+
+  it("should correctly reset base schemes", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {

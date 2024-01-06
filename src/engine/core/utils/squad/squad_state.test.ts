@@ -7,10 +7,10 @@ import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, IniFile, ServerCreatureObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
 
-describe("squad_state utils", () => {
-  it("updateSquadInvulnerabilityState should correctly update state for squad", () => {
+describe("updateSquadInvulnerabilityState util", () => {
+  it("should correctly update state for squad", () => {
     const squad: MockSquad = MockSquad.mock();
 
     const ini: IniFile = mockIniFile("test.ltx", {
@@ -19,12 +19,12 @@ describe("squad_state utils", () => {
       },
     });
 
-    const first: GameObject = MockGameObject.mock();
-    const firstServer: ServerCreatureObject = mockServerAlifeHumanStalker({ id: first.id() });
+    const firstServer: ServerCreatureObject = MockAlifeHumanStalker.mock();
+    const first: GameObject = MockGameObject.mock({ idOverride: firstServer.id });
     const firstState: IRegistryObjectState = registerObject(first);
 
-    const second: GameObject = MockGameObject.mock();
-    const secondServer: ServerCreatureObject = mockServerAlifeHumanStalker({ id: second.id() });
+    const secondServer: ServerCreatureObject = MockAlifeHumanStalker.mock();
+    const second: GameObject = MockGameObject.mock({ idOverride: secondServer.id });
     const secondState: IRegistryObjectState = registerObject(second);
 
     firstState.ini = ini;

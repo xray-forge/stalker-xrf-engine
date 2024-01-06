@@ -15,14 +15,15 @@ import {
   loadSchemeImplementations,
 } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionBase, EScheme, ESchemeType } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { MockActionBase, MockGameObject } from "@/fixtures/xray";
 
-describe("scheme setup utils", () => {
+describe("disableObjectGenericSchemes util", () => {
   beforeEach(() => {
-    registry.schemes = new LuaTable();
+    resetRegistry();
   });
 
-  it("disableObjectGenericSchemes should correctly call disable based on scheme type", () => {
+  it("should correctly call disable based on scheme type", () => {
     const schemes: Array<TAbstractSchemeConstructor> = [
       SchemeCombat,
       SchemeCombatIgnore,
@@ -73,8 +74,14 @@ describe("scheme setup utils", () => {
     expect(SchemeMobCombat.disable).toHaveBeenCalledTimes(0);
     expect(SchemePhysicalOnHit.disable).toHaveBeenCalledTimes(0);
   });
+});
 
-  it("loadSchemeImplementation should correctly load scheme and validate it", () => {
+describe("loadSchemeImplementation util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly load scheme and validate it", () => {
     const firstMock: TAbstractSchemeConstructor = {} as unknown as TAbstractSchemeConstructor;
     const secondMock: TAbstractSchemeConstructor = {
       SCHEME_SECTION: EScheme.SR_TIMER,
@@ -95,8 +102,14 @@ describe("scheme setup utils", () => {
 
     expect(registry.schemes.get(EScheme.MEET)).toBe(thirdMock);
   });
+});
 
-  it("loadSchemeImplementations should correctly load schemes list", () => {
+describe("loadSchemeImplementations util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly load schemes list", () => {
     const firstMock: TAbstractSchemeConstructor = {} as unknown as TAbstractSchemeConstructor;
     const secondMock: TAbstractSchemeConstructor = {
       SCHEME_SECTION: EScheme.SR_TIMER,
@@ -122,8 +135,14 @@ describe("scheme setup utils", () => {
     expect(registry.schemes.get(EScheme.MEET)).toBe(thirdMock);
     expect(registry.schemes.get(EScheme.COMBAT)).toBe(fourthMock);
   });
+});
 
-  it("addCommonActionPreconditions should add generic base conditions", () => {
+describe("addCommonActionPreconditions util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should add generic base conditions", () => {
     const action: MockActionBase = new MockActionBase(MockGameObject.mock(), "test");
 
     expect(action.preconditions).toHaveLength(0);

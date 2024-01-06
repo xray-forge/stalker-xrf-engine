@@ -5,24 +5,28 @@ import { EElementType, initializeElement, initializeStatic, initializeStatics } 
 import { XmlInit } from "@/engine/lib/types";
 import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
-describe("forms_registration utils", () => {
-  it("initializeStatic should correctly create static as shortcut", () => {
+describe("initializeStatic util", () => {
+  it("should correctly create static as shortcut", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
 
     expect(initializeStatic(xml, base, "test_selector")).toBeInstanceOf(CUIStatic);
     expect(xml.InitStatic).toHaveBeenCalledWith("test_selector", base);
   });
+});
 
-  it("initializeStatics should correctly create statics as shortcut", () => {
+describe("initializeStatics util", () => {
+  it("should correctly create statics as shortcut", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
 
     initializeStatics(xml, base, "test_selector");
     expect(xml.InitStatic).toHaveBeenCalledWith("test_selector", base);
   });
+});
 
-  it("initElement should correctly register elements", () => {
+describe("initElement util", () => {
+  it("should correctly register elements", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
 
@@ -35,8 +39,10 @@ describe("forms_registration utils", () => {
     initializeElement(xml, EElementType.LIST_BOX, "test_selector", base);
     expect(xml.InitListBox).toHaveBeenCalledWith("test_selector", base);
   });
+});
 
-  it("registerUiElement should correctly register elements with callbacks", () => {
+describe("registerUiElement util", () => {
+  it("should correctly register elements with callbacks", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
@@ -69,7 +75,7 @@ describe("forms_registration utils", () => {
     );
   });
 
-  it("registerUiElement should correctly not register elements without callbacks", () => {
+  it("should correctly not register elements without callbacks", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();
@@ -100,7 +106,7 @@ describe("forms_registration utils", () => {
     expect(context.Register).not.toHaveBeenCalled();
   });
 
-  it("registerUiElement should throw on unexpected", () => {
+  it("should throw on unexpected", () => {
     const xml: XmlInit = MockCScriptXmlInit.mock();
     const base: CUIWindow = MockCUIWindow.mock();
     const context: CUIScriptWnd = MockCUIScriptWnd.mock();

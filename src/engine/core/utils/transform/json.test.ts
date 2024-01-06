@@ -4,7 +4,7 @@ import { quoted } from "#/utils/string";
 
 import { stringifyKey, toJSON } from "@/engine/core/utils/transform/json";
 
-describe("json util", () => {
+describe("toJSON util", () => {
   it("toJSON should correctly stringify simple types", () => {
     expect(toJSON("abc")).toBe(quoted("abc"));
     expect(toJSON("bca")).toBe(quoted("bca"));
@@ -51,8 +51,10 @@ describe("json util", () => {
     jest.spyOn(global, "type").mockReturnValueOnce("thread");
     expect(toJSON({})).toBe("<unknown>");
   });
+});
 
-  it("stringifyKey should correctly stringify json keys", () => {
+describe("stringifyKey util", () => {
+  it("correctly stringify json keys", () => {
     expect(stringifyKey(123)).toBe("123");
     expect(stringifyKey("abc")).toBe("abc");
     expect(stringifyKey(true)).toBe("<k_boolean>");

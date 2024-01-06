@@ -8,7 +8,7 @@ import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
 
-describe("isInNoCombatZone util method", () => {
+describe("isInNoCombatZone util", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -56,7 +56,7 @@ describe("isInNoCombatZone util method", () => {
   });
 });
 
-describe("isInNoWeaponBase util method", () => {
+describe("isInNoWeaponBase util", () => {
   beforeEach(() => {
     resetRegistry();
   });

@@ -12,7 +12,7 @@ import { Cond, GameObject, Move } from "@/engine/lib/types";
 import { getFunctionMock, replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockEntityAction, MockGameObject } from "@/fixtures/xray";
 
-describe("monster scheme utils", () => {
+describe("isMonsterScriptCaptured util", () => {
   it("should correctly check if monster object is captured", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -20,8 +20,10 @@ describe("monster scheme utils", () => {
     replaceFunctionMock(object.get_script, () => true);
     expect(isMonsterScriptCaptured(object)).toBe(true);
   });
+});
 
-  it("resetMonsterAction should correctly reset action", () => {
+describe("resetMonsterAction util", () => {
+  it("should correctly reset action", () => {
     const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(object.get_script, () => true);
@@ -39,7 +41,9 @@ describe("monster scheme utils", () => {
     resetMonsterAction(object, "xrf");
     expect(object.script).toHaveBeenCalledWith(true, "xrf");
   });
+});
 
+describe("scriptCaptureMonster util", () => {
   it("should correctly capture monster script logic when resetting", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -68,7 +72,9 @@ describe("monster scheme utils", () => {
     scriptCaptureMonster(object, true);
     expect(object.script).toHaveBeenCalledWith(true, "xrf");
   });
+});
 
+describe("scriptReleaseMonster util", () => {
   it("should correctly release monster script logic", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -86,8 +92,10 @@ describe("monster scheme utils", () => {
     expect(object.get_script_name).toHaveBeenCalled();
     expect(object.script).toHaveBeenCalledWith(false, "test_name");
   });
+});
 
-  it("scriptCommandMonster should correctly assign actions", () => {
+describe("scriptCommandMonster util", () => {
+  it("should correctly assign actions", () => {
     const object: GameObject = MockGameObject.mock();
     const moveAction: Move = new move(move.run_with_leader, new vector().set(1, 2, 3));
     const condAction: Cond = new cond(cond.move_end);
