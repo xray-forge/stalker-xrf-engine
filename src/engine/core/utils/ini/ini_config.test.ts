@@ -22,10 +22,10 @@ import { GameObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
 import { MockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
-describe("config utils for ini file", () => {
+describe("getInfosFromData util", () => {
   beforeEach(() => registerSimulator());
 
-  it("getInfosFromData should correctly parse data list of condition lists", () => {
+  it("should correctly parse data list of condition lists", () => {
     registerActor(MockGameObject.mockActor());
     giveInfoPortion("test");
 
@@ -36,8 +36,12 @@ describe("config utils for ini file", () => {
       "d",
     ]);
   });
+});
 
-  it("getConfigObjectAndZone should correctly parse story id and zone pair", () => {
+describe("getConfigObjectAndZone util", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly parse story id and zone pair", () => {
     const serverObject: ServerObject = mockServerAlifeObject();
 
     registerStoryLink(serverObject.id, "zat_cop_id");
@@ -60,8 +64,12 @@ describe("config utils for ini file", () => {
       p2: "zat_b38_actor_jump_down",
     });
   });
+});
 
-  it("getObjectConfigOverrides should correctly parse overrides", () => {
+describe("getObjectConfigOverrides util", () => {
+  beforeEach(() => registerSimulator());
+
+  it("should correctly parse overrides", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -152,8 +160,12 @@ describe("config utils for ini file", () => {
       soundgroup: null,
     });
   });
+});
 
-  it("addCondition util should fill table and return new index", () => {
+describe("addCondition util", () => {
+  beforeEach(() => registerSimulator());
+
+  it("util should fill table and return new index", () => {
     const list: LuaArray<IBaseSchemeLogic> = new LuaTable();
 
     expect(addConditionToList(list, 1, null)).toBe(1);
@@ -194,8 +206,12 @@ describe("config utils for ini file", () => {
       }),
     ]);
   });
+});
 
-  it("getConfigSwitchConditions correctly parse empty/other ini files conditions", () => {
+describe("getConfigSwitchConditions util", () => {
+  beforeEach(() => registerSimulator());
+
+  it("correctly parse empty/other ini files conditions", () => {
     expect(
       getConfigSwitchConditions(
         mockIniFile("test.ltx", {
@@ -229,7 +245,7 @@ describe("config utils for ini file", () => {
     ).toEqualLuaArrays([]);
   });
 
-  it("getConfigSwitchConditions correctly parse different listed conditions", () => {
+  it("correctly parse different listed conditions", () => {
     expect(
       getConfigSwitchConditions(
         mockIniFile("test.ltx", {

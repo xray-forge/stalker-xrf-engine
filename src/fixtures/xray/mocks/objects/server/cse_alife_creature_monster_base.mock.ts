@@ -6,6 +6,7 @@ import {
   ServerCreatureObject,
   ServerMonsterAbstractObject,
   ServerMonsterBaseObject,
+  TClassId,
   TNumberId,
   TSection,
 } from "@/engine/lib/types";
@@ -24,12 +25,20 @@ export class MockAlifeMonsterBase extends MockServerAlifeCreatureAbstract {
     return new MockAlifeMonsterBase(section) as unknown as ServerCreatureObject;
   }
 
+  public static override mockWithClassId(classId: TNumberId): ServerMonsterBaseObject {
+    const object: MockAlifeMonsterBase = new MockAlifeMonsterBase("test_alife_object");
+
+    jest.spyOn(object, "clsid").mockImplementation(() => classId as TClassId);
+
+    return object as unknown as ServerMonsterBaseObject;
+  }
+
   public override m_smart_terrain_id: TNumberId = MAX_U16;
   public aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
 
   public smart_terrain_id = jest.fn(() => this.m_smart_terrain_id);
 
-  public clsid = jest.fn(() => mockClsid.bloodsucker_s);
+  public override clsid = jest.fn(() => mockClsid.bloodsucker_s as TClassId);
 
   public brain = jest.fn(() => this.aiBrain);
 }

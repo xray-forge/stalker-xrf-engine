@@ -17,9 +17,9 @@ import {
   isObjectWithKnownInfo,
   isStalkerAlive,
 } from "@/engine/core/utils/object/object_check";
-import { AnyObject, GameObject, IniFile, ServerHumanObject, TClassId } from "@/engine/lib/types";
+import { AnyObject, GameObject, ServerHumanObject, ServerMonsterBaseObject, TClassId } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("isStalkerAlive utils", () => {
   beforeEach(() => {
@@ -27,16 +27,19 @@ describe("isStalkerAlive utils", () => {
     registerSimulator();
   });
 
-  it("isStalkerAlive should correctly check stalker alive state", () => {
-    const aliveStalkerServerObject: ServerHumanObject = mockServerAlifeHumanStalker({
-      alive: () => true,
-      clsid: () => clsid.script_stalker as TClassId,
-    });
+  it("should correctly check stalker alive state", () => {
+    const aliveStalkerServerObject: ServerHumanObject = MockAlifeHumanStalker.mockWithClassId(clsid.script_stalker);
     const aliveStalkerGameObject: GameObject = MockGameObject.mock({
       idOverride: aliveStalkerServerObject.id,
       alive: () => true,
       clsid: () => clsid.script_stalker as TClassId,
     });
+
+    const deadStalkerServerObject: ServerHumanObject = MockAlifeHumanStalker.mockWithClassId(clsid.script_stalker);
+    const deadMonsterServerObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
+
+    jest.spyOn(deadStalkerServerObject, "alive").mockImplementation(() => false);
+    jest.spyOn(deadMonsterServerObject, "alive").mockImplementation(() => false);
 
     registerStoryLink(aliveStalkerServerObject.id, "alive-stalker-sid");
 
@@ -45,40 +48,19 @@ describe("isStalkerAlive utils", () => {
     expect(isStalkerAlive("alive-stalker-sid")).toBe(true);
     expect(isStalkerAlive("not-existing-stalker-sid")).toBe(false);
     expect(isStalkerAlive(MockGameObject.mock())).toBe(false);
-    expect(
-      isStalkerAlive(
-        mockServerAlifeHumanStalker({
-          alive: () => false,
-          clsid: () => clsid.script_stalker as TClassId,
-        })
-      )
-    ).toBe(false);
-    expect(
-      isStalkerAlive(
-        mockServerAlifeHumanStalker({
-          alive: () => false,
-          clsid: () => clsid.boar_s as TClassId,
-        })
-      )
-    ).toBe(false);
-    expect(
-      isStalkerAlive(
-        mockServerAlifeMonsterBase({
-          alive: () => true,
-          clsid: () => clsid.boar_s as TClassId,
-        })
-      )
-    ).toBe(false);
+    expect(isStalkerAlive(deadStalkerServerObject)).toBe(false);
+    expect(isStalkerAlive(deadMonsterServerObject)).toBe(false);
+    expect(isStalkerAlive(MockAlifeMonsterBase.mock())).toBe(false);
   });
 });
 
-describe("isObjectInjured utils", () => {
+describe("isObjectInjured util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
   });
 
-  it("isObjectInjured should correctly check objects", () => {
+  it("should correctly check objects", () => {
     expect(isObjectInjured(MockGameObject.mock())).toBe(false);
     expect(isObjectInjured(MockGameObject.mock({ radiation: -1, health: 100, bleeding: -1 }))).toBe(false);
     expect(isObjectInjured(MockGameObject.mock({ radiation: 0.01 }))).toBe(true);
@@ -90,13 +72,13 @@ describe("isObjectInjured utils", () => {
   });
 });
 
-describe("isObjectSeenByActor utils", () => {
+describe("isObjectSeenByActor util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
   });
 
-  it("isObjectSeenByActor should correctly check objects visibility", () => {
+  it("should correctly check objects visibility", () => {
     expect(() => isObjectSeenByActor(MockGameObject.mock())).toThrow();
 
     const actor: GameObject = MockGameObject.mock();
@@ -121,13 +103,13 @@ describe("isObjectSeenByActor utils", () => {
   });
 });
 
-describe("isActorSeenByObject utils", () => {
+describe("isActorSeenByObject util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
   });
 
-  it("isActorSeenByObject should correctly check actor visibility", () => {
+  it("should correctly check actor visibility", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerActor(MockGameObject.mock());
@@ -150,7 +132,7 @@ describe("isActorSeenByObject utils", () => {
   });
 });
 
-describe("canActorSleep utils", () => {
+describe("canActorSleep util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

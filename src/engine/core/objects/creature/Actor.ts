@@ -57,8 +57,6 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     registerStoryLink(this.id, ACTOR);
     registerSimulationObject(this);
 
-    getManager(SimulationManager).onActorRegister();
-
     EventsManager.emitEvent(EGameEvent.ACTOR_REGISTER, this);
   }
 

@@ -43,13 +43,13 @@ describe("getObjectSpawnIni utils", () => {
 });
 
 describe("getObjectId util", () => {
-  it("getObjectId should correctly get ID from game objects", () => {
+  it("should correctly get ID from game objects", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(getObjectId(object)).toBe(object.id());
   });
 
-  it("getObjectId should correctly get ID from server objects", () => {
+  it("should correctly get ID from server objects", () => {
     const object: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     expect(getObjectId(object)).toBe(object.id);

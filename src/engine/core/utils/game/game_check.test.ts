@@ -7,16 +7,18 @@ import { AlifeSimulator } from "@/engine/lib/types";
 import { MockDevice, mockServerAlifeCreatureActor } from "@/fixtures/xray";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 
-describe("game_check utils", () => {
-  it("isGameStarted should check alife", () => {
+describe("isGameStarted util", () => {
+  it("should check alife", () => {
     registry.simulator = null as unknown as AlifeSimulator;
     expect(isGameStarted()).toBe(false);
 
     registerSimulator();
     expect(isGameStarted()).toBe(true);
   });
+});
 
-  it("isBlackScreen should check whether black screen is visible now", () => {
+describe("isBlackScreen util", () => {
+  it("should check whether black screen is visible now", () => {
     expect(isBlackScreen()).toBe(false);
 
     const device: MockDevice = MockDevice.getInstance();
@@ -30,8 +32,10 @@ describe("game_check utils", () => {
     device.precache_frame = 0;
     expect(isBlackScreen()).toBe(false);
   });
+});
 
-  it("isGameLevelChanging should check whether level is changing now", () => {
+describe("isGameLevelChanging util", () => {
+  it("should check whether level is changing now", () => {
     const gameGraph: MockCGameGraph = MockCGameGraph.getInstance();
 
     registry.simulator = null as unknown as AlifeSimulator;

@@ -15,12 +15,12 @@ import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("object_wounds utils", () => {
+describe("giveWoundedObjectMedkit util", () => {
   beforeEach(() => {
     registerSimulator();
   });
 
-  it("giveWoundedObjectMedkit should correctly give medkits for objects", () => {
+  it("should correctly give medkits for objects", () => {
     const object: GameObject = MockGameObject.mock();
 
     giveWoundedObjectMedkit(object);
@@ -33,8 +33,14 @@ describe("object_wounds utils", () => {
       object.id()
     );
   });
+});
 
-  it("setObjectWounded should correctly set objects as wounded", () => {
+describe("setObjectWounded util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly set objects as wounded", () => {
     let objectHit: Optional<Hit> = null as Optional<Hit>;
     const object: GameObject = MockGameObject.mock({
       hit: jest.fn((it: Hit) => {
@@ -52,8 +58,14 @@ describe("object_wounds utils", () => {
     expect(objectHit?.direction).toEqual(MockVector.mock(0, 0, -1));
     expect(objectHit?.draftsman).toBe(object);
   });
+});
 
-  it("enableObjectWoundedHealing should correctly enable healing for objects", () => {
+describe("enableObjectWoundedHealing util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly enable healing for objects", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
@@ -68,8 +80,14 @@ describe("object_wounds utils", () => {
 
     expect(schemeState.woundManager.unlockMedkit).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("isObjectPsyWounded should correctly check if object is psy wounded", () => {
+describe("isObjectPsyWounded utils", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it("should correctly check if object is psy wounded", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
@@ -103,6 +121,12 @@ describe("object_wounds utils", () => {
     schemeState.woundManager.woundState = "psycho_shoot";
     expect(isObjectPsyWounded(object)).toBe(true);
   });
+});
 
-  it.todo("getNearestWoundedToHelp should correctly find nearest wounded to heal");
+describe("getNearestWoundedToHelp util", () => {
+  beforeEach(() => {
+    registerSimulator();
+  });
+
+  it.todo("should correctly find nearest wounded to heal");
 });
