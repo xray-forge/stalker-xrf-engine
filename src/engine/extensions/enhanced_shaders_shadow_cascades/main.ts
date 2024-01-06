@@ -3,7 +3,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { shadowCascadesConfig } from "@/engine/extensions/enhanced_shaders_shadow_cascades/ShadowCascadesConfig";
 import { TName } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($dirname);
 
 /**
  * Version: SCREEN SPACE SHADERS - UPDATE 15

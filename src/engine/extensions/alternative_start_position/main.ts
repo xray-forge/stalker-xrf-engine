@@ -4,13 +4,13 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector } from "@/engine/core/utils/vector";
 import { TName } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($dirname);
 
 export const name: TName = "Alternative start position";
 export const enabled: boolean = true;
 
 export function register(isNewGame: boolean): void {
-  logger.info("Alternative start extension register:", isNewGame);
+  logger.format("Alternative start extension register: %s", isNewGame);
 
   if (isNewGame) {
     set_start_game_vertex_id(212);

@@ -2,7 +2,7 @@ import { treasureConfig } from "@/engine/core/managers/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($dirname);
 
 export const name: TName = "Enhanced treasures";
 export const enabled: boolean = true;

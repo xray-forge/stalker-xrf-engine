@@ -4,7 +4,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { onItemGoOnlineFirstTime } from "@/engine/extensions/enhanced_items_drop/enhanced_items_drop_utils";
 import { TName } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
+const logger: LuaLogger = new LuaLogger($dirname);
 
 export const name: TName = "Enhanced items drop (with upgrades)";
 export const enabled: boolean = false;

@@ -27,7 +27,7 @@
       { "name": "xray16/plugins/global_declarations_transform" },
       { "name": "xray16/plugins/built_at_info" },
       { "name": "xray16/plugins/strip_lua_logger" },
-      { "name": "xray16/plugins/inject_filename" },
+      { "name": "xray16/plugins/inject_file_meta" },
       { "name": "xray16/plugins/from_cast_utils" }
     ]
   }
