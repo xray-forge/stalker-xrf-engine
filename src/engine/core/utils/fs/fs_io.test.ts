@@ -4,8 +4,8 @@ import { loadObjectFromFile, loadTextFromFile, saveObjectToFile, saveTextToFile 
 import { AnyObject } from "@/engine/lib/types";
 import { MockIoFile } from "@/fixtures/lua";
 
-describe("fs io utils", () => {
-  it("saveTextToFile should correctly save data", () => {
+describe("saveTextToFile util", () => {
+  it("should correctly save data", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
@@ -26,8 +26,10 @@ describe("fs io utils", () => {
     expect(file.content).toBe("abcdefg");
     expect(file.close).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("saveObjectToFile should correctly save data", () => {
+describe("saveObjectToFile util", () => {
+  it("should correctly save data", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
@@ -51,8 +53,10 @@ describe("fs io utils", () => {
     expect(file.content).toBe(JSON.stringify({ a: 1, b: 2, c: 3 }));
     expect(file.close).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("loadTextFromFile should correctly load data from files", () => {
+describe("loadTextFromFile util", () => {
+  it("should correctly load data from files", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     file.content = "aabbccdd";
@@ -75,8 +79,10 @@ describe("fs io utils", () => {
     file.isOpen = false;
     expect(loadTextFromFile("F:\\\\parent\\\\example.scopx")).toBeNull();
   });
+});
 
-  it("loadObjectFromFile should correctly load data from files", () => {
+describe("loadObjectFromFile util", () => {
+  it("should correctly load data from files", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     file.content = JSON.stringify({ a: 1, b: 33 });

@@ -28,14 +28,14 @@ import {
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
 
-describe("relation/get utils", () => {
+describe("getObjectsRelationSafe util", () => {
   beforeEach(() => {
     resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
     registerSimulator();
   });
 
-  it("getObjectsRelationSafe should correctly check relation", () => {
+  it("should correctly check relation", () => {
     expect(getObjectsRelationSafe(MockGameObject.mock(), null)).toBeNull();
     expect(getObjectsRelationSafe(null, MockGameObject.mock())).toBeNull();
     expect(getObjectsRelationSafe(null, null)).toBeNull();
@@ -50,8 +50,16 @@ describe("relation/get utils", () => {
     expect(getObjectsRelationSafe(third, second)).toBe(2);
     expect(getObjectsRelationSafe(fourth, second)).toBe(3);
   });
+});
 
-  it("getSquadMembersRelationToActorSafe should correctly check relation", () => {
+describe("getSquadMembersRelationToActorSafe util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
+    registerSimulator();
+  });
+
+  it("should correctly check relation", () => {
     const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
       mockRelationsSquads();
 
@@ -69,8 +77,16 @@ describe("relation/get utils", () => {
     expect(getSquadMembersRelationToActorSafe(neutralSquad)).toBe(ERelation.NEUTRAL);
     expect(getSquadMembersRelationToActorSafe(enemySquad)).toBe(ERelation.ENEMY);
   });
+});
 
-  it("getSquadMembersRelationToActor should correctly check relation", () => {
+describe("getSquadMembersRelationToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
+    registerSimulator();
+  });
+
+  it("should correctly check relation", () => {
     const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
       mockRelationsSquads();
 
@@ -88,8 +104,16 @@ describe("relation/get utils", () => {
     expect(getSquadMembersRelationToActor(neutralSquad)).toBe(ERelation.NEUTRAL);
     expect(getSquadMembersRelationToActor(enemySquad)).toBe(ERelation.ENEMY);
   });
+});
 
-  it("getNumberRelationBetweenCommunities should correctly check relation", () => {
+describe("getNumberRelationBetweenCommunities utils", () => {
+  beforeEach(() => {
+    resetRegistry();
+    MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
+    registerSimulator();
+  });
+
+  it("should correctly check relation", () => {
     expect(getNumberRelationBetweenCommunities(null, null)).toBeNull();
     expect(getNumberRelationBetweenCommunities(null, communities.stalker)).toBeNull();
     expect(getNumberRelationBetweenCommunities(communities.stalker, null)).toBeNull();
@@ -102,8 +126,16 @@ describe("relation/get utils", () => {
     expect(getNumberRelationBetweenCommunities(communities.monolith, communities.monster)).toBe(-1000);
     expect(getNumberRelationBetweenCommunities(communities.monster, communities.bandit)).toBe(-5000);
   });
+});
 
-  it("getSquadCommunityRelationToActor should correctly get realation of squad community", () => {
+describe("getSquadCommunityRelationToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
+    registerSimulator();
+  });
+
+  it("should correctly get relation of squad community", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
       "Squad with story id 'not-existing' was not found."
     );
@@ -135,8 +167,16 @@ describe("relation/get utils", () => {
     expect(getSquadCommunityRelationToActor("existing-neutral")).toBe(ERelation.NEUTRAL);
     expect(getSquadCommunityRelationToActor("existing-enemy")).toBe(ERelation.ENEMY);
   });
+});
 
-  it("getSquadRelationToActorById should correctly check relation", () => {
+describe("getSquadRelationToActorById util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
+    registerSimulator();
+  });
+
+  it("should correctly check relation", () => {
     const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
       mockRelationsSquads();
 

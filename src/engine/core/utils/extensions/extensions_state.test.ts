@@ -10,14 +10,14 @@ import { TName } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
 
-describe("extensions_order utils", () => {
-  const mockExtension = (name: TName) => ({ name, module: {} }) as IExtensionsDescriptor;
+const mockExtension = (name: TName) => ({ name, module: {} }) as IExtensionsDescriptor;
 
+describe("saveDynamicGameSave util", () => {
   beforeEach(() => {
     resetFunctionMock(io.open);
   });
 
-  it("saveDynamicGameSave should correctly create dynamic file saves", () => {
+  it("should correctly create dynamic file saves", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
@@ -36,8 +36,14 @@ describe("extensions_order utils", () => {
     expect(file.write).toHaveBeenCalledTimes(1);
     expect(file.content).toBe(JSON.stringify({ 1: { name: "a" }, 2: { name: "b" }, 3: { name: "c" } }));
   });
+});
 
-  it("loadDynamicGameSave should correctly load dynamic file saves", () => {
+describe("loadDynamicGameSave util", () => {
+  beforeEach(() => {
+    resetFunctionMock(io.open);
+  });
+
+  it("should correctly load dynamic file saves", () => {
     const file: MockIoFile = new MockIoFile("test", "wb");
 
     file.content = JSON.stringify({ a: 1, b: 33 });
@@ -59,8 +65,14 @@ describe("extensions_order utils", () => {
     file.isOpen = false;
     expect(loadExtensionsState()).toEqualLuaArrays([]);
   });
+});
 
-  it("syncExtensionsOrder should correctly apply sorting order", () => {
+describe("syncExtensionsOrder util", () => {
+  beforeEach(() => {
+    resetFunctionMock(io.open);
+  });
+
+  it("should correctly apply sorting order", () => {
     const first: IExtensionsDescriptor = { name: "first" } as IExtensionsDescriptor;
     const second: IExtensionsDescriptor = { name: "second" } as IExtensionsDescriptor;
     const third: IExtensionsDescriptor = { name: "third" } as IExtensionsDescriptor;

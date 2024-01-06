@@ -7,8 +7,8 @@ jest.mock("extensions.a.main", () => ({ name: "custom name", register: () => {} 
 jest.mock("extensions.b.main", () => ({}), { virtual: true });
 jest.mock("extensions.c.main", () => ({ enabled: false, register: () => {} }), { virtual: true });
 
-describe("extensions_list utils", () => {
-  it("getAvailableExtensions should correctly return list of available extensions", () => {
+describe("getAvailableExtensions util", () => {
+  it("should correctly return list of available extensions", () => {
     jest.spyOn(getFS(), "exist").mockImplementation(() => null);
 
     expect(getAvailableExtensions()).toEqualLuaTables({});

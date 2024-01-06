@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerActorServer, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
+import { registerActorServer, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import {
   areCommunitiesEnemies,
@@ -14,24 +14,17 @@ import {
 import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation_get";
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
-import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ServerGroupObject } from "@/engine/lib/types";
-import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
-import { MockAlifeSimulator, mockServerAlifeCreatureActor, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import { mockRegisteredActor, mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
+import { mockServerAlifeCreatureActor, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
 
-describe("relation/check utils", () => {
+describe("isActorEnemyWithFaction util", () => {
   beforeEach(() => {
-    registry.actor = null as any;
-    registry.actorServer = null as any;
-    registry.storyLink.sidById = new LuaTable();
-    registry.storyLink.idBySid = new LuaTable();
-
-    MockAlifeSimulator.removeFromRegistry(ACTOR_ID);
-
+    resetRegistry();
     registerSimulator();
   });
 
-  it("isActorEnemyWithFaction should check object faction relation", () => {
+  it("should check object faction relation", () => {
     mockRegisteredActor();
 
     expect(isActorEnemyWithFaction(communities.army)).toBe(false);
@@ -40,8 +33,15 @@ describe("relation/check utils", () => {
     expect(isActorEnemyWithFaction(communities.monolith)).toBe(true);
     expect(isActorEnemyWithFaction(communities.monster)).toBe(true);
   });
+});
 
-  it("isActorFriendWithFaction should check object faction relation", () => {
+describe("isActorFriendWithFaction util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should check object faction relation", () => {
     mockRegisteredActor();
 
     expect(isActorFriendWithFaction(communities.actor)).toBe(true);
@@ -51,8 +51,15 @@ describe("relation/check utils", () => {
     expect(isActorFriendWithFaction(communities.monolith)).toBe(false);
     expect(isActorFriendWithFaction(communities.monster)).toBe(false);
   });
+});
 
-  it("isActorNeutralWithFaction should check object faction relation", () => {
+describe("isActorNeutralWithFaction util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should check object faction relation", () => {
     mockRegisteredActor();
 
     expect(isActorNeutralWithFaction(communities.army)).toBe(false);
@@ -61,8 +68,15 @@ describe("relation/check utils", () => {
     expect(isActorNeutralWithFaction(communities.monolith)).toBe(false);
     expect(isActorNeutralWithFaction(communities.monster)).toBe(false);
   });
+});
 
-  it("isSquadCommunityEnemyToActor should correctly check relation", () => {
+describe("isSquadCommunityEnemyToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check relation", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
       "Squad with story id 'not-existing' was not found."
     );
@@ -76,8 +90,15 @@ describe("relation/check utils", () => {
 
     expect(getSquadCommunityRelationToActor("existing-enemy")).toBe(ERelation.ENEMY);
   });
+});
 
-  it("isSquadCommunityFriendToActor should correctly check relation", () => {
+describe("isSquadCommunityFriendToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check relation", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
       "Squad with story id 'not-existing' was not found."
     );
@@ -91,8 +112,15 @@ describe("relation/check utils", () => {
 
     expect(getSquadCommunityRelationToActor("existing-friend")).toBe(ERelation.FRIEND);
   });
+});
 
-  it("isSquadCommunityNeutralToActor should correctly check neutral relation", () => {
+describe("isSquadCommunityNeutralToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check neutral relation", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
       "Squad with story id 'not-existing' was not found."
     );
@@ -106,8 +134,15 @@ describe("relation/check utils", () => {
 
     expect(getSquadCommunityRelationToActor("existing-neutral")).toBe(ERelation.NEUTRAL);
   });
+});
 
-  it("areCommunitiesFriendly should correctly check communities friendly state", () => {
+describe("areCommunitiesFriendly util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check communities friendly state", () => {
     expect(areCommunitiesFriendly(communities.actor, communities.army)).toBe(true);
     expect(areCommunitiesFriendly(communities.army, communities.actor)).toBe(true);
     expect(areCommunitiesFriendly(communities.bandit, communities.bandit)).toBe(true);
@@ -117,8 +152,15 @@ describe("relation/check utils", () => {
     expect(areCommunitiesFriendly(communities.actor, communities.stalker)).toBe(false);
     expect(areCommunitiesFriendly(communities.stalker, communities.actor)).toBe(false);
   });
+});
 
-  it("areCommunitiesEnemies should correctly check communities enemy state", () => {
+describe("areCommunitiesEnemies util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check communities enemy state", () => {
     expect(areCommunitiesEnemies(communities.actor, communities.monolith)).toBe(true);
     expect(areCommunitiesEnemies(communities.monolith, communities.stalker)).toBe(true);
     expect(areCommunitiesEnemies(communities.monster, communities.actor)).toBe(true);
@@ -128,8 +170,15 @@ describe("relation/check utils", () => {
     expect(areCommunitiesEnemies(communities.actor, communities.stalker)).toBe(false);
     expect(areCommunitiesEnemies(communities.stalker, communities.actor)).toBe(false);
   });
+});
 
-  it("isAnySquadMemberEnemyToActor should correctly check relation of squad members", () => {
+describe("isAnySquadMemberEnemyToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check relation of squad members", () => {
     const { emptyMonolithSquad, neutralSquad, enemySquad, friendlySquad, mixedSquad } = mockRelationsSquads();
 
     expect(isAnySquadMemberEnemyToActor(emptyMonolithSquad)).toBeFalsy();
@@ -138,8 +187,15 @@ describe("relation/check utils", () => {
     expect(isAnySquadMemberEnemyToActor(enemySquad)).toBeTruthy();
     expect(isAnySquadMemberEnemyToActor(mixedSquad)).toBeTruthy();
   });
+});
 
-  it("isAnySquadMemberFriendToActor should correctly check relation of squad members", () => {
+describe("isAnySquadMemberFriendToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check relation of squad members", () => {
     const { emptyMonolithSquad, neutralSquad, enemySquad, friendlySquad, mixedSquad } = mockRelationsSquads();
 
     expect(isAnySquadMemberFriendToActor(emptyMonolithSquad)).toBeFalsy();
