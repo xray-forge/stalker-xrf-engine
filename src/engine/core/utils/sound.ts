@@ -1,18 +1,15 @@
 import { bit_and, snd_type } from "xray16";
 
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ESoundType } from "@/engine/lib/constants/sound";
 import { GameObject, TSoundType } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Check whether sound is included in actual sound bit mask.
  *
  * @param heard - actual heard sound bit mask
  * @param expected - sound to check containing in the mask
- * @returns whether expected sound type is heard
+ * @returns whether expected sound type is provided
  */
 export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
   return bit_and(heard, expected) === expected;
@@ -22,7 +19,7 @@ export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
  * Check whether is playing sound.
  *
  * @param object - game object to check playing
- * @returns whether currently sound is playing.
+ * @returns whether currently sound is playing
  */
 export function isPlayingSound(object: GameObject): boolean {
   return soundsConfig.playing.has(object.id());

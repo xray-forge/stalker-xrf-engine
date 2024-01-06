@@ -1,8 +1,6 @@
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
 /**
  * Check if provided container is empty collection.
  * Very lua-specific checks, do not apply TS logic here.

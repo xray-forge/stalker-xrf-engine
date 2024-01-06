@@ -14,8 +14,8 @@ import { GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
-describe("sound utils", () => {
-  it("mapSoundMaskToSoundType should correctly convert mask to enum", () => {
+describe("mapSoundMaskToSoundType util", () => {
+  it("should correctly convert mask to enum", () => {
     expect(mapSoundMaskToSoundType(snd_type.weapon)).toBe(ESoundType.WPN);
     expect(mapSoundMaskToSoundType(snd_type.weapon_shoot)).toBe(ESoundType.WPN_shoot);
     expect(mapSoundMaskToSoundType(snd_type.weapon_empty)).toBe(ESoundType.WPN_empty);
@@ -41,8 +41,10 @@ describe("sound utils", () => {
     expect(mapSoundMaskToSoundType(snd_type.anomaly_idle)).toBe(ESoundType.NIL);
     expect(mapSoundMaskToSoundType(snd_type.hide)).toBe(ESoundType.NIL);
   });
+});
 
-  it("isSoundType should correctly check if sound is matching", () => {
+describe("isSoundType util", () => {
+  it("should correctly check if sound is matching", () => {
     expect(isSoundType(snd_type.item_drop, snd_type.item_drop)).toBeTruthy();
     expect(isSoundType(snd_type.item_drop, snd_type.item)).toBeTruthy();
     expect(isSoundType(snd_type.item_pick_up, snd_type.item)).toBeTruthy();
@@ -57,8 +59,10 @@ describe("sound utils", () => {
     expect(isSoundType(snd_type.item_pick_up, snd_type.weapon)).toBeFalsy();
     expect(isSoundType(snd_type.ambient, snd_type.weapon)).toBeFalsy();
   });
+});
 
-  it("stopPlayingObjectSound should correctly reset object sound play", () => {
+describe("stopPlayingObjectSound util", () => {
+  it("should correctly reset object sound play", () => {
     const object: GameObject = MockGameObject.mock();
 
     replaceFunctionMock(object.alive, () => false);
@@ -71,8 +75,10 @@ describe("sound utils", () => {
     expect(object.set_sound_mask).toHaveBeenNthCalledWith(1, -1);
     expect(object.set_sound_mask).toHaveBeenNthCalledWith(2, 0);
   });
+});
 
-  it("isPlayingSound should correctly check sound play state", () => {
+describe("isPlayingSound util", () => {
+  it("should correctly check sound play state", () => {
     const object: GameObject = MockGameObject.mock();
 
     expect(isPlayingSound(object)).toBe(false);

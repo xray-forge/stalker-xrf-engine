@@ -18,14 +18,14 @@ import {
   mockServerAlifeObject,
 } from "@/fixtures/xray";
 
-describe("registry find utils", () => {
+describe("getNearestServerObject util", () => {
   beforeEach(() => {
     CLIENT_SIDE_REGISTRY.reset();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
 
-  it("getNearestServerObject should correctly search for client objects", () => {
+  it("should correctly search for client objects", () => {
     registerActor(MockGameObject.mockActor());
 
     const actor: ServerObject = mockServerAlifeCreatureActor({
@@ -69,8 +69,16 @@ describe("registry find utils", () => {
 
     expect(getNearestServerObject(null, false)).toBeNull();
   });
+});
 
-  it("getServerObjects should correctly search for client objects", () => {
+describe("getServerObjects util", () => {
+  beforeEach(() => {
+    CLIENT_SIDE_REGISTRY.reset();
+    MockAlifeSimulator.reset();
+    registerSimulator();
+  });
+
+  it("should correctly search for client objects", () => {
     const actor: ServerObject = mockServerAlifeCreatureActor({
       clsid: () => clsid.actor as TClassId,
       name: <T>() => "actor_name" as T,
@@ -150,8 +158,16 @@ describe("registry find utils", () => {
       )
     ).toEqual([first.id, second.id]);
   });
+});
 
-  it("getNearestGameObject should correctly search for client objects", () => {
+describe("getNearestGameObject util", () => {
+  beforeEach(() => {
+    CLIENT_SIDE_REGISTRY.reset();
+    MockAlifeSimulator.reset();
+    registerSimulator();
+  });
+
+  it("should correctly search for client objects", () => {
     const actor: GameObject = MockGameObject.mockActor({
       clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",
@@ -184,8 +200,16 @@ describe("registry find utils", () => {
       second.id()
     );
   });
+});
 
-  it("getGameObjects should correctly search for client objects", () => {
+describe("getGameObjects util", () => {
+  beforeEach(() => {
+    CLIENT_SIDE_REGISTRY.reset();
+    MockAlifeSimulator.reset();
+    registerSimulator();
+  });
+
+  it("should correctly search for client objects", () => {
     const actor: GameObject = MockGameObject.mockActor({
       clsid: () => clsid.actor as TClassId,
       name: () => "actor_name",

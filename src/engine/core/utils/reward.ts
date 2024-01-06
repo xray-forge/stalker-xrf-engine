@@ -6,7 +6,7 @@ import {
   IItemRelocatedNotification,
   IMoneyRelocatedNotification,
 } from "@/engine/core/managers/notifications/notifications_types";
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
@@ -38,7 +38,7 @@ export function giveMoneyToActor(amount: TCount): void {
  * @param amount - money to transfer
  */
 export function transferMoneyFromActor(to: GameObject, amount: TCount): void {
-  assertDefined(to, "Couldn't relocate money to 'nil'.");
+  assert(to, "Couldn't relocate money to 'nil'.");
 
   registry.actor.transfer_money(amount, to);
 
@@ -192,7 +192,7 @@ export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void
 export function takeItemFromActor(itemSection: TSection): void {
   const inventoryItem: Optional<GameObject> = registry.actor.object(itemSection);
 
-  assertDefined(inventoryItem, "Actor has no item '%s' to take.", itemSection);
+  assert(inventoryItem, "Actor has no item '%s' to take.", itemSection);
 
   registry.simulator.release(registry.simulator.object(inventoryItem.id()), true);
 

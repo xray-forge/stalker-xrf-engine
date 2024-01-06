@@ -1,7 +1,6 @@
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
@@ -16,8 +15,6 @@ import {
   TName,
   Vector,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Get nearest to actor server object.
@@ -41,7 +38,7 @@ export function getNearestServerObject(
     return null;
   }
 
-  const alifeSwitchDistanceSqr: TDistance = simulator.switch_distance() * simulator.switch_distance();
+  const alifeSwitchDistanceSqr: TDistance = Math.pow(simulator.switch_distance(), 2);
 
   simulator.iterate_objects((serverObject: ServerObject): void => {
     if (serverObject.parent_id !== 0) {

@@ -3,8 +3,8 @@ import { Frect } from "xray16";
 
 import { copyRectangle, createRectangle, createScreenRectangle } from "@/engine/core/utils/rectangle";
 
-describe("rectangle utils", () => {
-  it("createScreenRectangle should correctly create rectangles describing screen", () => {
+describe("createScreenRectangle util", () => {
+  it("should correctly create rectangles describing screen", () => {
     const rectangle: Frect = createScreenRectangle();
 
     expect(rectangle.x1).toBe(0);
@@ -12,8 +12,10 @@ describe("rectangle utils", () => {
     expect(rectangle.x2).toBe(1024);
     expect(rectangle.y2).toBe(768);
   });
+});
 
-  it("createRectangle should correctly create rectangles", () => {
+describe("createRectangle util", () => {
+  it("should correctly create rectangles", () => {
     const rectangle: Frect = createRectangle(0, 1, 2, 3);
 
     expect(rectangle.x1).toBe(0);
@@ -21,8 +23,10 @@ describe("rectangle utils", () => {
     expect(rectangle.x2).toBe(2);
     expect(rectangle.y2).toBe(3);
   });
+});
 
-  it("copyRectangle should correctly copy rectangles", () => {
+describe("copyRectangle util", () => {
+  it("should correctly copy rectangles", () => {
     const rectangle: Frect = createRectangle(0, 1, 2, 3);
     const copied: Frect = copyRectangle(rectangle);
 

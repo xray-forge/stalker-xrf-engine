@@ -17,12 +17,12 @@ import { LuaArray } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
-describe("ranks class", () => {
+describe("readRanksList util", () => {
   beforeEach(() => {
     resetRegistry();
   });
 
-  it("readRanksList should correctly read ranks from ini file", () => {
+  it("should correctly read ranks from ini file", () => {
     const stalkerRanks: LuaArray<IRankDescriptor> = readRanksList(SYSTEM_INI, "game_relations", "rating");
     const monsterRanks: LuaArray<IRankDescriptor> = readRanksList(SYSTEM_INI, "game_relations", "monster_rating");
 
@@ -66,8 +66,14 @@ describe("ranks class", () => {
       },
     ]);
   });
+});
 
-  it("getStalkerRankByName should correctly get stalker ranks", () => {
+describe("getStalkerRankByName util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly get stalker ranks", () => {
     expect(() => getStalkerRankByName("test")).toThrow("Unknown stalker rank supplied for check: 'test'.");
     expect(getStalkerRankByName("novice")).toEqual({
       max: 300,
@@ -80,8 +86,14 @@ describe("ranks class", () => {
       name: "master",
     });
   });
+});
 
-  it("getMonsterRankByName should correctly get stalker ranks", () => {
+describe("getMonsterRankByName util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly get stalker ranks", () => {
     expect(() => getMonsterRankByName("test")).toThrow("Unknown monster rank supplied for check: 'test'.");
     expect(getMonsterRankByName("weak")).toEqual({
       max: 400,
@@ -94,8 +106,14 @@ describe("ranks class", () => {
       name: "strong",
     });
   });
+});
 
-  it("getNextStalkerRank should correctly get next stalker ranks", () => {
+describe("getNextStalkerRank util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly get next stalker ranks", () => {
     expect(getNextStalkerRank("novice")).toEqual({
       max: 600,
       min: 300,
@@ -112,8 +130,14 @@ describe("ranks class", () => {
       name: "master",
     });
   });
+});
 
-  it("getNextMonsterRank should correctly get next monster ranks", () => {
+describe("getNextMonsterRank util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly get next monster ranks", () => {
     expect(getNextMonsterRank("weak")).toEqual({
       max: 800,
       min: 400,
@@ -130,8 +154,14 @@ describe("ranks class", () => {
       name: "strong",
     });
   });
+});
 
-  it("getStalkerRankByValue should correctly get stalker ranks", () => {
+describe("getStalkerRankByValue util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly get stalker ranks", () => {
     expect(getStalkerRankByValue(0)).toEqual({
       max: 300,
       min: 0,
@@ -153,8 +183,14 @@ describe("ranks class", () => {
       name: "master",
     });
   });
+});
 
-  it("getMonsterRankByValue should correctly get stalker ranks", () => {
+describe("getMonsterRankByValue util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly get stalker ranks", () => {
     expect(getMonsterRankByValue(0)).toEqual({
       max: 400,
       min: 0,
@@ -176,8 +212,14 @@ describe("ranks class", () => {
       name: "strong",
     });
   });
+});
 
-  it("getGameObjectRank should correctly get ranks", () => {
+describe("getGameObjectRank util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly get ranks", () => {
     expect(
       getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.script_stalker, character_rank: () => 155 }))
     ).toEqual({
@@ -203,8 +245,14 @@ describe("ranks class", () => {
       name: "strong",
     });
   });
+});
 
-  it("getServerObjectRank should correctly get stalker ranks", () => {
+describe("getServerObjectRank util", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should correctly get stalker ranks", () => {
     expect(
       getServerObjectRank(mockServerAlifeMonsterBase({ clsid: () => clsid.script_stalker, rank: () => 155 }))
     ).toEqual({

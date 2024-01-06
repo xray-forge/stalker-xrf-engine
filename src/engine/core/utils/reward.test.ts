@@ -1,6 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { disposeManager, getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
+import { getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {
   ENotificationDirection,
@@ -20,44 +20,42 @@ import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyObject, GameObject, TSection } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
-describe("reward utils", () => {
-  const createObjectWithItems = () =>
-    MockGameObject.mock({
-      inventory: [
-        [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-        [3, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [4, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [5, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-        [40, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [41, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-        [50, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [51, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [52, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [53, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [54, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-        [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-      ],
-    });
+const createObjectWithItems = () =>
+  MockGameObject.mock({
+    inventory: [
+      [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+      [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
+      [3, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+      [4, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+      [5, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
+      [40, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+      [41, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
+      [50, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [51, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [52, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [53, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [54, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+    ],
+  });
 
-  const getItemsCount = (object: GameObject, section: TSection) => {
-    return [...((object as AnyObject).inventory as Map<number, GameObject>).entries()].filter(([, it]) => {
-      return it.section() === section;
-    }).length;
-  };
+const getItemsCount = (object: GameObject, section: TSection) => {
+  return [...((object as AnyObject).inventory as Map<number, GameObject>).entries()].filter(([, it]) => {
+    return it.section() === section;
+  }).length;
+};
 
+describe("giveMoneyToActor util", () => {
   beforeEach(() => {
+    resetRegistry();
     registerActor(MockGameObject.mockActor());
     registerSimulator();
   });
 
-  afterEach(() => {
-    disposeManager(EventsManager);
-  });
-
-  it("giveMoneyToActor should correctly transfer money", () => {
+  it("should correctly transfer money", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
 
     const mock = jest.fn((notification: IMoneyRelocatedNotification) => {
@@ -73,8 +71,16 @@ describe("reward utils", () => {
     expect(registry.actor.give_money).toHaveBeenCalledWith(250);
     expect(mock).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("takeMoneyFromActor should correctly transfer money", () => {
+describe("takeMoneyFromActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerActor(MockGameObject.mockActor());
+    registerSimulator();
+  });
+
+  it("should correctly transfer money", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
 
     const mock = jest.fn((notification: IMoneyRelocatedNotification) => {
@@ -92,8 +98,16 @@ describe("reward utils", () => {
     expect(registry.actor.transfer_money).toHaveBeenCalledWith(500, destinationObject);
     expect(mock).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("transferItemsFromActor should take items from actor", () => {
+describe("transferItemsFromActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerActor(MockGameObject.mockActor());
+    registerSimulator();
+  });
+
+  it("should take items from actor", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -123,7 +137,7 @@ describe("reward utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("transferItemsFromActor should take ammo from object", () => {
+  it("should take ammo from object", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -145,7 +159,7 @@ describe("reward utils", () => {
     expect(mock).toHaveBeenCalledTimes(2);
   });
 
-  it("transferItemsFromActor should take ALL from object", () => {
+  it("should take ALL from object", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -166,7 +180,7 @@ describe("reward utils", () => {
     expect(mock).toHaveBeenCalledTimes(1);
   });
 
-  it("transferItemsFromActor should fail on bad attempts", () => {
+  it("should fail on bad attempts", () => {
     registerActor(createObjectWithItems());
 
     const to: GameObject = MockGameObject.mock();
@@ -177,8 +191,16 @@ describe("reward utils", () => {
     expect(() => transferItemsFromActor(to, ammo["ammo_5.45x39_ap"], 10)).toThrow();
     expect(() => transferItemsFromActor(to, weapons.wpn_svd, 10)).toThrow();
   });
+});
 
-  it("transferItemsToActor should take items from object", () => {
+describe("transferItemsToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerActor(MockGameObject.mockActor());
+    registerSimulator();
+  });
+
+  it("should take items from object", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const from: GameObject = createObjectWithItems();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
@@ -195,8 +217,16 @@ describe("reward utils", () => {
     expect(from.transfer_item).toHaveBeenCalledTimes(6);
     expect(mock).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("giveItemsToActor should correctly create items and then notify", () => {
+describe("giveItemsToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerActor(MockGameObject.mockActor());
+    registerSimulator();
+  });
+
+  it("should correctly create items and then notify", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const mock = jest.fn((notification: IItemRelocatedNotification) => {
       expect(notification.type).toBe(ENotificationType.ITEM);
@@ -210,8 +240,39 @@ describe("reward utils", () => {
 
     expect(mock).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("takeItemFromActor should correctly delete items and then notify", () => {
+describe("giveItemsToActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerActor(MockGameObject.mockActor());
+    registerSimulator();
+  });
+
+  it("should correctly create items and then notify", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const mock = jest.fn((notification: IItemRelocatedNotification) => {
+      expect(notification.type).toBe(ENotificationType.ITEM);
+      expect(notification.amount).toBe(300);
+      expect(notification.direction).toBe(ENotificationDirection.IN);
+    });
+
+    eventsManager.registerCallback(EGameEvent.NOTIFICATION, mock);
+
+    giveItemsToActor("ammo_5.45x39_ap", 300);
+
+    expect(mock).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("takeItemFromActor util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerActor(MockGameObject.mockActor());
+    registerSimulator();
+  });
+
+  it("should correctly delete items and then notify", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
     const itemToTake: GameObject = MockGameObject.mock();
     const mock = jest.fn((notification: IItemRelocatedNotification) => {

@@ -2,15 +2,15 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
 
-describe("table utils", () => {
-  const tableUtils: {
-    isEmpty: <T extends AnyNotNil>(target: Optional<LuaTable<T>>) => boolean;
-    resetTable: <T extends AnyNotNil>(target: LuaTable<T>) => void;
-    copyTable: (first: AnyObject, second: AnyObject) => AnyObject;
-    mergeTables: <T extends AnyNotNil>(base: LuaTable<T>, ...rest: Array<LuaTable<T>>) => AnyObject;
-  } = jest.requireActual("@/engine/core/utils/table");
+const tableUtils: {
+  isEmpty: <T extends AnyNotNil>(target: Optional<LuaTable<T>>) => boolean;
+  resetTable: <T extends AnyNotNil>(target: LuaTable<T>) => void;
+  copyTable: (first: AnyObject, second: AnyObject) => AnyObject;
+  mergeTables: <T extends AnyNotNil>(base: LuaTable<T>, ...rest: Array<LuaTable<T>>) => AnyObject;
+} = jest.requireActual("@/engine/core/utils/table");
 
-  it("resetTable should correctly empty provided table", () => {
+describe("resetTable util", () => {
+  it("should correctly empty provided table", () => {
     const first: LuaArray<number> = $fromArray([1, 2, 3, 4]);
     const second: LuaTable<string, string> = $fromObject<string, string>({ a: "1", b: "2" });
 
@@ -20,8 +20,10 @@ describe("table utils", () => {
     expect(first).toEqualLuaArrays([]);
     expect(second).toEqualLuaTables({});
   });
+});
 
-  it("copyTable should correctly copy table", () => {
+describe("copyTable util", () => {
+  it("should correctly copy table", () => {
     const from: LuaTable = new LuaTable();
     const to: LuaTable<string, unknown> = $fromObject<string, unknown>({ a: 1, b: 2, c: 3, d: { a: "a" } });
 
@@ -38,8 +40,10 @@ describe("table utils", () => {
     });
     expect(to).toEqualLuaTables({ a: 1, b: 2, c: 3, d: { a: "a" }, x: 10 });
   });
+});
 
-  it("mergeTables should correctly merge tables", () => {
+describe("mergeTables util", () => {
+  it("should correctly merge tables", () => {
     const to: LuaTable<string, number> = $fromObject<string, number>({ a: 1 });
 
     expect(
@@ -51,8 +55,10 @@ describe("table utils", () => {
     });
     expect(to).toEqualLuaTables({ a: 1, b: 2, c: 3 });
   });
+});
 
-  it("isEmpty should correctly check table emptiness", () => {
+describe("isEmpty util", () => {
+  it("should correctly check table emptiness", () => {
     expect(tableUtils.isEmpty($fromObject({ a: 1, b: 2 }))).toBe(false);
     expect(tableUtils.isEmpty($fromArray(["a", "b", "c", "d", "e"]))).toBe(false);
     expect(tableUtils.isEmpty($fromArray([1, 2, 3]))).toBe(false);
