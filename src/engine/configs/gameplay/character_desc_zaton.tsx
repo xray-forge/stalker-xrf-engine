@@ -1,0 +1,1764 @@
+import { JSXNode, JSXXML } from "jsx-xml";
+
+import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
+import { defaultCharacterDialogsNoGuide } from "@/engine/configs/gameplay/character_dialogs_no_guide";
+import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
+import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
+import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
+import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
+import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
+import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
+import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
+import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
+import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
+import { defaultCharacterItems2 } from "@/engine/configs/gameplay/loadouts/character_items_2";
+import { defaultCharacterItems3 } from "@/engine/configs/gameplay/loadouts/character_items_3";
+import { defaultCharacterItemsWithoutTorch3 } from "@/engine/configs/gameplay/loadouts/character_items_3_nl";
+import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
+import { defaultCharacterItemsWithoutTorchAndDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd_nl";
+import {
+  loadoutAbakan,
+  loadoutAk74,
+  loadoutAk74u,
+  loadoutBeretta,
+  loadoutBinocular,
+  loadoutBm16,
+  loadoutColt1911,
+  loadoutDesertEagle,
+  loadoutDetectorAdvanced,
+  loadoutDetectorElite,
+  loadoutF1Grenades,
+  loadoutFort,
+  loadoutHpsa,
+  loadoutL85,
+  loadoutLr300,
+  loadoutMp5,
+  loadoutPm,
+  loadoutRgd5Grenades,
+  loadoutSig550,
+  loadoutSpas12,
+  loadoutTorch,
+  loadoutToz34,
+  loadoutUsp,
+  loadoutWalther,
+  loadoutWincheaster1300,
+  SpecificCharacter,
+} from "@/engine/configs/gameplay/utils";
+import { communities } from "@/engine/lib/constants/communities";
+import { ammo } from "@/engine/lib/constants/items/ammo";
+import { artefacts } from "@/engine/lib/constants/items/artefacts";
+import { detectors } from "@/engine/lib/constants/items/detectors";
+import { drugs, medkits } from "@/engine/lib/constants/items/drugs";
+import { misc } from "@/engine/lib/constants/items/misc";
+import { outfits } from "@/engine/lib/constants/items/outfits";
+import { questItems } from "@/engine/lib/constants/items/quest_items";
+import { weapons } from "@/engine/lib/constants/items/weapons";
+import { GENERATE_BANDIT_NAME, GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
+
+export function create(): JSXNode {
+  return (
+    <xml>
+      <SpecificCharacter
+        id={"zat_b30_owl_stalker_trader"}
+        class={"zat_b30_owl_stalker_trader"}
+        name={"st_zat_b30_owl_stalker_trader_name"}
+        icon={"ui_inGame2_Sich"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_3_face_1"}
+        moneyMin={480_000}
+        moneyMax={480_000}
+        moneyInfinite={true}
+        rank={60}
+        supplies={[
+          { section: weapons.wpn_ak74u },
+          { section: weapons.wpn_beretta },
+          { section: weapons.grenade_rgd5 },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x19_fmj },
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b30_owl_stalker_trader_start_dialog</start_dialog>
+        <actor_dialog>zat_b30_owl_stalker_trader_choose_task</actor_dialog>
+        <actor_dialog>zat_b30_owl_stalker_trader_sell_items</actor_dialog>
+        <actor_dialog>zat_b30_owl_stalker_trader_buy_info</actor_dialog>
+        <actor_dialog>zat_b30_owl_stalker_trader_stages</actor_dialog>
+        <actor_dialog>zat_b30_owl_stalker_trader_b30_actor_after_barmen</actor_dialog>
+        <actor_dialog>zat_b30_owl_stalker_trader_about_nimble</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b106_stalker_gonta"}
+        class={"zat_b106_stalker_gonta"}
+        name={"st_zat_b106_stalker_gonta_name"}
+        icon={"ui_inGame2_Gonta"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_6"}
+        moneyMin={1000}
+        moneyMax={1000}
+        rank={50}
+        supplies={[
+          { section: detectors.detector_advanced },
+          { section: weapons.wpn_ak74 },
+          { section: weapons.wpn_colt1911 },
+          { section: weapons.grenade_rgd5 },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo["ammo_11.43x23_fmj"] },
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b106_stalker_gonta_start</start_dialog>
+        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
+        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
+        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
+        <actor_dialog>zat_b106_hunt_himera</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_info_about_soroka</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_info_about_soroka_gone</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_about_soroka_dialog</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_about_soroka_actor_task</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_trapper_send</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_about_himself</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_b22_about_stalker_vampire</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_employ_stalkers</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_come_with_me</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_b52_about_nimble</actor_dialog>
+        <actor_dialog>zat_b106_stalker_gonta_about_mutants</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b106_stalker_garmata"}
+        class={"zat_b106_stalker_garmata"}
+        name={"st_zat_b106_stalker_garmata_name"}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_03\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        moneyMin={1000}
+        moneyMax={1000}
+        rank={45}
+        supplies={[
+          { section: weapons.wpn_spas12 },
+          { section: weapons.wpn_colt1911 },
+          { section: weapons.grenade_f1 },
+          { section: ammo.ammo_12x70_buck },
+          { section: ammo["ammo_11.43x23_fmj"] },
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
+        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
+        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b106_stalker_crab"}
+        class={"zat_b106_stalker_crab"}
+        name={"st_zat_b106_stalker_crab_name"}
+        icon={"ui_inGame2_neutral_2_mask"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
+        moneyMin={1000}
+        moneyMax={1000}
+        rank={35}
+        supplies={[
+          { section: detectors.detector_advanced },
+          { section: weapons.wpn_ak74 },
+          { section: weapons.wpn_pm },
+          { section: weapons.grenade_f1 },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x18_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
+        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
+        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b14_stalker_1"}
+        class={"zat_b14_stalker_1"}
+        name={"zat_b14_stalker_1_name"}
+        icon={"ui_inGame2_neutral_1"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
+        moneyMin={1000}
+        moneyMax={1000}
+        rank={25}
+        supplies={[
+          { section: weapons.wpn_ak74u },
+          { section: weapons.wpn_pm },
+          { section: weapons.grenade_f1 },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x18_fmj },
+          ...defaultCharacterItemsWithoutTorchAndDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <actor_dialog>zat_b14_stalker_at_bar_start</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_a2_stalker_nimble"}
+        class={"zat_a2_stalker_nimble"}
+        name={"st_zat_a2_stalker_nimble_name"}
+        icon={"ui_inGame2_neutral_1"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
+        moneyMin={10_000}
+        moneyMax={10_000}
+        rank={40}
+        supplies={[
+          { section: misc.device_torch },
+          { section: weapons.wpn_ak74u },
+          { section: weapons.wpn_pm },
+          { section: weapons.grenade_f1 },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x18_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b51_stalker_nimble_start</start_dialog>
+        <actor_dialog>zat_b51_stalker_nimble_b52_about_gun_questions</actor_dialog>
+        <actor_dialog>zat_b51_stalker_nimble_place_order</actor_dialog>
+        <actor_dialog>zat_b51_stalker_nimble_get_order</actor_dialog>
+        <actor_dialog>zat_b51_stalker_nimble_about</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b38_stalker_cop"}
+        class={"zat_b38_stalker_cop"}
+        name={"st_zat_b38_stalker_cop_name"}
+        icon={"ui_inGame2_Gluhar"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={55}
+        supplies={[
+          { section: weapons.wpn_ak74u },
+          { section: weapons.wpn_pm },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x18_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b38_stalker_cop_start_dialog</start_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b7_actor_start</actor_dialog>
+        <actor_dialog>zat_b38_stalker_cop_task_dialog</actor_dialog>
+        <actor_dialog>zat_b38_cop_about_himself_dialog</actor_dialog>
+        <actor_dialog>zat_b38_stalker_cop_b52_about_nimble</actor_dialog>
+        <actor_dialog>zat_b38_stalker_cop_b52_about_snag</actor_dialog>
+        <actor_dialog>zat_b38_stalker_cop_about_sci_guards</actor_dialog>
+        <actor_dialog>zat_b38_stalker_cop_about_sci_helpers</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b38_stalker_cop_dead"}
+        class={"zat_b38_stalker_cop_dead"}
+        name={"st_zat_b38_stalker_cop_name"}
+        icon={"ui_inGame2_Gluhar"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={55}
+        supplies={[
+          { section: weapons.wpn_ak74u },
+          { section: weapons.wpn_pm },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x18_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      />
+
+      <SpecificCharacter
+        id={"zat_b38_stalker_hunter"}
+        class={"zat_b38_stalker_hunter"}
+        name={"st_zat_b38_stalker_hunter_name"}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_03\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        moneyMin={3_000}
+        moneyMax={3_000}
+        rank={50}
+        supplies={[...defaultCharacterFood, ...defaultCharacterDrugs]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b7_duty_illicit_dealer"}
+        class={"zat_b7_duty_illicit_dealer"}
+        name={"st_zat_b7_duty_illicit_dealer_name"}
+        icon={"ui_inGame2_Dolg_4"}
+        community={communities.dolg}
+        soundConfig={"characters_voice\\human_01\\dolg\\"}
+        visual={"actors\\stalker_dolg\\stalker_dolg_4"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={60}
+        supplies={[
+          { section: questItems.device_pda_zat_b5_dealer },
+          { section: weapons.wpn_ak74u },
+          { section: weapons.wpn_fort },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x18_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs4,
+          ...defaultCharacterDrugsMilitary,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail</actor_dialog>
+        <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda</actor_dialog>
+        <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda_2</actor_dialog>
+
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_dealer_assistant_1"}
+        class={"zat_b5_dealer_assistant_1"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={40}
+        supplies={[
+          { section: weapons.wpn_ak74 },
+          { section: weapons.wpn_hpsa },
+          { section: weapons.grenade_rgd5 },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x19_pbp },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_dealer_assistant_2"}
+        class={"zat_b5_dealer_assistant_2"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={40}
+        supplies={[
+          { section: weapons.wpn_ak74 },
+          { section: weapons.wpn_hpsa },
+          { section: weapons.grenade_rgd5 },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x19_pbp },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_raider_1"}
+        class={"zat_b5_stalker_raider_1"}
+        name={GENERATE_BANDIT_NAME}
+        icon={"ui_inGame2_bandit_2"}
+        community={communities.bandit}
+        soundConfig={"characters_voice\\human_02\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={30}
+        supplies={[
+          { section: weapons.wpn_wincheaster1300 },
+          { section: weapons.wpn_pm },
+          { section: weapons.grenade_rgd5, count: 2 },
+          { section: ammo.ammo_12x76_zhekan },
+          { section: ammo.ammo_9x18_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_raider_2"}
+        class={"zat_b5_stalker_raider_2"}
+        name={GENERATE_BANDIT_NAME}
+        icon={"ui_inGame2_bandit_2"}
+        community={communities.bandit}
+        soundConfig={"characters_voice\\human_02\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={35}
+        supplies={[
+          { section: weapons.wpn_ak74 },
+          { section: weapons.wpn_beretta },
+          { section: weapons.grenade_rgd5, count: 2 },
+          { section: ammo["ammo_5.45x39_fmj"] },
+          { section: ammo.ammo_9x19_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_raider_3"}
+        class={"zat_b5_stalker_raider_3"}
+        name={GENERATE_BANDIT_NAME}
+        icon={"ui_inGame2_bandit_1"}
+        community={communities.bandit}
+        soundConfig={"characters_voice\\human_01\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={30}
+        supplies={[
+          { section: weapons.wpn_mp5 },
+          { section: weapons.wpn_hpsa },
+          { section: weapons.grenade_rgd5 },
+          { section: ammo.ammo_9x19_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_raider_4"}
+        class={"zat_b5_stalker_raider_4"}
+        name={GENERATE_BANDIT_NAME}
+        icon={"ui_inGame2_bandit_1"}
+        community={communities.bandit}
+        soundConfig={"characters_voice\\human_01\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={35}
+        supplies={[
+          { section: weapons.wpn_mp5 },
+          { section: weapons.wpn_beretta },
+          { section: weapons.grenade_rgd5 },
+          { section: ammo.ammo_9x19_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_raider_leader"}
+        class={"zat_b5_stalker_raider_leader"}
+        name={"st_zat_b7_stalker_raider_leader"}
+        icon={"ui_inGame2_bandit_2"}
+        community={communities.bandit}
+        soundConfig={"characters_voice\\human_01\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={40}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutBeretta(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b7_bandit_boss_dead"}
+        class={"zat_b7_bandit_boss_dead"}
+        name={GENERATE_BANDIT_NAME}
+        icon={"ui_inGame2_bandit_4"}
+        community={communities.bandit}
+        soundConfig={"characters_voice\\human_01\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={50}
+        supplies={[
+          { section: weapons.wpn_ak74 },
+          { section: weapons.wpn_beretta },
+          { section: weapons.grenade_rgd5 },
+          { section: ammo["ammo_5.45x39_ap"] },
+          { section: ammo.ammo_9x19_fmj },
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b7_bandit_boss_sultan"}
+        class={"zat_b7_bandit_boss_sultan"}
+        name={"st_zat_b7_bandit_boss_sultan_name"}
+        icon={"ui_inGame2_Sultan"}
+        community={communities.bandit}
+        soundConfig={"characters_voice\\human_02\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_3_face_3"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={60}
+        supplies={[
+          ...loadoutDesertEagle(true),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b7_bandit_boss_sultan_start_dialog</start_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b7_give_task_dialog</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b30_start_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b30_detectors_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b30_compass_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b30_compass_give_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b30_compass_revert_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b30_ruin_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b30_barmen_under_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b52_about_snag</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_b52_about_nimble</actor_dialog>
+        <actor_dialog>zat_b7_bandit_boss_sultan_about</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_commander"}
+        class={"zat_b5_stalker_commander"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_2_mask"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={50}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutColt1911(),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_commander_b7"}
+        class={"zat_b5_stalker_commander_b7"}
+        name={"st_zat_b7_stalker_squad_leader"}
+        icon={"ui_inGame2_neutral_2_mask"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={50}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutColt1911(),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_1"}
+        class={"zat_b5_stalker_1"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_03\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={35}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutWincheaster1300(),
+          ...loadoutHpsa(),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_2"}
+        class={"zat_b5_stalker_2"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_03\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={35}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutBeretta(),
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_3"}
+        class={"zat_b5_stalker_3"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={35}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74u(),
+          ...loadoutBeretta(),
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b5_stalker_4"}
+        class={"zat_b5_stalker_4"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        moneyMin={8_000}
+        moneyMax={8_000}
+        rank={35}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutL85(),
+          ...loadoutBeretta(),
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_a2_stalker_barmen"}
+        class={"zat_a2_stalker_barmen"}
+        name={"zat_a2_stalker_barmen_name"}
+        icon={"ui_inGame2_Boroda"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_3_face_1"}
+        moneyMin={480_000}
+        moneyMax={480_000}
+        moneyInfinite={true}
+        rank={60}
+        reputation={300}
+        supplies={[
+          ...loadoutRgd5Grenades(3),
+          ...loadoutSig550(true),
+          ...loadoutBeretta(),
+          ...defaultCharacterItemsWithoutTorch3,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_a2_stalker_barmen_start_dialog</start_dialog>
+        <actor_dialog>zat_a2_linker_b14_quest_init</actor_dialog>
+        <actor_dialog>zat_a2_linker_b14_quest_done</actor_dialog>
+        <actor_dialog>zat_a2_linker_b14_quest_strange_item</actor_dialog>
+        <actor_dialog>zat_a2_linker_b14_quest_sell_artefact</actor_dialog>
+        <actor_dialog>zat_a2_linker_b14_quest_wrong</actor_dialog>
+        <actor_dialog>zat_b57_barmen_about_bloodsucker_lair_dialog</actor_dialog>
+        <actor_dialog>zat_b57_barman_reward_dialog</actor_dialog>
+        <actor_dialog>zat_b22_barmen_about_vampire_actor1</actor_dialog>
+        <actor_dialog>zat_b22_barmen_about_vampire_actor2</actor_dialog>
+        <actor_dialog>zat_b22_barmen_about_vampire_actor3</actor_dialog>
+        <actor_dialog>zat_b22_barmen_about_vampire_actor4</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b7_actor_start</actor_dialog>
+        <actor_dialog>zat_b22_barmen_b5_daring_quest_stalkers</actor_dialog>
+        <actor_dialog>zat_b22_barmen_about_after_quest_b5_dealer_actor4</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b30_about_new_detector</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b30_about_compass</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b30_compass_give_dialog</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b30_compass_double_dialog</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b30_compass_revert_dialog</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b30_take_business_actor_dialog</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_army</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_about_sci_guards</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_about_sci_helpers</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b30_about_halfart_jup_b1</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_oasis_art_sell</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b52_about_snag</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b52_about_nimble</actor_dialog>
+        <actor_dialog>zat_a2_linker_b29_actor_info</actor_dialog>
+        <actor_dialog>zat_a2_linker_b29_actor_get_adv_task</actor_dialog>
+        <actor_dialog>zat_a2_linker_b29_actor_give_adv_task</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_b30_take_money_actor_dialog</actor_dialog>
+        <actor_dialog>zat_a2_stalker_barmen_actor_info</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b22_stalker_medic"}
+        class={"zat_b22_stalker_medic"}
+        name={"zat_b22_stalker_medic_name"}
+        icon={"ui_inGame2_Tremor"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_1_face_3"}
+        moneyMin={480_000}
+        moneyMax={480_000}
+        moneyInfinite={true}
+        rank={30}
+        supplies={[
+          ...loadoutHpsa(),
+          ...defaultCharacterItemsWithoutTorchAndDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b22_stalker_medic_dialog_start</start_dialog>
+        <actor_dialog>zat_b38_stalker_medic_bloodsucker_dialog</actor_dialog>
+        <actor_dialog>zat_b38_stalker_medic_info_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b22_stalker_medic_b52_about_nimble</actor_dialog>
+        <actor_dialog>zat_b22_stalker_medic_need_health_care</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_a2_stalker_mechanic"}
+        class={"zat_a2_stalker_mechanic"}
+        name={"zat_a2_stalker_mechanic_name"}
+        icon={"ui_inGame2_Kardan"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_1"}
+        mechanicMode={true}
+        rank={30}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutPm(),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b3_stalker_tech_start</start_dialog>
+        <actor_dialog>zat_b3_stalker_tech_produce_62_show</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_produce_62_end</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_return_access_card</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_produce_62_repair_gauss</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_produce_62_make_battery</actor_dialog>
+        <actor_dialog>zat_b3_tech_buddies_about</actor_dialog>
+        <actor_dialog>zat_b3_tech_buddies_apologies_both</actor_dialog>
+        <actor_dialog>zat_b3_tech_buddies_apologies_joker</actor_dialog>
+        <actor_dialog>zat_b3_tech_buddies_apologies_barge</actor_dialog>
+        <actor_dialog>zat_b3_tech_buddies_pda</actor_dialog>
+        <actor_dialog>zat_b3_stalker_mechanic_ufo_memory_repair</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_b33_about_snags_container</actor_dialog>
+        <actor_dialog>zat_b3_stalker_mechanic_b52_about_nimble</actor_dialog>
+        <actor_dialog>zat_b3_stalker_mechanic_b207_about_dealer_pda</actor_dialog>
+        <actor_dialog>zat_b3_stalker_mechanic_electro_toolkit_dialog</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_instruments</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_drink_1</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_drink_2</actor_dialog>
+        <actor_dialog>zat_b3_stalker_tech_drink_3</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b103_lost_merc_leader"}
+        class={"zat_b103_lost_merc_leader"}
+        name={"zat_b103_lost_merc_leader_name"}
+        icon={"ui_inGame2_merc_4"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_4"}
+        rank={55}
+        supplies={[
+          ...loadoutRgd5Grenades(3),
+          ...loadoutLr300({ ap: true, scope: true, silencer: true }),
+          ...loadoutWalther(true),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs,
+        ]}
+      >
+        <start_dialog>zat_b103_merc_dialog_start</start_dialog>
+        <actor_dialog>zat_b103_lost_merc_leader_come_with_me</actor_dialog>
+        <actor_dialog>zat_b103_merc_dialog_about_toolkit</actor_dialog>
+        <actor_dialog>zat_b103_merc_dialog_find_supplies</actor_dialog>
+        <actor_dialog>zat_b103_merc_dialog_about_supplies</actor_dialog>
+        <actor_dialog>zat_b103_lost_merc_leader_employ_stalkers</actor_dialog>
+        <actor_dialog>zat_b103_lost_merc_leader_bunker_guarding</actor_dialog>
+        <actor_dialog>zat_b103_lost_merc_leader_b40_about_merc_camp</actor_dialog>
+
+        {defaultCharacterDialogsNoGuide}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b103_lost_merc_1"}
+        class={"zat_b103_lost_merc_1"}
+        name={"zat_b103_lost_merc_1_name"}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        rank={40}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutMp5({ ap: true, silencer: true }),
+          ...loadoutBeretta(true),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogsNoGuide}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b103_lost_merc_2"}
+        class={"zat_b103_lost_merc_2"}
+        name={"zat_b103_lost_merc_2_name"}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        rank={40}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutL85(),
+          ...loadoutBeretta(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogsNoGuide}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b103_lost_merc_3"}
+        class={"zat_b103_lost_merc_3"}
+        name={"zat_b103_lost_merc_3_name"}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        rank={40}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogsNoGuide}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b103_lost_merc_4"}
+        class={"zat_b103_lost_merc_4"}
+        name={"zat_b103_lost_merc_4_name"}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        rank={40}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutMp5({ silencer: true }),
+          ...loadoutBeretta(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogsNoGuide}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b103_lost_merc_5"}
+        class={"zat_b103_lost_merc_5"}
+        name={"zat_b103_lost_merc_5_name"}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        rank={40}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutL85(),
+          ...loadoutHpsa(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogsNoGuide}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b103_lost_merc_6"}
+        class={"zat_b103_lost_merc_6"}
+        name={"zat_b103_lost_merc_6_name"}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        rank={40}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutSpas12(),
+          ...loadoutHpsa(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogsNoGuide}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b103_lost_merc_7"}
+        class={"zat_b103_lost_merc_7"}
+        name={"zat_b103_lost_merc_6_name"}
+        icon={"ui_inGame2_merc_2"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_2"}
+        rank={40}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutAk74(),
+          ...loadoutBeretta(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogsNoGuide}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b7_stalker_raider_leader"}
+        class={"zat_b7_stalker_raider_leader"}
+        name={"st_zat_b7_stalker_raider_leader"}
+        icon={"ui_inGame2_bandit_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
+        rank={40}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutAk74(),
+          ...loadoutBeretta(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b7_stalkers_raiders_dialog</start_dialog>
+        <actor_dialog>zat_b7_stalkers_raiders_actor_choose_dialog</actor_dialog>
+        <actor_dialog>zat_b7_killed_self_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b7_stalkers_raiders_actor_teleport_dialog</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b7_stalker_raider_1"}
+        class={"zat_b7_stalker_raider_1"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_bandit_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
+        rank={40}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b7_stalker_raider_2"}
+        class={"zat_b7_stalker_raider_2"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_bandit_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
+        rank={40}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutWincheaster1300(),
+          ...loadoutBeretta(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b7_stalker_raider_3"}
+        class={"zat_b7_stalker_raider_3"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_bandit_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
+        rank={40}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(2),
+          ...loadoutMp5(),
+          ...loadoutFort(),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b7_stalker_victim_1"}
+        class={"zat_b7_stalker_victim_1"}
+        name={"st_zat_b7_stalker_squad_leader"}
+        icon={"ui_inGame2_neutral_2_mask"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
+        rank={50}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutColt1911(),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b7_stalkers_victims_dialog</start_dialog>
+        <actor_dialog>zat_b7_stalkers_victims_actor_start_dialog</actor_dialog>
+        <actor_dialog>zat_b7_stalkers_victims_actor_choose_dialog</actor_dialog>
+        <actor_dialog>zat_b7_stalker_squad_leader_employ_stalkers</actor_dialog>
+        <actor_dialog>zat_b7_stalker_squad_leader_bunker_guarding</actor_dialog>
+        <actor_dialog>zat_b7_stalker_squad_leader_come_with_me</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b33_stalker_snag"}
+        class={"zat_b33_stalker_snag"}
+        name={"zat_b33_stalker_snag"}
+        icon={"ui_inGame2_neutral_1"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
+        rank={25}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutBm16(),
+          ...loadoutPm(),
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b33_stalker_snag_about_cache_dialog</start_dialog>
+        <actor_dialog>zat_b33_stalker_snag_share_package_dialog</actor_dialog>
+        <actor_dialog>zat_b33_stalker_snag_refuse_task</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b42_mayron"}
+        class={"zat_b42_mayron"}
+        name={"zat_b42_mayron_name"}
+        icon={"ui_inGame2_neutral_1"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\bandit\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
+        rank={80}
+        moneyMin={1500}
+        moneyMax={3500}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b28_draper"}
+        class={"zat_b28_draper"}
+        name={"zat_b28_draper_name"}
+        icon={"ui_inGame2_Soldier_3"}
+        community={communities.army}
+        soundConfig={"characters_voice\\human_03\\military\\"}
+        visual={"actors\\stalker_soldier\\stalker_soldier_3"}
+        rank={40}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutFort(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugsMilitary,
+          ...defaultCharacterDrugsScientific,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b28_umerov"}
+        class={"zat_b28_umerov"}
+        name={"zat_b28_umerov_name"}
+        icon={"ui_inGame2_Soldier_2"}
+        community={communities.army}
+        soundConfig={"characters_voice\\human_01\\military\\"}
+        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
+        rank={40}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutFort(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs,
+          ...defaultCharacterDrugsMilitary,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b28_smoliak"}
+        class={"zat_b28_smoliak"}
+        name={"zat_b28_smoliak_name"}
+        icon={"ui_inGame2_Soldier_2"}
+        community={communities.army}
+        soundConfig={"characters_voice\\human_02\\military\\"}
+        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
+        rank={40}
+        moneyMin={1500}
+        moneyMax={3500}
+        supplies={[
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutFort(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs,
+          ...defaultCharacterDrugsMilitary,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b29_stalker_rival_1"}
+        class={"zat_b29_stalker_rival_1"}
+        name={"st_zat_b29_stalker_rival_1"}
+        icon={"ui_inGame2_neutral_nauchniy"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_03\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
+        rank={50}
+        moneyMin={2000}
+        moneyMax={4000}
+        supplies={[
+          ...loadoutBinocular(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutLr300(),
+          ...loadoutColt1911(true),
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+          ...defaultCharacterDrugsScientific,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+        <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b30_stalker_rival_1_about_detector</actor_dialog>
+        <actor_dialog>zat_b30_stalker_rival_2_about_detector</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b29_stalker_rival_2"}
+        class={"zat_b29_stalker_rival_2"}
+        name={"st_zat_b29_stalker_rival_1"}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_03\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        rank={50}
+        moneyMin={2000}
+        moneyMax={4000}
+        supplies={[
+          ...loadoutTorch(),
+          ...loadoutBinocular(),
+          ...loadoutF1Grenades(),
+          ...loadoutAbakan({ ap: true, scope: true }),
+          ...loadoutWalther(),
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+          ...defaultCharacterDrugsScientific,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+        <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
+        <actor_dialog>zat_b30_stalker_rival_1_about_detector</actor_dialog>
+        <actor_dialog>zat_b30_stalker_rival_2_about_detector</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b29_stalker_rival_default_1"}
+        class={"zat_b29_stalker_rival_default_1"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_2_mask"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
+        rank={30}
+        moneyMin={1000}
+        moneyMax={2500}
+        supplies={[
+          ...loadoutTorch(),
+          ...loadoutDetectorElite(),
+          ...loadoutBinocular(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+        <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b29_stalker_rival_default_2"}
+        class={"zat_b29_stalker_rival_default_2"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_2_mask"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
+        rank={30}
+        moneyMin={1000}
+        moneyMax={2500}
+        supplies={[
+          ...loadoutTorch(),
+          ...loadoutDetectorElite(),
+          ...loadoutBinocular(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutAk74u(),
+          ...loadoutFort(),
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+        <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b18_noah"}
+        class={"zat_b18_noah"}
+        name={"zat_b18_noah_name"}
+        icon={"ui_inGame2_Noy"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_3_face_2"}
+        rank={50}
+        moneyMin={1000}
+        moneyMax={2500}
+        supplies={[
+          { section: artefacts.af_compass, count: 2 },
+          { section: questItems.zat_b20_noah_pda },
+          ...loadoutSpas12(),
+          ...loadoutColt1911(),
+          ...loadoutF1Grenades(3),
+          ...defaultCharacterItemsWithoutTorch3,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b18_noah_start</start_dialog>
+
+        <actor_dialog>zat_b18_noah_plateau_way</actor_dialog>
+        <actor_dialog>zat_b18_noah_first_artefact</actor_dialog>
+        <actor_dialog>zat_b18_noah_second_artefact</actor_dialog>
+        <actor_dialog>zat_b18_noah_third_artefact</actor_dialog>
+        <actor_dialog>zat_b18_noah_arc</actor_dialog>
+        <actor_dialog>zat_b18_noah_catastrophe</actor_dialog>
+        <actor_dialog>zat_b18_noah_dog</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b52_port_bandit_leader"}
+        class={"zat_b52_port_bandit_leader"}
+        name={GENERATE_BANDIT_NAME}
+        icon={"ui_inGame2_bandit_2"}
+        community={communities.bandit}
+        soundConfig={"characters_voice\\human_01\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
+        rank={50}
+        supplies={[
+          ...loadoutMp5(),
+          ...loadoutColt1911(true),
+          ...loadoutF1Grenades(2),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b215_stalker_guide"}
+        class={"zat_b215_stalker_guide"}
+        name={"zat_b215_stalker_guide_name"}
+        icon={"ui_inGame2_Lotsman"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_5"}
+        rank={65}
+        supplies={[
+          ...loadoutAk74(),
+          ...loadoutDesertEagle(),
+          ...loadoutRgd5Grenades(),
+          ...defaultCharacterItems3,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <start_dialog>zat_b215_stalker_guide_start</start_dialog>
+        <actor_dialog>zat_b215_stalker_guide_leave_zone</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_maps</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_to_pripyat_no_way</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_to_pripyat</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_to_jupiter</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_to_zaton</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_where_to</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_about_himself</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_about_anomalies</actor_dialog>
+        <actor_dialog>zat_b215_stalker_guide_about_surge</actor_dialog>
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b40_merc_squad_leader_1"}
+        class={"zat_b40_merc_squad_leader_1"}
+        name={"zat_b40_merc_squad_leader_1_name"}
+        icon={"ui_inGame2_merc_4"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_4"}
+        rank={55}
+        supplies={[
+          { section: questItems.zat_b40_pda_1 },
+          ...loadoutLr300({ silencer: true, scope: true, ap: true }),
+          ...loadoutWalther(true),
+          ...loadoutF1Grenades(4),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+          ...defaultCharacterDrugsScientific,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b40_merc_squad_leader_2"}
+        class={"zat_b40_merc_squad_leader_2"}
+        name={"zat_b40_merc_squad_leader_2_name"}
+        icon={"ui_inGame2_merc_4"}
+        community={communities.killer}
+        soundConfig={"characters_voice\\human_03\\killer\\"}
+        visual={"actors\\stalker_merc\\stalker_merc_4"}
+        rank={55}
+        supplies={[
+          { section: questItems.zat_b40_pda_2 },
+          ...loadoutLr300({ scope: true, ap: true }),
+          ...loadoutUsp({ ap: true, silencer: true }),
+          ...loadoutF1Grenades(4),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+          ...defaultCharacterDrugsScientific,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b20_noah_teleport"}
+        class={"zat_b20_noah_teleport"}
+        name={"zat_b18_noah_name"}
+        icon={"ui_inGame2_Noy"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_3_face_2"}
+        rank={30}
+        supplies={[
+          { section: questItems.zat_b20_noah_pda },
+          { section: artefacts.af_compass, count: 2 },
+          ...loadoutSpas12(),
+          ...loadoutColt1911(),
+          ...loadoutF1Grenades(3),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+        <actor_dialog>actor_break_dialog</actor_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b44_stalker_barge"}
+        class={"zat_b44_stalker_barge"}
+        name={"zat_b44_stalker_barge_name"}
+        icon={"ui_inGame2_neutral_2_mask"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
+        rank={35}
+        supplies={[
+          { section: questItems.zat_b44_barge_pda },
+          { section: outfits.stalker_outfit_barge },
+          ...loadoutAk74(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b53_artefact_hunter_1"}
+        class={"zat_b53_artefact_hunter_1"}
+        name={"zat_b53_artefact_hunter_1_name"}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_03\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        rank={35}
+        supplies={[
+          { section: artefacts.af_fireball },
+          ...loadoutDetectorAdvanced(),
+          ...loadoutTorch(),
+          ...loadoutBinocular(),
+          ...loadoutMp5(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogsNoGuide}
+        <start_dialog>zat_b53_artefact_hunter_1_gathering_artefacts</start_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b53_artefact_hunter_2"}
+        class={"zat_b53_artefact_hunter_2"}
+        name={"zat_b53_artefact_hunter_2_name"}
+        icon={"ui_inGame2_neutral_1"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
+        rank={20}
+        supplies={[
+          { section: drugs.medkit },
+          ...loadoutToz34(),
+          ...loadoutPm(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterFood,
+        ]}
+      >
+        {defaultCharacterCritical}
+        {defaultCharacterDialogs}
+        <start_dialog>zat_b53_artefact_hunter_2_gathering_artefacts</start_dialog>
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b38_stalker_corpse_1"}
+        class={"zat_b38_stalker_corpse_1"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_1"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
+        rank={25}
+        moneyMin={250}
+        moneyMax={1750}
+        supplies={[
+          ...loadoutBm16(),
+          ...loadoutPm(),
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b38_stalker_corpse_2"}
+        class={"zat_b38_stalker_corpse_2"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_2"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
+        rank={30}
+        moneyMin={1000}
+        moneyMax={2000}
+        supplies={[
+          ...loadoutAk74u(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(),
+          ...defaultCharacterItems,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs2,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b38_stalker_corpse_3"}
+        class={"zat_b38_stalker_corpse_3"}
+        name={GENERATE_STALKER_NAME}
+        icon={"ui_inGame2_neutral_3"}
+        community={communities.stalker}
+        soundConfig={"characters_voice\\human_03\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_3"}
+        rank={50}
+        moneyMin={2500}
+        moneyMax={5000}
+        supplies={[
+          ...loadoutUsp(),
+          ...loadoutF1Grenades(3),
+          ...defaultCharacterItems2,
+          ...defaultCharacterFood,
+          ...defaultCharacterDrugs3,
+          ...defaultCharacterDrugsScientific,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b100_military_1"}
+        class={"zat_b100_military_1"}
+        name={"zat_b100_army_1"}
+        icon={"ui_inGame2_Soldier_2"}
+        community={communities.army}
+        soundConfig={"characters_voice\\human_01\\military\\"}
+        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
+        rank={40}
+        supplies={[
+          ...loadoutAk74(),
+          ...loadoutFort(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs,
+          ...defaultCharacterDrugsMilitary,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b100_military_2"}
+        class={"zat_b100_military_2"}
+        name={"zat_b100_army_2"}
+        icon={"ui_inGame2_Soldier_2"}
+        community={communities.army}
+        soundConfig={"characters_voice\\human_01\\military\\"}
+        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
+        rank={40}
+        supplies={[
+          ...loadoutAk74u(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs,
+          ...defaultCharacterDrugsMilitary,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"zat_b100_military_3"}
+        class={"zat_b100_military_3"}
+        name={"zat_b100_army_3"}
+        icon={"ui_inGame2_Soldier_2"}
+        community={communities.army}
+        soundConfig={"characters_voice\\human_01\\military\\"}
+        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
+        rank={40}
+        supplies={[
+          ...loadoutAk74(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(2),
+          ...defaultCharacterItemsWithoutDetector,
+          ...defaultCharacterDrugs,
+          ...defaultCharacterDrugsMilitary,
+        ]}
+      >
+        {defaultCharacterCritical}
+      </SpecificCharacter>
+    </xml>
+  );
+}

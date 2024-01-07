@@ -18,11 +18,11 @@ export interface ICharacterDescriptionProps {
   reputation?: number;
   moneyMin?: number;
   moneyMax?: number;
+  moneyInfinite?: boolean;
   crouchType?: number;
   terrainSection?: Optional<string>;
   supplies?: Array<ILoadoutItemDescriptor>;
   noRandom?: boolean;
-  infiniteMoney?: boolean;
   mechanicMode?: boolean;
   mapIcon?: JSXNode;
   children?: JSXNode;
@@ -53,7 +53,7 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
     soundConfig,
     supplies = [],
     noRandom,
-    infiniteMoney,
+    moneyInfinite,
     terrainSection = "stalker_terrain",
     mapIcon = <CharacterDescriptionMapIcon x={1} y={0} />,
     mechanicMode,
@@ -76,7 +76,7 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
       <rank>{rank ?? 0}</rank>
       <reputation>{reputation ?? 0}</reputation>
       {typeof moneyMin === "number" ? (
-        <money min={moneyMin} max={moneyMax ?? moneyMin} infinitive={infiniteMoney ? 1 : 0} />
+        <money min={moneyMin} max={moneyMax ?? moneyMin} infinitive={moneyInfinite ? 1 : 0} />
       ) : null}
       {typeof crouchType === "number" ? <crouch_type>{crouchType}</crouch_type> : null}
       {typeof mechanicMode === "boolean" ? <mechanic_mode>{mechanicMode ? 1 : 0}</mechanic_mode> : null}

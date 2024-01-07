@@ -368,9 +368,9 @@ export class StatisticsManager extends AbstractManager {
 
     this.weaponsStatistics = new LuaTable();
 
-    const weaponsCount: number = reader.r_u8();
+    const weaponsCount: TCount = reader.r_u8();
 
-    for (const it of $range(1, weaponsCount)) {
+    for (const _ of $range(1, weaponsCount)) {
       const k: TWeapon = reader.r_stringZ();
       const v: TCount = reader.r_float();
 
@@ -379,9 +379,9 @@ export class StatisticsManager extends AbstractManager {
 
     this.actorStatistics.collectedArtefacts = new LuaTable();
 
-    const artefactsCount = reader.r_u8();
+    const artefactsCount: TCount = reader.r_u8();
 
-    for (const it of $range(1, artefactsCount)) {
+    for (const _ of $range(1, artefactsCount)) {
       const k: TArtefact = reader.r_stringZ();
       const v: boolean = reader.r_bool();
 
@@ -392,7 +392,7 @@ export class StatisticsManager extends AbstractManager {
 
     const takenArtefactsCount: TCount = reader.r_u8();
 
-    for (const it of $range(1, takenArtefactsCount)) {
+    for (const _ of $range(1, takenArtefactsCount)) {
       const k: TNumberId = reader.r_u32();
 
       this.takenArtefacts.set(k, k);
@@ -431,8 +431,8 @@ export class StatisticsManager extends AbstractManager {
     const takenArtefactsCount: TCount = table.size(this.takenArtefacts);
 
     packet.w_u8(takenArtefactsCount);
-    for (const [k, v] of this.takenArtefacts) {
-      packet.w_u32(k);
+    for (const [id] of this.takenArtefacts) {
+      packet.w_u32(id);
     }
   }
 }
