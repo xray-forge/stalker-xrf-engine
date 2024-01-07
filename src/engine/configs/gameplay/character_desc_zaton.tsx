@@ -1,28 +1,28 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterDialogsNoGuide } from "@/engine/configs/gameplay/character_dialogs_no_guide";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
-import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
-import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { defaultCharacterItems2 } from "@/engine/configs/gameplay/loadouts/character_items_2";
-import { defaultCharacterItems3 } from "@/engine/configs/gameplay/loadouts/character_items_3";
-import { defaultCharacterItemsWithoutTorch3 } from "@/engine/configs/gameplay/loadouts/character_items_3_nl";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
-import { defaultCharacterItemsWithoutTorchAndDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd_nl";
 import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  defaultCharacterDialogsNoGuide,
   loadoutAbakan,
   loadoutAk74,
   loadoutAk74u,
   loadoutBeretta,
   loadoutBinocular,
   loadoutBm16,
+  loadoutCharacterDrugs,
+  loadoutCharacterDrugs2,
+  loadoutCharacterDrugs3,
+  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsMilitary,
+  loadoutCharacterDrugsScientific,
+  loadoutCharacterFood,
+  loadoutCharacterItems,
+  loadoutCharacterItems2,
+  loadoutCharacterItems3,
+  loadoutCharacterItemsWithoutDetector,
+  loadoutCharacterItemsWithoutTorch3,
+  loadoutCharacterItemsWithoutTorchAndDetector,
   loadoutColt1911,
   loadoutDesertEagle,
   loadoutDetectorAdvanced,
@@ -42,13 +42,13 @@ import {
   loadoutUsp,
   loadoutWalther,
   loadoutWincheaster1300,
-  SpecificCharacter,
-} from "@/engine/configs/gameplay/utils";
+} from "@/engine/configs/gameplay/loadouts";
+import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { detectors } from "@/engine/lib/constants/items/detectors";
-import { drugs, medkits } from "@/engine/lib/constants/items/drugs";
+import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
@@ -76,12 +76,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b30_owl_stalker_trader_start_dialog</start_dialog>
         <actor_dialog>zat_b30_owl_stalker_trader_choose_task</actor_dialog>
         <actor_dialog>zat_b30_owl_stalker_trader_sell_items</actor_dialog>
@@ -110,12 +110,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b106_stalker_gonta_start</start_dialog>
         <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
         <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
@@ -152,12 +152,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
         <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
         <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
@@ -183,12 +183,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
         <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
         <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
@@ -213,12 +213,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutTorchAndDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItemsWithoutTorchAndDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>zat_b14_stalker_at_bar_start</actor_dialog>
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
@@ -241,12 +241,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b51_stalker_nimble_start</start_dialog>
         <actor_dialog>zat_b51_stalker_nimble_b52_about_gun_questions</actor_dialog>
         <actor_dialog>zat_b51_stalker_nimble_place_order</actor_dialog>
@@ -271,12 +271,12 @@ export function create(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b38_stalker_cop_start_dialog</start_dialog>
         <actor_dialog>zat_a2_stalker_barmen_b7_actor_start</actor_dialog>
         <actor_dialog>zat_b38_stalker_cop_task_dialog</actor_dialog>
@@ -304,9 +304,9 @@ export function create(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       />
 
@@ -321,9 +321,9 @@ export function create(): JSXNode {
         moneyMin={3_000}
         moneyMax={3_000}
         rank={50}
-        supplies={[...defaultCharacterFood, ...defaultCharacterDrugs]}
+        supplies={[...loadoutCharacterFood, ...loadoutCharacterDrugs]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -344,13 +344,13 @@ export function create(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail</actor_dialog>
         <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda</actor_dialog>
         <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda_2</actor_dialog>
@@ -375,12 +375,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -401,12 +401,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -427,12 +427,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -453,12 +453,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -478,12 +478,12 @@ export function create(): JSXNode {
           { section: weapons.wpn_hpsa },
           { section: weapons.grenade_rgd5 },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -503,12 +503,12 @@ export function create(): JSXNode {
           { section: weapons.wpn_beretta },
           { section: weapons.grenade_rgd5 },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -527,12 +527,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutBeretta(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -553,12 +553,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -575,12 +575,12 @@ export function create(): JSXNode {
         rank={60}
         supplies={[
           ...loadoutDesertEagle(true),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b7_bandit_boss_sultan_start_dialog</start_dialog>
         <actor_dialog>zat_b7_bandit_boss_sultan_b7_give_task_dialog</actor_dialog>
         <actor_dialog>zat_b7_bandit_boss_sultan_b30_start_actor_dialog</actor_dialog>
@@ -611,12 +611,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutColt1911(),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -635,12 +635,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutColt1911(),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -659,12 +659,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutWincheaster1300(),
           ...loadoutHpsa(),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -683,12 +683,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutBeretta(),
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -707,12 +707,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74u(),
           ...loadoutBeretta(),
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -731,12 +731,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutL85(),
           ...loadoutBeretta(),
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -755,14 +755,14 @@ export function create(): JSXNode {
         reputation={300}
         supplies={[
           ...loadoutRgd5Grenades(3),
-          ...loadoutSig550(true),
+          ...loadoutSig550({ ap: true }),
           ...loadoutBeretta(),
-          ...defaultCharacterItemsWithoutTorch3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutTorch3,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_a2_stalker_barmen_start_dialog</start_dialog>
         <actor_dialog>zat_a2_linker_b14_quest_init</actor_dialog>
         <actor_dialog>zat_a2_linker_b14_quest_done</actor_dialog>
@@ -813,12 +813,12 @@ export function create(): JSXNode {
         rank={30}
         supplies={[
           ...loadoutHpsa(),
-          ...defaultCharacterItemsWithoutTorchAndDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutTorchAndDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b22_stalker_medic_dialog_start</start_dialog>
         <actor_dialog>zat_b38_stalker_medic_bloodsucker_dialog</actor_dialog>
         <actor_dialog>zat_b38_stalker_medic_info_actor_dialog</actor_dialog>
@@ -841,12 +841,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutPm(),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b3_stalker_tech_start</start_dialog>
         <actor_dialog>zat_b3_stalker_tech_produce_62_show</actor_dialog>
         <actor_dialog>zat_b3_stalker_tech_produce_62_end</actor_dialog>
@@ -883,9 +883,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(3),
           ...loadoutLr300({ ap: true, scope: true, silencer: true }),
           ...loadoutWalther(true),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
         <start_dialog>zat_b103_merc_dialog_start</start_dialog>
@@ -913,11 +913,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutMp5({ ap: true, silencer: true }),
           ...loadoutBeretta(true),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
       </SpecificCharacter>
 
@@ -934,11 +934,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutL85(),
           ...loadoutBeretta(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
       </SpecificCharacter>
 
@@ -955,11 +955,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutHpsa(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
       </SpecificCharacter>
 
@@ -976,11 +976,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutMp5({ silencer: true }),
           ...loadoutBeretta(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
       </SpecificCharacter>
 
@@ -997,11 +997,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutL85(),
           ...loadoutHpsa(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
       </SpecificCharacter>
 
@@ -1018,11 +1018,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutSpas12(),
           ...loadoutHpsa(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
       </SpecificCharacter>
 
@@ -1039,11 +1039,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutBeretta(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
       </SpecificCharacter>
 
@@ -1062,12 +1062,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutBeretta(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b7_stalkers_raiders_dialog</start_dialog>
         <actor_dialog>zat_b7_stalkers_raiders_actor_choose_dialog</actor_dialog>
         <actor_dialog>zat_b7_killed_self_actor_dialog</actor_dialog>
@@ -1090,12 +1090,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutHpsa(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1114,12 +1114,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutWincheaster1300(),
           ...loadoutBeretta(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1138,12 +1138,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutMp5(),
           ...loadoutFort(),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1162,12 +1162,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutColt1911(),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b7_stalkers_victims_dialog</start_dialog>
         <actor_dialog>zat_b7_stalkers_victims_actor_start_dialog</actor_dialog>
         <actor_dialog>zat_b7_stalkers_victims_actor_choose_dialog</actor_dialog>
@@ -1192,12 +1192,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutBm16(),
           ...loadoutPm(),
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b33_stalker_snag_about_cache_dialog</start_dialog>
         <actor_dialog>zat_b33_stalker_snag_share_package_dialog</actor_dialog>
         <actor_dialog>zat_b33_stalker_snag_refuse_task</actor_dialog>
@@ -1216,7 +1216,7 @@ export function create(): JSXNode {
         moneyMin={1500}
         moneyMax={3500}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1234,12 +1234,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1257,12 +1257,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1280,12 +1280,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1304,12 +1304,12 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutLr300(),
           ...loadoutColt1911(true),
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
         <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
         <actor_dialog>zat_b30_stalker_rival_1_about_detector</actor_dialog>
@@ -1333,12 +1333,12 @@ export function create(): JSXNode {
           ...loadoutF1Grenades(),
           ...loadoutAbakan({ ap: true, scope: true }),
           ...loadoutWalther(),
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
         <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
         <actor_dialog>zat_b30_stalker_rival_1_about_detector</actor_dialog>
@@ -1363,11 +1363,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutHpsa(),
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
         <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
       </SpecificCharacter>
@@ -1390,11 +1390,11 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74u(),
           ...loadoutFort(),
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
         <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
       </SpecificCharacter>
@@ -1416,12 +1416,12 @@ export function create(): JSXNode {
           ...loadoutSpas12(),
           ...loadoutColt1911(),
           ...loadoutF1Grenades(3),
-          ...defaultCharacterItemsWithoutTorch3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItemsWithoutTorch3,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b18_noah_start</start_dialog>
 
         <actor_dialog>zat_b18_noah_plateau_way</actor_dialog>
@@ -1447,12 +1447,12 @@ export function create(): JSXNode {
           ...loadoutMp5(),
           ...loadoutColt1911(true),
           ...loadoutF1Grenades(2),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1469,12 +1469,12 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutDesertEagle(),
           ...loadoutRgd5Grenades(),
-          ...defaultCharacterItems3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItems3,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>zat_b215_stalker_guide_start</start_dialog>
         <actor_dialog>zat_b215_stalker_guide_leave_zone</actor_dialog>
         <actor_dialog>zat_b215_stalker_guide_maps</actor_dialog>
@@ -1503,13 +1503,13 @@ export function create(): JSXNode {
           ...loadoutLr300({ silencer: true, scope: true, ap: true }),
           ...loadoutWalther(true),
           ...loadoutF1Grenades(4),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1527,13 +1527,13 @@ export function create(): JSXNode {
           ...loadoutLr300({ scope: true, ap: true }),
           ...loadoutUsp({ ap: true, silencer: true }),
           ...loadoutF1Grenades(4),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1552,12 +1552,12 @@ export function create(): JSXNode {
           ...loadoutSpas12(),
           ...loadoutColt1911(),
           ...loadoutF1Grenades(3),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -1576,12 +1576,12 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutFort(),
           ...loadoutRgd5Grenades(),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1603,7 +1603,7 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
         <start_dialog>zat_b53_artefact_hunter_1_gathering_artefacts</start_dialog>
       </SpecificCharacter>
@@ -1621,11 +1621,11 @@ export function create(): JSXNode {
           { section: drugs.medkit },
           ...loadoutToz34(),
           ...loadoutPm(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
         <start_dialog>zat_b53_artefact_hunter_2_gathering_artefacts</start_dialog>
       </SpecificCharacter>
@@ -1644,12 +1644,12 @@ export function create(): JSXNode {
         supplies={[
           ...loadoutBm16(),
           ...loadoutPm(),
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1667,12 +1667,12 @@ export function create(): JSXNode {
           ...loadoutAk74u(),
           ...loadoutPm(),
           ...loadoutRgd5Grenades(),
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1689,13 +1689,13 @@ export function create(): JSXNode {
         supplies={[
           ...loadoutUsp(),
           ...loadoutF1Grenades(3),
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1710,12 +1710,12 @@ export function create(): JSXNode {
         supplies={[
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1731,12 +1731,12 @@ export function create(): JSXNode {
           ...loadoutAk74u(),
           ...loadoutFort(),
           ...loadoutRgd5Grenades(),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1752,12 +1752,12 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutPm(),
           ...loadoutRgd5Grenades(2),
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
     </xml>
   );

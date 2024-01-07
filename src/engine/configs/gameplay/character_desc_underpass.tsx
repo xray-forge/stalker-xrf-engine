@@ -1,14 +1,16 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
-import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
-import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
+import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  loadoutCharacterDrugs2,
+  loadoutCharacterDrugs3,
+  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsMilitary,
+  loadoutCharacterDrugsScientific,
+  loadoutCharacterFood,
+  loadoutCharacterItemsWithoutDetector,
+} from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -38,11 +40,11 @@ export function create(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -61,12 +63,12 @@ export function create(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -84,12 +86,12 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo.ammo_pkm_100 },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -108,11 +110,11 @@ export function create(): JSXNode {
           { section: weapons.wpn_colt1911 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -130,14 +132,14 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -156,14 +158,14 @@ export function create(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
     </xml>

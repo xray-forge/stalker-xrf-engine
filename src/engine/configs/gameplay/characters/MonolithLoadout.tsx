@@ -1,16 +1,18 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
-import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
-import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { defaultCharacterItemsMonolith } from "@/engine/configs/gameplay/loadouts/character_items_monolith";
+import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  loadoutCharacterDrugs,
+  loadoutCharacterDrugs2,
+  loadoutCharacterDrugs3,
+  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsMilitary,
+  loadoutCharacterDrugsScientific,
+  loadoutCharacterFood,
+  loadoutCharacterItems,
+  loadoutCharacterItemsMonolith,
+} from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -33,12 +35,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -56,12 +58,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -79,12 +81,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -102,12 +104,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -125,12 +127,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -149,12 +151,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -173,12 +175,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -197,12 +199,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -221,12 +223,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -245,12 +247,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -269,12 +271,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -293,12 +295,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -317,12 +319,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -341,12 +343,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -365,12 +367,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -389,12 +391,12 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -413,14 +415,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -439,14 +441,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -465,14 +467,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -490,14 +492,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.wpn_usp, silencer: true },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -515,14 +517,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -540,14 +542,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.wpn_sig220, silencer: true },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -566,14 +568,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -592,14 +594,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -618,14 +620,14 @@ export function MonolithLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsMonolith,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsMonolith,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
     </Fragment>

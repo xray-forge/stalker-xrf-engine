@@ -1,13 +1,15 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
-import { defaultCharacterSellWeapons } from "@/engine/configs/gameplay/loadouts/character_sell_weapons";
+import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  loadoutCharacterDrugs,
+  loadoutCharacterDrugs2,
+  loadoutCharacterFood,
+  loadoutCharacterItems,
+  loadoutCharacterItemsWithoutDetector,
+  loadoutCharacterSellWeapons,
+} from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -32,12 +34,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -57,12 +59,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo["ammo_12x70_buck"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -82,12 +84,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_12x70_buck"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -107,12 +109,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -133,12 +135,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -159,12 +161,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -185,12 +187,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -211,12 +213,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -237,12 +239,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -263,12 +265,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -289,12 +291,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_12x76_zhekan"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -315,12 +317,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -340,12 +342,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.wpn_beretta },
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -366,12 +368,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -392,12 +394,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_9x19_pbp },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -418,12 +420,12 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -444,13 +446,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -471,13 +473,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_9x19_pbp"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -498,13 +500,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_9x19_pbp"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -525,13 +527,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -552,13 +554,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_9x19_pbp"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -579,13 +581,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -606,13 +608,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -633,13 +635,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -660,13 +662,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_12x76_zhekan"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -687,13 +689,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_12x76_zhekan"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
     </Fragment>

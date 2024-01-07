@@ -1,20 +1,22 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterDialogsNoGuide } from "@/engine/configs/gameplay/character_dialogs_no_guide";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
-import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
-import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterFoodArmy } from "@/engine/configs/gameplay/loadouts/character_food_army";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { defaultCharacterItems3 } from "@/engine/configs/gameplay/loadouts/character_items_3";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
-import { defaultCharacterSellWeapons } from "@/engine/configs/gameplay/loadouts/character_sell_weapons";
+import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  defaultCharacterDialogsNoGuide,
+  loadoutCharacterDrugs,
+  loadoutCharacterDrugs2,
+  loadoutCharacterDrugs3,
+  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsMilitary,
+  loadoutCharacterDrugsScientific,
+  loadoutCharacterFood,
+  loadoutCharacterFoodArmy,
+  loadoutCharacterItems,
+  loadoutCharacterItems3,
+  loadoutCharacterItemsWithoutDetector,
+  loadoutCharacterSellWeapons,
+} from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -43,12 +45,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>pri_a17_military_recon_squad_ambush_actor_ready</actor_dialog>
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
@@ -69,12 +71,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -94,12 +96,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -119,12 +121,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -145,12 +147,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>pri_a17_military_base_commander_start</start_dialog>
         <actor_dialog>pri_a17_military_base_commander_actor_dialog_1</actor_dialog>
         <actor_dialog>pri_a17_military_base_commander_actor_questions_dialog</actor_dialog>
@@ -179,13 +181,13 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo.ammo_gauss },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -204,12 +206,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
         <actor_dialog>pri_a15_sokolov_where_from</actor_dialog>
         <actor_dialog>pri_a15_sokolov_jupiter</actor_dialog>
@@ -242,12 +244,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
         <actor_dialog>pri_a15_sokolov_pripyat_ready</actor_dialog>
         <actor_dialog>pri_a15_sokolov_evacuation_point</actor_dialog>
@@ -271,12 +273,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
         <actor_dialog>pri_a15_sokolov_pripyat_ready</actor_dialog>
         <actor_dialog>pri_a15_sokolov_evacuation_point</actor_dialog>
@@ -303,12 +305,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -328,12 +330,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -354,12 +356,12 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
           { section: questItems.pri_a25_explosive_charge_item },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -379,12 +381,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -403,12 +405,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -427,12 +429,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_9x39_pab9 },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -451,11 +453,11 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_9x39_pab9 },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -474,12 +476,12 @@ export function create(): JSXNode {
           { section: weapons.wpn_ak74u },
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -498,13 +500,13 @@ export function create(): JSXNode {
           { section: weapons.wpn_fort },
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>pri_a25_army_medic_start_dialog</start_dialog>
         <actor_dialog>pri_a25_army_medic_rescued</actor_dialog>
         <actor_dialog>pri_a25_army_medic_supply_medicine</actor_dialog>
@@ -523,13 +525,13 @@ export function create(): JSXNode {
         visual={"actors\\stalker_soldier\\stalker_ecolog_military"}
         supplies={[
           { section: questItems.pri_b306_envoy_pda },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -545,12 +547,12 @@ export function create(): JSXNode {
           { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_ak74 },
           { section: questItems.pri_a15_documents },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -565,12 +567,12 @@ export function create(): JSXNode {
         supplies={[
           { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_wincheaster1300 },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -585,12 +587,12 @@ export function create(): JSXNode {
         supplies={[
           { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_ak74u },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -606,12 +608,12 @@ export function create(): JSXNode {
           { section: misc.device_torch },
           { section: weapons.wpn_pkm_zulus },
           { section: ammo.ammo_pkm_100 },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -627,12 +629,12 @@ export function create(): JSXNode {
           { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_svu },
           { section: ammo.ammo_pkm_100 },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -647,12 +649,12 @@ export function create(): JSXNode {
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -667,12 +669,12 @@ export function create(): JSXNode {
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -687,12 +689,12 @@ export function create(): JSXNode {
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -707,12 +709,12 @@ export function create(): JSXNode {
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -735,12 +737,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>pri_a22_army_signaller_start_dialog</start_dialog>
         <actor_dialog>pri_a22_army_signaller_about_rfi_source</actor_dialog>
         <actor_dialog>pri_a22_army_signaller_about_signal</actor_dialog>
@@ -766,13 +768,13 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -790,13 +792,13 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -815,13 +817,13 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -839,13 +841,13 @@ export function create(): JSXNode {
           { section: questItems.pri_b35_lab_x8_key },
           { section: weapons.wpn_usp },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -864,13 +866,13 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -889,13 +891,13 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -915,12 +917,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -940,12 +942,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -964,12 +966,12 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -991,13 +993,13 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <start_dialog>pri_b305_strelok_dialog</start_dialog>
         <actor_dialog>pri_b305_strelok_about_information</actor_dialog>
         <actor_dialog>pri_b305_strelok_about_station</actor_dialog>
@@ -1022,13 +1024,13 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFoodArmy,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         <actor_dialog>actor_break_dialog</actor_dialog>
       </SpecificCharacter>
 
@@ -1052,14 +1054,14 @@ export function create(): JSXNode {
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems3,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogsNoGuide}
       </SpecificCharacter>
     </xml>

@@ -1,10 +1,12 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
+import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  loadoutCharacterDrugs,
+  loadoutCharacterFood,
+  loadoutCharacterItems,
+} from "@/engine/configs/gameplay/loadouts";
 import { CharacterDescriptionMapIcon, SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -90,12 +92,12 @@ export function ActorLoadout(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_og-7b"] },
           { section: ammo["ammo_vog-25"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
     </Fragment>

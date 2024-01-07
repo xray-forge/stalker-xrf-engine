@@ -1,10 +1,12 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
+import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  loadoutCharacterDrugs,
+  loadoutCharacterFood,
+  loadoutCharacterItemsWithoutDetector,
+} from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -33,12 +35,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -57,12 +59,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -81,12 +83,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -105,12 +107,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -129,12 +131,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -153,12 +155,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -177,12 +179,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -201,12 +203,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -225,12 +227,12 @@ export function ArmyLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterDrugs,
+          ...loadoutCharacterFood,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
     </Fragment>

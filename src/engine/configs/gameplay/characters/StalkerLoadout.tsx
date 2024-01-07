@@ -1,17 +1,19 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
-import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { defaultCharacterItems2 } from "@/engine/configs/gameplay/loadouts/character_items_2";
-import { defaultCharacterItems3 } from "@/engine/configs/gameplay/loadouts/character_items_3";
-import { defaultCharacterSellWeapons } from "@/engine/configs/gameplay/loadouts/character_sell_weapons";
+import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  loadoutCharacterDrugs,
+  loadoutCharacterDrugs2,
+  loadoutCharacterDrugs3,
+  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsScientific,
+  loadoutCharacterFood,
+  loadoutCharacterItems,
+  loadoutCharacterItems2,
+  loadoutCharacterItems3,
+  loadoutCharacterSellWeapons,
+} from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -34,12 +36,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.wpn_beretta },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -57,12 +59,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -82,12 +84,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -107,12 +109,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -132,12 +134,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -157,12 +159,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -183,12 +185,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -209,12 +211,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -235,12 +237,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -261,12 +263,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -287,12 +289,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -313,12 +315,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -339,12 +341,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -365,12 +367,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -391,12 +393,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -417,12 +419,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -443,12 +445,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -469,12 +471,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -495,12 +497,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -521,12 +523,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -547,12 +549,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -573,12 +575,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -599,12 +601,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -625,12 +627,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -652,12 +654,12 @@ export function StalkerLoadout(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -678,12 +680,12 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -704,14 +706,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -732,14 +734,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -760,14 +762,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -790,14 +792,14 @@ export function StalkerLoadout(): JSXNode {
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -818,14 +820,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -846,14 +848,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -874,14 +876,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -902,14 +904,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -930,14 +932,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -958,14 +960,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems2,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems2,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -986,14 +988,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems3,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1014,14 +1016,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems3,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1042,14 +1044,14 @@ export function StalkerLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems3,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -1072,14 +1074,14 @@ export function StalkerLoadout(): JSXNode {
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems3,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterSellWeapons,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
     </Fragment>

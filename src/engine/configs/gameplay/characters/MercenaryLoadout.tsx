@@ -1,15 +1,17 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
-import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
-import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
+import {
+  characterProfileCriticals,
+  defaultCharacterDialogs,
+  loadoutCharacterDrugs,
+  loadoutCharacterDrugs2,
+  loadoutCharacterDrugs3,
+  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsMilitary,
+  loadoutCharacterDrugsScientific,
+  loadoutCharacterFood,
+  loadoutCharacterItemsWithoutDetector,
+} from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -34,12 +36,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.wpn_mp5 },
           { section: weapons.wpn_hpsa },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -59,12 +61,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.wpn_hpsa },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -84,12 +86,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.wpn_hpsa },
           { section: weapons.grenade_rgd5 },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -110,12 +112,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -136,12 +138,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs2,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -162,12 +164,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -188,12 +190,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -214,12 +216,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -240,12 +242,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -266,12 +268,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -292,12 +294,12 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.56x45_ss190"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -318,14 +320,14 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -346,14 +348,14 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -374,14 +376,14 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -402,14 +404,14 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -430,14 +432,14 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -458,14 +460,14 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -486,14 +488,14 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
 
@@ -514,14 +516,14 @@ export function MercenaryLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector,
+          ...loadoutCharacterFood,
+          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {defaultCharacterCritical}
+        {characterProfileCriticals}
         {defaultCharacterDialogs}
       </SpecificCharacter>
     </Fragment>
