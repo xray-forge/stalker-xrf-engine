@@ -4,6 +4,7 @@ import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
   DefaultCharacterDialogsNoGuide,
+  loadoutAk74,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterDrugs3,
@@ -17,6 +18,7 @@ import {
   loadoutCharacterItemsWithoutDetector,
   loadoutCharacterSellWeapons,
 } from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -33,11 +35,10 @@ export function create(): JSXNode {
         id={"pri_a17_military_captain_tarasov"}
         class={"pri_a17_military_captain_tarasov"}
         name={"pri_a17_military_captain_tarasov"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={70}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_val, scope: true },
@@ -59,11 +60,10 @@ export function create(): JSXNode {
         id={"pri_a17_military_prapor_valentyr"}
         class={"pri_a17_military_prapor_valentyr"}
         name={"pri_a17_military_prapor_valentyr"}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_3"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_abakan, scope: true },
@@ -84,11 +84,10 @@ export function create(): JSXNode {
         id={"pri_a17_military_sergeant_morozov"}
         class={"pri_a17_military_sergeant_morozov"}
         name={"pri_a17_military_sergeant_morozov"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={80}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_svu },
@@ -109,11 +108,10 @@ export function create(): JSXNode {
         id={"pri_a17_military_lieutenant_podorojniy"}
         class={"pri_a17_military_lieutenant_podorojniy"}
         name={"pri_a17_military_lieutenant_podorojniy"}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         community={communities.army}
         rank={50}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_abakan, scope: true },
@@ -170,11 +168,10 @@ export function create(): JSXNode {
         id={"pri_a17_monolith_preacher"}
         class={"pri_a17_monolith_preacher"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         rank={100}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         supplies={[
           { section: questItems.pri_a17_gauss_rifle },
           { section: weapons.wpn_colt1911 },
@@ -293,11 +290,10 @@ export function create(): JSXNode {
         id={"pri_a22_military_merkulov"}
         class={"pri_a22_military_merkulov"}
         name={"pri_a18_vano_in_suit_reserve_name"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_val },
@@ -318,11 +314,10 @@ export function create(): JSXNode {
         id={"pri_a22_military_skelja"}
         class={"pri_a22_military_skelja"}
         name={"pri_a18_skorlupko_in_suit_name"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_abakan, scope: true },
@@ -343,11 +338,10 @@ export function create(): JSXNode {
         id={"pri_a22_military_yarmoshuk"}
         class={"pri_a22_military_yarmoshuk"}
         name={"pri_a22_military_yarmoshuk_name"}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         community={communities.army}
         rank={30}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_3"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_ak74 },
@@ -369,11 +363,10 @@ export function create(): JSXNode {
         id={"pri_a15_military_recon_leader"}
         class={"pri_a15_military_recon_leader"}
         name={"pri_a15_military_recon_leader_name"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_abakan, scope: true },
@@ -394,11 +387,10 @@ export function create(): JSXNode {
         id={"pri_a15_military_recon_1"}
         class={"pri_a15_military_recon_1"}
         name={"pri_a15_military_recon_1_name"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_ak74, launcher: true },
           { section: weapons.wpn_fort },
@@ -418,11 +410,10 @@ export function create(): JSXNode {
         id={"pri_a15_military_recon_2"}
         class={"pri_a15_military_recon_2"}
         name={"pri_a15_military_recon_2_name"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_val },
           { section: weapons.wpn_fort },
@@ -442,11 +433,10 @@ export function create(): JSXNode {
         id={"pri_a15_military_recon_3"}
         class={"pri_a15_military_recon_3"}
         name={"pri_a15_military_recon_3_name"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_vintorez },
           { section: weapons.wpn_fort },
@@ -465,11 +455,10 @@ export function create(): JSXNode {
         id={"pri_a21_sentry_lieutenant_stecenko"}
         class={"pri_a21_sentry_lieutenant_stecenko"}
         name={"pri_a21_sentry_lieutenant_stecenko_name"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: misc.device_torch },
           { section: weapons.wpn_binoc },
@@ -641,11 +630,10 @@ export function create(): JSXNode {
         id={"pri_a15_military_tarasov"}
         class={"pri_a15_military_tarasov"}
         name={"pri_a17_military_captain_tarasov"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={30}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
@@ -661,11 +649,10 @@ export function create(): JSXNode {
         id={"pri_a15_military_2"}
         class={"pri_a15_military_2"}
         name={"pri_a17_military_prapor_valentyr"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
@@ -681,11 +668,10 @@ export function create(): JSXNode {
         id={"pri_a15_military_3"}
         class={"pri_a15_military_3"}
         name={"pri_a17_military_sergeant_morozov"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
@@ -701,13 +687,12 @@ export function create(): JSXNode {
         id={"pri_a15_military_4"}
         class={"pri_a15_military_4"}
         name={"pri_a17_military_lieutenant_podorojniy"}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_3"}
         supplies={[
-          { section: weapons.wpn_ak74 },
+          ...loadoutAk74(),
           { section: ammo["ammo_5.45x39_fmj"] },
           ...loadoutCharacterItems,
           ...loadoutCharacterFood,
@@ -721,14 +706,13 @@ export function create(): JSXNode {
         id={"pri_a22_army_signaller"}
         class={"pri_a22_army_signaller"}
         name={"st_pri_a22_army_signaller"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         mechanicMode={true}
         rank={40}
         moneyMin={1000}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: misc.hand_radio },
           { section: weapons.wpn_binoc },
@@ -781,12 +765,11 @@ export function create(): JSXNode {
         id={"pri_b35_merc_grenade_launcher_1"}
         class={"pri_b35_merc_grenade_launcher_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_merc_2"}
+        icon={profileIcon.ui_inGame2_merc_2}
         community={communities.killer}
         mechanicMode={true}
         rank={50}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_2"}
         supplies={[
           { section: weapons.wpn_rpg7 },
           { section: weapons.wpn_usp },
@@ -806,12 +789,11 @@ export function create(): JSXNode {
         id={"pri_b35_merc_grenade_launcher_2"}
         class={"pri_b35_merc_grenade_launcher_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_merc_2"}
+        icon={profileIcon.ui_inGame2_merc_2}
         community={communities.killer}
         mechanicMode={true}
         rank={50}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_2"}
         supplies={[
           { section: weapons.wpn_rpg7 },
           { section: weapons.wpn_usp },
@@ -905,12 +887,11 @@ export function create(): JSXNode {
         id={"pri_b36_monolith_sniper"}
         class={"pri_b36_monolith_sniper"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         mechanicMode={true}
         rank={80}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_svd },
           { section: weapons.wpn_colt1911 },
@@ -929,12 +910,11 @@ export function create(): JSXNode {
         id={"pri_b36_monolith_master_hiding_place"}
         class={"pri_b36_monolith_master_hiding_place"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         mechanicMode={true}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         supplies={[
           { section: questItems.pri_b36_monolith_hiding_place_pda },
           { section: weapons.wpn_protecta },
@@ -954,12 +934,11 @@ export function create(): JSXNode {
         id={"pri_b36_monolith_marine_sniper"}
         class={"pri_b36_monolith_marine_sniper"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         mechanicMode={true}
         rank={80}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         supplies={[
           { section: weapons.wpn_vintorez },
           { section: weapons.wpn_colt1911 },
@@ -1012,12 +991,11 @@ export function create(): JSXNode {
         id={"pri_a28_evac_com"}
         class={"pri_a28_evac_com"}
         name={"pri_a28_evac_com_name"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         mechanicMode={true}
         rank={50}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_abakan, scope: true },
           { section: weapons.wpn_fort },
@@ -1038,14 +1016,13 @@ export function create(): JSXNode {
         id={"sim_default_stalker_pri_a16"}
         class={"sim_default_stalker_pri_a16"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_nauchniy"}
+        icon={profileIcon.ui_inGame2_neutral_nauchniy}
         community={communities.stalker}
         mechanicMode={true}
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         supplies={[
           { section: weapons.wpn_vintorez },
           { section: weapons.wpn_sig220 },

@@ -1,7 +1,12 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import { profileVisuals } from "@/engine/configs/gameplay/loadouts/profile_presets";
-import { createLoadout, ILoadoutItemDescriptor } from "@/engine/configs/gameplay/utils/create_loadout";
+import {
+  createSpawnList,
+  createSpawnLoadout,
+  ILoadoutItemDescriptor,
+  ISpawnItemDescriptor,
+} from "@/engine/configs/gameplay/utils/create_loadout";
 import { Optional, TName } from "@/engine/lib/types";
 
 export interface ICharacterDescriptionProps {
@@ -22,7 +27,8 @@ export interface ICharacterDescriptionProps {
   moneyInfinite?: boolean;
   crouchType?: number;
   terrainSection?: Optional<string>;
-  supplies?: Array<ILoadoutItemDescriptor>;
+  supplies?: Array<ISpawnItemDescriptor>;
+  loadout?: Array<ILoadoutItemDescriptor>;
   noRandom?: boolean;
   mechanicMode?: boolean;
   mapIcon?: JSXNode;
@@ -53,6 +59,7 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
     visual,
     soundConfig,
     supplies = [],
+    loadout = [],
     noRandom,
     moneyInfinite,
     terrainSection = "stalker_terrain",
@@ -91,7 +98,14 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
       {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}
       {children}
-      {supplies.length ? <supplies>{`\n[spawn]\\n\n${createLoadout(supplies, "\n")}`}</supplies> : <supplies />}
+      {loadout.length || supplies.length ? (
+        <supplies>
+          {supplies.length ? `\n[spawn]\\n\n${createSpawnList(supplies, "\n")}` : null}
+          {loadout.length ? `\n[spawn_loadout]\\n\n${createSpawnLoadout(loadout)}` : null}
+        </supplies>
+      ) : (
+        <supplies />
+      )}
     </specific_character>
   );
 }

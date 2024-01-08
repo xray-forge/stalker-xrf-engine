@@ -17,8 +17,6 @@ import { TreasureManager } from "@/engine/core/managers/treasures";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectors } from "@/engine/lib/constants/items/detectors";
-import { helmets } from "@/engine/lib/constants/items/helmets";
-import { outfits } from "@/engine/lib/constants/items/outfits";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { TRUE } from "@/engine/lib/constants/words";
@@ -65,7 +63,6 @@ describe("actor effects declaration", () => {
     checkXrEffect("give_treasure");
     checkXrEffect("get_best_detector");
     checkXrEffect("hide_best_detector");
-    checkXrEffect("damage_actor_items_on_start");
   });
 });
 
@@ -457,30 +454,5 @@ describe("actor effects implementation", () => {
     expect(advancedDetector.enable_attachable_item).toHaveBeenCalledTimes(1);
     expect(advancedDetector.enable_attachable_item).toHaveBeenCalledWith(false);
     expect(scientificDetector.enable_attachable_item).toHaveBeenCalledTimes(0);
-  });
-
-  it("damage_actor_items_on_start should correctly modify actor items on game start", () => {
-    const helm: GameObject = MockGameObject.mock({ sectionOverride: helmets.helm_respirator });
-    const outfit: GameObject = MockGameObject.mock({ sectionOverride: outfits.stalker_outfit });
-    const pistol: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_pm_actor });
-    const rifle: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_ak74u });
-
-    const actor: GameObject = MockGameObject.mockActor({
-      inventory: [
-        [helm.section(), helm],
-        [outfit.section(), outfit],
-        [rifle.section(), rifle],
-        [pistol.section(), pistol],
-      ],
-    });
-
-    expect(() => callXrEffect("hide_best_detector", MockGameObject.mockActor(), MockGameObject.mock())).not.toThrow();
-
-    callXrEffect("damage_actor_items_on_start", actor, MockGameObject.mock());
-
-    expect(helm.set_condition).toHaveBeenCalledWith(0.8);
-    expect(outfit.set_condition).toHaveBeenCalledWith(0.76);
-    expect(pistol.set_condition).toHaveBeenCalledWith(0.9);
-    expect(rifle.set_condition).toHaveBeenCalledWith(0.7);
   });
 });

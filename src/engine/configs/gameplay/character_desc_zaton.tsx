@@ -46,14 +46,10 @@ import {
 import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
-import { detectors } from "@/engine/lib/constants/items/detectors";
 import { drugs } from "@/engine/lib/constants/items/drugs";
-import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GENERATE_BANDIT_NAME, GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
 
 export function create(): JSXNode {
@@ -63,13 +59,14 @@ export function create(): JSXNode {
         id={"zat_b30_owl_stalker_trader"}
         class={"zat_b30_owl_stalker_trader"}
         name={"st_zat_b30_owl_stalker_trader_name"}
-        icon={profileIcon.ui_inGame2_Sich}
+        icon={"ui_inGame2_Sich"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         moneyMin={480_000}
         moneyMax={480_000}
         moneyInfinite={true}
         rank={60}
+        visual={"actors\\stalker_bandit\\stalker_bandit_3_face_1"}
         supplies={[
           ...loadoutAk74u(),
           ...loadoutBeretta(),
@@ -94,9 +91,10 @@ export function create(): JSXNode {
         id={"zat_b106_stalker_gonta"}
         class={"zat_b106_stalker_gonta"}
         name={"st_zat_b106_stalker_gonta_name"}
-        icon={profileIcon.ui_inGame2_Gonta}
+        icon={"ui_inGame2_Gonta"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_6"}
         moneyMin={1000}
         moneyMax={1000}
         rank={50}
@@ -242,9 +240,10 @@ export function create(): JSXNode {
         id={"zat_b38_stalker_cop"}
         class={"zat_b38_stalker_cop"}
         name={"st_zat_b38_stalker_cop_name"}
-        icon={profileIcon.ui_inGame2_Gluhar}
+        icon={"ui_inGame2_Gluhar"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_2"}
         moneyMin={8_000}
         moneyMax={8_000}
         rank={55}
@@ -272,9 +271,10 @@ export function create(): JSXNode {
         id={"zat_b38_stalker_cop_dead"}
         class={"zat_b38_stalker_cop_dead"}
         name={"st_zat_b38_stalker_cop_name"}
-        icon={profileIcon.ui_inGame2_Gluhar}
+        icon={"ui_inGame2_Gluhar"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_2"}
         moneyMin={8_000}
         moneyMax={8_000}
         rank={55}
@@ -518,9 +518,10 @@ export function create(): JSXNode {
         id={"zat_b7_bandit_boss_sultan"}
         class={"zat_b7_bandit_boss_sultan"}
         name={"st_zat_b7_bandit_boss_sultan_name"}
-        icon={profileIcon.ui_inGame2_Sultan}
+        icon={"ui_inGame2_Sultan"}
         community={communities.bandit}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_3_face_3"}
         moneyMin={8_000}
         moneyMax={8_000}
         rank={60}
@@ -689,9 +690,10 @@ export function create(): JSXNode {
         id={"zat_a2_stalker_barmen"}
         class={"zat_a2_stalker_barmen"}
         name={"zat_a2_stalker_barmen_name"}
-        icon={profileIcon.ui_inGame2_Boroda}
+        icon={"ui_inGame2_Boroda"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_3_face_1"}
         moneyMin={480_000}
         moneyMax={480_000}
         moneyInfinite={true}
@@ -747,9 +749,10 @@ export function create(): JSXNode {
         id={"zat_b22_stalker_medic"}
         class={"zat_b22_stalker_medic"}
         name={"zat_b22_stalker_medic_name"}
-        icon={profileIcon.ui_inGame2_Tremor}
+        icon={"ui_inGame2_Tremor"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_1_face_3"}
         moneyMin={480_000}
         moneyMax={480_000}
         moneyInfinite={true}
@@ -774,9 +777,10 @@ export function create(): JSXNode {
         id={"zat_a2_stalker_mechanic"}
         class={"zat_a2_stalker_mechanic"}
         name={"zat_a2_stalker_mechanic_name"}
-        icon={profileIcon.ui_inGame2_Kardan}
+        icon={"ui_inGame2_Kardan"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_1"}
         mechanicMode={true}
         rank={30}
         supplies={[
@@ -1323,9 +1327,10 @@ export function create(): JSXNode {
         id={"zat_b18_noah"}
         class={"zat_b18_noah"}
         name={"zat_b18_noah_name"}
-        icon={profileIcon.ui_inGame2_Noy}
+        icon={"ui_inGame2_Noy"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
+        visual={"actors\\stalker_bandit\\stalker_bandit_3_face_2"}
         rank={50}
         moneyMin={1000}
         moneyMax={2500}
@@ -1377,9 +1382,10 @@ export function create(): JSXNode {
         id={"zat_b215_stalker_guide"}
         class={"zat_b215_stalker_guide"}
         name={"zat_b215_stalker_guide_name"}
-        icon={profileIcon.ui_inGame2_Lotsman}
+        icon={"ui_inGame2_Lotsman"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
+        visual={"actors\\stalker_neutral\\stalker_neutral_2_face_5"}
         rank={65}
         supplies={[
           ...loadoutAk74(),
@@ -1455,10 +1461,11 @@ export function create(): JSXNode {
         id={"zat_b20_noah_teleport"}
         class={"zat_b20_noah_teleport"}
         name={"zat_b18_noah_name"}
-        icon={profileIcon.ui_inGame2_Noy}
+        icon={"ui_inGame2_Noy"}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         rank={30}
+        visual={"actors\\stalker_bandit\\stalker_bandit_3_face_2"}
         supplies={[
           { section: questItems.zat_b20_noah_pda },
           { section: artefacts.af_compass, count: 2 },

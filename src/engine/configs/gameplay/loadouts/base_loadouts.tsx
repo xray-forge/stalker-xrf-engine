@@ -1,4 +1,4 @@
-import { ILoadoutItemDescriptor } from "@/engine/configs/gameplay/utils";
+import { ISpawnItemDescriptor } from "@/engine/configs/gameplay/utils";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { drugs } from "@/engine/lib/constants/items/drugs";
@@ -6,7 +6,7 @@ import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 
-export const loadoutArtefacts: Array<ILoadoutItemDescriptor> = [
+export const loadoutArtefacts: Array<ISpawnItemDescriptor> = [
   { section: artefacts.af_cristall, probability: 0.003 },
   { section: artefacts.af_fireball, probability: 0.003 },
   { section: artefacts.af_dummy_glassbeads, probability: 0.003 },
@@ -32,12 +32,12 @@ export const loadoutArtefacts: Array<ILoadoutItemDescriptor> = [
   { section: artefacts.af_ice, probability: 0.001 },
 ];
 
-export const loadoutCharacterDrugs: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterDrugs: Array<ISpawnItemDescriptor> = [
   { section: drugs.medkit, probability: 0.2 },
   { section: drugs.bandage, probability: 0.4 },
 ];
 
-export const loadoutCharacterDrugs2: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterDrugs2: Array<ISpawnItemDescriptor> = [
   { section: drugs.medkit, probability: 0.2 },
   { section: drugs.bandage, probability: 0.4 },
   { section: drugs.antirad, probability: 0.1 },
@@ -45,7 +45,7 @@ export const loadoutCharacterDrugs2: Array<ILoadoutItemDescriptor> = [
   { section: drugs.drug_coagulant, probability: 0.06 },
 ];
 
-export const loadoutCharacterDrugs3: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterDrugs3: Array<ISpawnItemDescriptor> = [
   { section: drugs.medkit, probability: 0.3 },
   { section: drugs.bandage, probability: 0.5 },
   { section: drugs.antirad, probability: 0.2 },
@@ -55,7 +55,7 @@ export const loadoutCharacterDrugs3: Array<ILoadoutItemDescriptor> = [
   { section: drugs.drug_radioprotector, probability: 0.06 },
 ];
 
-export const loadoutCharacterDrugs4: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterDrugs4: Array<ISpawnItemDescriptor> = [
   { section: drugs.medkit, probability: 0.4 },
   { section: drugs.bandage, probability: 0.6 },
   { section: drugs.antirad, probability: 0.3 },
@@ -67,27 +67,27 @@ export const loadoutCharacterDrugs4: Array<ILoadoutItemDescriptor> = [
   { section: drugs.drug_anabiotic, probability: 0.005 },
 ];
 
-export const loadoutCharacterDrugsMilitary: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterDrugsMilitary: Array<ISpawnItemDescriptor> = [
   { section: drugs.medkit_army, probability: 0.2 },
 ];
 
-export const loadoutCharacterDrugsScientific: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterDrugsScientific: Array<ISpawnItemDescriptor> = [
   { section: drugs.medkit_scientic, probability: 0.2 },
 ];
 
-export const loadoutCharacterFood: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterFood: Array<ISpawnItemDescriptor> = [
   { section: food.bread, probability: 0.5 },
   { section: food.kolbasa, probability: 0.5 },
   { section: food.vodka, probability: 0.5 },
 ];
 
-export const loadoutCharacterFoodArmy: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterFoodArmy: Array<ISpawnItemDescriptor> = [
   { section: food.bread, probability: 0.5 },
   { section: food.kolbasa, probability: 0.5 },
   { section: food.conserva, probability: 0.5 },
 ];
 
-export const loadoutCharacterItems: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItems: Array<ISpawnItemDescriptor> = [
   { section: misc.guitar_a },
   { section: misc.harmonica_a },
   { section: misc.device_torch },
@@ -95,7 +95,7 @@ export const loadoutCharacterItems: Array<ILoadoutItemDescriptor> = [
   { section: detectors.detector_simple, probability: 0.35 },
 ];
 
-export const loadoutCharacterItems2: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItems2: Array<ISpawnItemDescriptor> = [
   { section: misc.guitar_a },
   { section: misc.harmonica_a },
   { section: misc.device_torch },
@@ -103,14 +103,14 @@ export const loadoutCharacterItems2: Array<ILoadoutItemDescriptor> = [
   { section: detectors.detector_advanced, probability: 0.3 },
 ];
 
-export const loadoutCharacterItemsWithoutTorch2: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItemsWithoutTorch2: Array<ISpawnItemDescriptor> = [
   { section: misc.guitar_a },
   { section: misc.harmonica_a },
   { section: weapons.wpn_binoc },
   { section: detectors.detector_advanced, probability: 0.35 },
 ];
 
-export const loadoutCharacterItems3: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItems3: Array<ISpawnItemDescriptor> = [
   { section: misc.guitar_a },
   { section: misc.harmonica_a },
   { section: misc.device_torch },
@@ -118,39 +118,39 @@ export const loadoutCharacterItems3: Array<ILoadoutItemDescriptor> = [
   { section: detectors.detector_elite, probability: 0.25 },
 ];
 
-export const loadoutCharacterItemsWithoutTorch3: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItemsWithoutTorch3: Array<ISpawnItemDescriptor> = [
   { section: misc.guitar_a },
   { section: misc.harmonica_a },
   { section: weapons.wpn_binoc },
   { section: detectors.detector_elite, probability: 0.25 },
 ];
 
-export const loadoutCharacterItemsMonolith: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItemsMonolith: Array<ISpawnItemDescriptor> = [
   { section: misc.device_torch },
   { section: weapons.wpn_binoc },
 ];
 
-export const loadoutCharacterItemsWithoutDetector: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItemsWithoutDetector: Array<ISpawnItemDescriptor> = [
   { section: misc.guitar_a },
   { section: misc.harmonica_a },
   { section: misc.device_torch },
   { section: weapons.wpn_binoc },
 ];
 
-export const loadoutCharacterItemsWithoutTorchAndDetector: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItemsWithoutTorchAndDetector: Array<ISpawnItemDescriptor> = [
   { section: misc.guitar_a },
   { section: misc.harmonica_a },
   { section: weapons.wpn_binoc },
 ];
 
-export const loadoutCharacterItemsWithoutTorch: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterItemsWithoutTorch: Array<ISpawnItemDescriptor> = [
   { section: misc.guitar_a },
   { section: misc.harmonica_a },
   { section: detectors.detector_simple, probability: 0.35 },
   { section: weapons.wpn_binoc },
 ];
 
-export const loadoutCharacterSellWeapons: Array<ILoadoutItemDescriptor> = [
+export const loadoutCharacterSellWeapons: Array<ISpawnItemDescriptor> = [
   { section: weapons.wpn_pm, probability: 0.02 },
   { section: weapons.wpn_pb, probability: 0.02 },
   { section: weapons.wpn_fort, probability: 0.02 },

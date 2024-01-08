@@ -51,6 +51,7 @@ import {
   loadoutWalther,
   loadoutWincheaster1300,
 } from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -73,10 +74,9 @@ export function create(): JSXNode {
         id={"jup_a12_stalker_assaulter"}
         class={"jup_a12_stalker_assaulter"}
         name={"st_jup_a12_stalker_assaulter"}
-        icon={"ui_inGame2_neutral_3"}
+        icon={profileIcon.ui_inGame2_neutral_3}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_3"}
         moneyMin={1000}
         moneyMax={5000}
         rank={40}
@@ -303,7 +303,7 @@ export function create(): JSXNode {
         id={"jup_b207_duty_security_squad_leader"}
         class={"jup_b207_duty_security_squad_leader"}
         name={"st_jup_b207_duty_security_squad_leader_name"}
-        icon={"ui_inGame2_Dolg_4"}
+        icon={profileIcon.ui_inGame2_Dolg_4}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_4"}
@@ -378,10 +378,9 @@ export function create(): JSXNode {
         id={"jup_a10_bandit_leader"}
         class={"jup_a10_bandit_leader"}
         name={"jup_a10_bandit_leader_name"}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         community={communities.bandit}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         moneyMin={10_000}
         moneyMax={10_000}
         rank={60}
@@ -588,10 +587,9 @@ export function create(): JSXNode {
         id={"jup_b4_monolith_squad_soldier_1_monolith_skin"}
         class={"jup_b4_monolith_squad_soldier_1_monolith_skin"}
         name={"jup_b4_monolith_squad_soldier_1_name"}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         moneyMin={10000}
         moneyMax={10000}
         rank={40}
@@ -615,7 +613,6 @@ export function create(): JSXNode {
         name={"jup_b4_monolith_squad_soldier_1_name"}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         moneyMin={10000}
         moneyMax={10000}
@@ -665,10 +662,9 @@ export function create(): JSXNode {
         id={"jup_b4_monolith_squad_soldier_2_monolith_skin"}
         class={"jup_b4_monolith_squad_soldier_2_monolith_skin"}
         name={"jup_b4_monolith_squad_soldier_2_name"}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         moneyMin={10000}
         moneyMax={10000}
         rank={40}
@@ -691,7 +687,6 @@ export function create(): JSXNode {
         name={"jup_b4_monolith_squad_soldier_2_name"}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         moneyMin={10000}
         moneyMax={10000}
@@ -996,7 +991,6 @@ export function create(): JSXNode {
         name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         moneyMin={1500}
         moneyMax={2500}
@@ -1480,10 +1474,9 @@ export function create(): JSXNode {
         id={"jup_b1_pro_stalker_2"}
         class={"jup_b1_pro_stalker_2"}
         name={"jup_b1_stalker_2"}
-        icon={"ui_inGame2_neutral_3"}
+        icon={profileIcon.ui_inGame2_neutral_3}
         community={communities.ecolog}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_3"}
         rank={50}
         supplies={[
           ...loadoutSpas12(true),
@@ -1549,10 +1542,9 @@ export function create(): JSXNode {
         id={"jup_b6_stalker_assaulter"}
         class={"jup_b6_stalker_assaulter"}
         name={"st_jup_a12_stalker_assaulter"}
-        icon={"ui_inGame2_neutral_3"}
+        icon={profileIcon.ui_inGame2_neutral_3}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_3"}
         rank={40}
         moneyMin={1000}
         moneyMax={5000}
@@ -1870,7 +1862,6 @@ export function create(): JSXNode {
         name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         rank={55}
         moneyMin={2500}
@@ -1931,7 +1922,6 @@ export function create(): JSXNode {
         name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         rank={45}
         moneyMin={1500}
@@ -2079,7 +2069,6 @@ export function create(): JSXNode {
         name={"jup_b15_zulus"}
         icon={"ui_inGame2_Zulus"}
         community={communities.stalker}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_1_face_1"}
         rank={50}
         supplies={[
@@ -2170,10 +2159,9 @@ export function create(): JSXNode {
         id={"jup_b202_bandit"}
         class={"jup_b202_bandit"}
         name={GENERATE_BANDIT_NAME}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         community={communities.bandit}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={40}
         moneyMin={500}
         moneyMax={1750}
@@ -2390,9 +2378,8 @@ export function create(): JSXNode {
         id={"jup_b46_duty_founder"}
         class={"jup_b46_duty_founder"}
         name={"jup_b46_duty_founder_name"}
-        icon={"ui_inGame2_Dolg_4"}
+        icon={profileIcon.ui_inGame2_Dolg_4}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_4"}
         rank={100}
         moneyMin={1500}
@@ -2406,10 +2393,8 @@ export function create(): JSXNode {
         id={"jup_b46_duty_founder_squad_01"}
         class={"jup_b46_duty_founder_squad_01"}
         name={"jup_b46_duty_founder_squad_01_name"}
-        icon={"ui_inGame2_Dolg_3"}
+        icon={profileIcon.ui_inGame2_Dolg_3}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_3"}
         rank={50}
         moneyMin={100}
         moneyMax={3000}
@@ -2421,10 +2406,9 @@ export function create(): JSXNode {
         id={"jup_b46_duty_founder_squad_02"}
         class={"jup_b46_duty_founder_squad_02"}
         name={"jup_b46_duty_founder_squad_02_name"}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         rank={50}
         moneyMin={100}
         moneyMax={3000}
@@ -2438,7 +2422,6 @@ export function create(): JSXNode {
         name={"jup_b46_duty_founder_squad_03_name"}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_3"}
         rank={50}
         moneyMin={100}
@@ -2451,10 +2434,9 @@ export function create(): JSXNode {
         id={"jup_b46_duty_founder_squad_04"}
         class={"jup_b46_duty_founder_squad_04"}
         name={"jup_b46_duty_founder_squad_04_name"}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         rank={50}
         moneyMin={100}
         moneyMax={3000}
@@ -2505,7 +2487,6 @@ export function create(): JSXNode {
         name={"jup_a6_duty_leader"}
         icon={"ui_inGame2_Shulga"}
         community={communities.dolg}
-        soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_dolg\\stalker_dolg_3_face_1"}
         rank={100}
         moneyMin={100}
@@ -2568,10 +2549,9 @@ export function create(): JSXNode {
         id={"jup_b47_merc_07"}
         class={"jup_b47_merc_07"}
         name={"jup_b47_merc_07"}
-        icon={"ui_inGame2_merc_2"}
+        icon={profileIcon.ui_inGame2_merc_2}
         community={communities.killer}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_2"}
         rank={40}
         supplies={[
           ...loadoutLr300({ scope: true, silencer: true }),
@@ -2592,10 +2572,9 @@ export function create(): JSXNode {
         id={"jup_b47_merc_06"}
         class={"jup_b47_merc_06"}
         name={"jup_b47_merc_06"}
-        icon={"ui_inGame2_merc_4"}
+        icon={profileIcon.ui_inGame2_merc_4}
         community={communities.killer}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_4"}
         rank={40}
         supplies={[
           ...loadoutSpas12(true),
@@ -2616,10 +2595,9 @@ export function create(): JSXNode {
         id={"jup_b47_merc_05"}
         class={"jup_b47_merc_05"}
         name={"jup_b47_merc_05"}
-        icon={"ui_inGame2_merc_2"}
+        icon={profileIcon.ui_inGame2_merc_2}
         community={communities.killer}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_2"}
         rank={40}
         supplies={[
           ...loadoutLr300({ silencer: true }),
@@ -2640,10 +2618,9 @@ export function create(): JSXNode {
         id={"jup_b47_merc_04"}
         class={"jup_b47_merc_04"}
         name={"jup_b47_merc_04"}
-        icon={"ui_inGame2_merc_4"}
+        icon={profileIcon.ui_inGame2_merc_4}
         community={communities.killer}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_4"}
         rank={40}
         supplies={[
           ...loadoutSpas12(true),
@@ -2664,10 +2641,9 @@ export function create(): JSXNode {
         id={"jup_b47_merc_03"}
         class={"jup_b47_merc_03"}
         name={"jup_b47_merc_03"}
-        icon={"ui_inGame2_merc_2"}
+        icon={profileIcon.ui_inGame2_merc_2}
         community={communities.killer}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_2"}
         rank={50}
         supplies={[
           ...loadoutL85(true),
@@ -2688,10 +2664,9 @@ export function create(): JSXNode {
         id={"jup_b47_merc_02"}
         class={"jup_b47_merc_02"}
         name={"jup_b47_merc_02"}
-        icon={"ui_inGame2_merc_2"}
+        icon={profileIcon.ui_inGame2_merc_2}
         community={communities.killer}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_2"}
         rank={50}
         supplies={[
           ...loadoutL85(true),
@@ -2712,10 +2687,9 @@ export function create(): JSXNode {
         id={"jup_b47_merc_01"}
         class={"jup_b47_merc_01"}
         name={"jup_b47_merc_01"}
-        icon={"ui_inGame2_merc_4"}
+        icon={profileIcon.ui_inGame2_merc_4}
         community={communities.killer}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_4"}
         rank={65}
         supplies={[
           ...loadoutG36({ ap: true }),
