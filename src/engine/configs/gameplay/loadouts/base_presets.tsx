@@ -1,5 +1,3 @@
-import { JSXNode, JSXXML } from "jsx-xml";
-
 import { ILoadoutItemDescriptor } from "@/engine/configs/gameplay/utils";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { detectors } from "@/engine/lib/constants/items/detectors";
@@ -33,8 +31,6 @@ export const loadoutArtefacts: Array<ILoadoutItemDescriptor> = [
   { section: artefacts.af_dummy_dummy, probability: 0.001 },
   { section: artefacts.af_ice, probability: 0.001 },
 ];
-
-export const characterProfileCriticals: JSXNode = <critical_wound_weights>55,30,15</critical_wound_weights>;
 
 export const loadoutCharacterDrugs: Array<ILoadoutItemDescriptor> = [
   { section: drugs.medkit, probability: 0.2 },

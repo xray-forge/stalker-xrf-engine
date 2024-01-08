@@ -1,9 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
-  defaultCharacterDialogsNoGuide,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
+  DefaultCharacterDialogsNoGuide,
   loadoutAbakan,
   loadoutAk74,
   loadoutAk74u,
@@ -43,7 +43,7 @@ import {
   loadoutWalther,
   loadoutWincheaster1300,
 } from "@/engine/configs/gameplay/loadouts";
-import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
+import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
@@ -81,15 +81,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b30_owl_stalker_trader_start_dialog</start_dialog>
-        <actor_dialog>zat_b30_owl_stalker_trader_choose_task</actor_dialog>
-        <actor_dialog>zat_b30_owl_stalker_trader_sell_items</actor_dialog>
-        <actor_dialog>zat_b30_owl_stalker_trader_buy_info</actor_dialog>
-        <actor_dialog>zat_b30_owl_stalker_trader_stages</actor_dialog>
-        <actor_dialog>zat_b30_owl_stalker_trader_b30_actor_after_barmen</actor_dialog>
-        <actor_dialog>zat_b30_owl_stalker_trader_about_nimble</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b30_owl_stalker_trader_StartDialog</StartDialog>
+        <ActorDialog>zat_b30_owl_stalker_trader_choose_task</ActorDialog>
+        <ActorDialog>zat_b30_owl_stalker_trader_sell_items</ActorDialog>
+        <ActorDialog>zat_b30_owl_stalker_trader_buy_info</ActorDialog>
+        <ActorDialog>zat_b30_owl_stalker_trader_stages</ActorDialog>
+        <ActorDialog>zat_b30_owl_stalker_trader_b30_actor_after_barmen</ActorDialog>
+        <ActorDialog>zat_b30_owl_stalker_trader_about_nimble</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -115,24 +115,24 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b106_stalker_gonta_start</start_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>zat_b106_hunt_himera</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_info_about_soroka</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_info_about_soroka_gone</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_about_soroka_dialog</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_about_soroka_actor_task</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_trapper_send</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_about_himself</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_b22_about_stalker_vampire</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_employ_stalkers</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_come_with_me</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_b52_about_nimble</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_about_mutants</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b106_stalker_gonta_start</StartDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>zat_b106_hunt_himera</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_info_about_soroka</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_info_about_soroka_gone</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_about_soroka_dialog</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_about_soroka_actor_task</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_trapper_send</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_about_himself</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_b22_about_stalker_vampire</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_employ_stalkers</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_come_with_me</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_b52_about_nimble</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_about_mutants</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -157,12 +157,12 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -188,12 +188,12 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -218,9 +218,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>zat_b14_stalker_at_bar_start</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>zat_b14_stalker_at_bar_start</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -246,13 +246,13 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b51_stalker_nimble_start</start_dialog>
-        <actor_dialog>zat_b51_stalker_nimble_b52_about_gun_questions</actor_dialog>
-        <actor_dialog>zat_b51_stalker_nimble_place_order</actor_dialog>
-        <actor_dialog>zat_b51_stalker_nimble_get_order</actor_dialog>
-        <actor_dialog>zat_b51_stalker_nimble_about</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b51_stalker_nimble_start</StartDialog>
+        <ActorDialog>zat_b51_stalker_nimble_b52_about_gun_questions</ActorDialog>
+        <ActorDialog>zat_b51_stalker_nimble_place_order</ActorDialog>
+        <ActorDialog>zat_b51_stalker_nimble_get_order</ActorDialog>
+        <ActorDialog>zat_b51_stalker_nimble_about</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -276,16 +276,16 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b38_stalker_cop_start_dialog</start_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b7_actor_start</actor_dialog>
-        <actor_dialog>zat_b38_stalker_cop_task_dialog</actor_dialog>
-        <actor_dialog>zat_b38_cop_about_himself_dialog</actor_dialog>
-        <actor_dialog>zat_b38_stalker_cop_b52_about_nimble</actor_dialog>
-        <actor_dialog>zat_b38_stalker_cop_b52_about_snag</actor_dialog>
-        <actor_dialog>zat_b38_stalker_cop_about_sci_guards</actor_dialog>
-        <actor_dialog>zat_b38_stalker_cop_about_sci_helpers</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b38_stalker_cop_StartDialog</StartDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b7_actor_start</ActorDialog>
+        <ActorDialog>zat_b38_stalker_cop_task_dialog</ActorDialog>
+        <ActorDialog>zat_b38_cop_about_himself_dialog</ActorDialog>
+        <ActorDialog>zat_b38_stalker_cop_b52_about_nimble</ActorDialog>
+        <ActorDialog>zat_b38_stalker_cop_b52_about_snag</ActorDialog>
+        <ActorDialog>zat_b38_stalker_cop_about_sci_guards</ActorDialog>
+        <ActorDialog>zat_b38_stalker_cop_about_sci_helpers</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -323,8 +323,8 @@ export function create(): JSXNode {
         rank={50}
         supplies={[...loadoutCharacterFood, ...loadoutCharacterDrugs]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -350,12 +350,11 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail</actor_dialog>
-        <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda</actor_dialog>
-        <actor_dialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda_2</actor_dialog>
-
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>zat_b7_duty_illicit_dealer_b207_blackmail</ActorDialog>
+        <ActorDialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda</ActorDialog>
+        <ActorDialog>zat_b7_duty_illicit_dealer_b207_blackmail_with_pda_2</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -380,8 +379,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -406,8 +405,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -432,8 +431,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -458,8 +457,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -483,8 +482,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -508,8 +507,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -532,8 +531,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -558,8 +557,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -580,20 +579,20 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b7_bandit_boss_sultan_start_dialog</start_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b7_give_task_dialog</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b30_start_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b30_detectors_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b30_compass_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b30_compass_give_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b30_compass_revert_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b30_ruin_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b30_barmen_under_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b52_about_snag</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_b52_about_nimble</actor_dialog>
-        <actor_dialog>zat_b7_bandit_boss_sultan_about</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b7_bandit_boss_sultan_StartDialog</StartDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b7_give_task_dialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_start_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_detectors_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_give_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_revert_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_ruin_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_barmen_under_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b52_about_snag</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b52_about_nimble</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_about</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -616,8 +615,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -640,8 +639,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -664,8 +663,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -688,8 +687,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -712,8 +711,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -736,8 +735,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -762,41 +761,41 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_a2_stalker_barmen_start_dialog</start_dialog>
-        <actor_dialog>zat_a2_linker_b14_quest_init</actor_dialog>
-        <actor_dialog>zat_a2_linker_b14_quest_done</actor_dialog>
-        <actor_dialog>zat_a2_linker_b14_quest_strange_item</actor_dialog>
-        <actor_dialog>zat_a2_linker_b14_quest_sell_artefact</actor_dialog>
-        <actor_dialog>zat_a2_linker_b14_quest_wrong</actor_dialog>
-        <actor_dialog>zat_b57_barmen_about_bloodsucker_lair_dialog</actor_dialog>
-        <actor_dialog>zat_b57_barman_reward_dialog</actor_dialog>
-        <actor_dialog>zat_b22_barmen_about_vampire_actor1</actor_dialog>
-        <actor_dialog>zat_b22_barmen_about_vampire_actor2</actor_dialog>
-        <actor_dialog>zat_b22_barmen_about_vampire_actor3</actor_dialog>
-        <actor_dialog>zat_b22_barmen_about_vampire_actor4</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b7_actor_start</actor_dialog>
-        <actor_dialog>zat_b22_barmen_b5_daring_quest_stalkers</actor_dialog>
-        <actor_dialog>zat_b22_barmen_about_after_quest_b5_dealer_actor4</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b30_about_new_detector</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b30_about_compass</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b30_compass_give_dialog</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b30_compass_double_dialog</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b30_compass_revert_dialog</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b30_take_business_actor_dialog</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_army</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_about_sci_guards</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_about_sci_helpers</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b30_about_halfart_jup_b1</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_oasis_art_sell</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b52_about_snag</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b52_about_nimble</actor_dialog>
-        <actor_dialog>zat_a2_linker_b29_actor_info</actor_dialog>
-        <actor_dialog>zat_a2_linker_b29_actor_get_adv_task</actor_dialog>
-        <actor_dialog>zat_a2_linker_b29_actor_give_adv_task</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_b30_take_money_actor_dialog</actor_dialog>
-        <actor_dialog>zat_a2_stalker_barmen_actor_info</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_a2_stalker_barmen_StartDialog</StartDialog>
+        <ActorDialog>zat_a2_linker_b14_quest_init</ActorDialog>
+        <ActorDialog>zat_a2_linker_b14_quest_done</ActorDialog>
+        <ActorDialog>zat_a2_linker_b14_quest_strange_item</ActorDialog>
+        <ActorDialog>zat_a2_linker_b14_quest_sell_artefact</ActorDialog>
+        <ActorDialog>zat_a2_linker_b14_quest_wrong</ActorDialog>
+        <ActorDialog>zat_b57_barmen_about_bloodsucker_lair_dialog</ActorDialog>
+        <ActorDialog>zat_b57_barman_reward_dialog</ActorDialog>
+        <ActorDialog>zat_b22_barmen_about_vampire_actor1</ActorDialog>
+        <ActorDialog>zat_b22_barmen_about_vampire_actor2</ActorDialog>
+        <ActorDialog>zat_b22_barmen_about_vampire_actor3</ActorDialog>
+        <ActorDialog>zat_b22_barmen_about_vampire_actor4</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b7_actor_start</ActorDialog>
+        <ActorDialog>zat_b22_barmen_b5_daring_quest_stalkers</ActorDialog>
+        <ActorDialog>zat_b22_barmen_about_after_quest_b5_dealer_actor4</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_about_new_detector</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_about_compass</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_compass_give_dialog</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_compass_double_dialog</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_compass_revert_dialog</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_take_business_ActorDialog</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_army</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_about_sci_guards</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_about_sci_helpers</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_about_halfart_jup_b1</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_oasis_art_sell</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b52_about_snag</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b52_about_nimble</ActorDialog>
+        <ActorDialog>zat_a2_linker_b29_actor_info</ActorDialog>
+        <ActorDialog>zat_a2_linker_b29_actor_get_adv_task</ActorDialog>
+        <ActorDialog>zat_a2_linker_b29_actor_give_adv_task</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_take_money_ActorDialog</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_actor_info</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -818,13 +817,13 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b22_stalker_medic_dialog_start</start_dialog>
-        <actor_dialog>zat_b38_stalker_medic_bloodsucker_dialog</actor_dialog>
-        <actor_dialog>zat_b38_stalker_medic_info_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b22_stalker_medic_b52_about_nimble</actor_dialog>
-        <actor_dialog>zat_b22_stalker_medic_need_health_care</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b22_stalker_medic_dialog_start</StartDialog>
+        <ActorDialog>zat_b38_stalker_medic_bloodsucker_dialog</ActorDialog>
+        <ActorDialog>zat_b38_stalker_medic_info_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b22_stalker_medic_b52_about_nimble</ActorDialog>
+        <ActorDialog>zat_b22_stalker_medic_need_health_care</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -846,28 +845,28 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b3_stalker_tech_start</start_dialog>
-        <actor_dialog>zat_b3_stalker_tech_produce_62_show</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_produce_62_end</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_return_access_card</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_produce_62_repair_gauss</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_produce_62_make_battery</actor_dialog>
-        <actor_dialog>zat_b3_tech_buddies_about</actor_dialog>
-        <actor_dialog>zat_b3_tech_buddies_apologies_both</actor_dialog>
-        <actor_dialog>zat_b3_tech_buddies_apologies_joker</actor_dialog>
-        <actor_dialog>zat_b3_tech_buddies_apologies_barge</actor_dialog>
-        <actor_dialog>zat_b3_tech_buddies_pda</actor_dialog>
-        <actor_dialog>zat_b3_stalker_mechanic_ufo_memory_repair</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_b33_about_snags_container</actor_dialog>
-        <actor_dialog>zat_b3_stalker_mechanic_b52_about_nimble</actor_dialog>
-        <actor_dialog>zat_b3_stalker_mechanic_b207_about_dealer_pda</actor_dialog>
-        <actor_dialog>zat_b3_stalker_mechanic_electro_toolkit_dialog</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_instruments</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_drink_1</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_drink_2</actor_dialog>
-        <actor_dialog>zat_b3_stalker_tech_drink_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b3_stalker_tech_start</StartDialog>
+        <ActorDialog>zat_b3_stalker_tech_produce_62_show</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_produce_62_end</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_return_access_card</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_produce_62_repair_gauss</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_produce_62_make_battery</ActorDialog>
+        <ActorDialog>zat_b3_tech_buddies_about</ActorDialog>
+        <ActorDialog>zat_b3_tech_buddies_apologies_both</ActorDialog>
+        <ActorDialog>zat_b3_tech_buddies_apologies_joker</ActorDialog>
+        <ActorDialog>zat_b3_tech_buddies_apologies_barge</ActorDialog>
+        <ActorDialog>zat_b3_tech_buddies_pda</ActorDialog>
+        <ActorDialog>zat_b3_stalker_mechanic_ufo_memory_repair</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_b33_about_snags_container</ActorDialog>
+        <ActorDialog>zat_b3_stalker_mechanic_b52_about_nimble</ActorDialog>
+        <ActorDialog>zat_b3_stalker_mechanic_b207_about_dealer_pda</ActorDialog>
+        <ActorDialog>zat_b3_stalker_mechanic_electro_toolkit_dialog</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_instruments</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_drink_1</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_drink_2</ActorDialog>
+        <ActorDialog>zat_b3_stalker_tech_drink_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -888,16 +887,16 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        <start_dialog>zat_b103_merc_dialog_start</start_dialog>
-        <actor_dialog>zat_b103_lost_merc_leader_come_with_me</actor_dialog>
-        <actor_dialog>zat_b103_merc_dialog_about_toolkit</actor_dialog>
-        <actor_dialog>zat_b103_merc_dialog_find_supplies</actor_dialog>
-        <actor_dialog>zat_b103_merc_dialog_about_supplies</actor_dialog>
-        <actor_dialog>zat_b103_lost_merc_leader_employ_stalkers</actor_dialog>
-        <actor_dialog>zat_b103_lost_merc_leader_bunker_guarding</actor_dialog>
-        <actor_dialog>zat_b103_lost_merc_leader_b40_about_merc_camp</actor_dialog>
+        <StartDialog>zat_b103_merc_dialog_start</StartDialog>
+        <ActorDialog>zat_b103_lost_merc_leader_come_with_me</ActorDialog>
+        <ActorDialog>zat_b103_merc_dialog_about_toolkit</ActorDialog>
+        <ActorDialog>zat_b103_merc_dialog_find_supplies</ActorDialog>
+        <ActorDialog>zat_b103_merc_dialog_about_supplies</ActorDialog>
+        <ActorDialog>zat_b103_lost_merc_leader_employ_stalkers</ActorDialog>
+        <ActorDialog>zat_b103_lost_merc_leader_bunker_guarding</ActorDialog>
+        <ActorDialog>zat_b103_lost_merc_leader_b40_about_merc_camp</ActorDialog>
 
-        {defaultCharacterDialogsNoGuide}
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -917,8 +916,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -938,8 +937,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -959,8 +958,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -980,8 +979,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1001,8 +1000,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1022,8 +1021,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1043,8 +1042,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1067,12 +1066,12 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b7_stalkers_raiders_dialog</start_dialog>
-        <actor_dialog>zat_b7_stalkers_raiders_actor_choose_dialog</actor_dialog>
-        <actor_dialog>zat_b7_killed_self_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b7_stalkers_raiders_actor_teleport_dialog</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b7_stalkers_raiders_dialog</StartDialog>
+        <ActorDialog>zat_b7_stalkers_raiders_actor_choose_dialog</ActorDialog>
+        <ActorDialog>zat_b7_killed_self_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_stalkers_raiders_actor_teleport_dialog</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1095,8 +1094,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1119,8 +1118,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1143,8 +1142,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1167,14 +1166,14 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b7_stalkers_victims_dialog</start_dialog>
-        <actor_dialog>zat_b7_stalkers_victims_actor_start_dialog</actor_dialog>
-        <actor_dialog>zat_b7_stalkers_victims_actor_choose_dialog</actor_dialog>
-        <actor_dialog>zat_b7_stalker_squad_leader_employ_stalkers</actor_dialog>
-        <actor_dialog>zat_b7_stalker_squad_leader_bunker_guarding</actor_dialog>
-        <actor_dialog>zat_b7_stalker_squad_leader_come_with_me</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b7_stalkers_victims_dialog</StartDialog>
+        <ActorDialog>zat_b7_stalkers_victims_actor_StartDialog</ActorDialog>
+        <ActorDialog>zat_b7_stalkers_victims_actor_choose_dialog</ActorDialog>
+        <ActorDialog>zat_b7_stalker_squad_leader_employ_stalkers</ActorDialog>
+        <ActorDialog>zat_b7_stalker_squad_leader_bunker_guarding</ActorDialog>
+        <ActorDialog>zat_b7_stalker_squad_leader_come_with_me</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1197,11 +1196,11 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b33_stalker_snag_about_cache_dialog</start_dialog>
-        <actor_dialog>zat_b33_stalker_snag_share_package_dialog</actor_dialog>
-        <actor_dialog>zat_b33_stalker_snag_refuse_task</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b33_stalker_snag_about_cache_dialog</StartDialog>
+        <ActorDialog>zat_b33_stalker_snag_share_package_dialog</ActorDialog>
+        <ActorDialog>zat_b33_stalker_snag_refuse_task</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1216,7 +1215,7 @@ export function create(): JSXNode {
         moneyMin={1500}
         moneyMax={3500}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1239,7 +1238,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1262,7 +1261,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1285,7 +1284,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1309,11 +1308,11 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b30_stalker_rival_1_about_detector</actor_dialog>
-        <actor_dialog>zat_b30_stalker_rival_2_about_detector</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>zat_b29_stalker_rival_exchange_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b30_stalker_rival_1_about_detector</ActorDialog>
+        <ActorDialog>zat_b30_stalker_rival_2_about_detector</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1338,11 +1337,11 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
-        <actor_dialog>zat_b30_stalker_rival_1_about_detector</actor_dialog>
-        <actor_dialog>zat_b30_stalker_rival_2_about_detector</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>zat_b29_stalker_rival_exchange_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b30_stalker_rival_1_about_detector</ActorDialog>
+        <ActorDialog>zat_b30_stalker_rival_2_about_detector</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1367,9 +1366,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>zat_b29_stalker_rival_exchange_ActorDialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1394,9 +1393,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>zat_b29_stalker_rival_exchange_actor_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>zat_b29_stalker_rival_exchange_ActorDialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1421,17 +1420,16 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b18_noah_start</start_dialog>
-
-        <actor_dialog>zat_b18_noah_plateau_way</actor_dialog>
-        <actor_dialog>zat_b18_noah_first_artefact</actor_dialog>
-        <actor_dialog>zat_b18_noah_second_artefact</actor_dialog>
-        <actor_dialog>zat_b18_noah_third_artefact</actor_dialog>
-        <actor_dialog>zat_b18_noah_arc</actor_dialog>
-        <actor_dialog>zat_b18_noah_catastrophe</actor_dialog>
-        <actor_dialog>zat_b18_noah_dog</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b18_noah_start</StartDialog>
+        <ActorDialog>zat_b18_noah_plateau_way</ActorDialog>
+        <ActorDialog>zat_b18_noah_first_artefact</ActorDialog>
+        <ActorDialog>zat_b18_noah_second_artefact</ActorDialog>
+        <ActorDialog>zat_b18_noah_third_artefact</ActorDialog>
+        <ActorDialog>zat_b18_noah_arc</ActorDialog>
+        <ActorDialog>zat_b18_noah_catastrophe</ActorDialog>
+        <ActorDialog>zat_b18_noah_dog</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1452,8 +1450,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1474,19 +1472,19 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b215_stalker_guide_start</start_dialog>
-        <actor_dialog>zat_b215_stalker_guide_leave_zone</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_maps</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_to_pripyat_no_way</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_to_pripyat</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_to_jupiter</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_to_zaton</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_where_to</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_about_himself</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_about_anomalies</actor_dialog>
-        <actor_dialog>zat_b215_stalker_guide_about_surge</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b215_stalker_guide_start</StartDialog>
+        <ActorDialog>zat_b215_stalker_guide_leave_zone</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_maps</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_to_pripyat_no_way</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_to_pripyat</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_to_jupiter</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_to_zaton</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_where_to</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_about_himself</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_about_anomalies</ActorDialog>
+        <ActorDialog>zat_b215_stalker_guide_about_surge</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1509,8 +1507,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1533,8 +1531,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1557,8 +1555,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1581,7 +1579,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1603,9 +1601,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <start_dialog>zat_b53_artefact_hunter_1_gathering_artefacts</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <StartDialog>zat_b53_artefact_hunter_1_gathering_artefacts</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1625,9 +1623,9 @@ export function create(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <start_dialog>zat_b53_artefact_hunter_2_gathering_artefacts</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <StartDialog>zat_b53_artefact_hunter_2_gathering_artefacts</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1649,7 +1647,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1672,7 +1670,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1695,7 +1693,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1715,7 +1713,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1736,7 +1734,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1757,7 +1755,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
     </xml>
   );

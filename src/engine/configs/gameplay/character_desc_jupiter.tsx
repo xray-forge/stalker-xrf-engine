@@ -1,9 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
-  defaultCharacterDialogsNoGuide,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
+  DefaultCharacterDialogsNoGuide,
   loadoutAbakan,
   loadoutAk74,
   loadoutAk74u,
@@ -51,7 +51,7 @@ import {
   loadoutWalther,
   loadoutWincheaster1300,
 } from "@/engine/configs/gameplay/loadouts";
-import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
+import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { food } from "@/engine/lib/constants/items/food";
@@ -59,15 +59,14 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import {
-  GENERATE_ARMY_CAPTAIN_NAME,
-  GENERATE_ARMY_LIEUTENANT_NAME,
-  GENERATE_ARMY_SERGEANT_NAME,
   GENERATE_BANDIT_NAME,
+  GENERATE_CAPTAIN_NAME,
+  GENERATE_LIEUTENANT_NAME,
+  GENERATE_SERGEANT_NAME,
   GENERATE_STALKER_NAME,
 } from "@/engine/lib/constants/names";
 
 export function create(): JSXNode {
-  // @ts-ignore
   return (
     <xml>
       <SpecificCharacter
@@ -91,18 +90,18 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>jup_a12_stalkers_choose_actor_ransom_dialog</actor_dialog>
-        <actor_dialog>jup_a12_stalkers_choose_actor_ransom_take_dialog</actor_dialog>
-        <actor_dialog>jup_a12_stalkers_choose_actor_power_dialog</actor_dialog>
-        <actor_dialog>jup_a12_stalkers_choose_actor_power_take_dialog</actor_dialog>
-        <actor_dialog>jup_a12_stalkers_choose_actor_wait_dialog</actor_dialog>
-        <actor_dialog>jup_a12_stalkers_choose_actor_self_dialog</actor_dialog>
-        <actor_dialog>jup_a12_stalker_assaulter_after_scene_actor_dialog</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>jup_a12_stalkers_choose_actor_ransom_dialog</ActorDialog>
+        <ActorDialog>jup_a12_stalkers_choose_actor_ransom_take_dialog</ActorDialog>
+        <ActorDialog>jup_a12_stalkers_choose_actor_power_dialog</ActorDialog>
+        <ActorDialog>jup_a12_stalkers_choose_actor_power_take_dialog</ActorDialog>
+        <ActorDialog>jup_a12_stalkers_choose_actor_wait_dialog</ActorDialog>
+        <ActorDialog>jup_a12_stalkers_choose_actor_self_dialog</ActorDialog>
+        <ActorDialog>jup_a12_stalker_assaulter_after_scene_ActorDialog</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -126,12 +125,12 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>jup_a12_stalker_diplomat_after_scene_actor_dialog</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>jup_a12_stalker_diplomat_after_scene_ActorDialog</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -146,14 +145,14 @@ export function create(): JSXNode {
         moneyMax={0}
         rank={40}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_a12_stalker_prisoner_free_actor_dialog</actor_dialog>
-        <actor_dialog>jup_a12_stalker_prisoner_employ_stalkers</actor_dialog>
-        <actor_dialog>jup_a12_stalker_prisoner_come_with_me</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_a12_stalker_prisoner_free_ActorDialog</ActorDialog>
+        <ActorDialog>jup_a12_stalker_prisoner_employ_stalkers</ActorDialog>
+        <ActorDialog>jup_a12_stalker_prisoner_come_with_me</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -169,10 +168,10 @@ export function create(): JSXNode {
         rank={55}
         supplies={[...loadoutHpsa(), ...loadoutCharacterItemsWithoutDetector, ...loadoutCharacterDrugs3]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a12_bandit_chief_dialog</start_dialog>
-        <actor_dialog>jup_a12_bandit_chief_actor_self_dialog</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a12_bandit_chief_dialog</StartDialog>
+        <ActorDialog>jup_a12_bandit_chief_actor_self_dialog</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -195,10 +194,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a12_bandit_guard_start</start_dialog>
-        <start_dialog>jup_a12_bandit_guard_visited</start_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a12_bandit_guard_start</StartDialog>
+        <StartDialog>jup_a12_bandit_guard_visited</StartDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -221,8 +220,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -244,10 +243,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a12_stalker_give_art_dialog</start_dialog>
-        <start_dialog>jup_a12_merc_done_dialog</start_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a12_stalker_give_art_dialog</StartDialog>
+        <StartDialog>jup_a12_merc_done_dialog</StartDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -271,8 +270,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -296,8 +295,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -321,8 +320,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -346,8 +345,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -371,8 +370,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -395,9 +394,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_a10_stalkers_dialog_debt</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_a10_stalkers_dialog_debt</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -421,20 +420,20 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a10_vano_help_dialog</start_dialog>
-        <actor_dialog>jup_a10_stalker_vano_need_outfit</actor_dialog>
-        <actor_dialog>jup_a10_stalker_vano_outfit_money_yes</actor_dialog>
-        <actor_dialog>jup_a10_stalker_vano_pripyat_group</actor_dialog>
-        <actor_dialog>jup_a10_stalker_vano_goto_zulus</actor_dialog>
-        <actor_dialog>jup_a10_stalker_vano_pripyat_ready</actor_dialog>
-        <actor_dialog>jup_a10_vano_back_1</actor_dialog>
-        <actor_dialog>jup_a10_vano_back_2</actor_dialog>
-        <actor_dialog>jup_a10_vano_back_3</actor_dialog>
-        <actor_dialog>jup_a10_vano_back_4</actor_dialog>
-        <actor_dialog>jup_a10_vano_give_duty</actor_dialog>
-        <actor_dialog>jup_a10_stalker_vano_about_stolen_items</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a10_vano_help_dialog</StartDialog>
+        <ActorDialog>jup_a10_stalker_vano_need_outfit</ActorDialog>
+        <ActorDialog>jup_a10_stalker_vano_outfit_money_yes</ActorDialog>
+        <ActorDialog>jup_a10_stalker_vano_pripyat_group</ActorDialog>
+        <ActorDialog>jup_a10_stalker_vano_goto_zulus</ActorDialog>
+        <ActorDialog>jup_a10_stalker_vano_pripyat_ready</ActorDialog>
+        <ActorDialog>jup_a10_vano_back_1</ActorDialog>
+        <ActorDialog>jup_a10_vano_back_2</ActorDialog>
+        <ActorDialog>jup_a10_vano_back_3</ActorDialog>
+        <ActorDialog>jup_a10_vano_back_4</ActorDialog>
+        <ActorDialog>jup_a10_vano_give_duty</ActorDialog>
+        <ActorDialog>jup_a10_stalker_vano_about_stolen_items</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -456,13 +455,13 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_need_help</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_need_help_2</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_pripyat_ready</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_pripyat_how_are_you</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b4_monolith_squad_leader_start</StartDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_need_help</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_need_help_2</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_pripyat_ready</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_pripyat_how_are_you</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -484,15 +483,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_wassup</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_pripyat_group</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_need_outfit</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_goto_zulus</actor_dialog>
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_about_stolen_items</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b4_monolith_squad_leader_start</StartDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_wassup</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_pripyat_group</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_need_outfit</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_goto_zulus</ActorDialog>
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_about_stolen_items</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -514,15 +513,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_wassup</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_pripyat_group</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_need_outfit</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_goto_zulus</actor_dialog>
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_about_stolen_items</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b4_monolith_squad_leader_start</StartDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_wassup</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_pripyat_group</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_need_outfit</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_goto_zulus</ActorDialog>
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_about_stolen_items</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -544,15 +543,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_wassup</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_pripyat_group</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_need_outfit</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_goto_zulus</actor_dialog>
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_about_stolen_items</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b4_monolith_squad_leader_start</StartDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_wassup</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_pripyat_group</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_need_outfit</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_goto_zulus</ActorDialog>
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_about_stolen_items</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -574,15 +573,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b4_monolith_squad_leader_start</start_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_wassup</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_pripyat_group</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_need_outfit</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_goto_zulus</actor_dialog>
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>jup_b4_monolith_squad_leader_about_stolen_items</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b4_monolith_squad_leader_start</StartDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_wassup</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_pripyat_group</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_need_outfit</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_goto_zulus</ActorDialog>
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>jup_b4_monolith_squad_leader_about_stolen_items</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -606,8 +605,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -630,10 +629,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -656,10 +655,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -682,8 +681,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -706,10 +705,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -732,10 +731,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -758,8 +757,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -782,10 +781,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -808,10 +807,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -834,8 +833,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -858,10 +857,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -884,10 +883,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -910,8 +909,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -934,10 +933,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -960,10 +959,10 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -986,15 +985,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"jup_b4_duty_help"}
         class={"jup_b4_duty_help"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
@@ -1011,9 +1010,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1038,15 +1037,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b4_freedom_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b4_freedom_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"jup_b4_duty_leader"}
         class={"jup_b4_duty_leader"}
-        name={GENERATE_ARMY_CAPTAIN_NAME}
+        name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
@@ -1064,9 +1063,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b4_duty_go_home</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b4_duty_go_home</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1081,25 +1080,25 @@ export function create(): JSXNode {
         moneyMax={10_000}
         rank={0}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b16_biochemist_oasis_start</start_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_b1_psi_emission_dialog</actor_dialog>
-        <actor_dialog>jup_b16_biochemist_oasis_proof</actor_dialog>
-        <actor_dialog>jup_b16_biochemist_oasis_give_artefact</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_hypotheses_confirmed</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_anomalous_plant</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_soldier_outfit</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_hypotheses_about</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_hypotheses_volunteer</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_anomalous_grove</actor_dialog>
-        <actor_dialog>jup_b16_biochemist_oasis_legend</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_about_scrutiny_learned</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_stalker_assistant_rival</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_aproach</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_about_mercs</actor_dialog>
-        <actor_dialog>jup_b6_scientist_biochemist_about_scientists</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b16_biochemist_oasis_start</StartDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_b1_psi_emission_dialog</ActorDialog>
+        <ActorDialog>jup_b16_biochemist_oasis_proof</ActorDialog>
+        <ActorDialog>jup_b16_biochemist_oasis_give_artefact</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_hypotheses_confirmed</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_anomalous_plant</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_soldier_outfit</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_hypotheses_about</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_hypotheses_volunteer</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_anomalous_grove</ActorDialog>
+        <ActorDialog>jup_b16_biochemist_oasis_legend</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_about_scrutiny_learned</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_stalker_assistant_rival</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_aproach</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_about_mercs</ActorDialog>
+        <ActorDialog>jup_b6_scientist_biochemist_about_scientists</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1115,30 +1114,30 @@ export function create(): JSXNode {
         moneyInfinite={true}
         rank={0}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b6_scientist_nuclear_physicist_start</start_dialog>
-        <actor_dialog>jup_b16_nuclear_physicist_oasis_legend</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_soldier_outfit</actor_dialog>
-        <actor_dialog>jup_b6_scientist_physicist_b1_variable_psi_emission_dialog</actor_dialog>
-        <actor_dialog>jup_b6_scientist_physicist_b1_variable_psi_emission_dialog_complete</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_scan_anomaly</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_scan_anomaly_complete</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_b32_scanner_placed</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_b32_artefact_spawn</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_results</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_bubble</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_jupiter_products</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_jupiter_docs</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_guards</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_found_guards</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_gauss_rifle_docs</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_jupiter_products_info</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_about_halfartefact_zat_b14</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_about_mercs</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_about_scientists</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_employ_stalkers</actor_dialog>
-        <actor_dialog>jup_b6_scientist_nuclear_physicist_employ_stalkers_done</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b6_scientist_nuclear_physicist_start</StartDialog>
+        <ActorDialog>jup_b16_nuclear_physicist_oasis_legend</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_soldier_outfit</ActorDialog>
+        <ActorDialog>jup_b6_scientist_physicist_b1_variable_psi_emission_dialog</ActorDialog>
+        <ActorDialog>jup_b6_scientist_physicist_b1_variable_psi_emission_dialog_complete</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_scan_anomaly</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_scan_anomaly_complete</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_b32_scanner_placed</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_b32_artefact_spawn</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_results</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_bubble</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_jupiter_products</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_jupiter_docs</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_guards</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_found_guards</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_gauss_rifle_docs</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_jupiter_products_info</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_about_halfartefact_zat_b14</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_about_mercs</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_about_scientists</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_employ_stalkers</ActorDialog>
+        <ActorDialog>jup_b6_scientist_nuclear_physicist_employ_stalkers_done</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1163,7 +1162,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1185,8 +1184,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1199,8 +1198,8 @@ export function create(): JSXNode {
         visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         rank={20}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1223,31 +1222,31 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b217_stalker_tech_start</start_dialog>
-        <actor_dialog>jup_b217_stalker_tech_blackbox</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_main_info</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_minor_info</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_ufo_memory_repair</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_ufo_memory_repaired</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_b202_about_stole</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_duty_founder_pda</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_b4_monolith_squad_dialog</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_jup_b207_pda_sell</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_b33_open_package_dialog</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_about_sci_guards</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_about_sci_helpers</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_materials_about</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_materials_volunteer</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_materials_where_from</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_materials_what_for</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_materials_transfer_some</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_materials_transfer_all</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_instruments</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_instruments_work</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_about_underpass</actor_dialog>
-        <actor_dialog>jup_b217_stalker_tech_drunk</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b217_stalker_tech_start</StartDialog>
+        <ActorDialog>jup_b217_stalker_tech_blackbox</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_main_info</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_minor_info</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_ufo_memory_repair</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_ufo_memory_repaired</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_b202_about_stole</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_duty_founder_pda</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_b4_monolith_squad_dialog</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_jup_b207_pda_sell</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_b33_open_package_dialog</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_about_sci_guards</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_about_sci_helpers</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_materials_about</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_materials_volunteer</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_materials_where_from</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_materials_what_for</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_materials_transfer_some</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_materials_transfer_all</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_instruments</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_instruments_work</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_about_underpass</ActorDialog>
+        <ActorDialog>jup_b217_stalker_tech_drunk</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1269,22 +1268,22 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b220_trapper_start</start_dialog>
-        <actor_dialog>jup_b220_trapper_about_himself</actor_dialog>
-        <actor_dialog>jup_b220_trapper_about_retire</actor_dialog>
-        <actor_dialog>jup_b220_trapper_about_chimera</actor_dialog>
-        <actor_dialog>jup_b220_trapper_zaton_chimera_hunted</actor_dialog>
-        <actor_dialog>jup_b220_trapper_bloodsucker_lair_hunted</actor_dialog>
-        <actor_dialog>jup_b220_trapper_jupiter_chimera_hunt</actor_dialog>
-        <actor_dialog>jup_b220_trapper_burers_hunt</actor_dialog>
-        <actor_dialog>jup_b220_trapper_swamp_bloodsuckers_hunt</actor_dialog>
-        <actor_dialog>jup_b220_trapper_burers_hunted</actor_dialog>
-        <actor_dialog>jup_b220_trapper_swamp_bloodsuckers_hunted</actor_dialog>
-        <actor_dialog>jup_b220_trapper_jupiter_chimera_hunted</actor_dialog>
-        <actor_dialog>jup_b220_trapper_about_stolen_items</actor_dialog>
-        <actor_dialog>jup_b220_trapper_about_mutants</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b220_trapper_start</StartDialog>
+        <ActorDialog>jup_b220_trapper_about_himself</ActorDialog>
+        <ActorDialog>jup_b220_trapper_about_retire</ActorDialog>
+        <ActorDialog>jup_b220_trapper_about_chimera</ActorDialog>
+        <ActorDialog>jup_b220_trapper_zaton_chimera_hunted</ActorDialog>
+        <ActorDialog>jup_b220_trapper_bloodsucker_lair_hunted</ActorDialog>
+        <ActorDialog>jup_b220_trapper_jupiter_chimera_hunt</ActorDialog>
+        <ActorDialog>jup_b220_trapper_burers_hunt</ActorDialog>
+        <ActorDialog>jup_b220_trapper_swamp_bloodsuckers_hunt</ActorDialog>
+        <ActorDialog>jup_b220_trapper_burers_hunted</ActorDialog>
+        <ActorDialog>jup_b220_trapper_swamp_bloodsuckers_hunted</ActorDialog>
+        <ActorDialog>jup_b220_trapper_jupiter_chimera_hunted</ActorDialog>
+        <ActorDialog>jup_b220_trapper_about_stolen_items</ActorDialog>
+        <ActorDialog>jup_b220_trapper_about_mutants</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1299,23 +1298,23 @@ export function create(): JSXNode {
         moneyMin={10_000}
         moneyMax={10_000}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b6_scientist_medic_start</start_dialog>
-        <actor_dialog>jup_b6_scientist_medic_soldier_outfit</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_b1_psi_emission_dialog</actor_dialog>
-        <actor_dialog>jup_b6_scientist_medic_b32_give_scanner</actor_dialog>
-        <actor_dialog>jup_b6_scientist_medic_aproach</actor_dialog>
-        <actor_dialog>jup_b6_scientist_medic_ufo_memory_repair</actor_dialog>
-        <actor_dialog>jup_b6_scientist_medic_ufo_memory_repaired</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_zat_b30_actor_bring_detectors</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_zat_b30_actor_about_owl</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_b33_about_snags_container</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_blackbox</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_csky_outfit</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_about_new_upgrade</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_about_mercs</actor_dialog>
-        <actor_dialog>jup_b6_scientist_tech_about_scientists</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b6_scientist_medic_start</StartDialog>
+        <ActorDialog>jup_b6_scientist_medic_soldier_outfit</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_b1_psi_emission_dialog</ActorDialog>
+        <ActorDialog>jup_b6_scientist_medic_b32_give_scanner</ActorDialog>
+        <ActorDialog>jup_b6_scientist_medic_aproach</ActorDialog>
+        <ActorDialog>jup_b6_scientist_medic_ufo_memory_repair</ActorDialog>
+        <ActorDialog>jup_b6_scientist_medic_ufo_memory_repaired</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_zat_b30_actor_bring_detectors</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_zat_b30_actor_about_owl</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_b33_about_snags_container</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_blackbox</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_csky_outfit</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_about_new_upgrade</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_about_mercs</ActorDialog>
+        <ActorDialog>jup_b6_scientist_tech_about_scientists</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1339,19 +1338,19 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b1_stalkers_about_tunnel_dialog</start_dialog>
-        <actor_dialog>jup_b1_stalker_lead_info</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_after_end_1</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_go_to</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_start_miss</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_after_end_go_home</actor_dialog>
-        <actor_dialog>jup_b47_ask_topol_about_guard</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>jup_b1_stalker_1_come_with_me</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b1_stalkers_about_tunnel_dialog</StartDialog>
+        <ActorDialog>jup_b1_stalker_lead_info</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_after_end_1</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_go_to</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_start_miss</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_after_end_go_home</ActorDialog>
+        <ActorDialog>jup_b47_ask_topol_about_guard</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>jup_b1_stalker_1_come_with_me</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1374,15 +1373,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_2</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_after_end_2</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_after_end_go_home</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_2</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_after_end_2</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_after_end_go_home</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1405,15 +1404,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_3</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_after_end_3</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_after_end_go_home</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_3</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_after_end_3</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_after_end_go_home</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1436,15 +1435,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_4</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_after_end_4</actor_dialog>
-        <actor_dialog>jup_b1_stalkers_about_tunnel_dialog_after_end_go_home</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_ab_tu_4</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_after_end_4</ActorDialog>
+        <ActorDialog>jup_b1_stalkers_about_tunnel_dialog_after_end_go_home</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1468,13 +1467,13 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b1_stalkers_about_tunnel_dialog</start_dialog>
-        <actor_dialog>jup_b1_stalker_squad_thanks</actor_dialog>
-        <actor_dialog>jup_b1_stalker_lead_info</actor_dialog>
-        <actor_dialog>jup_b47_ask_topol_about_guard</actor_dialog>
-        <actor_dialog>jup_b1_stalker_1_come_with_me</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b1_stalkers_about_tunnel_dialog</StartDialog>
+        <ActorDialog>jup_b1_stalker_squad_thanks</ActorDialog>
+        <ActorDialog>jup_b1_stalker_lead_info</ActorDialog>
+        <ActorDialog>jup_b47_ask_topol_about_guard</ActorDialog>
+        <ActorDialog>jup_b1_stalker_1_come_with_me</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1496,8 +1495,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1519,8 +1518,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1542,8 +1541,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1569,13 +1568,13 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>jup_a12_stalker_assaulter_after_scene_actor_dialog</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>jup_a12_stalker_assaulter_after_scene_ActorDialog</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1601,13 +1600,13 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>jup_a12_stalker_diplomat_after_scene_actor_dialog</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>jup_a12_stalker_diplomat_after_scene_ActorDialog</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1633,13 +1632,13 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_a12_stalker_prisoner_employ_stalkers</actor_dialog>
-        <actor_dialog>jup_a12_stalker_prisoner_come_with_me</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_a12_stalker_prisoner_employ_stalkers</ActorDialog>
+        <ActorDialog>jup_a12_stalker_prisoner_come_with_me</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1664,24 +1663,24 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>zat_b106_stalker_gonta_start</start_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>zat_b106_hunt_himera</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_info_about_soroka</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_info_about_soroka_gone</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_about_soroka_dialog</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_about_soroka_actor_task</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_trapper_send</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_about_himself</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_b22_about_stalker_vampire</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_employ_stalkers</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_come_with_me</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_b52_about_nimble</actor_dialog>
-        <actor_dialog>zat_b106_stalker_gonta_about_mutants</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>zat_b106_stalker_gonta_start</StartDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>zat_b106_hunt_himera</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_info_about_soroka</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_info_about_soroka_gone</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_about_soroka_dialog</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_about_soroka_actor_task</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_trapper_send</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_about_himself</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_b22_about_stalker_vampire</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_employ_stalkers</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_come_with_me</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_b52_about_nimble</ActorDialog>
+        <ActorDialog>zat_b106_stalker_gonta_about_mutants</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1706,11 +1705,11 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1734,12 +1733,12 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1766,11 +1765,11 @@ export function create(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1796,12 +1795,12 @@ export function create(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1827,12 +1826,12 @@ export function create(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1857,18 +1856,18 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"jup_b6_duty_stalker_1"}
         class={"jup_b6_duty_stalker_1"}
-        name={GENERATE_ARMY_CAPTAIN_NAME}
+        name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
@@ -1889,17 +1888,17 @@ export function create(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"jup_b6_duty_stalker_2"}
         class={"jup_b6_duty_stalker_2"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_1"}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
@@ -1918,18 +1917,18 @@ export function create(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"jup_b6_duty_stalker_3"}
         class={"jup_b6_duty_stalker_3"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
@@ -1949,18 +1948,18 @@ export function create(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"jup_b6_duty_stalker_4"}
         class={"jup_b6_duty_stalker_4"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_1"}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
@@ -1979,12 +1978,12 @@ export function create(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>jup_b1_stalker_about_scrutiny</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_2</actor_dialog>
-        <actor_dialog>jup_b1_stalker_about_scrutiny_3</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
+        <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2006,8 +2005,8 @@ export function create(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2029,15 +2028,15 @@ export function create(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b25_flint_start</start_dialog>
-        <actor_dialog>jup_b25_flint_argue_oasis</actor_dialog>
-        <actor_dialog>jup_b25_flint_argue_bloodsucker</actor_dialog>
-        <actor_dialog>jup_b25_flint_argue_scientist</actor_dialog>
-        <actor_dialog>jup_b25_flint_argue_guide</actor_dialog>
-        <actor_dialog>jup_b25_flint_accuse</actor_dialog>
-        <actor_dialog>jup_b25_flint_about_controller</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b25_flint_start</StartDialog>
+        <ActorDialog>jup_b25_flint_argue_oasis</ActorDialog>
+        <ActorDialog>jup_b25_flint_argue_bloodsucker</ActorDialog>
+        <ActorDialog>jup_b25_flint_argue_scientist</ActorDialog>
+        <ActorDialog>jup_b25_flint_argue_guide</ActorDialog>
+        <ActorDialog>jup_b25_flint_accuse</ActorDialog>
+        <ActorDialog>jup_b25_flint_about_controller</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2061,17 +2060,17 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a6_stalker_medik_start_dialog</start_dialog>
-        <actor_dialog>jup_a6_stalker_medik_pripyat_group</actor_dialog>
-        <actor_dialog>jup_a6_stalker_medik_tech_b202_about_stole</actor_dialog>
-        <actor_dialog>jup_a6_stalker_medik_duty_founder_pda</actor_dialog>
-        <actor_dialog>jup_a6_stalker_medik_b4_monolith_squad_dialog</actor_dialog>
-        <actor_dialog>jup_a6_stalker_medik_jup_b217_pda_sell</actor_dialog>
-        <actor_dialog>jup_a6_stalker_medik_about_sci_guards</actor_dialog>
-        <actor_dialog>jup_a6_stalker_medik_about_sci_helpers</actor_dialog>
-        <actor_dialog>jup_a6_stalker_medik_need_health_care</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a6_stalker_medik_StartDialog</StartDialog>
+        <ActorDialog>jup_a6_stalker_medik_pripyat_group</ActorDialog>
+        <ActorDialog>jup_a6_stalker_medik_tech_b202_about_stole</ActorDialog>
+        <ActorDialog>jup_a6_stalker_medik_duty_founder_pda</ActorDialog>
+        <ActorDialog>jup_a6_stalker_medik_b4_monolith_squad_dialog</ActorDialog>
+        <ActorDialog>jup_a6_stalker_medik_jup_b217_pda_sell</ActorDialog>
+        <ActorDialog>jup_a6_stalker_medik_about_sci_guards</ActorDialog>
+        <ActorDialog>jup_a6_stalker_medik_about_sci_helpers</ActorDialog>
+        <ActorDialog>jup_a6_stalker_medik_need_health_care</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2096,16 +2095,16 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b15_zulus_about_dialog</start_dialog>
-        <actor_dialog>jup_b15_zulus_go_to_pripyat</actor_dialog>
-        <actor_dialog>jup_b15_zulus_group_fighters</actor_dialog>
-        <actor_dialog>jup_b15_zulus_tech_b202_about_stole</actor_dialog>
-        <actor_dialog>jup_b15_zulus_tech_b202_about_testimony</actor_dialog>
-        <actor_dialog>jup_b15_zulus_group_stalker_about</actor_dialog>
-        <actor_dialog>jup_b15_zulus_group_soldier_about</actor_dialog>
-        <actor_dialog>jup_b15_zulus_group_monolith_about</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b15_zulus_about_dialog</StartDialog>
+        <ActorDialog>jup_b15_zulus_go_to_pripyat</ActorDialog>
+        <ActorDialog>jup_b15_zulus_group_fighters</ActorDialog>
+        <ActorDialog>jup_b15_zulus_tech_b202_about_stole</ActorDialog>
+        <ActorDialog>jup_b15_zulus_tech_b202_about_testimony</ActorDialog>
+        <ActorDialog>jup_b15_zulus_group_stalker_about</ActorDialog>
+        <ActorDialog>jup_b15_zulus_group_soldier_about</ActorDialog>
+        <ActorDialog>jup_b15_zulus_group_monolith_about</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2126,9 +2125,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b202_snag_b202_about_stole</start_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b202_snag_b202_about_stole</StartDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2152,19 +2151,19 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a6_stalker_barmen_start_dialog</start_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_pripyat_group</actor_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_b4_monolith_squad_dialog</actor_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_b202_about_stole</actor_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_duty_founder_pda</actor_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_jup_b217_pda_sell</actor_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_about_sci_guards</actor_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_about_sci_helpers</actor_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_about_halfartefact_jup_b1</actor_dialog>
-        <actor_dialog>jup_a6_stalker_barmen_about_halfartefact_zat_b14</actor_dialog>
-        <actor_dialog>jup_a6_barmen_oasis_art_sell</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a6_stalker_barmen_StartDialog</StartDialog>
+        <ActorDialog>jup_a6_stalker_barmen_pripyat_group</ActorDialog>
+        <ActorDialog>jup_a6_stalker_barmen_b4_monolith_squad_dialog</ActorDialog>
+        <ActorDialog>jup_a6_stalker_barmen_b202_about_stole</ActorDialog>
+        <ActorDialog>jup_a6_stalker_barmen_duty_founder_pda</ActorDialog>
+        <ActorDialog>jup_a6_stalker_barmen_jup_b217_pda_sell</ActorDialog>
+        <ActorDialog>jup_a6_stalker_barmen_about_sci_guards</ActorDialog>
+        <ActorDialog>jup_a6_stalker_barmen_about_sci_helpers</ActorDialog>
+        <ActorDialog>jup_a6_stalker_barmen_about_halfartefact_jup_b1</ActorDialog>
+        <ActorDialog>jup_a6_stalker_barmen_about_halfartefact_zat_b14</ActorDialog>
+        <ActorDialog>jup_a6_barmen_oasis_art_sell</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2188,9 +2187,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2215,18 +2214,18 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b19_freedom_yar_base_start</start_dialog>
-        <actor_dialog>jup_b19_freedom_yar_base_why_me</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_base_where_to</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_base_agreed</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_done_why_mercs</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_done_why_me</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_done_bye</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_come_with_me</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_pripyat_about</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_pripyat_healing</actor_dialog>
-        <actor_dialog>jup_b19_freedom_yar_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b19_freedom_yar_base_start</StartDialog>
+        <ActorDialog>jup_b19_freedom_yar_base_why_me</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_base_where_to</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_base_agreed</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_done_why_mercs</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_done_why_me</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_done_bye</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_come_with_me</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_pripyat_about</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_pripyat_healing</ActorDialog>
+        <ActorDialog>jup_b19_freedom_yar_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2250,8 +2249,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2275,8 +2274,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2300,8 +2299,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2325,8 +2324,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2348,8 +2347,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2370,21 +2369,21 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_b43_stalker_assistant_bunker_start</start_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_guide_leave_zone</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_guide_to_pripyat</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_guide_to_zaton</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_guide_to_jupiter</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_bunker_boredom</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_bunker_contract</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_bunker_pripyat</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_bunker_way</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_bunker_volunteer</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_bunker_artefacts</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_b35_about_merc_actor</actor_dialog>
-        <actor_dialog>jup_b43_stalker_assistant_b301_about_zulus</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_b43_stalker_assistant_bunker_start</StartDialog>
+        <ActorDialog>jup_b43_stalker_assistant_guide_leave_zone</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_guide_to_pripyat</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_guide_to_zaton</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_guide_to_jupiter</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_bunker_boredom</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_bunker_contract</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_bunker_pripyat</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_bunker_way</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_bunker_volunteer</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_bunker_artefacts</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_b35_about_merc_actor</ActorDialog>
+        <ActorDialog>jup_b43_stalker_assistant_b301_about_zulus</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2400,7 +2399,7 @@ export function create(): JSXNode {
         moneyMax={3500}
         supplies={[{ section: questItems.jup_b46_duty_founder_pda }]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2415,7 +2414,7 @@ export function create(): JSXNode {
         moneyMin={100}
         moneyMax={3000}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2430,7 +2429,7 @@ export function create(): JSXNode {
         moneyMin={100}
         moneyMax={3000}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2445,7 +2444,7 @@ export function create(): JSXNode {
         moneyMin={100}
         moneyMax={3000}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2460,7 +2459,7 @@ export function create(): JSXNode {
         moneyMin={100}
         moneyMax={3000}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2484,20 +2483,20 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a6_freedom_leader_start_dialog</start_dialog>
-        <actor_dialog>jup_a6_freedom_leader_duty_founder_pda</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_duty_sell_founder_pda</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_pripyat_group</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_b4_monolith_squad_dialog</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_b4_monolith_squad_dialog_redy_to_go</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_b207_hiding_place</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_employ_stalkers</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_b106_info_about_soroka</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_about_stolen_items</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_a9_sell_info</actor_dialog>
-        <actor_dialog>jup_a6_freedom_leader_about_you</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a6_freedom_leader_StartDialog</StartDialog>
+        <ActorDialog>jup_a6_freedom_leader_duty_founder_pda</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_duty_sell_founder_pda</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_pripyat_group</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_b4_monolith_squad_dialog</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_b4_monolith_squad_dialog_redy_to_go</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_b207_hiding_place</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_employ_stalkers</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_b106_info_about_soroka</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_about_stolen_items</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_a9_sell_info</ActorDialog>
+        <ActorDialog>jup_a6_freedom_leader_about_you</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2521,20 +2520,20 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a6_duty_leader_start_dialog</start_dialog>
-        <actor_dialog>jup_a6_duty_leader_duty_founder_pda</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_duty_founder_sell_pda</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_pripyat_group</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_b4_monolith_squad_dialog</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_b4_monolith_squad_dialog_redy_to_go</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_b207_hiding_place</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_employ_stalkers</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_b106_info_about_soroka</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_about_stolen_items</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_a9_sell_info</actor_dialog>
-        <actor_dialog>jup_a6_duty_leader_about_you</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a6_duty_leader_StartDialog</StartDialog>
+        <ActorDialog>jup_a6_duty_leader_duty_founder_pda</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_duty_founder_sell_pda</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_pripyat_group</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_b4_monolith_squad_dialog</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_b4_monolith_squad_dialog_redy_to_go</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_b207_hiding_place</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_employ_stalkers</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_b106_info_about_soroka</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_about_stolen_items</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_a9_sell_info</ActorDialog>
+        <ActorDialog>jup_a6_duty_leader_about_you</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2558,11 +2557,11 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>jup_a10_vano_help_dialog</start_dialog>
-        <actor_dialog>jup_a10_stalker_vano_pripyat_ready</actor_dialog>
-        <actor_dialog>jup_a10_stalker_vano_pripyat_how_are_you</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>jup_a10_vano_help_dialog</StartDialog>
+        <ActorDialog>jup_a10_stalker_vano_pripyat_ready</ActorDialog>
+        <ActorDialog>jup_a10_stalker_vano_pripyat_how_are_you</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2584,9 +2583,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <start_dialog>jup_b47_merc_guards_start</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <StartDialog>jup_b47_merc_guards_start</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2608,9 +2607,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <start_dialog>jup_b47_merc_guards_start</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <StartDialog>jup_b47_merc_guards_start</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2632,9 +2631,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <start_dialog>jup_b47_merc_guards_start</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <StartDialog>jup_b47_merc_guards_start</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2656,9 +2655,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <start_dialog>jup_b47_merc_guards_start</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <StartDialog>jup_b47_merc_guards_start</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2680,9 +2679,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <start_dialog>jup_b47_merc_guards_start</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <StartDialog>jup_b47_merc_guards_start</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2704,9 +2703,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <start_dialog>jup_b47_merc_guards_start</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <StartDialog>jup_b47_merc_guards_start</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2727,9 +2726,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
-        <start_dialog>jup_b47_merc_guards_start</start_dialog>
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
+        <StartDialog>jup_b47_merc_guards_start</StartDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2752,8 +2751,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2776,8 +2775,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2801,8 +2800,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2826,8 +2825,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -2852,8 +2851,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
     </xml>
   );

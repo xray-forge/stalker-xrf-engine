@@ -1,8 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterDrugs4,
@@ -17,9 +17,9 @@ import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import {
-  GENERATE_ARMY_LIEUTENANT_NAME,
-  GENERATE_ARMY_PRIVATE_NAME,
-  GENERATE_ARMY_SERGEANT_NAME,
+  GENERATE_LIEUTENANT_NAME,
+  GENERATE_PRIVATE_NAME,
+  GENERATE_SERGEANT_NAME,
   GENERATE_STALKER_NAME,
 } from "@/engine/lib/constants/names";
 
@@ -46,8 +46,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -70,8 +70,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -94,8 +94,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -119,8 +119,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -144,8 +144,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -168,8 +168,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -193,14 +193,14 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_zombied_3_default_0"}
         class={"sim_default_zombied_3"}
-        name={GENERATE_ARMY_PRIVATE_NAME}
+        name={GENERATE_PRIVATE_NAME}
         icon={"ui_inGame2_Zombied_3"}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
@@ -219,14 +219,14 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_zombied_3_default_1"}
         class={"sim_default_zombied_3"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Zombied_3"}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
@@ -245,14 +245,14 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_zombied_3_default_2"}
         class={"sim_default_zombied_3"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Zombied_3"}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
@@ -271,14 +271,14 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_zombied_3_default_3"}
         class={"sim_default_zombied_3"}
-        name={GENERATE_ARMY_PRIVATE_NAME}
+        name={GENERATE_PRIVATE_NAME}
         icon={"ui_inGame2_Zombied_3"}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
@@ -297,8 +297,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -323,8 +323,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -349,8 +349,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -375,8 +375,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -401,8 +401,8 @@ export function ZombiedLoadout(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </Fragment>
   );

@@ -1,8 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterDrugs3,
@@ -42,8 +42,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -66,8 +66,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -91,8 +91,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -116,8 +116,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -140,8 +140,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -165,8 +165,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -190,8 +190,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -216,8 +216,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -242,8 +242,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -268,8 +268,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -294,8 +294,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -320,8 +320,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -346,8 +346,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -372,8 +372,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -398,8 +398,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -425,8 +425,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -452,8 +452,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -479,8 +479,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -504,8 +504,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -530,8 +530,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -556,8 +556,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -583,8 +583,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -611,8 +611,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -639,8 +639,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -667,8 +667,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -694,8 +694,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -721,8 +721,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -748,8 +748,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -775,8 +775,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -803,8 +803,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -831,8 +831,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -859,8 +859,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -887,8 +887,8 @@ export function FreedomLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </Fragment>
   );

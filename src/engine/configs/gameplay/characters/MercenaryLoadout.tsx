@@ -1,8 +1,10 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
+  loadoutAk74,
+  loadoutBeretta,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterDrugs3,
@@ -11,6 +13,9 @@ import {
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
   loadoutCharacterItemsWithoutDetector,
+  loadoutHpsa,
+  loadoutMp5,
+  loadoutRgd5Grenades,
 } from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
@@ -33,16 +38,15 @@ export function MercenaryLoadout(): JSXNode {
         visual={"actors\\stalker_merc\\stalker_merc_2"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_hpsa },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutMp5(),
+          ...loadoutHpsa(),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -57,17 +61,15 @@ export function MercenaryLoadout(): JSXNode {
         visual={"actors\\stalker_merc\\stalker_merc_2"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_hpsa },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -82,17 +84,16 @@ export function MercenaryLoadout(): JSXNode {
         visual={"actors\\stalker_merc\\stalker_merc_2"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutMp5(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -107,18 +108,16 @@ export function MercenaryLoadout(): JSXNode {
         visual={"actors\\stalker_merc\\stalker_merc_2"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -133,18 +132,16 @@ export function MercenaryLoadout(): JSXNode {
         visual={"actors\\stalker_merc\\stalker_merc_2"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAk74(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -169,8 +166,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -195,8 +192,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -221,8 +218,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -247,8 +244,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -273,8 +270,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -299,8 +296,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -327,8 +324,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -355,8 +352,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -383,8 +380,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -411,8 +408,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -439,8 +436,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -467,8 +464,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -495,8 +492,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -523,8 +520,8 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </Fragment>
   );

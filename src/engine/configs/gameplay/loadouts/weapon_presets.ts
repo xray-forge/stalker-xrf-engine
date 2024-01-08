@@ -109,6 +109,10 @@ export function loadoutGroza({ ap = false, silencer = false } = {}): Array<ILoad
   return [{ section: weapons.wpn_groza, silencer }, { section: ap ? ammo.ammo_9x39_ap : ammo.ammo_9x39_pab9 }];
 }
 
+export function loadoutVal({ ap = false } = {}): Array<ILoadoutItemDescriptor> {
+  return [{ section: weapons.wpn_val }, { section: ap ? ammo.ammo_9x39_ap : ammo.ammo_9x39_pab9 }];
+}
+
 export function loadoutHpsa(ap: boolean = false): Array<ILoadoutItemDescriptor> {
   return [{ section: weapons.wpn_hpsa }, { section: ap ? ammo.ammo_9x19_pbp : ammo.ammo_9x19_fmj }];
 }

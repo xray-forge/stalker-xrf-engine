@@ -1,8 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterDrugs3,
@@ -19,10 +19,10 @@ import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import {
-  GENERATE_ARMY_CAPTAIN_NAME,
-  GENERATE_ARMY_LIEUTENANT_NAME,
-  GENERATE_ARMY_PRIVATE_NAME,
-  GENERATE_ARMY_SERGEANT_NAME,
+  GENERATE_CAPTAIN_NAME,
+  GENERATE_LIEUTENANT_NAME,
+  GENERATE_PRIVATE_NAME,
+  GENERATE_SERGEANT_NAME,
   GENERATE_STALKER_NAME,
 } from "@/engine/lib/constants/names";
 
@@ -48,14 +48,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_0_default_0"}
         class={"sim_default_duty_0"}
-        name={GENERATE_ARMY_PRIVATE_NAME}
+        name={GENERATE_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={500}
@@ -73,14 +73,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_0_default_1"}
         class={"sim_default_duty_0"}
-        name={GENERATE_ARMY_PRIVATE_NAME}
+        name={GENERATE_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={500}
@@ -98,14 +98,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_0_default_2"}
         class={"sim_default_duty_0"}
-        name={GENERATE_ARMY_PRIVATE_NAME}
+        name={GENERATE_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={500}
@@ -123,14 +123,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_0_default_3"}
         class={"sim_default_duty_0"}
-        name={GENERATE_ARMY_PRIVATE_NAME}
+        name={GENERATE_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={500}
@@ -148,14 +148,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_1_default_0"}
         class={"sim_default_duty_1"}
-        name={GENERATE_ARMY_PRIVATE_NAME}
+        name={GENERATE_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1000}
@@ -174,14 +174,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_1_default_1"}
         class={"sim_default_duty_1"}
-        name={GENERATE_ARMY_PRIVATE_NAME}
+        name={GENERATE_PRIVATE_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1000}
@@ -200,14 +200,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_1_default_2"}
         class={"sim_default_duty_1"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1000}
@@ -226,14 +226,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_1_default_3"}
         class={"sim_default_duty_1"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1000}
@@ -252,14 +252,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_0"}
         class={"sim_default_duty_2"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1500}
@@ -279,14 +279,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_1"}
         class={"sim_default_duty_2"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1500}
@@ -306,14 +306,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_2"}
         class={"sim_default_duty_2"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1500}
@@ -333,14 +333,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_3"}
         class={"sim_default_duty_2"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1500}
@@ -360,14 +360,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_4"}
         class={"sim_default_duty_2"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1500}
@@ -386,14 +386,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_5"}
         class={"sim_default_duty_2"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_2"}
         community={communities.dolg}
         moneyMin={1500}
@@ -413,14 +413,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_6"}
         class={"sim_default_duty_2"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_1"}
         community={communities.dolg}
         moneyMin={1500}
@@ -440,14 +440,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_2_default_7"}
         class={"sim_default_duty_2"}
-        name={GENERATE_ARMY_SERGEANT_NAME}
+        name={GENERATE_SERGEANT_NAME}
         icon={"ui_inGame2_Dolg_1"}
         community={communities.dolg}
         moneyMin={1500}
@@ -467,14 +467,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_0"}
         class={"sim_default_duty_3"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
         moneyMin={2500}
@@ -495,14 +495,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_1"}
         class={"sim_default_duty_3"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
         moneyMin={2500}
@@ -523,14 +523,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_2"}
         class={"sim_default_duty_3"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
         moneyMin={2500}
@@ -551,14 +551,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_3"}
         class={"sim_default_duty_3"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
         moneyMin={2500}
@@ -579,14 +579,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_3_default_4"}
         class={"sim_default_duty_3"}
-        name={GENERATE_ARMY_LIEUTENANT_NAME}
+        name={GENERATE_LIEUTENANT_NAME}
         icon={"ui_inGame2_Dolg_3"}
         community={communities.dolg}
         moneyMin={2500}
@@ -607,14 +607,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_0"}
         class={"sim_default_duty_4"}
-        name={GENERATE_ARMY_CAPTAIN_NAME}
+        name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
         moneyMin={5000}
@@ -635,14 +635,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_1"}
         class={"sim_default_duty_4"}
-        name={GENERATE_ARMY_CAPTAIN_NAME}
+        name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
         moneyMin={5000}
@@ -663,14 +663,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_2"}
         class={"sim_default_duty_4"}
-        name={GENERATE_ARMY_CAPTAIN_NAME}
+        name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
         moneyMin={5000}
@@ -691,14 +691,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_3"}
         class={"sim_default_duty_4"}
-        name={GENERATE_ARMY_CAPTAIN_NAME}
+        name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
         moneyMin={5000}
@@ -719,14 +719,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_4"}
         class={"sim_default_duty_4"}
-        name={GENERATE_ARMY_CAPTAIN_NAME}
+        name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
         moneyMin={5000}
@@ -747,14 +747,14 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_duty_4_default_5"}
         class={"sim_default_duty_4"}
-        name={GENERATE_ARMY_CAPTAIN_NAME}
+        name={GENERATE_CAPTAIN_NAME}
         icon={"ui_inGame2_Dolg_4"}
         community={communities.dolg}
         moneyMin={5000}
@@ -775,8 +775,8 @@ export function DutyLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </Fragment>
   );

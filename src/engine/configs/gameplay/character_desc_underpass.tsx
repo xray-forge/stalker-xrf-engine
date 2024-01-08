@@ -1,8 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
   loadoutCharacterDrugs2,
   loadoutCharacterDrugs3,
   loadoutCharacterDrugs4,
@@ -44,7 +44,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -68,7 +68,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -91,7 +91,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -114,7 +114,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs4,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -139,8 +139,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -165,8 +165,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </xml>
   );

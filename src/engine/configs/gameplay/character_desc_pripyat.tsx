@@ -1,9 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
-  defaultCharacterDialogsNoGuide,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
+  DefaultCharacterDialogsNoGuide,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterDrugs3,
@@ -17,7 +17,7 @@ import {
   loadoutCharacterItemsWithoutDetector,
   loadoutCharacterSellWeapons,
 } from "@/engine/configs/gameplay/loadouts";
-import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
+import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
@@ -50,9 +50,9 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>pri_a17_military_recon_squad_ambush_actor_ready</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>pri_a17_military_recon_squad_ambush_actor_ready</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -76,8 +76,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -101,8 +101,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -126,8 +126,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -152,18 +152,18 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>pri_a17_military_base_commander_start</start_dialog>
-        <actor_dialog>pri_a17_military_base_commander_actor_dialog_1</actor_dialog>
-        <actor_dialog>pri_a17_military_base_commander_actor_questions_dialog</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_a23_about_gauss_labx8</actor_dialog>
-        <actor_dialog>pri_a16_colonel_a21_about_sentry_dialog</actor_dialog>
-        <actor_dialog>pri_a16_colonel_a21_about_sentry_pass_task_dialog</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_b35_about_merc_start</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_b35_actor_know_about_merc</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_b35_reward</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_evacuation_ready</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a17_military_base_commander_start</StartDialog>
+        <ActorDialog>pri_a17_military_base_commander_ActorDialog_1</ActorDialog>
+        <ActorDialog>pri_a17_military_base_commander_actor_questions_dialog</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_a23_about_gauss_labx8</ActorDialog>
+        <ActorDialog>pri_a16_colonel_a21_about_sentry_dialog</ActorDialog>
+        <ActorDialog>pri_a16_colonel_a21_about_sentry_pass_task_dialog</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_b35_about_merc_start</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_b35_actor_know_about_merc</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_b35_reward</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_evacuation_ready</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -187,7 +187,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -211,21 +211,21 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
-        <actor_dialog>pri_a15_sokolov_where_from</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_jupiter</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_point</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_note</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_occupation</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_pripyat_group</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_need_outfit</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_arranged_outfit</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_goto_zulus</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_acquaintance_after_jorney</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_about_journey</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_helicopter</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <ActorDialog>pri_a15_sokolov_where_from</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_jupiter</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_note</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_occupation</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_pripyat_group</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_need_outfit</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_arranged_outfit</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_goto_zulus</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_acquaintance_after_jorney</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_about_journey</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_helicopter</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -249,12 +249,12 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
-        <actor_dialog>pri_a15_sokolov_pripyat_ready</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_point</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_note</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <ActorDialog>pri_a15_sokolov_pripyat_ready</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_note</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -278,15 +278,15 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
-        <actor_dialog>pri_a15_sokolov_pripyat_ready</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_point</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_note</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_acquaintance_after_jorney</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_about_journey</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_helicopter</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <ActorDialog>pri_a15_sokolov_pripyat_ready</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_note</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_acquaintance_after_jorney</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_about_journey</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_helicopter</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -310,8 +310,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -335,8 +335,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -361,8 +361,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -386,8 +386,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -410,8 +410,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -434,8 +434,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -457,8 +457,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -481,8 +481,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -506,12 +506,12 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>pri_a25_army_medic_start_dialog</start_dialog>
-        <actor_dialog>pri_a25_army_medic_rescued</actor_dialog>
-        <actor_dialog>pri_a25_army_medic_supply_medicine</actor_dialog>
-        <actor_dialog>pri_a25_army_medic_need_health_care</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a25_army_medic_StartDialog</StartDialog>
+        <ActorDialog>pri_a25_army_medic_rescued</ActorDialog>
+        <ActorDialog>pri_a25_army_medic_supply_medicine</ActorDialog>
+        <ActorDialog>pri_a25_army_medic_need_health_care</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -531,8 +531,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -552,7 +552,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -572,7 +572,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -592,7 +592,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -613,7 +613,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -634,7 +634,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -654,7 +654,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -674,7 +674,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -694,7 +694,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -714,7 +714,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -742,14 +742,14 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>pri_a22_army_signaller_start_dialog</start_dialog>
-        <actor_dialog>pri_a22_army_signaller_about_rfi_source</actor_dialog>
-        <actor_dialog>pri_a22_army_signaller_about_signal</actor_dialog>
-        <actor_dialog>pri_a22_army_signaller_supply_outfit</actor_dialog>
-        <actor_dialog>pri_a22_army_signaller_supply_ammo</actor_dialog>
-        <actor_dialog>pri_a22_army_signaller_supply_grenade</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a22_army_signaller_StartDialog</StartDialog>
+        <ActorDialog>pri_a22_army_signaller_about_rfi_source</ActorDialog>
+        <ActorDialog>pri_a22_army_signaller_about_signal</ActorDialog>
+        <ActorDialog>pri_a22_army_signaller_supply_outfit</ActorDialog>
+        <ActorDialog>pri_a22_army_signaller_supply_ammo</ActorDialog>
+        <ActorDialog>pri_a22_army_signaller_supply_grenade</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -774,7 +774,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -798,8 +798,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -823,8 +823,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -847,8 +847,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -872,8 +872,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -897,8 +897,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsScientific,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -922,7 +922,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs2,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -947,7 +947,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -971,7 +971,7 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugs3,
         ]}
       >
-        {characterProfileCriticals}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -999,13 +999,13 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <start_dialog>pri_b305_strelok_dialog</start_dialog>
-        <actor_dialog>pri_b305_strelok_about_information</actor_dialog>
-        <actor_dialog>pri_b305_strelok_about_station</actor_dialog>
-        <actor_dialog>pri_b305_strelok_about_base</actor_dialog>
-        <actor_dialog>pri_b305_strelok_note</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_b305_strelok_dialog</StartDialog>
+        <ActorDialog>pri_b305_strelok_about_information</ActorDialog>
+        <ActorDialog>pri_b305_strelok_about_station</ActorDialog>
+        <ActorDialog>pri_b305_strelok_about_base</ActorDialog>
+        <ActorDialog>pri_b305_strelok_note</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1030,8 +1030,8 @@ export function create(): JSXNode {
           ...loadoutCharacterDrugsMilitary,
         ]}
       >
-        {characterProfileCriticals}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1061,8 +1061,8 @@ export function create(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
     </xml>
   );

@@ -1,14 +1,17 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 import {
-  characterProfileCriticals,
-  defaultCharacterDialogs,
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterFood,
   loadoutCharacterItems,
   loadoutCharacterItemsWithoutDetector,
   loadoutCharacterSellWeapons,
+  loadoutDesertEagle,
+  loadoutF1Grenades,
+  loadoutProtecta,
 } from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
@@ -39,8 +42,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -64,8 +67,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -89,8 +92,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -114,8 +117,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -140,8 +143,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -166,8 +169,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -192,8 +195,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -218,8 +221,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -244,8 +247,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -270,8 +273,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -296,8 +299,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -322,8 +325,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -347,8 +350,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -373,8 +376,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -399,8 +402,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -425,8 +428,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterFood,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -452,8 +455,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -479,8 +482,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -506,8 +509,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -533,8 +536,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -560,8 +563,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -587,8 +590,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -614,8 +617,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -641,8 +644,8 @@ export function BanditLoadout(): JSXNode {
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -657,19 +660,17 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={8000}
         supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_12x76_zhekan"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutProtecta(true),
+          ...loadoutDesertEagle(true),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterDrugs2,
           ...loadoutCharacterFood,
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -684,19 +685,17 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={8000}
         supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_12x76_zhekan"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutProtecta(true),
+          ...loadoutDesertEagle(true),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterDrugs2,
           ...loadoutCharacterFood,
           ...loadoutCharacterSellWeapons,
         ]}
       >
-        {characterProfileCriticals}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </Fragment>
   );
