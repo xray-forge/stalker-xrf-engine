@@ -13,6 +13,7 @@ import {
   loadoutCharacterItems,
   loadoutCharacterItemsMonolith,
 } from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -26,10 +27,9 @@ export function MonolithLoadout(): JSXNode {
         id={"stalker_monolith_default"}
         class={"stalker_monolith_default"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_fort },
@@ -48,11 +48,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_0_default_0"}
         class={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={30}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_ak74u },
           { section: weapons.wpn_fort },
@@ -71,11 +70,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_0_default_1"}
         class={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={30}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_pm },
@@ -94,11 +92,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_0_default_2"}
         class={"sim_default_monolith_0"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={30}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_ak74u },
           { section: weapons.wpn_fort },
@@ -117,11 +114,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_1_default_0"}
         class={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={35}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_wincheaster1300 },
           { section: weapons.wpn_fort },
@@ -140,11 +136,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_1_default_1"}
         class={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={35}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_l85 },
           { section: weapons.wpn_pm },
@@ -164,11 +159,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_1_default_2"}
         class={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={35}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_pm },
@@ -188,11 +182,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_1_default_3"}
         class={"sim_default_monolith_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={35}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_fort },
@@ -212,11 +205,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_2_default_0"}
         class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_l85 },
           { section: weapons.wpn_walther },
@@ -236,11 +228,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_2_default_1"}
         class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_1"}
+        icon={profileIcon.ui_inGame2_monolit_1}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_1"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_pm },
@@ -260,11 +251,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_2_default_2"}
         class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_1"}
+        icon={profileIcon.ui_inGame2_monolit_1}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_1"}
         supplies={[
           { section: weapons.wpn_lr300 },
           { section: weapons.wpn_fort },
@@ -284,11 +274,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_2_default_3"}
         class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_1"}
+        icon={profileIcon.ui_inGame2_monolit_1}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_1"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_beretta },
@@ -308,11 +297,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_2_default_4"}
         class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_lr300 },
           { section: weapons.wpn_hpsa },
@@ -332,11 +320,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_2_default_5"}
         class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_pm },
@@ -356,11 +343,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_2_default_6"}
         class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_l85 },
           { section: weapons.wpn_pm },
@@ -380,11 +366,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_2_default_7"}
         class={"sim_default_monolith_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_abakan },
           { section: weapons.wpn_fort },
@@ -404,11 +389,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_3_default_0"}
         class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_walther },
@@ -430,11 +414,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_3_default_1"}
         class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_val },
           { section: weapons.wpn_sig220 },
@@ -456,11 +439,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_3_default_2"}
         class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         supplies={[
           { section: weapons.wpn_val, scope: true },
           { section: weapons.wpn_sig220, silencer: true },
@@ -482,11 +464,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_3_default_3"}
         class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_1"}
+        icon={profileIcon.ui_inGame2_monolit_1}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_1"}
         supplies={[
           { section: weapons.wpn_svd },
           { section: weapons.wpn_usp, silencer: true },
@@ -507,11 +488,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_3_default_4"}
         class={"sim_default_monolith_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         rank={55}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_usp },
@@ -532,11 +512,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_4_default_0"}
         class={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_vintorez },
           { section: weapons.wpn_sig220, silencer: true },
@@ -557,11 +536,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_4_default_1"}
         class={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_4"}
+        icon={profileIcon.ui_inGame2_monolit_4}
         community={communities.monolith}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_4"}
         supplies={[
           { section: weapons.wpn_groza },
           { section: weapons.wpn_sig220 },
@@ -583,11 +561,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_4_default_2"}
         class={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_4"}
+        icon={profileIcon.ui_inGame2_monolit_4}
         community={communities.monolith}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_4"}
         supplies={[
           { section: weapons.wpn_protecta },
           { section: weapons.wpn_usp },
@@ -609,11 +586,10 @@ export function MonolithLoadout(): JSXNode {
         id={"sim_default_monolith_4_default_3"}
         class={"sim_default_monolith_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_4"}
+        icon={profileIcon.ui_inGame2_monolit_4}
         community={communities.monolith}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_4"}
         supplies={[
           { section: weapons.wpn_g36 },
           { section: weapons.wpn_usp },

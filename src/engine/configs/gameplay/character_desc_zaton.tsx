@@ -369,11 +369,9 @@ export function create(): JSXNode {
         moneyMax={8_000}
         rank={40}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs3,

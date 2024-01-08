@@ -3,16 +3,24 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
+  loadoutBeretta,
+  loadoutBm16,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterFood,
   loadoutCharacterItems,
   loadoutCharacterItemsWithoutDetector,
   loadoutCharacterSellWeapons,
+  loadoutColt1911,
   loadoutDesertEagle,
   loadoutF1Grenades,
+  loadoutPm,
   loadoutProtecta,
+  loadoutRgd5Grenades,
+  loadoutSig550,
+  loadoutSpas12,
 } from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -27,16 +35,13 @@ export function BanditLoadout(): JSXNode {
         class={"Stalker_bandit"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={0}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutSig550(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems,
           ...loadoutCharacterDrugs,
           ...loadoutCharacterFood,
@@ -51,17 +56,14 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_bm16 },
-          { section: weapons.wpn_pm },
-          { section: ammo["ammo_12x70_buck"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutBm16(),
+          ...loadoutPm(),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterDrugs,
           ...loadoutCharacterFood,
@@ -76,9 +78,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
         moneyMin={250}
         moneyMax={1750}
@@ -101,9 +102,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
         moneyMin={250}
         moneyMax={1750}
@@ -126,9 +126,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -152,9 +151,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -178,9 +176,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -204,9 +201,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -230,9 +226,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_4"}
+        icon={profileIcon.ui_inGame2_bandit_4}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -256,9 +251,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -282,9 +276,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={35}
         moneyMin={250}
         moneyMax={1750}
@@ -308,9 +301,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -334,9 +326,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -359,9 +350,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -385,9 +375,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -411,9 +400,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_4"}
+        icon={profileIcon.ui_inGame2_bandit_4}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -437,18 +425,15 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutSpas12(true),
+          ...loadoutColt1911(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterDrugs2,
           ...loadoutCharacterFood,
@@ -464,9 +449,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
@@ -491,9 +475,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_4"}
+        icon={profileIcon.ui_inGame2_bandit_4}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
@@ -518,9 +501,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
@@ -545,9 +527,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
@@ -572,9 +553,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_4"}
+        icon={profileIcon.ui_inGame2_bandit_4}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={55}
         moneyMin={3000}
         moneyMax={4000}
@@ -599,9 +579,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={55}
         moneyMin={3000}
         moneyMax={8000}
@@ -626,18 +605,15 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={55}
         moneyMin={3000}
         moneyMax={8000}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutDesertEagle(),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector,
           ...loadoutCharacterDrugs2,
           ...loadoutCharacterFood,
@@ -653,9 +629,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={55}
         moneyMin={3000}
         moneyMax={8000}
@@ -678,9 +653,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={55}
         moneyMin={3000}
         moneyMax={8000}

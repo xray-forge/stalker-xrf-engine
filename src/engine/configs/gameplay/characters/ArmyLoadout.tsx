@@ -17,6 +17,7 @@ import {
   loadoutSvd,
   loadoutVal,
 } from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import {
@@ -34,9 +35,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_0"}
         name={GENERATE_PRIVATE_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={30}
         supplies={[
           ...loadoutAk74u(),
@@ -55,9 +55,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_1"}
         name={GENERATE_PRIVATE_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={35}
         supplies={[
           ...loadoutRgd5Grenades(),
@@ -77,9 +76,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_2"}
         name={GENERATE_SERGEANT_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={45}
         supplies={[
           ...loadoutRgd5Grenades(2),
@@ -99,9 +97,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_2"}
         name={GENERATE_SERGEANT_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={45}
         supplies={[
           ...loadoutAbakan(),
@@ -121,9 +118,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_3"}
         name={GENERATE_LIEUTENANT_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_3"}
         rank={55}
         supplies={[
           ...loadoutFort(),
@@ -142,9 +138,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_4"}
         name={GENERATE_CAPTAIN_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         rank={60}
         supplies={[
           ...loadoutGroza({ ap: true }),
@@ -164,9 +159,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_4"}
         name={GENERATE_CAPTAIN_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         rank={60}
         supplies={[
           ...loadoutVal({ ap: true }),
@@ -186,9 +180,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_4"}
         name={GENERATE_CAPTAIN_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         rank={60}
         supplies={[
           ...loadoutAbakan({ scope: true, ap: true }),
@@ -208,9 +201,8 @@ export function ArmyLoadout(): JSXNode {
         class={"sim_default_military_3_sniper"}
         name={GENERATE_CAPTAIN_NAME}
         community={communities.army}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         rank={60}
         supplies={[
           ...loadoutSvd(),

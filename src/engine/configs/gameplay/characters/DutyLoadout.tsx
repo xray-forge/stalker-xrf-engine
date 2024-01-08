@@ -3,6 +3,9 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
+  loadoutAbakan,
+  loadoutAk74,
+  loadoutAk74u,
   loadoutCharacterDrugs,
   loadoutCharacterDrugs2,
   loadoutCharacterDrugs3,
@@ -13,7 +16,12 @@ import {
   loadoutCharacterItems2,
   loadoutCharacterItems3,
   loadoutCharacterSellWeapons,
+  loadoutFort,
+  loadoutPm,
+  loadoutRgd5Grenades,
+  loadoutWalther,
 } from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -33,10 +41,9 @@ export function DutyLoadout(): JSXNode {
         id={"stalker_dolg_default"}
         class={"Stalker_dolg"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_beretta },
@@ -56,13 +63,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_0_default_0"}
         class={"sim_default_duty_0"}
         name={GENERATE_PRIVATE_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={500}
         moneyMax={1500}
         rank={30}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_ak74u },
           { section: weapons.wpn_fort },
@@ -81,18 +87,15 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_0_default_1"}
         class={"sim_default_duty_0"}
         name={GENERATE_PRIVATE_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={500}
         moneyMax={1500}
         rank={30}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_pm },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutPm(),
           ...loadoutCharacterItems,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs,
@@ -106,18 +109,15 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_0_default_2"}
         class={"sim_default_duty_0"}
         name={GENERATE_PRIVATE_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={500}
         moneyMax={1500}
         rank={30}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutFort(),
           ...loadoutCharacterItems,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs,
@@ -131,18 +131,15 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_0_default_3"}
         class={"sim_default_duty_0"}
         name={GENERATE_PRIVATE_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={500}
         moneyMax={1500}
         rank={30}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_pm },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutPm(),
           ...loadoutCharacterItems,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs,
@@ -156,19 +153,16 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_1_default_0"}
         class={"sim_default_duty_1"}
         name={GENERATE_PRIVATE_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1000}
         moneyMax={3000}
         rank={35}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs2,
@@ -182,13 +176,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_1_default_1"}
         class={"sim_default_duty_1"}
         name={GENERATE_PRIVATE_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1000}
         moneyMax={3000}
         rank={35}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_pm },
@@ -208,13 +201,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_1_default_2"}
         class={"sim_default_duty_1"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1000}
         moneyMax={3000}
         rank={35}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_pm },
@@ -234,13 +226,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_1_default_3"}
         class={"sim_default_duty_1"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1000}
         moneyMax={3000}
         rank={35}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_fort },
@@ -260,13 +251,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_2_default_0"}
         class={"sim_default_duty_2"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_pm },
@@ -287,13 +277,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_2_default_1"}
         class={"sim_default_duty_2"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_abakan },
           { section: weapons.wpn_fort },
@@ -314,13 +303,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_2_default_2"}
         class={"sim_default_duty_2"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_spas12 },
           { section: weapons.wpn_fort },
@@ -341,13 +329,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_2_default_3"}
         class={"sim_default_duty_2"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_spas12 },
           { section: weapons.wpn_walther },
@@ -368,13 +355,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_2_default_4"}
         class={"sim_default_duty_2"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
           { section: weapons.wpn_abakan },
           { section: weapons.wpn_pm },
@@ -394,19 +380,16 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_2_default_5"}
         class={"sim_default_duty_2"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_2"}
+        icon={profileIcon.ui_inGame2_Dolg_2}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_2"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs2,
@@ -421,19 +404,16 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_2_default_6"}
         class={"sim_default_duty_2"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_1"}
+        icon={profileIcon.ui_inGame2_Dolg_1}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_1"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_walther },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAk74(),
+          ...loadoutWalther(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs2,
@@ -448,19 +428,16 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_2_default_7"}
         class={"sim_default_duty_2"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Dolg_1"}
+        icon={profileIcon.ui_inGame2_Dolg_1}
         community={communities.dolg}
         moneyMin={1500}
         moneyMax={3500}
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_1"}
         supplies={[
-          { section: weapons.wpn_abakan },
-          { section: weapons.wpn_walther },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAbakan(),
+          ...loadoutWalther(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2,
           ...loadoutCharacterFood,
           ...loadoutCharacterDrugs2,
@@ -475,13 +452,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_3_default_0"}
         class={"sim_default_duty_3"}
         name={GENERATE_LIEUTENANT_NAME}
-        icon={"ui_inGame2_Dolg_3"}
+        icon={profileIcon.ui_inGame2_Dolg_3}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
         rank={55}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_3"}
         supplies={[
           { section: weapons.wpn_abakan, scope: true },
           { section: weapons.wpn_walther },
@@ -503,13 +479,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_3_default_1"}
         class={"sim_default_duty_3"}
         name={GENERATE_LIEUTENANT_NAME}
-        icon={"ui_inGame2_Dolg_3"}
+        icon={profileIcon.ui_inGame2_Dolg_3}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
         rank={55}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_3"}
         supplies={[
           { section: weapons.wpn_abakan },
           { section: weapons.wpn_sig220 },
@@ -531,13 +506,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_3_default_2"}
         class={"sim_default_duty_3"}
         name={GENERATE_LIEUTENANT_NAME}
-        icon={"ui_inGame2_Dolg_3"}
+        icon={profileIcon.ui_inGame2_Dolg_3}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
         rank={55}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_3"}
         supplies={[
           { section: weapons.wpn_val },
           { section: weapons.wpn_walther },
@@ -559,13 +533,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_3_default_3"}
         class={"sim_default_duty_3"}
         name={GENERATE_LIEUTENANT_NAME}
-        icon={"ui_inGame2_Dolg_3"}
+        icon={profileIcon.ui_inGame2_Dolg_3}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
         rank={55}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_3"}
         supplies={[
           { section: weapons.wpn_protecta },
           { section: weapons.wpn_fort },
@@ -587,13 +560,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_3_default_4"}
         class={"sim_default_duty_3"}
         name={GENERATE_LIEUTENANT_NAME}
-        icon={"ui_inGame2_Dolg_3"}
+        icon={profileIcon.ui_inGame2_Dolg_3}
         community={communities.dolg}
         moneyMin={2500}
         moneyMax={5000}
         rank={55}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_3"}
         supplies={[
           { section: weapons.wpn_groza },
           { section: weapons.wpn_sig220 },
@@ -615,13 +587,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_4_default_0"}
         class={"sim_default_duty_4"}
         name={GENERATE_CAPTAIN_NAME}
-        icon={"ui_inGame2_Dolg_4"}
+        icon={profileIcon.ui_inGame2_Dolg_4}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_4"}
         supplies={[
           { section: weapons.wpn_groza },
           { section: weapons.wpn_sig220 },
@@ -643,13 +614,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_4_default_1"}
         class={"sim_default_duty_4"}
         name={GENERATE_CAPTAIN_NAME}
-        icon={"ui_inGame2_Dolg_4"}
+        icon={profileIcon.ui_inGame2_Dolg_4}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_4"}
         supplies={[
           { section: weapons.wpn_groza },
           { section: weapons.wpn_usp },
@@ -671,13 +641,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_4_default_2"}
         class={"sim_default_duty_4"}
         name={GENERATE_CAPTAIN_NAME}
-        icon={"ui_inGame2_Dolg_4"}
+        icon={profileIcon.ui_inGame2_Dolg_4}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_4"}
         supplies={[
           { section: weapons.wpn_abakan },
           { section: weapons.wpn_sig220 },
@@ -699,13 +668,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_4_default_3"}
         class={"sim_default_duty_4"}
         name={GENERATE_CAPTAIN_NAME}
-        icon={"ui_inGame2_Dolg_4"}
+        icon={profileIcon.ui_inGame2_Dolg_4}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_4"}
         supplies={[
           { section: weapons.wpn_pkm },
           { section: weapons.wpn_usp },
@@ -727,13 +695,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_4_default_4"}
         class={"sim_default_duty_4"}
         name={GENERATE_CAPTAIN_NAME}
-        icon={"ui_inGame2_Dolg_4"}
+        icon={profileIcon.ui_inGame2_Dolg_4}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_4"}
         supplies={[
           { section: weapons.wpn_protecta },
           { section: weapons.wpn_usp },
@@ -755,13 +722,12 @@ export function DutyLoadout(): JSXNode {
         id={"sim_default_duty_4_default_5"}
         class={"sim_default_duty_4"}
         name={GENERATE_CAPTAIN_NAME}
-        icon={"ui_inGame2_Dolg_4"}
+        icon={profileIcon.ui_inGame2_Dolg_4}
         community={communities.dolg}
         moneyMin={5000}
         moneyMax={10000}
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_4"}
         supplies={[
           { section: weapons.wpn_val },
           { section: weapons.wpn_usp },

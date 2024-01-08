@@ -24,11 +24,10 @@ export function ActorLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"actor"}
-        community={"actor"}
+        community={communities.actor}
         name={"st_actor_name"}
         icon={"ui_inGame2_Hero"}
         team={"Actor"}
-        visual={"actors\\stalker_hero\\stalker_hero_1"}
         moneyMin={2500}
         noRandom={true}
         terrainSection={null}
@@ -57,10 +56,9 @@ export function ActorLoadout(): JSXNode {
       <SpecificCharacter
         id={"mp_actor"}
         name={"actor_name"}
-        community={"actor"}
+        community={communities.actor}
         icon={"ui_inGame2_Hero"}
         team={"mp_actor"}
-        visual={"actors\\stalker_hero\\stalker_hero_1"}
         noRandom={true}
         terrainSection={null}
         mapIcon={<CharacterDescriptionMapIcon x={2} y={5} />}
@@ -72,7 +70,6 @@ export function ActorLoadout(): JSXNode {
         community={communities.ecolog}
         icon={"ui_inGame2_Hero"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_hero\\stalker_hero_1"}
         terrainSection={null}
         supplies={[
           { section: misc.device_torch },

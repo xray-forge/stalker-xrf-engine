@@ -12,6 +12,7 @@ import {
   loadoutCharacterItemsWithoutTorch2,
   loadoutCharacterItemsWithoutTorch3,
 } from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -30,10 +31,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_1_default_0"}
         class={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_1"}
+        icon={profileIcon.ui_inGame2_Zombied_1}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_1"}
         crouchType={0}
         community={communities.zombied}
         supplies={[
@@ -54,10 +54,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_1_default_1"}
         class={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_1"}
+        icon={profileIcon.ui_inGame2_Zombied_1}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_1"}
         crouchType={0}
         community={communities.zombied}
         supplies={[
@@ -78,10 +77,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_1_default_2"}
         class={"sim_default_zombied_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_1"}
+        icon={profileIcon.ui_inGame2_Zombied_1}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_1"}
         crouchType={0}
         community={communities.zombied}
         supplies={[
@@ -102,10 +100,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_2_default_0"}
         class={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_2"}
+        icon={profileIcon.ui_inGame2_Zombied_2}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_2"}
         crouchType={0}
         rank={10}
         community={communities.zombied}
@@ -127,10 +124,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_2_default_1"}
         class={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_2"}
+        icon={profileIcon.ui_inGame2_Zombied_2}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_2"}
         crouchType={0}
         rank={10}
         community={communities.zombied}
@@ -152,10 +148,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_2_default_2"}
         class={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_2"}
+        icon={profileIcon.ui_inGame2_Zombied_2}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_2"}
         crouchType={0}
         rank={10}
         community={communities.zombied}
@@ -176,10 +171,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_2_default_3"}
         class={"sim_default_zombied_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_2"}
+        icon={profileIcon.ui_inGame2_Zombied_2}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_2"}
         crouchType={0}
         rank={10}
         community={communities.zombied}
@@ -201,10 +195,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_3_default_0"}
         class={"sim_default_zombied_3"}
         name={GENERATE_PRIVATE_NAME}
-        icon={"ui_inGame2_Zombied_3"}
+        icon={profileIcon.ui_inGame2_Zombied_3}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_3"}
         crouchType={0}
         rank={20}
         community={communities.zombied}
@@ -227,10 +220,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_3_default_1"}
         class={"sim_default_zombied_3"}
         name={GENERATE_SERGEANT_NAME}
-        icon={"ui_inGame2_Zombied_3"}
+        icon={profileIcon.ui_inGame2_Zombied_3}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_3"}
         crouchType={0}
         rank={20}
         community={communities.zombied}
@@ -253,10 +245,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_3_default_2"}
         class={"sim_default_zombied_3"}
         name={GENERATE_LIEUTENANT_NAME}
-        icon={"ui_inGame2_Zombied_3"}
+        icon={profileIcon.ui_inGame2_Zombied_3}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_3"}
         crouchType={0}
         rank={20}
         community={communities.zombied}
@@ -279,10 +270,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_3_default_3"}
         class={"sim_default_zombied_3"}
         name={GENERATE_PRIVATE_NAME}
-        icon={"ui_inGame2_Zombied_3"}
+        icon={profileIcon.ui_inGame2_Zombied_3}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_3"}
         crouchType={0}
         rank={20}
         community={communities.zombied}
@@ -305,10 +295,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_4_default_0"}
         class={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_4"}
+        icon={profileIcon.ui_inGame2_Zombied_4}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_4"}
         crouchType={0}
         rank={25}
         community={communities.zombied}
@@ -331,10 +320,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_4_default_1"}
         class={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_4"}
+        icon={profileIcon.ui_inGame2_Zombied_4}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_4"}
         crouchType={0}
         rank={25}
         community={communities.zombied}
@@ -357,10 +345,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_4_default_2"}
         class={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_4"}
+        icon={profileIcon.ui_inGame2_Zombied_4}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_4"}
         crouchType={0}
         rank={25}
         community={communities.zombied}
@@ -383,10 +370,9 @@ export function ZombiedLoadout(): JSXNode {
         id={"sim_default_zombied_4_default_3"}
         class={"sim_default_zombied_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_Zombied_4"}
+        icon={profileIcon.ui_inGame2_Zombied_4}
         bio={""}
         soundConfig={"characters_voice\\human_01\\zombied\\"}
-        visual={"actors\\stalker_zombied\\stalker_zombied_4"}
         crouchType={0}
         rank={25}
         community={communities.zombied}

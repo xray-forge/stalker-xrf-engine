@@ -1,7 +1,8 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { profileVisuals } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { createLoadout, ILoadoutItemDescriptor } from "@/engine/configs/gameplay/utils/create_loadout";
-import { Optional } from "@/engine/lib/types";
+import { Optional, TName } from "@/engine/lib/types";
 
 export interface ICharacterDescriptionProps {
   id: string;
@@ -13,7 +14,7 @@ export interface ICharacterDescriptionProps {
   team?: string;
   community: string;
   soundConfig?: string;
-  visual: string;
+  visual?: string;
   rank?: number;
   reputation?: number;
   moneyMin?: number;
@@ -60,6 +61,12 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
     children,
   } = props;
 
+  const characterVisual: Optional<TName> = visual ?? profileVisuals[icon as keyof typeof profileVisuals];
+
+  if (!characterVisual) {
+    throw new Error(`Expected visual to be present for character profile with icon '${icon}'.`);
+  }
+
   return (
     <specific_character
       id={id}
@@ -80,7 +87,7 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
       ) : null}
       {typeof crouchType === "number" ? <crouch_type>{crouchType}</crouch_type> : null}
       {typeof mechanicMode === "boolean" ? <mechanic_mode>{mechanicMode ? 1 : 0}</mechanic_mode> : null}
-      <visual>{visual}</visual>
+      <visual>{characterVisual}</visual>
       {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}
       {children}

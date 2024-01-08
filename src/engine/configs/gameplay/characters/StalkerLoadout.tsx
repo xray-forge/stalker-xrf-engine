@@ -14,6 +14,7 @@ import {
   loadoutCharacterItems3,
   loadoutCharacterSellWeapons,
 } from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -27,10 +28,9 @@ export function StalkerLoadout(): JSXNode {
         id={"stalker_general_default"}
         class={"Stalker_general"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_1"}
+        icon={profileIcon.ui_inGame2_neutral_1}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_beretta },
@@ -49,10 +49,9 @@ export function StalkerLoadout(): JSXNode {
         id={"stalker_general_veteran_default"}
         class={"Stalker_general_veteran"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_3"}
+        icon={profileIcon.ui_inGame2_neutral_3}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_3"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_beretta },
@@ -72,13 +71,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_0_default_0"}
         class={"sim_default_stalker_0"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_1"}
+        icon={profileIcon.ui_inGame2_neutral_1}
         community={communities.stalker}
         rank={25}
         moneyMin={250}
         moneyMax={1750}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
           { section: weapons.wpn_bm16 },
           { section: weapons.wpn_pm },
@@ -97,13 +95,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_0_default_1"}
         class={"sim_default_stalker_0"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_1"}
+        icon={profileIcon.ui_inGame2_neutral_1}
         community={communities.stalker}
         rank={25}
         moneyMin={250}
         moneyMax={1750}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
           { section: weapons.wpn_toz34 },
           { section: weapons.wpn_pm },
@@ -122,13 +119,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_0_default_2"}
         class={"sim_default_stalker_0"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_1"}
+        icon={profileIcon.ui_inGame2_neutral_1}
         community={communities.stalker}
         rank={25}
         moneyMin={250}
         moneyMax={1750}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
           { section: weapons.wpn_toz34 },
           { section: weapons.wpn_fort },
@@ -147,13 +143,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_0_default_3"}
         class={"sim_default_stalker_0"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_1"}
+        icon={profileIcon.ui_inGame2_neutral_1}
         community={communities.stalker}
         rank={25}
         moneyMin={250}
         moneyMax={1750}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_1"}
         supplies={[
           { section: weapons.wpn_ak74u },
           { section: weapons.wpn_pm },
@@ -172,13 +167,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_0"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_ak74u },
           { section: weapons.wpn_pm },
@@ -198,13 +192,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_1"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_ak74u },
           { section: weapons.wpn_beretta },
@@ -224,13 +217,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_2"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_toz34 },
           { section: weapons.wpn_fort },
@@ -250,13 +242,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_3"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_pm },
@@ -276,13 +267,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_4"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_fort },
@@ -302,13 +292,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_5"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_ak74u },
           { section: weapons.wpn_hpsa },
@@ -328,13 +317,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_6"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_hpsa },
@@ -354,13 +342,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_7"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_ak74u },
           { section: weapons.wpn_fort },
@@ -380,13 +367,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_8"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_beretta },
@@ -406,13 +392,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_1_default_9"}
         class={"sim_default_stalker_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={30}
         moneyMin={1000}
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_l85 },
           { section: weapons.wpn_hpsa },
@@ -432,13 +417,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_0"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_wincheaster1300 },
           { section: weapons.wpn_beretta },
@@ -458,13 +442,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_1"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_l85 },
           { section: weapons.wpn_colt1911 },
@@ -484,13 +467,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_2"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_beretta },
@@ -510,13 +492,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_3"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_lr300 },
           { section: weapons.wpn_fort },
@@ -536,13 +517,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_4"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_wincheaster1300 },
           { section: weapons.wpn_hpsa },
@@ -562,13 +542,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_5"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_beretta },
@@ -588,13 +567,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_6"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_l85 },
           { section: weapons.wpn_colt1911 },
@@ -614,13 +592,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_7"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: weapons.wpn_beretta },
@@ -640,13 +617,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_8"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_wincheaster1300 },
           { section: weapons.wpn_colt1911 },
@@ -667,13 +643,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_2_default_9"}
         class={"sim_default_stalker_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={40}
         moneyMin={1500}
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_toz34 },
           { section: weapons.wpn_mp5 },
@@ -693,13 +668,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_0"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_val, scope: true },
           { section: weapons.wpn_sig220, silencer: true },
@@ -721,13 +695,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_1"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_spas12 },
           { section: weapons.wpn_colt1911 },
@@ -749,13 +722,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_2"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_colt1911 },
@@ -777,13 +749,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_3"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_nauchniy"}
+        icon={profileIcon.ui_inGame2_neutral_nauchniy}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         supplies={[
           { section: weapons.wpn_g36 },
           { section: weapons.wpn_spas12 },
@@ -807,13 +778,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_4"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_spas12 },
           { section: weapons.wpn_usp },
@@ -835,13 +805,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_5"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2"}
+        icon={profileIcon.ui_inGame2_neutral_2}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_usp },
@@ -863,13 +832,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_6"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_spas12 },
           { section: weapons.wpn_sig220 },
@@ -891,13 +859,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_7"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_2_mask"}
+        icon={profileIcon.ui_inGame2_neutral_2_mask}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_2_mask"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_usp },
@@ -919,13 +886,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_8"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_nauchniy"}
+        icon={profileIcon.ui_inGame2_neutral_nauchniy}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         supplies={[
           { section: weapons.wpn_lr300 },
           { section: weapons.wpn_sig220 },
@@ -947,13 +913,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_3_default_9"}
         class={"sim_default_stalker_3"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_3"}
+        icon={profileIcon.ui_inGame2_neutral_3}
         community={communities.stalker}
         rank={50}
         moneyMin={2500}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_3"}
         supplies={[
           { section: weapons.wpn_sig550 },
           { section: weapons.wpn_desert_eagle },
@@ -975,13 +940,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_4_default_0"}
         class={"sim_default_stalker_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_4"}
+        icon={profileIcon.ui_inGame2_neutral_4}
         community={communities.stalker}
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_4"}
         supplies={[
           { section: weapons.wpn_protecta },
           { section: weapons.wpn_sig220 },
@@ -1003,13 +967,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_4_default_1"}
         class={"sim_default_stalker_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_4"}
+        icon={profileIcon.ui_inGame2_neutral_4}
         community={communities.stalker}
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_4"}
         supplies={[
           { section: weapons.wpn_fn2000 },
           { section: weapons.wpn_sig220 },
@@ -1031,13 +994,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_4_default_2"}
         class={"sim_default_stalker_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_4"}
+        icon={profileIcon.ui_inGame2_neutral_4}
         community={communities.stalker}
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_4"}
         supplies={[
           { section: weapons.wpn_groza },
           { section: weapons.wpn_usp },
@@ -1059,13 +1021,12 @@ export function StalkerLoadout(): JSXNode {
         id={"sim_default_stalker_4_default_3"}
         class={"sim_default_stalker_4"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_nauchniy"}
+        icon={profileIcon.ui_inGame2_neutral_nauchniy}
         community={communities.stalker}
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         supplies={[
           { section: weapons.wpn_vintorez },
           { section: weapons.wpn_spas12 },

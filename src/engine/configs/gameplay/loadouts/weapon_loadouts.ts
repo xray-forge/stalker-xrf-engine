@@ -70,7 +70,10 @@ export function loadoutL85(ap: boolean = false): Array<ILoadoutItemDescriptor> {
 }
 
 export function loadoutG36({ ap = false, scope = false, silencer = false } = {}): Array<ILoadoutItemDescriptor> {
-  return [{ section: weapons.wpn_g36 }, { section: ap ? ammo["ammo_5.56x45_ap"] : ammo["ammo_5.56x45_ss190"] }];
+  return [
+    { section: weapons.wpn_g36, scope, silencer },
+    { section: ap ? ammo["ammo_5.56x45_ap"] : ammo["ammo_5.56x45_ss190"] },
+  ];
 }
 
 export function loadoutMp5({ ap = false, scope = false, silencer = false } = {}): Array<ILoadoutItemDescriptor> {
@@ -78,7 +81,10 @@ export function loadoutMp5({ ap = false, scope = false, silencer = false } = {})
 }
 
 export function loadoutSig550({ ap = false, scope = false, silencer = false } = {}): Array<ILoadoutItemDescriptor> {
-  return [{ section: weapons.wpn_sig550 }, { section: ap ? ammo["ammo_5.56x45_ap"] : ammo["ammo_5.56x45_ss190"] }];
+  return [
+    { section: weapons.wpn_sig550, scope, silencer },
+    { section: ap ? ammo["ammo_5.56x45_ap"] : ammo["ammo_5.56x45_ss190"] },
+  ];
 }
 
 export function loadoutLr300({
