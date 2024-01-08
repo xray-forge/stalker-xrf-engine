@@ -3,20 +3,34 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
-  loadoutCharacterDrugs,
-  loadoutCharacterDrugs2,
-  loadoutCharacterDrugs4,
+  loadoutAbakan,
+  loadoutAk74,
+  loadoutAk74u,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
   loadoutCharacterDrugsMilitary,
   loadoutCharacterFood,
   loadoutCharacterItemsWithoutTorch,
   loadoutCharacterItemsWithoutTorch2,
   loadoutCharacterItemsWithoutTorch3,
+  loadoutColt1911,
+  loadoutFort,
+  loadoutGroza,
+  loadoutHpsa,
+  loadoutMp5,
+  loadoutPkm,
+  loadoutPm,
+  loadoutSig220,
+  loadoutSig550,
+  loadoutSpas12,
+  loadoutUsp,
+  loadoutWalther,
+  loadoutWincheaster1300,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import {
   GENERATE_LIEUTENANT_NAME,
   GENERATE_PRIVATE_NAME,
@@ -37,13 +51,11 @@ export function ZombiedLoadout(): JSXNode {
         crouchType={0}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutFort(),
           ...loadoutCharacterItemsWithoutTorch(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -60,13 +72,11 @@ export function ZombiedLoadout(): JSXNode {
         crouchType={0}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_pm },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutWincheaster1300(),
+          ...loadoutPm(),
           ...loadoutCharacterItemsWithoutTorch(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -83,13 +93,11 @@ export function ZombiedLoadout(): JSXNode {
         crouchType={0}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_pm },
-          { section: ammo.ammo_9x19_fmj },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutMp5(),
+          ...loadoutPm(),
           ...loadoutCharacterItemsWithoutTorch(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -107,13 +115,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={10}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutFort(),
           ...loadoutCharacterItemsWithoutTorch(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -131,13 +137,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={10}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_hpsa },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutWincheaster1300(),
+          ...loadoutHpsa(),
           ...loadoutCharacterItemsWithoutTorch(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -155,12 +159,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={10}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_hpsa },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutMp5(),
+          ...loadoutHpsa(),
           ...loadoutCharacterItemsWithoutTorch(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -178,13 +181,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={10}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_colt1911 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutAk74(),
+          ...loadoutColt1911(),
           ...loadoutCharacterItemsWithoutTorch2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -202,13 +203,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={20}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutFort(),
           ...loadoutCharacterItemsWithoutTorch2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -227,13 +226,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={20}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutFort(),
           ...loadoutCharacterItemsWithoutTorch2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -252,13 +249,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={20}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_abakan },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAbakan(),
+          ...loadoutFort(),
           ...loadoutCharacterItemsWithoutTorch2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -277,13 +272,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={20}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutFort(),
           ...loadoutCharacterItemsWithoutTorch2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -302,13 +295,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={25}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_walther },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutWalther(),
           ...loadoutCharacterItemsWithoutTorch3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -327,13 +318,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={25}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_usp },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSpas12(true),
+          ...loadoutUsp(),
           ...loadoutCharacterItemsWithoutTorch3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -352,13 +341,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={25}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_groza },
-          { section: weapons.wpn_sig220 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutGroza({ ap: true }),
+          ...loadoutSig220(),
           ...loadoutCharacterItemsWithoutTorch3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -377,13 +364,11 @@ export function ZombiedLoadout(): JSXNode {
         rank={25}
         community={communities.zombied}
         supplies={[
-          { section: weapons.wpn_pkm },
-          { section: weapons.wpn_colt1911 },
-          { section: ammo.ammo_pkm_100 },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutPkm(),
+          ...loadoutColt1911(true),
           ...loadoutCharacterItemsWithoutTorch3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >

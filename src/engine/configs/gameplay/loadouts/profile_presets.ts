@@ -1,3 +1,6 @@
+/**
+ * Map of generic profile icons.
+ */
 export const profileIcon = {
   ui_inGame2_Dolg_1: "ui_inGame2_Dolg_1",
   ui_inGame2_Dolg_2: "ui_inGame2_Dolg_2",
@@ -34,6 +37,9 @@ export const profileIcon = {
   ui_inGame2_neutral_nauchniy: "ui_inGame2_neutral_nauchniy",
 };
 
+/**
+ * Map of generic actor models matching icons.
+ */
 export const profileVisuals = {
   ui_inGame2_Dolg_1: "actors\\stalker_dolg\\stalker_dolg_1",
   ui_inGame2_Dolg_2: "actors\\stalker_dolg\\stalker_dolg_2",

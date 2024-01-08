@@ -1,10 +1,16 @@
 import { ISpawnItemDescriptor } from "@/engine/configs/gameplay/utils";
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { detectors } from "@/engine/lib/constants/items/detectors";
-import { drugs } from "@/engine/lib/constants/items/drugs";
-import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
+
+export function loadoutBinocular(): Array<ISpawnItemDescriptor> {
+  return [{ section: weapons.wpn_binoc }];
+}
+
+export function loadoutTorch(): Array<ISpawnItemDescriptor> {
+  return [{ section: misc.device_torch }];
+}
 
 /**
  * Any artefact drops with small chance.
@@ -37,71 +43,16 @@ export function loadoutArtefacts(): Array<ISpawnItemDescriptor> {
   ];
 }
 
-export function loadoutCharacterDrugs(): Array<ISpawnItemDescriptor> {
-  return [
-    { section: drugs.medkit, probability: 0.2 },
-    { section: drugs.bandage, probability: 0.4 },
-  ];
+export function loadoutDetectorAdvanced(): Array<ISpawnItemDescriptor> {
+  return [{ section: detectors.detector_advanced }];
 }
 
-export function loadoutCharacterDrugs2(): Array<ISpawnItemDescriptor> {
-  return [
-    { section: drugs.medkit, probability: 0.2 },
-    { section: drugs.bandage, probability: 0.4 },
-    { section: drugs.antirad, probability: 0.1 },
-    { section: drugs.drug_booster, probability: 0.06 },
-    { section: drugs.drug_coagulant, probability: 0.06 },
-  ];
+export function loadoutDetectorElite(): Array<ISpawnItemDescriptor> {
+  return [{ section: detectors.detector_elite }];
 }
 
-export function loadoutCharacterDrugs3(): Array<ISpawnItemDescriptor> {
-  return [
-    { section: drugs.medkit, probability: 0.3 },
-    { section: drugs.bandage, probability: 0.5 },
-    { section: drugs.antirad, probability: 0.2 },
-    { section: drugs.drug_booster, probability: 0.08 },
-    { section: drugs.drug_coagulant, probability: 0.08 },
-    { section: drugs.drug_antidot, probability: 0.06 },
-    { section: drugs.drug_radioprotector, probability: 0.06 },
-  ];
-}
-
-export function loadoutCharacterDrugs4(): Array<ISpawnItemDescriptor> {
-  return [
-    { section: drugs.medkit, probability: 0.4 },
-    { section: drugs.bandage, probability: 0.6 },
-    { section: drugs.antirad, probability: 0.3 },
-    { section: drugs.drug_booster, probability: 0.1 },
-    { section: drugs.drug_coagulant, probability: 0.1 },
-    { section: drugs.drug_antidot, probability: 0.08 },
-    { section: drugs.drug_radioprotector, probability: 0.08 },
-    { section: drugs.drug_psy_blockade, probability: 0.04 },
-    { section: drugs.drug_anabiotic, probability: 0.005 },
-  ];
-}
-
-export function loadoutCharacterDrugsMilitary(): Array<ISpawnItemDescriptor> {
-  return [{ section: drugs.medkit_army, probability: 0.2 }];
-}
-
-export function loadoutCharacterDrugsScientific(): Array<ISpawnItemDescriptor> {
-  return [{ section: drugs.medkit_scientic, probability: 0.2 }];
-}
-
-export function loadoutCharacterFood(): Array<ISpawnItemDescriptor> {
-  return [
-    { section: food.bread, probability: 0.5 },
-    { section: food.kolbasa, probability: 0.5 },
-    { section: food.vodka, probability: 0.5 },
-  ];
-}
-
-export function loadoutCharacterFoodArmy(): Array<ISpawnItemDescriptor> {
-  return [
-    { section: food.bread, probability: 0.5 },
-    { section: food.kolbasa, probability: 0.5 },
-    { section: food.conserva, probability: 0.5 },
-  ];
+export function loadoutDetectorScientific(): Array<ISpawnItemDescriptor> {
+  return [{ section: detectors.detector_scientific }];
 }
 
 export function loadoutCharacterItems(): Array<ISpawnItemDescriptor> {
@@ -152,10 +103,9 @@ export function loadoutCharacterItemsWithoutTorch3(): Array<ISpawnItemDescriptor
   ];
 }
 
-export const loadoutCharacterItemsMonolith = (): Array<ISpawnItemDescriptor> => [
-  { section: misc.device_torch },
-  { section: weapons.wpn_binoc },
-];
+export function loadoutCharacterItemsMonolith(): Array<ISpawnItemDescriptor> {
+  return [{ section: misc.device_torch }, { section: weapons.wpn_binoc }];
+}
 
 export function loadoutCharacterItemsWithoutDetector(): Array<ISpawnItemDescriptor> {
   return [

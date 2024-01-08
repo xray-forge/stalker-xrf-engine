@@ -6,10 +6,10 @@ import {
   loadoutAbakan,
   loadoutAk74,
   loadoutAk74u,
-  loadoutCharacterDrugs,
-  loadoutCharacterDrugs2,
-  loadoutCharacterDrugs3,
-  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsAdvanced,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
   loadoutCharacterDrugsMilitary,
   loadoutCharacterFood,
   loadoutCharacterItems,
@@ -52,7 +52,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -76,7 +76,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -98,7 +98,7 @@ export function DutyLoadout(): JSXNode {
           ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -120,7 +120,7 @@ export function DutyLoadout(): JSXNode {
           ...loadoutFort(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -142,7 +142,7 @@ export function DutyLoadout(): JSXNode {
           ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -165,7 +165,7 @@ export function DutyLoadout(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -190,7 +190,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -215,7 +215,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -240,7 +240,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -265,7 +265,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -291,7 +291,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -317,7 +317,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -343,7 +343,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -368,7 +368,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems2(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -392,7 +392,7 @@ export function DutyLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -416,7 +416,7 @@ export function DutyLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -440,7 +440,7 @@ export function DutyLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -466,7 +466,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -493,7 +493,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -520,7 +520,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -547,7 +547,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo.ammo_9x18_pmm },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -574,7 +574,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -601,7 +601,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -628,7 +628,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -655,7 +655,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -682,7 +682,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -709,7 +709,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -736,7 +736,7 @@ export function DutyLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterSellWeapons(),
         ]}

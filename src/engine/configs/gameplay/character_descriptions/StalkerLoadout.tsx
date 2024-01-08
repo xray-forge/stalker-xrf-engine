@@ -3,22 +3,46 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
-  loadoutCharacterDrugs,
-  loadoutCharacterDrugs2,
-  loadoutCharacterDrugs3,
-  loadoutCharacterDrugs4,
+  loadoutAk74,
+  loadoutAk74u,
+  loadoutBeretta,
+  loadoutBm16,
+  loadoutCharacterDrugsAdvanced,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
   loadoutCharacterItems,
   loadoutCharacterItems2,
   loadoutCharacterItems3,
   loadoutCharacterSellWeapons,
+  loadoutColt1911,
+  loadoutDesertEagle,
+  loadoutF1Grenades,
+  loadoutFn200,
+  loadoutFort,
+  loadoutG36,
+  loadoutGroza,
+  loadoutHpsa,
+  loadoutL85,
+  loadoutLr300,
+  loadoutMp5,
+  loadoutPm,
+  loadoutProtecta,
+  loadoutRgd5Grenades,
+  loadoutSig220,
+  loadoutSig550,
+  loadoutSpas12,
+  loadoutToz34,
+  loadoutUsp,
+  loadoutVal,
+  loadoutVintorez,
+  loadoutWincheaster1300,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
 
 export function StalkerLoadout(): JSXNode {
@@ -32,13 +56,11 @@ export function StalkerLoadout(): JSXNode {
         community={communities.stalker}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_beretta },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutSig550(),
+          ...loadoutBeretta(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -53,14 +75,12 @@ export function StalkerLoadout(): JSXNode {
         community={communities.stalker}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutSig550(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -78,13 +98,11 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={1750}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_bm16 },
-          { section: weapons.wpn_pm },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutBm16(),
+          ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -102,13 +120,11 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={1750}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_toz34 },
-          { section: weapons.wpn_pm },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutToz34(),
+          ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -126,13 +142,11 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={1750}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_toz34 },
-          { section: weapons.wpn_fort },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutToz34(),
+          ...loadoutFort(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -150,13 +164,11 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={1750}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_pm },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -174,14 +186,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -199,14 +209,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74u(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -224,14 +232,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_toz34 },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutToz34(true),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -249,14 +255,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -274,14 +278,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -299,14 +301,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74u(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -324,14 +324,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -349,14 +347,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -374,14 +370,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -399,14 +393,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutL85(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -424,14 +416,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutWincheaster1300(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -449,14 +439,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutL85(true),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -474,14 +462,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74(true),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -499,14 +485,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_lr300 },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutLr300({ ap: true }),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -524,14 +508,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutWincheaster1300(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -549,14 +531,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAk74(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -574,14 +554,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutL85(true),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -599,14 +577,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAk74(true),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -624,15 +600,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutWincheaster1300(),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -650,14 +623,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_toz34 },
-          { section: weapons.wpn_mp5 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutToz34(),
+          ...loadoutMp5({ ap: true }),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -675,14 +646,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_val, scope: true },
-          { section: weapons.wpn_sig220, silencer: true },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutVal({ ap: true, scope: true }),
+          ...loadoutSig220(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -702,14 +671,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSpas12(true),
+          ...loadoutColt1911(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -729,14 +696,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutColt1911(true),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -756,16 +721,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_g36 },
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutG36({ ap: true }),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -785,14 +746,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSpas12(true),
+          ...loadoutUsp({ ap: true }),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -812,14 +771,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutUsp(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -839,14 +796,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSpas12(true),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -866,14 +821,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutUsp({ ap: true }),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -893,14 +846,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_lr300 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutLr300({ ap: true }),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -920,14 +871,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutDesertEagle(true),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -947,14 +896,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutProtecta(true),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -974,14 +921,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_fn2000 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutFn200({ ap: true }),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -1001,14 +946,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_groza },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutGroza({ ap: true }),
+          ...loadoutUsp({ ap: true }),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -1028,16 +971,12 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_vintorez },
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutVintorez(true),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}

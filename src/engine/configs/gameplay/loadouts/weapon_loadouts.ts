@@ -1,29 +1,7 @@
 import { ISpawnItemDescriptor } from "@/engine/configs/gameplay/utils/create_loadout";
 import { ammo } from "@/engine/lib/constants/items/ammo";
-import { detectors } from "@/engine/lib/constants/items/detectors";
-import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TCount } from "@/engine/lib/types";
-
-export function loadoutBinocular(): Array<ISpawnItemDescriptor> {
-  return [{ section: weapons.wpn_binoc }];
-}
-
-export function loadoutTorch(): Array<ISpawnItemDescriptor> {
-  return [{ section: misc.device_torch }];
-}
-
-export function loadoutDetectorAdvanced(): Array<ISpawnItemDescriptor> {
-  return [{ section: detectors.detector_advanced }];
-}
-
-export function loadoutDetectorElite(): Array<ISpawnItemDescriptor> {
-  return [{ section: detectors.detector_elite }];
-}
-
-export function loadoutDetectorScientific(): Array<ISpawnItemDescriptor> {
-  return [{ section: detectors.detector_scientific }];
-}
 
 export function loadoutWincheaster1300(ap: boolean = false): Array<ISpawnItemDescriptor> {
   return [{ section: weapons.wpn_wincheaster1300 }, { section: ap ? ammo.ammo_12x70_buck : ammo.ammo_12x76_zhekan }];
@@ -122,8 +100,8 @@ export function loadoutGroza({ ap = false, silencer = false } = {}): Array<ISpaw
   return [{ section: weapons.wpn_groza, silencer }, { section: ap ? ammo.ammo_9x39_ap : ammo.ammo_9x39_pab9 }];
 }
 
-export function loadoutVal({ ap = false } = {}): Array<ISpawnItemDescriptor> {
-  return [{ section: weapons.wpn_val }, { section: ap ? ammo.ammo_9x39_ap : ammo.ammo_9x39_pab9 }];
+export function loadoutVal({ ap = false, scope = false } = {}): Array<ISpawnItemDescriptor> {
+  return [{ section: weapons.wpn_val, scope }, { section: ap ? ammo.ammo_9x39_ap : ammo.ammo_9x39_pab9 }];
 }
 
 export function loadoutHpsa(ap: boolean = false): Array<ISpawnItemDescriptor> {
@@ -136,6 +114,10 @@ export function loadoutBeretta(ap: boolean = false): Array<ISpawnItemDescriptor>
 
 export function loadoutPm(ap: boolean = false): Array<ISpawnItemDescriptor> {
   return [{ section: weapons.wpn_pm }, { section: ap ? ammo.ammo_9x18_pmm : ammo.ammo_9x18_fmj }];
+}
+
+export function loadoutPkm(): Array<ISpawnItemDescriptor> {
+  return [{ section: weapons.wpn_pkm }, { section: ammo.ammo_pkm_100 }];
 }
 
 export function loadoutPb(ap: boolean = false): Array<ISpawnItemDescriptor> {

@@ -5,14 +5,14 @@ import {
   DefaultCharacterDialogs,
   DefaultCharacterDialogsNoGuide,
   loadoutAk74,
-  loadoutCharacterDrugs,
-  loadoutCharacterDrugs2,
-  loadoutCharacterDrugs3,
-  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsAdvanced,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
   loadoutCharacterDrugsMilitary,
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
-  loadoutCharacterFoodArmy,
+  loadoutCharacterFoodWithoutAlcohol,
   loadoutCharacterItems,
   loadoutCharacterItems3,
   loadoutCharacterItemsWithoutDetector,
@@ -46,8 +46,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -71,8 +71,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -95,8 +95,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -119,8 +119,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -145,8 +145,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -179,8 +179,8 @@ export function create(): JSXNode {
           { section: ammo.ammo_gauss },
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
         ]}
       >
@@ -203,8 +203,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -241,8 +241,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -270,8 +270,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -301,8 +301,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -325,8 +325,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -350,8 +350,8 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
           { section: questItems.pri_a25_explosive_charge_item },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -374,8 +374,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -397,8 +397,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -420,8 +420,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_9x39_pab9 },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -444,7 +444,7 @@ export function create(): JSXNode {
           { section: ammo.ammo_9x39_pab9 },
           { section: ammo.ammo_9x18_pmm },
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -466,7 +466,7 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -490,7 +490,7 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}
@@ -516,7 +516,7 @@ export function create(): JSXNode {
           { section: questItems.pri_b306_envoy_pda },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
         ]}
       >
@@ -538,7 +538,7 @@ export function create(): JSXNode {
           { section: questItems.pri_a15_documents },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -558,7 +558,7 @@ export function create(): JSXNode {
           { section: questItems.pri_a15_wpn_wincheaster1300 },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -578,7 +578,7 @@ export function create(): JSXNode {
           { section: questItems.pri_a15_wpn_ak74u },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -599,7 +599,7 @@ export function create(): JSXNode {
           { section: ammo.ammo_pkm_100 },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -620,7 +620,7 @@ export function create(): JSXNode {
           { section: ammo.ammo_pkm_100 },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -639,7 +639,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -658,7 +658,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -677,7 +677,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -696,7 +696,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -721,8 +721,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -754,7 +754,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
         ]}
       >
@@ -777,7 +777,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
         ]}
       >
@@ -801,7 +801,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
         ]}
       >
@@ -825,7 +825,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
         ]}
       >
@@ -850,7 +850,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
         ]}
       >
@@ -875,7 +875,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
         ]}
       >
@@ -900,7 +900,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -924,7 +924,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -947,7 +947,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -972,8 +972,8 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
@@ -1003,8 +1003,8 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterFoodArmy(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -1033,7 +1033,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}

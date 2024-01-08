@@ -50,7 +50,7 @@ export function createSpawnList(descriptors: Array<ISpawnItemDescriptor>, lineEn
 
 /**
  * Descriptor of generic loadout item.
- * Used for `[spawn]` sections description generation.
+ * Used for `[spawn_loadout]` sections description generation.
  */
 export interface ILoadoutItemDescriptor {
   ammoType?: number;

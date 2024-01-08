@@ -3,10 +3,10 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
-  loadoutCharacterDrugs,
-  loadoutCharacterDrugs2,
-  loadoutCharacterDrugs3,
-  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsAdvanced,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
   loadoutCharacterItems,
@@ -39,7 +39,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -62,7 +62,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -86,7 +86,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -110,7 +110,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -133,7 +133,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -157,7 +157,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -181,7 +181,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -256,7 +256,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -281,7 +281,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -306,7 +306,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -331,7 +331,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -356,7 +356,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -381,7 +381,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -406,7 +406,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -432,7 +432,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -458,7 +458,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
         ]}
       >
@@ -483,7 +483,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -508,7 +508,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -533,7 +533,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -557,7 +557,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -584,7 +584,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -611,7 +611,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -638,7 +638,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -664,7 +664,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -690,7 +690,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -716,7 +716,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -742,7 +742,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -769,7 +769,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -796,7 +796,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -823,7 +823,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -850,7 +850,7 @@ export function FreedomLoadout(): JSXNode {
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
           ...loadoutCharacterSellWeapons(),
         ]}

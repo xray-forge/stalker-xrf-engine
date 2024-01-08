@@ -3,9 +3,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
-  loadoutCharacterDrugs2,
-  loadoutCharacterDrugs3,
-  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsAdvanced,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
   loadoutCharacterDrugsMilitary,
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
@@ -46,7 +46,7 @@ export function create(): JSXNode {
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -69,7 +69,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -91,7 +91,7 @@ export function create(): JSXNode {
           { section: ammo.ammo_pkm_100 },
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
         ]}
       >
@@ -115,7 +115,7 @@ export function create(): JSXNode {
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -135,7 +135,7 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}
@@ -158,7 +158,7 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}

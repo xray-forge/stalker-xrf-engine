@@ -5,8 +5,8 @@ import {
   DefaultCharacterDialogs,
   loadoutBeretta,
   loadoutBm16,
-  loadoutCharacterDrugs,
-  loadoutCharacterDrugs2,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsExtended,
   loadoutCharacterFood,
   loadoutCharacterItems,
   loadoutCharacterItemsWithoutDetector,
@@ -43,7 +43,7 @@ export function BanditLoadout(): JSXNode {
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -65,7 +65,7 @@ export function BanditLoadout(): JSXNode {
           ...loadoutBm16(),
           ...loadoutPm(),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -89,7 +89,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_12x70_buck"] },
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -113,7 +113,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -138,7 +138,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -163,7 +163,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -188,7 +188,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -213,7 +213,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -238,7 +238,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -263,7 +263,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -288,7 +288,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_12x76_zhekan"] },
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -313,7 +313,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -337,7 +337,7 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -362,7 +362,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -387,7 +387,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo.ammo_9x19_pbp },
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -412,7 +412,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -435,7 +435,7 @@ export function BanditLoadout(): JSXNode {
           ...loadoutColt1911(),
           ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -461,7 +461,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_9x19_pbp"] },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -487,7 +487,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_9x19_pbp"] },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -513,7 +513,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -539,7 +539,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_9x19_pbp"] },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -565,7 +565,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -591,7 +591,7 @@ export function BanditLoadout(): JSXNode {
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -615,7 +615,7 @@ export function BanditLoadout(): JSXNode {
           ...loadoutDesertEagle(),
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -639,7 +639,7 @@ export function BanditLoadout(): JSXNode {
           ...loadoutDesertEagle(true),
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}
@@ -663,7 +663,7 @@ export function BanditLoadout(): JSXNode {
           ...loadoutDesertEagle(true),
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterSellWeapons(),
         ]}

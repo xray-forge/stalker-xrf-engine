@@ -9,6 +9,10 @@ import {
 } from "@/engine/configs/gameplay/utils/create_loadout";
 import { Optional, TName } from "@/engine/lib/types";
 
+/**
+ * Typing for character descriptor.
+ * Aliasing all variants to create nested XML nodes required for character profile descriptors.
+ */
 export interface ICharacterDescriptionProps {
   id: string;
   class?: string;
@@ -82,22 +86,23 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
     >
       <name>{name}</name>
       <icon>{icon}</icon>
-      {mapIcon}
       <bio>{bio ?? "Опытный сталкер. Детальная информация отсутствует."}</bio>
-      {team ? <team>{team}</team> : null}
       <class>{props.class ?? id}</class>
       <community>{community}</community>
       <rank>{rank ?? 0}</rank>
       <reputation>{reputation ?? 0}</reputation>
+      <visual>{characterVisual}</visual>
+
       {typeof moneyMin === "number" ? (
         <money min={moneyMin} max={moneyMax ?? moneyMin} infinitive={moneyInfinite ? 1 : 0} />
       ) : null}
       {typeof crouchType === "number" ? <crouch_type>{crouchType}</crouch_type> : null}
       {typeof mechanicMode === "boolean" ? <mechanic_mode>{mechanicMode ? 1 : 0}</mechanic_mode> : null}
-      <visual>{characterVisual}</visual>
+
+      {mapIcon}
+      {team ? <team>{team}</team> : null}
       {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}
-      {children}
       {loadout.length || supplies.length ? (
         <supplies>
           {supplies.length ? `\n[spawn]\\n\n${createSpawnList(supplies, "\n")}` : null}
@@ -106,6 +111,8 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
       ) : (
         <supplies />
       )}
+
+      {children}
     </specific_character>
   );
 }

@@ -5,10 +5,10 @@ import {
   DefaultCharacterDialogs,
   loadoutAk74,
   loadoutBeretta,
-  loadoutCharacterDrugs,
-  loadoutCharacterDrugs2,
-  loadoutCharacterDrugs3,
-  loadoutCharacterDrugs4,
+  loadoutCharacterDrugsAdvanced,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
   loadoutCharacterDrugsMilitary,
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
@@ -50,7 +50,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutHpsa(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -72,7 +72,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutHpsa(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -95,7 +95,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -118,7 +118,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -141,7 +141,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -164,7 +164,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -187,7 +187,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -210,7 +210,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -233,7 +233,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -256,7 +256,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -279,7 +279,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -302,7 +302,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}
@@ -327,7 +327,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}
@@ -352,7 +352,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}
@@ -377,7 +377,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsAdvanced(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}
@@ -402,7 +402,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}
@@ -427,7 +427,7 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
-          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
           ...loadoutCharacterDrugsScientific(),
         ]}

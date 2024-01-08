@@ -3,7 +3,7 @@ import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
-  loadoutCharacterDrugs,
+  loadoutCharacterDrugsBase,
   loadoutCharacterFood,
   loadoutCharacterItems,
 } from "@/engine/configs/gameplay/loadouts";
@@ -93,7 +93,7 @@ export function ActorLoadout(): JSXNode {
           { section: ammo["ammo_og-7b"] },
           { section: ammo["ammo_vog-25"] },
           ...loadoutCharacterItems(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >

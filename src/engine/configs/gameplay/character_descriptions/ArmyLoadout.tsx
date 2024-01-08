@@ -6,7 +6,7 @@ import {
   loadoutAbakan,
   loadoutAk74,
   loadoutAk74u,
-  loadoutCharacterDrugs,
+  loadoutCharacterDrugsBase,
   loadoutCharacterFood,
   loadoutCharacterItemsWithoutDetector,
   loadoutF1Grenades,
@@ -42,7 +42,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutAk74u(),
           ...loadoutPm(),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -63,7 +63,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutAk74(),
           ...loadoutPm(),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -84,7 +84,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutAk74(),
           ...loadoutFort(),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -105,7 +105,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutFort(),
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -125,7 +125,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutFort(),
           ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -146,7 +146,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutFort(),
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -167,7 +167,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutFort(),
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -188,7 +188,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutFort(),
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
@@ -209,7 +209,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutFort(),
           ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
       >
