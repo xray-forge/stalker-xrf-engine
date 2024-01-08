@@ -10,7 +10,7 @@ test:
   - src/fixtures/**
 
 configs:
-  - src/engine/forms/**
+  - src/engine/configs/**
 
 ai:
   - src/engine/core/ai/**
