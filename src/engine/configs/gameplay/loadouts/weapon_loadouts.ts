@@ -69,15 +69,22 @@ export function loadoutL85(ap: boolean = false): Array<ISpawnItemDescriptor> {
   return [{ section: weapons.wpn_l85 }, { section: ap ? ammo["ammo_5.56x45_ap"] : ammo["ammo_5.56x45_ss190"] }];
 }
 
-export function loadoutG36({ ap = false, scope = false, silencer = false } = {}): Array<ISpawnItemDescriptor> {
+export function loadoutG36({ ap = false, silencer = false } = {}): Array<ISpawnItemDescriptor> {
   return [
-    { section: weapons.wpn_g36, scope, silencer },
+    { section: weapons.wpn_g36, silencer },
     { section: ap ? ammo["ammo_5.56x45_ap"] : ammo["ammo_5.56x45_ss190"] },
   ];
 }
 
 export function loadoutMp5({ ap = false, scope = false, silencer = false } = {}): Array<ISpawnItemDescriptor> {
   return [{ section: weapons.wpn_mp5, scope, silencer }, { section: ap ? ammo.ammo_9x19_pbp : ammo.ammo_9x19_fmj }];
+}
+
+export function loadoutFn200({ ap = false, scope = false, silencer = false } = {}): Array<ISpawnItemDescriptor> {
+  return [
+    { section: weapons.wpn_fn2000, scope, silencer },
+    { section: ap ? ammo["ammo_5.56x45_ap"] : ammo["ammo_5.56x45_ss190"] },
+  ];
 }
 
 export function loadoutSig550({ ap = false, scope = false, silencer = false } = {}): Array<ISpawnItemDescriptor> {

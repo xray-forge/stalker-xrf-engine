@@ -13,15 +13,23 @@ import {
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
   loadoutCharacterItemsWithoutDetector,
+  loadoutColt1911,
+  loadoutF1Grenades,
+  loadoutFn200,
+  loadoutG36,
   loadoutHpsa,
+  loadoutL85,
+  loadoutLr300,
   loadoutMp5,
   loadoutRgd5Grenades,
+  loadoutSig220,
+  loadoutSig550,
+  loadoutUsp,
+  loadoutWincheaster1300,
+  profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
 
 export function MercenaryLoadout(): JSXNode {
@@ -40,9 +48,9 @@ export function MercenaryLoadout(): JSXNode {
         supplies={[
           ...loadoutMp5(),
           ...loadoutHpsa(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -62,9 +70,9 @@ export function MercenaryLoadout(): JSXNode {
         supplies={[
           ...loadoutAk74(),
           ...loadoutHpsa(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -85,9 +93,9 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutMp5(),
           ...loadoutHpsa(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -108,9 +116,9 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutAk74(),
           ...loadoutHpsa(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -131,9 +139,9 @@ export function MercenaryLoadout(): JSXNode {
           ...loadoutAk74(),
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -151,14 +159,12 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -176,14 +182,12 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo.ammo_9x19_pbp },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutWincheaster1300(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(2),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -201,14 +205,12 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_pbp },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutL85(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(2),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -226,14 +228,12 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_lr300 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutLr300(),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(2),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -251,14 +251,12 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_lr300 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutLr300(),
+          ...loadoutSig220(),
+          ...loadoutRgd5Grenades(2),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -276,14 +274,12 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutL85(),
+          ...loadoutUsp(),
+          ...loadoutRgd5Grenades(2),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -301,16 +297,14 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_g36 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutG36({ ap: true }),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(3),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -328,16 +322,14 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutSig550(),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(3),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -355,16 +347,14 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutSig550({ ap: true }),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(3),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -382,70 +372,14 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_g36 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
-        ]}
-      >
-        <CharacterProfileCriticals />
-        <DefaultCharacterDialogs />
-      </SpecificCharacter>
-
-      <SpecificCharacter
-        id={"sim_default_killer_3_default_4"}
-        class={"sim_default_killer_3"}
-        name={GENERATE_STALKER_NAME}
-        icon={profileIcon.ui_inGame2_merc_4}
-        rank={55}
-        moneyMin={2500}
-        moneyMax={5000}
-        soundConfig={"characters_voice\\human_03\\killer\\"}
-        community={communities.killer}
-        supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
-        ]}
-      >
-        <CharacterProfileCriticals />
-        <DefaultCharacterDialogs />
-      </SpecificCharacter>
-
-      <SpecificCharacter
-        id={"sim_default_killer_4_default_5"}
-        class={"sim_default_killer_3"}
-        name={GENERATE_STALKER_NAME}
-        icon={profileIcon.ui_inGame2_merc_4}
-        rank={55}
-        moneyMin={2500}
-        moneyMax={5000}
-        soundConfig={"characters_voice\\human_03\\killer\\"}
-        community={communities.killer}
-        supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutG36({ ap: true }),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(3),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -463,16 +397,14 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_fn2000 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutFn200({ ap: true }),
+          ...loadoutUsp({ ap: true }),
+          ...loadoutF1Grenades(4),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -490,16 +422,14 @@ export function MercenaryLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         community={communities.killer}
         supplies={[
-          { section: weapons.wpn_fn2000 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutFn200({ ap: true }),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(4),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />

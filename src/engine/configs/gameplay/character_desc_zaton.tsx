@@ -71,9 +71,9 @@ export function create(): JSXNode {
           ...loadoutAk74u(),
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -103,9 +103,9 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutColt1911(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -142,9 +142,9 @@ export function create(): JSXNode {
           ...loadoutSpas12(),
           ...loadoutColt1911(),
           ...loadoutF1Grenades(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -170,9 +170,9 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutPm(),
           ...loadoutF1Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -197,9 +197,9 @@ export function create(): JSXNode {
           ...loadoutAk74u(),
           ...loadoutPm(),
           ...loadoutF1Grenades(),
-          ...loadoutCharacterItemsWithoutTorchAndDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItemsWithoutTorchAndDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -222,9 +222,9 @@ export function create(): JSXNode {
           ...loadoutAk74u(),
           ...loadoutPm(),
           ...loadoutF1Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -250,9 +250,9 @@ export function create(): JSXNode {
         supplies={[
           ...loadoutAk74u(),
           ...loadoutPm(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -281,9 +281,9 @@ export function create(): JSXNode {
         supplies={[
           ...loadoutAk74u(),
           ...loadoutPm(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       />
 
@@ -297,7 +297,7 @@ export function create(): JSXNode {
         moneyMin={3_000}
         moneyMax={3_000}
         rank={50}
-        supplies={[...loadoutCharacterFood, ...loadoutCharacterDrugs]}
+        supplies={[...loadoutCharacterFood(), ...loadoutCharacterDrugs()]}
       >
         <CharacterProfileCriticals />
         <DefaultCharacterDialogs />
@@ -317,10 +317,10 @@ export function create(): JSXNode {
           { section: questItems.device_pda_zat_b5_dealer },
           ...loadoutAk74u(),
           ...loadoutFort(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -344,9 +344,9 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutHpsa(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -367,9 +367,9 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutHpsa(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -390,9 +390,9 @@ export function create(): JSXNode {
           ...loadoutWincheaster1300(),
           ...loadoutPm(),
           ...loadoutRgd5Grenades(2),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -413,9 +413,9 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(2),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -436,9 +436,9 @@ export function create(): JSXNode {
           ...loadoutMp5(),
           ...loadoutHpsa(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -459,9 +459,9 @@ export function create(): JSXNode {
           ...loadoutMp5(),
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -482,9 +482,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutBeretta(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -505,9 +505,9 @@ export function create(): JSXNode {
           ...loadoutAk74(true),
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -527,9 +527,9 @@ export function create(): JSXNode {
         rank={60}
         supplies={[
           ...loadoutDesertEagle(true),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -562,9 +562,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutColt1911(),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -585,9 +585,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutColt1911(),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -608,9 +608,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutWincheaster1300(),
           ...loadoutHpsa(),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -631,9 +631,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutBeretta(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -654,9 +654,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74u(),
           ...loadoutBeretta(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -677,9 +677,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutL85(),
           ...loadoutBeretta(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -703,9 +703,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(3),
           ...loadoutSig550({ ap: true }),
           ...loadoutBeretta(),
-          ...loadoutCharacterItemsWithoutTorch3,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutTorch3(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -759,9 +759,9 @@ export function create(): JSXNode {
         rank={30}
         supplies={[
           ...loadoutHpsa(),
-          ...loadoutCharacterItemsWithoutTorchAndDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutTorchAndDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -787,9 +787,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutPm(),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -828,9 +828,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(3),
           ...loadoutLr300({ ap: true, scope: true, silencer: true }),
           ...loadoutWalther(true),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <StartDialog>zat_b103_merc_dialog_start</StartDialog>
@@ -857,8 +857,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutMp5({ ap: true, silencer: true }),
           ...loadoutBeretta(true),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -877,8 +877,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutL85(),
           ...loadoutBeretta(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -897,8 +897,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutHpsa(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -917,8 +917,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutMp5({ silencer: true }),
           ...loadoutBeretta(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -937,8 +937,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutL85(),
           ...loadoutHpsa(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -957,8 +957,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutSpas12(),
           ...loadoutHpsa(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -977,8 +977,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutBeretta(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -999,9 +999,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutBeretta(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1026,9 +1026,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutHpsa(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1049,9 +1049,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutWincheaster1300(),
           ...loadoutBeretta(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1072,9 +1072,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutMp5(),
           ...loadoutFort(),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1095,9 +1095,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutColt1911(),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1124,9 +1124,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutBm16(),
           ...loadoutPm(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1164,9 +1164,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1186,9 +1186,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1208,9 +1208,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1231,9 +1231,9 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutLr300(),
           ...loadoutColt1911(true),
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1259,9 +1259,9 @@ export function create(): JSXNode {
           ...loadoutF1Grenades(),
           ...loadoutAbakan({ ap: true, scope: true }),
           ...loadoutWalther(),
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1288,8 +1288,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutHpsa(),
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1314,8 +1314,8 @@ export function create(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74u(),
           ...loadoutFort(),
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1340,9 +1340,9 @@ export function create(): JSXNode {
           ...loadoutSpas12(),
           ...loadoutColt1911(),
           ...loadoutF1Grenades(3),
-          ...loadoutCharacterItemsWithoutTorch3,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItemsWithoutTorch3(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1369,9 +1369,9 @@ export function create(): JSXNode {
           ...loadoutMp5(),
           ...loadoutColt1911(true),
           ...loadoutF1Grenades(2),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1391,9 +1391,9 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutDesertEagle(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItems3,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItems3(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1424,10 +1424,10 @@ export function create(): JSXNode {
           ...loadoutLr300({ silencer: true, scope: true, ap: true }),
           ...loadoutWalther(true),
           ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1447,10 +1447,10 @@ export function create(): JSXNode {
           ...loadoutLr300({ scope: true, ap: true }),
           ...loadoutUsp({ ap: true, silencer: true }),
           ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1472,9 +1472,9 @@ export function create(): JSXNode {
           ...loadoutSpas12(),
           ...loadoutColt1911(),
           ...loadoutF1Grenades(3),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1495,9 +1495,9 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutFort(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1538,8 +1538,8 @@ export function create(): JSXNode {
           { section: drugs.medkit },
           ...loadoutToz34(),
           ...loadoutPm(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1560,9 +1560,9 @@ export function create(): JSXNode {
         supplies={[
           ...loadoutBm16(),
           ...loadoutPm(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1582,9 +1582,9 @@ export function create(): JSXNode {
           ...loadoutAk74u(),
           ...loadoutPm(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItems,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1603,10 +1603,10 @@ export function create(): JSXNode {
         supplies={[
           ...loadoutUsp(),
           ...loadoutF1Grenades(3),
-          ...loadoutCharacterItems2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutCharacterItems2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1623,9 +1623,9 @@ export function create(): JSXNode {
         supplies={[
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1643,9 +1643,9 @@ export function create(): JSXNode {
           ...loadoutAk74u(),
           ...loadoutFort(),
           ...loadoutRgd5Grenades(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -1663,9 +1663,9 @@ export function create(): JSXNode {
           ...loadoutAk74(),
           ...loadoutPm(),
           ...loadoutRgd5Grenades(2),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />

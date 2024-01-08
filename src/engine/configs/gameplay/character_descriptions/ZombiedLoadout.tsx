@@ -11,8 +11,8 @@ import {
   loadoutCharacterItemsWithoutTorch,
   loadoutCharacterItemsWithoutTorch2,
   loadoutCharacterItemsWithoutTorch3,
+  profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -41,9 +41,9 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...loadoutCharacterItemsWithoutTorch,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItemsWithoutTorch(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -64,9 +64,9 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_9x18_fmj },
-          ...loadoutCharacterItemsWithoutTorch,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItemsWithoutTorch(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -87,9 +87,9 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo.ammo_9x19_fmj },
           { section: ammo.ammo_9x18_fmj },
-          ...loadoutCharacterItemsWithoutTorch,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs,
+          ...loadoutCharacterItemsWithoutTorch(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -111,9 +111,9 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...loadoutCharacterItemsWithoutTorch,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutTorch(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -135,9 +135,9 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_hpsa },
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_9x19_fmj },
-          ...loadoutCharacterItemsWithoutTorch,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutTorch(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -158,9 +158,9 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_mp5 },
           { section: weapons.wpn_hpsa },
           { section: ammo.ammo_9x19_fmj },
-          ...loadoutCharacterItemsWithoutTorch,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutTorch(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -182,9 +182,9 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_colt1911 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutTorch2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutTorch2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -206,10 +206,10 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...loadoutCharacterItemsWithoutTorch2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutTorch2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -231,10 +231,10 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...loadoutCharacterItemsWithoutTorch2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutTorch2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -256,10 +256,10 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...loadoutCharacterItemsWithoutTorch2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutTorch2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -281,10 +281,10 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...loadoutCharacterItemsWithoutTorch2,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutTorch2(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -306,10 +306,10 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_walther },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo.ammo_9x19_pbp },
-          ...loadoutCharacterItemsWithoutTorch3,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutTorch3(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -331,10 +331,10 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutTorch3,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutTorch3(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -356,10 +356,10 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_sig220 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutTorch3,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutTorch3(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -381,10 +381,10 @@ export function ZombiedLoadout(): JSXNode {
           { section: weapons.wpn_colt1911 },
           { section: ammo.ammo_pkm_100 },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterItemsWithoutTorch3,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutTorch3(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />

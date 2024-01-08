@@ -10,6 +10,11 @@ import {
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
   loadoutCharacterItemsWithoutDetector,
+  loadoutRgd5Grenades,
+  loadoutSig220,
+  loadoutSvd,
+  loadoutSvu,
+  loadoutUsp,
 } from "@/engine/configs/gameplay/loadouts";
 import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
@@ -40,8 +45,8 @@ export function create(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo.ammo_9x19_fmj },
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -63,9 +68,9 @@ export function create(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs2,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs2(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -85,9 +90,9 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo.ammo_pkm_100 },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
-          ...loadoutCharacterDrugsMilitary,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -109,8 +114,8 @@ export function create(): JSXNode {
           { section: weapons.wpn_colt1911 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs4,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs4(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -125,16 +130,14 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_02\\monolith\\"}
         rank={80}
         supplies={[
-          { section: weapons.wpn_svd },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutSvd(),
+          ...loadoutUsp(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -150,16 +153,14 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_02\\monolith\\"}
         rank={80}
         supplies={[
-          { section: weapons.wpn_svu },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterFood,
-          ...loadoutCharacterDrugs3,
-          ...loadoutCharacterDrugsMilitary,
-          ...loadoutCharacterDrugsScientific,
+          ...loadoutSvu(),
+          ...loadoutSig220(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugs3(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
         <CharacterProfileCriticals />

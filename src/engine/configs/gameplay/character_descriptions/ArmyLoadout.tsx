@@ -16,8 +16,8 @@ import {
   loadoutRgd5Grenades,
   loadoutSvd,
   loadoutVal,
+  profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import {
@@ -41,9 +41,9 @@ export function ArmyLoadout(): JSXNode {
         supplies={[
           ...loadoutAk74u(),
           ...loadoutPm(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -62,9 +62,9 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutRgd5Grenades(),
           ...loadoutAk74(),
           ...loadoutPm(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -83,9 +83,9 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutRgd5Grenades(2),
           ...loadoutAk74(),
           ...loadoutFort(),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -104,9 +104,9 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutAbakan(),
           ...loadoutFort(),
           ...loadoutRgd5Grenades(2),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -124,9 +124,9 @@ export function ArmyLoadout(): JSXNode {
         supplies={[
           ...loadoutFort(),
           ...loadoutF1Grenades(3),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -145,9 +145,9 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutGroza({ ap: true }),
           ...loadoutFort(),
           ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -166,9 +166,9 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutVal({ ap: true }),
           ...loadoutFort(),
           ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -187,9 +187,9 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutAbakan({ scope: true, ap: true }),
           ...loadoutFort(),
           ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
@@ -208,9 +208,9 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutSvd(),
           ...loadoutFort(),
           ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />

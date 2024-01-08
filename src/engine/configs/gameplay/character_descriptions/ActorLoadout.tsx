@@ -92,9 +92,9 @@ export function ActorLoadout(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_og-7b"] },
           { section: ammo["ammo_vog-25"] },
-          ...loadoutCharacterItems,
-          ...loadoutCharacterDrugs,
-          ...loadoutCharacterFood,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterDrugs(),
+          ...loadoutCharacterFood(),
         ]}
       >
         <CharacterProfileCriticals />
