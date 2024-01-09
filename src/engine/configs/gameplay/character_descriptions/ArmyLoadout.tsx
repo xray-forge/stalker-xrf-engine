@@ -4,9 +4,6 @@ import { SpecificCharacter } from "@/engine/configs/gameplay/components";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
-  loadoutAbakan,
-  loadoutAk74,
-  loadoutAk74u,
   loadoutCharacterDrugsBase,
   loadoutCharacterFood,
   loadoutCharacterItemsWithoutDetector,
@@ -16,10 +13,10 @@ import {
   loadoutPm,
   loadoutRgd5Grenades,
   loadoutSvd,
-  loadoutVal,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
 import { communities } from "@/engine/lib/constants/communities";
+import { weapons } from "@/engine/lib/constants/items/weapons";
 import {
   GENERATE_CAPTAIN_NAME,
   GENERATE_LIEUTENANT_NAME,
@@ -39,11 +36,15 @@ export function ArmyLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_01\\military\\"}
         rank={30}
         supplies={[
-          ...loadoutAk74u(),
           ...loadoutPm(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
+        ]}
+        loadout={[
+          { section: weapons.wpn_ak74u, ammoType: 1 },
+          { section: weapons.wpn_ak74, ammoType: 1 },
+          { section: weapons.wpn_ak74, ammoType: 2 },
         ]}
       >
         <CharacterProfileCriticals />
@@ -51,20 +52,25 @@ export function ArmyLoadout(): JSXNode {
       </SpecificCharacter>
 
       <SpecificCharacter
-        id={"sim_default_military_1_default"}
+        id={"sim_default_military_1_default_0"}
         class={"sim_default_military_1"}
-        name={GENERATE_PRIVATE_NAME}
+        name={GENERATE_SERGEANT_NAME}
         community={communities.army}
-        icon={profileIcon.ui_inGame2_Soldier_2}
-        soundConfig={"characters_voice\\human_01\\military\\"}
-        rank={35}
+        icon={profileIcon.ui_inGame2_Soldier_1}
+        soundConfig={"characters_voice\\human_02\\military\\"}
+        rank={40}
         supplies={[
-          ...loadoutRgd5Grenades(),
-          ...loadoutAk74(),
-          ...loadoutPm(),
+          ...loadoutRgd5Grenades(2),
+          ...loadoutFort(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
+        ]}
+        loadout={[
+          { section: weapons.wpn_ak74u, ammoType: 2 },
+          { section: weapons.wpn_ak74, ammoType: 1 },
+          { section: weapons.wpn_ak74, ammoType: 2 },
+          { section: weapons.wpn_ak74, scope: true, ammoType: 2 },
         ]}
       >
         <CharacterProfileCriticals />
@@ -81,32 +87,15 @@ export function ArmyLoadout(): JSXNode {
         rank={45}
         supplies={[
           ...loadoutRgd5Grenades(2),
-          ...loadoutAk74(),
           ...loadoutFort(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
-      >
-        <CharacterProfileCriticals />
-        <DefaultCharacterDialogs />
-      </SpecificCharacter>
-
-      <SpecificCharacter
-        id={"sim_default_military_2_default_1"}
-        class={"sim_default_military_2"}
-        name={GENERATE_SERGEANT_NAME}
-        community={communities.army}
-        icon={profileIcon.ui_inGame2_Soldier_2}
-        soundConfig={"characters_voice\\human_02\\military\\"}
-        rank={45}
-        supplies={[
-          ...loadoutAbakan(),
-          ...loadoutFort(),
-          ...loadoutRgd5Grenades(2),
-          ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugsBase(),
-          ...loadoutCharacterFood(),
+        loadout={[
+          { section: weapons.wpn_abakan, ammoType: 1 },
+          { section: weapons.wpn_abakan, ammoType: 2 },
+          { section: weapons.wpn_ak74, ammoType: 1 },
         ]}
       >
         <CharacterProfileCriticals />
@@ -124,6 +113,32 @@ export function ArmyLoadout(): JSXNode {
         supplies={[
           ...loadoutFort(),
           ...loadoutF1Grenades(3),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
+        ]}
+        loadout={[
+          { section: weapons.wpn_abakan, ammoType: 1 },
+          { section: weapons.wpn_abakan, ammoType: 2 },
+          { section: weapons.wpn_abakan, scope: true, ammoType: 2 },
+        ]}
+      >
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
+      </SpecificCharacter>
+
+      <SpecificCharacter
+        id={"sim_default_military_3_default_sniper"}
+        class={"sim_default_military_3_sniper"}
+        name={GENERATE_CAPTAIN_NAME}
+        community={communities.army}
+        icon={profileIcon.ui_inGame2_Soldier_2}
+        soundConfig={"characters_voice\\human_02\\military\\"}
+        rank={60}
+        supplies={[
+          ...loadoutSvd(),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -149,68 +164,13 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
-      >
-        <CharacterProfileCriticals />
-        <DefaultCharacterDialogs />
-      </SpecificCharacter>
-
-      <SpecificCharacter
-        id={"sim_default_military_4_default_1"}
-        class={"sim_default_military_4"}
-        name={GENERATE_CAPTAIN_NAME}
-        community={communities.army}
-        icon={profileIcon.ui_inGame2_Soldier_4}
-        soundConfig={"characters_voice\\human_03\\military\\"}
-        rank={60}
-        supplies={[
-          ...loadoutVal({ ap: true }),
-          ...loadoutFort(),
-          ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugsBase(),
-          ...loadoutCharacterFood(),
-        ]}
-      >
-        <CharacterProfileCriticals />
-        <DefaultCharacterDialogs />
-      </SpecificCharacter>
-
-      <SpecificCharacter
-        id={"sim_default_military_4_default_2"}
-        class={"sim_default_military_4"}
-        name={GENERATE_CAPTAIN_NAME}
-        community={communities.army}
-        icon={profileIcon.ui_inGame2_Soldier_4}
-        soundConfig={"characters_voice\\human_03\\military\\"}
-        rank={60}
-        supplies={[
-          ...loadoutAbakan({ scope: true, ap: true }),
-          ...loadoutFort(),
-          ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugsBase(),
-          ...loadoutCharacterFood(),
-        ]}
-      >
-        <CharacterProfileCriticals />
-        <DefaultCharacterDialogs />
-      </SpecificCharacter>
-
-      <SpecificCharacter
-        id={"sim_default_military_3_default_sniper"}
-        class={"sim_default_military_3_sniper"}
-        name={GENERATE_CAPTAIN_NAME}
-        community={communities.army}
-        icon={profileIcon.ui_inGame2_Soldier_2}
-        soundConfig={"characters_voice\\human_02\\military\\"}
-        rank={60}
-        supplies={[
-          ...loadoutSvd(),
-          ...loadoutFort(),
-          ...loadoutF1Grenades(4),
-          ...loadoutCharacterItemsWithoutDetector(),
-          ...loadoutCharacterDrugsBase(),
-          ...loadoutCharacterFood(),
+        loadout={[
+          { section: weapons.wpn_groza, ammoType: 2 },
+          { section: weapons.wpn_groza, scope: true, ammoType: 2 },
+          { section: weapons.wpn_abakan, ammoType: 2 },
+          { section: weapons.wpn_abakan, scope: true, ammoType: 2 },
+          { section: weapons.wpn_val, ammoType: 2 },
+          { section: weapons.wpn_val, scope: true, ammoType: 2 },
         ]}
       >
         <CharacterProfileCriticals />
