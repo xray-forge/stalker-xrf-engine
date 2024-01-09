@@ -1,5 +1,6 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+import { SpecificCharacter } from "@/engine/configs/gameplay/components";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
@@ -35,7 +36,6 @@ import {
   loadoutWincheaster1300,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";

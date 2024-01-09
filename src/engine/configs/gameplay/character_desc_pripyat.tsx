@@ -1,5 +1,6 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
+import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/components";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
@@ -19,7 +20,6 @@ import {
   loadoutCharacterSellWeapons,
 } from "@/engine/configs/gameplay/loadouts";
 import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
-import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";

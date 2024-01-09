@@ -1,6 +1,6 @@
 ﻿import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { Character } from "@/engine/configs/gameplay/utils/Character";
+import { Character } from "@/engine/configs/gameplay/components";
 
 export function create(): JSXNode {
   return (

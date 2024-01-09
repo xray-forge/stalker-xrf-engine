@@ -1,7 +1,6 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { ActorDialog } from "@/engine/configs/gameplay/utils/ActorDialog";
-import { StartDialog } from "@/engine/configs/gameplay/utils/StartDialog";
+import { ActorDialog, StartDialog } from "@/engine/configs/gameplay/components";
 
 /**
  * Fragment with default character dialogs.

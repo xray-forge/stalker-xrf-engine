@@ -1,5 +1,6 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+import { CharacterDescriptionMapIcon, SpecificCharacter } from "@/engine/configs/gameplay/components";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
@@ -7,7 +8,6 @@ import {
   loadoutCharacterFood,
   loadoutCharacterItems,
 } from "@/engine/configs/gameplay/loadouts";
-import { CharacterDescriptionMapIcon, SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";

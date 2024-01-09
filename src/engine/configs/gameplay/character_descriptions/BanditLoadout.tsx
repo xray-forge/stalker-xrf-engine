@@ -1,8 +1,11 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+import { SpecificCharacter } from "@/engine/configs/gameplay/components";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
+  loadoutAk74,
+  loadoutAk74u,
   loadoutBeretta,
   loadoutBm16,
   loadoutCharacterDrugsBase,
@@ -14,17 +17,19 @@ import {
   loadoutColt1911,
   loadoutDesertEagle,
   loadoutF1Grenades,
+  loadoutFort,
+  loadoutHpsa,
+  loadoutLr300,
+  loadoutMp5,
   loadoutPm,
   loadoutProtecta,
   loadoutRgd5Grenades,
   loadoutSig550,
   loadoutSpas12,
+  loadoutWincheaster1300,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GENERATE_BANDIT_NAME } from "@/engine/lib/constants/names";
 
 export function BanditLoadout(): JSXNode {
@@ -84,10 +89,8 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_bm16 },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_12x70_buck"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutBm16(),
+          ...loadoutFort(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -108,10 +111,8 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_pm },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74u(),
+          ...loadoutPm(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -132,11 +133,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74u(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -157,11 +156,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74u(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -182,11 +179,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -207,11 +202,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -232,11 +225,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74u(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -257,11 +248,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
@@ -282,11 +271,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_12x76_zhekan"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutWincheaster1300(true),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -307,11 +294,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={500}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74(),
+          ...loadoutBeretta(true),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -332,10 +317,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={500}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutMp5(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -356,11 +340,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={500}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAk74u(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -381,11 +363,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={500}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_9x19_pbp },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutMp5({ ap: true }),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -406,11 +386,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={500}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAk74u(),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -455,11 +433,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={4000}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo["ammo_9x19_pbp"] },
+          ...loadoutSpas12(),
+          ...loadoutBeretta(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -481,11 +457,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={4000}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo["ammo_9x19_pbp"] },
+          ...loadoutSpas12(),
+          ...loadoutBeretta(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -507,11 +481,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={4000}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutAk74(true),
+          ...loadoutColt1911(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -533,11 +505,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={4000}
         supplies={[
-          { section: weapons.wpn_lr300 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_9x19_pbp"] },
+          ...loadoutLr300({ ap: true }),
+          ...loadoutBeretta(true),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -559,11 +529,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={4000}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutDesertEagle(),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),
@@ -585,11 +553,9 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={8000}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutColt1911(true),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterFood(),

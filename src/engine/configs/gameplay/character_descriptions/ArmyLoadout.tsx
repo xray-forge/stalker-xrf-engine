@@ -1,5 +1,6 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
+import { SpecificCharacter } from "@/engine/configs/gameplay/components";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
@@ -18,7 +19,6 @@ import {
   loadoutVal,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
-import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import {
   GENERATE_CAPTAIN_NAME,
