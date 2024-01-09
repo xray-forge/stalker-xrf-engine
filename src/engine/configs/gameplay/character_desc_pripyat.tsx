@@ -5,7 +5,10 @@ import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
   DefaultCharacterDialogsNoGuide,
+  loadoutAbakan,
   loadoutAk74,
+  loadoutAk74u,
+  loadoutBinocular,
   loadoutCharacterDrugsAdvanced,
   loadoutCharacterDrugsBase,
   loadoutCharacterDrugsElite,
@@ -18,11 +21,30 @@ import {
   loadoutCharacterItems3,
   loadoutCharacterItemsWithoutDetector,
   loadoutCharacterSellWeapons,
+  loadoutColt1911,
+  loadoutDesertEagle,
+  loadoutDetectorElite,
+  loadoutF1Grenades,
+  loadoutFort,
+  loadoutG36,
+  loadoutGroza,
+  loadoutLr300,
+  loadoutPb,
+  loadoutPkm,
+  loadoutProtecta,
+  loadoutRgd5Grenades,
+  loadoutRpg7,
+  loadoutSig220,
+  loadoutSvd,
+  loadoutSvu,
+  loadoutTorch,
+  loadoutUsp,
+  loadoutVal,
+  loadoutVintorez,
 } from "@/engine/configs/gameplay/loadouts";
 import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
-import { detectors } from "@/engine/lib/constants/items/detectors";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -40,12 +62,10 @@ export function create(): JSXNode {
         rank={70}
         soundConfig={"characters_voice\\human_02\\military\\"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_val, scope: true },
-          { section: weapons.wpn_pb },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutVal({ ap: true, scope: true }),
+          ...loadoutPb(true),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
@@ -65,12 +85,10 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_abakan, scope: true },
-          { section: weapons.wpn_pb },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutAbakan({ scope: true, ap: true }),
+          ...loadoutPb(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
@@ -89,12 +107,10 @@ export function create(): JSXNode {
         rank={80}
         soundConfig={"characters_voice\\human_01\\military\\"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_svu },
-          { section: weapons.wpn_pb },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutSvu(),
+          ...loadoutPb(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
@@ -113,12 +129,10 @@ export function create(): JSXNode {
         rank={50}
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_abakan, scope: true },
-          { section: weapons.wpn_pb },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutAbakan({ scope: true, ap: true }),
+          ...loadoutPb(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
@@ -138,13 +152,11 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_02\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_3_face_1"}
         supplies={[
-          { section: weapons.wpn_binoc },
           { section: misc.hand_radio },
-          { section: weapons.wpn_groza, scope: true },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutGroza({ ap: true, scope: true }),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -174,10 +186,9 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_01\\monolith\\"}
         supplies={[
           { section: questItems.pri_a17_gauss_rifle },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 1 },
           { section: ammo.ammo_gauss },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutColt1911(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsElite(),
@@ -197,12 +208,10 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_01\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_1_face_1"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutAk74u(),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -235,12 +244,10 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_01\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_ecolog_face_1"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutAk74u(),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -264,12 +271,10 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_01\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_1_face_1"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutAk74u(),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -295,12 +300,10 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_val },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutVal({ ap: true }),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -319,12 +322,10 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_abakan, scope: true },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutAbakan({ scope: true, ap: true }),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -343,13 +344,10 @@ export function create(): JSXNode {
         rank={30}
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_pmm },
           { section: questItems.pri_a25_explosive_charge_item },
+          ...loadoutBinocular(),
+          ...loadoutAk74(),
+          ...loadoutFort(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -368,12 +366,10 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_02\\military\\"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_abakan, scope: true },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutAbakan({ scope: true }),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -392,11 +388,9 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_01\\military\\"}
         supplies={[
-          { section: weapons.wpn_ak74, launcher: true },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutAk74({ launcher: true }),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -415,11 +409,9 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
-          { section: weapons.wpn_val },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo.ammo_9x39_pab9 },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutVal(),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -438,11 +430,9 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
-          { section: weapons.wpn_vintorez },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo.ammo_9x39_pab9 },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutVintorez(),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
         ]}
@@ -460,11 +450,9 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_02\\military\\"}
         supplies={[
-          { section: misc.device_torch },
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_ak74u },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
+          ...loadoutTorch(),
+          ...loadoutAk74u(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterDrugsMilitary(),
@@ -484,11 +472,10 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_02\\military\\"}
         visual={"actors\\stalker_soldier\\stalker_soldier_2_face_1"}
         supplies={[
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_abakan, scope: true },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 2 },
-          { section: ammo["ammo_5.45x39_ap"] },
+          ...loadoutBinocular(),
+          ...loadoutAbakan({ scope: true }),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(2),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
@@ -615,9 +602,9 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         visual={"actors\\stalker_monolith\\stalker_monolith_1_face_1"}
         supplies={[
-          { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_svu },
-          { section: ammo.ammo_pkm_100 },
+          ...loadoutTorch(),
+          ...loadoutPkm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -635,8 +622,7 @@ export function create(): JSXNode {
         rank={30}
         soundConfig={"characters_voice\\human_02\\military\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: ammo["ammo_5.45x39_fmj"] },
+          ...loadoutAk74(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -654,8 +640,7 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: ammo["ammo_5.45x39_fmj"] },
+          ...loadoutAk74(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -673,8 +658,7 @@ export function create(): JSXNode {
         rank={40}
         soundConfig={"characters_voice\\human_01\\military\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: ammo["ammo_5.45x39_fmj"] },
+          ...loadoutAk74(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -693,7 +677,6 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_03\\military\\"}
         supplies={[
           ...loadoutAk74(),
-          { section: ammo["ammo_5.45x39_fmj"] },
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -715,12 +698,10 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_01\\military\\"}
         supplies={[
           { section: misc.hand_radio },
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_groza },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutBinocular(),
+          ...loadoutGroza(),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -747,11 +728,9 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_03\\killer\\"}
         visual={"actors\\stalker_merc\\stalker_merc_4"}
         supplies={[
-          { section: weapons.wpn_g36 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutG36({ ap: true }),
+          ...loadoutUsp({ ap: true }),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -771,10 +750,9 @@ export function create(): JSXNode {
         rank={50}
         soundConfig={"characters_voice\\human_03\\killer\\"}
         supplies={[
-          { section: weapons.wpn_rpg7 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutRpg7(),
+          ...loadoutUsp(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -795,10 +773,9 @@ export function create(): JSXNode {
         rank={50}
         soundConfig={"characters_voice\\human_03\\killer\\"}
         supplies={[
-          { section: weapons.wpn_rpg7 },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutRpg7(),
+          ...loadoutUsp(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -821,8 +798,7 @@ export function create(): JSXNode {
         visual={"actors\\stalker_soldier\\stalker_ecolog_military"}
         supplies={[
           { section: questItems.pri_b35_lab_x8_key },
-          { section: weapons.wpn_usp },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutUsp(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -844,10 +820,8 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_soldier\\stalker_ecolog_military"}
         supplies={[
-          { section: weapons.wpn_lr300, scope: true },
-          { section: weapons.wpn_usp },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutLr300({ scope: true, ap: true }),
+          ...loadoutUsp(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -869,10 +843,8 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_soldier\\stalker_ecolog_military"}
         supplies={[
-          { section: weapons.wpn_lr300, scope: true },
-          { section: weapons.wpn_usp },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutLr300({ scope: true, ap: true }),
+          ...loadoutUsp(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -893,11 +865,9 @@ export function create(): JSXNode {
         rank={80}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
         supplies={[
-          { section: weapons.wpn_svd },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutSvd(),
+          ...loadoutColt1911(true),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -917,11 +887,10 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_02\\monolith\\"}
         supplies={[
           { section: questItems.pri_b36_monolith_hiding_place_pda },
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutProtecta(true),
+          ...loadoutDesertEagle(true),
+          ...loadoutF1Grenades(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -940,11 +909,9 @@ export function create(): JSXNode {
         rank={80}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
         supplies={[
-          { section: weapons.wpn_vintorez },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutVintorez(true),
+          ...loadoutColt1911(true),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -964,14 +931,11 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy_face_2"}
         supplies={[
-          { section: misc.device_torch },
-          { section: detectors.detector_elite },
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutDetectorElite(),
+          ...loadoutBinocular(),
+          ...loadoutTorch(),
+          ...loadoutAk74u(true),
+          ...loadoutColt1911(true),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsScientific(),
@@ -997,11 +961,9 @@ export function create(): JSXNode {
         rank={50}
         soundConfig={"characters_voice\\human_02\\military\\"}
         supplies={[
-          { section: weapons.wpn_abakan, scope: true },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutAbakan({ ap: true, scope: true }),
+          ...loadoutFort(true),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterFoodWithoutAlcohol(),
           ...loadoutCharacterDrugsElite(),
@@ -1024,13 +986,9 @@ export function create(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          { section: weapons.wpn_vintorez },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.wpn_spas12 },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutVintorez(true),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),

@@ -1147,7 +1147,7 @@ export function create(): JSXNode {
         moneyInfinite={true}
         rank={50}
         supplies={[
-          ...loadoutAk74(true),
+          ...loadoutAk74({ ap: true }),
           ...loadoutFort(),
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItemsWithoutDetector(),

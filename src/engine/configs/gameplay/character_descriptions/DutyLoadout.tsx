@@ -7,6 +7,7 @@ import {
   loadoutAbakan,
   loadoutAk74,
   loadoutAk74u,
+  loadoutBeretta,
   loadoutCharacterDrugsAdvanced,
   loadoutCharacterDrugsBase,
   loadoutCharacterDrugsElite,
@@ -17,15 +18,22 @@ import {
   loadoutCharacterItems2,
   loadoutCharacterItems3,
   loadoutCharacterSellWeapons,
+  loadoutF1Grenades,
   loadoutFort,
+  loadoutGroza,
+  loadoutPkm,
   loadoutPm,
+  loadoutProtecta,
   loadoutRgd5Grenades,
+  loadoutSig220,
+  loadoutSig550,
+  loadoutSpas12,
+  loadoutUsp,
+  loadoutVal,
   loadoutWalther,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
 import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import {
   GENERATE_CAPTAIN_NAME,
   GENERATE_LIEUTENANT_NAME,
@@ -45,11 +53,9 @@ export function DutyLoadout(): JSXNode {
         community={communities.dolg}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutSig550(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -70,10 +76,8 @@ export function DutyLoadout(): JSXNode {
         rank={30}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_ak74u },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74u(),
+          ...loadoutFort(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -183,11 +187,9 @@ export function DutyLoadout(): JSXNode {
         rank={35}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -208,11 +210,9 @@ export function DutyLoadout(): JSXNode {
         rank={35}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -233,11 +233,9 @@ export function DutyLoadout(): JSXNode {
         rank={35}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -258,11 +256,9 @@ export function DutyLoadout(): JSXNode {
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAk74(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -284,11 +280,9 @@ export function DutyLoadout(): JSXNode {
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_abakan },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAbakan(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -310,11 +304,9 @@ export function DutyLoadout(): JSXNode {
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutSpas12(),
+          ...loadoutFort(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -336,11 +328,9 @@ export function DutyLoadout(): JSXNode {
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_walther },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutSpas12(),
+          ...loadoutWalther(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -362,11 +352,9 @@ export function DutyLoadout(): JSXNode {
         rank={45}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_abakan },
-          { section: weapons.wpn_pm },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutAbakan(),
+          ...loadoutPm(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterSellWeapons(),
@@ -459,11 +447,9 @@ export function DutyLoadout(): JSXNode {
         rank={55}
         soundConfig={"characters_voice\\human_01\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_abakan, scope: true },
-          { section: weapons.wpn_walther },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutAbakan({ scope: true }),
+          ...loadoutWalther(true),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -486,11 +472,9 @@ export function DutyLoadout(): JSXNode {
         rank={55}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_abakan },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutAbakan({ ap: true }),
+          ...loadoutSig220(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -513,11 +497,9 @@ export function DutyLoadout(): JSXNode {
         rank={55}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_val },
-          { section: weapons.wpn_walther },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_9x39_pab9 },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutVal(),
+          ...loadoutWalther(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -540,11 +522,9 @@ export function DutyLoadout(): JSXNode {
         rank={55}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_fort },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutProtecta(true),
+          ...loadoutFort(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -567,11 +547,9 @@ export function DutyLoadout(): JSXNode {
         rank={55}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_groza },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_9x39_pab9 },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutGroza(),
+          ...loadoutSig220(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -594,11 +572,9 @@ export function DutyLoadout(): JSXNode {
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_groza },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutGroza({ ap: true }),
+          ...loadoutSig220(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -621,11 +597,9 @@ export function DutyLoadout(): JSXNode {
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_groza },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutGroza({ ap: true }),
+          ...loadoutUsp({ ap: true }),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -648,11 +622,9 @@ export function DutyLoadout(): JSXNode {
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_abakan },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutAbakan({ ap: true }),
+          ...loadoutSig220({ ap: true }),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -675,11 +647,9 @@ export function DutyLoadout(): JSXNode {
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_pkm },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo.ammo_pkm_100 },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutPkm(),
+          ...loadoutUsp(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -702,11 +672,9 @@ export function DutyLoadout(): JSXNode {
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutProtecta(),
+          ...loadoutUsp(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -729,11 +697,9 @@ export function DutyLoadout(): JSXNode {
         rank={60}
         soundConfig={"characters_voice\\human_02\\dolg\\"}
         supplies={[
-          { section: weapons.wpn_val },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo.ammo_9x39_ap },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutVal({ ap: true }),
+          ...loadoutUsp({ ap: true }),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),

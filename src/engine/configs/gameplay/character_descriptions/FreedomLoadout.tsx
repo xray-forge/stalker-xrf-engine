@@ -4,6 +4,8 @@ import { SpecificCharacter } from "@/engine/configs/gameplay/components";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
+  loadoutAk74,
+  loadoutBeretta,
   loadoutCharacterDrugsAdvanced,
   loadoutCharacterDrugsBase,
   loadoutCharacterDrugsElite,
@@ -14,11 +16,26 @@ import {
   loadoutCharacterItems2,
   loadoutCharacterItems3,
   loadoutCharacterSellWeapons,
+  loadoutColt1911,
+  loadoutDesertEagle,
+  loadoutF1Grenades,
+  loadoutG36,
+  loadoutHpsa,
+  loadoutL85,
+  loadoutLr300,
+  loadoutMp5,
+  loadoutPm,
+  loadoutRgd5Grenades,
+  loadoutSig220,
+  loadoutSig550,
+  loadoutSvd,
+  loadoutSvu,
+  loadoutVintorez,
+  loadoutWalther,
+  loadoutWincheaster1300,
   profileIcon,
 } from "@/engine/configs/gameplay/loadouts";
 import { communities } from "@/engine/lib/constants/communities";
-import { ammo } from "@/engine/lib/constants/items/ammo";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
 
 export function FreedomLoadout(): JSXNode {
@@ -32,11 +49,9 @@ export function FreedomLoadout(): JSXNode {
         community={communities.freedom}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutSig550(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -57,9 +72,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={1000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_hpsa },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutMp5(),
+          ...loadoutHpsa(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -80,10 +94,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={1000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_pm },
-          { section: ammo.ammo_9x19_fmj },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutMp5(),
+          ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -104,10 +116,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={1000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_pm },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutL85(),
+          ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -128,9 +138,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={1000}
         soundConfig={"characters_voice\\human_01\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_hpsa },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutMp5(),
+          ...loadoutHpsa(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -151,10 +160,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={1000}
         soundConfig={"characters_voice\\human_01\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_mp5 },
-          { section: weapons.wpn_pm },
-          { section: ammo.ammo_9x19_fmj },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutMp5(),
+          ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -175,10 +182,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={1000}
         soundConfig={"characters_voice\\human_01\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_pm },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x18_fmj },
+          ...loadoutWincheaster1300(),
+          ...loadoutPm(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsBase(),
@@ -199,11 +204,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutWincheaster1300(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterFood(),
@@ -224,11 +227,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterFood(),
@@ -249,11 +250,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_01\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutAk74(),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -274,11 +273,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_01\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutL85(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -299,11 +296,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutWincheaster1300(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -324,11 +319,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -349,11 +342,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_mp5, silencer: true },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo.ammo_9x19_fmj },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutMp5({ silencer: true, ap: true }),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -374,11 +365,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutAk74(),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(),
           ...loadoutCharacterItems(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -399,11 +388,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2500}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_lr300, silencer: true, scope: true },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutLr300({ silencer: true, scope: true }),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -425,11 +412,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2500}
         soundConfig={"characters_voice\\human_01\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutL85(true),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -451,11 +436,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2500}
         soundConfig={"characters_voice\\human_02\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_lr300, scope: true, silencer: true },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutLr300({ scope: true, silencer: true, ap: true }),
+          ...loadoutHpsa(true),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -477,10 +460,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2500}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_mp5, silencer: true },
-          { section: weapons.wpn_hpsa },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutMp5({ silencer: true }),
+          ...loadoutHpsa(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -501,11 +483,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2500}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_l85 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutL85(true),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -526,11 +506,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={2500}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_ak74 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_rgd5, count: 2 },
-          { section: ammo["ammo_5.45x39_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutAk74({ ap: true }),
+          ...loadoutColt1911(),
+          ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
@@ -551,10 +529,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_svd },
-          { section: weapons.wpn_colt1911 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutSvd(),
+          ...loadoutColt1911(),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -577,11 +553,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutDesertEagle(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -604,11 +578,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_g36 },
-          { section: weapons.wpn_walther },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutG36({ ap: true }),
+          ...loadoutWalther(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -631,11 +603,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutSig220(),
+          ...loadoutF1Grenades(3),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -658,10 +628,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_02\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_svd },
-          { section: weapons.wpn_mp5, silencer: true },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutSvd(),
+          ...loadoutMp5({ silencer: true }),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -684,10 +652,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={5000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_svu },
-          { section: weapons.wpn_colt1911 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
+          ...loadoutSvu(),
+          ...loadoutColt1911(),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -710,10 +676,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={10_000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_vintorez },
-          { section: weapons.wpn_sig220, silencer: true },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutVintorez(),
+          ...loadoutSig220(),
           ...loadoutCharacterItems2(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsAdvanced(),
@@ -736,10 +700,8 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_02\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_svu },
-          { section: weapons.wpn_walther },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo.ammo_9x19_pbp },
+          ...loadoutSvd(),
+          ...loadoutWalther(),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -762,11 +724,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutColt1911(true),
+          ...loadoutF1Grenades(4),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -789,11 +749,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutSig550({ ap: true }),
+          ...loadoutDesertEagle(true),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -816,11 +774,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_g36 },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutG36({ ap: true }),
+          ...loadoutDesertEagle(true),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
@@ -843,11 +799,9 @@ export function FreedomLoadout(): JSXNode {
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\freedom\\"}
         supplies={[
-          { section: weapons.wpn_g36 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 1 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutG36({ ap: true }),
+          ...loadoutColt1911(),
+          ...loadoutF1Grenades(),
           ...loadoutCharacterItems3(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),

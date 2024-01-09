@@ -502,7 +502,7 @@ export function create(): JSXNode {
         moneyMax={8_000}
         rank={50}
         supplies={[
-          ...loadoutAk74(true),
+          ...loadoutAk74({ ap: true }),
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsWithoutDetector(),

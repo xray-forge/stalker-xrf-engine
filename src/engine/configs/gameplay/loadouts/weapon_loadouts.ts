@@ -23,8 +23,16 @@ export function loadoutToz34(ap: boolean = false): Array<ISpawnItemDescriptor> {
   return [{ section: weapons.wpn_toz34 }, { section: ap ? ammo.ammo_12x70_buck : ammo.ammo_12x76_zhekan }];
 }
 
-export function loadoutAk74(ap: boolean = false): Array<ISpawnItemDescriptor> {
-  return [{ section: weapons.wpn_ak74 }, { section: ap ? ammo["ammo_5.45x39_ap"] : ammo["ammo_5.45x39_fmj"] }];
+export function loadoutAk74({
+  ap = false,
+  scope = false,
+  silencer = false,
+  launcher = false,
+} = {}): Array<ISpawnItemDescriptor> {
+  return [
+    { section: weapons.wpn_ak74, scope, silencer, launcher },
+    { section: ap ? ammo["ammo_5.45x39_ap"] : ammo["ammo_5.45x39_fmj"] },
+  ];
 }
 
 export function loadoutAk74u(ap: boolean = false): Array<ISpawnItemDescriptor> {
@@ -96,8 +104,8 @@ export function loadoutAbakan({
   ];
 }
 
-export function loadoutGroza({ ap = false, silencer = false } = {}): Array<ISpawnItemDescriptor> {
-  return [{ section: weapons.wpn_groza, silencer }, { section: ap ? ammo.ammo_9x39_ap : ammo.ammo_9x39_pab9 }];
+export function loadoutGroza({ ap = false, silencer = false, scope = false } = {}): Array<ISpawnItemDescriptor> {
+  return [{ section: weapons.wpn_groza, silencer, scope }, { section: ap ? ammo.ammo_9x39_ap : ammo.ammo_9x39_pab9 }];
 }
 
 export function loadoutVal({ ap = false, scope = false } = {}): Array<ISpawnItemDescriptor> {
@@ -130,6 +138,10 @@ export function loadoutFort(ap: boolean = false): Array<ISpawnItemDescriptor> {
 
 export function loadoutWalther(ap: boolean = false): Array<ISpawnItemDescriptor> {
   return [{ section: weapons.wpn_walther }, { section: ap ? ammo.ammo_9x19_pbp : ammo.ammo_9x19_fmj }];
+}
+
+export function loadoutRpg7(): Array<ISpawnItemDescriptor> {
+  return [{ section: weapons.wpn_rpg7 }];
 }
 
 export function loadoutColt1911(ap: boolean = false): Array<ISpawnItemDescriptor> {

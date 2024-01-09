@@ -320,7 +320,7 @@ export function MonolithLoadout(): JSXNode {
         rank={45}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
         supplies={[
-          ...loadoutAk74(true),
+          ...loadoutAk74({ ap: true }),
           ...loadoutPm(),
           ...loadoutRgd5Grenades(),
           ...loadoutCharacterItemsMonolith(),

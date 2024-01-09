@@ -481,7 +481,7 @@ export function BanditLoadout(): JSXNode {
         moneyMin={3000}
         moneyMax={4000}
         supplies={[
-          ...loadoutAk74(true),
+          ...loadoutAk74({ ap: true }),
           ...loadoutColt1911(),
           ...loadoutF1Grenades(3),
           ...loadoutCharacterItemsWithoutDetector(),

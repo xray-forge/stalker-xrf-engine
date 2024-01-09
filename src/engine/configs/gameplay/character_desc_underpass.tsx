@@ -4,6 +4,9 @@ import { SpecificCharacter } from "@/engine/configs/gameplay/components";
 import {
   CharacterProfileCriticals,
   DefaultCharacterDialogs,
+  loadoutAk74u,
+  loadoutBeretta,
+  loadoutBinocular,
   loadoutCharacterDrugsAdvanced,
   loadoutCharacterDrugsElite,
   loadoutCharacterDrugsExtended,
@@ -11,17 +14,20 @@ import {
   loadoutCharacterDrugsScientific,
   loadoutCharacterFood,
   loadoutCharacterItemsWithoutDetector,
+  loadoutColt1911,
+  loadoutDetectorElite,
+  loadoutFort,
   loadoutRgd5Grenades,
   loadoutSig220,
   loadoutSvd,
   loadoutSvu,
+  loadoutTorch,
   loadoutUsp,
+  loadoutWincheaster1300,
 } from "@/engine/configs/gameplay/loadouts";
 import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
-import { detectors } from "@/engine/lib/constants/items/detectors";
-import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GENERATE_STALKER_NAME } from "@/engine/lib/constants/names";
 
@@ -37,14 +43,11 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         rank={45}
         supplies={[
-          { section: misc.device_torch },
-          { section: detectors.detector_elite },
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_wincheaster1300 },
-          { section: weapons.wpn_beretta },
-          { section: ammo.ammo_12x70_buck },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo.ammo_9x19_fmj },
+          ...loadoutTorch(),
+          ...loadoutBinocular(),
+          ...loadoutDetectorElite(),
+          ...loadoutWincheaster1300(true),
+          ...loadoutBeretta(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
         ]}
@@ -62,12 +65,10 @@ export function create(): JSXNode {
         visual={"actors\\stalker_soldier\\stalker_ecolog_military"}
         rank={50}
         supplies={[
-          { section: misc.device_torch },
-          { section: detectors.detector_elite },
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_fort },
-          { section: ammo["ammo_5.45x39_fmj"] },
-          { section: ammo.ammo_9x18_pmm },
+          ...loadoutTorch(),
+          ...loadoutDetectorElite(),
+          ...loadoutAk74u(),
+          ...loadoutFort(),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsExtended(),
           ...loadoutCharacterDrugsMilitary(),
@@ -85,11 +86,10 @@ export function create(): JSXNode {
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         rank={75}
         supplies={[
-          { section: misc.device_torch },
           { section: weapons.wpn_pkm_zulus },
-          { section: weapons.wpn_usp },
           { section: ammo.ammo_pkm_100 },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutTorch(),
+          ...loadoutUsp({ ap: true }),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
           ...loadoutCharacterDrugsMilitary(),
@@ -108,12 +108,10 @@ export function create(): JSXNode {
         visual={"actors\\stalker_monolith\\stalker_monolith_1"}
         rank={98}
         supplies={[
-          { section: misc.device_torch },
-          { section: weapons.wpn_binoc },
-          { section: weapons.wpn_svu },
-          { section: weapons.wpn_colt1911 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
+          ...loadoutTorch(),
+          ...loadoutBinocular(),
+          ...loadoutSvu(),
+          ...loadoutColt1911(true),
           ...loadoutCharacterFood(),
           ...loadoutCharacterDrugsElite(),
         ]}

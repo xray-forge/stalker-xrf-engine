@@ -462,7 +462,7 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_02\\stalker\\"}
         supplies={[
-          ...loadoutAk74(true),
+          ...loadoutAk74({ ap: true }),
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
@@ -577,7 +577,7 @@ export function StalkerLoadout(): JSXNode {
         moneyMax={3500}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         supplies={[
-          ...loadoutAk74(true),
+          ...loadoutAk74({ ap: true }),
           ...loadoutBeretta(),
           ...loadoutRgd5Grenades(2),
           ...loadoutCharacterItems2(),
