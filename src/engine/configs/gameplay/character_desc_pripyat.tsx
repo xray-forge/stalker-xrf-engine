@@ -1,21 +1,25 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterDialogsNoGuide } from "@/engine/configs/gameplay/character_dialogs_no_guide";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
-import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
-import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterFoodArmy } from "@/engine/configs/gameplay/loadouts/character_food_army";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { defaultCharacterItems3 } from "@/engine/configs/gameplay/loadouts/character_items_3";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
-import { defaultCharacterSellWeapons } from "@/engine/configs/gameplay/loadouts/character_sell_weapons";
-import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
+import {
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
+  DefaultCharacterDialogsNoGuide,
+  loadoutAk74,
+  loadoutCharacterDrugsAdvanced,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
+  loadoutCharacterDrugsMilitary,
+  loadoutCharacterDrugsScientific,
+  loadoutCharacterFood,
+  loadoutCharacterFoodWithoutAlcohol,
+  loadoutCharacterItems,
+  loadoutCharacterItems3,
+  loadoutCharacterItemsWithoutDetector,
+  loadoutCharacterSellWeapons,
+} from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
+import { ActorDialog, SpecificCharacter, StartDialog } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { detectors } from "@/engine/lib/constants/items/detectors";
@@ -31,11 +35,10 @@ export function create(): JSXNode {
         id={"pri_a17_military_captain_tarasov"}
         class={"pri_a17_military_captain_tarasov"}
         name={"pri_a17_military_captain_tarasov"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={70}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_val, scope: true },
@@ -43,25 +46,24 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>pri_a17_military_recon_squad_ambush_actor_ready</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>pri_a17_military_recon_squad_ambush_actor_ready</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a17_military_prapor_valentyr"}
         class={"pri_a17_military_prapor_valentyr"}
         name={"pri_a17_military_prapor_valentyr"}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_3"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_abakan, scope: true },
@@ -69,24 +71,23 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a17_military_sergeant_morozov"}
         class={"pri_a17_military_sergeant_morozov"}
         name={"pri_a17_military_sergeant_morozov"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={80}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_svu },
@@ -94,24 +95,23 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a17_military_lieutenant_podorojniy"}
         class={"pri_a17_military_lieutenant_podorojniy"}
         name={"pri_a17_military_lieutenant_podorojniy"}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         community={communities.army}
         rank={50}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_abakan, scope: true },
@@ -119,13 +119,13 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -145,47 +145,46 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <start_dialog>pri_a17_military_base_commander_start</start_dialog>
-        <actor_dialog>pri_a17_military_base_commander_actor_dialog_1</actor_dialog>
-        <actor_dialog>pri_a17_military_base_commander_actor_questions_dialog</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_a23_about_gauss_labx8</actor_dialog>
-        <actor_dialog>pri_a16_colonel_a21_about_sentry_dialog</actor_dialog>
-        <actor_dialog>pri_a16_colonel_a21_about_sentry_pass_task_dialog</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_b35_about_merc_start</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_b35_actor_know_about_merc</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_b35_reward</actor_dialog>
-        <actor_dialog>pri_a17_military_colonel_kovalski_evacuation_ready</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a17_military_base_commander_start</StartDialog>
+        <ActorDialog>pri_a17_military_base_commander_ActorDialog_1</ActorDialog>
+        <ActorDialog>pri_a17_military_base_commander_actor_questions_dialog</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_a23_about_gauss_labx8</ActorDialog>
+        <ActorDialog>pri_a16_colonel_a21_about_sentry_dialog</ActorDialog>
+        <ActorDialog>pri_a16_colonel_a21_about_sentry_pass_task_dialog</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_b35_about_merc_start</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_b35_actor_know_about_merc</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_b35_reward</ActorDialog>
+        <ActorDialog>pri_a17_military_colonel_kovalski_evacuation_ready</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a17_monolith_preacher"}
         class={"pri_a17_monolith_preacher"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         rank={100}
         soundConfig={"characters_voice\\human_01\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         supplies={[
           { section: questItems.pri_a17_gauss_rifle },
           { section: weapons.wpn_colt1911 },
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo.ammo_gauss },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -204,26 +203,26 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
-        <actor_dialog>pri_a15_sokolov_where_from</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_jupiter</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_point</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_note</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_occupation</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_pripyat_group</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_need_outfit</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_arranged_outfit</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_goto_zulus</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_acquaintance_after_jorney</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_about_journey</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_helicopter</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <ActorDialog>pri_a15_sokolov_where_from</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_jupiter</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_note</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_occupation</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_pripyat_group</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_need_outfit</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_arranged_outfit</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_goto_zulus</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_acquaintance_after_jorney</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_about_journey</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_helicopter</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -242,17 +241,17 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
-        <actor_dialog>pri_a15_sokolov_pripyat_ready</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_point</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_note</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <ActorDialog>pri_a15_sokolov_pripyat_ready</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_note</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -271,31 +270,30 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <start_dialog>pri_a15_sokolov_start_dialog</start_dialog>
-        <actor_dialog>pri_a15_sokolov_pripyat_ready</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_point</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_evacuation_note</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_acquaintance_after_jorney</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_about_journey</actor_dialog>
-        <actor_dialog>pri_a15_sokolov_helicopter</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <ActorDialog>pri_a15_sokolov_pripyat_ready</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_evacuation_note</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_acquaintance_after_jorney</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_about_journey</ActorDialog>
+        <ActorDialog>pri_a15_sokolov_helicopter</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a22_military_merkulov"}
         class={"pri_a22_military_merkulov"}
         name={"pri_a18_vano_in_suit_reserve_name"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_val },
@@ -303,24 +301,23 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a22_military_skelja"}
         class={"pri_a22_military_skelja"}
         name={"pri_a18_skorlupko_in_suit_name"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_abakan, scope: true },
@@ -328,24 +325,23 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a22_military_yarmoshuk"}
         class={"pri_a22_military_yarmoshuk"}
         name={"pri_a22_military_yarmoshuk_name"}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         community={communities.army}
         rank={30}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_3"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_ak74 },
@@ -354,24 +350,23 @@ export function create(): JSXNode {
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
           { section: questItems.pri_a25_explosive_charge_item },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a15_military_recon_leader"}
         class={"pri_a15_military_recon_leader"}
         name={"pri_a15_military_recon_leader_name"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_abakan, scope: true },
@@ -379,108 +374,104 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a15_military_recon_1"}
         class={"pri_a15_military_recon_1"}
         name={"pri_a15_military_recon_1_name"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_ak74, launcher: true },
           { section: weapons.wpn_fort },
           { section: weapons.grenade_f1, count: 1 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a15_military_recon_2"}
         class={"pri_a15_military_recon_2"}
         name={"pri_a15_military_recon_2_name"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_val },
           { section: weapons.wpn_fort },
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_9x39_pab9 },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a15_military_recon_3"}
         class={"pri_a15_military_recon_3"}
         name={"pri_a15_military_recon_3_name"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_vintorez },
           { section: weapons.wpn_fort },
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo.ammo_9x39_pab9 },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a21_sentry_lieutenant_stecenko"}
         class={"pri_a21_sentry_lieutenant_stecenko"}
         name={"pri_a21_sentry_lieutenant_stecenko_name"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: misc.device_torch },
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_ak74u },
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -498,18 +489,18 @@ export function create(): JSXNode {
           { section: weapons.wpn_fort },
           { section: weapons.grenade_f1, count: 2 },
           { section: ammo["ammo_5.45x39_ap"] },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        <start_dialog>pri_a25_army_medic_start_dialog</start_dialog>
-        <actor_dialog>pri_a25_army_medic_rescued</actor_dialog>
-        <actor_dialog>pri_a25_army_medic_supply_medicine</actor_dialog>
-        <actor_dialog>pri_a25_army_medic_need_health_care</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a25_army_medic_StartDialog</StartDialog>
+        <ActorDialog>pri_a25_army_medic_rescued</ActorDialog>
+        <ActorDialog>pri_a25_army_medic_supply_medicine</ActorDialog>
+        <ActorDialog>pri_a25_army_medic_need_health_care</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -523,14 +514,14 @@ export function create(): JSXNode {
         visual={"actors\\stalker_soldier\\stalker_ecolog_military"}
         supplies={[
           { section: questItems.pri_b306_envoy_pda },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -545,12 +536,12 @@ export function create(): JSXNode {
           { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_ak74 },
           { section: questItems.pri_a15_documents },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -565,12 +556,12 @@ export function create(): JSXNode {
         supplies={[
           { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_wincheaster1300 },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -585,12 +576,12 @@ export function create(): JSXNode {
         supplies={[
           { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_ak74u },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -606,12 +597,12 @@ export function create(): JSXNode {
           { section: misc.device_torch },
           { section: weapons.wpn_pkm_zulus },
           { section: ammo.ammo_pkm_100 },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -627,106 +618,101 @@ export function create(): JSXNode {
           { section: misc.device_torch },
           { section: questItems.pri_a15_wpn_svu },
           { section: ammo.ammo_pkm_100 },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a15_military_tarasov"}
         class={"pri_a15_military_tarasov"}
         name={"pri_a17_military_captain_tarasov"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={30}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a15_military_2"}
         class={"pri_a15_military_2"}
         name={"pri_a17_military_prapor_valentyr"}
-        icon={"ui_inGame2_Soldier_4"}
+        icon={profileIcon.ui_inGame2_Soldier_4}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_4"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a15_military_3"}
         class={"pri_a15_military_3"}
         name={"pri_a17_military_sergeant_morozov"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_ak74 },
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a15_military_4"}
         class={"pri_a15_military_4"}
         name={"pri_a17_military_lieutenant_podorojniy"}
-        icon={"ui_inGame2_Soldier_3"}
+        icon={profileIcon.ui_inGame2_Soldier_3}
         community={communities.army}
         rank={40}
         soundConfig={"characters_voice\\human_03\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_3"}
         supplies={[
-          { section: weapons.wpn_ak74 },
+          ...loadoutAk74(),
           { section: ammo["ammo_5.45x39_fmj"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsBase(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a22_army_signaller"}
         class={"pri_a22_army_signaller"}
         name={"st_pri_a22_army_signaller"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         mechanicMode={true}
         rank={40}
         moneyMin={1000}
         moneyMax={5000}
         soundConfig={"characters_voice\\human_01\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: misc.hand_radio },
           { section: weapons.wpn_binoc },
@@ -735,19 +721,19 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <start_dialog>pri_a22_army_signaller_start_dialog</start_dialog>
-        <actor_dialog>pri_a22_army_signaller_about_rfi_source</actor_dialog>
-        <actor_dialog>pri_a22_army_signaller_about_signal</actor_dialog>
-        <actor_dialog>pri_a22_army_signaller_supply_outfit</actor_dialog>
-        <actor_dialog>pri_a22_army_signaller_supply_ammo</actor_dialog>
-        <actor_dialog>pri_a22_army_signaller_supply_grenade</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_a22_army_signaller_StartDialog</StartDialog>
+        <ActorDialog>pri_a22_army_signaller_about_rfi_source</ActorDialog>
+        <ActorDialog>pri_a22_army_signaller_about_signal</ActorDialog>
+        <ActorDialog>pri_a22_army_signaller_supply_outfit</ActorDialog>
+        <ActorDialog>pri_a22_army_signaller_supply_ammo</ActorDialog>
+        <ActorDialog>pri_a22_army_signaller_supply_grenade</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -766,63 +752,61 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_b35_merc_grenade_launcher_1"}
         class={"pri_b35_merc_grenade_launcher_1"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_merc_2"}
+        icon={profileIcon.ui_inGame2_merc_2}
         community={communities.killer}
         mechanicMode={true}
         rank={50}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_2"}
         supplies={[
           { section: weapons.wpn_rpg7 },
           { section: weapons.wpn_usp },
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsAdvanced(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_b35_merc_grenade_launcher_2"}
         class={"pri_b35_merc_grenade_launcher_2"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_merc_2"}
+        icon={profileIcon.ui_inGame2_merc_2}
         community={communities.killer}
         mechanicMode={true}
         rank={50}
         soundConfig={"characters_voice\\human_03\\killer\\"}
-        visual={"actors\\stalker_merc\\stalker_merc_2"}
         supplies={[
           { section: weapons.wpn_rpg7 },
           { section: weapons.wpn_usp },
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsAdvanced(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -839,14 +823,14 @@ export function create(): JSXNode {
           { section: questItems.pri_b35_lab_x8_key },
           { section: weapons.wpn_usp },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -864,14 +848,14 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -889,50 +873,48 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_b36_monolith_sniper"}
         class={"pri_b36_monolith_sniper"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         mechanicMode={true}
         rank={80}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         supplies={[
           { section: weapons.wpn_svd },
           { section: weapons.wpn_colt1911 },
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsExtended(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_b36_monolith_master_hiding_place"}
         class={"pri_b36_monolith_master_hiding_place"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         mechanicMode={true}
         rank={60}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         supplies={[
           { section: questItems.pri_b36_monolith_hiding_place_pda },
           { section: weapons.wpn_protecta },
@@ -940,36 +922,35 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_b36_monolith_marine_sniper"}
         class={"pri_b36_monolith_marine_sniper"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_3"}
+        icon={profileIcon.ui_inGame2_monolit_3}
         community={communities.monolith}
         mechanicMode={true}
         rank={80}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_3"}
         supplies={[
           { section: weapons.wpn_vintorez },
           { section: weapons.wpn_colt1911 },
           { section: weapons.grenade_f1 },
           { section: ammo.ammo_9x39_ap },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsAdvanced(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -991,59 +972,57 @@ export function create(): JSXNode {
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsScientific(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <start_dialog>pri_b305_strelok_dialog</start_dialog>
-        <actor_dialog>pri_b305_strelok_about_information</actor_dialog>
-        <actor_dialog>pri_b305_strelok_about_station</actor_dialog>
-        <actor_dialog>pri_b305_strelok_about_base</actor_dialog>
-        <actor_dialog>pri_b305_strelok_note</actor_dialog>
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <StartDialog>pri_b305_strelok_dialog</StartDialog>
+        <ActorDialog>pri_b305_strelok_about_information</ActorDialog>
+        <ActorDialog>pri_b305_strelok_about_station</ActorDialog>
+        <ActorDialog>pri_b305_strelok_about_base</ActorDialog>
+        <ActorDialog>pri_b305_strelok_note</ActorDialog>
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pri_a28_evac_com"}
         class={"pri_a28_evac_com"}
         name={"pri_a28_evac_com_name"}
-        icon={"ui_inGame2_Soldier_2"}
+        icon={profileIcon.ui_inGame2_Soldier_2}
         community={communities.army}
         mechanicMode={true}
         rank={50}
         soundConfig={"characters_voice\\human_02\\military\\"}
-        visual={"actors\\stalker_soldier\\stalker_soldier_2"}
         supplies={[
           { section: weapons.wpn_abakan, scope: true },
           { section: weapons.wpn_fort },
           { section: weapons.grenade_f1 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFoodArmy,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFoodWithoutAlcohol(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
-        <actor_dialog>actor_break_dialog</actor_dialog>
+        <CharacterProfileCriticals />
+        <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"sim_default_stalker_pri_a16"}
         class={"sim_default_stalker_pri_a16"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_neutral_nauchniy"}
+        icon={profileIcon.ui_inGame2_neutral_nauchniy}
         community={communities.stalker}
         mechanicMode={true}
         rank={60}
         moneyMin={5000}
         moneyMax={10000}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         supplies={[
           { section: weapons.wpn_vintorez },
           { section: weapons.wpn_sig220 },
@@ -1052,15 +1031,15 @@ export function create(): JSXNode {
           { section: ammo.ammo_9x39_ap },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItems3,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsScientific,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItems3(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsScientific(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogsNoGuide}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogsNoGuide />
       </SpecificCharacter>
     </xml>
   );

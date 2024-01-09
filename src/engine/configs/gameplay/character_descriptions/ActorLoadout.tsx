@@ -1,10 +1,12 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
+import {
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterFood,
+  loadoutCharacterItems,
+} from "@/engine/configs/gameplay/loadouts";
 import { CharacterDescriptionMapIcon, SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -22,19 +24,19 @@ export function ActorLoadout(): JSXNode {
     <Fragment>
       <SpecificCharacter
         id={"actor"}
-        community={"actor"}
+        community={communities.actor}
         name={"st_actor_name"}
         icon={"ui_inGame2_Hero"}
         team={"Actor"}
-        visual={"actors\\stalker_hero\\stalker_hero_1"}
         moneyMin={2500}
         noRandom={true}
         terrainSection={null}
+        visual={"actors\\stalker_hero\\stalker_hero_1"}
         supplies={[
           { section: misc.device_torch },
           { section: detectors.detector_simple },
-          { section: helmets.helm_respirator },
-          { section: outfits.stalker_outfit },
+          { section: helmets.helm_respirator, cond: 0.8 },
+          { section: outfits.stalker_outfit, cond: 0.75 },
           { section: drugs.bandage, count: 2 },
           { section: drugs.antirad, count: 1 },
           { section: drugs.medkit, count: 4 },
@@ -43,8 +45,8 @@ export function ActorLoadout(): JSXNode {
           { section: food.conserva, count: 2 },
           { section: weapons.wpn_binoc },
           { section: weapons.wpn_knife },
-          { section: weapons.wpn_pm_actor },
-          { section: weapons.wpn_ak74u },
+          { section: weapons.wpn_pm_actor, cond: 0.9 },
+          { section: weapons.wpn_ak74u, cond: 0.75 },
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_9x18_fmj, count: 3 },
           { section: ammo["ammo_5.45x39_fmj"], count: 3 },
@@ -55,13 +57,13 @@ export function ActorLoadout(): JSXNode {
       <SpecificCharacter
         id={"mp_actor"}
         name={"actor_name"}
-        community={"actor"}
+        community={communities.actor}
         icon={"ui_inGame2_Hero"}
         team={"mp_actor"}
-        visual={"actors\\stalker_hero\\stalker_hero_1"}
         noRandom={true}
         terrainSection={null}
         mapIcon={<CharacterDescriptionMapIcon x={2} y={5} />}
+        visual={"actors\\stalker_hero\\stalker_hero_1"}
       />
 
       <SpecificCharacter
@@ -70,8 +72,8 @@ export function ActorLoadout(): JSXNode {
         community={communities.ecolog}
         icon={"ui_inGame2_Hero"}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_hero\\stalker_hero_1"}
         terrainSection={null}
+        visual={"actors\\stalker_hero\\stalker_hero_1"}
         supplies={[
           { section: misc.device_torch },
           { section: misc.hand_radio },
@@ -90,13 +92,13 @@ export function ActorLoadout(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_og-7b"] },
           { section: ammo["ammo_vog-25"] },
-          ...defaultCharacterItems,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </Fragment>
   );

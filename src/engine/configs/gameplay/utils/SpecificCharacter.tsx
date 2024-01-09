@@ -1,8 +1,18 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { createLoadout, ILoadoutItemDescriptor } from "@/engine/configs/gameplay/utils/create_loadout";
-import { Optional } from "@/engine/lib/types";
+import { profileVisuals } from "@/engine/configs/gameplay/loadouts/profile_presets";
+import {
+  createSpawnList,
+  createSpawnLoadout,
+  ILoadoutItemDescriptor,
+  ISpawnItemDescriptor,
+} from "@/engine/configs/gameplay/utils/create_loadout";
+import { Optional, TName } from "@/engine/lib/types";
 
+/**
+ * Typing for character descriptor.
+ * Aliasing all variants to create nested XML nodes required for character profile descriptors.
+ */
 export interface ICharacterDescriptionProps {
   id: string;
   class?: string;
@@ -13,16 +23,17 @@ export interface ICharacterDescriptionProps {
   team?: string;
   community: string;
   soundConfig?: string;
-  visual: string;
+  visual?: string;
   rank?: number;
   reputation?: number;
   moneyMin?: number;
   moneyMax?: number;
+  moneyInfinite?: boolean;
   crouchType?: number;
   terrainSection?: Optional<string>;
-  supplies?: Array<ILoadoutItemDescriptor>;
+  supplies?: Array<ISpawnItemDescriptor>;
+  loadout?: Array<ILoadoutItemDescriptor>;
   noRandom?: boolean;
-  infiniteMoney?: boolean;
   mechanicMode?: boolean;
   mapIcon?: JSXNode;
   children?: JSXNode;
@@ -52,13 +63,20 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
     visual,
     soundConfig,
     supplies = [],
+    loadout = [],
     noRandom,
-    infiniteMoney,
+    moneyInfinite,
     terrainSection = "stalker_terrain",
     mapIcon = <CharacterDescriptionMapIcon x={1} y={0} />,
     mechanicMode,
     children,
   } = props;
+
+  const characterVisual: Optional<TName> = visual ?? profileVisuals[icon as keyof typeof profileVisuals];
+
+  if (!characterVisual) {
+    throw new Error(`Expected visual to be present for character profile with icon '${icon}'.`);
+  }
 
   return (
     <specific_character
@@ -68,23 +86,33 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
     >
       <name>{name}</name>
       <icon>{icon}</icon>
-      {mapIcon}
       <bio>{bio ?? "Опытный сталкер. Детальная информация отсутствует."}</bio>
-      {team ? <team>{team}</team> : null}
       <class>{props.class ?? id}</class>
       <community>{community}</community>
       <rank>{rank ?? 0}</rank>
       <reputation>{reputation ?? 0}</reputation>
+      <visual>{characterVisual}</visual>
+
       {typeof moneyMin === "number" ? (
-        <money min={moneyMin} max={moneyMax ?? moneyMin} infinitive={infiniteMoney ? 1 : 0} />
+        <money min={moneyMin} max={moneyMax ?? moneyMin} infinitive={moneyInfinite ? 1 : 0} />
       ) : null}
       {typeof crouchType === "number" ? <crouch_type>{crouchType}</crouch_type> : null}
       {typeof mechanicMode === "boolean" ? <mechanic_mode>{mechanicMode ? 1 : 0}</mechanic_mode> : null}
-      <visual>{visual}</visual>
+
+      {mapIcon}
+      {team ? <team>{team}</team> : null}
       {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}
+      {loadout.length || supplies.length ? (
+        <supplies>
+          {supplies.length ? `\n[spawn]\\n\n${createSpawnList(supplies, "\n")}` : null}
+          {loadout.length ? `\n[spawn_loadout]\\n\n${createSpawnLoadout(loadout)}` : null}
+        </supplies>
+      ) : (
+        <supplies />
+      )}
+
       {children}
-      {supplies.length ? <supplies>{`\n[spawn]\\n\n${createLoadout(supplies, "\n")}`}</supplies> : <supplies />}
     </specific_character>
   );
 }

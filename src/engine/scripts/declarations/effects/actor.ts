@@ -15,9 +15,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor } from "@/engine/core/utils/reward";
 import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
-import { helmets } from "@/engine/lib/constants/items/helmets";
-import { outfits } from "@/engine/lib/constants/items/outfits";
-import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   EActiveItemSlot,
@@ -342,18 +339,4 @@ extern("xr_effects.hide_best_detector", (actor: GameObject): void => {
       return;
     }
   }
-});
-
-/**
- * Damage actor starting items.
- */
-extern("xr_effects.damage_actor_items_on_start", (actor: GameObject): void => {
-  // todo: To be more generic, pick items from slots and add randomization?
-
-  logger.info("Damage actor items on game start");
-
-  actor.object(helmets.helm_respirator)?.set_condition(0.8);
-  actor.object(outfits.stalker_outfit)?.set_condition(0.76);
-  actor.object(weapons.wpn_pm_actor)?.set_condition(0.9);
-  actor.object(weapons.wpn_ak74u)?.set_condition(0.7);
 });

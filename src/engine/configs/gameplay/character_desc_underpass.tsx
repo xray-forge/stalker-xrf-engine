@@ -1,14 +1,22 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterDrugs3 } from "@/engine/configs/gameplay/loadouts/character_drugs_3";
-import { defaultCharacterDrugs4 } from "@/engine/configs/gameplay/loadouts/character_drugs_4";
-import { defaultCharacterDrugsMilitary } from "@/engine/configs/gameplay/loadouts/character_drugs_mil";
-import { defaultCharacterDrugsScientific } from "@/engine/configs/gameplay/loadouts/character_drugs_sci";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
+import {
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
+  loadoutCharacterDrugsAdvanced,
+  loadoutCharacterDrugsElite,
+  loadoutCharacterDrugsExtended,
+  loadoutCharacterDrugsMilitary,
+  loadoutCharacterDrugsScientific,
+  loadoutCharacterFood,
+  loadoutCharacterItemsWithoutDetector,
+  loadoutRgd5Grenades,
+  loadoutSig220,
+  loadoutSvd,
+  loadoutSvu,
+  loadoutUsp,
+} from "@/engine/configs/gameplay/loadouts";
+import { profileIcon } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -24,10 +32,9 @@ export function create(): JSXNode {
         id={"pas_b400_vano"}
         class={"pas_b400_vano"}
         name={"jup_a10_stalker_vano"}
-        icon={"ui_inGame2_neutral_nauchniy"}
+        icon={profileIcon.ui_inGame2_neutral_nauchniy}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_neutral\\stalker_neutral_nauchniy"}
         rank={45}
         supplies={[
           { section: misc.device_torch },
@@ -38,11 +45,11 @@ export function create(): JSXNode {
           { section: ammo.ammo_12x70_buck },
           { section: ammo.ammo_12x76_zhekan },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -61,22 +68,21 @@ export function create(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_pmm },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pas_b400_zulus"}
         class={"pas_b400_zulus"}
         name={"jup_b15_zulus"}
-        icon={"ui_inGame2_Dolg_1"}
+        icon={profileIcon.ui_inGame2_Dolg_1}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
-        visual={"actors\\stalker_dolg\\stalker_dolg_1"}
         rank={75}
         supplies={[
           { section: misc.device_torch },
@@ -84,19 +90,19 @@ export function create(): JSXNode {
           { section: weapons.wpn_usp },
           { section: ammo.ammo_pkm_100 },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
-          ...defaultCharacterDrugsMilitary,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
+          ...loadoutCharacterDrugsMilitary(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pas_b400_wanderer"}
         class={"pas_b400_wanderer"}
         name={"jup_b4_monolith_squad_leader_name"}
-        icon={"ui_inGame2_monolit_1"}
+        icon={profileIcon.ui_inGame2_monolit_1}
         community={communities.stalker}
         soundConfig={"characters_voice\\human_03\\stalker\\"}
         visual={"actors\\stalker_monolith\\stalker_monolith_1"}
@@ -108,63 +114,57 @@ export function create(): JSXNode {
           { section: weapons.wpn_colt1911 },
           { section: ammo["ammo_7.62x54_7h1"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs4,
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsElite(),
         ]}
       >
-        {defaultCharacterCritical}
+        <CharacterProfileCriticals />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pas_b400_monolith_sniper_0"}
         class={"pas_b400_monolith_sniper"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_2"}
+        icon={profileIcon.ui_inGame2_monolit_2}
         community={communities.monolith}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_2"}
         rank={80}
         supplies={[
-          { section: weapons.wpn_svd },
-          { section: weapons.wpn_usp },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutSvd(),
+          ...loadoutUsp(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsAdvanced(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
         id={"pas_b400_monolith_sniper_1"}
         class={"pas_b400_monolith_sniper"}
         name={GENERATE_STALKER_NAME}
-        icon={"ui_inGame2_monolit_1"}
+        icon={profileIcon.ui_inGame2_monolit_1}
         community={communities.monolith}
         soundConfig={"characters_voice\\human_02\\monolith\\"}
-        visual={"actors\\stalker_monolith\\stalker_monolith_1"}
         rank={80}
         supplies={[
-          { section: weapons.wpn_svu },
-          { section: weapons.wpn_sig220 },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_7.62x54_7h1"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterFood,
-          ...defaultCharacterDrugs3,
-          ...defaultCharacterDrugsMilitary,
-          ...defaultCharacterDrugsScientific,
+          ...loadoutSvu(),
+          ...loadoutSig220(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterDrugsAdvanced(),
+          ...loadoutCharacterDrugsMilitary(),
+          ...loadoutCharacterDrugsScientific(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </xml>
   );

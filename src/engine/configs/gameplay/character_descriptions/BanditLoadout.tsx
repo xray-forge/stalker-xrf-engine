@@ -1,13 +1,26 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
-import { defaultCharacterDialogs } from "@/engine/configs/gameplay/character_dialogs";
-import { defaultCharacterCritical } from "@/engine/configs/gameplay/loadouts/character_criticals";
-import { defaultCharacterDrugs } from "@/engine/configs/gameplay/loadouts/character_drugs";
-import { defaultCharacterDrugs2 } from "@/engine/configs/gameplay/loadouts/character_drugs_2";
-import { defaultCharacterFood } from "@/engine/configs/gameplay/loadouts/character_food";
-import { defaultCharacterItems } from "@/engine/configs/gameplay/loadouts/character_items";
-import { defaultCharacterItemsWithoutDetector } from "@/engine/configs/gameplay/loadouts/character_items_nd";
-import { defaultCharacterSellWeapons } from "@/engine/configs/gameplay/loadouts/character_sell_weapons";
+import {
+  CharacterProfileCriticals,
+  DefaultCharacterDialogs,
+  loadoutBeretta,
+  loadoutBm16,
+  loadoutCharacterDrugsBase,
+  loadoutCharacterDrugsExtended,
+  loadoutCharacterFood,
+  loadoutCharacterItems,
+  loadoutCharacterItemsWithoutDetector,
+  loadoutCharacterSellWeapons,
+  loadoutColt1911,
+  loadoutDesertEagle,
+  loadoutF1Grenades,
+  loadoutPm,
+  loadoutProtecta,
+  loadoutRgd5Grenades,
+  loadoutSig550,
+  loadoutSpas12,
+  profileIcon,
+} from "@/engine/configs/gameplay/loadouts";
 import { SpecificCharacter } from "@/engine/configs/gameplay/utils";
 import { communities } from "@/engine/lib/constants/communities";
 import { ammo } from "@/engine/lib/constants/items/ammo";
@@ -22,23 +35,20 @@ export function BanditLoadout(): JSXNode {
         class={"Stalker_bandit"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\stalker\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={0}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_beretta },
-          { section: weapons.grenade_rgd5 },
-          { section: ammo["ammo_5.56x45_ss190"] },
-          { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItems,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutSig550(),
+          ...loadoutBeretta(),
+          ...loadoutRgd5Grenades(),
+          ...loadoutCharacterItems(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -46,24 +56,21 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
         moneyMin={250}
         moneyMax={1750}
         supplies={[
-          { section: weapons.wpn_bm16 },
-          { section: weapons.wpn_pm },
-          { section: ammo["ammo_12x70_buck"] },
-          { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutBm16(),
+          ...loadoutPm(),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -71,9 +78,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
         moneyMin={250}
         moneyMax={1750}
@@ -82,13 +88,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.wpn_fort },
           { section: ammo["ammo_12x70_buck"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -96,9 +102,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_0"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={20}
         moneyMin={250}
         moneyMax={1750}
@@ -107,13 +112,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.wpn_pm },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -121,9 +126,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -133,13 +137,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -147,9 +151,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -159,13 +162,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -173,9 +176,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -185,13 +187,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -199,9 +201,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -211,13 +212,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -225,9 +226,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_4"}
+        icon={profileIcon.ui_inGame2_bandit_4}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -237,13 +237,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -251,9 +251,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_1"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_1"}
+        icon={profileIcon.ui_inGame2_bandit_1}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_1"}
         rank={30}
         moneyMin={250}
         moneyMax={1750}
@@ -263,13 +262,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x18_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsBase(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -277,9 +276,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={35}
         moneyMin={250}
         moneyMax={1750}
@@ -289,13 +287,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_12x76_zhekan"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -303,9 +301,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -315,13 +312,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_fmj },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -329,9 +326,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -340,13 +336,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.wpn_beretta },
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -354,9 +350,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -366,13 +361,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -380,9 +375,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -392,13 +386,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo.ammo_9x19_pbp },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -406,9 +400,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_2"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_4"}
+        icon={profileIcon.ui_inGame2_bandit_4}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={35}
         moneyMin={500}
         moneyMax={1750}
@@ -418,13 +411,13 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_rgd5, count: 2 },
           { section: ammo["ammo_5.45x39_fmj"] },
           { section: ammo.ammo_9x19_pbp },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -432,26 +425,23 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
         supplies={[
-          { section: weapons.wpn_spas12 },
-          { section: weapons.wpn_colt1911 },
-          { section: weapons.grenade_f1, count: 3 },
-          { section: ammo.ammo_12x76_zhekan },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutSpas12(true),
+          ...loadoutColt1911(),
+          ...loadoutF1Grenades(3),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -459,9 +449,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
@@ -471,14 +460,14 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_9x19_pbp"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -486,9 +475,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_4"}
+        icon={profileIcon.ui_inGame2_bandit_4}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
@@ -498,14 +486,14 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo.ammo_12x70_buck },
           { section: ammo["ammo_9x19_pbp"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -513,9 +501,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
@@ -525,14 +512,14 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.45x39_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -540,9 +527,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_3"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={45}
         moneyMin={3000}
         moneyMax={4000}
@@ -552,14 +538,14 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 3 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_9x19_pbp"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -567,9 +553,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_4"}
+        icon={profileIcon.ui_inGame2_bandit_4}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={55}
         moneyMin={3000}
         moneyMax={4000}
@@ -579,14 +564,14 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -594,9 +579,8 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3"}
+        icon={profileIcon.ui_inGame2_bandit_3}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3"}
         rank={55}
         moneyMin={3000}
         moneyMax={8000}
@@ -606,14 +590,14 @@ export function BanditLoadout(): JSXNode {
           { section: weapons.grenade_f1, count: 4 },
           { section: ammo["ammo_5.56x45_ap"] },
           { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -621,26 +605,23 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_01\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_2"}
         rank={55}
         moneyMin={3000}
         moneyMax={8000}
         supplies={[
-          { section: weapons.wpn_sig550 },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_5.56x45_ap"] },
-          { section: ammo["ammo_11.43x23_fmj"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutSig550({ ap: true }),
+          ...loadoutDesertEagle(),
+          ...loadoutF1Grenades(4),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -648,26 +629,23 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_2"}
+        icon={profileIcon.ui_inGame2_bandit_2}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_4"}
         rank={55}
         moneyMin={3000}
         moneyMax={8000}
         supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_12x76_zhekan"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutProtecta(true),
+          ...loadoutDesertEagle(true),
+          ...loadoutF1Grenades(4),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -675,26 +653,23 @@ export function BanditLoadout(): JSXNode {
         class={"sim_default_bandit_4"}
         name={GENERATE_BANDIT_NAME}
         community={communities.bandit}
-        icon={"ui_inGame2_bandit_3_mask"}
+        icon={profileIcon.ui_inGame2_bandit_3_mask}
         soundConfig={"characters_voice\\human_02\\bandit\\"}
-        visual={"actors\\stalker_bandit\\stalker_bandit_3_mask"}
         rank={55}
         moneyMin={3000}
         moneyMax={8000}
         supplies={[
-          { section: weapons.wpn_protecta },
-          { section: weapons.wpn_desert_eagle },
-          { section: weapons.grenade_f1, count: 4 },
-          { section: ammo["ammo_12x76_zhekan"] },
-          { section: ammo["ammo_11.43x23_hydro"] },
-          ...defaultCharacterItemsWithoutDetector,
-          ...defaultCharacterDrugs2,
-          ...defaultCharacterFood,
-          ...defaultCharacterSellWeapons,
+          ...loadoutProtecta(true),
+          ...loadoutDesertEagle(true),
+          ...loadoutF1Grenades(4),
+          ...loadoutCharacterItemsWithoutDetector(),
+          ...loadoutCharacterDrugsExtended(),
+          ...loadoutCharacterFood(),
+          ...loadoutCharacterSellWeapons(),
         ]}
       >
-        {defaultCharacterCritical}
-        {defaultCharacterDialogs}
+        <CharacterProfileCriticals />
+        <DefaultCharacterDialogs />
       </SpecificCharacter>
     </Fragment>
   );
