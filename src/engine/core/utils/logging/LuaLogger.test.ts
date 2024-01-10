@@ -72,7 +72,7 @@ describe("LuaLogger class", () => {
   it("LuaLogger should correctly print table", () => {
     const logger: LuaLogger = new Logger("tst");
 
-    jest.spyOn(logger, "format").mockImplementation(() => {});
+    jest.spyOn(logger, "info").mockImplementation(() => {});
 
     logger.table({ test: true, another: 10 });
 
