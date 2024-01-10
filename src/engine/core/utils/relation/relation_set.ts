@@ -149,7 +149,7 @@ export function setSquadRelationWithObject(
   object: GameObject,
   relation: ERelation
 ): void {
-  logger.info("Applying new game relation between squad and object:", relation, squadId, object?.name());
+  logger.format("Applying new game relation between squad and object: %s %s %s", relation, squadId, object?.name());
 
   const squad: Optional<Squad> =
     type(squadId) === "string"

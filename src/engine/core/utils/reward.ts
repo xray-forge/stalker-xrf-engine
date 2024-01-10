@@ -20,7 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param amount - money to give to actor
  */
 export function giveMoneyToActor(amount: TCount): void {
-  logger.info("Award actor with money:", amount);
+  logger.format("Award actor with money: %s", amount);
 
   registry.actor.give_money(amount);
 
@@ -57,7 +57,7 @@ export function transferMoneyFromActor(to: GameObject, amount: TCount): void {
  * @param count - count of items to transfer
  */
 export function transferItemsFromActor(to: GameObject, itemSection: TSection, count: TCount | "all" = 1): void {
-  logger.info("Transfer items from actor:", to.name(), itemSection, count);
+  logger.format("Transfer items from actor: %s %s %s", to.name(), itemSection, count);
 
   const from: GameObject = registry.actor;
   let remaining: TCount = 0;
@@ -83,15 +83,15 @@ export function transferItemsFromActor(to: GameObject, itemSection: TSection, co
       }
     }, from);
   } else {
-    abort("Wrong parameters in function 'transferItemsFromActor', amount is negative: '%s'.", tostring(count));
+    abort("Wrong parameters in function 'transferItemsFromActor', amount is negative: '%s'.", count);
   }
 
   assert(
     remaining === 0,
     "Actor do not has enough '%s' items. Transferred '%s', needed '%s'.",
-    tostring(itemSection),
-    tostring(count - remaining),
-    tostring(count)
+    itemSection,
+    count - remaining,
+    count
   );
 
   // Calculate correct ammo count.

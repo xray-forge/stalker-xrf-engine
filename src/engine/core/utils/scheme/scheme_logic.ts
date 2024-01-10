@@ -152,7 +152,7 @@ export function activateSchemeBySection(
 
   assert(schemeImplementation, "scheme/logic: scheme '%s' is not registered.", scheme);
 
-  // logger.info("Set active scheme:", scheme, "->", object.name(), section, additional);
+  // logger.format("Set active scheme: %s -> %s %s %s", scheme, object.name(), section, additional);
 
   schemeImplementation.activate(object, ini, scheme, section as TSection, smartTerrainName);
 

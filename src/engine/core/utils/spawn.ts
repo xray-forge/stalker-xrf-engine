@@ -261,7 +261,7 @@ export function spawnObject<T extends ServerObject>(
   index: TIndex = 0,
   yaw: TRate = 0
 ): T {
-  logger.info("Spawn object:", section, pathName);
+  logger.format("Spawn object: %s %s", section, pathName);
 
   assert(section, "Wrong spawn section for 'spawnObject' function '%s'.", section);
   assert(pathName, "Wrong spawn pathName for 'spawnObject' function '%s'.", pathName);
@@ -296,7 +296,7 @@ export function spawnObjectInObject<T extends ServerObject>(
   section: Optional<TSection>,
   targetId: Optional<TNumberId>
 ): T {
-  // logger.info("Spawn in object:", section, targetId);
+  // logger.format("Spawn in object: %s %s", section, targetId);
 
   if (!section || !targetId) {
     abort("Wrong spawn configuration for 'spawnObjectInObject', '%s' and '%s'.", section, targetId);
@@ -320,12 +320,12 @@ export function spawnObjectInObject<T extends ServerObject>(
 export function releaseObject(objectId: TNumberId): void {
   const serverObject: Optional<ServerObject> = registry.simulator.object(objectId);
 
-  logger.info("Destroying object:", objectId);
+  logger.format("Destroying object: %s", objectId);
 
   if (serverObject) {
     registry.simulator.release(serverObject, true);
   } else {
-    logger.warn("No existing object to destroy:", objectId);
+    logger.format("No existing object to destroy: %s", objectId);
   }
 }
 

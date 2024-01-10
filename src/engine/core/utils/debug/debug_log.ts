@@ -22,13 +22,13 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function logObjectInventoryItems(object: GameObject): void {
   logger.pushSeparator();
-  logger.info("Print object inventory report:", object.name());
+  logger.format("Print object inventory report: %s", object.name());
 
-  logger.info("Best weapon:", object.best_weapon()?.name() || NIL);
-  logger.info("Best item:", object.best_item()?.name() || NIL);
+  logger.format("Best weapon: %s", object.best_weapon()?.name());
+  logger.format("Best item: %s", object.best_item()?.name());
 
   object.iterate_inventory((owner, item) => {
-    logger.info("*:", item.section(), item.id());
+    logger.format("*: %s %s", item.section(), item.id());
   }, object);
 
   logger.pushSeparator();
@@ -41,21 +41,21 @@ export function logObjectInventoryItems(object: GameObject): void {
  */
 export function logObjectPlannerState(object: GameObject): void {
   logger.pushSeparator();
-  logger.info("Print object planner state report:", object.name());
+  logger.format("Print object planner state report: %s", object.name());
 
   const plannerShowPrefix: TLabel = `${logger.getFullPrefix()} [${object.name()}]`;
   const actionPlanner: Optional<ActionPlanner> = object.motivation_action_manager();
 
   if (actionPlanner === null) {
-    return logger.info("Object does not have action planner, `null` received");
+    return logger.format("Object does not have action planner, `nil` received");
   }
 
   const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
-  logger.info("Current best enemy:", object.best_enemy()?.name() || NIL);
-  logger.info("Current best danger:", object.best_danger()?.object()?.name() || NIL);
-  logger.info("Current planner initialized:", actionPlanner.initialized());
-  logger.info("Current planner action id:", currentActionId, EActionId[currentActionId]);
+  logger.format("Current best enemy: %s", object.best_enemy()?.name());
+  logger.format("Current best danger: %s", object.best_danger()?.object()?.name());
+  logger.format("Current planner initialized: %s", actionPlanner.initialized());
+  logger.format("Current planner action id: %s %s", currentActionId, EActionId[currentActionId]);
 
   // Detect specifically which action is played.
   if (
@@ -63,10 +63,9 @@ export function logObjectPlannerState(object: GameObject): void {
     currentActionId === EActionId.COMBAT ||
     currentActionId === EActionId.ANOMALY
   ) {
-    logger.info(
-      "Current action id:",
+    logger.format(
+      "Current action id: %s -> %s",
       currentActionId,
-      "->",
       cast_planner(actionPlanner.action(currentActionId)).current_action_id()
     );
   }
@@ -74,26 +73,26 @@ export function logObjectPlannerState(object: GameObject): void {
   if (actionPlanner.show !== null) {
     actionPlanner.show(plannerShowPrefix);
   } else {
-    logger.info("For more details run game in mixed/debug mode");
+    logger.format("For more details run game in mixed/debug mode");
   }
 
   logger.pushSeparator();
 
   // Check state manager planner if it exists for the object.
   if (registry.objects.get(object.id())?.stateManager) {
-    logger.info("Print object state planner report:", object.name());
+    logger.format("Print object state planner report: %s", object.name());
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const actionPlanner: ActionPlanner = state.stateManager!.planner;
     const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
 
-    logger.info("Current state planner initialized:", actionPlanner.initialized());
-    logger.info("Current state action id:", currentActionId, EStateActionId[currentActionId]);
+    logger.format("Current state planner initialized: %s", actionPlanner.initialized());
+    logger.format("Current state action id: %s %s", currentActionId, EStateActionId[currentActionId]);
 
     if (actionPlanner.show !== null) {
       actionPlanner.show(plannerShowPrefix + "[planner] ");
     } else {
-      logger.info("For more state details run game in mixed/debug mode");
+      logger.format("For more state details run game in mixed/debug mode");
     }
 
     logger.pushSeparator();
@@ -107,34 +106,34 @@ export function logObjectPlannerState(object: GameObject): void {
  */
 export function logObjectStateManager(object: GameObject): void {
   logger.pushSeparator();
-  logger.info("Print object state manager report:", object.name());
+  logger.format("Print object state manager report: %s", object.name());
 
   if (registry.objects.get(object.id())?.stateManager) {
     const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
 
-    logger.info("State controller:", stateManager.controller);
-    logger.info("Target state:", stateManager.targetState);
-    logger.info(
-      "Look object:",
+    logger.format("State controller: %s", stateManager.controller);
+    logger.format("Target state: %s", stateManager.targetState);
+    logger.format(
+      "Look object: %s",
       stateManager.lookObjectId ? registry.simulator.object(stateManager.lookObjectId)?.name() || NIL : NIL
     );
-    logger.info("Look type:", stateManager.getObjectLookPositionType());
-    logger.info("Current animation slot:", getObjectActiveWeaponSlot(object));
-    logger.info("Callback object:", toJSON(stateManager.callback));
-    logger.info("Is combat:", stateManager.isCombat);
-    logger.info("Is alife:", stateManager.isAlife);
-    logger.info("Animation states:", toJSON(stateManager.animation.state));
-    logger.info(
-      "Animation controller animation:",
+    logger.format("Look type: %s", stateManager.getObjectLookPositionType());
+    logger.format("Current animation slot: %s", getObjectActiveWeaponSlot(object));
+    logger.format("Callback object: %s", toJSON(stateManager.callback));
+    logger.format("Is combat: %s", stateManager.isCombat);
+    logger.format("Is alife: %s", stateManager.isAlife);
+    logger.format("Animation states: %s", toJSON(stateManager.animation.state));
+    logger.format(
+      "Animation controller animation: %s",
       toJSON(stateManager.animation.animations.get(stateManager.animation.state.currentState as TName))
     );
-    logger.info("Animstate states:", toJSON(stateManager.animstate.state));
-    logger.info(
-      "Animstate controller animation:",
+    logger.format("Animstate states: %s", toJSON(stateManager.animstate.state));
+    logger.format(
+      "Animstate controller animation: %s",
       toJSON(stateManager.animation.animations.get(stateManager.animation.state.currentState as TName))
     );
   } else {
-    logger.info("No state manager declared for object");
+    logger.format("No state manager declared for object");
   }
 
   logger.pushSeparator();
@@ -147,22 +146,22 @@ export function logObjectStateManager(object: GameObject): void {
  */
 export function logObjectRelations(object: GameObject): void {
   logger.pushSeparator();
-  logger.info("Print object relations report:", object.name());
+  logger.format("Print object relations report: %s", object.name());
 
-  logger.info("Object community:", object.character_community());
-  logger.info(
-    "Object goodwill to actor:",
+  logger.format("Object community: %s", object.character_community());
+  logger.format(
+    "Object goodwill to actor: %s",
     relation_registry.community_relation(object.character_community(), registry.actor.character_community())
   );
-  logger.info(
-    "Object community to actor:",
+  logger.format(
+    "Object community to actor: %s",
     getNumberRelationBetweenCommunities(
       object.character_community() as TCommunity,
       registry.actor.character_community() as TCommunity
     )
   );
-  logger.info(
-    "Actor community to object:",
+  logger.format(
+    "Actor community to object: %s",
     getNumberRelationBetweenCommunities(
       registry.actor.character_community() as TCommunity,
       object.character_community() as TCommunity
@@ -170,13 +169,13 @@ export function logObjectRelations(object: GameObject): void {
   );
 
   Object.values(stalkerCommunities).forEach((it) => {
-    logger.info(
-      "Community to object:",
+    logger.format(
+      "Community to object: %s",
       it,
       getNumberRelationBetweenCommunities(it, object.character_community() as TCommunity)
     );
-    logger.info(
-      "Object to community:",
+    logger.format(
+      "Object to community: %s",
       it,
       getNumberRelationBetweenCommunities(object.character_community() as TCommunity, it)
     );
@@ -192,32 +191,32 @@ export function logObjectRelations(object: GameObject): void {
  */
 export function logObjectState(object: GameObject): void {
   logger.pushSeparator();
-  logger.info("Print object state report:", object.name(), object.id(), object.section());
+  logger.format("Print object state report: %s %s %", object.name(), object.id(), object.section());
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  logger.info("Object section:", object.section());
-  logger.info("Ini file name:", state.iniFilename);
-  logger.info("Section logic:", state.sectionLogic);
-  logger.info("Scheme type:", ESchemeType[state.schemeType]);
-  logger.info("Active scheme:", state.activeScheme);
-  logger.info("Active section:", state.activeSection);
-  logger.info("Smart terrain name:", state.smartTerrainName);
-  logger.info("Activation time:", state.activationTime);
-  logger.info(
-    "Activation game time:",
+  logger.format("Object section: %s", object.section());
+  logger.format("Ini file name: %s", state.iniFilename);
+  logger.format("Section logic: %s", state.sectionLogic);
+  logger.format("Scheme type: %s", ESchemeType[state.schemeType]);
+  logger.format("Active scheme: %s", state.activeScheme);
+  logger.format("Active section: %s", state.activeSection);
+  logger.format("Smart terrain name: %s", state.smartTerrainName);
+  logger.format("Activation time: %s", state.activationTime);
+  logger.format(
+    "Activation game time: %s",
     (state.activationGameTime as Optional<CTime>) ? gameTimeToString(state.activationGameTime) : NIL
   );
-  logger.info("Portable store:", toJSON(state.portableStore));
-  logger.info("State overrides:", toJSON(state.overrides));
-  logger.info("Enemy id:", state.enemyId);
-  logger.info("Enemy name:", state.enemyId ? registry.simulator.object(state.enemyId)?.name() : NIL);
-  logger.info("Script combat type:", tostring(state.scriptCombatType));
-  logger.info("Registered camp:", state.camp || "none");
+  logger.format("Portable store: %s", toJSON(state.portableStore));
+  logger.format("State overrides: %s", toJSON(state.overrides));
+  logger.format("Enemy id: %s", state.enemyId);
+  logger.format("Enemy name: %s", state.enemyId ? registry.simulator.object(state.enemyId)?.name() : NIL);
+  logger.format("Script combat type: %s", tostring(state.scriptCombatType));
+  logger.format("Registered camp: %s", state.camp || "none");
 
   logger.pushSeparator();
 
-  logger.info("State of scheme:", toJSON(state.activeScheme ? state[state.activeScheme] : null, "\n", 0, 4));
+  logger.format("State of scheme: %s", toJSON(state.activeScheme ? state[state.activeScheme] : null, "\n", 0, 4));
 
   logger.pushSeparator();
 }

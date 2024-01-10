@@ -97,7 +97,7 @@ extern("xr_conditions.surge_kill_all", (): boolean => {
  * @returns whether surge signal rockets flying
  */
 extern("xr_conditions.signal_rocket_flying", (actor: GameObject, object: GameObject, [name]: [TName]): boolean => {
-  const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name);
+  const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name) as Optional<SignalLightBinder>;
 
   if (rocket) {
     return rocket.isFlying();

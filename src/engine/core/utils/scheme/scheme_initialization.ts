@@ -224,7 +224,7 @@ export function setupObjectSmartJobsAndLogicOnSpawn(
   schemeType: ESchemeType,
   isLoaded: boolean
 ): void {
-  // logger.info("Setup smart terrain logic on spawn:", object.name(), schemeType);
+  // logger.format("Setup smart terrain logic on spawn: %s %s", object.name(), schemeType);
 
   const alifeSimulator: Optional<AlifeSimulator> = registry.simulator;
   const serverObject: Optional<ServerCreatureObject> = registry.simulator!.object(object.id());
@@ -262,7 +262,7 @@ export function initializeObjectSectionItems(object: GameObject, state: IRegistr
     return;
   }
 
-  logger.info("Initialize section spawn items for object:", object.name());
+  logger.format("Initialize section spawn items for object: %s", object.name());
 
   const itemsToSpawn: LuaTable<TInventoryItem, TCount> = new LuaTable();
   const itemSectionsCount: TCount = state.ini.line_count(spawnItemsSection);
@@ -289,7 +289,7 @@ export function initializeObjectSectionItems(object: GameObject, state: IRegistr
  * @param object - game object to setup logics
  */
 export function setupSmartTerrainObjectJobLogic(smartTerrain: SmartTerrain, object: GameObject): void {
-  // logger.info("Setup logic:", this.name(), object.name());
+  // logger.format("Setup logic: %s %s", this.name(), object.name());
 
   const objectJobDescriptor: IObjectJobState = smartTerrain.objectJobDescriptors.get(object.id());
   const job: ISmartTerrainJobDescriptor = smartTerrain.jobs.get(objectJobDescriptor.jobId);
