@@ -5,16 +5,13 @@ import {
   closeSaveMarker,
   openLoadMarker,
   openSaveMarker,
+  registerSignalLight,
   registry,
-  resetObject,
-  unregisterObject,
+  unregisterSignalLight,
 } from "@/engine/core/database";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { createVector } from "@/engine/core/utils/vector";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { GameObject, NetPacket, Optional, Reader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
+import { Y_VECTOR } from "@/engine/lib/constants/vectors";
+import { GameObject, NetPacket, Optional, Reader, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Signal light object.
@@ -32,8 +29,17 @@ export class SignalLightBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    resetObject(this.object);
-    registry.signalLights.set(this.object.name(), this);
+    registerSignalLight(this);
+  }
+
+  public override net_destroy(): void {
+    unregisterSignalLight(this);
+
+    super.net_destroy();
+  }
+
+  public override net_save_relevant(): boolean {
+    return true;
   }
 
   public override update(delta: TDuration): void {
@@ -60,10 +66,10 @@ export class SignalLightBinder extends object_binder {
       flyTime = now - this.startTime;
 
       if (flyTime < 1500) {
-        this.object.set_const_force(createVector(0, 1, 0), 180 + math.floor(flyTime / 5), 1500 - flyTime);
+        this.object.set_const_force(Y_VECTOR, 180 + math.floor(flyTime / 5), 1500 - flyTime);
         this.object.start_particles("weapons\\light_signal", "link");
       } else if (flyTime < 20000) {
-        this.object.set_const_force(createVector(0, 1, 0), 33, 20000 - flyTime);
+        this.object.set_const_force(Y_VECTOR, 33, 20000 - flyTime);
         this.object.start_particles("weapons\\light_signal", "link");
       }
 
@@ -84,7 +90,7 @@ export class SignalLightBinder extends object_binder {
     }
 
     if (flyTime > 1_500) {
-      if (this.isSlowFlyStarted !== true) {
+      if (!this.isSlowFlyStarted) {
         this.startSlowFly();
         this.object.start_particles("weapons\\light_signal", "link");
         this.object.get_hanging_lamp().turn_on();
@@ -92,18 +98,38 @@ export class SignalLightBinder extends object_binder {
     }
   }
 
-  public override net_spawn(object: ServerObject): boolean {
-    if (!super.net_spawn(object)) {
-      return false;
-    }
+  public override save(packet: NetPacket): void {
+    openSaveMarker(packet, SignalLightBinder.__name);
 
-    return true;
+    super.save(packet);
+
+    packet.w_u32(this.startTime === null ? -1 : time_global() - this.startTime);
+    packet.w_bool(this.isSlowFlyStarted);
+
+    closeSaveMarker(packet, SignalLightBinder.__name);
   }
 
-  public override net_destroy(): void {
-    registry.signalLights.delete(this.object.name());
-    unregisterObject(this.object);
-    super.net_destroy();
+  public override load(reader: Reader): void {
+    openLoadMarker(reader, SignalLightBinder.__name);
+
+    super.load(reader);
+
+    const now: TTimestamp = time_global();
+    const time: TTimestamp = reader.r_u32();
+
+    this.startTime = time === MAX_U32 ? null : now - time;
+    this.isSlowFlyStarted = reader.r_bool();
+    this.deltaTime = now;
+    this.isLoaded = true;
+
+    closeLoadMarker(reader, SignalLightBinder.__name);
+  }
+
+  /**
+   * todo: Description.
+   */
+  public isFlying(): boolean {
+    return this.startTime !== null;
   }
 
   /**
@@ -120,10 +146,7 @@ export class SignalLightBinder extends object_binder {
       return false;
     }
 
-    this.object.set_const_force(createVector(0, 1, 0), 180, 1500);
-
-    // --obj:start_particles("weapons\\light_signal", "link")
-    // --obj:get_hanging_lamp():turn_on()
+    this.object.set_const_force(Y_VECTOR, 180, 1500);
 
     this.startTime = time_global();
     this.isSlowFlyStarted = false;
@@ -136,7 +159,7 @@ export class SignalLightBinder extends object_binder {
    */
   public startSlowFly(): void {
     this.isSlowFlyStarted = true;
-    this.object.set_const_force(createVector(0, 1, 0), 30, 20_000);
+    this.object.set_const_force(Y_VECTOR, 30, 20_000);
   }
 
   /**
@@ -153,59 +176,5 @@ export class SignalLightBinder extends object_binder {
    */
   public stop(): void {
     this.startTime = null;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public isFlying(): boolean {
-    return this.startTime !== null;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override net_save_relevant(): boolean {
-    return true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override save(packet: NetPacket): void {
-    openSaveMarker(packet, SignalLightBinder.__name);
-
-    super.save(packet);
-
-    if (this.startTime === null) {
-      packet.w_u32(-1);
-    } else {
-      packet.w_u32(time_global() - this.startTime);
-    }
-
-    packet.w_bool(this.isSlowFlyStarted === true);
-
-    closeSaveMarker(packet, SignalLightBinder.__name);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public override load(reader: Reader): void {
-    openLoadMarker(reader, SignalLightBinder.__name);
-
-    super.load(reader);
-
-    const time = reader.r_u32();
-
-    if (time !== MAX_U32) {
-      this.startTime = time_global() - time;
-    }
-
-    this.isSlowFlyStarted = reader.r_bool();
-    this.isLoaded = true;
-    this.deltaTime = time_global();
-
-    closeLoadMarker(reader, SignalLightBinder.__name);
   }
 }

@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { Optional, TName, TSection } from "@/engine/lib/types";
+import { IniFile, Optional, TName, TSection } from "@/engine/lib/types";
 import { mockIniFile } from "@/fixtures/xray";
 
 /**
@@ -11,7 +11,7 @@ export class MockSmartTerrain extends SmartTerrain {
   public static mock(name: Optional<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
     const smartTerrain: MockSmartTerrain = new MockSmartTerrain(section);
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
 
     if (name) {
       jest.spyOn(smartTerrain, "name").mockImplementation(() => name);
@@ -38,7 +38,7 @@ export class MockSmartTerrain extends SmartTerrain {
 export function mockSmartTerrain(name: TName = "test_smart", section: TSection = "test_smart_section"): SmartTerrain {
   const smartTerrain: SmartTerrain = new SmartTerrain(section);
 
-  smartTerrain.ini = smartTerrain.spawn_ini();
+  smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
   jest.spyOn(smartTerrain, "name").mockImplementation(() => name);
 
   return smartTerrain;
@@ -90,7 +90,7 @@ export function mockSmartTerrainWithConfiguration(
     });
   });
 
-  smartTerrain.ini = smartTerrain.spawn_ini();
+  smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
   jest.spyOn(smartTerrain, "name").mockImplementation(() => name);
 
   return smartTerrain;

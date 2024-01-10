@@ -10,7 +10,7 @@ import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/j
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { ServerHumanObject } from "@/engine/lib/types";
+import { IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { MockSmartTerrain, mockSmartTerrainWithConfiguration, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
@@ -125,7 +125,7 @@ describe("SmartTerrain class generic logic", () => {
       });
     });
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
 
     replaceFunctionMock(time_global, () => 4000);
 
@@ -269,7 +269,7 @@ describe("SmartTerrain class generic logic", () => {
       10,
       200,
       true,
-      0,
+      1,
       255,
       2,
       true,

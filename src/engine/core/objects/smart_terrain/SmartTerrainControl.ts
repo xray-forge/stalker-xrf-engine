@@ -15,7 +15,6 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerr
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { isWeapon } from "@/engine/core/utils/class_ids";
 import { parseConditionsList, pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ERelation, updateSquadIdRelationToActor } from "@/engine/core/utils/relation";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -30,8 +29,6 @@ import {
   TSection,
   TStringId,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Handler of smart terrain status.

@@ -43,9 +43,9 @@ export class CampManager {
   public availableGuitarStories: LuaArray<TName>;
   public availableHarmonicaStories: LuaArray<TName>;
 
-  public storyManager: StoryManager;
   public ini: IniFile;
   public object: GameObject;
+  public storyManager: StoryManager;
 
   // List of objects registered in camp.
   public objects: LuaTable<TNumberId, ICampStateDescriptor> = new LuaTable();

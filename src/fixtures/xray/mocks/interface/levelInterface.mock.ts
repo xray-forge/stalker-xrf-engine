@@ -21,6 +21,7 @@ export const mockLevelInterface = {
   get_game_difficulty: jest.fn(() => 3),
   get_snd_volume: jest.fn(() => 1),
   get_time_hours: jest.fn(() => 12),
+  get_time_minutes: jest.fn(() => 30),
   hide_indicators_safe: jest.fn(),
   iterate_online_objects: jest.fn((cb: (object: GameObject) => void) => {
     return [...CLIENT_SIDE_REGISTRY.entries()].forEach(([k, v]) => {
@@ -41,18 +42,19 @@ export const mockLevelInterface = {
 
     return CLIENT_SIDE_REGISTRY.get(verifiedId);
   }),
+  enable_input: jest.fn(),
+  map_add_object_spot_ser: jest.fn(),
+  map_remove_object_spot: jest.fn(),
   patrol_path_exists: jest.fn((name: TName) => name in patrols),
   present: jest.fn(() => true),
+  rain_factor: jest.fn(() => 0),
   remove_cam_effector: jest.fn(),
   remove_complex_effector: jest.fn(),
   set_snd_volume: jest.fn((volume: number) => {}),
+  set_weather: jest.fn(),
   show_indicators: jest.fn(),
   show_weapon: jest.fn(),
-  vertex_position: jest.fn(() => MockVector.create(15, 14, 16)),
-  set_weather: jest.fn(),
   stop_weather_fx: jest.fn(),
-  map_remove_object_spot: jest.fn(),
-  map_add_object_spot_ser: jest.fn(),
   vertex_id: jest.fn(() => -1),
-  enable_input: jest.fn(),
+  vertex_position: jest.fn(() => MockVector.create(15, 14, 16)),
 };

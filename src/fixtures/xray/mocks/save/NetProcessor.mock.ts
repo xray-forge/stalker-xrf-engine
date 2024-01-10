@@ -1,3 +1,4 @@
+import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { NetPacket, NetProcessor, Reader } from "@/engine/lib/types";
 import { EPacketDataType } from "@/fixtures/xray/mocks/save/types";
 
@@ -95,7 +96,7 @@ export class MockNetProcessor {
 
   public w_u32(data: number): void {
     this.writeDataOrder.push(EPacketDataType.U32);
-    this.dataList.push(data);
+    this.dataList.push(data === -1 ? MAX_U32 : data);
   }
 
   public w_s32(data: number): void {

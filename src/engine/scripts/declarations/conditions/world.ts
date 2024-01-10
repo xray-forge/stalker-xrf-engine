@@ -1,10 +1,11 @@
 import { level } from "xray16";
 
+import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { getManager, registry } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
-import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
+import { ALARM_STATUSES, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
 import { abort } from "@/engine/core/utils/assertion";
@@ -44,6 +45,20 @@ extern("xr_conditions.is_dark_night", (): boolean => {
 });
 
 /**
+ * @returns whether current game minutes are within shift period (gets module from minutes and check <= period)
+ */
+extern(
+  "xr_conditions.time_period",
+  (actor: GameObject, object: GameObject, [shift, period]: [Optional<number>, Optional<number>]): boolean => {
+    if (shift && period && registry.actor !== null) {
+      return shift > period && level.get_time_minutes() % shift <= period;
+    }
+
+    return false;
+  }
+);
+
+/**
  * Check whether anomaly with name has artefact.
  *
  * @param anomalyName - name of the anomaly to check
@@ -79,67 +94,40 @@ extern("xr_conditions.surge_kill_all", (): boolean => {
 });
 
 /**
- * todo;
+ * @returns whether surge signal rockets flying
  */
-extern(
-  "xr_conditions.signal_rocket_flying",
-  (actor: GameObject, object: GameObject, [name]: [Optional<TName>]): boolean => {
-    if (name === null) {
-      abort("Signal rocket name is !set!");
-    }
+extern("xr_conditions.signal_rocket_flying", (actor: GameObject, object: GameObject, [name]: [TName]): boolean => {
+  const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name);
 
-    if (registry.signalLights.get(name) !== null) {
-      return registry.signalLights.get(name).isFlying();
-    } else {
-      abort("No such signal rocket: [%s] on the level.", tostring(name));
-    }
-
-    return false;
+  if (rocket) {
+    return rocket.isFlying();
+  } else {
+    abort("No such signal rocket: '%s' on the level.", name);
   }
-);
-
-/**
- * todo;
- */
-extern("xr_conditions.time_period", (actor: GameObject, object: GameObject, p: [number, number]): boolean => {
-  const [tshift, period] = p;
-
-  if (tshift !== null && period !== null && registry.actor !== null) {
-    return tshift > period && level.get_time_minutes() % tshift <= period;
-  }
-
-  return false;
 });
 
 /**
- * todo;
- */
-const ALARM_STATUSES = {
-  normal: ESmartTerrainStatus.NORMAL,
-  danger: ESmartTerrainStatus.DANGER,
-  alarm: ESmartTerrainStatus.ALARM,
-};
-
-/**
- * todo;
- * todo: Move to smart terrain checker
+ * @returns whether smart terrain alarm status matches provided parameters
  */
 extern(
   "xr_conditions.check_smart_alarm_status",
-  (actor: GameObject, object: GameObject, [smartName, smartStatus]: [TName, keyof typeof ALARM_STATUSES]): boolean => {
-    const status: Optional<ESmartTerrainStatus> = ALARM_STATUSES[smartStatus];
+  (
+    actor: GameObject,
+    object: GameObject,
+    [terrainName, alarmStatus]: [TName, keyof typeof ALARM_STATUSES]
+  ): boolean => {
+    const status: Optional<ESmartTerrainStatus> = ALARM_STATUSES[alarmStatus];
 
     if (!status) {
-      abort("Wrong status[%s] in 'check_smart_alarm_status'", status);
+      abort("Wrong status '%s' in 'check_smart_alarm_status'.", status);
     }
 
-    const smartTerrain: SmartTerrain = getManager(SimulationManager).getSmartTerrainByName(smartName)!;
-    const smartControl: Optional<SmartTerrainControl> = smartTerrain.smartTerrainActorControl;
+    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(terrainName);
 
-    if (smartControl === null) {
-      abort("Cannot calculate 'check_smart_alarm_status' for smart '%s'.", tostring(smartName));
+    if (terrain?.smartTerrainActorControl) {
+      return terrain.smartTerrainActorControl.getSmartTerrainStatus() === status;
+    } else {
+      abort("Cannot calculate 'check_smart_alarm_status' for smart terrain '%s'.", terrainName);
     }
-
-    return smartControl.getSmartTerrainStatus() === status;
   }
 );
