@@ -121,7 +121,7 @@ export class Options extends CUIScriptWnd {
   }
 
   public initializeState(): void {
-    logger.info("Set and save current values");
+    logger.format("Set and save current values");
 
     const optionsManager: COptionsManager = new COptionsManager();
 
@@ -181,7 +181,7 @@ export class Options extends CUIScriptWnd {
   public updateControls(): void {
     const currentRenderer: EGameRenderer = this.uiCurrentRendererSelect.CurrentID();
 
-    logger.info("Updating controls:", currentRenderer);
+    logger.format("Updating controls: %s", currentRenderer);
 
     for (const [key, value] of this.preconditions) {
       value(key, currentRenderer);
@@ -192,7 +192,7 @@ export class Options extends CUIScriptWnd {
 
     if (currentRenderer !== 0) {
       if (!is_enough_address_space_available()) {
-        logger.info("Detected not enough address space, reduce lod");
+        logger.format("Detected not enough address space, reduce lod");
         minTextureLod = 1;
       }
     }
@@ -305,13 +305,13 @@ export class Options extends CUIScriptWnd {
   }
 
   public onShowAdvancedGraphicsClicked(): void {
-    logger.info("Show advanced graphics");
+    logger.format("Show advanced graphics");
     this.uiDialogVideoSettings.Show(false);
     this.uiDialogVideoAdvancedSettings.Show(true);
   }
 
   public onShowSimpleGraphicsClicked(): void {
-    logger.info("Show simplified graphics");
+    logger.format("Show simplified graphics");
     this.uiDialogVideoSettings.Show(true);
     this.uiDialogVideoAdvancedSettings.Show(false);
   }

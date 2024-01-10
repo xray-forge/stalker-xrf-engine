@@ -169,7 +169,7 @@ export class MainMenu extends CUIScriptWnd {
    * Clicked load last save.
    */
   public onLoadLastSaveButtonClick(): void {
-    logger.info("Load last save click");
+    logger.format("Load last save click");
 
     if (registry.simulator === null) {
       return loadLastGameSave();
@@ -281,9 +281,9 @@ export class MainMenu extends CUIScriptWnd {
    */
   public onDevelopmentDebugButtonClick(): void {
     if (forgeConfig.DEBUG.IS_ENABLED) {
-      logger.info("Activating debug settings view");
+      logger.format("Activating debug settings view");
     } else {
-      logger.info("Debug settings are disabled");
+      logger.format("Debug settings are disabled");
 
       return;
     }

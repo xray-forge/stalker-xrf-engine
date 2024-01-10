@@ -154,7 +154,7 @@ export class DebugObjectSection extends AbstractDebugSection {
 
   public onPrintActionPlannerState(): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot print while game is not started");
+      return logger.format("Cannot print while game is not started");
     }
 
     const targetObject: Optional<GameObject> = this.getCurrentObject();
@@ -162,13 +162,13 @@ export class DebugObjectSection extends AbstractDebugSection {
     if (targetObject) {
       logObjectPlannerState(targetObject);
     } else {
-      logger.info("No object found for action state print");
+      logger.format("No object found for action state print");
     }
   }
 
   public onPrintInventoryState(): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot print while game is not started");
+      return logger.format("Cannot print while game is not started");
     }
 
     const targetObject: Optional<GameObject> = this.getCurrentObject();
@@ -176,13 +176,13 @@ export class DebugObjectSection extends AbstractDebugSection {
     if (targetObject) {
       logObjectInventoryItems(targetObject);
     } else {
-      logger.info("No object found for inventory state print");
+      logger.format("No object found for inventory state print");
     }
   }
 
   public onPrintState(): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot print while game is not started");
+      return logger.format("Cannot print while game is not started");
     }
 
     const targetObject: Optional<GameObject> = this.getCurrentObject();
@@ -190,13 +190,13 @@ export class DebugObjectSection extends AbstractDebugSection {
     if (targetObject) {
       logObjectState(targetObject);
     } else {
-      logger.info("No object found for scheme state print");
+      logger.format("No object found for scheme state print");
     }
   }
 
   public onPrintRelationsState(): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot print while game is not started");
+      return logger.format("Cannot print while game is not started");
     }
 
     const targetObject: Optional<GameObject> = this.getCurrentObject();
@@ -204,13 +204,13 @@ export class DebugObjectSection extends AbstractDebugSection {
     if (targetObject) {
       logObjectRelations(targetObject);
     } else {
-      logger.info("No object found for relations state print");
+      logger.format("No object found for relations state print");
     }
   }
 
   public onPrintStateManagerReport(): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot print while game is not started");
+      return logger.format("Cannot print while game is not started");
     }
 
     const targetObject: Optional<GameObject> = this.getCurrentObject();
@@ -218,54 +218,54 @@ export class DebugObjectSection extends AbstractDebugSection {
     if (targetObject) {
       logObjectStateManager(targetObject);
     } else {
-      logger.info("No object found for state manager report");
+      logger.format("No object found for state manager report");
     }
   }
 
   public onSetRelation(relation: ERelation): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot set relation while game is not started");
+      return logger.format("Cannot set relation while game is not started");
     }
 
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      logger.info("Set actor relation for:", targetObject.name(), relation);
+      logger.format("Set actor relation for: %s %s", targetObject.name(), relation);
       setGameObjectRelation(targetObject, registry.actor, relation);
       this.initializeState();
     } else {
-      logger.info("No object found for relation change");
+      logger.format("No object found for relation change");
     }
   }
 
   public onKillObject(): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot kill object while game is not started");
+      return logger.format("Cannot kill object while game is not started");
     }
 
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      logger.info("Kill object:", targetObject.name());
+      logger.format("Kill object: %s", targetObject.name());
       targetObject.kill(targetObject);
     } else {
-      logger.info("No object found for killing");
+      logger.format("No object found for killing");
     }
   }
 
   public onSetWoundedObject(): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot set wounded object while game is not started");
+      return logger.format("Cannot set wounded object while game is not started");
     }
 
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      logger.info("Set wounded object:", targetObject.name());
+      logger.format("Set wounded object: %s", targetObject.name());
 
       setObjectWounded(targetObject);
     } else {
-      logger.info("No object found for wounding");
+      logger.format("No object found for wounding");
     }
   }
 

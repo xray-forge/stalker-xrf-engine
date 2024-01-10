@@ -30,7 +30,7 @@ export class ArtefactBinder extends object_binder {
       return false;
     }
 
-    logger.info("Go online:", this.object.name());
+    logger.format("Go online: %s", this.object.name());
 
     registerObject(this.object);
 
@@ -55,7 +55,7 @@ export class ArtefactBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.info("Go offline:", this.object.name());
+    logger.format("Go offline: %s", this.object.name());
 
     unregisterObject(this.object);
     super.net_destroy();

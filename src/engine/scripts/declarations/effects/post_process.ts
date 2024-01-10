@@ -22,7 +22,7 @@ extern(
     object: GameObject,
     [name, idParameter, loopParameter]: [Optional<TName>, Optional<TNumberId>, Optional<TStringifiedBoolean>]
   ): void => {
-    logger.info("Run cam effector");
+    logger.format("Run cam effector");
 
     if (!name) {
       return;
@@ -45,7 +45,7 @@ extern(
 extern(
   "xr_effects.stop_cam_effector",
   (actor: GameObject, object: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
-    logger.info("Stop cam effector:", effectorId);
+    logger.format("Stop cam effector: %s", effectorId);
 
     if (effectorId && type(effectorId) === "number" && effectorId > 0) {
       level.remove_cam_effector(effectorId);
@@ -59,7 +59,7 @@ extern(
 extern(
   "xr_effects.run_cam_effector_global",
   (actor: GameObject, object: GameObject, [name, id, fov]: [TName, Optional<TNumberId>, Optional<TRate>]): void => {
-    logger.info("Run cam effector global");
+    logger.format("Run cam effector global");
 
     level.add_cam_effector2(
       `camera_effects\\${name}.anm`,
@@ -78,7 +78,7 @@ extern(
  * Sets signal for latest played effector logics.
  */
 extern("xr_effects.cam_effector_callback", (): void => {
-  logger.info("Run cam effector callback");
+  logger.format("Run cam effector callback");
 
   if (!camEffectorPlayingObjectId) {
     return;
@@ -101,7 +101,7 @@ extern("xr_effects.cam_effector_callback", (): void => {
 extern(
   "xr_effects.run_postprocess",
   (actor: GameObject, object: GameObject, [name, id]: [Optional<TName>, Optional<TNumberId>]): void => {
-    logger.info("Run postprocess");
+    logger.format("Run postprocess");
 
     if (!name) {
       return;

@@ -47,7 +47,7 @@ export class CameraEffectorSet {
    * @param effect - descriptor item of effect to run
    */
   public startEffect(effect: ICameraEffectorSetDescriptorItem): void {
-    logger.info("Start effect:", effect.anim);
+    logger.format("Start effect: %s", effect.anim);
 
     if (effect.isGlobalCameraEffect) {
       level.add_cam_effector2(
@@ -73,7 +73,7 @@ export class CameraEffectorSet {
    * Handle stop of camera effector.
    */
   public stopEffect(): void {
-    logger.info("Stop effect:", this.currentEffectIndex, this.state);
+    logger.format("Stop effect: %s %s", this.currentEffectIndex, this.state);
 
     level.remove_cam_effector(CameraEffectorSet.EFFECTOR_ID);
 

@@ -69,7 +69,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
  * todo: Description.
  */
 export function killAllSurgeUnhidden(): void {
-  logger.info("Kill all surge not unhidden");
+  logger.format("Kill all surge not unhidden");
 
   const actor: GameObject = registry.actor;
   const surgeHit: Hit = new hit();
@@ -80,7 +80,7 @@ export function killAllSurgeUnhidden(): void {
   surgeHit.direction = Z_VECTOR;
   surgeHit.draftsman = actor;
 
-  logger.info("Kill crows");
+  logger.format("Kill crows");
 
   for (const [, id] of registry.crows.storage) {
     const object: Optional<GameObject> = registry.objects.get(id)?.object;
@@ -94,14 +94,14 @@ export function killAllSurgeUnhidden(): void {
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
-  logger.info("Killing squads");
+  logger.format("Killing squads");
 
   for (const [, squad] of simulationBoardManager.getSquads()) {
     if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeSquad(squad) && !isStoryObject(squad)) {
       for (const member of squad.squad_members()) {
         if (!isStoryObject(member.object)) {
           if (canSurgeKillSquad(squad)) {
-            logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
+            logger.format("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
 
             const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
 

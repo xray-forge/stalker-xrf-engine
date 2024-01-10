@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
   public override activate(): void {
-    logger.info("Reset timer:", this.object.name());
+    logger.format("Reset timer: %s", this.object.name());
 
     const hud: CUIGameCustom = get_hud();
 
@@ -31,7 +31,7 @@ export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
   }
 
   public override deactivate(): void {
-    logger.info("Deactivate timer:", this.object.name());
+    logger.format("Deactivate timer: %s", this.object.name());
 
     const hud: CUIGameCustom = get_hud();
 
@@ -73,7 +73,7 @@ export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
           this.state.onValue.condlist
         );
 
-        logger.info("Switch to another section:", this.object.name(), nextSection);
+        logger.format("Switch to another section: %s %s", this.object.name(), nextSection);
         switchObjectSchemeToSection(this.object, this.state.ini!, nextSection);
       }
     }

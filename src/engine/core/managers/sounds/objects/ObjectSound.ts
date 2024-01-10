@@ -227,12 +227,12 @@ export class ObjectSound extends AbstractPlayableSound {
     if (schemeState.signals === null) {
       return;
     } else if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== ESoundPlaylistType.RANDOM) {
-      logger.info("Emit sound end signal:", state.object.name());
+      logger.format("Emit sound end signal: %s", state.object.name());
 
       schemeState.signals.set("theme_end", true);
       schemeState.signals.set("sound_end", true);
     } else {
-      logger.info("Emit sound end signal:", state.object.name());
+      logger.format("Emit sound end signal: %s", state.object.name());
 
       schemeState.signals.set("sound_end", true);
     }

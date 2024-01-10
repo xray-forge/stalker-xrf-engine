@@ -99,8 +99,6 @@ export class MapDisplayManager extends AbstractManager {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    // logger.info("Update object spot:", object.name());
-
     const simulator: Optional<AlifeSimulator> = registry.simulator;
 
     if (!simulator) {
@@ -168,7 +166,7 @@ export class MapDisplayManager extends AbstractManager {
    * @param state - target object registry state
    */
   public removeObjectMapSpot(object: GameObject, state: IRegistryObjectState): void {
-    logger.info("Remove object spot:", object.name());
+    logger.format("Remove object spot: %s", object.name());
 
     const simulator: AlifeSimulator = registry.simulator;
 

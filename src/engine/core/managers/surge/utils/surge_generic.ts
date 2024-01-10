@@ -10,10 +10,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo;
  */
 export function launchSurgeSignalRockets(): void {
-  logger.info("Launch signal light rockets");
+  logger.format("Launch signal light rockets");
 
   for (const [, signalLight] of registry.signalLights) {
-    logger.info("Start signal light");
+    logger.format("Start signal light");
     if (!signalLight.isFlying()) {
       signalLight.launch();
     }

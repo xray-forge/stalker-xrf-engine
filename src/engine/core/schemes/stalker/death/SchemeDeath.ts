@@ -50,7 +50,7 @@ export class SchemeDeath extends AbstractScheme {
     );
 
     if (deathSection !== null) {
-      logger.info("Reset death:", object.name());
+      logger.format("Reset death: %s", object.name());
 
       if (!objectState.ini.section_exist(deathSection)) {
         abort("There is no section [%s] for object [%s]", deathSection, object.name());

@@ -159,7 +159,7 @@ export class TreasureManager extends AbstractManager {
       return;
     }
 
-    logger.info("Spawning game treasures");
+    logger.format("Spawning game treasures");
 
     for (const [treasureId] of treasureConfig.TREASURES) {
       this.spawnTreasure(treasureId);
@@ -222,7 +222,7 @@ export class TreasureManager extends AbstractManager {
    * todo: Description.
    */
   public giveActorTreasureCoordinates(treasureId: TStringId, spawn: boolean = false): void {
-    logger.info("Give treasure:", treasureId, spawn);
+    logger.format("Give treasure: %s %s", treasureId, spawn);
 
     assertDefined(treasureConfig.TREASURES.get(treasureId), "There is no stored secret: [%s]", tostring(treasureId));
 
@@ -254,7 +254,7 @@ export class TreasureManager extends AbstractManager {
    * Give one of random treasures that were not given for the actor.
    */
   public giveActorRandomTreasureCoordinates(): void {
-    logger.info("Give random treasure");
+    logger.format("Give random treasure");
 
     const availableTreasures: LuaArray<TStringId> = new LuaTable();
 
@@ -265,7 +265,7 @@ export class TreasureManager extends AbstractManager {
     }
 
     if (availableTreasures.length() === 0) {
-      logger.info("No available treasures to give random");
+      logger.format("No available treasures to give random");
     } else {
       this.giveActorTreasureCoordinates(availableTreasures.get(math.random(1, availableTreasures.length())));
     }
@@ -275,7 +275,7 @@ export class TreasureManager extends AbstractManager {
    * Give all treasure coordinates.
    */
   public giveActorAllTreasureCoordinates(): void {
-    logger.info("Give actor all treasures");
+    logger.format("Give actor all treasures");
 
     let count: TCount = 0;
 
@@ -287,7 +287,7 @@ export class TreasureManager extends AbstractManager {
     }
 
     if (count === 0) {
-      logger.info("No more available treasures to give for actor");
+      logger.format("No more available treasures to give for actor");
     }
   }
 
@@ -368,7 +368,7 @@ export class TreasureManager extends AbstractManager {
     }
 
     if (treasureId) {
-      logger.info("Treasure item taken:", objectId);
+      logger.format("Treasure item taken:", objectId);
 
       const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get(treasureId);
 
@@ -380,7 +380,7 @@ export class TreasureManager extends AbstractManager {
         treasureConfig.TREASURES.get(treasureId).checked = true;
         getManager(NotificationManager).sendTreasureNotification(ETreasureState.FOUND_TREASURE);
 
-        logger.info("Secret now is empty:", treasureId);
+        logger.format("Secret now is empty: %s", treasureId);
       }
 
       this.treasuresRestrictorByItem.delete(objectId);

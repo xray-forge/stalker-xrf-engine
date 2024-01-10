@@ -33,7 +33,7 @@ export class SmartTerrainBinder extends object_binder {
       return false;
     }
 
-    logger.info("Go online:", object.name());
+    logger.format("Go online: %s", object.name());
 
     this.serverObject = registry.simulator.object(object.id) as SmartTerrain;
 
@@ -43,7 +43,7 @@ export class SmartTerrainBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.info("Go offline:", this.object.name());
+    logger.format("Go offline: %s", this.object.name());
 
     getManager(SoundManager).stop(this.object.id());
 
@@ -60,7 +60,7 @@ export class SmartTerrainBinder extends object_binder {
     const object: GameObject = this.object;
 
     if (!this.isVisited && object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
-      logger.info("Visited:", object.name());
+      logger.format("Visited: %", object.name());
 
       this.isVisited = true;
       giveInfoPortion(string.format("%s_visited", object.name()));

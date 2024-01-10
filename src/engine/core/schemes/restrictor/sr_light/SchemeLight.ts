@@ -41,7 +41,7 @@ export class SchemeLight extends AbstractScheme {
   }
 
   public static override reset(): void {
-    logger.info("Reset light zones");
+    logger.format("Reset light zones");
     resetTable(registry.lightZones);
   }
 }

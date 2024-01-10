@@ -25,7 +25,7 @@ export class NumPadWindow extends CUIScriptWnd {
   public constructor(owner: Optional<INumPadWindowOwner>) {
     super();
 
-    logger.info("Initialize new numpad");
+    logger.format("Initialize new numpad");
 
     this.owner = owner;
 
@@ -132,7 +132,7 @@ export class NumPadWindow extends CUIScriptWnd {
    * Clear number and close entry window.
    */
   public onCancelButtonClicked(): void {
-    logger.info("Cancel clicked");
+    logger.format("Cancel clicked");
 
     if (this.owner) {
       this.owner.onNumberReceive("");
@@ -145,7 +145,7 @@ export class NumPadWindow extends CUIScriptWnd {
    * Confirm number and fire callbacks to handle verification.
    */
   public onOkButtonClicked(): void {
-    logger.info("OK clicked");
+    logger.format("OK clicked");
 
     this.HideDialog();
 

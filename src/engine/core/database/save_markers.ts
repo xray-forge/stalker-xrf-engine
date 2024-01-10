@@ -31,9 +31,9 @@ export function closeSaveMarker(packet: NetPacket, markerName: TName): TCount {
   const markerDif: TCount = packet.w_tell() - registry.saveMarkers.get(markerName);
 
   if (markerDif >= 10_240) {
-    logger.info("Saving more than 10240:", markerName, markerDif);
+    logger.format("Saving more than 10240: %s %s", markerName, markerDif);
   } else if (markerDif >= 8000) {
-    logger.info("Saving more than 8000:", markerName, markerDif);
+    logger.format("Saving more than 8000: %s %s", markerName, markerDif);
   }
 
   packet.w_u16(markerDif);

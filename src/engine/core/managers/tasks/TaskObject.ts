@@ -286,7 +286,7 @@ export class TaskObject {
    * Handle task activation - addition to current tasks list.
    */
   public onActivate(): void {
-    logger.info("Activate task:", this.id);
+    logger.format("Activate task: %s", this.id);
 
     const gameTask: GameTask = new CGameTask();
 
@@ -329,7 +329,7 @@ export class TaskObject {
    * @param task - C game task object linked to current one
    */
   public onDeactivate(task: GameTask): void {
-    logger.info("Deactivate task:", this.title, this.state);
+    logger.format("Deactivate task: %s %s", this.title, this.state);
 
     switch (this.state) {
       case ETaskState.FAIL:

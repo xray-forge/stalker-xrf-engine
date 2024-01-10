@@ -442,7 +442,7 @@ export class TravelManager extends AbstractManager {
       return;
     }
 
-    logger.info("Finish traveling");
+    logger.format("Finish traveling");
 
     this.isTraveling = false;
 

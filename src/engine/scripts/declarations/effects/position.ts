@@ -113,7 +113,7 @@ extern("xr_effects.teleport_actor", (actor: GameObject, object: GameObject, para
   }
 
   if (object && object.name() !== null) {
-    logger.info("Teleporting actor from:", tostring(object.name()));
+    logger.format("Teleporting actor from: %s", object.name());
   }
 
   registry.actor.set_actor_position(point.point(0));

@@ -54,7 +54,7 @@ export class PhysicalButtonManager extends AbstractSchemeManager<ISchemePhysical
   }
 
   public override onUse(object: GameObject, who: Optional<GameObject>): void {
-    logger.info("Button used:", object.name(), type(who));
+    logger.format("Button used: %s %s", object.name(), type(who));
 
     if (isActiveSection(this.object, this.state.section) && this.state.onPress) {
       switchObjectSchemeToSection(

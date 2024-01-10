@@ -29,7 +29,7 @@ import {
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-logger.info("Resolve and bind interface externals");
+logger.format("Resolve and bind interface externals");
 
 /**
  * Callbacks related to loading screen tips generation.
@@ -103,7 +103,7 @@ extern("actor_menu_inventory", {
  */
 extern("pda", {
   set_active_subdialog: (...args: AnyArgs): void => {
-    logger.info("Set active subdialog", ...args);
+    logger.format("Set active subdialog");
   },
   get_max_resource: (): TCount => {
     return 10;
@@ -115,15 +115,15 @@ extern("pda", {
     return 10;
   },
   actor_menu_mode: (...args: AnyArgs): void => {
-    logger.info("Pda actor menu mode changed:", ...args);
+    logger.format("Pda actor menu mode changed");
   },
   // todo: m_UIPropertiesBox, m_cur_location
   property_box_clicked: (...args: AnyArgs): void => {
-    logger.info("Pda box property clicked", ...args);
+    logger.format("Pda box property clicked");
   },
   // todo: m_UIPropertiesBox, m_cur_location->ObjectID(), (LPCSTR)m_cur_location->GetLevelName().c_str(), m_cur_location
   property_box_add_properties: (...args: AnyArgs): void => {
-    logger.info("Pda box property added:", ...args);
+    logger.format("Pda box property added");
   },
   fill_fraction_state: (state: AnyObject): void => {
     getManager(PdaManager).fillFactionState(state);

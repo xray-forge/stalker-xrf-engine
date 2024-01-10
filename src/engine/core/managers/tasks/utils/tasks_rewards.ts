@@ -27,7 +27,7 @@ export function giveTaskReward(task: TaskObject): void {
     task.rewardItemsConditionList
   );
 
-  logger.info("Give task rewards:", task.id, money, itemsList);
+  logger.format("Give task rewards: %s %s %s", task.id, money, itemsList);
 
   if (money !== null) {
     giveMoneyToActor(tonumber(money) as TCount);

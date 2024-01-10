@@ -138,7 +138,7 @@ export class SleepDialog extends CUIScriptWnd {
    * Show in-game sleep dialog options.
    */
   public show(): void {
-    logger.info("Show sleep options");
+    logger.format("Show sleep options");
 
     giveInfoPortion(infoPortions.sleep_active);
 

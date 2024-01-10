@@ -242,7 +242,7 @@ export class MonsterBinder extends object_binder {
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = this.state;
 
-    logger.info("Monster death:", object.name());
+    logger.format("Monster death: %s", object.name());
 
     this.resetCallbacks();
 
@@ -271,7 +271,7 @@ export class MonsterBinder extends object_binder {
 
     // todo: Is it legacy code from SHOC or it is needed?
     if (object.clsid() === clsid.poltergeist_s) {
-      logger.info("Releasing poltergeist_s:", object.name());
+      logger.format("Releasing poltergeist_s: %s", object.name());
 
       const targetServerObject: Optional<ServerCreatureObject> = registry.simulator.object(objectId);
 

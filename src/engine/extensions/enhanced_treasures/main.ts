@@ -8,7 +8,7 @@ export const name: TName = "Enhanced treasures";
 export const enabled: boolean = true;
 
 export function register(): void {
-  logger.info("Enhanced treasures activated");
+  logger.format("Enhanced treasures activated");
 
   treasureConfig.ENHANCED_MODE_ENABLED = true;
 }

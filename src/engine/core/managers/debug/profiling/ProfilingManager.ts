@@ -90,19 +90,19 @@ export class ProfilingManager extends AbstractManager {
    * Start profiling of lua execution - attach hooks and start measuring time/counts of executions.
    */
   public start(): void {
-    logger.info("Start profiling manager in mode:", this.mode);
+    logger.format("Start profiling manager in mode: %s", this.mode);
 
     if (jit !== null) {
-      logger.warn("Take care, jit is enabled so profiling stats may be incorrect");
-      logger.warn("For correct profiling run game with '-nojit' flag");
+      logger.format("Take care, jit is enabled so profiling stats may be incorrect");
+      logger.format("For correct profiling run game with '-nojit' flag");
     }
 
     // Ensure all conditions for profiling start are met
     if (debug !== null) {
-      logger.info("Profiling enabled, JIT disabled, going to setup hook");
+      logger.format("Profiling enabled, JIT disabled, going to setup hook");
       this.setupHook();
     } else {
-      logger.info("Debug is not enabled, skip profiling");
+      logger.format("Debug is not enabled, skip profiling");
     }
   }
 
@@ -130,7 +130,7 @@ export class ProfilingManager extends AbstractManager {
     this.mode = mode;
 
     if (this.isProfilingStarted === true) {
-      logger.info("Skip setup, already started");
+      logger.format("Skip setup, already started");
 
       return;
     } else if (!debug) {
@@ -146,7 +146,7 @@ export class ProfilingManager extends AbstractManager {
     this.isProfilingStarted = true;
 
     if (!skipLogs) {
-      logger.info("Profiler is activated");
+      logger.format("Profiler is activated");
     }
   }
 
@@ -155,7 +155,7 @@ export class ProfilingManager extends AbstractManager {
    */
   public clearHook(): void {
     if (!this.isProfilingStarted) {
-      logger.info("Profiler hook wasn't setup!");
+      logger.format("Profiler hook wasn't setup!");
 
       return;
     }
@@ -292,9 +292,9 @@ export class ProfilingManager extends AbstractManager {
      */
 
     logger.pushEmptyLine();
-    logger.info("==================================================================================================");
-    logger.info("Total calls stat, limit:", limit, "JIT:", jit !== null);
-    logger.info("==================================================================================================");
+    logger.format("==================================================================================================");
+    logger.format("Total calls stat, limit: %s JIT: %s", limit, jit !== null);
+    logger.format("==================================================================================================");
 
     let printedCount: TCount = 0;
 
@@ -310,13 +310,13 @@ export class ProfilingManager extends AbstractManager {
       }
     }
 
-    logger.info("==================================================================================================");
-    logger.info("Total function calls count:", totalCallsCount);
-    logger.info("Total function calls / sec:", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
-    logger.info("Total unique LUA functions called:", outStats.length());
-    logger.info("Profiling time:", this.profilingTimer.time() / 1000);
-    logger.info("RAM used:", this.getLuaMemoryUsed() / 1024, "MB");
-    logger.info("==================================================================================================");
+    logger.format("==================================================================================================");
+    logger.format("Total function calls count: %s", totalCallsCount);
+    logger.format("Total function calls / sec: %s", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
+    logger.format("Total unique LUA functions called: %s", outStats.length());
+    logger.format("Profiling time: %s", this.profilingTimer.time() / 1000);
+    logger.format("RAM used: %s MB", this.getLuaMemoryUsed() / 1024);
+    logger.format("==================================================================================================");
     logger.pushEmptyLine();
 
     executeConsoleCommand(consoleCommands.flush);
@@ -377,9 +377,13 @@ export class ProfilingManager extends AbstractManager {
 
     if (table.size(stats) === 0) {
       logger.pushEmptyLine();
-      logger.info("==================================================================================================");
-      logger.info("No custom profiling portions captured yet");
-      logger.info("==================================================================================================");
+      logger.format(
+        "=================================================================================================="
+      );
+      logger.format("No custom profiling portions captured yet");
+      logger.format(
+        "=================================================================================================="
+      );
 
       return;
     }
@@ -389,9 +393,9 @@ export class ProfilingManager extends AbstractManager {
      */
 
     logger.pushEmptyLine();
-    logger.info("==================================================================================================");
-    logger.info("Total portions calls stat, limit:", limit, "JIT:", jit !== null);
-    logger.info("==================================================================================================");
+    logger.format("==================================================================================================");
+    logger.format("Total portions calls stat, limit: %s JIT: %s", limit, jit !== null);
+    logger.format("==================================================================================================");
 
     let printedCount: TCount = 0;
 
@@ -418,10 +422,10 @@ export class ProfilingManager extends AbstractManager {
       }
     }
 
-    logger.info("==================================================================================================");
-    logger.info("Total function calls count:", totalCalls);
-    logger.info("RAM used:", this.getLuaMemoryUsed() / 1024, "MB");
-    logger.info("==================================================================================================");
+    logger.format("==================================================================================================");
+    logger.format("Total function calls count: %s", totalCalls);
+    logger.format("RAM used: %s MB", this.getLuaMemoryUsed() / 1024);
+    logger.format("==================================================================================================");
     logger.pushEmptyLine();
 
     executeConsoleCommand(consoleCommands.flush);

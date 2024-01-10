@@ -188,7 +188,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     // Try to help actor if can.
     if (helpTargetId && helpTargetId !== this.assignedTargetId) {
-      simulationLogger.info("Assign squad new help target id:", this.name(), helpTargetId);
+      simulationLogger.format("Assign squad new help target id: %s %s", this.name(), helpTargetId);
 
       this.currentAction?.finalize();
       this.currentAction = null;
@@ -643,7 +643,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public onSquadLoad(): void {
-    logger.info("Initialize squad on load:", this.name());
+    logger.format("Initialize squad on load: %s", this.name());
 
     this.updateSympathy();
     this.simulationManager.assignSquadToSmartTerrain(this, this.assignedSmartTerrainId);
@@ -654,13 +654,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public onMemberDeath(object: ServerObject): void {
-    simulationLogger.info("On squad member death:", this.name(), object.name());
+    simulationLogger.format("On squad member death: %s %s", this.name(), object.name());
 
     this.soundManager.unregisterObject(object.id);
     this.unregister_member(object.id);
 
     if (this.npc_count() === 0) {
-      logger.info("Removing empty squad, last member died:", this.name());
+      logger.format("Removing empty squad, last member died: %s", this.name());
 
       if (this.currentAction) {
         this.currentAction.finalize();

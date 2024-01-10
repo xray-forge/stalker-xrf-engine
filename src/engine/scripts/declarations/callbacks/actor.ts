@@ -6,62 +6,62 @@ import { GameObject, PhraseDialog, TLabel, TStringId } from "@/engine/lib/types"
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-logger.info("Resolve and bind actor externals");
+logger.format("Resolve and bind actor externals");
 
 /**
  * Handle actor critical power levels.
  */
 extern("on_actor_critical_power", () => {
-  logger.info("Actor critical power");
+  logger.format("Actor critical power");
 });
 
 /**
  * Handle actor max power event.
  */
 extern("on_actor_critical_max_power", () => {
-  logger.info("Actor critical max power");
+  logger.format("Actor critical max power");
 });
 
 /**
  * Handle actor bleeding.
  */
 extern("on_actor_bleeding", () => {
-  logger.info("Actor bleeding");
+  logger.format("Actor bleeding");
 });
 
 /**
  * Handle actor satiety levels change.
  */
 extern("on_actor_satiety", () => {
-  logger.info("Actor satiety");
+  logger.format("Actor satiety");
 });
 
 /**
  * Handle actor radiation levels change.
  */
 extern("on_actor_radiation", () => {
-  logger.info("Actor radiation");
+  logger.format("Actor radiation");
 });
 
 /**
  * Handle actor weapon jammed event.
  */
 extern("on_actor_weapon_jammed", () => {
-  logger.info("Actor weapon jammed");
+  logger.format("Actor weapon jammed");
 });
 
 /**
  * Handle actor weight change with cannot walk event.
  */
 extern("on_actor_cant_walk_weight", () => {
-  logger.info("Actor cant walk weight");
+  logger.format("Actor cant walk weight");
 });
 
 /**
  * Handle actor psy levels change.
  */
 extern("on_actor_psy", () => {
-  logger.info("Actor psy");
+  logger.format("Actor psy");
 });
 
 /**

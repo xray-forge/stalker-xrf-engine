@@ -10,7 +10,7 @@ import { TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-logger.info("Resolve and bind custom externals");
+logger.format("Resolve and bind custom externals");
 
 /**
  * On actor start sleeping.

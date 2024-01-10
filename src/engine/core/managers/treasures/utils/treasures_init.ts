@@ -24,7 +24,7 @@ export function readIniTreasuresList(ini: IniFile): LuaTable<TSection, ITreasure
   const rareCost: TCount = readIniNumber(ini, "config", "rare_cost", false, 5_000);
   const epicCost: TCount = readIniNumber(ini, "config", "epic_cost", false, 10_000);
 
-  logger.info("Initialize secrets, expected:", totalSecretsCount);
+  logger.format("Initialize secrets, expected: %s", totalSecretsCount);
 
   assert(epicCost > rareCost, "Epic cost cannot be lower than rare treasure const: '%s' < '%s'.", epicCost, rareCost);
 

@@ -182,7 +182,7 @@ export class SoundManager extends AbstractManager {
 
     if (!sound || theme.shouldPlayAlways) {
       if (sound) {
-        logger.info("Reset sound before forced play:", objectId, name, faction, point);
+        logger.format("Reset sound before forced play: %s %s %s %s", objectId, name, faction, point);
         sound.reset(objectId);
       }
 

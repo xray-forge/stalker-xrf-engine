@@ -153,7 +153,7 @@ export class SaveDialog extends CUIScriptWnd {
   }
 
   public onListItemClicked(): void {
-    logger.info("List item clicked");
+    logger.format("List item clicked");
 
     if (this.uiListBox.GetSize() === 0) {
       return;
@@ -171,7 +171,7 @@ export class SaveDialog extends CUIScriptWnd {
   }
 
   public onMessageYesClicked(): void {
-    logger.info("Message yes clicked:", this.modalBoxMode);
+    logger.format("Message yes clicked: %s", this.modalBoxMode);
 
     if (this.modalBoxMode === 1) {
       if (this.newSave !== null) {
@@ -187,7 +187,7 @@ export class SaveDialog extends CUIScriptWnd {
   }
 
   public onDeleteButtonClicked(): void {
-    logger.info("Message delete clicked");
+    logger.format("Message delete clicked");
 
     if (this.uiListBox.GetSize() === 0) {
       return;
@@ -205,7 +205,7 @@ export class SaveDialog extends CUIScriptWnd {
   }
 
   public onDeleteSelectedFile(): void {
-    logger.info("Deleting selected file");
+    logger.format("Deleting selected file");
 
     if (this.uiListBox.GetSize() === 0) {
       return;
@@ -227,12 +227,12 @@ export class SaveDialog extends CUIScriptWnd {
   }
 
   public onOkButtonClicked(): void {
-    logger.info("OK confirm clicked");
+    logger.format("OK confirm clicked");
 
     this.newSave = this.uiEditBox.GetText();
 
     if (string.len(this.newSave) === 0) {
-      logger.info("Save name is empty");
+      logger.format("Save name is empty");
 
       this.modalBoxMode = 0;
       this.uiMessageBox.InitMessageBox("message_box_empty_file_name");
@@ -246,7 +246,7 @@ export class SaveDialog extends CUIScriptWnd {
     const fileExists: Optional<number> = fs.exist(roots.gameSaves, this.newSave + forgeConfig.SAVE.GAME_SAVE_EXTENSION);
 
     if (fileExists !== null) {
-      logger.info("File already exists");
+      logger.format("File already exists");
 
       this.modalBoxMode = 1;
       this.uiMessageBox.InitMessageBox("message_box_file_already_exist");
@@ -267,11 +267,11 @@ export class SaveDialog extends CUIScriptWnd {
     this.HideDialog();
     this.owner.Show(true);
 
-    logger.info("Saved");
+    logger.format("Saved");
   }
 
   public onCancelButtonClicked(): void {
-    logger.info("Cancel clicked");
+    logger.format("Cancel clicked");
     this.owner.ShowDialog(true);
     this.HideDialog();
     this.owner.Show(true);

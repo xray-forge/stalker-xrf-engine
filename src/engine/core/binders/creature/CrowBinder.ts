@@ -65,7 +65,7 @@ export class CrowBinder extends object_binder {
       !this.object.alive() &&
       time_global() - crowSpawnerConfig.CROW_CORPSE_RELEASE_TIMEOUT >= this.diedAt
     ) {
-      logger.info("Release dead crow");
+      logger.format("Release dead crow");
       registry.simulator.release(registry.simulator.object(this.object.id()), true);
     }
   }
@@ -94,7 +94,7 @@ export class CrowBinder extends object_binder {
    * On crow object death.
    */
   public onDeath(): void {
-    logger.info("Crow death:", this.object.name());
+    logger.format("Crow death: %s", this.object.name());
 
     this.diedAt = time_global();
 

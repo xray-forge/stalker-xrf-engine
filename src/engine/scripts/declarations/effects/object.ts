@@ -106,7 +106,7 @@ extern(
       return;
     }
 
-    logger.info("Hit object:", object.name(), storyObject.name());
+    logger.format("Hit object: %s %s", object.name(), storyObject.name());
 
     h.bone(params[1]);
     h.power = params[2];
@@ -559,7 +559,7 @@ extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, pa
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
     if (storyObject !== null) {
-      logger.info("Update object logic:", storyObject.id());
+      logger.format("Update object logic: %s", storyObject.id());
 
       const state: IRegistryObjectState = registry.objects.get(storyObject.id());
 
@@ -574,7 +574,7 @@ extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, pa
 extern(
   "xr_effects.hit_npc",
   (actor: GameObject, object: GameObject, params: [string, string, string, number, number, string]): void => {
-    logger.info("Hit object:", object.name());
+    logger.format("Hit object: %s", object.name());
 
     const targetHit: Hit = new hit();
     const rev: boolean = params[5] ? params[5] === TRUE : false;
@@ -624,7 +624,7 @@ extern("xr_effects.restore_health", (actor: GameObject, object: GameObject): voi
 extern(
   "xr_effects.force_obj",
   (actor: GameObject, object: GameObject, p: [string, Optional<number>, Optional<number>]): void => {
-    logger.info("Force object");
+    logger.format("Force object");
 
     const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
 
@@ -663,7 +663,7 @@ extern("xr_effects.burer_force_anti_aim", (actor: GameObject, object: GameObject
  */
 extern("xr_effects.give_items", (actor: GameObject, object: GameObject, params: Array<TSection>): void => {
   for (const section of params) {
-    logger.info("Give item to object:", object.id(), section);
+    logger.format("Give item to object: %s %s", object.id(), section);
     spawnItemsForObject(object, section);
   }
 });
@@ -681,7 +681,7 @@ extern(
     const objectId: TNumberId =
       objectStoryId === null ? (object as GameObject).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
 
-    logger.info("Give item to object:", objectId, section);
+    logger.format("Give item to object: %s %s", objectId, section);
 
     spawnItemsForObject(registry.simulator.object(objectId)!, section);
   }
@@ -832,7 +832,7 @@ extern(
  * todo;
  */
 extern("xr_effects.clear_box", (actor: GameObject, object: GameObject, p: [string]): void => {
-  logger.info("Clear box");
+  logger.format("Clear box");
 
   if ((p && p[0]) === null) {
     abort("Wrong parameters in function 'clear_box'!!!");

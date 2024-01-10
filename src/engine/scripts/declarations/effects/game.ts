@@ -70,7 +70,7 @@ extern("xr_effects.game_disconnect", (): void => disconnectFromGame());
  * Handle gave over credits
  */
 extern("xr_effects.game_over", (): void => {
-  logger.info("Game over, credits sequence ended");
+  logger.format("Game over, credits sequence ended");
 
   if (!isGameoverCreditsStarted) {
     return;
@@ -99,7 +99,7 @@ let isGameoverCreditsStarted: boolean = false;
  * Show game credits tutorial scene.
  */
 extern("xr_effects.game_credits", (): void => {
-  logger.info("Game credits");
+  logger.format("Game credits");
 
   isGameoverCreditsStarted = true;
   game.start_tutorial("credits_seq");
@@ -123,7 +123,7 @@ extern("xr_effects.on_tutor_gameover_quickload", (): void => {
  * Stop active game tutorial.
  */
 extern("xr_effects.stop_tutorial", (): void => {
-  logger.info("Stop tutorial");
+  logger.format("Stop tutorial");
   game.stop_tutorial();
 });
 

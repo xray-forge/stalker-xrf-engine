@@ -24,11 +24,11 @@ export function registerExtensions(isNewGame: boolean): void {
   const sortedExtensions: LuaArray<IExtensionsDescriptor> = syncExtensionsState(extensions, loadExtensionsState());
 
   if (extensions.length() === 0) {
-    logger.info("No extensions detected");
+    logger.format("No extensions detected");
 
     return;
   } else {
-    logger.info("Registering extensions:", extensions.length());
+    logger.format("Registering extensions: %s", extensions.length());
   }
 
   for (const [, extension] of sortedExtensions) {
@@ -40,6 +40,6 @@ export function registerExtensions(isNewGame: boolean): void {
     }
   }
 
-  logger.info("Saving current extensions order");
+  logger.format("Saving current extensions order");
   saveExtensionsState(sortedExtensions);
 }

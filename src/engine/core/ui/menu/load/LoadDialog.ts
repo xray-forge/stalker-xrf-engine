@@ -160,7 +160,7 @@ export class LoadDialog extends CUIScriptWnd {
   }
 
   public onListItemClicked(): void {
-    logger.info("List item selected");
+    logger.format("List item selected");
 
     if (this.uiListBox.GetSize() === 0) {
       return;
@@ -200,12 +200,12 @@ export class LoadDialog extends CUIScriptWnd {
   }
 
   public onListItemDoubleClicked(): void {
-    logger.info("List item double-clicked");
+    logger.format("List item double-clicked");
     this.onLoadButtonClicked();
   }
 
   public onConfirmedLoadClicked(): void {
-    logger.info("Message yes confirmed");
+    logger.format("Message yes confirmed");
 
     const index: TIndex = this.uiListBox.GetSelectedIndex();
 
@@ -230,7 +230,7 @@ export class LoadDialog extends CUIScriptWnd {
   }
 
   public loadGameInternal(): void {
-    logger.info("Load game internal");
+    logger.format("Load game internal");
 
     if (this.uiListBox.GetSize() === 0) {
       return;
@@ -249,7 +249,7 @@ export class LoadDialog extends CUIScriptWnd {
   }
 
   public onLoadButtonClicked(): void {
-    logger.info("Load game clicked");
+    logger.format("Load game clicked");
 
     if (this.uiListBox.GetSize() === 0) {
       return;
@@ -291,7 +291,7 @@ export class LoadDialog extends CUIScriptWnd {
   }
 
   public onBackButtonClicked(): void {
-    logger.info("Back clicked");
+    logger.format("Back clicked");
 
     this.owner.ShowDialog(true);
     this.HideDialog();
@@ -302,7 +302,7 @@ export class LoadDialog extends CUIScriptWnd {
    * Delete game save button clicked.
    */
   public onDeleteButtonClicked(): void {
-    logger.info("Delete clicked");
+    logger.format("Delete clicked");
 
     if (this.uiListBox.GetSize() === 0) {
       return;

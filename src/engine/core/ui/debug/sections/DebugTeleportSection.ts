@@ -138,13 +138,18 @@ export class DebugTeleportSection extends AbstractDebugSection {
    */
   public onTeleport(isInstant?: boolean): void {
     if (!isGameStarted()) {
-      return logger.info("Cannot teleport, game is not started");
+      return logger.format("Cannot teleport, game is not started");
     }
 
     const itemSelected: Optional<DebugTeleportListEntry> = this.uiItemsList.GetSelectedItem();
 
     if (itemSelected) {
-      logger.info("Teleporting actor:", vectorToString(itemSelected.position), itemSelected.gvid, itemSelected.lvid);
+      logger.format(
+        "Teleporting actor: %s %s %s",
+        vectorToString(itemSelected.position),
+        itemSelected.gvid,
+        itemSelected.lvid
+      );
 
       level.add_pp_effector(postProcessors.teleport, 2006, false);
 
@@ -158,7 +163,7 @@ export class DebugTeleportSection extends AbstractDebugSection {
         this.onCloseMainMenu();
       }
     } else {
-      logger.info("No selected target for teleport");
+      logger.format("No selected target for teleport");
     }
   }
 

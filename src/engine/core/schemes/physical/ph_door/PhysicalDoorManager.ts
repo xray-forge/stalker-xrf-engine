@@ -178,7 +178,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public openDoor(disableSound?: boolean): void {
-    logger.info("Open door:", this.object.name(), this.state.section);
+    logger.format("Open door: %s %s", this.object.name(), this.state.section);
 
     if (!disableSound) {
       if (this.state.sndOpenStart) {
@@ -219,7 +219,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public closeDoor(disableSound: boolean): void {
-    logger.info("Close door:", this.object.name(), this.state.section);
+    logger.format("Close door: %s %s", this.object.name(), this.state.section);
 
     if (!disableSound) {
       if (this.state.sndCloseStart !== null) {

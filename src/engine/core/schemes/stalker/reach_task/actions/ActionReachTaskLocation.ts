@@ -64,7 +64,12 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
       objectSquad.assignedTargetId as TNumberId
     ) as TSimulationObject;
 
-    logger.info("Start reach location action:", objectSquad.name(), gameObject.name(), objectSquad.assignedTargetId);
+    logger.format(
+      "Start reach location action: %s %s %s",
+      objectSquad.name(),
+      gameObject.name(),
+      objectSquad.assignedTargetId
+    );
 
     this.reachTargetId = objectSquad.assignedTargetId!;
     this.squadId = objectSquad.id;
@@ -136,7 +141,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
     super.finalize();
     this.object.set_movement_selection_type(EGameObjectMovementType.RANDOM);
 
-    logger.info("Finalize reach task action:", this.object.name());
+    logger.format("Finalize reach task action: %s", this.object.name());
   }
 
   /**

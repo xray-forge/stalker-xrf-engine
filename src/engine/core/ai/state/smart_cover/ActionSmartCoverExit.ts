@@ -20,10 +20,10 @@ export class ActionSmartCoverExit extends action_base {
   }
 
   /**
-   * Exist from samrt cover and find nearest vertext to travel to.
+   * Exist from smart cover and find nearest vertex to travel to.
    */
   public override initialize(): void {
-    logger.info("Exist smart cover:", this.object.name());
+    logger.format("Exist smart cover: %s", this.object.name());
 
     super.initialize();
 

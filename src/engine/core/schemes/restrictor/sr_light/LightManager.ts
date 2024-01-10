@@ -14,7 +14,6 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   public active: boolean = false;
 
   public override activate(): void {
-    // logger.info("Reset scheme for:", this.object.name());
     registry.lightZones.set(this.object.id(), this);
   }
 

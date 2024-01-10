@@ -13,7 +13,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export function getGameClassId(gameType: EGameType, isServer: boolean): TGameClassId {
   assert(type(isServer) === "boolean", "Expected boolean value for game class getter as parameter.");
 
-  logger.info("Return game class id:", gameType, isServer);
+  logger.format("Return game class id: %s %s", gameType, isServer);
 
   switch (gameType) {
     case EGameType.SINGLE:

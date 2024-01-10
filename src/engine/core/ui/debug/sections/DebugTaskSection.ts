@@ -103,10 +103,10 @@ export class DebugTaskSection extends AbstractDebugSection {
 
   public onGiveTask(): void {
     if (this.selectedTaskId) {
-      logger.info("Give task:", this.selectedTaskId);
+      logger.format("Give task: %s", this.selectedTaskId);
       getManager(TaskManager).giveTask(this.selectedTaskId);
     } else {
-      logger.info("No task to give");
+      logger.format("No task to give");
     }
   }
 

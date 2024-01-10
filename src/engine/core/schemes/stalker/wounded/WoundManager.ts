@@ -82,7 +82,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
    */
   public eatMedkit(): void {
     if (this.canUseMedkit) {
-      logger.info("Eat medkit:", this.object.name());
+      logger.format("Eat medkit: %s", this.object.name());
 
       if (this.object.object(misc.medkit_script) !== null) {
         this.object.eat(this.object.object(misc.medkit_script) as GameObject);

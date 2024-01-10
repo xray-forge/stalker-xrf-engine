@@ -177,7 +177,7 @@ export class NotificationManager extends AbstractManager {
    * Show notifications related to treasures state updates.
    */
   public sendTreasureNotification(state: ETreasureState): void {
-    logger.info("Show treasure notification:", state);
+    logger.format("Show treasure notification: %s", state);
 
     let notificationTitle: TLabel = "";
 
@@ -203,8 +203,6 @@ export class NotificationManager extends AbstractManager {
    * Send notification about task state update.
    */
   public sendTaskNotification(newState: ETaskState, task: GameTask): void {
-    // logger.info("Show task notification:", newState, task.get_id(), task.get_title());
-
     const notificationTaskDescription: Record<ETaskState, TLabel> = {
       [ETaskState.NEW]: "general_new_task",
       [ETaskState.COMPLETED]: "general_complete_task",
@@ -255,12 +253,12 @@ export class NotificationManager extends AbstractManager {
         if (serverObject !== null) {
           // Check if sender is not wounded.
           if (serverObject.online && isObjectWounded(serverObject.id)) {
-            return logger.info("Cannot send tip, object is wounded");
+            return logger.format("Cannot send tip, object is wounded");
           }
 
           // Check if sender is alive.
           if (!serverObject.alive()) {
-            return logger.info("Cannot send tip, object is not alive");
+            return logger.format("Cannot send tip, object is not alive");
           }
         }
       }

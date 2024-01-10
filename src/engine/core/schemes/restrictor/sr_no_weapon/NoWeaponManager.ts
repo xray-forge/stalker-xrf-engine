@@ -25,7 +25,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   public override activate(): void {
     registry.noWeaponZones.delete(this.object.id());
 
-    logger.info("Reset no weapon state");
+    logger.format("Reset no weapon state");
 
     this.actorState = EActorZoneState.NOWHERE;
     this.updateActorState();

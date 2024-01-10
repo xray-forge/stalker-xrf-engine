@@ -60,7 +60,7 @@ export function registerManagers(): void {
     WeatherManager,
   ];
 
-  logger.info("Register game managers:", managers.length);
+  logger.format("Register game managers: %s", managers.length);
 
   for (const manager of managers) {
     initializeManager(manager);

@@ -115,8 +115,6 @@ export class AnomalyZoneBinder extends object_binder {
 
     const filename: Optional<string> = readIniString(this.ini, ANOMALY_ZONE_SECTION, "cfg", false);
 
-    // logger.info("Init anomaly zone from file:", object.name(), filename);
-
     if (filename !== null) {
       this.ini = new ini_file(filename);
     }
@@ -145,12 +143,8 @@ export class AnomalyZoneBinder extends object_binder {
       "{+actor_was_in_many_bad_places} coeff2, coeff"
     );
 
-    // logger.info("Init zone layers (picked/count):", this.currentZoneLayer, this.zoneLayersCount);
-
     for (const index of $range(1, this.zoneLayersCount)) {
       const layerSection: TSection = ANOMALY_ZONE_LAYER + index;
-
-      // logger.info("Init layer:", section);
 
       this.layersRespawnTriesTable.set(
         layerSection,
@@ -235,7 +229,6 @@ export class AnomalyZoneBinder extends object_binder {
         this.layerMinesTable.set(layerSection, new LuaTable());
 
         if (ini.line_count(minesSection) > 0) {
-          // logger.info("Init mines for section:", section, minesSection);
           for (const index of $range(0, ini.line_count(minesSection) - 1)) {
             const [, mineName] = ini.r_line(minesSection, index, "", "");
 
@@ -406,7 +399,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public turnOff(): void {
-    logger.info("Turn off zone:", this.object.name());
+    logger.format("Turn off zone: %s", this.object.name());
 
     this.isTurnedOff = true;
     this.disableAnomalyFields();
@@ -427,7 +420,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public turnOn(forceRespawn: Optional<boolean>): void {
-    logger.info("Turn on zone:", this.object.name());
+    logger.format("Turn on zone: %s", this.object.name());
 
     this.isTurnedOff = false;
     this.disableAnomalyFields();
@@ -439,8 +432,6 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public disableAnomalyFields(): void {
-    // logger.info("Disable anomaly fields:", this.object.name());
-
     if (!this.isCustomPlacement) {
       this.isDisabled = true;
 
@@ -499,7 +490,7 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public respawnArtefactsAndChangeLayers(): void {
-    logger.info("Surge spawn / layers change:", this.object.name());
+    logger.format("Surge spawn / layers change: %s", this.object.name());
 
     const anomalyFields: LuaTable<TName, AnomalyFieldBinder> = registry.anomalyFields;
 
@@ -546,8 +537,6 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public spawnRandomArtefact(): void {
-    // logger.info("Spawn random artefact:", this.object.name(), this.currentZoneLayer);
-
     const layer: TSection = this.currentZoneLayer;
 
     let randomArtefact: TSection = "";
@@ -608,15 +597,13 @@ export class AnomalyZoneBinder extends object_binder {
     this.artefactPointsByArtefactId.set(artefactObject.id, randomPathPoint);
     this.spawnedArtefactsCount += 1;
 
-    logger.info("Spawned random artefact:", randomArtefact, artefactObject.id);
+    logger.format("Spawned random artefact: %s %s", randomArtefact, artefactObject.id);
   }
 
   /**
    * todo: Description.
    */
   public getRandomArtefactPath(): TName {
-    // logger.info("Get artefact path:", this.object.name());
-
     const paths: LuaArray<TName> = new LuaTable();
 
     for (const [, v] of this.artefactsPathsList.get(this.currentZoneLayer)) {
@@ -644,12 +631,12 @@ export class AnomalyZoneBinder extends object_binder {
    * todo: Description.
    */
   public setForcedSpawnOverride(artefactSection: TSection): void {
-    logger.info("Set force override:", this.object.name());
+    logger.format("Set force override: %s", this.object.name());
 
     this.hasForcedSpawnOverride = true;
     this.forcedArtefact = artefactSection;
 
-    logger.info("Set forced override for zone/artefact:", this.object.name(), artefactSection);
+    logger.format("Set forced override for zone/artefact: %s %s", this.object.name(), artefactSection);
   }
 
   /**
@@ -658,7 +645,7 @@ export class AnomalyZoneBinder extends object_binder {
    * @param object - game object of artefact taken from the anomaly zone
    */
   public onArtefactTaken(object: AnyGameObject): void {
-    logger.info("On artefact take:", this.object.name());
+    logger.format("On artefact take: %s", this.object.name());
 
     const id: TNumberId = getObjectId(object);
 

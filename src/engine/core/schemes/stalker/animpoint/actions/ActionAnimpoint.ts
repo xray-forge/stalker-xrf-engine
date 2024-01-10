@@ -25,7 +25,7 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
    * Start animation on init.
    */
   public override initialize(): void {
-    logger.info("Starting animpoint:", this.object.name(), this.state.animpointManager.currentAction);
+    logger.format("Starting animpoint: %s %s", this.object.name(), this.state.animpointManager.currentAction);
 
     super.initialize();
     this.state.animpointManager.start();
@@ -35,7 +35,7 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
    * Stop animation on finalize.
    */
   public override finalize(): void {
-    logger.info("Ending animpoint:", this.object.name(), this.state.animpointManager.currentAction);
+    logger.format("Ending animpoint: %s %s", this.object.name(), this.state.animpointManager.currentAction);
 
     this.state.animpointManager.stop();
     super.finalize();

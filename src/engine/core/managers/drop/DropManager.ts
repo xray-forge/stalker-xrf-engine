@@ -33,8 +33,6 @@ export class DropManager extends AbstractManager {
    * @param object - target object to create release items.
    */
   public createCorpseReleaseItems(object: GameObject): void {
-    // logger.info("Create corpse release items:", object.name());
-
     const alifeObject: Optional<Stalker> = registry.simulator.object<Stalker>(object.id());
 
     if (alifeObject === null || alifeObject.isCorpseLootDropped) {
@@ -87,8 +85,6 @@ export class DropManager extends AbstractManager {
     const ini: Optional<IniFile> = object.spawn_ini();
 
     if (ini && ini.section_exist("keep_items")) {
-      // logger.info("Keep item, listed in config:", object.name(), item.name(), section);
-
       return;
     }
 
@@ -103,8 +99,6 @@ export class DropManager extends AbstractManager {
     }
 
     if (dropConfig.ITEMS_KEEP.has(section)) {
-      // logger.info("Keep item, always keep listed:", object.name(), item.name(), section);
-
       return;
     }
 
@@ -120,18 +114,13 @@ export class DropManager extends AbstractManager {
         );
       }
 
-      // logger.info("Keep item, weapon", object.name(), item.name(), item.clsid(), section);
-
       return;
     }
 
     if (isLootableItemSection(item.section()) && !isAmmoSection(item.section())) {
-      // logger.info("Keep item, misc lootable:", object.name(), item.name(), section);
-
       return;
     }
 
-    // logger.info("Release loot item:", object.name(), item.name(), section);
     registry.simulator.release(registry.simulator.object(item.id()), true);
   }
 

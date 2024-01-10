@@ -23,7 +23,7 @@ export class ActionMeetWait extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    logger.info("Start meet waiting");
+    logger.format("Start meet waiting");
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
@@ -35,7 +35,7 @@ export class ActionMeetWait extends action_base {
   public override finalize(): void {
     super.finalize();
 
-    logger.info("Stop meet waiting");
+    logger.format("Stop meet waiting");
   }
 
   /**

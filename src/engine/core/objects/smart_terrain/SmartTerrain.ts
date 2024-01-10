@@ -184,7 +184,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.isOnLevel = areObjectsOnSameLevel(this, registry.actorServer);
 
-    logger.info("Register smart terrain:", this.name(), this.isOnLevel);
+    logger.format("Register smart terrain: %s %s", this.name(), this.isOnLevel);
 
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
@@ -196,7 +196,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     this.isRegistered = true;
     this.smartTerrainAlifeTask = new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
 
-    logger.info("Initialize smart jobs:", this.name());
+    logger.format("Initialize smart jobs: %s", this.name());
 
     [this.jobs, this.jobsConfig, this.jobsConfigName] = createSmartTerrainJobs(this);
     this.simulationManager.initializeSmartTerrainSimulation(this);
@@ -232,13 +232,13 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override register_npc(object: ServerCreatureObject): void {
     // Calling register npc to smart terrain before registering smart terrain.
     if (this.isRegistered) {
-      logger.info("Register object in smart:", this.name(), object.name());
+      logger.format("Register object in smart: %s %s", this.name(), object.name());
       this.stayingObjectsCount += 1;
     } else {
       if (this.objectsToRegister.has(object.id)) {
-        logger.info("Smart terrain not registered, skip already queued object:", this.name(), object.name());
+        logger.format("Smart terrain not registered, skip already queued object: %s %s", this.name(), object.name());
       } else {
-        logger.info("Smart terrain not registered, delay object:", this.name(), object.name());
+        logger.format("Smart terrain not registered, delay object: %s %s", this.name(), object.name());
 
         this.objectsToRegister.set(object.id, object);
       }
@@ -307,7 +307,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   public override task(object: ServerCreatureObject): Optional<CALifeSmartTerrainTask> {
-    logger.info("Task:", this.name(), object.name());
+    logger.format("Task: %s %s", this.name(), object.name());
 
     if (this.arrivingObjects.get(object.id) as Optional<ServerCreatureObject>) {
       return this.smartTerrainAlifeTask;
@@ -627,7 +627,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public initializeObjectsAfterLoad(): void {
-    logger.info("Initialize objects after load:", this.name());
+    logger.format("Initialize objects after load: %s", this.name());
 
     const alifeSimulator: AlifeSimulator = registry.simulator;
 
@@ -645,7 +645,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       const serverObject: Optional<ServerCreatureObject> = alifeSimulator.object(objectId);
 
       if (serverObject) {
-        logger.info("Re-init jobs for object:", this.name(), objectId);
+        logger.format("Re-init jobs for object: %s %s", this.name(), objectId);
 
         const newJobDescriptor: IObjectJobState = createObjectJobDescriptor(serverObject);
 
@@ -670,7 +670,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
           this.objectByJobSection.set(newJobDescriptor.job.section, objectId);
         }
       } else {
-        logger.info("Discard jobs for object:", this.name(), objectId);
+        logger.format("Discard jobs for object: %s %s", this.name(), objectId);
         this.objectJobDescriptors.delete(objectId);
         // todo: Also free section?
       }
@@ -681,7 +681,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    * todo: Description.
    */
   public onObjectDeath(object: ServerCreatureObject): void {
-    logger.info("Clear dead:", this.name(), object.name());
+    logger.format("Clear dead: %s %s", this.name(), object.name());
 
     if (this.objectJobDescriptors.get(object.id) as Optional<IObjectJobState>) {
       this.jobDeadTimeById.set(this.objectJobDescriptors.get(object.id).jobId, game.get_game_time());

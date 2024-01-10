@@ -438,11 +438,11 @@ export class NpcSound extends AbstractPlayableSound {
 
     // Fire scheme signals.
     if (this.playedSoundIndex === this.objects.get(objectId).max && this.shuffle !== "rnd") {
-      logger.info("Emit sound end signal:", state.object.name());
+      logger.format("Emit sound end signal: %s", state.object.name());
       signals.set("theme_end", true);
       signals.set("sound_end", true);
     } else {
-      logger.info("Emit sound end signal:", state.object.name());
+      logger.format("Emit sound end signal: %s", state.object.name());
       signals.set("sound_end", true);
     }
   }

@@ -108,7 +108,7 @@ extern("xr_effects.give_actor", (actor: GameObject, object: Optional<GameObject>
  * Remove item from actor inventory based on provided section parameter.
  */
 extern("xr_effects.remove_item", (actor: GameObject, object: GameObject, [section]: [Optional<TSection>]): void => {
-  logger.info("Remove item");
+  logger.format("Remove item");
 
   assert(section, "Wrong parameters in function 'remove_item'.");
 
@@ -144,7 +144,7 @@ extern(
 extern(
   "xr_effects.relocate_item",
   (actor: GameObject, object: GameObject, [itemSection, fromStoryId, toStoryId]: [TSection, TStringId, TStringId]) => {
-    logger.info("Relocate item: '%s', '%s' -> '%s'", itemSection, fromStoryId, toStoryId);
+    logger.format("Relocate item: '%s', '%s' -> '%s'", itemSection, fromStoryId, toStoryId);
 
     const fromObject: Optional<GameObject> = getObjectByStoryId(fromStoryId);
     const toObject: Optional<GameObject> = getObjectByStoryId(toStoryId);
@@ -226,7 +226,7 @@ extern("xr_effects.give_task", (actor: GameObject, object: GameObject, [taskId]:
  * Set one of active actor tasks as current one.
  */
 extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
-  logger.info("Set active task:", taskId);
+  logger.format("Set active task: %s", taskId);
 
   const task: Optional<GameTask> = taskId ? actor.get_task(tostring(taskId), true) : null;
 
@@ -239,7 +239,7 @@ extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [ta
  * Kill actor instantly.
  */
 extern("xr_effects.kill_actor", (actor: GameObject): void => {
-  logger.info("Kill actor effect");
+  logger.format("Kill actor effect");
   actor.kill(actor);
 });
 
@@ -272,7 +272,7 @@ extern(
  * todo: Is zone check needed?
  */
 extern("xr_effects.sleep", (): void => {
-  logger.info("Sleep effect");
+  logger.format("Sleep effect");
 
   for (const [, zone] of sleepConfig.SLEEP_ZONES) {
     if (isObjectInZone(registry.actor, registry.zones.get(zone))) {
@@ -302,7 +302,7 @@ extern("xr_effects.activate_weapon", (actor: GameObject, object: GameObject, [se
  * Expects variadic list of treasure IDs.
  */
 extern("xr_effects.give_treasure", (actor: GameObject, object: GameObject, treasures: LuaArray<TStringId>): void => {
-  logger.info("Give treasures for actor");
+  logger.format("Give treasures for actor");
 
   const treasureManager: TreasureManager = getManager(TreasureManager);
 

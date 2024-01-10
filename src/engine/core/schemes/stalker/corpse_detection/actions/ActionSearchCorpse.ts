@@ -31,7 +31,7 @@ export class ActionSearchCorpse extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    logger.info("Start search corpse:", this.object.name(), tostring(this.state.selectedCorpseId));
+    logger.format("Start search corpse: %s %s", this.object.name(), this.state.selectedCorpseId);
 
     this.sendObjectToCorpse();
   }
@@ -40,7 +40,7 @@ export class ActionSearchCorpse extends action_base {
    * Clean up action states.
    */
   public override finalize(): void {
-    logger.info("Stop search corpse:", this.object.name(), tostring(this.state.selectedCorpseId));
+    logger.format("Stop search corpse: %s %s", this.object.name(), this.state.selectedCorpseId);
 
     // Unmark corpse as selected by an object, if any exist.
     if (this.state.selectedCorpseId !== null) {

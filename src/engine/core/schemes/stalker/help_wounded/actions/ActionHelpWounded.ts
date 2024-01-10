@@ -29,7 +29,7 @@ export class ActionHelpWounded extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    logger.info("Start helping wounded:", this.object.name(), tostring(this.state.selectedWoundedVertexId));
+    logger.format("Start helping wounded: %s %s", this.object.name(), tostring(this.state.selectedWoundedVertexId));
 
     this.sendObjectToWounded();
   }
@@ -37,7 +37,7 @@ export class ActionHelpWounded extends action_base {
   public override finalize(): void {
     super.finalize();
 
-    logger.info("Finish helping wounded:", this.object.name());
+    logger.format("Finish helping wounded: %s", this.object.name());
 
     this.isHelpingSoundPlayed = false;
     this.helpingTargetId = null;

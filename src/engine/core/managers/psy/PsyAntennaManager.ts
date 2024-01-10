@@ -145,7 +145,7 @@ export class PsyAntennaManager extends AbstractManager {
    * Handle disposal of manager on actor destroy.
    */
   public dispose(): void {
-    logger.info("Dispose psy antenna manager");
+    logger.format("Dispose psy antenna manager");
     disposeManager(PsyAntennaManager);
   }
 
@@ -156,7 +156,7 @@ export class PsyAntennaManager extends AbstractManager {
     const now: TTimestamp = time_global();
 
     if (now - this.phantomTime > this.phantomIdle) {
-      logger.info("Generate phantoms");
+      logger.format("Generate phantoms");
 
       this.phantomTime = now;
       this.phantomIdle = math.random(5000, 10000);
@@ -180,7 +180,7 @@ export class PsyAntennaManager extends AbstractManager {
    * todo: Description.
    */
   public override update(delta: TDuration): void {
-    logger.info("Updating psy antenna manager:", delta);
+    logger.format("Updating psy antenna manager: %s", delta);
 
     const updateIntensity = (intensityBase: TRate, intensity: TRate) => {
       const di = this.intensityInertion * delta * 0.01;
@@ -216,7 +216,7 @@ export class PsyAntennaManager extends AbstractManager {
    */
   public updateSound(): void {
     if (!this.soundInitialized) {
-      logger.info("Initialize sounds");
+      logger.format("Initialize sounds");
 
       this.soundInitialized = true;
       this.soundObjectLeft.play_at_pos(

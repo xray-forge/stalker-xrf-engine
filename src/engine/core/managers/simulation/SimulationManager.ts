@@ -225,8 +225,6 @@ export class SimulationManager extends AbstractManager {
       smartTerrain.m_game_vertex_id
     );
 
-    // logger.info("Creating squad in smart:", squad.name(), smartTerrain.name());
-
     createSquadMembers(squad, smartTerrain);
 
     if (squad.relationship) {

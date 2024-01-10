@@ -105,7 +105,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableActorNightVision(): void {
-    logger.info("Disable actor night vision");
+    logger.format("Disable actor night vision");
 
     const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
@@ -119,7 +119,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public enableActorNightVision(): void {
-    logger.info("Enable actor night vision");
+    logger.format("Enable actor night vision");
 
     const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
@@ -133,7 +133,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableActorTorch(): void {
-    logger.info("Disable actor torch");
+    logger.format("Disable actor torch");
 
     const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
@@ -147,7 +147,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public enableActorTorch(): void {
-    logger.info("Enable actor torch");
+    logger.format("Enable actor torch");
 
     const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
@@ -161,7 +161,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableGameUi(resetSlot: boolean = false): void {
-    logger.info("Disable game UI");
+    logger.format("Disable game UI");
 
     const actor: GameObject = registry.actor;
 
@@ -196,7 +196,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public enableGameUi(restore: boolean = false): void {
-    logger.info("Enable game UI");
+    logger.format("Enable game UI");
 
     if (restore) {
       if (
@@ -221,7 +221,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableGameUiOnly(): void {
-    logger.info("Disable game UI only");
+    logger.format("Disable game UI only");
 
     const actor: GameObject = registry.actor;
 
@@ -275,20 +275,20 @@ export class ActorInputManager extends AbstractManager {
       actorConfig.DISABLED_INPUT_AT !== null &&
       game.get_game_time().diffSec(actorConfig.DISABLED_INPUT_AT) >= (actorConfig.DISABLED_INPUT_DURATION as number)
     ) {
-      logger.info("Enabling actor game input");
+      logger.format("Enabling actor game input");
       level.enable_input();
       actorConfig.DISABLED_INPUT_AT = null;
     }
 
     if (actor.is_talking()) {
       if (!actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG) {
-        logger.info("Hiding weapon in dialog");
+        logger.format("Hiding weapon in dialog");
         actor.hide_weapon();
         actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG = true;
       }
     } else {
       if (actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG) {
-        logger.info("Restoring weapon in dialog");
+        logger.format("Restoring weapon in dialog");
         actor.restore_weapon();
         actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG = false;
       }
@@ -296,13 +296,13 @@ export class ActorInputManager extends AbstractManager {
 
     if (isActorInNoWeaponZone()) {
       if (!actorConfig.IS_WEAPON_HIDDEN) {
-        logger.info("Hiding weapon");
+        logger.format("Hiding weapon");
         actor.hide_weapon();
         actorConfig.IS_WEAPON_HIDDEN = true;
       }
     } else {
       if (actorConfig.IS_WEAPON_HIDDEN) {
-        logger.info("Restoring weapon");
+        logger.format("Restoring weapon");
         actor.restore_weapon();
         actorConfig.IS_WEAPON_HIDDEN = false;
       }
@@ -313,7 +313,7 @@ export class ActorInputManager extends AbstractManager {
    * Handle first update from actor input perspective.
    */
   public onFirstUpdate(): void {
-    logger.info("Apply active item slot:", actorConfig.ACTIVE_ITEM_SLOT);
+    logger.format("Apply active item slot: %s", actorConfig.ACTIVE_ITEM_SLOT);
     registry.actor.activate_slot(actorConfig.ACTIVE_ITEM_SLOT);
   }
 
@@ -339,7 +339,7 @@ export class ActorInputManager extends AbstractManager {
     const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
 
     if (serverItemSection === drugs.drug_anabiotic) {
-      logger.info("On actor anabiotic use:", object.name());
+      logger.format("On actor anabiotic use: %s", object.name());
       this.processAnabioticItemUsage();
     }
   }

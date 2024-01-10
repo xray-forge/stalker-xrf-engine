@@ -10,7 +10,6 @@ import { EElementType, initializeElement, initializeStatics, resolveXmlFile } fr
 import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
 import { Optional, ServerObject, TCount, TLabel, TNumberId, TPath, TSection, XmlInit } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTreasuresSection.component";
 
 /**
@@ -208,8 +207,6 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * Give all treasures for the actor.
    */
   public onGiveAllTreasuresButtonClicked(): void {
-    logger.info("onGiveAllTreasuresButtonClicked");
-
     if (isGameStarted()) {
       getManager(TreasureManager).giveActorAllTreasureCoordinates();
     }

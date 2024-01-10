@@ -7,11 +7,8 @@ import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_i
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { getObjectCommunity } from "@/engine/core/utils/community";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
 import { ActionPlanner, EScheme, ESchemeType, GameObject } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Post combat idle scheme manager.
@@ -26,8 +23,6 @@ export class SchemePostCombatIdle extends AbstractScheme {
    * todo: Generic idle
    */
   public static setup(object: GameObject): void {
-    // logger.info("Add post-combat idle for:", object.name());
-
     // Zombied stalkers do not wait for more enemies after ending of combat.
     if (getObjectCommunity(object) === communities.zombied) {
       return;

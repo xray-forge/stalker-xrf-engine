@@ -52,8 +52,6 @@ export class EventsManager extends AbstractTimersManager {
     callback: AnyContextualCallable<T>,
     context: Optional<T> = null
   ): void {
-    // logger.info("Register callback:", EGameEvent[event]);
-
     this.assertEventIsDeclared(event);
     this.callbacks[event].set(callback as AnyContextualCallable, { context: context });
   }
@@ -66,8 +64,6 @@ export class EventsManager extends AbstractTimersManager {
    */
   public unregisterCallback<T>(event: EGameEvent, callback: AnyContextualCallable): void;
   public unregisterCallback<T>(event: EGameEvent, callback: AnyCallable): void {
-    // logger.info("Unregister callback:", EGameEvent[event]);
-
     this.assertEventIsDeclared(event);
     this.callbacks[event].delete(callback as AnyCallable);
   }

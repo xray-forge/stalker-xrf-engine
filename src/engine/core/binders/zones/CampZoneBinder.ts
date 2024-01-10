@@ -26,8 +26,6 @@ export class CampZoneBinder extends object_binder {
       return false;
     }
 
-    // logger.info("Go online:", this.object.name());
-
     const ini: Optional<IniFile> = this.object.spawn_ini();
 
     // If camp logic description present, try to read it from spawn ini or from defined `cfg` file.
@@ -44,8 +42,6 @@ export class CampZoneBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    // logger.info("Go offline:", this.object.name());
-
     unregisterCampZone(this.object);
 
     super.net_destroy();

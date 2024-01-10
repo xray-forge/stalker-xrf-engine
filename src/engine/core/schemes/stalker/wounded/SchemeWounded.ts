@@ -89,8 +89,6 @@ export class SchemeWounded extends AbstractScheme {
    * todo: Description.
    */
   public static initialize(object: GameObject, ini: IniFile, section: TSection, state: ISchemeWoundedState): void {
-    // logger.info("Init wounded:", object.name(), section, scheme);
-
     if (tostring(section) === state.woundedSection && tostring(section) !== NIL) {
       return;
     }

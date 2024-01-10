@@ -24,13 +24,13 @@ export class ActionReachAnimpoint extends action_base {
     super.initialize();
     this.state.animpointManager.calculatePosition();
 
-    logger.info("Starting reach place of animpoint:", this.object.name());
+    logger.format("Starting reach place of animpoint: %s", this.object.name());
   }
 
   public override finalize() {
     super.finalize();
 
-    logger.info("Reached place of animpoint:", this.object.name());
+    logger.format("Reached place of animpoint: %s", this.object.name());
   }
 
   /**

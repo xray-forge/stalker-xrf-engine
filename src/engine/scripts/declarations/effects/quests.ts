@@ -203,7 +203,7 @@ extern("xr_effects.zat_b28_heli_3_searching", (): void => {
  * todo;
  */
 extern("xr_effects.zat_b100_heli_2_searching", (): void => {
-  logger.info("Searching helicopter #2");
+  logger.format("Searching helicopter #2");
 
   if (isObjectInZone(registry.actor, registry.zones.get("zat_b100_heli_2"))) {
     giveInfoPortion(infoPortions.zat_b100_heli_2_searching);

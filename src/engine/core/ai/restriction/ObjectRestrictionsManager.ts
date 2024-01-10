@@ -15,8 +15,6 @@ export class ObjectRestrictionsManager {
    * Initialize restrictor manager for game object.
    */
   public static initializeForObject(object: GameObject): ObjectRestrictionsManager {
-    // logger.info("Initialize restrictor manager for object:", object.name());
-
     const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
     if (!state.restrictionsManager) {
@@ -60,8 +58,6 @@ export class ObjectRestrictionsManager {
     const objectName: TName = this.object.name();
     const ini: IniFile = registry.objects.get(this.object.id()).ini;
 
-    // logger.info("Activate restrictions:", objectName, section);
-
     // Update OUT restrictors based on active / ini restrictors.
     const outRestrictorString: string = readIniString(ini, section, "out_restr", false, null, "");
     const newOutRestrictors: LuaArray<TName> = parseStringsList(outRestrictorString);
@@ -104,12 +100,12 @@ export class ObjectRestrictionsManager {
     }
 
     for (const [, name] of restrictorsToRemove) {
-      logger.info("Remove 'OUT' restriction:", objectName, name);
+      logger.format("Remove 'OUT' restriction: %s %s", objectName, name);
       this.object.remove_restrictions(name, "");
     }
 
     for (const [, name] of restrictorsToAdd) {
-      logger.info("Add 'OUT' restriction:", objectName, name);
+      logger.format("Add 'OUT' restriction: %s %s", objectName, name);
       this.object.add_restrictions(name, "");
     }
 
@@ -155,12 +151,12 @@ export class ObjectRestrictionsManager {
     }
 
     for (const [, name] of restrictorsToRemove) {
-      logger.info("Remove 'IN' restriction:", objectName, name);
+      logger.format("Remove 'IN' restriction: %s %s", objectName, name);
       this.object.remove_restrictions("", name);
     }
 
     for (const [, name] of restrictorsToAdd) {
-      logger.info("Add 'IN' restriction:", objectName, name);
+      logger.format("Add 'IN' restriction: %s %s", objectName, name);
       this.object.add_restrictions("", name);
     }
   }

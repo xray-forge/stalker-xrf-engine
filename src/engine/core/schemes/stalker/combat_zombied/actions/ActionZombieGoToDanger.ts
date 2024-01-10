@@ -43,11 +43,8 @@ export class ActionZombieGoToDanger extends action_base {
     this.state = state;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
-    logger.info("Activate:", this.object.name());
+    logger.format("Activate: %s", this.object.name());
 
     super.initialize();
 
@@ -62,11 +59,8 @@ export class ActionZombieGoToDanger extends action_base {
     this.state.currentAction = EZombieCombatAction.DANGER;
   }
 
-  /**
-   * todo: Description.
-   */
   public override finalize(): void {
-    logger.info("Deactivate:", this.object.name());
+    logger.format("Deactivate: %s", this.object.name());
 
     super.finalize();
     this.state.currentAction = null;

@@ -63,7 +63,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Register logics handling schemes.
  */
 export function registerSchemes(): void {
-  logger.info("Register scheme modules");
+  logger.format("Register scheme modules");
 
   loadSchemeImplementations(
     $fromArray([

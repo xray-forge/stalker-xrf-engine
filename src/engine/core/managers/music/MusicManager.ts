@@ -100,7 +100,7 @@ export class MusicManager extends AbstractManager {
    * todo: Description.
    */
   public selectNextTrack(): void {
-    logger.info("Select next track for playback");
+    logger.format("Select next track for playback");
 
     if (this.currentThemeIndex === null || this.themes.get(this.currentThemeIndex) === null) {
       abort("Wrong theme index, no file with such index listed.");
@@ -129,7 +129,7 @@ export class MusicManager extends AbstractManager {
     const newThemesList: LuaArray<LuaArray<TName>> = new LuaTable();
     const levelName: TName = level.name();
 
-    logger.info("Initialize level themes:", levelName);
+    logger.format()"Initialize level themes: %s", levelName);
 
     for (const [, themeDescriptor] of soundsConfig.dynamicMusicThemes) {
       if (!themeDescriptor.maps || themeDescriptor.maps === "" || string.find(themeDescriptor.maps, levelName)) {
@@ -304,7 +304,7 @@ export class MusicManager extends AbstractManager {
    * todo: Description.
    */
   public stopTheme(): void {
-    logger.info("Stop theme");
+    logger.format("Stop theme");
 
     if (this.theme) {
       this.theme.stop();

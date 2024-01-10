@@ -55,7 +55,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   }
 
   public override initialize(): void {
-    logger.info("Activate walker scheme:", this.object.name());
+    logger.format("Activate walker scheme: %s", this.object.name());
 
     super.initialize();
 
@@ -66,7 +66,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   }
 
   public override finalize(): void {
-    logger.info("Deactivate walker scheme:", this.object.name());
+    logger.format("Deactivate walker scheme: %s", this.object.name());
 
     this.patrolManager.finalize();
 

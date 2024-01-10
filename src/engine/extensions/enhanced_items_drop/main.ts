@@ -14,7 +14,7 @@ export const enabled: boolean = false;
  * Start listening item going online first time and add random upgrades.
  */
 export function register(): void {
-  logger.info("Enhanced treasures activated");
+  logger.format("Enhanced treasures activated");
 
   const eventsManager: EventsManager = getManager(EventsManager);
 

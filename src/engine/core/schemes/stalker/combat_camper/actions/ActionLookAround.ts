@@ -26,7 +26,7 @@ export class ActionLookAround extends action_base {
   }
 
   public override initialize(): void {
-    logger.info("Start look around:", this.object.name());
+    logger.format("Start look around: %s", this.object.name());
 
     super.initialize();
 
@@ -91,7 +91,7 @@ export class ActionLookAround extends action_base {
   }
 
   public override finalize(): void {
-    logger.info("End look around:", this.object.name());
+    logger.format("End look around: %s", this.object.name());
 
     super.finalize();
 

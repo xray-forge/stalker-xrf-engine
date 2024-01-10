@@ -22,12 +22,12 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
 
     const [name, minRadius, maxRadius, isAggressive, midRadius] = this.getHomeParameters();
 
-    logger.info("Activate mob home:", this.object.name(), name, minRadius, maxRadius, isAggressive);
+    logger.format("Activate mob home: %s %s %s %s %s", this.object.name(), name, minRadius, maxRadius, isAggressive);
     this.object.set_home(name as TName, minRadius, maxRadius, isAggressive, midRadius);
   }
 
   public override deactivate(): void {
-    logger.info("Deactivate mob home:", this.object.name());
+    logger.format("Deactivate mob home: %s", this.object.name());
 
     this.object.remove_home();
   }
@@ -101,7 +101,7 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
       return $multi(vertexId as TNumberId, minRadius, maxRadius, isAggressive, midRadius);
     }
 
-    logger.info("Activate mob home:", this.object.name(), this.state.homeWayPoint);
+    logger.format("Activate mob home: %s %s", this.object.name(), this.state.homeWayPoint);
 
     return $multi(this.state.homeWayPoint as TName, minRadius, maxRadius, isAggressive, midRadius);
   }
