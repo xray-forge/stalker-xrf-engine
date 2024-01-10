@@ -6,9 +6,9 @@ import { TLabel, TName } from "@/engine/lib/types";
  * @returns value casted to log string
  */
 export function toLogValue(value: unknown): TLabel {
-  const itType: TName = type(value);
+  const valueType: TName = type(value);
 
-  switch (itType) {
+  switch (valueType) {
     case NIL:
       return "<nil>";
 
@@ -22,7 +22,6 @@ export function toLogValue(value: unknown): TLabel {
 
     case "boolean": {
       return string.format("<boolean: %s>", value === true ? TRUE : FALSE);
-      break;
     }
 
     case "userdata": {
@@ -30,7 +29,7 @@ export function toLogValue(value: unknown): TLabel {
     }
 
     default: {
-      return string.format("<%s: %s>", itType, tostring(value));
+      return string.format("<%s: %s>", valueType, tostring(value));
     }
   }
 }

@@ -2051,7 +2051,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>jup_a6_stalker_medik_StartDialog</StartDialog>
+        <StartDialog>jup_a6_stalker_medik_start_dialog</StartDialog>
         <ActorDialog>jup_a6_stalker_medik_pripyat_group</ActorDialog>
         <ActorDialog>jup_a6_stalker_medik_tech_b202_about_stole</ActorDialog>
         <ActorDialog>jup_a6_stalker_medik_duty_founder_pda</ActorDialog>
@@ -2141,7 +2141,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>jup_a6_stalker_barmen_StartDialog</StartDialog>
+        <StartDialog>jup_a6_stalker_barmen_start_dialog</StartDialog>
         <ActorDialog>jup_a6_stalker_barmen_pripyat_group</ActorDialog>
         <ActorDialog>jup_a6_stalker_barmen_b4_monolith_squad_dialog</ActorDialog>
         <ActorDialog>jup_a6_stalker_barmen_b202_about_stole</ActorDialog>
@@ -2466,7 +2466,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>jup_a6_freedom_leader_StartDialog</StartDialog>
+        <StartDialog>jup_a6_freedom_leader_start_dialog</StartDialog>
         <ActorDialog>jup_a6_freedom_leader_duty_founder_pda</ActorDialog>
         <ActorDialog>jup_a6_freedom_leader_duty_sell_founder_pda</ActorDialog>
         <ActorDialog>jup_a6_freedom_leader_pripyat_group</ActorDialog>
@@ -2502,7 +2502,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>jup_a6_duty_leader_StartDialog</StartDialog>
+        <StartDialog>jup_a6_duty_leader_start_dialog</StartDialog>
         <ActorDialog>jup_a6_duty_leader_duty_founder_pda</ActorDialog>
         <ActorDialog>jup_a6_duty_leader_duty_founder_sell_pda</ActorDialog>
         <ActorDialog>jup_a6_duty_leader_pripyat_group</ActorDialog>

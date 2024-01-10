@@ -52,9 +52,9 @@ describe("LuaLogger class", () => {
     logger.pushSeparator();
 
     expect(log).toHaveBeenCalledTimes(3);
-    expect(log).toHaveBeenNthCalledWith(1, "[1000][info][tst] test");
-    expect(log).toHaveBeenNthCalledWith(2, "[1000][info][tst]  ");
-    expect(log).toHaveBeenNthCalledWith(3, "[1000][info][tst] =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+    expect(log).toHaveBeenNthCalledWith(1, "[1000][tst][info] test");
+    expect(log).toHaveBeenNthCalledWith(2, "[1000][tst][info]  ");
+    expect(log).toHaveBeenNthCalledWith(3, "[1000][tst][info] =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
   });
 
   it("LuaLogger should correctly generate prefix", () => {

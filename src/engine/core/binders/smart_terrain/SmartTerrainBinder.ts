@@ -60,7 +60,7 @@ export class SmartTerrainBinder extends object_binder {
     const object: GameObject = this.object;
 
     if (!this.isVisited && object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
-      logger.info("Visited: %", object.name());
+      logger.info("Visited: %s", object.name());
 
       this.isVisited = true;
       giveInfoPortion(string.format("%s_visited", object.name()));

@@ -77,7 +77,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>zat_b30_owl_stalker_trader_StartDialog</StartDialog>
+        <StartDialog>zat_b30_owl_stalker_trader_start_dialog</StartDialog>
         <ActorDialog>zat_b30_owl_stalker_trader_choose_task</ActorDialog>
         <ActorDialog>zat_b30_owl_stalker_trader_sell_items</ActorDialog>
         <ActorDialog>zat_b30_owl_stalker_trader_buy_info</ActorDialog>
@@ -256,7 +256,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>zat_b38_stalker_cop_StartDialog</StartDialog>
+        <StartDialog>zat_b38_stalker_cop_start_dialog</StartDialog>
         <ActorDialog>zat_a2_stalker_barmen_b7_actor_start</ActorDialog>
         <ActorDialog>zat_b38_stalker_cop_task_dialog</ActorDialog>
         <ActorDialog>zat_b38_cop_about_himself_dialog</ActorDialog>
@@ -533,7 +533,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>zat_b7_bandit_boss_sultan_StartDialog</StartDialog>
+        <StartDialog>zat_b7_bandit_boss_sultan_start_dialog</StartDialog>
         <ActorDialog>zat_b7_bandit_boss_sultan_b7_give_task_dialog</ActorDialog>
         <ActorDialog>zat_b7_bandit_boss_sultan_b30_start_ActorDialog</ActorDialog>
         <ActorDialog>zat_b7_bandit_boss_sultan_b30_detectors_ActorDialog</ActorDialog>
@@ -709,7 +709,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>zat_a2_stalker_barmen_StartDialog</StartDialog>
+        <StartDialog>zat_a2_stalker_barmen_start_dialog</StartDialog>
         <ActorDialog>zat_a2_linker_b14_quest_init</ActorDialog>
         <ActorDialog>zat_a2_linker_b14_quest_done</ActorDialog>
         <ActorDialog>zat_a2_linker_b14_quest_strange_item</ActorDialog>
@@ -1102,7 +1102,7 @@ export function create(): JSXNode {
       >
         <CharacterProfileCriticals />
         <StartDialog>zat_b7_stalkers_victims_dialog</StartDialog>
-        <ActorDialog>zat_b7_stalkers_victims_actor_StartDialog</ActorDialog>
+        <ActorDialog>zat_b7_stalkers_victims_actor_start_dialog</ActorDialog>
         <ActorDialog>zat_b7_stalkers_victims_actor_choose_dialog</ActorDialog>
         <ActorDialog>zat_b7_stalker_squad_leader_employ_stalkers</ActorDialog>
         <ActorDialog>zat_b7_stalker_squad_leader_bunker_guarding</ActorDialog>

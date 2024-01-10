@@ -5,7 +5,7 @@ import { openLogFile } from "@/engine/core/utils/logging/logging_files";
 import { ELuaLoggerMode, ILuaLoggerConfig } from "@/engine/core/utils/logging/logging_types";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
-import { AnyArgs, AnyObject, Optional, TLabel } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, Optional, TIndex, TLabel } from "@/engine/lib/types";
 
 /**
  * Lua logger class.
@@ -46,12 +46,7 @@ export class LuaLogger {
       return;
     }
 
-    // Map some values to successfully print in composed string.
-    for (const [key, value] of args) {
-      args[key] = toLogValue(value);
-    }
-
-    const result: string = string.format("[%s][info][%s] %s", time_global(), this.prefix, string.format(base, ...args));
+    const result: string = string.format("[%s][%s][info] %s", time_global(), this.prefix, string.format(base, ...args));
 
     // Write into custom file if it is defined for current logger.
     if (this.loggerFile) {
