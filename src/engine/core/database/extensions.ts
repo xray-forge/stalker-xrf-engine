@@ -16,7 +16,7 @@ export function registerExtension(extension: IExtensionsDescriptor): IExtensions
   assert(extension.module, "Expected extension to have valid lua module object when registering.");
   assert(!registry.extensions.has(extension.name), "Declaring duplicated extension: '%s'.", extension.name);
 
-  logger.format("Register extension: %s", extension.name);
+  logger.info("Register extension: %s", extension.name);
 
   registry.extensions.set(extension.name, extension);
 

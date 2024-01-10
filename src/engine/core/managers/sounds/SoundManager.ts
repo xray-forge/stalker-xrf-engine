@@ -182,12 +182,12 @@ export class SoundManager extends AbstractManager {
 
     if (!sound || theme.shouldPlayAlways) {
       if (sound) {
-        logger.format("Reset sound before forced play: %s %s %s %s", objectId, name, faction, point);
+        logger.info("Reset sound before forced play: %s %s %s %s", objectId, name, faction, point);
         sound.reset(objectId);
       }
 
       if (theme.play(objectId, faction, point)) {
-        logger.format("Start sound play: %s %s %s %s", objectId, name, faction, point);
+        logger.info("Start sound play: %s %s %s %s", objectId, name, faction, point);
 
         soundsConfig.playing.set(objectId, theme);
 
@@ -211,7 +211,7 @@ export class SoundManager extends AbstractManager {
     ) as Optional<AbstractPlayableSound>;
 
     if (sound) {
-      logger.format("Stop sound play: %s %s", objectId, sound.section);
+      logger.info("Stop sound play: %s %s", objectId, sound.section);
       sound.stop(objectId);
     }
 
@@ -222,7 +222,7 @@ export class SoundManager extends AbstractManager {
     if (looped) {
       for (const [, sound] of looped) {
         if (sound.isPlaying(objectId)) {
-          logger.format("Stop looped sound play: %s %s", objectId, sound.section);
+          logger.info("Stop looped sound play: %s %s", objectId, sound.section);
           sound.stop(objectId);
         }
       }

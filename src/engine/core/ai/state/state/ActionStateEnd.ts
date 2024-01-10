@@ -47,7 +47,7 @@ export class ActionStateEnd extends action_base {
       // Verify duration of timeout.
       if (now - (this.stateManager.callback.begin as TTimestamp) >= (this.stateManager.callback.timeout as TDuration)) {
         if (this.stateManager.callback.callback !== null) {
-          logger.format("Animation ended with callback: %s %s", this.object.name(), this.stateManager.targetState);
+          logger.info("Animation ended with callback: %s %s", this.object.name(), this.stateManager.targetState);
           this.stateManager.callback.callback.call(this.stateManager.callback.context);
         }
 

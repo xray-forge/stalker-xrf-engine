@@ -387,7 +387,7 @@ export class TravelManager extends AbstractManager {
     }
 
     if (!this.isTravelTeleported) {
-      logger.format("Teleporting actor on travel: %s %s", this.travelSquadPath, this.travelActorPath);
+      logger.info("Teleporting actor on travel: %s %s", this.travelSquadPath, this.travelActorPath);
 
       this.isTravelTeleported = true;
 
@@ -405,7 +405,7 @@ export class TravelManager extends AbstractManager {
       const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedSmartTerrainId;
 
       if (currentSmartId !== null) {
-        logger.format("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);
+        logger.info("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);
 
         board.assignSquadToSmartTerrain(this.travelSquad!, null);
         board.assignSquadToSmartTerrain(this.travelSquad!, currentSmartId);
@@ -413,7 +413,7 @@ export class TravelManager extends AbstractManager {
 
       const position: Vector = new patrol(this.travelSquadPath!).point(0);
 
-      logger.format("Set squad position: '%s' -> '%s'", this.travelSquad!.name(), vectorToString(position));
+      logger.info("Set squad position: '%s' -> '%s'", this.travelSquad!.name(), vectorToString(position));
 
       setSquadPosition(this.travelSquad as Squad, position);
 
@@ -428,7 +428,7 @@ export class TravelManager extends AbstractManager {
 
       surgeConfig.IS_TIME_FORWARDED = true;
 
-      logger.format(
+      logger.info(
         "Forwarded time on travel: '%s', '%s', '%s:%s'",
         this.travelSquadPath,
         this.travelActorPath,
@@ -442,7 +442,7 @@ export class TravelManager extends AbstractManager {
       return;
     }
 
-    logger.format("Finish traveling");
+    logger.info("Finish traveling");
 
     this.isTraveling = false;
 
@@ -474,7 +474,7 @@ export class TravelManager extends AbstractManager {
     const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName)!;
     const squad: Squad = getObjectSquad(object) as Squad;
 
-    logger.format("Actor travel with squad: '%s' -> '%s'", squad.name(), smartName);
+    logger.info("Actor travel with squad: '%s' -> '%s'", squad.name(), smartName);
 
     createGameAutoSave("st_save_uni_travel_generic");
 
@@ -488,7 +488,7 @@ export class TravelManager extends AbstractManager {
     const distance: TDistance = getServerDistanceBetween(squad!, smartTerrain);
     const price: TCount = this.getTravelPriceByDistance(distance);
 
-    logger.format("Actor travel distance and price: '%s' -> '%s'", distance, price);
+    logger.info("Actor travel distance and price: '%s' -> '%s'", distance, price);
 
     actor.give_money(-price);
     getManager(NotificationManager).sendMoneyRelocatedNotification(ENotificationDirection.OUT, price);

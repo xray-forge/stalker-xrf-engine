@@ -32,7 +32,7 @@ export class SchemeAnimpoint extends AbstractScheme {
     scheme: EScheme,
     section: TSection
   ): ISchemeAnimpointState {
-    logger.format("Activate scheme: %s %s %s", object.name(), scheme, section);
+    logger.info("Activate scheme: %s %s %s", object.name(), scheme, section);
 
     const state: ISchemeAnimpointState = AbstractScheme.assign(object, ini, scheme, section);
 

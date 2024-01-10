@@ -16,7 +16,7 @@ export const name: TName = "Enhanced shaders shadow cascades";
 export const enabled: boolean = true;
 
 export function register(): void {
-  logger.format("Enhanced shaders support shadow cascades extension activated");
+  logger.info("Enhanced shaders support shadow cascades extension activated");
 
   executeConsoleCommand(
     "ssfx_shadow_cascades",
@@ -40,7 +40,7 @@ export function register(): void {
 }
 
 export function unregister(): void {
-  logger.format("Enhanced shaders support shadow cascades disabled");
+  logger.info("Enhanced shaders support shadow cascades disabled");
 
   executeConsoleCommand("ssfx_shadow_cascades", "(0,0,0)");
   executeConsoleCommand("ssfx_grass_shadows", "(0,0,0,0)");

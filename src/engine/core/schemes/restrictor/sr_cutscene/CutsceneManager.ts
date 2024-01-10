@@ -31,7 +31,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public sceneState: ESceneState = ESceneState.NONE;
 
   public override activate(): void {
-    logger.format("Activate scheme");
+    logger.info("Activate scheme");
 
     this.sceneState = ESceneState.NONE;
     this.state.signals = new LuaTable();
@@ -57,7 +57,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
    * todo: Description.
    */
   public onZoneEnter(): void {
-    logger.format("Zone enter: %s", this.object.name());
+    logger.info("Zone enter: %s", this.object.name());
 
     const actor: Optional<GameObject> = registry.actor;
 
@@ -91,7 +91,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
    * todo;
    */
   public selectNextMotion(): void {
-    logger.format("Select next cutscene motion");
+    logger.info("Select next cutscene motion");
 
     const motion: TName = this.state.cameraEffector!.get(this.motionId);
 
@@ -121,7 +121,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
    * Handle progression of cutscene scenario.
    */
   public override onCutscene(): void {
-    logger.format("Cutscene callback: %s", this.object.name());
+    logger.info("Cutscene callback: %s", this.object.name());
 
     const actor: GameObject = registry.actor;
 

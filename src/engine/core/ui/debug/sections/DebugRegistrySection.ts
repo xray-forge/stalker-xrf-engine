@@ -91,39 +91,39 @@ export class DebugRegistrySection extends AbstractDebugSection {
    */
   public onPrintGeneralReport(): void {
     logger.pushSeparator();
-    logger.format("General report of registry:");
-    logger.format("Collections in registry: %s", Object.keys(registry).length);
-    logger.format("Actor exists: %s", registry.actor !== null);
-    logger.format("Managers exists: %s", Object.keys(registry.managers).length);
-    logger.format("Schemes exists: %s", Object.keys(registry.schemes).length);
-    logger.format("Actor combat: %s", Object.keys(registry.actorCombat).length);
-    logger.format("Objects registered: %s", Object.keys(registry.objects).length);
-    logger.format("Offline objects registered: %s", Object.keys(registry.offlineObjects).length);
-    logger.format("Simulation objects registered: %s", Object.keys(registry.simulationObjects).length);
-    logger.format("Story links: %s", Object.keys(registry.storyLink.idBySid).length);
-    logger.format("Stalkers registered: %s", Object.keys(registry.stalkers).length);
-    logger.format("Trade states registered: %s", Object.keys(registry.trade).length);
-    logger.format("Camp stories registered: %s", Object.keys(registry.camps).length);
-    logger.format("Crows count: %s", registry.crows.count);
-    logger.format("Helicopter enemies registered: %s", Object.keys(registry.helicopter.enemies).length);
-    logger.format("Helicopter registered: %s", Object.keys(registry.helicopter.storage).length);
-    logger.format("Anomalies registered: %s", Object.keys(registry.anomalyZones).length);
-    logger.format("Zones registered: %s", Object.keys(registry.zones).length);
-    logger.format("Silence zones registered: %s", Object.keys(registry.silenceZones).length);
-    logger.format("No weapon zones registered: %s", Object.keys(registry.noWeaponZones).length);
-    logger.format("Light zones registered: %s", Object.keys(registry.lightZones).length);
-    logger.format("Smart terrains registered: %s", Object.keys(registry.smartTerrains).length);
-    logger.format("Smart covers registered: %s", Object.keys(registry.smartCovers).length);
-    logger.format("Animated doors registered: %s", Object.keys(registry.doors).length);
-    logger.format("Save markers registered: %s", Object.keys(registry.saveMarkers).length);
-    logger.format("Signal lights registered: %s", Object.keys(registry.signalLights).length);
-    logger.format("Spawned vertexes registered: %s", Object.keys(registry.spawnedVertexes).length);
+    logger.info("General report of registry:");
+    logger.info("Collections in registry: %s", Object.keys(registry).length);
+    logger.info("Actor exists: %s", registry.actor !== null);
+    logger.info("Managers exists: %s", Object.keys(registry.managers).length);
+    logger.info("Schemes exists: %s", Object.keys(registry.schemes).length);
+    logger.info("Actor combat: %s", Object.keys(registry.actorCombat).length);
+    logger.info("Objects registered: %s", Object.keys(registry.objects).length);
+    logger.info("Offline objects registered: %s", Object.keys(registry.offlineObjects).length);
+    logger.info("Simulation objects registered: %s", Object.keys(registry.simulationObjects).length);
+    logger.info("Story links: %s", Object.keys(registry.storyLink.idBySid).length);
+    logger.info("Stalkers registered: %s", Object.keys(registry.stalkers).length);
+    logger.info("Trade states registered: %s", Object.keys(registry.trade).length);
+    logger.info("Camp stories registered: %s", Object.keys(registry.camps).length);
+    logger.info("Crows count: %s", registry.crows.count);
+    logger.info("Helicopter enemies registered: %s", Object.keys(registry.helicopter.enemies).length);
+    logger.info("Helicopter registered: %s", Object.keys(registry.helicopter.storage).length);
+    logger.info("Anomalies registered: %s", Object.keys(registry.anomalyZones).length);
+    logger.info("Zones registered: %s", Object.keys(registry.zones).length);
+    logger.info("Silence zones registered: %s", Object.keys(registry.silenceZones).length);
+    logger.info("No weapon zones registered: %s", Object.keys(registry.noWeaponZones).length);
+    logger.info("Light zones registered: %s", Object.keys(registry.lightZones).length);
+    logger.info("Smart terrains registered: %s", Object.keys(registry.smartTerrains).length);
+    logger.info("Smart covers registered: %s", Object.keys(registry.smartCovers).length);
+    logger.info("Animated doors registered: %s", Object.keys(registry.doors).length);
+    logger.info("Save markers registered: %s", Object.keys(registry.saveMarkers).length);
+    logger.info("Signal lights registered: %s", Object.keys(registry.signalLights).length);
+    logger.info("Spawned vertexes registered: %s", Object.keys(registry.spawnedVertexes).length);
 
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    logger.format("Event handlers exist: %s", Object.keys(eventsManager.callbacks).length);
+    logger.info("Event handlers exist: %s", Object.keys(eventsManager.callbacks).length);
     Object.entries(eventsManager.callbacks).forEach(([key, values]) => {
-      logger.format(
+      logger.info(
         "*: %s %s",
         EGameEvent[key as unknown as number],
         values !== null ? Object.keys(values).length : NIL
@@ -134,13 +134,13 @@ export class DebugRegistrySection extends AbstractDebugSection {
   }
 
   public onSelectedObjectChange(): void {
-    logger.format("Selected another item");
+    logger.info("Selected another item");
   }
 
   public onToggleFilterOnline(): void {
     this.filterIsOnline = this.uiRegistryFilterOnline.GetCheck();
     this.initializeState();
 
-    logger.format("Changed online filter: %s", this.filterIsOnline);
+    logger.info("Changed online filter: %s", this.filterIsOnline);
   }
 }

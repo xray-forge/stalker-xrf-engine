@@ -75,7 +75,7 @@ export function createExclusiveJob(
   field: TSection,
   jobs: TSmartTerrainJobsList
 ): TSmartTerrainJobsList {
-  logger.format("Add exclusive job: '%s' - '%s'", section, field);
+  logger.info("Add exclusive job: '%s' - '%s'", section, field);
 
   const workScriptPath: Optional<TPath> = readIniString(ini, section, field, false);
 

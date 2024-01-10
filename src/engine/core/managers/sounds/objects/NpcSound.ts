@@ -255,7 +255,7 @@ export class NpcSound extends AbstractPlayableSound {
       return false;
     }
 
-    logger.format("Play NPC sound for: '%s', '%s', '%s', '%s'", object.name(), faction, point, message);
+    logger.info("Play NPC sound for: '%s', '%s', '%s', '%s'", object.name(), faction, point, message);
 
     this.playingStartedAt = null;
 
@@ -406,7 +406,7 @@ export class NpcSound extends AbstractPlayableSound {
    * todo: Description.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
-    logger.format(
+    logger.info(
       "Sound play ended: %s %s %s",
       objectId,
       this.playedSoundIndex,
@@ -438,11 +438,11 @@ export class NpcSound extends AbstractPlayableSound {
 
     // Fire scheme signals.
     if (this.playedSoundIndex === this.objects.get(objectId).max && this.shuffle !== "rnd") {
-      logger.format("Emit sound end signal: %s", state.object.name());
+      logger.info("Emit sound end signal: %s", state.object.name());
       signals.set("theme_end", true);
       signals.set("sound_end", true);
     } else {
-      logger.format("Emit sound end signal: %s", state.object.name());
+      logger.info("Emit sound end signal: %s", state.object.name());
       signals.set("sound_end", true);
     }
   }

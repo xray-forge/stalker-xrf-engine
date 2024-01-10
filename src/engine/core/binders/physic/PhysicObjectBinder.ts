@@ -58,7 +58,7 @@ export class PhysicObjectBinder extends object_binder {
       return false;
     }
 
-    logger.format("Go online: %s", object.name());
+    logger.info("Go online: %s", object.name());
 
     const ini: Optional<IniFile> = this.object.spawn_ini() as Optional<IniFile>;
 
@@ -75,7 +75,7 @@ export class PhysicObjectBinder extends object_binder {
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
 
-    logger.format("Go offline: %s", object.name());
+    logger.info("Go offline: %s", object.name());
 
     if (level.map_has_object_spot(objectId, "ui_pda2_actor_box_location") !== 0) {
       level.map_remove_object_spot(objectId, "ui_pda2_actor_box_location");
@@ -157,7 +157,7 @@ export class PhysicObjectBinder extends object_binder {
    * @param who - game object using it
    */
   public onUse(object: GameObject, who: Optional<GameObject>): void {
-    logger.format("Object used: %s by %s", object.name(), object.section(), who?.name());
+    logger.info("Object used: %s by %s", object.name(), object.section(), who?.name());
 
     if (this.state.activeScheme) {
       emitSchemeEvent(
@@ -217,7 +217,7 @@ export class PhysicObjectBinder extends object_binder {
    * @param who - game object that destroyed it
    */
   public onDeath(object: GameObject, who: GameObject): void {
-    logger.format("Object destroyed: %s by %s", object.name(), object.section(), who.name());
+    logger.info("Object destroyed: %s by %s", object.name(), object.section(), who.name());
 
     if (this.state.activeScheme) {
       emitSchemeEvent(

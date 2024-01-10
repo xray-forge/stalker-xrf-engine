@@ -30,7 +30,7 @@ export class SchemeWalker extends AbstractScheme {
     section: TSection,
     smartTerrain: TName
   ): ISchemeWalkerState {
-    logger.format("Activate scheme: %s", object.name());
+    logger.info("Activate scheme: %s", object.name());
 
     const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 

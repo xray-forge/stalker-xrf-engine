@@ -262,7 +262,7 @@ export class CampManager {
    * @param objectId - target object id to register
    */
   public registerObject(objectId: TNumberId): void {
-    logger.format("Register object in camp: %s", objectId);
+    logger.info("Register object in camp: %s", objectId);
 
     this.objects.set(objectId, { state: this.activity } as ICampStateDescriptor);
 
@@ -291,7 +291,7 @@ export class CampManager {
    * @param objectId - target object id to unregister
    */
   public unregisterObject(objectId: TNumberId): void {
-    logger.format("Unregister object from camp: %s", objectId);
+    logger.info("Unregister object from camp: %s", objectId);
 
     if (this.directorId === objectId) {
       this.isStoryStarted = false;

@@ -44,7 +44,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   public override initialize(): void {
-    logger.format("Activate: %s", this.object.name());
+    logger.info("Activate: %s", this.object.name());
 
     super.initialize();
 
@@ -60,7 +60,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   public override finalize(): void {
-    logger.format("Deactivate: %s", this.object.name());
+    logger.info("Deactivate: %s", this.object.name());
 
     super.finalize();
     this.state.currentAction = null;

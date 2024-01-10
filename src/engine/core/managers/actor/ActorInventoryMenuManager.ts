@@ -83,20 +83,20 @@ export class ActorInventoryMenuManager extends AbstractManager {
    * todo: Description.
    */
   public onItemDropped(from: GameObject, to: GameObject, oldList: EActorMenuType, newList: EActorMenuType): void {
-    logger.format("Actor menu inventory item dropped: %s %s %s %s", from?.name(), to?.name(), oldList, newList);
+    logger.info("Actor menu inventory item dropped: %s %s %s %s", from?.name(), to?.name(), oldList, newList);
   }
 
   /**
    * todo: Description.
    */
   public onWindowOpen(mode: EActorMenuMode) {
-    logger.format("Actor menu open: %s", EActorMenuMode[mode]);
+    logger.info("Actor menu open: %s", EActorMenuMode[mode]);
   }
 
   /**
    * todo: Description.
    */
   public onWindowClosed(mode: EActorMenuMode) {
-    logger.format("Actor menu close: %s", EActorMenuMode[mode]);
+    logger.info("Actor menu close: %s", EActorMenuMode[mode]);
   }
 }

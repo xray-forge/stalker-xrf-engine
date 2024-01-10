@@ -188,7 +188,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     // Try to help actor if can.
     if (helpTargetId && helpTargetId !== this.assignedTargetId) {
-      simulationLogger.format("Assign squad new help target id: %s %s", this.name(), helpTargetId);
+      simulationLogger.info("Assign squad new help target id: %s %s", this.name(), helpTargetId);
 
       this.currentAction?.finalize();
       this.currentAction = null;
@@ -203,7 +203,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       const isFinished: boolean = this.currentAction.update(true);
 
       if (isFinished) {
-        simulationLogger.format(
+        simulationLogger.info(
           "Finished task, search for new: '%s' '%s' '%s'",
           this.name(),
           this.currentAction.type,
@@ -452,7 +452,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * Clear assigned to the squad target.
    */
   public clearAssignedTarget(): void {
-    simulationLogger.format("Clear squad assigned target: '%s' x '%s'", this.name(), this.assignedTargetId);
+    simulationLogger.info("Clear squad assigned target: '%s' x '%s'", this.name(), this.assignedTargetId);
     this.assignedTargetId = null;
   }
 
@@ -597,7 +597,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     );
 
     if (customData !== "misc\\default_custom_data.ltx") {
-      logger.format(
+      logger.info(
         "INCORRECT npc_spawn_section used for '%s'. You cannot use object with custom_data in squad",
         section
       );
@@ -643,7 +643,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public onSquadLoad(): void {
-    logger.format("Initialize squad on load: %s", this.name());
+    logger.info("Initialize squad on load: %s", this.name());
 
     this.updateSympathy();
     this.simulationManager.assignSquadToSmartTerrain(this, this.assignedSmartTerrainId);
@@ -654,13 +654,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * todo: Description.
    */
   public onMemberDeath(object: ServerObject): void {
-    simulationLogger.format("On squad member death: %s %s", this.name(), object.name());
+    simulationLogger.info("On squad member death: %s %s", this.name(), object.name());
 
     this.soundManager.unregisterObject(object.id);
     this.unregister_member(object.id);
 
     if (this.npc_count() === 0) {
-      logger.format("Removing empty squad, last member died: %s", this.name());
+      logger.info("Removing empty squad, last member died: %s", this.name());
 
       if (this.currentAction) {
         this.currentAction.finalize();

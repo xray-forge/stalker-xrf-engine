@@ -152,7 +152,7 @@ export class StatisticsManager extends AbstractManager {
    * Handle usage of anabiotic during emission.
    */
   public onSurvivedSurgeWithAnabiotic(): void {
-    logger.format("Increment used anabiotics count");
+    logger.info("Increment used anabiotics count");
 
     setPortableStoreValue(ACTOR_ID, ANABIOTICS_USED_KEY, getPortableStoreValue(ACTOR_ID, ANABIOTICS_USED_KEY, 0) + 1);
   }
@@ -163,7 +163,7 @@ export class StatisticsManager extends AbstractManager {
    * @param task - completed task object
    */
   public onTaskCompleted(task: TaskObject): void {
-    logger.format("Increment completed quests count");
+    logger.info("Increment completed quests count");
     this.actorStatistics.completedTasksCount += 1;
   }
 
@@ -177,7 +177,7 @@ export class StatisticsManager extends AbstractManager {
       return;
     }
 
-    logger.format("Increment collected artefacts count");
+    logger.info("Increment collected artefacts count");
 
     const artefactId: TNumberId = item.id();
 
@@ -199,7 +199,7 @@ export class StatisticsManager extends AbstractManager {
    * Surge passed.
    */
   public onSurgePassed(): void {
-    logger.format("Increment surges count");
+    logger.info("Increment surges count");
     this.actorStatistics.surgesCount += 1;
   }
 
@@ -209,7 +209,7 @@ export class StatisticsManager extends AbstractManager {
    * @param treasure - found treasure secret
    */
   public onTreasureFound(treasure: ITreasureDescriptor): void {
-    logger.format("Increment collected secrets count");
+    logger.info("Increment collected secrets count");
     this.actorStatistics.collectedTreasuresCount += 1;
   }
 
@@ -340,7 +340,7 @@ export class StatisticsManager extends AbstractManager {
       }
 
       if (rank > this.actorStatistics.bestKilledMonsterRank) {
-        logger.format("Updated best monster killed: %s %s", community, rank);
+        logger.info("Updated best monster killed: %s %s", community, rank);
 
         this.actorStatistics.bestKilledMonsterRank = rank;
         this.actorStatistics.bestKilledMonster = community as TMonster;

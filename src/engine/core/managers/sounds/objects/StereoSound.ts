@@ -19,7 +19,7 @@ export class StereoSound {
    * Initialize object instance.
    */
   public initialize(soundPath: TPath, volume: TRate): void {
-    logger.format("Init stereo sound: %s %s", soundPath, volume);
+    logger.info("Init stereo sound: %s %s", soundPath, volume);
 
     if (this.soundObject) {
       this.stop();
@@ -51,7 +51,7 @@ export class StereoSound {
     this.soundObject.play(registry.actor, 0, sound_object.s2d);
     this.soundEndTime = time_global() + this.soundObject.length();
 
-    logger.format("Play stereo sound: %s %s %s", this.soundPath, this.soundEndTime, this.soundObject.volume);
+    logger.info("Play stereo sound: %s %s %s", this.soundPath, this.soundEndTime, this.soundObject.volume);
 
     return this.soundEndTime;
   }
@@ -60,7 +60,7 @@ export class StereoSound {
    * Play stereo sound at specified time.
    */
   public playAtTime(time: TTimestamp, sound: TStringId, volume: Optional<TRate>): TTimestamp {
-    logger.format("Play stereo sound at time: %s", sound);
+    logger.info("Play stereo sound at time: %s", sound);
 
     this.soundEndTime = null;
     (this.soundObject as sound_object).attach_tail(sound);
@@ -92,7 +92,7 @@ export class StereoSound {
    */
   public stop(): void {
     if (this.soundObject && this.soundObject.playing()) {
-      logger.format("Stop playing stereo sound: %s %s", this.soundPath, this.soundObject.volume);
+      logger.info("Stop playing stereo sound: %s %s", this.soundPath, this.soundObject.volume);
       this.soundObject.stop();
     }
   }

@@ -106,7 +106,7 @@ extern(
       return;
     }
 
-    logger.format("Hit object: %s %s", object.name(), storyObject.name());
+    logger.info("Hit object: %s %s", object.name(), storyObject.name());
 
     h.bone(params[1]);
     h.power = params[2];
@@ -320,7 +320,7 @@ extern(
     const [, targetId] = initTarget(object, targetString);
 
     if (targetId === null) {
-      logger.format(
+      logger.info(
         "You are trying to set non-existant target [%s] for object [%s] in section [%s]:",
         targetString,
         targetId,
@@ -497,7 +497,7 @@ extern(
     object: GameObject,
     [smartTerrainName, clearStory]: [Optional<TName>, Optional<"false">]
   ): void => {
-    logger.format("Clear smart terrain: '%s', '%s'", smartTerrainName, clearStory);
+    logger.info("Clear smart terrain: '%s', '%s'", smartTerrainName, clearStory);
 
     if (smartTerrainName === null) {
       abort("Wrong squad id [NIL] in clear_smart_terrain function");
@@ -510,11 +510,11 @@ extern(
     for (const [, squad] of simulationManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
       if (clearStory === FALSE) {
         if (!getStoryIdByObjectId(squad.id)) {
-          logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
+          logger.info("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
           simulationManager.releaseSquad(squad);
         }
       } else {
-        logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
+        logger.info("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
         simulationManager.releaseSquad(squad);
       }
     }
@@ -559,7 +559,7 @@ extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, pa
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
     if (storyObject !== null) {
-      logger.format("Update object logic: %s", storyObject.id());
+      logger.info("Update object logic: %s", storyObject.id());
 
       const state: IRegistryObjectState = registry.objects.get(storyObject.id());
 
@@ -574,7 +574,7 @@ extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, pa
 extern(
   "xr_effects.hit_npc",
   (actor: GameObject, object: GameObject, params: [string, string, string, number, number, string]): void => {
-    logger.format("Hit object: %s", object.name());
+    logger.info("Hit object: %s", object.name());
 
     const targetHit: Hit = new hit();
     const rev: boolean = params[5] ? params[5] === TRUE : false;
@@ -624,7 +624,7 @@ extern("xr_effects.restore_health", (actor: GameObject, object: GameObject): voi
 extern(
   "xr_effects.force_obj",
   (actor: GameObject, object: GameObject, p: [string, Optional<number>, Optional<number>]): void => {
-    logger.format("Force object");
+    logger.info("Force object");
 
     const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
 
@@ -663,7 +663,7 @@ extern("xr_effects.burer_force_anti_aim", (actor: GameObject, object: GameObject
  */
 extern("xr_effects.give_items", (actor: GameObject, object: GameObject, params: Array<TSection>): void => {
   for (const section of params) {
-    logger.format("Give item to object: %s %s", object.id(), section);
+    logger.info("Give item to object: %s %s", object.id(), section);
     spawnItemsForObject(object, section);
   }
 });
@@ -681,7 +681,7 @@ extern(
     const objectId: TNumberId =
       objectStoryId === null ? (object as GameObject).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
 
-    logger.format("Give item to object: %s %s", objectId, section);
+    logger.info("Give item to object: %s %s", objectId, section);
 
     spawnItemsForObject(registry.simulator.object(objectId)!, section);
   }
@@ -832,7 +832,7 @@ extern(
  * todo;
  */
 extern("xr_effects.clear_box", (actor: GameObject, object: GameObject, p: [string]): void => {
-  logger.format("Clear box");
+  logger.info("Clear box");
 
   if ((p && p[0]) === null) {
     abort("Wrong parameters in function 'clear_box'!!!");

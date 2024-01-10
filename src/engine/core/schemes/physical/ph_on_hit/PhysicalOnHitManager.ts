@@ -18,7 +18,7 @@ export class PhysicalOnHitManager extends AbstractSchemeManager<ISchemePhysicalO
     who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
-    logger.format("Physical object hit: '%s' '%s' '%s'", object.name(), boneIndex, amount);
+    logger.info("Physical object hit: '%s' '%s' '%s'", object.name(), boneIndex, amount);
 
     if (registry.objects.get(this.object.id()).activeScheme) {
       trySwitchToAnotherSection(object, this.state);

@@ -8,6 +8,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Shows main menu and ends current game progress.
  */
 export function disconnectFromGame(): void {
-  logger.format("Game disconnect");
+  logger.info("Game disconnect");
   executeConsoleCommand(consoleCommands.disconnect);
 }

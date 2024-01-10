@@ -60,7 +60,7 @@ export function initializeManager<T extends TAbstractCoreManagerConstructor>(
   let manager: Optional<AbstractManager> = registry.managers.get(ManagerClass);
 
   if (!manager) {
-    logger.format("Initialize manager: %s", ManagerClass.name);
+    logger.info("Initialize manager: %s", ManagerClass.name);
 
     manager = new ManagerClass();
 
@@ -82,7 +82,7 @@ export function disposeManager<T extends TAbstractCoreManagerConstructor>(Manage
   const manager: Optional<AbstractManager> = registry.managers.get(ManagerClass) as Optional<AbstractManager>;
 
   if (manager) {
-    logger.format("Dispose manager: %s", ManagerClass.name);
+    logger.info("Dispose manager: %s", ManagerClass.name);
 
     manager.destroy();
     manager.isDestroyed = true;

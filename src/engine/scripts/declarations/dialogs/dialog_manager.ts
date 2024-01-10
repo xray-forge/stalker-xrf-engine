@@ -374,7 +374,7 @@ let rnd: number = 0;
  * todo: Just use 'pick random' from list.
  */
 extern("dialog_manager.create_bye_phrase", (): string => {
-  logger.format("Create bye phrase");
+  logger.info("Create bye phrase");
 
   if (rnd === 0) {
     rnd = math.random(1, 99);

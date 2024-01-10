@@ -91,7 +91,7 @@ export class StalkerPatrolManager {
    * @returns initialized manager reference
    */
   public initialize(): StalkerPatrolManager {
-    logger.format("Initialize patrol manager for: '%s'", this.object.name());
+    logger.info("Initialize patrol manager for: '%s'", this.object.name());
 
     this.object.set_callback(callback.patrol_path_in_point, this.onWalkWaypoint, this);
 
@@ -112,7 +112,7 @@ export class StalkerPatrolManager {
     patrolSuggestedStates: Optional<IPatrolSuggestedState>,
     patrolCallbackDescriptor: Optional<IPatrolCallbackDescriptor> = null
   ): void {
-    logger.format(
+    logger.info(
       "Reset patrol manager for: '%s', walk - '%s' look - '%s', team - '%s'",
       this.object.name(),
       walkPathName,
@@ -222,7 +222,7 @@ export class StalkerPatrolManager {
    * Dispose all related data and manager instance.
    */
   public finalize(): void {
-    logger.format(
+    logger.info(
       "Finalize patrol manager for: '%s', walk '%s' look '%s' , team '%s'",
       this.object.name(),
       this.patrolWalkName,
@@ -299,7 +299,7 @@ export class StalkerPatrolManager {
    * Fired on timeout or when animation is finished.
    */
   public onAnimationEnd(): void {
-    logger.format("Animation end for: '%s' at '%s'", this.object.name(), this.lastLookPointIndex);
+    logger.info("Animation end for: '%s' at '%s'", this.object.name(), this.lastLookPointIndex);
 
     // No active scheme for logics update, just skip update.
     if (registry.objects.get(this.object.id()).activeScheme === null) {
@@ -349,7 +349,7 @@ export class StalkerPatrolManager {
    * Sync requirement may block signals emitting for a while.
    */
   public onAnimationTurnEnd(): void {
-    logger.format("Animation turn end for: '%s' at '%s'", this.object.name(), this.lastLookPointIndex);
+    logger.info("Animation turn end for: '%s' at '%s'", this.object.name(), this.lastLookPointIndex);
 
     const waypoint: IWaypointData = this.patrolLookWaypoints!.get(this.lastLookPointIndex as TIndex);
 
@@ -418,7 +418,7 @@ export class StalkerPatrolManager {
    * todo: Description.
    */
   public onWalkWaypoint(object: GameObject, actionType: Optional<number>, index: Optional<TIndex>): void {
-    logger.format(
+    logger.info(
       "Waypoint `walk`: '%s' action '%s', '%s' -> '%s'",
       this.object.name(),
       actionType,
@@ -433,7 +433,7 @@ export class StalkerPatrolManager {
 
     this.lastWalkPointIndex = index;
 
-    logger.format("Walk index set: '%s' -> '%s'", this.object.name(), index);
+    logger.info("Walk index set: '%s' -> '%s'", this.object.name(), index);
 
     this.currentStateMoving = pickSectionFromCondList(
       registry.actor,
@@ -506,7 +506,7 @@ export class StalkerPatrolManager {
   ): void {
     const [lookPointIndex] = choosePatrolWaypointByFlags(this.patrolLook as Patrol, this.patrolLookWaypoints!, flags);
 
-    logger.format(
+    logger.info(
       "Waypoint `look`: '%s' action '%s', '%s' -> '%s', selected '%s'",
       this.object.name(),
       actionType,
@@ -558,7 +558,7 @@ export class StalkerPatrolManager {
 
     this.retvalAfterRotation = retVal ? (tonumber(retVal) as number) : null;
 
-    logger.format("Look index set: '%s' -> '%s'", this.object.name(), lookPointIndex);
+    logger.info("Look index set: '%s' -> '%s'", this.object.name(), lookPointIndex);
 
     this.lastLookPointIndex = lookPointIndex;
 
@@ -584,7 +584,7 @@ export class StalkerPatrolManager {
     this.currentPointInitAt = time_global();
     this.currentPointIndex = this.object.get_current_point_index();
 
-    logger.format(
+    logger.info(
       "Extrapolate patrol point for: '%s' at '%s' | '%s'",
       this.object.name(),
       this.currentPointIndex,

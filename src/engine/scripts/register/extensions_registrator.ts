@@ -17,18 +17,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function registerExtensions(isNewGame: boolean): void {
   if (lfs === null) {
-    return logger.format("Skip externals registration, no `lfs` lib available");
+    return logger.info("Skip externals registration, no `lfs` lib available");
   }
 
   const extensions: LuaArray<IExtensionsDescriptor> = getAvailableExtensions();
   const sortedExtensions: LuaArray<IExtensionsDescriptor> = syncExtensionsState(extensions, loadExtensionsState());
 
   if (extensions.length() === 0) {
-    logger.format("No extensions detected");
+    logger.info("No extensions detected");
 
     return;
   } else {
-    logger.format("Registering extensions: %s", extensions.length());
+    logger.info("Registering extensions: %s", extensions.length());
   }
 
   for (const [, extension] of sortedExtensions) {
@@ -40,6 +40,6 @@ export function registerExtensions(isNewGame: boolean): void {
     }
   }
 
-  logger.format("Saving current extensions order");
+  logger.info("Saving current extensions order");
   saveExtensionsState(sortedExtensions);
 }

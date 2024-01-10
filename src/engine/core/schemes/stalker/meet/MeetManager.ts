@@ -68,7 +68,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
       this.object.is_talking() ||
       (isActorVisible && distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeDistance))!);
 
-    logger.format("Initialize meet manager for: '%s', '%s', '%s'", this.object.name(), isObjectClose, isObjectFar);
+    logger.info("Initialize meet manager for: '%s', '%s', '%s'", this.object.name(), isObjectClose, isObjectFar);
 
     if (isObjectClose) {
       this.isHelloPassed = true;
@@ -122,7 +122,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     );
 
     if (optionalSound !== null) {
-      logger.format("Execute play sound: '%s', '%s'", this.object.name(), optionalSound);
+      logger.info("Execute play sound: '%s', '%s'", this.object.name(), optionalSound);
       getManager(SoundManager).play(this.object.id(), optionalSound);
     }
   }
@@ -146,7 +146,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
         );
 
         if (sound !== null && !isObjectInCombat(this.object)) {
-          logger.format("Execute play sound hello: '%s', '%s'", this.object.name(), sound);
+          logger.info("Execute play sound hello: '%s', '%s'", this.object.name(), sound);
           getManager(SoundManager).play(this.object.id(), sound);
         }
 
@@ -161,7 +161,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
         );
 
         if (sound !== null && !isObjectInCombat(this.object)) {
-          logger.format("Execute play sound bye: '%s', '%s'", this.object.name(), sound);
+          logger.info("Execute play sound bye: '%s', '%s'", this.object.name(), sound);
           getManager(SoundManager).play(this.object.id(), sound);
         }
 

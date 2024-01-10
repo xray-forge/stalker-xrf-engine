@@ -41,7 +41,7 @@ export class SchemeCombat extends AbstractScheme {
     const isZombied: boolean = getObjectCommunity(object) === communities.zombied;
 
     if (section || isZombied) {
-      logger.format("Activate scheme: %s", object.name());
+      logger.info("Activate scheme: %s", object.name());
 
       const state: ISchemeCombatState = AbstractScheme.assign(object, ini, scheme, section);
 

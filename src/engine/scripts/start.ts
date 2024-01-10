@@ -21,7 +21,7 @@ extern("start", {
    * Called when game is started or loaded.
    */
   callback: (isNewGame: boolean): void => {
-    logger.format("Start game: %s", isNewGame);
+    logger.info("Start game: %s", isNewGame);
 
     updateClassIds(classIds);
 

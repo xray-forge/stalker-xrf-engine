@@ -53,7 +53,7 @@ export class AbstractTimersManager extends AbstractManager {
     callback: (offset: TDuration) => void,
     period: TDuration
   ): LuaMultiReturn<[AnyCallable, IIntervalDescriptor, AnyCallable]> {
-    logger.format("Register new interval: %s", period);
+    logger.info("Register new interval: %s", period);
 
     assert(period >= 50, "Low value interval may be problematic.");
 
@@ -71,10 +71,10 @@ export class AbstractTimersManager extends AbstractManager {
    */
   public unregisterGameInterval(descriptor: IIntervalDescriptor): void {
     if (this.intervals.has(descriptor)) {
-      logger.format("Unregister interval: %s", descriptor.period);
+      logger.info("Unregister interval: %s", descriptor.period);
       this.intervals.delete(descriptor);
     } else {
-      logger.format("Tried to unregister not existing interval");
+      logger.info("Tried to unregister not existing interval");
     }
   }
 
@@ -94,7 +94,7 @@ export class AbstractTimersManager extends AbstractManager {
     const now: TTimestamp = time_global();
     const descriptor: ITimeoutDescriptor = { callback, delay, last: now };
 
-    logger.format("Register new timeout: %s %s", delay, now);
+    logger.info("Register new timeout: %s %s", delay, now);
 
     this.timeouts.set(descriptor, true);
 
@@ -108,10 +108,10 @@ export class AbstractTimersManager extends AbstractManager {
    */
   public unregisterGameTimeout(descriptor: ITimeoutDescriptor): void {
     if (this.timeouts.has(descriptor)) {
-      logger.format("Unregister timeout: %s", descriptor.delay);
+      logger.info("Unregister timeout: %s", descriptor.delay);
       this.timeouts.delete(descriptor);
     } else {
-      logger.format("Tried to unregister not existing timeout");
+      logger.info("Tried to unregister not existing timeout");
     }
   }
 

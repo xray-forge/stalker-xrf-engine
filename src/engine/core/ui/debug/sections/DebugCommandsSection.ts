@@ -69,7 +69,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
       parameter = isEnabled ? "1" : "0";
     }
 
-    logger.format("Value toggle: %s %s %s", type, command, parameter);
+    logger.info("Value toggle: %s %s %s", type, command, parameter);
     executeConsoleCommand(command, parameter);
   }
 }

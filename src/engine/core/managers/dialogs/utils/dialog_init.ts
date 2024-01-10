@@ -24,7 +24,7 @@ export function initializeCategoryDialogs(dialog: PhraseDialog, category: EGener
     category
   );
 
-  logger.format("Initialize start dialogs: %s", category);
+  logger.info("Initialize start dialogs: %s", category);
 
   dialog.AddPhrase("", "0", "", -10_000);
 
@@ -63,7 +63,7 @@ export function initializeCategoryDialogs(dialog: PhraseDialog, category: EGener
  * @param dialog - instance to initialize with default phrases
  */
 export function initializeNewDialog(dialog: PhraseDialog): void {
-  logger.format("Initialize new dialog");
+  logger.info("Initialize new dialog");
 
   dialog.AddPhrase("dm_universal_actor_start", "0", "", -10_000);
 

@@ -52,7 +52,7 @@ export class ActorBinder extends object_binder {
   public isFirstUpdatePerformed: boolean = false;
 
   public override net_spawn(serverObject: ServerActorObject): boolean {
-    logger.format("Actor go online");
+    logger.info("Actor go online");
 
     level.show_indicators();
 
@@ -74,7 +74,7 @@ export class ActorBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.format("Actor go offline");
+    logger.info("Actor go offline");
 
     level.show_weapon(true);
 
@@ -90,7 +90,7 @@ export class ActorBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
 
-    logger.format("Re-init actor");
+    logger.info("Re-init actor");
 
     registerActor(this.object);
     resetPortableStore(ACTOR_ID);

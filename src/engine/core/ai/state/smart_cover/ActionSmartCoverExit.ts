@@ -23,7 +23,7 @@ export class ActionSmartCoverExit extends action_base {
    * Exist from smart cover and find nearest vertex to travel to.
    */
   public override initialize(): void {
-    logger.format("Exist smart cover: %s", this.object.name());
+    logger.info("Exist smart cover: %s", this.object.name());
 
     super.initialize();
 

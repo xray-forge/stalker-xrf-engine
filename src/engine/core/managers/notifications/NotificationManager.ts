@@ -123,7 +123,7 @@ export class NotificationManager extends AbstractManager {
    * Send notification with information about actor money transfer.
    */
   public sendMoneyRelocatedNotification(direction: ENotificationDirection, amount: TCount): void {
-    logger.format("Show relocate money message: %s %s %s", direction, amount, amount);
+    logger.info("Show relocate money message: %s %s %s", direction, amount, amount);
 
     const notificationTitle: TLabel = game.translate_string(
       direction === ENotificationDirection.IN ? "general_in_money" : "general_out_money"
@@ -150,7 +150,7 @@ export class NotificationManager extends AbstractManager {
     itemSection: TSection,
     amount: TCount = 1
   ): void {
-    logger.format("Show relocate item message: %s %s %s", direction, itemSection, amount);
+    logger.info("Show relocate item message: %s %s %s", direction, itemSection, amount);
 
     const notificationTitle: TLabel = game.translate_string(
       direction === ENotificationDirection.IN ? "general_in_item" : "general_out_item"
@@ -177,7 +177,7 @@ export class NotificationManager extends AbstractManager {
    * Show notifications related to treasures state updates.
    */
   public sendTreasureNotification(state: ETreasureState): void {
-    logger.format("Show treasure notification: %s", state);
+    logger.info("Show treasure notification: %s", state);
 
     let notificationTitle: TLabel = "";
 
@@ -240,7 +240,7 @@ export class NotificationManager extends AbstractManager {
     showtime: Optional<TTimestamp> = notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
     senderId: Optional<TStringId> = null
   ): void {
-    logger.format("Show tip notification: %s %s %s %s", caption, delay, showtime, senderId);
+    logger.info("Show tip notification: %s %s %s %s", caption, delay, showtime, senderId);
 
     // Verify whether sender can send notifications.
     // todo: Probably here check ID from sender object if it is provided?
@@ -253,12 +253,12 @@ export class NotificationManager extends AbstractManager {
         if (serverObject !== null) {
           // Check if sender is not wounded.
           if (serverObject.online && isObjectWounded(serverObject.id)) {
-            return logger.format("Cannot send tip, object is wounded");
+            return logger.info("Cannot send tip, object is wounded");
           }
 
           // Check if sender is alive.
           if (!serverObject.alive()) {
-            return logger.format("Cannot send tip, object is not alive");
+            return logger.info("Cannot send tip, object is not alive");
           }
         }
       }
@@ -385,7 +385,7 @@ export class NotificationManager extends AbstractManager {
     showTime: TDuration,
     type: Optional<TNumberId> = null
   ): void {
-    logger.format("Send generic notification: '%s', '%s', '%s'", notificationTitle, notificationText, notificationIcon);
+    logger.info("Send generic notification: '%s', '%s', '%s'", notificationTitle, notificationText, notificationIcon);
 
     if (isFlexible && registry.actor.is_talking()) {
       registry.actor.give_talk_message2(notificationTitle, notificationText, notificationIcon, "iconed_answer_item");

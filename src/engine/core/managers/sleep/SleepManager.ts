@@ -29,7 +29,7 @@ export class SleepManager extends AbstractManager {
    * Show sleep dialog and set current active time for it.
    */
   public showSleepDialog(): void {
-    logger.format("Show sleep dialog");
+    logger.info("Show sleep dialog");
 
     if (sleepConfig.SLEEP_DIALOG === null) {
       sleepConfig.SLEEP_DIALOG = new SleepDialog(this);
@@ -43,7 +43,7 @@ export class SleepManager extends AbstractManager {
    * Start sleeping and related animations.
    */
   public startSleep(hours: TDuration): void {
-    logger.format("Start sleep for: %s", hours);
+    logger.info("Start sleep for: %s", hours);
 
     this.nextSleepDuration = hours;
 
@@ -67,7 +67,7 @@ export class SleepManager extends AbstractManager {
    * Start sleeping animation.
    */
   public onStartSleeping(): void {
-    logger.format("On start sleeping");
+    logger.info("On start sleeping");
 
     level.add_cam_effector(animations.camera_effects_sleep, 10, false, "engine.on_finish_sleeping");
     level.change_game_time(0, this.nextSleepDuration, 0);
@@ -91,7 +91,7 @@ export class SleepManager extends AbstractManager {
    * Wake up from sleep and show UI.
    */
   public onFinishSleeping(): void {
-    logger.format("On finish sleeping");
+    logger.info("On finish sleeping");
 
     getManager(ActorInputManager).enableGameUi();
 

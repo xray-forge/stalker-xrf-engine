@@ -27,7 +27,7 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 
   public override initialize(): void {
-    logger.format("Start post combat idle state: %s", this.object.name());
+    logger.info("Start post combat idle state: %s", this.object.name());
 
     super.initialize();
 
@@ -50,7 +50,7 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 
   public override finalize(): void {
-    logger.format("End post combat idle state: %s", this.object.name());
+    logger.info("End post combat idle state: %s", this.object.name());
 
     getManager(SoundManager).play(this.object.id(), "post_combat_relax");
 
@@ -77,11 +77,11 @@ export class ActionPostCombatIdleWait extends action_base {
     }
 
     if (isObjectWeaponLocked(this.object)) {
-      logger.format("Waiting for weapon unlock: %s", this.object.active_item()?.name());
+      logger.info("Waiting for weapon unlock: %s", this.object.active_item()?.name());
 
       return;
     } else {
-      logger.format("Weapon unlocked unlock: %s", this.object.active_item()?.name());
+      logger.info("Weapon unlocked unlock: %s", this.object.active_item()?.name());
     }
 
     this.isAnimationStarted = true;

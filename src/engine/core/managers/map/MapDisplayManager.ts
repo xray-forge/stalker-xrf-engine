@@ -166,7 +166,7 @@ export class MapDisplayManager extends AbstractManager {
    * @param state - target object registry state
    */
   public removeObjectMapSpot(object: GameObject, state: IRegistryObjectState): void {
-    logger.format("Remove object spot: %s", object.name());
+    logger.info("Remove object spot: %s", object.name());
 
     const simulator: AlifeSimulator = registry.simulator;
 

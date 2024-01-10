@@ -102,7 +102,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * Handle collection of LUA garbage on button click.
    */
   public onCollectMemoryButtonClick(): void {
-    logger.format("Collect memory garbage");
+    logger.info("Collect memory garbage");
 
     getManager(ProfilingManager).collectLuaGarbage();
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
@@ -115,7 +115,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
     const profilingManager: ProfilingManager = getManager(ProfilingManager);
 
     if (debug === null) {
-      return logger.format("Cannot use profiling - debug module is not present");
+      return logger.info("Cannot use profiling - debug module is not present");
     }
 
     if (profilingManager.isProfilingStarted) {
@@ -137,7 +137,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
     if (profilingManager.isProfilingStarted) {
       profilingManager.logHookedCallsCountStats();
     } else {
-      logger.format("Profiling manager is disabled");
+      logger.info("Profiling manager is disabled");
     }
   }
 
@@ -161,7 +161,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * Dump system ini file for exploring.
    */
   public onDumpSystemIni(): void {
-    logger.format("Saving system ini as gamedata\\system.ltx");
+    logger.info("Saving system ini as gamedata\\system.ltx");
     SYSTEM_INI.save_as("gamedata\\system.ltx");
   }
 
@@ -169,7 +169,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * Handle refreshing of used RAM in game UI display elements.
    */
   public onRefreshMemoryButtonClick(): void {
-    logger.format("Collect memory usage");
+    logger.info("Collect memory usage");
 
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
   }

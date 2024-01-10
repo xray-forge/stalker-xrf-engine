@@ -24,7 +24,7 @@ export class ActionSmartCoverEnter extends action_base {
    * Set current smart cover / loophole based on schema state.
    */
   public override initialize(): void {
-    logger.format("Enter smart cover: %s", this.object.name());
+    logger.info("Enter smart cover: %s", this.object.name());
 
     super.initialize();
 

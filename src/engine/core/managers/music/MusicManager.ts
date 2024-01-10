@@ -100,7 +100,7 @@ export class MusicManager extends AbstractManager {
    * todo: Description.
    */
   public selectNextTrack(): void {
-    logger.format("Select next track for playback");
+    logger.info("Select next track for playback");
 
     if (this.currentThemeIndex === null || this.themes.get(this.currentThemeIndex) === null) {
       abort("Wrong theme index, no file with such index listed.");
@@ -129,7 +129,7 @@ export class MusicManager extends AbstractManager {
     const newThemesList: LuaArray<LuaArray<TName>> = new LuaTable();
     const levelName: TName = level.name();
 
-    logger.format("Initialize level themes: %s", levelName);
+    logger.info("Initialize level themes: %s", levelName);
 
     for (const [, themeDescriptor] of soundsConfig.dynamicMusicThemes) {
       if (!themeDescriptor.maps || themeDescriptor.maps === "" || string.find(themeDescriptor.maps, levelName)) {
@@ -304,7 +304,7 @@ export class MusicManager extends AbstractManager {
    * todo: Description.
    */
   public stopTheme(): void {
-    logger.format("Stop theme");
+    logger.info("Stop theme");
 
     if (this.theme) {
       this.theme.stop();
@@ -324,7 +324,7 @@ export class MusicManager extends AbstractManager {
 
     this.setSoundVolume(this.themeAmbientVolume);
 
-    logger.format(
+    logger.info(
       "Start theme: %s %s %s",
       this.currentThemeIndex,
       this.currentThemeTrackIndex,
@@ -366,7 +366,7 @@ export class MusicManager extends AbstractManager {
       registry.musicVolume = 0;
     }
 
-    logger.format("Toggle ambient volume: %s", this.gameAmbientVolume);
+    logger.info("Toggle ambient volume: %s", this.gameAmbientVolume);
     this.setSoundVolume(this.gameAmbientVolume);
   }
 

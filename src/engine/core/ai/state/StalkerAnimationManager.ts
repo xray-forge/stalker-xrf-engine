@@ -63,7 +63,7 @@ export class StalkerAnimationManager {
    * Allow animation control based on animation manager.
    */
   public setControl(): void {
-    logger.format("Set control: '%s' - '%s'", this.object.name(), this.type);
+    logger.info("Set control: '%s' - '%s'", this.object.name(), this.type);
 
     this.stateManager.controller = this.type;
 
@@ -89,7 +89,7 @@ export class StalkerAnimationManager {
     const now: TTimestamp = time_global();
 
     if (state !== this.state.targetState) {
-      logger.format("Set state: '%s', '%s', %s -> %s", this.object.name(), this.type, this.state.targetState, state);
+      logger.info("Set state: '%s', '%s', %s -> %s", this.object.name(), this.type, this.state.targetState, state);
     }
 
     /**

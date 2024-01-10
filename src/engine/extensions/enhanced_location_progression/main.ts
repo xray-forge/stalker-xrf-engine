@@ -8,7 +8,7 @@ export const name: TName = "Enhanced location progression";
 export const enabled: boolean = true;
 
 export function register(): void {
-  logger.format("Enhanced location progression activated");
+  logger.info("Enhanced location progression activated");
 
   mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT = true;
 }

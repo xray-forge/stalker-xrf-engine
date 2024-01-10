@@ -81,7 +81,7 @@ export class ReachTaskPatrolManager {
    * todo: Description.
    */
   public removeObjectFromPatrol(object: GameObject): void {
-    logger.format("Remove object from patrol: %s %s", object.name(), this.targetId);
+    logger.info("Remove object from patrol: %s %s", object.name(), this.targetId);
 
     if (this.objectsList.get(object.id()) === null) {
       return;

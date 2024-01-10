@@ -74,7 +74,7 @@ export class PdaManager extends AbstractManager {
    * todo: Description.
    */
   public fillFactionState(state: Record<string, any>): void {
-    logger.format("Fill faction state");
+    logger.info("Fill faction state");
 
     state.member_count = 0;
     state.resource = 0;

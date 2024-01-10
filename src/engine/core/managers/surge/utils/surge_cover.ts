@@ -48,7 +48,7 @@ export function initializeSurgeCovers(): void {
   surgeConfig.SURGE_COVERS = new LuaTable();
 
   if (!SURGE_MANAGER_CONFIG_LTX.section_exist(levelName)) {
-    return logger.format("No surge covers for current level: '%s'", levelName);
+    return logger.info("No surge covers for current level: '%s'", levelName);
   }
 
   // Read list of possible surge covers for current level.
@@ -64,7 +64,7 @@ export function initializeSurgeCovers(): void {
     });
   }
 
-  logger.format("Initialized surge covers: '%s' - %s", levelName, surgeConfig.SURGE_COVERS.length());
+  logger.info("Initialized surge covers: '%s' - %s", levelName, surgeConfig.SURGE_COVERS.length());
 }
 
 /**

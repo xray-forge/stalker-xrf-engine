@@ -23,7 +23,7 @@ export class SchemeTimer extends AbstractScheme {
     scheme: EScheme,
     section: TSection
   ): ISchemeTimerState {
-    logger.format("Activate scheme: %s", object.name());
+    logger.info("Activate scheme: %s", object.name());
 
     const state: ISchemeTimerState = AbstractScheme.assign(object, ini, scheme, section);
 

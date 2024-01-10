@@ -43,7 +43,7 @@ export function resetPhrasePriority(
   const objectId: TNumberId = object.id();
 
   if (!phraseId) {
-    logger.format("Null provided for resetPhrasePriority method");
+    logger.info("Null provided for resetPhrasePriority method");
   }
 
   if (priorities.has(objectId)) {

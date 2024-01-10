@@ -46,7 +46,7 @@ export class RestrictorBinder extends object_binder {
       return false;
     }
 
-    logger.format("Go online: %s", this.object.name());
+    logger.info("Go online: %s", this.object.name());
 
     registerZone(this.object);
 
@@ -69,7 +69,7 @@ export class RestrictorBinder extends object_binder {
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    logger.format("Go offline: %s", object.name());
+    logger.info("Go offline: %s", object.name());
 
     getManager(SoundManager).stop(objectId);
 
@@ -96,7 +96,7 @@ export class RestrictorBinder extends object_binder {
     }
 
     if (!this.isVisited && object.inside(registry.actor.position(), mapDisplayConfig.DISTANCE_TO_OPEN)) {
-      logger.format("Visited: %s", object.name());
+      logger.info("Visited: %s", object.name());
 
       this.isVisited = true;
       giveInfoPortion(string.format("%s_visited", object.name()));

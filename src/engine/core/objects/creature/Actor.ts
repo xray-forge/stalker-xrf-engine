@@ -51,7 +51,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   public override on_register(): void {
     super.on_register();
 
-    logger.format("Register actor: %s %s %s", this.id, this.name(), this.section_name());
+    logger.info("Register actor: %s %s %s", this.id, this.name(), this.section_name());
 
     registerActorServer(this);
     registerStoryLink(this.id, ACTOR);
@@ -61,7 +61,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   }
 
   public override on_unregister(): void {
-    logger.format("Unregister actor");
+    logger.info("Unregister actor");
 
     EventsManager.emitEvent(EGameEvent.ACTOR_UNREGISTER, this);
 
@@ -91,7 +91,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   public override on_death(killer: ServerObject): void {
     super.on_death(killer);
 
-    logger.format("On actor death: %s %s %s", this.name(), killer.id, killer?.name());
+    logger.info("On actor death: %s %s %s", this.name(), killer.id, killer?.name());
 
     EventsManager.emitEvent(EGameEvent.ACTOR_DEATH, this, killer);
   }

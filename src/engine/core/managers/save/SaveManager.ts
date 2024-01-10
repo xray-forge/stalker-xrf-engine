@@ -39,7 +39,7 @@ export class SaveManager extends AbstractManager {
    * Save core managers data.
    */
   public clientSave(packet: NetPacket): void {
-    logger.format("Saving client data");
+    logger.info("Saving client data");
 
     getManager(WeatherManager).save(packet);
     getManager(ReleaseBodyManager).save(packet);
@@ -58,7 +58,7 @@ export class SaveManager extends AbstractManager {
    * Load core managers data.
    */
   public clientLoad(reader: NetProcessor): void {
-    logger.format("Loading client data");
+    logger.info("Loading client data");
 
     getManager(WeatherManager).load(reader);
     getManager(ReleaseBodyManager).load(reader);
@@ -77,7 +77,7 @@ export class SaveManager extends AbstractManager {
    * Write state for core managers.
    */
   public serverSave(packet: NetPacket): void {
-    logger.format("Saving server data");
+    logger.info("Saving server data");
 
     getManager(SimulationManager).save(packet);
   }
@@ -86,7 +86,7 @@ export class SaveManager extends AbstractManager {
    * Read state for core managers.
    */
   public serverLoad(reader: NetProcessor): void {
-    logger.format("Loading server data");
+    logger.info("Loading server data");
 
     getManager(SimulationManager).load(reader);
   }
@@ -97,7 +97,7 @@ export class SaveManager extends AbstractManager {
    * @param saveName - name of save file, just base name with extension like `example.scop`
    */
   public onBeforeGameSave(saveName: TName): void {
-    logger.format("Before game save: %s", saveName);
+    logger.info("Before game save: %s", saveName);
 
     EventsManager.emitEvent(EGameEvent.GAME_SAVE, registry.dynamicData.eventPacket);
 
@@ -110,7 +110,7 @@ export class SaveManager extends AbstractManager {
    * @param saveName - name of save file, just base name with extension like `example.scop`
    */
   public onGameSave(saveName: TName): void {
-    logger.format("On game save: %s", saveName);
+    logger.info("On game save: %s", saveName);
   }
 
   /**
@@ -119,7 +119,7 @@ export class SaveManager extends AbstractManager {
    * @param saveName - name of save file, full path with disk/system folders structure
    */
   public onBeforeGameLoad(saveName: TName): void {
-    logger.format("Before game load: %s", saveName);
+    logger.info("Before game load: %s", saveName);
 
     const data: Optional<IDynamicSaveData> = loadDynamicGameSave(saveName);
 
@@ -134,7 +134,7 @@ export class SaveManager extends AbstractManager {
    * @param saveName - name of save file, full path with disk/system folders structure
    */
   public onGameLoad(saveName: TName): void {
-    logger.format("On game load: %s", saveName);
+    logger.info("On game load: %s", saveName);
   }
 
   /**

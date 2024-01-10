@@ -49,7 +49,7 @@ export function createSquadMembers(squad: Squad, spawnSmartTerrain: SmartTerrain
     abort("Unexpected attempt to spawn an empty squad '%s'.", squadSection);
   }
 
-  logger.format(
+  logger.info(
     "Create squad members: %s %s %s %s",
     squad.name(),
     spawnSmartTerrain?.name(),

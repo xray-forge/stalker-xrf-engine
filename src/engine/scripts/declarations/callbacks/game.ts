@@ -10,7 +10,7 @@ import { TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-logger.format("Resolve and bind game externals");
+logger.info("Resolve and bind game externals");
 
 /**
  * Declare `main` function to enable custom scripts execution.

@@ -30,14 +30,17 @@ export class LuaLogger {
     this.luaFile = openLogFile("lua");
 
     if (forgeConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
-      this.format("Declared logger: '%s'", prefix);
+      this.info("Declared logger: '%s'", prefix);
     }
   }
 
   /**
    * Print generic info level message.
+   *
+   * @param base - base string for interpolation
+   * @param args - variadic list of values to log
    */
-  public format(base: string, ...args: AnyArgs): void {
+  public info(base: string, ...args: AnyArgs): void {
     // Log is disabled globally or for this instance.
     if (!forgeConfig.DEBUG.IS_LOG_ENABLED || !this.isEnabled) {
       return;
@@ -74,7 +77,7 @@ export class LuaLogger {
   public table(table: AnyObject): void;
   public table(table: LuaTable): void {
     if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      this.format("[table] %s", toJSON(table));
+      this.info("[table] %s", toJSON(table));
     }
   }
 
@@ -82,14 +85,14 @@ export class LuaLogger {
    * Push empty line in logs for readability.
    */
   public pushEmptyLine(): void {
-    return this.format(" ");
+    return this.info(" ");
   }
 
   /**
    * Push line separator in logs for readability.
    */
   public pushSeparator(): void {
-    return this.format("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+    return this.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
   }
 
   /**

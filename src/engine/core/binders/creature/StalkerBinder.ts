@@ -126,7 +126,7 @@ export class StalkerBinder extends object_binder {
       return false;
     }
 
-    logger.format("Go online: %s", object.name());
+    logger.info("Go online: %s", object.name());
 
     this.state = registerStalker(this);
     this.setupCallbacks();
@@ -177,7 +177,7 @@ export class StalkerBinder extends object_binder {
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = this.state;
 
-    logger.format("Go offline: %s", object.name());
+    logger.info("Go offline: %s", object.name());
 
     this.resetCallbacks();
 
@@ -422,7 +422,7 @@ export class StalkerBinder extends object_binder {
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = this.state;
 
-    logger.format("Stalker death: %s", object.name());
+    logger.info("Stalker death: %s", object.name());
 
     this.onHit(victim, 1, ZERO_VECTOR, who, "from_death_callback");
 
@@ -474,7 +474,7 @@ export class StalkerBinder extends object_binder {
    * todo: Description.
    */
   public onUse(object: GameObject, who: GameObject): void {
-    logger.format("Stalker used: %s by %s", this.object.name(), who.name());
+    logger.info("Stalker used: %s by %s", this.object.name(), who.name());
 
     if (this.object.alive()) {
       EventsManager.emitEvent(EGameEvent.STALKER_INTERACTION, object, who);

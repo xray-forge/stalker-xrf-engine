@@ -32,7 +32,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
     who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
-    logger.format("Idle physical object hit: %s", this.object.name());
+    logger.info("Idle physical object hit: %s", this.object.name());
 
     if (this.state.bonesHitCondlists.has(boneIndex)) {
       switchObjectSchemeToSection(
@@ -48,7 +48,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
   }
 
   public override onUse(): void {
-    logger.format("Idle physical object use: %s", this.object.name());
+    logger.info("Idle physical object use: %s", this.object.name());
 
     if (this.state.onUse) {
       switchObjectSchemeToSection(

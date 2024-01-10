@@ -66,7 +66,7 @@ export function unlinkSmartTerrainObjectJob(smartTerrain: SmartTerrain, objectJo
  * @param objectId - target object ID to switch job for
  */
 export function switchSmartTerrainObjectToDesiredJob(smartTerrain: SmartTerrain, objectId: TNumberId): void {
-  logger.format("Switch to desired job: %s %s", smartTerrain.name(), objectId);
+  logger.info("Switch to desired job: %s %s", smartTerrain.name(), objectId);
 
   const objectJobDescriptor: IObjectJobState = smartTerrain.objectJobDescriptors.get(objectId);
   const changingObjectId: Optional<TNumberId> = smartTerrain.objectByJobSection.get(objectJobDescriptor.desiredJob);

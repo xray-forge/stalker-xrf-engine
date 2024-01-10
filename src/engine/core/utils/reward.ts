@@ -20,7 +20,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param amount - money to give to actor
  */
 export function giveMoneyToActor(amount: TCount): void {
-  logger.format("Award actor with money: %s", amount);
+  logger.info("Award actor with money: %s", amount);
 
   registry.actor.give_money(amount);
 
@@ -57,7 +57,7 @@ export function transferMoneyFromActor(to: GameObject, amount: TCount): void {
  * @param count - count of items to transfer
  */
 export function transferItemsFromActor(to: GameObject, itemSection: TSection, count: TCount | "all" = 1): void {
-  logger.format("Transfer items from actor: %s %s %s", to.name(), itemSection, count);
+  logger.info("Transfer items from actor: %s %s %s", to.name(), itemSection, count);
 
   const from: GameObject = registry.actor;
   let remaining: TCount = 0;

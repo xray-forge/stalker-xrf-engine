@@ -135,7 +135,7 @@ extern("xr_effects.barrel_explode", (actor: GameObject, object: GameObject, p: [
  * todo;
  */
 extern("xr_effects.set_game_time", (actor: GameObject, object: GameObject, params: [string, string]) => {
-  logger.format("Set game time: %s %s", params[0], params[1]);
+  logger.info("Set game time: %s %s", params[0], params[1]);
 
   const realHours = level.get_time_hours();
   const realMinutes = level.get_time_minutes();
@@ -171,7 +171,7 @@ extern("xr_effects.set_game_time", (actor: GameObject, object: GameObject, param
  * todo;
  */
 extern("xr_effects.forward_game_time", (actor: GameObject, object: GameObject, p: [string, string]) => {
-  logger.format("Forward game time");
+  logger.info("Forward game time");
 
   if (!p) {
     abort("Insufficient || invalid parameters in function 'forward_game_time'!");
@@ -197,7 +197,7 @@ extern(
     object: Optional<GameObject | ServerHumanObject>,
     params: [Optional<TStringId>, Optional<TName>, TName]
   ): void => {
-    logger.format("Pick artefact from anomaly");
+    logger.info("Pick artefact from anomaly");
 
     const anomalyZoneName: Optional<TName> = params && params[1];
     let artefactSection: TSection = params && params[2];
@@ -323,7 +323,7 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: GameObject, object: GameOb
     if (object) {
       object.get_hanging_lamp().turn_off();
     } else {
-      logger.format("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", k);
+      logger.info("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", k);
     }
   }
 });
@@ -420,7 +420,7 @@ extern("xr_effects.turn_on", (actor: GameObject, object: GameObject, parameters:
 extern(
   "xr_effects.set_weather",
   (actor: GameObject, object: GameObject, [weatherName, isForced]: [TName, string]): void => {
-    logger.format("Set weather: %s", weatherName);
+    logger.info("Set weather: %s", weatherName);
 
     if (weatherName !== null) {
       level.set_weather(weatherName, isForced === TRUE);
@@ -432,7 +432,7 @@ extern(
  * todo;
  */
 extern("xr_effects.start_surge", (): void => {
-  logger.format("Start surge");
+  logger.info("Start surge");
   getManager(SurgeManager).requestSurgeStart();
 });
 
@@ -440,7 +440,7 @@ extern("xr_effects.start_surge", (): void => {
  * todo;
  */
 extern("xr_effects.stop_surge", (): void => {
-  logger.format("Stop surge");
+  logger.info("Stop surge");
   getManager(SurgeManager).requestSurgeStop();
 });
 
@@ -519,7 +519,7 @@ extern(
     object: GameObject,
     params: [Optional<string>, Optional<string>, number, number, number]
   ): void => {
-    logger.format("Create cutscene actor with weapon");
+    logger.info("Create cutscene actor with weapon");
 
     const spawnSection: Optional<TSection> = params[0];
 

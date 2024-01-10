@@ -91,7 +91,7 @@ export class Stalker extends cse_alife_human_stalker {
   public override on_death(killer: ServerCreatureObject): void {
     super.on_death(killer);
 
-    logger.format("Stalker death: %s %s %s", this.name(), killer.id, killer?.name());
+    logger.info("Stalker death: %s %s %s", this.name(), killer.id, killer?.name());
 
     // Notify assigned smart terrain about abject death.
     const smartTerrainId: TNumberId = this.smart_terrain_id();

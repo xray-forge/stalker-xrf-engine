@@ -44,22 +44,22 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
   }
 
   public onUse(object: GameObject, who: Optional<GameObject>): void {
-    logger.format("Use: %s %s", this.state?.scheme, this.object.name());
+    logger.info("Use: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onWaypoint(object: GameObject, actionType: TName, index: TIndex): void {
-    logger.format("Waypoint: %s %s", this.state?.scheme, this.object.name());
+    logger.info("Waypoint: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onDeath(victim: GameObject, who: Optional<GameObject>): void {
-    logger.format("Death: %s %s", this.state?.scheme, this.object.name());
+    logger.info("Death: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onCutscene(): void {
-    logger.format("Cutscene: %s %s", this.state?.scheme, this.object.name());
+    logger.info("Cutscene: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onCombat(): void {
-    logger.format("On combat: %s %s", this.state?.scheme, this.object.name());
+    logger.info("On combat: %s %s", this.state?.scheme, this.object.name());
   }
 }

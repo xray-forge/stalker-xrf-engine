@@ -16,7 +16,7 @@ export const name: TName = "Enhanced shaders interactive grass";
 export const enabled: boolean = true;
 
 export function register(): void {
-  logger.format("Enhanced shaders interactive grass extension activated");
+  logger.info("Enhanced shaders interactive grass extension activated");
 
   executeConsoleCommand(
     "ssfx_grass_interactive",
@@ -51,7 +51,7 @@ export function register(): void {
 }
 
 export function unregister(): void {
-  logger.format("Enhanced shaders interactive grass disabled");
+  logger.info("Enhanced shaders interactive grass disabled");
 
   executeConsoleCommand("ssfx_grass_interactive", "(0,0,0,0)");
   executeConsoleCommand("ssfx_int_grass_params_1", "(0,0,0,0)");

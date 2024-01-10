@@ -22,7 +22,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   public antennaManager: PsyAntennaManager = getManager(PsyAntennaManager);
 
   public override activate(object: GameObject, loading?: boolean): void {
-    logger.format("Activate antenna manager");
+    logger.info("Activate antenna manager");
 
     if (loading) {
       this.antennaState = getPortableStoreValue(this.object.id(), "inside")!;
@@ -38,7 +38,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   public override deactivate(): void {
-    logger.format("Deactivate antenna manager");
+    logger.info("Deactivate antenna manager");
 
     if (this.antennaState === EAntennaState.INSIDE) {
       this.onZoneLeave();
@@ -72,7 +72,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public onZoneEnter(): void {
-    logger.format("Enter psy antenna zone");
+    logger.info("Enter psy antenna zone");
 
     this.antennaState = EAntennaState.INSIDE;
 
@@ -116,7 +116,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
    * todo: Description.
    */
   public onZoneLeave(): void {
-    logger.format("Leave psy antenna zone");
+    logger.info("Leave psy antenna zone");
 
     this.antennaState = EAntennaState.OUTSIDE;
 

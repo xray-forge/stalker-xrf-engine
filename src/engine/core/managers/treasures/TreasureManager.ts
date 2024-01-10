@@ -159,7 +159,7 @@ export class TreasureManager extends AbstractManager {
       return;
     }
 
-    logger.format("Spawning game treasures");
+    logger.info("Spawning game treasures");
 
     for (const [treasureId] of treasureConfig.TREASURES) {
       this.spawnTreasure(treasureId);
@@ -179,7 +179,7 @@ export class TreasureManager extends AbstractManager {
     assertDefined(treasureConfig.TREASURES.get(treasureId), "There is no stored secret with id:", treasureId);
 
     if (treasureConfig.TREASURES.get(treasureId).given) {
-      return logger.format("Spawned secret is already given: %s", treasureId);
+      return logger.info("Spawned secret is already given: %s", treasureId);
     }
 
     const simulator: AlifeSimulator = registry.simulator;
@@ -222,7 +222,7 @@ export class TreasureManager extends AbstractManager {
    * todo: Description.
    */
   public giveActorTreasureCoordinates(treasureId: TStringId, spawn: boolean = false): void {
-    logger.format("Give treasure: %s %s", treasureId, spawn);
+    logger.info("Give treasure: %s %s", treasureId, spawn);
 
     assertDefined(treasureConfig.TREASURES.get(treasureId), "There is no stored secret: [%s]", tostring(treasureId));
 
@@ -230,14 +230,14 @@ export class TreasureManager extends AbstractManager {
 
     // Nothing to do here.
     if (descriptor.given) {
-      return logger.format("Already given treasure: %s", treasureId);
+      return logger.info("Already given treasure: %s", treasureId);
     }
 
     // Just notify actor. todo: check empty as condlist?
     if (descriptor.itemsToFindRemain === 0 && !descriptor.empty) {
       getManager(NotificationManager).sendTreasureNotification(ETreasureState.LOOTED_TREASURE_COORDINATES);
 
-      return logger.format("Already empty treasure given: %s", treasureId);
+      return logger.info("Already empty treasure given: %s", treasureId);
     }
 
     // Spawn if needed.
@@ -254,7 +254,7 @@ export class TreasureManager extends AbstractManager {
    * Give one of random treasures that were not given for the actor.
    */
   public giveActorRandomTreasureCoordinates(): void {
-    logger.format("Give random treasure");
+    logger.info("Give random treasure");
 
     const availableTreasures: LuaArray<TStringId> = new LuaTable();
 
@@ -265,7 +265,7 @@ export class TreasureManager extends AbstractManager {
     }
 
     if (availableTreasures.length() === 0) {
-      logger.format("No available treasures to give random");
+      logger.info("No available treasures to give random");
     } else {
       this.giveActorTreasureCoordinates(availableTreasures.get(math.random(1, availableTreasures.length())));
     }
@@ -275,7 +275,7 @@ export class TreasureManager extends AbstractManager {
    * Give all treasure coordinates.
    */
   public giveActorAllTreasureCoordinates(): void {
-    logger.format("Give actor all treasures");
+    logger.info("Give actor all treasures");
 
     let count: TCount = 0;
 
@@ -287,7 +287,7 @@ export class TreasureManager extends AbstractManager {
     }
 
     if (count === 0) {
-      logger.format("No more available treasures to give for actor");
+      logger.info("No more available treasures to give for actor");
     }
   }
 
@@ -368,7 +368,7 @@ export class TreasureManager extends AbstractManager {
     }
 
     if (treasureId) {
-      logger.format("Treasure item taken:", objectId);
+      logger.info("Treasure item taken:", objectId);
 
       const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get(treasureId);
 
@@ -380,7 +380,7 @@ export class TreasureManager extends AbstractManager {
         treasureConfig.TREASURES.get(treasureId).checked = true;
         getManager(NotificationManager).sendTreasureNotification(ETreasureState.FOUND_TREASURE);
 
-        logger.format("Secret now is empty: %s", treasureId);
+        logger.info("Secret now is empty: %s", treasureId);
       }
 
       this.treasuresRestrictorByItem.delete(objectId);

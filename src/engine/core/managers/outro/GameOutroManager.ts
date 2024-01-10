@@ -23,7 +23,7 @@ export class GameOutroManager extends AbstractManager {
    * Start game outro tutorial (scenes shown to summarize game plot).
    */
   public startOutro(): void {
-    logger.format("Starting game outro");
+    logger.info("Starting game outro");
 
     game.start_tutorial(gameTutorials.outro_game);
   }
@@ -32,7 +32,7 @@ export class GameOutroManager extends AbstractManager {
    * Start sound playback when game end tutorial is displayed.
    */
   public startSound(): void {
-    logger.format("Start outro sound");
+    logger.info("Start outro sound");
 
     this.sound = new sound_object("music_outro");
     this.sound.play(null, 0.0, ESoundObjectType.S2D);
@@ -44,7 +44,7 @@ export class GameOutroManager extends AbstractManager {
    * Stop game end tutorial music.
    */
   public stopSound(): void {
-    logger.format("Stop outro sound");
+    logger.info("Stop outro sound");
 
     if (this.sound) {
       this.sound.stop();

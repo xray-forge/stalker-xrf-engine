@@ -138,7 +138,7 @@ export class ActorSound extends AbstractPlayableSound {
    * todo;
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
-    logger.format(
+    logger.info(
       "Sound play ended: %s %s %s",
       objectId,
       this.playedSoundIndex,
@@ -161,7 +161,7 @@ export class ActorSound extends AbstractPlayableSound {
     const schemeState: IBaseSchemeState = objectState[objectState.activeScheme] as IBaseSchemeState;
 
     if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== "rnd") {
-      logger.format("Emit sound end signal: %s", objectState.object.name());
+      logger.info("Emit sound end signal: %s", objectState.object.name());
       schemeState.signals!.set("theme_end", true);
       schemeState.signals!.set("sound_end", true);
     } else {

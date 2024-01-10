@@ -93,7 +93,7 @@ export class ActorInputManager extends AbstractManager {
    * Disable game input for delta duration.
    */
   public setInactiveInputTime(duration: TDuration): void {
-    logger.format("Deactivate actor input: '%s'", duration);
+    logger.info("Deactivate actor input: '%s'", duration);
 
     actorConfig.DISABLED_INPUT_AT = game.get_game_time();
     actorConfig.DISABLED_INPUT_DURATION = duration;
@@ -105,7 +105,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableActorNightVision(): void {
-    logger.format("Disable actor night vision");
+    logger.info("Disable actor night vision");
 
     const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
@@ -119,7 +119,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public enableActorNightVision(): void {
-    logger.format("Enable actor night vision");
+    logger.info("Enable actor night vision");
 
     const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
@@ -133,7 +133,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableActorTorch(): void {
-    logger.format("Disable actor torch");
+    logger.info("Disable actor torch");
 
     const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
@@ -147,7 +147,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public enableActorTorch(): void {
-    logger.format("Enable actor torch");
+    logger.info("Enable actor torch");
 
     const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
@@ -161,7 +161,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableGameUi(resetSlot: boolean = false): void {
-    logger.format("Disable game UI");
+    logger.info("Disable game UI");
 
     const actor: GameObject = registry.actor;
 
@@ -196,7 +196,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public enableGameUi(restore: boolean = false): void {
-    logger.format("Enable game UI");
+    logger.info("Enable game UI");
 
     if (restore) {
       if (
@@ -221,7 +221,7 @@ export class ActorInputManager extends AbstractManager {
    * todo;
    */
   public disableGameUiOnly(): void {
-    logger.format("Disable game UI only");
+    logger.info("Disable game UI only");
 
     const actor: GameObject = registry.actor;
 
@@ -275,20 +275,20 @@ export class ActorInputManager extends AbstractManager {
       actorConfig.DISABLED_INPUT_AT !== null &&
       game.get_game_time().diffSec(actorConfig.DISABLED_INPUT_AT) >= (actorConfig.DISABLED_INPUT_DURATION as number)
     ) {
-      logger.format("Enabling actor game input");
+      logger.info("Enabling actor game input");
       level.enable_input();
       actorConfig.DISABLED_INPUT_AT = null;
     }
 
     if (actor.is_talking()) {
       if (!actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG) {
-        logger.format("Hiding weapon in dialog");
+        logger.info("Hiding weapon in dialog");
         actor.hide_weapon();
         actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG = true;
       }
     } else {
       if (actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG) {
-        logger.format("Restoring weapon in dialog");
+        logger.info("Restoring weapon in dialog");
         actor.restore_weapon();
         actorConfig.IS_WEAPON_HIDDEN_IN_DIALOG = false;
       }
@@ -296,13 +296,13 @@ export class ActorInputManager extends AbstractManager {
 
     if (isActorInNoWeaponZone()) {
       if (!actorConfig.IS_WEAPON_HIDDEN) {
-        logger.format("Hiding weapon");
+        logger.info("Hiding weapon");
         actor.hide_weapon();
         actorConfig.IS_WEAPON_HIDDEN = true;
       }
     } else {
       if (actorConfig.IS_WEAPON_HIDDEN) {
-        logger.format("Restoring weapon");
+        logger.info("Restoring weapon");
         actor.restore_weapon();
         actorConfig.IS_WEAPON_HIDDEN = false;
       }
@@ -313,7 +313,7 @@ export class ActorInputManager extends AbstractManager {
    * Handle first update from actor input perspective.
    */
   public onFirstUpdate(): void {
-    logger.format("Apply active item slot: %s", actorConfig.ACTIVE_ITEM_SLOT);
+    logger.info("Apply active item slot: %s", actorConfig.ACTIVE_ITEM_SLOT);
     registry.actor.activate_slot(actorConfig.ACTIVE_ITEM_SLOT);
   }
 
@@ -339,7 +339,7 @@ export class ActorInputManager extends AbstractManager {
     const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
 
     if (serverItemSection === drugs.drug_anabiotic) {
-      logger.format("On actor anabiotic use: %s", object.name());
+      logger.info("On actor anabiotic use: %s", object.name());
       this.processAnabioticItemUsage();
     }
   }

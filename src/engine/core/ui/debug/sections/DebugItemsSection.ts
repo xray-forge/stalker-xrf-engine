@@ -164,18 +164,18 @@ export class DebugItemsSection extends AbstractDebugSection {
    */
   public onItemSpawn(): void {
     if (!isGameStarted()) {
-      return logger.format("Cannot spawn, game is not started");
+      return logger.info("Cannot spawn, game is not started");
     }
 
     const itemSelected: Optional<DebugItemListEntry> = this.uiItemsList.GetSelectedItem();
     const section: Optional<TInventoryItem> = itemSelected?.uiInnerSectionText.GetText() as Optional<TInventoryItem>;
 
     if (section) {
-      logger.format("Item spawn: %s", section);
+      logger.info("Item spawn: %s", section);
 
       spawnItemsForObject(registry.actor, section, isAmmoSection(section) ? 30 : 1);
     } else {
-      logger.format("No selected item for spawn");
+      logger.info("No selected item for spawn");
     }
   }
 }

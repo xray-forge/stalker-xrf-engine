@@ -25,7 +25,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
   public override activate(): void {
     registry.noWeaponZones.delete(this.object.id());
 
-    logger.format("Reset no weapon state");
+    logger.info("Reset no weapon state");
 
     this.actorState = EActorZoneState.NOWHERE;
     this.updateActorState();
@@ -63,7 +63,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
    * Handle enter no-weapon zone event.
    */
   public onZoneEnter(): void {
-    logger.format("Entering no weapon zone: '%s'", this.object.name());
+    logger.info("Entering no weapon zone: '%s'", this.object.name());
 
     this.actorState = EActorZoneState.INSIDE;
     registry.noWeaponZones.set(this.object.id(), true);
@@ -75,7 +75,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
    * Handle leave no-weapon zone event.
    */
   public onZoneLeave(): void {
-    logger.format("Leaving no weapon zone: '%s'", this.object.name());
+    logger.info("Leaving no weapon zone: '%s'", this.object.name());
 
     this.actorState = EActorZoneState.OUTSIDE;
     registry.noWeaponZones.delete(this.object.id());

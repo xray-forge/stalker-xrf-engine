@@ -45,7 +45,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
         }
 
         if (!isInSurgeCover) {
-          logger.format(
+          logger.info(
             "Releasing object from squad after actors death because of surge: %s %s",
             member.object.name(),
             squad.name()
@@ -69,7 +69,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
  * todo: Description.
  */
 export function killAllSurgeUnhidden(): void {
-  logger.format("Kill all surge not unhidden");
+  logger.info("Kill all surge not unhidden");
 
   const actor: GameObject = registry.actor;
   const surgeHit: Hit = new hit();
@@ -80,7 +80,7 @@ export function killAllSurgeUnhidden(): void {
   surgeHit.direction = Z_VECTOR;
   surgeHit.draftsman = actor;
 
-  logger.format("Kill crows");
+  logger.info("Kill crows");
 
   for (const [, id] of registry.crows.storage) {
     const object: Optional<GameObject> = registry.objects.get(id)?.object;
@@ -94,14 +94,14 @@ export function killAllSurgeUnhidden(): void {
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
-  logger.format("Killing squads");
+  logger.info("Killing squads");
 
   for (const [, squad] of simulationBoardManager.getSquads()) {
     if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeSquad(squad) && !isStoryObject(squad)) {
       for (const member of squad.squad_members()) {
         if (!isStoryObject(member.object)) {
           if (canSurgeKillSquad(squad)) {
-            logger.format("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
+            logger.info("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
 
             const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
 
@@ -122,7 +122,7 @@ export function killAllSurgeUnhidden(): void {
             }
 
             if (release) {
-              logger.format("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
+              logger.info("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
 
               const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
 

@@ -224,7 +224,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
    * Handle accept and go back to main menu.
    */
   public onAcceptButtonClick(): void {
-    logger.format("Saving extensions order preferences");
+    logger.info("Saving extensions order preferences");
 
     saveExtensionsState(this.extensions);
 
@@ -238,7 +238,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
    * Handle cancel and go back to main menu.
    */
   public onCancelButtonClick(): void {
-    logger.format("Discard extensions order changes");
+    logger.info("Discard extensions order changes");
 
     this.extensions = syncExtensionsState(getAvailableExtensions(), loadExtensionsState());
     this.fillItemsList();

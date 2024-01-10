@@ -39,7 +39,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param factory - game engine factory to register game objects links
  */
 export function registerGameClasses(factory: ObjectFactory): void {
-  logger.format("Registering game classes bindings");
+  logger.info("Registering game classes bindings");
 
   factory.register(MainMenu.__name, EConfigClassId.MAIN_MNU, EScriptClassId.MAIN_MENU);
 
