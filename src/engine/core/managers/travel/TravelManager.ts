@@ -387,7 +387,7 @@ export class TravelManager extends AbstractManager {
     }
 
     if (!this.isTravelTeleported) {
-      logger.info("Teleporting actor on travel:", this.travelSquadPath, this.travelActorPath);
+      logger.format("Teleporting actor on travel: %s %s", this.travelSquadPath, this.travelActorPath);
 
       this.isTravelTeleported = true;
 

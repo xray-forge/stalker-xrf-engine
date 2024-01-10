@@ -51,7 +51,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   public override on_register(): void {
     super.on_register();
 
-    logger.info("Register actor:", this.id, this.name(), this.section_name());
+    logger.format("Register actor: %s %s %s", this.id, this.name(), this.section_name());
 
     registerActorServer(this);
     registerStoryLink(this.id, ACTOR);

@@ -3,10 +3,7 @@ import { ini_file, LuabindClass, object_binder } from "xray16";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { registerCampZone, registry, resetCampZone, unregisterCampZone } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { IniFile, Optional, ServerObject, TDuration, TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Camp zone binder for game creatures.

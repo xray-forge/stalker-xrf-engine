@@ -399,12 +399,12 @@ export class SurgeManager extends AbstractManager {
         const diff: TCount = math.abs(this.nextScheduledSurgeDelay - currentGameTime.diffSec(this.lastSurgeAt));
 
         if (diff < surgeConfig.INTERVAL_MIN_AFTER_TIME_FORWARD) {
-          logger.info("Time forward, reschedule from:", this.nextScheduledSurgeDelay);
+          logger.format("Time forward, reschedule from: %s", this.nextScheduledSurgeDelay);
 
           this.nextScheduledSurgeDelay =
             surgeConfig.INTERVAL_MAX_AFTER_TIME_FORWARD + currentGameTime.diffSec(this.lastSurgeAt);
 
-          logger.info("Time forward, reschedule to:", this.nextScheduledSurgeDelay);
+          logger.format("Time forward, reschedule to: %s", this.nextScheduledSurgeDelay);
         }
 
         surgeConfig.IS_TIME_FORWARDED = false;

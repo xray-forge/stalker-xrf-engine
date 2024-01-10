@@ -174,12 +174,12 @@ export class TreasureManager extends AbstractManager {
    * @param treasureId - section ID of thee treasure to spawn
    */
   protected spawnTreasure(treasureId: TStringId): void {
-    // logger.info("Spawn treasure ID:", treasureId);
+    // logger.format("Spawn treasure ID: %s", treasureId);
 
     assertDefined(treasureConfig.TREASURES.get(treasureId), "There is no stored secret with id:", treasureId);
 
     if (treasureConfig.TREASURES.get(treasureId).given) {
-      return logger.info("Spawned secret is already given:", treasureId);
+      return logger.format("Spawned secret is already given: %s", treasureId);
     }
 
     const simulator: AlifeSimulator = registry.simulator;
@@ -230,14 +230,14 @@ export class TreasureManager extends AbstractManager {
 
     // Nothing to do here.
     if (descriptor.given) {
-      return logger.info("Already given treasure:", treasureId);
+      return logger.format("Already given treasure: %s", treasureId);
     }
 
     // Just notify actor. todo: check empty as condlist?
     if (descriptor.itemsToFindRemain === 0 && !descriptor.empty) {
       getManager(NotificationManager).sendTreasureNotification(ETreasureState.LOOTED_TREASURE_COORDINATES);
 
-      return logger.info("Already empty treasure given:", treasureId);
+      return logger.format("Already empty treasure given: %s", treasureId);
     }
 
     // Spawn if needed.

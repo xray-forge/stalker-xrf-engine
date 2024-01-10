@@ -39,7 +39,7 @@ export class TradeManager extends AbstractManager {
    * Initialize trade manager descriptor for provided stalker object.
    */
   public initializeForObject(object: GameObject, iniFilePath: TPath): void {
-    logger.info("Initialize trade for:", object.name(), iniFilePath);
+    logger.format("Initialize trade for: %s %s", object.name(), iniFilePath);
 
     const iniFile: IniFile = loadIniFile(iniFilePath);
 
@@ -114,7 +114,7 @@ export class TradeManager extends AbstractManager {
     assertNonEmptyString(sellCondition, "Wrong section in buy_condition condlist for object '%s'.", object.name());
 
     if (tradeDescriptor.currentSellCondition !== sellCondition) {
-      logger.info("Change object sell condition:", object.name(), sellCondition);
+      logger.format("Change object sell condition: %s %s", object.name(), sellCondition);
       object.sell_condition(tradeDescriptor.config, sellCondition);
       tradeDescriptor.currentSellCondition = sellCondition;
     }
@@ -124,7 +124,7 @@ export class TradeManager extends AbstractManager {
     )!;
 
     if (tradeDescriptor.currentBuyItemConditionFactor !== buyItemConditionFactor) {
-      logger.info("Change object buy condition factor:", object.name(), sellCondition);
+      logger.format("Change object buy condition factor: %s %s", object.name(), sellCondition);
       object.buy_item_condition_factor(buyItemConditionFactor);
       tradeDescriptor.currentBuyItemConditionFactor = buyItemConditionFactor;
     }
@@ -143,7 +143,7 @@ export class TradeManager extends AbstractManager {
     assertNonEmptyString(buySupplies, "Wrong section in buy_condition condlist for object '%s'.", object.name());
 
     if (tradeDescriptor.currentBuySupplies !== buySupplies) {
-      logger.info("Change object buy supplies condition:", object.name(), sellCondition);
+      logger.format("Change object buy supplies condition: %s %s", object.name(), sellCondition);
       object.buy_supplies(tradeDescriptor.config, buySupplies);
       tradeDescriptor.currentBuySupplies = buySupplies;
       tradeDescriptor.resupplyAt = now + tradeConfig.RESUPPLY_PERIOD;

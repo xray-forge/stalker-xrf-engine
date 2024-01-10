@@ -30,25 +30,7 @@ export class LuaLogger {
     this.luaFile = openLogFile("lua");
 
     if (forgeConfig.DEBUG.IS_RESOLVE_LOG_ENABLED) {
-      this.info("Declared logger: '" + prefix + "'");
-    }
-  }
-
-  /**
-   * Print warn info level message.
-   */
-  public warn(...args: AnyArgs): void {
-    if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      this.logAs("[warn]", this.prefix, $fromArray(args));
-    }
-  }
-
-  /**
-   * Print generic info level message.
-   */
-  public info(...args: AnyArgs): void {
-    if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      this.logAs("[info]", this.prefix, $fromArray(args));
+      this.format("Declared logger: '" + prefix + "'");
     }
   }
 
@@ -58,15 +40,6 @@ export class LuaLogger {
   public format(base: string, ...args: AnyArgs): void {
     if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
       this.logAs("[info]", this.prefix, $fromArray([string.format(base, ...args)]));
-    }
-  }
-
-  /**
-   * Print generic error level message.
-   */
-  public error(...args: AnyArgs): void {
-    if (forgeConfig.DEBUG.IS_LOG_ENABLED && this.isEnabled) {
-      this.logAs("[error]", this.prefix, $fromArray(args));
     }
   }
 
@@ -84,14 +57,14 @@ export class LuaLogger {
    * Push empty line in logs for readability.
    */
   public pushEmptyLine(): void {
-    return this.info(" ");
+    return this.format(" ");
   }
 
   /**
    * Push line separator in logs for readability.
    */
   public pushSeparator(): void {
-    return this.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+    return this.format("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
   }
 
   /**

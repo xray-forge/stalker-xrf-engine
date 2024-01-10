@@ -27,17 +27,17 @@ describe("LuaLogger class", () => {
     logger.isEnabled = false;
     forgeConfig.DEBUG.IS_LOG_ENABLED = false;
 
-    logger.info("test");
+    logger.format("test");
     expect(logger.logAs).not.toHaveBeenCalled();
 
     logger.isEnabled = true;
 
-    logger.info("test");
+    logger.format("test");
     expect(logger.logAs).not.toHaveBeenCalled();
 
     forgeConfig.DEBUG.IS_LOG_ENABLED = true;
 
-    logger.info("test");
+    logger.format("test");
     expect(logger.logAs).toHaveBeenCalled();
   });
 
@@ -47,16 +47,12 @@ describe("LuaLogger class", () => {
     resetFunctionMock(log);
     replaceFunctionMock(time_global, () => 1000);
 
-    logger.warn("test");
-    logger.info("test");
-    logger.error("test");
+    logger.format("test");
     logger.pushEmptyLine();
     logger.pushSeparator();
 
     expect(log).toHaveBeenCalledTimes(5);
-    expect(log).toHaveBeenNthCalledWith(1, "[1000][tst][warn] test");
     expect(log).toHaveBeenNthCalledWith(2, "[1000][tst][info] test");
-    expect(log).toHaveBeenNthCalledWith(3, "[1000][tst][error] test");
     expect(log).toHaveBeenNthCalledWith(4, "[1000][tst][info]  ");
     expect(log).toHaveBeenNthCalledWith(5, "[1000][tst][info] =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
   });

@@ -108,7 +108,7 @@ export class AnomalyZoneBinder extends object_binder {
     if (!this.ini.section_exist(ANOMALY_ZONE_SECTION)) {
       this.isDisabled = true;
 
-      logger.warn("Anomaly zone without configuration detected:", object.name());
+      logger.format("Anomaly zone without configuration detected: %s", object.name());
 
       return;
     }

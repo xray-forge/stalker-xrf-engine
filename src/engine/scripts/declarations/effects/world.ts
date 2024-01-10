@@ -323,7 +323,7 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: GameObject, object: GameOb
     if (object) {
       object.get_hanging_lamp().turn_off();
     } else {
-      logger.warn("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", tostring(k));
+      logger.format("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", k);
     }
   }
 });

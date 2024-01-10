@@ -269,7 +269,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   public override unregister_npc(object: ServerCreatureObject): void {
-    logger.info("Unregister object:", this.name(), object.name(), this.stayingObjectsCount);
+    logger.format("Unregister object: %s %s %s", this.name(), object.name(), this.stayingObjectsCount);
 
     this.stayingObjectsCount -= 1;
 
@@ -562,7 +562,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     this.isMutantDisabled = readIniBoolean(this.ini, SMART_TERRAIN_SECTION, "no_mutant", false);
 
     if (this.isMutantDisabled) {
-      logger.info("Found no mutant point:", smartTerrainName);
+      logger.format("Found no mutant point: %s", smartTerrainName);
     }
 
     this.forbiddenPoint = readIniString(this.ini, SMART_TERRAIN_SECTION, "forbidden_point", false);

@@ -109,7 +109,7 @@ export class ObjectSound extends AbstractPlayableSound {
       return false;
     }
 
-    logger.info("Play object sound:", object.name(), faction, point, message, "#");
+    logger.format("Play object sound: %s %s %s %s", object.name(), faction, point, message);
 
     const fs: FS = getFS();
     const soundPath: Optional<TPath> = this.soundPaths.get(this.playedSoundIndex!);
@@ -202,8 +202,8 @@ export class ObjectSound extends AbstractPlayableSound {
    * todo;
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
-    logger.info(
-      "Sound play ended:",
+    logger.format(
+      "Sound play ended: %s %s %s",
       objectId,
       this.playedSoundIndex,
       this.soundPaths.get(this.playedSoundIndex as TIndex)

@@ -123,7 +123,7 @@ export class NotificationManager extends AbstractManager {
    * Send notification with information about actor money transfer.
    */
   public sendMoneyRelocatedNotification(direction: ENotificationDirection, amount: TCount): void {
-    logger.info("Show relocate money message:", direction, amount, amount);
+    logger.format("Show relocate money message: %s %s %s", direction, amount, amount);
 
     const notificationTitle: TLabel = game.translate_string(
       direction === ENotificationDirection.IN ? "general_in_money" : "general_out_money"
@@ -150,7 +150,7 @@ export class NotificationManager extends AbstractManager {
     itemSection: TSection,
     amount: TCount = 1
   ): void {
-    logger.info("Show relocate item message:", direction, itemSection, amount);
+    logger.format("Show relocate item message: %s %s %s", direction, itemSection, amount);
 
     const notificationTitle: TLabel = game.translate_string(
       direction === ENotificationDirection.IN ? "general_in_item" : "general_out_item"
@@ -240,7 +240,7 @@ export class NotificationManager extends AbstractManager {
     showtime: Optional<TTimestamp> = notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
     senderId: Optional<TStringId> = null
   ): void {
-    logger.info("Show tip notification:", caption, delay, showtime, senderId);
+    logger.format("Show tip notification: %s %s %s %s", caption, delay, showtime, senderId);
 
     // Verify whether sender can send notifications.
     // todo: Probably here check ID from sender object if it is provided?
@@ -301,7 +301,7 @@ export class NotificationManager extends AbstractManager {
     soundCaption: Optional<TLabel> = null,
     delay: TDuration = 0
   ): void {
-    // logger.info("Send sound notification:", object?.name(), soundPath, soundCaption, faction);
+    // logger.format("Send sound notification: %s %s %s %s", object?.name(), soundPath, soundCaption, faction);
 
     let pointName: TName = "";
 

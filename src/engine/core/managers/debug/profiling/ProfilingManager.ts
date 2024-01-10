@@ -134,7 +134,7 @@ export class ProfilingManager extends AbstractManager {
 
       return;
     } else if (!debug) {
-      logger.warn("Tried to setup hook, but debug is not enabled");
+      logger.format("Tried to setup hook, but debug is not enabled");
       abort("Tried to setup hook when debug is not enabled, got 'null' at debug place.");
     }
 
@@ -263,7 +263,7 @@ export class ProfilingManager extends AbstractManager {
    */
   public logHookedCallsCountStats(limit: TCount = 128): void {
     if (!this.isProfilingStarted) {
-      return logger.warn("Profiler hook wasn't setup, no stats found");
+      return logger.format("Profiler hook wasn't setup, no stats found");
     }
 
     this.clearHook();
@@ -301,7 +301,7 @@ export class ProfilingManager extends AbstractManager {
     // Print top stats from list (controlled by limit)
     for (const [idx, stat] of outStats) {
       if (printedCount < limit) {
-        logger.info(
+        logger.format(
           string.format("[%2d] %6d (%5.2f%%) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
         );
         printedCount++;
@@ -402,7 +402,7 @@ export class ProfilingManager extends AbstractManager {
     // Print top stats from list (controlled by limit)
     for (const [, stat] of stats) {
       if (printedCount < limit) {
-        logger.info(
+        logger.format(
           string.format(
             "[%3d] [%5.f | %8.3f | %10.f] %12d (%5.2f%%) %8d (%5.2f%%): %s",
             printedCount + 1,

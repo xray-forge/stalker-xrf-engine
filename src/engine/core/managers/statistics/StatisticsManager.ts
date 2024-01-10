@@ -340,7 +340,7 @@ export class StatisticsManager extends AbstractManager {
       }
 
       if (rank > this.actorStatistics.bestKilledMonsterRank) {
-        logger.info("Updated best monster killed:", community, rank);
+        logger.format("Updated best monster killed: %s %s", community, rank);
 
         this.actorStatistics.bestKilledMonsterRank = rank;
         this.actorStatistics.bestKilledMonster = community as TMonster;

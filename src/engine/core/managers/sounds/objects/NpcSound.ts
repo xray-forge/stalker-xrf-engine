@@ -406,8 +406,8 @@ export class NpcSound extends AbstractPlayableSound {
    * todo: Description.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
-    logger.info(
-      "Sound play ended:",
+    logger.format(
+      "Sound play ended: %s %s %s",
       objectId,
       this.playedSoundIndex,
       this.soundPaths.get(this.playedSoundIndex as TIndex)

@@ -105,7 +105,7 @@ export class ReleaseBodyManager extends AbstractManager {
         logger.format("Releasing object: %s", object.name());
 
         if (object.alive()) {
-          logger.warn("Detected alive object in release table:", object.name());
+          logger.format("Detected alive object in release table: %s", object.name());
         } else {
           registry.simulator.release(object, true);
         }

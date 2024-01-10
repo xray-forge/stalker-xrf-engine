@@ -128,7 +128,7 @@ export class SimulationManager extends AbstractManager {
    * @param smartTerrain - target smart terrain object to register in alife simulation
    */
   public registerSmartTerrain(smartTerrain: SmartTerrain): void {
-    simulationLogger.info("Register smart terrain:", smartTerrain.name());
+    simulationLogger.format("Register smart terrain: %s", smartTerrain.name());
 
     if (this.smartTerrainDescriptors.has(smartTerrain.id)) {
       abort("Smart terrain '%s' is already registered in simulation board.", smartTerrain.name());
@@ -148,7 +148,7 @@ export class SimulationManager extends AbstractManager {
    * @param smartTerrain - target smart terrain to unregister
    */
   public unregisterSmartTerrain(smartTerrain: SmartTerrain): void {
-    simulationLogger.info("Unregister smart terrain:", smartTerrain.name());
+    simulationLogger.format("Unregister smart terrain: %s", smartTerrain.name());
 
     if (!this.smartTerrainDescriptors.has(smartTerrain.id)) {
       abort("Trying to unregister not registered smart terrain '%s'.", smartTerrain.name());
@@ -357,7 +357,7 @@ export class SimulationManager extends AbstractManager {
       this.areDefaultSimulationSquadsSpawned = true;
     }
 
-    simulationLogger.info("Spawn default simulation squads");
+    simulationLogger.format("Spawn default simulation squads");
 
     for (const serverLevel of game_graph().levels()) {
       const levelSectionName: TSection = "start_position_" + registry.simulator.level_name(serverLevel.id);
@@ -383,7 +383,7 @@ export class SimulationManager extends AbstractManager {
       }
     }
 
-    simulationLogger.info("Spawned default simulation squads");
+    simulationLogger.format("Spawned default simulation squads");
   }
 
   /**

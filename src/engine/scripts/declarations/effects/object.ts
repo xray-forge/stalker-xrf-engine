@@ -274,7 +274,7 @@ extern(
     object: GameObject,
     [spawnSection, pathName, index]: [TSection, TName, Optional<TIndex>]
   ): void => {
-    // logger.info("Spawn corpse:", params[0]);
+    // logger.format("Spawn corpse: %s", params[0]);
 
     if (spawnSection === null) {
       abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawnSection), object.name());
@@ -320,7 +320,7 @@ extern(
     const [, targetId] = initTarget(object, targetString);
 
     if (targetId === null) {
-      logger.info(
+      logger.format(
         "You are trying to set non-existant target [%s] for object [%s] in section [%s]:",
         targetString,
         targetId,

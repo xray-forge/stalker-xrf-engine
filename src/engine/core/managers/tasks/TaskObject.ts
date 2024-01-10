@@ -203,7 +203,7 @@ export class TaskObject {
     this.updateLevelDirection(nextTargetId);
 
     if (this.currentTargetId !== nextTargetId) {
-      logger.info("Updated task due to target change:", this.id, this.currentTargetId, nextTargetId);
+      logger.format("Updated task due to target change: %s %s %s", this.id, this.currentTargetId, nextTargetId);
 
       if (this.currentTargetId === null) {
         isTaskUpdated = true;
