@@ -18,7 +18,7 @@ const base: TPath = "menu\\debug\\DebugRegistrySection.component";
 export class DebugRegistrySection extends AbstractDebugSection {
   public uiLogGeneralReportButton!: CUI3tButton;
   public uiRegistryCountLabel!: CUIStatic;
-  public uiRegistryFilterOnline!: CUICheckButton;
+  public uiRegistryFilterOnline: CUICheckButton = null!;
 
   public uiRegistryList!: CUIListBox;
 
@@ -123,11 +123,7 @@ export class DebugRegistrySection extends AbstractDebugSection {
 
     logger.info("Event handlers exist: %s", Object.keys(eventsManager.callbacks).length);
     Object.entries(eventsManager.callbacks).forEach(([key, values]) => {
-      logger.info(
-        "*: %s %s",
-        EGameEvent[key as unknown as number],
-        values !== null ? Object.keys(values).length : NIL
-      );
+      logger.info("*: %s %s", EGameEvent[key as unknown as number], values !== null ? Object.keys(values).length : NIL);
     });
 
     logger.pushSeparator();

@@ -3,8 +3,6 @@ import { CScriptXmlInit, CUIScriptWnd, CUIWindow, LuabindClass } from "xray16";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName, XmlInit } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
 /**
  * Abstract debug section to display in debug settings.
  */
