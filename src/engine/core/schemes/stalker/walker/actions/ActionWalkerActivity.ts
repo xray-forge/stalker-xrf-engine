@@ -34,7 +34,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
   public availableActions: LuaTable<number, IAnimpointActionDescriptor>;
 
-  public isInCamp: Optional<boolean> = null;
+  public isInCamp: boolean = false;
   public campStoryManager: Optional<CampManager> = null;
 
   public constructor(state: ISchemeWalkerState, object: GameObject) {
@@ -68,19 +68,40 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public override finalize(): void {
     logger.info("Deactivate walker scheme: %s", this.object.name());
 
+    super.finalize();
+
     this.patrolManager.finalize();
 
-    if (this.isInCamp === true) {
+    if (this.isInCamp) {
+      this.isInCamp = false;
       this.campStoryManager!.unregisterObject(this.object.id());
-      this.isInCamp = null;
     }
-
-    super.finalize();
   }
 
   public activate(object: GameObject, isLoading: boolean): void {
     this.state.signals = new LuaTable();
     this.reset(isLoading, object);
+  }
+
+  public override execute(): void {
+    super.execute();
+
+    this.patrolManager.update();
+
+    const campManager: Optional<CampManager> = getCampZoneForPosition(this.object.position());
+
+    if (campManager && this.state.useCamp) {
+      this.isInCamp = true;
+      this.campStoryManager = campManager;
+      this.campStoryManager.registerObject(this.object.id());
+    } else if (this.isInCamp) {
+      this.isInCamp = false;
+      this.campStoryManager!.unregisterObject(this.object.id());
+    }
+
+    if (!this.isInCamp && this.state.soundIdle !== null) {
+      getManager(SoundManager).play(this.object.id(), this.state.soundIdle);
+    }
   }
 
   /**
@@ -105,31 +126,8 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     );
   }
 
-  public override execute(): void {
-    super.execute();
-
-    this.patrolManager.update();
-
-    const camp: Optional<CampManager> = getCampZoneForPosition(this.object.position());
-
-    if (camp !== null && this.state.useCamp === true) {
-      this.campStoryManager = camp;
-      this.campStoryManager.registerObject(this.object.id());
-      this.isInCamp = true;
-    } else {
-      if (this.isInCamp === true) {
-        this.campStoryManager!.unregisterObject(this.object.id());
-        this.isInCamp = null;
-      }
-    }
-
-    if (!this.isInCamp && this.state.soundIdle !== null) {
-      getManager(SoundManager).play(this.object.id(), this.state.soundIdle);
-    }
-  }
-
   public update(): void {
-    if (this.campStoryManager === null) {
+    if (!this.campStoryManager) {
       return;
     }
 
@@ -144,10 +142,10 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     setStalkerState(this.object, table.random(list)[1]);
   }
 
-  public onSwitchOffline(object: GameObject): void {
-    if (this.isInCamp === true) {
-      this.campStoryManager!.unregisterObject(object.id());
-      this.isInCamp = null;
+  public onSwitchOffline(): void {
+    if (this.isInCamp) {
+      this.isInCamp = false;
+      this.campStoryManager!.unregisterObject(this.object.id());
     }
   }
 }

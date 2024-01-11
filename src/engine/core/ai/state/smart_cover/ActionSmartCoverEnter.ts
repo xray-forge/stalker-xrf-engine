@@ -36,7 +36,7 @@ export class ActionSmartCoverEnter extends action_base {
     this.object.set_movement_type(move.run);
     this.object.set_dest_smart_cover(smartCoverState.coverName as TName);
 
-    if (smartCoverState.loopholeName !== null) {
+    if (smartCoverState.loopholeName) {
       this.object.set_dest_loophole(smartCoverState.loopholeName);
     }
   }

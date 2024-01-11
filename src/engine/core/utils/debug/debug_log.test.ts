@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { registerObject } from "@/engine/core/database";
+import { StalkerStateManager } from "@/engine/core/ai/state";
+import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import {
   logObjectInventoryItems,
   logObjectPlannerState,
@@ -26,6 +27,11 @@ describe("logObjectPlannerState util", () => {
 
 describe("logObjectStateManager util", () => {
   it("should not throw", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+
+    state.stateManager = new StalkerStateManager(object);
+
     expect(() => logObjectStateManager(MockGameObject.mock())).not.toThrow();
   });
 });
