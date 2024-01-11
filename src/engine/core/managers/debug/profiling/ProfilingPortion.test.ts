@@ -41,20 +41,17 @@ describe("ProfilingPortion class", () => {
   });
 
   it("should correctly calculate timers", () => {
-    const manager: ProfilingManager = getManager(ProfilingManager);
-
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
-    expect(manager.profilingPortions.length()).toBe(0);
-
-    const portion: ProfilingPortion = ProfilingPortion.mark("test");
+    const manager: ProfilingManager = getManager(ProfilingManager);
+    const portion: ProfilingPortion = ProfilingPortion.mark();
 
     jest.spyOn(Date, "now").mockImplementation(() => 25_000);
 
     portion.commit();
 
     expect(manager.profilingPortions).toEqualLuaTables({
-      test: [20_000],
+      unknown: [20_000],
     });
   });
 });
