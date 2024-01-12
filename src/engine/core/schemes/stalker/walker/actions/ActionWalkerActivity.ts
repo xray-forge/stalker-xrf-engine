@@ -1,5 +1,6 @@
 import { action_base, LuabindClass } from "xray16";
 
+import { campConfig, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { animpoint_predicates } from "@/engine/core/animation/predicates/animpoint_predicates";
@@ -14,18 +15,9 @@ import { GameObject, ISchemeEventHandler, Optional } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-// todo: Remove?
-// todo: Remove?
-// todo: Remove?
-const ASSOC_TBL = {
-  idle: { director: ["wait"] },
-  harmonica: { director: ["play_harmonica"] },
-  guitar: { director: ["play_guitar"] },
-  story: { director: ["wait"] },
-};
-
 /**
- * todo;
+ * GOAP action implementing walker patrol logics.
+ * Handles patrolling with generic patrol manager and adds idle state talk.
  */
 @LuabindClass()
 export class ActionWalkerActivity extends action_base implements ISchemeEventHandler {
@@ -98,20 +90,22 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
       this.campStoryManager!.unregisterObject(this.object.id());
     }
 
-    if (!this.isInCamp && this.state.soundIdle !== null) {
+    if (!this.isInCamp && this.state.soundIdle) {
       getManager(SoundManager).play(this.object.id(), this.state.soundIdle);
     }
   }
 
   /**
-   * todo: Description.
+   * Reset current action patrols state.
    */
   public reset(): void {
-    if (this.state.pathWalkInfo === null) {
+    // todo: Probably should parse waypoints data on path changes since patrol can be different?
+    if (!this.state.pathWalkInfo) {
       this.state.pathWalkInfo = parseWaypointsData(this.state.pathWalk);
     }
 
-    if (this.state.pathLookInfo === null) {
+    // todo: Probably should parse waypoints data on path changes since patrol can be different?
+    if (!this.state.pathLookInfo) {
       this.state.pathLookInfo = parseWaypointsData(this.state.pathLook);
     }
 
@@ -121,7 +115,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
       this.state.pathLook,
       this.state.pathLookInfo,
       this.state.team,
-      this.state.suggested_state
+      this.state.suggestedState
     );
   }
 
@@ -132,13 +126,9 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     const [campAction, isDirector] = this.campStoryManager.getObjectActivity(this.object.id());
 
-    if (!isDirector) {
-      return;
+    if (isDirector) {
+      setStalkerState(this.object, campConfig.CAMP_ACTIVITY_DIRECTOR_STATE.get(campAction as EObjectCampActivity));
     }
-
-    const list = ASSOC_TBL[campAction as keyof typeof ASSOC_TBL].director as any as LuaTable<number>;
-
-    setStalkerState(this.object, table.random(list)[1]);
   }
 
   public onSwitchOffline(): void {

@@ -36,7 +36,7 @@ describe("SchemeWalker", () => {
     expect(state.team).toBeNull();
     expect(state.soundIdle).toBeNull();
     expect(state.useCamp).toBe(false);
-    expect(state.suggested_state).toEqualLuaTables({
+    expect(state.suggestedState).toEqualLuaTables({
       campering: null,
       camperingFire: null,
       moving: null,
@@ -81,7 +81,7 @@ describe("SchemeWalker", () => {
     expect(state.team).toBe("zat_b40_smart_terrain_test_team");
     expect(state.soundIdle).toBe("test_sound");
     expect(state.useCamp).toBe(true);
-    expect(state.suggested_state).toEqualLuaTables({
+    expect(state.suggestedState).toEqualLuaTables({
       campering: null,
       camperingFire: null,
       moving: "idle_1",

@@ -54,7 +54,7 @@ export class SchemeWalker extends AbstractScheme {
 
     const baseMoving: EStalkerState = readIniString(ini, section, "def_state_moving1", false);
 
-    state.suggested_state = {
+    state.suggestedState = {
       campering: null,
       camperingFire: null,
       movingFire: null,
