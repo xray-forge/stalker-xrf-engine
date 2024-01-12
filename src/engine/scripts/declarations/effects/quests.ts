@@ -10,8 +10,8 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
-import { showFreeplayDialog } from "@/engine/core/ui/game/FreeplayDialog";
-import { abort } from "@/engine/core/utils/assertion";
+import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
@@ -65,11 +65,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 extern(
   "xr_effects.show_freeplay_dialog",
   (actor: GameObject, object: GameObject, [text, canLeave]: [Optional<TLabel>, Optional<"true">]) => {
-    if (text && canLeave && canLeave === TRUE) {
-      showFreeplayDialog("message_box_yes_no", text);
-    } else if (text) {
-      showFreeplayDialog("message_box_ok", text);
-    }
+    assert(text, "Expected text message to be provided for 'show_freeplay_dialog' effect.");
+    showFreeplayDialog(canLeave === TRUE ? "message_box_yes_no" : "message_box_ok", text);
   }
 );
 

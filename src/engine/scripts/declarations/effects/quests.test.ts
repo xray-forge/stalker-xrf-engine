@@ -1,6 +1,12 @@
-import { beforeAll, describe, it } from "@jest/globals";
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { checkXrEffect } from "@/fixtures/engine";
+import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
+import { TRUE } from "@/engine/lib/constants/words";
+import { callXrEffect, checkXrEffect, resetRegistry } from "@/fixtures/engine";
+import { resetFunctionMock } from "@/fixtures/jest";
+import { MockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/ui/game/freeplay");
 
 describe("quests effects declaration", () => {
   beforeAll(() => {
@@ -73,7 +79,22 @@ describe("quests effects implementation", () => {
     require("@/engine/scripts/declarations/effects/quests");
   });
 
-  it.todo("show_freeplay_dialog should show freeplay dialog");
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(showFreeplayDialog);
+  });
+
+  it("show_freeplay_dialog should show freeplay dialog", () => {
+    expect(() => {
+      callXrEffect("show_freeplay_dialog", MockGameObject.mockActor(), MockGameObject.mock(), "");
+    }).toThrow("Expected text message to be provided for 'show_freeplay_dialog' effect.");
+
+    callXrEffect("show_freeplay_dialog", MockGameObject.mockActor(), MockGameObject.mock(), "test-text-1", TRUE);
+    expect(showFreeplayDialog).toHaveBeenCalledWith("message_box_yes_no", "test-text-1");
+
+    callXrEffect("show_freeplay_dialog", MockGameObject.mockActor(), MockGameObject.mock(), "test-text-2");
+    expect(showFreeplayDialog).toHaveBeenCalledWith("message_box_ok", "test-text-2");
+  });
 
   it.todo("jup_b32_place_scanner should place scanners");
 

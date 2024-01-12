@@ -29,9 +29,9 @@ export class MockCUIWindow extends MockLuabindClass {
     this.isEnabled = isEnabled;
   });
 
-  public Show = jest.fn((isShown: boolean) => {
+  public Show(isShown: boolean): void {
     this.isShown = isShown;
-  });
+  }
 
   public GetWidth(): number {
     return this.windowSize?.y ?? -1;
