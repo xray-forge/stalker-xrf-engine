@@ -31,8 +31,7 @@ const ASSOC_TBL = {
 export class ActionWalkerActivity extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeWalkerState;
   public readonly patrolManager: StalkerPatrolManager;
-
-  public availableActions: LuaTable<number, IAnimpointActionDescriptor>;
+  public readonly availableActions: LuaTable<number, IAnimpointActionDescriptor>;
 
   public isInCamp: boolean = false;
   public campStoryManager: Optional<CampManager> = null;
@@ -40,16 +39,16 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public constructor(state: ISchemeWalkerState, object: GameObject) {
     super(null, ActionWalkerActivity.__name);
 
+    state.approvedActions = new LuaTable();
+    state.description = EStalkerState.WALKER_CAMP;
+
     this.state = state;
     this.patrolManager = registry.objects.get(object.id()).patrolManager!;
-
-    this.state.description = EStalkerState.WALKER_CAMP;
-    this.availableActions = animpoint_predicates.get(this.state.description);
-    this.state.approvedActions = new LuaTable();
+    this.availableActions = animpoint_predicates.get(state.description);
 
     for (const [, animpointAction] of this.availableActions) {
       if (animpointAction.predicate(object)) {
-        table.insert(this.state.approvedActions, animpointAction);
+        table.insert(state.approvedActions, animpointAction);
       }
     }
   }
@@ -62,7 +61,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     this.object.set_desired_position();
     this.object.set_desired_direction();
 
-    this.reset(false, this.object);
+    this.reset();
   }
 
   public override finalize(): void {
@@ -78,9 +77,9 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
     }
   }
 
-  public activate(object: GameObject, isLoading: boolean): void {
+  public activate(): void {
     this.state.signals = new LuaTable();
-    this.reset(isLoading, object);
+    this.reset();
   }
 
   public override execute(): void {
@@ -107,7 +106,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   /**
    * todo: Description.
    */
-  public reset(isLoading: boolean, object: GameObject): void {
+  public reset(): void {
     if (this.state.pathWalkInfo === null) {
       this.state.pathWalkInfo = parseWaypointsData(this.state.pathWalk);
     }

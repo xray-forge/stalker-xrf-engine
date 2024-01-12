@@ -2,11 +2,8 @@ import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
 import { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme to handle death event for physical objects as part of scripts/game events.
