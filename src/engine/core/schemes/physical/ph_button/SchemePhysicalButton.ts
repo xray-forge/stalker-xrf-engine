@@ -3,10 +3,7 @@ import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_bu
 import { PhysicalButtonManager } from "@/engine/core/schemes/physical/ph_button/PhysicalButtonManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme implementing logics of button toggling for physical objects.
@@ -26,16 +23,10 @@ export class SchemePhysicalButton extends AbstractScheme {
     state.logic = getConfigSwitchConditions(ini, section);
     state.onPress = readIniConditionList(ini, section, "on_press");
     state.tooltip = readIniString(ini, section, "tooltip", false);
-
-    object.set_tip_text(state.tooltip ? state.tooltip : "");
-
     state.anim = readIniString(ini, section, "anim", true);
     state.blending = readIniBoolean(ini, section, "anim_blend", false, true);
 
-    // todo: Probably not needed.
-    if (state.blending === null) {
-      state.blending = true;
-    }
+    object.set_tip_text(state.tooltip ? state.tooltip : "");
 
     return state;
   }

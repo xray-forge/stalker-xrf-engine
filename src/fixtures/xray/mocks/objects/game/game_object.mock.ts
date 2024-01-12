@@ -323,6 +323,7 @@ export function mockGameObject({
     parent: rest.parent ?? jest.fn(() => null),
     poltergeist_set_actor_ignore: rest.poltergeist_set_actor_ignore ?? jest.fn(),
     position: rest.position ?? jest.fn(() => objectPosition),
+    play_cycle: rest.play_cycle ?? jest.fn(),
     radiation,
     rank: rest.rank ?? jest.fn(() => null),
     relation:
