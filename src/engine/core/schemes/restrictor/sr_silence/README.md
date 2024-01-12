@@ -3,10 +3,6 @@
 Scheme to define some smart zones and silence places. <br/>
 Dynamic combat music cannot be played in such places, usually safe areas.
 
-## ini parameters
-
-Only logic field is applied to try to switch current section.
-
 ## Documentation
 
 [Book: sr_silence scheme.](https://xray-forge.github.io/stalker-xrf-book/script_engine/schemes/sr_silence.html)
