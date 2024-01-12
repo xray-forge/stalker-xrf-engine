@@ -1,11 +1,10 @@
 import { log, print_stack, time_global } from "xray16";
 
-import { toLogValue } from "@/engine/core/utils/logging/logging_casting";
 import { openLogFile } from "@/engine/core/utils/logging/logging_files";
 import { ELuaLoggerMode, ILuaLoggerConfig } from "@/engine/core/utils/logging/logging_types";
 import { toJSON } from "@/engine/core/utils/transform/json";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
-import { AnyArgs, AnyObject, Optional, TIndex, TLabel } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, Optional, TLabel } from "@/engine/lib/types";
 
 /**
  * Lua logger class.
