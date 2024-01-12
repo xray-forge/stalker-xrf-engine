@@ -1,9 +1,8 @@
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
-import { NumPadWindow } from "@/engine/core/ui/game/NumPadWindow";
-import { TConditionList } from "@/engine/core/utils/ini";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { NumPadWindow } from "@/engine/core/ui/game/num_pad";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { Optional, TLabel } from "@/engine/lib/types";
 
 /**

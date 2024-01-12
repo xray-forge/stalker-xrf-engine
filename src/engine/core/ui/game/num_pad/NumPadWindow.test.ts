@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { DIK_keys, ui_events } from "xray16";
 
-import { INumPadWindowOwner, NumPadWindow } from "@/engine/core/ui/game/NumPadWindow";
+import { INumPadWindowOwner, NumPadWindow } from "@/engine/core/ui/game/num_pad/NumPadWindow";
 
 describe("NumPadWindow class", () => {
   it("should correctly initialize", () => {

@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "game\\NumPadWindow.component";
 
 export interface INumPadWindowOwner {
-  onNumberReceive(text: string): void;
+  onNumberReceive(text: TLabel): void;
 }
 
 /**
