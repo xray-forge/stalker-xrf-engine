@@ -36,7 +36,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public hiLimits: number = 0;
 
   public override activate(): void {
-    logger.format("Activate door: %s %s", this.object.name(), this.state.section);
+    logger.info("Activate door: %s %s", this.object.name(), this.state.section);
 
     this.state.signals = new LuaTable();
     this.isInitialized = false;
@@ -79,7 +79,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   public override deactivate(): void {
-    logger.format("Deactivate door: %s %s", this.object.name(), this.state.section);
+    logger.info("Deactivate door: %s %s", this.object.name(), this.state.section);
 
     this.object.set_tip_text("");
   }
@@ -178,7 +178,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public openDoor(disableSound?: boolean): void {
-    logger.info("Open door:", this.object.name(), this.state.section);
+    logger.info("Open door: %s %s", this.object.name(), this.state.section);
 
     if (!disableSound) {
       if (this.state.sndOpenStart) {
@@ -219,7 +219,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public closeDoor(disableSound: boolean): void {
-    logger.info("Close door:", this.object.name(), this.state.section);
+    logger.info("Close door: %s %s", this.object.name(), this.state.section);
 
     if (!disableSound) {
       if (this.state.sndCloseStart !== null) {
@@ -256,7 +256,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   public override onUse(object: GameObject, who: Optional<GameObject>): void {
-    logger.format("Use door: %s", object.name());
+    logger.info("Use door: %s", object.name());
 
     if (this.state.locked && this.state.sndOpenStart) {
       getManager(SoundManager).play(this.object.id(), this.state.sndOpenStart);
@@ -278,7 +278,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
-    logger.format("Hit door: %s", object.name());
+    logger.info("Hit door: %s", object.name());
 
     if (this.state.hitOnBone.has(boneIndex)) {
       const section: Optional<TSection> = pickSectionFromCondList(

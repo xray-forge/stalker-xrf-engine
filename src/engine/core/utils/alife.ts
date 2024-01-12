@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Force updating all alife objects at once for instant and smooth alife spawn.
  */
 export function setUnlimitedAlifeObjectsUpdate(): void {
-  logger.format("Allow unlimited alife batched updates: %s", MAX_U16);
+  logger.info("Allow unlimited alife batched updates: %s", MAX_U16);
   registry.simulator.set_objects_per_update(MAX_U16);
 }
 
@@ -17,6 +17,6 @@ export function setUnlimitedAlifeObjectsUpdate(): void {
  * Force updating stable count of alife objects.
  */
 export function setStableAlifeObjectsUpdate(): void {
-  logger.format("Set stable alife updating: %s", alifeConfig.OBJECTS_PER_UPDATE);
+  logger.info("Set stable alife updating: %s", alifeConfig.OBJECTS_PER_UPDATE);
   registry.simulator.set_objects_per_update(alifeConfig.OBJECTS_PER_UPDATE);
 }

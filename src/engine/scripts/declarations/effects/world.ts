@@ -135,7 +135,7 @@ extern("xr_effects.barrel_explode", (actor: GameObject, object: GameObject, p: [
  * todo;
  */
 extern("xr_effects.set_game_time", (actor: GameObject, object: GameObject, params: [string, string]) => {
-  logger.info("Set game time:", params[0], params[1]);
+  logger.info("Set game time: %s %s", params[0], params[1]);
 
   const realHours = level.get_time_hours();
   const realMinutes = level.get_time_minutes();
@@ -323,7 +323,7 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: GameObject, object: GameOb
     if (object) {
       object.get_hanging_lamp().turn_off();
     } else {
-      logger.warn("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", tostring(k));
+      logger.info("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", k);
     }
   }
 });
@@ -420,7 +420,7 @@ extern("xr_effects.turn_on", (actor: GameObject, object: GameObject, parameters:
 extern(
   "xr_effects.set_weather",
   (actor: GameObject, object: GameObject, [weatherName, isForced]: [TName, string]): void => {
-    logger.info("Set weather:", weatherName);
+    logger.info("Set weather: %s", weatherName);
 
     if (weatherName !== null) {
       level.set_weather(weatherName, isForced === TRUE);

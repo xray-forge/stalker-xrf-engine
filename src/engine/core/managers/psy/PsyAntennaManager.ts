@@ -180,7 +180,7 @@ export class PsyAntennaManager extends AbstractManager {
    * todo: Description.
    */
   public override update(delta: TDuration): void {
-    logger.info("Updating psy antenna manager:", delta);
+    logger.info("Updating psy antenna manager: %s", delta);
 
     const updateIntensity = (intensityBase: TRate, intensity: TRate) => {
       const di = this.intensityInertion * delta * 0.01;

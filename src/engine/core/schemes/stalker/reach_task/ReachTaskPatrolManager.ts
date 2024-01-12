@@ -63,8 +63,6 @@ export class ReachTaskPatrolManager {
       return;
     }
 
-    // logger.info("Add object to patrol:", object.name(), this.targetId);
-
     this.objectsList.set(object.id(), {
       soldier: object.id(),
       dir: createVector(1, 0, 0),
@@ -83,7 +81,7 @@ export class ReachTaskPatrolManager {
    * todo: Description.
    */
   public removeObjectFromPatrol(object: GameObject): void {
-    logger.info("Remove object from patrol:", object.name(), this.targetId);
+    logger.info("Remove object from patrol: %s %s", object.name(), this.targetId);
 
     if (this.objectsList.get(object.id()) === null) {
       return;
@@ -102,8 +100,6 @@ export class ReachTaskPatrolManager {
    * todo: Description.
    */
   public resetPositions(): void {
-    // logger.info("Reset formation positions:", this.targetId, this.commanderId, this.objectsCount);
-
     const form_ = reachTaskConfig.FORMATIONS[this.formation as "back"];
     let index = 1;
 

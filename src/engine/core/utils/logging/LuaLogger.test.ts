@@ -13,7 +13,7 @@ describe("LuaLogger class", () => {
   it("LuaLogger should correctly initialize", () => {
     const logger: LuaLogger = new Logger("tst");
 
-    expect(logger.prefix).toBe("[tst]");
+    expect(logger.prefix).toBe("tst");
     expect(logger.isEnabled).toBe(true);
 
     expect(new Logger("another", { isEnabled: false }).isEnabled).toBe(false);
@@ -22,23 +22,23 @@ describe("LuaLogger class", () => {
   it("LuaLogger should correctly handle enabled-disabled state", () => {
     const logger: LuaLogger = new Logger("tst");
 
-    jest.spyOn(logger, "logAs").mockImplementation(() => {});
+    resetFunctionMock(log);
 
     logger.isEnabled = false;
     forgeConfig.DEBUG.IS_LOG_ENABLED = false;
 
     logger.info("test");
-    expect(logger.logAs).not.toHaveBeenCalled();
+    expect(log).not.toHaveBeenCalled();
 
     logger.isEnabled = true;
 
     logger.info("test");
-    expect(logger.logAs).not.toHaveBeenCalled();
+    expect(log).not.toHaveBeenCalled();
 
     forgeConfig.DEBUG.IS_LOG_ENABLED = true;
 
     logger.info("test");
-    expect(logger.logAs).toHaveBeenCalled();
+    expect(log).toHaveBeenCalled();
   });
 
   it("LuaLogger should correctly call log", () => {
@@ -47,18 +47,14 @@ describe("LuaLogger class", () => {
     resetFunctionMock(log);
     replaceFunctionMock(time_global, () => 1000);
 
-    logger.warn("test");
     logger.info("test");
-    logger.error("test");
     logger.pushEmptyLine();
     logger.pushSeparator();
 
-    expect(log).toHaveBeenCalledTimes(5);
-    expect(log).toHaveBeenNthCalledWith(1, "[1000][tst][warn] test");
-    expect(log).toHaveBeenNthCalledWith(2, "[1000][tst][info] test");
-    expect(log).toHaveBeenNthCalledWith(3, "[1000][tst][error] test");
-    expect(log).toHaveBeenNthCalledWith(4, "[1000][tst][info]  ");
-    expect(log).toHaveBeenNthCalledWith(5, "[1000][tst][info] =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+    expect(log).toHaveBeenCalledTimes(3);
+    expect(log).toHaveBeenNthCalledWith(1, "[1000][tst][info] test");
+    expect(log).toHaveBeenNthCalledWith(2, "[1000][tst][info]  ");
+    expect(log).toHaveBeenNthCalledWith(3, "[1000][tst][info] =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
   });
 
   it("LuaLogger should correctly generate prefix", () => {
@@ -76,20 +72,10 @@ describe("LuaLogger class", () => {
   it("LuaLogger should correctly print table", () => {
     const logger: LuaLogger = new Logger("tst");
 
-    jest.spyOn(logger, "logAs").mockImplementation(() => {});
+    jest.spyOn(logger, "info").mockImplementation(() => {});
 
     logger.table({ test: true, another: 10 });
 
-    expect(logger.logAs).toHaveBeenCalledWith("[table]", "[tst]", $fromArray([toJSON({ test: true, another: 10 })]));
-  });
-
-  it("LuaLogger should correctly print with logAs", () => {
-    resetFunctionMock(log);
-
-    const logger: LuaLogger = new Logger("tst");
-
-    logger.logAs("[info]", "[prfx]", $fromArray(["a", "b", "c"]));
-
-    expect(log).toHaveBeenCalledWith("[1000][prfx][info] a b c");
+    expect(logger.info).toHaveBeenCalledWith("[table] %s", toJSON({ test: true, another: 10 }));
   });
 });

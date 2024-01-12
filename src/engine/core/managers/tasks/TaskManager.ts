@@ -80,7 +80,7 @@ export class TaskManager extends AbstractManager {
   public onTaskStateUpdate(taskObject: GameTask, state: TTaskState): void {
     const taskId: TStringId = taskObject.get_id();
 
-    logger.info("Task state update:", taskId, state, state !== task.fail);
+    logger.info("Task state update: %s %s %s", taskId, state, state !== task.fail);
 
     if (state !== task.fail) {
       getManager(NotificationManager).sendTaskNotification(

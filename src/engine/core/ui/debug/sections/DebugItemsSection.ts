@@ -171,7 +171,7 @@ export class DebugItemsSection extends AbstractDebugSection {
     const section: Optional<TInventoryItem> = itemSelected?.uiInnerSectionText.GetText() as Optional<TInventoryItem>;
 
     if (section) {
-      logger.info("Item spawn:", section);
+      logger.info("Item spawn: %s", section);
 
       spawnItemsForObject(registry.actor, section, isAmmoSection(section) ? 30 : 1);
     } else {

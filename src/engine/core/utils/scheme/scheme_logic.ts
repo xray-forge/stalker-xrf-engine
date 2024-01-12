@@ -108,7 +108,7 @@ export function activateSchemeBySection(
   smartTerrainName: Optional<TName>,
   isLoading: boolean
 ): void {
-  logger.format("Activate scheme: '%s' %s' %s'", object.name(), section, smartTerrainName);
+  logger.info("Activate scheme: '%s' %s' %s'", object.name(), section, smartTerrainName);
 
   assertDefined(isLoading, "scheme/logic: activateBySection: loading field is null, true || false expected.");
 

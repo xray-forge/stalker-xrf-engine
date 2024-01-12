@@ -28,6 +28,7 @@ export function mockSchemeState<T extends IBaseSchemeState>(
   return {
     ...(base as T),
     ini,
+    actions: null,
     logic,
     overrides,
     scheme: base.scheme || scheme,

@@ -116,6 +116,7 @@ describe("SchemeWounded class", () => {
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
+      actions: null,
       autoheal: true,
       helpDialog: "dm_help_wounded_medkit_dialog",
       helpStartDialog: null,
@@ -168,6 +169,7 @@ describe("SchemeWounded class", () => {
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
+      actions: null,
       autoheal: false,
       helpDialog: "test_help_dialog",
       helpStartDialog: "test_help_start_dialog",
@@ -217,6 +219,7 @@ describe("SchemeWounded class", () => {
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
+      actions: null,
       autoheal: true,
       helpDialog: "dm_help_wounded_medkit_dialog",
       helpStartDialog: null,
@@ -260,6 +263,7 @@ describe("SchemeWounded class", () => {
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
+      actions: null,
       autoheal: true,
       helpDialog: null,
       helpStartDialog: null,
@@ -300,6 +304,7 @@ describe("SchemeWounded class", () => {
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
+      actions: null,
       autoheal: true,
       helpDialog: null,
       helpStartDialog: null,

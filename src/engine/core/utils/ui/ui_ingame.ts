@@ -16,14 +16,14 @@ export function setUiVisibility(isVisible: boolean): void {
   const actor: GameObject = registry.actor;
 
   if (isVisible) {
-    logger.format("[setUiVisibility] Showing UI");
+    logger.info("[setUiVisibility] Showing UI");
 
     level.show_indicators();
 
     actor.disable_hit_marks(false);
     hud.show_messages();
   } else {
-    logger.format("[setUiVisibility] Hiding UI");
+    logger.info("[setUiVisibility] Hiding UI");
 
     if (actor.is_talking()) {
       actor.stop_talk();
@@ -38,5 +38,5 @@ export function setUiVisibility(isVisible: boolean): void {
     actor.disable_hit_marks(true);
   }
 
-  logger.format("[setUiVisibility] Completed");
+  logger.info("[setUiVisibility] Completed");
 }

@@ -10,7 +10,7 @@ export const name: TName = "Alternative start position";
 export const enabled: boolean = true;
 
 export function register(isNewGame: boolean): void {
-  logger.format("Alternative start extension register: %s", isNewGame);
+  logger.info("Alternative start extension register: %s", isNewGame);
 
   if (isNewGame) {
     set_start_game_vertex_id(212);

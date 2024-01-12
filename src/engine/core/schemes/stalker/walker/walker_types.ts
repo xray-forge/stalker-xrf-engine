@@ -12,8 +12,8 @@ export interface ISchemeWalkerState extends IBaseSchemeState {
   pathWalk: TName;
   pathLook: TName;
   team: TName;
-  soundIdle: TName;
-  suggested_state: IPatrolSuggestedState;
+  soundIdle: Optional<TName>;
+  suggestedState: IPatrolSuggestedState;
   pathWalkInfo: Optional<LuaArray<IWaypointData>>;
   pathLookInfo: Optional<LuaArray<IWaypointData>>;
   description: Optional<EStalkerState>;

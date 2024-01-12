@@ -11,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "info_portions", mode
  * @param name - info portion to give to actor
  */
 export function giveInfoPortion(name: TName): void {
-  logger.format("Give info portion: %s", name);
+  logger.info("Give info portion: %s", name);
 
   registry.actor.give_info_portion(name);
 }
@@ -22,7 +22,7 @@ export function giveInfoPortion(name: TName): void {
  * @param name - info portion to disable
  */
 export function disableInfoPortion(name: TName): void {
-  logger.format("Disable info portion: %s", name);
+  logger.info("Disable info portion: %s", name);
 
   if (registry.actor?.has_info(name)) {
     registry.actor.disable_info_portion(name);

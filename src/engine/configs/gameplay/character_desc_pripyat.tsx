@@ -218,7 +218,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <StartDialog>pri_a15_sokolov_start_dialog</StartDialog>
         <ActorDialog>pri_a15_sokolov_where_from</ActorDialog>
         <ActorDialog>pri_a15_sokolov_jupiter</ActorDialog>
         <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
@@ -254,7 +254,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <StartDialog>pri_a15_sokolov_start_dialog</StartDialog>
         <ActorDialog>pri_a15_sokolov_pripyat_ready</ActorDialog>
         <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
         <ActorDialog>pri_a15_sokolov_evacuation_note</ActorDialog>
@@ -281,7 +281,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>pri_a15_sokolov_StartDialog</StartDialog>
+        <StartDialog>pri_a15_sokolov_start_dialog</StartDialog>
         <ActorDialog>pri_a15_sokolov_pripyat_ready</ActorDialog>
         <ActorDialog>pri_a15_sokolov_evacuation_point</ActorDialog>
         <ActorDialog>pri_a15_sokolov_evacuation_note</ActorDialog>
@@ -483,7 +483,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>pri_a25_army_medic_StartDialog</StartDialog>
+        <StartDialog>pri_a25_army_medic_start_dialog</StartDialog>
         <ActorDialog>pri_a25_army_medic_rescued</ActorDialog>
         <ActorDialog>pri_a25_army_medic_supply_medicine</ActorDialog>
         <ActorDialog>pri_a25_army_medic_need_health_care</ActorDialog>
@@ -708,7 +708,7 @@ export function create(): JSXNode {
         ]}
       >
         <CharacterProfileCriticals />
-        <StartDialog>pri_a22_army_signaller_StartDialog</StartDialog>
+        <StartDialog>pri_a22_army_signaller_start_dialog</StartDialog>
         <ActorDialog>pri_a22_army_signaller_about_rfi_source</ActorDialog>
         <ActorDialog>pri_a22_army_signaller_about_signal</ActorDialog>
         <ActorDialog>pri_a22_army_signaller_supply_outfit</ActorDialog>

@@ -23,7 +23,7 @@ export class ActionShoot extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    logger.info("Start camper shooting:", this.object.name());
+    logger.info("Start camper shooting: %s", this.object.name());
 
     setStalkerState(this.object, EStalkerState.HIDE_FIRE, null, null, {
       lookObjectId: this.object.best_enemy()?.id() as TNumberId,
@@ -33,7 +33,7 @@ export class ActionShoot extends action_base {
   }
 
   public override finalize(): void {
-    logger.info("Stop camper shooting:", this.object.name());
+    logger.info("Stop camper shooting: %s", this.object.name());
 
     super.finalize();
     this.state.isCamperCombatAction = false;

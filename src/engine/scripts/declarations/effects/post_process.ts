@@ -45,7 +45,7 @@ extern(
 extern(
   "xr_effects.stop_cam_effector",
   (actor: GameObject, object: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
-    logger.info("Stop cam effector:", effectorId);
+    logger.info("Stop cam effector: %s", effectorId);
 
     if (effectorId && type(effectorId) === "number" && effectorId > 0) {
       level.remove_cam_effector(effectorId);
@@ -121,7 +121,7 @@ extern(
 extern(
   "xr_effects.stop_postprocess",
   (actor: GameObject, object: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
-    logger.format("Stop postprocess: %s", effectorId);
+    logger.info("Stop postprocess: %s", effectorId);
 
     if (effectorId && type(effectorId) === "number" && effectorId > 0) {
       level.remove_complex_effector(effectorId);

@@ -1,8 +1,5 @@
 import type { CampManager } from "@/engine/core/ai/camp/CampManager";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import type { LuaArray, Optional, TDuration, TName, TProbability } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Role of object in camp stories.

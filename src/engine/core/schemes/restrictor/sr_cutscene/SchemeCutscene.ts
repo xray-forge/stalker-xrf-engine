@@ -23,7 +23,7 @@ export class SchemeCutscene extends AbstractScheme {
     scheme: EScheme,
     section: TSection
   ): ISchemeCutsceneState {
-    logger.info("Activate:", object.name(), scheme, section);
+    logger.info("Activate: %s %s %s", object.name(), scheme, section);
 
     const state: ISchemeCutsceneState = AbstractScheme.assign(object, ini, scheme, section);
 

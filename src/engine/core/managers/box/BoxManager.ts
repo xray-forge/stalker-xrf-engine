@@ -39,14 +39,14 @@ export class BoxManager extends AbstractManager {
       : null;
 
     if (section) {
-      logger.format("Spawn items for: %s %s", object.name(), section);
+      logger.info("Spawn items for: %s %s", object.name(), section);
 
       this.spawnBoxObjectItemsFromList(
         object,
         boxConfig.DROP_ITEMS_BY_SECTION.get(section) ?? boxConfig.DROP_ITEMS_BY_SECTION.get(BOX_DEFAULT)
       );
     } else if (chance(boxConfig.GENERIC_LOOT_BOX_DROP_CHANCE)) {
-      logger.format("Spawn items for generic box: %s", object.name());
+      logger.info("Spawn items for generic box: %s", object.name());
 
       switch (object.get_visual_name()) {
         case BOX_METAL_01:

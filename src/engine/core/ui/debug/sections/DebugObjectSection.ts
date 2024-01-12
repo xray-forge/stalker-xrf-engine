@@ -230,7 +230,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      logger.info("Set actor relation for:", targetObject.name(), relation);
+      logger.info("Set actor relation for: %s %s", targetObject.name(), relation);
       setGameObjectRelation(targetObject, registry.actor, relation);
       this.initializeState();
     } else {
@@ -246,7 +246,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      logger.info("Kill object:", targetObject.name());
+      logger.info("Kill object: %s", targetObject.name());
       targetObject.kill(targetObject);
     } else {
       logger.info("No object found for killing");
@@ -261,7 +261,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     const targetObject: Optional<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
-      logger.info("Set wounded object:", targetObject.name());
+      logger.info("Set wounded object: %s", targetObject.name());
 
       setObjectWounded(targetObject);
     } else {

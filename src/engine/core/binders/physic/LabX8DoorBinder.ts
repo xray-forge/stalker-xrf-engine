@@ -67,7 +67,7 @@ export class LabX8DoorBinder extends object_binder {
     let ini: IniFile = object.spawn_ini()!;
 
     if (!ini.section_exist(ANIMATED_OBJECT_SECT)) {
-      logger.info("[animated object] no configuration!", object.name());
+      logger.info("[animated object] no configuration! %s", object.name());
 
       return;
     }

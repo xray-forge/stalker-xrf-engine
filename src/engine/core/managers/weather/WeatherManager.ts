@@ -124,7 +124,7 @@ export class WeatherManager extends AbstractManager {
     for (const it of $range(0, weatherPeriodsLines - 1)) {
       const [, field, value] = DYNAMIC_WEATHER_GRAPHS.r_line("weather_periods", it, "", "");
 
-      logger.info("Initialize weather period:", field, value);
+      logger.info("Initialize weather period: %s %s", field, value);
 
       this.weatherPeriods.set(it + 1, field);
       this.weatherPeriodsInverse.set(field, it + 1);
@@ -187,7 +187,7 @@ export class WeatherManager extends AbstractManager {
 
     // Change weathers period.
     if (currentTimeHour === this.weatherNextPeriodChangeHour) {
-      logger.info("Changing weather period:", currentTimeHour);
+      logger.info("Changing weather period: %s", currentTimeHour);
 
       this.weatherLastPeriodChangeHour = currentTimeHour;
       this.setNextPeriod();
@@ -302,10 +302,10 @@ export class WeatherManager extends AbstractManager {
 
     if (this.weatherFx) {
       level.start_weather_fx_from_time(this.weatherFx, this.weatherFxTime);
-      logger.info("Start weather FX:", this.weatherFx, this.weatherFxTime, now);
+      logger.info("Start weather FX: %s %s %s", this.weatherFx, this.weatherFxTime, now);
     } else {
       level.set_weather(weatherSection, now);
-      logger.info("Updated weather:", this.weatherPeriod, weatherSection, this.weatherFx, now);
+      logger.info("Updated weather: %s %s %s %s", this.weatherPeriod, weatherSection, this.weatherFx, now);
     }
   }
 
@@ -330,7 +330,7 @@ export class WeatherManager extends AbstractManager {
       const graph: Optional<LuaTable<TName, TProbability>> = this.getGraphBySection(graphName);
 
       if (graph !== null) {
-        logger.info("Change weather graph:", stateString);
+        logger.info("Change weather graph: %s", stateString);
 
         this.weatherState.set(graphName, {
           currentState: currentState as TName,
@@ -387,7 +387,7 @@ export class WeatherManager extends AbstractManager {
     this.weatherSection = levelWeather;
     this.weatherConditionList = parseConditionsList(levelWeather);
 
-    logger.info("Possible weathers condition list:", levelWeather);
+    logger.info("Possible weathers condition list: %s", levelWeather);
 
     // Change period next hour or based on weather config.
     this.weatherNextPeriodChangeHour = canUsePeriodsForWeather(levelWeather)

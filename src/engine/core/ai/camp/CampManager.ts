@@ -208,8 +208,6 @@ export class CampManager {
         campConfig.CAMP_ACTIVITIES.get(this.activity).maxTime
       );
     this.activityTimeout = now + campConfig.CAMP_ACTIVITIES.get(this.activity).timeout;
-
-    // logger.info("Set camp next state:", probability, this.activity, "| switch at:", this.activitySwitchAt);
   }
 
   /**
@@ -264,7 +262,7 @@ export class CampManager {
    * @param objectId - target object id to register
    */
   public registerObject(objectId: TNumberId): void {
-    logger.info("Register object in camp:", objectId);
+    logger.info("Register object in camp: %s", objectId);
 
     this.objects.set(objectId, { state: this.activity } as ICampStateDescriptor);
 
@@ -293,7 +291,7 @@ export class CampManager {
    * @param objectId - target object id to unregister
    */
   public unregisterObject(objectId: TNumberId): void {
-    logger.info("Unregister object from camp:", objectId);
+    logger.info("Unregister object from camp: %s", objectId);
 
     if (this.directorId === objectId) {
       this.isStoryStarted = false;

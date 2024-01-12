@@ -97,7 +97,7 @@ export class SaveManager extends AbstractManager {
    * @param saveName - name of save file, just base name with extension like `example.scop`
    */
   public onBeforeGameSave(saveName: TName): void {
-    logger.info("Before game save:", saveName);
+    logger.info("Before game save: %s", saveName);
 
     EventsManager.emitEvent(EGameEvent.GAME_SAVE, registry.dynamicData.eventPacket);
 
@@ -110,7 +110,7 @@ export class SaveManager extends AbstractManager {
    * @param saveName - name of save file, just base name with extension like `example.scop`
    */
   public onGameSave(saveName: TName): void {
-    logger.info("On game save:", saveName);
+    logger.info("On game save: %s", saveName);
   }
 
   /**
@@ -119,7 +119,7 @@ export class SaveManager extends AbstractManager {
    * @param saveName - name of save file, full path with disk/system folders structure
    */
   public onBeforeGameLoad(saveName: TName): void {
-    logger.info("Before game load:", saveName);
+    logger.info("Before game load: %s", saveName);
 
     const data: Optional<IDynamicSaveData> = loadDynamicGameSave(saveName);
 
@@ -134,7 +134,7 @@ export class SaveManager extends AbstractManager {
    * @param saveName - name of save file, full path with disk/system folders structure
    */
   public onGameLoad(saveName: TName): void {
-    logger.info("On game load:", saveName);
+    logger.info("On game load: %s", saveName);
   }
 
   /**

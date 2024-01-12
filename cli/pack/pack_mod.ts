@@ -87,6 +87,8 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
     log.info("Check mod build at:", yellowBright(TARGET_MOD_PACKAGE_DIR), "\n");
   } catch (error) {
     log.error("Failed to execute packaging command:", error);
+
+    throw error;
   }
 }
 

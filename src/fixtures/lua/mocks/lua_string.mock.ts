@@ -12,7 +12,7 @@ export const mockString = {
 
     for (const replacement of replacements) {
       if (base.indexOf("%s") === -1) {
-        throw new Error("String format error - no target for interpolation found.");
+        throw new Error(`String format error - no target for interpolation found for '${replacement}'.`);
       }
 
       result = result.replace("%s", tostring(replacement));

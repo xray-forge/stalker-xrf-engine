@@ -153,7 +153,7 @@ export function initializeObjectSchemeLogic(
   isLoading: boolean,
   schemeType: ESchemeType
 ): void {
-  logger.format("Initialize object scheme logic: '%s' %s'", object.name(), isLoading);
+  logger.info("Initialize object scheme logic: '%s' %s'", object.name(), isLoading);
 
   if (isLoading) {
     const loadingIniFilename: Optional<TName> = state.loadedIniFilename;
@@ -262,7 +262,7 @@ export function initializeObjectSectionItems(object: GameObject, state: IRegistr
     return;
   }
 
-  logger.format("Initialize section spawn items for object: %s", object.name());
+  logger.info("Initialize section spawn items for object: %s", object.name());
 
   const itemsToSpawn: LuaTable<TInventoryItem, TCount> = new LuaTable();
   const itemSectionsCount: TCount = state.ini.line_count(spawnItemsSection);

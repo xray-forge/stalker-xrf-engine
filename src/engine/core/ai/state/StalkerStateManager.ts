@@ -108,7 +108,7 @@ export class StalkerStateManager {
       return;
     }
 
-    logger.format("Set state: '%s', %s -> %s", this.object.name(), this.targetState, state);
+    logger.info("Set state: '%s', %s -> %s", this.object.name(), this.targetState, state);
 
     const previousStateDescriptorWeapon: Optional<EWeaponAnimation> = states.get(this.targetState).weapon;
     const nextStateDescriptorWeapon: Optional<EWeaponAnimation> = states.get(state).weapon;
@@ -189,7 +189,7 @@ export class StalkerStateManager {
         this.callback.begin = now;
       } else {
         if (now - (this.callback.begin as TTimestamp) >= (this.callback.timeout as TDuration)) {
-          logger.info("Animation callback called:", this.object.name());
+          logger.info("Animation callback called: %s", this.object.name());
 
           const callbackFunction: AnyCallable = this.callback.callback as unknown as AnyCallable;
 

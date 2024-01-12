@@ -129,7 +129,7 @@ export class MusicManager extends AbstractManager {
     const newThemesList: LuaArray<LuaArray<TName>> = new LuaTable();
     const levelName: TName = level.name();
 
-    logger.info("Initialize level themes:", levelName);
+    logger.info("Initialize level themes: %s", levelName);
 
     for (const [, themeDescriptor] of soundsConfig.dynamicMusicThemes) {
       if (!themeDescriptor.maps || themeDescriptor.maps === "" || string.find(themeDescriptor.maps, levelName)) {
@@ -324,7 +324,12 @@ export class MusicManager extends AbstractManager {
 
     this.setSoundVolume(this.themeAmbientVolume);
 
-    logger.info("Start theme:", this.currentThemeIndex, this.currentThemeTrackIndex, this.dynamicThemeVolume);
+    logger.info(
+      "Start theme: %s %s %s",
+      this.currentThemeIndex,
+      this.currentThemeTrackIndex,
+      this.dynamicThemeVolume
+    );
 
     if (this.theme === null) {
       this.theme = new StereoSound();
@@ -361,7 +366,7 @@ export class MusicManager extends AbstractManager {
       registry.musicVolume = 0;
     }
 
-    logger.info("Toggle ambient volume:", this.gameAmbientVolume);
+    logger.info("Toggle ambient volume: %s", this.gameAmbientVolume);
     this.setSoundVolume(this.gameAmbientVolume);
   }
 

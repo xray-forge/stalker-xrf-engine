@@ -171,7 +171,7 @@ export class SaveDialog extends CUIScriptWnd {
   }
 
   public onMessageYesClicked(): void {
-    logger.info("Message yes clicked:", this.modalBoxMode);
+    logger.info("Message yes clicked: %s", this.modalBoxMode);
 
     if (this.modalBoxMode === 1) {
       if (this.newSave !== null) {

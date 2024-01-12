@@ -41,7 +41,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public lookPosition: Optional<Vector> = null;
 
   public override activate(object: GameObject): void {
-    logger.info("Activate animpoint scheme:", object.name());
+    logger.info("Activate animpoint scheme: %s", object.name());
 
     this.state.signals = new LuaTable();
 
@@ -241,7 +241,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
       this.object.name()
     );
 
-    logger.info("Filled available actions:", this.object.name(), this.state.approvedActions.length());
+    logger.info("Filled available actions: %s %s", this.object.name(), this.state.approvedActions.length());
   }
 
   /**
@@ -256,7 +256,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * Fill approved actions list and start animating.
    */
   public start(): void {
-    logger.info("Start:", this.object.name());
+    logger.info("Start: %s", this.object.name());
 
     if (this.state.useCamp) {
       this.campManager = getCampZoneForPosition(this.position);
@@ -274,14 +274,14 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
     this.isStarted = true;
     this.coverName = this.state.coverName;
 
-    logger.info("Started:", this.object.name(), this.currentAction, this.coverName);
+    logger.info("Started: %s %s %s", this.object.name(), this.currentAction, this.coverName);
   }
 
   /**
    * Stop animation based on animpoint scheme logics.
    */
   public stop(): void {
-    logger.info("Stop:", this.object.name());
+    logger.info("Stop: %s", this.object.name());
 
     if (this.campManager !== null) {
       this.campManager.unregisterObject(this.object.id());

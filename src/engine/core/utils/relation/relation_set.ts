@@ -55,7 +55,7 @@ export function setGoodwillFromCommunityToCommunity(
   if (from !== null && from !== communities.none && to !== communities.none) {
     relation_registry.set_community_relation(from, to, goodwill);
   } else {
-    logger.warn("No such community:", from);
+    logger.info("No such community: %s", from);
   }
 }
 
@@ -74,7 +74,7 @@ export function setRelationFromCommunityToCommunity(
   if (from !== null && from !== communities.none && to !== communities.none) {
     relation_registry.set_community_relation(from, to, mapRelationToGoodwill.get(relation));
   } else {
-    logger.warn("No such community:", from);
+    logger.info("No such community: %s", from);
   }
 }
 
@@ -95,7 +95,7 @@ export function increaseCommunityGoodwillToId(
   if (from !== null && from !== communities.none && toId !== null) {
     relation_registry.change_community_goodwill(from, toId, delta);
   } else {
-    logger.warn("No such community:", from);
+    logger.info("No such community: %s", from);
   }
 }
 
@@ -149,7 +149,7 @@ export function setSquadRelationWithObject(
   object: GameObject,
   relation: ERelation
 ): void {
-  logger.format("Applying new game relation between squad and object: %s %s %s", relation, squadId, object?.name());
+  logger.info("Applying new game relation between squad and object: %s %s %s", relation, squadId, object?.name());
 
   const squad: Optional<Squad> =
     type(squadId) === "string"

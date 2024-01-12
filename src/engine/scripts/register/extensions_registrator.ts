@@ -17,7 +17,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function registerExtensions(isNewGame: boolean): void {
   if (lfs === null) {
-    return logger.warn("Skip externals registration, no `lfs` lib available");
+    return logger.info("Skip externals registration, no `lfs` lib available");
   }
 
   const extensions: LuaArray<IExtensionsDescriptor> = getAvailableExtensions();
@@ -28,7 +28,7 @@ export function registerExtensions(isNewGame: boolean): void {
 
     return;
   } else {
-    logger.info("Registering extensions:", extensions.length());
+    logger.info("Registering extensions: %s", extensions.length());
   }
 
   for (const [, extension] of sortedExtensions) {

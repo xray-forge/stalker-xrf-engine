@@ -55,7 +55,7 @@ export class ActionZombieShoot extends action_base {
    * todo: Description.
    */
   public override initialize(): void {
-    logger.info("Activate:", this.object.name());
+    logger.info("Activate: %s", this.object.name());
 
     super.initialize();
 
@@ -82,7 +82,7 @@ export class ActionZombieShoot extends action_base {
    * todo: Description.
    */
   public override finalize(): void {
-    logger.info("Deactivate:", this.object.name());
+    logger.info("Deactivate: %s", this.object.name());
 
     super.finalize();
     this.state.currentAction = null;

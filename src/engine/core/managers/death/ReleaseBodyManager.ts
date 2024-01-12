@@ -70,7 +70,7 @@ export class ReleaseBodyManager extends AbstractManager {
       return;
     }
 
-    logger.format("Register corpse object: %s", object.name());
+    logger.info("Register corpse object: %s", object.name());
 
     table.insert(deathConfig.RELEASE_OBJECTS_REGISTRY, {
       id: object.id(),
@@ -87,7 +87,7 @@ export class ReleaseBodyManager extends AbstractManager {
    * Checks that corpses can be released (no quest items, no quest NPCs) and are far from the player.
    */
   public releaseCorpses(): void {
-    logger.format("Try to release corpses");
+    logger.info("Try to release corpses");
 
     const countToRelease: TCount = deathConfig.RELEASE_OBJECTS_REGISTRY.length() - deathConfig.MAX_BODY_COUNT;
 
@@ -102,10 +102,10 @@ export class ReleaseBodyManager extends AbstractManager {
       const object: Optional<ServerObject> = registry.simulator.object(descriptor.id);
 
       if (object && isCreature(object)) {
-        logger.format("Releasing object: %s", object.name());
+        logger.info("Releasing object: %s", object.name());
 
         if (object.alive()) {
-          logger.warn("Detected alive object in release table:", object.name());
+          logger.info("Detected alive object in release table: %s", object.name());
         } else {
           registry.simulator.release(object, true);
         }

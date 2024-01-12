@@ -21,7 +21,7 @@ export class CampfireBinder extends object_binder {
       return false;
     }
 
-    // logger.info("Register:", object.name());
+    // logger.format("Register: %s", object.name());
 
     const [smartTerrainName] = string.gsub(this.object.name(), "_campfire_%d*", "");
 

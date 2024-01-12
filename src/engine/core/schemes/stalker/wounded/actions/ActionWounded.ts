@@ -38,7 +38,7 @@ export class ActionWounded extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    logger.info("Become wounded:", this.object.name());
+    logger.info("Become wounded: %s", this.object.name());
 
     this.object.set_desired_position();
     this.object.set_desired_direction();
@@ -58,7 +58,7 @@ export class ActionWounded extends action_base {
   }
 
   public override finalize(): void {
-    logger.info("Free from wounded state:", this.object.name());
+    logger.info("Free from wounded state: %s", this.object.name());
 
     super.finalize();
 

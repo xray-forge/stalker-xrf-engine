@@ -93,7 +93,7 @@ export class ActorInputManager extends AbstractManager {
    * Disable game input for delta duration.
    */
   public setInactiveInputTime(duration: TDuration): void {
-    logger.format("Deactivate actor input: '%s'", duration);
+    logger.info("Deactivate actor input: '%s'", duration);
 
     actorConfig.DISABLED_INPUT_AT = game.get_game_time();
     actorConfig.DISABLED_INPUT_DURATION = duration;
@@ -313,7 +313,7 @@ export class ActorInputManager extends AbstractManager {
    * Handle first update from actor input perspective.
    */
   public onFirstUpdate(): void {
-    logger.info("Apply active item slot:", actorConfig.ACTIVE_ITEM_SLOT);
+    logger.info("Apply active item slot: %s", actorConfig.ACTIVE_ITEM_SLOT);
     registry.actor.activate_slot(actorConfig.ACTIVE_ITEM_SLOT);
   }
 
@@ -339,7 +339,7 @@ export class ActorInputManager extends AbstractManager {
     const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
 
     if (serverItemSection === drugs.drug_anabiotic) {
-      logger.info("On actor anabiotic use:", object.name());
+      logger.info("On actor anabiotic use: %s", object.name());
       this.processAnabioticItemUsage();
     }
   }

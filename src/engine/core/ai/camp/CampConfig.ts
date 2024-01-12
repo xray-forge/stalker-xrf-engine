@@ -5,7 +5,7 @@ import {
 } from "@/engine/core/ai/camp/camp_types";
 import { canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory } from "@/engine/core/ai/camp/camp_utils";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
-import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
+import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { TProbability } from "@/engine/lib/types";
 
 export const campConfig = {
@@ -19,7 +19,7 @@ export const campConfig = {
       transitions: $fromObject({ harmonica: 30, guitar: 30, story: 40 } as Record<EObjectCampActivity, TProbability>),
       precondition: () => true,
     },
-    harmonica: {
+    [EObjectCampActivity.HARMONICA]: {
       directorState: "play_harmonica",
       generalState: "listen",
       minTime: 10_000,
@@ -31,7 +31,7 @@ export const campConfig = {
       >),
       precondition: (it: CampManager) => canPlayCampHarmonica(it),
     },
-    guitar: {
+    [EObjectCampActivity.GUITAR]: {
       directorState: "play_guitar",
       generalState: "listen",
       minTime: 10_000,
@@ -45,7 +45,7 @@ export const campConfig = {
       } as Record<EObjectCampActivity, TProbability>),
       precondition: (it: CampManager) => canPlayCampGuitar(it),
     },
-    story: {
+    [EObjectCampActivity.STORY]: {
       directorState: "tell",
       generalState: "listen",
       minTime: 10_000,
@@ -75,5 +75,11 @@ export const campConfig = {
       director: $fromArray(["", WEAPON_POSTFIX]),
       listener: $fromArray(["", "_eat_bread", "_eat_kolbasa", "_drink_vodka", "_drink_energy", WEAPON_POSTFIX]),
     },
+  }),
+  CAMP_ACTIVITY_DIRECTOR_STATE: $fromObject<EObjectCampActivity, EStalkerState>({
+    [EObjectCampActivity.IDLE]: EStalkerState.WAIT,
+    [EObjectCampActivity.HARMONICA]: EStalkerState.PLAY_HARMONICA,
+    [EObjectCampActivity.GUITAR]: EStalkerState.PLAY_GUITAR,
+    [EObjectCampActivity.STORY]: EStalkerState.WAIT,
   }),
 };

@@ -134,7 +134,7 @@ export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, se
     return false;
   }
 
-  logger.format("Switch section: '%s', '%s' -> '%s'", object.name(), activeSection, section);
+  logger.info("Switch section: '%s', '%s' -> '%s'", object.name(), activeSection, section);
 
   // Notify schemes about deactivation.
   if (activeSection !== null) {

@@ -94,7 +94,7 @@ export class CrowBinder extends object_binder {
    * On crow object death.
    */
   public onDeath(): void {
-    logger.info("Crow death:", this.object.name());
+    logger.info("Crow death: %s", this.object.name());
 
     this.diedAt = time_global();
 

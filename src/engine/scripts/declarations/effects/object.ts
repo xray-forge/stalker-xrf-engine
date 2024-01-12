@@ -106,7 +106,7 @@ extern(
       return;
     }
 
-    logger.info("Hit object:", object.name(), storyObject.name());
+    logger.info("Hit object: %s %s", object.name(), storyObject.name());
 
     h.bone(params[1]);
     h.power = params[2];
@@ -274,7 +274,7 @@ extern(
     object: GameObject,
     [spawnSection, pathName, index]: [TSection, TName, Optional<TIndex>]
   ): void => {
-    // logger.info("Spawn corpse:", params[0]);
+    // logger.format("Spawn corpse: %s", params[0]);
 
     if (spawnSection === null) {
       abort("Wrong spawn section for 'spawn_corpse' function %s. For object %s", tostring(spawnSection), object.name());
@@ -497,7 +497,7 @@ extern(
     object: GameObject,
     [smartTerrainName, clearStory]: [Optional<TName>, Optional<"false">]
   ): void => {
-    logger.format("Clear smart terrain: '%s', '%s'", smartTerrainName, clearStory);
+    logger.info("Clear smart terrain: '%s', '%s'", smartTerrainName, clearStory);
 
     if (smartTerrainName === null) {
       abort("Wrong squad id [NIL] in clear_smart_terrain function");
@@ -510,11 +510,11 @@ extern(
     for (const [, squad] of simulationManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
       if (clearStory === FALSE) {
         if (!getStoryIdByObjectId(squad.id)) {
-          logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
+          logger.info("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
           simulationManager.releaseSquad(squad);
         }
       } else {
-        logger.format("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
+        logger.info("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
         simulationManager.releaseSquad(squad);
       }
     }
@@ -559,7 +559,7 @@ extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, pa
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
     if (storyObject !== null) {
-      logger.info("Update object logic:", storyObject.id());
+      logger.info("Update object logic: %s", storyObject.id());
 
       const state: IRegistryObjectState = registry.objects.get(storyObject.id());
 
@@ -574,7 +574,7 @@ extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, pa
 extern(
   "xr_effects.hit_npc",
   (actor: GameObject, object: GameObject, params: [string, string, string, number, number, string]): void => {
-    logger.info("Hit object:", object.name());
+    logger.info("Hit object: %s", object.name());
 
     const targetHit: Hit = new hit();
     const rev: boolean = params[5] ? params[5] === TRUE : false;
@@ -663,7 +663,7 @@ extern("xr_effects.burer_force_anti_aim", (actor: GameObject, object: GameObject
  */
 extern("xr_effects.give_items", (actor: GameObject, object: GameObject, params: Array<TSection>): void => {
   for (const section of params) {
-    logger.info("Give item to object:", object.id(), section);
+    logger.info("Give item to object: %s %s", object.id(), section);
     spawnItemsForObject(object, section);
   }
 });
@@ -681,7 +681,7 @@ extern(
     const objectId: TNumberId =
       objectStoryId === null ? (object as GameObject).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
 
-    logger.info("Give item to object:", objectId, section);
+    logger.info("Give item to object: %s %s", objectId, section);
 
     spawnItemsForObject(registry.simulator.object(objectId)!, section);
   }

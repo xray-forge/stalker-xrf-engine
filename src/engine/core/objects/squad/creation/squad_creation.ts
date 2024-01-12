@@ -49,7 +49,13 @@ export function createSquadMembers(squad: Squad, spawnSmartTerrain: SmartTerrain
     abort("Unexpected attempt to spawn an empty squad '%s'.", squadSection);
   }
 
-  logger.info("Create squad members:", squad.name(), spawnSmartTerrain?.name(), spawnPointData, spawnPoint);
+  logger.info(
+    "Create squad members: %s %s %s %s",
+    squad.name(),
+    spawnSmartTerrain?.name(),
+    spawnPointData,
+    spawnPoint
+  );
 
   let baseSpawnPosition: Vector;
   let baseLevelVertexId: TNumberId;

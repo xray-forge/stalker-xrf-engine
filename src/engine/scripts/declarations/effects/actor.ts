@@ -90,7 +90,7 @@ extern("xr_effects.enable_actor_torch", (actor: GameObject): void => {
  * Expects tutorial name parameter to run.
  */
 extern("xr_effects.run_tutorial", (actor: GameObject, object: GameObject, [tutorialName]: [TName]): void => {
-  logger.format("Run tutorial: '%s'", tutorialName);
+  logger.info("Run tutorial: '%s'", tutorialName);
   game.start_tutorial(tutorialName);
 });
 
@@ -226,7 +226,7 @@ extern("xr_effects.give_task", (actor: GameObject, object: GameObject, [taskId]:
  * Set one of active actor tasks as current one.
  */
 extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
-  logger.info("Set active task:", taskId);
+  logger.info("Set active task: %s", taskId);
 
   const task: Optional<GameTask> = taskId ? actor.get_task(tostring(taskId), true) : null;
 
@@ -276,7 +276,7 @@ extern("xr_effects.sleep", (): void => {
 
   for (const [, zone] of sleepConfig.SLEEP_ZONES) {
     if (isObjectInZone(registry.actor, registry.zones.get(zone))) {
-      logger.format("Actor sleep in: '%s'", zone);
+      logger.info("Actor sleep in: '%s'", zone);
 
       getManager(SleepManager).showSleepDialog();
 

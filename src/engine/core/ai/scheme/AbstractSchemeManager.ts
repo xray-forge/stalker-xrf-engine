@@ -18,19 +18,19 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
   }
 
   public activate(object: GameObject, isLoading: boolean): void {
-    // logger.info("Reset scheme:", this.state?.scheme, this.object.name());
+    // logger.info("Reset scheme: %s %s", this.state?.scheme, this.object.name());
   }
 
   public deactivate(object: GameObject): void {
-    // logger.info("Deactivate:", this.state?.scheme, this.object.name());
+    // logger.info("Deactivate: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onSwitchOnline(object: GameObject): void {
-    // logger.info("Net spawn:", this.state?.scheme, object.name());
+    // logger.info("Net spawn: %s %s", this.state?.scheme, object.name());
   }
 
   public onSwitchOffline(object: GameObject): void {
-    // logger.info("Net destroy:", this.state?.scheme, object.name());
+    // logger.info("Net destroy: %s %s", this.state?.scheme, object.name());
   }
 
   public onHit(
@@ -40,26 +40,26 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
     who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
-    // logger.info("Hit:", this.state?.scheme, this.object.name());
+    // logger.info("Hit: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onUse(object: GameObject, who: Optional<GameObject>): void {
-    logger.info("Use:", this.state?.scheme, this.object.name());
+    logger.info("Use: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onWaypoint(object: GameObject, actionType: TName, index: TIndex): void {
-    logger.info("Waypoint:", this.state?.scheme, this.object.name());
+    logger.info("Waypoint: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onDeath(victim: GameObject, who: Optional<GameObject>): void {
-    logger.info("Death:", this.state?.scheme, this.object.name());
+    logger.info("Death: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onCutscene(): void {
-    logger.info("Cutscene:", this.state?.scheme, this.object.name());
+    logger.info("Cutscene: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onCombat(): void {
-    logger.info("On combat:", this.state?.scheme, this.object.name());
+    logger.info("On combat: %s %s", this.state?.scheme, this.object.name());
   }
 }

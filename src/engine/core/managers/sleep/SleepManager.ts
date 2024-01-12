@@ -43,7 +43,7 @@ export class SleepManager extends AbstractManager {
    * Start sleeping and related animations.
    */
   public startSleep(hours: TDuration): void {
-    logger.info("Start sleep for:", hours);
+    logger.info("Start sleep for: %s", hours);
 
     this.nextSleepDuration = hours;
 

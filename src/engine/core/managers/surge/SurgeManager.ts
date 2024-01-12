@@ -257,7 +257,7 @@ export class SurgeManager extends AbstractManager {
     }
 
     if (diffSec + 6 > surgeConfig.DURATION) {
-      logger.info("Surge can be considered skipped:", diffSec + 6);
+      logger.info("Surge can be considered skipped: %s", diffSec + 6);
 
       this.skipSurge();
     } else {
@@ -312,7 +312,7 @@ export class SurgeManager extends AbstractManager {
    * todo: Description.
    */
   public endSurge(manual?: boolean): void {
-    logger.info("Ending surge:", manual);
+    logger.info("Ending surge: %s", manual);
 
     surgeConfig.IS_STARTED = false;
     surgeConfig.IS_FINISHED = true;
@@ -399,12 +399,12 @@ export class SurgeManager extends AbstractManager {
         const diff: TCount = math.abs(this.nextScheduledSurgeDelay - currentGameTime.diffSec(this.lastSurgeAt));
 
         if (diff < surgeConfig.INTERVAL_MIN_AFTER_TIME_FORWARD) {
-          logger.info("Time forward, reschedule from:", this.nextScheduledSurgeDelay);
+          logger.info("Time forward, reschedule from: %s", this.nextScheduledSurgeDelay);
 
           this.nextScheduledSurgeDelay =
             surgeConfig.INTERVAL_MAX_AFTER_TIME_FORWARD + currentGameTime.diffSec(this.lastSurgeAt);
 
-          logger.info("Time forward, reschedule to:", this.nextScheduledSurgeDelay);
+          logger.info("Time forward, reschedule to: %s", this.nextScheduledSurgeDelay);
         }
 
         surgeConfig.IS_TIME_FORWARDED = false;
@@ -543,7 +543,7 @@ export class SurgeManager extends AbstractManager {
    */
   public onActorItemTake(object: GameObject): void {
     if (isArtefact(object)) {
-      logger.info("On artefact take:", object.name());
+      logger.info("On artefact take: %s", object.name());
 
       const zone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(
         object.id()

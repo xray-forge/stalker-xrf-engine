@@ -78,7 +78,7 @@ export function applySmartTerrainRespawnSectionsConfig(smartTerrain: SmartTerrai
  * @returns spawned squad or null if cannot spawn any
  */
 export function respawnSmartTerrainSquad(smartTerrain: SmartTerrain): Optional<Squad> {
-  // logger.info("Respawn squad in smart:", this.name());
+  // logger.format("Respawn squad in smart: %s", this.name());
 
   const availableSections: LuaArray<TSection> = new LuaTable();
 

@@ -46,7 +46,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
 
         if (!isInSurgeCover) {
           logger.info(
-            "Releasing object from squad after actors death because of surge:",
+            "Releasing object from squad after actors death because of surge: %s %s",
             member.object.name(),
             squad.name()
           );
@@ -101,7 +101,7 @@ export function killAllSurgeUnhidden(): void {
       for (const member of squad.squad_members()) {
         if (!isStoryObject(member.object)) {
           if (canSurgeKillSquad(squad)) {
-            logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
+            logger.info("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
 
             const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
 
@@ -122,7 +122,7 @@ export function killAllSurgeUnhidden(): void {
             }
 
             if (release) {
-              logger.info("Releasing object from squad because of surge:", member.object.name(), squad.name());
+              logger.info("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
 
               const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
 

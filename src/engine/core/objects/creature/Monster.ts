@@ -85,7 +85,7 @@ export class Monster extends cse_alife_monster_base {
   public override on_death(killer: ServerCreatureObject): void {
     super.on_death(killer);
 
-    logger.info("On monster death:", this.name(), killer.id, killer?.name());
+    logger.info("On monster death: %s %s %s", this.name(), killer.id, killer?.name());
 
     // Notify assigned smart terrain about abject death.
     const smartTerrainId: TNumberId = this.smart_terrain_id();

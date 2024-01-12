@@ -116,6 +116,8 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
     log.info("Check game build at:", yellowBright(TARGET_GAME_PACKAGE_DIR), "\n");
   } catch (error) {
     log.error("Failed to execute packaging command:", error);
+
+    throw error;
   }
 }
 

@@ -57,7 +57,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
    * todo: Description.
    */
   public onZoneEnter(): void {
-    logger.info("Zone enter:", this.object.name());
+    logger.info("Zone enter: %s", this.object.name());
 
     const actor: Optional<GameObject> = registry.actor;
 
@@ -121,7 +121,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
    * Handle progression of cutscene scenario.
    */
   public override onCutscene(): void {
-    logger.info("Cutscene callback:", this.object.name());
+    logger.info("Cutscene callback: %s", this.object.name());
 
     const actor: GameObject = registry.actor;
 

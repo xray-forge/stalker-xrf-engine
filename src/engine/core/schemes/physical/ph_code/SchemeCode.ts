@@ -9,10 +9,7 @@ import {
   readIniString,
   readIniStringAndCondList,
 } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme implementing code input for physical objects.

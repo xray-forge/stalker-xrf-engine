@@ -70,7 +70,7 @@ export function deleteGameSave(name: TName): void {
 
   const fs: FS = getFS();
 
-  logger.format("Delete game save: %s", name);
+  logger.info("Delete game save: %s", name);
 
   fs.file_delete(roots.gameSaves, saveBaseFile);
 
@@ -159,7 +159,7 @@ export function createGameAutoSave(name: Optional<TName>, translate: boolean = t
 
     createGameSave(saveName);
   } else {
-    logger.format("Skip save, auto-saving is not turned on: %s", name);
+    logger.info("Skip save, auto-saving is not turned on: %s", name);
   }
 }
 
@@ -171,7 +171,7 @@ export function createGameAutoSave(name: Optional<TName>, translate: boolean = t
 export function createGameSave(name: Optional<TName>): void {
   assert(name, "You are trying to save without name.");
 
-  logger.format("Performing save: %s", name);
+  logger.info("Performing save: %s", name);
   executeConsoleCommand(consoleCommands.save, name);
 }
 

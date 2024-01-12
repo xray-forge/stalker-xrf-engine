@@ -3,10 +3,7 @@ import { ini_file, LuabindClass, object_binder } from "xray16";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { registerCampZone, registry, resetCampZone, unregisterCampZone } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { IniFile, Optional, ServerObject, TDuration, TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Camp zone binder for game creatures.
@@ -26,8 +23,6 @@ export class CampZoneBinder extends object_binder {
       return false;
     }
 
-    // logger.info("Go online:", this.object.name());
-
     const ini: Optional<IniFile> = this.object.spawn_ini();
 
     // If camp logic description present, try to read it from spawn ini or from defined `cfg` file.
@@ -44,8 +39,6 @@ export class CampZoneBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    // logger.info("Go offline:", this.object.name());
-
     unregisterCampZone(this.object);
 
     super.net_destroy();

@@ -25,7 +25,7 @@ export function readIniThemesList(ini: IniFile): LuaTable<TName, AbstractPlayabl
   const themes: LuaTable<TName, AbstractPlayableSound> = new LuaTable();
   const themesCount: TCount = ini.line_count("list");
 
-  logger.info("Load sound themes:", themesCount);
+  logger.info("Load sound themes: %s", themesCount);
 
   for (const it of $range(0, themesCount - 1)) {
     const [, field] = ini.r_line("list", it, "", "");

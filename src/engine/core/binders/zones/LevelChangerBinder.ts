@@ -36,7 +36,7 @@ export class LevelChangerBinder extends object_binder {
 
     const serverObject: LevelChanger = registry.simulator.object(this.object.id()) as LevelChanger;
 
-    logger.info("Go online:", this.object.name(), serverObject.isEnabled, serverObject.invitationHint);
+    logger.info("Go online: %s %s %s", this.object.name(), serverObject.isEnabled, serverObject.invitationHint);
 
     this.object.enable_level_changer(serverObject.isEnabled);
     this.object.set_level_changer_invitation(serverObject.invitationHint);
@@ -45,7 +45,7 @@ export class LevelChangerBinder extends object_binder {
   }
 
   public override net_destroy(): void {
-    logger.info("Go offline:", this.object.name());
+    logger.info("Go offline: %s", this.object.name());
 
     unregisterObject(this.object);
 

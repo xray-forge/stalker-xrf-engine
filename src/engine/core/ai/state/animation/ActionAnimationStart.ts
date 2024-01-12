@@ -29,7 +29,7 @@ export class ActionAnimationStart extends action_base {
 
     const targetAnimation: Optional<TName> = states.get(this.stateManager.targetState).animation;
 
-    logger.info("Start for:", this.object.name(), targetAnimation);
+    logger.info("Start for: %s %s", this.object.name(), targetAnimation);
 
     this.stateManager.animation.setState(states.get(this.stateManager.targetState).animation as EStalkerState);
     this.stateManager.animation.setControl();

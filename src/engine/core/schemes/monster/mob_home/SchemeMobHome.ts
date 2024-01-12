@@ -23,7 +23,7 @@ export class SchemeMobHome extends AbstractScheme {
     section: TSection,
     smartTerrainName: TName
   ): ISchemeMobHomeState {
-    logger.info("Activate scheme:", object.name(), scheme, section);
+    logger.info("Activate scheme: %s %s %s", object.name(), scheme, section);
 
     const state: ISchemeMobHomeState = AbstractScheme.assign(object, ini, scheme, section);
 

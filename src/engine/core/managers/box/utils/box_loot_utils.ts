@@ -19,7 +19,7 @@ export function initializeDropBoxesLootTables(): void {
     levelName = "default";
   }
 
-  logger.format("Initialize box items at level: %s", levelName);
+  logger.info("Initialize box items at level: %s", levelName);
 
   for (const [, section] of boxConfig.LOOT_BOX_SECTIONS) {
     boxConfig.DROP_ITEMS_BY_SECTION.set(section, new LuaTable());

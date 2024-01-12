@@ -19,7 +19,7 @@ export class SoundStory {
   public replicas: LuaArray<IReplicDescriptor> = new LuaTable();
 
   public constructor(storyId: TStringId) {
-    logger.info("New sound story:", storyId);
+    logger.info("New sound story: %s", storyId);
 
     if (!SOUND_STORIES_LTX.section_exist(storyId)) {
       abort("There is no story [%s] in 'sound_stories.ltx'.", tostring(storyId));

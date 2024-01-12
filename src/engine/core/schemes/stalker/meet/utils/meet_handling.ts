@@ -69,13 +69,13 @@ export function activateMeetWithObject(object: GameObject): void {
     return;
   }
 
-  logger.format("Activate meet interaction: '%s'", object.name());
+  logger.info("Activate meet interaction: '%s'", object.name());
 
   const actor: GameObject = registry.actor;
   const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.useSound);
 
   if (tostring(sound) !== NIL) {
-    logger.format("Play meet sound: '%s' - '%s'", object.name(), sound);
+    logger.info("Play meet sound: '%s' - '%s'", object.name(), sound);
     getManager(SoundManager).play(object.id(), sound);
   }
 

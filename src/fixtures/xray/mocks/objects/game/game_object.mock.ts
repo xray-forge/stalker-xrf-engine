@@ -323,6 +323,7 @@ export function mockGameObject({
     parent: rest.parent ?? jest.fn(() => null),
     poltergeist_set_actor_ignore: rest.poltergeist_set_actor_ignore ?? jest.fn(),
     position: rest.position ?? jest.fn(() => objectPosition),
+    play_cycle: rest.play_cycle ?? jest.fn(),
     radiation,
     rank: rest.rank ?? jest.fn(() => null),
     relation:
@@ -380,6 +381,8 @@ export function mockGameObject({
       }),
     set_condition: rest.set_condition ?? jest.fn(),
     set_dest_game_vertex_id: rest.set_dest_game_vertex_id ?? jest.fn(),
+    set_dest_loophole: rest.set_dest_loophole ?? jest.fn(),
+    set_dest_smart_cover: rest.set_dest_smart_cover ?? jest.fn(),
     set_manual_invisibility: rest.set_manual_invisibility ?? jest.fn(),
     set_mental_state: rest.set_mental_state ?? jest.fn(),
     set_movement_type: rest.set_movement_type ?? jest.fn(),
@@ -451,6 +454,7 @@ export function mockGameObject({
         }
       }),
     upgradesSet,
+    use_smart_covers_only: rest.use_smart_covers_only ?? jest.fn(),
     weapon_unstrapped,
     weapon_strapped: rest.weapon_strapped ?? jest.fn(() => true),
     wounded: rest.wounded ?? jest.fn(),

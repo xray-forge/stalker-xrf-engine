@@ -181,7 +181,7 @@ export class Options extends CUIScriptWnd {
   public updateControls(): void {
     const currentRenderer: EGameRenderer = this.uiCurrentRendererSelect.CurrentID();
 
-    logger.info("Updating controls:", currentRenderer);
+    logger.info("Updating controls: %s", currentRenderer);
 
     for (const [key, value] of this.preconditions) {
       value(key, currentRenderer);

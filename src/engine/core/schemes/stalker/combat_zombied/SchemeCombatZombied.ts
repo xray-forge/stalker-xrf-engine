@@ -28,7 +28,7 @@ export class SchemeCombatZombied extends AbstractScheme {
     state: ISchemeCombatState,
     planner?: ActionPlanner
   ): void {
-    logger.info("Add zombied combat:", object.name());
+    logger.info("Add zombied combat: %s", object.name());
 
     assert(planner, "Expected planner to be provided for add method call.");
 

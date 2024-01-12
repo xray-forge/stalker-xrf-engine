@@ -90,11 +90,11 @@ export class ProfilingManager extends AbstractManager {
    * Start profiling of lua execution - attach hooks and start measuring time/counts of executions.
    */
   public start(): void {
-    logger.info("Start profiling manager in mode:", this.mode);
+    logger.info("Start profiling manager in mode: %s", this.mode);
 
     if (jit !== null) {
-      logger.warn("Take care, jit is enabled so profiling stats may be incorrect");
-      logger.warn("For correct profiling run game with '-nojit' flag");
+      logger.info("Take care, jit is enabled so profiling stats may be incorrect");
+      logger.info("For correct profiling run game with '-nojit' flag");
     }
 
     // Ensure all conditions for profiling start are met
@@ -134,7 +134,7 @@ export class ProfilingManager extends AbstractManager {
 
       return;
     } else if (!debug) {
-      logger.warn("Tried to setup hook, but debug is not enabled");
+      logger.info("Tried to setup hook, but debug is not enabled");
       abort("Tried to setup hook when debug is not enabled, got 'null' at debug place.");
     }
 
@@ -263,7 +263,7 @@ export class ProfilingManager extends AbstractManager {
    */
   public logHookedCallsCountStats(limit: TCount = 128): void {
     if (!this.isProfilingStarted) {
-      return logger.warn("Profiler hook wasn't setup, no stats found");
+      return logger.info("Profiler hook wasn't setup, no stats found");
     }
 
     this.clearHook();
@@ -293,7 +293,7 @@ export class ProfilingManager extends AbstractManager {
 
     logger.pushEmptyLine();
     logger.info("==================================================================================================");
-    logger.info("Total calls stat, limit:", limit, "JIT:", jit !== null);
+    logger.info("Total calls stat, limit: %s JIT: %s", limit, jit !== null);
     logger.info("==================================================================================================");
 
     let printedCount: TCount = 0;
@@ -311,11 +311,11 @@ export class ProfilingManager extends AbstractManager {
     }
 
     logger.info("==================================================================================================");
-    logger.info("Total function calls count:", totalCallsCount);
-    logger.info("Total function calls / sec:", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
-    logger.info("Total unique LUA functions called:", outStats.length());
-    logger.info("Profiling time:", this.profilingTimer.time() / 1000);
-    logger.info("RAM used:", this.getLuaMemoryUsed() / 1024, "MB");
+    logger.info("Total function calls count: %s", totalCallsCount);
+    logger.info("Total function calls / sec: %s", totalCallsCount / (this.profilingTimer.time() / 1000 / 1000));
+    logger.info("Total unique LUA functions called: %s", outStats.length());
+    logger.info("Profiling time: %s", this.profilingTimer.time() / 1000);
+    logger.info("RAM used: %s MB", this.getLuaMemoryUsed() / 1024);
     logger.info("==================================================================================================");
     logger.pushEmptyLine();
 
@@ -377,9 +377,13 @@ export class ProfilingManager extends AbstractManager {
 
     if (table.size(stats) === 0) {
       logger.pushEmptyLine();
-      logger.info("==================================================================================================");
+      logger.info(
+        "=================================================================================================="
+      );
       logger.info("No custom profiling portions captured yet");
-      logger.info("==================================================================================================");
+      logger.info(
+        "=================================================================================================="
+      );
 
       return;
     }
@@ -390,7 +394,7 @@ export class ProfilingManager extends AbstractManager {
 
     logger.pushEmptyLine();
     logger.info("==================================================================================================");
-    logger.info("Total portions calls stat, limit:", limit, "JIT:", jit !== null);
+    logger.info("Total portions calls stat, limit: %s JIT: %s", limit, jit !== null);
     logger.info("==================================================================================================");
 
     let printedCount: TCount = 0;
@@ -419,8 +423,8 @@ export class ProfilingManager extends AbstractManager {
     }
 
     logger.info("==================================================================================================");
-    logger.info("Total function calls count:", totalCalls);
-    logger.info("RAM used:", this.getLuaMemoryUsed() / 1024, "MB");
+    logger.info("Total function calls count: %s", totalCalls);
+    logger.info("RAM used: %s MB", this.getLuaMemoryUsed() / 1024);
     logger.info("==================================================================================================");
     logger.pushEmptyLine();
 

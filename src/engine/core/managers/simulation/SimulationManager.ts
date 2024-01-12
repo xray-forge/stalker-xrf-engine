@@ -128,7 +128,7 @@ export class SimulationManager extends AbstractManager {
    * @param smartTerrain - target smart terrain object to register in alife simulation
    */
   public registerSmartTerrain(smartTerrain: SmartTerrain): void {
-    simulationLogger.info("Register smart terrain:", smartTerrain.name());
+    simulationLogger.info("Register smart terrain: %s", smartTerrain.name());
 
     if (this.smartTerrainDescriptors.has(smartTerrain.id)) {
       abort("Smart terrain '%s' is already registered in simulation board.", smartTerrain.name());
@@ -148,7 +148,7 @@ export class SimulationManager extends AbstractManager {
    * @param smartTerrain - target smart terrain to unregister
    */
   public unregisterSmartTerrain(smartTerrain: SmartTerrain): void {
-    simulationLogger.info("Unregister smart terrain:", smartTerrain.name());
+    simulationLogger.info("Unregister smart terrain: %s", smartTerrain.name());
 
     if (!this.smartTerrainDescriptors.has(smartTerrain.id)) {
       abort("Trying to unregister not registered smart terrain '%s'.", smartTerrain.name());
@@ -162,7 +162,7 @@ export class SimulationManager extends AbstractManager {
    * todo: Description.
    */
   public assignSquadToSmartTerrain(squad: Squad, smartTerrainId: Optional<TNumberId>): void {
-    simulationLogger.format("Assign squad to smart terrain: '%s' -> '%s'.", squad.name(), smartTerrainId);
+    simulationLogger.info("Assign squad to smart terrain: '%s' -> '%s'.", squad.name(), smartTerrainId);
 
     if (smartTerrainId !== null && !this.smartTerrainDescriptors.has(smartTerrainId)) {
       if (!this.temporaryAssignedSquads.has(smartTerrainId)) {
@@ -216,7 +216,7 @@ export class SimulationManager extends AbstractManager {
    * @returns newly created squad
    */
   public createSquad(smartTerrain: SmartTerrain, section: TStringId): Squad {
-    simulationLogger.format("Create squad: '%s' -> '%s'.", smartTerrain.name(), section);
+    simulationLogger.info("Create squad: '%s' -> '%s'.", smartTerrain.name(), section);
 
     const squad: Squad = registry.simulator.create<Squad>(
       section,
@@ -224,8 +224,6 @@ export class SimulationManager extends AbstractManager {
       smartTerrain.m_level_vertex_id,
       smartTerrain.m_game_vertex_id
     );
-
-    // logger.info("Creating squad in smart:", squad.name(), smartTerrain.name());
 
     createSquadMembers(squad, smartTerrain);
 
@@ -251,7 +249,7 @@ export class SimulationManager extends AbstractManager {
    * @param squad - target squad object to remove with members including
    */
   public releaseSquad(squad: Squad): void {
-    simulationLogger.format("Release squad: '%s'.", squad.name());
+    simulationLogger.info("Release squad: '%s'.", squad.name());
 
     this.assignSquadToSmartTerrain(squad, null);
 
@@ -392,7 +390,7 @@ export class SimulationManager extends AbstractManager {
    * Handle event of actor unregister in network.
    */
   public onActorDestroy(): void {
-    simulationLogger.format("Actor network destroy");
+    simulationLogger.info("Actor network destroy");
 
     if (actor_stats.remove_from_ranking !== null) {
       actor_stats.remove_from_ranking(ACTOR_ID);
@@ -403,7 +401,7 @@ export class SimulationManager extends AbstractManager {
    * Handle event of actor register in network.
    */
   public onActorRegister(): void {
-    simulationLogger.format("Actor network register");
+    simulationLogger.info("Actor network register");
     this.initializeDefaultSimulationSquads();
   }
 

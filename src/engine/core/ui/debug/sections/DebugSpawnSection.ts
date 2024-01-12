@@ -143,13 +143,13 @@ export class DebugSpawnSection extends AbstractDebugSection {
     const section: Optional<TInventoryItem> = itemSelected?.uiInnerSectionText.GetText() as Optional<TInventoryItem>;
 
     if (section) {
-      logger.info("Spawn:", section);
+      logger.info("Spawn: %s", section);
 
       // For regular stalkers just create an object. In case of squad spawn for nearest smart terrain.
       if (category === ESpawnCategory.STALKER) {
         const object: ServerObject = spawnCreatureNearActor(section, 10);
 
-        logger.info("Spawned:", object.name());
+        logger.info("Spawned: %s", object.name());
       } else {
         const nearestSmart: Optional<ServerObject> = getNearestServerObject(
           (it: ServerObject): boolean => it.section_name() === "smart_terrain",
@@ -159,7 +159,7 @@ export class DebugSpawnSection extends AbstractDebugSection {
         if (nearestSmart) {
           const object: Squad = spawnSquadInSmart(section, nearestSmart.name());
 
-          logger.info("Spawned:", object.name());
+          logger.info("Spawned: %s", object.name());
         } else {
           logger.info("Skip squad spawn, nearest smart not accessible");
         }

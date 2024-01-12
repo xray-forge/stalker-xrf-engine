@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param position - new squad position
  */
 export function setSquadPosition(squad: Squad, position: Vector): void {
-  logger.format("Set squad position: '%s', '%s', '%s'", squad.name(), squad.online, vectorToString(position));
+  logger.info("Set squad position: '%s', '%s', '%s'", squad.name(), squad.online, vectorToString(position));
 
   if (!squad.online) {
     squad.force_change_position(position);

@@ -17,7 +17,7 @@ export function saveTextToFile(folderPath: TPath, filePath: TPath, data: string)
   const [file] = io.open(filePath, "wb");
 
   if (!file || io.type(file) !== "file") {
-    return logger.error("Cannot write to save path:", filePath);
+    return logger.info("Cannot write to save path: %s", filePath);
   }
 
   file.write(data);
@@ -33,7 +33,7 @@ export function saveTextToFile(folderPath: TPath, filePath: TPath, data: string)
  */
 export function saveObjectToFile(folderPath: TPath, filePath: TPath, data: AnyObject): void {
   if (marshal === null) {
-    return logger.warn("Cannot save object to file,`marshal` lib is not available:", filePath);
+    return logger.info("Cannot save object to file,`marshal` lib is not available: %s", filePath);
   }
 
   return saveTextToFile(folderPath, filePath, marshal.encode(data));
