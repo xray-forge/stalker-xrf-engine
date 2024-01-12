@@ -1,4 +1,4 @@
-import { SleepDialog } from "@/engine/core/ui/game/SleepDialog";
+import { SleepDialog } from "@/engine/core/ui/game/sleep";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { Optional, TName } from "@/engine/lib/types";
 

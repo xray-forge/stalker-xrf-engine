@@ -3,7 +3,7 @@ import { CUI3tButton, CUIMessageBoxEx, CUIStatic, CUITrackBar, level } from "xra
 
 import { getManager } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
-import { SleepDialog } from "@/engine/core/ui/game/SleepDialog";
+import { SleepDialog } from "@/engine/core/ui/game/sleep/SleepDialog";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";

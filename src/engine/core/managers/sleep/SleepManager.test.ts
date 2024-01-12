@@ -9,7 +9,7 @@ import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
 import { SurgeManager } from "@/engine/core/managers/surge";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { WeatherManager } from "@/engine/core/managers/weather";
-import { SleepDialog } from "@/engine/core/ui/game/SleepDialog";
+import { SleepDialog } from "@/engine/core/ui/game/sleep/SleepDialog";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
