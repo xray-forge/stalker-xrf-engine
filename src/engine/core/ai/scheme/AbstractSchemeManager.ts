@@ -18,19 +18,19 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
   }
 
   public activate(object: GameObject, isLoading: boolean): void {
-    // logger.format("Reset scheme: %s %s", this.state?.scheme, this.object.name());
+    // logger.info("Reset scheme: %s %s", this.state?.scheme, this.object.name());
   }
 
   public deactivate(object: GameObject): void {
-    // logger.format("Deactivate: %s %s", this.state?.scheme, this.object.name());
+    // logger.info("Deactivate: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onSwitchOnline(object: GameObject): void {
-    // logger.format("Net spawn: %s %s", this.state?.scheme, object.name());
+    // logger.info("Net spawn: %s %s", this.state?.scheme, object.name());
   }
 
   public onSwitchOffline(object: GameObject): void {
-    // logger.format("Net destroy: %s %s", this.state?.scheme, object.name());
+    // logger.info("Net destroy: %s %s", this.state?.scheme, object.name());
   }
 
   public onHit(
@@ -40,7 +40,7 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
     who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
-    // logger.format("Hit: %s %s", this.state?.scheme, this.object.name());
+    // logger.info("Hit: %s %s", this.state?.scheme, this.object.name());
   }
 
   public onUse(object: GameObject, who: Optional<GameObject>): void {

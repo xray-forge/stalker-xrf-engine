@@ -1,10 +1,7 @@
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyObject, GameObject, IniFile, ISchemeEventHandler, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Type describing abstract scheme implementation static class.
@@ -37,7 +34,7 @@ export abstract class AbstractScheme {
     section: TSection,
     smartTerrainName?: Optional<TName>
   ): IBaseSchemeState {
-    abort("Called not implemented 'activate' method: %s, %s", object.name(), scheme);
+    abort("Called not implemented 'activate' method: '%s', '%s', '%s'.", object.name(), scheme, section);
   }
 
   /**
@@ -57,20 +54,20 @@ export abstract class AbstractScheme {
     section: Optional<TSection>
   ): T {
     const objectState: IRegistryObjectState = registry.objects.get(object.id());
-    let schemeState: Optional<T> = objectState[scheme] as Optional<T>;
+    let state: Optional<T> = objectState[scheme] as Optional<T>;
 
-    if (!schemeState) {
-      schemeState = {} as T;
-      objectState[scheme] = schemeState;
+    if (!state) {
+      state = {} as T;
+      objectState[scheme] = state;
 
-      registry.schemes.get(scheme).add(object, ini, scheme, section as TSection, schemeState);
+      registry.schemes.get(scheme).add(object, ini, scheme, section as TSection, state);
     }
 
-    schemeState.ini = ini;
-    schemeState.scheme = scheme;
-    schemeState.section = section;
+    state.ini = ini;
+    state.scheme = scheme;
+    state.section = section;
 
-    return schemeState;
+    return state;
   }
 
   /**
@@ -89,7 +86,7 @@ export abstract class AbstractScheme {
     section: TSection,
     state: IBaseSchemeState
   ): void {
-    abort("Called not implemented 'add' method: %s, %s, %s.", object.name(), scheme, section);
+    abort("Called not implemented 'add' method: '%s', '%s', '%s'.", object.name(), scheme, section);
   }
 
   /**
@@ -103,7 +100,7 @@ export abstract class AbstractScheme {
    * @param section - new active section
    */
   public static reset(object: GameObject, scheme: EScheme, state: IRegistryObjectState, section: TSection): void {
-    abort("Called not implemented 'reset' method: %s, %s, %s.", object.name(), scheme, section);
+    abort("Called not implemented 'reset' method: '%s', '%s', '%s'.", object.name(), scheme, section);
   }
 
   /**
@@ -114,7 +111,7 @@ export abstract class AbstractScheme {
    * @param scheme - target scheme to disable for
    */
   public static disable(object: GameObject, scheme: EScheme): void {
-    abort("Called not implemented 'disable' method: %s, %s.", object.name(), scheme);
+    abort("Called not implemented 'disable' method: '%s', '%s'.", object.name(), scheme);
   }
 
   /**
@@ -141,8 +138,6 @@ export abstract class AbstractScheme {
   public static unsubscribe(state: IBaseSchemeState, subscriber: ISchemeEventHandler): void {
     if (state.actions) {
       state.actions.delete(subscriber);
-    } else {
-      state.actions = new LuaTable();
     }
   }
 
