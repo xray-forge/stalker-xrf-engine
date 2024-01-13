@@ -1,6 +1,6 @@
 import type { CampManager } from "@/engine/core/ai/camp";
 import type { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
-import type { LabX8DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";
+import type { DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyFieldBinder, AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import type {
   IDynamicSaveData,
@@ -221,7 +221,7 @@ export const registry = {
    * List of active scripted doors.
    * Mainly used for scripted control of state and animation.
    */
-  doors: new LuaTable<TName, LabX8DoorBinder>(),
+  doors: new LuaTable<TName, DoorBinder>(),
   /**
    * List of save markers.
    */

@@ -1,4 +1,4 @@
-import type { LabX8DoorBinder } from "@/engine/core/binders/physic/LabX8DoorBinder";
+import type { DoorBinder } from "@/engine/core/binders/physic/DoorBinder";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -9,7 +9,7 @@ import { registry } from "@/engine/core/database/registry";
  * @param doorBinder - binder object to register
  * @returns game object registry state
  */
-export function registerDoor(doorBinder: LabX8DoorBinder): IRegistryObjectState {
+export function registerDoor(doorBinder: DoorBinder): IRegistryObjectState {
   registry.doors.set(doorBinder.object.name(), doorBinder);
 
   return registerObject(doorBinder.object);
@@ -20,7 +20,7 @@ export function registerDoor(doorBinder: LabX8DoorBinder): IRegistryObjectState 
  *
  * @param doorBinder - binder object to unregister
  */
-export function unregisterDoor(doorBinder: LabX8DoorBinder): void {
+export function unregisterDoor(doorBinder: DoorBinder): void {
   registry.doors.delete(doorBinder.object.name());
   unregisterObject(doorBinder.object);
 }

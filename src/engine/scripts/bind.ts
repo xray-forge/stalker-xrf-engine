@@ -4,7 +4,7 @@ import { HelmetBinder, OutfitBinder, WeaponBinder } from "@/engine/core/binders/
 import {
   ArtefactBinder,
   CampfireBinder,
-  LabX8DoorBinder,
+  DoorBinder,
   PhantomBinder,
   PhysicObjectBinder,
   SignalLightBinder,
@@ -21,19 +21,16 @@ import {
 } from "@/engine/core/binders/zones";
 import { isBoxObject } from "@/engine/core/managers/box/utils";
 import { extern } from "@/engine/core/utils/binding";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, IniFile, Optional } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register binders of engine client side objects.
  */
 extern("bind", {
   actor: (object: GameObject) => object.bind_object(new ActorBinder(object)),
-  anomalyField: (object: GameObject) => object.bind_object(new AnomalyFieldBinder(object)),
-  anomalyZone: (object: GameObject) => object.bind_object(new AnomalyZoneBinder(object)),
-  arenaZone: (object: GameObject) => {
+  anomaly_field: (object: GameObject) => object.bind_object(new AnomalyFieldBinder(object)),
+  anomaly_zone: (object: GameObject) => object.bind_object(new AnomalyZoneBinder(object)),
+  arena_zone: (object: GameObject) => {
     if (object.spawn_ini()?.section_exist("arena_zone")) {
       object.bind_object(new ArenaZoneBinder(object));
     }
@@ -42,34 +39,32 @@ extern("bind", {
   camp: (object: GameObject) => object.bind_object(new CampZoneBinder(object)),
   campfire: (object: GameObject) => object.bind_object(new CampfireBinder(object)),
   crow: (object: GameObject) => object.bind_object(new CrowBinder(object)),
-  // todo: Rename to full name 'helicopter'.
-  heli: (object: GameObject) => {
+  door: (object: GameObject) => object.bind_object(new DoorBinder(object)),
+  helicopter: (object: GameObject) => {
     const ini: Optional<IniFile> = object.spawn_ini();
 
     if (ini?.section_exist("logic")) {
       object.bind_object(new HelicopterBinder(object, ini));
     }
   },
-  // todo: Rename to full name 'doorBinder' / 'door'.
-  labX8Door: (object: GameObject) => object.bind_object(new LabX8DoorBinder(object)),
-  levelChanger: (object: GameObject) => object.bind_object(new LevelChangerBinder(object)),
+  helmet: (object: GameObject) => object.bind_object(new HelmetBinder(object)),
+  level_changer: (object: GameObject) => object.bind_object(new LevelChangerBinder(object)),
   monster: (object: GameObject) => object.bind_object(new MonsterBinder(object)),
+  outfit: (object: GameObject) => object.bind_object(new OutfitBinder(object)),
   phantom: (object: GameObject) => object.bind_object(new PhantomBinder(object)),
-  physicObject: (object: GameObject) => {
+  physic_object: (object: GameObject) => {
     if (object.spawn_ini()?.section_exist("logic") || isBoxObject(object)) {
       object.bind_object(new PhysicObjectBinder(object));
     }
   },
-  weapon: (object: GameObject) => object.bind_object(new WeaponBinder(object)),
-  outfit: (object: GameObject) => object.bind_object(new OutfitBinder(object)),
-  helmet: (object: GameObject) => object.bind_object(new HelmetBinder(object)),
   restrictor: (object: GameObject) => object.bind_object(new RestrictorBinder(object)),
-  signalLight: (object: GameObject) => object.bind_object(new SignalLightBinder(object)),
-  smartCover: (object: GameObject) => object.bind_object(new SmartCoverBinder(object)),
-  smartTerrain: (object: GameObject) => {
+  signal_light: (object: GameObject) => object.bind_object(new SignalLightBinder(object)),
+  smart_cover: (object: GameObject) => object.bind_object(new SmartCoverBinder(object)),
+  smart_terrain: (object: GameObject) => {
     if (object.spawn_ini()?.section_exist("smart_terrain")) {
       object.bind_object(new SmartTerrainBinder(object));
     }
   },
   stalker: (object: GameObject) => object.bind_object(new StalkerBinder(object)),
+  weapon: (object: GameObject) => object.bind_object(new WeaponBinder(object)),
 });

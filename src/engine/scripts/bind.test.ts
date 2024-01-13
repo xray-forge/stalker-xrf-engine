@@ -24,22 +24,23 @@ describe("bind entry point", () => {
     require("@/engine/scripts/bind");
 
     checkBinding("actor");
-    checkBinding("anomalyField");
-    checkBinding("anomalyZone");
+    checkBinding("anomaly_field");
+    checkBinding("anomaly_zone");
+    checkBinding("arena_zone");
     checkBinding("artefact");
     checkBinding("camp");
     checkBinding("campfire");
     checkBinding("crow");
-    checkBinding("heli");
-    checkBinding("labX8Door");
-    checkBinding("levelChanger");
+    checkBinding("helicopter");
+    checkBinding("door");
+    checkBinding("level_changer");
     checkBinding("monster");
     checkBinding("phantom");
-    checkBinding("physicObject");
+    checkBinding("physic_object");
     checkBinding("restrictor");
-    checkBinding("signalLight");
-    checkBinding("smartCover");
-    checkBinding("smartTerrain");
+    checkBinding("signal_light");
+    checkBinding("smart_cover");
+    checkBinding("smart_terrain");
     checkBinding("stalker");
     checkBinding("weapon");
     checkBinding("outfit");
@@ -53,33 +54,33 @@ describe("bind entry point", () => {
   });
 
   it("should correctly bind anomaly fields", () => {
-    const anomalyField: GameObject = MockGameObject.mock();
+    const field: GameObject = MockGameObject.mock();
 
-    callBinding("anomalyField", anomalyField);
-    expect(anomalyField.bind_object).toHaveBeenCalled();
+    callBinding("anomaly_field", field);
+    expect(field.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind anomaly zones", () => {
-    const anomalyZone: GameObject = MockGameObject.mock();
+    const zone: GameObject = MockGameObject.mock();
 
-    callBinding("anomalyZone", anomalyZone);
-    expect(anomalyZone.bind_object).toHaveBeenCalled();
+    callBinding("anomaly_zone", zone);
+    expect(zone.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind arena zones", () => {
-    const arenaZone: GameObject = MockGameObject.mock();
+    const zone: GameObject = MockGameObject.mock();
 
-    callBinding("arenaZone", arenaZone);
-    expect(arenaZone.bind_object).not.toHaveBeenCalled();
+    callBinding("arena_zone", zone);
+    expect(zone.bind_object).not.toHaveBeenCalled();
 
-    jest.spyOn(arenaZone, "spawn_ini").mockImplementation(() => {
+    jest.spyOn(zone, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         arena_zone: "test",
       });
     });
 
-    callBinding("arenaZone", arenaZone);
-    expect(arenaZone.bind_object).toHaveBeenCalled();
+    callBinding("arena_zone", zone);
+    expect(zone.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind artefacts", () => {
@@ -110,33 +111,33 @@ describe("bind entry point", () => {
     expect(crow.bind_object).toHaveBeenCalled();
   });
 
-  it("should correctly bind heli", () => {
-    const heli: GameObject = MockGameObject.mock();
+  it("should correctly bind helicopter", () => {
+    const helicopter: GameObject = MockGameObject.mock();
 
-    callBinding("heli", heli);
-    expect(heli.bind_object).not.toHaveBeenCalled();
+    callBinding("helicopter", helicopter);
+    expect(helicopter.bind_object).not.toHaveBeenCalled();
 
-    jest.spyOn(heli, "spawn_ini").mockImplementation(() => {
+    jest.spyOn(helicopter, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         logic: "test",
       });
     });
 
-    callBinding("heli", heli);
-    expect(heli.bind_object).toHaveBeenCalled();
+    callBinding("heli", helicopter);
+    expect(helicopter.bind_object).toHaveBeenCalled();
   });
 
-  it("should correctly bind labX8Door", () => {
+  it("should correctly bind doors", () => {
     const door: GameObject = MockGameObject.mock();
 
-    callBinding("labX8Door", door);
+    callBinding("door", door);
     expect(door.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind level changer", () => {
     const levelChanger: GameObject = MockGameObject.mock();
 
-    callBinding("levelChanger", levelChanger);
+    callBinding("level_changer", levelChanger);
     expect(levelChanger.bind_object).toHaveBeenCalled();
   });
 
@@ -155,25 +156,25 @@ describe("bind entry point", () => {
   });
 
   it("should correctly bind physic object", () => {
-    const physicObject: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock();
 
-    callBinding("physicObject", physicObject);
-    expect(physicObject.bind_object).not.toHaveBeenCalled();
+    callBinding("physic_object", object);
+    expect(object.bind_object).not.toHaveBeenCalled();
 
-    jest.spyOn(physicObject, "spawn_ini").mockImplementation(() => {
+    jest.spyOn(object, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         logic: "test",
       });
     });
 
-    callBinding("physicObject", physicObject);
-    expect(physicObject.bind_object).toHaveBeenCalledTimes(1);
+    callBinding("physic_object", object);
+    expect(object.bind_object).toHaveBeenCalledTimes(1);
 
-    jest.spyOn(physicObject, "spawn_ini").mockImplementation(() => mockIniFile("test.ltx", {}));
-    jest.spyOn(physicObject, "clsid").mockImplementation(() => clsid.obj_physic);
+    jest.spyOn(object, "spawn_ini").mockImplementation(() => mockIniFile("test.ltx", {}));
+    jest.spyOn(object, "clsid").mockImplementation(() => clsid.obj_physic);
 
-    callBinding("physicObject", physicObject);
-    expect(physicObject.bind_object).toHaveBeenCalledTimes(1);
+    callBinding("physic_object", object);
+    expect(object.bind_object).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly bind restrictor", () => {
@@ -183,33 +184,33 @@ describe("bind entry point", () => {
     expect(restrictor.bind_object).toHaveBeenCalled();
   });
 
-  it("should correctly bind signalLight", () => {
-    const signalLight: GameObject = MockGameObject.mock();
+  it("should correctly bind signal light", () => {
+    const light: GameObject = MockGameObject.mock();
 
-    callBinding("signalLight", signalLight);
-    expect(signalLight.bind_object).toHaveBeenCalled();
+    callBinding("signal_light", light);
+    expect(light.bind_object).toHaveBeenCalled();
   });
 
-  it("should correctly bind smartCover", () => {
-    const smartCover: GameObject = MockGameObject.mock();
+  it("should correctly bind smart_cover", () => {
+    const cover: GameObject = MockGameObject.mock();
 
-    callBinding("smartCover", smartCover);
-    expect(smartCover.bind_object).toHaveBeenCalled();
+    callBinding("smart_cover", cover);
+    expect(cover.bind_object).toHaveBeenCalled();
   });
 
-  it("should correctly bind smartTerrain", () => {
-    const firstSmartTerrain: GameObject = MockGameObject.mock();
-    const secondSmartTerrain: GameObject = MockGameObject.mock();
-    const thirdSmartTerrain: GameObject = MockGameObject.mock();
+  it("should correctly bind smart terrain", () => {
+    const firstTerrain: GameObject = MockGameObject.mock();
+    const secondTerrain: GameObject = MockGameObject.mock();
+    const thirdTerrain: GameObject = MockGameObject.mock();
 
-    callBinding("smartTerrain", firstSmartTerrain);
-    expect(firstSmartTerrain.bind_object).not.toHaveBeenCalled();
-    callBinding("smartTerrain", secondSmartTerrain);
-    expect(secondSmartTerrain.bind_object).not.toHaveBeenCalled();
-    callBinding("smartTerrain", thirdSmartTerrain);
-    expect(thirdSmartTerrain.bind_object).not.toHaveBeenCalled();
+    callBinding("smart_terrain", firstTerrain);
+    expect(firstTerrain.bind_object).not.toHaveBeenCalled();
+    callBinding("smart_terrain", secondTerrain);
+    expect(secondTerrain.bind_object).not.toHaveBeenCalled();
+    callBinding("smart_terrain", thirdTerrain);
+    expect(thirdTerrain.bind_object).not.toHaveBeenCalled();
 
-    jest.spyOn(secondSmartTerrain, "spawn_ini").mockImplementation(() => {
+    jest.spyOn(secondTerrain, "spawn_ini").mockImplementation(() => {
       return mockIniFile("test.ltx", {
         smart_terrain: {},
       });
@@ -217,10 +218,10 @@ describe("bind entry point", () => {
 
     registerSimulator();
 
-    callBinding("smartTerrain", firstSmartTerrain);
-    expect(firstSmartTerrain.bind_object).not.toHaveBeenCalled();
-    callBinding("smartTerrain", secondSmartTerrain);
-    expect(secondSmartTerrain.bind_object).toHaveBeenCalled();
+    callBinding("smart_terrain", firstTerrain);
+    expect(firstTerrain.bind_object).not.toHaveBeenCalled();
+    callBinding("smart_terrain", secondTerrain);
+    expect(secondTerrain.bind_object).toHaveBeenCalled();
   });
 
   it("should correctly bind stalker", () => {

@@ -42,7 +42,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: Rename to animated door?
  */
 @LuabindClass()
-export class LabX8DoorBinder extends object_binder {
+export class DoorBinder extends object_binder {
   public loaded: boolean = false;
   public animationTime: Optional<number> = 0;
 
@@ -222,7 +222,7 @@ export class LabX8DoorBinder extends object_binder {
   }
 
   public override save(packet: NetPacket): void {
-    openSaveMarker(packet, LabX8DoorBinder.__name);
+    openSaveMarker(packet, DoorBinder.__name);
 
     super.save(packet);
     saveObjectLogic(this.object, packet);
@@ -230,11 +230,11 @@ export class LabX8DoorBinder extends object_binder {
     packet.w_bool(this.isPlayFwd);
     packet.w_float(this.object.get_physics_object().anim_time_get());
 
-    closeSaveMarker(packet, LabX8DoorBinder.__name);
+    closeSaveMarker(packet, DoorBinder.__name);
   }
 
   public override load(reader: Reader): void {
-    openLoadMarker(reader, LabX8DoorBinder.__name);
+    openLoadMarker(reader, DoorBinder.__name);
 
     super.load(reader);
     loadObjectLogic(this.object, reader);
@@ -243,7 +243,7 @@ export class LabX8DoorBinder extends object_binder {
     this.animationTime = reader.r_float();
     this.loaded = true;
 
-    closeLoadMarker(reader, LabX8DoorBinder.__name);
+    closeLoadMarker(reader, DoorBinder.__name);
   }
 
   /**
