@@ -1,4 +1,4 @@
-import { callback, ini_file, LuabindClass, object_binder, sound_object } from "xray16";
+import { callback, CPhysicObject, ini_file, LuabindClass, object_binder, sound_object } from "xray16";
 
 import {
   closeLoadMarker,
@@ -12,6 +12,7 @@ import { registerDoor, unregisterDoor } from "@/engine/core/database/doors";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import {
   parseConditionsList,
+  parseStringOptional,
   pickSectionFromCondList,
   readIniNumber,
   readIniString,
@@ -28,120 +29,94 @@ import {
   Reader,
   ServerObject,
   SoundObject,
+  TDuration,
   TLabel,
   TName,
   TPath,
   TSoundObjectType,
 } from "@/engine/lib/types";
 
-const ANIMATED_OBJECT_SECT: string = "animated_object";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Binder of door game objects.
- * todo: Rename to animated door?
+ * Handles animation scripting with open-closed state.
  */
 @LuabindClass()
 export class DoorBinder extends object_binder {
-  public loaded: boolean = false;
-  public animationTime: Optional<number> = 0;
-
+  public isLoaded: boolean = false;
   public isIdle: boolean = true;
-  public isPlayFwd: boolean = false;
+  public isPlayingForward: boolean = false;
+
+  public animationDuration: Optional<TDuration> = 0;
 
   public idleSound: Optional<SoundObject> = null;
   public startSound: Optional<SoundObject> = null;
   public stopSound: Optional<SoundObject> = null;
 
-  public idleDelay!: number;
-  public startDelay!: number;
-  public tip!: TConditionList;
-
   public onUseConditionList!: TConditionList;
   public onStopConditionList!: TConditionList;
   public onStartConditionList!: TConditionList;
+
+  public idleDelay!: number;
+  public startDelay!: number;
+  public tip!: TConditionList;
 
   public constructor(object: GameObject) {
     super(object);
 
     let ini: IniFile = object.spawn_ini()!;
 
-    if (!ini.section_exist(ANIMATED_OBJECT_SECT)) {
-      logger.info("[animated object] no configuration! %s", object.name());
+    if (!ini.section_exist("animated_object")) {
+      logger.info("No animation configuration for bound door '%s'", object.name());
 
       return;
     }
 
-    const filename: Optional<TName> = readIniString(ini, ANIMATED_OBJECT_SECT, "cfg", false);
+    const filename: Optional<TName> = readIniString(ini, "animated_object", "cfg");
 
     if (filename) {
       ini = new ini_file(filename);
     }
 
-    // -- this.idle = 5000
-
-    const idleSound: TPath = readIniString(
-      ini,
-      ANIMATED_OBJECT_SECT,
-      "idle_snd",
-      false,
-      null,
-      "device\\airtight_door_idle"
+    const idleSound: Optional<TPath> = parseStringOptional(
+      readIniString(ini, "animated_object", "idle_snd", false, null, "device\\airtight_door_idle")
     );
-    const startSound: TPath = readIniString(
-      ini,
-      ANIMATED_OBJECT_SECT,
-      "start_snd",
-      false,
-      null,
-      "device\\airtight_door_start"
+    const startSound: Optional<TPath> = parseStringOptional(
+      readIniString(ini, "animated_object", "start_snd", false, null, "device\\airtight_door_start")
     );
-    const stopSound: TPath = readIniString(
-      ini,
-      ANIMATED_OBJECT_SECT,
-      "stop_snd",
-      false,
-      null,
-      "device\\airtight_door_stop"
+    const stopSound: Optional<TPath> = parseStringOptional(
+      readIniString(ini, "animated_object", "stop_snd", false, null, "device\\airtight_door_stop")
     );
 
-    if (idleSound !== null && idleSound !== NIL) {
-      this.idleSound = new sound_object(idleSound);
-    }
+    this.idleSound = idleSound ? new sound_object(idleSound) : null;
+    this.startSound = startSound ? new sound_object(startSound) : null;
+    this.stopSound = stopSound ? new sound_object(stopSound) : null;
 
-    if (startSound !== null && startSound !== NIL) {
-      this.startSound = new sound_object(startSound);
-    }
-
-    if (stopSound !== null && stopSound !== NIL) {
-      this.stopSound = new sound_object(stopSound);
-    }
-
-    this.tip = parseConditionsList(readIniString(ini, ANIMATED_OBJECT_SECT, "tip", false, null, "none"));
+    this.tip = parseConditionsList(readIniString(ini, "animated_object", "tip", false, null, "none"));
 
     let onUse: string = TRUE;
     let onStart: string = TRUE;
     let onStop: string = TRUE;
 
-    if (ini.line_exist(ANIMATED_OBJECT_SECT, "on_use")) {
-      onUse = ini.r_string(ANIMATED_OBJECT_SECT, "on_use");
+    if (ini.line_exist("animated_object", "on_use")) {
+      onUse = ini.r_string("animated_object", "on_use");
+    }
+
+    if (ini.line_exist("animated_object", "on_start")) {
+      onStart = ini.r_string("animated_object", "on_start");
+    }
+
+    if (ini.line_exist("animated_object", "on_stop")) {
+      onStop = ini.r_string("animated_object", "on_stop");
     }
 
     this.onUseConditionList = parseConditionsList(onUse);
-
-    if (ini.line_exist(ANIMATED_OBJECT_SECT, "on_start")) {
-      onStart = ini.r_string(ANIMATED_OBJECT_SECT, "on_start");
-    }
-
     this.onStartConditionList = parseConditionsList(onStart);
-
-    if (ini.line_exist(ANIMATED_OBJECT_SECT, "on_stop")) {
-      onStop = ini.r_string(ANIMATED_OBJECT_SECT, "on_stop");
-    }
-
     this.onStopConditionList = parseConditionsList(onStop);
-    this.idleDelay = readIniNumber(ini, ANIMATED_OBJECT_SECT, "idle_delay", false, 2000);
-    this.startDelay = readIniNumber(ini, ANIMATED_OBJECT_SECT, "start_delay", false, 0);
+
+    this.startDelay = readIniNumber(ini, "animated_object", "start_delay", false, 0);
+    this.idleDelay = readIniNumber(ini, "animated_object", "idle_delay", false, 2000);
   }
 
   public override reinit(): void {
@@ -156,15 +131,20 @@ export class DoorBinder extends object_binder {
 
     registerDoor(this);
 
-    this.object.get_physics_object().stop_anim();
-    this.object.get_physics_object().anim_time_set(0);
     this.object.set_callback(callback.script_animation, this.onAnimationEnd, this);
     this.object.set_callback(callback.use_object, this.onUse, this);
+
+    const physicObject: CPhysicObject = this.object.get_physics_object();
+
+    physicObject.stop_anim();
+    physicObject.anim_time_set(0);
 
     return true;
   }
 
   public override net_destroy(): void {
+    this.object.clear_callbacks();
+
     if (this.idleSound) {
       this.idleSound.stop();
     }
@@ -177,21 +157,21 @@ export class DoorBinder extends object_binder {
       this.stopSound.stop();
     }
 
-    this.object.set_callback(callback.script_animation, null);
     unregisterDoor(this);
+
     super.net_destroy();
   }
 
   public override update(delta: number): void {
     super.update(delta);
 
-    if (this.animationTime && this.loaded) {
-      this.object.get_physics_object().anim_time_set(this.animationTime);
-      this.animationTime = null;
+    if (this.animationDuration && this.isLoaded) {
+      this.object.get_physics_object().anim_time_set(this.animationDuration);
+      this.animationDuration = null;
     }
 
     if (!this.isIdle) {
-      if (this.isPlayFwd) {
+      if (this.isPlayingForward) {
         this.object.get_physics_object().run_anim_forward();
       } else {
         this.object.get_physics_object().run_anim_back();
@@ -199,8 +179,8 @@ export class DoorBinder extends object_binder {
       // --        }
     } else {
       this.object.get_physics_object().stop_anim();
-      if (this.animationTime) {
-        this.object.get_physics_object().anim_time_set(this.animationTime);
+      if (this.animationDuration) {
+        this.object.get_physics_object().anim_time_set(this.animationDuration);
       }
 
       if (this.idleSound) {
@@ -208,13 +188,9 @@ export class DoorBinder extends object_binder {
       }
     }
 
-    const usageTipLabel: TLabel = pickSectionFromCondList(registry.actor, null, this.tip)!;
+    const doorUseTipLabel: TLabel = pickSectionFromCondList(registry.actor, null, this.tip)!;
 
-    if (usageTipLabel !== "none") {
-      this.object.set_tip_text(usageTipLabel);
-    } else {
-      this.object.set_tip_text("");
-    }
+    this.object.set_tip_text(doorUseTipLabel !== "none" ? doorUseTipLabel : "");
   }
 
   public override net_save_relevant(): boolean {
@@ -225,9 +201,11 @@ export class DoorBinder extends object_binder {
     openSaveMarker(packet, DoorBinder.__name);
 
     super.save(packet);
+
     saveObjectLogic(this.object, packet);
+
     packet.w_bool(this.isIdle);
-    packet.w_bool(this.isPlayFwd);
+    packet.w_bool(this.isPlayingForward);
     packet.w_float(this.object.get_physics_object().anim_time_get());
 
     closeSaveMarker(packet, DoorBinder.__name);
@@ -237,11 +215,13 @@ export class DoorBinder extends object_binder {
     openLoadMarker(reader, DoorBinder.__name);
 
     super.load(reader);
+
     loadObjectLogic(this.object, reader);
+
     this.isIdle = reader.r_bool();
-    this.isPlayFwd = reader.r_bool();
-    this.animationTime = reader.r_float();
-    this.loaded = true;
+    this.isPlayingForward = reader.r_bool();
+    this.animationDuration = reader.r_float();
+    this.isLoaded = true;
 
     closeLoadMarker(reader, DoorBinder.__name);
   }
@@ -250,11 +230,15 @@ export class DoorBinder extends object_binder {
    * todo: Description.
    */
   public forwardAnimation(): void {
+    this.isIdle = false;
+    this.isPlayingForward = true;
+
     if (this.idleSound) {
       this.idleSound.stop();
     }
 
     this.object.get_physics_object().stop_anim();
+
     if (this.startSound) {
       this.startSound.play_at_pos(this.object, this.object.position(), this.startDelay / 1000, ESoundObjectType.S3D);
     }
@@ -267,9 +251,6 @@ export class DoorBinder extends object_binder {
         (ESoundObjectType.S3D + ESoundObjectType.LOOPED) as TSoundObjectType
       );
     }
-
-    this.isIdle = false;
-    this.isPlayFwd = true;
 
     pickSectionFromCondList(registry.actor, this.object, this.onStartConditionList);
   }
@@ -278,11 +259,15 @@ export class DoorBinder extends object_binder {
    * todo: Description.
    */
   public backwardAnimation(): void {
+    this.isIdle = false;
+    this.isPlayingForward = false;
+
     if (this.idleSound) {
       this.idleSound.stop();
     }
 
     this.object.get_physics_object().stop_anim();
+
     if (this.startSound) {
       this.startSound.play_at_pos(this.object, this.object.position(), this.startDelay / 1000, ESoundObjectType.S3D);
     }
@@ -296,8 +281,6 @@ export class DoorBinder extends object_binder {
       );
     }
 
-    this.isIdle = false;
-    this.isPlayFwd = false;
     pickSectionFromCondList(registry.actor, this.object, this.onStartConditionList);
   }
 
@@ -307,11 +290,13 @@ export class DoorBinder extends object_binder {
   public stopAnimation(): void {
     this.object.get_physics_object().stop_anim();
     this.isIdle = true;
+
     if (this.stopSound) {
       this.stopSound.play_at_pos(this.object, this.object.position(), 0, ESoundObjectType.S3D);
     }
 
-    this.animationTime = this.object.get_physics_object().anim_time_get();
+    this.animationDuration = this.object.get_physics_object().anim_time_get();
+
     pickSectionFromCondList(registry.actor, this.object, this.onStopConditionList);
   }
 
@@ -325,7 +310,7 @@ export class DoorBinder extends object_binder {
       }
 
       this.isIdle = true;
-      this.animationTime = this.object.get_physics_object().anim_time_get();
+      this.animationDuration = this.object.get_physics_object().anim_time_get();
       pickSectionFromCondList(registry.actor, this.object, this.onStopConditionList);
     }
   }

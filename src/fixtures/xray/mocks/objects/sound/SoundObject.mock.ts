@@ -1,11 +1,19 @@
 import { jest } from "@jest/globals";
 
-import { TDuration, TRate } from "@/engine/lib/types";
+import { Optional, SoundObject, TDuration, TRate } from "@/engine/lib/types";
 
 /**
  * Mock generic engine sound object.
  */
 export class MockSoundObject {
+  public static fromObject(sound: Optional<SoundObject>): MockSoundObject {
+    if (!sound) {
+      throw new Error("Unexpected null provided for type assertion of sound object.");
+    }
+
+    return sound as unknown as MockSoundObject;
+  }
+
   public path: string;
   public volume: TRate = 0;
   public soundLength: TDuration = 30;

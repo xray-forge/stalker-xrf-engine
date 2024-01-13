@@ -188,6 +188,11 @@ export function mockGameObject({
     character_rank: rest.character_rank ?? jest.fn(() => null),
     clsid,
     clear_animations: rest.clear_animations ?? jest.fn(),
+    clear_callbacks:
+      rest.clear_callbacks ??
+      jest.fn(() => {
+        Object.keys(callbacks).forEach((it) => delete callbacks[it as unknown as TCallback]);
+      }),
     command: rest.command ?? jest.fn(),
     critically_wounded: rest.critically_wounded ?? jest.fn(() => false),
     debug_planner: rest.debug_planner ?? jest.fn(),
