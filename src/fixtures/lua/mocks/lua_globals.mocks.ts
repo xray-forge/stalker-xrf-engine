@@ -19,6 +19,8 @@ export function mockLuaGlobals(): void {
   global._G = global;
 
   // @ts-ignore
+  global._VERSION = "fengari-jest";
+  // @ts-ignore
   global.LuaTable = MockLuaTable;
   // @ts-ignore
   global.string = mockString;

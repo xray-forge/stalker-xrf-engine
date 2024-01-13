@@ -10,11 +10,8 @@ import {
   preconditionOnly3andMoreMode,
   preconditionOnly3andMoreModeVisible,
 } from "@/engine/core/ui/menu/options/options_preconditions";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Advanced section from video option menu.

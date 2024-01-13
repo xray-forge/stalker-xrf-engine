@@ -1,5 +1,6 @@
 import { ILuaState, ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
+import { MAX_U32 } from "@/engine/lib/constants/memory";
 import type { Optional } from "@/engine/lib/types";
 
 /**
@@ -8,19 +9,30 @@ import type { Optional } from "@/engine/lib/types";
  */
 export const mockString = {
   format: (base: string, ...replacements: Array<unknown>) => {
-    let result: string = base;
+    const L: ILuaState = lauxlib.luaL_newstate();
+
+    lualib.luaL_openlibs(L);
+
+    lua.lua_getglobal(L, "string");
+    lua.lua_getfield(L, -1, "format");
+    lua.lua_pushstring(L, to_luastring(base));
 
     for (const replacement of replacements) {
-      if (base.indexOf("%s") === -1) {
-        throw new Error(`String format error - no target for interpolation found for '${replacement}'.`);
+      if (typeof replacement === "number") {
+        // Assume number is integer only if it is in range of U32 and has no remainder.
+        if (replacement % 1 === 0 && replacement <= MAX_U32) {
+          lua.lua_pushinteger(L, Math.trunc(replacement));
+        } else {
+          lua.lua_pushnumber(L, replacement);
+        }
+      } else {
+        lua.lua_pushstring(L, to_luastring(tostring(replacement)));
       }
-
-      result = result.replace("%s", tostring(replacement));
     }
 
-    result = result.replace(/%%/g, "%");
+    lua.lua_call(L, 1 + replacements.length, 1);
 
-    return result;
+    return to_jsstring(lauxlib.luaL_tolstring(L, -1));
   },
   find: (target: string, pattern: string, startIndex?: number): Array<Optional<string | number>> => {
     const L: ILuaState = lauxlib.luaL_newstate();

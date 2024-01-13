@@ -78,8 +78,8 @@ export class MainMenu extends CUIScriptWnd {
     this.xrProfileStore = this.xrMenuController.GetProfileStore();
     this.xrGameSpyProfile = this.xrLoginManager.get_current_profile();
 
-    this.initControls();
-    this.initCallBacks();
+    this.initializeControls();
+    this.initializeCallBacks();
 
     EventsManager.emitEvent(EGameEvent.MAIN_MENU_ON, this);
   }
@@ -87,7 +87,7 @@ export class MainMenu extends CUIScriptWnd {
   /**
    * Initialize UI controls.
    */
-  public initControls(): void {
+  public initializeControls(): void {
     this.SetWndRect(createScreenRectangle());
 
     const xml: CScriptXmlInit = resolveXmlFile(base);
@@ -112,9 +112,9 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * Initialize callback handlers of main menu buttons.
+   * Initialize callback handlers of main menu controls.
    */
-  public initCallBacks(): void {
+  public initializeCallBacks(): void {
     this.AddCallback("btn_novice", ui_events.BUTTON_CLICKED, () => startNewGame(gameDifficulties.gd_novice), this);
     this.AddCallback("btn_stalker", ui_events.BUTTON_CLICKED, () => startNewGame(gameDifficulties.gd_stalker), this);
     this.AddCallback("btn_veteran", ui_events.BUTTON_CLICKED, () => startNewGame(gameDifficulties.gd_veteran), this);
@@ -141,6 +141,10 @@ export class MainMenu extends CUIScriptWnd {
       this
     );
     this.AddCallback("msg_box", ui_events.MESSAGE_BOX_QUIT_WIN_CLICKED, () => this.onQuitGameButtonClick(), this);
+  }
+
+  public override Show(isVisible: boolean): void {
+    this.xrMenuPageController.SetVisibleMagnifier(isVisible);
   }
 
   /**
@@ -171,18 +175,14 @@ export class MainMenu extends CUIScriptWnd {
   public onLoadLastSaveButtonClick(): void {
     logger.info("Load last save click");
 
-    if (registry.simulator === null) {
-      return loadLastGameSave();
-    }
-
-    if (!registry.actor?.alive()) {
-      return loadLastGameSave();
-    }
-
     // If currently playing game and actor is alive, ask confirmation.
-    this.modalBoxMode = EMainMenuModalMode.CONFIRM_LOAD_SAVE;
-    this.uiModalBox.InitMessageBox("message_box_confirm_load_save");
-    this.uiModalBox.ShowDialog(true);
+    if (registry.simulator !== null && registry.actor?.alive()) {
+      this.modalBoxMode = EMainMenuModalMode.CONFIRM_LOAD_SAVE;
+      this.uiModalBox.InitMessageBox("message_box_confirm_load_save");
+      this.uiModalBox.ShowDialog(true);
+    } else {
+      loadLastGameSave();
+    }
   }
 
   /**
@@ -196,7 +196,7 @@ export class MainMenu extends CUIScriptWnd {
    * On click extensions menu item button.
    */
   public onExtensionsButtonClick(): void {
-    if (this.uiGameExtensionsDialog === null) {
+    if (!this.uiGameExtensionsDialog) {
       this.uiGameExtensionsDialog = new ExtensionsDialog(this);
     }
 
@@ -277,18 +277,14 @@ export class MainMenu extends CUIScriptWnd {
   }
 
   /**
-   * Clicked debug button.
+   * Clicked debugging menu button.
    */
   public onDevelopmentDebugButtonClick(): void {
-    if (forgeConfig.DEBUG.IS_ENABLED) {
-      logger.info("Activating debug settings view");
-    } else {
-      logger.info("Debug settings are disabled");
-
-      return;
+    if (!forgeConfig.DEBUG.IS_ENABLED) {
+      return logger.info("Debug settings are disabled");
     }
 
-    if (this.uiGameDebugDialog === null) {
+    if (!this.uiGameDebugDialog) {
       this.uiGameDebugDialog = new DebugDialog(this);
     }
 
@@ -302,7 +298,7 @@ export class MainMenu extends CUIScriptWnd {
    * On open load games menu click.
    */
   public onLoadGameButtonClick(): void {
-    if (this.uiGameSavesLoadDialog === null) {
+    if (!this.uiGameSavesLoadDialog) {
       this.uiGameSavesLoadDialog = new LoadDialog(this);
     }
 
@@ -316,8 +312,10 @@ export class MainMenu extends CUIScriptWnd {
    * Confirm message box confirmation.
    */
   public onMessageBoxConfirmClick(): void {
-    if (this.modalBoxMode === EMainMenuModalMode.CONFIRM_LOAD_SAVE) {
-      loadLastGameSave();
+    switch (this.modalBoxMode) {
+      case EMainMenuModalMode.CONFIRM_LOAD_SAVE:
+        loadLastGameSave();
+        break;
     }
 
     this.modalBoxMode = EMainMenuModalMode.OFF;
@@ -330,16 +328,6 @@ export class MainMenu extends CUIScriptWnd {
     this.modalBoxMode = EMainMenuModalMode.OFF;
   }
 
-  /**
-   * Show menu magnifier on main menu show.
-   */
-  public override Show(isVisible: boolean): void {
-    this.xrMenuPageController.SetVisibleMagnifier(isVisible);
-  }
-
-  /**
-   * Handle keyboard buttons press events.
-   */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 

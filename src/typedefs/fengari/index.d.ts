@@ -28,6 +28,7 @@ declare module "fengari" {
     lua_pushstring(state: ILuaState, luaString: ILuaString): unknown;
     lua_call(state: ILuaState, parametersCount: number, returnValuesCount: number): unknown;
     lua_pushvalue(state: ILuaState, index: number): unknown;
+    lua_pushinteger(state: ILuaState, number: number): unknown;
     lua_pushnumber(state: ILuaState, number: number): unknown;
     lua_pushnil(state: ILuaState,): unknown;
     lua_pop(state: ILuaState, count: number): unknown;

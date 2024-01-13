@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param selector - string id of element in base XML for reading
  * @param base - reference of base element to which element should be initialized
  * @param descriptor - configuration of element registration events
- * @returns initilized UI element instance
+ * @returns initialized UI element instance
  */
 export function initializeElement<T extends CUIWindow>(
   xml: XmlInit,

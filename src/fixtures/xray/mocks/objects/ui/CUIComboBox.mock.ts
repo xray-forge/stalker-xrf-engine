@@ -9,4 +9,10 @@ export class MockCUIComboBox extends MockCUIWindow {
   }
 
   public CurrentID = jest.fn(() => 0);
+
+  public SetCurrentID = jest.fn();
+
+  public AddItem = jest.fn();
+
+  public GetText = jest.fn(() => null);
 }

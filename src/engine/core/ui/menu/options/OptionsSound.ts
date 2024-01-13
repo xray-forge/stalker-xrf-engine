@@ -1,9 +1,6 @@
 import { CScriptXmlInit, CUIWindow, LuabindClass } from "xray16";
 
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { create2dVector } from "@/engine/core/utils/vector";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Sound section from option menu.
@@ -19,8 +16,6 @@ export class OptionsSound extends CUIWindow {
     this.SetWndPos(create2dVector(x, y));
     this.SetWndSize(create2dVector(738, 416));
     this.SetAutoDelete(true);
-
-    // -- this.bk = xml.InitFrame("frame", this)
 
     xml.InitStatic("tab_sound:cap_mastervolume", this);
     xml.InitStatic("tab_sound:cap_musicvolume", this);

@@ -19,4 +19,6 @@ export class MockCUIStatic extends MockCUIWindow {
   public SetStretchTexture = jest.fn();
 
   public SetTextureRect = jest.fn();
+
+  public SetText = jest.fn();
 }

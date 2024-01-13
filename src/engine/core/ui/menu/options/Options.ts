@@ -316,9 +316,6 @@ export class Options extends CUIScriptWnd {
     this.uiDialogVideoAdvancedSettings.Show(false);
   }
 
-  /**
-   * Handle keyboard clicks.
-   */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     const result: boolean = super.OnKeyboard(key, event);
 

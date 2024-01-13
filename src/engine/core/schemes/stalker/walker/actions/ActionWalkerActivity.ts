@@ -10,10 +10,7 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, ISchemeEventHandler, Optional } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * GOAP action implementing walker patrol logics.
@@ -46,8 +43,6 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   }
 
   public override initialize(): void {
-    logger.info("Activate walker scheme: %s", this.object.name());
-
     super.initialize();
 
     this.object.set_desired_position();
@@ -57,8 +52,6 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   }
 
   public override finalize(): void {
-    logger.info("Deactivate walker scheme: %s", this.object.name());
-
     super.finalize();
 
     this.patrolManager.finalize();

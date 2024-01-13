@@ -96,8 +96,8 @@ export class LoadDialog extends CUIScriptWnd {
     this.uiPicture = initializeElement(xml, EElementType.STATIC, "form:picture", this.uiForm);
     initializeStatics(xml, this.uiForm, "form:caption");
 
-    this.uiFileCaption = xml.InitTextWnd("form:file_caption", this.uiForm);
-    this.uiFileData = xml.InitTextWnd("form:file_data", this.uiForm);
+    this.uiFileCaption = initializeElement(xml, EElementType.TEXT_WINDOW, "form:file_caption", this.uiForm);
+    this.uiFileData = initializeElement(xml, EElementType.TEXT_WINDOW, "form:file_data", this.uiForm);
 
     xml.InitFrame("form:list_frame", this.uiForm);
 
@@ -140,9 +140,8 @@ export class LoadDialog extends CUIScriptWnd {
         0,
         string.len(file.NameFull()) - string.len(forgeConfig.SAVE.GAME_SAVE_EXTENSION)
       );
-      const datetime: TLabel = "[" + file.ModifDigitOnly() + "]";
 
-      this.addItemToList(filename, datetime);
+      this.addItemToList(filename, `[${file.ModifDigitOnly()}]`);
     }
   }
 
@@ -255,7 +254,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const item = this.uiListBox.GetSelectedItem();
+    const item: Optional<LoadItem> = this.uiListBox.GetSelectedItem();
 
     if (item === null) {
       return;
@@ -320,9 +319,6 @@ export class LoadDialog extends CUIScriptWnd {
     this.uiMessageBox.ShowDialog(true);
   }
 
-  /**
-   * Handle keyboard button press.
-   */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);
 

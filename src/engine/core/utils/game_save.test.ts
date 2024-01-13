@@ -37,7 +37,7 @@ describe("getFileDataForGameSave utils", () => {
 
     expect(getFileDataForGameSave("test")).toBe(
       "translated_st_level: translated_pripyat\\ntranslated_ui_inv_time: 09:30 06/12/2012\\n" +
-        "translated_st_ui_health_sensor %d100"
+        "translated_st_ui_health_sensor 100%"
     );
   });
 });

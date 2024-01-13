@@ -4,8 +4,6 @@ import { Options } from "@/engine/core/ui/menu/options/Options";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { create2dVector } from "@/engine/core/utils/vector";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
 /**
  * Controls section from option menu.
  */
@@ -20,8 +18,6 @@ export class OptionsControls extends CUIWindow {
     this.SetWndPos(create2dVector(x, y));
     this.SetWndSize(create2dVector(738, 416));
     this.SetAutoDelete(true);
-
-    // -- this.bk = xml.InitFrame("frame", this)
 
     xml.InitStatic("tab_controls:cap_mousesens", this);
     xml.InitFrameLine("tab_controls:cap_keyboardsetup", this);

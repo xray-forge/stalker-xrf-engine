@@ -10,12 +10,10 @@ import {
 } from "xray16";
 
 import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/debug_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugDialog.component";
 
 /**
@@ -39,8 +37,8 @@ export class DebugDialog extends CUIScriptWnd {
     this.SetWindowName(DebugDialog.__name);
 
     this.initControls();
-    this.initCallBacks();
-    this.initState();
+    this.initializeCallbacks();
+    this.initializeState();
   }
 
   /**
@@ -78,10 +76,10 @@ export class DebugDialog extends CUIScriptWnd {
   /**
    * Initialize UI components handlers.
    */
-  public initCallBacks(): void {
+  public initializeCallbacks(): void {
     this.AddCallback("cancel_button", ui_events.BUTTON_CLICKED, () => this.onCancelButtonAction(), this);
 
-    for (const [k, it] of pairs(EDebugSection)) {
+    for (const [, it] of pairs(EDebugSection)) {
       this.AddCallback("section_" + it, ui_events.BUTTON_CLICKED, () => this.onSectionSwitchClicked(it), this);
     }
   }
@@ -89,7 +87,7 @@ export class DebugDialog extends CUIScriptWnd {
   /**
    * Initialize state of dialog UI.
    */
-  public initState(): void {
+  public initializeState(): void {
     Object.entries(sectionsMap).forEach(([section, factory]) => {
       const sectionComponent: CUIWindow = factory(this);
 

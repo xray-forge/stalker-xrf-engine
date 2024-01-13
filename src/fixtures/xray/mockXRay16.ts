@@ -16,6 +16,7 @@ import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mo
 import { MockSound } from "@/fixtures/xray/mocks/actions/sound.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockColor, mockGetARGB } from "@/fixtures/xray/mocks/color.mock";
+import { mockCommandLine } from "@/fixtures/xray/mocks/command_line.mock";
 import { MockConsole } from "@/fixtures/xray/mocks/console.mock";
 import {
   mockCallbacks,
@@ -180,6 +181,7 @@ export function mockXRay16({
   callback = mockCallbacks,
   clsid = mockClsid,
   color = MockColor,
+  command_line = mockCommandLine,
   cond = MockCond,
   connect_error_cb = MockConnectErrorCb,
   create_ini_file = mockCreateIniFile,
@@ -317,6 +319,7 @@ export function mockXRay16({
     callback,
     clsid,
     color,
+    command_line,
     cond,
     connect_error_cb,
     create_ini_file,
