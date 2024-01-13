@@ -12,8 +12,14 @@ import {
   TItemUpgradeBranch,
   UpgradesManager,
 } from "@/engine/core/managers/upgrades";
-import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { getExtern } from "@/engine/core/utils/binding";
+import {
+  readWeaponAccuracy,
+  readWeaponDamage,
+  readWeaponDamageMultiplayer,
+  readWeaponHandling,
+  readWeaponRPM,
+} from "@/engine/core/utils/weapon_parameters";
 import {
   AnyArgs,
   AnyCallablesModule,
@@ -24,7 +30,10 @@ import {
   TName,
 } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding } from "@/fixtures/engine";
+import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/utils/weapon_parameters");
 
 jest.mock("@/engine/core/managers/upgrades/utils/upgrades_price_utils", () => ({
   canRepairItem: jest.fn(() => true),
@@ -210,29 +219,30 @@ describe("interface external callbacks", () => {
     expect(callPdaBinding("get_stat", [3])).toBe("test-stat");
     expect(pdaManager.getStat).toHaveBeenCalledWith(3);
   });
+
   it("ui_wpn_params callbacks", () => {
-    jest.spyOn(WeaponParams, "getWeaponRPM").mockImplementation(jest.fn(() => 1));
-    jest.spyOn(WeaponParams, "getWeaponDamage").mockImplementation(jest.fn(() => 2));
-    jest.spyOn(WeaponParams, "getWeaponDamageMultiplayer").mockImplementation(jest.fn(() => 3));
-    jest.spyOn(WeaponParams, "getWeaponHandling").mockImplementation(jest.fn(() => 4));
-    jest.spyOn(WeaponParams, "getWeaponAccuracy").mockImplementation(jest.fn(() => 5));
+    replaceFunctionMock(readWeaponRPM, () => 1);
+    replaceFunctionMock(readWeaponDamage, () => 2);
+    replaceFunctionMock(readWeaponDamageMultiplayer, () => 3);
+    replaceFunctionMock(readWeaponHandling, () => 4);
+    replaceFunctionMock(readWeaponAccuracy, () => 5);
 
     const callWeaponBinding = (name: TName, args: AnyArgs = []) =>
       callBinding(name, args, (_G as AnyObject)["ui_wpn_params"]);
 
     expect(callWeaponBinding("GetRPM", ["a", "b"])).toBe(1);
-    expect(WeaponParams.getWeaponRPM).toHaveBeenCalledWith("a", "b");
+    expect(readWeaponRPM).toHaveBeenCalledWith("a", "b");
 
     expect(callWeaponBinding("GetDamage", ["a", "b"])).toBe(2);
-    expect(WeaponParams.getWeaponDamage).toHaveBeenCalledWith("a", "b");
+    expect(readWeaponDamage).toHaveBeenCalledWith("a", "b");
 
     expect(callWeaponBinding("GetDamageMP", ["a", "b"])).toBe(3);
-    expect(WeaponParams.getWeaponDamageMultiplayer).toHaveBeenCalledWith("a", "b");
+    expect(readWeaponDamageMultiplayer).toHaveBeenCalledWith("a", "b");
 
     expect(callWeaponBinding("GetHandling", ["a", "b"])).toBe(4);
-    expect(WeaponParams.getWeaponHandling).toHaveBeenCalledWith("a", "b");
+    expect(readWeaponHandling).toHaveBeenCalledWith("a", "b");
 
     expect(callWeaponBinding("GetAccuracy", ["a", "b"])).toBe(5);
-    expect(WeaponParams.getWeaponAccuracy).toHaveBeenCalledWith("a", "b");
+    expect(readWeaponAccuracy).toHaveBeenCalledWith("a", "b");
   });
 });

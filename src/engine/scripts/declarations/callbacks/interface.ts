@@ -9,9 +9,15 @@ import {
   issueUpgradeProperty,
 } from "@/engine/core/managers/upgrades/utils/upgrades_label_utils";
 import { canRepairItem } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
-import { WeaponParams } from "@/engine/core/ui/game/WeaponParams";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
+import {
+  readWeaponAccuracy,
+  readWeaponDamage,
+  readWeaponDamageMultiplayer,
+  readWeaponHandling,
+  readWeaponRPM,
+} from "@/engine/core/utils/weapon_parameters";
 import {
   AnyArgs,
   AnyObject,
@@ -146,13 +152,10 @@ extern("pda", {
  * Params in weapon menu in inventory.
  */
 extern("ui_wpn_params", {
-  GetRPM: (section: TSection, upgradeSections: string): number => WeaponParams.getWeaponRPM(section, upgradeSections),
-  GetDamage: (section: TSection, upgradeSections: string): number =>
-    WeaponParams.getWeaponDamage(section, upgradeSections),
+  GetRPM: (section: TSection, upgradeSections: string): number => readWeaponRPM(section, upgradeSections),
+  GetDamage: (section: TSection, upgradeSections: string): number => readWeaponDamage(section, upgradeSections),
   GetDamageMP: (section: TSection, upgradeSections: string): number =>
-    WeaponParams.getWeaponDamageMultiplayer(section, upgradeSections),
-  GetHandling: (section: TSection, upgradeSections: string): number =>
-    WeaponParams.getWeaponHandling(section, upgradeSections),
-  GetAccuracy: (section: TSection, upgradeSections: string): number =>
-    WeaponParams.getWeaponAccuracy(section, upgradeSections),
+    readWeaponDamageMultiplayer(section, upgradeSections),
+  GetHandling: (section: TSection, upgradeSections: string): number => readWeaponHandling(section, upgradeSections),
+  GetAccuracy: (section: TSection, upgradeSections: string): number => readWeaponAccuracy(section, upgradeSections),
 });

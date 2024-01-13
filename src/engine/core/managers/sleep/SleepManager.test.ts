@@ -4,12 +4,10 @@ import { level } from "xray16";
 import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { sleepConfig } from "@/engine/core/managers/sleep/SleepConfig";
-import { SleepManager } from "@/engine/core/managers/sleep/SleepManager";
-import { SurgeManager } from "@/engine/core/managers/surge";
-import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
+import { sleepConfig, SleepManager } from "@/engine/core/managers/sleep";
+import { surgeConfig, SurgeManager } from "@/engine/core/managers/surge";
 import { WeatherManager } from "@/engine/core/managers/weather";
-import { SleepDialog } from "@/engine/core/ui/game/sleep/SleepDialog";
+import { SleepDialog } from "@/engine/core/ui/game/sleep";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
@@ -18,7 +16,7 @@ import { Console } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockConsole, MockCUITrackBar } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/ui/game/SleepDialog", () => ({
+jest.mock("@/engine/core/ui/game/sleep", () => ({
   SleepDialog: class {
     public uiTimeTrack = MockCUITrackBar.mock();
     public show = jest.fn();

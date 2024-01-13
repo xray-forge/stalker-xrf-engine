@@ -6,9 +6,13 @@ import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
 /**
  * Mock class implementing engine ini files reading with JSON based data stores.
  */
-export class MockIniFile<T extends AnyObject> {
+export class MockIniFile<T extends AnyObject = AnyObject> {
   public static mock(path: TPath, data?: AnyObject, content?: string): IniFile {
     return new MockIniFile(path, data, content) as unknown as IniFile;
+  }
+
+  public static create<T extends AnyObject = AnyObject>(path: TPath, data?: T, content?: string): MockIniFile<T> {
+    return new MockIniFile<T>(path, data, content);
   }
 
   public static register(path: TPath, data: AnyObject): void {
