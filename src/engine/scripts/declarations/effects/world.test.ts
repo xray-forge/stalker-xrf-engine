@@ -2,6 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 
 import { getManager, IRegistryObjectState, registerObject, registerStoryLink } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
+import { SurgeManager } from "@/engine/core/managers/surge";
 import { EScheme, GameObject, SoundObject } from "@/engine/lib/types";
 import {
   callXrEffect,
@@ -170,9 +171,27 @@ describe("world effects implementation", () => {
 
   it.todo("set_weather should change weather");
 
-  it.todo("start_surge should start surge");
+  it("start_surge should stop sounds", () => {
+    const surgeManager: SurgeManager = getManager(SurgeManager);
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("stop_surge should stop surge");
+    jest.spyOn(surgeManager, "requestSurgeStart").mockImplementation(jest.fn());
+
+    callXrEffect("start_surge", MockGameObject.mockActor(), object);
+
+    expect(surgeManager.requestSurgeStart).toHaveBeenCalledTimes(1);
+  });
+
+  it("stop_surge should stop sounds", () => {
+    const surgeManager: SurgeManager = getManager(SurgeManager);
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(surgeManager, "requestSurgeStop").mockImplementation(jest.fn());
+
+    callXrEffect("stop_surge", MockGameObject.mockActor(), object);
+
+    expect(surgeManager.requestSurgeStop).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("set_surge_mess_and_task should set surge message and task");
 

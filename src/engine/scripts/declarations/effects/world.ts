@@ -429,18 +429,16 @@ extern(
 );
 
 /**
- * todo;
+ * Request start of surge.
  */
 extern("xr_effects.start_surge", (): void => {
-  logger.info("Start surge");
   getManager(SurgeManager).requestSurgeStart();
 });
 
 /**
- * todo;
+ * Request stop of surge.
  */
 extern("xr_effects.stop_surge", (): void => {
-  logger.info("Stop surge");
   getManager(SurgeManager).requestSurgeStop();
 });
 
