@@ -123,7 +123,7 @@ describe("bind entry point", () => {
       });
     });
 
-    callBinding("heli", helicopter);
+    callBinding("helicopter", helicopter);
     expect(helicopter.bind_object).toHaveBeenCalled();
   });
 
