@@ -20,7 +20,6 @@ import { getHeliHealth } from "@/engine/core/schemes/helicopter/heli_move/heli_u
 import { HeliCombat } from "@/engine/core/schemes/helicopter/heli_move/HeliCombat";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/helicopter/heli_move/HeliFire";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   ESchemeEvent,
@@ -38,8 +37,6 @@ import {
   TRate,
   Vector,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Binder for helicopter game object events and logics.
@@ -120,25 +117,16 @@ export class HelicopterBinder extends object_binder {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_destroy(): void {
     unregisterHelicopter(this);
 
     super.net_destroy();
   }
 
-  /**
-   * todo: Description.
-   */
   public override net_save_relevant(): boolean {
     return true;
   }
 
-  /**
-   * todo: Description.
-   */
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, HelicopterBinder.__name);
     super.save(packet);
@@ -148,9 +136,6 @@ export class HelicopterBinder extends object_binder {
     (this.state.combat as unknown as HeliCombat).save(packet);
   }
 
-  /**
-   * todo: Description.
-   */
   public override load(reader: Reader): void {
     this.loaded = true;
 

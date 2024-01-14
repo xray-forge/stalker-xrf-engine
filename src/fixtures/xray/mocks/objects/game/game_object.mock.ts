@@ -224,6 +224,7 @@ export function mockGameObject({
     drop_item_and_teleport: rest.drop_item_and_teleport ?? jest.fn(),
     enable_anomaly: rest.enable_anomaly ?? jest.fn(),
     enable_attachable_item: rest.enable_attachable_item ?? jest.fn(),
+    enable_level_changer: rest.enable_level_changer ?? jest.fn(),
     enable_night_vision: rest.enable_night_vision ?? jest.fn(),
     enable_talk: rest.enable_talk ?? jest.fn(),
     enable_trade: rest.enable_trade ?? jest.fn(),
@@ -365,17 +366,21 @@ export function mockGameObject({
       }),
     restore_ignore_monster_threshold: rest.restore_max_ignore_monster_distance ?? jest.fn(),
     restore_max_ignore_monster_distance: rest.restore_max_ignore_monster_distance ?? jest.fn(),
-    set_active_task: rest.set_active_task ?? jest.fn(),
-    set_const_force: rest.set_const_force ?? jest.fn(),
-    set_desired_direction: rest.set_desired_direction ?? jest.fn(),
-    set_desired_position: rest.set_desired_position ?? jest.fn(),
-    set_detail_path_type: rest.set_detail_path_type ?? jest.fn(),
-    set_start_dialog: rest.set_start_dialog ?? jest.fn(),
-    set_tip_text: rest.set_tip_text ?? jest.fn(),
-    sell_condition: rest.sell_condition ?? jest.fn(),
     script: rest.script ?? jest.fn(),
     section: section ?? jest.fn(() => sectionOverride),
     see: rest.see ?? jest.fn(() => false),
+    sell_condition: rest.sell_condition ?? jest.fn(),
+    set_active_task: rest.set_active_task ?? jest.fn(),
+    set_actor_position:
+      rest.set_actor_position ||
+      jest.fn((it: Vector) => {
+        objectPosition = it;
+      }),
+    set_actor_direction:
+      rest.set_actor_direction ||
+      jest.fn((it: number) => {
+        objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
+      }),
     set_body_state: rest.set_body_state ?? jest.fn(),
     set_callback:
       rest.set_callback ||
@@ -386,21 +391,35 @@ export function mockGameObject({
           delete callbacks[id];
         }
       }),
+    set_community_goodwill: rest.set_community_goodwill ?? jest.fn(),
     set_condition: rest.set_condition ?? jest.fn(),
+    set_const_force: rest.set_const_force ?? jest.fn(),
+    set_desired_direction: rest.set_desired_direction ?? jest.fn(),
+    set_desired_position: rest.set_desired_position ?? jest.fn(),
     set_dest_game_vertex_id: rest.set_dest_game_vertex_id ?? jest.fn(),
+    set_dest_level_vertex_id: rest.set_dest_level_vertex_id ?? jest.fn(),
     set_dest_loophole: rest.set_dest_loophole ?? jest.fn(),
     set_dest_smart_cover: rest.set_dest_smart_cover ?? jest.fn(),
-    set_manual_invisibility: rest.set_manual_invisibility ?? jest.fn(),
-    set_mental_state: rest.set_mental_state ?? jest.fn(),
-    set_movement_type: rest.set_movement_type ?? jest.fn(),
-    set_nonscript_usable: rest.set_nonscript_usable ?? jest.fn(),
+    set_detail_path_type: rest.set_detail_path_type ?? jest.fn(),
+    set_fastcall: rest.set_fastcall ?? jest.fn(),
     set_home: rest.set_home ?? jest.fn(),
     set_invisible: rest.set_invisible ?? jest.fn(),
     set_item: rest.set_item ?? jest.fn(),
+    set_level_changer_invitation: rest.set_level_changer_invitation ?? jest.fn(),
+    set_manual_invisibility: rest.set_manual_invisibility ?? jest.fn(),
+    set_mental_state: rest.set_mental_state ?? jest.fn(),
+    set_movement_selection_type: rest.set_movement_selection_type ?? jest.fn(),
+    set_movement_type: rest.set_movement_type ?? jest.fn(),
+    set_nonscript_usable: rest.set_nonscript_usable ?? jest.fn(),
+    set_npc_position: rest.set_npc_position ?? jest.fn(),
     set_path_type: rest.set_path_type ?? jest.fn(),
+    set_patrol_extrapolate_callback: rest.set_patrol_extrapolate_callback ?? jest.fn(),
     set_relation: rest.set_relation ?? jest.fn(),
+    set_sight: rest.set_sight ?? jest.fn((nextSight: TSightType) => (sight = nextSight)),
     set_sound_mask: rest.set_sound_mask ?? jest.fn(),
+    set_start_dialog: rest.set_start_dialog ?? jest.fn(),
     set_sympathy: rest.set_sympathy ?? jest.fn(),
+    set_tip_text: rest.set_tip_text ?? jest.fn(),
     set_visual_name: rest.set_visual_name ?? jest.fn(),
     sight_params:
       rest.sight_params ||
@@ -413,28 +432,11 @@ export function mockGameObject({
 
         return params;
       }),
-    set_dest_level_vertex_id: rest.set_dest_level_vertex_id ?? jest.fn(),
-    set_sight: rest.set_sight ?? jest.fn((nextSight: TSightType) => (sight = nextSight)),
-    set_actor_position:
-      rest.set_actor_position ||
-      jest.fn((it: Vector) => {
-        objectPosition = it;
-      }),
-    set_actor_direction:
-      rest.set_actor_direction ||
-      jest.fn((it: number) => {
-        objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
-      }),
-    set_movement_selection_type: rest.set_movement_selection_type ?? jest.fn(),
-    set_npc_position: rest.set_npc_position ?? jest.fn(),
-    set_community_goodwill: rest.set_community_goodwill ?? jest.fn(),
-    set_fastcall: rest.set_fastcall ?? jest.fn(),
-    set_patrol_extrapolate_callback: rest.set_patrol_extrapolate_callback ?? jest.fn(),
     spawn_ini: rest.spawn_ini ?? jest.fn(() => spawnIni),
+    squad: rest.squad ?? jest.fn(() => 150),
     start_particles: rest.stop_talk ?? jest.fn(),
     stop_particles: rest.stop_particles ?? jest.fn(),
     stop_talk: rest.stop_talk ?? jest.fn(),
-    squad: rest.squad ?? jest.fn(() => 150),
     special_danger_move,
     take_items_enabled: rest.take_items_enabled ?? jest.fn(),
     target_body_state:

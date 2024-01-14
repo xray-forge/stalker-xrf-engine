@@ -24,6 +24,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class LevelChangerBinder extends object_binder {
   public override reinit(): void {
     super.reinit();
+
     resetObject(this.object);
   }
 
