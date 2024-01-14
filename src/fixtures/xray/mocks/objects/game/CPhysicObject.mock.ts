@@ -10,6 +10,10 @@ export class MockPhysicObject {
 
   public animationTime: TDuration = 0;
 
+  public run_anim_back = jest.fn();
+
+  public run_anim_forward = jest.fn();
+
   public stop_anim = jest.fn();
 
   public anim_time_get = jest.fn(() => this.animationTime);

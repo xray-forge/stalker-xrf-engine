@@ -26,6 +26,7 @@ import {
   IniFile,
   NetPacket,
   Optional,
+  PhysicObject,
   Reader,
   ServerObject,
   SoundObject,
@@ -48,6 +49,7 @@ export class DoorBinder extends object_binder {
   public isIdle: boolean = true;
   public isPlayingForward: boolean = false;
 
+  // Used for sync of animation timing after game load.
   public animationDuration: Optional<TDuration> = 0;
 
   public idleSound: Optional<SoundObject> = null;
@@ -57,7 +59,7 @@ export class DoorBinder extends object_binder {
   public onUseConditionList!: TConditionList;
   public onStopConditionList!: TConditionList;
   public onStartConditionList!: TConditionList;
-  public tipConditionList!: TConditionList;
+  public tipConditionList: Optional<TConditionList> = null;
 
   public idleDelay!: TDuration;
   public startDelay!: TDuration;
@@ -152,31 +154,38 @@ export class DoorBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (this.animationDuration && this.isLoaded) {
-      this.object.get_physics_object().anim_time_set(this.animationDuration);
+    const object: GameObject = this.object;
+    const physicObject: PhysicObject = object.get_physics_object();
+
+    if (this.isLoaded && this.animationDuration) {
+      physicObject.anim_time_set(this.animationDuration);
       this.animationDuration = null;
+      this.isLoaded = false;
     }
 
-    if (!this.isIdle) {
-      if (this.isPlayingForward) {
-        this.object.get_physics_object().run_anim_forward();
-      } else {
-        this.object.get_physics_object().run_anim_back();
-      }
-    } else {
-      this.object.get_physics_object().stop_anim();
+    if (this.isIdle) {
+      physicObject.stop_anim();
+
       if (this.animationDuration) {
-        this.object.get_physics_object().anim_time_set(this.animationDuration);
+        physicObject.anim_time_set(this.animationDuration);
       }
 
       if (this.idleSound) {
         this.idleSound.stop();
       }
+    } else {
+      if (this.isPlayingForward) {
+        physicObject.run_anim_forward();
+      } else {
+        physicObject.run_anim_back();
+      }
     }
 
-    const doorUseTipLabel: TLabel = pickSectionFromCondList(registry.actor, null, this.tipConditionList)!;
+    const usageTipLabel: TLabel = this.tipConditionList
+      ? (pickSectionFromCondList(registry.actor, object, this.tipConditionList) as TLabel)
+      : "none";
 
-    this.object.set_tip_text(doorUseTipLabel !== "none" ? doorUseTipLabel : "");
+    this.object.set_tip_text(usageTipLabel !== "none" ? usageTipLabel : "");
   }
 
   public override net_save_relevant(): boolean {
@@ -215,6 +224,8 @@ export class DoorBinder extends object_binder {
 
   /**
    * Starts forward animation of the door.
+   *
+   * @param isForward - whether it is forward or backward animation
    */
   public startAnimation(isForward: boolean): void {
     const object: GameObject = this.object;

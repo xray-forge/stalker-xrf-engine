@@ -43,7 +43,7 @@ describe("DoorBinder class", () => {
     expect(binder.onStopConditionList).toBeUndefined();
     expect(binder.onStartConditionList).toBeUndefined();
 
-    expect(binder.tipConditionList).toBeUndefined();
+    expect(binder.tipConditionList).toBeNull();
     expect(binder.startDelay).toBeUndefined();
     expect(binder.idleDelay).toBeUndefined();
   });
@@ -183,7 +183,71 @@ describe("DoorBinder class", () => {
     expect(binder.stopSound.stop).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("should correctly handle update event");
+  it("should correctly handle generic update with idle state", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: DoorBinder = new DoorBinder(object);
+    const physicObject: PhysicObject = MockPhysicObject.mock();
+
+    jest.spyOn(object, "get_physics_object").mockImplementation(() => physicObject);
+
+    binder.isIdle = true;
+    binder.animationDuration = 150;
+    binder.idleSound = MockSoundObject.mock("test");
+    binder.tipConditionList = parseConditionsList("{+one} first, second");
+
+    binder.update(50);
+
+    expect(physicObject.stop_anim).toHaveBeenCalled();
+    expect(physicObject.anim_time_set).toHaveBeenCalledWith(150);
+    expect(binder.idleSound.stop).toHaveBeenCalled();
+    expect(object.set_tip_text).toHaveBeenCalledWith("second");
+  });
+
+  it("should correctly handle generic update with active state after update", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: DoorBinder = new DoorBinder(object);
+    const physicObject: PhysicObject = MockPhysicObject.mock();
+
+    jest.spyOn(object, "get_physics_object").mockImplementation(() => physicObject);
+
+    binder.isLoaded = true;
+    binder.isIdle = false;
+    binder.animationDuration = 150;
+
+    binder.update(50);
+
+    expect(physicObject.anim_time_set).toHaveBeenCalledWith(150);
+    expect(physicObject.run_anim_back).toHaveBeenCalled();
+    expect(object.set_tip_text).toHaveBeenCalledWith("");
+    expect(binder.animationDuration).toBeNull();
+    expect(binder.isLoaded).toBe(false);
+  });
+
+  it("should correctly handle generic update with active state", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: DoorBinder = new DoorBinder(object);
+    const physicObject: PhysicObject = MockPhysicObject.mock();
+
+    jest.spyOn(object, "get_physics_object").mockImplementation(() => physicObject);
+
+    binder.isIdle = false;
+    binder.isPlayingForward = false;
+
+    binder.update(50);
+
+    expect(object.set_tip_text).toHaveBeenCalledWith("");
+    expect(physicObject.run_anim_back).toHaveBeenCalledTimes(1);
+    expect(physicObject.run_anim_forward).toHaveBeenCalledTimes(0);
+
+    binder.isPlayingForward = true;
+    binder.tipConditionList = parseConditionsList("{-one} a, b");
+
+    binder.update(50);
+
+    expect(object.set_tip_text).toHaveBeenCalledWith("a");
+    expect(physicObject.run_anim_back).toHaveBeenCalledTimes(1);
+    expect(physicObject.run_anim_forward).toHaveBeenCalledTimes(1);
+  });
 
   it("should correctly handle animation forward", () => {
     const object: GameObject = MockGameObject.mock();
