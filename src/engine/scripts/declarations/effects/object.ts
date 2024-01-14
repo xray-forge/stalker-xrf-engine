@@ -71,7 +71,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern("xr_effects.anim_obj_forward", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
   for (const [, doorName] of doors) {
-    registry.doors.get(doorName).startForwardAnimation();
+    registry.doors.get(doorName).startAnimation(true);
   }
 });
 
@@ -80,7 +80,7 @@ extern("xr_effects.anim_obj_forward", (actor: GameObject, object: GameObject, do
  */
 extern("xr_effects.anim_obj_backward", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
   for (const [, doorName] of doors) {
-    registry.doors.get(doorName).startBackwardAnimation();
+    registry.doors.get(doorName).startAnimation(false);
   }
 });
 

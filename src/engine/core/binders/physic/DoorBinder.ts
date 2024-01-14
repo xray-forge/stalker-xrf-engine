@@ -216,42 +216,11 @@ export class DoorBinder extends object_binder {
   /**
    * Starts forward animation of the door.
    */
-  public startForwardAnimation(): void {
+  public startAnimation(isForward: boolean): void {
     const object: GameObject = this.object;
 
     this.isIdle = false;
-    this.isPlayingForward = true;
-
-    if (this.idleSound) {
-      this.idleSound.stop();
-    }
-
-    object.get_physics_object().stop_anim();
-
-    if (this.startSound) {
-      this.startSound.play_at_pos(object, object.position(), this.startDelay / 1_000, ESoundObjectType.S3D);
-    }
-
-    if (this.idleSound) {
-      this.idleSound.play_at_pos(
-        object,
-        object.position(),
-        (this.startDelay + this.idleDelay) / 1000,
-        (ESoundObjectType.S3D + ESoundObjectType.LOOPED) as TSoundObjectType
-      );
-    }
-
-    pickSectionFromCondList(registry.actor, object, this.onStartConditionList);
-  }
-
-  /**
-   * Starts backward animation of the door.
-   */
-  public startBackwardAnimation(): void {
-    const object: GameObject = this.object;
-
-    this.isIdle = false;
-    this.isPlayingForward = false;
+    this.isPlayingForward = isForward;
 
     if (this.idleSound) {
       this.idleSound.stop();

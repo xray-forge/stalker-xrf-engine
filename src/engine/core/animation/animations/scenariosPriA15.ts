@@ -136,7 +136,7 @@ const cutscene: Record<
       actor: {
         a: "pri_a15_igrok_cam4",
         f1: () => {
-          registry.doors.get(storyNames.pri_a15_door).startForwardAnimation();
+          registry.doors.get(storyNames.pri_a15_door).startAnimation(true);
         },
         f: () => {
           registry.actor.give_info_portion(infoPortions.pri_a15_lights_off);

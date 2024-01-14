@@ -204,7 +204,7 @@ describe("DoorBinder class", () => {
     binder.startSound = MockSoundObject.mock("test");
     binder.onStartConditionList = parseConditionsList("%=effect_on_start%");
 
-    binder.startForwardAnimation();
+    binder.startAnimation(true);
 
     expect(binder.isIdle).toBe(false);
     expect(binder.isPlayingForward).toBe(true);
@@ -215,41 +215,6 @@ describe("DoorBinder class", () => {
       object,
       object.position(),
       12,
-      ESoundObjectType.S3D + ESoundObjectType.LOOPED
-    );
-    expect(onStartEffect).toHaveBeenCalledTimes(1);
-  });
-
-  it("should correctly handle animation backward", () => {
-    const object: GameObject = MockGameObject.mock();
-    const binder: DoorBinder = new DoorBinder(object);
-    const physicObject: PhysicObject = MockPhysicObject.mock();
-
-    const onStartEffect = jest.fn();
-
-    jest.spyOn(object, "get_physics_object").mockImplementation(() => physicObject);
-
-    extern("xr_effects.effect_on_start", onStartEffect);
-
-    binder.isIdle = true;
-    binder.isPlayingForward = true;
-    binder.startDelay = 5000;
-    binder.idleDelay = 6000;
-    binder.idleSound = MockSoundObject.mock("test");
-    binder.startSound = MockSoundObject.mock("test");
-    binder.onStartConditionList = parseConditionsList("%=effect_on_start%");
-
-    binder.startBackwardAnimation();
-
-    expect(binder.isIdle).toBe(false);
-    expect(binder.isPlayingForward).toBe(false);
-    expect(binder.idleSound.stop).toHaveBeenCalled();
-    expect(physicObject.stop_anim).toHaveBeenCalled();
-    expect(binder.startSound.play_at_pos).toHaveBeenCalledWith(object, object.position(), 5, ESoundObjectType.S3D);
-    expect(binder.idleSound.play_at_pos).toHaveBeenCalledWith(
-      object,
-      object.position(),
-      11,
       ESoundObjectType.S3D + ESoundObjectType.LOOPED
     );
     expect(onStartEffect).toHaveBeenCalledTimes(1);
