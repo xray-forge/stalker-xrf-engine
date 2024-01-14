@@ -1,4 +1,4 @@
-import { ini_file, LuabindClass, object_binder, patrol } from "xray16";
+import { ini_file, LuabindClass, object_binder } from "xray16";
 
 import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
 import {
@@ -13,6 +13,7 @@ import {
   unregisterAnomalyZone,
 } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { getAnomalyFreePaths, spawnArtefactInAnomaly } from "@/engine/core/utils/anomaly";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import {
   parseConditionsList,
@@ -25,16 +26,13 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectId } from "@/engine/core/utils/object";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import {
-  AnyGameObject,
   GameObject,
   IniFile,
   LuaArray,
   NetPacket,
   Optional,
-  Patrol,
   Reader,
   ServerObject,
   TCount,
@@ -67,8 +65,8 @@ export class AnomalyZoneBinder extends object_binder {
   public isCustomPlacement: boolean = false;
   public shouldRespawnArtefactsIfPossible: boolean = true;
 
-  public artefactWaysByArtefactId: LuaTable<number, string> = new LuaTable();
-  public artefactPointsByArtefactId: LuaTable<number, number> = new LuaTable();
+  public artefactPathsByArtefactId: LuaTable<TNumberId, TName> = new LuaTable();
+  public artefactPointsByArtefactId: LuaTable<TNumberId, TIndex> = new LuaTable();
 
   /**
    * Current state description.
@@ -95,6 +93,7 @@ export class AnomalyZoneBinder extends object_binder {
   public layerFieldsTable: LuaTable<TSection, LuaArray<TSection>> = new LuaTable();
   public layerMinesTable: LuaTable<TSection, LuaArray<TSection>> = new LuaTable();
 
+  // List of artefacts spawned initially.
   public artefactsStartList: LuaTable<TSection, LuaArray<TSection>> = new LuaTable();
   public artefactsSpawnList: LuaTable<TSection, LuaArray<TSection>> = new LuaTable();
   public artefactsSpawnCoefficients: LuaTable<TSection, LuaArray<TRate>> = new LuaTable();
@@ -285,7 +284,12 @@ export class AnomalyZoneBinder extends object_binder {
       }
 
       for (const _ of $range(1, respawnTries)) {
-        this.spawnRandomArtefact();
+        const section: Optional<TSection> = this.getArtefactSectionToSpawn();
+
+        if (section) {
+          logger.info("Spawn artefact: %s in %s", section, this.object.name());
+          spawnArtefactInAnomaly(this, section, this.getNewArtefactPath());
+        }
       }
 
       this.shouldRespawnArtefactsIfPossible = false;
@@ -294,7 +298,7 @@ export class AnomalyZoneBinder extends object_binder {
     }
 
     if (!this.isDisabled) {
-      this.disableAnomalyFields();
+      this.switchAnomalyFields();
     }
   }
 
@@ -307,9 +311,9 @@ export class AnomalyZoneBinder extends object_binder {
 
     super.save(packet);
 
-    packet.w_u16(table.size(this.artefactWaysByArtefactId));
+    packet.w_u16(table.size(this.artefactPathsByArtefactId));
 
-    for (const [id, wayName] of this.artefactWaysByArtefactId) {
+    for (const [id, wayName] of this.artefactPathsByArtefactId) {
       packet.w_u16(id);
       packet.w_stringZ(wayName);
     }
@@ -362,7 +366,7 @@ export class AnomalyZoneBinder extends object_binder {
       const artefactId: TNumberId = reader.r_u16();
       const wayName: TName = reader.r_stringZ();
 
-      this.artefactWaysByArtefactId.set(artefactId, wayName);
+      this.artefactPathsByArtefactId.set(artefactId, wayName);
 
       registry.artefacts.ways.set(artefactId, wayName);
       registry.artefacts.parentZones.set(artefactId, this);
@@ -398,40 +402,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * todo: Description.
    */
-  public turnOff(): void {
-    logger.info("Turn off zone: %s", this.object.name());
-
-    this.isTurnedOff = true;
-    this.disableAnomalyFields();
-
-    for (const [artefactId] of this.artefactWaysByArtefactId) {
-      registry.simulator.release(registry.simulator.object(tonumber(artefactId) as number), true);
-      registry.artefacts.ways.delete(artefactId);
-      registry.artefacts.points.delete(artefactId);
-      registry.artefacts.parentZones.delete(artefactId);
-    }
-
-    this.spawnedArtefactsCount = 0;
-    this.artefactWaysByArtefactId = new LuaTable();
-    this.artefactPointsByArtefactId = new LuaTable();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public turnOn(forceRespawn: Optional<boolean>): void {
-    logger.info("Turn on zone: %s", this.object.name());
-
-    this.isTurnedOff = false;
-    this.disableAnomalyFields();
-
-    this.shouldRespawnArtefactsIfPossible = forceRespawn === true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public disableAnomalyFields(): void {
+  public switchAnomalyFields(): void {
     if (!this.isCustomPlacement) {
       this.isDisabled = true;
 
@@ -533,130 +504,137 @@ export class AnomalyZoneBinder extends object_binder {
     }
   }
 
-  /**
-   * todo: Description.
-   */
-  public spawnRandomArtefact(): void {
-    const layer: TSection = this.currentZoneLayer;
-
-    let randomArtefact: TSection = "";
-
+  public getArtefactSectionToSpawn(): Optional<TSection> {
     if (this.hasForcedSpawnOverride && this.forcedArtefact) {
-      randomArtefact = this.forcedArtefact;
       this.hasForcedSpawnOverride = false;
+
+      return this.forcedArtefact;
     } else if (this.isForcedToSpawn) {
-      randomArtefact = this.artefactsStartList.get(layer).get(this.artefactsStartList.get(layer).length());
       this.isForcedToSpawn = false;
+
+      return this.artefactsStartList
+        .get(this.currentZoneLayer)
+        .get(this.artefactsStartList.get(this.currentZoneLayer).length());
     } else {
+      // Spawn artefact with some chance only if it is not forced.
       if (math.random(1, 100) > ARTEFACT_SPAWN_CHANCE) {
-        return;
+        return null;
       }
 
-      let coeffTotal: TRate = 0;
+      const artefactsList: LuaArray<TSection> = this.artefactsSpawnList.get(this.currentZoneLayer);
+      const artefactsRate: LuaArray<TRate> = this.artefactsSpawnCoefficients.get(this.currentZoneLayer);
 
-      for (const [, v] of this.artefactsSpawnCoefficients.get(layer)) {
-        coeffTotal += v;
+      let chance: TRate = 0;
+
+      for (const [, rate] of artefactsRate) {
+        chance += rate;
       }
 
-      if (coeffTotal === 0) {
-        for (const it of $range(1, this.artefactsSpawnList.get(layer).length())) {
-          this.artefactsSpawnCoefficients.get(layer).set(it, 1);
-          coeffTotal += 1;
+      // Re-initialize artefacts spawn chances as normalized 1-1-1 rates.
+      if (chance === 0) {
+        for (const it of $range(1, artefactsList.length())) {
+          artefactsRate.set(it, 1);
+          chance += 1;
         }
       }
 
-      let random: TRate = math.random(1, coeffTotal);
+      // Decide which one to spawn from possible artefacts list.
+      let section: Optional<TSection> = null;
+      let random: TRate = math.random(1, chance);
 
-      for (const it of $range(1, this.artefactsSpawnList.get(layer).length())) {
-        const chance: TRate = this.artefactsSpawnCoefficients.get(layer).get(it);
+      for (const it of $range(1, artefactsList.length())) {
+        const spawnRate: TRate = artefactsRate.get(it);
 
-        if (random <= chance) {
-          randomArtefact = this.artefactsSpawnList.get(layer).get(it);
+        if (random <= spawnRate) {
+          section = artefactsList.get(it);
         }
 
-        random -= chance;
+        random -= spawnRate;
       }
+
+      return section;
     }
-
-    const randomPathName: TName = this.getRandomArtefactPath();
-    const randomPath: Patrol = new patrol(randomPathName);
-    const randomPathPoint: TIndex = math.random(0, randomPath.count() - 1);
-
-    const artefactObject: ServerObject = registry.simulator.create(
-      randomArtefact,
-      randomPath.point(randomPathPoint),
-      this.object.level_vertex_id(),
-      this.object.game_vertex_id()
-    );
-
-    registry.artefacts.parentZones.set(artefactObject.id, this);
-    registry.artefacts.ways.set(artefactObject.id, randomPathName);
-    registry.artefacts.points.set(artefactObject.id, randomPathPoint);
-
-    this.artefactWaysByArtefactId.set(artefactObject.id, randomPathName);
-    this.artefactPointsByArtefactId.set(artefactObject.id, randomPathPoint);
-    this.spawnedArtefactsCount += 1;
-
-    logger.info("Spawned random artefact: %s %s", randomArtefact, artefactObject.id);
   }
 
   /**
-   * todo: Description.
+   * Finds random not used patrol or fallbacks to random duplicated path.
+   *
+   * @returns patrol name to use for new artefact in anomaly zone
    */
-  public getRandomArtefactPath(): TName {
-    const paths: LuaArray<TName> = new LuaTable();
+  public getNewArtefactPath(): TName {
+    const paths: LuaArray<TName> = getAnomalyFreePaths(this);
 
-    for (const [, v] of this.artefactsPathsList.get(this.currentZoneLayer)) {
-      let isSpawned: boolean = false;
-
-      for (const [, vv] of this.artefactWaysByArtefactId) {
-        if (vv !== null && v === vv) {
-          isSpawned = true;
-        }
-      }
-
-      if (!isSpawned) {
-        table.insert(paths, v);
-      }
-    }
-
-    if (paths.length() === 0) {
+    if (paths.length() > 0) {
+      return table.random(paths)[1];
+    } else {
       return table.random(this.artefactsPathsList.get(this.currentZoneLayer))[1];
     }
-
-    return table.random(paths)[1];
   }
 
   /**
-   * todo: Description.
+   * Turn on anomaly zone.
+   * Switch on all layer fields if they are defined.
+   *
+   * @param forceArtefactsRespawn - whether artefacts should be spawned on next update tick
    */
-  public setForcedSpawnOverride(artefactSection: TSection): void {
-    logger.info("Set force override: %s", this.object.name());
+  public turnOn(forceArtefactsRespawn: Optional<boolean>): void {
+    logger.info("Turn on zone: %s", this.object.name());
+
+    this.isTurnedOff = false;
+    this.shouldRespawnArtefactsIfPossible = forceArtefactsRespawn === true;
+    this.switchAnomalyFields();
+  }
+
+  /**
+   * Turn off anomaly zone and currently active anomaly fields.
+   * Release all spawned artefacts in zone.
+   */
+  public turnOff(): void {
+    logger.info("Turn off zone: %s", this.object.name());
+
+    this.isTurnedOff = true;
+    this.switchAnomalyFields();
+
+    for (const [artefactId] of this.artefactPathsByArtefactId) {
+      registry.simulator.release(registry.simulator.object(artefactId), true);
+
+      registry.artefacts.ways.delete(artefactId);
+      registry.artefacts.points.delete(artefactId);
+      registry.artefacts.parentZones.delete(artefactId);
+    }
+
+    this.spawnedArtefactsCount = 0;
+    this.artefactPathsByArtefactId = new LuaTable();
+    this.artefactPointsByArtefactId = new LuaTable();
+  }
+
+  /**
+   * @param section - artefact section to set as forced spawn
+   */
+  public setForcedSpawnOverride(section: TSection): void {
+    logger.info("Set forced override for zone/artefact: %s %s", this.object.name(), section);
 
     this.hasForcedSpawnOverride = true;
-    this.forcedArtefact = artefactSection;
-
-    logger.info("Set forced override for zone/artefact: %s %s", this.object.name(), artefactSection);
+    this.forcedArtefact = section;
   }
 
   /**
    * Callback for artefact taking from current anomaly zone.
    *
-   * @param object - game object of artefact taken from the anomaly zone
+   * @param artefactId - object id of artefact taken from the anomaly zone
    */
-  public onArtefactTaken(object: AnyGameObject): void {
+  public onArtefactTaken(artefactId: TNumberId): void {
     logger.info("On artefact take: %s", this.object.name());
-
-    const id: TNumberId = getObjectId(object);
-
-    registry.artefacts.ways.delete(id);
-    registry.artefacts.points.delete(id);
-
-    this.artefactWaysByArtefactId.delete(id);
-    this.artefactPointsByArtefactId.delete(id);
 
     this.spawnedArtefactsCount -= 1;
 
-    getManager(MapDisplayManager).updateAnomalyZonesDisplay(); // todo: Probably just update self, not all.
+    registry.artefacts.points.delete(artefactId);
+    registry.artefacts.ways.delete(artefactId);
+
+    this.artefactPointsByArtefactId.delete(artefactId);
+    this.artefactPathsByArtefactId.delete(artefactId);
+
+    // todo: Probably just update self, not all.
+    getManager(MapDisplayManager).updateAnomalyZonesDisplay();
   }
 }

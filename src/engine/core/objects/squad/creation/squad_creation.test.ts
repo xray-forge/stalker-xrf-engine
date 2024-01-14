@@ -130,7 +130,7 @@ describe("createSquadMembers util", () => {
   });
 
   it("should correctly spawn with random spawn config", () => {
-    (SYSTEM_INI as unknown as MockIniFile<AnyObject>).data["test_squad_without_members"] = {
+    (SYSTEM_INI as unknown as MockIniFile).data["test_squad_without_members"] = {
       faction: communities.stalker,
       npc: "variantA, variantB",
       npc_random: "variantC, variantD",

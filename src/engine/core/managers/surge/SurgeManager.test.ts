@@ -253,7 +253,7 @@ describe("SurgeManager class", () => {
     manager.onActorItemTake(object);
 
     expect(zone.onArtefactTaken).toHaveBeenCalledTimes(1);
-    expect(zone.onArtefactTaken).toHaveBeenCalledWith(object);
+    expect(zone.onArtefactTaken).toHaveBeenCalledWith(object.id());
     expect(object.get_artefact).toHaveBeenCalledTimes(1);
     expect(artefact.FollowByPath).toHaveBeenCalledTimes(1);
     expect(artefact.FollowByPath).toHaveBeenCalledWith("NULL", 0, createVector(500, 500, 500));

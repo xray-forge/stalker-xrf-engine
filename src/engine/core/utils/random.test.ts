@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { chance, pickRandom } from "@/engine/core/utils/random";
+import { between, chance, pickRandom } from "@/engine/core/utils/random";
 
 describe("chance util", () => {
   it("should correctly randomize", () => {
@@ -8,10 +8,22 @@ describe("chance util", () => {
     expect(chance(1000, 1000)).toBeTruthy();
     expect(chance(0)).toBeFalsy();
     expect(chance(0, 1000)).toBeFalsy();
+  });
+});
 
-    expect(() => chance(101)).toThrow();
-    expect(() => chance(200, 20)).toThrow();
-    expect(() => chance(101, 200)).not.toThrow();
+describe("between util", () => {
+  it("should correctly randomize", () => {
+    expect(() => between(100, 1)).toThrow("Expected range to be correct in 'between' util, 100 > 1.");
+
+    const first: number = between(1, 5);
+
+    expect(first >= 1).toBe(true);
+    expect(first <= 5).toBe(true);
+
+    const second: number = between(25.2, 100);
+
+    expect(second >= 25.2).toBe(true);
+    expect(second <= 100).toBe(true);
   });
 });
 

@@ -226,33 +226,29 @@ extern(
       return;
     }
 
-    let artefactId: Optional<TNumberId> = null;
     let artefactObject: Optional<ServerArtefactItemObject> = null;
 
-    for (const [k, v] of anomalyZone.artefactWaysByArtefactId) {
+    for (const [artefactId] of anomalyZone.artefactPathsByArtefactId) {
       if (
-        registry.simulator.object(tonumber(k)!) &&
-        artefactSection === registry.simulator.object(tonumber(k)!)!.section_name()
+        registry.simulator.object(artefactId) &&
+        artefactSection === registry.simulator.object(artefactId)!.section_name()
       ) {
-        artefactId = tonumber(k)!;
-        artefactObject = registry.simulator.object(tonumber(k)!);
+        artefactObject = registry.simulator.object(artefactId);
         break;
       }
 
       if (artefactSection === null) {
-        artefactId = tonumber(k)!;
-        artefactObject = registry.simulator.object(tonumber(k)!);
+        artefactObject = registry.simulator.object(artefactId);
         artefactSection = artefactObject!.section_name();
         break;
       }
     }
 
-    if (artefactId === null) {
+    if (!artefactObject) {
       return;
     }
 
-    anomalyZone.onArtefactTaken(artefactObject as ServerArtefactItemObject);
-
+    anomalyZone.onArtefactTaken(artefactObject.id);
     registry.simulator.release(artefactObject!, true);
     spawnItemsForObject(object as GameObject, artefactSection);
   }

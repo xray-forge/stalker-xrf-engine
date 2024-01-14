@@ -51,6 +51,7 @@ import {
   Time,
   TLabel,
   TName,
+  TNumberId,
   TSection,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -543,14 +544,13 @@ export class SurgeManager extends AbstractManager {
     if (isArtefact(object)) {
       logger.info("On artefact take: %s", object.name());
 
-      const zone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(
-        object.id()
-      ) as Optional<AnomalyZoneBinder>;
+      const id: TNumberId = object.id();
+      const zone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(id) as Optional<AnomalyZoneBinder>;
 
       if (zone) {
-        zone.onArtefactTaken(object);
+        zone.onArtefactTaken(id);
       } else {
-        registry.artefacts.ways.delete(object.id());
+        registry.artefacts.ways.delete(id);
       }
 
       object.get_artefact().FollowByPath("NULL", 0, createVector(500, 500, 500));

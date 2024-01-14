@@ -9,9 +9,21 @@ import { assert } from "@/engine/core/utils/assertion";
  * @returns whether thing should happen
  */
 export function chance(rate: number, base: number = 100): boolean {
-  assert(base > 0 && base >= rate, "Expected chance to be smaller than 'of' value, got '%s' of '%s'.", rate, base);
-
   return rate >= math.random(base);
+}
+
+/**
+ * Get math random between provided boundaries.
+ * Works with floating point numbers in contrast to default math.random lua library.
+ *
+ * @param from - minimal value
+ * @param to - maximal value
+ * @returns floating point number between provided boundaries
+ */
+export function between(from: number, to: number): number {
+  assert(from < to, "Expected range to be correct in 'between' util, %s > %s.", from, to);
+
+  return from + math.random() * (to - from);
 }
 
 /**

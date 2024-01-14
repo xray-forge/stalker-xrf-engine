@@ -82,7 +82,7 @@ export class BoxManager extends AbstractManager {
       const count: TCount = math.ceil(math.random(descriptor.min, descriptor.max));
 
       // Varying height for less clipping and unexpected physical impacts.
-      destination.y = baseline + math.random(0.2, 0.5);
+      destination.y = baseline + 0.2 + 0.3 * math.random();
 
       spawnItemsAtPosition(section, gvid, lvid, destination, count, probability);
     }

@@ -11,12 +11,29 @@ export const mockMath = {
   ceil: (value: number) => Math.ceil(value),
   sin: (value: number) => Math.sin(value),
   mod: (value: number, base: number) => value % base,
-  random: (max?: number) => {
-    if (max === undefined) {
-      return Math.random();
+  random: (...args: Array<number>) => {
+    // Assert all numbers are integers.
+    for (const arg of args) {
+      if (arg % 1 !== 0) {
+        throw new Error(
+          `Expected only integer values to be provided for lua math.random method, got [${args.join(", ")}].`
+        );
+      }
     }
 
-    return 1 + Math.round(Math.random() * (max - 1));
+    if (args.length === 0) {
+      return Math.random();
+    } else if (args.length === 1) {
+      return Math.max(1, Math.round(Math.random() * args[0]));
+    } else {
+      if (args[1] < args[0]) {
+        throw new Error(
+          `Bad call for lua math.random method, second argument should be bigger than first (${args[1]} > ${args[0]}).`
+        );
+      }
+
+      return args[0] + Math.round(Math.random() * (args[1] - args[0]));
+    }
   },
   floor: (value: number) => Math.floor(value),
   /**

@@ -37,16 +37,16 @@ describe("initializeDropBoxesLootTables util", () => {
     });
     expect(boxConfig.DROP_COUNT_BY_LEVEL).toEqualLuaTables({
       ammo_9x18_fmj: {
-        max: 1,
-        min: 1,
+        max: 8,
+        min: 6,
       },
       ammo_9x18_pmm: {
-        max: 1.5,
-        min: 1.5,
+        max: 9,
+        min: 6,
       },
       ammo_9x19_pbp: {
-        max: 2,
-        min: 2,
+        max: 8,
+        min: 4,
       },
     });
     expect(boxConfig.DROP_RATE_BY_LEVEL).toEqualLuaTables({
@@ -82,12 +82,12 @@ describe("initializeDropBoxesLootTables util", () => {
         min: 0,
       },
       ammo_9x18_pmm: {
-        max: 1.5,
-        min: 1.5,
+        max: 9,
+        min: 6,
       },
       ammo_9x19_pbp: {
-        max: 2,
-        min: 2,
+        max: 8,
+        min: 4,
       },
     });
     expect(boxConfig.DROP_RATE_BY_LEVEL).toEqualLuaTables({

@@ -39,6 +39,9 @@ export function mockRegisteredActor(
 export function resetRegistry(): void {
   registry.actor = null as unknown as GameObject;
   registry.actorCombat = new LuaTable();
+  registry.artefacts.parentZones = new LuaTable();
+  registry.artefacts.points = new LuaTable();
+  registry.artefacts.ways = new LuaTable();
   registry.camps = new LuaTable();
   registry.crows.count = 0;
   registry.crows.storage = new LuaTable();

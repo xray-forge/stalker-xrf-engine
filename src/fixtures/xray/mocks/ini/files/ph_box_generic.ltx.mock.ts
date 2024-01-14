@@ -7,14 +7,14 @@ export const mockBoxGeneric = {
     ammo_9x18_pmm: 1,
   },
   item_count_2: {
-    ammo_9x18_fmj: 0.75,
-    ammo_9x18_pmm: 0.75,
-    ammo_9x19_pbp: 0.75,
+    ammo_9x18_fmj: 2,
+    ammo_9x18_pmm: 2,
+    ammo_9x19_pbp: 2,
   },
   item_count_3: {
-    ammo_9x18_fmj: 0.5,
-    ammo_9x18_pmm: 0.5,
-    ammo_9x19_pbp: 0.5,
+    ammo_9x18_fmj: "3, 4",
+    ammo_9x18_pmm: "2, 3",
+    ammo_9x19_pbp: "1, 2",
   },
   default: {},
   zaton: {

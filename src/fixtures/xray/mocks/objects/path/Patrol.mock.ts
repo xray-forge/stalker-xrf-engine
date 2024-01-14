@@ -52,6 +52,10 @@ export class MockPatrol {
   }
 
   public point(index: TIndex): MockVector {
+    if (index >= this.patrolMock.points.length) {
+      throw new Error(`Trying to get patrol point '${index}' when only 0-${this.patrolMock.points.length} available.`);
+    }
+
     return this.patrolMock.points[index].position;
   }
 
