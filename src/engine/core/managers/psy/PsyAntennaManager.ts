@@ -38,7 +38,7 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename, { file: "psy" });
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
@@ -180,8 +180,6 @@ export class PsyAntennaManager extends AbstractManager {
    * todo: Description.
    */
   public override update(delta: TDuration): void {
-    logger.info("Updating psy antenna manager: %s", delta);
-
     const updateIntensity = (intensityBase: TRate, intensity: TRate) => {
       const di = this.intensityInertion * delta * 0.01;
       let ii = intensityBase;

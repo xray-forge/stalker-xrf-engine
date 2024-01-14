@@ -9,21 +9,27 @@ import {
   registry,
   unregisterSignalLight,
 } from "@/engine/core/database";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { Y_VECTOR } from "@/engine/lib/constants/vectors";
-import { GameObject, NetPacket, Optional, Reader, TDuration, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, Optional, Reader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Signal light object.
  * Shown in the sky when surge happens and safe stalker bases are signaling about secure point.
+ * Starts with fast signal light animation and then slowly falls after few seconds.
+ *
+ * Example: check zaton stalker base sky after surge start
  */
 @LuabindClass()
 export class SignalLightBinder extends object_binder {
   public isLoaded: boolean = false;
-  public isTurnOffNeeded: boolean = true;
   public isSlowFlyStarted: boolean = false;
+  public isHangingAnimationTurnedOn: boolean = false;
 
-  public deltaTime: Optional<TTimestamp> = null;
+  public loadedAt: Optional<TTimestamp> = null;
   public startTime: Optional<TTimestamp> = null;
 
   public override reinit(): void {
@@ -32,70 +38,88 @@ export class SignalLightBinder extends object_binder {
     registerSignalLight(this);
   }
 
+  public override net_spawn(object: ServerObject): boolean {
+    if (!super.net_spawn(object)) {
+      return false;
+    }
+
+    registerSignalLight(this);
+
+    return true;
+  }
+
   public override net_destroy(): void {
     unregisterSignalLight(this);
 
     super.net_destroy();
   }
 
-  public override net_save_relevant(): boolean {
-    return true;
-  }
-
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (this.startTime === null) {
-      if (this.isTurnOffNeeded) {
+    // Is not started.
+    if (!this.startTime) {
+      if (this.isHangingAnimationTurnedOn) {
+        this.isHangingAnimationTurnedOn = false;
         this.object.get_hanging_lamp().turn_off();
-        this.isTurnOffNeeded = false;
-        this.isLoaded = false;
       }
+
+      this.isLoaded = false;
 
       return;
     }
 
     const now: TTimestamp = time_global();
-    let flyTime: TDuration = now - this.startTime;
 
+    // Recalculate fly time-force after game load.
     if (this.isLoaded) {
-      this.startTime = this.startTime + now - this.deltaTime!;
-      this.deltaTime = null;
+      this.startTime = now + this.startTime - (this.loadedAt as TDuration);
       this.isLoaded = false;
+      this.loadedAt = null;
 
-      flyTime = now - this.startTime;
+      const duration: TDuration = now - this.startTime;
 
-      if (flyTime < 1500) {
-        this.object.set_const_force(Y_VECTOR, 180 + math.floor(flyTime / 5), 1500 - flyTime);
+      if (duration < 1500) {
+        this.object.set_const_force(Y_VECTOR, 180 + math.floor(duration / 5), 1500 - duration);
         this.object.start_particles("weapons\\light_signal", "link");
-      } else if (flyTime < 20000) {
-        this.object.set_const_force(Y_VECTOR, 33, 20000 - flyTime);
+      } else if (duration < 20_000) {
+        this.object.set_const_force(Y_VECTOR, 33, 20000 - duration);
         this.object.start_particles("weapons\\light_signal", "link");
       }
+    } else {
+      const duration: TDuration = now - this.startTime;
 
-      return;
-    }
+      if (duration > 28_500) {
+        this.startTime = null;
+      } else if (duration > 20_500) {
+        // Stop slow flying force.
+        if (this.isSlowFlyStarted) {
+          logger.info("Stop signal light fly: %s", this.object.name());
 
-    // Magical constants.
-    if (flyTime > 28_500) {
-      this.stop();
+          this.isSlowFlyStarted = false;
+          this.isHangingAnimationTurnedOn = false;
 
-      return;
-    }
+          this.object.stop_particles("weapons\\light_signal", "link");
+          this.object.get_hanging_lamp().turn_off();
+        }
+      } else if (duration > 1_500) {
+        // Start slow flying with smaller force impact.
+        if (!this.isSlowFlyStarted) {
+          this.isSlowFlyStarted = true;
+          this.isHangingAnimationTurnedOn = true;
 
-    if (flyTime > 20_500) {
-      this.stopLight();
+          logger.info("Start signal light slow fly: %s", this.object.name());
 
-      return;
-    }
-
-    if (flyTime > 1_500) {
-      if (!this.isSlowFlyStarted) {
-        this.startSlowFly();
-        this.object.start_particles("weapons\\light_signal", "link");
-        this.object.get_hanging_lamp().turn_on();
+          this.object.set_const_force(Y_VECTOR, 30, 20_000);
+          this.object.start_particles("weapons\\light_signal", "link");
+          this.object.get_hanging_lamp().turn_on();
+        }
       }
     }
+  }
+
+  public override net_save_relevant(): boolean {
+    return true;
   }
 
   public override save(packet: NetPacket): void {
@@ -119,62 +143,54 @@ export class SignalLightBinder extends object_binder {
 
     this.startTime = time === MAX_U32 ? null : now - time;
     this.isSlowFlyStarted = reader.r_bool();
-    this.deltaTime = now;
+
+    this.loadedAt = now;
     this.isLoaded = true;
 
     closeLoadMarker(reader, SignalLightBinder.__name);
   }
 
   /**
-   * todo: Description.
+   * @returns whether signal light is flying right now
    */
   public isFlying(): boolean {
     return this.startTime !== null;
   }
 
   /**
-   * todo: Description.
+   * Start fly animation if it is not started already.
+   * Forces light object to fly up with high impact.
+   *
+   * @returns whether fly animation was started
    */
-  public launch(): boolean {
-    const actor: Optional<GameObject> = registry.actor;
-
-    if (actor === null) {
+  public startFly(): boolean {
+    if (this.startTime !== null || registry.actor === null) {
       return false;
     }
 
-    if (this.startTime !== null) {
-      return false;
-    }
-
-    this.object.set_const_force(Y_VECTOR, 180, 1500);
+    logger.info("Start signal light fly: %s", this.object.name());
 
     this.startTime = time_global();
     this.isSlowFlyStarted = false;
+
+    this.object.set_const_force(Y_VECTOR, 180, 1_500);
 
     return true;
   }
 
   /**
-   * todo: Description.
+   * Force stop flying animations.
    */
-  public startSlowFly(): void {
-    this.isSlowFlyStarted = true;
-    this.object.set_const_force(Y_VECTOR, 30, 20_000);
-  }
+  public stopFly(): void {
+    logger.info("Stop signal light immediately: %s", this.object.name());
 
-  /**
-   * todo: Description.
-   */
-  public stopLight(): void {
-    this.isSlowFlyStarted = false;
-    this.object.stop_particles("weapons\\light_signal", "link");
-    this.object.get_hanging_lamp().turn_off();
-  }
-
-  /**
-   * todo: Description.
-   */
-  public stop(): void {
     this.startTime = null;
+
+    if (this.isSlowFlyStarted) {
+      this.isSlowFlyStarted = false;
+      this.isHangingAnimationTurnedOn = false;
+      this.object.stop_particles("weapons\\light_signal", "link");
+      this.object.get_hanging_lamp().turn_off();
+    }
   }
 }

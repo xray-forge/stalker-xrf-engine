@@ -27,8 +27,8 @@ describe("surge_generic utils", () => {
     first.reinit();
     second.reinit();
 
-    jest.spyOn(first, "launch");
-    jest.spyOn(second, "launch");
+    jest.spyOn(first, "startFly");
+    jest.spyOn(second, "startFly");
 
     expect(first.isFlying()).toBe(false);
     expect(second.isFlying()).toBe(false);
@@ -38,13 +38,13 @@ describe("surge_generic utils", () => {
     expect(first.isFlying()).toBe(true);
     expect(second.isFlying()).toBe(true);
 
-    expect(first.launch).toHaveBeenCalledTimes(1);
-    expect(first.launch).toHaveBeenCalledTimes(1);
+    expect(first.startFly).toHaveBeenCalledTimes(1);
+    expect(first.startFly).toHaveBeenCalledTimes(1);
 
     launchSurgeSignalRockets();
 
-    expect(first.launch).toHaveBeenCalledTimes(1);
-    expect(first.launch).toHaveBeenCalledTimes(1);
+    expect(first.startFly).toHaveBeenCalledTimes(1);
+    expect(first.startFly).toHaveBeenCalledTimes(1);
   });
 
   it("isSurgeEnabledOnLevel should correctly check if surge is enabled for level", () => {

@@ -478,7 +478,7 @@ extern("xr_effects.launch_signal_rocket", (actor: GameObject, obj: GameObject, p
   }
 
   if (registry.signalLights.get(p[0]) !== null) {
-    registry.signalLights.get(p[0]).launch();
+    registry.signalLights.get(p[0]).startFly();
   } else {
     abort("No such signal rocket. [%s] on level", tostring(p[0]));
   }

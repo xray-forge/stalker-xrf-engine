@@ -1,21 +1,15 @@
 import { registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { Squad } from "@/engine/core/objects/squad";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
  */
 export function launchSurgeSignalRockets(): void {
-  logger.info("Launch signal light rockets");
-
   for (const [, signalLight] of registry.signalLights) {
-    logger.info("Start signal light");
     if (!signalLight.isFlying()) {
-      signalLight.launch();
+      signalLight.startFly();
     }
   }
 }

@@ -352,9 +352,7 @@ export class SurgeManager extends AbstractManager {
     this.currentDuration = 0;
 
     for (const [, signalLight] of registry.signalLights) {
-      logger.info("Stop signal light");
-      signalLight.stopLight();
-      signalLight.stop();
+      signalLight.stopFly();
     }
 
     if (this.isAfterGameLoad) {

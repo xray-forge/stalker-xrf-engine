@@ -44,7 +44,7 @@ export class SaveManager extends AbstractManager {
     getManager(WeatherManager).save(packet);
     getManager(ReleaseBodyManager).save(packet);
     getManager(SurgeManager).save(packet);
-    getManager(PsyAntennaManager).save(packet);
+    PsyAntennaManager.save(packet);
     getManager(SoundManager).save(packet);
     getManager(StatisticsManager).save(packet);
     getManager(TreasureManager).save(packet);
