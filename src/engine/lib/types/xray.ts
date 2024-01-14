@@ -63,6 +63,7 @@ import {
   FS_item,
   game_object,
   GameGraph__CVertex,
+  hanging_lamp,
   hit,
   ini_file,
   IXR_squad_member,
@@ -118,7 +119,6 @@ export type ActionPlanner = action_planner;
 export type AlifeSimulator = alife_simulator;
 export type AnyGameObject = game_object | cse_alife_object;
 export type Car = CCar;
-export type GameObject = game_object;
 export type Color = color;
 export type Cond = cond;
 export type Console = CConsole;
@@ -132,7 +132,9 @@ export type FSItem = FS_item;
 export type Flags32 = flags32;
 export type GameGraphVertex = GameGraph__CVertex;
 export type GameHud = CUIGameCustom;
+export type GameObject = game_object;
 export type GameTask = CGameTask;
+export type HangingLamp = hanging_lamp;
 export type Hit = hit;
 export type IniFile = ini_file;
 export type LoginManager = login_manager;
@@ -205,8 +207,8 @@ export type TCallback = TXR_callback;
 export type TClassId = TXR_class_id;
 export type TClassKey = TXR_class_key;
 export type TDangerType = TXR_danger_object;
-export type TGameType = TXR_GAME_TYPE;
 export type TEntityActionType = TXR_entity_action;
+export type TGameType = TXR_GAME_TYPE;
 export type TKeyCode = TXR_DIK_key;
 export type TLookType = TXR_look;
 export type TMoveType = TXR_move;

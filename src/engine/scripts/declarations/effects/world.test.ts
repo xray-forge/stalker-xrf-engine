@@ -1,9 +1,19 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { level } from "xray16";
 
-import { getManager, IRegistryObjectState, registerObject, registerStoryLink } from "@/engine/core/database";
+import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
+import {
+  getManager,
+  IRegistryObjectState,
+  registerAnomalyZone,
+  registerObject,
+  registerStoryLink,
+} from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { SurgeManager } from "@/engine/core/managers/surge";
-import { EScheme, GameObject, SoundObject } from "@/engine/lib/types";
+import { Y_VECTOR } from "@/engine/lib/constants/vectors";
+import { TRUE } from "@/engine/lib/constants/words";
+import { EScheme, GameObject, HangingLamp, SoundObject } from "@/engine/lib/types";
 import {
   callXrEffect,
   checkXrEffect,
@@ -12,7 +22,7 @@ import {
   MockSmartTerrain,
   resetRegistry,
 } from "@/fixtures/engine";
-import { mockClsid, MockGameObject } from "@/fixtures/xray";
+import { mockClsid, MockGameObject, MockHangingLamp } from "@/fixtures/xray";
 
 describe("world effects declaration", () => {
   beforeAll(() => {
@@ -143,7 +153,15 @@ describe("world effects implementation", () => {
 
   it.todo("reset_sound_npc should reset sound");
 
-  it.todo("barrel_explode should explode objects");
+  it("barrel_explode should explode objects", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    registerStoryLink(object.id(), "test-sid");
+
+    callXrEffect("barrel_explode", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid");
+
+    expect(object.explode).toHaveBeenCalledWith(0);
+  });
 
   it.todo("set_game_time should change game time");
 
@@ -151,25 +169,165 @@ describe("world effects implementation", () => {
 
   it.todo("pick_artefact_from_anomaly should pick artefacts from anomalies");
 
-  it.todo("anomaly_turn_off should turn off anomalies");
+  it("anomaly_turn_off should turn off anomalies", () => {
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
 
-  it.todo("anomaly_turn_on should turn on anomalies");
+    registerAnomalyZone(zone);
+
+    jest.spyOn(zone, "turnOff").mockImplementation(jest.fn());
+
+    expect(() => {
+      callXrEffect("anomaly_turn_off", MockGameObject.mockActor(), MockGameObject.mock(), "test-not-existing");
+    }).toThrow("No anomaly zone with name 'test-not-existing' defined.");
+
+    callXrEffect("anomaly_turn_off", MockGameObject.mockActor(), MockGameObject.mock(), zone.object.name());
+    expect(zone.turnOff).toHaveBeenCalled();
+  });
+
+  it("anomaly_turn_on should turn on anomalies", () => {
+    const zone: AnomalyZoneBinder = new AnomalyZoneBinder(MockGameObject.mock());
+
+    registerAnomalyZone(zone);
+
+    jest.spyOn(zone, "turnOn").mockImplementation(jest.fn());
+
+    expect(() => {
+      callXrEffect("anomaly_turn_on", MockGameObject.mockActor(), MockGameObject.mock(), "test-not-existing");
+    }).toThrow("No anomaly zone with name 'test-not-existing' defined.");
+
+    callXrEffect("anomaly_turn_on", MockGameObject.mockActor(), MockGameObject.mock(), zone.object.name());
+    expect(zone.turnOn).toHaveBeenCalledTimes(1);
+    expect(zone.turnOn).toHaveBeenCalledWith(false);
+
+    callXrEffect("anomaly_turn_on", MockGameObject.mockActor(), MockGameObject.mock(), zone.object.name(), TRUE);
+    expect(zone.turnOn).toHaveBeenCalledTimes(2);
+    expect(zone.turnOn).toHaveBeenCalledWith(true);
+  });
 
   it.todo("turn_off_underpass_lamps should turn off underpass lamps");
 
-  it.todo("turn_off should turn off lamps");
+  it("turn_off should turn off lamps", () => {
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
 
-  it.todo("turn_off_object should turn off lamps");
+    const firstLamp: HangingLamp = MockHangingLamp.mock();
+    const secondLamp: HangingLamp = MockHangingLamp.mock();
 
-  it.todo("turn_on_and_force should turn on lamps and set force");
+    jest.spyOn(first, "get_hanging_lamp").mockImplementation(() => firstLamp);
+    jest.spyOn(second, "get_hanging_lamp").mockImplementation(() => secondLamp);
 
-  it.todo("turn_off_and_force should turn off lamps and set force");
+    expect(() => {
+      callXrEffect("turn_off", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid-not-existing");
+    }).toThrow("Object with story id 'test-sid-not-existing' does not exist.");
 
-  it.todo("turn_on_object should turn on lamps");
+    registerStoryLink(first.id(), "test-sid-1");
+    registerStoryLink(second.id(), "test-sid-2");
 
-  it.todo("turn_on should turn on lamps");
+    callXrEffect("turn_off", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid-1", "test-sid-2");
 
-  it.todo("set_weather should change weather");
+    expect(first.get_hanging_lamp().turn_off).toHaveBeenCalledTimes(1);
+    expect(second.get_hanging_lamp().turn_off).toHaveBeenCalledTimes(1);
+  });
+
+  it("turn_off_object should turn off lamps", () => {
+    const object: GameObject = MockGameObject.mock();
+    const lamp: HangingLamp = MockHangingLamp.mock();
+
+    jest.spyOn(object, "get_hanging_lamp").mockImplementation(() => lamp);
+
+    callXrEffect("turn_off_object", MockGameObject.mockActor(), object);
+
+    expect(object.get_hanging_lamp().turn_off).toHaveBeenCalledTimes(1);
+  });
+
+  it("turn_on_and_force should turn on lamps and set force", () => {
+    const object: GameObject = MockGameObject.mock();
+    const lamp: HangingLamp = MockHangingLamp.mock();
+
+    jest.spyOn(object, "get_hanging_lamp").mockImplementation(() => lamp);
+
+    registerStoryLink(object.id(), "test-sid");
+
+    expect(() => {
+      callXrEffect("turn_on_and_force", MockGameObject.mockActor(), MockGameObject.mock(), "not-existing");
+    }).toThrow("Object with story id 'not-existing' does not exist.");
+
+    callXrEffect("turn_on_and_force", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid");
+
+    expect(object.get_hanging_lamp().turn_on).toHaveBeenCalledTimes(1);
+    expect(object.start_particles).toHaveBeenCalledWith("weapons\\light_signal", "link");
+    expect(object.set_const_force).toHaveBeenCalledWith(Y_VECTOR, 55, 14_000);
+
+    callXrEffect("turn_on_and_force", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 40, 15_000);
+
+    expect(object.set_const_force).toHaveBeenCalledTimes(2);
+    expect(object.set_const_force).toHaveBeenCalledWith(Y_VECTOR, 40, 15_000);
+  });
+
+  it("turn_off_and_force should turn off lamps and set force", () => {
+    const object: GameObject = MockGameObject.mock();
+    const lamp: HangingLamp = MockHangingLamp.mock();
+
+    jest.spyOn(object, "get_hanging_lamp").mockImplementation(() => lamp);
+
+    registerStoryLink(object.id(), "test-sid");
+
+    expect(() => {
+      callXrEffect("turn_off_and_force", MockGameObject.mockActor(), MockGameObject.mock(), "not-existing");
+    }).toThrow("Object with story id 'not-existing' does not exist.");
+
+    callXrEffect("turn_off_and_force", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid");
+
+    expect(object.get_hanging_lamp().turn_off).toHaveBeenCalledTimes(1);
+    expect(object.stop_particles).toHaveBeenCalledWith("weapons\\light_signal", "link");
+  });
+
+  it("turn_on_object should turn on lamps", () => {
+    const object: GameObject = MockGameObject.mock();
+    const lamp: HangingLamp = MockHangingLamp.mock();
+
+    jest.spyOn(object, "get_hanging_lamp").mockImplementation(() => lamp);
+
+    callXrEffect("turn_on_object", MockGameObject.mockActor(), object);
+
+    expect(object.get_hanging_lamp().turn_on).toHaveBeenCalledTimes(1);
+  });
+
+  it("turn_on should turn on lamps", () => {
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+
+    const firstLamp: HangingLamp = MockHangingLamp.mock();
+    const secondLamp: HangingLamp = MockHangingLamp.mock();
+
+    jest.spyOn(first, "get_hanging_lamp").mockImplementation(() => firstLamp);
+    jest.spyOn(second, "get_hanging_lamp").mockImplementation(() => secondLamp);
+
+    expect(() => {
+      callXrEffect("turn_on", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid-not-existing");
+    }).toThrow("Object with story id 'test-sid-not-existing' does not exist.");
+
+    registerStoryLink(first.id(), "test-sid-1");
+    registerStoryLink(second.id(), "test-sid-2");
+
+    callXrEffect("turn_on", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid-1", "test-sid-2");
+
+    expect(first.get_hanging_lamp().turn_on).toHaveBeenCalledTimes(1);
+    expect(second.get_hanging_lamp().turn_on).toHaveBeenCalledTimes(1);
+  });
+
+  it("set_weather should change game weather", () => {
+    callXrEffect("set_weather", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(level.set_weather).not.toHaveBeenCalled();
+
+    callXrEffect("set_weather", MockGameObject.mockActor(), MockGameObject.mock(), "test-weather-1");
+    expect(level.set_weather).toHaveBeenCalledTimes(1);
+    expect(level.set_weather).toHaveBeenCalledWith("test-weather-1", false);
+
+    callXrEffect("set_weather", MockGameObject.mockActor(), MockGameObject.mock(), "test-weather-2", TRUE);
+    expect(level.set_weather).toHaveBeenCalledTimes(2);
+    expect(level.set_weather).toHaveBeenCalledWith("test-weather-2", true);
+  });
 
   it("start_surge should stop sounds", () => {
     const surgeManager: SurgeManager = getManager(SurgeManager);
@@ -195,9 +353,39 @@ describe("world effects implementation", () => {
 
   it.todo("set_surge_mess_and_task should set surge message and task");
 
-  it.todo("enable_anomaly should enable anomalies");
+  it("enable_anomaly should enable anomalies", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("disable_anomaly should disable anomalies");
+    registerStoryLink(object.id(), "test-sid");
+
+    expect(() => {
+      callXrEffect("enable_anomaly", MockGameObject.mockActor(), MockGameObject.mock());
+    }).toThrow("Story id for 'enable_anomaly' effect is not provided.");
+
+    expect(() => {
+      callXrEffect("enable_anomaly", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid-not-existing");
+    }).toThrow("There is no anomaly with story id 'test-sid-not-existing'.");
+
+    callXrEffect("enable_anomaly", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid");
+    expect(object.enable_anomaly).toHaveBeenCalledTimes(1);
+  });
+
+  it("disable_anomaly should disable anomalies", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    registerStoryLink(object.id(), "test-sid");
+
+    expect(() => {
+      callXrEffect("disable_anomaly", MockGameObject.mockActor(), MockGameObject.mock());
+    }).toThrow("Story id for 'disable_anomaly' effect is not provided.");
+
+    expect(() => {
+      callXrEffect("disable_anomaly", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid-not-existing");
+    }).toThrow("There is no anomaly with story id 'test-sid-not-existing'.");
+
+    callXrEffect("disable_anomaly", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid");
+    expect(object.disable_anomaly).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("launch_signal_rocket should launch signal rockets");
 

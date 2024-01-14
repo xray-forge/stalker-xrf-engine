@@ -15,31 +15,33 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { abort } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
-import { createVector } from "@/engine/core/utils/vector";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
+import { Y_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   GameObject,
-  LuaArray,
   Optional,
   Patrol,
   ServerArtefactItemObject,
   ServerHumanObject,
   ServerObject,
   ServerWeaponObject,
+  TDuration,
   TIndex,
+  TLabel,
   TName,
   TNumberId,
   TRate,
   TSection,
   TStringId,
+  TStringifiedBoolean,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -52,18 +54,16 @@ extern(
   (
     actor: GameObject,
     object: GameObject,
-    [theme, faction, smartTerrainName]: [Optional<TName>, Optional<TCommunity>, Optional<TName | TNumberId>]
+    [theme, faction, terrainName]: [Optional<TName>, Optional<TCommunity>, Optional<TName | TNumberId>]
   ): void => {
-    const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
-      smartTerrainName as TName
-    );
-    const smartTerrainId: TNumberId = smartTerrain ? smartTerrain.id : (smartTerrainName as TNumberId);
+    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(terrainName as TName);
+    const terrainId: TNumberId = terrain ? terrain.id : (terrainName as TNumberId);
 
     if (object && isStalker(object) && !object.alive()) {
       abort("Stalker '%s' is dead while trying to play theme sound '%s'.", object.name(), theme);
     }
 
-    getManager(SoundManager).play(object.id(), theme, faction, smartTerrainId);
+    getManager(SoundManager).play(object.id(), theme, faction, terrainId);
   }
 );
 
@@ -98,14 +98,14 @@ extern(
   (
     actor: GameObject,
     object: GameObject,
-    [storyId, theme, faction, smartTerrainNameOrId]: [TStringId, TName, TName, TName | number]
+    [storyId, theme, faction, terrainNameOrId]: [TStringId, TName, TName, TName | TNumberId]
   ): void => {
-    const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
-      smartTerrainNameOrId as TName
+    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
+      terrainNameOrId as TName
     );
-    const smartTerrainId: TNumberId = smartTerrain ? smartTerrain.id : (smartTerrainNameOrId as number);
+    const terrainId: TNumberId = terrain ? terrain.id : (terrainNameOrId as TNumberId);
 
-    getManager(SoundManager).play(getObjectIdByStoryId(storyId) as number, theme, faction, smartTerrainId);
+    getManager(SoundManager).play(getObjectIdByStoryId(storyId) as TNumberId, theme, faction, terrainId);
   }
 );
 
@@ -121,13 +121,13 @@ extern("xr_effects.reset_sound_npc", (actor: GameObject, object: GameObject): vo
 });
 
 /**
- * todo;
+ * Explode game object by story id.
  */
-extern("xr_effects.barrel_explode", (actor: GameObject, object: GameObject, p: [TStringId]) => {
-  const explodeObject: Optional<GameObject> = getObjectByStoryId(p[0]);
+extern("xr_effects.barrel_explode", (actor: GameObject, object: GameObject, [storyId]: [TStringId]) => {
+  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  if (explodeObject !== null) {
-    explodeObject.explode(0);
+  if (storyObject) {
+    storyObject.explode(0);
   }
 });
 
@@ -259,34 +259,29 @@ extern(
 );
 
 /**
- * todo
+ * Toggle anomaly zone enabled state as OFF.
  */
-extern("xr_effects.anomaly_turn_off", (actor: GameObject, object: GameObject, p: [string]): void => {
-  const anomalZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(p[0]);
+extern("xr_effects.anomaly_turn_off", (actor: GameObject, object: GameObject, [zoneName]: [TName]): void => {
+  const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
 
-  if (anomalZone === null) {
-    abort("No such anomal zone in function 'anomaly_turn_off!'");
-  }
+  assert(zone, "No anomaly zone with name '%s' defined.", zoneName);
 
-  anomalZone.turnOff();
+  zone.turnOff();
 });
 
 /**
- * todo
+ * Toggle anomaly zone enabled state as ON.
  */
-extern("xr_effects.anomaly_turn_on", (actor: GameObject, object: GameObject, p: [string, Optional<string>]): void => {
-  const anomalyZone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(p[0]);
+extern(
+  "xr_effects.anomaly_turn_on",
+  (actor: GameObject, object: GameObject, [zoneName, isForced]: [TName, Optional<TStringifiedBoolean>]): void => {
+    const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
 
-  if (anomalyZone === null) {
-    abort("No such anomal zone in function 'anomaly_turn_on!'");
-  }
+    assert(zone, "No anomaly zone with name '%s' defined.", zoneName);
 
-  if (p[1]) {
-    anomalyZone.turnOn(true);
-  } else {
-    anomalyZone.turnOn(false);
+    zone.turnOn(isForced === TRUE);
   }
-});
+);
 
 /**
  * todo;
@@ -329,100 +324,90 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: GameObject, object: GameOb
 });
 
 /**
- * todo;
+ * Turn off hanging lamp objects by story IDs.
  */
-extern("xr_effects.turn_off", (actor: GameObject, object: GameObject, parameters: LuaArray<TStringId>): void => {
-  for (const [index, storyId] of parameters) {
-    const object: Optional<GameObject> = getObjectByStoryId(storyId);
+extern("xr_effects.turn_off", (actor: GameObject, object: GameObject, parameters: Array<TStringId>): void => {
+  for (const storyId of parameters) {
+    const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-    if (!object) {
-      abort("TURN_OFF. Target object with story_id [%s] does ! exist", storyId);
-    }
+    assert(storyObject, "Object with story id '%s' does not exist.", storyId);
 
-    object.get_hanging_lamp().turn_off();
+    storyObject.get_hanging_lamp().turn_off();
   }
 });
 
 /**
- * todo;
+ * Turn off hanging lamp object.
  */
 extern("xr_effects.turn_off_object", (actor: GameObject, object: GameObject): void => {
   object.get_hanging_lamp().turn_off();
 });
 
 /**
- * todo;
+ * Turn hanging lamp light on, apply force and start particles by story ID.
  */
 extern(
   "xr_effects.turn_on_and_force",
-  (actor: GameObject, object: GameObject, params: [TStringId, number, number]): void => {
-    const storyObject: Optional<GameObject> = getObjectByStoryId(params[0]);
+  (
+    actor: GameObject,
+    object: GameObject,
+    [storyId, power, interval]: [TStringId, Optional<TRate>, Optional<TDuration>]
+  ): void => {
+    const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-    if (!storyObject) {
-      abort("TURN_ON_AND_FORCE. Target object does ! exist");
+    assert(storyObject, "Object with story id '%s' does not exist.", storyId);
 
-      return;
-    }
-
-    if (params[1] === null) {
-      params[1] = 55;
-    }
-
-    if (params[2] === null) {
-      params[2] = 14000;
-    }
-
-    storyObject.set_const_force(createVector(0, 1, 0), params[1], params[2]);
+    storyObject.set_const_force(Y_VECTOR, power ?? 55, interval ?? 14_000);
     storyObject.start_particles("weapons\\light_signal", "link");
     storyObject.get_hanging_lamp().turn_on();
   }
 );
 
 /**
- * todo;
+ * Stop hanging lamp object and stop playback particles.
  */
-extern("xr_effects.turn_off_and_force", (actor: GameObject, object: GameObject, p: [TStringId]): void => {
-  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
+extern("xr_effects.turn_off_and_force", (actor: GameObject, object: GameObject, [storyId]: [TStringId]): void => {
+  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  if (!storyObject) {
-    abort("TURN_OFF [%s]. Target object does ! exist", p[0]);
-  }
+  assert(storyObject, "Object with story id '%s' does not exist.", storyId);
 
   storyObject.stop_particles("weapons\\light_signal", "link");
   storyObject.get_hanging_lamp().turn_off();
 });
 
 /**
- * todo;
+ * Turn on hanging lamp object.
  */
 extern("xr_effects.turn_on_object", (actor: GameObject, object: GameObject): void => {
   object.get_hanging_lamp().turn_on();
 });
 
 /**
- * todo;
+ * Turn on hanging lamp objects by story IDs.
  */
-extern("xr_effects.turn_on", (actor: GameObject, object: GameObject, parameters: LuaArray<TStringId>) => {
-  for (const [index, storyId] of parameters) {
+extern("xr_effects.turn_on", (actor: GameObject, object: GameObject, parameters: Array<TStringId>) => {
+  for (const storyId of parameters) {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-    if (!storyObject) {
-      abort("TURN_ON [%s]. Target object does ! exist", storyId);
-    }
+    assert(storyObject, "Object with story id '%s' does not exist.", storyId);
 
     storyObject.get_hanging_lamp().turn_on();
   }
 });
 
 /**
- * todo;
+ * Set current game level weather.
  */
 extern(
   "xr_effects.set_weather",
-  (actor: GameObject, object: GameObject, [weatherName, isForced]: [TName, string]): void => {
+  (
+    actor: GameObject,
+    object: GameObject,
+    [weatherName, isForced]: [Optional<TName>, Optional<TStringifiedBoolean>]
+  ): void => {
     logger.info("Set weather: %s", weatherName);
 
-    if (weatherName !== null) {
+    if (weatherName) {
       level.set_weather(weatherName, isForced === TRUE);
     }
   }
@@ -447,47 +432,39 @@ extern("xr_effects.stop_surge", (): void => {
  */
 extern(
   "xr_effects.set_surge_mess_and_task",
-  (actor: GameObject, object: GameObject, p: [string, Optional<string>]): void => {
+  (actor: GameObject, object: GameObject, [label, task]: [TLabel, Optional<TSection>]): void => {
     const surgeManager: SurgeManager = getManager(SurgeManager);
 
-    surgeManager.setSurgeMessage(p[0]);
+    surgeManager.setSurgeMessage(label);
 
-    if (p[1]) {
-      surgeManager.setSurgeTask(p[1]);
+    if (task) {
+      surgeManager.setSurgeTask(task);
     }
   }
 );
 
 /**
- * todo;
+ * Enable anomaly by story ID.
  */
-extern("xr_effects.enable_anomaly", (actor: GameObject, object: GameObject, p: [string]) => {
-  if (p[0] === null) {
-    abort("Story id for enable_anomaly function is ! set");
-  }
+extern("xr_effects.enable_anomaly", (actor: GameObject, object: GameObject, [storyId]: [Optional<TStringId>]) => {
+  assert(storyId, "Story id for 'enable_anomaly' effect is not provided.");
 
-  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
+  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  if (!storyObject) {
-    abort("There is no object with story_id %s for enable_anomaly function", tostring(p[0]));
-  }
+  assert(storyObject, "There is no anomaly with story id '%s'.", storyId);
 
   storyObject.enable_anomaly();
 });
 
 /**
- * todo;
+ * Disable anomaly by story ID.
  */
-extern("xr_effects.disable_anomaly", (actor: GameObject, object: GameObject, p: [TStringId]): void => {
-  if (p[0] === null) {
-    abort("Story id for disable_anomaly function is ! set");
-  }
+extern("xr_effects.disable_anomaly", (actor: GameObject, object: GameObject, [storyId]: [TStringId]): void => {
+  assert(storyId, "Story id for 'disable_anomaly' effect is not provided.");
 
-  const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
+  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  if (!storyObject) {
-    abort("There is no object with story_id %s for disable_anomaly function", tostring(p[0]));
-  }
+  assert(storyObject, "There is no anomaly with story id '%s'.", storyId);
 
   storyObject.disable_anomaly();
 });
