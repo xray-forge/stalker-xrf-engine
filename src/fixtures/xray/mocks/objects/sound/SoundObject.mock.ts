@@ -6,7 +6,11 @@ import { Optional, SoundObject, TDuration, TRate } from "@/engine/lib/types";
  * Mock generic engine sound object.
  */
 export class MockSoundObject {
-  public static fromObject(sound: Optional<SoundObject>): MockSoundObject {
+  public static mock(path: string): SoundObject {
+    return new MockSoundObject(path) as unknown as SoundObject;
+  }
+
+  public static asObject(sound: Optional<SoundObject>): MockSoundObject {
     if (!sound) {
       throw new Error("Unexpected null provided for type assertion of sound object.");
     }

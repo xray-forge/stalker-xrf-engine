@@ -1,5 +1,5 @@
 import type { IBaseSchemeLogic } from "@/engine/core/database/database_types";
-import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import {
   parseConditionsList,
   parseNumbersList,
@@ -213,7 +213,7 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
 
   const parameters: LuaArray<string> = parseParameters(data);
 
-  assertDefined(parameters.get(1), "Invalid syntax in conditions list: '%s'.", data);
+  assert(parameters.get(1), "Invalid syntax in conditions list: '%s'.", data);
 
   return {
     name: field,

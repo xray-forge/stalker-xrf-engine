@@ -42,6 +42,7 @@ export function resetRegistry(): void {
   registry.camps = new LuaTable();
   registry.crows.count = 0;
   registry.crows.storage = new LuaTable();
+  registry.doors = new LuaTable();
   registry.effectsVolume = 0;
   registry.extensions = new LuaTable();
   registry.managers = new LuaTable();

@@ -80,7 +80,7 @@ describe("SaveManager class", () => {
     expect(isManagerInitialized(SurgeManager)).toBe(true);
   });
 
-  it("should save and load data from managers in a strict order", () => {
+  it("should save and load data from managers in a same order", () => {
     const expectedOrder: Array<TAbstractCoreManagerConstructor> = [
       WeatherManager,
       ReleaseBodyManager,

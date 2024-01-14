@@ -71,6 +71,7 @@ import {
   move,
   net_packet,
   noise,
+  object_binder,
   object_factory,
   particles_object,
   patrol,
@@ -143,6 +144,7 @@ export type Move = move;
 export type NetPacket = net_packet;
 export type NetProcessor = TXR_net_processor;
 export type Noise = noise;
+export type ObjectBinder = object_binder;
 export type ObjectFactory = object_factory;
 export type ParticlesObject = particles_object;
 export type Patrol = patrol;

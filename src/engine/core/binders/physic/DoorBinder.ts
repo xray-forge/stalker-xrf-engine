@@ -19,7 +19,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NIL, TRUE } from "@/engine/lib/constants/words";
+import { TRUE } from "@/engine/lib/constants/words";
 import {
   ESoundObjectType,
   GameObject,
@@ -57,10 +57,10 @@ export class DoorBinder extends object_binder {
   public onUseConditionList!: TConditionList;
   public onStopConditionList!: TConditionList;
   public onStartConditionList!: TConditionList;
+  public tipConditionList!: TConditionList;
 
-  public idleDelay!: number;
-  public startDelay!: number;
-  public tip!: TConditionList;
+  public idleDelay!: TDuration;
+  public startDelay!: TDuration;
 
   public constructor(object: GameObject) {
     super(object);
@@ -93,34 +93,21 @@ export class DoorBinder extends object_binder {
     this.startSound = startSound ? new sound_object(startSound) : null;
     this.stopSound = stopSound ? new sound_object(stopSound) : null;
 
-    this.tip = parseConditionsList(readIniString(ini, "animated_object", "tip", false, null, "none"));
-
-    let onUse: string = TRUE;
-    let onStart: string = TRUE;
-    let onStop: string = TRUE;
-
-    if (ini.line_exist("animated_object", "on_use")) {
-      onUse = ini.r_string("animated_object", "on_use");
-    }
-
-    if (ini.line_exist("animated_object", "on_start")) {
-      onStart = ini.r_string("animated_object", "on_start");
-    }
-
-    if (ini.line_exist("animated_object", "on_stop")) {
-      onStop = ini.r_string("animated_object", "on_stop");
-    }
-
-    this.onUseConditionList = parseConditionsList(onUse);
-    this.onStartConditionList = parseConditionsList(onStart);
-    this.onStopConditionList = parseConditionsList(onStop);
-
     this.startDelay = readIniNumber(ini, "animated_object", "start_delay", false, 0);
     this.idleDelay = readIniNumber(ini, "animated_object", "idle_delay", false, 2000);
+
+    this.tipConditionList = parseConditionsList(readIniString(ini, "animated_object", "tip", false, null, "none"));
+
+    this.onUseConditionList = parseConditionsList(readIniString(ini, "animated_object", "on_use", false, null, TRUE));
+    this.onStartConditionList = parseConditionsList(
+      readIniString(ini, "animated_object", "on_start", false, null, TRUE)
+    );
+    this.onStopConditionList = parseConditionsList(readIniString(ini, "animated_object", "on_stop", false, null, TRUE));
   }
 
   public override reinit(): void {
     super.reinit();
+
     resetObject(this.object);
   }
 
@@ -131,7 +118,7 @@ export class DoorBinder extends object_binder {
 
     registerDoor(this);
 
-    this.object.set_callback(callback.script_animation, this.onAnimationEnd, this);
+    this.object.set_callback(callback.script_animation, this.onAnimation, this);
     this.object.set_callback(callback.use_object, this.onUse, this);
 
     const physicObject: CPhysicObject = this.object.get_physics_object();
@@ -162,7 +149,7 @@ export class DoorBinder extends object_binder {
     super.net_destroy();
   }
 
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     super.update(delta);
 
     if (this.animationDuration && this.isLoaded) {
@@ -176,7 +163,6 @@ export class DoorBinder extends object_binder {
       } else {
         this.object.get_physics_object().run_anim_back();
       }
-      // --        }
     } else {
       this.object.get_physics_object().stop_anim();
       if (this.animationDuration) {
@@ -188,7 +174,7 @@ export class DoorBinder extends object_binder {
       }
     }
 
-    const doorUseTipLabel: TLabel = pickSectionFromCondList(registry.actor, null, this.tip)!;
+    const doorUseTipLabel: TLabel = pickSectionFromCondList(registry.actor, null, this.tipConditionList)!;
 
     this.object.set_tip_text(doorUseTipLabel !== "none" ? doorUseTipLabel : "");
   }
@@ -216,20 +202,23 @@ export class DoorBinder extends object_binder {
 
     super.load(reader);
 
+    this.isLoaded = true;
+
     loadObjectLogic(this.object, reader);
 
     this.isIdle = reader.r_bool();
     this.isPlayingForward = reader.r_bool();
     this.animationDuration = reader.r_float();
-    this.isLoaded = true;
 
     closeLoadMarker(reader, DoorBinder.__name);
   }
 
   /**
-   * todo: Description.
+   * Starts forward animation of the door.
    */
-  public forwardAnimation(): void {
+  public startForwardAnimation(): void {
+    const object: GameObject = this.object;
+
     this.isIdle = false;
     this.isPlayingForward = true;
 
@@ -237,28 +226,30 @@ export class DoorBinder extends object_binder {
       this.idleSound.stop();
     }
 
-    this.object.get_physics_object().stop_anim();
+    object.get_physics_object().stop_anim();
 
     if (this.startSound) {
-      this.startSound.play_at_pos(this.object, this.object.position(), this.startDelay / 1000, ESoundObjectType.S3D);
+      this.startSound.play_at_pos(object, object.position(), this.startDelay / 1_000, ESoundObjectType.S3D);
     }
 
     if (this.idleSound) {
       this.idleSound.play_at_pos(
-        this.object,
-        this.object.position(),
+        object,
+        object.position(),
         (this.startDelay + this.idleDelay) / 1000,
         (ESoundObjectType.S3D + ESoundObjectType.LOOPED) as TSoundObjectType
       );
     }
 
-    pickSectionFromCondList(registry.actor, this.object, this.onStartConditionList);
+    pickSectionFromCondList(registry.actor, object, this.onStartConditionList);
   }
 
   /**
-   * todo: Description.
+   * Starts backward animation of the door.
    */
-  public backwardAnimation(): void {
+  public startBackwardAnimation(): void {
+    const object: GameObject = this.object;
+
     this.isIdle = false;
     this.isPlayingForward = false;
 
@@ -266,57 +257,66 @@ export class DoorBinder extends object_binder {
       this.idleSound.stop();
     }
 
-    this.object.get_physics_object().stop_anim();
+    object.get_physics_object().stop_anim();
 
     if (this.startSound) {
-      this.startSound.play_at_pos(this.object, this.object.position(), this.startDelay / 1000, ESoundObjectType.S3D);
+      this.startSound.play_at_pos(object, object.position(), this.startDelay / 1_000, ESoundObjectType.S3D);
     }
 
     if (this.idleSound) {
       this.idleSound.play_at_pos(
-        this.object,
-        this.object.position(),
-        (this.startDelay + this.idleDelay) / 1000,
+        object,
+        object.position(),
+        (this.startDelay + this.idleDelay) / 1_000,
         (ESoundObjectType.S3D + ESoundObjectType.LOOPED) as TSoundObjectType
       );
     }
 
-    pickSectionFromCondList(registry.actor, this.object, this.onStartConditionList);
+    pickSectionFromCondList(registry.actor, object, this.onStartConditionList);
   }
 
   /**
-   * todo: Description.
+   * Stop door animation and emit related events.
    */
   public stopAnimation(): void {
-    this.object.get_physics_object().stop_anim();
+    const object: GameObject = this.object;
+
     this.isIdle = true;
+    object.get_physics_object().stop_anim();
 
     if (this.stopSound) {
-      this.stopSound.play_at_pos(this.object, this.object.position(), 0, ESoundObjectType.S3D);
+      this.stopSound.play_at_pos(object, object.position(), 0, ESoundObjectType.S3D);
     }
 
-    this.animationDuration = this.object.get_physics_object().anim_time_get();
+    this.animationDuration = object.get_physics_object().anim_time_get();
 
-    pickSectionFromCondList(registry.actor, this.object, this.onStopConditionList);
+    pickSectionFromCondList(registry.actor, object, this.onStopConditionList);
   }
 
   /**
-   * todo: Description.
+   * Handle animation event callback.
+   *
+   * @param isEnd - whether it is end or start of the animation
    */
-  public onAnimationEnd(isEnd?: boolean): void {
+  public onAnimation(isEnd?: Optional<boolean>): void {
     if (isEnd) {
+      const object: GameObject = this.object;
+
       if (this.stopSound) {
-        this.stopSound.play_at_pos(this.object, this.object.position(), 0, ESoundObjectType.S3D);
+        this.stopSound.play_at_pos(object, object.position(), 0, ESoundObjectType.S3D);
       }
 
       this.isIdle = true;
-      this.animationDuration = this.object.get_physics_object().anim_time_get();
-      pickSectionFromCondList(registry.actor, this.object, this.onStopConditionList);
+      this.animationDuration = object.get_physics_object().anim_time_get();
+
+      pickSectionFromCondList(registry.actor, object, this.onStopConditionList);
     }
   }
 
   /**
-   * todo: Description.
+   * Handle door usage logics.
+   *
+   * @param object - game object used
    */
   public onUse(object: GameObject): void {
     pickSectionFromCondList(registry.actor, object, this.onUseConditionList);
