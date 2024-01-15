@@ -653,7 +653,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * todo: Description.
    */
-  public onMemberDeath(object: ServerObject): void {
+  public onObjectDeath(object: ServerObject): void {
     simulationLogger.info("On squad member death: %s %s", this.name(), object.name());
 
     this.soundManager.unregisterObject(object.id);

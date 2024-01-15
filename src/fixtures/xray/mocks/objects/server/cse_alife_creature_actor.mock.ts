@@ -17,7 +17,7 @@ export class MockAlifeCreatureActor extends MockAlifeDynamicObjectVisual {
   public override m_level_vertex_id: TNumberId = 255;
   public override m_game_vertex_id: TNumberId = 512;
 
-  public clsid(): TClassId {
+  public override clsid(): TClassId {
     return mockClsid.actor as TClassId;
   }
 

@@ -7,6 +7,7 @@ import {
   ServerCreatureObject,
   ServerGroupObject,
   ServerSquadMemberDescriptor,
+  TClassId,
   TCount,
   TIndex,
   TNumberId,
@@ -24,11 +25,10 @@ import {
 export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
   public members: Array<ServerSquadMemberDescriptor> = [];
   public invulnerable!: TConditionList;
-  public online: boolean = true;
   public faction!: TCommunity;
 
-  public clsid(): TNumberId {
-    return mockClsid.online_offline_group_s;
+  public override clsid(): TClassId {
+    return mockClsid.online_offline_group_s as TClassId;
   }
 
   public squad_members(): Array<ServerSquadMemberDescriptor> {

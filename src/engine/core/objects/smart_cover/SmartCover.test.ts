@@ -159,7 +159,7 @@ describe("SmartCover server object", () => {
       EPacketDataType.BOOLEAN,
     ]);
     expect(netProcessor.dataList).toEqual([
-      "SmartCover",
+      "state_write_from_SmartCover",
       "combat_front",
       4,
       "crouch_front",

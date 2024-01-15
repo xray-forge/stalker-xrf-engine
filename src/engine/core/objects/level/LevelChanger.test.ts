@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LevelChanger } from "@/engine/core/objects/level/LevelChanger";
-import { EPacketDataType, mockIniFile, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, mockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger server class", () => {
   beforeEach(() => registerSimulator());
@@ -67,7 +67,7 @@ describe("LevelChanger server class", () => {
     levelChanger.isEnabled = false;
     levelChanger.invitationHint = "another";
 
-    levelChanger.STATE_Write(mockNetPacket(netProcessor));
+    levelChanger.STATE_Write(netProcessor.asMockNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -75,11 +75,11 @@ describe("LevelChanger server class", () => {
       EPacketDataType.STRING,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["LevelChanger", false, "another", 2]);
+    expect(netProcessor.dataList).toEqual(["state_write_from_LevelChanger", false, "another", 2]);
 
     const anotherLevelChanger: LevelChanger = new LevelChanger("test-section");
 
-    anotherLevelChanger.STATE_Read(mockNetPacket(netProcessor), -1);
+    anotherLevelChanger.STATE_Read(netProcessor.asMockNetPacket(), -1);
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);

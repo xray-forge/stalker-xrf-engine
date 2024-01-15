@@ -6,20 +6,17 @@ import {
   registerObjectStoryLinks,
   registerOfflineObject,
   registry,
+  unregisterOfflineObject,
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { assert } from "@/engine/core/utils/assertion";
 import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/ini/ini_parse";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Server object representation of any monster.
@@ -48,16 +45,15 @@ export class Monster extends cse_alife_monster_base {
     registerOfflineObject(this.id);
     registerObjectStoryLinks(this);
 
-    const simulationBoardManager: SimulationManager = getManager(SimulationManager);
-
     this.brain().can_choose_alife_tasks(false);
 
-    const ini: IniFile = this.spawn_ini() as IniFile;
-    const smartName: TName = readIniString(ini, "logic", "smart_terrain", false, null, "");
-    const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
+    const terrainName: Optional<TName> = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain");
+    const terrain: Optional<SmartTerrain> = terrainName
+      ? getManager(SimulationManager).getSmartTerrainByName(terrainName)
+      : null;
 
-    if (smartTerrain) {
-      registry.simulator.object<SmartTerrain>(smartTerrain.id)!.register_npc(this);
+    if (terrain) {
+      registry.simulator.object<SmartTerrain>(terrain.id)!.register_npc(this);
     }
 
     EventsManager.emitEvent(EGameEvent.MONSTER_REGISTER, this);
@@ -66,17 +62,14 @@ export class Monster extends cse_alife_monster_base {
   public override on_unregister(): void {
     EventsManager.emitEvent(EGameEvent.MONSTER_UNREGISTER, this);
 
-    const smartTerrainId: TNumberId = this.smart_terrain_id();
+    const terrainId: TNumberId = this.smart_terrain_id();
+    const terrain: Optional<SmartTerrain> = terrainId === MAX_U16 ? null : registry.simulator.object(terrainId);
 
-    if (smartTerrainId !== MAX_U16) {
-      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(smartTerrainId);
-
-      if (smartTerrain !== null) {
-        smartTerrain.unregister_npc(this);
-      }
+    if (terrain) {
+      terrain.unregister_npc(this);
     }
 
-    registry.offlineObjects.delete(this.id);
+    unregisterOfflineObject(this.id);
     unregisterStoryLinkByObjectId(this.id);
 
     super.on_unregister();
@@ -85,22 +78,12 @@ export class Monster extends cse_alife_monster_base {
   public override on_death(killer: ServerCreatureObject): void {
     super.on_death(killer);
 
-    logger.info("On monster death: %s %s %s", this.name(), killer.id, killer?.name());
-
-    // Notify assigned smart terrain about abject death.
-    const smartTerrainId: TNumberId = this.smart_terrain_id();
-
-    if (smartTerrainId !== MAX_U16) {
-      (registry.simulator.object(smartTerrainId) as SmartTerrain).onObjectDeath(this);
+    if (this.m_smart_terrain_id !== MAX_U16) {
+      (registry.simulator.object(this.m_smart_terrain_id) as SmartTerrain).onObjectDeath(this);
     }
 
-    // Notify assigned squad about death.
     if (this.group_id !== MAX_U16) {
-      const squad: Optional<Squad> = registry.simulator.object(this.group_id);
-
-      assert(squad, "There is no squad with ID [%s]", this.group_id);
-
-      squad.onMemberDeath(this);
+      (registry.simulator.object(this.group_id) as Squad).onObjectDeath(this);
     }
 
     EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, this, killer);
@@ -123,9 +106,9 @@ export class Monster extends cse_alife_monster_base {
   public override STATE_Read(packet: NetPacket, size: number): void {
     super.STATE_Read(packet, size);
 
-    const offlineObject: IRegistryOfflineState = registerOfflineObject(this.id);
+    const offlineState: IRegistryOfflineState = registerOfflineObject(this.id);
 
-    offlineObject.levelVertexId = parseNumberOptional(packet.r_stringZ());
-    offlineObject.activeSection = parseStringOptional(packet.r_stringZ());
+    offlineState.levelVertexId = parseNumberOptional(packet.r_stringZ());
+    offlineState.activeSection = parseStringOptional(packet.r_stringZ());
   }
 }

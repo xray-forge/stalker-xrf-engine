@@ -21,7 +21,6 @@ import {
   mockIniFile,
   MockNetProcessor,
   mockServerAlifeCreatureActor,
-  mockServerAlifeHumanStalker,
 } from "@/fixtures/xray";
 
 describe("SmartTerrain class generic logic", () => {
@@ -168,9 +167,9 @@ describe("SmartTerrain class generic logic", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    const firstArriving: ServerHumanObject = mockServerAlifeHumanStalker();
-    const secondArriving: ServerHumanObject = mockServerAlifeHumanStalker();
-    const thirdWithJob: ServerHumanObject = mockServerAlifeHumanStalker();
+    const firstArriving: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const secondArriving: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const thirdWithJob: ServerHumanObject = MockAlifeHumanStalker.mock();
     const thirdJob: IObjectJobState = createObjectJobDescriptor(thirdWithJob);
 
     smartTerrain.arrivingObjects.set(firstArriving.id, firstArriving);
@@ -249,7 +248,7 @@ describe("SmartTerrain class generic logic", () => {
       EPacketDataType.U16,
     ]);
     expect(netProcessor.dataList).toEqual([
-      "SmartTerrain",
+      "state_write_from_SmartTerrain",
       2,
       firstArriving.id,
       secondArriving.id,
@@ -346,7 +345,7 @@ describe("SmartTerrain class generic logic", () => {
       EPacketDataType.U8,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["SmartTerrain", 0, 0, 0, false, false, 0, 6]);
+    expect(netProcessor.dataList).toEqual(["state_write_from_SmartTerrain", 0, 0, 0, false, false, 0, 6]);
 
     const anotherSmartTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
 

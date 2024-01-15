@@ -10,13 +10,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject } from "@/engine/lib/types";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import {
-  EPacketDataType,
-  MockGameObject,
-  mockIniFile,
-  MockNetProcessor,
-  mockServerAlifeHumanStalker,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeHumanStalker, MockGameObject, mockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("Stalker server object", () => {
   beforeEach(() => {
@@ -146,17 +140,17 @@ describe("Stalker server object", () => {
     const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
-    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onObjectDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = smartTerrain.id;
     stalker.group_id = squad.id;
 
-    stalker.on_death(mockServerAlifeHumanStalker());
+    stalker.on_death(MockAlifeHumanStalker.mock());
 
     expect(smartTerrain.onObjectDeath).toHaveBeenCalledTimes(1);
     expect(smartTerrain.onObjectDeath).toHaveBeenCalledWith(stalker);
-    expect(squad.onMemberDeath).toHaveBeenCalledTimes(1);
-    expect(squad.onMemberDeath).toHaveBeenCalledWith(stalker);
+    expect(squad.onObjectDeath).toHaveBeenCalledTimes(1);
+    expect(squad.onObjectDeath).toHaveBeenCalledWith(stalker);
   });
 
   it("should correctly handle death callback if squad or smart does not exist", () => {
@@ -165,18 +159,18 @@ describe("Stalker server object", () => {
     const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
 
     jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
-    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onObjectDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = 65000;
     stalker.group_id = 65001;
 
-    expect(() => stalker.on_death(mockServerAlifeHumanStalker())).toThrow("a");
+    expect(() => stalker.on_death(MockAlifeHumanStalker.mock())).toThrow("a");
 
     stalker.m_smart_terrain_id = smartTerrain.id;
-    expect(() => stalker.on_death(mockServerAlifeHumanStalker())).toThrow("a");
+    expect(() => stalker.on_death(MockAlifeHumanStalker.mock())).toThrow("a");
 
     stalker.group_id = squad.id;
-    expect(() => stalker.on_death(mockServerAlifeHumanStalker())).not.toThrow("a");
+    expect(() => stalker.on_death(MockAlifeHumanStalker.mock())).not.toThrow("a");
   });
 
   it.todo("should correctly handle registration events with smart terrains");
@@ -196,7 +190,7 @@ describe("Stalker server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["Stalker", NIL, NIL, false]);
+    expect(netProcessor.dataList).toEqual(["state_write_from_Stalker", NIL, NIL, false]);
 
     const another: Stalker = new Stalker("stalker");
 
@@ -235,7 +229,7 @@ describe("Stalker server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["Stalker", "435", "test_section", true]);
+    expect(netProcessor.dataList).toEqual(["state_write_from_Stalker", "435", "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 
@@ -275,7 +269,7 @@ describe("Stalker server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["Stalker", "311", "test_section", true]);
+    expect(netProcessor.dataList).toEqual(["state_write_from_Stalker", "311", "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 
@@ -313,7 +307,7 @@ describe("Stalker server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["Stalker", NIL, "test_section", true]);
+    expect(netProcessor.dataList).toEqual(["state_write_from_Stalker", NIL, "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 

@@ -12,33 +12,34 @@ import {
   ServerObject,
   TName,
   TNumberId,
+  TSection,
   TStringId,
 } from "@/engine/lib/types";
 
 /**
  * Register story object link based on ini configuration.
  *
- * @param serverObject - server object to register links
+ * @param object - server object to register links
  */
-export function registerObjectStoryLinks(serverObject: ServerObject): void {
-  const spawnIni: IniFile = serverObject.spawn_ini() as IniFile;
+export function registerObjectStoryLinks(object: ServerObject): void {
+  const ini: IniFile = object.spawn_ini() as IniFile;
 
-  if (spawnIni.section_exist("story_object")) {
-    const [, field, value] = spawnIni.r_line("story_object", 0, "", "");
+  if (ini.section_exist("story_object")) {
+    const [, field, value] = ini.r_line("story_object", 0, "", "");
 
-    assert(field === "story_id", "There is no 'story_id' field in [story_object] section [%s].", serverObject.name());
-    assert(value !== "", "Field 'story_id' in [story_object] section got no value: [%s].", serverObject.name());
+    assert(field === "story_id", "There is no 'story_id' field in [story_object] section [%s].", object.name());
+    assert(value !== "", "Field 'story_id' in [story_object] section got no value: [%s].", object.name());
 
-    registerStoryLink(serverObject.id, value);
+    registerStoryLink(object.id, value);
 
     return;
   }
 
-  const spawnSection: TName = serverObject.section_name();
-  const storyId: Optional<TStringId> = readIniString(SYSTEM_INI, spawnSection, "story_id", false);
+  const section: TSection = object.section_name();
+  const storyId: Optional<TStringId> = readIniString(SYSTEM_INI, section, "story_id", false);
 
   if (storyId !== null) {
-    registerStoryLink(serverObject.id, storyId);
+    registerStoryLink(object.id, storyId);
   }
 }
 

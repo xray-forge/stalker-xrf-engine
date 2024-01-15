@@ -6,7 +6,7 @@ import { SaveManager } from "@/engine/core/managers/save/SaveManager";
 import { Actor } from "@/engine/core/objects/creature/Actor";
 import { ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockAlifeHumanStalker, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeHumanStalker, MockNetProcessor } from "@/fixtures/xray";
 
 describe("Actor server object", () => {
   beforeEach(() => {
@@ -56,13 +56,13 @@ describe("Actor server object", () => {
     jest.spyOn(saveManager, "serverSave").mockImplementation(jest.fn());
     jest.spyOn(saveManager, "serverLoad").mockImplementation(jest.fn());
 
-    actor.STATE_Write(mockNetPacket(netProcessor));
+    actor.STATE_Write(netProcessor.asMockNetPacket());
 
     expect(saveManager.serverSave).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual(["Actor", 0]);
+    expect(netProcessor.dataList).toEqual(["state_write_from_Actor", 0]);
 
-    actor.STATE_Read(mockNetPacket(netProcessor), 0);
+    actor.STATE_Read(netProcessor.asMockNetPacket(), 0);
 
     expect(saveManager.serverLoad).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);

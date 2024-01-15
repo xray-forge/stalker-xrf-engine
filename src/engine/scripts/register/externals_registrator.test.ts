@@ -31,6 +31,6 @@ describe("extrnals_registrator entry point", () => {
       registerExternals();
     }).not.toThrow();
 
-    expect(previous).toBe("on_actor_critical_power");
+    expect(previous).toBe(getExtern("on_actor_critical_power"));
   });
 });

@@ -142,6 +142,8 @@ export class MockNetProcessor {
 
 /**
  * Mock net processor instance.
+ *
+ * @deprecated
  */
 export function mockNetProcessor(packet: MockNetProcessor = new MockNetProcessor()): NetProcessor {
   return packet as unknown as NetPacket;
@@ -149,6 +151,8 @@ export function mockNetProcessor(packet: MockNetProcessor = new MockNetProcessor
 
 /**
  * Mock net packet instance.
+ *
+ * @deprecated
  */
 export function mockNetPacket(packet: MockNetProcessor = new MockNetProcessor()): NetPacket {
   return packet as unknown as NetPacket;
@@ -156,6 +160,8 @@ export function mockNetPacket(packet: MockNetProcessor = new MockNetProcessor())
 
 /**
  * Mock reader instance.
+ *
+ * @deprecated
  */
 export function mockNetReader(packet: MockNetProcessor = new MockNetProcessor()): Reader {
   return packet as unknown as Reader;

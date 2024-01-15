@@ -46,7 +46,7 @@ describe("smart_terrain_generic_utils module", () => {
     expect(getSmartTerrainMapDisplayHint(smartTerrain).replaceAll("\\n", "\n")).toBe(
       `[translated_st_test_smart_name] (${smartTerrain.name()}) (${smartTerrain.id})
 available = false
-online = nil
+online = true
 simulation_role = default
 squad_id = 0
 capacity = 0\\0

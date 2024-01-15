@@ -23,12 +23,20 @@ export class MockAlifeObject extends MockLuabindClass {
     return object as unknown as ServerObject;
   }
 
+  public static toMock(object: ServerObject): MockAlifeObject {
+    return object as unknown as MockAlifeObject;
+  }
+
   public id: TNumberId = mockConfig.ID_COUNTER++;
   public classId: TClassId = -1;
   public section: TSection;
   public position: Vector = MockVector.mock(0, 0, 0);
   public m_level_vertex_id: TNumberId = 255;
   public m_game_vertex_id: TNumberId = 512;
+
+  public online = true;
+  public canSwitchOnline: boolean = true;
+  public canSwitchOffline: boolean = true;
 
   public constructor(section: TSection) {
     super();
@@ -63,11 +71,11 @@ export class MockAlifeObject extends MockLuabindClass {
   }
 
   public can_switch_online(): boolean {
-    return true;
+    return this.canSwitchOnline;
   }
 
   public can_switch_offline(): boolean {
-    return true;
+    return this.canSwitchOffline;
   }
 
   public spawn_ini(): MockIniFile<AnyObject> {
@@ -75,7 +83,7 @@ export class MockAlifeObject extends MockLuabindClass {
   }
 
   public STATE_Write(packet: NetPacket): void {
-    packet.w_stringZ(this.constructor.name);
+    packet.w_stringZ(`state_write_from_${this.constructor.name}`);
   }
 
   public STATE_Read(packet: NetPacket, size: number): void {
