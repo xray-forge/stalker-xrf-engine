@@ -5,6 +5,8 @@ import { AnyCallable } from "@/engine/lib/types";
 
 /**
  * Reset hidden mock functions.
+ *
+ * @param callable - function to reset
  */
 export function resetFunctionMock(callable: AnyCallable): void {
   if (jest.isMockFunction(callable)) {
@@ -21,7 +23,7 @@ export function getFunctionMock(callable: AnyCallable): Mock {
   if (jest.isMockFunction(callable)) {
     return callable;
   } else {
-    throw new Error("Possibly not mocked function provided for mock reset.");
+    throw new Error("Possibly not mocked function provided for mock assertion.");
   }
 }
 
@@ -36,7 +38,7 @@ export function replaceFunctionMock(callable: AnyCallable, newImplementation: An
   if (jest.isMockFunction(callable)) {
     callable.mockImplementation(newImplementation);
   } else {
-    throw new Error("Possibly not mocked function provided for mock reset.");
+    throw new Error("Possibly not mocked function provided for mock replace.");
   }
 }
 
@@ -51,7 +53,7 @@ export function replaceFunctionMockOnce(callable: AnyCallable, newImplementation
   if (jest.isMockFunction(callable)) {
     callable.mockImplementationOnce(newImplementation);
   } else {
-    throw new Error("Possibly not mocked function provided for mock reset.");
+    throw new Error("Possibly not mocked function provided for mock replace.");
   }
 }
 
