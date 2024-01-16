@@ -5,7 +5,7 @@ import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { Squad } from "@/engine/core/objects/squad/Squad";
-import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/stalker/patrol/actions";
+import { ActionPatrolCommander, ActionPatrolFollower } from "@/engine/core/schemes/stalker/patrol/actions";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
@@ -75,11 +75,17 @@ export class SchemePatrol extends AbstractScheme {
       movingFire: null,
     };
 
-    if (patrolConfig.PATROLS.get(state.patrolKey) === null) {
-      patrolConfig.PATROLS.set(state.patrolKey, new PatrolManager(state.pathName));
+    let manager: Optional<PatrolManager> = patrolConfig.PATROLS.get(state.patrolKey);
+
+    if (!manager) {
+      manager = new PatrolManager(state.pathName);
+
+      patrolConfig.PATROLS.set(state.patrolKey, manager);
     }
 
-    patrolConfig.PATROLS.get(state.patrolKey).addObject(object, state.commander);
+    state.patrolManager = manager;
+
+    manager.registerObject(object, state.commander);
 
     return state;
   }
@@ -99,7 +105,7 @@ export class SchemePatrol extends AbstractScheme {
     );
     planner.add_evaluator(EEvaluatorId.IS_PATROL_COMMANDER, new EvaluatorPatrolCommander(state));
 
-    const actionCommander: ActionCommander = new ActionCommander(state, object);
+    const actionCommander: ActionPatrolCommander = new ActionPatrolCommander(state, object);
 
     addCommonActionPreconditions(actionCommander);
     actionCommander.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
@@ -113,7 +119,7 @@ export class SchemePatrol extends AbstractScheme {
 
     planner.add_action(EActionId.COMMAND_SQUAD, actionCommander);
 
-    const actionPatrol: ActionPatrol = new ActionPatrol(state, object);
+    const actionPatrol: ActionPatrolFollower = new ActionPatrolFollower(state, object);
 
     addCommonActionPreconditions(actionPatrol);
     actionPatrol.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
