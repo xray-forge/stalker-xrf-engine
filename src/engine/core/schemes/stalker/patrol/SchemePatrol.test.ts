@@ -5,7 +5,7 @@ import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject, registerSimulator } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
-import { ActionCommander, ActionPatrol } from "@/engine/core/schemes/stalker/patrol/actions";
+import { ActionPatrolCommander, ActionPatrolFollower } from "@/engine/core/schemes/stalker/patrol/actions";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
@@ -127,11 +127,15 @@ describe("SchemePatrol class", () => {
       standing: null,
     });
 
+    expect(state.patrolManager).toBeInstanceOf(PatrolManager);
+    expect(state.patrolManager).toBe(patrolConfig.PATROLS.get(state.patrolKey));
+    expect(state.patrolManager.name).toBe(state.pathName);
+
     expect(patrolConfig.PATROLS.length()).toBe(1);
     expect(patrolConfig.PATROLS.get(state.patrolKey)).toBeInstanceOf(PatrolManager);
 
-    assertSchemeSubscribedToManager(state, ActionCommander);
-    assertSchemeSubscribedToManager(state, ActionPatrol);
+    assertSchemeSubscribedToManager(state, ActionPatrolCommander);
+    assertSchemeSubscribedToManager(state, ActionPatrolFollower);
   });
 
   it("should be activate with custom values", () => {
@@ -195,8 +199,8 @@ describe("SchemePatrol class", () => {
     expect(patrolConfig.PATROLS.length()).toBe(1);
     expect(patrolConfig.PATROLS.get(state.patrolKey)).toBeInstanceOf(PatrolManager);
 
-    assertSchemeSubscribedToManager(state, ActionCommander);
-    assertSchemeSubscribedToManager(state, ActionPatrol);
+    assertSchemeSubscribedToManager(state, ActionPatrolCommander);
+    assertSchemeSubscribedToManager(state, ActionPatrolFollower);
   });
 
   it("should handle add actions", () => {
@@ -219,7 +223,7 @@ describe("SchemePatrol class", () => {
 
     checkPlannerAction(
       planner.action(EActionId.COMMAND_SQUAD),
-      ActionCommander,
+      ActionPatrolCommander,
       [
         [EEvaluatorId.IS_MEET_CONTACT, false],
         [EEvaluatorId.IS_WOUNDED, false],
@@ -242,7 +246,7 @@ describe("SchemePatrol class", () => {
 
     checkPlannerAction(
       planner.action(EActionId.PATROL_ACTIVITY),
-      ActionPatrol,
+      ActionPatrolFollower,
       [
         [EEvaluatorId.IS_MEET_CONTACT, false],
         [EEvaluatorId.IS_WOUNDED, false],
@@ -265,7 +269,7 @@ describe("SchemePatrol class", () => {
 
     checkPlannerAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_PATROL_ENDED, true]], []);
 
-    assertSchemeSubscribedToManager(state, ActionCommander);
-    assertSchemeSubscribedToManager(state, ActionPatrol);
+    assertSchemeSubscribedToManager(state, ActionPatrolCommander);
+    assertSchemeSubscribedToManager(state, ActionPatrolFollower);
   });
 });

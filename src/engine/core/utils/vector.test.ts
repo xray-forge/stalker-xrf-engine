@@ -196,6 +196,8 @@ describe("vectorCross util", () => {
     expect(vectorCross(MockVector.mock(1, 1, 1), MockVector.mock(1, 1, 1))).toEqual(MockVector.create(0, 0, 0));
     expect(vectorCross(MockVector.mock(0, 0, 0), MockVector.mock(1, 1, 1))).toEqual(MockVector.create(0, 0, 0));
     expect(vectorCross(MockVector.mock(0, 0, 0), MockVector.mock(0, 0, 0))).toEqual(MockVector.create(0, 0, 0));
+    expect(vectorCross(MockVector.mock(5, 1, 2), MockVector.mock(0, 0, 0))).toEqual(MockVector.create(0, 0, 0));
+    expect(vectorCross(MockVector.mock(-5, -1, -2), MockVector.mock(0, 0, 0))).toEqual(MockVector.create(0, 0, 0));
   });
 });
 

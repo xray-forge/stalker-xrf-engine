@@ -1,11 +1,8 @@
 import { vector, vector2 } from "xray16";
 
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TDistance, TRate, Vector, Vector2D } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Create empty vector filled with 0 values.
@@ -77,7 +74,7 @@ export function subVectors(first: Vector, second: Vector): Vector {
  * @param second - vector to cross
  * @returns vectors cross multiplication result
  */
-export function vectorCross(first: Vector, second: Vector): Vector {
+export function vectorCross(first: Readonly<Vector>, second: Readonly<Vector>): Vector {
   return new vector().set(
     first.y * second.z - first.z * second.y,
     first.z * second.x - first.x * second.z,
@@ -116,7 +113,7 @@ export function yaw(first: Vector, second: Vector): TRate {
  * @param second - vector to compute
  * @returns vectors yaw degree
  */
-export function yawDegree(first: Vector, second: Vector): TRate {
+export function yawDegree(first: Readonly<Vector>, second: Readonly<Vector>): TRate {
   return (
     math.acos(
       (first.x * second.x + first.z * second.z) /
@@ -132,7 +129,7 @@ export function yawDegree(first: Vector, second: Vector): TRate {
  * @param second - vector to compute
  * @returns vectors yaw degree in 3 dimensions
  */
-export function yawDegree3d(first: Vector, second: Vector): TRate {
+export function yawDegree3d(first: Readonly<Vector>, second: Readonly<Vector>): TRate {
   return (
     math.acos(
       (first.x * second.x + first.y * second.y + first.z * second.z) /

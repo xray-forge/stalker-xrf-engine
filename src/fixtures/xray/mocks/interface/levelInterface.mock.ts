@@ -56,5 +56,6 @@ export const mockLevelInterface = {
   show_weapon: jest.fn(),
   stop_weather_fx: jest.fn(),
   vertex_id: jest.fn(() => -1),
+  vertex_in_direction: jest.fn(() => -1),
   vertex_position: jest.fn(() => MockVector.create(15, 14, 16)),
 };

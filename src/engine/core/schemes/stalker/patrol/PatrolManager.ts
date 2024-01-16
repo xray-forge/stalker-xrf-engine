@@ -1,133 +1,107 @@
 import { level } from "xray16";
 
+import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
+import { IFormationObjectDescriptor, IPatrolObjectDescriptor } from "@/engine/core/schemes/stalker/patrol/patrol_types";
+import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { abort } from "@/engine/core/utils/assertion";
-import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
-import { GameObject, Optional, TCount, TDistance, TIndex, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
-
-// todo: Move out
-// todo: Move out
-// todo: Move out
-const formations = {
-  line: [
-    { dir: createVector(-1, 0, 0), dist: 2 },
-    { dir: createVector(-1, 0, 0), dist: 4 },
-    { dir: createVector(-1, 0, 0), dist: 6 },
-    { dir: createVector(1, 0, 0), dist: 2 },
-    { dir: createVector(1, 0, 0), dist: 4 },
-    { dir: createVector(1, 0, 0), dist: 6 },
-  ],
-  back: [
-    { dir: createVector(0.3, 0, -1), dist: 1.2 },
-    { dir: createVector(-0.3, 0, -1), dist: 2.4 },
-    { dir: createVector(0.3, 0, -1), dist: 3.6 },
-    { dir: createVector(-0.3, 0, -1), dist: 4.8 },
-    { dir: createVector(0.3, 0, -1), dist: 6 },
-    { dir: createVector(-0.3, 0, -1), dist: 7.2 },
-  ],
-  around: [
-    { dir: createVector(0.44721359, 0, -0.89442718), dist: 2.236068 },
-    { dir: createVector(-0.44721359, 0, -0.89442718), dist: 2.236068 },
-    { dir: createVector(1.0, 0, 0), dist: 2 },
-    { dir: createVector(-1, 0, 0), dist: 2 },
-    { dir: createVector(0.44721359, 0, 0.89442718), dist: 2.236068 },
-    { dir: createVector(-0.44721359, 0, 0.89442718), dist: 2.236068 },
-  ],
-};
-
-// todo: Move out
-// todo: Move out
-// todo: Move out
-const ACCEL_BY_CURTYPE = {
-  walk: EStalkerState.RUN,
-  patrol: EStalkerState.RUSH,
-  raid: EStalkerState.ASSAULT,
-  sneak: EStalkerState.SNEAK_RUN,
-  sneak_run: EStalkerState.ASSAULT,
-};
-
-export interface IPatrolObjectDescriptor {
-  soldier: GameObject;
-  dir: Vector;
-  dist: TDistance;
-}
+import { copyVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
+import { X_VECTOR, Z_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
+import {
+  GameObject,
+  LuaArray,
+  Optional,
+  TCount,
+  TDistance,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  Vector,
+} from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manager for generic patrol scheme objects.
  */
 export class PatrolManager {
-  public pathName: TName;
-  public npcList: LuaTable<TNumberId, IPatrolObjectDescriptor> = new LuaTable();
-  public currentState: EStalkerState = EStalkerState.PATROL;
-  public commanderId: TNumberId = -1;
-  public formation: string = "back";
-  public commanderLid: TNumberId = -1;
-  public commanderDir: Vector = createVector(0, 0, 1);
-  public npcCount: TCount = 0;
+  public name: TName;
+  public state: EStalkerState = EStalkerState.PATROL;
+  public formation: EPatrolFormation = EPatrolFormation.BACK;
+  public commanderId: Optional<TNumberId> = null;
+  public objects: LuaTable<TNumberId, IPatrolObjectDescriptor> = new LuaTable();
 
-  public constructor(pathName: TName) {
-    this.pathName = pathName;
+  public constructor(name: TName) {
+    this.name = name;
   }
 
   /**
-   * todo;
+   * @param object - object to register in patrol
+   * @param isCommander - whether object should become patrol commander
    */
-  public addObject(object: GameObject, leader: Optional<boolean>): void {
-    if (object === null || object.alive() === false || this.npcList.get(object.id()) !== null) {
+  public registerObject(object: GameObject, isCommander: Optional<boolean> = null): void {
+    if (!object.alive() || this.objects.has(object.id())) {
       return;
     }
 
-    if (this.npcCount === 7) {
-      abort("[XR_PATROL] attempt to add more { 7 object. [%s]", object.name());
+    const objectsCount: TCount = table.size(this.objects) + 1;
+
+    if (objectsCount >= 7) {
+      abort("Attempt to add more than 7 objects in patrol manager, '%s' in '%s'.", object.name(), this.name);
     }
 
-    this.npcList.set(object.id(), { soldier: object, dir: createVector(1, 0, 0), dist: 0 });
-
-    this.npcCount = this.npcCount + 1;
-
-    if (this.npcCount === 1 || leader === true) {
+    if (isCommander || objectsCount === 1) {
       this.commanderId = object.id();
     }
 
-    this.resetPositions();
+    this.objects.set(object.id(), { object, direction: X_VECTOR, distance: 0 });
+
+    this.resetFormationPositions();
   }
 
   /**
-   * todo;
+   * @param object - object to unregister from patrol
    */
-  public removeObject(object: Optional<GameObject>): void {
-    if (object === null) {
-      return;
-    }
+  public unregisterObject(object: GameObject): void {
+    if (this.objects.has(object.id())) {
+      this.objects.delete(object.id());
 
-    if (this.npcList.get(object.id()) === null) {
-      return;
-    }
-
-    this.npcList.delete(object.id());
-    this.npcCount = this.npcCount - 1;
-
-    if (object.id() === this.commanderId) {
-      this.commanderId = -1;
-      this.resetPositions();
+      if (object.id() === this.commanderId) {
+        this.commanderId = null;
+        this.resetFormationPositions();
+      }
     }
   }
 
   /**
-   * todo;
+   * @param formation - formation type to set in current patrol
    */
-  public resetPositions(): void {
-    const form_ = formations[this.formation as keyof typeof formations];
+  public setFormation(formation: EPatrolFormation): void {
+    this.formation = formation;
+    this.resetFormationPositions();
+  }
+
+  /**
+   * Reset positions of currently registered objects to use correct formation.
+   */
+  public resetFormationPositions(): void {
+    const formationPositions: LuaArray<IFormationObjectDescriptor> = patrolConfig.FORMATIONS.get(this.formation);
+
     let index: TIndex = 1;
 
-    for (const [key, data] of this.npcList) {
-      if (this.commanderId === -1 && index === 1) {
-        this.commanderId = data.soldier.id();
+    for (const [id, descriptor] of this.objects) {
+      // First position is reserved for commander.
+      if (index === 1 && !this.commanderId) {
+        this.commanderId = id;
       }
 
-      if (this.commanderId !== this.npcList.get(key).soldier.id()) {
-        this.npcList.get(key).dir = form_[index].dir;
-        this.npcList.get(key).dist = form_[index].dist;
+      if (id === this.commanderId) {
+        descriptor.direction = X_VECTOR;
+        descriptor.distance = 0;
+      } else {
+        const formationDescriptor: IFormationObjectDescriptor = formationPositions.get(index);
+
+        descriptor.direction = formationDescriptor.direction;
+        descriptor.distance = formationDescriptor.distance;
 
         index += 1;
       }
@@ -135,137 +109,72 @@ export class PatrolManager {
   }
 
   /**
-   * todo;
+   * Set state of current patrol commander object.
    */
-  public setFormation(formation: string): void {
-    if (formation === null) {
-      abort("Invalid formation (null) for PatrolManager[%s]", this.pathName);
+  public setCommanderState(object: GameObject, state: EStalkerState, formation: EPatrolFormation): void {
+    if (!object.alive()) {
+      return this.unregisterObject(object);
     }
 
-    if (formation !== "around" && formation !== "back" && formation !== "line") {
-      abort("Invalid formation (%s) for PatrolManager[%s]", formation, this.pathName);
+    if (this.commanderId === object.id()) {
+      this.state = state;
+
+      if (this.formation !== formation) {
+        this.setFormation(formation);
+      }
     }
-
-    this.formation = formation;
-    this.resetPositions();
-  }
-
-  public getCommander(object: GameObject): GameObject {
-    if (object === null) {
-      abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
-    }
-
-    if (this.npcList.get(object.id()) === null) {
-      abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.pathName);
-    }
-
-    if (object.id() === this.commanderId) {
-      abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
-    }
-
-    const commander: GameObject = this.npcList.get(this.commanderId).soldier;
-
-    if (commander === null) {
-      abort("Patrol commander not present in PatrolManager[%s]", this.pathName);
-    }
-
-    return commander;
   }
 
   /**
-   * todo;
+   * @param object - game object to get target state for
+   * @returns tuple with level vertex id, direction and animation state
    */
-  public getObjectCommand(object: GameObject): LuaMultiReturn<[number, Vector, EStalkerState]> {
-    if (object === null) {
-      abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
-    }
-
-    // --'���������� �������� ������
+  public getFollowerTarget(object: GameObject): LuaMultiReturn<[TNumberId, Vector, EStalkerState]> {
     const objectId: TNumberId = object.id();
 
-    // --'�������� ������ �� ���������� � ������
-    if (this.npcList.get(object.id()) === null) {
-      abort("NPC with name %s can't present in PatrolManager[%s]", object.name(), this.pathName);
+    if (this.commanderId === objectId) {
+      abort("Patrol method 'getFollowerTarget' failed in '%s', tried to get commander target.", this.name);
+    } else if (this.commanderId === null) {
+      abort("Patrol method 'getFollowerTarget' failed without commander, '%s'.", this.name);
     }
 
-    // --'��������, ����� �������� �� ������� �������� ������ ��������
-    if (object.id() === this.commanderId) {
-      abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.pathName);
-    }
+    const commander: GameObject = this.objects.get(this.commanderId).object;
+    const descriptor: IPatrolObjectDescriptor = this.objects.get(objectId);
+    const position: Vector = descriptor.object.position();
+    const direction: Vector = copyVector(commander.direction());
+    const distance: TDistance = commander.position().distance_to(position);
 
-    const commander: GameObject = this.npcList.get(this.commanderId).soldier;
-    const dir: Vector = commander.direction();
-    const pos: Vector = createEmptyVector();
-    let vertexId: TNumberId = commander.location_on_path(5, pos);
+    let angle: TRate = yawDegree(descriptor.direction, Z_VECTOR);
 
-    if (level.vertex_position(vertexId).distance_to(this.npcList.get(objectId).soldier.position()) > 5) {
-      vertexId = commander.level_vertex_id();
-    }
-
-    dir.y = 0;
-    dir.normalize();
-
-    let dirS: Vector = this.npcList.get(objectId).dir;
-    const distS: TDistance = this.npcList.get(objectId).dist;
-
-    let angle: TRate = yawDegree(dirS, createVector(0, 0, 1));
-    const vvv: Vector = vectorCross(dirS, createVector(0, 0, 1));
-
-    if (vvv.y < 0) {
+    if (vectorCross(descriptor.direction, Z_VECTOR).y < 0) {
       angle = -angle;
     }
 
-    dirS = vectorRotateY(dir, angle);
+    direction.y = 0;
+    direction.normalize();
 
-    const d: number = 2;
-    const vertex: TNumberId = level.vertex_in_direction(level.vertex_in_direction(vertexId, dirS, distS), dir, d);
-    const distance: TDistance = commander.position().distance_to(this.npcList.get(objectId).soldier.position());
+    let commanderVertexId: TNumberId = commander.location_on_path(5, ZERO_VECTOR);
 
-    if (distance > distS + 2) {
-      const newState: EStalkerState = ACCEL_BY_CURTYPE[this.currentState as keyof typeof ACCEL_BY_CURTYPE];
+    // Follow commander if target vertex is too far.
+    if (level.vertex_position(commanderVertexId).distance_to(position) > 5) {
+      commanderVertexId = commander.level_vertex_id();
+    }
 
-      if (newState !== null) {
-        return $multi(vertex, dir, newState);
+    const targetVertexId: TNumberId = level.vertex_in_direction(
+      level.vertex_in_direction(commanderVertexId, vectorRotateY(direction, angle), descriptor.distance),
+      direction,
+      2
+    );
+
+    // Try to accelerate in patrol, too far from leader.
+    if (distance > descriptor.distance + 2) {
+      const acceleratedState: Optional<EStalkerState> = patrolConfig.ACCELERATION_BY_STATE.get(this.state);
+
+      if (acceleratedState) {
+        return $multi(targetVertexId, direction, acceleratedState);
       }
     }
 
-    return $multi(vertex, dir, this.currentState);
-  }
-
-  /**
-   * todo;
-   */
-  public setObjectCommand(object: GameObject, command: EStalkerState, formation: string): void {
-    if (object === null || object.alive() === false) {
-      this.removeObject(object);
-
-      return;
-    }
-
-    if (object.id() !== this.commanderId) {
-      return; // --abort ("NPC %s is not commander in PatrolManager[%s]", object:name (), this.path_name)
-    }
-
-    this.currentState = command;
-    if (this.formation !== formation) {
-      this.formation = formation;
-      this.setFormation(formation);
-    }
-
-    this.commanderLid = object.level_vertex_id();
-    this.commanderDir = object.direction();
-    this.update();
-  }
-
-  public isCommander(objectId: TNumberId): boolean {
-    return objectId === this.commanderId;
-  }
-
-  public update(): void {
-    /*
-    if (tm_enabled === true) {
-      this.tm.update();
-    }
-    */
+    return $multi(targetVertexId, direction, this.state);
   }
 }
