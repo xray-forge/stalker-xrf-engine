@@ -54,7 +54,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
       this.state.pathLookInfo,
       this.state.team,
       this.state.suggestedState,
-      { context: this, callback: this.onProcessPoint }
+      { context: this, callback: this.onProcessWaypoint }
     );
 
     this.state.patrolManager.setCommanderState(this.object, this.currentState, this.state.formation);
@@ -117,7 +117,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
   }
 
   public onSwitchOffline(object: GameObject): void {
-    this.deactivate(object);
+    this.state.patrolManager.unregisterObject(object);
   }
 
   /**
@@ -126,7 +126,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
    * @param mode - waypoint arrival mode
    * @param returnValue - patrol waypoint processing result value
    */
-  public onProcessPoint(mode: EWaypointArrivalType, returnValue: Optional<number>): void {
+  public onProcessWaypoint(mode: EWaypointArrivalType, returnValue: Optional<number>): void {
     switch (returnValue) {
       case 0:
         this.state.formation = EPatrolFormation.LINE;
