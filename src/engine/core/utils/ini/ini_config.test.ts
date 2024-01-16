@@ -111,7 +111,7 @@ describe("getObjectConfigOverrides util", () => {
         p1: null,
         p2: null,
       },
-      combatIgnoreKeepWhenAttacked: "third",
+      combatIgnoreKeepWhenAttacked: false,
       combatType: {
         condlist: parseConditionsList("fourth"),
         name: "combat_type",

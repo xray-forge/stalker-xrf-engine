@@ -40,13 +40,13 @@ export class MockActionPlanner extends MockLuabindClass {
     this.object = object;
   }
 
-  public add_evaluator(id: TNumberId, evaluator: PropertyEvaluator): void {
+  public add_evaluator = jest.fn((id: TNumberId, evaluator: PropertyEvaluator) => {
     if (!id) {
       throw new Error("Unexpected id.");
     }
 
     this.evaluators[id] = evaluator;
-  }
+  });
 
   public add_action(id: TNumberId, actionBase: ActionBase): void {
     if (!id) {

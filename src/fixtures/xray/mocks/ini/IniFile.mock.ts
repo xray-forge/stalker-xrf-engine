@@ -51,7 +51,13 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   public r_string_wb = jest.fn((section: TSection, field: TName) => {
     return (this.data[section][field] as string).trim().replace(/^"(.*)"$/, "$1");
   });
-  public r_bool = jest.fn((section: TSection, field: TName) => this.data[section][field]);
+  public r_bool = jest.fn((section: TSection, field: TName) => {
+    if (typeof this.data[section][field] === "string") {
+      return this.data[section][field] === "true";
+    } else {
+      return Boolean(this.data[section][field]);
+    }
+  });
   public line_count = jest.fn((section: TSection) => {
     const data = this.data[section];
 

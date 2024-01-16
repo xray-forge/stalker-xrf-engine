@@ -6,9 +6,9 @@ import { registry, setStalkerState } from "@/engine/core/database";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import { areSameVectors, createEmptyVector, createVector } from "@/engine/core/utils/vector";
+import { areSameVectors, createVector } from "@/engine/core/utils/vector";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   EGameObjectPath,
   GameObject,
@@ -20,8 +20,6 @@ import {
   TTimestamp,
   Vector,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Action patrol when objects should go to some specific place.
@@ -44,9 +42,6 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
     this.moveManager = registry.objects.get(object.id()).patrolManager!;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     super.initialize();
 
@@ -56,9 +51,6 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
     this.isOnPoint = false;
   }
 
-  /**
-   * todo: Description.
-   */
   public activate(): void {
     this.state.signals = new LuaTable();
 
@@ -81,9 +73,6 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
     );
   }
 
-  /**
-   * todo: Description.
-   */
   public override execute(): void {
     super.execute();
 
@@ -103,7 +92,7 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
 
     const desiredDirection: Vector = this.dir;
 
-    if (desiredDirection !== null && !areSameVectors(desiredDirection, createEmptyVector())) {
+    if (desiredDirection !== null && !areSameVectors(desiredDirection, ZERO_VECTOR)) {
       desiredDirection.normalize();
       this.object.set_desired_direction(desiredDirection);
     }
@@ -113,9 +102,6 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
     setStalkerState(this.object, this.currentState, null, null, null, null);
   }
 
-  /**
-   * todo: Description.
-   */
   public override finalize(): void {
     if (this.object.alive()) {
       this.moveManager.finalize();
@@ -124,29 +110,20 @@ export class ActionPatrol extends action_base implements ISchemeEventHandler {
     super.finalize();
   }
 
-  /**
-   * todo: Description.
-   */
   public deactivate(object: GameObject): void {
     patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
+  }
+
+  public onDeath(object: GameObject): void {
+    patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
+  }
+
+  public onSwitchOffline(object: GameObject): void {
+    this.deactivate(object);
   }
 
   /**
    * todo: Description.
    */
   public onProcessWaypoint(mode: EWaypointArrivalType, patrolRetVal: Optional<number>, index: TIndex): void {}
-
-  /**
-   * todo: Description.
-   */
-  public onDeath(object: GameObject): void {
-    patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onSwitchOffline(object: GameObject): void {
-    this.deactivate(object);
-  }
 }

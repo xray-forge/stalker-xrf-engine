@@ -23,13 +23,11 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
 
   public constructor(state: ISchemePatrolState, object: GameObject) {
     super(null, ActionCommander.__name);
+
     this.state = state;
     this.patrolManager = registry.objects.get(object.id()).patrolManager as StalkerPatrolManager;
   }
 
-  /**
-   * todo: Description.
-   */
   public override initialize(): void {
     super.initialize();
 
@@ -39,9 +37,6 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
     this.activate();
   }
 
-  /**
-   * todo: Description.
-   */
   public activate(): void {
     this.state.signals = new LuaTable();
 
@@ -70,9 +65,6 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
     );
   }
 
-  /**
-   * todo: Description.
-   */
   public override execute(): void {
     super.execute();
 
@@ -112,9 +104,6 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
     patrolConfig.PATROLS.get(this.state.patrolKey).setObjectCommand(this.object, nextState, this.state.formation);
   }
 
-  /**
-   * todo: Description.
-   */
   public override finalize(): void {
     if (this.object.alive() === true) {
       patrolConfig.PATROLS.get(this.state.patrolKey).setObjectCommand(
@@ -128,23 +117,14 @@ export class ActionCommander extends action_base implements ISchemeEventHandler 
     super.finalize();
   }
 
-  /**
-   * todo: Description.
-   */
   public deactivate(object: GameObject): void {
     patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
   }
 
-  /**
-   * todo: Description.
-   */
   public onDeath(object: GameObject): void {
     patrolConfig.PATROLS.get(this.state.patrolKey).removeObject(object);
   }
 
-  /**
-   * todo: Description.
-   */
   public onSwitchOffline(object: GameObject): void {
     this.deactivate(object);
   }

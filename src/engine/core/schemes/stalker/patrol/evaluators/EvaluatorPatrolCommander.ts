@@ -2,9 +2,6 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluate whether object is patrol commander.
