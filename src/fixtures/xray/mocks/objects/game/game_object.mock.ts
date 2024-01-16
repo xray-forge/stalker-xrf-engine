@@ -330,6 +330,7 @@ export function mockGameObject({
         cb(upgrade, gameObject as GameObject);
       }
     }),
+    patrol_path_make_inactual: rest.patrol_path_make_inactual ?? jest.fn(() => null),
     parent: rest.parent ?? jest.fn(() => null),
     poltergeist_set_actor_ignore: rest.poltergeist_set_actor_ignore ?? jest.fn(),
     position: rest.position ?? jest.fn(() => objectPosition),
@@ -416,6 +417,7 @@ export function mockGameObject({
     set_npc_position: rest.set_npc_position ?? jest.fn(),
     set_path_type: rest.set_path_type ?? jest.fn(),
     set_patrol_extrapolate_callback: rest.set_patrol_extrapolate_callback ?? jest.fn(),
+    set_patrol_path: rest.set_patrol_path ?? jest.fn(),
     set_relation: rest.set_relation ?? jest.fn(),
     set_sight: rest.set_sight ?? jest.fn((nextSight: TSightType) => (sight = nextSight)),
     set_sound_mask: rest.set_sound_mask ?? jest.fn(),

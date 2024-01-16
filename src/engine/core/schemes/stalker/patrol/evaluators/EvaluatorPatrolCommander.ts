@@ -1,7 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
-import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 
 /**
  * Evaluate whether object is patrol commander.
@@ -16,6 +15,6 @@ export class EvaluatorPatrolCommander extends property_evaluator {
   }
 
   public override evaluate(): boolean {
-    return patrolConfig.PATROLS.get(this.state.patrolKey).commanderId === this.object.id();
+    return this.state.patrolManager.commanderId === this.object.id();
   }
 }

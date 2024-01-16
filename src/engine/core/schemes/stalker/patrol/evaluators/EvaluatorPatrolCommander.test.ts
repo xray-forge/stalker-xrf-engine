@@ -18,6 +18,8 @@ describe("EvaluatorPatrolCommander", () => {
     evaluator.setup(object, MockPropertyStorage.mock());
 
     state.patrolKey = "test-path-key";
+    state.patrolManager = manager;
+
     patrolConfig.PATROLS.set(state.patrolKey, manager);
 
     manager.commanderId = object.id();

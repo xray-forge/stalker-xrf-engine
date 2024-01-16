@@ -3,7 +3,6 @@ import { action_base, LuabindClass, time_global } from "xray16";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
-import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { areSameVectors, copyVector } from "@/engine/core/utils/vector";
@@ -67,16 +66,17 @@ export class ActionPatrolFollower extends action_base implements ISchemeEventHan
 
     this.nextUpdateAt = now + 1000;
 
-    const [lvid, direction, state] = patrolConfig.PATROLS.get(this.state.patrolKey).getFollowerTarget(this.object);
+    const object: GameObject = this.object;
+    const [lvid, direction, state] = this.state.patrolManager.getFollowerTarget(object);
 
     if (!areSameVectors(direction, ZERO_VECTOR)) {
-      this.object.set_desired_direction(copyVector(direction).normalize());
+      object.set_desired_direction(copyVector(direction).normalize());
     }
 
-    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
+    object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
-    sendToNearestAccessibleVertex(this.object, lvid);
-    setStalkerState(this.object, state);
+    sendToNearestAccessibleVertex(object, lvid);
+    setStalkerState(object, state);
   }
 
   public override finalize(): void {
@@ -88,15 +88,15 @@ export class ActionPatrolFollower extends action_base implements ISchemeEventHan
   }
 
   public deactivate(object: GameObject): void {
-    patrolConfig.PATROLS.get(this.state.patrolKey).unregisterObject(object);
+    this.state.patrolManager.unregisterObject(object);
   }
 
   public onDeath(object: GameObject): void {
-    patrolConfig.PATROLS.get(this.state.patrolKey).unregisterObject(object);
+    this.state.patrolManager.unregisterObject(object);
   }
 
   public onSwitchOffline(object: GameObject): void {
-    this.deactivate(object);
+    this.state.patrolManager.unregisterObject(object);
   }
 
   /**
