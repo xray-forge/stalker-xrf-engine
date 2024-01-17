@@ -1,6 +1,12 @@
-import { beforeAll, describe, it } from "@jest/globals";
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { checkXrCondition } from "@/fixtures/engine";
+import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
+import { GameObject } from "@/engine/lib/types";
+import { callXrCondition, checkXrCondition, resetRegistry } from "@/fixtures/engine";
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
+import { MockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/schemes/restrictor/sr_deimos");
 
 describe("object conditions declaration", () => {
   beforeAll(() => {
@@ -89,6 +95,11 @@ describe("object conditions declaration", () => {
 describe("object conditions implementation", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/conditions/object");
+  });
+
+  beforeEach(() => {
+    resetRegistry();
+    resetFunctionMock(isDeimosPhaseActive);
   });
 
   it.todo("is_monster_snork should check object class");
@@ -233,7 +244,31 @@ describe("object conditions implementation", () => {
 
   it.todo("is_door_blocked_by_npc should check if door is blocked by npc");
 
-  it.todo("check_deimos_phase should check deimos phase");
+  it("check_deimos_phase should check deimos phase", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    replaceFunctionMock(isDeimosPhaseActive, () => false);
+
+    expect(callXrCondition("check_deimos_phase", MockGameObject.mockActor(), object)).toBe(false);
+    expect(isDeimosPhaseActive).toHaveBeenCalledTimes(0);
+
+    expect(callXrCondition("check_deimos_phase", MockGameObject.mockActor(), object, "disable_bound")).toBe(false);
+    expect(isDeimosPhaseActive).toHaveBeenCalledTimes(0);
+
+    expect(
+      callXrCondition("check_deimos_phase", MockGameObject.mockActor(), object, "disable_bound", "increasing")
+    ).toBe(false);
+    expect(isDeimosPhaseActive).toHaveBeenCalledTimes(1);
+    expect(isDeimosPhaseActive).toHaveBeenCalledWith(object, "disable_bound", true);
+
+    replaceFunctionMock(isDeimosPhaseActive, () => true);
+
+    expect(callXrCondition("check_deimos_phase", MockGameObject.mockActor(), object, "lower_bound", "decreasing")).toBe(
+      true
+    );
+    expect(isDeimosPhaseActive).toHaveBeenCalledTimes(2);
+    expect(isDeimosPhaseActive).toHaveBeenCalledWith(object, "lower_bound", false);
+  });
 
   it.todo("animpoint_reached should check if animpoint is reached");
 

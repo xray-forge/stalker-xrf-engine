@@ -244,6 +244,7 @@ export function mockGameObject({
     get_campfire: rest.get_campfire ?? jest.fn(() => null),
     get_current_point_index: rest.get_current_point_index ?? jest.fn(() => null),
     get_enemy: rest.get_enemy ?? jest.fn(() => null),
+    get_movement_speed: rest.get_movement_speed ?? jest.fn(() => MockVector.mock(0, 0, 0)),
     get_helicopter: rest.get_helicopter ?? jest.fn(() => null),
     get_physics_object: rest.get_physics_object ?? jest.fn(() => null),
     get_physics_shell: rest.get_physics_shell ?? jest.fn(() => null),

@@ -6,14 +6,14 @@ import type { TCount, TRate, TStringId } from "@/engine/lib/types";
  */
 export interface ISchemeDeimosState extends IBaseSchemeState {
   movementSpeed: TRate;
-  growingKoef: TRate;
-  loweringKoef: TRate;
+  growingRate: TRate;
+  loweringRate: TRate;
   ppEffector: TStringId;
   ppEffector2: TStringId;
   camEffector: TStringId;
   camEffectorRepeatingTime: TCount;
   noiseSound: string;
-  heartbeetSound: string;
+  heartbeatSound: string;
   healthLost: TCount;
   disableBound: number;
   switchLowerBound: number;

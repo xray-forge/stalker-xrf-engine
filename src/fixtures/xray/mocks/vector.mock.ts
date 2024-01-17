@@ -87,6 +87,10 @@ export class MockVector {
     return this.x * target.x + this.y * target.y + this.z * target.z;
   }
 
+  public magnitude(): number {
+    return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+  }
+
   public normalize(): MockVector {
     if (this.x === 0 && this.y === 0 && this.z === 0) {
       return this;

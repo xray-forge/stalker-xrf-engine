@@ -17,7 +17,7 @@ describe("SchemeNoWeapon class", () => {
     expect(SchemeNoWeapon.SCHEME_TYPE).toBe(ESchemeType.RESTRICTOR);
   });
 
-  it("should correctly activate scheme", () => {
+  it("should correctly activate scheme with defaults", () => {
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {
       "sr_no_weapon@test": {

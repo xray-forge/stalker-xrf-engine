@@ -5,7 +5,6 @@ import {
   getObjectByStoryId,
   getObjectIdByStoryId,
   getServerObjectByStoryId,
-  IRegistryObjectState,
   isStoryObjectExisting,
   registry,
 } from "@/engine/core/database";
@@ -14,7 +13,7 @@ import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
-import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
+import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
@@ -1020,48 +1019,21 @@ extern("xr_conditions.is_door_blocked_by_npc", (actor: GameObject, object: GameO
 });
 
 /**
- * todo;
+ * Check if deimos phase is active in restrictor object.
  */
-extern("xr_conditions.check_deimos_phase", (actor: GameObject, object: GameObject, params: AnyArgs): boolean => {
-  if (params[0] && params[1]) {
-    const state: IRegistryObjectState = registry.objects.get(object.id());
-    const delta: boolean = SchemeDeimos.checkIntensityDelta(state);
-
-    if (params[1] === "increasing" && delta) {
-      return false;
-    } else if (params[1] === "decreasing" && !delta) {
-      return false;
-    }
-
-    if (params[0] === "disable_bound") {
-      if (params[1] === "increasing") {
-        if (!SchemeDeimos.checkDisableBound(state)) {
-          return true;
-        }
-      } else if (params[1] === "decreasing") {
-        return SchemeDeimos.checkDisableBound(state);
-      }
-    } else if (params[0] === "lower_bound") {
-      if (params[1] === "increasing") {
-        if (!SchemeDeimos.checkLowerBound(state)) {
-          return true;
-        }
-      } else if (params[1] === "decreasing") {
-        return SchemeDeimos.checkLowerBound(state);
-      }
-    } else if (params[0] === "upper_bound") {
-      if (params[1] === "increasing") {
-        if (!SchemeDeimos.checkUpperBound(state)) {
-          return true;
-        }
-      } else if (params[1] === "decreasing") {
-        return SchemeDeimos.checkUpperBound(state);
-      }
-    }
+extern(
+  "xr_conditions.check_deimos_phase",
+  (
+    actor: GameObject,
+    object: GameObject,
+    [bounds, direction]: [
+      Optional<"disable_bound" | "lower_bound" | "upper_bound">,
+      Optional<"increasing" | "decreasing">,
+    ]
+  ): boolean => {
+    return bounds && direction ? isDeimosPhaseActive(object, bounds, direction === "increasing") : false;
   }
-
-  return false;
-});
+);
 
 /**
  * todo;

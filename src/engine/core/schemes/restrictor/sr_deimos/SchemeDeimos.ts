@@ -1,15 +1,11 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
-import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos/sr_deimos_types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, GameObject, IniFile, TRate, TSection, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
+import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
+import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**
+ * todo;
  * todo;
  * Scheme only for 1 quest in the end of game? (pri_a28_sr_horror)
  */
@@ -27,18 +23,19 @@ export class SchemeDeimos extends AbstractScheme {
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.movementSpeed = readIniNumber(ini, section, "movement_speed", false, 100);
-    state.growingKoef = readIniNumber(ini, section, "growing_koef", false, 0.1);
-    state.loweringKoef = readIniNumber(ini, section, "lowering_koef", false, state.growingKoef);
-    state.ppEffector = readIniString(ini, section, "pp_effector", false, null);
-    state.camEffector = readIniString(ini, section, "cam_effector", false);
-    state.ppEffector2 = readIniString(ini, section, "pp_effector2", false);
+    state.growingRate = readIniNumber(ini, section, "growing_rate", false, 0.1);
+    state.loweringRate = readIniNumber(ini, section, "lowering_rate", false, state.growingRate);
+    state.ppEffector = readIniString(ini, section, "pp_effector", true);
+    state.ppEffector2 = readIniString(ini, section, "pp_effector2", true);
+    state.camEffector = readIniString(ini, section, "cam_effector", true);
     state.camEffectorRepeatingTime = readIniNumber(ini, section, "cam_effector_repeating_time", false, 10) * 1000;
-    state.noiseSound = readIniString(ini, section, "noise_sound", false);
-    state.heartbeetSound = readIniString(ini, section, "heartbeet_sound", false);
+    state.noiseSound = readIniString(ini, section, "noise_sound", true);
+    state.heartbeatSound = readIniString(ini, section, "heartbeat_sound", true);
     state.healthLost = readIniNumber(ini, section, "health_lost", false, 0.01);
     state.disableBound = readIniNumber(ini, section, "disable_bound", false, 0.1);
     state.switchLowerBound = readIniNumber(ini, section, "switch_lower_bound", false, 0.5);
     state.switchUpperBound = readIniNumber(ini, section, "switch_upper_bound", false, 0.75);
+    state.intensity = 0;
 
     return state;
   }
@@ -51,62 +48,5 @@ export class SchemeDeimos extends AbstractScheme {
     state: ISchemeDeimosState
   ): void {
     AbstractScheme.subscribe(state, new DeimosManager(object, state));
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static checkIntensityDelta(state: IRegistryObjectState): boolean {
-    if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
-      const speedVector: Vector = registry.actor.get_movement_speed();
-      const currentSpeed: TRate = math.sqrt(
-        speedVector.x * speedVector.x + speedVector.y * speedVector.y + speedVector.z * speedVector.z
-      );
-      const intensityDelta: TRate = deimosState.growingKoef * (deimosState.movementSpeed - currentSpeed) * 0.005;
-
-      return intensityDelta < 0;
-    }
-
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static checkDisableBound(state: IRegistryObjectState): boolean {
-    if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
-
-      return deimosState.intensity < deimosState.disableBound;
-    }
-
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static checkLowerBound(state: IRegistryObjectState): boolean {
-    if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
-
-      return deimosState.intensity < deimosState.switchLowerBound;
-    }
-
-    return false;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public static checkUpperBound(state: IRegistryObjectState): boolean {
-    if (state.activeScheme === SchemeDeimos.SCHEME_SECTION) {
-      const deimosState: ISchemeDeimosState = state[state.activeScheme] as ISchemeDeimosState;
-
-      return deimosState.intensity < deimosState.switchUpperBound;
-    }
-
-    return false;
   }
 }

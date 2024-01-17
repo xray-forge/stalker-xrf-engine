@@ -50,6 +50,7 @@ export const mockLevelInterface = {
   rain_factor: jest.fn(() => 0),
   remove_cam_effector: jest.fn(),
   remove_complex_effector: jest.fn(),
+  remove_pp_effector: jest.fn(),
   set_snd_volume: jest.fn((volume: number) => {}),
   set_weather: jest.fn(),
   show_indicators: jest.fn(),
