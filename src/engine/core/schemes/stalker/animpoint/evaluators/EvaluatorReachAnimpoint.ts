@@ -1,9 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check whether object should reach target location to start animation.
@@ -12,9 +9,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class EvaluatorReachAnimpoint extends property_evaluator {
   public readonly state: ISchemeAnimpointState;
 
-  public constructor(storage: ISchemeAnimpointState) {
+  public constructor(state: ISchemeAnimpointState) {
     super(null, EvaluatorReachAnimpoint.__name);
-    this.state = storage;
+    this.state = state;
   }
 
   /**

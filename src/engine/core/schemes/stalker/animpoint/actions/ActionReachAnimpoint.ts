@@ -3,7 +3,7 @@ import { action_base, LuabindClass } from "xray16";
 import { setStalkerState } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EGameObjectPath } from "@/engine/lib/types";
+import { EGameObjectPath, GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -40,24 +40,25 @@ export class ActionReachAnimpoint extends action_base {
   public override execute(): void {
     super.execute();
 
+    const object: GameObject = this.object;
+    const state: ISchemeAnimpointState = this.state;
+
     // Set destination point to walk.
-    this.object.set_dest_level_vertex_id(this.state.animpointManager.positionLevelVertexId!);
-    this.object.set_desired_direction(this.state.animpointManager.smartCoverDirection!);
-    this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
+    object.set_dest_level_vertex_id(state.animpointManager.positionLevelVertexId!);
+    object.set_desired_direction(state.animpointManager.smartCoverDirection!);
+    object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
     const isDistanceReached: boolean =
-      this.object.position().distance_to_sqr(this.state.animpointManager.vertexPosition!) <=
-      this.state.reachDistanceSqr;
+      object.position().distance_to_sqr(state.animpointManager.vertexPosition!) <= state.reachDistanceSqr;
 
     if (isDistanceReached) {
       // When reached place start looking to where animation should happen.
-      setStalkerState(this.object, this.state.reachMovement, null, null, {
-        lookPosition: this.state.animpointManager.lookPosition,
-        lookObjectId: null,
+      setStalkerState(object, state.reachMovement, null, null, {
+        lookPosition: state.animpointManager.lookPosition,
       });
     } else {
       // Just walk to the place.
-      setStalkerState(this.object, this.state.reachMovement);
+      setStalkerState(object, state.reachMovement);
     }
   }
 }

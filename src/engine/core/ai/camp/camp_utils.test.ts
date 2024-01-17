@@ -122,7 +122,7 @@ describe("camp utils", () => {
     // OK with animpoint action.
     jest
       .spyOn(second.motivation_action_manager(), "current_action_id")
-      .mockImplementation(() => EActionId.ANIMPOINT_ACTIVITY);
+      .mockImplementation(() => EActionId.ANIMPOINT_PLAY);
     expect(canTellCampStory(manager)).toBe(true);
 
     manager.availableSoundStories = new LuaTable();
@@ -173,7 +173,7 @@ describe("camp utils", () => {
     // OK with animpoint action.
     jest
       .spyOn(second.motivation_action_manager(), "current_action_id")
-      .mockImplementation(() => EActionId.ANIMPOINT_ACTIVITY);
+      .mockImplementation(() => EActionId.ANIMPOINT_PLAY);
     expect(canPlayCampGuitar(manager)).toBe(true);
 
     manager.availableGuitarStories = new LuaTable();
@@ -224,7 +224,7 @@ describe("camp utils", () => {
     // OK with animpoint action.
     jest
       .spyOn(second.motivation_action_manager(), "current_action_id")
-      .mockImplementation(() => EActionId.ANIMPOINT_ACTIVITY);
+      .mockImplementation(() => EActionId.ANIMPOINT_PLAY);
     expect(canPlayCampHarmonica(manager)).toBe(true);
 
     manager.availableHarmonicaStories = new LuaTable();

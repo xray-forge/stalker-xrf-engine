@@ -13,17 +13,14 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Usually performed on place.
  */
 @LuabindClass()
-export class ActionAnimpoint extends action_base implements ISchemeEventHandler {
+export class ActionPlayAnimpoint extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeAnimpointState;
 
   public constructor(state: ISchemeAnimpointState) {
-    super(null, ActionAnimpoint.__name);
+    super(null, ActionPlayAnimpoint.__name);
     this.state = state;
   }
 
-  /**
-   * Start animation on init.
-   */
   public override initialize(): void {
     logger.info("Starting animpoint: %s %s", this.object.name(), this.state.animpointManager.currentAction);
 
@@ -31,9 +28,6 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
     this.state.animpointManager.start();
   }
 
-  /**
-   * Stop animation on finalize.
-   */
   public override finalize(): void {
     logger.info("Ending animpoint: %s %s", this.object.name(), this.state.animpointManager.currentAction);
 
@@ -41,9 +35,6 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
     super.finalize();
   }
 
-  /**
-   * On animation execution start, perform animations scenario.
-   */
   public override execute(): void {
     super.execute();
 
@@ -55,7 +46,7 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
 
     setStalkerState(
       this.object,
-      this.state.animpointManager.getCurrentAction() as EStalkerState,
+      this.state.animpointManager.currentAction as EStalkerState,
       null,
       null,
       { lookPosition: this.state.animpointManager.lookPosition },
@@ -63,9 +54,6 @@ export class ActionAnimpoint extends action_base implements ISchemeEventHandler 
     );
   }
 
-  /**
-   * Stop animation on net destroy.
-   */
   public onSwitchOffline(): void {
     this.state.animpointManager.stop();
   }

@@ -245,13 +245,6 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo: Description.
-   */
-  public getCurrentAction(): Optional<EStalkerState> {
-    return this.currentAction;
-  }
-
-  /**
    * Start animpoint activity.
    * Fill approved actions list and start animating.
    */
