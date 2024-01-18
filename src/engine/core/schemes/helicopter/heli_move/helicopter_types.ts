@@ -1,12 +1,12 @@
 import { IBaseSchemeState } from "@/engine/core/database";
-import { Optional, TCount, TDistance, TRate } from "@/engine/lib/types";
+import { Optional, TCount, TDistance, TName, TRate } from "@/engine/lib/types";
 
 /**
  * State of helicopter movement schema.
  */
 export interface ISchemeHelicopterMoveState extends IBaseSchemeState {
-  path_move: string;
-  path_look: Optional<string>;
+  path_move: TName;
+  path_look: Optional<TName>;
   enemy_: string;
   fire_point: Optional<string>;
   max_velocity: TRate;

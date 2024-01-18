@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
+import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterMoveManager";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/ISchemeHelicopterMoveState";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move/SchemeHelicopterMove";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";

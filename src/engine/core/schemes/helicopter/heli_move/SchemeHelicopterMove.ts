@@ -1,7 +1,7 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
+import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterMoveManager";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
-import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 

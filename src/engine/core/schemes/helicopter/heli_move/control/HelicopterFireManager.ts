@@ -13,46 +13,36 @@ import {
 import { getIdBySid, registry } from "@/engine/core/database";
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { pickRandom } from "@/engine/core/utils/random";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { GameObject, Optional, TDistance, TIndex, TNumberId, TRate, Vector, XmlInit } from "@/engine/lib/types";
+import { GameObject, Optional, TCount, TDistance, TIndex, TNumberId, TRate, Vector, XmlInit } from "@/engine/lib/types";
 
-const heliFirer: LuaTable<TNumberId, HeliFire> = new LuaTable();
+const heliFirer: LuaTable<TNumberId, HelicopterFireManager> = new LuaTable();
 
-export class HeliFire {
+export class HelicopterFireManager {
   public object: GameObject;
-  public enemy_: Optional<string>;
-  public enemy: Optional<GameObject>;
-  public enemyId: Optional<number>;
-  public firePoint: Optional<Vector>;
-  public flagByEnemy: boolean;
-  public hitCount: number;
-  public fireId: any;
-  public enemyDie: boolean;
-  public enemyTime: number;
-  public updVis: number;
-  public showHealth: boolean;
+  public enemy_: Optional<string> = null;
+  public enemy: Optional<GameObject> = null;
+  public enemyId: Optional<TNumberId> = null;
+  public firePoint: Optional<Vector> = null;
+  public flagByEnemy: boolean = true;
+  public hitCount: TCount = 0;
+  public fireId: any = null;
+  public enemyDie: boolean = true;
+  public enemyTime: number = time_global();
+  public updVis: number = 0;
+  public showHealth: boolean = false;
 
-  public heliProgress: Optional<CUIProgressBar> = null;
+  public uiProgressBar: Optional<CUIProgressBar> = null;
 
   public constructor(object: GameObject) {
     this.object = object;
-    this.enemy_ = null;
-    this.firePoint = null;
-    this.enemy = null;
-    this.enemyId = null;
-    this.flagByEnemy = true;
-    this.hitCount = 0;
-    this.fireId = null;
-    this.enemyDie = true;
-    this.enemyTime = time_global();
-    this.updVis = 0;
-    this.showHealth = false;
   }
 
   public updateEnemyState(): void {
-    const heli: CHelicopter = this.object.get_helicopter();
+    const helicopter: CHelicopter = this.object.get_helicopter();
 
     // --'    printf("update_enemy_state()")
     if (this.hitCount > 2) {
@@ -66,7 +56,7 @@ export class HeliFire {
 
     if (this.enemy && time_global() - this.enemyTime > this.updVis * 1000) {
       // --'printf("this.upd_vis  = %d", this.upd_vis);
-      if (!heli.isVisible(this.enemy)) {
+      if (!helicopter.isVisible(this.enemy)) {
         if (this.enemy_ === "all") {
           this.updateEnemyArr();
         }
@@ -76,7 +66,7 @@ export class HeliFire {
     }
 
     if (this.enemy) {
-      if (!heli.isVisible(this.enemy)) {
+      if (!helicopter.isVisible(this.enemy)) {
         this.flagByEnemy = true;
       }
     }
@@ -86,43 +76,34 @@ export class HeliFire {
 
   public csHeli(): void {
     const hud: CUIGameCustom = get_hud();
-    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
+    const uiHelicopterHealth: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
-    if (customStatic === null) {
+    if (uiHelicopterHealth === null) {
       hud.AddCustomStatic("cs_heli_health", true);
 
-      const xml: XmlInit = new CScriptXmlInit();
+      const xml: XmlInit = resolveXmlFile(helicopterConfig.HELI_STATIC_UI_XML_PATH);
+      const window: CUIStatic = hud.GetCustomStatic("cs_heli_health")!.wnd();
 
-      xml.ParseFile(helicopterConfig.HELI_STATIC_UI_XML_PATH);
-
-      const st: StaticDrawableWrapper = hud.GetCustomStatic("cs_heli_health")!;
-      const w: CUIStatic = st.wnd();
-
-      this.heliProgress = xml.InitProgressBar("heli_health", w);
+      this.uiProgressBar = xml.InitProgressBar("heli_health", window);
       this.setCsHeliProgressHealth();
     }
   }
 
   public setCsHeliProgressHealth(): void {
-    const heli: CHelicopter = this.object.get_helicopter();
     const hud: CUIGameCustom = get_hud();
-    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
-    const xml: CScriptXmlInit = new CScriptXmlInit();
+    const uiHelicopterHealth: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
-    xml.ParseFile(helicopterConfig.HELI_STATIC_UI_XML_PATH);
-
-    if (customStatic) {
+    if (uiHelicopterHealth) {
       hud.AddCustomStatic("cs_heli_health", true);
 
-      const st: StaticDrawableWrapper = hud.GetCustomStatic("cs_heli_health")!;
-      const w: CUIStatic = st.wnd();
-      const progress: TRate = heli.GetfHealth() * 100;
+      const helicopter: CHelicopter = this.object.get_helicopter();
+      const progress: TRate = helicopter.GetfHealth() * 100;
 
       if (progress > 0) {
-        this.heliProgress!.Show(true);
-        this.heliProgress!.SetProgressPos(progress);
+        this.uiProgressBar!.Show(true);
+        this.uiProgressBar!.SetProgressPos(progress);
       } else {
-        this.heliProgress!.Show(false);
+        this.uiProgressBar!.Show(false);
         this.showHealth = false;
         hud.RemoveCustomStatic("cs_heli_health");
       }
@@ -131,22 +112,21 @@ export class HeliFire {
 
   public csRemove(): void {
     const hud: CUIGameCustom = get_hud();
-    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
-    if (customStatic) {
+    if (hud.GetCustomStatic("cs_heli_health")) {
       hud.RemoveCustomStatic("cs_heli_health");
     }
   }
 
   public setEnemy(): void {
-    const heli: CHelicopter = this.object.get_helicopter();
+    const helicopter: CHelicopter = this.object.get_helicopter();
 
     if (this.flagByEnemy) {
-      heli.ClearEnemy();
+      helicopter.ClearEnemy();
       this.enemyDie = false;
       if (this.enemy) {
-        if (heli.isVisible(this.enemy)) {
-          heli.SetEnemy(this.enemy);
+        if (helicopter.isVisible(this.enemy)) {
+          helicopter.SetEnemy(this.enemy);
           this.flagByEnemy = false;
         }
       } else {
@@ -166,7 +146,7 @@ export class HeliFire {
         }
 
         if (this.enemy) {
-          heli.SetEnemy(this.enemy!);
+          helicopter.SetEnemy(this.enemy!);
         } else {
           this.enemyDie = true;
         }
@@ -176,17 +156,16 @@ export class HeliFire {
     }
 
     if (!this.enemyDie && this.enemy!.death_time() > 0) {
-      // --'printf("ClearEnemy()")
-      heli.ClearEnemy();
+      helicopter.ClearEnemy();
       this.enemyDie = true;
     }
 
     if (this.enemyDie && this.firePoint) {
-      heli.SetEnemy(this.firePoint);
+      helicopter.SetEnemy(this.firePoint);
     }
   }
 
-  public updateHit(): void {
+  public updateOnHit(): void {
     if (this.showHealth) {
       this.setCsHeliProgressHealth();
     } else {
@@ -239,9 +218,9 @@ export class HeliFire {
 /**
  * todo;
  */
-export function getHeliFirer(object: GameObject): HeliFire {
+export function getHelicopterFireManager(object: GameObject): HelicopterFireManager {
   if (heliFirer.get(object.id()) === null) {
-    heliFirer.set(object.id(), new HeliFire(object));
+    heliFirer.set(object.id(), new HelicopterFireManager(object));
   }
 
   return heliFirer.get(object.id());

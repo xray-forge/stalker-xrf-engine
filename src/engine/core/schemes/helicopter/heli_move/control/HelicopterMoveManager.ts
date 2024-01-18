@@ -2,15 +2,24 @@ import { CHelicopter, level, patrol } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import {
+  getHelicopterFireManager,
+  HelicopterFireManager,
+} from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterFireManager";
+import {
+  getHelicopterFlyManager,
+  HelicopterFlyManager,
+} from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterFlyManager";
+import {
+  getHeliLooker,
+  HelicopterLookManager,
+} from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterLookManager";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
-import { getHeliFirer, HeliFire } from "@/engine/core/schemes/helicopter/heli_move/HeliFire";
-import { getHeliFlyer, HeliFly } from "@/engine/core/schemes/helicopter/heli_move/HeliFly";
-import { getHeliLooker, HeliLook } from "@/engine/core/schemes/helicopter/heli_move/HeliLook";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseWaypointsData } from "@/engine/core/utils/ini";
+import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ACTOR } from "@/engine/lib/constants/words";
-import { GameObject, Optional, Patrol, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, Patrol, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
 
 const state_move: number = 0;
 
@@ -18,14 +27,14 @@ const state_move: number = 0;
  * todo;
  */
 export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopterMoveState> {
-  public readonly heliObject: CHelicopter;
+  public readonly helicopter: CHelicopter;
 
-  public heliLook: HeliLook;
-  public heliFire: HeliFire;
-  public heliFly: HeliFly;
+  public helicopterLookManager: HelicopterLookManager;
+  public helicopterFireManager: HelicopterFireManager;
+  public helicopterFlyManager: HelicopterFlyManager;
 
   public patrolMove: Optional<Patrol> = null;
-  public patrolMoveInfo!: LuaTable<number>;
+  public patrolMoveInfo!: LuaArray<IWaypointData>;
   public patrolLook: Optional<Patrol> = null;
 
   public maxVelocity!: TRate;
@@ -40,16 +49,16 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public constructor(object: GameObject, state: ISchemeHelicopterMoveState) {
     super(object, state);
 
-    this.heliObject = object.get_helicopter();
+    this.helicopter = object.get_helicopter();
 
-    this.heliFly = getHeliFlyer(object);
-    this.heliFire = getHeliFirer(object);
-    this.heliLook = getHeliLooker(object);
+    this.helicopterFlyManager = getHelicopterFlyManager(object);
+    this.helicopterFireManager = getHelicopterFireManager(object);
+    this.helicopterLookManager = getHeliLooker(object);
   }
 
   public override activate(object: GameObject, loading?: boolean): void {
     this.state.signals = new LuaTable();
-    this.heliObject.TurnEngineSound(this.state.engine_sound);
+    this.helicopter.TurnEngineSound(this.state.engine_sound);
 
     if (!level.patrol_path_exists(this.state.path_move)) {
       abort("Patrol path %s doesnt exist", this.state.path_move);
@@ -60,12 +69,13 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
 
     if (this.state.path_look) {
       if (this.state.path_look === ACTOR) {
-        this.heliFly.setLookPoint(registry.actor.position());
+        this.helicopterFlyManager.setLookPoint(registry.actor.position());
         this.update_look_state();
       } else {
         this.patrolLook = new patrol(this.state.path_look);
-        this.heliFly.setLookPoint(this.patrolLook.point(0));
+        this.helicopterFlyManager.setLookPoint(this.patrolLook.point(0));
         this.update_look_state();
+
         if (!this.patrolLook) {
           abort("object '%s': unable to find path_look '%s' on the map", this.object.name(), this.state.path_look);
         }
@@ -85,12 +95,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       this.lastIndex = null;
       this.nextIndex = null;
 
-      this.heliFly.maxVelocity = this.maxVelocity;
-      this.heliFly.heliLAccFW = this.maxVelocity / 15;
-      this.heliFly.heliLAccBW = (2 * this.heliFly.heliLAccFW) / 3;
-      this.heliObject.SetLinearAcc(this.heliFly.heliLAccFW, this.heliFly.heliLAccBW);
+      this.helicopterFlyManager.maxVelocity = this.maxVelocity;
+      this.helicopterFlyManager.heliLAccFW = this.maxVelocity / 15;
+      this.helicopterFlyManager.heliLAccBW = (2 * this.helicopterFlyManager.heliLAccFW) / 3;
 
-      this.heliObject.SetMaxVelocity(this.maxVelocity);
+      this.helicopter.SetLinearAcc(this.helicopterFlyManager.heliLAccFW, this.helicopterFlyManager.heliLAccBW);
+      this.helicopter.SetMaxVelocity(this.maxVelocity);
 
       this.heliState = null;
       this.stopPoint = null;
@@ -98,55 +108,55 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
 
       this.wasCallback = false;
       this._flagToWpCallback = false;
-      this.heliFire.enemy_ = this.state.enemy_;
-      this.heliFire.enemy = null;
-      this.heliFire.flagByEnemy = true;
+      this.helicopterFireManager.enemy_ = this.state.enemy_;
+      this.helicopterFireManager.enemy = null;
+      this.helicopterFireManager.flagByEnemy = true;
       if (this.state.fire_point) {
-        this.heliFire.firePoint = new patrol(this.state.fire_point).point(0);
+        this.helicopterFireManager.firePoint = new patrol(this.state.fire_point).point(0);
       }
 
       if (this.state.max_mgun_dist) {
-        this.heliObject.m_max_mgun_dist = this.state.max_mgun_dist;
+        this.helicopter.m_max_mgun_dist = this.state.max_mgun_dist;
       }
 
       if (this.state.max_rocket_dist) {
-        this.heliObject.m_max_rocket_dist = this.state.max_rocket_dist;
+        this.helicopter.m_max_rocket_dist = this.state.max_rocket_dist;
       }
 
       if (this.state.min_mgun_dist) {
-        this.heliObject.m_min_mgun_dist = this.state.min_mgun_dist;
+        this.helicopter.m_min_mgun_dist = this.state.min_mgun_dist;
       }
 
       if (this.state.min_rocket_dist) {
-        this.heliObject.m_min_rocket_dist = this.state.min_rocket_dist;
+        this.helicopter.m_min_rocket_dist = this.state.min_rocket_dist;
       }
 
       if (this.state.use_mgun) {
-        this.heliObject.m_use_mgun_on_attack = true;
+        this.helicopter.m_use_mgun_on_attack = true;
       } else {
-        this.heliObject.m_use_mgun_on_attack = false;
+        this.helicopter.m_use_mgun_on_attack = false;
       }
 
       if (this.state.use_rocket) {
-        this.heliObject.m_use_rocket_on_attack = true;
+        this.helicopter.m_use_rocket_on_attack = true;
       } else {
-        this.heliObject.m_use_rocket_on_attack = false;
+        this.helicopter.m_use_rocket_on_attack = false;
       }
 
-      this.heliFire.updVis = this.state.upd_vis;
-      this.heliFire.updateEnemyState();
+      this.helicopterFireManager.updVis = this.state.upd_vis;
+      this.helicopterFireManager.updateEnemyState();
       this.updateMovementState();
 
       if (this.state.show_health) {
-        this.heliFire.csRemove();
-        this.heliFire.showHealth = true;
-        this.heliFire.csHeli();
+        this.helicopterFireManager.csRemove();
+        this.helicopterFireManager.showHealth = true;
+        this.helicopterFireManager.csHeli();
       } else {
-        this.heliFire.showHealth = false;
-        this.heliFire.csRemove();
+        this.helicopterFireManager.showHealth = false;
+        this.helicopterFireManager.csRemove();
       }
 
-      this.heliObject.UseFireTrail(this.state.fire_trail);
+      this.helicopter.UseFireTrail(this.state.fire_trail);
     }
   }
 
@@ -174,9 +184,9 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       const actor: GameObject = registry.actor;
 
       if (this.state.path_look === ACTOR) {
-        this.heliFly.setLookPoint(actor.position());
+        this.helicopterFlyManager.setLookPoint(actor.position());
         if (this.state.stop_fire) {
-          if (this.heliObject.isVisible(actor)) {
+          if (this.helicopter.isVisible(actor)) {
             if (!this.byStopFireFly) {
               this.stopPoint = this.object.position();
               this.byStopFireFly = true;
@@ -194,8 +204,8 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       this.update_look_state();
     }
 
-    if (!this.state.path_look && this.heliLook.lookState) {
-      this.heliLook.calcLookPoint(this.heliFly.destPoint, true);
+    if (!this.state.path_look && this.helicopterLookManager.lookState) {
+      this.helicopterLookManager.calculateLookPoint(this.helicopterFlyManager.destPoint, true);
     }
   }
 
@@ -203,7 +213,6 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    * todo: Description.
    */
   public updateMovementState(): void {
-    // --'printf("update_movement_state()")
     this.heliState = state_move;
 
     if (this.patrolMove !== null) {
@@ -221,7 +230,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
 
     if (!this.byStopFireFly) {
       if (this.patrolMove!.count() > 2) {
-        this._flagToWpCallback = this.heliFly.flyOnPointWithVector(
+        this._flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
           this.patrolMove!.point(this.lastIndex!),
           this.patrolMove!.point(this.nextIndex!),
           this.maxVelocity,
@@ -230,7 +239,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
         );
       } else {
         if (this.patrolMove!.count() > 1) {
-          this._flagToWpCallback = this.heliFly.flyOnPointWithVector(
+          this._flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
             this.patrolMove!.point(this.lastIndex!),
             this.patrolMove!.point(this.nextIndex!),
             this.maxVelocity,
@@ -238,7 +247,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
             true
           );
         } else {
-          this._flagToWpCallback = this.heliFly.flyOnPointWithVector(
+          this._flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
             this.patrolMove!.point(this.lastIndex!),
             this.patrolMove!.point(this.lastIndex!),
             this.maxVelocity,
@@ -248,7 +257,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
         }
       }
     } else {
-      this._flagToWpCallback = this.heliFly.flyOnPointWithVector(
+      this._flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
         this.stopPoint!,
         this.stopPoint!,
         this.maxVelocity,
@@ -264,8 +273,8 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    */
   public update_look_state(): void {
     // --'    printf("update_look_state()")
-    this.heliFly.setBlockFlook(true);
-    this.heliFly.lookAtPosition();
+    this.helicopterFlyManager.setBlockFlook(true);
+    this.helicopterFlyManager.lookAtPosition();
   }
 
   /**
@@ -281,8 +290,8 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
         if (index !== -1) {
           this.lastIndex = index;
         } else {
-          if (this.patrolMoveInfo.get(this.lastIndex!) !== null) {
-            const signal = this.patrolMoveInfo.get(this.lastIndex!)["sig"];
+          if (this.patrolMoveInfo.has(this.lastIndex!)) {
+            const signal: Optional<TName> = this.patrolMoveInfo.get(this.lastIndex!)["sig"];
 
             if (signal !== null) {
               this.state.signals!.set(signal, true);
