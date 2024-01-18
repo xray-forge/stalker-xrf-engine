@@ -1,12 +1,9 @@
 import { CHelicopter } from "xray16";
 
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { GameObject, Optional, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
-const heliLooker: LuaTable<number, HeliLook> = new LuaTable();
+const heliLooker: LuaTable<TNumberId, HeliLook> = new LuaTable();
 
 export class HeliLook {
   public readonly object: GameObject;

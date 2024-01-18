@@ -52,7 +52,7 @@ export function create2dVector(x: number, y: number): Vector2D {
  * @param second - vector to add
  * @returns new vector with values matching vectors addition
  */
-export function addVectors(first: Vector, second: Vector): Vector {
+export function addVectors(first: Readonly<Vector>, second: Readonly<Vector>): Vector {
   return new vector().add(first, second);
 }
 
@@ -88,7 +88,7 @@ export function vectorCross(first: Readonly<Vector>, second: Readonly<Vector>): 
  * @param source - target vector to copy
  * @returns new vector with same coordinates
  */
-export function copyVector(source: Vector): Vector {
+export function copyVector(source: Readonly<Vector>): Vector {
   return new vector().set(source);
 }
 
@@ -99,7 +99,7 @@ export function copyVector(source: Vector): Vector {
  * @param second - vector to compute
  * @returns vectors yaw
  */
-export function yaw(first: Vector, second: Vector): TRate {
+export function yaw(first: Readonly<Vector>, second: Readonly<Vector>): TRate {
   return math.acos(
     (first.x * second.x + first.z * second.z) /
       (math.sqrt(first.x * first.x + first.z * first.z) * math.sqrt(second.x * second.x + second.z * second.z))
@@ -146,7 +146,7 @@ export function yawDegree3d(first: Readonly<Vector>, second: Readonly<Vector>): 
  * @param angleBase - angle to rotate vector
  * @returns new rotated vector
  */
-export function vectorRotateY(target: Vector, angleBase: TRate): Vector {
+export function vectorRotateY(target: Readonly<Vector>, angleBase: TRate): Vector {
   const angle: TRate = angleBase * PI_DEGREE;
   const cos: number = math.cos(angle);
   const sin: number = math.sin(angle);
@@ -181,7 +181,7 @@ export function degreeToRadian(degree: number): number {
  * @param second - vector to compute
  * @returns angle difference between vectors
  */
-export function angleDiff(first: Vector, second: Vector): number {
+export function angleDiff(first: Readonly<Vector>, second: Readonly<Vector>): number {
   return radianToDegree(math.acos(math.abs(first.normalize().dotproduct(second.normalize()))));
 }
 
@@ -191,7 +191,7 @@ export function angleDiff(first: Vector, second: Vector): number {
  * @param angle - angle vector
  * @returns direction vector based on angle vector
  */
-export function angleToDirection(angle: Vector): Vector {
+export function angleToDirection(angle: Readonly<Vector>): Vector {
   const yaw: TRate = angle.y;
   const pitch: TRate = angle.x;
 
@@ -205,7 +205,7 @@ export function angleToDirection(angle: Vector): Vector {
  * @param second - vector to compute
  * @returns distance between vectors in 2 dimensions
  */
-export function distanceBetween2d(first: Vector, second: Vector): TDistance {
+export function distanceBetween2d(first: Readonly<Vector>, second: Readonly<Vector>): TDistance {
   return math.sqrt((second.x - first.x) ** 2 + (second.z - first.z) ** 2);
 }
 
@@ -217,7 +217,7 @@ export function distanceBetween2d(first: Vector, second: Vector): TDistance {
  * @param second - vector to compare
  * @returns whether vector coordinates are equal
  */
-export function areSameVectors(first: Vector, second: Vector): boolean {
+export function areSameVectors(first: Readonly<Vector>, second: Readonly<Vector>): boolean {
   return first.x === second.x && first.y === second.y && first.z === second.z;
 }
 
@@ -229,7 +229,7 @@ export function areSameVectors(first: Vector, second: Vector): boolean {
  * @param second - vector to compare
  * @returns whether vector coordinates are equal
  */
-export function areSame2dVectors(first: Vector2D, second: Vector2D): boolean {
+export function areSame2dVectors(first: Readonly<Vector2D>, second: Readonly<Vector2D>): boolean {
   return first.x === second.x && first.y === second.y;
 }
 
@@ -242,7 +242,7 @@ export function areSame2dVectors(first: Vector2D, second: Vector2D): boolean {
  * @param eps - precision of vector values equity check
  * @returns whether vector coordinates are equal based on some precision
  */
-export function areSameVectorsByPrecision(first: Vector, second: Vector, eps: TRate): boolean {
+export function areSameVectorsByPrecision(first: Readonly<Vector>, second: Readonly<Vector>, eps: TRate): boolean {
   return (
     math.abs(first.x - second.x) <= eps && math.abs(first.y - second.y) <= eps && math.abs(first.z - second.z) <= eps
   );
@@ -254,6 +254,6 @@ export function areSameVectorsByPrecision(first: Vector, second: Vector, eps: TR
  * @param target - target vector to transform to string
  * @returns stringified vector
  */
-export function vectorToString(target: Optional<Vector>): string {
+export function vectorToString(target: Optional<Readonly<Vector>>): string {
   return target === null ? NIL : string.format("[%s:%s:%s]", target.x, target.y, target.z);
 }

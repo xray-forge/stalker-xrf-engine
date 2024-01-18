@@ -2,13 +2,13 @@ import { CHelicopter, level, patrol } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
+import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/helicopter/heli_move/HeliFire";
 import { getHeliFlyer, HeliFly } from "@/engine/core/schemes/helicopter/heli_move/HeliFly";
 import { getHeliLooker, HeliLook } from "@/engine/core/schemes/helicopter/heli_move/HeliLook";
-import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/ISchemeHelicopterMoveState";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
-import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
+import { parseWaypointsData } from "@/engine/core/utils/ini";
+import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ACTOR } from "@/engine/lib/constants/words";
 import { GameObject, Optional, Patrol, TIndex, TName, TRate, Vector } from "@/engine/lib/types";
 

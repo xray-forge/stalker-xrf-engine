@@ -10,6 +10,12 @@ import {
   registry,
   SYSTEM_INI,
 } from "@/engine/core/database";
+import {
+  EHelicopterCombatType,
+  EHelicopterFlyByState,
+} from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
+import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
+import { calculatePositionInRadius } from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import {
@@ -20,28 +26,22 @@ import {
   readIniString,
   TConditionList,
 } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { pickRandom } from "@/engine/core/utils/random";
-import { copyVector, createEmptyVector, createVector, distanceBetween2d } from "@/engine/core/utils/vector";
+import { createEmptyVector, distanceBetween2d } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { GameObject, IniFile, NetPacket, Optional, Reader, TNumberId, TRate, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
-
-const COMBAT_TYPE_FLYBY = 0;
-const COMBAT_TYPE_ROUND = 1;
-const COMBAT_TYPE_SEARCH = 2;
-const COMBAT_TYPE_RETREAT = 3;
-
-const FLYBY_STATE_TO_ATTACK_DIST = 0;
-const FLYBY_STATE_TO_ENEMY = 1;
-
-const COMBAT_TYPE_CHANGE_DELAY = 5000;
-const VISIBILITY_DELAY = 3000;
-const SEARCH_SHOOT_DELAY = 2000;
-const ROUND_SHOOT_DELAY = 2000;
-const DUMMY_VECTOR: Vector = createEmptyVector();
+import {
+  GameObject,
+  IniFile,
+  NetPacket,
+  Optional,
+  Reader,
+  TDistance,
+  TNumberId,
+  TTimestamp,
+  Vector,
+} from "@/engine/lib/types";
 
 export class HeliCombat {
   public readonly object: GameObject;
@@ -91,7 +91,7 @@ export class HeliCombat {
   public combatUseMgun!: boolean;
   public combatIgnore!: Optional<TConditionList>;
 
-  public combatType!: number;
+  public combatType!: EHelicopterCombatType;
   public enemyId: Optional<TNumberId> = null;
   public enemy: Optional<GameObject> = null;
   public enemyLastSeenPos: Optional<Vector> = null;
@@ -108,7 +108,7 @@ export class HeliCombat {
 
   public searchBeginShootTime: Optional<number> = null;
 
-  public state!: number;
+  public state!: EHelicopterFlyByState;
 
   public constructor(object: GameObject, heliObject: CHelicopter) {
     this.st = registry.objects.get(object.id());
@@ -118,27 +118,27 @@ export class HeliCombat {
 
     this.levelMaxY = level.get_bounding_volume().max.y;
 
-    const ltx: IniFile = SYSTEM_INI;
+    const ini: IniFile = SYSTEM_INI;
 
-    this.flybyAttackDist = readIniNumber(ltx, "helicopter", "flyby_attack_dist", true);
-    this.searchAttackDist = readIniNumber(ltx, "helicopter", "search_attack_dist", true);
-    this.defaultSafeAltitude = readIniNumber(ltx, "helicopter", "safe_altitude", true) + this.levelMaxY;
-    this.mMaxMGunDist = readIniNumber(ltx, "helicopter", "max_mgun_attack_dist", true);
+    this.flybyAttackDist = readIniNumber(ini, "helicopter", "flyby_attack_dist", true);
+    this.searchAttackDist = readIniNumber(ini, "helicopter", "search_attack_dist", true);
+    this.defaultSafeAltitude = readIniNumber(ini, "helicopter", "safe_altitude", true) + this.levelMaxY;
+    this.mMaxMGunDist = readIniNumber(ini, "helicopter", "max_mgun_attack_dist", true);
 
-    this.defaultVelocity = readIniNumber(ltx, "helicopter", "velocity", true);
-    this.searchVelocity = readIniNumber(ltx, "helicopter", "search_velocity", true);
-    this.roundVelocity = readIniNumber(ltx, "helicopter", "round_velocity", true);
+    this.defaultVelocity = readIniNumber(ini, "helicopter", "velocity", true);
+    this.searchVelocity = readIniNumber(ini, "helicopter", "search_velocity", true);
+    this.roundVelocity = readIniNumber(ini, "helicopter", "round_velocity", true);
 
-    this.visTimeQuant = readIniNumber(ltx, "helicopter", "vis_time_quant", true);
-    this.visThreshold = readIniNumber(ltx, "helicopter", "vis_threshold", true);
-    this.visInc = readIniNumber(ltx, "helicopter", "vis_inc", true) * this.visTimeQuant * 0.001;
-    this.visDec = readIniNumber(ltx, "helicopter", "vis_dec", true) * this.visTimeQuant * 0.001;
+    this.visTimeQuant = readIniNumber(ini, "helicopter", "vis_time_quant", true);
+    this.visThreshold = readIniNumber(ini, "helicopter", "vis_threshold", true);
+    this.visInc = readIniNumber(ini, "helicopter", "vis_inc", true) * this.visTimeQuant * 0.001;
+    this.visDec = readIniNumber(ini, "helicopter", "vis_dec", true) * this.visTimeQuant * 0.001;
     this.vis = 0;
     this.visNextTime = 0;
 
-    this.forgetTimeout = readIniNumber(ltx, "helicopter", "forget_timeout", true) * 1000;
+    this.forgetTimeout = readIniNumber(ini, "helicopter", "forget_timeout", true) * 1000;
 
-    this.flameStartHealth = readIniNumber(ltx, "helicopter", "flame_start_health", true);
+    this.flameStartHealth = readIniNumber(ini, "helicopter", "flame_start_health", true);
 
     this.attackBeforeRetreat = false;
     this.enemyForgetable = true;
@@ -210,7 +210,7 @@ export class HeliCombat {
     this.canForgetEnemy = false;
     this.sectionChanged = true;
 
-    this.combatType = COMBAT_TYPE_FLYBY;
+    this.combatType = EHelicopterCombatType.FLY_BY;
     this.changeCombatTypeTime = null;
     this.changeCombatTypeAllowed = true;
 
@@ -236,22 +236,22 @@ export class HeliCombat {
     packet.w_bool(this.initialized);
 
     if (this.initialized) {
-      const t = time_global();
+      const now: TTimestamp = time_global();
 
       packet.w_s16(this.enemyId!);
-      packet.w_u32(t - this.enemyLastSeenTime!);
+      packet.w_u32(now - this.enemyLastSeenTime!);
       packet.w_bool(this.canForgetEnemy);
       packet.w_bool(this.enemyForgetable);
       packet.w_vec3(this.enemyLastSeenPos!);
 
       packet.w_u8(this.combatType);
 
-      if (this.combatType === COMBAT_TYPE_SEARCH) {
-        packet.w_u32(this.changeDirTime! - t);
-        packet.w_u32(this.changePosTime! - t);
+      if (this.combatType === EHelicopterCombatType.SEARCH) {
+        packet.w_u32(this.changeDirTime! - now);
+        packet.w_u32(this.changePosTime! - now);
         packet.w_bool(this.flightDirection);
         packet.w_vec3(this.centerPos);
-      } else if (this.combatType === COMBAT_TYPE_FLYBY) {
+      } else if (this.combatType === EHelicopterCombatType.FLY_BY) {
         packet.w_s16(this.flybyStatesForOnePass);
       }
     }
@@ -265,25 +265,25 @@ export class HeliCombat {
     this.initialized = reader.r_bool();
 
     if (this.initialized) {
-      const t = time_global();
+      const now: TTimestamp = time_global();
 
       this.enemyLastSeenPos = createEmptyVector();
 
       this.enemyId = reader.r_s16();
-      this.enemyLastSeenTime = t - reader.r_u32();
+      this.enemyLastSeenTime = now - reader.r_u32();
       this.canForgetEnemy = reader.r_bool();
       this.enemyForgetable = reader.r_bool();
       reader.r_vec3(this.enemyLastSeenPos);
       this.combatType = reader.r_u8();
 
-      if (this.combatType === COMBAT_TYPE_SEARCH) {
+      if (this.combatType === EHelicopterCombatType.SEARCH) {
         this.centerPos = createEmptyVector();
 
-        this.changeDirTime = reader.r_u32() + t;
-        this.changePosTime = reader.r_u32() + t;
+        this.changeDirTime = reader.r_u32() + now;
+        this.changePosTime = reader.r_u32() + now;
         this.flightDirection = reader.r_bool();
         reader.r_vec3(this.centerPos);
-      } else if (this.combatType === COMBAT_TYPE_FLYBY) {
+      } else if (this.combatType === EHelicopterCombatType.FLY_BY) {
         this.flybyStatesForOnePass = reader.r_s16();
       }
     }
@@ -306,7 +306,7 @@ export class HeliCombat {
       this.heliObject.m_use_rocket_on_attack = this.combatUseRocket;
       this.heliObject.m_use_mgun_on_attack = this.combatUseMgun;
 
-      if (this.combatType === COMBAT_TYPE_FLYBY) {
+      if (this.combatType === EHelicopterCombatType.FLY_BY) {
         this.heliObject.SetMaxVelocity(this.maxVelocity);
       }
 
@@ -344,22 +344,17 @@ export class HeliCombat {
   public updateCombatType(seeEnemy?: boolean): void {
     let ct = this.combatType;
 
-    if (this.combatType === COMBAT_TYPE_FLYBY) {
+    if (this.combatType === EHelicopterCombatType.FLY_BY) {
       if (this.flybyStatesForOnePass <= 0) {
-        if (this.attackBeforeRetreat) {
-          ct = COMBAT_TYPE_RETREAT;
-        } else {
-          ct = COMBAT_TYPE_ROUND;
-        }
+        ct = this.attackBeforeRetreat ? EHelicopterCombatType.RETREAT : EHelicopterCombatType.ROUND;
       }
-    } else if (this.combatType === COMBAT_TYPE_ROUND) {
+    } else if (this.combatType === EHelicopterCombatType.ROUND) {
       if (seeEnemy) {
         if (distanceBetween2d(this.object.position(), this.enemy!.position()) > this.flybyAttackDist + 70) {
-          // --               not this.flyby_pass_finished
-          ct = COMBAT_TYPE_FLYBY;
+          ct = EHelicopterCombatType.FLY_BY;
         }
       } else {
-        ct = COMBAT_TYPE_SEARCH;
+        ct = EHelicopterCombatType.SEARCH;
       }
 
       if (getHelicopterHealth(this.heliObject, this.st.invulnerable) < this.flameStartHealth) {
@@ -367,15 +362,14 @@ export class HeliCombat {
 
         this.heliObject.m_use_rocket_on_attack = true;
 
-        ct = COMBAT_TYPE_FLYBY;
+        ct = EHelicopterCombatType.FLY_BY;
       }
-    } else if (this.combatType === COMBAT_TYPE_SEARCH) {
+    } else if (this.combatType === EHelicopterCombatType.SEARCH) {
       if (seeEnemy) {
-        if (distanceBetween2d(this.object.position(), this.enemy!.position()) > this.flybyAttackDist) {
-          ct = COMBAT_TYPE_FLYBY;
-        } else {
-          ct = COMBAT_TYPE_ROUND;
-        }
+        ct =
+          distanceBetween2d(this.object.position(), this.enemy!.position()) > this.flybyAttackDist
+            ? EHelicopterCombatType.FLY_BY
+            : EHelicopterCombatType.ROUND;
       }
 
       if (getHelicopterHealth(this.heliObject, this.st.invulnerable) < this.flameStartHealth) {
@@ -383,7 +377,7 @@ export class HeliCombat {
 
         this.heliObject.m_use_rocket_on_attack = true;
 
-        ct = COMBAT_TYPE_FLYBY;
+        ct = EHelicopterCombatType.FLY_BY;
       }
     }
 
@@ -398,8 +392,10 @@ export class HeliCombat {
 
   public fastcall(): boolean {
     if (this.initialized) {
-      if (this.visNextTime < time_global()) {
-        this.visNextTime = time_global() + this.visTimeQuant;
+      const now: TTimestamp = time_global();
+
+      if (this.visNextTime < now) {
+        this.visNextTime = now + this.visTimeQuant;
 
         if (this.heliObject.isVisible(this.enemy!)) {
           this.vis = this.vis + this.visInc;
@@ -447,16 +443,14 @@ export class HeliCombat {
     const seeEnemy: boolean = this.updateEnemyVisibility();
 
     this.updateCombatType(seeEnemy);
-    // -- FIXME
-    // --    this.heliObject.GetSpeedInDestPoint(0)
 
-    if (this.combatType === COMBAT_TYPE_SEARCH) {
+    if (this.combatType === EHelicopterCombatType.SEARCH) {
       this.searchUpdate(seeEnemy);
-    } else if (this.combatType === COMBAT_TYPE_ROUND) {
+    } else if (this.combatType === EHelicopterCombatType.ROUND) {
       this.roundUpdate(seeEnemy);
-    } else if (this.combatType === COMBAT_TYPE_FLYBY) {
+    } else if (this.combatType === EHelicopterCombatType.FLY_BY) {
       this.flybyUpdate(seeEnemy);
-    } else if (this.combatType === COMBAT_TYPE_RETREAT) {
+    } else if (this.combatType === EHelicopterCombatType.RETREAT) {
       this.retreatUpdate();
     }
 
@@ -465,25 +459,21 @@ export class HeliCombat {
     return true;
   }
 
-  public calcPositionInRadius(r: number): Vector {
-    const p: Vector = this.object.position();
+  public calcPositionInRadius(radius: TDistance): Vector {
+    const position: Vector = this.object.position();
+    const velocity: Vector = this.heliObject.GetCurrVelocityVec();
+    const destination: Vector = this.enemyLastSeenPos as Vector;
 
-    p.y = 0;
+    destination.y = 0;
+    position.y = 0;
+    velocity.y = 0;
+    velocity.normalize();
 
-    const v: Vector = this.heliObject.GetCurrVelocityVec();
+    const target: Vector = calculatePositionInRadius(position, velocity, destination, radius);
 
-    v.y = 0;
-    v.normalize();
+    target.y = this.safeAltitude;
 
-    const o: Vector = this.enemyLastSeenPos!;
-
-    o.y = 0;
-
-    const ret: Vector = crossRayCircle(p, v, o, r);
-
-    ret.y = this.safeAltitude;
-
-    return ret;
+    return target;
   }
 
   public roundInitialize(): void {
@@ -513,12 +503,14 @@ export class HeliCombat {
 
   public roundUpdateShooting(seeEnemy: boolean): void {
     if (seeEnemy) {
+      const now: TTimestamp = time_global();
+
       if (this.roundBeginShootTime) {
-        if (this.roundBeginShootTime < time_global()) {
+        if (this.roundBeginShootTime < now) {
           this.heliObject.SetEnemy(this.enemy);
         }
       } else {
-        this.roundBeginShootTime = time_global() + ROUND_SHOOT_DELAY;
+        this.roundBeginShootTime = now + helicopterConfig.ROUND_SHOOT_DELAY;
       }
     } else {
       this.heliObject.ClearEnemy();
@@ -528,29 +520,11 @@ export class HeliCombat {
   }
 
   public roundUpdateFlight(seeEnemy: boolean): void {
-    // -- ������ ����� �� ������� ����������� �����
-    /* --[[    if this.change_dir_time < time_global() {
-        const t
+    const now: TTimestamp = time_global();
 
-        if see_enemy {
-          t = math.random( 6000, 10000 )
-        else
-          t = math.random( 15000, 20000 )
-        }
-
-        this.change_dir_time = time_global() + t // --+ 1000000
-
-        printf( "heli_combat: going by round path, t=%d", t )
-
-        this.flight_direction = not this.flight_direction
-        this:round_setup_flight( this.flight_direction )
-
-        return
-      }
-    ]]*/
     // -- ������������ ��������, �� ������������ �� ���� � ���������� �� � �������� ��������
-    if (this.changePosTime < time_global()) {
-      this.changePosTime = time_global() + 2000;
+    if (this.changePosTime < now) {
+      this.changePosTime = now + 2000;
 
       if (
         !this.canForgetEnemy &&
@@ -615,12 +589,14 @@ export class HeliCombat {
 
   public searchUpdateShooting(seeEnemy: boolean): void {
     if (seeEnemy) {
+      const now: TTimestamp = time_global();
+
       if (this.searchBeginShootTime) {
-        if (this.searchBeginShootTime < time_global()) {
+        if (this.searchBeginShootTime < now) {
           this.heliObject.SetEnemy(this.enemy);
         }
       } else {
-        this.searchBeginShootTime = time_global() + SEARCH_SHOOT_DELAY;
+        this.searchBeginShootTime = now + helicopterConfig.SEARCH_SHOOT_DELAY;
       }
     } else {
       this.heliObject.ClearEnemy();
@@ -630,10 +606,12 @@ export class HeliCombat {
   }
 
   public searchUpdateFlight(seeEnemy: boolean): void {
-    if (this.changeSpeedTime < time_global()) {
+    const now: TTimestamp = time_global();
+
+    if (this.changeSpeedTime < now) {
       const t = math.random(8000, 12000);
 
-      this.changeSpeedTime = time_global() + t;
+      this.changeSpeedTime = now + t;
 
       this.speedIs0 = !this.speedIs0;
 
@@ -643,8 +621,8 @@ export class HeliCombat {
       return;
     }
 
-    if (this.changePosTime < time_global()) {
-      this.changePosTime = time_global() + 2000;
+    if (this.changePosTime < now) {
+      this.changePosTime = now + 2000;
 
       if (
         !this.canForgetEnemy &&
@@ -680,7 +658,7 @@ export class HeliCombat {
 
     this.heliObject.SetMaxVelocity(this.maxVelocity);
     this.heliObject.SetSpeedInDestPoint(this.maxVelocity);
-    this.heliObject.LookAtPoint(DUMMY_VECTOR, false);
+    this.heliObject.LookAtPoint(ZERO_VECTOR, false);
   }
 
   public flybySetInitialState(): void {
@@ -688,27 +666,27 @@ export class HeliCombat {
     if (distanceBetween2d(this.object.position(), this.enemyLastSeenPos!) < this.flybyAttackDist) {
       // --        this.heliObject.LookAtPoint( dummy_vector, false )
 
-      this.state = FLYBY_STATE_TO_ATTACK_DIST;
+      this.state = EHelicopterFlyByState.TO_ATTACK_DIST;
     } else {
       // --        this.heliObject.LookAtPoint( this.enemy:position(), true )
 
-      this.state = FLYBY_STATE_TO_ENEMY;
+      this.state = EHelicopterFlyByState.TO_ENEMY;
     }
   }
 
   public flybyUpdateFlight(seeEnemy: boolean): void {
     if (this.wasCallback) {
-      if (this.state === FLYBY_STATE_TO_ATTACK_DIST) {
-        this.state = FLYBY_STATE_TO_ENEMY;
-      } else if (this.state === FLYBY_STATE_TO_ENEMY) {
-        this.state = FLYBY_STATE_TO_ATTACK_DIST;
+      if (this.state === EHelicopterFlyByState.TO_ATTACK_DIST) {
+        this.state = EHelicopterFlyByState.TO_ENEMY;
+      } else if (this.state === EHelicopterFlyByState.TO_ENEMY) {
+        this.state = EHelicopterFlyByState.TO_ATTACK_DIST;
       }
 
       this.wasCallback = false;
       this.stateInitialized = false;
     }
 
-    if (this.state === FLYBY_STATE_TO_ATTACK_DIST) {
+    if (this.state === EHelicopterFlyByState.TO_ATTACK_DIST) {
       if (!this.stateInitialized) {
         const p = this.calcPositionInRadius(this.flybyAttackDist);
 
@@ -721,7 +699,7 @@ export class HeliCombat {
 
         this.stateInitialized = true;
       }
-    } else if (this.state === FLYBY_STATE_TO_ENEMY) {
+    } else if (this.state === EHelicopterFlyByState.TO_ENEMY) {
       if (!this.stateInitialized) {
         this.heliObject.SetEnemy(this.enemy);
         this.heliObject.UseFireTrail(true);
@@ -731,14 +709,13 @@ export class HeliCombat {
         this.stateInitialized = true;
       }
 
-      const p = this.enemyLastSeenPos!;
+      const position: Vector = this.enemyLastSeenPos!;
 
-      p.set(p.x, this.safeAltitude, p.z);
+      position.set(position.x, this.safeAltitude, position.z);
 
-      this.changeCombatTypeAllowed = distanceBetween2d(this.object.position(), p) > this.searchAttackDist;
+      this.changeCombatTypeAllowed = distanceBetween2d(this.object.position(), position) > this.searchAttackDist;
 
-      // --        printf( "heli_combat:flyby_update_flight 2 SetDestPosition %f %f %f", p.x, p.y, p.z )
-      this.heliObject.SetDestPosition(p);
+      this.heliObject.SetDestPosition(position);
     }
   }
 
@@ -747,9 +724,7 @@ export class HeliCombat {
       this.flybyInitialize();
     }
 
-    // --    printf( "heli_combat: flyby_update" )
     this.flybyUpdateFlight(seeEnemy);
-    // --    printf( "speed in dest point %d", this.heliObject.GetSpeedInDestPoint(0) )
   }
 
   public retreatInitialize(): void {
@@ -757,7 +732,7 @@ export class HeliCombat {
 
     this.heliObject.SetMaxVelocity(this.maxVelocity);
     this.heliObject.SetSpeedInDestPoint(this.maxVelocity);
-    this.heliObject.LookAtPoint(DUMMY_VECTOR, false);
+    this.heliObject.LookAtPoint(ZERO_VECTOR, false);
     this.heliObject.SetDestPosition(this.calcPositionInRadius(5000));
     this.heliObject.ClearEnemy();
   }
@@ -766,18 +741,5 @@ export class HeliCombat {
     if (!this.retreatInitialized) {
       this.retreatInitialize();
     }
-
-    // --    printf( "heli_combat: retreat_update" )
   }
-}
-
-/**
- * todo;
- */
-export function crossRayCircle(p: Vector, v: Vector, o: Vector, r: number): Vector {
-  const po: Vector = copyVector(o).sub(p);
-  const vperp: Vector = createVector(-v.z, 0, v.x);
-  const l: TRate = math.sqrt(r ** 2 - copyVector(po).dotproduct(vperp) ** 2);
-
-  return copyVector(p).add(copyVector(v).mul(copyVector(po).dotproduct(v) + l));
 }

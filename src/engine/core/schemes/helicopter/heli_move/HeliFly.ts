@@ -1,9 +1,9 @@
 import { CHelicopter } from "xray16";
 
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { GameObject, Optional, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
-const heliFlyer: LuaTable<number, HeliFly> = new LuaTable();
+const heliFlyer: LuaTable<TNumberId, HeliFly> = new LuaTable();
 
 export class HeliFly {
   public object: GameObject;

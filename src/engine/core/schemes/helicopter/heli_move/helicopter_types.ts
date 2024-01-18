@@ -1,8 +1,8 @@
-import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { Optional, TCount, TDistance, TRate } from "@/engine/lib/types";
+import { IBaseSchemeState } from "@/engine/core/database";
+import { Optional, TCount, TDistance, TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * State of helicopter movement schema.
  */
 export interface ISchemeHelicopterMoveState extends IBaseSchemeState {
   path_move: string;
@@ -21,4 +21,22 @@ export interface ISchemeHelicopterMoveState extends IBaseSchemeState {
   stop_fire: boolean;
   show_health: boolean;
   fire_trail: boolean;
+}
+
+/**
+ * Type of helicopter behaviour in combat.
+ */
+export enum EHelicopterCombatType {
+  FLY_BY = 0,
+  ROUND = 1,
+  SEARCH = 2,
+  RETREAT = 3,
+}
+
+/**
+ * todo;
+ */
+export enum EHelicopterFlyByState {
+  TO_ATTACK_DIST = 0,
+  TO_ENEMY = 1,
 }

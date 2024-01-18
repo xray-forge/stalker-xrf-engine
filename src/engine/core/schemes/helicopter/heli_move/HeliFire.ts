@@ -11,19 +11,16 @@ import {
 } from "xray16";
 
 import { getIdBySid, registry } from "@/engine/core/database";
-import { LuaLogger } from "@/engine/core/utils/logging";
+import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { pickRandom } from "@/engine/core/utils/random";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { GameObject, Optional, TDistance, TIndex, TPath, TRate, Vector, XmlInit } from "@/engine/lib/types";
+import { GameObject, Optional, TDistance, TIndex, TNumberId, TRate, Vector, XmlInit } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-const heliFirer: LuaTable<number, HeliFire> = new LuaTable();
+const heliFirer: LuaTable<TNumberId, HeliFire> = new LuaTable();
 
 export class HeliFire {
-  public static readonly HELI_STATIC_UI_XML_PATH: TPath = "game\\heli\\heli_progress.xml";
-
   public object: GameObject;
   public enemy_: Optional<string>;
   public enemy: Optional<GameObject>;
@@ -96,7 +93,7 @@ export class HeliFire {
 
       const xml: XmlInit = new CScriptXmlInit();
 
-      xml.ParseFile(HeliFire.HELI_STATIC_UI_XML_PATH);
+      xml.ParseFile(helicopterConfig.HELI_STATIC_UI_XML_PATH);
 
       const st: StaticDrawableWrapper = hud.GetCustomStatic("cs_heli_health")!;
       const w: CUIStatic = st.wnd();
@@ -112,7 +109,7 @@ export class HeliFire {
     const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
     const xml: CScriptXmlInit = new CScriptXmlInit();
 
-    xml.ParseFile(HeliFire.HELI_STATIC_UI_XML_PATH);
+    xml.ParseFile(helicopterConfig.HELI_STATIC_UI_XML_PATH);
 
     if (customStatic) {
       hud.AddCustomStatic("cs_heli_health", true);
@@ -146,7 +143,6 @@ export class HeliFire {
 
     if (this.flagByEnemy) {
       heli.ClearEnemy();
-      // --'printf("ClearEnemy()")
       this.enemyDie = false;
       if (this.enemy) {
         if (heli.isVisible(this.enemy)) {
@@ -171,7 +167,6 @@ export class HeliFire {
 
         if (this.enemy) {
           heli.SetEnemy(this.enemy!);
-          // --'printf("set_enemy(this.enemy, actor or SID)")
         } else {
           this.enemyDie = true;
         }
