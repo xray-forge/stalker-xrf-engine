@@ -1,6 +1,5 @@
 import {
   CHelicopter,
-  CScriptXmlInit,
   CUIGameCustom,
   CUIProgressBar,
   CUIStatic,
@@ -17,21 +16,38 @@ import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { GameObject, Optional, TCount, TDistance, TIndex, TNumberId, TRate, Vector, XmlInit } from "@/engine/lib/types";
+import {
+  GameObject,
+  Optional,
+  StringOptional,
+  TCount,
+  TDistance,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TTimestamp,
+  Vector,
+  XmlInit,
+} from "@/engine/lib/types";
 
-const heliFirer: LuaTable<TNumberId, HelicopterFireManager> = new LuaTable();
-
+/**
+ * todo;
+ */
 export class HelicopterFireManager {
-  public object: GameObject;
-  public enemy_: Optional<string> = null;
+  public readonly object: GameObject;
+
   public enemy: Optional<GameObject> = null;
   public enemyId: Optional<TNumberId> = null;
+  public enemyPreference: Optional<StringOptional<TName>> = NIL; // All, actor or nil.
+  public enemyDie: boolean = true;
+  public enemyTime: TTimestamp = time_global();
+
   public firePoint: Optional<Vector> = null;
+  public fireId: any = null;
+
   public flagByEnemy: boolean = true;
   public hitCount: TCount = 0;
-  public fireId: any = null;
-  public enemyDie: boolean = true;
-  public enemyTime: number = time_global();
   public updVis: number = 0;
   public showHealth: boolean = false;
 
@@ -41,23 +57,24 @@ export class HelicopterFireManager {
     this.object = object;
   }
 
+  /**
+   * todo: Description.
+   */
   public updateEnemyState(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
 
-    // --'    printf("update_enemy_state()")
     if (this.hitCount > 2) {
       this.hitCount = 0;
       this.flagByEnemy = true;
     }
 
-    if (this.enemy && this.enemyDie && this.enemy_ === "all") {
+    if (this.enemy && this.enemyDie && this.enemyPreference === "all") {
       this.updateEnemyArr();
     }
 
     if (this.enemy && time_global() - this.enemyTime > this.updVis * 1000) {
-      // --'printf("this.upd_vis  = %d", this.upd_vis);
       if (!helicopter.isVisible(this.enemy)) {
-        if (this.enemy_ === "all") {
+        if (this.enemyPreference === "all") {
           this.updateEnemyArr();
         }
       }
@@ -74,6 +91,9 @@ export class HelicopterFireManager {
     this.setEnemy();
   }
 
+  /**
+   * todo: Description.
+   */
   public csHeli(): void {
     const hud: CUIGameCustom = get_hud();
     const uiHelicopterHealth: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
@@ -81,7 +101,7 @@ export class HelicopterFireManager {
     if (uiHelicopterHealth === null) {
       hud.AddCustomStatic("cs_heli_health", true);
 
-      const xml: XmlInit = resolveXmlFile(helicopterConfig.HELI_STATIC_UI_XML_PATH);
+      const xml: XmlInit = resolveXmlFile(helicopterConfig.HELICOPTER_STATIC_UI_XML_PATH);
       const window: CUIStatic = hud.GetCustomStatic("cs_heli_health")!.wnd();
 
       this.uiProgressBar = xml.InitProgressBar("heli_health", window);
@@ -89,6 +109,9 @@ export class HelicopterFireManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public setCsHeliProgressHealth(): void {
     const hud: CUIGameCustom = get_hud();
     const uiHelicopterHealth: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
@@ -110,6 +133,9 @@ export class HelicopterFireManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public csRemove(): void {
     const hud: CUIGameCustom = get_hud();
 
@@ -118,6 +144,9 @@ export class HelicopterFireManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public setEnemy(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
 
@@ -130,15 +159,15 @@ export class HelicopterFireManager {
           this.flagByEnemy = false;
         }
       } else {
-        if (this.enemy_) {
-          if (this.enemy_ === ACTOR) {
+        if (this.enemyPreference) {
+          if (this.enemyPreference === ACTOR) {
             this.enemy = registry.actor;
           } else {
-            if (this.enemy_ === "all") {
+            if (this.enemyPreference === "all") {
               this.updateEnemyArr();
             } else {
-              if (this.enemy_ !== NIL) {
-                this.enemyId = getIdBySid(tonumber(this.enemy_)!);
+              if (this.enemyPreference !== NIL) {
+                this.enemyId = getIdBySid(tonumber(this.enemyPreference)!);
                 this.enemy = level.object_by_id(this.enemyId!);
               }
             }
@@ -165,6 +194,9 @@ export class HelicopterFireManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public updateOnHit(): void {
     if (this.showHealth) {
       this.setCsHeliProgressHealth();
@@ -173,7 +205,7 @@ export class HelicopterFireManager {
     }
 
     if (this.enemy!.id() === this.fireId) {
-      if (this.enemy_ !== NIL) {
+      if (this.enemyPreference !== NIL) {
         this.hitCount = this.hitCount + 1;
       } else {
         this.hitCount = 0;
@@ -184,8 +216,12 @@ export class HelicopterFireManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public updateEnemyArr(): void {
-    const heli: CHelicopter = this.object.get_helicopter();
+    const helicopter: CHelicopter = this.object.get_helicopter();
+
     let index: TIndex = 0;
     let minDist2D: TDistance = MAX_U16;
 
@@ -193,11 +229,12 @@ export class HelicopterFireManager {
       if (registry.helicopter.enemies.has(index)) {
         const enemy: GameObject = registry.helicopter.enemies.get(index);
 
-        if (heli.isVisible(enemy)) {
+        if (helicopter.isVisible(enemy)) {
           if (distanceBetween2d(this.object.position(), enemy.position()) < minDist2D) {
             this.enemy = enemy;
-            minDist2D = distanceBetween2d(this.object.position(), enemy.position());
             this.flagByEnemy = true;
+
+            minDist2D = distanceBetween2d(this.object.position(), enemy.position());
           }
         }
       }
@@ -207,7 +244,7 @@ export class HelicopterFireManager {
 
     const actor: GameObject = registry.actor;
 
-    if ((heli.isVisible(actor) && pickRandom(false, true)) || registry.helicopter.enemyIndex === 0) {
+    if ((helicopter.isVisible(actor) && pickRandom(false, true)) || registry.helicopter.enemyIndex === 0) {
       if (distanceBetween2d(this.object.position(), actor.position()) <= minDist2D * 2) {
         this.enemy = actor;
       }
@@ -219,9 +256,9 @@ export class HelicopterFireManager {
  * todo;
  */
 export function getHelicopterFireManager(object: GameObject): HelicopterFireManager {
-  if (heliFirer.get(object.id()) === null) {
-    heliFirer.set(object.id(), new HelicopterFireManager(object));
+  if (helicopterConfig.HELICOPTER_FIRE_MANAGERS.get(object.id()) === null) {
+    helicopterConfig.HELICOPTER_FIRE_MANAGERS.set(object.id(), new HelicopterFireManager(object));
   }
 
-  return heliFirer.get(object.id());
+  return helicopterConfig.HELICOPTER_FIRE_MANAGERS.get(object.id());
 }

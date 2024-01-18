@@ -5,22 +5,22 @@ import { Optional, TCount, TDistance, TName, TRate } from "@/engine/lib/types";
  * State of helicopter movement schema.
  */
 export interface ISchemeHelicopterMoveState extends IBaseSchemeState {
-  path_move: TName;
-  path_look: Optional<TName>;
-  enemy_: string;
-  fire_point: Optional<string>;
-  max_velocity: TRate;
-  max_mgun_dist: Optional<TDistance>;
-  max_rocket_dist: Optional<TDistance>;
-  min_mgun_dist: Optional<TDistance>;
-  min_rocket_dist: Optional<TDistance>;
-  upd_vis: TCount;
-  use_rocket: boolean;
-  use_mgun: boolean;
-  engine_sound: boolean;
-  stop_fire: boolean;
-  show_health: boolean;
-  fire_trail: boolean;
+  pathMove: TName;
+  pathLook: Optional<TName>;
+  enemyPreference: string; // All, actor, nil.
+  firePoint: Optional<string>;
+  maxVelocity: TRate;
+  maxMinigunDistance: Optional<TDistance>;
+  maxRocketDistance: Optional<TDistance>;
+  minMinigunDistance: Optional<TDistance>;
+  minRocketDistance: Optional<TDistance>;
+  updVis: TCount;
+  isRocketEnabled: boolean;
+  isMinigunEnabled: boolean;
+  isEngineSoundEnabled: boolean;
+  stopFire: boolean;
+  showHealth: boolean;
+  fireTrail: boolean;
 }
 
 /**

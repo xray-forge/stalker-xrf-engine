@@ -43,6 +43,9 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
+/**
+ * todo;
+ */
 export class HelicopterCombatManager {
   public readonly object: GameObject;
   public readonly helicopter: CHelicopter;
@@ -134,6 +137,9 @@ export class HelicopterCombatManager {
     this.flameStartHealth = readIniNumber(ini, "helicopter", "flame_start_health", true);
   }
 
+  /**
+   * todo: Description.
+   */
   public readCustomData(ini: IniFile, section: string): void {
     this.combatUseRocket = readIniBoolean(ini, section, "combat_use_rocket", false, true);
     this.combatUseMgun = readIniBoolean(ini, section, "combat_use_mgun", false, true);
@@ -152,6 +158,9 @@ export class HelicopterCombatManager {
     this.isSectionChanged = true;
   }
 
+  /**
+   * todo: Description.
+   */
   public setEnemyFromCustomData(combatEnemy: Optional<string>): void {
     if (combatEnemy === null) {
       this.enemyForgetable = true;
@@ -178,6 +187,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public setCombatType(newCombatType: number): void {
     if (newCombatType !== this.combatType) {
       this.isFlybyInitialized = false;
@@ -188,6 +200,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public initialize(): void {
     this.enemyLastSeenPos = this.enemy!.position();
     this.enemyLastSeenTime = 0;
@@ -208,6 +223,9 @@ export class HelicopterCombatManager {
     this.isInitialized = true;
   }
 
+  /**
+   * todo: Description.
+   */
   public save(packet: NetPacket): void {
     openSaveMarker(packet, HelicopterCombatManager.name);
 
@@ -244,6 +262,9 @@ export class HelicopterCombatManager {
     closeSaveMarker(packet, HelicopterCombatManager.name);
   }
 
+  /**
+   * todo: Description.
+   */
   public load(reader: Reader): void {
     openLoadMarker(reader, HelicopterCombatManager.name);
 
@@ -276,6 +297,9 @@ export class HelicopterCombatManager {
     closeLoadMarker(reader, HelicopterCombatManager.name);
   }
 
+  /**
+   * todo: Description.
+   */
   public onWaypoint(): boolean {
     if (this.enemyId && !this.combatIgnoreCheck()) {
       this.wasCallback = true;
@@ -286,6 +310,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public updateCustomDataSettings(): void {
     if (this.isSectionChanged) {
       this.helicopter.m_use_rocket_on_attack = this.combatUseRocket;
@@ -299,6 +326,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public updateEnemyVisibility(): boolean {
     if (this.vis >= this.visThreshold) {
       this.enemyLastSeenTime = time_global();
@@ -310,12 +340,18 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public forgetEnemy(): void {
     this.isInitialized = false;
     this.enemyId = null;
     this.enemy = null;
   }
 
+  /**
+   * todo: Description.
+   */
   public updateForgetting(): void {
     if (
       (this.enemyForgetable && this.canForgetEnemy && time_global() - this.enemyLastSeenTime! > this.forgetTimeout) ||
@@ -325,6 +361,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public updateCombatType(seeEnemy?: boolean): void {
     let ct = this.combatType;
 
@@ -368,12 +407,18 @@ export class HelicopterCombatManager {
     this.setCombatType(ct);
   }
 
+  /**
+   * todo: Description.
+   */
   public combatIgnoreCheck(): boolean {
     return (
       this.combatIgnore !== null && pickSectionFromCondList(registry.actor, this.object, this.combatIgnore) !== null
     );
   }
 
+  /**
+   * todo: Description.
+   */
   public fastcall(): boolean {
     if (this.isInitialized) {
       const now: TTimestamp = time_global();
@@ -402,6 +447,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public update(): boolean {
     if (this.enemyId) {
       this.enemy = level.object_by_id(this.enemyId);
@@ -443,6 +491,9 @@ export class HelicopterCombatManager {
     return true;
   }
 
+  /**
+   * todo: Description.
+   */
   public calculatePositionInRadius(radius: TDistance): Vector {
     const position: Vector = this.object.position();
     const velocity: Vector = this.helicopter.GetCurrVelocityVec();
@@ -460,6 +511,9 @@ export class HelicopterCombatManager {
     return target;
   }
 
+  /**
+   * todo: Description.
+   */
   public roundInitialize(): void {
     this.changeDirTime = 0;
     this.changePosTime = 0;
@@ -477,6 +531,9 @@ export class HelicopterCombatManager {
     this.roundSetupFlight(this.flightDirection!);
   }
 
+  /**
+   * todo: Description.
+   */
   public roundSetupFlight(direction: boolean): void {
     this.centerPos = this.enemyLastSeenPos!;
     this.centerPos.y = this.safeAltitude;
@@ -485,6 +542,9 @@ export class HelicopterCombatManager {
     this.helicopter.LookAtPoint(this.enemy!.position(), true);
   }
 
+  /**
+   * todo: Description.
+   */
   public roundUpdateShooting(seeEnemy: boolean): void {
     if (seeEnemy) {
       const now: TTimestamp = time_global();
@@ -502,6 +562,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public roundUpdateFlight(): void {
     const now: TTimestamp = time_global();
 
@@ -521,6 +584,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public roundUpdate(seeEnemy: boolean): void {
     if (!this.isRoundInitialized) {
       this.roundInitialize();
@@ -530,6 +596,9 @@ export class HelicopterCombatManager {
     this.roundUpdateFlight();
   }
 
+  /**
+   * todo: Description.
+   */
   public searchInitialize(): void {
     this.changeSpeedTime = time_global() + math.random(5000, 7000);
     this.speedIs0 = true;
@@ -548,6 +617,9 @@ export class HelicopterCombatManager {
     this.searchSetupFlight();
   }
 
+  /**
+   * todo: Description.
+   */
   public searchSetupFlight(): void {
     this.centerPos = this.enemyLastSeenPos!;
     this.centerPos.y = this.safeAltitude;
@@ -561,6 +633,9 @@ export class HelicopterCombatManager {
     this.helicopter.LookAtPoint(this.enemy!.position(), true);
   }
 
+  /**
+   * todo: Description.
+   */
   public searchUpdateShooting(seeEnemy: boolean): void {
     if (seeEnemy) {
       const now: TTimestamp = time_global();
@@ -579,6 +654,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public searchUpdateFlight(seeEnemy: boolean): void {
     const now: TTimestamp = time_global();
 
@@ -610,6 +688,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public searchUpdate(seeEnemy: boolean): void {
     if (!this.isSearchInitialized) {
       this.searchInitialize();
@@ -619,6 +700,9 @@ export class HelicopterCombatManager {
     this.searchUpdateFlight(seeEnemy);
   }
 
+  /**
+   * todo: Description.
+   */
   public flybyInitialize(): void {
     this.flybySetInitialState();
 
@@ -632,6 +716,9 @@ export class HelicopterCombatManager {
     this.helicopter.LookAtPoint(ZERO_VECTOR, false);
   }
 
+  /**
+   * todo: Description.
+   */
   public flybySetInitialState(): void {
     this.flyByState =
       distanceBetween2d(this.object.position(), this.enemyLastSeenPos!) < this.flybyAttackDist
@@ -639,6 +726,9 @@ export class HelicopterCombatManager {
         : EHelicopterFlyByState.TO_ENEMY;
   }
 
+  /**
+   * todo: Description.
+   */
   public flybyUpdateFlight(): void {
     if (this.wasCallback) {
       if (this.flyByState === EHelicopterFlyByState.TO_ATTACK_DIST) {
@@ -681,6 +771,9 @@ export class HelicopterCombatManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public flybyUpdate(): void {
     if (!this.isFlybyInitialized) {
       this.flybyInitialize();
@@ -689,6 +782,9 @@ export class HelicopterCombatManager {
     this.flybyUpdateFlight();
   }
 
+  /**
+   * todo: Description.
+   */
   public retreatInitialize(): void {
     this.isRetreatInitialized = true;
 
@@ -699,6 +795,9 @@ export class HelicopterCombatManager {
     this.helicopter.ClearEnemy();
   }
 
+  /**
+   * todo: Description.
+   */
   public retreatUpdate(): void {
     if (!this.isRetreatInitialized) {
       this.retreatInitialize();

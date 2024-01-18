@@ -1,10 +1,12 @@
 import { CHelicopter } from "xray16";
 
+import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { GameObject, LuaArray, Optional, TDistance, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, LuaArray, Optional, TDistance, TRate, Vector } from "@/engine/lib/types";
 
-const heliFlyer: LuaTable<TNumberId, HelicopterFlyManager> = new LuaTable();
-
+/**
+ * todo;
+ */
 export class HelicopterFlyManager {
   public readonly object: GameObject;
 
@@ -20,6 +22,9 @@ export class HelicopterFlyManager {
     this.object = object;
   }
 
+  /**
+   * todo: Description.
+   */
   public flyOnPointWithVector(
     destPoint: Vector,
     destDirection: Vector,
@@ -58,8 +63,8 @@ export class HelicopterFlyManager {
 
         rezPoint = this.calculatePoint();
         if (!this.blockFlook) {
-          rezPoint.x = rezPoint.x + (currHeliDirection.x * delta) / 2;
-          rezPoint.z = rezPoint.z + (currHeliDirection.z * delta) / 2;
+          rezPoint.x += (currHeliDirection.x * delta) / 2;
+          rezPoint.z += (currHeliDirection.z * delta) / 2;
         }
 
         flagToWpCallback = true;
@@ -82,6 +87,9 @@ export class HelicopterFlyManager {
     return flagToWpCallback;
   }
 
+  /**
+   * todo: Description.
+   */
   public calculatePoint(): Vector {
     const result: Vector = createEmptyVector();
     const xxArr: LuaArray<number> = new LuaTable();
@@ -120,6 +128,9 @@ export class HelicopterFlyManager {
     return result;
   }
 
+  /**
+   * todo: Description.
+   */
   public lagrange(x: number, xList: LuaArray<number>, yList: LuaArray<number>): TRate {
     let s: TRate = 0;
 
@@ -138,6 +149,9 @@ export class HelicopterFlyManager {
     return s;
   }
 
+  /**
+   * todo: Description.
+   */
   public correctVelocity(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
     const velocity: TRate = helicopter.GetCurrVelocity();
@@ -153,6 +167,9 @@ export class HelicopterFlyManager {
     helicopter.SetMaxVelocity(destVelocity);
   }
 
+  /**
+   * todo: Description.
+   */
   public lookAtPosition(): void {
     if (this.blockFlook) {
       const heli: CHelicopter = this.object.get_helicopter();
@@ -161,10 +178,16 @@ export class HelicopterFlyManager {
     }
   }
 
+  /**
+   * todo: Description.
+   */
   public setBlockFlook(flBlock: boolean): void {
     this.blockFlook = flBlock;
   }
 
+  /**
+   * todo: Description.
+   */
   public setLookPoint(lPoint: Vector): void {
     this.pointByLook = lPoint;
   }
@@ -173,9 +196,9 @@ export class HelicopterFlyManager {
  * todo;
  */
 export function getHelicopterFlyManager(object: GameObject): HelicopterFlyManager {
-  if (heliFlyer.get(object.id()) === null) {
-    heliFlyer.set(object.id(), new HelicopterFlyManager(object));
+  if (helicopterConfig.HELICOPTER_FLY_MANAGERS.get(object.id()) === null) {
+    helicopterConfig.HELICOPTER_FLY_MANAGERS.set(object.id(), new HelicopterFlyManager(object));
   }
 
-  return heliFlyer.get(object.id());
+  return helicopterConfig.HELICOPTER_FLY_MANAGERS.get(object.id());
 }

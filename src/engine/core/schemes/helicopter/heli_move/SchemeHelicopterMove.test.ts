@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterMoveManager";
-import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/ISchemeHelicopterMoveState";
+import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
+import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move/SchemeHelicopterMove";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
@@ -47,22 +47,22 @@ describe("SchemeHelicopterMove", () => {
     expect(state.mute).toBe(false);
 
     expect(schemeState.logic).toEqualLuaTables({});
-    expect(schemeState.path_move).toBe("test_path");
-    expect(schemeState.path_look).toBeNull();
-    expect(schemeState.enemy_).toBeNull();
-    expect(schemeState.fire_point).toBeNull();
-    expect(schemeState.max_velocity).toBe(4000);
-    expect(schemeState.max_mgun_dist).toBeNull();
-    expect(schemeState.max_rocket_dist).toBeNull();
-    expect(schemeState.min_mgun_dist).toBeNull();
-    expect(schemeState.min_rocket_dist).toBeNull();
-    expect(schemeState.upd_vis).toBe(10);
-    expect(schemeState.use_rocket).toBe(true);
-    expect(schemeState.use_mgun).toBe(true);
-    expect(schemeState.engine_sound).toBe(true);
-    expect(schemeState.stop_fire).toBe(false);
-    expect(schemeState.show_health).toBe(false);
-    expect(schemeState.fire_trail).toBe(false);
+    expect(schemeState.pathMove).toBe("test_path");
+    expect(schemeState.pathLook).toBeNull();
+    expect(schemeState.enemyPreference).toBeNull();
+    expect(schemeState.firePoint).toBeNull();
+    expect(schemeState.maxVelocity).toBe(4000);
+    expect(schemeState.maxMinigunDistance).toBeNull();
+    expect(schemeState.maxRocketDistance).toBeNull();
+    expect(schemeState.minMinigunDistance).toBeNull();
+    expect(schemeState.minRocketDistance).toBeNull();
+    expect(schemeState.updVis).toBe(10);
+    expect(schemeState.isRocketEnabled).toBe(true);
+    expect(schemeState.isMinigunEnabled).toBe(true);
+    expect(schemeState.isEngineSoundEnabled).toBe(true);
+    expect(schemeState.stopFire).toBe(false);
+    expect(schemeState.showHealth).toBe(false);
+    expect(schemeState.fireTrail).toBe(false);
   });
 
   it("should correctly activate with provided data", () => {
@@ -104,21 +104,21 @@ describe("SchemeHelicopterMove", () => {
     expect(state.mute).toBe(false);
 
     expect(schemeState.logic).toEqualLuaTables(getConfigSwitchConditions(ini, "heli_move@test"));
-    expect(schemeState.path_move).toBe("test_path2");
-    expect(schemeState.path_look).toBe("test_path3");
-    expect(schemeState.enemy_).toBe("enemy_test");
-    expect(schemeState.fire_point).toBe("test_point");
-    expect(schemeState.max_velocity).toBe(500);
-    expect(schemeState.max_mgun_dist).toBe(600);
-    expect(schemeState.max_rocket_dist).toBe(700);
-    expect(schemeState.min_mgun_dist).toBe(655);
-    expect(schemeState.min_rocket_dist).toBe(400);
-    expect(schemeState.upd_vis).toBe(555);
-    expect(schemeState.use_rocket).toBe(false);
-    expect(schemeState.use_mgun).toBe(false);
-    expect(schemeState.engine_sound).toBe(false);
-    expect(schemeState.stop_fire).toBe(true);
-    expect(schemeState.show_health).toBe(true);
-    expect(schemeState.fire_trail).toBe(true);
+    expect(schemeState.pathMove).toBe("test_path2");
+    expect(schemeState.pathLook).toBe("test_path3");
+    expect(schemeState.enemyPreference).toBe("enemy_test");
+    expect(schemeState.firePoint).toBe("test_point");
+    expect(schemeState.maxVelocity).toBe(500);
+    expect(schemeState.maxMinigunDistance).toBe(600);
+    expect(schemeState.maxRocketDistance).toBe(700);
+    expect(schemeState.minMinigunDistance).toBe(655);
+    expect(schemeState.minRocketDistance).toBe(400);
+    expect(schemeState.updVis).toBe(555);
+    expect(schemeState.isRocketEnabled).toBe(false);
+    expect(schemeState.isMinigunEnabled).toBe(false);
+    expect(schemeState.isEngineSoundEnabled).toBe(false);
+    expect(schemeState.stopFire).toBe(true);
+    expect(schemeState.showHealth).toBe(true);
+    expect(schemeState.fireTrail).toBe(true);
   });
 });
