@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
@@ -6,11 +6,21 @@ import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/hel
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move/SchemeHelicopterMove";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
-import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
+import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, mockIniFile } from "@/fixtures/xray";
 
 describe("SchemeHelicopterMove", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
+  it("should be correctly defined", () => {
+    expect(SchemeHelicopterMove.SCHEME_SECTION).toBe("heli_move");
+    expect(SchemeHelicopterMove.SCHEME_SECTION).toBe(EScheme.HELI_MOVE);
+    expect(SchemeHelicopterMove.SCHEME_TYPE).toBe(ESchemeType.HELICOPTER);
+  });
+
   it("should correctly activate with defaults", () => {
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = mockIniFile("test.ltx", {

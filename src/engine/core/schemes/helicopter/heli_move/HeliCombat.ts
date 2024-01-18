@@ -10,8 +10,8 @@ import {
   registry,
   SYSTEM_INI,
 } from "@/engine/core/database";
-import { getHeliHealth } from "@/engine/core/schemes/helicopter/heli_move/heli_utils";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
+import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import {
   parseConditionsList,
   pickSectionFromCondList,
@@ -362,7 +362,7 @@ export class HeliCombat {
         ct = COMBAT_TYPE_SEARCH;
       }
 
-      if (getHeliHealth(this.heliObject, this.st) < this.flameStartHealth) {
+      if (getHelicopterHealth(this.heliObject, this.st.invulnerable) < this.flameStartHealth) {
         this.attackBeforeRetreat = true;
 
         this.heliObject.m_use_rocket_on_attack = true;
@@ -378,7 +378,7 @@ export class HeliCombat {
         }
       }
 
-      if (getHeliHealth(this.heliObject, this.st) < this.flameStartHealth) {
+      if (getHelicopterHealth(this.heliObject, this.st.invulnerable) < this.flameStartHealth) {
         this.attackBeforeRetreat = true;
 
         this.heliObject.m_use_rocket_on_attack = true;

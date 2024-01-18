@@ -16,9 +16,9 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { getHeliHealth } from "@/engine/core/schemes/helicopter/heli_move/heli_utils";
 import { HeliCombat } from "@/engine/core/schemes/helicopter/heli_move/HeliCombat";
 import { getHeliFirer, HeliFire } from "@/engine/core/schemes/helicopter/heli_move/HeliFire";
+import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
@@ -156,7 +156,7 @@ export class HelicopterBinder extends object_binder {
     // --printf( "heli health: %d", heli:GetfHealth() )
 
     if (!heli.m_dead) {
-      const health = getHeliHealth(this.heliObject, this.state);
+      const health: TRate = getHelicopterHealth(this.heliObject, this.state.invulnerable);
 
       if (health < this.flameStartHealth && !heli.m_flame_started) {
         this.heliObject.StartFlame();

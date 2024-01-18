@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { ServerSmartZoneObject, TNumberId } from "@/engine/lib/types";
+import { ServerSmartZoneObject, TClassId, TNumberId } from "@/engine/lib/types";
 import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import { MockAlifeObject, mockServerAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 
@@ -13,8 +13,8 @@ export class MockAlifeSmartZone extends MockAlifeObject {
 
   public set_available_loopholes = jest.fn();
 
-  public clsid(): TNumberId {
-    return mockClsid.smart_zone;
+  public override clsid(): TClassId {
+    return mockClsid.smart_zone as TClassId;
   }
 
   public updateMapDisplay(): void {}
