@@ -1,6 +1,5 @@
 import { CHelicopter } from "xray16";
 
-import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { GameObject, Optional, TDistance, TRate, Vector } from "@/engine/lib/types";
 
@@ -45,15 +44,4 @@ export class HelicopterLookManager {
       helicopter.LookAtPoint(this.lookPoint, lookState);
     }
   }
-}
-
-/**
- * todo;
- */
-export function getHelicopterLookManager(object: GameObject): HelicopterLookManager {
-  if (helicopterConfig.HELICOPTER_LOOK_MANAGERS.get(object.id()) === null) {
-    helicopterConfig.HELICOPTER_LOOK_MANAGERS.set(object.id(), new HelicopterLookManager(object));
-  }
-
-  return helicopterConfig.HELICOPTER_LOOK_MANAGERS.get(object.id());
 }

@@ -17,10 +17,8 @@ import {
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterCombatManager";
-import {
-  getHelicopterFireManager,
-  HelicopterFireManager,
-} from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterFireManager";
+import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterFireManager";
+import { getHelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";

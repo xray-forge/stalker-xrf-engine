@@ -251,14 +251,3 @@ export class HelicopterFireManager {
     }
   }
 }
-
-/**
- * todo;
- */
-export function getHelicopterFireManager(object: GameObject): HelicopterFireManager {
-  if (helicopterConfig.HELICOPTER_FIRE_MANAGERS.get(object.id()) === null) {
-    helicopterConfig.HELICOPTER_FIRE_MANAGERS.set(object.id(), new HelicopterFireManager(object));
-  }
-
-  return helicopterConfig.HELICOPTER_FIRE_MANAGERS.get(object.id());
-}

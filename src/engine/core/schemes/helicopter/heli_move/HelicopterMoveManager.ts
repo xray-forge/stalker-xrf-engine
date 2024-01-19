@@ -3,18 +3,16 @@ import { CHelicopter, level, patrol } from "xray16";
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import {
-  getHelicopterFireManager,
   HelicopterFireManager,
-} from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterFireManager";
-import {
-  getHelicopterFlyManager,
   HelicopterFlyManager,
-} from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterFlyManager";
-import {
-  getHelicopterLookManager,
   HelicopterLookManager,
-} from "@/engine/core/schemes/helicopter/heli_move/control/HelicopterLookManager";
+} from "@/engine/core/schemes/helicopter/heli_move/control";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
+import {
+  getHelicopterFireManager,
+  getHelicopterFlyManager,
+  getHelicopterLookManager,
+} from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
@@ -50,7 +48,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public maxVelocity!: TRate;
   public lastIndex: Optional<number> = null;
   public nextIndex: Optional<number> = null;
-  public _flagToWpCallback: Optional<boolean> = null;
+  public flagToWpCallback: Optional<boolean> = null;
   public wasCallback: Optional<boolean> = null;
   public byStopFireFly: Optional<boolean> = null;
   public stopPoint: Optional<Vector> = null;
@@ -103,8 +101,8 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       const objectId: TNumberId = object.id();
 
       this.isHelicopterMoving = getPortableStoreValue(objectId, "st") === true;
-      this.lastIndex = getPortableStoreValue(objectId, "li") || null;
-      this.nextIndex = getPortableStoreValue(objectId, "ni") || null;
+      this.lastIndex = getPortableStoreValue(objectId, "li");
+      this.nextIndex = getPortableStoreValue(objectId, "ni");
       this.wasCallback = getPortableStoreValue(objectId, "wc");
     } else {
       this.lastIndex = null;
@@ -122,7 +120,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       this.byStopFireFly = false;
 
       this.wasCallback = false;
-      this._flagToWpCallback = false;
+      this.flagToWpCallback = false;
       this.helicopterFireManager.enemyPreference = this.state.enemyPreference;
       this.helicopterFireManager.enemy = null;
       this.helicopterFireManager.flagByEnemy = true;
@@ -148,12 +146,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       }
 
       this.helicopter.m_use_mgun_on_attack = this.state.isMinigunEnabled;
-
-      if (this.state.isRocketEnabled) {
-        this.helicopter.m_use_rocket_on_attack = true;
-      } else {
-        this.helicopter.m_use_rocket_on_attack = false;
-      }
+      this.helicopter.m_use_rocket_on_attack = this.state.isRocketEnabled;
 
       this.helicopterFireManager.updVis = this.state.updVis;
       this.helicopterFireManager.updateEnemyState();
@@ -237,16 +230,16 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
 
     if (!this.byStopFireFly) {
       if (this.patrolMove!.count() > 2) {
-        this._flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
+        this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
           this.patrolMove!.point(this.lastIndex!),
           this.patrolMove!.point(this.nextIndex!),
           this.maxVelocity,
-          this._flagToWpCallback!,
+          this.flagToWpCallback!,
           false
         );
       } else {
         if (this.patrolMove!.count() > 1) {
-          this._flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
+          this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
             this.patrolMove!.point(this.lastIndex!),
             this.patrolMove!.point(this.nextIndex!),
             this.maxVelocity,
@@ -254,7 +247,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
             true
           );
         } else {
-          this._flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
+          this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
             this.patrolMove!.point(this.lastIndex!),
             this.patrolMove!.point(this.lastIndex!),
             this.maxVelocity,
@@ -264,14 +257,14 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
         }
       }
     } else {
-      this._flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
+      this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
         this.stopPoint!,
         this.stopPoint!,
         this.maxVelocity,
         true,
         false
       );
-      this._flagToWpCallback = true;
+      this.flagToWpCallback = true;
     }
   }
 
@@ -287,7 +280,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
    * todo: Description.
    */
   public override onWaypoint(object: GameObject, actionType: TName, index: TIndex): void {
-    if (!this._flagToWpCallback) {
+    if (!this.flagToWpCallback) {
       if (this.patrolMove) {
         if (index === this.lastIndex) {
           return;
