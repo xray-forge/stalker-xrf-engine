@@ -1,7 +1,6 @@
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
-import { HelicopterLookManager } from "@/engine/core/schemes/helicopter/heli_move/look";
 import { GameObject } from "@/engine/lib/types";
 
 /**
@@ -24,15 +23,4 @@ export function getHelicopterFlyManager(object: GameObject): HelicopterFlyManage
   }
 
   return helicopterConfig.HELICOPTER_FLY_MANAGERS.get(object.id());
-}
-
-/**
- * todo;
- */
-export function getHelicopterLookManager(object: GameObject): HelicopterLookManager {
-  if (helicopterConfig.HELICOPTER_LOOK_MANAGERS.get(object.id()) === null) {
-    helicopterConfig.HELICOPTER_LOOK_MANAGERS.set(object.id(), new HelicopterLookManager(object));
-  }
-
-  return helicopterConfig.HELICOPTER_LOOK_MANAGERS.get(object.id());
 }

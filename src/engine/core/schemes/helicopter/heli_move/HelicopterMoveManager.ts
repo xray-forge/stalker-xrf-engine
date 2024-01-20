@@ -5,12 +5,7 @@ import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireManager";
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
-import { HelicopterLookManager } from "@/engine/core/schemes/helicopter/heli_move/look";
-import {
-  getHelicopterFireManager,
-  getHelicopterFlyManager,
-  getHelicopterLookManager,
-} from "@/engine/core/schemes/helicopter/heli_move/utils";
+import { getHelicopterFireManager, getHelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
@@ -34,7 +29,6 @@ import {
 export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopterMoveState> {
   public readonly helicopter: CHelicopter;
 
-  public helicopterLookManager: HelicopterLookManager;
   public helicopterFireManager: HelicopterFireManager;
   public helicopterFlyManager: HelicopterFlyManager;
 
@@ -59,7 +53,6 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
 
     this.helicopterFlyManager = getHelicopterFlyManager(object);
     this.helicopterFireManager = getHelicopterFireManager(object);
-    this.helicopterLookManager = getHelicopterLookManager(object);
   }
 
   public override activate(object: GameObject, isLoading?: boolean): void {
@@ -194,10 +187,6 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       }
 
       this.updateLookState();
-    }
-
-    if (!this.state.pathLook && this.helicopterLookManager.lookState) {
-      this.helicopterLookManager.calculateLookPoint(this.helicopterFlyManager.destPoint, true);
     }
   }
 
