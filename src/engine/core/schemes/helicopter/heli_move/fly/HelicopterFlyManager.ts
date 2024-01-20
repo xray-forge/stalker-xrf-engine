@@ -182,8 +182,8 @@ export class HelicopterFlyManager {
   /**
    * todo: Description.
    */
-  public setBlockFlook(flBlock: boolean): void {
-    this.blockFlook = flBlock;
+  public setBlockFlook(isFlookBlocked: boolean): void {
+    this.blockFlook = isFlookBlocked;
   }
 
   /**

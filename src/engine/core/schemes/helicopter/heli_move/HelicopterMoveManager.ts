@@ -244,7 +244,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * todo: Description.
+   * Handle helicopter look state updates.
    */
   public updateLookState(): void {
     this.helicopterFlyManager.setBlockFlook(true);
