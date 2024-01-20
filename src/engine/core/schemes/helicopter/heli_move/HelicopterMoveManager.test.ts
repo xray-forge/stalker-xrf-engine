@@ -5,7 +5,6 @@ import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_mov
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
 import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
-import { HelicopterLookManager } from "@/engine/core/schemes/helicopter/heli_move/look";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockCHelicopter, MockGameObject } from "@/fixtures/xray";
@@ -22,7 +21,6 @@ describe("HelicopterMoveManager", () => {
 
     expect(manager.helicopter).toBeInstanceOf(CHelicopter);
 
-    expect(manager.helicopterLookManager).toBeInstanceOf(HelicopterLookManager);
     expect(manager.helicopterFireManager).toBeInstanceOf(HelicopterFireManager);
     expect(manager.helicopterFlyManager).toBeInstanceOf(HelicopterFlyManager);
 

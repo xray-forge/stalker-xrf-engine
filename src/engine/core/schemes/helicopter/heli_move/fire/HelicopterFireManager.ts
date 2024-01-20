@@ -94,7 +94,7 @@ export class HelicopterFireManager {
   /**
    * todo: Description.
    */
-  public csHeli(): void {
+  public showHelicopterFightUI(): void {
     const hud: CUIGameCustom = get_hud();
     const uiHelicopterHealth: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
@@ -105,14 +105,14 @@ export class HelicopterFireManager {
       const window: CUIStatic = hud.GetCustomStatic("cs_heli_health")!.wnd();
 
       this.uiProgressBar = xml.InitProgressBar("heli_health", window);
-      this.setCsHeliProgressHealth();
+      this.setHelicopterFightUIHealth();
     }
   }
 
   /**
    * todo: Description.
    */
-  public setCsHeliProgressHealth(): void {
+  public setHelicopterFightUIHealth(): void {
     const hud: CUIGameCustom = get_hud();
     const uiHelicopterHealth: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
@@ -136,7 +136,7 @@ export class HelicopterFireManager {
   /**
    * todo: Description.
    */
-  public csRemove(): void {
+  public removeHelicopterFightUI(): void {
     const hud: CUIGameCustom = get_hud();
 
     if (hud.GetCustomStatic("cs_heli_health")) {
@@ -199,9 +199,9 @@ export class HelicopterFireManager {
    */
   public updateOnHit(): void {
     if (this.showHealth) {
-      this.setCsHeliProgressHealth();
+      this.setHelicopterFightUIHealth();
     } else {
-      this.csRemove();
+      this.removeHelicopterFightUI();
     }
 
     if (this.enemy!.id() === this.fireId) {
@@ -221,20 +221,23 @@ export class HelicopterFireManager {
    */
   public updateEnemyArr(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
+    const helicopterPosition: Vector = this.object.position();
 
     let index: TIndex = 0;
     let minDist2D: TDistance = MAX_U16;
 
     while (index < registry.helicopter.enemyIndex) {
-      if (registry.helicopter.enemies.has(index)) {
-        const enemy: GameObject = registry.helicopter.enemies.get(index);
+      const enemy: Optional<GameObject> = registry.helicopter.enemies.get(index) as Optional<GameObject>;
+
+      if (enemy) {
+        const enemyPosition: Vector = enemy.position();
 
         if (helicopter.isVisible(enemy)) {
-          if (distanceBetween2d(this.object.position(), enemy.position()) < minDist2D) {
+          if (distanceBetween2d(helicopterPosition, enemyPosition) < minDist2D) {
             this.enemy = enemy;
             this.flagByEnemy = true;
 
-            minDist2D = distanceBetween2d(this.object.position(), enemy.position());
+            minDist2D = distanceBetween2d(helicopterPosition, enemyPosition);
           }
         }
       }
@@ -245,7 +248,7 @@ export class HelicopterFireManager {
     const actor: GameObject = registry.actor;
 
     if ((helicopter.isVisible(actor) && pickRandom(false, true)) || registry.helicopter.enemyIndex === 0) {
-      if (distanceBetween2d(this.object.position(), actor.position()) <= minDist2D * 2) {
+      if (distanceBetween2d(helicopterPosition, actor.position()) <= minDist2D * 2) {
         this.enemy = actor;
       }
     }

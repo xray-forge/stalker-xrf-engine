@@ -138,12 +138,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       this.updateMovementState();
 
       if (this.state.showHealth) {
-        this.helicopterFireManager.csRemove();
+        this.helicopterFireManager.removeHelicopterFightUI();
         this.helicopterFireManager.showHealth = true;
-        this.helicopterFireManager.csHeli();
+        this.helicopterFireManager.showHelicopterFightUI();
       } else {
         this.helicopterFireManager.showHealth = false;
-        this.helicopterFireManager.csRemove();
+        this.helicopterFireManager.removeHelicopterFightUI();
       }
 
       this.helicopter.UseFireTrail(this.state.fireTrail);
