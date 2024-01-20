@@ -1,9 +1,7 @@
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move";
-import {
-  HelicopterFireManager,
-  HelicopterFlyManager,
-  HelicopterLookManager,
-} from "@/engine/core/schemes/helicopter/heli_move/control";
+import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
+import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
+import { HelicopterLookManager } from "@/engine/core/schemes/helicopter/heli_move/look";
 import { GameObject } from "@/engine/lib/types";
 
 /**

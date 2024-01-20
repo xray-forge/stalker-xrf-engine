@@ -1,8 +1,6 @@
-import type {
-  HelicopterFireManager,
-  HelicopterFlyManager,
-  HelicopterLookManager,
-} from "@/engine/core/schemes/helicopter/heli_move/control";
+import type { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
+import type { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
+import type { HelicopterLookManager } from "@/engine/core/schemes/helicopter/heli_move/look";
 import type { TNumberId } from "@/engine/lib/types";
 
 export const helicopterConfig = {

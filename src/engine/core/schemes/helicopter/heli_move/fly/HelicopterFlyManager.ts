@@ -1,6 +1,7 @@
 import { CHelicopter } from "xray16";
 
 import { createEmptyVector } from "@/engine/core/utils/vector";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { GameObject, LuaArray, Optional, TDistance, TRate, Vector } from "@/engine/lib/types";
 
 /**
@@ -9,7 +10,7 @@ import { GameObject, LuaArray, Optional, TDistance, TRate, Vector } from "@/engi
 export class HelicopterFlyManager {
   public readonly object: GameObject;
 
-  public pointByLook: Vector = createEmptyVector();
+  public pointByLook: Readonly<Vector> = ZERO_VECTOR;
   public blockFlook: boolean = false;
   public heliLAccFW: number = 6;
   public heliLAccBW: number = 4;
@@ -34,12 +35,13 @@ export class HelicopterFlyManager {
     const helicopter: CHelicopter = this.object.get_helicopter();
     const currHeliPosition: Vector = this.object.position();
     const currHeliDirection: Vector = this.object.direction();
-    const currHeliVelocity: number = helicopter.GetCurrVelocity();
+    const currHeliVelocity: TRate = helicopter.GetCurrVelocity();
 
     destVelocity = (destVelocity * 1000) / 3600;
+
     if (!flagToWpCallback) {
       let timeByFly: number = 0;
-      let rezPoint: Vector = createEmptyVector();
+      let rezPoint: Vector = ZERO_VECTOR;
       let aSpeed: TRate = 0;
       let dPath: number;
 

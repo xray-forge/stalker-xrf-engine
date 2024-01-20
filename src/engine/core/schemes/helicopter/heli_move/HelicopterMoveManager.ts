@@ -2,18 +2,16 @@ import { CHelicopter, level, patrol } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
-import {
-  HelicopterFireManager,
-  HelicopterFlyManager,
-  HelicopterLookManager,
-} from "@/engine/core/schemes/helicopter/heli_move/control";
+import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireManager";
+import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
+import { HelicopterLookManager } from "@/engine/core/schemes/helicopter/heli_move/look";
 import {
   getHelicopterFireManager,
   getHelicopterFlyManager,
   getHelicopterLookManager,
 } from "@/engine/core/schemes/helicopter/heli_move/utils";
-import { abort, assert } from "@/engine/core/utils/assertion";
+import { assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ACTOR } from "@/engine/lib/constants/words";
@@ -31,7 +29,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manager of helicopter movement scheme logics.
  */
 export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopterMoveState> {
   public readonly helicopter: CHelicopter;
@@ -40,16 +38,17 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public helicopterFireManager: HelicopterFireManager;
   public helicopterFlyManager: HelicopterFlyManager;
 
+  public isHelicopterMoving: boolean = false;
+  public isWaypointCallbackHandled: boolean = false;
+
   public patrolMove: Optional<Patrol> = null;
-  public patrolMoveInfo!: LuaArray<IWaypointData>;
+  public patrolMoveInfo: Optional<LuaArray<IWaypointData>> = null;
   public patrolLook: Optional<Patrol> = null;
 
-  public isHelicopterMoving: boolean = false;
+  public lastIndex: Optional<TIndex> = null;
+  public nextIndex: Optional<TIndex> = null;
   public maxVelocity!: TRate;
-  public lastIndex: Optional<number> = null;
-  public nextIndex: Optional<number> = null;
   public flagToWpCallback: Optional<boolean> = null;
-  public wasCallback: Optional<boolean> = null;
   public byStopFireFly: Optional<boolean> = null;
   public stopPoint: Optional<Vector> = null;
 
@@ -63,14 +62,12 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     this.helicopterLookManager = getHelicopterLookManager(object);
   }
 
-  public override activate(object: GameObject, loading?: boolean): void {
+  public override activate(object: GameObject, isLoading?: boolean): void {
     this.state.signals = new LuaTable();
 
     this.helicopter.TurnEngineSound(this.state.isEngineSoundEnabled);
 
-    if (!level.patrol_path_exists(this.state.pathMove)) {
-      abort("Patrol path %s doesnt exist", this.state.pathMove);
-    }
+    assert(level.patrol_path_exists(this.state.pathMove), "Patrol path '%s' does not exist.", this.state.pathMove);
 
     this.patrolMove = new patrol(this.state.pathMove);
     this.patrolMoveInfo = parseWaypointsData(this.state.pathMove)!;
@@ -79,15 +76,10 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       if (this.state.pathLook === ACTOR) {
         this.helicopterFlyManager.setLookPoint(registry.actor.position());
       } else {
+        assert(level.patrol_path_exists(this.state.pathLook), "Patrol path '%s' does not exist.", this.state.pathMove);
+
         this.patrolLook = new patrol(this.state.pathLook);
         this.helicopterFlyManager.setLookPoint(this.patrolLook.point(0));
-
-        assert(
-          this.patrolLook,
-          "Object '%s': unable to find path_look '%s' on the level.",
-          object.name(),
-          this.state.pathLook
-        );
       }
 
       this.updateLookState();
@@ -97,13 +89,13 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
 
     this.maxVelocity = this.state.maxVelocity;
 
-    if (loading) {
+    if (isLoading) {
       const objectId: TNumberId = object.id();
 
       this.isHelicopterMoving = getPortableStoreValue(objectId, "st") === true;
       this.lastIndex = getPortableStoreValue(objectId, "li");
       this.nextIndex = getPortableStoreValue(objectId, "ni");
-      this.wasCallback = getPortableStoreValue(objectId, "wc");
+      this.isWaypointCallbackHandled = getPortableStoreValue(objectId, "wc", false);
     } else {
       this.lastIndex = null;
       this.nextIndex = null;
@@ -119,7 +111,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       this.stopPoint = null;
       this.byStopFireFly = false;
 
-      this.wasCallback = false;
+      this.isWaypointCallbackHandled = false;
       this.flagToWpCallback = false;
       this.helicopterFireManager.enemyPreference = this.state.enemyPreference;
       this.helicopterFireManager.enemy = null;
@@ -169,9 +161,9 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     const objectId: TNumberId = this.object.id();
 
     setPortableStoreValue(objectId, "st", this.isHelicopterMoving);
-    setPortableStoreValue(objectId, "li", this.lastIndex || false);
-    setPortableStoreValue(objectId, "ni", this.nextIndex || false);
-    setPortableStoreValue(objectId, "wc", this.wasCallback);
+    setPortableStoreValue(objectId, "li", this.lastIndex);
+    setPortableStoreValue(objectId, "ni", this.nextIndex);
+    setPortableStoreValue(objectId, "wc", this.isWaypointCallbackHandled);
   }
 
   public update(delta: TDuration): void {
@@ -179,9 +171,9 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       return;
     }
 
-    if (this.wasCallback) {
+    if (this.isWaypointCallbackHandled) {
       this.updateMovementState();
-      this.wasCallback = false;
+      this.isWaypointCallbackHandled = false;
     }
 
     if (this.state.pathLook) {
@@ -192,11 +184,11 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
             if (!this.byStopFireFly) {
               this.stopPoint = this.object.position();
               this.byStopFireFly = true;
-              this.wasCallback = true;
+              this.isWaypointCallbackHandled = true;
             }
           } else {
             this.byStopFireFly = false;
-            this.wasCallback = true;
+            this.isWaypointCallbackHandled = true;
           }
         }
       }
@@ -257,13 +249,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
         }
       }
     } else {
-      this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
-        this.stopPoint!,
-        this.stopPoint!,
-        this.maxVelocity,
-        true,
-        false
-      );
+      this.helicopterFlyManager.flyOnPointWithVector(this.stopPoint!, this.stopPoint!, this.maxVelocity, true, false);
       this.flagToWpCallback = true;
     }
   }
@@ -276,34 +262,25 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     this.helicopterFlyManager.lookAtPosition();
   }
 
-  /**
-   * todo: Description.
-   */
   public override onWaypoint(object: GameObject, actionType: TName, index: TIndex): void {
-    if (!this.flagToWpCallback) {
-      if (this.patrolMove) {
-        if (index === this.lastIndex) {
-          return;
-        }
+    if (this.patrolMove && !this.flagToWpCallback && index !== this.lastIndex) {
+      if (index === -1) {
+        if (this.patrolMoveInfo!.has(this.lastIndex!)) {
+          const signal: Optional<TName> = this.patrolMoveInfo!.get(this.lastIndex!)["sig"];
 
-        if (index !== -1) {
-          this.lastIndex = index;
-        } else {
-          if (this.patrolMoveInfo.has(this.lastIndex!)) {
-            const signal: Optional<TName> = this.patrolMoveInfo.get(this.lastIndex!)["sig"];
-
-            if (signal) {
-              this.state.signals!.set(signal, true);
-            }
-          }
-
-          if (this.patrolMove.count() > 1) {
-            this.lastIndex = this.nextIndex;
+          if (signal) {
+            this.state.signals!.set(signal, true);
           }
         }
+
+        if (this.patrolMove.count() > 1) {
+          this.lastIndex = this.nextIndex;
+        }
+      } else {
+        this.lastIndex = index;
       }
     }
 
-    this.wasCallback = true;
+    this.isWaypointCallbackHandled = true;
   }
 }

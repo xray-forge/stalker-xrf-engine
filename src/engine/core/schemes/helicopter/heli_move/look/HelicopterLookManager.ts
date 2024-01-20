@@ -9,8 +9,8 @@ import { GameObject, Optional, TDistance, TRate, Vector } from "@/engine/lib/typ
 export class HelicopterLookManager {
   public readonly object: GameObject;
 
-  public lookPoint: Vector = createEmptyVector();
   public lookState: boolean = false;
+  public lookPoint: Vector = createEmptyVector();
 
   public constructor(object: GameObject) {
     this.object = object;

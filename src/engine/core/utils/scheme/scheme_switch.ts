@@ -95,6 +95,7 @@ const SCHEME_LOGIC_SWITCH: Record<
  *
  * @param object - game object to try switching
  * @param state - current scheme state
+ * @returns whether switch to another section was successful
  */
 export function trySwitchToAnotherSection(object: GameObject, state: IBaseSchemeState): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;

@@ -1,7 +1,45 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
+import { CHelicopter } from "xray16";
+
+import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
+import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
+import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
+import { HelicopterMoveManager } from "@/engine/core/schemes/helicopter/heli_move/HelicopterMoveManager";
+import { HelicopterLookManager } from "@/engine/core/schemes/helicopter/heli_move/look";
+import { EScheme, GameObject } from "@/engine/lib/types";
+import { mockSchemeState } from "@/fixtures/engine";
+import { MockCHelicopter, MockGameObject } from "@/fixtures/xray";
 
 describe("HelicopterMoveManager", () => {
-  it.todo("should correctly initialize");
+  it("should correctly initialize", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeHelicopterMoveState = mockSchemeState(EScheme.HELI_MOVE);
+    const helicopter: CHelicopter = MockCHelicopter.mock();
+
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    const manager: HelicopterMoveManager = new HelicopterMoveManager(object, state);
+
+    expect(manager.helicopter).toBeInstanceOf(CHelicopter);
+
+    expect(manager.helicopterLookManager).toBeInstanceOf(HelicopterLookManager);
+    expect(manager.helicopterFireManager).toBeInstanceOf(HelicopterFireManager);
+    expect(manager.helicopterFlyManager).toBeInstanceOf(HelicopterFlyManager);
+
+    expect(manager.isHelicopterMoving).toBe(false);
+    expect(manager.isWaypointCallbackHandled).toBe(false);
+
+    expect(manager.patrolMove).toBeNull();
+    expect(manager.patrolMoveInfo).toBeNull();
+    expect(manager.patrolLook).toBeNull();
+
+    expect(manager.lastIndex).toBeNull();
+    expect(manager.nextIndex).toBeNull();
+    expect(manager.maxVelocity).toBeUndefined();
+    expect(manager.flagToWpCallback).toBeNull();
+    expect(manager.byStopFireFly).toBeNull();
+    expect(manager.stopPoint).toBeNull();
+  });
 
   it.todo("should correctly activate");
 
