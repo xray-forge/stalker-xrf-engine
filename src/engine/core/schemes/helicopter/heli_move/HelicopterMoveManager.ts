@@ -15,6 +15,7 @@ import {
   LuaArray,
   Optional,
   Patrol,
+  TCount,
   TDuration,
   TIndex,
   TName,
@@ -56,10 +57,6 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   public override activate(object: GameObject, isLoading?: boolean): void {
-    this.state.signals = new LuaTable();
-
-    this.helicopter.TurnEngineSound(this.state.isEngineSoundEnabled);
-
     assert(level.patrol_path_exists(this.state.pathMove), "Patrol path '%s' does not exist.", this.state.pathMove);
 
     this.patrolMove = new patrol(this.state.pathMove);
@@ -80,7 +77,9 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       this.patrolLook = null;
     }
 
+    this.state.signals = new LuaTable();
     this.maxVelocity = this.state.maxVelocity;
+    this.helicopter.TurnEngineSound(this.state.isEngineSoundEnabled);
 
     if (isLoading) {
       const objectId: TNumberId = object.id();
@@ -133,9 +132,11 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
       this.helicopter.m_use_mgun_on_attack = this.state.isMinigunEnabled;
       this.helicopter.m_use_rocket_on_attack = this.state.isRocketEnabled;
 
-      this.helicopterFireManager.updVis = this.state.updVis;
+      this.helicopterFireManager.updateVisibility = this.state.updVis;
       this.helicopterFireManager.updateEnemyState();
       this.updateMovementState();
+
+      this.helicopter.UseFireTrail(this.state.fireTrail);
 
       if (this.state.showHealth) {
         this.helicopterFireManager.removeHelicopterFightUI();
@@ -145,8 +146,6 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
         this.helicopterFireManager.showHealth = false;
         this.helicopterFireManager.removeHelicopterFightUI();
       }
-
-      this.helicopter.UseFireTrail(this.state.fireTrail);
     }
   }
 
@@ -196,21 +195,28 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public updateMovementState(): void {
     this.isHelicopterMoving = true;
 
+    // Handle index processing.
     if (this.patrolMove) {
-      if (this.lastIndex) {
+      if (this.lastIndex === null) {
+        this.lastIndex = 0;
+        this.nextIndex = 1;
+      } else {
         this.nextIndex = this.lastIndex + 1;
 
         if (this.nextIndex >= this.patrolMove.count()) {
           this.nextIndex = 0;
         }
-      } else {
-        this.lastIndex = 0;
-        this.nextIndex = 1;
       }
     }
 
-    if (!this.byStopFireFly) {
-      if (this.patrolMove!.count() > 2) {
+    // Handle flying on point.
+    if (this.byStopFireFly) {
+      this.helicopterFlyManager.flyOnPointWithVector(this.stopPoint!, this.stopPoint!, this.maxVelocity, true, false);
+      this.flagToWpCallback = true;
+    } else {
+      const waypointsCount: TCount = this.patrolMove!.count();
+
+      if (waypointsCount > 2) {
         this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
           this.patrolMove!.point(this.lastIndex!),
           this.patrolMove!.point(this.nextIndex!),
@@ -219,27 +225,14 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
           false
         );
       } else {
-        if (this.patrolMove!.count() > 1) {
-          this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
-            this.patrolMove!.point(this.lastIndex!),
-            this.patrolMove!.point(this.nextIndex!),
-            this.maxVelocity,
-            true,
-            true
-          );
-        } else {
-          this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
-            this.patrolMove!.point(this.lastIndex!),
-            this.patrolMove!.point(this.lastIndex!),
-            this.maxVelocity,
-            true,
-            true
-          );
-        }
+        this.flagToWpCallback = this.helicopterFlyManager.flyOnPointWithVector(
+          this.patrolMove!.point(this.lastIndex!),
+          this.patrolMove!.point(waypointsCount === 2 ? this.nextIndex! : this.lastIndex!),
+          this.maxVelocity,
+          true,
+          true
+        );
       }
-    } else {
-      this.helicopterFlyManager.flyOnPointWithVector(this.stopPoint!, this.stopPoint!, this.maxVelocity, true, false);
-      this.flagToWpCallback = true;
     }
   }
 

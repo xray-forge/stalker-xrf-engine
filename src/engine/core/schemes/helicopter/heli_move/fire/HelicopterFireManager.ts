@@ -48,7 +48,7 @@ export class HelicopterFireManager {
 
   public flagByEnemy: boolean = true;
   public hitCount: TCount = 0;
-  public updVis: number = 0;
+  public updateVisibility: number = 0;
   public showHealth: boolean = false;
 
   public uiProgressBar: Optional<CUIProgressBar> = null;
@@ -72,7 +72,7 @@ export class HelicopterFireManager {
       this.updateEnemyArr();
     }
 
-    if (this.enemy && time_global() - this.enemyTime > this.updVis * 1000) {
+    if (this.enemy && time_global() - this.enemyTime > this.updateVisibility * 1000) {
       if (!helicopter.isVisible(this.enemy)) {
         if (this.enemyPreference === "all") {
           this.updateEnemyArr();

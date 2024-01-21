@@ -8,7 +8,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeHelicopterMove", () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe("SchemeHelicopterMove", () => {
 
   it("should correctly activate with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "heli_move@test": {
         path_move: "test_path",
         max_velocity: 4000,
@@ -67,7 +67,7 @@ describe("SchemeHelicopterMove", () => {
 
   it("should correctly activate with provided data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "heli_move@test": {
         on_info: "{+test} first, second",
         path_move: "test_path2",

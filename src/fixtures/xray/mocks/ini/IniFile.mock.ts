@@ -103,6 +103,8 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
 
 /**
  * Mock generic ini file for testing.
+ *
+ * @deprecated
  */
 export function mockIniFile(path: TPath, data?: AnyObject, content?: string): IniFile {
   return new MockIniFile(path, data, content) as unknown as IniFile;
