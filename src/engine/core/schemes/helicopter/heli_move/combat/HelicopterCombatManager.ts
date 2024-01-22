@@ -9,10 +9,10 @@ import {
   registry,
   SYSTEM_INI,
 } from "@/engine/core/database";
-import { updateFlyby } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_fly_by";
-import { updateRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_reatreat";
-import { updateRound } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_round";
-import { updateSearch } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_search";
+import { updateHelicopterCombatFlyby } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_fly_by";
+import { updateHelicopterCombatRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_reatreat";
+import { updateHelicopterCombatRound } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_round";
+import { updateHelicopterCombatSearch } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_search";
 import {
   EHelicopterCombatType,
   EHelicopterFlyByState,
@@ -107,9 +107,9 @@ export class HelicopterCombatManager {
 
   public flyByState!: EHelicopterFlyByState;
 
-  public constructor(object: GameObject, helicopter: CHelicopter) {
+  public constructor(object: GameObject) {
     this.object = object;
-    this.helicopter = helicopter;
+    this.helicopter = object.get_helicopter();
     this.state = registry.objects.get(object.id());
 
     const ini: IniFile = SYSTEM_INI;
@@ -410,19 +410,19 @@ export class HelicopterCombatManager {
 
     switch (this.combatType) {
       case EHelicopterCombatType.SEARCH:
-        updateSearch(this, seeEnemy);
+        updateHelicopterCombatSearch(this, seeEnemy);
         break;
 
       case EHelicopterCombatType.ROUND:
-        updateRound(this, seeEnemy);
+        updateHelicopterCombatRound(this, seeEnemy);
         break;
 
       case EHelicopterCombatType.FLY_BY:
-        updateFlyby(this);
+        updateHelicopterCombatFlyby(this);
         break;
 
       case EHelicopterCombatType.RETREAT:
-        updateRetreat(this);
+        updateHelicopterCombatRetreat(this);
         break;
     }
 

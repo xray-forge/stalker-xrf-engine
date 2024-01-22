@@ -79,7 +79,7 @@ export class HelicopterBinder extends object_binder {
     this.object.set_callback(callback.helicopter_on_hit, this.onHit, this);
 
     // todo: Needs revisit.
-    this.state.combat = new HelicopterCombatManager(this.object, this.helicopter) as unknown as IBaseSchemeState;
+    this.state.combat = new HelicopterCombatManager(this.object) as unknown as IBaseSchemeState;
 
     this.lastHitSndTimeout = 0;
 

@@ -32,11 +32,12 @@ import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockEffector } from "@/fixtures/xray/mocks/effector.mock";
+import { MockFbox } from "@/fixtures/xray/mocks/FBox.mock";
 import { MockCGameFont, mockGetFontLetterica16Russian } from "@/fixtures/xray/mocks/font.mock";
 import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { MockHit } from "@/fixtures/xray/mocks/hit.mock";
-import { mockCreateIniFile, MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";
 import {
   mockActorStatsInterface,
   mockGameInterface,
@@ -170,6 +171,7 @@ export function mockXRay16({
   DIK_keys = mockDikKeys,
   GAME_TYPE = MockGameType,
   FS = MockFileSystem,
+  Fbox = MockFbox,
   Frect = MockFrect,
   GetARGB = mockGetARGB,
   GetFontLetterica16Russian = mockGetFontLetterica16Russian,
@@ -261,7 +263,7 @@ export function mockXRay16({
   sound = MockSound,
   sound_object = MockSoundObject,
   stalker_ids = mockStalkerIds,
-  system_ini = () => mockIniFile("system.ini"),
+  system_ini = () => MockIniFile.mock("system.ini"),
   task = MockTask,
   time_global = jest.fn(() => Date.now()),
   ui_events = mockUiEvents,
@@ -307,6 +309,7 @@ export function mockXRay16({
     CUIWindow,
     CZoneCampfire,
     DIK_keys,
+    Fbox,
     GAME_TYPE,
     FS,
     Frect,

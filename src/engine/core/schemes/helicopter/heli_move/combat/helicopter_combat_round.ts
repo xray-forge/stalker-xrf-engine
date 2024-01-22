@@ -9,19 +9,7 @@ import { TTimestamp } from "@/engine/lib/types";
 /**
  * todo: Description.
  */
-export function updateRound(manager: HelicopterCombatManager, seeEnemy: boolean): void {
-  if (!manager.isRoundInitialized) {
-    roundInitialize(manager);
-  }
-
-  roundUpdateShooting(manager, seeEnemy);
-  roundUpdateFlight(manager);
-}
-
-/**
- * todo: Description.
- */
-export function roundInitialize(manager: HelicopterCombatManager): void {
+export function initializeHelicopterCombatRound(manager: HelicopterCombatManager): void {
   manager.changeDirTime = 0;
   manager.changePosTime = 0;
   manager.centerPos = manager.enemyLastSeenPos!;
@@ -41,7 +29,7 @@ export function roundInitialize(manager: HelicopterCombatManager): void {
 /**
  * todo: Description.
  */
-export function roundUpdateShooting(manager: HelicopterCombatManager, seeEnemy: boolean): void {
+export function updateHelicopterCombatRoundShooting(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (seeEnemy) {
     const now: TTimestamp = time_global();
 
@@ -61,7 +49,7 @@ export function roundUpdateShooting(manager: HelicopterCombatManager, seeEnemy: 
 /**
  * todo: Description.
  */
-export function roundUpdateFlight(manager: HelicopterCombatManager): void {
+export function updateHelicopterCombatRoundFlight(manager: HelicopterCombatManager): void {
   const now: TTimestamp = time_global();
 
   if (manager.changePosTime < now) {
@@ -78,4 +66,16 @@ export function roundUpdateFlight(manager: HelicopterCombatManager): void {
       manager.roundSetupFlight(manager.flightDirection);
     }
   }
+}
+
+/**
+ * todo: Description.
+ */
+export function updateHelicopterCombatRound(manager: HelicopterCombatManager, seeEnemy: boolean): void {
+  if (!manager.isRoundInitialized) {
+    initializeHelicopterCombatRound(manager);
+  }
+
+  updateHelicopterCombatRoundShooting(manager, seeEnemy);
+  updateHelicopterCombatRoundFlight(manager);
 }

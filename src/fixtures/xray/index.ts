@@ -1,5 +1,6 @@
 export * from "@/fixtures/xray/mockXRay16";
 export * from "@/fixtures/xray/mocks/CTime.mock";
+export * from "@/fixtures/xray/mocks/FBox.mock";
 export * from "@/fixtures/xray/mocks/actions";
 export * from "@/fixtures/xray/mocks/console.mock";
 export * from "@/fixtures/xray/mocks/constants";

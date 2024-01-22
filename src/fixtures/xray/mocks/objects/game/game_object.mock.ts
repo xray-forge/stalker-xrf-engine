@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { CHelicopter } from "xray16";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
@@ -20,7 +21,7 @@ import {
   TSightType,
   Vector,
 } from "@/engine/lib/types";
-import { mockClsid } from "@/fixtures/xray";
+import { MockCHelicopter, mockClsid } from "@/fixtures/xray";
 import {
   MockActionPlanner,
   mockDefaultActionPlanner,
@@ -38,6 +39,16 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 export class MockGameObject {
   public static mock(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
     return mockGameObject(base);
+  }
+
+  public static mockHelicopter(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
+    const object: GameObject = mockGameObject(base);
+    const helicopter: CHelicopter = MockCHelicopter.mock();
+
+    jest.spyOn(object, "clsid").mockImplementation(() => mockClsid.helicopter as TClassId);
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    return object;
   }
 
   public static mockStalker(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
