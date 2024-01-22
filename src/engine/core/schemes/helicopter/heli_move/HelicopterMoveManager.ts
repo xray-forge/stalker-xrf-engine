@@ -158,7 +158,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     setPortableStoreValue(objectId, "wc", this.isWaypointCallbackHandled);
   }
 
-  public update(delta: TDuration): void {
+  public update(): void {
     if (trySwitchToAnotherSection(this.object, this.state)) {
       return;
     }
@@ -171,6 +171,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
     if (this.state.pathLook) {
       if (this.state.pathLook === ACTOR) {
         this.helicopterFlyManager.setLookPoint(registry.actor.position());
+
         if (this.state.stopFire) {
           if (this.helicopter.isVisible(registry.actor)) {
             if (!this.byStopFireFly) {

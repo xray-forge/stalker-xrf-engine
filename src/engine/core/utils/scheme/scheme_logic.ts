@@ -150,7 +150,7 @@ export function activateSchemeBySection(
 
   const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
 
-  assert(schemeImplementation, "scheme/logic: scheme '%s' is not registered.", scheme);
+  assert(schemeImplementation, "Scheme '%s' is not registered.", scheme);
 
   // logger.format("Set active scheme: %s -> %s %s %s", scheme, object.name(), section, additional);
 

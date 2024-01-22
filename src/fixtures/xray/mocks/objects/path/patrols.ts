@@ -15,7 +15,7 @@ export const patrols: Record<string, IPatrolMock> = {
   "test-wp-single": {
     points: [{ name: "wp00|a=patrol", gvid: 110, lvid: 1000, position: MockVector.create(1, 1, 1) }],
   },
-  "test-wp-dobule": {
+  "test-wp-double": {
     points: [
       { name: "wp00|a=patrol", gvid: 111, lvid: 1001, position: MockVector.create(1, 1, 1) },
       { name: "wp01|a=patrol", gvid: 111, lvid: 1001, position: MockVector.create(2, 2, 2) },

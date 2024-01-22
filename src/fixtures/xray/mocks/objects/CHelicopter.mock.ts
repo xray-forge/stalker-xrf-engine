@@ -14,6 +14,8 @@ export class MockCHelicopter {
 
   public health: TRate = 1;
 
+  public isVisible = jest.fn(() => false);
+
   public GetfHealth = jest.fn(() => this.health);
 
   public SetfHealth = jest.fn((health: TRate) => (this.health = health));

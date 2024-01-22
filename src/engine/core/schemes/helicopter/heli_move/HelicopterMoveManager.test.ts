@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter, patrol } from "xray16";
 
-import { registerObject, setPortableStoreValue } from "@/engine/core/database";
+import { getPortableStoreValue, registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move/helicopter_types";
@@ -227,9 +227,159 @@ describe("HelicopterMoveManager", () => {
     expect(helicopter.TurnEngineSound).toHaveBeenCalledWith(true);
   });
 
-  it.todo("should correctly handle save/load");
+  it("should correctly handle save", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeHelicopterMoveState = mockSchemeState(EScheme.HELI_MOVE);
+    const helicopter: CHelicopter = MockCHelicopter.mock();
 
-  it.todo("should correctly handle update");
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    const manager: HelicopterMoveManager = new HelicopterMoveManager(object, state);
+
+    manager.isHelicopterMoving = true;
+    manager.lastIndex = 5;
+    manager.nextIndex = 6;
+    manager.isWaypointCallbackHandled = true;
+
+    registerObject(object);
+
+    manager.save();
+
+    expect(getPortableStoreValue(object.id(), "st")).toBe(true);
+    expect(getPortableStoreValue(object.id(), "li")).toBe(5);
+    expect(getPortableStoreValue(object.id(), "ni")).toBe(6);
+    expect(getPortableStoreValue(object.id(), "wc")).toBe(true);
+  });
+
+  it("should correctly handle update when switch have look path and actor is visible", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    loadSchemeImplementation(SchemeHelicopterMove);
+
+    const object: GameObject = MockGameObject.mock();
+    const helicopter: CHelicopter = MockCHelicopter.mock();
+
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    registerObject(object);
+
+    const state: ISchemeHelicopterMoveState = SchemeHelicopterMove.activate(
+      object,
+      MockIniFile.mock("test.ltx", {
+        "heli_move@test": {
+          path_move: "test-wp",
+          path_look: "actor",
+          stop_fire: "true",
+          max_velocity: 4000,
+        },
+        "heli_move@another": {},
+        second: {},
+      }),
+      EScheme.HELI_MOVE,
+      "heli_move@test"
+    );
+
+    const manager: HelicopterMoveManager = new HelicopterMoveManager(object, state);
+
+    jest.spyOn(manager, "updateMovementState").mockImplementation(jest.fn());
+    jest.spyOn(manager, "updateLookState").mockImplementation(jest.fn());
+    jest.spyOn(manager.helicopterFlyManager, "setLookPoint").mockImplementation(jest.fn());
+    jest.spyOn(helicopter, "isVisible").mockImplementation(jest.fn(() => true));
+
+    manager.isWaypointCallbackHandled = true;
+    manager.stopPoint = null;
+
+    manager.update();
+
+    expect(manager.isWaypointCallbackHandled).toBe(true);
+    expect(manager.byStopFireFly).toBe(true);
+    expect(manager.stopPoint).toBe(object.position());
+    expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
+    expect(manager.updateLookState).toHaveBeenCalledTimes(1);
+    expect(manager.helicopterFlyManager.setLookPoint).toHaveBeenCalledWith(actorGameObject.position());
+    expect(helicopter.isVisible).toHaveBeenCalledWith(actorGameObject);
+  });
+
+  it("should correctly handle update when switch have look path and actor is not visible", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    loadSchemeImplementation(SchemeHelicopterMove);
+
+    const object: GameObject = MockGameObject.mock();
+    const helicopter: CHelicopter = MockCHelicopter.mock();
+
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    registerObject(object);
+
+    const state: ISchemeHelicopterMoveState = SchemeHelicopterMove.activate(
+      object,
+      MockIniFile.mock("test.ltx", {
+        "heli_move@test": {
+          path_move: "test-wp",
+          path_look: "actor",
+          stop_fire: "true",
+          max_velocity: 4000,
+        },
+        "heli_move@another": {},
+        second: {},
+      }),
+      EScheme.HELI_MOVE,
+      "heli_move@test"
+    );
+
+    const manager: HelicopterMoveManager = new HelicopterMoveManager(object, state);
+
+    jest.spyOn(manager, "updateMovementState").mockImplementation(jest.fn());
+    jest.spyOn(manager, "updateLookState").mockImplementation(jest.fn());
+    jest.spyOn(manager.helicopterFlyManager, "setLookPoint").mockImplementation(jest.fn());
+    jest.spyOn(helicopter, "isVisible").mockImplementation(jest.fn(() => false));
+
+    manager.isWaypointCallbackHandled = true;
+    manager.stopPoint = null;
+
+    manager.update();
+
+    expect(manager.isWaypointCallbackHandled).toBe(true);
+    expect(manager.byStopFireFly).toBe(false);
+    expect(manager.stopPoint).toBeNull();
+    expect(manager.updateMovementState).toHaveBeenCalledTimes(1);
+    expect(manager.updateLookState).toHaveBeenCalledTimes(1);
+    expect(manager.helicopterFlyManager.setLookPoint).toHaveBeenCalledWith(actorGameObject.position());
+    expect(helicopter.isVisible).toHaveBeenCalledWith(actorGameObject);
+  });
+
+  it("should correctly handle update when switched section", () => {
+    mockRegisteredActor();
+    loadSchemeImplementation(SchemeHelicopterMove);
+
+    const object: GameObject = MockGameObject.mock();
+    const helicopter: CHelicopter = MockCHelicopter.mock();
+
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    registerObject(object);
+
+    const state: ISchemeHelicopterMoveState = SchemeHelicopterMove.activate(
+      object,
+      MockIniFile.mock("test.ltx", {
+        "heli_move@test": {
+          on_actor_in_zone: "lx8_sr_down_ladder | mob_walker@run",
+          on_info: "{+test} heli_move@another, nil",
+          path_move: "test-wp",
+          max_velocity: 4000,
+        },
+        "heli_move@another": {},
+        second: {},
+      }),
+      EScheme.HELI_MOVE,
+      "heli_move@test"
+    );
+
+    const manager: HelicopterMoveManager = new HelicopterMoveManager(object, state);
+
+    manager.update();
+  });
 
   it("should correctly handle update movement state without move patrol", () => {
     const object: GameObject = MockGameObject.mock();
@@ -249,7 +399,36 @@ describe("HelicopterMoveManager", () => {
     expect(manager.nextIndex).toBeNull();
   });
 
-  it.todo("should correctly handle update movement state with move patrol");
+  it("should correctly handle update movement state with move patrol", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeHelicopterMoveState = mockSchemeState(EScheme.HELI_MOVE);
+    const helicopter: CHelicopter = MockCHelicopter.mock();
+
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    const manager: HelicopterMoveManager = new HelicopterMoveManager(object, state);
+
+    manager.byStopFireFly = false;
+    jest.spyOn(manager.helicopterFlyManager, "flyOnPointWithVector").mockImplementation(jest.fn(() => true));
+
+    manager.patrolMove = MockPatrol.mock("test-wp-double");
+    manager.lastIndex = 1;
+    manager.nextIndex = 2;
+    manager.maxVelocity = 2000;
+
+    manager.updateMovementState();
+
+    expect(manager.lastIndex).toBe(1);
+    expect(manager.nextIndex).toBe(0);
+    expect(manager.flagToWpCallback).toBe(true);
+    expect(manager.helicopterFlyManager.flyOnPointWithVector).toHaveBeenCalledWith(
+      createVector(2, 2, 2),
+      createVector(1, 1, 1),
+      2000,
+      true,
+      true
+    );
+  });
 
   it("should correctly handle update look state", () => {
     const object: GameObject = MockGameObject.mock();
