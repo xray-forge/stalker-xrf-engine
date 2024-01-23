@@ -3,6 +3,8 @@ import { describe, expect, it, jest } from "@jest/globals";
 import {
   initializeHelicopterCombatRound,
   roundSetupFlight,
+  updateHelicopterCombatRound,
+  updateHelicopterCombatRoundFlight,
   updateHelicopterCombatRoundShooting,
 } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_round";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
@@ -98,5 +100,48 @@ describe("updateHelicopterCombatRoundShooting", () => {
 
     expect(manager.helicopter.ClearEnemy).toHaveBeenCalledTimes(1);
     expect(manager.roundBeginShootTime).toBeNull();
+  });
+});
+
+describe("updateHelicopterCombatRoundFlight", () => {
+  it("should correctly update ", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+    const enemy: GameObject = MockGameObject.mock();
+    const manager: HelicopterCombatManager = new HelicopterCombatManager(object);
+
+    manager.safeAltitude = 400;
+    manager.enemy = enemy;
+    manager.enemyLastSeenPos = MockVector.mock(1, 0, 1);
+    manager.searchAttackDist = 20;
+    manager.centerPos = MockVector.mock(20, 10, 20);
+
+    jest.spyOn(Date, "now").mockImplementation(() => 4000);
+    jest.spyOn(manager.centerPos, "distance_to_sqr").mockImplementation(() => 4000);
+
+    manager.changePosTime = 0;
+
+    updateHelicopterCombatRoundFlight(manager);
+
+    expect(manager.canForgetEnemy).toBe(true);
+    expect(manager.helicopter.GoPatrolByRoundPath).toHaveBeenCalledTimes(1);
+    expect(manager.helicopter.LookAtPoint).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("updateHelicopterCombatRound", () => {
+  it("should correctly update ", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+    const enemy: GameObject = MockGameObject.mock();
+    const manager: HelicopterCombatManager = new HelicopterCombatManager(object);
+
+    manager.enemy = enemy;
+    manager.enemyLastSeenPos = MockVector.mock(1, 0, 1);
+
+    jest.spyOn(Date, "now").mockImplementation(() => 1000);
+
+    updateHelicopterCombatRound(manager, true);
+
+    expect(manager.isRoundInitialized).toBe(true);
+    expect(manager.roundBeginShootTime).toBe(3000);
   });
 });
