@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import {
+  initializeHelicopterCombatSearch,
   setupHelicopterCombatSearchFlight,
   updateHelicopterCombatSearchShooting,
 } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_search";
@@ -10,7 +11,41 @@ import { GameObject } from "@/engine/lib/types";
 import { MockGameObject, MockVector } from "@/fixtures/xray";
 
 describe("initializeHelicopterCombatSearch", () => {
-  it.todo("should correctly initialize");
+  it("should correctly initialize", () => {
+    const object: GameObject = MockGameObject.mockHelicopter();
+    const enemy: GameObject = MockGameObject.mock();
+    const manager: HelicopterCombatManager = new HelicopterCombatManager(object);
+
+    manager.enemy = enemy;
+    manager.enemyLastSeenPos = MockVector.mock(4, 3, 4);
+
+    manager.searchVelocity = 155;
+    manager.safeAltitude = 360;
+    manager.searchAttackDist = 3;
+    manager.flightDirection = true;
+    manager.speedIs0 = false;
+
+    jest.spyOn(Date, "now").mockImplementation(() => 1000);
+
+    initializeHelicopterCombatSearch(manager);
+
+    expect(manager.changeSpeedTime).toBeLessThanOrEqual(8000);
+    expect(manager.changeSpeedTime).toBeGreaterThanOrEqual(6000);
+    expect(manager.isSearchInitialized).toBe(true);
+    expect(manager.speedIs0).toBe(true);
+    expect(manager.changePosTime).toBe(0);
+    expect(manager.centerPos).toEqual(MockVector.mock(4, 360, 4));
+    expect(manager.enemyLastSeenPos).toEqual(MockVector.mock(4, 360, 4));
+    expect(typeof manager.flightDirection).toBe("boolean");
+    expect(manager.changeCombatTypeAllowed).toBe(true);
+    expect(manager.searchBeginShootTime).toBe(0);
+
+    expect(manager.helicopter.UseFireTrail).toHaveBeenCalledWith(false);
+    expect(manager.helicopter.SetMaxVelocity).toHaveBeenCalledWith(0);
+    expect(manager.helicopter.SetSpeedInDestPoint).toHaveBeenCalledWith(0);
+    expect(manager.helicopter.GoPatrolByRoundPath).toHaveBeenCalledWith(manager.centerPos, 3, expect.any(Boolean));
+    expect(manager.helicopter.LookAtPoint).toHaveBeenCalledWith(enemy.position(), true);
+  });
 });
 
 describe("setupHelicopterCombatSearchFlight", () => {
