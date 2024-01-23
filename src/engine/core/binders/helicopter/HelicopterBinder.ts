@@ -1,4 +1,4 @@
-import { callback, CHelicopter, clsid, level, LuabindClass, object_binder, time_global } from "xray16";
+import { callback, CHelicopter, clsid, level, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
@@ -35,7 +35,6 @@ import {
   TIndex,
   TNumberId,
   TRate,
-  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 

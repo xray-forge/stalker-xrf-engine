@@ -48,6 +48,7 @@ export function resetRegistry(): void {
   registry.doors = new LuaTable();
   registry.effectsVolume = 0;
   registry.extensions = new LuaTable();
+  registry.helicopter.storage = new LuaTable();
   registry.managers = new LuaTable();
   registry.managersByName = new LuaTable();
   registry.musicVolume = 0;

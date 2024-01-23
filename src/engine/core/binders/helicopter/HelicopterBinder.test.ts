@@ -2,16 +2,16 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter } from "xray16";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, GameObject, ServerObject } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 
@@ -32,9 +32,38 @@ describe("HelicopterBinder class", () => {
     expect(binder.helicopterFireManager).toBeInstanceOf(HelicopterFireManager);
   });
 
+  it.todo("should correctly handle re-init event");
+
   it.todo("should correctly handle update event");
 
-  it.todo("should correctly handle going online and offline");
+  it("should correctly handle going online and offline when spawn disabled", () => {
+    const serverObject: ServerObject = MockAlifeObject.mock();
+    const object: GameObject = MockGameObject.mockHelicopter({ idOverride: serverObject.id });
+    const binder: HelicopterBinder = new HelicopterBinder(object);
+
+    MockObjectBinder.asMock(binder).canSpawn = false;
+
+    expect(binder.net_spawn(serverObject)).toBe(false);
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.helicopter.storage.length()).toBe(0);
+  });
+
+  it("should correctly handle going online and offline", () => {
+    const serverObject: ServerObject = MockAlifeObject.mock();
+    const object: GameObject = MockGameObject.mockHelicopter({ idOverride: serverObject.id });
+    const binder: HelicopterBinder = new HelicopterBinder(object);
+
+    expect(binder.net_spawn(serverObject)).toBe(true);
+
+    expect(registry.objects.length()).toBe(1);
+    expect(registry.helicopter.storage.length()).toBe(1);
+
+    binder.net_destroy();
+
+    expect(registry.objects.length()).toBe(0);
+    expect(registry.helicopter.storage.length()).toBe(0);
+  });
 
   it("should be net save relevant", () => {
     const object: GameObject = MockGameObject.mockHelicopter();
