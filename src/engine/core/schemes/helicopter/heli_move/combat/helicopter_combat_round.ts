@@ -7,7 +7,7 @@ import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo: Description.
+ * @param manager - instance to initialize
  */
 export function initializeHelicopterCombatRound(manager: HelicopterCombatManager): void {
   manager.changeDirTime = 0;
@@ -23,11 +23,24 @@ export function initializeHelicopterCombatRound(manager: HelicopterCombatManager
 
   manager.isRoundInitialized = true;
 
-  manager.roundSetupFlight(manager.flightDirection!);
+  roundSetupFlight(manager, manager.flightDirection!);
 }
 
 /**
- * todo: Description.
+ * @param manager - instance to setup
+ * @param direction - direction of flight to setup
+ */
+export function roundSetupFlight(manager: HelicopterCombatManager, direction: boolean): void {
+  manager.centerPos = manager.enemyLastSeenPos!;
+  manager.centerPos.y = manager.safeAltitude;
+
+  manager.helicopter.GoPatrolByRoundPath(manager.centerPos, manager.searchAttackDist, direction);
+  manager.helicopter.LookAtPoint(manager.enemy!.position(), true);
+}
+
+/**
+ * @param manager - instance to initialize
+ * @param seeEnemy - whether enemy is seen
  */
 export function updateHelicopterCombatRoundShooting(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (seeEnemy) {
@@ -47,7 +60,7 @@ export function updateHelicopterCombatRoundShooting(manager: HelicopterCombatMan
 }
 
 /**
- * todo: Description.
+ * @param manager - instance to update
  */
 export function updateHelicopterCombatRoundFlight(manager: HelicopterCombatManager): void {
   const now: TTimestamp = time_global();
@@ -63,13 +76,14 @@ export function updateHelicopterCombatRoundFlight(manager: HelicopterCombatManag
     }
 
     if (distanceBetween2d(manager.centerPos, manager.enemyLastSeenPos!) > 10) {
-      manager.roundSetupFlight(manager.flightDirection);
+      roundSetupFlight(manager, manager.flightDirection);
     }
   }
 }
 
 /**
- * todo: Description.
+ * @param manager - instance to update
+ * @param seeEnemy - whether enemy is seen
  */
 export function updateHelicopterCombatRound(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (!manager.isRoundInitialized) {

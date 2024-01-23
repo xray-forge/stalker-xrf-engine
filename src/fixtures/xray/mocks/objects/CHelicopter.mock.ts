@@ -36,6 +36,8 @@ export class MockCHelicopter {
 
   public UseFireTrail = jest.fn();
 
+  public GoPatrolByRoundPath = jest.fn();
+
   public ClearEnemy = jest.fn();
 
   public LookAtPoint = jest.fn();

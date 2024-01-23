@@ -434,17 +434,6 @@ export class HelicopterCombatManager {
   /**
    * todo: Description.
    */
-  public roundSetupFlight(direction: boolean): void {
-    this.centerPos = this.enemyLastSeenPos!;
-    this.centerPos.y = this.safeAltitude;
-
-    this.helicopter.GoPatrolByRoundPath(this.centerPos, this.searchAttackDist, direction);
-    this.helicopter.LookAtPoint(this.enemy!.position(), true);
-  }
-
-  /**
-   * todo: Description.
-   */
   public calculatePositionInRadius(radius: TDistance): Vector {
     const position: Vector = this.object.position();
     const velocity: Vector = this.helicopter.GetCurrVelocityVec();
