@@ -10,8 +10,8 @@ import { TTimestamp } from "@/engine/lib/types";
  * @param manager - instance to initialize
  */
 export function initializeHelicopterCombatRound(manager: HelicopterCombatManager): void {
-  manager.changeDirTime = 0;
-  manager.changePosTime = 0;
+  manager.changeDirAt = 0;
+  manager.changePosAt = 0;
   manager.centerPos = manager.enemyLastSeenPos!;
   manager.flightDirection = pickRandom(true, false);
   manager.changeCombatTypeAllowed = true;
@@ -65,8 +65,8 @@ export function updateHelicopterCombatRoundShooting(manager: HelicopterCombatMan
 export function updateHelicopterCombatRoundFlight(manager: HelicopterCombatManager): void {
   const now: TTimestamp = time_global();
 
-  if (manager.changePosTime < now) {
-    manager.changePosTime = now + 2_000;
+  if (manager.changePosAt < now) {
+    manager.changePosAt = now + 2_000;
 
     if (
       !manager.canForgetEnemy &&

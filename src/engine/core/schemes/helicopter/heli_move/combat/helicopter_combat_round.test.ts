@@ -24,8 +24,8 @@ describe("initializeHelicopterCombatRound", () => {
     initializeHelicopterCombatRound(manager);
 
     expect(manager.isRoundInitialized).toBe(true);
-    expect(manager.changeDirTime).toBe(0);
-    expect(manager.changePosTime).toBe(0);
+    expect(manager.changeDirAt).toBe(0);
+    expect(manager.changePosAt).toBe(0);
     expect(manager.centerPos).toBe(manager.enemyLastSeenPos);
     expect(typeof manager.flightDirection).toBe("boolean");
     expect(manager.changeCombatTypeAllowed).toBe(true);
@@ -118,7 +118,7 @@ describe("updateHelicopterCombatRoundFlight", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 4000);
     jest.spyOn(manager.centerPos, "distance_to_sqr").mockImplementation(() => 4000);
 
-    manager.changePosTime = 0;
+    manager.changePosAt = 0;
 
     updateHelicopterCombatRoundFlight(manager);
 

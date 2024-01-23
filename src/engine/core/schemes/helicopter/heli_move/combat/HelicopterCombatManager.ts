@@ -99,11 +99,11 @@ export class HelicopterCombatManager {
   public centerPos!: Vector;
   public speedIs0!: boolean;
 
-  public changeDirTime!: number;
-  public changePosTime!: number;
-  public changeSpeedTime!: number;
+  public changeDirAt!: TTimestamp;
+  public changePosAt!: TTimestamp;
+  public changeSpeedAt!: TTimestamp;
 
-  public searchBeginShootTime: Optional<number> = null;
+  public searchBeginShootAt: Optional<TTimestamp> = null;
 
   public flyByState!: EHelicopterFlyByState;
 
@@ -182,8 +182,8 @@ export class HelicopterCombatManager {
       packet.w_u8(this.combatType);
 
       if (this.combatType === EHelicopterCombatType.SEARCH) {
-        packet.w_u32(this.changeDirTime! - now);
-        packet.w_u32(this.changePosTime! - now);
+        packet.w_u32(this.changeDirAt! - now);
+        packet.w_u32(this.changePosAt! - now);
         packet.w_bool(this.flightDirection);
         packet.w_vec3(this.centerPos);
       } else if (this.combatType === EHelicopterCombatType.FLY_BY) {
@@ -217,8 +217,8 @@ export class HelicopterCombatManager {
       if (this.combatType === EHelicopterCombatType.SEARCH) {
         this.centerPos = createEmptyVector();
 
-        this.changeDirTime = reader.r_u32() + now;
-        this.changePosTime = reader.r_u32() + now;
+        this.changeDirAt = reader.r_u32() + now;
+        this.changePosAt = reader.r_u32() + now;
         this.flightDirection = reader.r_bool();
         reader.r_vec3(this.centerPos);
       } else if (this.combatType === EHelicopterCombatType.FLY_BY) {

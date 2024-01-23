@@ -12,15 +12,15 @@ import { TRate, TTimestamp, Vector } from "@/engine/lib/types";
 export function initializeHelicopterCombatSearch(manager: HelicopterCombatManager): void {
   manager.isSearchInitialized = true;
 
-  manager.changeSpeedTime = time_global() + math.random(5_000, 7_000);
+  manager.changeSpeedAt = time_global() + math.random(5_000, 7_000);
   manager.speedIs0 = true;
 
-  manager.changePosTime = 0;
+  manager.changePosAt = 0;
   manager.centerPos = manager.enemyLastSeenPos as Vector;
 
   manager.flightDirection = pickRandom(true, false);
   manager.changeCombatTypeAllowed = true;
-  manager.searchBeginShootTime = 0;
+  manager.searchBeginShootAt = 0;
 
   manager.helicopter.UseFireTrail(false);
 
@@ -51,16 +51,16 @@ export function updateHelicopterCombatSearchShooting(manager: HelicopterCombatMa
   if (seeEnemy) {
     const now: TTimestamp = time_global();
 
-    if (manager.searchBeginShootTime) {
-      if (manager.searchBeginShootTime < now) {
+    if (manager.searchBeginShootAt) {
+      if (manager.searchBeginShootAt < now) {
         manager.helicopter.SetEnemy(manager.enemy);
       }
     } else {
-      manager.searchBeginShootTime = now + helicopterConfig.SEARCH_SHOOT_DELAY;
+      manager.searchBeginShootAt = now + helicopterConfig.SEARCH_SHOOT_DELAY;
     }
   } else {
     manager.helicopter.ClearEnemy();
-    manager.searchBeginShootTime = null;
+    manager.searchBeginShootAt = null;
   }
 }
 
@@ -70,9 +70,8 @@ export function updateHelicopterCombatSearchShooting(manager: HelicopterCombatMa
 export function updateHelicopterCombatSearchFlight(manager: HelicopterCombatManager): void {
   const now: TTimestamp = time_global();
 
-  if (manager.changeSpeedTime < now) {
-    manager.changeSpeedTime = now + math.random(8_000, 12_000);
-
+  if (manager.changeSpeedAt < now) {
+    manager.changeSpeedAt = now + math.random(8_000, 12_000);
     manager.speedIs0 = !manager.speedIs0;
 
     setupHelicopterCombatSearchFlight(manager);
@@ -80,8 +79,8 @@ export function updateHelicopterCombatSearchFlight(manager: HelicopterCombatMana
     return;
   }
 
-  if (manager.changePosTime < now) {
-    manager.changePosTime = now + 2_000;
+  if (manager.changePosAt < now) {
+    manager.changePosAt = now + 2_000;
 
     if (
       !manager.canForgetEnemy &&
