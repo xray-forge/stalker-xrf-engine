@@ -131,6 +131,10 @@ export class MockNetProcessor {
     return this.dataList.length > 0;
   }
 
+  public asNetReader(): Reader {
+    return this as unknown as Reader;
+  }
+
   public asMockNetPacket(): NetPacket {
     return this as unknown as NetPacket;
   }

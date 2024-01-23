@@ -4,7 +4,6 @@ import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
-  IBaseSchemeState,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -51,6 +50,7 @@ export class HelicopterBinder extends object_binder {
   public state!: IRegistryObjectState;
   public helicopter: CHelicopter;
   public helicopterFireManager: HelicopterFireManager;
+  public combatManager!: HelicopterCombatManager;
 
   public flameStartHealth: TRate = 0;
 
@@ -66,8 +66,7 @@ export class HelicopterBinder extends object_binder {
 
     this.state = resetObject(this.object);
 
-    // todo: Needs revisit.
-    this.state.combat = new HelicopterCombatManager(this.object) as unknown as IBaseSchemeState;
+    this.combatManager = new HelicopterCombatManager(this.object);
     this.flameStartHealth = readIniNumber(SYSTEM_INI, "helicopter", "flame_start_health", true);
 
     this.object.set_callback(callback.helicopter_on_point, this.onWaypoint, this);
@@ -127,11 +126,12 @@ export class HelicopterBinder extends object_binder {
     openSaveMarker(packet, HelicopterBinder.__name);
 
     super.save(packet);
+
     saveObjectLogic(this.object, packet);
 
     closeSaveMarker(packet, HelicopterBinder.__name);
 
-    (this.state.combat as unknown as HelicopterCombatManager).save(packet);
+    this.combatManager.save(packet);
   }
 
   public override load(reader: Reader): void {
@@ -145,7 +145,7 @@ export class HelicopterBinder extends object_binder {
 
     closeLoadMarker(reader, HelicopterBinder.__name);
 
-    (this.state.combat as unknown as HelicopterCombatManager).load(reader);
+    this.combatManager.load(reader);
   }
 
   /**

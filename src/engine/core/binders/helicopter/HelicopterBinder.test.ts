@@ -4,13 +4,14 @@ import { CHelicopter } from "xray16";
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/heli_move";
+import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
+import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 
@@ -42,7 +43,76 @@ describe("HelicopterBinder class", () => {
     expect(binder.net_save_relevant()).toBe(true);
   });
 
-  it.todo("should correctly handle save/load events");
+  it("should correctly handle save/load events", () => {
+    jest.spyOn(Date, "now").mockImplementation(() => 5000);
+
+    const processor: MockNetProcessor = new MockNetProcessor();
+    const binder: HelicopterBinder = new HelicopterBinder(MockGameObject.mockHelicopter());
+    const binderState: IRegistryObjectState = registerObject(binder.object);
+
+    binder.combatManager = new HelicopterCombatManager(binder.object);
+
+    jest.spyOn(binder.combatManager, "save").mockImplementation(jest.fn());
+
+    binderState.iniFilename = "test_filename.ltx";
+    binderState.jobIni = "test.ltx";
+    binderState.sectionLogic = "logic";
+    binderState.activeSection = "test@test";
+    binderState.smartTerrainName = "test-smart";
+
+    binder.save(processor.asMockNetPacket());
+
+    expect(binder.combatManager.save).toHaveBeenCalledWith(processor);
+
+    expect(processor.writeDataOrder).toEqual([
+      EPacketDataType.STRING,
+      EPacketDataType.STRING,
+      EPacketDataType.STRING,
+      EPacketDataType.STRING,
+      EPacketDataType.STRING,
+      EPacketDataType.STRING,
+      EPacketDataType.I32,
+      EPacketDataType.U8,
+      EPacketDataType.U32,
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+    ]);
+    expect(processor.dataList).toEqual([
+      "save_from_HelicopterBinder",
+      "test.ltx",
+      "test_filename.ltx",
+      "logic",
+      "test@test",
+      "test-smart",
+      -5000,
+      255,
+      0,
+      8,
+      10,
+    ]);
+
+    const newBinder: HelicopterBinder = new HelicopterBinder(MockGameObject.mock());
+    const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
+
+    newBinder.combatManager = new HelicopterCombatManager(binder.object);
+
+    jest.spyOn(newBinder.combatManager, "load").mockImplementation(jest.fn());
+
+    newBinder.load(processor.asNetReader());
+
+    expect(newBinder.combatManager.load).toHaveBeenCalledWith(processor);
+
+    expect(newBinderState.jobIni).toBe("test.ltx");
+    expect(newBinderState.loadedSectionLogic).toBe("logic");
+    expect(newBinderState.loadedActiveSection).toBe("test@test");
+    expect(newBinderState.loadedSmartTerrainName).toBe("test-smart");
+    expect(newBinderState.loadedIniFilename).toBe("test_filename.ltx");
+
+    expect(newBinder.isLoaded).toBe(true);
+
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
+  });
 
   it.todo("should correctly check health and start burning");
 
