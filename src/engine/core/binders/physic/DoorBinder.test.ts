@@ -13,9 +13,7 @@ import {
   MockAlifeObject,
   MockGameObject,
   MockIniFile,
-  mockNetPacket,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
   MockPhysicObject,
   MockSoundObject,
@@ -372,7 +370,7 @@ describe("DoorBinder class", () => {
     binder.isIdle = false;
     binder.isPlayingForward = true;
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asMockNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -410,7 +408,7 @@ describe("DoorBinder class", () => {
     const newBinder: DoorBinder = new DoorBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(newBinderState.jobIni).toBe("test.ltx");
     expect(newBinderState.loadedSectionLogic).toBe("logic");

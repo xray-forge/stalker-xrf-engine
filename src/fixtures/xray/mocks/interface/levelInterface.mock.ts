@@ -3,6 +3,7 @@ import { jest } from "@jest/globals";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { GameObject, TName, TNumberId } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
+import { MockFbox } from "@/fixtures/xray";
 import { patrols } from "@/fixtures/xray/mocks/objects/path";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
@@ -19,6 +20,7 @@ export const mockLevelInterface = {
   change_game_time: jest.fn(),
   disable_input: jest.fn(),
   get_game_difficulty: jest.fn(() => 3),
+  get_bounding_volume: jest.fn(() => MockFbox.mock()),
   get_snd_volume: jest.fn(() => 1),
   get_time_hours: jest.fn(() => 12),
   get_time_minutes: jest.fn(() => 30),

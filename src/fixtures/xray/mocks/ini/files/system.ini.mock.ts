@@ -3,6 +3,7 @@ import { mockConsumables } from "@/fixtures/xray/mocks/ini/files/consumable.ltx.
 import { mockDevices } from "@/fixtures/xray/mocks/ini/files/devices.ltx.mock";
 import { mockEffectors } from "@/fixtures/xray/mocks/ini/files/effectors.ltx.mock";
 import { mockGameRelations } from "@/fixtures/xray/mocks/ini/files/game_relations.ltx.mock";
+import { mockHelicopter } from "@/fixtures/xray/mocks/ini/files/helicopter.ltx.mock";
 import { mockOutfit } from "@/fixtures/xray/mocks/ini/files/outfit.ltx.mock";
 import { mockSpawnSections } from "@/fixtures/xray/mocks/ini/files/spawn_sections.ltx.mock";
 import { mockSquadDescription } from "@/fixtures/xray/mocks/ini/files/squad_descr.ltx.mock";
@@ -15,6 +16,7 @@ export const mockSystemIni = {
   ...mockDevices,
   ...mockEffectors,
   ...mockGameRelations,
+  ...mockHelicopter,
   ...mockOutfit,
   ...mockSpawnSections,
   ...mockSquadDescription,

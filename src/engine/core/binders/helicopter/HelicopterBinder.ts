@@ -1,10 +1,9 @@
-import { callback, CHelicopter, clsid, level, LuabindClass, object_binder, time_global } from "xray16";
+import { callback, CHelicopter, clsid, level, LuabindClass, object_binder } from "xray16";
 
 import {
   closeLoadMarker,
   closeSaveMarker,
   getManager,
-  IBaseSchemeState,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -16,22 +15,23 @@ import {
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { HeliCombat } from "@/engine/core/schemes/helicopter/heli_move/HeliCombat";
-import { getHeliFirer, HeliFire } from "@/engine/core/schemes/helicopter/heli_move/HeliFire";
+import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
+import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire/HelicopterFireManager";
+import { getHelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/utils";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
+import { readIniNumber } from "@/engine/core/utils/ini";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   ESchemeEvent,
   ESchemeType,
   GameObject,
-  IniFile,
   NetPacket,
   Optional,
   Reader,
   ServerObject,
   TClassId,
   TDistance,
+  TDuration,
   TIndex,
   TNumberId,
   TRate,
@@ -43,66 +43,60 @@ import {
  */
 @LuabindClass()
 export class HelicopterBinder extends object_binder {
-  public readonly ini: IniFile;
+  public isLoaded: boolean = false;
+  public inInitialized: boolean = false;
 
   public state!: IRegistryObjectState;
-  public loaded: boolean = false;
-  public initialized: boolean = false;
-  public heliFire: HeliFire;
-  public lastHitSndTimeout: number = 0;
-  public flameStartHealth: number = 0;
+  public helicopter: CHelicopter;
+  public helicopterFireManager: HelicopterFireManager;
+  public combatManager!: HelicopterCombatManager;
 
-  public sndHit!: string;
-  public sndDamage!: string;
-  public sndDown!: string;
+  public flameStartHealth: TRate = 0;
 
-  public heliObject!: CHelicopter;
-
-  public constructor(object: GameObject, ini: IniFile) {
+  public constructor(object: GameObject) {
     super(object);
 
-    this.ini = ini;
-    this.heliFire = getHeliFirer(object);
+    this.helicopter = this.object.get_helicopter();
+    this.helicopterFireManager = getHelicopterFireManager(object);
   }
 
   public override reinit(): void {
     super.reinit();
 
     this.state = resetObject(this.object);
-    this.heliObject = this.object.get_helicopter();
 
-    this.object.set_callback(callback.helicopter_on_point, this.onPoint, this);
-    this.object.set_callback(callback.helicopter_on_hit, this.onHit, this);
-
-    // todo: Needs revisit.
-    this.state.combat = new HeliCombat(this.object, this.heliObject) as unknown as IBaseSchemeState;
-
-    this.lastHitSndTimeout = 0;
-
+    this.combatManager = new HelicopterCombatManager(this.object);
     this.flameStartHealth = readIniNumber(SYSTEM_INI, "helicopter", "flame_start_health", true);
 
-    const ini: IniFile = this.object.spawn_ini() as IniFile;
-
-    this.sndHit = readIniString(ini, "helicopter", "snd_hit", false, null, "heli_hit");
-    this.sndDamage = readIniString(ini, "helicopter", "snd_damage", false, null, "heli_damaged");
-    this.sndDown = readIniString(ini, "helicopter", "snd_down", false, null, "heli_down");
+    this.object.set_callback(callback.helicopter_on_point, this.onWaypoint, this);
+    this.object.set_callback(callback.helicopter_on_hit, this.onHit, this);
   }
 
-  public override update(delta: number): void {
+  public override update(delta: TDuration): void {
     super.update(delta);
 
-    const actor: Optional<GameObject> = registry.actor;
-
-    if (!this.initialized && actor) {
-      this.initialized = true;
-      initializeObjectSchemeLogic(this.object, this.state, this.loaded, ESchemeType.HELICOPTER);
+    if (!this.inInitialized && registry.actor !== null) {
+      this.inInitialized = true;
+      initializeObjectSchemeLogic(this.object, this.state, this.isLoaded, ESchemeType.HELICOPTER);
     }
 
-    if (this.state.activeSection !== null) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme!]!, ESchemeEvent.UPDATE, delta);
+    if (this.state.activeScheme) {
+      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.UPDATE, delta);
     }
 
-    this.checkHealth();
+    // Check helicopter health and state.
+    if (!this.helicopter.m_dead) {
+      const health: TRate = getHelicopterHealth(this.helicopter, this.state.invulnerable);
+
+      if (health < this.flameStartHealth && !this.helicopter.m_flame_started) {
+        this.helicopter.StartFlame();
+      }
+
+      if (health <= 0.005 && !this.state.immortal) {
+        this.helicopter.Die();
+        unregisterHelicopter(this);
+      }
+    }
 
     getManager(SoundManager).update(this.object.id());
   }
@@ -129,81 +123,62 @@ export class HelicopterBinder extends object_binder {
 
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, HelicopterBinder.__name);
+
     super.save(packet);
+
     saveObjectLogic(this.object, packet);
+
     closeSaveMarker(packet, HelicopterBinder.__name);
 
-    (this.state.combat as unknown as HeliCombat).save(packet);
+    this.combatManager.save(packet);
   }
 
   public override load(reader: Reader): void {
-    this.loaded = true;
+    this.isLoaded = true;
 
     openLoadMarker(reader, HelicopterBinder.__name);
+
     super.load(reader);
+
     loadObjectLogic(this.object, reader);
+
     closeLoadMarker(reader, HelicopterBinder.__name);
 
-    (this.state.combat as unknown as HeliCombat).load(reader);
+    this.combatManager.load(reader);
   }
 
   /**
-   * todo: Description.
+   * @param power - hit power
+   * @param impulse - impulse power
+   * @param type - type of the hit
+   * @param objectId - object hitting helicopter
    */
-  public checkHealth(): void {
-    const heli = this.heliObject;
-
-    // --printf( "heli health: %d", heli:GetfHealth() )
-
-    if (!heli.m_dead) {
-      const health: TRate = getHelicopterHealth(this.heliObject, this.state.invulnerable);
-
-      if (health < this.flameStartHealth && !heli.m_flame_started) {
-        this.heliObject.StartFlame();
-        // --        GlobalSound.set_sound_play(this.object:id(), this.snd_damage)
-      }
-
-      if (health <= 0.005 && !this.state.immortal) {
-        this.heliObject.Die();
-        unregisterHelicopter(this);
-      }
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onHit(power: TRate, impulse: TRate, hitType: TNumberId, enemyId: TNumberId): void {
-    const enemy: Optional<GameObject> = level.object_by_id(enemyId);
+  public onHit(power: TRate, impulse: TRate, type: TNumberId, objectId: TNumberId): void {
+    const enemy: Optional<GameObject> = level.object_by_id(objectId);
     const enemyClassId: Optional<TClassId> = enemy?.clsid() as Optional<TClassId>;
 
-    this.heliFire.enemy = enemy;
-    this.heliFire.updateHit();
+    this.helicopterFireManager.enemy = enemy;
+    this.helicopterFireManager.onHit();
 
-    if (enemyClassId === clsid.actor || enemyClassId === clsid.script_stalker) {
-      if (this.state.hit) {
-        emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, this.object, power, null, enemy, null);
-      }
-    }
-
-    if (this.lastHitSndTimeout < time_global()) {
-      // -- GlobalSound.set_sound_play(this.object:id(), this.snd_hit)
-      this.lastHitSndTimeout = time_global() + math.random(4000, 8000);
+    if (this.state.hit && (enemyClassId === clsid.actor || enemyClassId === clsid.script_stalker)) {
+      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, this.object, power, null, enemy, null);
     }
   }
 
   /**
-   * todo: Description.
+   * @param distance - ?
+   * @param position - waypoint position
+   * @param index - patrol point index
    */
-  public onPoint(distance: TDistance, position: Vector, pathIndex: TIndex): void {
-    if (this.state.activeSection !== null) {
+  public onWaypoint(distance: TDistance, position: Vector, index: TIndex): void {
+    if (this.state.activeScheme) {
       emitSchemeEvent(
         this.object,
-        this.state[this.state.activeScheme!]!,
+        this.state[this.state.activeScheme]!,
         ESchemeEvent.WAYPOINT,
         this.object,
         null,
-        pathIndex
+        index
       );
     }
   }
