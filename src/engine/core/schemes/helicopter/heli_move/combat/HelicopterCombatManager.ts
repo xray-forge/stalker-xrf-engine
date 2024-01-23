@@ -10,7 +10,7 @@ import {
   SYSTEM_INI,
 } from "@/engine/core/database";
 import { updateHelicopterCombatFlyby } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_fly_by";
-import { updateHelicopterCombatRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_reatreat";
+import { updateHelicopterCombatRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_retreat";
 import { updateHelicopterCombatRound } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_round";
 import { updateHelicopterCombatSearch } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_search";
 import {

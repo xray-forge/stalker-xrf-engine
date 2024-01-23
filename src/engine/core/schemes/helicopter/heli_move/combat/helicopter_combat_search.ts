@@ -4,17 +4,19 @@ import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_m
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { pickRandom } from "@/engine/core/utils/random";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
-import { TRate, TTimestamp } from "@/engine/lib/types";
+import { TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
- * todo: Description.
+ * @param manager - instance to initialize
  */
 export function initializeHelicopterCombatSearch(manager: HelicopterCombatManager): void {
+  manager.isSearchInitialized = true;
+
   manager.changeSpeedTime = time_global() + math.random(5_000, 7_000);
   manager.speedIs0 = true;
 
   manager.changePosTime = 0;
-  manager.centerPos = manager.enemyLastSeenPos!;
+  manager.centerPos = manager.enemyLastSeenPos as Vector;
 
   manager.flightDirection = pickRandom(true, false);
   manager.changeCombatTypeAllowed = true;
@@ -22,16 +24,14 @@ export function initializeHelicopterCombatSearch(manager: HelicopterCombatManage
 
   manager.helicopter.UseFireTrail(false);
 
-  manager.isSearchInitialized = true;
-
   setupHelicopterCombatSearchFlight(manager);
 }
 
 /**
- * todo: Description.
+ * @param manager - instance to setup
  */
 export function setupHelicopterCombatSearchFlight(manager: HelicopterCombatManager): void {
-  manager.centerPos = manager.enemyLastSeenPos!;
+  manager.centerPos = manager.enemyLastSeenPos as Vector;
   manager.centerPos.y = manager.safeAltitude;
 
   const velocity: TRate = manager.speedIs0 ? 0 : manager.searchVelocity;
@@ -44,7 +44,8 @@ export function setupHelicopterCombatSearchFlight(manager: HelicopterCombatManag
 }
 
 /**
- * todo: Description.
+ * @param manager - instance to update
+ * @param seeEnemy - whether enemy is seen
  */
 export function updateHelicopterCombatSearchShooting(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (seeEnemy) {
@@ -59,15 +60,14 @@ export function updateHelicopterCombatSearchShooting(manager: HelicopterCombatMa
     }
   } else {
     manager.helicopter.ClearEnemy();
-
     manager.searchBeginShootTime = null;
   }
 }
 
 /**
- * todo: Description.
+ * @param manager - instance to update
  */
-export function helicopterCombatSearchFlight(manager: HelicopterCombatManager, seeEnemy: boolean): void {
+export function updateHelicopterCombatSearchFlight(manager: HelicopterCombatManager): void {
   const now: TTimestamp = time_global();
 
   if (manager.changeSpeedTime < now) {
@@ -97,7 +97,8 @@ export function helicopterCombatSearchFlight(manager: HelicopterCombatManager, s
 }
 
 /**
- * todo: Description.
+ * @param manager - instance to update
+ * @param seeEnemy - whether enemy is seen
  */
 export function updateHelicopterCombatSearch(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (!manager.isSearchInitialized) {
@@ -105,5 +106,5 @@ export function updateHelicopterCombatSearch(manager: HelicopterCombatManager, s
   }
 
   updateHelicopterCombatSearchShooting(manager, seeEnemy);
-  helicopterCombatSearchFlight(manager, seeEnemy);
+  updateHelicopterCombatSearchFlight(manager);
 }

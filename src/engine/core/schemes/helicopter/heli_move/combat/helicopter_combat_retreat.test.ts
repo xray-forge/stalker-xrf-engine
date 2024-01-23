@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { updateHelicopterCombatRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_reatreat";
+import { updateHelicopterCombatRetreat } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_retreat";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { GameObject } from "@/engine/lib/types";
