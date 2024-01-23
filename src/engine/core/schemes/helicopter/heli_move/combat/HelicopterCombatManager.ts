@@ -21,7 +21,7 @@ import { calculatePositionInRadius } from "@/engine/core/schemes/helicopter/heli
 import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import { pickSectionFromCondList, readIniNumber, TConditionList } from "@/engine/core/utils/ini";
-import { createEmptyVector, distanceBetween2d } from "@/engine/core/utils/vector";
+import { copyVector, createEmptyVector, distanceBetween2d } from "@/engine/core/utils/vector";
 import {
   GameObject,
   IniFile,
@@ -136,7 +136,7 @@ export class HelicopterCombatManager {
    * todo: Description.
    */
   public initialize(): void {
-    this.enemyLastSeenPos = this.enemy!.position();
+    this.enemyLastSeenPos = copyVector(this.enemy!.position());
     this.enemyLastSeenTime = 0;
     this.enemyLastSpotTime = null;
     this.canForgetEnemy = false;
@@ -273,7 +273,7 @@ export class HelicopterCombatManager {
   public updateEnemyVisibility(): boolean {
     if (this.visibility >= this.visibilityThreshold) {
       this.enemyLastSeenTime = time_global();
-      this.enemyLastSeenPos = this.enemy!.position();
+      this.enemyLastSeenPos = copyVector(this.enemy!.position());
 
       return true;
     } else {
