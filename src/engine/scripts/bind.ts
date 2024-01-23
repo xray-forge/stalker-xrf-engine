@@ -44,7 +44,7 @@ extern("bind", {
     const ini: Optional<IniFile> = object.spawn_ini();
 
     if (ini?.section_exist("logic")) {
-      object.bind_object(new HelicopterBinder(object, ini));
+      object.bind_object(new HelicopterBinder(object));
     }
   },
   helmet: (object: GameObject) => object.bind_object(new HelmetBinder(object)),

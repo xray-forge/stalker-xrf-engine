@@ -197,28 +197,6 @@ export class HelicopterFireManager {
   /**
    * todo: Description.
    */
-  public updateOnHit(): void {
-    if (this.showHealth) {
-      this.setHelicopterFightUIHealth();
-    } else {
-      this.removeHelicopterFightUI();
-    }
-
-    if (this.enemy!.id() === this.fireId) {
-      if (this.enemyPreference !== NIL) {
-        this.hitCount = this.hitCount + 1;
-      } else {
-        this.hitCount = 0;
-      }
-    } else {
-      this.fireId = this.enemy!.id();
-      this.hitCount = 1;
-    }
-  }
-
-  /**
-   * todo: Description.
-   */
   public updateEnemyArr(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
     const helicopterPosition: Vector = this.object.position();
@@ -251,6 +229,28 @@ export class HelicopterFireManager {
       if (distanceBetween2d(helicopterPosition, actor.position()) <= minDist2D * 2) {
         this.enemy = actor;
       }
+    }
+  }
+
+  /**
+   * Handle helicopter being hit.
+   */
+  public onHit(): void {
+    if (this.showHealth) {
+      this.setHelicopterFightUIHealth();
+    } else {
+      this.removeHelicopterFightUI();
+    }
+
+    if (this.enemy!.id() === this.fireId) {
+      if (this.enemyPreference !== NIL) {
+        this.hitCount = this.hitCount + 1;
+      } else {
+        this.hitCount = 0;
+      }
+    } else {
+      this.fireId = this.enemy!.id();
+      this.hitCount = 1;
     }
   }
 }
