@@ -1,7 +1,7 @@
-import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
-import { GameObject, TNumberId } from "@/engine/lib/types";
+import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
+import type { GameObject, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param object - target game object representing helicopter
