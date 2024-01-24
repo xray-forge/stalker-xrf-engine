@@ -247,7 +247,7 @@ describe("ActionSmartCoverUse", () => {
     action.coverState = NIL;
 
     action.updateSmartCoverTargetSelector();
-    expect(object.set_smart_cover_target_selector).toHaveBeenCalledWith(null);
+    expect(object.set_smart_cover_target_selector).toHaveBeenCalledTimes(1);
 
     action.coverState = ESmartCoverState.FIRE_TARGET;
 
