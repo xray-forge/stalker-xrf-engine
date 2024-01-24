@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject } from "@/engine/core/database";
-import { ActionSmartCoverActivity } from "@/engine/core/schemes/stalker/smartcover/actions";
+import { ActionSmartCoverUse } from "@/engine/core/schemes/stalker/smartcover/actions";
 import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/smartcover/evaluators";
 import { SchemeSmartCover } from "@/engine/core/schemes/stalker/smartcover/SchemeSmartCover";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
@@ -42,7 +42,7 @@ describe("SchemeSmartCover", () => {
     expect(state.moving).toBe("sneak");
     expect(state.soundIdle).toBeNull();
 
-    assertSchemeSubscribedToManager(state, ActionSmartCoverActivity);
+    assertSchemeSubscribedToManager(state, ActionSmartCoverUse);
   });
 
   it("should correctly activate with custom data", () => {
@@ -89,7 +89,7 @@ describe("SchemeSmartCover", () => {
     expect(state.moving).toBe("test_moving");
     expect(state.soundIdle).toBe("test_sound");
 
-    assertSchemeSubscribedToManager(state, ActionSmartCoverActivity);
+    assertSchemeSubscribedToManager(state, ActionSmartCoverUse);
   });
 
   it("should correctly activate with default data", () => {
@@ -103,7 +103,7 @@ describe("SchemeSmartCover", () => {
 
     const state: ISchemeSmartCoverState = SchemeSmartCover.activate(object, ini, EScheme.SMARTCOVER, "smartcover@test");
 
-    assertSchemeSubscribedToManager(state, ActionSmartCoverActivity);
+    assertSchemeSubscribedToManager(state, ActionSmartCoverUse);
 
     const planner: ActionPlanner = object.motivation_action_manager();
 
@@ -113,8 +113,8 @@ describe("SchemeSmartCover", () => {
     );
 
     checkPlannerAction(
-      planner.action(EActionId.SMART_COVER_ACTIVITY),
-      ActionSmartCoverActivity,
+      planner.action(EActionId.SMART_COVER_USE),
+      ActionSmartCoverUse,
       [
         [EEvaluatorId.ALIVE, true],
         [EEvaluatorId.ANOMALY, false],

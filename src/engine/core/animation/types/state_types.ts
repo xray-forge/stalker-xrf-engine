@@ -20,6 +20,7 @@ import type {
  * todo;
  */
 export enum ESmartCoverState {
+  DEFAULT = "default_behaviour",
   FIRE_TARGET = "fire_target",
   FIRE_NO_LOOKOUT_TARGET = "fire_no_lookout_target",
   IDLE_TARGET = "idle_target",

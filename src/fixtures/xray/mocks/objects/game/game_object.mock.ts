@@ -21,16 +21,17 @@ import {
   TSightType,
   Vector,
 } from "@/engine/lib/types";
-import { MockCHelicopter, mockClsid } from "@/fixtures/xray";
 import {
   MockActionPlanner,
   mockDefaultActionPlanner,
   MockMove,
   MockSightParameters,
 } from "@/fixtures/xray/mocks/actions";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 import { CLIENT_SIDE_REGISTRY, mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";
 import { mockConfig } from "@/fixtures/xray/mocks/MockConfig";
+import { MockCHelicopter } from "@/fixtures/xray/mocks/objects/CHelicopter.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
@@ -143,7 +144,7 @@ export function mockGameObject({
 
   const actionManager: ActionPlanner = mockDefaultActionPlanner();
   const callbacks: PartialRecord<TCallback, AnyCallable> = {};
-  const spawnIni: IniFile = mockIniFile("spawn.ini");
+  const spawnIni: IniFile = MockIniFile.mock("spawn.ini");
 
   const inRestrictions: Array<string> = ["a", "b", "c"];
   const outRestrictions: Array<string> = ["d", "e", "f"];
@@ -279,6 +280,8 @@ export function mockGameObject({
     health,
     hit: rest.hit ?? jest.fn(),
     id: id ?? jest.fn(() => idOverride),
+    idle_max_time: rest.idle_max_time ?? jest.fn(),
+    idle_min_time: rest.idle_min_time ?? jest.fn(),
     ignore_monster_threshold: rest.ignore_monster_threshold ?? jest.fn(),
     infoPortions,
     inside: rest.inside ?? jest.fn(() => false),
@@ -291,6 +294,8 @@ export function mockGameObject({
     kill: rest.kill ?? jest.fn(),
     level_vertex_id: rest.level_vertex_id ?? jest.fn(() => 255),
     location_on_path: rest.location_on_path ?? jest.fn(() => null),
+    lookout_max_time: rest.lookout_max_time ?? jest.fn(),
+    lookout_min_time: rest.lookout_min_time ?? jest.fn(),
     make_item_active: rest.make_item_active ?? jest.fn(),
     make_object_visible_somewhen: rest.make_object_visible_somewhen ?? jest.fn(),
     max_ignore_monster_distance: rest.max_ignore_monster_distance ?? jest.fn(),
@@ -319,6 +324,7 @@ export function mockGameObject({
         return inventoryMap.get(key) ?? null;
       }),
     out_restrictions: rest.out_restrictions ?? jest.fn(() => outRestrictions.join(",")),
+    in_current_loophole_fov: rest.in_current_loophole_fov ?? jest.fn(() => false),
     in_restrictions: rest.in_restrictions ?? jest.fn(() => inRestrictions.join(",")),
     inactualize_patrol_path: rest.inactualize_patrol_path ?? jest.fn(),
     invulnerable:
@@ -432,6 +438,13 @@ export function mockGameObject({
     set_patrol_path: rest.set_patrol_path ?? jest.fn(),
     set_relation: rest.set_relation ?? jest.fn(),
     set_sight: rest.set_sight ?? jest.fn((nextSight: TSightType) => (sight = nextSight)),
+    set_smart_cover_target: rest.set_smart_cover_target ?? jest.fn(),
+    set_smart_cover_target_default: rest.set_smart_cover_target_default ?? jest.fn(),
+    set_smart_cover_target_fire: rest.set_smart_cover_target_fire ?? jest.fn(),
+    set_smart_cover_target_fire_no_lookout: rest.set_smart_cover_target_fire_no_lookout ?? jest.fn(),
+    set_smart_cover_target_idle: rest.set_smart_cover_target_idle ?? jest.fn(),
+    set_smart_cover_target_lookout: rest.set_smart_cover_target_lookout ?? jest.fn(),
+    set_smart_cover_target_selector: rest.set_smart_cover_target_selector ?? jest.fn(),
     set_sound_mask: rest.set_sound_mask ?? jest.fn(),
     set_start_dialog: rest.set_start_dialog ?? jest.fn(),
     set_sympathy: rest.set_sympathy ?? jest.fn(),

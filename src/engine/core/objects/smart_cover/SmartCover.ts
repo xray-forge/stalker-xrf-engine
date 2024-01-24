@@ -9,12 +9,9 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
 import { NIL } from "@/engine/lib/constants/words";
 import { LuaArray, NetPacket, Optional, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Server representation of smart cover game object.

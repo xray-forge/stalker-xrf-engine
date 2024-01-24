@@ -6,7 +6,7 @@ import { SmartCover } from "@/engine/core/objects/smart_cover/SmartCover";
 import { LuaArray, TStringId } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
-import { EPacketDataType, mockIniFile, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SmartCover server object", () => {
   beforeEach(() => {
@@ -38,7 +38,7 @@ describe("SmartCover server object", () => {
     const cover: SmartCover = new SmartCover("test_smart_cover");
 
     jest.spyOn(cover, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },
