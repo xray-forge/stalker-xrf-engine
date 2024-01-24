@@ -8,12 +8,12 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMobWalker", () => {
   it("should correctly activate with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "mob_walker@test": {
         path_walk: "test_walk",
       },
@@ -43,7 +43,7 @@ describe("SchemeMobWalker", () => {
 
   it("should correctly activate with provided values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "mob_walker@test": {
         on_info: "{+test} first, second",
         state: "nvis",
@@ -77,7 +77,7 @@ describe("SchemeMobWalker", () => {
 
   it("should correctly fail on same look and walk path", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "mob_walker@test": {
         path_walk: "test_walk",
         path_look: "test_walk",

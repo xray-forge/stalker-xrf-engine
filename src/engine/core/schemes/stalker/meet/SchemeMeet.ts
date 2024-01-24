@@ -9,11 +9,8 @@ import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types"
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { readIniString } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
+import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme describing logics of `meet` state.
@@ -62,6 +59,7 @@ export class SchemeMeet extends AbstractScheme {
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     actionMeetWait.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
     actionMeetWait.add_effect(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
+
     planner.add_action(EActionId.MEET_WAITING_ACTIVITY, actionMeetWait);
 
     // Block alife when meeting.
@@ -79,15 +77,15 @@ export class SchemeMeet extends AbstractScheme {
 
   public static override reset(
     object: GameObject,
-    scheme: EScheme,
+    scheme: Optional<EScheme>,
     state: IRegistryObjectState,
     section: TSection
   ): void {
     // Read meet configuration from current logics section or from provided section, if it is valid.
     const meetSection: TSection =
       scheme === null || scheme === NIL
-        ? readIniString(state.ini, state.sectionLogic, SchemeMeet.SCHEME_SECTION, false)
-        : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION, false);
+        ? readIniString(state.ini, state.sectionLogic, SchemeMeet.SCHEME_SECTION)
+        : readIniString(state.ini, section, SchemeMeet.SCHEME_SECTION);
 
     initializeMeetScheme(object, state.ini, meetSection, state.meet as ISchemeMeetState);
   }

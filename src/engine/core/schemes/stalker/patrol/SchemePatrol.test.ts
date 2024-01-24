@@ -21,7 +21,7 @@ import {
   MockSquad,
   resetRegistry,
 } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockGameObject, MockIniFile, mockIniFile } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemePatrol class", () => {
   beforeEach(() => {
@@ -50,7 +50,7 @@ describe("SchemePatrol class", () => {
     expect(() => {
       SchemePatrol.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "patrol@test": {},
         }),
         SchemePatrol.SCHEME_SECTION,
@@ -62,7 +62,7 @@ describe("SchemePatrol class", () => {
     expect(() => {
       SchemePatrol.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "patrol@test": {
             path_walk: "test-wp",
             path_look: "test-wp",
@@ -81,7 +81,7 @@ describe("SchemePatrol class", () => {
     const squad: Squad = MockSquad.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "patrol@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@1",
         on_info1: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@2",
@@ -142,7 +142,7 @@ describe("SchemePatrol class", () => {
     const squad: Squad = MockSquad.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
     const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "patrol@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@1",
         on_info1: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@2",

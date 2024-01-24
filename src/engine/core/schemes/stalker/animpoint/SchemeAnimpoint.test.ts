@@ -13,7 +13,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeAnimpoint class", () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe("SchemeAnimpoint class", () => {
 
   it("should correctly activate scheme with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "animpoint@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@1",
         on_info1: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@2",
@@ -64,7 +64,7 @@ describe("SchemeAnimpoint class", () => {
 
   it("should correctly activate with custom values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "animpoint@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@1",
         on_info1: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@2",
