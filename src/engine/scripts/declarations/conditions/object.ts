@@ -594,19 +594,19 @@ extern("xr_conditions.heavy_wounded", (actor: GameObject, object: GameObject): b
 });
 
 /**
- * todo;
+ * Whether object has active enemy.
  */
 extern("xr_conditions.mob_has_enemy", (actor: GameObject, object: GameObject): boolean => {
-  return object !== null && object.get_enemy() !== null;
+  return object.get_enemy() !== null;
 });
 
 /**
- * todo;
+ * Whether monster was hit recently.
  */
 extern("xr_conditions.mob_was_hit", (actor: GameObject, object: GameObject): boolean => {
-  const h: MonsterHitInfo = object.get_monster_hit_info();
+  const hitInfo: MonsterHitInfo = object.get_monster_hit_info();
 
-  return h.who && h.time !== 0;
+  return hitInfo.who !== null && hitInfo.time !== 0;
 });
 
 /**

@@ -6,7 +6,7 @@ import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos"
 import { GameObject } from "@/engine/lib/types";
 import { callXrCondition, checkXrCondition, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
+import { MockGameObject, MockMonsterHitInfo } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/schemes/restrictor/sr_deimos");
 
@@ -320,9 +320,28 @@ describe("object conditions implementation", () => {
 
   it.todo("heavy_wounded should check if object is heavily wounded");
 
-  it.todo("mob_has_enemy should check if object has enemy");
+  it("mob_has_enemy should check if object has enemy", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("mob_was_hit should check if object was hit");
+    jest.spyOn(object, "get_enemy").mockImplementation(() => MockGameObject.mock());
+    expect(callXrCondition("mob_has_enemy", MockGameObject.mockActor(), object)).toBe(true);
+
+    jest.spyOn(object, "get_enemy").mockImplementation(() => null);
+    expect(callXrCondition("mob_has_enemy", MockGameObject.mockActor(), object)).toBe(false);
+  });
+
+  it("mob_was_hit should check if object was hit", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "get_monster_hit_info").mockImplementation(() => MockMonsterHitInfo.mock(null, 0, null));
+    expect(callXrCondition("mob_was_hit", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "get_monster_hit_info").mockImplementation(() => MockMonsterHitInfo.mock(null, 0));
+    expect(callXrCondition("mob_was_hit", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "get_monster_hit_info").mockImplementation(() => MockMonsterHitInfo.mock());
+    expect(callXrCondition("mob_was_hit", MockGameObject.mockActor(), object)).toBe(true);
+  });
 
   it.todo("squad_in_zone should check if squad is in zone");
 
