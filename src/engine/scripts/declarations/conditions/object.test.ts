@@ -1,9 +1,10 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
+import { registerZone } from "@/engine/core/database";
 import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { GameObject } from "@/engine/lib/types";
-import { callXrCondition, checkXrCondition, resetRegistry } from "@/fixtures/engine";
+import { callXrCondition, checkXrCondition, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
@@ -200,15 +201,66 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it.todo("fighting_dist_ge should check distance");
+  it("fighting_dist_ge should check distance", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("fighting_dist_le should check distance");
+    jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 10 * 10);
+    expect(callXrCondition("fighting_dist_ge", actor, object, 10)).toBe(true);
 
-  it.todo("enemy_in_zone should check enemy state");
+    jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 5 * 5);
+    expect(callXrCondition("fighting_dist_ge", actor, object, 10)).toBe(false);
 
-  it.todo("check_npc_name should check object name");
+    jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 15 * 15);
+    expect(callXrCondition("fighting_dist_ge", actor, object, 10)).toBe(true);
+  });
 
-  it.todo("check_enemy_name should check object name");
+  it("fighting_dist_le should check distance", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 10 * 10);
+    expect(callXrCondition("fighting_dist_le", actor, object, 10)).toBe(true);
+
+    jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 5 * 5);
+    expect(callXrCondition("fighting_dist_le", actor, object, 10)).toBe(true);
+
+    jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 15 * 15);
+    expect(callXrCondition("fighting_dist_le", actor, object, 10)).toBe(false);
+  });
+
+  it("enemy_in_zone should check enemy state", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const zone: GameObject = MockGameObject.mock();
+
+    registerZone(zone);
+
+    expect(() => callXrCondition("enemy_in_zone", actorGameObject, MockGameObject.mock())).toThrow(
+      "Unexpected zone name 'nil' in enemy_in_zone xr condition."
+    );
+
+    jest.spyOn(zone, "inside").mockImplementation(() => true);
+
+    expect(callXrCondition("enemy_in_zone", actorGameObject, MockGameObject.mock(), zone.name())).toBe(true);
+
+    jest.spyOn(zone, "inside").mockImplementation(() => false);
+
+    expect(callXrCondition("enemy_in_zone", actorGameObject, MockGameObject.mock(), zone.name())).toBe(false);
+  });
+
+  it("check_npc_name should check object name", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "name").mockImplementation(() => "some-name");
+
+    expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "test")).toBe(false);
+
+    jest.spyOn(object, "name").mockImplementation(() => "test-123");
+
+    expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "test")).toBe(true);
+    expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "123")).toBe(true);
+    expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "abc", "efg", "test")).toBe(true);
+  });
 
   it.todo("see_npc should check if object see another object");
 

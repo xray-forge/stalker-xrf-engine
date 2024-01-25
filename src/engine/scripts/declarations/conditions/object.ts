@@ -56,6 +56,7 @@ import {
   ServerCreatureObject,
   ServerObject,
   TCount,
+  TDistance,
   TIndex,
   TLabel,
   TName,
@@ -66,97 +67,98 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * @returns whether object is snork
+ * Whether object is snork
  */
 extern("xr_conditions.is_monster_snork", (actor: GameObject, object: GameObject): boolean => {
   return isSnork(object);
 });
 
 /**
- * @returns whether object is dog
+ * Whether object is dog
  */
 extern("xr_conditions.is_monster_dog", (actor: GameObject, object: GameObject): boolean => {
   return isDog(object);
 });
 
 /**
- * @returns whether object is psy dog
+ * Whether object is psy dog
  */
 extern("xr_conditions.is_monster_psy_dog", (actor: GameObject, object: GameObject): boolean => {
   return isPsyDog(object);
 });
 
 /**
- * @returns whether object is poltergeist
+ * Whether object is poltergeist
  */
 extern("xr_conditions.is_monster_polter", (actor: GameObject, object: GameObject): boolean => {
   return isPoltergeist(object);
 });
 
 /**
- * @returns whether object is tushkano
+ * Whether object is tushkano
  */
 extern("xr_conditions.is_monster_tushkano", (actor: GameObject, object: GameObject): boolean => {
   return isTushkano(object);
 });
 
 /**
- * @returns whether object is burer
+ * Whether object is burer
  */
 extern("xr_conditions.is_monster_burer", (actor: GameObject, object: GameObject): boolean => {
   return isBurer(object);
 });
 
 /**
- * @returns whether object is controller
+ * Whether object is controller
  */
 extern("xr_conditions.is_monster_controller", (actor: GameObject, object: GameObject): boolean => {
   return isController(object);
 });
 
 /**
- * @returns whether object is flesh
+ * Whether object is flesh
  */
 extern("xr_conditions.is_monster_flesh", (actor: GameObject, object: GameObject): boolean => {
   return isFlesh(object);
 });
 
 /**
- * @returns whether object is boar
+ * Whether object is boar
  */
 extern("xr_conditions.is_monster_boar", (actor: GameObject, object: GameObject): boolean => {
   return isBoar(object);
 });
 
 /**
- * todo;
+ * Whether distance between actor and object greater or equal
  */
-extern("xr_conditions.fighting_dist_ge", (actor: GameObject, object: GameObject, params: AnyArgs): boolean => {
-  return isDistanceBetweenObjectsGreaterOrEqual(actor, object, params[0]);
+extern("xr_conditions.fighting_dist_ge", (actor: GameObject, object: GameObject, [distance]: [TDistance]): boolean => {
+  return isDistanceBetweenObjectsGreaterOrEqual(actor, object, distance);
 });
 
 /**
- * todo;
+ * Whether distance between actor and object less or equal
  */
-extern("xr_conditions.fighting_dist_le", (actor: GameObject, object: GameObject, params: AnyArgs): boolean => {
-  return isDistanceBetweenObjectsLessOrEqual(actor, object, params[0]);
+extern("xr_conditions.fighting_dist_le", (actor: GameObject, object: GameObject, [distance]: [TDistance]): boolean => {
+  return isDistanceBetweenObjectsLessOrEqual(actor, object, distance);
 });
 
 /**
- * todo;
+ * Whether actor is in zone.
+ *
+ * todo: rename
+ * todo: rename
  */
-extern("xr_conditions.enemy_in_zone", (actor: GameObject, object: GameObject, params: AnyArgs): boolean => {
-  const zone: Optional<GameObject> = registry.zones.get(params[0]);
+extern("xr_conditions.enemy_in_zone", (actor: GameObject, object: GameObject, [name]: [TName]): boolean => {
+  const zone: Optional<GameObject> = registry.zones.get(name) as Optional<GameObject>;
 
-  if (zone === null) {
-    abort("Wrong zone name '%s' in enemy_in_zone function.", tostring(params[0]));
-  }
-
-  return isObjectInZone(registry.actor, zone);
+  return zone
+    ? isObjectInZone(registry.actor, zone)
+    : abort("Unexpected zone name '%s' in enemy_in_zone xr condition.", name);
 });
 
 /**
- * todo;
+ * Whether object name matches one of provided parameters.
  */
 extern("xr_conditions.check_npc_name", (actor: GameObject, object: GameObject, params: LuaArray<TName>): boolean => {
   const objectName: Optional<TName> = object.name();
@@ -165,8 +167,8 @@ extern("xr_conditions.check_npc_name", (actor: GameObject, object: GameObject, p
     return false;
   }
 
-  for (const [, name] of params) {
-    if (string.find(objectName, name)[0] !== null) {
+  for (const [, name] of ipairs(params)) {
+    if (string.find(objectName, name)[0]) {
       return true;
     }
   }
@@ -204,9 +206,7 @@ extern("xr_conditions.see_npc", (actor: GameObject, object: GameObject, [storyId
 });
 
 /**
- * Check whether object is wounded.
- *
- * @returns whether object is currently wounded and using wounded scheme
+ * Whether object is currently wounded and using wounded scheme
  */
 extern("xr_conditions.is_wounded", (actor: GameObject, object: GameObject): boolean => {
   return isObjectWounded(object.id());
@@ -403,7 +403,7 @@ extern(
 );
 
 /**
- * @returns whether object has any pistol in slot `1`
+ * Whether object has any pistol in slot `1`
  */
 extern("xr_conditions.best_pistol", (actor: GameObject, object: GameObject): boolean => {
   return object.item_in_slot(1) !== null;
@@ -1014,7 +1014,7 @@ extern("xr_conditions.burer_anti_aim", (actor: GameObject, object: GameObject): 
 });
 
 /**
- * @returns whether object is playing any sound
+ * Whether object is playing any sound
  */
 extern("xr_conditions.is_playing_sound", (actor: GameObject, object: GameObject): boolean => {
   return isPlayingSound(object);
@@ -1052,11 +1052,7 @@ extern("xr_conditions.animpoint_reached", (actor: GameObject, object: GameObject
     SchemeAnimpoint.SCHEME_SECTION
   ] as Optional<ISchemeAnimpointState>;
 
-  if (animpointState === null) {
-    return false;
-  }
-
-  return animpointState.animpointManager.isPositionReached();
+  return animpointState !== null && animpointState.animpointManager.isPositionReached();
 });
 
 /**
