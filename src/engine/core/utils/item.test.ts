@@ -4,6 +4,7 @@ import { registerActor, registerSimulator } from "@/engine/core/database";
 import {
   actorHasAtLeastOneItem,
   actorHasItem,
+  actorHasItemCount,
   actorHasItems,
   actorHasMedKit,
   getActorAvailableMedKit,
@@ -183,38 +184,6 @@ describe("actorHasItems utils", () => {
   });
 });
 
-describe("actorHasItems util", () => {
-  beforeEach(() => {
-    resetRegistry();
-    registerSimulator();
-  });
-
-  it("should correctly check if object has items", () => {
-    registerActor(createObjectWithItems());
-
-    expect(
-      actorHasItems(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army, medkits.medkit_scientic]))
-    ).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit_scientic]))).toBeFalsy();
-
-    expect(actorHasItems(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, medkits.medkit]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([medkits.medkit_army, weapons.wpn_svd]))).toBeTruthy();
-
-    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, 40, 50]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, 3, 4]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([40, 41, 50, 51]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([100, 101, 102, 50]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([100, 101, 102]))).toBeFalsy();
-
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, 500]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_val, 40]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, 50]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_svd, 40]))).toBeTruthy();
-  });
-});
-
 describe("actorHasItem util", () => {
   beforeEach(() => {
     resetRegistry();
@@ -244,6 +213,26 @@ describe("actorHasItem util", () => {
     expect(actorHasItem(51)).toBeTruthy();
     expect(actorHasItem(60)).toBeFalsy();
     expect(actorHasItem(61)).toBeFalsy();
+  });
+});
+
+describe("actorHasItemCount util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check if object has item count", () => {
+    registerActor(createObjectWithItems());
+
+    expect(actorHasItemCount(medkits.medkit, 0)).toBe(true);
+    expect(actorHasItemCount(medkits.medkit, 1)).toBe(true);
+    expect(actorHasItemCount(medkits.medkit, 2)).toBe(true);
+    expect(actorHasItemCount(medkits.medkit, 3)).toBe(false);
+    expect(actorHasItemCount(medkits.medkit, 4)).toBe(false);
+
+    expect(actorHasItemCount(weapons.wpn_svd, 2)).toBe(true);
+    expect(actorHasItemCount(weapons.wpn_svd, 3)).toBe(false);
   });
 });
 

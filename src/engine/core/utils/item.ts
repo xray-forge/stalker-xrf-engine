@@ -91,32 +91,56 @@ export function actorHasMedKit(
 /**
  * Check whether actor has item in inventory.
  *
- * @param itemSection - list of item sections to check in the inventory
+ * @param section - item section to check in the inventory
  * @param actor - target object to check, gets actor from registry by default
  * @returns whether actor has all of provided items
  */
-export function actorHasItem(itemSection: TSection | TNumberId, actor: GameObject = registry.actor): boolean {
-  return actor.object(itemSection) !== null;
+export function actorHasItem(section: TSection | TNumberId, actor: GameObject = registry.actor): boolean {
+  return actor.object(section) !== null;
 }
 
 /**
  * Check whether actor has all items from provided list.
  *
- * @param itemSections - list of item sections to check in the inventory
+ * @param sections - list of item sections to check in the inventory
  * @param actor - target object to check, gets actor from registry by default
  * @returns whether actor has all of provided items
  */
 export function actorHasItems(
-  itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
+  sections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
   actor: GameObject = registry.actor
 ): boolean {
-  for (const [, section] of itemSections as LuaArray<TSection | TNumberId>) {
+  for (const [, section] of sections as LuaArray<TSection | TNumberId>) {
     if (actor.object(section) === null) {
       return false;
     }
   }
 
   return true;
+}
+
+/**
+ * @param section - item section to check in the inventory
+ * @param count - desired item count to verify
+ * @param actor - target object to check, gets actor from registry by default
+ * @returns whether actor has desired count of provided section items
+ */
+export function actorHasItemCount(section: TSection, count: TCount, actor: GameObject = registry.actor): boolean {
+  let hasCount: TCount = 0;
+
+  actor.iterate_inventory((owner, item) => {
+    // Count desired section.
+    if (item.section() === section) {
+      hasCount += 1;
+    }
+
+    // Stop iterating when conditions are met.
+    if (hasCount === count) {
+      return true;
+    }
+  }, actor);
+
+  return hasCount >= count;
 }
 
 /**

@@ -165,6 +165,7 @@ export function mockGameObject({
     animation_slot: rest.animation_slot ?? jest.fn(() => 1),
     alive: rest.alive ?? jest.fn(() => true),
     accessible_nearest: rest.accessible_nearest ?? jest.fn(() => 15326),
+    active_detector: rest.active_detector ?? jest.fn(() => null),
     active_slot: rest.active_slot ?? jest.fn(() => 3),
     add_restrictions:
       rest.add_restrictions ||
@@ -336,6 +337,7 @@ export function mockGameObject({
           return isInvulnerable;
         }
       }),
+    item_in_slot: rest.item_in_slot ?? jest.fn(() => null),
     iterate_inventory: jest.fn((cb: (owner: GameObject, item: GameObject) => void | boolean, owner: GameObject) => {
       for (const [, item] of inventoryMap) {
         if (cb(owner, item)) {

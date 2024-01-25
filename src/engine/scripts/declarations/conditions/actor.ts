@@ -1,6 +1,6 @@
 import { level } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { IRegistryObjectState, registry } from "@/engine/core/database";
 import {
   hasAchievedInformationDealer,
   hasAchievedWealthy,
@@ -12,7 +12,7 @@ import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isWeapon } from "@/engine/core/utils/class_ids";
-import { LuaLogger } from "@/engine/core/utils/logging";
+import { actorHasItemCount } from "@/engine/core/utils/item";
 import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/position";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { nimbleWeapons, TWeapon } from "@/engine/lib/constants/items/weapons";
@@ -29,8 +29,6 @@ import {
   TSection,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
 /**
  * Whether `wealthy` is achieved.
  */
@@ -46,7 +44,7 @@ extern("xr_conditions.information_dealer_functor", (): boolean => {
 });
 
 /**
- * todo;
+ * Whether actor is currently in surge cover zone.
  */
 extern("xr_conditions.actor_in_surge_cover", (): boolean => {
   return isActorInSurgeCover();
@@ -126,44 +124,29 @@ extern("xr_conditions.actor_in_zone", (actor: GameObject, object: GameObject, [z
 });
 
 /**
- * todo;
+ * Should check if helicopter see actor.
  */
 extern("xr_conditions.heli_see_actor", (actor: GameObject, object: GameObject): boolean => {
   return actor !== null && object.get_helicopter().isVisible(actor);
 });
 
 /**
- * todo;
+ * Check if actor has specific item in inventory.
  */
 extern(
   "xr_conditions.actor_has_item",
-  (actor: GameObject, object: GameObject, [item]: [Optional<TSection>]): boolean => {
-    return item !== null && actor !== null && actor.object(item) !== null;
+  (actor: GameObject, object: GameObject, [section]: [Optional<TSection>]): boolean => {
+    return section !== null && actor !== null && actor.object(section) !== null;
   }
 );
 
 /**
- * todo;
+ * Check whether actor has specific count of inventory items.
  */
 extern(
   "xr_conditions.actor_has_item_count",
-  (actor: GameObject, object: GameObject, [itemSection, count]: [TSection, string]) => {
-    const neededCount: TCount = tonumber(count) as TCount;
-    let hasCount: TCount = 0;
-
-    actor.iterate_inventory((owner, item) => {
-      // Count desired section.
-      if (item.section() === itemSection) {
-        hasCount += 1;
-      }
-
-      // Stop iterating when conditions are met.
-      if (hasCount === neededCount) {
-        return true;
-      }
-    }, actor);
-
-    return hasCount >= neededCount;
+  (actor: GameObject, object: GameObject, [section, count]: [TSection, string]) => {
+    return actorHasItemCount(section, tonumber(count) as TCount, actor);
   }
 );
 
@@ -171,16 +154,18 @@ extern(
  * Check if object is hit by actor.
  */
 extern("xr_conditions.hit_by_actor", (actor: GameObject, object: GameObject): boolean => {
-  const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState;
+  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
-  return state !== null && state.who === ACTOR_ID;
+  return (state?.[EScheme.HIT] as ISchemeHitState)?.who === ACTOR_ID;
 });
 
 /**
  * Check if object is killed by actor.
  */
 extern("xr_conditions.killed_by_actor", (actor: GameObject, object: GameObject): boolean => {
-  return (registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState)?.killerId === ACTOR_ID;
+  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+
+  return (state?.[EScheme.DEATH] as ISchemeDeathState)?.killerId === ACTOR_ID;
 });
 
 /**
@@ -191,20 +176,18 @@ extern("xr_conditions.actor_has_weapon", (actor: GameObject): boolean => {
 });
 
 /**
- * todo;
+ * Check if actor has active detector of provided section on belt.
  */
 extern(
   "xr_conditions.actor_active_detector",
-  (actor: GameObject, object: GameObject, p: Optional<[TSection]>): boolean => {
-    const detectorSection: Optional<TSection> = p && p[0];
+  (actor: GameObject, object: GameObject, [detectorSection]: [Optional<TSection>]): boolean => {
+    if (detectorSection) {
+      const detector: Optional<GameObject> = actor.active_detector();
 
-    if (detectorSection === null) {
-      abort("Wrong parameters in function 'actor_active_detector'");
+      return detector !== null && detector.section() === detectorSection;
+    } else {
+      abort("Wrong parameters in xr condition 'actor_active_detector'.");
     }
-
-    const activeDetector = registry.actor.active_detector();
-
-    return activeDetector !== null && activeDetector.section() === detectorSection;
   }
 );
 
@@ -239,7 +222,6 @@ extern("xr_conditions.actor_nomove_nowpn", (): boolean => {
 
 /**
  * Check if actor has one of nimble weapons.
- * todo: Probably should be optimized.
  */
 extern("xr_conditions.actor_has_nimble_weapon", (actor: GameObject): boolean => {
   for (const [weapon] of pairs(nimbleWeapons)) {
@@ -254,7 +236,7 @@ extern("xr_conditions.actor_has_nimble_weapon", (actor: GameObject): boolean => 
 /**
  * Check if nimble weapon is in one of active actor slots.
  */
-extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject, object: GameObject): boolean => {
+extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject): boolean => {
   const first: Optional<GameObject> = actor.item_in_slot(2);
 
   if (first && nimbleWeapons[first.section() as TWeapon]) {
