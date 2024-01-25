@@ -5,26 +5,35 @@ import { registerSimulator } from "@/engine/core/database";
 import {
   isActor,
   isArtefact,
+  isBoar,
+  isBurer,
+  isController,
   isCreature,
+  isDog,
+  isFlesh,
   isGrenade,
   isMonster,
   isMonsterSquad,
+  isPoltergeist,
+  isPsyDog,
   isSmartTerrain,
+  isSnork,
   isSquad,
   isSquadId,
   isStalker,
   isStrappableWeapon,
   isTrader,
+  isTushkano,
   isWeapon,
 } from "@/engine/core/utils/class_ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ServerActorObject, ServerGroupObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import {
+  MockAlifeHumanStalker,
   MockAlifeObject,
   MockGameObject,
   mockServerAlifeCreatureActor,
-  mockServerAlifeHumanStalker,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
 
@@ -90,7 +99,7 @@ describe("isSquadId utils", () => {
   it("correctly check if id is a squad object", () => {
     const squad: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
     const actor: ServerActorObject = mockServerAlifeCreatureActor();
-    const stalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     expect(isSquadId(squad.id)).toBe(true);
     expect(isSquadId(actor.id)).toBe(false);
@@ -257,5 +266,104 @@ describe("isMonsterSquad util", () => {
     jest.spyOn(squad, "commander_id").mockImplementation(() => leader.id);
 
     expect(isMonsterSquad(squad)).toBe(false);
+  });
+});
+
+describe("isSnork util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isSnork(MockGameObject.mockWithClassId(clsid.snork_s))).toBe(true);
+    expect(isSnork(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isSnork(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isSnork(MockAlifeObject.mockWithClassId(clsid.snork_s))).toBe(true);
+    expect(isSnork(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+  });
+});
+
+describe("isDog util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isDog(MockGameObject.mockWithClassId(clsid.dog_s))).toBe(true);
+    expect(isDog(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isDog(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isDog(MockAlifeObject.mockWithClassId(clsid.dog_s))).toBe(true);
+    expect(isDog(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+  });
+});
+
+describe("isPsyDog util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isPsyDog(MockGameObject.mockWithClassId(clsid.psy_dog_s))).toBe(true);
+    expect(isPsyDog(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isPsyDog(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isPsyDog(MockAlifeObject.mockWithClassId(clsid.psy_dog_s))).toBe(true);
+    expect(isPsyDog(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+  });
+});
+
+describe("isPoltergeist util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isPoltergeist(MockGameObject.mockWithClassId(clsid.poltergeist_s))).toBe(true);
+    expect(isPoltergeist(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isPoltergeist(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isPoltergeist(MockAlifeObject.mockWithClassId(clsid.poltergeist_s))).toBe(true);
+    expect(isPoltergeist(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+  });
+});
+
+describe("isTushkano util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isTushkano(MockGameObject.mockWithClassId(clsid.tushkano_s))).toBe(true);
+    expect(isTushkano(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isTushkano(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isTushkano(MockAlifeObject.mockWithClassId(clsid.tushkano_s))).toBe(true);
+    expect(isTushkano(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+  });
+});
+
+describe("isBurer util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isBurer(MockGameObject.mockWithClassId(clsid.burer_s))).toBe(true);
+    expect(isBurer(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isBurer(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isBurer(MockAlifeObject.mockWithClassId(clsid.burer_s))).toBe(true);
+    expect(isBurer(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+  });
+});
+
+describe("isController util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isController(MockGameObject.mockWithClassId(clsid.controller_s))).toBe(true);
+    expect(isController(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isController(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isController(MockAlifeObject.mockWithClassId(clsid.controller_s))).toBe(true);
+    expect(isController(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+  });
+});
+
+describe("isFlesh util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isFlesh(MockGameObject.mockWithClassId(clsid.flesh_s))).toBe(true);
+    expect(isFlesh(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isFlesh(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isFlesh(MockAlifeObject.mockWithClassId(clsid.flesh_s))).toBe(true);
+    expect(isFlesh(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);
+  });
+});
+
+describe("isBoar util", () => {
+  it("should correctly check object class IDs", () => {
+    expect(isBoar(MockGameObject.mockWithClassId(clsid.boar_s))).toBe(true);
+    expect(isBoar(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(false);
+    expect(isBoar(MockGameObject.mockWithClassId(clsid.wpn_ammo_vog25))).toBe(false);
+
+    expect(isBoar(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(true);
+    expect(isBoar(MockAlifeObject.mockWithClassId(clsid.flesh_s))).toBe(false);
   });
 });

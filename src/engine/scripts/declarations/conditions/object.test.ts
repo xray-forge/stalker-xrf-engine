@@ -1,4 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { clsid } from "xray16";
 
 import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { GameObject } from "@/engine/lib/types";
@@ -102,23 +103,102 @@ describe("object conditions implementation", () => {
     resetFunctionMock(isDeimosPhaseActive);
   });
 
-  it.todo("is_monster_snork should check object class");
+  it("is_monster_snork should check object class", () => {
+    expect(
+      callXrCondition("is_monster_snork", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.snork_s))
+    ).toBe(true);
+    expect(
+      callXrCondition("is_monster_snork", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
+    ).toBe(false);
+  });
 
-  it.todo("is_monster_dog should check object class");
+  it("is_monster_dog should check object class", () => {
+    expect(
+      callXrCondition("is_monster_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.dog_s))
+    ).toBe(true);
+    expect(
+      callXrCondition("is_monster_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
+    ).toBe(false);
+  });
 
-  it.todo("is_monster_psy_dog should check object class");
+  it("is_monster_psy_dog should check object class", () => {
+    expect(
+      callXrCondition("is_monster_psy_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.psy_dog_s))
+    ).toBe(true);
+    expect(
+      callXrCondition("is_monster_psy_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
+    ).toBe(false);
+  });
 
-  it.todo("is_monster_polter should check object class");
+  it("is_monster_polter should check object class", () => {
+    expect(
+      callXrCondition(
+        "is_monster_polter",
+        MockGameObject.mockActor(),
+        MockGameObject.mockWithClassId(clsid.poltergeist_s)
+      )
+    ).toBe(true);
+    expect(
+      callXrCondition("is_monster_polter", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
+    ).toBe(false);
+  });
 
-  it.todo("is_monster_tushkano should check object class");
+  it("is_monster_tushkano should check object class", () => {
+    expect(
+      callXrCondition(
+        "is_monster_tushkano",
+        MockGameObject.mockActor(),
+        MockGameObject.mockWithClassId(clsid.tushkano_s)
+      )
+    ).toBe(true);
+    expect(
+      callXrCondition("is_monster_tushkano", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
+    ).toBe(false);
+  });
 
-  it.todo("is_monster_burer should check object class");
+  it("is_monster_burer should check object class", () => {
+    expect(
+      callXrCondition("is_monster_burer", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.burer_s))
+    ).toBe(true);
+    expect(
+      callXrCondition("is_monster_burer", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
+    ).toBe(false);
+  });
 
-  it.todo("is_monster_controller should check object class");
+  it("is_monster_controller should check object class", () => {
+    expect(
+      callXrCondition(
+        "is_monster_controller",
+        MockGameObject.mockActor(),
+        MockGameObject.mockWithClassId(clsid.controller_s)
+      )
+    ).toBe(true);
+    expect(
+      callXrCondition(
+        "is_monster_controller",
+        MockGameObject.mockActor(),
+        MockGameObject.mockWithClassId(clsid.zombie_s)
+      )
+    ).toBe(false);
+  });
 
-  it.todo("is_monster_flesh should check object class");
+  it("is_monster_flesh should check object class", () => {
+    expect(
+      callXrCondition("is_monster_flesh", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.flesh_s))
+    ).toBe(true);
+    expect(
+      callXrCondition("is_monster_flesh", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
+    ).toBe(false);
+  });
 
-  it.todo("is_monster_boar should check object class");
+  it("is_monster_boar should check object class", () => {
+    expect(
+      callXrCondition("is_monster_boar", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.boar_s))
+    ).toBe(true);
+    expect(
+      callXrCondition("is_monster_boar", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.zombie_s))
+    ).toBe(false);
+  });
 
   it.todo("fighting_dist_ge should check distance");
 

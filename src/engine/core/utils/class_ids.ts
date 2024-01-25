@@ -155,3 +155,75 @@ export function isMonsterSquad(squad: Squad): boolean {
 
   return commander !== null && isMonster(commander);
 }
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is snork
+ */
+export function isSnork(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.snork_s;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is dog
+ */
+export function isDog(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.dog_s;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is psy dog
+ */
+export function isPsyDog(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.psy_dog_s;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is poltergeist
+ */
+export function isPoltergeist(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.poltergeist_s;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is tushkano
+ */
+export function isTushkano(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.tushkano_s;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is burer
+ */
+export function isBurer(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.burer_s;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is controller
+ */
+export function isController(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.controller_s;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is flesh
+ */
+export function isFlesh(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.flesh_s;
+}
+
+/**
+ * @param object - object to check
+ * @returns whether provided object is boar
+ */
+export function isBoar(object: AnyGameObject): boolean {
+  return object.clsid() === clsid.boar_s;
+}

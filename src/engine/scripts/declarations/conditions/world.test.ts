@@ -198,11 +198,11 @@ describe("world conditions implementation", () => {
   it("surge_started should check surge state", () => {
     const { actorGameObject } = mockRegisteredActor();
 
-    surgeConfig.IS_FINISHED = false;
-    expect(callXrCondition("surge_complete", actorGameObject, MockGameObject.mock())).toBe(false);
+    surgeConfig.IS_STARTED = true;
+    expect(callXrCondition("surge_started", actorGameObject, MockGameObject.mock())).toBe(true);
 
-    surgeConfig.IS_FINISHED = true;
-    expect(callXrCondition("surge_complete", actorGameObject, MockGameObject.mock())).toBe(true);
+    surgeConfig.IS_STARTED = false;
+    expect(callXrCondition("surge_started", actorGameObject, MockGameObject.mock())).toBe(false);
   });
 
   it("surge_kill_all should check surge state", () => {

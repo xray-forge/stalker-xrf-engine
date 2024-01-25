@@ -1,4 +1,4 @@
-import { clsid, level, MonsterHitInfo } from "xray16";
+import { level, MonsterHitInfo } from "xray16";
 
 import {
   getManager,
@@ -17,11 +17,22 @@ import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos"
 import { ISchemeAnimpointState, SchemeAnimpoint } from "@/engine/core/schemes/stalker/animpoint";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
-import { abort, assertDefined } from "@/engine/core/utils/assertion";
+import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { isMonster, isStalker } from "@/engine/core/utils/class_ids";
+import {
+  isBoar,
+  isBurer,
+  isController,
+  isDog,
+  isFlesh,
+  isMonster,
+  isPoltergeist,
+  isPsyDog,
+  isSnork,
+  isStalker,
+  isTushkano,
+} from "@/engine/core/utils/class_ids";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import {
   getObjectSmartTerrain,
@@ -54,69 +65,67 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
 /**
  * @returns whether object is snork
  */
 extern("xr_conditions.is_monster_snork", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.snork_s;
+  return isSnork(object);
 });
 
 /**
  * @returns whether object is dog
  */
 extern("xr_conditions.is_monster_dog", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.dog_s;
+  return isDog(object);
 });
 
 /**
  * @returns whether object is psy dog
  */
 extern("xr_conditions.is_monster_psy_dog", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.psy_dog_s;
+  return isPsyDog(object);
 });
 
 /**
  * @returns whether object is poltergeist
  */
 extern("xr_conditions.is_monster_polter", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.poltergeist_s;
+  return isPoltergeist(object);
 });
 
 /**
  * @returns whether object is tushkano
  */
 extern("xr_conditions.is_monster_tushkano", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.tushkano_s;
+  return isTushkano(object);
 });
 
 /**
  * @returns whether object is burer
  */
 extern("xr_conditions.is_monster_burer", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.burer_s;
+  return isBurer(object);
 });
 
 /**
  * @returns whether object is controller
  */
 extern("xr_conditions.is_monster_controller", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.controller_s;
+  return isController(object);
 });
 
 /**
  * @returns whether object is flesh
  */
 extern("xr_conditions.is_monster_flesh", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.flesh_s;
+  return isFlesh(object);
 });
 
 /**
  * @returns whether object is boar
  */
 extern("xr_conditions.is_monster_boar", (actor: GameObject, object: GameObject): boolean => {
-  return object.clsid() === clsid.boar_s;
+  return isBoar(object);
 });
 
 /**
@@ -783,7 +792,7 @@ extern("xr_conditions.target_smart_name", (actor: GameObject, object: GameObject
 extern(
   "xr_conditions.squad_exist",
   (actor: GameObject, object: GameObject, [squadStoryId]: [Optional<TStringId>]): boolean => {
-    assertDefined(squadStoryId, "Wrong parameter story_id[%s] in squad_exist function.", squadStoryId);
+    assert(squadStoryId, "Wrong parameter story_id[%s] in squad_exist function.", squadStoryId);
 
     return isStoryObjectExisting(squadStoryId);
   }
