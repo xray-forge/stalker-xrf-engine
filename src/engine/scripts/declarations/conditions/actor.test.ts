@@ -1,12 +1,13 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid, level } from "xray16";
 
-import { IRegistryObjectState, registerObject } from "@/engine/core/database";
+import { IRegistryObjectState, registerObject, registerZone } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
+import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/position";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -22,6 +23,7 @@ import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/surge/utils/surge_cover");
+jest.mock("@/engine/core/utils/position");
 
 describe("actor conditions declaration", () => {
   beforeAll(() => {
@@ -64,6 +66,8 @@ describe("actor conditions implementation", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(isActorInSurgeCover);
+    resetFunctionMock(isObjectInZone);
+    resetFunctionMock(isObjectInActorFrustum);
   });
 
   it("wealthy_functor should check wealth of the actor", () => {
@@ -94,7 +98,10 @@ describe("actor conditions implementation", () => {
     expect(callXrCondition("actor_in_surge_cover", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
   });
 
-  it.todo("is_enemy_actor should check if actor and object are enemies");
+  it("is_enemy_actor should check if actor and object are enemies", () => {
+    expect(callXrCondition("is_enemy_actor", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
+    expect(callXrCondition("is_enemy_actor", MockGameObject.mock(), MockGameObject.mock())).toBe(false);
+  });
 
   it("actor_alive should check if actor is alive", () => {
     const { actorGameObject } = mockRegisteredActor();
@@ -123,15 +130,102 @@ describe("actor conditions implementation", () => {
     expect(actorGameObject.see).toHaveBeenCalledWith(object);
   });
 
-  it.todo("actor_see_npc npc_in_actor_frustum check if npc is in actor frustum");
+  it("npc_in_actor_frustum check if npc is in actor frustum", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("dist_to_actor_le should check distance between actor and object");
+    replaceFunctionMock(isObjectInActorFrustum, () => true);
 
-  it.todo("dist_to_actor_ge should check distance between actor and object");
+    expect(callXrCondition("npc_in_actor_frustum", MockGameObject.mockActor(), object)).toBe(true);
+    expect(isObjectInActorFrustum).toHaveBeenCalledTimes(1);
+    expect(isObjectInActorFrustum).toHaveBeenCalledWith(object);
 
-  it.todo("actor_health_le should check actor health");
+    replaceFunctionMock(isObjectInActorFrustum, () => false);
 
-  it.todo("actor_in_zone should check actor in zone");
+    expect(callXrCondition("npc_in_actor_frustum", MockGameObject.mockActor(), object)).toBe(false);
+    expect(isObjectInActorFrustum).toHaveBeenCalledTimes(2);
+    expect(isObjectInActorFrustum).toHaveBeenCalledWith(object);
+  });
+
+  it("dist_to_actor_le should check distance between actor and object", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock();
+
+    expect(() => callXrCondition("dist_to_actor_le", actorGameObject, object, null)).toThrow(
+      "Wrong parameter in 'dist_to_actor_le' function: 'nil'."
+    );
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 10 * 10);
+
+    expect(callXrCondition("dist_to_actor_le", actorGameObject, object, 10)).toBe(true);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledTimes(1);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(actorGameObject.position());
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 5 * 5);
+
+    expect(callXrCondition("dist_to_actor_le", actorGameObject, object, 10)).toBe(true);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledTimes(2);
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 15 * 15);
+
+    expect(callXrCondition("dist_to_actor_le", actorGameObject, object, 10)).toBe(false);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledTimes(3);
+  });
+
+  it("dist_to_actor_ge should check distance between actor and object", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock();
+
+    expect(() => callXrCondition("dist_to_actor_ge", actorGameObject, object, null)).toThrow(
+      "Wrong parameter in 'dist_to_actor_ge' function: 'nil'."
+    );
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 10 * 10);
+
+    expect(callXrCondition("dist_to_actor_ge", actorGameObject, object, 10)).toBe(true);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledTimes(1);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(actorGameObject.position());
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 5 * 5);
+
+    expect(callXrCondition("dist_to_actor_ge", actorGameObject, object, 10)).toBe(false);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledTimes(2);
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 15 * 15);
+
+    expect(callXrCondition("dist_to_actor_ge", actorGameObject, object, 10)).toBe(true);
+    expect(object.position().distance_to_sqr).toHaveBeenCalledTimes(3);
+  });
+
+  it("actor_health_le should check actor health", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    actorGameObject.health = 0.5;
+
+    expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), null)).toBe(false);
+    expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), 1)).toBe(true);
+    expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), 0.55)).toBe(true);
+    expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), 0.5)).toBe(false);
+    expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), 0.4)).toBe(false);
+    expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), 0)).toBe(false);
+  });
+
+  it("actor_in_zone should check actor in zone", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const zone: GameObject = MockGameObject.mock();
+
+    registerZone(zone);
+    replaceFunctionMock(isObjectInZone, () => false);
+
+    expect(callXrCondition("actor_in_zone", actorGameObject, MockGameObject.mock(), zone.name())).toBe(false);
+    expect(isObjectInZone).toHaveBeenCalledTimes(1);
+    expect(isObjectInZone).toHaveBeenCalledWith(actorGameObject, zone);
+
+    replaceFunctionMock(isObjectInZone, () => true);
+
+    expect(callXrCondition("actor_in_zone", actorGameObject, MockGameObject.mock(), zone.name())).toBe(true);
+    expect(isObjectInZone).toHaveBeenCalledTimes(2);
+    expect(isObjectInZone).toHaveBeenCalledWith(actorGameObject, zone);
+  });
 
   it("heli_see_actor should check if heli see actor", () => {
     const { actorGameObject } = mockRegisteredActor();

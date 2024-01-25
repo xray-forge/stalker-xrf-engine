@@ -73,7 +73,7 @@ extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): b
 });
 
 /**
- * todo;
+ * Checks if object is in actor line of sight frustum.
  */
 extern("xr_conditions.npc_in_actor_frustum", (actor: GameObject, object: GameObject): boolean => {
   return isObjectInActorFrustum(object);
@@ -81,43 +81,40 @@ extern("xr_conditions.npc_in_actor_frustum", (actor: GameObject, object: GameObj
 
 /**
  * Check whether distance between actor and object is less or equal.
- *
- * @param distance - distance to check
  */
 extern(
   "xr_conditions.dist_to_actor_le",
   (actor: GameObject, object: GameObject, [distance]: [Optional<TDistance>]): boolean => {
-    if (!distance) {
-      abort("Wrong parameter in 'dist_to_actor_le' function: %s.", distance);
-    }
-
-    return object.position().distance_to_sqr(actor.position()) <= distance * distance;
+    return distance
+      ? object.position().distance_to_sqr(actor.position()) <= distance * distance
+      : abort("Wrong parameter in 'dist_to_actor_le' function: '%s'.", distance);
   }
 );
 
 /**
- * todo;
+ * Check whether distance between actor and position is bigger or equal to provided number.
  */
 extern(
   "xr_conditions.dist_to_actor_ge",
   (actor: GameObject, object: GameObject, [distance]: [Optional<TDistance>]): boolean => {
-    if (!distance) {
-      abort("Wrong parameter in 'dist_to_actor_ge' function: %s.", distance);
-    }
-
-    return object.position().distance_to_sqr(actor.position()) >= distance * distance;
+    return distance
+      ? object.position().distance_to_sqr(actor.position()) >= distance * distance
+      : abort("Wrong parameter in 'dist_to_actor_ge' function: '%s'.", distance);
   }
 );
 
 /**
- * todo;
+ * Check whether actor health is less than provided value.
  */
-extern("xr_conditions.actor_health_le", (actor: GameObject, object: GameObject, [health]: [TRate]): boolean => {
-  return health !== null && actor.health < health;
-});
+extern(
+  "xr_conditions.actor_health_le",
+  (actor: GameObject, object: GameObject, [health]: [Optional<TRate>]): boolean => {
+    return health !== null && actor.health < health;
+  }
+);
 
 /**
- * todo;
+ * Check whether actor is in zone with provided name.
  */
 extern("xr_conditions.actor_in_zone", (actor: GameObject, object: GameObject, [zoneName]: [TName]): boolean => {
   return isObjectInZone(registry.actor, registry.zones.get(zoneName));
