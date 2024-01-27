@@ -8,6 +8,12 @@ import { registerExtensions } from "@/engine/scripts/register/extensions_registr
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 import { registerSchemes } from "@/engine/scripts/register/schemes_registrator";
 
+function checkBinding(name: string, container: AnyObject = global): void {
+  expect(container["start"]).toBeDefined();
+  expect(typeof container["start"]).toBe("object");
+  expect(typeof container["start"][name]).toBe("function");
+}
+
 jest.mock("@/engine/core/utils/class_ids_list", () => ({ updateClassIds: jest.fn(), createClassIds: jest.fn() }));
 jest.mock("@/engine/core/utils/ini/ini_system", () => ({ unlockSystemIniOverriding: jest.fn() }));
 jest.mock("@/engine/scripts/register/extensions_registrator", () => ({ registerExtensions: jest.fn() }));
@@ -15,12 +21,6 @@ jest.mock("@/engine/scripts/register/managers_registrator", () => ({ registerMan
 jest.mock("@/engine/scripts/register/schemes_registrator", () => ({ registerSchemes: jest.fn() }));
 
 describe("start entry point", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container["start"]).toBeDefined();
-    expect(typeof container["start"]).toBe("object");
-    expect(typeof container["start"][name]).toBe("function");
-  };
-
   it("should correctly inject starting methods for game", () => {
     require("@/engine/scripts/start");
 

@@ -28,7 +28,7 @@ export const mockTable = {
 
     return entries.length ? entries[Math.floor(entries.length * Math.random())] : [null, null];
   },
-  remove: (target: AnyObject, index: number) => {
+  remove: (target: AnyObject, index: number): void => {
     // Simulate lua behaviour by shifting all elements like with splice.
     if (target instanceof MockLuaTable) {
       const array = MockLuaTable.toArray(target);
@@ -41,7 +41,9 @@ export const mockTable = {
 
       return;
     } else if (Array.isArray(target)) {
-      return target.splice(index - 1, 1);
+      target.splice(index - 1, 1);
+
+      return;
     }
 
     throw new Error(`Currently '${typeof target}' is not supported.`);

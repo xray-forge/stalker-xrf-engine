@@ -16,14 +16,16 @@ import { checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtur
 import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockPhraseDialog } from "@/fixtures/xray";
 
+function checkManagerBinding(name: TName): void {
+  return checkNestedBinding("dialog_manager", name);
+}
+
 jest.mock("@/engine/core/managers/dialogs/utils/dialog_action");
 jest.mock("@/engine/core/managers/dialogs/utils/dialog_check");
 jest.mock("@/engine/core/managers/dialogs/utils/dialog_init");
 jest.mock("@/engine/core/managers/dialogs/utils/dialog_priority");
 
 describe("dialogs external callbacks declaration", () => {
-  const checkManagerBinding = (name: TName) => checkNestedBinding("dialog_manager", name);
-
   beforeAll(() => {
     require("@/engine/scripts/declarations/dialogs/dialog_manager");
   });

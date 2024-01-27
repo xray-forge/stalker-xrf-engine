@@ -3,12 +3,9 @@ import { action_base, level, LuabindClass, time_global } from "xray16";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorRotateY } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EGameObjectPath, GameObject, Optional, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
+import { EGameObjectPath, GameObject, Optional, TNumberId, Vector } from "@/engine/lib/types";
 
 const BEH_WALK_SIMPLE = 0;
 const BEH_WALK_NEAR = 1;
@@ -171,7 +168,7 @@ export class ActionCompanionActivity extends action_base {
 /**
  * todo;
  */
-function selectPosition(object: GameObject, state: ISchemeCompanionState) {
+function selectPosition(object: GameObject, state: ISchemeCompanionState): Optional<TNumberId> {
   let node1VertexId = null;
   let node1Distance = null;
   let node2VertexId = null;

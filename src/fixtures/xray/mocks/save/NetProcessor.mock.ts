@@ -6,6 +6,18 @@ import { EPacketDataType } from "@/fixtures/xray/mocks/save/types";
  * XRay net processor mock used for testing of saving/loading data.
  */
 export class MockNetProcessor {
+  public static mock(): NetProcessor {
+    return new MockNetProcessor() as unknown as NetProcessor;
+  }
+
+  public static mockNetPacket(): NetPacket {
+    return new MockNetProcessor() as unknown as NetPacket;
+  }
+
+  public static mockReader(): Reader {
+    return new MockNetProcessor() as unknown as Reader;
+  }
+
   public readDataOrder: Array<EPacketDataType> = [];
   public writeDataOrder: Array<EPacketDataType> = [];
 

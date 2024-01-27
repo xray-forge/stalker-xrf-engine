@@ -10,7 +10,9 @@ import { TName } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
 
-const mockExtension = (name: TName) => ({ name, module: {} }) as IExtensionsDescriptor;
+function mockExtension(name: TName): IExtensionsDescriptor {
+  return { name, module: {} } as IExtensionsDescriptor;
+}
 
 describe("saveDynamicGameSave util", () => {
   beforeEach(() => {

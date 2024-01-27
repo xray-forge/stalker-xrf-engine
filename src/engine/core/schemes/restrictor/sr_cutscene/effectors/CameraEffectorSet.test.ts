@@ -16,20 +16,22 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockDevice } from "@/fixtures/xray";
 
+function mockEffectorDescriptor(
+  base: Partial<ICameraEffectorSetDescriptorItem> = {}
+): ICameraEffectorSetDescriptorItem {
+  return {
+    isGlobalCameraEffect: base.isGlobalCameraEffect ?? false,
+    looped: base.looped ?? false,
+    anim: base.anim ?? "test",
+    enabled: base.enabled ?? "true",
+  };
+}
+
 jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils", () => ({
   emitCutsceneEndedEvent: jest.fn(),
 }));
 
 describe("CameraEffectorSet", () => {
-  const mockEffectorDescriptor = (
-    base: Partial<ICameraEffectorSetDescriptorItem> = {}
-  ): ICameraEffectorSetDescriptorItem => ({
-    isGlobalCameraEffect: base.isGlobalCameraEffect ?? false,
-    looped: base.looped ?? false,
-    anim: base.anim ?? "test",
-    enabled: base.enabled ?? "true",
-  });
-
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(emitCutsceneEndedEvent);

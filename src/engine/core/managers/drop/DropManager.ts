@@ -8,14 +8,11 @@ import { abort } from "@/engine/core/utils/assertion";
 import { isArtefact, isGrenade, isWeapon } from "@/engine/core/utils/class_ids";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { setItemCondition } from "@/engine/core/utils/item";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { isAmmoSection, isExcludedFromLootDropItemSection, isLootableItemSection } from "@/engine/core/utils/section";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { GameObject, IniFile, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

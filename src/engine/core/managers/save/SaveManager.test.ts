@@ -27,25 +27,25 @@ import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
-import { MockGameObject, mockNetPacket } from "@/fixtures/xray";
+import { MockGameObject, MockNetProcessor } from "@/fixtures/xray";
+
+function mockLifecycleMethods(): [Array<TAbstractCoreManagerConstructor>, Array<TAbstractCoreManagerConstructor>] {
+  const saveOrder: Array<TAbstractCoreManagerConstructor> = [];
+  const loadOrder: Array<TAbstractCoreManagerConstructor> = [];
+
+  for (const [managerClass, managerInstance] of registry.managers) {
+    (managerClass as AnyObject).save = jest.fn(() => saveOrder.push(managerClass));
+    (managerClass as AnyObject).load = jest.fn(() => loadOrder.push(managerClass));
+
+    managerInstance.save = jest.fn(() => saveOrder.push(managerClass));
+    managerInstance.load = jest.fn(() => loadOrder.push(managerClass));
+    managerInstance.initialize = jest.fn();
+  }
+
+  return [saveOrder, loadOrder];
+}
 
 describe("SaveManager class", () => {
-  const mockLifecycleMethods = () => {
-    const saveOrder: Array<TAbstractCoreManagerConstructor> = [];
-    const loadOrder: Array<TAbstractCoreManagerConstructor> = [];
-
-    for (const [managerClass, managerInstance] of registry.managers) {
-      (managerClass as AnyObject).save = jest.fn(() => saveOrder.push(managerClass));
-      (managerClass as AnyObject).load = jest.fn(() => loadOrder.push(managerClass));
-
-      managerInstance.save = jest.fn(() => saveOrder.push(managerClass));
-      managerInstance.load = jest.fn(() => loadOrder.push(managerClass));
-      managerInstance.initialize = jest.fn();
-    }
-
-    return [saveOrder, loadOrder];
-  };
-
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -102,12 +102,12 @@ describe("SaveManager class", () => {
     expect(saveOrder).toEqual([]);
     expect(loadOrder).toEqual([]);
 
-    getManager(SaveManager).clientSave(mockNetPacket());
+    getManager(SaveManager).clientSave(MockNetProcessor.mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual([]);
 
-    getManager(SaveManager).clientLoad(mockNetPacket());
+    getManager(SaveManager).clientLoad(MockNetProcessor.mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual(expectedOrder);
@@ -125,12 +125,12 @@ describe("SaveManager class", () => {
     expect(saveOrder).toEqual([]);
     expect(loadOrder).toEqual([]);
 
-    getManager(SaveManager).serverSave(mockNetPacket());
+    getManager(SaveManager).serverSave(MockNetProcessor.mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual([]);
 
-    getManager(SaveManager).serverLoad(mockNetPacket());
+    getManager(SaveManager).serverLoad(MockNetProcessor.mockNetPacket());
 
     expect(saveOrder).toEqual(expectedOrder);
     expect(loadOrder).toEqual(expectedOrder);

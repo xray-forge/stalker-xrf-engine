@@ -89,14 +89,14 @@ export class ActorInventoryMenuManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public onWindowOpen(mode: EActorMenuMode) {
+  public onWindowOpen(mode: EActorMenuMode): void {
     logger.info("Actor menu open: %s", EActorMenuMode[mode]);
   }
 
   /**
    * todo: Description.
    */
-  public onWindowClosed(mode: EActorMenuMode) {
+  public onWindowClosed(mode: EActorMenuMode): void {
     logger.info("Actor menu close: %s", EActorMenuMode[mode]);
   }
 }

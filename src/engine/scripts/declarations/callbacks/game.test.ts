@@ -8,6 +8,14 @@ import { TradeManager } from "@/engine/core/managers/trade";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
 
+function callTradeBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["trade_manager"]);
+}
+
+function callOutroBinding(name: TName, args: AnyArgs = []): void {
+  return callBinding(name, args, (_G as AnyObject)["outro"]);
+}
+
 describe("game external callbacks", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/callbacks/game");
@@ -41,8 +49,6 @@ describe("game external callbacks", () => {
     jest.spyOn(outroManager, "updateBlackScreenAndSoundFadeStart").mockImplementation(jest.fn());
     jest.spyOn(outroManager, "updateBlackScreenAndSoundFadeStop").mockImplementation(jest.fn());
 
-    const callOutroBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["outro"]);
-
     expect((_G as AnyObject)["outro"]["conditions"]).toBe(gameOutroConfig.OUTRO_CONDITIONS);
 
     callOutroBinding("start_bk_sound");
@@ -61,9 +67,6 @@ describe("game external callbacks", () => {
 
   it("trade manager callbacks should be defined", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
-
-    const callTradeBinding = (name: TName, args: AnyArgs = []) =>
-      callBinding(name, args, (_G as AnyObject)["trade_manager"]);
 
     jest.spyOn(tradeManager, "getSellDiscountForObject").mockImplementation(() => 10);
     jest.spyOn(tradeManager, "getBuyDiscountForObject").mockImplementation(() => 20);

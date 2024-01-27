@@ -1,5 +1,4 @@
-import * as fsPromises from "fs/promises";
-import { FileHandle } from "fs/promises";
+import * as fsp from "fs/promises";
 
 import { exists } from "#/utils/fs/exists";
 import { Optional } from "#/utils/types";
@@ -19,19 +18,19 @@ export async function readLastLinesOfFile(
   maxLineCount: number,
   encoding: BufferEncoding = "utf8"
 ): Promise<string> {
-  let file: Optional<FileHandle> = null;
+  let file: Optional<fsp.FileHandle> = null;
 
   if (await exists(filePath)) {
     try {
-      const stat = await fsPromises.stat(filePath);
+      const stat = await fsp.stat(filePath);
 
-      file = await fsPromises.open(filePath, "r");
+      file = await fsp.open(filePath, "r");
 
       let chars: number = 0;
       let lineCount: number = 0;
       let lines: string = "";
 
-      const readTillNotStart = async function () {
+      async function readTillNotStart(): Promise<string> {
         if (lines.length > stat.size) {
           lines = lines.substring(lines.length - stat.size);
         }
@@ -57,7 +56,7 @@ export async function readLastLinesOfFile(
         chars++;
 
         return readTillNotStart();
-      };
+      }
 
       return await readTillNotStart();
     } catch (reason) {

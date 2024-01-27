@@ -2,7 +2,11 @@ import { game } from "xray16";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import { EPdaStatSection, killedMonstersDisplay } from "@/engine/core/managers/pda/pda_types";
+import {
+  EPdaStatSection,
+  IMonsterDisplayDescriptor,
+  killedMonstersDisplay,
+} from "@/engine/core/managers/pda/pda_types";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { weapons } from "@/engine/lib/constants/items/weapons";
@@ -39,14 +43,14 @@ export class PdaManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * @returns descriptor of the strongest actor killed monster to display if it exists
    */
-  public getBestKilledMonster() {
+  public getBestKilledMonster(): Optional<IMonsterDisplayDescriptor> {
     const bestKilledMonster: Optional<TMonster> = getManager(StatisticsManager).actorStatistics.bestKilledMonster;
 
-    return bestKilledMonster && killedMonstersDisplay[bestKilledMonster]
-      ? killedMonstersDisplay[bestKilledMonster]
-      : null;
+    return !bestKilledMonster || !killedMonstersDisplay[bestKilledMonster]
+      ? null
+      : (killedMonstersDisplay[bestKilledMonster] as IMonsterDisplayDescriptor);
   }
 
   /**

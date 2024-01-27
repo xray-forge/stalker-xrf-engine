@@ -3,19 +3,19 @@ import { clsid } from "xray16";
 
 import { registerSimulator } from "@/engine/core/database";
 import { AnyObject, GameObject } from "@/engine/lib/types";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+
+function checkBinding(name: string, container: AnyObject = global): void {
+  expect(container["bind"]).toBeDefined();
+  expect(typeof container["bind"]).toBe("object");
+  expect(typeof container["bind"][name]).toBe("function");
+}
+
+function callBinding(name: string, object: GameObject, container: AnyObject = global): void {
+  return container["bind"][name](object);
+}
 
 describe("bind entry point", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container["bind"]).toBeDefined();
-    expect(typeof container["bind"]).toBe("object");
-    expect(typeof container["bind"][name]).toBe("function");
-  };
-
-  const callBinding = (name: string, object: GameObject, container: AnyObject = global) => {
-    return container["bind"][name](object);
-  };
-
   beforeEach(() => {
     registerSimulator();
   });
@@ -74,7 +74,7 @@ describe("bind entry point", () => {
     expect(zone.bind_object).not.toHaveBeenCalled();
 
     jest.spyOn(zone, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+      return MockIniFile.mock("test.ltx", {
         arena_zone: "test",
       });
     });
@@ -118,7 +118,7 @@ describe("bind entry point", () => {
     expect(helicopter.bind_object).not.toHaveBeenCalled();
 
     jest.spyOn(helicopter, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+      return MockIniFile.mock("test.ltx", {
         logic: "test",
       });
     });
@@ -162,7 +162,7 @@ describe("bind entry point", () => {
     expect(object.bind_object).not.toHaveBeenCalled();
 
     jest.spyOn(object, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+      return MockIniFile.mock("test.ltx", {
         logic: "test",
       });
     });
@@ -170,7 +170,7 @@ describe("bind entry point", () => {
     callBinding("physic_object", object);
     expect(object.bind_object).toHaveBeenCalledTimes(1);
 
-    jest.spyOn(object, "spawn_ini").mockImplementation(() => mockIniFile("test.ltx", {}));
+    jest.spyOn(object, "spawn_ini").mockImplementation(() => MockIniFile.mock("test.ltx", {}));
     jest.spyOn(object, "clsid").mockImplementation(() => clsid.obj_physic);
 
     callBinding("physic_object", object);
@@ -211,7 +211,7 @@ describe("bind entry point", () => {
     expect(thirdTerrain.bind_object).not.toHaveBeenCalled();
 
     jest.spyOn(secondTerrain, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+      return MockIniFile.mock("test.ltx", {
         smart_terrain: {},
       });
     });

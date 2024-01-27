@@ -13,24 +13,24 @@ import {
 import { EGameRenderer } from "@/engine/core/ui/menu/options/options_types";
 import { MockCUIWindow } from "@/fixtures/xray";
 
-describe("options_precondition.test.ts class", () => {
-  const checkPrecondition = (
-    renderer: EGameRenderer,
-    expected: boolean,
-    checker: (control: CUIWindow, id: EGameRenderer) => void
-  ) => {
-    const element: CUIWindow = MockCUIWindow.mock();
+function checkPrecondition(
+  renderer: EGameRenderer,
+  expected: boolean,
+  checker: (control: CUIWindow, id: EGameRenderer) => void
+): CUIWindow {
+  const element: CUIWindow = MockCUIWindow.mock();
 
-    jest.spyOn(element, "Enable");
-    jest.spyOn(element, "Show");
+  jest.spyOn(element, "Enable");
+  jest.spyOn(element, "Show");
 
-    checker(element, renderer);
-    expect(element.Enable).toHaveBeenCalledWith(expected);
+  checker(element, renderer);
+  expect(element.Enable).toHaveBeenCalledWith(expected);
 
-    return element;
-  };
+  return element;
+}
 
-  it("preconditionOnly1mode should correctly check r1", () => {
+describe("preconditionOnly1mode util", () => {
+  it("should correctly check r1", () => {
     [EGameRenderer.R1].forEach((it) => {
       checkPrecondition(it, true, preconditionOnly1mode);
     });
@@ -39,8 +39,10 @@ describe("options_precondition.test.ts class", () => {
       checkPrecondition(it, false, preconditionOnly1mode);
     });
   });
+});
 
-  it("preconditionOnly2aAndMoreMode should correctly check 2a", () => {
+describe("preconditionOnly2aAndMoreMode util", () => {
+  it("should correctly check 2a", () => {
     [EGameRenderer.R1].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly2aAndMoreMode);
     });
@@ -49,8 +51,10 @@ describe("options_precondition.test.ts class", () => {
       checkPrecondition(it, true, preconditionOnly2aAndMoreMode);
     });
   });
+});
 
-  it("preconditionOnly2andMoreMode should correctly check 2", () => {
+describe("preconditionOnly2andMoreMode util", () => {
+  it("should correctly check 2", () => {
     [EGameRenderer.R1, EGameRenderer.R2A].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly2andMoreMode);
     });
@@ -59,8 +63,10 @@ describe("options_precondition.test.ts class", () => {
       checkPrecondition(it, true, preconditionOnly2andMoreMode);
     });
   });
+});
 
-  it("preconditionOnly25andMoreMode should correctly check 25", () => {
+describe("preconditionOnly25andMoreMode util", () => {
+  it("should correctly check 25", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly25andMoreMode);
     });
@@ -69,8 +75,10 @@ describe("options_precondition.test.ts class", () => {
       checkPrecondition(it, true, preconditionOnly25andMoreMode);
     });
   });
+});
 
-  it("preconditionOnly3andMoreMode should correctly check 25", () => {
+describe("preconditionOnly3andMoreMode util", () => {
+  it("should correctly check 25", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly3andMoreMode);
     });
@@ -79,8 +87,10 @@ describe("options_precondition.test.ts class", () => {
       checkPrecondition(it, true, preconditionOnly3andMoreMode);
     });
   });
+});
 
-  it("preconditionOnly3andMoreModeVisible should correctly check 25", () => {
+describe("preconditionOnly3andMoreModeVisible util", () => {
+  it("should correctly check 25", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25].forEach((it) => {
       const element: CUIWindow = checkPrecondition(it, false, preconditionOnly3andMoreModeVisible);
 
@@ -93,8 +103,10 @@ describe("options_precondition.test.ts class", () => {
       expect(element.Show).toHaveBeenCalledWith(true);
     });
   });
+});
 
-  it("preconditionOnly25andLessModeVisible should correctly check 25", () => {
+describe("preconditionOnly25andLessModeVisible util", () => {
+  it("should correctly check 25", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25].forEach((it) => {
       const element: CUIWindow = checkPrecondition(it, true, preconditionOnly25andLessModeVisible);
 

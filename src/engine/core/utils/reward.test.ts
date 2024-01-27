@@ -19,12 +19,12 @@ import {
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { AnyObject, GameObject, TSection } from "@/engine/lib/types";
+import { AnyObject, GameObject, TCount, TSection } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
-const createObjectWithItems = () =>
-  MockGameObject.mock({
+function createObjectWithItems(): GameObject {
+  return MockGameObject.mock({
     inventory: [
       [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
       [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
@@ -41,12 +41,13 @@ const createObjectWithItems = () =>
       [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
     ],
   });
+}
 
-const getItemsCount = (object: GameObject, section: TSection) => {
+function getItemsCount(object: GameObject, section: TSection): TCount {
   return [...((object as AnyObject).inventory as Map<number, GameObject>).entries()].filter(([, it]) => {
     return it.section() === section;
   }).length;
-};
+}
 
 describe("giveMoneyToActor util", () => {
   beforeEach(() => {

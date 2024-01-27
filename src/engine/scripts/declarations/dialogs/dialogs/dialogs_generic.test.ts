@@ -33,10 +33,15 @@ jest.mock("@/engine/core/utils/dialog", () => ({
   getNpcSpeaker: (first: GameObject, second: GameObject) => (first.id() === ACTOR_ID ? second : first),
 }));
 
-describe("dialogs_generic external callbacks", () => {
-  const checkDialogsBinding = (name: TName) => checkNestedBinding("dialogs", name);
-  const callDialogsBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["dialogs"]);
+function checkDialogsBinding(name: TName): void {
+  return checkNestedBinding("dialogs", name);
+}
 
+function callDialogsBinding(name: TName, args: AnyArgs = []): boolean {
+  return callBinding(name, args, (_G as AnyObject)["dialogs"]);
+}
+
+describe("dialogs_generic external callbacks", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_generic");
   });

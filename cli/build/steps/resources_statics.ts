@@ -72,8 +72,9 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
  * Get valid resources paths from provided folder directory.
  */
 async function validateResources(folderPath: string): Promise<Array<string>> {
-  const dirents: Array<fs.Dirent> = await fsp.readdir(folderPath, { withFileTypes: true });
-  const allowFiles = (dirent: fs.Dirent): Optional<string> => {
+  const folders: Array<fs.Dirent> = await fsp.readdir(folderPath, { withFileTypes: true });
+
+  function allowFiles(dirent: fs.Dirent): Optional<string> {
     const name: string = dirent.name;
 
     if (dirent.isDirectory()) {
@@ -95,9 +96,9 @@ async function validateResources(folderPath: string): Promise<Array<string>> {
     }
 
     return null;
-  };
+  }
 
-  return dirents.map(allowFiles).filter(Boolean);
+  return folders.map(allowFiles).filter(Boolean);
 }
 
 /**

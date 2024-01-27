@@ -25,8 +25,8 @@ import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
-const createObjectWithItems = () =>
-  MockGameObject.mock({
+function createObjectWithItems(): GameObject {
+  return MockGameObject.mock({
     inventory: [
       [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
       [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
@@ -43,6 +43,7 @@ const createObjectWithItems = () =>
       [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
     ],
   });
+}
 
 describe("getItemPrice utils", () => {
   beforeEach(() => {

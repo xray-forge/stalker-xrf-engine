@@ -9,6 +9,14 @@ import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
+function checkDialogsBinding(name: TName): void {
+  return checkNestedBinding("dialogs", name);
+}
+
+function callDialogsBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["dialogs"]);
+}
+
 jest.mock("@/engine/core/utils/planner", () => ({ isObjectWounded: jest.fn(() => false) }));
 
 jest.mock("@/engine/core/utils/item", () => ({
@@ -23,9 +31,6 @@ jest.mock("@/engine/core/utils/dialog", () => ({
 }));
 
 describe("dialogs_generic external callbacks", () => {
-  const checkDialogsBinding = (name: TName) => checkNestedBinding("dialogs", name);
-  const callDialogsBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["dialogs"]);
-
   beforeAll(() => {
     require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_object");
   });
