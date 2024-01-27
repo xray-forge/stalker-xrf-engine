@@ -147,38 +147,11 @@ export class MockNetProcessor {
     return this as unknown as Reader;
   }
 
-  public asMockNetPacket(): NetPacket {
+  public asNetPacket(): NetPacket {
     return this as unknown as NetPacket;
   }
 
-  public asMockNetProcessor(): NetProcessor {
+  public asNetProcessor(): NetProcessor {
     return this as unknown as NetProcessor;
   }
-}
-
-/**
- * Mock net processor instance.
- *
- * @deprecated
- */
-export function mockNetProcessor(packet: MockNetProcessor = new MockNetProcessor()): NetProcessor {
-  return packet as unknown as NetPacket;
-}
-
-/**
- * Mock net packet instance.
- *
- * @deprecated
- */
-export function mockNetPacket(packet: MockNetProcessor = new MockNetProcessor()): NetPacket {
-  return packet as unknown as NetPacket;
-}
-
-/**
- * Mock reader instance.
- *
- * @deprecated
- */
-export function mockNetReader(packet: MockNetProcessor = new MockNetProcessor()): Reader {
-  return packet as unknown as Reader;
 }

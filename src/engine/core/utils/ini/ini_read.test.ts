@@ -19,11 +19,11 @@ import {
   readIniTwoNumbers,
 } from "@/engine/core/utils/ini/ini_read";
 import { IniFile, Optional } from "@/engine/lib/types";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("readIniString util", () => {
   it("utils should correctly get data from ini files", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "a1",
         b: "b2",
@@ -44,7 +44,7 @@ describe("readIniString util", () => {
 
 describe("readIniStringWB util", () => {
   it("utils should correctly get data from ini files", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "a1",
         b: "b2",
@@ -69,7 +69,7 @@ describe("readIniStringWB util", () => {
 
 describe("readIniStringList util", () => {
   it("utils should correctly get data from ini files", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "a1",
         b: "b2, b3, b4",
@@ -93,7 +93,7 @@ describe("readIniStringList util", () => {
 
 describe("readIniNumber util", () => {
   it("utils should correctly get data from ini files", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: 1,
         b: 2,
@@ -110,7 +110,7 @@ describe("readIniNumber util", () => {
 
 describe("readIniBoolean util for ini file", () => {
   it("utils should correctly get data from ini files", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: true,
         b: false,
@@ -129,7 +129,7 @@ describe("readIniBoolean util for ini file", () => {
 
 describe("readIniTwoNumbers util", () => {
   it("util should get two numbers correctly", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "-4.3, 2",
         b: "10 -5",
@@ -148,7 +148,7 @@ describe("readIniTwoNumbers util", () => {
 
 describe("readIniTwoNumbers util", () => {
   it("util should get two numbers correctly", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "-4.3, 2",
         b: "10 -5",
@@ -167,7 +167,7 @@ describe("readIniTwoNumbers util", () => {
 
 describe("readIniConditionList util", () => {
   it("should correctly parse data", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a:
           "ph_idle@sound %=anim_obj_forward(pas_b400_door_way) =heal_squad(pas_b400_stalkers_squad)" +
@@ -218,7 +218,7 @@ describe("readIniConditionList util", () => {
 
 describe("readIniNumberAndConditionList util", () => {
   it("should correctly parse data", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "5 | {-jup_b19_actor_damaged_zombied} %+jup_b19_actor_damaged_zombied%",
         b: "150 | {-jup_b4_actor_go_away} %+jup_b4_actor_go_away%",
@@ -312,7 +312,7 @@ describe("readIniNumberAndConditionList util", () => {
 
 describe("readIniStringAndCondList util", () => {
   it("should correctly parse data", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "lx8_sr_lab | sr_idle@two %+lx8_lab_tushkano_spawn =create_squad(lx8_tushkano_lab_squad:lx8_smart_terrain)%",
         b: "path_end | camper@military_2_heli_2_fight",
@@ -364,7 +364,7 @@ describe("readIniStringAndCondList util", () => {
 
 describe("readIniConditionList util", () => {
   it("should correctly parse data", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "sr_idle@two %+lx8_lab_tushkano_spawn =create_squad(lx8_tushkano_lab_squad:lx8_smart_terrain)%",
         b: "camper@military_2_heli_2_fight",
@@ -416,7 +416,7 @@ describe("readIniConditionList util", () => {
 
 describe("readIniSectionAsSet util", () => {
   it("should correctly transform section to set", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: ["a", "b", "c"],
       section2: ["d", "e"],
       section3: {
@@ -443,10 +443,10 @@ describe("readIniSectionAsSet util", () => {
 
 describe("readIniSectionsAsSet util", () => {
   it("should correctly transform section to set", () => {
-    expect(readIniSectionsAsSet(mockIniFile("test.ltx", {}))).toEqualLuaTables({});
+    expect(readIniSectionsAsSet(MockIniFile.mock("test.ltx", {}))).toEqualLuaTables({});
     expect(
       readIniSectionsAsSet(
-        mockIniFile("example.ltx", {
+        MockIniFile.mock("example.ltx", {
           section1: ["a", "b", "c"],
           section2: ["d", "e"],
           section3: {
@@ -465,7 +465,7 @@ describe("readIniSectionsAsSet util", () => {
 
 describe("readIniSectionsAsList util", () => {
   it("should correctly transform section to list", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: ["a", "b", "c"],
       section2: ["d", "e"],
       section3: {
@@ -474,7 +474,7 @@ describe("readIniSectionsAsList util", () => {
       },
     });
 
-    expect(readIniSectionsAsList(mockIniFile("test.ltx", {}))).toEqualLuaTables({});
+    expect(readIniSectionsAsList(MockIniFile.mock("test.ltx", {}))).toEqualLuaTables({});
     expect(readIniSectionsAsList(ini)).toEqualLuaTables({
       1: "section1",
       2: "section2",
@@ -485,7 +485,7 @@ describe("readIniSectionsAsList util", () => {
 
 describe("readIniFieldsAsList util", () => {
   it("should correctly transform section fields to list", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: ["a", "b", "c"],
       section2: {
         x: 1,
@@ -493,7 +493,7 @@ describe("readIniFieldsAsList util", () => {
       },
     });
 
-    expect(readIniFieldsAsList(mockIniFile("test.ltx", {}), "section1")).toEqualLuaTables({});
+    expect(readIniFieldsAsList(MockIniFile.mock("test.ltx", {}), "section1")).toEqualLuaTables({});
     expect(readIniFieldsAsList(ini, "section1")).toEqualLuaTables({
       1: "a",
       2: "b",
@@ -508,7 +508,7 @@ describe("readIniFieldsAsList util", () => {
 
 describe("readIniFieldsAsSet util", () => {
   it("should correctly transform section fields to list", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: ["a", "b", "c"],
       section2: {
         x: 1,
@@ -516,7 +516,7 @@ describe("readIniFieldsAsSet util", () => {
       },
     });
 
-    expect(readIniFieldsAsSet(mockIniFile("test.ltx", {}), "section1")).toEqualLuaTables({});
+    expect(readIniFieldsAsSet(MockIniFile.mock("test.ltx", {}), "section1")).toEqualLuaTables({});
     expect(readIniFieldsAsSet(ini, "section1")).toEqualLuaTables({
       a: true,
       b: true,
@@ -531,7 +531,7 @@ describe("readIniFieldsAsSet util", () => {
 
 describe("readIniSectionAsStringMap util", () => {
   it("should correctly transform section to string based map", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: ["a", "b", "c"],
       section2: { a: "b", c: "d", e: "f" },
       section3: {

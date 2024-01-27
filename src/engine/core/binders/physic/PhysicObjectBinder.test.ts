@@ -15,10 +15,8 @@ import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
   MockGameObject,
-  mockIniFile,
-  mockNetPacket,
+  MockIniFile,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
@@ -72,17 +70,18 @@ describe("PhysicObjectBinder class", () => {
   it("should handle with extended config", () => {
     mockRegisteredActor();
 
-    const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(
+      MockGameObject.mock({
+        spawnIni: MockIniFile.mock("test.ltx", {
+          level_spot: {
+            actor_box: true,
+          },
+        }),
+      })
+    );
     const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
-    jest.spyOn(binder.object, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
-        level_spot: {
-          actor_box: true,
-        },
-      });
-    });
 
     binder.net_spawn(mockServerAlifeObject({ id: binder.object.id() }));
 
@@ -162,7 +161,7 @@ describe("PhysicObjectBinder class", () => {
     binderState.activeSection = "test@test";
     binderState.smartTerrainName = "test-smart";
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -194,7 +193,7 @@ describe("PhysicObjectBinder class", () => {
     const newBinder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(newBinder.isLoaded).toBe(true);
     expect(newBinder.isInitialized).toBe(false);
@@ -265,20 +264,18 @@ describe("PhysicObjectBinder class", () => {
   });
 
   it("should handle death events", () => {
-    const object: GameObject = MockGameObject.mock();
-    const killer: GameObject = MockGameObject.mock();
-    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
-
-    jest.spyOn(binder.object, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+    const object: GameObject = MockGameObject.mock({
+      spawnIni: MockIniFile.mock("test.ltx", {
         drop_box: {
           a: 1,
         },
         level_spot: {
           actor_box: true,
         },
-      });
+      }),
     });
+    const killer: GameObject = MockGameObject.mock();
+    const binder: PhysicObjectBinder = new PhysicObjectBinder(object);
 
     jest.spyOn(getManager(BoxManager), "spawnBoxObjectItems").mockImplementation(jest.fn());
 

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
   registerActor,
@@ -40,10 +40,15 @@ describe("getObjectsRelationSafe util", () => {
     expect(getObjectsRelationSafe(null, MockGameObject.mock())).toBeNull();
     expect(getObjectsRelationSafe(null, null)).toBeNull();
 
-    const first: GameObject = MockGameObject.mock({ relation: () => 0 });
-    const second: GameObject = MockGameObject.mock({ relation: () => 1 });
-    const third: GameObject = MockGameObject.mock({ relation: () => 2 });
-    const fourth: GameObject = MockGameObject.mock({ relation: () => 3 });
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+    const third: GameObject = MockGameObject.mock();
+    const fourth: GameObject = MockGameObject.mock();
+
+    jest.spyOn(first, "relation").mockImplementation(() => 0);
+    jest.spyOn(second, "relation").mockImplementation(() => 1);
+    jest.spyOn(third, "relation").mockImplementation(() => 2);
+    jest.spyOn(fourth, "relation").mockImplementation(() => 3);
 
     expect(getObjectsRelationSafe(first, second)).toBe(0);
     expect(getObjectsRelationSafe(second, first)).toBe(1);

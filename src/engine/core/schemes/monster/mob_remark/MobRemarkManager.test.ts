@@ -17,7 +17,7 @@ describe("MobRemarkManager", () => {
   });
 
   it("should correctly activate", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s });
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
     const state: ISchemeMobRemarkState = mockSchemeState<ISchemeMobRemarkState>(EScheme.MOB_REMARK, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.INVISIBLE,
@@ -40,7 +40,7 @@ describe("MobRemarkManager", () => {
   });
 
   it("should correctly update", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, get_script: () => true });
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
     const state: ISchemeMobRemarkState = mockSchemeState<ISchemeMobRemarkState>(EScheme.MOB_REMARK, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.INVISIBLE,
@@ -55,6 +55,7 @@ describe("MobRemarkManager", () => {
     const manager: MobRemarkManager = new MobRemarkManager(object, state);
     const notificationManager: NotificationManager = getManager(NotificationManager);
 
+    jest.spyOn(object, "get_script").mockImplementation(() => true);
     jest.spyOn(notificationManager, "sendTipNotification").mockImplementation(jest.fn());
 
     manager.activate();

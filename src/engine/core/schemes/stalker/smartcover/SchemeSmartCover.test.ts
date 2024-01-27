@@ -11,12 +11,12 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeSmartCover", () => {
   it("should correctly activate with default data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "smartcover@test": {},
     });
 
@@ -47,7 +47,7 @@ describe("SchemeSmartCover", () => {
 
   it("should correctly activate with custom data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "smartcover@test": {
         on_info: "{+test} first, second",
         cover_name: "test_cover",
@@ -94,7 +94,7 @@ describe("SchemeSmartCover", () => {
 
   it("should correctly activate with default data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "smartcover@test": {},
     });
 

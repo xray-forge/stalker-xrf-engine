@@ -8,7 +8,7 @@ import {
 } from "@/engine/core/database";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils/squad_position_utils";
 import { createVector } from "@/engine/core/utils/vector";
-import { GameObject, Vector } from "@/engine/lib/types";
+import { GameObject, ServerHumanObject, Vector } from "@/engine/lib/types";
 import { MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject, mockLevelInterface } from "@/fixtures/xray";
@@ -27,8 +27,8 @@ describe("setSquadPosition util", () => {
 
   it("should correctly change current position of the squad when offline", () => {
     const squad: MockSquad = MockSquad.mock();
-    const first: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
-    const second: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
     const newPosition: Vector = createVector(1, 2, 3);
 
     squad.mockSetOnline(false);
@@ -52,8 +52,8 @@ describe("setSquadPosition util", () => {
 
   it("should correctly change current position of the squad when online", () => {
     const squad: MockSquad = MockSquad.mock();
-    const first: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
-    const second: MockAlifeHumanStalker = MockAlifeHumanStalker.mock();
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
     const newPosition: Vector = createVector(1, 2, 3);
 
     squad.mockSetOnline(true);
@@ -62,8 +62,8 @@ describe("setSquadPosition util", () => {
 
     jest.spyOn(squad, "force_change_position").mockImplementation(jest.fn());
 
-    const firstGameObject: GameObject = MockGameObject.mock({ idOverride: first.id });
-    const secondGameObject: GameObject = MockGameObject.mock({ idOverride: second.id });
+    const firstGameObject: GameObject = MockGameObject.mock({ id: first.id });
+    const secondGameObject: GameObject = MockGameObject.mock({ id: second.id });
 
     const firstOfflineState: IRegistryOfflineState = registerOfflineObject(firstGameObject.id());
     const secondOfflineState: IRegistryOfflineState = registerOfflineObject(secondGameObject.id());

@@ -11,7 +11,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeaponMagazinedWGl } from "@/engine/core/objects/item/ItemWeaponMagazinedWGl";
 import { resetRegistry } from "@/fixtures/engine";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("ItemWeaponMagazinedWGl server class", () => {
   beforeEach(() => {
@@ -54,7 +54,7 @@ describe("ItemWeaponMagazinedWGl server class", () => {
     const itemWeaponMagazinedWGl: ItemWeaponMagazinedWGl = new ItemWeaponMagazinedWGl("test-section");
 
     jest.spyOn(itemWeaponMagazinedWGl, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

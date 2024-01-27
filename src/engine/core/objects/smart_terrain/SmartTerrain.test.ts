@@ -18,7 +18,7 @@ import {
   MockAlifeHumanStalker,
   MockCALifeSmartTerrainTask,
   MockCTime,
-  mockIniFile,
+  MockIniFile,
   MockNetProcessor,
   mockServerAlifeCreatureActor,
 } from "@/fixtures/xray";
@@ -31,61 +31,61 @@ describe("SmartTerrain class generic logic", () => {
   });
 
   it("should correctly init default fields", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
+    const terrain: SmartTerrain = new SmartTerrain("test_init");
 
-    expect(smartTerrain.ini).toBeUndefined();
-    expect(smartTerrain.jobsConfig).toBeUndefined();
-    expect(smartTerrain.jobsConfigName).toBeUndefined();
+    expect(terrain.ini).toBeUndefined();
+    expect(terrain.jobsConfig).toBeUndefined();
+    expect(terrain.jobsConfigName).toBeUndefined();
 
-    expect(smartTerrain.squadId).toBe(0);
-    expect(smartTerrain.isOnLevel).toBe(false);
-    expect(smartTerrain.simulationRole).toBe(ESimulationTerrainRole.DEFAULT);
-    expect(smartTerrain.smartTerrainDisplayedMapSpot).toBeNull();
-    expect(smartTerrain.respawnSector).toBeNull();
-    expect(smartTerrain.forbiddenPoint).toBe("");
+    expect(terrain.squadId).toBe(0);
+    expect(terrain.isOnLevel).toBe(false);
+    expect(terrain.simulationRole).toBe(ESimulationTerrainRole.DEFAULT);
+    expect(terrain.smartTerrainDisplayedMapSpot).toBeNull();
+    expect(terrain.respawnSector).toBeNull();
+    expect(terrain.forbiddenPoint).toBe("");
 
-    expect(smartTerrain.isRegistered).toBe(false);
-    expect(smartTerrain.isRespawnPoint).toBe(false);
-    expect(smartTerrain.isObjectsInitializationNeeded).toBe(false);
-    expect(smartTerrain.isSimulationAvailableConditionList).toEqualLuaTables(parseConditionsList(TRUE));
-    expect(smartTerrain.isMutantDisabled).toBe(false);
-    expect(smartTerrain.isMutantLair).toBe(false);
-    expect(smartTerrain.isRespawnOnlySmart).toBe(false);
-    expect(smartTerrain.areCampfiresOn).toBe(false);
+    expect(terrain.isRegistered).toBe(false);
+    expect(terrain.isRespawnPoint).toBe(false);
+    expect(terrain.isObjectsInitializationNeeded).toBe(false);
+    expect(terrain.isSimulationAvailableConditionList).toEqualLuaTables(parseConditionsList(TRUE));
+    expect(terrain.isMutantDisabled).toBe(false);
+    expect(terrain.isMutantLair).toBe(false);
+    expect(terrain.isRespawnOnlySmart).toBe(false);
+    expect(terrain.areCampfiresOn).toBe(false);
 
-    expect(smartTerrain.alarmStartedAt).toBeNull();
-    expect(smartTerrain.arrivalDistance).toBe(25);
-    expect(smartTerrain.stayingObjectsCount).toBe(0);
-    expect(smartTerrain.maxStayingSquadsCount).toBe(0);
-    expect(smartTerrain.nextCheckAt).toBe(0);
-    expect(smartTerrain.lastRespawnUpdatedAt).toBeNull();
+    expect(terrain.alarmStartedAt).toBeNull();
+    expect(terrain.arrivalDistance).toBe(25);
+    expect(terrain.stayingObjectsCount).toBe(0);
+    expect(terrain.maxStayingSquadsCount).toBe(0);
+    expect(terrain.nextCheckAt).toBe(0);
+    expect(terrain.lastRespawnUpdatedAt).toBeNull();
 
-    expect(smartTerrain.travelerActorPointName).toBe("");
-    expect(smartTerrain.travelerSquadPointName).toBe("");
+    expect(terrain.travelerActorPointName).toBe("");
+    expect(terrain.travelerSquadPointName).toBe("");
 
-    expect(smartTerrain.defendRestrictor).toBeNull();
-    expect(smartTerrain.attackRestrictor).toBeNull();
-    expect(smartTerrain.safeRestrictor).toBeNull();
-    expect(smartTerrain.spawnPointName).toBeNull();
-    expect(smartTerrain.smartTerrainActorControl).toBeNull();
+    expect(terrain.defendRestrictor).toBeNull();
+    expect(terrain.attackRestrictor).toBeNull();
+    expect(terrain.safeRestrictor).toBeNull();
+    expect(terrain.spawnPointName).toBeNull();
+    expect(terrain.smartTerrainActorControl).toBeNull();
 
-    expect(smartTerrain.arrivingObjects.length()).toBe(0);
-    expect(smartTerrain.jobs.length()).toBe(0);
-    expect(smartTerrain.objectJobDescriptors.length()).toBe(0);
-    expect(smartTerrain.objectByJobSection.length()).toBe(0);
-    expect(smartTerrain.jobDeadTimeById.length()).toBe(0);
-    expect(smartTerrain.smartTerrainAlifeTask).toBeUndefined();
+    expect(terrain.arrivingObjects.length()).toBe(0);
+    expect(terrain.jobs.length()).toBe(0);
+    expect(terrain.objectJobDescriptors.length()).toBe(0);
+    expect(terrain.objectByJobSection.length()).toBe(0);
+    expect(terrain.jobDeadTimeById.length()).toBe(0);
+    expect(terrain.smartTerrainAlifeTask).toBeUndefined();
 
-    expect(smartTerrain.simulationManager).toBeDefined();
-    expect(smartTerrain.mapDisplayManager).toBeDefined();
-    expect(smartTerrain.simulationProperties).toBeUndefined();
-    expect(smartTerrain.spawnSquadsConfiguration.length()).toBe(0);
-    expect(smartTerrain.spawnedSquadsList.length()).toBe(0);
+    expect(terrain.simulationManager).toBeDefined();
+    expect(terrain.mapDisplayManager).toBeDefined();
+    expect(terrain.simulationProperties).toBeUndefined();
+    expect(terrain.spawnSquadsConfiguration.length()).toBe(0);
+    expect(terrain.spawnedSquadsList.length()).toBe(0);
   });
 
   it("should correctly emit registering lifecycle events", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
     const onSmartTerrainRegister = jest.fn();
     const onSmartTerrainUnregister = jest.fn();
@@ -93,78 +93,78 @@ describe("SmartTerrain class generic logic", () => {
     eventsManager.registerCallback(EGameEvent.SMART_TERRAIN_REGISTER, onSmartTerrainRegister);
     eventsManager.registerCallback(EGameEvent.SMART_TERRAIN_UNREGISTER, onSmartTerrainUnregister);
 
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
+    terrain.on_before_register();
+    terrain.on_register();
 
-    expect(onSmartTerrainRegister).toHaveBeenCalledWith(smartTerrain);
+    expect(onSmartTerrainRegister).toHaveBeenCalledWith(terrain);
     expect(onSmartTerrainUnregister).not.toHaveBeenCalled();
 
-    smartTerrain.on_unregister();
+    terrain.on_unregister();
 
-    expect(onSmartTerrainRegister).toHaveBeenCalledWith(smartTerrain);
-    expect(onSmartTerrainUnregister).toHaveBeenCalledWith(smartTerrain);
+    expect(onSmartTerrainRegister).toHaveBeenCalledWith(terrain);
+    expect(onSmartTerrainUnregister).toHaveBeenCalledWith(terrain);
   });
 
   it("should correctly handle before register", () => {
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
-    smartTerrain.on_before_register();
+    terrain.on_before_register();
 
-    expect(smartTerrain.simulationManager.getSmartTerrainByName(smartTerrain.name())).toBe(smartTerrain);
+    expect(terrain.simulationManager.getSmartTerrainByName(terrain.name())).toBe(terrain);
   });
 
   it("should correctly handle register", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
+    const terrain: SmartTerrain = new SmartTerrain("test_init");
 
-    jest.spyOn(smartTerrain, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+    jest.spyOn(terrain, "spawn_ini").mockImplementation(() => {
+      return MockIniFile.mock("test.ltx", {
         story_object: {
           story_id: "test_smart_sid",
         },
       });
     });
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
+    terrain.ini = terrain.spawn_ini() as IniFile;
 
     replaceFunctionMock(time_global, () => 4000);
 
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
+    terrain.on_before_register();
+    terrain.on_register();
 
-    expect(registry.storyLink.idBySid.get("test_smart_sid")).toBe(smartTerrain.id);
-    expect(registry.storyLink.sidById.get(smartTerrain.id)).toBe("test_smart_sid");
+    expect(registry.storyLink.idBySid.get("test_smart_sid")).toBe(terrain.id);
+    expect(registry.storyLink.sidById.get(terrain.id)).toBe("test_smart_sid");
 
     expect(registry.simulationObjects.length()).toBe(1);
-    expect(registry.simulationObjects.get(smartTerrain.id)).toBe(smartTerrain);
-    expect(smartTerrain.smartTerrainAlifeTask instanceof MockCALifeSmartTerrainTask).toBe(true);
-    expect(smartTerrain.isRegistered).toBe(true);
-    expect(smartTerrain.isOnLevel).toBe(true);
-    expect(smartTerrain.jobs).toBeDefined();
-    expect(smartTerrain.nextCheckAt).toBe(4000);
+    expect(registry.simulationObjects.get(terrain.id)).toBe(terrain);
+    expect(terrain.smartTerrainAlifeTask instanceof MockCALifeSmartTerrainTask).toBe(true);
+    expect(terrain.isRegistered).toBe(true);
+    expect(terrain.isOnLevel).toBe(true);
+    expect(terrain.jobs).toBeDefined();
+    expect(terrain.nextCheckAt).toBe(4000);
   });
 
   it("should correctly handle unregister", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
+    const terrain: SmartTerrain = new SmartTerrain("test_init");
 
-    smartTerrain.ini = mockIniFile("test.ltx", {
+    terrain.ini = MockIniFile.mock("test.ltx", {
       story_object: {
         story_id: "test_smart_sid",
       },
     });
 
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
-    smartTerrain.on_unregister();
+    terrain.on_before_register();
+    terrain.on_register();
+    terrain.on_unregister();
 
     expect(registry.storyLink.idBySid.get("test_smart_sid")).toBeNull();
-    expect(registry.storyLink.sidById.get(smartTerrain.id)).toBeNull();
-    expect(smartTerrain.simulationManager.getSmartTerrainDescriptor(smartTerrain.id)).toBeNull();
-    expect(smartTerrain.simulationManager.getSmartTerrainByName(smartTerrain.name())).toBeNull();
-    expect(smartTerrain.isRegistered).toBe(false);
+    expect(registry.storyLink.sidById.get(terrain.id)).toBeNull();
+    expect(terrain.simulationManager.getSmartTerrainDescriptor(terrain.id)).toBeNull();
+    expect(terrain.simulationManager.getSmartTerrainByName(terrain.name())).toBeNull();
+    expect(terrain.isRegistered).toBe(false);
   });
 
   it("should correctly save and load data when have meaningful info", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
+    const terrain: SmartTerrain = new SmartTerrain("test_init");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     const firstArriving: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -172,20 +172,20 @@ describe("SmartTerrain class generic logic", () => {
     const thirdWithJob: ServerHumanObject = MockAlifeHumanStalker.mock();
     const thirdJob: IObjectJobState = createObjectJobDescriptor(thirdWithJob);
 
-    smartTerrain.arrivingObjects.set(firstArriving.id, firstArriving);
-    smartTerrain.arrivingObjects.set(secondArriving.id, secondArriving);
+    terrain.arrivingObjects.set(firstArriving.id, firstArriving);
+    terrain.arrivingObjects.set(secondArriving.id, secondArriving);
 
-    smartTerrain.objectJobDescriptors.set(thirdWithJob.id, thirdJob);
+    terrain.objectJobDescriptors.set(thirdWithJob.id, thirdJob);
     thirdJob.jobId = 2;
     thirdJob.jobPriority = 35;
     thirdJob.isBegun = true;
     thirdJob.desiredJob = "another_job_section";
 
-    smartTerrain.jobDeadTimeById.set(50, MockCTime.mock(2004, 7, 19, 13, 30, 10, 200));
+    terrain.jobDeadTimeById.set(50, MockCTime.mock(2004, 7, 19, 13, 30, 10, 200));
 
-    smartTerrain.smartTerrainActorControl = new SmartTerrainControl(
-      smartTerrain,
-      mockIniFile("test.ltx", {
+    terrain.smartTerrainActorControl = new SmartTerrainControl(
+      terrain,
+      MockIniFile.mock("test.ltx", {
         test_save: {
           noweap_zone: "no_weap_test",
           ignore_zone: "ignore_zone_test",
@@ -196,15 +196,15 @@ describe("SmartTerrain class generic logic", () => {
       "test_save"
     );
 
-    smartTerrain.isRespawnPoint = true;
-    smartTerrain.spawnedSquadsList = new LuaTable();
-    smartTerrain.spawnedSquadsList.set("test_squad_novice", { num: 3 });
-    smartTerrain.spawnedSquadsList.set("test_squad_master", { num: 1 });
+    terrain.isRespawnPoint = true;
+    terrain.spawnedSquadsList = new LuaTable();
+    terrain.spawnedSquadsList.set("test_squad_novice", { num: 3 });
+    terrain.spawnedSquadsList.set("test_squad_master", { num: 1 });
 
-    smartTerrain.lastRespawnUpdatedAt = MockCTime.mock(2005, 8, 20, 13, 31, 11, 201);
-    smartTerrain.stayingObjectsCount = 4;
+    terrain.lastRespawnUpdatedAt = MockCTime.mock(2005, 8, 20, 13, 31, 11, 201);
+    terrain.stayingObjectsCount = 4;
 
-    smartTerrain.STATE_Write(netProcessor.asMockNetPacket());
+    terrain.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -289,15 +289,15 @@ describe("SmartTerrain class generic logic", () => {
       37,
     ]);
 
-    const anotherSmartTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
+    const anotherTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
 
-    anotherSmartTerrain.STATE_Read(netProcessor.asMockNetPacket(), 5001);
+    anotherTerrain.STATE_Read(netProcessor.asNetPacket(), 5001);
 
-    expect(anotherSmartTerrain.arrivingObjects).toEqualLuaTables({
+    expect(anotherTerrain.arrivingObjects).toEqualLuaTables({
       [firstArriving.id]: false,
       [secondArriving.id]: false,
     });
-    expect(anotherSmartTerrain.objectJobDescriptors).toEqualLuaTables({
+    expect(anotherTerrain.objectJobDescriptors).toEqualLuaTables({
       [thirdWithJob.id]: {
         isBegun: true,
         jobId: 2,
@@ -305,16 +305,16 @@ describe("SmartTerrain class generic logic", () => {
         desiredJob: "another_job_section",
       },
     });
-    expect(anotherSmartTerrain.jobDeadTimeById.length()).toBe(1);
-    expect(anotherSmartTerrain.jobDeadTimeById.get(50).toString()).toBe(
+    expect(anotherTerrain.jobDeadTimeById.length()).toBe(1);
+    expect(anotherTerrain.jobDeadTimeById.get(50).toString()).toBe(
       MockCTime.mock(2004, 7, 19, 13, 30, 10, 200).toString()
     );
 
-    expect(anotherSmartTerrain.smartTerrainActorControl).toBeDefined();
-    expect(anotherSmartTerrain.smartTerrainActorControl?.status).toBe(ESmartTerrainStatus.NORMAL);
-    expect(anotherSmartTerrain.smartTerrainActorControl?.alarmStartedAt).toBeNull();
-    expect(anotherSmartTerrain.isRespawnPoint).toBe(true);
-    expect(anotherSmartTerrain.spawnedSquadsList).toEqualLuaTables({
+    expect(anotherTerrain.smartTerrainActorControl).toBeDefined();
+    expect(anotherTerrain.smartTerrainActorControl?.status).toBe(ESmartTerrainStatus.NORMAL);
+    expect(anotherTerrain.smartTerrainActorControl?.alarmStartedAt).toBeNull();
+    expect(anotherTerrain.isRespawnPoint).toBe(true);
+    expect(anotherTerrain.spawnedSquadsList).toEqualLuaTables({
       test_squad_novice: {
         num: 3,
       },
@@ -323,17 +323,17 @@ describe("SmartTerrain class generic logic", () => {
       },
     });
 
-    expect(anotherSmartTerrain.lastRespawnUpdatedAt?.toString()).toBe(
+    expect(anotherTerrain.lastRespawnUpdatedAt?.toString()).toBe(
       MockCTime.mock(2005, 8, 20, 13, 31, 11, 201).toString()
     );
-    expect(anotherSmartTerrain.stayingObjectsCount).toBe(4);
+    expect(anotherTerrain.stayingObjectsCount).toBe(4);
   });
 
   it("should correctly save and load data when have empty info", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
+    const terrain: SmartTerrain = new SmartTerrain("test_init");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    smartTerrain.STATE_Write(netProcessor.asMockNetPacket());
+    terrain.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -347,19 +347,19 @@ describe("SmartTerrain class generic logic", () => {
     ]);
     expect(netProcessor.dataList).toEqual(["state_write_from_SmartTerrain", 0, 0, 0, false, false, 0, 6]);
 
-    const anotherSmartTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
+    const anotherTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
 
-    anotherSmartTerrain.STATE_Read(netProcessor.asMockNetPacket(), 5001);
+    anotherTerrain.STATE_Read(netProcessor.asNetPacket(), 5001);
 
-    expect(anotherSmartTerrain.arrivingObjects.length()).toBe(0);
-    expect(anotherSmartTerrain.objectJobDescriptors.length()).toBe(0);
-    expect(anotherSmartTerrain.jobDeadTimeById.length()).toBe(0);
+    expect(anotherTerrain.arrivingObjects.length()).toBe(0);
+    expect(anotherTerrain.objectJobDescriptors.length()).toBe(0);
+    expect(anotherTerrain.jobDeadTimeById.length()).toBe(0);
 
-    expect(anotherSmartTerrain.smartTerrainActorControl).toBeDefined();
-    expect(anotherSmartTerrain.smartTerrainActorControl?.status).toBe(ESmartTerrainStatus.NORMAL);
-    expect(anotherSmartTerrain.smartTerrainActorControl?.alarmStartedAt).toBeNull();
-    expect(anotherSmartTerrain.isRespawnPoint).toBe(true);
-    expect(anotherSmartTerrain.spawnedSquadsList).toEqualLuaTables({
+    expect(anotherTerrain.smartTerrainActorControl).toBeDefined();
+    expect(anotherTerrain.smartTerrainActorControl?.status).toBe(ESmartTerrainStatus.NORMAL);
+    expect(anotherTerrain.smartTerrainActorControl?.alarmStartedAt).toBeNull();
+    expect(anotherTerrain.isRespawnPoint).toBe(true);
+    expect(anotherTerrain.spawnedSquadsList).toEqualLuaTables({
       test_squad_novice: {
         num: 0,
       },
@@ -368,31 +368,31 @@ describe("SmartTerrain class generic logic", () => {
       },
     });
 
-    expect(anotherSmartTerrain.lastRespawnUpdatedAt).toBeNull();
-    expect(anotherSmartTerrain.stayingObjectsCount).toBe(0);
+    expect(anotherTerrain.lastRespawnUpdatedAt).toBeNull();
+    expect(anotherTerrain.stayingObjectsCount).toBe(0);
   });
 
   it("register_npc should queue objects correctly if not registered", () => {
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    expect(smartTerrain.isRegistered).toBe(false);
-    expect(smartTerrain.objectsToRegister.length()).toBe(0);
+    expect(terrain.isRegistered).toBe(false);
+    expect(terrain.objectsToRegister.length()).toBe(0);
 
-    smartTerrain.register_npc(first);
-    smartTerrain.register_npc(first);
+    terrain.register_npc(first);
+    terrain.register_npc(first);
 
-    expect(smartTerrain.objectsToRegister.length()).toBe(1);
-    expect(smartTerrain.objectsToRegister.get(first.id)).toBe(first);
+    expect(terrain.objectsToRegister.length()).toBe(1);
+    expect(terrain.objectsToRegister.get(first.id)).toBe(first);
 
-    smartTerrain.register_npc(second);
-    smartTerrain.register_npc(second);
+    terrain.register_npc(second);
+    terrain.register_npc(second);
 
-    expect(smartTerrain.objectsToRegister.length()).toBe(2);
-    expect(smartTerrain.objectsToRegister.get(first.id)).toBe(first);
-    expect(smartTerrain.objectsToRegister.get(second.id)).toBe(second);
+    expect(terrain.objectsToRegister.length()).toBe(2);
+    expect(terrain.objectsToRegister.get(first.id)).toBe(first);
+    expect(terrain.objectsToRegister.get(second.id)).toBe(second);
   });
 
   it.todo("register_npc should correctly count and assign objects after registration");

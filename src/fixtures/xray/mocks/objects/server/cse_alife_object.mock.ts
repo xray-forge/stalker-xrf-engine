@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 
 import { AnyObject, NetPacket, ServerObject, TClassId, TNumberId, TSection, Vector } from "@/engine/lib/types";
-import { MockIniFile, mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { mockConfig } from "@/fixtures/xray/mocks/MockConfig";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
@@ -102,7 +102,7 @@ export function mockServerAlifeObject({
   name,
   clsid = jest.fn(() => -1 as TClassId),
   section_name,
-  spawn_ini = jest.fn(() => mockIniFile("spawn.ini")),
+  spawn_ini = jest.fn(() => MockIniFile.mock("spawn.ini")),
   ...rest
 }: Partial<ServerObject & { sectionOverride?: string }> = {}): ServerObject {
   const object: ServerObject = {

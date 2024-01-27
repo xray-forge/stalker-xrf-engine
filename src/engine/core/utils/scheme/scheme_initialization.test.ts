@@ -43,7 +43,7 @@ import {
 } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { FILES_MOCKS, MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { FILES_MOCKS, MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick", () => ({
   getSmartTerrainJobByObjectId: jest.fn(),
@@ -58,7 +58,7 @@ describe("configureObjectSchemes util", () => {
   it(" should correctly configure scheme for objects if section does not exist", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {});
+    const ini: IniFile = MockIniFile.mock("test.ltx", {});
 
     const schemes: Array<TAbstractSchemeConstructor> = [
       SchemeAbuse,
@@ -114,13 +114,13 @@ describe("configureObjectSchemes util", () => {
 
   it("should correctly configure scheme for objects if cfg section exists", () => {
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
 
     serverObject.m_smart_terrain_id = smartTerrain.id;
 
     const state: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       logics: { cfg: "logics-descriptor.ltx" },
     });
 
@@ -198,7 +198,7 @@ describe("initializeObjectSchemeLogic util", () => {
   });
 
   it("should correctly initialize scheme logic on init", () => {
-    const ini: IniFile = mockIniFile("object-test.ltx", {
+    const ini: IniFile = MockIniFile.mock("object-test.ltx", {
       logic: {
         active: "mob_combat@test",
         relation: "enemy",
@@ -208,7 +208,7 @@ describe("initializeObjectSchemeLogic util", () => {
     });
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock({
-      spawn_ini: () => ini,
+      spawnIni: ini,
     });
     const state: IRegistryObjectState = registerObject(object);
     const schemes: Array<TAbstractSchemeConstructor> = [
@@ -303,7 +303,7 @@ describe("initializeObjectSectionItems util", () => {
     const state: IRegistryObjectState = registerObject(object);
 
     state.sectionLogic = "logics";
-    state.ini = mockIniFile("test.ltx", {
+    state.ini = MockIniFile.mock("test.ltx", {
       logics: {},
     });
 
@@ -317,7 +317,7 @@ describe("initializeObjectSectionItems util", () => {
     const state: IRegistryObjectState = registerObject(object);
 
     state.sectionLogic = "logics";
-    state.ini = mockIniFile("test.ltx", {
+    state.ini = MockIniFile.mock("test.ltx", {
       logics: {
         spawn: "spawn@test",
       },

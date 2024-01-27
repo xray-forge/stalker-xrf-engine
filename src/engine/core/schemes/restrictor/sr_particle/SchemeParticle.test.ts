@@ -8,7 +8,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeParticle.test.ts class", () => {
   it("should correctly fail with no data", () => {
@@ -20,7 +20,7 @@ describe("SchemeParticle.test.ts class", () => {
     expect(() => {
       SchemeParticle.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "sr_particle@test": {
             name: "test-name-0",
             path: "test-path-0",
@@ -35,7 +35,7 @@ describe("SchemeParticle.test.ts class", () => {
 
   it("should correctly activate with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_particle@test": {
         name: "test-particle-1",
         path: "test-path-1",
@@ -58,7 +58,7 @@ describe("SchemeParticle.test.ts class", () => {
 
   it("should correctly activate with provided values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_particle@test": {
         on_info: "{+test} first, second",
         name: "test-particle-2",

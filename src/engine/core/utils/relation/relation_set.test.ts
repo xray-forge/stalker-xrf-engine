@@ -18,7 +18,7 @@ import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { GameObject, ServerCreatureObject, ServerHumanObject, TIndex } from "@/engine/lib/types";
 import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
-import { CLIENT_SIDE_REGISTRY, MockGameObject, mockServerAlifeCreatureAbstract } from "@/fixtures/xray";
+import { MockGameObject, mockServerAlifeCreatureAbstract } from "@/fixtures/xray";
 
 describe("setGameObjectRelation util", () => {
   beforeEach(() => registerSimulator());
@@ -233,7 +233,7 @@ describe("updateSquadIdRelationToActor util", () => {
 
     // Remove from level, force offline.
     for (const it of mixedSquad.squad_members()) {
-      CLIENT_SIDE_REGISTRY.delete(it.id);
+      MockGameObject.REGISTRY.delete(it.id);
     }
 
     mixedSquad.relationship = ERelation.ENEMY;
@@ -265,7 +265,7 @@ describe("setSquadRelationToActor util", () => {
 
     // Remove from level, force offline.
     for (const it of mixedSquad.squad_members()) {
-      CLIENT_SIDE_REGISTRY.delete(it.id);
+      MockGameObject.REGISTRY.delete(it.id);
     }
 
     setSquadRelationToActor(mixedSquad, ERelation.ENEMY);

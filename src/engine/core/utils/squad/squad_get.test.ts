@@ -17,7 +17,7 @@ describe("getObjectSquad util", () => {
     expect(getObjectSquad(MockAlifeHumanStalker.mock())).toBeNull();
 
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const gameObject: GameObject = MockGameObject.mock({ id: serverObject.id });
     const squad: Squad = MockSquad.mock();
 
     serverObject.group_id = squad.id;
@@ -42,7 +42,7 @@ describe("getObjectSquadByObjectId util", () => {
     expect(getObjectSquadByObjectId(MockAlifeHumanStalker.mock().id)).toBeNull();
 
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const gameObject: GameObject = MockGameObject.mock({ id: serverObject.id });
     const squad: Squad = MockSquad.mock();
 
     serverObject.group_id = squad.id;

@@ -19,9 +19,7 @@ import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
-import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { EPacketDataType, MockCTime, MockGameObject, MockNetProcessor, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("AchievementManager class", () => {
   beforeEach(() => {
@@ -48,7 +46,7 @@ describe("AchievementManager class", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
     const achievementsManager: AchievementsManager = getManager(AchievementsManager);
 
-    achievementsManager.save(mockNetPacket(netProcessor));
+    achievementsManager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN, EPacketDataType.BOOLEAN]);
     expect(netProcessor.dataList).toEqual([false, false]);
@@ -57,7 +55,7 @@ describe("AchievementManager class", () => {
 
     const newAchievementsManager: AchievementsManager = getManager(AchievementsManager);
 
-    newAchievementsManager.load(mockNetProcessor(netProcessor));
+    newAchievementsManager.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -71,7 +69,7 @@ describe("AchievementManager class", () => {
     achievementsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2023, 4, 16, 10, 57, 4, 400);
     achievementsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2012, 2, 24, 5, 33, 2, 0);
 
-    achievementsManager.save(mockNetPacket(netProcessor));
+    achievementsManager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
@@ -97,7 +95,7 @@ describe("AchievementManager class", () => {
 
     const newAchievementsManager: AchievementsManager = getManager(AchievementsManager);
 
-    newAchievementsManager.load(mockNetProcessor(netProcessor));
+    newAchievementsManager.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

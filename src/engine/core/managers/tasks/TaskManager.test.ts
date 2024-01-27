@@ -10,8 +10,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import { TSection } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { mockIniFile } from "@/fixtures/xray";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("TaskManager class", () => {
   beforeAll(() => {
@@ -41,7 +40,7 @@ describe("TaskManager class", () => {
     const taskManager: TaskManager = getManager(TaskManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    taskManager.save(mockNetPacket(netProcessor));
+    taskManager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.U16, EPacketDataType.U16]);
     expect(netProcessor.dataList).toEqual([0, 1]);
@@ -51,7 +50,7 @@ describe("TaskManager class", () => {
     const tasksBefore: LuaTable<TSection, TaskObject> = taskConfig.ACTIVE_TASKS;
     const newTaskManager: TaskManager = getManager(TaskManager);
 
-    newTaskManager.load(mockNetProcessor(netProcessor));
+    newTaskManager.load(netProcessor.asNetProcessor());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -65,7 +64,7 @@ describe("TaskManager class", () => {
 
     taskManager.giveTask("hide_from_surge");
 
-    taskManager.save(mockNetPacket(netProcessor));
+    taskManager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.U16,
@@ -106,7 +105,7 @@ describe("TaskManager class", () => {
 
     const newTaskManager: TaskManager = getManager(TaskManager);
 
-    newTaskManager.load(mockNetProcessor(netProcessor));
+    newTaskManager.load(netProcessor.asNetReader());
 
     expect(netProcessor.writeDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -133,7 +132,7 @@ describe("TaskManager class", () => {
 
   it("should correctly check if tasks are failed", () => {
     const taskManager: TaskManager = getManager(TaskManager);
-    const task: TaskObject = new TaskObject("test", mockIniFile("test.ltx", { test: {} }));
+    const task: TaskObject = new TaskObject("test", MockIniFile.mock("test.ltx", { test: {} }));
 
     expect(taskManager.isTaskFailed("test_task")).toBeFalsy();
 
@@ -155,7 +154,7 @@ describe("TaskManager class", () => {
 
   it("should correctly check if tasks are completed", () => {
     const taskManager: TaskManager = getManager(TaskManager);
-    const task: TaskObject = new TaskObject("test", mockIniFile("test.ltx", { test: {} }));
+    const task: TaskObject = new TaskObject("test", MockIniFile.mock("test.ltx", { test: {} }));
 
     expect(taskManager.isTaskCompleted("test_task")).toBeFalsy();
 

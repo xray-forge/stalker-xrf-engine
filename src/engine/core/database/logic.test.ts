@@ -7,7 +7,7 @@ import { registerObject, resetObject } from "@/engine/core/database/objects";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { EPacketDataType, MockGameObject, mockNetPacket, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 describe("logic database module", () => {
@@ -42,7 +42,7 @@ describe("logic database module", () => {
     setPortableStoreValue(object.id(), "test-key-1", "test-val");
     setPortableStoreValue(object.id(), "test-key-2", 255);
 
-    saveObjectLogic(object, mockNetPacket(netProcessor));
+    saveObjectLogic(object, netProcessor.asNetPacket());
 
     expect(cb).toHaveBeenCalled();
 
@@ -95,7 +95,7 @@ describe("logic database module", () => {
 
     const nextState: IRegistryObjectState = resetObject(object);
 
-    loadObjectLogic(object, mockNetPacket(netProcessor));
+    loadObjectLogic(object, netProcessor.asNetPacket());
 
     expect(netProcessor.dataList).toEqual([]);
     expect(netProcessor.readDataOrder).toEqual([

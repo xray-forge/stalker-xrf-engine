@@ -8,12 +8,12 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemePsyAntenna", () => {
   it("should correctly initialize with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_psy_antenna@test": {
         eff_intensity: 100,
         hit_intensity: 1000,
@@ -46,7 +46,7 @@ describe("SchemePsyAntenna", () => {
 
   it("should correctly initialize with custom data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_psy_antenna@test": {
         on_hit: "{+test} first, second",
         eff_intensity: 500,

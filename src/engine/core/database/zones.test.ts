@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
 import { CampManager } from "@/engine/core/ai/camp";
 import { registry } from "@/engine/core/database/registry";
@@ -18,8 +18,8 @@ describe("zones module of the database", () => {
     expect(registry.zones.length()).toBe(0);
     expect(registry.objects.length()).toBe(0);
 
-    const firstZone: GameObject = MockGameObject.mock({ idOverride: 10, sectionOverride: "test_zone" });
-    const secondZone: GameObject = MockGameObject.mock({ idOverride: 20, sectionOverride: "test_zone" });
+    const firstZone: GameObject = MockGameObject.mock({ id: 10, section: "test_zone" });
+    const secondZone: GameObject = MockGameObject.mock({ id: 20, section: "test_zone" });
 
     expect(firstZone.id()).toBe(10);
     expect(firstZone.name()).toBe("test_zone_10");
@@ -59,11 +59,11 @@ describe("zones module of the database", () => {
     expect(registry.objects.length()).toBe(0);
     expect(registry.camps.length()).toBe(0);
 
-    const firstZone: GameObject = MockGameObject.mock({ idOverride: 10, sectionOverride: "test_camp" });
+    const firstZone: GameObject = MockGameObject.mock({ id: 10, section: "test_camp" });
     const firstManager: CampManager = new CampManager(firstZone, firstZone.spawn_ini() as IniFile);
-    const secondZone: GameObject = MockGameObject.mock({ idOverride: 20, sectionOverride: "test_camp" });
+    const secondZone: GameObject = MockGameObject.mock({ id: 20, section: "test_camp" });
     const secondManager: CampManager = new CampManager(secondZone, secondZone.spawn_ini() as IniFile);
-    const thirdZone: GameObject = MockGameObject.mock({ idOverride: 30, sectionOverride: "test_camp" });
+    const thirdZone: GameObject = MockGameObject.mock({ id: 30, section: "test_camp" });
 
     expect(firstZone.id()).toBe(10);
     expect(firstZone.name()).toBe("test_camp_10");
@@ -105,17 +105,18 @@ describe("zones module of the database", () => {
     const position: Vector = MockVector.mock();
 
     const firstZone: GameObject = MockGameObject.mock({
-      idOverride: 10,
-      sectionOverride: "test_camp",
-      inside: () => false,
+      id: 10,
+      section: "test_camp",
     });
     const firstManager: CampManager = new CampManager(firstZone, firstZone.spawn_ini() as IniFile);
     const secondZone: GameObject = MockGameObject.mock({
-      idOverride: 20,
-      sectionOverride: "test_camp",
-      inside: (it) => it === position,
+      id: 20,
+      section: "test_camp",
     });
     const secondManager: CampManager = new CampManager(secondZone, secondZone.spawn_ini() as IniFile);
+
+    jest.spyOn(firstZone, "inside").mockImplementation(() => false);
+    jest.spyOn(secondZone, "inside").mockImplementation((it) => it === position);
 
     expect(getCampZoneForPosition(null)).toBeNull();
     expect(getCampZoneForPosition(position)).toBeNull();
@@ -139,8 +140,8 @@ describe("zones module of the database", () => {
 
   it("should correctly reset camp zones", () => {
     const firstZone: GameObject = MockGameObject.mock({
-      idOverride: 10,
-      sectionOverride: "test_camp",
+      id: 10,
+      section: "test_camp",
     });
     const firstManager: CampManager = new CampManager(firstZone, firstZone.spawn_ini() as IniFile);
 
@@ -149,7 +150,10 @@ describe("zones module of the database", () => {
     expect(registry.camps.get(firstZone.id())).toBe(firstManager);
     expect(registry.camps.get(firstZone.id()).object).toBe(firstZone);
 
-    const secondZone: GameObject = MockGameObject.mock(firstZone);
+    const secondZone: GameObject = MockGameObject.mock({
+      id: 10,
+      section: "test_camp",
+    });
 
     resetCampZone(secondZone);
 

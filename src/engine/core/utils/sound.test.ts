@@ -12,7 +12,7 @@ import {
 import { ESoundType } from "@/engine/lib/constants/sound";
 import { GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("mapSoundMaskToSoundType util", () => {
   it("should correctly convert mask to enum", () => {
@@ -86,7 +86,7 @@ describe("isPlayingSound util", () => {
     soundsConfig.playing.set(
       object.id(),
       new LoopedSound(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           test: {
             path: "test_sound.ogg",
           },

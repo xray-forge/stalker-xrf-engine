@@ -8,7 +8,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeCutscene", () => {
   it("should be correctly defined", () => {
@@ -18,7 +18,7 @@ describe("SchemeCutscene", () => {
 
   it("should correctly add to logics with default values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_cutscene@test": {
         point: "test-point",
         look: "test-look",
@@ -46,7 +46,7 @@ describe("SchemeCutscene", () => {
 
   it("should correctly add to logics with custom values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_cutscene@test": {
         point: "test-point-another",
         look: "test-look-another",

@@ -19,34 +19,36 @@ import {
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { AnyObject, GameObject, TCount, TSection } from "@/engine/lib/types";
+import { GameObject, TCount, TSection } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
 
 function createObjectWithItems(): GameObject {
   return MockGameObject.mock({
     inventory: [
-      [1, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-      [2, MockGameObject.mock({ sectionOverride: medkits.medkit } as Partial<GameObject>)],
-      [3, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-      [4, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-      [5, MockGameObject.mock({ sectionOverride: medkits.medkit_army } as Partial<GameObject>)],
-      [40, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-      [41, MockGameObject.mock({ sectionOverride: weapons.wpn_svd } as Partial<GameObject>)],
-      [50, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-      [51, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-      [52, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-      [53, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-      [54, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
-      [55, MockGameObject.mock({ sectionOverride: ammo.ammo_9x18_pmm } as Partial<GameObject>)],
+      [1, MockGameObject.mock({ section: medkits.medkit })],
+      [2, MockGameObject.mock({ section: medkits.medkit })],
+      [3, MockGameObject.mock({ section: medkits.medkit_army })],
+      [4, MockGameObject.mock({ section: medkits.medkit_army })],
+      [5, MockGameObject.mock({ section: medkits.medkit_army })],
+      [40, MockGameObject.mock({ section: weapons.wpn_svd })],
+      [41, MockGameObject.mock({ section: weapons.wpn_svd })],
+      [50, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
+      [51, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
+      [52, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
+      [53, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
+      [54, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
+      [55, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
     ],
   });
 }
 
 function getItemsCount(object: GameObject, section: TSection): TCount {
-  return [...((object as AnyObject).inventory as Map<number, GameObject>).entries()].filter(([, it]) => {
-    return it.section() === section;
-  }).length;
+  return [...((object as unknown as MockGameObject).objectInventory as Map<number, GameObject>).entries()].filter(
+    ([, it]) => {
+      return it.section() === section;
+    }
+  ).length;
 }
 
 describe("giveMoneyToActor util", () => {
@@ -290,7 +292,11 @@ describe("takeItemFromActor util", () => {
 
     expect(registry.simulator.object(itemToTake.id())).not.toBeNull();
 
-    registerActor(MockGameObject.mock({ object: () => itemToTake }));
+    const actor: GameObject = MockGameObject.mockActor();
+
+    jest.spyOn(actor, "object").mockImplementation(() => itemToTake);
+
+    registerActor(actor);
     takeItemFromActor("test_section");
 
     expect(registry.simulator.object(itemToTake.id())).toBeNull();

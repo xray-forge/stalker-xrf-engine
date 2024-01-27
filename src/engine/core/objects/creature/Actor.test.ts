@@ -56,13 +56,13 @@ describe("Actor server object", () => {
     jest.spyOn(saveManager, "serverSave").mockImplementation(jest.fn());
     jest.spyOn(saveManager, "serverLoad").mockImplementation(jest.fn());
 
-    actor.STATE_Write(netProcessor.asMockNetPacket());
+    actor.STATE_Write(netProcessor.asNetPacket());
 
     expect(saveManager.serverSave).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.U16]);
     expect(netProcessor.dataList).toEqual(["state_write_from_Actor", 0]);
 
-    actor.STATE_Read(netProcessor.asMockNetPacket(), 0);
+    actor.STATE_Read(netProcessor.asNetPacket(), 0);
 
     expect(saveManager.serverLoad).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);

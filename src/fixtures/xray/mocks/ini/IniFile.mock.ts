@@ -19,6 +19,10 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
     FILES_MOCKS[path] = data;
   }
 
+  public static registerIni(ini: IniFile): void {
+    FILES_MOCKS[ini.fname()] = (ini as unknown as MockIniFile<AnyObject>).data;
+  }
+
   public path: TName;
   public content: string;
   public data: T;
@@ -99,20 +103,4 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   public asMock(): IniFile {
     return this as unknown as IniFile;
   }
-}
-
-/**
- * Mock generic ini file for testing.
- *
- * @deprecated
- */
-export function mockIniFile(path: TPath, data?: AnyObject, content?: string): IniFile {
-  return new MockIniFile(path, data, content) as unknown as IniFile;
-}
-
-/**
- * Mock file existence in registry for testing.
- */
-export function registerIniFileMock(ini: IniFile): void {
-  FILES_MOCKS[ini.fname()] = (ini as unknown as MockIniFile<AnyObject>).data;
 }

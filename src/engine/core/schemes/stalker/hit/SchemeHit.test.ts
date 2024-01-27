@@ -8,12 +8,12 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeNotToBeSubscribed, assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeHit", () => {
   it("should correctly activate with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "hit@test": {
         on_info: "{+test} first, second",
       },
@@ -31,7 +31,7 @@ describe("SchemeHit", () => {
 
   it("should correctly deactivate", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "hit@test": {},
     });
 
@@ -54,7 +54,7 @@ describe("SchemeHit", () => {
 
   it("should correctly throw if activate not existing", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "hit@test": {},
     });
 

@@ -20,12 +20,9 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
-  IGameObjectExtended,
   MockCGameTask,
   MockGameObject,
-  mockNetPacket,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
   mockServerAlifeCreatureActor,
 } from "@/fixtures/xray";
@@ -192,7 +189,7 @@ describe("ActorBinder class", () => {
 
     binder.net_spawn(actorServerObject);
     binder.reinit();
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(saveManager.clientSave).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.writeDataOrder).toEqual([
@@ -206,7 +203,7 @@ describe("ActorBinder class", () => {
     const newBinder: ActorBinder = new ActorBinder(actorGameObject);
 
     newBinder.isFirstUpdatePerformed = true;
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(newBinder.isFirstUpdatePerformed).toBe(false);
     expect(saveManager.clientLoad).toHaveBeenCalledWith(netProcessor);
@@ -242,7 +239,7 @@ describe("ActorBinder class", () => {
     setPortableStoreValue(actorGameObject.id(), "test-1", "value");
     setPortableStoreValue(actorGameObject.id(), "test-2", "value");
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(saveManager.clientSave).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.writeDataOrder).toEqual([
@@ -274,7 +271,7 @@ describe("ActorBinder class", () => {
 
     const newBinder: ActorBinder = new ActorBinder(actorGameObject);
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(saveManager.clientLoad).toHaveBeenCalledWith(netProcessor);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
@@ -282,7 +279,7 @@ describe("ActorBinder class", () => {
   });
 
   it("should correctly handle actor object callbacks emit", () => {
-    const actor: GameObject & IGameObjectExtended = MockGameObject.mockActor() as GameObject & IGameObjectExtended;
+    const actor: GameObject = MockGameObject.mockActor();
     const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
     const binder: ActorBinder = new ActorBinder(actor);
     const eventsManager: EventsManager = getManager(EventsManager);
@@ -296,28 +293,28 @@ describe("ActorBinder class", () => {
     binder.net_spawn(serverActor);
     binder.reinit();
 
-    actor.callCallback(callback.inventory_info, actor, "test-info");
+    MockGameObject.callCallback(actor, callback.inventory_info, actor, "test-info");
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_INFO_UPDATE, actor, "test-info");
 
-    actor.callCallback(callback.take_item_from_box, box, item);
+    MockGameObject.callCallback(actor, callback.take_item_from_box, box, item);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_TAKE_BOX_ITEM, box, item);
 
-    actor.callCallback(callback.on_item_take, item);
+    MockGameObject.callCallback(actor, callback.on_item_take, item);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_ITEM_TAKE, item);
 
-    actor.callCallback(callback.on_item_drop, item);
+    MockGameObject.callCallback(actor, callback.on_item_drop, item);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_ITEM_DROP, item);
 
-    actor.callCallback(callback.on_item_drop, item);
+    MockGameObject.callCallback(actor, callback.on_item_drop, item);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_ITEM_DROP, item);
 
-    actor.callCallback(callback.trade_sell_buy_item, item, "sell", 100);
+    MockGameObject.callCallback(actor, callback.trade_sell_buy_item, item, "sell", 100);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_TRADE, item, "sell", 100);
 
-    actor.callCallback(callback.task_state, task, 0);
+    MockGameObject.callCallback(actor, callback.task_state, task, 0);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.TASK_STATE_UPDATE, task, 0);
 
-    actor.callCallback(callback.use_object, box);
+    MockGameObject.callCallback(actor, callback.use_object, box);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_USE_ITEM, box);
   });
 });

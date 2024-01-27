@@ -9,12 +9,12 @@ import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeWalker", () => {
   it("should correctly activate with default data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "walker@test": {
         path_walk: "zat_b40_merc_01_walk",
       },
@@ -53,7 +53,7 @@ describe("SchemeWalker", () => {
 
   it("should correctly activate with custom data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "walker@test": {
         path_walk: "zat_b40_merc_01_walk",
         path_look: "zat_b40_merc_01_look",
@@ -98,7 +98,7 @@ describe("SchemeWalker", () => {
 
   it("should correctly add evaluators/actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "walker@test": {
         path_walk: "zat_b40_merc_01_walk",
       },

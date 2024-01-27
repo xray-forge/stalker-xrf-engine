@@ -10,7 +10,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject } from "@/engine/lib/types";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockAlifeHumanStalker, MockGameObject, mockIniFile, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeHumanStalker, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("Stalker server object", () => {
   beforeEach(() => {
@@ -48,7 +48,7 @@ describe("Stalker server object", () => {
     registry.offlineObjects = new LuaTable();
 
     jest.spyOn(stalker, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+      return MockIniFile.mock("test.ltx", {
         story_object: {
           story_id: "test_sid",
         },
@@ -77,7 +77,7 @@ describe("Stalker server object", () => {
     const fn = jest.fn();
 
     jest.spyOn(stalker, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+      return MockIniFile.mock("test.ltx", {
         story_object: {
           story_id: "test_stalker_sid",
         },
@@ -97,28 +97,28 @@ describe("Stalker server object", () => {
 
   it("should correctly handle register/unregister with smart terrain", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
     jest.spyOn(stalker, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test.ltx", {
+      return MockIniFile.mock("test.ltx", {
         logic: {
-          smart_terrain: smartTerrain.name(),
+          smart_terrain: terrain.name(),
         },
       });
     });
 
-    stalker.m_smart_terrain_id = smartTerrain.id;
+    stalker.m_smart_terrain_id = terrain.id;
 
-    smartTerrain.register_npc = jest.fn();
-    smartTerrain.unregister_npc = jest.fn();
+    terrain.register_npc = jest.fn();
+    terrain.unregister_npc = jest.fn();
 
-    getManager(SimulationManager).registerSmartTerrain(smartTerrain);
+    getManager(SimulationManager).registerSmartTerrain(terrain);
 
     stalker.on_register();
     stalker.on_unregister();
 
-    expect(smartTerrain.register_npc).toHaveBeenCalledWith(stalker);
-    expect(smartTerrain.unregister_npc).toHaveBeenCalledWith(stalker);
+    expect(terrain.register_npc).toHaveBeenCalledWith(stalker);
+    expect(terrain.unregister_npc).toHaveBeenCalledWith(stalker);
   });
 
   it("should correctly handle spawn", () => {
@@ -137,18 +137,18 @@ describe("Stalker server object", () => {
   it("should correctly handle death callback", () => {
     const stalker: Stalker = new Stalker("stalker");
     const squad: Squad = MockSquad.mock();
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
-    jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(terrain, "onObjectDeath").mockImplementation(jest.fn());
     jest.spyOn(squad, "onObjectDeath").mockImplementation(jest.fn());
 
-    stalker.m_smart_terrain_id = smartTerrain.id;
+    stalker.m_smart_terrain_id = terrain.id;
     stalker.group_id = squad.id;
 
     stalker.on_death(MockAlifeHumanStalker.mock());
 
-    expect(smartTerrain.onObjectDeath).toHaveBeenCalledTimes(1);
-    expect(smartTerrain.onObjectDeath).toHaveBeenCalledWith(stalker);
+    expect(terrain.onObjectDeath).toHaveBeenCalledTimes(1);
+    expect(terrain.onObjectDeath).toHaveBeenCalledWith(stalker);
     expect(squad.onObjectDeath).toHaveBeenCalledTimes(1);
     expect(squad.onObjectDeath).toHaveBeenCalledWith(stalker);
   });
@@ -156,9 +156,9 @@ describe("Stalker server object", () => {
   it("should correctly handle death callback if squad or smart does not exist", () => {
     const stalker: Stalker = new Stalker("stalker");
     const squad: Squad = MockSquad.mock();
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
-    jest.spyOn(smartTerrain, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(terrain, "onObjectDeath").mockImplementation(jest.fn());
     jest.spyOn(squad, "onObjectDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = 65000;
@@ -166,7 +166,7 @@ describe("Stalker server object", () => {
 
     expect(() => stalker.on_death(MockAlifeHumanStalker.mock())).toThrow("a");
 
-    stalker.m_smart_terrain_id = smartTerrain.id;
+    stalker.m_smart_terrain_id = terrain.id;
     expect(() => stalker.on_death(MockAlifeHumanStalker.mock())).toThrow("a");
 
     stalker.group_id = squad.id;
@@ -182,7 +182,7 @@ describe("Stalker server object", () => {
     stalker.on_spawn();
     stalker.on_register();
 
-    stalker.STATE_Write(netProcessor.asMockNetPacket());
+    stalker.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -194,7 +194,7 @@ describe("Stalker server object", () => {
 
     const another: Stalker = new Stalker("stalker");
 
-    another.STATE_Read(netProcessor.asMockNetPacket(), 0);
+    another.STATE_Read(netProcessor.asNetPacket(), 0);
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -221,7 +221,7 @@ describe("Stalker server object", () => {
     offlineState.activeSection = "test_section";
     offlineState.levelVertexId = 435;
 
-    stalker.STATE_Write(netProcessor.asMockNetPacket());
+    stalker.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -233,7 +233,7 @@ describe("Stalker server object", () => {
 
     const another: Stalker = new Stalker("stalker");
 
-    another.STATE_Read(netProcessor.asMockNetPacket(), 0);
+    another.STATE_Read(netProcessor.asNetPacket(), 0);
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -249,7 +249,7 @@ describe("Stalker server object", () => {
     const stalker: Stalker = new Stalker("stalker");
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    MockGameObject.mock({ idOverride: stalker.id, level_vertex_id: () => 311 });
+    MockGameObject.mock({ id: stalker.id, levelVertexId: 311 });
 
     (stalker as AnyObject)["online"] = true;
     stalker.isCorpseLootDropped = true;
@@ -261,7 +261,7 @@ describe("Stalker server object", () => {
 
     offlineState.activeSection = "test_section";
 
-    stalker.STATE_Write(netProcessor.asMockNetPacket());
+    stalker.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -273,7 +273,7 @@ describe("Stalker server object", () => {
 
     const another: Stalker = new Stalker("stalker");
 
-    another.STATE_Read(netProcessor.asMockNetPacket(), 0);
+    another.STATE_Read(netProcessor.asNetPacket(), 0);
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -299,7 +299,7 @@ describe("Stalker server object", () => {
 
     offlineState.activeSection = "test_section";
 
-    stalker.STATE_Write(netProcessor.asMockNetPacket());
+    stalker.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -316,7 +316,7 @@ describe("Stalker server object", () => {
 
     registry.offlineObjects.get(another.id).levelVertexId = 730;
 
-    another.STATE_Read(netProcessor.asMockNetPacket(), 0);
+    another.STATE_Read(netProcessor.asNetPacket(), 0);
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

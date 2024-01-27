@@ -17,7 +17,7 @@ import {
   isObjectWithKnownInfo,
   isStalkerAlive,
 } from "@/engine/core/utils/object/object_check";
-import { AnyObject, GameObject, ServerHumanObject, ServerMonsterBaseObject, TClassId } from "@/engine/lib/types";
+import { AnyObject, GameObject, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
@@ -30,9 +30,9 @@ describe("isStalkerAlive utils", () => {
   it("should correctly check stalker alive state", () => {
     const aliveStalkerServerObject: ServerHumanObject = MockAlifeHumanStalker.mockWithClassId(clsid.script_stalker);
     const aliveStalkerGameObject: GameObject = MockGameObject.mock({
-      idOverride: aliveStalkerServerObject.id,
-      alive: () => true,
-      clsid: () => clsid.script_stalker as TClassId,
+      id: aliveStalkerServerObject.id,
+      alive: true,
+      clsid: clsid.script_stalker,
     });
 
     const deadStalkerServerObject: ServerHumanObject = MockAlifeHumanStalker.mockWithClassId(clsid.script_stalker);

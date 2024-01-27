@@ -10,14 +10,14 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { EScheme, GameObject } from "@/engine/lib/types";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("initializeObjectInvulnerability util", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
-    state.ini = mockIniFile("example.ltx", {
+    state.ini = MockIniFile.mock("example.ltx", {
       existing: {
         invulnerable: true,
       },
@@ -44,7 +44,7 @@ describe("initializeObjectCanSelectWeaponState util", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
-    state.ini = mockIniFile("example.ltx", {
+    state.ini = MockIniFile.mock("example.ltx", {
       logic: {},
       existing: {
         can_select_weapon: false,
@@ -65,7 +65,7 @@ describe("initializeObjectCanSelectWeaponState util", () => {
     expect(object.can_select_weapon).toHaveBeenCalledTimes(2);
     expect(object.can_select_weapon).toHaveBeenNthCalledWith(2, true);
 
-    state.ini = mockIniFile("example.ltx", {
+    state.ini = MockIniFile.mock("example.ltx", {
       logic: {
         can_select_weapon: false,
       },
@@ -82,7 +82,7 @@ describe("initializeObjectTakeItemsEnabledState util", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
-    state.ini = mockIniFile("example.ltx", {
+    state.ini = MockIniFile.mock("example.ltx", {
       logic: {},
       existing: {
         take_items: false,
@@ -103,7 +103,7 @@ describe("initializeObjectTakeItemsEnabledState util", () => {
     expect(object.take_items_enabled).toHaveBeenCalledTimes(2);
     expect(object.take_items_enabled).toHaveBeenNthCalledWith(2, true);
 
-    state.ini = mockIniFile("example.ltx", {
+    state.ini = MockIniFile.mock("example.ltx", {
       logic: {
         take_items: false,
       },
@@ -119,13 +119,13 @@ describe("initializeObjectGroup util", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
 
-    initializeObjectGroup(object, mockIniFile("example.ltx", {}), "not-existing");
+    initializeObjectGroup(object, MockIniFile.mock("example.ltx", {}), "not-existing");
 
     expect(object.change_team).not.toHaveBeenCalled();
 
     initializeObjectGroup(
       object,
-      mockIniFile("example.ltx", {
+      MockIniFile.mock("example.ltx", {
         existing: { group: 10 },
       }),
       "existing"
@@ -139,13 +139,13 @@ describe("initializeObjectInfo util", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
 
-    initializeObjectInfo(object, mockIniFile("example.ltx", {}), "not-existing");
+    initializeObjectInfo(object, MockIniFile.mock("example.ltx", {}), "not-existing");
     expect(object.give_info_portion).not.toHaveBeenCalled();
     expect(object.disable_info_portion).not.toHaveBeenCalled();
 
     initializeObjectInfo(
       object,
-      mockIniFile("example.ltx", {
+      MockIniFile.mock("example.ltx", {
         existing: {
           in: "a|b",
           out: "c|d",
@@ -168,7 +168,7 @@ describe("initializeObjectIgnoreThreshold util", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
-    state.ini = mockIniFile("example.ltx", {
+    state.ini = MockIniFile.mock("example.ltx", {
       logic: {
         threshold: "second",
       },

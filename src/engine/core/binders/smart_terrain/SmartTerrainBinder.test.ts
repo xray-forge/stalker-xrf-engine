@@ -10,9 +10,7 @@ import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
   MockGameObject,
-  mockNetPacket,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
@@ -113,14 +111,14 @@ describe("SmartTerrainBinder class", () => {
 
     binder.isVisited = true;
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.BOOLEAN, EPacketDataType.U16]);
     expect(netProcessor.dataList).toEqual(["save_from_SmartTerrainBinder", true, 2]);
 
     const newBinder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(newBinder.isVisited).toBe(true);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);

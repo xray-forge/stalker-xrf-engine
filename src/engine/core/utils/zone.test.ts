@@ -6,7 +6,7 @@ import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("isInNoCombatZone util", () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe("isInNoCombatZone util", () => {
 
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
     const smartTerrain: MockSmartTerrain = MockSmartTerrain.mock();
-    const zone: GameObject = MockGameObject.mock({ idOverride: smartTerrain.id });
+    const zone: GameObject = MockGameObject.mock({ id: smartTerrain.id });
 
     jest.spyOn(smartTerrain, "name").mockImplementation(jest.fn(() => "zat_stalker_base_smart"));
     jest.spyOn(zone, "name").mockImplementation(jest.fn(() => "zat_a2_sr_no_assault"));
@@ -31,7 +31,7 @@ describe("isInNoCombatZone util", () => {
 
     smartTerrain.smartTerrainActorControl = new SmartTerrainControl(
       smartTerrain,
-      mockIniFile("test.ltx", {
+      MockIniFile.mock("test.ltx", {
         test_control: {
           noweap_zone: "no_weap_test",
           ignore_zone: "ignore_zone_test",

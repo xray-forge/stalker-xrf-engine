@@ -175,7 +175,7 @@ describe("object effects implementation", () => {
   });
 
   it("set_torch_state should switch actor torch state", () => {
-    const torch: GameObject = MockGameObject.mock({ section: <T>() => misc.device_torch as T });
+    const torch: GameObject = MockGameObject.mock({ section: misc.device_torch });
     const object: GameObject = MockGameObject.mock({ inventory: [[misc.device_torch, torch]] });
 
     registerStoryLink(object.id(), "test-sid");

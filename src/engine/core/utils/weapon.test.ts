@@ -1,25 +1,32 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
 import { getObjectActiveWeaponSlot, isObjectStrappingWeapon } from "@/engine/core/utils/weapon";
 import { GameObject } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("getObjectActiveWeaponSlot util", () => {
   it("should correctly get slot", () => {
     const object: GameObject = MockGameObject.mock();
 
-    replaceFunctionMock(object.active_item, () => null);
-    replaceFunctionMock(object.weapon_strapped, () => true);
+    jest.spyOn(object, "active_item").mockImplementation(() => null);
+    jest.spyOn(object, "weapon_strapped").mockImplementation(() => true);
     expect(getObjectActiveWeaponSlot(object)).toBe(0);
 
-    replaceFunctionMock(object.active_item, () => MockGameObject.mock({ animation_slot: () => 4 }));
+    const fourthSlotItem: GameObject = MockGameObject.mock();
+
+    jest.spyOn(fourthSlotItem, "animation_slot").mockImplementation(() => 4);
+
+    jest.spyOn(object, "active_item").mockImplementation(() => fourthSlotItem);
     expect(getObjectActiveWeaponSlot(object)).toBe(0);
 
-    replaceFunctionMock(object.weapon_strapped, () => false);
+    jest.spyOn(object, "weapon_strapped").mockImplementation(() => false);
     expect(getObjectActiveWeaponSlot(object)).toBe(4);
 
-    replaceFunctionMock(object.active_item, () => MockGameObject.mock({ animation_slot: () => 3 }));
+    const thirdSlotItem: GameObject = MockGameObject.mock();
+
+    jest.spyOn(thirdSlotItem, "animation_slot").mockImplementation(() => 3);
+
+    jest.spyOn(object, "active_item").mockImplementation(() => thirdSlotItem);
     expect(getObjectActiveWeaponSlot(object)).toBe(3);
   });
 });
@@ -28,20 +35,20 @@ describe("isObjectStrappingWeapon util", () => {
   it("should correctly check weapon strap state", () => {
     const object: GameObject = MockGameObject.mock();
 
-    replaceFunctionMock(object.weapon_strapped, () => true);
-    replaceFunctionMock(object.weapon_unstrapped, () => false);
+    jest.spyOn(object, "weapon_strapped").mockImplementation(() => true);
+    jest.spyOn(object, "weapon_unstrapped").mockImplementation(() => false);
     expect(isObjectStrappingWeapon(object)).toBe(false);
 
-    replaceFunctionMock(object.weapon_strapped, () => false);
-    replaceFunctionMock(object.weapon_unstrapped, () => true);
+    jest.spyOn(object, "weapon_strapped").mockImplementation(() => false);
+    jest.spyOn(object, "weapon_unstrapped").mockImplementation(() => true);
     expect(isObjectStrappingWeapon(object)).toBe(false);
 
-    replaceFunctionMock(object.weapon_strapped, () => true);
-    replaceFunctionMock(object.weapon_unstrapped, () => true);
+    jest.spyOn(object, "weapon_strapped").mockImplementation(() => true);
+    jest.spyOn(object, "weapon_unstrapped").mockImplementation(() => true);
     expect(isObjectStrappingWeapon(object)).toBe(false);
 
-    replaceFunctionMock(object.weapon_strapped, () => false);
-    replaceFunctionMock(object.weapon_unstrapped, () => false);
+    jest.spyOn(object, "weapon_strapped").mockImplementation(() => false);
+    jest.spyOn(object, "weapon_unstrapped").mockImplementation(() => false);
     expect(isObjectStrappingWeapon(object)).toBe(true);
   });
 });

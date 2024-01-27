@@ -6,17 +6,17 @@ import { jobPreconditionExclusive } from "@/engine/core/objects/smart_terrain/jo
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { IniFile } from "@/engine/lib/types";
-import { mockIniFile, registerIniFileMock } from "@/fixtures/xray";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("job_create_exclusive utils", () => {
   it("createExclusiveJob should correctly handle empty ini", () => {
-    const list: TSmartTerrainJobsList = createExclusiveJob(mockIniFile("text.ltx", {}), "a", "b", new LuaTable());
+    const list: TSmartTerrainJobsList = createExclusiveJob(MockIniFile.mock("text.ltx", {}), "a", "b", new LuaTable());
 
     expect(list).toEqualLuaArrays([]);
   });
 
   it("createExclusiveJob should correctly throw if script does not exist", () => {
-    const ini: IniFile = mockIniFile("text.ltx", {
+    const ini: IniFile = MockIniFile.mock("text.ltx", {
       smart_terrain: {
         work1: "some_file.ltx",
       },
@@ -28,14 +28,14 @@ describe("job_create_exclusive utils", () => {
 
   it("createExclusiveJob should correctly read if script does exist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
-    const ini: IniFile = mockIniFile("text.ltx", {
+    const ini: IniFile = MockIniFile.mock("text.ltx", {
       smart_terrain: {
         work1: "some_file2.ltx",
       },
     });
-    const jobIni: IniFile = mockIniFile("scripts\\some_file2.ltx", {});
+    const jobIni: IniFile = MockIniFile.mock("scripts\\some_file2.ltx", {});
 
-    registerIniFileMock(jobIni);
+    MockIniFile.registerIni(jobIni);
 
     jest.spyOn(getFS(), "exist").mockImplementation(() => 1);
 
@@ -56,12 +56,12 @@ describe("job_create_exclusive utils", () => {
 
   it("createExclusiveJob should correctly read configured jobs without condlist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
-    const ini: IniFile = mockIniFile("text.ltx", {
+    const ini: IniFile = MockIniFile.mock("text.ltx", {
       smart_terrain: {
         work2: "some_file3.ltx",
       },
     });
-    const jobIni: IniFile = mockIniFile("scripts\\some_file3.ltx", {
+    const jobIni: IniFile = MockIniFile.mock("scripts\\some_file3.ltx", {
       "logic@work2": {
         type: EJobType.EXCLUSIVE,
         prior: 101,
@@ -71,7 +71,7 @@ describe("job_create_exclusive utils", () => {
       },
     });
 
-    registerIniFileMock(jobIni);
+    MockIniFile.registerIni(jobIni);
 
     jest.spyOn(getFS(), "exist").mockImplementation(() => 1);
     createExclusiveJob(ini, "smart_terrain", "work2", list);
@@ -92,12 +92,12 @@ describe("job_create_exclusive utils", () => {
 
   it("createExclusiveJob should correctly read configured jobs with condlist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
-    const ini: IniFile = mockIniFile("text.ltx", {
+    const ini: IniFile = MockIniFile.mock("text.ltx", {
       smart_terrain: {
         work2: "some_file3.ltx",
       },
     });
-    const jobIni: IniFile = mockIniFile("scripts\\some_file3.ltx", {
+    const jobIni: IniFile = MockIniFile.mock("scripts\\some_file3.ltx", {
       "logic@work2": {
         prior: 105,
         type: EJobType.EXCLUSIVE,
@@ -108,7 +108,7 @@ describe("job_create_exclusive utils", () => {
       },
     });
 
-    registerIniFileMock(jobIni);
+    MockIniFile.registerIni(jobIni);
 
     jest.spyOn(getFS(), "exist").mockImplementation(() => 1);
     createExclusiveJob(ini, "smart_terrain", "work2", list);

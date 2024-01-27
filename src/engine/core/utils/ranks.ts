@@ -1,7 +1,9 @@
+import { clsid } from "xray16";
+
 import { IRankDescriptor, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
-import { isStalker, isTrader } from "@/engine/core/utils/class_ids";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
+import { classIds } from "@/engine/lib/constants/class_ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import {
   GameObject,
@@ -147,7 +149,7 @@ export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor>
   const classId: TClassId = object.clsid();
   const objectRank: TRate = object.character_rank() ?? object.rank();
 
-  return isStalker(object, classId) || isTrader(object, classId)
+  return classIds.stalker.has(classId) || classId === clsid.trader
     ? getStalkerRankByValue(objectRank)
     : getMonsterRankByValue(objectRank);
 }
@@ -160,7 +162,7 @@ export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor>
 export function getServerObjectRank(object: ServerMonsterAbstractObject): Optional<IRankDescriptor> {
   const classId: TClassId = object.clsid();
 
-  return isStalker(object, classId) || isTrader(object, classId)
+  return classIds.stalker.has(classId) || classId === clsid.trader
     ? getStalkerRankByValue(object.rank())
     : getMonsterRankByValue(object.rank());
 }

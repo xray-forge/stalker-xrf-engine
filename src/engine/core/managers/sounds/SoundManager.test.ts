@@ -77,7 +77,7 @@ describe("SoundManager class", () => {
     const manager: SoundManager = getManager(SoundManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    manager.save(netProcessor.asMockNetPacket());
+    manager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -94,7 +94,7 @@ describe("SoundManager class", () => {
 
     const another: SoundManager = getManager(SoundManager);
 
-    another.load(netProcessor.asMockNetProcessor());
+    another.load(netProcessor.asNetProcessor());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);
@@ -105,7 +105,7 @@ describe("SoundManager class", () => {
     const object: GameObject = MockGameObject.mock();
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    manager.saveObject(object, netProcessor.asMockNetPacket());
+    manager.saveObject(object, netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
@@ -119,7 +119,7 @@ describe("SoundManager class", () => {
 
     const another: SoundManager = getManager(SoundManager);
 
-    another.loadObject(object, netProcessor.asMockNetProcessor());
+    another.loadObject(object, netProcessor.asNetProcessor());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);

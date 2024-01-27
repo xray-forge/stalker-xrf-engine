@@ -9,13 +9,14 @@ import { createStalkerPatrolJobs } from "@/engine/core/objects/smart_terrain/job
 import { jobPreconditionPatrol } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { GameObject } from "@/engine/lib/types";
+import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("should correctly generate stalker patrol jobs", () => {
   it("should correctly generate default patrol jobs with no patrols", async () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain("empty_smart");
-    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("empty_smart");
+    const [jobs, builder] = createStalkerPatrolJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe("");
     expect(jobs).toEqualLuaArrays([]);
@@ -26,8 +27,8 @@ describe("should correctly generate stalker patrol jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_patrol.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const [jobs, builder] = createStalkerPatrolJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays(
@@ -50,11 +51,11 @@ describe("should correctly generate stalker patrol jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_patrol.restrictor.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
-    smartTerrain.defendRestrictor = "test_defend_restrictor";
+    terrain.defendRestrictor = "test_defend_restrictor";
 
-    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const [jobs, builder] = createStalkerPatrolJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays(
@@ -77,16 +78,20 @@ describe("should correctly generate stalker patrol jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_patrol.ignore.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
-    smartTerrain.defendRestrictor = "test_defend_restrictor";
-    smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
+    terrain.defendRestrictor = "test_defend_restrictor";
+    terrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
-    registerZone(MockGameObject.mock({ name: () => "some_restrictor", inside: () => true }));
+    const object: GameObject = MockGameObject.mock({ name: "some_restrictor" });
 
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    jest.spyOn(object, "inside").mockImplementation(() => true);
 
-    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    registerZone(object);
+
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
+
+    const [jobs, builder] = createStalkerPatrolJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays(
@@ -109,15 +114,19 @@ describe("should correctly generate stalker patrol jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_patrol.invulnerable.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
-    smartTerrain.defendRestrictor = "test_defend_restrictor";
-    smartTerrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
-    smartTerrain.safeRestrictor = "safe_restrictor_test";
+    terrain.defendRestrictor = "test_defend_restrictor";
+    terrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
+    terrain.safeRestrictor = "safe_restrictor_test";
 
-    registerZone(MockGameObject.mock({ name: () => "safe_restrictor_test", inside: () => true }));
+    const object: GameObject = MockGameObject.mock({ name: "safe_restrictor_test" });
 
-    const [jobs, builder] = createStalkerPatrolJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    jest.spyOn(object, "inside").mockImplementation(() => true);
+
+    registerZone(object);
+
+    const [jobs, builder] = createStalkerPatrolJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays(

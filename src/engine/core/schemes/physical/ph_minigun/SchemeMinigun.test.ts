@@ -8,12 +8,12 @@ import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ut
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, mockBaseSchemeLogic } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMinigun class", () => {
   it("should correctly activate scheme with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_minigun@test": {},
     });
 
@@ -50,7 +50,7 @@ describe("SchemeMinigun class", () => {
 
   it("should correctly activate scheme with custom values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_minigun@test": {
         on_info: "{+test} first, second",
         path_fire: "test_path",

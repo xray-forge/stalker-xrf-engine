@@ -3,15 +3,15 @@ import { describe, expect, it } from "@jest/globals";
 import { readIniTravelDialogs } from "@/engine/core/managers/travel/utils/travel_init";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { mockIniFile } from "@/fixtures/xray";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("travel_init utils", () => {
   it("readIniTravelDialogs should correctly read locations", () => {
-    expect(readIniTravelDialogs(mockIniFile("test.ltx", {}))).toEqualLuaArrays([{}, {}]);
+    expect(readIniTravelDialogs(MockIniFile.mock("test.ltx", {}))).toEqualLuaArrays([{}, {}]);
 
     expect(
       readIniTravelDialogs(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           traveler: ["zat_b55", "zat_b100"],
           zat_b55: {
             level: "zaton",

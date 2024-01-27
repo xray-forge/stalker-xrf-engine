@@ -13,8 +13,8 @@ describe("isObjectWithValuableLoot util", () => {
       isObjectWithValuableLoot(
         MockGameObject.mock({
           inventory: [
-            ["grenade_f2", MockGameObject.mock({ sectionOverride: "grenade_f2" })],
-            ["grenade_f3", MockGameObject.mock({ sectionOverride: "grenade_f3" })],
+            ["grenade_f2", MockGameObject.mock({ section: "grenade_f2" })],
+            ["grenade_f3", MockGameObject.mock({ section: "grenade_f3" })],
           ],
         })
       )
@@ -23,8 +23,8 @@ describe("isObjectWithValuableLoot util", () => {
       isObjectWithValuableLoot(
         MockGameObject.mock({
           inventory: [
-            ["grenade_f2", MockGameObject.mock({ sectionOverride: "grenade_f2" })],
-            [weapons.wpn_ak74u, MockGameObject.mock({ sectionOverride: weapons.wpn_ak74u })],
+            ["grenade_f2", MockGameObject.mock({ section: "grenade_f2" })],
+            [weapons.wpn_ak74u, MockGameObject.mock({ section: weapons.wpn_ak74u })],
           ],
         })
       )
@@ -33,8 +33,8 @@ describe("isObjectWithValuableLoot util", () => {
       isObjectWithValuableLoot(
         MockGameObject.mock({
           inventory: [
-            [weapons.wpn_ak74u, MockGameObject.mock({ sectionOverride: weapons.wpn_ak74u })],
-            [ammo["ammo_5.45x39_fmj"], MockGameObject.mock({ sectionOverride: ammo["ammo_5.45x39_fmj"] })],
+            [weapons.wpn_ak74u, MockGameObject.mock({ section: weapons.wpn_ak74u })],
+            [ammo["ammo_5.45x39_fmj"], MockGameObject.mock({ section: ammo["ammo_5.45x39_fmj"] })],
           ],
         })
       )
@@ -44,9 +44,9 @@ describe("isObjectWithValuableLoot util", () => {
 
 describe("transferLoot util", () => {
   it("should correctly transfer lootable items", () => {
-    const ak74: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_ak74u });
-    const akAmmo: GameObject = MockGameObject.mock({ sectionOverride: ammo["ammo_5.45x39_ap"] });
-    const questItem: GameObject = MockGameObject.mock({ sectionOverride: "secret_quest_container" });
+    const ak74: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
+    const akAmmo: GameObject = MockGameObject.mock({ section: ammo["ammo_5.45x39_ap"] });
+    const questItem: GameObject = MockGameObject.mock({ section: "secret_quest_container" });
     const from: GameObject = MockGameObject.mock({
       inventory: [
         [ak74.section(), ak74],

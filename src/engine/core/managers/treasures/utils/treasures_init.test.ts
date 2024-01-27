@@ -3,15 +3,15 @@ import { describe, expect, it } from "@jest/globals";
 import { ETreasureType } from "@/engine/core/managers/treasures";
 import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { mockIniFile } from "@/fixtures/xray";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("treasures_init utils", () => {
   it("readIniTreasuresList should correctly read", () => {
-    expect(readIniTreasuresList(mockIniFile("test.ltx", {}))).toEqualLuaTables({});
+    expect(readIniTreasuresList(MockIniFile.mock("test.ltx", {}))).toEqualLuaTables({});
 
     expect(
       readIniTreasuresList(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           config: {
             rare_cost: 5000,
             epic_cost: 10000,

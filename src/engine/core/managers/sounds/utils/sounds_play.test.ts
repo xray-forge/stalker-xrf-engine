@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { clsid } from "xray16";
 
 import { NpcSound } from "@/engine/core/managers/sounds/objects";
 import { SCRIPT_SOUND_LTX, soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
@@ -27,9 +26,8 @@ describe("sounds_play utils", () => {
       }
     }
 
-    const dolgObject: GameObject = MockGameObject.mock({
-      character_community: <T>() => "dolg" as T,
-      clsid: () => clsid.script_stalker,
+    const dolgObject: GameObject = MockGameObject.mockStalker({
+      community: "dolg",
     });
 
     initializeObjectThemes(dolgObject);
@@ -37,9 +35,7 @@ describe("sounds_play utils", () => {
     expect(attackBegin.initializeObject).toHaveBeenCalledWith(dolgObject);
     expect(attackBeginReply.initializeObject).not.toHaveBeenCalled();
 
-    const object: GameObject = MockGameObject.mock({
-      clsid: () => clsid.script_stalker,
-    });
+    const object: GameObject = MockGameObject.mockStalker();
 
     initializeObjectThemes(object);
 

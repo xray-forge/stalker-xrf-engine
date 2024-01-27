@@ -36,9 +36,7 @@ import {
   MockAlifeMonsterBase,
   MockCTime,
   MockGameObject,
-  mockNetPacket,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
 } from "@/fixtures/xray";
 
@@ -94,7 +92,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle going online/offline when spawn check is falsy", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
@@ -107,7 +105,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle going online/offline when released", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
     registry.simulator.release(serverObject, true);
@@ -120,7 +118,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle going online/offline when spawn dead", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
     jest.spyOn(object, "alive").mockImplementation(() => false);
@@ -135,7 +133,7 @@ describe("MonsterBinder class", () => {
     mockRegisteredActor();
 
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const manager: SoundManager = getManager(SoundManager);
 
@@ -190,7 +188,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle update event when dead", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
     jest.spyOn(object, "alive").mockImplementation(() => false);
@@ -205,7 +203,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle update event when released", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
     binder.reinit();
@@ -227,7 +225,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle update event when in combat", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
     jest.spyOn(object, "get_enemy").mockImplementation(() => MockGameObject.mock());
@@ -251,7 +249,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle update event when command squad", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const squad: Squad = MockSquad.mock();
 
@@ -279,7 +277,7 @@ describe("MonsterBinder class", () => {
   it("should handle generic update event with combat tracking", () => {
     const { actorGameObject } = mockRegisteredActor();
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
     registry.actorCombat.set(object.id(), true);
@@ -340,7 +338,7 @@ describe("MonsterBinder class", () => {
     state.activeSection = "scheme@section";
     state.smartTerrainName = "some_smart";
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -381,7 +379,7 @@ describe("MonsterBinder class", () => {
       16,
     ]);
 
-    binder.load(mockNetReader(netProcessor));
+    binder.load(netProcessor.asNetReader());
 
     expect(binder.isLoaded).toBe(true);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
@@ -390,7 +388,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle waypoint event", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
     binder.reinit();
@@ -420,7 +418,7 @@ describe("MonsterBinder class", () => {
     mockRegisteredActor();
 
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const killer: GameObject = MockGameObject.mock();
     const manager: EventsManager = getManager(EventsManager);
@@ -462,7 +460,7 @@ describe("MonsterBinder class", () => {
     mockRegisteredActor();
 
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const killer: GameObject = MockGameObject.mock();
 
@@ -478,7 +476,7 @@ describe("MonsterBinder class", () => {
 
   it("should handle hit event", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const hitting: GameObject = MockGameObject.mock();
     const manager: EventsManager = getManager(EventsManager);

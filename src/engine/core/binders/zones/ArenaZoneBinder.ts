@@ -9,7 +9,6 @@ import {
   registry,
   unregisterZone,
 } from "@/engine/core/database";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AlifeSimulator,
@@ -21,8 +20,6 @@ import {
   TCount,
   TNumberId,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Binder for arena zone restrictor game object.

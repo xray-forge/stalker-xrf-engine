@@ -42,10 +42,10 @@ describe("setObjectWounded util", () => {
 
   it("should correctly set objects as wounded", () => {
     let objectHit: Optional<Hit> = null as Optional<Hit>;
-    const object: GameObject = MockGameObject.mock({
-      hit: jest.fn((it: Hit) => {
-        objectHit = it;
-      }),
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "hit").mockImplementation((it: Hit) => {
+      objectHit = it;
     });
 
     setObjectWounded(object);

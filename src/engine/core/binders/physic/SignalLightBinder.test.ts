@@ -11,9 +11,7 @@ import {
   MockAlifeObject,
   MockGameObject,
   MockHangingLamp,
-  mockNetPacket,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
 } from "@/fixtures/xray";
 
@@ -34,7 +32,7 @@ describe("SignalLightBinder class", () => {
 
   it("should verify whether can be spawned", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
-    const binder: SignalLightBinder = new SignalLightBinder(MockGameObject.mock({ idOverride: serverObject.id }));
+    const binder: SignalLightBinder = new SignalLightBinder(MockGameObject.mock({ id: serverObject.id }));
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
 
@@ -45,7 +43,7 @@ describe("SignalLightBinder class", () => {
 
   it("should correctly handle lifecycle", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
-    const binder: SignalLightBinder = new SignalLightBinder(MockGameObject.mock({ idOverride: serverObject.id }));
+    const binder: SignalLightBinder = new SignalLightBinder(MockGameObject.mock({ id: serverObject.id }));
 
     binder.net_spawn(serverObject);
 
@@ -60,7 +58,7 @@ describe("SignalLightBinder class", () => {
 
   it("should correctly handle reinit", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
-    const binder: SignalLightBinder = new SignalLightBinder(MockGameObject.mock({ idOverride: serverObject.id }));
+    const binder: SignalLightBinder = new SignalLightBinder(MockGameObject.mock({ id: serverObject.id }));
 
     binder.reinit();
 
@@ -298,7 +296,7 @@ describe("SignalLightBinder class", () => {
 
     binder.net_spawn(actorServerObject);
     binder.reinit();
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -310,7 +308,7 @@ describe("SignalLightBinder class", () => {
 
     const newBinder: SignalLightBinder = new SignalLightBinder(actorGameObject);
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -333,7 +331,7 @@ describe("SignalLightBinder class", () => {
 
     binder.net_spawn(actorServerObject);
     binder.reinit();
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -345,7 +343,7 @@ describe("SignalLightBinder class", () => {
 
     const newBinder: SignalLightBinder = new SignalLightBinder(actorGameObject);
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

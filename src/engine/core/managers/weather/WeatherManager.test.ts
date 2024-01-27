@@ -9,7 +9,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import { resetRegistry } from "@/fixtures/engine";
 import { getFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("WeatherManager class", () => {
   beforeEach(() => {
@@ -80,7 +80,7 @@ describe("WeatherManager class", () => {
     manager.weatherNextPeriodChangeHour = 13;
     manager.lastUpdatedAtHour = 11;
 
-    manager.save(mockNetPacket(netProcessor));
+    manager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -98,7 +98,7 @@ describe("WeatherManager class", () => {
 
     const newManager: WeatherManager = getManager(WeatherManager);
 
-    newManager.load(mockNetProcessor(netProcessor));
+    newManager.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

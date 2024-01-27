@@ -220,26 +220,22 @@ describe("getGameObjectRank util", () => {
   });
 
   it("should correctly get ranks", () => {
-    expect(
-      getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.script_stalker, character_rank: () => 155 }))
-    ).toEqual({
+    expect(getGameObjectRank(MockGameObject.mock({ clsid: clsid.script_stalker, characterRank: 155 }))).toEqual({
       max: 300,
       min: 0,
       name: "novice",
     });
-    expect(getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.trader, rank: () => 600 }))).toEqual({
+    expect(getGameObjectRank(MockGameObject.mock({ clsid: clsid.trader, rank: 600 }))).toEqual({
       max: 900,
       min: 600,
       name: "veteran",
     });
-    expect(
-      getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, character_rank: () => 600 }))
-    ).toEqual({
+    expect(getGameObjectRank(MockGameObject.mock({ clsid: clsid.bloodsucker_s, characterRank: 600 }))).toEqual({
       max: 800,
       min: 400,
       name: "normal",
     });
-    expect(getGameObjectRank(MockGameObject.mock({ clsid: () => clsid.pseudo_gigant, rank: () => 1200 }))).toEqual({
+    expect(getGameObjectRank(MockGameObject.mock({ clsid: clsid.pseudo_gigant, rank: 1200 }))).toEqual({
       max: 65535,
       min: 800,
       name: "strong",

@@ -11,7 +11,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemDetector } from "@/engine/core/objects/item/ItemDetector";
 import { resetRegistry } from "@/fixtures/engine";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemDetector server class", () => {
   beforeEach(() => {
@@ -54,7 +54,7 @@ describe("ItemDetector server class", () => {
     const itemDetector: ItemDetector = new ItemDetector("test-section");
 
     jest.spyOn(itemDetector, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

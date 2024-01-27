@@ -1,16 +1,16 @@
 import { parse } from "ini";
 
 import { IniFile } from "@/engine/lib/types";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray";
 
 /**
  * Mocked creation of ini file.
  */
 export function mockCreateIniFile(content: string): IniFile {
   try {
-    return mockIniFile("*****", JSON.parse(content), content);
+    return MockIniFile.mock("*****", JSON.parse(content), content);
   } catch (error) {
     // Cannot parse ltx as json, try parsing actual ini.
-    return mockIniFile("#####", parse(content), content);
+    return MockIniFile.mock("#####", parse(content), content);
   }
 }

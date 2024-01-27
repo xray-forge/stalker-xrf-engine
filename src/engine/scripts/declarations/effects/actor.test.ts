@@ -165,7 +165,7 @@ describe("actor effects implementation", () => {
 
   it("remove_item should release items from actor inventory", () => {
     const notificationManager: NotificationManager = getManager(NotificationManager);
-    const item: GameObject = MockGameObject.mock({ section: <T>() => "test_section" as T });
+    const item: GameObject = MockGameObject.mock({ section: "test_section" });
     const serverItem: ServerObject = mockServerAlifeObject({ id: item.id() });
     const { actorGameObject } = mockRegisteredActor({ inventory: [["test_section", item]] });
 
@@ -190,7 +190,7 @@ describe("actor effects implementation", () => {
   });
 
   it("drop_object_item_on_point should drop objects on points", () => {
-    const item: GameObject = MockGameObject.mock({ section: <T>() => "test_section" as T });
+    const item: GameObject = MockGameObject.mock({ section: "test_section" });
     const { actorGameObject } = mockRegisteredActor({ inventory: [["test_section", item]] });
 
     expect(() => {
@@ -206,7 +206,7 @@ describe("actor effects implementation", () => {
   it("relocate_item should correctly relocate items from one object to another", () => {
     registerSimulator();
 
-    const item: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_svu });
+    const item: GameObject = MockGameObject.mock({ section: weapons.wpn_svu });
     const from: GameObject = MockGameObject.mock({ inventory: [[item.section(), item]] });
     const to: GameObject = MockGameObject.mock();
 
@@ -354,9 +354,9 @@ describe("actor effects implementation", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const squad: MockSquad = MockSquad.mock();
     const firstServer: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
-    const firstGame: GameObject = MockGameObject.mock({ idOverride: firstServer.id });
+    const firstGame: GameObject = MockGameObject.mock({ id: firstServer.id });
     const secondServer: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
-    const secondGame: GameObject = MockGameObject.mock({ idOverride: secondServer.id });
+    const secondGame: GameObject = MockGameObject.mock({ id: secondServer.id });
 
     registerObject(firstGame);
     registerStoryLink(squad.id, "test-sid");
@@ -385,8 +385,14 @@ describe("actor effects implementation", () => {
 
     expect(manager.showSleepDialog).not.toHaveBeenCalled();
 
-    registerZone(MockGameObject.mock({ name: () => storyNames.zat_a2_sr_sleep, inside: () => false }));
-    registerZone(MockGameObject.mock({ name: () => storyNames.pri_a16_sr_sleep, inside: () => true }));
+    const first: GameObject = MockGameObject.mock({ name: storyNames.zat_a2_sr_sleep });
+    const second: GameObject = MockGameObject.mock({ name: storyNames.pri_a16_sr_sleep });
+
+    jest.spyOn(first, "inside").mockImplementation(() => false);
+    jest.spyOn(second, "inside").mockImplementation(() => true);
+
+    registerZone(first);
+    registerZone(second);
 
     callXrEffect("sleep", MockGameObject.mockActor(), MockGameObject.mock());
 
@@ -394,7 +400,7 @@ describe("actor effects implementation", () => {
   });
 
   it("activate_weapon should change active actor item", () => {
-    const weapon: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_svu });
+    const weapon: GameObject = MockGameObject.mock({ section: weapons.wpn_svu });
     const actor: GameObject = MockGameObject.mockActor({
       inventory: [[weapon.section(), weapon]],
     });
@@ -423,8 +429,8 @@ describe("actor effects implementation", () => {
   });
 
   it("get_best_detector should force actor to select best detector", () => {
-    const advancedDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_advanced });
-    const scientificDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_scientific });
+    const advancedDetector: GameObject = MockGameObject.mock({ section: detectors.detector_advanced });
+    const scientificDetector: GameObject = MockGameObject.mock({ section: detectors.detector_scientific });
     const actor: GameObject = MockGameObject.mockActor({
       inventory: [
         [advancedDetector.section(), advancedDetector],
@@ -440,8 +446,8 @@ describe("actor effects implementation", () => {
   });
 
   it("hide_best_detector should force actor to hide best detector", () => {
-    const advancedDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_advanced });
-    const scientificDetector: GameObject = MockGameObject.mock({ sectionOverride: detectors.detector_scientific });
+    const advancedDetector: GameObject = MockGameObject.mock({ section: detectors.detector_advanced });
+    const scientificDetector: GameObject = MockGameObject.mock({ section: detectors.detector_scientific });
     const actor: GameObject = MockGameObject.mockActor({
       inventory: [
         [advancedDetector.section(), advancedDetector],

@@ -3,11 +3,11 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper";
 import { isOnCampPatrolWalkPoint } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
 import { GameObject } from "@/engine/lib/types";
-import { mockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("isOnCampPatrolWalkPoint util", () => {
   it("should correctly check points based on patrol", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
 
     expect(
       isOnCampPatrolWalkPoint(object, {
@@ -38,7 +38,7 @@ describe("isOnCampPatrolWalkPoint util", () => {
   });
 
   it("should correctly check points and update state flag", () => {
-    const object: GameObject = mockGameObject();
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeCamperState = {
       pathWalk: "test-wp",
     } as ISchemeCamperState;

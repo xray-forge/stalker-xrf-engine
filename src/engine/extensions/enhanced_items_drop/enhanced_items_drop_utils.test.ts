@@ -14,7 +14,7 @@ describe("enhanced_items_drop_utils module", () => {
   });
 
   it("should correctly handle item going online for actor and ignore additions", () => {
-    const object: GameObject = MockGameObject.mock({ section: <T extends string>(): T => weapons.wpn_ak74u as T });
+    const object: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
 
     mockServerAlifeObject({ id: object.id(), parent_id: ACTOR_ID });
 
@@ -28,7 +28,7 @@ describe("enhanced_items_drop_utils module", () => {
   });
 
   it("should correctly handle item going online for world", () => {
-    const object: GameObject = MockGameObject.mock({ section: <T extends string>(): T => weapons.wpn_ak74u as T });
+    const object: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
 
     mockServerAlifeObject({ id: object.id(), parent_id: MAX_U16 });
 
@@ -42,7 +42,7 @@ describe("enhanced_items_drop_utils module", () => {
   });
 
   it("should correctly handle item going online for owned", () => {
-    const object: GameObject = MockGameObject.mock({ section: <T extends string>(): T => weapons.wpn_ak74u as T });
+    const object: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
     const owner: ServerObject = mockServerAlifeObject();
 
     mockServerAlifeObject({ id: object.id(), parent_id: owner.id });

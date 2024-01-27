@@ -209,10 +209,10 @@ describe("relation effects implementation", () => {
     second.mockAddMember(secondA);
     second.mockAddMember(secondB);
 
-    const firstAState: IRegistryObjectState = registerObject(MockGameObject.mock({ idOverride: firstA.id }));
-    const firstBState: IRegistryObjectState = registerObject(MockGameObject.mock({ idOverride: firstB.id }));
-    const secondAState: IRegistryObjectState = registerObject(MockGameObject.mock({ idOverride: secondA.id }));
-    const secondBState: IRegistryObjectState = registerObject(MockGameObject.mock({ idOverride: secondB.id }));
+    const firstAState: IRegistryObjectState = registerObject(MockGameObject.mock({ id: firstA.id }));
+    const firstBState: IRegistryObjectState = registerObject(MockGameObject.mock({ id: firstB.id }));
+    const secondAState: IRegistryObjectState = registerObject(MockGameObject.mock({ id: secondA.id }));
+    const secondBState: IRegistryObjectState = registerObject(MockGameObject.mock({ id: secondB.id }));
 
     expect(() => {
       callXrEffect("set_squads_enemies", MockGameObject.mockActor(), MockGameObject.mock());

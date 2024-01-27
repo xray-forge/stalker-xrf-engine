@@ -2,22 +2,22 @@ import { jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { IniFile, Optional, TName, TSection } from "@/engine/lib/types";
-import { mockIniFile } from "@/fixtures/xray";
+import { MockIniFile } from "@/fixtures/xray";
 
 /**
  * Mock smart terrain mocked server object.
  */
 export class MockSmartTerrain extends SmartTerrain {
   public static mock(name: Optional<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
-    const smartTerrain: MockSmartTerrain = new MockSmartTerrain(section);
+    const terrain: MockSmartTerrain = new MockSmartTerrain(section);
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
+    terrain.ini = terrain.spawn_ini() as IniFile;
 
     if (name) {
-      jest.spyOn(smartTerrain, "name").mockImplementation(() => name);
+      jest.spyOn(terrain, "name").mockImplementation(() => name);
     }
 
-    return smartTerrain;
+    return terrain;
   }
 
   public static mockRegistered(name: Optional<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
@@ -51,10 +51,10 @@ export function mockSmartTerrainWithConfiguration(
   name: TName = "test_smart",
   section: TSection = "test_smart_section"
 ): SmartTerrain {
-  const smartTerrain: SmartTerrain = new SmartTerrain(section);
+  const terrain: SmartTerrain = new SmartTerrain(section);
 
-  jest.spyOn(smartTerrain, "spawn_ini").mockImplementation(() => {
-    return mockIniFile(`${name}_config.ltx`, {
+  jest.spyOn(terrain, "spawn_ini").mockImplementation(() => {
+    return MockIniFile.mock(`${name}_config.ltx`, {
       [name]: {},
       smart_terrain: {
         sim_type: "default",
@@ -90,8 +90,8 @@ export function mockSmartTerrainWithConfiguration(
     });
   });
 
-  smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-  jest.spyOn(smartTerrain, "name").mockImplementation(() => name);
+  terrain.ini = terrain.spawn_ini() as IniFile;
+  jest.spyOn(terrain, "name").mockImplementation(() => name);
 
-  return smartTerrain;
+  return terrain;
 }

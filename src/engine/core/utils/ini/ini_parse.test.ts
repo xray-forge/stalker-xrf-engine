@@ -24,7 +24,7 @@ import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
 import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 import { NIL } from "@/engine/lib/constants/words";
 import { Flags32, GameObject, IniFile, LuaArray } from "@/engine/lib/types";
-import { MockFlags32, MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockFlags32, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("parseStringsList util", () => {
   it("should correctly parse names array", () => {
@@ -620,7 +620,7 @@ describe("pickSectionFromCondList util", () => {
 
 describe("parseAllSectionToTable util", () => {
   it("should correctly parse ini section to matching lua table", () => {
-    const ini: IniFile = mockIniFile("example.ltx", {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
       section1: {
         a: "a1",
         b: "b2",

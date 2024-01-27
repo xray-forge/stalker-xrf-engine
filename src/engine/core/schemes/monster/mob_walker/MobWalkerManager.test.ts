@@ -132,7 +132,7 @@ describe("MobWalkerManager", () => {
   });
 
   it("should correctly update with single point patrol", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s });
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
     const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
@@ -157,7 +157,7 @@ describe("MobWalkerManager", () => {
   });
 
   it("should correctly handle waypoints when search flags are not set", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s });
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
     const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,

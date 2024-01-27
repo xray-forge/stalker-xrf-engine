@@ -6,11 +6,11 @@ import { TASK_MANAGER_CONFIG_LTX } from "@/engine/core/managers/tasks/TaskConfig
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskStatus } from "@/engine/core/managers/tasks/types";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { parseConditionsList } from "@/engine/core/utils/ini";
 import { NIL } from "@/engine/lib/constants/words";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { MockGameObject } from "@/fixtures/xray";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("TaskObject class", () => {
   beforeAll(() => {
@@ -62,7 +62,7 @@ describe("TaskObject class", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     taskObject.onActivate();
-    taskObject.save(mockNetPacket(netProcessor));
+    taskObject.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.U8,
@@ -97,7 +97,7 @@ describe("TaskObject class", () => {
 
     const newTaskObject: TaskObject = new TaskObject(sampleTaskId, TASK_MANAGER_CONFIG_LTX);
 
-    newTaskObject.load(mockNetProcessor(netProcessor));
+    newTaskObject.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

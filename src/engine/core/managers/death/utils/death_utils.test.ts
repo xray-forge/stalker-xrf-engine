@@ -53,7 +53,7 @@ describe("canReleaseObjectCorpse util", () => {
   });
 
   it("should check objects with keep items", () => {
-    const item: GameObject = MockGameObject.mock({ sectionOverride: "keep_item_section" });
+    const item: GameObject = MockGameObject.mock({ section: "keep_item_section" });
     const object: GameObject = MockGameObject.mock({ inventory: [[item.section(), item]] });
 
     registerObject(object);

@@ -40,7 +40,7 @@ describe("isObjectName utils", () => {
   });
 
   it("should correctly check name", () => {
-    const object: GameObject = MockGameObject.mock({ name: () => "test_complex_name" } as Partial<GameObject>);
+    const object: GameObject = MockGameObject.mock({ name: "test_complex_name" });
 
     expect(object.name()).toBe("test_complex_name");
     expect(isObjectName(object, "another")).toBeFalsy();

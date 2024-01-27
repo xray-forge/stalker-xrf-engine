@@ -6,18 +6,18 @@ import {
   readIniMapSpots,
   readIniSleepSpots,
 } from "@/engine/core/managers/map/utils/map_init";
-import { mockIniFile } from "@/fixtures/xray";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("map_init utils", () => {
   it("readIniTravelDialogs should correctly read locations", () => {
-    expect(() => readIniMapSpots(mockIniFile("test.ltx", {}))).toThrow(
+    expect(() => readIniMapSpots(MockIniFile.mock("test.ltx", {}))).toThrow(
       "Expect 'map_spots' section to exist in ini file."
     );
-    expect(readIniMapSpots(mockIniFile("test.ltx", { map_spots: {} }))).toEqualLuaArrays([]);
+    expect(readIniMapSpots(MockIniFile.mock("test.ltx", { map_spots: {} }))).toEqualLuaArrays([]);
 
     expect(
       readIniMapSpots(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           map_spots: {
             a: "a_name",
             b: "b_name",
@@ -31,14 +31,14 @@ describe("map_init utils", () => {
   });
 
   it("readIniSleepSpots should correctly read locations", () => {
-    expect(() => readIniSleepSpots(mockIniFile("test.ltx", {}))).toThrow(
+    expect(() => readIniSleepSpots(MockIniFile.mock("test.ltx", {}))).toThrow(
       "Expect 'sleep_spots' section to exist in ini file."
     );
-    expect(readIniSleepSpots(mockIniFile("test.ltx", { sleep_spots: {} }))).toEqualLuaArrays([]);
+    expect(readIniSleepSpots(MockIniFile.mock("test.ltx", { sleep_spots: {} }))).toEqualLuaArrays([]);
 
     expect(
       readIniSleepSpots(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           sleep_spots: {
             a: "a_name",
             b: "b_name",
@@ -52,23 +52,23 @@ describe("map_init utils", () => {
   });
 
   it("readIniMapMarks should correctly read marks", () => {
-    expect(() => readIniMapMarks(mockIniFile("test.ltx", {}))).toThrow(
+    expect(() => readIniMapMarks(MockIniFile.mock("test.ltx", {}))).toThrow(
       "Expect 'map_marks' section to exist in ini file."
     );
 
     expect(() => {
       readIniMapMarks(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           map_marks: ["a", "b"],
         })
       );
     }).toThrow("Attempt to read a non-existent string field 'icon' in section 'a'.");
 
-    expect(readIniMapMarks(mockIniFile("test.ltx", { map_marks: {} }))).toEqualLuaArrays([]);
+    expect(readIniMapMarks(MockIniFile.mock("test.ltx", { map_marks: {} }))).toEqualLuaArrays([]);
 
     expect(
       readIniMapMarks(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           map_marks: ["a", "b"],
           a: {
             icon: "a_icon",
@@ -93,23 +93,23 @@ describe("map_init utils", () => {
   });
 
   it("readIniMapScannerSpots should correctly read spots", () => {
-    expect(() => readIniMapScannerSpots(mockIniFile("test.ltx", {}))).toThrow(
+    expect(() => readIniMapScannerSpots(MockIniFile.mock("test.ltx", {}))).toThrow(
       "Expect 'scanner_spots' section to exist in ini file."
     );
 
     expect(() => {
       readIniMapScannerSpots(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           scanner_spots: ["a", "b"],
         })
       );
     }).toThrow("Attempt to read a non-existent string field 'target' in section 'a'.");
 
-    expect(readIniMapScannerSpots(mockIniFile("test.ltx", { scanner_spots: {} }))).toEqualLuaArrays([]);
+    expect(readIniMapScannerSpots(MockIniFile.mock("test.ltx", { scanner_spots: {} }))).toEqualLuaArrays([]);
 
     expect(
       readIniMapScannerSpots(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           scanner_spots: ["a", "b"],
           a: {
             target: "a_target",

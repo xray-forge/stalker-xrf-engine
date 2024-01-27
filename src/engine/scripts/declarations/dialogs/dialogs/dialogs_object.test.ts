@@ -1,10 +1,9 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
-import { clsid, TXR_relation } from "xray16";
 
 import { updateObjectDialog } from "@/engine/core/utils/dialog";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AnyArgs, AnyObject, EGameObjectRelation, GameObject, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, EGameObjectRelation, GameObject, TName, TRelationType } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
@@ -91,10 +90,10 @@ describe("dialogs_generic external callbacks", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
 
-    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TXR_relation);
+    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TRelationType);
     expect(callDialogsBinding("is_friend", [actor, object])).toBe(true);
 
-    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.ENEMY as TXR_relation);
+    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.ENEMY as TRelationType);
     expect(callDialogsBinding("is_friend", [actor, object])).toBe(false);
   });
 
@@ -102,10 +101,10 @@ describe("dialogs_generic external callbacks", () => {
     const actor: GameObject = MockGameObject.mockActor();
     const object: GameObject = MockGameObject.mock();
 
-    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TXR_relation);
+    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.FRIEND as TRelationType);
     expect(callDialogsBinding("is_not_friend", [actor, object])).toBe(false);
 
-    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.ENEMY as TXR_relation);
+    jest.spyOn(actor, "relation").mockImplementation(() => EGameObjectRelation.ENEMY as TRelationType);
     expect(callDialogsBinding("is_not_friend", [actor, object])).toBe(true);
   });
 
@@ -122,23 +121,11 @@ describe("dialogs_generic external callbacks", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(
-      callDialogsBinding("npc_stalker", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "monolith" as T,
-        }),
-      ])
+      callDialogsBinding("npc_stalker", [actorGameObject, MockGameObject.mockStalker({ community: "monolith" })])
     ).toBe(false);
 
     expect(
-      callDialogsBinding("npc_stalker", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "stalker" as T,
-        }),
-      ])
+      callDialogsBinding("npc_stalker", [actorGameObject, MockGameObject.mockStalker({ community: "stalker" })])
     ).toBe(true);
   });
 
@@ -146,23 +133,11 @@ describe("dialogs_generic external callbacks", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(
-      callDialogsBinding("npc_bandit", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "stalker" as T,
-        }),
-      ])
+      callDialogsBinding("npc_bandit", [actorGameObject, MockGameObject.mockStalker({ community: "stalker" })])
     ).toBe(false);
 
     expect(
-      callDialogsBinding("npc_bandit", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "bandit" as T,
-        }),
-      ])
+      callDialogsBinding("npc_bandit", [actorGameObject, MockGameObject.mockStalker({ community: "bandit" })])
     ).toBe(true);
   });
 
@@ -170,23 +145,11 @@ describe("dialogs_generic external callbacks", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(
-      callDialogsBinding("npc_freedom", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "stalker" as T,
-        }),
-      ])
+      callDialogsBinding("npc_freedom", [actorGameObject, MockGameObject.mockStalker({ community: "stalker" })])
     ).toBe(false);
 
     expect(
-      callDialogsBinding("npc_freedom", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "freedom" as T,
-        }),
-      ])
+      callDialogsBinding("npc_freedom", [actorGameObject, MockGameObject.mockStalker({ community: "freedom" })])
     ).toBe(true);
   });
 
@@ -194,47 +157,23 @@ describe("dialogs_generic external callbacks", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(
-      callDialogsBinding("npc_dolg", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "stalker" as T,
-        }),
-      ])
+      callDialogsBinding("npc_dolg", [actorGameObject, MockGameObject.mockStalker({ community: "stalker" })])
     ).toBe(false);
 
-    expect(
-      callDialogsBinding("npc_dolg", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "dolg" as T,
-        }),
-      ])
-    ).toBe(true);
+    expect(callDialogsBinding("npc_dolg", [actorGameObject, MockGameObject.mockStalker({ community: "dolg" })])).toBe(
+      true
+    );
   });
 
   it("npc_army should correctly check army faction", () => {
     const { actorGameObject } = mockRegisteredActor();
 
     expect(
-      callDialogsBinding("npc_army", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "stalker" as T,
-        }),
-      ])
+      callDialogsBinding("npc_army", [actorGameObject, MockGameObject.mockStalker({ community: "stalker" })])
     ).toBe(false);
 
-    expect(
-      callDialogsBinding("npc_army", [
-        actorGameObject,
-        MockGameObject.mock({
-          clsid: () => clsid.script_stalker,
-          character_community: <T>() => "army" as T,
-        }),
-      ])
-    ).toBe(true);
+    expect(callDialogsBinding("npc_army", [actorGameObject, MockGameObject.mockStalker({ community: "army" })])).toBe(
+      true
+    );
   });
 });

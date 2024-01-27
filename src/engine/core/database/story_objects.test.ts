@@ -79,7 +79,7 @@ describe("story_objects module of the database", () => {
 
   it("should correctly handle lifecycle and get links with utils", () => {
     const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
-    const object: GameObject = MockGameObject.mock({ idOverride: 12 });
+    const object: GameObject = MockGameObject.mock({ id: 12 });
 
     registerObject(object);
     registerStoryLink(12, "test-sid");
@@ -98,7 +98,7 @@ describe("story_objects module of the database", () => {
   });
 
   it("getObjectByStoryId should correctly fallback to level check", () => {
-    const object: GameObject = MockGameObject.mock({ idOverride: 12 });
+    const object: GameObject = MockGameObject.mock({ id: 12 });
 
     registerStoryLink(object.id(), "test-level-check");
 
@@ -117,7 +117,7 @@ describe("story_objects module of the database", () => {
 
   it("isStoryObject should correctly check if object is existing", () => {
     const serverObject: ServerObject = mockServerAlifeObject();
-    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const gameObject: GameObject = MockGameObject.mock({ id: serverObject.id });
 
     expect(isStoryObject(serverObject)).toBe(false);
     expect(isStoryObject(gameObject)).toBe(false);

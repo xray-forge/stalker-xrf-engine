@@ -2,10 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TMoveType } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check if any movement set actions are needed.

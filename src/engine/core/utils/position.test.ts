@@ -71,7 +71,9 @@ describe("isObjectInSilenceZone util", () => {
 
   it("should check if object is in silence zone", () => {
     const object: GameObject = MockGameObject.mock();
-    const zone: GameObject = MockGameObject.mock({ inside: () => true });
+    const zone: GameObject = MockGameObject.mock();
+
+    jest.spyOn(zone, "inside").mockImplementation(() => true);
 
     expect(isObjectInSilenceZone(object)).toBe(false);
 
@@ -217,19 +219,19 @@ describe("sendToNearestAccessibleVertex utils", () => {
     expect(first.accessible).toHaveBeenCalled();
     expect(first.set_dest_level_vertex_id).toHaveBeenCalledWith(150);
 
-    const second: GameObject = MockGameObject.mock({
-      accessible: jest.fn(() => false),
-      accessible_nearest: jest.fn(() => $multi(14325, ZERO_VECTOR)),
-    });
+    const second: GameObject = MockGameObject.mock();
+
+    jest.spyOn(second, "accessible").mockImplementation(() => false);
+    jest.spyOn(second, "accessible_nearest").mockImplementation(() => $multi(14325, ZERO_VECTOR));
 
     expect(sendToNearestAccessibleVertex(second, 150)).toBe(14325);
     expect(second.accessible).toHaveBeenCalled();
     expect(second.accessible_nearest).toHaveBeenCalledWith({ x: 15, y: 14, z: 16 }, { x: 0, y: 0, z: 0 });
     expect(second.set_dest_level_vertex_id).toHaveBeenCalledWith(14325);
 
-    const third: GameObject = MockGameObject.mock({
-      level_vertex_id: jest.fn(() => 1442),
-    });
+    const third: GameObject = MockGameObject.mock();
+
+    jest.spyOn(third, "level_vertex_id").mockImplementation(() => 1442);
 
     expect(sendToNearestAccessibleVertex(third, MAX_U32)).toBe(1442);
     expect(sendToNearestAccessibleVertex(third, MAX_U32 + 10)).toBe(1442);
@@ -293,7 +295,7 @@ describe("getObjectSmartTerrain util", () => {
 
     const smartTerrainObject: ServerSmartZoneObject = mockServerAlifeSmartZone();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const gameObject: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const gameObject: GameObject = MockGameObject.mock({ id: serverObject.id });
 
     serverObject.m_smart_terrain_id = smartTerrainObject.id;
 

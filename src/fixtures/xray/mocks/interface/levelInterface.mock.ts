@@ -2,12 +2,10 @@ import { jest } from "@jest/globals";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { GameObject, TName, TNumberId } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
-import { MockFbox } from "@/fixtures/xray";
+import { MockFbox } from "@/fixtures/xray/mocks/FBox.mock";
+import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { patrols } from "@/fixtures/xray/mocks/objects/path";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
-
-export const CLIENT_SIDE_REGISTRY: MockLuaTable<TNumberId, GameObject> = MockLuaTable.create();
 
 /**
  * Mock game `level` interface.
@@ -26,7 +24,7 @@ export const mockLevelInterface = {
   get_time_minutes: jest.fn(() => 30),
   hide_indicators_safe: jest.fn(),
   iterate_online_objects: jest.fn((cb: (object: GameObject) => void) => {
-    return [...CLIENT_SIDE_REGISTRY.entries()].forEach(([k, v]) => {
+    return [...MockGameObject.REGISTRY.entries()].forEach(([k, v]) => {
       if (v.id() !== ACTOR_ID) {
         cb(v);
       }
@@ -42,7 +40,7 @@ export const mockLevelInterface = {
       throw new Error("Received NaN for object_by_id getter.");
     }
 
-    return CLIENT_SIDE_REGISTRY.get(verifiedId);
+    return MockGameObject.REGISTRY.get(verifiedId);
   }),
   enable_input: jest.fn(),
   map_add_object_spot_ser: jest.fn(),

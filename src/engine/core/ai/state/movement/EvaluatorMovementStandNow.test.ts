@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 import { move, property_storage } from "xray16";
 
 import { EvaluatorMovementStandNow } from "@/engine/core/ai/state/movement/EvaluatorMovementStandNow";
@@ -8,8 +8,10 @@ import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorMovementStandNow class", () => {
   it("should correctly check if danger state when set", () => {
-    const object: GameObject = MockGameObject.mock({ target_movement_type: () => move.stand });
+    const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMovementStandNow = new EvaluatorMovementStandNow({} as StalkerStateManager);
+
+    jest.spyOn(object, "target_movement_type").mockImplementation(() => move.stand);
 
     evaluator.setup(object, new property_storage());
 
@@ -17,8 +19,10 @@ describe("EvaluatorMovementStandNow class", () => {
   });
 
   it("should correctly check if danger state when not set", () => {
-    const object: GameObject = MockGameObject.mock({ target_movement_type: () => move.run });
+    const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMovementStandNow = new EvaluatorMovementStandNow({} as StalkerStateManager);
+
+    jest.spyOn(object, "target_movement_type").mockImplementation(() => move.run);
 
     evaluator.setup(object, new property_storage());
 

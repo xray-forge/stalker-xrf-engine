@@ -13,7 +13,7 @@ describe("upgrades_install utils", () => {
     addRandomUpgrade(first);
     expect(first.add_upgrade).not.toHaveBeenCalled();
 
-    const second: GameObject = MockGameObject.mock({ section: <T>() => weapons.wpn_ak74u as T });
+    const second: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
 
     addRandomUpgrade(second);
     expect(second.add_upgrade).toHaveBeenCalledTimes(1);
@@ -21,7 +21,7 @@ describe("upgrades_install utils", () => {
     addRandomUpgrade(second);
     expect(second.add_upgrade).toHaveBeenCalledTimes(2);
 
-    const third: GameObject = MockGameObject.mock({ section: <T>() => weapons.wpn_ak74u as T });
+    const third: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
 
     addRandomUpgrades(third, Infinity);
 
@@ -40,7 +40,7 @@ describe("upgrades_install utils", () => {
     addRandomUpgrades(first, 0);
     expect(first.add_upgrade).not.toHaveBeenCalled();
 
-    const second: GameObject = MockGameObject.mock({ section: <T>() => weapons.wpn_ak74u as T });
+    const second: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
 
     addRandomUpgrades(second, 0);
     expect(second.add_upgrade).not.toHaveBeenCalled();

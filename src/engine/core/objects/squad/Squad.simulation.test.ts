@@ -9,7 +9,7 @@ import { communities } from "@/engine/lib/constants/communities";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("Squad server object", () => {
   beforeEach(() => {
@@ -31,20 +31,20 @@ describe("Squad server object", () => {
     registerSimulator();
 
     const squad: MockSquad = MockSquad.mock();
-    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mock();
-    const zone: GameObject = MockGameObject.mock({ idOverride: smartTerrain.id });
+    const terrain: MockSmartTerrain = MockSmartTerrain.mock();
+    const zone: GameObject = MockGameObject.mock({ id: terrain.id });
 
-    jest.spyOn(smartTerrain, "name").mockImplementation(jest.fn(() => "zat_stalker_base_smart"));
+    jest.spyOn(terrain, "name").mockImplementation(jest.fn(() => "zat_stalker_base_smart"));
     jest.spyOn(zone, "name").mockImplementation(jest.fn(() => "zat_a2_sr_no_assault"));
 
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
+    terrain.on_before_register();
+    terrain.on_register();
 
     registerZone(zone);
 
-    smartTerrain.smartTerrainActorControl = new SmartTerrainControl(
-      smartTerrain,
-      mockIniFile("test.ltx", {
+    terrain.smartTerrainActorControl = new SmartTerrainControl(
+      terrain,
+      MockIniFile.mock("test.ltx", {
         test_control: {
           noweap_zone: "no_weap_test",
           ignore_zone: "ignore_zone_test",
@@ -54,7 +54,7 @@ describe("Squad server object", () => {
       }),
       "test_control"
     );
-    smartTerrain.smartTerrainActorControl.status = ESmartTerrainStatus.NORMAL;
+    terrain.smartTerrainActorControl.status = ESmartTerrainStatus.NORMAL;
 
     squad.isSimulationAvailableConditionList = parseConditionsList(TRUE);
     expect(squad.isSimulationAvailable()).toBe(true);
@@ -62,7 +62,7 @@ describe("Squad server object", () => {
     jest.spyOn(zone, "inside").mockImplementation(() => true);
     expect(squad.isSimulationAvailable()).toBe(false);
 
-    smartTerrain.smartTerrainActorControl.status = ESmartTerrainStatus.ALARM;
+    terrain.smartTerrainActorControl.status = ESmartTerrainStatus.ALARM;
     expect(squad.isSimulationAvailable()).toBe(true);
   });
 
@@ -71,12 +71,12 @@ describe("Squad server object", () => {
     registerSimulator();
 
     const squad: MockSquad = MockSquad.mock();
-    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
+    const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
 
-    smartTerrain.simulationManager.assignSquadToSmartTerrain(squad, smartTerrain.id);
+    terrain.simulationManager.assignSquadToSmartTerrain(squad, terrain.id);
     expect(squad.isSimulationAvailable()).toBe(true);
 
-    smartTerrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);
+    terrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);
     expect(squad.isSimulationAvailable()).toBe(false);
 
     squad.assignedSmartTerrainId = null;

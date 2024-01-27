@@ -5,14 +5,7 @@ import { IRegistryObjectState, registerObject, registerSimulator, registry } fro
 import { LevelChanger } from "@/engine/core/objects/level";
 import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import {
-  EPacketDataType,
-  MockGameObject,
-  mockNetPacket,
-  MockNetProcessor,
-  mockNetReader,
-  MockObjectBinder,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 
 describe("LevelChangerBinder class", () => {
   beforeEach(() => {
@@ -22,7 +15,7 @@ describe("LevelChangerBinder class", () => {
 
   it("should correctly skip logics if spawn disabled", () => {
     const serverObject: LevelChanger = new LevelChanger("test");
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: LevelChangerBinder = new LevelChangerBinder(object);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
@@ -33,7 +26,7 @@ describe("LevelChangerBinder class", () => {
 
   it("should correctly handle online-offline events", () => {
     const serverObject: LevelChanger = new LevelChanger("test");
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: LevelChangerBinder = new LevelChangerBinder(object);
 
     serverObject.isEnabled = true;
@@ -52,7 +45,7 @@ describe("LevelChangerBinder class", () => {
 
   it("should correctly reinit", () => {
     const serverObject: LevelChanger = new LevelChanger("test");
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: LevelChangerBinder = new LevelChangerBinder(object);
 
     binder.net_spawn(serverObject);
@@ -80,7 +73,7 @@ describe("LevelChangerBinder class", () => {
     binderState.activeSection = "test@test";
     binderState.smartTerrainName = "test-smart";
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -112,7 +105,7 @@ describe("LevelChangerBinder class", () => {
     const newBinder: LevelChangerBinder = new LevelChangerBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(newBinderState.jobIni).toBe("test.ltx");
     expect(newBinderState.loadedSectionLogic).toBe("logic");

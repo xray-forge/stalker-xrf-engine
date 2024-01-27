@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registry } from "@/engine/core/database/registry";
 import {
@@ -12,7 +12,7 @@ import {
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { GameObject, ZoneCampfire } from "@/engine/lib/types";
-import { mockSmartTerrain, resetRegistry } from "@/fixtures/engine";
+import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockCZoneCampfire, MockGameObject } from "@/fixtures/xray";
 
 describe("smart module of the database", () => {
@@ -21,19 +21,19 @@ describe("smart module of the database", () => {
   });
 
   it("should correctly register smart terrain", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const smartObject: GameObject = MockGameObject.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const object: GameObject = MockGameObject.mock();
 
-    registerSmartTerrain(smartObject, smartTerrain);
+    registerSmartTerrain(object, terrain);
 
-    expect(registry.smartTerrains.get(smartTerrain.id)).toBe(smartTerrain);
+    expect(registry.smartTerrains.get(terrain.id)).toBe(terrain);
     expect(registry.smartTerrains.length()).toBe(1);
-    expect(registry.zones.get(smartObject.name())).toBe(smartObject);
+    expect(registry.zones.get(object.name())).toBe(object);
     expect(registry.zones.length()).toBe(1);
-    expect(registry.objects.get(smartObject.id())).toEqual({ object: smartObject });
+    expect(registry.objects.get(object.id())).toEqual({ object: object });
     expect(registry.objects.length()).toBe(1);
 
-    unregisterSmartTerrain(smartObject, smartTerrain);
+    unregisterSmartTerrain(object, terrain);
 
     expect(registry.smartTerrains.length()).toBe(0);
     expect(registry.zones.length()).toBe(0);
@@ -41,37 +41,39 @@ describe("smart module of the database", () => {
   });
 
   it("should correctly register smart cover", () => {
-    const smartCover: SmartCover = new SmartCover("test");
+    const cover: SmartCover = new SmartCover("test");
 
-    registerSmartCover(smartCover);
+    registerSmartCover(cover);
 
-    expect(registry.smartCovers.get(smartCover.name())).toBe(smartCover);
+    expect(registry.smartCovers.get(cover.name())).toBe(cover);
     expect(registry.smartCovers.length()).toBe(1);
 
-    unregisterSmartCover(smartCover);
+    unregisterSmartCover(cover);
 
     expect(registry.smartCovers.length()).toBe(0);
   });
 
   it("should correctly register smart terrains campfires", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
     const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
-    const campfireObject: GameObject = MockGameObject.mock({ get_campfire: () => campfire });
+    const campfireObject: GameObject = MockGameObject.mock();
+
+    jest.spyOn(campfireObject, "get_campfire").mockImplementation(() => campfire);
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.smartTerrainsCampfires.length()).toBe(0);
 
-    registerSmartTerrainCampfire(smartTerrain, campfireObject);
+    registerSmartTerrainCampfire(terrain, campfireObject);
 
     expect(registry.objects.length()).toBe(1);
     expect(registry.objects.get(campfireObject.id())).toBeDefined();
     expect(registry.smartTerrainsCampfires.length()).toBe(1);
-    expect(registry.smartTerrainsCampfires.get(smartTerrain.name()).length()).toBe(1);
-    expect(registry.smartTerrainsCampfires.get(smartTerrain.name())).toEqualLuaTables({
+    expect(registry.smartTerrainsCampfires.get(terrain.name()).length()).toBe(1);
+    expect(registry.smartTerrainsCampfires.get(terrain.name())).toEqualLuaTables({
       [campfireObject.id()]: campfireObject.get_campfire(),
     });
 
-    unRegisterSmartTerrainCampfire(smartTerrain, campfireObject);
+    unRegisterSmartTerrainCampfire(terrain, campfireObject);
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.smartTerrainsCampfires.length()).toBe(0);

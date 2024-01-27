@@ -1,4 +1,4 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -11,13 +11,17 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wound
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
-import { checkPlannerAction, mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeWounded class", () => {
+  beforeEach(() => {
+    resetRegistry();
+  });
+
   it("should correctly add to logics with default values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "wounded@test": {},
     });
 
@@ -70,7 +74,7 @@ describe("SchemeWounded class", () => {
 
   it("should correctly reset", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "some@test": {
         wounded: "test_wounded",
       },
@@ -103,9 +107,9 @@ describe("SchemeWounded class", () => {
   });
 
   it("should correctly initialize with default values", () => {
-    const object: GameObject = MockGameObject.mock({ idOverride: 100001 });
-    const schemeIni: IniFile = mockIniFile("test2.ltx", {});
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const object: GameObject = MockGameObject.mock({ id: 100001 });
+    const schemeIni: IniFile = MockIniFile.mock("test2.ltx", {});
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "wounded@test": {},
     });
 
@@ -143,9 +147,9 @@ describe("SchemeWounded class", () => {
   });
 
   it("should correctly initialize with parameters override", () => {
-    const object: GameObject = MockGameObject.mock({ idOverride: 100002 });
-    const schemeIni: IniFile = mockIniFile("test2.ltx", {});
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const object: GameObject = MockGameObject.mock({ id: 100002 });
+    const schemeIni: IniFile = MockIniFile.mock("test2.ltx", {});
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "wounded@test": {
         hp_state: "30|wounded_heavy_10@nil",
         hp_state_see: "40|wounded_heavy_11@nil",
@@ -193,9 +197,9 @@ describe("SchemeWounded class", () => {
   });
 
   it("should correctly initialize when section is nil", () => {
-    const object: GameObject = MockGameObject.mock({ idOverride: 100003 });
-    const schemeIni: IniFile = mockIniFile("test2.ltx", {});
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const object: GameObject = MockGameObject.mock({ id: 100003 });
+    const schemeIni: IniFile = MockIniFile.mock("test2.ltx", {});
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "wounded@test": {
         hp_state: "30|wounded_heavy_10@nil",
         hp_state_see: "40|wounded_heavy_11@nil",
@@ -247,12 +251,12 @@ describe("SchemeWounded class", () => {
 
   it("should correctly initialize for zombied", () => {
     const object: GameObject = MockGameObject.mock({
-      idOverride: 100004,
-      clsid: () => clsid.script_stalker,
-      character_community: <T>() => "zombied" as T,
+      id: 100004,
+      clsid: clsid.script_stalker,
+      community: "zombied",
     });
-    const schemeIni: IniFile = mockIniFile("test2.ltx", {});
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const schemeIni: IniFile = MockIniFile.mock("test2.ltx", {});
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "wounded@test": {},
     });
 
@@ -288,12 +292,12 @@ describe("SchemeWounded class", () => {
 
   it("should correctly initialize for monolith", () => {
     const object: GameObject = MockGameObject.mock({
-      idOverride: 100004,
-      clsid: () => clsid.script_stalker,
-      character_community: <T>() => "monolith" as T,
+      id: 100004,
+      clsid: clsid.script_stalker,
+      community: "monolith",
     });
-    const schemeIni: IniFile = mockIniFile("test2.ltx", {});
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const schemeIni: IniFile = MockIniFile.mock("test2.ltx", {});
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "wounded@test": {},
     });
 

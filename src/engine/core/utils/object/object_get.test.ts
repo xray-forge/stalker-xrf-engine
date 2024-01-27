@@ -4,7 +4,7 @@ import { DUMMY_LTX } from "@/engine/core/database";
 import { getObjectId, getObjectSpawnIni } from "@/engine/core/utils/object/object_get";
 import { GameObject, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { FILES_MOCKS, MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("getObjectSpawnIni utils", () => {
   beforeEach(() => {
@@ -28,10 +28,10 @@ describe("getObjectSpawnIni utils", () => {
   it("should correctly return spawn ini from logics cfg", () => {
     const object: GameObject = MockGameObject.mock();
 
-    FILES_MOCKS["test_for_util.ltx"] = mockIniFile("test_for_util.ltx", {});
+    MockIniFile.register("test_for_util.ltx", {});
 
     jest.spyOn(object, "spawn_ini").mockImplementation(() => {
-      return mockIniFile("test_for_util.ltx", {
+      return MockIniFile.mock("test_for_util.ltx", {
         logic: {
           cfg: "test_for_util.ltx",
         },

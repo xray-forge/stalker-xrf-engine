@@ -4,13 +4,13 @@ import { registerActor } from "@/engine/core/database";
 import { setupObjectInfoPortions, setupObjectStalkerVisual } from "@/engine/core/utils/object/object_setup";
 import { GameObject } from "@/engine/lib/types";
 import { expectCallsToEqual } from "@/fixtures/jest";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("setupObjectVisual utils", () => {
   it("should setup visuals", () => {
-    const stalkerNone: GameObject = MockGameObject.mock({ section: <T>() => "stalker_none_1" as T });
-    const stalkerFreedom: GameObject = MockGameObject.mock({ section: <T>() => "stalker_freedom_1" as T });
-    const stalkerActor: GameObject = MockGameObject.mock({ section: <T>() => "stalker_actor_1" as T });
+    const stalkerNone: GameObject = MockGameObject.mock({ section: "stalker_none_1" });
+    const stalkerFreedom: GameObject = MockGameObject.mock({ section: "stalker_freedom_1" });
+    const stalkerActor: GameObject = MockGameObject.mock({ section: "stalker_actor_1" });
 
     registerActor(MockGameObject.mockActor());
 
@@ -30,13 +30,13 @@ describe("setupObjectInfoPortions utils", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
-    setupObjectInfoPortions(first, mockIniFile("test.ltx", {}));
+    setupObjectInfoPortions(first, MockIniFile.mock("test.ltx", {}));
 
     expect(first.give_info_portion).not.toHaveBeenCalled();
 
     setupObjectInfoPortions(
       first,
-      mockIniFile("test.ltx", {
+      MockIniFile.mock("test.ltx", {
         known_info: ["a", "b", "c"],
       })
     );
@@ -45,7 +45,7 @@ describe("setupObjectInfoPortions utils", () => {
 
     setupObjectInfoPortions(
       second,
-      mockIniFile("test.ltx", {
+      MockIniFile.mock("test.ltx", {
         custom_section: ["d", "e"],
       }),
       "custom_section"

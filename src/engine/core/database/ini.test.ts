@@ -63,7 +63,7 @@ describe("ini module of database", () => {
 
   it("should correctly load object logic ini file", () => {
     const withSpawnIni: GameObject = MockGameObject.mock();
-    const withoutSpawnIni: GameObject = MockGameObject.mock({ spawn_ini: () => null as unknown as IniFile });
+    const withoutSpawnIni: GameObject = MockGameObject.mock({ spawnIni: null });
 
     expect(getObjectLogicIniConfig(withSpawnIni, "<customdata>")).toBe(withSpawnIni.spawn_ini());
     expect(getObjectLogicIniConfig(withoutSpawnIni, "<customdata>")).toBe(DUMMY_LTX);

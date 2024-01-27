@@ -10,12 +10,12 @@ import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/ut
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeRemark", () => {
   it("should correctly activate with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ramark@test": {},
     });
 
@@ -39,7 +39,7 @@ describe("SchemeRemark", () => {
 
   it("should correctly activate with custom data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ramark@test": {
         on_info: "{+test} first, second",
         snd_anim_sync: true,
@@ -71,7 +71,7 @@ describe("SchemeRemark", () => {
 
   it("should correctly add planner actions", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ramark@test": {
         on_info: "{+test} first, second",
         snd_anim_sync: true,

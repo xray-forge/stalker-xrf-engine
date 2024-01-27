@@ -34,7 +34,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly activate with shell object", () => {
-    const object: GameObject = MockGameObject.mock({ get_physics_shell: jest.fn(() => MockPhysicsShell.mock()) });
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       showTips: true,
       scriptUsedMoreThanOnce: false,
@@ -42,6 +42,7 @@ describe("PhysicalDoorManager", () => {
     });
     const manager: PhysicalDoorManager = new PhysicalDoorManager(object, state);
 
+    jest.spyOn(object, "get_physics_shell").mockImplementation(() => MockPhysicsShell.mock());
     jest.spyOn(manager, "closeDoor").mockImplementation(jest.fn());
 
     manager.activate();
@@ -59,7 +60,7 @@ describe("PhysicalDoorManager", () => {
   });
 
   it("should correctly activate and force open", () => {
-    const object: GameObject = MockGameObject.mock({ get_physics_shell: jest.fn(() => MockPhysicsShell.mock()) });
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemePhysicalDoorState = mockSchemeState<ISchemePhysicalDoorState>(EScheme.PH_DOOR, {
       showTips: true,
       scriptUsedMoreThanOnce: false,
@@ -67,6 +68,7 @@ describe("PhysicalDoorManager", () => {
     });
     const manager: PhysicalDoorManager = new PhysicalDoorManager(object, state);
 
+    jest.spyOn(object, "get_physics_shell").mockImplementation(() => MockPhysicsShell.mock());
     jest.spyOn(manager, "openDoor").mockImplementation(jest.fn());
 
     manager.activate();

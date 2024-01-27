@@ -11,7 +11,7 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("TreasureManager class", () => {
   beforeEach(() => {
@@ -194,7 +194,7 @@ describe("TreasureManager class", () => {
   it("should correctly register restrictors", () => {
     const notSecret: ServerObject = mockServerAlifeObject();
     const secret: ServerObject = mockServerAlifeObject({
-      spawn_ini: () => mockIniFile("spawn.ini", { secret: {} }),
+      spawn_ini: () => MockIniFile.mock("spawn.ini", { secret: {} }),
     });
     const treasureManager: TreasureManager = getManager(TreasureManager);
 
