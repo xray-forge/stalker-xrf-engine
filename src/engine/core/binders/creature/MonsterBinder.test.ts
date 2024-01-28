@@ -443,7 +443,7 @@ describe("MonsterBinder class", () => {
 
     expect(registry.actorCombat.length()).toBe(0);
     expect(binder.onHit).toHaveBeenCalledTimes(1);
-    expect(binder.onHit).toHaveBeenCalledWith(object, 1, ZERO_VECTOR, killer, "from_death_callback");
+    expect(binder.onHit).toHaveBeenCalledWith(object, 1, ZERO_VECTOR, killer, -1);
     expect(binder.resetCallbacks).toHaveBeenCalledTimes(1);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(2);

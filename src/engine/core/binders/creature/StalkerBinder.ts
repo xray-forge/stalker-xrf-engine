@@ -24,11 +24,10 @@ import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyMana
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { DropManager } from "@/engine/core/managers/drop";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import { syncObjectHitSmartTerrainAlert } from "@/engine/core/objects/smart_terrain/utils";
 import { Squad } from "@/engine/core/objects/squad";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear/SchemeHear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
@@ -422,7 +421,7 @@ export class StalkerBinder extends object_binder {
 
     logger.info("Stalker death: %s", object.name());
 
-    this.onHit(victim, 1, ZERO_VECTOR, who, "from_death_callback");
+    this.onHit(victim, 1, ZERO_VECTOR, who, -1);
 
     registry.actorCombat.delete(object.id());
 
@@ -501,28 +500,11 @@ export class StalkerBinder extends object_binder {
     amount: TRate,
     direction: Vector,
     who: Optional<GameObject>,
-    boneIndex: string | number
+    boneIndex: TIndex
   ): void {
-    const actor: GameObject = registry.actor;
-
-    // -- FIXME: �������� ������� ���� �� �������������� � ����� storage, � �� ��������...
-    if (who?.id() === ACTOR_ID) {
-      if (amount > 0) {
-        for (const [, descriptor] of getManager(SimulationManager).getSmartTerrainDescriptors()) {
-          const smartTerrain: SmartTerrain = descriptor.smartTerrain;
-
-          if (smartTerrain.smartTerrainActorControl !== null) {
-            const levelId: TNumberId = game_graph().vertex(smartTerrain.m_game_vertex_id).level_id();
-            const actorLevelId: TNumberId = game_graph().vertex(registry.actorServer.m_game_vertex_id).level_id();
-
-            if (levelId === actorLevelId && actor.position().distance_to_sqr(smartTerrain.position) <= 6400) {
-              if (this.object.relation(actor) !== EGameObjectRelation.ENEMY) {
-                smartTerrain.smartTerrainActorControl.onActorAttackSmartTerrain();
-              }
-            }
-          }
-        }
-      }
+    // On attack by actor verify if alert is needed.
+    if (who?.id() === ACTOR_ID && amount > 0) {
+      syncObjectHitSmartTerrainAlert(object);
     }
 
     if (this.state.activeSection) {
@@ -538,7 +520,6 @@ export class StalkerBinder extends object_binder {
       );
     }
 
-    // Probably should be reversed?
     if (this.state[EScheme.COMBAT_IGNORE]) {
       emitSchemeEvent(
         this.object,

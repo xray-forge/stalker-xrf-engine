@@ -248,7 +248,7 @@ export class MonsterBinder extends object_binder {
 
     registry.actorCombat.delete(objectId);
 
-    this.onHit(object, 1, ZERO_VECTOR, killer, "from_death_callback");
+    this.onHit(object, 1, ZERO_VECTOR, killer, -1);
 
     if (state[EScheme.MOB_DEATH]) {
       emitSchemeEvent(object, state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);
