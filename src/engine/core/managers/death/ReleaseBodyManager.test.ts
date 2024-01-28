@@ -11,6 +11,7 @@ import {
 import { IReleaseDescriptor } from "@/engine/core/managers/death/death_types";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AnyObject, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
@@ -24,6 +25,21 @@ describe("ReleaseBodyManager class", () => {
     deathConfig.MAX_BODY_COUNT = 5;
 
     jest.spyOn(Date, "now").mockImplementation(() => 60_000);
+  });
+
+  it("should correctly initialize and destroy", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+
+    getManager(ReleaseBodyManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.STALKER_DEATH)).toBe(1);
+
+    disposeManager(ReleaseBodyManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
   it("should correctly add dead bodies", () => {
@@ -169,5 +185,18 @@ describe("ReleaseBodyManager class", () => {
     expect(netProcessor.dataList).toHaveLength(0);
 
     expect(deathConfig.RELEASE_OBJECTS_REGISTRY).toEqualLuaArrays([]);
+  });
+
+  it("should correctly handle object death", () => {
+    const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
+    const object: GameObject = MockGameObject.mock();
+    const killer: GameObject = MockGameObject.mock();
+
+    jest.spyOn(manager, "registerCorpse").mockImplementation(jest.fn());
+
+    EventsManager.emitEvent(EGameEvent.STALKER_DEATH, object, killer);
+
+    expect(manager.registerCorpse).toHaveBeenCalledTimes(1);
+    expect(manager.registerCorpse).toHaveBeenCalledWith(object);
   });
 });

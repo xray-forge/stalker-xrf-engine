@@ -76,10 +76,10 @@ describe("StatisticsManager class", () => {
 
     expect(manager.actorStatistics.killedStalkersCount).toBe(0);
 
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, MockGameObject.mock(), actor);
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, MockGameObject.mock(), actor);
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, MockGameObject.mock(), null);
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, MockGameObject.mock(), MockGameObject.mock());
+    EventsManager.emitEvent(EGameEvent.STALKER_DEATH, MockGameObject.mock(), actor);
+    EventsManager.emitEvent(EGameEvent.STALKER_DEATH, MockGameObject.mock(), actor);
+    EventsManager.emitEvent(EGameEvent.STALKER_DEATH, MockGameObject.mock(), null);
+    EventsManager.emitEvent(EGameEvent.STALKER_DEATH, MockGameObject.mock(), MockGameObject.mock());
 
     expect(manager.actorStatistics.killedStalkersCount).toBe(2);
   });
@@ -207,28 +207,28 @@ describe("StatisticsManager class", () => {
     expect(manager.actorStatistics.bestKilledMonster).toBeNull();
     expect(manager.actorStatistics.bestKilledMonsterRank).toBe(0);
 
-    expect(() => EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, MockGameObject.mock(), actor)).toThrow();
+    expect(() => EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, MockGameObject.mock(), actor)).toThrow();
     expect(() => {
-      EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, MockGameObject.mock(), MockGameObject.mock());
+      EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, MockGameObject.mock(), MockGameObject.mock());
     }).not.toThrow();
 
     expect(manager.actorStatistics.killedMonstersCount).toBe(0);
     expect(manager.actorStatistics.bestKilledMonster).toBeNull();
     expect(manager.actorStatistics.bestKilledMonsterRank).toBe(0);
 
-    EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, firstMonster, actor);
+    EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, firstMonster, actor);
 
     expect(manager.actorStatistics.killedMonstersCount).toBe(1);
     expect(manager.actorStatistics.bestKilledMonster).toBe("flesh_strong");
     expect(manager.actorStatistics.bestKilledMonsterRank).toBe(3);
 
-    EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, secondMonster, actor);
+    EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, secondMonster, actor);
 
     expect(manager.actorStatistics.killedMonstersCount).toBe(2);
     expect(manager.actorStatistics.bestKilledMonster).toBe("bloodsucker_normal");
     expect(manager.actorStatistics.bestKilledMonsterRank).toBe(15);
 
-    EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, thirdMonster, actor);
+    EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, thirdMonster, actor);
 
     expect(manager.actorStatistics.killedMonstersCount).toBe(3);
     expect(manager.actorStatistics.bestKilledMonster).toBe("bloodsucker_strong");

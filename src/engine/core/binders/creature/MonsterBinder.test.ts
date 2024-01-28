@@ -451,7 +451,7 @@ describe("MonsterBinder class", () => {
     expect(emitSchemeEvent).toHaveBeenCalledWith(object, state[state.activeScheme], ESchemeEvent.DEATH, object, killer);
 
     expect(manager.emitEvent).toHaveBeenCalledTimes(1);
-    expect(manager.emitEvent).toHaveBeenCalledWith(EGameEvent.MONSTER_KILLED, object, killer);
+    expect(manager.emitEvent).toHaveBeenCalledWith(EGameEvent.MONSTER_DEATH, object, killer);
 
     expect(registry.simulator.release).toHaveBeenCalledTimes(0);
   });

@@ -86,7 +86,7 @@ export class Monster extends cse_alife_monster_base {
       (registry.simulator.object(this.group_id) as Squad).onObjectDeath(this);
     }
 
-    EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, this, killer);
+    EventsManager.emitEvent(EGameEvent.MONSTER_DEATH_ALIFE, this, killer);
   }
 
   public override STATE_Write(packet: NetPacket): void {

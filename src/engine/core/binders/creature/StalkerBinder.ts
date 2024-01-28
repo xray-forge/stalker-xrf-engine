@@ -24,7 +24,6 @@ import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyMana
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { DropManager } from "@/engine/core/managers/drop";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
@@ -419,7 +418,6 @@ export class StalkerBinder extends object_binder {
    */
   public onDeath(victim: GameObject, who: Optional<GameObject>): void {
     const object: GameObject = this.object;
-    const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = this.state;
 
     logger.info("Stalker death: %s", object.name());
@@ -428,8 +426,6 @@ export class StalkerBinder extends object_binder {
 
     registry.actorCombat.delete(object.id());
 
-    getManager(MapDisplayManager).removeObjectMapSpot(object, state);
-
     setupObjectInfoPortions(object, state.ini, readIniString(state.ini, state.sectionLogic, "known_info", false));
 
     if (state.stateManager) {
@@ -437,7 +433,6 @@ export class StalkerBinder extends object_binder {
     }
 
     this.updateLightState(object);
-    getManager(DropManager).onObjectDeath(object);
 
     if (state[EScheme.REACH_TASK]) {
       emitSchemeEvent(object, state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
@@ -451,23 +446,21 @@ export class StalkerBinder extends object_binder {
       emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.DEATH, victim, who);
     }
 
+    EventsManager.emitEvent(EGameEvent.STALKER_DEATH, object, who);
+
     unregisterHelicopterEnemy(this.helicopterEnemyIndex!);
     unregisterStalker(this, false);
 
     this.resetCallbacks();
 
+    // todo: Is it still needed? Probably should be handled with some ranking manager after re-implementation.
     if (actor_stats.remove_from_ranking !== null) {
       const community: TCommunity = getObjectCommunity(object);
 
       if (community !== communities.zombied && community !== communities.monolith) {
-        actor_stats.remove_from_ranking(objectId);
+        actor_stats.remove_from_ranking(object.id());
       }
     }
-
-    // todo: Handle with event subscription?
-    getManager(ReleaseBodyManager).registerCorpse(object);
-
-    EventsManager.emitEvent(EGameEvent.STALKER_KILLED, object, who);
   }
 
   /**

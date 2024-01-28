@@ -1,17 +1,34 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { getManager } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
 import { ETreasureType, ITreasureDescriptor, treasureConfig } from "@/engine/core/managers/treasures";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 
-describe("MapDisplayManager class", () => {
+describe("MapDisplayManager", () => {
   beforeEach(() => {
     resetRegistry();
     treasureConfig.ENHANCED_MODE_ENABLED = true;
+  });
+
+  it("should correctly handle init and destroy events", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+
+    getManager(MapDisplayManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.STALKER_DEATH)).toBe(1);
+
+    disposeManager(MapDisplayManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
   it("should correctly handle update event with init", () => {

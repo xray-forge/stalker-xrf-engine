@@ -1,17 +1,29 @@
+import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { DROP_MANAGER_CONFIG_LTX, dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { createCorpseReleaseItems, readIniDropCountByLevel } from "@/engine/core/managers/drop/utils";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameObject } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manage objects loot after death.
+ *
  * todo: Maybe add reset method and re-assign all 5 objects with info on each reset to clear information.
- * todo: Event based callbacks.
  */
 export class DropManager extends AbstractManager {
   public override initialize(): void {
     // Read after game is started and level/simulation is initialized.
     dropConfig.ITEMS_DROP_COUNT_BY_LEVEL = readIniDropCountByLevel(DROP_MANAGER_CONFIG_LTX);
+
+    const manager: EventsManager = getManager(EventsManager);
+
+    manager.registerCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath, this);
+  }
+
+  public override destroy(): void {
+    const manager: EventsManager = getManager(EventsManager);
+
+    manager.unregisterCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath);
   }
 
   /**
@@ -30,7 +42,7 @@ export class DropManager extends AbstractManager {
    *
    * @param object - game object facing death event
    */
-  public onObjectDeath(object: GameObject): void {
+  public onStalkerDeath(object: GameObject): void {
     createCorpseReleaseItems(object);
   }
 }

@@ -100,12 +100,12 @@ export enum EGameEvent {
    * On stalker killed.
    * Client side death event.
    */
-  STALKER_KILLED,
+  STALKER_DEATH,
   /**
    * Stalker death.
    * Server side death event.
    */
-  STALKER_DEATH,
+  STALKER_DEATH_ALIFE,
   /**
    * On monster register.
    */
@@ -122,12 +122,12 @@ export enum EGameEvent {
    * On monster killed.
    * Client side death event.
    */
-  MONSTER_KILLED,
+  MONSTER_DEATH,
   /**
    * Monster death.
    * Server side death event.
    */
-  MONSTER_DEATH,
+  MONSTER_DEATH_ALIFE,
   /**
    * Registered helicopter server object.
    */

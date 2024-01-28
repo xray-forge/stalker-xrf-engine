@@ -113,7 +113,7 @@ export class Stalker extends cse_alife_human_stalker {
       squad.onObjectDeath(this);
     }
 
-    EventsManager.emitEvent(EGameEvent.STALKER_DEATH, this, killer);
+    EventsManager.emitEvent(EGameEvent.STALKER_DEATH_ALIFE, this, killer);
   }
 
   public override STATE_Write(packet: NetPacket): void {

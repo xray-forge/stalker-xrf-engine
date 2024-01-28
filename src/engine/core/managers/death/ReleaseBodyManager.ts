@@ -1,10 +1,18 @@
 import { game_graph, time_global } from "xray16";
 
-import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker, registry } from "@/engine/core/database";
+import {
+  closeLoadMarker,
+  closeSaveMarker,
+  getManager,
+  openLoadMarker,
+  openSaveMarker,
+  registry,
+} from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IReleaseDescriptor } from "@/engine/core/managers/death/death_types";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { canReleaseObjectCorpse, getNearestCorpseToRelease } from "@/engine/core/managers/death/utils/death_utils";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { isCreature } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
@@ -17,6 +25,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Release the most further of them from time to time to keep up with limits.
  */
 export class ReleaseBodyManager extends AbstractManager {
+  public override initialize(): void {
+    const manager: EventsManager = getManager(EventsManager);
+
+    manager.registerCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath, this);
+  }
+
+  public override destroy(): void {
+    const manager: EventsManager = getManager(EventsManager);
+
+    manager.unregisterCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath);
+  }
+
   public override save(packet: NetPacket): void {
     openSaveMarker(packet, ReleaseBodyManager.name);
 
@@ -113,5 +133,14 @@ export class ReleaseBodyManager extends AbstractManager {
 
       table.remove(deathConfig.RELEASE_OBJECTS_REGISTRY, index);
     }
+  }
+
+  /**
+   * Handle game object death.
+   *
+   * @param object - game object facing death event
+   */
+  public onStalkerDeath(object: GameObject): void {
+    this.registerCorpse(object);
   }
 }

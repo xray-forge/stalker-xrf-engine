@@ -141,7 +141,7 @@ describe("Monster server object", () => {
     jest.spyOn(squad, "onObjectDeath").mockImplementation(jest.fn());
     jest.spyOn(terrain, "onObjectDeath").mockImplementation(jest.fn());
 
-    eventsManager.registerCallback(EGameEvent.MONSTER_DEATH, onMonsterDeath);
+    eventsManager.registerCallback(EGameEvent.MONSTER_DEATH_ALIFE, onMonsterDeath);
 
     monster.on_death(killer);
 

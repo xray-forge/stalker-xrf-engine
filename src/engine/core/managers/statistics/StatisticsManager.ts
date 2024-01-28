@@ -119,9 +119,9 @@ export class StatisticsManager extends AbstractManager {
     eventsManager.registerCallback(EGameEvent.SURGE_ENDED, this.onSurgePassed, this);
     eventsManager.registerCallback(EGameEvent.TREASURE_FOUND, this.onTreasureFound, this);
     eventsManager.registerCallback(EGameEvent.STALKER_HIT, this.onObjectHit, this);
-    eventsManager.registerCallback(EGameEvent.STALKER_KILLED, this.onStalkerKilled, this);
+    eventsManager.registerCallback(EGameEvent.STALKER_DEATH, this.onStalkerKilled, this);
     eventsManager.registerCallback(EGameEvent.MONSTER_HIT, this.onObjectHit, this);
-    eventsManager.registerCallback(EGameEvent.MONSTER_KILLED, this.onMonsterKilled, this);
+    eventsManager.registerCallback(EGameEvent.MONSTER_DEATH, this.onMonsterKilled, this);
   }
 
   public override destroy(): void {
@@ -134,9 +134,9 @@ export class StatisticsManager extends AbstractManager {
     eventsManager.unregisterCallback(EGameEvent.SURGE_ENDED, this.onSurgePassed);
     eventsManager.unregisterCallback(EGameEvent.TREASURE_FOUND, this.onTreasureFound);
     eventsManager.unregisterCallback(EGameEvent.STALKER_HIT, this.onObjectHit);
-    eventsManager.unregisterCallback(EGameEvent.STALKER_KILLED, this.onStalkerKilled);
+    eventsManager.unregisterCallback(EGameEvent.STALKER_DEATH, this.onStalkerKilled);
     eventsManager.unregisterCallback(EGameEvent.MONSTER_HIT, this.onObjectHit);
-    eventsManager.unregisterCallback(EGameEvent.MONSTER_KILLED, this.onMonsterKilled);
+    eventsManager.unregisterCallback(EGameEvent.MONSTER_DEATH, this.onMonsterKilled);
   }
 
   /**

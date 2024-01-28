@@ -280,7 +280,7 @@ export class MonsterBinder extends object_binder {
       }
     }
 
-    EventsManager.emitEvent(EGameEvent.MONSTER_KILLED, object, killer);
+    EventsManager.emitEvent(EGameEvent.MONSTER_DEATH, object, killer);
   }
 
   /**

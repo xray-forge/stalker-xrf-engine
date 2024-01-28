@@ -56,12 +56,14 @@ export class MapDisplayManager extends AbstractManager {
     const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
+    eventsManager.registerCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
+    eventsManager.unregisterCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath);
   }
 
   public override update(): void {
@@ -163,9 +165,8 @@ export class MapDisplayManager extends AbstractManager {
    * Remove object map spot display.
    *
    * @param object - game object
-   * @param state - target object registry state
    */
-  public removeObjectMapSpot(object: GameObject, state: IRegistryObjectState): void {
+  public removeObjectMapSpot(object: GameObject): void {
     logger.info("Remove object spot: %s", object.name());
 
     const simulator: AlifeSimulator = registry.simulator;
@@ -175,6 +176,7 @@ export class MapDisplayManager extends AbstractManager {
     }
 
     const objectId: Maybe<TNumberId> = simulator.object(object.id())?.id;
+    const state: IRegistryObjectState = registry.objects.get(object.id());
     let mapSpot: Optional<TName> = readIniString(state.ini, state.sectionLogic, "level_spot", false);
 
     // todo: Retry, probably not needed at all.
@@ -511,5 +513,14 @@ export class MapDisplayManager extends AbstractManager {
         }
       }
     }
+  }
+
+  /**
+   * Handle game object death.
+   *
+   * @param object - game object facing death event
+   */
+  public onStalkerDeath(object: GameObject): void {
+    this.removeObjectMapSpot(object);
   }
 }
