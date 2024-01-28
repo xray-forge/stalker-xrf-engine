@@ -22,10 +22,6 @@ export const lootableTable = {
   ...weapons,
 } as const;
 
-export type TLootableItems = typeof lootableTable;
-
-export type TLootableItem = TLootableItems[keyof TLootableItems];
-
 export const lootableTableExclude = {
   [misc.device_pda]: misc.device_pda,
   [misc.guitar_a]: misc.guitar_a,
@@ -34,7 +30,3 @@ export const lootableTableExclude = {
   [weapons.wpn_binoc]: weapons.wpn_binoc,
   [weapons.wpn_binocular]: weapons.wpn_binocular,
 } as const;
-
-export type TLootableExcludeItems = typeof lootableTableExclude;
-
-export type TLootableExcludeItem = TLootableExcludeItems[keyof TLootableExcludeItems];

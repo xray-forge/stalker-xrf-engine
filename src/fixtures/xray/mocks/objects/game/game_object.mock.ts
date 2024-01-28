@@ -11,6 +11,7 @@ import {
   IniFile,
   Optional,
   PartialRecord,
+  ServerObject,
   TCallback,
   TClassId,
   TCount,
@@ -35,6 +36,7 @@ import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";
 import { mockConfig } from "@/fixtures/xray/mocks/MockConfig";
 import { MockCHelicopter } from "@/fixtures/xray/mocks/objects/CHelicopter.mock";
+import { MockAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 export interface IMockGameObjectConfig {
@@ -69,6 +71,13 @@ export class MockGameObject {
 
   public static mock(config: IMockGameObjectConfig = {}): GameObject {
     return new MockGameObject(config).asGameObject();
+  }
+
+  public static mockInSimulator(config: IMockGameObjectConfig = {}): [GameObject, ServerObject] {
+    const object: MockGameObject = new MockGameObject(config);
+    const serverObject: ServerObject = MockAlifeObject.mockNew({ section: object.section(), id: object.id() });
+
+    return [object.asGameObject(), serverObject];
   }
 
   public static mockHelicopter(config: IMockGameObjectConfig = {}): GameObject {

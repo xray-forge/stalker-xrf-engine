@@ -234,7 +234,7 @@ export class StalkerBinder extends object_binder {
       this.isFirstUpdate = true;
 
       if (!isObjectAlive) {
-        getManager(DropManager).createCorpseReleaseItems(object);
+        getManager(DropManager).forceCorpseReleaseItemsSpawn(object);
       }
     }
 
