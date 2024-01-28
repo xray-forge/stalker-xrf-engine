@@ -3,29 +3,31 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { DialogManager } from "@/engine/core/managers/dialogs";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade";
+import { syncObjectHitSmartTerrainAlert } from "@/engine/core/objects/smart_terrain/utils";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
+import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import {
   setupObjectInfoPortions,
   setupObjectStalkerVisual,
   syncSpawnedObjectPosition,
 } from "@/engine/core/utils/object";
-import { setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/scheme";
-import { ESchemeType, GameObject, ServerHumanObject } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
+import { emitSchemeEvent, setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/scheme";
+import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
+import { AnyObject, EScheme, ESchemeEvent, ESchemeType, GameObject, ServerHumanObject } from "@/engine/lib/types";
+import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockAlifeHumanStalker, MockCTime, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/utils/object");
-
 jest.mock("@/engine/core/managers/sounds/utils");
-
-jest.mock("@/engine/core/utils/scheme", () => ({
-  setupObjectSmartJobsAndLogicOnSpawn: jest.fn(),
-}));
+jest.mock("@/engine/core/objects/smart_terrain/utils");
+jest.mock("@/engine/core/utils/object");
+jest.mock("@/engine/core/utils/scheme");
 
 describe("StalkerBinder class", () => {
   beforeEach(() => {
@@ -34,6 +36,7 @@ describe("StalkerBinder class", () => {
 
     resetFunctionMock(setupObjectSmartJobsAndLogicOnSpawn);
     resetFunctionMock(syncSpawnedObjectPosition);
+    resetFunctionMock(emitSchemeEvent);
   });
 
   it.todo("should correctly initialize");
@@ -169,9 +172,9 @@ describe("StalkerBinder class", () => {
     expect(netProcessor.dataList).toHaveLength(0);
   });
 
-  it.todo("should correctly handle death event");
+  it.todo("should correctly update torch light state");
 
-  it.todo("should correctly handle hit event");
+  it.todo("should correctly handle death event");
 
   it.todo("should correctly handle hear event");
 
@@ -179,5 +182,85 @@ describe("StalkerBinder class", () => {
 
   it.todo("should correctly handle patrol event");
 
-  it.todo("should correctly update torch light state");
+  it("should correctly handle hit event", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const binder: StalkerBinder = new StalkerBinder(object);
+    const manager: EventsManager = getManager(EventsManager);
+
+    binder.state = state;
+
+    jest.spyOn(manager, "emitEvent").mockImplementation(jest.fn());
+
+    state.activeScheme = EScheme.ANIMPOINT;
+    state[EScheme.ANIMPOINT] = mockSchemeState(EScheme.ANIMPOINT);
+    state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
+    state[EScheme.COMBAT] = mockSchemeState(EScheme.COMBAT);
+    state[EScheme.HIT] = mockSchemeState(EScheme.HIT);
+    state[EScheme.WOUNDED] = mockSchemeState(EScheme.WOUNDED);
+    (state[EScheme.WOUNDED] as ISchemeWoundedState).woundManager = {
+      onHit: jest.fn(),
+    } as AnyObject as WoundManager;
+
+    binder.onHit(object, 1000, ZERO_VECTOR, actorGameObject, 10);
+
+    expect(object.health).toBe(0.15);
+
+    expect(syncObjectHitSmartTerrainAlert).toHaveBeenCalledWith(object);
+
+    expect((state[EScheme.WOUNDED] as ISchemeWoundedState)?.woundManager.onHit).toHaveBeenCalledTimes(1);
+
+    expect(manager.emitEvent).toHaveBeenCalledTimes(1);
+    expect(manager.emitEvent).toHaveBeenCalledWith(
+      EGameEvent.STALKER_HIT,
+      object,
+      1000,
+      ZERO_VECTOR,
+      actorGameObject,
+      10
+    );
+
+    expect(emitSchemeEvent).toHaveBeenCalledTimes(4);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      object,
+      state[EScheme.ANIMPOINT],
+      ESchemeEvent.HIT,
+      object,
+      1000,
+      ZERO_VECTOR,
+      actorGameObject,
+      10
+    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      object,
+      state[EScheme.COMBAT_IGNORE],
+      ESchemeEvent.HIT,
+      object,
+      1000,
+      ZERO_VECTOR,
+      actorGameObject,
+      10
+    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      object,
+      state[EScheme.COMBAT],
+      ESchemeEvent.HIT,
+      object,
+      1000,
+      ZERO_VECTOR,
+      actorGameObject,
+      10
+    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(
+      object,
+      state[EScheme.HIT],
+      ESchemeEvent.HIT,
+      object,
+      1000,
+      ZERO_VECTOR,
+      actorGameObject,
+      10
+    );
+  });
 });

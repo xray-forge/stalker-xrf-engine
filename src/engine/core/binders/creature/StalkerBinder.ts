@@ -493,7 +493,13 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Handle stalker hit event.
+   *
+   * @param object - game object being hit
+   * @param amount - value of damage received, ranges from 0 to 100 in usual cases
+   * @param direction - vector of hit direction
+   * @param who - source of damage
+   * @param boneIndex - index of bone bing hit
    */
   public onHit(
     object: GameObject,
@@ -502,15 +508,21 @@ export class StalkerBinder extends object_binder {
     who: Optional<GameObject>,
     boneIndex: TIndex
   ): void {
+    const state: IRegistryObjectState = this.state;
+
     // On attack by actor verify if alert is needed.
     if (who?.id() === ACTOR_ID && amount > 0) {
       syncObjectHitSmartTerrainAlert(object);
     }
 
-    if (this.state.activeSection) {
+    if (state.activeScheme) {
+      emitSchemeEvent(object, state[state.activeScheme!]!, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+    }
+
+    if (state[EScheme.COMBAT_IGNORE]) {
       emitSchemeEvent(
-        this.object,
-        this.state[this.state.activeScheme!]!,
+        object,
+        state[EScheme.COMBAT_IGNORE],
         ESchemeEvent.HIT,
         object,
         amount,
@@ -520,53 +532,22 @@ export class StalkerBinder extends object_binder {
       );
     }
 
-    if (this.state[EScheme.COMBAT_IGNORE]) {
-      emitSchemeEvent(
-        this.object,
-        this.state[EScheme.COMBAT_IGNORE],
-        ESchemeEvent.HIT,
-        object,
-        amount,
-        direction,
-        who,
-        boneIndex
-      );
+    if (state[EScheme.COMBAT]) {
+      emitSchemeEvent(object, state[EScheme.COMBAT], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
-    if (this.state[EScheme.COMBAT]) {
-      emitSchemeEvent(
-        this.object,
-        this.state[EScheme.COMBAT],
-        ESchemeEvent.HIT,
-        object,
-        amount,
-        direction,
-        who,
-        boneIndex
-      );
+    if (state[EScheme.HIT]) {
+      emitSchemeEvent(object, state[EScheme.HIT], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
-    if (this.state[EScheme.HIT]) {
-      emitSchemeEvent(
-        this.object,
-        this.state[EScheme.HIT],
-        ESchemeEvent.HIT,
-        object,
-        amount,
-        direction,
-        who,
-        boneIndex
-      );
-    }
-
-    if (boneIndex !== 15 && amount > this.object.health * 100) {
-      this.object.health = 0.15;
+    if (boneIndex !== 15 && amount > object.health * 100) {
+      object.health = 0.15;
     }
 
     if (amount > 0) {
-      (this.state[EScheme.WOUNDED] as ISchemeWoundedState)?.woundManager.onHit();
+      (state[EScheme.WOUNDED] as ISchemeWoundedState)?.woundManager.onHit();
     }
 
-    EventsManager.emitEvent(EGameEvent.STALKER_HIT, this.object, amount, direction, who, boneIndex);
+    EventsManager.emitEvent(EGameEvent.STALKER_HIT, object, amount, direction, who, boneIndex);
   }
 }
