@@ -36,7 +36,7 @@ export function isMonster(object: AnyGameObject): boolean {
  * @param object - any game object to check
  * @returns whether object class id is a stalker
  */
-export function isStalker(object: AnyGameObject): boolean {
+export function isStalker(object: AnyGameObject): object is Stalker | GameObject {
   return classIds.stalker.has(object.clsid());
 }
 
