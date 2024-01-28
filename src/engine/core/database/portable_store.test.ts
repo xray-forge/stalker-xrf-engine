@@ -14,7 +14,7 @@ import {
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
 import { GameObject, Optional } from "@/engine/lib/types";
-import { EPacketDataType, MockGameObject, mockNetPacket, MockNetProcessor, mockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("portable_store functionality", () => {
   it("should correctly validate value type", () => {
@@ -112,7 +112,7 @@ describe("portable_store functionality", () => {
 
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    savePortableStore(object.id(), mockNetPacket(netProcessor));
+    savePortableStore(object.id(), netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.U32,
@@ -143,7 +143,7 @@ describe("portable_store functionality", () => {
 
     registerObject(nextObject);
 
-    loadPortableStore(nextObject.id(), mockNetProcessor(netProcessor));
+    loadPortableStore(nextObject.id(), netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);
@@ -163,14 +163,14 @@ describe("portable_store functionality", () => {
 
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    expect(() => savePortableStore(object.id(), mockNetPacket(netProcessor))).toThrow(
+    expect(() => savePortableStore(object.id(), netProcessor.asNetPacket())).toThrow(
       "Portable store: not registered type tried to save 'invalid' - 'table'."
     );
 
     netProcessor.w_stringZ("key");
     netProcessor.w_u8(3);
 
-    expect(() => loadPortableStore(object.id(), mockNetPacket(netProcessor))).toThrow(
+    expect(() => loadPortableStore(object.id(), netProcessor.asNetReader())).toThrow(
       "Portable store: not registered type tried to load: 'invalid' - 'key'."
     );
   });

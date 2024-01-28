@@ -14,7 +14,7 @@ import { Actor } from "@/engine/core/objects/creature";
 import { ItemArtefact } from "@/engine/core/objects/item/ItemArtefact";
 import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemArtefact server class", () => {
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe("ItemArtefact server class", () => {
     const itemArtefact: ItemArtefact = new ItemArtefact("test-section");
 
     jest.spyOn(itemArtefact, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

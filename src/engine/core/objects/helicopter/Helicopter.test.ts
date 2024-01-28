@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Helicopter } from "@/engine/core/objects/helicopter/Helicopter";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("Helicopter server class", () => {
   beforeEach(() => registerSimulator());
@@ -36,7 +36,7 @@ describe("Helicopter server class", () => {
     const helicopter: Helicopter = new Helicopter("test-section");
 
     jest.spyOn(helicopter, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

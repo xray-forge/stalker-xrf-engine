@@ -142,15 +142,12 @@ describe("isStalker utils", () => {
 
   it("should correctly check if object is a stalker", () => {
     expect(isStalker(MockGameObject.mockWithClassId(clsid.script_actor))).toBe(true);
-    expect(isStalker(MockGameObject.mock(), clsid.script_actor)).toBe(true);
     expect(isStalker(MockGameObject.mockWithClassId(clsid.script_stalker))).toBe(true);
-    expect(isStalker(MockGameObject.mock(), clsid.script_stalker)).toBe(true);
     expect(isStalker(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(true);
     expect(isStalker(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(true);
     expect(isStalker(MockAlifeObject.mockWithClassId(clsid.trader))).toBe(false);
-    expect(isStalker(MockGameObject.mock(), clsid.trader)).toBe(false);
 
-    expect(isStalker(MockGameObject.mock(), clsid.zone_mbald_s)).toBe(false);
+    expect(isStalker(MockGameObject.mockWithClassId(clsid.zone_mbald_s))).toBe(false);
     expect(isStalker(MockGameObject.mockWithClassId(clsid.zone_mbald_s))).toBe(false);
     expect(isStalker(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
     expect(isStalker(MockAlifeObject.mockWithClassId(clsid.boar_s))).toBe(false);

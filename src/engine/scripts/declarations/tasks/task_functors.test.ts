@@ -8,14 +8,20 @@ import { callBinding, checkNestedBinding, mockRegisteredActor, resetRegistry } f
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
+function callTaskBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject).task_functors);
+}
+
+function checkTaskBinding(name: TName): void {
+  return checkNestedBinding("task_functors", name);
+}
+
 jest.mock("@/engine/core/managers/surge/utils/surge_cover", () => ({
   isActorInSurgeCover: jest.fn(() => true),
   getActorTargetSurgeCover: jest.fn(() => null),
 }));
 
 describe("task_functors external callbacks declaration", () => {
-  const checkTaskBinding = (name: TName) => checkNestedBinding("task_functors", name);
-
   beforeAll(() => {
     require("@/engine/scripts/declarations/tasks/task_functors");
   });
@@ -30,8 +36,6 @@ describe("task_functors external callbacks declaration", () => {
 });
 
 describe("task_functors external callbacks implementation", () => {
-  const callTaskBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject).task_functors);
-
   beforeAll(() => {
     require("@/engine/scripts/declarations/tasks/task_functors");
   });

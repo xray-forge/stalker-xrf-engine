@@ -13,14 +13,7 @@ import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
 import { AnyObject, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import {
-  EPacketDataType,
-  MockAlifeHumanStalker,
-  MockGameObject,
-  mockNetPacket,
-  mockNetProcessor,
-  MockNetProcessor,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("ReleaseBodyManager class", () => {
   beforeEach(() => {
@@ -112,7 +105,7 @@ describe("ReleaseBodyManager class", () => {
       { id: 13, diedAt: null },
     ]);
 
-    manager.save(mockNetPacket(netProcessor));
+    manager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.U16,
@@ -129,7 +122,7 @@ describe("ReleaseBodyManager class", () => {
 
     deathConfig.RELEASE_OBJECTS_REGISTRY = new LuaTable();
 
-    getManager(ReleaseBodyManager).load(mockNetProcessor(netProcessor));
+    getManager(ReleaseBodyManager).load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -153,7 +146,7 @@ describe("ReleaseBodyManager class", () => {
       { id: 11, diedAt: 5_000 },
     ]);
 
-    manager.save(mockNetPacket(netProcessor));
+    manager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.U16,
@@ -170,7 +163,7 @@ describe("ReleaseBodyManager class", () => {
 
     deathConfig.RELEASE_OBJECTS_REGISTRY = new LuaTable();
 
-    getManager(ReleaseBodyManager).load(mockNetProcessor(netProcessor));
+    getManager(ReleaseBodyManager).load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

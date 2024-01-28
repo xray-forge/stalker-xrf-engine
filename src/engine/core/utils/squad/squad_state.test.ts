@@ -7,24 +7,24 @@ import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, IniFile, ServerCreatureObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockAlifeHumanStalker, MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("updateSquadInvulnerabilityState util", () => {
   it("should correctly update state for squad", () => {
     const squad: MockSquad = MockSquad.mock();
 
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       active: {
         invulnerable: true,
       },
     });
 
     const firstServer: ServerCreatureObject = MockAlifeHumanStalker.mock();
-    const first: GameObject = MockGameObject.mock({ idOverride: firstServer.id });
+    const first: GameObject = MockGameObject.mock({ id: firstServer.id });
     const firstState: IRegistryObjectState = registerObject(first);
 
     const secondServer: ServerCreatureObject = MockAlifeHumanStalker.mock();
-    const second: GameObject = MockGameObject.mock({ idOverride: secondServer.id });
+    const second: GameObject = MockGameObject.mock({ id: secondServer.id });
     const secondState: IRegistryObjectState = registerObject(second);
 
     firstState.ini = ini;

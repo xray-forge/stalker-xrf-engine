@@ -10,27 +10,32 @@ import { mockSchemeState } from "@/fixtures/engine";
 import { MockActionPlanner, MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 import { MockPropertyEvaluatorConst } from "@/fixtures/xray/mocks/PropertyEvaluatorConst.mock";
 
+function mockEvaluator(hasEnemy: boolean = false): {
+  evaluator: EvaluatorWounded;
+  state: ISchemeWoundedState;
+  planner: MockActionPlanner;
+  object: GameObject;
+} {
+  const object: GameObject = MockGameObject.mock();
+  const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
+  const evaluator: EvaluatorWounded = new EvaluatorWounded(state);
+  const planner: MockActionPlanner = new MockActionPlanner();
+
+  registerObject(object);
+
+  state.woundManager = new WoundManager(object, state);
+
+  jest.spyOn(state.woundManager, "update").mockImplementation(jest.fn());
+
+  evaluator.actionPlanner = planner.asMock();
+  planner.add_evaluator(EEvaluatorId.ENEMY, new MockPropertyEvaluatorConst(hasEnemy).asMock());
+
+  evaluator.setup(object, MockPropertyStorage.mock());
+
+  return { evaluator, state, planner, object };
+}
+
 describe("EvaluatorWounded class", () => {
-  const mockEvaluator = (hasEnemy: boolean = false) => {
-    const object: GameObject = MockGameObject.mock();
-    const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
-    const evaluator: EvaluatorWounded = new EvaluatorWounded(state);
-    const planner: MockActionPlanner = new MockActionPlanner();
-
-    registerObject(object);
-
-    state.woundManager = new WoundManager(object, state);
-
-    jest.spyOn(state.woundManager, "update").mockImplementation(jest.fn());
-
-    evaluator.actionPlanner = planner.asMock();
-    planner.add_evaluator(EEvaluatorId.ENEMY, new MockPropertyEvaluatorConst(hasEnemy).asMock());
-
-    evaluator.setup(object, MockPropertyStorage.mock());
-
-    return { evaluator, state, planner, object };
-  };
-
   it("should correctly evaluate whether is wounded", () => {
     const { object, evaluator, state } = mockEvaluator(false);
 

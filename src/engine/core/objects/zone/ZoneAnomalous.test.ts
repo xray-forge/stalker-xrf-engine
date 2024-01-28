@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneAnomalous } from "@/engine/core/objects/zone/index";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ZoneAnomalous server class", () => {
   beforeEach(() => registerSimulator());
@@ -37,7 +37,7 @@ describe("ZoneAnomalous server class", () => {
     const zoneAnomalous: ZoneAnomalous = new ZoneAnomalous("test-section");
 
     jest.spyOn(zoneAnomalous, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

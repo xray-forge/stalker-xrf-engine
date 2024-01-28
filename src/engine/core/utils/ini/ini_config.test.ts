@@ -20,7 +20,7 @@ import {
 import { NIL } from "@/engine/lib/constants/words";
 import { GameObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
 
 describe("getInfosFromData util", () => {
   beforeEach(() => registerSimulator());
@@ -48,7 +48,7 @@ describe("getConfigObjectAndZone util", () => {
 
     expect(
       getConfigObjectAndZone(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           test: {
             key: "zat_cop_id|zat_b38_actor_jump_down|{+a -b}walker@get_out",
           },
@@ -73,7 +73,7 @@ describe("getObjectConfigOverrides util", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
-    expect(getObjectConfigOverrides(mockIniFile("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({
+    expect(getObjectConfigOverrides(MockIniFile.mock("test.ltx", { empty: {} }), "empty", object)).toEqualLuaTables({
       combatIgnore: null,
       combatIgnoreKeepWhenAttacked: false,
       combatType: null,
@@ -88,7 +88,7 @@ describe("getObjectConfigOverrides util", () => {
 
     expect(
       getObjectConfigOverrides(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           empty: {
             heli_hunter: "first",
             combat_ignore_cond: "second",
@@ -138,7 +138,7 @@ describe("getObjectConfigOverrides util", () => {
 
     expect(
       getObjectConfigOverrides(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           empty: {},
           logic: {
             post_combat_time: "15, 54",
@@ -214,7 +214,7 @@ describe("getConfigSwitchConditions util", () => {
   it("correctly parse empty/other ini files conditions", () => {
     expect(
       getConfigSwitchConditions(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           existing: {
             on_signal: "true",
           },
@@ -225,7 +225,7 @@ describe("getConfigSwitchConditions util", () => {
 
     expect(
       getConfigSwitchConditions(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           existing: {},
         }),
         "existing"
@@ -234,7 +234,7 @@ describe("getConfigSwitchConditions util", () => {
 
     expect(
       getConfigSwitchConditions(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           existing: {
             first: 1,
             second: "b",
@@ -248,7 +248,7 @@ describe("getConfigSwitchConditions util", () => {
   it("correctly parse different listed conditions", () => {
     expect(
       getConfigSwitchConditions(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           existing: {
             another: 1,
             something: "else",
@@ -267,7 +267,7 @@ describe("getConfigSwitchConditions util", () => {
 
     expect(
       getConfigSwitchConditions(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           existing: {
             on_actor_dist_le_nvis: "31 | {=actor_condition} value",
             on_actor_dist_ge: "55 | {=another_cond} another",
@@ -294,7 +294,7 @@ describe("getConfigSwitchConditions util", () => {
 
     expect(
       getConfigSwitchConditions(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           existing: {
             on_actor_dist_ge_nvis: "100|test1",
             on_signal: "anim_end|test2",

@@ -1,13 +1,50 @@
-import { describe, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-describe("DropManager class", () => {
-  it.todo("should correctly initialize and destroy");
+import { getManager } from "@/engine/core/database";
+import { DROP_MANAGER_CONFIG_LTX } from "@/engine/core/managers/drop/DropConfig";
+import { DropManager } from "@/engine/core/managers/drop/DropManager";
+import { createCorpseReleaseItems, readIniDropCountByLevel } from "@/engine/core/managers/drop/utils";
+import { GameObject } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
+import { resetFunctionMock } from "@/fixtures/jest";
+import { MockGameObject } from "@/fixtures/xray";
 
-  it.todo("should correctly create release items for corpse");
+jest.mock("@/engine/core/managers/drop/utils");
 
-  it.todo("should correctly filter lootable items");
+describe("DropManager", () => {
+  beforeEach(() => {
+    resetRegistry();
 
-  it.todo("should correctly handle check and spawn dependent drops for items");
+    resetFunctionMock(readIniDropCountByLevel);
+    resetFunctionMock(createCorpseReleaseItems);
+  });
 
-  it.todo("should correctly handle object death");
+  it("should correctly initialize and destroy", () => {
+    expect(readIniDropCountByLevel).not.toHaveBeenCalled();
+
+    getManager(DropManager);
+
+    expect(readIniDropCountByLevel).toHaveBeenCalledTimes(1);
+    expect(readIniDropCountByLevel).toHaveBeenCalledWith(DROP_MANAGER_CONFIG_LTX);
+  });
+
+  it("should correctly handle force items spawn", () => {
+    const manager: DropManager = getManager(DropManager);
+    const object: GameObject = MockGameObject.mock();
+
+    manager.forceCorpseReleaseItemsSpawn(object);
+
+    expect(createCorpseReleaseItems).toHaveBeenCalledTimes(1);
+    expect(createCorpseReleaseItems).toHaveBeenLastCalledWith(object);
+  });
+
+  it("should correctly handle object death", () => {
+    const manager: DropManager = getManager(DropManager);
+    const object: GameObject = MockGameObject.mock();
+
+    manager.onObjectDeath(object);
+
+    expect(createCorpseReleaseItems).toHaveBeenCalledTimes(1);
+    expect(createCorpseReleaseItems).toHaveBeenLastCalledWith(object);
+  });
 });

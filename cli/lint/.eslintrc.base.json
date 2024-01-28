@@ -25,7 +25,9 @@
     "@typescript-eslint/no-misused-new": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-function-return-type": ["error", {
+      "allowExpressions": true
+    }],
     "@typescript-eslint/explicit-member-accessibility": ["error"],
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-empty-function": "off",
@@ -47,6 +49,9 @@
     "arrow-spacing": "error",
     "brace-style": "error",
     "camelcase": "off",
+    "func-style": ["error", "declaration"],
+    "no-inner-declarations": "off",
+    "prefer-arrow-callback": "error",
     "sort-vars": "error",
     "sort-imports": [
       "error",
@@ -179,7 +184,10 @@
       }
     ],
     "quotes": ["error", "double"],
-    "react/jsx-curly-brace-presence": ["error", { "props": "always", "children": "never", "propElementValues": "always" }],
+    "react/jsx-curly-brace-presence": [
+      "error",
+      { "props": "always", "children": "never", "propElementValues": "always" }
+    ],
     "react/jsx-key": "off",
     "react/no-unknown-property": "off",
     "react/react-in-jsx-scope": "off",

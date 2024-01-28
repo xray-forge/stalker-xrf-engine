@@ -21,17 +21,19 @@ import {
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { range } from "@/engine/core/utils/number";
 import { AnyObject } from "@/engine/lib/types";
-import { mockSmartCover, mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { mockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { MockIniFile, mockServerAlifeCreatureActor } from "@/fixtures/xray";
 
-describe("jobs_create should correctly generate default jobs", () => {
-  const getSmartTerrainTaskDetails = () => ({
+function getSmartTerrainTaskDetails(): AnyObject {
+  return {
     alifeTask: expect.any(Object),
     gameVertexId: expect.any(Number),
     levelId: expect.any(Number),
     position: expect.any(Object),
-  });
+  };
+}
 
+describe("jobs_create", () => {
   beforeEach(() => {
     registerSimulator();
     registerActorServer(mockServerAlifeCreatureActor());
@@ -42,13 +44,13 @@ describe("jobs_create should correctly generate default jobs", () => {
       path.resolve(__dirname, "__test__", "job_create.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const smartCover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
 
-    registerSmartCover(smartCover);
-    smartTerrain.on_register();
+    registerSmartCover(cover);
+    terrain.on_register();
 
-    const [jobsList, ltxConfig, ltxName] = createSmartTerrainJobs(smartTerrain);
+    const [jobsList, ltxConfig, ltxName] = createSmartTerrainJobs(terrain);
 
     expect(ltxName).toBe("*test_smart");
     expect((ltxConfig as unknown as MockIniFile<AnyObject>).content).toBe(defaultJobsLtx);
@@ -226,11 +228,11 @@ describe("jobs_create should correctly generate default jobs", () => {
 
   it("should correctly generate default jobs for empty smarts", async () => {
     const emptyJobsLtx: string = await readInGameTestLtx(path.resolve(__dirname, "__test__", "job_create.empty.ltx"));
-    const smartTerrain: SmartTerrain = mockSmartTerrain("test_smart_empty");
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart_empty");
 
-    smartTerrain.on_register();
+    terrain.on_register();
 
-    const [jobsList, ltx, ltxName] = createSmartTerrainJobs(smartTerrain);
+    const [jobsList, ltx, ltxName] = createSmartTerrainJobs(terrain);
 
     expect(ltxName).toBe("*test_smart_empty");
     expect((ltx as unknown as MockIniFile<AnyObject>).content).toBe(emptyJobsLtx);

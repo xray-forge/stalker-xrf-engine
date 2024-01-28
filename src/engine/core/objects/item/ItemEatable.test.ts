@@ -11,7 +11,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemEatable } from "@/engine/core/objects/item/ItemEatable";
 import { resetRegistry } from "@/fixtures/engine";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemEatable server class", () => {
   beforeEach(() => {
@@ -54,7 +54,7 @@ describe("ItemEatable server class", () => {
     const itemEatable: ItemEatable = new ItemEatable("test-section");
 
     jest.spyOn(itemEatable, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

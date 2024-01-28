@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { clsid, danger_object } from "xray16";
+import { danger_object } from "xray16";
 
 import {
   getManager,
@@ -109,7 +109,7 @@ describe("danger generic utils", () => {
   });
 
   it("isObjectFacingDanger should correctly check grenades", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker as TClassId });
+    const object: GameObject = MockGameObject.mockStalker();
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -141,7 +141,7 @@ describe("danger generic utils", () => {
   });
 
   it("canObjectSelectAsEnemy should correctly check enemies selection possibility", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker as TClassId });
+    const object: GameObject = MockGameObject.mockStalker();
     const enemy: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
@@ -177,7 +177,7 @@ describe("danger generic utils", () => {
   });
 
   it("canObjectSelectAsEnemy should correctly check enemies in no-combat zones", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker as TClassId });
+    const object: GameObject = MockGameObject.mockStalker();
     const enemy: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
@@ -202,7 +202,7 @@ describe("danger generic utils", () => {
   });
 
   it("canObjectSelectAsEnemy should correctly ignore enemies in no-combat smarts", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker as TClassId });
+    const object: GameObject = MockGameObject.mockStalker();
     const enemy: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);

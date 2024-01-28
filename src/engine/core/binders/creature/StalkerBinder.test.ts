@@ -17,15 +17,7 @@ import { setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/scheme"
 import { ESchemeType, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import {
-  EPacketDataType,
-  MockAlifeHumanStalker,
-  MockCTime,
-  MockGameObject,
-  mockNetPacket,
-  MockNetProcessor,
-  mockNetReader,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeHumanStalker, MockCTime, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/object");
 
@@ -52,7 +44,7 @@ describe("StalkerBinder class", () => {
 
   it("should correctly handle going online/offline", () => {
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: StalkerBinder = new StalkerBinder(object);
 
     jest.spyOn(SchemeReachTask, "setup").mockImplementation(jest.fn());
@@ -122,7 +114,7 @@ describe("StalkerBinder class", () => {
     state.activeSection = "scheme@section";
     state.smartTerrainName = "some_smart";
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(tradeManager.saveObjectState).toHaveBeenCalledWith(object, netProcessor);
     expect(soundManager.saveObject).toHaveBeenCalledWith(object, netProcessor);
@@ -167,7 +159,7 @@ describe("StalkerBinder class", () => {
       16,
     ]);
 
-    binder.load(mockNetReader(netProcessor));
+    binder.load(netProcessor.asNetReader());
 
     expect(tradeManager.loadObjectState).toHaveBeenCalledWith(object, netProcessor);
     expect(soundManager.loadObject).toHaveBeenCalledWith(object, netProcessor);

@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LevelChanger } from "@/engine/core/objects/level/LevelChanger";
-import { EPacketDataType, mockIniFile, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger server class", () => {
   beforeEach(() => registerSimulator());
@@ -38,7 +38,7 @@ describe("LevelChanger server class", () => {
     const levelChanger: LevelChanger = new LevelChanger("test-section");
 
     jest.spyOn(levelChanger, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },
@@ -67,7 +67,7 @@ describe("LevelChanger server class", () => {
     levelChanger.isEnabled = false;
     levelChanger.invitationHint = "another";
 
-    levelChanger.STATE_Write(netProcessor.asMockNetPacket());
+    levelChanger.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -79,7 +79,7 @@ describe("LevelChanger server class", () => {
 
     const anotherLevelChanger: LevelChanger = new LevelChanger("test-section");
 
-    anotherLevelChanger.STATE_Read(netProcessor.asMockNetPacket(), -1);
+    anotherLevelChanger.STATE_Read(netProcessor.asNetPacket(), -1);
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);

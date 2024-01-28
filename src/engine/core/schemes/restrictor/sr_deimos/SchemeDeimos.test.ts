@@ -8,7 +8,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeDeimos", () => {
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe("SchemeDeimos", () => {
     expect(() => {
       SchemeDeimos.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "sr_deimos@test": {},
         }),
         SchemeDeimos.SCHEME_SECTION,
@@ -41,7 +41,7 @@ describe("SchemeDeimos", () => {
     expect(() => {
       SchemeDeimos.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "sr_deimos@test": {
             pp_effector: "test-pp-effector",
           },
@@ -54,7 +54,7 @@ describe("SchemeDeimos", () => {
     expect(() => {
       SchemeDeimos.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "sr_deimos@test": {
             pp_effector: "test-pp-effector",
             pp_effector2: "test-pp-effector-2",
@@ -68,7 +68,7 @@ describe("SchemeDeimos", () => {
     expect(() => {
       SchemeDeimos.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "sr_deimos@test": {
             pp_effector: "test-pp-effector",
             pp_effector2: "test-pp-effector-2",
@@ -83,7 +83,7 @@ describe("SchemeDeimos", () => {
     expect(() => {
       SchemeDeimos.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "sr_deimos@test": {
             pp_effector: "test-pp-effector",
             pp_effector2: "test-pp-effector-2",
@@ -99,7 +99,7 @@ describe("SchemeDeimos", () => {
 
   it("should correctly activate scheme with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_deimos@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} sr_another@1",
         on_info1: "{=actor_in_zone(zat_b42_warning_space_restrictor)} sr_another@2",
@@ -148,7 +148,7 @@ describe("SchemeDeimos", () => {
 
   it("should correctly activate scheme with custom values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_deimos@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} sr_another@1",
         on_info1: "{=actor_in_zone(zat_b42_warning_space_restrictor)} sr_another@2",

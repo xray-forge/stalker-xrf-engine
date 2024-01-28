@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { CampfireBinder } from "@/engine/core/binders/physic/CampfireBinder";
 import { registry } from "@/engine/core/database";
@@ -13,42 +13,44 @@ describe("CampfireBinder class", () => {
   });
 
   it("should correctly register and unregister campfire without links", () => {
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
     const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
-    const binder: CampfireBinder = new CampfireBinder(MockGameObject.mock({ get_campfire: () => campfire }));
+    const binder: CampfireBinder = new CampfireBinder(MockGameObject.mock());
     const campfireServer: ServerDynamicObject = mockServerAlifeDynamicObject({ id: binder.object.id() });
 
-    smartTerrain.on_before_register();
+    jest.spyOn(binder.object, "get_campfire").mockImplementation(() => campfire);
+
+    terrain.on_before_register();
 
     binder.net_spawn(campfireServer);
 
-    expect(binder.smartTerrain).toBeNull();
+    expect(binder.terrain).toBeNull();
     expect(registry.objects.length()).toBe(0);
     expect(registry.smartTerrainsCampfires.length()).toBe(0);
 
     binder.net_destroy();
-    expect(binder.smartTerrain).toBeNull();
+    expect(binder.terrain).toBeNull();
   });
 
   it("should correctly register and unregister campfire with links", () => {
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
     const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
-    const binder: CampfireBinder = new CampfireBinder(
-      MockGameObject.mock({ get_campfire: () => campfire, name: () => `_campfire_${smartTerrain.name()}` })
-    );
+    const binder: CampfireBinder = new CampfireBinder(MockGameObject.mock({ name: `_campfire_${terrain.name()}` }));
     const campfireServer: ServerDynamicObject = mockServerAlifeDynamicObject({ id: binder.object.id() });
 
-    smartTerrain.on_before_register();
+    jest.spyOn(binder.object, "get_campfire").mockImplementation(() => campfire);
+
+    terrain.on_before_register();
 
     binder.net_spawn(campfireServer);
 
-    expect(binder.smartTerrain).toBe(smartTerrain);
+    expect(binder.terrain).toBe(terrain);
     expect(registry.objects.length()).toBe(1);
     expect(registry.smartTerrainsCampfires.length()).toBe(1);
 
     binder.net_destroy();
 
-    expect(binder.smartTerrain).toBeNull();
+    expect(binder.terrain).toBeNull();
     expect(registry.objects.length()).toBe(0);
     expect(registry.smartTerrainsCampfires.length()).toBe(0);
   });
@@ -62,7 +64,7 @@ describe("CampfireBinder class", () => {
 
     binder.net_spawn(campfireServer);
 
-    expect(binder.smartTerrain).toBeNull();
+    expect(binder.terrain).toBeNull();
     expect(registry.objects.length()).toBe(0);
     expect(registry.smartTerrainsCampfires.length()).toBe(0);
   });

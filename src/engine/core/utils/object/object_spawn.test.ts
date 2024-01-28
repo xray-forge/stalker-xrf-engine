@@ -15,7 +15,7 @@ describe("syncSpawnedObjectPosition util", () => {
 
   it("should handle sync with defined spawn vertex", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const position: Vector = MockVector.mock();
 
     registry.spawnedVertexes.set(object.id(), 400);
@@ -30,7 +30,7 @@ describe("syncSpawnedObjectPosition util", () => {
 
   it("should handle sync with existing offline state", () => {
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const position: Vector = MockVector.mock();
 
     registerOfflineObject(object.id(), { levelVertexId: 500, activeSection: null });
@@ -48,7 +48,7 @@ describe("syncSpawnedObjectPosition util", () => {
 
     const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
 
     serverObject.m_smart_terrain_id = smartTerrain.id;
 

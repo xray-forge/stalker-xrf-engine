@@ -48,7 +48,7 @@ describe("isPatrolInRestrictor utils", () => {
     expect(isPatrolInRestrictor("some_restrictor", "some_patrol")).toBeNull();
     expect(isPatrolInRestrictor("some_restrictor", "another_patrol")).toBeNull();
 
-    const zone: GameObject = MockGameObject.mock({ name: () => "test_restrictor" });
+    const zone: GameObject = MockGameObject.mock({ name: "test_restrictor" });
 
     registerZone(zone);
 

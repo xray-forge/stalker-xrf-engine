@@ -11,14 +11,7 @@ import { createVector } from "@/engine/core/utils/vector";
 import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import {
-  EPacketDataType,
-  MockCArtefact,
-  MockGameObject,
-  mockNetPacket,
-  mockNetProcessor,
-  MockNetProcessor,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockCArtefact, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/surge/utils");
 
@@ -50,7 +43,7 @@ describe("SurgeManager class", () => {
 
     manager.nextScheduledSurgeDelay = 4500;
 
-    manager.save(mockNetPacket(netProcessor));
+    manager.save(netProcessor.asNetPacket());
 
     expect(manager.isAfterGameLoad).toBe(false);
 
@@ -74,7 +67,7 @@ describe("SurgeManager class", () => {
 
     const newManager: SurgeManager = getManager(SurgeManager);
 
-    newManager.load(mockNetProcessor(netProcessor));
+    newManager.load(netProcessor.asNetReader());
 
     expect(newManager.isAfterGameLoad).toBe(true);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
@@ -103,7 +96,7 @@ describe("SurgeManager class", () => {
     manager.respawnArtefactsForLevel.set("jupiter", true);
     manager.respawnArtefactsForLevel.set("new_level", true);
 
-    manager.save(mockNetPacket(netProcessor));
+    manager.save(netProcessor.asNetPacket());
 
     expect(manager.isAfterGameLoad).toBe(false);
 
@@ -172,7 +165,7 @@ describe("SurgeManager class", () => {
 
     const newManager: SurgeManager = getManager(SurgeManager);
 
-    newManager.load(mockNetProcessor(netProcessor));
+    newManager.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ObjectPhysic } from "@/engine/core/objects/physic/ObjectPhysic";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("ObjectPhysic server class", () => {
   beforeEach(() => registerSimulator());
@@ -50,7 +50,7 @@ describe("ObjectPhysic server class", () => {
     const objectPhysic: ObjectPhysic = new ObjectPhysic("test-section");
 
     jest.spyOn(objectPhysic, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

@@ -10,13 +10,19 @@ import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cuts
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
 
+function callEngineBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["engine"]);
+}
+
+function callAchievementBinding(name: EAchievement, args: AnyArgs = []): boolean {
+  return callBinding(name, args, (_G as AnyObject)["engine"]["check_achievement"]);
+}
+
 jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils", () => ({
   emitCutsceneEndedEvent: jest.fn(),
 }));
 
 describe("custom external callbacks", () => {
-  const callEngineBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["engine"]);
-
   beforeAll(() => {
     require("@/engine/scripts/declarations/callbacks/custom");
   });
@@ -120,9 +126,6 @@ describe("custom external callbacks", () => {
     Object.keys((_G as AnyObject)["engine"]["check_achievement"]).forEach(
       (it) => ((_G as AnyObject)["engine"]["check_achievement"][it as string] = jest.fn(() => true))
     );
-
-    const callAchievementBinding = (name: EAchievement, args: AnyArgs = []) =>
-      callBinding(name, args, (_G as AnyObject)["engine"]["check_achievement"]);
 
     expect(callAchievementBinding(EAchievement.BATTLE_SYSTEMS_MASTER)).toBe(true);
     expect(callAchievementBinding(EAchievement.DETECTIVE)).toBe(true);

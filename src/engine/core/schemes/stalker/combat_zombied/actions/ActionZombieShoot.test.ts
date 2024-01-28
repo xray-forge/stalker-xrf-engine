@@ -24,9 +24,11 @@ describe("ActionZombieShoot", () => {
 
   it("should correctly initialize", () => {
     const enemy: GameObject = MockGameObject.mock();
-    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => enemy);
 
     action.setup(object, new property_storage());
 
@@ -62,9 +64,11 @@ describe("ActionZombieShoot", () => {
 
   it("should correctly finalize", () => {
     const enemy: GameObject = MockGameObject.mock();
-    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => enemy);
 
     action.setup(object, new property_storage());
 
@@ -80,9 +84,11 @@ describe("ActionZombieShoot", () => {
 
   it("should correctly set state", () => {
     const enemy: GameObject = MockGameObject.mock();
-    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => enemy);
 
     action.setup(object, new property_storage());
 
@@ -115,9 +121,11 @@ describe("ActionZombieShoot", () => {
 
   it("should correctly get look direction", () => {
     const enemy: GameObject = MockGameObject.mock();
-    const object: GameObject = MockGameObject.mock({ position: () => ONE_VECTOR, best_enemy: () => enemy });
+    const object: GameObject = MockGameObject.mock({ position: ONE_VECTOR });
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => enemy);
 
     action.setup(object, new property_storage());
 
@@ -144,9 +152,11 @@ describe("ActionZombieShoot", () => {
 
   it("should correctly handle hit", () => {
     const enemy: GameObject = MockGameObject.mock();
-    const object: GameObject = MockGameObject.mock({ best_enemy: () => enemy });
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeCombatState = mockSchemeState(EScheme.COMBAT);
     const action: ActionZombieShoot = new ActionZombieShoot(state);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => enemy);
 
     action.setup(object, new property_storage());
 

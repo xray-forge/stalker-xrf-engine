@@ -89,7 +89,7 @@ describe("HelicopterBinder class", () => {
     binderState.activeSection = "test@test";
     binderState.smartTerrainName = "test-smart";
 
-    binder.save(processor.asMockNetPacket());
+    binder.save(processor.asNetPacket());
 
     expect(binder.combatManager.save).toHaveBeenCalledWith(processor);
 

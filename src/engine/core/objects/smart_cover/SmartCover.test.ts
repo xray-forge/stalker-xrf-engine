@@ -143,7 +143,7 @@ describe("SmartCover server object", () => {
       stand_front_left: false,
     });
 
-    cover.STATE_Write(netProcessor.asMockNetPacket());
+    cover.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -174,7 +174,7 @@ describe("SmartCover server object", () => {
 
     const anotherCover: SmartCover = new SmartCover("test_smart_cover");
 
-    anotherCover.STATE_Read(netProcessor.asMockNetPacket(), 5001);
+    anotherCover.STATE_Read(netProcessor.asNetPacket(), 5001);
 
     expect(netProcessor.dataList).toEqual([]);
     expect(anotherCover.lastDescription).toBe("combat_front");
@@ -192,9 +192,9 @@ describe("SmartCover server object", () => {
 
     cover.lastDescription = "not_existing";
 
-    cover.STATE_Write(netProcessor.asMockNetPacket());
+    cover.STATE_Write(netProcessor.asNetPacket());
 
-    expect(() => cover.STATE_Read(netProcessor.asMockNetPacket(), 5001)).toThrow(
+    expect(() => cover.STATE_Read(netProcessor.asNetPacket(), 5001)).toThrow(
       `SmartCover '${cover.name()}' has wrong description - 'not_existing'.`
     );
   });

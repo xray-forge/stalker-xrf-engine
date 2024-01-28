@@ -8,9 +8,7 @@ import { resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,
   MockGameObject,
-  mockNetPacket,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
@@ -117,7 +115,7 @@ describe("CrowBinder class", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
     firstBinder.diedAt = 400;
-    firstBinder.save(mockNetPacket(netProcessor));
+    firstBinder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -152,7 +150,7 @@ describe("CrowBinder class", () => {
     const secondBinder: CrowBinder = new CrowBinder(secondObject);
 
     expect(secondBinder.net_spawn(mockServerAlifeObject({ id: secondObject.id() }))).toBe(true);
-    secondBinder.load(mockNetReader(netProcessor));
+    secondBinder.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

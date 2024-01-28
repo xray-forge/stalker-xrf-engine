@@ -3,10 +3,7 @@ import { LuabindClass, object_binder } from "xray16";
 import { getManager, registerSmartTerrainCampfire, unRegisterSmartTerrainCampfire } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, ServerObject } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Bind campfire game object.
@@ -14,7 +11,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 @LuabindClass()
 export class CampfireBinder extends object_binder {
   // Smart terrain owning campfire.
-  public smartTerrain: Optional<SmartTerrain> = null;
+  public terrain: Optional<SmartTerrain> = null;
 
   public override net_spawn(object: ServerObject): boolean {
     if (!super.net_spawn(object)) {
@@ -25,10 +22,10 @@ export class CampfireBinder extends object_binder {
 
     const [smartTerrainName] = string.gsub(this.object.name(), "_campfire_%d*", "");
 
-    this.smartTerrain = getManager(SimulationManager).getSmartTerrainByName(smartTerrainName);
+    this.terrain = getManager(SimulationManager).getSmartTerrainByName(smartTerrainName);
 
-    if (this.smartTerrain) {
-      registerSmartTerrainCampfire(this.smartTerrain, this.object);
+    if (this.terrain) {
+      registerSmartTerrainCampfire(this.terrain, this.object);
     }
 
     return true;
@@ -37,9 +34,9 @@ export class CampfireBinder extends object_binder {
   public override net_destroy(): void {
     super.net_destroy();
 
-    if (this.smartTerrain) {
-      unRegisterSmartTerrainCampfire(this.smartTerrain, this.object);
-      this.smartTerrain = null;
+    if (this.terrain) {
+      unRegisterSmartTerrainCampfire(this.terrain, this.object);
+      this.terrain = null;
     }
   }
 }

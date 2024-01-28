@@ -13,7 +13,7 @@ import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { getSchemeAction } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockIniFile, patrols } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile, patrols } from "@/fixtures/xray";
 
 describe("TeleportManager class", () => {
   it("should correctly call updates, teleport and react to generic logic", () => {
@@ -22,7 +22,7 @@ describe("TeleportManager class", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_teleport@test": {
         timeout: 500,
         point1: "test-teleport",

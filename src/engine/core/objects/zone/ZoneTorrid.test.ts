@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneTorrid } from "@/engine/core/objects/zone/ZoneTorrid";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("ZoneTorrid server class", () => {
   beforeEach(() => registerSimulator());
@@ -37,7 +37,7 @@ describe("ZoneTorrid server class", () => {
     const zoneTorrid: ZoneTorrid = new ZoneTorrid("test-section");
 
     jest.spyOn(zoneTorrid, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

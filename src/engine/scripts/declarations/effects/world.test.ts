@@ -22,7 +22,7 @@ import {
   MockSmartTerrain,
   resetRegistry,
 } from "@/fixtures/engine";
-import { mockClsid, MockGameObject, MockHangingLamp } from "@/fixtures/xray";
+import { MockGameObject, MockHangingLamp } from "@/fixtures/xray";
 
 describe("world effects declaration", () => {
   beforeAll(() => {
@@ -72,7 +72,7 @@ describe("world effects implementation", () => {
 
   it("play_sound should force play sounds", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = MockGameObject.mock({ clsid: <T>() => mockClsid.script_stalker as T });
+    const object: GameObject = MockGameObject.mockStalker();
     const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
     const soundManager: SoundManager = getManager(SoundManager);
 

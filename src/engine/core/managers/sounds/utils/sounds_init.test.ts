@@ -4,16 +4,16 @@ import { EPlayableSound } from "@/engine/core/managers/sounds";
 import { ActorSound, LoopedSound, NpcSound, ObjectSound } from "@/engine/core/managers/sounds/objects";
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils/sounds_init";
 import { IniFile } from "@/engine/lib/types";
-import { mockIniFile } from "@/fixtures/xray";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("sounds_init utils", () => {
   it("readIniThemesList should correctly init list of themes", () => {
-    expect(() => readIniThemesList(mockIniFile("test.ltx", {}))).toThrow(
+    expect(() => readIniThemesList(MockIniFile.mock("test.ltx", {}))).toThrow(
       "There is no section 'list' in provided ini file."
     );
     expect(() => {
       readIniThemesList(
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           list: {
             example: 1,
           },
@@ -22,9 +22,9 @@ describe("sounds_init utils", () => {
       );
     }).toThrow("Attempt to read a non-existent string field 'type' in section 'example'.");
 
-    expect(readIniThemesList(mockIniFile("test.ltx", { list: {} }))).toEqualLuaTables({});
+    expect(readIniThemesList(MockIniFile.mock("test.ltx", { list: {} }))).toEqualLuaTables({});
 
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       list: ["first", "second", "third", "fourth"],
       first: {
         type: EPlayableSound.NPC,

@@ -14,7 +14,7 @@ import { ServerActorObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import {
   MockAlifeSimulator,
-  mockIniFile,
+  MockIniFile,
   mockServerAlifeCreatureActor,
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
@@ -85,7 +85,7 @@ describe("simulation module of the database", () => {
 
     initializeSimulationObjectProperties(
       simulationObject,
-      mockIniFile("test.ltx", {
+      MockIniFile.mock("test.ltx", {
         actor: {
           sim_avail: "{+test} a, b",
           a: 1,

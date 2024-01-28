@@ -8,7 +8,7 @@ import { Console } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockConsole } from "@/fixtures/xray";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("GameSettingsManager class", () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe("GameSettingsManager class", () => {
 
     replaceFunctionMock(level.get_game_difficulty, () => EGameDifficulty.STALKER);
 
-    gameSettingsManager.save(mockNetPacket(netProcessor));
+    gameSettingsManager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.U8, EPacketDataType.U16]);
     expect(netProcessor.dataList).toEqual([EGameDifficulty.STALKER, 1]);
@@ -32,7 +32,7 @@ describe("GameSettingsManager class", () => {
 
     const newActorInputManager: GameSettingsManager = getManager(GameSettingsManager);
 
-    newActorInputManager.load(mockNetProcessor(netProcessor));
+    newActorInputManager.load(netProcessor.asNetReader());
 
     expect(console.execute).toHaveBeenCalledWith("g_game_difficulty " + gameDifficulties.gd_stalker);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);

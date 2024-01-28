@@ -4,10 +4,10 @@ import { isStalker } from "@/engine/core/utils/class_ids";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import {
+  AnyGameObject,
   GameObject,
   Optional,
   ServerCreatureObject,
-  ServerGroupObject,
   ServerHumanObject,
   TNumberId,
 } from "@/engine/lib/types";
@@ -26,10 +26,10 @@ export function getSquadCommunity(squad: Squad): TCommunity {
  * @param object - game object or server stalker/group
  * @returns object community
  */
-export function getObjectCommunity(object: GameObject | ServerHumanObject | ServerGroupObject): TCommunity {
+export function getObjectCommunity(object: AnyGameObject): TCommunity {
   if (isStalker(object)) {
     return type(object.id) === "function"
-      ? (object as unknown as GameObject).character_community()
+      ? (object as GameObject).character_community()
       : (object as ServerHumanObject).community();
   }
 

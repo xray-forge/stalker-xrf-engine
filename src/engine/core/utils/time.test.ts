@@ -13,7 +13,7 @@ import { MAX_I32, MAX_U8, MIN_I32 } from "@/engine/lib/constants/memory";
 import { Optional, Time } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("writeTimeToPacket and readTimeFromPacket utils", () => {
   it("should correctly save and load", () => {
@@ -24,7 +24,7 @@ describe("writeTimeToPacket and readTimeFromPacket utils", () => {
 
     expect(timeToWrite.toString()).toBe("y:2012, m:6, d:12, h:3, min:6, sec:12, ms:500");
 
-    writeTimeToPacket(mockNetPacket(netProcessor), timeToWrite);
+    writeTimeToPacket(netProcessor.asNetPacket(), timeToWrite);
 
     expect(netProcessor.dataList).toEqual([12, 6, 12, 3, 6, 12, 500]);
     expect(netProcessor.writeDataOrder).toEqual([
@@ -37,7 +37,7 @@ describe("writeTimeToPacket and readTimeFromPacket utils", () => {
       EPacketDataType.U16,
     ]);
 
-    const timeToRead: Optional<Time> = readTimeFromPacket(mockNetProcessor(netProcessor));
+    const timeToRead: Optional<Time> = readTimeFromPacket(netProcessor.asNetReader());
 
     expect(timeToRead).not.toBeNull();
     expect(timeToRead?.toString()).toBe("y:2012, m:6, d:12, h:3, min:6, sec:12, ms:500");
@@ -49,12 +49,12 @@ describe("writeTimeToPacket and readTimeFromPacket utils", () => {
   it("should handle nulls", () => {
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    writeTimeToPacket(mockNetPacket(netProcessor), null);
+    writeTimeToPacket(netProcessor.asNetPacket(), null);
 
     expect(netProcessor.dataList).toEqual([MAX_U8]);
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.U8]);
 
-    expect(readTimeFromPacket(mockNetProcessor(netProcessor))).toBeNull();
+    expect(readTimeFromPacket(netProcessor.asNetReader())).toBeNull();
 
     expect(netProcessor.dataList).toEqual([]);
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);

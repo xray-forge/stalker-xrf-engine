@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneRestrictor } from "@/engine/core/objects/zone/ZoneRestrictor";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ZoneRestrictor server class", () => {
   beforeEach(() => registerSimulator());
@@ -37,7 +37,7 @@ describe("ZoneRestrictor server class", () => {
     const zoneRestrictor: ZoneRestrictor = new ZoneRestrictor("test-section");
 
     jest.spyOn(zoneRestrictor, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

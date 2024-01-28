@@ -22,51 +22,51 @@ describe("isObjectArrivedToSmartTerrain utility", () => {
   it("should correctly check arrived state based on squad", () => {
     const object: ServerCreatureObject = MockAlifeHumanStalker.mock();
     const squad: Squad = MockSquad.mock();
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
-    getManager(SimulationManager).registerSmartTerrain(smartTerrain);
+    getManager(SimulationManager).registerSmartTerrain(terrain);
 
     object.group_id = squad.id;
     squad.currentAction = new SquadStayOnTargetAction(squad);
 
-    expect(isObjectArrivedToSmartTerrain(object, smartTerrain)).toBe(true);
+    expect(isObjectArrivedToSmartTerrain(object, terrain)).toBe(true);
   });
 
   it("should correctly check arrived state based on server object", () => {
     const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock();
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
-    expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(true);
+    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(true);
 
     jest.spyOn(serverObject.position, "distance_to_sqr").mockImplementation(() => 10_001);
-    expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(false);
+    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(false);
 
     jest.spyOn(serverObject.position, "distance_to_sqr").mockImplementation(() => 9999);
-    expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(true);
+    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(true);
 
-    (smartTerrain as AnyObject).m_game_vertex_id = 550;
+    (terrain as AnyObject).m_game_vertex_id = 550;
     jest.spyOn(game_graph().vertex(550), "level_id").mockImplementation(() => 1001);
-    expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(false);
+    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(false);
   });
 
   it("should correctly check arrived state based on object online", () => {
     const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock();
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
 
     registerObject(object);
 
-    expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(true);
+    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(true);
 
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 10_001);
-    expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(false);
+    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(false);
 
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 9999);
-    expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(true);
+    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(true);
 
     jest.spyOn(object, "game_vertex_id").mockImplementation(() => 551);
     jest.spyOn(game_graph().vertex(551), "level_id").mockImplementation(() => 1002);
-    expect(isObjectArrivedToSmartTerrain(serverObject, smartTerrain)).toBe(false);
+    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(false);
   });
 });
 

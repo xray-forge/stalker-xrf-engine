@@ -9,11 +9,11 @@ import {
 } from "@/engine/core/database/helicopters";
 import { registry } from "@/engine/core/database/registry";
 import { GameObject, TIndex } from "@/engine/lib/types";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("helicopters module of the database", () => {
   it("should correctly register helicopter binders", () => {
-    const helicopter: HelicopterBinder = new HelicopterBinder(MockGameObject.mock(), mockIniFile("test.ini"));
+    const helicopter: HelicopterBinder = new HelicopterBinder(MockGameObject.mock());
 
     registerHelicopter(helicopter);
 

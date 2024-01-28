@@ -29,7 +29,7 @@ describe("managers module of the database", () => {
     public override destroy = jest.fn();
   }
 
-  const assertRegistryIsClean = () => {
+  function assertRegistryIsClean(): void {
     expect(registry.managers.get(ExampleManagerOne)).toBeNull();
     expect(registry.managersByName.get(ExampleManagerOne.name)).toBeNull();
     expect(registry.managers.get(ExampleManagerTwo)).toBeNull();
@@ -37,7 +37,7 @@ describe("managers module of the database", () => {
     expect(registry.managers.get(ExampleManagerThree)).toBeNull();
     expect(registry.managersByName.get(ExampleManagerThree.name)).toBeNull();
     expect(registry.managers.length()).toBe(0);
-  };
+  }
 
   beforeEach(() => {
     resetRegistry();

@@ -14,9 +14,7 @@ import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
   MockGameObject,
-  mockNetPacket,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
   mockServerAlifeObject,
 } from "@/fixtures/xray";
@@ -184,7 +182,7 @@ describe("RestrictorBinder class", () => {
     binderState.activeSection = "test@test";
     binderState.smartTerrainName = "test-smart";
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -220,7 +218,7 @@ describe("RestrictorBinder class", () => {
 
     expect(newBinder.isLoaded).toBe(false);
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(newBinder.isInitialized).toBe(false);
     expect(newBinder.isLoaded).toBe(true);

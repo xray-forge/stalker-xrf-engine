@@ -1025,11 +1025,11 @@ extern(
     const actor: GameObject = registry.actor;
     let cnt: TCount = 0;
 
-    const zatB30Count = (object: GameObject, item: GameObject): void => {
+    function zatB30Count(object: GameObject, item: GameObject): void {
       if (item.section() === "detector_elite") {
         cnt = cnt + 1;
       }
-    };
+    }
 
     actor.iterate_inventory(zatB30Count, actor);
 
@@ -1535,7 +1535,7 @@ extern(
 extern("dialogs_jupiter.jup_b217_actor_got_toolkit", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const actor: GameObject = registry.actor as GameObject;
 
-  const isToolkit = (object: GameObject, item: GameObject): void => {
+  function isToolkit(object: GameObject, item: GameObject): void {
     const section: TSection = item.section();
 
     if (
@@ -1547,7 +1547,7 @@ extern("dialogs_jupiter.jup_b217_actor_got_toolkit", (firstSpeaker: GameObject, 
 
       return;
     }
-  };
+  }
 
   actor.iterate_inventory(isToolkit, actor);
 
@@ -1576,7 +1576,7 @@ extern(
     const itemsToRelocate: LuaTable<string, number> = new LuaTable();
     let count: TCount = 0;
 
-    const relocateAndIncCount = (object: GameObject, item: GameObject): void => {
+    function relocateAndIncCount(object: GameObject, item: GameObject): void {
       if (needItems.get(item.section())) {
         const section: string = item.section();
 
@@ -1588,7 +1588,7 @@ extern(
           itemsToRelocate.set(section, itemsToRelocate.get(section) + 1);
         }
       }
-    };
+    }
 
     actor.iterate_inventory(relocateAndIncCount, actor);
 

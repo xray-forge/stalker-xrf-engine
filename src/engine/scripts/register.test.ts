@@ -9,13 +9,17 @@ jest.mock("@/engine/scripts/register/class_registrator");
 jest.mock("@/engine/scripts/register/game_class_id_registrator");
 jest.mock("@/engine/scripts/register/ui_class_id_registrator");
 
-describe("register entry point declaration", () => {
-  const checkBinding = (name: string, container: AnyObject = global) => {
-    expect(container["register"]).toBeDefined();
-    expect(typeof container["register"]).toBe("object");
-    expect(typeof container["register"][name]).toBe("function");
-  };
+function checkBinding(name: string, container: AnyObject = global): void {
+  expect(container["register"]).toBeDefined();
+  expect(typeof container["register"]).toBe("object");
+  expect(typeof container["register"][name]).toBe("function");
+}
 
+function callBinding(name: string, container: AnyObject = global): void {
+  return container["register"][name]();
+}
+
+describe("register entry point declaration", () => {
   beforeAll(() => {
     require("@/engine/scripts/register");
   });
@@ -28,10 +32,6 @@ describe("register entry point declaration", () => {
 });
 
 describe("register entry point execution", () => {
-  const callBinding = (name: string, container: AnyObject = global) => {
-    return container["register"][name]();
-  };
-
   beforeAll(() => {
     require("@/engine/scripts/register");
   });

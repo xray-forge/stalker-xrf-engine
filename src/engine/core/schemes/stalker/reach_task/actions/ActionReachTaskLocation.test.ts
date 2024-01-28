@@ -16,7 +16,7 @@ import {
   ServerCreatureObject,
   ServerGroupObject,
 } from "@/engine/lib/types";
-import { mockSquad } from "@/fixtures/engine";
+import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   MockGameObject,
@@ -25,23 +25,32 @@ import {
   mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
 
+interface IMockedActionData {
+  action: ActionReachTaskLocation;
+  object: GameObject;
+  squad: Squad;
+  weapon: GameObject;
+  serverObject: ServerCreatureObject;
+  target: ServerGroupObject;
+}
+
+function mockActionData(): IMockedActionData {
+  const action: ActionReachTaskLocation = new ActionReachTaskLocation();
+  const object: GameObject = MockGameObject.mock();
+  const weapon: GameObject = MockGameObject.mock();
+  const squad: Squad = MockSquad.mock();
+  const serverObject: ServerCreatureObject = mockServerAlifeCreatureAbstract({ id: object.id() });
+  const target: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
+
+  jest.spyOn(object, "best_weapon").mockImplementation(() => weapon);
+
+  serverObject.group_id = squad.id;
+  squad.assignedTargetId = target.id;
+
+  return { action, object, weapon, squad, serverObject, target };
+}
+
 describe("ActionReachTaskLocation", () => {
-  const mockActionData = () => {
-    const action: ActionReachTaskLocation = new ActionReachTaskLocation();
-    const object: GameObject = MockGameObject.mock();
-    const weapon: GameObject = MockGameObject.mock();
-    const squad: Squad = mockSquad();
-    const serverObject: ServerCreatureObject = mockServerAlifeCreatureAbstract({ id: object.id() });
-    const target: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
-
-    jest.spyOn(object, "best_weapon").mockImplementation(() => weapon);
-
-    serverObject.group_id = squad.id;
-    squad.assignedTargetId = target.id;
-
-    return { action, object, weapon, squad, serverObject, target };
-  };
-
   beforeEach(() => {
     registerSimulator();
     reachTaskConfig.PATROLS = new LuaTable();
@@ -49,7 +58,7 @@ describe("ActionReachTaskLocation", () => {
   });
 
   it("should correctly initialize for squad participant", () => {
-    const { object, action, target, serverObject, weapon, squad } = mockActionData();
+    const { object, action, target, weapon, squad } = mockActionData();
 
     expect(action.nextUpdateAt).toBe(0);
 

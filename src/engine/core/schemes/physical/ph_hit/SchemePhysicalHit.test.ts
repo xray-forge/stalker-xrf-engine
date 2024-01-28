@@ -8,12 +8,12 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemePhysicalHit", () => {
   it("should correctly activate with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_hit@test": {
         bone: "test_bone",
         dir_path: "test_path",
@@ -36,7 +36,7 @@ describe("SchemePhysicalHit", () => {
 
   it("should correctly activate with custom data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_hit@test": {
         on_info: "{+test} first, second",
         power: 5,
@@ -69,7 +69,7 @@ describe("SchemePhysicalHit", () => {
     expect(() => {
       SchemePhysicalHit.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "ph_hit@test": {},
         }),
         EScheme.PH_HIT,
@@ -80,7 +80,7 @@ describe("SchemePhysicalHit", () => {
     expect(() => {
       SchemePhysicalHit.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "ph_hit@test": {
             dir_path: "test_path",
           },
@@ -93,7 +93,7 @@ describe("SchemePhysicalHit", () => {
     expect(() => {
       SchemePhysicalHit.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "ph_hit@test": {
             bone: "test_bone",
           },

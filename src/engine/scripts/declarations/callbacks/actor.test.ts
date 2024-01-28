@@ -6,6 +6,10 @@ import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
+function callTravelBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["travel_callbacks"]);
+}
+
 describe("actor external callbacks", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/callbacks/actor");
@@ -72,9 +76,6 @@ describe("actor external callbacks", () => {
 
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
-
-    const callTravelBinding = (name: TName, args: AnyArgs = []) =>
-      callBinding(name, args, (_G as AnyObject)["travel_callbacks"]);
 
     callTravelBinding("initialize_traveller_dialog", ["test"]);
     expect(travelManager.initializeTravellerDialog).toHaveBeenCalledWith("test");

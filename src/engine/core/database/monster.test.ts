@@ -5,18 +5,18 @@ import { getMonsterState, setMonsterState } from "@/engine/core/database/monster
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("monster database module", () => {
   it("should correctly read monster state from ini", () => {
-    expect(getMonsterState(mockIniFile("test.ltx", { a: { state: EMonsterState.INVISIBLE } }), "a")).toBe(
+    expect(getMonsterState(MockIniFile.mock("test.ltx", { a: { state: EMonsterState.INVISIBLE } }), "a")).toBe(
       EMonsterState.INVISIBLE
     );
-    expect(getMonsterState(mockIniFile("test.ltx", { b: { state: EMonsterState.VISIBLE } }), "b")).toBe(
+    expect(getMonsterState(MockIniFile.mock("test.ltx", { b: { state: EMonsterState.VISIBLE } }), "b")).toBe(
       EMonsterState.VISIBLE
     );
-    expect(getMonsterState(mockIniFile("test.ltx", { c: { state: EMonsterState.NONE } }), "c")).toBeNull();
-    expect(getMonsterState(mockIniFile("test.ltx"), "test")).toBeNull();
+    expect(getMonsterState(MockIniFile.mock("test.ltx", { c: { state: EMonsterState.NONE } }), "c")).toBeNull();
+    expect(getMonsterState(MockIniFile.mock("test.ltx"), "test")).toBeNull();
   });
 
   it("should correctly set monster state", () => {
@@ -31,7 +31,7 @@ describe("monster database module", () => {
     expect(() => setMonsterState(monster, EMonsterState.VISIBLE)).toThrow();
     expect(() => setMonsterState(monster, "SOMETHING" as EMonsterState)).toThrow();
 
-    const bloodsucker: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s });
+    const bloodsucker: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
 
     setMonsterState(bloodsucker, EMonsterState.VISIBLE);
     expect(bloodsucker.set_invisible).toHaveBeenCalledWith(false);

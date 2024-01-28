@@ -8,7 +8,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeOscillate class", () => {
   it("should be correctly defined", () => {
@@ -19,7 +19,7 @@ describe("SchemeOscillate class", () => {
 
   it("should correctly activate scheme with defaults", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_oscillate@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} ph_another@1",
         on_info1: "{=actor_in_zone(zat_b42_warning_space_restrictor)} ph_another@2",
@@ -63,7 +63,7 @@ describe("SchemeOscillate class", () => {
     expect(() => {
       SchemeOscillate.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "ph_oscillate@test": {},
         }),
         SchemeOscillate.SCHEME_SECTION,
@@ -75,7 +75,7 @@ describe("SchemeOscillate class", () => {
     expect(() => {
       SchemeOscillate.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "ph_oscillate@test": {
             joint: "abc",
           },
@@ -89,7 +89,7 @@ describe("SchemeOscillate class", () => {
     expect(() => {
       SchemeOscillate.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "ph_oscillate@test": {
             joint: "abc",
             period: 1,
@@ -104,7 +104,7 @@ describe("SchemeOscillate class", () => {
     expect(() => {
       SchemeOscillate.activate(
         object,
-        mockIniFile("test.ltx", {
+        MockIniFile.mock("test.ltx", {
           "ph_oscillate@test": {
             joint: "abc",
             period: 1,

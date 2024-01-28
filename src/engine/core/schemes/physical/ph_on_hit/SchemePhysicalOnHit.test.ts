@@ -7,12 +7,12 @@ import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit/Sc
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemePhysicalOnHit", () => {
   it("should correctly activate", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_on_hit@test": {
         on_info: "{+test} first, second",
       },
@@ -34,7 +34,7 @@ describe("SchemePhysicalOnHit", () => {
 
   it("should correctly disable", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_on_hit@test": {
         on_info: "{+test} first, second",
       },

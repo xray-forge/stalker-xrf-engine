@@ -5,10 +5,15 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding } from "@/fixtures/engine";
 
-describe("dialogs_generic external callbacks", () => {
-  const checkDialogsBinding = (name: TName) => checkNestedBinding("dialogs", name);
-  const callDialogsBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["dialogs"]);
+function checkDialogsBinding(name: TName): void {
+  return checkNestedBinding("dialogs", name);
+}
 
+function callDialogsBinding(name: TName, args: AnyArgs = []): boolean {
+  return callBinding(name, args, (_G as AnyObject)["dialogs"]);
+}
+
+describe("dialogs_generic external callbacks", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_world");
   });

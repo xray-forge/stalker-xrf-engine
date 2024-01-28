@@ -33,6 +33,18 @@ import { callBinding, checkBinding, checkNestedBinding } from "@/fixtures/engine
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
+function callUpgradeBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["inventory_upgrades"]);
+}
+
+function callWeaponBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["ui_wpn_params"]);
+}
+
+function callPdaBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["pda"]);
+}
+
 jest.mock("@/engine/core/utils/weapon_parameters");
 
 jest.mock("@/engine/core/managers/upgrades/utils/upgrades_price_utils", () => ({
@@ -119,9 +131,6 @@ describe("interface external callbacks", () => {
     jest.spyOn(upgradesManager, "getPreconditionFunctorA").mockImplementation(jest.fn(() => 1 as TItemUpgradeBranch));
     jest.spyOn(upgradesManager, "getPropertyFunctorA").mockImplementation(jest.fn(() => "a"));
 
-    const callUpgradeBinding = (name: TName, args: AnyArgs = []) =>
-      callBinding(name, args, (_G as AnyObject)["inventory_upgrades"]);
-
     expect(callUpgradeBinding("get_upgrade_cost", ["test"])).toBe("100");
     expect(getUpgradeCostLabel).toHaveBeenCalledWith("test");
 
@@ -188,8 +197,6 @@ describe("interface external callbacks", () => {
     jest.spyOn(pdaManager, "getFavoriteWeapon").mockImplementation(jest.fn(() => "test-wpn"));
     jest.spyOn(pdaManager, "getStat").mockImplementation(jest.fn(() => "test-stat"));
 
-    const callPdaBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["pda"]);
-
     expect(() => callPdaBinding("set_active_subdialog", [])).not.toThrow();
 
     expect(callPdaBinding("get_max_resource", [])).toBe(10);
@@ -226,9 +233,6 @@ describe("interface external callbacks", () => {
     replaceFunctionMock(readWeaponDamageMultiplayer, () => 3);
     replaceFunctionMock(readWeaponHandling, () => 4);
     replaceFunctionMock(readWeaponAccuracy, () => 5);
-
-    const callWeaponBinding = (name: TName, args: AnyArgs = []) =>
-      callBinding(name, args, (_G as AnyObject)["ui_wpn_params"]);
 
     expect(callWeaponBinding("GetRPM", ["a", "b"])).toBe(1);
     expect(readWeaponRPM).toHaveBeenCalledWith("a", "b");

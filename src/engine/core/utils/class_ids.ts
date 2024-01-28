@@ -34,11 +34,10 @@ export function isMonster(object: AnyGameObject): boolean {
  * Check whether object is matching stalker class id.
  *
  * @param object - any game object to check
- * @param classId - class id to check
  * @returns whether object class id is a stalker
  */
-export function isStalker(object: AnyGameObject, classId: TClassId = object.clsid()): object is Stalker {
-  return classIds.stalker.has(classId);
+export function isStalker(object: AnyGameObject): object is Stalker | GameObject {
+  return classIds.stalker.has(object.clsid());
 }
 
 /**

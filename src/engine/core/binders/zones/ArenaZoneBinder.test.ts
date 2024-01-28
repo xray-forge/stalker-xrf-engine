@@ -10,9 +10,7 @@ import {
   MockAlifeHumanStalker,
   MockAlifeObject,
   MockGameObject,
-  mockNetPacket,
   MockNetProcessor,
-  mockNetReader,
   MockObjectBinder,
 } from "@/fixtures/xray";
 
@@ -31,7 +29,7 @@ describe("CampZoneBinder class", () => {
 
   it("should correctly handle going online and offline", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: ArenaZoneBinder = new ArenaZoneBinder(object);
 
     binder.net_spawn(serverObject);
@@ -57,7 +55,7 @@ describe("CampZoneBinder class", () => {
 
   it("should correctly handle going online and offline when spawn flag is falsy", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: ArenaZoneBinder = new ArenaZoneBinder(object);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
@@ -77,7 +75,7 @@ describe("CampZoneBinder class", () => {
     binder.savedObjects.set(10, true);
     binder.savedObjects.set(11, true);
 
-    binder.save(mockNetPacket(netProcessor));
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -90,7 +88,7 @@ describe("CampZoneBinder class", () => {
 
     const newBinder: ArenaZoneBinder = new ArenaZoneBinder(object);
 
-    newBinder.load(mockNetReader(netProcessor));
+    newBinder.load(netProcessor.asNetReader());
 
     expect(newBinder.savedObjects).toEqualLuaTables({ 10: true, 11: true });
 
@@ -121,11 +119,11 @@ describe("CampZoneBinder class", () => {
     const binder: ArenaZoneBinder = new ArenaZoneBinder(object);
 
     const actor: GameObject = MockGameObject.mockActor();
-    const stalker: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker });
-    const monster: GameObject = MockGameObject.mock({ clsid: () => clsid.snork_s });
-    const lamp: GameObject = MockGameObject.mock({ clsid: () => clsid.hanging_lamp });
-    const physicDestroyable: GameObject = MockGameObject.mock({ clsid: () => clsid.obj_phys_destroyable });
-    const physic: GameObject = MockGameObject.mock({ clsid: () => clsid.obj_physic });
+    const stalker: GameObject = MockGameObject.mock({ clsid: clsid.script_stalker });
+    const monster: GameObject = MockGameObject.mock({ clsid: clsid.snork_s });
+    const lamp: GameObject = MockGameObject.mock({ clsid: clsid.hanging_lamp });
+    const physicDestroyable: GameObject = MockGameObject.mock({ clsid: clsid.obj_phys_destroyable });
+    const physic: GameObject = MockGameObject.mock({ clsid: clsid.obj_physic });
 
     binder.onEnterArenaZone(object, actor);
     binder.onEnterArenaZone(object, stalker);

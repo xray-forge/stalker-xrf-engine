@@ -10,7 +10,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { Optional, TName, TNumberId } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SimulationBoardManager class", () => {
   beforeEach(() => {
@@ -214,7 +214,7 @@ describe("SimulationBoardManager class", () => {
 
     manager.areDefaultSimulationSquadsSpawned = true;
 
-    manager.save(mockNetPacket(netProcessor));
+    manager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN]);
     expect(netProcessor.dataList).toEqual([true]);
@@ -223,7 +223,7 @@ describe("SimulationBoardManager class", () => {
 
     const newManager: SimulationManager = getManager(SimulationManager);
 
-    newManager.load(mockNetProcessor(netProcessor));
+    newManager.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

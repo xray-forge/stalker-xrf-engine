@@ -35,7 +35,7 @@ describe("DialogManager class", () => {
     const manager: DialogManager = getManager(DialogManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
-    manager.saveObjectDialogs(object, netProcessor.asMockNetPacket());
+    manager.saveObjectDialogs(object, netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
@@ -51,7 +51,7 @@ describe("DialogManager class", () => {
 
     const another: DialogManager = getManager(DialogManager);
 
-    another.loadObjectDialogs(object, netProcessor.asMockNetProcessor());
+    another.loadObjectDialogs(object, netProcessor.asNetProcessor());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);
@@ -74,7 +74,7 @@ describe("DialogManager class", () => {
       manager.priorityTable.get(EGenericPhraseCategory.INFORMATION)
     );
 
-    manager.saveObjectDialogs(object, netProcessor.asMockNetPacket());
+    manager.saveObjectDialogs(object, netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
@@ -90,7 +90,7 @@ describe("DialogManager class", () => {
 
     const another: DialogManager = getManager(DialogManager);
 
-    another.loadObjectDialogs(object, netProcessor.asMockNetProcessor());
+    another.loadObjectDialogs(object, netProcessor.asNetProcessor());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toEqual([]);

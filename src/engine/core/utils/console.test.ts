@@ -9,7 +9,7 @@ import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { Console } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockConsole, mockIniFile } from "@/fixtures/xray";
+import { MockConsole, MockIniFile } from "@/fixtures/xray";
 
 describe("executeConsoleCommand utils", () => {
   const gameConsole: Console = MockConsole.getInstanceMock();
@@ -45,12 +45,12 @@ describe("executeConsoleCommandsFromSection util", () => {
     executeConsoleCommandsFromSection("test");
     expect(gameConsole.execute).not.toHaveBeenCalled();
 
-    executeConsoleCommandsFromSection("test", mockIniFile("test.ltx", {}));
+    executeConsoleCommandsFromSection("test", MockIniFile.mock("test.ltx", {}));
     expect(gameConsole.execute).not.toHaveBeenCalled();
 
     executeConsoleCommandsFromSection(
       "test",
-      mockIniFile("test.ltx", {
+      MockIniFile.mock("test.ltx", {
         test: {
           a: 1,
           b: 2,
@@ -66,7 +66,7 @@ describe("executeConsoleCommandsFromSection util", () => {
 
     executeConsoleCommandsFromSection(
       "another",
-      mockIniFile("test.ltx", {
+      MockIniFile.mock("test.ltx", {
         another: {
           c: "b a",
         },

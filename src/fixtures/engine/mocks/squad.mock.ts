@@ -137,11 +137,11 @@ export function mockRelationsSquads(): IMockedSquads {
   const almostEnemy: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
   const almostFriend: MockAlifeHumanStalker = MockAlifeHumanStalker.create();
 
-  registerObject(MockGameObject.mock({ idOverride: friend.id }));
-  registerObject(MockGameObject.mock({ idOverride: enemy.id }));
-  registerObject(MockGameObject.mock({ idOverride: neutral.id }));
-  registerObject(MockGameObject.mock({ idOverride: almostEnemy.id }));
-  registerObject(MockGameObject.mock({ idOverride: almostFriend.id }));
+  registerObject(MockGameObject.mock({ id: friend.id }));
+  registerObject(MockGameObject.mock({ id: enemy.id }));
+  registerObject(MockGameObject.mock({ id: neutral.id }));
+  registerObject(MockGameObject.mock({ id: almostEnemy.id }));
+  registerObject(MockGameObject.mock({ id: almostFriend.id }));
 
   mockCharactersGoodwill(friend.id, ACTOR_ID, 1000);
   mockCharactersGoodwill(enemy.id, ACTOR_ID, -1000);

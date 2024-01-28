@@ -57,7 +57,7 @@ describe("DoorBinder class", () => {
       animated_object: {},
     });
 
-    const object: GameObject = MockGameObject.mock({ spawn_ini: () => spawnIni });
+    const object: GameObject = MockGameObject.mock({ spawnIni });
     const binder: DoorBinder = new DoorBinder(object);
 
     expect(binder.isLoaded).toBe(false);
@@ -95,7 +95,7 @@ describe("DoorBinder class", () => {
       },
     });
 
-    const object: GameObject = MockGameObject.mock({ spawn_ini: () => spawnIni });
+    const object: GameObject = MockGameObject.mock({ spawnIni });
     const binder: DoorBinder = new DoorBinder(object);
 
     expect(binder.isLoaded).toBe(false);
@@ -120,7 +120,7 @@ describe("DoorBinder class", () => {
 
   it("should correctly reinit", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: DoorBinder = new DoorBinder(object);
 
     jest.spyOn(object, "get_physics_object").mockImplementation(() => MockPhysicObject.mock());
@@ -137,7 +137,7 @@ describe("DoorBinder class", () => {
 
   it("should correctly handle going online/offline when spawn disabled", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
-    const binder: DoorBinder = new DoorBinder(MockGameObject.mock({ idOverride: serverObject.id }));
+    const binder: DoorBinder = new DoorBinder(MockGameObject.mock({ id: serverObject.id }));
 
     MockObjectBinder.asMock(binder).canSpawn = false;
 
@@ -147,7 +147,7 @@ describe("DoorBinder class", () => {
 
   it("should correctly handle going online/offline", () => {
     const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: DoorBinder = new DoorBinder(object);
     const physicObject: PhysicObject = MockPhysicObject.mock();
 
@@ -370,7 +370,7 @@ describe("DoorBinder class", () => {
     binder.isIdle = false;
     binder.isPlayingForward = true;
 
-    binder.save(netProcessor.asMockNetPacket());
+    binder.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,

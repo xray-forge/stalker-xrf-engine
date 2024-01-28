@@ -6,7 +6,7 @@ import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeTimer functionality", () => {
   it("should be correctly defined", () => {
@@ -17,7 +17,7 @@ describe("SchemeTimer functionality", () => {
 
   it("should correctly activate scheme", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_timer@test": {
         type: ETimerType.DECREMENT,
         start_value: 15_000,

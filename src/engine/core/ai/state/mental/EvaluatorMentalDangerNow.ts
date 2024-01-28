@@ -1,9 +1,6 @@
 import { anim, LuabindClass, property_evaluator } from "xray16";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Checking current mental state to be danger.

@@ -164,7 +164,7 @@ describe("Monster server object", () => {
     state.levelVertexId = 450;
     state.activeSection = "scheme@test";
 
-    monster.STATE_Write(netProcessor.asMockNetPacket());
+    monster.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -177,7 +177,7 @@ describe("Monster server object", () => {
 
     const another: Monster = new Monster("monster");
 
-    another.STATE_Read(netProcessor.asMockNetPacket(), 512);
+    another.STATE_Read(netProcessor.asNetPacket(), 512);
 
     const anotherState: IRegistryOfflineState = registry.offlineObjects.get(another.id);
 
@@ -189,13 +189,13 @@ describe("Monster server object", () => {
 
   it("should correctly save and load data with defaults", () => {
     const monster: Monster = new Monster("monster");
-    const object: GameObject = MockGameObject.mock({ idOverride: monster.id });
+    const object: GameObject = MockGameObject.mock({ id: monster.id });
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     (Monster as unknown as MockAlifeObject).online = true;
     monster.on_register();
 
-    monster.STATE_Write(netProcessor.asMockNetPacket());
+    monster.STATE_Write(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -208,7 +208,7 @@ describe("Monster server object", () => {
 
     const another: Monster = new Monster("monster");
 
-    another.STATE_Read(netProcessor.asMockNetPacket(), 512);
+    another.STATE_Read(netProcessor.asNetPacket(), 512);
 
     const anotherState: IRegistryOfflineState = registry.offlineObjects.get(another.id);
 

@@ -3,507 +3,685 @@ import { CHelicopter } from "xray16";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
-  ActionPlanner,
   AnyArgs,
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
   GameObject,
-  GameTask,
   IniFile,
+  Optional,
   PartialRecord,
+  ServerObject,
   TCallback,
   TClassId,
+  TCount,
   TIndex,
   TName,
   TNumberId,
+  TRate,
   TSection,
   TSightType,
   Vector,
 } from "@/engine/lib/types";
+import { MockLuaTable } from "@/fixtures/lua";
 import {
   MockActionPlanner,
+  MockAnim,
   mockDefaultActionPlanner,
   MockMove,
   MockSightParameters,
 } from "@/fixtures/xray/mocks/actions";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
-import { CLIENT_SIDE_REGISTRY, mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";
+import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";
 import { mockConfig } from "@/fixtures/xray/mocks/MockConfig";
 import { MockCHelicopter } from "@/fixtures/xray/mocks/objects/CHelicopter.mock";
+import { MockAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+
+export interface IMockGameObjectConfig {
+  alive?: boolean;
+  bleeding?: TRate;
+  characterRank?: TCount;
+  clsid?: TNumberId;
+  community?: TName;
+  health?: TRate;
+  id?: TNumberId;
+  inRestrictions?: string;
+  infoPortions?: Array<TName>;
+  inventory?: Array<[TSection | TNumberId, GameObject]>;
+  money?: TCount;
+  name?: TName;
+  position?: Vector;
+  levelVertexId?: TNumberId;
+  gameVertexId?: TNumberId;
+  outRestrictions?: string;
+  radiation?: TRate;
+  rank?: TCount;
+  section?: TSection;
+  spawnIni?: Optional<IniFile>;
+  upgrades?: Array<TSection>;
+}
 
 /**
  * Abstract game object mock.
  */
 export class MockGameObject {
-  public static mock(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
-    return mockGameObject(base);
+  public static REGISTRY: MockLuaTable<TNumberId, GameObject> = MockLuaTable.create();
+
+  public static mock(config: IMockGameObjectConfig = {}): GameObject {
+    return new MockGameObject(config).asGameObject();
   }
 
-  public static mockHelicopter(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
-    const object: GameObject = mockGameObject(base);
+  public static mockInSimulator(config: IMockGameObjectConfig = {}): [GameObject, ServerObject] {
+    const object: MockGameObject = new MockGameObject(config);
+    const serverObject: ServerObject = MockAlifeObject.mockNew({ section: object.section(), id: object.id() });
+
+    return [object.asGameObject(), serverObject];
+  }
+
+  public static mockHelicopter(config: IMockGameObjectConfig = {}): GameObject {
+    const object: MockGameObject = new MockGameObject(config);
     const helicopter: CHelicopter = MockCHelicopter.mock();
 
     jest.spyOn(object, "clsid").mockImplementation(() => mockClsid.helicopter as TClassId);
     jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
 
-    return object;
+    return object.asGameObject();
   }
 
-  public static mockStalker(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
-    const object: GameObject = mockGameObject(base);
+  public static mockStalker(base: IMockGameObjectConfig = {}): GameObject {
+    const object: MockGameObject = new MockGameObject({
+      ...base,
+      clsid: base.clsid ?? mockClsid.script_stalker,
+      community: base.community ?? "stalker",
+    });
 
-    jest.spyOn(object, "clsid").mockImplementation(() => mockClsid.script_stalker as TClassId);
-
-    return object;
+    return object.asGameObject();
   }
-
-  public static mockWithClassId(clsId: TNumberId): GameObject {
-    const object: GameObject = mockGameObject();
-
-    jest.spyOn(object, "clsid").mockImplementation(() => clsId as TClassId);
-
-    return object;
+  public static mockWithClassId(clsid: TNumberId): GameObject {
+    return new MockGameObject({ clsid }).asGameObject();
   }
 
   public static mockWithSection(section: TSection): GameObject {
-    const object: GameObject = mockGameObject();
-
-    jest.spyOn(object, "section").mockImplementation(() => section);
-
-    return object;
+    return new MockGameObject({ section }).asGameObject();
   }
 
-  public static mockActor(base: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
-    return MockGameObject.mock({
-      ...base,
-      idOverride: ACTOR_ID,
-      get_visual_name: base.get_visual_name ?? jest.fn(() => "some_actor_visual" as any),
-    });
+  public static mockActor(config: IMockGameObjectConfig = {}): GameObject {
+    const object: MockGameObject = new MockGameObject({ ...config, id: ACTOR_ID });
+
+    object.objectVisual = "some_actor_visual";
+
+    return object.asGameObject();
   }
-}
 
-export interface IGameObjectExtended {
-  idOverride?: TNumberId;
-  sectionOverride?: TSection;
-  infoPortions?: Array<TName>;
-  inventory: Array<[TSection | TNumberId, GameObject]>;
-  upgrades: Array<TSection>;
-  callCallback: (id: TCallback, ...args: AnyArgs) => void;
-}
+  public static callCallback(object: GameObject, id: TCallback, ...args: AnyArgs): void {
+    (object as unknown as MockGameObject).callCallback(id, ...args);
+  }
 
-/**
- * Mock game object.
- * It is defined as script_object in c++ and wraps all script objects currently online.
- *
- * @deprecated
- */
-export function mockGameObject({
-  animation_count = jest.fn(() => 0),
-  bleeding = 0,
-  clsid = jest.fn(() => -1 as TClassId),
-  disable_info_portion,
-  game_vertex_id = jest.fn(() => 512),
-  give_game_news = jest.fn(() => {}),
-  give_info_portion,
-  give_money,
-  give_talk_message2 = jest.fn(),
-  give_task = jest.fn((task: GameTask, time: number, shouldCheck: boolean, duration: number) => {}),
-  has_info,
-  health = 1,
-  id,
-  idOverride = mockConfig.ID_COUNTER++,
-  infoPortions = [],
-  inventory = [],
-  upgrades = [],
-  money,
-  motivation_action_manager,
-  name,
-  object,
-  radiation = 0,
-  section,
-  sectionOverride = "section",
-  special_danger_move = jest.fn(() => true),
-  transfer_item,
-  weapon_unstrapped = jest.fn(() => false),
-  ...rest
-}: Partial<GameObject & IGameObjectExtended> = {}): GameObject {
-  const internalInfos: Array<string> = [...infoPortions];
-  const inventoryMap: Map<string | number, GameObject> = new Map(inventory);
-  const upgradesSet: Set<string> = new Set(upgrades);
+  public static asMock(object: GameObject): MockGameObject {
+    return object as unknown as MockGameObject;
+  }
 
-  let isInvulnerable: boolean = false;
-  let objectPosition: Vector = MockVector.mock(0.25, 0.25, 0.25);
-  const objectCenter: Vector = MockVector.mock(0.15, 0.15, 0.15);
-  let objectDirection: Vector = MockVector.mock(1, 1, 1);
-  let objectMoney: number = 0;
+  public isInvulnerable: boolean = false;
 
-  let sight: TSightType = MockSightParameters.eSightTypeDummy;
+  public bleeding: TRate;
+  public callbacks: PartialRecord<TCallback, AnyCallable> = {};
+  public health: TRate;
+  public radiation: TRate;
+  public sight: TSightType = MockSightParameters.eSightTypeDummy;
 
-  const actionManager: ActionPlanner = mockDefaultActionPlanner();
-  const callbacks: PartialRecord<TCallback, AnyCallable> = {};
-  const spawnIni: IniFile = MockIniFile.mock("spawn.ini");
+  public objectActionManager: MockActionPlanner = mockDefaultActionPlanner() as unknown as MockActionPlanner;
+  public objectAlive: boolean;
+  public objectCenter: Vector = MockVector.mock(0.15, 0.15, 0.15);
+  public objectCharacterRank: Optional<TCount>;
+  public objectClsid: TClassId;
+  public objectCommunity: string;
+  public objectDirection: Vector = MockVector.mock(1, 1, 1);
+  public objectGameVertexId: TNumberId;
+  public objectId: TNumberId;
+  public objectInRestrictions: Array<string>;
+  public objectInfoPortions: Array<string>;
+  public objectInventory: Map<string | number, GameObject>;
+  public objectLevelVertexId: TNumberId;
+  public objectMoney: TCount;
+  public objectName: TName;
+  public objectOutRestrictions: Array<string>;
+  public objectPosition: Vector;
+  public objectRank: TCount;
+  public objectSection: TSection;
+  public objectSpawnIni: Optional<IniFile>;
+  public objectUpgradesSet: Set<string>;
+  public objectVisual: TSection = "object_visual_name";
 
-  const inRestrictions: Array<string> = ["a", "b", "c"];
-  const outRestrictions: Array<string> = ["d", "e", "f"];
+  public constructor(config: IMockGameObjectConfig = {}) {
+    this.objectAlive = config.alive ?? true;
+    this.objectClsid = (config.clsid ?? -1) as TClassId;
+    this.objectCommunity = (config.community ?? "none") as string;
+    this.objectId = config.id ?? mockConfig.ID_COUNTER++;
+    this.objectInRestrictions = (config.inRestrictions ?? "a,b,c").split(",");
+    this.objectInfoPortions = config.infoPortions ?? [];
+    this.objectInventory = new Map(config.inventory ?? []);
+    this.objectMoney = config.money ?? 0;
+    this.objectOutRestrictions = (config.outRestrictions ?? "d,e,f").split(",");
+    this.objectCharacterRank = config.characterRank ?? null;
+    this.objectPosition = config.position ?? MockVector.mock(0.25, 0.25, 0.25);
+    this.objectRank = config.rank ?? 0;
+    this.objectSection = config.section ?? "section";
+    this.objectSpawnIni = config.spawnIni === undefined ? MockIniFile.mock("spawn.ini") : config.spawnIni;
+    this.objectUpgradesSet = new Set(config.upgrades ?? []);
 
-  const gameObject = {
-    ...rest,
-    accessible: rest.accessible ?? jest.fn(() => true),
-    action: rest.action ?? jest.fn(() => null),
-    active_item: rest.active_item ?? jest.fn(() => null),
-    activate_slot: rest.activate_slot ?? jest.fn(),
-    add_animation: rest.add_animation ?? jest.fn(),
-    add_upgrade:
-      rest.add_upgrade ??
-      jest.fn((it: string) => {
-        upgradesSet.add(it);
-      }),
-    animation_count,
-    animation_slot: rest.animation_slot ?? jest.fn(() => 1),
-    alive: rest.alive ?? jest.fn(() => true),
-    accessible_nearest: rest.accessible_nearest ?? jest.fn(() => 15326),
-    active_detector: rest.active_detector ?? jest.fn(() => null),
-    active_slot: rest.active_slot ?? jest.fn(() => 3),
-    add_restrictions:
-      rest.add_restrictions ||
-      jest.fn((outAdd: string, inAdd: string) => {
-        outAdd
-          .split(",")
-          .map((it) => it.trim())
-          .filter(Boolean)
-          .forEach((it) => outRestrictions.push(it));
-        inAdd
-          .split(",")
-          .map((it) => it.trim())
-          .filter(Boolean)
-          .forEach((it) => inRestrictions.push(it));
-      }),
-    apply_loophole_direction_distance: rest.apply_loophole_direction_distance ?? jest.fn(),
-    best_enemy: rest.best_enemy ?? jest.fn(() => null),
-    best_danger: rest.best_danger ?? jest.fn(() => null),
-    best_item: rest.best_weapon ?? jest.fn(() => null),
-    best_weapon: rest.best_weapon ?? jest.fn(() => null),
-    bind_object: rest.bind_object ?? jest.fn(),
-    bleeding,
-    buy_condition: rest.buy_condition ?? jest.fn(),
-    buy_supplies: rest.buy_supplies ?? jest.fn(),
-    buy_item_condition_factor: rest.buy_item_condition_factor ?? jest.fn(),
-    callCallback: jest.fn((id: TCallback, ...args: AnyArgs) => callbacks[id]!(...args)),
-    can_select_weapon: rest.can_select_weapon ?? jest.fn(),
-    center: rest.center ?? jest.fn(() => objectCenter),
-    change_team: rest.change_team ?? jest.fn(),
-    change_character_reputation: rest.change_character_reputation ?? jest.fn(),
-    character_community: rest.character_community ?? jest.fn(() => "stalker"),
-    character_icon: rest.character_icon ?? (jest.fn(() => "test_character_icon") as <T>() => T),
-    character_rank: rest.character_rank ?? jest.fn(() => null),
-    clsid,
-    clear_animations: rest.clear_animations ?? jest.fn(),
-    clear_callbacks:
-      rest.clear_callbacks ??
-      jest.fn(() => {
-        Object.keys(callbacks).forEach((it) => delete callbacks[it as unknown as TCallback]);
-      }),
-    command: rest.command ?? jest.fn(),
-    critically_wounded: rest.critically_wounded ?? jest.fn(() => false),
-    debug_planner: rest.debug_planner ?? jest.fn(),
-    direction: rest.direction ?? jest.fn(() => objectDirection),
-    disable_anomaly: rest.disable_anomaly ?? jest.fn(),
-    disable_hit_marks: rest.disable_hit_marks ?? jest.fn(),
-    disable_info_portion:
-      disable_info_portion ||
-      jest.fn((it: string) => {
-        const index: TIndex = internalInfos.indexOf(it);
+    this.objectName = config.name ?? `${this.objectSection}_${this.objectId}`;
 
-        if (index >= 0) {
-          internalInfos.splice(index, 1);
+    this.bleeding = config.bleeding ?? 0;
+    this.radiation = config.radiation ?? 0;
+    this.health = config.health ?? 1;
 
-          return true;
-        } else {
-          return false;
-        }
-      }),
-    disable_talk: rest.disable_talk ?? jest.fn(),
-    disable_trade: rest.disable_trade ?? jest.fn(),
-    drop_item:
-      rest.drop_item ||
-      jest.fn((it: GameObject) => {
-        if (inventoryMap.get(it.section())) {
-          inventoryMap.delete(it.section());
-        }
-      }),
-    drop_item_and_teleport: rest.drop_item_and_teleport ?? jest.fn(),
-    enable_anomaly: rest.enable_anomaly ?? jest.fn(),
-    enable_attachable_item: rest.enable_attachable_item ?? jest.fn(),
-    enable_level_changer: rest.enable_level_changer ?? jest.fn(),
-    enable_night_vision: rest.enable_night_vision ?? jest.fn(),
-    enable_talk: rest.enable_talk ?? jest.fn(),
-    enable_trade: rest.enable_trade ?? jest.fn(),
-    explode: rest.explode ?? jest.fn(),
-    force_set_goodwill: rest.force_set_goodwill ?? jest.fn(),
-    fov: rest.fov ?? jest.fn(() => 75),
-    game_vertex_id,
-    general_goodwill:
-      rest.general_goodwill ||
-      jest.fn((to: GameObject) => {
-        return mockRelationRegistryInterface.get_general_goodwill_between(id ? id() : idOverride, to.id());
-      }),
-    get_artefact: rest.get_artefact ?? jest.fn(() => null),
-    get_car: rest.get_car ?? jest.fn(() => null),
-    get_hanging_lamp: rest.get_hanging_lamp ?? jest.fn(() => null),
-    get_visual_name: rest.get_visual_name ?? jest.fn(() => "some_stalker_visual"),
-    get_campfire: rest.get_campfire ?? jest.fn(() => null),
-    get_current_point_index: rest.get_current_point_index ?? jest.fn(() => null),
-    get_enemy: rest.get_enemy ?? jest.fn(() => null),
-    get_monster_hit_info: rest.get_monster_hit_info ?? jest.fn(() => null),
-    get_movement_speed: rest.get_movement_speed ?? jest.fn(() => MockVector.mock(0, 0, 0)),
-    get_helicopter: rest.get_helicopter ?? jest.fn(() => null),
-    get_physics_object: rest.get_physics_object ?? jest.fn(() => null),
-    get_physics_shell: rest.get_physics_shell ?? jest.fn(() => null),
-    get_script: rest.get_script ?? jest.fn(() => false),
-    get_script_name: rest.get_script_name ?? jest.fn(() => null),
-    get_task: rest.get_task ?? jest.fn(() => null),
-    give_game_news,
-    give_info_portion:
-      give_info_portion ||
-      jest.fn((it: string) => {
-        internalInfos.push(it);
+    this.objectLevelVertexId = config.levelVertexId ?? 255;
+    this.objectGameVertexId = config.gameVertexId ?? 512;
 
-        return false;
-      }),
-    give_money: give_money ?? jest.fn((value: number) => (objectMoney += value)),
-    give_talk_message2,
-    give_task,
-    group: rest.group ?? jest.fn(),
-    group_throw_time_interval: rest.group_throw_time_interval ?? jest.fn(),
-    has_info: has_info ?? jest.fn((it: string) => internalInfos.includes(it)),
-    health,
-    hit: rest.hit ?? jest.fn(),
-    id: id ?? jest.fn(() => idOverride),
-    idle_max_time: rest.idle_max_time ?? jest.fn(),
-    idle_min_time: rest.idle_min_time ?? jest.fn(),
-    ignore_monster_threshold: rest.ignore_monster_threshold ?? jest.fn(),
-    infoPortions,
-    inside: rest.inside ?? jest.fn(() => false),
-    inventory: inventoryMap,
-    in_smart_cover: rest.in_smart_cover ?? jest.fn(() => false),
-    is_talking: rest.is_talking ?? jest.fn(() => false),
-    is_talk_enabled: rest.is_talk_enabled ?? jest.fn(() => false),
-    is_there_items_to_pickup: rest.is_there_items_to_pickup ?? jest.fn(() => false),
-    jump: rest.jump ?? jest.fn(),
-    kill: rest.kill ?? jest.fn(),
-    level_vertex_id: rest.level_vertex_id ?? jest.fn(() => 255),
-    location_on_path: rest.location_on_path ?? jest.fn(() => null),
-    lookout_max_time: rest.lookout_max_time ?? jest.fn(),
-    lookout_min_time: rest.lookout_min_time ?? jest.fn(),
-    make_item_active: rest.make_item_active ?? jest.fn(),
-    make_object_visible_somewhen: rest.make_object_visible_somewhen ?? jest.fn(),
-    max_ignore_monster_distance: rest.max_ignore_monster_distance ?? jest.fn(),
-    money: money ?? jest.fn(() => objectMoney),
-    motivation_action_manager:
-      motivation_action_manager ||
-      jest.fn(function (this: GameObject) {
-        (actionManager as unknown as MockActionPlanner).object = this;
+    MockGameObject.REGISTRY.set(this.id(), this.asGameObject());
+  }
 
-        return actionManager;
-      }),
-    movement_enabled: rest.movement_enabled ?? jest.fn(),
-    name: name ?? jest.fn(() => `${sectionOverride}_${idOverride}`),
-    night_vision_enabled: rest.night_vision_enabled ?? jest.fn(),
-    object:
-      object ||
-      jest.fn((key: string | number) => {
-        if (typeof key === "string") {
-          return (
-            [...inventoryMap.values()].find((it) => {
-              return it.section() === key;
-            }) ?? null
-          );
-        }
+  public animation_count = jest.fn(() => 0);
 
-        return inventoryMap.get(key) ?? null;
-      }),
-    out_restrictions: rest.out_restrictions ?? jest.fn(() => outRestrictions.join(",")),
-    in_current_loophole_fov: rest.in_current_loophole_fov ?? jest.fn(() => false),
-    in_restrictions: rest.in_restrictions ?? jest.fn(() => inRestrictions.join(",")),
-    inactualize_patrol_path: rest.inactualize_patrol_path ?? jest.fn(),
-    invulnerable:
-      rest.invulnerable ||
-      jest.fn((nextInvulnerable?: boolean) => {
-        if (typeof nextInvulnerable === "boolean") {
-          isInvulnerable = nextInvulnerable;
-        } else {
-          return isInvulnerable;
-        }
-      }),
-    item_in_slot: rest.item_in_slot ?? jest.fn(() => null),
-    iterate_inventory: jest.fn((cb: (owner: GameObject, item: GameObject) => void | boolean, owner: GameObject) => {
-      for (const [, item] of inventoryMap) {
+  public accessible = jest.fn(() => true);
+
+  public action = jest.fn(() => null);
+
+  public active_item = jest.fn(() => null);
+
+  public activate_slot = jest.fn();
+
+  public add_animation = jest.fn();
+
+  public add_upgrade = jest.fn((it: string) => {
+    this.objectUpgradesSet.add(it);
+  });
+
+  public animation_slot = jest.fn(() => 1);
+
+  public alive = jest.fn(() => this.objectAlive);
+
+  public accessible_nearest = jest.fn(() => 15326);
+
+  public active_detector = jest.fn(() => null);
+
+  public active_slot = jest.fn(() => 3);
+
+  public add_restrictions = jest.fn((outAdd: string, inAdd: string) => {
+    outAdd
+      .split(",")
+      .map((it) => it.trim())
+      .filter(Boolean)
+      .forEach((it) => this.objectOutRestrictions.push(it));
+    inAdd
+      .split(",")
+      .map((it) => it.trim())
+      .filter(Boolean)
+      .forEach((it) => this.objectInRestrictions.push(it));
+  });
+
+  public apply_loophole_direction_distance = jest.fn();
+
+  public best_enemy = jest.fn(() => null);
+
+  public best_danger = jest.fn(() => null);
+
+  public best_item = jest.fn(() => null);
+
+  public best_weapon = jest.fn(() => null);
+
+  public bind_object = jest.fn();
+
+  public buy_condition = jest.fn();
+
+  public buy_supplies = jest.fn();
+
+  public buy_item_condition_factor = jest.fn();
+
+  public callCallback = jest.fn((id: TCallback, ...args: AnyArgs) => this.callbacks[id]!(...args));
+
+  public can_select_weapon = jest.fn();
+
+  public center = jest.fn(() => this.objectCenter);
+
+  public change_team = jest.fn();
+
+  public change_character_reputation = jest.fn();
+
+  public character_community = jest.fn(() => this.objectCommunity);
+
+  public character_icon = jest.fn(() => "test_character_icon") as <T>() => T;
+
+  public character_rank = jest.fn(() => this.objectCharacterRank);
+
+  public clear_animations = jest.fn();
+
+  public clear_callbacks = jest.fn(() => {
+    Object.keys(this.callbacks).forEach((it) => delete this.callbacks[it as unknown as TCallback]);
+  });
+
+  public clsid = jest.fn(() => this.objectClsid);
+
+  public command = jest.fn();
+
+  public community = jest.fn(() => this.objectCommunity);
+
+  public critically_wounded = jest.fn(() => false);
+
+  public debug_planner = jest.fn();
+
+  public direction = jest.fn(() => this.objectDirection);
+
+  public disable_anomaly = jest.fn();
+
+  public disable_hit_marks = jest.fn();
+
+  public disable_info_portion = jest.fn((it: string) => {
+    const index: TIndex = this.objectInfoPortions.indexOf(it);
+
+    if (index >= 0) {
+      this.objectInfoPortions.splice(index, 1);
+
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  public disable_talk = jest.fn();
+
+  public disable_trade = jest.fn();
+
+  public drop_item = jest.fn((it: GameObject) => {
+    if (this.objectInventory.get(it.section())) {
+      this.objectInventory.delete(it.section());
+    }
+  });
+
+  public drop_item_and_teleport = jest.fn();
+
+  public enable_anomaly = jest.fn();
+
+  public enable_attachable_item = jest.fn();
+
+  public enable_level_changer = jest.fn();
+
+  public enable_night_vision = jest.fn();
+
+  public enable_talk = jest.fn();
+
+  public enable_trade = jest.fn();
+
+  public explode = jest.fn();
+
+  public force_set_goodwill = jest.fn();
+
+  public fov = jest.fn(() => 75);
+
+  public game_vertex_id = jest.fn(() => this.objectGameVertexId);
+
+  public general_goodwill = jest.fn((to: GameObject) => {
+    return mockRelationRegistryInterface.get_general_goodwill_between(this.id(), to.id());
+  });
+
+  public get_artefact = jest.fn(() => null);
+
+  public get_car = jest.fn(() => null);
+
+  public get_hanging_lamp = jest.fn(() => null);
+
+  public get_visual_name = jest.fn(() => this.objectVisual);
+
+  public get_campfire = jest.fn(() => null);
+
+  public get_current_point_index = jest.fn(() => null);
+
+  public get_enemy = jest.fn(() => null);
+
+  public get_monster_hit_info = jest.fn(() => null);
+
+  public get_movement_speed = jest.fn(() => MockVector.mock(0, 0, 0));
+
+  public get_helicopter = jest.fn(() => null as Optional<CHelicopter>);
+
+  public get_physics_object = jest.fn(() => null);
+
+  public get_physics_shell = jest.fn(() => null);
+
+  public get_script = jest.fn(() => false);
+
+  public get_script_name = jest.fn(() => null);
+
+  public get_task = jest.fn(() => null);
+
+  public give_info_portion = jest.fn((it: string) => {
+    this.objectInfoPortions.push(it);
+
+    return false;
+  });
+
+  public give_game_news = jest.fn();
+
+  public give_money = jest.fn((value: number) => (this.objectMoney += value));
+
+  public give_talk_message2 = jest.fn();
+
+  public give_task = jest.fn();
+
+  public group = jest.fn();
+
+  public group_throw_time_interval = jest.fn();
+
+  public has_info = jest.fn((it: string) => this.objectInfoPortions.includes(it));
+
+  public hit = jest.fn();
+
+  public id = jest.fn(() => this.objectId);
+
+  public idle_max_time = jest.fn();
+
+  public idle_min_time = jest.fn();
+
+  public ignore_monster_threshold = jest.fn();
+
+  public inside = jest.fn(() => false);
+
+  public in_smart_cover = jest.fn(() => false);
+
+  public is_talking = jest.fn(() => false);
+
+  public is_talk_enabled = jest.fn(() => false);
+
+  public is_there_items_to_pickup = jest.fn(() => false);
+
+  public jump = jest.fn();
+
+  public kill = jest.fn();
+
+  public level_vertex_id = jest.fn(() => this.objectLevelVertexId);
+
+  public location_on_path = jest.fn(() => null);
+
+  public lookout_max_time = jest.fn();
+
+  public lookout_min_time = jest.fn();
+
+  public make_item_active = jest.fn();
+
+  public make_object_visible_somewhen = jest.fn();
+
+  public max_ignore_monster_distance = jest.fn();
+
+  public money = jest.fn(() => this.objectMoney);
+
+  public motivation_action_manager = jest.fn(() => {
+    this.objectActionManager.object = this.asGameObject();
+
+    return this.objectActionManager;
+  });
+
+  public movement_enabled = jest.fn();
+
+  public name = jest.fn(() => this.objectName);
+
+  public night_vision_enabled = jest.fn();
+
+  public object = jest.fn((key: string | number) => {
+    if (typeof key === "string") {
+      return (
+        [...this.objectInventory.values()].find((it) => {
+          return it.section() === key;
+        }) ?? null
+      );
+    }
+
+    return this.objectInventory.get(key) ?? null;
+  });
+
+  public out_restrictions = jest.fn(() => this.objectOutRestrictions.join(","));
+
+  public in_current_loophole_fov = jest.fn(() => false);
+
+  public in_restrictions = jest.fn(() => this.objectInRestrictions.join(","));
+
+  public inactualize_patrol_path = jest.fn();
+
+  public invulnerable = jest.fn((nextInvulnerable?: boolean) => {
+    if (typeof nextInvulnerable === "boolean") {
+      this.isInvulnerable = nextInvulnerable;
+    } else {
+      return this.isInvulnerable;
+    }
+  });
+
+  public item_in_slot = jest.fn(() => null);
+
+  public iterate_inventory = jest.fn(
+    (cb: (owner: GameObject, item: GameObject) => void | boolean, owner: GameObject) => {
+      for (const [, item] of this.objectInventory) {
         if (cb(owner, item)) {
           break;
         }
       }
-    }),
-    iterate_installed_upgrades: jest.fn((cb: (upgrade: TSection, item: GameObject) => void | boolean) => {
-      for (const upgrade of upgradesSet) {
-        cb(upgrade, gameObject as GameObject);
+    }
+  );
+
+  public iterate_installed_upgrades = jest.fn((cb: (upgrade: TSection, item: GameObject) => void | boolean) => {
+    for (const upgrade of this.objectUpgradesSet) {
+      cb(upgrade, this.asGameObject());
+    }
+  });
+
+  public patrol_path_make_inactual = jest.fn(() => null);
+
+  public parent = jest.fn(() => null);
+
+  public poltergeist_set_actor_ignore = jest.fn();
+
+  public position = jest.fn(() => this.objectPosition);
+
+  public play_cycle = jest.fn();
+
+  public rank = jest.fn(() => this.objectRank);
+
+  public relation = jest.fn(() => {
+    return 0;
+  });
+
+  public remove_home = jest.fn();
+
+  public remove_restrictions = jest.fn((outRemove: string, inRemove: string) => {
+    outRemove
+      .split(",")
+      .map((it) => it.trim())
+      .forEach((it) => {
+        const index: number = this.objectOutRestrictions.indexOf(it);
+
+        if (index !== -1) {
+          this.objectOutRestrictions.splice(index, 1);
+        }
+      });
+    inRemove
+      .split(",")
+      .map((it) => it.trim())
+      .forEach((it) => {
+        const index: number = this.objectInRestrictions.indexOf(it);
+
+        if (index !== -1) {
+          this.objectInRestrictions.splice(index, 1);
+        }
+      });
+  });
+
+  public restore_max_ignore_monster_distance = jest.fn();
+
+  public restore_ignore_monster_threshold = jest.fn();
+
+  public script = jest.fn();
+
+  public section = jest.fn(() => this.objectSection);
+
+  public see = jest.fn(() => false);
+
+  public sell_condition = jest.fn();
+
+  public set_active_task = jest.fn();
+
+  public set_actor_position = jest.fn((it: Vector) => {
+    this.objectPosition = it;
+  });
+
+  public set_actor_direction = jest.fn((it: number) => {
+    this.objectDirection = this.objectDirection.set(it, this.objectDirection.y, this.objectDirection.z);
+  });
+
+  public set_body_state = jest.fn();
+
+  public set_callback = jest.fn((id: TCallback, callback: AnyContextualCallable, context: AnyObject) => {
+    if (callback) {
+      this.callbacks[id] = callback.bind(context);
+    } else {
+      delete this.callbacks[id];
+    }
+  });
+
+  public set_community_goodwill = jest.fn();
+
+  public set_condition = jest.fn();
+
+  public set_const_force = jest.fn();
+
+  public set_desired_direction = jest.fn();
+
+  public set_desired_position = jest.fn();
+
+  public set_dest_game_vertex_id = jest.fn();
+
+  public set_dest_level_vertex_id = jest.fn();
+
+  public set_dest_loophole = jest.fn();
+
+  public set_dest_smart_cover = jest.fn();
+
+  public set_detail_path_type = jest.fn();
+
+  public set_fastcall = jest.fn();
+
+  public set_home = jest.fn();
+
+  public set_invisible = jest.fn();
+
+  public set_item = jest.fn();
+
+  public set_level_changer_invitation = jest.fn();
+
+  public set_manual_invisibility = jest.fn();
+
+  public set_mental_state = jest.fn();
+
+  public set_movement_selection_type = jest.fn();
+
+  public set_movement_type = jest.fn();
+
+  public set_nonscript_usable = jest.fn();
+
+  public set_npc_position = jest.fn();
+
+  public set_path_type = jest.fn();
+
+  public set_patrol_extrapolate_callback = jest.fn();
+
+  public set_patrol_path = jest.fn();
+
+  public set_relation = jest.fn();
+
+  public set_sight = jest.fn((nextSight: TSightType) => (this.sight = nextSight));
+
+  public set_smart_cover_target = jest.fn();
+
+  public set_smart_cover_target_default = jest.fn();
+
+  public set_smart_cover_target_fire = jest.fn();
+
+  public set_smart_cover_target_fire_no_lookout = jest.fn();
+
+  public set_smart_cover_target_idle = jest.fn();
+
+  public set_smart_cover_target_lookout = jest.fn();
+
+  public set_smart_cover_target_selector = jest.fn();
+
+  public set_sound_mask = jest.fn();
+
+  public set_start_dialog = jest.fn();
+
+  public set_sympathy = jest.fn();
+
+  public set_tip_text = jest.fn();
+
+  public set_visual_name = jest.fn();
+
+  public sight_params = jest.fn(() => {
+    const params: MockSightParameters = new MockSightParameters();
+
+    params.m_object = this as unknown as GameObject;
+    params.m_sight_type = this.sight;
+    params.m_vector = this.direction();
+
+    return params;
+  });
+
+  public spawn_ini = jest.fn(() => this.objectSpawnIni);
+
+  public special_danger_move = jest.fn(() => true);
+
+  public squad = jest.fn(() => 150);
+
+  public start_particles = jest.fn();
+
+  public stop_particles = jest.fn();
+
+  public stop_talk = jest.fn();
+
+  public take_items_enabled = jest.fn();
+
+  public target_body_state = jest.fn(() => {
+    return MockMove.standing;
+  });
+
+  public target_mental_state = jest.fn(() => {
+    return MockAnim.free;
+  });
+
+  public target_movement_type = jest.fn(() => MockMove.standing);
+
+  public team = jest.fn(() => 140);
+
+  public transfer_money = jest.fn();
+
+  public transfer_item = jest.fn((item: MockGameObject, to: MockGameObject) => {
+    const targetInventory: Map<string | number, GameObject> = to.objectInventory;
+
+    for (const [key, it] of this.objectInventory) {
+      if (it === item.asGameObject()) {
+        this.objectInventory.delete(key);
+        targetInventory.set(it.section(), it);
+        break;
       }
-    }),
-    patrol_path_make_inactual: rest.patrol_path_make_inactual ?? jest.fn(() => null),
-    parent: rest.parent ?? jest.fn(() => null),
-    poltergeist_set_actor_ignore: rest.poltergeist_set_actor_ignore ?? jest.fn(),
-    position: rest.position ?? jest.fn(() => objectPosition),
-    play_cycle: rest.play_cycle ?? jest.fn(),
-    radiation,
-    rank: rest.rank ?? jest.fn(() => null),
-    relation:
-      rest.relation ||
-      jest.fn(() => {
-        return 0;
-      }),
-    remove_home: rest.remove_home ?? jest.fn(),
-    remove_restrictions:
-      rest.add_restrictions ||
-      jest.fn((outRemove: string, inRemove: string) => {
-        outRemove
-          .split(",")
-          .map((it) => it.trim())
-          .forEach((it) => {
-            const index: number = outRestrictions.indexOf(it);
+    }
+  });
 
-            if (index !== -1) {
-              outRestrictions.splice(index, 1);
-            }
-          });
-        inRemove
-          .split(",")
-          .map((it) => it.trim())
-          .forEach((it) => {
-            const index: number = inRestrictions.indexOf(it);
+  public use_smart_covers_only = jest.fn();
 
-            if (index !== -1) {
-              inRestrictions.splice(index, 1);
-            }
-          });
-      }),
-    restore_ignore_monster_threshold: rest.restore_max_ignore_monster_distance ?? jest.fn(),
-    restore_max_ignore_monster_distance: rest.restore_max_ignore_monster_distance ?? jest.fn(),
-    script: rest.script ?? jest.fn(),
-    section: section ?? jest.fn(() => sectionOverride),
-    see: rest.see ?? jest.fn(() => false),
-    sell_condition: rest.sell_condition ?? jest.fn(),
-    set_active_task: rest.set_active_task ?? jest.fn(),
-    set_actor_position:
-      rest.set_actor_position ||
-      jest.fn((it: Vector) => {
-        objectPosition = it;
-      }),
-    set_actor_direction:
-      rest.set_actor_direction ||
-      jest.fn((it: number) => {
-        objectDirection = objectDirection.set(it, objectDirection.y, objectDirection.z);
-      }),
-    set_body_state: rest.set_body_state ?? jest.fn(),
-    set_callback:
-      rest.set_callback ||
-      jest.fn((id: TCallback, callback: AnyContextualCallable, context: AnyObject) => {
-        if (callback) {
-          callbacks[id] = callback.bind(context);
-        } else {
-          delete callbacks[id];
-        }
-      }),
-    set_community_goodwill: rest.set_community_goodwill ?? jest.fn(),
-    set_condition: rest.set_condition ?? jest.fn(),
-    set_const_force: rest.set_const_force ?? jest.fn(),
-    set_desired_direction: rest.set_desired_direction ?? jest.fn(),
-    set_desired_position: rest.set_desired_position ?? jest.fn(),
-    set_dest_game_vertex_id: rest.set_dest_game_vertex_id ?? jest.fn(),
-    set_dest_level_vertex_id: rest.set_dest_level_vertex_id ?? jest.fn(),
-    set_dest_loophole: rest.set_dest_loophole ?? jest.fn(),
-    set_dest_smart_cover: rest.set_dest_smart_cover ?? jest.fn(),
-    set_detail_path_type: rest.set_detail_path_type ?? jest.fn(),
-    set_fastcall: rest.set_fastcall ?? jest.fn(),
-    set_home: rest.set_home ?? jest.fn(),
-    set_invisible: rest.set_invisible ?? jest.fn(),
-    set_item: rest.set_item ?? jest.fn(),
-    set_level_changer_invitation: rest.set_level_changer_invitation ?? jest.fn(),
-    set_manual_invisibility: rest.set_manual_invisibility ?? jest.fn(),
-    set_mental_state: rest.set_mental_state ?? jest.fn(),
-    set_movement_selection_type: rest.set_movement_selection_type ?? jest.fn(),
-    set_movement_type: rest.set_movement_type ?? jest.fn(),
-    set_nonscript_usable: rest.set_nonscript_usable ?? jest.fn(),
-    set_npc_position: rest.set_npc_position ?? jest.fn(),
-    set_path_type: rest.set_path_type ?? jest.fn(),
-    set_patrol_extrapolate_callback: rest.set_patrol_extrapolate_callback ?? jest.fn(),
-    set_patrol_path: rest.set_patrol_path ?? jest.fn(),
-    set_relation: rest.set_relation ?? jest.fn(),
-    set_sight: rest.set_sight ?? jest.fn((nextSight: TSightType) => (sight = nextSight)),
-    set_smart_cover_target: rest.set_smart_cover_target ?? jest.fn(),
-    set_smart_cover_target_default: rest.set_smart_cover_target_default ?? jest.fn(),
-    set_smart_cover_target_fire: rest.set_smart_cover_target_fire ?? jest.fn(),
-    set_smart_cover_target_fire_no_lookout: rest.set_smart_cover_target_fire_no_lookout ?? jest.fn(),
-    set_smart_cover_target_idle: rest.set_smart_cover_target_idle ?? jest.fn(),
-    set_smart_cover_target_lookout: rest.set_smart_cover_target_lookout ?? jest.fn(),
-    set_smart_cover_target_selector: rest.set_smart_cover_target_selector ?? jest.fn(),
-    set_sound_mask: rest.set_sound_mask ?? jest.fn(),
-    set_start_dialog: rest.set_start_dialog ?? jest.fn(),
-    set_sympathy: rest.set_sympathy ?? jest.fn(),
-    set_tip_text: rest.set_tip_text ?? jest.fn(),
-    set_visual_name: rest.set_visual_name ?? jest.fn(),
-    sight_params:
-      rest.sight_params ||
-      jest.fn(() => {
-        const params: MockSightParameters = new MockSightParameters();
+  public weapon_strapped = jest.fn(() => true);
 
-        params.m_object = gameObject as GameObject;
-        params.m_sight_type = sight;
-        params.m_vector = gameObject.direction();
+  public weapon_unstrapped = jest.fn(() => false);
 
-        return params;
-      }),
-    spawn_ini: rest.spawn_ini ?? jest.fn(() => spawnIni),
-    squad: rest.squad ?? jest.fn(() => 150),
-    start_particles: rest.stop_talk ?? jest.fn(),
-    stop_particles: rest.stop_particles ?? jest.fn(),
-    stop_talk: rest.stop_talk ?? jest.fn(),
-    special_danger_move,
-    take_items_enabled: rest.take_items_enabled ?? jest.fn(),
-    target_body_state:
-      rest.target_body_state ||
-      jest.fn(() => {
-        return MockMove.standing;
-      }),
-    target_movement_type:
-      rest.target_movement_type ||
-      jest.fn(() => {
-        return MockMove.standing;
-      }),
-    team: rest.team ?? jest.fn(() => 140),
-    transfer_money: rest.transfer_money ?? jest.fn(),
-    transfer_item:
-      transfer_item ||
-      jest.fn((item: GameObject, to: GameObject) => {
-        const targetInventory: Map<string | number, GameObject> = (to as AnyObject).inventory;
+  public wounded = jest.fn();
 
-        for (const [key, it] of inventoryMap) {
-          if (it === item) {
-            inventoryMap.delete(key);
-            targetInventory.set(it.section(), it);
-            break;
-          }
-        }
-      }),
-    upgradesSet,
-    use_smart_covers_only: rest.use_smart_covers_only ?? jest.fn(),
-    weapon_unstrapped,
-    weapon_strapped: rest.weapon_strapped ?? jest.fn(() => true),
-    wounded: rest.wounded ?? jest.fn(),
-  };
-
-  CLIENT_SIDE_REGISTRY.set(gameObject.id(), gameObject as GameObject);
-
-  return gameObject as GameObject;
+  public asGameObject(): GameObject {
+    return this as unknown as GameObject;
+  }
 }

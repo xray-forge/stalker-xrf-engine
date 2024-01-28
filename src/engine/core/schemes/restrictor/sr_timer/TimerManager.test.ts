@@ -8,7 +8,7 @@ import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerMan
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("TimerManager class", () => {
   it("should correctly activate and deactivate with label and timer id", () => {
@@ -55,7 +55,7 @@ describe("TimerManager class", () => {
 
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_timer@test": {
         type: ETimerType.DECREMENT,
         start_value: 60_000,

@@ -180,7 +180,8 @@ export class PsyAntennaManager extends AbstractManager {
    * todo: Description.
    */
   public override update(delta: TDuration): void {
-    const updateIntensity = (intensityBase: TRate, intensity: TRate) => {
+    // todo: Move to utility or separate method.
+    const updateIntensity = (intensityBase: TRate, intensity: TRate): TRate => {
       const di = this.intensityInertion * delta * 0.01;
       let ii = intensityBase;
 

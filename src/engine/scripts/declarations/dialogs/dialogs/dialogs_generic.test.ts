@@ -33,10 +33,15 @@ jest.mock("@/engine/core/utils/dialog", () => ({
   getNpcSpeaker: (first: GameObject, second: GameObject) => (first.id() === ACTOR_ID ? second : first),
 }));
 
-describe("dialogs_generic external callbacks", () => {
-  const checkDialogsBinding = (name: TName) => checkNestedBinding("dialogs", name);
-  const callDialogsBinding = (name: TName, args: AnyArgs = []) => callBinding(name, args, (_G as AnyObject)["dialogs"]);
+function checkDialogsBinding(name: TName): void {
+  return checkNestedBinding("dialogs", name);
+}
 
+function callDialogsBinding(name: TName, args: AnyArgs = []): boolean {
+  return callBinding(name, args, (_G as AnyObject)["dialogs"]);
+}
+
+describe("dialogs_generic external callbacks", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/dialogs/dialogs/dialogs_generic");
   });
@@ -89,7 +94,7 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("transfer_medkit should correctly transfer medkits", () => {
-    const medkit: GameObject = MockGameObject.mock({ section: <T>() => "medkit" as T });
+    const medkit: GameObject = MockGameObject.mock({ section: "medkit" });
     const actor: GameObject = MockGameObject.mockActor({ inventory: [["medkit", medkit]] });
     const object: GameObject = MockGameObject.mock();
 
@@ -145,8 +150,8 @@ describe("dialogs_generic external callbacks", () => {
   });
 
   it("has_2000_money should correctly check money amount", () => {
-    const first: GameObject = MockGameObject.mock({ money: () => 1000 });
-    const second: GameObject = MockGameObject.mock({ money: () => 2000 });
+    const first: GameObject = MockGameObject.mock({ money: 1000 });
+    const second: GameObject = MockGameObject.mock({ money: 2000 });
 
     expect(callDialogsBinding("has_2000_money", [first])).toBe(false);
     expect(callDialogsBinding("has_2000_money", [second])).toBe(true);

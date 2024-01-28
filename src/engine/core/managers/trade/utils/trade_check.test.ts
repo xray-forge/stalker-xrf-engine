@@ -4,7 +4,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { isObjectTrader } from "@/engine/core/managers/trade/utils/trade_check";
 import { GameObject } from "@/engine/lib/types";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("trade_check utils", () => {
   it("isObjectTrader should correctly check if object trade config is customized", () => {
@@ -18,7 +18,7 @@ describe("trade_check utils", () => {
 
     expect(isObjectTrader(object.id())).toBe(false);
 
-    state.ini = mockIniFile("test.ltx", {
+    state.ini = MockIniFile.mock("test.ltx", {
       logic_default: {
         trade: tradeConfig.DEFAULT_TRADE_LTX_PATH,
       },

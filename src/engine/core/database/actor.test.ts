@@ -15,7 +15,7 @@ describe("actor module of the database", () => {
   it("should correctly register actor", () => {
     expect(registry.actor).toBeNull();
 
-    const actor: GameObject = MockGameObject.mock({ idOverride: 0, sectionOverride: "actor" });
+    const actor: GameObject = MockGameObject.mockActor({ section: "actor" });
 
     expect(actor.id()).toBe(0);
 

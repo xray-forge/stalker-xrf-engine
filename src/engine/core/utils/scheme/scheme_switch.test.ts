@@ -21,7 +21,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeCondition, GameObject, IniFile, LuaArray } from "@/engine/lib/types";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 // todo: Complex logic switch
@@ -61,7 +61,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -105,7 +105,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -141,7 +141,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -185,7 +185,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -221,7 +221,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -254,7 +254,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -288,7 +288,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -326,7 +326,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -361,7 +361,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -400,7 +400,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -439,7 +439,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -456,7 +456,7 @@ describe("trySwitchToAnotherSection util", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    const zone: GameObject = MockGameObject.mock({ name: () => "zone_name" });
+    const zone: GameObject = MockGameObject.mock({ name: "zone_name" });
 
     registerZone(zone);
 
@@ -477,7 +477,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -494,7 +494,7 @@ describe("trySwitchToAnotherSection util", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    const zone: GameObject = MockGameObject.mock({ name: () => "zone_name" });
+    const zone: GameObject = MockGameObject.mock({ name: "zone_name" });
 
     registerZone(zone);
 
@@ -517,7 +517,7 @@ describe("trySwitchToAnotherSection util", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
     const targetObject: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -536,7 +536,7 @@ describe("trySwitchToAnotherSection util", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    const zone: GameObject = MockGameObject.mock({ name: () => "zone_name" });
+    const zone: GameObject = MockGameObject.mock({ name: "zone_name" });
 
     registerZone(zone);
 
@@ -559,7 +559,7 @@ describe("trySwitchToAnotherSection util", () => {
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
     const targetObject: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@next": {},
     });
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -578,7 +578,7 @@ describe("trySwitchToAnotherSection util", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    const zone: GameObject = MockGameObject.mock({ name: () => "zone_name" });
+    const zone: GameObject = MockGameObject.mock({ name: "zone_name" });
 
     registerZone(zone);
 
@@ -600,7 +600,7 @@ describe("trySwitchToAnotherSection util", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@default": {},
       "sr_idle@first": {},
       "sr_idle@second": {},
@@ -653,7 +653,7 @@ describe("switchObjectSchemeToSection util", () => {
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
       actions: new LuaTable(),
     });
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sr_idle@active": {},
       "sr_timer@next": {},
     });

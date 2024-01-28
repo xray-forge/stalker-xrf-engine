@@ -10,12 +10,12 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeSleeper", () => {
   it("should correctly activate with default data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sleeper@test": {
         path_main: "zat_b40_merc_01_walk",
       },
@@ -45,7 +45,7 @@ describe("SchemeSleeper", () => {
 
   it("should correctly activate with custom data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sleeper@test": {
         on_info: "{+test} first, second",
         path_main: "zat_b40_merc_01_walk",
@@ -77,7 +77,7 @@ describe("SchemeSleeper", () => {
 
   it("should correctly activate with custom data", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "sleeper@test": {
         on_info: "{+test} first, second",
         path_main: "zat_b40_merc_01_walk",

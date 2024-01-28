@@ -11,14 +11,14 @@ import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("loot utils for corpse_detection scheme", () => {
   it("finishCorpseLooting should correctly finish looting", () => {
     const soundManager: SoundManager = getManager(SoundManager);
 
-    const ak74: GameObject = MockGameObject.mock({ sectionOverride: weapons.wpn_ak74 });
-    const questItem: GameObject = MockGameObject.mock({ sectionOverride: "some_quest_item" });
+    const ak74: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74 });
+    const questItem: GameObject = MockGameObject.mock({ section: "some_quest_item" });
 
     const object: GameObject = MockGameObject.mock();
     const corpse: GameObject = MockGameObject.mock({
@@ -36,7 +36,7 @@ describe("loot utils for corpse_detection scheme", () => {
 
     SchemeCorpseDetection.activate(
       object,
-      mockIniFile("test.ltx", {}),
+      MockIniFile.mock("test.ltx", {}),
       EScheme.CORPSE_DETECTION,
       "corpse_detection@test"
     );

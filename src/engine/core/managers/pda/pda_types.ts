@@ -2,9 +2,17 @@ import { monsters, TMonster } from "@/engine/lib/constants/monsters";
 import { PartialRecord, TName } from "@/engine/lib/types";
 
 /**
+ * Descriptor of monster displaying in PDA.
+ */
+export interface IMonsterDisplayDescriptor {
+  back: TName;
+  icon: TName;
+}
+
+/**
  * todo;
  */
-export const killedMonstersDisplay: PartialRecord<TMonster, { back: TName; icon: TName }> = {
+export const killedMonstersDisplay: PartialRecord<TMonster, IMonsterDisplayDescriptor> = {
   [monsters.bloodsucker_weak]: { back: "ui_inGame2_Krovosos", icon: "" },
   [monsters.bloodsucker_normal]: { back: "ui_inGame2_Krovosos_1", icon: "" },
   [monsters.bloodsucker_strong]: { back: "ui_inGame2_Krovosos_2", icon: "" },

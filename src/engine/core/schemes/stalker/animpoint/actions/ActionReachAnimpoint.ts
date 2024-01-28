@@ -27,7 +27,7 @@ export class ActionReachAnimpoint extends action_base {
     logger.info("Starting reach place of animpoint: %s", this.object.name());
   }
 
-  public override finalize() {
+  public override finalize(): void {
     super.finalize();
 
     logger.info("Reached place of animpoint: %s", this.object.name());

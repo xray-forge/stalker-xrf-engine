@@ -4,7 +4,7 @@ import { clsid } from "xray16";
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { getObjectCommunity, getSquadCommunity, setObjectTeamSquadGroup } from "@/engine/core/utils/community";
-import { GameObject, ServerHumanObject, TClassId } from "@/engine/lib/types";
+import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
@@ -44,7 +44,7 @@ describe("getObjectCommunity util", () => {
     expect(getObjectCommunity(MockGameObject.mock())).toBe("monster");
     expect(getObjectCommunity(MockAlifeHumanStalker.mock())).toBe("stalker");
 
-    const gameObject: GameObject = MockGameObject.mock({ clsid: () => clsid.script_stalker as TClassId });
+    const gameObject: GameObject = MockGameObject.mockStalker();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mockWithClassId(clsid.script_stalker);
 
     expect(getObjectCommunity(gameObject)).toBe("stalker");
@@ -61,7 +61,7 @@ describe("getObjectCommunity util", () => {
 describe("setObjectTeamSquadGroup util", () => {
   it("should correctly set object group details", () => {
     const firstServerObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const firstObject: GameObject = MockGameObject.mock({ idOverride: firstServerObject.id });
+    const firstObject: GameObject = MockGameObject.mock({ id: firstServerObject.id });
 
     setObjectTeamSquadGroup(firstServerObject, 432, 543, 654);
 
@@ -72,7 +72,7 @@ describe("setObjectTeamSquadGroup util", () => {
     expect(firstObject.change_team).not.toHaveBeenCalled();
 
     const secondServerObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const secondObject: GameObject = MockGameObject.mock({ idOverride: secondServerObject.id });
+    const secondObject: GameObject = MockGameObject.mock({ id: secondServerObject.id });
 
     registerObject(secondObject);
     setObjectTeamSquadGroup(secondServerObject, 443, 444, 445);

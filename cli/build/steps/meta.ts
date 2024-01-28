@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 
@@ -29,7 +29,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   /**
    * Collect list of built files.
    */
-  const collectFiles = (acc, it) => {
+  function collectFiles(acc, it): Array<Array<string>> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectFiles(acc, nested));
     } else {
@@ -37,7 +37,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
     }
 
     return acc;
-  };
+  }
 
   if (!fs.existsSync(TARGET_GAME_DATA_DIR)) {
     fs.mkdirSync(TARGET_GAME_DATA_DIR);
@@ -45,7 +45,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
 
   const directoryTree: TDirectoryFilesTree = await readDirContent(TARGET_GAME_DATA_DIR);
   const builtFiles: Array<string> = directoryTree.reduce(collectFiles, []);
-  const assetsSizeBytes: number = (await Promise.all(builtFiles.map((it) => fsPromises.stat(it)))).reduce(
+  const assetsSizeBytes: number = (await Promise.all(builtFiles.map((it) => fsp.stat(it)))).reduce(
     (acc, it) => acc + it.size,
     0
   );
@@ -76,7 +76,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   buildMeta["files_summary"] = await getFolderSizesSummary(builtFiles);
   buildMeta["files"] = builtFiles.map((it) => it.slice(TARGET_GAME_DATA_DIR.length + 1));
 
-  await fsPromises.writeFile(TARGET_GAME_DATA_METADATA_FILE, JSON.stringify(buildMeta, null, 2));
+  await fsp.writeFile(TARGET_GAME_DATA_METADATA_FILE, JSON.stringify(buildMeta, null, 2));
 
   log.info("Timing stats:");
   Object.entries(timingInfo).forEach(([key, value]) => log.info(`* ${key}:  ${yellow(value)}`));
@@ -112,7 +112,7 @@ export async function getFolderSizesSummary(directoryTree: Array<string>): Promi
 
   await Promise.all(
     directoryTree.map(async (it) => {
-      const fileSize: number = (await fsPromises.stat(it)).size;
+      const fileSize: number = (await fsp.stat(it)).size;
       const base: string = it.slice(TARGET_GAME_DATA_DIR.length + 1);
       const baseFolder: string = path.dirname(base).split(/[/\\]/)[0];
       const key: string = baseFolder === "." ? base : baseFolder;

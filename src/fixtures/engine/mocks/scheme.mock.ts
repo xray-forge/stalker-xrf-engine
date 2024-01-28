@@ -1,16 +1,9 @@
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
-import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database";
+import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database";
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { EScheme } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
-
-/**
- * Mock generic registry state for an object.
- */
-export function mockRegistryState(base: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
-  return { ...base } as IRegistryObjectState;
-}
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 /**
  * Mock generic scheme state.
@@ -18,7 +11,7 @@ export function mockRegistryState(base: Partial<IRegistryObjectState> = {}): IRe
 export function mockSchemeState<T extends IBaseSchemeState>(
   scheme: EScheme,
   {
-    ini = mockIniFile("scheme_mock.ltx", {}),
+    ini = MockIniFile.mock("scheme_mock.ltx", {}),
     logic = new LuaTable(),
     signals = null,
     overrides = null,

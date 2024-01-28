@@ -5,11 +5,10 @@ import { disposeManager, getManager, registerActor, registry } from "@/engine/co
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EventsManager } from "@/engine/core/managers/events";
-import { AnyObject, EActiveItemSlot, GameObject } from "@/engine/lib/types";
+import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockCTime, MockGameObject } from "@/fixtures/xray";
-import { EPacketDataType, mockNetPacket, mockNetProcessor, MockNetProcessor } from "@/fixtures/xray/mocks/save";
+import { EPacketDataType, MockCTime, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("ActorInputManager class", () => {
   beforeEach(() => {
@@ -40,7 +39,7 @@ describe("ActorInputManager class", () => {
 
     actorInputManager.setInactiveInputTime(10);
 
-    actorInputManager.save(mockNetPacket(netProcessor));
+    actorInputManager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
@@ -60,7 +59,7 @@ describe("ActorInputManager class", () => {
 
     const newActorInputManager: ActorInputManager = getManager(ActorInputManager);
 
-    newActorInputManager.load(mockNetProcessor(netProcessor));
+    newActorInputManager.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
@@ -82,12 +81,12 @@ describe("ActorInputManager class", () => {
 
   it("should correctly toggle night vision state", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
-    const torch: GameObject = MockGameObject.mock({ sectionOverride: "device_torch" });
+    const torch: GameObject = MockGameObject.mock({ section: "device_torch" });
 
     manager.enableActorNightVision();
     expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(false);
 
-    const inventory: Map<string | number, GameObject> = (registry.actor as AnyObject).inventory;
+    const inventory: Map<string | number, GameObject> = MockGameObject.asMock(registry.actor).objectInventory;
 
     inventory.set("device_torch", torch);
 

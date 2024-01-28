@@ -11,7 +11,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { InventoryBox } from "@/engine/core/objects/item/InventoryBox";
 import { resetRegistry } from "@/fixtures/engine";
-import { mockIniFile } from "@/fixtures/xray/mocks/ini";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("InventoryBox server class", () => {
   beforeEach(() => {
@@ -54,7 +54,7 @@ describe("InventoryBox server class", () => {
     const inventoryBox: InventoryBox = new InventoryBox("test-section");
 
     jest.spyOn(inventoryBox, "spawn_ini").mockReturnValue(
-      mockIniFile("spawn.ini", {
+      MockIniFile.mock("spawn.ini", {
         story_object: {
           story_id: "test-story-id",
         },

@@ -40,7 +40,7 @@ describe("SchemePatrol class", () => {
   it("should require main configuration fields and verify paths", () => {
     const squad: Squad = MockSquad.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
 
     serverObject.group_id = squad.id;
 
@@ -80,7 +80,7 @@ describe("SchemePatrol class", () => {
   it("should be activate with default values", () => {
     const squad: Squad = MockSquad.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const ini: IniFile = MockIniFile.mock("test.ltx", {
       "patrol@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@1",
@@ -141,7 +141,7 @@ describe("SchemePatrol class", () => {
   it("should be activate with custom values", () => {
     const squad: Squad = MockSquad.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const ini: IniFile = MockIniFile.mock("test.ltx", {
       "patrol@test": {
         on_info: "{=actor_in_zone(zat_b42_warning_space_restrictor)} another@1",

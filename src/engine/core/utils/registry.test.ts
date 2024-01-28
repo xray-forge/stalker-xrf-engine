@@ -11,7 +11,6 @@ import {
 import { AnyObject, GameObject, ServerObject, TClassId, TIndex } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
-  CLIENT_SIDE_REGISTRY,
   MockAlifeSimulator,
   MockGameObject,
   mockServerAlifeCreatureActor,
@@ -20,7 +19,7 @@ import {
 
 describe("getNearestServerObject util", () => {
   beforeEach(() => {
-    CLIENT_SIDE_REGISTRY.reset();
+    MockGameObject.REGISTRY.reset();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
@@ -73,7 +72,7 @@ describe("getNearestServerObject util", () => {
 
 describe("getServerObjects util", () => {
   beforeEach(() => {
-    CLIENT_SIDE_REGISTRY.reset();
+    MockGameObject.REGISTRY.reset();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
@@ -95,8 +94,8 @@ describe("getServerObjects util", () => {
 
     mockServerAlifeObject({ parent_id: actor.id });
 
-    MockGameObject.mock({ idOverride: actor.id });
-    MockGameObject.mock({ idOverride: first.id });
+    MockGameObject.mock({ id: actor.id });
+    MockGameObject.mock({ id: first.id });
 
     expect((getServerObjects() as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => it.id)).toEqual([
       first.id,
@@ -162,29 +161,31 @@ describe("getServerObjects util", () => {
 
 describe("getNearestGameObject util", () => {
   beforeEach(() => {
-    CLIENT_SIDE_REGISTRY.reset();
+    MockGameObject.REGISTRY.reset();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
 
   it("should correctly search for client objects", () => {
     const actor: GameObject = MockGameObject.mockActor({
-      clsid: () => clsid.actor as TClassId,
-      name: () => "actor_name",
+      clsid: clsid.actor,
+      name: "actor_name",
     });
 
     registerActor(actor);
 
     const first: GameObject = MockGameObject.mock({
-      clsid: () => clsid.dog_s as TClassId,
-      name: () => "dog_name",
+      clsid: clsid.dog_s,
+      name: "dog_name",
     });
     const second: GameObject = MockGameObject.mock({
-      clsid: () => clsid.dog_red as TClassId,
-      name: () => "dog_name",
+      clsid: clsid.dog_red,
+      name: "dog_name",
     });
     const third: GameObject = MockGameObject.mock();
-    const fourth: GameObject = MockGameObject.mock({ parent: () => actor });
+    const fourth: GameObject = MockGameObject.mock();
+
+    jest.spyOn(fourth, "parent").mockImplementation(() => actor);
 
     jest.spyOn(actor.position(), "distance_to_sqr").mockImplementation(() => 1);
     jest.spyOn(first.position(), "distance_to_sqr").mockImplementation(() => 145 * 145);
@@ -204,27 +205,29 @@ describe("getNearestGameObject util", () => {
 
 describe("getGameObjects util", () => {
   beforeEach(() => {
-    CLIENT_SIDE_REGISTRY.reset();
+    MockGameObject.REGISTRY.reset();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
 
   it("should correctly search for client objects", () => {
     const actor: GameObject = MockGameObject.mockActor({
-      clsid: () => clsid.actor as TClassId,
-      name: () => "actor_name",
+      clsid: clsid.actor,
+      name: "actor_name",
     });
     const first: GameObject = MockGameObject.mock({
-      clsid: () => clsid.script_stalker as TClassId,
-      name: () => "stalker_name",
+      clsid: clsid.script_stalker,
+      name: "stalker_name",
     });
     const second: GameObject = MockGameObject.mock({
-      clsid: () => clsid.pseudodog_s as TClassId,
-      name: () => "dog_name",
+      clsid: clsid.pseudodog_s,
+      name: "dog_name",
     });
     const third: GameObject = MockGameObject.mock();
 
-    MockGameObject.mock({ parent: () => actor });
+    const actorItem: GameObject = MockGameObject.mock();
+
+    jest.spyOn(actorItem, "parent").mockImplementation(() => actor);
 
     registerActor(actor);
 

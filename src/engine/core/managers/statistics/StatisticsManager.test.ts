@@ -5,7 +5,7 @@ import { disposeManager, getManager, registerActor, registerSimulator } from "@/
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GameObject, TClassId, TName } from "@/engine/lib/types";
+import { GameObject, TName } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua";
@@ -110,9 +110,9 @@ describe("StatisticsManager class", () => {
 
   it("should correctly handle taking artefacts", () => {
     const manager: StatisticsManager = getManager(StatisticsManager);
-    const firstClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_black_drops as TClassId });
-    const secondClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_bast_artefact as TClassId });
-    const thirdClient: GameObject = MockGameObject.mock({ clsid: () => clsid.art_zuda as TClassId });
+    const firstClient: GameObject = MockGameObject.mock({ clsid: clsid.art_black_drops });
+    const secondClient: GameObject = MockGameObject.mock({ clsid: clsid.art_bast_artefact });
+    const thirdClient: GameObject = MockGameObject.mock({ clsid: clsid.art_zuda });
 
     mockServerAlifeObject({ id: firstClient.id(), sectionOverride: "af_first" });
     mockServerAlifeObject({ id: secondClient.id(), sectionOverride: "af_first" });
@@ -193,9 +193,9 @@ describe("StatisticsManager class", () => {
 
   it("should correctly handle monster kills", () => {
     const manager: StatisticsManager = getManager(StatisticsManager);
-    const firstMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.flesh_s, rank: () => 3 });
-    const secondMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, rank: () => 15 });
-    const thirdMonster: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s, rank: () => 16 });
+    const firstMonster: GameObject = MockGameObject.mock({ clsid: clsid.flesh_s, rank: 3 });
+    const secondMonster: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s, rank: 15 });
+    const thirdMonster: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s, rank: 16 });
     const actor: GameObject = MockGameObject.mockActor();
 
     registerActor(actor);
@@ -252,7 +252,7 @@ describe("StatisticsManager class", () => {
       bestKilledMonster: "bloodsucker_strong",
     };
 
-    oldManager.save(netProcessor.asMockNetPacket());
+    oldManager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.dataList).toEqual([
       1,
@@ -439,7 +439,7 @@ describe("StatisticsManager class", () => {
 
     const newManager: StatisticsManager = getManager(StatisticsManager);
 
-    newManager.load(netProcessor.asMockNetProcessor());
+    newManager.load(netProcessor.asNetProcessor());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);

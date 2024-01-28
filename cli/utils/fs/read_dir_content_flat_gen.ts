@@ -1,3 +1,4 @@
+import type { Dirent } from "fs";
 import * as fsp from "fs/promises";
 import * as path from "path";
 
@@ -7,13 +8,16 @@ import * as path from "path";
  * @param directory - target folder to traverse
  * @yields next item in directory
  */
-export async function* readFolderGen(directory: string) {
-  const dirents = await fsp.readdir(directory, { withFileTypes: true });
+export async function* readFolderGen(directory: string): AsyncGenerator<string> {
+  const folders: Array<Dirent> = await fsp.readdir(directory, { withFileTypes: true });
 
-  for (const dirent of dirents) {
-    const file = path.resolve(directory, dirent.name);
+  for (const folder of folders) {
+    const file: string = path.resolve(directory, folder.name);
 
-    if (dirent.isDirectory()) yield* readFolderGen(file);
-    else yield file;
+    if (folder.isDirectory()) {
+      yield* readFolderGen(file);
+    } else {
+      yield file;
+    }
   }
 }

@@ -8,12 +8,12 @@ import { getConfigSwitchConditions, parseBoneStateDescriptors, readIniConditionL
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, mockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemePhysicalIdle", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_idle@test": {},
     });
 
@@ -43,7 +43,7 @@ describe("SchemePhysicalIdle", () => {
 
   it("should correctly initialize with custom values", () => {
     const object: GameObject = MockGameObject.mock();
-    const ini: IniFile = mockIniFile("test.ltx", {
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
       "ph_idle@test": {
         on_info: "{+test} a, b",
         hit_on_bone: "1|ph_door@free|2|ph_door@free",
