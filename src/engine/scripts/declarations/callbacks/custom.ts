@@ -1,9 +1,9 @@
 import { getManager } from "@/engine/core/database";
-import { achievementsPreconditionsMap } from "@/engine/core/managers/achievements/preconditions";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig } from "@/engine/core/managers/tasks";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils";
+import { achievementsPreconditionsMap } from "@/engine/core/utils/achievements";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TStringId } from "@/engine/lib/types";

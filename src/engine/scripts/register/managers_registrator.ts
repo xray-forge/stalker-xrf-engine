@@ -1,6 +1,5 @@
 import { initializeManager } from "@/engine/core/database";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
-import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager, ActorInventoryMenuManager } from "@/engine/core/managers/actor";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
@@ -33,7 +32,6 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export function registerManagers(): void {
   const managers: Array<TAbstractCoreManagerConstructor> = [
-    AchievementsManager,
     ActorInputManager,
     ActorInventoryMenuManager,
     DialogManager,

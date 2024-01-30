@@ -43,6 +43,12 @@ export function resetRegistry(): void {
   registry.crows.count = 0;
   registry.crows.storage = new LuaTable();
   registry.doors = new LuaTable();
+  registry.dynamicData = {
+    event: {},
+    extensions: {},
+    store: {},
+    objects: new LuaTable(),
+  };
   registry.effectsVolume = 0;
   registry.extensions = new LuaTable();
   registry.helicopter.storage = new LuaTable();

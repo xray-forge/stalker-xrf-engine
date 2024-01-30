@@ -10,7 +10,9 @@ declare namespace marshal {
   /**
    * Deserializes a byte stream to a value.
    */
-  function decode<T extends LuaTable | Record<any, any>>(serialized: string, constants?: Partial<T>): T;
+  function decode<T extends LuaTable | Record<any, any> | Array<unknown>>(
+    serialized: string, constants?: Partial<T>
+  ): T;
   /**
    * Serialize a value to a byte stream.
    */

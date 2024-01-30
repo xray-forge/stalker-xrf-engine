@@ -1,11 +1,8 @@
-import { game, level } from "xray16";
+import { CTime, game, level } from "xray16";
 
 import { wait } from "@/engine/core/utils/game/game_wait";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { NetPacket, NetProcessor, Optional, Time, TRate, TTimestamp } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Add part of time digit to a data string.
@@ -140,6 +137,29 @@ export function readTimeFromPacket(reader: NetProcessor): Optional<Time> {
   const ms: number = reader.r_u16();
 
   time.set(Y + 2000, M, D, h, m, s, ms);
+
+  return time;
+}
+
+/**
+ * @param time - object to serialize
+ * @returns serialized time string
+ */
+export function serializeTime(time: CTime): string {
+  const [Y, M, D, h, m, s, ms] = time.get(0, 0, 0, 0, 0, 0, 0);
+
+  return marshal.encode([Y, M, D, h, m, s, ms]);
+}
+
+/**
+ * @param data - serialized time
+ * @returns deserialized object
+ */
+export function deserializeTime(data: string): CTime {
+  const time: CTime = game.CTime();
+  const [Y, M, D, h, m, s, ms] = marshal.decode<Array<number>>(data);
+
+  time.set(Y, M, D, h, m, s, ms);
 
   return time;
 }

@@ -1,5 +1,5 @@
-import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import { notificationsIcons, TNotificationIcon } from "@/engine/core/managers/notifications/notifications_icons";
+import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
 
 /**
  * Map of icons used for achievements display in PDA/notifications.

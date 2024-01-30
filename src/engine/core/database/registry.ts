@@ -21,7 +21,6 @@ import type { ERelation } from "@/engine/core/utils/relation";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type {
   AlifeSimulator,
-  AnyObject,
   EScheme,
   GameObject,
   IniFile,
@@ -268,5 +267,10 @@ export const registry = {
   /**
    * Dynamic data stored in separate file with marshal lib.
    */
-  dynamicData: { eventPacket: {} as AnyObject, store: {}, objects: new LuaTable() } as IDynamicSaveData,
+  dynamicData: {
+    event: {},
+    extensions: {},
+    store: {},
+    objects: new LuaTable(),
+  } as IDynamicSaveData,
 };

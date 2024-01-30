@@ -1,14 +1,11 @@
 import { level } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import {
-  hasAchievedInformationDealer,
-  hasAchievedWealthy,
-} from "@/engine/core/managers/achievements/preconditions/achievements_preconditions";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
+import { hasAchievedInformationDealer, hasAchievedWealthy } from "@/engine/core/utils/achievements";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isWeapon } from "@/engine/core/utils/class_ids";

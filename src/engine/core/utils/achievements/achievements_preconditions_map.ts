@@ -1,4 +1,3 @@
-import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
 import {
   hasAchievedBalanceAdvocate,
   hasAchievedBattleSystemsMaster,
@@ -21,7 +20,8 @@ import {
   hasAchievedSeeker,
   hasAchievedSkilledStalker,
   hasAchievedWealthy,
-} from "@/engine/core/managers/achievements/preconditions/achievements_preconditions";
+} from "@/engine/core/utils/achievements/achievements_preconditions";
+import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
 
 /**
  * Map of preconditions based on type of achievement.

@@ -1,10 +1,9 @@
 import { getManager, registry } from "@/engine/core/database";
-import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
-import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
-import { achievementsIcons } from "@/engine/core/managers/achievements/preconditions/achievements_icons";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
+import { achievementsIcons } from "@/engine/core/utils/achievements/achievements_icons";
+import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
 import { giveInfoPortion, hasFewInfoPortions, hasInfoPortion, hasInfoPortions } from "@/engine/core/utils/info_portion";
 import { increaseCommunityGoodwillToId } from "@/engine/core/utils/relation";
 import { communities } from "@/engine/lib/constants/communities";
@@ -180,10 +179,7 @@ export function hasAchievedSeeker(): boolean {
   }
 
   // Require unique artefacts count to be found for seeker achievement.
-  if (
-    table.size(getManager(StatisticsManager).actorStatistics.collectedArtefacts) <
-    achievementsConfig.ARTEFACTS_SEEKER_UNIQUES_REQUIRED
-  ) {
+  if (table.size(getManager(StatisticsManager).actorStatistics.collectedArtefacts) < 22) {
     return false;
   }
 

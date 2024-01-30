@@ -1,6 +1,5 @@
-import { getManager, IDynamicSaveData, initializeManager, registry } from "@/engine/core/database";
+import { getManager, initializeManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -13,9 +12,10 @@ import { SurgeManager } from "@/engine/core/managers/surge";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather";
+import { loadExtension, saveExtension } from "@/engine/core/utils/extensions";
 import { loadDynamicGameSave, saveDynamicGameSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, NetProcessor, Optional, TName } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -49,7 +49,6 @@ export class SaveManager extends AbstractManager {
     getManager(StatisticsManager).save(packet);
     getManager(TreasureManager).save(packet);
     getManager(TaskManager).save(packet);
-    getManager(AchievementsManager).save(packet);
     getManager(ActorInputManager).save(packet);
     getManager(GameSettingsManager).save(packet);
   }
@@ -68,7 +67,6 @@ export class SaveManager extends AbstractManager {
     getManager(StatisticsManager).load(reader);
     getManager(TreasureManager).load(reader);
     getManager(TaskManager).load(reader);
-    getManager(AchievementsManager).load(reader);
     getManager(ActorInputManager).load(reader);
     getManager(GameSettingsManager).load(reader);
   }
@@ -99,7 +97,11 @@ export class SaveManager extends AbstractManager {
   public onBeforeGameSave(saveName: TName): void {
     logger.info("Before game save: %s", saveName);
 
-    EventsManager.emitEvent(EGameEvent.GAME_SAVE, registry.dynamicData.eventPacket);
+    EventsManager.emitEvent(EGameEvent.GAME_SAVE, registry.dynamicData.event);
+
+    for (const [, extension] of registry.extensions) {
+      saveExtension(extension);
+    }
 
     saveDynamicGameSave(saveName, registry.dynamicData);
   }
@@ -121,11 +123,13 @@ export class SaveManager extends AbstractManager {
   public onBeforeGameLoad(saveName: TName): void {
     logger.info("Before game load: %s", saveName);
 
-    const data: Optional<IDynamicSaveData> = loadDynamicGameSave(saveName);
+    registry.dynamicData = loadDynamicGameSave(saveName) ?? registry.dynamicData;
 
-    registry.dynamicData = data ? data : registry.dynamicData;
+    for (const [, extension] of registry.extensions) {
+      loadExtension(extension);
+    }
 
-    EventsManager.emitEvent(EGameEvent.GAME_LOAD, registry.dynamicData.eventPacket);
+    EventsManager.emitEvent(EGameEvent.GAME_LOAD, registry.dynamicData.event);
   }
 
   /**

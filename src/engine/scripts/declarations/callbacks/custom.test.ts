@@ -1,12 +1,11 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { getManager } from "@/engine/core/database";
-import { EAchievement } from "@/engine/core/managers/achievements";
-import { achievementsPreconditionsMap } from "@/engine/core/managers/achievements/preconditions";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig, TaskObject } from "@/engine/core/managers/tasks";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils";
+import { achievementsPreconditionsMap, EAchievement } from "@/engine/core/utils/achievements";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
 
@@ -18,9 +17,7 @@ function callAchievementBinding(name: EAchievement, args: AnyArgs = []): boolean
   return callBinding(name, args, (_G as AnyObject)["engine"]["check_achievement"]);
 }
 
-jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils", () => ({
-  emitCutsceneEndedEvent: jest.fn(),
-}));
+jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils");
 
 describe("custom external callbacks", () => {
   beforeAll(() => {

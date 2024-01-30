@@ -239,7 +239,8 @@ export interface IRankDescriptor {
  * Descriptor of data saved to additional save file.
  */
 export interface IDynamicSaveData {
-  eventPacket: AnyObject;
+  event: AnyObject;
   store: AnyObject;
+  extensions: AnyObject;
   objects: LuaTable<TNumberId, IDynamicObjectState>;
 }

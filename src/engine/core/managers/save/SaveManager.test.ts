@@ -9,7 +9,6 @@ import {
   registry,
 } from "@/engine/core/database";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
-import { AchievementsManager } from "@/engine/core/managers/achievements";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ReleaseBodyManager } from "@/engine/core/managers/death/ReleaseBodyManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -23,8 +22,9 @@ import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
+import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import { AnyObject } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
+import { mockExtension, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
 import { MockGameObject, MockNetProcessor } from "@/fixtures/xray";
@@ -90,7 +90,6 @@ describe("SaveManager class", () => {
       StatisticsManager,
       TreasureManager,
       TaskManager,
-      AchievementsManager,
       ActorInputManager,
       GameSettingsManager,
     ];
@@ -148,6 +147,15 @@ describe("SaveManager class", () => {
   it("should properly create dynamic saves", () => {
     const saveManager: SaveManager = getManager(SaveManager);
     const file: MockIoFile = new MockIoFile("test", "wb");
+    const firstExtension: IExtensionsDescriptor = mockExtension({ name: "first" });
+    const secondExtension: IExtensionsDescriptor = mockExtension({ name: "second" });
+
+    registry.dynamicData.extensions[firstExtension.name] = { a: 1, b: true, c: null };
+    registry.dynamicData.extensions[secondExtension.name] = { a: "a", b: "b" };
+    registry.dynamicData.extensions["not-existing"] = { a: "not-existing" };
+
+    registry.extensions.set(firstExtension.name, firstExtension);
+    registry.extensions.set(secondExtension.name, secondExtension);
 
     const onSave = jest.fn((data: AnyObject) => {
       data.example = 123;
@@ -161,15 +169,40 @@ describe("SaveManager class", () => {
 
     expect(onSave).toHaveBeenCalledTimes(1);
     expect(io.open).toHaveBeenCalledWith("$game_saves$\\test.scopx", "wb");
-    expect(file.write).toHaveBeenCalledWith(JSON.stringify({ eventPacket: { example: 123 }, store: {}, objects: {} }));
+    expect(file.write).toHaveBeenCalledWith(
+      JSON.stringify({
+        event: { example: 123 },
+        extensions: {
+          first: { a: 1, b: true, c: null },
+          second: { a: "a", b: "b" },
+          "not-existing": { a: "not-existing" },
+        },
+        store: {},
+        objects: {},
+      })
+    );
     expect(file.close).toHaveBeenCalledTimes(1);
   });
 
   it("should properly load dynamic saves", () => {
     const saveManager: SaveManager = getManager(SaveManager);
     const file: MockIoFile = new MockIoFile("test", "wb");
+    const firstExtension: IExtensionsDescriptor = mockExtension({ name: "first" });
+    const secondExtension: IExtensionsDescriptor = mockExtension({ name: "second" });
 
-    file.content = JSON.stringify({ eventPacket: { example: 123 }, store: {}, objects: {} });
+    registry.extensions.set(firstExtension.name, firstExtension);
+    registry.extensions.set(secondExtension.name, secondExtension);
+
+    file.content = JSON.stringify({
+      event: { example: 123 },
+      store: {},
+      extensions: {
+        first: { a: 1, b: true, c: null },
+        second: { a: "a", b: "b" },
+        third: { a: "not-registered" },
+      },
+      objects: {},
+    });
 
     const onLoad = jest.fn((data: AnyObject) => {
       expect(data).toEqual({ example: 123 });
@@ -189,6 +222,20 @@ describe("SaveManager class", () => {
     expect(file.read).toHaveBeenCalledTimes(1);
     expect(file.close).toHaveBeenCalledTimes(1);
     expect(contentBefore).not.toBe(registry.dynamicData);
+    expect(registry.dynamicData.extensions).toEqual({
+      first: {
+        a: 1,
+        b: true,
+        c: null,
+      },
+      second: {
+        a: "a",
+        b: "b",
+      },
+      third: {
+        a: "not-registered",
+      },
+    });
 
     // In case of empty file data should stay same.
     const contentAfter: AnyObject = registry.dynamicData;

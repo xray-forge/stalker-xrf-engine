@@ -2,9 +2,10 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { relation_registry } from "xray16";
 
 import { getManager, registerActor, registry } from "@/engine/core/database";
-import { EAchievement } from "@/engine/core/managers/achievements/achievements_types";
-import { achievementsConfig } from "@/engine/core/managers/achievements/AchievementsConfig";
-import { achievementsIcons } from "@/engine/core/managers/achievements/preconditions/achievements_icons";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
+import { StatisticsManager } from "@/engine/core/managers/statistics";
+import { achievementsIcons } from "@/engine/core/utils/achievements/achievements_icons";
 import {
   hasAchievedBalanceAdvocate,
   hasAchievedBattleSystemsMaster,
@@ -27,10 +28,8 @@ import {
   hasAchievedSeeker,
   hasAchievedSkilledStalker,
   hasAchievedWealthy,
-} from "@/engine/core/managers/achievements/preconditions/achievements_preconditions";
-import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ENotificationType, ITipNotification } from "@/engine/core/managers/notifications";
-import { StatisticsManager } from "@/engine/core/managers/statistics";
+} from "@/engine/core/utils/achievements/achievements_preconditions";
+import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -546,7 +545,7 @@ describe("hasAchievedSeeker precondition", () => {
 
     statisticsManager.actorStatistics.collectedArtefacts = new LuaTable();
 
-    for (const it of $range(1, achievementsConfig.ARTEFACTS_SEEKER_UNIQUES_REQUIRED)) {
+    for (const it of $range(1, 22)) {
       statisticsManager.actorStatistics.collectedArtefacts.set("af_" + it, true);
     }
 

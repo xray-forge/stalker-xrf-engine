@@ -2,10 +2,12 @@ import { describe, expect, it } from "@jest/globals";
 import { game, level } from "xray16";
 
 import {
+  deserializeTime,
   gameTimeToString,
   globalTimeToString,
   isInTimeInterval,
   readTimeFromPacket,
+  serializeTime,
   toTimeDigit,
   writeTimeToPacket,
 } from "@/engine/core/utils/time";
@@ -111,5 +113,23 @@ describe("isInTimeInterval util", () => {
     expect(isInTimeInterval(3.5, 4.5)).toBeTruthy();
     expect(isInTimeInterval(0, 4)).toBeFalsy();
     expect(isInTimeInterval(4, 5)).toBeTruthy();
+  });
+});
+
+describe("serializeTime util", () => {
+  it("should correctly serialize", () => {
+    expect(serializeTime(MockCTime.mock(2012, 6, 15, 12, 30, 10, 100))).toBe("[2012,6,15,12,30,10,100]");
+    expect(serializeTime(MockCTime.mock(2016, 12, 10, 10, 1, 50, 500))).toBe("[2016,12,10,10,1,50,500]");
+  });
+});
+
+describe("deserializeTime util", () => {
+  it("should correctly deserialize", () => {
+    expect(deserializeTime("[2012,6,15,12,30,10,100]").toString()).toBe(
+      MockCTime.create(2012, 6, 15, 12, 30, 10, 100).toString()
+    );
+    expect(deserializeTime("[2016,12,10,10,1,50,500]").toString()).toBe(
+      MockCTime.create(2016, 12, 10, 10, 1, 50, 500).toString()
+    );
   });
 });
