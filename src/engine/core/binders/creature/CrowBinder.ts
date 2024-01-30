@@ -14,7 +14,7 @@ import {
 } from "@/engine/core/database";
 import { crowSpawnerConfig } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, Reader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, NetReader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -80,7 +80,7 @@ export class CrowBinder extends object_binder {
     closeSaveMarker(packet, CrowBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     openLoadMarker(reader, CrowBinder.__name);
 
     super.load(reader);

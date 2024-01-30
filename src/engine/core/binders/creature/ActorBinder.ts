@@ -29,8 +29,8 @@ import {
   GameObject,
   GameTask,
   NetPacket,
+  NetReader,
   Optional,
-  Reader,
   ServerActorObject,
   TCount,
   TDuration,
@@ -150,7 +150,7 @@ export class ActorBinder extends object_binder {
     closeSaveMarker(packet, ActorBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     this.isFirstUpdatePerformed = false;
 
     openLoadMarker(reader, ActorBinder.__name);

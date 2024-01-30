@@ -1,11 +1,8 @@
 import { FS, getFS } from "xray16";
 
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
 import { AnyObject, LuaArray, Optional, TName, TPath } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Get list of possible extension modules.
@@ -35,6 +32,7 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
         if (module && type(module.register) === "function") {
           table.insert(list, {
             isEnabled: type(module.enabled) === "boolean" ? module.enabled : true,
+            canToggle: type(module.canToggle) === "boolean" ? module.canToggle : true,
             name: type(module.name) === "string" ? module.name : directoryItem,
             path: extensionPath,
             entry: extensionEntryPath,

@@ -26,8 +26,8 @@ import {
   ESchemeType,
   GameObject,
   NetPacket,
+  NetReader,
   Optional,
-  Reader,
   ServerObject,
   TClassId,
   TDistance,
@@ -133,7 +133,7 @@ export class HelicopterBinder extends object_binder {
     this.combatManager.save(packet);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, HelicopterBinder.__name);

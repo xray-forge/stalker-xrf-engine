@@ -1,5 +1,5 @@
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { NetPacket, NetProcessor, Reader } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, NetReader } from "@/engine/lib/types";
 import { EPacketDataType } from "@/fixtures/xray/mocks/save/types";
 
 /**
@@ -14,8 +14,8 @@ export class MockNetProcessor {
     return new MockNetProcessor() as unknown as NetPacket;
   }
 
-  public static mockReader(): Reader {
-    return new MockNetProcessor() as unknown as Reader;
+  public static mockReader(): NetReader {
+    return new MockNetProcessor() as unknown as NetReader;
   }
 
   public readDataOrder: Array<EPacketDataType> = [];
@@ -143,8 +143,8 @@ export class MockNetProcessor {
     return this.dataList.length > 0;
   }
 
-  public asNetReader(): Reader {
-    return this as unknown as Reader;
+  public asNetReader(): NetReader {
+    return this as unknown as NetReader;
   }
 
   public asNetPacket(): NetPacket {

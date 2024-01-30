@@ -26,8 +26,8 @@ import {
   GameObject,
   IniFile,
   NetPacket,
+  NetReader,
   Optional,
-  Reader,
   ServerObject,
   TCount,
   TDuration,
@@ -130,7 +130,7 @@ export class PhysicObjectBinder extends object_binder {
     closeSaveMarker(packet, PhysicObjectBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, PhysicObjectBinder.__name);

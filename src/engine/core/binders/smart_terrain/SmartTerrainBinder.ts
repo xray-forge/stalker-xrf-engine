@@ -16,7 +16,7 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { GameObject, NetPacket, Reader, ServerObject, TDuration } from "@/engine/lib/types";
+import { GameObject, NetPacket, NetReader, ServerObject, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -82,7 +82,7 @@ export class SmartTerrainBinder extends object_binder {
     closeSaveMarker(packet, SmartTerrainBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     openLoadMarker(reader, SmartTerrainBinder.__name);
 
     super.load(reader);

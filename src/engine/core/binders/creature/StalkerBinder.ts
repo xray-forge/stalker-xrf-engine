@@ -62,8 +62,8 @@ import {
   ESchemeEvent,
   GameObject,
   NetPacket,
+  NetReader,
   Optional,
-  Reader,
   ServerCreatureObject,
   ServerHumanObject,
   TCount,
@@ -358,7 +358,7 @@ export class StalkerBinder extends object_binder {
     closeSaveMarker(packet, StalkerBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, StalkerBinder.__name);

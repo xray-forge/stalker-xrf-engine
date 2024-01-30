@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import type { CUIListBox } from "xray16";
 
 import { MockCUIWindow } from "@/fixtures/xray/mocks/objects/ui/CUIWindow.mock";
@@ -10,7 +11,11 @@ export class MockCUIListBox extends MockCUIWindow {
     return new MockCUIListBox() as unknown as CUIListBox;
   }
 
-  public ShowSelectedItem(): void {}
+  public SetSelectedIndex = jest.fn();
 
-  public RemoveAll(): void {}
+  public GetSelectedIndex = jest.fn();
+
+  public ShowSelectedItem = jest.fn();
+
+  public RemoveAll = jest.fn();
 }

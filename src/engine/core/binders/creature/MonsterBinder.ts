@@ -39,8 +39,8 @@ import {
   GameObject,
   Hit,
   NetPacket,
+  NetReader,
   Optional,
-  Reader,
   ServerCreatureObject,
   TCount,
   TDuration,
@@ -188,7 +188,7 @@ export class MonsterBinder extends object_binder {
     closeSaveMarker(packet, MonsterBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, MonsterBinder.__name);

@@ -7,13 +7,10 @@ import { achievementsConfig } from "@/engine/core/managers/achievements/Achievem
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ENotificationType, ITipNotification, notificationsIcons } from "@/engine/core/managers/notifications";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 import { NetPacket, NetProcessor } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manager handling current state of achievements and checking of it.

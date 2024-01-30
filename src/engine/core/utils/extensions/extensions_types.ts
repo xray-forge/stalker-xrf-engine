@@ -5,6 +5,7 @@ import { AnyObject, TName, TPath } from "@/engine/lib/types";
  */
 export interface IExtensionsDescriptor {
   isEnabled: boolean;
+  canToggle: boolean;
   path: TPath;
   entry: TPath;
   name: TName;

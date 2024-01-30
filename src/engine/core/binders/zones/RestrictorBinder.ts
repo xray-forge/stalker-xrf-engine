@@ -21,7 +21,7 @@ import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
-import { ESchemeEvent, GameObject, NetPacket, Reader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
+import { ESchemeEvent, GameObject, NetPacket, NetReader, ServerObject, TDuration, TNumberId } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -126,7 +126,7 @@ export class RestrictorBinder extends object_binder {
     closeSaveMarker(packet, RestrictorBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     this.isLoaded = true;
 
     openLoadMarker(reader, RestrictorBinder.__name);

@@ -25,9 +25,9 @@ import {
   GameObject,
   IniFile,
   NetPacket,
+  NetReader,
   Optional,
   PhysicObject,
-  Reader,
   ServerObject,
   SoundObject,
   TDuration,
@@ -206,7 +206,7 @@ export class DoorBinder extends object_binder {
     closeSaveMarker(packet, DoorBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     openLoadMarker(reader, DoorBinder.__name);
 
     super.load(reader);
