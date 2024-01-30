@@ -138,7 +138,7 @@ extern("pda", {
     return getManager(PdaManager).getMonsterBackground();
   },
   get_monster_icon: (): TName => {
-    return getManager(PdaManager).getMonsterIcon();
+    return "";
   },
   get_favorite_weapon: (): TSection => {
     return getManager(PdaManager).getFavoriteWeapon();

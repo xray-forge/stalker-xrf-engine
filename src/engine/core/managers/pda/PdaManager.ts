@@ -2,23 +2,19 @@ import { game } from "xray16";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import {
-  EPdaStatSection,
-  IMonsterDisplayDescriptor,
-  killedMonstersDisplay,
-} from "@/engine/core/managers/pda/pda_types";
+import { EPdaStatSection, killedMonstersDisplay } from "@/engine/core/managers/pda/pda_types";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { Optional, TLabel, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
+import { Optional, TLabel, TName, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Manager handling PDA ui / displayed information.
  */
 export class PdaManager extends AbstractManager {
+  /**
+   * @param section
+   */
   public getStat(section: EPdaStatSection): TLabel {
     const statisticsManager: StatisticsManager = getManager(StatisticsManager);
 
@@ -43,43 +39,33 @@ export class PdaManager extends AbstractManager {
   }
 
   /**
-   * @returns descriptor of the strongest actor killed monster to display if it exists
+   * @returns best killed monster icon path
    */
-  public getBestKilledMonster(): Optional<IMonsterDisplayDescriptor> {
+  public getMonsterBackground(): TName {
     const bestKilledMonster: Optional<TMonster> = getManager(StatisticsManager).actorStatistics.bestKilledMonster;
 
-    return !bestKilledMonster || !killedMonstersDisplay[bestKilledMonster]
-      ? null
-      : (killedMonstersDisplay[bestKilledMonster] as IMonsterDisplayDescriptor);
+    if (bestKilledMonster) {
+      return killedMonstersDisplay[bestKilledMonster] ?? "";
+    } else {
+      return "";
+    }
   }
 
   /**
-   * todo: Description.
-   */
-  public getMonsterBackground(): TLabel {
-    return this.getBestKilledMonster()?.back || "";
-  }
-
-  /**
-   * todo: Description.
-   */
-  public getMonsterIcon(): TLabel {
-    return this.getBestKilledMonster()?.icon || "";
-  }
-
-  /**
-   * todo: Description.
+   * @returns most used actor weapon
    */
   public getFavoriteWeapon(): TSection {
-    return getManager(StatisticsManager).actorStatistics.favoriteWeapon || weapons.wpn_knife;
+    return getManager(StatisticsManager).actorStatistics.favoriteWeapon ?? weapons.wpn_knife;
   }
 
   /**
-   * todo: Description.
+   * Fill faction state.
+   * todo: Faction warfare from CS?
+   *
+   * @param state - state object to fill
+   * @returns updated state object
    */
-  public fillFactionState(state: Record<string, any>): void {
-    logger.info("Fill faction state");
-
+  public fillFactionState(state: Record<string, string | number>): Record<string, string | number> {
     state.member_count = 0;
     state.resource = 0;
     state.power = 0;
@@ -104,5 +90,7 @@ export class PdaManager extends AbstractManager {
     state.war_state_hint5 = "5";
 
     state.bonus = 0;
+
+    return state;
   }
 }

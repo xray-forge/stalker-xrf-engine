@@ -191,9 +191,8 @@ describe("interface external callbacks", () => {
   it("pda callbacks", () => {
     const pdaManager: PdaManager = getManager(PdaManager);
 
-    jest.spyOn(pdaManager, "fillFactionState").mockImplementation(jest.fn());
+    jest.spyOn(pdaManager, "fillFactionState").mockImplementation(jest.fn(() => ({})));
     jest.spyOn(pdaManager, "getMonsterBackground").mockImplementation(jest.fn(() => "test-bg"));
-    jest.spyOn(pdaManager, "getMonsterIcon").mockImplementation(jest.fn(() => "test-icon"));
     jest.spyOn(pdaManager, "getFavoriteWeapon").mockImplementation(jest.fn(() => "test-wpn"));
     jest.spyOn(pdaManager, "getStat").mockImplementation(jest.fn(() => "test-stat"));
 
@@ -216,9 +215,6 @@ describe("interface external callbacks", () => {
 
     expect(callPdaBinding("get_monster_back", [])).toBe("test-bg");
     expect(pdaManager.getMonsterBackground).toHaveBeenCalled();
-
-    expect(callPdaBinding("get_monster_icon", [])).toBe("test-icon");
-    expect(pdaManager.getMonsterIcon).toHaveBeenCalled();
 
     expect(callPdaBinding("get_favorite_weapon", [])).toBe("test-wpn");
     expect(pdaManager.getFavoriteWeapon).toHaveBeenCalled();

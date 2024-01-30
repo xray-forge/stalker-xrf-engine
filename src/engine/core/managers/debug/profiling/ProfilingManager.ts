@@ -302,7 +302,7 @@ export class ProfilingManager extends AbstractManager {
     for (const [idx, stat] of outStats) {
       if (printedCount < limit) {
         logger.info(
-          string.format("[%2d] %6d (%5.2f%%) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
+          string.format("[%2d] %6d (%5.2f) : %s", idx, stat.count, (stat.count * 100) / totalCallsCount, stat.name)
         );
         printedCount++;
       } else {
@@ -377,13 +377,9 @@ export class ProfilingManager extends AbstractManager {
 
     if (table.size(stats) === 0) {
       logger.pushEmptyLine();
-      logger.info(
-        "=================================================================================================="
-      );
+      logger.info("==================================================================================================");
       logger.info("No custom profiling portions captured yet");
-      logger.info(
-        "=================================================================================================="
-      );
+      logger.info("==================================================================================================");
 
       return;
     }

@@ -2,37 +2,29 @@ import { monsters, TMonster } from "@/engine/lib/constants/monsters";
 import { PartialRecord, TName } from "@/engine/lib/types";
 
 /**
- * Descriptor of monster displaying in PDA.
- */
-export interface IMonsterDisplayDescriptor {
-  back: TName;
-  icon: TName;
-}
-
-/**
  * todo;
  */
-export const killedMonstersDisplay: PartialRecord<TMonster, IMonsterDisplayDescriptor> = {
-  [monsters.bloodsucker_weak]: { back: "ui_inGame2_Krovosos", icon: "" },
-  [monsters.bloodsucker_normal]: { back: "ui_inGame2_Krovosos_1", icon: "" },
-  [monsters.bloodsucker_strong]: { back: "ui_inGame2_Krovosos_2", icon: "" },
-  [monsters.boar_weak]: { back: "ui_inGame2_Kaban_1", icon: "" },
-  [monsters.boar_strong]: { back: "ui_inGame2_Kaban", icon: "" },
-  [monsters.burer]: { back: "ui_inGame2_Burer", icon: "" },
-  [monsters.chimera]: { back: "ui_inGame2_Himera", icon: "" },
-  [monsters.controller]: { back: "ui_inGame2_Controller", icon: "" },
-  [monsters.dog]: { back: "ui_inGame2_Blind_Dog", icon: "" },
-  [monsters.flesh_weak]: { back: "ui_inGame2_Flesh", icon: "" },
-  [monsters.flesh_strong]: { back: "ui_inGame2_Flesh_1", icon: "" },
-  [monsters.gigant]: { back: "ui_inGame2_Pseudo_Gigant", icon: "" },
-  [monsters.poltergeist_tele]: { back: "ui_inGame2_Poltergeyst", icon: "" },
-  [monsters.poltergeist_flame]: { back: "ui_inGame2_Poltergeist_1", icon: "" },
-  [monsters.psy_dog_weak]: { back: "ui_inGame2_PseudoDog_1", icon: "" },
-  [monsters.psy_dog_strong]: { back: "ui_inGame2_PseudoDog", icon: "" },
-  [monsters.pseudodog_weak]: { back: "ui_inGame2_PseudoDog_1", icon: "" },
-  [monsters.pseudodog_strong]: { back: "ui_inGame2_PseudoDog", icon: "" },
-  [monsters.snork]: { back: "ui_inGame2_Snork", icon: "" },
-  [monsters.tushkano]: { back: "ui_inGame2_Tushkan", icon: "" },
+export const killedMonstersDisplay: PartialRecord<TMonster, TName> = {
+  [monsters.bloodsucker_weak]: "ui_inGame2_Krovosos",
+  [monsters.bloodsucker_normal]: "ui_inGame2_Krovosos_1",
+  [monsters.bloodsucker_strong]: "ui_inGame2_Krovosos_2",
+  [monsters.boar_weak]: "ui_inGame2_Kaban_1",
+  [monsters.boar_strong]: "ui_inGame2_Kaban",
+  [monsters.burer]: "ui_inGame2_Burer",
+  [monsters.chimera]: "ui_inGame2_Himera",
+  [monsters.controller]: "ui_inGame2_Controller",
+  [monsters.dog]: "ui_inGame2_Blind_Dog",
+  [monsters.flesh_weak]: "ui_inGame2_Flesh",
+  [monsters.flesh_strong]: "ui_inGame2_Flesh_1",
+  [monsters.gigant]: "ui_inGame2_Pseudo_Gigant",
+  [monsters.poltergeist_tele]: "ui_inGame2_Poltergeyst",
+  [monsters.poltergeist_flame]: "ui_inGame2_Poltergeist_1",
+  [monsters.psy_dog_weak]: "ui_inGame2_PseudoDog_1",
+  [monsters.psy_dog_strong]: "ui_inGame2_PseudoDog",
+  [monsters.pseudodog_weak]: "ui_inGame2_PseudoDog_1",
+  [monsters.pseudodog_strong]: "ui_inGame2_PseudoDog",
+  [monsters.snork]: "ui_inGame2_Snork",
+  [monsters.tushkano]: "ui_inGame2_Tushkan",
 };
 
 /**
