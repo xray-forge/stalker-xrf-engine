@@ -35,6 +35,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
   public readonly owner: CUIScriptWnd;
 
   public uiItemsList!: CUIListBox<ExtensionItemListEntry>;
+  public uiToggleButton!: CUI3tButton;
   public uiUpButton!: CUI3tButton;
   public uiDownButton!: CUI3tButton;
 
@@ -74,7 +75,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
       [ui_events.BUTTON_CLICKED]: () => this.onCancelButtonClick(),
     });
 
-    this.uiUpButton = initializeElement(this.xml, EElementType.BUTTON, "toggle_button", this, {
+    this.uiToggleButton = initializeElement(this.xml, EElementType.BUTTON, "toggle_button", this, {
       [ui_events.BUTTON_CLICKED]: () => this.onToggleButtonClick(),
     });
     this.uiUpButton = initializeElement(this.xml, EElementType.BUTTON, "up_button", this, {
@@ -147,6 +148,9 @@ export class ExtensionsDialog extends CUIScriptWnd {
    */
   public onActiveExtensionChange(): void {
     const activeIndex: TIndex = this.uiItemsList.GetSelectedIndex();
+    const extension: Optional<IExtensionsDescriptor> = this.extensions.get(activeIndex + 1);
+
+    this.uiToggleButton.Enable(extension?.canToggle === true);
 
     if (activeIndex === 0) {
       this.uiUpButton.Enable(false);
@@ -213,7 +217,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
       activeIndex
     ) as Optional<IExtensionsDescriptor>;
 
-    if (extension) {
+    if (extension && extension.canToggle) {
       extension.isEnabled = !extension.isEnabled;
 
       this.fillItemsList();

@@ -1,3 +1,4 @@
+export * from "@/fixtures/engine/mocks/extension.mock";
 export * from "@/fixtures/engine/mocks/registry.mock";
 export * from "@/fixtures/engine/mocks/scheme.mock";
 export * from "@/fixtures/engine/mocks/squad.mock";

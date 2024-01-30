@@ -1469,6 +1469,16 @@
     "spa": "Cancelar",
     "ukr": "Відмінити"
   },
+  "ui_mm_toggle": {
+    "eng": "Toggle",
+    "fra": "Basculer",
+    "ger": "Umschalten",
+    "ita": "Attiva/Disattiva",
+    "pol": "Przełącz",
+    "rus": "Переключить",
+    "spa": "Alternar",
+    "ukr": "Перемкнути "
+  },
   "ui_mm_check_updates": {
     "eng": "Game updates",
     "fra": "Mises ŕ jour",
