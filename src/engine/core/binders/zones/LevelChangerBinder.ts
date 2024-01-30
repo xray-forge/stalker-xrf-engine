@@ -13,7 +13,7 @@ import {
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { LevelChanger } from "@/engine/core/objects/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, Reader, ServerObject } from "@/engine/lib/types";
+import { NetPacket, NetReader, ServerObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -66,7 +66,7 @@ export class LevelChangerBinder extends object_binder {
     closeSaveMarker(packet, LevelChangerBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     openLoadMarker(reader, LevelChangerBinder.__name);
 
     super.load(reader);

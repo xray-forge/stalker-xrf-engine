@@ -12,7 +12,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { Y_VECTOR } from "@/engine/lib/constants/vectors";
-import { NetPacket, Optional, Reader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, NetReader, Optional, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -133,7 +133,7 @@ export class SignalLightBinder extends object_binder {
     closeSaveMarker(packet, SignalLightBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     openLoadMarker(reader, SignalLightBinder.__name);
 
     super.load(reader);

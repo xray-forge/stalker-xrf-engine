@@ -32,8 +32,8 @@ import {
   IniFile,
   LuaArray,
   NetPacket,
+  NetReader,
   Optional,
-  Reader,
   ServerObject,
   TCount,
   TDuration,
@@ -355,7 +355,7 @@ export class AnomalyZoneBinder extends object_binder {
     closeSaveMarker(packet, AnomalyZoneBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     openLoadMarker(reader, AnomalyZoneBinder.__name);
 
     super.load(reader);

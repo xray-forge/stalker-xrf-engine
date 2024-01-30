@@ -14,7 +14,7 @@ import {
   AlifeSimulator,
   GameObject,
   NetPacket,
-  Reader,
+  NetReader,
   ServerObject,
   TClassId,
   TCount,
@@ -64,7 +64,7 @@ export class ArenaZoneBinder extends object_binder {
     closeSaveMarker(packet, ArenaZoneBinder.__name);
   }
 
-  public override load(reader: Reader): void {
+  public override load(reader: NetReader): void {
     openLoadMarker(reader, ArenaZoneBinder.__name);
 
     super.load(reader);

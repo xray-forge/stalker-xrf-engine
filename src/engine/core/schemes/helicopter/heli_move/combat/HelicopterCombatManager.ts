@@ -26,8 +26,8 @@ import {
   GameObject,
   IniFile,
   NetPacket,
+  NetReader,
   Optional,
-  Reader,
   TCount,
   TDistance,
   TNumberId,
@@ -197,7 +197,7 @@ export class HelicopterCombatManager {
   /**
    * todo: Description.
    */
-  public load(reader: Reader): void {
+  public load(reader: NetReader): void {
     openLoadMarker(reader, HelicopterCombatManager.name);
 
     this.isInitialized = reader.r_bool();
