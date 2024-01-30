@@ -2,9 +2,9 @@ import { monsters, TMonster } from "@/engine/lib/constants/monsters";
 import { PartialRecord, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Map of icons to display in PDA for monsters.
  */
-export const killedMonstersDisplay: PartialRecord<TMonster, TName> = {
+export const iconByKilledMonsters: PartialRecord<TMonster, TName> = {
   [monsters.bloodsucker_weak]: "ui_inGame2_Krovosos",
   [monsters.bloodsucker_normal]: "ui_inGame2_Krovosos_1",
   [monsters.bloodsucker_strong]: "ui_inGame2_Krovosos_2",
@@ -28,7 +28,7 @@ export const killedMonstersDisplay: PartialRecord<TMonster, TName> = {
 };
 
 /**
- * todo;
+ * Section of PDA statistics layout.
  */
 export enum EPdaStatSection {
   UNKNOWN,

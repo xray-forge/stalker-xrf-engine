@@ -1,18 +1,56 @@
 import { describe, expect, it } from "@jest/globals";
 
 import { getManager } from "@/engine/core/database";
+import { EPdaStatSection } from "@/engine/core/managers/pda/pda_types";
 import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 
 describe("PdaManager class", () => {
-  it.todo("should correctly initialize and destroy");
+  it("should correctly get stat by section", () => {
+    const manager: PdaManager = getManager(PdaManager);
 
-  it.todo("should correctly get stat by section");
+    expect(manager.getStatisticsLabel(EPdaStatSection.UNKNOWN)).toBe("00:00:00");
+    expect(manager.getStatisticsLabel(EPdaStatSection.SURGES)).toBe("0");
+    expect(manager.getStatisticsLabel(EPdaStatSection.COMPLETED_QUESTS)).toBe("0");
+    expect(manager.getStatisticsLabel(EPdaStatSection.KILLED_MONSTERS)).toBe("0");
+    expect(manager.getStatisticsLabel(EPdaStatSection.KILLED_STALKERS)).toBe("0");
+    expect(manager.getStatisticsLabel(EPdaStatSection.ARTEFACTS_FOUND)).toBe("0");
+    expect(manager.getStatisticsLabel(EPdaStatSection.SECRETS_FOUND)).toBe("0");
+    expect(manager.getStatisticsLabel("unknown" as unknown as EPdaStatSection)).toBe("");
 
-  it.todo("should correctly get best killed monster display info");
+    const statisticsManager: StatisticsManager = getManager(StatisticsManager);
 
-  it.todo("should correctly get best killed monster display background");
+    statisticsManager.actorStatistics.surgesCount = 5;
+    statisticsManager.actorStatistics.completedTasksCount = 7;
+    statisticsManager.actorStatistics.killedMonstersCount = 9;
+    statisticsManager.actorStatistics.killedStalkersCount = 11;
+    statisticsManager.actorStatistics.collectedArtefactsCount = 13;
+    statisticsManager.actorStatistics.collectedTreasuresCount = 15;
+
+    expect(manager.getStatisticsLabel(EPdaStatSection.UNKNOWN)).toBe("00:00:00");
+    expect(manager.getStatisticsLabel(EPdaStatSection.SURGES)).toBe("5");
+    expect(manager.getStatisticsLabel(EPdaStatSection.COMPLETED_QUESTS)).toBe("7");
+    expect(manager.getStatisticsLabel(EPdaStatSection.KILLED_MONSTERS)).toBe("9");
+    expect(manager.getStatisticsLabel(EPdaStatSection.KILLED_STALKERS)).toBe("11");
+    expect(manager.getStatisticsLabel(EPdaStatSection.ARTEFACTS_FOUND)).toBe("13");
+    expect(manager.getStatisticsLabel(EPdaStatSection.SECRETS_FOUND)).toBe("15");
+  });
+
+  it("should correctly get best killed monster display background", () => {
+    const manager: PdaManager = getManager(PdaManager);
+
+    expect(manager.getMonsterBackground()).toBe("");
+
+    getManager(StatisticsManager).actorStatistics.bestKilledMonster = "burer";
+    expect(manager.getMonsterBackground()).toBe("ui_inGame2_Burer");
+
+    getManager(StatisticsManager).actorStatistics.bestKilledMonster = "dog";
+    expect(manager.getMonsterBackground()).toBe("ui_inGame2_Blind_Dog");
+
+    getManager(StatisticsManager).actorStatistics.bestKilledMonster = "none";
+    expect(manager.getMonsterBackground()).toBe("");
+  });
 
   it("should correctly get favorite weapon", () => {
     const manager: PdaManager = getManager(PdaManager);

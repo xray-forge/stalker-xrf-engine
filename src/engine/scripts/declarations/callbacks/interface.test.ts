@@ -194,7 +194,7 @@ describe("interface external callbacks", () => {
     jest.spyOn(pdaManager, "fillFactionState").mockImplementation(jest.fn(() => ({})));
     jest.spyOn(pdaManager, "getMonsterBackground").mockImplementation(jest.fn(() => "test-bg"));
     jest.spyOn(pdaManager, "getFavoriteWeapon").mockImplementation(jest.fn(() => "test-wpn"));
-    jest.spyOn(pdaManager, "getStat").mockImplementation(jest.fn(() => "test-stat"));
+    jest.spyOn(pdaManager, "getStatisticsLabel").mockImplementation(jest.fn(() => "test-stat"));
 
     expect(() => callPdaBinding("set_active_subdialog", [])).not.toThrow();
 
@@ -220,7 +220,7 @@ describe("interface external callbacks", () => {
     expect(pdaManager.getFavoriteWeapon).toHaveBeenCalled();
 
     expect(callPdaBinding("get_stat", [3])).toBe("test-stat");
-    expect(pdaManager.getStat).toHaveBeenCalledWith(3);
+    expect(pdaManager.getStatisticsLabel).toHaveBeenCalledWith(3);
   });
 
   it("ui_wpn_params callbacks", () => {

@@ -2,7 +2,7 @@ import { game } from "xray16";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import { EPdaStatSection, killedMonstersDisplay } from "@/engine/core/managers/pda/pda_types";
+import { EPdaStatSection, iconByKilledMonsters } from "@/engine/core/managers/pda/pda_types";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
@@ -13,9 +13,10 @@ import { Optional, TLabel, TName, TSection } from "@/engine/lib/types";
  */
 export class PdaManager extends AbstractManager {
   /**
-   * @param section
+   * @param section - PDA statistics section to get label for
+   * @returns section label
    */
-  public getStat(section: EPdaStatSection): TLabel {
+  public getStatisticsLabel(section: EPdaStatSection): TLabel {
     const statisticsManager: StatisticsManager = getManager(StatisticsManager);
 
     switch (section) {
@@ -45,7 +46,7 @@ export class PdaManager extends AbstractManager {
     const bestKilledMonster: Optional<TMonster> = getManager(StatisticsManager).actorStatistics.bestKilledMonster;
 
     if (bestKilledMonster) {
-      return killedMonstersDisplay[bestKilledMonster] ?? "";
+      return iconByKilledMonsters[bestKilledMonster] ?? "";
     } else {
       return "";
     }

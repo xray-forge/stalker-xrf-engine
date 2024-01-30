@@ -144,7 +144,7 @@ extern("pda", {
     return getManager(PdaManager).getFavoriteWeapon();
   },
   get_stat: (index: TIndex): TLabel => {
-    return getManager(PdaManager).getStat(index);
+    return getManager(PdaManager).getStatisticsLabel(index);
   },
 });
 
