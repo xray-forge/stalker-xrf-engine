@@ -40,7 +40,7 @@ export async function readLastLinesOfFile(
             lines = lines.substring(1);
           }
 
-          file.close();
+          await file.close();
 
           return Buffer.from(lines, "binary").toString(encoding);
         }

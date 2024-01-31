@@ -12,7 +12,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LevelChanger } from "@/engine/core/objects/level/LevelChanger";
 import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
-describe("LevelChanger server class", () => {
+describe("LevelChanger", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly create generic objects without story links", () => {

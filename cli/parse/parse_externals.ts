@@ -42,7 +42,8 @@ export async function parseExternals(): Promise<void> {
     )
   );
 
-  await createDirIfNoExisting(TARGET_PARSED_DIR);
+  createDirIfNoExisting(TARGET_PARSED_DIR);
+
   await fsp.writeFile(targetFilePath, content);
 }
 

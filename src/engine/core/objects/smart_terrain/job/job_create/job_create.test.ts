@@ -53,7 +53,7 @@ describe("jobs_create", () => {
     const [jobsList, ltxConfig, ltxName] = createSmartTerrainJobs(terrain);
 
     expect(ltxName).toBe("*test_smart");
-    expect((ltxConfig as unknown as MockIniFile<AnyObject>).content).toBe(defaultJobsLtx);
+    expect((ltxConfig as unknown as MockIniFile).content).toBe(defaultJobsLtx);
     expect(jobsList).toEqualLuaArrays([
       ...range(3, 1).map((it) => ({
         ...getSmartTerrainTaskDetails(),
@@ -235,7 +235,7 @@ describe("jobs_create", () => {
     const [jobsList, ltx, ltxName] = createSmartTerrainJobs(terrain);
 
     expect(ltxName).toBe("*test_smart_empty");
-    expect((ltx as unknown as MockIniFile<AnyObject>).content).toBe(emptyJobsLtx);
+    expect((ltx as unknown as MockIniFile).content).toBe(emptyJobsLtx);
     expect(jobsList).toEqualLuaArrays([
       ...range(20, 1).map((it) => ({
         ...getSmartTerrainTaskDetails(),

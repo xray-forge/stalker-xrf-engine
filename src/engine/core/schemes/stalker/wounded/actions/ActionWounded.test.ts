@@ -22,7 +22,7 @@ import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce } from "@/fixtures/jest";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
-describe("ActionWounded class", () => {
+describe("ActionWounded", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

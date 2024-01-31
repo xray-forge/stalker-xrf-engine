@@ -15,7 +15,7 @@ import {
   MockObjectBinder,
 } from "@/fixtures/xray";
 
-describe("SignalLightBinder class", () => {
+describe("SignalLightBinder", () => {
   beforeEach(() => {
     resetRegistry();
   });

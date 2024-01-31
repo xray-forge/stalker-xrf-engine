@@ -4,7 +4,7 @@ import { DebugRegistrySection } from "@/engine/core/ui/debug/sections/DebugRegis
 import { resetRegistry } from "@/fixtures/engine";
 import { MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
-describe("DebugRegistrySection class", () => {
+describe("DebugRegistrySection", () => {
   beforeEach(() => {
     resetRegistry();
   });

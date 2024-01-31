@@ -4,8 +4,8 @@ import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
  * Mock xray logics world property.
  */
 export class MockWorldProperty extends MockLuabindClass {
-  private worldCondition: number;
-  private worldValue: boolean;
+  private readonly worldCondition: number;
+  private readonly worldValue: boolean;
 
   public constructor(condition: number, value: boolean) {
     super();

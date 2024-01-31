@@ -9,7 +9,7 @@ import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/co
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorAnimation class", () => {
+describe("EvaluatorAnimation", () => {
   it("should correctly perform animation check", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

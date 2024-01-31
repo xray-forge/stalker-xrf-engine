@@ -53,7 +53,7 @@ jest.mock("@/engine/core/objects/squad/update", () => ({
 
 jest.mock("@/engine/core/utils/object");
 
-describe("MonsterBinder class", () => {
+describe("MonsterBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

@@ -4,7 +4,7 @@ import { CUIMessageBoxEx } from "xray16";
 import { FreeplayDialog } from "@/engine/core/ui/game/freeplay/FreeplayDialog";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 
-describe("FreeplayDialog.test.ts class", () => {
+describe("FreeplayDialog", () => {
   it("should correctly initialize", () => {
     const dialog: FreeplayDialog = new FreeplayDialog();
 

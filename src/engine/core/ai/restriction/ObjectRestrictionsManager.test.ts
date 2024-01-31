@@ -5,7 +5,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { GameObject } from "@/engine/lib/types";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("ObjectRestrictionsManager class", () => {
+describe("ObjectRestrictionsManager", () => {
   it("should correctly initialize and get object restrictions", () => {
     const object: GameObject = MockGameObject.mock({
       inRestrictions: "a, b",

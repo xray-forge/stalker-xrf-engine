@@ -11,7 +11,7 @@ import { getFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
-describe("WeatherManager class", () => {
+describe("WeatherManager", () => {
   beforeEach(() => {
     resetRegistry();
   });

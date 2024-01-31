@@ -10,7 +10,7 @@ import { createEmptyVector } from "@/engine/core/utils/vector";
 import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorDirectionSearch class", () => {
+describe("EvaluatorDirectionSearch", () => {
   it("should correctly perform direction search check", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
@@ -36,8 +36,7 @@ describe("EvaluatorDirectionSearch class", () => {
     expect(evaluator.evaluate()).toBeTruthy();
 
     setStalkerState(stalker.object, EStalkerState.SMART_COVER, null, null, {
-      lookObjectId: lookObject,
-      lookPosition: null,
+      lookObjectId: lookObject.id(),
     });
 
     expect(evaluator.evaluate()).toBeFalsy();

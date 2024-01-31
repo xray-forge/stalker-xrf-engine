@@ -35,7 +35,7 @@ function mockEvaluator(hasEnemy: boolean = false): {
   return { evaluator, state, planner, object };
 }
 
-describe("EvaluatorWounded class", () => {
+describe("EvaluatorWounded", () => {
   it("should correctly evaluate whether is wounded", () => {
     const { object, evaluator, state } = mockEvaluator(false);
 

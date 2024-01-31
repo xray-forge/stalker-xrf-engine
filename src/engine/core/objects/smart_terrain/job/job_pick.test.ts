@@ -12,9 +12,9 @@ import {
   selectSmartTerrainJob,
 } from "@/engine/core/objects/smart_terrain/job/index";
 import { jobPreconditionCamper, jobPreconditionSniper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
-import { AnyObject, ServerHumanObject, ServerMonsterBaseObject, TNumberId } from "@/engine/lib/types";
-import { mockSmartTerrain } from "@/fixtures/engine";
-import { mockServerAlifeCreatureActor, mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { AnyObject, IniFile, ServerHumanObject, ServerMonsterBaseObject, TNumberId } from "@/engine/lib/types";
+import { MockSmartTerrain } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, mockServerAlifeCreatureActor, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_pick utils", () => {
   beforeAll(() => {
@@ -23,18 +23,18 @@ describe("job_pick utils", () => {
   });
 
   it("selectSmartTerrainJob should correctly get jobs for stalkers", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const object: ServerHumanObject = mockServerAlifeHumanStalker();
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const object: ServerHumanObject = MockAlifeHumanStalker.mock();
     const job: IObjectJobState = createObjectJobDescriptor(object);
 
-    const [firstId, firstJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
+    const [firstId, firstJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
 
     expect(firstId).toBeNull();
     expect(firstJob).toBeNull();
 
-    smartTerrain.on_register();
+    terrain.on_register();
 
-    const [secondId, secondJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
+    const [secondId, secondJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
 
     expect(secondId).toBe(4);
     expect(secondJob).toEqual({
@@ -69,7 +69,7 @@ describe("job_pick utils", () => {
     // Assign to another object.
     (secondJob as ISmartTerrainJobDescriptor).objectId = 10;
 
-    const [thirdId, thirdJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
+    const [thirdId, thirdJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
 
     expect(thirdId).toBe(5);
     expect(thirdJob).toEqual({
@@ -106,25 +106,25 @@ describe("job_pick utils", () => {
     (thirdJob as ISmartTerrainJobDescriptor).objectId = object.id;
     job.jobId = thirdJob?.id as TNumberId;
 
-    const [fourthId, fourthJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
+    const [fourthId, fourthJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
 
     expect(fourthId).toBe(thirdId);
     expect(fourthJob).toBe(thirdJob);
   });
 
   it("selectSmartTerrainJob should correctly get jobs for monsters", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const object: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
     const job: IObjectJobState = createObjectJobDescriptor(object);
 
-    const [firstId, firstJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
+    const [firstId, firstJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
 
     expect(firstId).toBeNull();
     expect(firstJob).toBeNull();
 
-    smartTerrain.on_register();
+    terrain.on_register();
 
-    const [secondId, secondJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
+    const [secondId, secondJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
 
     expect(secondId).toBe(15);
     expect(secondJob).toEqual({
@@ -155,7 +155,7 @@ describe("job_pick utils", () => {
     // Assign to another object.
     (secondJob as ISmartTerrainJobDescriptor).objectId = 11;
 
-    const [thirdId, thirdJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, job);
+    const [thirdId, thirdJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
 
     expect(thirdId).toBe(16);
     expect(thirdJob).toEqual({
@@ -185,23 +185,23 @@ describe("job_pick utils", () => {
   });
 
   it("getSmartTerrainJobByObjectId should correctly get job section and job descriptor from smart terrain", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const firstStalker: ServerHumanObject = mockServerAlifeHumanStalker();
-    const secondStalker: ServerHumanObject = mockServerAlifeHumanStalker();
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
+    const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (terrain as AnyObject).m_game_vertex_id = 512;
     (firstStalker as AnyObject).m_game_vertex_id = 512;
     (secondStalker as AnyObject).m_game_vertex_id = 512;
 
-    smartTerrain.on_register();
+    terrain.on_register();
 
-    smartTerrain.register_npc(firstStalker);
-    smartTerrain.register_npc(secondStalker);
+    terrain.register_npc(firstStalker);
+    terrain.register_npc(secondStalker);
 
-    expect(getSmartTerrainJobByObjectId(smartTerrain, firstStalker.id)).toEqual({
+    expect(getSmartTerrainJobByObjectId(terrain, firstStalker.id)).toEqual({
       alifeTask: {
         gameVertexId: 20001,
         levelVertexId: 20002,
@@ -231,6 +231,6 @@ describe("job_pick utils", () => {
       },
     });
 
-    expect(getSmartTerrainObjectIdByJobSection(smartTerrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
+    expect(getSmartTerrainObjectIdByJobSection(terrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
   });
 });

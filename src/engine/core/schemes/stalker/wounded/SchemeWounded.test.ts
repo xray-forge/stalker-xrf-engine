@@ -14,7 +14,7 @@ import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types"
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeWounded class", () => {
+describe("SchemeWounded", () => {
   beforeEach(() => {
     resetRegistry();
   });

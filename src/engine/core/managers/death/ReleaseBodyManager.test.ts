@@ -16,7 +16,7 @@ import { AnyObject, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeHumanStalker, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
-describe("ReleaseBodyManager class", () => {
+describe("ReleaseBodyManager", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

@@ -6,7 +6,7 @@ import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
-describe("EvaluatorGatherItems class", () => {
+describe("EvaluatorGatherItems", () => {
   it("should correctly evaluate state for default state", () => {
     const object: GameObject = MockGameObject.mock();
     const state: ISchemeGatherItemsState = mockSchemeState(EScheme.GATHER_ITEMS);

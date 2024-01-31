@@ -4,7 +4,7 @@ import { patrol } from "xray16";
 import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { createVector } from "@/engine/core/utils/vector";
-import { EntityAction, EScheme, GameObject, TName } from "@/engine/lib/types";
+import { EScheme, GameObject, TName } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
@@ -38,7 +38,7 @@ describe("MobJumpManager", () => {
   });
 
   it("should correctly process jump", () => {
-    const object: GameObject = MockGameObject.mock({ action: () => null as unknown as EntityAction });
+    const object: GameObject = MockGameObject.mock();
     const state: ISchemeMobJumpState = mockSchemeState<ISchemeMobJumpState>(EScheme.MOB_JUMP, {
       jumpPathName: "test-wp",
       signals: $fromObject<TName, boolean>({ a: true }),

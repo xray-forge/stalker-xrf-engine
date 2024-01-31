@@ -6,7 +6,7 @@ import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("WoundManager class", () => {
+describe("WoundManager", () => {
   it.todo("should correctly handle updates");
 
   it.todo("should correctly medkit eating");

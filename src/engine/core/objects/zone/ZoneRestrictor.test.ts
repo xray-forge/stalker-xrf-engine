@@ -12,7 +12,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneRestrictor } from "@/engine/core/objects/zone/ZoneRestrictor";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ZoneRestrictor server class", () => {
+describe("ZoneRestrictor", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly create generic objects without story links", () => {

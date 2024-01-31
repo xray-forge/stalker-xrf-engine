@@ -8,7 +8,7 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("ActionAnimationStateStart class", () => {
+describe("ActionAnimationStateStart", () => {
   it("should correctly change body state to crouch", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

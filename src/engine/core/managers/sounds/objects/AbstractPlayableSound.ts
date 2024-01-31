@@ -25,10 +25,7 @@ export abstract class AbstractPlayableSound {
   public path: TPath;
   public shouldPlayAlways: boolean = false;
 
-  /**
-   * todo: Description.
-   */
-  public constructor(ini: IniFile, section: TSection) {
+  protected constructor(ini: IniFile, section: TSection) {
     this.path = readIniString(ini, section, "path", true);
     this.section = section;
   }

@@ -16,7 +16,7 @@ describe("createSquadMembers util", () => {
   });
 
   it("should correctly fail when have no squad members sections exist", () => {
-    (SYSTEM_INI as unknown as MockIniFile<AnyObject>).data["test_squad_without_members"] = {
+    (SYSTEM_INI as unknown as MockIniFile).data["test_squad_without_members"] = {
       faction: communities.stalker,
     };
 
@@ -29,7 +29,7 @@ describe("createSquadMembers util", () => {
   });
 
   it("should correctly spawn with few member options and smart terrain target", () => {
-    (SYSTEM_INI as unknown as MockIniFile<AnyObject>).data["test_squad_without_members"] = {
+    (SYSTEM_INI as unknown as MockIniFile).data["test_squad_without_members"] = {
       faction: communities.stalker,
       npc: "variantA, variantB",
     };

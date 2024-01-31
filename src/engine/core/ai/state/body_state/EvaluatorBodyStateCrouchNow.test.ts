@@ -9,7 +9,7 @@ import { registerStalker, unregisterStalker } from "@/engine/core/database/stalk
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorBodyStateCrouchNow class", () => {
+describe("EvaluatorBodyStateCrouchNow", () => {
   it("should correctly evaluate body state crouch now", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

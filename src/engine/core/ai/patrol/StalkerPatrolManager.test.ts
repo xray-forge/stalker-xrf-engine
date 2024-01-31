@@ -6,7 +6,7 @@ import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManag
 import { EGameObjectPath, GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("StalkerPatrolManager class", () => {
+describe("StalkerPatrolManager", () => {
   it("should correctly initialize", () => {
     const object: GameObject = MockGameObject.mock();
     const manager: StalkerPatrolManager = new StalkerPatrolManager(object);

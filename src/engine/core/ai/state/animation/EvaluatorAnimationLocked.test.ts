@@ -8,7 +8,7 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorAnimation class", () => {
+describe("EvaluatorAnimation", () => {
   it("should correctly perform animation check", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

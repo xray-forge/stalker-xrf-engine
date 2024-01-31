@@ -1,5 +1,5 @@
 import { describe, it } from "@jest/globals";
 
-describe("EvaluatorWeaponNoneNow class", () => {
+describe("EvaluatorWeaponNoneNow", () => {
   it.todo("should correctly check weapon none state now");
 });

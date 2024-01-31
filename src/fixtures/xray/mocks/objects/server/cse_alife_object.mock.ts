@@ -20,15 +20,15 @@ export class MockAlifeObject extends MockLuabindClass {
    * @deprecated
    */
   public static mock(section?: TSection): ServerObject {
-    return new MockAlifeObject({ section }) as unknown as ServerObject;
+    return new this({ section }) as unknown as ServerObject;
   }
 
   public static mockNew(config: IMockAlifeObjectConfig = {}): ServerObject {
-    return new MockAlifeObject(config) as unknown as ServerObject;
+    return new this(config) as unknown as ServerObject;
   }
 
   public static mockWithClassId(classId: TNumberId): ServerObject {
-    const object: MockAlifeObject = new MockAlifeObject({});
+    const object: MockAlifeObject = new this({});
 
     jest.spyOn(object, "clsid").mockImplementation(() => classId as TClassId);
 
@@ -96,7 +96,7 @@ export class MockAlifeObject extends MockLuabindClass {
     return this.canSwitchOffline;
   }
 
-  public spawn_ini(): MockIniFile<AnyObject> {
+  public spawn_ini(): MockIniFile {
     return new MockIniFile<AnyObject>("object_spawn.ini");
   }
 

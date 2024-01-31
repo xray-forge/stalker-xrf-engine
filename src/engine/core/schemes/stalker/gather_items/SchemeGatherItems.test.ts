@@ -8,7 +8,7 @@ import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setu
 import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { MockGameObject, MockIniFile, mockStalkerIds } from "@/fixtures/xray";
 
-describe("SchemeGatherItems class", () => {
+describe("SchemeGatherItems", () => {
   it("should correctly activate schemes", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);

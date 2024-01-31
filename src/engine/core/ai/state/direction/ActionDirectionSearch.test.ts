@@ -10,7 +10,7 @@ import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/co
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("ActionDirectionSearch class", () => {
+describe("ActionDirectionSearch", () => {
   it("should correctly perform direction search action", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

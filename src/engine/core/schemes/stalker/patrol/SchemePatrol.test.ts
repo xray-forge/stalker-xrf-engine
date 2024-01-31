@@ -23,7 +23,7 @@ import {
 } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemePatrol class", () => {
+describe("SchemePatrol", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

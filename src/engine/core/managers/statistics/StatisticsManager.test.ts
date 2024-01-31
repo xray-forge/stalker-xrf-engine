@@ -155,7 +155,7 @@ describe("StatisticsManager class", () => {
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), MockGameObject.mock());
 
     expect(manager.weaponsStatistics.length()).toBe(36);
-    (manager.weaponsStatistics as unknown as MockLuaTable<unknown, unknown>).forEach((value, key) => {
+    (manager.weaponsStatistics as unknown as MockLuaTable).forEach((value, key) => {
       expect(value).toBe(0);
     });
     expect(manager.actorStatistics.favoriteWeapon).toBeNull();

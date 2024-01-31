@@ -8,7 +8,7 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, unregisterStalker } from "@/engine/core/database/stalker";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorAnimstatePlayNow class", () => {
+describe("EvaluatorAnimstatePlayNow", () => {
   it("should correctly perform animation state play now", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

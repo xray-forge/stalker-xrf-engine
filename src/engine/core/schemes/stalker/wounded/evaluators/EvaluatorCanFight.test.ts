@@ -7,7 +7,7 @@ import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
-describe("EvaluatorCanFight class", () => {
+describe("EvaluatorCanFight", () => {
   it("should correctly evaluate whether object can fight", () => {
     const object: GameObject = MockGameObject.mock();
     const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);

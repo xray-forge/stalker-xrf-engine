@@ -17,7 +17,7 @@ import {
   MockServerAlifeCreatureAbstract,
 } from "@/fixtures/xray";
 
-describe("ArtefactBinder class", () => {
+describe("ArtefactBinder", () => {
   beforeEach(() => {
     resetRegistry();
   });

@@ -1,9 +1,6 @@
 import { action_base, anim, LuabindClass, move } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Action to change stalker body state to crouch danger.

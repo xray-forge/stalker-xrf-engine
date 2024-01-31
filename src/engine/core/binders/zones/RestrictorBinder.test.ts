@@ -27,7 +27,7 @@ jest.mock("@/engine/core/utils/scheme/scheme_initialization", () => ({
   initializeObjectSchemeLogic: jest.fn(),
 }));
 
-describe("RestrictorBinder class", () => {
+describe("RestrictorBinder", () => {
   beforeEach(() => {
     resetFunctionMock(emitSchemeEvent);
     resetRegistry();

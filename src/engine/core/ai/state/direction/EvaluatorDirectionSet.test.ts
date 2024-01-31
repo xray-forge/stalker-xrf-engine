@@ -11,7 +11,7 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockSightParameters } from "@/fixtures/xray";
 import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 
-describe("EvaluatorDirectionSet class", () => {
+describe("EvaluatorDirectionSet", () => {
   it("should correctly perform direction check when look at object and activate callback", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

@@ -20,7 +20,7 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
    */
   public static getMockSize(table: LuaTable<any> | AnyObject): number {
     if (table instanceof MockLuaTable) {
-      return (table as unknown as MockLuaTable<unknown, unknown>).size;
+      return (table as unknown as MockLuaTable).size;
     }
 
     return Object.keys(table).length;

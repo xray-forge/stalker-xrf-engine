@@ -7,7 +7,7 @@ import { GameObject, IniFile, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockIniFile, MockObjectBinder } from "@/fixtures/xray";
 
-describe("CampZoneBinder class", () => {
+describe("CampZoneBinder", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -24,8 +24,8 @@ describe("CampZoneBinder class", () => {
   });
 
   it("should correctly handle going online and offline when spawn check is falsy", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
@@ -35,8 +35,8 @@ describe("CampZoneBinder class", () => {
   });
 
   it("should correctly handle going online and offline with no camp section", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
 
     binder.net_spawn(serverObject);
@@ -53,8 +53,8 @@ describe("CampZoneBinder class", () => {
   });
 
   it("should correctly handle going online and offline with camp section", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
     const ini: IniFile = MockIniFile.mock("test.ltx", {
       camp: {},
@@ -78,8 +78,8 @@ describe("CampZoneBinder class", () => {
   });
 
   it("should correctly handle going online and offline with camp section and custom config", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
     const ini: IniFile = MockIniFile.mock("test.ltx", {
       camp: {
@@ -95,8 +95,8 @@ describe("CampZoneBinder class", () => {
   });
 
   it("should correctly handle update ticks", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
 
     jest.spyOn(object, "spawn_ini").mockImplementation(() => {

@@ -12,7 +12,7 @@ import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types"
 import { assertSchemeNotToBeSubscribed, checkPlannerAction } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeAbuse class", () => {
+describe("SchemeAbuse", () => {
   it("should correctly activate", () => {
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = MockIniFile.mock("test.ltx", {

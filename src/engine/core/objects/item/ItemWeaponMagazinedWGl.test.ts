@@ -13,7 +13,7 @@ import { ItemWeaponMagazinedWGl } from "@/engine/core/objects/item/ItemWeaponMag
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("ItemWeaponMagazinedWGl server class", () => {
+describe("ItemWeaponMagazinedWGl", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

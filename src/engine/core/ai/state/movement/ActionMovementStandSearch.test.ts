@@ -6,7 +6,7 @@ import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateMan
 import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("ActionMovementStandSearch class", () => {
+describe("ActionMovementStandSearch", () => {
   it("should correctly perform movement state set", () => {
     const object: GameObject = MockGameObject.mock();
     const action: ActionMovementStandSearch = new ActionMovementStandSearch({

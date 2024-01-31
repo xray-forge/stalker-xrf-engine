@@ -14,7 +14,7 @@ import { Item } from "@/engine/core/objects/item/Item";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("Item server class", () => {
+describe("Item", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

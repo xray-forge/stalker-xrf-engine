@@ -7,7 +7,7 @@ import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/rea
 import { GameObject, Vector } from "@/engine/lib/types";
 import { MockGameObject, MockVector } from "@/fixtures/xray";
 
-describe("reach_task_utils.test.ts class", () => {
+describe("updateObjectReachTaskMovement util", () => {
   beforeEach(() => {
     surgeConfig.IS_STARTED = false;
   });

@@ -9,7 +9,7 @@ import {
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { AnyObject, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
+import { AnyObject, IniFile, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
 
@@ -23,7 +23,7 @@ describe("job_execution logic", () => {
   it("should correctly create jobs on register", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     smartTerrain.on_register();
@@ -40,7 +40,7 @@ describe("job_execution logic", () => {
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     smartTerrain.register_npc(first);
@@ -71,7 +71,7 @@ describe("job_execution logic", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     expect(stalker.m_smart_terrain_id).toBe(MAX_U16);
@@ -93,7 +93,7 @@ describe("job_execution logic", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     (smartTerrain as AnyObject).m_game_vertex_id = 512;
@@ -157,7 +157,7 @@ describe("job_execution logic", () => {
     const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
     const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     (smartTerrain as AnyObject).m_game_vertex_id = 512;
@@ -276,7 +276,7 @@ describe("job_execution logic", () => {
     const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
     const monster: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     (smartTerrain as AnyObject).m_game_vertex_id = 512;
@@ -342,7 +342,7 @@ describe("switchSmartTerrainObjectToDesiredJob util", () => {
     const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
     const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     (smartTerrain as AnyObject).m_game_vertex_id = 512;
@@ -396,7 +396,7 @@ describe("selectSmartTerrainObjectJob util", () => {
     const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
     const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini();
+    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
     jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
 
     (smartTerrain as AnyObject).m_game_vertex_id = 512;

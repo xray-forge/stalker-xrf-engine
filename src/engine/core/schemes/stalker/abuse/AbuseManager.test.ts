@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-describe("AbuseManager class", () => {
+describe("AbuseManager", () => {
   it.todo("should correctly initialize");
 
   it.todo("should correctly handle updates");

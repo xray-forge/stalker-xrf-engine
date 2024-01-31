@@ -96,7 +96,7 @@ export function newFloatsField(value: Array<number>, meta: ILtxFieldMeta = {}): 
  */
 export function newSection<T>(value: T, ltxExtend?: string | Array<string>): T {
   if (ltxExtend) {
-    value[LTX_EXTEND] = ltxExtend;
+    (value as Record<symbol, unknown>)[LTX_EXTEND] = ltxExtend;
   }
 
   return value;

@@ -12,7 +12,9 @@ function renderSectionName(name: string | typeof LTX_ROOT, descriptorRaw: TPossi
   if (name === LTX_ROOT) {
     return "\n";
   } else {
-    const extendsMeta: Optional<string | Array<string>> = descriptorRaw[LTX_EXTEND];
+    const extendsMeta: Optional<string | Array<string>> = (descriptorRaw as Record<symbol, string | Array<string>>)[
+      LTX_EXTEND
+    ];
 
     if (extendsMeta) {
       return `\n[${name}]` + ":" + (Array.isArray(extendsMeta) ? extendsMeta.join(",") : extendsMeta) + "\n";

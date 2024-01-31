@@ -7,7 +7,7 @@ import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorAnimstate class", () => {
+describe("EvaluatorAnimstate", () => {
   it("should correctly perform animation state check", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

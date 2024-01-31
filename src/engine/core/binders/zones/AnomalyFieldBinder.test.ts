@@ -6,7 +6,7 @@ import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 
-describe("AnomalyFieldBinder class", () => {
+describe("AnomalyFieldBinder", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -21,8 +21,8 @@ describe("AnomalyFieldBinder class", () => {
   });
 
   it("should correctly handle going online and offline", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: AnomalyFieldBinder = new AnomalyFieldBinder(object);
 
     expect(registry.anomalyFields.length()).toBe(0);
@@ -46,8 +46,8 @@ describe("AnomalyFieldBinder class", () => {
   });
 
   it("should correctly handle going online and offline when check to spawn is falsy", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mock({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: AnomalyFieldBinder = new AnomalyFieldBinder(object);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;

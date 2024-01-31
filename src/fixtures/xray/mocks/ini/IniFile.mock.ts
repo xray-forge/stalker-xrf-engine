@@ -20,7 +20,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   }
 
   public static registerIni(ini: IniFile): void {
-    FILES_MOCKS[ini.fname()] = (ini as unknown as MockIniFile<AnyObject>).data;
+    FILES_MOCKS[ini.fname()] = (ini as unknown as MockIniFile).data;
   }
 
   public path: TName;

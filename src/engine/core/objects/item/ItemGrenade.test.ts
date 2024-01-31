@@ -13,7 +13,7 @@ import { ItemGrenade } from "@/engine/core/objects/item/ItemGrenade";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ItemGrenade server class", () => {
+describe("ItemGrenade", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

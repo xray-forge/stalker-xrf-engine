@@ -9,7 +9,7 @@ import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorBodyStateStandingTarget class", () => {
+describe("EvaluatorBodyStateStandingTarget", () => {
   it("should correctly evaluate standing now", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

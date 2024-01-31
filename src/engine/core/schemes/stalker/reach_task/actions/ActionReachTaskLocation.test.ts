@@ -94,7 +94,7 @@ describe("ActionReachTaskLocation", () => {
   });
 
   it("should correctly initialize for squad commander", () => {
-    const { object, action, target, serverObject, weapon, squad } = mockActionData();
+    const { object, action, target, weapon, squad } = mockActionData();
 
     jest.spyOn(squad, "commander_id").mockImplementation(() => object.id());
 

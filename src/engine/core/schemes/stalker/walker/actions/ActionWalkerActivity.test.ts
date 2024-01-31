@@ -14,7 +14,7 @@ import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile, MockPropertyStorage } from "@/fixtures/xray";
 
-describe("ActionWalkerActivity class", () => {
+describe("ActionWalkerActivity", () => {
   beforeEach(() => {
     resetRegistry();
   });

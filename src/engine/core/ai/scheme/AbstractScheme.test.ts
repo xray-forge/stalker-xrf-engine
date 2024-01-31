@@ -7,7 +7,7 @@ import { AnyObject, EScheme, ESchemeType, GameObject, IniFile, TSection } from "
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("AbstractScheme class", () => {
+describe("AbstractScheme", () => {
   class ExampleAbstractScheme extends AbstractScheme {
     public static override readonly SCHEME_SECTION: EScheme = EScheme.PH_CODE;
     public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.OBJECT;

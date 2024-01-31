@@ -6,7 +6,7 @@ import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateMan
 import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorMentalFreeNow class", () => {
+describe("EvaluatorMentalFreeNow", () => {
   it("should correctly check if free state when set", () => {
     const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMentalFreeNow = new EvaluatorMentalFreeNow({} as StalkerStateManager);

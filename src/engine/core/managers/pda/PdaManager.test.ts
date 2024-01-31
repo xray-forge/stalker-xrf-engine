@@ -6,7 +6,7 @@ import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 
-describe("PdaManager class", () => {
+describe("PdaManager", () => {
   it("should correctly get stat by section", () => {
     const manager: PdaManager = getManager(PdaManager);
 

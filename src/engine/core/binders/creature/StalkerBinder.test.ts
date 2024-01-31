@@ -29,7 +29,7 @@ jest.mock("@/engine/core/objects/smart_terrain/utils");
 jest.mock("@/engine/core/utils/object");
 jest.mock("@/engine/core/utils/scheme");
 
-describe("StalkerBinder class", () => {
+describe("StalkerBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -61,7 +61,8 @@ describe("StalkerBinder class", () => {
 
     expect(binder.helicopterEnemyIndex).toBe(0);
 
-    expect(object.set_callback).toBe;
+    expect(object.set_callback).toHaveBeenCalledTimes(4);
+    // todo: check callback calls.
 
     expect(setupObjectStalkerVisual).toHaveBeenCalledTimes(1);
     expect(setupObjectInfoPortions).toHaveBeenCalledTimes(1);

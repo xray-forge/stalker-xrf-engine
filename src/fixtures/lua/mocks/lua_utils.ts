@@ -19,7 +19,7 @@ export function luaTableToArray<T = unknown>(value: Optional<LuaArray<T>>): Arra
 /**
  * Transform in a recursive way lua tables to JS arrays for easier testing/verification.
  */
-export function luaTableToObject(value: Optional<LuaTable | AnyObject | Array<unknown>>): Optional<AnyObject> {
+export function luaTableToObject(value: unknown): unknown {
   if (value === null) {
     return value;
   }
@@ -31,8 +31,8 @@ export function luaTableToObject(value: Optional<LuaTable | AnyObject | Array<un
       return acc;
     }, {} as AnyObject);
   } else if (Array.isArray(value)) {
-    return value.reduce((acc, it, index) => {
-      acc[index + 1] = luaTableToObject(it);
+    return value.reduce((acc: Array<unknown>, it, index) => {
+      acc[index + 1] = luaTableToObject(it as AnyObject);
 
       return acc;
     }, {});

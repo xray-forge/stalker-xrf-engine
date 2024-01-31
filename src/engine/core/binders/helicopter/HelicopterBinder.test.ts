@@ -15,7 +15,7 @@ import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, Moc
 
 jest.mock("@/engine/core/utils/scheme");
 
-describe("HelicopterBinder class", () => {
+describe("HelicopterBinder", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(emitSchemeEvent);
@@ -37,8 +37,8 @@ describe("HelicopterBinder class", () => {
   it.todo("should correctly handle update event");
 
   it("should correctly handle going online and offline when spawn disabled", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mockHelicopter({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mockHelicopter({ id: serverObject.id });
     const binder: HelicopterBinder = new HelicopterBinder(object);
 
     MockObjectBinder.asMock(binder).canSpawn = false;
@@ -50,8 +50,8 @@ describe("HelicopterBinder class", () => {
   });
 
   it("should correctly handle going online and offline", () => {
-    const serverObject: ServerObject = MockAlifeObject.mock();
-    const object: GameObject = MockGameObject.mockHelicopter({ idOverride: serverObject.id });
+    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const object: GameObject = MockGameObject.mockHelicopter({ id: serverObject.id });
     const binder: HelicopterBinder = new HelicopterBinder(object);
 
     expect(binder.net_spawn(serverObject)).toBe(true);

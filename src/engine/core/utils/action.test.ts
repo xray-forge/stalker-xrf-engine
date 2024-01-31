@@ -5,7 +5,7 @@ import { getManager, registerActor } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { objectPunchActor } from "@/engine/core/utils/action";
 import { animations } from "@/engine/lib/constants/animation";
-import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
+import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
@@ -17,10 +17,8 @@ describe("objectPunchActor util", () => {
   });
 
   it("objectPunchActor should correctly punch actor", () => {
-    const ak74: GameObject = MockGameObject.mock({ sectionOverride: "wpn_ak74" });
+    const ak74: GameObject = MockGameObject.mock({ section: "wpn_ak74" });
     const actor: GameObject = MockGameObject.mockActor({
-      active_item: () => actor.object(ak74.section()),
-      active_slot: <T extends number>() => EActiveItemSlot.PRIMARY as T,
       inventory: [[ak74.section(), ak74]],
     });
     const object: GameObject = MockGameObject.mock();

@@ -9,7 +9,7 @@ import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/co
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
-describe("ActionAnimationStart class", () => {
+describe("ActionAnimationStart", () => {
   it("should correctly perform start action", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

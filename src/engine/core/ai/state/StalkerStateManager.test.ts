@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-describe("StalkerStateManager class", () => {
+describe("StalkerStateManager", () => {
   it.todo("should correctly initialize");
 
   it.todo("should correctly get state");

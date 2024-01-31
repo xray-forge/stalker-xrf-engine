@@ -6,7 +6,7 @@ import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject, MockVector } from "@/fixtures/xray";
 
-describe("AbstractSchemeManager class", () => {
+describe("AbstractSchemeManager", () => {
   class ExampleManager extends AbstractSchemeManager<IBaseSchemeState> {}
 
   it("should correctly initialize", () => {

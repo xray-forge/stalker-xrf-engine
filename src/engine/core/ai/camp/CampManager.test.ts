@@ -17,7 +17,7 @@ jest.mock("@/engine/core/utils/scheme/scheme_event", () => ({
   emitSchemeEvent: jest.fn(),
 }));
 
-describe("CampManager class", () => {
+describe("CampManager", () => {
   beforeEach(() => {
     soundsConfig.managers = new LuaTable();
   });

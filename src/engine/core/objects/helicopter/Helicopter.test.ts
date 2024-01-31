@@ -12,7 +12,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Helicopter } from "@/engine/core/objects/helicopter/Helicopter";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("Helicopter server class", () => {
+describe("Helicopter server", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly create generic objects without story links", () => {

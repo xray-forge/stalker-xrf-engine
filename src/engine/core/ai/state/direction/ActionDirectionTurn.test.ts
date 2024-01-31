@@ -13,7 +13,7 @@ import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("ActionDirectionTurn class", () => {
+describe("ActionDirectionTurn", () => {
   it("should correctly perform direction turn action", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 

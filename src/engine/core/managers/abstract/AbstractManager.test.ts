@@ -4,7 +4,7 @@ import { disposeManager, getManager, isManagerInitialized, registry } from "@/en
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
-import { mockNetPacket, mockNetProcessor } from "@/fixtures/xray";
+import { MockNetProcessor } from "@/fixtures/xray";
 
 describe("AbstractCoreManager class", () => {
   class ExampleManager extends AbstractManager {
@@ -28,8 +28,8 @@ describe("AbstractCoreManager class", () => {
     expect(manager.initialize).toHaveBeenCalledTimes(1);
     expect(manager.destroy).toHaveBeenCalledTimes(0);
 
-    expect(() => manager.load(mockNetProcessor())).toThrow();
-    expect(() => manager.save(mockNetPacket())).toThrow();
+    expect(() => manager.load(MockNetProcessor.mock())).toThrow("Load method is not implemented.");
+    expect(() => manager.save(MockNetProcessor.mockNetPacket())).toThrow("Save method is not implemented.");
     expect(() => manager.update(0)).toThrow();
 
     disposeManager(ExampleManager);

@@ -6,7 +6,7 @@ import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateMan
 import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("ActionMentalFree class", () => {
+describe("ActionMentalFree", () => {
   it("should correctly perform mental state set", () => {
     const object: GameObject = MockGameObject.mock();
     const action: ActionMentalFree = new ActionMentalFree({} as StalkerStateManager);

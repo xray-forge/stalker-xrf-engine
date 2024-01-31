@@ -3,7 +3,7 @@ import { DIK_keys, ui_events } from "xray16";
 
 import { INumPadWindowOwner, NumPadWindow } from "@/engine/core/ui/game/numpad/NumPadWindow";
 
-describe("NumPadWindow class", () => {
+describe("NumPadWindow", () => {
   it("should correctly initialize", () => {
     const owner: INumPadWindowOwner = { onNumberReceive: jest.fn() };
     const window: NumPadWindow = new NumPadWindow(owner);

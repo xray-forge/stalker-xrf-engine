@@ -10,7 +10,7 @@ import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockVector } from "@/fixtures/xray";
 
-describe("PatrolManager class", () => {
+describe("PatrolManager", () => {
   beforeEach(() => {
     resetRegistry();
   });

@@ -13,7 +13,7 @@ import { InventoryBox } from "@/engine/core/objects/item/InventoryBox";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("InventoryBox server class", () => {
+describe("InventoryBox server", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

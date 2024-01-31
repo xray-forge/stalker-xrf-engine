@@ -8,7 +8,7 @@ import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorSectionActive class", () => {
+describe("EvaluatorSectionActive", () => {
   it("should correctly check if section state is active", () => {
     const object: GameObject = MockGameObject.mock();
     const schemeState: IBaseSchemeState = mockSchemeState(EScheme.MEET, { section: "test@active" });

@@ -15,7 +15,7 @@ import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile } from "@/engi
 import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeAnimpoint class", () => {
+describe("SchemeAnimpoint", () => {
   beforeEach(() => {
     resetRegistry();
   });

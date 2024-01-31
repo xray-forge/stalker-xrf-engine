@@ -49,7 +49,7 @@ describe("MobWalkerManager", () => {
   });
 
   it("should correctly activate", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s });
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
     const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
@@ -79,7 +79,7 @@ describe("MobWalkerManager", () => {
   });
 
   it("should correctly deactivate", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s });
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
     const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,
@@ -97,7 +97,7 @@ describe("MobWalkerManager", () => {
   });
 
   it("should correctly update", () => {
-    const object: GameObject = MockGameObject.mock({ clsid: () => clsid.bloodsucker_s });
+    const object: GameObject = MockGameObject.mock({ clsid: clsid.bloodsucker_s });
     const state: ISchemeMobWalkerState = mockSchemeState<ISchemeMobWalkerState>(EScheme.MOB_WALKER, {
       signals: $fromObject<TName, boolean>({ a: true }),
       state: EMonsterState.NONE,

@@ -6,7 +6,7 @@ import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateMan
 import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorMentalPanicTarget class", () => {
+describe("EvaluatorMentalPanicTarget", () => {
   it("should correctly check if panic state when needed", () => {
     const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMentalPanicTarget = new EvaluatorMentalPanicTarget({

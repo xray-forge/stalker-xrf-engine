@@ -6,7 +6,7 @@ import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateMan
 import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("EvaluatorMovementSet class", () => {
+describe("EvaluatorMovementSet", () => {
   it("should correctly check if movement state is set when idle/null + walk", () => {
     const object: GameObject = MockGameObject.mock();
     const evaluator: EvaluatorMovementSet = new EvaluatorMovementSet({ targetState: "idle" } as StalkerStateManager);
