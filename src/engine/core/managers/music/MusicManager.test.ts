@@ -1,19 +1,26 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { get_console } from "xray16";
+import { get_console, IsDynamicMusic, level } from "xray16";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { musicConfig } from "@/engine/core/managers/music/MusicConfig";
 import { MusicManager } from "@/engine/core/managers/music/MusicManager";
-import { Console } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
+import { IDynamicMusicDescriptor } from "@/engine/core/managers/sounds";
+import { StereoSound } from "@/engine/core/managers/sounds/objects";
+import { Console, LuaArray } from "@/engine/lib/types";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 describe("MusicManager", () => {
   const console: Console = get_console();
+  const defaultThemes: LuaArray<IDynamicMusicDescriptor> = musicConfig.dynamicMusicThemes;
 
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(console.execute);
+    replaceFunctionMock(IsDynamicMusic, () => true);
+
+    musicConfig.dynamicMusicThemes = defaultThemes;
   });
 
   it("should correctly initialize and destroy", () => {
@@ -76,13 +83,156 @@ describe("MusicManager", () => {
     expect(manager.isAmbientFading()).toBe(false);
   });
 
-  it.todo("should initialize themes");
+  it("should initialize themes", () => {
+    const manager: MusicManager = getManager(MusicManager);
 
-  it.todo("should correctly switch/select music tracks");
+    musicConfig.dynamicMusicThemes = $fromArray<IDynamicMusicDescriptor>([
+      { files: $fromArray(["first_a", "first_b"]) },
+      {
+        maps: "",
+        files: $fromArray(["second_a", "second_b"]),
+      },
+      {
+        maps: "zaton, jupiter",
+        files: $fromArray(["third_a", "third_b"]),
+      },
+      {
+        maps: "pripyat",
+        files: $fromArray(["fourth_a", "fourth_b"]),
+      },
+      {
+        files: $fromArray(["fifth_a"]),
+      },
+    ]);
+
+    jest.spyOn(level, "name").mockImplementationOnce(() => "jupiter");
+
+    manager.gameAmbientVolume = 0.5;
+    manager.theme = new StereoSound();
+
+    manager.initializeThemes();
+
+    expect(manager.areThemesInitialized).toBe(true);
+    expect(manager.themes.length()).toBe(4);
+    expect(manager.themes).toEqualLuaArrays([
+      {
+        "1": "first_a",
+        "2": "first_b",
+      },
+      {
+        "1": "second_a",
+        "2": "second_b",
+      },
+      {
+        "1": "third_a",
+        "2": "third_b",
+      },
+      {
+        "1": "fifth_a",
+      },
+    ]);
+    expect(manager.theme).toBeNull();
+    expect(manager.currentThemeIndex).toBe(0);
+    expect(manager.currentTrackIndex).toBe(0);
+    expect(manager.nextTrackStartAt).toBe(0);
+
+    expect(manager.themeAmbientVolume).toBe(0.5);
+    expect(manager.dynamicThemeVolume).toBe(0.5);
+    expect(manager.fadeToThemeVolume).toBe(0.5);
+    expect(manager.fadeToAmbientVolume).toBe(0.5);
+    expect(manager.volumeChangeStep).toBe(0.01);
+  });
+
+  it("should correctly select next track", () => {
+    const manager: MusicManager = getManager(MusicManager);
+
+    manager.initializeThemes();
+    expect(manager.themes.length()).toBe(4);
+
+    manager.currentThemeIndex = -1;
+    expect(() => manager.selectNextTrack()).toThrow("Wrong theme index, no file with '-1' index listed.");
+
+    manager.currentThemeIndex = 5;
+    expect(() => manager.selectNextTrack()).toThrow("Wrong theme index, no file with '5' index listed.");
+
+    manager.theme = new StereoSound();
+
+    jest.spyOn(manager.theme, "playAtTime").mockImplementation(jest.fn(() => 7_000));
+
+    manager.currentThemeIndex = 1;
+    manager.currentTrackIndex = 1;
+    manager.selectNextTrack();
+
+    expect(manager.nextTrackStartAt).toBe(4_000);
+    expect(manager.currentTrackIndex).toBe(2);
+    expect(manager.theme.playAtTime).toHaveBeenCalledWith(3000, "music\\combat\\theme1_part_2", 0.5);
+
+    manager.currentTrackIndex = 3;
+    manager.selectNextTrack();
+
+    expect(manager.currentTrackIndex).toBe(1);
+    expect(manager.theme.playAtTime).toHaveBeenCalledWith(7000, "music\\combat\\theme1_part_1", 0.5);
+  });
+
+  it("should start themes", () => {
+    mockRegisteredActor();
+
+    const manager: MusicManager = getManager(MusicManager);
+
+    manager.gameAmbientVolume = 0.75;
+    jest
+      .spyOn(math, "random")
+      .mockImplementationOnce(() => 3)
+      .mockImplementationOnce(() => 2);
+
+    manager.initializeThemes();
+    manager.startTheme();
+
+    expect(manager.themeAmbientVolume).toBe(0);
+    expect(manager.dynamicThemeVolume).toBe(0.75);
+    expect(manager.currentThemeIndex).toBe(3);
+    expect(manager.currentTrackIndex).toBe(2);
+
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0");
+    expect(manager.theme).toBeInstanceOf(StereoSound);
+
+    jest.spyOn(manager.theme!, "initialize").mockImplementation(jest.fn());
+    jest.spyOn(manager.theme!, "play").mockImplementation(() => 10_000);
+    jest.spyOn(manager.theme!, "update").mockImplementation(jest.fn());
+
+    jest
+      .spyOn(math, "random")
+      .mockImplementationOnce(() => 4)
+      .mockImplementationOnce(() => 3);
+
+    manager.startTheme();
+
+    expect(manager.theme?.initialize).toHaveBeenCalledWith("music\\combat\\theme4_part_3", 0.75);
+    expect(manager.theme?.play).toHaveBeenCalled();
+    expect(manager.theme?.update).toHaveBeenCalledWith(0.75);
+
+    expect(manager.nextTrackStartAt).toBe(7_000);
+  });
 
   it.todo("should correctly check if actor is in silence zone");
 
   it.todo("should correctly start/stop combat music when needed");
+
+  it.todo("should correctly update event");
+
+  it("should correctly handle actor going offline", () => {
+    const manager: MusicManager = getManager(MusicManager);
+
+    manager.theme = new StereoSound();
+    manager.gameAmbientVolume = 0.35;
+
+    jest.spyOn(manager.theme, "stop").mockImplementation(jest.fn());
+
+    manager.onActorNetworkDestroy();
+
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0.35");
+    expect(manager.theme.stop).toHaveBeenCalled();
+  });
 
   it("should correctly handle main menu on events", () => {
     const manager: MusicManager = getManager(MusicManager);
@@ -94,9 +244,29 @@ describe("MusicManager", () => {
     expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0.6");
   });
 
-  it.todo("should correctly handle main menu off events");
+  it("should correctly handle main menu off events", () => {
+    const manager: MusicManager = getManager(MusicManager);
 
-  it.todo("should correctly update event");
+    manager.theme = new StereoSound();
+    manager.themeAmbientVolume = 0.35;
+    manager.areThemesInitialized = true;
 
-  it.todo("should correctly handle actor going offline");
+    jest.spyOn(console, "get_float").mockImplementation(() => 0.6);
+    jest.spyOn(manager.theme, "isPlaying").mockImplementation(() => true);
+    jest.spyOn(manager.theme, "stop").mockImplementation(jest.fn());
+
+    manager.onMainMenuOff();
+
+    expect(manager.areThemesInitialized).toBe(true);
+    expect(manager.gameAmbientVolume).toBe(0.6);
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0.35");
+    expect(manager.theme.stop).not.toHaveBeenCalled();
+
+    replaceFunctionMock(IsDynamicMusic, () => false);
+
+    manager.onMainMenuOff();
+
+    expect(manager.areThemesInitialized).toBe(false);
+    expect(manager.theme.stop).toHaveBeenCalled();
+  });
 });

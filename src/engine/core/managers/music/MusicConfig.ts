@@ -9,16 +9,32 @@ export const musicConfig = {
   AMBIENT_FADE_UPDATE_DELTA: 200,
   dynamicMusicThemes: $fromArray<IDynamicMusicDescriptor>([
     {
-      files: $fromArray(["music_combat_theme1_part_1", "music_combat_theme1_part_2", "music_combat_theme1_part_3"]),
+      files: $fromArray([
+        "music\\combat\\theme1_part_1",
+        "music\\combat\\theme1_part_2",
+        "music\\combat\\theme1_part_3",
+      ]),
     },
     {
-      files: $fromArray(["music_combat_theme2_part_1", "music_combat_theme2_part_2", "music_combat_theme2_part_3"]),
+      files: $fromArray([
+        "music\\combat\\theme2_part_1",
+        "music\\combat\\theme2_part_2",
+        "music\\combat\\theme2_part_3",
+      ]),
     },
     {
-      files: $fromArray(["music_combat_theme3_part_1", "music_combat_theme3_part_2", "music_combat_theme3_part_3"]),
+      files: $fromArray([
+        "music\\combat\\theme3_part_1",
+        "music\\combat\\theme3_part_2",
+        "music\\combat\\theme3_part_3",
+      ]),
     },
     {
-      files: $fromArray(["music_combat_theme4_part_1", "music_combat_theme4_part_2", "music_combat_theme4_part_3"]),
+      files: $fromArray([
+        "music\\combat\\theme4_part_1",
+        "music\\combat\\theme4_part_2",
+        "music\\combat\\theme4_part_3",
+      ]),
     },
   ]),
 };

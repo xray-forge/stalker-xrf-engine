@@ -69,7 +69,6 @@ describe("StereoSound class", () => {
 
     stereoSound.update(50);
     expect(stereoSound.soundObject?.volume).toBe(50);
-    expect(stereoSound.setVolume).toHaveBeenCalledTimes(3);
 
     stereoSound.stop();
     stereoSound.stop();

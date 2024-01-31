@@ -48,10 +48,12 @@ export class StereoSound {
     assert(registry.actor, "Unexpected play theme call: no actor present.");
     assert(this.soundObject, "Unexpected play theme call: no sound object initialized.");
 
-    this.soundObject.play(registry.actor, 0, sound_object.s2d);
-    this.soundEndTime = time_global() + this.soundObject.length();
+    const now: TTimestamp = time_global();
 
-    logger.info("Play stereo sound: %s %s %s", this.soundPath, this.soundEndTime, this.soundObject.volume);
+    this.soundObject.play(registry.actor, 0, sound_object.s2d);
+    this.soundEndTime = now + this.soundObject.length();
+
+    logger.info("Play stereo sound: %s, %s -> %s, %s", this.soundPath, now, this.soundEndTime, this.soundObject.volume);
 
     return this.soundEndTime;
   }
@@ -60,7 +62,7 @@ export class StereoSound {
    * Play stereo sound at specified time.
    */
   public playAtTime(time: TTimestamp, sound: TStringId, volume: Optional<TRate>): TTimestamp {
-    logger.info("Play stereo sound at time: %s", sound);
+    logger.info("Play stereo sound at time: %s %s %s", sound, time, volume);
 
     this.soundEndTime = null;
     (this.soundObject as sound_object).attach_tail(sound);
@@ -82,8 +84,8 @@ export class StereoSound {
    * Perform update tick for sound object.
    */
   public update(volume: TRate): void {
-    if (this.isPlaying()) {
-      this.setVolume(volume);
+    if (this.soundObject?.playing()) {
+      this.soundObject.volume = volume;
     }
   }
 

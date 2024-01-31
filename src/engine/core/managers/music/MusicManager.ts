@@ -10,7 +10,7 @@ import { EDynamicMusicState } from "@/engine/core/managers/sounds/sounds_types";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
+import { getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clamp } from "@/engine/core/utils/number";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";
@@ -51,7 +51,7 @@ export class MusicManager extends AbstractManager {
   public volumeChangeStep: TRate = 0;
 
   public currentThemeIndex: TIndex = 0;
-  public currentThemeTrackIndex: TIndex = 0;
+  public currentTrackIndex: TIndex = 0;
 
   public areThemesInitialized: boolean = false;
   public forceFade: boolean = false;
@@ -91,51 +91,14 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
-   */
-  public selectNextTrack(): void {
-    logger.info("Select next track for playback");
-
-    if (this.currentThemeIndex === null || this.themes.get(this.currentThemeIndex) === null) {
-      abort("Wrong theme index, no file with such index listed.");
-    }
-
-    if (this.currentThemeTrackIndex < this.themes.get(this.currentThemeIndex).length()) {
-      this.currentThemeTrackIndex += 1;
-    } else {
-      this.currentThemeTrackIndex = 1;
-    }
-
-    if (this.theme) {
-      this.nextTrackStartAt =
-        this.theme.playAtTime(
-          this.nextTrackStartAt + musicConfig.TRACK_SWITCH_DELTA,
-          this.themes.get(this.currentThemeIndex).get(this.currentThemeTrackIndex),
-          this.dynamicThemeVolume
-        ) - musicConfig.TRACK_SWITCH_DELTA;
-    }
-  }
-
-  /**
-   * todo: Description.
+   * Initialize list of themes based on current level.
    */
   public initializeThemes(): void {
-    const newThemesList: LuaArray<LuaArray<TName>> = new LuaTable();
-    const levelName: TName = level.name();
-
-    logger.info("Initialize level themes: %s", levelName);
-
-    for (const [, themeDescriptor] of musicConfig.dynamicMusicThemes) {
-      if (!themeDescriptor.maps || themeDescriptor.maps === "" || string.find(themeDescriptor.maps, levelName)) {
-        table.insert(newThemesList, themeDescriptor.files);
-      }
-    }
-
     this.areThemesInitialized = true;
-    this.themes = newThemesList;
+    this.themes = new LuaTable();
     this.theme = null;
     this.currentThemeIndex = 0;
-    this.currentThemeTrackIndex = 0;
+    this.currentTrackIndex = 0;
     this.nextTrackStartAt = 0;
 
     this.themeAmbientVolume = this.gameAmbientVolume;
@@ -143,6 +106,66 @@ export class MusicManager extends AbstractManager {
     this.fadeToThemeVolume = this.gameAmbientVolume;
     this.fadeToAmbientVolume = this.gameAmbientVolume;
     this.volumeChangeStep = this.themeAmbientVolume / 50;
+
+    const levelName: TName = level.name();
+
+    logger.info("Initialize level themes: %s", levelName);
+
+    // Filter themes that are not level specific or expected to work with current level.
+    for (const [, themeDescriptor] of musicConfig.dynamicMusicThemes) {
+      if (!themeDescriptor.maps || themeDescriptor.maps === "" || string.find(themeDescriptor.maps, levelName)[0]) {
+        table.insert(this.themes, themeDescriptor.files);
+      }
+    }
+  }
+
+  /**
+   * Start one of initialized themes tracks randomly.
+   */
+  public startTheme(): void {
+    this.themeAmbientVolume = 0;
+    this.dynamicThemeVolume = this.gameAmbientVolume;
+    this.currentThemeIndex = math.random(1, this.themes.length());
+    this.currentTrackIndex = math.random(1, this.themes.get(this.currentThemeIndex).length());
+
+    setSoundVolume(this.themeAmbientVolume);
+
+    logger.info("Start theme: %s %s %s", this.currentThemeIndex, this.currentTrackIndex, this.dynamicThemeVolume);
+
+    if (!this.theme) {
+      this.theme = new StereoSound();
+    }
+
+    this.theme.initialize(this.themes.get(this.currentThemeIndex).get(this.currentTrackIndex), this.dynamicThemeVolume);
+    this.nextTrackStartAt = this.theme.play() - musicConfig.TRACK_SWITCH_DELTA;
+    this.theme.update(this.dynamicThemeVolume);
+  }
+
+  /**
+   * Proceed with next track in theme list.
+   * Switch to next track smoothly and play from defined track seek position.
+   */
+  public selectNextTrack(): void {
+    logger.info("Select next track for dynamic music");
+
+    if (this.themes.get(this.currentThemeIndex) === null) {
+      abort("Wrong theme index, no file with '%s' index listed.", this.currentThemeIndex);
+    }
+
+    if (this.currentTrackIndex < this.themes.get(this.currentThemeIndex).length()) {
+      this.currentTrackIndex += 1;
+    } else {
+      this.currentTrackIndex = 1;
+    }
+
+    if (this.theme) {
+      this.nextTrackStartAt =
+        this.theme.playAtTime(
+          this.nextTrackStartAt + musicConfig.TRACK_SWITCH_DELTA,
+          this.themes.get(this.currentThemeIndex).get(this.currentTrackIndex),
+          this.dynamicThemeVolume
+        ) - musicConfig.TRACK_SWITCH_DELTA;
+    }
   }
 
   /**
@@ -297,64 +320,6 @@ export class MusicManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public stopTheme(): void {
-    logger.info("Stop theme");
-
-    if (this.theme) {
-      this.theme.stop();
-    }
-
-    this.areThemesInitialized = false;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public startTheme(): void {
-    this.themeAmbientVolume = 0;
-    this.dynamicThemeVolume = this.gameAmbientVolume;
-    this.currentThemeIndex = math.random(1, this.themes.length());
-    this.currentThemeTrackIndex = math.random(1, this.themes.get(this.currentThemeIndex).length());
-
-    setSoundVolume(this.themeAmbientVolume);
-
-    logger.info("Start theme: %s %s %s", this.currentThemeIndex, this.currentThemeTrackIndex, this.dynamicThemeVolume);
-
-    if (this.theme === null) {
-      this.theme = new StereoSound();
-    }
-
-    this.theme.initialize(
-      this.themes.get(this.currentThemeIndex).get(this.currentThemeTrackIndex),
-      this.dynamicThemeVolume
-    );
-    this.nextTrackStartAt = this.theme.play() - musicConfig.TRACK_SWITCH_DELTA;
-    this.theme.update(this.dynamicThemeVolume);
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onActorNetworkDestroy(): void {
-    this.stopTheme();
-
-    if (registry.effectsVolume !== 0) {
-      executeConsoleCommand(consoleCommands.snd_volume_eff, tostring(registry.effectsVolume));
-      registry.effectsVolume = 0;
-    }
-
-    if (registry.musicVolume !== 0) {
-      executeConsoleCommand(consoleCommands.snd_volume_music, tostring(registry.musicVolume));
-      registry.musicVolume = 0;
-    }
-
-    logger.info("Toggle ambient volume: %s", this.gameAmbientVolume);
-    setSoundVolume(this.gameAmbientVolume);
-  }
-
-  /**
-   * todo: Description.
-   */
   public onActorUpdate(delta: TDuration): void {
     this.updateDelta += delta;
 
@@ -402,9 +367,18 @@ export class MusicManager extends AbstractManager {
           this.selectNextTrack();
         }
       } else if (state === EDynamicMusicState.FINISH) {
-        this.stopTheme();
+        this.theme?.stop();
+        this.areThemesInitialized = false;
       }
     }
+  }
+
+  /**
+   * Handle actor going offline.
+   */
+  public onActorNetworkDestroy(): void {
+    this.theme?.stop();
+    setSoundVolume(this.gameAmbientVolume);
   }
 
   /**
@@ -415,7 +389,7 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Handle hide main menu event.
    */
   public onMainMenuOff(): void {
     this.gameAmbientVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
