@@ -2,10 +2,7 @@ import { getManager } from "@/engine/core/database";
 import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTimersManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { assert } from "@/engine/core/utils/assertion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Optional, TCount } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Descriptor of event subscriptions list.

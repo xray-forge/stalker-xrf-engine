@@ -1,8 +1,16 @@
-import { bit_and, snd_type } from "xray16";
+import { bit_and, get_console, snd_type } from "xray16";
 
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
+import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ESoundType } from "@/engine/lib/constants/sound";
-import { GameObject, TSoundType } from "@/engine/lib/types";
+import { GameObject, TRate, TSoundType } from "@/engine/lib/types";
+
+/**
+ * @param volume - rate to set volume
+ */
+export function setSoundVolume(volume: TRate): void {
+  get_console().execute(string.format("%s %s", consoleCommands.snd_volume_music, volume));
+}
 
 /**
  * Check whether sound is included in actual sound bit mask.

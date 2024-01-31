@@ -1,5 +1,5 @@
-import { describe, expect, it } from "@jest/globals";
-import { snd_type } from "xray16";
+import { beforeEach, describe, expect, it } from "@jest/globals";
+import { get_console, snd_type } from "xray16";
 
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
@@ -7,12 +7,32 @@ import {
   isPlayingSound,
   isSoundType,
   mapSoundMaskToSoundType,
+  setSoundVolume,
   stopPlayingObjectSound,
 } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
-import { GameObject } from "@/engine/lib/types";
-import { replaceFunctionMock } from "@/fixtures/jest";
+import { Console, GameObject } from "@/engine/lib/types";
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+
+describe("mapSoundMaskToSoundType util", () => {
+  const console: Console = get_console();
+
+  beforeEach(() => {
+    resetFunctionMock(console.execute);
+  });
+
+  it("should correctly convert mask to enum", () => {
+    setSoundVolume(1);
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_music 1");
+
+    setSoundVolume(0.5);
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0.5");
+
+    setSoundVolume(0);
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0");
+  });
+});
 
 describe("mapSoundMaskToSoundType util", () => {
   it("should correctly convert mask to enum", () => {

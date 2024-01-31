@@ -6,8 +6,8 @@ import { readIniThemesList } from "@/engine/core/managers/sounds/utils/sounds_in
 import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("sounds_init utils", () => {
-  it("readIniThemesList should correctly init list of themes", () => {
+describe("readIniThemesList util", () => {
+  it("should handle exceptional cases", () => {
     expect(() => readIniThemesList(MockIniFile.mock("test.ltx", {}))).toThrow(
       "There is no section 'list' in provided ini file."
     );
@@ -22,6 +22,22 @@ describe("sounds_init utils", () => {
       );
     }).toThrow("Attempt to read a non-existent string field 'type' in section 'example'.");
 
+    expect(() => {
+      readIniThemesList(
+        MockIniFile.mock("test.ltx", {
+          list: {
+            example: 1,
+          },
+          example: {
+            type: "unknown",
+            path: "first.ogg",
+          },
+        })
+      );
+    }).toThrow("Unexpected sound type provided for loading: 'unknown'.");
+  });
+
+  it("should correctly init list of themes", () => {
     expect(readIniThemesList(MockIniFile.mock("test.ltx", { list: {} }))).toEqualLuaTables({});
 
     const ini: IniFile = MockIniFile.mock("test.ltx", {
