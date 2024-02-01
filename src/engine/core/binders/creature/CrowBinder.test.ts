@@ -5,15 +5,9 @@ import { CrowBinder } from "@/engine/core/binders/creature/CrowBinder";
 import { IRegistryObjectState, registerCrow, registerSimulator, registry } from "@/engine/core/database";
 import { EScheme, ESchemeType, GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import {
-  EPacketDataType,
-  MockGameObject,
-  MockNetProcessor,
-  MockObjectBinder,
-  mockServerAlifeObject,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 
-describe("CrowBinder class", () => {
+describe("CrowBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -24,7 +18,7 @@ describe("CrowBinder class", () => {
     const binder: CrowBinder = new CrowBinder(object);
 
     binder.diedAt = 5000;
-    expect(binder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(true);
+    expect(binder.net_spawn(MockAlifeObject.mock({ id: object.id() }))).toBe(true);
 
     const firstState: IRegistryObjectState = registry.objects.get(object.id());
 
@@ -38,7 +32,7 @@ describe("CrowBinder class", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: CrowBinder = new CrowBinder(object);
 
-    expect(binder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(true);
+    expect(binder.net_spawn(MockAlifeObject.mock({ id: object.id() }))).toBe(true);
     expect(binder.object.set_callback).toHaveBeenCalledWith(callback.death, binder.onDeath, binder);
     expect(registry.crows.count).toBe(1);
     expect(registry.crows.storage.get(object.id())).toBe(object.id());
@@ -56,7 +50,7 @@ describe("CrowBinder class", () => {
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
 
-    expect(binder.net_spawn(mockServerAlifeObject({ id: object.id() }))).toBe(false);
+    expect(binder.net_spawn(MockAlifeObject.mock({ id: object.id() }))).toBe(false);
 
     expect(registry.crows.count).toBe(0);
     expect(registry.crows.storage.length()).toBe(0);
@@ -64,7 +58,7 @@ describe("CrowBinder class", () => {
 
   it("should correctly handle update event", () => {
     const object: GameObject = MockGameObject.mock();
-    const serverObject: ServerObject = mockServerAlifeObject({ id: object.id() });
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: object.id() });
     const binder: CrowBinder = new CrowBinder(object);
 
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
@@ -100,7 +94,7 @@ describe("CrowBinder class", () => {
     const firstObject: GameObject = MockGameObject.mock();
     const firstBinder: CrowBinder = new CrowBinder(firstObject);
 
-    expect(firstBinder.net_spawn(mockServerAlifeObject({ id: firstObject.id() }))).toBe(true);
+    expect(firstBinder.net_spawn(MockAlifeObject.mock({ id: firstObject.id() }))).toBe(true);
 
     const firstState: IRegistryObjectState = registry.objects.get(firstObject.id());
 
@@ -149,7 +143,7 @@ describe("CrowBinder class", () => {
     const secondObject: GameObject = MockGameObject.mock();
     const secondBinder: CrowBinder = new CrowBinder(secondObject);
 
-    expect(secondBinder.net_spawn(mockServerAlifeObject({ id: secondObject.id() }))).toBe(true);
+    expect(secondBinder.net_spawn(MockAlifeObject.mock({ id: secondObject.id() }))).toBe(true);
     secondBinder.load(netProcessor.asNetReader());
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);

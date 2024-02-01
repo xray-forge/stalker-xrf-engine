@@ -15,7 +15,7 @@ describe("HelmetBinder class", () => {
 
   it("should correctly handle going online/offline and release", () => {
     const binder: HelmetBinder = new HelmetBinder(MockGameObject.mock());
-    const serverObject: ItemHelmet = MockAlifeObject.mockNew({
+    const serverObject: ItemHelmet = MockAlifeObject.mock({
       id: binder.object.id(),
     }) as ItemHelmet;
 
@@ -46,7 +46,7 @@ describe("HelmetBinder class", () => {
 
   it("should correctly handle going online/offline when check to spawn is falsy", () => {
     const binder: HelmetBinder = new HelmetBinder(MockGameObject.mock());
-    const serverObject: ItemHelmet = MockAlifeObject.mockNew({
+    const serverObject: ItemHelmet = MockAlifeObject.mock({
       id: binder.object.id(),
     }) as ItemHelmet;
 
@@ -74,7 +74,7 @@ describe("HelmetBinder class", () => {
     eventsManager.registerCallback(EGameEvent.ITEM_HELMET_GO_OFFLINE, onGoOffline);
 
     binder.net_spawn(
-      MockAlifeObject.mockNew({
+      MockAlifeObject.mock({
         id: binder.object.id(),
       }) as ItemHelmet
     );
@@ -91,7 +91,7 @@ describe("HelmetBinder class", () => {
     expect(onGoOffline).toHaveBeenCalledWith(binder.object, binder);
 
     binder.net_spawn(
-      MockAlifeObject.mockNew({
+      MockAlifeObject.mock({
         id: binder.object.id(),
       }) as ItemHelmet
     );

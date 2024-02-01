@@ -10,7 +10,6 @@ import { EvaluatorCloseCombat, EvaluatorSectionEnded } from "@/engine/core/schem
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { FALSE } from "@/engine/lib/constants/words";
 import {
   ActionBase,
@@ -23,8 +22,6 @@ import {
   TName,
   TSection,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme defining how stalker should handle camping enemies and waiting for ambush.
@@ -59,7 +56,7 @@ export class SchemeCamper extends AbstractScheme {
     state.shoot = readIniString(ini, section, "shoot", false, null, "always");
     state.sniperAnim = readIniString(ini, section, "sniper_anim", false, null, EStalkerState.HIDE_NA);
 
-    if (state.sniper === true && state.noRetreat === true) {
+    if (state.sniper && state.noRetreat) {
       abort("Error: object '%s', section '%s'. No_retreat not available for sniper.", object.name(), section);
     }
 

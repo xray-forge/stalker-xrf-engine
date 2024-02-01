@@ -77,7 +77,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
     this.state.signals = new LuaTable();
     this.state.scanTable = new LuaTable();
 
-    if (this.state.sniper === true) {
+    if (this.state.sniper) {
       this.patrolManager.reset(
         this.state.pathWalk,
         parseWaypointsData(this.state.pathWalk)!,
@@ -156,7 +156,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
     }
 
     if (this.enemy) {
-      if (this.object.see(this.enemy) === true && this.canShoot()) {
+      if (this.object.see(this.enemy) && this.canShoot()) {
         setStalkerState(
           this.object,
           this.state.suggestedState.camperingFire ??
@@ -179,7 +179,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
         ) {
           this.enemyPosition = memoryPosition;
 
-          if (this.state.sniper === true) {
+          if (this.state.sniper) {
             this.position = this.object.position();
 
             this.direction = createVector(
@@ -211,7 +211,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
           }
         }
 
-        if (this.state.sniper === true) {
+        if (this.state.sniper) {
           if (time_global() - this.state.memEnemy! < this.state.postEnemyWait) {
             const position: Optional<ILookTargetDescriptor> =
               this.enemyPosition !== null ? { lookPosition: this.enemyPosition } : null;
@@ -259,7 +259,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
       this.patrolManager.setup();
     }
 
-    if (this.state.sniper === true) {
+    if (this.state.sniper) {
       if (isOnCampPatrolWalkPoint(this.object, this.state)) {
         if (this.scantime === null) {
           this.scantime = time_global();

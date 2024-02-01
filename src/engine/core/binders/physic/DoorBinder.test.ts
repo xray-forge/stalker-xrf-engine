@@ -19,7 +19,7 @@ import {
   MockSoundObject,
 } from "@/fixtures/xray";
 
-describe("DoorBinder class", () => {
+describe("DoorBinder", () => {
   beforeEach(() => {
     resetRegistry();
   });

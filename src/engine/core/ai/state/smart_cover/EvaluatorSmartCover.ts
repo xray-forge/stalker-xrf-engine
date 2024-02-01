@@ -4,10 +4,7 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, Optional, TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Checks if object is going to a desired smart cover.

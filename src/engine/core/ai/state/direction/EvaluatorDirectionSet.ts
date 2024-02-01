@@ -2,11 +2,8 @@ import { CSightParams, LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { areSameVectorsByPrecision, subVectors } from "@/engine/core/utils/vector";
 import { AnyCallable, TSightType, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

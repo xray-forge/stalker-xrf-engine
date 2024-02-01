@@ -1,5 +1,4 @@
-import { ServerItemPdaObject } from "@/engine/lib/types";
-import { MockAlifeItem, mockServerAlifeItem } from "@/fixtures/xray/mocks/objects/server/cse_alife_item.mock";
+import { MockAlifeItem } from "@/fixtures/xray/mocks/objects/server/cse_alife_item.mock";
 
 /**
  * Mock server PDA item.

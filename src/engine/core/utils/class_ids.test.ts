@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
 import { registerSimulator } from "@/engine/core/database";
+import { Squad } from "@/engine/core/objects/squad";
 import {
   isActor,
   isArtefact,
@@ -27,15 +28,9 @@ import {
   isWeapon,
 } from "@/engine/core/utils/class_ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ServerActorObject, ServerGroupObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
+import { ServerActorObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
-import {
-  MockAlifeHumanStalker,
-  MockAlifeObject,
-  MockGameObject,
-  mockServerAlifeCreatureActor,
-  mockServerAlifeOnlineOfflineGroup,
-} from "@/fixtures/xray";
+import { MockAlifeCreatureActor, MockAlifeHumanStalker, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
 describe("isArtefact utils", () => {
   beforeEach(() => registerSimulator());
@@ -97,8 +92,8 @@ describe("isSquadId utils", () => {
   beforeEach(() => registerSimulator());
 
   it("correctly check if id is a squad object", () => {
-    const squad: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
-    const actor: ServerActorObject = mockServerAlifeCreatureActor();
+    const squad: Squad = MockSquad.mock();
+    const actor: ServerActorObject = MockAlifeCreatureActor.mock();
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     expect(isSquadId(squad.id)).toBe(true);

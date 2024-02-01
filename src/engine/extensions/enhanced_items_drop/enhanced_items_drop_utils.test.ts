@@ -6,9 +6,9 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, ServerObject } from "@/engine/lib/types";
-import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
-describe("enhanced_items_drop_utils module", () => {
+describe("enhanced_items_drop utils", () => {
   beforeEach(() => {
     registerSimulator();
   });
@@ -16,7 +16,7 @@ describe("enhanced_items_drop_utils module", () => {
   it("should correctly handle item going online for actor and ignore additions", () => {
     const object: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
 
-    mockServerAlifeObject({ id: object.id(), parent_id: ACTOR_ID });
+    MockAlifeObject.mock({ id: object.id(), parentId: ACTOR_ID });
 
     jest.spyOn(math, "random").mockImplementation(() => 1);
     onItemGoOnlineFirstTime(object);
@@ -30,7 +30,7 @@ describe("enhanced_items_drop_utils module", () => {
   it("should correctly handle item going online for world", () => {
     const object: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
 
-    mockServerAlifeObject({ id: object.id(), parent_id: MAX_U16 });
+    MockAlifeObject.mock({ id: object.id(), parentId: MAX_U16 });
 
     jest.spyOn(math, "random").mockImplementation(() => 100);
     onItemGoOnlineFirstTime(object);
@@ -43,9 +43,9 @@ describe("enhanced_items_drop_utils module", () => {
 
   it("should correctly handle item going online for owned", () => {
     const object: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u });
-    const owner: ServerObject = mockServerAlifeObject();
+    const owner: ServerObject = MockAlifeObject.mock();
 
-    mockServerAlifeObject({ id: object.id(), parent_id: owner.id });
+    MockAlifeObject.mock({ id: object.id(), parentId: owner.id });
 
     jest.spyOn(math, "random").mockImplementation(() => 100);
     onItemGoOnlineFirstTime(object);

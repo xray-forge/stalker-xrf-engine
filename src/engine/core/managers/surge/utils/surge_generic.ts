@@ -20,7 +20,7 @@ export function launchSurgeSignalRockets(): void {
  * @returns whether surge can be started on provided level.
  */
 export function isSurgeEnabledOnLevel(levelName: TName): boolean {
-  return surgeConfig.SURGE_DISABLED_LEVELS.get(levelName) !== true;
+  return !surgeConfig.SURGE_DISABLED_LEVELS.get(levelName);
 }
 
 /**

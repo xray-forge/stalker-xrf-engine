@@ -14,7 +14,7 @@ import {
   MockObjectBinder,
 } from "@/fixtures/xray";
 
-describe("CampZoneBinder class", () => {
+describe("CampZoneBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

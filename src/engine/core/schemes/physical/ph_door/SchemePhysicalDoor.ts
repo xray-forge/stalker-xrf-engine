@@ -4,11 +4,8 @@ import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/Phys
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseBoneStateDescriptors } from "@/engine/core/utils/ini/ini_parse";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme implementing door logics for physical objects.
@@ -41,7 +38,7 @@ export class SchemePhysicalDoor extends AbstractScheme {
     state.sndCloseStop = readIniString(ini, section, "snd_close_stop", false, null, "trader_door_close_stop");
     state.onUse = readIniConditionList(ini, section, "on_use");
 
-    if (state.locked === true || state.notForNpc === true) {
+    if (state.locked || state.notForNpc) {
       if (!object.is_door_locked_for_npc()) {
         object.lock_door_for_npc();
       }

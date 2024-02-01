@@ -1,10 +1,7 @@
 import { IObjectJobState } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { isStalker } from "@/engine/core/utils/class_ids";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import { ESchemeType, ServerCreatureObject } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Create descriptor of object job in smart terrain.

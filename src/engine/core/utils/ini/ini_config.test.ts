@@ -20,7 +20,7 @@ import {
 import { NIL } from "@/engine/lib/constants/words";
 import { GameObject, LuaArray, ServerObject, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockAlifeObject, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("getInfosFromData util", () => {
   beforeEach(() => registerSimulator());
@@ -42,7 +42,7 @@ describe("getConfigObjectAndZone util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly parse story id and zone pair", () => {
-    const serverObject: ServerObject = mockServerAlifeObject();
+    const serverObject: ServerObject = MockAlifeObject.mock();
 
     registerStoryLink(serverObject.id, "zat_cop_id");
 
@@ -288,7 +288,7 @@ describe("getConfigSwitchConditions util", () => {
       }),
     ]);
 
-    const serverObject: ServerObject = mockServerAlifeObject();
+    const serverObject: ServerObject = MockAlifeObject.mock();
 
     registerStoryLink(serverObject.id, "test-cfg-sid");
 

@@ -25,7 +25,7 @@ export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalF
       return;
     }
 
-    if (this.process === true) {
+    if (this.process) {
       return;
     }
 

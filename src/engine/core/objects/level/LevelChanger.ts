@@ -9,10 +9,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { NetPacket, TLabel } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Level changer space restrictor.

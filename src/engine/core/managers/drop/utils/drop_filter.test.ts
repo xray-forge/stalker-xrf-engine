@@ -11,7 +11,7 @@ import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GameObject } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
+import { mockInSimulator, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("filterObjectDeathLoot", () => {
@@ -38,15 +38,15 @@ describe("filterObjectDeathLoot", () => {
   });
 
   it("should filter items and release", () => {
-    const [ak74u] = MockGameObject.mockInSimulator({ section: weapons.wpn_ak74u, clsid: clsid.wpn_ak74_s });
-    const [akAmmo, akAmmoServer] = MockGameObject.mockInSimulator({
+    const [ak74u] = mockInSimulator({ section: weapons.wpn_ak74u, clsid: clsid.wpn_ak74_s });
+    const [akAmmo, akAmmoServer] = mockInSimulator({
       section: ammo["ammo_5.45x39_ap"],
       clsid: clsid.wpn_ammo,
     });
-    const [concerva] = MockGameObject.mockInSimulator({ section: food.conserva, clsid: clsid.obj_food_s });
-    const [pda, pdaServer] = MockGameObject.mockInSimulator({ section: misc.device_pda, clsid: clsid.device_pda });
-    const [bolt] = MockGameObject.mockInSimulator({ section: misc.bolt, clsid: clsid.obj_bolt });
-    const [artefact] = MockGameObject.mockInSimulator({
+    const [concerva] = mockInSimulator({ section: food.conserva, clsid: clsid.obj_food_s });
+    const [pda, pdaServer] = mockInSimulator({ section: misc.device_pda, clsid: clsid.device_pda });
+    const [bolt] = mockInSimulator({ section: misc.bolt, clsid: clsid.obj_bolt });
+    const [artefact] = mockInSimulator({
       section: artefacts.af_dummy_dummy,
       clsid: clsid.art_dummy,
     });

@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/utils/ranks";
 import { LuaArray } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { MockAlifeMonsterBase, MockGameObject } from "@/fixtures/xray";
 
 describe("readRanksList util", () => {
   beforeEach(() => {
@@ -249,29 +249,23 @@ describe("getServerObjectRank util", () => {
   });
 
   it("should correctly get stalker ranks", () => {
-    expect(
-      getServerObjectRank(mockServerAlifeMonsterBase({ clsid: () => clsid.script_stalker, rank: () => 155 }))
-    ).toEqual({
+    expect(getServerObjectRank(MockAlifeMonsterBase.mock({ clsid: clsid.script_stalker, rank: 155 }))).toEqual({
       max: 300,
       min: 0,
       name: "novice",
     });
-    expect(getServerObjectRank(mockServerAlifeMonsterBase({ clsid: () => clsid.trader, rank: () => 600 }))).toEqual({
+    expect(getServerObjectRank(MockAlifeMonsterBase.mock({ clsid: clsid.trader, rank: 600 }))).toEqual({
       max: 900,
       min: 600,
       name: "veteran",
     });
-    expect(
-      getServerObjectRank(mockServerAlifeMonsterBase({ clsid: () => clsid.bloodsucker_s, rank: () => 600 }))
-    ).toEqual({
+    expect(getServerObjectRank(MockAlifeMonsterBase.mock({ clsid: clsid.bloodsucker_s, rank: 600 }))).toEqual({
       max: 800,
       min: 400,
       name: "normal",
     });
-    expect(
-      getServerObjectRank(mockServerAlifeMonsterBase({ clsid: () => clsid.pseudo_gigant, rank: () => 1200 }))
-    ).toEqual({
-      max: 65535,
+    expect(getServerObjectRank(MockAlifeMonsterBase.mock({ clsid: clsid.pseudo_gigant, rank: 1200 }))).toEqual({
+      max: 65_535,
       min: 800,
       name: "strong",
     });

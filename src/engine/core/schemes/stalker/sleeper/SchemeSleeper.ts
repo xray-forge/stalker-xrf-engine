@@ -7,12 +7,9 @@ import { ActionSleeperActivity } from "@/engine/core/schemes/stalker/sleeper/act
 import { ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, GameObject, IniFile, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme implementing sleeping logics at some specific smart terrain places.

@@ -5,9 +5,9 @@ import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { GameObject, ServerDynamicObject, ZoneCampfire } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockCZoneCampfire, MockGameObject, MockObjectBinder, mockServerAlifeDynamicObject } from "@/fixtures/xray";
+import { MockAlifeDynamicObject, MockCZoneCampfire, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 
-describe("CampfireBinder class", () => {
+describe("CampfireBinder", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -16,7 +16,7 @@ describe("CampfireBinder class", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
     const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
     const binder: CampfireBinder = new CampfireBinder(MockGameObject.mock());
-    const campfireServer: ServerDynamicObject = mockServerAlifeDynamicObject({ id: binder.object.id() });
+    const campfireServer: ServerDynamicObject = MockAlifeDynamicObject.mock({ id: binder.object.id() });
 
     jest.spyOn(binder.object, "get_campfire").mockImplementation(() => campfire);
 
@@ -36,7 +36,7 @@ describe("CampfireBinder class", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
     const campfire: ZoneCampfire = MockCZoneCampfire.mock(true);
     const binder: CampfireBinder = new CampfireBinder(MockGameObject.mock({ name: `_campfire_${terrain.name()}` }));
-    const campfireServer: ServerDynamicObject = mockServerAlifeDynamicObject({ id: binder.object.id() });
+    const campfireServer: ServerDynamicObject = MockAlifeDynamicObject.mock({ id: binder.object.id() });
 
     jest.spyOn(binder.object, "get_campfire").mockImplementation(() => campfire);
 
@@ -58,7 +58,7 @@ describe("CampfireBinder class", () => {
   it("should correctly register and unregister when spawn check is falsy", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: CampfireBinder = new CampfireBinder(object);
-    const campfireServer: ServerDynamicObject = mockServerAlifeDynamicObject({ id: binder.object.id() });
+    const campfireServer: ServerDynamicObject = MockAlifeDynamicObject.mock({ id: binder.object.id() });
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
 

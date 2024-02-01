@@ -4,13 +4,10 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/index";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

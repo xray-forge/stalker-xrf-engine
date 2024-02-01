@@ -18,16 +18,6 @@ export const pistols = {
 } as const;
 
 /**
- * Type definition of pistols list.
- */
-export type TPistols = typeof pistols;
-
-/**
- * Type definition of single pistol section.
- */
-export type TPistol = TPistols[keyof TPistols];
-
-/**
  * List of all game weapon sections available.
  */
 export const weapons = {

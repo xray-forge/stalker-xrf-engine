@@ -4,12 +4,9 @@ import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { crowSpawnerConfig } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerConfig";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { copyTable } from "@/engine/core/utils/table";
 import { AlifeSimulator, LuaArray, Patrol, TIndex, TName, TTimestamp, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manager of crow spawning.

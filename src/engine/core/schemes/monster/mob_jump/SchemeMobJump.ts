@@ -5,11 +5,8 @@ import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector } from "@/engine/core/utils/vector";
 import { EScheme, ESchemeType, GameObject, IniFile, LuaArray, TName, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme to force monsters jumping.

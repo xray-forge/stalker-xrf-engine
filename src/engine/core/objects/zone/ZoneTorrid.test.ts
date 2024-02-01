@@ -10,10 +10,14 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneTorrid } from "@/engine/core/objects/zone/ZoneTorrid";
+import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("ZoneTorrid server class", () => {
-  beforeEach(() => registerSimulator());
+describe("ZoneTorrid", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
   it("should correctly create generic objects without story links", () => {
     const zoneTorrid: ZoneTorrid = new ZoneTorrid("test-section");

@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import type { CUI3tButton } from "xray16";
 
-import { MockCUILines } from "@/fixtures/xray";
+import { MockCUILines } from "@/fixtures/xray/mocks/objects/ui/CUILines.mock";
 import { MockCUIWindow } from "@/fixtures/xray/mocks/objects/ui/CUIWindow.mock";
 
 /**

@@ -15,19 +15,19 @@ import { MockSmartTerrain, mockSmartTerrainWithConfiguration, resetRegistry } fr
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
+  MockAlifeCreatureActor,
   MockAlifeHumanStalker,
   MockCALifeSmartTerrainTask,
   MockCTime,
   MockIniFile,
   MockNetProcessor,
-  mockServerAlifeCreatureActor,
 } from "@/fixtures/xray";
 
-describe("SmartTerrain class generic logic", () => {
+describe("SmartTerrain generic logic", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
-    registerActorServer(mockServerAlifeCreatureActor() as Actor);
+    registerActorServer(MockAlifeCreatureActor.mock() as Actor);
   });
 
   it("should correctly init default fields", () => {

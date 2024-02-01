@@ -3,9 +3,6 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
 import { EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Whether object should drop weapon.

@@ -15,8 +15,8 @@ import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/r
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ServerGroupObject } from "@/engine/lib/types";
-import { mockRegisteredActor, mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
-import { mockServerAlifeCreatureActor, mockServerAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import { mockRegisteredActor, mockRelationsSquads, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { MockAlifeCreatureActor, MockAlifeOnlineOfflineGroup } from "@/fixtures/xray";
 
 describe("isActorEnemyWithFaction util", () => {
   beforeEach(() => {
@@ -81,9 +81,9 @@ describe("isSquadCommunityEnemyToActor util", () => {
       "Squad with story id 'not-existing' was not found."
     );
 
-    registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
+    registerActorServer(MockAlifeCreatureActor.mock());
 
-    const enemy: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
+    const enemy: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
 
     (enemy as Squad).faction = communities.monster;
     registerStoryLink(enemy.id, "existing-enemy");
@@ -103,11 +103,12 @@ describe("isSquadCommunityFriendToActor util", () => {
       "Squad with story id 'not-existing' was not found."
     );
 
-    registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
+    registerActorServer(MockAlifeCreatureActor.mock());
 
-    const friend: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
+    const friend: Squad = MockSquad.mock();
 
-    (friend as Squad).faction = communities.army;
+    friend.faction = communities.army;
+
     registerStoryLink(friend.id, "existing-friend");
 
     expect(getSquadCommunityRelationToActor("existing-friend")).toBe(ERelation.FRIEND);
@@ -125,9 +126,9 @@ describe("isSquadCommunityNeutralToActor util", () => {
       "Squad with story id 'not-existing' was not found."
     );
 
-    registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
+    registerActorServer(MockAlifeCreatureActor.mock());
 
-    const neutral: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
+    const neutral: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
 
     (neutral as Squad).faction = communities.bandit;
     registerStoryLink(neutral.id, "existing-neutral");

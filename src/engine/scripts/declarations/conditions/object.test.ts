@@ -50,8 +50,6 @@ describe("object conditions declaration", () => {
     checkXrCondition("is_alive_all");
     checkXrCondition("is_alive_one");
     checkXrCondition("is_alive");
-    checkXrCondition("is_dead_all");
-    checkXrCondition("is_dead_one");
     checkXrCondition("is_dead");
     checkXrCondition("story_object_exist");
     checkXrCondition("npc_has_item");
@@ -301,10 +299,6 @@ describe("object conditions implementation", () => {
   it.todo("is_alive_one should check if one of objects is alive");
 
   it.todo("is_alive should check if stalker is alive");
-
-  it.todo("is_dead_all should check if objects are dead");
-
-  it.todo("is_dead_one should check if at least one of objects is dead");
 
   it.todo("is_dead should check if object is dead");
 

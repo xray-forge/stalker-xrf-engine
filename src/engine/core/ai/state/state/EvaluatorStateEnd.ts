@@ -2,10 +2,7 @@ import { action_planner, LuabindClass, property_evaluator } from "xray16";
 
 import { COMBAT_ACTION_IDS, EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TNumberId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check when state end action is active.

@@ -2,11 +2,8 @@ import { action_base, LuabindClass } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { EGameObjectPath, TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Switch current state to idle when need cleanup for alife/combat/items loot activity etc.

@@ -129,7 +129,7 @@ export class ProfilingManager extends AbstractManager {
   public setupHook(mode: string = this.mode, skipLogs?: boolean): void {
     this.mode = mode;
 
-    if (this.isProfilingStarted === true) {
+    if (this.isProfilingStarted) {
       logger.info("Skip setup, already started");
 
       return;

@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
-import { registerActorServer, registerSimulator } from "@/engine/core/database";
+import { registerSimulator } from "@/engine/core/database";
 import { EJobPathType, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
   createObjectJobDescriptor,
@@ -10,16 +10,16 @@ import {
   IObjectJobState,
   ISmartTerrainJobDescriptor,
   selectSmartTerrainJob,
-} from "@/engine/core/objects/smart_terrain/job/index";
+} from "@/engine/core/objects/smart_terrain/job";
 import { jobPreconditionCamper, jobPreconditionSniper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { AnyObject, IniFile, ServerHumanObject, ServerMonsterBaseObject, TNumberId } from "@/engine/lib/types";
-import { MockSmartTerrain } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, mockServerAlifeCreatureActor, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { mockRegisteredActor, MockSmartTerrain } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_pick utils", () => {
   beforeAll(() => {
     registerSimulator();
-    registerActorServer(mockServerAlifeCreatureActor());
+    mockRegisteredActor();
   });
 
   it("selectSmartTerrainJob should correctly get jobs for stalkers", () => {
@@ -114,7 +114,7 @@ describe("job_pick utils", () => {
 
   it("selectSmartTerrainJob should correctly get jobs for monsters", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
-    const object: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
+    const object: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const job: IObjectJobState = createObjectJobDescriptor(object);
 
     const [firstId, firstJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);

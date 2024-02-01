@@ -221,7 +221,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       return;
     }
 
-    if (1000 * this.state.fireTime + this.startShootingTime >= time_global() && this.stateDelaying === false) {
+    if (1000 * this.state.fireTime + this.startShootingTime >= time_global() && !this.stateDelaying) {
       this.stateDelaying = false;
       this.startDelayingTime = time_global() + math.random(-0.2, 0.2) * 1000 * this.state.fireTime;
 
@@ -230,7 +230,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       this.stateDelaying = true;
     }
 
-    if (this.startDelayingTime + 1000 * this.state.fireRep >= time_global() && this.stateDelaying === true) {
+    if (this.startDelayingTime + 1000 * this.state.fireRep >= time_global() && this.stateDelaying) {
       this.stateDelaying = true;
       this.startShootingTime = time_global();
     } else {
@@ -354,7 +354,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         if (canRotate) {
           this.rotToFirepoint(this.pathFirePoint);
           if (this.stateDelaying) {
-            if (this.stateShooting !== EMinigunState.NONE && this.state.autoFire === true) {
+            if (this.stateShooting !== EMinigunState.NONE && this.state.autoFire) {
               this.stateShooting = EMinigunState.NONE;
               this.setShooting(this.stateShooting);
             }
@@ -369,7 +369,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         const fireAngle = this.getAngleXZ(this.object, this.targetObject!.position(), this.startDirection);
         const canRotate =
           fireAngle <= (this.state.fireAngle * math.pi) / 360 && fireAngle >= -((this.state.fireAngle * math.pi) / 360);
-        const objectVisible = this.mgun.IsObjectVisible(this.targetObject!) || this.state.shootOnlyOnVisible === false;
+        const objectVisible = this.mgun.IsObjectVisible(this.targetObject!) || !this.state.shootOnlyOnVisible;
 
         if (
           this.targetObject!.alive() &&
@@ -394,7 +394,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
             this.rotToFirepoint(this.targetFirePt);
 
             if (this.mgun.CanHit()) {
-              if (this.stateShooting === EMinigunState.NONE && this.state.autoFire === true) {
+              if (this.stateShooting === EMinigunState.NONE && this.state.autoFire) {
                 this.stateShooting = EMinigunState.SHOOTING_ON;
                 this.setShooting(this.stateShooting);
               }

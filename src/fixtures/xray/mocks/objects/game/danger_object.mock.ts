@@ -1,5 +1,5 @@
 import { GameObject, Optional, TDangerType } from "@/engine/lib/types";
-import { MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**

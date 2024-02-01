@@ -1,10 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Do nothing.

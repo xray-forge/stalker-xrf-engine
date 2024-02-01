@@ -18,9 +18,9 @@ export async function readLastLinesOfFile(
   maxLineCount: number,
   encoding: BufferEncoding = "utf8"
 ): Promise<string> {
-  let file: Optional<fsp.FileHandle> = null;
-
   if (await exists(filePath)) {
+    let file: Optional<fsp.FileHandle> = null;
+
     try {
       const stat = await fsp.stat(filePath);
 

@@ -11,7 +11,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { AnyObject, IniFile, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_execution logic", () => {
   beforeEach(() => {
@@ -21,46 +21,46 @@ describe("job_execution logic", () => {
   });
 
   it("should correctly create jobs on register", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    smartTerrain.on_register();
+    terrain.on_register();
 
-    expect(smartTerrain.jobs.length()).toBe(54);
-    expect(smartTerrain.objectJobDescriptors.length()).toBe(0);
-    expect(smartTerrain.objectByJobSection.length()).toBe(0);
-    expect(smartTerrain.jobDeadTimeById.length()).toBe(0);
-    expect(smartTerrain.stayingObjectsCount).toBe(0);
+    expect(terrain.jobs.length()).toBe(54);
+    expect(terrain.objectJobDescriptors.length()).toBe(0);
+    expect(terrain.objectByJobSection.length()).toBe(0);
+    expect(terrain.jobDeadTimeById.length()).toBe(0);
+    expect(terrain.stayingObjectsCount).toBe(0);
   });
 
   it("should correctly assign jobs on new stalker arriving when not registered", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    smartTerrain.register_npc(first);
-    smartTerrain.register_npc(first);
-    smartTerrain.register_npc(first);
+    terrain.register_npc(first);
+    terrain.register_npc(first);
+    terrain.register_npc(first);
 
-    expect(smartTerrain.stayingObjectsCount).toBe(0);
-    expect(smartTerrain.objectsToRegister.length()).toBe(1);
-    expect(smartTerrain.objectsToRegister.get(first.id)).toBe(first);
+    expect(terrain.stayingObjectsCount).toBe(0);
+    expect(terrain.objectsToRegister.length()).toBe(1);
+    expect(terrain.objectsToRegister.get(first.id)).toBe(first);
     expect(first.smart_terrain_task_activate).not.toHaveBeenCalled();
     expect(first.m_smart_terrain_id).toBe(MAX_U16);
 
-    smartTerrain.register_npc(second);
-    smartTerrain.register_npc(second);
-    smartTerrain.register_npc(second);
+    terrain.register_npc(second);
+    terrain.register_npc(second);
+    terrain.register_npc(second);
 
-    expect(smartTerrain.stayingObjectsCount).toBe(0);
-    expect(smartTerrain.objectsToRegister.length()).toBe(2);
-    expect(smartTerrain.objectsToRegister.get(first.id)).toBe(first);
-    expect(smartTerrain.objectsToRegister.get(second.id)).toBe(second);
+    expect(terrain.stayingObjectsCount).toBe(0);
+    expect(terrain.objectsToRegister.length()).toBe(2);
+    expect(terrain.objectsToRegister.get(first.id)).toBe(first);
+    expect(terrain.objectsToRegister.get(second.id)).toBe(second);
     expect(first.smart_terrain_task_activate).not.toHaveBeenCalled();
     expect(first.m_smart_terrain_id).toBe(MAX_U16);
     expect(second.smart_terrain_task_activate).not.toHaveBeenCalled();
@@ -68,51 +68,51 @@ describe("job_execution logic", () => {
   });
 
   it("should correctly assign jobs on new stalker arriving when registered and arriving", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
     expect(stalker.m_smart_terrain_id).toBe(MAX_U16);
 
     (stalker as AnyObject).m_game_vertex_id = 400;
     (stalker as AnyObject).m_level_vertex_id = 401;
 
-    smartTerrain.on_register();
-    smartTerrain.register_npc(stalker);
+    terrain.on_register();
+    terrain.register_npc(stalker);
 
-    expect(smartTerrain.stayingObjectsCount).toBe(1);
-    expect(smartTerrain.objectsToRegister.length()).toBe(0);
-    expect(smartTerrain.arrivingObjects.length()).toBe(1);
+    expect(terrain.stayingObjectsCount).toBe(1);
+    expect(terrain.objectsToRegister.length()).toBe(0);
+    expect(terrain.arrivingObjects.length()).toBe(1);
     expect(stalker.smart_terrain_task_activate).not.toHaveBeenCalled();
-    expect(stalker.m_smart_terrain_id).toBe(smartTerrain.id);
+    expect(stalker.m_smart_terrain_id).toBe(terrain.id);
   });
 
   it("should correctly assign jobs on new stalker arriving when registered and arrived", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (terrain as AnyObject).m_game_vertex_id = 512;
     (stalker as AnyObject).m_game_vertex_id = 512;
 
     expect(stalker.m_smart_terrain_id).toBe(MAX_U16);
 
-    smartTerrain.on_register();
-    smartTerrain.register_npc(stalker);
+    terrain.on_register();
+    terrain.register_npc(stalker);
 
-    expect(smartTerrain.stayingObjectsCount).toBe(1);
-    expect(smartTerrain.objectsToRegister.length()).toBe(0);
-    expect(smartTerrain.arrivingObjects.length()).toBe(0);
+    expect(terrain.stayingObjectsCount).toBe(1);
+    expect(terrain.objectsToRegister.length()).toBe(0);
+    expect(terrain.arrivingObjects.length()).toBe(0);
     expect(stalker.smart_terrain_task_activate).not.toHaveBeenCalled();
-    expect(stalker.m_smart_terrain_id).toBe(smartTerrain.id);
+    expect(stalker.m_smart_terrain_id).toBe(terrain.id);
 
-    expect(smartTerrain.objectByJobSection.length()).toBe(1);
-    expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
-    expect(smartTerrain.objectJobDescriptors.get(stalker.id)).toEqual({
+    expect(terrain.objectByJobSection.length()).toBe(1);
+    expect(terrain.objectJobDescriptors.length()).toBe(1);
+    expect(terrain.objectJobDescriptors.get(stalker.id)).toEqual({
       object: stalker,
       isBegun: true,
       isMonster: false,
@@ -153,46 +153,46 @@ describe("job_execution logic", () => {
   });
 
   it("should correctly assign jobs on few stalkers", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
     const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
     const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (terrain as AnyObject).m_game_vertex_id = 512;
     (firstStalker as AnyObject).m_game_vertex_id = 510;
     (secondStalker as AnyObject).m_game_vertex_id = 512;
 
     expect(secondStalker.m_smart_terrain_id).toBe(MAX_U16);
 
-    smartTerrain.on_register();
+    terrain.on_register();
 
-    smartTerrain.register_npc(firstStalker);
-    smartTerrain.register_npc(secondStalker);
+    terrain.register_npc(firstStalker);
+    terrain.register_npc(secondStalker);
 
-    expect(smartTerrain.stayingObjectsCount).toBe(2);
-    expect(smartTerrain.objectsToRegister.length()).toBe(0);
-    expect(smartTerrain.arrivingObjects.length()).toBe(1);
-    expect(firstStalker.m_smart_terrain_id).toBe(smartTerrain.id);
-    expect(secondStalker.m_smart_terrain_id).toBe(smartTerrain.id);
-    expect(smartTerrain.objectByJobSection.length()).toBe(1);
-    expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
+    expect(terrain.stayingObjectsCount).toBe(2);
+    expect(terrain.objectsToRegister.length()).toBe(0);
+    expect(terrain.arrivingObjects.length()).toBe(1);
+    expect(firstStalker.m_smart_terrain_id).toBe(terrain.id);
+    expect(secondStalker.m_smart_terrain_id).toBe(terrain.id);
+    expect(terrain.objectByJobSection.length()).toBe(1);
+    expect(terrain.objectJobDescriptors.length()).toBe(1);
 
     // Arrived.
     (firstStalker as AnyObject).m_game_vertex_id = 512;
 
-    updateSmartTerrainJobs(smartTerrain);
+    updateSmartTerrainJobs(terrain);
 
-    expect(smartTerrain.objectByJobSection.length()).toBe(2);
-    expect(smartTerrain.objectJobDescriptors.length()).toBe(2);
+    expect(terrain.objectByJobSection.length()).toBe(2);
+    expect(terrain.objectJobDescriptors.length()).toBe(2);
 
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+    expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_camper_1_walk": secondStalker.id,
       "logic@test_smart_sniper_1_walk": firstStalker.id,
     });
 
-    expect(smartTerrain.objectJobDescriptors).toEqualLuaTables({
+    expect(terrain.objectJobDescriptors).toEqualLuaTables({
       [firstStalker.id]: {
         object: firstStalker,
         isBegun: true,
@@ -273,29 +273,29 @@ describe("job_execution logic", () => {
   });
 
   it("should correctly assign jobs on new monsters arriving when registered and arrived", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
-    const monster: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
+    const monster: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (terrain as AnyObject).m_game_vertex_id = 512;
     (monster as AnyObject).m_game_vertex_id = 512;
 
     expect(monster.m_smart_terrain_id).toBe(MAX_U16);
 
-    smartTerrain.on_register();
-    smartTerrain.register_npc(monster);
+    terrain.on_register();
+    terrain.register_npc(monster);
 
-    expect(smartTerrain.stayingObjectsCount).toBe(1);
-    expect(smartTerrain.objectsToRegister.length()).toBe(0);
-    expect(smartTerrain.arrivingObjects.length()).toBe(0);
+    expect(terrain.stayingObjectsCount).toBe(1);
+    expect(terrain.objectsToRegister.length()).toBe(0);
+    expect(terrain.arrivingObjects.length()).toBe(0);
     expect(monster.smart_terrain_task_activate).toHaveBeenCalled();
-    expect(monster.m_smart_terrain_id).toBe(smartTerrain.id);
+    expect(monster.m_smart_terrain_id).toBe(terrain.id);
 
-    expect(smartTerrain.objectByJobSection.length()).toBe(1);
-    expect(smartTerrain.objectJobDescriptors.length()).toBe(1);
-    expect(smartTerrain.objectJobDescriptors.get(monster.id)).toEqual({
+    expect(terrain.objectByJobSection.length()).toBe(1);
+    expect(terrain.objectJobDescriptors.length()).toBe(1);
+    expect(terrain.objectJobDescriptors.get(monster.id)).toEqual({
       object: monster,
       isBegun: true,
       isMonster: true,
@@ -338,48 +338,48 @@ describe("switchSmartTerrainObjectToDesiredJob util", () => {
   });
 
   it("should correctly switch objects to desired jobs", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
     const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
     const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (terrain as AnyObject).m_game_vertex_id = 512;
     (firstStalker as AnyObject).m_game_vertex_id = 512;
     (secondStalker as AnyObject).m_game_vertex_id = 512;
 
-    smartTerrain.on_register();
+    terrain.on_register();
 
-    smartTerrain.register_npc(firstStalker);
-    smartTerrain.register_npc(secondStalker);
+    terrain.register_npc(firstStalker);
+    terrain.register_npc(secondStalker);
 
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+    expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_camper_1_walk": firstStalker.id,
       "logic@test_smart_sniper_1_walk": secondStalker.id,
     });
 
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
+    terrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
+    switchSmartTerrainObjectToDesiredJob(terrain, firstStalker.id);
 
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+    expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_sniper_1_walk": firstStalker.id,
       "logic@test_smart_camper_1_walk": secondStalker.id,
     });
 
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_camper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
+    terrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_camper_1_walk";
+    switchSmartTerrainObjectToDesiredJob(terrain, firstStalker.id);
 
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+    expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_camper_1_walk": firstStalker.id,
       "logic@test_smart_sniper_1_walk": secondStalker.id,
     });
 
-    smartTerrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(smartTerrain, firstStalker.id);
-    updateSmartTerrainJobs(smartTerrain);
+    terrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
+    switchSmartTerrainObjectToDesiredJob(terrain, firstStalker.id);
+    updateSmartTerrainJobs(terrain);
 
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+    expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_sniper_1_walk": firstStalker.id,
       "logic@test_smart_camper_1_walk": secondStalker.id,
     });
@@ -392,38 +392,38 @@ describe("selectSmartTerrainObjectJob util", () => {
   });
 
   it("should correctly re-select jobs with few stalkers", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_smart");
+    const terrain: SmartTerrain = new SmartTerrain("test_smart");
     const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
     const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.ini = smartTerrain.spawn_ini() as IniFile;
-    jest.spyOn(smartTerrain, "name").mockImplementation(() => "test_smart");
+    terrain.ini = terrain.spawn_ini() as IniFile;
+    jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    (smartTerrain as AnyObject).m_game_vertex_id = 512;
+    (terrain as AnyObject).m_game_vertex_id = 512;
     (firstStalker as AnyObject).m_game_vertex_id = 512;
     (secondStalker as AnyObject).m_game_vertex_id = 512;
 
-    smartTerrain.on_register();
+    terrain.on_register();
 
-    smartTerrain.register_npc(firstStalker);
-    smartTerrain.register_npc(secondStalker);
+    terrain.register_npc(firstStalker);
+    terrain.register_npc(secondStalker);
 
     const [firstJobId, firstJob] = selectSmartTerrainObjectJob(
-      smartTerrain,
-      smartTerrain.objectJobDescriptors.get(secondStalker.id)
+      terrain,
+      terrain.objectJobDescriptors.get(secondStalker.id)
     );
 
     const [secondJobId, secondJob] = selectSmartTerrainObjectJob(
-      smartTerrain,
-      smartTerrain.objectJobDescriptors.get(firstStalker.id)
+      terrain,
+      terrain.objectJobDescriptors.get(firstStalker.id)
     );
     const [thirdJobId, thirdJob] = selectSmartTerrainObjectJob(
-      smartTerrain,
-      smartTerrain.objectJobDescriptors.get(secondStalker.id)
+      terrain,
+      terrain.objectJobDescriptors.get(secondStalker.id)
     );
     const [fourthJobId, fourthJob] = selectSmartTerrainObjectJob(
-      smartTerrain,
-      smartTerrain.objectJobDescriptors.get(firstStalker.id)
+      terrain,
+      terrain.objectJobDescriptors.get(firstStalker.id)
     );
 
     expect(firstJobId).toBe(5);
@@ -436,12 +436,12 @@ describe("selectSmartTerrainObjectJob util", () => {
 
     // Works in determined way, always same even after multiple calls.
 
-    expect(smartTerrain.objectByJobSection).toEqualLuaTables({
+    expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_camper_1_walk": firstStalker.id,
       "logic@test_smart_sniper_1_walk": secondStalker.id,
     });
 
-    expect(smartTerrain.objectJobDescriptors).toEqualLuaTables({
+    expect(terrain.objectJobDescriptors).toEqualLuaTables({
       [firstStalker.id]: {
         object: firstStalker,
         isBegun: true,

@@ -14,16 +14,16 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
+  MockAlifeObject,
   MockGameObject,
   MockIniFile,
   MockNetProcessor,
   MockObjectBinder,
-  mockServerAlifeObject,
 } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 
-describe("PhysicObjectBinder class", () => {
+describe("PhysicObjectBinder", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(emitSchemeEvent);
@@ -37,7 +37,7 @@ describe("PhysicObjectBinder class", () => {
     jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
     (binder as unknown as MockObjectBinder).canSpawn = false;
 
-    binder.net_spawn(mockServerAlifeObject({ id: object.id() }));
+    binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
 
     expect(registry.objects.length()).toBe(0);
     expect(soundManager.stop).not.toHaveBeenCalled();
@@ -50,7 +50,7 @@ describe("PhysicObjectBinder class", () => {
 
     jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
 
-    binder.net_spawn(mockServerAlifeObject({ id: object.id() }));
+    binder.net_spawn(MockAlifeObject.mock({ id: object.id() }));
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
@@ -83,7 +83,7 @@ describe("PhysicObjectBinder class", () => {
 
     jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
 
-    binder.net_spawn(mockServerAlifeObject({ id: binder.object.id() }));
+    binder.net_spawn(MockAlifeObject.mock({ id: binder.object.id() }));
 
     const state: IRegistryObjectState = registry.objects.get(binder.object.id());
 

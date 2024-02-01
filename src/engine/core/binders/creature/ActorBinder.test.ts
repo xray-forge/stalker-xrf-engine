@@ -20,11 +20,11 @@ import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
+  MockAlifeCreatureActor,
   MockCGameTask,
   MockGameObject,
   MockNetProcessor,
   MockObjectBinder,
-  mockServerAlifeCreatureActor,
 } from "@/fixtures/xray";
 
 describe("ActorBinder class", () => {
@@ -46,7 +46,7 @@ describe("ActorBinder class", () => {
 
   it("should correctly handle net spawn / destroy", () => {
     const actor: GameObject = MockGameObject.mockActor();
-    const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
+    const serverActor: ServerActorObject = MockAlifeCreatureActor.mock();
     const binder: ActorBinder = new ActorBinder(actor);
     const eventsManager: EventsManager = getManager(EventsManager);
 
@@ -86,7 +86,7 @@ describe("ActorBinder class", () => {
 
   it("should correctly handle net spawn / destroy when spawn check is falsy", () => {
     const actor: GameObject = MockGameObject.mockActor();
-    const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
+    const serverActor: ServerActorObject = MockAlifeCreatureActor.mock();
     const binder: ActorBinder = new ActorBinder(actor);
     const eventsManager: EventsManager = getManager(EventsManager);
 
@@ -280,7 +280,7 @@ describe("ActorBinder class", () => {
 
   it("should correctly handle actor object callbacks emit", () => {
     const actor: GameObject = MockGameObject.mockActor();
-    const serverActor: ServerActorObject = mockServerAlifeCreatureActor();
+    const serverActor: ServerActorObject = MockAlifeCreatureActor.mock();
     const binder: ActorBinder = new ActorBinder(actor);
     const eventsManager: EventsManager = getManager(EventsManager);
 

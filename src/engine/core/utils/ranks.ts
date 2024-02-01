@@ -162,6 +162,8 @@ export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor>
 export function getServerObjectRank(object: ServerMonsterAbstractObject): Optional<IRankDescriptor> {
   const classId: TClassId = object.clsid();
 
+  const a = classIds.stalker;
+
   return classIds.stalker.has(classId) || classId === clsid.trader
     ? getStalkerRankByValue(object.rank())
     : getMonsterRankByValue(object.rank());

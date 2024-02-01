@@ -19,10 +19,10 @@ import {
 import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
+  MockAlifeOnlineOfflineGroup,
   MockGameObject,
   MockObject,
-  mockServerAlifeCreatureAbstract,
-  mockServerAlifeOnlineOfflineGroup,
+  MockServerAlifeCreatureAbstract,
 } from "@/fixtures/xray";
 
 interface IMockedActionData {
@@ -39,8 +39,8 @@ function mockActionData(): IMockedActionData {
   const object: GameObject = MockGameObject.mock();
   const weapon: GameObject = MockGameObject.mock();
   const squad: Squad = MockSquad.mock();
-  const serverObject: ServerCreatureObject = mockServerAlifeCreatureAbstract({ id: object.id() });
-  const target: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
+  const serverObject: ServerCreatureObject = MockServerAlifeCreatureAbstract.mock({ id: object.id() });
+  const target: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
 
   jest.spyOn(object, "best_weapon").mockImplementation(() => weapon);
 

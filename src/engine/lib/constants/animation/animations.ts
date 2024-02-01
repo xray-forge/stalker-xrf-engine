@@ -266,13 +266,3 @@ export const animations = {
   helicopter_aaa: "helicopter\\aaa.anm",
   thermal_mine: "thermal_mine.ppe",
 } as const;
-
-/**
- * Type definition for animations map.
- */
-export type TAnimations = typeof animations;
-
-/**
- * Possible animation path.
- */
-export type TAnimation = TAnimations[keyof TAnimations];

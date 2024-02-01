@@ -23,7 +23,7 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { EActiveItemSlot, GameObject, GameTask, ServerObject, Vector } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockAlifeHumanStalker, MockCGameTask, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeObject, MockCGameTask, MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/action");
 
@@ -166,7 +166,7 @@ describe("actor effects implementation", () => {
   it("remove_item should release items from actor inventory", () => {
     const notificationManager: NotificationManager = getManager(NotificationManager);
     const item: GameObject = MockGameObject.mock({ section: "test_section" });
-    const serverItem: ServerObject = mockServerAlifeObject({ id: item.id() });
+    const serverItem: ServerObject = MockAlifeObject.mock({ id: item.id() });
     const { actorGameObject } = mockRegisteredActor({ inventory: [["test_section", item]] });
 
     jest.spyOn(notificationManager, "sendItemRelocatedNotification").mockImplementation(jest.fn());

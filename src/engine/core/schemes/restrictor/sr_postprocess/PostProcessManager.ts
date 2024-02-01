@@ -64,7 +64,7 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
 
     const cTime: number = delta * 0.001;
 
-    if (this.isActorInside === true) {
+    if (this.isActorInside) {
       this.intensity = this.intensity + this.intensityInertion * cTime;
       if (this.intensityBase < 0.0) {
         if (this.intensity < this.intensityBase) {
@@ -108,7 +108,7 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
    * todo: Description.
    */
   public updateHit(delta: number): void {
-    if (this.isActorInside === false) {
+    if (!this.isActorInside) {
       this.hitPower = 0;
 
       return;

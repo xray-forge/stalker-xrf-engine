@@ -1,17 +1,12 @@
 import { ServerItemObject } from "@/engine/lib/types";
-import {
-  MockAlifeDynamicObjectVisual,
-  mockServerAlifeDynamicObjectVisual,
-} from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
+import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
+import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 
 /**
  * Mock alife item server object.
  */
-export class MockAlifeItem extends MockAlifeDynamicObjectVisual {}
-
-/**
- * Mock data based alife item server object.
- */
-export function mockServerAlifeItem(base: Partial<ServerItemObject> = {}): ServerItemObject {
-  return { ...mockServerAlifeDynamicObjectVisual(), ...base } as unknown as ServerItemObject;
+export class MockAlifeItem extends MockAlifeDynamicObjectVisual {
+  public static override mock(config: IMockAlifeObjectConfig = {}): ServerItemObject {
+    return new this(config) as unknown as ServerItemObject;
+  }
 }

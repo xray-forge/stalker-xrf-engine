@@ -22,10 +22,10 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { GameObject, ServerGroupObject } from "@/engine/lib/types";
 import { mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
 import {
+  MockAlifeCreatureActor,
+  MockAlifeOnlineOfflineGroup,
   MockAlifeSimulator,
   MockGameObject,
-  mockServerAlifeCreatureActor,
-  mockServerAlifeOnlineOfflineGroup,
 } from "@/fixtures/xray";
 
 describe("getObjectsRelationSafe util", () => {
@@ -145,12 +145,12 @@ describe("getSquadCommunityRelationToActor util", () => {
       "Squad with story id 'not-existing' was not found."
     );
 
-    registerActorServer(mockServerAlifeCreatureActor({ community: <T>() => communities.actor as T }));
+    registerActorServer(MockAlifeCreatureActor.mock({ community: communities.actor }));
 
-    const enemy: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
-    const friend: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
-    const neutral: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
-    const predefined: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
+    const enemy: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
+    const friend: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
+    const neutral: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
+    const predefined: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
 
     (enemy as Squad).faction = communities.monolith;
     (friend as Squad).faction = communities.army;
@@ -185,7 +185,7 @@ describe("getSquadRelationToActorById util", () => {
     const { emptyMonolithSquad, emptyArmySquad, neutralSquad, friendlySquad, mixedSquad, enemySquad } =
       mockRelationsSquads();
 
-    registerActorServer(mockServerAlifeCreatureActor());
+    registerActorServer(MockAlifeCreatureActor.mock());
 
     expect(() => getSquadRelationToActorById(10002000)).toThrow("Squad with id '10002000' is not found.");
     expect(getSquadRelationToActorById(emptyMonolithSquad.id)).toBe(ERelation.ENEMY);

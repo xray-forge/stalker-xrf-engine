@@ -10,10 +10,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemHelmet } from "@/engine/core/objects/item/ItemHelmet";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Binder for helmet client objects.

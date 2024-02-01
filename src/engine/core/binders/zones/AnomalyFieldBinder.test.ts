@@ -21,7 +21,7 @@ describe("AnomalyFieldBinder", () => {
   });
 
   it("should correctly handle going online and offline", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: AnomalyFieldBinder = new AnomalyFieldBinder(object);
 
@@ -46,7 +46,7 @@ describe("AnomalyFieldBinder", () => {
   });
 
   it("should correctly handle going online and offline when check to spawn is falsy", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: AnomalyFieldBinder = new AnomalyFieldBinder(object);
 

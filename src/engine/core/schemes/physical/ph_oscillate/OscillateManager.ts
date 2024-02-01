@@ -26,7 +26,7 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
   public update(): void {
     const now: TTimestamp = time_global();
 
-    if (this.pause === true) {
+    if (this.pause) {
       if (now - this.time < this.state.period * 0.5) {
         return;
       }

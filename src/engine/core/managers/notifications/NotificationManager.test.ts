@@ -31,7 +31,7 @@ import { ETaskState } from "@/engine/core/managers/tasks";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { GameObject, GameTask } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { mockCGameTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
@@ -353,7 +353,7 @@ describe("NotificationManager class", () => {
 
     registerStoryLink(sender.id(), "test-sid");
 
-    MockAlifeSimulator.addToRegistry(mockServerAlifeHumanStalker({ id: sender.id(), online: true, alive: () => true }));
+    MockAlifeSimulator.addToRegistry(MockAlifeHumanStalker.mock({ id: sender.id(), online: true, alive: true }));
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
@@ -371,9 +371,7 @@ describe("NotificationManager class", () => {
     );
 
     // No sending for not alive objects.
-    MockAlifeSimulator.addToRegistry(
-      mockServerAlifeHumanStalker({ id: sender.id(), online: true, alive: () => false })
-    );
+    MockAlifeHumanStalker.mock({ id: sender.id(), online: true, alive: false });
 
     notificationManager.onPlayPdaNotificationSound = jest.fn();
     notificationManager.onSendGenericNotification = jest.fn();
@@ -383,7 +381,7 @@ describe("NotificationManager class", () => {
     expect(notificationManager.onSendGenericNotification).toHaveBeenCalledTimes(0);
 
     // No sending for heavy wounded objects.
-    MockAlifeSimulator.addToRegistry(mockServerAlifeHumanStalker({ id: sender.id(), online: true, alive: () => true }));
+    MockAlifeSimulator.addToRegistry(MockAlifeHumanStalker.mock({ id: sender.id(), online: true, alive: true }));
 
     registry.objects.get(sender.id()).wounded = {
       woundManager: {

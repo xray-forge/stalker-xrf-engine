@@ -28,7 +28,7 @@ import {
 } from "@/engine/core/utils/scheme";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { X_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { EScheme, ESchemeEvent, ESchemeType, GameObject, ServerCreatureObject } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType, GameObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {
@@ -91,7 +91,7 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle going online/offline when spawn check is falsy", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
@@ -104,7 +104,8 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle going online/offline when released", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
+
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
@@ -117,7 +118,8 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle going online/offline when spawn dead", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
+
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
@@ -132,7 +134,7 @@ describe("MonsterBinder", () => {
   it("should handle going online/offline", () => {
     mockRegisteredActor();
 
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const manager: SoundManager = getManager(SoundManager);
@@ -187,7 +189,7 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle update event when dead", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
@@ -202,7 +204,7 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle update event when released", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
@@ -224,7 +226,7 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle update event when in combat", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
@@ -248,7 +250,7 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle update event when command squad", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const squad: Squad = MockSquad.mock();
@@ -276,7 +278,7 @@ describe("MonsterBinder", () => {
 
   it("should handle generic update event with combat tracking", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
@@ -387,7 +389,7 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle waypoint event", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
 
@@ -417,7 +419,7 @@ describe("MonsterBinder", () => {
   it("should handle death event", () => {
     mockRegisteredActor();
 
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const killer: GameObject = MockGameObject.mock();
@@ -459,7 +461,7 @@ describe("MonsterBinder", () => {
   it("should handle death event for poltergeist", () => {
     mockRegisteredActor();
 
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const killer: GameObject = MockGameObject.mock();
@@ -475,7 +477,7 @@ describe("MonsterBinder", () => {
   });
 
   it("should handle hit event", () => {
-    const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
+    const serverObject: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: MonsterBinder = new MonsterBinder(object);
     const hitting: GameObject = MockGameObject.mock();

@@ -22,8 +22,8 @@ import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector"
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { LuaArray, Optional, TPath, TSection, Vector2D } from "@/engine/lib/types";
 
-const base: TPath = "menu\\debug\\DebugItemsSection.component";
 const logger: LuaLogger = new LuaLogger($filename);
+const base: TPath = "menu\\debug\\DebugItemsSection.component";
 
 enum EItemCategory {
   AMMO = "ammo",

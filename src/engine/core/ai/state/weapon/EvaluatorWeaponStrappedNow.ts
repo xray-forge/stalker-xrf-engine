@@ -2,10 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { isStrappableWeapon, isWeapon } from "@/engine/core/utils/class_ids";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, Optional } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Whether weapon is trapped now.

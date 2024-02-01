@@ -2,9 +2,6 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

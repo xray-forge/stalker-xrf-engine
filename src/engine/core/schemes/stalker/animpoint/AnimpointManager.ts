@@ -91,7 +91,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
           table.insert(actionsList, action.name);
         }
       } else {
-        for (const [index, state] of this.state.availableAnimations) {
+        for (const [, state] of this.state.availableAnimations) {
           table.insert(actionsList, state);
         }
       }

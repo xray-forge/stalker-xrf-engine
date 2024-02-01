@@ -4,7 +4,6 @@ import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear/hear_t
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList, parseParameters } from "@/engine/core/utils/ini/ini_parse";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { mapSoundMaskToSoundType } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
@@ -25,8 +24,6 @@ import {
   TStringId,
   Vector,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 // Todo: move to scheme.
 export class SchemeHear extends AbstractScheme {

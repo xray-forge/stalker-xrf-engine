@@ -4,7 +4,7 @@ import { registerActorServer, registerSimulator, registry } from "@/engine/core/
 import { Actor } from "@/engine/core/objects/creature";
 import { isBlackScreen, isGameLevelChanging, isGameStarted } from "@/engine/core/utils/game/game_check";
 import { AlifeSimulator } from "@/engine/lib/types";
-import { MockDevice, mockServerAlifeCreatureActor } from "@/fixtures/xray";
+import { MockAlifeCreatureActor, MockDevice } from "@/fixtures/xray";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 
 describe("isGameStarted util", () => {
@@ -39,21 +39,21 @@ describe("isGameLevelChanging util", () => {
     const gameGraph: MockCGameGraph = MockCGameGraph.getInstance();
 
     registry.simulator = null as unknown as AlifeSimulator;
-    registerActorServer(mockServerAlifeCreatureActor({ m_game_vertex_id: 3 }) as Actor);
+    registerActorServer(MockAlifeCreatureActor.mock({ gameVertexId: 3 }) as Actor);
     expect(isGameLevelChanging()).toBe(false);
 
     gameGraph.vertex(10).level_id.mockImplementation(() => 5);
-    registerActorServer(mockServerAlifeCreatureActor({ m_game_vertex_id: 10 }) as Actor);
+    registerActorServer(MockAlifeCreatureActor.mock({ gameVertexId: 10 }) as Actor);
     registerSimulator();
     expect(isGameLevelChanging()).toBe(true);
 
     gameGraph.vertex(15).level_id.mockImplementation(() => 3);
-    registerActorServer(mockServerAlifeCreatureActor({ m_game_vertex_id: 15 }) as Actor);
+    registerActorServer(MockAlifeCreatureActor.mock({ gameVertexId: 15 }) as Actor);
     registerSimulator();
     expect(isGameLevelChanging()).toBe(false);
 
     gameGraph.vertex(20).level_id.mockImplementation(() => 10);
-    registerActorServer(mockServerAlifeCreatureActor({ m_game_vertex_id: 20 }) as Actor);
+    registerActorServer(MockAlifeCreatureActor.mock({ gameVertexId: 20 }) as Actor);
     registerSimulator();
     expect(isGameLevelChanging()).toBe(true);
   });

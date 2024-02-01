@@ -10,12 +10,7 @@ import {
 } from "@/engine/core/utils/registry";
 import { AnyObject, GameObject, ServerObject, TClassId, TIndex } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
-import {
-  MockAlifeSimulator,
-  MockGameObject,
-  mockServerAlifeCreatureActor,
-  mockServerAlifeObject,
-} from "@/fixtures/xray";
+import { MockAlifeCreatureActor, MockAlifeObject, MockAlifeSimulator, MockGameObject } from "@/fixtures/xray";
 
 describe("getNearestServerObject util", () => {
   beforeEach(() => {
@@ -27,20 +22,19 @@ describe("getNearestServerObject util", () => {
   it("should correctly search for client objects", () => {
     registerActor(MockGameObject.mockActor());
 
-    const actor: ServerObject = mockServerAlifeCreatureActor({
-      clsid: () => clsid.actor as TClassId,
-      name: <T>() => "actor_name" as T,
+    const actor: ServerObject = MockAlifeCreatureActor.mock({
+      name: "actor_name",
     });
-    const first: ServerObject = mockServerAlifeObject({
-      clsid: () => clsid.dog_s as TClassId,
-      name: <T>() => "dog_name" as T,
+    const first: ServerObject = MockAlifeObject.mock({
+      clsid: clsid.dog_s,
+      name: "dog_name",
     });
-    const second: ServerObject = mockServerAlifeObject({
-      clsid: () => clsid.dog_red as TClassId,
-      name: <T>() => "dog_name" as T,
+    const second: ServerObject = MockAlifeObject.mock({
+      clsid: clsid.dog_red,
+      name: "dog_name",
     });
-    const third: ServerObject = mockServerAlifeObject();
-    const fourth: ServerObject = mockServerAlifeObject({ parent_id: actor.id });
+    const third: ServerObject = MockAlifeObject.mock();
+    const fourth: ServerObject = MockAlifeObject.mock({ parentId: actor.id });
 
     jest.spyOn(actor.position, "distance_to_sqr").mockImplementation(() => 1);
     jest.spyOn(first.position, "distance_to_sqr").mockImplementation(() => 145 * 145);
@@ -78,21 +72,20 @@ describe("getServerObjects util", () => {
   });
 
   it("should correctly search for client objects", () => {
-    const actor: ServerObject = mockServerAlifeCreatureActor({
-      clsid: () => clsid.actor as TClassId,
-      name: <T>() => "actor_name" as T,
+    const actor: ServerObject = MockAlifeCreatureActor.mock({
+      name: "actor_name",
     });
-    const first: ServerObject = mockServerAlifeObject({
-      clsid: () => clsid.script_stalker as TClassId,
-      name: <T>() => "stalker_name" as T,
+    const first: ServerObject = MockAlifeObject.mock({
+      clsid: clsid.script_stalker as TClassId,
+      name: "stalker_name",
     });
-    const second: ServerObject = mockServerAlifeObject({
-      clsid: () => clsid.pseudodog_s as TClassId,
-      name: <T>() => "dog_name" as T,
+    const second: ServerObject = MockAlifeObject.mock({
+      clsid: clsid.pseudodog_s,
+      name: "dog_name",
     });
-    const third: ServerObject = mockServerAlifeObject();
+    const third: ServerObject = MockAlifeObject.mock();
 
-    mockServerAlifeObject({ parent_id: actor.id });
+    MockAlifeObject.mock({ parentId: actor.id });
 
     MockGameObject.mock({ id: actor.id });
     MockGameObject.mock({ id: first.id });

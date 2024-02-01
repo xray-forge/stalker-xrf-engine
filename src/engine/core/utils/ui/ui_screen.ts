@@ -1,9 +1,6 @@
 import { device } from "xray16";
 
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { RenderDevice } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Check whether game is in wide screen mode right now.

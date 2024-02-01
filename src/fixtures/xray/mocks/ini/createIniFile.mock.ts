@@ -1,7 +1,7 @@
 import { parse } from "ini";
 
 import { IniFile } from "@/engine/lib/types";
-import { MockIniFile } from "@/fixtures/xray";
+import { MockIniFile } from "@/fixtures/xray/mocks/ini/IniFile.mock";
 
 /**
  * Mocked creation of ini file.

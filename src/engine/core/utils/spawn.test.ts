@@ -28,8 +28,7 @@ import {
   TSection,
 } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, mockServerAlifeCreatureActor, mockServerAlifeObject } from "@/fixtures/xray";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+import { MockAlifeCreatureActor, MockAlifeObject, MockGameObject, MockVector } from "@/fixtures/xray";
 
 describe("spawnItemsForObject util", () => {
   beforeEach(() => {
@@ -317,7 +316,7 @@ describe("spawnObjectInObject util", () => {
   it("should correctly create objects", () => {
     expect(() => spawnObjectInObject("test", 55)).toThrow();
 
-    mockServerAlifeObject({ id: 55 });
+    MockAlifeObject.mock({ id: 55 });
     spawnObjectInObject("test", 55);
 
     expect(registry.simulator.create).toHaveBeenLastCalledWith("test", createEmptyVector(), 0, 0, 55);
@@ -335,7 +334,7 @@ describe("releaseObject util", () => {
   });
 
   it("should release object", () => {
-    const actor: ServerActorObject = mockServerAlifeCreatureActor();
+    const actor: ServerActorObject = MockAlifeCreatureActor.mock();
 
     releaseObject(255);
     expect(registry.simulator.release).not.toHaveBeenCalled();

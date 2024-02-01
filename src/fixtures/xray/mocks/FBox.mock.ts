@@ -1,6 +1,6 @@
 import { Fbox } from "xray16";
 
-import { MockVector } from "@/fixtures/xray";
+import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 export class MockFbox {
   public static mock(): Fbox {

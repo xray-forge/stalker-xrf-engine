@@ -22,7 +22,7 @@ import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/
 import { range } from "@/engine/core/utils/number";
 import { AnyObject } from "@/engine/lib/types";
 import { mockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { MockIniFile, mockServerAlifeCreatureActor } from "@/fixtures/xray";
+import { MockAlifeCreatureActor, MockIniFile } from "@/fixtures/xray";
 
 function getSmartTerrainTaskDetails(): AnyObject {
   return {
@@ -36,7 +36,7 @@ function getSmartTerrainTaskDetails(): AnyObject {
 describe("jobs_create", () => {
   beforeEach(() => {
     registerSimulator();
-    registerActorServer(mockServerAlifeCreatureActor());
+    registerActorServer(MockAlifeCreatureActor.mock());
   });
 
   it("should correctly generate default jobs", async () => {
