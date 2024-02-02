@@ -7,7 +7,7 @@ import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job"
 import { createMonsterJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_monster";
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 
 describe("jobs_general should correctly generate monster default jobs", () => {
   it("should correctly generate default jobs for monsters", async () => {
@@ -15,8 +15,8 @@ describe("jobs_general should correctly generate monster default jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_monster.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobs, builder] = createMonsterJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const [jobs, builder] = createMonsterJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(monsterJobsLtx);
     expect(jobs).toEqualLuaArrays(

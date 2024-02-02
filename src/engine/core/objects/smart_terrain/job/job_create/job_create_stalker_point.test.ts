@@ -7,7 +7,7 @@ import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job"
 import { createStalkerPointJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_point";
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 
 describe("should correctly generate stalkers point jobs", () => {
   it("should correctly generate point jobs for stalkers with empty smarts", async () => {
@@ -15,8 +15,8 @@ describe("should correctly generate stalkers point jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_point.empty.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain("empty_smart");
-    const [jobs, builder] = createStalkerPointJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("empty_smart");
+    const [jobs, builder] = createStalkerPointJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(pointJobsLtx);
     expect(jobs).toEqualLuaArrays(
@@ -34,8 +34,8 @@ describe("should correctly generate stalkers point jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_point.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobs, builder] = createStalkerPointJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const [jobs, builder] = createStalkerPointJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(pointJobsLtx);
     expect(jobs).toEqualLuaArrays(
@@ -54,12 +54,12 @@ describe("should correctly generate stalkers point jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_point.restrictors.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
-    smartTerrain.defendRestrictor = "def_restrictor_test";
-    smartTerrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
+    terrain.defendRestrictor = "def_restrictor_test";
+    terrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
-    const [jobs, builder] = createStalkerPointJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const [jobs, builder] = createStalkerPointJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(pointJobsLtx);
     expect(jobs).toEqualLuaArrays(
