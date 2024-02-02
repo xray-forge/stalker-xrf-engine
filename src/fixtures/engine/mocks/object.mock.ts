@@ -29,9 +29,8 @@ export function createObjectWithItems(): GameObject {
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * @param config - configuration of game object mock
+ * @returns tuple with game and server object
  */
 export function mockInSimulator(config: IMockGameObjectConfig = {}): [GameObject, ServerObject] {
   const object: MockGameObject = new MockGameObject(config);
