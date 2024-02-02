@@ -55,7 +55,7 @@ export function getActorAvailableMedKit(
   list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
   actor: GameObject = registry.actor
 ): Optional<TMedkit> {
-  for (const [key, medkit] of list) {
+  for (const [, medkit] of list) {
     if (actor.object(medkit) !== null) {
       return medkit as TMedkit;
     }

@@ -30,7 +30,6 @@ import {
   TStringId,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });
 
 /**

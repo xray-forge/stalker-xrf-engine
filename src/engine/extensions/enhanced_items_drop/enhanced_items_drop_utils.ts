@@ -1,12 +1,9 @@
 import { isObjectTrader } from "@/engine/core/managers/trade/utils";
 import { addRandomUpgrades } from "@/engine/core/managers/upgrades";
 import { getItemOwnerId } from "@/engine/core/utils/item";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { enhancedDropConfig } from "@/engine/extensions/enhanced_items_drop/EnhancedDropConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { GameObject, Optional, TCount, TNumberId, TRate } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Handle item going online (spawning) first time.

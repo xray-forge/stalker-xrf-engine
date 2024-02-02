@@ -5,7 +5,7 @@ import { getManager, IRegistryObjectState, registerSimulator, registry } from "@
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeapon } from "@/engine/core/objects/item/ItemWeapon";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
+import { MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 
 describe("WeaponBinder", () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe("WeaponBinder", () => {
 
   it("should correctly handle going online/offline and release", () => {
     const binder: WeaponBinder = new WeaponBinder(MockGameObject.mock());
-    const serverObject: ItemWeapon = MockAlifeHumanStalker.mock({
+    const serverObject: ItemWeapon = MockAlifeObject.mock({
       id: binder.object.id(),
     }) as ItemWeapon;
 

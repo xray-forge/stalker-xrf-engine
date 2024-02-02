@@ -2,11 +2,8 @@ import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 import { EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Finish helping wounded on successful healing animation.

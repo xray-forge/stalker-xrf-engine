@@ -8,12 +8,9 @@ import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme implementing remark logics of transitions between scenarios.

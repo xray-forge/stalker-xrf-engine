@@ -9,10 +9,7 @@ import {
   EvaluatorSeeBestEnemyEnemy,
 } from "@/engine/core/schemes/stalker/combat_camper/evaluator";
 import { assert } from "@/engine/core/utils/assertion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme describing combat of camper type.

@@ -1,10 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, Optional } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to verify whether object sees enemy.

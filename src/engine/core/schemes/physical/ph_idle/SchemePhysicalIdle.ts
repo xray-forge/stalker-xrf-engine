@@ -4,10 +4,7 @@ import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/Phys
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { parseBoneStateDescriptors } from "@/engine/core/utils/ini/ini_parse";
 import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme to manage idle state of items.

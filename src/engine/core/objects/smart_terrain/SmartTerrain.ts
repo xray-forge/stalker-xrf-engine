@@ -323,7 +323,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     packet.w_u8(table.size(this.arrivingObjects));
 
-    for (const [k, v] of this.arrivingObjects) {
+    for (const [k] of this.arrivingObjects) {
       packet.w_u16(k);
     }
 

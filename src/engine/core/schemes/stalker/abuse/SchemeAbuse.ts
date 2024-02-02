@@ -7,10 +7,7 @@ import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_typ
 import { AbuseManager } from "@/engine/core/schemes/stalker/abuse/AbuseManager";
 import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions/ActionAbuseHit";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators/EvaluatorAbuse";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Generic scheme to measure abuse when clicking stalkers for many times.

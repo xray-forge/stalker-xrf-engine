@@ -10,10 +10,7 @@ import { getSmartCoverAnimpointStayWall } from "@/engine/core/animation/smart_co
 import { getSmartCoverCombatFront } from "@/engine/core/animation/smart_covers/combat_front";
 import { getSmartCoverCombatProne } from "@/engine/core/animation/smart_covers/combat_prone";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 export const smartCoversList: LuaTable<TName, ISmartCoverDescriptor> = $fromObject<TName, ISmartCoverDescriptor>({
   /* --[[duplo: {

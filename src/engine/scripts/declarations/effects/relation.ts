@@ -2,7 +2,6 @@ import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   EGoodwill,
   ERelation,
@@ -15,8 +14,6 @@ import {
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { EGameObjectRelation, GameObject, Optional, TCount, TStringId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Set object goodwill as friendly to actor.

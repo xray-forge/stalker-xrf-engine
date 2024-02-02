@@ -6,7 +6,6 @@ import { Squad } from "@/engine/core/objects/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/position";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import {
@@ -20,8 +19,6 @@ import {
   TName,
 } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
