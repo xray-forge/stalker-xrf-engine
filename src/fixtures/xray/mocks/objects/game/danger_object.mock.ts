@@ -1,4 +1,4 @@
-import { GameObject, Optional, TDangerType } from "@/engine/lib/types";
+import { DangerObject, GameObject, Optional, TDangerType, TTimestamp } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
@@ -6,6 +6,14 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * Mock xray engine danger object.
  */
 export class MockDangerObject {
+  public static create(): MockDangerObject {
+    return new MockDangerObject();
+  }
+
+  public static mock(): DangerObject {
+    return new MockDangerObject() as unknown as DangerObject;
+  }
+
   public static attack_sound: number = 1;
   public static attacked: number = 5;
   public static bullet_ricochet: number = 0;
@@ -23,6 +31,10 @@ export class MockDangerObject {
   public dangerDependentObject: Optional<GameObject> = null;
   public dangerPosition: MockVector = MockVector.create(1.5, -0.5, 1);
 
+  public time(): TTimestamp {
+    return -1;
+  }
+
   public position(): MockVector {
     return this.dangerPosition;
   }
@@ -37,5 +49,9 @@ export class MockDangerObject {
 
   public type(): TDangerType {
     return this.dangerType;
+  }
+
+  public asMock(): DangerObject {
+    return this as unknown as DangerObject;
   }
 }

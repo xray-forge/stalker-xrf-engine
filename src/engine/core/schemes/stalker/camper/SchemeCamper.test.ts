@@ -3,7 +3,7 @@ import { describe, expect, it } from "@jest/globals";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject } from "@/engine/core/database";
-import { ActionCloseCombat } from "@/engine/core/schemes/stalker/camper/actions";
+import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/actions";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { EvaluatorCloseCombat } from "@/engine/core/schemes/stalker/camper/evaluators";
 import { SchemeCamper } from "@/engine/core/schemes/stalker/camper/SchemeCamper";
@@ -98,7 +98,7 @@ describe("SchemeCamper", () => {
     expect(state.timedelta).toBe(4000);
     expect(state.timeScanDelta).toBe(state.timedelta / state.scandelta);
 
-    assertSchemeSubscribedToManager(state, ActionCloseCombat);
+    assertSchemeSubscribedToManager(state, ActionCombatCamping);
   });
 
   it("should correctly activate scheme with custom values", () => {
@@ -156,7 +156,7 @@ describe("SchemeCamper", () => {
     expect(state.timedelta).toBe(4000);
     expect(state.timeScanDelta).toBe(state.timedelta / state.scandelta);
 
-    assertSchemeSubscribedToManager(state, ActionCloseCombat);
+    assertSchemeSubscribedToManager(state, ActionCombatCamping);
   });
 
   it("should correctly add planner actions", () => {
@@ -183,8 +183,8 @@ describe("SchemeCamper", () => {
     expect(planner.evaluator(EEvaluatorId.IS_CLOSE_COMBAT)).toBeInstanceOf(EvaluatorCloseCombat);
 
     checkPlannerAction(
-      planner.action(EActionId.CLOSE_COMBAT),
-      ActionCloseCombat,
+      planner.action(EActionId.COMBAT_CAMPING),
+      ActionCombatCamping,
       [
         [EEvaluatorId.ALIVE, true],
         [EEvaluatorId.IS_CLOSE_COMBAT_ENDED, false],

@@ -76,7 +76,7 @@ export enum EActionId {
   MEET_WAITING_ACTIVITY = 343, // 343
   // Object is staying is smart cover point.
   COVER_ACTIVITY = 393, // 393
-  CLOSE_COMBAT = 403, // 403
+  COMBAT_CAMPING = 403, // 403
   ABUSE = 432, // 432
   ANIMPOINT_PLAY = 453, // 453
   ANIMPOINT_REACH = 454, // 454

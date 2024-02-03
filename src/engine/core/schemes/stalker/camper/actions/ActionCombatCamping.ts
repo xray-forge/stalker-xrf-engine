@@ -28,7 +28,7 @@ import {
  * todo;
  */
 @LuabindClass()
-export class ActionCloseCombat extends action_base implements ISchemeEventHandler {
+export class ActionCombatCamping extends action_base implements ISchemeEventHandler {
   public state: ISchemeCamperState;
   public patrolManager: StalkerPatrolManager;
 
@@ -47,7 +47,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
   public enemyPosition: Optional<Vector> = null;
 
   public constructor(state: ISchemeCamperState, object: GameObject) {
-    super(null, ActionCloseCombat.__name);
+    super(null, ActionCombatCamping.__name);
 
     this.state = state;
     this.patrolManager = registry.objects.get(object.id()).patrolManager!;
@@ -61,6 +61,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
     this.object.set_desired_direction();
 
     this.reset();
+
     this.enemyPosition = null;
   }
 
@@ -133,9 +134,6 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
     super.finalize();
   }
 
-  /**
-   * todo: Description.
-   */
   public override execute(): void {
     super.execute();
     this.enemy = this.object.best_enemy();
@@ -311,7 +309,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
       default:
         abort(
           "%s: unrecognized shoot type '%s' for '%s'.",
-          ActionCloseCombat.__name,
+          ActionCombatCamping.__name,
           this.state.shoot,
           this.object.name()
         );
@@ -319,33 +317,28 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
   }
 
   /**
-   * todo: Description.
+   * @returns whether there is any danger
    */
   public processDanger(): boolean {
     if (!isObjectFacingDanger(this.object)) {
       return false;
     }
 
-    const bestDanger: Optional<DangerObject> = this.object.best_danger();
+    const danger: Optional<DangerObject> = this.object.best_danger();
 
-    if (bestDanger === null) {
+    if (!danger) {
       return false;
     }
 
-    const bestDangerObject: GameObject = bestDanger.object();
+    const dangerObject: Optional<GameObject> = danger.object();
 
     if (!this.danger) {
       this.object.play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0);
     }
 
-    const isUrgentDanger: boolean =
-      bestDangerObject !== null &&
-      bestDanger.type() === danger_object.attacked &&
-      time_global() - bestDanger.time() < 5000;
-
-    if (isUrgentDanger) {
+    if (dangerObject && danger.type() === danger_object.attacked && time_global() - danger.time() < 5_000) {
       setStalkerState(this.object, this.state.suggestedState.camperingFire ?? EStalkerState.HIDE_FIRE, null, null, {
-        lookPosition: bestDangerObject.position(),
+        lookPosition: dangerObject.position(),
       });
     } else {
       setStalkerState(
@@ -353,7 +346,7 @@ export class ActionCloseCombat extends action_base implements ISchemeEventHandle
         this.state.suggestedState.campering ?? (this.state.sniper ? EStalkerState.HIDE_NA : EStalkerState.HIDE),
         null,
         null,
-        { lookPosition: bestDanger.position() }
+        { lookPosition: danger.position() }
       );
     }
 

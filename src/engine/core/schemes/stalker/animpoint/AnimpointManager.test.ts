@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-describe("AnimpointManager class", () => {
+describe("AnimpointManager", () => {
   it.todo("should correctly activate");
 
   it.todo("should correctly handle updates");

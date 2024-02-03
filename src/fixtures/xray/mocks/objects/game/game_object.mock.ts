@@ -469,6 +469,8 @@ export class MockGameObject {
 
   public parent = jest.fn(() => null);
 
+  public play_sound = jest.fn();
+
   public poltergeist_set_actor_ignore = jest.fn();
 
   public position = jest.fn(() => this.objectPosition);

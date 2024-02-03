@@ -3,7 +3,7 @@ import { world_property } from "xray16";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { ActionCloseCombat } from "@/engine/core/schemes/stalker/camper/actions";
+import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/actions";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { camperConfig } from "@/engine/core/schemes/stalker/camper/CamperConfig";
 import { EvaluatorCloseCombat, EvaluatorSectionEnded } from "@/engine/core/schemes/stalker/camper/evaluators";
@@ -109,26 +109,26 @@ export class SchemeCamper extends AbstractScheme {
     );
     planner.add_evaluator(EEvaluatorId.IS_CLOSE_COMBAT, new EvaluatorCloseCombat(state));
 
-    const actionCloseCombat: ActionCloseCombat = new ActionCloseCombat(state, object);
+    const actionCombatCamping: ActionCombatCamping = new ActionCombatCamping(state, object);
 
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT_ENDED, false));
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, false));
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.DANGER, false));
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT_ENDED, false));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT, false));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.CAN_FIGHT, true));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.DANGER, false));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
 
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
-    actionCloseCombat.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    actionCombatCamping.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
 
-    actionCloseCombat.add_effect(new world_property(EEvaluatorId.IS_CLOSE_COMBAT_ENDED, true));
-    actionCloseCombat.add_effect(new world_property(EEvaluatorId.ENEMY, false));
-    actionCloseCombat.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+    actionCombatCamping.add_effect(new world_property(EEvaluatorId.IS_CLOSE_COMBAT_ENDED, true));
+    actionCombatCamping.add_effect(new world_property(EEvaluatorId.ENEMY, false));
+    actionCombatCamping.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
 
-    planner.add_action(EActionId.CLOSE_COMBAT, actionCloseCombat);
+    planner.add_action(EActionId.COMBAT_CAMPING, actionCombatCamping);
 
-    AbstractScheme.subscribe(state, actionCloseCombat);
+    AbstractScheme.subscribe(state, actionCombatCamping);
 
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_CLOSE_COMBAT_ENDED, true));
     planner

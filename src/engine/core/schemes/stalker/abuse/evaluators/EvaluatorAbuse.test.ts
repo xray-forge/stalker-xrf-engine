@@ -5,7 +5,7 @@ import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators/E
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 
-describe("EvaluatorAbuse class", () => {
+describe("EvaluatorAbuse", () => {
   it("should correctly check if abuse is necessary", () => {
     const state: ISchemeAbuseState = mockSchemeState(EScheme.ABUSE);
     const evaluator: EvaluatorAbuse = new EvaluatorAbuse(state);
