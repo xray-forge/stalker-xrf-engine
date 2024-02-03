@@ -10,7 +10,7 @@ import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeParticle.test.ts class", () => {
+describe("SchemeParticle", () => {
   it("should correctly fail with no data", () => {
     const object: GameObject = MockGameObject.mock();
 

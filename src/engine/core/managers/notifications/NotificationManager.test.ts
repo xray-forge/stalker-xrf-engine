@@ -36,7 +36,7 @@ import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator
 import { mockCGameTask } from "@/fixtures/xray/mocks/objects/task";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("NotificationManager class", () => {
+describe("NotificationManager", () => {
   beforeEach(() => {
     registerSimulator();
     registerActor(MockGameObject.mock());

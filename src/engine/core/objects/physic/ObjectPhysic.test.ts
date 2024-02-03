@@ -12,7 +12,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ObjectPhysic } from "@/engine/core/objects/physic/ObjectPhysic";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("ObjectPhysic server class", () => {
+describe("ObjectPhysic", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly create generic objects without story links", () => {

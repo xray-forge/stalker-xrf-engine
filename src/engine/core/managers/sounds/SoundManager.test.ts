@@ -12,7 +12,7 @@ import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
-describe("SoundManager class", () => {
+describe("SoundManager", () => {
   beforeEach(() => {
     resetRegistry();
 

@@ -45,7 +45,7 @@ function mockLifecycleMethods(): [Array<TAbstractCoreManagerConstructor>, Array<
   return [saveOrder, loadOrder];
 }
 
-describe("SaveManager class", () => {
+describe("SaveManager", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);

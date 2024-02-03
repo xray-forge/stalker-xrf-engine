@@ -23,7 +23,7 @@ jest.mock("@/engine/core/ui/game/sleep", () => ({
   },
 }));
 
-describe("SleepManager class", () => {
+describe("SleepManager", () => {
   beforeEach(() => {
     resetRegistry();
     MockConsole.reset();

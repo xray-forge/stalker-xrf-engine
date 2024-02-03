@@ -12,7 +12,7 @@ import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { MockGameObject } from "@/fixtures/xray";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
-describe("TaskObject class", () => {
+describe("TaskObject", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/tasks");
     registerActor(MockGameObject.mock());

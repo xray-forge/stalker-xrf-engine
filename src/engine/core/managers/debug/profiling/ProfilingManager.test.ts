@@ -8,7 +8,7 @@ import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
 
-describe("ProfilingManager class", () => {
+describe("ProfilingManager", () => {
   beforeEach(() => {
     resetRegistry();
     forgeConfig.DEBUG.IS_PROFILING_ENABLED = true;

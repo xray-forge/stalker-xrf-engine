@@ -15,7 +15,7 @@ import { getSchemeAction } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile, patrols } from "@/fixtures/xray";
 
-describe("TeleportManager class", () => {
+describe("TeleportManager", () => {
   it("should correctly call updates, teleport and react to generic logic", () => {
     registerActor(MockGameObject.mock());
 

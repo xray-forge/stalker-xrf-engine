@@ -7,7 +7,7 @@ import { AnyCallable, Console, EActorMenuMode } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockConsole } from "@/fixtures/xray";
 
-describe("ActorInventoryMenuManager class", () => {
+describe("ActorInventoryMenuManager", () => {
   beforeEach(() => {
     resetRegistry();
 

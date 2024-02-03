@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeMonster class", () => {
+describe("SchemeMonster", () => {
   it("should be correctly defined", () => {
     expect(SchemeMonster.SCHEME_SECTION).toBe("sr_monster");
     expect(SchemeMonster.SCHEME_SECTION).toBe(EScheme.SR_MONSTER);

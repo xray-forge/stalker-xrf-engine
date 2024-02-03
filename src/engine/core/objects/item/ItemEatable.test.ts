@@ -13,7 +13,7 @@ import { ItemEatable } from "@/engine/core/objects/item/ItemEatable";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ItemEatable server class", () => {
+describe("ItemEatable ", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

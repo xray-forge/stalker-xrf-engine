@@ -8,7 +8,7 @@ import { ServerHumanObject } from "@/engine/lib/types";
 import { MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker } from "@/fixtures/xray";
 
-describe("SquadReachTargetAction class", () => {
+describe("SquadReachTargetAction", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

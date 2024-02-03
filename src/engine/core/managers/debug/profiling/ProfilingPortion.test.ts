@@ -5,7 +5,7 @@ import { ProfilingManager } from "@/engine/core/managers/debug/profiling/Profili
 import { ProfilingPortion } from "@/engine/core/managers/debug/profiling/ProfilingPortion";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("ProfilingPortion class", () => {
+describe("ProfilingPortion", () => {
   beforeEach(() => {
     resetRegistry();
   });

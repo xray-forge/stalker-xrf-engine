@@ -13,7 +13,7 @@ import { ItemDetector } from "@/engine/core/objects/item/ItemDetector";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ItemDetector server class", () => {
+describe("ItemDetector ", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

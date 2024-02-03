@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-describe("StoryManager class", () => {
+describe("StoryManager", () => {
   it.todo("should correctly initialize");
 
   it.todo("should correctly add/remove participants");

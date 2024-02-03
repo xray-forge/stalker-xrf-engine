@@ -15,7 +15,7 @@ import { EPacketDataType, MockCArtefact, MockGameObject, MockNetProcessor } from
 
 jest.mock("@/engine/core/managers/surge/utils");
 
-describe("SurgeManager class", () => {
+describe("SurgeManager", () => {
   beforeEach(() => {
     resetRegistry();
 

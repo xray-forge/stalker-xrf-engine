@@ -12,7 +12,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneAnomalous } from "@/engine/core/objects/zone/index";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ZoneAnomalous server class", () => {
+describe("ZoneAnomalous ", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly create generic objects without story links", () => {

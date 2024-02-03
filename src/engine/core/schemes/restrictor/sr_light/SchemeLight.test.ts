@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeLight class", () => {
+describe("SchemeLight", () => {
   beforeEach(() => {
     resetRegistry();
   });

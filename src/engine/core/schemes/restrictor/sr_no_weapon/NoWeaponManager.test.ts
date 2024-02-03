@@ -15,7 +15,7 @@ import { EScheme, ESchemeCondition, GameObject } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("NoWeaponManager class", () => {
+describe("NoWeaponManager", () => {
   beforeEach(() => {
     resetRegistry();
   });

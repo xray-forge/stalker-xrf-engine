@@ -9,7 +9,7 @@ import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
-describe("ActionSmartCoverEnter class", () => {
+describe("ActionSmartCoverEnter", () => {
   beforeEach(() => {
     resetRegistry();
   });

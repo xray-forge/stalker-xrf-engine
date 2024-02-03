@@ -6,7 +6,7 @@ import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { MockNetProcessor } from "@/fixtures/xray";
 
-describe("AbstractCoreManager class", () => {
+describe("AbstractCoreManager", () => {
   class ExampleManager extends AbstractManager {
     public override initialize = jest.fn();
     public override destroy = jest.fn();

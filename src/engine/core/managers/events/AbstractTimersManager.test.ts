@@ -5,7 +5,7 @@ import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTim
 import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
-describe("EventsManager class", () => {
+describe("EventsManager", () => {
   class TimersManager extends AbstractTimersManager {}
 
   beforeEach(() => {

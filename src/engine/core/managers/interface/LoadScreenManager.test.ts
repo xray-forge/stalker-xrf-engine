@@ -4,7 +4,7 @@ import { getManager } from "@/engine/core/database";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("LoadScreenManager class", () => {
+describe("LoadScreenManager", () => {
   beforeEach(() => {
     resetRegistry();
   });

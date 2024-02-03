@@ -11,7 +11,7 @@ import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 
-describe("PhysicalButtonManager.test.ts class", () => {
+describe("PhysicalButtonManager", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(trySwitchToAnotherSection);

@@ -19,7 +19,7 @@ import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/spawn");
 
-describe("BoxManager class", () => {
+describe("BoxManager", () => {
   beforeEach(() => {
     resetRegistry();
 

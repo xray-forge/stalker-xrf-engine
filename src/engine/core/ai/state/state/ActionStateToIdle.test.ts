@@ -1,5 +1,5 @@
 import { describe, it } from "@jest/globals";
 
-describe("ActionStateToIdle class", () => {
+describe("ActionStateToIdle", () => {
   it.todo("should correctly transform state to idle");
 });

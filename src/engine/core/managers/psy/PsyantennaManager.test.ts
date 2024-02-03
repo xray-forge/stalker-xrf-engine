@@ -4,7 +4,7 @@ import { getManager, isManagerInitialized, registry } from "@/engine/core/databa
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
 import { resetRegistry } from "@/fixtures/engine";
 
-describe("PsyAntennaManager class", () => {
+describe("PsyAntennaManager", () => {
   beforeEach(() => {
     resetRegistry();
   });

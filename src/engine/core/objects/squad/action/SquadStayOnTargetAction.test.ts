@@ -6,7 +6,7 @@ import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { MockSquad } from "@/fixtures/engine";
 import { MockCTime } from "@/fixtures/xray";
 
-describe("SquadStayOnTargetAction class", () => {
+describe("SquadStayOnTargetAction", () => {
   it("should correctly initialize", () => {
     const squad: MockSquad = MockSquad.mock();
     const action: SquadStayOnTargetAction = new SquadStayOnTargetAction(squad);

@@ -7,7 +7,7 @@ import { ESoundObjectType, SoundObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockSoundObject } from "@/fixtures/xray";
 
-describe("GameOutroManager class", () => {
+describe("GameOutroManager", () => {
   beforeEach(() => {
     resetRegistry();
   });

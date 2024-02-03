@@ -6,7 +6,7 @@ import { StereoSound } from "@/engine/core/managers/sounds/objects/StereoSound";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("StereoSound class", () => {
+describe("StereoSound", () => {
   it("should correctly initialize", () => {
     const stereoSound: StereoSound = new StereoSound();
 

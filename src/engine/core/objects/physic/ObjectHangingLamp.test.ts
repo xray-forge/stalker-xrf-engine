@@ -12,7 +12,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ObjectHangingLamp } from "@/engine/core/objects/physic/ObjectHangingLamp";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ObjectHangingLamp server class", () => {
+describe("ObjectHangingLamp ", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly create generic objects without story links", () => {

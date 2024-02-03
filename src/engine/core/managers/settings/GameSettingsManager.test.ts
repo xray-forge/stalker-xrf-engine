@@ -10,7 +10,7 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockConsole } from "@/fixtures/xray";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
-describe("GameSettingsManager class", () => {
+describe("GameSettingsManager", () => {
   beforeEach(() => {
     resetRegistry();
     MockConsole.reset();

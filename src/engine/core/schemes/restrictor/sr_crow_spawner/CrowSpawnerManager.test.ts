@@ -13,7 +13,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 
-describe("CrowSpawnerManager class", () => {
+describe("CrowSpawnerManager", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly initialize", () => {

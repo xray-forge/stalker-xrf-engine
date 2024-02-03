@@ -1,6 +1,6 @@
 import { describe, it } from "@jest/globals";
 
-describe("NpcSound class", () => {
+describe("NpcSound", () => {
   it.todo("should correctly initialize");
 
   it.todo("should correctly initialize object");

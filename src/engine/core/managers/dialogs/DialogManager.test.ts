@@ -10,7 +10,7 @@ import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
-describe("DialogManager class", () => {
+describe("DialogManager", () => {
   beforeEach(() => {
     resetRegistry();
 

@@ -12,7 +12,7 @@ import { Optional, TName, TNumberId } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
-describe("SimulationBoardManager class", () => {
+describe("SimulationBoardManager", () => {
   beforeEach(() => {
     resetRegistry();
   });

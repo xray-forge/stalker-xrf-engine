@@ -10,7 +10,7 @@ import { GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, mockBaseSchemeLogic } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeMinigun class", () => {
+describe("SchemeMinigun", () => {
   it("should correctly activate scheme with defaults", () => {
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = MockIniFile.mock("test.ltx", {

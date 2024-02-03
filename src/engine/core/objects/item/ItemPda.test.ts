@@ -13,7 +13,7 @@ import { ItemPda } from "@/engine/core/objects/item/ItemPda";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ItemPda server class", () => {
+describe("ItemPda ", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

@@ -10,7 +10,7 @@ import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("TimerManager class", () => {
+describe("TimerManager", () => {
   it("should correctly activate and deactivate with label and timer id", () => {
     const object: GameObject = MockGameObject.mock();
     const state: ISchemeTimerState = mockSchemeState<ISchemeTimerState>(EScheme.SR_TIMER, {

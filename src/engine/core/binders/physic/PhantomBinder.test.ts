@@ -7,7 +7,7 @@ import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("PhantomBinder class", () => {
+describe("PhantomBinder", () => {
   beforeEach(() => {
     resetRegistry();
   });

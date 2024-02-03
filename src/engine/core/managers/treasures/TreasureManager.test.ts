@@ -13,7 +13,7 @@ import { ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("TreasureManager class", () => {
+describe("TreasureManager", () => {
   beforeEach(() => {
     resetRegistry();
 

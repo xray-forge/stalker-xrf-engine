@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeOscillate class", () => {
+describe("SchemeOscillate", () => {
   it("should be correctly defined", () => {
     expect(SchemeOscillate.SCHEME_SECTION).toBe("ph_oscillate");
     expect(SchemeOscillate.SCHEME_SECTION).toBe(EScheme.PH_OSCILLATE);

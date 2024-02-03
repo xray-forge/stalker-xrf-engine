@@ -9,7 +9,7 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { LuaArray, TLabel } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("UpgradesManager class", () => {
+describe("UpgradesManager", () => {
   beforeEach(() => {
     resetRegistry();
 

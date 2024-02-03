@@ -7,7 +7,7 @@ import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 
-describe("LevelChangerBinder class", () => {
+describe("LevelChangerBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

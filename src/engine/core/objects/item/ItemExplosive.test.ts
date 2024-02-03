@@ -13,7 +13,7 @@ import { ItemExplosive } from "@/engine/core/objects/item/ItemExplosive";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ItemExplosive server class", () => {
+describe("ItemExplosive ", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

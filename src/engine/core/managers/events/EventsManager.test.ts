@@ -6,7 +6,7 @@ import { AnyCallable, AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
-describe("EventsManager class", () => {
+describe("EventsManager", () => {
   beforeEach(() => {
     resetRegistry();
   });

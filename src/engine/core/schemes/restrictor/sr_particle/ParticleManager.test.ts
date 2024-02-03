@@ -15,7 +15,7 @@ import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 
-describe("ParticleManager class", () => {
+describe("ParticleManager", () => {
   beforeEach(() => {
     jest.spyOn(Date, "now").mockImplementation(() => 10_000);
     resetFunctionMock(trySwitchToAnotherSection);

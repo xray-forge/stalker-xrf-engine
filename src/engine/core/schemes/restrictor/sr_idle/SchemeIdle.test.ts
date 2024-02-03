@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("SchemeIdle class", () => {
+describe("SchemeIdle", () => {
   it("should be correctly defined", () => {
     expect(SchemeIdle.SCHEME_SECTION).toBe("sr_idle");
     expect(SchemeIdle.SCHEME_SECTION).toBe(EScheme.SR_IDLE);

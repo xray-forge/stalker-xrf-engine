@@ -102,7 +102,7 @@ describe("object conditions implementation", () => {
     resetFunctionMock(isDeimosPhaseActive);
   });
 
-  it("is_monster_snork should check object class", () => {
+  it("is_monster_snork should check object", () => {
     expect(
       callXrCondition("is_monster_snork", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.snork_s))
     ).toBe(true);
@@ -111,7 +111,7 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it("is_monster_dog should check object class", () => {
+  it("is_monster_dog should check object", () => {
     expect(
       callXrCondition("is_monster_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.dog_s))
     ).toBe(true);
@@ -120,7 +120,7 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it("is_monster_psy_dog should check object class", () => {
+  it("is_monster_psy_dog should check object", () => {
     expect(
       callXrCondition("is_monster_psy_dog", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.psy_dog_s))
     ).toBe(true);
@@ -129,7 +129,7 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it("is_monster_polter should check object class", () => {
+  it("is_monster_polter should check object", () => {
     expect(
       callXrCondition(
         "is_monster_polter",
@@ -142,7 +142,7 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it("is_monster_tushkano should check object class", () => {
+  it("is_monster_tushkano should check object", () => {
     expect(
       callXrCondition(
         "is_monster_tushkano",
@@ -155,7 +155,7 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it("is_monster_burer should check object class", () => {
+  it("is_monster_burer should check object", () => {
     expect(
       callXrCondition("is_monster_burer", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.burer_s))
     ).toBe(true);
@@ -164,7 +164,7 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it("is_monster_controller should check object class", () => {
+  it("is_monster_controller should check object", () => {
     expect(
       callXrCondition(
         "is_monster_controller",
@@ -181,7 +181,7 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it("is_monster_flesh should check object class", () => {
+  it("is_monster_flesh should check object", () => {
     expect(
       callXrCondition("is_monster_flesh", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.flesh_s))
     ).toBe(true);
@@ -190,7 +190,7 @@ describe("object conditions implementation", () => {
     ).toBe(false);
   });
 
-  it("is_monster_boar should check object class", () => {
+  it("is_monster_boar should check object", () => {
     expect(
       callXrCondition("is_monster_boar", MockGameObject.mockActor(), MockGameObject.mockWithClassId(clsid.boar_s))
     ).toBe(true);

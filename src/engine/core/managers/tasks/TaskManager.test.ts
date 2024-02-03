@@ -12,7 +12,7 @@ import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
-describe("TaskManager class", () => {
+describe("TaskManager", () => {
   beforeAll(() => {
     require("@/engine/scripts/declarations/tasks");
   });

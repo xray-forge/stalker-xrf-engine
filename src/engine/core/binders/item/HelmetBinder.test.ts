@@ -7,7 +7,7 @@ import { ItemHelmet } from "@/engine/core/objects/item/ItemHelmet";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 
-describe("HelmetBinder class", () => {
+describe("HelmetBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

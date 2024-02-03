@@ -10,7 +10,7 @@ import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockCTime, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
-describe("ActorInputManager class", () => {
+describe("ActorInputManager", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();

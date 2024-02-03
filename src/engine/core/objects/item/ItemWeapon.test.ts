@@ -13,7 +13,7 @@ import { ItemWeapon } from "@/engine/core/objects/item/ItemWeapon";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ItemWeapon server class", () => {
+describe("ItemWeapon ", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

@@ -27,7 +27,7 @@ import {
   MockObjectBinder,
 } from "@/fixtures/xray";
 
-describe("ActorBinder class", () => {
+describe("ActorBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

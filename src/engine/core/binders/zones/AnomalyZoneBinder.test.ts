@@ -7,7 +7,7 @@ import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 
-describe("AnomalyZoneBinder class", () => {
+describe("AnomalyZoneBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

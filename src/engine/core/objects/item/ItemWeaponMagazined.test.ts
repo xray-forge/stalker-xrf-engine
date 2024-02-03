@@ -13,7 +13,7 @@ import { ItemWeaponMagazined } from "@/engine/core/objects/item/ItemWeaponMagazi
 import { resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("ItemWeaponMagazined server class", () => {
+describe("ItemWeaponMagazined ", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

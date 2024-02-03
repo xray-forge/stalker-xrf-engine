@@ -16,7 +16,7 @@ import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
-describe("ItemArtefact server class", () => {
+describe("ItemArtefact ", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
