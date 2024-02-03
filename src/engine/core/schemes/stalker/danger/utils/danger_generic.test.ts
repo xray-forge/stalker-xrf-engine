@@ -21,15 +21,10 @@ import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { EGameObjectRelation, EScheme, GameObject, ServerSmartZoneObject, TClassId } from "@/engine/lib/types";
+import { EGameObjectRelation, EScheme, GameObject, ServerHumanObject, ServerSmartZoneObject } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import {
-  MockDangerObject,
-  MockGameObject,
-  mockServerAlifeHumanStalker,
-  mockServerAlifeSmartZone,
-} from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameObject } from "@/fixtures/xray";
 
 describe("danger generic utils", () => {
   beforeEach(() => registerSimulator());
@@ -183,8 +178,8 @@ describe("danger generic utils", () => {
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
     const noCombatZone: GameObject = MockGameObject.mock();
-    const noCombatSmart: ServerSmartZoneObject = mockServerAlifeSmartZone({
-      name: <T>() => "zat_stalker_base_smart" as T,
+    const noCombatSmart: ServerSmartZoneObject = MockAlifeSmartZone.mock({
+      name: "zat_stalker_base_smart",
     });
 
     state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
@@ -207,11 +202,13 @@ describe("danger generic utils", () => {
     const state: IRegistryObjectState = registerObject(object);
     const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
 
-    const noCombatSmart: ServerSmartZoneObject = mockServerAlifeSmartZone({
-      name: <T>() => "zat_stalker_base_smart" as T,
+    const noCombatSmart: ServerSmartZoneObject = MockAlifeSmartZone.mock({
+      name: "zat_stalker_base_smart",
     });
 
-    mockServerAlifeHumanStalker({ id: enemy.id(), m_smart_terrain_id: noCombatSmart.id });
+    const stalker: ServerHumanObject = MockAlifeHumanStalker.mock({ id: enemy.id() });
+
+    stalker.m_smart_terrain_id = noCombatSmart.id;
 
     state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);

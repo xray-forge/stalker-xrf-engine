@@ -1,9 +1,6 @@
 import { action_base, anim, LuabindClass } from "xray16";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Action to set mental danger state of game objects.

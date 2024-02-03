@@ -150,7 +150,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
    * todo: Description.
    */
   public closeAction(): void {
-    if (this.state.noForce === true) {
+    if (this.state.noForce) {
       this.joint!.set_max_force_and_velocity(0, 0, 0);
     } else {
       this.joint!.set_max_force_and_velocity(10000, 1, 0);
@@ -202,7 +202,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
       }
     }
 
-    if (this.state.noForce === true) {
+    if (this.state.noForce) {
       this.joint!.set_max_force_and_velocity(0, 0, 0);
     } else {
       this.joint!.set_max_force_and_velocity(2100, -3, 0);
@@ -229,7 +229,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     this.object.set_fastcall(this.fastcall, this);
 
-    if (this.state.noForce === true) {
+    if (this.state.noForce) {
       this.joint!.set_max_force_and_velocity(0, 0, 0);
     } else {
       this.joint!.set_max_force_and_velocity(200, 3, 0);
@@ -243,7 +243,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     physicObject.set_door_ignore_dynamics();
 
     if (this.showTips) {
-      if (this.state.locked === true && this.state.tipUnlock) {
+      if (this.state.locked && this.state.tipUnlock) {
         this.object.set_tip_text(this.state.tipUnlock);
 
         return;

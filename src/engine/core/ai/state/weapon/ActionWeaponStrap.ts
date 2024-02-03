@@ -2,11 +2,8 @@ import { action_base, LuabindClass, object } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
 import { GameObject, Optional } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Strap active weapon item if it is stapable.

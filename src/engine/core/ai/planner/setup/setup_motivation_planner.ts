@@ -7,10 +7,7 @@ import { EvaluatorStateIdleAlife } from "@/engine/core/ai/state/state/EvaluatorS
 import { EvaluatorStateIdleCombat } from "@/engine/core/ai/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/ai/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/ai/state/state/EvaluatorStateLogicActive";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Setup GOAP planner of stalker motivation.

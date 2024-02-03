@@ -15,10 +15,7 @@ import {
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionStateEnd } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, WorldState } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Add basic GOAP graphs to state manager planner evaluators / actions.

@@ -6,10 +6,7 @@ import { IRegistryObjectState } from "@/engine/core/database";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme implementing logics of handling / checking danger for stalkers.

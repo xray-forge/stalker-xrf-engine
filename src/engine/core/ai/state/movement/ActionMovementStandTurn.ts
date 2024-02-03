@@ -1,9 +1,6 @@
 import { action_base, LuabindClass, move } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Action to set current movement state as stand + turn.

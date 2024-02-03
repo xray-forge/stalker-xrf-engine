@@ -3,10 +3,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, Optional } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;

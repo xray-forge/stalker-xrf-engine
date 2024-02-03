@@ -2,10 +2,7 @@ import { registry } from "@/engine/core/database";
 import { SimulationManager, TSimulationObject } from "@/engine/core/managers/simulation";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TNumberId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Implement movement to target action.

@@ -1,6 +1,7 @@
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
+
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**

@@ -74,7 +74,7 @@ export class SmartTerrainControl {
         getManager(SoundManager).play(ACTOR_ID, sound);
       }
 
-      for (const [id, squad] of getManager(SimulationManager).getSmartTerrainDescriptor(this.smartTerrain.id)!
+      for (const [id] of getManager(SimulationManager).getSmartTerrainDescriptor(this.smartTerrain.id)!
         .assignedSquads) {
         updateSquadIdRelationToActor(id, ERelation.NEUTRAL);
       }

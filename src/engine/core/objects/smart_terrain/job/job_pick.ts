@@ -5,10 +5,7 @@ import {
   ISmartTerrainJobDescriptor,
   TSmartTerrainJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TNumberId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Select smart terrain job for an object.

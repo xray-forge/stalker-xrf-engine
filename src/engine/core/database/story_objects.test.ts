@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -18,7 +18,7 @@ import {
 } from "@/engine/core/database/story_objects";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { FILES_MOCKS, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
+import { FILES_MOCKS, MockAlifeObject, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("story_objects module of the database", () => {
   beforeEach(() => {
@@ -27,14 +27,26 @@ describe("story_objects module of the database", () => {
   });
 
   it("should correctly register object story links", () => {
-    const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
-    const secondObject: ServerObject = mockServerAlifeObject({ id: 36 });
+    const first: ServerObject = MockAlifeObject.mock({ id: 12 });
+    const second: ServerObject = MockAlifeObject.mock({ id: 36 });
 
-    FILES_MOCKS["spawn.ini"].story_object["story_id"] = "SID_1";
-    registerObjectStoryLinks(firstObject);
+    jest.spyOn(first, "spawn_ini").mockImplementation(() => {
+      return MockIniFile.mock("test.ltx", {
+        story_object: {
+          story_id: "SID_1",
+        },
+      });
+    });
+    registerObjectStoryLinks(first);
 
-    FILES_MOCKS["spawn.ini"].story_object["story_id"] = "SID_2";
-    registerObjectStoryLinks(secondObject);
+    jest.spyOn(second, "spawn_ini").mockImplementation(() => {
+      return MockIniFile.mock("test.ltx", {
+        story_object: {
+          story_id: "SID_2",
+        },
+      });
+    });
+    registerObjectStoryLinks(second);
 
     expect(registry.storyLink.idBySid.length()).toBe(2);
     expect(registry.storyLink.sidById.length()).toBe(2);
@@ -59,8 +71,8 @@ describe("story_objects module of the database", () => {
   });
 
   it("should correctly register object story links from system ini", () => {
-    const object: ServerObject = mockServerAlifeObject({
-      section_name: <T extends string>(): T => "test_sid_section" as T,
+    const object: ServerObject = MockAlifeObject.mock({
+      section: "test_sid_section",
     });
 
     delete FILES_MOCKS["spawn.ini"].story_object;
@@ -78,7 +90,7 @@ describe("story_objects module of the database", () => {
   });
 
   it("should correctly handle lifecycle and get links with utils", () => {
-    const firstObject: ServerObject = mockServerAlifeObject({ id: 12 });
+    const firstObject: ServerObject = MockAlifeObject.mock({ id: 12 });
     const object: GameObject = MockGameObject.mock({ id: 12 });
 
     registerObject(object);
@@ -108,7 +120,7 @@ describe("story_objects module of the database", () => {
   it("isStoryObjectExisting should correctly check if object is existing", () => {
     expect(isStoryObjectExisting("test-sid")).toBe(false);
 
-    const serverObject: ServerObject = mockServerAlifeObject();
+    const serverObject: ServerObject = MockAlifeObject.mock();
 
     registerStoryLink(serverObject.id, "test-sid");
 
@@ -116,7 +128,7 @@ describe("story_objects module of the database", () => {
   });
 
   it("isStoryObject should correctly check if object is existing", () => {
-    const serverObject: ServerObject = mockServerAlifeObject();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const gameObject: GameObject = MockGameObject.mock({ id: serverObject.id });
 
     expect(isStoryObject(serverObject)).toBe(false);
@@ -129,22 +141,22 @@ describe("story_objects module of the database", () => {
   });
 
   it("registerStoryLink should correctly handle register duplicates", () => {
-    const first: ServerObject = mockServerAlifeObject();
-    const second: ServerObject = mockServerAlifeObject();
+    const first: ServerObject = MockAlifeObject.mock();
+    const second: ServerObject = MockAlifeObject.mock();
 
     registerStoryLink(first.id, "register-test-duplicate");
     expect(() => registerStoryLink(second.id, "register-test-duplicate")).toThrow();
   });
 
   it("registerStoryLink should correctly handle register twice as different", () => {
-    const first: ServerObject = mockServerAlifeObject();
+    const first: ServerObject = MockAlifeObject.mock();
 
     registerStoryLink(first.id, "register-test-twice-first");
     expect(() => registerStoryLink(first.id, "register-test-twice-second")).toThrow();
   });
 
   it("getIdBySid should correctly get objects by SID", () => {
-    const object: ServerObject = mockServerAlifeObject({ m_story_id: 400 });
+    const object: ServerObject = MockAlifeObject.mock({ storyId: 400 });
 
     expect(getIdBySid(500)).toBeNull();
     expect(getIdBySid(400)).toBe(object.id);

@@ -3,11 +3,11 @@ import { describe, expect, it } from "@jest/globals";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import { NIL } from "@/engine/lib/constants/words";
 import { ESchemeType, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
-import { mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_crete_object utils", () => {
   it("createObjectJobDescriptor should correctly create descriptor objects for stalkers", () => {
-    const object: ServerHumanObject = mockServerAlifeHumanStalker();
+    const object: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     expect(createObjectJobDescriptor(object)).toEqual({
       object,
@@ -22,7 +22,7 @@ describe("job_crete_object utils", () => {
   });
 
   it("createObjectJobDescriptor should correctly create descriptor objects for monsters", () => {
-    const object: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
+    const object: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
 
     expect(createObjectJobDescriptor(object)).toEqual({
       object,

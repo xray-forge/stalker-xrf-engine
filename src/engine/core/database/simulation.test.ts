@@ -10,14 +10,8 @@ import {
 } from "@/engine/core/database/simulation";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { ServerActorObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import {
-  MockAlifeSimulator,
-  MockIniFile,
-  mockServerAlifeCreatureActor,
-  mockServerAlifeOnlineOfflineGroup,
-} from "@/fixtures/xray";
+import { MockAlifeCreatureActor, MockAlifeOnlineOfflineGroup, MockAlifeSimulator, MockIniFile } from "@/fixtures/xray";
 
 describe("simulation module of the database", () => {
   beforeEach(() => {
@@ -48,7 +42,7 @@ describe("simulation module of the database", () => {
   });
 
   it("should correctly register simulation objects", () => {
-    const object: TSimulationObject = mockServerAlifeOnlineOfflineGroup() as TSimulationObject;
+    const object: TSimulationObject = MockAlifeOnlineOfflineGroup.mock() as TSimulationObject;
 
     object.isSimulationAvailable = () => true;
 
@@ -66,7 +60,7 @@ describe("simulation module of the database", () => {
   });
 
   it("should correctly unregister simulation objects", () => {
-    const simulationObject: TSimulationObject = mockServerAlifeOnlineOfflineGroup() as TSimulationObject;
+    const simulationObject: TSimulationObject = MockAlifeOnlineOfflineGroup.mock() as TSimulationObject;
 
     simulationObject.isSimulationAvailable = () => true;
 
@@ -78,8 +72,7 @@ describe("simulation module of the database", () => {
   });
 
   it("should correctly initialize simulation objects properties", () => {
-    const object: ServerActorObject = mockServerAlifeCreatureActor();
-    const simulationObject: TSimulationObject = object as TSimulationObject;
+    const simulationObject: TSimulationObject = MockAlifeCreatureActor.mock() as TSimulationObject;
 
     simulationObject.isSimulationAvailable = () => true;
 

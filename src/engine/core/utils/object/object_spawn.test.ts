@@ -46,18 +46,18 @@ describe("syncSpawnedObjectPosition util", () => {
   it("should handle sync when have assigned job", () => {
     mockRegisteredActor();
 
-    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
+    const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
     const serverObject: ServerCreatureObject = MockAlifeMonsterBase.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
 
-    serverObject.m_smart_terrain_id = smartTerrain.id;
+    serverObject.m_smart_terrain_id = terrain.id;
 
-    smartTerrain.register_npc(serverObject);
+    terrain.register_npc(serverObject);
     syncSpawnedObjectPosition(object, serverObject.m_smart_terrain_id);
 
     expect(object.set_npc_position).toHaveBeenCalledTimes(1);
     expect(object.set_npc_position).toHaveBeenCalledWith(
-      smartTerrain.objectJobDescriptors.get(object.id()).job?.alifeTask?.position()
+      terrain.objectJobDescriptors.get(object.id()).job?.alifeTask?.position()
     );
   });
 });

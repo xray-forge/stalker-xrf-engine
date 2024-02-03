@@ -14,7 +14,7 @@ import { AnyObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
  */
 export function jobPreconditionAnimpoint(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
   return object.community() !== communities.zombied;
@@ -25,7 +25,7 @@ export function jobPreconditionAnimpoint(
  */
 export function jobPreconditionCamper(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
   return true;
@@ -36,7 +36,7 @@ export function jobPreconditionCamper(
  */
 export function jobPreconditionCollector(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
   if (object.community() === communities.zombied) {
@@ -64,17 +64,17 @@ export function jobPreconditionCollector(
  */
 export function jobPreconditionGuard(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  if (smartTerrain.alarmStartedAt === null) {
+  if (terrain.alarmStartedAt === null) {
     return true;
-  } else if (smartTerrain.safeRestrictor === null) {
+  } else if (terrain.safeRestrictor === null) {
     return true;
   }
 
   if (parameters.isSafeJob === null) {
-    parameters.isSafeJob = isPatrolInRestrictor(smartTerrain.safeRestrictor, parameters.wayName);
+    parameters.isSafeJob = isPatrolInRestrictor(terrain.safeRestrictor, parameters.wayName);
   }
 
   return parameters.isSafeJob !== false;
@@ -85,7 +85,7 @@ export function jobPreconditionGuard(
  */
 export function jobPreconditionGuardFollower(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject,
   objectJobState: IObjectJobState
 ): boolean {
@@ -97,19 +97,19 @@ export function jobPreconditionGuardFollower(
  */
 export function jobPreconditionPatrol(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
   if (object.community() === communities.zombied) {
     return false;
-  } else if (smartTerrain.alarmStartedAt === null) {
+  } else if (terrain.alarmStartedAt === null) {
     return true;
-  } else if (smartTerrain.safeRestrictor === null) {
+  } else if (terrain.safeRestrictor === null) {
     return true;
   }
 
   if (parameters.isSafeJob === null) {
-    parameters.isSafeJob = isPatrolInRestrictor(smartTerrain.safeRestrictor, parameters.wayName);
+    parameters.isSafeJob = isPatrolInRestrictor(terrain.safeRestrictor, parameters.wayName);
   }
 
   return parameters.isSafeJob !== false;
@@ -120,21 +120,21 @@ export function jobPreconditionPatrol(
  */
 export function jobPreconditionSleep(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
   if (object.community() === communities.zombied) {
     return false;
   } else if (!isInTimeInterval(21, 7)) {
     return false;
-  } else if (smartTerrain.alarmStartedAt === null) {
+  } else if (terrain.alarmStartedAt === null) {
     return true;
-  } else if (smartTerrain.safeRestrictor === null) {
+  } else if (terrain.safeRestrictor === null) {
     return true;
   }
 
   if (parameters.isSafeJob === null) {
-    parameters.isSafeJob = isPatrolInRestrictor(smartTerrain.safeRestrictor, parameters.wayName);
+    parameters.isSafeJob = isPatrolInRestrictor(terrain.safeRestrictor, parameters.wayName);
   }
 
   return parameters.isSafeJob !== false;
@@ -145,7 +145,7 @@ export function jobPreconditionSleep(
  */
 export function jobPreconditionSniper(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
   return object.community() !== communities.zombied;
@@ -156,7 +156,7 @@ export function jobPreconditionSniper(
  */
 export function jobPreconditionSurge(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
   return surgeConfig.IS_STARTED;
@@ -167,17 +167,17 @@ export function jobPreconditionSurge(
  */
 export function jobPreconditionWalker(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  if (smartTerrain.alarmStartedAt === null) {
+  if (terrain.alarmStartedAt === null) {
     return true;
-  } else if (smartTerrain.safeRestrictor === null) {
+  } else if (terrain.safeRestrictor === null) {
     return true;
   }
 
   if (parameters.isSafeJob === null) {
-    parameters.isSafeJob = isPatrolInRestrictor(smartTerrain.safeRestrictor, parameters.wayName);
+    parameters.isSafeJob = isPatrolInRestrictor(terrain.safeRestrictor, parameters.wayName);
   }
 
   return parameters.isSafeJob !== false;
@@ -188,7 +188,7 @@ export function jobPreconditionWalker(
  */
 export function jobPreconditionExclusive(
   object: ServerCreatureObject,
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
   const result: Optional<string> = pickSectionFromCondList(registry.actor, object, parameters.condlist);

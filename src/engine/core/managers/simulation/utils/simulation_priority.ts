@@ -2,11 +2,8 @@ import { registry } from "@/engine/core/database";
 import { IAvailableSimulationTargetDescriptor, TSimulationObject } from "@/engine/core/managers/simulation";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/position";
 import { LuaArray, Optional, ServerObject, TCount, TIndex, TNumberId, TRate } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluates simulation priority by distance.

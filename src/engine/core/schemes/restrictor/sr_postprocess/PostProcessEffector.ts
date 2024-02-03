@@ -1,9 +1,6 @@
 import { effector, effector_params, LuabindClass } from "xray16";
 
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EffectorParams, TNumberId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Custom post process effector to intercept and customize parameters from scripts.

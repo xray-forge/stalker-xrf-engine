@@ -2,9 +2,6 @@ import { cse_zone_visual, LuabindClass } from "xray16";
 
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Visual zone server representation.

@@ -21,29 +21,9 @@ import { medkits } from "@/engine/lib/constants/items/drugs";
 import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
+import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
-import { MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
-
-function createObjectWithItems(): GameObject {
-  return MockGameObject.mock({
-    inventory: [
-      [1, MockGameObject.mock({ section: medkits.medkit })],
-      [2, MockGameObject.mock({ section: medkits.medkit })],
-      [3, MockGameObject.mock({ section: medkits.medkit_army })],
-      [4, MockGameObject.mock({ section: medkits.medkit_army })],
-      [5, MockGameObject.mock({ section: medkits.medkit_army })],
-      [40, MockGameObject.mock({ section: weapons.wpn_svd })],
-      [41, MockGameObject.mock({ section: weapons.wpn_svd })],
-      [50, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [51, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [52, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [53, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [54, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [55, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-    ],
-  });
-}
+import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
 describe("getItemPrice utils", () => {
   beforeEach(() => {
@@ -68,8 +48,8 @@ describe("getItemOwnerId utils", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
-    mockServerAlifeObject({ id: first.id(), parent_id: 253 });
-    mockServerAlifeObject({ id: second.id(), parent_id: MAX_U16 });
+    MockAlifeObject.mock({ id: first.id(), parentId: 253 });
+    MockAlifeObject.mock({ id: second.id(), parentId: MAX_U16 });
 
     const third: GameObject = MockGameObject.mock();
 

@@ -5,11 +5,8 @@ import { registry } from "@/engine/core/database";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { isSoundType } from "@/engine/core/utils/sound";
 import { EGameObjectRelation, GameObject, Optional, TNumberId, TRate, TSoundType, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manage danger events.

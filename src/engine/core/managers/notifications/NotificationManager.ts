@@ -248,7 +248,7 @@ export class NotificationManager extends AbstractManager {
       const simulator: Optional<AlifeSimulator> = registry.simulator;
 
       if (simulator !== null) {
-        const serverObject: Stalker = simulator.object(getObjectIdByStoryId(senderId)!) as Stalker;
+        const serverObject: Optional<Stalker> = simulator.object(getObjectIdByStoryId(senderId)!) as Stalker;
 
         if (serverObject !== null) {
           // Check if sender is not wounded.

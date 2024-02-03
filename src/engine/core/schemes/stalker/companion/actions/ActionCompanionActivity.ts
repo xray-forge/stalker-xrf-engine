@@ -81,7 +81,7 @@ export class ActionCompanionActivity extends action_base {
     }
 
     if (selectNewPt) {
-      this.assistPoint = selectPosition(this.object, this.state);
+      this.assistPoint = selectPosition(this.object);
       if (!this.assistPoint) {
         return;
       }
@@ -168,33 +168,42 @@ export class ActionCompanionActivity extends action_base {
 /**
  * todo;
  */
-function selectPosition(object: GameObject, state: ISchemeCompanionState): Optional<TNumberId> {
-  let node1VertexId = null;
-  let node1Distance = null;
-  let node2VertexId = null;
-  let node2Distance = null;
+function selectPosition(object: GameObject): Optional<TNumberId> {
   const actor: GameObject = registry.actor;
 
   let desiredDirection: Vector = vectorRotateY(actor.direction(), math.random(50, 60));
 
-  node1VertexId = level.vertex_in_direction(actor.level_vertex_id(), desiredDirection, DESIRED_DISTANCE);
+  let node1VertexId: Optional<TNumberId> = level.vertex_in_direction(
+    actor.level_vertex_id(),
+    desiredDirection,
+    DESIRED_DISTANCE
+  );
 
-  if (object.accessible(node1VertexId) !== true || node1VertexId === actor.level_vertex_id()) {
+  if (!object.accessible(node1VertexId) || node1VertexId === actor.level_vertex_id()) {
     node1VertexId = null;
   }
 
   desiredDirection = vectorRotateY(actor.direction(), -math.random(50, 60));
-  node2VertexId = level.vertex_in_direction(actor.level_vertex_id(), desiredDirection, DESIRED_DISTANCE);
 
-  if (object.accessible(node2VertexId) !== true || node2VertexId === actor.level_vertex_id()) {
+  let node2VertexId: Optional<TNumberId> = level.vertex_in_direction(
+    actor.level_vertex_id(),
+    desiredDirection,
+    DESIRED_DISTANCE
+  );
+
+  if (!object.accessible(node2VertexId) || node2VertexId === actor.level_vertex_id()) {
     node2VertexId = null;
   }
+
+  let node1Distance: Optional<TNumberId>;
 
   if (node1VertexId !== null) {
     node1Distance = object.position().distance_to_sqr(level.vertex_position(node1VertexId));
   } else {
     node1Distance = -1;
   }
+
+  let node2Distance: Optional<TNumberId>;
 
   if (node2VertexId !== null) {
     node2Distance = object.position().distance_to_sqr(level.vertex_position(node2VertexId));

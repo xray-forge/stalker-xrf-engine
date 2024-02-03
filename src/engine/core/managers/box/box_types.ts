@@ -1,12 +1,4 @@
-import { TCount, TSection } from "@/engine/lib/types";
-
-/**
- * Descriptor of box item spawn.
- */
-export interface IBoxDropItemDescriptor {
-  count: TCount;
-  section: TSection;
-}
+import { TCount } from "@/engine/lib/types";
 
 /**
  * Probability descriptor for separate spawn item.

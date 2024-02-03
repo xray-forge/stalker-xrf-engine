@@ -3,10 +3,7 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGenericPhraseCategory, TPhrasesPriorityMap } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, NetPacket, NetProcessor, TNumberId, TStringId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manager of dialogs interaction / scripting when actor is speaking to stalker objects.

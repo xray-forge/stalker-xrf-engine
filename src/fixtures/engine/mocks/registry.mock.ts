@@ -4,10 +4,11 @@ import { registerRanks } from "@/engine/core/database/ranks";
 import { registry } from "@/engine/core/database/registry";
 import { AlifeSimulator, GameObject, ServerActorObject } from "@/engine/lib/types";
 import {
+  IMockAlifeObjectConfig,
   IMockGameObjectConfig,
+  MockAlifeCreatureActor,
   MockAlifeSimulator,
   MockGameObject,
-  mockServerAlifeCreatureActor,
 } from "@/fixtures/xray/mocks/objects";
 
 export interface IMockActorDetails {
@@ -20,11 +21,11 @@ export interface IMockActorDetails {
  * Mock actor client/server side.
  */
 export function mockRegisteredActor(
-  actorGamePartial: IMockGameObjectConfig = {},
-  actorServerPartial: Partial<ServerActorObject> = {}
+  actorGameConfig: IMockGameObjectConfig = {},
+  actorServerConfig: IMockAlifeObjectConfig = {}
 ): IMockActorDetails {
-  const actorGameObject: GameObject = MockGameObject.mockActor(actorGamePartial);
-  const actorServerObject: ServerActorObject = registerActorServer(mockServerAlifeCreatureActor(actorServerPartial));
+  const actorGameObject: GameObject = MockGameObject.mockActor(actorGameConfig);
+  const actorServerObject: ServerActorObject = registerActorServer(MockAlifeCreatureActor.mock(actorServerConfig));
   const actorState: IRegistryObjectState = registerActor(actorGameObject);
 
   return { actorGameObject: actorGameObject, actorServerObject, actorState };

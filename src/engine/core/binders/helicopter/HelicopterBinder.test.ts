@@ -37,7 +37,7 @@ describe("HelicopterBinder", () => {
   it.todo("should correctly handle update event");
 
   it("should correctly handle going online and offline when spawn disabled", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mockHelicopter({ id: serverObject.id });
     const binder: HelicopterBinder = new HelicopterBinder(object);
 
@@ -50,7 +50,7 @@ describe("HelicopterBinder", () => {
   });
 
   it("should correctly handle going online and offline", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mockHelicopter({ id: serverObject.id });
     const binder: HelicopterBinder = new HelicopterBinder(object);
 

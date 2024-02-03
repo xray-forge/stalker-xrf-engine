@@ -1,13 +1,11 @@
 import { jest } from "@jest/globals";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AlifeSimulator, Optional, ServerObject, TClassId, TNumberId, Vector } from "@/engine/lib/types";
-import {
-  mockClsid,
-  mockServerAlifeHumanStalker,
-  mockServerAlifeObject,
-  mockServerAlifeOnlineOfflineGroup,
-} from "@/fixtures/xray";
+import { AlifeSimulator, Optional, ServerObject, TNumberId, Vector } from "@/engine/lib/types";
+import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
+import { MockAlifeHumanStalker } from "@/fixtures/xray/mocks/objects/server/cse_alife_human_stalker.mock";
+import { MockAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
+import { MockAlifeOnlineOfflineGroup } from "@/fixtures/xray/mocks/objects/server/cse_alife_online_offline_group.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
@@ -50,23 +48,23 @@ export class MockAlifeSimulator {
 
   public object = jest.fn((id: number) => MockAlifeSimulator.registry[id] || null);
 
-  public create = jest.fn((section: string, position: MockVector, lvid: TNumberId, fvid: TNumberId) => {
+  public create = jest.fn((section: string, position: MockVector, lvid: TNumberId, gvid: TNumberId) => {
     if (section === "stalker") {
-      return mockServerAlifeHumanStalker({
-        clsid: jest.fn(() => mockClsid.script_stalker as TClassId),
+      return MockAlifeHumanStalker.mock({
+        clsid: mockClsid.script_stalker,
         position: position as unknown as Vector,
-        m_level_vertex_id: lvid,
-        m_game_vertex_id: fvid,
+        levelVertexId: lvid,
+        gameVertexId: gvid,
       });
     } else if (section === "squad") {
-      return mockServerAlifeOnlineOfflineGroup();
+      return MockAlifeOnlineOfflineGroup.mock();
     }
 
-    return mockServerAlifeObject({
-      sectionOverride: section,
+    return MockAlifeObject.mock({
+      section: section,
       position: position as unknown as Vector,
-      m_level_vertex_id: lvid,
-      m_game_vertex_id: fvid,
+      levelVertexId: lvid,
+      gameVertexId: gvid,
     });
   });
 

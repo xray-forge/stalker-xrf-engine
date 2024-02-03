@@ -11,7 +11,7 @@ import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { FALSE } from "@/engine/lib/constants/words";
 import { AnyObject, TName, TRate } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockCTime, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockCTime } from "@/fixtures/xray";
 
 describe("smart_terrain_generic_utils module", () => {
   beforeEach(() => {
@@ -91,8 +91,8 @@ working = 0
     smartTerrain.spawnSquadsConfiguration.set("test-2", { num: parseConditionsList("3"), squads: new LuaTable() });
 
     smartTerrain.objectByJobSection.set("some-job", 4000);
-    smartTerrain.objectJobDescriptors.set(4000, createObjectJobDescriptor(mockServerAlifeHumanStalker({ id: 4000 })));
-    smartTerrain.arrivingObjects.set(4001, mockServerAlifeHumanStalker({ id: 4001 }));
+    smartTerrain.objectJobDescriptors.set(4000, createObjectJobDescriptor(MockAlifeHumanStalker.mock({ id: 4000 })));
+    smartTerrain.arrivingObjects.set(4001, MockAlifeHumanStalker.mock({ id: 4001 }));
 
     const descriptor: ISmartTerrainDescriptor = getManager(SimulationManager).getSmartTerrainDescriptor(
       smartTerrain.id

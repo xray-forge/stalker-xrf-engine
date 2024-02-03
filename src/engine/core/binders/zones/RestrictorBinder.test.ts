@@ -11,21 +11,10 @@ import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/util
 import { AnyObject, EScheme, ESchemeEvent, ESchemeType, GameObject, ServerObject, TName } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import {
-  EPacketDataType,
-  MockGameObject,
-  MockNetProcessor,
-  MockObjectBinder,
-  mockServerAlifeObject,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/utils/scheme/scheme_event", () => ({
-  emitSchemeEvent: jest.fn(),
-}));
-
-jest.mock("@/engine/core/utils/scheme/scheme_initialization", () => ({
-  initializeObjectSchemeLogic: jest.fn(),
-}));
+jest.mock("@/engine/core/utils/scheme/scheme_event");
+jest.mock("@/engine/core/utils/scheme/scheme_initialization");
 
 describe("RestrictorBinder", () => {
   beforeEach(() => {
@@ -58,7 +47,7 @@ describe("RestrictorBinder", () => {
 
   it("should correctly handle going online and offline", () => {
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
-    const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
     const soundManager: SoundManager = getManager(SoundManager);
     const mockSound: AbstractPlayableSound = {} as AnyObject as AbstractPlayableSound;
 
@@ -97,7 +86,7 @@ describe("RestrictorBinder", () => {
 
   it("should correctly handle going online and offline when check to spawn is falsy", () => {
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
-    const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
     const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "playLooped").mockImplementation(jest.fn());
@@ -119,7 +108,7 @@ describe("RestrictorBinder", () => {
     mockRegisteredActor();
 
     const binder: RestrictorBinder = new RestrictorBinder(MockGameObject.mock());
-    const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
     const soundManager: SoundManager = getManager(SoundManager);
     const onVisit = jest.fn();
 

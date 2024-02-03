@@ -3,13 +3,10 @@ import { level, patrol, time_global } from "xray16";
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ETeleportState, ISchemeTeleportState } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { teleportActorWithEffects } from "@/engine/core/utils/position";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { GameObject, Optional, TProbability, TTimestamp, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Implement smooth teleportation with sound/animation on contact with restrictor zones.

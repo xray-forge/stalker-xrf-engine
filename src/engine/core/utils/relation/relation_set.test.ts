@@ -18,7 +18,7 @@ import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { GameObject, ServerCreatureObject, ServerHumanObject, TIndex } from "@/engine/lib/types";
 import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
-import { MockGameObject, mockServerAlifeCreatureAbstract } from "@/fixtures/xray";
+import { MockGameObject, MockServerAlifeCreatureAbstract } from "@/fixtures/xray";
 
 describe("setGameObjectRelation util", () => {
   beforeEach(() => registerSimulator());
@@ -48,12 +48,12 @@ describe("setServerObjectRelation util", () => {
 
   it("should correctly set objects relation", () => {
     expect(() => setServerObjectRelation(null, null, ERelation.ENEMY)).toThrow();
-    expect(() => setServerObjectRelation(mockServerAlifeCreatureAbstract(), null, ERelation.ENEMY)).toThrow();
-    expect(() => setServerObjectRelation(null, mockServerAlifeCreatureAbstract(), ERelation.ENEMY)).toThrow();
+    expect(() => setServerObjectRelation(MockServerAlifeCreatureAbstract.mock(), null, ERelation.ENEMY)).toThrow();
+    expect(() => setServerObjectRelation(null, MockServerAlifeCreatureAbstract.mock(), ERelation.ENEMY)).toThrow();
 
-    const first: ServerCreatureObject = mockServerAlifeCreatureAbstract();
-    const second: ServerCreatureObject = mockServerAlifeCreatureAbstract();
-    const third: ServerCreatureObject = mockServerAlifeCreatureAbstract();
+    const first: ServerCreatureObject = MockServerAlifeCreatureAbstract.mock();
+    const second: ServerCreatureObject = MockServerAlifeCreatureAbstract.mock();
+    const third: ServerCreatureObject = MockServerAlifeCreatureAbstract.mock();
 
     setServerObjectRelation(first, second, ERelation.ENEMY);
     expect(first.force_set_goodwill).toHaveBeenCalledWith(-1000, second.id);
@@ -181,7 +181,9 @@ describe("setSquadRelationToCommunity util", () => {
 });
 
 describe("setSquadRelationWithObject util", () => {
-  beforeEach(() => registerSimulator());
+  beforeEach(() => {
+    registerSimulator();
+  });
 
   it("should correctly set relation", () => {
     const { neutralSquad, mixedSquad, enemy } = mockRelationsSquads();

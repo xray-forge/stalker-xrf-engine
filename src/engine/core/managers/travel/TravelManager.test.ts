@@ -10,13 +10,13 @@ import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObj
 import { resetRegistry } from "@/fixtures/engine";
 import {
   MockAlifeHumanStalker,
+  MockAlifeOnlineOfflineGroup,
+  MockAlifeSmartZone,
   MockGameObject,
   MockPhraseDialog,
-  mockServerAlifeOnlineOfflineGroup,
-  mockServerAlifeSmartZone,
 } from "@/fixtures/xray";
 
-describe("TravelManager class", () => {
+describe("TravelManager", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -390,8 +390,8 @@ describe("TravelManager class", () => {
 
   it("should correctly check if can use travel dialogs", () => {
     const manager: TravelManager = getManager(TravelManager);
-    const squad: ServerGroupObject = mockServerAlifeOnlineOfflineGroup();
-    const smartZone: ServerSmartZoneObject = mockServerAlifeSmartZone({ name: <T>() => "jup_b41" as T });
+    const squad: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
+    const zone: ServerSmartZoneObject = MockAlifeSmartZone.mock({ name: "jup_b41" });
     const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const actor: GameObject = MockGameObject.mockActor();
@@ -415,10 +415,10 @@ describe("TravelManager class", () => {
     object.character_community = <T>() => "freedom" as T;
     expect(manager.canStartTravelingDialogs(actor, object)).toBe(true);
 
-    serverObject.m_smart_terrain_id = smartZone.id;
+    serverObject.m_smart_terrain_id = zone.id;
     expect(manager.canStartTravelingDialogs(actor, object)).toBe(false);
 
-    smartZone.name = <T>() => "random_smart" as T;
+    zone.name = <T>() => "random_smart" as T;
     expect(manager.canStartTravelingDialogs(actor, object)).toBe(true);
   });
 

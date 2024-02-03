@@ -1,58 +1,67 @@
-import { jest } from "@jest/globals";
-
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
-import {
-  ServerCreatureObject,
-  ServerGroupObject,
-  TClassId,
-  TName,
-  TNumberId,
-  TRate,
-  TSection,
-} from "@/engine/lib/types";
+import { ServerCreatureObject, TClassId, TName, TNumberId, TRate, TSection } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
-import {
-  MockAlifeHumanStalker,
-  MockAlifeOnlineOfflineGroup,
-  mockCharactersGoodwill,
-  MockGameObject,
-  MockServerAlifeCreatureAbstract,
-  mockServerAlifeOnlineOfflineGroup,
-} from "@/fixtures/xray";
+import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
+import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
+import { MockServerAlifeCreatureAbstract } from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_abstract.mock";
+import { MockAlifeHumanStalker } from "@/fixtures/xray/mocks/objects/server/cse_alife_human_stalker.mock";
+import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
+import { MockAlifeOnlineOfflineGroup } from "@/fixtures/xray/mocks/objects/server/cse_alife_online_offline_group.mock";
+import { mockCharactersGoodwill } from "@/fixtures/xray/mocks/relations";
+import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+
+interface IMockSquadConfig extends IMockAlifeObjectConfig {
+  behaviour?: LuaTable<string, string>;
+  simulationProperties?: LuaTable<TName, TRate>;
+}
 
 /**
  * Class based mock of squad group.
  */
 export class MockSquad extends Squad {
-  public static mock(
-    section: TSection = "test_squad",
-    {
-      simulationProperties = MockLuaTable.mockFromObject<TName, TRate>({ a: 1, c: 2 }),
-      behaviour = MockLuaTable.mock([
-        ["a", "4"],
-        ["c", "3"],
-      ]),
-    }: Partial<Squad> = {}
-  ): MockSquad {
-    const squad: MockSquad = new MockSquad(section);
-
-    squad.behaviour = behaviour;
-    squad.simulationProperties = simulationProperties;
-
-    return squad;
+  public static mock(config: IMockSquadConfig = {}): MockSquad {
+    return new MockSquad(config);
   }
 
-  public static mockRegistered(section: TSection = "test_squad", base: Partial<Squad> = {}): MockSquad {
-    const squad: MockSquad = MockSquad.mock(section, base);
+  public static mockRegistered(config: IMockSquadConfig = {}): Squad {
+    const squad: Squad = MockSquad.mock(config);
 
     squad.on_before_register();
     squad.on_register();
 
     return squad;
+  }
+
+  public constructor(config: IMockSquadConfig) {
+    const section: TSection = config.section ?? "test_squad";
+
+    super(section);
+
+    const object: MockAlifeOnlineOfflineGroup = this as unknown as MockAlifeOnlineOfflineGroup;
+
+    object.classId = mockClsid.online_offline_group_s as TClassId;
+    object.m_game_vertex_id = config.gameVertexId ?? 512;
+    object.m_level_vertex_id = config.levelVertexId ?? 255;
+    object.m_story_id = config.storyId ?? -1;
+    object.position = config.position ?? MockVector.mock(0, 0, 0);
+    object.section = section;
+
+    this.behaviour =
+      config.behaviour ??
+      MockLuaTable.mock([
+        ["a", "4"],
+        ["c", "3"],
+      ]);
+    this.simulationProperties =
+      config.simulationProperties ??
+      MockLuaTable.mock([
+        ["a", 1],
+        ["c", 2],
+      ]);
   }
 
   public mockAddMember(object: ServerCreatureObject | MockServerAlifeCreatureAbstract): void {
@@ -74,33 +83,6 @@ export class MockSquad extends Squad {
   public mockSetGameVertexId(id: TNumberId): void {
     (this as unknown as MockAlifeOnlineOfflineGroup).m_game_vertex_id = id;
   }
-}
-
-/**
- * Mock squad record based on online-offline group for testing.
- *
- * @deprecated
- */
-export function mockSquad({
-  behaviour = MockLuaTable.mock([
-    ["a", "4"],
-    ["c", "3"],
-  ]),
-  simulationProperties = MockLuaTable.mockFromObject<TName, TRate>({ a: 1, c: 2 }),
-  clsid = jest.fn(() => -1 as TClassId),
-  isValidSimulationTarget = () => true,
-  ...rest
-}: Partial<Squad> = {}): Squad {
-  return mockServerAlifeOnlineOfflineGroup({
-    ...rest,
-    simulationProperties: simulationProperties,
-    clsid,
-    isValidSimulationTarget: isValidSimulationTarget,
-    assignToSmartTerrain: rest.assignToSmartTerrain ?? jest.fn(),
-    isSquadArrived: rest.isReachedBySimulationObject ?? jest.fn(),
-    isSimulationAvailable: rest.isSimulationAvailable ?? jest.fn(() => true),
-    behaviour,
-  } as Partial<ServerGroupObject>) as unknown as Squad;
 }
 
 /**

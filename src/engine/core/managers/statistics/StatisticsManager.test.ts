@@ -11,14 +11,14 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua";
 import {
   EPacketDataType,
+  MockAlifeMonsterBase,
+  MockAlifeObject,
   MockGameObject,
   MockNetProcessor,
-  mockServerAlifeMonsterBase,
-  mockServerAlifeObject,
+  MockVector,
 } from "@/fixtures/xray";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
-describe("StatisticsManager class", () => {
+describe("StatisticsManager", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -114,9 +114,9 @@ describe("StatisticsManager class", () => {
     const secondClient: GameObject = MockGameObject.mock({ clsid: clsid.art_bast_artefact });
     const thirdClient: GameObject = MockGameObject.mock({ clsid: clsid.art_zuda });
 
-    mockServerAlifeObject({ id: firstClient.id(), sectionOverride: "af_first" });
-    mockServerAlifeObject({ id: secondClient.id(), sectionOverride: "af_first" });
-    mockServerAlifeObject({ id: thirdClient.id(), sectionOverride: "af_second" });
+    MockAlifeObject.mock({ id: firstClient.id(), section: "af_first" });
+    MockAlifeObject.mock({ id: secondClient.id(), section: "af_first" });
+    MockAlifeObject.mock({ id: thirdClient.id(), section: "af_second" });
 
     expect(manager.actorStatistics.collectedArtefactsCount).toBe(0);
 
@@ -147,9 +147,9 @@ describe("StatisticsManager class", () => {
 
     registerActor(actor);
 
-    mockServerAlifeObject({ id: ak74.id(), sectionOverride: weapons.wpn_ak74 });
-    mockServerAlifeObject({ id: desertEagle.id(), sectionOverride: weapons.wpn_desert_eagle });
-    mockServerAlifeObject({ id: desertEagleNimble.id(), sectionOverride: weapons.wpn_desert_eagle_nimble });
+    MockAlifeObject.mock({ id: ak74.id(), section: weapons.wpn_ak74 });
+    MockAlifeObject.mock({ id: desertEagle.id(), section: weapons.wpn_desert_eagle });
+    MockAlifeObject.mock({ id: desertEagleNimble.id(), section: weapons.wpn_desert_eagle_nimble });
 
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), actor);
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), MockGameObject.mock());
@@ -199,9 +199,9 @@ describe("StatisticsManager class", () => {
     const actor: GameObject = MockGameObject.mockActor();
 
     registerActor(actor);
-    mockServerAlifeMonsterBase({ id: firstMonster.id(), rank: () => 3 });
-    mockServerAlifeMonsterBase({ id: secondMonster.id(), rank: () => 15 });
-    mockServerAlifeMonsterBase({ id: thirdMonster.id(), rank: () => 16 });
+    MockAlifeMonsterBase.mock({ id: firstMonster.id(), rank: 3 });
+    MockAlifeMonsterBase.mock({ id: secondMonster.id(), rank: 15 });
+    MockAlifeMonsterBase.mock({ id: thirdMonster.id(), rank: 16 });
 
     expect(manager.actorStatistics.killedMonstersCount).toBe(0);
     expect(manager.actorStatistics.bestKilledMonster).toBeNull();

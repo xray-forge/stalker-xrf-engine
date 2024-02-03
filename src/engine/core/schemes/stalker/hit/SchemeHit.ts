@@ -4,10 +4,7 @@ import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme describing how stalker object should handle being hit.

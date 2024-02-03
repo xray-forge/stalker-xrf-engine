@@ -21,7 +21,7 @@ describe("AnomalyZoneBinder class", () => {
   });
 
   it("should correctly handle disabled spawn", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
 
@@ -35,7 +35,7 @@ describe("AnomalyZoneBinder class", () => {
   });
 
   it("should correctly handle going online and offline", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
 
@@ -60,7 +60,7 @@ describe("AnomalyZoneBinder class", () => {
   });
 
   it("should correctly reinit", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
 

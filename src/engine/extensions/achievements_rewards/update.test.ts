@@ -47,7 +47,7 @@ describe("achievement rewards extension", () => {
 
   it("should correctly handle update with detective", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
-    const box: ServerObject = MockAlifeObject.mockNew();
+    const box: ServerObject = MockAlifeObject.mock();
 
     jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
 
@@ -82,7 +82,7 @@ describe("achievement rewards extension", () => {
 
   it("should correctly handle update with monster hunter", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
-    const box: ServerObject = MockAlifeObject.mockNew();
+    const box: ServerObject = MockAlifeObject.mock();
 
     jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
 

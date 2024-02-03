@@ -2,10 +2,7 @@ import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme defining logics of how to handle monster death and record information about who killed them.

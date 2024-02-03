@@ -6,8 +6,8 @@ import { areNoStalkersWorkingOnJobs, isJobAvailableToObject } from "@/engine/cor
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";
 import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { AnyObject, ServerCreatureObject, ServerMonsterBaseObject } from "@/engine/lib/types";
-import { mockSmartTerrain } from "@/fixtures/engine";
-import { mockServerAlifeHumanStalker, mockServerAlifeMonsterBase } from "@/fixtures/xray";
+import { MockSmartTerrain } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("job_check utils", () => {
   it("areNoStalkersWorkingOnJobs should correctly check whether no stalkers are working", () => {
@@ -15,106 +15,106 @@ describe("job_check utils", () => {
     expect(
       areNoStalkersWorkingOnJobs(
         $fromArray<IObjectJobState>([
-          createObjectJobDescriptor(mockServerAlifeMonsterBase()),
-          createObjectJobDescriptor(mockServerAlifeMonsterBase()),
+          createObjectJobDescriptor(MockAlifeMonsterBase.mock()),
+          createObjectJobDescriptor(MockAlifeMonsterBase.mock()),
         ])
       )
     ).toBe(true);
     expect(
       areNoStalkersWorkingOnJobs(
         $fromArray<IObjectJobState>([
-          createObjectJobDescriptor(mockServerAlifeMonsterBase()),
-          createObjectJobDescriptor(mockServerAlifeHumanStalker()),
+          createObjectJobDescriptor(MockAlifeMonsterBase.mock()),
+          createObjectJobDescriptor(MockAlifeHumanStalker.mock()),
         ])
       )
     ).toBe(false);
     expect(
       areNoStalkersWorkingOnJobs(
         $fromArray<IObjectJobState>([
-          createObjectJobDescriptor(mockServerAlifeHumanStalker()),
-          createObjectJobDescriptor(mockServerAlifeHumanStalker()),
+          createObjectJobDescriptor(MockAlifeHumanStalker.mock()),
+          createObjectJobDescriptor(MockAlifeHumanStalker.mock()),
         ])
       )
     ).toBe(false);
   });
 
   it("isJobAvailableToObject should correctly check job accessibility for creatures", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const monster: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
-    const stalker: ServerMonsterBaseObject = mockServerAlifeHumanStalker();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const monster: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
+    const stalker: ServerMonsterBaseObject = MockAlifeHumanStalker.mock();
 
     expect(
       isJobAvailableToObject(
         createObjectJobDescriptor(monster),
         { isMonsterJob: false, id: 2 } as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(false);
     expect(
       isJobAvailableToObject(
         createObjectJobDescriptor(monster),
         { isMonsterJob: true, id: 1 } as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(true);
     expect(
       isJobAvailableToObject(
         createObjectJobDescriptor(stalker),
         { isMonsterJob: false, id: 2 } as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(true);
     expect(
       isJobAvailableToObject(
         createObjectJobDescriptor(stalker),
         { isMonsterJob: true, id: 1 } as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(false);
   });
 
   it("isJobAvailableToObject should wait sometime if job worker died", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const deadStalker: ServerMonsterBaseObject = mockServerAlifeHumanStalker();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const deadStalker: ServerMonsterBaseObject = MockAlifeHumanStalker.mock();
 
-    smartTerrain.jobDeadTimeById.set(10, game.get_game_time());
+    terrain.jobDeadTimeById.set(10, game.get_game_time());
 
     expect(
       isJobAvailableToObject(
         createObjectJobDescriptor(deadStalker),
         { isMonsterJob: false, id: 10 } as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(false);
     expect(
       isJobAvailableToObject(
         createObjectJobDescriptor(deadStalker),
         { isMonsterJob: false, id: 11 } as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(true);
 
-    smartTerrain.jobDeadTimeById.delete(10);
+    terrain.jobDeadTimeById.delete(10);
 
     expect(
       isJobAvailableToObject(
         createObjectJobDescriptor(deadStalker),
         { isMonsterJob: false, id: 10 } as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(true);
     expect(
       isJobAvailableToObject(
         createObjectJobDescriptor(deadStalker),
         { isMonsterJob: false, id: 11 } as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(true);
   });
 
   it("isJobAvailableToObject should correctly check job accessibility with precondition call", () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const monster: ServerMonsterBaseObject = mockServerAlifeMonsterBase();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const monster: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const job: IObjectJobState = createObjectJobDescriptor(monster);
 
     expect(
@@ -125,14 +125,14 @@ describe("job_check utils", () => {
           id: 1,
           preconditionFunction: () => true,
         } as AnyObject as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(true);
     expect(
       isJobAvailableToObject(
         job,
         { isMonsterJob: true, id: 1, preconditionFunction: () => false } as AnyObject as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(false);
 
@@ -149,12 +149,12 @@ describe("job_check utils", () => {
             objectJobDescriptor: IObjectJobState
           ) =>
             serverObject === monster &&
-            smartTerrainParameter === smartTerrain &&
+            smartTerrainParameter === terrain &&
             preconditionParameters.a === 1 &&
             objectJobDescriptor === job,
           preconditionParameters: { a: 1 },
         } as AnyObject as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(true);
     expect(
@@ -170,12 +170,12 @@ describe("job_check utils", () => {
             objectJobDescriptor: IObjectJobState
           ) =>
             serverObject === monster &&
-            smartTerrainParameter === smartTerrain &&
+            smartTerrainParameter === terrain &&
             preconditionParameters.a === 2 &&
             objectJobDescriptor === job,
           preconditionParameters: { a: 1 },
         } as AnyObject as ISmartTerrainJobDescriptor,
-        smartTerrain
+        terrain
       )
     ).toBe(false);
   });

@@ -3,10 +3,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme defining logics of handling hits for physical objects.

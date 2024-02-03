@@ -1,11 +1,8 @@
 import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIStatic, CUIWindow } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType } from "@/engine/core/utils/ui/forms/forms_types";
 import { AnyCallable, PartialRecord, TStringId, TUIEvent, XmlInit } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Initialize UI element and add callback handlers for it.

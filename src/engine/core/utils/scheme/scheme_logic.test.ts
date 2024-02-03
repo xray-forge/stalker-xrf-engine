@@ -50,7 +50,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, GameObject, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockAlifeSimulator, MockGameObject, MockIniFile, mockServerAlifeHumanStalker } from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeSimulator, MockGameObject, MockIniFile } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
@@ -74,9 +74,7 @@ function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
   return schemes;
 }
 
-jest.mock("@/engine/core/objects/smart_terrain/job/job_pick", () => ({
-  getSmartTerrainJobByObjectId: jest.fn(),
-}));
+jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
 
 describe("isActiveSection util", () => {
   beforeEach(() => {
@@ -189,7 +187,7 @@ describe("activateSchemeBySection util", () => {
 
   it("should correctly assign smart terrain jobs", () => {
     const object: GameObject = MockGameObject.mock();
-    const serverObject: ServerHumanObject = mockServerAlifeHumanStalker({ id: object.id() });
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
     const state: IRegistryObjectState = registerObject(object);
     const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
 

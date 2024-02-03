@@ -4,11 +4,8 @@ import { registry } from "@/engine/core/database";
 import type { TSimulationObject } from "@/engine/core/managers/simulation";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { Optional } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check whether object has reached task location.

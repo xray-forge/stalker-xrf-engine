@@ -1,9 +1,6 @@
 import { LuabindClass, move, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { LuaLogger } from "@/engine/core/utils/logging";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check if body state is crouch at the moment.

@@ -21,7 +21,7 @@ import {
 } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartCover, mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { mockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 
 describe("should correctly generate stalker jobs", () => {
   it("should correctly generate default stalker jobs", async () => {
@@ -29,12 +29,12 @@ describe("should correctly generate stalker jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const smartCover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
 
-    registerSmartCover(smartCover);
+    registerSmartCover(cover);
 
-    const [jobs, builder] = createStalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const [jobs, builder] = createStalkerJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(defaultJobsLtx);
     expect(jobs).toEqualLuaArrays([
@@ -179,8 +179,8 @@ describe("should correctly generate stalker jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker.empty.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain("test_smart_empty");
-    const [jobs, builder] = createStalkerJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart_empty");
+    const [jobs, builder] = createStalkerJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(defaultEmptyJobsLtx);
     expect(jobs).toEqualLuaArrays(

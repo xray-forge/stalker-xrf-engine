@@ -5,7 +5,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { ACTOR, NIL } from "@/engine/lib/constants/words";
+import { ACTOR } from "@/engine/lib/constants/words";
 import { EActorMenuMode, EActorMenuType, GameObject, IniFile } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

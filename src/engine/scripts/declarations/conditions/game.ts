@@ -4,11 +4,8 @@ import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isBlackScreen } from "@/engine/core/utils/game";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { GameObject, Optional, TCount, TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Check if provided scheme signal is active.

@@ -1,8 +1,5 @@
 import { extern } from "@/engine/core/utils/binding";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallable, ObjectFactory } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /* eslint @typescript-eslint/no-var-requires: 0 */
 

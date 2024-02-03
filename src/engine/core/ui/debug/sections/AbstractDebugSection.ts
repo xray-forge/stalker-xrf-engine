@@ -1,6 +1,5 @@
 import { CScriptXmlInit, CUIScriptWnd, CUIWindow, LuabindClass } from "xray16";
 
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName, XmlInit } from "@/engine/lib/types";
 
 /**

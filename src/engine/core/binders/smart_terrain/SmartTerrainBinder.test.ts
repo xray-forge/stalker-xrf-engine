@@ -7,15 +7,9 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { ServerObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import {
-  EPacketDataType,
-  MockGameObject,
-  MockNetProcessor,
-  MockObjectBinder,
-  mockServerAlifeObject,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 
-describe("SmartTerrainBinder class", () => {
+describe("SmartTerrainBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -36,7 +30,7 @@ describe("SmartTerrainBinder class", () => {
 
   it("should correctly handle going online/offline", () => {
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
-    const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
     const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "stop").mockImplementation(jest.fn());
@@ -60,7 +54,7 @@ describe("SmartTerrainBinder class", () => {
 
   it("should correctly handle going online/offline when check to spawn is falsy", () => {
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
-    const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
     const soundManager: SoundManager = getManager(SoundManager);
 
     (binder as unknown as MockObjectBinder).canSpawn = false;
@@ -79,7 +73,7 @@ describe("SmartTerrainBinder class", () => {
     mockRegisteredActor();
 
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
-    const serverObject: ServerObject = mockServerAlifeObject({ id: binder.object.id() });
+    const serverObject: ServerObject = MockAlifeObject.mock({ id: binder.object.id() });
     const onVisit = jest.fn();
 
     getManager(EventsManager).registerCallback(EGameEvent.SMART_TERRAIN_VISITED, onVisit);

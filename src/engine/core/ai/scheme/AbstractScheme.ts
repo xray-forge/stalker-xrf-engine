@@ -25,14 +25,14 @@ export abstract class AbstractScheme {
    * @param ini - ini file with scheme details
    * @param scheme - name of scheme to activate, `mob_home` as example
    * @param section - scheme section, `mob_home@2` as example
-   * @param smartTerrainName - additional scheme data with smart terrain name
+   * @param terrain - additional scheme data with smart terrain name
    */
   public static activate(
     object: GameObject,
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    smartTerrainName?: Optional<TName>
+    terrain?: Optional<TName>
   ): IBaseSchemeState {
     abort("Called not implemented 'activate' method: '%s', '%s', '%s'.", object.name(), scheme, section);
   }

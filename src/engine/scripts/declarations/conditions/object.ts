@@ -505,38 +505,6 @@ extern("xr_conditions.is_alive", (actor: GameObject, object: AnyGameObject, para
 /**
  * todo;
  */
-extern("xr_conditions.is_dead_all", (actor: GameObject, object: GameObject, params: LuaArray<string>): boolean => {
-  for (const [index, value] of params) {
-    const npc1: Optional<GameObject> = getObjectByStoryId(value);
-
-    if (npc1) {
-      return !npc1.alive();
-    }
-
-    return false;
-  }
-
-  return true;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.is_dead_one", (actor: GameObject, object: GameObject, p: LuaArray<string>): boolean => {
-  for (const [index, value] of p) {
-    const npc1: Optional<GameObject> = getObjectByStoryId(value);
-
-    if (!npc1 || !npc1.alive()) {
-      return true;
-    }
-  }
-
-  return false;
-});
-
-/**
- * todo;
- */
 extern("xr_conditions.is_dead", (actor: GameObject, object: GameObject, p: [string]): boolean => {
   const npc1: Optional<GameObject> = getObjectByStoryId(p[0]);
 

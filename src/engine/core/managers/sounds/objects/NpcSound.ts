@@ -188,7 +188,7 @@ export class NpcSound extends AbstractPlayableSound {
 
     let characterPrefix: string = "";
 
-    if (this.prefix === false) {
+    if (!this.prefix) {
       characterPrefix = object.sound_prefix();
       object.sound_prefix("characters_voice\\");
     }
@@ -217,7 +217,7 @@ export class NpcSound extends AbstractPlayableSound {
       abort("Couldnt find sounds %s with prefix %s", tostring(this.path), object.sound_prefix());
     }
 
-    if (this.prefix === false) {
+    if (!this.prefix) {
       object.sound_prefix(characterPrefix);
     }
 

@@ -1,10 +1,7 @@
 import { TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { IniFile, LuaArray, Optional, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Read upgrade group information from ini file / specific upgrade group section.

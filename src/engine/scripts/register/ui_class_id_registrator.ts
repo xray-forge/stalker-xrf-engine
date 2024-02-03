@@ -1,10 +1,7 @@
 import { abort } from "@/engine/core/utils/assertion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameClassId, TGameClassId } from "@/engine/lib/constants/class_ids";
 import { EGameType } from "@/engine/lib/constants/game_types";
 import type { Maybe } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * @param gameType - type of the game

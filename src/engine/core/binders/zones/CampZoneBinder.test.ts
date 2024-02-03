@@ -24,7 +24,7 @@ describe("CampZoneBinder", () => {
   });
 
   it("should correctly handle going online and offline when spawn check is falsy", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
 
@@ -35,7 +35,7 @@ describe("CampZoneBinder", () => {
   });
 
   it("should correctly handle going online and offline with no camp section", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
 
@@ -53,7 +53,7 @@ describe("CampZoneBinder", () => {
   });
 
   it("should correctly handle going online and offline with camp section", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
     const ini: IniFile = MockIniFile.mock("test.ltx", {
@@ -78,7 +78,7 @@ describe("CampZoneBinder", () => {
   });
 
   it("should correctly handle going online and offline with camp section and custom config", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
     const ini: IniFile = MockIniFile.mock("test.ltx", {
@@ -95,7 +95,7 @@ describe("CampZoneBinder", () => {
   });
 
   it("should correctly handle update ticks", () => {
-    const serverObject: ServerObject = MockAlifeObject.mockNew();
+    const serverObject: ServerObject = MockAlifeObject.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
     const binder: CampZoneBinder = new CampZoneBinder(object);
 

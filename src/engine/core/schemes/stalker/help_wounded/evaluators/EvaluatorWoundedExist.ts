@@ -4,14 +4,11 @@ import { setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/stalker/help_wounded/utils";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNearestWoundedToHelp } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
 import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Check if any wounded stalker to help exists nearby.

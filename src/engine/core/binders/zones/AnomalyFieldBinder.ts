@@ -1,10 +1,7 @@
 import { LuabindClass, object_binder } from "xray16";
 
 import { registerAnomalyField, resetObject, unregisterAnomalyField } from "@/engine/core/database";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ServerObject } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Binder of anomaly field game object.

@@ -1,11 +1,8 @@
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { EScheme, GameObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manager of object hit events.

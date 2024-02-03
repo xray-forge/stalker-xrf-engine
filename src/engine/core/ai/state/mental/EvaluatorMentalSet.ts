@@ -2,10 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, TAnimationType } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check if target mental state is achieved.

@@ -2,10 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { FALSE } from "@/engine/lib/constants/words";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Evaluator to check whether object is wounded and cannot fight.

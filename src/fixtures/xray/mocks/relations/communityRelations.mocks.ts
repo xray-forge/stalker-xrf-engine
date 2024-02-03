@@ -70,7 +70,7 @@ export const communityGoodwill: Record<TName, Record<TName, TCount>> = {
 export const charactersGoodwill: Record<TNumberId, Record<TNumberId, TCount>> = {};
 
 /**
- * Mock goowill between characters by id.
+ * Mock goodwill between characters by id.
  */
 export function mockCharactersGoodwill(from: TNumberId, to: TNumberId, goodwill: TCount): void {
   if (!charactersGoodwill[from]) {

@@ -5,10 +5,7 @@ import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWa
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme describing simple patrolling over defined paths for monsters.

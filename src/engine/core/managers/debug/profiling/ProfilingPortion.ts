@@ -2,10 +2,7 @@ import { profile_timer } from "xray16";
 
 import { getManager } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling/ProfilingManager";
-import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { AnyCallable, LuaArray, Optional, ProfileTimer, TDuration, TName } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, file: "profiling" });
 
 /**
  * Portion of profiling metrics for isolated performance measuring of code execution.

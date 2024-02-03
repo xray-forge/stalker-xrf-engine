@@ -1,5 +1,4 @@
 import { jest } from "@jest/globals";
-import { CUIWindow } from "xray16";
 
 import { MockStaticDrawableWrapper } from "@/fixtures/xray/mocks/objects/ui/StaticDrawableWrapper.mock";
 

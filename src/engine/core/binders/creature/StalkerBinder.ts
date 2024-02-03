@@ -1,4 +1,4 @@
-import { actor_stats, callback, game_graph, level, LuabindClass, object_binder, patrol, time_global } from "xray16";
+import { actor_stats, callback, level, LuabindClass, object_binder, patrol, time_global } from "xray16";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup";
@@ -57,7 +57,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
-  EGameObjectRelation,
   EScheme,
   ESchemeEvent,
   GameObject,
@@ -301,7 +300,7 @@ export class StalkerBinder extends object_binder {
       for (const [, manager] of registry.lightZones) {
         [light, forced] = manager.checkStalker(object);
 
-        if (forced === true) {
+        if (forced) {
           break;
         }
       }
@@ -314,15 +313,15 @@ export class StalkerBinder extends object_binder {
         light = true;
       }
 
-      if (light === false) {
+      if (!light) {
         if (isCurrentlyIndoor) {
           light = true;
         }
       }
     }
 
-    if (!forced && light === true) {
-      const scheme = registry.objects.get(object.id()).activeScheme!;
+    if (!forced && light) {
+      const scheme: EScheme = registry.objects.get(object.id()).activeScheme!;
 
       if (scheme === EScheme.CAMPER || scheme === EScheme.SLEEPER) {
         light = false;

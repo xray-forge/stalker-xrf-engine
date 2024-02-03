@@ -20,28 +20,8 @@ import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { GameObject, TCount, TSection } from "@/engine/lib/types";
-import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeSimulator, MockGameObject, mockServerAlifeObject } from "@/fixtures/xray";
-
-function createObjectWithItems(): GameObject {
-  return MockGameObject.mock({
-    inventory: [
-      [1, MockGameObject.mock({ section: medkits.medkit })],
-      [2, MockGameObject.mock({ section: medkits.medkit })],
-      [3, MockGameObject.mock({ section: medkits.medkit_army })],
-      [4, MockGameObject.mock({ section: medkits.medkit_army })],
-      [5, MockGameObject.mock({ section: medkits.medkit_army })],
-      [40, MockGameObject.mock({ section: weapons.wpn_svd })],
-      [41, MockGameObject.mock({ section: weapons.wpn_svd })],
-      [50, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [51, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [52, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [53, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [54, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-      [55, MockGameObject.mock({ section: ammo.ammo_9x18_pmm })],
-    ],
-  });
-}
+import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
+import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "@/fixtures/xray";
 
 function getItemsCount(object: GameObject, section: TSection): TCount {
   return [...((object as unknown as MockGameObject).objectInventory as Map<number, GameObject>).entries()].filter(
@@ -288,7 +268,7 @@ describe("takeItemFromActor util", () => {
 
     expect(() => takeItemFromActor("test_section_none")).toThrow();
 
-    MockAlifeSimulator.addToRegistry(mockServerAlifeObject({ id: itemToTake.id() }));
+    MockAlifeSimulator.addToRegistry(MockAlifeObject.mock({ id: itemToTake.id() }));
 
     expect(registry.simulator.object(itemToTake.id())).not.toBeNull();
 

@@ -6,9 +6,9 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemOutfit } from "@/engine/core/objects/item";
 import { ServerItemHelmetObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockObjectBinder, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 
-describe("HelmetBinder class", () => {
+describe("HelmetBinder", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -16,7 +16,7 @@ describe("HelmetBinder class", () => {
 
   it("should correctly handle going online/offline and release", () => {
     const binder: OutfitBinder = new OutfitBinder(MockGameObject.mock());
-    const serverObject: ServerItemHelmetObject = mockServerAlifeObject({
+    const serverObject: ServerItemHelmetObject = MockAlifeObject.mock({
       id: binder.object.id(),
     }) as ServerItemHelmetObject;
 
@@ -47,7 +47,7 @@ describe("HelmetBinder class", () => {
 
   it("should correctly handle going online/offline when check to spawn is falsy", () => {
     const binder: OutfitBinder = new OutfitBinder(MockGameObject.mock());
-    const serverObject: ItemOutfit = mockServerAlifeObject({
+    const serverObject: ItemOutfit = MockAlifeObject.mock({
       id: binder.object.id(),
     }) as ItemOutfit;
 
@@ -75,7 +75,7 @@ describe("HelmetBinder class", () => {
     eventsManager.registerCallback(EGameEvent.ITEM_OUTFIT_GO_OFFLINE, onGoOffline);
 
     binder.net_spawn(
-      mockServerAlifeObject({
+      MockAlifeObject.mock({
         id: binder.object.id(),
       }) as ItemOutfit
     );
@@ -92,7 +92,7 @@ describe("HelmetBinder class", () => {
     expect(onGoOffline).toHaveBeenCalledWith(binder.object, binder);
 
     binder.net_spawn(
-      mockServerAlifeObject({
+      MockAlifeObject.mock({
         id: binder.object.id(),
       }) as ItemOutfit
     );

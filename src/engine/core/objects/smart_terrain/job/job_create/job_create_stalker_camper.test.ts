@@ -6,12 +6,12 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job";
 import { createStalkerCamperJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_camper";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 
 describe("should correctly generate stalker camper jobs", () => {
   it("should correctly generate default camper jobs with no camp patrols", async () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain("empty_smart");
-    const [jobs, builder] = createStalkerCamperJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("empty_smart");
+    const [jobs, builder] = createStalkerCamperJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe("");
     expect(jobs).toEqualLuaArrays([]);
@@ -22,8 +22,8 @@ describe("should correctly generate stalker camper jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_camper.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobs, builder] = createStalkerCamperJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const [jobs, builder] = createStalkerCamperJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays([
@@ -46,11 +46,11 @@ describe("should correctly generate stalker camper jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_camper.restrictor.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
-    smartTerrain.defendRestrictor = "test_defend_restrictor";
+    terrain.defendRestrictor = "test_defend_restrictor";
 
-    const [jobs, builder] = createStalkerCamperJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const [jobs, builder] = createStalkerCamperJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays([

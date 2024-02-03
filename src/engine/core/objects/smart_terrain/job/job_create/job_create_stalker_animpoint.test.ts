@@ -8,7 +8,7 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_t
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job";
 import { createStalkerAnimpointJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_animpoint";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartCover, mockSmartTerrain, readInGameTestLtx, resetRegistry } from "@/fixtures/engine";
+import { mockSmartCover, MockSmartTerrain, readInGameTestLtx, resetRegistry } from "@/fixtures/engine";
 
 describe("should correctly generate stalker animpoint jobs", () => {
   beforeEach(() => {
@@ -16,8 +16,8 @@ describe("should correctly generate stalker animpoint jobs", () => {
   });
 
   it("should correctly generate default animpoint jobs with no smart covers", async () => {
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const [jobs, builder] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const terrain: SmartTerrain = MockSmartTerrain.mock("empty_smart");
+    const [jobs, builder] = createStalkerAnimpointJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe("");
     expect(jobs).toEqualLuaArrays([]);
@@ -28,12 +28,12 @@ describe("should correctly generate stalker animpoint jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_animpoint.default.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const smartCover: SmartCover = mockSmartCover("test_smart_animpoint_1");
 
     registerSmartCover(smartCover);
 
-    const [jobs, builder] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const [jobs, builder] = createStalkerAnimpointJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays([
@@ -54,14 +54,14 @@ describe("should correctly generate stalker animpoint jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_animpoint.restrictor.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const smartCover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
 
-    smartTerrain.defendRestrictor = "test_defend_restrictor";
+    terrain.defendRestrictor = "test_defend_restrictor";
 
-    registerSmartCover(smartCover);
+    registerSmartCover(cover);
 
-    const [jobs, builder] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const [jobs, builder] = createStalkerAnimpointJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays([
@@ -82,15 +82,15 @@ describe("should correctly generate stalker animpoint jobs", () => {
       path.resolve(__dirname, "__test__", "job_create_stalker_animpoint.ignore.ltx")
     );
 
-    const smartTerrain: SmartTerrain = mockSmartTerrain();
-    const smartCover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
+    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
 
-    smartTerrain.defendRestrictor = "test_defend_restrictor";
-    smartTerrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
+    terrain.defendRestrictor = "test_defend_restrictor";
+    terrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
-    registerSmartCover(smartCover);
+    registerSmartCover(cover);
 
-    const [jobs, builder] = createStalkerAnimpointJobs(smartTerrain, new LuaTable(), new StringBuilder());
+    const [jobs, builder] = createStalkerAnimpointJobs(terrain, new LuaTable(), new StringBuilder());
 
     expect(builder.build()).toBe(jobsLtx);
     expect(jobs).toEqualLuaArrays([

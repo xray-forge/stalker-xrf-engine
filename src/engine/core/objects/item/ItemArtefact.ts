@@ -7,11 +7,8 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { Optional, ServerActorObject } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Artefact item representation.

@@ -43,7 +43,7 @@ export function createExclusiveJobs(smartTerrain: SmartTerrain, jobs: TSmartTerr
     const exclusiveJobsCount: TCount = smartTerrainIni.line_count("exclusive");
 
     for (const i of $range(0, exclusiveJobsCount - 1)) {
-      const [result, field, value] = smartTerrainIni.r_line("exclusive", i, "", "");
+      const [, field] = smartTerrainIni.r_line("exclusive", i, "", "");
 
       createExclusiveJob(smartTerrainIni, "exclusive", field, jobs);
     }

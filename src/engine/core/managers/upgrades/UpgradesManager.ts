@@ -12,12 +12,9 @@ import {
   pickSectionFromCondList,
   TConditionList,
 } from "@/engine/core/utils/ini";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, LuaArray, Optional, TCount, TLabel, TName, TNotCastedBoolean, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Manager to handle upgrading of items with mechanics logics.

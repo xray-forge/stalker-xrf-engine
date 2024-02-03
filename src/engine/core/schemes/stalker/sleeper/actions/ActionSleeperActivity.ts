@@ -7,7 +7,6 @@ import { ESleeperState, ISchemeSleeperState } from "@/engine/core/schemes/stalke
 import { abort } from "@/engine/core/utils/assertion";
 import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
 import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   GameObject,
   ISchemeEventHandler,
@@ -18,8 +17,6 @@ import {
   TDuration,
   Vector,
 } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Action to handle sleeping state of stalkers.

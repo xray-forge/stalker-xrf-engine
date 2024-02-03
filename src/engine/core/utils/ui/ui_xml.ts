@@ -1,13 +1,10 @@
 import { CScriptXmlInit, getFS } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { isWideScreen } from "@/engine/core/utils/ui/ui_screen";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import { TPath, XmlInit } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Util to get XML file for current screen resolution.

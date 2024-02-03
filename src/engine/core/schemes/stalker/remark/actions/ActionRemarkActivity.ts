@@ -9,7 +9,6 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   GameObject,
@@ -25,8 +24,6 @@ const stateInitial = 0;
 const stateAnimation = 1;
 const stateSound = 2;
 const stateFinish = 3;
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * todo;
@@ -88,12 +85,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
     this.animEndSignalled = false;
     this.animScheduled = true;
 
-    if (this.st.sndAnimSync === false && this.st.snd !== null) {
-      this.sndScheduled = true;
-    } else {
-      this.sndScheduled = false;
-    }
-
+    this.sndScheduled = !this.st.sndAnimSync && this.st.snd !== null;
     this.sndStarted = false;
 
     this.state = stateInitial;

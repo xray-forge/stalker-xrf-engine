@@ -2,10 +2,7 @@ import { SYSTEM_INI } from "@/engine/core/database";
 import { IUpgradeDescriptor, TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { readAllObjectUpgrades } from "@/engine/core/managers/upgrades/utils/upgrades_get";
 import { getItemInstalledUpgradesSet } from "@/engine/core/utils/item";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, LuaArray, TCount, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Add single random update for item object.

@@ -5,7 +5,7 @@ import { getManager, IRegistryObjectState, registerSimulator, registry } from "@
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeapon } from "@/engine/core/objects/item/ItemWeapon";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
+import { MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 
 describe("WeaponBinder", () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe("WeaponBinder", () => {
 
   it("should correctly handle going online/offline and release", () => {
     const binder: WeaponBinder = new WeaponBinder(MockGameObject.mock());
-    const serverObject: ItemWeapon = MockAlifeHumanStalker.mockNew({
+    const serverObject: ItemWeapon = MockAlifeObject.mock({
       id: binder.object.id(),
     }) as ItemWeapon;
 
@@ -46,7 +46,7 @@ describe("WeaponBinder", () => {
 
   it("should correctly handle going online/offline when check to spawn is falsy", () => {
     const binder: WeaponBinder = new WeaponBinder(MockGameObject.mock());
-    const serverObject: ItemWeapon = MockAlifeObject.mockNew({
+    const serverObject: ItemWeapon = MockAlifeObject.mock({
       id: binder.object.id(),
     }) as ItemWeapon;
 
@@ -74,7 +74,7 @@ describe("WeaponBinder", () => {
     eventsManager.registerCallback(EGameEvent.ITEM_WEAPON_GO_OFFLINE, onGoOffline);
 
     binder.net_spawn(
-      MockAlifeObject.mockNew({
+      MockAlifeObject.mock({
         id: binder.object.id(),
       }) as ItemWeapon
     );
@@ -91,7 +91,7 @@ describe("WeaponBinder", () => {
     expect(onGoOffline).toHaveBeenCalledWith(binder.object, binder);
 
     binder.net_spawn(
-      MockAlifeObject.mockNew({
+      MockAlifeObject.mock({
         id: binder.object.id(),
       }) as ItemWeapon
     );

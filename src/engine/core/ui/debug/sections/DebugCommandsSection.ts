@@ -61,7 +61,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
    */
   public onCheckboxChange(check: CUICheckButton, command: TConsoleCommand, type: "numeric" | "boolean"): void {
     const isEnabled: boolean = check.GetCheck();
-    let parameter: string = "";
+    let parameter: string;
 
     if (type === "boolean") {
       parameter = isEnabled ? "on" : "off";

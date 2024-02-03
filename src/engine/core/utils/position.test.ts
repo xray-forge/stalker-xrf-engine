@@ -24,12 +24,7 @@ import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { GameObject, ServerHumanObject, ServerObject, ServerSmartZoneObject, Vector } from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
-import {
-  MockAlifeHumanStalker,
-  MockGameObject,
-  mockServerAlifeObject,
-  mockServerAlifeSmartZone,
-} from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeObject, MockAlifeSmartZone, MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("isObjectInSmartTerrain util", () => {
@@ -38,8 +33,10 @@ describe("isObjectInSmartTerrain util", () => {
   });
 
   it("should check object inside smart terrain", () => {
-    const smartTerrain = mockServerAlifeSmartZone({ name: <T extends string>() => "test-smart" as T });
-    const { actorGameObject } = mockRegisteredActor({}, { m_smart_terrain_id: smartTerrain.id });
+    const terrain: ServerSmartZoneObject = MockAlifeSmartZone.mock({ name: "test-smart" });
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+
+    actorServerObject.m_smart_terrain_id = terrain.id;
 
     expect(isObjectInSmartTerrain(actorGameObject, "test-smart")).toBe(true);
     expect(isObjectInSmartTerrain(actorGameObject, "test-smart-another")).toBe(false);
@@ -94,7 +91,7 @@ describe("isObjectOnLevel util", () => {
   });
 
   it("should check object on level", () => {
-    const object: ServerObject = mockServerAlifeObject();
+    const object: ServerObject = MockAlifeObject.mock();
 
     expect(isObjectOnLevel(null, "zaton")).toBe(false);
     expect(isObjectOnLevel(object, "pripyat")).toBe(true);
@@ -110,15 +107,10 @@ describe("areObjectsOnSameLevel util", () => {
   });
 
   it("should check objects on level", () => {
-    expect(areObjectsOnSameLevel(mockServerAlifeObject(), mockServerAlifeObject())).toBe(true);
-    expect(areObjectsOnSameLevel(mockServerAlifeObject(), mockServerAlifeObject({ m_game_vertex_id: 990 }))).toBe(
-      false
-    );
+    expect(areObjectsOnSameLevel(MockAlifeObject.mock(), MockAlifeObject.mock())).toBe(true);
+    expect(areObjectsOnSameLevel(MockAlifeObject.mock(), MockAlifeObject.mock({ gameVertexId: 990 }))).toBe(false);
     expect(
-      areObjectsOnSameLevel(
-        mockServerAlifeObject({ m_game_vertex_id: 990 }),
-        mockServerAlifeObject({ m_game_vertex_id: 990 })
-      )
+      areObjectsOnSameLevel(MockAlifeObject.mock({ gameVertexId: 990 }), MockAlifeObject.mock({ gameVertexId: 990 }))
     ).toBe(true);
   });
 });
@@ -169,15 +161,15 @@ describe("getDistanceBetween util", () => {
   });
 
   it("getServerDistanceBetween should correctly get distance for offline objects", () => {
-    const first: ServerObject = mockServerAlifeObject({ m_game_vertex_id: 500 });
+    const first: ServerObject = MockAlifeObject.mock({ gameVertexId: 500 });
 
     jest.spyOn(game_graph().vertex(500).game_point(), "distance_to").mockImplementation(() => 600);
-    expect(getServerDistanceBetween(first, mockServerAlifeObject())).toBe(600);
+    expect(getServerDistanceBetween(first, MockAlifeObject.mock())).toBe(600);
 
-    const second: ServerObject = mockServerAlifeObject({ m_game_vertex_id: 501 });
+    const second: ServerObject = MockAlifeObject.mock({ gameVertexId: 501 });
 
     jest.spyOn(game_graph().vertex(501).game_point(), "distance_to").mockImplementation(() => 255);
-    expect(getServerDistanceBetween(second, mockServerAlifeObject())).toBe(255);
+    expect(getServerDistanceBetween(second, MockAlifeObject.mock())).toBe(255);
   });
 
   it("should correctly get distance for game objects", () => {
@@ -293,14 +285,14 @@ describe("getObjectSmartTerrain util", () => {
     expect(getObjectSmartTerrain(MockGameObject.mock())).toBeNull();
     expect(getObjectSmartTerrain(MockAlifeHumanStalker.mock())).toBeNull();
 
-    const smartTerrainObject: ServerSmartZoneObject = mockServerAlifeSmartZone();
+    const terrain: ServerSmartZoneObject = MockAlifeSmartZone.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
     const gameObject: GameObject = MockGameObject.mock({ id: serverObject.id });
 
-    serverObject.m_smart_terrain_id = smartTerrainObject.id;
+    serverObject.m_smart_terrain_id = terrain.id;
 
-    expect(getObjectSmartTerrain(gameObject)).toBe(smartTerrainObject);
-    expect(getObjectSmartTerrain(serverObject)).toBe(smartTerrainObject);
+    expect(getObjectSmartTerrain(gameObject)).toBe(terrain);
+    expect(getObjectSmartTerrain(serverObject)).toBe(terrain);
 
     serverObject.m_smart_terrain_id = 99_999;
 

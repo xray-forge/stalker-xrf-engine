@@ -2,11 +2,8 @@ import { clsid } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Read monster state from provided ini file.

@@ -7,29 +7,26 @@ import {
   ServerCreatureObject,
   ServerGroupObject,
   ServerSquadMemberDescriptor,
-  TClassId,
   TCount,
   TIndex,
   TNumberId,
 } from "@/engine/lib/types";
-import { MockAlifeSimulator } from "@/fixtures/xray";
-import { mockClsid } from "@/fixtures/xray/mocks/constants";
-import {
-  MockAlifeDynamicObject,
-  mockServerAlifeDynamicObject,
-} from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
+import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
+import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
+import { MockAlifeDynamicObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";
+import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 
 /**
  * Class mocking generic server offline-online group.
  */
 export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
+  public static override mock(config: IMockAlifeObjectConfig = {}): ServerGroupObject {
+    return new this({ ...config, clsid: mockClsid.online_offline_group_s }) as unknown as ServerGroupObject;
+  }
+
   public members: Array<ServerSquadMemberDescriptor> = [];
   public invulnerable!: TConditionList;
   public faction!: TCommunity;
-
-  public override clsid(): TClassId {
-    return mockClsid.online_offline_group_s as TClassId;
-  }
 
   public squad_members(): Array<ServerSquadMemberDescriptor> {
     return this.members;
@@ -59,32 +56,9 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
     return this.members.length;
   }
 
-  public update = jest.fn();
+  public force_set_goodwill = jest.fn();
 
   public asMock(): ServerGroupObject {
     return this as unknown as ServerGroupObject;
   }
-}
-
-/**
- * Mock alife group server object for testing.
- */
-export function mockServerAlifeOnlineOfflineGroup(base: Partial<ServerGroupObject> = {}): ServerGroupObject {
-  const members: Array<ServerSquadMemberDescriptor> = [];
-
-  return mockServerAlifeDynamicObject({
-    ...base,
-    clsid: () => mockClsid.online_offline_group_s,
-    commander_id: jest.fn(() => null),
-    assignSmartTerrain: jest.fn(),
-    update: jest.fn(),
-    createSquadMembers: jest.fn(),
-    getCommunity: jest.fn(() => "stalker"),
-    squad_members: jest.fn((): Array<ServerSquadMemberDescriptor> => {
-      return members;
-    }),
-    addSquadMember: (object: ServerCreatureObject): void => {
-      members.push({ object: object, id: object.id });
-    },
-  } as unknown as ServerGroupObject) as unknown as ServerGroupObject;
 }

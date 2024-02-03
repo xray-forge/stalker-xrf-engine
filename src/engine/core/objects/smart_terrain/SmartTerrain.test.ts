@@ -11,23 +11,23 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_t
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
 import { IniFile, ServerHumanObject } from "@/engine/lib/types";
-import { MockSmartTerrain, mockSmartTerrainWithConfiguration, resetRegistry } from "@/fixtures/engine";
+import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
+  MockAlifeCreatureActor,
   MockAlifeHumanStalker,
   MockCALifeSmartTerrainTask,
   MockCTime,
   MockIniFile,
   MockNetProcessor,
-  mockServerAlifeCreatureActor,
 } from "@/fixtures/xray";
 
-describe("SmartTerrain class generic logic", () => {
+describe("SmartTerrain generic logic", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
-    registerActorServer(mockServerAlifeCreatureActor() as Actor);
+    registerActorServer(MockAlifeCreatureActor.mock() as Actor);
   });
 
   it("should correctly init default fields", () => {
@@ -289,7 +289,7 @@ describe("SmartTerrain class generic logic", () => {
       37,
     ]);
 
-    const anotherTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
+    const anotherTerrain: SmartTerrain = MockSmartTerrain.mockConfigured("another_smart");
 
     anotherTerrain.STATE_Read(netProcessor.asNetPacket(), 5001);
 
@@ -347,7 +347,7 @@ describe("SmartTerrain class generic logic", () => {
     ]);
     expect(netProcessor.dataList).toEqual(["state_write_from_SmartTerrain", 0, 0, 0, false, false, 0, 6]);
 
-    const anotherTerrain: SmartTerrain = mockSmartTerrainWithConfiguration("another_smart");
+    const anotherTerrain: SmartTerrain = MockSmartTerrain.mockConfigured("another_smart");
 
     anotherTerrain.STATE_Read(netProcessor.asNetPacket(), 5001);
 

@@ -8,11 +8,8 @@ import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounde
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { ActionPlanner, GameObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
-
-const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Scheme describing object logics for helping friendly injured stalkers.

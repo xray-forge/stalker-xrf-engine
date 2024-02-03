@@ -71,7 +71,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
 
     return Object.keys(data || {}).length;
   });
-  public section_count = jest.fn((section: TSection) => Object.keys(this.data).length);
+  public section_count = jest.fn(() => Object.keys(this.data).length);
   public section_exist = jest.fn((section: TSection) => this.data[section] !== undefined);
   public r_line = jest.fn((section: TSection, lineNumber: TNumberId) => {
     const data = this.data[section];

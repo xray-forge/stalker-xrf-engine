@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/utils/anomaly";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockPatrol, mockServerAlifeObject } from "@/fixtures/xray";
+import { MockAlifeObject, MockGameObject, MockPatrol } from "@/fixtures/xray";
 
 describe("getAnomalyArtefacts util", () => {
   beforeEach(() => {
@@ -36,8 +36,8 @@ describe("getAnomalyArtefacts util", () => {
     anomalyZoneBinder.artefactPathsByArtefactId.set(523, "sect_3");
     expect(getAnomalyArtefacts("another-anomaly")).toEqualLuaArrays([]);
 
-    mockServerAlifeObject({ id: 521, section_name: <T>() => "sect_1" as T });
-    mockServerAlifeObject({ id: 523, section_name: <T>() => "sect_3" as T });
+    MockAlifeObject.mock({ id: 521, section: "sect_1" });
+    MockAlifeObject.mock({ id: 523, section: "sect_3" });
 
     expect(getAnomalyArtefacts("another-anomaly")).toEqualLuaArrays(["sect_1", "sect_3"]);
   });
@@ -67,8 +67,8 @@ describe("anomalyHasArtefact util", () => {
     anomalyZoneBinder.artefactPathsByArtefactId.set(513, "sect_3");
     expect(anomalyHasArtefact("test-anomaly", "sect_1")).toBe(false);
 
-    mockServerAlifeObject({ id: 511, section_name: <T>() => "sect_1" as T });
-    mockServerAlifeObject({ id: 512, section_name: <T>() => "sect_2" as T });
+    MockAlifeObject.mock({ id: 511, section: "sect_1" });
+    MockAlifeObject.mock({ id: 512, section: "sect_2" });
 
     expect(anomalyHasArtefact("test-anomaly", "sect_1")).toBe(true);
     expect(anomalyHasArtefact("test-anomaly", "sect_2")).toBe(true);
