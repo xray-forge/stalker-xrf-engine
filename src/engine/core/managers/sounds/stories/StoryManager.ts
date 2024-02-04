@@ -24,7 +24,7 @@ export class StoryManager {
   public phraseIdle: TDuration = 0;
 
   public constructor(id: TStringId) {
-    this.id = tostring(id);
+    this.id = id;
   }
 
   /**
@@ -45,11 +45,7 @@ export class StoryManager {
    * @returns whether sound story is finished
    */
   public isFinished(): boolean {
-    if (this.story === null) {
-      return true;
-    }
-
-    return this.story.isFinished();
+    return !this.story || this.story.isFinished();
   }
 
   /**
