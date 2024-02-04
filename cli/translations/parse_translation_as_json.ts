@@ -8,7 +8,10 @@ import { decode, encodingExists } from "iconv-lite";
 
 import { default as config } from "#/config.json";
 import { TARGET_PARSED_DIR, WINDOWS_1251_LOCALES } from "#/globals";
-import { createDirIfNoExisting, exists, isDirectory, readDirContentFlat } from "#/utils/fs";
+import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
+import { exists } from "#/utils/fs/exists";
+import { isDirectory } from "#/utils/fs/is_directory";
+import { readDirContentFlat } from "#/utils/fs/read_dir_content_flat";
 import { NodeLogger } from "#/utils/logging";
 import {
   AnyObject,

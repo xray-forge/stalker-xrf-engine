@@ -1,9 +1,9 @@
 [submodule "cli/bin"]
-	path = cli/bin
-	url = https://github.com/xray-forge/stalker-xrf-bin.git
+  path = cli/bin
+  url = https://github.com/xray-forge/stalker-xrf-bin.git
   branch = main
 
 [submodule "src/resources"]
-	path = src/resources
-	url = https://gitlab.com/xray-forge/stalker-xrf-resources-base.git
+  path = src/resources
+  url = https://gitlab.com/xray-forge/stalker-xrf-resources-base.git
   branch = main
