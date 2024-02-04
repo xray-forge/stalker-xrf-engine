@@ -1,6 +1,6 @@
 import { default as assert } from "assert";
 import * as cp from "child_process";
-import { copyFileSync, existsSync, readdirSync, readFileSync, renameSync, rmSync, unlinkSync, writeFileSync } from "fs";
+import * as fs from "fs";
 import * as path from "path";
 
 import { blue, blueBright, yellow, yellowBright } from "chalk";
@@ -33,10 +33,10 @@ export function compress(parameters: ICompressParameters): void {
 
   if (parameters.clean) {
     log.info("Perform package cleanup:", yellowBright(TARGET_DATABASE_DIR));
-    rmSync(TARGET_DATABASE_DIR, { recursive: true, force: true });
+    fs.rmSync(TARGET_DATABASE_DIR, { recursive: true, force: true });
   }
 
-  assert(existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata build directory to exist.");
+  assert(fs.existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata build directory to exist.");
 
   if (parameters.include !== "all") {
     parameters.include.forEach((it) => {
@@ -123,11 +123,11 @@ function compressWithConfig(
   /**
    * Move compressed DB files to target DB directory.
    */
-  readdirSync(TARGET_DIR, { withFileTypes: true }).forEach((it) => {
+  fs.readdirSync(TARGET_DIR, { withFileTypes: true }).forEach((it) => {
     if (it.isFile() && it.name.startsWith("gamedata.pack_")) {
       const index: number = Number.parseInt(it.name.match(/\d+/)[0]);
 
-      renameSync(path.resolve(TARGET_DIR, it.name), path.resolve(TARGET_DATABASE_DIR, `${configName}.db${index}`));
+      fs.renameSync(path.resolve(TARGET_DIR, it.name), path.resolve(TARGET_DATABASE_DIR, `${configName}.db${index}`));
     }
   });
 
@@ -140,8 +140,8 @@ function compressWithConfig(
 function removeConfig(name: string): void {
   const fullPath: string = path.resolve(TARGET_DIR, name);
 
-  if (existsSync(fullPath)) {
-    unlinkSync(fullPath);
+  if (fs.existsSync(fullPath)) {
+    fs.unlinkSync(fullPath);
   }
 }
 
@@ -153,7 +153,7 @@ function copyConfig(name: string): void {
   const to: string = path.resolve(TARGET_DIR, name);
 
   removeConfig(name);
-  copyFileSync(from, to);
+  fs.copyFileSync(from, to);
 }
 
 /**
@@ -171,16 +171,16 @@ export function createLtxCompressionConfig(
 ): void {
   const to: string = path.resolve(TARGET_DIR, name);
 
-  if (existsSync(to)) {
-    unlinkSync(to);
+  if (fs.existsSync(to)) {
+    fs.unlinkSync(to);
   }
 
   const ltxTemplate: string = "template.ltx";
   const ltxTemplatePath: string = path.resolve(__dirname, "configs", ltxTemplate);
 
-  assert(existsSync(ltxTemplatePath), `Expected ltx template '${ltxTemplatePath}' to exist.`);
+  assert(fs.existsSync(ltxTemplatePath), `Expected ltx template '${ltxTemplatePath}' to exist.`);
 
-  const templateText: string = readFileSync(ltxTemplatePath).toString();
+  const templateText: string = fs.readFileSync(ltxTemplatePath).toString();
   const resultingConfig: string = templateText
     .replace(";$files$", files.join("\n"))
     .replace(";$folders$", folders.map((it) => `${it} = true`).join("\n"));
@@ -188,7 +188,7 @@ export function createLtxCompressionConfig(
   log.debug("Creating LTX config:", name, to);
   log.debug("Created config:", "\n", resultingConfig);
 
-  writeFileSync(to, resultingConfig);
+  fs.writeFileSync(to, resultingConfig);
 }
 
 /**
@@ -201,7 +201,7 @@ export function collectLog(): void {
     createDirIfNoExisting(TARGET_LOGS_DIR);
     deleteFileIfExists(fileLogPath);
 
-    writeFileSync(fileLogPath, NodeLogger.LOG_FILE_BUFFER.join(""));
+    fs.writeFileSync(fileLogPath, NodeLogger.LOG_FILE_BUFFER.join(""));
 
     log.info(blueBright("File log collected:"), yellowBright(fileLogPath), "\n");
   } catch (error) {
