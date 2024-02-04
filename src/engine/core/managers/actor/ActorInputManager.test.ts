@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { game, level } from "xray16";
+import { game, get_console, level } from "xray16";
 
 import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
-import { EventsManager } from "@/engine/core/managers/events";
-import { EActiveItemSlot, GameObject } from "@/engine/lib/types";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { Console, EActiveItemSlot, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockCTime, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
@@ -20,10 +20,14 @@ describe("ActorInputManager", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
+    const manager: ActorInputManager = getManager(ActorInputManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(4);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_FIRST_UPDATE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_ONLINE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_USE_ITEM)).toBe(1);
 
     disposeManager(ActorInputManager);
 
@@ -31,15 +35,15 @@ describe("ActorInputManager", () => {
   });
 
   it("should correctly save and load data", () => {
-    const actorInputManager: ActorInputManager = getManager(ActorInputManager);
+    const manager: ActorInputManager = getManager(ActorInputManager);
     const netProcessor: MockNetProcessor = new MockNetProcessor();
 
     registerActor(MockGameObject.mock());
     replaceFunctionMock(registry.actor.active_slot, () => 10);
 
-    actorInputManager.setInactiveInputTime(10);
+    manager.setInactiveInputTime(10);
 
-    actorInputManager.save(netProcessor.asNetPacket());
+    manager.save(netProcessor.asNetPacket());
 
     expect(netProcessor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
@@ -63,7 +67,7 @@ describe("ActorInputManager", () => {
 
     expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
     expect(netProcessor.dataList).toHaveLength(0);
-    expect(newActorInputManager).not.toBe(actorInputManager);
+    expect(newActorInputManager).not.toBe(manager);
     expect(actorConfig.ACTIVE_ITEM_SLOT).toBe(10);
   });
 
@@ -106,13 +110,68 @@ describe("ActorInputManager", () => {
     expect(torch.enable_night_vision).toHaveBeenNthCalledWith(2, false);
   });
 
-  it.todo("should correctly toggle torch state");
+  it("should correctly toggle torch state", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+    const torch: GameObject = MockGameObject.mock({ section: "device_torch" });
+
+    manager.enableActorTorch();
+    expect(actorConfig.IS_ACTOR_TORCH_ENABLED).toBe(false);
+
+    const inventory: Map<string | number, GameObject> = MockGameObject.asMock(registry.actor).objectInventory;
+
+    inventory.set("device_torch", torch);
+
+    manager.enableActorTorch();
+    expect(actorConfig.IS_ACTOR_TORCH_ENABLED).toBe(true);
+    expect(torch.enable_torch).toHaveBeenCalledWith(true);
+
+    manager.enableActorTorch();
+    expect(actorConfig.IS_ACTOR_TORCH_ENABLED).toBe(true);
+    expect(torch.enable_torch).toHaveBeenCalledTimes(1);
+
+    jest.spyOn(torch, "torch_enabled").mockImplementation(() => true);
+
+    manager.disableActorTorch();
+    expect(actorConfig.IS_ACTOR_TORCH_ENABLED).toBe(false);
+    expect(torch.enable_torch).toHaveBeenCalledTimes(2);
+    expect(torch.enable_torch).toHaveBeenNthCalledWith(2, false);
+  });
 
   it.todo("should correctly enable game ui");
 
   it.todo("should correctly disable game ui");
 
   it.todo("should correctly handle update event");
+
+  it("should process anabiotics usage", () => {
+    const console: Console = get_console();
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    jest.spyOn(manager, "disableGameUiOnly").mockImplementation(jest.fn());
+
+    jest.spyOn(console, "get_float").mockReturnValueOnce(0.9).mockReturnValue(0.8);
+
+    manager.processAnabioticItemUsage();
+
+    expect(manager.disableGameUiOnly).toHaveBeenCalledTimes(1);
+    expect(level.add_cam_effector).toHaveBeenCalledWith(
+      "camera_effects\\surge_02.anm",
+      10,
+      false,
+      "engine.on_anabiotic_sleep"
+    );
+    expect(level.add_pp_effector).toHaveBeenCalledWith("surge_fade.ppe", 11, false);
+    expect(registry.actor.give_info_portion).toHaveBeenCalledWith("anabiotic_in_process");
+
+    expect(registry.musicVolume).toBe(0.9);
+    expect(registry.effectsVolume).toBe(0.8);
+
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0");
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_eff 0");
+
+    expect(registry.musicVolume).toBe(0.9);
+    expect(registry.effectsVolume).toBe(0.8);
+  });
 
   it("should correctly first update event", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);

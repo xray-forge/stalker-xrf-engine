@@ -14,7 +14,7 @@ import { getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clamp } from "@/engine/core/utils/number";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";
-import { setSoundVolume } from "@/engine/core/utils/sound";
+import { setMusicVolume } from "@/engine/core/utils/sound";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import {
   GameObject,
@@ -128,7 +128,7 @@ export class MusicManager extends AbstractManager {
     this.currentThemeIndex = math.random(1, this.themes.length());
     this.currentTrackIndex = math.random(1, this.themes.get(this.currentThemeIndex).length());
 
-    setSoundVolume(this.themeAmbientVolume);
+    setMusicVolume(this.themeAmbientVolume);
 
     logger.info("Start theme: %s %s %s", this.currentThemeIndex, this.currentTrackIndex, this.dynamicThemeVolume);
 
@@ -241,7 +241,7 @@ export class MusicManager extends AbstractManager {
       if (this.isThemeFading() || this.isAmbientFading()) {
         return EDynamicMusicState.IDLE;
       } else {
-        setSoundVolume(this.gameAmbientVolume);
+        setMusicVolume(this.gameAmbientVolume);
 
         return EDynamicMusicState.FINISH;
       }
@@ -314,7 +314,7 @@ export class MusicManager extends AbstractManager {
       this.themeAmbientVolume = clamp(this.themeAmbientVolume, this.themeAmbientVolume, this.fadeToAmbientVolume);
     }
 
-    setSoundVolume(this.themeAmbientVolume);
+    setMusicVolume(this.themeAmbientVolume);
   }
 
   /**
@@ -378,14 +378,14 @@ export class MusicManager extends AbstractManager {
    */
   public onActorNetworkDestroy(): void {
     this.theme?.stop();
-    setSoundVolume(this.gameAmbientVolume);
+    setMusicVolume(this.gameAmbientVolume);
   }
 
   /**
    * Handle display main menu event.
    */
   public onMainMenuOn(): void {
-    setSoundVolume(this.gameAmbientVolume);
+    setMusicVolume(this.gameAmbientVolume);
   }
 
   /**
@@ -396,7 +396,7 @@ export class MusicManager extends AbstractManager {
 
     if (this.theme?.isPlaying()) {
       if (IsDynamicMusic()) {
-        setSoundVolume(this.themeAmbientVolume);
+        setMusicVolume(this.themeAmbientVolume);
       } else {
         this.areThemesInitialized = false;
         this.theme.stop();

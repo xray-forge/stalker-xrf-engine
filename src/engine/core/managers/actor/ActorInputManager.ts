@@ -16,15 +16,13 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { killAllSurgeUnhidden } from "@/engine/core/managers/surge/utils/surge_kill";
 import { WeatherManager } from "@/engine/core/managers/weather";
-import { executeConsoleCommand, getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorInNoWeaponZone } from "@/engine/core/utils/position";
+import { getEffectsVolume, getMusicVolume, setEffectsVolume, setMusicVolume } from "@/engine/core/utils/sound";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
-import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { TInventoryItem } from "@/engine/lib/constants/items";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
 import {
@@ -34,7 +32,6 @@ import {
   NetPacket,
   NetProcessor,
   Optional,
-  ServerObject,
   TDuration,
   TIndex,
   TRate,
@@ -91,6 +88,8 @@ export class ActorInputManager extends AbstractManager {
 
   /**
    * Disable game input for delta duration.
+   *
+   * @param duration - time to stop handling of actor controls input
    */
   public setInactiveInputTime(duration: TDuration): void {
     logger.info("Deactivate actor input: '%s'", duration);
@@ -102,58 +101,58 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo;
-   */
-  public disableActorNightVision(): void {
-    logger.info("Disable actor night vision");
-
-    const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
-
-    if (nightVision !== null && nightVision.night_vision_enabled()) {
-      nightVision.enable_night_vision(false);
-      actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = false;
-    }
-  }
-
-  /**
-   * todo;
+   * Enables night vision for actor UI.
    */
   public enableActorNightVision(): void {
     logger.info("Enable actor night vision");
 
     const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
-    if (nightVision !== null && !nightVision.night_vision_enabled() && !actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED) {
+    if (nightVision && !nightVision.night_vision_enabled() && !actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED) {
       nightVision.enable_night_vision(true);
       actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = true;
     }
   }
 
   /**
-   * todo;
+   * Disables night vision for actor UI.
    */
-  public disableActorTorch(): void {
-    logger.info("Disable actor torch");
+  public disableActorNightVision(): void {
+    logger.info("Disable actor night vision");
 
-    const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
+    const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
-    if (torch !== null && torch.torch_enabled()) {
-      torch.enable_torch(false);
-      actorConfig.IS_ACTOR_TORCH_ENABLED = false;
+    if (nightVision && nightVision.night_vision_enabled()) {
+      nightVision.enable_night_vision(false);
+      actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = false;
     }
   }
 
   /**
-   * todo;
+   * Enables actor torch.
    */
   public enableActorTorch(): void {
     logger.info("Enable actor torch");
 
     const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
 
-    if (torch !== null && !torch.torch_enabled() && !actorConfig.IS_ACTOR_TORCH_ENABLED) {
+    if (torch && !torch.torch_enabled() && !actorConfig.IS_ACTOR_TORCH_ENABLED) {
       torch.enable_torch(true);
       actorConfig.IS_ACTOR_TORCH_ENABLED = true;
+    }
+  }
+
+  /**
+   * Disables actor torch.
+   */
+  public disableActorTorch(): void {
+    logger.info("Disable actor torch");
+
+    const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
+
+    if (torch && torch.torch_enabled()) {
+      torch.enable_torch(false);
+      actorConfig.IS_ACTOR_TORCH_ENABLED = false;
     }
   }
 
@@ -201,7 +200,7 @@ export class ActorInputManager extends AbstractManager {
     if (restore) {
       if (
         actorConfig.MEMOIZED_ITEM_SLOT !== EActiveItemSlot.NONE &&
-        registry.actor.item_in_slot(actorConfig.MEMOIZED_ITEM_SLOT) !== null
+        registry.actor.item_in_slot(actorConfig.MEMOIZED_ITEM_SLOT)
       ) {
         registry.actor.activate_slot(actorConfig.MEMOIZED_ITEM_SLOT);
       }
@@ -248,21 +247,21 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Handle scripted behaviour when consuming anabiotics.
    */
   public processAnabioticItemUsage(): void {
-    getManager(ActorInputManager).disableGameUiOnly();
+    this.disableGameUiOnly();
 
     level.add_cam_effector(animations.camera_effects_surge_02, 10, false, "engine.on_anabiotic_sleep");
     level.add_pp_effector(postProcessors.surge_fade, 11, false);
 
     giveInfoPortion(infoPortions.anabiotic_in_process);
 
-    registry.musicVolume = getConsoleFloatCommand(consoleCommands.snd_volume_music);
-    registry.effectsVolume = getConsoleFloatCommand(consoleCommands.snd_volume_eff);
+    registry.musicVolume = getMusicVolume();
+    registry.effectsVolume = getEffectsVolume();
 
-    executeConsoleCommand(consoleCommands.snd_volume_music, 0);
-    executeConsoleCommand(consoleCommands.snd_volume_eff, 0);
+    setMusicVolume(0);
+    setEffectsVolume(0);
   }
 
   /**
@@ -272,7 +271,7 @@ export class ActorInputManager extends AbstractManager {
     const actor: GameObject = registry.actor;
 
     if (
-      actorConfig.DISABLED_INPUT_AT !== null &&
+      actorConfig.DISABLED_INPUT_AT &&
       game.get_game_time().diffSec(actorConfig.DISABLED_INPUT_AT) >= (actorConfig.DISABLED_INPUT_DURATION as number)
     ) {
       logger.info("Enabling actor game input");
@@ -321,7 +320,7 @@ export class ActorInputManager extends AbstractManager {
    * Handle actor network spawn.
    */
   public onActorGoOnline(): void {
-    if (actorConfig.DISABLED_INPUT_AT === null) {
+    if (!actorConfig.DISABLED_INPUT_AT) {
       level.enable_input();
     }
   }
@@ -335,10 +334,7 @@ export class ActorInputManager extends AbstractManager {
       return;
     }
 
-    const serverObject: Optional<ServerObject> = registry.simulator.object(object.id());
-    const serverItemSection: Optional<TInventoryItem> = serverObject?.section_name() as Optional<TInventoryItem>;
-
-    if (serverItemSection === drugs.drug_anabiotic) {
+    if (registry.simulator.object(object.id())?.section_name() === drugs.drug_anabiotic) {
       logger.info("On actor anabiotic use: %s", object.name());
       this.processAnabioticItemUsage();
     }
@@ -377,8 +373,8 @@ export class ActorInputManager extends AbstractManager {
   public onAnabioticWakeUp(): void {
     getManager(ActorInputManager).enableGameUi();
 
-    executeConsoleCommand(consoleCommands.snd_volume_music, registry.musicVolume);
-    executeConsoleCommand(consoleCommands.snd_volume_eff, registry.effectsVolume);
+    setMusicVolume(registry.musicVolume);
+    setEffectsVolume(registry.effectsVolume);
 
     registry.effectsVolume = 0;
     registry.musicVolume = 0;

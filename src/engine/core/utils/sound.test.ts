@@ -1,13 +1,16 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { get_console, snd_type } from "xray16";
 
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import {
+  getEffectsVolume,
+  getMusicVolume,
   isPlayingSound,
   isSoundType,
   mapSoundMaskToSoundType,
-  setSoundVolume,
+  setEffectsVolume,
+  setMusicVolume,
   stopPlayingObjectSound,
 } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
@@ -15,22 +18,77 @@ import { Console, GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("mapSoundMaskToSoundType util", () => {
+describe("getMusicVolume util", () => {
+  const console: Console = get_console();
+
+  beforeEach(() => {
+    resetFunctionMock(console.get_float);
+  });
+
+  it("should correctly execute console commands", () => {
+    jest.spyOn(console, "get_float").mockImplementation(() => 1);
+    expect(getMusicVolume()).toBe(1);
+
+    jest.spyOn(console, "get_float").mockImplementation(() => 0.25);
+    expect(getMusicVolume()).toBe(0.25);
+
+    expect(console.get_float).toHaveBeenCalledWith("snd_volume_music");
+  });
+});
+
+describe("getEffectsVolume util", () => {
+  const console: Console = get_console();
+
+  beforeEach(() => {
+    resetFunctionMock(console.get_float);
+  });
+
+  it("should correctly execute console commands", () => {
+    jest.spyOn(console, "get_float").mockImplementation(() => 1);
+    expect(getEffectsVolume()).toBe(1);
+
+    jest.spyOn(console, "get_float").mockImplementation(() => 0.25);
+    expect(getEffectsVolume()).toBe(0.25);
+
+    expect(console.get_float).toHaveBeenCalledWith("snd_volume_eff");
+  });
+});
+
+describe("setMusicVolume util", () => {
   const console: Console = get_console();
 
   beforeEach(() => {
     resetFunctionMock(console.execute);
   });
 
-  it("should correctly convert mask to enum", () => {
-    setSoundVolume(1);
+  it("should correctly execute console commands", () => {
+    setMusicVolume(1);
     expect(console.execute).toHaveBeenCalledWith("snd_volume_music 1");
 
-    setSoundVolume(0.5);
+    setMusicVolume(0.5);
     expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0.5");
 
-    setSoundVolume(0);
+    setMusicVolume(0);
     expect(console.execute).toHaveBeenCalledWith("snd_volume_music 0");
+  });
+});
+
+describe("setEffectsVolume util", () => {
+  const console: Console = get_console();
+
+  beforeEach(() => {
+    resetFunctionMock(console.execute);
+  });
+
+  it("should correctly execute console commands", () => {
+    setEffectsVolume(1);
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_eff 1");
+
+    setEffectsVolume(0.5);
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_eff 0.5");
+
+    setEffectsVolume(0);
+    expect(console.execute).toHaveBeenCalledWith("snd_volume_eff 0");
   });
 });
 

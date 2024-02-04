@@ -6,10 +6,31 @@ import { ESoundType } from "@/engine/lib/constants/sound";
 import { GameObject, TRate, TSoundType } from "@/engine/lib/types";
 
 /**
- * @param volume - rate to set volume
+ * @returns currently set music volume
  */
-export function setSoundVolume(volume: TRate): void {
+export function getMusicVolume(): TRate {
+  return get_console().get_float(consoleCommands.snd_volume_music);
+}
+
+/**
+ * @returns currently set effects volume
+ */
+export function getEffectsVolume(): TRate {
+  return get_console().get_float(consoleCommands.snd_volume_eff);
+}
+
+/**
+ * @param volume - rate to set music volume
+ */
+export function setMusicVolume(volume: TRate): void {
   get_console().execute(string.format("%s %s", consoleCommands.snd_volume_music, volume));
+}
+
+/**
+ * @param volume - rate to set effects volume
+ */
+export function setEffectsVolume(volume: TRate): void {
+  get_console().execute(string.format("%s %s", consoleCommands.snd_volume_eff, volume));
 }
 
 /**

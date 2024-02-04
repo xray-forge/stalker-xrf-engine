@@ -303,6 +303,8 @@ export class MockGameObject {
 
   public enable_talk = jest.fn();
 
+  public enable_torch = jest.fn();
+
   public enable_trade = jest.fn();
 
   public explode = jest.fn();
@@ -651,6 +653,8 @@ export class MockGameObject {
   public target_movement_type = jest.fn(() => MockMove.standing);
 
   public team = jest.fn(() => 140);
+
+  public torch_enabled = jest.fn();
 
   public transfer_money = jest.fn();
 
