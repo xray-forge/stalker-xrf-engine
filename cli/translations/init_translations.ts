@@ -4,7 +4,9 @@ import * as path from "path";
 import { red, yellow } from "chalk";
 
 import { default as config } from "#/config.json";
-import { exists, isDirectory, readDirContentFlat } from "#/utils/fs";
+import { exists } from "#/utils/fs/exists";
+import { isDirectory } from "#/utils/fs/is_directory";
+import { readDirContentFlat } from "#/utils/fs/read_dir_content_flat";
 import { NodeLogger } from "#/utils/logging";
 import { AnyObject, EAssetExtension, IJsonTranslationSchema } from "#/utils/types";
 

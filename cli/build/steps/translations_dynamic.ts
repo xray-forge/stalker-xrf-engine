@@ -8,7 +8,7 @@ import { JSXXML } from "jsx-xml";
 import { default as config } from "#/config.json";
 import { WINDOWS_1251_LOCALES } from "#/globals";
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR } from "#/globals/paths";
-import { readDirContent } from "#/utils/fs";
+import { readDirContent } from "#/utils/fs/read_dir_content";
 import { NodeLogger } from "#/utils/logging";
 import { quoted } from "#/utils/string";
 import { EAssetExtension, EEncoding, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";

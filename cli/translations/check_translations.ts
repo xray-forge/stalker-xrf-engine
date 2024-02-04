@@ -4,7 +4,8 @@ import * as path from "path";
 import { green, red, yellow } from "chalk";
 
 import { GAME_DATA_TRANSLATIONS_DIR } from "#/globals";
-import { exists, readDirContentFlat } from "#/utils/fs";
+import { exists } from "#/utils/fs/exists";
+import { readDirContentFlat } from "#/utils/fs/read_dir_content_flat";
 import { NodeLogger } from "#/utils/logging";
 import { AnyObject, EAssetExtension } from "#/utils/types";
 

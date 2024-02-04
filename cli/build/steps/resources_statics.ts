@@ -7,7 +7,9 @@ import { blueBright, yellowBright } from "chalk";
 import { IBuildCommandParameters } from "#/build/build";
 import { default as config } from "#/config.json";
 import { CLI_DIR, TARGET_GAME_DATA_DIR } from "#/globals/paths";
-import { getDiffs, IDiffs, normalizeParameterPath, readFolderGen } from "#/utils/fs";
+import { getDiffs, IDiffs } from "#/utils/fs/get_diffs";
+import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
+import { readFolderGen } from "#/utils/fs/read_dir_content_flat_gen";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 

@@ -6,7 +6,7 @@ import { blue, blueBright } from "chalk";
 import { IBuildCommandParameters } from "#/build/build";
 import { getFolderReplicationDescriptors } from "#/build/utils";
 import { GAME_DATA_LTX_CONFIGS_DIR, TARGET_GAME_DATA_CONFIGS_DIR } from "#/globals/paths";
-import { createDirForConfigs } from "#/utils/fs";
+import { createDirForConfigs } from "#/utils/fs/create_dir_for_configs";
 import { NodeLogger } from "#/utils/logging";
 import { ILtxConfigDescriptor, renderJsonToLtx } from "#/utils/ltx";
 import { EAssetExtension, Optional, TFolderReplicationDescriptor } from "#/utils/types";

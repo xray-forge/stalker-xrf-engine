@@ -5,7 +5,8 @@ import { blue, green, yellow, yellowBright } from "chalk";
 
 import { getEnginesList, isValidEngine } from "#/engine/list_engines";
 import { OPEN_XRAY_ENGINES_DIR } from "#/globals";
-import { exists, getGamePaths } from "#/utils/fs";
+import { exists } from "#/utils/fs/exists";
+import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 

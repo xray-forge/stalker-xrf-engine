@@ -1,10 +1,11 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { green, yellowBright } from "chalk";
 
 import { ROOT_DIR, TARGET_PARSED_DIR } from "#/globals/paths";
-import { createDirIfNoExisting, readDirContentFlat } from "#/utils/fs";
+import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
+import { readDirContentFlat } from "#/utils/fs/read_dir_content_flat";
 import { NodeLogger } from "#/utils/logging";
 
 const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
@@ -44,7 +45,7 @@ export async function parseDirAsJson(targetPath: string, parameters: IParseDirPa
       return acc;
     }, {});
 
-    await fsPromises.writeFile(targetFilePath, JSON.stringify(resultingObject, null, 2));
+    await fsp.writeFile(targetFilePath, JSON.stringify(resultingObject, null, 2));
 
     log.info(`Result: ${green("OK")}, entries parsed:`, tree.length, "\n`");
   } else {

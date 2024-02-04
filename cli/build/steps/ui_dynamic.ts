@@ -1,11 +1,11 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 
 import { blue, blueBright } from "chalk";
 
 import { IBuildCommandParameters } from "#/build/build";
 import { getFolderReplicationDescriptors } from "#/build/utils";
 import { GAME_DATA_UI_DIR, TARGET_GAME_DATA_UI_DIR } from "#/globals/paths";
-import { createDirForConfigs } from "#/utils/fs";
+import { createDirForConfigs } from "#/utils/fs/create_dir_for_configs";
 import { NodeLogger } from "#/utils/logging";
 import { EAssetExtension, TFolderReplicationDescriptor } from "#/utils/types";
 import { renderJsxToXmlText } from "#/utils/xml";
@@ -44,7 +44,7 @@ export async function buildDynamicUi(parameters: IBuildCommandParameters): Promi
 
         if (xmlContent) {
           log.debug("TRANSFORM UI XML:", blue(to));
-          await fsPromises.writeFile(to, renderJsxToXmlText(xmlContent));
+          await fsp.writeFile(to, renderJsxToXmlText(xmlContent));
           processedXmlConfigs += 1;
         } else {
           log.debug("SKIP, not valid UI XML source:", blue(from));

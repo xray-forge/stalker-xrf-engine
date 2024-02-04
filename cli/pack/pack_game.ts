@@ -17,7 +17,7 @@ import {
   WARNING_SIGN,
 } from "#/globals";
 import { IPackParameters } from "#/pack/pack";
-import { createDirIfNoExisting } from "#/utils/fs";
+import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 

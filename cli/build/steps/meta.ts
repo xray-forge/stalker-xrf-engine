@@ -6,7 +6,9 @@ import * as path from "path";
 import { blueBright, yellow, yellowBright } from "chalk";
 
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "#/globals/paths";
-import { readDirContent, TDirectoryFilesTree, transformBytesToMegabytes } from "#/utils/fs";
+import { readDirContent } from "#/utils/fs/read_dir_content";
+import { transformBytesToMegabytes } from "#/utils/fs/transform";
+import { TDirectoryFilesTree } from "#/utils/fs/types";
 import { getCommitHash } from "#/utils/git";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";

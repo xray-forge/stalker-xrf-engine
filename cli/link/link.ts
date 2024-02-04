@@ -10,7 +10,9 @@ import {
   TARGET_LOGS_LINK_DIR,
   WARNING_SIGN,
 } from "#/globals";
-import { exists, getGamePaths, isSamePath } from "#/utils/fs";
+import { exists } from "#/utils/fs/exists";
+import { getGamePaths } from "#/utils/fs/get_game_paths";
+import { isSamePath } from "#/utils/fs/is_same_path";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 

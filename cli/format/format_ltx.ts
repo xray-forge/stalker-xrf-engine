@@ -4,7 +4,7 @@ import * as path from "path";
 import { yellowBright } from "chalk";
 
 import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
-import { readDirContent } from "#/utils/fs";
+import { readDirContent } from "#/utils/fs/read_dir_content";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 import { EAssetExtension, TFolderFiles } from "#/utils/types";

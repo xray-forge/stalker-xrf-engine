@@ -6,7 +6,7 @@ import { blue, green, red, yellowBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { ROOT_DIR } from "#/globals";
-import { deleteDirIfExists } from "#/utils/fs";
+import { deleteDirIfExists } from "#/utils/fs/delete_dir_if_exists";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 

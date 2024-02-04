@@ -4,7 +4,7 @@ import * as path from "path";
 
 import { yellow } from "chalk";
 
-import { getGamePaths } from "#/utils/fs";
+import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { readLastLinesOfFile } from "#/utils/fs/read_last_lines_of_file";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";

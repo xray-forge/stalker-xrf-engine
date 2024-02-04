@@ -2,7 +2,7 @@ import * as path from "path";
 
 import { describe, expect, it } from "@jest/globals";
 
-import { normalizeParameterPath } from "#/utils/fs/nornamize_parameter_path";
+import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
 
 describe("normalize_parameter_path utils", () => {
   const sep: string = path.sep;

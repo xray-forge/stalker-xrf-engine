@@ -2,11 +2,13 @@ import * as fs from "fs";
 import * as fsp from "fs/promises";
 import * as path from "path";
 
-import { describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { formatLtx } from "#/format/format_ltx";
 import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
-import * as fsu from "#/utils/fs";
+import { readDirContent } from "#/utils/fs/read_dir_content";
+
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 function readActualFile(path: string): Promise<Buffer> {
   const fsp: { readFile: (path: string) => Promise<Buffer> } = jest.requireActual("fs/promises");
@@ -19,12 +21,13 @@ async function verifyFormatting(name: string, sourcePath: string, resultPath: st
   const result: Buffer = await readActualFile(resultPath);
 
   jest.spyOn(fs, "access");
-  jest.spyOn(fsu, "readDirContent").mockImplementation(async () => [name]);
   jest.spyOn(fsp, "readFile").mockImplementation(async () => source);
+
+  replaceFunctionMock(readDirContent, async () => [name]);
 
   await formatLtx();
 
-  expect(fsu.readDirContent).toHaveBeenCalledWith(GAME_DATA_LTX_CONFIGS_DIR);
+  expect(readDirContent).toHaveBeenCalledWith(GAME_DATA_LTX_CONFIGS_DIR);
 
   expect(fsp.readFile).toHaveBeenCalledTimes(1);
   expect(fsp.readFile).toHaveBeenCalledWith(name);
@@ -35,16 +38,21 @@ async function verifyFormatting(name: string, sourcePath: string, resultPath: st
 
 jest.mock("fs");
 jest.mock("fs/promises");
-jest.mock("#/utils/fs");
+jest.mock("#/utils/fs/read_dir_content");
 
 describe("formatLtx util", () => {
+  beforeEach(() => {
+    resetFunctionMock(readDirContent);
+  });
+
   it("should correctly handle empty lists of configs", async () => {
     jest.spyOn(fs, "access");
-    jest.spyOn(fsu, "readDirContent").mockImplementation(async () => []);
+
+    replaceFunctionMock(readDirContent, async () => []);
 
     await formatLtx();
 
-    expect(fsu.readDirContent).toHaveBeenCalledWith(GAME_DATA_LTX_CONFIGS_DIR);
+    expect(readDirContent).toHaveBeenCalledWith(GAME_DATA_LTX_CONFIGS_DIR);
 
     expect(fsp.readFile).not.toHaveBeenCalled();
     expect(fsp.writeFile).not.toHaveBeenCalled();
@@ -52,14 +60,13 @@ describe("formatLtx util", () => {
 
   it("should correctly handle filtering", async () => {
     jest.spyOn(fs, "access");
-    jest
-      .spyOn(fsu, "readDirContent")
-      .mockImplementation(async () => ["first.ltx", "first.txt", "second.ltx", "third.example"]);
     jest.spyOn(fsp, "readFile").mockImplementation(async () => Buffer.from("", "utf-8"));
+
+    replaceFunctionMock(readDirContent, async () => ["first.ltx", "first.txt", "second.ltx", "third.example"]);
 
     await formatLtx({ filter: ["first"] });
 
-    expect(fsu.readDirContent).toHaveBeenCalledWith(GAME_DATA_LTX_CONFIGS_DIR);
+    expect(readDirContent).toHaveBeenCalledWith(GAME_DATA_LTX_CONFIGS_DIR);
 
     expect(fsp.readFile).toHaveBeenCalledTimes(1);
     expect(fsp.readFile).toHaveBeenCalledWith("first.ltx");
@@ -69,14 +76,13 @@ describe("formatLtx util", () => {
 
   it("should correctly handle reading and writing without filter", async () => {
     jest.spyOn(fs, "access");
-    jest
-      .spyOn(fsu, "readDirContent")
-      .mockImplementation(async () => ["first.ltx", "first.txt", "second.ltx", "third.example"]);
     jest.spyOn(fsp, "readFile").mockImplementation(async () => Buffer.from("", "utf-8"));
+
+    replaceFunctionMock(readDirContent, async () => ["first.ltx", "first.txt", "second.ltx", "third.example"]);
 
     await formatLtx();
 
-    expect(fsu.readDirContent).toHaveBeenCalledWith(GAME_DATA_LTX_CONFIGS_DIR);
+    expect(readDirContent).toHaveBeenCalledWith(GAME_DATA_LTX_CONFIGS_DIR);
 
     expect(fsp.readFile).toHaveBeenCalledTimes(2);
     expect(fsp.readFile).toHaveBeenCalledWith("first.ltx");

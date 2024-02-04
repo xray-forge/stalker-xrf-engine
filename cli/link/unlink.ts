@@ -1,10 +1,10 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 
 import { red, yellow, yellowBright } from "chalk";
 
 import { PLUS_SIGN, SKIP_SIGN, WARNING_SIGN } from "#/globals";
 import { TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
-import { getGamePaths } from "#/utils/fs";
+import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 
@@ -33,14 +33,14 @@ export async function unlinkFolders(): Promise<void> {
 async function unlink(target: string): Promise<void> {
   log.info("Unlinking:", yellowBright(target));
 
-  const stat: Optional<string> = await fsPromises.readlink(target).catch(() => null);
+  const stat: Optional<string> = await fsp.readlink(target).catch(() => null);
 
   if (!stat) {
     return log.info(SKIP_SIGN, "Skip operation, target does not exist");
   }
 
   try {
-    await fsPromises.unlink(target);
+    await fsp.unlink(target);
     log.info(PLUS_SIGN, "Unlinked:", yellow(target));
   } catch (error) {
     log.error(WARNING_SIGN, "Failed to unlink:", yellow(target));

@@ -1,5 +1,5 @@
 import { default as assert } from "assert";
-import { cpSync, existsSync, rmSync } from "fs";
+import * as fs from "fs";
 import * as path from "path";
 
 import { blue, yellow, yellowBright } from "chalk";
@@ -9,7 +9,7 @@ import { default as config } from "#/config.json";
 import { isValidEngine } from "#/engine/list_engines";
 import { OPEN_XRAY_ENGINES_DIR, TARGET_GAME_DATA_DIR, TARGET_MOD_PACKAGE_DIR, WARNING_SIGN } from "#/globals";
 import { IPackParameters } from "#/pack/pack";
-import { createDirIfNoExisting } from "#/utils/fs";
+import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 
@@ -46,7 +46,7 @@ export async function packMod(parameters: IPackParameters): Promise<void> {
 
     if (parameters.clean) {
       log.info("Perform package cleanup:", yellowBright(TARGET_MOD_PACKAGE_DIR));
-      rmSync(TARGET_MOD_PACKAGE_DIR, { recursive: true, force: true });
+      fs.rmSync(TARGET_MOD_PACKAGE_DIR, { recursive: true, force: true });
       timeTracker.addMark("PACKAGE_CLEANUP");
     } else {
       log.info("Skip package cleanup:", WARNING_SIGN);
@@ -104,16 +104,16 @@ function copyGameEngine(engine: string): void {
   log.info("Using game engine:", blue(config.package.engine));
   log.info("Engine path:", yellowBright(enginePath));
 
-  assert(existsSync(enginePath), "Expected engine directory to exist.");
+  assert(fs.existsSync(enginePath), "Expected engine directory to exist.");
 
   createDirIfNoExisting(destinationPath);
-  cpSync(enginePath, destinationPath, { recursive: true });
+  fs.cpSync(enginePath, destinationPath, { recursive: true });
 
   /**
    * Remove bin.json with engine description.
    */
-  if (existsSync(engineDescriptorPath)) {
-    rmSync(engineDescriptorPath);
+  if (fs.existsSync(engineDescriptorPath)) {
+    fs.rmSync(engineDescriptorPath);
   }
 }
 
@@ -125,10 +125,10 @@ function copyGamedataAssets(): void {
 
   log.info("Copy gamedata assets:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(destinationPath));
 
-  assert(existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata directory to exist.");
+  assert(fs.existsSync(TARGET_GAME_DATA_DIR), "Expected gamedata directory to exist.");
 
   createDirIfNoExisting(destinationPath);
 
   log.debug("CP:", yellow(TARGET_GAME_DATA_DIR), "->", yellowBright(destinationPath));
-  cpSync(TARGET_GAME_DATA_DIR, destinationPath, { recursive: true });
+  fs.cpSync(TARGET_GAME_DATA_DIR, destinationPath, { recursive: true });
 }
