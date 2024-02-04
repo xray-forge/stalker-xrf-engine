@@ -1,4 +1,3 @@
-export * from "@/fixtures/xray/mockXRay16";
 export * from "@/fixtures/xray/mocks/CTime.mock";
 export * from "@/fixtures/xray/mocks/FBox.mock";
 export * from "@/fixtures/xray/mocks/MonsterHitInfo.mock";

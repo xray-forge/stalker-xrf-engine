@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { blueBright, yellowBright } from "chalk";
@@ -17,10 +17,10 @@ export async function collectLog(): Promise<void> {
 
   try {
     if (fs.existsSync(fileLogPath)) {
-      await fsPromises.unlink(fileLogPath);
+      await fsp.unlink(fileLogPath);
     }
 
-    await fsPromises.writeFile(fileLogPath, NodeLogger.LOG_FILE_BUFFER.join(""));
+    await fsp.writeFile(fileLogPath, NodeLogger.LOG_FILE_BUFFER.join(""));
 
     log.info(blueBright("File log collected:"), yellowBright(fileLogPath), "\n");
   } catch (error) {

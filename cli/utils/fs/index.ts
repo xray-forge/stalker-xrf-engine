@@ -14,4 +14,5 @@ export * from "#/utils/fs/read_dir_content";
 export * from "#/utils/fs/read_dir_content_flat";
 export * from "#/utils/fs/read_dir_content_flat_gen";
 export * from "#/utils/fs/read_last_lines_of_file";
+export * from "#/utils/fs/transform";
 export * from "#/utils/fs/types";

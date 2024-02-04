@@ -6,7 +6,7 @@ import * as path from "path";
 import { blueBright, yellow, yellowBright } from "chalk";
 
 import { TARGET_GAME_DATA_DIR, TARGET_GAME_DATA_METADATA_FILE } from "#/globals/paths";
-import { readDirContent, TDirectoryFilesTree } from "#/utils/fs";
+import { readDirContent, TDirectoryFilesTree, transformBytesToMegabytes } from "#/utils/fs";
 import { getCommitHash } from "#/utils/git";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
@@ -50,7 +50,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
     0
   );
 
-  const assetsSizesMegabytes: string = transformBytesToMegabytes(assetsSizeBytes);
+  const assetsSizesMegabytes: number = transformBytesToMegabytes(assetsSizeBytes);
 
   log.info("Collecting gamedata meta:", yellowBright(TARGET_GAME_DATA_DIR));
   log.info("Collected files count:", builtFiles.length);
@@ -95,13 +95,6 @@ export function getTimingsInfo(timeTracker: TimeTracker): Record<string, string 
 
     return acc;
   }, {});
-}
-
-/**
- * Transform raw bytes to MB values.
- */
-function transformBytesToMegabytes(bytes: number): string {
-  return (bytes / 1024 / 1024).toFixed(3);
 }
 
 /**
