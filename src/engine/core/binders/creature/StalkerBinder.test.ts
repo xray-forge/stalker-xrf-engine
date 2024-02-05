@@ -17,7 +17,7 @@ import {
   setupObjectStalkerVisual,
   syncSpawnedObjectPosition,
 } from "@/engine/core/utils/object";
-import { emitSchemeEvent, setupObjectSmartJobsAndLogicOnSpawn } from "@/engine/core/utils/scheme";
+import { emitSchemeEvent, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { AnyObject, EScheme, ESchemeEvent, ESchemeType, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
@@ -34,7 +34,7 @@ describe("StalkerBinder", () => {
     resetRegistry();
     registerSimulator();
 
-    resetFunctionMock(setupObjectSmartJobsAndLogicOnSpawn);
+    resetFunctionMock(setupObjectLogicsOnSpawn);
     resetFunctionMock(syncSpawnedObjectPosition);
     resetFunctionMock(emitSchemeEvent);
   });
@@ -66,7 +66,7 @@ describe("StalkerBinder", () => {
 
     expect(setupObjectStalkerVisual).toHaveBeenCalledTimes(1);
     expect(setupObjectInfoPortions).toHaveBeenCalledTimes(1);
-    expect(setupObjectSmartJobsAndLogicOnSpawn).toHaveBeenCalledWith(object, binder.state, ESchemeType.STALKER, false);
+    expect(setupObjectLogicsOnSpawn).toHaveBeenCalledWith(object, binder.state, ESchemeType.STALKER, false);
     expect(initializeObjectThemes).toHaveBeenCalledWith(object);
     expect(SchemeReachTask.setup).toHaveBeenCalledWith(object);
     expect(SchemePostCombatIdle.setup).toHaveBeenCalledWith(object);

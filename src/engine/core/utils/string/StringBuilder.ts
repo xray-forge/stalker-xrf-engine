@@ -11,7 +11,7 @@ export class StringBuilder {
   }
 
   public build(separator: string = ""): string {
-    if (this.content.length() !== 0) {
+    if (this.content.length() > 0) {
       return table.concat(this.content, separator);
     } else {
       return "";

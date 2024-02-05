@@ -45,9 +45,7 @@ import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { FILES_MOCKS, MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/objects/smart_terrain/job/job_pick", () => ({
-  getSmartTerrainJobByObjectId: jest.fn(),
-}));
+jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
 
 describe("configureObjectSchemes util", () => {
   beforeEach(() => {
@@ -115,9 +113,9 @@ describe("configureObjectSchemes util", () => {
   it("should correctly configure scheme for objects if cfg section exists", () => {
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
     const object: GameObject = MockGameObject.mock({ id: serverObject.id });
-    const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
+    const terrain: SmartTerrain = new SmartTerrain("smart_terrain");
 
-    serverObject.m_smart_terrain_id = smartTerrain.id;
+    serverObject.m_smart_terrain_id = terrain.id;
 
     const state: IRegistryObjectState = registerObject(object);
     const ini: IniFile = MockIniFile.mock("test.ltx", {
@@ -348,22 +346,4 @@ describe("initializeObjectSectionItems util", () => {
       object.id()
     );
   });
-});
-
-describe("setupObjectSmartJobsAndLogicOnSpawn util", () => {
-  beforeEach(() => {
-    resetRegistry();
-    registerSimulator();
-  });
-
-  it.todo(" should correctly setup jobs and logics");
-});
-
-describe("setupSmartTerrainObjectJobLogic util", () => {
-  beforeEach(() => {
-    resetRegistry();
-    registerSimulator();
-  });
-
-  it.todo("should correctly setup jobs and logics");
 });

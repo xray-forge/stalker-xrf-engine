@@ -27,7 +27,7 @@ import { syncSpawnedObjectPosition } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   scriptReleaseMonster,
-  setupObjectSmartJobsAndLogicOnSpawn,
+  setupObjectLogicsOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
@@ -91,7 +91,7 @@ export class MonsterBinder extends object_binder {
 
     syncSpawnedObjectPosition(object, monster.m_smart_terrain_id);
 
-    setupObjectSmartJobsAndLogicOnSpawn(object, this.state, ESchemeType.MONSTER, this.isLoaded);
+    setupObjectLogicsOnSpawn(object, this.state, ESchemeType.MONSTER, this.isLoaded);
 
     return true;
   }

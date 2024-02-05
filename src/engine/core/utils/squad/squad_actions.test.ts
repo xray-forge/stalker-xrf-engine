@@ -142,6 +142,18 @@ describe("canSquadHelpActor util", () => {
     giveInfoPortion("sim_duty_help_harder");
     expect(canSquadHelpActor(squad)).toBe(true);
   });
+
+  it("should correctly check if squad can help with generic community", () => {
+    const squad: Squad = MockSquad.mock();
+
+    expect(canSquadHelpActor(squad)).toBe(false);
+
+    registry.actorCombat.set(1, true);
+    registry.actorCombat.set(2, true);
+
+    squad.faction = communities.monolith;
+    expect(canSquadHelpActor(squad)).toBe(false);
+  });
 });
 
 describe("getSquadHelpActorTargetId util", () => {

@@ -506,11 +506,17 @@ export function parseNumberOptional<T extends StringOptional>(value: T): Optiona
  */
 export function getSchemeFromSection(section: TSection): Optional<EScheme> {
   let [scheme] = string.gsub(section, "%d", "");
+
+  // No match.
+  if (!scheme) {
+    return null;
+  }
+
   const [at, to] = string.find(scheme, "@", 1, true);
 
   if (at !== null && to !== null) {
     scheme = string.sub(scheme, 1, at - 1) as EScheme;
   }
 
-  return scheme === "" || scheme === null ? null : (scheme as EScheme);
+  return scheme === "" || !scheme ? null : (scheme as EScheme);
 }

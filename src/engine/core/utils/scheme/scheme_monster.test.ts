@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 import { cond, move, vector } from "xray16";
 
 import {
@@ -50,6 +50,7 @@ describe("scriptCaptureMonster util", () => {
     replaceFunctionMock(object.get_script, () => true);
     replaceFunctionMock(object.get_script_name, () => "test-script");
     scriptCaptureMonster(object, true, "another-script");
+
     expect(object.script).toHaveBeenCalledTimes(2);
     expect(object.script).toHaveBeenNthCalledWith(1, false, "test-script");
     expect(object.script).toHaveBeenNthCalledWith(2, true, "another-script");
@@ -58,19 +59,35 @@ describe("scriptCaptureMonster util", () => {
 
     replaceFunctionMock(object.get_script, () => false);
     scriptCaptureMonster(object, true);
+
     expect(object.script).toHaveBeenCalledWith(true, "xrf");
   });
 
   it("should correctly capture monster script logic when not resetting", () => {
     const object: GameObject = MockGameObject.mock();
 
-    replaceFunctionMock(object.get_script, () => true);
-    scriptCaptureMonster(object, false);
+    // No reset, no script active.
+    jest.spyOn(object, "get_script").mockImplementation(() => true);
+
+    scriptCaptureMonster(object, false, "xrf-test-0");
+
     expect(object.script).not.toHaveBeenCalled();
 
-    replaceFunctionMock(object.get_script, () => false);
-    scriptCaptureMonster(object, true);
-    expect(object.script).toHaveBeenCalledWith(true, "xrf");
+    // No reset, with script active.
+    jest.spyOn(object, "get_script").mockImplementation(() => false);
+
+    scriptCaptureMonster(object, false, "xrf-test-1");
+
+    expect(object.script).toHaveBeenCalledWith(true, "xrf-test-1");
+
+    // Reset.
+    jest.spyOn(object, "get_script").mockImplementation(() => true);
+    jest.spyOn(object, "get_script_name").mockImplementation(() => "xrf-test-2-before");
+
+    scriptCaptureMonster(object, true, "xrf-test-2");
+
+    expect(object.script).toHaveBeenCalledWith(false, "xrf-test-2-before");
+    expect(object.script).toHaveBeenCalledWith(true, "xrf-test-2");
   });
 });
 

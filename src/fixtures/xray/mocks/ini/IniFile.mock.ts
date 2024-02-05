@@ -42,6 +42,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   });
 
   public r_float = jest.fn((section: TSection, field: TName) => this.data[section][field]);
+
   public r_u32 = jest.fn((section: TSection, field: TName) => {
     if (!(section in this.data)) {
       throw new Error(`Section '${section}' does not exist in '${this.path}'.`);
@@ -51,10 +52,13 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   });
 
   public r_s32 = jest.fn((section: TSection, field: TName) => this.data[section][field]);
+
   public r_string = jest.fn((section: TSection, field: TName) => this.data[section][field]);
+
   public r_string_wb = jest.fn((section: TSection, field: TName) => {
     return (this.data[section][field] as string).trim().replace(/^"(.*)"$/, "$1");
   });
+
   public r_bool = jest.fn((section: TSection, field: TName) => {
     if (typeof this.data[section][field] === "string") {
       return this.data[section][field] === "true";
@@ -62,6 +66,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
       return Boolean(this.data[section][field]);
     }
   });
+
   public line_count = jest.fn((section: TSection) => {
     const data = this.data[section];
 
@@ -71,8 +76,11 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
 
     return Object.keys(data || {}).length;
   });
+
   public section_count = jest.fn(() => Object.keys(this.data).length);
+
   public section_exist = jest.fn((section: TSection) => this.data[section] !== undefined);
+
   public r_line = jest.fn((section: TSection, lineNumber: TNumberId) => {
     const data = this.data[section];
 
@@ -84,6 +92,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
 
     return [true, entry[0], entry[1]];
   });
+
   public line_exist = jest.fn((section: TSection, param: TName) => {
     return this.data[section]?.[param] !== undefined;
   });
@@ -95,6 +104,12 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   public fname = jest.fn(() => {
     return this.path;
   });
+
+  public set_readonly = jest.fn();
+
+  public set_override_names = jest.fn();
+
+  public save_at_end = jest.fn();
 
   public section_for_each = jest.fn((cb: (section: TSection) => void) => {
     Object.keys(this.data).forEach((it) => cb(it));

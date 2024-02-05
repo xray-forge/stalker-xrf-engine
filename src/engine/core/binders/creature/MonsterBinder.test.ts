@@ -23,7 +23,7 @@ import { syncSpawnedObjectPosition } from "@/engine/core/utils/object";
 import {
   emitSchemeEvent,
   scriptReleaseMonster,
-  setupObjectSmartJobsAndLogicOnSpawn,
+  setupObjectLogicsOnSpawn,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -40,17 +40,8 @@ import {
   MockObjectBinder,
 } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/utils/scheme", () => ({
-  setupObjectSmartJobsAndLogicOnSpawn: jest.fn(),
-  emitSchemeEvent: jest.fn(),
-  trySwitchToAnotherSection: jest.fn(),
-  scriptReleaseMonster: jest.fn(),
-}));
-
-jest.mock("@/engine/core/objects/squad/update", () => ({
-  updateMonsterSquadAction: jest.fn(),
-}));
-
+jest.mock("@/engine/core/utils/scheme");
+jest.mock("@/engine/core/objects/squad/update");
 jest.mock("@/engine/core/utils/object");
 
 describe("MonsterBinder", () => {
@@ -60,7 +51,7 @@ describe("MonsterBinder", () => {
 
     resetFunctionMock(emitSchemeEvent);
     resetFunctionMock(trySwitchToAnotherSection);
-    resetFunctionMock(setupObjectSmartJobsAndLogicOnSpawn);
+    resetFunctionMock(setupObjectLogicsOnSpawn);
     resetFunctionMock(scriptReleaseMonster);
     resetFunctionMock(updateMonsterSquadAction);
     resetFunctionMock(syncSpawnedObjectPosition);
@@ -99,7 +90,7 @@ describe("MonsterBinder", () => {
 
     expect(binder.net_spawn(serverObject)).toBe(false);
 
-    expect(setupObjectSmartJobsAndLogicOnSpawn).toHaveBeenCalledTimes(0);
+    expect(setupObjectLogicsOnSpawn).toHaveBeenCalledTimes(0);
     expect(registry.objects.length()).toBe(0);
   });
 
@@ -113,7 +104,7 @@ describe("MonsterBinder", () => {
 
     expect(binder.net_spawn(serverObject)).toBe(false);
 
-    expect(setupObjectSmartJobsAndLogicOnSpawn).toHaveBeenCalledTimes(0);
+    expect(setupObjectLogicsOnSpawn).toHaveBeenCalledTimes(0);
     expect(registry.objects.length()).toBe(0);
   });
 
@@ -127,7 +118,7 @@ describe("MonsterBinder", () => {
 
     expect(binder.net_spawn(serverObject)).toBe(true);
 
-    expect(setupObjectSmartJobsAndLogicOnSpawn).toHaveBeenCalledTimes(0);
+    expect(setupObjectLogicsOnSpawn).toHaveBeenCalledTimes(0);
     expect(registry.objects.length()).toBe(0);
   });
 
@@ -149,7 +140,7 @@ describe("MonsterBinder", () => {
 
     registerOfflineObject(object.id());
 
-    expect(setupObjectSmartJobsAndLogicOnSpawn).toHaveBeenCalledWith(object, state, ESchemeType.MONSTER, false);
+    expect(setupObjectLogicsOnSpawn).toHaveBeenCalledWith(object, state, ESchemeType.MONSTER, false);
     expect(registry.objects.get(object.id())).toBe(state);
     expect(hasInfoPortion("on_offline_info")).toBe(false);
 

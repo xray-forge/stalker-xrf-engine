@@ -205,7 +205,7 @@ export function readIniTwoNumbers(
  * @returns logics scheme object
  */
 export function readIniConditionList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = readIniString(ini, section, field, false);
+  const data: Optional<string> = readIniString(ini, section, field);
 
   if (!data) {
     return null;
@@ -234,7 +234,7 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
  * @returns logics scheme object
  */
 export function readIniStringAndCondList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
-  const data: string = readIniString(ini, section, field, false);
+  const data: string = readIniString(ini, section, field);
 
   if (!data) {
     return null;
@@ -267,7 +267,7 @@ export function readIniNumberAndConditionList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = readIniString(ini, section, field, false);
+  const data: Optional<string> = readIniString(ini, section, field);
 
   if (!data) {
     return null;
@@ -300,7 +300,7 @@ export function readIniTwoStringsAndConditionsList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: string = readIniString(ini, section, field, false);
+  const data: string = readIniString(ini, section, field);
 
   if (!data) {
     return null;

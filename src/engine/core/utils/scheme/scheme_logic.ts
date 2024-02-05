@@ -293,10 +293,6 @@ export function enableObjectBaseSchemes(
 export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, scheme: EScheme, section: TSection): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
-  if (state.schemeType === null) {
-    return;
-  }
-
   switch (state.schemeType) {
     case ESchemeType.STALKER: {
       registry.schemes.get(EScheme.MEET).reset(object, scheme, state, section);

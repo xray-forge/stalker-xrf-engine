@@ -46,11 +46,7 @@ import {
   syncSpawnedObjectPosition,
 } from "@/engine/core/utils/object";
 import { ERelation, setGameObjectRelation, setObjectSympathy } from "@/engine/core/utils/relation";
-import {
-  emitSchemeEvent,
-  initializeObjectInvulnerability,
-  setupObjectSmartJobsAndLogicOnSpawn,
-} from "@/engine/core/utils/scheme";
+import { emitSchemeEvent, initializeObjectInvulnerability, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
@@ -160,7 +156,7 @@ export class StalkerBinder extends object_binder {
 
     syncSpawnedObjectPosition(object, stalker.m_smart_terrain_id);
 
-    setupObjectSmartJobsAndLogicOnSpawn(object, this.state, ESchemeType.STALKER, this.isLoaded);
+    setupObjectLogicsOnSpawn(object, this.state, ESchemeType.STALKER, this.isLoaded);
 
     SchemePostCombatIdle.setup(object);
 

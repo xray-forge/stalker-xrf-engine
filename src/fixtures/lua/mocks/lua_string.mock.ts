@@ -86,6 +86,10 @@ export const mockString = {
     return result;
   },
   gsub: (target: string, pattern: string, selector: string): Array<Optional<string | number>> => {
+    if (target === undefined || target === null) {
+      return [null, null, null];
+    }
+
     const L: ILuaState = lauxlib.luaL_newstate();
     const MAX_RETURN_VALUES: number = 2;
 

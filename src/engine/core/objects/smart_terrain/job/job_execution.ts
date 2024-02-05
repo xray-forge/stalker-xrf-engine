@@ -6,7 +6,7 @@ import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objec
 import { isObjectArrivedToSmartTerrain } from "@/engine/core/objects/smart_terrain/object";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_initialization";
+import { setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
 import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";
 import { Optional, TNumberId, TSection } from "@/engine/lib/types";

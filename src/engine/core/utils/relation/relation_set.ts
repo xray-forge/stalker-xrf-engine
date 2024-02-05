@@ -189,8 +189,6 @@ export function updateSquadIdRelationToActor(
 
   if (nextRelation) {
     setSquadRelationToActor(squad, nextRelation);
-  } else {
-    return;
   }
 }
 

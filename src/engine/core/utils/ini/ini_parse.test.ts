@@ -11,6 +11,7 @@ import {
   parseConditionsList,
   parseFunctionParams,
   parseInfoPortions,
+  parseNumberOptional,
   parseNumbersList,
   parseParameters,
   parseSpawnDetails,
@@ -658,6 +659,15 @@ describe("parseStringOptional util", () => {
     expect(parseStringOptional("null")).toBe("null");
     expect(parseStringOptional("test")).toBe("test");
     expect(parseStringOptional("12345")).toBe("12345");
+  });
+});
+
+describe("parseNumberOptional util", () => {
+  it("should correctly handle values", () => {
+    expect(parseNumberOptional(NIL)).toBeNull();
+    expect(parseNumberOptional("nil")).toBeNull();
+    expect(parseNumberOptional("10")).toBe(10);
+    expect(parseNumberOptional("15.5")).toBe(15.5);
   });
 });
 

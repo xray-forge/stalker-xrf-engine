@@ -10,6 +10,9 @@ import {
   isActorNeutralWithFaction,
   isAnySquadMemberEnemyToActor,
   isAnySquadMemberFriendToActor,
+  isSquadCommunityEnemyToActor,
+  isSquadCommunityFriendToActor,
+  isSquadCommunityNeutralToActor,
 } from "@/engine/core/utils/relation/relation_check";
 import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation_get";
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
@@ -83,12 +86,14 @@ describe("isSquadCommunityEnemyToActor util", () => {
 
     registerActorServer(MockAlifeCreatureActor.mock());
 
-    const enemy: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
+    const enemy: Squad = MockSquad.mock();
 
-    (enemy as Squad).faction = communities.monster;
+    enemy.faction = communities.monster;
     registerStoryLink(enemy.id, "existing-enemy");
+    expect(isSquadCommunityEnemyToActor("existing-enemy")).toBe(true);
 
-    expect(getSquadCommunityRelationToActor("existing-enemy")).toBe(ERelation.ENEMY);
+    enemy.faction = communities.stalker;
+    expect(isSquadCommunityEnemyToActor("existing-enemy")).toBe(false);
   });
 });
 
@@ -105,13 +110,17 @@ describe("isSquadCommunityFriendToActor util", () => {
 
     registerActorServer(MockAlifeCreatureActor.mock());
 
-    const friend: Squad = MockSquad.mock();
+    const enemy: Squad = MockSquad.mock();
 
-    friend.faction = communities.army;
+    enemy.faction = communities.monster;
+    registerStoryLink(enemy.id, "existing-enemy");
+    expect(isSquadCommunityFriendToActor("existing-enemy")).toBe(false);
 
-    registerStoryLink(friend.id, "existing-friend");
+    enemy.faction = communities.stalker;
+    expect(isSquadCommunityFriendToActor("existing-enemy")).toBe(false);
 
-    expect(getSquadCommunityRelationToActor("existing-friend")).toBe(ERelation.FRIEND);
+    enemy.faction = communities.army;
+    expect(isSquadCommunityFriendToActor("existing-enemy")).toBe(true);
   });
 });
 
@@ -121,19 +130,21 @@ describe("isSquadCommunityNeutralToActor util", () => {
     registerSimulator();
   });
 
-  it("should correctly check neutral relation", () => {
+  it("should correctly check relation", () => {
     expect(() => getSquadCommunityRelationToActor("not-existing")).toThrow(
       "Squad with story id 'not-existing' was not found."
     );
 
     registerActorServer(MockAlifeCreatureActor.mock());
 
-    const neutral: ServerGroupObject = MockAlifeOnlineOfflineGroup.mock();
+    const enemy: Squad = MockSquad.mock();
 
-    (neutral as Squad).faction = communities.bandit;
-    registerStoryLink(neutral.id, "existing-neutral");
+    enemy.faction = communities.monster;
+    registerStoryLink(enemy.id, "existing-enemy");
+    expect(isSquadCommunityNeutralToActor("existing-enemy")).toBe(false);
 
-    expect(getSquadCommunityRelationToActor("existing-neutral")).toBe(ERelation.NEUTRAL);
+    enemy.faction = communities.stalker;
+    expect(isSquadCommunityNeutralToActor("existing-enemy")).toBe(true);
   });
 });
 
@@ -152,6 +163,7 @@ describe("areCommunitiesFriendly util", () => {
     expect(areCommunitiesFriendly(communities.actor, communities.monster)).toBe(false);
     expect(areCommunitiesFriendly(communities.actor, communities.stalker)).toBe(false);
     expect(areCommunitiesFriendly(communities.stalker, communities.actor)).toBe(false);
+    expect(areCommunitiesFriendly(communities.stalker, communities.none)).toBe(false);
   });
 });
 
@@ -170,6 +182,7 @@ describe("areCommunitiesEnemies util", () => {
     expect(areCommunitiesEnemies(communities.monster, communities.monster)).toBe(false);
     expect(areCommunitiesEnemies(communities.actor, communities.stalker)).toBe(false);
     expect(areCommunitiesEnemies(communities.stalker, communities.actor)).toBe(false);
+    expect(areCommunitiesEnemies(communities.stalker, communities.none)).toBe(false);
   });
 });
 
