@@ -6,9 +6,5 @@ import * as path from "path";
  * @returns normalized path
  */
 export function normalizeOSPath(target: string): string {
-  if (os.platform() === "win32") {
-    return target.replace("/", path.sep);
-  } else {
-    return target.replace("\\", path.sep);
-  }
+  return target.replaceAll(os.platform() === "win32" ? "/" : "\\", path.sep);
 }
