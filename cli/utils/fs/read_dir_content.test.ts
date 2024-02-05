@@ -1,5 +1,6 @@
 import { Dirent } from "fs";
 import * as fsp from "fs/promises";
+import * as path from "path";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
@@ -30,15 +31,15 @@ describe("readDirContent util", () => {
     });
 
     expect(await readDirContent("test/example/", true)).toEqual([
-      "test\\example\\example_a.txt",
-      "test\\example\\example_b.txt",
-      "test\\example\\example_c.txt",
+      path.join("test\\example\\", "example_a.txt"),
+      path.join("test\\example\\", "example_b.txt"),
+      path.join("test\\example\\", "example_c.txt"),
     ]);
 
     expect(await readDirContent("test/example/", false)).toEqual([
-      "test\\example\\example_a.txt",
-      "test\\example\\example_b.txt",
-      "test\\example\\example_c.txt",
+      path.join("test\\example\\", "example_a.txt"),
+      path.join("test\\example\\", "example_b.txt"),
+      path.join("test\\example\\", "example_c.txt"),
     ]);
   });
 
@@ -60,16 +61,16 @@ describe("readDirContent util", () => {
 
     expect(await readDirContent("test/example/", true)).toEqual([
       [
-        "test\\example\\example_folder\\nested_a.txt",
-        "test\\example\\example_folder\\nested_b.txt",
-        "test\\example\\example_folder\\nested_c.txt",
+        path.join("test\\example\\", "example_folder\\nested_a.txt"),
+        path.join("test\\example\\", "example_folder\\nested_b.txt"),
+        path.join("test\\example\\", "example_folder\\nested_c.txt"),
       ],
-      "test\\example\\example_file.txt",
+      path.join("test\\example\\", "example_file.txt"),
     ]);
 
     expect(await readDirContent("test/example/", false)).toEqual([
-      "test\\example\\example_folder",
-      "test\\example\\example_file.txt",
+      path.join("test\\example\\", "example_folder"),
+      path.join("test\\example\\", "example_file.txt"),
     ]);
   });
 });
