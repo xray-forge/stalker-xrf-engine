@@ -289,29 +289,29 @@ describe("SignalLightBinder", () => {
 
   it("should correctly handle save/load with defaults", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: SignalLightBinder = new SignalLightBinder(actorGameObject);
 
     jest.spyOn(Date, "now").mockImplementation(() => 45_000);
 
     binder.net_spawn(actorServerObject);
     binder.reinit();
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.U32,
       EPacketDataType.BOOLEAN,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["save_from_SignalLightBinder", MAX_U32, false, 3]);
+    expect(processor.dataList).toEqual(["save_from_SignalLightBinder", MAX_U32, false, 3]);
 
     const newBinder: SignalLightBinder = new SignalLightBinder(actorGameObject);
 
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(newBinder.startTime).toBeNull();
     expect(newBinder.isSlowFlyStarted).toBe(false);
@@ -321,7 +321,7 @@ describe("SignalLightBinder", () => {
 
   it("should correctly handle save/load with custom values", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: SignalLightBinder = new SignalLightBinder(actorGameObject);
 
     jest.spyOn(Date, "now").mockImplementation(() => 100_000);
@@ -331,22 +331,22 @@ describe("SignalLightBinder", () => {
 
     binder.net_spawn(actorServerObject);
     binder.reinit();
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.U32,
       EPacketDataType.BOOLEAN,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["save_from_SignalLightBinder", 30_000, true, 3]);
+    expect(processor.dataList).toEqual(["save_from_SignalLightBinder", 30_000, true, 3]);
 
     const newBinder: SignalLightBinder = new SignalLightBinder(actorGameObject);
 
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(newBinder.startTime).toBe(70_000);
     expect(newBinder.isSlowFlyStarted).toBe(true);

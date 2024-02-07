@@ -75,11 +75,11 @@ describe("SoundManager", () => {
 
   it("should correctly save/load data with default state", () => {
     const manager: SoundManager = getManager(SoundManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    manager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -88,41 +88,41 @@ describe("SoundManager", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([NIL, NIL, NIL, NIL, 0, 0, 6]);
+    expect(processor.dataList).toEqual([NIL, NIL, NIL, NIL, 0, 0, 6]);
 
     disposeManager(SoundManager);
 
     const another: SoundManager = getManager(SoundManager);
 
-    another.load(netProcessor.asNetProcessor());
+    another.load(processor.asNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
   });
 
   it("should correctly save/load data for objects", () => {
     const manager: SoundManager = getManager(SoundManager);
     const object: GameObject = MockGameObject.mock();
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    manager.saveObject(object, netProcessor.asNetPacket());
+    manager.saveObject(object, processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([false, false, false, 3]);
+    expect(processor.dataList).toEqual([false, false, false, 3]);
 
     disposeManager(SoundManager);
 
     const another: SoundManager = getManager(SoundManager);
 
-    another.loadObject(object, netProcessor.asNetProcessor());
+    another.loadObject(object, processor.asNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
   });
 
   it.todo("should correctly save/load with custom state");

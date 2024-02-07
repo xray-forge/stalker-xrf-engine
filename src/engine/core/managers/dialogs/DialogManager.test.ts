@@ -33,11 +33,11 @@ describe("DialogManager", () => {
   it("should correctly save and load dialogs for objects with default state", () => {
     const object: GameObject = MockGameObject.mock();
     const manager: DialogManager = getManager(DialogManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    manager.saveObjectDialogs(object, netProcessor.asNetPacket());
+    manager.saveObjectDialogs(object, processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
@@ -45,22 +45,22 @@ describe("DialogManager", () => {
       EPacketDataType.BOOLEAN,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([false, false, false, false, false, 5]);
+    expect(processor.dataList).toEqual([false, false, false, false, false, 5]);
 
     disposeManager(DialogManager);
 
     const another: DialogManager = getManager(DialogManager);
 
-    another.loadObjectDialogs(object, netProcessor.asNetProcessor());
+    another.loadObjectDialogs(object, processor.asNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
   });
 
   it("should correctly save and load dialogs for objects with updated state", () => {
     const object: GameObject = MockGameObject.mock();
     const manager: DialogManager = getManager(DialogManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     fillPhrasesPriorities(
       object,
@@ -74,9 +74,9 @@ describe("DialogManager", () => {
       manager.priorityTable.get(EGenericPhraseCategory.INFORMATION)
     );
 
-    manager.saveObjectDialogs(object, netProcessor.asNetPacket());
+    manager.saveObjectDialogs(object, processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
@@ -84,16 +84,16 @@ describe("DialogManager", () => {
       EPacketDataType.BOOLEAN,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([true, false, false, false, true, 5]);
+    expect(processor.dataList).toEqual([true, false, false, false, true, 5]);
 
     disposeManager(DialogManager);
 
     const another: DialogManager = getManager(DialogManager);
 
-    another.loadObjectDialogs(object, netProcessor.asNetProcessor());
+    another.loadObjectDialogs(object, processor.asNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
   });
 
   it("should correctly check if phrase categories are told already", () => {

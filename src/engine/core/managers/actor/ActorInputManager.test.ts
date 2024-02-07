@@ -36,16 +36,16 @@ describe("ActorInputManager", () => {
 
   it("should correctly save and load data", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     registerActor(MockGameObject.mock());
     replaceFunctionMock(registry.actor.active_slot, () => 10);
 
     manager.setInactiveInputTime(10);
 
-    manager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.U8,
       EPacketDataType.U8,
@@ -57,16 +57,16 @@ describe("ActorInputManager", () => {
       EPacketDataType.U8,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([true, 12, 6, 12, 9, 30, 0, 0, 10, 9]);
+    expect(processor.dataList).toEqual([true, 12, 6, 12, 9, 30, 0, 0, 10, 9]);
 
     disposeManager(ActorInputManager);
 
     const newActorInputManager: ActorInputManager = getManager(ActorInputManager);
 
-    newActorInputManager.load(netProcessor.asNetReader());
+    newActorInputManager.load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
     expect(newActorInputManager).not.toBe(manager);
     expect(actorConfig.ACTIVE_ITEM_SLOT).toBe(10);
   });

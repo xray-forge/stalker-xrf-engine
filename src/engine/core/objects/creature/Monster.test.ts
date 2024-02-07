@@ -153,7 +153,7 @@ describe("Monster server object", () => {
 
   it("should correctly save and load data with offline state", () => {
     const monster: Monster = new Monster("monster");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     (monster as unknown as MockAlifeObject).online = false;
 
@@ -164,25 +164,21 @@ describe("Monster server object", () => {
     state.levelVertexId = 450;
     state.activeSection = "scheme@test";
 
-    monster.STATE_Write(netProcessor.asNetPacket());
+    monster.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-    ]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_Monster", "450", "scheme@test"]);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.STRING, EPacketDataType.STRING]);
+    expect(processor.dataList).toEqual(["state_write_from_Monster", "450", "scheme@test"]);
 
     monster.on_unregister();
 
     const another: Monster = new Monster("monster");
 
-    another.STATE_Read(netProcessor.asNetPacket(), 512);
+    another.STATE_Read(processor.asNetPacket(), 512);
 
     const anotherState: IRegistryOfflineState = registry.offlineObjects.get(another.id);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
     expect(anotherState.activeSection).toBe("scheme@test");
     expect(anotherState.levelVertexId).toBe(450);
   });
@@ -190,30 +186,26 @@ describe("Monster server object", () => {
   it("should correctly save and load data with defaults", () => {
     const monster: Monster = new Monster("monster");
     const object: GameObject = MockGameObject.mock({ id: monster.id });
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     (Monster as unknown as MockAlifeObject).online = true;
     monster.on_register();
 
-    monster.STATE_Write(netProcessor.asNetPacket());
+    monster.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-      EPacketDataType.STRING,
-    ]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_Monster", String(object.level_vertex_id()), "nil"]);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.STRING, EPacketDataType.STRING]);
+    expect(processor.dataList).toEqual(["state_write_from_Monster", String(object.level_vertex_id()), "nil"]);
 
     monster.on_unregister();
 
     const another: Monster = new Monster("monster");
 
-    another.STATE_Read(netProcessor.asNetPacket(), 512);
+    another.STATE_Read(processor.asNetPacket(), 512);
 
     const anotherState: IRegistryOfflineState = registry.offlineObjects.get(another.id);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
     expect(anotherState.activeSection).toBeNull();
     expect(anotherState.levelVertexId).toBe(object.level_vertex_id());
   });

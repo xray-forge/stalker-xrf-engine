@@ -19,23 +19,23 @@ describe("GameSettingsManager", () => {
   it("should correctly save and load data", () => {
     const console: Console = MockConsole.getInstanceMock();
     const gameSettingsManager: GameSettingsManager = getManager(GameSettingsManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(level.get_game_difficulty, () => EGameDifficulty.STALKER);
 
-    gameSettingsManager.save(netProcessor.asNetPacket());
+    gameSettingsManager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.U8, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual([EGameDifficulty.STALKER, 1]);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.U8, EPacketDataType.U16]);
+    expect(processor.dataList).toEqual([EGameDifficulty.STALKER, 1]);
 
     disposeManager(GameSettingsManager);
 
     const newActorInputManager: GameSettingsManager = getManager(GameSettingsManager);
 
-    newActorInputManager.load(netProcessor.asNetReader());
+    newActorInputManager.load(processor.asNetReader());
 
     expect(console.execute).toHaveBeenCalledWith("g_game_difficulty " + gameDifficulties.gd_stalker);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 });

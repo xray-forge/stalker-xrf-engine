@@ -59,12 +59,12 @@ describe("TaskObject", () => {
   it("should correctly load and save data", () => {
     const sampleTaskId: string = "hide_from_surge";
     const taskObject: TaskObject = new TaskObject(sampleTaskId, TASK_MANAGER_CONFIG_LTX);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     taskObject.onActivate();
-    taskObject.save(netProcessor.asNetPacket());
+    taskObject.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.U8,
       EPacketDataType.U8,
       EPacketDataType.U8,
@@ -78,7 +78,7 @@ describe("TaskObject", () => {
       EPacketDataType.STRING,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       2,
       12,
       6,
@@ -97,10 +97,10 @@ describe("TaskObject", () => {
 
     const newTaskObject: TaskObject = new TaskObject(sampleTaskId, TASK_MANAGER_CONFIG_LTX);
 
-    newTaskObject.load(netProcessor.asNetReader());
+    newTaskObject.load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it.todo("should correctly give tasks");

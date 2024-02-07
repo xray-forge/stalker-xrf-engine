@@ -18,7 +18,7 @@ describe("logic database module", () => {
   it("should correctly load and save scheme activation info when set state", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     const cb = jest.fn();
     const actions = new LuaTable();
@@ -42,11 +42,11 @@ describe("logic database module", () => {
     setPortableStoreValue(object.id(), "test-key-1", "test-val");
     setPortableStoreValue(object.id(), "test-key-2", 255);
 
-    saveObjectLogic(object, netProcessor.asNetPacket());
+    saveObjectLogic(object, processor.asNetPacket());
 
     expect(cb).toHaveBeenCalled();
 
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "test.ltx",
       "test2.ltx",
       "section_ex",
@@ -69,7 +69,7 @@ describe("logic database module", () => {
       255,
       20,
     ]);
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -95,10 +95,10 @@ describe("logic database module", () => {
 
     const nextState: IRegistryObjectState = resetObject(object);
 
-    loadObjectLogic(object, netProcessor.asNetPacket());
+    loadObjectLogic(object, processor.asNetPacket());
 
-    expect(netProcessor.dataList).toEqual([]);
-    expect(netProcessor.readDataOrder).toEqual([
+    expect(processor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,

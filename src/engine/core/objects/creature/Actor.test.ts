@@ -49,24 +49,24 @@ describe("Actor server object", () => {
   });
 
   it("should correctly handle save-load in appropriate manager", () => {
-    const saveManager: SaveManager = getManager(SaveManager);
+    const manager: SaveManager = getManager(SaveManager);
     const actor: Actor = new Actor("actor");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    jest.spyOn(saveManager, "serverSave").mockImplementation(jest.fn());
-    jest.spyOn(saveManager, "serverLoad").mockImplementation(jest.fn());
+    jest.spyOn(manager, "serverSave").mockImplementation(jest.fn());
+    jest.spyOn(manager, "serverLoad").mockImplementation(jest.fn());
 
-    actor.STATE_Write(netProcessor.asNetPacket());
+    actor.STATE_Write(processor.asNetPacket());
 
-    expect(saveManager.serverSave).toHaveBeenCalledWith(netProcessor);
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_Actor", 0]);
+    expect(manager.serverSave).toHaveBeenCalledWith(processor);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.U16]);
+    expect(processor.dataList).toEqual(["state_write_from_Actor", 0]);
 
-    actor.STATE_Read(netProcessor.asNetPacket(), 0);
+    actor.STATE_Read(processor.asNetPacket(), 0);
 
-    expect(saveManager.serverLoad).toHaveBeenCalledWith(netProcessor);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(manager.serverLoad).toHaveBeenCalledWith(processor);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it.todo("should correctly generate alife task");

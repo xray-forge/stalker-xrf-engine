@@ -237,7 +237,7 @@ describe("StatisticsManager", () => {
 
   it("should correctly save and load data", () => {
     const oldManager: StatisticsManager = getManager(StatisticsManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     oldManager.actorStatistics = {
       collectedArtefacts: $fromObject<TName, boolean>({ af_1: true, af_2: true }),
@@ -252,9 +252,9 @@ describe("StatisticsManager", () => {
       bestKilledMonster: "bloodsucker_strong",
     };
 
-    oldManager.save(netProcessor.asNetPacket());
+    oldManager.save(processor.asNetPacket());
 
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       1,
       40,
       30,
@@ -344,7 +344,7 @@ describe("StatisticsManager", () => {
       true,
       0,
     ]);
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.U16,
       EPacketDataType.U16,
       EPacketDataType.U32,
@@ -439,10 +439,10 @@ describe("StatisticsManager", () => {
 
     const newManager: StatisticsManager = getManager(StatisticsManager);
 
-    newManager.load(netProcessor.asNetProcessor());
+    newManager.load(processor.asNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
     expect(newManager).not.toBe(oldManager);
 
     expect(newManager.actorStatistics).toEqualLuaTables({

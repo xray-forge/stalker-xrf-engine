@@ -19,17 +19,17 @@ import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("writeTimeToPacket and readTimeFromPacket utils", () => {
   it("should correctly save and load", () => {
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const timeToWrite: Time = game.get_game_time();
 
     timeToWrite.set(2012, 6, 12, 3, 6, 12, 500);
 
     expect(timeToWrite.toString()).toBe("y:2012, m:6, d:12, h:3, min:6, sec:12, ms:500");
 
-    writeTimeToPacket(netProcessor.asNetPacket(), timeToWrite);
+    writeTimeToPacket(processor.asNetPacket(), timeToWrite);
 
-    expect(netProcessor.dataList).toEqual([12, 6, 12, 3, 6, 12, 500]);
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.dataList).toEqual([12, 6, 12, 3, 6, 12, 500]);
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.U8,
       EPacketDataType.U8,
       EPacketDataType.U8,
@@ -39,27 +39,27 @@ describe("writeTimeToPacket and readTimeFromPacket utils", () => {
       EPacketDataType.U16,
     ]);
 
-    const timeToRead: Optional<Time> = readTimeFromPacket(netProcessor.asNetReader());
+    const timeToRead: Optional<Time> = readTimeFromPacket(processor.asNetReader());
 
     expect(timeToRead).not.toBeNull();
     expect(timeToRead?.toString()).toBe("y:2012, m:6, d:12, h:3, min:6, sec:12, ms:500");
 
-    expect(netProcessor.dataList).toEqual([]);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
   });
 
   it("should handle nulls", () => {
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    writeTimeToPacket(netProcessor.asNetPacket(), null);
+    writeTimeToPacket(processor.asNetPacket(), null);
 
-    expect(netProcessor.dataList).toEqual([MAX_U8]);
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.U8]);
+    expect(processor.dataList).toEqual([MAX_U8]);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.U8]);
 
-    expect(readTimeFromPacket(netProcessor.asNetReader())).toBeNull();
+    expect(readTimeFromPacket(processor.asNetReader())).toBeNull();
 
-    expect(netProcessor.dataList).toEqual([]);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
   });
 });
 

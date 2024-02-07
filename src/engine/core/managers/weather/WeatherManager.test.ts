@@ -31,15 +31,15 @@ describe("WeatherManager", () => {
   });
 
   it("should correctly handle actor spawn", () => {
-    const weatherManager: WeatherManager = getManager(WeatherManager);
+    const manager: WeatherManager = getManager(WeatherManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
     eventsManager.emitEvent(EGameEvent.ACTOR_GO_ONLINE);
 
     expect(level.name()).toBe("zaton");
 
-    expect(weatherManager.weatherPeriod).toBe("neutral");
-    expect(weatherManager.weatherSection).toBe("neutral");
+    expect(manager.weatherPeriod).toBe("neutral");
+    expect(manager.weatherSection).toBe("neutral");
     expect(String(getFunctionMock(level.set_weather).mock.calls[0][0]).startsWith("default_cloudy")).toBeTruthy();
   });
 
@@ -71,7 +71,7 @@ describe("WeatherManager", () => {
 
   it("should correctly save and load data", () => {
     const manager: WeatherManager = getManager(WeatherManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     manager.setStateAsString("dynamic_default=clear,cloudy");
     manager.weatherSection = "test_weather";
@@ -80,9 +80,9 @@ describe("WeatherManager", () => {
     manager.weatherNextPeriodChangeHour = 13;
     manager.lastUpdatedAtHour = 11;
 
-    manager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.U32,
@@ -92,16 +92,16 @@ describe("WeatherManager", () => {
       EPacketDataType.STRING,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["test_weather", "good", 9, 13, 11, "dynamic_default=clear,cloudy", NIL, 7]);
+    expect(processor.dataList).toEqual(["test_weather", "good", 9, 13, 11, "dynamic_default=clear,cloudy", NIL, 7]);
 
     disposeManager(WeatherManager);
 
     const newManager: WeatherManager = getManager(WeatherManager);
 
-    newManager.load(netProcessor.asNetReader());
+    newManager.load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
     expect(newManager).not.toBe(manager);
     expect(manager.weatherState).toEqual(newManager.weatherState);
     expect(manager.weatherFx).toEqual(newManager.weatherFx);

@@ -109,20 +109,20 @@ describe("TradeManager class implementation", () => {
   it("TradeManager should correctly save and load data when not initialized", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(time_global, () => 30_000);
-    tradeManager.saveObjectState(object, netProcessor.asNetPacket());
+    tradeManager.saveObjectState(object, processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual([false, 1]);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN, EPacketDataType.U16]);
+    expect(processor.dataList).toEqual([false, 1]);
 
     registry.objects.delete(object.id());
 
-    tradeManager.loadObjectState(object, netProcessor.asNetProcessor());
+    tradeManager.loadObjectState(object, processor.asNetProcessor());
 
-    expect(netProcessor.writeDataOrder).toEqual(netProcessor.readDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.writeDataOrder).toEqual(processor.readDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(registry.trade.get(object.id())).toBeNull();
   });
@@ -131,15 +131,15 @@ describe("TradeManager class implementation", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(time_global, () => 10_000);
     tradeManager.initializeForObject(object, "managers\\trade\\trade_generic.ltx");
 
     replaceFunctionMock(time_global, () => 30_000);
-    tradeManager.saveObjectState(object, netProcessor.asNetPacket());
+    tradeManager.saveObjectState(object, processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -149,23 +149,14 @@ describe("TradeManager class implementation", () => {
       EPacketDataType.I32,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
-      true,
-      "managers\\trade\\trade_generic.ltx",
-      "",
-      "",
-      "",
-      -30_001,
-      -30_001,
-      7,
-    ]);
+    expect(processor.dataList).toEqual([true, "managers\\trade\\trade_generic.ltx", "", "", "", -30_001, -30_001, 7]);
 
     registry.objects.delete(object.id());
 
-    tradeManager.loadObjectState(object, netProcessor.asNetProcessor());
+    tradeManager.loadObjectState(object, processor.asNetProcessor());
 
-    expect(netProcessor.writeDataOrder).toEqual(netProcessor.readDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.writeDataOrder).toEqual(processor.readDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(object.sell_condition).not.toHaveBeenCalled();
     expect(object.buy_condition).not.toHaveBeenCalled();
@@ -184,7 +175,7 @@ describe("TradeManager class implementation", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     replaceFunctionMock(time_global, () => 10_000);
     tradeManager.initializeForObject(object, "managers\\trade\\trade_generic.ltx");
@@ -193,9 +184,9 @@ describe("TradeManager class implementation", () => {
     tradeManager.updateForObject(object);
 
     replaceFunctionMock(time_global, () => 30_000);
-    tradeManager.saveObjectState(object, netProcessor.asNetPacket());
+    tradeManager.saveObjectState(object, processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -205,7 +196,7 @@ describe("TradeManager class implementation", () => {
       EPacketDataType.I32,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       true,
       "managers\\trade\\trade_generic.ltx",
       "generic_buy",
@@ -218,10 +209,10 @@ describe("TradeManager class implementation", () => {
 
     registry.objects.delete(object.id());
 
-    tradeManager.loadObjectState(object, netProcessor.asNetProcessor());
+    tradeManager.loadObjectState(object, processor.asNetProcessor());
 
-    expect(netProcessor.writeDataOrder).toEqual(netProcessor.readDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.writeDataOrder).toEqual(processor.readDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(object.buy_condition).toHaveBeenNthCalledWith(2, ini, "generic_buy");
     expect(object.sell_condition).toHaveBeenNthCalledWith(2, ini, "generic_sell");

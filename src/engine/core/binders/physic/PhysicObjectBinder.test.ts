@@ -151,7 +151,7 @@ describe("PhysicObjectBinder", () => {
   it("should handle save/load", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const binderState: IRegistryObjectState = registerObject(binder.object);
 
@@ -161,9 +161,9 @@ describe("PhysicObjectBinder", () => {
     binderState.activeSection = "test@test";
     binderState.smartTerrainName = "test-smart";
 
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -176,7 +176,7 @@ describe("PhysicObjectBinder", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "save_from_PhysicObjectBinder",
       "test.ltx",
       "test_filename.ltx",
@@ -193,7 +193,7 @@ describe("PhysicObjectBinder", () => {
     const newBinder: PhysicObjectBinder = new PhysicObjectBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
     expect(newBinder.isLoaded).toBe(true);
     expect(newBinder.isInitialized).toBe(false);
@@ -203,8 +203,8 @@ describe("PhysicObjectBinder", () => {
     expect(newBinderState.loadedSmartTerrainName).toBe("test-smart");
     expect(newBinderState.loadedIniFilename).toBe("test_filename.ltx");
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it("should handle use events", () => {

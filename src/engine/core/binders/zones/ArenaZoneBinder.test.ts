@@ -69,31 +69,31 @@ describe("CampZoneBinder", () => {
 
   it("should correctly handle save/load", () => {
     const object: GameObject = MockGameObject.mock();
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: ArenaZoneBinder = new ArenaZoneBinder(object);
 
     binder.savedObjects.set(10, true);
     binder.savedObjects.set(11, true);
 
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.U8,
       EPacketDataType.U16,
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["save_from_ArenaZoneBinder", 2, 10, 11, 4]);
+    expect(processor.dataList).toEqual(["save_from_ArenaZoneBinder", 2, 10, 11, 4]);
 
     const newBinder: ArenaZoneBinder = new ArenaZoneBinder(object);
 
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
     expect(newBinder.savedObjects).toEqualLuaTables({ 10: true, 11: true });
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it("should correctly purge items", () => {

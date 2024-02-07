@@ -313,7 +313,7 @@ describe("MonsterBinder", () => {
   it("should handle save/load", () => {
     const object: GameObject = MockGameObject.mock();
     const binder: MonsterBinder = new MonsterBinder(object);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     jest.spyOn(Date, "now").mockImplementationOnce(() => 2000);
 
@@ -331,9 +331,9 @@ describe("MonsterBinder", () => {
     state.activeSection = "scheme@section";
     state.smartTerrainName = "some_smart";
 
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -352,7 +352,7 @@ describe("MonsterBinder", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "save_from_MonsterBinder",
       "job_ini.ltx",
       "ini.ltx",
@@ -372,11 +372,11 @@ describe("MonsterBinder", () => {
       16,
     ]);
 
-    binder.load(netProcessor.asNetReader());
+    binder.load(processor.asNetReader());
 
     expect(binder.isLoaded).toBe(true);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it("should handle waypoint event", () => {

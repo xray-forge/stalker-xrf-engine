@@ -2,7 +2,13 @@ import { CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindCla
 
 import { getManager, registry } from "@/engine/core/database";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
-import { ITreasureDescriptor, treasureConfig, TreasureManager } from "@/engine/core/managers/treasures";
+import {
+  getGivenTreasuresCount,
+  getTreasuresCount,
+  ITreasureDescriptor,
+  treasureConfig,
+  TreasureManager,
+} from "@/engine/core/managers/treasures";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { isGameStarted } from "@/engine/core/utils/game";
 import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
@@ -106,15 +112,10 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * Initialize section state from current state.
    */
   public override initializeState(): void {
-    const treasureManager: TreasureManager = getManager(TreasureManager);
     const statisticManager: StatisticsManager = getManager(StatisticsManager);
 
-    this.uiTotalTreasuresLabel
-      .TextControl()
-      .SetText(string.format("Total treasures: %s", treasureManager.getTreasuresCount()));
-    this.uiGivenTreasuresLabel
-      .TextControl()
-      .SetText(string.format("Given treasures: %s", treasureManager.getGivenTreasuresCount()));
+    this.uiTotalTreasuresLabel.TextControl().SetText(string.format("Total treasures: %s", getTreasuresCount()));
+    this.uiGivenTreasuresLabel.TextControl().SetText(string.format("Given treasures: %s", getGivenTreasuresCount()));
     this.uiFoundTreasuresLabel
       .TextControl()
       .SetText(string.format("Found treasures: %s", statisticManager.actorStatistics.collectedTreasuresCount));

@@ -39,15 +39,15 @@ describe("SurgeManager", () => {
 
   it("should correctly handle saving/loading in general case", () => {
     const manager: SurgeManager = getManager(SurgeManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     manager.nextScheduledSurgeDelay = 4500;
 
-    manager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
     expect(manager.isAfterGameLoad).toBe(false);
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
       EPacketDataType.U8,
@@ -61,17 +61,17 @@ describe("SurgeManager", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([true, false, 12, 6, 12, 9, 30, 0, 0, 4500, 0, 11]);
+    expect(processor.dataList).toEqual([true, false, 12, 6, 12, 9, 30, 0, 0, 4500, 0, 11]);
 
     disposeManager(SurgeManager);
 
     const newManager: SurgeManager = getManager(SurgeManager);
 
-    newManager.load(netProcessor.asNetReader());
+    newManager.load(processor.asNetReader());
 
     expect(newManager.isAfterGameLoad).toBe(true);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
     expect(newManager).not.toBe(manager);
 
     expect(newManager.nextScheduledSurgeDelay).toBe(4500);
@@ -81,7 +81,7 @@ describe("SurgeManager", () => {
     surgeConfig.IS_STARTED = true;
 
     const manager: SurgeManager = getManager(SurgeManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     manager.nextScheduledSurgeDelay = 530;
 
@@ -96,11 +96,11 @@ describe("SurgeManager", () => {
     manager.respawnArtefactsForLevel.set("jupiter", true);
     manager.respawnArtefactsForLevel.set("new_level", true);
 
-    manager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
     expect(manager.isAfterGameLoad).toBe(false);
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.BOOLEAN,
       EPacketDataType.BOOLEAN,
       EPacketDataType.U8,
@@ -130,7 +130,7 @@ describe("SurgeManager", () => {
       EPacketDataType.STRING,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       true,
       true,
       12,
@@ -165,10 +165,10 @@ describe("SurgeManager", () => {
 
     const newManager: SurgeManager = getManager(SurgeManager);
 
-    newManager.load(netProcessor.asNetReader());
+    newManager.load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
     expect(newManager).not.toBe(manager);
 
     expect(newManager.isAfterGameLoad).toBe(true);

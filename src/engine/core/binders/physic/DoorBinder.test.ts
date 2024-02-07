@@ -353,7 +353,7 @@ describe("DoorBinder", () => {
   it("should correctly handle save/load", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: DoorBinder = new DoorBinder(MockGameObject.mock());
     const binderState: IRegistryObjectState = registerObject(binder.object);
     const physicObject: PhysicObject = MockPhysicObject.mock();
@@ -370,9 +370,9 @@ describe("DoorBinder", () => {
     binder.isIdle = false;
     binder.isPlayingForward = true;
 
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -388,7 +388,7 @@ describe("DoorBinder", () => {
       EPacketDataType.F32,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "save_from_DoorBinder",
       "test.ltx",
       "test_filename.ltx",
@@ -408,7 +408,7 @@ describe("DoorBinder", () => {
     const newBinder: DoorBinder = new DoorBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
     expect(newBinderState.jobIni).toBe("test.ltx");
     expect(newBinderState.loadedSectionLogic).toBe("logic");
@@ -421,8 +421,8 @@ describe("DoorBinder", () => {
     expect(newBinder.isPlayingForward).toBe(true);
     expect(newBinder.animationDuration).toBe(20);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it("should be save relevant", () => {

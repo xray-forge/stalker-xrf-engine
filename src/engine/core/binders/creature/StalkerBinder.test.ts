@@ -102,7 +102,7 @@ describe("StalkerBinder", () => {
 
     const object: GameObject = MockGameObject.mock();
     const binder: StalkerBinder = new StalkerBinder(object);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     registerObject(object);
 
@@ -118,13 +118,13 @@ describe("StalkerBinder", () => {
     state.activeSection = "scheme@section";
     state.smartTerrainName = "some_smart";
 
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(tradeManager.saveObjectState).toHaveBeenCalledWith(object, netProcessor);
-    expect(soundManager.saveObject).toHaveBeenCalledWith(object, netProcessor);
-    expect(dialogManager.saveObjectDialogs).toHaveBeenCalledWith(object, netProcessor);
+    expect(tradeManager.saveObjectState).toHaveBeenCalledWith(object, processor);
+    expect(soundManager.saveObject).toHaveBeenCalledWith(object, processor);
+    expect(dialogManager.saveObjectDialogs).toHaveBeenCalledWith(object, processor);
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -143,7 +143,7 @@ describe("StalkerBinder", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "save_from_StalkerBinder",
       "job_ini.ltx",
       "ini.ltx",
@@ -163,14 +163,14 @@ describe("StalkerBinder", () => {
       16,
     ]);
 
-    binder.load(netProcessor.asNetReader());
+    binder.load(processor.asNetReader());
 
-    expect(tradeManager.loadObjectState).toHaveBeenCalledWith(object, netProcessor);
-    expect(soundManager.loadObject).toHaveBeenCalledWith(object, netProcessor);
-    expect(dialogManager.loadObjectDialogs).toHaveBeenCalledWith(object, netProcessor);
+    expect(tradeManager.loadObjectState).toHaveBeenCalledWith(object, processor);
+    expect(soundManager.loadObject).toHaveBeenCalledWith(object, processor);
+    expect(dialogManager.loadObjectDialogs).toHaveBeenCalledWith(object, processor);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it.todo("should correctly update torch light state");

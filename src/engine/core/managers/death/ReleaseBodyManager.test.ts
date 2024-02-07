@@ -112,7 +112,7 @@ describe("ReleaseBodyManager", () => {
     mockRegisteredActor();
 
     const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     deathConfig.RELEASE_OBJECTS_REGISTRY = $fromArray<IReleaseDescriptor>([
       { id: 10, diedAt: 4_000 },
@@ -121,9 +121,9 @@ describe("ReleaseBodyManager", () => {
       { id: 13, diedAt: null },
     ]);
 
-    manager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.U16,
       EPacketDataType.U16,
       EPacketDataType.U16,
@@ -132,16 +132,16 @@ describe("ReleaseBodyManager", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([4, 10, 11, 12, 13, 5120, 6]);
+    expect(processor.dataList).toEqual([4, 10, 11, 12, 13, 5120, 6]);
 
     disposeManager(ReleaseBodyManager);
 
     deathConfig.RELEASE_OBJECTS_REGISTRY = new LuaTable();
 
-    getManager(ReleaseBodyManager).load(netProcessor.asNetReader());
+    getManager(ReleaseBodyManager).load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(deathConfig.RELEASE_OBJECTS_REGISTRY).toEqualLuaArrays([
       { id: 10, diedAt: null },
@@ -155,23 +155,23 @@ describe("ReleaseBodyManager", () => {
     mockRegisteredActor();
 
     const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     deathConfig.RELEASE_OBJECTS_REGISTRY = $fromArray<IReleaseDescriptor>([
       { id: 10, diedAt: 4_000 },
       { id: 11, diedAt: 5_000 },
     ]);
 
-    manager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.U16,
       EPacketDataType.U16,
       EPacketDataType.U16,
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([2, 10, 11, 5120, 4]);
+    expect(processor.dataList).toEqual([2, 10, 11, 5120, 4]);
 
     disposeManager(ReleaseBodyManager);
 
@@ -179,10 +179,10 @@ describe("ReleaseBodyManager", () => {
 
     deathConfig.RELEASE_OBJECTS_REGISTRY = new LuaTable();
 
-    getManager(ReleaseBodyManager).load(netProcessor.asNetReader());
+    getManager(ReleaseBodyManager).load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(deathConfig.RELEASE_OBJECTS_REGISTRY).toEqualLuaArrays([]);
   });

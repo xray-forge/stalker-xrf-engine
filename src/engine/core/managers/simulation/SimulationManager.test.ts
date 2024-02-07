@@ -210,23 +210,23 @@ describe("SimulationBoardManager", () => {
 
   it("should correctly save and load data", () => {
     const manager: SimulationManager = getManager(SimulationManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     manager.areDefaultSimulationSquadsSpawned = true;
 
-    manager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN]);
-    expect(netProcessor.dataList).toEqual([true]);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.BOOLEAN]);
+    expect(processor.dataList).toEqual([true]);
 
     disposeManager(SimulationManager);
 
     const newManager: SimulationManager = getManager(SimulationManager);
 
-    newManager.load(netProcessor.asNetReader());
+    newManager.load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
     expect(newManager.areDefaultSimulationSquadsSpawned).toBe(true);
   });
 });

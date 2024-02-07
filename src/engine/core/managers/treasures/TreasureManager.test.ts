@@ -1,17 +1,19 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { getManager, registerActor } from "@/engine/core/database";
+import { disposeManager, getManager, registerActor } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { MapDisplayManager } from "@/engine/core/managers/map";
+import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
 import { TREASURE_MANAGER_CONFIG_LTX, treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { ServerObject } from "@/engine/lib/types";
+import { GameObject, ServerObject, TName, TNumberId } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockAlifeObject, MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("TreasureManager", () => {
   beforeEach(() => {
@@ -111,62 +113,62 @@ describe("TreasureManager", () => {
   });
 
   it("should correctly handle statics shortcuts", () => {
-    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const manager: TreasureManager = getManager(TreasureManager);
 
-    jest.spyOn(treasureManager, "giveActorTreasureCoordinates").mockImplementation(() => {});
-    jest.spyOn(treasureManager, "onRegisterItem").mockImplementation(() => true);
+    jest.spyOn(manager, "giveActorTreasureCoordinates").mockImplementation(() => {});
+    jest.spyOn(manager, "onRegisterItem").mockImplementation(() => true);
 
     TreasureManager.giveTreasureCoordinates("test");
-    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalled();
+    expect(manager.giveActorTreasureCoordinates).toHaveBeenCalled();
 
     expect(TreasureManager.registerItem(MockAlifeObject.mock())).toBe(true);
-    expect(treasureManager.giveActorTreasureCoordinates).toHaveBeenCalled();
+    expect(manager.giveActorTreasureCoordinates).toHaveBeenCalled();
   });
 
   it("should correctly handle spawn all in updates", () => {
-    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const manager: TreasureManager = getManager(TreasureManager);
 
-    treasureManager.initialize();
+    manager.initialize();
 
     jest.spyOn(Date, "now").mockImplementation(() => 1000);
-    treasureManager.areItemsSpawned = true;
-    treasureManager["spawnTreasures"] = jest.fn();
+    manager.areItemsSpawned = true;
+    manager["spawnTreasures"] = jest.fn();
 
-    treasureManager.update();
+    manager.update();
 
-    expect(treasureManager["spawnTreasures"]).not.toHaveBeenCalled();
-    expect(treasureManager.lastUpdatedAt).toBe(1000);
+    expect(manager["spawnTreasures"]).not.toHaveBeenCalled();
+    expect(manager.lastUpdatedAt).toBe(1000);
 
-    treasureManager.lastUpdatedAt = -1000;
-    treasureManager.areItemsSpawned = false;
+    manager.lastUpdatedAt = -1000;
+    manager.areItemsSpawned = false;
 
-    treasureManager.update();
+    manager.update();
 
-    expect(treasureManager["spawnTreasures"]).toHaveBeenCalled();
-    expect(treasureManager.lastUpdatedAt).toBe(1000);
+    expect(manager["spawnTreasures"]).toHaveBeenCalled();
+    expect(manager.lastUpdatedAt).toBe(1000);
   });
 
   it("should correctly handle empty state in updates", () => {
     registerActor(MockGameObject.mockActor());
     giveInfoPortion("info_b10_first_zone_visited");
 
-    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const manager: TreasureManager = getManager(TreasureManager);
 
-    treasureManager.treasuresRestrictorByName.set("jup_b1_secret", 1501);
-    treasureManager.initialize();
+    manager.treasuresRestrictorByName.set("jup_b1_secret", 1501);
+    manager.initialize();
 
     const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get("jup_b1_secret");
 
-    treasureManager.update();
+    manager.update();
 
     expect(level.map_remove_object_spot).not.toHaveBeenCalled();
 
     expect(descriptor.empty).not.toBeNull();
     expect(descriptor.checked).toBe(false);
 
-    treasureManager.lastUpdatedAt = -1000;
+    manager.lastUpdatedAt = -1000;
     descriptor.given = true;
-    treasureManager.update();
+    manager.update();
 
     expect(level.map_remove_object_spot).toHaveBeenCalledWith(1501, "treasure_rare");
     expect(descriptor.empty).toBeNull();
@@ -176,16 +178,16 @@ describe("TreasureManager", () => {
   it("should correctly handle refresh state in updates", () => {
     registerActor(MockGameObject.mockActor());
 
-    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const manager: TreasureManager = getManager(TreasureManager);
 
-    treasureManager.initialize();
+    manager.initialize();
 
     const descriptor: ITreasureDescriptor = treasureConfig.TREASURES.get("jup_b2_secret");
 
     descriptor.given = true;
     descriptor.checked = true;
 
-    treasureManager.update();
+    manager.update();
 
     expect(descriptor.checked).toBe(false);
     expect(descriptor.given).toBe(false);
@@ -196,70 +198,48 @@ describe("TreasureManager", () => {
     const secret: ServerObject = MockAlifeObject.mock({
       spawnIni: MockIniFile.mock("spawn.ini", { secret: {} }),
     });
-    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const manager: TreasureManager = getManager(TreasureManager);
 
-    jest.spyOn(treasureManager, "onRegisterRestrictor");
+    jest.spyOn(manager, "onRegisterRestrictor");
 
-    treasureManager.initialize();
+    manager.initialize();
 
     EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_REGISTERED, notSecret);
 
-    expect(treasureManager.onRegisterRestrictor).toHaveBeenCalledWith(notSecret);
-    expect(treasureManager.treasuresRestrictorByName.length()).toBe(0);
+    expect(manager.onRegisterRestrictor).toHaveBeenCalledWith(notSecret);
+    expect(manager.treasuresRestrictorByName.length()).toBe(0);
 
     EventsManager.emitEvent(EGameEvent.RESTRICTOR_ZONE_REGISTERED, secret);
 
-    expect(treasureManager.onRegisterRestrictor).toHaveBeenNthCalledWith(2, secret);
-    expect(treasureManager.treasuresRestrictorByName.length()).toBe(1);
-  });
-
-  it("should correctly get treasures count", () => {
-    const treasureManager: TreasureManager = getManager(TreasureManager);
-
-    treasureManager.initialize();
-
-    expect(treasureManager.getTreasuresCount()).toBe(3);
-    expect(treasureConfig.TREASURES.length()).toBe(3);
+    expect(manager.onRegisterRestrictor).toHaveBeenNthCalledWith(2, secret);
+    expect(manager.treasuresRestrictorByName.length()).toBe(1);
   });
 
   it("should correctly get treasures", () => {
-    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const manager: TreasureManager = getManager(TreasureManager);
 
-    treasureManager.initialize();
+    manager.initialize();
 
     expect(treasureConfig.TREASURES.get("jup_b1_secret")).not.toBeNull();
     expect(treasureConfig.TREASURES.get("jup_b1_secret")).toBe(treasureConfig.TREASURES.get("jup_b1_secret"));
   });
 
-  it("should correctly get given treasures count", () => {
-    const treasureManager: TreasureManager = getManager(TreasureManager);
-
-    treasureManager.initialize();
-    expect(treasureManager.getGivenTreasuresCount()).toBe(0);
-
-    treasureConfig.TREASURES.get("jup_b1_secret").given = true;
-    expect(treasureManager.getGivenTreasuresCount()).toBe(1);
-
-    treasureConfig.TREASURES.get("jup_b2_secret").given = true;
-    expect(treasureManager.getGivenTreasuresCount()).toBe(2);
-  });
-
   it("should correctly spawn treasures", () => {
-    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const manager: TreasureManager = getManager(TreasureManager);
 
-    treasureManager.initialize();
+    manager.initialize();
 
-    treasureManager["spawnTreasure"] = jest.fn();
+    manager["spawnTreasure"] = jest.fn();
 
-    treasureManager["spawnTreasures"]();
-    expect(treasureManager["spawnTreasure"]).toHaveBeenCalledTimes(3);
+    manager["spawnTreasures"]();
+    expect(manager["spawnTreasure"]).toHaveBeenCalledTimes(3);
 
-    treasureManager["spawnTreasures"]();
-    expect(treasureManager["spawnTreasure"]).toHaveBeenCalledTimes(3);
+    manager["spawnTreasures"]();
+    expect(manager["spawnTreasure"]).toHaveBeenCalledTimes(3);
 
-    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(1, "jup_b1_secret");
-    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(2, "jup_b2_secret");
-    expect(treasureManager["spawnTreasure"]).toHaveBeenNthCalledWith(3, "jup_b3_secret");
+    expect(manager["spawnTreasure"]).toHaveBeenNthCalledWith(1, "jup_b1_secret");
+    expect(manager["spawnTreasure"]).toHaveBeenNthCalledWith(2, "jup_b2_secret");
+    expect(manager["spawnTreasure"]).toHaveBeenNthCalledWith(3, "jup_b3_secret");
   });
 
   it.todo("should correctly register items");
@@ -270,7 +250,150 @@ describe("TreasureManager", () => {
 
   it.todo("should correctly give actor random coordinates");
 
-  it.todo("should correctly handle actor taking item");
+  it("should correctly handle actor taking item", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+    const mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
+    const notificationManager: NotificationManager = getManager(NotificationManager);
+    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
 
-  it.todo("should correctly handle save and load");
+    expect(() => treasureManager.onActorItemTake(first)).not.toThrow();
+
+    jest.spyOn(mapDisplayManager, "removeTreasureMapSpot").mockImplementation(jest.fn());
+    jest.spyOn(notificationManager, "sendTreasureNotification").mockImplementation(jest.fn());
+    jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
+
+    treasureManager.treasuresRestrictorByItem.set(second.id(), 55);
+    treasureManager.treasuresRestrictorByName.set("jup_b1_secret", 55);
+
+    treasureManager.onActorItemTake(second);
+
+    const treasure: ITreasureDescriptor = treasureConfig.TREASURES.get("jup_b1_secret");
+
+    expect(treasure.itemsToFindRemain).toBe(-1);
+    expect(treasure.checked).toBe(true);
+
+    expect(mapDisplayManager.removeTreasureMapSpot).toHaveBeenCalledWith(55, treasure);
+    expect(notificationManager.sendTreasureNotification).toHaveBeenCalledWith(ETreasureState.FOUND_TREASURE);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.TREASURE_FOUND, treasure);
+  });
+
+  it("should correctly handle save and load", () => {
+    const manager: TreasureManager = getManager(TreasureManager);
+    const processor: MockNetProcessor = new MockNetProcessor();
+
+    manager.areItemsSpawned = true;
+    manager.treasuresRestrictorByItem = $fromObject<TNumberId, TNumberId>({ 10: 200, 11: 300 });
+    manager.treasuresRestrictorByName = $fromObject<TName, TNumberId>({
+      jup_b1_secret: 55,
+      jup_b2_secret: 66,
+    });
+
+    treasureConfig.TREASURES.get("jup_b1_secret").itemsToFindRemain = 4;
+    treasureConfig.TREASURES.get("jup_b1_secret").given = true;
+    treasureConfig.TREASURES.get("jup_b2_secret").given = true;
+    treasureConfig.TREASURES.get("jup_b3_secret").checked = true;
+
+    manager.save(processor.asNetPacket());
+
+    expect(processor.writeDataOrder).toEqual([
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+      EPacketDataType.U16,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.U8,
+      EPacketDataType.U16,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.U8,
+      EPacketDataType.U16,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.BOOLEAN,
+      EPacketDataType.U8,
+      EPacketDataType.U16,
+    ]);
+    expect(processor.dataList).toEqual([
+      true,
+      2,
+      10,
+      200,
+      11,
+      300,
+      3,
+      // First treasure.
+      55,
+      true,
+      false,
+      4,
+      // Second treasure.
+      66,
+      true,
+      false,
+      0,
+      // Third treasure.
+      -1,
+      false,
+      true,
+      0,
+      19,
+    ]);
+
+    disposeManager(TreasureManager);
+
+    treasureConfig.TREASURES = readIniTreasuresList(TREASURE_MANAGER_CONFIG_LTX);
+
+    const newManager: TreasureManager = getManager(TreasureManager);
+
+    newManager.treasuresRestrictorByName = $fromObject<TName, TNumberId>({
+      jup_b1_secret: 55,
+      jup_b2_secret: 66,
+    });
+
+    newManager.load(processor.asNetReader());
+
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
+
+    expect(newManager.areItemsSpawned).toBe(true);
+    expect(newManager.treasuresRestrictorByItem).toEqualLuaTables({
+      10: 200,
+      11: 300,
+    });
+
+    expect(treasureConfig.TREASURES.length()).toBe(3);
+    expect(treasureConfig.TREASURES.get("jup_b1_secret")).toEqualLuaTables({
+      given: true,
+      checked: false,
+      refreshing: null,
+      type: ETreasureType.RARE,
+      empty: expect.any(Object),
+      items: expect.any(Object),
+      itemsToFindRemain: 4,
+    });
+    expect(treasureConfig.TREASURES.get("jup_b2_secret")).toEqualLuaTables({
+      given: true,
+      checked: false,
+      refreshing: expect.any(Object),
+      type: ETreasureType.EPIC,
+      empty: expect.any(Object),
+      items: expect.any(Object),
+      itemsToFindRemain: 0,
+    });
+    expect(treasureConfig.TREASURES.get("jup_b3_secret")).toEqualLuaTables({
+      given: false,
+      checked: false,
+      refreshing: expect.any(Object),
+      type: ETreasureType.RARE,
+      empty: expect.any(Object),
+      items: expect.any(Object),
+      itemsToFindRemain: 0,
+    });
+  });
 });

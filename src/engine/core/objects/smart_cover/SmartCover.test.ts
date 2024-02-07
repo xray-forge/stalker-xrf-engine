@@ -133,7 +133,7 @@ describe("SmartCover server object", () => {
 
   it("should correctly save and load data", () => {
     const cover: SmartCover = new SmartCover("test_smart_cover");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     cover.lastDescription = "combat_front";
     cover.loopholes = MockLuaTable.mockFromObject<TStringId, boolean>({
@@ -143,9 +143,9 @@ describe("SmartCover server object", () => {
       stand_front_left: false,
     });
 
-    cover.STATE_Write(netProcessor.asNetPacket());
+    cover.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.U8,
@@ -158,7 +158,7 @@ describe("SmartCover server object", () => {
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "state_write_from_SmartCover",
       "combat_front",
       4,
@@ -174,9 +174,9 @@ describe("SmartCover server object", () => {
 
     const anotherCover: SmartCover = new SmartCover("test_smart_cover");
 
-    anotherCover.STATE_Read(netProcessor.asNetPacket(), 5001);
+    anotherCover.STATE_Read(processor.asNetPacket(), 5001);
 
-    expect(netProcessor.dataList).toEqual([]);
+    expect(processor.dataList).toEqual([]);
     expect(anotherCover.lastDescription).toBe("combat_front");
     expect(cover.loopholes).toEqualLuaTables({
       crouch_front: true,
@@ -188,13 +188,13 @@ describe("SmartCover server object", () => {
 
   it("should fail if description does not exist on load", () => {
     const cover: SmartCover = new SmartCover("test_smart_cover");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     cover.lastDescription = "not_existing";
 
-    cover.STATE_Write(netProcessor.asNetPacket());
+    cover.STATE_Write(processor.asNetPacket());
 
-    expect(() => cover.STATE_Read(netProcessor.asNetPacket(), 5001)).toThrow(
+    expect(() => cover.STATE_Read(processor.asNetPacket(), 5001)).toThrow(
       `SmartCover '${cover.name()}' has wrong description - 'not_existing'.`
     );
   });

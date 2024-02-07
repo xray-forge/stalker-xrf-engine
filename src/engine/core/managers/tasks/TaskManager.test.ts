@@ -24,7 +24,7 @@ describe("TaskManager", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const taskManager: TaskManager = getManager(TaskManager);
+    const manager: TaskManager = getManager(TaskManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(0);
@@ -37,36 +37,36 @@ describe("TaskManager", () => {
   });
 
   it("should correctly save and load empty list data", () => {
-    const taskManager: TaskManager = getManager(TaskManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const manager: TaskManager = getManager(TaskManager);
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    taskManager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.U16, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual([0, 1]);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.U16, EPacketDataType.U16]);
+    expect(processor.dataList).toEqual([0, 1]);
 
     disposeManager(TaskManager);
 
     const tasksBefore: LuaTable<TSection, TaskObject> = taskConfig.ACTIVE_TASKS;
-    const newTaskManager: TaskManager = getManager(TaskManager);
+    const newManager: TaskManager = getManager(TaskManager);
 
-    newTaskManager.load(netProcessor.asNetProcessor());
+    newManager.load(processor.asNetProcessor());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
-    expect(newTaskManager).not.toBe(taskManager);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
+    expect(newManager).not.toBe(manager);
     expect(taskConfig.ACTIVE_TASKS).toEqual(tasksBefore);
   });
 
   it("should correctly save and load with tasks data", () => {
-    const taskManager: TaskManager = getManager(TaskManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const manager: TaskManager = getManager(TaskManager);
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    taskManager.giveTask("hide_from_surge");
+    manager.giveTask("hide_from_surge");
 
-    taskManager.save(netProcessor.asNetPacket());
+    manager.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.U16,
       EPacketDataType.STRING,
       EPacketDataType.U8,
@@ -83,7 +83,7 @@ describe("TaskManager", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       1,
       "hide_from_surge",
       2,
@@ -103,14 +103,14 @@ describe("TaskManager", () => {
 
     disposeManager(TaskManager);
 
-    const newTaskManager: TaskManager = getManager(TaskManager);
+    const newManager: TaskManager = getManager(TaskManager);
 
-    newTaskManager.load(netProcessor.asNetReader());
+    newManager.load(processor.asNetReader());
 
-    expect(netProcessor.writeDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.writeDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
-    expect(newTaskManager).not.toBe(taskManager);
+    expect(newManager).not.toBe(manager);
     expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(1);
   });
 

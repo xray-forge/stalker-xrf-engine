@@ -165,7 +165,7 @@ describe("SmartTerrain generic logic", () => {
 
   it("should correctly save and load data when have meaningful info", () => {
     const terrain: SmartTerrain = new SmartTerrain("test_init");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     const firstArriving: ServerHumanObject = MockAlifeHumanStalker.mock();
     const secondArriving: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -204,9 +204,9 @@ describe("SmartTerrain generic logic", () => {
     terrain.lastRespawnUpdatedAt = MockCTime.mock(2005, 8, 20, 13, 31, 11, 201);
     terrain.stayingObjectsCount = 4;
 
-    terrain.STATE_Write(netProcessor.asNetPacket());
+    terrain.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.U8,
       EPacketDataType.U16,
@@ -247,7 +247,7 @@ describe("SmartTerrain generic logic", () => {
       EPacketDataType.U8,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "state_write_from_SmartTerrain",
       2,
       firstArriving.id,
@@ -291,7 +291,7 @@ describe("SmartTerrain generic logic", () => {
 
     const anotherTerrain: SmartTerrain = MockSmartTerrain.mockConfigured("another_smart");
 
-    anotherTerrain.STATE_Read(netProcessor.asNetPacket(), 5001);
+    anotherTerrain.STATE_Read(processor.asNetPacket(), 5001);
 
     expect(anotherTerrain.arrivingObjects).toEqualLuaTables({
       [firstArriving.id]: false,
@@ -331,11 +331,11 @@ describe("SmartTerrain generic logic", () => {
 
   it("should correctly save and load data when have empty info", () => {
     const terrain: SmartTerrain = new SmartTerrain("test_init");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    terrain.STATE_Write(netProcessor.asNetPacket());
+    terrain.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.U8,
       EPacketDataType.U8,
@@ -345,11 +345,11 @@ describe("SmartTerrain generic logic", () => {
       EPacketDataType.U8,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_SmartTerrain", 0, 0, 0, false, false, 0, 6]);
+    expect(processor.dataList).toEqual(["state_write_from_SmartTerrain", 0, 0, 0, false, false, 0, 6]);
 
     const anotherTerrain: SmartTerrain = MockSmartTerrain.mockConfigured("another_smart");
 
-    anotherTerrain.STATE_Read(netProcessor.asNetPacket(), 5001);
+    anotherTerrain.STATE_Read(processor.asNetPacket(), 5001);
 
     expect(anotherTerrain.arrivingObjects.length()).toBe(0);
     expect(anotherTerrain.objectJobDescriptors.length()).toBe(0);

@@ -110,11 +110,11 @@ describe("portable_store functionality", () => {
     setPortableStoreValue(object.id(), "boolean_test", true);
     setPortableStoreValue(object.id(), "string_test", "example");
 
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    savePortableStore(object.id(), netProcessor.asNetPacket());
+    savePortableStore(object.id(), processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.U32,
       EPacketDataType.STRING,
       EPacketDataType.U8,
@@ -126,7 +126,7 @@ describe("portable_store functionality", () => {
       EPacketDataType.U8,
       EPacketDataType.STRING,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       3,
       "number_test",
       EPortableStoreType.NUMBER,
@@ -143,10 +143,10 @@ describe("portable_store functionality", () => {
 
     registerObject(nextObject);
 
-    loadPortableStore(nextObject.id(), netProcessor.asNetReader());
+    loadPortableStore(nextObject.id(), processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
 
     expect(getPortableStoreValue(object.id(), "number_test")).toBe(1000);
     expect(getPortableStoreValue(object.id(), "boolean_test")).toBe(true);
@@ -161,16 +161,16 @@ describe("portable_store functionality", () => {
     setPortableStoreValue(object.id(), "valid", 1);
     registry.objects.get(object.id()).portableStore?.set("invalid", {});
 
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
-    expect(() => savePortableStore(object.id(), netProcessor.asNetPacket())).toThrow(
+    expect(() => savePortableStore(object.id(), processor.asNetPacket())).toThrow(
       "Portable store: not registered type tried to save 'invalid' - 'table'."
     );
 
-    netProcessor.w_stringZ("key");
-    netProcessor.w_u8(3);
+    processor.w_stringZ("key");
+    processor.w_u8(3);
 
-    expect(() => loadPortableStore(object.id(), netProcessor.asNetReader())).toThrow(
+    expect(() => loadPortableStore(object.id(), processor.asNetReader())).toThrow(
       "Portable store: not registered type tried to load: 'invalid' - 'key'."
     );
   });

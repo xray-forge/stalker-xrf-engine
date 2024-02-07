@@ -63,7 +63,7 @@ describe("LevelChangerBinder", () => {
   it("should correctly handle save/load", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: LevelChangerBinder = new LevelChangerBinder(MockGameObject.mock());
     const binderState: IRegistryObjectState = registerObject(binder.object);
 
@@ -73,9 +73,9 @@ describe("LevelChangerBinder", () => {
     binderState.activeSection = "test@test";
     binderState.smartTerrainName = "test-smart";
 
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -88,7 +88,7 @@ describe("LevelChangerBinder", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "save_from_LevelChangerBinder",
       "test.ltx",
       "test_filename.ltx",
@@ -105,7 +105,7 @@ describe("LevelChangerBinder", () => {
     const newBinder: LevelChangerBinder = new LevelChangerBinder(MockGameObject.mock());
     const newBinderState: IRegistryObjectState = registerObject(newBinder.object);
 
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
     expect(newBinderState.jobIni).toBe("test.ltx");
     expect(newBinderState.loadedSectionLogic).toBe("logic");
@@ -113,8 +113,8 @@ describe("LevelChangerBinder", () => {
     expect(newBinderState.loadedSmartTerrainName).toBe("test-smart");
     expect(newBinderState.loadedIniFilename).toBe("test_filename.ltx");
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it("should be save relevant", () => {

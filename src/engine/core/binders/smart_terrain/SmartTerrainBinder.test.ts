@@ -100,22 +100,22 @@ describe("SmartTerrainBinder", () => {
   });
 
   it("should correctly handle save/load", () => {
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
 
     binder.isVisited = true;
 
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.BOOLEAN, EPacketDataType.U16]);
-    expect(netProcessor.dataList).toEqual(["save_from_SmartTerrainBinder", true, 2]);
+    expect(processor.writeDataOrder).toEqual([EPacketDataType.STRING, EPacketDataType.BOOLEAN, EPacketDataType.U16]);
+    expect(processor.dataList).toEqual(["save_from_SmartTerrainBinder", true, 2]);
 
     const newBinder: SmartTerrainBinder = new SmartTerrainBinder(MockGameObject.mock());
 
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
     expect(newBinder.isVisited).toBe(true);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 });

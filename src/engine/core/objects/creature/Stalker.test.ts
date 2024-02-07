@@ -177,27 +177,27 @@ describe("Stalker server object", () => {
 
   it("should correctly save and load data with defaults", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     stalker.on_spawn();
     stalker.on_register();
 
-    stalker.STATE_Write(netProcessor.asNetPacket());
+    stalker.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_Stalker", NIL, NIL, false]);
+    expect(processor.dataList).toEqual(["state_write_from_Stalker", NIL, NIL, false]);
 
     const another: Stalker = new Stalker("stalker");
 
-    another.STATE_Read(netProcessor.asNetPacket(), 0);
+    another.STATE_Read(processor.asNetPacket(), 0);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(another.isCorpseLootDropped).toBe(false);
     expect(registry.offlineObjects.get(another.id)).toEqualLuaTables({
@@ -208,7 +208,7 @@ describe("Stalker server object", () => {
 
   it("should correctly save and load data with custom data offline", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     (stalker as AnyObject)["online"] = false;
     stalker.isCorpseLootDropped = true;
@@ -221,22 +221,22 @@ describe("Stalker server object", () => {
     offlineState.activeSection = "test_section";
     offlineState.levelVertexId = 435;
 
-    stalker.STATE_Write(netProcessor.asNetPacket());
+    stalker.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_Stalker", "435", "test_section", true]);
+    expect(processor.dataList).toEqual(["state_write_from_Stalker", "435", "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 
-    another.STATE_Read(netProcessor.asNetPacket(), 0);
+    another.STATE_Read(processor.asNetPacket(), 0);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(another.isCorpseLootDropped).toBe(true);
     expect(registry.offlineObjects.get(another.id)).toEqualLuaTables({
@@ -247,7 +247,7 @@ describe("Stalker server object", () => {
 
   it("should correctly save and load data with custom data online", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     MockGameObject.mock({ id: stalker.id, levelVertexId: 311 });
 
@@ -261,22 +261,22 @@ describe("Stalker server object", () => {
 
     offlineState.activeSection = "test_section";
 
-    stalker.STATE_Write(netProcessor.asNetPacket());
+    stalker.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_Stalker", "311", "test_section", true]);
+    expect(processor.dataList).toEqual(["state_write_from_Stalker", "311", "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 
-    another.STATE_Read(netProcessor.asNetPacket(), 0);
+    another.STATE_Read(processor.asNetPacket(), 0);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(another.isCorpseLootDropped).toBe(true);
     expect(registry.offlineObjects.get(another.id)).toEqualLuaTables({
@@ -287,7 +287,7 @@ describe("Stalker server object", () => {
 
   it("should correctly overwrite current vertex only if it is not null on load", () => {
     const stalker: Stalker = new Stalker("stalker");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     (stalker as AnyObject)["online"] = false;
     stalker.isCorpseLootDropped = true;
@@ -299,15 +299,15 @@ describe("Stalker server object", () => {
 
     offlineState.activeSection = "test_section";
 
-    stalker.STATE_Write(netProcessor.asNetPacket());
+    stalker.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
     ]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_Stalker", NIL, "test_section", true]);
+    expect(processor.dataList).toEqual(["state_write_from_Stalker", NIL, "test_section", true]);
 
     const another: Stalker = new Stalker("stalker");
 
@@ -316,10 +316,10 @@ describe("Stalker server object", () => {
 
     registry.offlineObjects.get(another.id).levelVertexId = 730;
 
-    another.STATE_Read(netProcessor.asNetPacket(), 0);
+    another.STATE_Read(processor.asNetPacket(), 0);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(another.isCorpseLootDropped).toBe(true);
     expect(registry.offlineObjects.get(another.id)).toEqualLuaTables({

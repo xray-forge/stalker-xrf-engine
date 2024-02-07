@@ -181,7 +181,7 @@ describe("ActorBinder", () => {
   it("should correctly handle save/load with default values", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
     const saveManager: SaveManager = getManager(SaveManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: ActorBinder = new ActorBinder(actorGameObject);
 
     jest.spyOn(saveManager, "clientSave").mockImplementation(jest.fn());
@@ -189,32 +189,32 @@ describe("ActorBinder", () => {
 
     binder.net_spawn(actorServerObject);
     binder.reinit();
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(saveManager.clientSave).toHaveBeenCalledWith(netProcessor);
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(saveManager.clientSave).toHaveBeenCalledWith(processor);
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.U32,
       EPacketDataType.BOOLEAN,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["save_from_ActorBinder", 0, false, 3]);
+    expect(processor.dataList).toEqual(["save_from_ActorBinder", 0, false, 3]);
 
     const newBinder: ActorBinder = new ActorBinder(actorGameObject);
 
     newBinder.isFirstUpdatePerformed = true;
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
     expect(newBinder.isFirstUpdatePerformed).toBe(false);
-    expect(saveManager.clientLoad).toHaveBeenCalledWith(netProcessor);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(saveManager.clientLoad).toHaveBeenCalledWith(processor);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it("should correctly handle save/load with deimos and pstore values", () => {
     const { actorGameObject, actorServerObject } = mockRegisteredActor();
     const saveManager: SaveManager = getManager(SaveManager);
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
     const binder: ActorBinder = new ActorBinder(actorGameObject);
 
     const firstZone: GameObject = MockGameObject.mock();
@@ -239,10 +239,10 @@ describe("ActorBinder", () => {
     setPortableStoreValue(actorGameObject.id(), "test-1", "value");
     setPortableStoreValue(actorGameObject.id(), "test-2", "value");
 
-    binder.save(netProcessor.asNetPacket());
+    binder.save(processor.asNetPacket());
 
-    expect(saveManager.clientSave).toHaveBeenCalledWith(netProcessor);
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(saveManager.clientSave).toHaveBeenCalledWith(processor);
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.U32,
       EPacketDataType.STRING,
@@ -255,7 +255,7 @@ describe("ActorBinder", () => {
       EPacketDataType.F32,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "save_from_ActorBinder",
       2,
       "test-1",
@@ -271,11 +271,11 @@ describe("ActorBinder", () => {
 
     const newBinder: ActorBinder = new ActorBinder(actorGameObject);
 
-    newBinder.load(netProcessor.asNetReader());
+    newBinder.load(processor.asNetReader());
 
-    expect(saveManager.clientLoad).toHaveBeenCalledWith(netProcessor);
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(saveManager.clientLoad).toHaveBeenCalledWith(processor);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
   });
 
   it("should correctly handle actor object callbacks emit", () => {

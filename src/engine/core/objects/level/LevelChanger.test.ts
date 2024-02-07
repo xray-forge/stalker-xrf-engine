@@ -62,27 +62,27 @@ describe("LevelChanger", () => {
 
   it("should correctly save and load data", () => {
     const levelChanger: LevelChanger = new LevelChanger("test-section");
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     levelChanger.isEnabled = false;
     levelChanger.invitationHint = "another";
 
-    levelChanger.STATE_Write(netProcessor.asNetPacket());
+    levelChanger.STATE_Write(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.BOOLEAN,
       EPacketDataType.STRING,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual(["state_write_from_LevelChanger", false, "another", 2]);
+    expect(processor.dataList).toEqual(["state_write_from_LevelChanger", false, "another", 2]);
 
     const anotherLevelChanger: LevelChanger = new LevelChanger("test-section");
 
-    anotherLevelChanger.STATE_Read(netProcessor.asNetPacket(), -1);
+    anotherLevelChanger.STATE_Read(processor.asNetPacket(), -1);
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toEqual([]);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toEqual([]);
 
     expect(anotherLevelChanger.isEnabled).toBe(false);
     expect(anotherLevelChanger.invitationHint).toBe("another");

@@ -89,7 +89,7 @@ describe("CrowBinder", () => {
   });
 
   it("should correctly handle save/load", () => {
-    const netProcessor: MockNetProcessor = new MockNetProcessor();
+    const processor: MockNetProcessor = new MockNetProcessor();
 
     const firstObject: GameObject = MockGameObject.mock();
     const firstBinder: CrowBinder = new CrowBinder(firstObject);
@@ -109,9 +109,9 @@ describe("CrowBinder", () => {
     jest.spyOn(Date, "now").mockImplementation(() => 5000);
 
     firstBinder.diedAt = 400;
-    firstBinder.save(netProcessor.asNetPacket());
+    firstBinder.save(processor.asNetPacket());
 
-    expect(netProcessor.writeDataOrder).toEqual([
+    expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
       EPacketDataType.STRING,
       EPacketDataType.STRING,
@@ -125,7 +125,7 @@ describe("CrowBinder", () => {
       EPacketDataType.U32,
       EPacketDataType.U16,
     ]);
-    expect(netProcessor.dataList).toEqual([
+    expect(processor.dataList).toEqual([
       "save_from_CrowBinder",
       "test_job_ini.ltx",
       "test_ini.ltx",
@@ -144,10 +144,10 @@ describe("CrowBinder", () => {
     const secondBinder: CrowBinder = new CrowBinder(secondObject);
 
     expect(secondBinder.net_spawn(MockAlifeObject.mock({ id: secondObject.id() }))).toBe(true);
-    secondBinder.load(netProcessor.asNetReader());
+    secondBinder.load(processor.asNetReader());
 
-    expect(netProcessor.readDataOrder).toEqual(netProcessor.writeDataOrder);
-    expect(netProcessor.dataList).toHaveLength(0);
+    expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
+    expect(processor.dataList).toHaveLength(0);
 
     expect(secondBinder.diedAt).toBe(400);
 
