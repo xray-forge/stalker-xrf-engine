@@ -7,6 +7,7 @@ import { getEnginesList, isValidEngine } from "#/engine/list_engines";
 import { OPEN_XRAY_ENGINES_DIR } from "#/globals";
 import { exists } from "#/utils/fs/exists";
 import { getGamePaths } from "#/utils/fs/get_game_paths";
+import { isSymlink } from "#/utils/fs/is_symlink";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 
@@ -24,11 +25,12 @@ export async function useEngine(target: string): Promise<void> {
     const possibleBinDescriptor: string = binJson;
     const isBinFolderExist: boolean = await exists(bin);
     const isLinkedEngine: boolean = await exists(possibleBinDescriptor);
+    const isUnresolvedLink: boolean = !isLinkedEngine && isBinFolderExist && (await isSymlink(bin));
     const oldEngine: Optional<string> = isLinkedEngine ? (await import(possibleBinDescriptor)).type : null;
 
     log.info("Switching engine:", blue(oldEngine || "original"), "->", blue(desiredVersion));
 
-    if (isLinkedEngine) {
+    if (isLinkedEngine || isUnresolvedLink) {
       log.info("Removing old link");
       await fsp.unlink(bin);
     } else if (isBinFolderExist) {
