@@ -16,60 +16,63 @@ export class EvaluatorHasEnemy extends property_evaluator {
 
   public constructor(state: ISchemePostCombatIdleState) {
     super(null, EvaluatorHasEnemy.__name);
+
     this.state = state;
     this.state.timer = time_global();
   }
 
-  /**
-   * Evaluate whether object has enemy or searching for one.
-   */
   public override evaluate(): boolean {
-    if (!this.object.alive()) {
+    const object: GameObject = this.object;
+
+    if (!object.alive()) {
       return false;
     }
 
-    const bestEnemy: Optional<GameObject> = this.object.best_enemy();
+    const state: ISchemePostCombatIdleState = this.state;
+    const enemy: Optional<GameObject> = object.best_enemy();
 
-    if (bestEnemy !== null && !canObjectSelectAsEnemy(this.object, bestEnemy)) {
-      return false;
-    }
+    if (enemy) {
+      if (canObjectSelectAsEnemy(object, enemy)) {
+        if (state.timer) {
+          state.lastBestEnemyId = enemy.id();
+          state.lastBestEnemyName = enemy.name();
+          state.timer = null;
+        }
 
-    if (bestEnemy !== null && this.state.timer !== null) {
-      this.state.lastBestEnemyId = bestEnemy.id();
-      this.state.lastBestEnemyName = bestEnemy.name();
-      this.state.timer = null;
-
-      return true;
+        return true;
+      } else {
+        // todo: Review the logics.
+        // todo: Probably should fallback to generic logics instead and handle ignore gracefully.
+        return false;
+      }
     }
 
     const now: TTimestamp = time_global();
 
-    if (bestEnemy === null && this.state.timer === null) {
-      if (this.state.lastBestEnemyId === ACTOR_ID) {
-        this.state.timer = now;
+    if (!state.timer) {
+      if (state.lastBestEnemyId === ACTOR_ID) {
+        state.timer = now;
       } else {
-        const overrides: Optional<ILogicsOverrides> = registry.objects.get(this.object.id()).overrides;
-        const min: TDistance = (overrides?.minPostCombatTime ?? combatConfig.POST_COMBAT_IDLE.MIN) * 1000;
-        const max: TDistance = (overrides?.maxPostCombatTime ?? combatConfig.POST_COMBAT_IDLE.MAX) * 1000;
+        const overrides: Optional<ILogicsOverrides> = registry.objects.get(object.id()).overrides;
+        const min: TDistance = (overrides?.minPostCombatTime ?? combatConfig.POST_COMBAT_IDLE.MIN) * 1_000;
+        const max: TDistance = (overrides?.maxPostCombatTime ?? combatConfig.POST_COMBAT_IDLE.MAX) * 1_000;
 
-        this.state.timer = now + math.random(min, max);
+        state.timer = now + math.random(min, max);
       }
     }
 
-    if (this.state.timer === null) {
-      return bestEnemy !== null;
-    }
-
-    if (now < this.state.timer) {
+    // Delay enemy check for some time after direct threat fading.
+    if (now < state.timer) {
       return true;
     }
 
-    if (this.state.animation === null) {
-      return false;
+    // Stop playing animation when time passed.
+    if (state.animation) {
+      state.animation.setState(null);
+
+      return state.animation.state.animationMarker !== null;
     }
 
-    this.state.animation.setState(null);
-
-    return this.state.animation.state.animationMarker !== null;
+    return false;
   }
 }
