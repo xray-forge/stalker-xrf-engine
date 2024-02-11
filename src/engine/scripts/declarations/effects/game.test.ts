@@ -9,7 +9,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { GameHud, Optional } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject } from "@/fixtures/xray";
+import { MockGameObject, MockStaticDrawableWrapper } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/game");
 jest.mock("@/engine/core/utils/game_save");
@@ -252,9 +252,13 @@ describe("game effects implementation", () => {
     expect(hud.RemoveCustomStatic).not.toHaveBeenCalled();
     expect(hud.AddCustomStatic).not.toHaveBeenCalled();
 
+    jest
+      .spyOn(hud, "GetCustomStatic")
+      .mockImplementationOnce(() => MockStaticDrawableWrapper.mock("text_on_screen_center"));
+
     callXrEffect("add_cs_text", MockGameObject.mockActor(), MockGameObject.mock(), "custom_label");
 
-    expect(hud.RemoveCustomStatic).not.toHaveBeenCalled();
+    expect(hud.RemoveCustomStatic).toHaveBeenCalledWith("text_on_screen_center");
     expect(hud.AddCustomStatic).toHaveBeenCalledTimes(1);
     expect(hud.AddCustomStatic).toHaveBeenCalledWith("text_on_screen_center", true);
 

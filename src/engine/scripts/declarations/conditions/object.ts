@@ -161,11 +161,7 @@ extern("xr_conditions.enemy_in_zone", (actor: GameObject, object: GameObject, [n
  * Whether object name matches one of provided parameters.
  */
 extern("xr_conditions.check_npc_name", (actor: GameObject, object: GameObject, params: LuaArray<TName>): boolean => {
-  const objectName: Optional<TName> = object.name();
-
-  if (objectName === null) {
-    return false;
-  }
+  const objectName: TName = object.name();
 
   for (const [, name] of ipairs(params)) {
     if (string.find(objectName, name)[0]) {
@@ -177,17 +173,16 @@ extern("xr_conditions.check_npc_name", (actor: GameObject, object: GameObject, p
 });
 
 /**
- * todo;
+ * Whether object enemy is alive and enemy name is matching.
  */
 extern("xr_conditions.check_enemy_name", (actor: GameObject, object: GameObject, params: LuaArray<TName>): boolean => {
-  const enemyId: TNumberId = registry.objects.get(object.id()).enemyId!;
-  const enemy: Optional<GameObject> = registry.objects.get(enemyId)?.object;
+  const enemy: Optional<GameObject> = registry.objects.get(object.id()).enemy;
 
   if (enemy && enemy.alive()) {
     const enemyName: TName = enemy.name();
 
-    for (const [, name] of params) {
-      if (string.find(enemyName, name)[0] !== null) {
+    for (const [, name] of ipairs(params)) {
+      if (string.find(enemyName, name)[0]) {
         return true;
       }
     }
@@ -197,12 +192,12 @@ extern("xr_conditions.check_enemy_name", (actor: GameObject, object: GameObject,
 });
 
 /**
- * todo;
+ * Whether object can see another object with provided story id.
  */
 extern("xr_conditions.see_npc", (actor: GameObject, object: GameObject, [storyId]: [TStringId]): boolean => {
-  const targetObject: Optional<GameObject> = getObjectByStoryId(storyId);
+  const target: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  return object && targetObject ? object.see(targetObject) : false;
+  return target ? object.see(target) : false;
 });
 
 /**
@@ -213,19 +208,22 @@ extern("xr_conditions.is_wounded", (actor: GameObject, object: GameObject): bool
 });
 
 /**
- * todo;
+ * Whether distance from object in smart terrain to another working object with matching job section is less or equals.
  */
-extern("xr_conditions.distance_to_obj_on_job_le", (actor: GameObject, object: GameObject, params: AnyArgs): boolean => {
-  const smart: SmartTerrain = getObjectSmartTerrain(object)!;
+extern(
+  "xr_conditions.distance_to_obj_on_job_le",
+  (actor: GameObject, object: GameObject, [section, distance]: [TSection, TDistance]): boolean => {
+    const terrain: SmartTerrain = getObjectSmartTerrain(object)!;
 
-  for (const [, descriptor] of smart.objectJobDescriptors) {
-    if (descriptor.job && descriptor.job.section === params[0]) {
-      return object.position().distance_to_sqr(descriptor.object.position) <= params[1] * params[1];
+    for (const [, descriptor] of terrain.objectJobDescriptors) {
+      if (descriptor.job && descriptor.job.section === section) {
+        return object.position().distance_to_sqr(descriptor.object.position) <= distance * distance;
+      }
     }
-  }
 
-  return false;
-});
+    return false;
+  }
+);
 
 /**
  * todo;

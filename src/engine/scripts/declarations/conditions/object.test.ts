@@ -1,14 +1,29 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 
-import { registerZone } from "@/engine/core/database";
+import {
+  IRegistryObjectState,
+  registerObject,
+  registerSimulator,
+  registerStoryLink,
+  registerZone,
+} from "@/engine/core/database";
+import { IObjectJobState, ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
-import { GameObject } from "@/engine/lib/types";
-import { callXrCondition, checkXrCondition, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, MockMonsterHitInfo } from "@/fixtures/xray";
+import { isObjectWounded } from "@/engine/core/utils/planner";
+import { GameObject, ServerCreatureObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
+import {
+  callXrCondition,
+  checkXrCondition,
+  mockRegisteredActor,
+  MockSmartTerrain,
+  resetRegistry,
+} from "@/fixtures/engine";
+import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
+import { MockAlifeHumanStalker, MockGameObject, MockMonsterHitInfo } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/schemes/restrictor/sr_deimos");
+jest.mock("@/engine/core/utils/planner");
 
 describe("object conditions declaration", () => {
   beforeAll(() => {
@@ -99,6 +114,7 @@ describe("object conditions implementation", () => {
 
   beforeEach(() => {
     resetRegistry();
+    registerSimulator();
     resetFunctionMock(isDeimosPhaseActive);
   });
 
@@ -260,11 +276,99 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("check_npc_name", MockGameObject.mockActor(), object, "abc", "efg", "test")).toBe(true);
   });
 
-  it.todo("see_npc should check if object see another object");
+  it("check_enemy_name should check object name", () => {
+    const object: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
 
-  it.todo("is_wounded should check if object is wounded");
+    jest.spyOn(enemy, "name").mockImplementation(() => "some-name");
 
-  it.todo("distance_to_obj_on_job_le should check object job distance");
+    expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "test")).toBe(false);
+
+    jest.spyOn(enemy, "name").mockImplementation(() => "test-123");
+
+    expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "test")).toBe(false);
+    expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "123")).toBe(false);
+    expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "abc", "efg", "test")).toBe(false);
+
+    state.enemy = enemy;
+    state.enemyId = enemy.id();
+
+    expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "test")).toBe(true);
+    expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "123")).toBe(true);
+    expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "abc", "efg", "test")).toBe(true);
+
+    jest.spyOn(enemy, "alive").mockImplementation(() => false);
+
+    expect(callXrCondition("check_enemy_name", MockGameObject.mockActor(), object, "test")).toBe(false);
+  });
+
+  it("see_npc should check if object see another object", () => {
+    const object: GameObject = MockGameObject.mock();
+    const another: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "see").mockImplementation(() => false);
+    expect(callXrCondition("see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
+
+    jest.spyOn(object, "see").mockImplementation(() => true);
+    expect(callXrCondition("see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
+
+    registerStoryLink(another.id(), "test-sid");
+
+    jest.spyOn(object, "see").mockImplementation(() => true);
+    expect(callXrCondition("see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
+
+    jest.spyOn(object, "see").mockImplementation(() => false);
+    expect(callXrCondition("see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
+  });
+
+  it("is_wounded should check if object is wounded", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    replaceFunctionMockOnce(isObjectWounded, () => true);
+    expect(callXrCondition("is_wounded", MockGameObject.mockActor(), object)).toBe(true);
+    expect(isObjectWounded).toHaveBeenCalledWith(object.id());
+
+    replaceFunctionMockOnce(isObjectWounded, () => false);
+    expect(callXrCondition("is_wounded", MockGameObject.mockActor(), object)).toBe(false);
+    expect(isObjectWounded).toHaveBeenCalledWith(object.id());
+  });
+
+  it("distance_to_obj_on_job_le should check object job distance", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const object: GameObject = MockGameObject.mock();
+    const working: ServerCreatureObject = MockAlifeHumanStalker.mock();
+
+    MockAlifeHumanStalker.mock({ id: object.id() }).m_smart_terrain_id = terrain.id;
+
+    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test", 100)).toBe(false);
+
+    terrain.objectJobDescriptors = $fromArray<IObjectJobState>([
+      {
+        object: working,
+        job: {
+          section: "test-job",
+        } as ISmartTerrainJobDescriptor,
+      } as IObjectJobState,
+    ]);
+
+    expect(
+      callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-not-existing", 100)
+    ).toBe(false);
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 100 * 100);
+
+    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-job", 100)).toBe(
+      true
+    );
+    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(working.position);
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 101 * 101);
+
+    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-job", 100)).toBe(
+      false
+    );
+  });
 
   it.todo("is_obj_on_job should check if object is on job");
 
