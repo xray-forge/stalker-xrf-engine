@@ -11,3 +11,14 @@ export interface ISchemePostCombatIdleState extends IBaseSchemeState {
   lastBestEnemyId: Optional<TNumberId>;
   lastBestEnemyName: Optional<TName>;
 }
+
+/**
+ * Partial animation manager interface for post combat action handling.
+ */
+export interface IPartialAnimationManager {
+  animstate: {
+    state: {
+      animationMarker: null;
+    };
+  };
+}

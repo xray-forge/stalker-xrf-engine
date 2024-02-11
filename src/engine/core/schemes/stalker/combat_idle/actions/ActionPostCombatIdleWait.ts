@@ -1,12 +1,17 @@
 import { action_base, anim, look, LuabindClass, move } from "xray16";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
+import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EAnimationType, EStalkerState } from "@/engine/core/animation/types";
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
+import {
+  IPartialAnimationManager,
+  ISchemePostCombatIdleState,
+} from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWeaponLocked, setObjectBestWeapon } from "@/engine/core/utils/weapon";
+import { GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,8 +23,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class ActionPostCombatIdleWait extends action_base {
   public readonly state: ISchemePostCombatIdleState;
 
-  public animationState!: { animstate: { state: { animationMarker: null } } };
   public isAnimationStarted: boolean = false;
+  public stateManager!: IPartialAnimationManager;
 
   public constructor(state: ISchemePostCombatIdleState) {
     super(null, ActionPostCombatIdleWait.__name);
@@ -27,26 +32,27 @@ export class ActionPostCombatIdleWait extends action_base {
   }
 
   public override initialize(): void {
-    logger.info("Start post combat idle state: %s", this.object.name());
-
     super.initialize();
 
-    setObjectBestWeapon(this.object);
+    const object: GameObject = this.object;
 
-    this.object.set_mental_state(anim.danger);
-    this.object.set_body_state(move.crouch);
-    this.object.set_movement_type(move.stand);
-    this.object.set_sight(look.danger, null, 0);
+    logger.info("Start post combat idle state: %s", object.name());
 
-    this.animationState = { animstate: { state: { animationMarker: null } } };
+    setObjectBestWeapon(object);
 
-    this.state.animation = new StalkerAnimationManager(
-      this.object,
-      this.animationState as any, // todo: Correct.
-      EAnimationType.ANIMATION
-    );
+    object.set_mental_state(anim.danger);
+    object.set_body_state(move.crouch);
+    object.set_movement_type(move.stand);
+    object.set_sight(look.danger, null, 0);
 
     this.isAnimationStarted = false;
+    this.stateManager = { animstate: { state: { animationMarker: null } } };
+
+    this.state.animation = new StalkerAnimationManager(
+      object,
+      this.stateManager as unknown as StalkerStateManager,
+      EAnimationType.ANIMATION
+    );
   }
 
   public override finalize(): void {
@@ -62,9 +68,6 @@ export class ActionPostCombatIdleWait extends action_base {
     super.finalize();
   }
 
-  /**
-   * todo: Description.
-   */
   public override execute(): void {
     super.execute();
 
@@ -77,14 +80,11 @@ export class ActionPostCombatIdleWait extends action_base {
     }
 
     if (isObjectWeaponLocked(this.object)) {
-      logger.info("Waiting for weapon unlock: %s", this.object.active_item()?.name());
-
       return;
-    } else {
-      logger.info("Weapon unlocked unlock: %s", this.object.active_item()?.name());
     }
 
     this.isAnimationStarted = true;
+
     (this.state.animation as StalkerAnimationManager).setState(EStalkerState.HIDE);
     (this.state.animation as StalkerAnimationManager).setControl();
 
