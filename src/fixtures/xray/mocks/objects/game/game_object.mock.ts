@@ -672,6 +672,14 @@ export class MockGameObject {
 
   public use_smart_covers_only = jest.fn();
 
+  public is_door_blocked_by_npc = jest.fn(() => false);
+
+  public burer_get_force_anti_aim = jest.fn(() => false);
+
+  public burer_get_force_gravi_attack = jest.fn(() => false);
+
+  public poltergeist_get_actor_ignore = jest.fn(() => false);
+
   public weapon_strapped = jest.fn(() => true);
 
   public weapon_unstrapped = jest.fn(() => false);

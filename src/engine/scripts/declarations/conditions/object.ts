@@ -880,7 +880,7 @@ extern(
 );
 
 /**
- * todo;
+ * Whether object is in smart cover.
  */
 extern("xr_conditions.in_dest_smart_cover", (actor: GameObject, object: GameObject): boolean => {
   return object.in_smart_cover();
@@ -912,24 +912,24 @@ extern("xr_conditions.has_enemy_in_current_loopholes_fov", (actor: GameObject, o
 });
 
 /**
- * todo;
+ * Whether object is talking.
  */
 extern("xr_conditions.npc_talking", (actor: GameObject, object: GameObject): boolean => {
   return object.is_talking();
 });
 
 /**
- * todo;
+ * Whether object is alive and see actor.
  */
 extern("xr_conditions.see_actor", (actor: GameObject, object: GameObject): boolean => {
   return object.alive() && object.see(actor);
 });
 
 /**
- * todo;
+ * Whether object with provided story ID exists.
  */
-extern("xr_conditions.object_exist", (actor: GameObject, object: GameObject, params: [string]): boolean => {
-  return getObjectByStoryId(params[0]) !== null;
+extern("xr_conditions.object_exist", (actor: GameObject, object: GameObject, [storyId]: [TStringId]): boolean => {
+  return getObjectByStoryId(storyId) !== null;
 });
 
 /**
@@ -959,21 +959,21 @@ extern("xr_conditions.check_enemy_smart", (actor: GameObject, object: GameObject
 });
 
 /**
- * todo;
+ * Whether poltergeist has actor ignoring enabled.
  */
 extern("xr_conditions.polter_ignore_actor", (actor: GameObject, object: GameObject): boolean => {
   return object.poltergeist_get_actor_ignore();
 });
 
 /**
- * todo;
+ * Whether burer uses gravi attack.
  */
 extern("xr_conditions.burer_gravi_attack", (actor: GameObject, object: GameObject): boolean => {
   return object.burer_get_force_gravi_attack();
 });
 
 /**
- * todo;
+ * Whether burer uses anti-aim force.
  */
 extern("xr_conditions.burer_anti_aim", (actor: GameObject, object: GameObject): boolean => {
   return object.burer_get_force_anti_aim();

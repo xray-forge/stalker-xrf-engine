@@ -11,7 +11,8 @@ import {
 import { IObjectJobState, ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { GameObject, ServerCreatureObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
+import { isPlayingSound } from "@/engine/core/utils/sound";
+import { GameObject, ServerCreatureObject } from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,
@@ -24,6 +25,7 @@ import { MockAlifeHumanStalker, MockGameObject, MockMonsterHitInfo } from "@/fix
 
 jest.mock("@/engine/core/schemes/restrictor/sr_deimos");
 jest.mock("@/engine/core/utils/planner");
+jest.mock("@/engine/core/utils/sound");
 
 describe("object conditions declaration", () => {
   beforeAll(() => {
@@ -467,31 +469,112 @@ describe("object conditions implementation", () => {
 
   it.todo("check_bloodsucker_state should check bloodsucker state");
 
-  it.todo("in_dest_smart_cover should check if object is in smart cover");
+  it("in_dest_smart_cover should check if object is in smart cover", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "in_smart_cover").mockImplementation(() => true);
+    expect(callXrCondition("in_dest_smart_cover", MockGameObject.mockActor(), object)).toBe(true);
+
+    jest.spyOn(object, "in_smart_cover").mockImplementation(() => false);
+    expect(callXrCondition("in_dest_smart_cover", MockGameObject.mockActor(), object)).toBe(false);
+  });
 
   it.todo("dist_to_story_obj_ge should check distance");
 
   it.todo("has_enemy_in_current_loopholes_fov should check enemies in loophole");
 
-  it.todo("npc_talking should check if object is talking");
+  it("npc_talking should check if object is talking", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("see_actor should check if object is alive and see actor");
+    jest.spyOn(object, "is_talking").mockImplementation(() => true);
+    expect(callXrCondition("npc_talking", MockGameObject.mockActor(), object)).toBe(true);
 
-  it.todo("object_exist should check if object exists");
+    jest.spyOn(object, "is_talking").mockImplementation(() => false);
+    expect(callXrCondition("npc_talking", MockGameObject.mockActor(), object)).toBe(false);
+  });
+
+  it("see_actor should check if object is alive and see actor", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "alive").mockImplementation(() => true);
+    jest.spyOn(object, "see").mockImplementation(() => true);
+
+    expect(callXrCondition("see_actor", actor, object)).toBe(true);
+    expect(object.alive).toHaveBeenCalled();
+    expect(object.see).toHaveBeenCalledWith(actor);
+
+    jest.spyOn(object, "alive").mockImplementation(() => true);
+    jest.spyOn(object, "see").mockImplementation(() => false);
+
+    expect(callXrCondition("see_actor", actor, object)).toBe(false);
+
+    jest.spyOn(object, "alive").mockImplementation(() => false);
+    jest.spyOn(object, "see").mockImplementation(() => true);
+
+    expect(callXrCondition("see_actor", actor, object)).toBe(false);
+  });
+
+  it("object_exist should check if object exists", () => {
+    expect(callXrCondition("object_exist", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(false);
+
+    registerStoryLink(MockGameObject.mock().id(), "test-sid");
+    expect(callXrCondition("object_exist", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(true);
+  });
 
   it.todo("squad_curr_action should check squad action");
 
   it.todo("check_enemy_smart should check enemy smart terrain");
 
-  it.todo("polter_ignore_actor should check if poltergeist ignores actor");
+  it("polter_ignore_actor should check if poltergeist ignores actor", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("burer_gravi_attack should check burer gravi attack");
+    jest.spyOn(object, "poltergeist_get_actor_ignore").mockImplementation(() => true);
+    expect(callXrCondition("polter_ignore_actor", MockGameObject.mockActor(), object)).toBe(true);
 
-  it.todo("burer_anti_aim should check burer anti aim");
+    jest.spyOn(object, "poltergeist_get_actor_ignore").mockImplementation(() => false);
+    expect(callXrCondition("polter_ignore_actor", MockGameObject.mockActor(), object)).toBe(false);
+  });
 
-  it.todo("is_playing_sound should check if object is playing sound");
+  it("burer_gravi_attack should check burer gravi attack", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("is_door_blocked_by_npc should check if door is blocked by npc");
+    jest.spyOn(object, "burer_get_force_gravi_attack").mockImplementation(() => true);
+    expect(callXrCondition("burer_gravi_attack", MockGameObject.mockActor(), object)).toBe(true);
+
+    jest.spyOn(object, "burer_get_force_gravi_attack").mockImplementation(() => false);
+    expect(callXrCondition("burer_gravi_attack", MockGameObject.mockActor(), object)).toBe(false);
+  });
+
+  it("burer_anti_aim should check burer anti aim", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "burer_get_force_anti_aim").mockImplementation(() => true);
+    expect(callXrCondition("burer_anti_aim", MockGameObject.mockActor(), object)).toBe(true);
+
+    jest.spyOn(object, "burer_get_force_anti_aim").mockImplementation(() => false);
+    expect(callXrCondition("burer_anti_aim", MockGameObject.mockActor(), object)).toBe(false);
+  });
+
+  it("is_playing_sound should check if object is playing sound", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    replaceFunctionMockOnce(isPlayingSound, () => true);
+    expect(callXrCondition("is_playing_sound", MockGameObject.mockActor(), object)).toBe(true);
+
+    replaceFunctionMockOnce(isPlayingSound, () => false);
+    expect(callXrCondition("is_playing_sound", MockGameObject.mockActor(), object)).toBe(false);
+  });
+
+  it("is_door_blocked_by_npc should check if door is blocked by npc", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "is_door_blocked_by_npc").mockImplementation(() => true);
+    expect(callXrCondition("is_door_blocked_by_npc", MockGameObject.mockActor(), object)).toBe(true);
+
+    jest.spyOn(object, "is_door_blocked_by_npc").mockImplementation(() => false);
+    expect(callXrCondition("is_door_blocked_by_npc", MockGameObject.mockActor(), object)).toBe(false);
+  });
 
   it("check_deimos_phase should check deimos phase", () => {
     const object: GameObject = MockGameObject.mock();
