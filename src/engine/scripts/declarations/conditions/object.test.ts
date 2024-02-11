@@ -73,7 +73,6 @@ describe("object conditions declaration", () => {
     checkXrCondition("has_enemy");
     checkXrCondition("has_actor_enemy");
     checkXrCondition("see_enemy");
-    checkXrCondition("heavy_wounded");
     checkXrCondition("mob_has_enemy");
     checkXrCondition("mob_was_hit");
     checkXrCondition("squad_in_zone");
@@ -394,7 +393,16 @@ describe("object conditions implementation", () => {
 
   it.todo("hitted_on_bone should check object hit bone");
 
-  it.todo("best_pistol should check object has pistol");
+  it("best_pistol should check object has pistol", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "item_in_slot").mockImplementation(() => MockGameObject.mock());
+    expect(callXrCondition("best_pistol", MockGameObject.mockActor(), object)).toBe(true);
+    expect(object.item_in_slot).toHaveBeenCalledWith(1);
+
+    jest.spyOn(object, "item_in_slot").mockImplementation(() => null);
+    expect(callXrCondition("best_pistol", MockGameObject.mockActor(), object)).toBe(false);
+  });
 
   it.todo("deadly_hit should check if hit is deadly");
 
@@ -406,19 +414,76 @@ describe("object conditions implementation", () => {
 
   it.todo("is_alive should check if stalker is alive");
 
-  it.todo("is_dead should check if object is dead");
+  it("is_dead should check if object is dead", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("story_object_exist should check if object exist");
+    expect(callXrCondition("is_dead", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
 
-  it.todo("npc_has_item should check if object has item");
+    registerStoryLink(object.id(), "test-sid");
 
-  it.todo("has_enemy should check if object has enemy");
+    expect(callXrCondition("is_dead", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
 
-  it.todo("has_actor_enemy should check if object has actor as enemy");
+    jest.spyOn(object, "alive").mockImplementation(() => false);
 
-  it.todo("see_enemy should check if object see enemy");
+    expect(callXrCondition("is_dead", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
+  });
 
-  it.todo("heavy_wounded should check if object is heavily wounded");
+  it("story_object_exist should check if object exist", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    expect(callXrCondition("story_object_exist", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
+
+    registerStoryLink(object.id(), "test-sid");
+
+    expect(callXrCondition("story_object_exist", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
+  });
+
+  it("npc_has_item should check if object has item", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    expect(callXrCondition("npc_has_item", MockGameObject.mockActor(), object, "test-section")).toBe(false);
+
+    jest.spyOn(object, "object").mockImplementation(() => MockGameObject.mock());
+
+    expect(callXrCondition("npc_has_item", MockGameObject.mockActor(), object, "test-section")).toBe(true);
+    expect(object.object).toHaveBeenCalledWith("test-section");
+  });
+
+  it("has_enemy should check if object has enemy", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    expect(callXrCondition("has_enemy", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => MockGameObject.mock());
+
+    expect(callXrCondition("has_enemy", MockGameObject.mockActor(), object)).toBe(true);
+    expect(object.best_enemy).toHaveBeenCalled();
+  });
+
+  it("has_actor_enemy should check if object has actor as enemy", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    expect(callXrCondition("has_actor_enemy", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => MockGameObject.mock());
+    expect(callXrCondition("has_actor_enemy", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => MockGameObject.mockActor());
+    expect(callXrCondition("has_actor_enemy", MockGameObject.mockActor(), object)).toBe(true);
+  });
+
+  it("see_enemy should check if object see enemy", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "see").mockImplementation(() => true);
+    expect(callXrCondition("see_enemy", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => MockGameObject.mock());
+    expect(callXrCondition("see_enemy", MockGameObject.mockActor(), object)).toBe(true);
+
+    jest.spyOn(object, "see").mockImplementation(() => false);
+    expect(callXrCondition("see_enemy", MockGameObject.mockActor(), object)).toBe(false);
+  });
 
   it("mob_has_enemy should check if object has enemy", () => {
     const object: GameObject = MockGameObject.mock();

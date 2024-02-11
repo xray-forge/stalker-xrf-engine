@@ -501,62 +501,56 @@ extern("xr_conditions.is_alive", (actor: GameObject, object: AnyGameObject, para
 });
 
 /**
- * todo;
+ * Whether object is dead or not existing by story ID.
  */
-extern("xr_conditions.is_dead", (actor: GameObject, object: GameObject, p: [string]): boolean => {
-  const npc1: Optional<GameObject> = getObjectByStoryId(p[0]);
+extern("xr_conditions.is_dead", (actor: GameObject, object: GameObject, [storyId]: [TStringId]): boolean => {
+  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  return !npc1 || !npc1.alive();
+  return !storyObject || !storyObject.alive();
 });
 
 /**
- * todo;
+ * Whether object with provided story ID exists.
  */
-extern("xr_conditions.story_object_exist", (actor: GameObject, object: GameObject, p: [string]): boolean => {
-  return getObjectByStoryId(p[0]) !== null;
+extern("xr_conditions.story_object_exist", (actor: GameObject, object: GameObject, [storyId]: [TStringId]): boolean => {
+  return getObjectByStoryId(storyId) !== null;
 });
 
 /**
- * todo;
+ * Whether object has item in inventory.
  */
-extern("xr_conditions.npc_has_item", (actor: GameObject, object: GameObject, p: [string]): boolean => {
-  return p[0] !== null && object.object(p[0]) !== null;
-});
+extern(
+  "xr_conditions.npc_has_item",
+  (actor: GameObject, object: GameObject, [section]: [Optional<TSection>]): boolean => {
+    return section !== null && object.object(section) !== null;
+  }
+);
 
 /**
- * todo;
+ * Whether object has active enemy.
  */
 extern("xr_conditions.has_enemy", (actor: GameObject, object: GameObject): boolean => {
   return object.best_enemy() !== null;
 });
 
 /**
- * todo;
+ * Whether object has actor as active enemy.
  */
 extern("xr_conditions.has_actor_enemy", (actor: GameObject, object: GameObject): boolean => {
-  const bestEnemy: Optional<GameObject> = object.best_enemy();
-
-  return bestEnemy !== null && bestEnemy.id() === ACTOR_ID;
+  return object.best_enemy()?.id() === ACTOR_ID;
 });
 
 /**
- * todo;
+ * Whether object has enemy and see it.
  */
 extern("xr_conditions.see_enemy", (actor: GameObject, object: GameObject): boolean => {
   const enemy: Optional<GameObject> = object.best_enemy();
 
-  if (enemy !== null) {
+  if (enemy) {
     return object.see(enemy);
   }
 
   return false;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.heavy_wounded", (actor: GameObject, object: GameObject): boolean => {
-  return isObjectWounded(object.id());
 });
 
 /**
