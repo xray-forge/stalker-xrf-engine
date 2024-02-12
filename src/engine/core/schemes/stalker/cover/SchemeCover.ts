@@ -6,9 +6,13 @@ import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ActionCover } from "@/engine/core/schemes/stalker/cover/actions";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover/cover_types";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import {
+  getConfigSwitchConditions,
+  parseConditionsList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**

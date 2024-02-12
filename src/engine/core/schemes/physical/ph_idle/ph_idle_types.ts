@@ -1,5 +1,5 @@
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database";
-import type { IBoneStateDescriptor } from "@/engine/core/utils/ini/ini_types";
+import type { IBoneStateDescriptor } from "@/engine/core/utils/ini";
 import type { LuaArray, Optional, TLabel } from "@/engine/lib/types";
 
 /**

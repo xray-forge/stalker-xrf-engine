@@ -1,5 +1,5 @@
 import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { readIniString } from "@/engine/core/utils/ini";
 import {
   AnyArgs,
   GameObject,

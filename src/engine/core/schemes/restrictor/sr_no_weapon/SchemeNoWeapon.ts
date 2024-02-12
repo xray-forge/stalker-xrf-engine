@@ -1,7 +1,7 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**

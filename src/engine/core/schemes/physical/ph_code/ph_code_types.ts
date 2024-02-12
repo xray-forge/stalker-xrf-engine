@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { IConfigSwitchConditionsDescriptor, TConditionList } from "@/engine/core/utils/ini/ini_types";
+import type { IConfigSwitchConditionsDescriptor, TConditionList } from "@/engine/core/utils/ini";
 import type { Optional, TLabel, TName } from "@/engine/lib/types";
 
 /**

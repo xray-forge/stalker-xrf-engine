@@ -2,8 +2,7 @@ import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ISchemeTeleportState, ITeleportPoint } from "@/engine/core/schemes/restrictor/sr_teleport/sr_teleport_types";
 import { TeleportManager } from "@/engine/core/schemes/restrictor/sr_teleport/TeleportManager";
 import { assert } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

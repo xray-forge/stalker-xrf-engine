@@ -1,7 +1,7 @@
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { EScheme, GameObject, Optional } from "@/engine/lib/types";
 
 /**

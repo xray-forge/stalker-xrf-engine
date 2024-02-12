@@ -8,9 +8,13 @@ import { ActionPlayAnimpoint, ActionReachAnimpoint } from "@/engine/core/schemes
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import {
+  getConfigSwitchConditions,
+  parseStringsList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, GameObject, IniFile, Optional, TName } from "@/engine/lib/types";

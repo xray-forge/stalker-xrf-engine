@@ -1,8 +1,7 @@
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { TConditionList } from "@/engine/core/utils/ini/ini_types";
+import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { GameObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";

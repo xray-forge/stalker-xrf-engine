@@ -5,8 +5,7 @@ import {
   ISchemeParticleState,
 } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { abort } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**

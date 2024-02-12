@@ -2,7 +2,7 @@ import { game, level, time_global } from "xray16";
 
 import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { abort, assert } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";
 import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/position";

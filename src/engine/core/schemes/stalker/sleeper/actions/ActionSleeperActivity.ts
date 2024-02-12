@@ -5,8 +5,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { ESleeperState, ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseWaypointsDataFromList } from "@/engine/core/utils/ini/ini_parse";
-import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
+import { IWaypointData, parseWaypointsDataFromList } from "@/engine/core/utils/ini";
 import {
   GameObject,
   ISchemeEventHandler,

@@ -1,4 +1,4 @@
-import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
+import type { TConditionList } from "@/engine/core/utils/ini";
 import type { Optional, TDistance, TName, TRate } from "@/engine/lib/types";
 
 /**

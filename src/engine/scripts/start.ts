@@ -3,7 +3,7 @@ import { registerSimulator } from "@/engine/core/database/simulation";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { extern } from "@/engine/core/utils/binding";
 import { updateClassIds } from "@/engine/core/utils/class_ids_list";
-import { unlockSystemIniOverriding } from "@/engine/core/utils/ini/ini_system";
+import { unlockSystemIniOverriding } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { classIds } from "@/engine/lib/constants/class_ids";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";

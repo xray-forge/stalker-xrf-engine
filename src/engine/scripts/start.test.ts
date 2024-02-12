@@ -14,11 +14,11 @@ function checkBinding(name: string, container: AnyObject = global): void {
   expect(typeof container["start"][name]).toBe("function");
 }
 
-jest.mock("@/engine/core/utils/class_ids_list", () => ({ updateClassIds: jest.fn(), createClassIds: jest.fn() }));
-jest.mock("@/engine/core/utils/ini/ini_system", () => ({ unlockSystemIniOverriding: jest.fn() }));
-jest.mock("@/engine/scripts/register/extensions_registrator", () => ({ registerExtensions: jest.fn() }));
-jest.mock("@/engine/scripts/register/managers_registrator", () => ({ registerManagers: jest.fn() }));
-jest.mock("@/engine/scripts/register/schemes_registrator", () => ({ registerSchemes: jest.fn() }));
+jest.mock("@/engine/core/utils/class_ids_list");
+jest.mock("@/engine/core/utils/ini/ini_system");
+jest.mock("@/engine/scripts/register/extensions_registrator");
+jest.mock("@/engine/scripts/register/managers_registrator");
+jest.mock("@/engine/scripts/register/schemes_registrator");
 
 describe("start entry point", () => {
   it("should correctly inject starting methods for game", () => {

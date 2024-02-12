@@ -6,8 +6,7 @@ import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ActionSmartCoverUse } from "@/engine/core/schemes/stalker/smartcover/actions";
 import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/smartcover/evaluators";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 

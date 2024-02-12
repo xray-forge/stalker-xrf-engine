@@ -5,7 +5,7 @@ import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ActionCompanionActivity } from "@/engine/core/schemes/stalker/companion/actions";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/companion_types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 

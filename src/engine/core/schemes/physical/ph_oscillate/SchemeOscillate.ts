@@ -1,8 +1,7 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/OscillateManager";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/engine/lib/types";
 
 /**

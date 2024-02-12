@@ -2,9 +2,7 @@ import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { assert } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, parseStringsList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { createVector } from "@/engine/core/utils/vector";
 import { EScheme, ESchemeType, GameObject, IniFile, LuaArray, TName, TSection } from "@/engine/lib/types";
 

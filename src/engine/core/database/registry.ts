@@ -16,7 +16,7 @@ import type { SmartCover } from "@/engine/core/objects/smart_cover";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { LightManager } from "@/engine/core/schemes/restrictor/sr_light";
 import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
-import type { TConditionList } from "@/engine/core/utils/ini/ini_types";
+import type { TConditionList } from "@/engine/core/utils/ini";
 import type { ERelation } from "@/engine/core/utils/relation";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
 import type {

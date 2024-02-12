@@ -1,8 +1,7 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { MonsterManager } from "@/engine/core/schemes/restrictor/sr_monster/MonsterManager";
 import { ISchemeMonsterState } from "@/engine/core/schemes/restrictor/sr_monster/sr_monster_types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniNumber, readIniString, readIniStringList } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniNumber, readIniString, readIniStringList } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**

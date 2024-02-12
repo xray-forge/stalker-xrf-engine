@@ -2,13 +2,13 @@ import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { IBaseSchemeLogic } from "@/engine/core/database";
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import {
+  getConfigSwitchConditions,
   readIniConditionList,
   readIniNumber,
   readIniString,
   readIniStringAndCondList,
-} from "@/engine/core/utils/ini/ini_read";
+} from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
 
 /**

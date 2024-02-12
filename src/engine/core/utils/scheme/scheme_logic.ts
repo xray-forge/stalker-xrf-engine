@@ -14,9 +14,13 @@ import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager"
 import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
-import { getObjectConfigOverrides, pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { getSchemeFromSection } from "@/engine/core/utils/ini/ini_parse";
-import { readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
+import {
+  getObjectConfigOverrides,
+  getSchemeFromSection,
+  pickSectionFromCondList,
+  readIniConditionList,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";

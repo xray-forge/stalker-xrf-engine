@@ -1,8 +1,13 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
-import { getConfigSwitchConditions, parseStringsList } from "@/engine/core/utils/ini";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import {
+  getConfigSwitchConditions,
+  parseStringsList,
+  readIniBoolean,
+  readIniNumber,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";

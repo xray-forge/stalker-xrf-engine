@@ -1,7 +1,7 @@
 import { patrol } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
-import type { IWaypointData } from "@/engine/core/utils/ini/ini_types";
+import type { IWaypointData } from "@/engine/core/utils/ini";
 import type {
   Flags32,
   GameObject,

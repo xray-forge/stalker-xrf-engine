@@ -4,8 +4,7 @@ import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
 import { PhysicalForceManager } from "@/engine/core/schemes/physical/ph_force/PhysicalForceManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, Patrol, TIndex, TName, TSection } from "@/engine/lib/types";
 
 /**

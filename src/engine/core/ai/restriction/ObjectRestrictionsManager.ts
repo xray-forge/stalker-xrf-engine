@@ -1,6 +1,5 @@
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import { GameObject, IniFile, LuaArray, Optional, TName, TSection } from "@/engine/lib/types";

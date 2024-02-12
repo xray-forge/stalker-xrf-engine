@@ -21,9 +21,7 @@ import { SimulationManager } from "@/engine/core/managers/simulation/SimulationM
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { Squad } from "@/engine/core/objects/squad/Squad";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { TConditionList } from "@/engine/core/utils/ini/ini_types";
+import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
 import {

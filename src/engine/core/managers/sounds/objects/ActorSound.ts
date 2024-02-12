@@ -7,8 +7,7 @@ import { ENotificationType, ISoundNotification } from "@/engine/core/managers/no
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds/sounds_types";
 import { assert } from "@/engine/core/utils/assertion";
-import { parseStringsList } from "@/engine/core/utils/ini/ini_parse";
-import { readIniBoolean, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { parseStringsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";

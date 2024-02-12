@@ -1,7 +1,7 @@
 import { clsid } from "xray16";
 
 import { abort } from "@/engine/core/utils/assertion";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { readIniString } from "@/engine/core/utils/ini";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
 import { GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 

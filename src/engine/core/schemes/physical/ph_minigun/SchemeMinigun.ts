@@ -2,13 +2,13 @@ import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { minigunConfig } from "@/engine/core/schemes/physical/ph_minigun/MinigunConfig";
 import { MinigunManager } from "@/engine/core/schemes/physical/ph_minigun/MinigunManager";
 import { ISchemeMinigunState } from "@/engine/core/schemes/physical/ph_minigun/ph_minigun_types";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
 import {
+  getConfigSwitchConditions,
   readIniBoolean,
   readIniNumber,
   readIniString,
   readIniStringAndCondList,
-} from "@/engine/core/utils/ini/ini_read";
+} from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/engine/lib/types";
 
 /**

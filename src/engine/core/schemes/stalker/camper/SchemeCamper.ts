@@ -8,8 +8,7 @@ import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_
 import { camperConfig } from "@/engine/core/schemes/stalker/camper/CamperConfig";
 import { EvaluatorCloseCombat, EvaluatorSectionEnded } from "@/engine/core/schemes/stalker/camper/evaluators";
 import { abort } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { FALSE } from "@/engine/lib/constants/words";
 import {
   ActionBase,

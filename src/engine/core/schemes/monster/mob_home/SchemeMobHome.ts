@@ -2,8 +2,7 @@ import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { getMonsterState } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/engine/lib/types";
 

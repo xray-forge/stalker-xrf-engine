@@ -1,9 +1,13 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { parseBoneStateDescriptors } from "@/engine/core/utils/ini/ini_parse";
-import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
+import {
+  getConfigSwitchConditions,
+  parseBoneStateDescriptors,
+  readIniBoolean,
+  readIniConditionList,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 

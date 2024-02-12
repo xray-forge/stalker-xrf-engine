@@ -2,8 +2,12 @@ import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import { assert } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniNumber, readIniNumberAndConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
+import {
+  getConfigSwitchConditions,
+  readIniNumber,
+  readIniNumberAndConditionList,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";

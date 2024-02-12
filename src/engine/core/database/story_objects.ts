@@ -3,7 +3,7 @@ import { level } from "xray16";
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { abort, assert } from "@/engine/core/utils/assertion";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { readIniString } from "@/engine/core/utils/ini";
 import {
   AnyGameObject,
   GameObject,

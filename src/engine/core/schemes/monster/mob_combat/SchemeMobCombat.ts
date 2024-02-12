@@ -2,7 +2,7 @@ import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 /**

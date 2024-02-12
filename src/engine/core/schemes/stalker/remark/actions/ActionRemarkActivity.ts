@@ -8,7 +8,7 @@ import { getSmartTerrainObjectIdByJobSection } from "@/engine/core/objects/smart
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
 import { abort } from "@/engine/core/utils/assertion";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
+import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   GameObject,

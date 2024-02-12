@@ -1,7 +1,7 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**

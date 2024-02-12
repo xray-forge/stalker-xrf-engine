@@ -13,8 +13,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/ini/ini_parse";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 

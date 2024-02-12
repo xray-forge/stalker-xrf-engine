@@ -3,7 +3,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
+import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 /**

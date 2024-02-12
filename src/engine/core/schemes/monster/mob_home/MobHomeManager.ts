@@ -6,8 +6,7 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { mobHomeConfig } from "@/engine/core/schemes/monster/mob_home/MobHomeConfig";
 import { assert } from "@/engine/core/utils/assertion";
-import { parseWaypointData } from "@/engine/core/utils/ini/ini_parse";
-import { IWaypointData } from "@/engine/core/utils/ini/ini_types";
+import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { Optional, Patrol, ServerCreatureObject, TDistance, TName, TNumberId } from "@/engine/lib/types";
 

@@ -14,8 +14,7 @@ import { SimulationManager } from "@/engine/core/managers/simulation/SimulationM
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { assert } from "@/engine/core/utils/assertion";
-import { parseNumberOptional, parseStringOptional } from "@/engine/core/utils/ini/ini_parse";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";

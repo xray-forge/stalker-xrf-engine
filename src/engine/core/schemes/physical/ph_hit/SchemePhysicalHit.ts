@@ -1,8 +1,7 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
 import { PhysicalHitManager } from "@/engine/core/schemes/physical/ph_hit/PhysicalHitManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { readIniNumber, readIniString } from "@/engine/core/utils/ini/ini_read";
+import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**

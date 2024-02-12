@@ -1,9 +1,13 @@
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
-import { getConfigSwitchConditions } from "@/engine/core/utils/ini/ini_config";
-import { parseBoneStateDescriptors } from "@/engine/core/utils/ini/ini_parse";
-import { readIniBoolean, readIniConditionList, readIniString } from "@/engine/core/utils/ini/ini_read";
+import {
+  getConfigSwitchConditions,
+  parseBoneStateDescriptors,
+  readIniBoolean,
+  readIniConditionList,
+  readIniString,
+} from "@/engine/core/utils/ini";
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**

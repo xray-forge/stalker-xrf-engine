@@ -9,7 +9,7 @@ import { getCampZoneForPosition, getManager, registry, setStalkerState } from "@
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
-import { parseWaypointsData } from "@/engine/core/utils/ini/ini_parse";
+import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { GameObject, ISchemeEventHandler, Optional } from "@/engine/lib/types";
 
 /**

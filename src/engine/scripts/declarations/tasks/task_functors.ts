@@ -3,8 +3,7 @@ import { game } from "xray16";
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { getActorTargetSurgeCover, isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { extern } from "@/engine/core/utils/binding";
-import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
+import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { GameObject, Optional, TLabel, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 /**

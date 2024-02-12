@@ -3,8 +3,7 @@ import { IRegistryObjectState } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { abort } from "@/engine/core/utils/assertion";
-import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
-import { readIniString } from "@/engine/core/utils/ini/ini_read";
+import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
