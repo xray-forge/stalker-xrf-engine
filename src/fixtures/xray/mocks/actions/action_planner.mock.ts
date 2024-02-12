@@ -20,6 +20,20 @@ export class MockActionPlanner extends MockLuabindClass {
     return new MockActionPlanner() as unknown as ActionPlanner;
   }
 
+  public static mockDefault(): ActionPlanner {
+    const actionPlanner: MockActionPlanner = new MockActionPlanner();
+
+    actionPlanner.add_action(mockStalkerIds.action_alife_planner, mockActionBase());
+    actionPlanner.add_action(mockStalkerIds.action_gather_items, mockActionBase());
+    actionPlanner.add_action(mockStalkerIds.action_anomaly_planner, mockActionBase());
+    actionPlanner.add_action(mockStalkerIds.action_danger_planner, mockActionBase());
+    actionPlanner.add_action(mockStalkerIds.action_accomplish_task, mockActionBase());
+    actionPlanner.add_action(mockStalkerIds.action_combat_planner, mockActionBase());
+    actionPlanner.add_action(194 /* EActionId.STATE_TO_IDLE_ALIFE */, mockActionBase());
+
+    return actionPlanner as unknown as ActionPlanner;
+  }
+
   public object!: GameObject;
   public storage!: PropertyStorage;
 
@@ -48,13 +62,21 @@ export class MockActionPlanner extends MockLuabindClass {
     this.evaluators[id] = evaluator;
   });
 
-  public add_action(id: TNumberId, actionBase: ActionBase): void {
+  public add_action = jest.fn((id: TNumberId, actionBase: ActionBase) => {
     if (!id) {
       throw new Error("Unexpected id.");
     }
 
     this.actions[id] = actionBase;
-  }
+  });
+
+  public remove_action = jest.fn((id: TNumberId) => {
+    if (!id) {
+      throw new Error("Unexpected id.");
+    }
+
+    delete this.actions[id];
+  });
 
   public current_action_id(): Optional<TNumberId> {
     return this.currentActionId;
@@ -64,21 +86,21 @@ export class MockActionPlanner extends MockLuabindClass {
     this.goalWorldState = state;
   }
 
-  public remove_evaluator(id: TNumberId): void {
+  public remove_evaluator = jest.fn((id: TNumberId) => {
     if (!id) {
       throw new Error("Unexpected id.");
     }
 
     delete this.evaluators[id];
-  }
+  });
 
-  public action(id: TNumberId): Optional<MockActionBase> {
+  public action = jest.fn((id: TNumberId): Optional<MockActionBase> => {
     return (this.actions[id] as unknown as MockActionBase) || null;
-  }
+  });
 
-  public evaluator(id: TNumberId): Optional<MockPropertyEvaluator> {
+  public evaluator = jest.fn((id: TNumberId): Optional<MockPropertyEvaluator> => {
     return (this.evaluators[id] as unknown as MockPropertyEvaluator) || null;
-  }
+  });
 
   public show = jest.fn();
 
@@ -92,21 +114,4 @@ export class MockActionPlanner extends MockLuabindClass {
  */
 export function mockActionPlanner(): ActionPlanner {
   return new MockActionPlanner() as unknown as ActionPlanner;
-}
-
-/**
- * Mock action planner object.
- */
-export function mockDefaultActionPlanner(): ActionPlanner {
-  const actionPlanner: MockActionPlanner = new MockActionPlanner();
-
-  actionPlanner.add_action(mockStalkerIds.action_alife_planner, mockActionBase());
-  actionPlanner.add_action(mockStalkerIds.action_gather_items, mockActionBase());
-  actionPlanner.add_action(mockStalkerIds.action_anomaly_planner, mockActionBase());
-  actionPlanner.add_action(mockStalkerIds.action_danger_planner, mockActionBase());
-  actionPlanner.add_action(mockStalkerIds.action_accomplish_task, mockActionBase());
-  actionPlanner.add_action(mockStalkerIds.action_combat_planner, mockActionBase());
-  actionPlanner.add_action(194 /* EActionId.STATE_TO_IDLE_ALIFE */, mockActionBase());
-
-  return actionPlanner as unknown as ActionPlanner;
 }

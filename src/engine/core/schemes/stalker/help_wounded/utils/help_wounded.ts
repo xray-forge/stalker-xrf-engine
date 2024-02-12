@@ -16,21 +16,21 @@ export function finishObjectHelpWounded(object: GameObject): void {
 
   const selectedObjectId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState)
     .selectedWoundedId as TNumberId;
-  const selectedObjectState: Optional<IRegistryObjectState> = registry.objects.get(selectedObjectId);
+  const selectedObjectState: Optional<IRegistryObjectState> = registry.objects.get(
+    selectedObjectId
+  ) as Optional<IRegistryObjectState>;
 
-  if (selectedObjectState !== null) {
+  if (selectedObjectState) {
     giveWoundedObjectMedkit(selectedObjectState.object);
-    (selectedObjectState.wounded as Optional<ISchemeWoundedState>)?.woundManager.unlockMedkit();
+    (selectedObjectState[EScheme.WOUNDED] as Optional<ISchemeWoundedState>)?.woundManager.unlockMedkit();
   }
 }
 
 /**
- * todo;
- *
- * @param helpingId
+ * @param helpingId - target object to free helping spot
  */
 export function freeSelectedWoundedStalkerSpot(helpingId: Optional<TNumberId>): void {
-  if (helpingId !== null) {
+  if (helpingId) {
     setPortableStoreValue(helpingId, helpWoundedConfig.HELPING_WOUNDED_OBJECT_KEY, null);
   }
 }

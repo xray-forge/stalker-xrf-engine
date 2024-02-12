@@ -38,4 +38,10 @@ export class MockMove {
   public static readonly walk_fwd: number = 0;
   public static readonly walk_bkwd: number = 1;
   public static readonly walk_with_leader: number = 6;
+
+  public args: Array<unknown>;
+
+  public constructor(...args: Array<unknown>) {
+    this.args = args;
+  }
 }

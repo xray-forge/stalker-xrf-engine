@@ -6,12 +6,12 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * Mock xray engine danger object.
  */
 export class MockDangerObject {
-  public static create(): MockDangerObject {
-    return new MockDangerObject();
+  public static create(dangerTime: TTimestamp = -1): MockDangerObject {
+    return new MockDangerObject(dangerTime);
   }
 
-  public static mock(): DangerObject {
-    return new MockDangerObject() as unknown as DangerObject;
+  public static mock(dangerTime: TTimestamp = -1): DangerObject {
+    return new MockDangerObject(dangerTime) as unknown as DangerObject;
   }
 
   public static attack_sound: number = 1;
@@ -30,9 +30,14 @@ export class MockDangerObject {
   public dangerObject: GameObject = MockGameObject.mock();
   public dangerDependentObject: Optional<GameObject> = null;
   public dangerPosition: MockVector = MockVector.create(1.5, -0.5, 1);
+  public dangerTime: TTimestamp = -1;
+
+  public constructor(dangerTime: TTimestamp = -1) {
+    this.dangerTime = dangerTime;
+  }
 
   public time(): TTimestamp {
-    return -1;
+    return this.dangerTime;
   }
 
   public position(): MockVector {

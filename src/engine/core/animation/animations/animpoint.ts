@@ -719,9 +719,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "animpoint_sit_normal_guitar_in_1",
         { a: misc.guitar_a },
         {
-          f: (object: GameObject) => {
-            startPlayingGuitar(object);
-          },
+          f: startPlayingGuitar,
         },
         "animpoint_sit_normal_guitar_in_2",
       ],
@@ -729,9 +727,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "animpoint_sit_normal_guitar_in_1",
         { a: misc.guitar_a },
         {
-          f: (object: GameObject) => {
-            startPlayingGuitar(object);
-          },
+          f: startPlayingGuitar,
         },
         "animpoint_sit_normal_guitar_in_2",
       ]
@@ -755,9 +751,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "animpoint_sit_low_guitar_in_1",
         { a: misc.guitar_a },
         {
-          f: (object: GameObject) => {
-            startPlayingGuitar(object);
-          },
+          f: startPlayingGuitar,
         },
         "animpoint_sit_low_guitar_in_2",
       ],
@@ -765,9 +759,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "animpoint_sit_low_guitar_in_1",
         { a: misc.guitar_a },
         {
-          f: (object: GameObject) => {
-            startPlayingGuitar(object);
-          },
+          f: startPlayingGuitar,
         },
         "animpoint_sit_low_guitar_in_2",
       ]
@@ -791,9 +783,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "sit_1_guitar_0_0",
         { a: misc.guitar_a },
         {
-          f: (object: GameObject) => {
-            startPlayingGuitar(object);
-          },
+          f: startPlayingGuitar,
         },
         "sit_1_guitar_0_1",
       ],
@@ -801,9 +791,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "sit_1_guitar_0_0",
         { a: misc.guitar_a },
         {
-          f: (object: GameObject) => {
-            startPlayingGuitar(object);
-          },
+          f: startPlayingGuitar,
         },
         "sit_1_guitar_0_1",
       ]
@@ -827,9 +815,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "sit_1_guitar_0_0",
         { a: misc.guitar_a },
         {
-          f: (object: GameObject) => {
-            startPlayingGuitar(object);
-          },
+          f: startPlayingGuitar,
         },
         "sit_1_guitar_0_1",
       ],
@@ -837,9 +823,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "sit_1_guitar_0_0",
         { a: misc.guitar_a },
         {
-          f: (object: GameObject) => {
-            startPlayingGuitar(object);
-          },
+          f: startPlayingGuitar,
         },
         "sit_1_guitar_0_1",
       ]
@@ -887,9 +871,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "animpoint_sit_high_harmonica_in_1",
         { a: misc.harmonica_a },
         {
-          f: (object: GameObject) => {
-            startPlayingHarmonica(object);
-          },
+          f: startPlayingHarmonica,
         },
         "animpoint_sit_high_harmonica_in_2",
       ],
@@ -897,9 +879,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "animpoint_sit_high_harmonica_in_1",
         { a: misc.harmonica_a },
         {
-          f: (object: GameObject) => {
-            startPlayingHarmonica(object);
-          },
+          f: startPlayingHarmonica,
         },
         "animpoint_sit_high_harmonica_in_2",
       ]
@@ -935,9 +915,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "animpoint_sit_low_harmonica_in_1",
         { a: misc.harmonica_a },
         {
-          f: (object: GameObject) => {
-            startPlayingHarmonica(object);
-          },
+          f: startPlayingHarmonica,
         },
         "animpoint_sit_low_harmonica_in_2",
       ],
@@ -945,9 +923,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "animpoint_sit_low_harmonica_in_1",
         { a: misc.harmonica_a },
         {
-          f: (object: GameObject) => {
-            startPlayingHarmonica(object);
-          },
+          f: startPlayingHarmonica,
         },
         "animpoint_sit_low_harmonica_in_2",
       ]
@@ -971,9 +947,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "sit_2_harmonica_1_0",
         { a: misc.harmonica_a },
         {
-          f: (object: GameObject) => {
-            startPlayingHarmonica(object);
-          },
+          f: startPlayingHarmonica,
         },
         "sit_2_harmonica_1_1",
       ],
@@ -981,9 +955,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "sit_2_harmonica_1_0",
         { a: misc.harmonica_a },
         {
-          f: (object: GameObject) => {
-            startPlayingHarmonica(object);
-          },
+          f: startPlayingHarmonica,
         },
         "sit_2_harmonica_1_1",
       ]
@@ -1007,9 +979,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "sit_2_harmonica_1_0",
         { a: misc.harmonica_a },
         {
-          f: (object: GameObject) => {
-            startPlayingHarmonica(object);
-          },
+          f: startPlayingHarmonica,
         },
         "sit_2_harmonica_1_1",
       ],
@@ -1017,9 +987,7 @@ export const animpointAnimations: LuaTable<TName, IAnimationDescriptor> = $fromO
         "sit_2_harmonica_1_0",
         { a: misc.harmonica_a },
         {
-          f: (object: GameObject) => {
-            startPlayingHarmonica(object);
-          },
+          f: startPlayingHarmonica,
         },
         "sit_2_harmonica_1_1",
       ]

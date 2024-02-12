@@ -1,6 +1,7 @@
 export * from "@/fixtures/xray/mocks/actions/action_base.mock";
 export * from "@/fixtures/xray/mocks/actions/action_planner.mock";
 export * from "@/fixtures/xray/mocks/actions/anim.mock";
+export * from "@/fixtures/xray/mocks/actions/cast_planner.mock";
 export * from "@/fixtures/xray/mocks/actions/cond.mocks";
 export * from "@/fixtures/xray/mocks/actions/entity_action.mock";
 export * from "@/fixtures/xray/mocks/actions/look.mock";

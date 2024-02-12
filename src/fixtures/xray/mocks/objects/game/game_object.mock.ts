@@ -23,13 +23,7 @@ import {
   Vector,
 } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
-import {
-  MockActionPlanner,
-  MockAnim,
-  mockDefaultActionPlanner,
-  MockMove,
-  MockSightParameters,
-} from "@/fixtures/xray/mocks/actions";
+import { MockActionPlanner, MockAnim, MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";
@@ -122,7 +116,7 @@ export class MockGameObject {
   public radiation: TRate;
   public sight: TSightType = MockSightParameters.eSightTypeDummy;
 
-  public objectActionManager: MockActionPlanner = mockDefaultActionPlanner() as unknown as MockActionPlanner;
+  public objectActionManager: MockActionPlanner = MockActionPlanner.mockDefault() as unknown as MockActionPlanner;
   public objectAlive: boolean;
   public objectCenter: Vector = MockVector.mock(0.15, 0.15, 0.15);
   public objectCharacterRank: Optional<TCount>;

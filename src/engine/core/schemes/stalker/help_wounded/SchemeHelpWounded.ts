@@ -7,7 +7,7 @@ import { ActionHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/ac
 import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounded/evaluators";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { readIniBoolean } from "@/engine/core/utils/ini/ini_read";
+import { readIniBoolean } from "@/engine/core/utils/ini";
 import { ActionPlanner, GameObject, IniFile, Optional } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
@@ -35,10 +35,10 @@ export class SchemeHelpWounded extends AbstractScheme {
     section: TSection,
     state: ISchemeHelpWoundedState
   ): void {
-    const actionPlanner: ActionPlanner = object.motivation_action_manager();
+    const planner: ActionPlanner = object.motivation_action_manager();
 
     // Add custom evaluator to check if wounded stalkers exist nearby.
-    actionPlanner.add_evaluator(EEvaluatorId.IS_WOUNDED_EXISTING, new EvaluatorWoundedExist(state));
+    planner.add_evaluator(EEvaluatorId.IS_WOUNDED_EXISTING, new EvaluatorWoundedExist(state));
 
     const action: ActionHelpWounded = new ActionHelpWounded(state);
 
@@ -49,22 +49,20 @@ export class SchemeHelpWounded extends AbstractScheme {
     action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
     action.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, true));
 
-    // Clean up wounded stalkers search once action is finished.
     action.add_effect(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
 
-    // Help stalkers nearby if conditions are met.
-    actionPlanner.add_action(EActionId.HELP_WOUNDED, action);
+    planner.add_action(EActionId.HELP_WOUNDED, action);
 
     // Do not allow items collection when wounded are nearby.
-    actionPlanner
+    planner
       .action(EActionId.STATE_TO_IDLE_ITEMS)
       .add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
 
     // Do not allow alife activity before finish helping all stalkers nearby.
-    actionPlanner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
+    planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
 
     // Do not allow alife idle activity before finish helping all stalkers nearby.
-    actionPlanner
+    planner
       .action(EActionId.STATE_TO_IDLE_ALIFE)
       .add_precondition(new world_property(EEvaluatorId.IS_WOUNDED_EXISTING, false));
   }
@@ -75,7 +73,7 @@ export class SchemeHelpWounded extends AbstractScheme {
     state: IRegistryObjectState,
     section: TSection
   ): void {
-    (state[SchemeHelpWounded.SCHEME_SECTION] as ISchemeHelpWoundedState).isHelpingWoundedEnabled = readIniBoolean(
+    (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState).isHelpingWoundedEnabled = readIniBoolean(
       state.ini,
       section,
       "help_wounded_enabled",

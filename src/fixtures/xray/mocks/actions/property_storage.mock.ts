@@ -1,4 +1,4 @@
-import { PropertyStorage } from "@/engine/lib/types";
+import type { PropertyStorage } from "@/engine/lib/types";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 
 /**

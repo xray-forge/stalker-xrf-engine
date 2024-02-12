@@ -5,7 +5,7 @@ import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { isSquadAction } from "@/engine/core/utils/squad";
-import { GameObject, Optional, TNumberId, Vector } from "@/engine/lib/types";
+import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param object - game object in squad to update actions for
@@ -13,29 +13,22 @@ import { GameObject, Optional, TNumberId, Vector } from "@/engine/lib/types";
  */
 export function updateMonsterSquadAction(object: GameObject, squad: Squad): void {
   if (isSquadAction(squad, ESquadActionType.REACH_TARGET)) {
-    const isSquadCommander: boolean = squad?.commander_id() === object.id();
-    const currentTarget: Optional<TSimulationObject> = registry.simulationObjects.get(
+    const target: Optional<TSimulationObject> = registry.simulationObjects.get(
       squad.assignedTargetId as TNumberId
     ) as Optional<TSimulationObject>;
 
-    if (currentTarget) {
+    if (target) {
+      const commanderId: TNumberId = squad.commander_id();
+      const isFarFromCommander: boolean =
+        commanderId !== object.id() &&
+        registry.simulator.object(commanderId)!.position.distance_to_sqr(object.position()) > 100;
+
       scriptCaptureMonster(object, true);
-
-      if (isSquadCommander) {
-        scriptCommandMonster(object, new move(move.walk_with_leader, currentTarget.position), new cond(cond.move_end));
-      } else {
-        const commanderPosition: Vector = registry.simulator.object(squad.commander_id())!.position;
-
-        if (commanderPosition.distance_to_sqr(object.position()) > 100) {
-          scriptCommandMonster(object, new move(move.run_with_leader, currentTarget.position), new cond(cond.move_end));
-        } else {
-          scriptCommandMonster(
-            object,
-            new move(move.walk_with_leader, currentTarget.position),
-            new cond(cond.move_end)
-          );
-        }
-      }
+      scriptCommandMonster(
+        object,
+        new move(isFarFromCommander ? move.run_with_leader : move.walk_with_leader, target.position),
+        new cond(cond.move_end)
+      );
     }
   }
 }

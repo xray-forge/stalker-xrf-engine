@@ -19,8 +19,7 @@ export class SchemePostCombatIdle extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * todo: Description.
-   * todo: Generic idle
+   * @param object - target object to setup schema for
    */
   public static setup(object: GameObject): void {
     // Zombied stalkers do not wait for more enemies after ending of combat.
@@ -45,7 +44,6 @@ export class SchemePostCombatIdle extends AbstractScheme {
 
     combatPlanner.remove_evaluator(EEvaluatorId.ENEMY);
     combatPlanner.add_evaluator(EEvaluatorId.ENEMY, new EvaluatorHasEnemy(state));
-    combatPlanner.remove_action(EActionId.POST_COMBAT_WAIT);
 
     const actionPostCombatIdleWait: ActionPostCombatIdleWait = new ActionPostCombatIdleWait(state);
 
@@ -55,6 +53,7 @@ export class SchemePostCombatIdle extends AbstractScheme {
     actionPostCombatIdleWait.add_precondition(new world_property(EEvaluatorId.DANGER_GRENADE, false));
     actionPostCombatIdleWait.add_effect(new world_property(EEvaluatorId.ENEMY, false));
 
+    combatPlanner.remove_action(EActionId.POST_COMBAT_WAIT);
     combatPlanner.add_action(EActionId.POST_COMBAT_WAIT, actionPostCombatIdleWait);
   }
 }
