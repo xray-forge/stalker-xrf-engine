@@ -8,14 +8,14 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("job_create_exclusive utils", () => {
-  it("createExclusiveJob should correctly handle empty ini", () => {
+describe("createExclusiveJob util", () => {
+  it("should correctly handle empty ini", () => {
     const list: TSmartTerrainJobsList = createExclusiveJob(MockIniFile.mock("text.ltx", {}), "a", "b", new LuaTable());
 
     expect(list).toEqualLuaArrays([]);
   });
 
-  it("createExclusiveJob should correctly throw if script does not exist", () => {
+  it("should correctly throw if script does not exist", () => {
     const ini: IniFile = MockIniFile.mock("text.ltx", {
       smart_terrain: {
         work1: "some_file.ltx",
@@ -26,7 +26,7 @@ describe("job_create_exclusive utils", () => {
     expect(() => createExclusiveJob(ini, "smart_terrain", "work1", new LuaTable())).toThrow();
   });
 
-  it("createExclusiveJob should correctly read if script does exist", () => {
+  it("should correctly read if script does exist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = MockIniFile.mock("text.ltx", {
       smart_terrain: {
@@ -54,7 +54,7 @@ describe("job_create_exclusive utils", () => {
     ]);
   });
 
-  it("createExclusiveJob should correctly read configured jobs without condlist", () => {
+  it("should correctly read configured jobs without condlist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = MockIniFile.mock("text.ltx", {
       smart_terrain: {
@@ -90,7 +90,7 @@ describe("job_create_exclusive utils", () => {
     ]);
   });
 
-  it("createExclusiveJob should correctly read configured jobs with condlist", () => {
+  it("should correctly read configured jobs with condlist", () => {
     const list: TSmartTerrainJobsList = new LuaTable();
     const ini: IniFile = MockIniFile.mock("text.ltx", {
       smart_terrain: {

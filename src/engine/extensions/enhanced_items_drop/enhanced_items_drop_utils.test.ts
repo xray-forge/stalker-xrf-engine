@@ -8,7 +8,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { GameObject, ServerObject } from "@/engine/lib/types";
 import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
-describe("enhanced_items_drop utils", () => {
+describe("onItemGoOnlineFirstTime util", () => {
   beforeEach(() => {
     registerSimulator();
   });

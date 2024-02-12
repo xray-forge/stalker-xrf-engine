@@ -27,9 +27,7 @@ function mockEffectorDescriptor(
   };
 }
 
-jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils", () => ({
-  emitCutsceneEndedEvent: jest.fn(),
-}));
+jest.mock("@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils");
 
 describe("CameraEffectorSet", () => {
   beforeEach(() => {

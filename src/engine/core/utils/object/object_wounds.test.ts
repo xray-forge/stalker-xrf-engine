@@ -82,7 +82,7 @@ describe("enableObjectWoundedHealing util", () => {
   });
 });
 
-describe("isObjectPsyWounded utils", () => {
+describe("isObjectPsyWounded util", () => {
   beforeEach(() => {
     registerSimulator();
   });

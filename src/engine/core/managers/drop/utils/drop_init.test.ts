@@ -10,8 +10,8 @@ import {
 import { communities } from "@/engine/lib/constants/communities";
 import { AnyObject, TName } from "@/engine/lib/types";
 
-describe("drop_init utils", () => {
-  it("readIniDropByCommunity should correctly read data", () => {
+describe("readIniDropByCommunity util", () => {
+  it("should correctly read data", () => {
     expect(readIniDropByCommunity(DROP_MANAGER_CONFIG_LTX)).toEqualLuaTables({
       ...Object.keys(communities).reduce(
         (acc, it) => {
@@ -36,8 +36,10 @@ describe("drop_init utils", () => {
       },
     });
   });
+});
 
-  it("readIniDropDependentItems should correctly read data", () => {
+describe("readIniDropDependentItems util", () => {
+  it("should correctly read data", () => {
     expect(readIniDropDependentItems(DROP_MANAGER_CONFIG_LTX)).toEqualLuaTables({
       "ammo_11.43x23_fmj": {
         wpn_colt1911: true,
@@ -65,8 +67,10 @@ describe("drop_init utils", () => {
       },
     });
   });
+});
 
-  it("readIniDropCountByLevel should correctly read data", () => {
+describe("readIniDropCountByLevel util", () => {
+  it("should correctly read data", () => {
     expect(level.name()).toBe("zaton");
     expect(level.get_game_difficulty()).toBe(3);
     expect(readIniDropCountByLevel(DROP_MANAGER_CONFIG_LTX)).toEqualLuaTables({

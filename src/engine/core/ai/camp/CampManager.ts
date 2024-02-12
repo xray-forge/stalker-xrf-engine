@@ -4,10 +4,7 @@ import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/en
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
 import { campConfig } from "@/engine/core/ai/camp/CampConfig";
 import { getManager, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
-import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
-import { StoryManager } from "@/engine/core/managers/sounds/stories";
-import { getStoryManager } from "@/engine/core/managers/sounds/utils";
+import { getStoryManager, SoundManager, soundsConfig, StoryManager } from "@/engine/core/managers/sounds";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";

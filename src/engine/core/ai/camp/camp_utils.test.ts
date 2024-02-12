@@ -17,8 +17,8 @@ import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("camp utils", () => {
-  it("startPlayingGuitar should correctly start playing without camp", () => {
+describe("startPlayingGuitar util", () => {
+  it("should correctly start playing without camp", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerObject(object);
@@ -27,7 +27,7 @@ describe("camp utils", () => {
     expect(registry.objects.get(object.id()).camp).toBeUndefined();
   });
 
-  it("startPlayingGuitar should correctly start playing with camp", () => {
+  it("should correctly start playing with camp", () => {
     const object: GameObject = MockGameObject.mock();
     const camp: GameObject = MockGameObject.mock();
     const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
@@ -48,8 +48,10 @@ describe("camp utils", () => {
     expect(manager.storyManager.setActiveStory).toHaveBeenCalledWith("test_guitar");
     expect(manager.storyManager.update).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("startPlayingHarmonica should correctly start playing without camp", () => {
+describe("startPlayingHarmonica util", () => {
+  it("should correctly start playing without camp", () => {
     const object: GameObject = MockGameObject.mock();
 
     registerObject(object);
@@ -58,7 +60,7 @@ describe("camp utils", () => {
     expect(registry.objects.get(object.id()).camp).toBeUndefined();
   });
 
-  it("startPlayingHarmonica should correctly start playing with camp", () => {
+  it("should correctly start playing with camp", () => {
     const object: GameObject = MockGameObject.mock();
     const camp: GameObject = MockGameObject.mock();
     const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
@@ -79,8 +81,10 @@ describe("camp utils", () => {
     expect(manager.storyManager.setActiveStory).toHaveBeenCalledWith("test_harmonica");
     expect(manager.storyManager.update).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("canTellCampStory should correctly check", () => {
+describe("canTellCampStory util", () => {
+  it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
     const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
 
@@ -128,8 +132,10 @@ describe("camp utils", () => {
     manager.availableSoundStories = new LuaTable();
     expect(canTellCampStory(manager)).toBe(false);
   });
+});
 
-  it("canPlayCampGuitar should correctly check", () => {
+describe("canPlayCampGuitar util", () => {
+  it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
     const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
 
@@ -179,8 +185,10 @@ describe("camp utils", () => {
     manager.availableGuitarStories = new LuaTable();
     expect(canPlayCampGuitar(manager)).toBe(false);
   });
+});
 
-  it("canPlayCampHarmonica should correctly check", () => {
+describe("canPlayCampHarmonica util", () => {
+  it("should correctly check", () => {
     const camp: GameObject = MockGameObject.mock();
     const manager: CampManager = new CampManager(camp, MockIniFile.mock("test.ltx"));
 
@@ -230,8 +238,10 @@ describe("camp utils", () => {
     manager.availableHarmonicaStories = new LuaTable();
     expect(canPlayCampHarmonica(manager)).toBe(false);
   });
+});
 
-  it("getObjectCampActivityRole should correctly get object roles for generic activities", () => {
+describe("getObjectCampActivityRole util", () => {
+  it("should correctly get object roles for generic activities", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -250,7 +260,7 @@ describe("camp utils", () => {
     );
   });
 
-  it("getObjectCampActivityRole should correctly get object roles for harmonica/guitar", () => {
+  it("should correctly get object roles for harmonica/guitar", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 
@@ -271,7 +281,7 @@ describe("camp utils", () => {
     expect(getObjectCampActivityRole(object.id(), EObjectCampActivity.HARMONICA)).toBe(EObjectCampRole.DIRECTOR);
   });
 
-  it("getObjectCampActivityRole should correctly get object roles for story teller", () => {
+  it("should correctly get object roles for story teller", () => {
     const object: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
 

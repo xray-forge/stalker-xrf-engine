@@ -96,7 +96,7 @@ describe("isObjectMeeting util", () => {
   });
 });
 
-describe("object state utils", () => {
+describe("isObjectInCombat util", () => {
   it("isObjectInCombat should correctly check object combat state", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;
@@ -144,7 +144,7 @@ describe("isObjectSearchingCorpse util", () => {
   });
 });
 
-describe("isObjectHelpingWounded state utils", () => {
+describe("isObjectHelpingWounded state util", () => {
   it("should correctly check object helping wounded state", () => {
     const object: GameObject = MockGameObject.mock();
     const planner: MockActionPlanner = object.motivation_action_manager() as unknown as MockActionPlanner;

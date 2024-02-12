@@ -3,8 +3,8 @@ import { describe, expect, it } from "@jest/globals";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 
-describe("wounded_parse utils", () => {
-  it("parseWoundedData should correctly parse data", () => {
+describe("parseWoundedData util", () => {
+  it("should correctly parse data", () => {
     expect(parseWoundedData("0|false")).toEqualLuaTables([
       {
         dist: 0,

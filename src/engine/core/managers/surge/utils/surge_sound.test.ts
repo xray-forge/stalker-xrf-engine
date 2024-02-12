@@ -13,13 +13,13 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
-describe("surge_sound utils", () => {
+describe("playSurgeStartingSound util", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
   });
 
-  it("playSurgeStartingSound should correctly play sound", () => {
+  it("should correctly play sound", () => {
     const manager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(manager, "play").mockImplementation(() => null);
@@ -40,8 +40,15 @@ describe("surge_sound utils", () => {
     playSurgeStartingSound();
     expect(manager.play).toHaveBeenCalledTimes(3);
   });
+});
 
-  it("playSurgeWillHappenSoonSound should correctly play sound", () => {
+describe("playSurgeWillHappenSoonSound util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    mockRegisteredActor();
+  });
+
+  it("should correctly play sound", () => {
     const manager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(manager, "play").mockImplementation(() => null);
@@ -62,8 +69,15 @@ describe("surge_sound utils", () => {
     playSurgeWillHappenSoonSound();
     expect(manager.play).toHaveBeenCalledTimes(3);
   });
+});
 
-  it("playSurgeEndedSound should correctly play sound", () => {
+describe("playSurgeEndedSound util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    mockRegisteredActor();
+  });
+
+  it("should correctly play sound", () => {
     const manager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(manager, "play").mockImplementation(() => null);

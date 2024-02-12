@@ -11,7 +11,7 @@ import {
 import { GameObject, Patrol, Vector } from "@/engine/lib/types";
 import { MockGameObject, MockPatrol, patrols } from "@/fixtures/xray";
 
-describe("isObjectAtWaypoint utils", () => {
+describe("isObjectAtWaypoint util", () => {
   it("should correctly check whether object is at waypoint", () => {
     const object: GameObject = MockGameObject.mock();
 
@@ -27,7 +27,7 @@ describe("isObjectAtWaypoint utils", () => {
   });
 });
 
-describe("isObjectAtTerminalWaypoint utils", () => {
+describe("isObjectAtTerminalWaypoint util", () => {
   it("should correctly check whether object is at terminal waypoint", () => {
     const object: GameObject = MockGameObject.mock();
     const waypointPatrol: Patrol = new patrol("test-wp");
@@ -43,7 +43,7 @@ describe("isObjectAtTerminalWaypoint utils", () => {
   });
 });
 
-describe("isPatrolInRestrictor utils", () => {
+describe("isPatrolInRestrictor util", () => {
   it("should correctly check if all patrol points are in restrictor", () => {
     expect(isPatrolInRestrictor("some_restrictor", "some_patrol")).toBeNull();
     expect(isPatrolInRestrictor("some_restrictor", "another_patrol")).toBeNull();

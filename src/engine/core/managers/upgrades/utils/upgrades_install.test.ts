@@ -6,8 +6,8 @@ import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("upgrades_install utils", () => {
-  it("addRandomUpgrade should correctly add random upgrade", () => {
+describe("addRandomUpgrade util", () => {
+  it(" should correctly add random upgrade", () => {
     const first: GameObject = MockGameObject.mock();
 
     addRandomUpgrade(first);
@@ -33,8 +33,10 @@ describe("upgrades_install utils", () => {
 
     expect(third.add_upgrade).toHaveBeenCalledTimes(0);
   });
+});
 
-  it("addRandomUpgrade should correctly add random upgrades", () => {
+describe("addRandomUpgrades util", () => {
+  it("should correctly add random upgrades", () => {
     const first: GameObject = MockGameObject.mock();
 
     addRandomUpgrades(first, 0);

@@ -10,8 +10,8 @@ import {
 import { TName } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 
-describe("weather utils", () => {
-  it("getPossibleWeathersList should correctly get list of weathers", () => {
+describe("getPossibleWeathersList util", () => {
+  it("should correctly get list of weathers", () => {
     replaceFunctionMock(lfs.dir, () => {
       const list: Array<TName> = [".", "..", "a.ltx", "b.ltx", "c.ltx", "another.xml"];
 
@@ -20,15 +20,19 @@ describe("weather utils", () => {
 
     expect(getPossibleWeathersList()).toEqualLuaArrays(["a", "b", "c"]);
   });
+});
 
-  it("canUsePeriodsForWeather should check dynamic weathers", () => {
+describe("canUsePeriodsForWeather util", () => {
+  it("should check dynamic weathers", () => {
     expect(canUsePeriodsForWeather("dynamic_default")).toBe(true);
     expect(canUsePeriodsForWeather("dynamic")).toBe(true);
     expect(canUsePeriodsForWeather("default")).toBe(false);
     expect(canUsePeriodsForWeather("another")).toBe(false);
   });
+});
 
-  it("isIndoorWeather should check indoor weathers", () => {
+describe("isIndoorWeather util", () => {
+  it("should check indoor weathers", () => {
     expect(isIndoorWeather("indoor_default")).toBe(true);
     expect(isIndoorWeather("indoor")).toBe(true);
     expect(isIndoorWeather("dynamic_default")).toBe(false);
@@ -36,8 +40,10 @@ describe("weather utils", () => {
     expect(isIndoorWeather("default")).toBe(false);
     expect(isIndoorWeather("another")).toBe(false);
   });
+});
 
-  it("isPreBlowoutWeather should check pre-blowout weathers", () => {
+describe("isPreBlowoutWeather util", () => {
+  it("should check pre-blowout weathers", () => {
     expect(isPreBlowoutWeather("pre_blowout_default")).toBe(true);
     expect(isPreBlowoutWeather("pre_blowout")).toBe(true);
     expect(isPreBlowoutWeather("dynamic_default")).toBe(false);
@@ -45,8 +51,10 @@ describe("weather utils", () => {
     expect(isPreBlowoutWeather("default")).toBe(false);
     expect(isPreBlowoutWeather("another")).toBe(false);
   });
+});
 
-  it("isPreBlowoutWeather should check isTransitionWeather weathers", () => {
+describe("isPreBlowoutWeather util", () => {
+  it("should check isTransitionWeather weathers", () => {
     expect(isTransitionWeather("transition_default")).toBe(true);
     expect(isTransitionWeather("transition")).toBe(true);
     expect(isTransitionWeather("pre_blowout")).toBe(false);

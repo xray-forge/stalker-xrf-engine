@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it, jest } from "@jest/globals";
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator } from "@/engine/core/database";
 import { EJobPathType, SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -16,13 +16,13 @@ import { AnyObject, IniFile, ServerHumanObject, ServerMonsterBaseObject, TNumber
 import { mockRegisteredActor, MockSmartTerrain } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
 
-describe("job_pick utils", () => {
-  beforeAll(() => {
+describe("selectSmartTerrainJob util", () => {
+  beforeEach(() => {
     registerSimulator();
     mockRegisteredActor();
   });
 
-  it("selectSmartTerrainJob should correctly get jobs for stalkers", () => {
+  it("should correctly get jobs for stalkers", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const object: ServerHumanObject = MockAlifeHumanStalker.mock();
     const job: IObjectJobState = createObjectJobDescriptor(object);
@@ -112,7 +112,7 @@ describe("job_pick utils", () => {
     expect(fourthJob).toBe(thirdJob);
   });
 
-  it("selectSmartTerrainJob should correctly get jobs for monsters", () => {
+  it("should correctly get jobs for monsters", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
     const object: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const job: IObjectJobState = createObjectJobDescriptor(object);
@@ -183,8 +183,15 @@ describe("job_pick utils", () => {
       type: EJobType.MONSTER_HOME,
     });
   });
+});
 
-  it("getSmartTerrainJobByObjectId should correctly get job section and job descriptor from smart terrain", () => {
+describe("getSmartTerrainJobByObjectId util", () => {
+  beforeEach(() => {
+    registerSimulator();
+    mockRegisteredActor();
+  });
+
+  it("should correctly get job section and job descriptor from smart terrain", () => {
     const terrain: SmartTerrain = new SmartTerrain("test_smart");
     const firstStalker: ServerHumanObject = MockAlifeHumanStalker.mock();
     const secondStalker: ServerHumanObject = MockAlifeHumanStalker.mock();

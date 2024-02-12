@@ -6,7 +6,7 @@ import { GameObject } from "@/engine/lib/types";
 import { expectCallsToEqual } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("setupObjectVisual utils", () => {
+describe("setupObjectVisual util", () => {
   it("should setup visuals", () => {
     const stalkerNone: GameObject = MockGameObject.mock({ section: "stalker_none_1" });
     const stalkerFreedom: GameObject = MockGameObject.mock({ section: "stalker_freedom_1" });
@@ -25,7 +25,7 @@ describe("setupObjectVisual utils", () => {
   });
 });
 
-describe("setupObjectInfoPortions utils", () => {
+describe("setupObjectInfoPortions util", () => {
   it("should setup info portions", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();

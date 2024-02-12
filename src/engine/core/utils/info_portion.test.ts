@@ -27,7 +27,7 @@ describe("giveInfoPortion util", () => {
   });
 });
 
-describe("disableInfoPortion utils", () => {
+describe("disableInfoPortion util", () => {
   beforeEach(() => {
     mockRegisteredActor();
 
@@ -50,7 +50,7 @@ describe("disableInfoPortion utils", () => {
   });
 });
 
-describe("info_portion utils", () => {
+describe("hasInfoPortions util", () => {
   beforeEach(() => {
     mockRegisteredActor();
 

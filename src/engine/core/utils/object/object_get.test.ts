@@ -6,7 +6,7 @@ import { GameObject, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("getObjectSpawnIni utils", () => {
+describe("getObjectSpawnIni util", () => {
   beforeEach(() => {
     resetRegistry();
   });

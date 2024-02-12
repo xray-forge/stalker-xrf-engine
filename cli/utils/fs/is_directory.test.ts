@@ -7,7 +7,7 @@ import { isDirectory } from "#/utils/fs/is_directory";
 
 jest.mock("fs/promises");
 
-describe("is_directory utils", () => {
+describe("is_directory util", () => {
   it("should correctly check", async () => {
     jest.spyOn(fsp, "lstat").mockImplementation(async () => ({ isDirectory: () => true }) as fs.Stats);
     expect(await isDirectory("test")).toBe(true);

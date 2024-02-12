@@ -6,8 +6,8 @@ import { TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_typ
 import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 
-describe("upgrades_get utils", () => {
-  it("readUpgradeGroup should correctly get all group data", () => {
+describe("readUpgradeGroup util", () => {
+  it("should correctly get all group data", () => {
     const first: TUpgradesList = new LuaTable();
 
     readUpgradeGroup(SYSTEM_INI, "up_gr_firstab_ak74u", first);
@@ -69,8 +69,10 @@ describe("upgrades_get utils", () => {
       },
     ]);
   });
+});
 
-  it("readAllObjectUpgrades should correctly get all upgrades from ini file", () => {
+describe("readAllObjectUpgrades util", () => {
+  it("should correctly get all upgrades from ini file", () => {
     expect(readAllObjectUpgrades(SYSTEM_INI, weapons.wpn_ak74)).toEqualLuaTables({});
     expect(readAllObjectUpgrades(SYSTEM_INI, weapons.wpn_svu)).toEqualLuaTables({});
 

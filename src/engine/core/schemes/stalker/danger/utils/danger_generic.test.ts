@@ -22,14 +22,17 @@ import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { EGameObjectRelation, EScheme, GameObject, ServerHumanObject, ServerSmartZoneObject } from "@/engine/lib/types";
-import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
+import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameObject } from "@/fixtures/xray";
 
-describe("danger generic utils", () => {
-  beforeEach(() => registerSimulator());
+describe("isObjectFacingDanger util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
 
-  it("isObjectFacingDanger should correctly check generic danger", () => {
+  it("should correctly check generic danger", () => {
     expect(isObjectFacingDanger(MockGameObject.mock())).toBe(false);
 
     const object: GameObject = MockGameObject.mock();
@@ -52,7 +55,7 @@ describe("danger generic utils", () => {
     expect(isObjectFacingDanger(object)).toBe(true);
   });
 
-  it("isObjectFacingDanger should correctly check generic danger", () => {
+  it("should correctly check generic danger", () => {
     expect(isObjectFacingDanger(MockGameObject.mock())).toBe(false);
 
     const object: GameObject = MockGameObject.mock();
@@ -74,7 +77,7 @@ describe("danger generic utils", () => {
     expect(isObjectFacingDanger(object)).toBe(true);
   });
 
-  it("isObjectFacingDanger should correctly ignore corpses", () => {
+  it("should correctly ignore corpses", () => {
     const object: GameObject = MockGameObject.mock();
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
@@ -86,7 +89,7 @@ describe("danger generic utils", () => {
     expect(isObjectFacingDanger(object)).toBe(false);
   });
 
-  it("isObjectFacingDanger should correctly check ignore distance", () => {
+  it("should correctly check ignore distance", () => {
     const object: GameObject = MockGameObject.mock();
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
@@ -103,7 +106,7 @@ describe("danger generic utils", () => {
     expect(isObjectFacingDanger(object)).toBe(false);
   });
 
-  it("isObjectFacingDanger should correctly check grenades", () => {
+  it("should correctly check grenades", () => {
     const object: GameObject = MockGameObject.mockStalker();
     const bestDanger: MockDangerObject = new MockDangerObject();
     const state: IRegistryObjectState = registerObject(object);
@@ -134,8 +137,15 @@ describe("danger generic utils", () => {
     });
     expect(isObjectFacingDanger(object)).toBe(false);
   });
+});
 
-  it("canObjectSelectAsEnemy should correctly check enemies selection possibility", () => {
+describe("canObjectSelectAsEnemy util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check enemies selection possibility", () => {
     const object: GameObject = MockGameObject.mockStalker();
     const enemy: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -171,7 +181,7 @@ describe("danger generic utils", () => {
     expect(state.enemyId).toBe(enemy.id());
   });
 
-  it("canObjectSelectAsEnemy should correctly check enemies in no-combat zones", () => {
+  it("should correctly check enemies in no-combat zones", () => {
     const object: GameObject = MockGameObject.mockStalker();
     const enemy: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);
@@ -196,7 +206,7 @@ describe("danger generic utils", () => {
     expect(state.enemyId).toBe(enemy.id());
   });
 
-  it("canObjectSelectAsEnemy should correctly ignore enemies in no-combat smarts", () => {
+  it("should correctly ignore enemies in no-combat smarts", () => {
     const object: GameObject = MockGameObject.mockStalker();
     const enemy: GameObject = MockGameObject.mock();
     const state: IRegistryObjectState = registerObject(object);

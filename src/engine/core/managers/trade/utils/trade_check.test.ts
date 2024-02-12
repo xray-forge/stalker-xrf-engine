@@ -6,8 +6,8 @@ import { isObjectTrader } from "@/engine/core/managers/trade/utils/trade_check";
 import { GameObject } from "@/engine/lib/types";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("trade_check utils", () => {
-  it("isObjectTrader should correctly check if object trade config is customized", () => {
+describe("isObjectTrader util", () => {
+  it("should correctly check if object trade config is customized", () => {
     expect(isObjectTrader(-1)).toBe(false);
 
     const object: GameObject = MockGameObject.mock();

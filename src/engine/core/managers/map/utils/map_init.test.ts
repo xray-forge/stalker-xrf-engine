@@ -8,8 +8,8 @@ import {
 } from "@/engine/core/managers/map/utils/map_init";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("map_init utils", () => {
-  it("readIniTravelDialogs should correctly read locations", () => {
+describe("readIniTravelDialogs util", () => {
+  it("should correctly read locations", () => {
     expect(() => readIniMapSpots(MockIniFile.mock("test.ltx", {}))).toThrow(
       "Expect 'map_spots' section to exist in ini file."
     );
@@ -29,8 +29,10 @@ describe("map_init utils", () => {
       { target: "b", hint: "b_name", isVisible: false },
     ]);
   });
+});
 
-  it("readIniSleepSpots should correctly read locations", () => {
+describe("readIniSleepSpots util", () => {
+  it("should correctly read locations", () => {
     expect(() => readIniSleepSpots(MockIniFile.mock("test.ltx", {}))).toThrow(
       "Expect 'sleep_spots' section to exist in ini file."
     );
@@ -50,8 +52,10 @@ describe("map_init utils", () => {
       { target: "b", hint: "b_name" },
     ]);
   });
+});
 
-  it("readIniMapMarks should correctly read marks", () => {
+describe("readIniMapMarks util", () => {
+  it("should correctly read marks", () => {
     expect(() => readIniMapMarks(MockIniFile.mock("test.ltx", {}))).toThrow(
       "Expect 'map_marks' section to exist in ini file."
     );
@@ -91,8 +95,10 @@ describe("map_init utils", () => {
       },
     });
   });
+});
 
-  it("readIniMapScannerSpots should correctly read spots", () => {
+describe("readIniMapScannerSpots util", () => {
+  it("should correctly read spots", () => {
     expect(() => readIniMapScannerSpots(MockIniFile.mock("test.ltx", {}))).toThrow(
       "Expect 'scanner_spots' section to exist in ini file."
     );

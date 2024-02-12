@@ -5,8 +5,8 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("travel_init utils", () => {
-  it("readIniTravelDialogs should correctly read locations", () => {
+describe("readIniTravelDialogs util", () => {
+  it("should correctly read locations", () => {
     expect(readIniTravelDialogs(MockIniFile.mock("test.ltx", {}))).toEqualLuaArrays([{}, {}]);
 
     expect(

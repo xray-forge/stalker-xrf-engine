@@ -21,7 +21,7 @@ import { AnyObject, GameObject, ServerHumanObject, ServerMonsterBaseObject } fro
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-describe("isStalkerAlive utils", () => {
+describe("isStalkerAlive util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

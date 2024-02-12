@@ -32,7 +32,7 @@ import { ServerActorObject, ServerHumanObject, ServerObject } from "@/engine/lib
 import { MockSquad } from "@/fixtures/engine";
 import { MockAlifeCreatureActor, MockAlifeHumanStalker, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
-describe("isArtefact utils", () => {
+describe("isArtefact util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is an artefact", () => {
@@ -48,7 +48,7 @@ describe("isArtefact utils", () => {
   });
 });
 
-describe("isGrenade utils", () => {
+describe("isGrenade util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a grenade", () => {
@@ -62,7 +62,7 @@ describe("isGrenade utils", () => {
   });
 });
 
-describe("isActor utils", () => {
+describe("isActor util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is an actor", () => {
@@ -75,7 +75,7 @@ describe("isActor utils", () => {
   });
 });
 
-describe("isSquad utils", () => {
+describe("isSquad util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a squad", () => {
@@ -88,7 +88,7 @@ describe("isSquad utils", () => {
   });
 });
 
-describe("isSquadId utils", () => {
+describe("isSquadId util", () => {
   beforeEach(() => registerSimulator());
 
   it("correctly check if id is a squad object", () => {
@@ -102,7 +102,7 @@ describe("isSquadId utils", () => {
   });
 });
 
-describe("isSmartTerrain utils", () => {
+describe("isSmartTerrain util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a monster", () => {
@@ -116,7 +116,7 @@ describe("isSmartTerrain utils", () => {
   });
 });
 
-describe("isMonster utils", () => {
+describe("isMonster util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a monster", () => {
@@ -132,7 +132,7 @@ describe("isMonster utils", () => {
   });
 });
 
-describe("isStalker utils", () => {
+describe("isStalker util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a stalker", () => {
@@ -149,7 +149,7 @@ describe("isStalker utils", () => {
   });
 });
 
-describe("isCreature utils", () => {
+describe("isCreature util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a stalker", () => {
@@ -171,7 +171,7 @@ describe("isCreature utils", () => {
   });
 });
 
-describe("isTrader utils", () => {
+describe("isTrader util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object is a stalker", () => {
@@ -191,7 +191,7 @@ describe("isTrader utils", () => {
   });
 });
 
-describe("isStrappableWeapon utils", () => {
+describe("isStrappableWeapon util", () => {
   beforeEach(() => registerSimulator());
 
   it("should correctly check if object can be strapped", () => {
@@ -203,7 +203,7 @@ describe("isStrappableWeapon utils", () => {
   });
 });
 
-describe("isWeapon utils", () => {
+describe("isWeapon util", () => {
   beforeEach(() => registerSimulator());
 
   it("utils should correctly check object class ids", () => {

@@ -11,7 +11,7 @@ import { Console } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockConsole, MockIniFile } from "@/fixtures/xray";
 
-describe("executeConsoleCommand utils", () => {
+describe("executeConsoleCommand util", () => {
   const gameConsole: Console = MockConsole.getInstanceMock();
 
   beforeEach(() => {
@@ -78,7 +78,7 @@ describe("executeConsoleCommandsFromSection util", () => {
   });
 });
 
-describe("getConsoleFloatCommand utils", () => {
+describe("getConsoleFloatCommand util", () => {
   const gameConsole: Console = MockConsole.getInstanceMock();
 
   beforeEach(() => {

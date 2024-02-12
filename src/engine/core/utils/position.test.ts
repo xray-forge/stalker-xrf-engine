@@ -183,7 +183,7 @@ describe("getDistanceBetween util", () => {
   });
 });
 
-describe("getDistanceBetweenSqr utils", () => {
+describe("getDistanceBetweenSqr util", () => {
   beforeEach(() => {
     registerSimulator();
   });
@@ -199,7 +199,7 @@ describe("getDistanceBetweenSqr utils", () => {
   });
 });
 
-describe("sendToNearestAccessibleVertex utils", () => {
+describe("sendToNearestAccessibleVertex util", () => {
   beforeEach(() => {
     registerSimulator();
   });
@@ -248,12 +248,12 @@ describe("teleportActorWithEffects util", () => {
   });
 });
 
-describe("position utils", () => {
+describe("isObjectInActorFrustum util", () => {
   beforeEach(() => {
     registerSimulator();
   });
 
-  it("isObjectInActorFrustum should correctly check whether object is in actor frustum", () => {
+  it("should correctly check whether object is in actor frustum", () => {
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "position").mockImplementation(() => MockVector.mock(0.6, 0, 0.6));

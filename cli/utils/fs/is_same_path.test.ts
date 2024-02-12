@@ -6,7 +6,7 @@ import { isSamePath } from "#/utils/fs/is_same_path";
 
 jest.mock("os");
 
-describe("is_same_path utils", () => {
+describe("is_same_path util", () => {
   it("should correctly check for win32", () => {
     jest.spyOn(os, "platform").mockImplementation(() => "win32");
 

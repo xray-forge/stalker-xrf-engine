@@ -25,7 +25,7 @@ import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
-describe("getItemPrice utils", () => {
+describe("getItemPrice util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -38,7 +38,7 @@ describe("getItemPrice utils", () => {
   });
 });
 
-describe("getItemOwnerId utils", () => {
+describe("getItemOwnerId util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -59,7 +59,7 @@ describe("getItemOwnerId utils", () => {
   });
 });
 
-describe("setItemCondition utils", () => {
+describe("setItemCondition util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -79,7 +79,7 @@ describe("setItemCondition utils", () => {
   });
 });
 
-describe("objectHasItem utils", () => {
+describe("objectHasItem util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -105,7 +105,7 @@ describe("objectHasItem utils", () => {
   });
 });
 
-describe("actorHasAtLeastOneItem utils", () => {
+describe("actorHasAtLeastOneItem util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -133,7 +133,7 @@ describe("actorHasAtLeastOneItem utils", () => {
   });
 });
 
-describe("actorHasItems utils", () => {
+describe("actorHasItems util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -217,7 +217,7 @@ describe("actorHasItemCount util", () => {
   });
 });
 
-describe("actorHasMedKit utils", () => {
+describe("actorHasMedKit util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();

@@ -21,7 +21,7 @@ import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
 import { MockConsole, MockFileSystem, MockFileSystemList } from "@/fixtures/xray";
 
-describe("getFileDataForGameSave utils", () => {
+describe("getFileDataForGameSave util", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -42,7 +42,7 @@ describe("getFileDataForGameSave utils", () => {
   });
 });
 
-describe("isGameSaveFileExist utils", () => {
+describe("isGameSaveFileExist util", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -62,7 +62,7 @@ describe("isGameSaveFileExist utils", () => {
   });
 });
 
-describe("game_save utils", () => {
+describe("deleteGameSave util", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -87,7 +87,7 @@ describe("game_save utils", () => {
   });
 });
 
-describe("createSave utils", () => {
+describe("createSave util", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -155,7 +155,7 @@ describe("createAutoSave util", () => {
   });
 });
 
-describe("saveDynamicGameSave utils", () => {
+describe("saveDynamicGameSave util", () => {
   beforeEach(() => {
     resetRegistry();
     resetFunctionMock(io.open);
@@ -213,7 +213,7 @@ describe("saveDynamicGameSave utils", () => {
   });
 });
 
-describe("loadLastGameSave utils", () => {
+describe("loadLastGameSave util", () => {
   beforeEach(() => {
     resetRegistry();
 
@@ -303,7 +303,7 @@ describe("loadGameSave util", () => {
   });
 });
 
-describe("getGameSavesList utils", () => {
+describe("getGameSavesList util", () => {
   beforeEach(() => {
     resetRegistry();
   });

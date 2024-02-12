@@ -14,13 +14,13 @@ import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("surge_generic utils", () => {
+describe("launchSurgeSignalRockets util", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
   });
 
-  it("launchSurgeSignalRockets should correctly launch rockets", () => {
+  it("should correctly launch rockets", () => {
     const first: SignalLightBinder = new SignalLightBinder(MockGameObject.mock());
     const second: SignalLightBinder = new SignalLightBinder(MockGameObject.mock());
 
@@ -46,8 +46,15 @@ describe("surge_generic utils", () => {
     expect(first.startFly).toHaveBeenCalledTimes(1);
     expect(first.startFly).toHaveBeenCalledTimes(1);
   });
+});
 
-  it("isSurgeEnabledOnLevel should correctly check if surge is enabled for level", () => {
+describe("isSurgeEnabledOnLevel util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    mockRegisteredActor();
+  });
+
+  it("should correctly check if surge is enabled for level", () => {
     surgeConfig.SURGE_DISABLED_LEVELS = MockLuaTable.mockFromObject<TName, boolean>({
       labx8: true,
       jupiter_underground: true,
@@ -58,8 +65,15 @@ describe("surge_generic utils", () => {
     expect(isSurgeEnabledOnLevel("labx8")).toBe(false);
     expect(isSurgeEnabledOnLevel("jupiter_underground")).toBe(false);
   });
+});
 
-  it("isImmuneToSurgeObject should correctly check that objects are immune to surge", () => {
+describe("isImmuneToSurgeObject util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    mockRegisteredActor();
+  });
+
+  it("should correctly check that objects are immune to surge", () => {
     surgeConfig.IMMUNE_SQUAD_COMMUNITIES = MockLuaTable.mockFromObject<TName, boolean>({
       [communities.monster_predatory_day]: true,
       [communities.monster_predatory_night]: true,

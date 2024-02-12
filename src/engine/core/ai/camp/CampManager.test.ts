@@ -9,16 +9,15 @@ import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, GameObject, IniFile } from "@/engine/lib/types";
-import { mockSchemeState } from "@/fixtures/engine";
+import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/utils/scheme/scheme_event", () => ({
-  emitSchemeEvent: jest.fn(),
-}));
+jest.mock("@/engine/core/utils/scheme/scheme_event");
 
 describe("CampManager", () => {
   beforeEach(() => {
+    resetRegistry();
     soundsConfig.managers = new LuaTable();
   });
 
@@ -56,11 +55,9 @@ describe("CampManager", () => {
     expect(manager.availableHarmonicaStories).toEqualLuaArrays(["harmonica_a", "harmonica_b"]);
   });
 
-  it.todo("should correctly handle update event");
+  it.todo("should correctly handle update event for participant");
 
-  it.todo("should correctly set next states");
-
-  it.todo("should correctly get current director");
+  it.todo("should correctly handle update event for director");
 
   it("should correctly set story", () => {
     const object: GameObject = MockGameObject.mock();

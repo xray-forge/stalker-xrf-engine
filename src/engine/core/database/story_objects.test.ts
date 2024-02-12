@@ -89,7 +89,7 @@ describe("story_objects module of the database", () => {
     expect(registry.storyLink.idBySid.get("test_sid_system_ini")).toBe(object.id);
   });
 
-  it("should correctly handle lifecycle and get links with utils", () => {
+  it("should correctly handle lifecycle and get links with util", () => {
     const firstObject: ServerObject = MockAlifeObject.mock({ id: 12 });
     const object: GameObject = MockGameObject.mock({ id: 12 });
 

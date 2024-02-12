@@ -13,7 +13,7 @@ import { MockGameObject } from "@/fixtures/xray";
 jest.mock("@/engine/core/schemes/stalker/meet/utils");
 jest.mock("@/engine/core/utils/logics");
 
-describe("getNpcSpeaker utils", () => {
+describe("getNpcSpeaker util", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -32,7 +32,7 @@ describe("getNpcSpeaker utils", () => {
   });
 });
 
-describe("isObjectName utils", () => {
+describe("isObjectName util", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -53,7 +53,7 @@ describe("isObjectName utils", () => {
   });
 });
 
-describe("breakObjectDialog utils", () => {
+describe("breakObjectDialog util", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();
@@ -71,7 +71,7 @@ describe("breakObjectDialog utils", () => {
   });
 });
 
-describe("updateObjectDialog utils", () => {
+describe("updateObjectDialog util", () => {
   beforeEach(() => {
     resetRegistry();
     mockRegisteredActor();

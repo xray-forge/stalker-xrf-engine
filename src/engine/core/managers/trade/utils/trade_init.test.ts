@@ -5,8 +5,8 @@ import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade
 import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
-describe("trade_init utils", () => {
-  it("readObjectTradeIniPath should correctly read object ini", () => {
+describe("readObjectTradeIniPath util", () => {
+  it("should correctly read object ini", () => {
     const ini: IniFile = MockIniFile.mock("test.ltx", {
       logic_default: {
         trade: tradeConfig.DEFAULT_TRADE_LTX_PATH,

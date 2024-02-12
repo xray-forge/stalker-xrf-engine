@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 
 import { clamp, range, round } from "@/engine/core/utils/number";
 
-describe("clamp utils", () => {
+describe("clamp util", () => {
   it("should correctly limit numbers", () => {
     expect(clamp(100, 10, 50)).toBe(50);
     expect(clamp(50, 10, 50)).toBe(50);

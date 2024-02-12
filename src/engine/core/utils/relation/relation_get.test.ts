@@ -111,7 +111,7 @@ describe("getSquadMembersRelationToActor util", () => {
   });
 });
 
-describe("getNumberRelationBetweenCommunities utils", () => {
+describe("getNumberRelationBetweenCommunities util", () => {
   beforeEach(() => {
     resetRegistry();
     MockAlifeSimulator.removeFromRegistry(ACTOR_ID);

@@ -8,7 +8,7 @@ import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
-describe("sounds_play utils", () => {
+describe("initializeObjectThemes util", () => {
   beforeEach(() => {
     resetRegistry();
 
@@ -16,7 +16,7 @@ describe("sounds_play utils", () => {
     soundsConfig.themes = readIniThemesList(SCRIPT_SOUND_LTX);
   });
 
-  it("initializeObjectThemes should correctly initialize object community themes", () => {
+  it("should correctly initialize object community themes", () => {
     const attackBegin: NpcSound = soundsConfig.themes.get("attack_begin") as NpcSound;
     const attackBeginReply: NpcSound = soundsConfig.themes.get("attack_begin_reply") as NpcSound;
 
