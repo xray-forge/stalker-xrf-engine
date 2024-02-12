@@ -78,7 +78,7 @@ export class NoWeaponManager extends AbstractSchemeManager<ISchemeNoWeaponState>
     logger.info("Leaving no weapon zone: '%s'", this.object.name());
 
     this.actorState = EActorZoneState.OUTSIDE;
-    registry.noWeaponZones.delete(this.object.id());
+    registry.noWeaponZones.set(this.object.id(), false);
 
     EventsManager.emitEvent(EGameEvent.ACTOR_LEAVE_NO_WEAPON_ZONE, this.object);
   }

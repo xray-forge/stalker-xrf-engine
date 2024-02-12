@@ -5,65 +5,61 @@ import { Squad } from "@/engine/core/objects/squad";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import {
   GameObject,
   Optional,
   ParticlesObject,
   Patrol,
-  TCount,
   TIndex,
   TName,
   TNumberId,
-  TProbability,
   TRate,
   TStringId,
   Vector,
 } from "@/engine/lib/types";
 
-const logger: LuaLogger = new LuaLogger($filename);
-
 /**
- * todo;
+ * Teleports npc to patrol point based on patrol name and index.
  */
 extern(
   "xr_effects.teleport_npc",
-  (actor: GameObject, object: GameObject, [patrolPointName, patrolPointIndex = 0]: [TName, TIndex]): void => {
-    assert(patrolPointName, "Wrong parameters in 'teleport_npc' function.");
+  (actor: GameObject, object: GameObject, [patrolName, patrolIndex = 0]: [TName, TIndex]): void => {
+    assert(patrolName, "Wrong parameters in 'teleport_npc' function.");
 
     resetStalkerState(object);
 
-    object.set_npc_position(new patrol(patrolPointName).point(patrolPointIndex));
+    object.set_npc_position(new patrol(patrolName).point(patrolIndex));
   }
 );
 
 /**
- * todo;
+ * Teleports npc to patrol point based story ID, patrol name and index.
+ * If object is offline, updates corresponding server object.
  */
 extern(
   "xr_effects.teleport_npc_by_story_id",
-  (actor: GameObject, object: GameObject, p: [TStringId, TName, TIndex]) => {
-    const storyId: Optional<TStringId> = p[0];
-    const patrolPoint: Optional<TName> = p[1];
-    const patrolPointIndex: TIndex = p[2] || 0;
-
-    if (storyId === null || patrolPoint === null) {
-      abort("Wrong parameters in 'teleport_npc_by_story_id' function!!!");
+  (
+    actor: GameObject,
+    object: GameObject,
+    [storyId, patrolName, patrolIndex = 0]: [Optional<TStringId>, Optional<TName>, TIndex]
+  ) => {
+    if (!storyId || !patrolName) {
+      abort("Wrong parameters in 'teleport_npc_by_story_id' function.");
     }
 
-    const position: Vector = new patrol(tostring(patrolPoint)).point(patrolPointIndex);
     const objectId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
 
-    if (objectId === null) {
-      abort("There is no story object with id [%s]", storyId);
+    if (!objectId) {
+      abort("There is no story object with id '%s'.", storyId);
     }
 
-    const gameObject: Optional<GameObject> = level.object_by_id(objectId);
+    const position: Vector = new patrol(patrolName).point(patrolIndex);
+    const target: Optional<GameObject> = level.object_by_id(objectId);
 
-    if (gameObject) {
-      resetStalkerState(gameObject);
-      gameObject.set_npc_position(position);
+    if (target) {
+      resetStalkerState(target);
+      target.set_npc_position(position);
     } else {
       registry.simulator.object(objectId)!.position = position;
     }
@@ -71,78 +67,67 @@ extern(
 );
 
 /**
- * todo;
+ * Teleports squad to patrol point based story ID, patrol name and index.
  */
 extern(
   "xr_effects.teleport_squad",
-  (actor: GameObject, object: GameObject, params: [TStringId, TName, TIndex]): void => {
-    const squadStoryId: Optional<TStringId> = params[0];
-    const patrolPoint: TStringId = params[1];
-    const patrolPointIndex: TIndex = params[2] || 0;
-
-    if (squadStoryId === null || patrolPoint === null) {
-      abort("Wrong parameters in 'teleport_squad' function!!!");
+  (actor: GameObject, object: GameObject, [storyId, patrolName, patrolIndex = 0]: [TStringId, TName, TIndex]): void => {
+    if (!storyId || !patrolName) {
+      abort("Wrong parameters in 'teleport_squad' effect.");
     }
 
-    const position: Vector = new patrol(patrolPoint).point(patrolPointIndex);
-    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-    assert(squad, "There is no squad with story id [%s]", squadStoryId);
-    setSquadPosition(squad, position);
+    assert(squad, "There is no squad with story id '%s'.", storyId);
+    setSquadPosition(squad, new patrol(patrolName).point(patrolIndex));
   }
 );
 
 /**
- * todo;
+ * Teleports actor to provided position and look patrol points.
  */
-extern("xr_effects.teleport_actor", (actor: GameObject, object: GameObject, params: [TName, TName]): void => {
-  const point: Patrol = new patrol(params[0]);
+extern(
+  "xr_effects.teleport_actor",
+  (
+    actor: GameObject,
+    object: GameObject,
+    [positionPatrolName, lookPatrolName]: [Optional<TName>, Optional<TName>]
+  ): void => {
+    assert(positionPatrolName, "Wrong parameters in 'teleport_actor' effect.");
 
-  if (params[1] !== null) {
-    const look: Patrol = new patrol(params[1]);
-    const dir: TRate = -look.point(0).sub(point.point(0)).getH();
+    const point: Patrol = new patrol(positionPatrolName);
 
-    registry.actor.set_actor_direction(dir);
-  }
+    if (lookPatrolName) {
+      registry.actor.set_actor_direction(-new patrol(lookPatrolName).point(0).sub(point.point(0)).getH());
+    }
 
-  // todo: probably should check after teleport
-  for (const [id] of registry.noWeaponZones) {
-    if (isObjectInZone(registry.actor, registry.objects.get(id).object)) {
-      registry.noWeaponZones.set(id, true);
+    registry.actor.set_actor_position(point.point(0));
+
+    for (const [id] of registry.noWeaponZones) {
+      if (isObjectInZone(registry.actor, registry.objects.get(id).object)) {
+        registry.noWeaponZones.set(id, true);
+      }
     }
   }
-
-  if (object && object.name() !== null) {
-    logger.info("Teleporting actor from: %s", object.name());
-  }
-
-  registry.actor.set_actor_position(point.point(0));
-});
+);
 
 /**
- * todo;
+ * Plays particle object at provided path.
  */
-extern("xr_effects.play_particle_on_path", (actor: GameObject, object: GameObject, p: [string, string, number]) => {
-  const name: TName = p[0];
-  const path: TName = p[1];
-  let pointProbability: TProbability = p[2];
+extern(
+  "xr_effects.play_particle_on_path",
+  (actor: GameObject, object: GameObject, [particleName, pathName, probability = 100]: [TName, TName, TRate]): void => {
+    if (!particleName || !pathName) {
+      return;
+    }
 
-  if (name === null || path === null) {
-    return;
-  }
+    const path: Patrol = new patrol(pathName);
+    const particle: ParticlesObject = new particles_object(particleName);
 
-  if (pointProbability === null) {
-    pointProbability = 100;
-  }
-
-  const patrolObject: Patrol = new patrol(path);
-  const count: TCount = patrolObject.count();
-
-  for (const a of $range(0, count - 1)) {
-    const particle: ParticlesObject = new particles_object(name);
-
-    if (math.random(100) <= pointProbability) {
-      particle.play_at_pos(patrolObject.point(a));
+    for (const index of $range(0, path.count() - 1)) {
+      if (math.random(100) <= probability) {
+        particle.play_at_pos(path.point(index));
+      }
     }
   }
-});
+);

@@ -11,6 +11,7 @@ export * from "@/fixtures/xray/mocks/ini";
 export * from "@/fixtures/xray/mocks/interface";
 export * from "@/fixtures/xray/mocks/object.mock";
 export * from "@/fixtures/xray/mocks/objects";
+export * from "@/fixtures/xray/mocks/particle_object.mock";
 export * from "@/fixtures/xray/mocks/relations";
 export * from "@/fixtures/xray/mocks/save";
 export * from "@/fixtures/xray/mocks/vector.mock";

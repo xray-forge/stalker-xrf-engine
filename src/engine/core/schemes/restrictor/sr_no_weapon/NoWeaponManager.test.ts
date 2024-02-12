@@ -140,7 +140,7 @@ describe("NoWeaponManager", () => {
     manager.onZoneLeave();
 
     manager.actorState = EActorZoneState.OUTSIDE;
-    expect(registry.noWeaponZones.get(object.id())).toBeNull();
+    expect(registry.noWeaponZones.get(object.id())).toBe(false);
     expect(onZoneLeave).toHaveBeenCalledWith(object);
   });
 });

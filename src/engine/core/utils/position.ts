@@ -46,13 +46,13 @@ export function getObjectSmartTerrain(object: GameObject | ServerCreatureObject)
  * Check whether object is in provided smart terrain (name).
  *
  * @param object - game object to check
- * @param smartTerrainName - desired smart terrain to check
+ * @param terrainName - desired smart terrain to check
  * @returns whether object is assigned to smart terrain with desired name
  */
-export function isObjectInSmartTerrain(object: GameObject, smartTerrainName: TName): boolean {
-  const smartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+export function isObjectInSmartTerrain(object: GameObject, terrainName: TName): boolean {
+  const terrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
 
-  return smartTerrain ? smartTerrain.name() === smartTerrainName : false;
+  return terrain ? terrain.name() === terrainName : false;
 }
 
 /**
