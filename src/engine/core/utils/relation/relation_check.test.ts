@@ -5,6 +5,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import {
   areCommunitiesEnemies,
   areCommunitiesFriendly,
+  areCommunitiesNeutral,
   isActorEnemyWithFaction,
   isActorFriendWithFaction,
   isActorNeutralWithFaction,
@@ -15,11 +16,9 @@ import {
   isSquadCommunityNeutralToActor,
 } from "@/engine/core/utils/relation/relation_check";
 import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/relation_get";
-import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
-import { ServerGroupObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockRelationsSquads, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeCreatureActor, MockAlifeOnlineOfflineGroup } from "@/fixtures/xray";
+import { MockAlifeCreatureActor } from "@/fixtures/xray";
 
 describe("isActorEnemyWithFaction util", () => {
   beforeEach(() => {
@@ -164,6 +163,27 @@ describe("areCommunitiesFriendly util", () => {
     expect(areCommunitiesFriendly(communities.actor, communities.stalker)).toBe(false);
     expect(areCommunitiesFriendly(communities.stalker, communities.actor)).toBe(false);
     expect(areCommunitiesFriendly(communities.stalker, communities.none)).toBe(false);
+  });
+});
+
+describe("areCommunitiesNeutral util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+  });
+
+  it("should correctly check communities friendly state", () => {
+    expect(areCommunitiesNeutral(communities.actor, communities.army)).toBe(false);
+    expect(areCommunitiesNeutral(communities.army, communities.actor)).toBe(false);
+    expect(areCommunitiesNeutral(communities.bandit, communities.bandit)).toBe(false);
+    expect(areCommunitiesNeutral(communities.monster, communities.monster)).toBe(false);
+    expect(areCommunitiesNeutral(communities.monster, communities.actor)).toBe(false);
+    expect(areCommunitiesNeutral(communities.actor, communities.monster)).toBe(false);
+    expect(areCommunitiesNeutral(communities.actor, communities.bandit)).toBe(true);
+    expect(areCommunitiesNeutral(communities.actor, communities.dolg)).toBe(true);
+    expect(areCommunitiesNeutral(communities.actor, communities.stalker)).toBe(true);
+    expect(areCommunitiesNeutral(communities.stalker, communities.actor)).toBe(true);
+    expect(areCommunitiesNeutral(communities.stalker, communities.none)).toBe(false);
   });
 });
 

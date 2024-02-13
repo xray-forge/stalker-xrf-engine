@@ -104,8 +104,8 @@ describe("position effects implementation", () => {
   });
 
   it("teleport_squad should teleport squads", () => {
-    expect(() => callXrEffect("teleport_npc_by_story_id", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
-      "Wrong parameters in 'teleport_npc_by_story_id' function."
+    expect(() => callXrEffect("teleport_squad", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
+      "Wrong parameters in 'teleport_squad' effect."
     );
 
     expect(() => {
