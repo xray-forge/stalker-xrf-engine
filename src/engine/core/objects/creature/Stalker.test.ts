@@ -140,7 +140,7 @@ describe("Stalker server object", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
 
     jest.spyOn(terrain, "onObjectDeath").mockImplementation(jest.fn());
-    jest.spyOn(squad, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = terrain.id;
     stalker.group_id = squad.id;
@@ -149,8 +149,8 @@ describe("Stalker server object", () => {
 
     expect(terrain.onObjectDeath).toHaveBeenCalledTimes(1);
     expect(terrain.onObjectDeath).toHaveBeenCalledWith(stalker);
-    expect(squad.onObjectDeath).toHaveBeenCalledTimes(1);
-    expect(squad.onObjectDeath).toHaveBeenCalledWith(stalker);
+    expect(squad.onMemberDeath).toHaveBeenCalledTimes(1);
+    expect(squad.onMemberDeath).toHaveBeenCalledWith(stalker);
   });
 
   it("should correctly handle death callback if squad or smart does not exist", () => {
@@ -159,7 +159,7 @@ describe("Stalker server object", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
 
     jest.spyOn(terrain, "onObjectDeath").mockImplementation(jest.fn());
-    jest.spyOn(squad, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
 
     stalker.m_smart_terrain_id = 65000;
     stalker.group_id = 65001;

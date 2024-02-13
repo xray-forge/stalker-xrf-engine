@@ -28,9 +28,9 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
   public invulnerable!: TConditionList;
   public faction!: TCommunity;
 
-  public squad_members(): Array<ServerSquadMemberDescriptor> {
+  public squad_members = jest.fn((): Array<ServerSquadMemberDescriptor> => {
     return this.members;
-  }
+  });
 
   public register_member(id: TNumberId): void {
     this.members.push({ id: id, object: MockAlifeSimulator.getFromRegistry(id) as ServerCreatureObject });
@@ -52,9 +52,9 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
     return null;
   }
 
-  public npc_count(): TCount {
+  public npc_count = jest.fn((): TCount => {
     return this.members.length;
-  }
+  });
 
   public force_set_goodwill = jest.fn();
 

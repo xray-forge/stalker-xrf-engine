@@ -109,7 +109,7 @@ export class Stalker extends cse_alife_human_stalker {
 
       assert(squad, "Squad with ID '%s' not found.", this.group_id);
 
-      squad.onObjectDeath(this);
+      squad.onMemberDeath(this);
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_DEATH_ALIFE, this, killer);

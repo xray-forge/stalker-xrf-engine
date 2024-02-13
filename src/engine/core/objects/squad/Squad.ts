@@ -79,7 +79,7 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
   public readonly mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
   public readonly simulationManager: SimulationManager = getManager(SimulationManager);
-  public readonly soundManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
+  public readonly storyManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
   public isMapDisplayHidden: boolean = false;
@@ -161,7 +161,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     super.update();
 
     this.mapDisplayManager.updateSquadMapSpot(this);
-    this.soundManager.update();
+    this.storyManager.update();
 
     updateSimulationObjectAvailability(this);
     updateSquadInvulnerabilityState(this);
@@ -303,11 +303,15 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.respawnPointSection = null;
     }
 
-    const smartTerrainId: StringOptional = packet.r_stringZ();
+    const terrainId: StringOptional = packet.r_stringZ();
 
-    this.assignedSmartTerrainId = smartTerrainId === NIL ? null : (tonumber(smartTerrainId) as TNumberId);
+    this.assignedSmartTerrainId = terrainId === NIL ? null : (tonumber(terrainId) as TNumberId);
 
-    this.onSquadLoad();
+    logger.info("Initialize squad on load: %s", this.name());
+
+    this.updateSympathy();
+    this.simulationManager.assignSquadToSmartTerrain(this, this.assignedSmartTerrainId);
+    this.isLocationMasksResetNeeded = true;
 
     closeLoadMarker(packet, Squad.__name);
   }
@@ -577,9 +581,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Add newly spawned squad member.
    *
-   * @returns create squad member object
+   * @param section - object section to create as squad member
+   * @param position - world position of newly spawned member
+   * @param levelVertexId - assigned level vertex id
+   * @param gameVertexId - assigned game vertex id
+   * @returns created squad member object
    */
   public addMember(
     section: TSection,
@@ -598,7 +606,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     if (customData !== "misc\\default_custom_data.ltx") {
       logger.info(
-        "INCORRECT npc_spawn_section used for '%s'. You cannot use object with custom_data in squad",
+        "Incorrect npc_spawn_section used for '%s', you cannot use object with custom_data in squad",
         section
       );
     }
@@ -606,7 +614,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     const object: ServerCreatureObject = registry.simulator.create(section, position, levelVertexId, gameVertexId);
 
     this.register_member(object.id);
-    this.soundManager.registerObject(object.id);
+    this.storyManager.registerObject(object.id);
 
     if (
       areObjectsOnSameLevel(object, registry.actorServer) &&
@@ -620,45 +628,37 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   /**
    * Update objects sympathy between objects within squad.
+   *
+   * @param sympathy - target sympathy level to set with between squad members
    */
-  public updateSympathy(sympathy?: Optional<TCount>): void {
-    const squadSympathy: Optional<TCount> = sympathy || this.sympathy;
-
-    if (squadSympathy === null) {
+  public updateSympathy(sympathy: Optional<TCount> = this.sympathy): void {
+    if (!sympathy) {
       return;
     }
 
-    for (const squadMembers of this.squad_members()) {
-      const object: Optional<GameObject> = registry.objects.get(squadMembers.id)?.object as Optional<GameObject>;
+    for (const member of this.squad_members()) {
+      const object: Optional<GameObject> = registry.objects.get(member.id)?.object as Optional<GameObject>;
 
       if (object) {
-        setObjectSympathy(object, squadSympathy);
+        setObjectSympathy(object, sympathy);
       } else {
-        registry.goodwill.sympathy.set(squadMembers.id, squadSympathy);
+        registry.goodwill.sympathy.set(member.id, sympathy);
       }
     }
   }
 
   /**
-   * todo: Description.
+   * Callback to handle death of squad members.
+   *
+   * @param object - object facing death event
    */
-  public onSquadLoad(): void {
-    logger.info("Initialize squad on load: %s", this.name());
-
-    this.updateSympathy();
-    this.simulationManager.assignSquadToSmartTerrain(this, this.assignedSmartTerrainId);
-    this.isLocationMasksResetNeeded = true;
-  }
-
-  /**
-   * todo: Description.
-   */
-  public onObjectDeath(object: ServerObject): void {
+  public onMemberDeath(object: ServerObject): void {
     simulationLogger.info("On squad member death: %s %s", this.name(), object.name());
 
-    this.soundManager.unregisterObject(object.id);
+    this.storyManager.unregisterObject(object.id);
     this.unregister_member(object.id);
 
+    // Release and finalize squad object.
     if (this.npc_count() === 0) {
       logger.info("Removing empty squad, last member died: %s", this.name());
 
@@ -673,6 +673,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
       this.simulationManager.releaseSquad(this);
     } else {
+      // Synchronize squad map spot to correctly display leader.
       this.mapDisplayManager.updateSquadMapSpot(this);
     }
   }
@@ -726,8 +727,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public onSimulationTargetSelected(squad: Squad): void {
     squad.setLocationTypes();
 
-    for (const squadMember of squad.squad_members()) {
-      softResetOfflineObject(squadMember.id);
+    for (const member of squad.squad_members()) {
+      softResetOfflineObject(member.id);
     }
 
     this.simulationManager.assignSquadToSmartTerrain(squad, null);

@@ -138,7 +138,7 @@ describe("Monster server object", () => {
     monster.m_smart_terrain_id = terrain.id;
     monster.group_id = squad.id;
 
-    jest.spyOn(squad, "onObjectDeath").mockImplementation(jest.fn());
+    jest.spyOn(squad, "onMemberDeath").mockImplementation(jest.fn());
     jest.spyOn(terrain, "onObjectDeath").mockImplementation(jest.fn());
 
     eventsManager.registerCallback(EGameEvent.MONSTER_DEATH_ALIFE, onMonsterDeath);
@@ -147,7 +147,7 @@ describe("Monster server object", () => {
 
     expect(onMonsterDeath).toHaveBeenCalledTimes(1);
     expect(onMonsterDeath).toHaveBeenCalledWith(monster, killer);
-    expect(squad.onObjectDeath).toHaveBeenCalledWith(monster);
+    expect(squad.onMemberDeath).toHaveBeenCalledWith(monster);
     expect(terrain.onObjectDeath).toHaveBeenCalledWith(monster);
   });
 

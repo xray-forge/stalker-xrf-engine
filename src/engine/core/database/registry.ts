@@ -28,6 +28,7 @@ import type {
   TIndex,
   TName,
   TNumberId,
+  TRate,
   TStringId,
   ZoneCampfire,
 } from "@/engine/lib/types";
@@ -174,7 +175,8 @@ export const registry = {
    * Goodwill state.
    */
   goodwill: {
-    sympathy: new LuaTable<TNumberId, number>(),
+    // Delayed sympathy cache of the object to set after going online.
+    sympathy: new LuaTable<TNumberId, TRate>(),
     relations: new LuaTable<TNumberId, ERelation>(),
   },
   /**

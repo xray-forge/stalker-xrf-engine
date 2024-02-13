@@ -37,4 +37,7 @@ export const mockSystemIni = {
   stalker_actor_1: {
     set_visual: "actor_visual",
   },
+  stalker_with_custom_data: {
+    custom_data: "some_custom_data.ltx",
+  },
 };
