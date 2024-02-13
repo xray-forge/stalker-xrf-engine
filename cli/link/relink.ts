@@ -12,6 +12,8 @@ export interface IRelinkCommandParameters {
 
 /**
  * Re-link gamedata/engine/logs folders.
+ *
+ * @param parameters - command arguments
  */
 export async function relinkFolders(parameters: IRelinkCommandParameters): Promise<void> {
   log.info("Performing relink");
