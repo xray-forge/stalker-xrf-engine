@@ -50,6 +50,7 @@ import {
   TRate,
   TSection,
   TStringId,
+  TStringifiedBoolean,
   Vector,
 } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
@@ -64,7 +65,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_effects.show_freeplay_dialog",
-  (actor: GameObject, object: GameObject, [text, canLeave]: [Optional<TLabel>, Optional<"true">]) => {
+  (actor: GameObject, object: GameObject, [text, canLeave]: [Optional<TLabel>, Optional<TStringifiedBoolean>]) => {
     assert(text, "Expected text message to be provided for 'show_freeplay_dialog' effect.");
     showFreeplayDialog(canLeave === TRUE ? "message_box_yes_no" : "message_box_ok", text);
   }

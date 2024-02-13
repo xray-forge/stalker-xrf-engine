@@ -1,5 +1,5 @@
-import { EPlayableSound } from "@/engine/core/managers/sounds";
 import { NpcSound } from "@/engine/core/managers/sounds/objects";
+import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { TCommunity } from "@/engine/lib/constants/communities";

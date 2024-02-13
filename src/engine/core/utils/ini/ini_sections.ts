@@ -1,4 +1,4 @@
-import { SYSTEM_INI } from "@/engine/core/database";
+import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import {
   AMMO_CONFIG_CLASSES,

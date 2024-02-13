@@ -1,6 +1,6 @@
 import { ini_file } from "xray16";
 
-import { readIniBoolean, readIniString, readIniStringWB } from "@/engine/core/utils/ini";
+import { readIniBoolean, readIniString, readIniStringWB } from "@/engine/core/utils/ini/ini_read";
 import { IniFile } from "@/engine/lib/types";
 
 export const FORGE_CONFIG_LTX: IniFile = new ini_file("forge.ltx");

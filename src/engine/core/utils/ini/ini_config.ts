@@ -173,7 +173,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
 
   if (target) {
     if (registry.simulator !== null) {
-      const serverObject: Optional<ServerObject> = getServerObjectByStoryId(target.p1 as string);
+      const serverObject: Optional<ServerObject> = getServerObjectByStoryId(target.p1 as TStringId);
 
       if (serverObject) {
         target.objectId = serverObject.id;
