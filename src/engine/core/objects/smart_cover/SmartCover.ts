@@ -80,6 +80,7 @@ export class SmartCover extends cse_smart_cover {
       }
     }
   }
+
   public override STATE_Write(packet: NetPacket): void {
     super.STATE_Write(packet);
 
@@ -102,7 +103,7 @@ export class SmartCover extends cse_smart_cover {
       this.lastDescription !== "" ? this.lastDescription : this.description();
     const existingLoopholes: LuaTable<TStringId, boolean> = new LuaTable();
 
-    if (smartCoverDescription !== null) {
+    if (smartCoverDescription) {
       assert(
         smartCoversList.has(smartCoverDescription),
         "SmartCover '%s' has wrong description - '%s'.",
@@ -118,10 +119,10 @@ export class SmartCover extends cse_smart_cover {
 
       for (const _ of $range(1, loopholesCount)) {
         const loopholeId: TStringId = packet.r_stringZ();
-        const isLoopholeExisting: boolean = packet.r_bool();
+        const isLoopholeEnabled: boolean = packet.r_bool();
 
         if (existingLoopholes.has(loopholeId)) {
-          this.loopholes.set(loopholeId, isLoopholeExisting);
+          this.loopholes.set(loopholeId, isLoopholeEnabled);
         }
       }
     }
