@@ -4,7 +4,6 @@ help_wounded_enabled = true
 corpse_detection_enabled = false
 wounded = wounded
 danger = danger
-
 ; ----------------------------------------------------------------------------------------------------------
 
 [logic@jup_b1_stalker_3]
@@ -68,7 +67,6 @@ def_state_moving1 = patrol
 path_walk = st_3_go_3
 path_look = st_3_look_3
 meet = no_meet
-
 ; ---------------------------------- ������� � ���������� ��������� �� �����
 
 [remark@psy_back]:walker@generic
@@ -103,7 +101,7 @@ allow_break = false
 [walker@on_air]:walker@generic
 def_state_moving1 = assault
 path_walk = st_3_final_stay
-path_look =st_3_final_look
+path_look = st_3_final_look
 on_info = {=dist_to_actor_ge(75)} patrol@go_to_base %+jup_b1_go_from_task%, {+jup_b1_go_from_task} patrol@go_to_base
 meet = no_meet
 on_signal = at_pos | walker@on_air_talk
@@ -129,8 +127,8 @@ formation = back
 on_signal = at_pos | %-jup_b1_st_mission%
 meet = no_meet
 on_info = {=health_le(0.5) !actor_enemy} %=restore_health%
-
 ; --------------------����������� � �����
+
 [logic@jup_b1_zomb_stalker_3]
 suitable = {=check_npc_name(jup_b1_stalker_3) =actor_has_item(jup_b1_half_artifact)} true
 prior = 70
@@ -179,8 +177,8 @@ on_info3 = {=dist_to_actor_ge(140)} %=kill_npc%
 meet = no_meet
 in_restr = jup_b1_anomal_place
 combat_ignore_cond = {=check_enemy_name(jup_b1_controller)} true
-
 ; -------------------------------------------------------------
+
 [danger]
 ignore_distance = 0
 ignore_distance_grenade = 0

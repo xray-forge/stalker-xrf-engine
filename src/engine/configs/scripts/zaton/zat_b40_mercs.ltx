@@ -44,7 +44,6 @@ on_info3 = {-zat_b40_call_to_fight_sad +zat_b40_merc_in_combat} %=play_sound(zat
 suitable = {=npc_community(killer)} true
 prior = 200
 on_hit = hit@zat_b40_mercs_hit_gen
-
 ; logic
 
 [logic@zat_b40_guard_leader_01]:logic@zat_b40_mercs_gen
@@ -82,7 +81,6 @@ active = camper@zat_b40_guard_07
 
 [logic@zat_b40_guard_08]:logic@zat_b40_mercs_gen
 active = camper@zat_b40_guard_08
-
 ; corp
 
 [known_info@zat_b40_guard_leader_01]
@@ -90,7 +88,6 @@ zat_b40_guard_leader_01_serchd
 
 [known_info@zat_b40_guard_leader_02]
 zat_b40_guard_leader_02_serchd
-
 ; camper
 
 [camper@zat_b40_guard_leader_01]:camper@zat_b40_mercs_gen
@@ -162,7 +159,6 @@ path_look = zat_b40_merc_08_look
 on_info = {=surge_started} camper@zat_b40_surge_08
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_08 %+zat_b40_warning%
 on_info3 = {+zat_b40_merc_in_combat} remark@zat_b40_danger_08
-
 ; walker
 
 [walker@zat_b40_mercs_01]:walker@zat_b40_mercs_gen
@@ -214,7 +210,6 @@ on_info = {=surge_started} camper@zat_b40_surge_09
 path_walk = zat_b40_merc_squad_leader_2_walk
 path_look = zat_b40_merc_squad_leader_2_look
 on_info = {=surge_started} camper@zat_b40_surge_10
-
 ; danger remark
 
 [remark@zat_b40_danger_01]:remark@zat_b40_danger_gen
@@ -256,7 +251,6 @@ on_info4 = {=surge_started} camper@zat_b40_surge_09
 [remark@zat_b40_danger_10]:remark@zat_b40_danger_gen
 on_info3 = {+zat_b40_merc_combat_find_actor} walker@zat_b40_mercs_10
 on_info4 = {=surge_started} camper@zat_b40_surge_10
-
 ; surge
 
 [camper@zat_b40_surge_01]:camper@zat_b40_surge_gen
@@ -318,7 +312,6 @@ path_walk = surge_3_walk
 path_look = surge_3_look
 on_info = {=surge_complete} camper@zat_b40_guard_leader_02
 on_info2 = {+zat_b40_actor_find_mer_camp -zat_b40_merc_in_combat -zat_b40_warning} remark@zat_b40_warning_10 %+zat_b40_warning%
-
 ; remark
 
 [remark@zat_b40_warning_01]:remark@zat_b40_warning_gen

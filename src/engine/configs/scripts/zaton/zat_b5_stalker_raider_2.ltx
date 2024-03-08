@@ -62,7 +62,7 @@ def_state_standing = guard_na
 meet = no_meet
 on_actor_dist_le = 20 | {+zat_b5_actor_with_stalkers} remark@see_actor %+zat_b5_meat%
 on_info = {+zat_b5_meat -zat_b5_actor_with_bandits} walker@fight %=actor_enemy%
-on_info2 ={+zat_b5_meat +zat_b5_actor_with_bandits} walker@fight
+on_info2 = {+zat_b5_meat +zat_b5_actor_with_bandits} walker@fight
 ; on_info3 ={+zat_b5_sultan_speak_for_stalkers} walker@fear
 combat_ignore_cond = {=check_enemy_name(zat_b5_dealer_assistant:zat_b7_duty_illicit_dealer:zat_b5_actor_with_bandits:zat_b5_actor_with_dealer)} true, {=check_enemy_name(zat_b5_stalker_commander:zat_b5_stalker)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
 danger = danger

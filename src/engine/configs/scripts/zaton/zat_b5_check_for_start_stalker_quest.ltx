@@ -4,11 +4,11 @@ active = sr_idle
 [sr_idle]
 on_info = {+zat_b5_actor_stalker_go_to_trader} sr_idle@check
 on_info2 = {+zat_b5_meat} sr_idle@nil
-on_info3 ={+zat_b5_time_is_out} sr_idle@nil
+on_info3 = {+zat_b5_time_is_out} sr_idle@nil
 
 [sr_idle@check]
 on_actor_inside = sr_cutscene@cam1 %+zat_b5_start_quest_stalkers =disable_ui%
-on_info ={+zat_b5_time_is_out} sr_idle@nil
+on_info = {+zat_b5_time_is_out} sr_idle@nil
 on_info2 = {+zat_b5_meat} sr_idle@nil
 on_info3 = {+zat_b5_break_cutscene} sr_idle@nil
 on_actor_in_zone = zat_sr_check_enemy_dist | sr_idle@nil %+zat_b5_break_cutscene +zat_b5_stalker_attack_dealer%

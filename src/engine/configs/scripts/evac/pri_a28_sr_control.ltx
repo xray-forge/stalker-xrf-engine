@@ -11,8 +11,8 @@ on_info = {!surge_started} sr_idle@stop_surge %=set_surge_mess_and_task(empty:em
 [sr_idle@stop_surge]
 on_info = {=surge_complete} sr_idle@base_zombied_add %+pri_a28_surge_end =clear_smart_terrain(pri_a15)%
 on_info2 = {+pri_a28_update_task_cover_strelok} %=stop_surge%
-
 ; skip of previous scenes
+
 [sr_idle@clear_smart]
 on_info = sr_idle@add_squad %=clear_smart_terrain(pri_a16)%
 
@@ -26,8 +26,8 @@ on_info3 = {+pri_a28_podorojniy_alive} %-pri_a28_podorojniy_alive =create_squad_
 on_info4 = {+pri_a28_sokolov_alive} %-pri_a28_sokolov_alive =create_squad_member(pri_a15_sokolov_sci_head_strong:pri_a16_military_squad)%
 on_info5 = {+pri_a28_strelok_alive} %-pri_a28_strelok_alive =create_squad_member(pri_b305_strelok_strong:pri_a16_military_squad)%
 on_info6 = {=is_alive(pri_b305_strelok)} sr_idle@give_task
-
 ; main theme again
+
 [sr_idle@base_zombied_add]
 on_info = sr_idle@school_snork_spawn_start %=create_squad(pri_a28_base_zombied:pri_a28_base) =create_squad(pri_a28_base_zombied_2:pri_a28_base:pri_a16) =create_squad(pri_a28_shop_zombied:pri_a28_shop) =create_squad(pri_a28_shop_zombied_2:pri_a28_shop) =create_squad(pri_a28_shop_zombied_3:pri_a28_shop) =create_squad(pri_a28_arch_zombied:pri_a28_arch)%
 

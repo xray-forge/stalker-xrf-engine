@@ -3,7 +3,6 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; ----------------------------------------------------------------------------------------------------------
 
 [logic@pri_a17_military_prapor_valentyr]
@@ -135,7 +134,6 @@ path_look = val_base_look
 def_state_standing = ward
 on_info = {=squad_in_zone_all(pri_a17_recon_squad:pri_surge_hide_a16) =check_smart_alarm_status(zat_stalker_base_smart:normal)} %+pri_a17_at_home =set_squad_neutral_to_actor(pri_a17_recon_squad)%
 out_restr = pri_a16_sr_noweap
-
 ; -------------------------------------------------------------
 
 [wounded]
@@ -153,8 +151,8 @@ on_info = {=killed_by_actor =squad_exist(pri_a17_recon_squad)} %+pri_a17_actor_a
 
 [known_info]
 pri_a17_val_is_dead
-
 ; -------------------------------------------����� ������ �����--------------------------------------------
+
 [logic@pri_a17_military_prapor_valentyr_dead]
 suitable = {+pri_a17_actor_leaver =check_npc_name(pri_a17_military_prapor_valentyr)} true
 prior = 70

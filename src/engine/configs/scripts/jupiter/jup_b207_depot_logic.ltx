@@ -1,4 +1,5 @@
-;Mercs with (M)organ
+; Mercs with (M)organ
+
 [logic@jup_b207_depot_merc_leader]
 active = walker@merc_leader_stand
 suitable = {=check_npc_name(zat_b7_duty_illicit_dealer)} true
@@ -171,8 +172,8 @@ combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer)} true, false
 [walker@merc_6_attack]
 path_walk = merc_6_walk
 combat_ignore_cond = {=check_enemy_name(zat_b7_duty_illicit_dealer)} true, false
-
 ; Attack depot duty squad in depot attack smart
+
 [logic@jup_b207_duty_leader]
 active = walker@duty_leader_position
 suitable = {=check_npc_name(jup_b207_duty_security_squad_leader)} true
@@ -264,8 +265,8 @@ def_state_standing = threat_na
 def_state_moving = assault
 combat_ignore_cond = {=check_enemy_smart(jup_b207)} true, false
 meet = no_meet
-
 ; Attack depot duty squad in depot smart while attack
+
 [logic@jup_b207_duty_leader_attack]
 active = camper@merc_6
 suitable = {=check_npc_name(jup_b207_duty_security_squad_leader) -jup_b207_attack_end} true
@@ -295,8 +296,8 @@ prior = 200
 active = camper@merc_5
 suitable = {!check_npc_name(jup_b207_duty_security_squad_leader) =target_squad_name(jup_b207_duty_base) -jup_b207_attack_end} true
 prior = 200
-
 ; Defence freedom squad
+
 [logic@jup_b207_freedom_leader_defence]
 active = camper@freedom_leader
 suitable = {=check_npc_name(jup_b207_freedom_recon_squad_leader) -jup_b207_attack_end} true
@@ -377,8 +378,8 @@ path_walk = freedom_5_walk
 path_look = freedom_5_look
 def_state_standing = hide_na
 combat_ignore_cond = {-jup_b207_attack_started =check_enemy_smart(jup_b207_depot_attack)} true, false
-
 ; Guards - that ones who won
+
 [logic@jup_b207_depot_guard_1]
 active = remark@choose_1
 suitable = {+jup_b207_attack_end} true

@@ -1,4 +1,4 @@
-;general section
+; general section
 
 [walker@jup_b202_gen]
 corpse_detection_enabled = false
@@ -28,7 +28,6 @@ on_signal = to_nill | %=spawn_object_in(wpn_wincheaster1300:jup_b202_bandit) =sp
 
 [logic@jup_b202_gen]
 prior = 200
-
 ; snag work
 
 [logic@jup_b202_stalker_snag_wounded]:logic@jup_b202_gen
@@ -85,7 +84,6 @@ far_victim = nil
 use = {!actor_enemy !actor_has_weapon} true, false
 abuse = false
 trade_enable = false
-
 ; bandit work
 
 [logic@jup_b202_stalker_bandit]:logic@jup_b202_gen

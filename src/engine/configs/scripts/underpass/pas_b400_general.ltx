@@ -1,4 +1,5 @@
-;Meets default
+; Meets default
+
 [meet@def]
 close_snd_hello = nil
 close_snd_bye = nil
@@ -19,8 +20,8 @@ snd_on_use = pas_b400_sokolov_no_meet
 
 [meet@wanderer_def]:meet@def
 snd_on_use = pas_b400_wanderer_no_meet
-
 ; Hits
+
 [hit@zulus]
 on_info = {-pas_b400_zulus_dead !is_playing_sound =is_alive !hit_by_actor} %=play_sound(pas_b400_zulus_on_enemy_hit)%
 on_info2 = {-pas_b400_zulus_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_zulus_hit:2) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_zulus_on_actor_hit_3) =inc_counter(pas_b400_actor_zulus_hit) =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
@@ -48,8 +49,8 @@ on_info2 = {-pas_b400_wanderer_dead !is_playing_sound =is_alive !has_enemy =hit_
 on_info3 = {-pas_b400_wanderer_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_wanderer_hit:1) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_wanderer_on_actor_hit_2) =inc_counter(pas_b400_actor_wanderer_hit)%
 on_info4 = {-pas_b400_wanderer_dead !is_playing_sound =is_alive !has_enemy =hit_by_actor =counter_equal(pas_b400_actor_wanderer_hit:0) =squad_exist(pas_b400_stalkers_squad)} %=play_sound(pas_b400_wanderer_on_actor_hit_1) =inc_counter(pas_b400_actor_wanderer_hit)%
 on_info5 = {=deadly_hit} %+pas_b400_wanderer_dead%
-
 ; Death
+
 [death@zulus]
 on_info = %=stop_sound +pas_b400_zulus_dead +pri_a15_zulus_out%
 on_info2 = {!killed_by_actor} %+pas_b400_zulus_dead_sound%, {=killed_by_actor =squad_exist(pas_b400_stalkers_squad)} %+pas_b400_zulus_dead_sound +pas_b400_zulus_dead_sound_actor =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
@@ -65,8 +66,8 @@ on_info2 = {!killed_by_actor} %+pas_b400_sokolov_dead_sound%, {=killed_by_actor 
 [death@wanderer]
 on_info = %=stop_sound +pas_b400_wanderer_dead +pri_a15_wanderer_out%
 on_info2 = {!killed_by_actor} %+pas_b400_wanderer_dead_sound%, {=killed_by_actor =squad_exist(pas_b400_stalkers_squad)} %+pas_b400_wanderer_dead_sound +pas_b400_wanderer_dead_sound_actor =set_squad_enemy_to_actor(pas_b400_stalkers_squad) +pas_b400_actor_enemy%
-
 ; Sounds
+
 [walker@zulus_def]
 meet = meet@zulus_def
 wounded = wounded@no_wound
@@ -134,8 +135,8 @@ on_info99 = {-pas_b400_actor_far =pas_b400_actor_far_forward} %=play_sound(pas_b
 gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
-
 ; Wounded - no wounds
+
 [wounded@no_wound]
 hp_state = 0|wounded_heavy@help_heavy
 hp_state_see = 0|wounded_heavy@help_heavy

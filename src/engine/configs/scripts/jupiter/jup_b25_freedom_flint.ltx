@@ -20,7 +20,6 @@ invulnerable = false
 [logic@jup_b25_listener_gen]
 suitable = {=target_squad_name(b207)} false, {=check_npc_name(monolith)} false, {-jup_b25_freedom_flint_gone =npc_community(freedom) !check_npc_name(jup_b25_freedom_flint)} true
 prior = 150
-
 ; flint work sections
 
 [logic@jup_b25_flint]:logic@jup_b25_listener_gen
@@ -103,8 +102,8 @@ allow_break = false
 trade_enable = false
 use = {-jup_b25_blame_story_end !actor_enemy} true, false
 meet_on_talking = false
-
 ; listener works sections
+
 [logic@jup_b25_listener_01]:logic@jup_b25_listener_gen
 active = animpoint@jup_b25_listener_01_reach
 

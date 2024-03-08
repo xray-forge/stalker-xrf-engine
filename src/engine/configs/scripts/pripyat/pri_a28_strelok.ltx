@@ -1,4 +1,5 @@
-;Reference animpoint
+; Reference animpoint
+
 [animpoint@a28_def]
 cover_name = pri_a16_animp_8
 combat_ignore_cond = true
@@ -22,7 +23,6 @@ close_anim = nil
 close_distance = 0
 far_distance = 0
 meet_on_talking = false
-
 ; --------------------------------------
 
 [logic@pri_a28_strelok]
@@ -30,17 +30,17 @@ suitable = {+pri_b305_fifth_cam_end -pri_a28_update_task_cover_strelok =check_np
 prior = 200
 post_combat_time = 0, 0
 active = animpoint@a28_def_1
-
 ; --------------------------------------
 ; Waiting for evacuation start
+
 [animpoint@a28_def_1]:animpoint@a28_def
 meet = no_meet
 on_info2 = {=animpoint_reached} animpoint@a28_def_2
 
 [animpoint@a28_def_2]:animpoint@a28_def
 on_info2 = {+pri_a28_colonel_to_center_3_sound_end} animpoint@a28_wait_near_door
-
 ; --------------------------------------
 ; Gathering group before evacuation
+
 [animpoint@a28_wait_near_door]:animpoint@a28_def
 avail_animations = animpoint_sit_normal_no_rnd

@@ -1,4 +1,5 @@
-;generic section
+; generic section
+
 [walker@jup_b41_bunker_guard_gen]
 on_info = {-jup_b47_bunker_guard_arrived +jup_b47_no_bunker_guard} %+jup_b47_bunker_guard_arrived%
 out_restr = jup_b41_sr_noweap
@@ -26,8 +27,8 @@ trade_enable = false
 [death@jup_b41_bunker_guard_gen]
 on_info = %=inc_counter(jup_b47_bunker_guard_dead:1)%
 on_info2 = {+jup_b47_no_bunker_guard =counter_greater(jup_b47_bunker_guard_dead:4)} %+jup_b41_bunker_guards_dead%, {=counter_greater(jup_b47_bunker_guard_dead:4)} %+jup_b47_all_merc_dead +jup_b47_no_bunker_guard =set_counter(jup_b47_bunker_guard_dead:0)%
-
 ; guard works
+
 [logic@jup_b47_bunker_guard_01]
 suitable = {=target_squad_name(jup_b47_bunker_guard)} true, {=target_squad_name(jup_b47_merc_guard_squad) =check_npc_name(jup_b47_merc_01)} true
 active = walker@jup_b47_bunker_guard_01_down

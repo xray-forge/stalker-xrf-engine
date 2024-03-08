@@ -39,7 +39,6 @@ on_info20 = {+pri_b305_third_cam_go -pri_b305_tp_cam_done} walker@strelok_operat
 meet = no_meet
 on_info10 = {+pri_b305_second_cam_start -pri_b305_kirillov_pre_signal} remark@pre_signal %=teleport_npc(pri_a16_pri_b305_signaller_clear_walk) +pri_b305_kirillov_pre_signal%
 on_info20 = {+pri_b305_third_cam_go -pri_b305_tp_cam_done} walker@strelok_operation_start %=teleport_npc(pri_a16_pri_b305_kirilov_strelok_operation_walk) +pri_b305_tp_cam_done%
-
 ; ****************************
 
 [logic@pri_b305_kirillov]
@@ -53,58 +52,58 @@ close_snd_bye = nil
 use = {=actor_enemy} false, true
 close_victim = nil
 
-[walker@teleport]:walker@based, walker@cats
+[walker@teleport]:walker@based,walker@cats
 path_walk = pri_b305_signaller_clear_walk
 path_look = pri_b305_actor_walk
 on_info = {+pri_b305_first_cam_ready} remark@meet_medic_1 %=teleport_npc(pri_a16_pri_b305_kirillov_closer_walk:0)%
-
 ; ******************** < 1 > ***********************
-[remark@meet_medic_1]:remark@based, remark@cats
+
+[remark@meet_medic_1]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_info = {-pri_b305_kirilov_glad_done} %=play_sound(pri_b305_kirilov_glad) +pri_b305_kirilov_glad_done%
 on_signal = sound_end | remark@meet_medic_2 %=play_sound(pri_b305_kirilov_what_happen) +pri_b305_kirilov_what_happen_done%
 
-[remark@meet_medic_2]:remark@based, remark@cats
+[remark@meet_medic_2]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_signal = sound_end | {-pri_b305_kirilov_what_happen_done_end} %+pri_b305_kirilov_what_happen_done_end%
 on_info = {+pri_b305_medik_talk_later_done_end -pri_b305_kirilov_ok_done} remark@meet_medic_2_sig %=play_sound(pri_b305_kirilov_ok) +pri_b305_kirilov_ok_done%
 
-[remark@meet_medic_2_sig]:remark@based, remark@cats
+[remark@meet_medic_2_sig]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_signal = sound_end | remark@meet_actor_1 %+pri_b305_kirilov_ok_done_end%
 
-[remark@meet_actor_1]:remark@based, remark@cats
+[remark@meet_actor_1]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_actor_walk, 0
 on_game_timer = 25 | {-pri_b305_kirilov_about_strelok_1_done} %=play_sound(pri_b305_kirilov_about_strelok_1) +pri_b305_kirilov_about_strelok_1_done%
 on_signal = sound_end | {-pri_b305_kirilov_about_strelok_1_done_end} remark@meet_actor_2 %+pri_b305_kirilov_about_strelok_1_done_end%
 
-[remark@meet_actor_2]:remark@based, remark@cats
+[remark@meet_actor_2]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_actor_walk, 0
 on_info = {+pri_b305_actor_go_done_end -pri_b305_kirilov_about_garik_vano_done +pri_b305_vano_gone} %=play_sound(pri_b305_kirilov_about_garik_vano) +pri_b305_kirilov_about_garik_vano_done%, {+pri_b305_actor_go_done_end -pri_b305_kirilov_about_garik_vano_done -jup_a10_vano_agree_go_und} %=play_sound(pri_b305_kirilov_about_garik) +pri_b305_kirilov_about_garik_vano_done%, {+pri_b305_actor_go_done_end -pri_b305_kirilov_about_garik_vano_done} %=play_sound(pri_b305_kirilov_about_garik) +pri_b305_kirilov_about_garik_vano_done%
 on_signal = sound_end | {-pri_b305_kirilov_about_garik_vano_done_end} remark@meet_medic_3 %+pri_b305_kirilov_about_garik_vano_done_end%
-
 ; ******************** < 1 after > ***********************
-[remark@meet_medic_3]:remark@based, remark@cats
+
+[remark@meet_medic_3]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_game_timer = 30 | remark@meet_medic_4 %=play_sound(pri_b305_kirilov_where_you_been) +pri_b305_kirilov_where_you_been_done%
 
-[remark@meet_medic_4]:remark@based, remark@cats
+[remark@meet_medic_4]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_signal = sound_end | {+pri_b305_mil_conversation} remark@meet_medic_4_1 %+pri_b305_kirilov_where_you_been_done_end%, remark@meet_medic_4_2 %+pri_b305_kirilov_where_you_been_done_end%
 
-[remark@meet_medic_4_1]:remark@based, remark@cats
+[remark@meet_medic_4_1]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_info = {+pri_b305_army_what_freezer_done_end -pri_b305_kirilov_what_freezer_done} remark@meet_medic_4_se %=play_sound(pri_b305_kirilov_what_freezer) +pri_b305_kirilov_what_freezer_done%
 
-[remark@meet_medic_4_2]:remark@based, remark@cats
+[remark@meet_medic_4_2]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_info = {+pri_b305_medik_in_freezer_done_end -pri_b305_kirilov_what_freezer_done} remark@meet_medic_4_se %=play_sound(pri_b305_kirilov_what_freezer) +pri_b305_kirilov_what_freezer_done%
 
-[remark@meet_medic_4_se]:remark@based, remark@cats
+[remark@meet_medic_4_se]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_signal = sound_end | {-pri_b305_kirilov_what_freezer_done_end} remark@meet_medic_5 %+pri_b305_kirilov_what_freezer_done_end%
 
-[remark@meet_medic_5]:remark@based, remark@cats
+[remark@meet_medic_5]:remark@based,remark@cats
 target = path | pri_a16_pri_b305_medic_walk, 0
 on_info = {+pri_b305_medik_excuse_done_end -pri_b305_kirilov_what_next_done} %=play_sound(pri_b305_kirilov_what_next) +pri_b305_kirilov_what_next_done%
 on_signal = sound_end | {-pri_b305_kirilov_what_next_done_end} %+pri_b305_kirilov_what_next_done_end%
@@ -115,12 +114,12 @@ cover_name = pri_a16_animp_vano
 reach_movement = walk
 meet = no_meet
 on_info = {+pri_b305_second_cam_start} remark@pre_signal %=teleport_npc(pri_a16_pri_b305_signaller_clear_walk)%
-
 ; ******************** < 2 > ***********************
+
 [remark@pre_signal]:remark@based
 on_info = {+pri_b305_kovalskiy_news_done_end} walker@signal
 
-[walker@signal]:walker@based, walker@cats
+[walker@signal]:walker@based,walker@cats
 path_walk = pri_b305_signaller_clear_walk
 path_look = pri_b305_kovalskiy_walk
 def_state_moving1 = run
@@ -140,8 +139,8 @@ on_info3 = {+pri_b305_third_cam_go} walker@strelok_operation_start %=teleport_np
 cover_name = pri_a16_animp_vano
 meet = meet@kirillov
 on_info = {+pri_b305_third_cam_go} walker@strelok_operation_start %=teleport_npc(pri_a16_pri_b305_kirilov_strelok_operation_walk)%
-
 ; ******************** < 4 > ***********************
+
 [walker@strelok_operation_start]:walker@based
 path_walk = pri_b305_kirilov_strelok_operation_walk
 path_look = pri_b305_strelok_operation_look

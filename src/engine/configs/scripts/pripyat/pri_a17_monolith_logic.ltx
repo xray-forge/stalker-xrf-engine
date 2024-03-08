@@ -3,7 +3,6 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; ----------------------------------------------------------------------------------------------------------
 
 [logic@pri_a17_monolith_preacher]
@@ -73,11 +72,9 @@ on_info = {=hit_by_actor +pri_a17_ice_dead} camper@angry_preacher %+pri_a17_prea
 
 [death@preacher]
 on_info = %+pri_a17_mon_preacher_dead =stop_sound%
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_1]
-
 suitable = {=check_npc_name(pri_a17_monolith_ambusher_1)}
 prior = 70
 active = walker@ambusher_1_start
@@ -101,7 +98,6 @@ out_restr = pri_a17_tunnel_top
 
 [death]
 on_info = %=inc_counter(pri_a17_monolith_amb_death)%
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_2]
@@ -125,7 +121,6 @@ def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_tunnel_buttom
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_3]
@@ -149,7 +144,6 @@ def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_monolith_attack_zone
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_4]
@@ -173,7 +167,6 @@ def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_monolith_attack_zone
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_5]
@@ -197,7 +190,6 @@ def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_hosp_build_1
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_6]
@@ -212,8 +204,8 @@ path_look = mon_amb_6_look
 def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
-
 ; ----------------------------------------------------------
+
 [logic@pri_a17_monolith_ambusher_7]
 suitable = {=check_npc_name(pri_a17_monolith_ambusher_7)}
 prior = 70
@@ -226,7 +218,6 @@ path_look = mon_amb_7_look
 def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_8]
@@ -242,7 +233,6 @@ def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_hosp_build_1
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_9]
@@ -257,7 +247,6 @@ path_look = mon_amb_9_look
 def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_ambusher_10]
@@ -273,8 +262,8 @@ def_state_moving1 = assault
 def_state_moving2 = assault
 def_state_moving3 = assault
 out_restr = pri_a17_monolith_attack_zone
-
 ; ----------------------------------------------------------
+
 [logic@pri_a17_monolith_patrol_1]
 suitable = {-pri_a17_actor_leaver =check_npc_name(pri_a17_monolith_patrol_1)}
 prior = 70
@@ -295,13 +284,11 @@ on_info = {+pri_a17_actor_attack_military} walker@attack_1, {+pri_a17_patrol_go}
 [patrol@patrol_1]:walker@generic
 path_walk = monolith_patrol_1
 formation = back
-
 on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_1 %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_1 %+pri_a17_mon_atk%
 on_sound3 = actor|MST_step|10|0.0| walker@attack_1 %+pri_a17_mon_atk%
 on_sound4 = actor|WPN_empty|15|0.0| walker@attack_1 %+pri_a17_mon_atk%
 on_sound5 = actor|WPN_reload|15|0.0| walker@attack_1 %+pri_a17_mon_atk%
-
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
 on_info = {+pri_a17_patrol_go_2} patrol@patrol_1_2, {+pri_a17_mon_ambush_start} walker@attack_1, {+pri_a17_mon_atk} walker@attack_1, {+pri_a17_atk_mon_pat} walker@attack_1
 on_signal = path_end | patrol@patrol_1_2
@@ -313,13 +300,11 @@ corpse_detection_enabled = false
 [patrol@patrol_1_2]:walker@generic
 path_walk = monolith_patrol_2
 formation = back
-
 on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_1 %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_1 %+pri_a17_mon_atk%
 on_sound3 = actor|MST_step|10|0.0| walker@attack_1 %+pri_a17_mon_atk%
 on_sound4 = actor|WPN_empty|15|0.0| walker@attack_1 %+pri_a17_mon_atk%
 on_sound5 = actor|WPN_reload|15|0.0| walker@attack_1 %+pri_a17_mon_atk%
-
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
 on_info = {+pri_a17_mon_ambush_start} walker@attack_1, {+pri_a17_mon_atk} walker@attack_1, {+pri_a17_atk_mon_pat} walker@attack_1
 
@@ -361,13 +346,11 @@ on_info = {+pri_a17_actor_attack_military} walker@attack_2, {+pri_a17_patrol_go}
 [patrol@patrol_2]:walker@generic
 path_walk = monolith_patrol_1
 formation = back
-
 on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_2 %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_2 %+pri_a17_mon_atk%
 on_sound3 = actor|MST_step|10|0.0| walker@attack_2 %+pri_a17_mon_atk%
 on_sound4 = actor|WPN_empty|15|0.0| walker@attack_2 %+pri_a17_mon_atk%
 on_sound5 = actor|WPN_reload|15|0.0| walker@attack_2 %+pri_a17_mon_atk%
-
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
 on_info = {+pri_a17_patrol_go_2} patrol@patrol_2_2, {+pri_a17_mon_ambush_start} walker@attack_2, {+pri_a17_mon_atk} walker@attack_2, {+pri_a17_atk_mon_pat} walker@attack_2
 on_signal = path_end | patrol@patrol_2_2
@@ -375,13 +358,11 @@ on_signal = path_end | patrol@patrol_2_2
 [patrol@patrol_2_2]:walker@generic
 path_walk = monolith_patrol_2
 formation = back
-
 on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_2 %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_2 %+pri_a17_mon_atk%
 on_sound3 = actor|MST_step|10|0.0| walker@attack_2 %+pri_a17_mon_atk%
 on_sound4 = actor|WPN_empty|15|0.0| walker@attack_2 %+pri_a17_mon_atk%
 on_sound5 = actor|WPN_reload|15|0.0| walker@attack_2 %+pri_a17_mon_atk%
-
 combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true, {=check_enemy_name(pri_a17_military_captain_tarasov)} true
 on_info = {+pri_a17_mon_ambush_start} walker@attack_2, {+pri_a17_mon_atk} walker@attack_2, {+pri_a17_atk_mon_pat} walker@attack_2
 
@@ -415,13 +396,11 @@ on_info = {+pri_a17_actor_attack_military} walker@attack_lead, {+pri_a17_patrol_
 path_walk = monolith_patrol_1
 formation = back
 commander = true
-
 on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_lead %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_lead %+pri_a17_mon_atk%
 on_sound3 = actor|MST_step|10|0.0| walker@attack_lead %+pri_a17_mon_atk%
 on_sound4 = actor|WPN_empty|15|0.0| walker@attack_lead %+pri_a17_mon_atk%
 on_sound5 = actor|WPN_reload|15|0.0| walker@attack_lead %+pri_a17_mon_atk%
-
 on_info = {=npc_in_zone(pri_a17_mon_pat_1)} %+pri_a17_mon_pat_1 +pri_a17_mon_pat_sound1 %
 on_info2 = {+pri_a17_mon_ambush_start} walker@attack_lead, {+pri_a17_mon_atk} walker@attack_lead, {+pri_a17_atk_mon_pat} walker@attack_lead
 on_signal = path_end | patrol@patrol_lead_2 %+pri_a17_patrol_go_2%
@@ -431,13 +410,11 @@ combat_ignore_cond = {=check_enemy_name(pri_a17_military_sergeant_morozov)} true
 path_walk = monolith_patrol_2
 formation = back
 commander = true
-
 on_sound = actor|WPN_shoot|10000|0.0| {=dist_to_actor_le(45)} walker@attack_lead %+pri_a17_mon_atk%
 on_sound2 = actor|WPN_hit|8|0.0| walker@attack_lead %+pri_a17_mon_atk%
 on_sound3 = actor|MST_step|10|0.0| walker@attack_lead %+pri_a17_mon_atk%
 on_sound4 = actor|WPN_empty|15|0.0| walker@attack_lead %+pri_a17_mon_atk%
 on_sound5 = actor|WPN_reload|15|0.0| walker@attack_lead %+pri_a17_mon_atk%
-
 on_info = {=npc_in_zone(pri_a17_mon_pat_1)} %+pri_a17_mon_pat_1 +pri_a17_mon_pat_sound1%
 on_info2 = {=npc_in_zone(pri_a17_mon_pat_2)} %+pri_a17_mon_pat_2 +pri_a17_mon_pat_sound2%
 on_info3 = {=npc_in_zone(pri_a17_mon_pat_3)} %+pri_a17_mon_pat_3 +pri_a17_mon_pat_sound3%
@@ -476,7 +453,6 @@ on_game_timer = 20 | walker@patrol_1_dead_3 %=hit_npc(self:pri_a17_taras_chek_si
 [walker@patrol_1_dead_3]:walker@generic
 path_walk = patrol_1_dead
 on_game_timer = 5 | nil %=kill_npc%
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_patrol_2_dead]
@@ -499,7 +475,6 @@ on_game_timer = 20 | walker@patrol_2_dead_3 %=hit_npc(self:pri_a17_pod_pat_look:
 [walker@patrol_2_dead_3]:walker@generic
 path_walk = patrol_2_dead
 on_game_timer = 5 | nil %=kill_npc%
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_patrol_lead_dead]
@@ -522,7 +497,6 @@ on_game_timer = 20 | walker@patrol_3_dead_3 %=hit_npc(self:pri_a17_ice_takin_pos
 [walker@patrol_3_dead_3]:walker@generic
 path_walk = patrol_3_dead
 on_game_timer = 5 | nil %=kill_npc%
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_sniper_1]
@@ -555,7 +529,6 @@ def_state_moving3 = assault
 def_state_campering = threat
 def_state_campering_fire = threat_fire
 no_retreat = true
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_sniper_2]
@@ -587,7 +560,6 @@ def_state_moving2 = assault
 def_state_moving3 = assault
 def_state_standing = hide
 no_retreat = true
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_sniper_3]
@@ -612,7 +584,6 @@ def_state_moving3 = assault
 def_state_campering = threat
 def_state_campering_fire = threat_fire
 no_retreat = true
-
 ; ----------------------------------------------------------
 
 [logic@pri_a17_monolith_sniper_4]
@@ -636,7 +607,6 @@ def_state_moving2 = assault
 def_state_moving3 = assault
 def_state_standing = hide
 no_retreat = true
-
 ; -------------------------------------------------------------
 
 [wounded]

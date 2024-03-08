@@ -7,7 +7,6 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 use_camp = false
-
 ; *************************************
 
 [logic@jup_b217_stalker_tech]
@@ -46,8 +45,8 @@ cover_name = jup_a6_animpoint_tech
 avail_animations = animpoint_sit_normal
 meet = no_meet
 on_game_timer = 15 | remark@straight_anim %=teleport_npc(jup_b217_tech_tp_from_cutscene) =stop_postprocess(1245) =jup_b217_hard_animation_reset%
-
 ; break start animation
+
 [remark@straight_anim]
 anim = wait_na
 meet = no_meet

@@ -40,8 +40,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --���� ��������
+
 [walker@start_work_bandit_2]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
@@ -59,8 +59,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --���� �������
+
 [walker@timer_to_remark]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
@@ -77,14 +77,14 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --������ ����� "��� ��� � ���"
+
 [remark@speak_sultan]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_bandit_sultan_2_walk,0
 on_info = %=play_sound(zat_b5_dealer_bandit_speak_1)%
 on_signal = sound_end | walker@wait %+zat_b5_dealer_speak_1_done%
-on_info2= {+zat_b5_meat} walker@fight_bandit %=actor_enemy%
+on_info2 = {+zat_b5_meat} walker@fight_bandit %=actor_enemy%
 on_info3 = {+zat_b5_actor_with_stalkers =actor_see_npc =see_actor} remark@see_actor
 meet = no_meet
 combat_ignore_cond = {=check_enemy_name(zat_b5_dealer_assistant_1:zat_b5_dealer_assistant_2:zat_b5_actor_with_bandits)} true, {=check_enemy_name(zat_b5_stalker:zat_b7_bandit_boss)} true, {=check_enemy_name(sim_default) =fighting_dist_ge(30)} true
@@ -92,8 +92,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --���� ������
+
 [walker@wait]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
@@ -110,8 +110,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --������ ����� "������ �� ��������"
+
 [remark@speak_sultan_2]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_bandit_sultan_2_walk,0
@@ -125,8 +125,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --���� ����� ���������
+
 [walker@wait_2]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
@@ -171,8 +171,8 @@ combat_ignore_cond = {=check_enemy_name(zat_b5_stalker_raider:zat_b7_bandit_boss
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --------------------�� ��������-------------------------------
+
 [walker@start_work_dealer]
 path_walk = zat_b5_dolg_trader_11_walk
 path_look = zat_b5_dolg_trader_11_look
@@ -358,8 +358,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --������ ����� "��� ��� � ���"
+
 [remark@dealer_speak_sultan]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_bandit_sultan_2_walk,0
@@ -373,8 +373,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --���� ������
+
 [walker@dealer_wait]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look
@@ -391,8 +391,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --������ ����� "������ �� ��������"
+
 [remark@dealer_speak_sultan_2]
 anim = guard
 target = path | zat_b5_smart_terrain_zat_b5_bandit_sultan_2_walk,0
@@ -406,8 +406,8 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; --���� ����� ���������
+
 [walker@dealer_wait_2]
 path_walk = zat_b5_dolg_trader_1_walk
 path_look = zat_b5_dolg_trader_1_look

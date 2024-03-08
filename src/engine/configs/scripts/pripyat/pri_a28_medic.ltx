@@ -1,4 +1,5 @@
 ; Reference animpoint
+
 [animpoint@a28_def]
 cover_name = pri_a16_animp_medic
 reach_movement = walk_noweap
@@ -30,13 +31,13 @@ prior = 200
 post_combat_time = 0, 0
 active = animpoint@a28
 level_spot = medic
-
 ; --------------------------------------
 ; Waiting for evacuation start
+
 [animpoint@a28]:animpoint@a28_def
 on_info = {+pri_a28_colonel_to_center_3_sound_end} animpoint@a28_wait_near_door
-
 ; --------------------------------------
 ; Gathering group before evacuation
+
 [animpoint@a28_wait_near_door]:animpoint@a28_def
 avail_animations = animpoint_sit_normal_no_rnd

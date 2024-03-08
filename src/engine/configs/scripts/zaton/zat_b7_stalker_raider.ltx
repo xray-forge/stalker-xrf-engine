@@ -1,4 +1,5 @@
-;Raider Leader
+; Raider Leader
+
 [logic@zat_b7_stalker_raider_leader]
 active = walker@leader_start_first
 prior = 200
@@ -214,8 +215,8 @@ close_victim = actor
 use = {=is_wounded} false, {=actor_enemy} false, {=has_enemy} false, {+zat_b7_actor_robbed} false, true
 meet_dialog = zat_b7_stalkers_raiders_dialog
 snd_on_use = nil
-
 ; Raider 1
+
 [logic@zat_b7_stalker_raider_1_attack]
 active = walker@attack_1
 prior = 100
@@ -269,8 +270,8 @@ def_state_moving = assault
 use_camp = false
 gather_items_enabled = false
 corpse_detection_enabled = false
-
 ; Raider 2
+
 [logic@zat_b7_stalker_raider_2_attack]
 active = walker@attack_2
 prior = 100
@@ -324,8 +325,8 @@ def_state_moving = assault
 use_camp = false
 gather_items_enabled = false
 corpse_detection_enabled = false
-
 ; Raider 3
+
 [logic@zat_b7_stalker_raider_3_attack]
 active = walker@attack_3
 prior = 100

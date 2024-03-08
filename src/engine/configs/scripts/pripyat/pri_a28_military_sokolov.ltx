@@ -1,4 +1,5 @@
 ; Reference animpoint
+
 [animpoint@a28_def]
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -23,7 +24,6 @@ trade_enable = false
 close_distance = 0
 close_anim = nil
 far_distance = 0
-
 ; --------------------------------------
 
 [logic@pri_a28_military_sokolov]
@@ -31,19 +31,19 @@ suitable = {+pri_b305_fifth_cam_end -pri_a28_update_task_cover_strelok =check_np
 prior = 300
 post_combat_time = 0, 0
 active = animpoint@a28_surge
-
 ; --------------------------------------
 ; Waiting for surge end
+
 [animpoint@a28_surge]:animpoint@a28_def
 on_info2 = {+pri_a28_colonel_to_center_3_sound_end} animpoint@a28_ready_for_news
-
 ; --------------------------------------
 ; Becoming ready for fast exit from animpoint
+
 [animpoint@a28_ready_for_news]:animpoint@a28_def
 avail_animations = animpoint_sit_high_no_rnd
-
 ; --------------------------------------
 ; Gathering group before evacuation
+
 [animpoint@a28_wait_near_door]
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true

@@ -1,4 +1,5 @@
-;Guards
+; Guards
+
 [logic@zat_a2_guarder_1]
 active = walker@guarder_1
 suitable = {=check_npc_name(sim_default_stalker) =npc_in_zone(zat_a2_sr_noweap) !surge_started} true
@@ -50,8 +51,8 @@ on_info = {!actor_enemy =see_actor !npc_in_zone(zat_a2_sr_light) =actor_has_weap
 
 [remark@guarder_3]:remark@guarder_1
 on_game_timer = 75 | walker@guarder_3
-
 ; Spartacus
+
 [logic@zat_b7_stalker_victim_leader]
 active = animpoint@zat_b7_stalker_victim_leader
 suitable = {=check_npc_name(zat_b7_stalker_victim_1) =npc_in_zone(zat_a2_sr_noweap)} true
@@ -80,8 +81,8 @@ far_distance = 0
 use = {=actor_enemy} false, {=dist_to_actor_le(3)} true, false
 snd_on_use = {!dist_to_actor_le(3)} nil
 meet_on_talking = false
-
 ; animpoints
+
 [logic@zat_a2_guarder_4]
 active = animpoint@guarder_4
 suitable = {=check_npc_name(sim_default) =npc_in_zone(zat_a2_sr_noweap)} true

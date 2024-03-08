@@ -1,4 +1,5 @@
 ; Reference walker
+
 [walker@a28_def]
 combat_ignore_cond = true
 combat_ignore_keep_when_attacked = true
@@ -36,7 +37,6 @@ close_distance = 0
 far_distance = 0
 close_anim = nil
 meet_on_talking = false
-
 ; --------------------------------------
 
 [logic@pri_a28_military_podorojniy]
@@ -44,9 +44,9 @@ suitable = {+pri_b305_fifth_cam_end -pri_a28_update_task_cover_strelok =check_np
 prior = 200
 post_combat_time = 0, 0
 active = walker@a28_second_theme_1
-
 ; --------------------------------------
 ; Second theme about surge, start
+
 [walker@a28_second_theme_1]:walker@a28_def
 on_info2 = {!is_alive(pri_a17_military_captain_tarasov)} walker@a28_second_theme_3, {!is_alive(pri_a17_military_prapor_valentyr)} walker@a28_second_theme_3, {+pri_a28_army_surge_talk_1_done} walker@a28_second_theme_2
 
@@ -58,9 +58,9 @@ on_game_timer = 100 | {=is_alive(pri_a22_army_signaller) =animpoint_reached} %=p
 on_signal = sound_end | walker@a28_second_theme_4 %+pri_a28_army_surge_talk_2_first%
 
 [walker@a28_second_theme_4]:walker@a28_def
-
 ; --------------------------------------
 ; Gathering group before evacuation
+
 [animpoint@a28_wait_near_door]
 cover_name = pri_a16_animp_1
 reach_movement = walk

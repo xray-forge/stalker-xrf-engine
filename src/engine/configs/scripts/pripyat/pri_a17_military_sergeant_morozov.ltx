@@ -3,7 +3,6 @@ gather_items_enabled = false
 help_wounded_enabled = false
 corpse_detection_enabled = false
 wounded = wounded
-
 ; ----------------------------------------------------------------------------------------------------------
 
 [logic@pri_a17_military_sergeant_morozov]
@@ -72,7 +71,6 @@ target_enemy = pri_a17_monolith_patrol_lead
 meet = no_meet
 out_restr = pri_a17_roofwalkers_stop
 in_restr = pri_a17_roofwalkers_stop_2
-
 ; -------------------------------------------------------------
 
 [wounded]
@@ -90,8 +88,8 @@ on_info = %+pri_a17_ice_dead%
 
 [known_info]
 pri_a17_ice_is_dead
-
 ; -------------------------------------------����� ������ �����--------------------------------------------
+
 [logic@pri_a17_military_sergeant_morozov_dead]
 suitable = {+pri_a17_actor_leaver =check_npc_name(pri_a17_military_sergeant_morozov)} true
 prior = 70

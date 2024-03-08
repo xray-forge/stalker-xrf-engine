@@ -1,4 +1,5 @@
 ; Reference animpoint
+
 [animpoint@a28_def]
 cover_name = pri_a16_animp_tarasov
 reach_movement = walk
@@ -34,7 +35,6 @@ close_distance = 0
 far_distance = 0
 close_anim = nil
 meet_on_talking = false
-
 ; --------------------------------------
 
 [logic@pri_a28_military_tarasov]
@@ -42,23 +42,23 @@ suitable = {+pri_b305_fifth_cam_end -pri_a28_update_task_cover_strelok =check_np
 prior = 200
 post_combat_time = 0, 0
 active = animpoint@a28_first_theme_1
-
 ; --------------------------------------
 ; First theme about surge, start
+
 [animpoint@a28_first_theme_1]:animpoint@a28_def
 on_game_timer = 150 | {=is_alive(pri_a17_military_prapor_valentyr)} %=play_sound(pri_a28_army_surge_talk_1_first)%
 on_signal = sound_end | animpoint@a28_first_theme_2 %+pri_a28_army_surge_talk_1_first%
 
 [animpoint@a28_first_theme_2]:animpoint@a28_def
 on_info2 = {+pri_a28_colonel_to_center_3_sound_end} animpoint@a28_ready_for_news
-
 ; --------------------------------------
 ; Becoming ready for fast exit from animpoint
+
 [animpoint@a28_ready_for_news]:animpoint@a28_def
 avail_animations = animpoint_sit_normal_no_rnd
-
 ; --------------------------------------
 ; Gathering group before evacuation
+
 [animpoint@a28_wait_near_door]
 cover_name = pri_a16_animp_2
 reach_movement = walk

@@ -52,7 +52,6 @@ use = {!actor_enemy} self
 trade_enable = false
 allow_break = false
 meet_dialog = zat_b14_stalker_start
-
 ; ���� ��������
 
 [walker@item] ; ������ ��������
@@ -103,7 +102,7 @@ path_walk = zat_b14_stalker_1_walk_4
 path_look = zat_b14_stalker_1_look_4
 def_state_moving1 = run
 on_info = {!npc_in_zone(zat_surge_hide_a2) !check_smart_alarm_status(zat_stalker_base_smart:normal)} walker@item_2
-on_info2 ={=npc_in_zone(zat_surge_hide_a2)} walker@item_4
+on_info2 = {=npc_in_zone(zat_surge_hide_a2)} walker@item_4
 on_info3 = {=npc_in_zone(zat_a2_sr_noweap) !npc_in_zone(zat_surge_hide_a2) =actor_in_zone(zat_a2_sr_noweap) =actor_enemy !check_smart_alarm_status(zat_stalker_base_smart:normal)} walker@fight_2
 combat_ignore_cond = true
 wounded = wounded
@@ -115,10 +114,9 @@ path_walk = zat_b14_stalker_1_walk_4
 path_look = zat_b14_stalker_1_look_4
 combat_ignore_cond = true
 def_state_moving1 = walk
-on_info ={=npc_in_zone(zat_b14_bar_zone)} %+zat_b14_stalker_change_smart%
+on_info = {=npc_in_zone(zat_b14_bar_zone)} %+zat_b14_stalker_change_smart%
 meet = no_meet
 out_restr = zat_a2_sr_noweap
-
 ; �� ���� ��������
 
 [walker@no_item] ; ����� �� ��� ��������, ���������
@@ -152,7 +150,6 @@ far_anim = nil
 meet_dialog = {-zat_b14_dialog_last_chance_done} zat_b14_stalker_start_last_chance, zat_b14_stalker_start_last_chance_end
 use = true
 trade_enable = false
-
 ; ������ ������
 
 [walker@prerobbery] ; ����������
@@ -220,7 +217,6 @@ hp_state_see = 0|wounded_heavy@help_heavy
 hp_victim = 0|nil
 hp_fight = 0|false
 hp_cover = 0|false
-
 ; ���
 
 [walker@fight] ; � ���!

@@ -47,10 +47,10 @@ on_game_timer = 50 | {-pri_b305_second_cam_ready} %+pri_b305_second_cam_ready%
 on_info = {-pri_b305_cam2_fade_out} %+pri_b305_cam2_fade_out =stop_postprocess(5613)%
 on_info2 = {+pri_b305_actor_check_signal_done_end} %=stop_sr_cutscene +pri_b305_second_cam_end =enable_ui%
 on_signal = cameff_end | sr_idle@keeper_of_secrets_archievement %+pri_b305_second_cam_end =give_task(pri_b305_check_unknown_signal)%
-
 ; *************************************************************************************************************
 ; ������ ������ �� ������ "��������� ����"
 ; *************************************************************************************************************
+
 [sr_idle@keeper_of_secrets_archievement]
 on_info = {+keeper_of_secrets_achievement_gained} sr_idle@strelok_regeneration_timer
 

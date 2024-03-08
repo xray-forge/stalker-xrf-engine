@@ -168,8 +168,8 @@ on_info = {=surge_complete} animpoint@jup_b1_stalker_4_home
 
 [death@stalker_4]
 on_info = {=killed_by_actor -jup_b1_st_mission +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_4_is_dead +jup_b1_squad_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {-jup_b1_st_mission +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead} %+jup_1_stalker_squad_killed_before_mission +jup_b1_stalker_4_is_dead +jup_b1_squad_is_dead%, {=killed_by_actor +jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_4_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, {+jup_b1_stalker_1_is_dead +jup_b1_stalker_2_is_dead +jup_b1_stalker_3_is_dead} %+jup_b1_squad_is_dead +jup_b1_stalker_4_is_dead%, {=killed_by_actor} %+jup_b1_stalker_4_is_dead =set_squad_enemy_to_actor(jup_b1_stalker_squad) +jup_b1_actor_atk_squad%, %+jup_b1_stalker_4_is_dead%
-
 ; ---------------------------------------------------------------------������� ������---------------------------------------------------------------------
+
 [animpoint@jup_b41_animp_gen_pro]
 reach_movement = walk
 use_camp = false
