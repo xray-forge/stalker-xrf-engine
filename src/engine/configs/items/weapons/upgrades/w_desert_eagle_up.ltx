@@ -3,7 +3,6 @@
 ; ----------------------
 cost = 600
 value = +10
-
 rpm = +30
 
 [up_sect_firstc_desert_eagle]
@@ -11,7 +10,6 @@ rpm = +30
 ; ------------
 cost = 1200
 value = -20
-
 cam_dispersion = -0.3 ; 1.2
 cam_dispersion_inc = -0.3 ; 1.2
 cam_step_angle_horz = -0.15 ; 1.0
@@ -21,7 +19,6 @@ cam_step_angle_horz = -0.15 ; 1.0
 ; ---------------
 cost = 1800
 value = +30
-
 fire_dispersion_base = -0.05
 fire_dispersion_condition_factor = -1
 
@@ -30,7 +27,6 @@ fire_dispersion_condition_factor = -1
 ; ------------
 cost = 1800
 value = -30
-
 cam_dispersion = -0.5 ; 1.2
 cam_dispersion_inc = -0.5 ; 1.2
 cam_step_angle_horz = -0.25 ; 1.0
@@ -40,7 +36,6 @@ cam_step_angle_horz = -0.25 ; 1.0
 ; ------------------
 cost = 600
 value = +10
-
 bullet_speed = +40
 
 [up_sect_seconc_desert_eagle]
@@ -48,7 +43,6 @@ bullet_speed = +40
 ; ---------------
 cost = 1200
 value = +15
-
 ; ���������� ��������� � ��������� ��� ������������ ������
 fire_dispersion_condition_factor = -2 ; 15
 ; ���������� ����������� ��� �������� ��������
@@ -65,7 +59,6 @@ misfire_end_prob = -0.025 ; 0.03
 ; ----------------------
 cost = 1800
 value = +25
-
 rpm = +70
 
 [up_sect_seconf_desert_eagle]
@@ -73,7 +66,6 @@ rpm = +70
 ; ------------------
 cost = 1800
 value = +30
-
 bullet_speed = +80
 fire_dispersion_base = -0.03
 
@@ -82,11 +74,8 @@ fire_dispersion_base = -0.03
 ; ------------------
 cost = 600
 value = -0.7
-
 inv_weight = -0.7
-
 crosshair_inertion = -0.3
-
 PDM_disp_base = -0.05
 PDM_disp_vel_factor = -0.15
 PDM_disp_accel_factor = -0.15
@@ -96,9 +85,7 @@ PDM_disp_accel_factor = -0.15
 ; --------------
 cost = 1200
 value = +15
-
 crosshair_inertion = -0.7
-
 PDM_disp_base = -0.15
 PDM_disp_vel_factor = -0.35
 PDM_disp_accel_factor = -0.35
@@ -108,7 +95,6 @@ PDM_disp_accel_factor = -0.35
 ; ------------
 cost = 1200
 value = -20
-
 cam_dispersion = -0.3 ; 1.2
 cam_dispersion_inc = -0.3 ; 1.2
 cam_step_angle_horz = -0.15 ; 1.0
@@ -118,7 +104,6 @@ cam_step_angle_horz = -0.15 ; 1.0
 ; ------------
 cost = 1800
 value = -30
-
 cam_dispersion = -0.5 ; 1.2
 cam_dispersion_inc = -0.5 ; 1.2
 cam_step_angle_horz = -0.25 ; 1.0
@@ -128,7 +113,6 @@ cam_step_angle_horz = -0.25 ; 1.0
 ; ---------------
 cost = 600
 value = +10
-
 fire_dispersion_base = -0.02
 
 [up_sect_fourtc_desert_eagle]
@@ -136,7 +120,6 @@ fire_dispersion_base = -0.02
 ; ---------------
 cost = 1200
 value = +15
-
 ; ���������� ��������� � ��������� ��� ������������ ������
 fire_dispersion_condition_factor = -2 ; 15
 ; ���������� ����������� ��� �������� ��������
@@ -153,7 +136,6 @@ misfire_end_prob = -0.025 ; 0.03
 ; ---------------
 cost = 1800
 value = +4
-
 ammo_mag_size = +4
 
 [up_firsta_desert_eagle]
@@ -163,13 +145,10 @@ known = 1
 effects = up_gr_firstcd_desert_eagle
 section = up_sect_firsta_desert_eagle
 property = prop_rpm
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -184,13 +163,10 @@ known = 1
 effects = up_gr_firstef_desert_eagle
 section = up_sect_firstc_desert_eagle
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -205,13 +181,10 @@ known = 1
 effects =
 section = up_sect_firste_desert_eagle
 property = prop_dispersion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -225,13 +198,10 @@ known = 1
 effects =
 section = up_sect_firstf_desert_eagle
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -246,13 +216,10 @@ known = 1
 effects = up_gr_seconcd_desert_eagle
 section = up_sect_secona_desert_eagle
 property = prop_bullet_speed
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -266,13 +233,10 @@ known = 1
 effects = up_gr_seconef_desert_eagle
 section = up_sect_seconc_desert_eagle
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -287,13 +251,10 @@ known = 1
 effects =
 section = up_sect_secone_desert_eagle
 property = prop_rpm
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -308,13 +269,10 @@ known = 1
 effects =
 section = up_sect_seconf_desert_eagle
 property = prop_bullet_speed
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -329,13 +287,10 @@ known = 1
 effects = up_gr_thirdcd_desert_eagle
 section = up_sect_thirda_desert_eagle
 property = prop_weight
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -349,13 +304,10 @@ known = 1
 effects = up_gr_thirdef_desert_eagle
 section = up_sect_thirdc_desert_eagle
 property = prop_inertion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -369,13 +321,10 @@ known = 1
 effects = up_gr_thirdef_desert_eagle
 section = up_sect_thirdd_desert_eagle
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -389,13 +338,10 @@ known = 1
 effects =
 section = up_sect_thirde_desert_eagle
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -409,13 +355,10 @@ known = 1
 effects = up_gr_fourtcd_desert_eagle
 section = up_sect_fourta_desert_eagle
 property = prop_dispersion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -429,13 +372,10 @@ known = 1
 effects =
 section = up_sect_fourtc_desert_eagle
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -449,13 +389,10 @@ known = 1
 effects =
 section = up_sect_fiftha_desert_eagle
 property = prop_ammo_size
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a

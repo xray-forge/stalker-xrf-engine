@@ -3,7 +3,6 @@
 ; ----------------------
 cost = 300
 value = +10
-
 rpm = 35
 
 [up_sect_firstc_beretta]
@@ -11,7 +10,6 @@ rpm = 35
 ; ---------------
 cost = 600
 value = +15
-
 ; ���������� ��������� � ��������� ��� ������������ ������
 fire_dispersion_condition_factor = -1 ; 15
 ; ���������� ����������� ��� �������� ��������
@@ -28,11 +26,9 @@ misfire_end_prob = -0.013 ; 0.03
 ; ------------
 cost = 600
 value = -20
-
 cam_dispersion = -0.2 ; 0.5
 cam_dispersion_inc = -0.2 ; 0.5
 cam_step_angle_horz = -0.15 ; 1.0
-
 zoom_cam_dispersion = -0.05
 zoom_cam_dispersion_inc = -0.2
 zoom_cam_step_angle_horz = -0.3
@@ -42,15 +38,11 @@ zoom_cam_step_angle_horz = -0.3
 ; ---------------
 cost = 1900
 ; value = +20
-
 fire_modes = 1, -1
-
 rpm = 300
-
 cam_dispersion = -0.3 ; 0.5
 cam_dispersion_inc = -0.3 ; 0.5
 cam_step_angle_horz = -0.1 ; 1.0
-
 zoom_cam_dispersion = -0.05
 zoom_cam_dispersion_inc = -0.15
 zoom_cam_step_angle_horz = -0.5
@@ -60,7 +52,6 @@ zoom_cam_step_angle_horz = -0.5
 ; ----------------------
 cost = 300
 value = +10
-
 rpm = 35
 
 [up_sect_seconc_beretta]
@@ -68,7 +59,6 @@ rpm = 35
 ; ------------------
 cost = 600
 value = +20
-
 bullet_speed = +50
 fire_dispersion_base = -0.01
 
@@ -77,7 +67,6 @@ fire_dispersion_base = -0.01
 ; ---------------
 cost = 600
 value = +15
-
 ; ���������� ��������� � ��������� ��� ������������ ������
 fire_dispersion_condition_factor = -1 ; 15
 ; ���������� ����������� ��� �������� ��������
@@ -94,7 +83,6 @@ misfire_end_prob = -0.013 ; 0.03
 ; ----------------------
 cost = 900
 value = +25
-
 rpm = 65
 
 [up_sect_thirda_beretta]
@@ -102,7 +90,6 @@ rpm = 65
 ; ---------------
 cost = 300
 value = +10
-
 ; ���������� ��������� � ��������� ��� ������������ ������
 fire_dispersion_condition_factor = -1 ; 15
 ; ���������� ����������� ��� �������� ��������
@@ -119,9 +106,7 @@ misfire_end_prob = -0.006 ; 0.03
 ; --------------
 cost = 600
 value = +15
-
 crosshair_inertion = -1
-
 PDM_disp_base = -0.2
 PDM_disp_vel_factor = -0.35
 PDM_disp_accel_factor = -0.35
@@ -131,11 +116,9 @@ PDM_disp_accel_factor = -0.35
 ; ------------
 cost = 600
 value = -20
-
 cam_dispersion = -0.2 ; 0.5
 cam_dispersion_inc = -0.2 ; 0.5
 cam_step_angle_horz = -0.15 ; 1.0
-
 zoom_cam_dispersion = -0.05
 zoom_cam_dispersion_inc = -0.2
 zoom_cam_step_angle_horz = -0.3
@@ -145,7 +128,6 @@ zoom_cam_step_angle_horz = -0.3
 ; ---------------
 cost = 300
 value = +10
-
 fire_dispersion_base = -0.04
 fire_dispersion_condition_factor = -1
 
@@ -154,7 +136,6 @@ fire_dispersion_condition_factor = -1
 ; ---------------
 cost = 600
 value = +15
-
 ; ���������� ��������� � ��������� ��� ������������ ������
 fire_dispersion_condition_factor = -1 ; 15
 ; ���������� ����������� ��� �������� ��������
@@ -171,7 +152,6 @@ misfire_end_prob = -0.013 ; 0.03
 ; ---------------
 cost = 700
 ; value = +20
-
 snd_silncer_shot = weapons\n_pb_shot
 silencer_status = 2
 silencer_name = wpn_addon_silencer ; section name for the attachable silencer
@@ -183,9 +163,7 @@ silencer_y = -15
 ; ---------------
 cost = 1500
 value = "9x18"
-
 ammo_class = ammo_9x18_fmj, ammo_9x18_pmm
-
 ; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0001 ; 0.0013
 ; ���������� ����������� ��� ��������� ��������
@@ -202,13 +180,10 @@ known = 1
 effects = up_gr_firstcd_beretta
 section = up_sect_firsta_beretta
 property = prop_rpm
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -223,13 +198,10 @@ known = 1
 effects = up_gr_firstef_beretta
 section = up_sect_firstc_beretta
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -244,13 +216,10 @@ known = 1
 effects = up_gr_firstef_beretta
 section = up_sect_firstd_beretta
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -264,13 +233,10 @@ known = 1
 effects =
 section = up_sect_firste_beretta
 property = prop_autofire
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -285,13 +251,10 @@ known = 1
 effects = up_gr_seconcd_beretta
 section = up_sect_secona_beretta
 property = prop_rpm
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -305,13 +268,10 @@ known = 1
 effects = up_gr_seconef_beretta
 section = up_sect_seconc_beretta
 property = prop_bullet_speed
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -326,13 +286,10 @@ known = 1
 effects = up_gr_seconef_beretta
 section = up_sect_second_beretta
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -347,13 +304,10 @@ known = 1
 effects =
 section = up_sect_secone_beretta
 property = prop_rpm
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -368,13 +322,10 @@ known = 1
 effects = up_gr_thirdcd_beretta
 section = up_sect_thirda_beretta
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -388,13 +339,10 @@ known = 1
 effects =
 section = up_sect_thirdc_beretta
 property = prop_inertion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -408,13 +356,10 @@ known = 1
 effects =
 section = up_sect_thirdd_beretta
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -428,13 +373,10 @@ known = 1
 effects = up_gr_fourtcd_beretta
 section = up_sect_fourta_beretta
 property = prop_dispersion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -448,13 +390,10 @@ known = 1
 effects =
 section = up_sect_fourtc_beretta
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -468,13 +407,10 @@ known = 1
 effects =
 section = up_sect_fiftha_beretta
 property = prop_silencer
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -489,13 +425,10 @@ known = 1
 effects =
 section = up_sect_fifthc_beretta
 property = prop_calibre
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a

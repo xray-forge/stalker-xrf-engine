@@ -3,7 +3,6 @@
 ; ----------------------
 cost = 200
 value = +10
-
 rpm = +20
 
 [up_sect_firstc_pm]
@@ -11,7 +10,6 @@ rpm = +20
 ; ------------------
 cost = 400
 value = +20
-
 bullet_speed = +45
 fire_dispersion_base = -0.01
 
@@ -20,7 +18,6 @@ fire_dispersion_base = -0.01
 ; ------------
 cost = 400
 value = -20
-
 cam_dispersion = -0.2 ; 0.5
 cam_dispersion_inc = -0.2 ; 0.5
 cam_step_angle_horz = -0.25 ; 1.0
@@ -30,7 +27,6 @@ cam_step_angle_horz = -0.25 ; 1.0
 ; ----------------------
 cost = 600
 value = +25
-
 rpm = +60
 
 [up_sect_secona_pm]
@@ -38,7 +34,6 @@ rpm = +60
 ; ------------------
 cost = 200
 value = +10
-
 bullet_speed = +25
 
 [up_sect_seconc_pm]
@@ -46,7 +41,6 @@ bullet_speed = +25
 ; ---------------
 cost = 400
 value = +15
-
 ; ���������� ��������� � ��������� ��� ������������ ������
 fire_dispersion_condition_factor = -2 ; 15
 ; ���������� ����������� ��� �������� ��������
@@ -63,11 +57,8 @@ misfire_end_prob = -0.02 ; 0.03
 ; ------------------
 cost = 200
 value = -0.35
-
 inv_weight = -0.35
-
 crosshair_inertion = -0.3
-
 PDM_disp_base = -0.05
 PDM_disp_vel_factor = -0.15
 PDM_disp_accel_factor = -0.15
@@ -77,9 +68,7 @@ PDM_disp_accel_factor = -0.15
 ; --------------
 cost = 400
 value = +15
-
 crosshair_inertion = -0.7
-
 PDM_disp_base = -0.15
 PDM_disp_vel_factor = -0.35
 PDM_disp_accel_factor = -0.35
@@ -89,7 +78,6 @@ PDM_disp_accel_factor = -0.35
 ; ------------
 cost = 400
 value = -20
-
 cam_dispersion = -0.2 ; 0.5
 cam_dispersion_inc = -0.2 ; 0.5
 cam_step_angle_horz = -0.25 ; 1.0
@@ -99,7 +87,6 @@ cam_step_angle_horz = -0.25 ; 1.0
 ; ---------------
 cost = 200
 value = +10
-
 fire_dispersion_base = -0.03
 fire_dispersion_condition_factor = -1
 
@@ -108,7 +95,6 @@ fire_dispersion_condition_factor = -1
 ; ---------------
 cost = 400
 value = +20
-
 fire_dispersion_base = -0.05
 fire_dispersion_condition_factor = -1
 
@@ -117,7 +103,6 @@ fire_dispersion_condition_factor = -1
 ; ---------------
 cost = 350
 value = +4
-
 ammo_mag_size = +4
 
 [up_sect_fifthc_pm]
@@ -125,9 +110,7 @@ ammo_mag_size = +4
 ; ---------------
 cost = 550
 value = "9x19"
-
 ammo_class = ammo_9x19_fmj, ammo_9x19_pbp
-
 ; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.0002 ; 0.0013
 ; ���������� ����������� ��� ��������� ��������
@@ -144,13 +127,10 @@ known = 1
 effects = up_gr_firstcd_pm
 section = up_sect_firsta_pm
 property = prop_rpm
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -165,13 +145,10 @@ known = 1
 effects = up_gr_firstef_pm
 section = up_sect_firstc_pm
 property = prop_bullet_speed
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -186,13 +163,10 @@ known = 1
 effects = up_gr_firstef_pm
 section = up_sect_firstd_pm
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -206,13 +180,10 @@ known = 1
 effects =
 section = up_sect_firste_pm
 property = prop_rpm
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -227,13 +198,10 @@ known = 1
 effects = up_gr_seconcd_pm
 section = up_sect_secona_pm
 property = prop_bullet_speed
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -247,13 +215,10 @@ known = 1
 effects =
 section = up_sect_seconc_pm
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -268,13 +233,10 @@ known = 1
 effects = up_gr_thirdcd_pm
 section = up_sect_thirda_pm
 property = prop_weight
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -288,13 +250,10 @@ known = 1
 effects =
 section = up_sect_thirdc_pm
 property = prop_inertion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -308,13 +267,10 @@ known = 1
 effects =
 section = up_sect_thirdd_pm
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -328,13 +284,10 @@ known = 1
 effects = up_gr_fourtcd_pm
 section = up_sect_fourta_pm
 property = prop_dispersion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -348,13 +301,10 @@ known = 1
 effects =
 section = up_sect_fourtc_pm
 property = prop_dispersion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
 prereq_params =
@@ -368,13 +318,10 @@ known = 1
 effects =
 section = up_sect_fiftha_pm
 property = prop_ammo_size
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -389,13 +336,10 @@ known = 1
 effects =
 section = up_sect_fifthc_pm
 property = prop_calibre
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a

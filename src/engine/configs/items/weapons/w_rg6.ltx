@@ -8,15 +8,12 @@ scheduled = off ; option for ALife Simulator
 cform = skeleton
 class = WP_RG6
 description = st_wpn_rg6_descr
-
 ef_main_weapon_type = 4
 ef_weapon_type = 12
-
 ; -------------------------------------------------------------------------------
 cost = 20000
 weapon_class = heavy_weapon
 inv_weight = 6.2
-
 ; ----TTX--------------------------------------------------------------------------
 hit_power = 0.75, 0.75, 0.75, 0.75
 hit_impulse = 150
@@ -24,9 +21,7 @@ hit_type = fire_wound
 fire_distance = 100
 bullet_speed = 32 ; 76
 rpm = 100
-
 hud = wpn_rg-6_hud
-
 misfire_probability = 0.005 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ !!!old - now not working
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 misfire_start_condition = 0.6
@@ -40,30 +35,24 @@ misfire_end_prob = 0.02
 condition_shot_dec = 0.00001
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 condition_queue_shot_dec = 0.00002
-
 tri_state_reload = on
-
 ammo_limit = 60
 ammo_current = 10
 ammo_elapsed = 0
-
 ammo_mag_size = 6
 ammo_class = ammo_vog-25
 launch_speed = 32 ; 76
 sprint_allowed = true
-
 ; ------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½------------------------------------------------------------------------
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 fire_dispersion_base = 1.0 ; ï¿½ï¿½ï¿½ï¿½ (ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 control_inertion_factor = 1.7f
 crosshair_inertion = 8.25
-
 PDM_disp_base = 1.0
 PDM_disp_vel_factor = 1.1
 PDM_disp_accel_factor = 1.1
 PDM_disp_crouch = 1.0
 PDM_disp_crouch_no_acc = 1.0
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 cam_relax_speed = 7.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 cam_relax_speed_ai = 360
@@ -73,61 +62,46 @@ cam_dispersion_frac = 0.1 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 cam_max_angle = 15 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 cam_max_angle_horz = 5 ; (degree) maximum shot horizontal degree
 cam_step_angle_horz = 5.0 ; (degree) size of step camera moved in horizontal position while shooting
-
 fire_dispersion_condition_factor = 5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
 ; ---DOF-------------------------------------------------------------------------
 zoom_dof = 0.5, 1.0, 180
 reload_dof = 0.0, 0.5,5, 1.3
-
 ; -------------------------------------------------------------------------------
 holder_range_modifier = 1.0 ; ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ eye_range
 holder_fov_modifier = 1.0 ; ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ eye_fov
-
 min_radius = 0
 max_radius = 50
-
 hit_probability_gd_novice = 0.80
 hit_probability_gd_stalker = 0.80
 hit_probability_gd_veteran = 0.80
 hit_probability_gd_master = 0.80
-
 ; -------------------------------------------------------------------------------
-
 position = -0.026, -0.111, 0.
 orientation = 0, 0, 0
-
 shell_point = 0.0, 0.120, 0.20
 fire_point = 0.0, 0.120, 0.452
 fire_point2 = 0.0, 0.120, 0.452
-
 hand_dependence = 1
 single_handed = 0
-
 slot = 2
 animation_slot = 10
-
 inv_name = st_wpn_rg6
 inv_name_short = st_wpn_rg6
 inv_grid_width = 4
 inv_grid_height = 2
 inv_grid_x = 0
 inv_grid_y = 8
-
 upgr_icon_x = 596
 upgr_icon_y = 864
 upgr_icon_width = 290
 upgr_icon_height = 141
-
 kill_msg_x = 0
 kill_msg_y = 172
 kill_msg_width = 68
 kill_msg_height = 30
-
 flame_particles = weapons\generic_weapon05
 smoke_particles = weapons\generic_shoot_00
 rpm_empty_click = 200
-
 ; --STRAP PARAMETERS-----------------------------------------------------------------
 ; ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 strap_position = -0.26,-0.11,0.15
@@ -135,27 +109,21 @@ strap_orientation = -15,-9,110
 ; ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 strap_bone0 = bip01_spine2
 strap_bone1 = bip01_spine1
-
 startup_ammo = 0
 visual = dynamics\weapons\wpn_rg6\wpn_rg6.ogf
-
 light_color = 0.6,0.5,0.3
 light_range = 6.0
 light_var_color = 0.05
 light_var_range = 0.5
 light_time = 0.2
-
 ph_mass = 3
 ; cost = 900
-
 ; addons
 scope_status = 0
 silencer_status = 0
 grenade_launcher_status = 0
-
 zoom_enabled = true
 scope_zoom_factor = 55
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½
 snd_draw = weapons\generic_draw
 snd_holster = weapons\generic_holster
@@ -171,25 +139,19 @@ snd_reload_1 = weapons\bm16_reload_one ; reload left
 
 [wpn_rg-6_hud]:hud_base
 zoom_hide_crosshair = true
-
 hands_position = -0.013000,-0.176999,0.118000
 hands_orientation = 6.250005,-0.649999,0.000000
 hands_position_16x9 = -0.029000,-0.186000,0.112000
 hands_orientation_16x9 = 1.699999,0.000001,0.600000
-
 item_position = -0.003178,0.002246,0.000581
 item_orientation = -181.191742,180.482727,-180.330688
-
 shell_point = 0,0,0
 shell_dir = 0.0, 1.0, 0.0
 shell_bone = wpn_body
-
 fire_point = -0.0,0.0,0.513
 fire_bone = wpn_body
-
 attach_place_idx = 0
 item_visual = dynamics\weapons\wpn_rg6\wpn_rg6_hud.ogf
-
 anm_show = rg6_draw
 anm_hide = rg6_holster
 anm_idle = rg6_idle
@@ -201,14 +163,11 @@ anm_add_cartridge = rg6_reload
 anm_close = rg6_reload_end
 anm_shots = rg6_shoot
 anm_bore = rg6_idle_bore
-
 aim_hud_offset_pos = -0.125001,0.006000,0.156500
 aim_hud_offset_rot = 0.015000,0.085000,-0.002500
 aim_hud_offset_pos_16x9 = -0.091000,0.000500,0.120000
 aim_hud_offset_rot_16x9 = -0.010000,-0.010000,0.000000
-
 gl_hud_offset_pos = 0,0,0
 gl_hud_offset_rot = 0,0,0
-
 lean_hud_offset_pos = 0,0,0
 lean_hud_offset_rot = 0,0,0

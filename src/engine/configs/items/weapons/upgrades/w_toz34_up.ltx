@@ -3,7 +3,6 @@
 ; ---------------
 cost = 200
 value = +10
-
 ; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = -0.0005 ; 0.0013
 ; ���������� ����������� ��� ��������� ��������
@@ -14,7 +13,6 @@ condition_shot_dec = -0.0005 ; 0.0011
 ; ------------------
 cost = 400
 value = +20
-
 bullet_speed = +80
 hit_impulse = +20
 
@@ -23,11 +21,9 @@ hit_impulse = +20
 ; ------------
 cost = 400
 value = -20
-
 cam_dispersion = -1 ; 0.7
 cam_dispersion_inc = -1 ; 0.7
 cam_step_angle_horz = -0.2 ; 0.7
-
 zoom_cam_dispersion = -0.7 ; 0.6
 zoom_cam_dispersion_inc = -0.7 ; 0.6
 zoom_cam_step_angle_horz = -0.2 ; 0.6
@@ -37,9 +33,7 @@ zoom_cam_step_angle_horz = -0.2 ; 0.6
 ; --------------
 cost = 600
 value = +25
-
 crosshair_inertion = -0.5
-
 PDM_disp_base = -0.1
 PDM_disp_vel_factor = -0.5
 PDM_disp_accel_factor = -0.5
@@ -49,7 +43,6 @@ PDM_disp_accel_factor = -0.5
 ; ---------------
 cost = 1000
 value = +30
-
 fire_dispersion_base = -0.11
 fire_dispersion_condition_factor = -0.5 ; 15
 ammo_class = ammo_12x76_zhekan
@@ -61,10 +54,8 @@ hit_impulse = +25
 ; ---------------
 cost = 200
 value = -1.1
-
 inv_weight = -1.1
 crosshair_inertion = -0.25
-
 PDM_disp_vel_factor = -0.05
 PDM_disp_accel_factor = -0.05
 
@@ -73,9 +64,7 @@ PDM_disp_accel_factor = -0.05
 ; --------------
 cost = 400
 value = +15
-
 crosshair_inertion = -0.5
-
 PDM_disp_base = -0.05
 PDM_disp_vel_factor = -0.2
 PDM_disp_accel_factor = -0.2
@@ -85,11 +74,9 @@ PDM_disp_accel_factor = -0.2
 ; ------------
 cost = 400
 value = -20
-
 cam_dispersion = -1 ; 0.7
 cam_dispersion_inc = -1 ; 0.7
 cam_step_angle_horz = -0.2 ; 0.7
-
 zoom_cam_dispersion = -0.7 ; 0.6
 zoom_cam_dispersion_inc = -0.7 ; 0.6
 zoom_cam_step_angle_horz = -0.2 ; 0.6
@@ -99,7 +86,6 @@ zoom_cam_step_angle_horz = -0.2 ; 0.6
 ; ---------------
 cost = 200
 value = +10
-
 ; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = -0.0005 ; 0.0013
 ; ���������� ����������� ��� ��������� ��������
@@ -110,11 +96,9 @@ condition_shot_dec = -0.0005 ; 0.0011
 ; ------------
 cost = 400
 value = -20
-
 cam_dispersion = -1 ; 0.7
 cam_dispersion_inc = -1 ; 0.7
 cam_step_angle_horz = -0.2 ; 0.7
-
 zoom_cam_dispersion = -0.7 ; 0.6
 zoom_cam_dispersion_inc = -0.7 ; 0.6
 zoom_cam_step_angle_horz = -0.2 ; 0.6
@@ -124,7 +108,6 @@ zoom_cam_step_angle_horz = -0.2 ; 0.6
 ; ---------------
 cost = 600
 value = +25
-
 ; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = -0.0005 ; 0.0013
 ; ���������� ����������� ��� ��������� ��������
@@ -135,7 +118,6 @@ condition_shot_dec = -0.0005 ; 0.0011
 ; ------------------
 cost = 600
 value = +30
-
 bullet_speed = +120
 hit_impulse = +25
 
@@ -145,13 +127,10 @@ known = 1
 effects = up_gr_firstcd_toz34
 section = up_sect_firsta_toz34
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -166,13 +145,10 @@ known = 1
 effects = up_gr_firstef_toz34
 section = up_sect_firstc_toz34
 property = prop_bullet_speed
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -187,13 +163,10 @@ known = 1
 effects = up_gr_firstef_toz34
 section = up_sect_firstd_toz34
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -208,13 +181,10 @@ known = 1
 effects =
 section = up_sect_firste_toz34
 property = prop_inertion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -229,13 +199,10 @@ known = 1
 effects =
 section = up_sect_firstf_toz34
 property = prop_dispersion, prop_no_buck
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -250,13 +217,10 @@ known = 1
 effects = up_gr_seconcd_toz34
 section = up_sect_secona_toz34
 property = prop_weight
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -271,13 +235,10 @@ known = 1
 effects =
 section = up_sect_seconc_toz34
 property = prop_inertion
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -292,13 +253,10 @@ known = 1
 effects =
 section = up_sect_second_toz34
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -313,13 +271,10 @@ known = 1
 effects = up_gr_thirdcd_toz34
 section = up_sect_thirda_toz34
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -334,13 +289,10 @@ known = 1
 effects = up_gr_thirdef_toz34
 section = up_sect_thirdc_toz34
 property = prop_recoil
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -355,13 +307,10 @@ known = 1
 effects =
 section = up_sect_thirde_toz34
 property = prop_reliability
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
@@ -376,13 +325,10 @@ known = 1
 effects =
 section = up_sect_thirdf_toz34
 property = prop_bullet_speed
-
 precondition_functor = inventory_upgrades.precondition_functor_a
 precondition_parameter = a & b
-
 effect_functor = inventory_upgrades.effect_functor_a
 effect_parameter = on_weapon_upgrade_something_here
-
 ; ui
 prereq_functor = inventory_upgrades.prereq_functor_a
 prereq_tooltip_functor = inventory_upgrades.prereq_tooltip_functor_a
