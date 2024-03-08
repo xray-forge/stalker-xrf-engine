@@ -15,7 +15,7 @@ Fully rewritten stalker lua script engine with typescript. <br/>
 ## 📦 In short
 
 - [Faster development](https://xray-forge.github.io/stalker-xrf-book/xrf/developing/developing.html)
-- Custom [CLI](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/cli.html) and [build pipeline](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building.html)
+- Custom [CLI](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/cli.html) and [build pipeline](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building.html), [dev tools](https://github.com/xray-forge/stalker-xrf-tools)
   - Scripts engine rewritten with typescript ([tstl](https://typescripttolua.github.io/docs/getting-started))
   - [Generation UI forms from JSX](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building_forms.html)
   - [Game configs from dynamic typescript](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building_configs.html)
