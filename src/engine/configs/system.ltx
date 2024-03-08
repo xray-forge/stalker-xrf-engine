@@ -8,14 +8,12 @@
 #include "immunities.ltx"
 #include "interface.ltx"
 #include "localization.ltx"
-
 #include "creatures\actor.ltx"
 #include "creatures\monsters.ltx"
 #include "creatures\stalkers.ltx"
 #include "items\items.ltx"
 #include "objects\objects.ltx"
 #include "zones\zones.ltx"
-
 #include "misc\m_online_offline_group.ltx"
 #include "mp\mp_actor.ltx"
 #include "mp\team_logo.ltx"
@@ -34,10 +32,8 @@
 #include "mp\artefacthunt_game.ltx"
 #include "mp\capturetheartefact_game.ltx"
 #include "mp\anticheat_active_params.ltx"
-
 #include "managers\achievements\list.ltx"
 #include "managers\simulation\simulation.ltx"
-
 #include "misc\effectors.ltx"
 #include "misc\evaluation.ltx"
 #include "misc\extracontent.ltx"
@@ -46,8 +42,6 @@
 #include "prefetch\prefetch.ltx"
 #include "spawn\squad_descr.ltx"
 #include "spawn\spawn_sections.ltx"
-
-; todo: needs sharding
 
 [info_portions]
 files = info_portions, info_zaton, info_jupiter, info_pripyat, info_upgrades
@@ -73,8 +67,7 @@ occlusion_scale = 0.4
 snd_collide_min_volume = 0.1
 snd_collide_max_volume = 200
 
-; todo: Is it needed?
-[??tg_event]
+[??tg_event] ; todo: Is it needed?
 class = EVENT
 
 [trade]
@@ -94,8 +87,7 @@ schedule_max = 1000
 [collision_damage]
 bonce_damage_factor_for_objects = 1
 
-; todo: Move to weapon definitions (mounted).
-[pkm_visual_memory]
+[pkm_visual_memory] ; todo: Move to weapon definitions (mounted).
 min_view_distance = 1
 max_view_distance = 1
 visibility_threshold = 50
@@ -109,8 +101,7 @@ view_fov_deg = 90
 view_aspect = 1
 view_far_plane = 100
 
-; DetailManager.cpp configuration.
-[details]
+[details] ; DetailManager.cpp configuration.
 swing_normal_amp1 = 0.1
 swing_normal_amp2 = 0.05
 swing_normal_rot1 = 30
@@ -122,5 +113,4 @@ swing_fast_rot1 = 5
 swing_fast_rot2 = 0.5
 swing_fast_speed = 0.5
 
-; todo: Probably not needed.
-[ph_capture_visuals]
+[ph_capture_visuals] ; todo: Probably not needed.
