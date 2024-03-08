@@ -7,27 +7,22 @@ $prefetch = 16
 visual = monsters\snork\snork
 corpse_visual = monsters\snork\snork_dead
 icon = ui_npc_monster_snork
-
 Spawn_Inventory_Item_Section = mutant_snork_leg
 Spawn_Inventory_Item_Probability = 0.0
-
 fire_max_distance = 0
 fire_max_power = 5
 fire_linear_factor = 0
 fire_quadratic_factor = 0.025
-
 psy_max_distance = 0
 psy_max_power = 5
 psy_linear_factor = 0.05
 psy_quadratic_factor = 0
-
 radiation_max_distance = 0
 radiation_max_power = 0.01
 radiation_linear_factor = 1
 radiation_quadratic_factor = 1
 radiation_pp_effector_name = postprocess_rad
 radiation_pp_highest_at = 0.02
-
 Scheduled = on ; option for ALife Simulator
 Human = off ; option for ALife Simulator
 Health = 300 ; option for ALife Simulator
@@ -38,22 +33,17 @@ current_level_going_speed = 3 ; 2 ; option for ALife Simulator
 search_speed = 1.5 ; option for ALife Simulator
 MaxHealthValue = 300 ; range [0..200]
 smart_terrain_choose_interval = 00:15:00
-
 script_binding = bind.monster ; xrf change
-
 ef_creature_type = 11 ; option for evaluation functions
 ef_weapon_type = 2
 ef_detector_type = 1
 panic_threshold = 0.1
-
 cform = skeleton ; collision class
 class = SM_SNORK ; AI class
-
 bone_torso = bip01_spine1 ; bone name
 bone_head = bip01_head ; bone name
 bone_fire = bip01_head ; bone name
 weapon_usage = 0 ; boolean
-
 ph_box0_center = 0.0, 0.9, 0.0
 ph_box0_size = 0.35, 0.9, 0.35
 ph_box1_center = 0.0, 0.6, 0.0
@@ -62,18 +52,14 @@ ph_crash_speed_min = 100
 ph_crash_speed_max = 300
 ph_collision_damage_factor = 0.1
 ph_mass = 90
-
 destroyed_vis_name = dynamics\Dead_Body\skelet_crash
-
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.002 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.3 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5.0 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_ddelay = 15.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½
-
 ph_skel_fatal_impulse_factor = 6.0
-ph_after_death_velocity_factor= 0.75
+ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor = 0.25
-
 ; ----------------------------------------------------------------------------
 ; Movement::Velocities & Acceleration
 ; ----------------------------------------------------------------------------
@@ -87,18 +73,15 @@ Velocity_Drag = 1.0, 1.0, 1.0, 1, 1
 Velocity_Steal = 1.5, 3.0, 3.0, 1, 1
 Velocity_JumpGround = 6.0, 3.0, 0.01, 0.4, 1
 Velocity_Jump_Stand = 6.0, 3.0, 0.01, 0.4, 1
-
 ; acceleration
 Accel_Generic = 1.5
 Accel_Calm = 2.5
 Accel_Aggressive = 12.0
-
 MinAttackDist = 1.9 ; 0.5
 MaxAttackDist = 2.9 ; 3.8
 as_min_dist = 1.9
 as_step = 0
 hit_type = wound ; type of attack
-
 aom_enabled = 1
 aom_animation_left = stand_run_attack_right_
 aom_animation_right = stand_run_attack_left_ ; stand_attack_
@@ -108,7 +91,6 @@ aom_prepare_time = 1 ; 4
 aom_attack_radius = 0.8
 aom_update_side_period = 6
 aom_prediction_factor = 0.8
-
 jump_delay = 2000
 jump_factor = 2.0
 jump_ground_trace_range = 1.5
@@ -119,7 +101,6 @@ jump_max_distance = 7.0
 jump_max_angle = 0.6
 jump_max_height = 13.5
 jump_auto_aim_factor = 0.3
-
 satiety_v = 0.005 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 radiation_v = 0.00001 ; 0.004 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 satiety_power_v = 0.005 ; 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -130,36 +111,29 @@ morale_v = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï
 health_hit_part = 1 ; 0.8 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 power_hit_part = 1 ; 0.9 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 psy_health_v = 0.1 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ psy-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 bleeding_v = 0.04 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 wound_incarnation_v = 0.05 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 min_wound_size = 0.01
-
 ; Health from which to play injured animation
 DamagedThreshold = 0.2
-
 ; Sleep Settings
 sleep_health = 1.0 ; 1.5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½v ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 sleep_power = 1.0 ; 1.5
 sleep_satiety = 1.0 ; 0.8
 sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
-
 ; Eat settings
 eat_freq = 5.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½
 eat_slice = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½
 eat_slice_weight = 10.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½v ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
-
 satiety_threshold = 0.5 ; below this value monster fill hunger
-
 Morale_Hit_Quant = 0.1
 Morale_Attack_Success_Quant = 0.1
 Morale_Take_Heart_Speed = 0.1
 Morale_Despondent_Speed = 0.1
 Morale_Stable_Speed = 0.01
 Morale_Despondent_Threashold = 0.5
-
 sound_idle = monsters\snork\snork_idle_ ; idle_
 sound_eat = monsters\biting\def_ ; eat_
 sound_aggressive = monsters\snork\snork_attack_ ; attack_
@@ -167,63 +141,46 @@ sound_attack_hit = monsters\snork\snork_attack_hit_
 sound_take_damage = monsters\snork\snork_idle_ ; hit_
 sound_die = monsters\biting\def_ ; die_
 sound_bkgnd = monsters\biting\def_
-
 ; sound_threaten = monsters\biting\def_ ; threaten_
 sound_threaten = monsters\snork\snork_attack_
-
 sound_landing = monsters\biting\def_
 sound_steal = monsters\biting\def_
 sound_panic = monsters\snork\snork_idle_ ; hit_
 sound_growling = monsters\biting\def_
 sound_die_in_anomaly = monsters\biting\def_
-
 killer_clsids = Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
-
 ; Frequency of sounds to be played
 idle_sound_delay = 300000
 eat_sound_delay = 3000
 attack_sound_delay = 4000
-
 sound_distant_idle = monsters\snork\snork_idle_
 distant_idle_sound_delay = 80000
 distant_idle_sound_range = 100.0
-
 SoundThreshold = 0.02 ; range [0..1]
 max_hear_dist = 60
-
 material = creatures\medium
 DynamicObjectsCount = 32
-
 attack_effector = m_snork_attack_effector
-
 critical_wound_threshold = -1
 critical_wound_decrease_quant = 0.
-
 LegsCount = 2
-
 DayTime_Begin = 0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DayTime_End = 21 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 Min_Satiety = 0.4 ; ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½)
 Max_Satiety = 1.0 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½vï¿½)
-
 distance_to_corpse = 1.2 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½v
-
 ; species of monster
 species = snork
 community = snork
-
 terrain = snork_terrain
 step_params = m_snork_step_params
 damage = m_snork_damage
 immunities_sect = snork_immunities
 protections_sect = snork_protections
-
 eye_fov = 110 ; 140
 eye_range = 50 ; 50
-
 vision_free_section = snork_vision_free
 vision_danger_section = snork_vision_danger
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ visibility_threshold ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½,
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½.
 
@@ -252,8 +209,8 @@ transparency_threshold = 0.25
 [snork_protections]
 skin_armor = 0.5
 hit_fraction_monster = 0.3
-
 ; SNORK Damage
+
 [m_Snork_damage]
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
@@ -279,7 +236,6 @@ color_add = 0,0,0
 time = 0.30
 time_attack = 0.05 ; fade in
 time_release = 0.15 ; fade out
-
 ; camera effects
 ce_time = 0.35 ; time
 ce_amplitude = 10 ; head shake after hit
@@ -291,7 +247,7 @@ ce_power = 2.5 ; 2.0 ; power
 ; anim | Cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
 ; -------------------------------------------------------------------------------------------------------------
 stand_walk_fwd_0 = 1, 0.01, 1, 0.5, 0.7, 0.15, 1.0, 0.5, 1.0
-stand_walk_damaged_0= 1, 0.2, 1, 0.25, 0.7, 0.5, 1.0, 0.7, 1.0
+stand_walk_damaged_0 = 1, 0.2, 1, 0.25, 0.7, 0.5, 1.0, 0.7, 1.0
 stand_run_0 = 1, 0.01, 1, 0.05, 0.7, 0.2, 1.0, 0.2, 0.2
 stand_run_damaged_0 = 1, 0.2, 1, 0.25, 0.7, 0.7, 1.0, 0.7, 1.0
 stand_steal_0 = 1, 0.2, 1, 0.25, 0.7, 0.7, 1.0, 0.7, 1.0
@@ -337,7 +293,6 @@ fire_wound_immunity = 1.0
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 stand_attack_0 = 0.30, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_attack_2_1 = 0.30, 0.7, 70, 0.0, 1.0, 2.0, -1.8, 1.8, -1.8, 1.8, 3.5
-
 stand_run_attack_left_0 = 0.40, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_run_attack_right_0 = 0.40, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 
@@ -370,7 +325,6 @@ fire_wound_immunity = 1.0
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 stand_attack_0 = 0.30, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_attack_2_1 = 0.30, 0.7, 70, 0.0, 1.0, 2.0, -1.8, 1.8, -1.8, 1.8, 3.5
-
 stand_run_attack_left_0 = 0.40, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_run_attack_right_0 = 0.40, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 
@@ -403,7 +357,6 @@ fire_wound_immunity = 1.0
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 stand_attack_0 = 0.30, 0.7, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_attack_2_1 = 0.30, 0.8, 70, 0.0, 1.0, 2.0, -1.8, 1.8, -1.8, 1.8, 3.5
-
 stand_run_attack_left_0 = 0.40, 0.7, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_run_attack_right_0 = 0.40, 0.7, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 

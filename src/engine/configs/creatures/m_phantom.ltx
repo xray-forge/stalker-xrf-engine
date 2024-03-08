@@ -6,15 +6,11 @@ cform = skeleton
 class = AI_PHANT
 rank = 100
 visuals = monsters\phantom\pseudodog_0 ,monsters\phantom\tushkano_0, monsters\phantom\mutant_boar_0, monsters\phantom\krovosos_0, monsters\phantom\snork_0
-
 speed = 2.0
 angular_speed = 3.5
 contact_hit = 0.1
-
 ef_creature_type = -1
-
 script_binding = bind.phantom ; xrf change
-
 ; state BIRTH
 particles_birth = monsters\phantom_birth
 sound_birth = monsters\poltergeist\attack_hit_0
@@ -27,19 +23,15 @@ sound_contact = monsters\poltergeist\hit_0
 ; state SHOOT
 particles_shoot = monsters\phantom_death
 sound_shoot = monsters\biting\def_0
-
 material = creatures\phantom
-
 fire_max_distance = 0
 fire_max_power = 5
 fire_linear_factor = 0
 fire_quadratic_factor = 0.025
-
 psy_max_distance = 0
 psy_max_power = 5
 psy_linear_factor = 0.05
 psy_quadratic_factor = 0
-
 radiation_max_distance = 3
 radiation_max_power = 0.02
 radiation_linear_factor = 1

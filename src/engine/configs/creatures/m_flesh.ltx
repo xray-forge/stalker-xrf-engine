@@ -18,42 +18,33 @@ icon = ui_npc_monster_flesh
 MaxHealthValue = 1.0 ; range [0..200]
 DynamicObjectsCount = 32
 smart_terrain_choose_interval = 00:15:00
-
 Spawn_Inventory_Item_Section = mutant_flesh_eye
 Spawn_Inventory_Item_Probability = 0.0
-
 ef_creature_type = 7 ; option for evaluation functions
 ef_weapon_type = 2
 ef_detector_type = 1
 panic_threshold = 0.1
-
 cform = skeleton ; collision class
 class = SM_FLESH ; AI class
-
 script_binding = bind.monster ; xrf change
-
 bone_torso = bip01_spine1 ; bone name
 bone_head = bip01_head ; bone name
 bone_fire = bip01_head ; bone name
 weapon_usage = 0 ; boolean
-
 fire_max_distance = 0
 fire_max_power = 5
 fire_linear_factor = 0
 fire_quadratic_factor = 0.025
-
 psy_max_distance = 0
 psy_max_power = 5
 psy_linear_factor = 0.05
 psy_quadratic_factor = 0
-
 radiation_max_distance = 0
 radiation_max_power = 0.01
 radiation_linear_factor = 1
 radiation_quadratic_factor = 1
 radiation_pp_effector_name = postprocess_rad
 radiation_pp_highest_at = 0.02
-
 ph_box0_center = 0.0, 0.9, 0.0
 ph_box0_size = 0.55, 0.9, 0.55
 ph_box1_center = 0.0, 0.6, 0.0
@@ -62,22 +53,17 @@ ph_crash_speed_min = 10
 ph_crash_speed_max = 30
 ph_collision_damage_factor = 0.1
 ph_mass = 200 ; 100 ; also it's the food
-
 destroyed_vis_name = dynamics\Dead_Body\skelet_crash_monster
-
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.002 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.3 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5.0 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_ddelay = 15.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½
-
 ph_skel_fatal_impulse_factor = 12.0
-ph_after_death_velocity_factor= 0.75
+ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor = 0.25
-
 ; Squad seperation behaviour (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 separate_factor = 0.8 ; ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 separate_range = 3 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
 ; speed factors linear | angular_real | angular_path | min | max
 Velocity_Stand = 0, 1.79, 1.79 1, 1
 Velocity_WalkFwdNormal = 1.5, 2.0, 2.0, 0.2, 2.0
@@ -86,20 +72,15 @@ Velocity_RunFwdNormal = 5.0, 2.5, 2.5, 0.2, 1
 Velocity_RunFwdDamaged = 4.5, 3.0, 3.0, 0.3, 1
 Velocity_Drag = 1.5, 2.14, 2.14, 1, 1
 Velocity_Steal = 1.3, 2.14, 2.14, 1, 1
-
 ; acceleration
 Accel_Generic = 1.5
 Accel_Calm = 2.5
 Accel_Aggressive = 8.5
-
 MinAttackDist = 2.3
 MaxAttackDist = 2.9
-
 as_min_dist = 1.3
 as_step = 0.4
-
 Melee_Rotation_Factor = 2.6
-
 satiety_v = 0.0001 ; 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 radiation_v = 0.00001 ; 0.004 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 satiety_power_v = 0.005 ; 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½v ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½
@@ -110,26 +91,20 @@ morale_v = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï
 health_hit_part = 1.0 ; 0.8 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 power_hit_part = 1.0 ; 0.9 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½v
 psy_health_v = 0.1 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ psy-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
 bleeding_v = 0.04 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 wound_incarnation_v = 0.05 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 min_wound_size = 0.01
-
 sleep_health = 1.0 ; 1.5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½v ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 sleep_power = 1.0 ; 1.5
 sleep_satiety = 1.0 ; 0.8
 sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
-
 eat_freq = 5.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½
 eat_slice = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½
 eat_slice_weight = 10.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½v ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
-
 satiety_threshold = 0.5 ; below this value monster fill hunger
-
 SoundThreshold = 0.07 ; range [0..1]
 max_hear_dist = 40
-
 sound_idle = monsters\flesh\flesh_idle_
 sound_eat = monsters\flesh\flesh_eat_
 sound_aggressive = monsters\flesh\flesh_aggressive_
@@ -143,69 +118,51 @@ sound_panic = monsters\flesh\flesh_panic_
 sound_growling = monsters\biting\def_
 sound_die_in_anomaly = monsters\flesh\flesh_anomaly_death_
 ; sound_distant = monsters\dog\flesh_distant_ ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 200ï¿½
-
 killer_clsids = Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
-
 idle_sound_delay = 85000
 eat_sound_delay = 3000
 attack_sound_delay = 6000
-
 sound_distant_idle = monsters\flesh\flesh_idle_
 distant_idle_sound_delay = 80000
 distant_idle_sound_range = 100.0
-
 DayTime_Begin = 6 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DayTime_End = 21 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 Min_Satiety = 0.4 ; 0.6 ; ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½)
 Max_Satiety = 1.0 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½vï¿½vï¿½)
-
 Morale_Hit_Quant = 0.1
 Morale_Attack_Success_Quant = 0.1
 Morale_Take_Heart_Speed = 0.1
 Morale_Despondent_Speed = 0.1
 Morale_Stable_Speed = 0.01
 Morale_Despondent_Threashold = 0.5
-
 critical_wound_threshold = 0.4
 critical_wound_decrease_quant = 0.
-
 critical_wound_anim_head = critical_hit_head_0
 critical_wound_bones_head = flesh_critical_wound_bones_head
-
 critical_wound_anim_torso = critical_hit_torso_0
 critical_wound_bones_torso = flesh_critical_wound_bones_torso
-
 critical_wound_anim_legs = critical_hit_torso_0
 critical_wound_bones_legs = flesh_critical_wound_bones_legs
-
 distance_to_corpse = 0.9 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½v
 selector_approach = 20.0, 1.0, 1000.0, 0.0, 0.0, 1000.0, 10000.0,
-
 DamagedThreshold = 0.4
-
 material = creatures\hoof
 step_params = m_flesh_step_params
 LegsCount = 4
-
 ; species of monster
 species = flesh
-
 terrain = flesh_terrain
 damage = m_flesh_damage
 protections_sect = flesh_protections
 immunities_sect = flesh_immunities
 attack_effector = m_flesh_attack_effector
 attack_params = m_flesh_attack_params
-
 eye_fov = 100
 eye_range = 30 ; 60 ; 30
-
 ; number of visible objects monster can handle
 DynamicObjectsCount = 32
-
 vision_free_section = flesh_vision_free
 vision_danger_section = flesh_vision_danger
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ visibility_threshold ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½,
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½.
 
@@ -273,13 +230,13 @@ stand_attack_3 = 0.40, 0.6, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
 ; anim | cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
 ; -------------------------------------------------------------------------------------------------------------
 stand_walk_fwd_0 = 8, 0.2, 1, 0.25, 0.7, 0.5, 1.0, 0.7, 1.0
-stand_walk_fwd_dmg_0= 7, 0.2, 1, 0.25, 0.7, 0.5, 1.0, 0.7, 1.0
+stand_walk_fwd_dmg_0 = 7, 0.2, 1, 0.25, 0.7, 0.5, 1.0, 0.7, 1.0
 stand_run_0 = 6, 0.2, 1, 0.25, 0.7, 0.5, 1.0, 0.7, 1.0
 stand_run_dmg_0 = 6, 0.2, 1, 0.25, 0.7, 0.7, 1.0, 0.7, 1.0
 stand_crawl_0 = 1, 0.2, 1, 0.25, 0.7, 0.7, 1.0, 0.7, 1.0
 stand_drag_0 = 1, 0.2, 1, 0.25, 0.7, 0.7, 1.0, 0.7, 1.0
-
 ; SPECIAL EFFECTORS
+
 [m_flesh_attack_effector]
 duality_h = 0.01
 duality_v = 0.01
@@ -294,7 +251,6 @@ color_add = 0,0,0
 time = 0.3
 time_attack = 0.05 ; fade in
 time_release = 0.25 ; fade out
-
 ; camera effects
 ce_time = 0.45 ; time
 ce_amplitude = -10.0

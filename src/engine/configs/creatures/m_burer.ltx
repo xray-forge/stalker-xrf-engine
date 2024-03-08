@@ -7,27 +7,22 @@ $prefetch = 16
 visual = monsters\burer\burer
 corpse_visual = monsters\burer\burer_dead
 MaxHealthValue = 100 ; range [0..200]
-
 Spawn_Inventory_Item_Section = mutant_burer_hand
 Spawn_Inventory_Item_Probability = 0.0
-
 fire_max_distance = 0
 fire_max_power = 5
 fire_linear_factor = 0
 fire_quadratic_factor = 0.025
-
 psy_max_distance = 0
 psy_max_power = 5
 psy_linear_factor = 0.05
 psy_quadratic_factor = 0
-
 radiation_max_distance = 0
 radiation_max_power = 0.01
 radiation_linear_factor = 1
 radiation_quadratic_factor = 1
 radiation_pp_effector_name = postprocess_rad
 radiation_pp_highest_at = 0.02
-
 Scheduled = on ; option for ALife Simulator
 Human = off ; option for ALife Simulator
 Health = 400 ; option for ALife Simulator
@@ -36,7 +31,6 @@ MaxSpeed = 5.0 ; option for ALife Simulator
 going_speed = 3 ; 4.5 ; option for ALife Simulator
 search_speed = 1.5 ; option for ALife Simulator
 smart_terrain_choose_interval = 00:15:00
-
 ph_box0_center = 0.0, 0.7, 0.0
 ph_box0_size = 0.35, 0.7, 0.35
 ph_box1_center = 0.0, 0.6, 0.0
@@ -45,18 +39,14 @@ ph_crash_speed_min = 10
 ph_crash_speed_max = 30
 ph_collision_damage_factor = 0.1
 ph_mass = 70 ; 100
-
 destroyed_vis_name = dynamics\Dead_Body\skelet_crash
-
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.002 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.3 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5.0 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_ddelay = 15.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½
-
 ph_skel_fatal_impulse_factor = 6.0
-ph_after_death_velocity_factor= 0.75
+ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor = 0.25
-
 ; speed factors linear | angular_real | angular_path | min | max
 Velocity_Stand = 0, 6.0, 6.0, 0.2, 0.5
 Velocity_RunFwdNormal = 4.5, 2.5, 2.5, 0.2, 1
@@ -65,26 +55,20 @@ Velocity_WalkFwdNormal = 1.6, 3.0, 3.0, 0.02, 1.5
 Velocity_WalkFwdDamaged = 1.0, 3.0, 3.0, 0.5, 2.0
 Velocity_Drag = 1.0, 3.0, 3.0, 1, 1
 Velocity_Steal = 1.5, 3.0, 3.0, 1, 1
-
 ; acceleration
 Accel_Generic = 1.5
 Accel_Calm = 1.5
 Accel_Aggressive = 200 ; 6.5
-
 runaway_distance = 7
 normal_distance = 11
 max_runaway_time = 6000
-
 MinAttackDist = 1.5
 MaxAttackDist = 2.5
 as_min_dist = 0.9
 as_step = 0.3
-
 attack_effector = m_burer_attack_effector
 attack_params = m_burer_attack_params
-
 Melee_Rotation_Factor = 1.8
-
 satiety_v = 0.0001 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 radiation_v = 0.00001 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 satiety_power_v = 0.001 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -95,31 +79,24 @@ morale_v = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï
 health_hit_part = 0.5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 power_hit_part = 1.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 psy_health_v = 0.1 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ psy-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 bleeding_v = 0.05 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 wound_incarnation_v = 0.04 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 min_wound_size = 0.01
-
 sleep_health = 1.0 ; 1.5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 sleep_power = 1.0 ; 1.5
 sleep_satiety = 1.0 ; 0.8
 sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
-
 eat_freq = 5.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½
 eat_slice = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½
 eat_slice_weight = 10.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
-
 bone_head = head ; bone name
-
 DayTime_Begin = 0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DayTime_End = 21 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 Min_Satiety = 0.6 ; ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 Max_Satiety = 0.9 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
-
 satiety_threshold = 0.5 ; below this value monster fill hunger
-
 sound_idle = monsters\burer\burer_idle_
 sound_eat = monsters\burer\burer_idle_
 sound_aggressive = monsters\biting\def_
@@ -135,33 +112,26 @@ sound_gravi_attack = monsters\burer\burer_gravi_attack_
 sound_tele_attack = monsters\biting\def_
 sound_gravi_wave = monsters\burer\burer_gravi_wave_0
 sound_die_in_anomaly = monsters\burer\burer_attacking_
-
 killer_clsids = Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
-
 idle_sound_delay = 55000 ; 5000
 eat_sound_delay = 3000
 attack_sound_delay = 14000 ; 4000
-
 sound_distant_idle = monsters\burer\burer_idle_
 distant_idle_sound_delay = 80000
 distant_idle_sound_range = 100.0
-
 SoundThreshold = 0.06 ; range [0..1]
 max_hear_dist = 60
-
 Morale_Hit_Quant = 0.1
 Morale_Attack_Success_Quant = 0.2
 Morale_Take_Heart_Speed = 0.1
 Morale_Despondent_Speed = 0.1
 Morale_Stable_Speed = 0.1
 Morale_Despondent_Threashold = 0.5
-
 shield_cooldown = 3000
 shield_time = 3000
 shield_keep_particle = anomaly2\burer_shield_01
 shield_keep_particle_period = 300
 Particle_Shield = anomaly2\burer_shield_01
-
 anti_aim_timeout = 3 ; 1.5 ; sec
 anti_aim_effectors = effector_monster_hit_1, effector_monster_hit_2, effector_monster_hit_3, effector_monster_hit_4
 anti_aim_animation = stand_stamina_attack_
@@ -171,7 +141,6 @@ anti_aim_detection_loose_speed = 0.1
 weapon_drop_velocity = 8
 weapon_drop_stamina_k = 0.7 ; IF player stamina < stamina_hit*inv_weight(weapon param)*weapon_drop_stamina_k THEN weapon is dropped
 weight_to_stamina_hit = 0.27 ; 0.25 ; kg to stamina %
-
 Gravi_Cooldown = 5000 ; milisec
 Gravi_MinDist = 1 ; meter
 Gravi_MaxDist = 15 ; meter
@@ -182,7 +151,6 @@ Gravi_Radius = 3.0
 Gravi_Impulse_To_Objects = 60.0
 Gravi_Impulse_To_Enemy = 1000.0
 Gravi_Hit_Power = 1.0
-
 Tele_Max_Handled_Objects = 4
 Tele_Max_Time = 7000 ; // (s) max time to be in telekinesis
 Tele_Time_To_Hold = 400
@@ -194,72 +162,54 @@ Tele_Max_Distance = 50
 Tele_Raise_Speed = 6
 Tele_Fly_Velocity = 70 ; 50
 Tele_Object_Height = 3 ; 2
-
 sound_tele_hold = monsters\burer\burer_tele_hold
 sound_tele_throw = monsters\burer\burer_tele_throw
-
 scan_critical_value = 25.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 scan_radius = 50.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 scan_velocity_threshold = 4.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 scan_decrease_value = 0.3 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 scan_trace_time_freq = 2 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (for programmer only) (1 = 2 ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½)
-
 scan_sound = monsters\burer\burer_scan_affect_0
 scan_effector_section = m_burer_scan_effector
-
 Particle_Tele_Object = static\fire_distort
 Particle_Gravi_Wave = anomaly2\burer_wave
 Particle_Gravi_Prepare = anomaly2\burer_prepare
-
 critical_wound_threshold = -1
 critical_wound_decrease_quant = 0.
-
 ef_creature_type = 18 ; option for evaluation functions
 ef_weapon_type = 3
 ef_detector_type = 1
 panic_threshold = 0.1
-
 cform = skeleton ; collision class
 class = SM_BURER ; AI class
-
 script_binding = bind.monster ; xrf change
-
 bone_torso = chest ; bone name
 bone_head = head ; bone name
 bone_fire = head ; bone name
 weapon_usage = 0 ; boolean
 actor_restrictor = medium_monster ; medium_monster,stalker,none
-
 distance_to_corpse = 1.2 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
-
 selector_approach = 20.0, 1.0, 1000.0, 0.0, 0.0, 1000.0, 10000.0,
 terrain = burer_terrain
 hit_type = wound
-
 DamagedThreshold = 0.5
-
 material = creatures\large
 step_params = m_burer_step_params
 LegsCount = 2
 damage = m_burer_damage
-
 ; species of monster
 species = burer
 rank = 19
 spec_rank = weak
 community = burer
 monster_type = indoor
-
 protections_sect = burer_protections
 immunities_sect = burer_immunities
-
 DynamicObjectsCount = 32
 eye_fov = 130
 eye_range = 110
-
 vision_free_section = burer_vision_free
 vision_danger_section = burer_vision_danger
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ visibility_threshold ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½,
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½.
 
@@ -305,11 +255,9 @@ transparency_threshold = 0.25
 ; Left hand Strike
 stand_attack_0 = 0.4, 0.70, 100, 2.0, 1.0, 0.5, -1.6, 1.6, -1.6, 1.6, 2.5
 stand_stamina_attack_0 = 0.4, 0.0, 0, 2.0, 1.0, 0.5, -1.6, 1.6, -1.6, 1.6, 2.5
-
 ; Burer Attack Effector
 
 [m_burer_attack_effector]
-
 duality_h = 0.1 ; 0.01
 duality_v = 0.01 ; 0.01
 blur = 0.01
@@ -323,7 +271,6 @@ color_add = 0.0,0.0,0.0
 time = 3.00
 time_attack = 0.05 ; fade in
 time_release = 0.50 ; fade out
-
 ; camera effects
 ce_time = 0.30 ; time
 ce_amplitude = 12.0
@@ -341,9 +288,7 @@ stand_run_fwd_0 = 1, 0.4, 1, 0.9, 0.6,
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 ; <wound_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-
 default = 0.5, -1, 0.1
-
 hip = 1, -1, 0.1
 spine = 1, -1, 0.1
 chest = 1, -1, 0.1

@@ -32,16 +32,13 @@ health_hit_part = 1.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 power_hit_part = 0.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 psy_health_v = 0.1 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ psy-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 health_restore_v = 0.001 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
 sleep_health = 1.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 sleep_power = 1.0
 sleep_satiety = 1.0
 sleep_radiation = 1.0
 sleep_psy_health = 1.0
-
 use_limping_state = off
 limping_threshold = 0.5
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 bleeding_v = 0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 wound_incarnation_v = 0.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
@@ -98,7 +95,6 @@ panic_stand_run_forward = 7.0
 [stalker_zombied]:stalker
 $spawn = "stalkers\stalker_zombied" ; option for Level Editor
 attachable_items = device_torch,attachable_item
-
 condition_sect = stalker_zombied_condition
 immunities_sect = stalker_zombied_immunities
 vision_danger_section = stalker_zombied_vision_danger
@@ -109,12 +105,10 @@ ignore_monster_threshold = 0.8
 max_ignore_distance = 10.0
 panic_threshold = 0
 sound_threshold = 0.5
-
 sound_death = fight\death\death_
 sound_anomaly_death = fight\death\death_
 sound_hit = fight\hit\hit_
 sound_humming = states\idle\idle_
-
 sound_backup = ; fight\attack\attack_ ; fight\backup\stalker\backup_
 sound_detour = ; fight\enemy\enemy_ ; fight\detour\stalker\detour_
 sound_search = ; fight\attack\attack_ ; fight\searching_enemy\stalker\search_
@@ -127,20 +121,16 @@ sound_friendly_grenade_alarm = ; fight\friendly_grenade\friendly_grenade_
 sound_need_backup = ; fight\attack\attack_ ; fight\cover_fire\cover_fire_
 sound_running_in_danger = ; states\breath\stalker\breath_1
 sound_walking_in_danger = ; states\breath\stalker\breath_2
-
 sound_kill_wounded = ; help\wounded\kill_wounded_
 sound_enemy_critically_wounded = ; fight\enemy_hit\enemy_hit_
 sound_enemy_killed_or_wounded = ; fight\enemy_down\enemy_down_
-
 sound_attack_no_allies = ; fight\fire\fire_,fight\threat\threat_distant_
 sound_attack_allies_single_enemy = ; fight\attack\attack_,fight\attack\attack_one_,fight\fire\fire_
 sound_attack_allies_several_enemies = ; fight\attack\attack_,fight\attack\attack_many_,fight\fire\fire_
 sound_search1_no_allies = ; fight\threat\threat_distant_
 sound_search1_with_allies = ; fight\searching_enemy\search_,fight\searching_enemy\enemy_lost_
 sound_throw_grenade = ; fight\grenade\grenade_ready_
-
 movement_speeds = stalker_zombied_movement_speeds
-
 disp_walk_stand = 16
 disp_walk_crouch = 16
 disp_run_stand = 16
@@ -149,18 +139,14 @@ disp_stand_stand = 10 ; 16
 disp_stand_crouch = 5 ; 16
 disp_stand_stand_zoom = 1
 disp_stand_crouch_zoom = 1
-
 species = zombie
-
 critical_wound_threshold = 1.1
 critical_wound_decrease_quant = 0.
 body_parts_section_id = critical_wound_body_parts_section
 
 [stalker_fresh_zombied]:stalker_zombied
 $spawn = "stalkers\stalker_fresh_zombied" ; option for Level Editor
-
 movement_speeds = stalker_movement_speeds
-
 critical_wound_threshold = 1.1
 critical_wound_decrease_quant = 0.
 body_parts_section_id = critical_wound_body_parts_section

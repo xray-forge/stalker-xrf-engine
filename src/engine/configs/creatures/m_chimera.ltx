@@ -7,26 +7,21 @@ $prefetch = 16
 visual = monsters\chimera\chimera
 corpse_visual = monsters\chimera\chimera_dead
 icon = ui_npc_monster_snork ; @@@@@NEEDS REFACTORING@@@@@
-
 terrain = chimera_terrain
-
 fire_max_distance = 0
 fire_max_power = 5
 fire_linear_factor = 0
 fire_quadratic_factor = 0.025
-
 psy_max_distance = 0
 psy_max_power = 5
 psy_linear_factor = 0.05
 psy_quadratic_factor = 0
-
 radiation_max_distance = 0
 radiation_max_power = 0.01
 radiation_linear_factor = 1
 radiation_quadratic_factor = 1
 radiation_pp_effector_name = postprocess_rad
 radiation_pp_highest_at = 0.02
-
 Scheduled = on ; option for ALife Simulator
 Human = off ; option for ALife Simulator
 Health = 1000 ; option for ALife Simulator
@@ -37,24 +32,18 @@ current_level_going_speed = 3 ; 2 ; option for ALife Simulator
 search_speed = 1.5 ; option for ALife Simulator
 MaxHealthValue = 1000 ; range [0..200]
 smart_terrain_choose_interval = 00:15:00
-
 script_binding = bind.monster ; xrf change
-
 ef_creature_type = 20 ; option for evaluation functions
 ef_weapon_type = 2
 ef_detector_type = 1
 panic_threshold = 0.1
-
 cform = skeleton ; collision class
 class = SM_CHIMS ; AI class
-
 script_binding = bind.monster ; xrf change
-
 bone_torso = spine_1 ; bone name
 bone_head = head_boss ; bone name
 bone_fire = head_boss ; bone name
 weapon_usage = 0 ; boolean
-
 ph_box0_center = 0.0, 0.9, 0.0
 ph_box0_size = 0.35, 0.9, 0.35
 ph_box1_center = 0.0, 0.6, 0.0
@@ -63,23 +52,18 @@ ph_crash_speed_min = 10
 ph_crash_speed_max = 30
 ph_collision_damage_factor = 0.01
 ph_mass = 220 ; 170
-
 destroyed_vis_name = dynamics\Dead_Body\skelet_crash_monster
 ; destroyed_vis_name = dynamics\Dead_Body\skelet_crash
-
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.002 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.3 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5.0 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ph_skeleton_ddelay = 15.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½
-
 ph_skel_fatal_impulse_factor = 12.0
 ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor = 0.25
-
 ; speed factors linear | angular_real | angular_path | min | max
 Velocity_Stand = 0, 3.5, 1.5, 1, 1
 Velocity_RunFwdNormal = 6.5, 3.5, 2.0, 0.2, 1
-
 Velocity_RunFwdDamaged = 5.0, 3.5, 2.0, 0.2, 1
 Velocity_WalkFwdDamaged = 2.0, 3.0, 2.0, 0.5, 2.0
 Velocity_WalkFwdNormal = 2.3, 3.2, 1.2, 0.02, 3.0
@@ -88,11 +72,9 @@ Velocity_Steal = 1.5, 3.0, 2.0, 1, 1
 Velocity_Rotate = 0.0, 6.0, 1.0, 0.1 1
 Velocity_JumpGround = 8.0, 3.5, 2.0, 0.4, 1
 Velocity_JumpStart = 8.0, 3.5, 2.0, 0.4, 1
-
 Accel_Generic = 1.5
 Accel_Calm = 3.5
 Accel_Aggressive = 9.5
-
 ; Attack specific
 prediction_factor = 1.7
 attack_radius = 15 ; 12 ; run around radius
@@ -107,7 +89,6 @@ MaxAttackDist = 4.8 ; 2.7 ; 3.8
 as_min_dist = 1.2
 as_step = 0.3
 hit_type = wound ; type of attack
-
 ; Jump parameters
 jump_delay = 0
 jump_factor = 2
@@ -119,7 +100,6 @@ jump_max_distance = 15.0
 jump_max_angle = 3.14
 jump_max_height = 3.5
 jump_auto_aim_factor = 0.5
-
 ; Entity Conditions
 satiety_v = 0.0001 ; 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 radiation_v = 0.00001 ; 0.004 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -131,37 +111,29 @@ morale_v = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï
 health_hit_part = 1.0 ; 0.8 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 power_hit_part = 1.0 ; 0.9 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 psy_health_v = 0.1 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ psy-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
 protections_sect = chimera_protections
 immunities_sect = chimera_immunities
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 bleeding_v = 0.04 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 wound_incarnation_v = 0.05 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 min_wound_size = 0.01
-
 ; Health from which to play injured animation
 DamagedThreshold = 0.2
-
 sleep_health = 1.0 ; 1.5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 sleep_power = 1.0 ; 1.5
 sleep_satiety = 1.0 ; 0.8
 sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
-
 eat_freq = 5.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½
 eat_slice = 0.001 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½
 eat_slice_weight = 10.0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
-
 satiety_threshold = 0.5 ; below this value monster fill hunger
-
 Morale_Hit_Quant = 0.2
 Morale_Attack_Success_Quant = 0.1
 Morale_Take_Heart_Speed = 0.1
 Morale_Despondent_Speed = 0.1
 Morale_Stable_Speed = 0.01
 Morale_Despondent_Threashold = 0.4
-
 sound_idle = monsters\chimera\chimera_idle_
 sound_eat = monsters\biting\def_ ; eat_
 sound_aggressive = monsters\chimera\chimera_attack_
@@ -176,64 +148,46 @@ sound_steal = monsters\biting\def_
 sound_panic = monsters\biting\def_
 sound_growling = monsters\biting\def_
 sound_die_in_anomaly = monsters\biting\def_
-
 killer_clsids = Z_MINCER,Z_GALANT,ZS_BFUZZ,ZS_MBALD,ZS_GALAN,ZS_MINCE
-
 idle_sound_delay = 95000
 eat_sound_delay = 3000
 attack_sound_delay = 12000
-
 sound_distant_idle = monsters\snork\snork_idle_
 ; sound_distant_idle = monsters\bloodsucker\idle_
 distant_idle_sound_delay = 80000
 distant_idle_sound_range = 100.0
-
 SoundThreshold = 0.02 ; range [0..1]
 max_hear_dist = 60
-
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 ; <wound_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-
 default = 0.5, -1, 0.1
-
 hip = 1, -1, 0.1
 spine = 1, -1, 0.1
 spine_1 = 1, -1, 0.1
 neck_r = 1, -1, 0.1
 head_boss = 2, -1, 0.5
-
 material = creatures\medium
 DynamicObjectsCount = 32
-
 squad_attack_algorithm = 1
 attack_effector = m_chimera_attack_effector
-
 critical_wound_threshold = -1
 critical_wound_decrease_quant = 0.
-
 attack_params = m_chimera_attack_params
 step_params = m_chimera_step_params
-
 LegsCount = 4
 damage = m_chimera_damage
-
 ; species of monster
 species = chimera
-
 DayTime_Begin = 0 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 DayTime_End = 21 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 Min_Satiety = 0.6 ; ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 Max_Satiety = 0.9 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
-
 distance_to_corpse = 1.2 ; ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
-
 eye_fov = 110 ; 140
 eye_range = 100 ; 50
-
 vision_free_section = chimera_vision_free
 vision_danger_section = chimera_vision_danger
-
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ visibility_threshold ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½,
 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½.
 
@@ -262,8 +216,8 @@ transparency_threshold = 0.25
 [chimera_protections]
 skin_armor = 0.7
 hit_fraction_monster = 0.2
-
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
+
 [m_chimera_attack_params]
 jump_attack_1 = 0.3, 1.0, 350, 0.0, 1.0, 0.0, -1.8, 1.8, -1.8, 1.8, 2.5
 
@@ -281,7 +235,6 @@ color_add = 0.0,0.0,0.0
 time = 3.00
 time_attack = 0.05 ; fade in
 time_release = 0.50 ; fade out
-
 ; camera effects
 ce_time = 0.30 ; time
 ce_amplitude = 12.0
@@ -307,13 +260,11 @@ fire_wound_immunity = 0.3
 [chimera_terrain]
 ; 255,255,255,255,30,40
 255,000,255,255
-
 ; fSearchRange,fOptEnemyDistance,fOptEnemyDistanceWeight,fMinEnemyDistance,fMinEnemyDistanceWeight,fMaxEnemyDistance,fMaxEnemyDistanceWeight
 ; selector_free_hunting = 20.0, 20.0, 1000.0, 0.0, 10000.0, 1000.0, 10000.0,
 ; fSearchRange,fCoverFromEnemyWeight,fOptEnemyDistance,fOptEnemyDistanceWeight,fMinEnemyDistance,fMinEnemyDistanceWeight,fMaxEnemyDistance,fMaxEnemyDistanceWeight
 ; selector_cover = 20.0, -1000.0, 30.0, 0.0, 0.0, 100000.0, 100000.0, 1000.0,
 ; selector_hear_sound = 20.0, 1.0, 1000.0, 0.0, 0.0, 1000.0, 10000.0,
-
 ; selector_getaway = 20.0, 20.0, 1000.0, 0.0, 10000.0, 1000.0, 10000.0,
 ; selector_approach = 20.0, 1.0, 1000.0, 0.0, 0.0, 1000.0, 10000.0,
 ; fSearchRange,fOptEnemyDistance,fOptEnemyDistanceWeight,fMinEnemyDistance,fMinEnemyDistanceWeight,fMaxEnemyDistance,fMaxEnemyDistanceWeight
