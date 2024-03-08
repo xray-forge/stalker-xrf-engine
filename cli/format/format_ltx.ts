@@ -14,7 +14,7 @@ export interface IFormatLtxParameters {
 }
 
 /**
- * Start game executable provided in config.json file.
+ * Format game ltx config files.
  */
 export async function formatLtx(parameters: IFormatLtxParameters = {}): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);

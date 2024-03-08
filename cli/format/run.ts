@@ -3,7 +3,7 @@ import { Command, Option } from "commander";
 import { formatLtx } from "#/format/format_ltx";
 
 /**
- * Setup start commands.
+ * Setup format commands.
  */
 export function setupFormatCommands(command: Command): void {
   const formatCommand: Command = command.command("format").description("custom formatting commands");
