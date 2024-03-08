@@ -4,7 +4,6 @@ angular_factor = 1
 
 [car_definition]
 camera_pos = 0.0, 0.0, 0.0
-
 driving_wheels = joint_wheel ; ������� �����
 steering_wheels = joint_wheel ; ������� �����
 breaking_wheels = joint_wheel ; ���������� �����
@@ -14,22 +13,18 @@ driver_place = joint_actor ; ����� ��������
 exhausts = link ; ��������� �����
 exhaust_particles = explosions\expl_mushroom_01
 damage = damage_bones
-
 fuel_tank = 250. ; L
 fuel_consumption = 0.1 ; L / (100k R) ; liters per 100 000 rotations
 engine_power = 25 ; horse_power (kW=hp*0.808) max power
 max_power_rpm = 2300 ; (nominal rpm ) on this rpm value engine power reaches maximum
 max_torque_rpm = 1600. ; on this rpm engine torque reaches maximum
-
 power_increment_factor = 0.01
 power_decrement_factor = 0.1
 rpm_increment_factor = 0.02
 rpm_decrement_factor = 0.02
 m_power_neutral_factor = 0.75
-
 max_engine_rpm = 3000 ; rpm (5000) rpm will never be more
 idling_engine_rpm = 750 ; rpm (750) min rpm - starts from this rpm value
-
 reference_radius = 0.65 ; ������ ������, ������������ ��� �������� ���������
 axle_friction = 0.0001 ; ���������� �������� � ����������� �������. (N*m)
 steering_speed = 0.5 ; ����� �������� �������� ������, � ��������. rps (1)
@@ -37,7 +32,6 @@ steering_torque = 900000. ; ���� �������������
 break_torque = 0.06 ; ���� ��������� �������. (N*m)
 break_time = 1.0 ; ����� ���������� ���� ���������� �� ���������, ��� ��������������� (������� �����)
 hand_break_torque = 0.06 ; ���� ���������� �������� (�� ��������� = break_torque)
-
 main_gear_ratio = 20.0 ; ������������ ���������
 auto_transmission = on ; �������������� ������� (on/off)
 
@@ -84,7 +78,6 @@ relative_pos = 0.0,0.5,3.0.
 open_torque_factor = 10 ; ��������� ������� ��� ��� ���������� ����� (default = 2)
 
 [animations]
-
 driver_animation_type = 0 ; ��� �������� ������ ��� ������ ������.
 
 [damage_particles]
@@ -93,7 +86,6 @@ car_damage_particles1 = explosions\expl_car_smoke_small
 car_damage_particles2 = explosions\expl_car_smoke_big
 wheels_damage_particles1 = vehiclefx\exhaust_1
 wheels_damage_particles2 = vehiclefx\exhaust_1
-
 particle_bones1 = link
 particle_bones2 = link
 
@@ -108,7 +100,6 @@ link = 0,0,0
 ; bone_name = <hit_scale>,<-1>,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������� �������� ���� - ��������������
-
 default = 1, -1, 0.1
 
 [immunities]
@@ -126,7 +117,6 @@ fire_wound_immunity = 0.0
 hit_power_critical = 0.0, 0.0, 0.0, 0.0
 k_hit_critical = 0
 frag_hit_critical = 0
-
 blast = 1
 blast_r = 15
 blast_impulse = 350
@@ -142,16 +132,14 @@ explode_particles = explosions\expl_mushroom_01
 light_color = 0.6,0.5,0.3
 light_range = 15.0
 light_time = 0.5
-
 fragment_speed = 76
 fragment_tracer_max_length = 3
 explode_duration = 50 ; ���������������� ������ (�)
-
 snd_explode = weapons\heli_explosion
 wallmark_section = explosion_marks
 
 [explode_effector]
-effect_sect_name= effector_explode_hit
+effect_sect_name = effector_explode_hit
 
 [air_resistance]
 linear_factor = 500.f

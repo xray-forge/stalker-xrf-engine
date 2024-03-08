@@ -4,7 +4,7 @@
 #include "script_sound_pripyat.ltx"
 #include "script_sound_underpass.ltx"
 
-[list]: list_music_and_stories, list_script_sound_zaton, list_script_sound_jupiter, list_script_sound_pripyat, list_script_sound_underpass
+[list]:list_music_and_stories,list_script_sound_zaton,list_script_sound_jupiter,list_script_sound_pripyat,list_script_sound_underpass
 bloodsucker_growl
 bloodsucker_hit
 bloodsucker_swarm
@@ -12,7 +12,6 @@ boar_swarm
 boar_swamp_runaway
 state
 wait
-
 trader_door_open_start
 trader_door_close_start
 trader_door_close_stop
@@ -28,16 +27,13 @@ metal_small_open
 metal_small_close_start
 metal_small_close_stop
 power_switch
-
 pda_alarm
 pda_news
 pda_tips
 pda_task
-
 heli_damaged
 heli_down
 heli_hit
-
 patrol_sneak
 patrol_run
 patrol_walk
@@ -46,21 +42,17 @@ post_combat_wait
 post_combat_wait_long
 post_combat_relax
 alarm
-
 meet_hello
 meet_hide_weapon
 meet_use_no_default
 meet_use_no_fight
 meet_use_no_weapon
 meet_use_no_talk_leader
-
 corpse_loot_begin
 corpse_loot_good
 corpse_loot_bad
-
 help_thanks
 help_heavy
-
 surge_earthquake_sound_looped
 surge_earthquake_sound
 blowout_begin
@@ -71,15 +63,11 @@ blowout_hit_3
 blowout_wave_1
 blowout_wave_2
 blowout_wave_3
-
 shooting_target_up
 shooting_target_down
 shooting_target_hit
-
 steam_blowout
-
 wounded_medkit
-
 radio_call
 
 [surge_earthquake_sound_looped]
@@ -137,10 +125,10 @@ npc_prefix = true|false
 path = states\idle\idle_
 shuffle = rnd|seq|loop
 idle = 3,5,100 ; min,max,rnd
-
 ; ************************************************************
 ; ������������� ������� �������
 ; ************************************************************
+
 [wait]
 type = npc
 avail_communities = stalker, bandit, dolg, freedom, army, monolith
@@ -148,7 +136,6 @@ npc_prefix = true
 path = states\idle\idle_
 shuffle = rnd
 idle = 7,10,100
-
 ; ************************************************************
 ; �������� ����� � ������������� �����
 ; ************************************************************
@@ -182,7 +169,6 @@ type = 3d
 path = monsters\bloodsucker\heavy_hit_
 shuffle = rnd
 idle = 0,0,100
-
 ; ************************************************************
 ; Alife
 ; ************************************************************
@@ -249,10 +235,10 @@ path = fight\post_combat_wait\relax_
 avail_communities = stalker, bandit, dolg, freedom, army
 shuffle = rnd
 idle = 1,1,100
-
 ; ***************************************************************
 ; ����� ������
 ; ***************************************************************
+
 [pl_test]
 type = npc
 npc_prefix = true
@@ -349,19 +335,19 @@ type = 3d
 path = device\power_switch
 shuffle = rnd
 idle = 1,1,100
-
 ; ***************************************************************
 ; ����� ���������� �����
 ; ***************************************************************
+
 [radio_call]
 type = 3d
 path = device\radio_call
 shuffle = rnd
 idle = 0,0,100
-
 ; ***************************************************************
 ; ������� ���
 ; ***************************************************************
+
 [pda_alarm]
 type = actor
 npc_prefix = false
@@ -389,10 +375,10 @@ npc_prefix = false
 path = device\pda\pda_objective
 shuffle = rnd
 idle = 1,1,100
-
 ; ***************************************************************
 ; ������� ����������
 ; ***************************************************************
+
 [heli_damaged]
 type = actor
 npc_prefix = false
@@ -413,10 +399,10 @@ npc_prefix = false
 path = vehicles\helicopter\hit_
 shuffle = rnd
 idle = 3,4,40
-
 ; ***************************************************************
 ; �������� ����
 ; ***************************************************************
+
 [alarm]
 type = 3d
 path = ambient\siren1
@@ -518,10 +504,10 @@ npc_prefix = true
 path = help\wounded\medkit_
 shuffle = rnd
 idle = 1,1,100
-
 ; ***************************************************************
 ; ���� ��� ����
 ; ***************************************************************
+
 [shooting_target_up]
 type = 3d
 path = ambient\special\target_up

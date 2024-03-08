@@ -4,7 +4,6 @@ angular_factor = 0.5
 
 [car_definition]
 camera_pos = -0.4, 1.7, 2.4
-
 driving_wheels = front_left_wheel,front_right_wheel,front_left_wheel2,front_right_wheel2,back_left_wheel,back_right_wheel,back_left_wheel2,back_right_wheel2 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 steering_wheels = front_left_wheel,front_right_wheel,front_left_wheel2,front_right_wheel2 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 breaking_wheels = back_left_wheel,back_right_wheel,back_left_wheel2,back_right_wheel2 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -14,21 +13,17 @@ driver_place = seat_left ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 exhausts = exhausts ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 exhaust_particles = vehiclefx\exhaust_1
 damage = damage_bones
-
 fuel_tank = 30. ; L
 fuel_consumption = 4.43 ; L / (100k R) ; liters per 100 000 rotations
 engine_power = 30. ; horse_power (kW=hp*0.808) max power
 max_power_rpm = 4200 ; (nominal rpm ) on this rpm value engine power reaches maximum
 max_torque_rpm = 2800. ; on this rpm engine torque reaches maximum
-
 power_increment_factor = 0.04
 power_decrement_factor = 0.08
 rpm_increment_factor = 0.05
 rpm_decrement_factor = 0.10
-
 max_engine_rpm = 5000 ; rpm (5000) rpm will never be more
 idling_engine_rpm = 750 ; rpm (750) min rpm - starts from this rpm value
-
 reference_radius = 0.28 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 axle_friction = 0.01 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. (N*m)
 steering_speed = 2.5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. rps (1)
@@ -36,7 +31,6 @@ steering_torque = 90000. ; ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï
 break_torque = 0.02 ; ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. (N*m)
 break_time = 0.9 ; ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½)
 hand_break_torque = 0.02 ; ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ = break_torque)
-
 main_gear_ratio = 4.63 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 auto_transmission = on ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (on/off)
 
@@ -84,13 +78,11 @@ open_torque_factor = 10 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï
 driver_animation_type = 0 ; ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 
 [damage_particles]
-
 explosion_particles = explosions\expl_mushroom_01
 car_damage_particles1 = explosions\expl_car_smoke_small
 car_damage_particles2 = explosions\expl_car_smoke_big
 wheels_damage_particles1 = vehiclefx\exhaust_1
 wheels_damage_particles2 = vehiclefx\exhaust_1
-
 particle_bones1 = kabina ; root ; left_door,right_door
 particle_bones2 = root ; kabina
 
@@ -132,7 +124,6 @@ front_right_wheel2 = 0.00001
 ; bone_name = <hit_scale>,<-1>,<wound_scale>
 ; <hit_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 ; <wound_scale> - ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
 default = 1, -1, 0.1
 
 [immunities]
@@ -150,7 +141,6 @@ fire_wound_immunity = 0.0001
 hit_power_critical = 0.0, 0.0, 0.0, 0.0
 k_hit_critical = 0
 frag_hit_critical = 0
-
 blast = 1
 blast_r = 15
 blast_impulse = 350
@@ -166,16 +156,14 @@ explode_particles = explosions\expl_car
 light_color = 0.6,0.5,0.3
 light_range = 15.0
 light_time = 1.0
-
 fragment_speed = 76
 fragment_tracer_max_length = 3
 explode_duration = 50 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½)
-
 snd_explode = weapons\heli_explosion
 wallmark_section = explosion_marks
 
 [explode_effector]
-effect_sect_name= effector_explode_hit
+effect_sect_name = effector_explode_hit
 
 [air_resistance]
 linear_factor = 20000.f
