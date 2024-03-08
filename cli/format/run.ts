@@ -11,6 +11,7 @@ export function setupFormatCommands(command: Command): void {
   formatCommand
     .command("ltx")
     .description("format ltx files")
-    .addOption(new Option("-f, --filter <targets...>", "filter files with regex").default([]))
+    .addOption(new Option("-c, --check", "Run ltx formatter in check mode").default(false))
+    .addOption(new Option("-v, --verbose", "Whether verbose logging mode is enabled").default(true))
     .action(formatLtx);
 }

@@ -1,3 +1,4 @@
+import * as os from "os";
 import * as path from "path";
 
 import { default as config } from "#/config.json";
@@ -31,6 +32,8 @@ export const TARGET_LOGS_DIR: string = path.resolve(TARGET_DIR, "logs");
 export const TARGET_GAME_PACKAGE_DIR: string = path.resolve(TARGET_DIR, "game_package");
 export const TARGET_MOD_PACKAGE_DIR: string = path.resolve(TARGET_DIR, "mod_package");
 
-export const TARGET_PREVIEW_DIR: string = path.resolve(TARGET_DIR, "preview");
-
 export const XR_COMPRESS_PATH: string = path.resolve(CLI_DIR, config.compression.xr_compress_path);
+export const XRF_FORMAT_PATH: string = path.resolve(
+  CLI_DIR,
+  os.type() === "Windows_NT" ? config.compression.xrf_cli_path_windows : config.compression.xrf_cli_path_unix
+);

@@ -107,6 +107,7 @@ jobs:
       - run: npm run setup
       - run: npm run typecheck
       - run: npm run lint
+      - run: npm run cli format ltx -- --check
 
       - name: Save eslint cache
         if: ${{ steps.cache-eslint-restore.outputs.cache-hit != 'true' && github.event_name != 'pull_request' }}
