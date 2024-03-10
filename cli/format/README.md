@@ -9,6 +9,8 @@ Removes odd spacing and formats everything.
 
 List of arguments:
 
+- `ltx` - format project ltx files
+
 - `-c, --check` - perform `check` and verify if everything is formatted without writing changes into ltx files
 
 ### Example

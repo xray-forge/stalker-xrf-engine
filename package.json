@@ -7,7 +7,7 @@
   "scripts": {
     "cli": "ts-node -P ./cli/tsconfig.json cli/run.ts",
     "setup": "git submodule update --init --recursive",
-    "verify": "ts-node -P ./cli/tsconfig.json cli/run.ts verify",
+    "verify": "ts-node -P ./cli/tsconfig.json cli/run.ts verify project",
     "build": "ts-node -P cli/tsconfig.json cli/run.ts build",
     "pack:mod": "ts-node -P cli/tsconfig.json cli/run.ts pack mod -c -o",
     "pack:game": "ts-node -P cli/tsconfig.json cli/run.ts pack game -c -o",

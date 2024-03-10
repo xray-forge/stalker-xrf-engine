@@ -9,12 +9,12 @@ import { exists } from "#/utils/fs/exists";
 import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("VERIFY");
+const log: NodeLogger = new NodeLogger("VERIFY_PROJECT");
 
 /**
  * Verify project setup and configuration.
  */
-export async function verify(): Promise<void> {
+export async function verifyProject(): Promise<void> {
   log.info("Verifying project state");
 
   try {

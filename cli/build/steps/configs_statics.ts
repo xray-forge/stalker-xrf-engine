@@ -1,4 +1,4 @@
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 
 import { blueBright, yellow } from "chalk";
 
@@ -42,7 +42,7 @@ export async function buildStaticConfigs(parameters: IBuildCommandParameters): P
       descriptors.map(([from, to]) => {
         log.debug("CP:", yellow(to));
 
-        return fsPromises.copyFile(from, to);
+        return fsp.copyFile(from, to);
       })
     );
 

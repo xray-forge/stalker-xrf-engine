@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as fsPromises from "fs/promises";
+import * as fsp from "fs/promises";
 import * as path from "path";
 
 import { blueBright, yellow, yellowBright } from "chalk";
@@ -42,7 +42,7 @@ export async function buildStaticTranslations(): Promise<void> {
       translations.map(([from, to]) => {
         log.debug("CP:", yellow(to));
 
-        return fsPromises.copyFile(from, to);
+        return fsp.copyFile(from, to);
       })
     );
 
