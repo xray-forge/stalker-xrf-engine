@@ -1,12 +1,10 @@
-[actor_terrain]
-255,255,000,255
-
 [actor]:common_ph_friction_params_on_npc_death
-GroupControlSection = spawn_group
+$scheme = $actor
 $spawn = "actor"
 $ed_icon = ed\ed_actor
 $player = on
 $prefetch = 16
+GroupControlSection = spawn_group
 cform = skeleton
 class = S_ACTOR
 money = 15000
@@ -75,7 +73,7 @@ species = actor
 LegsCount = 2
 step_params = stalker_step_manager
 foot_bones = stalker_foot_bones
-memory_update_time = 100
+memory_update_time = 100 ; not used?
 DynamicObjectsCount = 32
 min_view_distance = 1.0
 max_view_distance = 1.0
@@ -141,6 +139,7 @@ explosion_immunity = 1.0
 fire_wound_immunity = 1.0
 
 [actor_condition]
+$scheme = $actor_condition
 satiety_v = 0.0000162
 radiation_v = 0.0
 satiety_power_v = 0.005
@@ -157,7 +156,6 @@ max_walk_weight = 60
 bleeding_v = 0.002
 wound_incarnation_v = 0.0003
 min_wound_size = 0.0256
-; when actor in sleep
 satiety_v_sleep = 0.00001
 radiation_v_sleep = 0.0003
 satiety_power_v_sleep = 0.0001
@@ -174,7 +172,7 @@ health_restore_v = 0.0001
 jump_power = 0.01
 jump_weight_power = 0.05
 overweight_jump_k = 5
-stand_power = -0.001.1
+stand_power = -0.001
 walk_power = 0.00002
 walk_weight_power = 0.0002
 overweight_walk_k = 5
@@ -323,3 +321,6 @@ visual = dynamics\weapons\wpn_hand\wpn_hand_07
 
 [actor_hud_exo]:actor_hud
 visual = dynamics\weapons\wpn_hand\wpn_hand_exo
+
+[actor_terrain]
+255,255,000,255
