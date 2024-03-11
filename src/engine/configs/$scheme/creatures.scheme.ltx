@@ -122,6 +122,7 @@ quick_item_3.type = string
 quick_item_4.type = string
 
 [$actor_condition]
+strict = true
 satiety_v.type = f32
 radiation_v.type = f32
 satiety_power_v.type = f32
@@ -179,3 +180,51 @@ max_power_restore_speed.type = f32
 max_fire_wound_protection.type = f32
 max_wound_protection.type = f32
 hud_health_blink.type = f32
+
+[$actor_animation]
+strict = true
+fwd_l_strafe_yaw.type = f32
+back_l_strafe_yaw.type = f32
+fwd_r_strafe_yaw.type = f32
+back_r_strafe_yaw.type = f32
+l_strafe_yaw.type = f32
+r_strafe_yaw.type = f32
+
+[$actor_hit_snds]
+strict = true
+burn.type = string
+burn.array = true
+shock.type = string
+shock.array = true
+strike.type = string
+strike.array = true
+wound.type = string
+wound.array = true
+radiation.type = string
+radiation.array = true
+telepatic.type = string
+telepatic.array = true
+fire_wound.type = string
+fire_wound.array = true
+chemical_burn.type = string
+chemical_burn.array = true
+explosion.type = string
+explosion.array = true
+wound_2.type = string
+wound_2.array = true
+light_burn.type = string
+light_burn.array = true
+
+[$actor_thd]
+strict = true
+killing_hit_treshold.type = f32
+last_chance_health.type = f32
+invulnerable_time.type = f32
+
+[$actor_hud]
+strict = true
+visual.type = string
+position.type = vector
+orientation.type = vector
+ancor_0.type = string
+ancor_1.type = string
