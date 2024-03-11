@@ -2,7 +2,7 @@
 
 ### Description
 
-Commands to work with *.spawn files. <br/>
+Commands to work with \*.spawn files. <br/>
 
 ### Arguments
 

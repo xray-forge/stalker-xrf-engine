@@ -2,7 +2,7 @@
 
 ### Description
 
-Script performing project state checks.  <br/>
+Script performing project state checks. <br/>
 
 #### Project
 
