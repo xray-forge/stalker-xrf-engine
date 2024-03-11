@@ -1,4 +1,5 @@
 [m_boar_e]:monster_base
+$scheme = $boar
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald
 ; $spawn = "monsters\boars\boar_base" ; option for Level Editor
@@ -192,6 +193,29 @@ vision_danger_section = boar_vision_danger
 ; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
 ; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
+[boar_normal]:m_boar_e
+$spawn = "monsters\boars\boar_02_normal"
+visual = monsters\mutant_boar\mutant_boar
+corpse_visual = monsters\mutant_boar\mutant_boar_dead
+icon = ui_npc_monster_mutant_boar
+panic_threshold = 0.2
+rank = 5
+immunities_sect = boar_immunities_normal
+attack_params = boar_attack_params_normal
+spec_rank = normal
+community = boar
+
+[boar_strong]:m_boar_e
+$spawn = "monsters\boars\boar_03_strong"
+visual = monsters\mutant_boar\mutant_boar_strong
+icon = ui_npc_monster_mutant_boar_strong
+panic_threshold = 0.05
+rank = 6
+immunities_sect = boar_immunities_strong
+attack_params = boar_attack_params_strong
+spec_rank = strong
+community = boar
+
 [boar_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.51 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -217,6 +241,7 @@ luminocity_factor = 0.5 ; ������ ��������� (��
 transparency_threshold = 0.25
 
 [m_boar_attack_params]
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 ; Bite
 stand_attack_0 = 0.30, 0.65, 150, 0.0, 0.5, 0.5, -0.6, 0.6, -0.6, 0.6, 3.2
@@ -229,6 +254,7 @@ stand_attack_run_left_0 = 0.40, 0.65, 1800, 0.0, 1.0, 2.0, -1.4, 1.4, -1.4, 1.4,
 stand_attack_run_right_0 = 0.40, 0.65, 1800, 0.0, 1.0, 2.0, -1.4, 1.4, -1.4, 1.4, 3.2
 
 [m_boar_attack_effector]
+$scheme = $effector_params
 duality_h = 0.05 ; 0.01
 duality_v = 0.02 ; 0.01
 blur = 0.01
@@ -248,7 +274,8 @@ ce_amplitude = 10 ; head shake after hit
 ce_period_number = 2.0 ; camera shake times
 ce_power = 2.5 ; 2.0 ; power
 
-[m_Boar_damage]
+[m_boar_damage]
+$scheme = $monster_damage
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������� �������� ����
@@ -322,6 +349,7 @@ bip01_tail1
 255,000,255,255
 
 [m_boar_step_params]
+$scheme = $monster_step_params
 ; anim | Cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
 stand_walk_fwd_0 = 5, 0.01, 1, 0.5, 0.7, 0.15, 1.0, 0.5, 1.0
 stand_walk_fwd_dmg_0 = 4, 0.2, 1, 0.25, 0.7, 0.5, 1.0, 0.7, 1.0
@@ -343,20 +371,9 @@ explosion_immunity = 0.15
 fire_wound_immunity = 0.8
 
 [boar_protections]
+$scheme = $monster_protections
 skin_armor = 0.5
 hit_fraction_monster = 0.3
-
-[boar_normal]:m_boar_e
-$spawn = "monsters\boars\boar_02_normal"
-visual = monsters\mutant_boar\mutant_boar
-corpse_visual = monsters\mutant_boar\mutant_boar_dead
-icon = ui_npc_monster_mutant_boar
-panic_threshold = 0.2
-rank = 5
-immunities_sect = boar_immunities_normal
-attack_params = boar_attack_params_normal
-spec_rank = normal
-community = boar
 
 [boar_immunities_normal]
 $scheme = $immunities
@@ -371,6 +388,7 @@ explosion_immunity = 0.3
 fire_wound_immunity = 0.85
 
 [boar_attack_params_normal]
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 ; Bite
 stand_attack_0 = 0.30, 0.65, 50, 0.0, 0.5, 0.5, -1.0, 1.0, -1.0, 1.0, 2.3
@@ -381,17 +399,6 @@ stand_attack_2 = 0.30, 0.65, 50, 0.0, 1.0, 2.0, -0.8, 0.8, -1.0, 1.0, 2.5
 stand_attack_run_0 = 0.40, 0.65, 1800, 0.0, 1.0, 2.0, -1.0, 1.0, -1.0, 1.0, 3.2
 stand_attack_run_left_0 = 0.40, 0.65, 1800, 0.0, 1.0, 2.0, -1.0, 1.0, -1.0, 1.0, 3.2
 stand_attack_run_right_0 = 0.40, 0.65, 1800, 0.0, 1.0, 2.0, -1.0, 1.0, -1.0, 1.0, 3.2
-
-[boar_strong]:m_boar_e
-$spawn = "monsters\boars\boar_03_strong"
-visual = monsters\mutant_boar\mutant_boar_strong
-icon = ui_npc_monster_mutant_boar_strong
-panic_threshold = 0.05
-rank = 6
-immunities_sect = boar_immunities_strong
-attack_params = boar_attack_params_strong
-spec_rank = strong
-community = boar
 
 [boar_immunities_strong]
 $scheme = $immunities
@@ -406,6 +413,7 @@ explosion_immunity = 0.3
 fire_wound_immunity = 0.7
 
 [boar_attack_params_strong]
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 ; Bite
 stand_attack_0 = 0.20, 0.7, 50, 0.0, 0.5, 0.5, -1.0, 1.0, -1.0, 1.0, 2.3

@@ -245,7 +245,7 @@ transparency_threshold = 0.25
 ; Bloodsucker Damage
 
 [m_bloodsucker_damage]
-$scheme = $m_bloodsucker_damage
+$scheme = $monster_damage
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������� �������� ����
@@ -328,7 +328,7 @@ bip01_r_toe1
 255,000,255,255
 
 [m_bloodsucker_step_params]
-$scheme = $m_bloodsucker_step_params
+$scheme = $monster_step_params
 ; order: front_left, front_right
 ; anim Cycles | time1 | power1 | time2 | power2 |
 stand_run_0 = 1, 0.15, 1.0, 0.70, 1.0,
@@ -339,7 +339,7 @@ stand_steal_0 = 2, 0.15, 0.2, 0.50, 0.2,
 ; stand_drag_0 = 1, 0.2, 1.0, 0.25, 0.7,
 
 [m_bloodsucker_attack_params]
-$scheme = $bloodsucker_attack_params
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; Left hand Strike
 stand_attack_0 = 0.30, 0.3, 50, 3.5, 2.0, 0.5, -0.6, 0.6, -0.6, 0.6, 2.2
@@ -399,7 +399,7 @@ ce_period_number = 2.0 ; 3.0
 ce_power = 3.0 ; 0.7 ; power
 
 [bloodsucker_protections]
-$scheme = $bloodsucker_protections
+$scheme = $monster_protections
 skin_armor = 0.5
 hit_fraction_monster = 0.3
 
@@ -470,7 +470,7 @@ explosion_immunity = 0.5
 fire_wound_immunity = 0.65
 
 [bloodsucker_attack_params_normal]
-$scheme = $bloodsucker_attack_params
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; Left hand Strike
 stand_attack_0 = 0.30, 0.8, 50, 3.5, 2.0, 0.5, -1.0, 1.0, -1.0, 1.0, 2.5
@@ -512,7 +512,7 @@ explosion_immunity = 0.2
 fire_wound_immunity = 0.5
 
 [bloodsucker_attack_params_strong]
-$scheme = $bloodsucker_attack_params
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; Left hand Strike
 stand_attack_0 = 0.30, 0.9, 50, 3.5, 2.0, 0.5, -1.0, 1.0, -1.0, 1.0, 2.5

@@ -4,6 +4,22 @@ $spawn.optional = true
 $prefetch.type = u8
 $prefetch.optional = true
 GroupControlSection.type = string
+$npc.type = enum:on,off
+$npc.optional = true
+
+[$immunities]
+strict = true
+burn_immunity.type = f32
+strike_immunity.type = f32
+shock_immunity.type = f32
+wound_immunity.type = f32
+wound_2_immunity.type = f32
+wound_2_immunity.optional = true
+radiation_immunity.type = f32
+telepatic_immunity.type = f32
+chemical_burn_immunity.type = f32
+explosion_immunity.type = f32
+fire_wound_immunity.type = f32
 
 [$effector_params]
 strict = true
