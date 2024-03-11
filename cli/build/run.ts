@@ -8,7 +8,7 @@ import { build, EBuildTarget } from "#/build/build";
 export function setupBuildCommands(command: Command): void {
   command
     .command("build")
-    .description("build template sources")
+    .description("build xrf script engine from sources")
     .addOption(
       new Option("-i, --include <targets...>", "include build targets")
         .choices(Object.values(EBuildTarget))

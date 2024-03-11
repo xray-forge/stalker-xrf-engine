@@ -14,17 +14,18 @@ Fully rewritten stalker lua script engine with typescript. <br/>
 
 ## 📦 In short
 
-- [Faster development](https://xray-forge.github.io/stalker-xrf-book/xrf/developing/developing.html)
+- Faster development with typescript and static analysis
 - Custom [CLI](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/cli.html) and [build pipeline](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building.html), [dev tools](https://github.com/xray-forge/stalker-xrf-tools)
   - Scripts engine rewritten with typescript ([tstl](https://typescripttolua.github.io/docs/getting-started))
-  - [Generation UI forms from JSX](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building_forms.html)
-  - [Game configs from dynamic typescript](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building_configs.html)
+  - [Generation UI forms from JSX](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building_ui.html)
+  - [Building game configs](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building_configs.html)
   - [Simple translations generation](https://xray-forge.github.io/stalker-xrf-book/xrf/building/building_translations.html)
-- [Creation of custom modded game packages](https://xray-forge.github.io/stalker-xrf-book/xrf/packaging.html)
-- [Modular extensions](https://xray-forge.github.io/stalker-xrf-book/extensions/extensions.html)
-- [Debugging tools](https://xray-forge.github.io/stalker-xrf-book/xrf/debugging.html)
-- [Unit testing](https://xray-forge.github.io/stalker-xrf-book/xrf/testing.html)
-- [Consistent code formatting, static analysis and linting](https://xray-forge.github.io/stalker-xrf-book/xrf/formatting_and_linting.html)
+- [Creation of custom modded game packages](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/commands/pack.html)
+- [Modular extensions](https://xray-forge.github.io/stalker-xrf-book/xrf/extensions.html)
+- [Unit testing](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/commands/test.html)
+- Consistent code [formatting](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/commands/format.html),
+  [linting](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/commands/lint.html),
+  [configs format and verification](https://xray-forge.github.io/stalker-xrf-book/tools/cli/cli.html)
 
 ## 📍 Purpose
 
@@ -36,9 +37,9 @@ Fully rewritten stalker lua script engine with typescript. <br/>
 
 ## 🌓 Links
 
-- [Starting work](https://xray-forge.github.io/stalker-xrf-book/xrf/installation.html)
+- [Starting work](https://xray-forge.github.io/stalker-xrf-book/INSTALLATION.html)
 - [CLI commands](https://xray-forge.github.io/stalker-xrf-book/xrf/cli/commands.html)
-- [Docs](https://xray-forge.github.io/stalker-xrf-book/general/general.html)
+- [Docs](https://xray-forge.github.io/stalker-xrf-book/GENERAL.html)
 - [Types](https://xray-forge.github.io/xray-16-types/modules.html), [source](https://github.com/xray-forge/xray-16-types)
 
 ## 📌What is used
@@ -49,6 +50,7 @@ Fully rewritten stalker lua script engine with typescript. <br/>
 - [Jest](https://jestjs.io/)
 - [Fengari Lua VM](https://github.com/fengari-lua/fengari)
 - [Open-X-Ray](https://github.com/OpenXRay/xray-16)
+- [XRF tools](https://github.com/xray-forge/stalker-xrf-tools)
 
 ## 📦 Changes / differences from original
 
