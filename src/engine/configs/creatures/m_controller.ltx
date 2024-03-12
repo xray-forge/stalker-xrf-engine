@@ -1,4 +1,5 @@
 [m_controller_e]:monster_base
+$scheme = $controller
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald
 $spawn = "monsters\old\controller" ; option for Level Editor
@@ -16,6 +17,8 @@ visual = monsters\controller\controller_1
 corpse_visual = monsters\controller\controller_dead
 icon = ui_npc_monster_controller
 MaxHealthValue = 200 ; range [0..200]
+Spawn_Inventory_Item_Section = mutant_controller_hand
+Spawn_Inventory_Item_Probability = 0.0
 DynamicObjectsCount = 32
 smart_terrain_choose_interval = 00:15:00
 ef_creature_type = 12 ; option for evaluation functions
@@ -201,6 +204,24 @@ vision_danger_section = controller_vision_danger
 ; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
 ; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
+[m_controller_normal]:m_controller_e
+$spawn = "monsters\old\controller_normal"
+visual = monsters\controller\controller_1
+corpse_visual = monsters\controller\controller_dead
+icon = ui_npc_monster_controller
+spec_rank = normal
+rank = 18
+community = controller
+
+[controller_tubeman]:m_controller_e ; temporary!
+$spawn = "monsters\old\controller_tubeman"
+visual = monsters\controller\controller_1
+corpse_visual = monsters\controller\controller_dead
+icon = ui_npc_monster_controller
+spec_rank = normal
+rank = 18
+community = controller
+
 [controller_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.5 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -226,10 +247,12 @@ luminocity_factor = 0.5 ; ������ ��������� (��
 transparency_threshold = 0.25
 
 [controller_protections]
+$scheme = $monster_protections
 skin_armor = 0.5
 hit_fraction_monster = 0.4
 
 [m_controller_step_params]
+$scheme = $monster_step_params
 ; anim | Cycles | time1 | power1 | time2 | power2 |
 stand_walk_fwd_0 = 1, 0.01, 1, 0.25, 0.7,
 stand_walk_dmg_0 = 1, 0.01, 1, 0.25, 0.7,
@@ -249,6 +272,7 @@ explosion_immunity = 1.0
 fire_wound_immunity = 1.0
 
 [controller_control_effector]
+$scheme = $effector_params
 duality_h = 0.1 ; 0.31
 duality_v = 0.2 ; 0.31
 blur = 0.01
@@ -269,6 +293,7 @@ ce_period_number = 1.0
 ce_power = 0.7
 
 [m_controller_attack_effector]
+$scheme = $effector_params
 duality_h = 0.01
 duality_v = 0.01
 blur = 0.01
@@ -289,6 +314,7 @@ ce_period_number = 1.5 ; 2.0
 ce_power = 1.5 ; 0.7 ; power
 
 [controller_aura_pp_effector_section]
+$scheme = $effector_params
 ; duality_h = 0.001
 ; duality_v = 0.001
 ; blur = 10
@@ -314,6 +340,7 @@ color_gray = 0.33,0.330,0.33
 color_add = 0.00,0.00,0.015
 
 [m_controller_attack_params]
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 ; Right hand Strike
 stand_attack_0 = 0.45, 0.55, 60, 0.0, 1.0, 0.0, -1.6, 1.6, -1.6, 1.6, 3.5
@@ -327,7 +354,8 @@ stand_attack_1 = 0.25, 0.55, 60, 0.0, 1.0, 0.0, -1.6, 1.6, -1.6, 1.6, 3.5
 014,001,255,255 ; ��������� ������ �� ������� ������ �� ������
 016,001,255,255 ; ��������� ������ �� ������� ������ �� �������
 
-[m_Controller_damage]
+[m_controller_damage]
+$scheme = $monster_damage
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������� �������� ����
@@ -337,24 +365,6 @@ bip01_spine = 1.0, -1, 0.5
 bip01_spine1 = 1.0, -1, 0.5
 bip01_neck = 1.0, -1, 1.0
 bip01_head = 2.0, -1, 0.5, 10
-
-[m_controller_normal]:m_controller_e
-$spawn = "monsters\old\controller_normal"
-visual = monsters\controller\controller_1
-corpse_visual = monsters\controller\controller_dead
-icon = ui_npc_monster_controller
-spec_rank = normal
-rank = 18
-community = controller
-
-[controller_tubeman]:m_controller_e ; temporary!
-$spawn = "monsters\old\controller_tubeman"
-visual = monsters\controller\controller_1
-corpse_visual = monsters\controller\controller_dead
-icon = ui_npc_monster_controller
-spec_rank = normal
-rank = 18
-community = controller
 
 [controller_critical_wound_bones_head]
 bip01_neck
