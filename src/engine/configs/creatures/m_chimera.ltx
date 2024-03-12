@@ -191,6 +191,14 @@ vision_danger_section = chimera_vision_danger
 ; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
 ; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
+[chimera_normal]:m_chimera_e
+corpse_visual = monsters\chimera\chimera_dead
+$spawn = "monsters\chimera\chimera_normal"
+panic_threshold = 0.1
+rank = 20
+immunities_sect = chimera_immunities_normal
+spec_rank = normal
+
 [chimera_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.8 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -216,14 +224,17 @@ luminocity_factor = 0.1 ; ������ ��������� (��
 transparency_threshold = 0.25
 
 [chimera_protections]
+$scheme = $monster_protections
 skin_armor = 0.7
 hit_fraction_monster = 0.2
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 
 [m_chimera_attack_params]
+$scheme = $monster_attack_params
 jump_attack_1 = 0.3, 1.0, 350, 0.0, 1.0, 0.0, -1.8, 1.8, -1.8, 1.8, 2.5
 
 [m_chimera_attack_effector]
+$scheme = $effector_params
 duality_h = 0.1 ; 0.01
 duality_v = 0.01 ; 0.01
 blur = 0.01
@@ -244,6 +255,7 @@ ce_period_number = 2.0
 ce_power = 1.0 ; 0.7 ; power
 
 [m_chimera_step_params]
+$scheme = $monster_step_params
 ; anim | Cycles | time1 | power1 | time2 | power2 |
 stand_walk_0 = 1, 0.01, 1, 0.25, 0.7,
 stand_run_fwd_0 = 1, 0.01, 1, 0.25, 0.6,
@@ -251,6 +263,18 @@ stand_run_fwd_0 = 1, 0.01, 1, 0.25, 0.6,
 [chimera_immunities]
 $scheme = $immunities
 burn_immunity = 0.1 ; ������������ ����������
+strike_immunity = 0.0
+shock_immunity = 0.1
+wound_immunity = 0.3
+radiation_immunity = 0.0
+telepatic_immunity = 0.0
+chemical_burn_immunity = 0.1
+explosion_immunity = 0.5
+fire_wound_immunity = 0.3
+
+[chimera_immunities_normal]
+$scheme = $immunities
+burn_immunity = 0.1
 strike_immunity = 0.0
 shock_immunity = 0.1
 wound_immunity = 0.3
@@ -272,23 +296,3 @@ fire_wound_immunity = 0.3
 ; selector_approach = 20.0, 1.0, 1000.0, 0.0, 0.0, 1000.0, 10000.0,
 ; fSearchRange,fOptEnemyDistance,fOptEnemyDistanceWeight,fMinEnemyDistance,fMinEnemyDistanceWeight,fMaxEnemyDistance,fMaxEnemyDistanceWeight
 ; selector_walk_around = 20.0, 6.0, 1000.0, 4.0, 5000.0, 8.0, 5000.0,
-
-[chimera_normal]:m_chimera_e
-corpse_visual = monsters\chimera\chimera_dead
-$spawn = "monsters\chimera\chimera_normal"
-panic_threshold = 0.1
-rank = 20
-immunities_sect = chimera_immunities_normal
-spec_rank = normal
-
-[chimera_immunities_normal]
-$scheme = $immunities
-burn_immunity = 0.1
-strike_immunity = 0.0
-shock_immunity = 0.1
-wound_immunity = 0.3
-radiation_immunity = 0.0
-telepatic_immunity = 0.0
-chemical_burn_immunity = 0.1
-explosion_immunity = 0.5
-fire_wound_immunity = 0.3
