@@ -1,4 +1,5 @@
 [m_burer_e]:monster_base
+$scheme = $burer
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald,zone_radioactive
 $spawn = "monsters\burer\burer" ; option for Level Editor
@@ -213,7 +214,16 @@ vision_danger_section = burer_vision_danger
 ; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
 ; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
+[burer_normal]:m_burer_e
+$spawn = "monsters\burer\burer_normal"
+visual = monsters\burer\burer
+corpse_visual = monsters\burer\burer_dead
+icon = ui_npc_monster_burer
+rank = 19
+spec_rank = normal
+
 [burer_protections]
+$scheme = $monster_protections
 skin_armor = 0.5
 hit_fraction_monster = 0.2
 
@@ -254,13 +264,35 @@ luminocity_factor = 0.5 ; ������ ��������� (��
 transparency_threshold = 0.25
 
 [m_burer_attack_params]
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 ; Left hand Strike
 stand_attack_0 = 0.4, 0.70, 100, 2.0, 1.0, 0.5, -1.6, 1.6, -1.6, 1.6, 2.5
 stand_stamina_attack_0 = 0.4, 0.0, 0, 2.0, 1.0, 0.5, -1.6, 1.6, -1.6, 1.6, 2.5
 ; Burer Attack Effector
 
+[m_burer_step_params]
+$scheme = $monster_step_params
+; anim | Cycles | time1 | power1 | time2 | power2 |
+stand_walk_fwd_0 = 1, 0.4, 1, 0.9, 0.7,
+; stand_walk_dmg_0 = 1, 0.4, 1, 0.9, 0.7,
+stand_run_fwd_0 = 1, 0.4, 1, 0.9, 0.6,
+; stand_run_dmg_0 = 1, 0.4, 1, 0.9, 0.6,
+
+[m_burer_damage]
+$scheme = $monster_damage
+; bone_name = <hit_scale>,-1,<wound_scale>
+; <hit_scale> - �����. ��������� ���� (���������� ��������)
+; <wound_scale> - �����. ��������� �������� �������� ����
+default = 0.5, -1, 0.1
+hip = 1, -1, 0.1
+spine = 1, -1, 0.1
+chest = 1, -1, 0.1
+neck = 1, -1, 0.5
+head = 2, -1, 0.2
+
 [m_burer_attack_effector]
+$scheme = $effector_params
 duality_h = 0.1 ; 0.01
 duality_v = 0.01 ; 0.01
 blur = 0.01
@@ -280,25 +312,8 @@ ce_amplitude = 12.0
 ce_period_number = 2.0
 ce_power = 1.0 ; 0.7 ; power
 
-[m_burer_step_params]
-; anim | Cycles | time1 | power1 | time2 | power2 |
-stand_walk_fwd_0 = 1, 0.4, 1, 0.9, 0.7,
-; stand_walk_dmg_0 = 1, 0.4, 1, 0.9, 0.7,
-stand_run_fwd_0 = 1, 0.4, 1, 0.9, 0.6,
-; stand_run_dmg_0 = 1, 0.4, 1, 0.9, 0.6,
-
-[m_Burer_damage]
-; bone_name = <hit_scale>,-1,<wound_scale>
-; <hit_scale> - �����. ��������� ���� (���������� ��������)
-; <wound_scale> - �����. ��������� �������� �������� ����
-default = 0.5, -1, 0.1
-hip = 1, -1, 0.1
-spine = 1, -1, 0.1
-chest = 1, -1, 0.1
-neck = 1, -1, 0.5
-head = 2, -1, 0.2
-
 [m_burer_scan_effector]
+$scheme = $effector_params
 duality_h = 0.003
 duality_v = 0.002
 blur = 1.5
@@ -315,11 +330,3 @@ time_release = 0.85 ; fade out
 
 [burer_terrain]
 255,000,255,255
-
-[burer_normal]:m_burer_e
-$spawn = "monsters\burer\burer_normal"
-visual = monsters\burer\burer
-corpse_visual = monsters\burer\burer_dead
-icon = ui_npc_monster_burer
-rank = 19
-spec_rank = normal
