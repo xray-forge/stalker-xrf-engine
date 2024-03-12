@@ -1,4 +1,5 @@
 [m_chimera_e]:monster_base
+$scheme = $chimera
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald,zone_witches_galantine,zone_burning_fuzz1,zone_mincer,zone_gravi_zone
 $spawn = "monsters\chimera\chimera_default" ; option for Level Editor
@@ -31,6 +32,8 @@ going_speed = 3 ; 4.5 ; option for ALife Simulator
 current_level_going_speed = 3 ; 2 ; option for ALife Simulator
 search_speed = 1.5 ; option for ALife Simulator
 MaxHealthValue = 1000 ; range [0..200]
+Spawn_Inventory_Item_Section = mutant_chimera_item
+Spawn_Inventory_Item_Probability = 0.0
 smart_terrain_choose_interval = 00:15:00
 script_binding = bind.monster ; xrf change
 ef_creature_type = 20 ; option for evaluation functions
@@ -69,7 +72,7 @@ Velocity_WalkFwdDamaged = 2.0, 3.0, 2.0, 0.5, 2.0
 Velocity_WalkFwdNormal = 2.3, 3.2, 1.2, 0.02, 3.0
 Velocity_Drag = 1.0, 3.0, 3.0, 1, 1
 Velocity_Steal = 1.5, 3.0, 2.0, 1, 1
-Velocity_Rotate = 0.0, 6.0, 1.0, 0.1 1
+Velocity_Rotate = 0.0, 6.0, 1.0, 0.1, 1
 Velocity_JumpGround = 8.0, 3.5, 2.0, 0.4, 1
 Velocity_JumpStart = 8.0, 3.5, 2.0, 0.4, 1
 Accel_Generic = 1.5
