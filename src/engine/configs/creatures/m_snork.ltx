@@ -184,6 +184,66 @@ vision_danger_section = snork_vision_danger
 ; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
 ; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
+[snork_weak]:m_snork_e
+$spawn = "monsters\snorks\snork_01_weak"
+visual = monsters\snork\snork
+corpse_visual = monsters\snork\snork_dead
+icon = ui_npc_monster_snork
+panic_threshold = 0.5
+rank = 8
+immunities_sect = snork_immunities_weak
+attack_params = snork_attack_params_weak
+spec_rank = weak
+community = snork
+
+[snork_normal]:m_snork_e
+$spawn = "monsters\snorks\snork_02_normal"
+visual = monsters\snork\snork
+corpse_visual = monsters\snork\snork_dead
+icon = ui_npc_monster_snork
+panic_threshold = 0.2
+rank = 9
+immunities_sect = snork_immunities_normal
+attack_params = snork_attack_params_normal
+spec_rank = normal
+community = snork
+
+[snork_strong]:m_snork_e
+$spawn = "monsters\snorks\snork_03_strong"
+visual = monsters\snork\snork
+corpse_visual = monsters\snork\snork_dead
+icon = ui_npc_monster_snork
+panic_threshold = 0.05
+rank = 10
+immunities_sect = snork_immunities_strong
+attack_params = snork_attack_params_strong
+spec_rank = strong
+community = snork
+
+[snork_indoor]:snork_weak
+$spawn = "monsters\snorks\snork_indoor"
+monster_type = indoor
+community = snork
+
+[snork_outdoor]:snork_weak
+$spawn = "monsters\snorks\snork_outdoor"
+monster_type = outdoor
+community = snork
+
+[snork_jumper]:snork_weak
+$spawn = "monsters\snorks\snork_jumper"
+monster_type = outdoor
+community = snork
+
+[snork_indoor_strong]:snork_strong
+$spawn = "monsters\snorks\snork_indoor_strong"
+
+[snork_indoor_normal]:snork_normal
+$spawn = "monsters\snorks\snork_indoor_normal"
+
+[snork_indoor_weak]:snork_weak
+$spawn = "monsters\snorks\snork_indoor_weak"
+
 [snork_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.4 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -213,7 +273,7 @@ skin_armor = 0.5
 hit_fraction_monster = 0.3
 ; SNORK Damage
 
-[m_Snork_damage]
+[m_snork_damage]
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������� �������� ����
@@ -267,18 +327,6 @@ chemical_burn_immunity = 0.8
 explosion_immunity = 0.8
 fire_wound_immunity = 1.0
 
-[snork_weak]:m_snork_e
-$spawn = "monsters\snorks\snork_01_weak"
-visual = monsters\snork\snork
-corpse_visual = monsters\snork\snork_dead
-icon = ui_npc_monster_snork
-panic_threshold = 0.5
-rank = 8
-immunities_sect = snork_immunities_weak
-attack_params = snork_attack_params_weak
-spec_rank = weak
-community = snork
-
 [snork_immunities_weak]
 $scheme = $immunities
 burn_immunity = 0.4 ; ������������ ����������
@@ -300,18 +348,6 @@ stand_attack_2_1 = 0.30, 0.7, 70, 0.0, 1.0, 2.0, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_run_attack_left_0 = 0.40, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_run_attack_right_0 = 0.40, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 
-[snork_normal]:m_snork_e
-$spawn = "monsters\snorks\snork_02_normal"
-visual = monsters\snork\snork
-corpse_visual = monsters\snork\snork_dead
-icon = ui_npc_monster_snork
-panic_threshold = 0.2
-rank = 9
-immunities_sect = snork_immunities_normal
-attack_params = snork_attack_params_normal
-spec_rank = normal
-community = snork
-
 [snork_immunities_normal]
 $scheme = $immunities
 burn_immunity = 0.3 ; ������������ ����������
@@ -332,18 +368,6 @@ stand_attack_0 = 0.30, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_attack_2_1 = 0.30, 0.7, 70, 0.0, 1.0, 2.0, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_run_attack_left_0 = 0.40, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
 stand_run_attack_right_0 = 0.40, 0.6, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3.5
-
-[snork_strong]:m_snork_e
-$spawn = "monsters\snorks\snork_03_strong"
-visual = monsters\snork\snork
-corpse_visual = monsters\snork\snork_dead
-icon = ui_npc_monster_snork
-panic_threshold = 0.05
-rank = 10
-immunities_sect = snork_immunities_strong
-attack_params = snork_attack_params_strong
-spec_rank = strong
-community = snork
 
 [snork_immunities_strong]
 $scheme = $immunities
@@ -368,27 +392,3 @@ stand_run_attack_right_0 = 0.40, 0.7, 30, 0.0, 0.5, 0.5, -1.8, 1.8, -1.8, 1.8, 3
 
 [snork_terrain]
 255,000,255,255
-
-[snork_indoor]:snork_weak
-$spawn = "monsters\snorks\snork_indoor"
-monster_type = indoor
-community = snork
-
-[snork_outdoor]:snork_weak
-$spawn = "monsters\snorks\snork_outdoor"
-monster_type = outdoor
-community = snork
-
-[snork_jumper]:snork_weak
-$spawn = "monsters\snorks\snork_jumper"
-monster_type = outdoor
-community = snork
-
-[snork_indoor_strong]:snork_strong
-$spawn = "monsters\snorks\snork_indoor_strong"
-
-[snork_indoor_normal]:snork_normal
-$spawn = "monsters\snorks\snork_indoor_normal"
-
-[snork_indoor_weak]:snork_weak
-$spawn = "monsters\snorks\snork_indoor_weak"

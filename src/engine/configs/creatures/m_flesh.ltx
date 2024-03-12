@@ -166,6 +166,30 @@ vision_danger_section = flesh_vision_danger
 ; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
 ; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
+[flesh_normal]:m_flesh_e
+$spawn = "monsters\fleshes\flesh_02_normal"
+visual = monsters\flesh\flesh
+corpse_visual = monsters\flesh\flesh_dead
+icon = ui_npc_monster_flesh
+panic_threshold = 0.2
+rank = 2
+immunities_sect = flesh_immunities_normal
+attack_params = flesh_attack_params_normal
+spec_rank = normal
+community = flesh
+
+[flesh_strong]:m_flesh_e
+$spawn = "monsters\fleshes\flesh_03_strong"
+visual = monsters\flesh\flesh_strong
+corpse_visual = monsters\flesh\flesh_dead
+icon = ui_npc_monster_flesh_strong
+panic_threshold = 0.05
+rank = 3
+immunities_sect = flesh_immunities_strong
+attack_params = flesh_attack_params_strong
+spec_rank = strong
+community = flesh
+
 [flesh_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.4 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -260,18 +284,6 @@ ce_amplitude = -10.0
 ce_period_number = 2.0
 ce_power = 1.5 ; 0.7 ; power
 
-[flesh_normal]:m_flesh_e
-$spawn = "monsters\fleshes\flesh_02_normal"
-visual = monsters\flesh\flesh
-corpse_visual = monsters\flesh\flesh_dead
-icon = ui_npc_monster_flesh
-panic_threshold = 0.2
-rank = 2
-immunities_sect = flesh_immunities_normal
-attack_params = flesh_attack_params_normal
-spec_rank = normal
-community = flesh
-
 [flesh_immunities_normal]
 $scheme = $immunities
 burn_immunity = 0.3
@@ -292,18 +304,6 @@ stand_attack_0 = 0.25, 0.45, 70, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.0
 stand_attack_1 = 0.30, 0.45, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
 stand_attack_2 = 0.30, 0.45, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
 stand_attack_3 = 0.40, 0.45, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
-
-[flesh_strong]:m_flesh_e
-$spawn = "monsters\fleshes\flesh_03_strong"
-visual = monsters\flesh\flesh_strong
-corpse_visual = monsters\flesh\flesh_dead
-icon = ui_npc_monster_flesh_strong
-panic_threshold = 0.05
-rank = 3
-immunities_sect = flesh_immunities_strong
-attack_params = flesh_attack_params_strong
-spec_rank = strong
-community = flesh
 
 [flesh_immunities_strong]
 $scheme = $immunities

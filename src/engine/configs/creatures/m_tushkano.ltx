@@ -169,6 +169,13 @@ step_params = m_tushkano_step_params
 vision_free_section = tushkano_vision_free
 vision_danger_section = tushkano_vision_danger
 
+[tushkano_normal]:m_tushkano_e
+$spawn = "monsters\tushkanos\tushkano_normal"
+rank = 1
+spec_rank = normal
+community = tushkano
+panic_threshold = 0.05
+
 [tushkano_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.6 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -237,10 +244,3 @@ stand_attack_2 = 0.25, 0.55, 35, 0.0, 1.0, 0.0, -1.2, 1.2, -1.6, 1.6, 1.0
 ; ---------------------------------------------------------------------------
 stand_walk_fwd_0 = 1, 0.2, 0.5, 0.7, 1,
 stand_run_0 = 1, 0.25, 1, 0.25, 1,
-
-[tushkano_normal]:m_tushkano_e
-$spawn = "monsters\tushkanos\tushkano_normal"
-rank = 1
-spec_rank = normal
-community = tushkano
-panic_threshold = 0.05

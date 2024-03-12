@@ -186,6 +186,115 @@ vision_danger_section = poltergeist_vision_danger
 ; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
 ; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
+[m_poltergeist_normal_tele]:m_poltergeist_e
+$spawn = "monsters\poltergeists\poltergeist_normal_tele"
+rank = 11
+spec_rank = normal
+detection_pp_effector_name = poltergeist_detection_effector
+detection_near_range_factor = 2
+detection_far_range_factor = 1
+detection_far_range = 50
+detection_speed_factor = 4.0
+detection_loose_speed = 2.0
+detection_success_level = 10.0
+detection_max_level = 15.0
+detection_fly_around_level = 5.0
+detection_fly_around_distance = 30.0
+detection_fly_around_change_direction_time = 5 ; sec
+type = telekinetic
+immunities_sect = poltergeist_tele_immunities
+Tele_Fly_Time = 0.30
+Tele_Fly_Velocity = 30
+Tele_Find_Radius = 50
+Tele_Object_Min_Mass = 0
+Tele_Object_Max_Mass = 5000
+Tele_Object_Count = 3 ; 7
+Tele_Hold_Time = 1000
+Tele_Wait_Time = 1000
+Tele_Delay_Between_Objects_Time = 1000
+Tele_Distance = 50
+Tele_Object_Height = 2
+Tele_Time_Object_Keep = 5000
+Tele_Raise_Speed = 6
+Tele_Delay_Between_Objects_Raise_Time = 200
+Tele_Collision_Damage = 0.5
+Particles_Damage = monsters\polter_damage
+Particles_Death = monsters\polter_death
+Particles_Idle = monsters\polter_idle
+Particles_Hidden = monsters\polter_linza
+Hidden_Particles = monsters\polter_linza
+; Hide_Particles = monsters\polter_yadro ; monsters\polter_hide
+Sound_Idle = monsters\poltergeist\tele_idle_0
+sound_take_damage = monsters\poltergeist\tele_damage_
+sound_die = monsters\poltergeist\tele_death_
+sound_tele_hold = monsters\burer\burer_tele_hold
+sound_tele_throw = monsters\burer\burer_tele_throw
+
+[m_poltergeist_normal_flame]:m_poltergeist_e
+$spawn = "monsters\poltergeists\poltergeist_normal_flame"
+rank = 12
+spec_rank = normal
+fire_max_distance = 5
+fire_max_power = 0.1
+detection_pp_effector_name = poltergeist_detection_effector
+detection_near_range_factor = 2
+detection_far_range_factor = 1
+detection_far_range = 50
+detection_speed_factor = 4.0
+detection_loose_speed = 2.0
+detection_success_level = 10.0
+detection_max_level = 15.0
+detection_fly_around_level = 5.0
+detection_fly_around_distance = 8.0
+detection_fly_around_change_direction_time = 5 ; sec
+type = flamer
+immunities_sect = poltergeist_flame_immunities
+flame_hit_value = 0.7
+flame_sound = monsters\poltergeist\attack_hit_flame
+flame_particles_prepare = monsters\polter_yadro
+flame_particles_fire = static\monsters_fire_idle
+flame_particles_stop = static\monsters_fire_stop
+flame_fire_time_delay = 1000 ; 2400 ; don't change - for programmers only
+flame_fire_time_play = 6000
+flame_length = 8.0
+flame_hit_value = 0.3
+flame_hit_delay = 200
+flames_count = 3
+flames_delay = 2000 ; 3500 ; 2000
+flame_aura_radius = 10
+flame_scan_radius = 0
+flame_scan_sound = monsters\burer\burer_scan_affect_0
+flame_scan_effector_section = m_poltergeist_scan_effector
+flame_scan_delay_min_max = 5000,10000
+flame_min_dist = 2
+flame_max_dist = 30
+flame_min_height = 0.5
+flame_max_height = 1.0
+Particles_Damage = monsters\polter_damage
+Particles_Death = monsters\polter_death_00
+Particles_Idle = monsters\polter_idle_00
+Particles_Hidden = monsters\polter_linza_00
+Hidden_Particles = monsters\polter_linza_00 ; monsters\polter_hidden
+Sound_Idle = monsters\poltergeist\fire_idle_0
+
+[pri_a25_poltergeist]:m_poltergeist_normal_tele
+$spawn = "monsters\poltergeists\pri_a25_poltergeist"
+detection_linear_factor = 18.0
+detection_loose_speed = 4.0
+
+[labx8_poltergeist]:m_poltergeist_normal_tele
+$spawn = "monsters\poltergeists\labx8_poltergeist"
+Tele_Find_Radius = 145
+Tele_Object_Count = 2 ; 4 ; 7
+detection_far_range = 145
+detection_speed_factor = 6.0 ; 4.0
+detection_loose_speed = 4.0 ; 2.0
+detection_near_range_factor = 1
+detection_far_range_factor = 1
+Tele_Time_Object_Keep = 18000 ; 5000
+Height_Min = 0.4
+Height_Max = 0.9
+
 [poltergeist_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.8 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -276,50 +385,6 @@ chemical_burn_immunity = 1.0
 explosion_immunity = 1.0
 fire_wound_immunity = 1.0
 
-[m_poltergeist_normal_tele]:m_poltergeist_e
-$spawn = "monsters\poltergeists\poltergeist_normal_tele"
-rank = 11
-spec_rank = normal
-detection_pp_effector_name = poltergeist_detection_effector
-detection_near_range_factor = 2
-detection_far_range_factor = 1
-detection_far_range = 50
-detection_speed_factor = 4.0
-detection_loose_speed = 2.0
-detection_success_level = 10.0
-detection_max_level = 15.0
-detection_fly_around_level = 5.0
-detection_fly_around_distance = 30.0
-detection_fly_around_change_direction_time = 5 ; sec
-type = telekinetic
-immunities_sect = poltergeist_tele_immunities
-Tele_Fly_Time = 0.30
-Tele_Fly_Velocity = 30
-Tele_Find_Radius = 50
-Tele_Object_Min_Mass = 0
-Tele_Object_Max_Mass = 5000
-Tele_Object_Count = 3 ; 7
-Tele_Hold_Time = 1000
-Tele_Wait_Time = 1000
-Tele_Delay_Between_Objects_Time = 1000
-Tele_Distance = 50
-Tele_Object_Height = 2
-Tele_Time_Object_Keep = 5000
-Tele_Raise_Speed = 6
-Tele_Delay_Between_Objects_Raise_Time = 200
-Tele_Collision_Damage = 0.5
-Particles_Damage = monsters\polter_damage
-Particles_Death = monsters\polter_death
-Particles_Idle = monsters\polter_idle
-Particles_Hidden = monsters\polter_linza
-Hidden_Particles = monsters\polter_linza
-; Hide_Particles = monsters\polter_yadro ; monsters\polter_hide
-Sound_Idle = monsters\poltergeist\tele_idle_0
-sound_take_damage = monsters\poltergeist\tele_damage_
-sound_die = monsters\poltergeist\tele_death_
-sound_tele_hold = monsters\burer\burer_tele_hold
-sound_tele_throw = monsters\burer\burer_tele_throw
-
 [poltergeist_tele_immunities]
 $scheme = $immunities
 burn_immunity = 0.5 ; ������������ ����������
@@ -331,53 +396,6 @@ telepatic_immunity = 1.0
 chemical_burn_immunity = 1.0
 explosion_immunity = 0.1
 fire_wound_immunity = 1.0
-
-[m_poltergeist_normal_flame]:m_poltergeist_e
-$spawn = "monsters\poltergeists\poltergeist_normal_flame"
-rank = 12
-spec_rank = normal
-fire_max_distance = 5
-fire_max_power = 0.1
-detection_pp_effector_name = poltergeist_detection_effector
-detection_near_range_factor = 2
-detection_far_range_factor = 1
-detection_far_range = 50
-detection_speed_factor = 4.0
-detection_loose_speed = 2.0
-detection_success_level = 10.0
-detection_max_level = 15.0
-detection_fly_around_level = 5.0
-detection_fly_around_distance = 8.0
-detection_fly_around_change_direction_time = 5 ; sec
-type = flamer
-immunities_sect = poltergeist_flame_immunities
-flame_hit_value = 0.7
-flame_sound = monsters\poltergeist\attack_hit_flame
-flame_particles_prepare = monsters\polter_yadro
-flame_particles_fire = static\monsters_fire_idle
-flame_particles_stop = static\monsters_fire_stop
-flame_fire_time_delay = 1000 ; 2400 ; don't change - for programmers only
-flame_fire_time_play = 6000
-flame_length = 8.0
-flame_hit_value = 0.3
-flame_hit_delay = 200
-flames_count = 3
-flames_delay = 2000 ; 3500 ; 2000
-flame_aura_radius = 10
-flame_scan_radius = 0
-flame_scan_sound = monsters\burer\burer_scan_affect_0
-flame_scan_effector_section = m_poltergeist_scan_effector
-flame_scan_delay_min_max = 5000,10000
-flame_min_dist = 2
-flame_max_dist = 30
-flame_min_height = 0.5
-flame_max_height = 1.0
-Particles_Damage = monsters\polter_damage
-Particles_Death = monsters\polter_death_00
-Particles_Idle = monsters\polter_idle_00
-Particles_Hidden = monsters\polter_linza_00
-Hidden_Particles = monsters\polter_linza_00 ; monsters\polter_hidden
-Sound_Idle = monsters\poltergeist\fire_idle_0
 
 [poltergeist_flame_immunities]
 $scheme = $immunities
@@ -405,21 +423,3 @@ color_add = 0.05,0.0,0.0
 time = 10.00
 time_attack = 0.3 ; fade in
 time_release = 0.85 ; fade out
-
-[pri_a25_poltergeist]:m_poltergeist_normal_tele
-$spawn = "monsters\poltergeists\pri_a25_poltergeist"
-detection_linear_factor = 18.0
-detection_loose_speed = 4.0
-
-[labx8_poltergeist]:m_poltergeist_normal_tele
-$spawn = "monsters\poltergeists\labx8_poltergeist"
-Tele_Find_Radius = 145
-Tele_Object_Count = 2 ; 4 ; 7
-detection_far_range = 145
-detection_speed_factor = 6.0 ; 4.0
-detection_loose_speed = 4.0 ; 2.0
-detection_near_range_factor = 1
-detection_far_range_factor = 1
-Tele_Time_Object_Keep = 18000 ; 5000
-Height_Min = 0.4
-Height_Max = 0.9

@@ -180,6 +180,72 @@ vision_danger_section = pseudodog_vision_danger
 ; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
 ; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
+[pseudodog_normal]:m_pseudodog_e
+$spawn = "monsters\pseudodogs\pseudodog_02_normal"
+visual = monsters\pseudodog\pseudodog
+corpse_visual = monsters\pseudodog\pseudodog_dead
+icon = ui_npc_monster_pseudodog
+panic_threshold = 0 ; 0.2
+rank = 7
+immunities_sect = pseudodog_immunities_normal
+attack_params = pseudodog_attack_params_normal
+spec_rank = normal
+community = pseudodog
+
+[psy_dog_phantom]:pseudodog_normal
+$spawn = "monsters\psy_dog\psy_dog_phantom"
+visual = monsters\pseudodog\pseudodog_grey
+icon = ui_npc_monster_pseudodog_grey
+class = SM_DOG_F
+rank = 1
+; jump_delay = 3000 ; 3000
+; jump_factor = 3
+; jump_min_distance = 4.0
+; jump_max_distance = 10.0
+; jump_max_angle = 0.2
+appear_effector = psy_dog_phantom_appear_effector
+particles_appear = monsters\pseudo_phantom_birth_00
+particles_disappear = monsters\pseudo_phantom_death_00
+attack_params = psydog_attack_params_phantom
+hit_type = telepatic
+
+[zat_b18_dog]:pseudodog_normal
+$spawn = "monsters\psy_dog\zat_b18_dog"
+community = pseudodog
+radiation_max_distance = 0
+; Movement::Velocities & Acceleration
+; ----------------------------------------------------------------------------
+; speed factors linear | angular_real | angular_path | min | max
+Velocity_Stand = 0, 3.0, 3.0, 1, 1
+Velocity_RunFwdNormal = 6.6, 5.0, 5.0, 0.05, 1.0
+Velocity_RunFwdDamaged = 4.3, 5.0, 5.0, 0.5, 1.0
+Velocity_WalkFwdNormal = 5.0, 5.0, 5.0, 0.1, 1.0
+Velocity_WalkFwdDamaged = 2.2, 6.0, 6.0, 0.1, 2.2
+
+[psy_dog_normal]:pseudodog_normal
+$spawn = "monsters\psy_dog\psy_dog_normal"
+visual = monsters\pseudodog\pseudodog_grey
+corpse_visual = monsters\pseudodog\pseudodog_grey_dead
+icon = ui_npc_monster_pseudodog_grey
+class = SM_DOG_P
+rank = 13
+aura_effector = psy_dog_aura_effector
+Phantoms_Count = 2
+Time_Phantom_Respawn = 5000
+Max_Phantoms_Count = 3
+Min_Phantoms_Count = 2
+Time_Phantom_Appear = 3000
+
+[psy_dog]:pseudodog_normal
+$spawn = "monsters\psy_dog\psy_dog"
+visual = monsters\pseudodog\pseudodog_grey
+corpse_visual = monsters\pseudodog\pseudodog_grey_dead
+icon = ui_npc_monster_pseudodog_grey
+class = SM_DOG_P
+aura_effector = psy_dog_aura_effector
+Phantoms_Count = 3
+Time_Phantom_Respawn = 1000
+
 [pseudodog_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.4 ; �����������, �����v� �������� �� eye_range, � ����������� �� ����
@@ -261,7 +327,7 @@ chemical_burn_immunity = 0.8
 explosion_immunity = 0.4
 fire_wound_immunity = 1.0
 
-[m_Pseudodog_damage]
+[m_pseudodog_damage]
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������v ����v��� ���v
@@ -274,18 +340,6 @@ bip01_head = 2.0, -1, 0.3, 10
 
 [pseudodogs_terrain]
 255,000,255,255
-
-[pseudodog_normal]:m_pseudodog_e
-$spawn = "monsters\pseudodogs\pseudodog_02_normal"
-visual = monsters\pseudodog\pseudodog
-corpse_visual = monsters\pseudodog\pseudodog_dead
-icon = ui_npc_monster_pseudodog
-panic_threshold = 0 ; 0.2
-rank = 7
-immunities_sect = pseudodog_immunities_normal
-attack_params = pseudodog_attack_params_normal
-spec_rank = normal
-community = pseudodog
 
 [pseudodog_immunities_normal]
 $scheme = $immunities
@@ -320,16 +374,6 @@ color_base = 0.9,0.9,1.0
 color_gray = 0.33,0.330,0.33
 color_add = 0.00,0.00,0.015
 
-[psy_dog]:pseudodog_normal
-$spawn = "monsters\psy_dog\psy_dog"
-visual = monsters\pseudodog\pseudodog_grey
-corpse_visual = monsters\pseudodog\pseudodog_grey_dead
-icon = ui_npc_monster_pseudodog_grey
-class = SM_DOG_P
-aura_effector = psy_dog_aura_effector
-Phantoms_Count = 3
-Time_Phantom_Respawn = 1000
-
 [psy_dog_phantom_appear_effector]
 duality_h = 0.028 ; 0.31
 duality_v = 0.028 ; 0.31
@@ -351,23 +395,6 @@ ce_period_number = 0 ; 2.0
 ce_power = 0 ; 0.3 ; 0.7
 ; Base Definition
 
-[psy_dog_phantom]:pseudodog_normal
-$spawn = "monsters\psy_dog\psy_dog_phantom"
-visual = monsters\pseudodog\pseudodog_grey
-icon = ui_npc_monster_pseudodog_grey
-class = SM_DOG_F
-rank = 1
-; jump_delay = 3000 ; 3000
-; jump_factor = 3
-; jump_min_distance = 4.0
-; jump_max_distance = 10.0
-; jump_max_angle = 0.2
-appear_effector = psy_dog_phantom_appear_effector
-particles_appear = monsters\pseudo_phantom_birth_00
-particles_disappear = monsters\pseudo_phantom_death_00
-attack_params = psydog_attack_params_phantom
-hit_type = telepatic
-
 [psydog_attack_params_phantom]
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
@@ -376,30 +403,3 @@ hit_type = telepatic
 stand_attack_0 = 0.45, 0.55, 10, 0.0, 1.0, 1.0, -1.0, 1.0, -1.0, 1.0, 1.6
 ; Jump attack
 run_jamp_1 = 0.55, 0.55, 10, 0.0, 1.0, 4.0, -1.8, 1.8, -1.8, 1.8, 1.0
-
-[zat_b18_dog]:pseudodog_normal
-$spawn = "monsters\psy_dog\zat_b18_dog"
-community = pseudodog
-radiation_max_distance = 0
-; Movement::Velocities & Acceleration
-; ----------------------------------------------------------------------------
-; speed factors linear | angular_real | angular_path | min | max
-Velocity_Stand = 0, 3.0, 3.0, 1, 1
-Velocity_RunFwdNormal = 6.6, 5.0, 5.0, 0.05, 1.0
-Velocity_RunFwdDamaged = 4.3, 5.0, 5.0, 0.5, 1.0
-Velocity_WalkFwdNormal = 5.0, 5.0, 5.0, 0.1, 1.0
-Velocity_WalkFwdDamaged = 2.2, 6.0, 6.0, 0.1, 2.2
-
-[psy_dog_normal]:pseudodog_normal
-$spawn = "monsters\psy_dog\psy_dog_normal"
-visual = monsters\pseudodog\pseudodog_grey
-corpse_visual = monsters\pseudodog\pseudodog_grey_dead
-icon = ui_npc_monster_pseudodog_grey
-class = SM_DOG_P
-rank = 13
-aura_effector = psy_dog_aura_effector
-Phantoms_Count = 2
-Time_Phantom_Respawn = 5000
-Max_Phantoms_Count = 3
-Min_Phantoms_Count = 2
-Time_Phantom_Appear = 3000
