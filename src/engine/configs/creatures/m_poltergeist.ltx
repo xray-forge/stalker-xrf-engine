@@ -1,4 +1,5 @@
 [m_poltergeist_e]:monster_base
+$scheme = $poltergeist
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald,zone_radioactive
 $spawn = "monsters\old\poltergeist" ; option for Level Editor
@@ -16,6 +17,8 @@ visual = monsters\poltergeist\poltergeist
 corpse_visual = monsters\poltergeist\poltergeist_dead
 icon = ui_npc_monster_poltergeist
 MaxHealthValue = 150 ; range [0..200]
+Spawn_Inventory_Item_Section = mutant_poltergeist_core
+Spawn_Inventory_Item_Probability = 0.0
 DynamicObjectsCount = 32
 smart_terrain_choose_interval = 00:15:00
 cform = skeleton ; collision class
@@ -320,10 +323,12 @@ luminocity_factor = 0.5 ; ������ ��������� (��
 transparency_threshold = 0.25
 
 [poltergeist_protections]
+$scheme = $monster_protections
 skin_armor = 0.1
 hit_fraction_monster = 0.4
 
 [m_Poltergeist_damage]
+$scheme = $monster_damage
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������� �������� ����
@@ -335,6 +340,7 @@ bip01_neck = 1.0, -1, 0.5
 bip01_head = 2.0, -1, 0.3
 
 [m_poltergeist_attack_params]
+$scheme = $monster_attack_params
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -344,6 +350,7 @@ stand_attack_0 = 0.30, 0.20, 50, 0.0, 1.0, 1.0, -1.6, 1.6, -1.6, 1.6, 3.5
 stand_attack_1 = 0.30, 0.15, 50, 0.0, 1.0, 1.0, -1.6, 1.6, -1.6, 1.6, 3.5
 
 [m_poltergeist_attack_effector]
+$scheme = $effector_params
 duality_h = 0.01
 duality_v = 0.01
 blur = 0.01
@@ -364,14 +371,12 @@ ce_period_number = 1.5 ; 2.0
 ce_power = 1.5 ; 0.7 ; power
 
 [m_poltergeist_step_params] ; eft right right left
+$scheme = $monster_step_params
 ; anim cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
 stand_walk_fwd_0 = 1, 0.1, 1, 0.34, 1, 0.6, 1, 0.84, 1
 stand_walk_dmg_0 = 1, 0.2, 1, 0.25, 1, 0.5, 1, 0.7, 1
 stand_run_fwd_0 = 1, 0.1, 1, 0.3, 1, 0.5, 1, 0.55, 1
 stand_run_dmg_0 = 1, 0.2, 1, 0.25, 1, 0.7, 1, 0.75, 1
-
-[poltergeist_terrain]
-255,000,255,255
 
 [poltergeist_immunities]
 $scheme = $immunities
@@ -410,6 +415,7 @@ explosion_immunity = 0.1
 fire_wound_immunity = 1.0
 
 [m_poltergeist_scan_effector]
+$scheme = $effector_params
 duality_h = 0.003
 duality_v = 0.002
 blur = 1.5
@@ -423,3 +429,6 @@ color_add = 0.05,0.0,0.0
 time = 10.00
 time_attack = 0.3 ; fade in
 time_release = 0.85 ; fade out
+
+[poltergeist_terrain]
+255,000,255,255

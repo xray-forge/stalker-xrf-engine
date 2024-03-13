@@ -1,4 +1,5 @@
 [m_flesh_e]:monster_base
+$scheme = $flesh
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald,zone_gravi_zone
 $spawn = "monsters\fleshes\flesh_base" ; option for Level Editor
@@ -65,7 +66,7 @@ ph_skel_shot_up_factor = 0.25
 separate_factor = 0.8 ; ���� �������������
 separate_range = 3 ; ������ � ������� ������������� ���������
 ; speed factors linear | angular_real | angular_path | min | max
-Velocity_Stand = 0, 1.79, 1.79 1, 1
+Velocity_Stand = 0, 1.79, 1.79, 1, 1
 Velocity_WalkFwdNormal = 1.5, 2.0, 2.0, 0.2, 2.0
 Velocity_WalkFwdDamaged = 1.2, 1.14, 1.14, 0.2, 2.0
 Velocity_RunFwdNormal = 5.0, 2.5, 2.5, 0.2, 1
@@ -81,6 +82,7 @@ MaxAttackDist = 2.9
 as_min_dist = 1.3
 as_step = 0.4
 Melee_Rotation_Factor = 2.6
+hit_type = wound ; type of attack
 satiety_v = 0.0001 ; 0.01 ; �������� ���������� �v����� �� �������
 radiation_v = 0.00001 ; 0.004 ; �������� ���������� �������
 satiety_power_v = 0.005 ; 0.01 ; ���������� ���v ��� ���������� �v�����
@@ -190,6 +192,15 @@ attack_params = flesh_attack_params_strong
 spec_rank = strong
 community = flesh
 
+[flesh_group]
+$scheme = $spawn_object
+GroupControlSection = spawn_group
+; $spawn = "monsters\flesh-group" ; option for Level Editor
+$npc = on ; option for Level Editor
+Human = off ; option for ALife Simulator
+class = AI_FLE_G ; AI class
+monster_section = m_flesh_e
+
 [flesh_vision_free]
 $scheme = $monster_vision
 min_view_distance = 0.4 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
@@ -214,10 +225,8 @@ velocity_factor = 0.5
 luminocity_factor = 0.5 ; ������ ��������� (������ ��� �����)
 transparency_threshold = 0.25
 
-[flesh_terrain]
-255,000,255,255
-
-[m_Flesh_damage]
+[m_flesh_damage]
+$scheme = $monster_damage
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������� �������� ����
@@ -228,6 +237,7 @@ bip01_neck = 1.0, -1, 0.3
 bip01_head = 2.0, -1, 0.10
 
 [flesh_protections]
+$scheme = $monster_protections
 skin_armor = 0.1
 hit_fraction_monster = 0.4
 
@@ -244,6 +254,7 @@ explosion_immunity = 0.55
 fire_wound_immunity = 1.0
 
 [m_flesh_attack_params]
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; Left leg strike
 stand_attack_0 = 0.25, 0.6, 70, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
@@ -253,6 +264,7 @@ stand_attack_2 = 0.30, 0.6, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
 stand_attack_3 = 0.40, 0.6, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
 
 [m_flesh_step_params]
+$scheme = $monster_step_params
 ; -------------------------------------------------------------------------------------------------------------
 ; anim | cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
 ; -------------------------------------------------------------------------------------------------------------
@@ -265,6 +277,7 @@ stand_drag_0 = 1, 0.2, 1, 0.25, 0.7, 0.7, 1.0, 0.7, 1.0
 ; SPECIAL EFFECTORS
 
 [m_flesh_attack_effector]
+$scheme = $effector_params
 duality_h = 0.01
 duality_v = 0.01
 blur = 0.01
@@ -297,6 +310,7 @@ explosion_immunity = 0.5
 fire_wound_immunity = 0.7
 
 [flesh_attack_params_normal]
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; Left leg strike
 stand_attack_0 = 0.25, 0.45, 70, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.0
@@ -318,6 +332,7 @@ explosion_immunity = 0.5
 fire_wound_immunity = 0.5
 
 [flesh_attack_params_strong]
+$scheme = $monster_attack_params
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; Left leg strike
 stand_attack_0 = 0.25, 0.5, 70, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.0
@@ -325,14 +340,6 @@ stand_attack_0 = 0.25, 0.5, 70, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.0
 stand_attack_1 = 0.30, 0.5, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
 stand_attack_2 = 0.30, 0.5, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
 stand_attack_3 = 0.40, 0.5, 150, 0.0, 0.5, 1.0, -1.0, 1.0, -1.0, 1.0, 2.5
-
-[flesh_group]
-GroupControlSection = spawn_group
-; $spawn = "monsters\flesh-group" ; option for Level Editor
-$npc = on ; option for Level Editor
-Human = off ; option for ALife Simulator
-class = AI_FLE_G ; AI class
-monster_section = m_flesh_e
 
 [flesh_critical_wound_bones_head]
 bip01_neck
@@ -369,3 +376,6 @@ bip01_r_hand
 bip01_r_finger0
 bip01_r_finger01
 bip01_l_thigh
+
+[flesh_terrain]
+255,000,255,255
