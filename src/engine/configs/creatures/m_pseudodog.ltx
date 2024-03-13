@@ -1,4 +1,5 @@
 [m_pseudodog_e]:monster_base
+$scheme = $pseudodog
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald
 ; $spawn = "monsters\pseudodog" ; option for Level Editor
@@ -193,6 +194,7 @@ spec_rank = normal
 community = pseudodog
 
 [psy_dog_phantom]:pseudodog_normal
+$scheme = $pseudodog_phantom
 $spawn = "monsters\psy_dog\psy_dog_phantom"
 visual = monsters\pseudodog\pseudodog_grey
 icon = ui_npc_monster_pseudodog_grey
@@ -223,6 +225,7 @@ Velocity_WalkFwdNormal = 5.0, 5.0, 5.0, 0.1, 1.0
 Velocity_WalkFwdDamaged = 2.2, 6.0, 6.0, 0.1, 2.2
 
 [psy_dog_normal]:pseudodog_normal
+$scheme = $psy_dog
 $spawn = "monsters\psy_dog\psy_dog_normal"
 visual = monsters\pseudodog\pseudodog_grey
 corpse_visual = monsters\pseudodog\pseudodog_grey_dead
@@ -237,6 +240,7 @@ Min_Phantoms_Count = 2
 Time_Phantom_Appear = 3000
 
 [psy_dog]:pseudodog_normal
+$scheme = $psy_dog
 $spawn = "monsters\psy_dog\psy_dog"
 visual = monsters\pseudodog\pseudodog_grey
 corpse_visual = monsters\pseudodog\pseudodog_grey_dead
@@ -271,6 +275,7 @@ luminocity_factor = 0.5 ; ������ ��������� (��
 transparency_threshold = 0.25
 
 [m_pseudodog_attack_params]
+$scheme = $monster_attack_params
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -281,6 +286,7 @@ run_jamp_1 = 0.55, 0.6, 120, 0.0, 1.0, 4.0, -1.8, 1.8, -1.8, 1.8, 1.0
 ; SPECIAL EFFECTORS
 
 [m_pseudodog_attack_effector]
+$param = $effector_params
 duality_h = 0.01
 duality_v = 0.01
 blur = 0.01
@@ -302,6 +308,7 @@ ce_power = 1.0 ; 0.7 ; power
 ; Step Events
 
 [m_pseudodog_step_params] ; eft right right left
+$scheme = $monster_step_params
 ; ------------------------------------------------------------------------------------------------------------------
 ; anim cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
 ; -----------------------------------------------------------------------------------------------------------------
@@ -312,6 +319,7 @@ stand_run_dmg_0 = 1, 0.2, 1, 0.25, 1, 0.7, 1, 0.75, 1
 stand_drag_0 = 1, 0.2, 1, 0.25, 1, 0.7, 1, 0.75, 1
 
 [pseudodog_protections]
+$scheme = $monster_protections
 skin_armor = 0.2
 hit_fraction_monster = 0.4
 
@@ -328,6 +336,7 @@ explosion_immunity = 0.4
 fire_wound_immunity = 1.0
 
 [m_pseudodog_damage]
+$scheme = $monster_damage
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������v ����v��� ���v
@@ -354,6 +363,7 @@ explosion_immunity = 0.8
 fire_wound_immunity = 1.2
 
 [pseudodog_attack_params_normal]
+$scheme = $monster_attack_params
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -363,6 +373,7 @@ stand_attack_0 = 0.45, 0.5, 50, 0.0, 1.0, 1.0, -1.0, 1.0, -1.0, 1.0, 1.6
 run_jamp_1 = 0.55, 0.6, 250, 0.0, 1.0, 4.0, -1.8, 1.8, -1.8, 1.8, 1.0
 
 [psy_dog_aura_effector]
+$scheme = $effector_params
 duality_h = 0.00
 duality_v = 0.00
 blur = 10
@@ -375,6 +386,7 @@ color_gray = 0.33,0.330,0.33
 color_add = 0.00,0.00,0.015
 
 [psy_dog_phantom_appear_effector]
+$scheme = $effector_params
 duality_h = 0.028 ; 0.31
 duality_v = 0.028 ; 0.31
 blur = 0.00
@@ -396,6 +408,7 @@ ce_power = 0 ; 0.3 ; 0.7
 ; Base Definition
 
 [psydog_attack_params_phantom]
+$scheme = $monster_attack_params
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, top, bottom) | Test Dist
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
