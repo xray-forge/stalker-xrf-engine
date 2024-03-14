@@ -54,3 +54,30 @@ time_attack.optional = true
 time_attack.type = f32
 time_release.optional = true
 time_release.type = f32
+
+[$common_ph_friction_params_on_npc_death]
+strict = true
+ph_after_death_velocity_factor.type = f32
+ph_character_have_wounded_state.type = bool
+ph_pelvis_factor_low_pose_detect.type = f32
+ph_skel_fatal_impulse_factor.type = f32
+ph_skel_shot_up_factor.type = f32
+ph_skeleton_airr_ang_factor.type = f32
+ph_skeleton_airr_lin_factor.type = f32
+ph_skeleton_ddelay.type = f32
+ph_skeleton_hinger_factor1.type = f32
+ph_skeleton_skin_ddelay.type = f32
+ph_skeleton_skin_ddelay_after_wound.type = f32
+ph_skeleton_skin_friction_end.type = f32
+ph_skeleton_skin_friction_start.type = f32
+
+[$alife_base]
+Health.type = f32
+Human.type = enum:on,off
+MaxSpeed.type = f32
+MinSpeed.type = f32
+Scheduled.type = enum:on,off
+current_level_going_speed.optional = true
+current_level_going_speed.type = f32
+going_speed.type = f32
+search_speed.type = f32

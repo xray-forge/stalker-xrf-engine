@@ -1,4 +1,5 @@
 [m_snork_e]:monster_base
+$scheme = $snork
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald
 ; $spawn = "monsters\snork" ; option for Level Editor
@@ -176,6 +177,7 @@ terrain = snork_terrain
 step_params = m_snork_step_params
 damage = m_snork_damage
 immunities_sect = snork_immunities
+attack_params = snork_attack_params_normal
 protections_sect = snork_protections
 eye_fov = 110 ; 140
 eye_range = 50 ; 50
@@ -269,11 +271,12 @@ luminocity_factor = 0.5 ; ������ ��������� (��
 transparency_threshold = 0.25
 
 [snork_protections]
+$scheme = $monster_protections
 skin_armor = 0.5
 hit_fraction_monster = 0.3
-; SNORK Damage
 
 [m_snork_damage]
+$scheme = $monster_damage
 ; bone_name = <hit_scale>,-1,<wound_scale>
 ; <hit_scale> - �����. ��������� ���� (���������� ��������)
 ; <wound_scale> - �����. ��������� �������� �������� ����
@@ -285,6 +288,7 @@ bip01_neck = 1.0, -1, 0.5
 bip01_head = 4.0, -1, 0.1, 10
 
 [m_snork_attack_effector]
+$scheme = $effector_params
 duality_h = 0.05 ; 0.01
 duality_v = 0.02 ; 0.01
 blur = 0.01
@@ -305,6 +309,7 @@ ce_period_number = 2.0 ; camera shake times
 ce_power = 2.5 ; 2.0 ; power
 
 [m_snork_step_params]
+$scheme = $monster_step_params
 ; -------------------------------------------------------------------------------------------------------------
 ; anim | Cycles | time1 | power1 | time2 | power2 | time3 | power3 | time4 | power4 |
 ; -------------------------------------------------------------------------------------------------------------
@@ -340,6 +345,7 @@ explosion_immunity = 0.4
 fire_wound_immunity = 1.0
 
 [snork_attack_params_weak]
+$scheme = $monster_attack_params
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -361,6 +367,7 @@ explosion_immunity = 0.3
 fire_wound_immunity = 1.0
 
 [snork_attack_params_normal]
+$scheme = $monster_attack_params
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -382,6 +389,7 @@ explosion_immunity = 0.2
 fire_wound_immunity = 1.0
 
 [snork_attack_params_strong]
+$scheme = $monster_attack_params
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 ; ---------------------------------------------------------------------------------------------------------------------------------------------
