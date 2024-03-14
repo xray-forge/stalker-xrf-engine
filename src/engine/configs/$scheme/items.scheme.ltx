@@ -1,0 +1,62 @@
+[$item]:$spawn_object,$identity_immunities
+strict = true
+cost.type = u32
+discovery_dependency.type = string
+inv_name.type = string
+inv_name_short.type = string
+inv_weight.type = f32
+inv_grid_width.type = u8
+inv_grid_height.type = u8
+inv_grid_x.type = u32
+inv_grid_y.type = u32
+
+[$item_scope]:$item
+strict = true
+holder_fov_modifier.type = f32
+holder_range_modifier.type = f32
+scope_alive_detector.optional = true
+scope_alive_detector.type = string
+scope_dynamic_zoom.optional = true
+scope_dynamic_zoom.type = enum:on,off
+scope_nightvision.optional = true
+scope_nightvision.type = string
+scope_texture.type = string
+scope_zoom_factor.type = f32
+
+[$scope_contrast]
+strict = true
+pp_eff_name.type = string
+pp_eff_cyclic.type = u8 ; bool
+pp_eff_overlap.type = bool
+
+[$scope_nightvision]
+strict = true
+pp_eff_cyclic.type = u8 ; bool
+pp_eff_name.type = string
+pp_eff_overlap.type = bool
+snd_night_vision_broken.type = string
+snd_night_vision_idle.type = string
+snd_night_vision_off.type = string
+snd_night_vision_on.type = string
+
+[$scope_detector]
+strict = true
+vis_frame_speed.type = f32
+vis_frame_color.array = true
+vis_frame_color.type = f32 ; todo: color
+found_snd.type = string
+catch_snd.type = string
+
+[$item_silencer]:$item
+strict = true
+bullet_hit_impulse_k.type = f32
+bullet_hit_power_k.type = f32
+bullet_speed_k.type = f32
+cam_dispersion_inc_k.type = f32
+cam_dispersion_k.type = f32
+fire_dispersion_base_k.type = f32
+
+[$item_grenade_launcher]:$item
+strict = true
+grenade_vel.type = f32
+

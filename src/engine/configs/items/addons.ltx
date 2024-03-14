@@ -1,4 +1,5 @@
 [wpn_addon_scope]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope" ; option for Level Editor
@@ -21,6 +22,7 @@ scope_texture = wpn_crosshair
 scope_zoom_factor = 25 ; ���-1 2X
 
 [wpn_addon_scope_x2.7]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope_x2.7" ; option for Level Editor
@@ -43,6 +45,7 @@ scope_texture = wpn_crosshair
 scope_zoom_factor = 40 ; ���-1 2X
 
 [wpn_addon_scope_detector]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope_detector" ; option for Level Editor
@@ -66,6 +69,7 @@ scope_alive_detector = scope_detector
 scope_zoom_factor = 30 ; ���-1 2X
 
 [wpn_addon_scope_night]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope_night" ; option for Level Editor
@@ -89,6 +93,7 @@ scope_nightvision = scope_nightvision
 scope_zoom_factor = 30 ; ���-1 2X
 
 [wpn_addon_scope_susat]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope_susat" ; option for Level Editor
@@ -112,6 +117,7 @@ scope_texture = wpn_crosshair_l85
 scope_zoom_factor = 30 ; SUSAT 2X
 
 [wpn_addon_scope_susat_x1.6]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope_susat_x1.6" ; option for Level Editor
@@ -135,6 +141,7 @@ scope_texture = wpn_crosshair_l85
 scope_zoom_factor = 50 ; SUSAT 1.6X
 
 [wpn_addon_scope_susat_custom]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope_susat_custom" ; option for Level Editor
@@ -159,6 +166,7 @@ scope_dynamic_zoom = on
 scope_zoom_factor = 30 ; SUSAT 2X
 
 [wpn_addon_scope_susat_dusk]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope_susat_dusk" ; option for Level Editor
@@ -183,6 +191,7 @@ scope_nightvision = scope_contrast
 scope_zoom_factor = 50 ; SUSAT 2X
 
 [wpn_addon_scope_susat_night]:identity_immunities
+$scheme = $item_scope
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\scope_susat_night" ; option for Level Editor
@@ -207,6 +216,7 @@ scope_nightvision = scope_nightvision
 scope_zoom_factor = 30 ; SUSAT 2X
 
 [wpn_addon_silencer]:identity_immunities
+$scheme = $item_silencer
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\silencer" ; option for Level Editor
@@ -232,6 +242,7 @@ cam_dispersion_k = 0.8
 cam_dispersion_inc_k = 0.9
 
 [wpn_addon_grenade_launcher]:identity_immunities
+$scheme = $item_grenade_launcher
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\grenade_launcher" ; option for Level Editor
@@ -251,6 +262,7 @@ inv_grid_y = 0
 grenade_vel = 32 ; 55
 
 [wpn_addon_grenade_launcher_m203]:identity_immunities
+$scheme = $item_grenade_launcher
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\addons\grenade_launcher_m203" ; option for Level Editor
@@ -271,12 +283,14 @@ inv_grid_y = 3
 grenade_vel = 32 ; 76
 
 [scope_detector]
+$scheme = $scope_detector
 vis_frame_speed = 4 ; ��������, � ������� ��������� ����� �� ����
 vis_frame_color = 0.7,0.7,0.7,1.0 ; ���� ����� RGBA (A) �� �����������
 found_snd = detectors\DA-2_beep1
 catch_snd = detectors\DA-2_beep1
 
 [scope_nightvision]
+$scheme = $scope_nightvision
 snd_night_vision_on = weapons\nv_start
 snd_night_vision_off = weapons\nv_off
 snd_night_vision_idle = weapons\nv_loop
@@ -286,6 +300,7 @@ pp_eff_cyclic = 1
 pp_eff_overlap = false
 
 [scope_contrast]
+$scheme = $scope_contrast
 pp_eff_name = contrast.ppe
 pp_eff_cyclic = 1
 pp_eff_overlap = false
