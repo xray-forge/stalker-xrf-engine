@@ -126,7 +126,7 @@ WorldPosition.type = vector
 
 [$weather]
 strict = true
-ambient.type = enum:default,rain
+ambient.type = enum:default,rain,night,morning,day,tuman,evening,indoor
 ambient_color.type = vector
 clouds_color.array = true
 clouds_color.type = f32
@@ -150,6 +150,8 @@ sun_shafts_intensity.type = f32
 thunderbolt_collection.type = string
 thunderbolt_duration.type = f32
 thunderbolt_period.type = f32
+tree_amplitude_intensity.optional = true
+tree_amplitude_intensity.type = f32
 water_intensity.type = f32
 wind_direction.type = f32
 wind_velocity.type = f32
