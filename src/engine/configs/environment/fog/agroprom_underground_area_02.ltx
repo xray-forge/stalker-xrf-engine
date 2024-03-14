@@ -1,4 +1,5 @@
 [volume]
+$scheme = $fog_volume
 EmittersNum = 1
 Hemi = 0.2
 ; ConfinementScale = 0.06
@@ -11,6 +12,7 @@ GravityBuoyancy = 0.001
 ; GravityBuoyancy = -0.003
 
 [emitter00]
+$scheme = $fog
 Type = SimpleGaussian
 Position = 35.0, 34.0, 7.0
 Radius = 0.15
@@ -24,6 +26,7 @@ ApplyDensity = 1
 ApplyImpulse = 1
 
 [emitter01]
+$scheme = $fog
 ; Type = SimpleDraught
 Type = SimpleGaussian
 ; Position = 10.0, 48.0, 45.0
@@ -40,6 +43,7 @@ ApplyDensity = 0
 ApplyImpulse = 1
 
 [emitter11]
+$scheme = $fog
 Type = SimpleGaussian
 ; Position = 35.0, 10.0, 40.0
 ; WorldPosition = 76.736, -16.126, 75.767

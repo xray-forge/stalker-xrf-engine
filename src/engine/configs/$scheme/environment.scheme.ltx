@@ -91,3 +91,35 @@ max_effect_period.type = f32
 min_effect_period.type = f32
 sound_channels.array = true
 sound_channels.type = string
+
+[$fog_volume]
+strict = true
+EmittersNum.type = u32
+GravityBuoyancy.optional = true
+GravityBuoyancy.type = f32
+Hemi.type = f32
+ConfinementScale.optional = true
+ConfinementScale.type = f32
+Decay.optional = true
+Decay.type = f32
+
+[$fog]
+strict = true
+ApplyDensity.type = u8 ; bool
+ApplyImpulse.type = u8 ; bool
+Density.type = f32
+DraughtAmp.optional = true
+DraughtAmp.type = f32
+DraughtPeriod.optional = true
+DraughtPeriod.type = f32
+DraughtPhase.optional = true
+DraughtPhase.type = f32
+FlowDirection.type = vector
+FlowSpeed.type = f32
+Position.optional = true
+Position.type = vector
+Radius.type = f32
+Sigma.type = f32
+Type.type = enum:SimpleGaussian,SimpleDraught
+WorldPosition.optional = true
+WorldPosition.type = vector

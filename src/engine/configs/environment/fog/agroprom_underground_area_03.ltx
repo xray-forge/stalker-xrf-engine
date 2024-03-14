@@ -1,9 +1,11 @@
 [volume]
+$scheme = $fog_volume
 EmittersNum = 2
 Hemi = 0.0
 GravityBuoyancy = 0.0015
 
 [emitter01]
+$scheme = $fog
 Type = SimpleGaussian
 Position = 49.0, 10.0, 54.0
 Radius = 0.25
@@ -15,6 +17,7 @@ ApplyDensity = 1
 ApplyImpulse = 1
 
 [emitter00]
+$scheme = $fog
 Type = SimpleGaussian
 Position = 35.0, 10.0, 40.0
 ; Radius = 0.15
