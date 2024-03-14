@@ -1,0 +1,93 @@
+[$thunderbolt_collection]
+stancia_00.type = string
+stancia_01.type = string
+stancia_02.type = string
+stancia_03.type = string
+
+[$thunderbolt]
+strict = true
+color_anim.type = string
+gradient_center_opacity.type = f32
+gradient_center_radius.array = true
+gradient_center_radius.type = f32 ; todo: tuple
+gradient_center_shader.type = string
+gradient_center_texture.type = string
+gradient_top_opacity.type = f32
+gradient_top_radius.array = true
+gradient_top_radius.type = f32 ; todo: tuple
+gradient_top_shader.type = string
+gradient_top_texture.type = string
+lightning_model.type = string
+sound.type = string
+
+[$sun]
+strict = true
+blend_down_time.type = u32
+blend_rise_time.type = u32
+blend_time.type = f32
+flare_opacity.array = true
+flare_opacity.type = f32
+flare_position.array = true
+flare_position.type = f32
+flare_radius.array = true
+flare_radius.type = f32
+flare_shader.type = string
+flare_textures.type = string
+flares.type = enum:on,off
+gradient.type = enum:on,off
+gradient_opacity.type = f32
+gradient_radius.type = f32
+gradient_shader.type = string
+gradient_texture.type = string
+sun.type = enum:on,off
+sun_ignore_color.type = bool
+sun_radius.type = f32
+sun_shader.type = string
+sun_texture.type = string
+
+[$sound_channel]
+strict.type = bool
+max_distance.type = f32
+min_distance.type = f32
+period0.type = u32
+period1.type = u32
+period2.type = u32
+period3.type = u32
+sounds.array = true
+sounds.type = string
+
+[$environment]
+strict = true
+altitude.type = f32
+delta_longitude.type = f32
+fog_color.type = f32
+min_dist_factor.type = f32
+second_propability.type = f32
+sky_color.type = f32
+sun_color.type = f32
+tilt.type = f32
+
+[$effect]
+strict = true
+life_time.type = u32
+offset.type = vector
+particles.type = string
+sound.type = string
+wind_blast_in_time.type = f32
+wind_blast_longitude.type = f32
+wind_blast_out_time.type = f32
+wind_blast_strength.type = f32
+wind_gust_factor.type = f32
+
+[$surge_settings]
+strict = true
+surge_state.type = u8 ; bool
+
+[$ambient]
+strict = true
+effects.array = true
+effects.type = string
+max_effect_period.type = f32
+min_effect_period.type = f32
+sound_channels.array = true
+sound_channels.type = string

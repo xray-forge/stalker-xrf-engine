@@ -373,6 +373,7 @@ visibility_threshold.type = f32
 
 [$monster_step_params]
 strict = true
+; anim | Cycles | time1 | power1 | time2 | power2 |
 stand_crawl_0.array = true
 stand_crawl_0.optional = true
 stand_crawl_0.type = f32
@@ -412,6 +413,7 @@ stand_walk_fwd_dmg_0.type = f32
 
 [$monster_attack_params]
 strict = true
+; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 jump_ataka_02.array = true
 jump_ataka_02.optional = true
 jump_ataka_02.type = f32
@@ -468,6 +470,7 @@ vampire_2.type = f32
 
 [$monster_damage]
 strict = true
+; bone_name = <hit_scale>,-1,<wound_scale>
 bip01_head.array = true
 bip01_head.optional = true
 bip01_head.type = f32
@@ -901,3 +904,18 @@ attack_params.type = string
 
 [$snork]:$alife_base,$spawn_object,$monster_base,$monster_shared,$monster_shared_jumper
 strict = true
+
+[$tushkano]:$alife_base,$spawn_object,$monster_base,$monster_shared
+strict = true
+ImpulseMax.type = f32
+ImpulseMin.type = f32
+always_visible_distance.type = f32
+decrease_value.type = f32
+hit_power.type = f32
+luminocity_factor.type = f32
+max_view_distance.type = f32
+min_view_distance.type = f32
+time_quant.type = f32
+transparency_threshold.type = f32
+velocity_factor.type = f32
+visibility_threshold.type = f32

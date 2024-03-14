@@ -1,4 +1,5 @@
 [m_tushkano_e]:monster_base
+$scheme = $tushkano
 GroupControlSection = spawn_group
 SpaceRestrictionSection = space_restrictor,zone_mosquito_bald
 $spawn = "monsters\old\tushkano" ; option for Level Editor
@@ -15,6 +16,8 @@ search_speed = 1.5 ; option for ALife Simulator
 visual = monsters\tushkano\tushkano
 corpse_visual = monsters\tushkano\tushkano_dead
 icon = ui_npc_monster_tushkano
+Spawn_Inventory_Item_Section =
+Spawn_Inventory_Item_Probability = 0.0
 MaxHealthValue = 50 ; range [0..200]
 DynamicObjectsCount = 32
 smart_terrain_choose_interval = 00:15:00
@@ -200,17 +203,13 @@ velocity_factor = 0.5
 luminocity_factor = 0.5 ; ������ ��������� (������ ��� �����)
 transparency_threshold = 0.25
 
-[tushkan_terrain]
-255,000,255,255
-
 [tushkano_protections]
+$scheme = $monster_protections
 skin_armor = 0
 hit_fraction_monster = 1.0
 
 [m_tushkano_damage]
-; bone_name = <hit_scale>,-1,<wound_scale>
-; <hit_scale> - �����. ��������� ���� (���������� ��������)
-; <wound_scale> - �����. ��������� �������� �������� ����
+$scheme = $monster_damage
 default = 1.0, -1, 0.3
 bip01_pelvis = 1.0, -1, 0.5
 bip01_spine = 1.0, -1, 0.5
@@ -220,7 +219,7 @@ bip01_head = 2.0, -1, 0.5, 10
 
 [tushkano_immunities]
 $scheme = $immunities
-burn_immunity = 1 ; ������������ ����������
+burn_immunity = 1
 strike_immunity = 1
 shock_immunity = 1
 wound_immunity = 0.5
@@ -231,16 +230,15 @@ explosion_immunity = 1
 fire_wound_immunity = 6
 
 [m_tushkano_attack_params]
-; ---------------------------------------------------------------------------------------------------------------------------------------------
-; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
-; ---------------------------------------------------------------------------------------------------------------------------------------------
+$scheme = $monster_attack_params
 stand_attack_0 = 0.25, 0.55, 20, 0.0, 1.0, 0.0, -1.2, 1.2, -1.6, 1.6, 1.0
 stand_attack_1 = 0.25, 0.55, 30, 0.0, 1.0, 0.0, -1.2, 1.2, -1.6, 1.6, 1.0
 stand_attack_2 = 0.25, 0.55, 35, 0.0, 1.0, 0.0, -1.2, 1.2, -1.6, 1.6, 1.0
 
 [m_tushkano_step_params]
-; ---------------------------------------------------------------------------
-; anim | Cycles | time1 | power1 | time2 | power2 |
-; ---------------------------------------------------------------------------
+$scheme = $monster_step_params
 stand_walk_fwd_0 = 1, 0.2, 0.5, 0.7, 1,
 stand_run_0 = 1, 0.25, 1, 0.25, 1,
+
+[tushkan_terrain]
+255,000,255,255
