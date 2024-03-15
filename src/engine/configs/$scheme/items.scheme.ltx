@@ -262,3 +262,67 @@ strike_impulse.optional = true
 strike_impulse.type = f32
 trail_light_color.type = tuple:f32,f32,f32
 trail_light_range.type = f32
+
+[$booster]:$item
+boost_bleeding_restore.type = f32
+boost_burn_immunity.type = f32
+boost_chemburn_immunity.type = f32
+boost_chemburn_protection.type = f32
+boost_explosion_immunity.type = f32
+boost_fire_wound_immunity.type = f32
+boost_health_restore.type = f32
+boost_max_weight.type = f32
+boost_power_restore.type = f32
+boost_radiation_immunity.type = f32
+boost_radiation_protection.type = f32
+boost_radiation_restore.type = f32
+boost_shock_immunity.type = f32
+boost_strike_immunity.type = f32
+boost_telepat_immunity.type = f32
+boost_telepat_protection.type = f32
+boost_time.type = f32
+boost_wound_immunity.type = f32
+eat_alcohol.type = f32
+eat_health.type = f32
+eat_max_power.type = f32
+eat_portions_num.type = u32
+eat_power.type = f32
+eat_radiation.type = f32
+eat_satiety.type = f32
+wounds_heal_perc.type = f32
+
+[$vodka_hud]:$identity_immunities,$hud_base
+strict = true
+anim_eat.type = string
+anim_hide.type = string
+anim_idle.type = string
+anim_play.type = string
+anim_prepare.type = string
+anim_show.type = string
+fire_bone.type = string
+fire_point.type = vector
+orientation.type = vector
+position.type = vector
+visual.type = string
+
+[$item_booster]:$booster
+strict = true
+attach_angle_offset.optional = true
+attach_angle_offset.type = vector
+attach_position_offset.optional = true
+attach_position_offset.type = vector
+attach_bone_name.optional = true
+attach_bone_name.type = string
+auto_attach.optional = true
+auto_attach.type = bool
+use_sound.type = string
+bone_name.optional = true
+bone_name.type = string
+position_offset.optional = true
+position_offset.type = vector
+angle_offset.optional = true
+angle_offset.type = vector
+break_particles.optional = true
+break_particles.type = string
+break_sound.optional = true
+break_sound.type = string
