@@ -179,7 +179,6 @@ critical_wound_decrease_quant = 0.
 attack_params = m_chimera_attack_params
 step_params = m_chimera_step_params
 LegsCount = 4
-damage = m_chimera_damage
 ; species of monster
 species = chimera
 DayTime_Begin = 0 ; ������ ��� ��� �������
@@ -232,9 +231,6 @@ skin_armor = 0.7
 hit_fraction_monster = 0.2
 ; anim | time[0..1] | hit_power | impulse | impulse_dir (x,y,z) | Field of hit_test (left,right, bottom, top ) | Test Dist
 
-[m_chimera_damage]
-$scheme = $monster_damage
-
 [m_chimera_attack_params]
 $scheme = $monster_attack_params
 jump_attack_1 = 0.3, 1.0, 350, 0.0, 1.0, 0.0, -1.8, 1.8, -1.8, 1.8, 2.5
@@ -261,7 +257,6 @@ ce_period_number = 2.0
 ce_power = 1.0 ; 0.7 ; power
 
 [m_chimera_step_params]
-$scheme = $monster_step_params
 ; anim | Cycles | time1 | power1 | time2 | power2 |
 stand_walk_0 = 1, 0.01, 1, 0.25, 0.7,
 stand_run_fwd_0 = 1, 0.01, 1, 0.25, 0.6,
