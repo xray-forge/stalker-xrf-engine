@@ -56,8 +56,7 @@ snd_night_vision_on.type = string
 [$scope_detector]
 strict = true
 vis_frame_speed.type = f32
-vis_frame_color.array = true
-vis_frame_color.type = f32 ; todo: color
+vis_frame_color.type = tuple:f32,f32,f32,f32
 found_snd.type = string
 catch_snd.type = string
 
@@ -86,9 +85,9 @@ box_size.type = u8
 buck_shot.type = u8 ; bool
 can_be_unlimited.optional = true
 can_be_unlimited.type = bool
-explosive.type = enum:on,off,true,false ; todo: Simplify
+explosive.type = enum:on,off,true,false ; todo: Fix chaos to be valid
 fake_grenade_name.optional = true
-fake_grenade_name.type = string ; todo: section
+fake_grenade_name.type = section
 impair.type = f32
 k_air_resistance.optional = true
 k_air_resistance.type = f32
@@ -115,7 +114,7 @@ tracer_color_ID.type = u8
 tracers.optional = true
 tracers.type = enum:on,off
 wallmark_section.optional = true
-wallmark_section.type = string ; todo: section
+wallmark_section.type = section
 wm_size.type = f32
 
 [$fake_missile]:$default_weapon_params,$item
@@ -163,4 +162,4 @@ trail_light_range.optional = true
 trail_light_range.type = f32
 up_throw_factor.type = f32
 wm_size.type = f32
-wallmark_section.type = string ; todo: section
+wallmark_section.type = section
