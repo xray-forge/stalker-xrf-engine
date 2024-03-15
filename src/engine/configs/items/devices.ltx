@@ -1,4 +1,5 @@
 [inventory_box]
+$scheme = $inventory_box
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "devices\inventory box"
@@ -8,6 +9,7 @@ visual = dynamics\equipment_cache\equipment_box_01_case.ogf
 script_binding = bind.physic_object ; xrf change
 
 [device_flare]:identity_immunities
+$scheme = $flare
 class = D_FLARE
 visual = dynamics\devices\dev_flare\dev_flare
 description = enc_weapons1_wpn_flare
@@ -29,6 +31,7 @@ animation_slot = 7
 working_particles = weapons\dev_flare_flame
 
 [device_flare_hud]:hud_base
+$scheme = $hud_base
 hands_position = 0.361999,-0.164000,0.106000
 hands_orientation = 21.000044,-1.700000,0.000000
 hands_position_16x9 = 0,0,0
@@ -51,6 +54,7 @@ anm_idle = flare_idle
 anm_drop = flare_holster
 
 [detector_simple]:identity_immunities
+$scheme = $item_detector
 GroupControlSection = spawn_group
 $spawn = "devices\detector_simple"
 $prefetch = 32
@@ -114,6 +118,7 @@ snd_draw = weapons\ak74_draw
 snd_holster = weapons\generic_holster
 
 [detector_base_hud]:hud_base
+$scheme = $hud_base
 attach_place_idx = 1
 ; --from beretta
 hands_position = -0.021000,-0.160000,0.002500
@@ -128,6 +133,7 @@ lean_hud_offset_pos = 0,0,0
 lean_hud_offset_rot = 0,0,0
 
 [detector_simple_hud]:detector_base_hud
+$scheme = $hud_base
 item_position = -0.072424,0.030392,-0.012213
 item_orientation = 324.640503,-189.627350,-183.009415
 item_visual = dynamics\devices\dev_detector_1\dev_detector_1_hud
@@ -153,6 +159,7 @@ flash_light_range = 0.1
 onoff_light_range = 0.1
 
 [detector_advanced]:detector_simple
+$scheme = $item_detector
 $spawn = "devices\detector_advanced"
 class = DET_ADVA
 visual = dynamics\devices\dev_detector_2\dev_detector_2.ogf
@@ -190,6 +197,7 @@ af_sound_18_ = detectors\art_beep1
 af_freq_18 = 0.05, 2
 
 [detector_advanced_hud]:detector_base_hud
+$scheme = $hud_base
 item_position = -0.078949,0.039172,-0.019197
 item_orientation = 320.606964,-194.089020,-186.572464
 item_visual = dynamics\devices\dev_detector_2\dev_detector_2_hud
@@ -209,6 +217,7 @@ anm_idle_moving_16x9 = dev_detector_2_idle_moving_ws, dev_detector_2_idle_moving
 anm_idle_sprint_16x9 = dev_detector_2_idle_moving_ws, dev_detector_2_idle_moving
 
 [detector_elite]:detector_advanced
+$scheme = $item_detector
 $spawn = "devices\detector_elite"
 class = DET_ELIT
 visual = dynamics\devices\dev_detector_3\dev_detector_3.ogf
@@ -252,6 +261,7 @@ af_sound_26_ = detectors\art_beep1
 af_freq_26 = 0.05, 2
 
 [detector_elite_hud]:detector_base_hud
+$scheme = $hud_base
 item_position = -0.071685,0.036188,-0.009934
 item_orientation = 314.589233,-186.420761,-189.323669
 item_visual = dynamics\devices\dev_detector_3\dev_detector_3_hud
@@ -271,6 +281,7 @@ anm_idle_moving_16x9 = dev_detector_3_idle_moving_ws, dev_detector_3_idle_moving
 anm_idle_sprint_16x9 = dev_detector_3_idle_moving_ws, dev_detector_3_idle_moving
 
 [detector_scientific]:detector_elite
+$scheme = $item_detector
 $spawn = "devices\detector_scientific"
 class = DET_SCIE
 visual = dynamics\devices\dev_detector_4\dev_detector_4.ogf
@@ -359,6 +370,7 @@ zone_freq_32 = 0.05, 2
 zone_freq_33 = 0.05, 2
 
 [detector_scientific_hud]:detector_base_hud
+$scheme = $hud_base
 item_position = -0.071685,0.036188,-0.009934
 item_orientation = 314.589233,-186.420761,-189.323669
 item_visual = dynamics\devices\dev_detector_4\dev_detector_4_hud
@@ -377,80 +389,8 @@ anm_idle_16x9 = dev_detector_3_idle_ws, dev_detector_3_idle
 anm_idle_moving_16x9 = dev_detector_3_idle_moving_ws, dev_detector_3_idle_moving
 anm_idle_sprint_16x9 = dev_detector_3_idle_moving_ws, dev_detector_3_idle_moving
 
-
-[device_pda]:identity_immunities
-GroupControlSection = spawn_group
-discovery_dependency =
-$spawn = "devices\pda"
-$prefetch = 16
-class = S_PDA
-cform = skeleton
-visual = dynamics\devices\dev_pda\dev_pda.ogf
-description = st_pda_descr
-radius = 68 ; 50
-slot = 7
-default_to_ruck = false
-sprint_allowed = true
-control_inertion_factor = 1
-script_binding = bind.physic_object ; xrf change
-inv_name = st_pda_name
-inv_name_short = st_pda_name
-inv_weight = 0.1 ; 0.2
-inv_grid_width = 1
-inv_grid_height = 1
-inv_grid_x = 6
-inv_grid_y = 13
-cost = 20
-attach_angle_offset = -1.303,0.107,-1.702 ; ��������������� � �������� Angle*PI/180
-attach_position_offset = 0.14,0.001,0.02
-attach_bone_name = bip01_l_hand
-auto_attach = false
-
-[dev_flash_1]:identity_immunities
-GroupControlSection = spawn_group
-discovery_dependency =
-$spawn = "devices\dev_flash_1"
-$prefetch = 16
-class = D_PDA
-cform = skeleton
-visual = dynamics\devices\dev_flash_1\dev_flash_1.ogf
-inv_grid_width = 1
-inv_grid_height = 1
-inv_grid_x = 11
-inv_grid_y = 22
-slot = 7
-radius = 50
-default_to_ruck = false
-inv_weight = 0.05
-inv_name = st_pda_name
-inv_name_short = st_pda_name
-description = st_pda_descr
-cost = 50
-can_trade = false
-
-[dev_flash_2]:identity_immunities
-GroupControlSection = spawn_group
-discovery_dependency =
-$spawn = "devices\dev_flash_2"
-$prefetch = 16
-class = D_PDA
-cform = skeleton
-visual = dynamics\devices\dev_flash_2\dev_flash_2.ogf
-inv_grid_width = 1
-inv_grid_height = 1
-inv_grid_x = 11
-inv_grid_y = 23
-slot = 7
-radius = 50
-default_to_ruck = false
-inv_weight = 0.05
-inv_name = st_pda_name
-inv_name_short = st_pda_name
-description = st_pda_descr
-cost = 50
-can_trade = false
-
 [device_torch]:identity_immunities
+$scheme = $item_torch
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "devices\torch"
@@ -491,6 +431,7 @@ control_inertion_factor = 1
 disabled_maps = ai_test,ai_test2, andy_test_
 
 [guitar_a]:identity_immunities
+$scheme = $item_device
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "food and drugs\guitar_a"
@@ -514,6 +455,7 @@ attach_bone_name = bip01_l_hand
 auto_attach = false
 
 [harmonica_a]:identity_immunities
+$scheme = $item_device
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "food and drugs\harmonica_a"
@@ -533,25 +475,3 @@ attach_angle_offset = 0.000000, -1.204452, -1.262921
 attach_position_offset = 0.081856, -0.035081, 0.011694
 attach_bone_name = bip01_l_hand
 auto_attach = false
-; Scaner B6
-
-[anomaly_scaner]:identity_immunities
-GroupControlSection = spawn_group
-discovery_dependency =
-$spawn = "equipment\anomaly_scaner"
-cform = skeleton
-class = II_ATTCH
-visual = dynamics\devices\dev_datchik_2\dev_datchik_2.ogf
-cost = 0
-inv_name = "hand_radio"
-inv_name_short = "hand_radio"
-inv_weight = 0.5
-inv_grid_width = 2
-inv_grid_height = 1
-inv_grid_x = 16
-inv_grid_y = 12
-attach_angle_offset = -1.571,-1.308,-1.458 ; �������������� � �������� Angle*PI/180
-attach_position_offset = 0.105, -0.004, 0.003
-attach_bone_name = bip01_l_hand
-auto_attach = false
-; MEDICAL
