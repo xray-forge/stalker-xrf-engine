@@ -27,6 +27,7 @@
 ; ������: {������_���������} = {������_����},Radius,Power
 
 [artefact_spawn_zones]
+$scheme = $artefact_spawn_zones
 af_medusa = zone_mosquito_bald_weak, 2.0, 30.0
 af_cristall_flower = zone_mosquito_bald_weak, 3.0, 50.0
 af_night_star = zone_mosquito_bald_weak, 5.0, 100.0
@@ -45,35 +46,37 @@ mp_af_cta_green = mp_zone_witches_galantine, 3, 50.0
 mp_af_cta_blue = mp_zone_witches_galantine, 3, 50.0
 
 [af_activation_gravi]
-; format: time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
+$scheme = $artefact_activation
 starting = 5.0, anomaly\gravi_idle00, 0.5, 1.0, 1.5, 5.0, "anomaly2\artefact_gravi_blast_start", "idle"
 flying = 2.0, anomaly\gravi_idle01, 0.8, 1.0, 1.2, 3.0, "artefact\artefact_gravi", "idle"
 idle_before_spawning = 5.0, anomaly\gravi_blowout5, 1.0, 1.0, 1, 0.0, "anomaly2\artefact_gravi_blast_finished", "idle"
 spawning = 1, anomaly\gravity_entrance, 0.9, 1.1, 1.01, 0.0, "", "idle"
 
 [af_activation_bold]
-; format: time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
+$scheme = $artefact_activation
 starting = 5.0, anomaly\gravi_idle00, 0.8, 1.5, 0.9, 5.0, "anomaly2\artefact_bold_blast_start", "idle"
 flying = 2.0, anomaly\gravi_idle01, 0.8, 0.9, 0.8, 2.0, "artefact\artefact_zharka", "idle"
 idle_before_spawning = 2.0, anomaly\gravity_entrance,1.0, 1.1, 1.0, 0.0, "anomaly2\artefact_bold_blast_finished", "idle"
 spawning = 0.5, anomaly\pux_blast, 1.0, 1.0, 0.5, 5.0, "anomaly2\gravi_anomaly_00", "idle"
 
 [af_activation_mincer]
-; format: time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
+$scheme = $artefact_activation
 starting = 5.0, anomaly\gravi_idle00, 0.5, 1.0, 1.5, 5.0, "anomaly2\artefact_gravi_blast_start", "idle"
 flying = 2.0, anomaly\gravi_idle01, 0.8, 1.0, 1.2, 3.0, "artefact\artefact_mincer", "idle"
 idle_before_spawning = 5.0, anomaly\gravi_blowout2, 1.0, 1.0, 1.0, 0.0, "anomaly2\artefact_gravi_blast_finished", "idle"
 spawning = 0.0, "", 1.0, 1.0, 0.5, 0.0, "", "idle"
 
 [af_activation_electra]
-; format: time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
+$scheme = $artefact_activation
 starting = 5.0, anomaly\bfuzz_blowout, 0.8, 1.0, 1.5, 5.0, "anomaly2\artefact_electra_blast_start", "idle"
 flying = 2.0, anomaly\electra_idle1, 1.0, 1.0, 1.0, 5.0, "artefact\artefact_electra", "idle"
 idle_before_spawning = 0.0, "", 1.0, 1.0, 2.5, 0, "", "idle"
 spawning = 2, "anomaly\pux_blast", 1.0, 1.0, 1.5, 5.0, "anomaly2\artefact_electra_blast_finished", "idle"
 
 [af_base]:identity_immunities
+$scheme = $artefact_base
 GroupControlSection = spawn_group
+class = ARTEFACT
 cform = skeleton
 hud = artefact_hud
 animation_slot = 11
@@ -100,6 +103,7 @@ additional_inventory_weight = 0
 idle_light_shadow = false
 
 [artefact_hud]:hud_base
+$scheme = $artefact_hud
 item_visual = dynamics\artefacts\artefact_electra_blue_hud
 attach_place_idx = 0
 hands_position = 0,0,0
@@ -121,8 +125,8 @@ anm_show = dev_artefact_draw
 anm_activate = dev_artefact_use
 
 [af_medusa]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\gravitational_1_medusa"
-class = ARTEFACT ; ����� ������������
 visual = dynamics\artefacts\af_medusa.ogf
 description = st_af_medusa_descr
 inv_name = st_af_medusa_name
@@ -151,6 +155,7 @@ additional_inventory_weight2 = 0
 artefact_activation_seq = af_activation_bold
 
 [af_medusa_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -162,8 +167,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_cristall_flower]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\gravitational_2_cristall_flower"
-class = ARTEFACT
 visual = dynamics\artefacts\af_cristall_flower.ogf
 description = st_af_cristall_flower_descr
 inv_name = st_af_cristall_flower_name
@@ -192,6 +197,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_cristall_flower_absorbation
 
 [af_cristall_flower_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -203,8 +209,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_night_star]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\gravitational_3_night_star"
-class = ARTEFACT
 visual = dynamics\artefacts\af_night_star.ogf
 description = st_af_night_star_descr
 inv_name = st_af_night_star_name
@@ -232,6 +238,7 @@ additional_inventory_weight = 4
 hit_absorbation_sect = af_night_star_absorbation
 
 [af_night_star_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -243,8 +250,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_vyvert]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\gravitational_4_vyvert"
-class = ARTEFACT
 visual = dynamics\artefacts\af_vyvert.ogf
 description = st_af_vyvert_descr
 inv_name = st_af_vyvert_name
@@ -274,6 +281,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_vyvert_absorbation
 
 [af_vyvert_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -285,8 +293,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_gravi]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\gravitational_5_gravi"
-class = ARTEFACT
 visual = dynamics\artefacts\af_gravi.ogf
 description = st_af_gravi_descr
 inv_name = st_af_gravi_name
@@ -314,6 +322,7 @@ additional_inventory_weight = 8
 hit_absorbation_sect = af_gravi_absorbation
 
 [af_gravi_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -325,8 +334,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_gold_fish]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\gravitational_6_gold_fish"
-class = ARTEFACT
 visual = dynamics\artefacts\af_gold_fish.ogf
 description = st_af_gold_fish_descr
 inv_name = st_af_gold_fish_name
@@ -354,6 +363,7 @@ additional_inventory_weight = 12
 hit_absorbation_sect = af_gold_fish_absorbation
 
 [af_gold_fish_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -365,8 +375,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_cristall]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\thermal_1_cristall"
-class = ARTEFACT
 visual = dynamics\artefacts\af_cristall.ogf
 description = st_af_cristall_descr
 inv_name = st_af_cristall_name
@@ -395,6 +405,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_cristall_absorbation
 
 [af_cristall_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0.02 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -406,8 +417,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_fireball]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\thermal_2_fireball"
-class = ARTEFACT
 visual = dynamics\artefacts\af_fireball.ogf
 description = st_af_fireball_descr
 inv_name = st_af_fireball_name
@@ -437,6 +448,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_fireball_absorbation
 
 [af_fireball_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0.04 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -448,8 +460,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_dummy_glassbeads]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\thermal_3_dummy_glassbeads"
-class = ARTEFACT
 visual = dynamics\artefacts\af_dummy_glassbeads.ogf
 description = st_af_dummy_glassbeads_descr
 inv_name = st_af_dummy_glassbeads_name
@@ -478,6 +490,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_dummy_glassbeads_absorbation
 
 [af_dummy_glassbeads_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -489,8 +502,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_eye]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\thermal_4_eye"
-class = ARTEFACT
 visual = dynamics\artefacts\af_eye.ogf
 description = st_af_eye_descr
 inv_name = st_af_eye_name
@@ -518,6 +531,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_eye_absorbation
 
 [af_eye_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -529,8 +543,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_fire]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\thermal_5_fire"
-class = ARTEFACT
 visual = dynamics\artefacts\af_fire.ogf
 description = st_af_fire_descr
 inv_name = st_af_fire_name
@@ -558,6 +572,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_fire_absorbation
 
 [af_fire_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -569,8 +584,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_blood]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\acidic_1_blood"
-class = ARTEFACT
 visual = dynamics\artefacts\af_blood.ogf
 description = st_af_blood_descr
 inv_name = st_af_blood_name
@@ -599,6 +614,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_blood_absorbation
 
 [af_blood_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -610,8 +626,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_mincer_meat]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\acidic_2_mincer_meat"
-class = ARTEFACT
 visual = dynamics\artefacts\af_mincer_meat.ogf
 description = st_af_mincer_meat_descr
 inv_name = st_af_mincer_meat_name
@@ -640,6 +656,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_mincer_meat_absorbation
 
 [af_mincer_meat_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -651,8 +668,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_soul]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\acidic_3_soul"
-class = ARTEFACT
 visual = dynamics\artefacts\af_soul.ogf
 description = st_af_soul_descr
 inv_name = st_af_soul_name
@@ -681,6 +698,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_soul_absorbation
 
 [af_soul_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -692,6 +710,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_fuzz_kolobok]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\acidic_4_fuzz_kolobok"
 class = SCRPTART
 visual = dynamics\artefacts\af_fuzz_kolobok.ogf
@@ -721,6 +740,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_fuzz_kolobok_absorbation
 
 [af_fuzz_kolobok_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -732,8 +752,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_baloon]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\acidic_5_baloon"
-class = ARTEFACT
 visual = dynamics\artefacts\af_baloon.ogf
 description = st_af_baloon_descr
 inv_name = st_af_baloon_name
@@ -761,6 +781,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_baloon_absorbation
 
 [af_baloon_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -772,8 +793,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_glass]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\acidic_6_glass"
-class = ARTEFACT
 visual = dynamics\artefacts\af_glass.ogf
 description = st_af_glass_descr
 inv_name = st_af_glass_name
@@ -801,6 +822,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_glass_absorbation
 
 [af_glass_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -812,6 +834,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_electra_sparkler]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\electric_1_electra_sparkler"
 class = SCRPTART ; ��� ������
 visual = dynamics\artefacts\af_electra_sparkler.ogf
@@ -842,6 +865,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_electra_sparkler_absorbation
 
 [af_electra_sparkler_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0.05
@@ -853,6 +877,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_electra_flash]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\electric_2_electra_flash"
 class = SCRPTART
 visual = dynamics\artefacts\af_electra_flash.ogf
@@ -883,6 +908,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_electra_flash_absorbation
 
 [af_electra_flash_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0.1
@@ -894,6 +920,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_electra_moonlight]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\electric_3_electra_moonlight"
 class = SCRPTART
 visual = dynamics\artefacts\af_electra_moonlight.ogf
@@ -924,6 +951,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_electra_moonlight_absorbation
 
 [af_electra_moonlight_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -935,8 +963,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_dummy_battery]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\electric_4_dummy_battery"
-class = ARTEFACT
 visual = dynamics\artefacts\af_dummy_battery.ogf
 description = st_af_dummy_battery_descr
 inv_name = st_af_dummy_battery_name
@@ -964,6 +992,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_dummy_battery_absorbation
 
 [af_dummy_battery_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -975,8 +1004,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_dummy_dummy]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\electric_5_dummy_dummy"
-class = ARTEFACT
 visual = dynamics\artefacts\af_dummy_dummy.ogf
 description = st_af_dummy_dummy_descr
 inv_name = st_af_dummy_dummy_name
@@ -1004,6 +1033,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_dummy_dummy_absorbation
 
 [af_dummy_dummy_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -1015,8 +1045,8 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_ice]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\electric_6_ice"
-class = ARTEFACT
 visual = dynamics\artefacts\af_ice.ogf
 description = st_af_ice_descr
 inv_name = st_af_ice_name
@@ -1044,6 +1074,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = af_ice_absorbation
 
 [af_ice_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -1055,6 +1086,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_compass]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\compass"
 class = SCRPTART
 visual = dynamics\artefacts\af_compass.ogf
@@ -1084,6 +1116,7 @@ bleeding_restore_speed = 0
 hit_absorbation_sect = af_compass_absorbation
 
 [af_compass_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0.02 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0.05
@@ -1095,6 +1128,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_oasis_heart]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\af_oasis_heart"
 class = SCRPTART
 story_id = jup_b16_oasis_artifact
@@ -1125,6 +1159,7 @@ bleeding_restore_speed = 0.002
 hit_absorbation_sect = af_oasis_heart_absorbation
 
 [af_oasis_heart_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -1136,6 +1171,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [jup_b1_half_artifact]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\af_psi_field"
 class = SCRPTART
 story_id = jup_b1_half_artifact
@@ -1169,6 +1205,7 @@ additional_inventory_weight2 = 0
 hit_absorbation_sect = jup_b1_half_artifact_absorbation
 
 [jup_b1_half_artifact_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0 ; ������������ ����������
 strike_immunity = 0
 shock_immunity = 0
@@ -1180,6 +1217,7 @@ explosion_immunity = 0
 fire_wound_immunity = 0
 
 [af_quest_b14_twisted]:af_base
+$scheme = $item_artefact
 $spawn = "artefacts\af_control"
 class = SCRPTART
 visual = dynamics\artefacts\af_control.ogf
@@ -1213,6 +1251,7 @@ bleeding_restore_speed = 0
 hit_absorbation_sect = af_control_absorbation
 
 [af_control_absorbation]
+$scheme = $artefact_absorbation
 burn_immunity = 0
 strike_immunity = 0
 shock_immunity = 0

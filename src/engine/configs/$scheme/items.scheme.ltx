@@ -14,15 +14,20 @@ zoom_rotate_time.type = f32
 
 [$item]:$spawn_object,$identity_immunities
 strict = true
+can_trade.optional = true
+can_trade.type = bool
 cost.type = u32
+discovery_dependency.optional = true
 discovery_dependency.type = string
+inv_grid_height.type = u8
+inv_grid_width.type = u8
+inv_grid_x.type = u32
+inv_grid_y.type = u32
 inv_name.type = string
 inv_name_short.type = string
 inv_weight.type = f32
-inv_grid_width.type = u8
-inv_grid_height.type = u8
-inv_grid_x.type = u32
-inv_grid_y.type = u32
+quest_item.optional = true
+quest_item.type = bool
 
 [$item_scope]:$item
 strict = true
@@ -125,8 +130,6 @@ blast_impulse.type = f32
 blast_impulse_factor.type = f32
 blast_impulse_factor.type = f32
 blast_r.type = f32
-discovery_dependency.optional = true
-discovery_dependency.type = string
 engine_present.type = bool
 explode_duration.type = u32
 explode_particles.type = string
@@ -163,3 +166,99 @@ trail_light_range.type = f32
 up_throw_factor.type = f32
 wm_size.type = f32
 wallmark_section.type = section
+
+[$artefact_spawn_zones]
+strict = true
+*.type = tuple:string,f32,f32
+
+[$artefact_activation]
+strict = true
+; time(sec), sound_name, light_R,G,B, light_range, particle_name, af_animation_name
+starting.type = tuple:f32,string,f32,f32,f32,f32,string,string
+flying.type = tuple:f32,string,f32,f32,f32,f32,string,string
+idle_before_spawning.type = tuple:f32,string,f32,f32,f32,f32,string,string
+spawning.type = tuple:f32,string,f32,f32,f32,f32,string,string
+
+[$artefact_absorbation]
+strict = true
+burn_immunity.type = f32
+strike_immunity.type = f32
+shock_immunity.type = f32
+wound_immunity.type = f32
+radiation_immunity.type = f32
+telepatic_immunity.type = f32
+chemical_burn_immunity.type = f32
+explosion_immunity.type = f32
+fire_wound_immunity.type = f32
+
+[$artefact_params]
+health_restore_speed.optional = true
+health_restore_speed.type = f32
+radiation_restore_speed.optional = true
+radiation_restore_speed.type = f32
+satiety_restore_speed.optional = true
+satiety_restore_speed.type = f32
+power_restore_speed.optional = true
+power_restore_speed.type = f32
+bleeding_restore_speed.optional = true
+bleeding_restore_speed.type = f32
+
+[$artefact_hud]:$hud_base
+strict = true
+item_visual.type = string
+attach_place_idx.type = u32
+hands_position.type = vector
+hands_orientation.type = vector
+hands_position_16x9.type = vector
+hands_orientation_16x9.type = vector
+item_position.type = vector
+item_orientation.type = vector
+anm_idle.type = string
+anm_idle_sprint.type = string
+anm_hide.type = string
+anm_show.type = string
+anm_activate.type = string
+
+[$artefact_base]:$identity_immunities
+actor_properties.type = enum:on,off
+additional_inventory_weight.type = f32
+additional_inventory_weight2.optional = true
+additional_inventory_weight2.type = f32
+af_actor_properties.type = enum:on,off
+af_rank.type = u8
+allow_inertion.type = bool
+animation_slot.type = u8
+attach_angle_offset.type = vector
+attach_bone_name.type = string
+attach_position_offset.type = vector
+belt.type = bool
+can_be_controlled.type = bool
+det_hide_particles.type = string
+det_hide_snd.type = string
+det_show_particles.type = string
+det_show_snd.type = string
+hud.type = string
+idle_light_shadow.type = bool
+particles_bone.type = string
+
+[$item_artefact]:$item,$artefact_base,$artefact_params
+strict = true
+artefact_activation_seq.optional = true
+artefact_activation_seq.type = section
+auto_attach.optional = true
+auto_attach.type = bool
+hit_absorbation_sect.type = section
+impulse_threshold.optional = true
+impulse_threshold.type = f32
+jump_height.optional = true
+jump_height.type = f32
+lights_enabled.type = bool
+particles.optional = true
+particles.type = string
+radius.optional = true
+radius.type = f32
+script_binding.type = string
+strike_impulse.optional = true
+strike_impulse.type = f32
+trail_light_color.type = tuple:f32,f32,f32
+trail_light_range.type = f32
