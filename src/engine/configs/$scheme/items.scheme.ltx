@@ -14,6 +14,8 @@ zoom_rotate_time.type = f32
 
 [$item]:$spawn_object,$identity_immunities
 strict = true
+can_take.optional = true
+can_take.type = bool
 can_trade.optional = true
 can_trade.type = bool
 cost.type = u32
@@ -127,8 +129,6 @@ strict = true
 blast.type = f32
 blast_impulse.type = f32
 blast_impulse.type = f32
-blast_impulse_factor.type = f32
-blast_impulse_factor.type = f32
 blast_r.type = f32
 engine_present.type = bool
 explode_duration.type = u32
@@ -263,6 +263,20 @@ strike_impulse.type = f32
 trail_light_color.type = tuple:f32,f32,f32
 trail_light_range.type = f32
 
+[$vodka_hud]:$identity_immunities,$hud_base
+strict = true
+anim_eat.type = string
+anim_hide.type = string
+anim_idle.type = string
+anim_play.type = string
+anim_prepare.type = string
+anim_show.type = string
+fire_bone.type = string
+fire_point.type = vector
+orientation.type = vector
+position.type = vector
+visual.type = string
+
 [$booster]:$item
 boost_bleeding_restore.type = f32
 boost_burn_immunity.type = f32
@@ -291,20 +305,6 @@ eat_radiation.type = f32
 eat_satiety.type = f32
 wounds_heal_perc.type = f32
 
-[$vodka_hud]:$identity_immunities,$hud_base
-strict = true
-anim_eat.type = string
-anim_hide.type = string
-anim_idle.type = string
-anim_play.type = string
-anim_prepare.type = string
-anim_show.type = string
-fire_bone.type = string
-fire_point.type = vector
-orientation.type = vector
-position.type = vector
-visual.type = string
-
 [$item_booster]:$booster
 strict = true
 attach_angle_offset.optional = true
@@ -326,3 +326,30 @@ break_particles.optional = true
 break_particles.type = string
 break_sound.optional = true
 break_sound.type = string
+
+[$action_fuse]
+condition_to_explode.type = f32
+time_to_explode.type = f32
+set_timer_particles.type = string
+
+[$item_explosive]:$item,$action_fuse,$default_weapon_params
+strict = true
+blast.type = f32
+blast_impulse.type = f32
+blast_r.type = f32
+explode_duration.type = u32
+explode_particles.type = string
+frag_hit.type = f32
+frag_hit_impulse.type = f32
+fragment_speed.type = f32
+frags.type = u32
+frags_r.type = u32
+hit_type_blast.type = enum:explosion,chemical_burn
+hit_type_frag.type = enum:fire_wound,light_burn,chemical_burn
+light_color.type = tuple:f32,f32,f32
+light_range.type = f32
+light_time.type = f32
+snd_explode.type = string
+up_throw_factor.type = f32
+wallmark_section.type = section
+wm_size.type = f32
