@@ -283,7 +283,16 @@ use_aim_bullet.type = bool
 use_first_bullet.type = bool
 zoom_rotate_time.type = f32
 
-[$item]:$spawn_object,$identity_immunities
+[$item_inventory_icon]
+inv_grid_height.type = u8
+inv_grid_width.type = u8
+inv_grid_x.type = u32
+inv_grid_y.type = u32
+inv_name.type = string
+inv_name_short.type = string
+inv_weight.type = f32
+
+[$item]:$spawn_object,$identity_immunities,$item_inventory_icon
 strict = true
 animation_slot.optional = true
 animation_slot.type = u8
@@ -304,13 +313,6 @@ discovery_dependency.optional = true
 discovery_dependency.type = string
 hud.optional = true
 hud.type = string
-inv_grid_height.type = u8
-inv_grid_width.type = u8
-inv_grid_x.type = u32
-inv_grid_y.type = u32
-inv_name.type = string
-inv_name_short.type = string
-inv_weight.type = f32
 quest_item.optional = true
 quest_item.type = bool
 snd_draw.optional = true
@@ -672,3 +674,16 @@ snd_night_vision_broken.type = string
 snd_night_vision_idle.type = string
 snd_night_vision_off.type = string
 snd_night_vision_on.type = string
+
+[$item_document]:$spawn_object,$item_inventory_icon
+strict = true
+cost.type = u32
+
+[$item_attachable]:$spawn_object,$item_inventory_icon
+strict = true
+attach_angle_offset.type = vector
+attach_bone_name.type = string
+attach_position_offset.type = vector
+cost.type = u32
+discovery_dependency.type = string
+visual.optional = true
