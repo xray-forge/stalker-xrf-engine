@@ -291,6 +291,14 @@ inv_grid_y.type = u32
 inv_name.type = string
 inv_name_short.type = string
 inv_weight.type = f32
+upgr_icon_height.optional = true
+upgr_icon_height.type = u32
+upgr_icon_width.optional = true
+upgr_icon_width.type = u32
+upgr_icon_x.optional = true
+upgr_icon_x.type = u32
+upgr_icon_y.optional = true
+upgr_icon_y.type = u32
 
 [$item]:$spawn_object,$identity_immunities,$item_inventory_icon
 strict = true
@@ -539,7 +547,6 @@ particles.optional = true
 particles.type = string
 radius.optional = true
 radius.type = f32
-script_binding.type = string
 strike_impulse.optional = true
 strike_impulse.type = f32
 trail_light_color.type = tuple:f32,f32,f32
@@ -687,3 +694,63 @@ attach_position_offset.type = vector
 cost.type = u32
 discovery_dependency.type = string
 visual.optional = true
+
+[$outfit_base]
+additional_inventory_weight.type = f32
+additional_inventory_weight2.type = f32
+control_inertion_factor.type = f32
+default_to_ruck.type = bool
+full_icon_name.type = string
+script_binding.type = string
+sprint_allowed.type = bool
+
+[$item_outfit]:$item,$outfit_base
+strict = true
+actor_visual.type = string
+artefact_count.type = u8
+bones_koeff_protection.type = section
+burn_protection.type = f32
+chemical_burn_protection.type = f32
+control_inertion_factor.type = f32
+ef_equipment_type.type = u8
+explosion_protection.type = f32
+helmet_avaliable.optional = true
+helmet_avaliable.type = bool
+hit_fraction_actor.type = f32
+installed_upgrades.array = true
+installed_upgrades.optional = true
+installed_upgrades.type = string
+player_hud_section.type = section
+power_loss.type = f32
+radiation_protection.type = f32
+shock_protection.type = f32
+strike_protection.type = f32
+telepatic_protection.type = f32
+upgrade_scheme.type = string
+upgrades.array = true
+upgrades.optional = true
+upgrades.type = string
+wound_protection.type = f32
+
+[$item_helmet]:$item
+strict = true
+bones_koeff_protection.type = section
+burn_protection.type = f32
+chemical_burn_protection.type = f32
+explosion_protection.type = f32
+hit_fraction_actor.type = f32
+installed_upgrades.array = true
+installed_upgrades.optional = true
+installed_upgrades.type = string
+nightvision_sect.optional = true
+nightvision_sect.type = section
+radiation_protection.type = f32
+shock_protection.type = f32
+strike_protection.type = f32
+telepatic_protection.type = f32
+upgrade_scheme.optional = true
+upgrade_scheme.type = string
+upgrades.array = true
+upgrades.optional = true
+upgrades.type = string
+wound_protection.type = f32

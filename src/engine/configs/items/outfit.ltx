@@ -1,21 +1,7 @@
-#include "outfit_upgrades\o_novice_outfit_up.ltx"
-#include "outfit_upgrades\o_stalker_outfit_up.ltx"
-#include "outfit_upgrades\o_svoboda_light_outfit_up.ltx"
-#include "outfit_upgrades\o_scientific_outfit_up.ltx"
-#include "outfit_upgrades\o_cs_heavy_outfit_up.ltx"
-#include "outfit_upgrades\o_dolg_outfit_up.ltx"
-#include "outfit_upgrades\o_svoboda_heavy_outfit_up.ltx"
-#include "outfit_upgrades\o_specops_outfit_up.ltx"
-#include "outfit_upgrades\o_exo_outfit_up.ltx"
-#include "outfit_upgrades\o_dolg_heavy_outfit_up.ltx"
-#include "outfit_upgrades\o_military_outfit_up.ltx"
-#include "outfit_upgrades\helm_battle_up.ltx"
-#include "outfit_upgrades\helm_hardhat_up.ltx"
-#include "outfit_upgrades\helm_protective_up.ltx"
-#include "outfit_upgrades\helm_respirator_up.ltx"
-#include "outfit_upgrades\helm_tactic_up.ltx"
+#include "outfit_upgrades\index.ltx"
 
 [outfit_base]
+$scheme = $outfit_base
 script_binding = bind.outfit ; xrf change
 additional_inventory_weight = 0 ; +max_walk_weight
 additional_inventory_weight2 = 0 ; +40 kg
@@ -29,6 +15,7 @@ control_inertion_factor = 1
 ; player_hud_section = actor_hud_05
 
 [novice_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\novice_outfit"
@@ -77,6 +64,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_novice_outfit
 
 [sect_novice_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.05 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.05
@@ -88,6 +76,7 @@ explosion_immunity = 0.05
 fire_wound_immunity = 0.02
 
 [sect_novice_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.01 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.01
@@ -99,6 +88,7 @@ explosion_immunity = -0.01
 fire_wound_immunity = -0.005
 
 [stalker_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\stalker_outfit"
@@ -146,6 +136,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_stalker_outfit
 
 [sect_stalker_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.03 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.03
@@ -157,6 +148,7 @@ explosion_immunity = 0.03
 fire_wound_immunity = 0.015
 
 [sect_stalker_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.015 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.015
@@ -168,6 +160,7 @@ explosion_immunity = -0.015
 fire_wound_immunity = -0.005
 
 [svoboda_light_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\svoboda_light_outfit"
@@ -213,6 +206,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_svoboda_light_outfit
 
 [sect_svoboda_light_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.05 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.05
@@ -224,6 +218,7 @@ explosion_immunity = 0.05
 fire_wound_immunity = 0.015
 
 [sect_svoboda_light_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.02 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.02
@@ -235,6 +230,7 @@ explosion_immunity = -0.02
 fire_wound_immunity = -0.005
 
 [dolg_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\dolg_outfit"
@@ -280,6 +276,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_dolg_outfit
 
 [sect_dolg_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.04 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.04
@@ -291,6 +288,7 @@ explosion_immunity = 0.04
 fire_wound_immunity = 0.01
 
 [sect_dolg_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.015 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.015
@@ -302,6 +300,7 @@ explosion_immunity = -0.015
 fire_wound_immunity = -0.003
 
 [scientific_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\scientific_outfit"
@@ -348,6 +347,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_scientific_outfit
 
 [sect_scientific_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.01 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.0
@@ -359,6 +359,7 @@ explosion_immunity = 0.04
 fire_wound_immunity = 0.02
 
 [sect_scientific_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.01 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.0
@@ -370,6 +371,7 @@ explosion_immunity = -0.01
 fire_wound_immunity = -0.0025
 
 [cs_heavy_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\cs_heavy_outfit"
@@ -415,6 +417,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_cs_heavy_outfit
 
 [sect_cs_heavy_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.04 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.04
@@ -426,6 +429,7 @@ explosion_immunity = 0.04
 fire_wound_immunity = 0.01
 
 [sect_cs_heavy_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.01 ; ������������ ���������� ������ �������
 strike_immunity = -0.01
 shock_immunity = 0.0
@@ -437,6 +441,7 @@ explosion_immunity = -0.01
 fire_wound_immunity = -0.0025
 
 [svoboda_heavy_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\svoboda_heavy_outfit"
@@ -482,6 +487,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_svoboda_heavy_outfit
 
 [sect_svoboda_heavy_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.05 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.05
@@ -493,6 +499,7 @@ explosion_immunity = 0.05
 fire_wound_immunity = 0.01
 
 [sect_svoboda_heavy_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.02 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.02
@@ -504,6 +511,7 @@ explosion_immunity = -0.02
 fire_wound_immunity = -0.003
 
 [specops_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\specops_outfit"
@@ -549,6 +557,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_specops
 
 [sect_specops_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.04 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.04
@@ -560,6 +569,7 @@ explosion_immunity = 0.04
 fire_wound_immunity = 0.01
 
 [sect_specops_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.01 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.01
@@ -571,6 +581,7 @@ explosion_immunity = -0.01
 fire_wound_immunity = -0.0025
 
 [military_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\military_outfit"
@@ -617,6 +628,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_military_outfit
 
 [sect_military_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.04 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.04
@@ -628,6 +640,7 @@ explosion_immunity = 0.03
 fire_wound_immunity = 0.01
 
 [sect_military_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.01 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.01
@@ -639,6 +652,7 @@ explosion_immunity = -0.01
 fire_wound_immunity = -0.002
 
 [dolg_heavy_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\dolg_heavy_outfit"
@@ -686,6 +700,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_dolg_heavy_outfit
 
 [sect_dolg_heavy_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.03 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.03
@@ -697,6 +712,7 @@ explosion_immunity = 0.03
 fire_wound_immunity = 0.01
 
 [sect_dolg_heavy_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.01 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.01
@@ -708,6 +724,7 @@ explosion_immunity = -0.01
 fire_wound_immunity = -0.002
 
 [exo_outfit]:outfit_base
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\exo_outfit"
@@ -759,6 +776,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_exo_outfit
 
 [sect_exo_outfit_immunities]
+$scheme = $immunities
 burn_immunity = 0.02 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = 0.02
@@ -770,6 +788,7 @@ explosion_immunity = 0.02
 fire_wound_immunity = 0.02
 
 [sect_exo_outfit_immunities_add]
+$scheme = $immunities
 burn_immunity = -0.01 ; ������������ ���������� ������ �������
 strike_immunity = 0.0
 shock_immunity = -0.01
@@ -781,6 +800,7 @@ explosion_immunity = -0.01
 fire_wound_immunity = -0.0025
 
 [helmet]
+$scheme = $item_helmet
 script_binding = bind.helmet ; xrf change
 GroupControlSection = spawn_group
 discovery_dependency =
@@ -819,6 +839,7 @@ immunities_sect = sect_helm_immunities
 bones_koeff_protection = actor_helm_respirator
 
 [helm_respirator]:helmet
+$scheme = $item_helmet
 $spawn = "outfit\helm_respirator"
 visual = dynamics\outfit\helm_respirator
 control_inertion_factor = 1.0
@@ -845,6 +866,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_helm_respirator
 
 [sect_helm_respirator_immunities]
+$scheme = $immunities
 burn_immunity = 0.04
 strike_immunity = 0.0
 shock_immunity = 0.04
@@ -857,6 +879,7 @@ explosion_immunity = 0.04
 fire_wound_immunity = 0.04
 
 [helm_hardhat]:helmet
+$scheme = $item_helmet
 $spawn = "outfit\helm_hardhat"
 visual = dynamics\outfit\helm_hardhat
 control_inertion_factor = 1.0
@@ -884,6 +907,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_helm_hardhat
 
 [sect_helm_hardhat_immunities]
+$scheme = $immunities
 burn_immunity = 0.03
 strike_immunity = 0.0
 shock_immunity = 0.03
@@ -896,6 +920,7 @@ explosion_immunity = 0.03
 fire_wound_immunity = 0.025
 
 [helm_protective]:helmet
+$scheme = $item_helmet
 $spawn = "outfit\helm_protective"
 visual = dynamics\outfit\helm_protective
 control_inertion_factor = 1.0
@@ -922,6 +947,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_helm_protective
 
 [sect_helm_protective_immunities]
+$scheme = $immunities
 burn_immunity = 0.01
 strike_immunity = 0.0
 shock_immunity = 0.01
@@ -934,6 +960,7 @@ explosion_immunity = 0.03
 fire_wound_immunity = 0.035
 
 [helm_tactic]:helmet
+$scheme = $item_helmet
 $spawn = "outfit\helm_tactic"
 visual = dynamics\outfit\helm_tactic
 control_inertion_factor = 1.0
@@ -965,6 +992,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_helm_tactic
 
 [sect_helm_tactic_immunities]
+$scheme = $immunities
 burn_immunity = 0.02
 strike_immunity = 0.0
 shock_immunity = 0.02
@@ -977,6 +1005,7 @@ explosion_immunity = 0.02
 fire_wound_immunity = 0.015
 
 [helm_battle]:helmet
+$scheme = $item_helmet
 $spawn = "outfit\helm_battle"
 visual = dynamics\outfit\helm_battle
 control_inertion_factor = 1.0
@@ -1007,6 +1036,7 @@ installed_upgrades =
 upgrade_scheme = upgrade_scheme_helm_battle
 
 [sect_helm_battle_immunities]
+$scheme = $immunities
 burn_immunity = 0.02
 strike_immunity = 0.0
 shock_immunity = 0.02
@@ -1017,11 +1047,9 @@ telepatic_immunity = 0.0
 chemical_burn_immunity = 0.02
 explosion_immunity = 0.01
 fire_wound_immunity = 0.01
-; *****************************************************************
-; ******************���������� ������� � �����*********************
-; *****************************************************************
 
 [stalker_outfit_barge]:stalker_outfit
+$scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\stalker_outfit_barge"
@@ -1031,6 +1059,7 @@ installed_upgrades = up_firsta_stalker_outfit, up_firstc_stalker_outfit, up_seco
 upgrade_scheme = upgrade_scheme_stalker_outfit
 
 [helm_hardhat_snag]:helm_hardhat
+$scheme = $item_helmet
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\helm_hardhat_snag"
@@ -1040,6 +1069,7 @@ installed_upgrades = up_firsta_helm_hardhat
 upgrade_scheme = upgrade_scheme_helm_hardhat
 
 [helm_respirator_joker]:helm_respirator
+$scheme = $item_helmet
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\helm_respirator_joker"
