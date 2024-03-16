@@ -1,38 +1,30 @@
 [weapon_base]
+$scheme = $spawn_object
 script_binding = bind.weapon ; xrf change
 
 [bullet_manager]
-tracer_shader = effects\bullet_tracer ; hud\default
-tracer_texture = fx\fx_tracer_weapons
+$scheme = $bullet_manager
+air_resistance_k = 1 ; 0.4 ; 0.3
+collision_energy_max = 0.5 ; 0.7 ; 0.50
+collision_energy_min = 0.80 ; 0.75 ; 0.90
+explode_particles = explosions\expl_bullet,explosions\expl_bullet_00,explosions\expl_bullet_01
 fire_circle_k = 2.0 ; means tracer_width*2
-tracer_width = 0.08
+gravity_const = 9.81
+hit_probability_max_dist = 3
+min_bullet_speed = 3.0
+time_step = 33
 tracer_length_max = 225 ; 10.0 ; 24.0 ; 14.0
 tracer_length_min = 0 ; 1 ; 2 ; 0.2
-; ���������� ����� �������� ����������� hit_probabilty ���������
-hit_probability_max_dist = 3
-gravity_const = 9.81
-; ������������� �������, �������, ������� ���������� �� �������� ������ ����
-air_resistance_k = 1 ; 0.4 ; 0.3
-; ������ ���� ������� (� ������������), �� �������� �������������
-time_step = 33
-; ����������� �������� (�/�), �� ������� ���� ��� ��������� � ������������
-min_bullet_speed = 3.0
-; c������ ��������� ������� �������� ���� ��� ������������ � ���������� (��� ������� ��� ������ �����)
-collision_energy_min = 0.80 ; 0.75 ; 0.90
-; ������� ��������� ������� ��������� � ���� ��� ����� ������������
-collision_energy_max = 0.5 ; 0.7 ; 0.50
+tracer_shader = effects\bullet_tracer ; hud\default
+tracer_texture = fx\fx_tracer_weapons
+tracer_width = 0.08
 whine_sounds = weapons\whine_1, weapons\whine_2, weapons\whine_3, weapons\whine_4, weapons\whine01, weapons\whine02
-explode_particles = explosions\expl_bullet,explosions\expl_bullet_00,explosions\expl_bullet_01
 
 [tracers_color_table]
+$scheme = $tracers_color_table
 color_0 = 255, 130, 0, 255 ; yellow
 color_1 = 255, 255, 255, 255 ; white
 color_2 = 255, 25, 0, 255 ; red
 color_3 = 77, 255, 77, 255 ; green
 color_4 = 0, 0, 25, 255 ; blue
 color_5 = 255, 127, 63, 150 ; 79
-; color_0 = 255, 255, 255, 255 ; white
-; color_1 = 255, 255, 255, 255 ; white
-; color_2 = 255, 255, 255, 255 ; white
-; color_3 = 255, 255, 255, 255 ; white
-; color_4 = 255, 255, 255, 255 ; white
