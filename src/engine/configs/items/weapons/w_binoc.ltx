@@ -1,4 +1,5 @@
 [wpn_binoc]:weapon_base,identity_immunities,weapon_probability,default_weapon_params
+$scheme = $item_weapon_meta
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "weapons\binocular"
@@ -10,10 +11,8 @@ class = WP_BINOC
 hud = wpn_binoc_hud
 ef_main_weapon_type = 5
 ef_weapon_type = 0
-; ---DOF-------------------------------------------------------------------------
 ; zoom_dof = -1.0, 10.0, 350
 reload_dof = 0.0, 0.5, 5, 1.7
-; -------------------------------------------------------------------------------
 flame_particles = weapons\generic_weapon05
 smoke_particles = weapons\generic_shoot_00
 fire_point = 0.0, 0.133, 0.161
@@ -76,17 +75,11 @@ cam_max_angle_horz = 10.0
 cam_step_angle_horz = 1.5
 fire_dispersion_condition_factor = 5
 misfire_probability = 0.0001 ; ����������� ������ ��� ������������ ������ !!!old - now not working
-; ������������, ��� ������� ���������� ���� ������
 misfire_start_condition = 0.6
-; ����������� ��� ������� ���� ������ ���������� �����������
 misfire_end_condition = 0.1
-; ���� ������ ��� ����������� ������ ��� misfireStartCondition
 misfire_start_prob = 0.001
-; ���� ������ ��� ����������� ������ ��� misfireEndCondition
 misfire_end_prob = 0.02
-; ���������� ����������� ��� ��������� ��������
 condition_shot_dec = 0.00001
-; ���������� ����������� ��� �������� ��������
 condition_queue_shot_dec = 0.00002
 PDM_disp_base = 1.0
 PDM_disp_vel_factor = 1.0
@@ -121,6 +114,7 @@ found_snd = detectors\DA-2_beep1
 catch_snd = detectors\DA-2_beep1
 
 [wpn_binoc_hud]:hud_base
+$scheme = $item_weapon_hud
 zoom_hide_crosshair = true
 hands_position = -0.008000,-0.244998,0.371497
 hands_orientation = 5.450003,2.649999,-1.200001
