@@ -1,4 +1,5 @@
 [wpn_groza]:weapon_base,identity_immunities,weapon_probability,default_weapon_params
+$scheme = $item_weapon
 GroupControlSection = spawn_group
 $spawn = "weapons\groza" ; option for Level Editor
 $npc = on ; option for Level Editor
@@ -11,14 +12,12 @@ ef_main_weapon_type = 2
 ef_weapon_type = 6
 default_to_ruck = false
 sprint_allowed = true
-; -------------------------------------------------------------------------------
 cost = 10000
 weapon_class = assault_rifle ; Type of the weapon
 inv_weight = 3.2
 upgrades = up_gr_firstab_groza, up_gr_seconab_groza, up_gr_thirdab_groza, up_gr_fourtab_groza, up_gr_fifthab_groza
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_groza
-; --TTX----------------------------------------------------------------------------
 hit_power = 0.4, 0.4, 0.4, 0.4
 hit_impulse = 100
 hit_type = fire_wound
@@ -30,17 +29,11 @@ use_aim_bullet = false ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿
 time_to_aim = 3.0
 hud = wpn_groza_hud
 misfire_probability = 0.005 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ !!!old - now not working
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 misfire_start_condition = 0.6
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 misfire_end_condition = 0.1
-; ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ misfireStartCondition
 misfire_start_prob = 0.005
-; ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ misfireEndCondition
 misfire_end_prob = 0.06
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 condition_shot_dec = 0.0012
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 condition_queue_shot_dec = 0.0014
 ammo_elapsed = 20
 ammo_mag_size = 20
@@ -51,15 +44,11 @@ grenade_vel = 32 ; 76
 launch_speed = 32
 hand_dependence = 1
 single_handed = 0
-; ---DOF-------------------------------------------------------------------------
 zoom_dof = 0.5, 1.0, 180
 reload_dof = 0.0, 0.5, 5, 2
-; -ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----------------------------------------------------------------------------
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 fire_dispersion_base = 0.27 ; ï¿½ï¿½ï¿½ï¿½ (ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 control_inertion_factor = 1.2
 crosshair_inertion = 6.80
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 cam_return = 0
 cam_relax_speed = 5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 cam_relax_speed_ai = 360 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -83,7 +72,6 @@ zoom_cam_max_angle = 50.0
 zoom_cam_max_angle_horz = 50.0
 zoom_cam_step_angle_horz = 1.25
 fire_dispersion_condition_factor = 11 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-; -------------------------------------------------------------------------------
 holder_range_modifier = 1.0 ; ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ eye_range
 holder_fov_modifier = 1.0 ; ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ eye_fov
 min_radius = 30
@@ -92,7 +80,6 @@ hit_probability_gd_novice = 0.80
 hit_probability_gd_stalker = 0.80
 hit_probability_gd_veteran = 0.80
 hit_probability_gd_master = 0.80
-; -------------------------------------------------------------------------------
 slot = 2 ; // secondary
 animation_slot = 8 ; type of the animation that will be used
 inv_name = st_wpn_groza
@@ -109,7 +96,6 @@ kill_msg_x = 67
 kill_msg_y = 123
 kill_msg_width = 64
 kill_msg_height = 30
-; -------------------------------------------------------------------------------
 position = -0.026, -0.144, 0.0
 orientation = 0, 0, 0
 fire_point = 0.000000,0.194,0.274
@@ -120,8 +106,6 @@ grenade_flame_particles = weapons\generic_weapon01
 shell_point = 0.0, 0.194, 0.04
 shell_dir = 0.0, 0.0, 0.4
 shell_particles = weapons\generic_shells
-; --STRAP PARAMETERS-----------------------------------------------------------------
-; ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 strap_position = -0.15,-0.38,0.35 ; position (offset) and orientation of the weapon when it is strapped
 strap_orientation = -10,-5,10 ; (3rd person view in degrees)
 strap_bone0 = bip01_spine2
@@ -136,7 +120,6 @@ light_var_range = 0.5
 light_time = 0.2
 ph_mass = 5
 ; cost = 2100
-; addons
 scope_status = 0
 silencer_status = 2
 grenade_launcher_status = 1
@@ -150,7 +133,6 @@ grenade_launcher_name = wpn_addon_grenade_launcher
 grenade_launcher_x = 109
 grenade_launcher_y = 30
 scopes_sect = scope_groza, scope_x2.7_groza, scope_live_detector_groza, scope_night_groza
-; ï¿½ï¿½ï¿½ï¿½ï¿½
 snd_draw = weapons\generic_draw
 snd_holster = weapons\generic_holster
 snd_shoot = weapons\n_groza_shot
@@ -163,7 +145,6 @@ snd_shoot_grenade = weapons\gen_grenshoot
 snd_reload_grenade = weapons\gen_grenload, 1.0, 1.2
 snd_switch = weapons\groza_switch, 1.0, 0.5
 snd_bore = weapons\groza_bore
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ; silencer_flame_particles = weapons\generic_weapon01
 silencer_smoke_particles = weapons\generic_shoot_00
 snd_silncer_shot = weapons\w_ak74_shot1
@@ -174,6 +155,7 @@ silencer_light_var_range = 0.5
 silencer_light_time = 0.2
 
 [wpn_groza_hud]:hud_base
+$scheme = $item_weapon_hud
 zoom_hide_crosshair = true
 attach_place_idx = 0
 item_visual = dynamics\weapons\wpn_groza\wpn_groza_hud.ogf
@@ -233,29 +215,31 @@ lean_hud_offset_pos = 0,0,0
 lean_hud_offset_rot = 0,0,0
 
 [scope_groza]
+$scheme = $item_weapon_scope
 scope_name = wpn_addon_scope
 scope_x = 63
 scope_y = -1
 
 [scope_x2.7_groza]
+$scheme = $item_weapon_scope
 scope_name = wpn_addon_scope_x2.7
 scope_x = 63
 scope_y = -1
 
 [scope_live_detector_groza]
+$scheme = $item_weapon_scope
 scope_name = wpn_addon_scope_detector
 scope_x = 63
 scope_y = -1
 
 [scope_night_groza]
+$scheme = $item_weapon_scope
 scope_name = wpn_addon_scope_night
 scope_x = 63
 scope_y = -1
-; -----------------------------------------------------------------------------
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-; -----------------------------------------------------------------------------
 
 [wpn_groza_nimble]:wpn_groza
+$scheme = $item_weapon
 $spawn = "weapons\unique\wpn_groza_nimble" ; name and section in level editor
 inv_name = st_wpn_groza_nimble
 description = st_wpn_groza_nimble_descr
@@ -265,12 +249,9 @@ ammo_mag_size = 30
 ammo_class = ammo_5.45x39_fmj, ammo_5.45x39_ap
 fire_modes = 1, 3, -1
 hit_power = 0.32, 0.32, 0.32, 0.32
-; -ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----------------------------------------------------------------------------
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 fire_dispersion_base = 0.2 ; 0.15 ; ï¿½ï¿½ï¿½ï¿½ (ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 control_inertion_factor = 1.2
 crosshair_inertion = 6
-; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 cam_return = 0
 cam_relax_speed = 5 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 cam_relax_speed_ai = 360 ; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
@@ -298,4 +279,5 @@ scope_status = 2
 silencer_status = 2
 
 [wpn_groza_specops]:wpn_groza_nimble
+$scheme = $item_weapon
 $spawn = "weapons\unique\wpn_groza_specops"
