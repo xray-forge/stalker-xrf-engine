@@ -1,0 +1,40 @@
+[$upgrade_section]
+strict = true
+ammo_limit.optional = true
+ammo_limit.type = u32
+ammo_mag_size.optional = true
+ammo_mag_size.type = u32
+bullet_speed.optional = true
+bullet_speed.type = f32
+cost.type = u32
+hit_impulse.optional = true
+hit_impulse.type = f32
+hit_power.array = true
+hit_power.optional = true
+hit_power.type = f32
+rpm.optional = true
+rpm.type = f32
+
+[$upgrade]
+strict = true
+description.type = string
+effect_functor.type = string
+effect_parameter.type = string
+effects.type = string
+icon.type = string
+known.type = u8 ; bool
+name.type = string
+precondition_functor.type = string
+precondition_parameter.type = string
+prereq_functor.type = string
+prereq_params.type = string
+prereq_tooltip_functor.type = string
+scheme_index.array = true
+scheme_index.optional = true
+scheme_index.type = u32
+section.type = section
+
+[$upgrade_group]
+strict = true
+elements.array = true
+elements.type = string
