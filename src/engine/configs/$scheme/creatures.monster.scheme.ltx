@@ -532,17 +532,19 @@ Sound_Vampire_Grasp.type = string
 Sound_Vampire_Hit.type = string
 Sound_Vampire_StartHunt.type = string
 Sound_Vampire_Sucking.type = string
-Vampire_Delay.type = u8
+Vampire_Delay.type = u16
 Vampire_Distance.type = f32
 Vampire_GainHealth.type = f32
 Vampire_Sufficient_Hits.type = u8
 Vampire_Want_Speed.type = f32
 Vampire_Wound.type = f32
 full_visibility_radius.type = f32
+invisibility_activate_delay.optional = true
+invisibility_activate_delay.type = u32
 no_visibility_radius.type = f32
 partial_visibility_radius.type = f32
 vampire_effector.type = string
-visibility_state_change_min_delay.type = u8
+visibility_state_change_min_delay.type = u16
 
 [$boar]:$alife_base,$spawn_object,$monster_base,$monster_shared
 strict = true

@@ -54,7 +54,7 @@ Fully rewritten stalker lua script engine with typescript. <br/>
 
 ## 📦 Changes / differences from original
 
-Full changes list: [changelist](https://xray-forge.github.io/stalker-xrf-book/changes/changes.html)
+Full changes list: [changelist](https://xray-forge.github.io/stalker-xrf-book/CHANGES.html)
 
 The intention of this engine is to allow easier modding without introducing breaking changes to the original plot. <br/>
 Optimizations, quality and logics updates are welcome.
