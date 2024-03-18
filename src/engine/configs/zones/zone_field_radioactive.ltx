@@ -1,61 +1,65 @@
 [zone_field_radioactive]:zone_base
-GroupControlSection = spawn_group_zone
 $def_sphere = 15
+$scheme = $zone
 ; $prefetch = 16
-class = ZS_RADIO
-hit_impulse_scale = .01
-effective_radius = 1.00 ; ������ ������� � ��������� �� �������������, ��� ��������� ����
-postprocess = postprocess_rad
-ef_anomaly_type = 3
-ef_weapon_type = 15
-; ----------- Anomaly settings -----------------------
-max_start_power = 0
+GroupControlSection = spawn_group_zone
+accamulate_time = 100
 attenuation = 0.5
-hit_type = radiation
+awaking_time = 100
+blowout_light = off
+blowout_time = 100
+blowout_wind = off
+class = ZS_RADIO
+disable_idle_time = -1 ; ����� ���������� idle ���������
 disable_time = -1 ; ����� ������������� �������� ������� � ���� (-1 ���� �� �����)
 disable_time_small = -1 ; ����� ������������� ���������� �������� ������� � ���� (-1 ���� �� �����)
-disable_idle_time = -1 ; ����� ���������� idle ���������
+ef_anomaly_type = 3
+ef_weapon_type = 15
+effective_radius = 1.00 ; ������ ������� � ��������� �� �������������, ��� ��������� ����
+hit_impulse_scale = .01
+hit_type = radiation
+idle_light = off
+ignore_artefacts = true
 ignore_nonalive = true
 ignore_small = false
-ignore_artefacts = true
-blowout_light = off
-idle_light = off
-awaking_time = 100
-blowout_time = 100
-accamulate_time = 100
-blowout_wind = off
-shape_transp_color = 200, 200, 0, 60
+max_start_power = 0
+postprocess = postprocess_rad
 shape_edge_color = 32, 32, 32, 255
+shape_transp_color = 200, 200, 0, 60
 
 [zone_field_radioactive_weak]:zone_field_radioactive
+$scheme = $zone
 $spawn = "zones\field_radioactive_weak"
-; ----------- Anomaly settings -----------------------
 max_start_power = 0.015
 
 [zone_field_radioactive_average]:zone_field_radioactive
+$scheme = $zone
 $spawn = "zones\field_radioactive_average"
-; ----------- Anomaly settings -----------------------
 max_start_power = 0.02
 
 [zone_field_radioactive_strong]:zone_field_radioactive
+$scheme = $zone
 $spawn = "zones\field_radioactive_strong"
-; ----------- Anomaly settings -----------------------
 max_start_power = 0.03
 
 [zone_radioactive]:zone_field_radioactive
-GroupControlSection = spawn_group_zone
 $def_sphere = 1
-class = Z_RADIO
+$scheme = $zone
+GroupControlSection = spawn_group_zone
 attenuation = 0.1
+class = Z_RADIO
 
 [zone_radioactive_weak]:zone_radioactive
+$scheme = $zone
 $spawn = "zones\mp\radioactive_weak"
 max_start_power = 0.011
 
 [zone_radioactive_average]:zone_radioactive
+$scheme = $zone
 $spawn = "zones\mp\radioactive_average"
 max_start_power = 0.031
 
 [zone_radioactive_strong]:zone_radioactive
+$scheme = $zone
 $spawn = "zones\mp\radioactive_strong"
 max_start_power = 0.061
