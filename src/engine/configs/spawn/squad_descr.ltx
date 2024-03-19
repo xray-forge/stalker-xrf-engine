@@ -3,325 +3,375 @@
 #include "squad_descr_zaton.ltx"
 #include "squad_descr_labx8.ltx"
 #include "squad_descr_underpass.ltx"
-; ------------------------------- Simulation SQUADS -------------------------------
 
 [simulation_stalker]:online_offline_group
+$scheme = $online_offline_group
 faction = stalker
 npc_random = sim_default_stalker_0, sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_3, sim_default_stalker_4
 npc_in_squad = 2, 3
 
 [simulation_stalker_1]:online_offline_group
+$scheme = $online_offline_group
 faction = stalker
 npc_random = sim_default_stalker_0, sim_default_stalker_0, sim_default_stalker_0, sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_3, sim_default_stalker_3, sim_default_stalker_4
 npc_in_squad = 2, 3
 
 [simulation_stalker_2]:online_offline_group
+$scheme = $online_offline_group
 faction = stalker
 npc_random = sim_default_stalker_0, sim_default_stalker_0, sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_3, sim_default_stalker_3, sim_default_stalker_4, sim_default_stalker_4
 npc_in_squad = 2, 3
 
 [simulation_stalker_3]:online_offline_group
+$scheme = $online_offline_group
 faction = stalker
 npc_random = sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_3, sim_default_stalker_3, sim_default_stalker_4, sim_default_stalker_4
 npc_in_squad = 2, 3
-; --------------- stalkers simulation squads -----------------------
 
 [stalker_sim_squad_novice]:online_offline_group
+$scheme = $online_offline_group
 faction = stalker
 npc_random = sim_default_stalker_0, sim_default_stalker_1, sim_default_stalker_2
 npc_in_squad = 2, 3
 
 [stalker_sim_squad_advanced]:online_offline_group
+$scheme = $online_offline_group
 faction = stalker
 npc_random = sim_default_stalker_1, sim_default_stalker_1, sim_default_stalker_2, sim_default_stalker_2
 npc_in_squad = 2, 3
 
 [stalker_sim_squad_veteran]:online_offline_group
+$scheme = $online_offline_group
 faction = stalker
 npc_random = sim_default_stalker_2, sim_default_stalker_2, sim_default_stalker_3, sim_default_stalker_3, sim_default_stalker_4
 npc_in_squad = 2, 3
 
 [simulation_stalker_for_a1]:online_offline_group
+$scheme = $online_offline_group
 faction = stalker
 target_smart = {+zat_a1_atack_from_zat_sim_15} zat_a1:nil, nil
 spawn_point = zat_sim_15_spawn_for_a1
 npc = sim_default_stalker_2, sim_default_stalker_0
-; --------------- bandits simulation squads -----------------------
 
 [simulation_bandit]:online_offline_group
+$scheme = $online_offline_group
 faction = bandit
 npc_random = sim_default_bandit_0, sim_default_bandit_1, sim_default_bandit_2, sim_default_bandit_3, sim_default_bandit_4
 npc_in_squad = 2, 3
 
 [simulation_bandit_1]:online_offline_group
+$scheme = $online_offline_group
 faction = bandit
 npc_random = sim_default_bandit_0, sim_default_bandit_1, sim_default_bandit_1, sim_default_bandit_1, sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_3, sim_default_bandit_4
 npc_in_squad = 2, 3
 
 [simulation_bandit_2]:online_offline_group
+$scheme = $online_offline_group
 faction = bandit
 npc_random = sim_default_bandit_1, sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_3, sim_default_bandit_3, sim_default_bandit_4
 npc_in_squad = 2, 3
 
 [simulation_bandit_3]:online_offline_group
+$scheme = $online_offline_group
 faction = bandit
 npc_random = sim_default_bandit_1, sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_3, sim_default_bandit_3, sim_default_bandit_4, sim_default_bandit_4
 npc_in_squad = 2, 3
-; --------------- bandits simulation squads new -----------------------
 
 [bandit_sim_squad_novice]:online_offline_group
+$scheme = $online_offline_group
 faction = bandit
 npc_random = sim_default_bandit_0, sim_default_bandit_1, sim_default_bandit_2
 npc_in_squad = 2, 3
 
 [bandit_sim_squad_advanced]:online_offline_group
+$scheme = $online_offline_group
 faction = bandit
 npc_random = sim_default_bandit_1, sim_default_bandit_1, sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_3
 npc_in_squad = 2, 3
 
 [bandit_sim_squad_veteran]:online_offline_group
+$scheme = $online_offline_group
 faction = bandit
 npc_random = sim_default_bandit_2, sim_default_bandit_2, sim_default_bandit_3, sim_default_bandit_3, sim_default_bandit_4
 npc_in_squad = 2, 3
-; --------------- merks simulation squads -----------------------
 
 [simulation_killer]:online_offline_group
+$scheme = $online_offline_group
 faction = killer
 npc_random = sim_default_killer_0, sim_default_killer_1, sim_default_killer_1, sim_default_killer_2, sim_default_killer_2, sim_default_killer_3, sim_default_killer_4
 npc_in_squad = 2, 3
 
 [merc_sim_squad_novice]:online_offline_group
+$scheme = $online_offline_group
 faction = killer
 npc_random = sim_default_killer_0, sim_default_killer_1, sim_default_killer_2
 npc_in_squad = 2, 3
 
 [merc_sim_squad_advanced]:online_offline_group
+$scheme = $online_offline_group
 faction = killer
 npc_random = sim_default_killer_1, sim_default_killer_1, sim_default_killer_2, sim_default_killer_2, sim_default_killer_3
 npc_in_squad = 2, 3
 
 [merc_sim_squad_veteran]:online_offline_group
+$scheme = $online_offline_group
 faction = killer
 npc_random = sim_default_killer_2, sim_default_killer_2, sim_default_killer_3, sim_default_killer_3, sim_default_killer_4
 npc_in_squad = 2, 3
-; --------------- duty simulation squads -----------------------
 
 [simulation_duty]:online_offline_group
+$scheme = $online_offline_group
 faction = dolg
 npc_random = sim_default_duty_0, sim_default_duty_1, sim_default_duty_1, sim_default_duty_2, sim_default_duty_2, sim_default_duty_3, sim_default_duty_4
 npc_in_squad = 2, 3
 
 [simulation_duty_1]:online_offline_group
+$scheme = $online_offline_group
 faction = dolg
 npc_random = sim_default_duty_0, sim_default_duty_1, sim_default_duty_1, sim_default_duty_2, sim_default_duty_2, sim_default_duty_3, sim_default_duty_4
 npc_in_squad = 2, 3
 
 [simulation_duty_2]:online_offline_group
+$scheme = $online_offline_group
 faction = dolg
 npc_random = sim_default_duty_0, sim_default_duty_1, sim_default_duty_1, sim_default_duty_2, sim_default_duty_2, sim_default_duty_3, sim_default_duty_4
 npc_in_squad = 2, 3
 
 [simulation_duty_3]:online_offline_group
+$scheme = $online_offline_group
 faction = dolg
 npc_random = sim_default_duty_0, sim_default_duty_1, sim_default_duty_1, sim_default_duty_2, sim_default_duty_2, sim_default_duty_3, sim_default_duty_4
 npc_in_squad = 2, 3
 
 [duty_sim_squad_novice]:online_offline_group
+$scheme = $online_offline_group
 faction = dolg
 npc_random = sim_default_duty_0, sim_default_duty_1, sim_default_duty_2
 npc_in_squad = 2, 3
 
 [duty_sim_squad_advanced]:online_offline_group
+$scheme = $online_offline_group
 faction = dolg
 npc_random = sim_default_duty_1, sim_default_duty_1, sim_default_duty_2, sim_default_duty_2, sim_default_duty_3
 npc_in_squad = 2, 3
 
 [duty_sim_squad_veteran]:online_offline_group
+$scheme = $online_offline_group
 faction = dolg
 npc_random = sim_default_duty_2, sim_default_duty_2, sim_default_duty_3, sim_default_duty_3, sim_default_duty_4
 npc_in_squad = 2, 3
-; --------------- freedom simulation squads -----------------------
 
 [simulation_freedom]:online_offline_group
+$scheme = $online_offline_group
 faction = freedom
 npc_random = sim_default_freedom_0, sim_default_freedom_1, sim_default_freedom_1, sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_3, sim_default_freedom_4
 npc_in_squad = 2, 3
 
 [simulation_freedom_1]:online_offline_group
+$scheme = $online_offline_group
 faction = freedom
 npc_random = sim_default_freedom_0, sim_default_freedom_1, sim_default_freedom_1, sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_3, sim_default_freedom_4
 npc_in_squad = 2, 3
 
 [simulation_freedom_2]:online_offline_group
+$scheme = $online_offline_group
 faction = freedom
 npc_random = sim_default_freedom_0, sim_default_freedom_1, sim_default_freedom_1, sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_3, sim_default_freedom_4
 npc_in_squad = 2, 3
 
 [simulation_freedom_3]:online_offline_group
+$scheme = $online_offline_group
 faction = freedom
 npc_random = sim_default_freedom_0, sim_default_freedom_1, sim_default_freedom_1, sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_3, sim_default_freedom_4
 npc_in_squad = 2, 3
 
 [freedom_sim_squad_novice]:online_offline_group
+$scheme = $online_offline_group
 faction = freedom
 npc_random = sim_default_freedom_0, sim_default_freedom_1, sim_default_freedom_2
 npc_in_squad = 2, 3
 
 [freedom_sim_squad_advanced]:online_offline_group
+$scheme = $online_offline_group
 faction = freedom
 npc_random = sim_default_freedom_1, sim_default_freedom_1, sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_3
 npc_in_squad = 2, 3
 
 [freedom_sim_squad_veteran]:online_offline_group
+$scheme = $online_offline_group
 faction = freedom
 npc_random = sim_default_freedom_2, sim_default_freedom_2, sim_default_freedom_3, sim_default_freedom_3, sim_default_freedom_4
 npc_in_squad = 2, 3
-; --------------- monolith simulation squads -----------------------
 
 [simulation_monolith_squad]:online_offline_group
+$scheme = $online_offline_group
 faction = monolith
 npc = sim_default_monolith_0, sim_default_monolith_1, sim_default_monolith_1, sim_default_monolith_2, sim_default_monolith_3
 npc_in_squad = 2, 3
 
 [monolith_sim_squad_novice]:online_offline_group
+$scheme = $online_offline_group
 faction = monolith
 npc = sim_default_monolith_0, sim_default_monolith_1, sim_default_monolith_2
 npc_in_squad = 2, 3
 
 [monolith_sim_squad_advanced]:online_offline_group
+$scheme = $online_offline_group
 faction = monolith
 npc = sim_default_monolith_2, sim_default_monolith_2, sim_default_monolith_3
 npc_in_squad = 2, 3
 
 [monolith_sim_squad_veteran]:online_offline_group
+$scheme = $online_offline_group
 faction = monolith
 npc = sim_default_monolith_3, sim_default_monolith_3, sim_default_monolith_4
 npc_in_squad = 2, 3
-; --------------- zombied simulation squads -----------------------
 
 [simulation_zombied_1]:online_offline_group
+$scheme = $online_offline_group
 faction = zombied
 npc_random = sim_default_zombied_1, sim_default_zombied_1, sim_default_zombied_2, sim_default_zombied_2, sim_default_zombied_3
 npc_in_squad = 2, 3
 
 [simulation_zombied_2]:online_offline_group
+$scheme = $online_offline_group
 faction = zombied
 npc_random = sim_default_zombied_2, sim_default_zombied_2, sim_default_zombied_3, sim_default_zombied_3
 npc_in_squad = 2, 3
 
 [simulation_zombied_3]:online_offline_group
+$scheme = $online_offline_group
 faction = zombied
 npc_random = sim_default_zombied_3, sim_default_zombied_4
 npc_in_squad = 2, 3
 
 [zombied_sim_squad_novice]:online_offline_group
+$scheme = $online_offline_group
 faction = zombied
 npc_random = sim_default_zombied_1, sim_default_zombied_2
 npc_in_squad = 2, 3
 
 [zombied_sim_squad_advanced]:online_offline_group
+$scheme = $online_offline_group
 faction = zombied
 npc_random = sim_default_zombied_2, sim_default_zombied_3
 npc_in_squad = 2, 3
 
 [zombied_sim_squad_veteran]:online_offline_group
+$scheme = $online_offline_group
 faction = zombied
 npc_random = sim_default_zombied_3, sim_default_zombied_4
 npc_in_squad = 2, 3
-; --------------- monster simulation squads -----------------------
 
 [simulation_bloodsucker]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_night
 npc_random = bloodsucker_weak, bloodsucker_weak, bloodsucker_weak, bloodsucker_normal, bloodsucker_normal, bloodsucker_strong
 npc_in_squad = 1, 1
 
 [simulation_boar]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_vegetarian
 npc_random = boar_normal, boar_normal, boar_normal, boar_strong
 npc_in_squad = 1, 2
 
 [simulation_burer]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_zombied_night
 npc_random = burer_normal
 npc_in_squad = 1, 2
 
 [simulation_dog]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_day
 npc_random = dog_weak, dog_normal, dog_strong, dog_cute
 npc_in_squad = 2, 4
 
 [simulation_pseudodog]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_day
 npc_random = pseudodog_normal
 npc_in_squad = 1, 3
 
 [simulation_flesh]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_vegetarian
 npc_random = flesh_normal, flesh_normal, flesh_normal, flesh_strong
 npc_in_squad = 2, 4
 
 [simulation_snork]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_zombied_night
 npc_random = snork_weak, snork_weak, snork_normal, snork_normal, snork_strong
 npc_in_squad = 2, 3
 
 [simulation_controller]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_zombied_day
 npc_random = m_controller_normal
 npc_in_squad = 1, 1
 
 [simulation_mix_dogs]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_day
 npc_random = pseudodog_normal, pseudodog_normal, dog_weak, dog_normal, dog_strong, dog_cute
 npc_in_squad = 2, 3
 
 [simulation_mix_boar_flesh]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_vegetarian
 npc_random = flesh_normal, flesh_normal, flesh_normal, flesh_strong, boar_normal, boar_normal, boar_normal, boar_strong
 npc_in_squad = 2, 3
 
 [simulation_poltergeist_tele]:online_offline_group
+$scheme = $online_offline_group
 faction = monster
 npc = m_poltergeist_normal_tele
 npc_in_squad = 1, 2
 
 [simulation_chimera]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_night
 npc_random = chimera_normal
 npc_in_squad = 1, 1
 
 [simulation_chimera_zaton]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_night
 npc_random = chimera_normal
 npc_in_squad = 1, 1
 target_smart = {=is_dark_night} nil, {~50} zat_sim_5, {~50} zat_sim_3, {~50} zat_sim_1, {~50} zat_sim_18, {~50} zat_sim_10, {~50} zat_sim_7, zat_sim_26
 
 [simulation_chimera_pripyat]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_night
 npc_random = chimera_normal
 npc_in_squad = 1, 1
 target_smart = {=is_dark_night} nil, pri_a17
 
 [simulation_chimera_jupiter]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_night
 npc_random = chimera_normal
 npc_in_squad = 1, 1
 
 [simulation_psy_dog]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_day
 npc_random = psy_dog_normal
 npc_in_squad = 1, 1
 
 [simulation_tushkano]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_day
 npc_random = tushkano_normal
 npc_in_squad = 3, 4
 
 [simulation_gigant]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_day
 npc_random = gigant_normal
 npc_in_squad = 1, 1
-; --------------- test --------------------------------------------
 
 [simulation_dog_01]:simulation_dog
 target_smart = smart_02:smart_01:loop
@@ -336,6 +386,7 @@ target_smart = smart_03
 spawn_point = spawn_01
 
 [sim_stalker_squad_1]:online_offline_group
+$scheme = $online_offline_group
 faction = freedom
 npc = sim_default_freedom_2,sim_default_freedom_2,sim_default_freedom_2
 ; npc_random = sim_default_zombied_1
@@ -347,18 +398,22 @@ target_smart = nil
 ; run_string alife():object(56):set_squad_position(patrol("tst"):point(0))
 
 [sim_stalker_squad_2]:online_offline_group
+$scheme = $online_offline_group
 faction = dolg
 npc = sim_default_duty_2,sim_default_duty_2,sim_default_duty_2
 
 [sim_monolith_squad_3]:online_offline_group
+$scheme = $online_offline_group
 faction = monolith
 npc = sim_default_monolith_2,sim_default_monolith_2,sim_default_monolith_2
 
 [sim_stalker_squad_4]:online_offline_group
+$scheme = $online_offline_group
 faction = bandit
 npc = sim_default_bandit_2,sim_default_bandit_2,sim_default_bandit_2
 
 [sim_snork_4]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_zombied_day
 npc = snork_normal,snork_normal,snork_normal
 behaviour = monster
@@ -366,18 +421,21 @@ arrive_dist = 30
 story_id = test_squad
 
 [sim_boar]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_vegetarian
 npc = boar_normal
 target_smart = selo_smart_terrain
 spawn_point = selo_smart_terrain_home
 
 [sim_polter]:online_offline_group
+$scheme = $online_offline_group
 faction = monster
 npc = m_poltergeist_normal_tele
 target_smart = selo_smart_terrain
 spawn_point = selo_smart_terrain_polter_home
 
 [sim_pseudodog]:online_offline_group
+$scheme = $online_offline_group
 faction = monster_predatory_day
 npc = psy_dog
 target_smart = selo_smart_terrain
