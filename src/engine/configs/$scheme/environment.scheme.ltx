@@ -48,8 +48,7 @@ period0.type = u32
 period1.type = u32
 period2.type = u32
 period3.type = u32
-sounds.array = true
-sounds.type = string
+sounds.type = string[]
 
 [$environment]
 strict = true
@@ -80,58 +79,46 @@ surge_state.type = u8 ; bool
 
 [$ambient]
 strict = true
-effects.array = true
-effects.type = string
+effects.type = string[]
 max_effect_period.type = f32
 min_effect_period.type = f32
-sound_channels.array = true
-sound_channels.type = string
+sound_channels.type = string[]
 
 [$fog_volume]
 strict = true
 EmittersNum.type = u32
-GravityBuoyancy.optional = true
-GravityBuoyancy.type = f32
+GravityBuoyancy.type = ?f32
 Hemi.type = f32
-ConfinementScale.optional = true
-ConfinementScale.type = f32
-Decay.optional = true
-Decay.type = f32
+ConfinementScale.type = ?f32
+Decay.type = ?f32
 
 [$fog]
 strict = true
 ApplyDensity.type = u8 ; bool
 ApplyImpulse.type = u8 ; bool
 Density.type = f32
-DraughtAmp.optional = true
-DraughtAmp.type = f32
-DraughtPeriod.optional = true
-DraughtPeriod.type = f32
-DraughtPhase.optional = true
-DraughtPhase.type = f32
+DraughtAmp.type = ?f32
+DraughtPeriod.type = ?f32
+DraughtPhase.type = ?f32
 FlowDirection.type = vector
 FlowSpeed.type = f32
-Position.optional = true
-Position.type = vector
+Position.type = ?vector
 Radius.type = f32
 Sigma.type = f32
 Type.type = enum:SimpleGaussian,SimpleDraught
-WorldPosition.optional = true
-WorldPosition.type = vector
+WorldPosition.type = ?vector
 
 [$weather]
 strict = true
 ambient.type = enum:default,rain,night,morning,day,tuman,evening,indoor
 ambient_color.type = vector
-clouds_color.array = true
-clouds_color.type = f32
+clouds_color.type = f32[]
 clouds_texture.type = string
 far_plane.type = f32
 fog_color.type = vector
 fog_density.type = f32
 fog_distance.type = f32
-hemisphere_color.array = true
-hemisphere_color.type = f32
+hemisphere_color.type = f32[]
 rain_color.type = vector
 rain_density.type = f32
 sky_color.type = vector
@@ -145,8 +132,7 @@ sun_shafts_intensity.type = f32
 thunderbolt_collection.type = string
 thunderbolt_duration.type = f32
 thunderbolt_period.type = f32
-tree_amplitude_intensity.optional = true
-tree_amplitude_intensity.type = f32
+tree_amplitude_intensity.type = ?f32
 water_intensity.type = f32
 wind_direction.type = f32
 wind_velocity.type = f32

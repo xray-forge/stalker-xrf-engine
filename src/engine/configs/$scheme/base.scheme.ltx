@@ -11,24 +11,16 @@ lean_hud_offset_pos.type = vector
 lean_hud_offset_rot.type = vector
 
 [$spawn_object]
-$npc.optional = true
-$npc.type = enum:on,off
-$prefetch.optional = true
-$prefetch.type = u8
-$spawn.optional = true
-$spawn.type = string
-GroupControlSection.optional = true
-GroupControlSection.type = string
+$npc.type = ?enum:on,off
+$prefetch.type = ?u8
+$spawn.type = ?string
+GroupControlSection.type = ?string
 cform.type = string
-character_profile.optional = true
-character_profile.type = string
+character_profile.type = ?string
 class.type = string
-custom_data.optional = true
-custom_data.type = string
-script_binding.optional = true
-script_binding.type = string
-story_id.optional = true
-story_id.type = string
+custom_data.type = ?string
+script_binding.type = ?string
+story_id.type = ?string
 visual.type = string
 
 [$immunities]
@@ -41,8 +33,7 @@ radiation_immunity.type = f32
 shock_immunity.type = f32
 strike_immunity.type = f32
 telepatic_immunity.type = f32
-wound_2_immunity.optional = true
-wound_2_immunity.type = f32
+wound_2_immunity.type = ?f32
 wound_immunity.type = f32
 
 [$identity_immunities]
@@ -52,20 +43,15 @@ description.type = string
 default_to_ruck.type = bool
 sprint_allowed.type = bool
 control_inertion_factor.type = f32
-zoom_rotate_time.optional = true
-zoom_rotate_time.type = f32
+zoom_rotate_time.type = ?f32
 
 [$effector_params]
 strict = true
 blur.type = f32
-ce_amplitude.optional = true
-ce_amplitude.type = f32
-ce_period_number.optional = true
-ce_period_number.type = f32
-ce_power.optional = true
-ce_power.type = f32
-ce_time.optional = true
-ce_time.type = f32
+ce_amplitude.type = ?f32
+ce_period_number.type = ?f32
+ce_power.type = ?f32
+ce_time.type = ?f32
 color_add.type = vector
 color_base.type = vector
 color_gray.type = vector
@@ -75,12 +61,9 @@ gray.type = f32
 noise_fps.type = u8
 noise_grain.type = f32
 noise_intensity.type = f32
-time.optional = true
-time.type = f32
-time_attack.optional = true
-time_attack.type = f32
-time_release.optional = true
-time_release.type = f32
+time.type = ?f32
+time_attack.type = ?f32
+time_release.type = ?f32
 
 [$common_ph_friction_params_on_npc_death]
 strict = true
@@ -104,8 +87,7 @@ Human.type = enum:on,off
 MaxSpeed.type = f32
 MinSpeed.type = f32
 Scheduled.type = enum:on,off ; todo: Probably not used
-current_level_going_speed.optional = true
-current_level_going_speed.type = f32
+current_level_going_speed.type = ?f32
 going_speed.type = f32
 search_speed.type = f32
 
