@@ -5,6 +5,7 @@
 #include "external.ltx"
 #include "fonts.ltx"
 #include "game_relations.ltx"
+#include "generic.ltx"
 #include "immunities.ltx"
 #include "interface.ltx"
 #include "localization.ltx"
@@ -17,73 +18,3 @@
 #include "managers\index.ltx"
 #include "prefetch\index.ltx"
 #include "spawn\index.ltx"
-
-[info_portions]
-files = info_portions, info_zaton, info_jupiter, info_pripyat, info_upgrades
-
-[dialogs]
-files = dialogs, dialogs_zaton, dialogs_jupiter, dialogs_pripyat
-
-[encyclopedia]
-files = encyclopedia_infos
-
-[profiles]
-files = npc_profiles
-specific_characters_files = character_desc_general, character_desc_zaton, character_desc_pripyat, character_desc_jupiter, character_desc_underpass
-
-[script]
-current_server_entity_version = 12
-
-[physics]
-object_damage_factor = 1.2
-
-[sound]
-occlusion_scale = 0.4
-snd_collide_min_volume = 0.1
-snd_collide_max_volume = 200
-
-[trade]
-buy_price_factor_hostile = 1
-buy_price_factor_friendly = 1
-sell_price_factor_hostile = 1
-sell_price_factor_friendly = 1
-
-[squad_manager]
-schedule_min = 1
-schedule_max = 999
-
-[agent_manager]
-schedule_min = 100
-schedule_max = 1000
-
-[collision_damage]
-bonce_damage_factor_for_objects = 1
-
-[pkm_visual_memory] ; todo: Move to weapon definitions (mounted).
-min_view_distance = 1
-max_view_distance = 1
-visibility_threshold = 50
-always_visible_distance = 1
-time_quant = 0.00001
-decrease_value = 0.1
-velocity_factor = 0.5
-luminocity_factor = 0.5
-transparency_threshold = 0.4
-view_fov_deg = 90
-view_aspect = 1
-view_far_plane = 100
-
-[details] ; DetailManager.cpp configuration
-$scheme = $details
-swing_normal_amp1 = 0.1
-swing_normal_amp2 = 0.05
-swing_normal_rot1 = 30
-swing_normal_rot2 = 1
-swing_normal_speed = 2
-swing_fast_amp1 = 0.35
-swing_fast_amp2 = 0.2
-swing_fast_rot1 = 5
-swing_fast_rot2 = 0.5
-swing_fast_speed = 0.5
-
-[ph_capture_visuals] ; Draggable by actor visuals, where key is visual name and value is bool
