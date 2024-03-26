@@ -391,7 +391,7 @@ describe("relation conditions implementation", () => {
     const stalker: GameObject = MockGameObject.mockStalker({ community: "zombied" });
 
     expect(() => callXrCondition("npc_community", MockGameObject.mockActor(), stalker)).toThrow(
-      "Wrong parameters in 'npc_community' condition."
+      "Condition 'npc_community' requires community name as parameter."
     );
 
     expect(callXrCondition("npc_community", MockGameObject.mockActor(), stalker, "zombied")).toBe(true);

@@ -34,8 +34,8 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
 
         startSmartTerrainAlarm(smartTerrain);
 
-        if (enemy.id() === ACTOR_ID && smartTerrain.smartTerrainActorControl !== null) {
-          smartTerrain.smartTerrainActorControl.onActorAttackSmartTerrain();
+        if (enemy.id() === ACTOR_ID && smartTerrain.terrainControl !== null) {
+          smartTerrain.terrainControl.onActorAttackSmartTerrain();
         }
       }
 

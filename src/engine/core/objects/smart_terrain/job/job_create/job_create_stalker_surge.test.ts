@@ -54,7 +54,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
     terrain.defendRestrictor = "def_restrictor_test";
-    terrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
     const [jobs, builder] = createStalkerSurgeJobs(terrain, new LuaTable(), new StringBuilder());
 
@@ -84,7 +84,7 @@ describe("jobs_general should correctly generate stalkers surge jobs", () => {
     registerZone(object);
 
     terrain.defendRestrictor = "def_restrictor_test";
-    terrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
     const [jobs, builder] = createStalkerSurgeJobs(terrain, new LuaTable(), new StringBuilder());
 

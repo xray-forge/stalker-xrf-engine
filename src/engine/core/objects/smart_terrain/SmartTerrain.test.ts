@@ -67,7 +67,7 @@ describe("SmartTerrain generic logic", () => {
     expect(terrain.attackRestrictor).toBeNull();
     expect(terrain.safeRestrictor).toBeNull();
     expect(terrain.spawnPointName).toBeNull();
-    expect(terrain.smartTerrainActorControl).toBeNull();
+    expect(terrain.terrainControl).toBeNull();
 
     expect(terrain.arrivingObjects.length()).toBe(0);
     expect(terrain.jobs.length()).toBe(0);
@@ -183,7 +183,7 @@ describe("SmartTerrain generic logic", () => {
 
     terrain.jobDeadTimeById.set(50, MockCTime.mock(2004, 7, 19, 13, 30, 10, 200));
 
-    terrain.smartTerrainActorControl = new SmartTerrainControl(
+    terrain.terrainControl = new SmartTerrainControl(
       terrain,
       MockIniFile.mock("test.ltx", {
         test_save: {
@@ -310,9 +310,9 @@ describe("SmartTerrain generic logic", () => {
       MockCTime.mock(2004, 7, 19, 13, 30, 10, 200).toString()
     );
 
-    expect(anotherTerrain.smartTerrainActorControl).toBeDefined();
-    expect(anotherTerrain.smartTerrainActorControl?.status).toBe(ESmartTerrainStatus.NORMAL);
-    expect(anotherTerrain.smartTerrainActorControl?.alarmStartedAt).toBeNull();
+    expect(anotherTerrain.terrainControl).toBeDefined();
+    expect(anotherTerrain.terrainControl?.status).toBe(ESmartTerrainStatus.NORMAL);
+    expect(anotherTerrain.terrainControl?.alarmStartedAt).toBeNull();
     expect(anotherTerrain.isRespawnPoint).toBe(true);
     expect(anotherTerrain.spawnedSquadsList).toEqualLuaTables({
       test_squad_novice: {
@@ -355,9 +355,9 @@ describe("SmartTerrain generic logic", () => {
     expect(anotherTerrain.objectJobDescriptors.length()).toBe(0);
     expect(anotherTerrain.jobDeadTimeById.length()).toBe(0);
 
-    expect(anotherTerrain.smartTerrainActorControl).toBeDefined();
-    expect(anotherTerrain.smartTerrainActorControl?.status).toBe(ESmartTerrainStatus.NORMAL);
-    expect(anotherTerrain.smartTerrainActorControl?.alarmStartedAt).toBeNull();
+    expect(anotherTerrain.terrainControl).toBeDefined();
+    expect(anotherTerrain.terrainControl?.status).toBe(ESmartTerrainStatus.NORMAL);
+    expect(anotherTerrain.terrainControl?.alarmStartedAt).toBeNull();
     expect(anotherTerrain.isRespawnPoint).toBe(true);
     expect(anotherTerrain.spawnedSquadsList).toEqualLuaTables({
       test_squad_novice: {

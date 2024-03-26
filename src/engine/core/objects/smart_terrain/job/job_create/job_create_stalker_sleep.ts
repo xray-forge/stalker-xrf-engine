@@ -61,9 +61,9 @@ path_main = sleep_%s
     }
 
     if (
-      smartTerrain.smartTerrainActorControl !== null &&
-      smartTerrain.smartTerrainActorControl.ignoreZone !== null &&
-      isPatrolInRestrictor(smartTerrain.smartTerrainActorControl.ignoreZone, patrolName)
+      smartTerrain.terrainControl !== null &&
+      smartTerrain.terrainControl.ignoreZone !== null &&
+      isPatrolInRestrictor(smartTerrain.terrainControl.ignoreZone, patrolName)
     ) {
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true

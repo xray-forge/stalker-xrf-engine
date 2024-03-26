@@ -249,7 +249,7 @@ describe("world conditions implementation", () => {
 
     expect(() => {
       return callXrCondition("check_smart_alarm_status", MockGameObject.mockActor(), MockGameObject.mock());
-    }).toThrow("Wrong status 'nil' in 'check_smart_alarm_status'.");
+    }).toThrow("Wrong status 'nil' in 'check_smart_alarm_status' condition.");
     expect(() => {
       return callXrCondition(
         "check_smart_alarm_status",
@@ -258,7 +258,7 @@ describe("world conditions implementation", () => {
         "name",
         "not-existing"
       );
-    }).toThrow("Wrong status 'nil' in 'check_smart_alarm_status'.");
+    }).toThrow("Wrong status 'nil' in 'check_smart_alarm_status' condition.");
     expect(() => {
       return callXrCondition(
         "check_smart_alarm_status",
@@ -267,9 +267,9 @@ describe("world conditions implementation", () => {
         "name",
         "alarm"
       );
-    }).toThrow("Cannot calculate 'check_smart_alarm_status' for smart terrain 'name'.");
+    }).toThrow("Cannot calculate 'check_smart_alarm_status' for terrain 'name'.");
 
-    terrain.smartTerrainActorControl = new SmartTerrainControl(
+    terrain.terrainControl = new SmartTerrainControl(
       terrain,
       MockIniFile.mock("test.ltx", {
         test_section: {
@@ -298,7 +298,7 @@ describe("world conditions implementation", () => {
       )
     ).toBe(false);
 
-    terrain.smartTerrainActorControl.status = ESmartTerrainStatus.ALARM;
+    terrain.terrainControl.status = ESmartTerrainStatus.ALARM;
 
     expect(
       callXrCondition(

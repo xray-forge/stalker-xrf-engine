@@ -9,12 +9,15 @@ import { GameObject, Optional, TCount, TName } from "@/engine/lib/types";
 
 /**
  * Check if provided scheme signal is active.
+ *
+ * Where:
+ * - name - signal name to check
  */
-extern("xr_conditions.signal", (actor: GameObject, object: GameObject, [signalName]: [TName]): boolean => {
+extern("xr_conditions.signal", (_: GameObject, object: GameObject, [name]: [TName]): boolean => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
   const signals: Optional<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
 
-  return signals !== null && signals.get(signalName) === true;
+  return signals !== null && signals.get(name) === true;
 });
 
 /**
@@ -23,7 +26,7 @@ extern("xr_conditions.signal", (actor: GameObject, object: GameObject, [signalNa
  */
 extern(
   "xr_conditions.counter_greater",
-  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
+  (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
     if (!name || !count) {
       abort("Invalid parameters supplied for condition 'counter_greater'.");
     }
@@ -38,7 +41,7 @@ extern(
  */
 extern(
   "xr_conditions.counter_equal",
-  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
+  (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
     if (!name || !count) {
       abort("Invalid parameters supplied for condition 'counter_equal'.");
     }

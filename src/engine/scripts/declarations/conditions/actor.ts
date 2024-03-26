@@ -27,32 +27,32 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Whether `wealthy` is achieved.
+ * Check whether `wealthy` achievement criteria is achieved.
+ * By default, requires actor to have 100k money value.
  */
 extern("xr_conditions.wealthy_functor", (): boolean => {
   return hasAchievedWealthy();
 });
 
 /**
- * Whether `information dealer` is achieved.
+ * Check whether `information dealer` is achieved.
  */
 extern("xr_conditions.information_dealer_functor", (): boolean => {
   return hasAchievedInformationDealer();
 });
 
 /**
- * Whether actor is currently in surge cover zone.
+ * Check whether actor is currently in surge cover zone.
  */
 extern("xr_conditions.actor_in_surge_cover", (): boolean => {
   return isActorInSurgeCover();
 });
 
 /**
- * todo;
+ * Check whether object enemy is actor.
  */
 extern("xr_conditions.is_enemy_actor", (object: GameObject): boolean => {
-  // todo: Probably always true.
-  return object.id() === ACTOR_ID;
+  return object.id() === ACTOR_ID; // todo: Probably always true. Deprecate?
 });
 
 /**
@@ -72,12 +72,15 @@ extern("xr_conditions.actor_see_npc", (actor: GameObject, object: GameObject): b
 /**
  * Checks if object is in actor line of sight frustum.
  */
-extern("xr_conditions.npc_in_actor_frustum", (actor: GameObject, object: GameObject): boolean => {
+extern("xr_conditions.npc_in_actor_frustum", (_: GameObject, object: GameObject): boolean => {
   return isObjectInActorFrustum(object);
 });
 
 /**
  * Check whether distance between actor and object is less or equal.
+ *
+ * Where:
+ * - distance - number in metres to check
  */
 extern(
   "xr_conditions.dist_to_actor_le",
@@ -90,6 +93,9 @@ extern(
 
 /**
  * Check whether distance between actor and position is bigger or equal to provided number.
+ *
+ * Where:
+ * - distance - number in metres to check
  */
 extern(
   "xr_conditions.dist_to_actor_ge",
@@ -102,23 +108,26 @@ extern(
 
 /**
  * Check whether actor health is less than provided value.
+ *
+ * Where:
+ * - health - number in from 0 to 1 to check
  */
-extern(
-  "xr_conditions.actor_health_le",
-  (actor: GameObject, object: GameObject, [health]: [Optional<TRate>]): boolean => {
-    return health !== null && actor.health < health;
-  }
-);
+extern("xr_conditions.actor_health_le", (actor: GameObject, __: GameObject, [health]: [Optional<TRate>]): boolean => {
+  return health !== null && actor.health < health;
+});
 
 /**
  * Check whether actor is in zone with provided name.
+ *
+ * Where:
+ * - zoneName - name of the zone to check
  */
-extern("xr_conditions.actor_in_zone", (actor: GameObject, object: GameObject, [zoneName]: [TName]): boolean => {
+extern("xr_conditions.actor_in_zone", (_: GameObject, __: GameObject, [zoneName]: [TName]): boolean => {
   return isObjectInZone(registry.actor, registry.zones.get(zoneName));
 });
 
 /**
- * Should check if helicopter see actor.
+ * Check if helicopter sees actor.
  */
 extern("xr_conditions.heli_see_actor", (actor: GameObject, object: GameObject): boolean => {
   return actor !== null && object.get_helicopter().isVisible(actor);
@@ -126,20 +135,27 @@ extern("xr_conditions.heli_see_actor", (actor: GameObject, object: GameObject): 
 
 /**
  * Check if actor has specific item in inventory.
+ *
+ * Where:
+ * - section - item section to check
  */
 extern(
   "xr_conditions.actor_has_item",
-  (actor: GameObject, object: GameObject, [section]: [Optional<TSection>]): boolean => {
+  (actor: GameObject, __: GameObject, [section]: [Optional<TSection>]): boolean => {
     return section !== null && actor !== null && actor.object(section) !== null;
   }
 );
 
 /**
  * Check whether actor has specific count of inventory items.
+ *
+ * Where:
+ * - section - item section to check
+ * - count - items count to require
  */
 extern(
   "xr_conditions.actor_has_item_count",
-  (actor: GameObject, object: GameObject, [section, count]: [TSection, string]) => {
+  (actor: GameObject, __: GameObject, [section, count]: [TSection, string]) => {
     return actorHasItemCount(section, tonumber(count) as TCount, actor);
   }
 );
@@ -147,7 +163,7 @@ extern(
 /**
  * Check if object is hit by actor.
  */
-extern("xr_conditions.hit_by_actor", (actor: GameObject, object: GameObject): boolean => {
+extern("xr_conditions.hit_by_actor", (_: GameObject, object: GameObject): boolean => {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   return (state?.[EScheme.HIT] as ISchemeHitState)?.who === ACTOR_ID;
@@ -156,7 +172,7 @@ extern("xr_conditions.hit_by_actor", (actor: GameObject, object: GameObject): bo
 /**
  * Check if object is killed by actor.
  */
-extern("xr_conditions.killed_by_actor", (actor: GameObject, object: GameObject): boolean => {
+extern("xr_conditions.killed_by_actor", (_: GameObject, object: GameObject): boolean => {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
 
   return (state?.[EScheme.DEATH] as ISchemeDeathState)?.killerId === ACTOR_ID;
@@ -171,24 +187,30 @@ extern("xr_conditions.actor_has_weapon", (actor: GameObject): boolean => {
 
 /**
  * Check if actor has active detector of provided section on belt.
+ *
+ * Where:
+ * - section - detector section to check
  */
 extern(
   "xr_conditions.actor_active_detector",
-  (actor: GameObject, object: GameObject, [detectorSection]: [Optional<TSection>]): boolean => {
-    if (detectorSection) {
-      const detector: Optional<GameObject> = actor.active_detector();
-
-      return detector !== null && detector.section() === detectorSection;
-    } else {
-      abort("Wrong parameters in xr condition 'actor_active_detector'.");
+  (actor: GameObject, _: GameObject, [section]: [Optional<TSection>]): boolean => {
+    if (!section) {
+      abort("Wrong parameters in condition 'actor_active_detector', detector section is expected.");
     }
+
+    const detector: Optional<GameObject> = actor.active_detector();
+
+    return detector !== null && detector.section() === section;
   }
 );
 
 /**
  * Check whether actor is on level with one of provided names.
+ *
+ * Where:
+ * - levels - variadic list of level names to check
  */
-extern("xr_conditions.actor_on_level", (actor: GameObject, object: GameObject, levels: LuaArray<TName>): boolean => {
+extern("xr_conditions.actor_on_level", (_: GameObject, __: GameObject, levels: LuaArray<TName>): boolean => {
   const currentLevelName: TName = level.name();
 
   for (const [, levelName] of pairs(levels)) {
@@ -247,7 +269,7 @@ extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject): bool
 });
 
 /**
- * @returns whether actor is currently searching dead body
+ * Check if actor is currently searching dead body
  */
 extern("xr_conditions.dead_body_searching", (): boolean => {
   return actorConfig.ACTOR_MENU_MODE === EActorMenuMode.DEAD_BODY_SEARCH;

@@ -343,7 +343,7 @@ describe("actor conditions implementation", () => {
     const actor: GameObject = MockGameObject.mockActor();
 
     expect(() => callXrCondition("actor_active_detector", actor, MockGameObject.mock())).toThrow(
-      "Wrong parameters in xr condition 'actor_active_detector'."
+      "Wrong parameters in condition 'actor_active_detector', detector section is expected."
     );
 
     expect(callXrCondition("actor_active_detector", actor, MockGameObject.mock(), detectors.detector_scientific)).toBe(

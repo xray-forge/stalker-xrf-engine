@@ -86,7 +86,7 @@ describe("should correctly generate stalker animpoint jobs", () => {
     const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
 
     terrain.defendRestrictor = "test_defend_restrictor";
-    terrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
     registerSmartCover(cover);
 

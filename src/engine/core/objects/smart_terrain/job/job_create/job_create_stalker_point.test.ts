@@ -57,7 +57,7 @@ describe("should correctly generate stalkers point jobs", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
     terrain.defendRestrictor = "def_restrictor_test";
-    terrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
     const [jobs, builder] = createStalkerPointJobs(terrain, new LuaTable(), new StringBuilder());
 

@@ -26,11 +26,11 @@ export function syncObjectHitSmartTerrainAlert(object: GameObject): void {
     const terrain: SmartTerrain = descriptor.smartTerrain;
 
     if (
-      terrain.smartTerrainActorControl &&
+      terrain.terrainControl &&
       graph.vertex(terrain.m_game_vertex_id).level_id() === actorVertexLevelId &&
       object.position().distance_to_sqr(terrain.position) <= 6_400
     ) {
-      terrain.smartTerrainActorControl.onActorAttackSmartTerrain();
+      terrain.terrainControl.onActorAttackSmartTerrain();
 
       return;
     }

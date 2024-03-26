@@ -22,8 +22,8 @@ export function isInNoCombatZone(object: ServerObject): boolean {
 
       if (
         smartTerrain &&
-        smartTerrain.smartTerrainActorControl &&
-        smartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
+        smartTerrain.terrainControl &&
+        smartTerrain.terrainControl.status !== ESmartTerrainStatus.ALARM
       ) {
         return true;
       }

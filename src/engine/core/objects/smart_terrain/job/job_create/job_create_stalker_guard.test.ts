@@ -106,7 +106,7 @@ describe("should correctly generate stalker guard jobs", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
     terrain.defendRestrictor = "test_defend_restrictor";
-    terrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
     const object: GameObject = MockGameObject.mock({ name: "some_restrictor" });
 
@@ -151,7 +151,7 @@ describe("should correctly generate stalker guard jobs", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
     terrain.defendRestrictor = "test_defend_restrictor";
-    terrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
     terrain.safeRestrictor = "safe_restrictor_test";
 
     const object: GameObject = MockGameObject.mock({ name: "safe_restrictor_test" });

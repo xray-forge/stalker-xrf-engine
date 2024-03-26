@@ -42,7 +42,7 @@ describe("Squad server object", () => {
 
     registerZone(zone);
 
-    terrain.smartTerrainActorControl = new SmartTerrainControl(
+    terrain.terrainControl = new SmartTerrainControl(
       terrain,
       MockIniFile.mock("test.ltx", {
         test_control: {
@@ -54,7 +54,7 @@ describe("Squad server object", () => {
       }),
       "test_control"
     );
-    terrain.smartTerrainActorControl.status = ESmartTerrainStatus.NORMAL;
+    terrain.terrainControl.status = ESmartTerrainStatus.NORMAL;
 
     squad.isSimulationAvailableConditionList = parseConditionsList(TRUE);
     expect(squad.isSimulationAvailable()).toBe(true);
@@ -62,7 +62,7 @@ describe("Squad server object", () => {
     jest.spyOn(zone, "inside").mockImplementation(() => true);
     expect(squad.isSimulationAvailable()).toBe(false);
 
-    terrain.smartTerrainActorControl.status = ESmartTerrainStatus.ALARM;
+    terrain.terrainControl.status = ESmartTerrainStatus.ALARM;
     expect(squad.isSimulationAvailable()).toBe(true);
   });
 

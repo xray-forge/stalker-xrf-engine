@@ -29,7 +29,7 @@ describe("isInNoCombatZone util", () => {
 
     registerZone(zone);
 
-    smartTerrain.smartTerrainActorControl = new SmartTerrainControl(
+    smartTerrain.terrainControl = new SmartTerrainControl(
       smartTerrain,
       MockIniFile.mock("test.ltx", {
         test_control: {
@@ -41,17 +41,17 @@ describe("isInNoCombatZone util", () => {
       }),
       "test_control"
     );
-    smartTerrain.smartTerrainActorControl.status = ESmartTerrainStatus.NORMAL;
+    smartTerrain.terrainControl.status = ESmartTerrainStatus.NORMAL;
 
     expect(isInNoCombatZone(stalker)).toBe(false);
 
     jest.spyOn(zone, "inside").mockImplementation(() => true);
     expect(isInNoCombatZone(stalker)).toBe(true);
 
-    smartTerrain.smartTerrainActorControl.status = ESmartTerrainStatus.ALARM;
+    smartTerrain.terrainControl.status = ESmartTerrainStatus.ALARM;
     expect(isInNoCombatZone(stalker)).toBe(false);
 
-    smartTerrain.smartTerrainActorControl.status = ESmartTerrainStatus.NORMAL;
+    smartTerrain.terrainControl.status = ESmartTerrainStatus.NORMAL;
     expect(isInNoCombatZone(stalker)).toBe(true);
   });
 });

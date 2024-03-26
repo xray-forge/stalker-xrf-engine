@@ -153,7 +153,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public safeRestrictor: Optional<TName> = null; // Name of restrictor where objects are considered safe.
   public spawnPointName: Optional<TName> = null; // Name of patrol point override to spawn objects.
 
-  public smartTerrainActorControl: Optional<SmartTerrainControl> = null;
+  public terrainControl: Optional<SmartTerrainControl> = null;
 
   // Stalkers that are entering smart, but still not in correct vertex
   public arrivingObjects: LuaTable<TNumberId, ServerCreatureObject> = new LuaTable();
@@ -344,9 +344,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       writeTimeToPacket(packet, time);
     }
 
-    if (this.smartTerrainActorControl) {
+    if (this.terrainControl) {
       packet.w_bool(true);
-      this.smartTerrainActorControl.save(packet);
+      this.terrainControl.save(packet);
     } else {
       packet.w_bool(false);
     }
@@ -431,7 +431,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     this.isObjectsInitializationNeeded = true;
 
     if (packet.r_bool()) {
-      this.smartTerrainActorControl?.load(packet);
+      this.terrainControl?.load(packet);
     }
 
     const isRespawnPoint: boolean = packet.r_bool();
@@ -509,7 +509,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     updateSmartTerrainJobs(this);
     updateSimulationObjectAvailability(this);
 
-    this.smartTerrainActorControl?.update();
+    this.terrainControl?.update();
   }
 
   /**
@@ -601,7 +601,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     );
 
     if (smartControlSection) {
-      this.smartTerrainActorControl = new SmartTerrainControl(this, this.ini, smartControlSection);
+      this.terrainControl = new SmartTerrainControl(this, this.ini, smartControlSection);
     }
 
     if (respawnSection) {
@@ -710,9 +710,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return false;
     }
 
-    return !(
-      this.smartTerrainActorControl !== null && this.smartTerrainActorControl.status !== ESmartTerrainStatus.NORMAL
-    );
+    return !(this.terrainControl !== null && this.terrainControl.status !== ESmartTerrainStatus.NORMAL);
   }
 
   /**

@@ -167,8 +167,8 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
         // Still allow combat if zone is set to alarm.
         if (
           smartTerrain &&
-          smartTerrain.smartTerrainActorControl !== null &&
-          smartTerrain.smartTerrainActorControl.status !== ESmartTerrainStatus.ALARM
+          smartTerrain.terrainControl !== null &&
+          smartTerrain.terrainControl.status !== ESmartTerrainStatus.ALARM
         ) {
           return false;
         }

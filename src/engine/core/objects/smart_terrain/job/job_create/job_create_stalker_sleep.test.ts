@@ -56,7 +56,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
 
     terrain.defendRestrictor = "def_restrictor_test";
-    terrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
     const [jobs, builder] = createStalkerSleepJobs(terrain, new LuaTable(), new StringBuilder());
 
@@ -89,7 +89,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     jest.spyOn(object, "inside").mockImplementation(() => true);
 
     terrain.defendRestrictor = "def_restrictor_test";
-    terrain.smartTerrainActorControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "some_restrictor" } as SmartTerrainControl;
 
     const [jobs, builder] = createStalkerSleepJobs(terrain, new LuaTable(), new StringBuilder());
 
@@ -122,7 +122,7 @@ describe("jobs_general should correctly generate stalkers sleep jobs", () => {
     jest.spyOn(object, "inside").mockImplementation(() => true);
 
     terrain.safeRestrictor = "safe_restrictor_test";
-    terrain.smartTerrainActorControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
+    terrain.terrainControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;
 
     const [jobs, builder] = createStalkerSleepJobs(terrain, new LuaTable(), new StringBuilder());
 

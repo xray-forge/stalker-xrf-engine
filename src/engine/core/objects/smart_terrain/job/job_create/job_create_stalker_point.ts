@@ -55,7 +55,7 @@ anim = {!npc_community(zombied)} sit, guard
       builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
     }
 
-    if (smartTerrain.smartTerrainActorControl !== null && smartTerrain.smartTerrainActorControl.ignoreZone !== null) {
+    if (smartTerrain.terrainControl !== null && smartTerrain.terrainControl.ignoreZone !== null) {
       // todo: Probably smart.base_on_actor_control.ignore_zone should be injected? Original issue.
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true
