@@ -321,6 +321,8 @@ export class MockGameObject {
 
   public get_visual_name = jest.fn(() => this.objectVisual);
 
+  public get_bone_id = jest.fn(() => -1);
+
   public get_campfire = jest.fn(() => null);
 
   public get_current_point_index = jest.fn(() => null);

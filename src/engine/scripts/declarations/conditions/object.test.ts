@@ -1,5 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { clsid } from "xray16";
+import { CHelicopter, clsid } from "xray16";
 
 import {
   IRegistryObjectState,
@@ -8,20 +8,42 @@ import {
   registerStoryLink,
   registerZone,
 } from "@/engine/core/database";
-import { IObjectJobState, ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
+import {
+  EJobPathType,
+  EJobType,
+  IObjectJobState,
+  ISmartTerrainJobDescriptor,
+  SmartTerrain,
+} from "@/engine/core/objects/smart_terrain";
 import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
+import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
+import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isPlayingSound } from "@/engine/core/utils/sound";
-import { GameObject, ServerCreatureObject } from "@/engine/lib/types";
+import {
+  EScheme,
+  ESchemeType,
+  GameObject,
+  ServerCreatureObject,
+  ServerHumanObject,
+  ServerMonsterBaseObject,
+} from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,
   mockRegisteredActor,
+  mockSchemeState,
   MockSmartTerrain,
   resetRegistry,
 } from "@/fixtures/engine";
 import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
-import { MockAlifeHumanStalker, MockGameObject, MockMonsterHitInfo } from "@/fixtures/xray";
+import {
+  MockAlifeHumanStalker,
+  MockAlifeMonsterBase,
+  MockCHelicopter,
+  MockGameObject,
+  MockMonsterHitInfo,
+} from "@/fixtures/xray";
 
 jest.mock("@/engine/core/schemes/restrictor/sr_deimos");
 jest.mock("@/engine/core/utils/planner");
@@ -52,13 +74,11 @@ describe("object conditions declaration", () => {
     checkXrCondition("distance_to_obj_on_job_le");
     checkXrCondition("is_obj_on_job");
     checkXrCondition("obj_in_zone");
-    checkXrCondition("one_obj_in_zone");
     checkXrCondition("health_le");
     checkXrCondition("heli_health_le");
     checkXrCondition("story_obj_in_zone_by_name");
     checkXrCondition("npc_in_zone");
     checkXrCondition("heli_see_npc");
-    checkXrCondition("enemy_group");
     checkXrCondition("hitted_by");
     checkXrCondition("hitted_on_bone");
     checkXrCondition("best_pistol");
@@ -371,27 +391,209 @@ describe("object conditions implementation", () => {
     );
   });
 
-  it.todo("is_obj_on_job should check if object is on job");
+  it("is_obj_on_job should check if object is on job", () => {
+    const object: GameObject = MockGameObject.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered("test-smart-terrain");
 
-  it.todo("obj_in_zone should check if object is in zone");
+    expect(callXrCondition("is_obj_on_job", MockGameObject.mockActor(), object, "test-job")).toBe(false);
+    expect(callXrCondition("is_obj_on_job", MockGameObject.mockActor(), object, "test-job", "test-smart-terrain")).toBe(
+      false
+    );
 
-  it.todo("one_obj_in_zone should check if object is in zone");
+    terrain.objectJobDescriptors.set(1, {
+      isMonster: false,
+      object: MockAlifeHumanStalker.mock({ id: object.id() }),
+      desiredJob: "",
+      jobPriority: 0,
+      jobId: 0,
+      job: {
+        section: "test-job",
+        type: EJobType.ANIMPOINT,
+        pathType: EJobPathType.POINT,
+        priority: 100,
+      },
+      isBegun: false,
+      schemeType: ESchemeType.STALKER,
+    });
 
-  it.todo("health_le should check object health");
+    expect(callXrCondition("is_obj_on_job", MockGameObject.mockActor(), object, "test-job", "test-smart-terrain")).toBe(
+      true
+    );
+  });
 
-  it.todo("heli_health_le should check heli health");
+  it("obj_in_zone should check if object is in zone", () => {
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-  it.todo("story_obj_in_zone_by_name should check object zone");
+    registerStoryLink(first.id, "first-sid");
+    registerStoryLink(second.id, "second-sid");
 
-  it.todo("npc_in_zone should check object zone");
+    const zone: GameObject = MockGameObject.mock();
 
-  it.todo("heli_see_npc should check if heli see object");
+    jest.spyOn(zone, "inside").mockImplementation((position) => position === second.position);
 
-  it.todo("enemy_group should check group");
+    expect(callXrCondition("obj_in_zone", MockGameObject.mockActor(), zone)).toBe(false);
+    expect(callXrCondition("obj_in_zone", MockGameObject.mockActor(), zone, "first-sid")).toBe(false);
+    expect(callXrCondition("obj_in_zone", MockGameObject.mockActor(), zone, "first-sid", "second-sid")).toBe(true);
+    expect(callXrCondition("obj_in_zone", MockGameObject.mockActor(), zone, "second-sid")).toBe(true);
+  });
 
-  it.todo("hitted_by should check object hit state");
+  it("health_le should check object health", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("hitted_on_bone should check object hit bone");
+    object.health = 0.5;
+
+    expect(callXrCondition("health_le", MockGameObject.mockActor(), object, 0.49)).toBe(false);
+    expect(callXrCondition("health_le", MockGameObject.mockActor(), object, 0.5)).toBe(false);
+    expect(callXrCondition("health_le", MockGameObject.mockActor(), object, 0.51)).toBe(true);
+  });
+
+  it("heli_health_le should check heli health", () => {
+    const object: GameObject = MockGameObject.mock();
+    const helicopter: CHelicopter = MockCHelicopter.mock();
+
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    helicopter.SetfHealth(0.5);
+
+    expect(callXrCondition("heli_health_le", MockGameObject.mockActor(), object, 0.49)).toBe(false);
+    expect(callXrCondition("heli_health_le", MockGameObject.mockActor(), object, 0.5)).toBe(false);
+    expect(callXrCondition("heli_health_le", MockGameObject.mockActor(), object, 0.51)).toBe(true);
+  });
+
+  it("story_obj_in_zone_by_name should check object zone", () => {
+    const object: GameObject = MockGameObject.mock();
+    const zone: GameObject = MockGameObject.mock();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
+
+    jest.spyOn(zone, "name").mockImplementation(() => "zone-name");
+    jest.spyOn(zone, "inside").mockImplementation((position) => position === serverObject.position);
+
+    expect(
+      callXrCondition(
+        "story_obj_in_zone_by_name",
+        MockGameObject.mockActor(),
+        MockGameObject.mock(),
+        "test-sid",
+        "zone-name"
+      )
+    ).toBe(false);
+
+    registerStoryLink(object.id(), "test-sid");
+    registerZone(zone);
+
+    expect(
+      callXrCondition(
+        "story_obj_in_zone_by_name",
+        MockGameObject.mockActor(),
+        MockGameObject.mock(),
+        "test-sid",
+        "zone-name"
+      )
+    ).toBe(true);
+  });
+
+  it("npc_in_zone should check object zone", () => {
+    const object: GameObject = MockGameObject.mock();
+    const zone: GameObject = MockGameObject.mock();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
+
+    jest.spyOn(zone, "name").mockImplementation(() => "zone-name");
+    jest.spyOn(zone, "inside").mockImplementation((position) => position === object.position());
+
+    registerObject(object);
+    registerZone(zone);
+
+    expect(callXrCondition("npc_in_zone", MockGameObject.mockActor(), object, "zone-name")).toBe(true);
+    expect(callXrCondition("npc_in_zone", MockGameObject.mockActor(), object, "zone-name-random")).toBe(false);
+
+    expect(
+      callXrCondition("npc_in_zone", MockGameObject.mockActor(), serverObject as unknown as GameObject, "zone-name")
+    ).toBe(true);
+    expect(
+      callXrCondition(
+        "npc_in_zone",
+        MockGameObject.mockActor(),
+        serverObject as unknown as GameObject,
+        "zone-name-random"
+      )
+    ).toBe(true);
+
+    const serverOnlyObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    jest.spyOn(zone, "inside").mockImplementation((position) => position === serverOnlyObject.position);
+
+    expect(
+      callXrCondition("npc_in_zone", MockGameObject.mockActor(), serverOnlyObject as unknown as GameObject, "zone-name")
+    ).toBe(true);
+  });
+
+  it("heli_see_npc should check if heli see object", () => {
+    const object: GameObject = MockGameObject.mock();
+    const another: GameObject = MockGameObject.mock();
+    const helicopter: CHelicopter = MockCHelicopter.mock();
+
+    jest.spyOn(object, "get_helicopter").mockImplementation(() => helicopter);
+
+    expect(callXrCondition("heli_see_npc", MockGameObject.mockActor(), object)).toBe(false);
+    expect(callXrCondition("heli_see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
+
+    registerStoryLink(another.id(), "test-sid");
+
+    expect(callXrCondition("heli_see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(false);
+
+    jest.spyOn(helicopter, "isVisible").mockImplementation((object) => object === another);
+
+    expect(callXrCondition("heli_see_npc", MockGameObject.mockActor(), object, "test-sid")).toBe(true);
+  });
+
+  it("hitted_by should check object hit state", () => {
+    const object: GameObject = MockGameObject.mock();
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+
+    const state: IRegistryObjectState = registerObject(object);
+
+    registerObject(first);
+    registerObject(second);
+
+    registerStoryLink(first.id(), "first-sid");
+    registerStoryLink(second.id(), "second-sid");
+
+    expect(callXrCondition("hitted_by", MockGameObject.mockActor(), object, "first-sid", "another-sid")).toBe(false);
+
+    const schemeState: ISchemeHitState = mockSchemeState(EScheme.HIT);
+
+    state[EScheme.HIT] = schemeState;
+
+    expect(callXrCondition("hitted_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(false);
+
+    schemeState.who = second.id();
+
+    expect(callXrCondition("hitted_by", MockGameObject.mockActor(), object, "first-sid", "another-sid")).toBe(false);
+    expect(callXrCondition("hitted_by", MockGameObject.mockActor(), object, "second-sid", "another-sid")).toBe(true);
+    expect(callXrCondition("hitted_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(true);
+  });
+
+  it("hitted_on_bone should check object hit bone", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const schemeState: ISchemeHitState = mockSchemeState(EScheme.HIT);
+
+    expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-a", "bone-b")).toBe(false);
+
+    state[EScheme.HIT] = schemeState;
+
+    expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-a", "bone-b")).toBe(false);
+
+    jest.spyOn(object, "get_bone_id").mockImplementation((name) => (name === "bone-b" ? 2 : -1));
+
+    schemeState.boneIndex = 2;
+
+    expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-a")).toBe(false);
+    expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-b")).toBe(true);
+    expect(callXrCondition("hitted_on_bone", MockGameObject.mockActor(), object, "bone-a", "bone-b")).toBe(true);
+  });
 
   it("best_pistol should check object has pistol", () => {
     const object: GameObject = MockGameObject.mock();
@@ -404,15 +606,111 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("best_pistol", MockGameObject.mockActor(), object)).toBe(false);
   });
 
-  it.todo("deadly_hit should check if hit is deadly");
+  it("deadly_hit should check if hit is deadly", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const schemeState: ISchemeHitState = mockSchemeState(EScheme.HIT);
 
-  it.todo("killed_by should check object killed by");
+    expect(callXrCondition("deadly_hit", MockGameObject.mockActor(), object)).toBe(false);
 
-  it.todo("is_alive_all should check if objects are alive");
+    state[EScheme.HIT] = schemeState;
 
-  it.todo("is_alive_one should check if one of objects is alive");
+    expect(callXrCondition("deadly_hit", MockGameObject.mockActor(), object)).toBe(false);
 
-  it.todo("is_alive should check if stalker is alive");
+    schemeState.isDeadlyHit = true;
+
+    expect(callXrCondition("deadly_hit", MockGameObject.mockActor(), object)).toBe(true);
+  });
+
+  it("killed_by should check object killed by", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const schemeState: ISchemeDeathState = mockSchemeState(EScheme.DEATH);
+
+    const first: GameObject = MockGameObject.mock();
+    const second: GameObject = MockGameObject.mock();
+
+    registerStoryLink(first.id(), "first-sid");
+    registerStoryLink(second.id(), "second-sid");
+
+    expect(callXrCondition("killed_by", MockGameObject.mockActor(), object)).toBe(false);
+    expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(false);
+
+    state[EScheme.DEATH] = schemeState;
+
+    expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(false);
+
+    schemeState.killerId = second.id();
+
+    expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "first-sid")).toBe(false);
+    expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "second-sid")).toBe(true);
+    expect(callXrCondition("killed_by", MockGameObject.mockActor(), object, "first-sid", "second-sid")).toBe(true);
+  });
+
+  it("is_alive_all should check if objects are alive", () => {
+    expect(callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
+    expect(callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(false);
+
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
+
+    registerStoryLink(first.id, "first-sid");
+    registerStoryLink(second.id, "second-sid");
+
+    expect(callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(false);
+    expect(callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock(), "first-sid")).toBe(true);
+    expect(callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock(), "second-sid")).toBe(
+      false
+    );
+    expect(
+      callXrCondition("is_alive_all", MockGameObject.mockActor(), MockGameObject.mock(), "first-sid", "second-sid")
+    ).toBe(false);
+  });
+
+  it("is_alive_one should check if one of objects is alive", () => {
+    expect(callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock())).toBe(false);
+    expect(callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(false);
+
+    const first: ServerHumanObject = MockAlifeHumanStalker.mock();
+    const second: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
+
+    registerStoryLink(first.id, "first-sid");
+    registerStoryLink(second.id, "second-sid");
+
+    expect(callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(false);
+    expect(callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock(), "first-sid")).toBe(true);
+    expect(callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock(), "second-sid")).toBe(
+      false
+    );
+    expect(
+      callXrCondition("is_alive_one", MockGameObject.mockActor(), MockGameObject.mock(), "first-sid", "second-sid")
+    ).toBe(true);
+  });
+
+  it("is_alive should check if stalker is alive", () => {
+    const first: GameObject = MockGameObject.mock();
+    const firstServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: first.id() });
+    const second: GameObject = MockGameObject.mock();
+    const secondServer: ServerMonsterBaseObject = MockAlifeMonsterBase.mock({ id: second.id() });
+
+    registerStoryLink(first.id(), "first-sid");
+    registerStoryLink(second.id(), "second-sid");
+
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), first, "first-sid")).toBe(true);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), first, "second-sid")).toBe(false);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), first)).toBe(true);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), firstServer as unknown as GameObject)).toBe(true);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), second, "first-sid")).toBe(true);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), second, "second-sid")).toBe(false);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), second)).toBe(false);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), secondServer as unknown as GameObject)).toBe(false);
+
+    jest.spyOn(firstServer, "alive").mockImplementation(() => false);
+
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), first)).toBe(false);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), firstServer as unknown as GameObject)).toBe(false);
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), first, "first-sid")).toBe(false);
+  });
 
   it("is_dead should check if object is dead", () => {
     const object: GameObject = MockGameObject.mock();
