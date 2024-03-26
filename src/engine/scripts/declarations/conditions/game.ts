@@ -21,32 +21,40 @@ extern("xr_conditions.signal", (_: GameObject, object: GameObject, [name]: [TNam
 });
 
 /**
- * Check if stored counter value is greater then.
- * Checks data from object pstore.
+ * Check if stored counter value is greater than provided.
+ * Checks data from object portable store.
+ *
+ * Where:
+ * - key - portable store key value
+ * - count - number value to check against
  */
 extern(
   "xr_conditions.counter_greater",
-  (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
-    if (!name || !count) {
+  (_: GameObject, __: GameObject, [key, count]: [Optional<TName>, Optional<TCount>]): boolean => {
+    if (!key || !count) {
       abort("Invalid parameters supplied for condition 'counter_greater'.");
     }
 
-    return getPortableStoreValue(ACTOR_ID, name, 0) > count;
+    return getPortableStoreValue(ACTOR_ID, key, 0) > count;
   }
 );
 
 /**
  * Check if stored counter value is equal.
- * Checks data from object pstore.
+ * Checks data from object portable store.
+ *
+ * Where:
+ * - key - portable store key value
+ * - count - number value to check against
  */
 extern(
   "xr_conditions.counter_equal",
-  (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, Optional<TCount>]): boolean => {
-    if (!name || !count) {
+  (_: GameObject, __: GameObject, [key, count]: [Optional<TName>, Optional<TCount>]): boolean => {
+    if (!key || !count) {
       abort("Invalid parameters supplied for condition 'counter_equal'.");
     }
 
-    return getPortableStoreValue(ACTOR_ID, name, 0) === count;
+    return getPortableStoreValue(ACTOR_ID, key, 0) === count;
   }
 );
 

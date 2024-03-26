@@ -10,5 +10,6 @@ export const mockGameInterface = {
   get_game_time: jest.fn(() => MockCTime.now()),
   start_tutorial: jest.fn(() => {}),
   stop_tutorial: jest.fn(() => {}),
+  has_active_tutorial: jest.fn(() => false),
   translate_string: jest.fn((key: string) => "translated_" + key),
 };
