@@ -15,7 +15,7 @@ export function isInNoCombatZone(object: ServerObject): boolean {
   const simulationManager: SimulationManager = getManager(SimulationManager);
 
   for (const [zoneName, smartTerrainName] of registry.noCombatZones) {
-    const zone: GameObject = registry.zones.get(zoneName);
+    const zone: Optional<GameObject> = registry.zones.get(zoneName);
 
     if (zone && zone.inside(object.position)) {
       const smartTerrain: Optional<SmartTerrain> = simulationManager.getSmartTerrainByName(smartTerrainName);

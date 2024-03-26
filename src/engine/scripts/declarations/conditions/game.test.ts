@@ -61,6 +61,10 @@ describe("game conditions implementation", () => {
   it("counter_greater should check counter value", () => {
     const { actorGameObject } = mockRegisteredActor();
 
+    expect(() => callXrCondition("counter_greater", actorGameObject, MockGameObject.mock())).toThrow(
+      "Invalid parameters supplied for condition 'counter_greater'."
+    );
+
     setPortableStoreValue(ACTOR_ID, "test_greater", 10);
 
     expect(callXrCondition("counter_greater", actorGameObject, MockGameObject.mock(), "test_greater", 9)).toBe(true);
@@ -72,6 +76,10 @@ describe("game conditions implementation", () => {
 
   it("counter_equal should check counter value", () => {
     const { actorGameObject } = mockRegisteredActor();
+
+    expect(() => callXrCondition("counter_equal", actorGameObject, MockGameObject.mock())).toThrow(
+      "Invalid parameters supplied for condition 'counter_equal'."
+    );
 
     setPortableStoreValue(ACTOR_ID, "test_one", 1);
     setPortableStoreValue(ACTOR_ID, "test_two", 2);

@@ -216,6 +216,8 @@ describe("interface external callbacks", () => {
     expect(callPdaBinding("get_monster_back", [])).toBe("test-bg");
     expect(pdaManager.getMonsterBackground).toHaveBeenCalled();
 
+    expect(callPdaBinding("get_monster_icon", [])).toBe("");
+
     expect(callPdaBinding("get_favorite_weapon", [])).toBe("test-wpn");
     expect(pdaManager.getFavoriteWeapon).toHaveBeenCalled();
 

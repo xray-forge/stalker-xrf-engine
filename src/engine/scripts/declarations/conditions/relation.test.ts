@@ -72,6 +72,9 @@ describe("relation conditions implementation", () => {
   });
 
   it("is_factions_neutrals should check actor and faction state", () => {
+    expect(callXrCondition("is_factions_neutrals", MockGameObject.mockActor(), MockGameObject.mock())).toBe(true);
+    expect(callXrCondition("is_factions_neutrals", MockGameObject.mockActor(), MockGameObject.mock(), null)).toBe(true);
+
     expect(
       callXrCondition("is_factions_neutrals", MockGameObject.mockActor(), MockGameObject.mock(), communities.bandit)
     ).toBe(true);

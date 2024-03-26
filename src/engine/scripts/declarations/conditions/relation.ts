@@ -36,16 +36,19 @@ extern(
  * Where:
  * - community - community name to check against current actor community
  */
-extern("xr_conditions.is_factions_neutrals", (_: GameObject, __: GameObject, [community]: [TCommunity]): boolean => {
-  if (community === null) {
-    return true;
-  }
+extern(
+  "xr_conditions.is_factions_neutrals",
+  (_: GameObject, __: GameObject, [community]: [Optional<TCommunity>]): boolean => {
+    if (!community) {
+      return true;
+    }
 
-  return !(
-    areCommunitiesEnemies(getObjectCommunity(registry.actorServer), community) ||
-    areCommunitiesFriendly(getObjectCommunity(registry.actorServer), community)
-  );
-});
+    return !(
+      areCommunitiesEnemies(getObjectCommunity(registry.actorServer), community) ||
+      areCommunitiesFriendly(getObjectCommunity(registry.actorServer), community)
+    );
+  }
+);
 
 /**
  * Whether actor faction is friendly with provided parameter community.

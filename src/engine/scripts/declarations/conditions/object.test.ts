@@ -696,6 +696,8 @@ describe("object conditions implementation", () => {
     registerStoryLink(first.id(), "first-sid");
     registerStoryLink(second.id(), "second-sid");
 
+    expect(callXrCondition("is_alive", MockGameObject.mockActor(), MockGameObject.mock(), "unknown")).toBe(false);
+
     expect(callXrCondition("is_alive", MockGameObject.mockActor(), first, "first-sid")).toBe(true);
     expect(callXrCondition("is_alive", MockGameObject.mockActor(), first, "second-sid")).toBe(false);
     expect(callXrCondition("is_alive", MockGameObject.mockActor(), first)).toBe(true);

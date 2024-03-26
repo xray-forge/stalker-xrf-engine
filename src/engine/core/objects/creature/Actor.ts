@@ -125,9 +125,9 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     }
 
     for (const [zoneName, smartName] of registry.noCombatZones) {
-      const zone: GameObject = registry.zones.get(zoneName);
+      const zone: Optional<GameObject> = registry.zones.get(zoneName);
 
-      if (zone !== null && zone.inside(this.position)) {
+      if (zone?.inside(this.position)) {
         const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(smartName);
 
         if (smartTerrain && smartTerrain.terrainControl?.status !== ESmartTerrainStatus.ALARM) {
@@ -146,7 +146,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
 
     if (
       activeSmartTerrain.terrainControl?.status === ESmartTerrainStatus.NORMAL &&
-      registry.zones.get(activeSmartTerrain.terrainControl.noWeaponZone).inside(this.position)
+      registry.zones.get(activeSmartTerrain.terrainControl.noWeaponZone)?.inside(this.position)
     ) {
       return false;
     }
