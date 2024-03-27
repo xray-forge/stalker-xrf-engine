@@ -63,7 +63,6 @@ import {
   TRate,
   TSection,
   TStringId,
-  Vector,
 } from "@/engine/lib/types";
 
 /**
@@ -616,114 +615,101 @@ extern("xr_conditions.mob_was_hit", (_: GameObject, object: GameObject): boolean
 });
 
 /**
- * todo;
+ * Check if at least one squad member is in target zone.
+ *
+ * Where:
+ * - storyId - story ID of the squad
+ * - zoneName - name of the zone to check (current object will be checked by default)
  */
-extern("xr_conditions.squad_in_zone", (_: GameObject, object: GameObject, p: [string, string]) => {
-  const storyId: TStringId = p[0];
-  let zoneName: TName = p[1];
+extern(
+  "xr_conditions.squad_in_zone",
+  (_: GameObject, object: GameObject, [storyId, zoneName]: [Optional<TStringId>, Optional<TName>]): boolean => {
+    const squad: Optional<Squad> = storyId
+      ? getServerObjectByStoryId(storyId)
+      : abort("Incorrect 'squad_in_zone' condition parameters: storyId '%s', zoneName '%s'.", storyId, zoneName);
 
-  if (storyId === null) {
-    abort(
-      "Insufficient params in squad_in_zone function. story_id[%s], zone_name[%s]",
-      tostring(storyId),
-      tostring(zoneName)
-    );
+    if (!squad) {
+      return false;
+    }
+
+    const zone: Optional<GameObject> = registry.zones.get(zoneName ?? object.name()) as Optional<GameObject>;
+
+    if (zone) {
+      for (const squadMember of squad.squad_members()) {
+        if (zone.inside(registry.objects.get(squadMember.id)?.object?.position() ?? squadMember.object.position)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
+);
 
-  if (zoneName === null) {
-    zoneName = object.name();
+/**
+ * Check whether all squad members are in zone.
+ *
+ * Params:
+ * - storyId - story ID of the squad to check
+ * - zoneName - target zone name
+ *
+ * Notes:
+ * - Returns true is squad is empty
+ */
+extern(
+  "xr_conditions.squad_in_zone_all",
+  (_: GameObject, __: GameObject, [storyId, zoneName]: [TStringId, TName]): boolean => {
+    if (!storyId || !zoneName) {
+      abort("Incorrect params in 'squad_in_zone_all' condition: storyId '%s', zoneName '%s'", storyId, zoneName);
+    }
+
+    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+
+    if (!squad) {
+      return false;
+    }
+
+    const zone: Optional<GameObject> = registry.zones.get(zoneName);
+
+    if (zone) {
+      for (const squadMember of squad.squad_members()) {
+        if (!zone.inside(registry.objects.get(squadMember.id)?.object?.position() ?? squadMember.object.position)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+);
+
+/**
+ * Check whether any squad member has any enemy.
+ *
+ * Params:
+ * - storyId - story ID of the squad to check
+ */
+extern("xr_conditions.squad_has_enemy", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]): boolean => {
+  if (!storyId) {
+    abort("Incorrect params in 'squad_has_enemy' condition: storyId '%s'.", storyId);
   }
 
   const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-  if (squad === null) {
-    return false;
-  }
+  if (squad) {
+    for (const squadMember of squad.squad_members()) {
+      // todo: Check from registry?
+      const squadObject: Optional<GameObject> = level.object_by_id(squadMember.object.id);
 
-  const zone: GameObject = registry.zones.get(zoneName);
-
-  if (zone === null) {
-    return false;
-  }
-
-  for (const squadMember of squad.squad_members()) {
-    const position: Vector = registry.objects.get(squadMember.id)?.object?.position() || squadMember.object.position;
-
-    if (zone.inside(position)) {
-      return true;
+      if (!squadObject) {
+        return false;
+      } else if (squadObject.best_enemy()) {
+        return true;
+      }
     }
   }
 
   return false;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.squad_has_enemy", (_: GameObject, __: GameObject, p: [Optional<TStringId>]): boolean => {
-  const storyId: Optional<TStringId> = p[0];
-
-  if (storyId === null) {
-    abort("Insufficient params in squad_has_enemy function. story_id [%s]", tostring(storyId));
-  }
-
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
-
-  if (squad === null) {
-    return false;
-  }
-
-  for (const squadMember of squad.squad_members()) {
-    const npcObject: Optional<GameObject> = level.object_by_id(squadMember.object.id);
-
-    if (npcObject === null) {
-      return false;
-    }
-
-    if (npcObject.best_enemy() !== null) {
-      return true;
-    }
-  }
-
-  return false;
-});
-
-/**
- * todo;
- */
-extern("xr_conditions.squad_in_zone_all", (_: GameObject, __: GameObject, p: [TStringId, TName]): boolean => {
-  const storyId: TStringId = p[0];
-  const zoneName: TName = p[1];
-
-  if (storyId === null || zoneName === null) {
-    abort(
-      "Insufficient params in squad_in_zone_all function. story_id[%s], zone_name[%s]",
-      tostring(storyId),
-      tostring(zoneName)
-    );
-  }
-
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
-
-  if (squad === null) {
-    return false;
-  }
-
-  const zone: Optional<GameObject> = registry.zones.get(zoneName);
-
-  if (zone === null) {
-    return false;
-  }
-
-  for (const squadMember of squad.squad_members()) {
-    const position: Vector = registry.objects.get(squadMember.id)?.object?.position() || squadMember.object.position;
-
-    if (!zone.inside(position)) {
-      return false;
-    }
-  }
-
-  return true;
 });
 
 /**

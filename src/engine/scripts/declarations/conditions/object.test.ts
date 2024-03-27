@@ -34,6 +34,7 @@ import {
   mockRegisteredActor,
   mockSchemeState,
   MockSmartTerrain,
+  MockSquad,
   resetRegistry,
 } from "@/fixtures/engine";
 import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
@@ -808,11 +809,100 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("mob_was_hit", MockGameObject.mockActor(), object)).toBe(true);
   });
 
-  it.todo("squad_in_zone should check if squad is in zone");
+  it("squad_in_zone should check if squad is in zone", () => {
+    const squad: MockSquad = MockSquad.createRegistered();
+    const zone: GameObject = MockGameObject.mock();
 
-  it.todo("squad_has_enemy should check if squad has enemy");
+    const first: GameObject = MockGameObject.mock();
+    const firstServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: first.id() });
+    const second: GameObject = MockGameObject.mock();
+    const secondServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: second.id() });
 
-  it.todo("squad_in_zone_all should check if squad members are in zone");
+    registerStoryLink(squad.id, "test-sid");
+    registerZone(zone);
+
+    expect(() => callXrCondition("squad_in_zone", MockGameObject.mockActor(), zone)).toThrow(
+      "Incorrect 'squad_in_zone' condition parameters: storyId 'nil', zoneName 'nil'."
+    );
+    expect(callXrCondition("squad_in_zone", MockGameObject.mockActor(), zone, "not-existing")).toBe(false);
+    expect(callXrCondition("squad_in_zone", MockGameObject.mockActor(), zone, "test-sid")).toBe(false);
+
+    jest.spyOn(zone, "inside").mockImplementation((position) => position === secondServer.position);
+
+    squad.mockAddMember(firstServer);
+    expect(callXrCondition("squad_in_zone", MockGameObject.mockActor(), zone, "test-sid")).toBe(false);
+
+    squad.mockAddMember(secondServer);
+    expect(callXrCondition("squad_in_zone", MockGameObject.mockActor(), zone, "test-sid")).toBe(true);
+
+    registerObject(first);
+    registerObject(second);
+
+    jest.spyOn(zone, "inside").mockImplementation((position) => position === second.position());
+
+    expect(callXrCondition("squad_in_zone", MockGameObject.mockActor(), zone, "test-sid", zone.name())).toBe(true);
+  });
+
+  it("squad_has_enemy should check if squad has enemy", () => {
+    const squad: MockSquad = MockSquad.createRegistered();
+    const zone: GameObject = MockGameObject.mock();
+
+    const first: GameObject = MockGameObject.mock();
+    const firstServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: first.id() });
+    const second: GameObject = MockGameObject.mock();
+    const secondServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: second.id() });
+
+    registerStoryLink(squad.id, "test-sid");
+    registerZone(zone);
+
+    expect(() => callXrCondition("squad_in_zone", MockGameObject.mockActor(), zone)).toThrow(
+      "Incorrect 'squad_in_zone' condition parameters: storyId 'nil', zoneName 'nil'."
+    );
+    expect(callXrCondition("squad_has_enemy", MockGameObject.mockActor(), zone, "not-existing")).toBe(false);
+    expect(callXrCondition("squad_has_enemy", MockGameObject.mockActor(), zone, "test-sid")).toBe(false);
+
+    jest.spyOn(second, "best_enemy").mockImplementation(() => MockGameObject.mock());
+
+    squad.mockAddMember(firstServer);
+    expect(callXrCondition("squad_has_enemy", MockGameObject.mockActor(), zone, "test-sid")).toBe(false);
+
+    squad.mockAddMember(secondServer);
+    expect(callXrCondition("squad_has_enemy", MockGameObject.mockActor(), zone, "test-sid")).toBe(true);
+  });
+
+  it("squad_in_zone_all should check if squad members are in zone", () => {
+    const squad: MockSquad = MockSquad.createRegistered();
+    const zone: GameObject = MockGameObject.mock();
+
+    const first: GameObject = MockGameObject.mock();
+    const firstServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: first.id() });
+    const second: GameObject = MockGameObject.mock();
+    const secondServer: ServerHumanObject = MockAlifeHumanStalker.mock({ id: second.id() });
+
+    registerStoryLink(squad.id, "test-sid");
+    registerZone(zone);
+
+    expect(() => callXrCondition("squad_in_zone_all", MockGameObject.mockActor(), zone)).toThrow(
+      "Incorrect params in 'squad_in_zone_all' condition: storyId 'nil', zoneName 'nil'"
+    );
+    expect(callXrCondition("squad_in_zone_all", MockGameObject.mockActor(), zone, "not-existing", "test")).toBe(false);
+    expect(callXrCondition("squad_in_zone_all", MockGameObject.mockActor(), zone, "test-sid", zone.name())).toBe(true);
+
+    jest.spyOn(zone, "inside").mockImplementation((position) => position === firstServer.position);
+
+    squad.mockAddMember(firstServer);
+    expect(callXrCondition("squad_in_zone_all", MockGameObject.mockActor(), zone, "test-sid", zone.name())).toBe(true);
+
+    squad.mockAddMember(secondServer);
+    expect(callXrCondition("squad_in_zone_all", MockGameObject.mockActor(), zone, "test-sid", zone.name())).toBe(false);
+
+    registerObject(first);
+    registerObject(second);
+
+    jest.spyOn(zone, "inside").mockImplementation(() => true);
+
+    expect(callXrCondition("squad_in_zone_all", MockGameObject.mockActor(), zone, "test-sid", zone.name())).toBe(true);
+  });
 
   it.todo("squads_in_zone_b41 should check if squad members are in zone b41");
 

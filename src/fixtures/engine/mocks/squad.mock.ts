@@ -23,17 +23,21 @@ interface IMockSquadConfig extends IMockAlifeObjectConfig {
  * Class based mock of squad group.
  */
 export class MockSquad extends Squad {
-  public static mock(config: IMockSquadConfig = {}): MockSquad {
-    return new MockSquad(config);
-  }
-
-  public static mockRegistered(config: IMockSquadConfig = {}): Squad {
-    const squad: Squad = MockSquad.mock(config);
+  public static createRegistered(config: IMockSquadConfig = {}): MockSquad {
+    const squad: MockSquad = MockSquad.mock(config);
 
     squad.on_before_register();
     squad.on_register();
 
     return squad;
+  }
+
+  public static mock(config: IMockSquadConfig = {}): MockSquad {
+    return new MockSquad(config);
+  }
+
+  public static mockRegistered(config: IMockSquadConfig = {}): Squad {
+    return this.createRegistered(config);
   }
 
   public constructor(config: IMockSquadConfig) {
