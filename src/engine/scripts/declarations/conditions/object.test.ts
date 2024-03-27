@@ -15,11 +15,16 @@ import {
   ISmartTerrainJobDescriptor,
   SmartTerrain,
 } from "@/engine/core/objects/smart_terrain";
+import { ESquadActionType } from "@/engine/core/objects/squad";
+import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
+import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
+import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isPlayingSound } from "@/engine/core/utils/sound";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   EScheme,
   ESchemeType,
@@ -101,7 +106,6 @@ describe("object conditions declaration", () => {
     checkXrCondition("squad_in_zone_all");
     checkXrCondition("squads_in_zone_b41");
     checkXrCondition("target_squad_name");
-    checkXrCondition("target_smart_name");
     checkXrCondition("squad_exist");
     checkXrCondition("is_squad_commander");
     checkXrCondition("squad_npc_count_ge");
@@ -354,42 +358,6 @@ describe("object conditions implementation", () => {
     replaceFunctionMockOnce(isObjectWounded, () => false);
     expect(callXrCondition("is_wounded", MockGameObject.mockActor(), object)).toBe(false);
     expect(isObjectWounded).toHaveBeenCalledWith(object.id());
-  });
-
-  it("distance_to_obj_on_job_le should check object job distance", () => {
-    const terrain: SmartTerrain = MockSmartTerrain.mock();
-    const object: GameObject = MockGameObject.mock();
-    const working: ServerCreatureObject = MockAlifeHumanStalker.mock();
-
-    MockAlifeHumanStalker.mock({ id: object.id() }).m_smart_terrain_id = terrain.id;
-
-    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test", 100)).toBe(false);
-
-    terrain.objectJobDescriptors = $fromArray<IObjectJobState>([
-      {
-        object: working,
-        job: {
-          section: "test-job",
-        } as ISmartTerrainJobDescriptor,
-      } as IObjectJobState,
-    ]);
-
-    expect(
-      callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-not-existing", 100)
-    ).toBe(false);
-
-    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 100 * 100);
-
-    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-job", 100)).toBe(
-      true
-    );
-    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(working.position);
-
-    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 101 * 101);
-
-    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-job", 100)).toBe(
-      false
-    );
   });
 
   it("is_obj_on_job should check if object is on job", () => {
@@ -906,9 +874,18 @@ describe("object conditions implementation", () => {
 
   it.todo("squads_in_zone_b41 should check if squad members are in zone b41");
 
-  it.todo("target_smart_name should check object name");
+  it("squad_exist should check if squad exists", () => {
+    const object: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-  it.todo("squad_exist should check if squad exists");
+    registerStoryLink(object.id, "test-story");
+
+    expect(callXrCondition("squad_exist", MockGameObject.mockActor(), MockGameObject.mock(), "test-story")).toBe(true);
+    expect(callXrCondition("squad_exist", MockGameObject.mockActor(), MockGameObject.mock(), "void")).toBe(false);
+
+    expect(() => callXrCondition("squad_exist", MockGameObject.mockActor(), MockGameObject.mock())).toThrow(
+      "Wrong parameter storyId 'nil' in squad_exist condition."
+    );
+  });
 
   it.todo("is_squad_commander should check if object commands squad");
 
@@ -916,9 +893,83 @@ describe("object conditions implementation", () => {
 
   it.todo("quest_npc_enemy_actor should check if object is enemy with actor");
 
-  it.todo("distance_to_obj_ge should check distance");
+  it("distance_to_obj_ge should check distance", () => {
+    expect(
+      callXrCondition("distance_to_obj_ge", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
+    ).toBe(false);
 
-  it.todo("distance_to_obj_le should check distance");
+    const { actorGameObject } = mockRegisteredActor();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    registerStoryLink(serverObject.id, "test-sid");
+
+    jest.spyOn(actorGameObject.position(), "distance_to_sqr").mockImplementation(() => 100);
+    expect(
+      callXrCondition("distance_to_obj_ge", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
+    ).toBe(true);
+
+    jest.spyOn(actorGameObject.position(), "distance_to_sqr").mockImplementation(() => 99);
+    expect(
+      callXrCondition("distance_to_obj_ge", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
+    ).toBe(false);
+  });
+
+  it("distance_to_obj_le should check distance", () => {
+    expect(
+      callXrCondition("distance_to_obj_le", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
+    ).toBe(false);
+
+    const { actorGameObject } = mockRegisteredActor();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
+
+    registerStoryLink(serverObject.id, "test-sid");
+
+    jest.spyOn(actorGameObject.position(), "distance_to_sqr").mockImplementation(() => 100);
+    expect(
+      callXrCondition("distance_to_obj_le", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
+    ).toBe(false);
+
+    jest.spyOn(actorGameObject.position(), "distance_to_sqr").mockImplementation(() => 99);
+    expect(
+      callXrCondition("distance_to_obj_le", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid", 10)
+    ).toBe(true);
+  });
+
+  it("distance_to_obj_on_job_le should check object job distance", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const object: GameObject = MockGameObject.mock();
+    const working: ServerCreatureObject = MockAlifeHumanStalker.mock();
+
+    MockAlifeHumanStalker.mock({ id: object.id() }).m_smart_terrain_id = terrain.id;
+
+    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test", 100)).toBe(false);
+
+    terrain.objectJobDescriptors = $fromArray<IObjectJobState>([
+      {
+        object: working,
+        job: {
+          section: "test-job",
+        } as ISmartTerrainJobDescriptor,
+      } as IObjectJobState,
+    ]);
+
+    expect(
+      callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-not-existing", 100)
+    ).toBe(false);
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 100 * 100);
+
+    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-job", 100)).toBe(
+      true
+    );
+    expect(object.position().distance_to_sqr).toHaveBeenCalledWith(working.position);
+
+    jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 101 * 101);
+
+    expect(callXrCondition("distance_to_obj_on_job_le", MockGameObject.mockActor(), object, "test-job", 100)).toBe(
+      false
+    );
+  });
 
   it.todo("active_item should check object active item");
 
@@ -934,9 +985,38 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("in_dest_smart_cover", MockGameObject.mockActor(), object)).toBe(false);
   });
 
-  it.todo("dist_to_story_obj_ge should check distance");
+  it("dist_to_story_obj_ge should check distance", () => {
+    const { actorGameObject } = mockRegisteredActor();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
 
-  it.todo("has_enemy_in_current_loopholes_fov should check enemies in loophole");
+    expect(callXrCondition("dist_to_story_obj_ge", actorGameObject, MockGameObject.mock(), "test-sid", 10)).toBe(true);
+
+    registerStoryLink(serverObject.id, "test-sid");
+
+    jest.spyOn(serverObject.position, "distance_to_sqr").mockImplementation(() => 99);
+    expect(callXrCondition("dist_to_story_obj_ge", actorGameObject, MockGameObject.mock(), "test-sid", 10)).toBe(false);
+
+    jest.spyOn(serverObject.position, "distance_to_sqr").mockImplementation(() => 101);
+    expect(callXrCondition("dist_to_story_obj_ge", actorGameObject, MockGameObject.mock(), "test-sid", 10)).toBe(true);
+
+    expect(serverObject.position.distance_to_sqr).toHaveBeenCalledWith(actorGameObject.position());
+  });
+
+  it("has_enemy_in_current_loopholes_fov should check enemies in loophole", () => {
+    const object: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mock();
+
+    expect(callXrCondition("has_enemy_in_current_loopholes_fov", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "in_smart_cover").mockImplementation(() => true);
+    expect(callXrCondition("has_enemy_in_current_loopholes_fov", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "best_enemy").mockImplementation(() => enemy);
+    expect(callXrCondition("has_enemy_in_current_loopholes_fov", MockGameObject.mockActor(), object)).toBe(false);
+
+    jest.spyOn(object, "in_current_loophole_fov").mockImplementation((position) => position === enemy.position());
+    expect(callXrCondition("has_enemy_in_current_loopholes_fov", MockGameObject.mockActor(), object)).toBe(true);
+  });
 
   it("npc_talking should check if object is talking", () => {
     const object: GameObject = MockGameObject.mock();
@@ -977,9 +1057,56 @@ describe("object conditions implementation", () => {
     expect(callXrCondition("object_exist", MockGameObject.mockActor(), MockGameObject.mock(), "test-sid")).toBe(true);
   });
 
-  it.todo("squad_curr_action should check squad action");
+  it("squad_curr_action should check squad action", () => {
+    const object: GameObject = MockGameObject.mock();
+    const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
+    const squad: MockSquad = MockSquad.createRegistered();
 
-  it.todo("check_enemy_smart should check enemy smart terrain");
+    squad.mockAddMember(serverObject);
+
+    expect(
+      callXrCondition("squad_curr_action", MockGameObject.mockActor(), object, ESquadActionType.REACH_TARGET)
+    ).toBe(false);
+
+    squad.currentAction = new SquadReachTargetAction(squad);
+
+    expect(
+      callXrCondition("squad_curr_action", MockGameObject.mockActor(), object, ESquadActionType.REACH_TARGET)
+    ).toBe(true);
+
+    squad.currentAction = new SquadStayOnTargetAction(squad);
+
+    expect(
+      callXrCondition("squad_curr_action", MockGameObject.mockActor(), object, ESquadActionType.REACH_TARGET)
+    ).toBe(false);
+    expect(
+      callXrCondition("squad_curr_action", MockGameObject.mockActor(), object, ESquadActionType.STAY_ON_TARGET)
+    ).toBe(true);
+  });
+
+  it("check_enemy_smart should check enemy smart terrain", () => {
+    const object: GameObject = MockGameObject.mock();
+    const enemy: GameObject = MockGameObject.mock();
+    const enemyServerObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: enemy.id() });
+    const state: IRegistryObjectState = registerObject(object);
+    const terrain: SmartTerrain = MockSmartTerrain.mock("terrain-name");
+
+    expect(callXrCondition("check_enemy_smart", MockGameObject.mockActor(), object, terrain.name())).toBe(false);
+
+    enemyServerObject.m_smart_terrain_id = terrain.id;
+    state.enemyId = enemy.id();
+
+    expect(callXrCondition("check_enemy_smart", MockGameObject.mockActor(), object, terrain.name())).toBe(false);
+
+    registerObject(enemy);
+
+    expect(callXrCondition("check_enemy_smart", MockGameObject.mockActor(), object, terrain.name())).toBe(true);
+    expect(callXrCondition("check_enemy_smart", MockGameObject.mockActor(), object, "test-name")).toBe(false);
+
+    state.enemyId = ACTOR_ID;
+
+    expect(callXrCondition("check_enemy_smart", MockGameObject.mockActor(), object, terrain.name())).toBe(false);
+  });
 
   it("polter_ignore_actor should check if poltergeist ignores actor", () => {
     const object: GameObject = MockGameObject.mock();
@@ -1057,7 +1184,22 @@ describe("object conditions implementation", () => {
     expect(isDeimosPhaseActive).toHaveBeenCalledWith(object, "lower_bound", false);
   });
 
-  it.todo("animpoint_reached should check if animpoint is reached");
+  it("animpoint_reached should check if animpoint is reached", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const schemeState: ISchemeAnimpointState = mockSchemeState(EScheme.ANIMPOINT);
+
+    expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(false);
+
+    state[EScheme.ANIMPOINT] = schemeState;
+    schemeState.animpointManager = new AnimpointManager(object, schemeState);
+
+    jest.spyOn(schemeState.animpointManager, "isPositionReached").mockImplementation(() => true);
+    expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(true);
+
+    jest.spyOn(schemeState.animpointManager, "isPositionReached").mockImplementation(() => false);
+    expect(callXrCondition("animpoint_reached", MockGameObject.mockActor(), object)).toBe(false);
+  });
 
   it.todo("upgrade_hint_kardan should check upgrade hints");
 });
