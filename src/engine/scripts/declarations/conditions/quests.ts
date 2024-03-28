@@ -5,9 +5,10 @@ import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine
 import { Squad } from "@/engine/core/objects/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/position";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
+import { storyNames } from "@/engine/lib/constants/story_names";
 import {
   AlifeSimulator,
   AnyCallablesModule,
@@ -15,39 +16,41 @@ import {
   LuaArray,
   Optional,
   ServerCreatureObject,
+  ServerObject,
   TDistance,
   TName,
+  TNumberId,
+  TSection,
+  TStringId,
 } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
- * todo;
+ * Check if b29 quest detect that anomalies have artefacts.
  */
 extern(
   "xr_conditions.zat_b29_anomaly_has_af",
-  (actor: GameObject, object: GameObject, p: Optional<string>): boolean => {
-    const azName: Optional<TName> = p && p[0];
-    let afName: Optional<TName> = null;
+  (_: GameObject, __: GameObject, [zoneName]: [Optional<TName>]): boolean => {
+    const anomaly: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName as TName);
 
-    const anomalZone: AnomalyZoneBinder = registry.anomalyZones.get(azName as TName);
-
-    if (azName === null || anomalZone === null || anomalZone.spawnedArtefactsCount < 1) {
+    if (!zoneName || !anomaly || anomaly.spawnedArtefactsCount < 1) {
       return false;
     }
 
-    for (const i of $range(16, 23)) {
-      if (hasInfoPortion(zatB29InfopBringTable.get(i))) {
-        afName = zatB29AfTable.get(i);
+    let artefactName: Optional<TSection> = null;
+
+    for (const index of $range(16, 23)) {
+      if (hasInfoPortion(zatB29InfopBringTable.get(index))) {
+        artefactName = zatB29AfTable.get(index);
         break;
       }
     }
 
     for (const [artefactId] of registry.artefacts.ways) {
-      if (
-        registry.simulator.object(tonumber(artefactId)!) &&
-        afName === registry.simulator.object(tonumber(artefactId)!)!.section_name()
-      ) {
-        registry.actor.give_info_portion(azName);
+      const artefact: Optional<ServerObject> = registry.simulator.object(tonumber(artefactId) as TNumberId);
+
+      if (artefact && artefact.section_name() === artefactName) {
+        giveInfoPortion(zoneName);
 
         return true;
       }
@@ -60,7 +63,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_conditions.jup_b221_who_will_start", (actor: GameObject, object: GameObject, p: [string]): boolean => {
+extern("xr_conditions.jup_b221_who_will_start", (_: GameObject, __: GameObject, p: [string]): boolean => {
   const reachableTheme: LuaArray<number> = new LuaTable();
   const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
     infoPortions.jup_b25_freedom_flint_gone,
@@ -77,10 +80,10 @@ extern("xr_conditions.jup_b221_who_will_start", (actor: GameObject, object: Game
     infoPortions.jup_b207_freedom_wins,
   ]);
 
-  for (const [k, v] of infoPortionsList) {
+  for (const [index, infoPortion] of infoPortionsList) {
     const factionsList: LuaArray<string> = new LuaTable();
 
-    if (k <= 6) {
+    if (index <= 6) {
       factionsList.set(1, "duty");
       factionsList.set(2, "0");
     } else {
@@ -89,16 +92,16 @@ extern("xr_conditions.jup_b221_who_will_start", (actor: GameObject, object: Game
     }
 
     if (
-      hasInfoPortion(v) &&
+      hasInfoPortion(infoPortion) &&
       !hasInfoPortion(
         ("jup_b221_" +
           factionsList.get(1) +
           "_main_" +
-          tostring(k - tonumber(factionsList.get(2))!) +
+          tostring(index - tonumber(factionsList.get(2))!) +
           "_played") as TInfoPortion
       )
     ) {
-      table.insert(reachableTheme, k);
+      table.insert(reachableTheme, index);
     }
   }
 
@@ -187,20 +190,17 @@ extern("xr_conditions.pas_b400_actor_far_backward", (actor: GameObject, object: 
 });
 
 /**
- * todo;
+ * Check if actor is far from military squad.
  */
 extern("xr_conditions.pri_a28_actor_is_far", (actor: GameObject, object: GameObject): boolean => {
-  const distance: TDistance = 150 * 150;
   const squad: Optional<Squad> = getServerObjectByStoryId("pri_a16_military_squad")!;
 
-  if (squad === null) {
-    abort("Unexpected actor far check - no squad existing.");
+  if (!squad) {
+    abort("Unexpected actor distance check - no squad existing.");
   }
 
   for (const squadMember of squad.squad_members()) {
-    const objectDistanceToActor: TDistance = squadMember.object.position.distance_to_sqr(actor.position());
-
-    if (objectDistanceToActor < distance) {
+    if (squadMember.object.position.distance_to_sqr(actor.position()) < 150 * 150) {
       return false;
     }
   }
@@ -222,7 +222,7 @@ extern("xr_conditions.jup_b25_senya_spawn_condition", (): boolean => {
 });
 
 /**
- * todo;
+ * Check if flint was removed from Yanov.
  */
 extern("xr_conditions.jup_b25_flint_gone_condition", (): boolean => {
   return (
@@ -262,7 +262,7 @@ extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: GameObject, object
 
   let isSquad: boolean = false;
 
-  for (const [k, v] of squadsList) {
+  for (const [, v] of squadsList) {
     if (
       registry.simulator
         .object(registry.simulator.object<ServerCreatureObject>(object.id())!.group_id)!
@@ -287,9 +287,9 @@ extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: GameObject, object
 });
 
 /**
- * todo;
+ * Check if b202 actor treasures are not stolen.
  */
-extern("xr_conditions.jup_b202_actor_treasure_not_in_steal", (actor: GameObject, object: GameObject) => {
+extern("xr_conditions.jup_b202_actor_treasure_not_in_steal", (_: GameObject, __: GameObject) => {
   const before: boolean =
     !hasInfoPortion(infoPortions.jup_b52_actor_items_can_be_stolen) &&
     !hasInfoPortion(infoPortions.jup_b202_actor_items_returned);
@@ -301,48 +301,50 @@ extern("xr_conditions.jup_b202_actor_treasure_not_in_steal", (actor: GameObject,
 });
 
 /**
- * todo;
+ * Check if object with story ID exists.
  */
-extern("xr_conditions.jup_b47_npc_online", (actor: GameObject, object: GameObject, params: [string]) => {
-  const storyObject: Optional<GameObject> = getObjectByStoryId(params[0]);
+extern("xr_conditions.jup_b47_npc_online", (_: GameObject, __: GameObject, [storyId]: [TStringId]) => {
+  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  if (storyObject === null) {
+  if (storyObject) {
+    return registry.simulator.object(storyObject.id()) !== null;
+  } else {
     return false;
   }
-
-  return registry.simulator.object(storyObject.id()) !== null;
 });
 
 /**
- * todo;
+ * Check if currently late night quest time.
  */
 extern("xr_conditions.zat_b7_is_night", (): boolean => {
   return registry.actor !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 5);
 });
 
 /**
- * todo;
+ * Check if currently late attack quest time.
  */
 extern("xr_conditions.zat_b7_is_late_attack_time", (): boolean => {
   return registry.actor !== null && (level.get_time_hours() >= 23 || level.get_time_hours() < 9);
 });
 
 /**
- * todo;
+ * Check if jupiter reward box is empty.
+ *
+ * Throws, if story box was not spawned.
  */
-extern("xr_conditions.jup_b202_inventory_box_empty", (actor: GameObject, object: GameObject): boolean => {
-  return getObjectByStoryId("jup_b202_actor_treasure")!.is_inv_box_empty();
+extern("xr_conditions.jup_b202_inventory_box_empty", (_: GameObject, __: GameObject): boolean => {
+  return (getObjectByStoryId(storyNames.jup_b202_actor_treasure) as GameObject).is_inv_box_empty();
 });
 
 /**
- * todo;
+ * Check if actor has b16 zone info portion.
  */
-extern("xr_conditions.jup_b16_is_zone_active", (actor: GameObject, object: GameObject): boolean => {
+extern("xr_conditions.jup_b16_is_zone_active", (_: GameObject, object: GameObject): boolean => {
   return hasInfoPortion(object.name() as TInfoPortion);
 });
 
 /**
- * todo;
+ * Check if currently nighttime suitable for the quest.
  */
 extern("xr_conditions.is_jup_a12_mercs_time", (): boolean => {
   return registry.actor !== null && level.get_time_hours() >= 1 && level.get_time_hours() < 5;

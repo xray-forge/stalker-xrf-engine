@@ -971,7 +971,26 @@ describe("object conditions implementation", () => {
     );
   });
 
-  it.todo("active_item should check object active item");
+  it("active_item should check object active item", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    const first: GameObject = MockGameObject.mock({ section: "test-1" });
+    const second: GameObject = MockGameObject.mock({ section: "test-2" });
+
+    expect(callXrCondition("active_item", actorGameObject, MockGameObject.mock())).toBe(false);
+    expect(
+      callXrCondition("active_item", actorGameObject, MockGameObject.mock(), first.section(), second.section())
+    ).toBe(false);
+
+    jest.spyOn(actorGameObject, "item_in_slot").mockImplementation(() => first);
+
+    expect(
+      callXrCondition("active_item", actorGameObject, MockGameObject.mock(), first.section(), second.section())
+    ).toBe(true);
+
+    expect(callXrCondition("active_item", actorGameObject, MockGameObject.mock(), first.section())).toBe(true);
+    expect(callXrCondition("active_item", actorGameObject, MockGameObject.mock(), second.section())).toBe(false);
+  });
 
   it.todo("check_bloodsucker_state should check bloodsucker state");
 

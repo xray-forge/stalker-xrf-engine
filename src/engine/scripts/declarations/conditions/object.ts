@@ -883,12 +883,14 @@ extern("xr_conditions.fighting_dist_le", (actor: GameObject, object: GameObject,
 });
 
 /**
- * todo;
+ * Check if one of provided items is active in slot 3 of actor.
  */
-extern("xr_conditions.active_item", (actor: GameObject, __: GameObject, params: LuaArray<TSection>): boolean => {
-  if (params && params.has(1)) {
-    for (const [, section] of params) {
-      if (actor.item_in_slot(3) !== null && actor.item_in_slot(3)!.section() === section) {
+extern("xr_conditions.active_item", (actor: GameObject, __: GameObject, parameters: Array<TSection>): boolean => {
+  const item: Optional<GameObject> = actor.item_in_slot(3);
+
+  if (item) {
+    for (const [, section] of ipairs(parameters)) {
+      if (item && item.section() === section) {
         return true;
       }
     }

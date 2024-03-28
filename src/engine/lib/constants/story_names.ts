@@ -34,6 +34,7 @@ export const storyNames = {
   jup_b9_spot: "jup_b9_spot",
   pri_a15_door: "pri_a15_door",
   pri_a16: "pri_a16",
+  pri_a16_military_squad: "pri_a16_military_squad",
   pri_a16_spot: "pri_a16_spot",
   pri_a16_sr_sleep: "pri_a16_sr_sleep",
   pri_a16_sr_sleep_id: "pri_a16_sr_sleep_id",

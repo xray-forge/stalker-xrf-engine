@@ -381,6 +381,8 @@ export class MockGameObject {
 
   public is_talking = jest.fn(() => false);
 
+  public is_inv_box_empty = jest.fn(() => null);
+
   public is_talk_enabled = jest.fn(() => false);
 
   public is_there_items_to_pickup = jest.fn(() => false);
