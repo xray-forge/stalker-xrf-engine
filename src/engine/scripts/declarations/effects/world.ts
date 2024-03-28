@@ -132,7 +132,7 @@ extern(
  */
 extern("xr_effects.reset_sound_npc", (_: GameObject, object: GameObject): void => {
   const objectId: TNumberId = object.id();
-  const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId);
+  const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId) as Optional<AbstractPlayableSound>;
 
   // todo: Move to sound manager methods.
   if (sound) {
@@ -497,7 +497,7 @@ extern("xr_effects.disable_anomaly", (_: GameObject, __: GameObject, [storyId]: 
  * - name - name of signal light rocket object
  */
 extern("xr_effects.launch_signal_rocket", (_: GameObject, __: GameObject, [name]: [TName]): void => {
-  const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name);
+  const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name) as Optional<SignalLightBinder>;
 
   if (rocket) {
     rocket.startFly();
