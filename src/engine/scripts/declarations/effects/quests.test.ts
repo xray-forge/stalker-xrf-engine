@@ -1,12 +1,22 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { getManager, registerZone } from "@/engine/core/database";
+import { MapDisplayManager } from "@/engine/core/managers/map";
 import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
+import { hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { takeItemFromActor } from "@/engine/core/utils/reward";
+import { spawnObject } from "@/engine/core/utils/spawn";
+import { infoPortions } from "@/engine/lib/constants/info_portions";
+import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { TRUE } from "@/engine/lib/constants/words";
-import { callXrEffect, checkXrEffect, resetRegistry } from "@/fixtures/engine";
+import { GameObject } from "@/engine/lib/types";
+import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/ui/game/freeplay");
+jest.mock("@/engine/core/utils/reward");
+jest.mock("@/engine/core/utils/spawn");
 
 describe("quests effects declaration", () => {
   beforeAll(() => {
@@ -96,15 +106,70 @@ describe("quests effects implementation", () => {
     expect(showFreeplayDialog).toHaveBeenCalledWith("message_box_ok", "test-text-2");
   });
 
-  it.todo("jup_b32_place_scanner should place scanners");
+  it("jup_b32_place_scanner should place scanners", () => {
+    mockRegisteredActor();
 
-  it.todo("jup_b32_pda_check should check pda");
+    const object: GameObject = MockGameObject.mock({ name: "jup_b32_sr_scanner_place_5" });
 
-  it.todo("pri_b306_generator_start should start generators");
+    jest.spyOn(object, "inside").mockImplementation(() => true);
+
+    callXrEffect("jup_b32_place_scanner", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(hasInfoPortion("jup_b32_scanner_5_placed")).toBe(false);
+    expect(hasInfoPortion("jup_b32_scanner_5_placed")).toBe(false);
+
+    registerZone(object);
+    callXrEffect("jup_b32_place_scanner", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(hasInfoPortion("jup_b32_scanner_5_placed")).toBe(true);
+    expect(hasInfoPortion(infoPortions.jup_b32_tutorial_done)).toBe(true);
+    expect(takeItemFromActor).toHaveBeenCalledWith(questItems.jup_b32_scanner_device);
+    expect(spawnObject).toHaveBeenCalledWith("jup_b32_ph_scanner", "jup_b32_scanner_place_5");
+  });
+
+  it("jup_b32_pda_check should check pda", () => {
+    const manager: MapDisplayManager = getManager(MapDisplayManager);
+
+    jest.spyOn(manager, "updateAnomalyZonesDisplay").mockImplementation(() => {});
+
+    callXrEffect("jup_b32_pda_check", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(manager.updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
+  });
+
+  it("pri_b306_generator_start should start generators", () => {
+    mockRegisteredActor();
+
+    callXrEffect("pri_b306_generator_start", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_b306_lift_generator_used)).toBe(false);
+
+    const object: GameObject = MockGameObject.mock({ name: "pri_b306_sr_generator" });
+
+    registerZone(object);
+
+    jest.spyOn(object, "inside").mockImplementation(() => true);
+
+    callXrEffect("pri_b306_generator_start", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_b306_lift_generator_used)).toBe(true);
+  });
 
   it.todo("jup_b206_get_plant should get plant object");
 
-  it.todo("pas_b400_switcher should handle pass switcher");
+  it("pas_b400_switcher should handle pass switcher", () => {
+    mockRegisteredActor();
+
+    callXrEffect("pas_b400_switcher", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pas_b400_switcher_use)).toBe(false);
+
+    const object: GameObject = MockGameObject.mock({ name: "pas_b400_sr_switcher" });
+
+    registerZone(object);
+
+    jest.spyOn(object, "inside").mockImplementation(() => true);
+
+    callXrEffect("pas_b400_switcher", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pas_b400_switcher_use)).toBe(true);
+  });
 
   it.todo("jup_b209_place_scanner should place scanners");
 
@@ -144,7 +209,12 @@ describe("quests effects implementation", () => {
 
   it.todo("jup_b221_play_main should play sounds");
 
-  it.todo("zat_a1_tutorial_end_give should give info portions");
+  it("zat_a1_tutorial_end_give should give info portions", () => {
+    mockRegisteredActor();
+
+    callXrEffect("zat_a1_tutorial_end_give", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_a1_tutorial_end)).toBe(true);
+  });
 
   it.todo("oasis_heal should heal in oasis");
 
@@ -158,45 +228,145 @@ describe("quests effects implementation", () => {
 
   it.todo("jup_b217_hard_animation_reset should reset animation");
 
-  it.todo("pri_a18_radio_start should start radio");
+  it("pri_a18_radio_start should start radio", () => {
+    mockRegisteredActor();
 
-  it.todo("pri_a17_ice_climb_end should give info portion");
+    callXrEffect("pri_a18_radio_start", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_a18_radio_start)).toBe(true);
+  });
 
-  it.todo("jup_b219_opening should give info portion");
+  it("pri_a17_ice_climb_end should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("jup_b219_entering_underpass should give info portion");
+    callXrEffect("pri_a17_ice_climb_end", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_a17_ice_climb_end)).toBe(true);
+  });
 
-  it.todo("pri_a17_pray_start should give info portion");
+  it("jup_b219_opening should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("zat_b38_open_info should give info portion");
+    callXrEffect("jup_b219_opening", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.jup_b219_opening)).toBe(true);
+  });
 
-  it.todo("zat_b38_switch_info should give info portion");
+  it("jup_b219_entering_underpass should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("zat_b38_cop_dead should give info portion");
+    callXrEffect("jup_b219_entering_underpass", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.jup_b219_entering_underpass)).toBe(true);
+  });
 
-  it.todo("jup_b15_zulus_drink_anim_info should give info portion");
+  it("pri_a17_pray_start should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("pri_a17_preacher_death should give info portion");
+    callXrEffect("pri_a17_pray_start", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_a17_pray_start)).toBe(true);
+  });
 
-  it.todo("zat_b3_tech_surprise_anim_end should give info portion");
+  it("zat_b38_open_info should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("zat_b3_tech_waked_up should give info portion");
+    callXrEffect("zat_b38_open_info", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_b38_open_info)).toBe(true);
+  });
 
-  it.todo("zat_b3_tech_drinked_out should give info portion");
+  it("zat_b38_switch_info should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("pri_a28_kirillov_hq_online should give info portion");
+    callXrEffect("zat_b38_switch_info", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_b38_switch_info)).toBe(true);
+  });
 
-  it.todo("pri_a20_radio_start should give info portion");
+  it("zat_b38_cop_dead should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("pri_a22_kovalski_speak should give info portion");
+    callXrEffect("zat_b38_cop_dead", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_b38_cop_dead)).toBe(true);
+  });
 
-  it.todo("zat_b38_underground_door_open should give info portion");
+  it("jup_b15_zulus_drink_anim_info should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("zat_b38_jump_tonnel_info should give info portion");
+    callXrEffect("jup_b15_zulus_drink_anim_info", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.jup_b15_zulus_drink_anim_info)).toBe(true);
+  });
 
-  it.todo("jup_a9_cam1_actor_anim_end should give info portion");
+  it("pri_a17_preacher_death should give info portion", () => {
+    mockRegisteredActor();
 
-  it.todo("pri_a28_talk_ssu_video_end should give info portion");
+    callXrEffect("pri_a17_preacher_death", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_a17_preacher_death)).toBe(true);
+  });
+
+  it("zat_b3_tech_surprise_anim_end should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("zat_b3_tech_surprise_anim_end", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_b3_tech_surprise_anim_end)).toBe(true);
+  });
+
+  it("zat_b3_tech_waked_up should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("zat_b3_tech_waked_up", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_b3_tech_waked_up)).toBe(true);
+  });
+
+  it("zat_b3_tech_drinked_out should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("zat_b3_tech_drinked_out", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_b3_tech_drinked_out)).toBe(true);
+  });
+
+  it("pri_a28_kirillov_hq_online should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("pri_a28_kirillov_hq_online", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_a28_kirillov_hq_online)).toBe(true);
+  });
+
+  it("pri_a20_radio_start should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("pri_a20_radio_start", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_a20_radio_start)).toBe(true);
+  });
+
+  it("pri_a22_kovalski_speak should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("pri_a22_kovalski_speak", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_a22_kovalski_speak)).toBe(true);
+  });
+
+  it("zat_b38_underground_door_open should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("zat_b38_underground_door_open", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_b38_underground_door_open)).toBe(true);
+  });
+
+  it("zat_b38_jump_tonnel_info should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("zat_b38_jump_tonnel_info", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.zat_b38_jump_tonnel_info)).toBe(true);
+  });
+
+  it("jup_a9_cam1_actor_anim_end should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("jup_a9_cam1_actor_anim_end", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.jup_a9_cam1_actor_anim_end)).toBe(true);
+  });
+
+  it("pri_a28_talk_ssu_video_end should give info portion", () => {
+    mockRegisteredActor();
+
+    callXrEffect("pri_a28_talk_ssu_video_end", MockGameObject.mockActor(), MockGameObject.mock());
+    expect(hasInfoPortion(infoPortions.pri_a28_talk_ssu_video_end)).toBe(true);
+  });
 
   it.todo("zat_b33_pic_snag_container should pick container");
 
@@ -204,7 +374,20 @@ describe("quests effects implementation", () => {
 
   it.todo("pri_a28_check_zones should check zones");
 
-  it.todo("eat_vodka_script should handle vodka");
+  it("eat_vodka_script should handle vodka", () => {
+    const actor: MockGameObject = MockGameObject.createActor();
+    const item: GameObject = MockGameObject.mock({ section: "vodka_script" });
+
+    jest.spyOn(actor, "eat").mockImplementation(() => {});
+
+    callXrEffect("eat_vodka_script", actor.asGameObject(), MockGameObject.mock());
+    expect(actor.eat).not.toHaveBeenCalled();
+
+    actor.objectInventory.set(item.section(), item);
+
+    callXrEffect("eat_vodka_script", actor.asGameObject(), MockGameObject.mock());
+    expect(actor.eat).toHaveBeenCalledWith(item);
+  });
 
   it.todo("jup_b200_count_found should recalculate count");
 });

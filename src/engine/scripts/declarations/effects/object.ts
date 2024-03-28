@@ -55,12 +55,14 @@ import {
   ServerHumanObject,
   TBloodsuckerVisibilityState,
   TCount,
+  TDuration,
   TIndex,
   TName,
   TNumberId,
   TRate,
   TSection,
   TStringId,
+  TStringifiedBoolean,
   Vector,
 } from "@/engine/lib/types";
 
@@ -69,8 +71,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Process forward animation for provided doors.
  */
-extern("xr_effects.anim_obj_forward", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
-  for (const [, doorName] of doors) {
+extern("xr_effects.anim_obj_forward", (_: GameObject, __: GameObject, doors: Array<TName>): void => {
+  for (const [, doorName] of ipairs(doors)) {
     registry.doors.get(doorName).startAnimation(true);
   }
 });
@@ -78,8 +80,8 @@ extern("xr_effects.anim_obj_forward", (actor: GameObject, object: GameObject, do
 /**
  * Process backward animation for provided doors.
  */
-extern("xr_effects.anim_obj_backward", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
-  for (const [, doorName] of doors) {
+extern("xr_effects.anim_obj_backward", (_: GameObject, __: GameObject, doors: Array<TName>): void => {
+  for (const [, doorName] of ipairs(doors)) {
     registry.doors.get(doorName).startAnimation(false);
   }
 });
@@ -87,8 +89,8 @@ extern("xr_effects.anim_obj_backward", (actor: GameObject, object: GameObject, d
 /**
  * Stop animation for provided doors.
  */
-extern("xr_effects.anim_obj_stop", (actor: GameObject, object: GameObject, doors: LuaArray<TName>): void => {
-  for (const [, doorName] of doors) {
+extern("xr_effects.anim_obj_stop", (_: GameObject, __: GameObject, doors: Array<TName>): void => {
+  for (const [, doorName] of ipairs(doors)) {
     registry.doors.get(doorName).stopAnimation();
   }
 });
@@ -98,7 +100,7 @@ extern("xr_effects.anim_obj_stop", (actor: GameObject, object: GameObject, doors
  */
 extern(
   "xr_effects.hit_obj",
-  (actor: GameObject, object: GameObject, params: [string, string, number, number, string, string]): void => {
+  (_: GameObject, object: GameObject, params: [string, string, number, number, string, string]): void => {
     const h: hit = new hit();
     const storyObject: Optional<GameObject> = getObjectByStoryId(params[0]);
 
@@ -151,11 +153,7 @@ extern(
  */
 extern(
   "xr_effects.make_enemy",
-  (actor: GameObject, object: GameObject, parameters: [TStringId, Optional<TStringId>]): void => {
-    assert(parameters, "Invalid parameter in function 'hit_npc_from_npc'.");
-
-    const [from, to] = parameters;
-
+  (_: GameObject, object: GameObject, [from, to]: [TStringId, Optional<TStringId>]): void => {
     const target: GameObject = to ? (getObjectByStoryId(to) as GameObject) : object;
     const hitObject: Hit = new hit();
 
@@ -174,19 +172,19 @@ extern(
 /**
  * Set sniper fire mode for an object.
  */
-extern("xr_effects.sniper_fire_mode", (actor: GameObject, object: GameObject, parameters: [string]): void => {
+extern("xr_effects.sniper_fire_mode", (_: GameObject, object: GameObject, parameters: [string]): void => {
   object.sniper_fire_mode(parameters[0] === TRUE);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.kill_npc", (actor: GameObject, object: Optional<GameObject>, p: [Optional<TStringId>]): void => {
-  if (p && p[0]) {
-    object = getObjectByStoryId(p[0]);
+extern("xr_effects.kill_npc", (_: GameObject, object: Optional<GameObject>, [storyId]: [Optional<TStringId>]): void => {
+  if (storyId) {
+    object = getObjectByStoryId(storyId);
   }
 
-  if (object !== null && object.alive()) {
+  if (object?.alive()) {
     object.kill(object);
   }
 });
@@ -194,14 +192,14 @@ extern("xr_effects.kill_npc", (actor: GameObject, object: Optional<GameObject>, 
 /**
  * todo;
  */
-extern("xr_effects.remove_npc", (actor: GameObject, object: GameObject, p: [Optional<TStringId>]): void => {
+extern("xr_effects.remove_npc", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]): void => {
   let objectId: Optional<TNumberId> = null;
 
-  if (p && p[0]) {
-    objectId = getObjectIdByStoryId(p[0]);
+  if (storyId) {
+    objectId = getObjectIdByStoryId(storyId);
   }
 
-  if (objectId !== null) {
+  if (objectId) {
     registry.simulator.release(registry.simulator.object(objectId), true);
   }
 });
@@ -209,14 +207,14 @@ extern("xr_effects.remove_npc", (actor: GameObject, object: GameObject, p: [Opti
 /**
  * Clear abuse for provided object.
  */
-extern("xr_effects.clear_abuse", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.clear_abuse", (_: GameObject, object: GameObject): void => {
   clearObjectAbuse(object);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.disable_combat_handler", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.disable_combat_handler", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state[EScheme.COMBAT]) {
@@ -231,7 +229,7 @@ extern("xr_effects.disable_combat_handler", (actor: GameObject, object: GameObje
 /**
  * todo;
  */
-extern("xr_effects.disable_combat_ignore_handler", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.disable_combat_ignore_handler", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state[EScheme.COMBAT_IGNORE]) {
@@ -244,11 +242,7 @@ extern("xr_effects.disable_combat_ignore_handler", (actor: GameObject, object: G
  */
 extern(
   "xr_effects.spawn_object",
-  (
-    actor: GameObject,
-    object: Optional<GameObject>,
-    [section, pathName, index, yaw]: [TSection, TName, TIndex, TRate]
-  ): void => {
+  (_: GameObject, __: GameObject, [section, pathName, index, yaw]: [TSection, TName, TIndex, TRate]): void => {
     spawnObject(section, pathName, index, yaw);
   }
 );
@@ -258,7 +252,7 @@ extern(
  */
 extern(
   "xr_effects.spawn_object_in",
-  (actor: GameObject, object: GameObject, [section, storyId]: [TSection, TStringId]): void => {
+  (_: GameObject, __: GameObject, [section, storyId]: [TSection, TStringId]): void => {
     spawnObjectInObject(section, getObjectIdByStoryId(storyId));
   }
 );
@@ -269,11 +263,7 @@ extern(
  */
 extern(
   "xr_effects.spawn_corpse",
-  (
-    actor: GameObject,
-    object: GameObject,
-    [spawnSection, pathName, index]: [TSection, TName, Optional<TIndex>]
-  ): void => {
+  (_: GameObject, object: GameObject, [spawnSection, pathName, index]: [TSection, TName, Optional<TIndex>]): void => {
     // logger.format("Spawn corpse: %s", params[0]);
 
     if (spawnSection === null) {
@@ -306,7 +296,7 @@ extern(
  */
 extern(
   "xr_effects.destroy_object",
-  (actor: GameObject, object: GameObject, parameters: [Optional<string>, Optional<string>, Optional<string>]): void => {
+  (_: GameObject, object: GameObject, parameters: [Optional<string>, Optional<string>, Optional<string>]): void => {
     if (!parameters[0] && !parameters[1]) {
       return releaseObject(object.id());
     }
@@ -335,9 +325,12 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.create_squad", (actor: GameObject, obj: Optional<GameObject>, params: [TStringId, TName]): void => {
-  spawnSquadInSmart(params[0], params[1]);
-});
+extern(
+  "xr_effects.create_squad",
+  (_: GameObject, __: Optional<GameObject>, [section, terrainName]: [TSection, TName]): void => {
+    spawnSquadInSmart(section, terrainName);
+  }
+);
 
 /**
  * todo;
@@ -408,10 +401,8 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.remove_squad", (actor: GameObject, obj: GameObject, p: [string]): void => {
-  const storyId: Optional<TSection> = p[0];
-
-  if (storyId === null) {
+extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
+  if (!storyId) {
     abort("Wrong squad identificator [NIL] in remove_squad function");
   }
 
@@ -446,7 +437,7 @@ extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Opti
     squadObjects.set(k.id, true);
   }
 
-  for (const [k, v] of squadObjects) {
+  for (const [k] of squadObjects) {
     const gameObject: Optional<GameObject> = registry.objects.get(k)?.object;
 
     if (gameObject === null) {
@@ -460,32 +451,34 @@ extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Opti
 /**
  * todo;
  */
-extern("xr_effects.heal_squad", (actor: GameObject, object: GameObject, params: [TStringId, number]): void => {
-  const storyId: Optional<TStringId> = params[0];
-  let healthMod: TRate = 1;
+extern(
+  "xr_effects.heal_squad",
+  (_: GameObject, __: GameObject, [storyId, healthModRaw]: [TStringId, Optional<number>]): void => {
+    let healthMod: TRate = 1;
 
-  if (params[1] && params[1] !== null) {
-    healthMod = math.ceil(params[1] / 100);
-  }
+    if (healthModRaw) {
+      healthMod = math.ceil(healthModRaw / 100);
+    }
 
-  if (storyId === null) {
-    abort("Wrong squad identificator [NIL] in heal_squad function");
-  }
+    if (!storyId) {
+      abort("Wrong squad identifier 'nil' in heal_squad effect");
+    }
 
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-  if (squad === null) {
-    return;
-  }
+    if (!squad) {
+      return;
+    }
 
-  for (const k of squad.squad_members()) {
-    const gameObject: Optional<GameObject> = registry.objects.get(k.id)?.object as Optional<GameObject>;
+    for (const squadMember of squad.squad_members()) {
+      const gameObject: Optional<GameObject> = registry.objects.get(squadMember.id)?.object as Optional<GameObject>;
 
-    if (gameObject !== null) {
-      gameObject.health = healthMod;
+      if (gameObject !== null) {
+        gameObject.health = healthMod;
+      }
     }
   }
-});
+);
 
 /**
  * todo;
@@ -493,28 +486,28 @@ extern("xr_effects.heal_squad", (actor: GameObject, object: GameObject, params: 
 extern(
   "xr_effects.clear_smart_terrain",
   (
-    actor: GameObject,
-    object: GameObject,
-    [smartTerrainName, clearStory]: [Optional<TName>, Optional<"false">]
+    _: GameObject,
+    __: GameObject,
+    [terrainName, clearStory]: [Optional<TName>, Optional<TStringifiedBoolean>]
   ): void => {
-    logger.info("Clear smart terrain: '%s', '%s'", smartTerrainName, clearStory);
+    logger.info("Clear smart terrain: '%s', '%s'", terrainName, clearStory);
 
-    if (smartTerrainName === null) {
+    if (!terrainName) {
       abort("Wrong squad id [NIL] in clear_smart_terrain function");
     }
 
     const simulationManager: SimulationManager = getManager(SimulationManager);
-    const smartTerrain: SmartTerrain = simulationManager.getSmartTerrainByName(smartTerrainName) as SmartTerrain;
+    const smartTerrain: SmartTerrain = simulationManager.getSmartTerrainByName(terrainName) as SmartTerrain;
     const smartTerrainId: TNumberId = smartTerrain.id;
 
     for (const [, squad] of simulationManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
       if (clearStory === FALSE) {
         if (!getStoryIdByObjectId(squad.id)) {
-          logger.info("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
+          logger.info("Remove smart terrain squads on effect: '%s', '%s'", terrainName, squad.name());
           simulationManager.releaseSquad(squad);
         }
       } else {
-        logger.info("Remove smart terrain squads on effect: '%s', '%s'", smartTerrainName, squad.name());
+        logger.info("Remove smart terrain squads on effect: '%s', '%s'", terrainName, squad.name());
         simulationManager.releaseSquad(squad);
       }
     }
@@ -524,7 +517,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.update_npc_logic", (actor: GameObject, object: GameObject, params: LuaArray<TStringId>): void => {
+extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: LuaArray<TStringId>): void => {
   for (const [, storyId] of params) {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
@@ -554,7 +547,7 @@ extern("xr_effects.update_npc_logic", (actor: GameObject, object: GameObject, pa
 /**
  * todo;
  */
-extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, params: LuaArray<TStringId>): void => {
+extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: LuaArray<TStringId>): void => {
   for (const [, storyId] of params) {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
@@ -573,7 +566,7 @@ extern("xr_effects.update_obj_logic", (actor: GameObject, object: GameObject, pa
  */
 extern(
   "xr_effects.hit_npc",
-  (actor: GameObject, object: GameObject, params: [string, string, string, number, number, string]): void => {
+  (_: GameObject, object: GameObject, params: [string, string, string, number, number, string]): void => {
     logger.info("Hit object: %s", object.name());
 
     const targetHit: Hit = new hit();
@@ -614,7 +607,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.restore_health", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.restore_health", (_: GameObject, object: GameObject): void => {
   object.health = 1;
 });
 
@@ -623,7 +616,7 @@ extern("xr_effects.restore_health", (actor: GameObject, object: GameObject): voi
  */
 extern(
   "xr_effects.force_obj",
-  (actor: GameObject, object: GameObject, p: [string, Optional<number>, Optional<number>]): void => {
+  (_: GameObject, __: GameObject, p: [string, Optional<number>, Optional<number>]): void => {
     logger.info("Force object");
 
     const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
@@ -647,21 +640,21 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.burer_force_gravi_attack", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.burer_force_gravi_attack", (_: GameObject, object: GameObject): void => {
   object.burer_set_force_gravi_attack(true);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.burer_force_anti_aim", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.burer_force_anti_aim", (_: GameObject, object: GameObject): void => {
   object.set_force_anti_aim(true);
 });
 
 /**
  * Give list of items to an object.
  */
-extern("xr_effects.give_items", (actor: GameObject, object: GameObject, params: Array<TSection>): void => {
+extern("xr_effects.give_items", (_: GameObject, object: GameObject, params: Array<TSection>): void => {
   for (const section of params) {
     logger.info("Give item to object: %s %s", object.id(), section);
     spawnItemsForObject(object, section);
@@ -674,7 +667,7 @@ extern("xr_effects.give_items", (actor: GameObject, object: GameObject, params: 
 extern(
   "xr_effects.give_item",
   (
-    actor: GameObject,
+    _: GameObject,
     object: Optional<GameObject> | ServerHumanObject,
     [section, objectStoryId]: [TSection, Optional<TStringId>]
   ): void => {
@@ -690,7 +683,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.disable_memory_object", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.disable_memory_object", (_: GameObject, object: GameObject): void => {
   const bestEnemy: Optional<GameObject> = object.best_enemy();
 
   if (bestEnemy) {
@@ -701,21 +694,21 @@ extern("xr_effects.disable_memory_object", (actor: GameObject, object: GameObjec
 /**
  * todo;
  */
-extern("xr_effects.set_force_sleep_animation", (actor: GameObject, object: GameObject, p: [number]): void => {
-  object.force_stand_sleep_animation(tonumber(p[0])!);
+extern("xr_effects.set_force_sleep_animation", (_: GameObject, object: GameObject, [duration]: [TDuration]): void => {
+  object.force_stand_sleep_animation(tonumber(duration) as TDuration);
 });
 
 /**
  * todo;
  */
-extern("xr_effects.release_force_sleep_animation", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.release_force_sleep_animation", (_: GameObject, object: GameObject): void => {
   object.release_stand_sleep_animation();
 });
 
 /**
  * todo;
  */
-extern("xr_effects.set_visual_memory_enabled", (actor: GameObject, object: GameObject, p: [number]): void => {
+extern("xr_effects.set_visual_memory_enabled", (_: GameObject, object: GameObject, p: [number]): void => {
   if (p && p[0] && tonumber(p[0])! >= 0 && tonumber(p[0])! <= 1) {
     object.set_visual_memory_enabled(tonumber(p[0]) === 1);
   }
@@ -724,42 +717,13 @@ extern("xr_effects.set_visual_memory_enabled", (actor: GameObject, object: GameO
 /**
  * todo;
  */
-extern("xr_effects.set_monster_animation", (actor: GameObject, object: GameObject, p: [string]): void => {
-  if (!(p && p[0])) {
-    abort("Wrong parameters in function 'set_monster_animation'!!!");
-  }
-
-  object.set_override_animation(p[0]);
-});
-
-/**
- * todo;
- */
-extern("xr_effects.clear_monster_animation", (actor: GameObject, object: GameObject): void => {
-  object.clear_override_animation();
-});
-
-/**
- * todo;
- */
-extern("xr_effects.switch_to_desired_job", (actor: GameObject, object: GameObject): void => {
-  switchSmartTerrainObjectToDesiredJob(getObjectSmartTerrain(object) as SmartTerrain, object.id());
-});
-
-/**
- * todo;
- */
 extern(
-  "xr_effects.spawn_item_to_npc",
-  (actor: GameObject, object: GameObject, [section]: [Optional<TSection>]): void => {
-    if (section) {
-      registry.simulator.create(
-        section,
-        object.position(),
-        object.level_vertex_id(),
-        object.game_vertex_id(),
-        object.id()
-      );
+  "xr_effects.set_monster_animation",
+  (_: GameObject, object: GameObject, [animation]: [Optional<TName>]): void => {
+    if (animation) {
+      object.set_override_animation(animation);
+    } else {
+      abort("Wrong parameters in function 'set_monster_animation'!!!");
     }
   }
 );
@@ -767,9 +731,36 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.give_money_to_npc", (actor: GameObject, object: GameObject, p: [Optional<number>]): void => {
-  const money: Optional<TCount> = p[0];
+extern("xr_effects.clear_monster_animation", (_: GameObject, object: GameObject): void => {
+  object.clear_override_animation();
+});
 
+/**
+ * todo;
+ */
+extern("xr_effects.switch_to_desired_job", (_: GameObject, object: GameObject): void => {
+  switchSmartTerrainObjectToDesiredJob(getObjectSmartTerrain(object) as SmartTerrain, object.id());
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.spawn_item_to_npc", (_: GameObject, object: GameObject, [section]: [Optional<TSection>]): void => {
+  if (section) {
+    registry.simulator.create(
+      section,
+      object.position(),
+      object.level_vertex_id(),
+      object.game_vertex_id(),
+      object.id()
+    );
+  }
+});
+
+/**
+ * todo;
+ */
+extern("xr_effects.give_money_to_npc", (_: GameObject, object: GameObject, [money]: [Optional<TCount>]): void => {
   if (money) {
     object.give_money(money);
   }
@@ -778,7 +769,7 @@ extern("xr_effects.give_money_to_npc", (actor: GameObject, object: GameObject, p
 /**
  * todo;
  */
-extern("xr_effects.seize_money_to_npc", (actor: GameObject, object: GameObject, p: [Optional<number>]): void => {
+extern("xr_effects.seize_money_to_npc", (_: GameObject, object: GameObject, p: [Optional<number>]): void => {
   const money: Optional<TCount> = p[0];
 
   if (money) {
@@ -789,14 +780,14 @@ extern("xr_effects.seize_money_to_npc", (actor: GameObject, object: GameObject, 
 /**
  * todo;
  */
-extern("xr_effects.heli_start_flame", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.heli_start_flame", (_: GameObject, object: GameObject): void => {
   object.get_helicopter().StartFlame();
 });
 
 /**
  * todo;
  */
-extern("xr_effects.heli_die", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.heli_die", (_: GameObject, object: GameObject): void => {
   object.get_helicopter().Die();
   unregisterHelicopterObject(object);
 });
@@ -804,47 +795,44 @@ extern("xr_effects.heli_die", (actor: GameObject, object: GameObject): void => {
 /**
  * todo;
  */
-extern(
-  "xr_effects.set_bloodsucker_state",
-  (actor: GameObject, object: Optional<GameObject>, p: [string, string]): void => {
-    if ((p && p[0]) === null) {
-      abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
-    }
+extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Optional<GameObject>, p: [string, string]): void => {
+  if ((p && p[0]) === null) {
+    abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
+  }
 
-    let state: string = p[0];
+  let state: string = p[0];
 
-    if (p[1]) {
-      state = p[1];
-      object = getObjectByStoryId(p[1]);
-    }
+  if (p[1]) {
+    state = p[1];
+    object = getObjectByStoryId(p[1]);
+  }
 
-    if (object) {
-      if (state === "default") {
-        object.force_visibility_state(-1);
-      } else {
-        object.force_visibility_state(tonumber(state) as TBloodsuckerVisibilityState);
-      }
+  if (object) {
+    if (state === "default") {
+      object.force_visibility_state(-1);
+    } else {
+      object.force_visibility_state(tonumber(state) as TBloodsuckerVisibilityState);
     }
   }
-);
+});
 
 /**
  * todo;
  */
-extern("xr_effects.clear_box", (actor: GameObject, object: GameObject, p: [string]): void => {
+extern("xr_effects.clear_box", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   logger.info("Clear box");
 
-  if ((p && p[0]) === null) {
+  if (!storyId) {
     abort("Wrong parameters in function 'clear_box'!!!");
   }
 
-  const inventoryBox: Optional<GameObject> = getObjectByStoryId(p[0]);
+  const inventoryBox: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  assert(inventoryBox, "There is no object with story_id '%s'.", p[0]);
+  assert(inventoryBox, "There is no object with storyId '%s'.", storyId);
 
   const itemsList: LuaArray<GameObject> = new LuaTable();
 
-  inventoryBox.iterate_inventory_box((box: GameObject, item: GameObject): void => {
+  inventoryBox.iterate_inventory_box((_: GameObject, item: GameObject): void => {
     table.insert(itemsList, item);
   }, inventoryBox);
 
@@ -856,17 +844,21 @@ extern("xr_effects.clear_box", (actor: GameObject, object: GameObject, p: [strin
 /**
  * Toggle poltergeist object ignoring of actor.
  */
-extern("xr_effects.polter_actor_ignore", (actor: GameObject, object: GameObject, [ignore]: [string]): void => {
+extern("xr_effects.polter_actor_ignore", (_: GameObject, object: GameObject, [ignore]: [TStringifiedBoolean]): void => {
   object.poltergeist_set_actor_ignore(ignore === TRUE);
 });
 
 /**
  * Set torch state for an object if story id object exists and has it.
  * Expect `on` or `off` as state.
+ *
+ * Where:
+ * - storyId - story ID of object to toggle torch
+ * - state - string value representing next torch state (on, off)
  */
 extern(
   "xr_effects.set_torch_state",
-  (actor: GameObject, object: GameObject, [storyId, state]: [TStringId, Optional<string>]): void => {
+  (_: GameObject, __: GameObject, [storyId, state]: [TStringId, Optional<string>]): void => {
     if (!state) {
       abort("Not enough parameters in 'set_torch_state' function effect.");
     }

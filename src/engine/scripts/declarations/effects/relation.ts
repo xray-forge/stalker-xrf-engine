@@ -39,49 +39,40 @@ extern("xr_effects.actor_enemy", (actor: GameObject, object: GameObject): void =
 /**
  * Set squad relation to actor as neutral by story ID.
  */
-extern(
-  "xr_effects.set_squad_neutral_to_actor",
-  (actor: GameObject, object: GameObject, [squadStoryId]: [TStringId]): void => {
-    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+extern("xr_effects.set_squad_neutral_to_actor", (_: GameObject, __: GameObject, [squadStoryId]: [TStringId]): void => {
+  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
-    if (squad) {
-      setSquadRelationToActor(squad, ERelation.NEUTRAL);
-    }
+  if (squad) {
+    setSquadRelationToActor(squad, ERelation.NEUTRAL);
   }
-);
+});
 
 /**
  * Set squad relation to actor as friendly by story ID.
  */
-extern(
-  "xr_effects.set_squad_friend_to_actor",
-  (actor: GameObject, object: GameObject, [squadStoryId]: [TStringId]): void => {
-    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+extern("xr_effects.set_squad_friend_to_actor", (_: GameObject, __: GameObject, [squadStoryId]: [TStringId]): void => {
+  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
-    if (squad) {
-      setSquadRelationToActor(squad, ERelation.FRIEND);
-    }
+  if (squad) {
+    setSquadRelationToActor(squad, ERelation.FRIEND);
   }
-);
+});
 
 /**
  * Set squad relation to actor as enemy by story ID.
  */
-extern(
-  "xr_effects.set_squad_enemy_to_actor",
-  (actor: GameObject, object: GameObject, [squadStoryId]: [TStringId]): void => {
-    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+extern("xr_effects.set_squad_enemy_to_actor", (_: GameObject, __: GameObject, [squadStoryId]: [TStringId]): void => {
+  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
 
-    if (squad) {
-      setSquadRelationToActor(squad, ERelation.ENEMY);
-    }
+  if (squad) {
+    setSquadRelationToActor(squad, ERelation.ENEMY);
   }
-);
+});
 
 /**
  * Set object sympathy level based on provided `sympathy` parameter.
  */
-extern("xr_effects.set_npc_sympathy", (actor: GameObject, object: GameObject, [sympathy]: [Optional<TCount>]): void => {
+extern("xr_effects.set_npc_sympathy", (_: GameObject, object: GameObject, [sympathy]: [Optional<TCount>]): void => {
   if (sympathy) {
     setObjectSympathy(object, sympathy);
   }
@@ -92,7 +83,7 @@ extern("xr_effects.set_npc_sympathy", (actor: GameObject, object: GameObject, [s
  */
 extern(
   "xr_effects.set_squad_goodwill",
-  (actor: GameObject, object: GameObject, [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]): void => {
+  (_: GameObject, __: GameObject, [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]): void => {
     if (storyId && relation) {
       updateSquadIdRelationToActor(storyId, relation);
     }
@@ -104,7 +95,7 @@ extern(
  */
 extern(
   "xr_effects.set_squad_goodwill_to_npc",
-  (actor: GameObject, object: GameObject, [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]): void => {
+  (_: GameObject, object: GameObject, [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]): void => {
     if (storyId && relation) {
       setSquadRelationWithObject(storyId, object, relation);
     }
@@ -116,7 +107,7 @@ extern(
  */
 extern(
   "xr_effects.inc_faction_goodwill_to_actor",
-  (actor: GameObject, object: GameObject, [community, delta]: [Optional<TCommunity>, Optional<number>]): void => {
+  (_: GameObject, __: GameObject, [community, delta]: [Optional<TCommunity>, Optional<TCount>]): void => {
     if (!delta || !community) {
       abort("Wrong parameters in effect 'inc_faction_goodwill_to_actor'.");
     }
@@ -130,7 +121,7 @@ extern(
  */
 extern(
   "xr_effects.dec_faction_goodwill_to_actor",
-  (actor: GameObject, object: GameObject, [community, delta]: [Optional<TCommunity>, Optional<TCount>]): void => {
+  (_: GameObject, __: GameObject, [community, delta]: [Optional<TCommunity>, Optional<TCount>]): void => {
     if (!delta || !community) {
       abort("Wrong parameters in effect 'dec_faction_goodwill_to_actor'.");
     }
@@ -144,7 +135,7 @@ extern(
  */
 extern(
   "xr_effects.set_squads_enemies",
-  (actor: GameObject, object: GameObject, [firstStoryId, secondStoryId]: [TStringId, TStringId]) => {
+  (_: GameObject, __: GameObject, [firstStoryId, secondStoryId]: [TStringId, TStringId]) => {
     if (!firstStoryId || !secondStoryId) {
       return abort("Wrong parameters in effect set_squad_enemies.");
     }

@@ -1,5 +1,6 @@
 import { level, patrol } from "xray16";
 
+import { SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
   getManager,
@@ -9,6 +10,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -48,16 +50,23 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Should play sound based on provided parameters in smart terrain.
+ *
+ * Where:
+ * - theme - name of sound theme to play
+ * - faction - faction prefix for theme playing
+ * - terrainNameOrId - name of smart terrain or ID to play sound in
  */
 extern(
   "xr_effects.play_sound",
   (
-    actor: GameObject,
+    _: GameObject,
     object: GameObject,
-    [theme, faction, terrainName]: [Optional<TName>, Optional<TCommunity>, Optional<TName | TNumberId>]
+    [theme, faction, terrainNameOrId]: [Optional<TName>, Optional<TCommunity>, Optional<TName | TNumberId>]
   ): void => {
-    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(terrainName as TName);
-    const terrainId: TNumberId = terrain ? terrain.id : (terrainName as TNumberId);
+    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
+      terrainNameOrId as TName
+    );
+    const terrainId: TNumberId = terrain ? terrain.id : (terrainNameOrId as TNumberId);
 
     if (object && isStalker(object) && !object.alive()) {
       abort("Stalker '%s' is dead while trying to play theme sound '%s'.", object.name(), theme);
@@ -70,34 +79,43 @@ extern(
 /**
  * Stop playing sound for an object.
  */
-extern("xr_effects.stop_sound", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.stop_sound", (_: GameObject, object: GameObject): void => {
   getManager(SoundManager).stop(object.id());
 });
 
 /**
  * Start looped sound playback by theme name.
+ *
+ * Where:
+ * - name - name of sound theme to play in loop
  */
-extern("xr_effects.play_sound_looped", (actor: GameObject, object: GameObject, [name]: [TName]): void => {
+extern("xr_effects.play_sound_looped", (_: GameObject, object: GameObject, [name]: [TName]): void => {
   getManager(SoundManager).playLooped(object.id(), name);
 });
 
 /**
  * Stop looped sound playback for an object.
  */
-extern("xr_effects.stop_sound_looped", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.stop_sound_looped", (_: GameObject, object: GameObject): void => {
   getManager(SoundManager).stopAllLooped(object.id());
 });
 
 /**
  * Play sound in smart terrain by object story ID.
  *
+ * Where:
+ * - storyId - story ID of object to play sound for
+ * - theme - name of sound theme to play
+ * - faction - name of faction prefix for sound theme
+ * - terrainNameOrId - name or identifier of smart terrain to play in
+ *
  * todo: Is it used with smart terrain ID at all?
  */
 extern(
   "xr_effects.play_sound_by_story",
   (
-    actor: GameObject,
-    object: GameObject,
+    _: GameObject,
+    __: GameObject,
     [storyId, theme, faction, terrainNameOrId]: [TStringId, TName, TName, TName | TNumberId]
   ): void => {
     const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
@@ -110,20 +128,25 @@ extern(
 );
 
 /**
- * todo;
+ * Reset sound playback for an object.
  */
-extern("xr_effects.reset_sound_npc", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.reset_sound_npc", (_: GameObject, object: GameObject): void => {
   const objectId: TNumberId = object.id();
+  const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId);
 
-  if (soundsConfig.playing.has(objectId)) {
-    soundsConfig.playing.get(objectId).reset(objectId);
+  // todo: Move to sound manager methods.
+  if (sound) {
+    sound.reset(objectId);
   }
 });
 
 /**
  * Explode game object by story id.
+ *
+ * Where:
+ * - storyId - story ID of object to explode
  */
-extern("xr_effects.barrel_explode", (actor: GameObject, object: GameObject, [storyId]: [TStringId]) => {
+extern("xr_effects.barrel_explode", (_: GameObject, __: GameObject, [storyId]: [TStringId]) => {
   const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
   if (storyObject) {
@@ -134,18 +157,14 @@ extern("xr_effects.barrel_explode", (actor: GameObject, object: GameObject, [sto
 /**
  * todo;
  */
-extern("xr_effects.set_game_time", (actor: GameObject, object: GameObject, params: [string, string]) => {
-  logger.info("Set game time: %s %s", params[0], params[1]);
+extern("xr_effects.set_game_time", (_: GameObject, __: GameObject, [hoursString, minutesString]: [string, string]) => {
+  logger.info("Set game time: %s %s", hoursString, minutesString);
 
   const realHours = level.get_time_hours();
   const realMinutes = level.get_time_minutes();
 
-  const hours: number = tonumber(params[0])!;
-  let minutes: number = tonumber(params[1])!;
-
-  if (params[1] === null) {
-    minutes = 0;
-  }
+  const hours: number = tonumber(hoursString)!;
+  const minutes: number = tonumber(minutesString) ?? 0;
 
   let hoursToChange: number = hours - realHours;
 
@@ -170,30 +189,25 @@ extern("xr_effects.set_game_time", (actor: GameObject, object: GameObject, param
 /**
  * todo;
  */
-extern("xr_effects.forward_game_time", (actor: GameObject, object: GameObject, p: [string, string]) => {
-  logger.info("Forward game time");
+extern(
+  "xr_effects.forward_game_time",
+  (_: GameObject, __: GameObject, [hoursString, minutesString]: [string, string]): void => {
+    logger.info("Forward game time");
 
-  if (!p) {
-    abort("Insufficient || invalid parameters in function 'forward_game_time'!");
+    const hours: number = tonumber(hoursString)!;
+    const minutes: number = tonumber(minutesString) ?? 0;
+
+    level.change_game_time(0, hours, minutes);
+    getManager(WeatherManager).forceWeatherChange();
+    surgeConfig.IS_TIME_FORWARDED = true;
   }
-
-  const hours: number = tonumber(p[0])!;
-  let minutes: number = tonumber(p[1])!;
-
-  if (p[1] === null) {
-    minutes = 0;
-  }
-
-  level.change_game_time(0, hours, minutes);
-  getManager(WeatherManager).forceWeatherChange();
-  surgeConfig.IS_TIME_FORWARDED = true;
-});
+);
 
 // todo: Rework, looks bad
 extern(
   "xr_effects.pick_artefact_from_anomaly",
   (
-    actor: GameObject,
+    _: GameObject,
     object: Optional<GameObject | ServerHumanObject>,
     params: [Optional<TStringId>, Optional<TName>, TName]
   ): void => {
@@ -256,8 +270,11 @@ extern(
 
 /**
  * Toggle anomaly zone enabled state as OFF.
+ *
+ * Where:
+ * - zoneName - name of anomaly binding object to turn off
  */
-extern("xr_effects.anomaly_turn_off", (actor: GameObject, object: GameObject, [zoneName]: [TName]): void => {
+extern("xr_effects.anomaly_turn_off", (_: GameObject, __: GameObject, [zoneName]: [TName]): void => {
   const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
 
   assert(zone, "No anomaly zone with name '%s' defined.", zoneName);
@@ -267,10 +284,14 @@ extern("xr_effects.anomaly_turn_off", (actor: GameObject, object: GameObject, [z
 
 /**
  * Toggle anomaly zone enabled state as ON.
+ *
+ * Where:
+ * - zoneName - name of anomaly binding object to turn on
+ * - isForced - flag to determine whether artefacts should be respawned
  */
 extern(
   "xr_effects.anomaly_turn_on",
-  (actor: GameObject, object: GameObject, [zoneName, isForced]: [TName, Optional<TStringifiedBoolean>]): void => {
+  (_: GameObject, __: GameObject, [zoneName, isForced]: [TName, Optional<TStringifiedBoolean>]): void => {
     const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
 
     assert(zone, "No anomaly zone with name '%s' defined.", zoneName);
@@ -282,7 +303,7 @@ extern(
 /**
  * todo;
  */
-extern("xr_effects.turn_off_underpass_lamps", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.turn_off_underpass_lamps", (_: GameObject, __: GameObject): void => {
   const lampsList = {
     ["pas_b400_lamp_start_flash"]: true,
     ["pas_b400_lamp_start_red"]: true,
@@ -308,13 +329,13 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: GameObject, object: GameOb
     ["pas_b400_lamp_way_flash"]: true,
   } as unknown as LuaTable<string, boolean>;
 
-  for (const [k, v] of lampsList) {
-    const object: Optional<GameObject> = getObjectByStoryId(k);
+  for (const [storyId] of lampsList) {
+    const object: Optional<GameObject> = getObjectByStoryId(storyId);
 
     if (object) {
       object.get_hanging_lamp().turn_off();
     } else {
-      logger.info("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", k);
+      logger.info("function 'turn_off_underpass_lamps' lamp [%s] does ! exist", storyId);
     }
   }
 });
@@ -322,7 +343,7 @@ extern("xr_effects.turn_off_underpass_lamps", (actor: GameObject, object: GameOb
 /**
  * Turn off hanging lamp objects by story IDs.
  */
-extern("xr_effects.turn_off", (actor: GameObject, object: GameObject, parameters: Array<TStringId>): void => {
+extern("xr_effects.turn_off", (_: GameObject, __: GameObject, parameters: Array<TStringId>): void => {
   for (const storyId of parameters) {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
@@ -335,7 +356,7 @@ extern("xr_effects.turn_off", (actor: GameObject, object: GameObject, parameters
 /**
  * Turn off hanging lamp object.
  */
-extern("xr_effects.turn_off_object", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.turn_off_object", (_: GameObject, object: GameObject): void => {
   object.get_hanging_lamp().turn_off();
 });
 
@@ -345,8 +366,8 @@ extern("xr_effects.turn_off_object", (actor: GameObject, object: GameObject): vo
 extern(
   "xr_effects.turn_on_and_force",
   (
-    actor: GameObject,
-    object: GameObject,
+    _: GameObject,
+    __: GameObject,
     [storyId, power, interval]: [TStringId, Optional<TRate>, Optional<TDuration>]
   ): void => {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
@@ -362,7 +383,7 @@ extern(
 /**
  * Stop hanging lamp object and stop playback particles.
  */
-extern("xr_effects.turn_off_and_force", (actor: GameObject, object: GameObject, [storyId]: [TStringId]): void => {
+extern("xr_effects.turn_off_and_force", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
   assert(storyObject, "Object with story id '%s' does not exist.", storyId);
@@ -374,14 +395,14 @@ extern("xr_effects.turn_off_and_force", (actor: GameObject, object: GameObject, 
 /**
  * Turn on hanging lamp object.
  */
-extern("xr_effects.turn_on_object", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.turn_on_object", (_: GameObject, object: GameObject): void => {
   object.get_hanging_lamp().turn_on();
 });
 
 /**
  * Turn on hanging lamp objects by story IDs.
  */
-extern("xr_effects.turn_on", (actor: GameObject, object: GameObject, parameters: Array<TStringId>) => {
+extern("xr_effects.turn_on", (_: GameObject, __: GameObject, parameters: Array<TStringId>) => {
   for (const storyId of parameters) {
     const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
@@ -396,11 +417,7 @@ extern("xr_effects.turn_on", (actor: GameObject, object: GameObject, parameters:
  */
 extern(
   "xr_effects.set_weather",
-  (
-    actor: GameObject,
-    object: GameObject,
-    [weatherName, isForced]: [Optional<TName>, Optional<TStringifiedBoolean>]
-  ): void => {
+  (_: GameObject, __: GameObject, [weatherName, isForced]: [Optional<TName>, Optional<TStringifiedBoolean>]): void => {
     logger.info("Set weather: %s", weatherName);
 
     if (weatherName) {
@@ -428,7 +445,7 @@ extern("xr_effects.stop_surge", (): void => {
  */
 extern(
   "xr_effects.set_surge_mess_and_task",
-  (actor: GameObject, object: GameObject, [label, task]: [TLabel, Optional<TSection>]): void => {
+  (_: GameObject, __: GameObject, [label, task]: [TLabel, Optional<TSection>]): void => {
     const surgeManager: SurgeManager = getManager(SurgeManager);
 
     surgeManager.setSurgeMessage(label);
@@ -441,8 +458,11 @@ extern(
 
 /**
  * Enable anomaly by story ID.
+ *
+ * Where:
+ * - storyId - story ID of anomaly object to enable
  */
-extern("xr_effects.enable_anomaly", (actor: GameObject, object: GameObject, [storyId]: [Optional<TStringId>]) => {
+extern("xr_effects.enable_anomaly", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]) => {
   assert(storyId, "Story id for 'enable_anomaly' effect is not provided.");
 
   const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
@@ -454,29 +474,35 @@ extern("xr_effects.enable_anomaly", (actor: GameObject, object: GameObject, [sto
 
 /**
  * Disable anomaly by story ID.
+ *
+ * Where:
+ * - storyId - story ID of anomaly object to disable
  */
-extern("xr_effects.disable_anomaly", (actor: GameObject, object: GameObject, [storyId]: [TStringId]): void => {
+extern("xr_effects.disable_anomaly", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   assert(storyId, "Story id for 'disable_anomaly' effect is not provided.");
 
   const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
 
-  assert(storyObject, "There is no anomaly with story id '%s'.", storyId);
-
-  storyObject.disable_anomaly();
+  if (storyObject) {
+    storyObject.disable_anomaly();
+  } else {
+    abort("There is no anomaly with story id '%s'.", storyId);
+  }
 });
 
 /**
- * todo;
+ * Launch signal rocket by provided name.
+ *
+ * Where:
+ * - name - name of signal light rocket object
  */
-extern("xr_effects.launch_signal_rocket", (actor: GameObject, obj: GameObject, p: [string]): void => {
-  if (p === null) {
-    abort("Signal rocket name is ! set!");
-  }
+extern("xr_effects.launch_signal_rocket", (_: GameObject, __: GameObject, [name]: [TName]): void => {
+  const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name);
 
-  if (registry.signalLights.get(p[0]) !== null) {
-    registry.signalLights.get(p[0]).startFly();
+  if (rocket) {
+    rocket.startFly();
   } else {
-    abort("No such signal rocket. [%s] on level", tostring(p[0]));
+    abort("No signal rocket with name '%s' on current level.", name);
   }
 });
 
@@ -488,29 +514,29 @@ extern(
   (
     actor: GameObject,
     object: GameObject,
-    params: [Optional<string>, Optional<string>, number, number, number]
+    [spawnSection, pathName, index = 0, yaw = 0, slotOverride = 0]: [
+      Optional<TSection>,
+      Optional<TName>,
+      TIndex,
+      TRate,
+      TIndex,
+    ]
   ): void => {
     logger.info("Create cutscene actor with weapon");
 
-    const spawnSection: Optional<TSection> = params[0];
-
     if (spawnSection === null) {
-      abort("Wrong spawn section for 'spawn_object' function %s. For object %s", tostring(spawnSection), object.name());
+      abort("Wrong spawn section for 'spawn_object' function %s. For object %s", spawnSection, object.name());
     }
 
-    const pathName: Optional<TName> = params[1];
-
     if (pathName === null) {
-      abort("Wrong path_name for 'spawn_object' function %s. For object %s", tostring(pathName), object.name());
+      abort("Wrong path_name for 'spawn_object' function %s. For object %s", pathName, object.name());
     }
 
     if (!level.patrol_path_exists(pathName)) {
-      abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", tostring(pathName), object.name());
+      abort("Path %s doesnt exist. Function 'spawn_object' for object %s ", pathName, object.name());
     }
 
     const ptr: Patrol = new patrol(pathName);
-    const index: TIndex = params[2] || 0;
-    const yaw: TRate = params[3] || 0;
 
     const serverObject: ServerObject = registry.simulator.create(
       spawnSection,
@@ -525,9 +551,7 @@ extern(
       serverObject.angle.y = (yaw * math.pi) / 180;
     }
 
-    const slotOverride: TIndex = params[4] || 0;
-
-    let slot: number;
+    let slot: TIndex;
     let activeItem: Optional<GameObject> = null;
 
     if (slotOverride === 0) {
@@ -575,9 +599,9 @@ extern(
 );
 
 /**
- * todo;
+ * Stop object camera effector.
  */
-extern("xr_effects.stop_sr_cutscene", (actor: GameObject, object: GameObject) => {
+extern("xr_effects.stop_sr_cutscene", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
   if (state.activeScheme) {

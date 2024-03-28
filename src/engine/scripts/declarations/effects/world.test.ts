@@ -1,15 +1,18 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
+import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
   getManager,
   IRegistryObjectState,
   registerAnomalyZone,
   registerObject,
+  registerSignalLight,
   registerStoryLink,
 } from "@/engine/core/database";
-import { SoundManager } from "@/engine/core/managers/sounds";
+import { SoundManager, soundsConfig } from "@/engine/core/managers/sounds";
+import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { SurgeManager } from "@/engine/core/managers/surge";
 import { Y_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
@@ -22,7 +25,7 @@ import {
   MockSmartTerrain,
   resetRegistry,
 } from "@/fixtures/engine";
-import { MockGameObject, MockHangingLamp } from "@/fixtures/xray";
+import { MockGameObject, MockHangingLamp, MockIniFile } from "@/fixtures/xray";
 
 describe("world effects declaration", () => {
   beforeAll(() => {
@@ -151,7 +154,28 @@ describe("world effects implementation", () => {
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test-theme", "test-faction", smartTerrain.id);
   });
 
-  it.todo("reset_sound_npc should reset sound");
+  it("reset_sound_npc should reset sound", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    callXrEffect("reset_sound_npc", MockGameObject.mockActor(), object);
+    expect(soundsConfig.playing.length()).toBe(0);
+
+    const sound: LoopedSound = new LoopedSound(
+      MockIniFile.mock("test.ltx", {
+        test: {
+          path: "testing.ltx",
+        },
+      }),
+      "test"
+    );
+
+    soundsConfig.playing.set(object.id(), sound);
+    jest.spyOn(sound, "reset").mockImplementation(() => {});
+
+    callXrEffect("reset_sound_npc", MockGameObject.mockActor(), object);
+
+    expect(sound.reset).toHaveBeenCalledWith(object.id());
+  });
 
   it("barrel_explode should explode objects", () => {
     const object: GameObject = MockGameObject.mock();
@@ -387,7 +411,19 @@ describe("world effects implementation", () => {
     expect(object.disable_anomaly).toHaveBeenCalledTimes(1);
   });
 
-  it.todo("launch_signal_rocket should launch signal rockets");
+  it("launch_signal_rocket should launch signal rockets", () => {
+    expect(() => {
+      callXrEffect("launch_signal_rocket", MockGameObject.mockActor(), MockGameObject.mock());
+    }).toThrow("No signal rocket with name 'nil' on current level.");
+
+    const rocket: SignalLightBinder = new SignalLightBinder(MockGameObject.mock());
+
+    registerSignalLight(rocket);
+    jest.spyOn(rocket, "startFly").mockImplementation(() => true);
+
+    callXrEffect("launch_signal_rocket", MockGameObject.mockActor(), MockGameObject.mock(), rocket.object.name());
+    expect(rocket.startFly).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("create_cutscene_actor_with_weapon should create cutscenes");
 

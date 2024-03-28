@@ -1,5 +1,6 @@
 import { particles_object, patrol, sound_object } from "xray16";
 
+import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
   getManager,
@@ -60,44 +61,47 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Show freeplay dialog in the end of game.
  *
- * @param text - string to show in dialog
- * @param canStay - whether actor can leave zone
+ * Where:
+ * - text - string to show in dialog
+ * - canStay - whether actor can leave zone
  */
 extern(
   "xr_effects.show_freeplay_dialog",
-  (actor: GameObject, object: GameObject, [text, canLeave]: [Optional<TLabel>, Optional<TStringifiedBoolean>]) => {
+  (_: GameObject, __: GameObject, [text, canLeave]: [Optional<TLabel>, Optional<TStringifiedBoolean>]) => {
     assert(text, "Expected text message to be provided for 'show_freeplay_dialog' effect.");
     showFreeplayDialog(canLeave === TRUE ? "message_box_yes_no" : "message_box_ok", text);
   }
 );
 
 /**
- * todo;
+ * Handle placing scanner in dedicated b32 zones.
  */
 extern("xr_effects.jup_b32_place_scanner", (): void => {
-  for (const i of $range(1, 5)) {
+  for (const index of $range(1, 5)) {
+    const infoPortion: TStringId = "jup_b32_scanner_" + index + "_placed";
+
     if (
-      isObjectInZone(registry.actor, registry.zones.get("jup_b32_sr_scanner_place_" + i)) &&
-      !hasInfoPortion(("jup_b32_scanner_" + i + "_placed") as TInfoPortion)
+      isObjectInZone(registry.actor, registry.zones.get("jup_b32_sr_scanner_place_" + index)) &&
+      !hasInfoPortion(infoPortion)
     ) {
-      giveInfoPortion(("jup_b32_scanner_" + i + "_placed") as TInfoPortion);
+      giveInfoPortion(infoPortion);
       giveInfoPortion(infoPortions.jup_b32_tutorial_done);
 
       takeItemFromActor(questItems.jup_b32_scanner_device);
-      spawnObject("jup_b32_ph_scanner", "jup_b32_scanner_place_" + i);
+      spawnObject("jup_b32_ph_scanner", "jup_b32_scanner_place_" + index);
     }
   }
 });
 
 /**
- * todo;
+ * Force update of pda zones display.
  */
 extern("xr_effects.jup_b32_pda_check", (): void => {
   getManager(MapDisplayManager).updateAnomalyZonesDisplay();
 });
 
 /**
- * todo;
+ * Check if actor is in zone and force generators start.
  */
 extern("xr_effects.pri_b306_generator_start", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("pri_b306_sr_generator"))) {
@@ -106,9 +110,9 @@ extern("xr_effects.pri_b306_generator_start", (): void => {
 });
 
 /**
- * todo;
+ * todo: Simplify with utils for object destruction
  */
-extern("xr_effects.jup_b206_get_plant", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.jup_b206_get_plant", (_: GameObject, object: GameObject): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b206_sr_quest_line"))) {
     giveInfoPortion(infoPortions.jup_b206_anomalous_grove_has_plant);
     giveItemsToActor(questItems.jup_b206_plant);
@@ -122,7 +126,7 @@ extern("xr_effects.jup_b206_get_plant", (actor: GameObject, object: GameObject):
 });
 
 /**
- * todo;
+ * Handle usage of b400 passage switcher.
  */
 extern("xr_effects.pas_b400_switcher", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("pas_b400_sr_switcher"))) {
@@ -678,10 +682,10 @@ extern("xr_effects.jup_b221_play_main", (actor: GameObject, object: GameObject, 
 });
 
 /**
- * todo
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_a1_tutorial_end_give", (actor: GameObject, object: GameObject): void => {
-  // --	level.add_pp_effector("black.ppe", 1313, true) //---{ ! stop on r1 !
+extern("xr_effects.zat_a1_tutorial_end_give", (_: GameObject, __: GameObject): void => {
+  // --	level.add_pp_effector("black.ppe", 1313, true)
   giveInfoPortion(infoPortions.zat_a1_tutorial_end);
 });
 
@@ -743,7 +747,7 @@ extern("xr_effects.damage_pri_a17_gauss", (): void => {
  * todo;
  */
 extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
-  const stateManager = registry.objects.get(object.id()).stateManager!;
+  const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
 
   stateManager.setState("pri_a17_fall_down" as EStalkerState, null, null, null, null);
   stateManager.animation.setState(null, true);
@@ -755,7 +759,7 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: Ga
  * todo;
  */
 extern("xr_effects.jup_b217_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
-  const stateManager = registry.objects.get(object.id()).stateManager!;
+  const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
 
   stateManager.setState("jup_b217_nitro_straight" as EStalkerState, null, null, null, null);
   stateManager.animation.setState(null, true);
@@ -764,142 +768,142 @@ extern("xr_effects.jup_b217_hard_animation_reset", (actor: GameObject, object: G
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.pri_a18_radio_start", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.pri_a18_radio_start", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a18_radio_start);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.pri_a17_ice_climb_end", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.pri_a17_ice_climb_end", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a17_ice_climb_end);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.jup_b219_opening", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.jup_b219_opening", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.jup_b219_opening);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.jup_b219_entering_underpass", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.jup_b219_entering_underpass", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.jup_b219_entering_underpass);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.pri_a17_pray_start", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.pri_a17_pray_start", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a17_pray_start);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_b38_open_info", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.zat_b38_open_info", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_open_info);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_b38_switch_info", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.zat_b38_switch_info", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_switch_info);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_b38_cop_dead", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.zat_b38_cop_dead", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_cop_dead);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.jup_b15_zulus_drink_anim_info", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.jup_b15_zulus_drink_anim_info", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.jup_b15_zulus_drink_anim_info);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.pri_a17_preacher_death", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.pri_a17_preacher_death", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a17_preacher_death);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_b3_tech_surprise_anim_end", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.zat_b3_tech_surprise_anim_end", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b3_tech_surprise_anim_end);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_b3_tech_waked_up", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.zat_b3_tech_waked_up", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b3_tech_waked_up);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_b3_tech_drinked_out", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.zat_b3_tech_drinked_out", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b3_tech_drinked_out);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.pri_a28_kirillov_hq_online", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.pri_a28_kirillov_hq_online", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a28_kirillov_hq_online);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.pri_a20_radio_start", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.pri_a20_radio_start", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a20_radio_start);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.pri_a22_kovalski_speak", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.pri_a22_kovalski_speak", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a22_kovalski_speak);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_b38_underground_door_open", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.zat_b38_underground_door_open", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_underground_door_open);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.zat_b38_jump_tonnel_info", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.zat_b38_jump_tonnel_info", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.zat_b38_jump_tonnel_info);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.jup_a9_cam1_actor_anim_end", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.jup_a9_cam1_actor_anim_end", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.jup_a9_cam1_actor_anim_end);
 });
 
 /**
- * todo;
+ * Give quest related info portions for actor object.
  */
-extern("xr_effects.pri_a28_talk_ssu_video_end", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.pri_a28_talk_ssu_video_end", (_: GameObject, __: GameObject): void => {
   giveInfoPortion(infoPortions.pri_a28_talk_ssu_video_end);
 });
 
@@ -1026,13 +1030,13 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
 });
 
 /**
- * todo;
+ * Handle consuming vodka by script scenario.
  */
-extern("xr_effects.eat_vodka_script", (): void => {
-  const actor: GameObject = registry.actor;
+extern("xr_effects.eat_vodka_script", (actor: GameObject): void => {
+  const item: Optional<GameObject> = actor.object("vodka_script");
 
-  if (actor.object("vodka_script") !== null) {
-    actor.eat(actor.object("vodka_script")!);
+  if (item) {
+    actor.eat(item);
   }
 });
 

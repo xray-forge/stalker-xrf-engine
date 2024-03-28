@@ -17,48 +17,39 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Increment counter in pstore for actor object.
  * Key is provided, count is optional and fallbacks to 1.
  */
-extern(
-  "xr_effects.inc_counter",
-  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
-    if (!name) {
-      return;
-    }
-
-    setPortableStoreValue(ACTOR_ID, name, getPortableStoreValue(ACTOR_ID, name, 0) + (count ?? 1));
+extern("xr_effects.inc_counter", (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
+  if (!name) {
+    return;
   }
-);
+
+  setPortableStoreValue(ACTOR_ID, name, getPortableStoreValue(ACTOR_ID, name, 0) + (count ?? 1));
+});
 
 /**
  * Decrement counter in pstore for actor object.
  * Key is provided, count is optional and fallbacks to 1.
  */
-extern(
-  "xr_effects.dec_counter",
-  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
-    if (!name) {
-      return;
-    }
-
-    const newValue: TCount = getPortableStoreValue(ACTOR_ID, name, 0) - (count ?? 1);
-
-    setPortableStoreValue(ACTOR_ID, name, newValue < 0 ? 0 : newValue);
+extern("xr_effects.dec_counter", (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
+  if (!name) {
+    return;
   }
-);
+
+  const newValue: TCount = getPortableStoreValue(ACTOR_ID, name, 0) - (count ?? 1);
+
+  setPortableStoreValue(ACTOR_ID, name, newValue < 0 ? 0 : newValue);
+});
 
 /**
  * Set counter value in pstore for actor object.
  * Key is provided, count is optional and fallbacks to 1.
  */
-extern(
-  "xr_effects.set_counter",
-  (actor: GameObject, object: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
-    if (!name) {
-      return;
-    }
-
-    setPortableStoreValue(ACTOR_ID, name, count ?? 0);
+extern("xr_effects.set_counter", (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
+  if (!name) {
+    return;
   }
-);
+
+  setPortableStoreValue(ACTOR_ID, name, count ?? 0);
+});
 
 /**
  * Disconnect from game simulator.
@@ -130,14 +121,14 @@ extern("xr_effects.stop_tutorial", (): void => {
 /**
  * Create game save based on provide name.
  */
-extern("xr_effects.scenario_autosave", (actor: GameObject, object: GameObject, [name]: [TName]): void => {
+extern("xr_effects.scenario_autosave", (_: GameObject, __: GameObject, [name]: [TName]): void => {
   createGameAutoSave(name);
 });
 
 /**
  * Set current discount value for mechanic based on parameter.
  */
-extern("xr_effects.mech_discount", (actor: GameObject, object: GameObject, [discount]: [Optional<string>]): void => {
+extern("xr_effects.mech_discount", (_: GameObject, __: GameObject, [discount]: [Optional<string>]): void => {
   const discountPercent: Optional<number> = (discount && tonumber(discount)) as Optional<TRate>;
 
   if (discountPercent) {
@@ -148,17 +139,14 @@ extern("xr_effects.mech_discount", (actor: GameObject, object: GameObject, [disc
 /**
  * Set current mechanic upgrade hints based on list of parameters.
  */
-extern(
-  "xr_effects.upgrade_hint",
-  (actor: GameObject, object: GameObject, parameters: Optional<LuaArray<TLabel>>): void => {
-    getManager(UpgradesManager).setCurrentHints(parameters);
-  }
-);
+extern("xr_effects.upgrade_hint", (_: GameObject, __: GameObject, parameters: Optional<LuaArray<TLabel>>): void => {
+  getManager(UpgradesManager).setCurrentHints(parameters);
+});
 
 /**
  * Add custom test on in-game screen.
  */
-extern("xr_effects.add_cs_text", (actor: GameObject, object: GameObject, [label]: [Optional<TLabel>]): void => {
+extern("xr_effects.add_cs_text", (_: GameObject, __: GameObject, [label]: [Optional<TLabel>]): void => {
   if (!label) {
     return;
   }

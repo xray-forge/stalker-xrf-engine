@@ -35,12 +35,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Disable game UI for actor and reset active item slot.
  */
-extern(
-  "xr_effects.disable_ui",
-  (actor: GameObject, object: GameObject, [preserveSlot]: [TStringifiedBoolean]): void => {
-    getManager(ActorInputManager).disableGameUi(preserveSlot !== TRUE);
-  }
-);
+extern("xr_effects.disable_ui", (_: GameObject, __: GameObject, [preserveSlot]: [TStringifiedBoolean]): void => {
+  getManager(ActorInputManager).disableGameUi(preserveSlot !== TRUE);
+});
 
 /**
  * Disable game UI for actor.
@@ -53,35 +50,35 @@ extern("xr_effects.disable_ui_only", (): void => {
  * Enable actor UI.
  * Effect parameter describes whether slot should be restored - `true` by default.
  */
-extern("xr_effects.enable_ui", (actor: GameObject, object: GameObject, [preserveSlot]: [TStringifiedBoolean]): void => {
+extern("xr_effects.enable_ui", (_: GameObject, __: GameObject, [preserveSlot]: [TStringifiedBoolean]): void => {
   getManager(ActorInputManager).enableGameUi(preserveSlot !== TRUE);
 });
 
 /**
  * Disable actor night vision tools.
  */
-extern("xr_effects.disable_actor_nightvision", (actor: GameObject): void => {
+extern("xr_effects.disable_actor_nightvision", (): void => {
   getManager(ActorInputManager).disableActorNightVision();
 });
 
 /**
  * Enable actor night vision tools.
  */
-extern("xr_effects.enable_actor_nightvision", (actor: GameObject): void => {
+extern("xr_effects.enable_actor_nightvision", (_: GameObject): void => {
   getManager(ActorInputManager).enableActorNightVision();
 });
 
 /**
  * Disable actor torch.
  */
-extern("xr_effects.disable_actor_torch", (actor: GameObject): void => {
+extern("xr_effects.disable_actor_torch", (_: GameObject): void => {
   getManager(ActorInputManager).disableActorTorch();
 });
 
 /**
  * Enable actor torch.
  */
-extern("xr_effects.enable_actor_torch", (actor: GameObject): void => {
+extern("xr_effects.enable_actor_torch", (_: GameObject): void => {
   getManager(ActorInputManager).enableActorTorch();
 });
 
@@ -89,7 +86,7 @@ extern("xr_effects.enable_actor_torch", (actor: GameObject): void => {
  * Run game tutorial.
  * Expects tutorial name parameter to run.
  */
-extern("xr_effects.run_tutorial", (actor: GameObject, object: GameObject, [tutorialName]: [TName]): void => {
+extern("xr_effects.run_tutorial", (_: GameObject, __: GameObject, [tutorialName]: [TName]): void => {
   logger.info("Run tutorial: '%s'", tutorialName);
   game.start_tutorial(tutorialName);
 });
@@ -98,7 +95,7 @@ extern("xr_effects.run_tutorial", (actor: GameObject, object: GameObject, [tutor
  * Give items of provided section to actor.
  * Expects variadic list of sections to give for the actor.
  */
-extern("xr_effects.give_actor", (actor: GameObject, object: Optional<GameObject>, sections: Array<TSection>): void => {
+extern("xr_effects.give_actor", (_: GameObject, __: Optional<GameObject>, sections: Array<TSection>): void => {
   for (const section of sections) {
     giveItemsToActor(section);
   }
@@ -107,7 +104,7 @@ extern("xr_effects.give_actor", (actor: GameObject, object: Optional<GameObject>
 /**
  * Remove item from actor inventory based on provided section parameter.
  */
-extern("xr_effects.remove_item", (actor: GameObject, object: GameObject, [section]: [Optional<TSection>]): void => {
+extern("xr_effects.remove_item", (actor: GameObject, __: GameObject, [section]: [Optional<TSection>]): void => {
   logger.info("Remove item");
 
   assert(section, "Wrong parameters in function 'remove_item'.");
@@ -127,7 +124,7 @@ extern("xr_effects.remove_item", (actor: GameObject, object: GameObject, [sectio
  */
 extern(
   "xr_effects.drop_object_item_on_point",
-  (actor: GameObject, object: GameObject, [section, pathName]: [TSection, TName]): void => {
+  (actor: GameObject, __: GameObject, [section, pathName]: [TSection, TName]): void => {
     const inventoryItem: Optional<GameObject> = actor.object(section);
 
     if (inventoryItem) {
@@ -143,7 +140,7 @@ extern(
  */
 extern(
   "xr_effects.relocate_item",
-  (actor: GameObject, object: GameObject, [itemSection, fromStoryId, toStoryId]: [TSection, TStringId, TStringId]) => {
+  (_: GameObject, __: GameObject, [itemSection, fromStoryId, toStoryId]: [TSection, TStringId, TStringId]) => {
     logger.info("Relocate item: '%s', '%s' -> '%s'", itemSection, fromStoryId, toStoryId);
 
     const fromObject: Optional<GameObject> = getObjectByStoryId(fromStoryId);
@@ -172,7 +169,7 @@ extern(
  */
 extern(
   "xr_effects.activate_weapon_slot",
-  (actor: GameObject, object: GameObject, [slot]: [Optional<EActiveItemSlot>]): void => {
+  (actor: GameObject, __: GameObject, [slot]: [Optional<EActiveItemSlot>]): void => {
     assert(slot, "Expected weapon slot to be provided as parameter in effect 'activate_weapon_slot'.");
     actor.activate_slot(slot);
   }
@@ -199,7 +196,7 @@ extern("xr_effects.save_actor_position", (): void => {
 /**
  * Punch actor and force to drop active slot weapon as object.
  */
-extern("xr_effects.actor_punch", (actor: GameObject, object: GameObject): void => {
+extern("xr_effects.actor_punch", (_: GameObject, object: GameObject): void => {
   objectPunchActor(object);
 });
 
@@ -208,7 +205,7 @@ extern("xr_effects.actor_punch", (actor: GameObject, object: GameObject): void =
  */
 extern(
   "xr_effects.send_tip",
-  (actor: GameObject, object: GameObject, [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]): void => {
+  (_: GameObject, __: GameObject, [caption, icon, senderId]: [TLabel, TNotificationIcon, TStringId]): void => {
     assert(caption, "Expected caption to be provided for sent_tip effect.");
     getManager(NotificationManager).sendTipNotification(caption, icon, 0, null, senderId);
   }
@@ -217,7 +214,7 @@ extern(
 /**
  * Give new task for actor.
  */
-extern("xr_effects.give_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
+extern("xr_effects.give_task", (_: GameObject, __: GameObject, [taskId]: [Optional<TStringId>]): void => {
   assert(taskId, "No task id parameter in give_task effect.");
   getManager(TaskManager).giveTask(taskId);
 });
@@ -225,7 +222,7 @@ extern("xr_effects.give_task", (actor: GameObject, object: GameObject, [taskId]:
 /**
  * Set one of active actor tasks as current one.
  */
-extern("xr_effects.set_active_task", (actor: GameObject, object: GameObject, [taskId]: [Optional<TStringId>]): void => {
+extern("xr_effects.set_active_task", (actor: GameObject, __: GameObject, [taskId]: [Optional<TStringId>]): void => {
   logger.info("Set active task: %s", taskId);
 
   const task: Optional<GameTask> = taskId ? actor.get_task(tostring(taskId), true) : null;
@@ -247,23 +244,20 @@ extern("xr_effects.kill_actor", (actor: GameObject): void => {
  * Find all online objects of squad and make actor visible for them.
  * Expects squad story ID as parameter.
  */
-extern(
-  "xr_effects.make_actor_visible_to_squad",
-  (actor: GameObject, object: GameObject, [storyId]: [TStringId]): void => {
-    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+extern("xr_effects.make_actor_visible_to_squad", (actor: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
+  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
 
-    assert(squad, "There is no squad with story id - '%s'.", storyId);
+  assert(squad, "There is no squad with story id - '%s'.", storyId);
 
-    for (const squadMember of squad.squad_members()) {
-      const gameObject: Optional<GameObject> = (registry.objects.get(squadMember.id)?.object ??
-        level.object_by_id(squadMember.id)) as Optional<GameObject>;
+  for (const squadMember of squad.squad_members()) {
+    const gameObject: Optional<GameObject> = (registry.objects.get(squadMember.id)?.object ??
+      level.object_by_id(squadMember.id)) as Optional<GameObject>;
 
-      if (gameObject) {
-        gameObject.make_object_visible_somewhen(actor);
-      }
+    if (gameObject) {
+      gameObject.make_object_visible_somewhen(actor);
     }
   }
-);
+});
 
 /**
  * Trigger sleep dialog for actor.
@@ -289,7 +283,7 @@ extern("xr_effects.sleep", (): void => {
  * Set item of provided section as active for actor.
  * Throws if item is not present.
  */
-extern("xr_effects.activate_weapon", (actor: GameObject, object: GameObject, [section]: [TSection]) => {
+extern("xr_effects.activate_weapon", (actor: GameObject, __: GameObject, [section]: [TSection]) => {
   const item: Optional<GameObject> = actor.object(section);
 
   assert(item, "Actor has no such item to activate - '%s'.", section);
@@ -301,7 +295,7 @@ extern("xr_effects.activate_weapon", (actor: GameObject, object: GameObject, [se
  * Give actor list of treasures.
  * Expects variadic list of treasure IDs.
  */
-extern("xr_effects.give_treasure", (actor: GameObject, object: GameObject, treasures: LuaArray<TStringId>): void => {
+extern("xr_effects.give_treasure", (_: GameObject, __: GameObject, treasures: LuaArray<TStringId>): void => {
   logger.info("Give treasures for actor");
 
   const treasureManager: TreasureManager = getManager(TreasureManager);

@@ -24,7 +24,7 @@ import {
  */
 extern(
   "xr_effects.teleport_npc",
-  (actor: GameObject, object: GameObject, [patrolName, patrolIndex = 0]: [TName, TIndex]): void => {
+  (_: GameObject, object: GameObject, [patrolName, patrolIndex = 0]: [TName, TIndex]): void => {
     assert(patrolName, "Wrong parameters in 'teleport_npc' function.");
 
     resetStalkerState(object);
@@ -40,8 +40,8 @@ extern(
 extern(
   "xr_effects.teleport_npc_by_story_id",
   (
-    actor: GameObject,
-    object: GameObject,
+    _: GameObject,
+    __: GameObject,
     [storyId, patrolName, patrolIndex = 0]: [Optional<TStringId>, Optional<TName>, TIndex]
   ) => {
     if (!storyId || !patrolName) {
@@ -71,7 +71,7 @@ extern(
  */
 extern(
   "xr_effects.teleport_squad",
-  (actor: GameObject, object: GameObject, [storyId, patrolName, patrolIndex = 0]: [TStringId, TName, TIndex]): void => {
+  (_: GameObject, __: GameObject, [storyId, patrolName, patrolIndex = 0]: [TStringId, TName, TIndex]): void => {
     if (!storyId || !patrolName) {
       abort("Wrong parameters in 'teleport_squad' effect.");
     }
@@ -88,11 +88,7 @@ extern(
  */
 extern(
   "xr_effects.teleport_actor",
-  (
-    actor: GameObject,
-    object: GameObject,
-    [positionPatrolName, lookPatrolName]: [Optional<TName>, Optional<TName>]
-  ): void => {
+  (_: GameObject, __: GameObject, [positionPatrolName, lookPatrolName]: [Optional<TName>, Optional<TName>]): void => {
     assert(positionPatrolName, "Wrong parameters in 'teleport_actor' effect.");
 
     const point: Patrol = new patrol(positionPatrolName);
@@ -116,7 +112,7 @@ extern(
  */
 extern(
   "xr_effects.play_particle_on_path",
-  (actor: GameObject, object: GameObject, [particleName, pathName, probability = 100]: [TName, TName, TRate]): void => {
+  (_: GameObject, __: GameObject, [particleName, pathName, probability = 100]: [TName, TName, TRate]): void => {
     if (!particleName || !pathName) {
       return;
     }

@@ -65,6 +65,10 @@ export class MockGameObject {
     return new MockGameObject(config).asGameObject();
   }
 
+  public static create(config: IMockGameObjectConfig = {}): MockGameObject {
+    return new MockGameObject(config);
+  }
+
   public static mockHelicopter(config: IMockGameObjectConfig = {}): GameObject {
     const object: MockGameObject = new MockGameObject(config);
     const helicopter: CHelicopter = MockCHelicopter.mock();
@@ -93,11 +97,15 @@ export class MockGameObject {
   }
 
   public static mockActor(config: IMockGameObjectConfig = {}): GameObject {
+    return this.createActor(config).asGameObject();
+  }
+
+  public static createActor(config: IMockGameObjectConfig = {}): MockGameObject {
     const object: MockGameObject = new MockGameObject({ ...config, id: ACTOR_ID });
 
     object.objectVisual = "some_actor_visual";
 
-    return object.asGameObject();
+    return object;
   }
 
   public static callCallback(object: GameObject, id: TCallback, ...args: AnyArgs): void {
@@ -286,6 +294,8 @@ export class MockGameObject {
   });
 
   public drop_item_and_teleport = jest.fn();
+
+  public eat = jest.fn();
 
   public enable_anomaly = jest.fn();
 

@@ -18,7 +18,7 @@ let camEffectorPlayingObjectId: Optional<TNumberId> = null;
 extern(
   "xr_effects.run_cam_effector",
   (
-    actor: GameObject,
+    _: GameObject,
     object: GameObject,
     [name, idParameter, loopParameter]: [Optional<TName>, Optional<TNumberId>, Optional<TStringifiedBoolean>]
   ): void => {
@@ -42,23 +42,20 @@ extern(
 /**
  * Remove camera effector by provided effector ID.
  */
-extern(
-  "xr_effects.stop_cam_effector",
-  (actor: GameObject, object: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
-    logger.info("Stop cam effector: %s", effectorId);
+extern("xr_effects.stop_cam_effector", (_: GameObject, __: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
+  logger.info("Stop cam effector: %s", effectorId);
 
-    if (effectorId && type(effectorId) === "number" && effectorId > 0) {
-      level.remove_cam_effector(effectorId);
-    }
+  if (effectorId && type(effectorId) === "number" && effectorId > 0) {
+    level.remove_cam_effector(effectorId);
   }
-);
+});
 
 /**
  * Add global effector based on name / id / fov parameters.
  */
 extern(
   "xr_effects.run_cam_effector_global",
-  (actor: GameObject, object: GameObject, [name, id, fov]: [TName, Optional<TNumberId>, Optional<TRate>]): void => {
+  (_: GameObject, object: GameObject, [name, id, fov]: [TName, Optional<TNumberId>, Optional<TRate>]): void => {
     logger.info("Run cam effector global");
 
     level.add_cam_effector2(
@@ -100,7 +97,7 @@ extern("xr_effects.cam_effector_callback", (): void => {
  */
 extern(
   "xr_effects.run_postprocess",
-  (actor: GameObject, object: GameObject, [name, id]: [Optional<TName>, Optional<TNumberId>]): void => {
+  (_: GameObject, __: GameObject, [name, id]: [Optional<TName>, Optional<TNumberId>]): void => {
     logger.info("Run postprocess");
 
     if (!name) {
@@ -118,13 +115,10 @@ extern(
 /**
  * Stop complex effector by provided ID.
  */
-extern(
-  "xr_effects.stop_postprocess",
-  (actor: GameObject, object: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
-    logger.info("Stop postprocess: %s", effectorId);
+extern("xr_effects.stop_postprocess", (_: GameObject, __: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
+  logger.info("Stop postprocess: %s", effectorId);
 
-    if (effectorId && type(effectorId) === "number" && effectorId > 0) {
-      level.remove_complex_effector(effectorId);
-    }
+  if (effectorId && type(effectorId) === "number" && effectorId > 0) {
+    level.remove_complex_effector(effectorId);
   }
-);
+});

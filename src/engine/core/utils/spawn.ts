@@ -223,18 +223,18 @@ export function spawnItemsForObjectFromList<T extends TSection>(
  * Spawn new squad with provided story id in a smart terrain.
  *
  * @param section - squad section to spawn
- * @param smartTerrainName - name of smart terrain to spawn in
+ * @param terrainName - name of smart terrain to spawn in
  * @returns spawned squad
  */
-export function spawnSquadInSmart(section: Optional<TStringId>, smartTerrainName: Optional<TName>): Squad {
+export function spawnSquadInSmart(section: Optional<TSection>, terrainName: Optional<TName>): Squad {
   assert(section, "Wrong squad identifier in spawnSquad function.");
-  assert(smartTerrainName, "Wrong squad name in spawnSquad function.");
+  assert(terrainName, "Wrong squad name in spawnSquad function.");
   assert(SYSTEM_INI.section_exist(section), "Wrong squad identifier '%s'. Squad doesnt exist in ini.", section);
 
   const simulationBoardManager: SimulationManager = getManager(SimulationManager);
-  const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartTerrainName);
+  const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(terrainName);
 
-  assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function.", tostring(smartTerrainName));
+  assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function.", tostring(terrainName));
 
   const squad: Squad = simulationBoardManager.createSquad(smartTerrain, section);
 
