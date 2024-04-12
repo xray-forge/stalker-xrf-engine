@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerStoryLink } from "@/engine/core/database";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -126,9 +126,27 @@ describe("object effects implementation", () => {
 
   it.todo("force_obj should set const force for objects");
 
-  it.todo("burer_force_gravi_attack should force burrer attack");
+  it("burer_force_gravi_attack should force burrer attack", () => {
+    const object: GameObject = MockGameObject.mock();
 
-  it.todo("burer_force_anti_aim should force attack reset");
+    jest.spyOn(object, "burer_set_force_gravi_attack").mockImplementation(jest.fn());
+
+    callXrEffect("burer_force_gravi_attack", MockGameObject.mockActor(), object);
+
+    expect(object.burer_set_force_gravi_attack).toHaveBeenCalledTimes(1);
+    expect(object.burer_set_force_gravi_attack).toHaveBeenCalledWith(true);
+  });
+
+  it("burer_force_anti_aim should force attack reset", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "set_force_anti_aim").mockImplementation(jest.fn());
+
+    callXrEffect("burer_force_anti_aim", MockGameObject.mockActor(), object);
+
+    expect(object.set_force_anti_aim).toHaveBeenCalledTimes(1);
+    expect(object.set_force_anti_aim).toHaveBeenCalledWith(true);
+  });
 
   it.todo("give_items should give items for object");
 
@@ -138,13 +156,29 @@ describe("object effects implementation", () => {
 
   it.todo("set_force_sleep_animation should force sleep animation");
 
-  it.todo("release_force_sleep_animation should stop forced sleep animation");
+  it("release_force_sleep_animation should stop forced sleep animation", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "release_stand_sleep_animation").mockImplementation(jest.fn());
+
+    callXrEffect("release_force_sleep_animation", MockGameObject.mockActor(), object);
+
+    expect(object.release_stand_sleep_animation).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("set_visual_memory_enabled should enable visual memory");
 
   it.todo("set_monster_animation should set animations for monsters");
 
-  it.todo("clear_monster_animation should clear animations for monsters");
+  it("clear_monster_animation should clear animations for monsters", () => {
+    const object: GameObject = MockGameObject.mock();
+
+    jest.spyOn(object, "clear_override_animation").mockImplementation(jest.fn());
+
+    callXrEffect("clear_monster_animation", MockGameObject.mockActor(), object);
+
+    expect(object.clear_override_animation).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("switch_to_desired_job should switch objects to desired jobs");
 

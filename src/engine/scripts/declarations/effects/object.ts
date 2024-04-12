@@ -638,14 +638,14 @@ extern(
 );
 
 /**
- * todo;
+ * Force burer gravity attack as enabled.
  */
 extern("xr_effects.burer_force_gravi_attack", (_: GameObject, object: GameObject): void => {
   object.burer_set_force_gravi_attack(true);
 });
 
 /**
- * todo;
+ * Force burer anti aim force.
  */
 extern("xr_effects.burer_force_anti_aim", (_: GameObject, object: GameObject): void => {
   object.set_force_anti_aim(true);
@@ -699,7 +699,7 @@ extern("xr_effects.set_force_sleep_animation", (_: GameObject, object: GameObjec
 });
 
 /**
- * todo;
+ * Release sleep animation of the object.
  */
 extern("xr_effects.release_force_sleep_animation", (_: GameObject, object: GameObject): void => {
   object.release_stand_sleep_animation();
@@ -729,7 +729,7 @@ extern(
 );
 
 /**
- * todo;
+ * Clear animation of monster object.
  */
 extern("xr_effects.clear_monster_animation", (_: GameObject, object: GameObject): void => {
   object.clear_override_animation();

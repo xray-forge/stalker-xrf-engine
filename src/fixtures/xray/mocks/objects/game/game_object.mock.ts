@@ -227,6 +227,10 @@ export class MockGameObject {
 
   public bind_object = jest.fn();
 
+  public burer_set_force_gravi_attack = jest.fn();
+
+  public set_force_anti_aim = jest.fn();
+
   public buy_condition = jest.fn();
 
   public buy_supplies = jest.fn();
@@ -238,6 +242,8 @@ export class MockGameObject {
   public can_select_weapon = jest.fn();
 
   public center = jest.fn(() => this.objectCenter);
+
+  public clear_override_animation = jest.fn();
 
   public change_team = jest.fn();
 
@@ -486,6 +492,8 @@ export class MockGameObject {
   public position = jest.fn(() => this.objectPosition);
 
   public play_cycle = jest.fn();
+
+  public release_stand_sleep_animation = jest.fn();
 
   public rank = jest.fn(() => this.objectRank);
 
