@@ -15,6 +15,7 @@ import { SaveManager } from "@/engine/core/managers/save";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { ISchemeDeimosState, SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { EScheme, GameObject, ServerActorObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
@@ -140,7 +141,7 @@ describe("ActorBinder", () => {
     binder.reinit();
 
     expect(registry.simulator.set_objects_per_update).toHaveBeenCalledTimes(1);
-    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(65_535);
+    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(MAX_ALIFE_ID);
 
     expect(eventsManager.registerGameTimeout).toHaveBeenCalledWith(setStableAlifeObjectsUpdate, 3000);
   });

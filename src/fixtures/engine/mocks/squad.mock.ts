@@ -2,7 +2,7 @@ import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { ServerCreatureObject, TClassId, TName, TNumberId, TRate, TSection } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
@@ -81,7 +81,7 @@ export class MockSquad extends Squad {
   public mockRemoveMember(object: ServerCreatureObject | MockServerAlifeCreatureAbstract): void {
     super.unregister_member(object.id);
 
-    object.group_id = MAX_U16;
+    object.group_id = MAX_ALIFE_ID;
   }
 
   public mockSetOnline(isOnline: boolean): void {

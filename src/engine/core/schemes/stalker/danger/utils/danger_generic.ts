@@ -12,7 +12,7 @@ import { isObjectWounded } from "@/engine/core/utils/planner";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   DangerObject,
@@ -179,7 +179,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
   const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(enemy.id());
 
   // Check if server object is in no-combat zone.
-  if (serverObject && serverObject.m_smart_terrain_id && serverObject.m_smart_terrain_id !== MAX_U16) {
+  if (serverObject && serverObject.m_smart_terrain_id && serverObject.m_smart_terrain_id !== MAX_ALIFE_ID) {
     const enemySmartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(
       serverObject.m_smart_terrain_id
     ) as SmartTerrain;

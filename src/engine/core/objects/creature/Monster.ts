@@ -14,7 +14,7 @@ import { SimulationManager } from "@/engine/core/managers/simulation/SimulationM
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 /**
@@ -23,7 +23,7 @@ import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } 
 @LuabindClass()
 export class Monster extends cse_alife_monster_base {
   public override can_switch_offline(): boolean {
-    if (this.group_id !== MAX_U16) {
+    if (this.group_id !== MAX_ALIFE_ID) {
       return true;
     }
 
@@ -31,7 +31,7 @@ export class Monster extends cse_alife_monster_base {
   }
 
   public override can_switch_online(): boolean {
-    if (this.group_id !== MAX_U16) {
+    if (this.group_id !== MAX_ALIFE_ID) {
       return true;
     }
 
@@ -62,7 +62,7 @@ export class Monster extends cse_alife_monster_base {
     EventsManager.emitEvent(EGameEvent.MONSTER_UNREGISTER, this);
 
     const terrainId: TNumberId = this.smart_terrain_id();
-    const terrain: Optional<SmartTerrain> = terrainId === MAX_U16 ? null : registry.simulator.object(terrainId);
+    const terrain: Optional<SmartTerrain> = terrainId === MAX_ALIFE_ID ? null : registry.simulator.object(terrainId);
 
     if (terrain) {
       terrain.unregister_npc(this);
@@ -77,11 +77,11 @@ export class Monster extends cse_alife_monster_base {
   public override on_death(killer: ServerCreatureObject): void {
     super.on_death(killer);
 
-    if (this.m_smart_terrain_id !== MAX_U16) {
+    if (this.m_smart_terrain_id !== MAX_ALIFE_ID) {
       (registry.simulator.object(this.m_smart_terrain_id) as SmartTerrain).onObjectDeath(this);
     }
 
-    if (this.group_id !== MAX_U16) {
+    if (this.group_id !== MAX_ALIFE_ID) {
       (registry.simulator.object(this.group_id) as Squad).onMemberDeath(this);
     }
 

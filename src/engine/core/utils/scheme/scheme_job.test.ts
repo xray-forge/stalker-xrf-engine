@@ -5,7 +5,7 @@ import { IObjectJobState, ISmartTerrainJobDescriptor, SmartTerrain } from "@/eng
 import { configureObjectSchemes, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/scheme_initialization";
 import { setupObjectLogicsOnSpawn, setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
 import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/utils/scheme/scheme_logic";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
 import { ESchemeType, GameObject, IniFile, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
@@ -55,7 +55,7 @@ describe("setupObjectSmartJobsAndLogicOnSpawn util", () => {
     setupObjectLogicsOnSpawn(object, state, ESchemeType.STALKER, true);
     expect(initializeObjectSchemeLogic).toHaveBeenCalledTimes(3);
 
-    serverObject.m_smart_terrain_id = MAX_U16;
+    serverObject.m_smart_terrain_id = MAX_ALIFE_RANK;
 
     setupObjectLogicsOnSpawn(object, state, ESchemeType.STALKER, true);
     expect(initializeObjectSchemeLogic).toHaveBeenCalledTimes(4);

@@ -27,7 +27,7 @@ import {
   isTushkano,
   isWeapon,
 } from "@/engine/core/utils/class_ids";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { ServerActorObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { MockAlifeCreatureActor, MockAlifeHumanStalker, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
@@ -237,7 +237,7 @@ describe("isMonsterSquad util", () => {
   it("should correctly check if squad object assigned with no leader", () => {
     const squad: MockSquad = MockSquad.mock();
 
-    jest.spyOn(squad, "commander_id").mockImplementation(() => MAX_U16);
+    jest.spyOn(squad, "commander_id").mockImplementation(() => MAX_ALIFE_ID);
 
     expect(isMonsterSquad(squad)).toBe(false);
   });

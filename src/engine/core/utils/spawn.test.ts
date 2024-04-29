@@ -17,7 +17,7 @@ import {
   spawnSquadInSmart,
 } from "@/engine/core/utils/spawn";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import {
   AlifeSimulator,
   GameObject,
@@ -141,7 +141,7 @@ describe("spawnItemsAtPosition util", () => {
       object.position(),
       object.level_vertex_id(),
       object.game_vertex_id(),
-      MAX_U16
+      MAX_ALIFE_ID
     );
     expect(simulator.create).toHaveBeenNthCalledWith(
       2,
@@ -149,7 +149,7 @@ describe("spawnItemsAtPosition util", () => {
       object.position(),
       object.level_vertex_id(),
       object.game_vertex_id(),
-      MAX_U16
+      MAX_ALIFE_ID
     );
 
     expect(spawnItemsAtPosition("ammo_5.45x39_ap", gvid, lvid, position, 2)).toBe(2);
@@ -160,7 +160,7 @@ describe("spawnItemsAtPosition util", () => {
       object.position(),
       object.level_vertex_id(),
       object.game_vertex_id(),
-      MAX_U16,
+      MAX_ALIFE_ID,
       2
     );
   });
@@ -191,7 +191,7 @@ describe("spawnAmmoAtPosition util", () => {
       object.position(),
       object.level_vertex_id(),
       object.game_vertex_id(),
-      MAX_U16,
+      MAX_ALIFE_ID,
       30
     );
     expect(simulator.create_ammo).toHaveBeenNthCalledWith(
@@ -200,7 +200,7 @@ describe("spawnAmmoAtPosition util", () => {
       object.position(),
       object.level_vertex_id(),
       object.game_vertex_id(),
-      MAX_U16,
+      MAX_ALIFE_ID,
       15
     );
   });

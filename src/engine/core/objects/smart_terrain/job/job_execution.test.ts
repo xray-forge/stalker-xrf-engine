@@ -8,7 +8,7 @@ import {
 } from "@/engine/core/objects/smart_terrain/job/job_execution";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { AnyObject, IniFile, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
@@ -51,7 +51,7 @@ describe("job_execution logic", () => {
     expect(terrain.objectsToRegister.length()).toBe(1);
     expect(terrain.objectsToRegister.get(first.id)).toBe(first);
     expect(first.smart_terrain_task_activate).not.toHaveBeenCalled();
-    expect(first.m_smart_terrain_id).toBe(MAX_U16);
+    expect(first.m_smart_terrain_id).toBe(MAX_ALIFE_ID);
 
     terrain.register_npc(second);
     terrain.register_npc(second);
@@ -62,9 +62,9 @@ describe("job_execution logic", () => {
     expect(terrain.objectsToRegister.get(first.id)).toBe(first);
     expect(terrain.objectsToRegister.get(second.id)).toBe(second);
     expect(first.smart_terrain_task_activate).not.toHaveBeenCalled();
-    expect(first.m_smart_terrain_id).toBe(MAX_U16);
+    expect(first.m_smart_terrain_id).toBe(MAX_ALIFE_ID);
     expect(second.smart_terrain_task_activate).not.toHaveBeenCalled();
-    expect(second.m_smart_terrain_id).toBe(MAX_U16);
+    expect(second.m_smart_terrain_id).toBe(MAX_ALIFE_ID);
   });
 
   it("should correctly assign jobs on new stalker arriving when registered and arriving", () => {
@@ -74,7 +74,7 @@ describe("job_execution logic", () => {
     terrain.ini = terrain.spawn_ini() as IniFile;
     jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
-    expect(stalker.m_smart_terrain_id).toBe(MAX_U16);
+    expect(stalker.m_smart_terrain_id).toBe(MAX_ALIFE_ID);
 
     (stalker as AnyObject).m_game_vertex_id = 400;
     (stalker as AnyObject).m_level_vertex_id = 401;
@@ -99,7 +99,7 @@ describe("job_execution logic", () => {
     (terrain as AnyObject).m_game_vertex_id = 512;
     (stalker as AnyObject).m_game_vertex_id = 512;
 
-    expect(stalker.m_smart_terrain_id).toBe(MAX_U16);
+    expect(stalker.m_smart_terrain_id).toBe(MAX_ALIFE_ID);
 
     terrain.on_register();
     terrain.register_npc(stalker);
@@ -164,7 +164,7 @@ describe("job_execution logic", () => {
     (firstStalker as AnyObject).m_game_vertex_id = 510;
     (secondStalker as AnyObject).m_game_vertex_id = 512;
 
-    expect(secondStalker.m_smart_terrain_id).toBe(MAX_U16);
+    expect(secondStalker.m_smart_terrain_id).toBe(MAX_ALIFE_ID);
 
     terrain.on_register();
 
@@ -282,7 +282,7 @@ describe("job_execution logic", () => {
     (terrain as AnyObject).m_game_vertex_id = 512;
     (monster as AnyObject).m_game_vertex_id = 512;
 
-    expect(monster.m_smart_terrain_id).toBe(MAX_U16);
+    expect(monster.m_smart_terrain_id).toBe(MAX_ALIFE_ID);
 
     terrain.on_register();
     terrain.register_npc(monster);

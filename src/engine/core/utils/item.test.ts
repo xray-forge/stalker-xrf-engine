@@ -19,7 +19,7 @@ import {
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { GameObject } from "@/engine/lib/types";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
@@ -49,7 +49,7 @@ describe("getItemOwnerId util", () => {
     const second: GameObject = MockGameObject.mock();
 
     MockAlifeObject.mock({ id: first.id(), parentId: 253 });
-    MockAlifeObject.mock({ id: second.id(), parentId: MAX_U16 });
+    MockAlifeObject.mock({ id: second.id(), parentId: MAX_ALIFE_ID });
 
     const third: GameObject = MockGameObject.mock();
 

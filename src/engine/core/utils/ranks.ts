@@ -4,7 +4,7 @@ import { IRankDescriptor, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { classIds } from "@/engine/lib/constants/class_ids";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
 import {
   GameObject,
   IniFile,
@@ -26,7 +26,7 @@ import {
 export function readRanksList(ini: IniFile, section: TSection, field: TName): LuaArray<IRankDescriptor> {
   const list: LuaArray<IRankDescriptor> = new LuaTable();
   const data: LuaArray<string> = parseStringsList(
-    string.format("%s,%s,%s", 0, readIniString(ini, section, field, true), MAX_U16)
+    string.format("%s,%s,%s", 0, readIniString(ini, section, field, true), MAX_ALIFE_RANK)
   );
 
   let index: TIndex = 2;

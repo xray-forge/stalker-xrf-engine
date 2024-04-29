@@ -31,7 +31,7 @@ import { food } from "@/engine/lib/constants/items/food";
 import { helmets } from "@/engine/lib/constants/items/helmets";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
@@ -1017,7 +1017,7 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
   }
 
   if (hasInfoPortion(infoList.get(index))) {
-    for (const [k, v] of infoList) {
+    for (const [k] of infoList) {
       if (!hasInfoPortion(infoList.get(k))) {
         giveInfoPortion(infoList.get(k));
       }
@@ -1055,10 +1055,10 @@ const materialsTable: LuaArray<TStringId> = $fromArray([
 /**
  * todo;
  */
-extern("xr_effects.jup_b200_count_found", (actor: GameObject): void => {
+extern("xr_effects.jup_b200_count_found", (): void => {
   let count: TCount = 0;
 
-  for (const [index, materialId] of materialsTable) {
+  for (const [, materialId] of materialsTable) {
     const materialObject: Optional<GameObject> = getObjectByStoryId(materialId);
 
     if (materialObject !== null) {
@@ -1067,8 +1067,8 @@ extern("xr_effects.jup_b200_count_found", (actor: GameObject): void => {
       if (parent !== null) {
         const parentId: TNumberId = parent.id();
 
-        if (parentId !== MAX_U16 && parentId === actor.id()) {
-          count = count + 1;
+        if (parentId !== MAX_ALIFE_ID && parentId === ACTOR_ID) {
+          count += 1;
         }
       }
     }

@@ -49,7 +49,7 @@ import { ERelation, setObjectSympathy } from "@/engine/core/utils/relation";
 import { getSquadHelpActorTargetId, updateSquadInvulnerabilityState } from "@/engine/core/utils/squad";
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   ALifeSmartTerrainTask,
@@ -499,8 +499,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public assignMemberToSmartTerrain(
     memberId: TNumberId,
-    smartTerrain: Optional<SmartTerrain>,
-    oldSmartTerrainId: Optional<TNumberId>
+    terrain: Optional<SmartTerrain>,
+    oldTerrainId: Optional<TNumberId>
   ): void {
     const object: Optional<ServerCreatureObject> = registry.simulator.object(memberId);
 
@@ -510,16 +510,16 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       }
 
       if (
-        oldSmartTerrainId !== null &&
-        oldSmartTerrainId !== MAX_U16 &&
-        object.m_smart_terrain_id === oldSmartTerrainId &&
-        this.simulationManager.getSmartTerrainDescriptor(oldSmartTerrainId)
+        oldTerrainId !== null &&
+        oldTerrainId !== MAX_ALIFE_ID &&
+        object.m_smart_terrain_id === oldTerrainId &&
+        this.simulationManager.getSmartTerrainDescriptor(oldTerrainId)
       ) {
-        this.simulationManager.getSmartTerrainDescriptor(oldSmartTerrainId)!.smartTerrain.unregister_npc(object);
+        this.simulationManager.getSmartTerrainDescriptor(oldTerrainId)!.smartTerrain.unregister_npc(object);
       }
 
-      if (smartTerrain) {
-        smartTerrain.register_npc(object);
+      if (terrain) {
+        terrain.register_npc(object);
       }
     }
   }

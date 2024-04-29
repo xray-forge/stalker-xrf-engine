@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import type { CALifeMonsterBrain } from "xray16";
 
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { ServerHumanObject, TNumberId, TSection } from "@/engine/lib/types";
 import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import { MockCAlifeMonsterBrain } from "@/fixtures/xray/mocks/objects/CAlifeMonsterBrain.mock";
@@ -34,7 +34,7 @@ export class MockAlifeHumanStalker extends MockServerAlifeCreatureAbstract {
     return object as unknown as ServerHumanObject;
   }
 
-  public override m_smart_terrain_id: TNumberId = MAX_U16;
+  public override m_smart_terrain_id: TNumberId = MAX_ALIFE_ID;
   public aiBrain: CALifeMonsterBrain = MockCAlifeMonsterBrain.mock();
 
   public brain = jest.fn(() => this.aiBrain);

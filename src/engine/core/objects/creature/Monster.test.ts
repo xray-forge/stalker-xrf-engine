@@ -11,7 +11,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { Monster } from "@/engine/core/objects/creature/Monster";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { GameObject } from "@/engine/lib/types";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
@@ -27,7 +27,7 @@ describe("Monster server object", () => {
 
     const monster: Monster = new Monster("monster");
 
-    monster.group_id = MAX_U16;
+    monster.group_id = MAX_ALIFE_ID;
 
     expect(monster.can_switch_offline()).toBe(true);
 
@@ -41,7 +41,7 @@ describe("Monster server object", () => {
 
     const monster: Monster = new Monster("monster");
 
-    monster.group_id = MAX_U16;
+    monster.group_id = MAX_ALIFE_ID;
 
     expect(monster.can_switch_online()).toBe(true);
 

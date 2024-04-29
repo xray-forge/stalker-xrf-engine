@@ -6,7 +6,7 @@ import { SimulationManager } from "@/engine/core/managers/simulation";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { NIL } from "@/engine/lib/constants/words";
 import { AnyObject } from "@/engine/lib/types";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
@@ -24,7 +24,7 @@ describe("Stalker server object", () => {
     stalker.group_id = 1;
     expect(stalker.can_switch_online()).toBe(true);
 
-    stalker.group_id = MAX_U16;
+    stalker.group_id = MAX_ALIFE_ID;
     expect(stalker.can_switch_online()).toBe(false);
   });
 
@@ -36,7 +36,7 @@ describe("Stalker server object", () => {
     stalker.group_id = 1;
     expect(stalker.can_switch_offline()).toBe(true);
 
-    stalker.group_id = MAX_U16;
+    stalker.group_id = MAX_ALIFE_ID;
     expect(stalker.can_switch_offline()).toBe(false);
   });
 

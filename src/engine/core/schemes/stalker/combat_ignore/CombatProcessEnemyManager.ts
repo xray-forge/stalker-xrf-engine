@@ -6,7 +6,7 @@ import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_i
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
@@ -29,7 +29,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
       /**
        * Set alarm if object is in smart zone.
        */
-      if (serverObject && serverObject.m_smart_terrain_id !== MAX_U16) {
+      if (serverObject && serverObject.m_smart_terrain_id !== MAX_ALIFE_ID) {
         const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(serverObject.m_smart_terrain_id)!;
 
         startSmartTerrainAlarm(smartTerrain);

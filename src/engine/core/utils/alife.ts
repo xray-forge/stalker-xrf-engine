@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -9,8 +9,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Force updating all alife objects at once for instant and smooth alife spawn.
  */
 export function setUnlimitedAlifeObjectsUpdate(): void {
-  logger.info("Allow unlimited alife batched updates: %s", MAX_U16);
-  registry.simulator.set_objects_per_update(MAX_U16);
+  logger.info("Allow unlimited alife batched updates: %s", MAX_ALIFE_ID);
+  registry.simulator.set_objects_per_update(MAX_ALIFE_ID);
 }
 
 /**

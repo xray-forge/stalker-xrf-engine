@@ -37,3 +37,21 @@ export const MAX_I8: 127 = 127 as const;
  * Minimal 8 bit signed value.
  */
 export const MIN_I8: -128 = -128 as const;
+
+/**
+ * Maximal alife object ID.
+ * Hardcoded to u16 max.
+ */
+export const MAX_ALIFE_ID: 65_535 = 65_535 as const;
+
+/**
+ * Maximal alife object rank.
+ * Hardcoded to u16 max.
+ */
+export const MAX_ALIFE_RANK: 65_535 = 65_535 as const;
+
+/**
+ * Maximal level vertex ID.
+ * Hardcoded to u16 max.
+ */
+export const MAX_LEVEL_VERTEX_ID: 4_294_967_295 = 4_294_967_295 as const;

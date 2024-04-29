@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { AnyObject, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
 import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
@@ -20,8 +20,8 @@ export class MockServerAlifeCreatureAbstract extends MockAlifeDynamicObjectVisua
   public constructor(config: IMockAlifeObjectConfig) {
     super(config);
 
-    this.group_id = config.groupId ?? MAX_U16;
-    this.m_smart_terrain_id = config.smartTerrainId ?? MAX_U16;
+    this.group_id = config.groupId ?? MAX_ALIFE_ID;
+    this.m_smart_terrain_id = config.smartTerrainId ?? MAX_ALIFE_ID;
   }
 
   public o_torso = jest.fn(() => this.torso);

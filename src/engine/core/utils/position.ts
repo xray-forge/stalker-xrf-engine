@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { yawDegree3d } from "@/engine/core/utils/vector";
 import { graphDistance } from "@/engine/core/utils/vertex";
-import { MAX_U16, MAX_U32 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID, MAX_LEVEL_VERTEX_ID } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   AlifeSimulator,
@@ -32,11 +32,11 @@ export function getObjectSmartTerrain(object: GameObject | ServerCreatureObject)
   if (type(object.id) === "function") {
     const serverObject: Optional<ServerCreatureObject> = simulator.object((object as GameObject).id());
 
-    return serverObject === null || serverObject.m_smart_terrain_id === MAX_U16
+    return serverObject === null || serverObject.m_smart_terrain_id === MAX_ALIFE_ID
       ? null
       : simulator.object(serverObject.m_smart_terrain_id);
   } else {
-    return (object as ServerCreatureObject).m_smart_terrain_id === MAX_U16
+    return (object as ServerCreatureObject).m_smart_terrain_id === MAX_ALIFE_ID
       ? null
       : simulator.object((object as ServerCreatureObject).m_smart_terrain_id);
   }
@@ -187,7 +187,7 @@ export function getDistanceBetweenSqr(first: GameObject, second: GameObject): TD
  * @returns actual vertex id to send object
  */
 export function sendToNearestAccessibleVertex(object: GameObject, vertexId: Optional<TNumberId>): TNumberId {
-  if (vertexId === null || vertexId >= MAX_U32) {
+  if (vertexId === null || vertexId >= MAX_LEVEL_VERTEX_ID) {
     object.set_dest_level_vertex_id(object.level_vertex_id());
 
     return object.level_vertex_id();

@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { resetFunctionMock } from "@/fixtures/jest";
 
 describe("setUnlimitedAlifeObjectsUpdate util", () => {
@@ -11,7 +12,7 @@ describe("setUnlimitedAlifeObjectsUpdate util", () => {
     resetFunctionMock(registry.simulator.set_objects_per_update);
     setUnlimitedAlifeObjectsUpdate();
 
-    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(65_535);
+    expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(MAX_ALIFE_ID);
   });
 });
 

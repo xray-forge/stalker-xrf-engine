@@ -13,6 +13,7 @@ import {
   getStalkerRankByValue,
   readRanksList,
 } from "@/engine/core/utils/ranks";
+import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
 import { LuaArray } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeMonsterBase, MockGameObject } from "@/fixtures/xray";
@@ -43,7 +44,7 @@ describe("readRanksList util", () => {
         name: "veteran",
       },
       {
-        max: 65535,
+        max: MAX_ALIFE_RANK,
         min: 900,
         name: "master",
       },
@@ -60,7 +61,7 @@ describe("readRanksList util", () => {
         name: "normal",
       },
       {
-        max: 65535,
+        max: MAX_ALIFE_RANK,
         min: 800,
         name: "strong",
       },
@@ -81,7 +82,7 @@ describe("getStalkerRankByName util", () => {
       name: "novice",
     });
     expect(getStalkerRankByName("master")).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 900,
       name: "master",
     });
@@ -101,7 +102,7 @@ describe("getMonsterRankByName util", () => {
       name: "weak",
     });
     expect(getMonsterRankByName("strong")).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 800,
       name: "strong",
     });
@@ -120,12 +121,12 @@ describe("getNextStalkerRank util", () => {
       name: "experienced",
     });
     expect(getNextStalkerRank("veteran")).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 900,
       name: "master",
     });
     expect(getNextStalkerRank("not_existing")).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 900,
       name: "master",
     });
@@ -144,12 +145,12 @@ describe("getNextMonsterRank util", () => {
       name: "normal",
     });
     expect(getNextMonsterRank("normal")).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 800,
       name: "strong",
     });
     expect(getNextMonsterRank("not_existing")).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 800,
       name: "strong",
     });
@@ -172,13 +173,13 @@ describe("getStalkerRankByValue util", () => {
       min: 300,
       name: "experienced",
     });
-    expect(getStalkerRankByValue(65535)).toEqual({
-      max: 65535,
+    expect(getStalkerRankByValue(MAX_ALIFE_RANK)).toEqual({
+      max: MAX_ALIFE_RANK,
       min: 900,
       name: "master",
     });
     expect(getStalkerRankByValue(Infinity)).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 900,
       name: "master",
     });
@@ -201,13 +202,13 @@ describe("getMonsterRankByValue util", () => {
       min: 400,
       name: "normal",
     });
-    expect(getMonsterRankByValue(65535)).toEqual({
-      max: 65535,
+    expect(getMonsterRankByValue(MAX_ALIFE_RANK)).toEqual({
+      max: MAX_ALIFE_RANK,
       min: 800,
       name: "strong",
     });
     expect(getMonsterRankByValue(Infinity)).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 800,
       name: "strong",
     });
@@ -236,7 +237,7 @@ describe("getGameObjectRank util", () => {
       name: "normal",
     });
     expect(getGameObjectRank(MockGameObject.mock({ clsid: clsid.pseudo_gigant, rank: 1200 }))).toEqual({
-      max: 65535,
+      max: MAX_ALIFE_RANK,
       min: 800,
       name: "strong",
     });
@@ -265,7 +266,7 @@ describe("getServerObjectRank util", () => {
       name: "normal",
     });
     expect(getServerObjectRank(MockAlifeMonsterBase.mock({ clsid: clsid.pseudo_gigant, rank: 1200 }))).toEqual({
-      max: 65_535,
+      max: MAX_ALIFE_RANK,
       min: 800,
       name: "strong",
     });

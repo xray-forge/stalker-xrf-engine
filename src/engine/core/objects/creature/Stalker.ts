@@ -16,7 +16,7 @@ import type { Squad } from "@/engine/core/objects/squad";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -29,7 +29,7 @@ export class Stalker extends cse_alife_human_stalker {
   public isCorpseLootDropped: boolean = false;
 
   public override can_switch_offline(): boolean {
-    if (this.group_id !== MAX_U16) {
+    if (this.group_id !== MAX_ALIFE_ID) {
       return true;
     }
 
@@ -37,7 +37,7 @@ export class Stalker extends cse_alife_human_stalker {
   }
 
   public override can_switch_online(): boolean {
-    if (this.group_id !== MAX_U16) {
+    if (this.group_id !== MAX_ALIFE_ID) {
       return true;
     }
 
@@ -75,7 +75,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     const smartTerrainId: TNumberId = this.smart_terrain_id();
     const smartTerrain: Optional<SmartTerrain> =
-      smartTerrainId === MAX_U16 ? null : registry.simulator.object(smartTerrainId);
+      smartTerrainId === MAX_ALIFE_ID ? null : registry.simulator.object(smartTerrainId);
 
     if (smartTerrain) {
       smartTerrain.unregister_npc(this);
@@ -95,7 +95,7 @@ export class Stalker extends cse_alife_human_stalker {
     // Notify assigned smart terrain about abject death.
     const smartTerrainId: TNumberId = this.smart_terrain_id();
 
-    if (smartTerrainId !== MAX_U16) {
+    if (smartTerrainId !== MAX_ALIFE_ID) {
       const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(smartTerrainId);
 
       assert(smartTerrain, "Smart terrain with ID '%s' not found.", this.group_id);
@@ -104,7 +104,7 @@ export class Stalker extends cse_alife_human_stalker {
     }
 
     // Notify assigned squad about abject death.
-    if (this.group_id !== MAX_U16) {
+    if (this.group_id !== MAX_ALIFE_ID) {
       const squad: Optional<Squad> = registry.simulator.object(this.group_id);
 
       assert(squad, "Squad with ID '%s' not found.", this.group_id);

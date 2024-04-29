@@ -5,7 +5,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { getSchemeFromSection } from "@/engine/core/utils/ini";
 import { configureObjectSchemes, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/scheme_initialization";
 import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/utils/scheme/scheme_logic";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { ESchemeType, GameObject, IniFile, Optional, ServerCreatureObject, TName, TSection } from "@/engine/lib/types";
 
 /**
@@ -24,7 +24,7 @@ export function setupObjectLogicsOnSpawn(
 
   const serverObject: Optional<ServerCreatureObject> = registry.simulator?.object(object.id());
 
-  if (!serverObject || !serverObject.m_smart_terrain_id || serverObject.m_smart_terrain_id === MAX_U16) {
+  if (!serverObject || !serverObject.m_smart_terrain_id || serverObject.m_smart_terrain_id === MAX_ALIFE_ID) {
     return initializeObjectSchemeLogic(object, state, isLoaded, schemeType);
   }
 

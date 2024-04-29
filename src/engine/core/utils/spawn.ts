@@ -10,7 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { isAmmoSection } from "@/engine/core/utils/section";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import {
   AlifeSimulator,
   AnyGameObject,
@@ -28,7 +28,6 @@ import {
   TProbability,
   TRate,
   TSection,
-  TStringId,
   Vector,
 } from "@/engine/lib/types";
 
@@ -101,7 +100,7 @@ export function spawnItemsAtPosition(
 
   for (const _ of $range(1, count)) {
     if (math.random(100) <= probability) {
-      simulator.create(section, position, levelVertexId, gameVertexId, MAX_U16);
+      simulator.create(section, position, levelVertexId, gameVertexId, MAX_ALIFE_ID);
       spawnedCount += 1;
     }
   }
@@ -185,13 +184,13 @@ export function spawnAmmoAtPosition(
    */
   if (math.random(100) <= probability) {
     while (count > countInBox) {
-      registry.simulator.create_ammo(section, position, levelVertexId, gameVertexId, MAX_U16, countInBox);
+      registry.simulator.create_ammo(section, position, levelVertexId, gameVertexId, MAX_ALIFE_ID, countInBox);
 
       count -= countInBox;
       ammoSpawned += countInBox;
     }
 
-    registry.simulator.create_ammo(section, position, levelVertexId, gameVertexId, MAX_U16, count);
+    registry.simulator.create_ammo(section, position, levelVertexId, gameVertexId, MAX_ALIFE_ID, count);
     ammoSpawned += count;
   }
 

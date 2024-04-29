@@ -1,7 +1,7 @@
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols } from "@/engine/lib/constants/items/weapons";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { GameObject, LuaArray, Optional, ServerObject, TCount, TNumberId, TRate, TSection } from "@/engine/lib/types";
 
 /**
@@ -19,7 +19,7 @@ export function getItemPrice(section: TSection): TCount {
 export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
   const serverObject: Optional<ServerObject> = registry.simulator.object(id);
 
-  if (serverObject && serverObject.parent_id !== MAX_U16) {
+  if (serverObject && serverObject.parent_id !== MAX_ALIFE_ID) {
     return serverObject.parent_id;
   }
 
