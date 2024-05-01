@@ -25,7 +25,7 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { MapDisplayManager } from "@/engine/core/managers/map";
+import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,
@@ -70,7 +70,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
-import { ERelation } from "@/engine/core/utils/relation";
 import { initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   turnOffSmartTerrainCampfires,
@@ -112,7 +111,6 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
   public readonly simulationManager: SimulationManager = getManager(SimulationManager);
-  public readonly mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
 
   public ini!: IniFile;
   public jobsConfig!: IniFile;
@@ -123,7 +121,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public arrivalDistance: TNumberId = smartTerrainConfig.DEFAULT_ARRIVAL_DISTANCE;
   public simulationProperties!: LuaTable<TName, TRate>;
   public simulationRole: ESimulationTerrainRole = ESimulationTerrainRole.DEFAULT;
-  public smartTerrainDisplayedMapSpot: Optional<ERelation> = null;
+  public mapSpot: Optional<TName> = null; // map spot of terrain to display on PDA map
   public respawnSector: Optional<TConditionList> = null;
   public forbiddenPoint: string = "";
 
@@ -190,7 +188,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     registerSimulationObject(this);
 
     if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
-      this.mapDisplayManager.updateSmartTerrainMapSpot(this);
+      updateTerrainMapSpot(this);
     }
 
     this.isRegistered = true;
@@ -454,8 +452,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public override update(): void {
     super.update();
 
-    if (this.smartTerrainDisplayedMapSpot !== null || forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
-      this.mapDisplayManager.updateSmartTerrainMapSpot(this);
+    if (this.mapSpot || forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
+      updateTerrainMapSpot(this);
     }
 
     const now: TTimestamp = time_global();

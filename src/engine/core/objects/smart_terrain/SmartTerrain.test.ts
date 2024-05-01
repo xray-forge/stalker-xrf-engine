@@ -40,7 +40,7 @@ describe("SmartTerrain generic logic", () => {
     expect(terrain.squadId).toBe(0);
     expect(terrain.isOnLevel).toBe(false);
     expect(terrain.simulationRole).toBe(ESimulationTerrainRole.DEFAULT);
-    expect(terrain.smartTerrainDisplayedMapSpot).toBeNull();
+    expect(terrain.mapSpot).toBeNull();
     expect(terrain.respawnSector).toBeNull();
     expect(terrain.forbiddenPoint).toBe("");
 
@@ -77,7 +77,6 @@ describe("SmartTerrain generic logic", () => {
     expect(terrain.smartTerrainAlifeTask).toBeUndefined();
 
     expect(terrain.simulationManager).toBeDefined();
-    expect(terrain.mapDisplayManager).toBeDefined();
     expect(terrain.simulationProperties).toBeUndefined();
     expect(terrain.spawnSquadsConfiguration.length()).toBe(0);
     expect(terrain.spawnedSquadsList.length()).toBe(0);

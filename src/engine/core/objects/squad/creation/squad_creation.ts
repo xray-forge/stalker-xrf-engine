@@ -1,6 +1,7 @@
 import { patrol } from "xray16";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
+import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { abort } from "@/engine/core/utils/assertion";
@@ -90,5 +91,6 @@ export function createSquadMembers(squad: Squad, spawnSmartTerrain: SmartTerrain
   }
 
   squad.assignedSmartTerrainId = spawnSmartTerrain.id;
-  squad.mapDisplayManager.updateSquadMapSpot(squad);
+
+  updateSquadMapSpot(squad);
 }

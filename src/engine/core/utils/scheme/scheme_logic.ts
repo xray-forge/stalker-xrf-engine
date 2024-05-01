@@ -3,14 +3,13 @@ import { callback, clsid, game, time_global } from "xray16";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
-  getManager,
   IBaseSchemeLogic,
   IBaseSchemeState,
   IRegistryObjectState,
   IRegistryOfflineState,
   registry,
 } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { updateObjectMapSpot } from "@/engine/core/managers/map/utils";
 import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
@@ -310,7 +309,7 @@ export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, sch
       registry.schemes.get(EScheme.COMBAT_IGNORE).reset(object, scheme, state, section);
       registry.schemes.get(EScheme.HEAR).reset(object, scheme, state, section);
 
-      getManager(MapDisplayManager).updateObjectMapSpot(object, scheme, state, section);
+      updateObjectMapSpot(object, scheme, state, section);
 
       initializeObjectIgnoreThreshold(object, scheme, state, section);
       initializeObjectInvulnerability(object);

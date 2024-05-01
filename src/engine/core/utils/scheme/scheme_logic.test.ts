@@ -4,7 +4,6 @@ import { callback, clsid } from "xray16";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import {
-  getManager,
   IBaseSchemeState,
   IRegistryObjectState,
   IRegistryOfflineState,
@@ -14,7 +13,7 @@ import {
   registerSimulator,
   registry,
 } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/map";
+import { updateObjectMapSpot } from "@/engine/core/managers/map/utils";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
@@ -49,7 +48,7 @@ import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/co
 import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType, GameObject, IniFile, ServerHumanObject } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
-import { replaceFunctionMock } from "@/fixtures/jest";
+import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockAlifeSimulator, MockGameObject, MockIniFile } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
@@ -75,6 +74,7 @@ function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
 }
 
 jest.mock("@/engine/core/objects/smart_terrain/job/job_pick");
+jest.mock("@/engine/core/managers/map/utils");
 
 describe("isActiveSection util", () => {
   beforeEach(() => {
@@ -262,7 +262,6 @@ describe("activateSchemeBySection util", () => {
 
     jest.spyOn(SchemeHit, "activate");
     jest.spyOn(HitManager.prototype, "activate");
-    jest.spyOn(getManager(MapDisplayManager), "updateObjectMapSpot").mockImplementation(jest.fn());
 
     loadGenericSchemes();
     loadSchemeImplementation(SchemeHit);
@@ -464,6 +463,7 @@ describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
+    resetFunctionMock(updateObjectMapSpot);
   });
 
   it("should correctly reset base schemes", () => {
@@ -516,7 +516,6 @@ describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
     const mockRestrictorGetter = jest.fn(() => new ObjectRestrictionsManager(stalker));
 
     jest.spyOn(ObjectRestrictionsManager, "activateForObject").mockImplementation(mockRestrictorGetter);
-    jest.spyOn(getManager(MapDisplayManager), "updateObjectMapSpot").mockImplementation(jest.fn());
 
     loadSchemeImplementations($fromArray(schemes));
 
@@ -534,7 +533,7 @@ describe("resetObjectGenericSchemesOnSectionSwitch util", () => {
     expect(SchemeCombatIgnore.reset).toHaveBeenCalledWith(stalker, EScheme.SR_IDLE, stalkerState, "sr_idle@test");
     expect(SchemeHear.reset).toHaveBeenCalledWith(stalker, EScheme.SR_IDLE, stalkerState, "sr_idle@test");
 
-    expect(getManager(MapDisplayManager).updateObjectMapSpot).toHaveBeenCalledTimes(1);
+    expect(updateObjectMapSpot).toHaveBeenCalledTimes(1);
     expect(stalker.max_ignore_monster_distance).toHaveBeenCalledWith(20);
     expect(stalker.ignore_monster_threshold).toHaveBeenCalledWith(10);
     expect(stalker.invulnerable).toHaveBeenNthCalledWith(2, true);

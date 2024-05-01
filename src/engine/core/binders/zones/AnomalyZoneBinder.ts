@@ -4,7 +4,6 @@ import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBind
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getManager,
   openLoadMarker,
   openSaveMarker,
   registerAnomalyZone,
@@ -12,7 +11,7 @@ import {
   resetObject,
   unregisterAnomalyZone,
 } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { getAnomalyFreePaths, spawnArtefactInAnomaly } from "@/engine/core/utils/anomaly";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import {
@@ -635,6 +634,6 @@ export class AnomalyZoneBinder extends object_binder {
     this.artefactPathsByArtefactId.delete(artefactId);
 
     // todo: Probably just update self, not all.
-    getManager(MapDisplayManager).updateAnomalyZonesDisplay();
+    updateAnomalyZonesDisplay();
   }
 }

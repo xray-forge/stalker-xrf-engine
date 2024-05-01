@@ -16,7 +16,7 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
 import {
   ESimulationTerrainRole,
   ISimulationTarget,
@@ -77,7 +77,6 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
  */
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
-  public readonly mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
   public readonly simulationManager: SimulationManager = getManager(SimulationManager);
   public readonly storyManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
@@ -160,7 +159,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public override update(): void {
     super.update();
 
-    this.mapDisplayManager.updateSquadMapSpot(this);
+    updateSquadMapSpot(this);
     this.storyManager.update();
 
     updateSimulationObjectAvailability(this);
@@ -674,7 +673,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.simulationManager.releaseSquad(this);
     } else {
       // Synchronize squad map spot to correctly display leader.
-      this.mapDisplayManager.updateSquadMapSpot(this);
+      updateSquadMapSpot(this);
     }
   }
 

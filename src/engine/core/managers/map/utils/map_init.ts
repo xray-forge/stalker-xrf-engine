@@ -63,10 +63,7 @@ export function readIniMapMarks(ini: IniFile): LuaTable<TName, IMapMarkDescripto
   for (const it of $range(0, count - 1)) {
     const [, field] = ini.r_line("map_marks", it, "", "");
 
-    const icon: TName = readIniString(ini, field, "icon", true);
-    const hint: TName = readIniString(ini, field, "hint", true);
-
-    list.set(field, { icon, hint });
+    list.set(field, { icon: readIniString(ini, field, "icon", true), hint: readIniString(ini, field, "hint", true) });
   }
 
   return list;
@@ -86,12 +83,13 @@ export function readIniMapScannerSpots(ini: IniFile): LuaArray<IMapAnomalyScanDe
   for (const it of $range(0, count - 1)) {
     const [, field] = ini.r_line("scanner_spots", it, "", "");
 
-    const target: TName = readIniString(ini, field, "target", true);
-    const zone: TName = readIniString(ini, field, "zone", true);
-    const hint: TName = readIniString(ini, field, "hint", true);
-    const group: TInfoPortion = readIniString(ini, field, "group", true);
-
-    table.insert(list, { target, hint, zone, group, isEnabled: false });
+    table.insert(list, {
+      target: readIniString(ini, field, "target", true),
+      hint: readIniString(ini, field, "hint", true),
+      zone: readIniString(ini, field, "zone", true),
+      group: readIniString<TInfoPortion>(ini, field, "group", true),
+      isEnabled: false,
+    });
   }
 
   return list;

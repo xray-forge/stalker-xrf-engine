@@ -2,6 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 
 import { getManager, registerZone } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
+import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { takeItemFromActor } from "@/engine/core/utils/reward";
@@ -14,6 +15,7 @@ import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from 
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 
+jest.mock("@/engine/core/managers/map/utils");
 jest.mock("@/engine/core/ui/game/freeplay");
 jest.mock("@/engine/core/utils/reward");
 jest.mock("@/engine/core/utils/spawn");
@@ -130,11 +132,9 @@ describe("quests effects implementation", () => {
   it("jup_b32_pda_check should check pda", () => {
     const manager: MapDisplayManager = getManager(MapDisplayManager);
 
-    jest.spyOn(manager, "updateAnomalyZonesDisplay").mockImplementation(() => {});
-
     callXrEffect("jup_b32_pda_check", MockGameObject.mockActor(), MockGameObject.mock());
 
-    expect(manager.updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
+    expect(updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
   });
 
   it("pri_b306_generator_start should start generators", () => {

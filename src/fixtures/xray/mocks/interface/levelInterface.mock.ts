@@ -31,6 +31,7 @@ export const mockLevelInterface = {
     });
   }),
   map_add_object_spot: jest.fn(),
+  map_change_spot_hint: jest.fn(),
   map_has_object_spot: jest.fn(() => 0),
   name: jest.fn(() => "zaton"),
   object_by_id: jest.fn((id: TNumberId) => {

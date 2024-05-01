@@ -11,7 +11,7 @@ import {
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { MapDisplayManager } from "@/engine/core/managers/map/MapDisplayManager";
+import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
@@ -379,7 +379,7 @@ export class SurgeManager extends AbstractManager {
       anomalyZone.respawnArtefactsAndChangeLayers();
     }
 
-    getManager(MapDisplayManager).updateAnomalyZonesDisplay();
+    updateAnomalyZonesDisplay();
   }
 
   public override update(): void {

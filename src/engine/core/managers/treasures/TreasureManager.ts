@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { MapDisplayManager } from "@/engine/core/managers/map";
+import { removeTreasureMapSpot, showTreasureMapSpot } from "@/engine/core/managers/map/utils";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/treasures/treasures_types";
@@ -102,7 +102,7 @@ export class TreasureManager extends AbstractManager {
           descriptor.empty = null;
           descriptor.checked = true;
 
-          getManager(MapDisplayManager).removeTreasureMapSpot(this.treasuresRestrictorByName.get(section), descriptor);
+          removeTreasureMapSpot(this.treasuresRestrictorByName.get(section), descriptor);
         } else if (
           descriptor.refreshing &&
           descriptor.checked &&
@@ -282,7 +282,7 @@ export class TreasureManager extends AbstractManager {
     }
 
     descriptor.given = true;
-    getManager(MapDisplayManager).showTreasureMapSpot(this.treasuresRestrictorByName.get(treasureId), descriptor);
+    showTreasureMapSpot(this.treasuresRestrictorByName.get(treasureId), descriptor);
     getManager(NotificationManager).sendTreasureNotification(ETreasureState.NEW_TREASURE_COORDINATES);
   }
 
@@ -415,10 +415,7 @@ export class TreasureManager extends AbstractManager {
 
         EventsManager.emitEvent(EGameEvent.TREASURE_FOUND, treasure);
 
-        getManager(MapDisplayManager).removeTreasureMapSpot(
-          this.treasuresRestrictorByName.get(treasureId as TStringId),
-          treasure
-        );
+        removeTreasureMapSpot(this.treasuresRestrictorByName.get(treasureId as TStringId), treasure);
         getManager(NotificationManager).sendTreasureNotification(ETreasureState.FOUND_TREASURE);
 
         logger.info("Secret now is empty: %s", treasureId);

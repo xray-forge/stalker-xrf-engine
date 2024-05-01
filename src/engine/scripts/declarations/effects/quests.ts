@@ -3,14 +3,13 @@ import { particles_object, patrol, sound_object } from "xray16";
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
-  getManager,
   getObjectByStoryId,
   getObjectIdByStoryId,
   getPortableStoreValue,
   registry,
   setPortableStoreValue,
 } from "@/engine/core/database";
-import { MapDisplayManager } from "@/engine/core/managers/map";
+import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils";
 import { showFreeplayDialog } from "@/engine/core/ui/game/freeplay";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { extern, getExtern } from "@/engine/core/utils/binding";
@@ -97,7 +96,7 @@ extern("xr_effects.jup_b32_place_scanner", (): void => {
  * Force update of pda zones display.
  */
 extern("xr_effects.jup_b32_pda_check", (): void => {
-  getManager(MapDisplayManager).updateAnomalyZonesDisplay();
+  updateAnomalyZonesDisplay();
 });
 
 /**

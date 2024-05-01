@@ -3,7 +3,7 @@ import { level } from "xray16";
 
 import { disposeManager, getManager, registerActor } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { MapDisplayManager } from "@/engine/core/managers/map";
+import { removeTreasureMapSpot } from "@/engine/core/managers/map/utils";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
 import { TREASURE_MANAGER_CONFIG_LTX, treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { TreasureManager } from "@/engine/core/managers/treasures/TreasureManager";
@@ -14,6 +14,8 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { GameObject, ServerObject, TName, TNumberId } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/managers/map/utils");
 
 describe("TreasureManager", () => {
   beforeEach(() => {
@@ -170,7 +172,7 @@ describe("TreasureManager", () => {
     descriptor.given = true;
     manager.update();
 
-    expect(level.map_remove_object_spot).toHaveBeenCalledWith(1501, "treasure_rare");
+    expect(removeTreasureMapSpot).toHaveBeenCalledWith(1501, descriptor);
     expect(descriptor.empty).toBeNull();
     expect(descriptor.checked).toBe(true);
   });
@@ -252,7 +254,6 @@ describe("TreasureManager", () => {
 
   it("should correctly handle actor taking item", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
-    const mapDisplayManager: MapDisplayManager = getManager(MapDisplayManager);
     const notificationManager: NotificationManager = getManager(NotificationManager);
     const treasureManager: TreasureManager = getManager(TreasureManager);
     const first: GameObject = MockGameObject.mock();
@@ -260,7 +261,6 @@ describe("TreasureManager", () => {
 
     expect(() => treasureManager.onActorItemTake(first)).not.toThrow();
 
-    jest.spyOn(mapDisplayManager, "removeTreasureMapSpot").mockImplementation(jest.fn());
     jest.spyOn(notificationManager, "sendTreasureNotification").mockImplementation(jest.fn());
     jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
 
@@ -274,7 +274,7 @@ describe("TreasureManager", () => {
     expect(treasure.itemsToFindRemain).toBe(-1);
     expect(treasure.checked).toBe(true);
 
-    expect(mapDisplayManager.removeTreasureMapSpot).toHaveBeenCalledWith(55, treasure);
+    expect(removeTreasureMapSpot).toHaveBeenCalledWith(55, treasure);
     expect(notificationManager.sendTreasureNotification).toHaveBeenCalledWith(ETreasureState.FOUND_TREASURE);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.TREASURE_FOUND, treasure);
   });

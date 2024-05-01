@@ -3,6 +3,7 @@ import { actor_stats, clsid, game_graph, level } from "xray16";
 import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { removeSquadMapSpot, updateTerrainMapSpot } from "@/engine/core/managers/map/utils";
 import { groupIdByLevelName, ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { SIMULATION_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
@@ -186,7 +187,7 @@ export class SimulationManager extends AbstractManager {
         oldSmartTerrainId as TNumberId
       );
 
-      oldSmartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(oldSmartTerrain);
+      updateTerrainMapSpot(oldSmartTerrain);
     }
 
     if (smartTerrainId === null) {
@@ -199,9 +200,7 @@ export class SimulationManager extends AbstractManager {
       newSmartTerrainDescriptor.assignedSquads.set(squad.id, squad);
       newSmartTerrainDescriptor.assignedSquadsCount = this.getSmartTerrainAssignedSquadsCount(smartTerrainId);
 
-      newSmartTerrainDescriptor.smartTerrain.mapDisplayManager.updateSmartTerrainMapSpot(
-        newSmartTerrainDescriptor.smartTerrain
-      );
+      updateTerrainMapSpot(newSmartTerrainDescriptor.smartTerrain);
     }
   }
 
@@ -268,7 +267,7 @@ export class SimulationManager extends AbstractManager {
       }
     }
 
-    squad.mapDisplayManager.removeSquadMapSpot(squad);
+    removeSquadMapSpot(squad);
   }
 
   /**
