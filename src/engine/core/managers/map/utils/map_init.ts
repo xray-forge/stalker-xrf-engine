@@ -88,7 +88,6 @@ export function readIniMapScannerSpots(ini: IniFile): LuaArray<IMapAnomalyScanDe
       hint: readIniString(ini, field, "hint", true),
       zone: readIniString(ini, field, "zone", true),
       group: readIniString<TInfoPortion>(ini, field, "group", true),
-      isEnabled: false,
     });
   }
 

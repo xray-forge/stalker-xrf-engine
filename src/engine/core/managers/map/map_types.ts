@@ -18,7 +18,6 @@ export interface IMapAnomalyScanDescriptor {
   hint: TLabel;
   zone: TName;
   group: TInfoPortion;
-  isEnabled: boolean;
 }
 
 /**

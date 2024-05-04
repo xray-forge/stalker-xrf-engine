@@ -5,50 +5,52 @@ import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { levels } from "@/engine/lib/constants/levels";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { LuaArray, Optional, TLabel, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
- * todo: Description.
+ * Update hints display for anomaly zones.
+ * Show count of artefacts on map spots if related quests are finished.
+ *
+ * By default, there is 2 quests enabling 5 zones scanners placement.
+ *
+ * Note:
+ *  - Called on first init
+ *  - Called when artefacts respawn
+ *  - Called on artefact pickup
  */
 export function updateAnomalyZonesDisplay(): void {
-  if (hasInfoPortion(infoPortions.jup_b32_scanner_reward)) {
-    for (const [, descriptor] of mapDisplayConfig.SCANNER_SPOTS) {
-      descriptor.isEnabled = hasInfoPortion(descriptor.group);
-    }
+  if (!hasInfoPortion(infoPortions.jup_b32_scanner_reward)) {
+    return;
   }
 
   /**
    * Update artefacts loot display in zones with artefacts.
    * Works for jupiter only.
    */
-  if (level.name() === levels.jupiter) {
-    for (const [, descriptor] of mapDisplayConfig.SCANNER_SPOTS) {
-      if (descriptor.isEnabled) {
-        const objectId: Optional<TNumberId> = getObjectIdByStoryId(descriptor.target);
+  for (const [, descriptor] of mapDisplayConfig.SCANNER_SPOTS) {
+    if (!hasInfoPortion(descriptor.group)) {
+      continue;
+    }
 
-        let hint: TLabel = game.translate_string(descriptor.hint) + "\\n" + " \\n";
-        const artefactTable: LuaArray<TSection> = getAnomalyArtefacts(descriptor.zone);
+    const objectId: Optional<TNumberId> = getObjectIdByStoryId(descriptor.target);
 
-        if (artefactTable.length() > 0) {
-          hint += game.translate_string("st_jup_b32_has_af");
+    if (objectId && level.map_has_object_spot(objectId, mapMarks.primary_object) !== 0) {
+      const anomalyArtefacts: LuaArray<TSection> = getAnomalyArtefacts(descriptor.zone);
 
-          for (const [, v] of artefactTable!) {
-            hint += "\\n" + game.translate_string("st_" + v + "_name");
-          }
-        } else {
-          hint += game.translate_string("st_jup_b32_no_af");
-        }
+      let hint: TLabel = `${game.translate_string(descriptor.hint)}\\n \\n`;
 
-        /**
-         * Add artifacts info in hotspots.
-         */
-        if (objectId && level.map_has_object_spot(objectId, mapMarks.primary_object) !== 0) {
-          level.map_remove_object_spot(objectId, mapMarks.primary_object);
-          level.map_add_object_spot(objectId, mapMarks.primary_object, hint);
+      if (anomalyArtefacts.length() === 0) {
+        hint += game.translate_string("st_jup_b32_no_af");
+      } else {
+        hint += game.translate_string("st_jup_b32_has_af");
+
+        for (const [, artefact] of anomalyArtefacts) {
+          hint += `\\n${game.translate_string(`st_${artefact}_name`)}`;
         }
       }
+
+      level.map_change_spot_hint(objectId, mapMarks.primary_object, hint);
     }
   }
 }
