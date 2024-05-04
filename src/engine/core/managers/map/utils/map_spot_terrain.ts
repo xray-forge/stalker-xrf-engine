@@ -1,9 +1,12 @@
 import { game, level } from "xray16";
 
-import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { getManagerByName, getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
-import { ISmartTerrainDescriptor, SimulationManager } from "@/engine/core/managers/simulation";
-import { getSmartTerrainNameCaption, SmartTerrain, smartTerrainConfig } from "@/engine/core/objects/smart_terrain";
+import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
+import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
+import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain/utils/smart_terrain_generic_utils";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ERelation } from "@/engine/core/utils/relation";
@@ -87,9 +90,9 @@ export function removeTerrainMapSpot(terrain: SmartTerrain): void {
  */
 export function getTerrainMapSpotHint(terrain: SmartTerrain): TLabel {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
-    const terrainDescriptor: ISmartTerrainDescriptor = getManager(SimulationManager).getSmartTerrainDescriptor(
-      terrain.id
-    )!;
+    const terrainDescriptor: ISmartTerrainDescriptor = (
+      getManagerByName<SimulationManager>("SimulationManager") as SimulationManager
+    ).getSmartTerrainDescriptor(terrain.id)!;
 
     let caption: TLabel = string.format(
       "[%s] (%s) (%s)\\navailable = %s\\nonline = %s\\nsimulation_role = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",

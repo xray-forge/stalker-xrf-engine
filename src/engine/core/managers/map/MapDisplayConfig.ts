@@ -15,7 +15,6 @@ export const mapDisplayConfig = {
   REQUIRE_SMART_TERRAIN_VISIT: readIniBoolean(MAP_DISPLAY_CONFIG_LTX, "config", "require_smart_terrain_visit", true),
   DISTANCE_TO_OPEN: readIniNumber(MAP_DISPLAY_CONFIG_LTX, "config", "distance_to_open", true),
   DISTANCE_TO_DISPLAY: readIniNumber(MAP_DISPLAY_CONFIG_LTX, "config", "distance_to_display", true),
-  DISPLAY_UPDATE_THROTTLE: readIniNumber(MAP_DISPLAY_CONFIG_LTX, "config", "display_update_throttle", true),
   MAP_MARKS: readIniMapMarks(MAP_DISPLAY_CONFIG_LTX),
   MAP_SPOTS: readIniMapSpots(MAP_DISPLAY_CONFIG_LTX),
   SLEEP_SPOTS: readIniSleepSpots(MAP_DISPLAY_CONFIG_LTX),

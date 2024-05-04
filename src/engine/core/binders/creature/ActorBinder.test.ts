@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { callback, CGameTask, level } from "xray16";
+import { callback, CGameTask, level, time_global } from "xray16";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
@@ -18,7 +18,7 @@ import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { EScheme, GameObject, ServerActorObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { resetFunctionMock } from "@/fixtures/jest";
+import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
   MockAlifeCreatureActor,
@@ -144,39 +144,6 @@ describe("ActorBinder", () => {
     expect(registry.simulator.set_objects_per_update).toHaveBeenCalledWith(MAX_ALIFE_ID);
 
     expect(eventsManager.registerGameTimeout).toHaveBeenCalledWith(setStableAlifeObjectsUpdate, 3000);
-  });
-
-  it("should correctly handle update event", () => {
-    const { actorGameObject, actorServerObject } = mockRegisteredActor();
-
-    const binder: ActorBinder = new ActorBinder(actorGameObject);
-    const eventsManager: EventsManager = getManager(EventsManager);
-
-    jest.spyOn(eventsManager, "emitEvent");
-    jest.spyOn(eventsManager, "tick");
-
-    expect(binder.isFirstUpdatePerformed).toBe(false);
-
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
-
-    binder.update(521);
-
-    expect(binder.isFirstUpdatePerformed).toBe(true);
-    expect(eventsManager.emitEvent).toHaveBeenCalledTimes(2);
-    expect(eventsManager.tick).toHaveBeenCalledTimes(1);
-    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_FIRST_UPDATE, 521, binder);
-    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE, 521, binder);
-
-    expect(registry.simulationObjects.get(actorGameObject.id())).toBe(actorServerObject);
-
-    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => false);
-
-    binder.update(551);
-
-    expect(eventsManager.emitEvent).toHaveBeenCalledTimes(3);
-    expect(eventsManager.tick).toHaveBeenCalledTimes(2);
-
-    expect(registry.simulationObjects.length()).toBe(0);
   });
 
   it("should correctly handle save/load with default values", () => {
@@ -317,5 +284,200 @@ describe("ActorBinder", () => {
 
     MockGameObject.callCallback(actor, callback.use_object, box);
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_USE_ITEM, box);
+  });
+});
+
+describe("ActorBinder update events", () => {
+  it("should correctly handle update event", () => {
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+
+    const binder: ActorBinder = new ActorBinder(actorGameObject);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    jest.spyOn(eventsManager, "emitEvent");
+    jest.spyOn(eventsManager, "tick");
+
+    expect(binder.isFirstUpdatePerformed).toBe(false);
+
+    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
+
+    binder.update(521);
+
+    expect(binder.isFirstUpdatePerformed).toBe(true);
+    expect(eventsManager.emitEvent).toHaveBeenCalledTimes(7);
+    expect(eventsManager.tick).toHaveBeenCalledTimes(1);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_FIRST_UPDATE, 521, binder);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE, 521, binder);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_100, 521, binder);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_500, 521, binder);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_1000, 521, binder);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_5000, 521, binder);
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_10000, 521, binder);
+
+    expect(registry.simulationObjects.get(actorGameObject.id())).toBe(actorServerObject);
+
+    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => false);
+
+    binder.update(551);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledTimes(8);
+    expect(eventsManager.tick).toHaveBeenCalledTimes(2);
+
+    expect(registry.simulationObjects.length()).toBe(0);
+  });
+
+  it("should correctly handle update event 100 throttling", () => {
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+
+    const binder: ActorBinder = new ActorBinder(actorGameObject);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
+    replaceFunctionMockOnce(time_global, () => 0);
+
+    jest.spyOn(eventsManager, "emitEvent");
+    jest.spyOn(eventsManager, "tick");
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_100, 999, binder);
+    expect(binder.nextUpdate100).toBe(100);
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).not.toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_100, 9999, binder);
+    expect(binder.nextUpdate100).toBe(100);
+
+    replaceFunctionMockOnce(time_global, () => 100);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_100, 9999, binder);
+    expect(binder.nextUpdate100).toBe(200);
+  });
+
+  it("should correctly handle update event 500 throttling", () => {
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+
+    const binder: ActorBinder = new ActorBinder(actorGameObject);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
+    replaceFunctionMockOnce(time_global, () => 0);
+
+    jest.spyOn(eventsManager, "emitEvent");
+    jest.spyOn(eventsManager, "tick");
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_500, 999, binder);
+    expect(binder.nextUpdate500).toBe(500);
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).not.toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_500, 9999, binder);
+    expect(binder.nextUpdate500).toBe(500);
+
+    replaceFunctionMockOnce(time_global, () => 500);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_500, 9999, binder);
+    expect(binder.nextUpdate500).toBe(1000);
+  });
+
+  it("should correctly handle update event 1000 throttling", () => {
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+
+    const binder: ActorBinder = new ActorBinder(actorGameObject);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
+    replaceFunctionMockOnce(time_global, () => 0);
+
+    jest.spyOn(eventsManager, "emitEvent");
+    jest.spyOn(eventsManager, "tick");
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_1000, 999, binder);
+    expect(binder.nextUpdate1000).toBe(1000);
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).not.toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_1000, 9999, binder);
+    expect(binder.nextUpdate1000).toBe(1000);
+
+    replaceFunctionMockOnce(time_global, () => 1000);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_1000, 9999, binder);
+    expect(binder.nextUpdate1000).toBe(2000);
+  });
+
+  it("should correctly handle update event 5000 throttling", () => {
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+
+    const binder: ActorBinder = new ActorBinder(actorGameObject);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
+    replaceFunctionMockOnce(time_global, () => 0);
+
+    jest.spyOn(eventsManager, "emitEvent");
+    jest.spyOn(eventsManager, "tick");
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_5000, 999, binder);
+    expect(binder.nextUpdate5000).toBe(5000);
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).not.toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_5000, 9999, binder);
+    expect(binder.nextUpdate5000).toBe(5000);
+
+    replaceFunctionMockOnce(time_global, () => 5000);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_5000, 9999, binder);
+    expect(binder.nextUpdate5000).toBe(10000);
+  });
+
+  it("should correctly handle update event 10000 throttling", () => {
+    const { actorGameObject, actorServerObject } = mockRegisteredActor();
+
+    const binder: ActorBinder = new ActorBinder(actorGameObject);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    (actorServerObject as TSimulationObject).isSimulationAvailable = jest.fn(() => true);
+    replaceFunctionMockOnce(time_global, () => 0);
+
+    jest.spyOn(eventsManager, "emitEvent");
+    jest.spyOn(eventsManager, "tick");
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_10000, 999, binder);
+    expect(binder.nextUpdate10000).toBe(10000);
+
+    replaceFunctionMockOnce(time_global, () => 0);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).not.toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_10000, 9999, binder);
+    expect(binder.nextUpdate10000).toBe(10000);
+
+    replaceFunctionMockOnce(time_global, () => 10000);
+    binder.update(9999);
+
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_UPDATE_10000, 9999, binder);
+    expect(binder.nextUpdate10000).toBe(20000);
   });
 });

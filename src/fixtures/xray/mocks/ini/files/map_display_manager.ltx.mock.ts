@@ -6,7 +6,6 @@ export const mockMapDisplayManager = {
     require_smart_terrain_visit: false,
     distance_to_open: 50,
     distance_to_display: 75,
-    display_update_throttle: 5000,
   },
   sleep_spots: {
     zat_a2_sr_sleep_id: "st_ui_pda_sleep_place",

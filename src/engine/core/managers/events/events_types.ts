@@ -25,9 +25,29 @@ export enum EGameEvent {
    */
   ACTOR_GO_OFFLINE,
   /**
-   * Actor update iteration.
+   * Actor update generic tick.
    */
   ACTOR_UPDATE,
+  /**
+   * Actor update generic tick with 100 ms throttle.
+   */
+  ACTOR_UPDATE_100,
+  /**
+   * Actor update generic tick with 500 ms throttle.
+   */
+  ACTOR_UPDATE_500,
+  /**
+   * Actor update generic tick with 1000 ms throttle.
+   */
+  ACTOR_UPDATE_1000,
+  /**
+   * Actor update generic tick with 5000 ms throttle.
+   */
+  ACTOR_UPDATE_5000,
+  /**
+   * Actor update generic tick with 10000 ms throttle.
+   */
+  ACTOR_UPDATE_10000,
   /**
    * Actor death.
    */

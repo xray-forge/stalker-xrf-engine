@@ -1,4 +1,4 @@
-import { callback, level, LuabindClass, object_binder } from "xray16";
+import { callback, level, LuabindClass, object_binder, time_global } from "xray16";
 
 import {
   closeLoadMarker,
@@ -35,6 +35,7 @@ import {
   TCount,
   TDuration,
   TTaskState,
+  TTimestamp,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -49,7 +50,14 @@ export class ActorBinder extends object_binder {
 
   // todo: Move out deimos related logic / data.
   public deimosIntensity: Optional<number> = null;
+
   public isFirstUpdatePerformed: boolean = false;
+
+  public nextUpdate100: TTimestamp = -1;
+  public nextUpdate500: TTimestamp = -1;
+  public nextUpdate1000: TTimestamp = -1;
+  public nextUpdate5000: TTimestamp = -1;
+  public nextUpdate10000: TTimestamp = -1;
 
   public override net_spawn(serverObject: ServerActorObject): boolean {
     logger.info("Actor go online");
@@ -112,8 +120,35 @@ export class ActorBinder extends object_binder {
       this.eventsManager.emitEvent(EGameEvent.ACTOR_FIRST_UPDATE, delta, this);
     }
 
+    const now: TTimestamp = time_global();
+
     this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, delta, this);
     this.eventsManager.tick();
+
+    if (now >= this.nextUpdate100) {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_100, delta, this);
+      this.nextUpdate100 = now + 100;
+    }
+
+    if (now >= this.nextUpdate500) {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_500, delta, this);
+      this.nextUpdate500 = now + 500;
+    }
+
+    if (now >= this.nextUpdate1000) {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_1000, delta, this);
+      this.nextUpdate1000 = now + 1000;
+    }
+
+    if (now >= this.nextUpdate5000) {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_5000, delta, this);
+      this.nextUpdate5000 = now + 5000;
+    }
+
+    if (now >= this.nextUpdate10000) {
+      this.eventsManager.emitEvent(EGameEvent.ACTOR_UPDATE_10000, delta, this);
+      this.nextUpdate10000 = now + 10000;
+    }
 
     // todo: Probably part of simulation manager?
     updateSimulationObjectAvailability(registry.actorServer);
