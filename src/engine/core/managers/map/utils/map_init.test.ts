@@ -133,14 +133,12 @@ describe("readIniMapScannerSpots util", () => {
       )
     ).toEqualLuaArrays([
       {
-        isEnabled: false,
         target: "a_target",
         zone: "a_zone",
         hint: "a_hint",
         group: "a_group",
       },
       {
-        isEnabled: false,
         target: "b_target",
         zone: "b_zone",
         hint: "b_hint",
