@@ -10,6 +10,7 @@ script_binding = bind.physic_object ; xrf change
 
 [device_flare]:identity_immunities
 $scheme = $flare
+$inventory_icon = true
 class = D_FLARE
 visual = dynamics\devices\dev_flare\dev_flare
 description = enc_weapons1_wpn_flare
@@ -55,6 +56,7 @@ anm_drop = flare_holster
 
 [detector_simple]:identity_immunities
 $scheme = $item_detector
+$inventory_icon = true
 GroupControlSection = spawn_group
 $spawn = "devices\detector_simple"
 $prefetch = 32
@@ -118,7 +120,7 @@ snd_draw = weapons\ak74_draw
 snd_holster = weapons\generic_holster
 
 [detector_base_hud]:hud_base
-$scheme = $hud_base
+$inventory_icon = true
 attach_place_idx = 1
 ; --from beretta
 hands_position = -0.021000,-0.160000,0.002500
@@ -133,7 +135,7 @@ lean_hud_offset_pos = 0,0,0
 lean_hud_offset_rot = 0,0,0
 
 [detector_simple_hud]:detector_base_hud
-$scheme = $hud_base
+$inventory_icon = true
 item_position = -0.072424,0.030392,-0.012213
 item_orientation = 324.640503,-189.627350,-183.009415
 item_visual = dynamics\devices\dev_detector_1\dev_detector_1_hud
@@ -160,6 +162,7 @@ onoff_light_range = 0.1
 
 [detector_advanced]:detector_simple
 $scheme = $item_detector
+$inventory_icon = true
 $spawn = "devices\detector_advanced"
 class = DET_ADVA
 visual = dynamics\devices\dev_detector_2\dev_detector_2.ogf
@@ -197,7 +200,7 @@ af_sound_18_ = detectors\art_beep1
 af_freq_18 = 0.05, 2
 
 [detector_advanced_hud]:detector_base_hud
-$scheme = $hud_base
+$inventory_icon = true
 item_position = -0.078949,0.039172,-0.019197
 item_orientation = 320.606964,-194.089020,-186.572464
 item_visual = dynamics\devices\dev_detector_2\dev_detector_2_hud
@@ -218,6 +221,7 @@ anm_idle_sprint_16x9 = dev_detector_2_idle_moving_ws, dev_detector_2_idle_moving
 
 [detector_elite]:detector_advanced
 $scheme = $item_detector
+$inventory_icon = true
 $spawn = "devices\detector_elite"
 class = DET_ELIT
 visual = dynamics\devices\dev_detector_3\dev_detector_3.ogf
@@ -282,6 +286,7 @@ anm_idle_sprint_16x9 = dev_detector_3_idle_moving_ws, dev_detector_3_idle_moving
 
 [detector_scientific]:detector_elite
 $scheme = $item_detector
+$inventory_icon = true
 $spawn = "devices\detector_scientific"
 class = DET_SCIE
 visual = dynamics\devices\dev_detector_4\dev_detector_4.ogf
@@ -391,6 +396,7 @@ anm_idle_sprint_16x9 = dev_detector_3_idle_moving_ws, dev_detector_3_idle_moving
 
 [device_torch]:identity_immunities
 $scheme = $item_torch
+$inventory_icon = true
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "devices\torch"
@@ -432,6 +438,7 @@ disabled_maps = ai_test,ai_test2, andy_test_
 
 [guitar_a]:identity_immunities
 $scheme = $item_device
+$inventory_icon = true
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "food and drugs\guitar_a"
@@ -456,6 +463,7 @@ auto_attach = false
 
 [harmonica_a]:identity_immunities
 $scheme = $item_device
+$inventory_icon = true
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "food and drugs\harmonica_a"
