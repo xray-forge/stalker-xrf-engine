@@ -5,6 +5,7 @@ import { blue, blueBright } from "chalk";
 
 import { default as config } from "#/config.json";
 import { CLI_DIR, GAME_DATA_LTX_CONFIGS_DIR, XRF_UTILS_PATH } from "#/globals";
+import { IIconsCommandParameters } from "#/icons/run";
 import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
@@ -14,8 +15,8 @@ const log: NodeLogger = new NodeLogger("UNPACK_EQUIPMENT_ICONS");
 /**
  * Disassemble DDS sprite files based on many small DDS elements.
  */
-export async function unpackEquipmentIcons(): Promise<void> {
-  log.info(blueBright("Unpack equipment icons"));
+export async function unpackEquipmentIcons(parameters: IIconsCommandParameters): Promise<void> {
+  log.info(blueBright("Unpack equipment icons"), parameters);
 
   const timeTracker: TimeTracker = new TimeTracker().start();
 
@@ -34,7 +35,7 @@ export async function unpackEquipmentIcons(): Promise<void> {
     "textures",
     "ui",
     "ui_icon_equipment"
-  )}`;
+  )}${parameters.verbose ? " --verbose" : ""}`;
 
   log.info("Execute:", blue(command));
 
