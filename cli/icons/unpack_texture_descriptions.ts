@@ -23,7 +23,7 @@ export function unpackTextureDescriptions(): void {
     CLI_DIR,
     normalizeParameterPath(config.resources.mod_assets_base_folder),
     "textures"
-  )} --strict -v`;
+  )} --strict`;
 
   log.info("Execute:", blue(command));
 
