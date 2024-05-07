@@ -41,7 +41,7 @@ export async function buildResourcesStatics(parameters: IBuildCommandParameters)
     log.warn("No language resources detected for current locale");
   }
 
-  const resourceFolders: Array<string> = [configuredDefaultPath, ...configuredTargetPath].filter((it) => {
+  const resourceFolders: Array<string> = [...configuredTargetPath, configuredDefaultPath].filter((it) => {
     log.debug("Resources folder candidate check:", yellowBright(it));
 
     return fs.existsSync(it);

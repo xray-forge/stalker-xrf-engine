@@ -29,7 +29,7 @@
     <texture id="ui_inGame2_demo_player_button_1_h" x="943" y="244" width="77" height="27"/>
     <texture id="ui_inGame2_demo_player_button_2_h" x="943" y="274" width="77" height="27"/>
     <texture id="ui_inGame2_demo_player_button_3_h" x="943" y="304" width="49" height="27"/>
-    <texture id="ui_inGame2_demo_player_button_4_h" x="943" y="334 " width="77" height="27"/>
+    <texture id="ui_inGame2_demo_player_button_4_h" x="943" y="334" width="77" height="27"/>
 
     <texture id="ui_inGame2_demo_player_button_1_d" x="943" y="4" width="77" height="27"/>
     <texture id="ui_inGame2_demo_player_button_2_d" x="943" y="34" width="77" height="27"/>

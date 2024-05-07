@@ -38,15 +38,6 @@
     <texture id="ui_inGame2_widescreen_sidepanels_left" x="0" y="0" width="128" height="768"/>
     <texture id="ui_inGame2_widescreen_sidepanels_right" x="128" y="0" width="128" height="768"/>
   </file>
-  <file name="ui\ui_actor_hint_wnd">
-    <texture id="ui_inGame2_radiation_icon_part_1" x="501" y="124" width="21" height="21"/>
-    <texture id="ui_inGame2_radiation_icon_part_2" x="499" y="183" width="25" height="25"/>
-    <texture id="ui_inGame2_radiation_icon_part_3" x="496" y="251" width="31" height="31"/>
-
-    <texture id="ui_inGame2_blood_icon_part_1" x="505" y="153" width="13" height="20"/>
-    <texture id="ui_inGame2_blood_icon_part_2" x="503" y="218" width="17" height="26"/>
-    <texture id="ui_inGame2_blood_icon_part_3" x="500" y="289" width="23" height="33"/>
-  </file>
   <file name="ui\ui_actor_sleep_screen">
     <texture id="ui_inGame2_weapon_highlighter" x="220" y="549" width="82" height="353"/>
     <texture id="ui_inGame2_helmet_highlighter" x="306" y="549" width="96" height="98"/>

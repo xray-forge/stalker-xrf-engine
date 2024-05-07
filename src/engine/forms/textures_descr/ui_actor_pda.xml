@@ -198,10 +198,4 @@
 
     <texture id="ui_inGame2_pda_favorite_weapon_background" x="565" y="1" width="393" height="130"/>
   </file>
-
-  <file name="ui\PDA_1">
-    <texture id="test_monster_icon_back_1" x="574" y="319" width="395" height="202"/>
-    <texture id="test_monster_icon_1" x="675" y="321" width="197" height="197"/>
-    <texture id="test_monster_icon_2" x="181" y="178" width="105" height="130"/>
-  </file>
 </w>

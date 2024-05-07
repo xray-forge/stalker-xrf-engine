@@ -1,115 +1,216 @@
 <w>
   <file name="ui\ui_actor_hint_wnd">
-    <texture id="ui_inGame2_inv_trash" x="5" y="651" width="29" height="36"/>
-
-    <texture id="ui_inGame2_hint_wnd_main_window_lt" x="0" y="0" width="60" height="150"/>
-    <texture id="ui_inGame2_hint_wnd_main_window_t" x="60" y="0" width="25" height="150"/>
-    <texture id="ui_inGame2_hint_wnd_main_window_rt" x="211" y="0" width="65" height="150"/>
-
-    <texture id="ui_inGame2_hint_wnd_main_window_l" x="0" y="112" width="60" height="28"/>
-    <texture id="ui_inGame2_hint_wnd_main_window_back" x="60" y="112" width="25" height="28"/>
-    <texture id="ui_inGame2_hint_wnd_main_window_r" x="211" y="112" width="65" height="28"/>
-
-    <texture id="ui_inGame2_hint_wnd_main_window_lb" x="0" y="318" width="60" height="85"/>
-    <texture id="ui_inGame2_hint_wnd_main_window_b" x="60" y="318" width="25" height="85"/>
-    <texture id="ui_inGame2_hint_wnd_main_window_rb" x="211" y="318" width="65" height="85"/>
-
-    <texture id="ui_inGame2_hint_wnd_bar" x="0" y="412" width="128" height="9"/>
-    <texture id="ui_inGame2_hint_wnd_bar_alfa_line" x="0" y="422" width="128" height="9"/>
-
-    <texture id="ui_inGame2_hint_wnd_bar_16" x="0" y="412" width="101" height="9"/>
-    <texture id="ui_inGame2_hint_wnd_bar_alfa_line_16" x="0" y="422" width="101" height="9"/>
-
-    <texture id="ui_inGame2_hint_wnd_Information" x="284" y="9" width="242" height="7"/>
-    <texture id="ui_inGame2_hint_wnd_Properties" x="284" y="21" width="242" height="7"/>
-    <texture id="ui_inGame2_hint_wnd_upgrades" x="284" y="33" width="242" height="7"/>
-
-    <texture id="ui_inGame2_Radar_main_window" x="529" y="7" width="226" height="226"/>
-    <texture id="ui_inGame2_Radar_blue_bar" x="540" y="235" width="206" height="206"/>
-    <texture id="ui_inGame2_Radar_green_bar" x="748" y="235" width="206" height="206"/>
-    <texture id="ui_inGame2_Radar_compass" x="508" y="53" width="9" height="30"/>
-
-    <texture id="ui_inGame2_Patroni_HUD_main_window" x="782" y="14" width="222" height="126"/>
-    <texture id="ui_inGame2_Patroni_HUD_red_bar" x="782" y="144" width="138" height="16"/>
-    <texture id="ui_inGame2_Patroni_HUD_blue_bar" x="782" y="167" width="138" height="10"/>
-
+    <texture id="secondary_task_spot_above" x="502" y="113" width="19" height="16"/>
+    <texture id="secondary_task_spot_below" x="502" y="127" width="19" height="16"/>
+    <texture id="storyline_task_spot_above" x="502" y="141" width="19" height="16"/>
+    <texture id="storyline_task_spot_below" x="502" y="155" width="19" height="16"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_d" x="236" y="618" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_e" x="97" y="542" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_h" x="97" y="542" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_nodowncorner_d" x="236" y="653" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_nodowncorner_e" x="97" y="604" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_nodowncorner_h" x="97" y="604" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_nodowncorner_t" x="97" y="635" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_noupcorner_d" x="236" y="688" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_noupcorner_e" x="97" y="667" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_noupcorner_h" x="97" y="667" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_noupcorner_t" x="97" y="698" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_bigbuttone_t" x="97" y="573" width="127" height="28"/>
+    <texture id="ui_inGame2_Mp_buyscreen_back_button_d" x="227" y="445" width="36" height="35"/>
+    <texture id="ui_inGame2_Mp_buyscreen_back_button_e" x="227" y="445" width="36" height="35"/>
+    <texture id="ui_inGame2_Mp_buyscreen_back_button_h" x="227" y="406" width="36" height="35"/>
+    <texture id="ui_inGame2_Mp_buyscreen_back_button_t" x="227" y="406" width="36" height="35"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buygrenadeluncher_buttone_d" x="83" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buygrenadeluncher_buttone_e" x="83" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buygrenadeluncher_buttone_h" x="146" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buygrenadeluncher_buttone_t" x="146" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buyscope_buttone_d" x="41" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buyscope_buttone_e" x="41" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buyscope_buttone_h" x="104" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buyscope_buttone_t" x="104" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buysilencer_buttone_d" x="62" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buysilencer_buttone_e" x="62" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buysilencer_buttone_h" x="125" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_buysilencer_buttone_t" x="125" y="519" width="19" height="19"/>
+    <texture id="ui_inGame2_Mp_buyscreen_depositinfo_screen" x="48" y="460" width="86" height="52"/>
+    <texture id="ui_inGame2_Mp_buyscreen_priceinfo_screen" x="138" y="406" width="86" height="51"/>
+    <texture id="ui_inGame2_Mp_buyscreen_save_buttone_background_panel" x="227" y="539" width="40" height="53"/>
+    <texture id="ui_inGame2_Mp_buyscreen_save_buttone_background_panel_nocorner" x="227" y="483" width="40" height="53"/>
+    <texture id="ui_inGame2_Mp_buyscreen_saveselection_buttone_d" x="198" y="514" width="26" height="25"/>
+    <texture id="ui_inGame2_Mp_buyscreen_saveselection_buttone_e" x="168" y="514" width="26" height="25"/>
+    <texture id="ui_inGame2_Mp_buyscreen_saveselection_buttone_h" x="168" y="514" width="26" height="25"/>
+    <texture id="ui_inGame2_Mp_buyscreen_saveselection_buttone_t" x="198" y="514" width="26" height="25"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_1_d" x="285" y="51" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_1_e" x="285" y="51" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_1_h" x="381" y="51" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_1_t" x="381" y="51" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_2_d" x="285" y="164" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_2_e" x="285" y="164" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_2_h" x="381" y="164" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_2_t" x="381" y="164" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_3_d" x="285" y="277" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_3_e" x="285" y="277" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_3_h" x="381" y="277" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_3_t" x="381" y="277" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_4_d" x="285" y="390" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_4_e" x="285" y="390" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_4_h" x="381" y="390" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_4_t" x="381" y="390" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_5_d" x="285" y="503" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_5_e" x="285" y="503" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_5_h" x="381" y="503" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_buyscreen_small_weapons_screen_5_t" x="381" y="503" width="85" height="103"/>
+    <texture id="ui_inGame2_Mp_frame_button_d_b" x="97" y="573" width="4" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_d_back" x="101" y="573" width="119" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_d_e" x="220" y="573" width="4" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_e_b" x="97" y="542" width="4" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_e_back" x="101" y="542" width="119" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_e_e" x="220" y="542" width="4" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_h_b" x="97" y="542" width="4" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_h_back" x="101" y="542" width="119" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_h_e" x="220" y="542" width="4" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_t_b" x="97" y="573" width="4" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_t_back" x="101" y="573" width="119" height="28"/>
+    <texture id="ui_inGame2_Mp_frame_button_t_e" x="220" y="573" width="4" height="28"/>
+    <texture id="ui_inGame2_PDA_icon_Actor_Box" x="6" y="522" width="19" height="19"/>
+    <texture id="ui_inGame2_PDA_icon_Actor_Box_small" x="6" y="630" width="15" height="14"/>
+    <texture id="ui_inGame2_PDA_icon_Place_to_rest" x="6" y="501" width="19" height="19"/>
+    <texture id="ui_inGame2_PDA_icon_Place_to_rest_small" x="70" y="610" width="15" height="15"/>
+    <texture id="ui_inGame2_PDA_icon_Primary_mission" x="4" y="563" width="23" height="23"/>
+    <texture id="ui_inGame2_PDA_icon_Secondary_mission" x="28" y="563" width="23" height="23"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_Medic" x="66" y="543" width="19" height="19"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_Medic_small" x="70" y="630" width="15" height="14"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_Trader" x="46" y="543" width="19" height="19"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_Trader_small" x="54" y="630" width="15" height="14"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_VIP" x="26" y="543" width="19" height="19"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_guide" x="26" y="543" width="19" height="19"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_guide_small" x="38" y="630" width="15" height="14"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_machanik" x="6" y="543" width="19" height="19"/>
+    <texture id="ui_inGame2_PDA_icon_Stalker_machanik_small" x="22" y="630" width="15" height="14"/>
+    <texture id="ui_inGame2_PDA_icon_location_legend" x="4" y="587" width="41" height="41"/>
+    <texture id="ui_inGame2_PDA_icon_secret" x="52" y="563" width="25" height="25"/>
+    <texture id="ui_inGame2_PDA_icon_secret_common" x="51" y="563" width="27" height="27" />
+    <texture id="ui_inGame2_PDA_icon_secret_epic" x="35" y="692" width="27" height="27" />
+    <texture id="ui_inGame2_PDA_icon_secret_rare" x="7" y="692" width="27" height="27" />
+    <texture id="ui_inGame2_PDA_icon_secret_unique" x="63" y="692" width="27" height="27" />
     <texture id="ui_inGame2_Patroni_HUD_active_items_icon_b" x="503" y="92" width="3" height="23"/>
     <texture id="ui_inGame2_Patroni_HUD_active_items_icon_back" x="506" y="92" width="3" height="23"/>
     <texture id="ui_inGame2_Patroni_HUD_active_items_icon_e" x="509" y="92" width="12" height="23"/>
-
-    <texture id="ui_inGame2_radiation_icon_part_1" x="501" y="124" width="21" height="21"/>
-    <texture id="ui_inGame2_radiation_icon_part_2" x="499" y="183" width="25" height="25"/>
-    <texture id="ui_inGame2_radiation_icon_part_3" x="496" y="251" width="31" height="31"/>
-
+    <texture id="ui_inGame2_Patroni_HUD_blue_bar" x="782" y="167" width="138" height="10"/>
+    <texture id="ui_inGame2_Patroni_HUD_main_window" x="782" y="14" width="222" height="126"/>
+    <texture id="ui_inGame2_Patroni_HUD_red_bar" x="782" y="144" width="138" height="16"/>
+    <texture id="ui_inGame2_Radar_blue_bar" x="540" y="235" width="206" height="206"/>
+    <texture id="ui_inGame2_Radar_compass" x="508" y="53" width="9" height="30"/>
+    <texture id="ui_inGame2_Radar_green_bar" x="748" y="235" width="206" height="206"/>
+    <texture id="ui_inGame2_Radar_main_window" x="529" y="7" width="226" height="226"/>
+    <texture id="ui_inGame2_bleeding_inv_green" x="819" y="933" width="45" height="45"/>
+    <texture id="ui_inGame2_bleeding_inv_red" x="543" y="933" width="45" height="45"/>
+    <texture id="ui_inGame2_bleeding_inv_orange" x="635" y="933" width="45" height="45"/>
+    <texture id="ui_inGame2_bleeding_inv_yellow" x="727" y="933" width="45" height="45"/>
+    <texture id="ui_inGame2_blood_icon_part_1" x="505" y="153" width="13" height="20"/>
     <texture id="ui_inGame2_blood_icon_part_1" x="505" y="153" width="13" height="20"/>
     <texture id="ui_inGame2_blood_icon_part_2" x="503" y="218" width="17" height="26"/>
+    <texture id="ui_inGame2_blood_icon_part_2" x="503" y="218" width="17" height="26"/>
     <texture id="ui_inGame2_blood_icon_part_3" x="500" y="289" width="23" height="33"/>
-
-    <texture id="ui_inGame2_circle_hunger_green" x="546" y="983" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_hunger_yellow" x="11" y="886" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_hunger_orange" x="11" y="927" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_hunger_red" x="11" y="969" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_bloodloose_green" x="593" y="983" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_bloodloose_yellow" x="58" y="886" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_bloodloose_orange" x="58" y="927" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_bloodloose_red" x="58" y="969" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Overweight_green" x="641" y="983" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Overweight_yellow" x="106" y="886" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Overweight_orange" x="106" y="927" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Overweight_red" x="106" y="969" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Gunbroken_green" x="688" y="983" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Gunbroken_yellow" x="153" y="886" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Gunbroken_orange" x="153" y="927" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Gunbroken_red" x="153" y="969" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Helmetbroken_green" x="735" y="983" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Helmetbroken_yellow" x="200" y="886" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Helmetbroken_orange" x="200" y="927" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Helmetbroken_red" x="200" y="969" width="33" height="35"/>
+    <texture id="ui_inGame2_blood_icon_part_3" x="500" y="289" width="23" height="33"/>
     <texture id="ui_inGame2_circle_Armorbroken_green" x="782" y="983" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_Armorbroken_yellow" x="247" y="886" width="33" height="35"/>
     <texture id="ui_inGame2_circle_Armorbroken_orange" x="247" y="927" width="33" height="35"/>
     <texture id="ui_inGame2_circle_Armorbroken_red" x="247" y="969" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Armorbroken_yellow" x="247" y="886" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Gunbroken_green" x="688" y="983" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Gunbroken_orange" x="153" y="927" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Gunbroken_red" x="153" y="969" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Gunbroken_yellow" x="153" y="886" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Helmetbroken_green" x="735" y="983" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Helmetbroken_orange" x="200" y="927" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Helmetbroken_red" x="200" y="969" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Helmetbroken_yellow" x="200" y="886" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Overweight_green" x="641" y="983" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Overweight_orange" x="106" y="927" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Overweight_red" x="106" y="969" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_Overweight_yellow" x="106" y="886" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_bloodloose_green" x="593" y="983" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_bloodloose_orange" x="58" y="927" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_bloodloose_red" x="58" y="969" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_bloodloose_yellow" x="58" y="886" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_hunger_green" x="546" y="983" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_hunger_orange" x="11" y="927" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_hunger_red" x="11" y="969" width="33" height="35"/>
+    <texture id="ui_inGame2_circle_hunger_yellow" x="11" y="886" width="33" height="35"/>
     <texture id="ui_inGame2_circle_radiation_green" x="826" y="983" width="33" height="35"/>
-    <texture id="ui_inGame2_circle_radiation_yellow" x="291" y="886" width="33" height="35"/>
     <texture id="ui_inGame2_circle_radiation_orange" x="291" y="927" width="33" height="35"/>
     <texture id="ui_inGame2_circle_radiation_red" x="291" y="969" width="33" height="35"/>
-
-    <texture id="ui_inGame2_triangle_Radiation_yellow" x="419" y="817" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Radiation_orange" x="419" y="857" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Radiation_red" x="419" y="899" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Fire_yellow" x="379" y="817" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Fire_orange" x="379" y="857" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Fire_red" x="379" y="899" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Biological_yellow" x="459" y="817" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Biological_orange" x="459" y="857" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Biological_red" x="459" y="899" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Psy_yellow" x="339" y="817" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Psy_orange" x="339" y="857" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Psy_red" x="339" y="899" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Psy_green" x="339" y="725" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Fire_green" x="379" y="725" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Radiation_green" x="419" y="725" width="37" height="33"/>
-    <texture id="ui_inGame2_triangle_Biological_green" x="459" y="725" width="37" height="33"/>
-
+    <texture id="ui_inGame2_circle_radiation_yellow" x="291" y="886" width="33" height="35"/>
+    <texture id="ui_inGame2_empty_frameline_15_b" x="0" y="780" width="1" height="15"/>
+    <texture id="ui_inGame2_empty_frameline_15_back" x="0" y="780" width="1" height="15"/>
+    <texture id="ui_inGame2_empty_frameline_15_e" x="0" y="780" width="1" height="15"/>
+    <texture id="ui_inGame2_hint_wnd_Information" x="284" y="9" width="242" height="7"/>
+    <texture id="ui_inGame2_hint_wnd_Properties" x="284" y="21" width="242" height="7"/>
+    <texture id="ui_inGame2_hint_wnd_bar" x="0" y="412" width="128" height="9"/>
+    <texture id="ui_inGame2_hint_wnd_bar_16" x="0" y="412" width="101" height="9"/>
+    <texture id="ui_inGame2_hint_wnd_bar_alfa_line" x="0" y="422" width="128" height="9"/>
+    <texture id="ui_inGame2_hint_wnd_bar_alfa_line_16" x="0" y="422" width="101" height="9"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_b" x="60" y="318" width="25" height="85"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_back" x="60" y="112" width="25" height="28"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_l" x="0" y="112" width="60" height="28"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_lb" x="0" y="318" width="60" height="85"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_lt" x="0" y="0" width="60" height="150"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_r" x="211" y="112" width="65" height="28"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_rb" x="211" y="318" width="65" height="85"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_rt" x="211" y="0" width="65" height="150"/>
+    <texture id="ui_inGame2_hint_wnd_main_window_t" x="60" y="0" width="25" height="150"/>
+    <texture id="ui_inGame2_hint_wnd_upgrades" x="284" y="33" width="242" height="7"/>
+    <texture id="ui_inGame2_inv_trash" x="5" y="651" width="29" height="36"/>
+    <texture id="ui_inGame2_opt_button_1_d" x="6" y="817" width="131" height="25"/>
+    <texture id="ui_inGame2_opt_button_1_e" x="6" y="817" width="9" height="9"/>
+    <texture id="ui_inGame2_opt_button_1_h" x="6" y="844" width="131" height="25"/>
+    <texture id="ui_inGame2_opt_button_1_t" x="6" y="817" width="131" height="25"/>
+    <texture id="ui_inGame2_opt_button_2_d" x="145" y="817" width="129" height="25"/>
+    <texture id="ui_inGame2_opt_button_2_e" x="6" y="817" width="9" height="9"/>
+    <texture id="ui_inGame2_opt_button_2_h" x="145" y="844" width="129" height="25"/>
+    <texture id="ui_inGame2_opt_button_2_t" x="145" y="817" width="129" height="25"/>
+    <texture id="ui_inGame2_opt_buttons_frame" x="17" y="772" width="461" height="38"/>
+    <texture id="ui_inGame2_opt_main_window" x="508" y="462" width="487" height="462"/>
+    <texture id="ui_inGame2_opt_slider_bar_b" x="38" y="739" width="1" height="16"/>
+    <texture id="ui_inGame2_opt_slider_bar_back" x="39" y="739" width="235" height="16"/>
+    <texture id="ui_inGame2_opt_slider_bar_e" x="274" y="739" width="1" height="16"/>
+    <texture id="ui_inGame2_opt_slider_box_d" x="296" y="739" width="21" height="16"/>
+    <texture id="ui_inGame2_opt_slider_box_e" x="296" y="739" width="21" height="16"/>
+    <texture id="ui_inGame2_opt_slider_box_h" x="296" y="739" width="21" height="16"/>
+    <texture id="ui_inGame2_opt_slider_box_t" x="296" y="739" width="21" height="16"/>
+    <texture id="ui_inGame2_radiation_icon_part_1" x="501" y="124" width="21" height="21"/>
+    <texture id="ui_inGame2_radiation_icon_part_1" x="501" y="124" width="21" height="21"/>
+    <texture id="ui_inGame2_radiation_icon_part_2" x="499" y="183" width="25" height="25"/>
+    <texture id="ui_inGame2_radiation_icon_part_2" x="499" y="183" width="25" height="25"/>
+    <texture id="ui_inGame2_radiation_icon_part_3" x="496" y="251" width="31" height="31"/>
+    <texture id="ui_inGame2_radiation_icon_part_3" x="496" y="251" width="31" height="31"/>
+    <texture id="ui_inGame2_radiation_inv_green" x="865" y="933" width="45" height="45"/>
+    <texture id="ui_inGame2_radiation_inv_orange" x="680" y="933" width="45" height="45"/>
+    <texture id="ui_inGame2_radiation_inv_red" x="589" y="933" width="45" height="45"/>
+    <texture id="ui_inGame2_radiation_inv_yellow" x="773" y="933" width="45" height="45"/>
     <texture id="ui_inGame2_shield_Psy" x="342" y="958" width="31" height="41"/>
     <texture id="ui_inGame2_shield_Radiation" x="384" y="958" width="31" height="41"/>
     <texture id="ui_inGame2_shield_biological" x="424" y="958" width="31" height="41"/>
     <texture id="ui_inGame2_shield_blood" x="465" y="960" width="29" height="36"/>
     <texture id="ui_inGame2_shield_force" x="502" y="960" width="29" height="36"/>
     <texture id="ui_inGame2_shield_health" x="369" y="681" width="29" height="36"/>
-    <texture id="ui_inGame2_shield_stamina" x="401" y="681" width="29" height="36"/>
     <texture id="ui_inGame2_shield_radiation_cleanup" x="433" y="681" width="29" height="36"/>
-
-    <texture id="storyline_task_spot_below" x="502" y="155" width="19" height="16"/>
-    <texture id="storyline_task_spot_above" x="502" y="141" width="19" height="16"/>
-    <texture id="secondary_task_spot_below" x="502" y="127" width="19" height="16"/>
-    <texture id="secondary_task_spot_above" x="502" y="113" width="19" height="16"/>
-
-    <texture id="ui_inGame2_bleeding_inv_green" x="819" y="933" width="45" height="45"/>
-    <texture id="ui_inGame2_bleeding_inv_yellow" x="727" y="933" width="45" height="45"/>
-    <texture id="ui_inGame2_bleeding_inv_red" x="543" y="933" width="45" height="45"/>
-    <texture id="ui_inGame2_radiation_inv_green" x="865" y="933" width="45" height="45"/>
-    <texture id="ui_inGame2_radiation_inv_yellow" x="773" y="933" width="45" height="45"/>
-    <texture id="ui_inGame2_radiation_inv_red" x="589" y="933" width="45" height="45"/>
+    <texture id="ui_inGame2_shield_stamina" x="401" y="681" width="29" height="36"/>
+    <texture id="ui_inGame2_triangle_Biological_green" x="459" y="725" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Biological_orange" x="459" y="857" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Biological_red" x="459" y="899" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Biological_yellow" x="459" y="817" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Fire_green" x="379" y="725" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Fire_orange" x="379" y="857" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Fire_red" x="379" y="899" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Fire_yellow" x="379" y="817" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Psy_green" x="339" y="725" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Psy_orange" x="339" y="857" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Psy_red" x="339" y="899" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Psy_yellow" x="339" y="817" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Radiation_green" x="419" y="725" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Radiation_orange" x="419" y="857" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Radiation_red" x="419" y="899" width="37" height="33"/>
+    <texture id="ui_inGame2_triangle_Radiation_yellow" x="419" y="817" width="37" height="33"/>
   </file>
 </w>

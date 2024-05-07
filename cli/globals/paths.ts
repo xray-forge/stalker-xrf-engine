@@ -34,7 +34,7 @@ export const TARGET_GAME_PACKAGE_DIR: string = path.resolve(TARGET_DIR, "game_pa
 export const TARGET_MOD_PACKAGE_DIR: string = path.resolve(TARGET_DIR, "mod_package");
 
 export const XR_COMPRESS_PATH: string = path.resolve(CLI_DIR, config.compression.xr_compress_path);
-export const XRF_FORMAT_PATH: string = path.resolve(
+export const XRF_UTILS_PATH: string = path.resolve(
   CLI_DIR,
   normalizeParameterPath(
     os.type() === "Windows_NT" ? config.compression.xrf_cli_path_windows : config.compression.xrf_cli_path_unix
