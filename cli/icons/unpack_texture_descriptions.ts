@@ -19,7 +19,8 @@ export function unpackTextureDescriptions(parameters: IIconsCommandParameters): 
 
   const command: string = `${XRF_UTILS_PATH} unpack-texture-description --description ${path.resolve(
     GAME_DATA_UI_DIR,
-    "textures_descr"
+    "textures_descr",
+    parameters.description
   )} --base ${path.resolve(
     CLI_DIR,
     normalizeParameterPath(config.resources.mod_assets_base_folder),

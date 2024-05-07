@@ -6,6 +6,7 @@ import { unpackEquipmentIcons } from "#/icons/unpack_equipment_icons";
 import { unpackTextureDescriptions } from "#/icons/unpack_texture_descriptions";
 
 export interface IIconsCommandParameters {
+  description?: string;
   verbose?: boolean;
   strict?: boolean;
 }
@@ -33,6 +34,7 @@ export function setupIconsCommand(command: Command): void {
   iconsCommand
     .command("pack-descriptions")
     .description("pack separate icons as single dds file for XML descriptions")
+    .addOption(new Option("-d, --description <name>", "name of description file to process"))
     .addOption(new Option("-v, --verbose", "print verbose logs"))
     .addOption(new Option("-s, --strict", "activate strict mode").default(true))
     .action(packTextureDescriptions);
@@ -40,6 +42,7 @@ export function setupIconsCommand(command: Command): void {
   iconsCommand
     .command("unpack-descriptions")
     .description("pack separate icons as single dds file for XML descriptions")
+    .addOption(new Option("-d, --description <name>", "name of description file to process"))
     .addOption(new Option("-v, --verbose", "print verbose logs"))
     .addOption(new Option("-s, --strict", "activate strict mode").default(true))
     .action(unpackTextureDescriptions);
