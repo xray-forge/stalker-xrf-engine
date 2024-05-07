@@ -1,0 +1,26 @@
+<w>
+  <file name="ui\ui_actor_MP_buyscreen">
+    <texture id="ui_inGame2_Mp_buyscreen_main_window" x="0" y="0" width="1024" height="768"/>
+
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_shotguns_e" x="0" y="771" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_shotguns_d" x="0" y="771" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_shotguns_h" x="0" y="896" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_shotguns_t" x="0" y="896" width="209" height="118"/>
+
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_machineguns_e" x="229" y="771" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_machineguns_d" x="229" y="771" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_machineguns_h" x="229" y="896" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_machineguns_t" x="229" y="896" width="209" height="118"/>
+
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_Sniperrifles_e" x="458" y="771" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_Sniperrifles_d" x="458" y="771" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_Sniperrifles_h" x="458" y="896" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_Sniperrifles_t" x="458" y="896" width="209" height="118"/>
+
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_HeavyWeapons_e" x="687" y="771" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_HeavyWeapons_d" x="687" y="771" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_HeavyWeapons_h" x="687" y="896" width="209" height="118"/>
+    <texture id="ui_inGame2_Mp_buyscreen_second_weapons_HeavyWeapons_t" x="687" y="896" width="209" height="118"/>
+  </file>
+</w>
+

@@ -2,7 +2,7 @@ import * as cp from "child_process";
 
 import { blue } from "chalk";
 
-import { GAME_DATA_LTX_CONFIGS_DIR, XRF_FORMAT_PATH } from "#/globals";
+import { GAME_DATA_LTX_CONFIGS_DIR, XRF_UTILS_PATH } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 
@@ -24,7 +24,7 @@ export async function verifyLtx(parameters: IFormatLtxParameters = {}): Promise<
 
   const timeTracker: TimeTracker = new TimeTracker().start();
 
-  const command: string = `${XRF_FORMAT_PATH} verify-ltx -p ${GAME_DATA_LTX_CONFIGS_DIR} ${
+  const command: string = `${XRF_UTILS_PATH} verify-ltx -p ${GAME_DATA_LTX_CONFIGS_DIR} ${
     parameters.strict ? "-s " : ""
   }${parameters.verbose ? "-v " : ""}`;
 

@@ -4,7 +4,7 @@ import * as path from "path";
 import { blue } from "chalk";
 
 import { default as config } from "#/config.json";
-import { CLI_DIR, TARGET_DIR, XRF_FORMAT_PATH } from "#/globals";
+import { CLI_DIR, TARGET_DIR, XRF_UTILS_PATH } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 
@@ -29,7 +29,7 @@ export async function unpackSpawn(parameters: IFormatLtxParameters = {}): Promis
   const from: string = parameters.path ?? getDefaultSpawnFilePath();
   const to: string = parameters.dest ?? path.resolve(TARGET_DIR, "all_spawn");
 
-  const command: string = `${XRF_FORMAT_PATH} unpack-spawn -p ${from} -d ${to} ${parameters.force ? "-f" : ""}`;
+  const command: string = `${XRF_UTILS_PATH} unpack-spawn -p ${from} -d ${to} ${parameters.force ? "-f" : ""}`;
 
   log.info("Execute:", blue(command));
 

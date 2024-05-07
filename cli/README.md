@@ -7,6 +7,7 @@ All commands are using `ts-node` and simply can be called with `npm run cli $NAM
 - [clone](clone/README.md)
 - [compress](compress/README.md)
 - [engine](engine/README.md)
+- [icons](icons/README.md)
 - [link](link/README.md)
 - [logs](logs/README.md)
 - [open](open/README.md)

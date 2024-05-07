@@ -1,0 +1,10 @@
+<w>
+  <file name="ui\ui_actor_sleep_screen">
+    <texture id="ui_inGame2_Detector_icon_electro_big" x="0" y="532" width="34" height="34"/>
+    <texture id="ui_inGame2_Detector_icon_fire_big" x="35" y="532" width="34" height="34"/>
+    <texture id="ui_inGame2_Detector_icon_acid_big" x="70" y="532" width="34" height="34"/>
+    <texture id="ui_inGame2_Detector_icon_gravity_big" x="105" y="532" width="34" height="34"/>
+    <texture id="ui_inGame2_Detector_icon_artefact" x="2" y="569" width="8" height="8"/>
+    <texture id="ui_inGame2_PDA_icon_location" x="0" y="585" width="205" height="205"/>
+  </file>
+</w>

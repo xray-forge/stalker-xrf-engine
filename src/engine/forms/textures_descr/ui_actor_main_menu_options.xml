@@ -1,0 +1,10 @@
+<w>
+  <file name="ui\ui_actor_options_background">
+    <texture id="ui_inGame2_opt_background" x="0" y="0" width="1024" height="768"/>
+  </file>
+
+  <file name="ui\ui_actor_widescreen_sidepanels">
+    <texture id="ui_inGame2_opt_left_widepanel" x="768" y="0" width="128" height="768"/>
+    <texture id="ui_inGame2_opt_right_widepanel" x="896" y="0" width="128" height="768"/>
+  </file>
+</w>
