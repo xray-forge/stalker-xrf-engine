@@ -34,7 +34,7 @@ export async function unpackEquipmentIcons(): Promise<void> {
     "textures",
     "ui",
     "ui_icon_equipment"
-  )} --strict`;
+  )}`;
 
   log.info("Execute:", blue(command));
 
