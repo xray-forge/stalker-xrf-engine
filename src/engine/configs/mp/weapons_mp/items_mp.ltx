@@ -57,8 +57,8 @@ description = st_af_electra_moonlight_descr
 inv_name = st_af_electra_moonlight_name
 inv_name_short = st_af_electra_moonlight_name
 inv_weight = 0.5
-inv_grid_x = 15
-inv_grid_y = 1
+inv_grid_x = 8
+inv_grid_y = 4
 cost = 999999
 jump_height = .1
 particles = artefact\af_electra_idle
@@ -128,61 +128,6 @@ $spawn = "network\equipment\mp_drug_radioprotector"
 class = II_FOOD
 ; old items
 
-[mp_medkit_old]:identity_immunities
-GroupControlSection = spawn_group
-discovery_dependency =
-$spawn = "network\equipment\mp_medkit_old"
-$inventory_icon = true
-$prefetch = 8
-class = S_MEDKI
-cform = skeleton
-visual = dynamics\devices\dev_aptechka\dev_aptechka_low.ogf
-description = st_medkit_descr
-inv_name = st_medkit
-inv_name_short = st_medkit
-inv_weight = 0.1
-inv_grid_width = 2
-inv_grid_height = 1
-inv_grid_x = 6
-inv_grid_y = 14
-cost = 300
-; eatable item
-eat_health = 0.5
-eat_satiety = 0
-eat_power = 0.0
-eat_radiation = -0.05
-wounds_heal_perc = 0.1
-eat_portions_num = 1
-eat_max_power = 0.1
-apply_time_sec = 5
-
-[mp_antirad_old]:identity_immunities
-GroupControlSection = spawn_group
-discovery_dependency =
-$spawn = "network\equipment\mp_antirad_old"
-$inventory_icon = true
-$prefetch = 32
-class = II_ANTIR
-cform = skeleton
-visual = dynamics\devices\dev_antirad\dev_antirad.ogf
-description = st_antirad_descr
-inv_name = st_antirad
-inv_name_short = st_antirad
-inv_weight = 0.05
-inv_grid_width = 1
-inv_grid_height = 1
-inv_grid_x = 18
-inv_grid_y = 12
-cost = 300
-; eatable item
-eat_health = 0
-eat_satiety = 0
-eat_power = 0
-eat_radiation = -0.5
-wounds_heal_perc = 0
-eat_portions_num = 1
-apply_time_sec = -1
-
 [mp_detector_advanced]:detector_elite
 $spawn = ""
 
@@ -208,8 +153,8 @@ inv_weight = 0
 cost = 0
 inv_grid_width = 2
 inv_grid_height = 2
-inv_grid_x = 0
-inv_grid_y = 18
+inv_grid_x = 35
+inv_grid_y = 15
 slot = 5
 ; ///////////////////////////////////////////////
 ; // explosive items !!!
