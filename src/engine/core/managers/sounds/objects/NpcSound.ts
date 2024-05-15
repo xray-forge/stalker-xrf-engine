@@ -201,20 +201,29 @@ export class NpcSound extends AbstractPlayableSound {
     }
 
     const fs: FS = getFS();
+    const objectSoundPrefix: TLabel = object.sound_prefix();
 
-    if (fs.exist(roots.gameSounds, object.sound_prefix() + this.path + ".ogg") !== null) {
-      this.soundPaths.get(objectId).set(1, object.sound_prefix() + this.path);
+    if (fs.exist(roots.gameSounds, `${objectSoundPrefix + this.path}.ogg`) !== null) {
+      this.soundPaths.get(objectId).set(1, objectSoundPrefix + this.path);
     } else {
       let index: TIndex = 1;
 
-      while (fs.exist(roots.gameSounds, object.sound_prefix() + this.path + index + ".ogg")) {
-        this.soundPaths.get(objectId).set(index, object.sound_prefix() + this.path + index);
-        index = index + 1;
+      while (fs.exist(roots.gameSounds, `${objectSoundPrefix + this.path + index}.ogg`)) {
+        this.soundPaths.get(objectId).set(index, objectSoundPrefix + this.path + index);
+        index += 1;
       }
     }
 
     if (this.objects.get(objectId).max < 0) {
-      abort("Couldnt find sounds %s with prefix %s", tostring(this.path), object.sound_prefix());
+      abort(
+        "Could not find sounds %s with prefix %s, name %s, path %s, index %s, at %s - %s",
+        tostring(this.path),
+        objectSoundPrefix,
+        object.name(),
+        this.path,
+        this.objects.get(objectId).id,
+        this.objects.get(objectId).max
+      );
     }
 
     if (!this.prefix) {
