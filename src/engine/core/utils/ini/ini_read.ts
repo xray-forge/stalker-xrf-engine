@@ -435,3 +435,29 @@ export function readIniSectionAsStringMap<K extends string = string, V extends s
 
   return list;
 }
+
+/**
+ * Read section fields and transform to string based map with number values.
+ *
+ * @param ini - config file to read
+ * @param section - config section to read
+ * @returns map transformed from ini section
+ */
+export function readIniSectionAsNumberMap<K extends string = string, V extends number = number>(
+  ini: IniFile,
+  section: TSection
+): LuaTable<K, V> {
+  const list: LuaTable<K, V> = new LuaTable();
+
+  if (ini.section_exist(section)) {
+    const count: TCount = ini.line_count(section);
+
+    for (const index of $range(0, count - 1)) {
+      const [, key, value] = ini.r_line(section, index, "", "");
+
+      list.set(key as K, tonumber(value) as V);
+    }
+  }
+
+  return list;
+}

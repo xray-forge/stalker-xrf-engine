@@ -32,6 +32,19 @@ export function round(value: number): number {
 }
 
 /**
+ * Round value with precision.
+ *
+ * @param value - target number to round
+ * @param precision - target precision to round
+ * @returns rounded integer
+ */
+export function roundWithPrecision(value: number, precision?: number): number {
+  const magnitude: number = Math.pow(10, precision ?? 0);
+
+  return value >= 0 ? math.floor(magnitude * value + 0.5) / magnitude : math.ceil(magnitude * value - 0.5) / magnitude;
+}
+
+/**
  * Range util for easier lambda iteration over specified number ranges.
  *
  * @param size - size of rage

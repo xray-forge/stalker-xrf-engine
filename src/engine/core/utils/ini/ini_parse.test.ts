@@ -6,7 +6,6 @@ import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/co
 import { pickSectionFromCondList } from "@/engine/core/utils/ini/ini_config";
 import {
   getSchemeFromSection,
-  parseAllSectionToTable,
   parseBoneStateDescriptors,
   parseConditionsList,
   parseFunctionParams,
@@ -616,39 +615,6 @@ describe("pickSectionFromCondList util", () => {
         )
       )
     ).toBe("d");
-  });
-});
-
-describe("parseAllSectionToTable util", () => {
-  it("should correctly parse ini section to matching lua table", () => {
-    const ini: IniFile = MockIniFile.mock("example.ltx", {
-      section1: {
-        a: "a1",
-        b: "b2",
-        "": "",
-        " ": "",
-        c: "c",
-        d: "10",
-      },
-      section2: {
-        a: "a1",
-        " ": "",
-        d: "10",
-      },
-    });
-
-    expect(parseAllSectionToTable(ini, "section1")).toEqualLuaTables({
-      a: "a1",
-      b: "b2",
-      c: "c",
-      d: 10,
-    });
-    expect(parseAllSectionToTable(ini, "section2")).toEqualLuaTables({
-      a: "a1",
-      d: 10,
-    });
-    expect(parseAllSectionToTable(ini, "section3")).toBeNull();
-    expect(parseAllSectionToTable(ini, "section4")).toBeNull();
   });
 });
 

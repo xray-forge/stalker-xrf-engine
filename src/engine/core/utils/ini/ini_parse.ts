@@ -452,32 +452,6 @@ export function parseBoneStateDescriptors(data: Optional<string>): LuaArray<IBon
 }
 
 /**
- * Parse all lines from ini file section to lua table.
- *
- * @param ini - ini file to parse
- * @param section - section name to parse
- * @returns table matching ini file section where field is key and value is matching ini counterpart
- */
-export function parseAllSectionToTable<T = string>(ini: IniFile, section: TSection): Optional<LuaTable<string, T>> {
-  if (ini.section_exist(section)) {
-    const parsed: LuaTable<string, T> = new LuaTable();
-
-    for (const index of $range(0, ini.line_count(section) - 1)) {
-      const [, field, value] = ini.r_line(section, index, "", "");
-      const trimmed: Optional<string> = trimString(field);
-
-      if (field !== null && trimmed !== "") {
-        parsed.set(trimmed, trimString(value) as T);
-      }
-    }
-
-    return parsed;
-  } else {
-    return null;
-  }
-}
-
-/**
  * Utility shortcut to handle string 'nil' values stored in net packets as string.
  *
  * @param value - value to check

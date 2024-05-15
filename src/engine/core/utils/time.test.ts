@@ -5,6 +5,7 @@ import {
   deserializeTime,
   gameTimeToString,
   globalTimeToString,
+  hoursToWeatherPeriod,
   isInTimeInterval,
   readTimeFromPacket,
   serializeTime,
@@ -131,5 +132,14 @@ describe("deserializeTime util", () => {
     expect(deserializeTime("[2016,12,10,10,1,50,500]").toString()).toBe(
       MockCTime.create(2016, 12, 10, 10, 1, 50, 500).toString()
     );
+  });
+});
+
+describe("hoursToWeatherPeriod util", () => {
+  it("should correctly transform hours", () => {
+    expect(hoursToWeatherPeriod(0).toString()).toBe("00:00:00");
+    expect(hoursToWeatherPeriod(1).toString()).toBe("01:00:00");
+    expect(hoursToWeatherPeriod(12).toString()).toBe("12:00:00");
+    expect(hoursToWeatherPeriod(23).toString()).toBe("23:00:00");
   });
 });

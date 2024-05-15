@@ -2,7 +2,7 @@ import { CTime, game, level } from "xray16";
 
 import { wait } from "@/engine/core/utils/game/game_wait";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { NetPacket, NetProcessor, Optional, Time, TRate, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Optional, Time, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Add part of time digit to a data string.
@@ -29,6 +29,18 @@ export function gameTimeToString(time: Time): string {
     toTimeDigit(d),
     toTimeDigit(y)
   );
+}
+
+/**
+ * Transform hour to weather period section label.
+ *
+ * Example: 6 -> "06:00:00".
+ *
+ * @param hours - hours to transform
+ * @returns section for provided hour period
+ */
+export function hoursToWeatherPeriod(hours: TTimestamp): TLabel {
+  return hours < 10 ? `0${hours}:00:00` : `${hours}:00:00`;
 }
 
 /**
