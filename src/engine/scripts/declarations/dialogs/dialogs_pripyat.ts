@@ -2,6 +2,7 @@ import { registry } from "@/engine/core/database";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   giveMoneyToActor,
   transferItemsFromActor,
@@ -19,6 +20,15 @@ import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { AnyCallable, GameObject, LuaArray, TCount } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
+
+logger.info("Resolve and bind dialogs pripyat");
+
+/**
+ * Declare globals object.
+ */
+extern("dialogs_pripyat", {});
 
 /**
  * todo;

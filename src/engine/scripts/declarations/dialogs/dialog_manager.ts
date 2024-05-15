@@ -16,9 +16,16 @@ import { GameObject, Optional, PhraseDialog, TName, TNumberId, TStringId } from 
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+logger.info("Resolve and bind dialogs manager");
+
 // todo: Verify object vs actor in some methods.
 // todo: Verify object vs actor in some methods.
 // todo: Verify object vs actor in some methods.
+
+/**
+ * Declare globals object.
+ */
+extern("dialog_manager", {});
 
 /**
  * Initialize dialog phrases / priorities and order.

@@ -10,6 +10,7 @@ import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { actorHasAtLeastOneItem, actorHasItem, objectHasItem } from "@/engine/core/utils/item";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import {
   giveItemsToActor,
   giveMoneyToActor,
@@ -43,6 +44,15 @@ import {
   TSection,
   TStringId,
 } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
+
+logger.info("Resolve and bind dialogs zaton");
+
+/**
+ * Declare globals object.
+ */
+extern("dialogs_zaton", {});
 
 /**
  * todo;
