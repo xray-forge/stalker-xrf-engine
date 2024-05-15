@@ -63,6 +63,8 @@ blowout_hit_3
 blowout_wave_1
 blowout_wave_2
 blowout_wave_3
+blowout_particle_wave_looped
+fallout_acid_rain
 shooting_target_up
 shooting_target_down
 shooting_target_hit
@@ -80,35 +82,43 @@ path = ambient\earthquake
 
 [blowout_begin]
 type = 3d
-path = ambient\blowout_begin
+path = ambient\blowout\blowout_begin
 
 [blowout_rumble]
 type = looped
-path = ambient\blowout_rumble
+path = ambient\blowout\blowout_rumble
 
 [blowout_hit_1]
 type = 3d
-path = ambient\blowout_hit_1
+path = ambient\blowout\blowout_impact
 
 [blowout_hit_2]
 type = 3d
-path = ambient\blowout_hit_2
+path = ambient\blowout\blowout_impact_02
 
 [blowout_hit_3]
 type = 3d
-path = ambient\blowout_hit_3
+path = ambient\blowout\blowout_outro
 
 [blowout_wave_1]
 type = 3d
-path = ambient\blowout_wave_1
+path = ambient\blowout\blowout_wave_01
 
 [blowout_wave_2]
 type = 3d
-path = ambient\blowout_wave_2
+path = ambient\blowout\blowout_wave_04
 
 [blowout_wave_3]
 type = 3d
 path = ambient\blowout_wave_3
+
+[blowout_particle_wave_looped]
+type = looped
+path = ambient\blowout\blowout_particle_wave
+
+[fallout_acid_rain]
+type = looped
+path = anomaly\acid_rain
 
 [state]
 type = npc
