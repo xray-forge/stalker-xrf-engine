@@ -58,7 +58,7 @@ describe("unlinkFolders util", () => {
 
     expect(fsp.symlink).toHaveBeenCalledTimes(3);
     expect(fsp.symlink).toHaveBeenCalledWith("root-path", "game-path", "junction");
-    expect(fsp.symlink).toHaveBeenCalledWith("root-path", "game-path", "junction");
+    expect(fsp.symlink).toHaveBeenCalledWith("target-gamedata-path", "gamedata-path", "junction");
     expect(fsp.symlink).toHaveBeenCalledWith("logs-path", "logs-path", "junction");
   });
 

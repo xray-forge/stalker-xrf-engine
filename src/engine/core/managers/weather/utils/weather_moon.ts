@@ -1,4 +1,4 @@
-import { EWeatherMoonPeriod } from "@/engine/core/managers/weather";
+import { EWeatherMoonPeriod } from "@/engine/core/managers/weather/weather_types";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { Time, TIndex, TLabel } from "@/engine/lib/types";
 

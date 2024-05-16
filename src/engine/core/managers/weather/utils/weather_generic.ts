@@ -1,6 +1,10 @@
 import { FS, getFS, level } from "xray16";
 
-import { EWeatherPeriodType, IAtmosfearLevelWeatherConfig, TWeatherGraph } from "@/engine/core/managers/weather";
+import {
+  EWeatherPeriodType,
+  IAtmosfearLevelWeatherConfig,
+  TWeatherGraph,
+} from "@/engine/core/managers/weather/weather_types";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { containsSubstring } from "@/engine/core/utils/string";
 import { roots } from "@/engine/lib/constants/roots";
