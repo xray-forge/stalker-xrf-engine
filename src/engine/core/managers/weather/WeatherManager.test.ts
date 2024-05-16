@@ -3,7 +3,7 @@ import { level } from "xray16";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { IWeatherState } from "@/engine/core/managers/weather/weather_types";
+import { EWeatherPeriodType, IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
 import { resetRegistry } from "@/fixtures/engine";
@@ -20,7 +20,7 @@ describe("WeatherManager", () => {
     const weatherManager: WeatherManager = getManager(WeatherManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    expect(weatherManager.weatherPeriod).toBe("neutral");
+    expect(weatherManager.weatherPeriod).toBe("good");
     expect(weatherManager.lastUpdatedAtHour).toBe(0);
     expect(weatherManager.weatherFxTime).toBe(0);
     expect(eventsManager.getSubscribersCount()).toBe(2);
@@ -38,9 +38,9 @@ describe("WeatherManager", () => {
 
     expect(level.name()).toBe("zaton");
 
-    expect(manager.weatherPeriod).toBe("neutral");
-    expect(manager.weatherSection).toBe("neutral");
-    expect(String(getFunctionMock(level.set_weather).mock.calls[0][0]).startsWith("default_cloudy")).toBeTruthy();
+    expect(manager.weatherPeriod).toBe("good");
+    expect(manager.weatherSection).toBe("rainy");
+    expect(String(getFunctionMock(level.set_weather).mock.calls[0][0]).startsWith("af3_slight_")).toBeTruthy();
   });
 
   it("should correctly set state", () => {
@@ -49,17 +49,20 @@ describe("WeatherManager", () => {
     manager.setStateAsString("dynamic_default=clear,cloudy");
 
     expect(MockLuaTable.getMockSize(manager.weatherState)).toBe(1);
-    expect(manager.weatherState).toStrictEqual(
+    expect(manager.weatherState).toEqualLuaTables(
       MockLuaTable.mock<string, IWeatherState>([
         [
           "dynamic_default",
           {
             currentState: "clear",
             weatherGraph: MockLuaTable.mock([
-              ["clear", 0.4],
-              ["cloudy", 0.4],
+              ["clear", 0.2],
+              ["cloudy", 0.2],
+              ["foggy", 0.1],
+              ["partly", 0.2],
               ["rain", 0.1],
               ["thunder", 0.1],
+              ["veryfoggy", 0.1],
             ]),
             weatherName: "dynamic_default",
             nextState: "cloudy",
@@ -75,7 +78,7 @@ describe("WeatherManager", () => {
 
     manager.setStateAsString("dynamic_default=clear,cloudy");
     manager.weatherSection = "test_weather";
-    manager.weatherPeriod = "good";
+    manager.weatherPeriod = EWeatherPeriodType.GOOD;
     manager.weatherLastPeriodChangeHour = 9;
     manager.weatherNextPeriodChangeHour = 13;
     manager.lastUpdatedAtHour = 11;

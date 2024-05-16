@@ -44,9 +44,11 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
     }
   }
 
-  public clear_location_types(): void {}
+  public add_location_type = jest.fn(() => {});
 
-  public force_change_position(): void {}
+  public clear_location_types = jest.fn(() => {});
+
+  public force_change_position = jest.fn(() => {});
 
   public commander_id(): Optional<TNumberId> {
     return null;

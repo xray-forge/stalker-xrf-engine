@@ -1,11 +1,14 @@
-import { FS, getFS } from "xray16";
+import { FS, getFS, level } from "xray16";
 
+import { EWeatherPeriodType, IAtmosfearLevelWeatherConfig, TWeatherGraph } from "@/engine/core/managers/weather";
+import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { containsSubstring } from "@/engine/core/utils/string";
 import { roots } from "@/engine/lib/constants/roots";
-import { LuaArray, Optional, TName, TPath, TProbability, TRate } from "@/engine/lib/types";
+import { LuaArray, Optional, TDuration, TName, TPath, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Get list all possible weather configs to set.
+ * Checks environment configs list and fills list with possible ltx files describing weather cycles.
  *
  * @returns array containing all possible weather names
  */
@@ -37,7 +40,7 @@ export function getPossibleWeathersList(): LuaArray<TName> {
  * @param graph - list of weather-probability pairs to toggle
  * @returns next weather selected from possibilities graph
  */
-export function getNextWeatherFromGraph(graph: LuaTable<TName, TProbability>): TName {
+export function getNextWeatherFromGraph(graph: TWeatherGraph): TName {
   let totalProbability: TRate = 0;
 
   for (const [, probability] of graph) {
@@ -61,13 +64,28 @@ export function getNextWeatherFromGraph(graph: LuaTable<TName, TProbability>): T
 }
 
 /**
- * Check if weather section has dynamic base.
- *
- * @param weather - section of weather to check
- * @returns whether weather section is dynamic
+ * todo;
+ * todo;
+ * todo;
  */
-export function canUsePeriodsForWeather(weather: TName): boolean {
-  return containsSubstring(weather, "dynamic");
+export function getLevelWeatherDescriptor(): IAtmosfearLevelWeatherConfig {
+  return (
+    weatherConfig.ATMOSFEAR_LEVEL_CONFIGS.get(level.name()) ?? weatherConfig.ATMOSFEAR_LEVEL_CONFIGS.get("default")
+  );
+}
+
+/**
+ * todo
+ * todo
+ * todo
+ */
+export function getNextPeriodChangeHour(period: EWeatherPeriodType, lastPeriodChangedAt: TTimestamp): TTimestamp {
+  const length: TDuration =
+    period === EWeatherPeriodType.GOOD
+      ? getLevelWeatherDescriptor().periodGoodLength
+      : getLevelWeatherDescriptor().periodBadLength;
+
+  return (lastPeriodChangedAt + 1 + math.random(math.ceil((length * 2) / 3), length)) % 24;
 }
 
 /**

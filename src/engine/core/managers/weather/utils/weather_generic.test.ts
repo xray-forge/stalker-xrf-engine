@@ -1,7 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
 import {
-  canUsePeriodsForWeather,
   getPossibleWeathersList,
   isIndoorWeather,
   isPreBlowoutWeather,
@@ -22,13 +21,12 @@ describe("getPossibleWeathersList util", () => {
   });
 });
 
-describe("canUsePeriodsForWeather util", () => {
-  it("should check dynamic weathers", () => {
-    expect(canUsePeriodsForWeather("dynamic_default")).toBe(true);
-    expect(canUsePeriodsForWeather("dynamic")).toBe(true);
-    expect(canUsePeriodsForWeather("default")).toBe(false);
-    expect(canUsePeriodsForWeather("another")).toBe(false);
-  });
+describe("getNextWeatherFromGraph util", () => {
+  it.todo("should correctly get next possible weather from graph");
+});
+
+describe("getNextPeriodChangeHour util", () => {
+  it.todo("should correctly get next weather change hour");
 });
 
 describe("isIndoorWeather util", () => {
