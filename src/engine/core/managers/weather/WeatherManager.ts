@@ -292,7 +292,7 @@ export class WeatherManager extends AbstractManager {
       logger.info("Start weather FX: %s %s %s", this.weatherFx, this.weatherFxTime, now);
     } else {
       level.set_weather(nextWeather, now === true);
-      logger.info("Updated weather: %s %s %s %s", this.weatherPeriod, nextWeather, this.weatherFx, now);
+      logger.info("Updated weather: %s %s %s %s", weatherSection, nextWeather, this.weatherFx, now);
     }
   }
 
