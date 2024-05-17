@@ -39,7 +39,7 @@ describe("WeatherManager", () => {
     expect(level.name()).toBe("zaton");
 
     expect(manager.weatherPeriod).toBe("good");
-    expect(manager.weatherSection).toBe("rainy");
+    expect(manager.weatherSection).toBe("atmosfear_clear_foggy");
     expect(String(getFunctionMock(level.set_weather).mock.calls[0][0]).startsWith("af3_slight_")).toBeTruthy();
   });
 

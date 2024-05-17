@@ -227,14 +227,17 @@ export class WeatherManager extends AbstractManager {
         weatherSection += "_pre_blowout";
         this.isWeatherPeriodPreBlowout = false;
       } else {
-        weatherSection =
-          weatherSection + "_" + this.weatherPeriod === EWeatherPeriodType.GOOD
+        weatherSection = `${weatherSection}_${
+          this.weatherPeriod === EWeatherPeriodType.GOOD
             ? getLevelWeatherDescriptor().periodGood
-            : getLevelWeatherDescriptor().periodBad;
+            : getLevelWeatherDescriptor().periodBad
+        }`;
       }
     }
 
     this.weatherSection = weatherSection;
+
+    logger.info("Current weather section is: %s", weatherSection);
 
     const graph: Optional<TWeatherGraph> = this.getGraphBySection(weatherSection);
     let nextWeather: TName;

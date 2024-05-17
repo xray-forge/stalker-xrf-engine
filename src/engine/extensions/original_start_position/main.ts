@@ -6,14 +6,14 @@ import { TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($dirname);
 
-export const name: TName = "Alternative start position";
-export const enabled: boolean = true;
+export const name: TName = "Original start position";
+export const enabled: boolean = false;
 
 export function register(isNewGame: boolean): void {
-  logger.info("Alternative start extension register: %s", isNewGame);
+  logger.info("Original start extension register: %s", isNewGame);
 
   if (isNewGame) {
-    set_start_game_vertex_id(212);
-    set_start_position(createVector(-307.5, 16.5, 550.5));
+    set_start_game_vertex_id(287);
+    set_start_position(createVector(268, 20, 560));
   }
 }
