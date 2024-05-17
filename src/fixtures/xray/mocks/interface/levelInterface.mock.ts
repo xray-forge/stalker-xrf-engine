@@ -17,6 +17,7 @@ export const mockLevelInterface = {
   add_pp_effector: jest.fn(),
   change_game_time: jest.fn(),
   disable_input: jest.fn(),
+  get_time_factor: jest.fn(() => 10),
   get_game_difficulty: jest.fn(() => 3),
   get_bounding_volume: jest.fn(() => MockFbox.mock()),
   get_snd_volume: jest.fn(() => 1),

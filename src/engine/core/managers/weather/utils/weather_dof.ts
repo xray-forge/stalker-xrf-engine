@@ -18,11 +18,10 @@ export function resetDof(): void {
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * Update DOF settings based on weather transition.
+ * Adjusts DOF setting based on current weather cycle visibility + fog levels.
  *
- * @param manager
+ * @param manager - target weather manager to update
  */
 export function updateDof(manager: WeatherManager): void {
   const console: CConsole = get_console();

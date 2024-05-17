@@ -31,8 +31,86 @@ describe("updateDof util", () => {
   });
 
   it("should correctly fail if weather is not set / initialized", () => {
-    expect(() => updateDof(getManager(WeatherManager))).toThrow(
+    const manager: WeatherManager = getManager(WeatherManager);
+
+    expect(() => updateDof(manager)).toThrow(
       "Could not find fog distance descriptor for weather switch pair 'nil -> nil'"
     );
+
+    manager.currentWeatherSection = "test";
+
+    expect(() => updateDof(manager)).toThrow(
+      "Could not find fog distance descriptor for weather switch pair 'test -> nil'"
+    );
+
+    manager.currentWeatherSection = null;
+    manager.nextWeatherSection = "test";
+
+    expect(() => updateDof(manager)).toThrow(
+      "Could not find fog distance descriptor for weather switch pair 'nil -> test'"
+    );
+  });
+
+  it("should correctly switch dof without weather fx", () => {
+    const manager: WeatherManager = getManager(WeatherManager);
+    const console: Console = get_console();
+
+    manager.currentWeatherSection = "clear";
+    manager.nextWeatherSection = "veryfoggy";
+    manager.lastUpdatedAtHour = 10;
+
+    updateDof(manager);
+
+    expect(console.execute).toHaveBeenCalledWith("r2_dof_far 1000");
+    expect(console.execute).toHaveBeenCalledWith("r2_dof_kernel 6");
+
+    manager.weatherFxStartedAt = 1;
+    manager.lastUpdatedAtSecond = 10;
+
+    updateDof(manager);
+
+    expect(console.execute).toHaveBeenCalledWith("r2_dof_far 200");
+    expect(console.execute).toHaveBeenCalledWith("r2_dof_kernel 4");
+
+    manager.lastUpdatedAtSecond = 16;
+
+    updateDof(manager);
+
+    expect(manager.weatherFxStartedAt).toBeNull();
+    expect(manager.weatherFxEndedAt).toBeNull();
+  });
+
+  it("should correctly switch dof with weather fx", () => {
+    const manager: WeatherManager = getManager(WeatherManager);
+    const console: Console = get_console();
+
+    manager.weatherFx = "test";
+    manager.currentWeatherSection = "clear";
+    manager.nextWeatherSection = "veryfoggy";
+    manager.lastUpdatedAtHour = 10;
+
+    updateDof(manager);
+
+    expect(console.execute).toHaveBeenCalledTimes(0);
+
+    manager.weatherFxStartedAt = 5;
+    manager.lastUpdatedAtSecond = 15;
+
+    updateDof(manager);
+
+    expect(console.execute).toHaveBeenCalledWith("r2_dof_far 778");
+    expect(console.execute).toHaveBeenCalledWith("r2_dof_kernel 5");
+
+    manager.lastUpdatedAtSecond = 16;
+
+    updateDof(manager);
+
+    expect(console.execute).toHaveBeenCalledTimes(4);
+
+    manager.weatherFxEndedAt = 15;
+
+    updateDof(manager);
+
+    expect(console.execute).toHaveBeenCalledTimes(4);
   });
 });
