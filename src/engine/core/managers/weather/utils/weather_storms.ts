@@ -5,7 +5,17 @@ import { IThunderDescriptor, WeatherManager } from "@/engine/core/managers/weath
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { hoursToWeatherPeriod } from "@/engine/core/utils/time";
 import { createVector } from "@/engine/core/utils/vector";
-import { ParticlesObject, SoundObject, TDistance, TDuration, TTimestamp, Vector } from "@/engine/lib/types";
+import {
+  LuaArray,
+  TCoordinate,
+  TDistance,
+  TDuration,
+  TIndex,
+  TRate,
+  TSection,
+  TTimestamp,
+  Vector,
+} from "@/engine/lib/types";
 
 /**
  * todo;
@@ -85,18 +95,22 @@ export function updateDistantStorm(manager: WeatherManager): void {
  * @param x
  * @param y
  */
-export function isInsideBoundaries(x: TDistance, y: TDistance): boolean {
+export function isInsideBoundaries(x: TCoordinate, y: TCoordinate): boolean {
   let isInside: boolean = false;
 
   if (weatherConfig.DISTANT_STORM_BOUNDARIES[level.name()]) {
-    const vert = weatherConfig.DISTANT_STORM_BOUNDARIES[level.name()];
-    let j = vert.length();
+    const boundaries: LuaArray<[number, number]> = weatherConfig.DISTANT_STORM_BOUNDARIES[level.name()];
+    let j: TIndex = boundaries.length();
 
-    for (const i of $range(1, vert.length())) {
-      if ((vert.get(i)[1] < y && vert.get(j)[1] >= y) || (vert.get(j)[1] < y && vert.get(i)[1] >= y)) {
+    for (const i of $range(1, boundaries.length())) {
+      if (
+        (boundaries.get(i)[1] < y && boundaries.get(j)[1] >= y) ||
+        (boundaries.get(j)[1] < y && boundaries.get(i)[1] >= y)
+      ) {
         if (
-          vert.get(i)[0] +
-            ((y - vert.get(i)[1]) / (vert.get(j)[1] - vert.get(i)[1])) * (vert.get(j)[0] - vert.get(i)[0]) <
+          boundaries.get(i)[0] +
+            ((y - boundaries.get(i)[1]) / (boundaries.get(j)[1] - boundaries.get(i)[1])) *
+              (boundaries.get(j)[0] - boundaries.get(i)[0]) <
           x
         ) {
           isInside = !isInside;
@@ -118,40 +132,50 @@ export function isInsideBoundaries(x: TDistance, y: TDistance): boolean {
  * @param manager
  */
 export function generateDistantStormLightning(manager: WeatherManager): void {
-  const effect: ParticlesObject = new particles_object(weatherConfig.DISTANT_STORM_PARTICLE);
-  const sound: SoundObject = new sound_object(
-    weatherConfig.DISTANT_STORM_SOUNDS.get(math.random(1, weatherConfig.DISTANT_STORM_SOUNDS.length()))
+  const hours: TTimestamp = (level.get_time_minutes() < 30 ? level.get_time_hours() : level.get_time_hours() + 1) % 24;
+  const [directionMin, directionMax] = weatherConfig.DISTANT_STORM_DIRECTIONS.get(hours + 1);
+
+  const lastHourCycle: TSection = hoursToWeatherPeriod(manager.lastUpdatedAtHour);
+  const nextHourCycle: TSection = hoursToWeatherPeriod((manager.lastUpdatedAtHour + 1) % 24);
+
+  const lastDistance: TDistance = weatherConfig.FOG_DISTANCES.get(manager.currentWeatherSection as TSection).get(
+    lastHourCycle
+  );
+  const nextDistance: TDistance = weatherConfig.FOG_DISTANCES.get(manager.nextWeatherSection as TSection).get(
+    nextHourCycle
+  );
+  const safeDistance: TDistance = math.ceil(
+    ((nextDistance - lastDistance) * level.get_time_minutes()) / 60 + lastDistance
   );
 
-  const hours = (level.get_time_minutes() < 30 ? level.get_time_hours() : level.get_time_hours() + 1) % 24;
-  const direction = weatherConfig.DISTANT_STORM_DIRECTIONS.get(hours + 1);
-
-  const angle_dec = math.random(direction[0], direction[1]);
-  const angle_rad = math.rad(angle_dec);
-  const last_hour_str = hoursToWeatherPeriod(manager.lastUpdatedAtHour);
-  const next_hour_str = hoursToWeatherPeriod((manager.lastUpdatedAtHour + 1) % 24);
-  const last_dist = weatherConfig.FOG_DISTANCES.get(manager.currentWeatherSection as any).get(last_hour_str);
-  const next_dist = weatherConfig.FOG_DISTANCES.get(manager.nextWeatherSection as any).get(next_hour_str);
-  const m = level.get_time_minutes();
-  const current_far_distance = math.ceil(((next_dist - last_dist) * m) / 60 + last_dist);
-
-  const distance = current_far_distance - 50;
-  const safe_distance = current_far_distance;
-  const sound_distance = 100;
-  const pos_x = math.sin(angle_rad) * distance;
-  const pos_z = math.cos(angle_rad) * distance;
-  const safe_pos_x = math.sin(angle_rad) * safe_distance;
-  const safe_pos_z = math.cos(angle_rad) * safe_distance;
-  const sound_pos_x = math.sin(angle_rad) * sound_distance;
-  const sound_pos_z = math.cos(angle_rad) * sound_distance;
   const actorPosition: Vector = registry.actor.position();
+  const angleDec: TRate = math.random(directionMin, directionMax);
+  const angleRad: TRate = math.rad(angleDec);
 
-  if (isInsideBoundaries(actorPosition.x + safe_pos_x, actorPosition.z + safe_pos_z)) {
+  if (
+    isInsideBoundaries(
+      actorPosition.x + math.sin(angleRad) * safeDistance,
+      actorPosition.z + math.cos(angleRad) * safeDistance
+    )
+  ) {
+    const distance: TDistance = safeDistance - 50;
+    const soundDistance: TDistance = 100;
+
     const thunder: IThunderDescriptor = {
-      effect: effect,
-      particlePosition: createVector(actorPosition.x + pos_x, actorPosition.y + 10, actorPosition.z + pos_z),
-      sound: sound,
-      soundPosition: createVector(actorPosition.x + sound_pos_x, actorPosition.y, actorPosition.z + sound_pos_z),
+      effect: new particles_object(weatherConfig.DISTANT_STORM_PARTICLE),
+      particlePosition: createVector(
+        actorPosition.x + math.sin(angleRad) * distance,
+        actorPosition.y + 10,
+        actorPosition.z + math.cos(angleRad) * distance
+      ),
+      sound: new sound_object(
+        weatherConfig.DISTANT_STORM_SOUNDS.get(math.random(1, weatherConfig.DISTANT_STORM_SOUNDS.length()))
+      ),
+      soundPosition: createVector(
+        actorPosition.x + math.sin(angleRad) * soundDistance,
+        actorPosition.y,
+        actorPosition.z + math.cos(angleRad) * soundDistance
+      ),
       createdAt: manager.lastUpdatedAtSecond,
       isHit: false,
     };
