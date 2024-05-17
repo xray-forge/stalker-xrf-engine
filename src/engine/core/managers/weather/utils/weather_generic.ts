@@ -47,6 +47,7 @@ export function getPossibleWeathersList(): LuaArray<TName> {
 export function getNextWeatherFromGraph(graph: TWeatherGraph): TName {
   let totalProbability: TRate = 0;
 
+  // todo: Probably store total probability in graph or supply as parameter.
   for (const [, probability] of graph) {
     totalProbability += probability;
   }
@@ -68,9 +69,7 @@ export function getNextWeatherFromGraph(graph: TWeatherGraph): TName {
 }
 
 /**
- * todo;
- * todo;
- * todo;
+ * @returns descriptor of level weather periods, defaults for unknown levels
  */
 export function getLevelWeatherDescriptor(): IAtmosfearLevelWeatherConfig {
   return (
@@ -79,9 +78,12 @@ export function getLevelWeatherDescriptor(): IAtmosfearLevelWeatherConfig {
 }
 
 /**
- * todo
- * todo
- * todo
+ * Get next period change hour based on previous change and configuration of level periods.
+ * Randomizes change between max period duration and 2/3 of duration.
+ *
+ * @param period - type of current weather period
+ * @param lastPeriodChangedAt - hour of last period change
+ * @returns next hour to change period
  */
 export function getNextPeriodChangeHour(period: EWeatherPeriodType, lastPeriodChangedAt: TTimestamp): TTimestamp {
   const length: TDuration =
