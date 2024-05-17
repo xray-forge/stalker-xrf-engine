@@ -5,6 +5,7 @@ import { jest } from "@jest/globals";
 import { parse } from "ini";
 
 import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
+import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
 
 import { AnyObject, IniFile, TName, TNumberId, TPath, TSection } from "@/engine/lib/types";
 import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
@@ -39,7 +40,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
     this.data = data || (FILES_MOCKS[iniPath as keyof typeof FILES_MOCKS] as unknown as T);
 
     if (!this.data) {
-      const absolutePath: TPath = path.resolve(GAME_DATA_LTX_CONFIGS_DIR, iniPath);
+      const absolutePath: TPath = normalizeParameterPath(path.resolve(GAME_DATA_LTX_CONFIGS_DIR, iniPath));
 
       if (fs.existsSync(absolutePath)) {
         this.data = parse(fs.readFileSync(path.resolve(absolutePath)).toString()) as T;
