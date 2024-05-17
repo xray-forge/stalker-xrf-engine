@@ -4,7 +4,7 @@ import { set_start_game_vertex_id, set_start_position } from "xray16";
 import { register } from "@/engine/extensions/original_start_position/main";
 import { resetFunctionMock } from "@/fixtures/jest";
 
-describe("alternative start position", () => {
+describe("original start position", () => {
   beforeEach(() => {
     resetFunctionMock(set_start_game_vertex_id);
     resetFunctionMock(set_start_position);

@@ -39,6 +39,12 @@ describe("readAtmosfearConfig util", () => {
 
 describe("readLevelWeathersConfiguration util", () => {
   it("should correctly read values", () => {
+    console.error(
+      "Some details about LTX 1:",
+      JSON.stringify((WEATHER_MANAGER_LEVELS_LTX as unknown as MockIniFile).data)
+    );
+    console.error("Some details about LTX 2:", JSON.stringify(WEATHER_MANAGER_LEVELS_LTX));
+
     expect(readLevelWeathersConfiguration(WEATHER_MANAGER_LEVELS_LTX)).toEqualLuaTables({
       default: {
         periodBad: "foggy_rainy",
