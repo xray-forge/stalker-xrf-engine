@@ -1,9 +1,4 @@
-import * as path from "path";
-
 import { describe, expect, it } from "@jest/globals";
-
-import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
-import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
 
 import { EWeatherMoonPeriod, EWeatherNightBrightness } from "@/engine/core/managers/weather";
 import {
@@ -44,20 +39,6 @@ describe("readAtmosfearConfig util", () => {
 
 describe("readLevelWeathersConfiguration util", () => {
   it("should correctly read values", () => {
-    console.error(
-      "Some details about LTX 1:",
-      JSON.stringify((WEATHER_MANAGER_LEVELS_LTX as unknown as MockIniFile).data)
-    );
-    console.error("Some details about LTX 2:", JSON.stringify(WEATHER_MANAGER_LEVELS_LTX));
-    console.error(
-      "Some details about LTX 3:",
-      path.resolve(GAME_DATA_LTX_CONFIGS_DIR, normalizeParameterPath("managers\\weather\\weather_manager_levels.ltx"))
-    );
-    console.error(
-      "Some details about LTX 4:",
-      path.resolve(GAME_DATA_LTX_CONFIGS_DIR, "managers\\weather\\weather_manager_levels.ltx")
-    );
-
     expect(readLevelWeathersConfiguration(WEATHER_MANAGER_LEVELS_LTX)).toEqualLuaTables({
       default: {
         periodBad: "foggy_rainy",
