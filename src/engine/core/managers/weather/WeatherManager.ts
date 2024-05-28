@@ -20,14 +20,12 @@ import {
   getNextWeatherFromGraph,
   isPreBlowoutWeather,
   isTransitionWeather,
-  updateDistantStorm,
 } from "@/engine/core/managers/weather/utils";
 import { resetDof, updateDof } from "@/engine/core/managers/weather/utils/weather_dof";
 import {
   ATMOSFEAR_WEATHER,
   EWeatherPeriod,
   EWeatherPeriodType,
-  IThunderDescriptor,
   IWeatherState,
   TWeatherGraph,
 } from "@/engine/core/managers/weather/weather_types";
@@ -51,7 +49,6 @@ import {
   StringOptional,
   TDuration,
   Time,
-  TIndex,
   TName,
   TProbability,
   TSection,
@@ -96,12 +93,6 @@ export class WeatherManager extends AbstractManager {
 
   public weatherFxStartedAt: Optional<TTimestamp> = null;
   public weatherFxEndedAt: Optional<TTimestamp> = null;
-
-  // Thunders for distance storms before cloudy/rainy weather:
-  public isDistantStormOn: Optional<boolean> = null;
-  public nextThunderAt: Optional<TTimestamp> = null;
-  public thunders: LuaArray<IThunderDescriptor> = new LuaTable();
-  public thunderIndex: TIndex = 1;
 
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
@@ -175,6 +166,7 @@ export class WeatherManager extends AbstractManager {
     const lastUpdatedAtSecond5: TTimestamp = lastUpdatedAtSecond * 5;
 
     this.weatherFx = level.is_wfx_playing() ? level.get_weather() : null;
+    this.lastUpdatedAtSecond = lastUpdatedAtSecond;
 
     if (this.lastUpdatedAtHour !== lastUpdatedAtHour) {
       this.lastUpdatedAtHour = lastUpdatedAtHour;
@@ -186,14 +178,6 @@ export class WeatherManager extends AbstractManager {
 
       this.changePeriod();
       this.updateWeather();
-    }
-
-    if (this.lastUpdatedAtSecond !== lastUpdatedAtSecond) {
-      this.lastUpdatedAtSecond = lastUpdatedAtSecond;
-
-      if (this.isAtmosfearWeatherActive()) {
-        updateDistantStorm(this);
-      }
     }
 
     if (this.lastUpdatedAtSecond5 !== lastUpdatedAtSecond5) {

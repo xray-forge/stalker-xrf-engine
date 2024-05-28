@@ -69,19 +69,6 @@ export enum EWeatherMoonPeriod {
 export type TWeatherGraph = LuaTable<TName, TProbability>;
 
 /**
- * Descriptor of active thunder effect + sounds.
- * Used for distant storms before actual rainy/stormy weathers.
- */
-export interface IThunderDescriptor {
-  createdAt: TTimestamp;
-  effect: ParticlesObject;
-  isHit: boolean;
-  particlePosition: Vector;
-  sound: SoundObject;
-  soundPosition: Vector;
-}
-
-/**
  * Definition of atmosfear specific configuration.
  */
 export interface IAtmosfearConfig {

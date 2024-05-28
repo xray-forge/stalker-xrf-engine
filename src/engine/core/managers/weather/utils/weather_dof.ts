@@ -13,7 +13,7 @@ import { TDistance, TRate, TSection, TTimestamp } from "@/engine/lib/types";
 export function resetDof(): void {
   const console: CConsole = get_console();
 
-  console.execute("r2_dof_far 800");
+  console.execute(`r2_dof_far ${800 * weatherConfig.DOF_RATE}`);
   console.execute("r2_dof_kernel 2");
 }
 
@@ -72,7 +72,11 @@ export function updateDof(manager: WeatherManager): void {
         percentOfTransition = 1;
       }
 
-      console.execute(`r2_dof_far ${math.ceil(currentDofFar - (currentDofFar - 200) * percentOfTransition)}`);
+      console.execute(
+        `r2_dof_far ${math.ceil(
+          (currentDofFar - (currentDofFar - 200) * percentOfTransition) * weatherConfig.DOF_RATE
+        )}`
+      );
       console.execute(
         `r2_dof_kernel ${roundWithPrecision(currentDofKernel - (currentDofKernel - 4) * percentOfTransition)}`
       );
@@ -93,12 +97,16 @@ export function updateDof(manager: WeatherManager): void {
         manager.weatherFxEndedAt = null;
       }
 
-      console.execute(`r2_dof_far ${math.ceil(currentDofFar - (currentDofFar - 200) * (1 - percentOfTransition))}`);
+      console.execute(
+        `r2_dof_far ${math.ceil(
+          (currentDofFar - (currentDofFar - 200) * (1 - percentOfTransition)) * weatherConfig.DOF_RATE
+        )}`
+      );
       console.execute(
         `r2_dof_kernel ${roundWithPrecision(currentDofKernel - (currentDofKernel - 4) * (1 - percentOfTransition))}`
       );
     } else {
-      console.execute(`r2_dof_far ${currentDofFar}`);
+      console.execute(`r2_dof_far ${currentDofFar * weatherConfig.DOF_RATE}`);
       console.execute(`r2_dof_kernel ${currentDofKernel}`);
     }
   }
