@@ -62,7 +62,7 @@ export function readFogDistances(ini: IniFile): LuaTable<TSection, LuaTable<TSec
     for (const index of $range(0, 23)) {
       const timePeriod: TSection = hoursToWeatherPeriod(index);
 
-      weatherCycle.set(timePeriod, readIniNumber(weatherCycleLtx, timePeriod, "fog_distance", false, 1000));
+      weatherCycle.set(timePeriod, readIniNumber(weatherCycleLtx, timePeriod, "fog_distance", false, 500));
     }
 
     distances.set(cycle, weatherCycle);

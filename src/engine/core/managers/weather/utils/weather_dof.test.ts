@@ -61,7 +61,7 @@ describe("updateDof util", () => {
 
     updateDof(manager);
 
-    expect(console.execute).toHaveBeenCalledWith("r2_dof_far 1000");
+    expect(console.execute).toHaveBeenCalledWith("r2_dof_far 500");
     expect(console.execute).toHaveBeenCalledWith("r2_dof_kernel 6");
 
     manager.weatherFxStartedAt = 1;
@@ -98,7 +98,7 @@ describe("updateDof util", () => {
 
     updateDof(manager);
 
-    expect(console.execute).toHaveBeenCalledWith("r2_dof_far 778");
+    expect(console.execute).toHaveBeenCalledWith("r2_dof_far 417");
     expect(console.execute).toHaveBeenCalledWith("r2_dof_kernel 5");
 
     manager.lastUpdatedAtSecond = 16;
