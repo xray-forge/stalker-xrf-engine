@@ -578,6 +578,16 @@
     "spa": "Has conseguido el logro Líder.",
     "ukr": "Отримано досягнення «Лідер»"
   },
+  "st_ach_marked_by_zone": {
+    "eng": "You have attained the Marked by the Zone achievement.",
+    "fra": "Vous avez obtenu le succčs Affecté par la Zone.",
+    "ger": "Sie haben folgenden Erfolg errungen: Gezeichnet von der Zone.",
+    "ita": "Hai ottenuto l'obiettivo Marcato dalla Zona",
+    "pol": "Udało ci się zdobyć osiągnięcie „Naznaczony przez Zonę\".",
+    "rus": "Получено достижение «Отмеченный Зоной»",
+    "spa": "Has conseguido el logro Marcado por la Zona.",
+    "ukr": "Отримано досягнення «Мічений Зоною»"
+  },
   "st_ach_mutant_hunter": {
     "eng": "You have attained the Mutant Hunter achievement.",
     "fra": "Vous avez obtenu le succčs Chasseur de mutants.",
@@ -708,6 +718,26 @@
     "spa": "Se ha ańadido un traje blindado PSZ-9d de Deber en la caja personal de Yanov por ayudar a Deber.",
     "ukr": "За допомогу «Долгу» до особистого ящика на «Янові» поміщено костюм ПСЗ-9д «Броня «Долгу»."
   },
+  "st_found_new_treasure": {
+    "eng": "Stash coordinates received",
+    "fra": "Coordonnées de la planque reçues",
+    "ger": "Versteckkoordinaten erhalten",
+    "ita": "Coordinate del ripostiglio ricevute",
+    "pol": "Otrzymano współrzędne schowka",
+    "rus": "Получены координаты тайника",
+    "spa": "Recibidas coordenadas del escondite",
+    "ukr": "Отримано координати схованки"
+  },
+  "st_found_old_treasure": {
+    "eng": "Received coordinates of a stash that has already been discovered.",
+    "fra": "Coordonnées d'une planque déjŕ découverte récupérées",
+    "ger": "Koordinaten eines Verstecks erhalten, das schon bekannt ist.",
+    "ita": "Hai ricevuto le coordinate di un ripostiglio giŕ scoperto.",
+    "pol": "Otrzymano współrzędne schowka, który już wcześniej został odkryty.",
+    "rus": "Получены координаты ранее найденного тайника",
+    "spa": "Recibidas coordenadas del escondite que ya ha sido descubierto.",
+    "ukr": "Отримано координати раніше знайденої схованки"
+  },
   "st_freedom_first_reward_news": {
     "eng": "A Wind of Freedom suit has been placed in the personal box at Yanov for helping Freedom.",
     "fra": "Une combinaison \"Vent de Liberté\" a été placée dans votre cantine de Yanov, en remerciement de l'aide apportée ŕ la Liberté.",
@@ -788,6 +818,16 @@
     "spa": "Partida guardada",
     "ukr": "Гру збережено"
   },
+  "st_got_treasure": {
+    "eng": "Stash found",
+    "fra": "Planque trouvée",
+    "ger": "Versteck gefunden",
+    "ita": "Ripostiglio individuato",
+    "pol": "Znaleziono schowek",
+    "rus": "Найден тайник",
+    "spa": "Escondite encontrado",
+    "ukr": "Знайдено схованку"
+  },
   "st_herald_of_justice_news": {
     "eng": "An artifact has been placed in the personal box on the Skadovsk for helping to expose Magpie.",
     "fra": "Un artefact a été placé dans votre cantine du Skadovsk en remerciement pour votre aide dans l'affaire de la Pie.",
@@ -828,6 +868,26 @@
     "spa": "Subir en el ascensor ($$ACTION_USE$$)",
     "ukr": "Піднятися ліфтом ($$ACTION_USE$$)"
   },
+  "st_mutant_hunter_news": {
+    "eng": "Ammo has been placed in the personal box at Yanov for eliminating dangerous mutants.",
+    "fra": "Des munitions ont été placées dans votre cantine de Yanov, pour vous remercier d'avoir éliminé de dangereux mutants.",
+    "ger": "Als Dank dafür, dass Sie gefährliche Mutanten getötet haben, wurde Munition in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
+    "ita": "Delle munizioni sono state collocate nel tuo ripostiglio personale a Yanov per aver eliminato i mutanti.",
+    "pol": "W nagrodę za eliminację niebezpiecznych mutantów w twojej skrytce na stacji Janów została umieszczona amunicja.",
+    "rus": "За уничтожение опасных мутантов в личный ящик на «Янове» помещены боеприпасы.",
+    "spa": "Se ha ańadido munición a la caja personal de Yanov por eliminar a los mutantes peligrosos.",
+    "ukr": "За знищення небезпечних мутантів до особистого ящика на «Янові» покладено боєприпаси."
+  },
+  "st_press_any_key": {
+    "eng": "Press any key to play",
+    "fra": "Appuyez sur une touche pour jouer",
+    "ger": "Zum Spielen beliebige Taste drücken",
+    "ita": "Premi un tasto per giocare",
+    "pol": "Naciśnij dowolny klawisz, aby rozpocząć grę",
+    "rus": "Нажмите любую клавишу для перехода к игре",
+    "spa": "Pulsa cualquier tecla para jugar",
+    "ukr": "Натисніть будь-яку клавішу для переходу до гри"
+  },
   "st_pri_b306_go_down": {
     "eng": "Take the elevator down ($$ACTION_USE$$)",
     "fra": "Prendre l'ascenseur pour descendre ($$ACTION_USE$$)",
@@ -858,6 +918,16 @@
     "spa": "Niveles de radiación peligrosos. Necesitas protección para seguir.",
     "ukr": "Небезпечний рівень радіації. Для проходу необхідний захист."
   },
+  "st_resupply_ready": {
+    "eng": "You can restock on medical supplies and ammo by visiting Lieutenant Rogovets and Lieutenant Kirillov.",
+    "fra": "Vous pouvez obtenir des fournitures médicales et des munitions auprčs des lieutenants Rogovets et Kirillov.",
+    "ger": "Sie können bei Leutnant Rogowez und Leutnant Kirilloff Ihre Vorräte an Medikamenten und Munition auffrischen.",
+    "ita": "Puoi fare scorta di medicinali e munizioni dal Tenente Rogovets e dal Tenente Kirillov.",
+    "pol": "Możesz uzupełnić swój zapas środków medycznych, odwiedzając poruczników Rogowca i Kiryłowa.",
+    "rus": "Перед операцией можно пополнить запас медикаментов и боеприпасов у лейтенантов Роговца и Кириллова.",
+    "spa": "Visita a los tenientes Rogovets y Kirillov para que te den provisiones y munición.",
+    "ukr": "Перед операцією можна поповнити запас медикаментів та боєприпасів у лейтенантів Рогівця та Кирилова."
+  },
   "st_search_helicopter": {
     "eng": "Examine helicopter ($$ACTION_USE$$)",
     "fra": "Examiner l'hélicoptčre ($$ACTION_USE$$)",
@@ -887,6 +957,16 @@
     "rus": "ч",
     "spa": "h",
     "ukr": "ч"
+  },
+  "st_surge_while_asleep": {
+    "eng": "An emission has recently occurred in the Zone.",
+    "fra": "Une émission s'est produite récemment dans la Zone.",
+    "ger": "Vor kurzem fand eine Emission in der Zone statt.",
+    "ita": "Da poco si č verificata un'emissione nella Zona",
+    "pol": "Niedawno w Zonie nastąpiła emisja.",
+    "rus": "В Зоне недавно произошёл выброс.",
+    "spa": "Una emisión se acaba de producir en la Zona.",
+    "ukr": "У Зоні нещодавно стався викид."
   },
   "st_tip": {
     "eng": "Message",
@@ -1078,6 +1158,16 @@
     "spa": "El mecanismo de la puerta está bloqueado desde dentro.",
     "ukr": "Механізм дверей заблоковано зсередини"
   },
+  "zat_b33_car_searching_tip": {
+    "eng": "Search car ($$ACTION_USE$$)",
+    "fra": "Fouiller le véhicule ($$ACTION_USE$$)",
+    "ger": "Fahrzeug durchsuchen ($$ACTION_USE$$)",
+    "ita": "Ispeziona automobile ($$ACTION_USE$$)",
+    "pol": "Przeszukaj samochód ($$ACTION_USE$$)",
+    "rus": "Обыскать «Запорожец» ($$ACTION_USE$$)",
+    "spa": "Registrar coche ($$ACTION_USE$$)",
+    "ukr": "Обшукати «Запорожець» ($$ACTION_USE$$)"
+  },
   "zat_b57_balon_use_hint": {
     "eng": "Connect gas tank ($$ACTION_USE$$)",
     "fra": "Placer la bombonne de gaz ($$ACTION_USE$$)",
@@ -1107,95 +1197,5 @@
     "rus": "Повернуть вентиль ($$ACTION_USE$$)",
     "spa": "Girar válvula ($$ACTION_USE$$)",
     "ukr": "Повернути вентиль ($$ACTION_USE$$)"
-  },
-  "zat_b33_car_searching_tip": {
-    "eng": "Search car ($$ACTION_USE$$)",
-    "fra": "Fouiller le véhicule ($$ACTION_USE$$)",
-    "ger": "Fahrzeug durchsuchen ($$ACTION_USE$$)",
-    "ita": "Ispeziona automobile ($$ACTION_USE$$)",
-    "pol": "Przeszukaj samochód ($$ACTION_USE$$)",
-    "rus": "Обыскать «Запорожец» ($$ACTION_USE$$)",
-    "spa": "Registrar coche ($$ACTION_USE$$)",
-    "ukr": "Обшукати «Запорожець» ($$ACTION_USE$$)"
-  },
-  "st_resupply_ready": {
-    "eng": "You can restock on medical supplies and ammo by visiting Lieutenant Rogovets and Lieutenant Kirillov.",
-    "fra": "Vous pouvez obtenir des fournitures médicales et des munitions auprčs des lieutenants Rogovets et Kirillov.",
-    "ger": "Sie können bei Leutnant Rogowez und Leutnant Kirilloff Ihre Vorräte an Medikamenten und Munition auffrischen.",
-    "ita": "Puoi fare scorta di medicinali e munizioni dal Tenente Rogovets e dal Tenente Kirillov.",
-    "pol": "Możesz uzupełnić swój zapas środków medycznych, odwiedzając poruczników Rogowca i Kiryłowa.",
-    "rus": "Перед операцией можно пополнить запас медикаментов и боеприпасов у лейтенантов Роговца и Кириллова.",
-    "spa": "Visita a los tenientes Rogovets y Kirillov para que te den provisiones y munición.",
-    "ukr": "Перед операцією можна поповнити запас медикаментів та боєприпасів у лейтенантів Рогівця та Кирилова."
-  },
-  "st_surge_while_asleep": {
-    "eng": "An emission has recently occurred in the Zone.",
-    "fra": "Une émission s'est produite récemment dans la Zone.",
-    "ger": "Vor kurzem fand eine Emission in der Zone statt.",
-    "ita": "Da poco si č verificata un'emissione nella Zona",
-    "pol": "Niedawno w Zonie nastąpiła emisja.",
-    "rus": "В Зоне недавно произошёл выброс.",
-    "spa": "Una emisión se acaba de producir en la Zona.",
-    "ukr": "У Зоні нещодавно стався викид."
-  },
-  "st_ach_marked_by_zone": {
-    "eng": "You have attained the Marked by the Zone achievement.",
-    "fra": "Vous avez obtenu le succčs Affecté par la Zone.",
-    "ger": "Sie haben folgenden Erfolg errungen: Gezeichnet von der Zone.",
-    "ita": "Hai ottenuto l'obiettivo Marcato dalla Zona",
-    "pol": "Udało ci się zdobyć osiągnięcie „Naznaczony przez Zonę\".",
-    "rus": "Получено достижение «Отмеченный Зоной»",
-    "spa": "Has conseguido el logro Marcado por la Zona.",
-    "ukr": "Отримано досягнення «Мічений Зоною»"
-  },
-  "st_mutant_hunter_news": {
-    "eng": "Ammo has been placed in the personal box at Yanov for eliminating dangerous mutants.",
-    "fra": "Des munitions ont été placées dans votre cantine de Yanov, pour vous remercier d'avoir éliminé de dangereux mutants.",
-    "ger": "Als Dank dafür, dass Sie gefährliche Mutanten getötet haben, wurde Munition in Ihrer persönlichen Kiste in der Janow-Station hinterlegt.",
-    "ita": "Delle munizioni sono state collocate nel tuo ripostiglio personale a Yanov per aver eliminato i mutanti.",
-    "pol": "W nagrodę za eliminację niebezpiecznych mutantów w twojej skrytce na stacji Janów została umieszczona amunicja.",
-    "rus": "За уничтожение опасных мутантов в личный ящик на «Янове» помещены боеприпасы.",
-    "spa": "Se ha ańadido munición a la caja personal de Yanov por eliminar a los mutantes peligrosos.",
-    "ukr": "За знищення небезпечних мутантів до особистого ящика на «Янові» покладено боєприпаси."
-  },
-  "st_found_old_treasure": {
-    "eng": "Received coordinates of a stash that has already been discovered.",
-    "fra": "Coordonnées d'une planque déjŕ découverte récupérées",
-    "ger": "Koordinaten eines Verstecks erhalten, das schon bekannt ist.",
-    "ita": "Hai ricevuto le coordinate di un ripostiglio giŕ scoperto.",
-    "pol": "Otrzymano współrzędne schowka, który już wcześniej został odkryty.",
-    "rus": "Получены координаты ранее найденного тайника",
-    "spa": "Recibidas coordenadas del escondite que ya ha sido descubierto.",
-    "ukr": "Отримано координати раніше знайденої схованки"
-  },
-  "st_got_treasure": {
-    "eng": "Stash found",
-    "fra": "Planque trouvée",
-    "ger": "Versteck gefunden",
-    "ita": "Ripostiglio individuato",
-    "pol": "Znaleziono schowek",
-    "rus": "Найден тайник",
-    "spa": "Escondite encontrado",
-    "ukr": "Знайдено схованку"
-  },
-  "st_found_new_treasure": {
-    "eng": "Stash coordinates received",
-    "fra": "Coordonnées de la planque reçues",
-    "ger": "Versteckkoordinaten erhalten",
-    "ita": "Coordinate del ripostiglio ricevute",
-    "pol": "Otrzymano współrzędne schowka",
-    "rus": "Получены координаты тайника",
-    "spa": "Recibidas coordenadas del escondite",
-    "ukr": "Отримано координати схованки"
-  },
-  "st_press_any_key": {
-    "eng": "Press any key to play",
-    "fra": "Appuyez sur une touche pour jouer",
-    "ger": "Zum Spielen beliebige Taste drücken",
-    "ita": "Premi un tasto per giocare",
-    "pol": "Naciśnij dowolny klawisz, aby rozpocząć grę",
-    "rus": "Нажмите любую клавишу для перехода к игре",
-    "spa": "Pulsa cualquier tecla para jugar",
-    "ukr": "Натисніть будь-яку клавішу для переходу до гри"
   }
 }

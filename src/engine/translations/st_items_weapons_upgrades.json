@@ -1,4 +1,74 @@
 {
+  "st_auto_fire": {
+    "eng": "Automatic fire mode",
+    "fra": "Mode de tir : automatique",
+    "ger": "Automatikfeuermodus",
+    "ita": "Modalitŕ fuoco automatico",
+    "pol": "Tryb ognia automatycznego",
+    "rus": "Режим авт. огня",
+    "spa": "Modo fuego automático",
+    "ukr": "Режим авт. вогню"
+  },
+  "st_gauss_cannot_be_repaired": {
+    "eng": "It’s not clear how the weapon works. It can’t be repaired without additional information about its design.",
+    "fra": "Le mode de fonctionnement de cette arme est inconnu. Elle ne pourra pas ętre réparée sans informations complémentaires sur son utilisation.",
+    "ger": "Es ist nicht klar, wie die Waffe funktioniert. Ohne weitere Informationen über ihren Aufbau, kann sie nicht repariert werden.",
+    "ita": "Non č chiaro come funzioni quest'arma. Non puň essere riparata senza maggiori informazioni sulla sua progettazione.",
+    "pol": "Nie wiadomo, na jakiej zasadzie działa ta broń. Nie można jej naprawić bez dodatkowych informacji o jej konstrukcji.",
+    "rus": "Неизвестно устройство оружия. Без дополнительной информации о конструктивных особенностях починка невозможна.",
+    "spa": "No está claro cómo funciona el arma. No puedes repararla sin información adicional sobre su diseńo.",
+    "ukr": "Невідома конструкція зброї. Без додаткової інформації про конструктивні особливості ремонт неможливий."
+  },
+  "st_int_silencer": {
+    "eng": "Integrated silencer",
+    "fra": "Silencieux intégré",
+    "ger": "Integrierter Schalldämpfer",
+    "ita": "Silenziatore integrato",
+    "pol": "Wbudowany tłumik",
+    "rus": "Интегрированный глушитель",
+    "spa": "Silenciador integrado",
+    "ukr": "Інтегрований глушник"
+  },
+  "st_no_buck": {
+    "eng": "Does not use shot",
+    "fra": "N'utilise pas de grenaille.",
+    "ger": "Verwendet keinen Schrot",
+    "ita": "Non usa i colpi",
+    "pol": "Nie używa śrutu",
+    "rus": "Не стреляет дробью",
+    "spa": "No usa disparos",
+    "ukr": "Не стріляє дробом"
+  },
+  "st_prop_artefact": {
+    "eng": "Number of containers",
+    "fra": "Nombre de conteneurs",
+    "ger": "Anzahl der Kisten",
+    "ita": "Numero di contenitori",
+    "pol": "Liczba pojemników",
+    "rus": "Кол-во контейнеров",
+    "spa": "Número de contenedores",
+    "ukr": "К-сть контейнерів"
+  },
+  "st_prop_autolock": {
+    "eng": "Automatic target acquisition system",
+    "fra": "Systčme d'acquisition de cible automatique",
+    "ger": "Automatisches Zielerfassungssystem",
+    "ita": "Sist. acq. aut. bersaglio",
+    "pol": "Aut. sys. namierzania ",
+    "rus": "Система автозахвата целей",
+    "spa": "Sel. autom. de objetivo",
+    "ukr": "Система автозахоплення цілей"
+  },
+  "st_prop_autolockscope": {
+    "eng": "Automatic target acquisition system",
+    "fra": "Systčme d'acquisition de cible automatique",
+    "ger": "Automatisches Zielerfassungssystem",
+    "ita": "Sist. acq. aut. bersaglio",
+    "pol": "Aut. sys. namierzania ",
+    "rus": "Система автозахвата целей",
+    "spa": "Sel. autom. de objetivo",
+    "ukr": "Система автозахоплення цілей"
+  },
   "st_prop_bullet_speed": {
     "eng": "Flatness",
     "fra": "Vitesse",
@@ -18,6 +88,66 @@
     "rus": "Калибр",
     "spa": "Calibre",
     "ukr": "Калібр"
+  },
+  "st_prop_contrast": {
+    "eng": "High contrast sight",
+    "fra": "Viseur ŕ contraste élevé",
+    "ger": "Hochkontrastvisier",
+    "ita": "Ottica ad alto contrasto",
+    "pol": "Celownik o wys. kontraście",
+    "rus": "Высококонтрастный прицел",
+    "spa": "Mira de alto contraste",
+    "ukr": "Висококонтрастний приціл"
+  },
+  "st_prop_durability": {
+    "eng": "Suit durability",
+    "fra": "Résistance de la combinaison",
+    "ger": "Schutzanzughaltbarkeit",
+    "ita": "Durabilitŕ della tuta",
+    "pol": "Trwałość kombinezonu",
+    "rus": "Прочность костюма",
+    "spa": "Durabilidad del traje",
+    "ukr": "Міцність костюму"
+  },
+  "st_prop_grenade_launcher": {
+    "eng": "Underbarrel grenade launcher",
+    "fra": "Lance-grenades sous le canon",
+    "ger": "Unterlaufgranatwerfer",
+    "ita": "Lanciagranate sottocanna",
+    "pol": "Granatnik podwieszany",
+    "rus": "Подствольный гранатомёт",
+    "spa": "Lanzagranadas acoplado",
+    "ukr": "Підствольний гранатомет"
+  },
+  "st_prop_night_vision": {
+    "eng": "First generation night vision device",
+    "fra": "Dispositif de vision nocturne de premičre génération",
+    "ger": "Nachtsichtgerät der ersten Generation",
+    "ita": "Visore notturno 1a gen.",
+    "pol": "Noktowizor 1 generacji",
+    "rus": "ПНВ 1-го поколения",
+    "spa": "Disp. visión noct. 1 gen.",
+    "ukr": "ПНБ 1-го покоління"
+  },
+  "st_prop_night_vision_2": {
+    "eng": "Second generation night vision device",
+    "fra": "Dispositif de vision nocturne de seconde génération",
+    "ger": "Nachtsichtgerät der zweiten Generation",
+    "ita": "Visore notturno 2a gen.",
+    "pol": "Noktowizor 2 generacji",
+    "rus": "ПНВ 2-го поколения",
+    "spa": "Disp. visión noct. 2 gen.",
+    "ukr": "ПНБ 2-го покоління"
+  },
+  "st_prop_night_vision_3": {
+    "eng": "Third generation night vision device",
+    "fra": "Dispositif de vision nocturne de troisičme génération",
+    "ger": "Nachtsichtgerät der dritten Generation",
+    "ita": "Visore notturno 3a gen.",
+    "pol": "Noktowizor 3 generacji",
+    "rus": "ПНВ 3-го поколения",
+    "spa": "Disp. visión noct. 3 gen.",
+    "ukr": "ПНБ 3-го покоління"
   },
   "st_prop_recoil": {
     "eng": "Recoil",
@@ -39,6 +169,46 @@
     "spa": "Fiabilidad",
     "ukr": "Надійність"
   },
+  "st_prop_restore_bleeding": {
+    "eng": "Wound healing",
+    "fra": "Soin des blessures",
+    "ger": "Wundheilung",
+    "ita": "Guarigione ferite",
+    "pol": "Leczenie ran",
+    "rus": "Заживление ран",
+    "spa": "Curación de heridas",
+    "ukr": "Загоєння ран"
+  },
+  "st_prop_restore_health": {
+    "eng": "Health restoration",
+    "fra": "Régénération",
+    "ger": "Lebensregeneration",
+    "ita": "Ripristino salute",
+    "pol": "Regeneracja",
+    "rus": "Восстановление здоровья",
+    "spa": "Restauración de salud",
+    "ukr": "Відновлення здоров'я"
+  },
+  "st_prop_scanner": {
+    "eng": "Infrared scanner",
+    "fra": "Détecteur infrarouge",
+    "ger": "Infrarotscanner",
+    "ita": "Scanner a infrarossi",
+    "pol": "Skaner podczerwieni",
+    "rus": "Инфракрасный сканер",
+    "spa": "Escáner de infrarrojos",
+    "ukr": "Інфрачервоний сканер"
+  },
+  "st_prop_scope": {
+    "eng": "Adjustable sight",
+    "fra": "Viseur ajustable",
+    "ger": "Justierbares Visier",
+    "ita": "Ottica regolabile",
+    "pol": "Regulowany celownik",
+    "rus": "Регулируемый прицел",
+    "spa": "Mira ajustable",
+    "ukr": "Регульований приціл"
+  },
   "st_prop_scope_1.6x": {
     "eng": "1.6x reflex sight",
     "fra": "Viseur 1,6x",
@@ -59,6 +229,36 @@
     "spa": "Mira óptica 4x",
     "ukr": "Оптичний приціл 4x"
   },
+  "st_prop_scope_5x": {
+    "eng": "x5 optical scope",
+    "fra": "Lunette optique x5",
+    "ger": "Optisches 5-fach Zielfernrohr",
+    "ita": "Mirino ottico 5.0x",
+    "pol": "Celownik optyczny 5x",
+    "rus": "Оптический прицел 5x",
+    "spa": "Mira óptica 5x",
+    "ukr": "Оптичний приціл 5x"
+  },
+  "st_prop_scope_6x": {
+    "eng": "x6 optical scope",
+    "fra": "Lunette optique x6",
+    "ger": "Optisches 6-fach Zielfernrohr",
+    "ita": "Mirino ottico 6.0x",
+    "pol": "Celownik optyczny 6x",
+    "rus": "Оптический прицел 6x",
+    "spa": "Mira óptica 6x",
+    "ukr": "Оптичний приціл 6x"
+  },
+  "st_prop_scope_attach": {
+    "eng": "Optical scope mount",
+    "fra": "Monture ŕ lunette optique",
+    "ger": "Schiene für optisches Zielfernrohr",
+    "ita": "Aggancio mirino ottico",
+    "pol": "Zaczep na cel. optyczny",
+    "rus": "Крепление оптики",
+    "spa": "Soporte para mira óptica",
+    "ukr": "Кріплення оптики"
+  },
   "st_prop_silencer": {
     "eng": "Silencer",
     "fra": "Silencieux",
@@ -68,6 +268,16 @@
     "rus": "Крепление глушителя",
     "spa": "Silenciador",
     "ukr": "Кріплення глушника"
+  },
+  "st_prop_sprint": {
+    "eng": "Servomotor boosters",
+    "fra": "Accélérateur de servomoteurs ",
+    "ger": "Servomotorverstärker",
+    "ita": "Potenziatori servomotore ",
+    "pol": "Wzmacniacze serwomotorów",
+    "rus": "Усилители сервоприводов ",
+    "spa": "Poten. servomotores ",
+    "ukr": "Посилювачі сервоприводів "
   },
   "st_prop_underbarrel_slot": {
     "eng": "underbarrel mount",
@@ -88,6 +298,26 @@
     "rus": "Масса",
     "spa": "Peso",
     "ukr": "Маса"
+  },
+  "st_prop_weightoutfit": {
+    "eng": "Body armor weight",
+    "fra": "Poids de l'armure",
+    "ger": "Gewicht der Körperpanzerung",
+    "ita": "Peso dell'armatura",
+    "pol": "Waga kam. kuloodpornej",
+    "rus": "Вес бронежилета",
+    "spa": "Peso blindaje personal",
+    "ukr": "Вага бронежилета"
+  },
+  "st_semi_auto_fire": {
+    "eng": "3-round burst mode",
+    "fra": "Mode de tir : rafale de 3 balles",
+    "ger": "Dreifach-Salvenfeuermodus",
+    "ita": "Mod. fuoco raff. 3 colpi",
+    "pol": "Tryb ognia krótką serią",
+    "rus": "Режим по 3 выстрела",
+    "spa": "Modo ráfaga de 3 disparos",
+    "ukr": "Режим по 3 постріли"
   },
   "st_up_add_a1_descr": {
     "eng": "External threading allows a silencer to be installed.",
@@ -819,6 +1049,16 @@
     "spa": "Las matrices reforzadas que utilizan berilio en vez de aluminio constituyen una de las formas más fiables de proteger a los soldados de infantería.",
     "ukr": "Посилена титаном (замість алюмінію) берилієва матриця є чи не найнадійнішим захистом для тіла."
   },
+  "st_up_arm_c5_name": {
+    "eng": "Reinforced titanium and beryllium matrix",
+    "fra": "Matrice renforcée en titane et béryllium",
+    "ger": "Verstärktes Titan- und Berylliumgerüst",
+    "ita": "Matrice rinforzata in titanio e berillio",
+    "pol": "Wzmocniona matryca tytanowo-berylowa",
+    "rus": "Усиленная титано-бериллиевая матрица",
+    "spa": "Matriz de titanio y berilio reforzada",
+    "ukr": "Посилена титаново-берилієва матриця"
+  },
   "st_up_arm_c6_descr": {
     "eng": "Ceramics considerably soften bullet impact by deflecting it onto fragments that break off.",
     "fra": "La céramique réduit nettement l'impact des balles en déviant leur trajectoire et en les fragmentant.",
@@ -849,6 +1089,16 @@
     "spa": "La fibra de carbono es uno de los materiales más duraderos y resistentes; incluso se utiliza en la construcción de aviones.",
     "ukr": "Вуглепластик - один із найміцніших та стійких до зношування штучних матеріалів."
   },
+  "st_up_arm_c7_name": {
+    "eng": "Extra carbon fiber coating",
+    "fra": "Film de fibre de carbone",
+    "ger": "Zusätzliche Kohlefaserbeschichtung",
+    "ita": "Rivestimento extra in fibra di carbonio",
+    "pol": "Dodatkowa powłoka z włókna węglowego",
+    "rus": "Углепластиковое покрытие «Экстра»",
+    "spa": "Revestimiento adicional de fibra de carbono",
+    "ukr": "Вуглепластикове покриття «Екстра»"
+  },
   "st_up_arm_c8_descr": {
     "eng": "Combined multi-layered polymer and ceramic coating.",
     "fra": "Ajout d'un film de céramique et d'un polymčre multicouches.",
@@ -878,6 +1128,16 @@
     "rus": "Одна из самых последних отчественных разработок в сфере индивидуальной защиты - выращивание искусственных сапфиров.",
     "spa": "Tecnología doméstica y uno de los últimos desarrollos en el campo de la protección personal: el cultivo de zafiros artificiales.",
     "ukr": "Одна із найостанніших вітчизняних розробок у сфері індивідуального захисту - вирощування штучних сапфірів."
+  },
+  "st_up_arm_c9_name": {
+    "eng": "Armadillo protective coating based on sapphire crystals",
+    "fra": "Film protecteur Armadillo composé de cristaux de saphir",
+    "ger": "Schutzschicht \"Armadillo\" auf Basis von Saphirkristallen",
+    "ita": "Rivestimento protettivo \"Armadillo\", basato su zaffiri",
+    "pol": "Powłoka ochronna oparta na kryształach szafiru Pancernik ",
+    "rus": "Защитный слой «Броненосец» на основе кристаллов сапфира",
+    "spa": "Revestimiento protector Armadillo con base de cristales de zafiro",
+    "ukr": "Захисний шар «Броненосець» на основі кристалів сапфіру"
   },
   "st_up_autd_a1_descr": {
     "eng": "Adjustment of components allows the weapon to last longer without jamming.",
@@ -2428,6 +2688,16 @@
     "rus": "Подкладка убережёт тело в том случае, если ткань плаща прорвётся.",
     "spa": "Subcapa protectora en caso de que el tejido principal se desgarre.",
     "ukr": "Підкладка вбереже тіло в тому випадку, якщо тканина плаща прорветься."
+  },
+  "st_up_kom_a5_name": {
+    "eng": "Rubberized cloth underlayer",
+    "fra": "Sous-couche en caoutchouc",
+    "ger": "Gummierte Stoffunterschicht",
+    "ita": "Strato inferiore in tessuto gommato",
+    "pol": "Warstwa spodnia z gumowanej tkaniny",
+    "rus": "Подстёжка из прорезиненной ткани",
+    "spa": "Subcapa de tejido de caucho",
+    "ukr": "Підкладка із прогумованої тканини"
   },
   "st_up_kom_a6_descr": {
     "eng": "A multi-layered polycarbonate, silicon and carbon fiber insert in case the main armor is penetrated.",
@@ -6329,6 +6599,26 @@
     "spa": "Modalidad de ráfaga de tres disparos",
     "ukr": "Режим стрільби із відсіканням по три постріли"
   },
+  "st_upgr_cant_do": {
+    "eng": "The technician cannot perform this modification",
+    "fra": "Le technicien ne peut pas effectuer cette modification.",
+    "ger": "Der Techniker kann diese Modifikation nicht durchführen",
+    "ita": "Il tecnico non puň eseguire questa modifica",
+    "pol": "Technik nie może wykonać tej modyfikacji",
+    "rus": "техник не делает такую модификацию",
+    "spa": "El técnico no puede realizar esta modificación",
+    "ukr": "технік не виконує таку модифікацію"
+  },
+  "st_upgr_condlist": {
+    "eng": "the technician needs additional information",
+    "fra": "le technicien a besoin de données supplémentaires",
+    "ger": "der Techniker benötigt zusätzliche Informationen",
+    "ita": "al tecnico servono maggiori informazioni",
+    "pol": "technik potrzebuje dodatkowych informacji",
+    "rus": "технику нужны дополнительные данные",
+    "spa": "el técnico necesita datos adicionales",
+    "ukr": "технікові потрібні додаткові дані"
+  },
   "st_upgr_cost": {
     "eng": "Cost",
     "fra": "Coűt",
@@ -6349,225 +6639,15 @@
     "spa": "No se puede instalar",
     "ukr": "Неможливо встановити"
   },
-  "st_upgr_installed": {
-    "eng": "Installed",
-    "fra": "Installé",
-    "ger": "Installiert",
-    "ita": "Installato",
-    "pol": "Zainstalowano",
-    "rus": "Установлен",
-    "spa": "Instalada",
-    "ukr": "Встановлено"
-  },
-  "st_upgrade_install": {
-    "eng": "Are you sure you want to install:",
-    "fra": "Voulez-vous vraiment installer :",
-    "ger": "Wollen Sie wirklich den folgenden Einbau vornehmen:",
-    "ita": "Sei sicuro di voler installare:",
-    "pol": "Czy na pewno chcesz zainstalować:",
-    "rus": "Вы действительно хотите установить:",
-    "spa": "Confirma que quieres instalar:",
-    "ukr": "Чи Ви справді хочете встановити:"
-  },
-  "st_prop_autolock": {
-    "eng": "Automatic target acquisition system",
-    "fra": "Systčme d'acquisition de cible automatique",
-    "ger": "Automatisches Zielerfassungssystem",
-    "ita": "Sist. acq. aut. bersaglio",
-    "pol": "Aut. sys. namierzania ",
-    "rus": "Система автозахвата целей",
-    "spa": "Sel. autom. de objetivo",
-    "ukr": "Система автозахоплення цілей"
-  },
-  "st_prop_autolockscope": {
-    "eng": "Automatic target acquisition system",
-    "fra": "Systčme d'acquisition de cible automatique",
-    "ger": "Automatisches Zielerfassungssystem",
-    "ita": "Sist. acq. aut. bersaglio",
-    "pol": "Aut. sys. namierzania ",
-    "rus": "Система автозахвата целей",
-    "spa": "Sel. autom. de objetivo",
-    "ukr": "Система автозахоплення цілей"
-  },
-  "st_prop_scope_5x": {
-    "eng": "x5 optical scope",
-    "fra": "Lunette optique x5",
-    "ger": "Optisches 5-fach Zielfernrohr",
-    "ita": "Mirino ottico 5.0x",
-    "pol": "Celownik optyczny 5x",
-    "rus": "Оптический прицел 5x",
-    "spa": "Mira óptica 5x",
-    "ukr": "Оптичний приціл 5x"
-  },
-  "st_prop_scope_6x": {
-    "eng": "x6 optical scope",
-    "fra": "Lunette optique x6",
-    "ger": "Optisches 6-fach Zielfernrohr",
-    "ita": "Mirino ottico 6.0x",
-    "pol": "Celownik optyczny 6x",
-    "rus": "Оптический прицел 6x",
-    "spa": "Mira óptica 6x",
-    "ukr": "Оптичний приціл 6x"
-  },
-  "st_prop_scanner": {
-    "eng": "Infrared scanner",
-    "fra": "Détecteur infrarouge",
-    "ger": "Infrarotscanner",
-    "ita": "Scanner a infrarossi",
-    "pol": "Skaner podczerwieni",
-    "rus": "Инфракрасный сканер",
-    "spa": "Escáner de infrarrojos",
-    "ukr": "Інфрачервоний сканер"
-  },
-  "st_prop_weightoutfit": {
-    "eng": "Body armor weight",
-    "fra": "Poids de l'armure",
-    "ger": "Gewicht der Körperpanzerung",
-    "ita": "Peso dell'armatura",
-    "pol": "Waga kam. kuloodpornej",
-    "rus": "Вес бронежилета",
-    "spa": "Peso blindaje personal",
-    "ukr": "Вага бронежилета"
-  },
-  "st_prop_night_vision_2": {
-    "eng": "Second generation night vision device",
-    "fra": "Dispositif de vision nocturne de seconde génération",
-    "ger": "Nachtsichtgerät der zweiten Generation",
-    "ita": "Visore notturno 2a gen.",
-    "pol": "Noktowizor 2 generacji",
-    "rus": "ПНВ 2-го поколения",
-    "spa": "Disp. visión noct. 2 gen.",
-    "ukr": "ПНБ 2-го покоління"
-  },
-  "st_prop_night_vision_3": {
-    "eng": "Third generation night vision device",
-    "fra": "Dispositif de vision nocturne de troisičme génération",
-    "ger": "Nachtsichtgerät der dritten Generation",
-    "ita": "Visore notturno 3a gen.",
-    "pol": "Noktowizor 3 generacji",
-    "rus": "ПНВ 3-го поколения",
-    "spa": "Disp. visión noct. 3 gen.",
-    "ukr": "ПНБ 3-го покоління"
-  },
-  "st_prop_scope_attach": {
-    "eng": "Optical scope mount",
-    "fra": "Monture ŕ lunette optique",
-    "ger": "Schiene für optisches Zielfernrohr",
-    "ita": "Aggancio mirino ottico",
-    "pol": "Zaczep na cel. optyczny",
-    "rus": "Крепление оптики",
-    "spa": "Soporte para mira óptica",
-    "ukr": "Кріплення оптики"
-  },
-  "st_int_silencer": {
-    "eng": "Integrated silencer",
-    "fra": "Silencieux intégré",
-    "ger": "Integrierter Schalldämpfer",
-    "ita": "Silenziatore integrato",
-    "pol": "Wbudowany tłumik",
-    "rus": "Интегрированный глушитель",
-    "spa": "Silenciador integrado",
-    "ukr": "Інтегрований глушник"
-  },
-  "st_prop_grenade_launcher": {
-    "eng": "Underbarrel grenade launcher",
-    "fra": "Lance-grenades sous le canon",
-    "ger": "Unterlaufgranatwerfer",
-    "ita": "Lanciagranate sottocanna",
-    "pol": "Granatnik podwieszany",
-    "rus": "Подствольный гранатомёт",
-    "spa": "Lanzagranadas acoplado",
-    "ukr": "Підствольний гранатомет"
-  },
-  "st_prop_restore_bleeding": {
-    "eng": "Wound healing",
-    "fra": "Soin des blessures",
-    "ger": "Wundheilung",
-    "ita": "Guarigione ferite",
-    "pol": "Leczenie ran",
-    "rus": "Заживление ран",
-    "spa": "Curación de heridas",
-    "ukr": "Загоєння ран"
-  },
-  "st_prop_restore_health": {
-    "eng": "Health restoration",
-    "fra": "Régénération",
-    "ger": "Lebensregeneration",
-    "ita": "Ripristino salute",
-    "pol": "Regeneracja",
-    "rus": "Восстановление здоровья",
-    "spa": "Restauración de salud",
-    "ukr": "Відновлення здоров'я"
-  },
-  "st_prop_night_vision": {
-    "eng": "First generation night vision device",
-    "fra": "Dispositif de vision nocturne de premičre génération",
-    "ger": "Nachtsichtgerät der ersten Generation",
-    "ita": "Visore notturno 1a gen.",
-    "pol": "Noktowizor 1 generacji",
-    "rus": "ПНВ 1-го поколения",
-    "spa": "Disp. visión noct. 1 gen.",
-    "ukr": "ПНБ 1-го покоління"
-  },
-  "st_prop_scope": {
-    "eng": "Adjustable sight",
-    "fra": "Viseur ajustable",
-    "ger": "Justierbares Visier",
-    "ita": "Ottica regolabile",
-    "pol": "Regulowany celownik",
-    "rus": "Регулируемый прицел",
-    "spa": "Mira ajustable",
-    "ukr": "Регульований приціл"
-  },
-  "st_prop_contrast": {
-    "eng": "High contrast sight",
-    "fra": "Viseur ŕ contraste élevé",
-    "ger": "Hochkontrastvisier",
-    "ita": "Ottica ad alto contrasto",
-    "pol": "Celownik o wys. kontraście",
-    "rus": "Высококонтрастный прицел",
-    "spa": "Mira de alto contraste",
-    "ukr": "Висококонтрастний приціл"
-  },
-  "st_prop_sprint": {
-    "eng": "Servomotor boosters",
-    "fra": "Accélérateur de servomoteurs ",
-    "ger": "Servomotorverstärker",
-    "ita": "Potenziatori servomotore ",
-    "pol": "Wzmacniacze serwomotorów",
-    "rus": "Усилители сервоприводов ",
-    "spa": "Poten. servomotores ",
-    "ukr": "Посилювачі сервоприводів "
-  },
-  "st_prop_durability": {
-    "eng": "Suit durability",
-    "fra": "Résistance de la combinaison",
-    "ger": "Schutzanzughaltbarkeit",
-    "ita": "Durabilitŕ della tuta",
-    "pol": "Trwałość kombinezonu",
-    "rus": "Прочность костюма",
-    "spa": "Durabilidad del traje",
-    "ukr": "Міцність костюму"
-  },
-  "st_gauss_cannot_be_repaired": {
-    "eng": "It’s not clear how the weapon works. It can’t be repaired without additional information about its design.",
-    "fra": "Le mode de fonctionnement de cette arme est inconnu. Elle ne pourra pas ętre réparée sans informations complémentaires sur son utilisation.",
-    "ger": "Es ist nicht klar, wie die Waffe funktioniert. Ohne weitere Informationen über ihren Aufbau, kann sie nicht repariert werden.",
-    "ita": "Non č chiaro come funzioni quest'arma. Non puň essere riparata senza maggiori informazioni sulla sua progettazione.",
-    "pol": "Nie wiadomo, na jakiej zasadzie działa ta broń. Nie można jej naprawić bez dodatkowych informacji o jej konstrukcji.",
-    "rus": "Неизвестно устройство оружия. Без дополнительной информации о конструктивных особенностях починка невозможна.",
-    "spa": "No está claro cómo funciona el arma. No puedes repararla sin información adicional sobre su diseńo.",
-    "ukr": "Невідома конструкція зброї. Без додаткової інформації про конструктивні особливості ремонт неможливий."
-  },
-  "st_upgr_cant_do": {
-    "eng": "The technician cannot perform this modification",
-    "fra": "Le technicien ne peut pas effectuer cette modification.",
-    "ger": "Der Techniker kann diese Modifikation nicht durchführen",
-    "ita": "Il tecnico non puň eseguire questa modifica",
-    "pol": "Technik nie może wykonać tej modyfikacji",
-    "rus": "техник не делает такую модификацию",
-    "spa": "El técnico no puede realizar esta modificación",
-    "ukr": "технік не виконує таку модифікацію"
+  "st_upgr_enough_money": {
+    "eng": "Not enough money",
+    "fra": "Fonds insuffisants",
+    "ger": "Nicht genug Geld",
+    "ita": "Denaro insufficiente",
+    "pol": "Za mało pieniędzy",
+    "rus": "недостаточно денег",
+    "spa": "No tienes suficiente dinero",
+    "ukr": "Бракує грошей"
   },
   "st_upgr_group": {
     "eng": "This part has already been modified",
@@ -6579,65 +6659,25 @@
     "spa": "Esta pieza ya ha sido modificada",
     "ukr": "цю частину вже модифіковано"
   },
-  "st_upgr_enough_money": {
-    "eng": "Not enough money",
-    "fra": "Fonds insuffisants",
-    "ger": "Nicht genug Geld",
-    "ita": "Denaro insufficiente",
-    "pol": "Za mało pieniędzy",
-    "rus": "недостаточно денег",
-    "spa": "No tienes suficiente dinero",
-    "ukr": "Бракує грошей"
+  "st_upgr_installed": {
+    "eng": "Installed",
+    "fra": "Installé",
+    "ger": "Installiert",
+    "ita": "Installato",
+    "pol": "Zainstalowano",
+    "rus": "Установлен",
+    "spa": "Instalada",
+    "ukr": "Встановлено"
   },
-  "st_no_buck": {
-    "eng": "Does not use shot",
-    "fra": "N'utilise pas de grenaille.",
-    "ger": "Verwendet keinen Schrot",
-    "ita": "Non usa i colpi",
-    "pol": "Nie używa śrutu",
-    "rus": "Не стреляет дробью",
-    "spa": "No usa disparos",
-    "ukr": "Не стріляє дробом"
-  },
-  "st_auto_fire": {
-    "eng": "Automatic fire mode",
-    "fra": "Mode de tir : automatique",
-    "ger": "Automatikfeuermodus",
-    "ita": "Modalitŕ fuoco automatico",
-    "pol": "Tryb ognia automatycznego",
-    "rus": "Режим авт. огня",
-    "spa": "Modo fuego automático",
-    "ukr": "Режим авт. вогню"
-  },
-  "st_semi_auto_fire": {
-    "eng": "3-round burst mode",
-    "fra": "Mode de tir : rafale de 3 balles",
-    "ger": "Dreifach-Salvenfeuermodus",
-    "ita": "Mod. fuoco raff. 3 colpi",
-    "pol": "Tryb ognia krótką serią",
-    "rus": "Режим по 3 выстрела",
-    "spa": "Modo ráfaga de 3 disparos",
-    "ukr": "Режим по 3 постріли"
-  },
-  "st_prop_artefact": {
-    "eng": "Number of containers",
-    "fra": "Nombre de conteneurs",
-    "ger": "Anzahl der Kisten",
-    "ita": "Numero di contenitori",
-    "pol": "Liczba pojemników",
-    "rus": "Кол-во контейнеров",
-    "spa": "Número de contenedores",
-    "ukr": "К-сть контейнерів"
-  },
-  "st_upgr_vodka": {
-    "eng": "the technician needs vodka",
-    "fra": "le technicien a besoin de vodka",
-    "ger": "der Techniker braucht Wodka",
-    "ita": "al tecnico serve della vodka",
-    "pol": "technik potrzebuje wódki",
-    "rus": "технику нужно выпить водки",
-    "spa": "el técnico necesita vodka",
-    "ukr": "технікові треба випити горілки"
+  "st_upgr_parents": {
+    "eng": "preceding modifications required",
+    "fra": "modifications préalables nécessaires",
+    "ger": "vorangehende Modifikationen erforderlich",
+    "ita": "sono necessarie modifiche precedenti",
+    "pol": "wymagane są poprzednie modyfikacje",
+    "rus": "нужны предшествующие модификации",
+    "spa": "se necesitan modificaciones anteriores",
+    "ukr": "потрібні попередні модифікації"
   },
   "st_upgr_toolkit_1": {
     "eng": "the technician needs tools for basic work",
@@ -6669,64 +6709,24 @@
     "spa": "el técnico necesita herramientas de calibración",
     "ukr": "технікові потрібні інструменти для калібрування"
   },
-  "st_upgr_condlist": {
-    "eng": "the technician needs additional information",
-    "fra": "le technicien a besoin de données supplémentaires",
-    "ger": "der Techniker benötigt zusätzliche Informationen",
-    "ita": "al tecnico servono maggiori informazioni",
-    "pol": "technik potrzebuje dodatkowych informacji",
-    "rus": "технику нужны дополнительные данные",
-    "spa": "el técnico necesita datos adicionales",
-    "ukr": "технікові потрібні додаткові дані"
+  "st_upgr_vodka": {
+    "eng": "the technician needs vodka",
+    "fra": "le technicien a besoin de vodka",
+    "ger": "der Techniker braucht Wodka",
+    "ita": "al tecnico serve della vodka",
+    "pol": "technik potrzebuje wódki",
+    "rus": "технику нужно выпить водки",
+    "spa": "el técnico necesita vodka",
+    "ukr": "технікові треба випити горілки"
   },
-  "st_upgr_parents": {
-    "eng": "preceding modifications required",
-    "fra": "modifications préalables nécessaires",
-    "ger": "vorangehende Modifikationen erforderlich",
-    "ita": "sono necessarie modifiche precedenti",
-    "pol": "wymagane są poprzednie modyfikacje",
-    "rus": "нужны предшествующие модификации",
-    "spa": "se necesitan modificaciones anteriores",
-    "ukr": "потрібні попередні модифікації"
-  },
-  "st_up_arm_c9_name": {
-    "eng": "Armadillo protective coating based on sapphire crystals",
-    "fra": "Film protecteur Armadillo composé de cristaux de saphir",
-    "ger": "Schutzschicht \"Armadillo\" auf Basis von Saphirkristallen",
-    "ita": "Rivestimento protettivo \"Armadillo\", basato su zaffiri",
-    "pol": "Powłoka ochronna oparta na kryształach szafiru Pancernik ",
-    "rus": "Защитный слой «Броненосец» на основе кристаллов сапфира",
-    "spa": "Revestimiento protector Armadillo con base de cristales de zafiro",
-    "ukr": "Захисний шар «Броненосець» на основі кристалів сапфіру"
-  },
-  "st_up_arm_c5_name": {
-    "eng": "Reinforced titanium and beryllium matrix",
-    "fra": "Matrice renforcée en titane et béryllium",
-    "ger": "Verstärktes Titan- und Berylliumgerüst",
-    "ita": "Matrice rinforzata in titanio e berillio",
-    "pol": "Wzmocniona matryca tytanowo-berylowa",
-    "rus": "Усиленная титано-бериллиевая матрица",
-    "spa": "Matriz de titanio y berilio reforzada",
-    "ukr": "Посилена титаново-берилієва матриця"
-  },
-  "st_up_arm_c7_name": {
-    "eng": "Extra carbon fiber coating",
-    "fra": "Film de fibre de carbone",
-    "ger": "Zusätzliche Kohlefaserbeschichtung",
-    "ita": "Rivestimento extra in fibra di carbonio",
-    "pol": "Dodatkowa powłoka z włókna węglowego",
-    "rus": "Углепластиковое покрытие «Экстра»",
-    "spa": "Revestimiento adicional de fibra de carbono",
-    "ukr": "Вуглепластикове покриття «Екстра»"
-  },
-  "st_up_kom_a5_name": {
-    "eng": "Rubberized cloth underlayer",
-    "fra": "Sous-couche en caoutchouc",
-    "ger": "Gummierte Stoffunterschicht",
-    "ita": "Strato inferiore in tessuto gommato",
-    "pol": "Warstwa spodnia z gumowanej tkaniny",
-    "rus": "Подстёжка из прорезиненной ткани",
-    "spa": "Subcapa de tejido de caucho",
-    "ukr": "Підкладка із прогумованої тканини"
+  "st_upgrade_install": {
+    "eng": "Are you sure you want to install:",
+    "fra": "Voulez-vous vraiment installer :",
+    "ger": "Wollen Sie wirklich den folgenden Einbau vornehmen:",
+    "ita": "Sei sicuro di voler installare:",
+    "pol": "Czy na pewno chcesz zainstalować:",
+    "rus": "Вы действительно хотите установить:",
+    "spa": "Confirma que quieres instalar:",
+    "ukr": "Чи Ви справді хочете встановити:"
   }
 }

@@ -119,6 +119,16 @@
     "spa": "principiante",
     "ukr": "новачок"
   },
+  "gd_stalker": {
+    "eng": "stalker",
+    "fra": "stalker",
+    "ger": "Stalker",
+    "ita": "stalker",
+    "pol": "Stalker",
+    "rus": "сталкер",
+    "spa": "stalker",
+    "ukr": "сталкер"
+  },
   "gd_veteran": {
     "eng": "veteran",
     "fra": "vétéran",
@@ -348,6 +358,16 @@
     "rus": "Выделенный",
     "spa": "Dedicado",
     "ukr": "Виділений"
+  },
+  "mm_mp_demo": {
+    "eng": "Movies",
+    "fra": "Cinématiques",
+    "ger": "Videos",
+    "ita": "Filmati",
+    "pol": "Filmy",
+    "rus": "Ролики",
+    "spa": "Películas",
+    "ukr": "Ролики"
   },
   "mm_mp_demo_play_list": {
     "eng": "Demo list",
@@ -979,6 +999,16 @@
     "spa": "Fábrica de Agroprom",
     "ukr": "Завод «Агропром»"
   },
+  "mp_already_logged_in": {
+    "eng": "This GameSpy ID is currently in use. Please use another GameSpy ID.",
+    "fra": "Cet identifiant GameSpy est déjŕ utilisé. Veuillez choisir un autre identifiant GameSpy.",
+    "ger": "Diese GameSpy-ID wird bereits verwendet. Bitte verwenden Sie eine andere GameSpy-ID.",
+    "ita": "Questo ID GameSpy č in uso. Utilizza un altro ID GameSpy.",
+    "pol": "To ID GameSpy jest obecnie używane. Proszę użyć innego ID GameSpy.",
+    "rus": "Этот профиль GameSpy ID в данный момент используется. Пожалуйста, используйте другой профиль GameSpy ID.",
+    "spa": "Este perfil de GameSpy se está usando en este momento. Usa otro perfil de GameSpy.",
+    "ukr": "Зазначений профіль GameSpy ID на цей момент використовується. Будь ласка, використайте інший профіль GameSpy ID."
+  },
   "mp_atp": {
     "eng": "Vehicle station",
     "fra": "Gare routičre",
@@ -1029,6 +1059,26 @@
     "spa": "Fábrica de Yantar",
     "ukr": "Завод «Янтар»"
   },
+  "mp_first_need_to_login": {
+    "eng": "Please login to your profile first",
+    "fra": "Veuillez d'abord vous connecter ŕ votre profil",
+    "ger": "Bitte zuerst in Ihrem Profil anmelden",
+    "ita": "Collegati prima al tuo profilo",
+    "pol": "Proszę najpierw zalogować się do profilu",
+    "rus": "Необходимо вначале войти в профиль",
+    "spa": "Inicia sesión primero con tu perfil",
+    "ukr": "Необхідно спочатку увійти до профілю"
+  },
+  "mp_first_need_to_logout": {
+    "eng": "Please log out of your profile first",
+    "fra": "Veuillez d'abord vous déconnecter de votre profil",
+    "ger": "Bitte zuerst aus Ihrem Profil abmelden",
+    "ita": "Esegui prima la disconnessione dal profilo",
+    "pol": "Proszę najpierw wylogować się z profilu",
+    "rus": "Необходимо сперва выйти из профиля",
+    "spa": "Cierra sesión primero con tu perfil",
+    "ukr": "Необхідно спочатку вийти з профілю"
+  },
   "mp_gamespy_atlas_error": {
     "eng": "error in connecting to stats server",
     "fra": "erreur de connexion au serveur de statistiques",
@@ -1039,6 +1089,16 @@
     "spa": "error al conectarte al servidor de estadísticas",
     "ukr": "помилка з'єднання із сервером статистики"
   },
+  "mp_gamespy_http_error": {
+    "eng": "Error in connecting to profile server",
+    "fra": "Erreur de connexion au serveur de profils",
+    "ger": "Fehler bei der Verbindung zum Profilserver",
+    "ita": "Errore nella connessione al server del profilo",
+    "pol": "Błąd połączenia z serwerem profili",
+    "rus": "Ошибка соединения с сервером профилей",
+    "spa": "Error al conectarte al servidor de perfiles",
+    "ukr": "Помилка з'єднання із сервером профілів"
+  },
   "mp_gamespy_ws_login_error": {
     "eng": "error in connecting to log in server",
     "fra": "erreur de connexion au serveur de connexion",
@@ -1048,6 +1108,266 @@
     "rus": "ошибка соединения с логин-сервером",
     "spa": "error al conectarte al servidor de inicio de sesión",
     "ukr": "помилка з'єднання із логін-сервером"
+  },
+  "mp_gp_bad_email": {
+    "eng": "Wrong e-mail",
+    "fra": "Email incorrect",
+    "ger": "Falsche E-Mail-Adresse",
+    "ita": "E-mail errata",
+    "pol": "Nieprawidłowy adres e-mail",
+    "rus": "Некорректный e-mail",
+    "spa": "Correo incorrecto",
+    "ukr": "Некоректний E-mail"
+  },
+  "mp_gp_bad_password": {
+    "eng": "Wrong password",
+    "fra": "Mot de passe incorrect",
+    "ger": "Falsches Passwort",
+    "ita": "Password errata",
+    "pol": "Nieprawidłowe hasło",
+    "rus": "Неверный пароль",
+    "spa": "Contraseńa incorrecta",
+    "ukr": "Неправильний пароль"
+  },
+  "mp_gp_email_is_too_big": {
+    "eng": "The e-mail address is too long. You cannot enter more than 50 characters.",
+    "fra": "Cette adresse email est trop longue. Vous ne pouvez saisir que 50 caractčres au maximum.",
+    "ger": "Die E-Mail-Adresse ist zu lang. Sie darf nicht länger als 50 Zeichen sein.",
+    "ita": "L'indirizzo e-mail č troppo lungo, non puň superare i 50 caratteri.",
+    "pol": "Ten adres e-mail jest zbyt długi. Nie można wprowadzić więcej niż 50 znaków.",
+    "rus": "E-mail слишком длинный. Вы можете ввести максимум 50 символов.",
+    "spa": "El correo es demasiado largo. No puede contener más de 50 caracteres.",
+    "ukr": "E-mail надто довгий. Ви можете ввести максимум 50 символів."
+  },
+  "mp_gp_network_error": {
+    "eng": "Connection error",
+    "fra": "Erreur de connexion",
+    "ger": "Verbindungsfehler",
+    "ita": "Errore di connessione",
+    "pol": "Błąd połączenia",
+    "rus": "Ошибка соединения",
+    "spa": "Error de conexión",
+    "ukr": "Помилка з'єднання"
+  },
+  "mp_gp_no_email": {
+    "eng": "E-mail not found",
+    "fra": "Adresse email introuvable",
+    "ger": "E-Mail-Adresse nicht gefunden",
+    "ita": "E-mail non trovata",
+    "pol": "Nie znaleziono adresu e-mail",
+    "rus": "E-mail не найден",
+    "spa": "Correo no encontrado",
+    "ukr": "E-mail не знайдено"
+  },
+  "mp_gp_no_unique_nick": {
+    "eng": "Unique nickname not set",
+    "fra": "Pseudo unique non défini",
+    "ger": "Eindeutiger Name nicht festgelegt",
+    "ita": "Soprannome non impostato",
+    "pol": "Nie ustawiono unikalnego pseudonimu",
+    "rus": "Уникальный ник не задан",
+    "spa": "Apodo no configurado",
+    "ukr": "Унікальний нік не задано"
+  },
+  "mp_gp_parameter_error": {
+    "eng": "Wrong profile",
+    "fra": "Profil incorrect",
+    "ger": "Falsches Profil",
+    "ita": "Profilo errato",
+    "pol": "Nieprawidłowy profil",
+    "rus": "Неверный профиль",
+    "spa": "Perfil incorrecto",
+    "ukr": "Неправильний профіль"
+  },
+  "mp_gp_password_is_too_big": {
+    "eng": "The password is too long",
+    "fra": "Le mot de passe est trop long",
+    "ger": "Dieses Passwort ist zu lang",
+    "ita": "La password č troppo lunga",
+    "pol": "Hasło jest za długie",
+    "rus": "Пароль слишком длинный",
+    "spa": "La contraseńa es demasiado larga.",
+    "ukr": "Пароль надто довгий"
+  },
+  "mp_gp_password_is_too_small": {
+    "eng": "The password is too short",
+    "fra": "Le mot de passe est trop court",
+    "ger": "Dieses Passwort ist zu kurz",
+    "ita": "La password č troppo breve",
+    "pol": "Hasło jest za krótkie",
+    "rus": "Пароль слишком короткий",
+    "spa": "La contraseńa es demasiado corta.",
+    "ukr": "Пароль надто короткий"
+  },
+  "mp_gp_server_error": {
+    "eng": "Server currently unavailable",
+    "fra": "Serveur temporairement indisponible",
+    "ger": "Server vorübergehend nicht erreichbar",
+    "ita": "Il server non č attualmente disponibile",
+    "pol": "Serwer chwilowo niedostępny",
+    "rus": "Сервер временно недоступен",
+    "spa": "Servidor no disponible actualmente",
+    "ukr": "Сервер тимчасово недоступний"
+  },
+  "mp_gp_unique_nick_bad_first_symbol": {
+    "eng": "The unique nickname may not begin with a number or any of the following symbols: '@', '+', ':' or ‘#’",
+    "fra": "Le pseudo unique ne peut pas commencer par un chiffre ou l'un des symboles suivants : '@', '+', ':' or ‘#’",
+    "ger": "Der eindeutige Name darf nicht mit einer Ziffer oder einem der folgenden Zeichen beginnen: '@', '+', ':', '#'",
+    "ita": "Il soprannome non puň cominciare con un numero, né con un dei seguenti simboli: @, +, : e #.",
+    "pol": "Unikalne imię nie może zaczynać się od cyfry lub symbolu: \"@\", \"+\", \":\" lub ‘#’",
+    "rus": "Уникальный ник не может начинаться с цифры или символов: '@', '+', ':' или '#'",
+    "spa": "El apodo no puede empezar con un número ni cualquiera de los siguientes símbolos: \"@\", \"+\", \":\" o \"#\"",
+    "ukr": "Унікальний нік не може починатися із цифри або символів ''@'', ''+'', '':'' або ''#''"
+  },
+  "mp_gp_unique_nick_has_expired": {
+    "eng": "Unique nickname expired. Please reregister it",
+    "fra": "Pseudo unique arrivé ŕ expiration. Veuillez l'enregistrer ŕ nouveau.",
+    "ger": "Eindeutiger Name abgelaufen. Bitte registrieren Sie ihn erneut.",
+    "ita": "Soprannome scaduto. Registralo di nuovo.",
+    "pol": "Unikalny pseudonim utracił ważność. Proszę zarejestrować go ponownie.",
+    "rus": "Уникальный ник устарел. Пожалуйста, зарегистрируйте его снова",
+    "spa": "El apodo ha caducado. Vuelve a registrarlo.",
+    "ukr": "Унікальний нік застарів. Будь ласка, зареєструйте його знову"
+  },
+  "mp_gp_unique_nick_is_too_big": {
+    "eng": "Unique nickname is too long. You cannot enter more than 30 characters.",
+    "fra": "Ce pseudo unique est trop long. Vous ne pouvez saisir que 30 caractčres au maximum.",
+    "ger": "Der eindeutige Name ist zu lang. Er darf nicht länger als 30 Zeichen sein.",
+    "ita": "Il soprannome č troppo lungo, non puň superare i 30 caratteri.",
+    "pol": "Unikalny pseudonim jest za długi. Nie można wprowadzić więcej niż 30 znaków.",
+    "rus": "Уникальный ник слишком длинный. Вы можете ввести максимум 30 символов.",
+    "spa": "El apodo es demasiado largo. No puede contener más de 30 caracteres.",
+    "ukr": "Унікальний нік надто довгий. Ви можете ввести максимум 30 символів."
+  },
+  "mp_gp_unique_nick_must_contain_nospaces": {
+    "eng": "The unique nickname cannot contain spaces",
+    "fra": "Le pseudo unique ne doit contenir aucun espace",
+    "ger": "Der eindeutige Name darf keine Leerzeichen enthalten.",
+    "ita": "Il soprannome non puň contenere degli spazi.",
+    "pol": "Unikalny pseudonim nie może zawierać spacji",
+    "rus": "Уникальный ник не может содержать пробелы",
+    "spa": "El apodo no puede contener espacios.",
+    "ukr": "Унікальний ник не може містити пропуски"
+  },
+  "mp_gp_unique_nick_must_contain_only": {
+    "eng": "The unique nickname may only contain numbers, Latin letters and the following special symbols: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
+    "fra": "Le pseudo unique ne peut contenir que des chiffres, des lettres et les symboles suivants : \"#$&'()*+-./:;<=>?@[]^_`{|}~",
+    "ger": "Der eindeutige Name darf Ziffern, lateinische Buchstaben und die folgenden Sonderzeichen enthalten: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
+    "ita": "Il soprannome puň contenere solo numeri, lettere dell'alfabeto latino e i seguenti caratteri speciali: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
+    "pol": "Unikalne imię może zawierać tylko cyfry, litery alfabetu łac. i symbole spec.: \"#$&'()*+-./:;<=>?@[]^_`{|}~ ",
+    "rus": "Уникальный ник может содержать только цифры, буквы латиницы и специальные символы: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
+    "spa": "El apodo solo puede contener números, letras del alfabeto latino y los siguientes símbolos especiales: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
+    "ukr": "Унікальний нік може містити лише цифри, літери латиниці та спеціальні символи: \"#$&''()*+-./:;<=>?@[]^_`{|}~"
+  },
+  "mp_gp_unique_nick_not_registred": {
+    "eng": "Unique nickname not registered. Please register it",
+    "fra": "Pseudo unique non enregistré. Veuillez l'enregistrer.",
+    "ger": "Nicht registrierter eindeutiger Name. Bitte registrieren Sie ihn.",
+    "ita": "Soprannome non registrato. Registralo.",
+    "pol": "Unikalny pseudonim nie jest zarejestrowany. Proszę go zarejestrować.",
+    "rus": "Уникальный ник не зарегистрирован. Пожалуйста, зарегистрируйте его",
+    "spa": "El apodo no está registrado. Regístralo.",
+    "ukr": "Унікальний нік не зареєстровано. Будь ласка, зареєструйте його"
+  },
+  "mp_gp_unknown_email": {
+    "eng": "Wrong e-mail",
+    "fra": "Email incorrect",
+    "ger": "Falsche E-Mail-Adresse",
+    "ita": "E-mail errata",
+    "pol": "Nieprawidłowy adres e-mail",
+    "rus": "Неверный Email",
+    "spa": "Correo incorrecto",
+    "ukr": "Неправильний E-mail"
+  },
+  "mp_gp_unknown_email_or_bad_password": {
+    "eng": "Wrong e-mail or password",
+    "fra": "Adresse email ou mot de passe incorrect",
+    "ger": "E-Mail-Adresse oder Passwort falsch",
+    "ita": "E-mail o password errata",
+    "pol": "Nieprawidłowy adres e-mail lub hasło",
+    "rus": "Неверный e-mail или пароль",
+    "spa": "Contraseńa o correo incorrecto",
+    "ukr": "Неправильний E-mail або пароль"
+  },
+  "mp_gp_unknown_error_2": {
+    "eng": "Profile login required",
+    "fra": "Identifiant de profil nécessaire",
+    "ger": "Profilanmeldung erforderlich",
+    "ita": "Č necessario connettersi al profilo",
+    "pol": "Wymagane zalogowanie się do profilu",
+    "rus": "Необходимо войти в профиль",
+    "spa": "Se necesita iniciar sesión con un perfil",
+    "ukr": "Необхідно увійти у профіль"
+  },
+  "mp_gp_unknown_error_513": {
+    "eng": "Wrong profile name",
+    "fra": "Nom de profil incorrect",
+    "ger": "Falscher Profilname",
+    "ita": "Nome profilo errato",
+    "pol": "Nieprawidłowa nazwa profilu",
+    "rus": "Неверное имя профиля",
+    "spa": "Perfil incorrecto",
+    "ukr": "Неправильне ім'я профілю"
+  },
+  "mp_gp_unknown_error_514": {
+    "eng": "Wrong password",
+    "fra": "Mot de passe incorrect",
+    "ger": "Falsches Passwort",
+    "ita": "Password errata",
+    "pol": "Nieprawidłowe hasło",
+    "rus": "Неверный пароль",
+    "spa": "Contraseńa incorrecta",
+    "ukr": "Неправильний пароль"
+  },
+  "mp_gp_unknown_error_515": {
+    "eng": "Wrong unique nickname",
+    "fra": "Pseudo unique incorrect",
+    "ger": "Falscher eindeutiger Name",
+    "ita": "Soprannome errato",
+    "pol": "Nieprawidłowy unikalny pseudonim",
+    "rus": "Неверный уникальный ник",
+    "spa": "Apodo incorrecto",
+    "ukr": "Неправильний унікальний нік"
+  },
+  "mp_gp_unknown_error_516": {
+    "eng": "Unique nickname already in use",
+    "fra": "Pseudo unique déjŕ utilisé",
+    "ger": "Eindeutiger Name wird bereits verwendet",
+    "ita": "Il soprannome č giŕ in uso",
+    "pol": "Unikalny pseudonim jest już używany",
+    "rus": "Уникальный ник уже используется",
+    "spa": "Este apodo ya está en uso",
+    "ukr": "Унікальний нік уже використовується"
+  },
+  "mp_gp_unknown_error_6": {
+    "eng": "Connection error",
+    "fra": "Erreur de connexion",
+    "ger": "Verbindungsfehler",
+    "ita": "Errore di connessione",
+    "pol": "Błąd połączenia",
+    "rus": "Ошибка соединения",
+    "spa": "Error de conexión",
+    "ukr": "Помилка з'єднання"
+  },
+  "mp_gp_unknown_error_7": {
+    "eng": "Connection error",
+    "fra": "Erreur de connexion",
+    "ger": "Verbindungsfehler",
+    "ita": "Errore di connessione",
+    "pol": "Błąd połączenia",
+    "rus": "Ошибка соединения",
+    "spa": "Error de conexión",
+    "ukr": "Помилка з'єднання"
+  },
+  "mp_gp_unknown_error_8": {
+    "eng": "Connection error",
+    "fra": "Erreur de connexion",
+    "ger": "Verbindungsfehler",
+    "ita": "Errore di connessione",
+    "pol": "Błąd połączenia",
+    "rus": "Ошибка соединения",
+    "spa": "Error de conexión",
+    "ukr": "Помилка з'єднання"
   },
   "mp_login_success": {
     "eng": "Authorization successful",
@@ -1089,6 +1409,16 @@
     "spa": "nombre incorrecto",
     "ukr": "неправильне ім'я"
   },
+  "mp_please_login": {
+    "eng": "Please login to connect to the external server.",
+    "fra": "Veuillez vous connecter au serveur externe.",
+    "ger": "Bitte melden Sie sich an, um eine Verbindung mit dem externen Server herzustellen.",
+    "ita": "Collegati per accedere al server esterno.",
+    "pol": "Proszę się zalogować, aby połączyć się z serwerem zewnętrznym.",
+    "rus": "Пожалуйста, авторизируйтесь для входа на внешний сервер.",
+    "spa": "Inicia sesión para conectar con el servidor externo.",
+    "ukr": "Будь ласка, авторизуйтеся для входу на зовнішній сервер."
+  },
   "mp_pool": {
     "eng": "Pool",
     "fra": "Bassin",
@@ -1098,6 +1428,16 @@
     "rus": "Бассейн",
     "spa": "Estanque",
     "ukr": "Басейн"
+  },
+  "mp_pripyat": {
+    "eng": "Pripyat",
+    "fra": "Pripyat",
+    "ger": "Pripyat",
+    "ita": "Pripyat",
+    "pol": "Prypeć",
+    "rus": "Припять",
+    "spa": "Pripyat",
+    "ukr": "Прип'ять"
   },
   "mp_railroad": {
     "eng": "Railway station",
@@ -1119,6 +1459,16 @@
     "spa": "Fábrica de Rostok",
     "ukr": "Завод «Росток»"
   },
+  "mp_server_info": {
+    "eng": "Server info",
+    "fra": "Infos serveur",
+    "ger": "Serverinformationen",
+    "ita": "Informazioni sul server",
+    "pol": "Inform. o serwerze",
+    "rus": "Информация о сервере",
+    "spa": "Información del servidor",
+    "ukr": "Інформація про сервер"
+  },
   "mp_unique_nick_not_valid": {
     "eng": "wrong unique name",
     "fra": "nom unique incorrect",
@@ -1128,6 +1478,16 @@
     "rus": "неправильный уникальный ник",
     "spa": "apodo incorrecto",
     "ukr": "неправильний унікальний нік"
+  },
+  "mp_use_offline_mode": {
+    "eng": "You cannot use a GameSpy ID to connect to a local server. Please use the LAN game mode.",
+    "fra": "Vous ne pouvez pas utiliser un identifiant GameSpy pour vous connecter ŕ un serveur local. Veuillez utiliser le mode Réseau local.",
+    "ger": "Sie können mit einer GameSpy-ID keine Verbindung zu einem lokalen Server aufbauen. Bitte benutzen Sie den Netzwerkspielmodus.",
+    "ita": "Non puoi uare un ID GameSpy per collegarti a un server locale. Utilizza la modalitŕ LAN.",
+    "pol": "Nie można użyć ID GameSpy do połączenia z serwerem lokalnym. Proszę użyć trybu gry w sieci lokalnej.",
+    "rus": "Вы не можете использовать профиль GameSpy ID для входа на локальный сервер. Пожалуйста, используйте режим игры по локальной сети.",
+    "spa": "No puedes usar un perfil de GameSpy para conectar a un servidor local. Usa el modo de juego LAN.",
+    "ukr": "Ви не можете використати профіль GameSpy ID для входу на локальний сервер. Будь ласка, використайте режим гри через локальну мережу."
   },
   "mp_want_to_delete_demo": {
     "eng": "Are you sure you want to remove",
@@ -1148,6 +1508,26 @@
     "rus": "Заброшенная фабрика",
     "spa": "Fábrica abandonada",
     "ukr": "Покинута фабрика"
+  },
+  "mp_you_have_been_banned_by": {
+    "eng": "You were banned by administrator:",
+    "fra": "Vous avez été banni par l'administrateur :",
+    "ger": "Sie wurden gesperrt durch den Administrator:",
+    "ita": "Sei stato bandito dall'amministratore.",
+    "pol": "Administrator cię zbanował:",
+    "rus": "Вы были заблокированы администратором: ",
+    "spa": "El administrador te ha inhabilitado:",
+    "ukr": "Вас було заблоковано адміністратором: "
+  },
+  "mp_you_have_been_banned_by_server": {
+    "eng": "You were banned by the server",
+    "fra": "Vous avez été banni par le serveur.",
+    "ger": "Sie wurden durch den Server gesperrt.",
+    "ita": "Sei stato bandito dal server.",
+    "pol": "Serwer cię zbanował.",
+    "rus": "Вы были заблокированы сервером",
+    "spa": "El servidor te ha inhabilitado.",
+    "ukr": "Вас було заблоковано сервером"
   },
   "ping": {
     "eng": "PING",
@@ -1219,6 +1599,16 @@
     "spa": "Ilum. din. completa mejor. (DX10)",
     "ukr": "Покр. повне освітлення (DX10)"
   },
+  "renderer_r4": {
+    "eng": "Enhanced full dyn. lighting (DX11)",
+    "fra": "Éclairage dyn. comp. opt. (DX11)",
+    "ger": "Erweiterte dyn. Objektbel. (DX11)",
+    "ita": "Ill. din. completa potenz. (DX11)",
+    "pol": "Rozsz. pełne ośw. dynam. (DX11)",
+    "rus": "Ул. полное освещение (DX11)",
+    "spa": "Ilum. din. completa mejor. (DX11)",
+    "ukr": "Покр. повне освітлення (DX11)"
+  },
   "server name": {
     "eng": "SERVER NAME",
     "fra": "NOM DU SERVEUR",
@@ -1259,6 +1649,16 @@
     "spa": "Batalla campal",
     "ukr": "Всі проти всіх"
   },
+  "st_kicked_by_server": {
+    "eng": "You were kicked by the server.",
+    "fra": "Vous avez été exclu par le serveur.",
+    "ger": "Sie wurden vom Server gekickt.",
+    "ita": "Sei stato espulso dal server.",
+    "pol": "Wyrzucono cię z serwera.",
+    "rus": "Вы были выброшены сервером.",
+    "spa": "Has sido expulsado por el servidor.",
+    "ukr": "Вас було викинуто сервером"
+  },
   "st_mp_gsfilter": {
     "eng": "Filter:",
     "fra": "Filtre :",
@@ -1268,6 +1668,36 @@
     "rus": "Фильтр:",
     "spa": "Filtro:",
     "ukr": "Фільтр:"
+  },
+  "st_opt_extreme": {
+    "eng": "max high",
+    "fra": "max",
+    "ger": "maximal",
+    "ita": "massimo",
+    "pol": "maksymalnie wysokie",
+    "rus": "макс. высоко",
+    "spa": "máximo",
+    "ukr": "макс. високо"
+  },
+  "st_opt_fullscreen": {
+    "eng": "Fullscreen",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
+  "st_opt_fullscreen_borderless": {
+    "eng": "Fullscreen (fast Alt+Tab)",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
   },
   "st_opt_high": {
     "eng": "high",
@@ -1308,6 +1738,36 @@
     "rus": "отключено",
     "spa": "no",
     "ukr": "відключено"
+  },
+  "st_opt_ultra": {
+    "eng": "very high",
+    "fra": "trčs élevé",
+    "ger": "sehr hoch",
+    "ita": "molto elevata",
+    "pol": "bardzo wysokie",
+    "rus": "очень высоко",
+    "spa": "muy alto",
+    "ukr": "дуже високо"
+  },
+  "st_opt_windowed": {
+    "eng": "Windowed",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
+  "st_opt_windowed_borderless": {
+    "eng": "Windowed borderless",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
   },
   "st_rank_experienced": {
     "eng": "experienced",
@@ -1469,16 +1929,6 @@
     "spa": "Cancelar",
     "ukr": "Відмінити"
   },
-  "ui_mm_toggle": {
-    "eng": "Toggle",
-    "fra": "Basculer",
-    "ger": "Umschalten",
-    "ita": "Attiva/Disattiva",
-    "pol": "Przełącz",
-    "rus": "Переключить",
-    "spa": "Alternar",
-    "ukr": "Перемкнути "
-  },
   "ui_mm_check_updates": {
     "eng": "Game updates",
     "fra": "Mises ŕ jour",
@@ -1488,6 +1938,16 @@
     "rus": "Обновления",
     "spa": "Actualizac.",
     "ukr": "Оновлення"
+  },
+  "ui_mm_confirm_changes": {
+    "eng": "Apply changes? All changes will be reverted in",
+    "fra": "Appliquer les changements ? Tous les changements seront annulés dans",
+    "ger": "Änderungen übernehmen? Alle Änderungen werden rückgängig gemacht in",
+    "ita": "Vuoi applicare le modifiche? Le impostazioni precedenti saranno ripristinate in",
+    "pol": "Zatwierdź zmiany? Wszystkie zmiany zostaną cofnięte w",
+    "rus": "Применить сделанные изменения? Все изменения будут отменены через",
+    "spa": "żAplicar cambios? Todos los cambios serán revertidos en",
+    "ukr": "Застосувати зроблені зміни? Усі зміни будуть скасовані через"
   },
   "ui_mm_contrast": {
     "eng": "Contrast",
@@ -1519,36 +1979,6 @@
     "spa": "Créditos",
     "ukr": "Титри"
   },
-  "ui_mm_extensions": {
-    "eng": "Credits",
-    "fra": "Rallonges",
-    "ger": "Erweiterungen",
-    "ita": "Estensioni",
-    "pol": "Rozszerzenia",
-    "rus": "Расширения",
-    "spa": "Extensiones",
-    "ukr": "Розширення"
-  },
-  "ui_mm_up": {
-    "eng": "Up",
-    "fra": "En haut",
-    "ger": "Auf",
-    "ita": "Su",
-    "pol": "W górę",
-    "rus": "Вверх",
-    "spa": "Arriba",
-    "ukr": "Вгору"
-  },
-  "ui_mm_down": {
-    "eng": "Down",
-    "fra": "Vers le bas",
-    "ger": "Runter",
-    "ita": "Giù",
-    "pol": "W dół",
-    "rus": "Вниз",
-    "spa": "Abajo",
-    "ukr": "Вниз"
-  },
   "ui_mm_crosshair_distance": {
     "eng": "Crosshair target distance",
     "fra": "Dist. cible sur réticule",
@@ -1558,6 +1988,16 @@
     "rus": "Дистанция до цели",
     "spa": "Distancia del objetivo",
     "ukr": "Відстань до цілі"
+  },
+  "ui_mm_crouch_toggle": {
+    "eng": "Crouch/stand mode",
+    "fra": "Mode accroupi/debout",
+    "ger": "Ducken/Stehen",
+    "ita": "Mod. accov./in piedi",
+    "pol": "Tryb kucania/wstawania",
+    "rus": "Режим сесть/встать",
+    "spa": "Modo agachado/de pie",
+    "ukr": "Режим сісти/встати"
   },
   "ui_mm_default": {
     "eng": "Default",
@@ -1659,6 +2099,16 @@
     "spa": "Profundidad de campo",
     "ukr": "Глибина різкості"
   },
+  "ui_mm_down": {
+    "eng": "Down",
+    "fra": "Vers le bas",
+    "ger": "Runter",
+    "ita": "Giù",
+    "pol": "W dół",
+    "rus": "Вниз",
+    "spa": "Abajo",
+    "ukr": "Вниз"
+  },
   "ui_mm_dyn_crosshair": {
     "eng": "Dynamic crosshair",
     "fra": "Réticule dynamique",
@@ -1689,6 +2139,16 @@
     "spa": "EAX",
     "ukr": "EAX"
   },
+  "ui_mm_extensions": {
+    "eng": "Credits",
+    "fra": "Rallonges",
+    "ger": "Erweiterungen",
+    "ita": "Estensioni",
+    "pol": "Rozszerzenia",
+    "rus": "Расширения",
+    "spa": "Extensiones",
+    "ukr": "Розширення"
+  },
   "ui_mm_fullscreen": {
     "eng": "Full screen",
     "fra": "Plein écran",
@@ -1698,56 +2158,6 @@
     "rus": "Полный экран",
     "spa": "Pantalla completa",
     "ukr": "Повний екран"
-  },
-  "ui_mm_window_mode": {
-    "eng": "Window mode",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
-  },
-  "st_opt_windowed": {
-    "eng": "Windowed",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
-  },
-  "st_opt_windowed_borderless": {
-    "eng": "Windowed borderless",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
-  },
-  "st_opt_fullscreen": {
-    "eng": "Fullscreen",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
-  },
-  "st_opt_fullscreen_borderless": {
-    "eng": "Fullscreen (fast Alt+Tab)",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
   },
   "ui_mm_gameplay": {
     "eng": "Game",
@@ -1778,6 +2188,36 @@
     "rus": "Детализация объектов",
     "spa": "Detalles de objetos",
     "ukr": "Деталізація об'єктів"
+  },
+  "ui_mm_hbao": {
+    "eng": "HBAO",
+    "fra": "HBAO",
+    "ger": "HBAO",
+    "ita": "HBAO",
+    "pol": "HBAO",
+    "rus": "HBAO",
+    "spa": "HBAO",
+    "ukr": "HBAO"
+  },
+  "ui_mm_hdao": {
+    "eng": "HDAO",
+    "fra": "HDAO",
+    "ger": "HDAO",
+    "ita": "HDAO",
+    "pol": "HDAO",
+    "rus": "HDAO",
+    "spa": "HDAO",
+    "ukr": "HDAO"
+  },
+  "ui_mm_important_save": {
+    "eng": "Autosaving",
+    "fra": "Sauvegarde automatique...",
+    "ger": "Automat. Speicherung",
+    "ita": "Autosalv. in corso",
+    "pol": "Autozapis",
+    "rus": "Автосохранение",
+    "spa": "Autoguardando",
+    "ukr": "Автозбереження"
   },
   "ui_mm_invert_mouse": {
     "eng": "Invert mouse",
@@ -2069,6 +2509,16 @@
     "spa": "żSeguro que quieres salir a Windows?",
     "ukr": "Ви справді хочете вийти до Windows?"
   },
+  "ui_mm_r1_detail_textures": {
+    "eng": "Detailed textures",
+    "fra": "Détail des textures",
+    "ger": "Detaillierte Texturen",
+    "ita": "Texture dettagliate",
+    "pol": "Szczegółowe tekstury",
+    "rus": "Детальные текстуры",
+    "spa": "Texturas detalladas",
+    "ukr": "Детальні текстури"
+  },
   "ui_mm_r2_detail_bump": {
     "eng": "Detail bump",
     "fra": "Bump mapping",
@@ -2168,6 +2618,16 @@
     "rus": "Объёмный дым",
     "spa": "Humo volumétrico",
     "ukr": "Об'ємний дим"
+  },
+  "ui_mm_r4_enable_tessellation": {
+    "eng": "Tessellation",
+    "fra": "Mosaďque",
+    "ger": "Tessellation",
+    "ita": "Mosaico",
+    "pol": "Tesselacja",
+    "rus": "Тесселяция",
+    "spa": "Mosaico",
+    "ukr": "Тесселяція"
   },
   "ui_mm_render_2": {
     "eng": "Render 2",
@@ -2309,6 +2769,36 @@
     "spa": "Calidad de sonido",
     "ukr": "Якість звуку"
   },
+  "ui_mm_ssao": {
+    "eng": "default",
+    "fra": "par défaut",
+    "ger": "Standard",
+    "ita": "predefinito",
+    "pol": "Domyślny",
+    "rus": "по умолчанию",
+    "spa": "predeterminado",
+    "ukr": "за замовчуванням"
+  },
+  "ui_mm_ssao_quality": {
+    "eng": "SSAO quality",
+    "fra": "Qualité SSAO",
+    "ger": "SSAO-Qualität",
+    "ita": "Qualitŕ SSAO",
+    "pol": "Jakość SSAO",
+    "rus": "Качество SSAO",
+    "spa": "Calidad SSAO",
+    "ukr": "Якість SSAO"
+  },
+  "ui_mm_ssao_text": {
+    "eng": "SSAO mode",
+    "fra": "Mode SSAO",
+    "ger": "SSAO-Modus",
+    "ita": "Modalitŕ SSAO",
+    "pol": "Tryb SSAO",
+    "rus": "Режим SSAO",
+    "spa": "Modo SSAO",
+    "ukr": "Режим SSAO"
+  },
   "ui_mm_stalker": {
     "eng": "Stalker",
     "fra": "Stalker",
@@ -2379,6 +2869,26 @@
     "spa": "Identificación de PNJ",
     "ukr": "Розпізнавання NPC"
   },
+  "ui_mm_toggle": {
+    "eng": "Toggle",
+    "fra": "Basculer",
+    "ger": "Umschalten",
+    "ita": "Attiva/Disattiva",
+    "pol": "Przełącz",
+    "rus": "Переключить",
+    "spa": "Alternar",
+    "ukr": "Перемкнути "
+  },
+  "ui_mm_up": {
+    "eng": "Up",
+    "fra": "En haut",
+    "ger": "Auf",
+    "ita": "Su",
+    "pol": "W górę",
+    "rus": "Вверх",
+    "spa": "Arriba",
+    "ukr": "Вгору"
+  },
   "ui_mm_veteran": {
     "eng": "Veteran",
     "fra": "Vétéran",
@@ -2428,6 +2938,16 @@
     "rus": "Верт. синхронизация",
     "spa": "Sincronización vertical",
     "ukr": "Верт. синхронізація"
+  },
+  "ui_mm_window_mode": {
+    "eng": "Window mode",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
   },
   "ui_mp_gamespy_changing_unique_nick": {
     "eng": "Change unique name",
@@ -2488,6 +3008,16 @@
     "rus": "от потери крови",
     "spa": "desangrado",
     "ukr": "від втрати крові"
+  },
+  "ui_st_disable_hud": {
+    "eng": "Show interface",
+    "fra": "Afficher interface",
+    "ger": "Interface anzeigen",
+    "ita": "Mostra interfaccia",
+    "pol": "Pokaż interfejs",
+    "rus": "Показывать интерфейс",
+    "spa": "Mostrar interfaz",
+    "ukr": "Показувати інтерфейс"
   },
   "ui_st_explosive_kills_in_row": {
     "eng": "in an explosion",
@@ -2559,6 +3089,16 @@
     "spa": "Último equipo",
     "ukr": "Ост. набір"
   },
+  "ui_st_mp_create": {
+    "eng": "Create",
+    "fra": "Créer",
+    "ger": "Erstellen",
+    "ita": "Crea",
+    "pol": "Utwórz",
+    "rus": "Создать",
+    "spa": "Crear",
+    "ukr": "Створити"
+  },
   "ui_st_mp_local_network_login_page": {
     "eng": "Enter multiplayer",
     "fra": "Accéder au mode Multijoueur",
@@ -2568,6 +3108,26 @@
     "rus": "Вход в сетевую игру",
     "spa": "Entrar en multijugador",
     "ukr": "Вхід до гри у мережі"
+  },
+  "ui_st_mp_login": {
+    "eng": "Enter",
+    "fra": "Entrer",
+    "ger": "Betreten",
+    "ita": "Entra",
+    "pol": "Wejdź",
+    "rus": "Войти",
+    "spa": "Entrar",
+    "ukr": "Увійти"
+  },
+  "ui_st_mp_logout": {
+    "eng": "Exit",
+    "fra": "Quitter",
+    "ger": "Verlassen",
+    "ita": "Esci",
+    "pol": "Wyjdź",
+    "rus": "Выйти",
+    "spa": "Salir",
+    "ukr": "Вийти"
   },
   "ui_st_mp_nickname": {
     "eng": "Name",
@@ -2639,246 +3199,6 @@
     "spa": "Vender todo",
     "ukr": "Продати все"
   },
-  "version": {
-    "eng": "Version",
-    "fra": "Version",
-    "ger": "Version",
-    "ita": "Versione",
-    "pol": "Wersja",
-    "rus": "Версия",
-    "spa": "Versión",
-    "ukr": "Версія"
-  },
-  "mp_pripyat": {
-    "eng": "Pripyat",
-    "fra": "Pripyat",
-    "ger": "Pripyat",
-    "ita": "Pripyat",
-    "pol": "Prypeć",
-    "rus": "Припять",
-    "spa": "Pripyat",
-    "ukr": "Прип'ять"
-  },
-  "ui_mm_crouch_toggle": {
-    "eng": "Crouch/stand mode",
-    "fra": "Mode accroupi/debout",
-    "ger": "Ducken/Stehen",
-    "ita": "Mod. accov./in piedi",
-    "pol": "Tryb kucania/wstawania",
-    "rus": "Режим сесть/встать",
-    "spa": "Modo agachado/de pie",
-    "ukr": "Режим сісти/встати"
-  },
-  "ui_mm_important_save": {
-    "eng": "Autosaving",
-    "fra": "Sauvegarde automatique...",
-    "ger": "Automat. Speicherung",
-    "ita": "Autosalv. in corso",
-    "pol": "Autozapis",
-    "rus": "Автосохранение",
-    "spa": "Autoguardando",
-    "ukr": "Автозбереження"
-  },
-  "ui_mm_r1_detail_textures": {
-    "eng": "Detailed textures",
-    "fra": "Détail des textures",
-    "ger": "Detaillierte Texturen",
-    "ita": "Texture dettagliate",
-    "pol": "Szczegółowe tekstury",
-    "rus": "Детальные текстуры",
-    "spa": "Texturas detalladas",
-    "ukr": "Детальні текстури"
-  },
-  "mm_mp_demo": {
-    "eng": "Movies",
-    "fra": "Cinématiques",
-    "ger": "Videos",
-    "ita": "Filmati",
-    "pol": "Filmy",
-    "rus": "Ролики",
-    "spa": "Películas",
-    "ukr": "Ролики"
-  },
-  "ui_st_mp_login": {
-    "eng": "Enter",
-    "fra": "Entrer",
-    "ger": "Betreten",
-    "ita": "Entra",
-    "pol": "Wejdź",
-    "rus": "Войти",
-    "spa": "Entrar",
-    "ukr": "Увійти"
-  },
-  "ui_st_mp_logout": {
-    "eng": "Exit",
-    "fra": "Quitter",
-    "ger": "Verlassen",
-    "ita": "Esci",
-    "pol": "Wyjdź",
-    "rus": "Выйти",
-    "spa": "Salir",
-    "ukr": "Вийти"
-  },
-  "ui_st_mp_create": {
-    "eng": "Create",
-    "fra": "Créer",
-    "ger": "Erstellen",
-    "ita": "Crea",
-    "pol": "Utwórz",
-    "rus": "Создать",
-    "spa": "Crear",
-    "ukr": "Створити"
-  },
-  "mp_gp_unknown_email_or_bad_password": {
-    "eng": "Wrong e-mail or password",
-    "fra": "Adresse email ou mot de passe incorrect",
-    "ger": "E-Mail-Adresse oder Passwort falsch",
-    "ita": "E-mail o password errata",
-    "pol": "Nieprawidłowy adres e-mail lub hasło",
-    "rus": "Неверный e-mail или пароль",
-    "spa": "Contraseńa o correo incorrecto",
-    "ukr": "Неправильний E-mail або пароль"
-  },
-  "mp_gp_parameter_error": {
-    "eng": "Wrong profile",
-    "fra": "Profil incorrect",
-    "ger": "Falsches Profil",
-    "ita": "Profilo errato",
-    "pol": "Nieprawidłowy profil",
-    "rus": "Неверный профиль",
-    "spa": "Perfil incorrecto",
-    "ukr": "Неправильний профіль"
-  },
-  "mp_gp_network_error": {
-    "eng": "Connection error",
-    "fra": "Erreur de connexion",
-    "ger": "Verbindungsfehler",
-    "ita": "Errore di connessione",
-    "pol": "Błąd połączenia",
-    "rus": "Ошибка соединения",
-    "spa": "Error de conexión",
-    "ukr": "Помилка з'єднання"
-  },
-  "mp_gp_server_error": {
-    "eng": "Server currently unavailable",
-    "fra": "Serveur temporairement indisponible",
-    "ger": "Server vorübergehend nicht erreichbar",
-    "ita": "Il server non č attualmente disponibile",
-    "pol": "Serwer chwilowo niedostępny",
-    "rus": "Сервер временно недоступен",
-    "spa": "Servidor no disponible actualmente",
-    "ukr": "Сервер тимчасово недоступний"
-  },
-  "mp_gp_unknown_error_2": {
-    "eng": "Profile login required",
-    "fra": "Identifiant de profil nécessaire",
-    "ger": "Profilanmeldung erforderlich",
-    "ita": "Č necessario connettersi al profilo",
-    "pol": "Wymagane zalogowanie się do profilu",
-    "rus": "Необходимо войти в профиль",
-    "spa": "Se necesita iniciar sesión con un perfil",
-    "ukr": "Необхідно увійти у профіль"
-  },
-  "mp_gp_unknown_error_6": {
-    "eng": "Connection error",
-    "fra": "Erreur de connexion",
-    "ger": "Verbindungsfehler",
-    "ita": "Errore di connessione",
-    "pol": "Błąd połączenia",
-    "rus": "Ошибка соединения",
-    "spa": "Error de conexión",
-    "ukr": "Помилка з'єднання"
-  },
-  "mp_gp_unknown_error_7": {
-    "eng": "Connection error",
-    "fra": "Erreur de connexion",
-    "ger": "Verbindungsfehler",
-    "ita": "Errore di connessione",
-    "pol": "Błąd połączenia",
-    "rus": "Ошибка соединения",
-    "spa": "Error de conexión",
-    "ukr": "Помилка з'єднання"
-  },
-  "mp_gp_unknown_error_8": {
-    "eng": "Connection error",
-    "fra": "Erreur de connexion",
-    "ger": "Verbindungsfehler",
-    "ita": "Errore di connessione",
-    "pol": "Błąd połączenia",
-    "rus": "Ошибка соединения",
-    "spa": "Error de conexión",
-    "ukr": "Помилка з'єднання"
-  },
-  "mp_gp_unknown_error_513": {
-    "eng": "Wrong profile name",
-    "fra": "Nom de profil incorrect",
-    "ger": "Falscher Profilname",
-    "ita": "Nome profilo errato",
-    "pol": "Nieprawidłowa nazwa profilu",
-    "rus": "Неверное имя профиля",
-    "spa": "Perfil incorrecto",
-    "ukr": "Неправильне ім'я профілю"
-  },
-  "mp_gp_unknown_error_514": {
-    "eng": "Wrong password",
-    "fra": "Mot de passe incorrect",
-    "ger": "Falsches Passwort",
-    "ita": "Password errata",
-    "pol": "Nieprawidłowe hasło",
-    "rus": "Неверный пароль",
-    "spa": "Contraseńa incorrecta",
-    "ukr": "Неправильний пароль"
-  },
-  "mp_gp_unknown_error_515": {
-    "eng": "Wrong unique nickname",
-    "fra": "Pseudo unique incorrect",
-    "ger": "Falscher eindeutiger Name",
-    "ita": "Soprannome errato",
-    "pol": "Nieprawidłowy unikalny pseudonim",
-    "rus": "Неверный уникальный ник",
-    "spa": "Apodo incorrecto",
-    "ukr": "Неправильний унікальний нік"
-  },
-  "mp_gp_unknown_error_516": {
-    "eng": "Unique nickname already in use",
-    "fra": "Pseudo unique déjŕ utilisé",
-    "ger": "Eindeutiger Name wird bereits verwendet",
-    "ita": "Il soprannome č giŕ in uso",
-    "pol": "Unikalny pseudonim jest już używany",
-    "rus": "Уникальный ник уже используется",
-    "spa": "Este apodo ya está en uso",
-    "ukr": "Унікальний нік уже використовується"
-  },
-  "mp_first_need_to_login": {
-    "eng": "Please login to your profile first",
-    "fra": "Veuillez d'abord vous connecter ŕ votre profil",
-    "ger": "Bitte zuerst in Ihrem Profil anmelden",
-    "ita": "Collegati prima al tuo profilo",
-    "pol": "Proszę najpierw zalogować się do profilu",
-    "rus": "Необходимо вначале войти в профиль",
-    "spa": "Inicia sesión primero con tu perfil",
-    "ukr": "Необхідно спочатку увійти до профілю"
-  },
-  "mp_first_need_to_logout": {
-    "eng": "Please log out of your profile first",
-    "fra": "Veuillez d'abord vous déconnecter de votre profil",
-    "ger": "Bitte zuerst aus Ihrem Profil abmelden",
-    "ita": "Esegui prima la disconnessione dal profilo",
-    "pol": "Proszę najpierw wylogować się z profilu",
-    "rus": "Необходимо сперва выйти из профиля",
-    "spa": "Cierra sesión primero con tu perfil",
-    "ukr": "Необхідно спочатку вийти з профілю"
-  },
-  "mp_gamespy_http_error": {
-    "eng": "Error in connecting to profile server",
-    "fra": "Erreur de connexion au serveur de profils",
-    "ger": "Fehler bei der Verbindung zum Profilserver",
-    "ita": "Errore nella connessione al server del profilo",
-    "pol": "Błąd połączenia z serwerem profili",
-    "rus": "Ошибка соединения с сервером профилей",
-    "spa": "Error al conectarte al servidor de perfiles",
-    "ukr": "Помилка з'єднання із сервером профілів"
-  },
   "ui_st_you_cannot_delete_profile_after_creation": {
     "eng": "You will not be able to delete the profile after creating it",
     "fra": "Vous ne pourrez pas supprimer le profil aprčs l'avoir créé.",
@@ -2889,334 +3209,14 @@
     "spa": "No podrás borrar el perfil después de crearlo.",
     "ukr": "Ви не зможете видалити профіль після його створення"
   },
-  "ui_mm_ssao_quality": {
-    "eng": "SSAO quality",
-    "fra": "Qualité SSAO",
-    "ger": "SSAO-Qualität",
-    "ita": "Qualitŕ SSAO",
-    "pol": "Jakość SSAO",
-    "rus": "Качество SSAO",
-    "spa": "Calidad SSAO",
-    "ukr": "Якість SSAO"
-  },
-  "ui_mm_ssao_text": {
-    "eng": "SSAO mode",
-    "fra": "Mode SSAO",
-    "ger": "SSAO-Modus",
-    "ita": "Modalitŕ SSAO",
-    "pol": "Tryb SSAO",
-    "rus": "Режим SSAO",
-    "spa": "Modo SSAO",
-    "ukr": "Режим SSAO"
-  },
-  "ui_mm_ssao": {
-    "eng": "default",
-    "fra": "par défaut",
-    "ger": "Standard",
-    "ita": "predefinito",
-    "pol": "Domyślny",
-    "rus": "по умолчанию",
-    "spa": "predeterminado",
-    "ukr": "за замовчуванням"
-  },
-  "ui_mm_hdao": {
-    "eng": "HDAO",
-    "fra": "HDAO",
-    "ger": "HDAO",
-    "ita": "HDAO",
-    "pol": "HDAO",
-    "rus": "HDAO",
-    "spa": "HDAO",
-    "ukr": "HDAO"
-  },
-  "ui_mm_hbao": {
-    "eng": "HBAO",
-    "fra": "HBAO",
-    "ger": "HBAO",
-    "ita": "HBAO",
-    "pol": "HBAO",
-    "rus": "HBAO",
-    "spa": "HBAO",
-    "ukr": "HBAO"
-  },
-  "ui_st_disable_hud": {
-    "eng": "Show interface",
-    "fra": "Afficher interface",
-    "ger": "Interface anzeigen",
-    "ita": "Mostra interfaccia",
-    "pol": "Pokaż interfejs",
-    "rus": "Показывать интерфейс",
-    "spa": "Mostrar interfaz",
-    "ukr": "Показувати інтерфейс"
-  },
-  "mp_gp_unique_nick_not_registred": {
-    "eng": "Unique nickname not registered. Please register it",
-    "fra": "Pseudo unique non enregistré. Veuillez l'enregistrer.",
-    "ger": "Nicht registrierter eindeutiger Name. Bitte registrieren Sie ihn.",
-    "ita": "Soprannome non registrato. Registralo.",
-    "pol": "Unikalny pseudonim nie jest zarejestrowany. Proszę go zarejestrować.",
-    "rus": "Уникальный ник не зарегистрирован. Пожалуйста, зарегистрируйте его",
-    "spa": "El apodo no está registrado. Regístralo.",
-    "ukr": "Унікальний нік не зареєстровано. Будь ласка, зареєструйте його"
-  },
-  "mp_gp_unique_nick_has_expired": {
-    "eng": "Unique nickname expired. Please reregister it",
-    "fra": "Pseudo unique arrivé ŕ expiration. Veuillez l'enregistrer ŕ nouveau.",
-    "ger": "Eindeutiger Name abgelaufen. Bitte registrieren Sie ihn erneut.",
-    "ita": "Soprannome scaduto. Registralo di nuovo.",
-    "pol": "Unikalny pseudonim utracił ważność. Proszę zarejestrować go ponownie.",
-    "rus": "Уникальный ник устарел. Пожалуйста, зарегистрируйте его снова",
-    "spa": "El apodo ha caducado. Vuelve a registrarlo.",
-    "ukr": "Унікальний нік застарів. Будь ласка, зареєструйте його знову"
-  },
-  "gd_stalker": {
-    "eng": "stalker",
-    "fra": "stalker",
-    "ger": "Stalker",
-    "ita": "stalker",
-    "pol": "Stalker",
-    "rus": "сталкер",
-    "spa": "stalker",
-    "ukr": "сталкер"
-  },
-  "st_opt_extreme": {
-    "eng": "max high",
-    "fra": "max",
-    "ger": "maximal",
-    "ita": "massimo",
-    "pol": "maksymalnie wysokie",
-    "rus": "макс. высоко",
-    "spa": "máximo",
-    "ukr": "макс. високо"
-  },
-  "renderer_r4": {
-    "eng": "Enhanced full dyn. lighting (DX11)",
-    "fra": "Éclairage dyn. comp. opt. (DX11)",
-    "ger": "Erweiterte dyn. Objektbel. (DX11)",
-    "ita": "Ill. din. completa potenz. (DX11)",
-    "pol": "Rozsz. pełne ośw. dynam. (DX11)",
-    "rus": "Ул. полное освещение (DX11)",
-    "spa": "Ilum. din. completa mejor. (DX11)",
-    "ukr": "Покр. повне освітлення (DX11)"
-  },
-  "mp_please_login": {
-    "eng": "Please login to connect to the external server.",
-    "fra": "Veuillez vous connecter au serveur externe.",
-    "ger": "Bitte melden Sie sich an, um eine Verbindung mit dem externen Server herzustellen.",
-    "ita": "Collegati per accedere al server esterno.",
-    "pol": "Proszę się zalogować, aby połączyć się z serwerem zewnętrznym.",
-    "rus": "Пожалуйста, авторизируйтесь для входа на внешний сервер.",
-    "spa": "Inicia sesión para conectar con el servidor externo.",
-    "ukr": "Будь ласка, авторизуйтеся для входу на зовнішній сервер."
-  },
-  "mp_already_logged_in": {
-    "eng": "This GameSpy ID is currently in use. Please use another GameSpy ID.",
-    "fra": "Cet identifiant GameSpy est déjŕ utilisé. Veuillez choisir un autre identifiant GameSpy.",
-    "ger": "Diese GameSpy-ID wird bereits verwendet. Bitte verwenden Sie eine andere GameSpy-ID.",
-    "ita": "Questo ID GameSpy č in uso. Utilizza un altro ID GameSpy.",
-    "pol": "To ID GameSpy jest obecnie używane. Proszę użyć innego ID GameSpy.",
-    "rus": "Этот профиль GameSpy ID в данный момент используется. Пожалуйста, используйте другой профиль GameSpy ID.",
-    "spa": "Este perfil de GameSpy se está usando en este momento. Usa otro perfil de GameSpy.",
-    "ukr": "Зазначений профіль GameSpy ID на цей момент використовується. Будь ласка, використайте інший профіль GameSpy ID."
-  },
-  "mp_gp_unknown_email": {
-    "eng": "Wrong e-mail",
-    "fra": "Email incorrect",
-    "ger": "Falsche E-Mail-Adresse",
-    "ita": "E-mail errata",
-    "pol": "Nieprawidłowy adres e-mail",
-    "rus": "Неверный Email",
-    "spa": "Correo incorrecto",
-    "ukr": "Неправильний E-mail"
-  },
-  "mp_gp_bad_password": {
-    "eng": "Wrong password",
-    "fra": "Mot de passe incorrect",
-    "ger": "Falsches Passwort",
-    "ita": "Password errata",
-    "pol": "Nieprawidłowe hasło",
-    "rus": "Неверный пароль",
-    "spa": "Contraseńa incorrecta",
-    "ukr": "Неправильний пароль"
-  },
-  "mp_use_offline_mode": {
-    "eng": "You cannot use a GameSpy ID to connect to a local server. Please use the LAN game mode.",
-    "fra": "Vous ne pouvez pas utiliser un identifiant GameSpy pour vous connecter ŕ un serveur local. Veuillez utiliser le mode Réseau local.",
-    "ger": "Sie können mit einer GameSpy-ID keine Verbindung zu einem lokalen Server aufbauen. Bitte benutzen Sie den Netzwerkspielmodus.",
-    "ita": "Non puoi uare un ID GameSpy per collegarti a un server locale. Utilizza la modalitŕ LAN.",
-    "pol": "Nie można użyć ID GameSpy do połączenia z serwerem lokalnym. Proszę użyć trybu gry w sieci lokalnej.",
-    "rus": "Вы не можете использовать профиль GameSpy ID для входа на локальный сервер. Пожалуйста, используйте режим игры по локальной сети.",
-    "spa": "No puedes usar un perfil de GameSpy para conectar a un servidor local. Usa el modo de juego LAN.",
-    "ukr": "Ви не можете використати профіль GameSpy ID для входу на локальний сервер. Будь ласка, використайте режим гри через локальну мережу."
-  },
-  "st_kicked_by_server": {
-    "eng": "You were kicked by the server.",
-    "fra": "Vous avez été exclu par le serveur.",
-    "ger": "Sie wurden vom Server gekickt.",
-    "ita": "Sei stato espulso dal server.",
-    "pol": "Wyrzucono cię z serwera.",
-    "rus": "Вы были выброшены сервером.",
-    "spa": "Has sido expulsado por el servidor.",
-    "ukr": "Вас було викинуто сервером"
-  },
-  "mp_you_have_been_banned_by": {
-    "eng": "You were banned by administrator:",
-    "fra": "Vous avez été banni par l'administrateur :",
-    "ger": "Sie wurden gesperrt durch den Administrator:",
-    "ita": "Sei stato bandito dall'amministratore.",
-    "pol": "Administrator cię zbanował:",
-    "rus": "Вы были заблокированы администратором: ",
-    "spa": "El administrador te ha inhabilitado:",
-    "ukr": "Вас було заблоковано адміністратором: "
-  },
-  "mp_you_have_been_banned_by_server": {
-    "eng": "You were banned by the server",
-    "fra": "Vous avez été banni par le serveur.",
-    "ger": "Sie wurden durch den Server gesperrt.",
-    "ita": "Sei stato bandito dal server.",
-    "pol": "Serwer cię zbanował.",
-    "rus": "Вы были заблокированы сервером",
-    "spa": "El servidor te ha inhabilitado.",
-    "ukr": "Вас було заблоковано сервером"
-  },
-  "mp_server_info": {
-    "eng": "Server info",
-    "fra": "Infos serveur",
-    "ger": "Serverinformationen",
-    "ita": "Informazioni sul server",
-    "pol": "Inform. o serwerze",
-    "rus": "Информация о сервере",
-    "spa": "Información del servidor",
-    "ukr": "Інформація про сервер"
-  },
-  "mp_gp_email_is_too_big": {
-    "eng": "The e-mail address is too long. You cannot enter more than 50 characters.",
-    "fra": "Cette adresse email est trop longue. Vous ne pouvez saisir que 50 caractčres au maximum.",
-    "ger": "Die E-Mail-Adresse ist zu lang. Sie darf nicht länger als 50 Zeichen sein.",
-    "ita": "L'indirizzo e-mail č troppo lungo, non puň superare i 50 caratteri.",
-    "pol": "Ten adres e-mail jest zbyt długi. Nie można wprowadzić więcej niż 50 znaków.",
-    "rus": "E-mail слишком длинный. Вы можете ввести максимум 50 символов.",
-    "spa": "El correo es demasiado largo. No puede contener más de 50 caracteres.",
-    "ukr": "E-mail надто довгий. Ви можете ввести максимум 50 символів."
-  },
-  "mp_gp_bad_email": {
-    "eng": "Wrong e-mail",
-    "fra": "Email incorrect",
-    "ger": "Falsche E-Mail-Adresse",
-    "ita": "E-mail errata",
-    "pol": "Nieprawidłowy adres e-mail",
-    "rus": "Некорректный e-mail",
-    "spa": "Correo incorrecto",
-    "ukr": "Некоректний E-mail"
-  },
-  "mp_gp_password_is_too_small": {
-    "eng": "The password is too short",
-    "fra": "Le mot de passe est trop court",
-    "ger": "Dieses Passwort ist zu kurz",
-    "ita": "La password č troppo breve",
-    "pol": "Hasło jest za krótkie",
-    "rus": "Пароль слишком короткий",
-    "spa": "La contraseńa es demasiado corta.",
-    "ukr": "Пароль надто короткий"
-  },
-  "mp_gp_password_is_too_big": {
-    "eng": "The password is too long",
-    "fra": "Le mot de passe est trop long",
-    "ger": "Dieses Passwort ist zu lang",
-    "ita": "La password č troppo lunga",
-    "pol": "Hasło jest za długie",
-    "rus": "Пароль слишком длинный",
-    "spa": "La contraseńa es demasiado larga.",
-    "ukr": "Пароль надто довгий"
-  },
-  "mp_gp_no_email": {
-    "eng": "E-mail not found",
-    "fra": "Adresse email introuvable",
-    "ger": "E-Mail-Adresse nicht gefunden",
-    "ita": "E-mail non trovata",
-    "pol": "Nie znaleziono adresu e-mail",
-    "rus": "E-mail не найден",
-    "spa": "Correo no encontrado",
-    "ukr": "E-mail не знайдено"
-  },
-  "mp_gp_no_unique_nick": {
-    "eng": "Unique nickname not set",
-    "fra": "Pseudo unique non défini",
-    "ger": "Eindeutiger Name nicht festgelegt",
-    "ita": "Soprannome non impostato",
-    "pol": "Nie ustawiono unikalnego pseudonimu",
-    "rus": "Уникальный ник не задан",
-    "spa": "Apodo no configurado",
-    "ukr": "Унікальний нік не задано"
-  },
-  "mp_gp_unique_nick_is_too_big": {
-    "eng": "Unique nickname is too long. You cannot enter more than 30 characters.",
-    "fra": "Ce pseudo unique est trop long. Vous ne pouvez saisir que 30 caractčres au maximum.",
-    "ger": "Der eindeutige Name ist zu lang. Er darf nicht länger als 30 Zeichen sein.",
-    "ita": "Il soprannome č troppo lungo, non puň superare i 30 caratteri.",
-    "pol": "Unikalny pseudonim jest za długi. Nie można wprowadzić więcej niż 30 znaków.",
-    "rus": "Уникальный ник слишком длинный. Вы можете ввести максимум 30 символов.",
-    "spa": "El apodo es demasiado largo. No puede contener más de 30 caracteres.",
-    "ukr": "Унікальний нік надто довгий. Ви можете ввести максимум 30 символів."
-  },
-  "mp_gp_unique_nick_must_contain_only": {
-    "eng": "The unique nickname may only contain numbers, Latin letters and the following special symbols: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
-    "fra": "Le pseudo unique ne peut contenir que des chiffres, des lettres et les symboles suivants : \"#$&'()*+-./:;<=>?@[]^_`{|}~",
-    "ger": "Der eindeutige Name darf Ziffern, lateinische Buchstaben und die folgenden Sonderzeichen enthalten: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
-    "ita": "Il soprannome puň contenere solo numeri, lettere dell'alfabeto latino e i seguenti caratteri speciali: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
-    "pol": "Unikalne imię może zawierać tylko cyfry, litery alfabetu łac. i symbole spec.: \"#$&'()*+-./:;<=>?@[]^_`{|}~ ",
-    "rus": "Уникальный ник может содержать только цифры, буквы латиницы и специальные символы: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
-    "spa": "El apodo solo puede contener números, letras del alfabeto latino y los siguientes símbolos especiales: \"#$&'()*+-./:;<=>?@[]^_`{|}~",
-    "ukr": "Унікальний нік може містити лише цифри, літери латиниці та спеціальні символи: \"#$&''()*+-./:;<=>?@[]^_`{|}~"
-  },
-  "mp_gp_unique_nick_must_contain_nospaces": {
-    "eng": "The unique nickname cannot contain spaces",
-    "fra": "Le pseudo unique ne doit contenir aucun espace",
-    "ger": "Der eindeutige Name darf keine Leerzeichen enthalten.",
-    "ita": "Il soprannome non puň contenere degli spazi.",
-    "pol": "Unikalny pseudonim nie może zawierać spacji",
-    "rus": "Уникальный ник не может содержать пробелы",
-    "spa": "El apodo no puede contener espacios.",
-    "ukr": "Унікальний ник не може містити пропуски"
-  },
-  "mp_gp_unique_nick_bad_first_symbol": {
-    "eng": "The unique nickname may not begin with a number or any of the following symbols: '@', '+', ':' or ‘#’",
-    "fra": "Le pseudo unique ne peut pas commencer par un chiffre ou l'un des symboles suivants : '@', '+', ':' or ‘#’",
-    "ger": "Der eindeutige Name darf nicht mit einer Ziffer oder einem der folgenden Zeichen beginnen: '@', '+', ':', '#'",
-    "ita": "Il soprannome non puň cominciare con un numero, né con un dei seguenti simboli: @, +, : e #.",
-    "pol": "Unikalne imię nie może zaczynać się od cyfry lub symbolu: \"@\", \"+\", \":\" lub ‘#’",
-    "rus": "Уникальный ник не может начинаться с цифры или символов: '@', '+', ':' или '#'",
-    "spa": "El apodo no puede empezar con un número ni cualquiera de los siguientes símbolos: \"@\", \"+\", \":\" o \"#\"",
-    "ukr": "Унікальний нік не може починатися із цифри або символів ''@'', ''+'', '':'' або ''#''"
-  },
-  "st_opt_ultra": {
-    "eng": "very high",
-    "fra": "trčs élevé",
-    "ger": "sehr hoch",
-    "ita": "molto elevata",
-    "pol": "bardzo wysokie",
-    "rus": "очень высоко",
-    "spa": "muy alto",
-    "ukr": "дуже високо"
-  },
-  "ui_mm_r4_enable_tessellation": {
-    "eng": "Tessellation",
-    "fra": "Mosaďque",
-    "ger": "Tessellation",
-    "ita": "Mosaico",
-    "pol": "Tesselacja",
-    "rus": "Тесселяция",
-    "spa": "Mosaico",
-    "ukr": "Тесселяція"
-  },
-  "ui_mm_confirm_changes": {
-    "eng": "Apply changes? All changes will be reverted in",
-    "fra": "Appliquer les changements ? Tous les changements seront annulés dans",
-    "ger": "Änderungen übernehmen? Alle Änderungen werden rückgängig gemacht in",
-    "ita": "Vuoi applicare le modifiche? Le impostazioni precedenti saranno ripristinate in",
-    "pol": "Zatwierdź zmiany? Wszystkie zmiany zostaną cofnięte w",
-    "rus": "Применить сделанные изменения? Все изменения будут отменены через",
-    "spa": "żAplicar cambios? Todos los cambios serán revertidos en",
-    "ukr": "Застосувати зроблені зміни? Усі зміни будуть скасовані через"
+  "version": {
+    "eng": "Version",
+    "fra": "Version",
+    "ger": "Version",
+    "ita": "Versione",
+    "pol": "Wersja",
+    "rus": "Версия",
+    "spa": "Versión",
+    "ukr": "Версія"
   }
 }

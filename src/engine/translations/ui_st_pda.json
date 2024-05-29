@@ -59,6 +59,26 @@
     "spa": "Científico",
     "ukr": "Вчений"
   },
+  "filter_primary_objects_text": {
+    "eng": "Areas",
+    "fra": "Lieux",
+    "ger": "Gebiete",
+    "ita": "Aree",
+    "pol": "Obszary",
+    "rus": "Локации",
+    "spa": "Zonas",
+    "ukr": "Локації"
+  },
+  "filter_quest_npcs_text": {
+    "eng": "Important objects",
+    "fra": "Objets importants",
+    "ger": "Wichtige Gegenstände",
+    "ita": "Oggetti importanti",
+    "pol": "Ważne obiekty",
+    "rus": "Важные объекты",
+    "spa": "Objetos importantes",
+    "ukr": "Важливі об'єкти"
+  },
   "filter_secondary_tasks_text": {
     "eng": "Side missions",
     "fra": "Missions annexes",
@@ -89,6 +109,26 @@
     "spa": "Libertad",
     "ukr": "«Воля»"
   },
+  "jupiter": {
+    "eng": "The area around Jupiter",
+    "fra": "Alentours de Jupiter",
+    "ger": "Die Gegend um die Jupiter-Anlage",
+    "ita": "Area circostante Jupiter",
+    "pol": "Okolice fabryki Jupiter",
+    "rus": "Окрестности «Юпитера»",
+    "spa": "Área en torno a Júpiter",
+    "ukr": "Околиці «Юпітера»"
+  },
+  "jupiter_underground": {
+    "eng": "Pripyat 1 underpass",
+    "fra": "Tunnel Pripyat 1",
+    "ger": "Unterführung \"Pripyat 1\"",
+    "ita": "Pripyat 1, sottopasso",
+    "pol": "Tunel Prypeć 1",
+    "rus": "Путепровод «Припять-1»",
+    "spa": "Paso subterráneo Pripyat 1",
+    "ukr": "Шляхопровід «Прип'ять-1»"
+  },
   "killer": {
     "eng": "Mercenary",
     "fra": "Mercenaire",
@@ -98,6 +138,16 @@
     "rus": "Наёмник",
     "spa": "Mercenarios",
     "ukr": "Найманець"
+  },
+  "labx8": {
+    "eng": "Laboratory X8",
+    "fra": "Laboratoire X8",
+    "ger": "Labor X8",
+    "ita": "Laboratorio X8",
+    "pol": "Laboratorium X8",
+    "rus": "Лаборатория X8",
+    "spa": "Laboratorio X8",
+    "ukr": "Лабораторія Х8"
   },
   "missions_list": {
     "eng": "Mission log",
@@ -459,6 +509,36 @@
     "spa": "Mutante más fuerte asesinado",
     "ukr": "Найсильніший вбитий мутант"
   },
+  "pripyat": {
+    "eng": "Pripyat",
+    "fra": "Pripyat",
+    "ger": "Pripyat",
+    "ita": "Pripyat",
+    "pol": "Prypeć",
+    "rus": "Припять",
+    "spa": "Pripyat",
+    "ukr": "Прип'ять"
+  },
+  "st_jup_b32_has_af": {
+    "eng": "Scanners have detected artifacts:",
+    "fra": "Les scanners ont détecté des artefacts :",
+    "ger": "Die Scanner haben Artefakte registriert:",
+    "ita": "Gli scanner hanno rilevato dei manufatti:",
+    "pol": "Skanery wykryły artefakty:",
+    "rus": "Сканеры регистрируют присутствие артефактов:",
+    "spa": "Los escáneres han detectado artefactos:",
+    "ukr": "Сканери реєструють присутність артефактів:"
+  },
+  "st_jup_b32_no_af": {
+    "eng": "Scanners have not detected any artifacts",
+    "fra": "Les scanners n'ont détecté aucun artefact.",
+    "ger": "Die Scanner haben keine Artefakte registriert",
+    "ita": "Gli scanner non hanno rilevato alcun manufatto.",
+    "pol": "Skanery nie wykryły artefaktów",
+    "rus": "Согласно данным сканеров, артефакты отсутствуют",
+    "spa": "Los escáneres no han detectado ningún artefacto",
+    "ukr": "Згідно із даними сканерів, артефакти відсутні"
+  },
   "st_location": {
     "eng": "Location:",
     "fra": "Lieu :",
@@ -478,6 +558,16 @@
     "rus": "Цель",
     "spa": "Objetivo",
     "ukr": "Мета"
+  },
+  "st_ui_pda_actor_box": {
+    "eng": "Personal box",
+    "fra": "Cantine personnelle",
+    "ger": "Persönliche Kiste",
+    "ita": "Ripostiglio personale",
+    "pol": "Osobista skrzynka",
+    "rus": "Личный ящик",
+    "spa": "Caja personal",
+    "ukr": "Особистий ящик"
   },
   "st_ui_pda_legend_additional_task": {
     "eng": "Side mission",
@@ -529,6 +619,26 @@
     "spa": "Misión principal",
     "ukr": "Основне завдання"
   },
+  "st_ui_pda_legend_mechanic": {
+    "eng": "Technician",
+    "fra": "Technicien",
+    "ger": "Techniker",
+    "ita": "Tecnico",
+    "pol": "Technik",
+    "rus": "Техник",
+    "spa": "Técnico",
+    "ukr": "Технік"
+  },
+  "st_ui_pda_legend_medic": {
+    "eng": "Medic",
+    "fra": "Médecin",
+    "ger": "Arzt",
+    "ita": "Medico",
+    "pol": "Lekarz",
+    "rus": "Медик",
+    "spa": "Médico",
+    "ukr": "Медик"
+  },
   "st_ui_pda_legend_neutrals": {
     "eng": "Neutrals",
     "fra": "Neutres",
@@ -538,6 +648,16 @@
     "rus": "Нейтралы",
     "spa": "Neutrales",
     "ukr": "Нейтрали"
+  },
+  "st_ui_pda_legend_primary_objects": {
+    "eng": "Area",
+    "fra": "Lieu",
+    "ger": "Gebiet",
+    "ita": "Area",
+    "pol": "Obszar",
+    "rus": "Локация",
+    "spa": "Zona",
+    "ukr": "Локація"
   },
   "st_ui_pda_legend_scout": {
     "eng": "Guide",
@@ -578,6 +698,26 @@
     "rus": "Торговец",
     "spa": "Comerciante",
     "ukr": "Торговець"
+  },
+  "st_ui_pda_secret": {
+    "eng": "Stash",
+    "fra": "Planque",
+    "ger": "Versteck",
+    "ita": "Ripostiglio",
+    "pol": "Schowek",
+    "rus": "Тайник",
+    "spa": "Escondite",
+    "ukr": "Схованка"
+  },
+  "st_ui_pda_sleep_place": {
+    "eng": "Sleeping area",
+    "fra": "Dortoir",
+    "ger": "Schlafbereich",
+    "ita": "Area dormitorio",
+    "pol": "Miejsce snu",
+    "rus": "Место сна",
+    "spa": "Zona de descanso",
+    "ukr": "Місце сну"
   },
   "stalker": {
     "eng": "Stalker",
@@ -689,6 +829,16 @@
     "spa": "Alejar la imagen",
     "ukr": "Віддалити"
   },
+  "ui_pda_secondary_task": {
+    "eng": "Current Missions",
+    "fra": "Missions en cours",
+    "ger": "Aktuelle Missionen",
+    "ita": "Missioni in corso",
+    "pol": "Bieżące misje",
+    "rus": "Текущие задания",
+    "spa": "Misiones actuales",
+    "ukr": "Поточні завдання"
+  },
   "ui_ranking_center_caption": {
     "eng": "Achievements",
     "fra": "Succčs",
@@ -698,6 +848,16 @@
     "rus": "Достижения",
     "spa": "Logros",
     "ukr": "Досягнення"
+  },
+  "ui_show_second_task_wnd": {
+    "eng": "Show/Hide Missions",
+    "fra": "Afficher/masquer missions",
+    "ger": "Missionen anzeigen/ausblenden",
+    "ita": "Mostra/Nascondi missioni",
+    "pol": "Pokaż/ukryj misje",
+    "rus": "Скрыть или отобразить список заданий",
+    "spa": "Mostrar/ocultar misiones",
+    "ukr": "Приховати чи відображувати список завдань"
   },
   "ui_task_btn_focus_center": {
     "eng": "Center map on mission",
@@ -718,6 +878,16 @@
     "rus": "Центрировать карту на задании",
     "spa": "Centrar mapa en la misión",
     "ukr": "Центрувати мапу на завданні"
+  },
+  "zaton": {
+    "eng": "Zaton",
+    "fra": "Zaton",
+    "ger": "Zaton",
+    "ita": "Zaton",
+    "pol": "Zaton",
+    "rus": "Затон",
+    "spa": "Zaton",
+    "ukr": "Затон"
   },
   "zombied": {
     "eng": "Zombie",
@@ -748,175 +918,5 @@
     "rus": "масштаб -",
     "spa": "escala -",
     "ukr": "маштаб -"
-  },
-  "st_ui_pda_legend_mechanic": {
-    "eng": "Technician",
-    "fra": "Technicien",
-    "ger": "Techniker",
-    "ita": "Tecnico",
-    "pol": "Technik",
-    "rus": "Техник",
-    "spa": "Técnico",
-    "ukr": "Технік"
-  },
-  "st_ui_pda_legend_medic": {
-    "eng": "Medic",
-    "fra": "Médecin",
-    "ger": "Arzt",
-    "ita": "Medico",
-    "pol": "Lekarz",
-    "rus": "Медик",
-    "spa": "Médico",
-    "ukr": "Медик"
-  },
-  "ui_pda_secondary_task": {
-    "eng": "Current Missions",
-    "fra": "Missions en cours",
-    "ger": "Aktuelle Missionen",
-    "ita": "Missioni in corso",
-    "pol": "Bieżące misje",
-    "rus": "Текущие задания",
-    "spa": "Misiones actuales",
-    "ukr": "Поточні завдання"
-  },
-  "ui_show_second_task_wnd": {
-    "eng": "Show/Hide Missions",
-    "fra": "Afficher/masquer missions",
-    "ger": "Missionen anzeigen/ausblenden",
-    "ita": "Mostra/Nascondi missioni",
-    "pol": "Pokaż/ukryj misje",
-    "rus": "Скрыть или отобразить список заданий",
-    "spa": "Mostrar/ocultar misiones",
-    "ukr": "Приховати чи відображувати список завдань"
-  },
-  "st_ui_pda_actor_box": {
-    "eng": "Personal box",
-    "fra": "Cantine personnelle",
-    "ger": "Persönliche Kiste",
-    "ita": "Ripostiglio personale",
-    "pol": "Osobista skrzynka",
-    "rus": "Личный ящик",
-    "spa": "Caja personal",
-    "ukr": "Особистий ящик"
-  },
-  "zaton": {
-    "eng": "Zaton",
-    "fra": "Zaton",
-    "ger": "Zaton",
-    "ita": "Zaton",
-    "pol": "Zaton",
-    "rus": "Затон",
-    "spa": "Zaton",
-    "ukr": "Затон"
-  },
-  "jupiter": {
-    "eng": "The area around Jupiter",
-    "fra": "Alentours de Jupiter",
-    "ger": "Die Gegend um die Jupiter-Anlage",
-    "ita": "Area circostante Jupiter",
-    "pol": "Okolice fabryki Jupiter",
-    "rus": "Окрестности «Юпитера»",
-    "spa": "Área en torno a Júpiter",
-    "ukr": "Околиці «Юпітера»"
-  },
-  "pripyat": {
-    "eng": "Pripyat",
-    "fra": "Pripyat",
-    "ger": "Pripyat",
-    "ita": "Pripyat",
-    "pol": "Prypeć",
-    "rus": "Припять",
-    "spa": "Pripyat",
-    "ukr": "Прип'ять"
-  },
-  "jupiter_underground": {
-    "eng": "Pripyat 1 underpass",
-    "fra": "Tunnel Pripyat 1",
-    "ger": "Unterführung \"Pripyat 1\"",
-    "ita": "Pripyat 1, sottopasso",
-    "pol": "Tunel Prypeć 1",
-    "rus": "Путепровод «Припять-1»",
-    "spa": "Paso subterráneo Pripyat 1",
-    "ukr": "Шляхопровід «Прип'ять-1»"
-  },
-  "labx8": {
-    "eng": "Laboratory X8",
-    "fra": "Laboratoire X8",
-    "ger": "Labor X8",
-    "ita": "Laboratorio X8",
-    "pol": "Laboratorium X8",
-    "rus": "Лаборатория X8",
-    "spa": "Laboratorio X8",
-    "ukr": "Лабораторія Х8"
-  },
-  "filter_primary_objects_text": {
-    "eng": "Areas",
-    "fra": "Lieux",
-    "ger": "Gebiete",
-    "ita": "Aree",
-    "pol": "Obszary",
-    "rus": "Локации",
-    "spa": "Zonas",
-    "ukr": "Локації"
-  },
-  "filter_quest_npcs_text": {
-    "eng": "Important objects",
-    "fra": "Objets importants",
-    "ger": "Wichtige Gegenstände",
-    "ita": "Oggetti importanti",
-    "pol": "Ważne obiekty",
-    "rus": "Важные объекты",
-    "spa": "Objetos importantes",
-    "ukr": "Важливі об'єкти"
-  },
-  "st_ui_pda_legend_primary_objects": {
-    "eng": "Area",
-    "fra": "Lieu",
-    "ger": "Gebiet",
-    "ita": "Area",
-    "pol": "Obszar",
-    "rus": "Локация",
-    "spa": "Zona",
-    "ukr": "Локація"
-  },
-  "st_jup_b32_has_af": {
-    "eng": "Scanners have detected artifacts:",
-    "fra": "Les scanners ont détecté des artefacts :",
-    "ger": "Die Scanner haben Artefakte registriert:",
-    "ita": "Gli scanner hanno rilevato dei manufatti:",
-    "pol": "Skanery wykryły artefakty:",
-    "rus": "Сканеры регистрируют присутствие артефактов:",
-    "spa": "Los escáneres han detectado artefactos:",
-    "ukr": "Сканери реєструють присутність артефактів:"
-  },
-  "st_jup_b32_no_af": {
-    "eng": "Scanners have not detected any artifacts",
-    "fra": "Les scanners n'ont détecté aucun artefact.",
-    "ger": "Die Scanner haben keine Artefakte registriert",
-    "ita": "Gli scanner non hanno rilevato alcun manufatto.",
-    "pol": "Skanery nie wykryły artefaktów",
-    "rus": "Согласно данным сканеров, артефакты отсутствуют",
-    "spa": "Los escáneres no han detectado ningún artefacto",
-    "ukr": "Згідно із даними сканерів, артефакти відсутні"
-  },
-  "st_ui_pda_secret": {
-    "eng": "Stash",
-    "fra": "Planque",
-    "ger": "Versteck",
-    "ita": "Ripostiglio",
-    "pol": "Schowek",
-    "rus": "Тайник",
-    "spa": "Escondite",
-    "ukr": "Схованка"
-  },
-  "st_ui_pda_sleep_place": {
-    "eng": "Sleeping area",
-    "fra": "Dortoir",
-    "ger": "Schlafbereich",
-    "ita": "Area dormitorio",
-    "pol": "Miejsce snu",
-    "rus": "Место сна",
-    "spa": "Zona de descanso",
-    "ukr": "Місце сну"
   }
 }

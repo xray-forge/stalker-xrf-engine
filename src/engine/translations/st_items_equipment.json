@@ -59,6 +59,16 @@
     "spa": "Prismáticos",
     "ukr": "Бінокль"
   },
+  "st_bolt": {
+    "eng": "Bolt",
+    "fra": "Boulon",
+    "ger": "Schraube",
+    "ita": "Bolt",
+    "pol": "Śruba",
+    "rus": "Болт",
+    "spa": "Rayo",
+    "ukr": "Болт"
+  },
   "st_bread": {
     "eng": "Bread",
     "fra": "Pain",
@@ -128,6 +138,16 @@
     "rus": "Детектор «Медведь»",
     "spa": "Detector \"Oso\"",
     "ukr": "Детектор «Ведмідь»"
+  },
+  "st_detector2_descr": {
+    "eng": "This last generation anomalous activity detector can be used to locate anomalous formations and has a color diode panel, which not only indicates the direction of artifacts, but also measures the distance to them. To switch to artifact search mode, open the device's front cover. Unfortunately, the device is programmed with a somewhat outdated list of detectable artifacts.",
+    "fra": "Ce détecteur d'activité anormale de derničre génération dispose d'un écran qui indique non seulement dans quelle direction, mais aussi ŕ quelle distance se trouvent les artefacts. Pour passer en mode Recherche d'artefacts, il suffit de soulever le couvercle. Malheureusement, la liste des signatures d'artefacts en mémoire est quelque peu datée.",
+    "ger": "Dieser Anomaliedetektor der neuesten Generation kann Anomalieformationen aufspüren und verfügt über ein Farbdiodenfeld, das nicht nur die Richtung von Artefakten anzeigt, sondern auch die Entfernung. Um in den Artefaktsuchmodus zu gelangen, muss die vordere Abdeckung geöffnet werden. Leider wurde das Gerät mit einer veralteten Liste von erfassbaren Artefakten programmiert.",
+    "ita": "Questo rilevatore di anomalie di ultima generazione puň localizzare formazioni anomale e ha un pannello a diodi a colori, che non solo ti indica la direzione in cui si trovano i manufatti, ma calcola anche la distanza. Per passare alla modalitŕ ricerca manufatti, apri il pannello frontale del dispositivo. Purtroppo, č programmato con una lista di manufatti piuttosto datata.",
+    "pol": "Ten detektor anomalii najnowszej generacji posiada także panel z kolorowymi diodami, który nie tylko wskazuje położenie artefaktów, ale także dystans dzielący od nich użytkownika. Aby przejść w tryb poszukiwania artefaktów, należy otworzyć przednią pokrywę urządzenia. Niestety zaprogramowana lista artefaktów jest raczej przestarzała.",
+    "rus": "Детектор аномальной активности прошлого поколения. Снабжён локатором аномальных образований и светодиодным табло для отображения направления на артефакт, причём способен не только обнаруживать артефакты, но и определять расстояния до них. Режим поиска артефактов включается поднятием крышки-антенны на лицевой стороне прибора. К сожалению, уже несколько устаревший список обнаруживаемых артефактов вшит в прибор намертво - на аппаратном уровне.",
+    "spa": "Este novedoso detector de anomalías se usa para localizar formaciones anómalas y tiene un panel frontal de diodos que no solo indica su posición, sino que mide la distancia a la que se encuentran. Para activar la modalidad de búsqueda de artefactos, basta con abrir el panel frontal. Por desgracia, el dispositivo está programado con una lista anticuada de artefactos detectables.",
+    "ukr": "Детектор аномальної активності минулого покоління. Споряджений локатором аномальних утворень та світлодіодним таблом для відображення напрямку на артефакт, причому здатний не лише виявляти артефакти, але й визначати відстані до них. Режим пошуку артефактів включається підняттям кришки-антени на лицевій стороні приладу. На жаль, список визначуваних артефактів вшито до приладу намертво - на апаратному рівні, а він уже трохи застарів."
   },
   "st_detector3": {
     "eng": "Veles detector",
@@ -199,6 +219,16 @@
     "spa": "Anabióticos",
     "ukr": "Анабіотик"
   },
+  "st_drug_anabiotic_descr": {
+    "eng": "An experimental drug developed by Professor Ozersky for scientific research teams working in the Zone. At its core, the drug contains tetrodotoxin, known colloquially as \"zombie powder,\" which causes a complete shutdown of the body's central nervous system that may allow people to survive emissions outside cover. The drug has not undergone clinical or field testing, which puts its effectiveness in doubt and raises the issue of possible side effects.",
+    "fra": "Médicament expérimental conçu par le professeur Ozersky pour les équipes de recherche qui travaillent dans la Zone. C'est un dérivé de tétrodotoxine surnommé \"Poudre ŕ zombie\" qui désactive complčtement le systčme nerveux central de façon ŕ permettre au sujet de survivre ŕ des émissions ŕ découvert. Aucun test officiel ou de terrain n'ayant été effectué, l'efficacité et les effets secondaires peuvent varier.",
+    "ger": "Ein experimentelles Medikament, das von Professor Oserski für wissenschaftliche Forschungsteams in der Zone entwickelt wurde. Hauptsächlich enthält es Tetrodotoxin, auch \"Zombiepulver\" genannt, das das zentrale Nervensystem des Menschen vollständig zum Erliegen bringt. Dadurch steigen die Chancen, außerhalb eines sicheren Unterschlupfs eine Emission zu überleben. Das Medikament hat keine Feld- oder klinischen Tests durchlaufen, was für Zweifel an seiner Wirksamkeit sorgt und auch die Frage der Nebenwirkungen aufwirft.",
+    "ita": "Una sostanza sperimentale sviluppata dal professor Ozersky per le squadre di ricerca scientifica che lavorano nella Zona. L'ingrediente principale č la tetradotossina, nota anche come \"polvere zombi\", che provoca il blocco totale del sistema nervoso centrale per consentire di sopravvivere all'esposizione diretta alle emissioni. La sostanza non č stata ancora sperimentata clinicamente o sul campo, e ciň solleva qualche dubbio sulla sua efficacia e sui possibili effetti collaterali.",
+    "pol": "Eksperymentalny lek stworzony przez prof. Oziorskiego dla zespołów badawczych pracujących w Zonie. Jego głównym składnikiem jest tetrodotoksyna, zwana potocznie „proszkiem zombi\", powodująca całkowite wstrzymanie działania centralnego układu nerwowego, co umożliwia przeżycie emisji bez osłony. Lek nie był testowany klinicznie, dlatego też jego skuteczność i skutki uboczne pozostają nieznane.",
+    "rus": "Экспериментальный препарат, разработанный для научно-исследовательских групп, действующих в Зоне. Входящий в формулу препарата тетрадотоксин, известный как «порошок зомби», вызывает полный паралич центральной нервной системы; предположительно, это может обеспечить выживание вне укрытия во время выброса. Препарат не испытывался в полевых условиях и не прошёл клинических испытаний, что ставит под сомнение его эффективность и заставляет задуматься о возможных побочных эффектах.",
+    "spa": "Droga experimental desarrollada por el profesor Ozersky para equipos de investigación científica de la Zona. Contiene tetrodotoxina, conocida coloquialmente como \"polvo zombi\" debido a que inhibe completamente el sistema nervioso central del sujeto, permitiéndole sobrevivir a las emisiones sin protección. La droga no ha sido sometida a pruebas clínicas ni de campo, por lo que su eficacia es dudosa y es posible que tenga efectos secundarios.",
+    "ukr": "Експериментальний препарат, розроблений для науково-дослідних груп, що діють у Зоні. Входить до формули препарату тетрадотоксина, відомого як «порошок зомбі», і викликає повний параліч центральної нервової системи; ймовірно, це може забезпечити виживання поза укриттям під час викиду. Препарат не проходив випробувань у польових умовах та клінічних тестів, що ставить під сумнів його ефективність та безпечність для організму."
+  },
   "st_drug_antidot": {
     "eng": "Antidote",
     "fra": "Antidote",
@@ -228,6 +258,16 @@
     "rus": "«Геркулес»",
     "spa": "Hércules",
     "ukr": "«Геркулес»"
+  },
+  "st_drug_booster_descr": {
+    "eng": "The main component of this product is an anabolic androgen, an artificial steroid, the chemical composition of which resembles testosterone. Often used by stalkers during long raids to reduce muscle fatigue. Significantly increases weight-carrying capacity. The effects of the drug are long-lasting.",
+    "fra": "Le composant principal de ce produit est un stéroďde de synthčse trčs proche de la testostérone. Souvent utilisé par les stalkers pour les opérations de longue durée, il réduit la fatigue musculaire et augmente nettement la capacité d'emport. Ses effets sont de longue durée.",
+    "ger": "Der Hauptbestandteil dieses Produkts ist ein anaboles Androgen - ein künstliches Steroid, dessen Zusammensetzung der von Testosteron ähnelt. Es wird häufig von Stalkern, die lange unterwegs sind, eingenommen, um die Muskelermüdung zu verringern. Das Mittel erhöht die Tragekapazität des Konsumenten erheblich. Die Wirkung hält lange an.",
+    "ita": "Il componente principale di questo prodotto č un androgeno anabolico, uno steroide artificiale, la cui composizione chimica ricorda il testosterone. Viene spesso usato dagli stalker durante i lunghi attacchi per ridurre l'affaticamento muscolare. Aumenta notevolmente la capacitŕ di trasportare pesi. Gli effetti della droga sono di lunga durata.",
+    "pol": "Główny składnik tego środka to anaboliczny androgen, sztuczny steryd, którego skład przypomina testosteron. Jest on często używany przez stalkerów podczas dłuższych wypraw, aby zmniejszyć zmęczenie mięśni. Znacząco zwiększa udźwig. Efekty działania tego lekarstwa są długotrwałe.",
+    "rus": "Основной компонент - искусственно созданный стероид, по химическому составу сходный с тестостероном. Применяется сталкерами в долгих переходах для повышения порога утомляемости мышц. Помогает значительно увеличить переносимый вес. Препарат длительного действия.",
+    "spa": "El principal componente de este producto es un andrógeno anabólico, un esteroide artificial de composición química parecida a la de la testosterona. Desarrolla los músculos, alivia la fatiga y mejora la circulación. Los stalkers suelen usarlo en incursiones largas para poder cargar con más peso. Los efectos de esta droga son duraderos.",
+    "ukr": "Основний компонент - стероїд штучного походження, за хімічним складом подібний до тестостерону. Застосовується сталкерами у довгих переходах для підвищення порогу стомлюваності м'язів. Допомагає значно збільшити носиму вагу. Препарат тривалої дії."
   },
   "st_drug_coagulant": {
     "eng": "Vinca",
@@ -279,6 +319,16 @@
     "spa": "Radioprotector",
     "ukr": "Радіопротектор"
   },
+  "st_drug_radioprotector_descr": {
+    "eng": "B190 Indraline radioprotectant, included in medkits issued to nuclear power plant personnel. Used in the Zone instead of the excessively toxic PC1 cystamine hydrochloride, repeated use of which often caused death. Reduces the effects of gamma radiation on live tissue. Best consumed before exposure, as effects are not instant. The effects of the drug are long-lasting.",
+    "fra": "Médicament antiradiations B190 Indraline, inclus dans les médikits du personnel des centrales nucléaires. Trčs utilisé dans la Zone ŕ la place de l'hydrochloride de cystéamine, dont la prise répétée peut ętre mortelle. Réduit les effets des radiations gamma sur les tissus vivants. Comme ses effets ne sont pas instantanés, il est conseillé de l'utiliser avant l'exposition. Ses effets sont de longue durée.",
+    "ger": "Das Strahlenschutzmittel B190 Indraline ist in Medkits enthalten, die an Arbeiter in Kernkraftwerken ausgegeben werden. Es wird in der Zone statt des hochgiftigen PC1 Cystaminhydrochlorids verwendet, das bei wiederholter Einnahme häufig zum Tod führt. Das Mittel schwächt die Wirkung von Gammastrahlung auf lebendes Gewebe ab. Es sollte möglichst vor dem Strahlenkontakt eingenommen werden, weil es nicht sofort wirkt. Die Wirkung des Medikaments hält lange an.",
+    "ita": "L'indralina B190 č un radioprotettore incluso nei kit medici forniti al personale degli impianti nucleari. Viene utilizzata nella Zona al posto del cloridato di cistamina PC1, eccessivamente tossico e potenzialmente letale se usato troppo spesso. Riduce gli effetti delle radiazioni gamma sui tessuti viventi. Va assunta prima dell'esposizione, dato che non agisce immediatamente. Gli effetti durano molto a lungo.",
+    "pol": "Radioprotektor B190, znany też pod nazwą indralina, wchodzi w skład apteczek wydawanych personelowi elektrowni jądrowych. Jest on używany w Zonie zamiast silnie toksycznego hydrochlorku cystaminy PC1, którego częste użycie może spowodować śmierć. Osłabia wpływ promieniowania gamma na żywą tkankę. Najlepiej przyjąć go przed wystawieniem na działanie promieniowania, ponieważ efekty nie są natychmiastowe. Efekty działania tego lekarstwa są długotrwałe.",
+    "rus": "Радиопротектор «Индралин-Б190» входил в состав личных аптечек работников АЭС. Появился в Зоне как замена излишне токсичному цистамину гидрохлорида (РС1). Уменьшает воздействие гамма-излучения на ткани живого организма. Данный препарат желательно применять превентивно, до облучения, поскольку он не оказывает мгновенного эффекта. Обладает продолжительным действием.",
+    "spa": "Radioprotector Indraline B190, incluido en botiquines para el personal de centrales nucleares. En la Zona se utilizaba en lugar del hidrocloruro de cistamina, muy tóxico, pues su consumo repetido podía causar la muerte. Reduce los efectos de la radiación gamma en tejidos vivos. Es mejor ingerirlo antes de la exposición; sus efectos no son instantáneos, sí duraderos.",
+    "ukr": "Радіопротектор «Індралін-Б190» входив до складу особистих аптечок працівників АЕС. З'явився у Зоні як заміна надто токсичному цистаміну гидрохлоріду (РС1). Зменшує вплив гамма-випромінювання на тканини живого організму. Цей препарат бажано застосовувати превентивно, до опромінення, оскільки він не має миттєвого ефекту. Відзначається пролонгованою дію."
+  },
   "st_energy_drink": {
     "eng": "Stalker energy drink",
     "fra": "Boisson énergétique",
@@ -318,6 +368,26 @@
     "rus": "Гитара",
     "spa": "Guitarra",
     "ukr": "Гітара"
+  },
+  "st_harmonica_descr": {
+    "eng": "For blues and prison romance lovers.",
+    "fra": "Pour le blues et les histoires d'amour en prison.",
+    "ger": "Für alle, die den Blues im Blut haben.",
+    "ita": "Per gli amanti del blues.",
+    "pol": "Dla miłośników bluesa i stylistyki więziennej.",
+    "rus": "Для любителей блюза и тюремной романтики.",
+    "spa": "Para los amantes del blues y los románticos de la cárcel.",
+    "ukr": "Для шанувальників блюзу та тюремної романтики"
+  },
+  "st_harmonica_name": {
+    "eng": "Harmonica",
+    "fra": "Harmonica",
+    "ger": "Mundharmonika",
+    "ita": "Armonica",
+    "pol": "Harmonijka",
+    "rus": "Губная гармоника",
+    "spa": "Harmónica",
+    "ukr": "Губна гармошка"
   },
   "st_kolbasa": {
     "eng": "Diet sausage",
@@ -438,75 +508,5 @@
     "rus": "Водка производства компании «GSC». Хорошо пьётся, заметно снижает воздействие радиации на организм, хотя злоупотреблять ею не следует.",
     "spa": "Destilado por GSC. Entra con suavidad y reduce considerablemente los efectos de la radiación. Debe disfrutarse con moderación.",
     "ukr": "Горілка виробництва компанії «GSC». Добре п'ється, помітно знижує вплив радіації на організм, хоча зловживати нею не слід."
-  },
-  "st_detector2_descr": {
-    "eng": "This last generation anomalous activity detector can be used to locate anomalous formations and has a color diode panel, which not only indicates the direction of artifacts, but also measures the distance to them. To switch to artifact search mode, open the device's front cover. Unfortunately, the device is programmed with a somewhat outdated list of detectable artifacts.",
-    "fra": "Ce détecteur d'activité anormale de derničre génération dispose d'un écran qui indique non seulement dans quelle direction, mais aussi ŕ quelle distance se trouvent les artefacts. Pour passer en mode Recherche d'artefacts, il suffit de soulever le couvercle. Malheureusement, la liste des signatures d'artefacts en mémoire est quelque peu datée.",
-    "ger": "Dieser Anomaliedetektor der neuesten Generation kann Anomalieformationen aufspüren und verfügt über ein Farbdiodenfeld, das nicht nur die Richtung von Artefakten anzeigt, sondern auch die Entfernung. Um in den Artefaktsuchmodus zu gelangen, muss die vordere Abdeckung geöffnet werden. Leider wurde das Gerät mit einer veralteten Liste von erfassbaren Artefakten programmiert.",
-    "ita": "Questo rilevatore di anomalie di ultima generazione puň localizzare formazioni anomale e ha un pannello a diodi a colori, che non solo ti indica la direzione in cui si trovano i manufatti, ma calcola anche la distanza. Per passare alla modalitŕ ricerca manufatti, apri il pannello frontale del dispositivo. Purtroppo, č programmato con una lista di manufatti piuttosto datata.",
-    "pol": "Ten detektor anomalii najnowszej generacji posiada także panel z kolorowymi diodami, który nie tylko wskazuje położenie artefaktów, ale także dystans dzielący od nich użytkownika. Aby przejść w tryb poszukiwania artefaktów, należy otworzyć przednią pokrywę urządzenia. Niestety zaprogramowana lista artefaktów jest raczej przestarzała.",
-    "rus": "Детектор аномальной активности прошлого поколения. Снабжён локатором аномальных образований и светодиодным табло для отображения направления на артефакт, причём способен не только обнаруживать артефакты, но и определять расстояния до них. Режим поиска артефактов включается поднятием крышки-антенны на лицевой стороне прибора. К сожалению, уже несколько устаревший список обнаруживаемых артефактов вшит в прибор намертво - на аппаратном уровне.",
-    "spa": "Este novedoso detector de anomalías se usa para localizar formaciones anómalas y tiene un panel frontal de diodos que no solo indica su posición, sino que mide la distancia a la que se encuentran. Para activar la modalidad de búsqueda de artefactos, basta con abrir el panel frontal. Por desgracia, el dispositivo está programado con una lista anticuada de artefactos detectables.",
-    "ukr": "Детектор аномальної активності минулого покоління. Споряджений локатором аномальних утворень та світлодіодним таблом для відображення напрямку на артефакт, причому здатний не лише виявляти артефакти, але й визначати відстані до них. Режим пошуку артефактів включається підняттям кришки-антени на лицевій стороні приладу. На жаль, список визначуваних артефактів вшито до приладу намертво - на апаратному рівні, а він уже трохи застарів."
-  },
-  "st_drug_anabiotic_descr": {
-    "eng": "An experimental drug developed by Professor Ozersky for scientific research teams working in the Zone. At its core, the drug contains tetrodotoxin, known colloquially as \"zombie powder,\" which causes a complete shutdown of the body's central nervous system that may allow people to survive emissions outside cover. The drug has not undergone clinical or field testing, which puts its effectiveness in doubt and raises the issue of possible side effects.",
-    "fra": "Médicament expérimental conçu par le professeur Ozersky pour les équipes de recherche qui travaillent dans la Zone. C'est un dérivé de tétrodotoxine surnommé \"Poudre ŕ zombie\" qui désactive complčtement le systčme nerveux central de façon ŕ permettre au sujet de survivre ŕ des émissions ŕ découvert. Aucun test officiel ou de terrain n'ayant été effectué, l'efficacité et les effets secondaires peuvent varier.",
-    "ger": "Ein experimentelles Medikament, das von Professor Oserski für wissenschaftliche Forschungsteams in der Zone entwickelt wurde. Hauptsächlich enthält es Tetrodotoxin, auch \"Zombiepulver\" genannt, das das zentrale Nervensystem des Menschen vollständig zum Erliegen bringt. Dadurch steigen die Chancen, außerhalb eines sicheren Unterschlupfs eine Emission zu überleben. Das Medikament hat keine Feld- oder klinischen Tests durchlaufen, was für Zweifel an seiner Wirksamkeit sorgt und auch die Frage der Nebenwirkungen aufwirft.",
-    "ita": "Una sostanza sperimentale sviluppata dal professor Ozersky per le squadre di ricerca scientifica che lavorano nella Zona. L'ingrediente principale č la tetradotossina, nota anche come \"polvere zombi\", che provoca il blocco totale del sistema nervoso centrale per consentire di sopravvivere all'esposizione diretta alle emissioni. La sostanza non č stata ancora sperimentata clinicamente o sul campo, e ciň solleva qualche dubbio sulla sua efficacia e sui possibili effetti collaterali.",
-    "pol": "Eksperymentalny lek stworzony przez prof. Oziorskiego dla zespołów badawczych pracujących w Zonie. Jego głównym składnikiem jest tetrodotoksyna, zwana potocznie „proszkiem zombi\", powodująca całkowite wstrzymanie działania centralnego układu nerwowego, co umożliwia przeżycie emisji bez osłony. Lek nie był testowany klinicznie, dlatego też jego skuteczność i skutki uboczne pozostają nieznane.",
-    "rus": "Экспериментальный препарат, разработанный для научно-исследовательских групп, действующих в Зоне. Входящий в формулу препарата тетрадотоксин, известный как «порошок зомби», вызывает полный паралич центральной нервной системы; предположительно, это может обеспечить выживание вне укрытия во время выброса. Препарат не испытывался в полевых условиях и не прошёл клинических испытаний, что ставит под сомнение его эффективность и заставляет задуматься о возможных побочных эффектах.",
-    "spa": "Droga experimental desarrollada por el profesor Ozersky para equipos de investigación científica de la Zona. Contiene tetrodotoxina, conocida coloquialmente como \"polvo zombi\" debido a que inhibe completamente el sistema nervioso central del sujeto, permitiéndole sobrevivir a las emisiones sin protección. La droga no ha sido sometida a pruebas clínicas ni de campo, por lo que su eficacia es dudosa y es posible que tenga efectos secundarios.",
-    "ukr": "Експериментальний препарат, розроблений для науково-дослідних груп, що діють у Зоні. Входить до формули препарату тетрадотоксина, відомого як «порошок зомбі», і викликає повний параліч центральної нервової системи; ймовірно, це може забезпечити виживання поза укриттям під час викиду. Препарат не проходив випробувань у польових умовах та клінічних тестів, що ставить під сумнів його ефективність та безпечність для організму."
-  },
-  "st_bolt": {
-    "eng": "Bolt",
-    "fra": "Boulon",
-    "ger": "Schraube",
-    "ita": "Bolt",
-    "pol": "Śruba",
-    "rus": "Болт",
-    "spa": "Rayo",
-    "ukr": "Болт"
-  },
-  "st_drug_booster_descr": {
-    "eng": "The main component of this product is an anabolic androgen, an artificial steroid, the chemical composition of which resembles testosterone. Often used by stalkers during long raids to reduce muscle fatigue. Significantly increases weight-carrying capacity. The effects of the drug are long-lasting.",
-    "fra": "Le composant principal de ce produit est un stéroďde de synthčse trčs proche de la testostérone. Souvent utilisé par les stalkers pour les opérations de longue durée, il réduit la fatigue musculaire et augmente nettement la capacité d'emport. Ses effets sont de longue durée.",
-    "ger": "Der Hauptbestandteil dieses Produkts ist ein anaboles Androgen - ein künstliches Steroid, dessen Zusammensetzung der von Testosteron ähnelt. Es wird häufig von Stalkern, die lange unterwegs sind, eingenommen, um die Muskelermüdung zu verringern. Das Mittel erhöht die Tragekapazität des Konsumenten erheblich. Die Wirkung hält lange an.",
-    "ita": "Il componente principale di questo prodotto č un androgeno anabolico, uno steroide artificiale, la cui composizione chimica ricorda il testosterone. Viene spesso usato dagli stalker durante i lunghi attacchi per ridurre l'affaticamento muscolare. Aumenta notevolmente la capacitŕ di trasportare pesi. Gli effetti della droga sono di lunga durata.",
-    "pol": "Główny składnik tego środka to anaboliczny androgen, sztuczny steryd, którego skład przypomina testosteron. Jest on często używany przez stalkerów podczas dłuższych wypraw, aby zmniejszyć zmęczenie mięśni. Znacząco zwiększa udźwig. Efekty działania tego lekarstwa są długotrwałe.",
-    "rus": "Основной компонент - искусственно созданный стероид, по химическому составу сходный с тестостероном. Применяется сталкерами в долгих переходах для повышения порога утомляемости мышц. Помогает значительно увеличить переносимый вес. Препарат длительного действия.",
-    "spa": "El principal componente de este producto es un andrógeno anabólico, un esteroide artificial de composición química parecida a la de la testosterona. Desarrolla los músculos, alivia la fatiga y mejora la circulación. Los stalkers suelen usarlo en incursiones largas para poder cargar con más peso. Los efectos de esta droga son duraderos.",
-    "ukr": "Основний компонент - стероїд штучного походження, за хімічним складом подібний до тестостерону. Застосовується сталкерами у довгих переходах для підвищення порогу стомлюваності м'язів. Допомагає значно збільшити носиму вагу. Препарат тривалої дії."
-  },
-  "st_drug_radioprotector_descr": {
-    "eng": "B190 Indraline radioprotectant, included in medkits issued to nuclear power plant personnel. Used in the Zone instead of the excessively toxic PC1 cystamine hydrochloride, repeated use of which often caused death. Reduces the effects of gamma radiation on live tissue. Best consumed before exposure, as effects are not instant. The effects of the drug are long-lasting.",
-    "fra": "Médicament antiradiations B190 Indraline, inclus dans les médikits du personnel des centrales nucléaires. Trčs utilisé dans la Zone ŕ la place de l'hydrochloride de cystéamine, dont la prise répétée peut ętre mortelle. Réduit les effets des radiations gamma sur les tissus vivants. Comme ses effets ne sont pas instantanés, il est conseillé de l'utiliser avant l'exposition. Ses effets sont de longue durée.",
-    "ger": "Das Strahlenschutzmittel B190 Indraline ist in Medkits enthalten, die an Arbeiter in Kernkraftwerken ausgegeben werden. Es wird in der Zone statt des hochgiftigen PC1 Cystaminhydrochlorids verwendet, das bei wiederholter Einnahme häufig zum Tod führt. Das Mittel schwächt die Wirkung von Gammastrahlung auf lebendes Gewebe ab. Es sollte möglichst vor dem Strahlenkontakt eingenommen werden, weil es nicht sofort wirkt. Die Wirkung des Medikaments hält lange an.",
-    "ita": "L'indralina B190 č un radioprotettore incluso nei kit medici forniti al personale degli impianti nucleari. Viene utilizzata nella Zona al posto del cloridato di cistamina PC1, eccessivamente tossico e potenzialmente letale se usato troppo spesso. Riduce gli effetti delle radiazioni gamma sui tessuti viventi. Va assunta prima dell'esposizione, dato che non agisce immediatamente. Gli effetti durano molto a lungo.",
-    "pol": "Radioprotektor B190, znany też pod nazwą indralina, wchodzi w skład apteczek wydawanych personelowi elektrowni jądrowych. Jest on używany w Zonie zamiast silnie toksycznego hydrochlorku cystaminy PC1, którego częste użycie może spowodować śmierć. Osłabia wpływ promieniowania gamma na żywą tkankę. Najlepiej przyjąć go przed wystawieniem na działanie promieniowania, ponieważ efekty nie są natychmiastowe. Efekty działania tego lekarstwa są długotrwałe.",
-    "rus": "Радиопротектор «Индралин-Б190» входил в состав личных аптечек работников АЭС. Появился в Зоне как замена излишне токсичному цистамину гидрохлорида (РС1). Уменьшает воздействие гамма-излучения на ткани живого организма. Данный препарат желательно применять превентивно, до облучения, поскольку он не оказывает мгновенного эффекта. Обладает продолжительным действием.",
-    "spa": "Radioprotector Indraline B190, incluido en botiquines para el personal de centrales nucleares. En la Zona se utilizaba en lugar del hidrocloruro de cistamina, muy tóxico, pues su consumo repetido podía causar la muerte. Reduce los efectos de la radiación gamma en tejidos vivos. Es mejor ingerirlo antes de la exposición; sus efectos no son instantáneos, sí duraderos.",
-    "ukr": "Радіопротектор «Індралін-Б190» входив до складу особистих аптечок працівників АЕС. З'явився у Зоні як заміна надто токсичному цистаміну гидрохлоріду (РС1). Зменшує вплив гамма-випромінювання на тканини живого організму. Цей препарат бажано застосовувати превентивно, до опромінення, оскільки він не має миттєвого ефекту. Відзначається пролонгованою дію."
-  },
-  "st_harmonica_name": {
-    "eng": "Harmonica",
-    "fra": "Harmonica",
-    "ger": "Mundharmonika",
-    "ita": "Armonica",
-    "pol": "Harmonijka",
-    "rus": "Губная гармоника",
-    "spa": "Harmónica",
-    "ukr": "Губна гармошка"
-  },
-  "st_harmonica_descr": {
-    "eng": "For blues and prison romance lovers.",
-    "fra": "Pour le blues et les histoires d'amour en prison.",
-    "ger": "Für alle, die den Blues im Blut haben.",
-    "ita": "Per gli amanti del blues.",
-    "pol": "Dla miłośników bluesa i stylistyki więziennej.",
-    "rus": "Для любителей блюза и тюремной романтики.",
-    "spa": "Para los amantes del blues y los románticos de la cárcel.",
-    "ukr": "Для шанувальників блюзу та тюремної романтики"
   }
 }

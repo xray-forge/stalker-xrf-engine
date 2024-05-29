@@ -1,14 +1,4 @@
 {
-  "hide_from_surge_message": {
-    "eng": "Attention! Emission starts in:",
-    "fra": "Attention ! Début de l'émission dans :",
-    "ger": "Achtung! Emission beginnt in:",
-    "ita": "Attenzione! Inizio emissione tra:",
-    "pol": "Uwaga! Emisja rozpocznie się za:",
-    "rus": "Внимание! До выброса осталось",
-    "spa": "ˇAtención! La emisión comenzará en:",
-    "ukr": "Увага! До викиду залишилося"
-  },
   "hide_from_surge_descr_1_a": {
     "eng": "You must run to the nearest cover immediately and hide from the emission.",
     "fra": "Mettez-vous immédiatement ŕ couvert pour vous protéger de l'émission.",
@@ -28,6 +18,16 @@
     "rus": "Во время выброса ни в коем случае нельзя покидать укрытие.",
     "spa": "No debes salir de tu refugio mientras dure la emisión.",
     "ukr": "Під час викиду в жодному разі не можна залишати укриття."
+  },
+  "hide_from_surge_message": {
+    "eng": "Attention! Emission starts in:",
+    "fra": "Attention ! Début de l'émission dans :",
+    "ger": "Achtung! Emission beginnt in:",
+    "ita": "Attenzione! Inizio emissione tra:",
+    "pol": "Uwaga! Emisja rozpocznie się za:",
+    "rus": "Внимание! До выброса осталось",
+    "spa": "ˇAtención! La emisión comenzará en:",
+    "ukr": "Увага! До викиду залишилося"
   },
   "hide_from_surge_name_1": {
     "eng": "Emission: find cover",

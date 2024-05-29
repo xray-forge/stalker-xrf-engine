@@ -409,6 +409,16 @@
     "spa": "Soldado raso",
     "ukr": "Рядовий"
   },
+  "name_private_1": {
+    "eng": "Master Sergeant",
+    "fra": "Sergent en chef",
+    "ger": "Hauptfeldwebel",
+    "ita": "Sergente maggiore",
+    "pol": "Starszy sierżant",
+    "rus": "Старшина",
+    "spa": "Sargento primero",
+    "ukr": "[далі... ]"
+  },
   "name_science_0": {
     "eng": "Andrey",
     "fra": "Andreď",
@@ -568,6 +578,16 @@
     "rus": "Алексей",
     "spa": "Alexey",
     "ukr": "Олексій"
+  },
+  "name_sergeant_0": {
+    "eng": "Sergeant",
+    "fra": "Sergent",
+    "ger": "Feldwebel",
+    "ita": "Sergente",
+    "pol": "Sierżant",
+    "rus": "Сержант",
+    "spa": "Sargento",
+    "ukr": "Сержант"
   },
   "name_stalker_0": {
     "eng": "Sanya",
@@ -1608,25 +1628,5 @@
     "rus": "Яша",
     "spa": "Yasha",
     "ukr": "Яша"
-  },
-  "name_private_1": {
-    "eng": "Master Sergeant",
-    "fra": "Sergent en chef",
-    "ger": "Hauptfeldwebel",
-    "ita": "Sergente maggiore",
-    "pol": "Starszy sierżant",
-    "rus": "Старшина",
-    "spa": "Sargento primero",
-    "ukr": "[далі... ]"
-  },
-  "name_sergeant_0": {
-    "eng": "Sergeant",
-    "fra": "Sergent",
-    "ger": "Feldwebel",
-    "ita": "Sergente",
-    "pol": "Sierżant",
-    "rus": "Сержант",
-    "spa": "Sargento",
-    "ukr": "Сержант"
   }
 }

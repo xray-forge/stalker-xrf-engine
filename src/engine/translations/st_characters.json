@@ -169,6 +169,16 @@
     "spa": "Pedernal",
     "ukr": "Флінт"
   },
+  "jup_b25_stalker_senya": {
+    "eng": "Splinter",
+    "fra": "Senya",
+    "ger": "Splitter",
+    "ita": "Scheggia",
+    "pol": "Drzazga",
+    "rus": "Щепка",
+    "spa": "El disidente",
+    "ukr": "Тріска"
+  },
   "jup_b46_duty_founder_name": {
     "eng": "General Tachenko",
     "fra": "Général Tachenko",
@@ -178,6 +188,16 @@
     "rus": "Генерал Таченко",
     "spa": "General Tachenko",
     "ukr": "Генерал Таченко"
+  },
+  "jup_b46_duty_founder_squad_01_name": {
+    "eng": "Major Chepurny",
+    "fra": "Major Chepurny",
+    "ger": "Major Tschepurnij",
+    "ita": "Maggiore Chepurny",
+    "pol": "Major Czepurny",
+    "rus": "Майор Чепурной",
+    "spa": "Mayor Chepurny",
+    "ukr": "Майор Чепурний"
   },
   "jup_b46_duty_founder_squad_02_name": {
     "eng": "Lt Bunchuk",
@@ -458,6 +478,26 @@
     "rus": "Лейтенант Подорожный",
     "spa": "Ten. Podorozhny",
     "ukr": "Лейтенант Подорожний"
+  },
+  "pri_a17_military_prapor_valentyr": {
+    "eng": "WO Valentir",
+    "fra": "Adj Valentir",
+    "ger": "Uffz. Walentir",
+    "ita": "Sottuff. Valentir",
+    "pol": "Chorąży Walentir",
+    "rus": "Прапорщик Валентир",
+    "spa": "Brig. 1ş Valentir",
+    "ukr": "Прапорщик Валентир"
+  },
+  "pri_a17_military_sergeant_morozov": {
+    "eng": "Snr. Sgt Morozov",
+    "fra": "Sgt Morozov",
+    "ger": "OFw. Morosow",
+    "ita": "Sergente Morozov",
+    "pol": "St. sierżant Morozow",
+    "rus": "Ст. сержант Морозов",
+    "spa": "Sgto. 1ş Morozov",
+    "ukr": "Ст. сержант Морозов"
   },
   "pri_a18_skorlupko_in_suit_name": {
     "eng": "Lt Skelya",
@@ -819,6 +859,36 @@
     "spa": "Cardán",
     "ukr": "Кардан"
   },
+  "zat_b100_army_1": {
+    "eng": "Sergeant Gazda",
+    "fra": "Sergent Gazda",
+    "ger": "Feldwebel Gasda",
+    "ita": "Sergente Gazda",
+    "pol": "Sierżant Gazda",
+    "rus": "Сержант Газда",
+    "spa": "Sargento Gazda",
+    "ukr": "Сержант Газда"
+  },
+  "zat_b100_army_2": {
+    "eng": "Captain Furtez",
+    "fra": "Capitaine Furtez",
+    "ger": "Hauptmann Furtes",
+    "ita": "Capitano Furtez",
+    "pol": "Kapitan Furtez",
+    "rus": "Капитан Фуртес",
+    "spa": "Capitán Furtez",
+    "ukr": "Капітан Фуртес"
+  },
+  "zat_b100_army_3": {
+    "eng": "Snr. Sgt. Shveiko",
+    "fra": "Sgt Shveiko",
+    "ger": "OFw. Schwejko",
+    "ita": "Serg. Magg. Shveiko",
+    "pol": "St. sierżant Szwejko",
+    "rus": "Ст. сержант Швейко",
+    "spa": "Sarg. prim. Shveiko",
+    "ukr": "Ст. сержант Швейко"
+  },
   "zat_b103_lost_merc_1_name": {
     "eng": "Goblin",
     "fra": "Gnome",
@@ -949,6 +1019,16 @@
     "spa": "Ten. Drapei",
     "ukr": "Лейтенант Драпей"
   },
+  "zat_b28_smoliak_name": {
+    "eng": "Snr Lt Smolyak",
+    "fra": "Ltn Smolyak",
+    "ger": "OLt. Smoljak",
+    "ita": "Tenente Smolyak",
+    "pol": "St. porucznik Smoliak",
+    "rus": "Ст. лейтенант Смоляк",
+    "spa": "Ten. 1ş Smolyak",
+    "ukr": "Ст. сержант Смоляк"
+  },
   "zat_b28_umerov_name": {
     "eng": "WO Umerov",
     "fra": "Adj Umerov",
@@ -1028,85 +1108,5 @@
     "rus": "Шило",
     "spa": "Punzón",
     "ukr": "Шило"
-  },
-  "jup_b46_duty_founder_squad_01_name": {
-    "eng": "Major Chepurny",
-    "fra": "Major Chepurny",
-    "ger": "Major Tschepurnij",
-    "ita": "Maggiore Chepurny",
-    "pol": "Major Czepurny",
-    "rus": "Майор Чепурной",
-    "spa": "Mayor Chepurny",
-    "ukr": "Майор Чепурний"
-  },
-  "pri_a17_military_prapor_valentyr": {
-    "eng": "WO Valentir",
-    "fra": "Adj Valentir",
-    "ger": "Uffz. Walentir",
-    "ita": "Sottuff. Valentir",
-    "pol": "Chorąży Walentir",
-    "rus": "Прапорщик Валентир",
-    "spa": "Brig. 1ş Valentir",
-    "ukr": "Прапорщик Валентир"
-  },
-  "pri_a17_military_sergeant_morozov": {
-    "eng": "Snr. Sgt Morozov",
-    "fra": "Sgt Morozov",
-    "ger": "OFw. Morosow",
-    "ita": "Sergente Morozov",
-    "pol": "St. sierżant Morozow",
-    "rus": "Ст. сержант Морозов",
-    "spa": "Sgto. 1ş Morozov",
-    "ukr": "Ст. сержант Морозов"
-  },
-  "zat_b28_smoliak_name": {
-    "eng": "Snr Lt Smolyak",
-    "fra": "Ltn Smolyak",
-    "ger": "OLt. Smoljak",
-    "ita": "Tenente Smolyak",
-    "pol": "St. porucznik Smoliak",
-    "rus": "Ст. лейтенант Смоляк",
-    "spa": "Ten. 1ş Smolyak",
-    "ukr": "Ст. сержант Смоляк"
-  },
-  "jup_b25_stalker_senya": {
-    "eng": "Splinter",
-    "fra": "Senya",
-    "ger": "Splitter",
-    "ita": "Scheggia",
-    "pol": "Drzazga",
-    "rus": "Щепка",
-    "spa": "El disidente",
-    "ukr": "Тріска"
-  },
-  "zat_b100_army_1": {
-    "eng": "Sergeant Gazda",
-    "fra": "Sergent Gazda",
-    "ger": "Feldwebel Gasda",
-    "ita": "Sergente Gazda",
-    "pol": "Sierżant Gazda",
-    "rus": "Сержант Газда",
-    "spa": "Sargento Gazda",
-    "ukr": "Сержант Газда"
-  },
-  "zat_b100_army_2": {
-    "eng": "Captain Furtez",
-    "fra": "Capitaine Furtez",
-    "ger": "Hauptmann Furtes",
-    "ita": "Capitano Furtez",
-    "pol": "Kapitan Furtez",
-    "rus": "Капитан Фуртес",
-    "spa": "Capitán Furtez",
-    "ukr": "Капітан Фуртес"
-  },
-  "zat_b100_army_3": {
-    "eng": "Snr. Sgt. Shveiko",
-    "fra": "Sgt Shveiko",
-    "ger": "OFw. Schwejko",
-    "ita": "Serg. Magg. Shveiko",
-    "pol": "St. sierżant Szwejko",
-    "rus": "Ст. сержант Швейко",
-    "spa": "Sarg. prim. Shveiko",
-    "ukr": "Ст. сержант Швейко"
   }
 }

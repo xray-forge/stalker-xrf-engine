@@ -299,6 +299,86 @@
     "spa": "Había un extrańo dispositivo en el edificio. Investígalo.",
     "ukr": "Всередині будинку, в якому були «монолітівці», виявлено дивну конструкцію. Необхідно вивчити її."
   },
+  "pri_a18_wait_reinf_name": {
+    "eng": "Monolith forces: wait for reinforcements",
+    "fra": "Forces du Monolithe : attendre des renforts.",
+    "ger": "Monolitherkämpfer: Auf Verstärkung warten",
+    "ita": "Forze Monolith: aspetta i rinforzi",
+    "pol": "Siły monolitu: poczekaj na posiłki ",
+    "rus": "Скопление «Монолита»: дождаться подмогу",
+    "spa": "Fuerzas de Monolith: espera a los refuerzos.",
+    "ukr": "Скупчення «Моноліту»: дочекатися підмоги"
+  },
+  "pri_a18_wait_reinf_text": {
+    "eng": "You need to wait for reinforcements sent by Kovalsky to eliminate the Monolith forces in the book store",
+    "fra": "Vous devez attendre les renforts envoyés par Kovalsky avant d'éliminer les forces du Monolithe retranchées dans la librairie.",
+    "ger": "Sie müssen auf die Verstärkung, die Kowalski geschickt hat, warten, um die Monolither im Buchladen ausschalten zu können.",
+    "ita": "Dovrai aspettare i rinforzi inviati da Kovalsky per eliminare le forze Monolith nella libreria.",
+    "pol": "Musisz poczekać na posiłki wysłane przez Kowalskiego, aby wyeliminować siły Monolitu w księgarni.",
+    "rus": "Необходимо дождаться подкрепления, высланного Ковальским для уничтожения группы «монолитовцев» в магазине «Книги»",
+    "spa": "Tienes que esperar a los refuerzos enviados por Kovalsky para eliminar a las fuerzas de Monolith de la librería.",
+    "ukr": "Необхідно дочекатися підкріплення, висланого Ковальським для знищення групи «монолітівців» у магазині «Книги»"
+  },
+  "pri_a19_lab_x8_investigation_1_name": {
+    "eng": "Laboratory X8: leave the underground complex or continue looking for documents",
+    "fra": "Laboratoire X8 : sortir du complexe souterrain ou continuer ŕ chercher des documents.",
+    "ger": "Labor X8: Unterirdischen Komplex verlassen oder weiter nach Dokumenten suchen",
+    "ita": "Laboratorio X8: esci dal complesso sotterraneo o continua a cercare i documenti.",
+    "pol": "Laboratorium X8: opuść podziemny kompleks lub dalej szukaj dokumentów",
+    "rus": "Лаборатория Х8: Покинуть подземный комплекс или продолжить поиск документов",
+    "spa": "Laboratorio X8: sal del complejo subterráneo o sigue buscando documentos",
+    "ukr": "Лабораторія Х8: Залишити підземний комплекс або продовжити пошук документів"
+  },
+  "pri_a19_lab_x8_investigation_1_text": {
+    "eng": "You have found documents and you can now leave the laboratory, however there may still be other documents inside the complex.",
+    "fra": "Vous avez trouvé des documents et pouvez donc quitter le laboratoire. Il peut cependant y avoir d'autres documents dans le complexe.",
+    "ger": "Sie haben Dokumente gefunden und können jetzt das Labor verlassen. Allerdings könnten sich im Komplex noch weitere Dokumente befinden.",
+    "ita": "Hai trovato i documenti. Ora puoi lasciare il laboratorio, anche se forse ce ne sono altri all'interno del complesso.",
+    "pol": "Udało ci się znaleźć dokumenty. Możesz teraz opuścić laboratorium, ale możliwe jest, że w kompleksie znajdują się jeszcze inne wartościowe informacje.",
+    "rus": "Документы найдены, лабораторию можно покинуть. Тем не менее, в пределах комплекса могут оставаться и другие документы.",
+    "spa": "Has encontrado documentos y ya puedes irte del laboratorio, aunque puede haber más documentación en el complejo.",
+    "ukr": "Документи знайдено, лабораторію можна залишити. Проте в межах комплексу можуть залишатися й інші документи."
+  },
+  "pri_a19_lab_x8_investigation_2_name": {
+    "eng": "Laboratory X8: leave the underground complex or continue looking for documents",
+    "fra": "Laboratoire X8 : sortir du complexe souterrain ou continuer ŕ chercher des documents.",
+    "ger": "Labor X8: Unterirdischen Komplex verlassen oder weiter nach Dokumenten suchen",
+    "ita": "Laboratorio X8: esci dal complesso sotterraneo o continua a cercare i documenti.",
+    "pol": "Laboratorium X8: opuść podziemny kompleks lub dalej szukaj dokumentów",
+    "rus": "Лаборатория Х8: покинуть подземный комплекс или продолжить поиск документов",
+    "spa": "Laboratorio X8: sal del complejo subterráneo o sigue buscando documentos",
+    "ukr": "Лабораторія Х8: залишити підземний комплекс або продовжити пошук документів"
+  },
+  "pri_a19_lab_x8_investigation_2_text": {
+    "eng": "You have found documents and you can now leave the laboratory, however there may still be other documents inside the complex.",
+    "fra": "Vous avez trouvé des documents et pouvez donc quitter le laboratoire. Il peut cependant y avoir d'autres documents dans le complexe.",
+    "ger": "Sie haben Dokumente gefunden und können jetzt das Labor verlassen. Allerdings könnten sich im Komplex noch weitere Dokumente befinden.",
+    "ita": "Hai trovato i documenti. Ora puoi lasciare il laboratorio, anche se forse ce ne sono altri all'interno del complesso.",
+    "pol": "Udało ci się znaleźć dokumenty. Możesz teraz opuścić laboratorium, ale możliwe jest, że w kompleksie znajdują się jeszcze inne wartościowe informacje.",
+    "rus": "Документы найдены, лабораторию можно покинуть. Тем не менее, в пределах комплекса могут оставаться и другие документы.",
+    "spa": "Has encontrado documentos y ya puedes irte del laboratorio, aunque puede haber más documentación en el complejo.",
+    "ukr": "Документи знайдено, лабораторію можна залишити. Проте в межах комплексу можуть залишатися й інші документи."
+  },
+  "pri_a19_lab_x8_investigation_3_name": {
+    "eng": "Laboratory X8: leave the underground complex",
+    "fra": "Laboratoire X8 : sortir du complexe souterrain",
+    "ger": "Labor X8: Unterirdischen Komplex verlassen",
+    "ita": "Laboratorio X8: esci dal complesso sotterraneo",
+    "pol": "Laboratorium X8: opuść podziemny kompleks",
+    "rus": "Лаборатория Х8: Покинуть подземный комплекс",
+    "spa": "Laboratorio X8: sal del complejo subterráneo",
+    "ukr": "Лабораторія Х8: Залишити підземний комплекс"
+  },
+  "pri_a19_lab_x8_investigation_3_text": {
+    "eng": "It looks like you have collected all the documents in the laboratory. You can now leave the underground complex.",
+    "fra": "Il semblerait que vous ayez récupéré tous les documents du laboratoire. Vous pouvez maintenant quitter le complexe souterrain.",
+    "ger": "Es sieht so aus, als ob Sie alle Dokumente im Labor gefunden hätten. Sie können den unterirdischen Komplex jetzt verlassen.",
+    "ita": "A quanto pare hai raccolto tutti i documenti nel laboratorio. Ora puoi uscire dal complesso sotterraneo.",
+    "pol": "Wygląda na to, że udało ci się znaleźć wszystkie dokumenty znajdujące się w laboratorium. Możesz teraz opuścić podziemny kompleks.",
+    "rus": "Судя по всему, в лаборатории собрана уже вся документация. Можно оставить подземный комплекс.",
+    "spa": "Parece que has reunido todos los documentos del laboratorio. Ya puedes irte del complejo subterráneo.",
+    "ukr": "Зважаючи на все, у лабораторії зібрано уже всю документацію. Можна залишити підземний комплекс."
+  },
   "pri_a19_lab_x8_investigation_name": {
     "eng": "Laboratory X8: find documents concerning experiments",
     "fra": "Labo X8 : trouver les dossiers concernant les expériences.",
@@ -458,6 +538,26 @@
     "rus": "Нужно осмотреть тело. Возможно, это поможет установить причину гибели человека.",
     "spa": "Registra el cadáver para determinar la causa de su muerte.",
     "ukr": "Треба оглянути тіло. Можливо, це допоможе встановити причину загибелі людини."
+  },
+  "pri_a22_talk_with_kovalski_name": {
+    "eng": "A quiet word: talk to Kovalsky",
+    "fra": "Entretien : parler ŕ Kovalsky.",
+    "ger": "Unter vier Augen: Mit Kowalski reden",
+    "ita": "Una conversazione tranquilla: parla con Kovalsky",
+    "pol": "Cicha rozmowa: porozmawiaj z Kowalskim",
+    "rus": "Разговор с глазу на глаз: поговорить с Ковальским",
+    "spa": "Conversación tranquila: habla con Kovalsky",
+    "ukr": "Розмова віч-на-віч: поговорити з Ковальським"
+  },
+  "pri_a22_talk_with_kovalski_text": {
+    "eng": "You need to talk to Kovalsky. It looks like he’s got something important to say.",
+    "fra": "Vous devez parler ŕ Kovalsky. Il semble avoir des choses importantes ŕ vous dire.",
+    "ger": "Sie müssen mit Kowalski reden. Es sieht so aus, als ob er etwas Wichtiges zu sagen hätte.",
+    "ita": "Devi parlare con Kovalsky: a quanto pare ha qualcosa di importante da dire.",
+    "pol": "Musisz porozmawiać z Kowalskim. Wygląda na to, że ma coś ważnego do powiedzenia.",
+    "rus": "Необходимо поговорить с Ковальским. Судя по всему, он хочет сообщить нечто важное",
+    "spa": "Tienes que hablar con Kovalsky. Parece que tiene algo importante que contarte.",
+    "ukr": "Необхідно поговорити з Ковальським. Судячи з усього, він хоче повідомити щось важливе"
   },
   "pri_a25_blow_up_door_name": {
     "eng": "Radio interference: blow up the door",
@@ -619,6 +719,26 @@
     "spa": "El CG está interesado en la información que Strelok puede ofrecer. Debes llevarlo hasta los helicópteros.",
     "ukr": "Командування зацікавлене в інформації, що відома Стрільцеві. Треба доставити Стрільця до гелікоптерів."
   },
+  "pri_a28_defend_helis_name": {
+    "eng": "Evacuation: hold out by the helicopters",
+    "fra": "Évacuation : tenir la position prčs des hélicoptčres.",
+    "ger": "Evakuierung: Bei den Hubschraubern warten",
+    "ita": "Evacuazione: resisti vicino agli elicotteri",
+    "pol": "Ewakuacja: utrzymaj się przy helikopterach",
+    "rus": "Эвакуация: продержаться у вертолётов",
+    "spa": "Evacuación: resiste junto a los helicópteros",
+    "ukr": "Евакуація: протриматися коло гелікоптерів"
+  },
+  "pri_a28_defend_helis_text": {
+    "eng": "You must protect the helicopters from the enemy until they can take off.",
+    "fra": "Vous devez protéger les hélicoptčres jusqu'ŕ ce qu'ils puissent décoller.",
+    "ger": "Sie müssen die Hubschrauber vor den Gegnern beschützen, bis sie starten können.",
+    "ita": "Devi proteggere gli elicotteri dagli attacchi nemici, finché non saranno pronti al decollo.",
+    "pol": "Musisz osłaniać helikoptery do chwili ich startu.",
+    "rus": "Необходимо защищать вертолёты от наступающего противника, пока не возникнет возможность подняться в воздух.",
+    "spa": "Debes proteger los helicópteros de los ataques enemigos hasta que puedan despegar.",
+    "ukr": "Необхідно захищати гелікоптери від противника, поки не виникне можливість здійнятися в повітря."
+  },
   "pri_a28_go_hellis_name": {
     "eng": "Evacuation: get to the helicopters",
     "fra": "Évacuation : atteindre les hélicoptčres.",
@@ -638,6 +758,66 @@
     "rus": "Вся команда погибла. Необходимо в одиночку добраться до вертолётов.",
     "spa": "Todo el mundo ha muerto; tendrás que llegar tú solo a los helicópteros.",
     "ukr": "Уся команда загинула, тепер доведеться діставатися гелікоптерів самому."
+  },
+  "pri_a28_helis_gonna_fly_name": {
+    "eng": "Evacuation: return to the helicopters ASAP",
+    "fra": "Évacuation : retourner au plus vite aux hélicoptčres.",
+    "ger": "Evakuierung: Sofort zu den Hubschraubern zurückkehren",
+    "ita": "Evacuazione: torna subito agli elicotteri",
+    "pol": "Ewakuacja: jak najszybciej wróć do helikopterów",
+    "rus": "Эвакуация: срочно вернуться к вертолётам",
+    "spa": "Evacuación: vuelve a los helicópteros cuanto antes",
+    "ukr": "Евакуація: терміново повернутися до гелікоптерів"
+  },
+  "pri_a28_helis_gonna_fly_text": {
+    "eng": "The helicopters are ready for take-off. You must board one of them immediately - the pilots cannot wait long.",
+    "fra": "Les hélicoptčres sont pręts ŕ décoller. Vous devez immédiatement monter ŕ bord. Les pilotes ne peuvent pas attendre plus longtemps.",
+    "ger": "Die Hubschrauber sind bereit zu starten. Sie müssen sofort an Bord gehen - die Piloten können nicht mehr viel länger warten.",
+    "ita": "Gli elicotteri sono pronti al decollo, devi salire immediatamente a bordo, i piloti non potranno aspettare a lungo.",
+    "pol": "Helikoptery są gotowe do startu. Musisz natychmiast wejść na pokład jednego z nich - piloci nie mogą długo czekać.",
+    "rus": "Вертолёты готовы к отлёту. Необходимо срочно попасть на борт одного из них, пилоты долго ждать не будут.",
+    "spa": "Los helicópteros están listos para despegar. Debes montarte en uno inmediatamente, los pilotos no pueden esperar mucho.",
+    "ukr": "Гелікоптери готові до відльоту. Необхідно терміново потрапити на борт одного з них - пілоти довго не чекатимуть."
+  },
+  "pri_a28_return_to_helis_name": {
+    "eng": "Evacuation: return to the helicopters",
+    "fra": "Évacuation : retourner aux hélicoptčres.",
+    "ger": "Evakuierung: Zu den Hubschraubern zurückkehren",
+    "ita": "Evacuazione: torna agli elicotteri",
+    "pol": "Ewakuacja: wróć do helikopterów",
+    "rus": "Эвакуация: вернуться к вертолётам",
+    "spa": "Evacuación: vuelve a los helicópteros",
+    "ukr": "Евакуація: повернутися до гелікоптерів"
+  },
+  "pri_a28_return_to_helis_text": {
+    "eng": "You must return to the helicopters as they might be able to take off any moment now.",
+    "fra": "Vous devez retourner aux hélicoptčres car ils risquent de décoller d'un instant ŕ l'autre.",
+    "ger": "Sie müssen zu den Hubschraubern zurückkehren, weil sie jetzt jeden Moment starten könnten.",
+    "ita": "Devi tornare agli elicotteri, ormai saranno pronti al decollo da un momento all'altro.",
+    "pol": "Musisz wrócić do helikopterów, ponieważ mogą one wkrótce wystartować.",
+    "rus": "Необходимо вернуться к вертолётам, возможность взлететь может возникнуть в любой момент.",
+    "spa": "Debes volver a los helicópteros porque podrían despegar en cualquier momento.",
+    "ukr": "Необхідно повернутися до гелікоптерів, можливість злетіти може виникнути в будь-який момент."
+  },
+  "pri_a28_save_medic_name": {
+    "eng": "Evacuation: revive the medic",
+    "fra": "Évacuation : réanimer l'infirmier.",
+    "ger": "Evakuierung: Den Arzt wiederbeleben",
+    "ita": "Evacuazione: rianima il medico",
+    "pol": "Ewakuacja: ocuć medyka",
+    "rus": "Эвакуация: привести медика в чувство",
+    "spa": "Evacuación: reanima al médico",
+    "ukr": "Евакуація: привести медика до тями"
+  },
+  "pri_a28_save_medic_text": {
+    "eng": "It seems the medic has been hit by unidentified forces again. Revive him as quickly as possible.",
+    "fra": "L'infirmier a apparemment été touché une nouvelle fois par des forces non identifiées. Réanimez-le le plus vite possible.",
+    "ger": "Es sieht so aus, als ob der Arzt erneut von Unbekannten getroffen wurde. Beleben Sie ihn so schnell wie möglich wieder.",
+    "ita": "Sembra che il medico sia stato nuovamente colpito da delle forze non identificate. Rianimalo il piů rapidamente possibile.",
+    "pol": "Medyk został porażony przez nieznaną siłę. Musisz jak najszybciej przywrócić go do przytomności.",
+    "rus": "Похоже, медик снова попал под неизвестное воздействие. Необходимо срочно привести его в чувство.",
+    "spa": "Parece que unas fuerzas sin identificar han vuelto a herir al médico. Reanímalo cuanto antes.",
+    "ukr": "Схоже, медик знову потрапив під невідомий вплив. Необхідно терміново привести його до тями."
   },
   "pri_a28_talk_with_kovalski_name": {
     "eng": "Evacuation: talk to Kovalsky",
@@ -958,185 +1138,5 @@
     "rus": "Необходимо сообщить Ковальскому о результатах операции.",
     "spa": "Informa a Kovalsky del resultado de la misión.",
     "ukr": "Слід повідомити Ковальському про результати операції."
-  },
-  "pri_a19_lab_x8_investigation_1_name": {
-    "eng": "Laboratory X8: leave the underground complex or continue looking for documents",
-    "fra": "Laboratoire X8 : sortir du complexe souterrain ou continuer ŕ chercher des documents.",
-    "ger": "Labor X8: Unterirdischen Komplex verlassen oder weiter nach Dokumenten suchen",
-    "ita": "Laboratorio X8: esci dal complesso sotterraneo o continua a cercare i documenti.",
-    "pol": "Laboratorium X8: opuść podziemny kompleks lub dalej szukaj dokumentów",
-    "rus": "Лаборатория Х8: Покинуть подземный комплекс или продолжить поиск документов",
-    "spa": "Laboratorio X8: sal del complejo subterráneo o sigue buscando documentos",
-    "ukr": "Лабораторія Х8: Залишити підземний комплекс або продовжити пошук документів"
-  },
-  "pri_a19_lab_x8_investigation_1_text": {
-    "eng": "You have found documents and you can now leave the laboratory, however there may still be other documents inside the complex.",
-    "fra": "Vous avez trouvé des documents et pouvez donc quitter le laboratoire. Il peut cependant y avoir d'autres documents dans le complexe.",
-    "ger": "Sie haben Dokumente gefunden und können jetzt das Labor verlassen. Allerdings könnten sich im Komplex noch weitere Dokumente befinden.",
-    "ita": "Hai trovato i documenti. Ora puoi lasciare il laboratorio, anche se forse ce ne sono altri all'interno del complesso.",
-    "pol": "Udało ci się znaleźć dokumenty. Możesz teraz opuścić laboratorium, ale możliwe jest, że w kompleksie znajdują się jeszcze inne wartościowe informacje.",
-    "rus": "Документы найдены, лабораторию можно покинуть. Тем не менее, в пределах комплекса могут оставаться и другие документы.",
-    "spa": "Has encontrado documentos y ya puedes irte del laboratorio, aunque puede haber más documentación en el complejo.",
-    "ukr": "Документи знайдено, лабораторію можна залишити. Проте в межах комплексу можуть залишатися й інші документи."
-  },
-  "pri_a19_lab_x8_investigation_2_name": {
-    "eng": "Laboratory X8: leave the underground complex or continue looking for documents",
-    "fra": "Laboratoire X8 : sortir du complexe souterrain ou continuer ŕ chercher des documents.",
-    "ger": "Labor X8: Unterirdischen Komplex verlassen oder weiter nach Dokumenten suchen",
-    "ita": "Laboratorio X8: esci dal complesso sotterraneo o continua a cercare i documenti.",
-    "pol": "Laboratorium X8: opuść podziemny kompleks lub dalej szukaj dokumentów",
-    "rus": "Лаборатория Х8: покинуть подземный комплекс или продолжить поиск документов",
-    "spa": "Laboratorio X8: sal del complejo subterráneo o sigue buscando documentos",
-    "ukr": "Лабораторія Х8: залишити підземний комплекс або продовжити пошук документів"
-  },
-  "pri_a19_lab_x8_investigation_2_text": {
-    "eng": "You have found documents and you can now leave the laboratory, however there may still be other documents inside the complex.",
-    "fra": "Vous avez trouvé des documents et pouvez donc quitter le laboratoire. Il peut cependant y avoir d'autres documents dans le complexe.",
-    "ger": "Sie haben Dokumente gefunden und können jetzt das Labor verlassen. Allerdings könnten sich im Komplex noch weitere Dokumente befinden.",
-    "ita": "Hai trovato i documenti. Ora puoi lasciare il laboratorio, anche se forse ce ne sono altri all'interno del complesso.",
-    "pol": "Udało ci się znaleźć dokumenty. Możesz teraz opuścić laboratorium, ale możliwe jest, że w kompleksie znajdują się jeszcze inne wartościowe informacje.",
-    "rus": "Документы найдены, лабораторию можно покинуть. Тем не менее, в пределах комплекса могут оставаться и другие документы.",
-    "spa": "Has encontrado documentos y ya puedes irte del laboratorio, aunque puede haber más documentación en el complejo.",
-    "ukr": "Документи знайдено, лабораторію можна залишити. Проте в межах комплексу можуть залишатися й інші документи."
-  },
-  "pri_a19_lab_x8_investigation_3_name": {
-    "eng": "Laboratory X8: leave the underground complex",
-    "fra": "Laboratoire X8 : sortir du complexe souterrain",
-    "ger": "Labor X8: Unterirdischen Komplex verlassen",
-    "ita": "Laboratorio X8: esci dal complesso sotterraneo",
-    "pol": "Laboratorium X8: opuść podziemny kompleks",
-    "rus": "Лаборатория Х8: Покинуть подземный комплекс",
-    "spa": "Laboratorio X8: sal del complejo subterráneo",
-    "ukr": "Лабораторія Х8: Залишити підземний комплекс"
-  },
-  "pri_a19_lab_x8_investigation_3_text": {
-    "eng": "It looks like you have collected all the documents in the laboratory. You can now leave the underground complex.",
-    "fra": "Il semblerait que vous ayez récupéré tous les documents du laboratoire. Vous pouvez maintenant quitter le complexe souterrain.",
-    "ger": "Es sieht so aus, als ob Sie alle Dokumente im Labor gefunden hätten. Sie können den unterirdischen Komplex jetzt verlassen.",
-    "ita": "A quanto pare hai raccolto tutti i documenti nel laboratorio. Ora puoi uscire dal complesso sotterraneo.",
-    "pol": "Wygląda na to, że udało ci się znaleźć wszystkie dokumenty znajdujące się w laboratorium. Możesz teraz opuścić podziemny kompleks.",
-    "rus": "Судя по всему, в лаборатории собрана уже вся документация. Можно оставить подземный комплекс.",
-    "spa": "Parece que has reunido todos los documentos del laboratorio. Ya puedes irte del complejo subterráneo.",
-    "ukr": "Зважаючи на все, у лабораторії зібрано уже всю документацію. Можна залишити підземний комплекс."
-  },
-  "pri_a18_wait_reinf_name": {
-    "eng": "Monolith forces: wait for reinforcements",
-    "fra": "Forces du Monolithe : attendre des renforts.",
-    "ger": "Monolitherkämpfer: Auf Verstärkung warten",
-    "ita": "Forze Monolith: aspetta i rinforzi",
-    "pol": "Siły monolitu: poczekaj na posiłki ",
-    "rus": "Скопление «Монолита»: дождаться подмогу",
-    "spa": "Fuerzas de Monolith: espera a los refuerzos.",
-    "ukr": "Скупчення «Моноліту»: дочекатися підмоги"
-  },
-  "pri_a18_wait_reinf_text": {
-    "eng": "You need to wait for reinforcements sent by Kovalsky to eliminate the Monolith forces in the book store",
-    "fra": "Vous devez attendre les renforts envoyés par Kovalsky avant d'éliminer les forces du Monolithe retranchées dans la librairie.",
-    "ger": "Sie müssen auf die Verstärkung, die Kowalski geschickt hat, warten, um die Monolither im Buchladen ausschalten zu können.",
-    "ita": "Dovrai aspettare i rinforzi inviati da Kovalsky per eliminare le forze Monolith nella libreria.",
-    "pol": "Musisz poczekać na posiłki wysłane przez Kowalskiego, aby wyeliminować siły Monolitu w księgarni.",
-    "rus": "Необходимо дождаться подкрепления, высланного Ковальским для уничтожения группы «монолитовцев» в магазине «Книги»",
-    "spa": "Tienes que esperar a los refuerzos enviados por Kovalsky para eliminar a las fuerzas de Monolith de la librería.",
-    "ukr": "Необхідно дочекатися підкріплення, висланого Ковальським для знищення групи «монолітівців» у магазині «Книги»"
-  },
-  "pri_a22_talk_with_kovalski_name": {
-    "eng": "A quiet word: talk to Kovalsky",
-    "fra": "Entretien : parler ŕ Kovalsky.",
-    "ger": "Unter vier Augen: Mit Kowalski reden",
-    "ita": "Una conversazione tranquilla: parla con Kovalsky",
-    "pol": "Cicha rozmowa: porozmawiaj z Kowalskim",
-    "rus": "Разговор с глазу на глаз: поговорить с Ковальским",
-    "spa": "Conversación tranquila: habla con Kovalsky",
-    "ukr": "Розмова віч-на-віч: поговорити з Ковальським"
-  },
-  "pri_a22_talk_with_kovalski_text": {
-    "eng": "You need to talk to Kovalsky. It looks like he’s got something important to say.",
-    "fra": "Vous devez parler ŕ Kovalsky. Il semble avoir des choses importantes ŕ vous dire.",
-    "ger": "Sie müssen mit Kowalski reden. Es sieht so aus, als ob er etwas Wichtiges zu sagen hätte.",
-    "ita": "Devi parlare con Kovalsky: a quanto pare ha qualcosa di importante da dire.",
-    "pol": "Musisz porozmawiać z Kowalskim. Wygląda na to, że ma coś ważnego do powiedzenia.",
-    "rus": "Необходимо поговорить с Ковальским. Судя по всему, он хочет сообщить нечто важное",
-    "spa": "Tienes que hablar con Kovalsky. Parece que tiene algo importante que contarte.",
-    "ukr": "Необхідно поговорити з Ковальським. Судячи з усього, він хоче повідомити щось важливе"
-  },
-  "pri_a28_defend_helis_name": {
-    "eng": "Evacuation: hold out by the helicopters",
-    "fra": "Évacuation : tenir la position prčs des hélicoptčres.",
-    "ger": "Evakuierung: Bei den Hubschraubern warten",
-    "ita": "Evacuazione: resisti vicino agli elicotteri",
-    "pol": "Ewakuacja: utrzymaj się przy helikopterach",
-    "rus": "Эвакуация: продержаться у вертолётов",
-    "spa": "Evacuación: resiste junto a los helicópteros",
-    "ukr": "Евакуація: протриматися коло гелікоптерів"
-  },
-  "pri_a28_defend_helis_text": {
-    "eng": "You must protect the helicopters from the enemy until they can take off.",
-    "fra": "Vous devez protéger les hélicoptčres jusqu'ŕ ce qu'ils puissent décoller.",
-    "ger": "Sie müssen die Hubschrauber vor den Gegnern beschützen, bis sie starten können.",
-    "ita": "Devi proteggere gli elicotteri dagli attacchi nemici, finché non saranno pronti al decollo.",
-    "pol": "Musisz osłaniać helikoptery do chwili ich startu.",
-    "rus": "Необходимо защищать вертолёты от наступающего противника, пока не возникнет возможность подняться в воздух.",
-    "spa": "Debes proteger los helicópteros de los ataques enemigos hasta que puedan despegar.",
-    "ukr": "Необхідно захищати гелікоптери від противника, поки не виникне можливість здійнятися в повітря."
-  },
-  "pri_a28_save_medic_name": {
-    "eng": "Evacuation: revive the medic",
-    "fra": "Évacuation : réanimer l'infirmier.",
-    "ger": "Evakuierung: Den Arzt wiederbeleben",
-    "ita": "Evacuazione: rianima il medico",
-    "pol": "Ewakuacja: ocuć medyka",
-    "rus": "Эвакуация: привести медика в чувство",
-    "spa": "Evacuación: reanima al médico",
-    "ukr": "Евакуація: привести медика до тями"
-  },
-  "pri_a28_save_medic_text": {
-    "eng": "It seems the medic has been hit by unidentified forces again. Revive him as quickly as possible.",
-    "fra": "L'infirmier a apparemment été touché une nouvelle fois par des forces non identifiées. Réanimez-le le plus vite possible.",
-    "ger": "Es sieht so aus, als ob der Arzt erneut von Unbekannten getroffen wurde. Beleben Sie ihn so schnell wie möglich wieder.",
-    "ita": "Sembra che il medico sia stato nuovamente colpito da delle forze non identificate. Rianimalo il piů rapidamente possibile.",
-    "pol": "Medyk został porażony przez nieznaną siłę. Musisz jak najszybciej przywrócić go do przytomności.",
-    "rus": "Похоже, медик снова попал под неизвестное воздействие. Необходимо срочно привести его в чувство.",
-    "spa": "Parece que unas fuerzas sin identificar han vuelto a herir al médico. Reanímalo cuanto antes.",
-    "ukr": "Схоже, медик знову потрапив під невідомий вплив. Необхідно терміново привести його до тями."
-  },
-  "pri_a28_return_to_helis_name": {
-    "eng": "Evacuation: return to the helicopters",
-    "fra": "Évacuation : retourner aux hélicoptčres.",
-    "ger": "Evakuierung: Zu den Hubschraubern zurückkehren",
-    "ita": "Evacuazione: torna agli elicotteri",
-    "pol": "Ewakuacja: wróć do helikopterów",
-    "rus": "Эвакуация: вернуться к вертолётам",
-    "spa": "Evacuación: vuelve a los helicópteros",
-    "ukr": "Евакуація: повернутися до гелікоптерів"
-  },
-  "pri_a28_return_to_helis_text": {
-    "eng": "You must return to the helicopters as they might be able to take off any moment now.",
-    "fra": "Vous devez retourner aux hélicoptčres car ils risquent de décoller d'un instant ŕ l'autre.",
-    "ger": "Sie müssen zu den Hubschraubern zurückkehren, weil sie jetzt jeden Moment starten könnten.",
-    "ita": "Devi tornare agli elicotteri, ormai saranno pronti al decollo da un momento all'altro.",
-    "pol": "Musisz wrócić do helikopterów, ponieważ mogą one wkrótce wystartować.",
-    "rus": "Необходимо вернуться к вертолётам, возможность взлететь может возникнуть в любой момент.",
-    "spa": "Debes volver a los helicópteros porque podrían despegar en cualquier momento.",
-    "ukr": "Необхідно повернутися до гелікоптерів, можливість злетіти може виникнути в будь-який момент."
-  },
-  "pri_a28_helis_gonna_fly_name": {
-    "eng": "Evacuation: return to the helicopters ASAP",
-    "fra": "Évacuation : retourner au plus vite aux hélicoptčres.",
-    "ger": "Evakuierung: Sofort zu den Hubschraubern zurückkehren",
-    "ita": "Evacuazione: torna subito agli elicotteri",
-    "pol": "Ewakuacja: jak najszybciej wróć do helikopterów",
-    "rus": "Эвакуация: срочно вернуться к вертолётам",
-    "spa": "Evacuación: vuelve a los helicópteros cuanto antes",
-    "ukr": "Евакуація: терміново повернутися до гелікоптерів"
-  },
-  "pri_a28_helis_gonna_fly_text": {
-    "eng": "The helicopters are ready for take-off. You must board one of them immediately - the pilots cannot wait long.",
-    "fra": "Les hélicoptčres sont pręts ŕ décoller. Vous devez immédiatement monter ŕ bord. Les pilotes ne peuvent pas attendre plus longtemps.",
-    "ger": "Die Hubschrauber sind bereit zu starten. Sie müssen sofort an Bord gehen - die Piloten können nicht mehr viel länger warten.",
-    "ita": "Gli elicotteri sono pronti al decollo, devi salire immediatamente a bordo, i piloti non potranno aspettare a lungo.",
-    "pol": "Helikoptery są gotowe do startu. Musisz natychmiast wejść na pokład jednego z nich - piloci nie mogą długo czekać.",
-    "rus": "Вертолёты готовы к отлёту. Необходимо срочно попасть на борт одного из них, пилоты долго ждать не будут.",
-    "spa": "Los helicópteros están listos para despegar. Debes montarte en uno inmediatamente, los pilotos no pueden esperar mucho.",
-    "ukr": "Гелікоптери готові до відльоту. Необхідно терміново потрапити на борт одного з них - пілоти довго не чекатимуть."
   }
 }

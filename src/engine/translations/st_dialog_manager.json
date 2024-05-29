@@ -1,4 +1,14 @@
 {
+  "dm_anomalies_1": {
+    "eng": "You know where the dredge station is? It's been battered up by gravitational anomalies, but not too bad for an experienced stalker. Just keep throwing bolts as usual. There’s also radiation, inside and out - it’s like being next to a massive chunk of enriched uranium.",
+    "fra": "Tu sais oů est la station de dragage ? C'est plein d'anomalies gravitationnelles, mais rien qu'un stalker expérimenté ne puisse gérer. Il suffit d'utiliser les boulons, comme d'habitude. Il y a aussi pas mal de radiations, ŕ l'intérieur comme ŕ l'extérieur. C'est un peu comme si tu te baladais prčs d'un gros tas d'uranium enrichi...",
+    "ger": "Weißt du, wo das Baggerschiff ist? Die ganzen Gravitationsanomalien haben dem Ding arg zugesetzt, aber das sollte kein Problem für einen erfahrenen Stalker sein. Hauptsache, man hat genügend Schrauben dabei, die man werfen kann. Aber das Schiff ist teilweise verstrahlt, sowohl innen als auch außen... es ist fast so, als ob man sich einem großen Haufen angereichertem Uran nähern würde.",
+    "ita": "Sai dove si trova la stazione di drenaggio? Č stata sottoposta a parecchie anomalie gravitazionali, ma niente che uno stalker esperto non possa affrontare. Continua a lanciare bulloni, come al solito. Ci sono anche delle radiazioni, dentro e fuori. Č per via dell'acqua... quel posto sembra un piccolo reattore all'uranio.",
+    "pol": "Wiesz, gdzie jest pogłębiarka? Została zniszczona przez anomalie grawitacyjne, ale dla doświadczonego stalkera to nic wielkiego. Po prostu rzucaj śrubami, jak zwykle. Pełno tam też promieniowania, zarówno wewnątrz, jak i na zewnątrz - jak przy wielkim kawałku wzbogaconego uranu.",
+    "rus": "Знаешь, где земснаряд стоит? Его гравианомалиями покорёжило, но для опытного сталкера не слишком сложно, знай только болты не забывай пробрасывать. Плюс радиация что внутри, что снаружи... Фонит - прямо тебе кусок обогащённого урана!",
+    "spa": "żSabes dónde está la planta de dragado? Ha sufrido anomalías gravitatorias, pero eso no es grave para un stalker experimentado. Tú ve lanzando tornillos, como siempre. También hay radiación, tanto dentro como fuera. Es como un pequeńo reactor de uranio enriquecido.",
+    "ukr": "Знаєш, де земснаряд стоїть? Його гравіаномаліямі покоцало, але для досвідченого сталкера не надто складно, головне болти не забувай кидати. Плюс радіація, що всередині, що зовні... Фонить - прямо як ото шмат збагаченого урану!"
+  },
   "dm_anomalies_10": {
     "eng": "There's a spot in Zaton where heat anomalies emerged underwater. They call it 'Boiler' because there's steam and stuff coming out from the ground. If you think steam is nothing, think again. Seasoned stalkers say this kind of vapor anomaly hits you at least as hard as a regular heat anomaly, if not harder. The temperature may be a bit lower, but it grills you longer. As for artifacts, they found regular ones, the fire kind.",
     "fra": "Il y a un coin dans Zaton oů les anomalies calorifiques émergent de sous l'eau. On l'appelle la 'Bouilloire' parce qu'il y a pas mal de vapeur bizarre qui en sort. Et si tu crois qu'il y a rien ŕ craindre d'un peu de vapeur, dis-toi que les stalkers les plus expérimentés y réfléchissent ŕ deux fois avant de s'y aventurer : ils disent que ça fait deux fois plus mal qu'une anomalie calorifique normale parce que, męme si la température est un peu moins élevée, tu grilles beaucoup plus longtemps. Quant aux artefacts, on y trouve les grands classiques, ceux de feu.",
@@ -169,6 +179,16 @@
     "spa": "El sitio más seguro es el pantano ácido. Está lleno de anomalías gravitatorias, pero son fáciles de encontrar. No pierdas de vista la superficie del agua, no hay forma de pasarlas por alto. Las anomalías de gas son más peliagudas, porque no hay aire que respirar. Y, créeme, es mejor procurar que no te salpiquen; corroen más que el ácido sulfúrico.",
     "ukr": "От де точно знайдеш - в отруйному болоті. Там ще граві-аномалій багато, але їх легко знайти: вони на воді такі сліди залишають, одразу впізнаєш. Із «газировками» гірше, через них там майже нема чим дихати. А якщо на тебе бризне - теж непереливки: броню просто на очах роз'їдає."
   },
+  "dm_anomalies_4": {
+    "eng": "There's an old substation here, also called the Iron Forest. You'll understand why when you see it. Some people claim to have found clusters of artifacts in that area after an emission hit. It’s not all that dangerous, mainly electric anomalies and a bit of radiation... There’s also a few poltergeists, that will bury you in all kinds of crap if you don't hide in time.",
+    "fra": "Il y a un vieux poste électrique par lŕ, on l'appelle la Foręt de Fer, on comprend tout de suite pourquoi en la voyant. Il paraît qu'on y a trouvé des paquets d'artefacts aprčs des émissions. Il y a pas mal d'anomalies électriques et de radiations, mais rien de vraiment dangereux... Et quelques poltergeists qui te balancent tout un tas de saletés...",
+    "ger": "Es gibt da ein altes Umspannwerk, das auch Eisenwald genannt wird. Wenn du dorthin kommst, wirst du verstehen warum. Manche behaupten, dass sie nach einer Emission einen Haufen Artefakte dort gefunden hätten. Allzu gefährlich ist es im Eisenwald nicht, hauptsächlich Elektroanomalien und leichte Strahlung... da sind auch ein paar Poltergeister, die dir allen möglichen Krempel entgegenschleudern, wenn du nicht rechtzeitig in Deckung gehst.",
+    "ita": "Qui c'č una vecchia sotto-stazione, anche nota come Foresta d'acciaio. Capirai il perché di questo nome quando la vedrai. Certa gente sostiene di aver trovato numerosi manufatti dopo un'emissione. Non č un posto molto pericoloso, piů che altro ci sono anomalie elettriche mescolate a radiazioni. Ci sono anche dei poltergeist. Se non ti nascondi in tempo ti seppelliranno in men che non si dica.",
+    "pol": "Jest tu stara podstacja, zwana też Żelaznym Lasem. Zrozumiesz dlaczego, jak ją zobaczysz. Niektórzy twierdzą, że po emisji znajdowali tam po kilka artefaktów. Nie jest tam aż tak niebezpiecznie, głównie anomalie elektryczne i trochę promieniowania... Znajdzie się też kilka poltergeistów, które zasypią cię wszystkim, czym tylko się da, jeżeli się w porę nie schowasz.",
+    "rus": "Есть тут старая подстанция, её ещё Железным лесом называют. Ты если там будешь - поймёшь, почему. Так рассказывают, что после выброса там по нескольку артефактов находили. В смысле опасности место так себе - ну «электры», ну фонит немного... Правда, ещё полтергейсты есть. Если спрятаться не успел, закидают тебя всяким хламом.",
+    "spa": "Aquí hay una vieja subestación llamada el Bosque de Hierro. Entenderás por qué cuando la veas. Hay quien dice haber encontrado varios artefactos tras una emisión. Tampoco es tan peligroso; hay anomalías eléctricas y algo de radiación... Por no hablar de los poltergeists. Si no te escondes a tiempo, te sepultan bajo cualquier mierda.",
+    "ukr": "Є тут стара підстанція, її ще Залізним лісом називають. Ти якщо там будеш - зрозумієш, чому. Так розповідають, що після викиду там по кілька артефактів знаходили. У сенсі небезпеки місце так собі - ну, «електри», ну фонить трохи... Щоправда, іще полтергейсти є. Якщо сховатися не встиг, закидають тебе різним мотлохом."
+  },
   "dm_anomalies_5": {
     "eng": "There are plenty of heat anomalies at the burnt farmstead up on the hill. People find fire artifacts there. Look in the houses: whichever's got the most anomalies in it after an emission, that's where the artifacts will be.",
     "fra": "Y a plein d'anomalies calorifiques dans la ferme brűlée au sommet de la colline. Des gars y ont déjŕ trouvé des artefacts de feu. Cherche dans les maisons : celle qui contiendra le plus d'anomalies aprčs une émission sera celle qui regorgera d'artefacts.",
@@ -198,6 +218,16 @@
     "rus": "Аномалию «Цирк» видел? Там здоровенная аномалия «трамплин», а вокруг неё две кометы кружатся... зашибись зрелище! Только любоваться лучше издалека: к центру сущее пекло начинается, «жарок» до чёрта. Артефакты там есть, но искать их мешает огненный полтергейст - та ещё сволочь, знаешь! Только подойдёшь, он тебя сразу поджарить пытается!",
     "spa": "żHas visto alguna anomalía Circo? Es una anomalía Trampolín enorme con dos cometas giratorios; todo un espectáculo. Pero más te vale mirarlo de lejos, porque quema con el infierno y emite montones de anomalías térmicas. También genera muchos artefactos, pero están vigilados por un poltergeist de fuego que churrusca a todo el que se acerca.",
     "ukr": "Аномалію «Цирк» бачив? Там величезна аномалія «Трамплін», а навколо неї дві комети кружляють... видовище - здуріти можна! Та милуватися краще здалеку: ближче до центру починається справжнє пекло, купа «жарок». Артефакти там є, але шукати їх заважає вогняний полтергейст - ото, знаєш, сволота! Тільки-но підійдеш, він тебе одразу намагається підсмажити!"
+  },
+  "dm_anomalies_8": {
+    "eng": "There's this place they call Scar, where the ground looks like it has been hacked with an axe. People have found artifacts there, but once you go in there something weird starts to happen. That thing hits your brains so hard you almost forget how to breathe, let alone try to get your ass out of there.",
+    "fra": "Il y a un endroit qu'ils appellent la Balafre, oů on dirait que le sol a été coupé en deux. On y a trouvé des artefacts, mais, une fois que tu y pénčtres, il se passe un truc étrange : ton cerveau part en vrille, ŕ tel point que t'en oublies quasiment de respirer et de te barrer en courant.",
+    "ger": "Es gibt da eine Gegend, die Narbe genannt wird, weil der Boden dort so aussieht, als ob man ihn mit einer Axt zerpflügt hätte. Dort wurden Artefakte gefunden, aber wenn man erst einmal dorthin geht, geschehen die merkwürdigsten Dinge. Dein Hirn spielt so verrückt, dass du fast schon das Atmen vergisst, ganz zu schweigen davon zu verschwinden.",
+    "ita": "C'č questo posto chiamato Cicatrice, dove il terreno sembra colpito da una scure. Lě sono stati ritrovati dei manufatti, ma una volta che ci entri comincia a succedere qualcosa di strano. Il tuo cervello subisce una botta tale che quasi ti dimentichi di respirare, quando invece dovresti dartela a gambe.",
+    "pol": "Jest pewne miejsce, zwane Szramą, gdzie ziemia wygląda, jakby ktoś ją przeciął siekierą. Ludzie znajdowali tam artefakty, ale gdy się tam wejdzie, zaczynają się dziać dziwne rzeczy. To coś tak działa na mózg, że zapominasz, jak się oddycha, nie mówiąc już o tym, żeby się stamtąd wydostać.",
+    "rus": "Ну, есть такое место, где землю как ножом разрубило - Рубец. Там не раз и не два находили артефакты, но с теми, кто туда лезет, происходит что-то странное. Та штука даёт по мозгам с такой силой, что не то что выбраться - на вдох-выдох соображалки часто не хватает.",
+    "spa": "Hay un sitio llamado la Cicatriz que parece haber sido arado a base de hachazos. Se han encontrado artefactos allí, pero cuando entras empiezan a pasar cosas muy raras. El cerebro se queda tan tocado que hasta olvidas cómo respirar, así que ni hablemos de intentar salir de ahí echando leches.",
+    "ukr": "Місце, де землю мов ножем розрубило - то Рубець. Там не раз і не двічі знаходили артефакти, але з тими, хто туди лізе, коїться щось дивне. Та штука дає по мізках із такою силою, що не те що вибратися - тумкалки часто не стачає, аби вдихнути-видихнути."
   },
   "dm_anomalies_9": {
     "eng": "If you're interested in gravitational artifacts, look for them in the Fang anomaly. The place is easy to spot - anomalies have done a job on the terrain, took half the hill clean off. A few caves opened up in the hill and were immediately settled by snorks. Thankfully, they rarely go outside.",
@@ -278,6 +308,126 @@
     "rus": "Это всё, что я знаю. Поспрашивай у других.",
     "spa": "Es todo lo que sé. Pregúntale a otro.",
     "ukr": "Це все, що я знаю. Спитайся в інших."
+  },
+  "dm_duty_chasing_squad_bandit": {
+    "eng": "I'm on a mission, tracking down a bandit squad.",
+    "fra": "Je suis en mission. Je dois retrouver un groupe de bandits.",
+    "ger": "Ich bin auf einer Mission und verfolge einen Banditentrupp.",
+    "ita": "Sono in missione, devo individuare una squadra di banditi.",
+    "pol": "Jestem na misji. Tropię drużynę bandytów.",
+    "rus": "У меня задание - преследую отряд бандитов.",
+    "spa": "Estoy de misión; sigo a un grupo de bandidos.",
+    "ukr": "У меня задание - преследую отряд бандитов."
+  },
+  "dm_duty_chasing_squad_freedom": {
+    "eng": "I'm chasing down those half baked assholes - Freedom, that's who...",
+    "fra": "Je suis ŕ la poursuite de fauteurs de troubles... Ces anarchistes de la Liberté, évidemment !",
+    "ger": "Ich verfolge diese blöden Amateure... von der Freiheit...",
+    "ita": "Do la caccia a quegli stupidi stronzi. Quelli della Freedom, ecco chi...",
+    "pol": "Ścigam tych niedorobionych dupków z Wolności...",
+    "rus": "Шваль эту обкуренную преследую. «Свобода», так её и разэтак...",
+    "spa": "Persigo a esos panolis... Esa gente de Libertad.",
+    "ukr": "Шваль эту обкуренную преследую. «Свобода», так её и разэтак... "
+  },
+  "dm_duty_chasing_squad_killer": {
+    "eng": "Mercenaries are my target. I'm following their squad's tracks.",
+    "fra": "Ma cible est une unité de mercenaires. Je les suis ŕ la trace.",
+    "ger": "Mein Ziel sind Söldner. Ich verfolge die Spuren von einem ihrer Trupps.",
+    "ita": "Il mio bersaglio sono i mercenari. Sto seguendo le tracce della loro squadra.",
+    "pol": "Moim celem są najemnicy. Podążam za śladami ich drużyny.",
+    "rus": "Моя цель - наёмники. Иду по следу их отряда.",
+    "spa": "Los mercenarios son mi objetivo. Ando tras la pista de un grupo.",
+    "ukr": "Моя цель - наёмники. Иду по следу их отряда."
+  },
+  "dm_duty_chasing_squad_monolith": {
+    "eng": "I'm after a Monolith squad.",
+    "fra": "Je suis ŕ la poursuite d'un groupe de combattants du Monolithe.",
+    "ger": "Ich bin hinter einem Monolithertrupp her.",
+    "ita": "Sto dando la caccia a una squadra di Monolith.",
+    "pol": "Podążam za drużyną Monolitu.",
+    "rus": "Преследую отряд «монолитовцев».",
+    "spa": "Sigo a un pelotón de Monolith.",
+    "ukr": "Преследую отряд «монолитовцев»."
+  },
+  "dm_duty_chasing_squad_monster": {
+    "eng": "I'm hunting mutants, trying to purge the area of their filth.",
+    "fra": "Je chasse des mutants, j'essaie d'éradiquer la vermine du coin.",
+    "ger": "Ich jage Mutanten... möchte die Gegend hier von ihrem Dreck säubern.",
+    "ita": "Do la caccia ai mutanti, nel tentativo di ripulire quest'area dal loro sudiciume.",
+    "pol": "Poluję na mutanty. Próbuję oczyścić okolicę z tego plugastwa.",
+    "rus": "Преследую мутантов: надо зачистить местность от этих тварей.",
+    "spa": "Sigo a unos mutantes. Quiero echar a esa escoria de aquí.",
+    "ukr": "Преследую мутантов: надо зачистить местность от этих тварей."
+  },
+  "dm_duty_doing_nothing_1": {
+    "eng": "I'm not doing anything right now.",
+    "fra": "Je ne fais rien de spécial pour l'instant.",
+    "ger": "Im Moment tue ich nichts.",
+    "ita": "Al momento non sto facendo nulla.",
+    "pol": "Nic w tej chwili nie robię.",
+    "rus": "Сейчас ничем не занимаюсь.",
+    "spa": "No hago nada ahora mismo.",
+    "ukr": "Сейчас ничем не занимаюсь."
+  },
+  "dm_freedom_chasing_squad_bandit": {
+    "eng": "I'm chasing some local thugs.",
+    "fra": "Je pourchasse des bandits locaux.",
+    "ger": "Ich bin hinter ein paar Halunken aus der Gegend her.",
+    "ita": "Sto dando la caccia ad alcuni criminali del posto.",
+    "pol": "Ścigam miejscowych bandytów.",
+    "rus": "Местную гопоту преследую.",
+    "spa": "Voy tras unos matones de por aquí.",
+    "ukr": "Місцеву гопоту переслідую."
+  },
+  "dm_freedom_chasing_squad_duty": {
+    "eng": "I'm trying to track down some of my debtors.",
+    "fra": "J'essaie de retrouver quelques-uns de mes débiteurs.",
+    "ger": "Ich versuche, ein paar der Typen zu erwischen, die mir Geld schulden.",
+    "ita": "Sto cercando di rintracciare alcuni dei miei debitori.",
+    "pol": "Próbuję namierzyć kilku moich dłużników.",
+    "rus": "«Должники» где-то тут тусят, их и выслеживаю.",
+    "spa": "Intento localizar a unos morosos.",
+    "ukr": "«Долгівці» десь вони тут тусять, їх і вистежую."
+  },
+  "dm_freedom_chasing_squad_killer": {
+    "eng": "I'm out to get some mercenary scalps. They've got a debt that needs collecting.",
+    "fra": "J'ai l'intention de scalper quelques mercenaires. Comme on dit, śil pour śil, dent pour dent... ",
+    "ger": "Ich bin auf der Jagd nach ein paar Söldnern. Wir haben da noch eine Rechnung zu begleichen.",
+    "ita": "Sono a caccia di scalpi mercenari. Hanno un debito che deve essere saldato.",
+    "pol": "Poluję na najemników. Mają dług, który trzeba odebrać.",
+    "rus": "Иду за наёмниками. Надо им отплатить за прошлое.",
+    "spa": "Ando tras unos mercenarios. Tienen una deuda pendiente.",
+    "ukr": "Іду за найманцями. Треба відплатити за колишні їхні справи."
+  },
+  "dm_freedom_chasing_squad_monolith": {
+    "eng": "I'm after those screwy Monolith folk.",
+    "fra": "Je compte me faire ces tarés du Monolithe.",
+    "ger": "Ich bin hinter diesen verrückten Monolithern her.",
+    "ita": "Do la caccia a quei maledetti Monolith.",
+    "pol": "Ścigam tych popaprańców z Monolitu.",
+    "rus": "За этими шизиками «монолитовцами» иду.",
+    "spa": "Ando tras esos pirados de Monolith.",
+    "ukr": "За цими шизиками «монолітівцями» йду."
+  },
+  "dm_freedom_chasing_squad_monster": {
+    "eng": "I'm following some mutants. Someone's got to show them their place.",
+    "fra": "Je chasse des mutants. Il faut bien que quelqu'un leur apprenne ŕ se tenir ŕ carreau.",
+    "ger": "Ich verfolge ein paar Mutanten. Jemand muss ihnen ja zeigen, wo's lang geht.",
+    "ita": "Sto seguendo dei mutanti. Qualcuno deve pur insegnar loro a stare al posto.",
+    "pol": "Poluję na mutanty. Ktoś musi im pokazać, gdzie jest ich miejsce.",
+    "rus": "По следу мутантов иду. Обнаглели они, надо бы приструнить маленько.",
+    "spa": "Estoy siguiendo a unos mutantes. Alguien tiene que ponerlos en su sitio.",
+    "ukr": "По слідах мутантів іду. Знахабніли вони, треба б їх дещо вимуштрувати."
+  },
+  "dm_freedom_doing_nothing_1": {
+    "eng": "Oh, nothing I guess.",
+    "fra": "Rien de spécial...",
+    "ger": "Oh, nichts, würde ich sagen.",
+    "ita": "Oh, niente, direi.",
+    "pol": "Och, nic takiego.",
+    "rus": "Да в общем-то ничем.",
+    "spa": "Oh, nada, supongo.",
+    "ukr": "Та наче й нічим."
   },
   "dm_hello_0": {
     "eng": "Wassup, bro?",
@@ -688,6 +838,16 @@
     "rus": "Да много чего странного рассказывают, а всему верить - себя не уважать. Сказочников развелось, как собак нестреляных, даром что Зона! Но что странно, уже несколько сталкеров со станции «Янов» рассказывали, будто НЛО видели. Говорят, на вид как диск чёрный диаметром метров пять. Хотя другие рассказывают, что на самолет где-то похоже, потому никто вначале даже особо и не встревожился. Только среди очевидцев бывший лётчик оказался, так вот он потом сказал - за всю жизнь ничего похожего не видел.",
     "spa": "La gente cuenta todo tipo de historias raras; no te creas ni la mitad. Hoy en día, si pegas una patada a una piedra en la Zona salen cien charlatanes. Pero lo curioso es que algunos stalkers de la estación de Yanov afirman haber visto ovnis. Unos dicen que son como platillos volantes de unos cinco metros de diámetro. Otros afirman que parecen aviones porque eso es lo que son. Lo único seguro es que uno de los testigos es piloto y dice que no ha visto nada igual en toda su vida.",
     "ukr": "Розповідають багато що дивного, та вірять усьому лише дурні. Байкарів тут - сила-силенна, хоча й Зона! Але дивно: вже кілька сталкерів зі станції «Янів» розповідали, що бачили НЛО. Вони казали, на вигляд він - як чорний диск діаметром метрів із п'ять. Хоча інші кажуть, воно чимось схоже на літак, тому спочатку ніхто й не стурбувався. Але серед очевидців виявився колишній льотчик, то він потім сказав - за все життя нічого подібного не бачив."
+  },
+  "dm_information_19": {
+    "eng": "Everyone's talking about some weird stuff going on at the old cooling tower. If you turn on the common frequency, you catch bits and pieces of distress calls, sounding like some poor bastard trying to get out of an anomaly. When you ask for coordinates, there's no reply. The weirdest thing though is the sound. That kind of distortion can’t be explained away...",
+    "fra": "Tout le monde parle de trucs vraiment bizarres qui se passent ŕ la tour de refroidissement. Quand on se branche sur la fréquence commune, on capte des morceaux de signal de détresse, comme si un pauvre connard était bloqué dans une anomalie. Mais dčs qu'on demande les coordonnées, y a plus de réponse. Le plus étrange, c'est le bruit de fond... Personne peut l'expliquer...",
+    "ger": "Alle reden davon, dass bei dem alten Kühlturm merkwürdige Dinge vor sich gehen. Wenn man auf die allgemeine Frequenz schaltet, empfängt man Teile von Notrufmitteilungen... die hören sich so an, als ob ein armer Typ versuchen würde, aus einer Anomalie zu entkommen. Und wenn man dann nach den Koordinaten fragt, herrscht Funkstille. Das Merkwürdigste daran ist aber, wie sich das Ganze anhört. So eine Verzerrung kann ich mir nicht wirklich erklären...",
+    "ita": "Tutti dicono che stanno succedendo cose strane alla vecchia torre di raffreddamento. Se ti sintonizzi sulla frequenza comune potrai sentire frammenti di chiamate... sembra che un povero diavolo stia cercando di uscire da un'anomalia. Quando chiedi delle coordinate, perň, nessuno ti sa rispondere. La cosa piů strana č il suono. Quel tipo di distorsione non puň proprio essere spiegato...",
+    "pol": "Wszyscy gadają o jakichś dziwnych wydarzeniach w dawnej chłodni kominowej. Jeśli włączysz ogólną częstotliwość, złapiesz fragmenty wołania o pomoc, które brzmią jakby jakiś biedak próbował się wydostać z anomalii. Gdy zapytasz o współrzędne, nikt nie odpowiada. Najdziwniejszy w tym wszystkim jest dźwięk. Taki rodzaj zakłóceń ciężko wytłumaczyć...",
+    "rus": "Ходят слухи, что у старой градирни какая-то чертовщина творится. Врубаешь общую частоту, а там обрывками запросы о помощи: кто-то из аномалии не может выбраться. Естественно, спрашиваешь координаты, а в ответ - тишина... И самое странное тут - это звук запросов: такие искажения одними помехами не объяснишь.",
+    "spa": "Todo el mundo habla de las cosas inexplicables que ocurren en la vieja torre de refrigeración. Si sintonizas la frecuencia común, captarás seńales de auxilio, como si algún pobre infeliz estuviera intentando salir de una anomalía. Pero cuando le pides sus coordenadas nunca responde. Y lo más raro de todo es el sonido; esa clase de distorsión es difícil de explicar.",
+    "ukr": "Є чутки, що в старій градирні якась чортівня коїться. Врубаєш загальну частоту, а там уривками запити про допомогу: хтось з аномалії не може вибратися. Ну, звісно, запитуєш координати, а у відповідь - тиша... І найдивніше тут - то звук запитів: такі спотворення самими завадами не поясниш."
   },
   "dm_information_2": {
     "eng": "Nothing but bad news lately. Good men are vanishing one after another, then we find their bodies with not a drop of blood. It's got to be those mother fucking bloodsuckers, who else? Ooh, how I'd love to find their lair and pump them bitches full of lead! Soon we'll be going to the john in pairs, you know? Lone stalkers my ass.",
@@ -1309,6 +1469,26 @@
     "spa": "Tu éxito depende de lo que hagas. Si no te importa cazar mutantes, te lloverán las ofertas. Pásate por el sótano de Yanov y pregunta por Trapper; paga bien por limpiar la zona de mutantes, pero no dispares al primer pseudoperro que encuentres. Trapper paga por monstruos concretos que interfieren en la recuperación de artefactos o frecuentan los lugares que los stalkers utilizan para esconderse de las emisiones.",
     "ukr": "То залежить від того, чим ти хочеш зайнятися. Якщо ти не проти пополювати на мутантів, така робота завжди є. Зайди до підвальчика на «Янові», там Звіробій оселився. Він за вбивство мутантів добре платить... Тільки не треба одразу стріляти у першого-ліпшого псевдособаку та бігти по винагороду! Він видає завдання на конкретних монстрів, котрі заважають здобич діставати - або на тих, що живуть біля місць, де сталкери переховуються від викидів."
   },
+  "dm_job_12": {
+    "eng": "Work? I don’t know, to be honest. But if you get a chance to help Freedom out - go see our boss at Yanov. Go to the southern wing and see Loki - that's him. Remember, if you believe in the advancement of humankind, in greater consciousness and significance of the Zone's gifts, you'll be making the right choice.",
+    "fra": "Du boulot ? Franchement, je ne sais pas. Mais si tu veux filer un coup de main ŕ la Liberté, va voir notre chef ŕ Yanov : va dans l'aile sud et demande Loki. Et oublie pas : si tu crois ŕ l'évolution des connaissances et de la conscience humaines, et ŕ l'importance des dons de la Zone, tu fais le bon choix.",
+    "ger": "Hmm... ehrlich gesagt habe ich keine Ahnung. Aber wenn du die Möglichkeit hast, der Freiheit zu helfen, melde dich bei unserem Anführer in der Janow-Station. Loki ist sein Name, du findest ihn im Südflügel. Denke immer daran: Wenn du an den Fortschritt der Menschheit, ein höheres Bewusstsein und an die Wichtigkeit der Geschenke der Zone glaubst, bist du auf dem richtigen Weg.",
+    "ita": "Lavorare? A essere onesto non saprei. Ma se hai la possibilitŕ di aiutare la Freedom, parla con il nostro capo a Yanov. Vai all'ala sud e parla con Loki, č lui la persona giusta. Ricorda, se credi nell'evoluzione della specie umana, in una veritŕ superiore e nel significato dei doni della Zona, farai la scelta giusta.",
+    "pol": "Pracę? Szczerze mówiąc, nie wiem. Ale jeśli nadarzy ci się szansa, żeby pomóc Wolności, idź do naszego szefa w Janowie. Skieruj się do południowego skrzydła i spotkaj się z Lokim - to on. Pamiętaj, jeśli wierzysz w postęp rodzaju ludzkiego, wyższą świadomość i znaczenie darów Zony, dokonasz słusznego wyboru.",
+    "rus": "Работу? Честно говоря, не знаю. Но если у тебя появится шанс как-нибудь помочь «Свободе», ты приходи к нашему главному на «Янов». В южном крыле найдёшь Локи - вот это он самый и будет. В общем, если ты веришь в прогресс человечества, в его сознательность, в ценность даров Зоны, - это как раз твой выбор.",
+    "spa": "żTrabajo? No sé, la verdad... Pero si tienes ocasión de ayudar a Libertad, ve a ver a nuestro jefe a Yanov. Dirígete al ala sur y busca a Loki; así se llama. Recuerda, si crees en el progreso de la humanidad, en un bien supremo y en la importancia de los dones de la Zona, harás lo correcto.",
+    "ukr": "Роботу? Чесно кажучи, не знаю. Але якщо в тебе з'явиться шанс якось допомогти «Волі», ти приходь до нашого головного на «Янів». У південному крилі знайдеш Локі - ото він сам і буде... Взагалі, якщо ти віриш у прогрес людства, у його свідомість, у цінність дарунків Зони, - це саме твій вибір."
+  },
+  "dm_job_13": {
+    "eng": "No idea. But if you find something that can help us in our fight against the Zone and those who think it's a gift rather than a curse, go see the commander of Duty's expedition unit - Lieutenant Colonel Shulga. He's the man in charge at Yanov station. You'll find him in the northern wing. One thing’s for sure - any civilian who contributes to Duty’s overall success will get a handsome reward.",
+    "fra": "Aucune idée. Mais si tu trouves quelque chose qui nous aide ŕ combattre la Zone et ceux qui pensent que c'est un don plutôt qu'une malédiction, va voir le commandant de l'expédition du Devoir, le colonel Shulga. C'est lui qui est responsable de la gare de Yanov, il se trouve dans l'aile nord. Une chose est sűre en tout cas : tout civil qui contribue au succčs du Devoir sera récompensé.",
+    "ger": "Keine Ahnung. Aber wenn du auf etwas stößt, das uns bei unserem Kampf gegen die Zone und die Typen hilft, die die Zone als Segen und nicht als Fluch ansehen, melde dich beim Kommandeur der Expeditionseinheit der Wächter - Oberstleutnant Shulga. Er hat das Sagen in der Janow-Station, du findest ihn im Nordflügel. Eines ist ganz sicher: Jeder Zivilist, der seinen Beitrag für den Erfolg der Wächter leistet, wird angemessen belohnt.",
+    "ita": "Non ne ho idea, ma se trovi qualcosa che ci aiuti a combattere la Zona e quelli che la considerano un dono anziché una maledizione, parla con il comandante dell'unitŕ della Duty, il Tenente Colonnello Shulga. Lui č a capo della stazione Yanov. Lo troverai nell'ala nord. Una cosa č certa: tutti i civili che contribuiranno al successo della Duty riceveranno una generosa ricompensa.",
+    "pol": "Nie mam pojęcia. Ale jeśli znajdziesz coś, co może nam pomóc w walce przeciwko Zonie i przeciwko tym, którzy uważają ją za dar, a nie za przekleństwo, spotkaj się z dowódcą jednostki ekspedycyjnej Powinności, podpułkownikiem Szulgą. On zarządza stacją Janów. Znajdziesz go w północnym skrzydle. Jedno jest pewne - każdy cywil, który przyczyni się do zwycięstwa Powinności, zostanie należycie nagrodzony.",
+    "rus": "Не в курсе. Но если ты обнаружишь нечто, что может помочь нам в борьбе против Зоны или наших врагов, обращайся к командиру экспедиционного отряда «Долга», подполковнику Шульге. Он старший на станции «Янов», ты можешь найти его в северном крыле. Могу сказать наверняка: любой гражданский, кто внёс свой вклад в дело «Долга», обязательно будет вознаграждён.",
+    "spa": "Ni idea. Pero si encuentras algo que pueda sernos de ayuda para luchar contra la Zona y los que piensan que es un regalo y no una maldición, ve a ver al comandante de la expedición de Deber, el teniente coronel Shulga. Está al frente de la estación de Yanov, lo encontrarás en el ala norte. Una cosa está clara: los civiles que contribuyan a la victoria de Deber, recibirán una generosa recompensa.",
+    "ukr": "Не в курсе. Но если ты обнаружишь нечто, что может помочь нам в борьбе против Зоны или наших врагов, обращайся к командиру экспедиционного отряда «Долга», подполковнику Шульге. Он старший на станции «Янов», ты можешь найти его в северном крыле. Могу сказать наверняка: любой гражданский, кто внёс свой вклад в дело «Долга», обязательно будет вознаграждён."
+  },
   "dm_job_14": {
     "eng": "Fellas like you who come to Skadovsk like to visit Beard. He shells out decent dough for artifacts... But I'll tell you one thing - his business sense is piss poor. He don't wanna share his profits with some powerful people... and that shit's gonna come back to bite him in the ass. Ya dig?",
     "fra": "Les mecs comme toi qui montent ŕ bord du Skadovsk vont en général voir le Barbu. Il paie un bon prix pour des artefacts... Mais laisse-moi te dire une bonne chose : il n'y connaît que dalle au business ! Il veut pas partager ses bénefs avec ceux qui font régner l'ordre... Ça va lui revenir dans la gueule un de ces jours, si tu vois ce que je veux dire...",
@@ -1479,6 +1659,256 @@
     "spa": "Ya tienes mi respuesta.",
     "ukr": "Ти мою відповідь уже чув."
   },
+  "dm_stalker_chasing_squad_bandit": {
+    "eng": "I'm shadowing a couple of assholes. Friggin' retards...",
+    "fra": "Je suis quelques connards ŕ la trace...",
+    "ger": "Ich beschatte ein paar Typen. Richtige Vollidioten...",
+    "ita": "Sto pedinando un paio di stronzi. Dannati ritardati...",
+    "pol": "Śledzę kilku dupków. Pieprzone przygłupy...",
+    "rus": "Иду по следу подонков одних. Гопники, мать их так...",
+    "spa": "Ando tras un par de gilipollas. Panda de retrasados...",
+    "ukr": "Іду по слідах таких собі покидьків. Гопники, матері їхній ковінька... "
+  },
+  "dm_stalker_chasing_squad_killer": {
+    "eng": "Tracking down a few mercenaries. Real bastards, these.",
+    "fra": "Je suis des mercenaires ŕ la trace. De sacrés enfoirés...",
+    "ger": "Ich verfolge ein paar Söldner. Das sind richtige Arschlöcher!",
+    "ita": "Sto seguendo alcuni mercenari. Quelli sě che sono veri bastardi.",
+    "pol": "Tropię kilku najemników. Niezłe z nich sukinsyny.",
+    "rus": "Наёмников выслеживаю... те ещё сволочи!",
+    "spa": "Siguiendo a unos mercenarios. Menudos cabronazos.",
+    "ukr": "Найманців вистежую... То та ще сволота!"
+  },
+  "dm_stalker_chasing_squad_monolith": {
+    "eng": "I'm tailing a squad of fanatics. Monolith fighters, that is...",
+    "fra": "Je suis des fanatiques ŕ la trace. Des soldats du Monolithe...",
+    "ger": "Ich verfolge einen Trupp von bescheuerten Fanatikern. Monolithern also...",
+    "ita": "Sono alle calcagna di un gruppo di fanatici. Combattenti Monolith, ecco chi...",
+    "pol": "Śledzę drużynę fanatyków. To znaczy wojowników Monolitu...",
+    "rus": "Вышел на след отряда фанатиков... ну этих, «монолитовцев».",
+    "spa": "Voy tras un grupo de fanáticos. Soldados de Monolith, en concreto.",
+    "ukr": "Вийшов на слід загону фанатиків... ну тих, котрі «монолітівці»."
+  },
+  "dm_stalker_chasing_squad_monster": {
+    "eng": "Tracking mutants.",
+    "fra": "Je chasse des mutants.",
+    "ger": "Ich verfolge Mutanten.",
+    "ita": "Rintraccio mutanti.",
+    "pol": "Tropię mutanty.",
+    "rus": "Мутантов выслеживаю.",
+    "spa": "Persiguiendo a mutantes.",
+    "ukr": "Мутантів вистежую."
+  },
+  "dm_stalker_chasing_squad_zombied": {
+    "eng": "I'm after some zombies. Too many of those poor bastards around...",
+    "fra": "Je suis ŕ la poursuite de zombies. Il y a bien trop de ces pauvres débris dans le coin...",
+    "ger": "Ich bin hinter ein paar Zombies her. Von denen gibt es hier viel zu viele...",
+    "ita": "Sono a caccia di zombi. Quei poveri diavoli sono davvero troppi...",
+    "pol": "Poluję na zombi. Za dużo tych skubańców w okolicy...",
+    "rus": "Зомбированных преследую. И развелось же этих бедолаг!..",
+    "spa": "Ando tras unos zombis. Hay demasiada escoria suelta.",
+    "ukr": "Зомбованих переслідую. І розвелося ж цих бідаків!.."
+  },
+  "dm_stalker_doing_nothing_1": {
+    "eng": "I'm just taking it easy.",
+    "fra": "Je me la coule douce.",
+    "ger": "Ich lasse es gerade ruhig angehen.",
+    "ita": "Me la sto prendendo comoda.",
+    "pol": "Odpoczywam sobie.",
+    "rus": "Да так, отдыхаю просто.",
+    "spa": "Nada, estoy descansando.",
+    "ukr": "Та так, відпочиваю собі."
+  },
+  "dm_stalker_doing_nothing_2": {
+    "eng": "Nothing much, just getting a bit of rest.",
+    "fra": "Rien de spécial, ŕ part du repos intensif.",
+    "ger": "Nichts, ich genieße meine Freizeit.",
+    "ita": "Niente di particolare, me la sto solo spassando un po'.",
+    "pol": "Nic wielkiego, zażywam odrobiny relaksu.",
+    "rus": "Ничем. Расслабляюсь потихоньку.",
+    "spa": "No mucho, relajándome un poco.",
+    "ukr": "Нічим. Розслаблююся потихеньку."
+  },
+  "dm_stalker_doing_nothing_3": {
+    "eng": "What does it look like I'm doing? Not a damn thing.",
+    "fra": "Ça ne se voit pas ? Je bulle...",
+    "ger": "Wonach sieht es denn aus? Nicht das Geringste!",
+    "ita": "Secondo te cosa sto facendo? Niente di niente.",
+    "pol": "A na co to wygląda? Absolutnie nic.",
+    "rus": "А на что это смахивает? Бездельничаю я...",
+    "spa": "żQué crees que estoy haciendo? Nada, joder.",
+    "ukr": "А на що воно скидається? Ледакую я... "
+  },
+  "dm_stalker_searching_artefacts_1": {
+    "eng": "I'm hunting for artifacts.",
+    "fra": "Je cherche des artefacts.",
+    "ger": "Ich bin auf der Suche nach Artefakten.",
+    "ita": "Sono a caccia di manufatti.",
+    "pol": "Poszukuję artefaktów.",
+    "rus": "Занимаюсь поиском артефактов.",
+    "spa": "Busco artefactos.",
+    "ukr": "Займаюся пошуком артефактів."
+  },
+  "dm_stalker_searching_artefacts_2": {
+    "eng": "I ain't picking mushrooms... artifacts, more like.",
+    "fra": "Qu'est-ce que tu crois ? Que je ramasse des champignons ? Je cherche des artefacts !",
+    "ger": "Ich sammle keine Pilze... sondern eher Artefakte.",
+    "ita": "Non vado mica a funghi... Diciamo piuttosto a manufatti.",
+    "pol": "Grzybów nie zbieram... raczej artefakty.",
+    "rus": "Да уж не грибы собираю... артефакты смотрю.",
+    "spa": "No busco setas, precisamente... sino artefactos.",
+    "ukr": "Та вже ж не гриби збираю... артефакти виглядаю."
+  },
+  "dm_stalker_searching_artefacts_3": {
+    "eng": "I'm looking for artifacts.",
+    "fra": "J'essaie de trouver des artefacts.",
+    "ger": "Ich suche Artefakte.",
+    "ita": "Cerco manufatti.",
+    "pol": "Szukam artefaktów.",
+    "rus": "Артефакты ищу.",
+    "spa": "Ando buscando artefactos.",
+    "ukr": "Артефакти шукаю."
+  },
+  "dm_traveler_actor_agree": {
+    "eng": "I agree. Let's go.",
+    "fra": "OK. On y va.",
+    "ger": "Einverstanden. Gehen wir.",
+    "ita": "D'accordo. Andiamo.",
+    "pol": "Zgoda. Chodźmy.",
+    "rus": "Согласен. Пойдём.",
+    "spa": "Vale, en marcha.",
+    "ukr": "Згоден. Підемо."
+  },
+  "dm_traveler_actor_dont_go_with_squad": {
+    "eng": "You know, I've changed my mind.",
+    "fra": "En fait, j'ai changé d'avis.",
+    "ger": "Ach, ich habe meine Meinung geändert.",
+    "ita": "Sai, ho cambiato idea.",
+    "pol": "Wiesz... zmieniłem zdanie.",
+    "rus": "Знаешь, я передумал.",
+    "spa": "żSabes? Me lo he pensado mejor.",
+    "ukr": "Знаєш, я передумав."
+  },
+  "dm_traveler_actor_go_with_squad": {
+    "eng": "Let's go then.",
+    "fra": "Allons-y dans ce cas !",
+    "ger": "Na dann, los.",
+    "ita": "Allora muoviamoci.",
+    "pol": "No to chodźmy.",
+    "rus": "Тогда пойдём.",
+    "spa": "Pues venga, vamos.",
+    "ukr": "Тоді ходімо."
+  },
+  "dm_traveler_actor_has_no_money": {
+    "eng": "I don't have that much.",
+    "fra": "Je n'ai pas autant sur moi.",
+    "ger": "So viel habe ich nicht.",
+    "ita": "Non ho tutti quei contanti.",
+    "pol": "Nie mam tyle.",
+    "rus": "У меня столько нет.",
+    "spa": "No tengo tanto.",
+    "ukr": "В мене стільки нема."
+  },
+  "dm_traveler_actor_refuse": {
+    "eng": "I've changed my mind.",
+    "fra": "J'ai changé d'avis.",
+    "ger": "Ich habe meine Meinung geändert.",
+    "ita": "Ho cambiato idea.",
+    "pol": "Zmieniłem zdanie.",
+    "rus": "Я передумал.",
+    "spa": "He cambiado de idea.",
+    "ukr": "Я передумав."
+  },
+  "dm_traveler_bye": {
+    "eng": "I see.",
+    "fra": "Je vois.",
+    "ger": "Ich verstehe.",
+    "ita": "Capisco.",
+    "pol": "Rozumiem.",
+    "rus": "Ясно.",
+    "spa": "Entiendo.",
+    "ukr": "Ясно."
+  },
+  "dm_traveler_can_i_go_with_you": {
+    "eng": "Can I go with you?",
+    "fra": "Je peux venir ?",
+    "ger": "Kann ich mitkommen?",
+    "ita": "Posso venire con te?",
+    "pol": "Mogę pójść z tobą?",
+    "rus": "Возьмешь с собой?",
+    "spa": "żPuedo acompańarte?",
+    "ukr": "Візьмеш із собою?"
+  },
+  "dm_traveler_stalker_actor_companion_no": {
+    "eng": "No, sorry. I'm going my own way.",
+    "fra": "Non, désolé, je préfčre y aller seul.",
+    "ger": "Tut mir leid, nein. Ich bin lieber alleine.",
+    "ita": "No, spiacente. Io viaggio da solo.",
+    "pol": "Przykro mi, ale nie. Idę swoją własną drogą.",
+    "rus": "Нет, извини. Я уж лучше своей дорогой.",
+    "spa": "Lo siento, yo voy por libre.",
+    "ukr": "Ні, вибач. Я вже краще своєю дорогою."
+  },
+  "dm_traveler_stalker_actor_companion_yes": {
+    "eng": "Of course. The more the merrier.",
+    "fra": "Bien sűr. Plus on est de fous...",
+    "ger": "Natürlich. Je mehr desto besser.",
+    "ita": "Certo. Piů siamo meglio č.",
+    "pol": "Pewnie. W kupie raźniej.",
+    "rus": "Конечно. В компании всегда веселей!",
+    "spa": "Claro. Cuantos más, mejor.",
+    "ukr": "Звісно. У компанії завжди веселіш!"
+  },
+  "dm_traveler_stalker_i_cant_travel": {
+    "eng": "No, I've got other urgent business to attend to.",
+    "fra": "Non, je dois m'occuper d'affaires plus urgentes.",
+    "ger": "Nein, ich habe Wichtigeres zu tun.",
+    "ita": "No, ho altre cose urgenti di cui occuparmi.",
+    "pol": "Nie, mam inne pilne sprawy do załatwienia.",
+    "rus": "Не до того: своих дел хватает.",
+    "spa": "No, tengo asuntos importantes que atender.",
+    "ukr": "Не вийде: своїх справ купа."
+  },
+  "dm_traveler_stalker_where_do_you_want": {
+    "eng": "No problem. Where do you need to go? Take your pick.",
+    "fra": "Aucun problčme. C'est pour aller oů ? Y a que l'embarras du choix !",
+    "ger": "Sicher. Wo willst du hin? Wähle dein Ziel aus.",
+    "ita": "Nessun problema. Dove devi andare? Scegli.",
+    "pol": "Nie ma sprawy. Wybieraj, jakie miejsce cię interesuje?",
+    "rus": "Без проблем. Куда тебя отвести, выбирай.",
+    "spa": "Claro. żAdónde tienes que ir? Elige.",
+    "ukr": "Без проблем. Куди треба відвести? Вибирай."
+  },
+  "dm_traveler_take_me_to": {
+    "eng": "I need to go some place, can you lead me there for a fee?",
+    "fra": "J'ai besoin d'un guide. Je suis pręt ŕ payer.",
+    "ger": "Ich muss irgendwohin. Kannst du mich gegen eine kleine Gebühr dorthin bringen?",
+    "ita": "Devo andare in un posto. Se ti pago saresti disposto a portarmici?",
+    "pol": "Muszę się dostać w pewne miejsce. Zaprowadzisz mnie tam za opłatą?",
+    "rus": "Мне кое-куда нужно... проведёшь за вознаграждение?",
+    "spa": "Tengo que ir a un sitio. żMe llevas a cambio de dinero?",
+    "ukr": "Мені треба в одне місце... проведеш за винагороду?"
+  },
+  "dm_traveler_travel_cost": {
+    "eng": "OK. That will cost you",
+    "fra": "D'accord, mais ça va coűter cher.",
+    "ger": "OK, das kostet dich",
+    "ita": "OK. Ti costerŕ",
+    "pol": "Dobra. To będzie kosztować",
+    "rus": "Хорошо. Это обойдётся тебе в",
+    "spa": "Vale. Te costará",
+    "ukr": "Добре. Це коштуватиме тобі"
+  },
+  "dm_traveler_what_are_you_doing": {
+    "eng": "What are you up to?",
+    "fra": "Qu'est-ce qui se passe ?",
+    "ger": "Was machst du gerade?",
+    "ita": "Cosa hai in mente?",
+    "pol": "Co robisz?",
+    "rus": "Чем сейчас занимаешься?",
+    "spa": "żQué tienes entre manos?",
+    "ukr": "Чим зараз займаєшся?"
+  },
   "dm_universal_actor_exit": {
     "eng": "OK, forget about it.",
     "fra": "On oublie ça, ok ?",
@@ -1569,916 +1999,6 @@
     "spa": "Lo siento, no tengo nada.",
     "ukr": "Вибачай, нічого нема."
   },
-  "dm_traveler_bye": {
-    "eng": "I see.",
-    "fra": "Je vois.",
-    "ger": "Ich verstehe.",
-    "ita": "Capisco.",
-    "pol": "Rozumiem.",
-    "rus": "Ясно.",
-    "spa": "Entiendo.",
-    "ukr": "Ясно."
-  },
-  "dm_traveler_what_are_you_doing": {
-    "eng": "What are you up to?",
-    "fra": "Qu'est-ce qui se passe ?",
-    "ger": "Was machst du gerade?",
-    "ita": "Cosa hai in mente?",
-    "pol": "Co robisz?",
-    "rus": "Чем сейчас занимаешься?",
-    "spa": "żQué tienes entre manos?",
-    "ukr": "Чим зараз займаєшся?"
-  },
-  "dm_traveler_can_i_go_with_you": {
-    "eng": "Can I go with you?",
-    "fra": "Je peux venir ?",
-    "ger": "Kann ich mitkommen?",
-    "ita": "Posso venire con te?",
-    "pol": "Mogę pójść z tobą?",
-    "rus": "Возьмешь с собой?",
-    "spa": "żPuedo acompańarte?",
-    "ukr": "Візьмеш із собою?"
-  },
-  "dm_traveler_stalker_actor_companion_yes": {
-    "eng": "Of course. The more the merrier.",
-    "fra": "Bien sűr. Plus on est de fous...",
-    "ger": "Natürlich. Je mehr desto besser.",
-    "ita": "Certo. Piů siamo meglio č.",
-    "pol": "Pewnie. W kupie raźniej.",
-    "rus": "Конечно. В компании всегда веселей!",
-    "spa": "Claro. Cuantos más, mejor.",
-    "ukr": "Звісно. У компанії завжди веселіш!"
-  },
-  "dm_traveler_stalker_actor_companion_no": {
-    "eng": "No, sorry. I'm going my own way.",
-    "fra": "Non, désolé, je préfčre y aller seul.",
-    "ger": "Tut mir leid, nein. Ich bin lieber alleine.",
-    "ita": "No, spiacente. Io viaggio da solo.",
-    "pol": "Przykro mi, ale nie. Idę swoją własną drogą.",
-    "rus": "Нет, извини. Я уж лучше своей дорогой.",
-    "spa": "Lo siento, yo voy por libre.",
-    "ukr": "Ні, вибач. Я вже краще своєю дорогою."
-  },
-  "dm_traveler_actor_go_with_squad": {
-    "eng": "Let's go then.",
-    "fra": "Allons-y dans ce cas !",
-    "ger": "Na dann, los.",
-    "ita": "Allora muoviamoci.",
-    "pol": "No to chodźmy.",
-    "rus": "Тогда пойдём.",
-    "spa": "Pues venga, vamos.",
-    "ukr": "Тоді ходімо."
-  },
-  "dm_traveler_take_me_to": {
-    "eng": "I need to go some place, can you lead me there for a fee?",
-    "fra": "J'ai besoin d'un guide. Je suis pręt ŕ payer.",
-    "ger": "Ich muss irgendwohin. Kannst du mich gegen eine kleine Gebühr dorthin bringen?",
-    "ita": "Devo andare in un posto. Se ti pago saresti disposto a portarmici?",
-    "pol": "Muszę się dostać w pewne miejsce. Zaprowadzisz mnie tam za opłatą?",
-    "rus": "Мне кое-куда нужно... проведёшь за вознаграждение?",
-    "spa": "Tengo que ir a un sitio. żMe llevas a cambio de dinero?",
-    "ukr": "Мені треба в одне місце... проведеш за винагороду?"
-  },
-  "dm_traveler_stalker_where_do_you_want": {
-    "eng": "No problem. Where do you need to go? Take your pick.",
-    "fra": "Aucun problčme. C'est pour aller oů ? Y a que l'embarras du choix !",
-    "ger": "Sicher. Wo willst du hin? Wähle dein Ziel aus.",
-    "ita": "Nessun problema. Dove devi andare? Scegli.",
-    "pol": "Nie ma sprawy. Wybieraj, jakie miejsce cię interesuje?",
-    "rus": "Без проблем. Куда тебя отвести, выбирай.",
-    "spa": "Claro. żAdónde tienes que ir? Elige.",
-    "ukr": "Без проблем. Куди треба відвести? Вибирай."
-  },
-  "dm_traveler_actor_agree": {
-    "eng": "I agree. Let's go.",
-    "fra": "OK. On y va.",
-    "ger": "Einverstanden. Gehen wir.",
-    "ita": "D'accordo. Andiamo.",
-    "pol": "Zgoda. Chodźmy.",
-    "rus": "Согласен. Пойдём.",
-    "spa": "Vale, en marcha.",
-    "ukr": "Згоден. Підемо."
-  },
-  "dm_traveler_actor_refuse": {
-    "eng": "I've changed my mind.",
-    "fra": "J'ai changé d'avis.",
-    "ger": "Ich habe meine Meinung geändert.",
-    "ita": "Ho cambiato idea.",
-    "pol": "Zmieniłem zdanie.",
-    "rus": "Я передумал.",
-    "spa": "He cambiado de idea.",
-    "ukr": "Я передумав."
-  },
-  "dm_traveler_stalker_i_cant_travel": {
-    "eng": "No, I've got other urgent business to attend to.",
-    "fra": "Non, je dois m'occuper d'affaires plus urgentes.",
-    "ger": "Nein, ich habe Wichtigeres zu tun.",
-    "ita": "No, ho altre cose urgenti di cui occuparmi.",
-    "pol": "Nie, mam inne pilne sprawy do załatwienia.",
-    "rus": "Не до того: своих дел хватает.",
-    "spa": "No, tengo asuntos importantes que atender.",
-    "ukr": "Не вийде: своїх справ купа."
-  },
-  "dm_stalker_doing_nothing_1": {
-    "eng": "I'm just taking it easy.",
-    "fra": "Je me la coule douce.",
-    "ger": "Ich lasse es gerade ruhig angehen.",
-    "ita": "Me la sto prendendo comoda.",
-    "pol": "Odpoczywam sobie.",
-    "rus": "Да так, отдыхаю просто.",
-    "spa": "Nada, estoy descansando.",
-    "ukr": "Та так, відпочиваю собі."
-  },
-  "dm_stalker_doing_nothing_2": {
-    "eng": "Nothing much, just getting a bit of rest.",
-    "fra": "Rien de spécial, ŕ part du repos intensif.",
-    "ger": "Nichts, ich genieße meine Freizeit.",
-    "ita": "Niente di particolare, me la sto solo spassando un po'.",
-    "pol": "Nic wielkiego, zażywam odrobiny relaksu.",
-    "rus": "Ничем. Расслабляюсь потихоньку.",
-    "spa": "No mucho, relajándome un poco.",
-    "ukr": "Нічим. Розслаблююся потихеньку."
-  },
-  "dm_stalker_doing_nothing_3": {
-    "eng": "What does it look like I'm doing? Not a damn thing.",
-    "fra": "Ça ne se voit pas ? Je bulle...",
-    "ger": "Wonach sieht es denn aus? Nicht das Geringste!",
-    "ita": "Secondo te cosa sto facendo? Niente di niente.",
-    "pol": "A na co to wygląda? Absolutnie nic.",
-    "rus": "А на что это смахивает? Бездельничаю я...",
-    "spa": "żQué crees que estoy haciendo? Nada, joder.",
-    "ukr": "А на що воно скидається? Ледакую я... "
-  },
-  "dm_stalker_chasing_squad_monster": {
-    "eng": "Tracking mutants.",
-    "fra": "Je chasse des mutants.",
-    "ger": "Ich verfolge Mutanten.",
-    "ita": "Rintraccio mutanti.",
-    "pol": "Tropię mutanty.",
-    "rus": "Мутантов выслеживаю.",
-    "spa": "Persiguiendo a mutantes.",
-    "ukr": "Мутантів вистежую."
-  },
-  "dm_stalker_chasing_squad_bandit": {
-    "eng": "I'm shadowing a couple of assholes. Friggin' retards...",
-    "fra": "Je suis quelques connards ŕ la trace...",
-    "ger": "Ich beschatte ein paar Typen. Richtige Vollidioten...",
-    "ita": "Sto pedinando un paio di stronzi. Dannati ritardati...",
-    "pol": "Śledzę kilku dupków. Pieprzone przygłupy...",
-    "rus": "Иду по следу подонков одних. Гопники, мать их так...",
-    "spa": "Ando tras un par de gilipollas. Panda de retrasados...",
-    "ukr": "Іду по слідах таких собі покидьків. Гопники, матері їхній ковінька... "
-  },
-  "dm_stalker_chasing_squad_killer": {
-    "eng": "Tracking down a few mercenaries. Real bastards, these.",
-    "fra": "Je suis des mercenaires ŕ la trace. De sacrés enfoirés...",
-    "ger": "Ich verfolge ein paar Söldner. Das sind richtige Arschlöcher!",
-    "ita": "Sto seguendo alcuni mercenari. Quelli sě che sono veri bastardi.",
-    "pol": "Tropię kilku najemników. Niezłe z nich sukinsyny.",
-    "rus": "Наёмников выслеживаю... те ещё сволочи!",
-    "spa": "Siguiendo a unos mercenarios. Menudos cabronazos.",
-    "ukr": "Найманців вистежую... То та ще сволота!"
-  },
-  "dm_stalker_chasing_squad_monolith": {
-    "eng": "I'm tailing a squad of fanatics. Monolith fighters, that is...",
-    "fra": "Je suis des fanatiques ŕ la trace. Des soldats du Monolithe...",
-    "ger": "Ich verfolge einen Trupp von bescheuerten Fanatikern. Monolithern also...",
-    "ita": "Sono alle calcagna di un gruppo di fanatici. Combattenti Monolith, ecco chi...",
-    "pol": "Śledzę drużynę fanatyków. To znaczy wojowników Monolitu...",
-    "rus": "Вышел на след отряда фанатиков... ну этих, «монолитовцев».",
-    "spa": "Voy tras un grupo de fanáticos. Soldados de Monolith, en concreto.",
-    "ukr": "Вийшов на слід загону фанатиків... ну тих, котрі «монолітівці»."
-  },
-  "dm_stalker_chasing_squad_zombied": {
-    "eng": "I'm after some zombies. Too many of those poor bastards around...",
-    "fra": "Je suis ŕ la poursuite de zombies. Il y a bien trop de ces pauvres débris dans le coin...",
-    "ger": "Ich bin hinter ein paar Zombies her. Von denen gibt es hier viel zu viele...",
-    "ita": "Sono a caccia di zombi. Quei poveri diavoli sono davvero troppi...",
-    "pol": "Poluję na zombi. Za dużo tych skubańców w okolicy...",
-    "rus": "Зомбированных преследую. И развелось же этих бедолаг!..",
-    "spa": "Ando tras unos zombis. Hay demasiada escoria suelta.",
-    "ukr": "Зомбованих переслідую. І розвелося ж цих бідаків!.."
-  },
-  "dm_traveler_travel_cost": {
-    "eng": "OK. That will cost you",
-    "fra": "D'accord, mais ça va coűter cher.",
-    "ger": "OK, das kostet dich",
-    "ita": "OK. Ti costerŕ",
-    "pol": "Dobra. To będzie kosztować",
-    "rus": "Хорошо. Это обойдётся тебе в",
-    "spa": "Vale. Te costará",
-    "ukr": "Добре. Це коштуватиме тобі"
-  },
-  "dm_traveler_actor_dont_go_with_squad": {
-    "eng": "You know, I've changed my mind.",
-    "fra": "En fait, j'ai changé d'avis.",
-    "ger": "Ach, ich habe meine Meinung geändert.",
-    "ita": "Sai, ho cambiato idea.",
-    "pol": "Wiesz... zmieniłem zdanie.",
-    "rus": "Знаешь, я передумал.",
-    "spa": "żSabes? Me lo he pensado mejor.",
-    "ukr": "Знаєш, я передумав."
-  },
-  "dm_traveler_actor_has_no_money": {
-    "eng": "I don't have that much.",
-    "fra": "Je n'ai pas autant sur moi.",
-    "ger": "So viel habe ich nicht.",
-    "ita": "Non ho tutti quei contanti.",
-    "pol": "Nie mam tyle.",
-    "rus": "У меня столько нет.",
-    "spa": "No tengo tanto.",
-    "ukr": "В мене стільки нема."
-  },
-  "dm_freedom_doing_nothing_1": {
-    "eng": "Oh, nothing I guess.",
-    "fra": "Rien de spécial...",
-    "ger": "Oh, nichts, würde ich sagen.",
-    "ita": "Oh, niente, direi.",
-    "pol": "Och, nic takiego.",
-    "rus": "Да в общем-то ничем.",
-    "spa": "Oh, nada, supongo.",
-    "ukr": "Та наче й нічим."
-  },
-  "dm_freedom_chasing_squad_monster": {
-    "eng": "I'm following some mutants. Someone's got to show them their place.",
-    "fra": "Je chasse des mutants. Il faut bien que quelqu'un leur apprenne ŕ se tenir ŕ carreau.",
-    "ger": "Ich verfolge ein paar Mutanten. Jemand muss ihnen ja zeigen, wo's lang geht.",
-    "ita": "Sto seguendo dei mutanti. Qualcuno deve pur insegnar loro a stare al posto.",
-    "pol": "Poluję na mutanty. Ktoś musi im pokazać, gdzie jest ich miejsce.",
-    "rus": "По следу мутантов иду. Обнаглели они, надо бы приструнить маленько.",
-    "spa": "Estoy siguiendo a unos mutantes. Alguien tiene que ponerlos en su sitio.",
-    "ukr": "По слідах мутантів іду. Знахабніли вони, треба б їх дещо вимуштрувати."
-  },
-  "dm_freedom_chasing_squad_bandit": {
-    "eng": "I'm chasing some local thugs.",
-    "fra": "Je pourchasse des bandits locaux.",
-    "ger": "Ich bin hinter ein paar Halunken aus der Gegend her.",
-    "ita": "Sto dando la caccia ad alcuni criminali del posto.",
-    "pol": "Ścigam miejscowych bandytów.",
-    "rus": "Местную гопоту преследую.",
-    "spa": "Voy tras unos matones de por aquí.",
-    "ukr": "Місцеву гопоту переслідую."
-  },
-  "dm_freedom_chasing_squad_killer": {
-    "eng": "I'm out to get some mercenary scalps. They've got a debt that needs collecting.",
-    "fra": "J'ai l'intention de scalper quelques mercenaires. Comme on dit, śil pour śil, dent pour dent... ",
-    "ger": "Ich bin auf der Jagd nach ein paar Söldnern. Wir haben da noch eine Rechnung zu begleichen.",
-    "ita": "Sono a caccia di scalpi mercenari. Hanno un debito che deve essere saldato.",
-    "pol": "Poluję na najemników. Mają dług, który trzeba odebrać.",
-    "rus": "Иду за наёмниками. Надо им отплатить за прошлое.",
-    "spa": "Ando tras unos mercenarios. Tienen una deuda pendiente.",
-    "ukr": "Іду за найманцями. Треба відплатити за колишні їхні справи."
-  },
-  "dm_freedom_chasing_squad_monolith": {
-    "eng": "I'm after those screwy Monolith folk.",
-    "fra": "Je compte me faire ces tarés du Monolithe.",
-    "ger": "Ich bin hinter diesen verrückten Monolithern her.",
-    "ita": "Do la caccia a quei maledetti Monolith.",
-    "pol": "Ścigam tych popaprańców z Monolitu.",
-    "rus": "За этими шизиками «монолитовцами» иду.",
-    "spa": "Ando tras esos pirados de Monolith.",
-    "ukr": "За цими шизиками «монолітівцями» йду."
-  },
-  "dm_freedom_chasing_squad_duty": {
-    "eng": "I'm trying to track down some of my debtors.",
-    "fra": "J'essaie de retrouver quelques-uns de mes débiteurs.",
-    "ger": "Ich versuche, ein paar der Typen zu erwischen, die mir Geld schulden.",
-    "ita": "Sto cercando di rintracciare alcuni dei miei debitori.",
-    "pol": "Próbuję namierzyć kilku moich dłużników.",
-    "rus": "«Должники» где-то тут тусят, их и выслеживаю.",
-    "spa": "Intento localizar a unos morosos.",
-    "ukr": "«Долгівці» десь вони тут тусять, їх і вистежую."
-  },
-  "dm_duty_doing_nothing_1": {
-    "eng": "I'm not doing anything right now.",
-    "fra": "Je ne fais rien de spécial pour l'instant.",
-    "ger": "Im Moment tue ich nichts.",
-    "ita": "Al momento non sto facendo nulla.",
-    "pol": "Nic w tej chwili nie robię.",
-    "rus": "Сейчас ничем не занимаюсь.",
-    "spa": "No hago nada ahora mismo.",
-    "ukr": "Сейчас ничем не занимаюсь."
-  },
-  "dm_duty_chasing_squad_monster": {
-    "eng": "I'm hunting mutants, trying to purge the area of their filth.",
-    "fra": "Je chasse des mutants, j'essaie d'éradiquer la vermine du coin.",
-    "ger": "Ich jage Mutanten... möchte die Gegend hier von ihrem Dreck säubern.",
-    "ita": "Do la caccia ai mutanti, nel tentativo di ripulire quest'area dal loro sudiciume.",
-    "pol": "Poluję na mutanty. Próbuję oczyścić okolicę z tego plugastwa.",
-    "rus": "Преследую мутантов: надо зачистить местность от этих тварей.",
-    "spa": "Sigo a unos mutantes. Quiero echar a esa escoria de aquí.",
-    "ukr": "Преследую мутантов: надо зачистить местность от этих тварей."
-  },
-  "dm_duty_chasing_squad_bandit": {
-    "eng": "I'm on a mission, tracking down a bandit squad.",
-    "fra": "Je suis en mission. Je dois retrouver un groupe de bandits.",
-    "ger": "Ich bin auf einer Mission und verfolge einen Banditentrupp.",
-    "ita": "Sono in missione, devo individuare una squadra di banditi.",
-    "pol": "Jestem na misji. Tropię drużynę bandytów.",
-    "rus": "У меня задание - преследую отряд бандитов.",
-    "spa": "Estoy de misión; sigo a un grupo de bandidos.",
-    "ukr": "У меня задание - преследую отряд бандитов."
-  },
-  "dm_duty_chasing_squad_killer": {
-    "eng": "Mercenaries are my target. I'm following their squad's tracks.",
-    "fra": "Ma cible est une unité de mercenaires. Je les suis ŕ la trace.",
-    "ger": "Mein Ziel sind Söldner. Ich verfolge die Spuren von einem ihrer Trupps.",
-    "ita": "Il mio bersaglio sono i mercenari. Sto seguendo le tracce della loro squadra.",
-    "pol": "Moim celem są najemnicy. Podążam za śladami ich drużyny.",
-    "rus": "Моя цель - наёмники. Иду по следу их отряда.",
-    "spa": "Los mercenarios son mi objetivo. Ando tras la pista de un grupo.",
-    "ukr": "Моя цель - наёмники. Иду по следу их отряда."
-  },
-  "dm_duty_chasing_squad_monolith": {
-    "eng": "I'm after a Monolith squad.",
-    "fra": "Je suis ŕ la poursuite d'un groupe de combattants du Monolithe.",
-    "ger": "Ich bin hinter einem Monolithertrupp her.",
-    "ita": "Sto dando la caccia a una squadra di Monolith.",
-    "pol": "Podążam za drużyną Monolitu.",
-    "rus": "Преследую отряд «монолитовцев».",
-    "spa": "Sigo a un pelotón de Monolith.",
-    "ukr": "Преследую отряд «монолитовцев»."
-  },
-  "dm_duty_chasing_squad_freedom": {
-    "eng": "I'm chasing down those half baked assholes - Freedom, that's who...",
-    "fra": "Je suis ŕ la poursuite de fauteurs de troubles... Ces anarchistes de la Liberté, évidemment !",
-    "ger": "Ich verfolge diese blöden Amateure... von der Freiheit...",
-    "ita": "Do la caccia a quegli stupidi stronzi. Quelli della Freedom, ecco chi...",
-    "pol": "Ścigam tych niedorobionych dupków z Wolności...",
-    "rus": "Шваль эту обкуренную преследую. «Свобода», так её и разэтак...",
-    "spa": "Persigo a esos panolis... Esa gente de Libertad.",
-    "ukr": "Шваль эту обкуренную преследую. «Свобода», так её и разэтак... "
-  },
-  "dm_stalker_searching_artefacts_1": {
-    "eng": "I'm hunting for artifacts.",
-    "fra": "Je cherche des artefacts.",
-    "ger": "Ich bin auf der Suche nach Artefakten.",
-    "ita": "Sono a caccia di manufatti.",
-    "pol": "Poszukuję artefaktów.",
-    "rus": "Занимаюсь поиском артефактов.",
-    "spa": "Busco artefactos.",
-    "ukr": "Займаюся пошуком артефактів."
-  },
-  "dm_stalker_searching_artefacts_2": {
-    "eng": "I ain't picking mushrooms... artifacts, more like.",
-    "fra": "Qu'est-ce que tu crois ? Que je ramasse des champignons ? Je cherche des artefacts !",
-    "ger": "Ich sammle keine Pilze... sondern eher Artefakte.",
-    "ita": "Non vado mica a funghi... Diciamo piuttosto a manufatti.",
-    "pol": "Grzybów nie zbieram... raczej artefakty.",
-    "rus": "Да уж не грибы собираю... артефакты смотрю.",
-    "spa": "No busco setas, precisamente... sino artefactos.",
-    "ukr": "Та вже ж не гриби збираю... артефакти виглядаю."
-  },
-  "dm_stalker_searching_artefacts_3": {
-    "eng": "I'm looking for artifacts.",
-    "fra": "J'essaie de trouver des artefacts.",
-    "ger": "Ich suche Artefakte.",
-    "ita": "Cerco manufatti.",
-    "pol": "Szukam artefaktów.",
-    "rus": "Артефакты ищу.",
-    "spa": "Ando buscando artefactos.",
-    "ukr": "Артефакти шукаю."
-  },
-  "st_stalker_zat_sim_1": {
-    "eng": "I'm headed toward the Boiler anomaly, the one next to a small grove.",
-    "fra": "Je vais ŕ la Bouilloire, l'anomalie prčs du petit bosquet.",
-    "ger": "Ich bin unterwegs zur Boiler-Anomalie, gleich in der Nähe eines kleinen Wäldchens.",
-    "ita": "Sono diretto verso l'anomalia Boiler, quella accanto a un boschetto.",
-    "pol": "Idę w stronę anomalii zwanej Kotłem, tej niedaleko małego zagajnika.",
-    "rus": "Иду в направлении аномалии «Котёл». Там рощица за ней - туда и иду.",
-    "spa": "Me dirijo a la anomalía Caldero, la que está junto a la pequeńa arboleda.",
-    "ukr": "Іду в напрямку аномалії «Котел». Там є такий гайок за нею - туди і йду."
-  },
-  "st_stalker_zat_sim_2": {
-    "eng": "I'm moving out to the northern lake... gonna take some time off on the peninsula.",
-    "fra": "Je vais prendre du bon temps au lac qui se trouve au nord d'ici.",
-    "ger": "Ich bin auf dem Weg zum nördlichen See... werde mir ein paar Tage Urlaub auf der Halbinsel gönnen.",
-    "ita": "Mi sto per dirigere al lago settentrionale... trascorrerň un po' di tempo sulla penisola.",
-    "pol": "Wyruszam w stronę północnego jeziora... odpocznę sobie trochę na półwyspie.",
-    "rus": "Двигаюсь в сторону северного озера, устрою там привал на полуострове.",
-    "spa": "Voy hacia el lago norte. Quiero alejarme de la península una temporada.",
-    "ukr": "Рухаюся у бік північного озера, влаштую там привал на півострові."
-  },
-  "st_stalker_zat_sim_3": {
-    "eng": "I'm going beyond the northern lake - there's a decent camping spot there.",
-    "fra": "Je vais au nord, aprčs le lac. Il y a un bon coin pour camper par lŕ-bas.",
-    "ger": "Ich bin unterwegs zum Gebiet jenseits des nördlichen Sees - dort gibt es einen ganz netten Lagerplatz.",
-    "ita": "Mi dirigerň oltre il lago settentrionale. Lě c'č un buon punto dove mettere le tende.",
-    "pol": "Idę za północne jezioro - jest tam przyzwoite miejsce na obóz.",
-    "rus": "За северное озеро иду - там есть вполне приличное место для стоянки.",
-    "spa": "Voy más allá del lago norte; por ahí hay un camping apańado.",
-    "ukr": "За північне озеро йду - там є цілком пристойне місце для стоянки."
-  },
-  "st_stalker_zat_sim_4": {
-    "eng": "I'm going to the woods beyond the northern lake.",
-    "fra": "Je vais dans les bois aprčs le lac, au nord.",
-    "ger": "Ich bin auf dem Weg in die Wälder jenseits des nördlichen Sees.",
-    "ita": "Mi dirigerň ai boschi oltre il lago settentrionale.",
-    "pol": "Idę do lasu za północnym jeziorem.",
-    "rus": "Направляюсь в лес за северным озером.",
-    "spa": "Me dirijo al bosque que hay más allá del lago norte.",
-    "ukr": "Прямую до лісу за північним озером."
-  },
-  "st_stalker_zat_sim_5": {
-    "eng": "I'm headed to a small forest west of the sawmill.",
-    "fra": "Je vais dans la petite foręt ŕ l'ouest de la scierie.",
-    "ger": "Ich gehe in den kleinen Wald westlich des Sägewerks.",
-    "ita": "Sono diretto a una piccola foresta a ovest della segheria.",
-    "pol": "Idę do małego lasku na zachód od tartaku.",
-    "rus": "Направляюсь в один лесок, он к западу от лесопилки.",
-    "spa": "Voy a un pequeńo bosque al oeste del aserradero.",
-    "ukr": "Прямую до одного лісочка, він ото на захід від тартаку."
-  },
-  "st_stalker_zat_sim_6": {
-    "eng": "I'm headed for the hill that's west of the swamp. None of the swamp pollution can reach me there.",
-    "fra": "Je vais ŕ la colline ŕ l'ouest du marais. J'y serai ŕ l'abri de la pollution.",
-    "ger": "Ich bin unterwegs zu dem Hügel westlich des Sumpfes. Dort bin ich sicher vor diesem verpesteten Dreckssumpf.",
-    "ita": "Sono diretto alla collina a ovest della palude. Lě non potrň essere raggiunto dall'inquinamento della palude.",
-    "pol": "Idę w stronę tego wzgórza na zachód od bagna. Żadne bagienne trucizny mnie tam nie dostaną.",
-    "rus": "Двигаю в одно место - холмик к западу от топи. Хоть и рядом, а никакая отрава туда с топи не доходит.",
-    "spa": "Voy rumbo a la colina que hay al oeste del pantano. Ahí no hay ni rastro de la contaminación del pantano.",
-    "ukr": "Рухаюся до одного місця - є такий горбок на захід від драговини. Хоча й поруч, а ніяка отрута туди з драговини не доходить."
-  },
-  "st_stalker_zat_sim_7": {
-    "eng": "I'm heading to the antenna complex. There's a nice little spot west of that.",
-    "fra": "Je me dirige vers la station-relais. Il y a un petit coin bien sympa pas loin ŕ l'ouest.",
-    "ger": "Ich gehe zum Antennenkomplex. Westlich davon gibt es einen netten, kleinen Platz, wo ich entspannen werde.",
-    "ita": "Sono diretto al complesso dell'antenna. A ovest c'č un bel posticino.",
-    "pol": "Idę w stronę stacji antenowej. Na zachód od niej znajduje się całkiem przyjemne miejsce.",
-    "rus": "Направляюсь к ВНЗ. Там на запад от него есть весьма неплохое местечко.",
-    "spa": "Me dirijo al complejo de la antena. Hay un sitio bonito al oeste de allí.",
-    "ukr": "Прямую до ВНЗ. Там на захід від нього є доволі непогана місцинка."
-  },
-  "st_stalker_zat_sim_8": {
-    "eng": "I'm headed for the woods west of Oakpine... come along if you like - I don't mind company.",
-    "fra": "Je vais dans les bois ŕ l'ouest du Pinchęne... Viens si tu veux, c'est plus sympa de se balader ŕ plusieurs.",
-    "ger": "Ich bin unterwegs in den Wald westlich der Pinieneiche... komm doch mit, wenn du willst - ich hätte nichts gegen etwas Gesellschaft.",
-    "ita": "Sono diretto ai boschi a ovest della Pinquercia... vieni con me, se vuoi. Un po' di compagnia mi farebbe piacere.",
-    "pol": "Idę do lasu na zachód od Sosnodębu... Chodź ze mną, jeśli chcesz - nie mam nic przeciwko towarzystwu.",
-    "rus": "Иду в сторону леса к западу от Соснодуба. От компании не откажусь!",
-    "spa": "Voy al bosque que hay al oeste de Roblepino. Vente, si quieres, no me importa tener compańía.",
-    "ukr": "Іду у бік лісу на захід від Соснодуба... від компанії не відмовлюся!"
-  },
-  "st_stalker_zat_sim_9": {
-    "eng": "To a grove between the Iron Forest and the workshops.",
-    "fra": "Je vais dans un bosquet entre la Foręt de Fer et les ateliers.",
-    "ger": "In ein Wäldchen zwischen dem Eisenwald und den Werkstätten.",
-    "ita": "A un boschetto tra la Foresta d'acciaio e le officine.",
-    "pol": "Do zagajnika pomiędzy Żelaznym Lasem i warsztatami.",
-    "rus": "Иду к роще между Железным лесом и цехами.",
-    "spa": "A una arboleda entre el Bosque de Hierro y los talleres.",
-    "ukr": "Іду до гаю між Залізним лісом та цехами."
-  },
-  "st_stalker_zat_sim_10": {
-    "eng": "Toward the great bridge... there's supposed to be a safe, private little spot east of there.",
-    "fra": "Je vais au grand pont... Il paraît qu'il y a un petit coin tranquille par lŕ-bas, ŕ l'est.",
-    "ger": "In Richtung große Brücke... östlich davon soll es einen sicheren, ungestörten Flecken Erde geben.",
-    "ita": "Verso il grande ponte... Si dice che a est si trovi un punto tranquillo e sicuro.",
-    "pol": "W stronę wielkiego mostu... Podobno na wschód od niego znajduje się bezpieczne, odosobnione miejsce.",
-    "rus": "Иду в сторону большого моста. Там на восток от него укромное местечко есть.",
-    "spa": "Hacia el gran puente. Se supone que hay un sitio seguro y solitario al este de ahí.",
-    "ukr": "Іду в бік великого мосту. Там на схід від нього є затишна місцинка."
-  },
-  "st_stalker_zat_sim_11": {
-    "eng": "To a parking lot south of the old barge.",
-    "fra": "Je vais au parking au sud de la vieille péniche.",
-    "ger": "Zu einem Parkplatz südlich des alten Schiffs.",
-    "ita": "A un parcheggio a sud della vecchia chiatta.",
-    "pol": "Na parking na południe od starej barki.",
-    "rus": "Двигаю к одной стоянке - это к югу от старой баржи.",
-    "spa": "Rumbo a un aparcamiento, al sur de la vieja barcaza.",
-    "ukr": "Рухаюся до однієї стоянки - це на південь від старої баржі."
-  },
-  "st_stalker_zat_sim_12": {
-    "eng": "Nothing special, just travelling. Gonna set up camp on a hill east of Skadovsk.",
-    "fra": "Rien de spécial, je me balade. Je vais m'installer sur une colline ŕ l'est du Skadovsk.",
-    "ger": "Nichts Besonderes, bin nur unterwegs. Östlich der Skadowsk werde ich auf einem Hügel mein Lager aufschlagen.",
-    "ita": "Niente di speciale, sono un viaggiatore. Mi accamperň su una collina a est della Skadovsk.",
-    "pol": "Nic wielkiego, trochę podróżuję. Zamierzam rozbić obóz na wzgórzu na wschód od Skadowska.",
-    "rus": "Да ничего особенного, брожу просто. Привал сделаю на холме, к востоку от «Скадовска».",
-    "spa": "Nada especial, me gusta viajar. Iba a acampar en una colina al este de Skadovsk.",
-    "ukr": "Та нічого особливого, бурлакую просто. Перепочину на пагорбі, на схід від «Скадовська»."
-  },
-  "st_stalker_zat_sim_13": {
-    "eng": "To a grove between Izumrudnoye and the gas station.",
-    "fra": "Je me dirige vers un bosquet entre Izumrudnoye et la station-essence.",
-    "ger": "In ein Wäldchen zwischen Isumrudnoje und der Tankstelle.",
-    "ita": "A un boschetto tra Izumrudnoye e la stazione di rifornimento.",
-    "pol": "Do zagajnika pomiędzy Izumrudnoje i stacją benzynową.",
-    "rus": "Иду к роще между «Изумрудным» и заправкой.",
-    "spa": "A una arboleda entre Izumrudnoye y la gasolinera.",
-    "ukr": "Іду до гаю між «Смарагдовим» та заправкою."
-  },
-  "st_stalker_zat_sim_14": {
-    "eng": "A fork in the road near the waste processing station.",
-    "fra": "Je vais au croisement prčs de la station de traitement des déchets.",
-    "ger": "Zu einer Straßengabelung in der Nähe der Kläranlage.",
-    "ita": "A un incrocio sulla strada nei pressi dell'impianto dei rifiuti.",
-    "pol": "Do rozwidlenia niedaleko zakładu utylizacji odpadów.",
-    "rus": "Иду к развилке у станции очистки.",
-    "spa": "A una bifurcación que hay junto a la planta de tratamiento de basuras.",
-    "ukr": "Іду до розвилки біля станції очищення."
-  },
-  "st_stalker_zat_sim_15": {
-    "eng": "To the Boiler anomaly.",
-    "fra": "Je vais ŕ la Bouilloire.",
-    "ger": "Zur Boiler-Anomalie.",
-    "ita": "All'anomalia Boiler.",
-    "pol": "Do anomalii zwanej Kotłem.",
-    "rus": "Иду к аномалии «Котёл».",
-    "spa": "A la anomalía Caldero.",
-    "ukr": "Іду до аномалії «Котел»."
-  },
-  "st_stalker_zat_sim_16": {
-    "eng": "To the ranger station. There's a building complex there, you've probably seen it. One of them even got furnaces - I wonder what kind of business they ran down there.",
-    "fra": "Je me rends au poste des rangers. Il y a tout un complexe industriel lŕ-bas. L'un des bâtiments a męme un fourneau, je me demande bien ce qu'ils y fabriquaient avant.",
-    "ger": "Zur Forststation. Dort gibt es einen Gebäudekomplex, vermutlich hast du ihn schon gesehen. Sogar ein Hochofen ist dort... ich frage mich, was sie da unten genau gemacht haben.",
-    "ita": "Alla stazione dei ranger. C'č un complesso di edifici lě, probabilmente lo avrai anche visto. In uno ci sono persino delle fornaci... chissŕ cosa combinano laggiů.",
-    "pol": "Do strażnicy. Jest tam kompleks budynków, pewnie go kojarzysz. W jednym z nich są piece - ciekawe, co tam się kiedyś działo.",
-    "rus": "Направляюсь к лесничеству. Знаешь там такой комплекс зданий? В одном ещё какие-то печи стоят... даже не знаю, чем они на самом деле занимались.",
-    "spa": "Al puesto del guardabosques. Allí hay un bloque de edificios; ya lo habrás visto. Uno de ellos tiene calderas. No sé qué clase de negocio habrá dentro.",
-    "ukr": "Прямую до лісництва. Знаєш там такий комплекс будівель? В одній ще якісь печі стоять... навіть не знаю, чим вони насправді займалися."
-  },
-  "st_stalker_zat_sim_17": {
-    "eng": "To a grove west of the burnt farmstead.",
-    "fra": "Je me dirige vers une foręt ŕ l'ouest de la ferme brűlée.",
-    "ger": "In ein Wäldchen westlich des abgebrannten Bauernhofs.",
-    "ita": "A un boschetto a ovest della fattoria bruciata.",
-    "pol": "Do zagajnika na zachód od spalonego gospodarstwa.",
-    "rus": "Иду к роще, что на запад от сгоревшего хутора.",
-    "spa": "A una arboleda al oeste de la granja quemada.",
-    "ukr": "Іду до гаю, що на захід від згорілого хутора."
-  },
-  "st_stalker_zat_sim_18": {
-    "eng": "To a grove east of the Boiler anomaly.",
-    "fra": "Je vais ŕ un bosquet ŕ l'est de la Bouilloire.",
-    "ger": "In ein Wäldchen östlich der Boiler-Anomalie.",
-    "ita": "A un boschetto a est dell'anomalia Boiler.",
-    "pol": "Do zagajnika na wschód od anomalii zwanej Kotłem.",
-    "rus": "Направляюсь к роще, которая на восток от «Котла».",
-    "spa": "A una arboleda al este de la anomalía Caldero.",
-    "ukr": "Прямую до гаю, що на схід від «Котла»."
-  },
-  "st_stalker_zat_sim_19": {
-    "eng": "To a hill just past the northern lake.",
-    "fra": "Je vais ŕ la colline derričre le lac, au nord.",
-    "ger": "Zu einem Hügel gleich hinter dem nördlichen See.",
-    "ita": "A una collinetta poco dopo il lago settentrionale.",
-    "pol": "W stronę wzniesienia zaraz za północnym jeziorem.",
-    "rus": "Иду к пригорку над северным озером.",
-    "spa": "A un montículo pasado el lago norte.",
-    "ukr": "Йду до пагорка над північним озером."
-  },
-  "st_stalker_zat_sim_20": {
-    "eng": "A little grove south of the burnt farmstead.",
-    "fra": "Je me dirige vers un petit bosquet au sud de la ferme brűlée.",
-    "ger": "In ein kleines Wäldchen südlich des abgebrannten Bauernhofs.",
-    "ita": "A un piccolo boschetto a sud della fattoria bruciata.",
-    "pol": "Do małego zagajnika na południe od spalonego gospodarstwa.",
-    "rus": "Иду к рощице под сгоревшим хутором.",
-    "spa": "A una pequeńa arboleda al sur de la granja quemada.",
-    "ukr": "Іду до гайка під згорілим хутором."
-  },
-  "st_stalker_zat_sim_21": {
-    "eng": "I'm headed west of Skadovsk... where the pipes come out.",
-    "fra": "Je vais ŕ l'ouest du Skadovsk... lŕ oů on peut voir les tuyaux.",
-    "ger": "Ich bin unterwegs ins Gebiet westlich der Skadowsk... wo die Rohre herauskommen.",
-    "ita": "Sono diretto a ovest della Skadovsk... dove spuntano le tubature.",
-    "pol": "Idę w pewne miejsce na zachód od Skadowska... tam, gdzie wychodzi rurociąg.",
-    "rus": "Иду к одному месту, на запад от «Скадовска». Это там, где трубопровод выныривает.",
-    "spa": "Voy rumbo al oeste de Skadovsk… De donde vienen los conductos.",
-    "ukr": "Іду до одного місця, на захід від «Скадовська». Це там, де трубопровід виринає."
-  },
-  "st_stalker_zat_sim_22": {
-    "eng": "I'm headed to a spot midway between Skadovsk and the dredge station.",
-    "fra": "Je me dirige vers un point situé entre le Skadovsk et la station de dragage.",
-    "ger": "Ich bin auf dem Weg zu einem Plätzchen mitten zwischen der Skadowsk und dem Baggerschiff.",
-    "ita": "Sono diretto a un punto a metŕ strada tra la Skadovsk e la stazione di drenaggio.",
-    "pol": "Idę w stronę miejsca, które znajduje się w pół drogi pomiędzy Skadowskiem i pogłębiarką.",
-    "rus": "Иду в одно местечко на полпути от «Скадовска» к земснаряду.",
-    "spa": "Me dirijo a un punto intermedio entre Skadovsk y la planta de dragado.",
-    "ukr": "Іду до однієї місцинки на півдорозі від «Скадовська» до земснаряда."
-  },
-  "st_stalker_zat_sim_23": {
-    "eng": "To a bayou near the old barge.",
-    "fra": "Je vais au bayou pas loin de la vieille péniche.",
-    "ger": "Zu einer Sumpfstelle in der Nähe des alten Schiffs.",
-    "ita": "A un lago paludoso nei pressi della vecchia chiatta.",
-    "pol": "Do rzeczki niedaleko starej barki.",
-    "rus": "Иду к заводям у старой баржи.",
-    "spa": "A un pantano cerca de la vieja barcaza.",
-    "ukr": "Йду до заболоні біля старої баржі."
-  },
-  "st_stalker_zat_sim_24": {
-    "eng": "To a creek near the Scar anomaly.",
-    "fra": "Je vais ŕ la crique non loin de l'anomalie Balafre.",
-    "ger": "Zu einem Bach in der Nähe der Narbe-Anomalie.",
-    "ita": "A una baia nei pressi dell'anomalia Cicatrice.",
-    "pol": "Do kanału niedaleko anomalii zwanej Szramą.",
-    "rus": "Иду к протоке возле Рубца.",
-    "spa": "A un arroyo cerca de la anomalía Cicatriz.",
-    "ukr": "Іду до протоки біля Рубця."
-  },
-  "st_stalker_zat_sim_25": {
-    "eng": "To the gas station.",
-    "fra": "Je vais ŕ la station-essence.",
-    "ger": "Zur Tankstelle.",
-    "ita": "Alla stazione di rifornimento.",
-    "pol": "Do stacji benzynowej.",
-    "rus": "Иду к заправке.",
-    "spa": "A la gasolinera.",
-    "ukr": "Іду до заправки."
-  },
-  "st_stalker_zat_sim_26": {
-    "eng": "To the Oakpine ravines.",
-    "fra": "Je vais dans les ravins du Pinchęne.",
-    "ger": "Zu den Pinieneichenschluchten.",
-    "ita": "Alle gole della Pinquercia.",
-    "pol": "Do jarów Sosnodębu.",
-    "rus": "Иду к оврагам у Соснодуба.",
-    "spa": "A los barrancos de Roblepino.",
-    "ukr": "Йду до ярів біля Соснодуба."
-  },
-  "st_stalker_zat_b55": {
-    "eng": "I want to look for artifacts in the Claw anomaly.",
-    "fra": "Je vais chercher des artefacts dans l'anomalie Griffe.",
-    "ger": "Ich möchte in der Klaue-Anomalie nach Artefakten suchen.",
-    "ita": "Voglio cercare dei manufatti nell'anomalia Artiglio.",
-    "pol": "Chcę poszukać artefaktów w anomalii zwanej Pazurem.",
-    "rus": "Хочу заняться поиском артефактов в аномалии «Коготь».",
-    "spa": "Quiero buscar artefactos en la anomalía Garra.",
-    "ukr": "Хочу зайнятися пошуком артефактів в аномалії «Пазур»."
-  },
-  "st_stalker_zat_a1": {
-    "eng": "I'm going toward a hill west of the Boiler anomaly.",
-    "fra": "Je me dirige vers une colline ŕ l'ouest de la Bouilloire.",
-    "ger": "Ich bin unterwegs zu einem Hügel westlich der Boiler-Anomalie.",
-    "ita": "Sono diretto a una collina a ovest dell'anomalia Boiler.",
-    "pol": "Idę w stronę wzgórza na zachód od anomalii zwanej Kotłem.",
-    "rus": "Направляюсь в сторону холма к западу от аномалии «Котёл».",
-    "spa": "Me dirijo a una colina al oeste de la anomalía Caldero.",
-    "ukr": "Прямую в бік пагорба на захід від аномалії «Котел»."
-  },
-  "st_stalker_zat_a23_smart_terrain": {
-    "eng": "To the Iron Forest anomaly.",
-    "fra": "Je vais ŕ l'anomalie de la Foręt de Fer.",
-    "ger": "Zur Eisenwald-Anomalie.",
-    "ita": "All'anomalia Foresta d'acciaio.",
-    "pol": "Do anomalii zwanej Żelaznym Lasem.",
-    "rus": "Иду к аномалии «Железный лес».",
-    "spa": "A la anomalía Bosque de Hierro.",
-    "ukr": "Йду до аномалії «Залізний ліс»."
-  },
-  "st_stalker_zat_b100": {
-    "eng": "I'm going to the Iron Forest anomaly to look for artifacts.",
-    "fra": "Je vais ŕ la chasse aux artefacts dans l'anomalie de la Foręt de Fer.",
-    "ger": "Ich gehe in den Eisenwald, um dort nach Artefakten zu suchen.",
-    "ita": "Sono diretto all'anomalia Foresta d'acciaio per cercare manufatti.",
-    "pol": "Idę do anomalii zwanej Żelaznym Lasem, żeby poszukać artefaktów.",
-    "rus": "Иду к Железному лесу артефакты искать.",
-    "spa": "Voy a la anomalía Bosque de Hierro a buscar artefactos.",
-    "ukr": "Іду до Залізного лісу артефакти шукати."
-  },
-  "st_stalker_zat_b101": {
-    "eng": "I'm going to the swamp. Sure, it ain't easy breathing with all that gas, but the artifacts make up for it.",
-    "fra": "Je vais dans le marais. Bien sűr, c'est pas évident de respirer avec tout ce gaz, mais ça vaut vraiment le coup, vu les artefacts qu'on peut y trouver.",
-    "ger": "Ich gehe zum Sumpf. Wegen dem ganzen Gas kriegt man dort zwar kaum Luft, aber die Artefakte sind es wert.",
-    "ita": "Sono diretto alla palude. Certo, non sarŕ facile respirare con tutto quel gas, ma i manufatti sono un buon incentivo.",
-    "pol": "Idę na bagna. Pewnie, że ciężko tam oddychać przez ten cały gaz, ale artefakty są niezłą rekompensatą.",
-    "rus": "К топи иду: там хоть и дышать сложно от «газировок», но артефакты поискать можно.",
-    "spa": "Voy al pantano. No será fácil respirar con tanto gas, pero los artefactos que hay por allí compensan.",
-    "ukr": "До драговини йду: там хоч і дихати важко від «газировокь», та зате артефакти пошукать можна."
-  },
-  "st_stalker_zat_b103_merc_smart": {
-    "eng": "I'm going to the substation workshops. They say it's a nice place to hide from emissions, so I'm going to give it a test run.",
-    "fra": "Je vais aux ateliers du poste électrique. Il paraît que c'est un bon endroit pour s'abriter des émissions, alors je vais tenter le coup.",
-    "ger": "Ich bin unterwegs in die Werkstätten des Umspannwerks. Es heißt, dass man sich dort gut vor Emissionen verstecken kann, deswegen möchte ich das mal ausprobieren.",
-    "ita": "Sono diretto alle officine della sotto-stazione. Dicono che sia un buon posto dove nascondersi dalle emissioni, quindi andrň a fare un tentativo.",
-    "pol": "Idę do warsztatów podstacji. Mówią, że to dobre miejsce, by się ukryć przed emisją. Zamierzam je przetestować.",
-    "rus": "Направляюсь к цехам подстанции - там, говорят, от выброса укрыться можно. Вот и проверим, если вдруг жахнет.",
-    "spa": "Me dirijo a los talleres de la subestación. Dicen que es un buen lugar para esconderse de las emisiones, así que voy a probar.",
-    "ukr": "Прямую до цехів підстанції - там, кажуть, від викиду укритися можна. От і перевіримо, якщо раптом жахне."
-  },
-  "st_stalker_zat_b104_zombied": {
-    "eng": "You know there's a sawmill nearby, that's where I'm headed. I want to double check it for anything of value.",
-    "fra": "Tu connais la scierie pas loin d'ici ? C'est lŕ que je vais. Je veux m'assurer qu'il n'y a rien de valeur lŕ-bas.",
-    "ger": "Kennst du das Sägewerk hier in der Nähe? Dorthin bin ich unterwegs. Ich möchte nachsehen, ob es da etwas Wertvolles zu finden gibt.",
-    "ita": "Hai presente la segheria qui vicino? Ecco, č lě che sono diretto. Voglio controllare se c'č qualcosa di valore.",
-    "pol": "Niedaleko stąd jest tartak. Tam właśnie idę. Chcę się rozejrzeć i sprawdzić, czy nie ma tam czegoś wartościowego.",
-    "rus": "Тут, знаешь, лесопилка старая есть, так я к ней направляюсь. Хочу там осмотреться - может, что полезное осталось.",
-    "spa": "Hay un aserradero cerca, żsabes? Ése es mi destino. Quiero comprobar si hay algo de valor.",
-    "ukr": "Тут, знаєш, тартак старий є, так я до нього прямую. Хочу там роздивитися - може, щось корисне лишилося."
-  },
-  "st_stalker_zat_b106_smart_terrain": {
-    "eng": "I feel like taking some time off at the Izumrudnoye resort. Oh, sure it is a fine resort... for flesh and boars! Ha-ha! Still, I'm sure I can camp out there a bit.",
-    "fra": "J'ai envie de me détendre un peu ŕ Izumrudnoye. C'est un vrai camp de vacances... pour les sangliers et les chiens aveugles ! Ah ah ! N'empęche, je pense que je vais y traîner un peu....",
-    "ger": "Ich will ein bisschen Urlaub im Ferienparadies Isumrudnoje machen. Oh ja, ein Paradies... für Fleisch und Wildschweine! Ha ha! Aber egal... ich bin mir sicher, dass ich dort irgendwo mein Lager aufschlagen kann.",
-    "ita": "Voglio passare un po' di tempo all'albergo Izumrudnoye. Oh, non č niente male... per la carne e i cinghiali! Ah ah! Comunque, sono sicuro che per un po' potrň accamparmici.",
-    "pol": "Mam ochotę wziąć sobie trochę wolnego w Izumrudnoje. Och, oczywiście, że to świetny ośrodek... dla ciała i dzików! Cha, cha! Mam jednak nadzieję, że uda mi się rozbić tam obóz.",
-    "rus": "Да вот решил отдохнуть, иду на базу отдыха «Изумрудное»... Шучу, ясное дело: там сейчас только плоти и кабаны отдыхают, хотя привал сделать всё-таки можно.",
-    "spa": "Me apetece tomarme un descanso en el complejo de Izumrudnoye. Ah, seguro que está muy bien... ˇpara jabalíes y cerdos mutantes! ˇJa, ja! Bueno, seguro que puedo acampar.",
-    "ukr": "Та от вирішив відпочити, йду на базу відпочинку «Смарагдове»... Жартую, ясна річ: там зараз хіба плоті та кабани відпочивають, хоча привал зробити все-таки можна."
-  },
-  "st_stalker_zat_b12": {
-    "eng": "To a bridge, I think it's marked Preobrazhensky on the map.",
-    "fra": "Je vais au pont, celui qui s'appelle Preobrazhensky sur la carte.",
-    "ger": "Zu einer Brücke. Ich glaube, auf der Karte ist sie als Preobraschenski eingezeichnet.",
-    "ita": "A un ponte. Credo che sulla mappa sia indicato come Preobrazhensky.",
-    "pol": "Na most. Wydaje mi się, że na mapie jest oznaczony jako most Przemienienia Pańskiego.",
-    "rus": "Направляюсь к мосту этому... как его... имени Преображенского.",
-    "spa": "A un puente. Creo que viene marcado como Preobrazhensky en el mapa.",
-    "ukr": "Прямую до мосту, як його... імені Преображенського."
-  },
-  "st_stalker_zat_b14_smart_terrain": {
-    "eng": "To the dredge station. I bet there are still some valuables to be found in the area.",
-    "fra": "Je suis en route pour la station de dragage. Je parie qu'il reste quelques trucs de valeur lŕ-bas.",
-    "ger": "Zum Baggerschiff. Ich wette, dass es dort in der Gegend noch einige wertvolle Dinge zu holen gibt.",
-    "ita": "Alla stazione di drenaggio. Scommetto che in quell'area c'č ancora qualcosa di valore da trovare.",
-    "pol": "Do pogłębiarki. Założę się, że ciągle można tam znaleźć coś wartościowego.",
-    "rus": "Иду к земснаряду. Говорят, там все ещё можно найти что-нибудь ценное.",
-    "spa": "A la planta de dragado. Seguro que aún hay cosas de valor por ahí.",
-    "ukr": "Йду до земснаряда. Кажуть, там усе ще можна знайти щось цінне."
-  },
-  "st_stalker_zat_b18": {
-    "eng": "To the old barge.",
-    "fra": "Je vais ŕ la vieille péniche.",
-    "ger": "Zum alten Schiff.",
-    "ita": "Alla vecchia chiatta.",
-    "pol": "Do starej barki.",
-    "rus": "Двигаюсь по направлению к старой барже.",
-    "spa": "Me dirijo a la vieja barcaza.",
-    "ukr": "Рухаюся у напрямку до старої баржі."
-  },
-  "st_stalker_zat_b20_smart_terrain": {
-    "eng": "I want to swing by the burnt farmstead, see if any new artifacts have popped up.",
-    "fra": "Je veux faire un tour par la ferme brűlée, au cas oů de nouveaux artefacts y seraient apparus.",
-    "ger": "Ich habe vor, beim abgebrannten Bauernhof vorbeizuschauen und zu überprüfen, ob neue Artefakte aufgetaucht sind.",
-    "ita": "Voglio passare dalla fattoria bruciata, nel caso sia spuntato qualche nuovo manufatto.",
-    "pol": "Chcę się pokręcić po spalonym gospodarstwie, zobaczyć, czy nie pojawiły się tam jakieś nowe artefakty.",
-    "rus": "На сгоревший хутор хочу зайти. Проверю, нет ли там артефактов.",
-    "spa": "Quiero pasar por la granja quemada, a ver si han aparecido objetos nuevos.",
-    "ukr": "На згорілий хутір хочу зайти. Перевірю, чи нема там артефактів."
-  },
-  "st_stalker_zat_b28": {
-    "eng": "To the southern plateau.",
-    "fra": "Je vais au plateau du sud.",
-    "ger": "Zum südlichen Plateau.",
-    "ita": "All'altopiano meridionale.",
-    "pol": "Na południowy płaskowyż.",
-    "rus": "Двигаюсь в направлении южного плато.",
-    "spa": "A la meseta sur.",
-    "ukr": "Рухаюся у напрямку південного плато."
-  },
-  "st_stalker_zat_b33": {
-    "eng": "To the crack by the gas station.",
-    "fra": "Je suis en route pour le ravin ŕ côté de la station-essence.",
-    "ger": "Zu dem Erdspalt bei der Tankstelle.",
-    "ita": "Al crepaccio accanto alla stazione di rifornimento.",
-    "pol": "Do rozpadliny przy stacji benzynowej.",
-    "rus": "Иду к разлому возле бензоколонки.",
-    "spa": "A la grieta que hay junto a la gasolinera.",
-    "ukr": "Йду до розлому біля бензоколонки."
-  },
-  "st_stalker_zat_b38": {
-    "eng": "I'm going to the Krug antenna complex - need a safe place to hide from emissions. There's supposed to be lots of monsters there, unfortunately.",
-    "fra": "Je suis en route pour la station-relais de Krug. Il faut que je me trouve un bon abri pour me protéger des émissions. Malheureusement, il paraît que ça grouille de monstres dans le coin.",
-    "ger": "Ich bin unterwegs zum Antennenkomplex Krug - ich brauche einen sicheren Ort, um mich vor Emissionen zu schützen. Allerdings sollen sich dort leider ziemlich viele Monster herumtreiben.",
-    "ita": "Sono diretto al complesso dell'antenna Krug. Mi serve un posto sicuro dove nascondermi dalle emissioni. Purtroppo si dice che lě ci siano parecchi mostri.",
-    "pol": "Idę do stacji antenowej Krug - potrzebuję bezpiecznej kryjówki przed emisjami. Niestety, podobno jest tam mnóstwo potworów.",
-    "rus": "Иду к ВНЗ «Круг»! Местечко, чтобы от выброса укрыться, что надо. Правда, там часто монстров встречают.",
-    "spa": "Voy al complejo de la antena de Krug. Necesito un lugar a salvo de emisiones. Lo malo es que dicen que hay muchos monstruos por allí.",
-    "ukr": "Іду до ВНЗ «Коло»! Місцинка, щоб від викиду укритися - шо треба... правда, там часто монстрів зустрічають."
-  },
-  "st_stalker_zat_b38u": {
-    "eng": "I'm going to the Krug antenna complex - need a safe place to hide from emissions. There's supposed to be lots of monsters there, unfortunately.",
-    "fra": "Je suis en route pour la station-relais de Krug. Il faut que je me trouve un bon abri pour me protéger des émissions. Malheureusement, il paraît que ça grouille de monstres dans le coin.",
-    "ger": "Ich bin unterwegs zum Antennenkomplex Krug - ich brauche einen sicheren Ort, um mich vor Emissionen zu schützen. Allerdings sollen sich dort leider ziemlich viele Monster herumtreiben.",
-    "ita": "Sono diretto al complesso dell'antenna Krug. Mi serve un posto sicuro dove nascondermi dalle emissioni. Purtroppo si dice che lě ci siano parecchi mostri.",
-    "pol": "Idę do stacji antenowej Krug - potrzebuję bezpiecznej kryjówki przed emisjami. Niestety, podobno jest tam mnóstwo potworów.",
-    "rus": "Иду к ВНЗ «Круг»! Что надо местечко, чтобы от выброса укрыться. Правда, там часто монстров встречают.",
-    "spa": "Voy al complejo de la antena de Krug. Necesito un lugar a salvo de emisiones. Lo malo es que dicen que hay muchos monstruos por allí.",
-    "ukr": "Іду до ВНЗ «Коло»! Правильна місцинка, щоб від викиду сховатися. Щоправда, там часто монстрів зустрічають."
-  },
-  "st_stalker_zat_b39": {
-    "eng": "I'm going to look for artifacts near Oakpine. Hopefully the mutts will keep at bay.",
-    "fra": "Je vais chercher des artefacts prčs du Pinchęne. Avec un peu de chance, les bestiaux se tiendront ŕ carreau.",
-    "ger": "Ich will in der Nähe der Pinieneiche nach Artefakten suchen. Hoffentlich lassen mich die Mutanten in Ruhe.",
-    "ita": "Vado a cercare manufatti dalle parti della Pinquercia. Spero che i mutanti se ne staranno buoni.",
-    "pol": "Idę poszukać artefaktów w okolicach Sosnodębu. Mam nadzieję, że kundle będą się trzymać z daleka.",
-    "rus": "Буду искать артефакты возле Соснодуба. Надеюсь, собачки особо не помешают.",
-    "spa": "Voy a buscar artefactos cerca de Roblepino. Esperemos que no vengan memos a molestar.",
-    "ukr": "Шукатиму артефакти біля Соснодуба. Сподіваюся, песики особливо не заважатимуть."
-  },
-  "st_stalker_zat_b40_smart_terrain": {
-    "eng": "To the cesspool... you know, the waste processing station. It's as good a place as any to hide from emissions.",
-    "fra": "Je vais au bouillon de culture... Tu sais, la station de traitement des déchets. Aprčs tout, c'est un endroit comme un autre pour s'abriter pendant les émissions.",
-    "ger": "Zum Abwassertank... du weißt schon, in der Kläranlage. Dort hat man wohl genauso viel Schutz vor Emissionen wie anderswo.",
-    "ita": "Al pozzo nero... Sai, l'impianto dei rifiuti. Per nascondersi dalle emissioni un posto vale l'altro.",
-    "pol": "Do szamba... no wiesz, do zakładu utylizacji odpadów. To miejsce równie dobre jak każde inne, aby się schować przed emisją.",
-    "rus": "Иду к отстойнику, ну то есть к станции переработки отходов. Там вполне можно от выброса укрыться.",
-    "spa": "Al pozo negro... Ya sabes, a la planta de tratamiento de basura. Es un buen sitio para huir de las emisiones.",
-    "ukr": "Йду до відстійника, ну себто до станції переробляння відходів. Там цілком можна від викиду сховатися."
-  },
-  "st_stalker_zat_b42_smart_terrain": {
-    "eng": "I'm headed to the boat pier on the northern lake. Once there I'll play it by ear.",
-    "fra": "Je vais ŕ l'embarcadčre du lac au nord. Une fois sur place, j'improviserai.",
-    "ger": "Ich bin unterwegs zum Bootspier am nördlichen See. Danach entscheide ich spontan, wie's weitergeht.",
-    "ita": "Sono diretto al molo delle navi sul lago settentrionale. Una volta lě improvviserň.",
-    "pol": "Idę w stronę przystani na północnym jeziorze. Jak już się tam dostanę, będę improwizować.",
-    "rus": "Направляюсь к лодочному причалу на северном озере. Дальше - по обстоятельствам.",
-    "spa": "Voy al embarcadero del lago norte. Una vez allí, ya veré.",
-    "ukr": "Прямую до причалу човнів на північному озері. Далі - за обставинами."
-  },
-  "st_stalker_zat_b52": {
-    "eng": "I'm going to the docks, where the cranes are. A decent place to camp out.",
-    "fra": "Je vais sur les quais, oů se trouvent les grues. C'est pas mal comme endroit pour camper.",
-    "ger": "Ich gehe zu den Docks, wo die Kräne stehen. Ein ganz netter Ort, um ein Lager aufzuschlagen.",
-    "ita": "Sono diretto al porto, dove si trovano le gru. Non č un brutto posto per accamparsi.",
-    "pol": "Idę do portu, tam gdzie są dźwigi. To dobre miejsce na obóz.",
-    "rus": "К пристани иду, где портовые краны. Местечко для привала очень даже неплохое!",
-    "spa": "Me dirijo al muelle, donde las grúas. No es mal sitio para acampar.",
-    "ukr": "До пристані йду, де портові крани. Місцинка для перепочинку дуже навіть непогана!"
-  },
-  "st_stalker_zat_b53": {
-    "eng": "I'm planning to look for artifacts in the Boiler anomaly. I just hope my suit will survive this little hot springs vacation.",
-    "fra": "Je compte chercher des artefacts dans la Bouilloire. J'espčre que ma combinaison résistera ŕ la température...",
-    "ger": "Ich habe vor, in der Boiler-Anomalie nach Artefakten zu suchen. Hoffentlich übersteht mein Schutzanzug diesen heißen Urlaub.",
-    "ita": "Voglio cercare manufatti nell'anomalia Boiler. Spero che la mia tuta resista a questo giretto in mezzo alle sorgenti termali.",
-    "pol": "Planuję poszukać artefaktów w anomalii zwanej Kotłem. Mam nadzieję, że mój kombinezon przetrwa te wakacje w gorących źródłach.",
-    "rus": "Собираюсь поискать артефакты в аномалии «Котёл». Надеюсь, мой комбез эту сауну выдержит.",
-    "spa": "Tengo pensado ir a la anomalía Caldero a buscar artefactos. Espero que mi atuendo soporte esas temperaturas.",
-    "ukr": "Збираюся пошукати артефакти в аномалії «Котел». Сподіваюся, мій комбез цю сауну витримає."
-  },
-  "st_stalker_zat_b54": {
-    "eng": "To the Scar anomaly.",
-    "fra": "Je vais ŕ la Balafre. Tu sais, l'anomalie ?",
-    "ger": "Zur Narbe-Anomalie.",
-    "ita": "All'anomalia Cicatrice.",
-    "pol": "Do anomalii zwanej Szramą.",
-    "rus": "Иду к аномалии «Рубец».",
-    "spa": "A la anomalía Cicatriz.",
-    "ukr": "Йду до аномалії «Рубець»."
-  },
-  "st_stalker_zat_b56": {
-    "eng": "I want to test how fireproof my equipment is, plus look for artifacts - all in the Circus anomaly.",
-    "fra": "Je vais tester la résistance au feu de mon équipement et chercher des artefacts dans l'anomalie Soleil.",
-    "ger": "Ich will testen, wie feuerfest meine Ausrüstung ist... und nach Artefakten suchen. Drüben in der Rundkreis-Anomalie.",
-    "ita": "Voglio vedere se la mia attrezzatura č ignifuga e cercare manufatti... tutto questo nell'anomalia Circo.",
-    "pol": "Chcę sprawdzić odporność mojego sprzętu na ogień i poszukać artefaktów - wszystko to w anomalii zwanej Cyrkiem.",
-    "rus": "Хочу проверить огнеупорность своей экипировки в аномалии «Цирк». Ну и заодно, понятное дело, артефакты поискать.",
-    "spa": "Quiero comprobar si mi equipo es ignífugo y buscar artefactos, todo ello en la anomalía Circo.",
-    "ukr": "Хочу перевірити вогнетривкість свого екіпірування в аномалії «Цирк». Ну й заразом, ясна річ, артефактів пошукати."
-  },
-  "st_stalker_zat_b5_smart_terrain": {
-    "eng": "To the ranger station.",
-    "fra": "Je vais au poste des rangers.",
-    "ger": "Zur Forststation.",
-    "ita": "Alla stazione dei ranger.",
-    "pol": "Do strażnicy.",
-    "rus": "Иду к лесничеству.",
-    "spa": "Al puesto del guardabosques.",
-    "ukr": "Йду до лісництва."
-  },
-  "st_stalker_zat_b7": {
-    "eng": "I'm going to camp out on Shevchenko. It's safe from emissions, and a tough spot for mutants to attack.",
-    "fra": "Je vais au Chevtchenko. J'y serai ŕ l'abri des émissions et hors de portée des mutants.",
-    "ger": "Ich werde mein Lager auf der Schewtschenko aufschlagen. Dort ist man vor Emissionen sicher und wird nur selten von Mutanten angegriffen.",
-    "ita": "Mi accamperň a Shevchenko. Lě sarň al sicuro dalle emissioni, e per i mutanti non sarŕ facile attaccarmi.",
-    "pol": "Zamierzam rozbić obóz na Szewczence. To dobre schronienie przed emisjami i trudne miejsce do zaatakowania dla mutantów.",
-    "rus": "Хочу сделать привал на судне «Шевченко». Там и от выброса укрытие хорошее, и от мутантов оборону держать удобно.",
-    "spa": "Voy a acampar en Shevchenko. Está a salvo de emisiones y allí es difícil que ataquen los mutantes.",
-    "ukr": "Хочу зробити зупинку на судні «Шевченко». Там і від викиду укриття гарне, і від мутантів оборону тримати зручно."
-  },
-  "st_stalker_zat_b7_stalker_raider": {
-    "eng": "I'm going to camp out on Shevchenko. It's safe from emissions, and a tough spot for mutants to attack.",
-    "fra": "Je vais au Chevtchenko. J'y serai ŕ l'abri des émissions et hors de portée des mutants.",
-    "ger": "Ich werde mein Lager auf der Schewtschenko aufschlagen. Dort ist man vor Emissionen sicher und wird nur selten von Mutanten angegriffen.",
-    "ita": "Mi accamperň a Shevchenko. Lě sarň al sicuro dalle emissioni, e per i mutanti non sarŕ facile attaccarmi.",
-    "pol": "Zamierzam rozbić obóz na Szewczence. To dobre schronienie przed emisjami i trudne miejsce do zaatakowania dla mutantów.",
-    "rus": "Хочу сделать привал на судне «Шевченко». Там и от выброса укрытие хорошее, и от мутантов оборону держать удобно.",
-    "spa": "Voy a acampar en Shevchenko. Está a salvo de emisiones y allí es difícil que ataquen los mutantes.",
-    "ukr": "Хочу зробити привал на судні «Шевченко». Там і від викиду укриття гарне, і від мутантів оборону тримати зручно."
-  },
-  "st_stalker_zat_medic_home_smart": {
-    "eng": "I'm going to the docks, where the cranes are. A decent place to camp out.",
-    "fra": "Je vais sur les quais, oů se trouvent les grues. C'est pas mal comme endroit pour camper.",
-    "ger": "Ich gehe zu den Docks, wo die Kräne stehen. Ein ganz netter Ort, um ein Lager aufzuschlagen.",
-    "ita": "Sono diretto al porto, dove si trovano le gru. Non č un brutto posto per accamparsi.",
-    "pol": "Idę do portu, tam gdzie są dźwigi. To dobre miejsce na obóz.",
-    "rus": "К пристани иду, где портовые краны. Местечко для привала очень даже неплохое!",
-    "spa": "Me dirijo al muelle, donde las grúas. No es mal sitio para acampar.",
-    "ukr": "До пристані йду, де портові крани. Місцинка для привалу дуже навіть непогана!"
-  },
-  "st_stalker_zat_stalker_base_smart": {
-    "eng": "I want to dump my loot and have a cold one or two. Skadovsk is just the place.",
-    "fra": "Je veux revendre ma camelote et me payer une bičre ou deux. C'est pour ça que je me dirige vers le Skadovsk.",
-    "ger": "Ich will meine Beute loswerden und mir ein paar Bier gönnen. Ich denke, die Skadowsk ist wie geschaffen dafür.",
-    "ita": "Voglio scaricare il mio bottino e bermi un paio di drink. La Skadovsk č il posto che fa al caso mio.",
-    "pol": "Chcę zostawić łup i wypić zimne piwko. Skadowsk to idealne miejsce do tego celu.",
-    "rus": "Хочу скинуть хабар и пропустить для расслабления пару стаканчиков, так что сейчас направляюсь к «Скадовску».",
-    "spa": "Quiero deshacerme de mi botín y refrescarme el gaznate. Skadovsk es el lugar idóneo.",
-    "ukr": "Хочу скинути хабар і пропустити для розслаблення скляночку-другу міцного, тож зараз прямую до «Скадовська»."
-  },
   "st_stalker_jup_a10_smart_terrain": {
     "eng": "I'm going to the army checkpoint, next to the Jupiter plant.",
     "fra": "Je suis en route pour le poste de contrôle prčs de l'usine de Jupiter.",
@@ -2518,6 +2038,16 @@
     "rus": "На станцию «Янов» иду. Уф-ф, отдохну наконец-то...",
     "spa": "A la estación de Yanov, a descansar por fin.",
     "ukr": "На станцію «Янів» іду. Уф-ф, нарешті відпочину... "
+  },
+  "st_stalker_jup_a9": {
+    "eng": "To Jupiter. I probably won’t venture too far in though.",
+    "fra": "Je vais ŕ Jupiter. Mais je ne m'aventurerai sűrement pas trčs loin...",
+    "ger": "Nach Jupiter... ich werde mich aber wohl nicht zu weit hineinwagen.",
+    "ita": "A Jupiter. Anche se probabilmente non mi spingerň troppo avanti.",
+    "pol": "Do fabryki Jupiter. Ale raczej nie będę wchodzić zbyt daleko do środka.",
+    "rus": "Иду к «Юпитеру». Вглубь, наверное, лезть не буду.",
+    "spa": "A Júpiter. No creo que pueda avanzar más.",
+    "ukr": "Йду до «Юпітера». Та всередину, мабуть, не лізтиму."
   },
   "st_stalker_jup_b1": {
     "eng": "To the tunnel north of Kopachy.",
@@ -2779,86 +2309,6 @@
     "spa": "Voy al tren dilapidado que hay entre el complejo Volkhov AA y el aparcamiento.",
     "ukr": "Іду до кинутого складу, що між «Волховом» та стоянкою."
   },
-  "st_stalker_jup_sim_2": {
-    "eng": "I'm going to the southern tunnel, just to be safe in case of an emission.",
-    "fra": "Je me dirige vers le tunnel sud, histoire d'ętre ŕ l'abri en cas d'émission.",
-    "ger": "Ich gehe zum südlichen Tunnel, um im Falle einer Emission sicher zu sein.",
-    "ita": "Sono diretto al tunnel meridionale, per non correre rischi in caso di emissione.",
-    "pol": "Idę do południowego tunelu, żeby się zabezpieczyć na wypadek emisji.",
-    "rus": "Иду к южному туннелю - там можно от выброса укрыться.",
-    "spa": "Voy al túnel sur para estar a salvo por si hay una emisión.",
-    "ukr": "Іду до південного тунелю - там можна від викиду сховатися."
-  },
-  "st_stalker_jup_sim_3": {
-    "eng": "I'm going to this one spot between Yanov and Kopachy.",
-    "fra": "Je vais ŕ un endroit entre Yanov et Kopachy.",
-    "ger": "Ich gehe zu diesem Plätzchen zwischen der Janow-Station und Kopatschi.",
-    "ita": "Sono diretto a un punto tra Yanov e Kopachy.",
-    "pol": "Idę w pewne miejsce pomiędzy Janowem i Kopaczi.",
-    "rus": "Направляюсь в одно место между станцией «Янов» и Копачами.",
-    "spa": "Voy a un sitio que hay entre Yanov y Kopachy.",
-    "ukr": "Прямую до одного місця між станцією «Янів» та Копачами."
-  },
-  "st_stalker_jup_sim_4": {
-    "eng": "I'm going to a spot not far from the canal, south of the cement factory.",
-    "fra": "Je me dirige vers un endroit pas loin du canal, au sud de la cimenterie.",
-    "ger": "Ich bin unterwegs zu einem Plätzchen in der Nähe des Kanals, südlich der Zementfabrik.",
-    "ita": "Sono diretto a un punto nei pressi del canale, a sud della fabbrica di cemento.",
-    "pol": "Idę w pewne miejsce niedaleko kanału, na południe od cementowni.",
-    "rus": "Иду в одно местечко - это возле канала, на юг от цементного завода.",
-    "spa": "Voy a un lugar que hay cerca del canal, al sur de la fábrica de cemento.",
-    "ukr": "Іду до однією місцинки - це біля каналу, на південь від цементного заводу."
-  },
-  "st_stalker_jup_sim_5": {
-    "eng": "I'm going to a spot near the canal, north of the Jupiter plant.",
-    "fra": "Je suis en route pour le canal, au nord de l'usine de Jupiter.",
-    "ger": "Ich bin unterwegs zu einem Plätzchen in der Nähe des Kanals, nördlich der Jupiter-Anlage.",
-    "ita": "Sono diretto a un punto nei pressi del canale, a nord dello stabilimento Jupiter.",
-    "pol": "Idę w pewne miejsce niedaleko kanału, na północ od fabryki Jupiter.",
-    "rus": "Иду в одно место возле канала, к северу от завода «Юпитер».",
-    "spa": "Voy a un lugar que hay cerca del canal, al norte de la central de Júpiter.",
-    "ukr": "Іду до одного місця біля каналу, на північ від заводу «Юпітер»."
-  },
-  "st_stalker_jup_sim_6": {
-    "eng": "I'm going to check out the quarry.",
-    "fra": "J'ai l'intention d'aller faire un tour dans la carričre.",
-    "ger": "Ich werde mich mal beim Steinbruch umsehen.",
-    "ita": "Andrň a controllare la cava.",
-    "pol": "Idę sprawdzić kamieniołom.",
-    "rus": "Направляюсь в сторону карьера, хочу там осмотреться.",
-    "spa": "Voy a echar un vistazo a la cantera.",
-    "ukr": "Направляюся у бік кар'єру, хочу там роздивитися."
-  },
-  "st_stalker_jup_sim_7": {
-    "eng": "I'm going to check out the quarry.",
-    "fra": "J'ai l'intention d'aller faire un tour dans la carričre.",
-    "ger": "Ich werde mich mal beim Steinbruch umsehen.",
-    "ita": "Andrň a controllare la cava.",
-    "pol": "Idę sprawdzić kamieniołom.",
-    "rus": "Направляюсь в сторону карьера, хочу там осмотреться.",
-    "spa": "Voy a echar un vistazo a la cantera.",
-    "ukr": "Прямую у бік кар'єру, хочу там роздивитися."
-  },
-  "st_stalker_jup_sim_8": {
-    "eng": "I'm going to check out the area north of Yanov.",
-    "fra": "J'ai l'intention de faire un tour au nord de Yanov.",
-    "ger": "Ich werde mich mal im Gebiet nördlich der Janow-Station umsehen.",
-    "ita": "Andrň a controllare l'area a nord di Yanov.",
-    "pol": "Idę rozejrzeć się po okolicy na północ od Janowa.",
-    "rus": "Хочу разведать местность к северу от «Янова».",
-    "spa": "Voy a inspeccionar la zona que hay al norte de Yanov.",
-    "ukr": "Хочу розвідати місцевість на північ від «Янова»."
-  },
-  "st_stalker_jup_sim_9": {
-    "eng": "Toward the Volkhov AA complex. There's a nice spot to camp out, between the complex and the Kopachy village.",
-    "fra": "Je vais vers le complexe Volkhov AA. Il y a un coin sympa pour camper entre le complexe et le village de Kopachy.",
-    "ger": "In Richtung Flugabwehrkomplex Wolchow. Da gibt es einen ganz netten Lagerplatz, zwischen dem Komplex und dem Dorf Kopatschi.",
-    "ita": "Verso il complesso Volkhov AA. C'č un buon punto dove accamparsi, tra il complesso e Kopachy.",
-    "pol": "W stronę kompleksu przeciwlotniczego Wołchow. Jest tam niezłe miejsce na obóz, pomiędzy kompleksem i wioską Kopaczi.",
-    "rus": "Иду по направлению к ЗРК «Волхов»: между этим ракетным комплексом и Копачами есть удобное место для привала.",
-    "spa": "Hacia el complejo Volkhov AA. Hay un sitio estupendo para acampar entre el complejo y el pueblo de Kopachy.",
-    "ukr": "Іду в напрямку до ЗРК «Волхов»: між цим ракетним комплексом та Копачами є зручне місце для привалу."
-  },
   "st_stalker_jup_sim_10": {
     "eng": "Oh, just travelling... Heading toward the container warehouse.",
     "fra": "Je me balade, tout simplement. Lŕ, je vais ŕ l'entrepôt ŕ conteneurs.",
@@ -2958,6 +2408,86 @@
     "rus": "К заводу иду, хочу осмотреть территорию.",
     "spa": "Voy a inspeccionar los alrededores de la central.",
     "ukr": "До заводу йду, хочу оглянути територію."
+  },
+  "st_stalker_jup_sim_2": {
+    "eng": "I'm going to the southern tunnel, just to be safe in case of an emission.",
+    "fra": "Je me dirige vers le tunnel sud, histoire d'ętre ŕ l'abri en cas d'émission.",
+    "ger": "Ich gehe zum südlichen Tunnel, um im Falle einer Emission sicher zu sein.",
+    "ita": "Sono diretto al tunnel meridionale, per non correre rischi in caso di emissione.",
+    "pol": "Idę do południowego tunelu, żeby się zabezpieczyć na wypadek emisji.",
+    "rus": "Иду к южному туннелю - там можно от выброса укрыться.",
+    "spa": "Voy al túnel sur para estar a salvo por si hay una emisión.",
+    "ukr": "Іду до південного тунелю - там можна від викиду сховатися."
+  },
+  "st_stalker_jup_sim_3": {
+    "eng": "I'm going to this one spot between Yanov and Kopachy.",
+    "fra": "Je vais ŕ un endroit entre Yanov et Kopachy.",
+    "ger": "Ich gehe zu diesem Plätzchen zwischen der Janow-Station und Kopatschi.",
+    "ita": "Sono diretto a un punto tra Yanov e Kopachy.",
+    "pol": "Idę w pewne miejsce pomiędzy Janowem i Kopaczi.",
+    "rus": "Направляюсь в одно место между станцией «Янов» и Копачами.",
+    "spa": "Voy a un sitio que hay entre Yanov y Kopachy.",
+    "ukr": "Прямую до одного місця між станцією «Янів» та Копачами."
+  },
+  "st_stalker_jup_sim_4": {
+    "eng": "I'm going to a spot not far from the canal, south of the cement factory.",
+    "fra": "Je me dirige vers un endroit pas loin du canal, au sud de la cimenterie.",
+    "ger": "Ich bin unterwegs zu einem Plätzchen in der Nähe des Kanals, südlich der Zementfabrik.",
+    "ita": "Sono diretto a un punto nei pressi del canale, a sud della fabbrica di cemento.",
+    "pol": "Idę w pewne miejsce niedaleko kanału, na południe od cementowni.",
+    "rus": "Иду в одно местечко - это возле канала, на юг от цементного завода.",
+    "spa": "Voy a un lugar que hay cerca del canal, al sur de la fábrica de cemento.",
+    "ukr": "Іду до однією місцинки - це біля каналу, на південь від цементного заводу."
+  },
+  "st_stalker_jup_sim_5": {
+    "eng": "I'm going to a spot near the canal, north of the Jupiter plant.",
+    "fra": "Je suis en route pour le canal, au nord de l'usine de Jupiter.",
+    "ger": "Ich bin unterwegs zu einem Plätzchen in der Nähe des Kanals, nördlich der Jupiter-Anlage.",
+    "ita": "Sono diretto a un punto nei pressi del canale, a nord dello stabilimento Jupiter.",
+    "pol": "Idę w pewne miejsce niedaleko kanału, na północ od fabryki Jupiter.",
+    "rus": "Иду в одно место возле канала, к северу от завода «Юпитер».",
+    "spa": "Voy a un lugar que hay cerca del canal, al norte de la central de Júpiter.",
+    "ukr": "Іду до одного місця біля каналу, на північ від заводу «Юпітер»."
+  },
+  "st_stalker_jup_sim_6": {
+    "eng": "I'm going to check out the quarry.",
+    "fra": "J'ai l'intention d'aller faire un tour dans la carričre.",
+    "ger": "Ich werde mich mal beim Steinbruch umsehen.",
+    "ita": "Andrň a controllare la cava.",
+    "pol": "Idę sprawdzić kamieniołom.",
+    "rus": "Направляюсь в сторону карьера, хочу там осмотреться.",
+    "spa": "Voy a echar un vistazo a la cantera.",
+    "ukr": "Направляюся у бік кар'єру, хочу там роздивитися."
+  },
+  "st_stalker_jup_sim_7": {
+    "eng": "I'm going to check out the quarry.",
+    "fra": "J'ai l'intention d'aller faire un tour dans la carričre.",
+    "ger": "Ich werde mich mal beim Steinbruch umsehen.",
+    "ita": "Andrň a controllare la cava.",
+    "pol": "Idę sprawdzić kamieniołom.",
+    "rus": "Направляюсь в сторону карьера, хочу там осмотреться.",
+    "spa": "Voy a echar un vistazo a la cantera.",
+    "ukr": "Прямую у бік кар'єру, хочу там роздивитися."
+  },
+  "st_stalker_jup_sim_8": {
+    "eng": "I'm going to check out the area north of Yanov.",
+    "fra": "J'ai l'intention de faire un tour au nord de Yanov.",
+    "ger": "Ich werde mich mal im Gebiet nördlich der Janow-Station umsehen.",
+    "ita": "Andrň a controllare l'area a nord di Yanov.",
+    "pol": "Idę rozejrzeć się po okolicy na północ od Janowa.",
+    "rus": "Хочу разведать местность к северу от «Янова».",
+    "spa": "Voy a inspeccionar la zona que hay al norte de Yanov.",
+    "ukr": "Хочу розвідати місцевість на північ від «Янова»."
+  },
+  "st_stalker_jup_sim_9": {
+    "eng": "Toward the Volkhov AA complex. There's a nice spot to camp out, between the complex and the Kopachy village.",
+    "fra": "Je vais vers le complexe Volkhov AA. Il y a un coin sympa pour camper entre le complexe et le village de Kopachy.",
+    "ger": "In Richtung Flugabwehrkomplex Wolchow. Da gibt es einen ganz netten Lagerplatz, zwischen dem Komplex und dem Dorf Kopatschi.",
+    "ita": "Verso il complesso Volkhov AA. C'č un buon punto dove accamparsi, tra il complesso e Kopachy.",
+    "pol": "W stronę kompleksu przeciwlotniczego Wołchow. Jest tam niezłe miejsce na obóz, pomiędzy kompleksem i wioską Kopaczi.",
+    "rus": "Иду по направлению к ЗРК «Волхов»: между этим ракетным комплексом и Копачами есть удобное место для привала.",
+    "spa": "Hacia el complejo Volkhov AA. Hay un sitio estupendo para acampar entre el complejo y el pueblo de Kopachy.",
+    "ukr": "Іду в напрямку до ЗРК «Волхов»: між цим ракетним комплексом та Копачами є зручне місце для привалу."
   },
   "st_stalker_pri_a15": {
     "eng": "To the yard behind the laundromat.",
@@ -3059,6 +2589,16 @@
     "spa": "Iba a la escuela. Dicen que está plagada de monstruos, pero servirá en caso de que haya emisiones.",
     "ukr": "Іду до школи! Там, кажуть, монстрів повно, зате від викиду укритися можна. Та й артефакти трапляються."
   },
+  "st_stalker_pri_b302": {
+    "eng": "I'm looking for a place in Pripyat with lots of artifacts and no monsters or Monolith fighters... He-he... Seriously, I'm going to check out this anomaly I heard of, just south of the river port.",
+    "fra": "Je fouille Pripyat ŕ la recherche d'un endroit plein d'artefacts et sans monstres ou soldats du Monolithe... Hé, hé, on peut toujours ręver, pas vrai ? Bon, plus sérieusement, je compte aller voir une anomalie dont on m'a parlé, au sud du port fluvial.",
+    "ger": "Ich bin auf der Suche nach einem Gebiet in Pripyat mit vielen Artefakten und keinen Monstern oder Monolithern... ha ha! Nein, im Ernst... ich bin unterwegs zu einer Anomalie, von der ich gehört habe... gleich südlich des Flusshafens.",
+    "ita": "Sto cercando un posto a Pripyat con molti manufatti e senza mostri né combattenti Monolith... Eh eh. Andrň a controllare quest'anomalia di cui ho sentito parlare, a sud del porto del fiume.",
+    "pol": "Szukam w Prypeci miejsca z mnóstwem artefaktów, ale bez potworów i wojowników Monolitu... He, he... A na poważnie, zamierzam sprawdzić pewną anomalię, o której słyszałem, na południe od portu rzecznego.",
+    "rus": "Хочу найти в Припяти место где есть артефакты и нету монстров или «монолитовцев». А если конкретно, то к югу от речного порта аномалия есть, вот к ней и направляюсь.",
+    "spa": "Ando buscado un lugar en Pripyat con montones de artefactos y sin monstruos ni soldados de Monolith. Je, je, ahora en serio, voy a comprobar una anomalía de la que me han hablado al sur del puerto fluvial.",
+    "ukr": "Хочу знайти у Прип'яті місце, де є артефакти і немає монстрів чи «монолітівців». А якщо конкретно, то на південь від річкового порту аномалія є, то до неї я й прямую."
+  },
   "st_stalker_pri_b303": {
     "eng": "I'm headed to the old service center. There's supposed to be an anomaly on the first floor, and maybe some artifacts too.",
     "fra": "Je suis en route pour le vieux centre de service. On dit qu'il y a une anomalie au premier étage, alors j'y trouverai peut-ętre des artefacts.",
@@ -3159,16 +2699,6 @@
     "spa": "Ando de un lado para otro. Ahora iba al puerto fluvial. Espero no cruzarme a esos lunáticos de Monolith...",
     "ukr": "Просто подорожую, зараз хочу до річкового порту піти... Добре б не зустріти там цих фанатиків - «монолітівців»."
   },
-  "st_stalker_pri_b302": {
-    "eng": "I'm looking for a place in Pripyat with lots of artifacts and no monsters or Monolith fighters... He-he... Seriously, I'm going to check out this anomaly I heard of, just south of the river port.",
-    "fra": "Je fouille Pripyat ŕ la recherche d'un endroit plein d'artefacts et sans monstres ou soldats du Monolithe... Hé, hé, on peut toujours ręver, pas vrai ? Bon, plus sérieusement, je compte aller voir une anomalie dont on m'a parlé, au sud du port fluvial.",
-    "ger": "Ich bin auf der Suche nach einem Gebiet in Pripyat mit vielen Artefakten und keinen Monstern oder Monolithern... ha ha! Nein, im Ernst... ich bin unterwegs zu einer Anomalie, von der ich gehört habe... gleich südlich des Flusshafens.",
-    "ita": "Sto cercando un posto a Pripyat con molti manufatti e senza mostri né combattenti Monolith... Eh eh. Andrň a controllare quest'anomalia di cui ho sentito parlare, a sud del porto del fiume.",
-    "pol": "Szukam w Prypeci miejsca z mnóstwem artefaktów, ale bez potworów i wojowników Monolitu... He, he... A na poważnie, zamierzam sprawdzić pewną anomalię, o której słyszałem, na południe od portu rzecznego.",
-    "rus": "Хочу найти в Припяти место где есть артефакты и нету монстров или «монолитовцев». А если конкретно, то к югу от речного порта аномалия есть, вот к ней и направляюсь.",
-    "spa": "Ando buscado un lugar en Pripyat con montones de artefactos y sin monstruos ni soldados de Monolith. Je, je, ahora en serio, voy a comprobar una anomalía de la que me han hablado al sur del puerto fluvial.",
-    "ukr": "Хочу знайти у Прип'яті місце, де є артефакти і немає монстрів чи «монолітівців». А якщо конкретно, то на південь від річкового порту аномалія є, то до неї я й прямую."
-  },
   "st_stalker_pri_sim_1": {
     "eng": "Toward the Prometheus movie theater.",
     "fra": "Je vais au cinéma Prometheus.",
@@ -3219,65 +2749,465 @@
     "spa": "Voy a un sitio que hay entre el jardín de infancia y el bloque de apartamentos.",
     "ukr": "Прямую до одного місця між дитсадком та общагою."
   },
-  "dm_anomalies_8": {
-    "eng": "There's this place they call Scar, where the ground looks like it has been hacked with an axe. People have found artifacts there, but once you go in there something weird starts to happen. That thing hits your brains so hard you almost forget how to breathe, let alone try to get your ass out of there.",
-    "fra": "Il y a un endroit qu'ils appellent la Balafre, oů on dirait que le sol a été coupé en deux. On y a trouvé des artefacts, mais, une fois que tu y pénčtres, il se passe un truc étrange : ton cerveau part en vrille, ŕ tel point que t'en oublies quasiment de respirer et de te barrer en courant.",
-    "ger": "Es gibt da eine Gegend, die Narbe genannt wird, weil der Boden dort so aussieht, als ob man ihn mit einer Axt zerpflügt hätte. Dort wurden Artefakte gefunden, aber wenn man erst einmal dorthin geht, geschehen die merkwürdigsten Dinge. Dein Hirn spielt so verrückt, dass du fast schon das Atmen vergisst, ganz zu schweigen davon zu verschwinden.",
-    "ita": "C'č questo posto chiamato Cicatrice, dove il terreno sembra colpito da una scure. Lě sono stati ritrovati dei manufatti, ma una volta che ci entri comincia a succedere qualcosa di strano. Il tuo cervello subisce una botta tale che quasi ti dimentichi di respirare, quando invece dovresti dartela a gambe.",
-    "pol": "Jest pewne miejsce, zwane Szramą, gdzie ziemia wygląda, jakby ktoś ją przeciął siekierą. Ludzie znajdowali tam artefakty, ale gdy się tam wejdzie, zaczynają się dziać dziwne rzeczy. To coś tak działa na mózg, że zapominasz, jak się oddycha, nie mówiąc już o tym, żeby się stamtąd wydostać.",
-    "rus": "Ну, есть такое место, где землю как ножом разрубило - Рубец. Там не раз и не два находили артефакты, но с теми, кто туда лезет, происходит что-то странное. Та штука даёт по мозгам с такой силой, что не то что выбраться - на вдох-выдох соображалки часто не хватает.",
-    "spa": "Hay un sitio llamado la Cicatriz que parece haber sido arado a base de hachazos. Se han encontrado artefactos allí, pero cuando entras empiezan a pasar cosas muy raras. El cerebro se queda tan tocado que hasta olvidas cómo respirar, así que ni hablemos de intentar salir de ahí echando leches.",
-    "ukr": "Місце, де землю мов ножем розрубило - то Рубець. Там не раз і не двічі знаходили артефакти, але з тими, хто туди лізе, коїться щось дивне. Та штука дає по мізках із такою силою, що не те що вибратися - тумкалки часто не стачає, аби вдихнути-видихнути."
+  "st_stalker_zat_a1": {
+    "eng": "I'm going toward a hill west of the Boiler anomaly.",
+    "fra": "Je me dirige vers une colline ŕ l'ouest de la Bouilloire.",
+    "ger": "Ich bin unterwegs zu einem Hügel westlich der Boiler-Anomalie.",
+    "ita": "Sono diretto a una collina a ovest dell'anomalia Boiler.",
+    "pol": "Idę w stronę wzgórza na zachód od anomalii zwanej Kotłem.",
+    "rus": "Направляюсь в сторону холма к западу от аномалии «Котёл».",
+    "spa": "Me dirijo a una colina al oeste de la anomalía Caldero.",
+    "ukr": "Прямую в бік пагорба на захід від аномалії «Котел»."
   },
-  "dm_anomalies_1": {
-    "eng": "You know where the dredge station is? It's been battered up by gravitational anomalies, but not too bad for an experienced stalker. Just keep throwing bolts as usual. There’s also radiation, inside and out - it’s like being next to a massive chunk of enriched uranium.",
-    "fra": "Tu sais oů est la station de dragage ? C'est plein d'anomalies gravitationnelles, mais rien qu'un stalker expérimenté ne puisse gérer. Il suffit d'utiliser les boulons, comme d'habitude. Il y a aussi pas mal de radiations, ŕ l'intérieur comme ŕ l'extérieur. C'est un peu comme si tu te baladais prčs d'un gros tas d'uranium enrichi...",
-    "ger": "Weißt du, wo das Baggerschiff ist? Die ganzen Gravitationsanomalien haben dem Ding arg zugesetzt, aber das sollte kein Problem für einen erfahrenen Stalker sein. Hauptsache, man hat genügend Schrauben dabei, die man werfen kann. Aber das Schiff ist teilweise verstrahlt, sowohl innen als auch außen... es ist fast so, als ob man sich einem großen Haufen angereichertem Uran nähern würde.",
-    "ita": "Sai dove si trova la stazione di drenaggio? Č stata sottoposta a parecchie anomalie gravitazionali, ma niente che uno stalker esperto non possa affrontare. Continua a lanciare bulloni, come al solito. Ci sono anche delle radiazioni, dentro e fuori. Č per via dell'acqua... quel posto sembra un piccolo reattore all'uranio.",
-    "pol": "Wiesz, gdzie jest pogłębiarka? Została zniszczona przez anomalie grawitacyjne, ale dla doświadczonego stalkera to nic wielkiego. Po prostu rzucaj śrubami, jak zwykle. Pełno tam też promieniowania, zarówno wewnątrz, jak i na zewnątrz - jak przy wielkim kawałku wzbogaconego uranu.",
-    "rus": "Знаешь, где земснаряд стоит? Его гравианомалиями покорёжило, но для опытного сталкера не слишком сложно, знай только болты не забывай пробрасывать. Плюс радиация что внутри, что снаружи... Фонит - прямо тебе кусок обогащённого урана!",
-    "spa": "żSabes dónde está la planta de dragado? Ha sufrido anomalías gravitatorias, pero eso no es grave para un stalker experimentado. Tú ve lanzando tornillos, como siempre. También hay radiación, tanto dentro como fuera. Es como un pequeńo reactor de uranio enriquecido.",
-    "ukr": "Знаєш, де земснаряд стоїть? Його гравіаномаліямі покоцало, але для досвідченого сталкера не надто складно, головне болти не забувай кидати. Плюс радіація, що всередині, що зовні... Фонить - прямо як ото шмат збагаченого урану!"
+  "st_stalker_zat_a23_smart_terrain": {
+    "eng": "To the Iron Forest anomaly.",
+    "fra": "Je vais ŕ l'anomalie de la Foręt de Fer.",
+    "ger": "Zur Eisenwald-Anomalie.",
+    "ita": "All'anomalia Foresta d'acciaio.",
+    "pol": "Do anomalii zwanej Żelaznym Lasem.",
+    "rus": "Иду к аномалии «Железный лес».",
+    "spa": "A la anomalía Bosque de Hierro.",
+    "ukr": "Йду до аномалії «Залізний ліс»."
   },
-  "dm_anomalies_4": {
-    "eng": "There's an old substation here, also called the Iron Forest. You'll understand why when you see it. Some people claim to have found clusters of artifacts in that area after an emission hit. It’s not all that dangerous, mainly electric anomalies and a bit of radiation... There’s also a few poltergeists, that will bury you in all kinds of crap if you don't hide in time.",
-    "fra": "Il y a un vieux poste électrique par lŕ, on l'appelle la Foręt de Fer, on comprend tout de suite pourquoi en la voyant. Il paraît qu'on y a trouvé des paquets d'artefacts aprčs des émissions. Il y a pas mal d'anomalies électriques et de radiations, mais rien de vraiment dangereux... Et quelques poltergeists qui te balancent tout un tas de saletés...",
-    "ger": "Es gibt da ein altes Umspannwerk, das auch Eisenwald genannt wird. Wenn du dorthin kommst, wirst du verstehen warum. Manche behaupten, dass sie nach einer Emission einen Haufen Artefakte dort gefunden hätten. Allzu gefährlich ist es im Eisenwald nicht, hauptsächlich Elektroanomalien und leichte Strahlung... da sind auch ein paar Poltergeister, die dir allen möglichen Krempel entgegenschleudern, wenn du nicht rechtzeitig in Deckung gehst.",
-    "ita": "Qui c'č una vecchia sotto-stazione, anche nota come Foresta d'acciaio. Capirai il perché di questo nome quando la vedrai. Certa gente sostiene di aver trovato numerosi manufatti dopo un'emissione. Non č un posto molto pericoloso, piů che altro ci sono anomalie elettriche mescolate a radiazioni. Ci sono anche dei poltergeist. Se non ti nascondi in tempo ti seppelliranno in men che non si dica.",
-    "pol": "Jest tu stara podstacja, zwana też Żelaznym Lasem. Zrozumiesz dlaczego, jak ją zobaczysz. Niektórzy twierdzą, że po emisji znajdowali tam po kilka artefaktów. Nie jest tam aż tak niebezpiecznie, głównie anomalie elektryczne i trochę promieniowania... Znajdzie się też kilka poltergeistów, które zasypią cię wszystkim, czym tylko się da, jeżeli się w porę nie schowasz.",
-    "rus": "Есть тут старая подстанция, её ещё Железным лесом называют. Ты если там будешь - поймёшь, почему. Так рассказывают, что после выброса там по нескольку артефактов находили. В смысле опасности место так себе - ну «электры», ну фонит немного... Правда, ещё полтергейсты есть. Если спрятаться не успел, закидают тебя всяким хламом.",
-    "spa": "Aquí hay una vieja subestación llamada el Bosque de Hierro. Entenderás por qué cuando la veas. Hay quien dice haber encontrado varios artefactos tras una emisión. Tampoco es tan peligroso; hay anomalías eléctricas y algo de radiación... Por no hablar de los poltergeists. Si no te escondes a tiempo, te sepultan bajo cualquier mierda.",
-    "ukr": "Є тут стара підстанція, її ще Залізним лісом називають. Ти якщо там будеш - зрозумієш, чому. Так розповідають, що після викиду там по кілька артефактів знаходили. У сенсі небезпеки місце так собі - ну, «електри», ну фонить трохи... Щоправда, іще полтергейсти є. Якщо сховатися не встиг, закидають тебе різним мотлохом."
+  "st_stalker_zat_b100": {
+    "eng": "I'm going to the Iron Forest anomaly to look for artifacts.",
+    "fra": "Je vais ŕ la chasse aux artefacts dans l'anomalie de la Foręt de Fer.",
+    "ger": "Ich gehe in den Eisenwald, um dort nach Artefakten zu suchen.",
+    "ita": "Sono diretto all'anomalia Foresta d'acciaio per cercare manufatti.",
+    "pol": "Idę do anomalii zwanej Żelaznym Lasem, żeby poszukać artefaktów.",
+    "rus": "Иду к Железному лесу артефакты искать.",
+    "spa": "Voy a la anomalía Bosque de Hierro a buscar artefactos.",
+    "ukr": "Іду до Залізного лісу артефакти шукати."
   },
-  "dm_job_12": {
-    "eng": "Work? I don’t know, to be honest. But if you get a chance to help Freedom out - go see our boss at Yanov. Go to the southern wing and see Loki - that's him. Remember, if you believe in the advancement of humankind, in greater consciousness and significance of the Zone's gifts, you'll be making the right choice.",
-    "fra": "Du boulot ? Franchement, je ne sais pas. Mais si tu veux filer un coup de main ŕ la Liberté, va voir notre chef ŕ Yanov : va dans l'aile sud et demande Loki. Et oublie pas : si tu crois ŕ l'évolution des connaissances et de la conscience humaines, et ŕ l'importance des dons de la Zone, tu fais le bon choix.",
-    "ger": "Hmm... ehrlich gesagt habe ich keine Ahnung. Aber wenn du die Möglichkeit hast, der Freiheit zu helfen, melde dich bei unserem Anführer in der Janow-Station. Loki ist sein Name, du findest ihn im Südflügel. Denke immer daran: Wenn du an den Fortschritt der Menschheit, ein höheres Bewusstsein und an die Wichtigkeit der Geschenke der Zone glaubst, bist du auf dem richtigen Weg.",
-    "ita": "Lavorare? A essere onesto non saprei. Ma se hai la possibilitŕ di aiutare la Freedom, parla con il nostro capo a Yanov. Vai all'ala sud e parla con Loki, č lui la persona giusta. Ricorda, se credi nell'evoluzione della specie umana, in una veritŕ superiore e nel significato dei doni della Zona, farai la scelta giusta.",
-    "pol": "Pracę? Szczerze mówiąc, nie wiem. Ale jeśli nadarzy ci się szansa, żeby pomóc Wolności, idź do naszego szefa w Janowie. Skieruj się do południowego skrzydła i spotkaj się z Lokim - to on. Pamiętaj, jeśli wierzysz w postęp rodzaju ludzkiego, wyższą świadomość i znaczenie darów Zony, dokonasz słusznego wyboru.",
-    "rus": "Работу? Честно говоря, не знаю. Но если у тебя появится шанс как-нибудь помочь «Свободе», ты приходи к нашему главному на «Янов». В южном крыле найдёшь Локи - вот это он самый и будет. В общем, если ты веришь в прогресс человечества, в его сознательность, в ценность даров Зоны, - это как раз твой выбор.",
-    "spa": "żTrabajo? No sé, la verdad... Pero si tienes ocasión de ayudar a Libertad, ve a ver a nuestro jefe a Yanov. Dirígete al ala sur y busca a Loki; así se llama. Recuerda, si crees en el progreso de la humanidad, en un bien supremo y en la importancia de los dones de la Zona, harás lo correcto.",
-    "ukr": "Роботу? Чесно кажучи, не знаю. Але якщо в тебе з'явиться шанс якось допомогти «Волі», ти приходь до нашого головного на «Янів». У південному крилі знайдеш Локі - ото він сам і буде... Взагалі, якщо ти віриш у прогрес людства, у його свідомість, у цінність дарунків Зони, - це саме твій вибір."
+  "st_stalker_zat_b101": {
+    "eng": "I'm going to the swamp. Sure, it ain't easy breathing with all that gas, but the artifacts make up for it.",
+    "fra": "Je vais dans le marais. Bien sűr, c'est pas évident de respirer avec tout ce gaz, mais ça vaut vraiment le coup, vu les artefacts qu'on peut y trouver.",
+    "ger": "Ich gehe zum Sumpf. Wegen dem ganzen Gas kriegt man dort zwar kaum Luft, aber die Artefakte sind es wert.",
+    "ita": "Sono diretto alla palude. Certo, non sarŕ facile respirare con tutto quel gas, ma i manufatti sono un buon incentivo.",
+    "pol": "Idę na bagna. Pewnie, że ciężko tam oddychać przez ten cały gaz, ale artefakty są niezłą rekompensatą.",
+    "rus": "К топи иду: там хоть и дышать сложно от «газировок», но артефакты поискать можно.",
+    "spa": "Voy al pantano. No será fácil respirar con tanto gas, pero los artefactos que hay por allí compensan.",
+    "ukr": "До драговини йду: там хоч і дихати важко від «газировокь», та зате артефакти пошукать можна."
   },
-  "dm_job_13": {
-    "eng": "No idea. But if you find something that can help us in our fight against the Zone and those who think it's a gift rather than a curse, go see the commander of Duty's expedition unit - Lieutenant Colonel Shulga. He's the man in charge at Yanov station. You'll find him in the northern wing. One thing’s for sure - any civilian who contributes to Duty’s overall success will get a handsome reward.",
-    "fra": "Aucune idée. Mais si tu trouves quelque chose qui nous aide ŕ combattre la Zone et ceux qui pensent que c'est un don plutôt qu'une malédiction, va voir le commandant de l'expédition du Devoir, le colonel Shulga. C'est lui qui est responsable de la gare de Yanov, il se trouve dans l'aile nord. Une chose est sűre en tout cas : tout civil qui contribue au succčs du Devoir sera récompensé.",
-    "ger": "Keine Ahnung. Aber wenn du auf etwas stößt, das uns bei unserem Kampf gegen die Zone und die Typen hilft, die die Zone als Segen und nicht als Fluch ansehen, melde dich beim Kommandeur der Expeditionseinheit der Wächter - Oberstleutnant Shulga. Er hat das Sagen in der Janow-Station, du findest ihn im Nordflügel. Eines ist ganz sicher: Jeder Zivilist, der seinen Beitrag für den Erfolg der Wächter leistet, wird angemessen belohnt.",
-    "ita": "Non ne ho idea, ma se trovi qualcosa che ci aiuti a combattere la Zona e quelli che la considerano un dono anziché una maledizione, parla con il comandante dell'unitŕ della Duty, il Tenente Colonnello Shulga. Lui č a capo della stazione Yanov. Lo troverai nell'ala nord. Una cosa č certa: tutti i civili che contribuiranno al successo della Duty riceveranno una generosa ricompensa.",
-    "pol": "Nie mam pojęcia. Ale jeśli znajdziesz coś, co może nam pomóc w walce przeciwko Zonie i przeciwko tym, którzy uważają ją za dar, a nie za przekleństwo, spotkaj się z dowódcą jednostki ekspedycyjnej Powinności, podpułkownikiem Szulgą. On zarządza stacją Janów. Znajdziesz go w północnym skrzydle. Jedno jest pewne - każdy cywil, który przyczyni się do zwycięstwa Powinności, zostanie należycie nagrodzony.",
-    "rus": "Не в курсе. Но если ты обнаружишь нечто, что может помочь нам в борьбе против Зоны или наших врагов, обращайся к командиру экспедиционного отряда «Долга», подполковнику Шульге. Он старший на станции «Янов», ты можешь найти его в северном крыле. Могу сказать наверняка: любой гражданский, кто внёс свой вклад в дело «Долга», обязательно будет вознаграждён.",
-    "spa": "Ni idea. Pero si encuentras algo que pueda sernos de ayuda para luchar contra la Zona y los que piensan que es un regalo y no una maldición, ve a ver al comandante de la expedición de Deber, el teniente coronel Shulga. Está al frente de la estación de Yanov, lo encontrarás en el ala norte. Una cosa está clara: los civiles que contribuyan a la victoria de Deber, recibirán una generosa recompensa.",
-    "ukr": "Не в курсе. Но если ты обнаружишь нечто, что может помочь нам в борьбе против Зоны или наших врагов, обращайся к командиру экспедиционного отряда «Долга», подполковнику Шульге. Он старший на станции «Янов», ты можешь найти его в северном крыле. Могу сказать наверняка: любой гражданский, кто внёс свой вклад в дело «Долга», обязательно будет вознаграждён."
+  "st_stalker_zat_b103_merc_smart": {
+    "eng": "I'm going to the substation workshops. They say it's a nice place to hide from emissions, so I'm going to give it a test run.",
+    "fra": "Je vais aux ateliers du poste électrique. Il paraît que c'est un bon endroit pour s'abriter des émissions, alors je vais tenter le coup.",
+    "ger": "Ich bin unterwegs in die Werkstätten des Umspannwerks. Es heißt, dass man sich dort gut vor Emissionen verstecken kann, deswegen möchte ich das mal ausprobieren.",
+    "ita": "Sono diretto alle officine della sotto-stazione. Dicono che sia un buon posto dove nascondersi dalle emissioni, quindi andrň a fare un tentativo.",
+    "pol": "Idę do warsztatów podstacji. Mówią, że to dobre miejsce, by się ukryć przed emisją. Zamierzam je przetestować.",
+    "rus": "Направляюсь к цехам подстанции - там, говорят, от выброса укрыться можно. Вот и проверим, если вдруг жахнет.",
+    "spa": "Me dirijo a los talleres de la subestación. Dicen que es un buen lugar para esconderse de las emisiones, así que voy a probar.",
+    "ukr": "Прямую до цехів підстанції - там, кажуть, від викиду укритися можна. От і перевіримо, якщо раптом жахне."
   },
-  "dm_information_19": {
-    "eng": "Everyone's talking about some weird stuff going on at the old cooling tower. If you turn on the common frequency, you catch bits and pieces of distress calls, sounding like some poor bastard trying to get out of an anomaly. When you ask for coordinates, there's no reply. The weirdest thing though is the sound. That kind of distortion can’t be explained away...",
-    "fra": "Tout le monde parle de trucs vraiment bizarres qui se passent ŕ la tour de refroidissement. Quand on se branche sur la fréquence commune, on capte des morceaux de signal de détresse, comme si un pauvre connard était bloqué dans une anomalie. Mais dčs qu'on demande les coordonnées, y a plus de réponse. Le plus étrange, c'est le bruit de fond... Personne peut l'expliquer...",
-    "ger": "Alle reden davon, dass bei dem alten Kühlturm merkwürdige Dinge vor sich gehen. Wenn man auf die allgemeine Frequenz schaltet, empfängt man Teile von Notrufmitteilungen... die hören sich so an, als ob ein armer Typ versuchen würde, aus einer Anomalie zu entkommen. Und wenn man dann nach den Koordinaten fragt, herrscht Funkstille. Das Merkwürdigste daran ist aber, wie sich das Ganze anhört. So eine Verzerrung kann ich mir nicht wirklich erklären...",
-    "ita": "Tutti dicono che stanno succedendo cose strane alla vecchia torre di raffreddamento. Se ti sintonizzi sulla frequenza comune potrai sentire frammenti di chiamate... sembra che un povero diavolo stia cercando di uscire da un'anomalia. Quando chiedi delle coordinate, perň, nessuno ti sa rispondere. La cosa piů strana č il suono. Quel tipo di distorsione non puň proprio essere spiegato...",
-    "pol": "Wszyscy gadają o jakichś dziwnych wydarzeniach w dawnej chłodni kominowej. Jeśli włączysz ogólną częstotliwość, złapiesz fragmenty wołania o pomoc, które brzmią jakby jakiś biedak próbował się wydostać z anomalii. Gdy zapytasz o współrzędne, nikt nie odpowiada. Najdziwniejszy w tym wszystkim jest dźwięk. Taki rodzaj zakłóceń ciężko wytłumaczyć...",
-    "rus": "Ходят слухи, что у старой градирни какая-то чертовщина творится. Врубаешь общую частоту, а там обрывками запросы о помощи: кто-то из аномалии не может выбраться. Естественно, спрашиваешь координаты, а в ответ - тишина... И самое странное тут - это звук запросов: такие искажения одними помехами не объяснишь.",
-    "spa": "Todo el mundo habla de las cosas inexplicables que ocurren en la vieja torre de refrigeración. Si sintonizas la frecuencia común, captarás seńales de auxilio, como si algún pobre infeliz estuviera intentando salir de una anomalía. Pero cuando le pides sus coordenadas nunca responde. Y lo más raro de todo es el sonido; esa clase de distorsión es difícil de explicar.",
-    "ukr": "Є чутки, що в старій градирні якась чортівня коїться. Врубаєш загальну частоту, а там уривками запити про допомогу: хтось з аномалії не може вибратися. Ну, звісно, запитуєш координати, а у відповідь - тиша... І найдивніше тут - то звук запитів: такі спотворення самими завадами не поясниш."
+  "st_stalker_zat_b104_zombied": {
+    "eng": "You know there's a sawmill nearby, that's where I'm headed. I want to double check it for anything of value.",
+    "fra": "Tu connais la scierie pas loin d'ici ? C'est lŕ que je vais. Je veux m'assurer qu'il n'y a rien de valeur lŕ-bas.",
+    "ger": "Kennst du das Sägewerk hier in der Nähe? Dorthin bin ich unterwegs. Ich möchte nachsehen, ob es da etwas Wertvolles zu finden gibt.",
+    "ita": "Hai presente la segheria qui vicino? Ecco, č lě che sono diretto. Voglio controllare se c'č qualcosa di valore.",
+    "pol": "Niedaleko stąd jest tartak. Tam właśnie idę. Chcę się rozejrzeć i sprawdzić, czy nie ma tam czegoś wartościowego.",
+    "rus": "Тут, знаешь, лесопилка старая есть, так я к ней направляюсь. Хочу там осмотреться - может, что полезное осталось.",
+    "spa": "Hay un aserradero cerca, żsabes? Ése es mi destino. Quiero comprobar si hay algo de valor.",
+    "ukr": "Тут, знаєш, тартак старий є, так я до нього прямую. Хочу там роздивитися - може, щось корисне лишилося."
+  },
+  "st_stalker_zat_b106_smart_terrain": {
+    "eng": "I feel like taking some time off at the Izumrudnoye resort. Oh, sure it is a fine resort... for flesh and boars! Ha-ha! Still, I'm sure I can camp out there a bit.",
+    "fra": "J'ai envie de me détendre un peu ŕ Izumrudnoye. C'est un vrai camp de vacances... pour les sangliers et les chiens aveugles ! Ah ah ! N'empęche, je pense que je vais y traîner un peu....",
+    "ger": "Ich will ein bisschen Urlaub im Ferienparadies Isumrudnoje machen. Oh ja, ein Paradies... für Fleisch und Wildschweine! Ha ha! Aber egal... ich bin mir sicher, dass ich dort irgendwo mein Lager aufschlagen kann.",
+    "ita": "Voglio passare un po' di tempo all'albergo Izumrudnoye. Oh, non č niente male... per la carne e i cinghiali! Ah ah! Comunque, sono sicuro che per un po' potrň accamparmici.",
+    "pol": "Mam ochotę wziąć sobie trochę wolnego w Izumrudnoje. Och, oczywiście, że to świetny ośrodek... dla ciała i dzików! Cha, cha! Mam jednak nadzieję, że uda mi się rozbić tam obóz.",
+    "rus": "Да вот решил отдохнуть, иду на базу отдыха «Изумрудное»... Шучу, ясное дело: там сейчас только плоти и кабаны отдыхают, хотя привал сделать всё-таки можно.",
+    "spa": "Me apetece tomarme un descanso en el complejo de Izumrudnoye. Ah, seguro que está muy bien... ˇpara jabalíes y cerdos mutantes! ˇJa, ja! Bueno, seguro que puedo acampar.",
+    "ukr": "Та от вирішив відпочити, йду на базу відпочинку «Смарагдове»... Жартую, ясна річ: там зараз хіба плоті та кабани відпочивають, хоча привал зробити все-таки можна."
+  },
+  "st_stalker_zat_b12": {
+    "eng": "To a bridge, I think it's marked Preobrazhensky on the map.",
+    "fra": "Je vais au pont, celui qui s'appelle Preobrazhensky sur la carte.",
+    "ger": "Zu einer Brücke. Ich glaube, auf der Karte ist sie als Preobraschenski eingezeichnet.",
+    "ita": "A un ponte. Credo che sulla mappa sia indicato come Preobrazhensky.",
+    "pol": "Na most. Wydaje mi się, że na mapie jest oznaczony jako most Przemienienia Pańskiego.",
+    "rus": "Направляюсь к мосту этому... как его... имени Преображенского.",
+    "spa": "A un puente. Creo que viene marcado como Preobrazhensky en el mapa.",
+    "ukr": "Прямую до мосту, як його... імені Преображенського."
+  },
+  "st_stalker_zat_b14_smart_terrain": {
+    "eng": "To the dredge station. I bet there are still some valuables to be found in the area.",
+    "fra": "Je suis en route pour la station de dragage. Je parie qu'il reste quelques trucs de valeur lŕ-bas.",
+    "ger": "Zum Baggerschiff. Ich wette, dass es dort in der Gegend noch einige wertvolle Dinge zu holen gibt.",
+    "ita": "Alla stazione di drenaggio. Scommetto che in quell'area c'č ancora qualcosa di valore da trovare.",
+    "pol": "Do pogłębiarki. Założę się, że ciągle można tam znaleźć coś wartościowego.",
+    "rus": "Иду к земснаряду. Говорят, там все ещё можно найти что-нибудь ценное.",
+    "spa": "A la planta de dragado. Seguro que aún hay cosas de valor por ahí.",
+    "ukr": "Йду до земснаряда. Кажуть, там усе ще можна знайти щось цінне."
+  },
+  "st_stalker_zat_b18": {
+    "eng": "To the old barge.",
+    "fra": "Je vais ŕ la vieille péniche.",
+    "ger": "Zum alten Schiff.",
+    "ita": "Alla vecchia chiatta.",
+    "pol": "Do starej barki.",
+    "rus": "Двигаюсь по направлению к старой барже.",
+    "spa": "Me dirijo a la vieja barcaza.",
+    "ukr": "Рухаюся у напрямку до старої баржі."
+  },
+  "st_stalker_zat_b20_smart_terrain": {
+    "eng": "I want to swing by the burnt farmstead, see if any new artifacts have popped up.",
+    "fra": "Je veux faire un tour par la ferme brűlée, au cas oů de nouveaux artefacts y seraient apparus.",
+    "ger": "Ich habe vor, beim abgebrannten Bauernhof vorbeizuschauen und zu überprüfen, ob neue Artefakte aufgetaucht sind.",
+    "ita": "Voglio passare dalla fattoria bruciata, nel caso sia spuntato qualche nuovo manufatto.",
+    "pol": "Chcę się pokręcić po spalonym gospodarstwie, zobaczyć, czy nie pojawiły się tam jakieś nowe artefakty.",
+    "rus": "На сгоревший хутор хочу зайти. Проверю, нет ли там артефактов.",
+    "spa": "Quiero pasar por la granja quemada, a ver si han aparecido objetos nuevos.",
+    "ukr": "На згорілий хутір хочу зайти. Перевірю, чи нема там артефактів."
+  },
+  "st_stalker_zat_b28": {
+    "eng": "To the southern plateau.",
+    "fra": "Je vais au plateau du sud.",
+    "ger": "Zum südlichen Plateau.",
+    "ita": "All'altopiano meridionale.",
+    "pol": "Na południowy płaskowyż.",
+    "rus": "Двигаюсь в направлении южного плато.",
+    "spa": "A la meseta sur.",
+    "ukr": "Рухаюся у напрямку південного плато."
+  },
+  "st_stalker_zat_b33": {
+    "eng": "To the crack by the gas station.",
+    "fra": "Je suis en route pour le ravin ŕ côté de la station-essence.",
+    "ger": "Zu dem Erdspalt bei der Tankstelle.",
+    "ita": "Al crepaccio accanto alla stazione di rifornimento.",
+    "pol": "Do rozpadliny przy stacji benzynowej.",
+    "rus": "Иду к разлому возле бензоколонки.",
+    "spa": "A la grieta que hay junto a la gasolinera.",
+    "ukr": "Йду до розлому біля бензоколонки."
+  },
+  "st_stalker_zat_b38": {
+    "eng": "I'm going to the Krug antenna complex - need a safe place to hide from emissions. There's supposed to be lots of monsters there, unfortunately.",
+    "fra": "Je suis en route pour la station-relais de Krug. Il faut que je me trouve un bon abri pour me protéger des émissions. Malheureusement, il paraît que ça grouille de monstres dans le coin.",
+    "ger": "Ich bin unterwegs zum Antennenkomplex Krug - ich brauche einen sicheren Ort, um mich vor Emissionen zu schützen. Allerdings sollen sich dort leider ziemlich viele Monster herumtreiben.",
+    "ita": "Sono diretto al complesso dell'antenna Krug. Mi serve un posto sicuro dove nascondermi dalle emissioni. Purtroppo si dice che lě ci siano parecchi mostri.",
+    "pol": "Idę do stacji antenowej Krug - potrzebuję bezpiecznej kryjówki przed emisjami. Niestety, podobno jest tam mnóstwo potworów.",
+    "rus": "Иду к ВНЗ «Круг»! Местечко, чтобы от выброса укрыться, что надо. Правда, там часто монстров встречают.",
+    "spa": "Voy al complejo de la antena de Krug. Necesito un lugar a salvo de emisiones. Lo malo es que dicen que hay muchos monstruos por allí.",
+    "ukr": "Іду до ВНЗ «Коло»! Місцинка, щоб від викиду укритися - шо треба... правда, там часто монстрів зустрічають."
+  },
+  "st_stalker_zat_b38u": {
+    "eng": "I'm going to the Krug antenna complex - need a safe place to hide from emissions. There's supposed to be lots of monsters there, unfortunately.",
+    "fra": "Je suis en route pour la station-relais de Krug. Il faut que je me trouve un bon abri pour me protéger des émissions. Malheureusement, il paraît que ça grouille de monstres dans le coin.",
+    "ger": "Ich bin unterwegs zum Antennenkomplex Krug - ich brauche einen sicheren Ort, um mich vor Emissionen zu schützen. Allerdings sollen sich dort leider ziemlich viele Monster herumtreiben.",
+    "ita": "Sono diretto al complesso dell'antenna Krug. Mi serve un posto sicuro dove nascondermi dalle emissioni. Purtroppo si dice che lě ci siano parecchi mostri.",
+    "pol": "Idę do stacji antenowej Krug - potrzebuję bezpiecznej kryjówki przed emisjami. Niestety, podobno jest tam mnóstwo potworów.",
+    "rus": "Иду к ВНЗ «Круг»! Что надо местечко, чтобы от выброса укрыться. Правда, там часто монстров встречают.",
+    "spa": "Voy al complejo de la antena de Krug. Necesito un lugar a salvo de emisiones. Lo malo es que dicen que hay muchos monstruos por allí.",
+    "ukr": "Іду до ВНЗ «Коло»! Правильна місцинка, щоб від викиду сховатися. Щоправда, там часто монстрів зустрічають."
+  },
+  "st_stalker_zat_b39": {
+    "eng": "I'm going to look for artifacts near Oakpine. Hopefully the mutts will keep at bay.",
+    "fra": "Je vais chercher des artefacts prčs du Pinchęne. Avec un peu de chance, les bestiaux se tiendront ŕ carreau.",
+    "ger": "Ich will in der Nähe der Pinieneiche nach Artefakten suchen. Hoffentlich lassen mich die Mutanten in Ruhe.",
+    "ita": "Vado a cercare manufatti dalle parti della Pinquercia. Spero che i mutanti se ne staranno buoni.",
+    "pol": "Idę poszukać artefaktów w okolicach Sosnodębu. Mam nadzieję, że kundle będą się trzymać z daleka.",
+    "rus": "Буду искать артефакты возле Соснодуба. Надеюсь, собачки особо не помешают.",
+    "spa": "Voy a buscar artefactos cerca de Roblepino. Esperemos que no vengan memos a molestar.",
+    "ukr": "Шукатиму артефакти біля Соснодуба. Сподіваюся, песики особливо не заважатимуть."
+  },
+  "st_stalker_zat_b40_smart_terrain": {
+    "eng": "To the cesspool... you know, the waste processing station. It's as good a place as any to hide from emissions.",
+    "fra": "Je vais au bouillon de culture... Tu sais, la station de traitement des déchets. Aprčs tout, c'est un endroit comme un autre pour s'abriter pendant les émissions.",
+    "ger": "Zum Abwassertank... du weißt schon, in der Kläranlage. Dort hat man wohl genauso viel Schutz vor Emissionen wie anderswo.",
+    "ita": "Al pozzo nero... Sai, l'impianto dei rifiuti. Per nascondersi dalle emissioni un posto vale l'altro.",
+    "pol": "Do szamba... no wiesz, do zakładu utylizacji odpadów. To miejsce równie dobre jak każde inne, aby się schować przed emisją.",
+    "rus": "Иду к отстойнику, ну то есть к станции переработки отходов. Там вполне можно от выброса укрыться.",
+    "spa": "Al pozo negro... Ya sabes, a la planta de tratamiento de basura. Es un buen sitio para huir de las emisiones.",
+    "ukr": "Йду до відстійника, ну себто до станції переробляння відходів. Там цілком можна від викиду сховатися."
+  },
+  "st_stalker_zat_b42_smart_terrain": {
+    "eng": "I'm headed to the boat pier on the northern lake. Once there I'll play it by ear.",
+    "fra": "Je vais ŕ l'embarcadčre du lac au nord. Une fois sur place, j'improviserai.",
+    "ger": "Ich bin unterwegs zum Bootspier am nördlichen See. Danach entscheide ich spontan, wie's weitergeht.",
+    "ita": "Sono diretto al molo delle navi sul lago settentrionale. Una volta lě improvviserň.",
+    "pol": "Idę w stronę przystani na północnym jeziorze. Jak już się tam dostanę, będę improwizować.",
+    "rus": "Направляюсь к лодочному причалу на северном озере. Дальше - по обстоятельствам.",
+    "spa": "Voy al embarcadero del lago norte. Una vez allí, ya veré.",
+    "ukr": "Прямую до причалу човнів на північному озері. Далі - за обставинами."
+  },
+  "st_stalker_zat_b52": {
+    "eng": "I'm going to the docks, where the cranes are. A decent place to camp out.",
+    "fra": "Je vais sur les quais, oů se trouvent les grues. C'est pas mal comme endroit pour camper.",
+    "ger": "Ich gehe zu den Docks, wo die Kräne stehen. Ein ganz netter Ort, um ein Lager aufzuschlagen.",
+    "ita": "Sono diretto al porto, dove si trovano le gru. Non č un brutto posto per accamparsi.",
+    "pol": "Idę do portu, tam gdzie są dźwigi. To dobre miejsce na obóz.",
+    "rus": "К пристани иду, где портовые краны. Местечко для привала очень даже неплохое!",
+    "spa": "Me dirijo al muelle, donde las grúas. No es mal sitio para acampar.",
+    "ukr": "До пристані йду, де портові крани. Місцинка для перепочинку дуже навіть непогана!"
+  },
+  "st_stalker_zat_b53": {
+    "eng": "I'm planning to look for artifacts in the Boiler anomaly. I just hope my suit will survive this little hot springs vacation.",
+    "fra": "Je compte chercher des artefacts dans la Bouilloire. J'espčre que ma combinaison résistera ŕ la température...",
+    "ger": "Ich habe vor, in der Boiler-Anomalie nach Artefakten zu suchen. Hoffentlich übersteht mein Schutzanzug diesen heißen Urlaub.",
+    "ita": "Voglio cercare manufatti nell'anomalia Boiler. Spero che la mia tuta resista a questo giretto in mezzo alle sorgenti termali.",
+    "pol": "Planuję poszukać artefaktów w anomalii zwanej Kotłem. Mam nadzieję, że mój kombinezon przetrwa te wakacje w gorących źródłach.",
+    "rus": "Собираюсь поискать артефакты в аномалии «Котёл». Надеюсь, мой комбез эту сауну выдержит.",
+    "spa": "Tengo pensado ir a la anomalía Caldero a buscar artefactos. Espero que mi atuendo soporte esas temperaturas.",
+    "ukr": "Збираюся пошукати артефакти в аномалії «Котел». Сподіваюся, мій комбез цю сауну витримає."
+  },
+  "st_stalker_zat_b54": {
+    "eng": "To the Scar anomaly.",
+    "fra": "Je vais ŕ la Balafre. Tu sais, l'anomalie ?",
+    "ger": "Zur Narbe-Anomalie.",
+    "ita": "All'anomalia Cicatrice.",
+    "pol": "Do anomalii zwanej Szramą.",
+    "rus": "Иду к аномалии «Рубец».",
+    "spa": "A la anomalía Cicatriz.",
+    "ukr": "Йду до аномалії «Рубець»."
+  },
+  "st_stalker_zat_b55": {
+    "eng": "I want to look for artifacts in the Claw anomaly.",
+    "fra": "Je vais chercher des artefacts dans l'anomalie Griffe.",
+    "ger": "Ich möchte in der Klaue-Anomalie nach Artefakten suchen.",
+    "ita": "Voglio cercare dei manufatti nell'anomalia Artiglio.",
+    "pol": "Chcę poszukać artefaktów w anomalii zwanej Pazurem.",
+    "rus": "Хочу заняться поиском артефактов в аномалии «Коготь».",
+    "spa": "Quiero buscar artefactos en la anomalía Garra.",
+    "ukr": "Хочу зайнятися пошуком артефактів в аномалії «Пазур»."
+  },
+  "st_stalker_zat_b56": {
+    "eng": "I want to test how fireproof my equipment is, plus look for artifacts - all in the Circus anomaly.",
+    "fra": "Je vais tester la résistance au feu de mon équipement et chercher des artefacts dans l'anomalie Soleil.",
+    "ger": "Ich will testen, wie feuerfest meine Ausrüstung ist... und nach Artefakten suchen. Drüben in der Rundkreis-Anomalie.",
+    "ita": "Voglio vedere se la mia attrezzatura č ignifuga e cercare manufatti... tutto questo nell'anomalia Circo.",
+    "pol": "Chcę sprawdzić odporność mojego sprzętu na ogień i poszukać artefaktów - wszystko to w anomalii zwanej Cyrkiem.",
+    "rus": "Хочу проверить огнеупорность своей экипировки в аномалии «Цирк». Ну и заодно, понятное дело, артефакты поискать.",
+    "spa": "Quiero comprobar si mi equipo es ignífugo y buscar artefactos, todo ello en la anomalía Circo.",
+    "ukr": "Хочу перевірити вогнетривкість свого екіпірування в аномалії «Цирк». Ну й заразом, ясна річ, артефактів пошукати."
+  },
+  "st_stalker_zat_b5_smart_terrain": {
+    "eng": "To the ranger station.",
+    "fra": "Je vais au poste des rangers.",
+    "ger": "Zur Forststation.",
+    "ita": "Alla stazione dei ranger.",
+    "pol": "Do strażnicy.",
+    "rus": "Иду к лесничеству.",
+    "spa": "Al puesto del guardabosques.",
+    "ukr": "Йду до лісництва."
+  },
+  "st_stalker_zat_b7": {
+    "eng": "I'm going to camp out on Shevchenko. It's safe from emissions, and a tough spot for mutants to attack.",
+    "fra": "Je vais au Chevtchenko. J'y serai ŕ l'abri des émissions et hors de portée des mutants.",
+    "ger": "Ich werde mein Lager auf der Schewtschenko aufschlagen. Dort ist man vor Emissionen sicher und wird nur selten von Mutanten angegriffen.",
+    "ita": "Mi accamperň a Shevchenko. Lě sarň al sicuro dalle emissioni, e per i mutanti non sarŕ facile attaccarmi.",
+    "pol": "Zamierzam rozbić obóz na Szewczence. To dobre schronienie przed emisjami i trudne miejsce do zaatakowania dla mutantów.",
+    "rus": "Хочу сделать привал на судне «Шевченко». Там и от выброса укрытие хорошее, и от мутантов оборону держать удобно.",
+    "spa": "Voy a acampar en Shevchenko. Está a salvo de emisiones y allí es difícil que ataquen los mutantes.",
+    "ukr": "Хочу зробити зупинку на судні «Шевченко». Там і від викиду укриття гарне, і від мутантів оборону тримати зручно."
+  },
+  "st_stalker_zat_b7_stalker_raider": {
+    "eng": "I'm going to camp out on Shevchenko. It's safe from emissions, and a tough spot for mutants to attack.",
+    "fra": "Je vais au Chevtchenko. J'y serai ŕ l'abri des émissions et hors de portée des mutants.",
+    "ger": "Ich werde mein Lager auf der Schewtschenko aufschlagen. Dort ist man vor Emissionen sicher und wird nur selten von Mutanten angegriffen.",
+    "ita": "Mi accamperň a Shevchenko. Lě sarň al sicuro dalle emissioni, e per i mutanti non sarŕ facile attaccarmi.",
+    "pol": "Zamierzam rozbić obóz na Szewczence. To dobre schronienie przed emisjami i trudne miejsce do zaatakowania dla mutantów.",
+    "rus": "Хочу сделать привал на судне «Шевченко». Там и от выброса укрытие хорошее, и от мутантов оборону держать удобно.",
+    "spa": "Voy a acampar en Shevchenko. Está a salvo de emisiones y allí es difícil que ataquen los mutantes.",
+    "ukr": "Хочу зробити привал на судні «Шевченко». Там і від викиду укриття гарне, і від мутантів оборону тримати зручно."
+  },
+  "st_stalker_zat_medic_home_smart": {
+    "eng": "I'm going to the docks, where the cranes are. A decent place to camp out.",
+    "fra": "Je vais sur les quais, oů se trouvent les grues. C'est pas mal comme endroit pour camper.",
+    "ger": "Ich gehe zu den Docks, wo die Kräne stehen. Ein ganz netter Ort, um ein Lager aufzuschlagen.",
+    "ita": "Sono diretto al porto, dove si trovano le gru. Non č un brutto posto per accamparsi.",
+    "pol": "Idę do portu, tam gdzie są dźwigi. To dobre miejsce na obóz.",
+    "rus": "К пристани иду, где портовые краны. Местечко для привала очень даже неплохое!",
+    "spa": "Me dirijo al muelle, donde las grúas. No es mal sitio para acampar.",
+    "ukr": "До пристані йду, де портові крани. Місцинка для привалу дуже навіть непогана!"
+  },
+  "st_stalker_zat_sim_1": {
+    "eng": "I'm headed toward the Boiler anomaly, the one next to a small grove.",
+    "fra": "Je vais ŕ la Bouilloire, l'anomalie prčs du petit bosquet.",
+    "ger": "Ich bin unterwegs zur Boiler-Anomalie, gleich in der Nähe eines kleinen Wäldchens.",
+    "ita": "Sono diretto verso l'anomalia Boiler, quella accanto a un boschetto.",
+    "pol": "Idę w stronę anomalii zwanej Kotłem, tej niedaleko małego zagajnika.",
+    "rus": "Иду в направлении аномалии «Котёл». Там рощица за ней - туда и иду.",
+    "spa": "Me dirijo a la anomalía Caldero, la que está junto a la pequeńa arboleda.",
+    "ukr": "Іду в напрямку аномалії «Котел». Там є такий гайок за нею - туди і йду."
+  },
+  "st_stalker_zat_sim_10": {
+    "eng": "Toward the great bridge... there's supposed to be a safe, private little spot east of there.",
+    "fra": "Je vais au grand pont... Il paraît qu'il y a un petit coin tranquille par lŕ-bas, ŕ l'est.",
+    "ger": "In Richtung große Brücke... östlich davon soll es einen sicheren, ungestörten Flecken Erde geben.",
+    "ita": "Verso il grande ponte... Si dice che a est si trovi un punto tranquillo e sicuro.",
+    "pol": "W stronę wielkiego mostu... Podobno na wschód od niego znajduje się bezpieczne, odosobnione miejsce.",
+    "rus": "Иду в сторону большого моста. Там на восток от него укромное местечко есть.",
+    "spa": "Hacia el gran puente. Se supone que hay un sitio seguro y solitario al este de ahí.",
+    "ukr": "Іду в бік великого мосту. Там на схід від нього є затишна місцинка."
+  },
+  "st_stalker_zat_sim_11": {
+    "eng": "To a parking lot south of the old barge.",
+    "fra": "Je vais au parking au sud de la vieille péniche.",
+    "ger": "Zu einem Parkplatz südlich des alten Schiffs.",
+    "ita": "A un parcheggio a sud della vecchia chiatta.",
+    "pol": "Na parking na południe od starej barki.",
+    "rus": "Двигаю к одной стоянке - это к югу от старой баржи.",
+    "spa": "Rumbo a un aparcamiento, al sur de la vieja barcaza.",
+    "ukr": "Рухаюся до однієї стоянки - це на південь від старої баржі."
+  },
+  "st_stalker_zat_sim_12": {
+    "eng": "Nothing special, just travelling. Gonna set up camp on a hill east of Skadovsk.",
+    "fra": "Rien de spécial, je me balade. Je vais m'installer sur une colline ŕ l'est du Skadovsk.",
+    "ger": "Nichts Besonderes, bin nur unterwegs. Östlich der Skadowsk werde ich auf einem Hügel mein Lager aufschlagen.",
+    "ita": "Niente di speciale, sono un viaggiatore. Mi accamperň su una collina a est della Skadovsk.",
+    "pol": "Nic wielkiego, trochę podróżuję. Zamierzam rozbić obóz na wzgórzu na wschód od Skadowska.",
+    "rus": "Да ничего особенного, брожу просто. Привал сделаю на холме, к востоку от «Скадовска».",
+    "spa": "Nada especial, me gusta viajar. Iba a acampar en una colina al este de Skadovsk.",
+    "ukr": "Та нічого особливого, бурлакую просто. Перепочину на пагорбі, на схід від «Скадовська»."
+  },
+  "st_stalker_zat_sim_13": {
+    "eng": "To a grove between Izumrudnoye and the gas station.",
+    "fra": "Je me dirige vers un bosquet entre Izumrudnoye et la station-essence.",
+    "ger": "In ein Wäldchen zwischen Isumrudnoje und der Tankstelle.",
+    "ita": "A un boschetto tra Izumrudnoye e la stazione di rifornimento.",
+    "pol": "Do zagajnika pomiędzy Izumrudnoje i stacją benzynową.",
+    "rus": "Иду к роще между «Изумрудным» и заправкой.",
+    "spa": "A una arboleda entre Izumrudnoye y la gasolinera.",
+    "ukr": "Іду до гаю між «Смарагдовим» та заправкою."
+  },
+  "st_stalker_zat_sim_14": {
+    "eng": "A fork in the road near the waste processing station.",
+    "fra": "Je vais au croisement prčs de la station de traitement des déchets.",
+    "ger": "Zu einer Straßengabelung in der Nähe der Kläranlage.",
+    "ita": "A un incrocio sulla strada nei pressi dell'impianto dei rifiuti.",
+    "pol": "Do rozwidlenia niedaleko zakładu utylizacji odpadów.",
+    "rus": "Иду к развилке у станции очистки.",
+    "spa": "A una bifurcación que hay junto a la planta de tratamiento de basuras.",
+    "ukr": "Іду до розвилки біля станції очищення."
+  },
+  "st_stalker_zat_sim_15": {
+    "eng": "To the Boiler anomaly.",
+    "fra": "Je vais ŕ la Bouilloire.",
+    "ger": "Zur Boiler-Anomalie.",
+    "ita": "All'anomalia Boiler.",
+    "pol": "Do anomalii zwanej Kotłem.",
+    "rus": "Иду к аномалии «Котёл».",
+    "spa": "A la anomalía Caldero.",
+    "ukr": "Іду до аномалії «Котел»."
+  },
+  "st_stalker_zat_sim_16": {
+    "eng": "To the ranger station. There's a building complex there, you've probably seen it. One of them even got furnaces - I wonder what kind of business they ran down there.",
+    "fra": "Je me rends au poste des rangers. Il y a tout un complexe industriel lŕ-bas. L'un des bâtiments a męme un fourneau, je me demande bien ce qu'ils y fabriquaient avant.",
+    "ger": "Zur Forststation. Dort gibt es einen Gebäudekomplex, vermutlich hast du ihn schon gesehen. Sogar ein Hochofen ist dort... ich frage mich, was sie da unten genau gemacht haben.",
+    "ita": "Alla stazione dei ranger. C'č un complesso di edifici lě, probabilmente lo avrai anche visto. In uno ci sono persino delle fornaci... chissŕ cosa combinano laggiů.",
+    "pol": "Do strażnicy. Jest tam kompleks budynków, pewnie go kojarzysz. W jednym z nich są piece - ciekawe, co tam się kiedyś działo.",
+    "rus": "Направляюсь к лесничеству. Знаешь там такой комплекс зданий? В одном ещё какие-то печи стоят... даже не знаю, чем они на самом деле занимались.",
+    "spa": "Al puesto del guardabosques. Allí hay un bloque de edificios; ya lo habrás visto. Uno de ellos tiene calderas. No sé qué clase de negocio habrá dentro.",
+    "ukr": "Прямую до лісництва. Знаєш там такий комплекс будівель? В одній ще якісь печі стоять... навіть не знаю, чим вони насправді займалися."
+  },
+  "st_stalker_zat_sim_17": {
+    "eng": "To a grove west of the burnt farmstead.",
+    "fra": "Je me dirige vers une foręt ŕ l'ouest de la ferme brűlée.",
+    "ger": "In ein Wäldchen westlich des abgebrannten Bauernhofs.",
+    "ita": "A un boschetto a ovest della fattoria bruciata.",
+    "pol": "Do zagajnika na zachód od spalonego gospodarstwa.",
+    "rus": "Иду к роще, что на запад от сгоревшего хутора.",
+    "spa": "A una arboleda al oeste de la granja quemada.",
+    "ukr": "Іду до гаю, що на захід від згорілого хутора."
+  },
+  "st_stalker_zat_sim_18": {
+    "eng": "To a grove east of the Boiler anomaly.",
+    "fra": "Je vais ŕ un bosquet ŕ l'est de la Bouilloire.",
+    "ger": "In ein Wäldchen östlich der Boiler-Anomalie.",
+    "ita": "A un boschetto a est dell'anomalia Boiler.",
+    "pol": "Do zagajnika na wschód od anomalii zwanej Kotłem.",
+    "rus": "Направляюсь к роще, которая на восток от «Котла».",
+    "spa": "A una arboleda al este de la anomalía Caldero.",
+    "ukr": "Прямую до гаю, що на схід від «Котла»."
+  },
+  "st_stalker_zat_sim_19": {
+    "eng": "To a hill just past the northern lake.",
+    "fra": "Je vais ŕ la colline derričre le lac, au nord.",
+    "ger": "Zu einem Hügel gleich hinter dem nördlichen See.",
+    "ita": "A una collinetta poco dopo il lago settentrionale.",
+    "pol": "W stronę wzniesienia zaraz za północnym jeziorem.",
+    "rus": "Иду к пригорку над северным озером.",
+    "spa": "A un montículo pasado el lago norte.",
+    "ukr": "Йду до пагорка над північним озером."
+  },
+  "st_stalker_zat_sim_2": {
+    "eng": "I'm moving out to the northern lake... gonna take some time off on the peninsula.",
+    "fra": "Je vais prendre du bon temps au lac qui se trouve au nord d'ici.",
+    "ger": "Ich bin auf dem Weg zum nördlichen See... werde mir ein paar Tage Urlaub auf der Halbinsel gönnen.",
+    "ita": "Mi sto per dirigere al lago settentrionale... trascorrerň un po' di tempo sulla penisola.",
+    "pol": "Wyruszam w stronę północnego jeziora... odpocznę sobie trochę na półwyspie.",
+    "rus": "Двигаюсь в сторону северного озера, устрою там привал на полуострове.",
+    "spa": "Voy hacia el lago norte. Quiero alejarme de la península una temporada.",
+    "ukr": "Рухаюся у бік північного озера, влаштую там привал на півострові."
+  },
+  "st_stalker_zat_sim_20": {
+    "eng": "A little grove south of the burnt farmstead.",
+    "fra": "Je me dirige vers un petit bosquet au sud de la ferme brűlée.",
+    "ger": "In ein kleines Wäldchen südlich des abgebrannten Bauernhofs.",
+    "ita": "A un piccolo boschetto a sud della fattoria bruciata.",
+    "pol": "Do małego zagajnika na południe od spalonego gospodarstwa.",
+    "rus": "Иду к рощице под сгоревшим хутором.",
+    "spa": "A una pequeńa arboleda al sur de la granja quemada.",
+    "ukr": "Іду до гайка під згорілим хутором."
+  },
+  "st_stalker_zat_sim_21": {
+    "eng": "I'm headed west of Skadovsk... where the pipes come out.",
+    "fra": "Je vais ŕ l'ouest du Skadovsk... lŕ oů on peut voir les tuyaux.",
+    "ger": "Ich bin unterwegs ins Gebiet westlich der Skadowsk... wo die Rohre herauskommen.",
+    "ita": "Sono diretto a ovest della Skadovsk... dove spuntano le tubature.",
+    "pol": "Idę w pewne miejsce na zachód od Skadowska... tam, gdzie wychodzi rurociąg.",
+    "rus": "Иду к одному месту, на запад от «Скадовска». Это там, где трубопровод выныривает.",
+    "spa": "Voy rumbo al oeste de Skadovsk… De donde vienen los conductos.",
+    "ukr": "Іду до одного місця, на захід від «Скадовська». Це там, де трубопровід виринає."
+  },
+  "st_stalker_zat_sim_22": {
+    "eng": "I'm headed to a spot midway between Skadovsk and the dredge station.",
+    "fra": "Je me dirige vers un point situé entre le Skadovsk et la station de dragage.",
+    "ger": "Ich bin auf dem Weg zu einem Plätzchen mitten zwischen der Skadowsk und dem Baggerschiff.",
+    "ita": "Sono diretto a un punto a metŕ strada tra la Skadovsk e la stazione di drenaggio.",
+    "pol": "Idę w stronę miejsca, które znajduje się w pół drogi pomiędzy Skadowskiem i pogłębiarką.",
+    "rus": "Иду в одно местечко на полпути от «Скадовска» к земснаряду.",
+    "spa": "Me dirijo a un punto intermedio entre Skadovsk y la planta de dragado.",
+    "ukr": "Іду до однієї місцинки на півдорозі від «Скадовська» до земснаряда."
+  },
+  "st_stalker_zat_sim_23": {
+    "eng": "To a bayou near the old barge.",
+    "fra": "Je vais au bayou pas loin de la vieille péniche.",
+    "ger": "Zu einer Sumpfstelle in der Nähe des alten Schiffs.",
+    "ita": "A un lago paludoso nei pressi della vecchia chiatta.",
+    "pol": "Do rzeczki niedaleko starej barki.",
+    "rus": "Иду к заводям у старой баржи.",
+    "spa": "A un pantano cerca de la vieja barcaza.",
+    "ukr": "Йду до заболоні біля старої баржі."
+  },
+  "st_stalker_zat_sim_24": {
+    "eng": "To a creek near the Scar anomaly.",
+    "fra": "Je vais ŕ la crique non loin de l'anomalie Balafre.",
+    "ger": "Zu einem Bach in der Nähe der Narbe-Anomalie.",
+    "ita": "A una baia nei pressi dell'anomalia Cicatrice.",
+    "pol": "Do kanału niedaleko anomalii zwanej Szramą.",
+    "rus": "Иду к протоке возле Рубца.",
+    "spa": "A un arroyo cerca de la anomalía Cicatriz.",
+    "ukr": "Іду до протоки біля Рубця."
+  },
+  "st_stalker_zat_sim_25": {
+    "eng": "To the gas station.",
+    "fra": "Je vais ŕ la station-essence.",
+    "ger": "Zur Tankstelle.",
+    "ita": "Alla stazione di rifornimento.",
+    "pol": "Do stacji benzynowej.",
+    "rus": "Иду к заправке.",
+    "spa": "A la gasolinera.",
+    "ukr": "Іду до заправки."
+  },
+  "st_stalker_zat_sim_26": {
+    "eng": "To the Oakpine ravines.",
+    "fra": "Je vais dans les ravins du Pinchęne.",
+    "ger": "Zu den Pinieneichenschluchten.",
+    "ita": "Alle gole della Pinquercia.",
+    "pol": "Do jarów Sosnodębu.",
+    "rus": "Иду к оврагам у Соснодуба.",
+    "spa": "A los barrancos de Roblepino.",
+    "ukr": "Йду до ярів біля Соснодуба."
   },
   "st_stalker_zat_sim_27": {
     "eng": "I’m headed to a place half way between Skadovsk and Shevchenko.",
@@ -3289,14 +3219,84 @@
     "spa": "Me dirijo a un lugar a medio camino entre Skadovsk y Shevchenko.",
     "ukr": "Іду до містечка на півдорозі між «Скадовськом» та «Шевченком»."
   },
-  "st_stalker_jup_a9": {
-    "eng": "To Jupiter. I probably won’t venture too far in though.",
-    "fra": "Je vais ŕ Jupiter. Mais je ne m'aventurerai sűrement pas trčs loin...",
-    "ger": "Nach Jupiter... ich werde mich aber wohl nicht zu weit hineinwagen.",
-    "ita": "A Jupiter. Anche se probabilmente non mi spingerň troppo avanti.",
-    "pol": "Do fabryki Jupiter. Ale raczej nie będę wchodzić zbyt daleko do środka.",
-    "rus": "Иду к «Юпитеру». Вглубь, наверное, лезть не буду.",
-    "spa": "A Júpiter. No creo que pueda avanzar más.",
-    "ukr": "Йду до «Юпітера». Та всередину, мабуть, не лізтиму."
+  "st_stalker_zat_sim_3": {
+    "eng": "I'm going beyond the northern lake - there's a decent camping spot there.",
+    "fra": "Je vais au nord, aprčs le lac. Il y a un bon coin pour camper par lŕ-bas.",
+    "ger": "Ich bin unterwegs zum Gebiet jenseits des nördlichen Sees - dort gibt es einen ganz netten Lagerplatz.",
+    "ita": "Mi dirigerň oltre il lago settentrionale. Lě c'č un buon punto dove mettere le tende.",
+    "pol": "Idę za północne jezioro - jest tam przyzwoite miejsce na obóz.",
+    "rus": "За северное озеро иду - там есть вполне приличное место для стоянки.",
+    "spa": "Voy más allá del lago norte; por ahí hay un camping apańado.",
+    "ukr": "За північне озеро йду - там є цілком пристойне місце для стоянки."
+  },
+  "st_stalker_zat_sim_4": {
+    "eng": "I'm going to the woods beyond the northern lake.",
+    "fra": "Je vais dans les bois aprčs le lac, au nord.",
+    "ger": "Ich bin auf dem Weg in die Wälder jenseits des nördlichen Sees.",
+    "ita": "Mi dirigerň ai boschi oltre il lago settentrionale.",
+    "pol": "Idę do lasu za północnym jeziorem.",
+    "rus": "Направляюсь в лес за северным озером.",
+    "spa": "Me dirijo al bosque que hay más allá del lago norte.",
+    "ukr": "Прямую до лісу за північним озером."
+  },
+  "st_stalker_zat_sim_5": {
+    "eng": "I'm headed to a small forest west of the sawmill.",
+    "fra": "Je vais dans la petite foręt ŕ l'ouest de la scierie.",
+    "ger": "Ich gehe in den kleinen Wald westlich des Sägewerks.",
+    "ita": "Sono diretto a una piccola foresta a ovest della segheria.",
+    "pol": "Idę do małego lasku na zachód od tartaku.",
+    "rus": "Направляюсь в один лесок, он к западу от лесопилки.",
+    "spa": "Voy a un pequeńo bosque al oeste del aserradero.",
+    "ukr": "Прямую до одного лісочка, він ото на захід від тартаку."
+  },
+  "st_stalker_zat_sim_6": {
+    "eng": "I'm headed for the hill that's west of the swamp. None of the swamp pollution can reach me there.",
+    "fra": "Je vais ŕ la colline ŕ l'ouest du marais. J'y serai ŕ l'abri de la pollution.",
+    "ger": "Ich bin unterwegs zu dem Hügel westlich des Sumpfes. Dort bin ich sicher vor diesem verpesteten Dreckssumpf.",
+    "ita": "Sono diretto alla collina a ovest della palude. Lě non potrň essere raggiunto dall'inquinamento della palude.",
+    "pol": "Idę w stronę tego wzgórza na zachód od bagna. Żadne bagienne trucizny mnie tam nie dostaną.",
+    "rus": "Двигаю в одно место - холмик к западу от топи. Хоть и рядом, а никакая отрава туда с топи не доходит.",
+    "spa": "Voy rumbo a la colina que hay al oeste del pantano. Ahí no hay ni rastro de la contaminación del pantano.",
+    "ukr": "Рухаюся до одного місця - є такий горбок на захід від драговини. Хоча й поруч, а ніяка отрута туди з драговини не доходить."
+  },
+  "st_stalker_zat_sim_7": {
+    "eng": "I'm heading to the antenna complex. There's a nice little spot west of that.",
+    "fra": "Je me dirige vers la station-relais. Il y a un petit coin bien sympa pas loin ŕ l'ouest.",
+    "ger": "Ich gehe zum Antennenkomplex. Westlich davon gibt es einen netten, kleinen Platz, wo ich entspannen werde.",
+    "ita": "Sono diretto al complesso dell'antenna. A ovest c'č un bel posticino.",
+    "pol": "Idę w stronę stacji antenowej. Na zachód od niej znajduje się całkiem przyjemne miejsce.",
+    "rus": "Направляюсь к ВНЗ. Там на запад от него есть весьма неплохое местечко.",
+    "spa": "Me dirijo al complejo de la antena. Hay un sitio bonito al oeste de allí.",
+    "ukr": "Прямую до ВНЗ. Там на захід від нього є доволі непогана місцинка."
+  },
+  "st_stalker_zat_sim_8": {
+    "eng": "I'm headed for the woods west of Oakpine... come along if you like - I don't mind company.",
+    "fra": "Je vais dans les bois ŕ l'ouest du Pinchęne... Viens si tu veux, c'est plus sympa de se balader ŕ plusieurs.",
+    "ger": "Ich bin unterwegs in den Wald westlich der Pinieneiche... komm doch mit, wenn du willst - ich hätte nichts gegen etwas Gesellschaft.",
+    "ita": "Sono diretto ai boschi a ovest della Pinquercia... vieni con me, se vuoi. Un po' di compagnia mi farebbe piacere.",
+    "pol": "Idę do lasu na zachód od Sosnodębu... Chodź ze mną, jeśli chcesz - nie mam nic przeciwko towarzystwu.",
+    "rus": "Иду в сторону леса к западу от Соснодуба. От компании не откажусь!",
+    "spa": "Voy al bosque que hay al oeste de Roblepino. Vente, si quieres, no me importa tener compańía.",
+    "ukr": "Іду у бік лісу на захід від Соснодуба... від компанії не відмовлюся!"
+  },
+  "st_stalker_zat_sim_9": {
+    "eng": "To a grove between the Iron Forest and the workshops.",
+    "fra": "Je vais dans un bosquet entre la Foręt de Fer et les ateliers.",
+    "ger": "In ein Wäldchen zwischen dem Eisenwald und den Werkstätten.",
+    "ita": "A un boschetto tra la Foresta d'acciaio e le officine.",
+    "pol": "Do zagajnika pomiędzy Żelaznym Lasem i warsztatami.",
+    "rus": "Иду к роще между Железным лесом и цехами.",
+    "spa": "A una arboleda entre el Bosque de Hierro y los talleres.",
+    "ukr": "Іду до гаю між Залізним лісом та цехами."
+  },
+  "st_stalker_zat_stalker_base_smart": {
+    "eng": "I want to dump my loot and have a cold one or two. Skadovsk is just the place.",
+    "fra": "Je veux revendre ma camelote et me payer une bičre ou deux. C'est pour ça que je me dirige vers le Skadovsk.",
+    "ger": "Ich will meine Beute loswerden und mir ein paar Bier gönnen. Ich denke, die Skadowsk ist wie geschaffen dafür.",
+    "ita": "Voglio scaricare il mio bottino e bermi un paio di drink. La Skadovsk č il posto che fa al caso mio.",
+    "pol": "Chcę zostawić łup i wypić zimne piwko. Skadowsk to idealne miejsce do tego celu.",
+    "rus": "Хочу скинуть хабар и пропустить для расслабления пару стаканчиков, так что сейчас направляюсь к «Скадовску».",
+    "spa": "Quiero deshacerme de mi botín y refrescarme el gaznate. Skadovsk es el lugar idóneo.",
+    "ukr": "Хочу скинути хабар і пропустити для розслаблення скляночку-другу міцного, тож зараз прямую до «Скадовська»."
   }
 }

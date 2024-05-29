@@ -19,6 +19,16 @@
     "spa": "Amigable",
     "ukr": "Союзник"
   },
+  "mm_mp_login": {
+    "eng": "Login",
+    "fra": "Connexion",
+    "ger": "Anmelden",
+    "ita": "Login",
+    "pol": "Login",
+    "rus": "Логин",
+    "spa": "Iniciar sesión",
+    "ukr": "Логін"
+  },
   "mm_mp_max_ping": {
     "eng": "Max ping",
     "fra": "Ping max",
@@ -378,6 +388,36 @@
     "rus": "ВПЕРЁД!",
     "spa": "ˇADELANTE!",
     "ukr": "ВПЕРЕД!"
+  },
+  "mp_gp_unique_nick_too_short": {
+    "eng": "The nickname is too short",
+    "fra": "Le pseudo est trop court",
+    "ger": "Der Benutzername ist zu kurz",
+    "ita": "Il soprannome č troppo breve",
+    "pol": "Pseudonim jest za krótki",
+    "rus": "Слишком короткое уникальное имя",
+    "spa": "El apodo es demasiado corto.",
+    "ukr": "Надто коротке унікальне ім'я"
+  },
+  "mp_gp_unknown_error_4": {
+    "eng": "Uknown profile error (code: 4)",
+    "fra": "Erreur de profil inconnue (code : 4)",
+    "ger": "Unbekannter Profilfehler (Code: 4)",
+    "ita": "Errore ignoto profilo (codice: 4)",
+    "pol": "Nieznany błąd profilu (kod:4)",
+    "rus": "Неизвестная ошибка профиля (код: 4)",
+    "spa": "Error de perfil desconocido (código: 4)",
+    "ukr": "Невідома помилка профілю (код: 4)"
+  },
+  "mp_gp_unknown_error_512": {
+    "eng": "Profile creation error",
+    "fra": "Erreur de profil",
+    "ger": "Profilfehler",
+    "ita": "Errore profilo",
+    "pol": "Błąd profilu",
+    "rus": "Ошибка создания профиля",
+    "spa": "Error de perfil",
+    "ukr": "Помилка створення профілю"
   },
   "mp_has_drop_art": {
     "eng": "lost%s the artifact",
@@ -1557,6 +1597,106 @@
     "spa": "Ahora tu rango es",
     "ukr": "Ваш ранг нині"
   },
+  "mpd_any_player": {
+    "eng": "any",
+    "fra": "peu importe",
+    "ger": "beliebig",
+    "ita": "qualsiasi",
+    "pol": "dowolny",
+    "rus": "любой",
+    "spa": "cualquiera",
+    "ukr": "будь-який"
+  },
+  "mpd_play": {
+    "eng": "play",
+    "fra": "jouer",
+    "ger": "Abspielen",
+    "ita": "gioca",
+    "pol": "zagraj",
+    "rus": "играть",
+    "spa": "jugar",
+    "ukr": "грати"
+  },
+  "mpd_restart": {
+    "eng": "restart",
+    "fra": "relancer",
+    "ger": "Neu starten",
+    "ita": "ricomincia",
+    "pol": "zacznij ponownie",
+    "rus": "рестарт",
+    "spa": "reiniciar",
+    "ukr": "рестарт"
+  },
+  "mpd_rewind": {
+    "eng": "rewind",
+    "fra": "revenir",
+    "ger": "Zurück",
+    "ita": "riavvolgi",
+    "pol": "cofnij",
+    "rus": "перемотка",
+    "spa": "retroceder",
+    "ukr": "перемотка"
+  },
+  "mpd_rewind_until_artdeliver": {
+    "eng": "to the artifact delivery",
+    "fra": "ŕ la livraison de l'artefact",
+    "ger": "Zur Artefaktlieferung",
+    "ita": "alla consegna del manufatto",
+    "pol": "do dostarczenia artefaktu",
+    "rus": "до приноса артефакта",
+    "spa": "a la entrega del artefacto",
+    "ukr": "до принесення артефакту"
+  },
+  "mpd_rewind_until_artdrop": {
+    "eng": "to the artifact loss",
+    "fra": "ŕ la perte de l'artefact",
+    "ger": "Zum Artefaktverlust",
+    "ita": "alla perdita del manufatto",
+    "pol": "do utraty artefaktu",
+    "rus": "до потери артефакта",
+    "spa": "a la pérdida del artefacto",
+    "ukr": "до втрати артефакту"
+  },
+  "mpd_rewind_until_arttake": {
+    "eng": "to the artifact capture",
+    "fra": "ŕ la capture de l'artefact",
+    "ger": "Zur Artefakteroberung",
+    "ita": "alla conquista del manufatto",
+    "pol": "do zdobycia artefaktu",
+    "rus": "до захвата артефакта",
+    "spa": "a la captura del artefacto",
+    "ukr": "до захоплення артефакту"
+  },
+  "mpd_rewind_until_die": {
+    "eng": "to the death",
+    "fra": "au moment de la mort",
+    "ger": "Zum Tod",
+    "ita": "alla morte",
+    "pol": "do śmierci",
+    "rus": "до смерти",
+    "spa": "a la muerte",
+    "ukr": "до смерті"
+  },
+  "mpd_rewind_until_kill": {
+    "eng": "to the kill",
+    "fra": "au moment de la mort de la victime",
+    "ger": "Zum Kill",
+    "ita": "all'uccisione",
+    "pol": "do zabicia",
+    "rus": "до убийства",
+    "spa": "al asesinato",
+    "ukr": "до вбивства"
+  },
+  "mpd_rewind_until_start": {
+    "eng": "to the start",
+    "fra": "au début",
+    "ger": "An den Anfang",
+    "ita": "all'inizio",
+    "pol": "do początku",
+    "rus": "до старта",
+    "spa": "al comienzo",
+    "ukr": "до старту"
+  },
   "self": {
     "eng": "It’s you",
     "fra": "C'est vous",
@@ -1676,6 +1816,316 @@
     "rus": "2. Охота за артефактом",
     "spa": "2. Caza de artefactos",
     "ukr": "2. Полювання за артефактом"
+  },
+  "ui_mp_am_10_minutes": {
+    "eng": "10 minutes",
+    "fra": "10 minutes",
+    "ger": "10 Minuten",
+    "ita": "10 minuti",
+    "pol": "10 minut",
+    "rus": "10 минут",
+    "spa": "10 minutos",
+    "ukr": "10 хвилин"
+  },
+  "ui_mp_am_1_day": {
+    "eng": "1 day",
+    "fra": "1 jour",
+    "ger": "1 Tag",
+    "ita": "1 giorno",
+    "pol": "1 dzień",
+    "rus": "1 день",
+    "spa": "1 día",
+    "ukr": "1 день"
+  },
+  "ui_mp_am_1_hour": {
+    "eng": "1 hour",
+    "fra": "1 heure",
+    "ger": "1 Stunde",
+    "ita": "1 ora",
+    "pol": "1 godzina",
+    "rus": "1 час",
+    "spa": "1 hora",
+    "ukr": "1 година"
+  },
+  "ui_mp_am_1_month": {
+    "eng": "1 month",
+    "fra": "1 mois",
+    "ger": "1 Monat",
+    "ita": "1 mese",
+    "pol": "1 miesiąc",
+    "rus": "1 месяц",
+    "spa": "1 mes",
+    "ukr": "1 місяць"
+  },
+  "ui_mp_am_1_week": {
+    "eng": "1 week",
+    "fra": "1 semaine",
+    "ger": "1 Woche",
+    "ita": "1 settimana",
+    "pol": "1 tydzień",
+    "rus": "1 неделя",
+    "spa": "1 semana",
+    "ukr": "1 тиждень"
+  },
+  "ui_mp_am_30_minutes": {
+    "eng": "30 minutes",
+    "fra": "30 minutes",
+    "ger": "30 Minuten",
+    "ita": "30 minuti",
+    "pol": "30 minut",
+    "rus": "30 минут",
+    "spa": "30 minutos",
+    "ukr": "30 хвилин"
+  },
+  "ui_mp_am_3_monthes": {
+    "eng": "3 months",
+    "fra": "3 mois",
+    "ger": "3 Monate",
+    "ita": "3 mesi",
+    "pol": "3 miesiące",
+    "rus": "3 месяца",
+    "spa": "3 meses",
+    "ukr": "3 місяці"
+  },
+  "ui_mp_am_6_hours": {
+    "eng": "6 hours",
+    "fra": "6 heures",
+    "ger": "6 Stunden",
+    "ita": "6 ore",
+    "pol": "6 godzin",
+    "rus": "6 часов",
+    "spa": "6 horas",
+    "ukr": "6 годин"
+  },
+  "ui_mp_am_ban_selected": {
+    "eng": "Ban selected player",
+    "fra": "Bannir joueur sélectionné",
+    "ger": "Ausgew. Spieler sperren",
+    "ita": "Bandisci gioc. selez.",
+    "pol": "Zbanuj wybranego gracza",
+    "rus": "Забанить выбр. игрока",
+    "spa": "Inhab. jugador selec.",
+    "ukr": "Забанити вибр. гравця"
+  },
+  "ui_mp_am_change_game_limits": {
+    "eng": "Change game settings",
+    "fra": "Modifier les paramčtres de la partie",
+    "ger": "Spieleinstellungen ändern",
+    "ita": "Cambia impostazioni gioco",
+    "pol": "Zmień ustawienia gry",
+    "rus": "Изменить настройки игры",
+    "spa": "Cambiar conf. partida",
+    "ukr": "Змінити налаштування гри"
+  },
+  "ui_mp_am_change_game_type": {
+    "eng": "Change game type",
+    "fra": "Changer de type de partie",
+    "ger": "Spielart ändern",
+    "ita": "Cambia tipo di partita",
+    "pol": "Zmień typ gry",
+    "rus": "Сменить тип игры",
+    "spa": "Cambiar tipo de partida",
+    "ukr": "Змінити тип гри"
+  },
+  "ui_mp_am_change_weather": {
+    "eng": "Change weather",
+    "fra": "Changer la météo",
+    "ger": "Wetter ändern",
+    "ita": "Modifica clima",
+    "pol": "Zmień pogodę",
+    "rus": "Сменить погоду",
+    "spa": "Cambiar tiempo",
+    "ukr": "Змінити погоду"
+  },
+  "ui_mp_am_config_all": {
+    "eng": "Configs for all",
+    "fra": "Config pour tous",
+    "ger": "Konfigurationen für alle",
+    "ita": "Configurazioni generali",
+    "pol": "Konfiguracja (wszyscy)",
+    "rus": "Конфиги со всех",
+    "spa": "Config. para todos",
+    "ukr": "Конфіги з усіх"
+  },
+  "ui_mp_am_config_selected": {
+    "eng": "Cfg for selected player",
+    "fra": "Cfg joueurs sélec.",
+    "ger": "Konf. für ausg. Spieler",
+    "ita": "Conf. gioc. selezionato",
+    "pol": "Konf. dla wybranego gracza ",
+    "rus": "Конфиг выбр. игрока",
+    "spa": "Config. jugador selec.",
+    "ukr": "Конфіг вибр. гравця"
+  },
+  "ui_mp_am_fast_restart": {
+    "eng": "Fast restart",
+    "fra": "Redémarrage rapide",
+    "ger": "Schneller Neustart",
+    "ita": "Riavvio rapido",
+    "pol": "Szybki restart",
+    "rus": "Быстрый рестарт",
+    "spa": "Reinicio rápido",
+    "ukr": "Швидкий рестарт"
+  },
+  "ui_mp_am_forever": {
+    "eng": "Permanently",
+    "fra": "Toujours",
+    "ger": "Permanent",
+    "ita": "Permanente",
+    "pol": "Stale",
+    "rus": "Навсегда",
+    "spa": "Permanentemente",
+    "ukr": "Назавжди"
+  },
+  "ui_mp_am_kick_selected": {
+    "eng": "Kick selected player",
+    "fra": "Exclure joueur sélectionné",
+    "ger": "Ausgew. Spieler kicken",
+    "ita": "Espelli gioc. selez.",
+    "pol": "Wyrzuć wybranego gracza",
+    "rus": "Выбросить выбр. игрока",
+    "spa": "Expulsar jugador selec.",
+    "ukr": "Викинути вибр. гравця"
+  },
+  "ui_mp_am_ping_limit": {
+    "eng": "Ping limit:",
+    "fra": "Limite de ping :",
+    "ger": "Pinglimit:",
+    "ita": "Limite ping:",
+    "pol": "Limit pingu:",
+    "rus": "Ограничение пинга:",
+    "spa": "Límite de ping:",
+    "ukr": "Обмеження пінгу:"
+  },
+  "ui_mp_am_restart": {
+    "eng": "Restart",
+    "fra": "Relancer",
+    "ger": "Neu starten",
+    "ita": "Ricomincia",
+    "pol": "Restart",
+    "rus": "Рестарт",
+    "spa": "Reiniciar",
+    "ukr": "Рестарт"
+  },
+  "ui_mp_am_screen_all": {
+    "eng": "Screenshot all",
+    "fra": "Capture d'écran (tout)",
+    "ger": "Screenshot (alle)",
+    "ita": "Immagine generale",
+    "pol": "Zrzut ekranu (wszyscy)",
+    "rus": "Скриншоты со всех",
+    "spa": "Capturar pantalla",
+    "ukr": "Скріншоти з усіх"
+  },
+  "ui_mp_am_screen_selected": {
+    "eng": "Scrn. selected player",
+    "fra": "Cap. écr. joueurs sélec.",
+    "ger": "Screens. (ausg. Spieler)",
+    "ita": "Imm. gioc. selezionato",
+    "pol": "Zrzut ekranu (wybrany )",
+    "rus": "Скриншот выбр. игрока",
+    "spa": "Jugador sel. en pantalla",
+    "ukr": "Скріншот вибр. гравця"
+  },
+  "ui_mp_am_set_art_limit": {
+    "eng": "Artifact limit (0, 100)",
+    "fra": "Limite d'artefacts (0, 100)",
+    "ger": "Artefaktlimit (0, 100)",
+    "ita": "Limite ai manufatti (0, 100)",
+    "pol": "Limit artefaktów (0,100)",
+    "rus": "Огран. артефактов (0, 100)",
+    "spa": "Límite artefactos (0, 100)",
+    "ukr": "Обмеж. артефактів (0, 100)"
+  },
+  "ui_mp_am_set_change_rate": {
+    "eng": "Weather change speed",
+    "fra": "Vitesse changement météo",
+    "ger": "Geschwindigk. Wetterwechsel",
+    "ita": "Velocitŕ variazione meteo",
+    "pol": "Szybkość zmiany pogody",
+    "rus": "Скорость смены погоды",
+    "spa": "Veloc. cambio tiempo",
+    "ukr": "Швидкість зміни погоди"
+  },
+  "ui_mp_am_set_damage_block_time": {
+    "eng": "Spwn prot time (0, 600 T/DM)",
+    "fra": "Temps prot. réapp. (0, 600 MM/E)",
+    "ger": "Unverwundbark. (0, 600 T/DM)",
+    "ita": "Protez. gen. (0, 600 T/DM)",
+    "pol": "Okr. ochronny (0, 600 T/DM) ",
+    "rus": "Время неуязв. (0, 600 T/DM)",
+    "spa": "T. prot. reg. (0, 600 T/DM)",
+    "ukr": "Час невразл. (0, 600 T/DM)"
+  },
+  "ui_mp_am_set_frag_limit": {
+    "eng": "Frag limit (0, 1000)",
+    "fra": "Limite de frags (0, 1000)",
+    "ger": "Kill-Limit (0, 1000)",
+    "ita": "Limite uccisioni (0, 1000)",
+    "pol": "Limit fragów (0, 1000)",
+    "rus": "Огран. фрагов (0, 1000)",
+    "spa": "Límite de vidas (0, 1.000)",
+    "ukr": "Обмеж. фрагів (0, 1000)"
+  },
+  "ui_mp_am_set_invincible_time": {
+    "eng": "Spwn prot time (0, 60 CTA)",
+    "fra": "Temps prot. réapp. (0, 60 CDA)",
+    "ger": "Unverwundbarkeit (0, 60 AE)",
+    "ita": "Tempo prot. gen. (0, 60 CTA)",
+    "pol": "Okres ochronny (0, 60 CTA) ",
+    "rus": "Время неуязв. (0, 60 CTA)",
+    "spa": "T. prot. reg. (0, 60 CTA)",
+    "ukr": "Час невразл. (0, 60 CTA)"
+  },
+  "ui_mp_am_set_ping_limit": {
+    "eng": "Ping limit",
+    "fra": "Limite de ping",
+    "ger": "Pinglimit",
+    "ita": "Limite ping",
+    "pol": "Limit pingu",
+    "rus": "Ограничение пинга",
+    "spa": "Límite de ping",
+    "ukr": "Обмеження пінгу"
+  },
+  "ui_mp_am_set_reinforcement_time": {
+    "eng": "Respawn time (-1, 3600)",
+    "fra": "Temps de réapparition (-1, 3600)",
+    "ger": "Respawn-Zeit (-1, 3600)",
+    "ita": "Tempo rigenera. (-1, 3600)",
+    "pol": "Opóź. odrodzenia (-1, 3600)",
+    "rus": "Время подкреп. (-1, 3600)",
+    "spa": "Tiempo reg. (-1, 3.600)",
+    "ukr": "Час підкріпл. (-1, 3600)"
+  },
+  "ui_mp_am_set_time_limit": {
+    "eng": "Time limit (0, 180)",
+    "fra": "Limite de temps (0, 180)",
+    "ger": "Zeitlimit (0, 180)",
+    "ita": "Tempo limite (0, 180)",
+    "pol": "Limit czasu (0, 180)",
+    "rus": "Огран. времени (0, 180)",
+    "spa": "Límite de tiempo (0, 180)",
+    "ukr": "Обмеж. часу (0, 180)"
+  },
+  "ui_mp_am_set_warm_up_time": {
+    "eng": "Warm up time (0, 3600)",
+    "fra": "temps d'échauffement (0, 3600)",
+    "ger": "Aufwärmzeit (0, 3600)",
+    "ita": "Tempo di prep. (0, 3600)",
+    "pol": "Czas rozgrzewki (0, 3600)",
+    "rus": "Время разогрева (0, 3600)",
+    "spa": "Tiempo calent. (0, 3.600)",
+    "ukr": "Час розігріву (0, 3600)"
+  },
+  "ui_mp_am_stop_cur_voting": {
+    "eng": "Stop current vote",
+    "fra": "Mettre fin au vote en cours",
+    "ger": "Laufende Abstimmung stoppen",
+    "ita": "Interrompi il voto attuale",
+    "pol": "Przerwij obecne głosowanie",
+    "rus": "Остановить тек. голосование",
+    "spa": "Detener la votación actual",
+    "ukr": "Зупинити пот. голосування"
   },
   "ui_mp_cta": {
     "eng": "4. Capture the artifact",
@@ -1917,6 +2367,16 @@
     "spa": "Confirmar contraseńa",
     "ukr": "Підтвердіть пароль"
   },
+  "ui_st_mp_create_new_account": {
+    "eng": "New profile",
+    "fra": "Nouveau profil",
+    "ger": "Neues Profil",
+    "ita": "Nuovo profilo",
+    "pol": "Nowy profil",
+    "rus": "Новый профиль",
+    "spa": "Nuevo perfil",
+    "ukr": "Новий профіль"
+  },
   "ui_st_mp_email": {
     "eng": "E-mail",
     "fra": "Email",
@@ -1946,6 +2406,16 @@
     "rus": "Страница создания GameSpy ID",
     "spa": "Página de creación de perfil en GameSpy",
     "ukr": "Сторінка створення GameSpy ID"
+  },
+  "ui_st_mp_gamespy_login_page": {
+    "eng": "GameSpy ID authorization",
+    "fra": "Autorisation identifiant GameSpy",
+    "ger": "GameSpy-Autorisation",
+    "ita": "Autorizzazione ID GameSpy",
+    "pol": "Logowanie do usługi GameSpy",
+    "rus": "Авторизация на GameSpy",
+    "spa": "Autorización del perfil de GameSpy",
+    "ukr": "Авторизація на GameSpy"
   },
   "ui_st_mp_password": {
     "eng": "Password",
@@ -2016,475 +2486,5 @@
     "rus": "Наёмники",
     "spa": "Mercenarios",
     "ukr": "Найманці"
-  },
-  "ui_st_mp_create_new_account": {
-    "eng": "New profile",
-    "fra": "Nouveau profil",
-    "ger": "Neues Profil",
-    "ita": "Nuovo profilo",
-    "pol": "Nowy profil",
-    "rus": "Новый профиль",
-    "spa": "Nuevo perfil",
-    "ukr": "Новий профіль"
-  },
-  "ui_st_mp_gamespy_login_page": {
-    "eng": "GameSpy ID authorization",
-    "fra": "Autorisation identifiant GameSpy",
-    "ger": "GameSpy-Autorisation",
-    "ita": "Autorizzazione ID GameSpy",
-    "pol": "Logowanie do usługi GameSpy",
-    "rus": "Авторизация на GameSpy",
-    "spa": "Autorización del perfil de GameSpy",
-    "ukr": "Авторизація на GameSpy"
-  },
-  "mpd_play": {
-    "eng": "play",
-    "fra": "jouer",
-    "ger": "Abspielen",
-    "ita": "gioca",
-    "pol": "zagraj",
-    "rus": "играть",
-    "spa": "jugar",
-    "ukr": "грати"
-  },
-  "mpd_rewind": {
-    "eng": "rewind",
-    "fra": "revenir",
-    "ger": "Zurück",
-    "ita": "riavvolgi",
-    "pol": "cofnij",
-    "rus": "перемотка",
-    "spa": "retroceder",
-    "ukr": "перемотка"
-  },
-  "mpd_restart": {
-    "eng": "restart",
-    "fra": "relancer",
-    "ger": "Neu starten",
-    "ita": "ricomincia",
-    "pol": "zacznij ponownie",
-    "rus": "рестарт",
-    "spa": "reiniciar",
-    "ukr": "рестарт"
-  },
-  "mpd_rewind_until_start": {
-    "eng": "to the start",
-    "fra": "au début",
-    "ger": "An den Anfang",
-    "ita": "all'inizio",
-    "pol": "do początku",
-    "rus": "до старта",
-    "spa": "al comienzo",
-    "ukr": "до старту"
-  },
-  "mpd_rewind_until_kill": {
-    "eng": "to the kill",
-    "fra": "au moment de la mort de la victime",
-    "ger": "Zum Kill",
-    "ita": "all'uccisione",
-    "pol": "do zabicia",
-    "rus": "до убийства",
-    "spa": "al asesinato",
-    "ukr": "до вбивства"
-  },
-  "mpd_rewind_until_die": {
-    "eng": "to the death",
-    "fra": "au moment de la mort",
-    "ger": "Zum Tod",
-    "ita": "alla morte",
-    "pol": "do śmierci",
-    "rus": "до смерти",
-    "spa": "a la muerte",
-    "ukr": "до смерті"
-  },
-  "mpd_rewind_until_arttake": {
-    "eng": "to the artifact capture",
-    "fra": "ŕ la capture de l'artefact",
-    "ger": "Zur Artefakteroberung",
-    "ita": "alla conquista del manufatto",
-    "pol": "do zdobycia artefaktu",
-    "rus": "до захвата артефакта",
-    "spa": "a la captura del artefacto",
-    "ukr": "до захоплення артефакту"
-  },
-  "mpd_rewind_until_artdrop": {
-    "eng": "to the artifact loss",
-    "fra": "ŕ la perte de l'artefact",
-    "ger": "Zum Artefaktverlust",
-    "ita": "alla perdita del manufatto",
-    "pol": "do utraty artefaktu",
-    "rus": "до потери артефакта",
-    "spa": "a la pérdida del artefacto",
-    "ukr": "до втрати артефакту"
-  },
-  "mpd_rewind_until_artdeliver": {
-    "eng": "to the artifact delivery",
-    "fra": "ŕ la livraison de l'artefact",
-    "ger": "Zur Artefaktlieferung",
-    "ita": "alla consegna del manufatto",
-    "pol": "do dostarczenia artefaktu",
-    "rus": "до приноса артефакта",
-    "spa": "a la entrega del artefacto",
-    "ukr": "до принесення артефакту"
-  },
-  "mpd_any_player": {
-    "eng": "any",
-    "fra": "peu importe",
-    "ger": "beliebig",
-    "ita": "qualsiasi",
-    "pol": "dowolny",
-    "rus": "любой",
-    "spa": "cualquiera",
-    "ukr": "будь-який"
-  },
-  "mm_mp_login": {
-    "eng": "Login",
-    "fra": "Connexion",
-    "ger": "Anmelden",
-    "ita": "Login",
-    "pol": "Login",
-    "rus": "Логин",
-    "spa": "Iniciar sesión",
-    "ukr": "Логін"
-  },
-  "ui_mp_am_screen_all": {
-    "eng": "Screenshot all",
-    "fra": "Capture d'écran (tout)",
-    "ger": "Screenshot (alle)",
-    "ita": "Immagine generale",
-    "pol": "Zrzut ekranu (wszyscy)",
-    "rus": "Скриншоты со всех",
-    "spa": "Capturar pantalla",
-    "ukr": "Скріншоти з усіх"
-  },
-  "ui_mp_am_config_all": {
-    "eng": "Configs for all",
-    "fra": "Config pour tous",
-    "ger": "Konfigurationen für alle",
-    "ita": "Configurazioni generali",
-    "pol": "Konfiguracja (wszyscy)",
-    "rus": "Конфиги со всех",
-    "spa": "Config. para todos",
-    "ukr": "Конфіги з усіх"
-  },
-  "ui_mp_am_ping_limit": {
-    "eng": "Ping limit:",
-    "fra": "Limite de ping :",
-    "ger": "Pinglimit:",
-    "ita": "Limite ping:",
-    "pol": "Limit pingu:",
-    "rus": "Ограничение пинга:",
-    "spa": "Límite de ping:",
-    "ukr": "Обмеження пінгу:"
-  },
-  "ui_mp_am_set_ping_limit": {
-    "eng": "Ping limit",
-    "fra": "Limite de ping",
-    "ger": "Pinglimit",
-    "ita": "Limite ping",
-    "pol": "Limit pingu",
-    "rus": "Ограничение пинга",
-    "spa": "Límite de ping",
-    "ukr": "Обмеження пінгу"
-  },
-  "ui_mp_am_screen_selected": {
-    "eng": "Scrn. selected player",
-    "fra": "Cap. écr. joueurs sélec.",
-    "ger": "Screens. (ausg. Spieler)",
-    "ita": "Imm. gioc. selezionato",
-    "pol": "Zrzut ekranu (wybrany )",
-    "rus": "Скриншот выбр. игрока",
-    "spa": "Jugador sel. en pantalla",
-    "ukr": "Скріншот вибр. гравця"
-  },
-  "ui_mp_am_config_selected": {
-    "eng": "Cfg for selected player",
-    "fra": "Cfg joueurs sélec.",
-    "ger": "Konf. für ausg. Spieler",
-    "ita": "Conf. gioc. selezionato",
-    "pol": "Konf. dla wybranego gracza ",
-    "rus": "Конфиг выбр. игрока",
-    "spa": "Config. jugador selec.",
-    "ukr": "Конфіг вибр. гравця"
-  },
-  "ui_mp_am_kick_selected": {
-    "eng": "Kick selected player",
-    "fra": "Exclure joueur sélectionné",
-    "ger": "Ausgew. Spieler kicken",
-    "ita": "Espelli gioc. selez.",
-    "pol": "Wyrzuć wybranego gracza",
-    "rus": "Выбросить выбр. игрока",
-    "spa": "Expulsar jugador selec.",
-    "ukr": "Викинути вибр. гравця"
-  },
-  "ui_mp_am_ban_selected": {
-    "eng": "Ban selected player",
-    "fra": "Bannir joueur sélectionné",
-    "ger": "Ausgew. Spieler sperren",
-    "ita": "Bandisci gioc. selez.",
-    "pol": "Zbanuj wybranego gracza",
-    "rus": "Забанить выбр. игрока",
-    "spa": "Inhab. jugador selec.",
-    "ukr": "Забанити вибр. гравця"
-  },
-  "ui_mp_am_restart": {
-    "eng": "Restart",
-    "fra": "Relancer",
-    "ger": "Neu starten",
-    "ita": "Ricomincia",
-    "pol": "Restart",
-    "rus": "Рестарт",
-    "spa": "Reiniciar",
-    "ukr": "Рестарт"
-  },
-  "ui_mp_am_fast_restart": {
-    "eng": "Fast restart",
-    "fra": "Redémarrage rapide",
-    "ger": "Schneller Neustart",
-    "ita": "Riavvio rapido",
-    "pol": "Szybki restart",
-    "rus": "Быстрый рестарт",
-    "spa": "Reinicio rápido",
-    "ukr": "Швидкий рестарт"
-  },
-  "ui_mp_am_change_weather": {
-    "eng": "Change weather",
-    "fra": "Changer la météo",
-    "ger": "Wetter ändern",
-    "ita": "Modifica clima",
-    "pol": "Zmień pogodę",
-    "rus": "Сменить погоду",
-    "spa": "Cambiar tiempo",
-    "ukr": "Змінити погоду"
-  },
-  "ui_mp_am_set_change_rate": {
-    "eng": "Weather change speed",
-    "fra": "Vitesse changement météo",
-    "ger": "Geschwindigk. Wetterwechsel",
-    "ita": "Velocitŕ variazione meteo",
-    "pol": "Szybkość zmiany pogody",
-    "rus": "Скорость смены погоды",
-    "spa": "Veloc. cambio tiempo",
-    "ukr": "Швидкість зміни погоди"
-  },
-  "ui_mp_am_change_game_type": {
-    "eng": "Change game type",
-    "fra": "Changer de type de partie",
-    "ger": "Spielart ändern",
-    "ita": "Cambia tipo di partita",
-    "pol": "Zmień typ gry",
-    "rus": "Сменить тип игры",
-    "spa": "Cambiar tipo de partida",
-    "ukr": "Змінити тип гри"
-  },
-  "ui_mp_am_change_game_limits": {
-    "eng": "Change game settings",
-    "fra": "Modifier les paramčtres de la partie",
-    "ger": "Spieleinstellungen ändern",
-    "ita": "Cambia impostazioni gioco",
-    "pol": "Zmień ustawienia gry",
-    "rus": "Изменить настройки игры",
-    "spa": "Cambiar conf. partida",
-    "ukr": "Змінити налаштування гри"
-  },
-  "ui_mp_am_stop_cur_voting": {
-    "eng": "Stop current vote",
-    "fra": "Mettre fin au vote en cours",
-    "ger": "Laufende Abstimmung stoppen",
-    "ita": "Interrompi il voto attuale",
-    "pol": "Przerwij obecne głosowanie",
-    "rus": "Остановить тек. голосование",
-    "spa": "Detener la votación actual",
-    "ukr": "Зупинити пот. голосування"
-  },
-  "ui_mp_am_set_time_limit": {
-    "eng": "Time limit (0, 180)",
-    "fra": "Limite de temps (0, 180)",
-    "ger": "Zeitlimit (0, 180)",
-    "ita": "Tempo limite (0, 180)",
-    "pol": "Limit czasu (0, 180)",
-    "rus": "Огран. времени (0, 180)",
-    "spa": "Límite de tiempo (0, 180)",
-    "ukr": "Обмеж. часу (0, 180)"
-  },
-  "ui_mp_am_set_frag_limit": {
-    "eng": "Frag limit (0, 1000)",
-    "fra": "Limite de frags (0, 1000)",
-    "ger": "Kill-Limit (0, 1000)",
-    "ita": "Limite uccisioni (0, 1000)",
-    "pol": "Limit fragów (0, 1000)",
-    "rus": "Огран. фрагов (0, 1000)",
-    "spa": "Límite de vidas (0, 1.000)",
-    "ukr": "Обмеж. фрагів (0, 1000)"
-  },
-  "ui_mp_am_set_art_limit": {
-    "eng": "Artifact limit (0, 100)",
-    "fra": "Limite d'artefacts (0, 100)",
-    "ger": "Artefaktlimit (0, 100)",
-    "ita": "Limite ai manufatti (0, 100)",
-    "pol": "Limit artefaktów (0,100)",
-    "rus": "Огран. артефактов (0, 100)",
-    "spa": "Límite artefactos (0, 100)",
-    "ukr": "Обмеж. артефактів (0, 100)"
-  },
-  "ui_mp_am_set_warm_up_time": {
-    "eng": "Warm up time (0, 3600)",
-    "fra": "temps d'échauffement (0, 3600)",
-    "ger": "Aufwärmzeit (0, 3600)",
-    "ita": "Tempo di prep. (0, 3600)",
-    "pol": "Czas rozgrzewki (0, 3600)",
-    "rus": "Время разогрева (0, 3600)",
-    "spa": "Tiempo calent. (0, 3.600)",
-    "ukr": "Час розігріву (0, 3600)"
-  },
-  "ui_mp_am_set_invincible_time": {
-    "eng": "Spwn prot time (0, 60 CTA)",
-    "fra": "Temps prot. réapp. (0, 60 CDA)",
-    "ger": "Unverwundbarkeit (0, 60 AE)",
-    "ita": "Tempo prot. gen. (0, 60 CTA)",
-    "pol": "Okres ochronny (0, 60 CTA) ",
-    "rus": "Время неуязв. (0, 60 CTA)",
-    "spa": "T. prot. reg. (0, 60 CTA)",
-    "ukr": "Час невразл. (0, 60 CTA)"
-  },
-  "ui_mp_am_set_damage_block_time": {
-    "eng": "Spwn prot time (0, 600 T/DM)",
-    "fra": "Temps prot. réapp. (0, 600 MM/E)",
-    "ger": "Unverwundbark. (0, 600 T/DM)",
-    "ita": "Protez. gen. (0, 600 T/DM)",
-    "pol": "Okr. ochronny (0, 600 T/DM) ",
-    "rus": "Время неуязв. (0, 600 T/DM)",
-    "spa": "T. prot. reg. (0, 600 T/DM)",
-    "ukr": "Час невразл. (0, 600 T/DM)"
-  },
-  "ui_mp_am_set_reinforcement_time": {
-    "eng": "Respawn time (-1, 3600)",
-    "fra": "Temps de réapparition (-1, 3600)",
-    "ger": "Respawn-Zeit (-1, 3600)",
-    "ita": "Tempo rigenera. (-1, 3600)",
-    "pol": "Opóź. odrodzenia (-1, 3600)",
-    "rus": "Время подкреп. (-1, 3600)",
-    "spa": "Tiempo reg. (-1, 3.600)",
-    "ukr": "Час підкріпл. (-1, 3600)"
-  },
-  "mp_gp_unknown_error_4": {
-    "eng": "Uknown profile error (code: 4)",
-    "fra": "Erreur de profil inconnue (code : 4)",
-    "ger": "Unbekannter Profilfehler (Code: 4)",
-    "ita": "Errore ignoto profilo (codice: 4)",
-    "pol": "Nieznany błąd profilu (kod:4)",
-    "rus": "Неизвестная ошибка профиля (код: 4)",
-    "spa": "Error de perfil desconocido (código: 4)",
-    "ukr": "Невідома помилка профілю (код: 4)"
-  },
-  "ui_mp_am_10_minutes": {
-    "eng": "10 minutes",
-    "fra": "10 minutes",
-    "ger": "10 Minuten",
-    "ita": "10 minuti",
-    "pol": "10 minut",
-    "rus": "10 минут",
-    "spa": "10 minutos",
-    "ukr": "10 хвилин"
-  },
-  "ui_mp_am_30_minutes": {
-    "eng": "30 minutes",
-    "fra": "30 minutes",
-    "ger": "30 Minuten",
-    "ita": "30 minuti",
-    "pol": "30 minut",
-    "rus": "30 минут",
-    "spa": "30 minutos",
-    "ukr": "30 хвилин"
-  },
-  "ui_mp_am_1_hour": {
-    "eng": "1 hour",
-    "fra": "1 heure",
-    "ger": "1 Stunde",
-    "ita": "1 ora",
-    "pol": "1 godzina",
-    "rus": "1 час",
-    "spa": "1 hora",
-    "ukr": "1 година"
-  },
-  "ui_mp_am_6_hours": {
-    "eng": "6 hours",
-    "fra": "6 heures",
-    "ger": "6 Stunden",
-    "ita": "6 ore",
-    "pol": "6 godzin",
-    "rus": "6 часов",
-    "spa": "6 horas",
-    "ukr": "6 годин"
-  },
-  "ui_mp_am_1_day": {
-    "eng": "1 day",
-    "fra": "1 jour",
-    "ger": "1 Tag",
-    "ita": "1 giorno",
-    "pol": "1 dzień",
-    "rus": "1 день",
-    "spa": "1 día",
-    "ukr": "1 день"
-  },
-  "ui_mp_am_1_week": {
-    "eng": "1 week",
-    "fra": "1 semaine",
-    "ger": "1 Woche",
-    "ita": "1 settimana",
-    "pol": "1 tydzień",
-    "rus": "1 неделя",
-    "spa": "1 semana",
-    "ukr": "1 тиждень"
-  },
-  "ui_mp_am_1_month": {
-    "eng": "1 month",
-    "fra": "1 mois",
-    "ger": "1 Monat",
-    "ita": "1 mese",
-    "pol": "1 miesiąc",
-    "rus": "1 месяц",
-    "spa": "1 mes",
-    "ukr": "1 місяць"
-  },
-  "ui_mp_am_3_monthes": {
-    "eng": "3 months",
-    "fra": "3 mois",
-    "ger": "3 Monate",
-    "ita": "3 mesi",
-    "pol": "3 miesiące",
-    "rus": "3 месяца",
-    "spa": "3 meses",
-    "ukr": "3 місяці"
-  },
-  "ui_mp_am_forever": {
-    "eng": "Permanently",
-    "fra": "Toujours",
-    "ger": "Permanent",
-    "ita": "Permanente",
-    "pol": "Stale",
-    "rus": "Навсегда",
-    "spa": "Permanentemente",
-    "ukr": "Назавжди"
-  },
-  "mp_gp_unique_nick_too_short": {
-    "eng": "The nickname is too short",
-    "fra": "Le pseudo est trop court",
-    "ger": "Der Benutzername ist zu kurz",
-    "ita": "Il soprannome č troppo breve",
-    "pol": "Pseudonim jest za krótki",
-    "rus": "Слишком короткое уникальное имя",
-    "spa": "El apodo es demasiado corto.",
-    "ukr": "Надто коротке унікальне ім'я"
-  },
-  "mp_gp_unknown_error_512": {
-    "eng": "Profile creation error",
-    "fra": "Erreur de profil",
-    "ger": "Profilfehler",
-    "ita": "Errore profilo",
-    "pol": "Błąd profilu",
-    "rus": "Ошибка создания профиля",
-    "spa": "Error de perfil",
-    "ukr": "Помилка створення профілю"
   }
 }

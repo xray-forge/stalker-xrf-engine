@@ -189,6 +189,16 @@
     "spa": "Usado",
     "ukr": "Використано"
   },
+  "st_key_notbinded": {
+    "eng": "...",
+    "fra": "...",
+    "ger": "...",
+    "ita": "...",
+    "pol": "...",
+    "rus": "...",
+    "spa": "...",
+    "ukr": "... "
+  },
   "st_level": {
     "eng": "Level",
     "fra": "Niveau",
@@ -369,6 +379,676 @@
     "spa": "escombros.",
     "ukr": "карбованців."
   },
+  "st_save_jup_a10_gonna_return_debt": {
+    "eng": "Vano’s debt repaid",
+    "fra": "dette de Vano remboursée",
+    "ger": "Wanos Schulden wurden beglichen",
+    "ita": "debito di Vano ripagato",
+    "pol": "Wano spłaca dług",
+    "rus": "возврат долга Вано",
+    "spa": "Deuda de Vano saldada",
+    "ukr": "повернення боргу Вано"
+  },
+  "st_save_jup_a12_gave_artefact_for_hostage": {
+    "eng": "ransom paid for hostage",
+    "fra": "rançon payée",
+    "ger": "Lösegeld für Geisel gezahlt",
+    "ita": "riscatto per l'ostaggio pagato",
+    "pol": "zapłacenie okupu za zakładnika",
+    "rus": "выкуплен заложник",
+    "spa": "rescate pagado",
+    "ukr": "викуплено заручника"
+  },
+  "st_save_jup_a12_met_with_liberators": {
+    "eng": "hostage freed",
+    "fra": "otage libéré",
+    "ger": "Geisel befreit",
+    "ita": "ostaggio liberato",
+    "pol": "uwolnienie zakładnika",
+    "rus": "освобождение заложника",
+    "spa": "rehén liberado",
+    "ukr": "звільнення заручника"
+  },
+  "st_save_jup_a9_got_underpass_docs": {
+    "eng": "road to Pripyat found",
+    "fra": "route de Pripyat trouvée",
+    "ger": "Weg nach Pripyat gefunden",
+    "ita": "strada per Pripyat scoperta",
+    "pol": "znalezienie drogi do Prypeci",
+    "rus": "найден путь в Припять",
+    "spa": "camino a Pripyat encontrado",
+    "ukr": "знайдено шлях до Прип'яті"
+  },
+  "st_save_jup_b15_drunk_with_zulu": {
+    "eng": "Zulu joins the squad",
+    "fra": "Zulu rejoint le groupe",
+    "ger": "Zulu hat sich dem Trupp angeschlossen",
+    "ita": "Zulu si unisce alla squadra",
+    "pol": "Zulus dołącza do oddziału",
+    "rus": "к отряду примкнул Зулус",
+    "spa": "Zulu se une al escuadrón",
+    "ukr": "до загону долучився Зулус"
+  },
+  "st_save_jup_b16_passed_labyrinth": {
+    "eng": "Oasis found",
+    "fra": "Oasis trouvé",
+    "ger": "Oase gefunden",
+    "ita": "Oasi trovata",
+    "pol": "znalezienie Oazy",
+    "rus": "найден «Оазис»",
+    "spa": "Oasis encontrado",
+    "ukr": "знайдено «Оазу»"
+  },
+  "st_save_jup_b19_arrived_to_kopachy": {
+    "eng": "sent to Kopachy",
+    "fra": "envoyé ŕ Kopachy",
+    "ger": "nach Kopatschi geschickt",
+    "ita": "in viaggio verso Kopachy",
+    "pol": "przejście do Kopaczi",
+    "rus": "отправка в Копачи",
+    "spa": "enviado a Kopachy",
+    "ukr": "відправка до Копачів"
+  },
+  "st_save_jup_b1_entered_railroad_tunnel": {
+    "eng": "search for the psy-emission source",
+    "fra": "recherche de la source des émissions psi",
+    "ger": "Suche nach der Quelle der Psi-Emission",
+    "ita": "ricerca della fonte della psico-emissione",
+    "pol": "poszukiwanie źródła emisji psionicznej",
+    "rus": "поиск источника пси-излучения",
+    "spa": "búsqueda del origen de las emisiones psíquicas",
+    "ukr": "пошук джерела псі-випромінювання"
+  },
+  "st_save_jup_b206_got_anomalous_plant": {
+    "eng": "anomalous plant collected",
+    "fra": "plante anormale récupérée",
+    "ger": "anomale Pflanze eingesammelt",
+    "ita": "pianta anomala recuperata",
+    "pol": "zebranie anormalnej rośliny",
+    "rus": "взято аномальное растение",
+    "spa": "planta extrańa recogida",
+    "ukr": "взято аномальну рослину"
+  },
+  "st_save_jup_b207_arrived_to_duty_depot": {
+    "eng": "Duty warehouse",
+    "fra": "entrepôt du Devoir",
+    "ger": "Wächterlagerhaus",
+    "ita": "magazzino Duty",
+    "pol": "magazyn frakcji Powinność",
+    "rus": "склад «Долга»",
+    "spa": "almacén de Deber",
+    "ukr": "склад «Долгу»"
+  },
+  "st_save_jup_b209_placed_mutant_scanner": {
+    "eng": "mutant detector",
+    "fra": "détecteur de mutants",
+    "ger": "Mutantendetektor",
+    "ita": "rilevatore di mutanti",
+    "pol": "detektor mutantów",
+    "rus": "датчик присутствия мутантов",
+    "spa": "detector de mutantes",
+    "ukr": "датчик наявності мутантів"
+  },
+  "st_save_jup_b217_arrived_to_jup": {
+    "eng": "arrival at Yanov",
+    "fra": "arrivée ŕ Yanov",
+    "ger": "Ankunft in der Janow-Station",
+    "ita": "arrivo a Yanov",
+    "pol": "dotarcie do płaskowyżu",
+    "rus": "прибытие на «Янов»",
+    "spa": "llegada a Yanov",
+    "ukr": "прибуття на «Янів» "
+  },
+  "st_save_jup_b218_sokolov_in_squad": {
+    "eng": "Sokolov joins the squad",
+    "fra": "Sokolov rejoint le groupe",
+    "ger": "Sokolow hat sich dem Trupp angeschlossen",
+    "ita": "Sokolov si unisce alla squadra",
+    "pol": "Sokołow dołącza do oddziału",
+    "rus": "к отряду примкнул Соколов",
+    "spa": "Sokolov se une al escuadrón",
+    "ukr": "до загону долучився Соколов"
+  },
+  "st_save_jup_b218_strider_in_squad": {
+    "eng": "Strider joins the squad",
+    "fra": "Arpenteur rejoint le groupe",
+    "ger": "Strider hat sich dem Trupp angeschlossen",
+    "ita": "Strider si unisce alla squadra",
+    "pol": "Włóczęga dołącza do oddziału",
+    "rus": "к отряду примкнул Бродяга",
+    "spa": "Strider se une al escuadrón",
+    "ukr": "до загону долучився Бродяга"
+  },
+  "st_save_jup_b218_travel_jup_to_pas": {
+    "eng": "squad assembled",
+    "fra": "groupe constitué",
+    "ger": "Trupp zusammengestellt",
+    "ita": "squadra assemblata",
+    "pol": "skompletowanie oddziału",
+    "rus": "отряд собран",
+    "spa": "pelotón reunido",
+    "ukr": "загін зібрано"
+  },
+  "st_save_jup_b218_vano_in_squad": {
+    "eng": "Vano joins the squad",
+    "fra": "Vano rejoint le groupe",
+    "ger": "Wano hat sich dem Trupp angeschlossen",
+    "ita": "Vano si unisce alla squadra",
+    "pol": "Wano dołącza do oddziału",
+    "rus": "к отряду примкнул Вано",
+    "spa": "Vano se une al escuadrón",
+    "ukr": "до загону долучився Вано"
+  },
+  "st_save_jup_b47_got_admin_docs": {
+    "eng": "administrative documents",
+    "fra": "documents administratifs",
+    "ger": "Verwaltungsunterlagen",
+    "ita": "documenti amministrativi",
+    "pol": "dokumenty administracyjne",
+    "rus": "административные документы",
+    "spa": "documentos administrativos",
+    "ukr": "адміністративні документи"
+  },
+  "st_save_jup_b6_arrived_to_ash_heap": {
+    "eng": "Ash Heap anomaly measurements",
+    "fra": "relevés de l'anomalie Tas de cendres",
+    "ger": "Aschehügel-Anomalie-Messungen",
+    "ita": "misurazioni anomalia Cumulo di cenere",
+    "pol": "pomiary anomalii Popielisko",
+    "rus": "замеры аномалии «Пепелище»",
+    "spa": "medidas de la anomalía del Cenizal",
+    "ukr": "вимірювання аномалії «Попелище»"
+  },
+  "st_save_jup_b6_arrived_to_fen": {
+    "eng": "Plavni anomaly measurements",
+    "fra": "relevés de l'anomalie Plavni",
+    "ger": "Plawni-Anomalie-Messungen",
+    "ita": "misurazioni anomalia Plavni",
+    "pol": "pomiary anomalii Szuwary",
+    "rus": "замеры аномалии «Плавни»",
+    "spa": "medidas de la anomalía Plavni",
+    "ukr": "вимірювання аномалії «Плавні»"
+  },
+  "st_save_jup_b8_searched_heli_4": {
+    "eng": "Stingray 4 examined",
+    "fra": "Stingray 4 examiné",
+    "ger": "Stingray 4 untersucht",
+    "ita": "Stingray 4 esaminato",
+    "pol": "zbadanie helikoptera Ogończa 4",
+    "rus": "исследован «Скат-4»",
+    "spa": "Pez Raya 4 registrado",
+    "ukr": "досліджено «Скат-4»"
+  },
+  "st_save_jup_b9_searched_heli_1": {
+    "eng": "Stingray 1 examined",
+    "fra": "Stingray 1 examiné",
+    "ger": "Stingray 1 untersucht",
+    "ita": "Stingray 1 esaminato",
+    "pol": "zbadanie helikoptera Ogończa 1",
+    "rus": "исследован «Скат-1»",
+    "spa": "Pez Raya 1 registrado",
+    "ukr": "досліджено «Скат-1»"
+  },
+  "st_save_pas_b400_underpass_start": {
+    "eng": "arrival in the underpass",
+    "fra": "arrivée au tunnel",
+    "ger": "Ankunft in der Unterführung",
+    "ita": "arrivo nel sottopasso",
+    "pol": "przybycie do tunelu",
+    "rus": "прибытие в путепровод",
+    "spa": "llegada al paso subterráneo",
+    "ukr": "прибуття до шляхопроводу"
+  },
+  "st_save_pri_a16_arrived_to_pri": {
+    "eng": "military forces located",
+    "fra": "militaires localisés",
+    "ger": "Militäreinheiten entdeckt",
+    "ita": "unitŕ militari individuate",
+    "pol": "zlokalizowanie sił wojskowych",
+    "rus": "найдены военные",
+    "spa": "fuerzas militares localizadas",
+    "ukr": "знайдено військових"
+  },
+  "st_save_pri_a17_hospital_start": {
+    "eng": "unidentified weapon captured",
+    "fra": "arme non identifiée récupérée",
+    "ger": "unbekannte Waffe sichergestellt",
+    "ita": "arma non identificata recuperata",
+    "pol": "zdobycie niezidentyfikowanej broni",
+    "rus": "захват неизвестного оружия",
+    "spa": "arma no identificada capturada",
+    "ukr": "захоплення невідомої зброї"
+  },
+  "st_save_pri_a18_met_reinforcement": {
+    "eng": "reinforcements arrived",
+    "fra": "arrivée des renforts",
+    "ger": "Verstärkung eingetroffen",
+    "ita": "rinforzi arrivati",
+    "pol": "nadejście posiłków",
+    "rus": "прибыло подкрепление",
+    "spa": "refuerzos recibidos",
+    "ukr": "прибуло підкріплення"
+  },
+  "st_save_pri_a18_searched_antenna": {
+    "eng": "“antenna” examined",
+    "fra": "\"antenne\" examinée",
+    "ger": "\"Antenne\" untersucht",
+    "ita": "\"antenna\" esaminata",
+    "pol": "zbadanie anteny",
+    "rus": "исследована «антенна»",
+    "spa": "\"antena\" registrada",
+    "ukr": "досліджено «антену»"
+  },
+  "st_save_pri_a20_found_dead_recon": {
+    "eng": "recon squad found",
+    "fra": "unité de reconnaissance trouvée",
+    "ger": "Spähtrupp gefunden",
+    "ita": "squadra di ricognizione individuata",
+    "pol": "znalezienie oddziału zwiadowczego",
+    "rus": "найдена разведгруппа",
+    "spa": "pelotón de reconocimiento encontrado",
+    "ukr": "знайдено розвідгрупу"
+  },
+  "st_save_pri_a21_approached_mad_sentry": {
+    "eng": "missing sentry found",
+    "fra": "sentinelle disparue retrouvée",
+    "ger": "Vermisste Wache gefunden",
+    "ita": "sentinella scomparsa individuata",
+    "pol": "znalezienie zaginionego wartownika",
+    "rus": "найден пропавший часовой",
+    "spa": "centinela desaparecido encontrado",
+    "ukr": "знайдено зниклого вартового"
+  },
+  "st_save_pri_a21_killed_controller": {
+    "eng": "controller near sentry killed",
+    "fra": "contrôleur prčs de la sentinelle tué",
+    "ger": "Controller bei der Wache ausgeschaltet",
+    "ita": "controllore vicino alla sentinella ucciso",
+    "pol": "zabicie kontrolera przy wartowniku",
+    "rus": "убит контролёр возле часового",
+    "spa": "controlador cercano al centinela asesinado",
+    "ukr": "вбито контролера коло вартового"
+  },
+  "st_save_pri_a22_found_dead_squad": {
+    "eng": "dead fighter found",
+    "fra": "cadavre de combattant trouvé",
+    "ger": "toten Kämpfer gefunden",
+    "ita": "combattente morto individuato",
+    "pol": "znalezienie martwego bojownika",
+    "rus": "найден погибший боец",
+    "spa": "cadáver de soldado encontrado",
+    "ukr": "знайдено загиблого бійця"
+  },
+  "st_save_pri_a25_freed_medic": {
+    "eng": "military medic rescued",
+    "fra": "infirmier de l'armée sauvé",
+    "ger": "Armeearzt gerettet",
+    "ita": "medico militare salvato",
+    "pol": "uratowanie lekarza wojskowego",
+    "rus": "спасён военный медик",
+    "spa": "médico militar rescatado",
+    "ukr": "врятовано військового медика"
+  },
+  "st_save_pri_a25_gonna_place_explosive": {
+    "eng": "entry to the kindergarten",
+    "fra": "entrée dans l'école maternelle",
+    "ger": "Eingang zum Kindergarten",
+    "ita": "ingresso nell'asilo",
+    "pol": "wejście do przedszkola",
+    "rus": "вход в детский сад",
+    "spa": "entrada al jardín de infancia",
+    "ukr": "вхід до дитячого садка"
+  },
+  "st_save_pri_a28_evacuation_end": {
+    "eng": "evacuation helicopters reached",
+    "fra": "hélicoptčres sur zone",
+    "ger": "Evakuierungshubschrauber erreicht",
+    "ita": "elicotteri per l'evacuazione raggiunti",
+    "pol": "dotarcie do helikopterów ewakuacyjnych",
+    "rus": "достигнуты вертолёты эвакуации",
+    "spa": "helicópteros de evacuación alcanzados",
+    "ukr": "досягнуто гелікоптерів евакуації"
+  },
+  "st_save_pri_a28_evacuation_heli": {
+    "eng": "evacuation helicopter take-off",
+    "fra": "décollage des hélicoptčres d'évacuation",
+    "ger": "Start des Evakuierungshubschraubers",
+    "ita": "decollo elicottero di evacuazione",
+    "pol": "start helikoptera ewakuacyjnego",
+    "rus": "отлёт вертолётов эвакуации",
+    "spa": "despegue del helicóptero de evacuación",
+    "ukr": "відліт гелікоптерів евакуації"
+  },
+  "st_save_pri_a28_evacutaion_start": {
+    "eng": "Pripyat evacuation initiated",
+    "fra": "Début de l'évacuation de Pripyat",
+    "ger": "Evakuierung von Pripyat eingeleitet",
+    "ita": "evacuazione di Pripyat iniziata",
+    "pol": "rozpoczęcie ewakuacji Prypeci",
+    "rus": "начало эвакуации из Припяти",
+    "spa": "evacuación de Pripyat iniciada",
+    "ukr": "початок евакуації з Прип'яті"
+  },
+  "st_save_pri_a28_talked_with_ssu": {
+    "eng": "established communications with HQ",
+    "fra": "communication avec le QG rétablie",
+    "ger": "Kommunikation mit dem HQ hergestellt",
+    "ita": "comunizazioni con il QG stabilite",
+    "pol": "nawiązanie łączności z kwaterą główną",
+    "rus": "установлена связь с командованием",
+    "spa": "comunicaciones con el cuartel general establecidas",
+    "ukr": "встановлено зв'язок із командуванням"
+  },
+  "st_save_pri_b301_arrived_to_help_zulu": {
+    "eng": "Zulu found",
+    "fra": "Zulu trouvé",
+    "ger": "Zulu gefunden",
+    "ita": "Zulu individuato",
+    "pol": "znalezienie Zulusa",
+    "rus": "найден Зулус",
+    "spa": "Zulu encontrado",
+    "ukr": "знайдено Зулуса"
+  },
+  "st_save_pri_b35_ready_to_snipe": {
+    "eng": "Operation One Shot initiated",
+    "fra": "Opération Mise ŕ mort lancée",
+    "ger": "Operation \"Ein Schuss\" eingeleitet",
+    "ita": "operazione Occasione unica avviata",
+    "pol": "rozpoczęcie operacji Jeden Strzał",
+    "rus": "начало операции «Один выстрел»",
+    "spa": "Operación Un disparo iniciada",
+    "ukr": "початок операції «Один постріл»"
+  },
+  "st_save_uni_labx8_to_pri": {
+    "eng": "moving from X8 to Pripyat",
+    "fra": "en route pour Pripyat depuis le labo X8",
+    "ger": "unterwegs vom Labor X8 nach Pripyat",
+    "ita": "in movimento da X8 a Pripyat",
+    "pol": "przejście z laboratorium X8 do Prypeci",
+    "rus": "переход из X8 в Припять",
+    "spa": "moviéndose de X8 a Pripyat",
+    "ukr": "перехід з X8 до Прип'яті"
+  },
+  "st_save_uni_pri_to_labx8": {
+    "eng": "moving from Pripyat to X8",
+    "fra": "en route pour le labo X8 depuis Pripyat",
+    "ger": "unterwegs von Pripyat zum Labor X8",
+    "ita": "in movimento da Pripyat a X8",
+    "pol": "przejście z Prypeci do laboratorium X8",
+    "rus": "переход из Припяти в X8",
+    "spa": "moviéndose de Pripyat a X8",
+    "ukr": "перехід із Прип'яті до X8"
+  },
+  "st_save_uni_surge_start": {
+    "eng": "emission",
+    "fra": "émission",
+    "ger": "Emission",
+    "ita": "emissione",
+    "pol": "emisja",
+    "rus": "выброс",
+    "spa": "emisión",
+    "ukr": "викид"
+  },
+  "st_save_uni_travel_generic": {
+    "eng": "moving within an area",
+    "fra": "en déplacement dans un secteur donné",
+    "ger": "unterwegs in einem Gebiet",
+    "ita": "in movimento all'interno di un'area",
+    "pol": "przemieszczanie się po obszarze",
+    "rus": "переход по локации",
+    "spa": "moviéndose en una zona",
+    "ukr": "перехід локацією"
+  },
+  "st_save_uni_travel_jup_to_pri": {
+    "eng": "moving from Yanov to Pripyat",
+    "fra": "en route pour Pripyat depuis Yanov",
+    "ger": "unterwegs von der Janow-Station nach Pripyat",
+    "ita": "in movimento da Yanov a Pripyat",
+    "pol": "przejście z Janowa do Prypeci",
+    "rus": "переход с «Янова» в Припять",
+    "spa": "moviéndose de Yanov a Pripyat",
+    "ukr": "перехід з «Янова» до Прип'яті"
+  },
+  "st_save_uni_travel_jup_to_zat": {
+    "eng": "moving from Yanov to Zaton",
+    "fra": "en route pour Zaton depuis Yanov",
+    "ger": "unterwegs von der Janow-Station nach Zaton",
+    "ita": "in movimento da Yanov a Zaton",
+    "pol": "przejście z Janowa do Zatonu",
+    "rus": "переход с «Янова» на Затон",
+    "spa": "moviéndose de Yanov a Zaton",
+    "ukr": "перехід з «Янова» на Затон"
+  },
+  "st_save_uni_travel_pas_to_pri": {
+    "eng": "arrival in Pripyat",
+    "fra": "arrivée ŕ Pripyat",
+    "ger": "Ankunft in Pripyat",
+    "ita": "arrivo a Pripyat",
+    "pol": "przybycie do Prypeci",
+    "rus": "выход в Припять",
+    "spa": "llegada a Pripyat",
+    "ukr": "вихід до Прип'яті"
+  },
+  "st_save_uni_travel_pri_to_jup": {
+    "eng": "moving from Pripyat to Yanov",
+    "fra": "en route pour Yanov depuis Pripyat",
+    "ger": "unterwegs von Pripyat zur Janow-Station",
+    "ita": "in movimento da Pripyat a Yanov",
+    "pol": "przejście z Prypeci do Janowa",
+    "rus": "переход из Припяти на «Янов»",
+    "spa": "moviéndose de Pripyat a Yanov",
+    "ukr": "перехід із Прип'яті на «Янів» "
+  },
+  "st_save_uni_travel_pri_to_zat": {
+    "eng": "moving from Pripyat to Zaton",
+    "fra": "en route pour Zaton depuis Pripyat",
+    "ger": "unterwegs von Pripyat nach Zaton",
+    "ita": "in movimento da Pripyat a Zaton",
+    "pol": "przejście z Prypeci do Zatonu",
+    "rus": "переход из Припяти на Затон",
+    "spa": "moviéndose de Pripyat a Zaton",
+    "ukr": "перехід із Прип'яті на Затон"
+  },
+  "st_save_uni_travel_zat_to_jup": {
+    "eng": "moving from Zaton to Yanov",
+    "fra": "en route pour Yanov depuis Zaton",
+    "ger": "unterwegs von Zaton zur Janow-Station",
+    "ita": "in movimento da Zaton a Yanov",
+    "pol": "przejście z Zatonu do Janowa",
+    "rus": "переход с Затона на «Янов»",
+    "spa": "moviéndose de Zaton a Yanov",
+    "ukr": "перехід із Затону на «Янів»"
+  },
+  "st_save_uni_travel_zat_to_pri": {
+    "eng": "moving from Zaton to Pripyat",
+    "fra": "en route pour Pripyat depuis Zaton",
+    "ger": "unterwegs von Zaton nach Pripyat",
+    "ita": "in movimento da Zaton a Pripyat",
+    "pol": "przejście z Zatonu do Prypeci",
+    "rus": "переход с Затона в Припять",
+    "spa": "moviéndose de Zaton a Pripyat",
+    "ukr": "перехід із Затону до Прип'яті"
+  },
+  "st_save_uni_zone_to_reality": {
+    "eng": "evacuation complete",
+    "fra": "évacuation terminée",
+    "ger": "Evakuierung abgeschlossen",
+    "ita": "evacuazione completata",
+    "pol": "zakończenie ewakuacji",
+    "rus": "уход из Зоны",
+    "spa": "evacuación completada",
+    "ukr": "відхід із Зони"
+  },
+  "st_save_zat_a1_game_start": {
+    "eng": "beginning of the game",
+    "fra": "début de la partie",
+    "ger": "Anfang des Spiels",
+    "ita": "inizio del gioco",
+    "pol": "początek gry",
+    "rus": "начало игры",
+    "spa": "comienzo de la partida",
+    "ukr": "початок гри"
+  },
+  "st_save_zat_a23_entered_test_center": {
+    "eng": "testing workshop accessed",
+    "fra": "accčs ŕ l'atelier de test",
+    "ger": "Testwerkstatt betreten",
+    "ita": "ingresso nell'officina collaudi",
+    "pol": "wejście do magazynu testowego",
+    "rus": "вход в испытательный цех",
+    "spa": "taller de pruebas alcanzado",
+    "ukr": "вхід до дослідного цеху"
+  },
+  "st_save_zat_a23_got_gauss_docs": {
+    "eng": "Gauss rifle documentation found",
+    "fra": "documentation du fusil Gauss trouvé",
+    "ger": "Gaußgewehrdokumente gefunden",
+    "ita": "documenti sul fucile Gauss recuperati",
+    "pol": "znalezienie dokumentacji do karabinu Gaussa",
+    "rus": "найдена документация на гаусс-пушку",
+    "spa": "documentación de fusil Gauss encontrada",
+    "ukr": "знайдено документацію до гаус-гармати"
+  },
+  "st_save_zat_a2_reached_skadovsk": {
+    "eng": "arrival at the Skadovsk",
+    "fra": "arrivée au Skadovsk",
+    "ger": "Ankunft auf der Skadowsk",
+    "ita": "arrivo alla Skadovsk",
+    "pol": "przybycie do Skadowska",
+    "rus": "прибытие на «Скадовск»",
+    "spa": "llegada a Skadovsk",
+    "ukr": "прибуття на «Скадовськ»"
+  },
+  "st_save_zat_b100_searched_heli_2": {
+    "eng": "Stingray 2 examined",
+    "fra": "Stingray 2 examiné",
+    "ger": "Stingray 2 untersucht",
+    "ita": "Stingray 2 esaminato",
+    "pol": "zbadanie helikoptera Ogończa 2",
+    "rus": "исследован «Скат-2»",
+    "spa": "Pez Raya 2 registrado",
+    "ukr": "досліджено «Скат-2»"
+  },
+  "st_save_zat_b101_searched_heli_5": {
+    "eng": "Stingray 5 examined",
+    "fra": "Stingray 5 examiné",
+    "ger": "Stingray 5 untersucht",
+    "ita": "Stingray 5 esaminato",
+    "pol": "zbadanie helikoptera Ogończa 5",
+    "rus": "исследован «Скат-5»",
+    "spa": "Pez Raya 5 registrado",
+    "ukr": "досліджено «Скат-5»"
+  },
+  "st_save_zat_b103_warned_by_mercs": {
+    "eng": "approach to the substation workshop",
+    "fra": "abords des ateliers du poste électrique",
+    "ger": "Zugang zu den Werkstätten des Umspannwerks",
+    "ita": "avvicinamento all'officina della sotto-stazione",
+    "pol": "podejście do magazynu podstacji",
+    "rus": "подход к цехам подстанции",
+    "spa": "acercamiento al taller de la subestación",
+    "ukr": "підхід до цехів підстанції"
+  },
+  "st_save_zat_b106_arrived_to_chimera_lair": {
+    "eng": "hunting the chimera",
+    "fra": "chasse ŕ la chimčre",
+    "ger": "jagt die Chimäre",
+    "ita": "a caccia della chimera",
+    "pol": "polowanie na chimerę",
+    "rus": "охота на химеру",
+    "spa": "caza de la quimera",
+    "ukr": "полювання на химеру"
+  },
+  "st_save_zat_b14_got_altered_wheel": {
+    "eng": "strange glow source found",
+    "fra": "source de l'étrange lueur découverte",
+    "ger": "Quelle des seltsamen Leuchtens gefunden",
+    "ita": "fonte dello strano bagliore individuata",
+    "pol": "znalezienie źródła dziwnego światła",
+    "rus": "найден источник странного свечения",
+    "spa": "origen del extrańo brillo encontrado",
+    "ukr": "знайдено джерело дивного світіння"
+  },
+  "st_save_zat_b18_noah_showed_teleport": {
+    "eng": "getting to the plateau",
+    "fra": "en route pour le plateau du sud",
+    "ger": "unterwegs zum Plateau",
+    "ita": "verso l'altopiano",
+    "pol": "dotarcie do płaskowyżu",
+    "rus": "путь на плато",
+    "spa": "llegando a la meseta",
+    "ukr": "шлях на плато"
+  },
+  "st_save_zat_b28_searched_heli_3": {
+    "eng": "Stingray 3 examined",
+    "fra": "Stingray 3 examiné",
+    "ger": "Stingray 3 untersucht",
+    "ita": "Stingray 3 esaminato",
+    "pol": "zbadanie helikoptera Ogończa 3",
+    "rus": "исследован «Скат-3»",
+    "spa": "Pez Raya 3 registrado",
+    "ukr": "досліджено «Скат-3»"
+  },
+  "st_save_zat_b33_got_container": {
+    "eng": "container found in stash",
+    "fra": "conteneur trouvé dans la planque",
+    "ger": "Kiste in Versteck gefunden",
+    "ita": "contenitore trovato nel ripostiglio",
+    "pol": "znalezienie pojemnika w schowku",
+    "rus": "найден контейнер в тайнике",
+    "spa": "contenedor encontrado en el escondite",
+    "ukr": "знайдено контейнер у схованці"
+  },
+  "st_save_zat_b38_met_with_grouse": {
+    "eng": "bloodsucker lair",
+    "fra": "nid de sangsues",
+    "ger": "Blutsaugerlager",
+    "ita": "tana dei succhiasangue",
+    "pol": "legowisko pijawek",
+    "rus": "логово кровососов",
+    "spa": "guarida de chupasangres",
+    "ukr": "лігво кровососів"
+  },
+  "st_save_zat_b40_warned_by_mercs": {
+    "eng": "approach to the waste processing station",
+    "fra": "abords de la station de traitement des déchets",
+    "ger": "Zugang zur Kläranlage",
+    "ita": "avvicinamento all'impianto dei rifiuti",
+    "pol": "podejście do zakładu utylizacji odpadów",
+    "rus": "подход к станции переработки отходов",
+    "spa": "acercamiento a la planta de tratamiento de basura",
+    "ukr": "підхід до станції переробляння відходів"
+  },
+  "st_save_zat_b42_arrived_to_controler_lair": {
+    "eng": "dangerous cave",
+    "fra": "grotte dangereuse",
+    "ger": "gefährliche Höhle",
+    "ita": "caverna pericolosa",
+    "pol": "niebezpieczna jaskinia",
+    "rus": "опасная пещера",
+    "spa": "cueva peligrosa",
+    "ukr": "небезпечна печера"
+  },
+  "st_save_zat_b5_met_with_others": {
+    "eng": "deal by the ranger station",
+    "fra": "rencontre prčs du poste des rangers",
+    "ger": "Geschäft bei der Forststation",
+    "ita": "accordo vicino alla stazione dei ranger",
+    "pol": "transakcja przy leśniczówce",
+    "rus": "сделка возле лесничества",
+    "spa": "trato junto al puesto de guardabosques",
+    "ukr": "угода біля лісництва"
+  },
+  "st_save_zat_b7_met_with_robbers": {
+    "eng": "stalker hit",
+    "fra": "stalkers touchés",
+    "ger": "Stalker getroffen",
+    "ita": "attacco stalker",
+    "pol": "atak na stalkerów",
+    "rus": "наезд на сталкеров",
+    "spa": "stalker alcanzado",
+    "ukr": "наїзд на сталкерів"
+  },
   "st_server_connecting": {
     "eng": "SERVER: Connecting",
     "fra": "SERVEUR : connexion en cours",
@@ -428,6 +1108,36 @@
     "rus": "Починить",
     "spa": "Arreglar",
     "ukr": "Полагодити"
+  },
+  "ui_repair_button_hint": {
+    "eng": "Repair selected item",
+    "fra": "Réparer l'objet sélectionné",
+    "ger": "Ausgewählten Gegenstand reparieren",
+    "ita": "Ripara l'oggetto selezionato",
+    "pol": "Napraw wybrany przedmiot",
+    "rus": "Починить выбранную вещь",
+    "spa": "Reparar el objeto seleccionado",
+    "ukr": "Полагодити обрану річ"
+  },
+  "ui_st_buy": {
+    "eng": "Buy",
+    "fra": "Acheter",
+    "ger": "Kaufen",
+    "ita": "Compra",
+    "pol": "Kup",
+    "rus": "Купить",
+    "spa": "Comprar",
+    "ukr": "Купити"
+  },
+  "ui_st_buy_hint": {
+    "eng": "Buy selected items",
+    "fra": "Acheter les objets sélectionnés",
+    "ger": "Ausgewählte Gegenstände kaufen",
+    "ita": "Compra gli oggetti selezionati",
+    "pol": "Kup wybrane przedmioty",
+    "rus": "Купить выбранные вещи",
+    "spa": "Comprar los objetos seleccionados",
+    "ukr": "Придбати обрані речі"
   },
   "ui_st_cant_run_r2": {
     "eng": "You can't run Render 2 on your PC",
@@ -623,6 +1333,16 @@
     "spa": "Error de carga",
     "ukr": "Помилка завантаження"
   },
+  "ui_st_exit_hint": {
+    "eng": "Close window ($$ACTION_USE$$)",
+    "fra": "Fermer la fenętre ($$ACTION_USE$$)",
+    "ger": "Fenster schließen ($$ACTION_USE$$)",
+    "ita": "Chiudi la finestra ($$ACTION_USE$$)",
+    "pol": "Zamknij okno ($$ACTION_USE$$)",
+    "rus": "Закрыть окно ($$ACTION_USE$$)",
+    "spa": "Cerrar ventana ($$ACTION_USE$$)",
+    "ukr": "Закрити вікно ($$ACTION_USE$$)"
+  },
   "ui_st_file_exist_owerwrite_q": {
     "eng": "A file with this name already exists. Do you want to overwrite it?",
     "fra": "Il existe déjŕ un fichier du męme nom. Voulez-vous l'écraser ?",
@@ -652,6 +1372,16 @@
     "rus": "час.",
     "spa": "Horas",
     "ukr": "год."
+  },
+  "ui_st_inv_repair": {
+    "eng": "Repair",
+    "fra": "Réparer",
+    "ger": "Reparieren",
+    "ita": "Ripara",
+    "pol": "Naprawa",
+    "rus": "Ремонт",
+    "spa": "Arreglar",
+    "ukr": "Ремонт"
   },
   "ui_st_kicked_by_battleye": {
     "eng": "Was disconnected by BattleEye protection system:",
@@ -813,6 +1543,26 @@
     "spa": "Selecciona al menos un mapa",
     "ukr": "Будь ласка, виберіть хоча б одну мапу"
   },
+  "ui_st_sell": {
+    "eng": "Sell",
+    "fra": "Vendre",
+    "ger": "Verkaufen",
+    "ita": "Vendi",
+    "pol": "Sprzedaj",
+    "rus": "Продать",
+    "spa": "Vender",
+    "ukr": "Продати"
+  },
+  "ui_st_sell_hint": {
+    "eng": "Sell selected items",
+    "fra": "Vendre les objets sélectionnés",
+    "ger": "Ausgewählte Gegenstände verkaufen",
+    "ita": "Vendi gli oggetti selezionati",
+    "pol": "Sprzedaj wybrane przedmioty",
+    "rus": "Продать выбранные вещи",
+    "spa": "Vender los objetos seleccionados",
+    "ukr": "Продати обрані речі"
+  },
   "ui_st_take_all": {
     "eng": "Take all",
     "fra": "Tout prendre",
@@ -823,6 +1573,16 @@
     "spa": "Coger todo",
     "ukr": "Узяти все"
   },
+  "ui_st_take_all_hint": {
+    "eng": "Move all items to your backpack ($$ACTION_SPRINT_TOGGLE$$)",
+    "fra": "Placer tous les objets dans le sac ŕ dos ($$ACTION_SPRINT_TOGGLE$$)",
+    "ger": "Alle Gegenstände in den Rucksack legen ($$ACTION_SPRINT_TOGGLE$$)",
+    "ita": "Sposta tutti gli oggetti nel tuo zaino ($$ACTION_SPRINT_TOGGLE$$)",
+    "pol": "Przenieś wszystkie przedmioty do plecaka ($$ACTION_SPRINT_TOGGLE$$)",
+    "rus": "Переместить все вещи в свой рюкзак ($$ACTION_SPRINT_TOGGLE$$)",
+    "spa": "Mover todos los objetos a tu mochila ($$ACTION_SPRINT_TOGGLE$$)",
+    "ukr": "Перемістити усі речі до свого рюкзака ($$ACTION_SPRINT_TOGGLE$$)"
+  },
   "ui_st_time_remains": {
     "eng": "Remaining",
     "fra": "Temps restant",
@@ -832,6 +1592,46 @@
     "rus": "Осталось",
     "spa": "Restante",
     "ukr": "Залишилося"
+  },
+  "ui_st_trade": {
+    "eng": "Trade",
+    "fra": "Échanger",
+    "ger": "Handeln",
+    "ita": "Scambia",
+    "pol": "Handel",
+    "rus": "Торговля",
+    "spa": "Intercambiar",
+    "ukr": "Торгувати"
+  },
+  "ui_st_trade_hint": {
+    "eng": "Open trading window ($$ACTION_SPRINT_TOGGLE$$)",
+    "fra": "Ouvrir la fenętre Échanger ($$ACTION_SPRINT_TOGGLE$$)",
+    "ger": "Handelsfenster öffnen ($$ACTION_SPRINT_TOGGLE$$)",
+    "ita": "Apri la finestra del commercio ($$ACTION_SPRINT_TOGGLE$$)",
+    "pol": "Otwórz okno handlowania ($$ACTION_SPRINT_TOGGLE$$)",
+    "rus": "Открыть окно торговли ($$ACTION_SPRINT_TOGGLE$$)",
+    "spa": "Abrir ventana de intercambio ($$ACTION_SPRINT_TOGGLE$$)",
+    "ukr": "Відкрити вікно торгівлі ($$ACTION_SPRINT_TOGGLE$$)"
+  },
+  "ui_st_upgrade": {
+    "eng": "Repair/modifications",
+    "fra": "Réparations/modifications",
+    "ger": "Reparieren/Modifikationen",
+    "ita": "Riparazioni/Modifiche",
+    "pol": "Naprawa/modyfikacje",
+    "rus": "Ремонт/модификация",
+    "spa": "Reparaciones/modificaciones",
+    "ukr": "Ремонт/модифікація"
+  },
+  "ui_st_upgrade_hint": {
+    "eng": "Open repair and modification window ($$ACTION_SPRINT_TOGGLE$$)",
+    "fra": "Ouvrir la fenętre Réparations/modifications ($$ACTION_SPRINT_TOGGLE$$)",
+    "ger": "Reparatur- und Modifikationsfenster öffnen ($$ACTION_SPRINT_TOGGLE$$)",
+    "ita": "Apri la finestra di riparazioni e modifiche ($$ACTION_SPRINT_TOGGLE$$)",
+    "pol": "Otwórz okno naprawy i modyfikacji ($$ACTION_SPRINT_TOGGLE$$)",
+    "rus": "Открыть окно ремонта и модификации ($$ACTION_SPRINT_TOGGLE$$)",
+    "spa": "Abrir ventana de reparaciones y modificaciones ($$ACTION_SPRINT_TOGGLE$$)",
+    "ukr": "Відкрити вікно ремонту та модифікації ($$ACTION_SPRINT_TOGGLE$$)"
   },
   "ui_st_voting_disabled": {
     "eng": "Vote failed",
@@ -892,805 +1692,5 @@
     "rus": "Ветеран",
     "spa": "Veterano",
     "ukr": "Ветеран"
-  },
-  "ui_st_inv_repair": {
-    "eng": "Repair",
-    "fra": "Réparer",
-    "ger": "Reparieren",
-    "ita": "Ripara",
-    "pol": "Naprawa",
-    "rus": "Ремонт",
-    "spa": "Arreglar",
-    "ukr": "Ремонт"
-  },
-  "ui_repair_button_hint": {
-    "eng": "Repair selected item",
-    "fra": "Réparer l'objet sélectionné",
-    "ger": "Ausgewählten Gegenstand reparieren",
-    "ita": "Ripara l'oggetto selezionato",
-    "pol": "Napraw wybrany przedmiot",
-    "rus": "Починить выбранную вещь",
-    "spa": "Reparar el objeto seleccionado",
-    "ukr": "Полагодити обрану річ"
-  },
-  "st_key_notbinded": {
-    "eng": "...",
-    "fra": "...",
-    "ger": "...",
-    "ita": "...",
-    "pol": "...",
-    "rus": "...",
-    "spa": "...",
-    "ukr": "... "
-  },
-  "st_save_uni_travel_generic": {
-    "eng": "moving within an area",
-    "fra": "en déplacement dans un secteur donné",
-    "ger": "unterwegs in einem Gebiet",
-    "ita": "in movimento all'interno di un'area",
-    "pol": "przemieszczanie się po obszarze",
-    "rus": "переход по локации",
-    "spa": "moviéndose en una zona",
-    "ukr": "перехід локацією"
-  },
-  "st_save_uni_travel_zat_to_jup": {
-    "eng": "moving from Zaton to Yanov",
-    "fra": "en route pour Yanov depuis Zaton",
-    "ger": "unterwegs von Zaton zur Janow-Station",
-    "ita": "in movimento da Zaton a Yanov",
-    "pol": "przejście z Zatonu do Janowa",
-    "rus": "переход с Затона на «Янов»",
-    "spa": "moviéndose de Zaton a Yanov",
-    "ukr": "перехід із Затону на «Янів»"
-  },
-  "st_save_uni_travel_zat_to_pri": {
-    "eng": "moving from Zaton to Pripyat",
-    "fra": "en route pour Pripyat depuis Zaton",
-    "ger": "unterwegs von Zaton nach Pripyat",
-    "ita": "in movimento da Zaton a Pripyat",
-    "pol": "przejście z Zatonu do Prypeci",
-    "rus": "переход с Затона в Припять",
-    "spa": "moviéndose de Zaton a Pripyat",
-    "ukr": "перехід із Затону до Прип'яті"
-  },
-  "st_save_uni_travel_jup_to_zat": {
-    "eng": "moving from Yanov to Zaton",
-    "fra": "en route pour Zaton depuis Yanov",
-    "ger": "unterwegs von der Janow-Station nach Zaton",
-    "ita": "in movimento da Yanov a Zaton",
-    "pol": "przejście z Janowa do Zatonu",
-    "rus": "переход с «Янова» на Затон",
-    "spa": "moviéndose de Yanov a Zaton",
-    "ukr": "перехід з «Янова» на Затон"
-  },
-  "st_save_uni_travel_jup_to_pri": {
-    "eng": "moving from Yanov to Pripyat",
-    "fra": "en route pour Pripyat depuis Yanov",
-    "ger": "unterwegs von der Janow-Station nach Pripyat",
-    "ita": "in movimento da Yanov a Pripyat",
-    "pol": "przejście z Janowa do Prypeci",
-    "rus": "переход с «Янова» в Припять",
-    "spa": "moviéndose de Yanov a Pripyat",
-    "ukr": "перехід з «Янова» до Прип'яті"
-  },
-  "st_save_uni_travel_pri_to_zat": {
-    "eng": "moving from Pripyat to Zaton",
-    "fra": "en route pour Zaton depuis Pripyat",
-    "ger": "unterwegs von Pripyat nach Zaton",
-    "ita": "in movimento da Pripyat a Zaton",
-    "pol": "przejście z Prypeci do Zatonu",
-    "rus": "переход из Припяти на Затон",
-    "spa": "moviéndose de Pripyat a Zaton",
-    "ukr": "перехід із Прип'яті на Затон"
-  },
-  "st_save_uni_travel_pri_to_jup": {
-    "eng": "moving from Pripyat to Yanov",
-    "fra": "en route pour Yanov depuis Pripyat",
-    "ger": "unterwegs von Pripyat zur Janow-Station",
-    "ita": "in movimento da Pripyat a Yanov",
-    "pol": "przejście z Prypeci do Janowa",
-    "rus": "переход из Припяти на «Янов»",
-    "spa": "moviéndose de Pripyat a Yanov",
-    "ukr": "перехід із Прип'яті на «Янів» "
-  },
-  "st_save_uni_pri_to_labx8": {
-    "eng": "moving from Pripyat to X8",
-    "fra": "en route pour le labo X8 depuis Pripyat",
-    "ger": "unterwegs von Pripyat zum Labor X8",
-    "ita": "in movimento da Pripyat a X8",
-    "pol": "przejście z Prypeci do laboratorium X8",
-    "rus": "переход из Припяти в X8",
-    "spa": "moviéndose de Pripyat a X8",
-    "ukr": "перехід із Прип'яті до X8"
-  },
-  "st_save_uni_labx8_to_pri": {
-    "eng": "moving from X8 to Pripyat",
-    "fra": "en route pour Pripyat depuis le labo X8",
-    "ger": "unterwegs vom Labor X8 nach Pripyat",
-    "ita": "in movimento da X8 a Pripyat",
-    "pol": "przejście z laboratorium X8 do Prypeci",
-    "rus": "переход из X8 в Припять",
-    "spa": "moviéndose de X8 a Pripyat",
-    "ukr": "перехід з X8 до Прип'яті"
-  },
-  "st_save_uni_surge_start": {
-    "eng": "emission",
-    "fra": "émission",
-    "ger": "Emission",
-    "ita": "emissione",
-    "pol": "emisja",
-    "rus": "выброс",
-    "spa": "emisión",
-    "ukr": "викид"
-  },
-  "st_save_zat_a1_game_start": {
-    "eng": "beginning of the game",
-    "fra": "début de la partie",
-    "ger": "Anfang des Spiels",
-    "ita": "inizio del gioco",
-    "pol": "początek gry",
-    "rus": "начало игры",
-    "spa": "comienzo de la partida",
-    "ukr": "початок гри"
-  },
-  "st_save_zat_a2_reached_skadovsk": {
-    "eng": "arrival at the Skadovsk",
-    "fra": "arrivée au Skadovsk",
-    "ger": "Ankunft auf der Skadowsk",
-    "ita": "arrivo alla Skadovsk",
-    "pol": "przybycie do Skadowska",
-    "rus": "прибытие на «Скадовск»",
-    "spa": "llegada a Skadovsk",
-    "ukr": "прибуття на «Скадовськ»"
-  },
-  "st_save_jup_b9_searched_heli_1": {
-    "eng": "Stingray 1 examined",
-    "fra": "Stingray 1 examiné",
-    "ger": "Stingray 1 untersucht",
-    "ita": "Stingray 1 esaminato",
-    "pol": "zbadanie helikoptera Ogończa 1",
-    "rus": "исследован «Скат-1»",
-    "spa": "Pez Raya 1 registrado",
-    "ukr": "досліджено «Скат-1»"
-  },
-  "st_save_zat_b100_searched_heli_2": {
-    "eng": "Stingray 2 examined",
-    "fra": "Stingray 2 examiné",
-    "ger": "Stingray 2 untersucht",
-    "ita": "Stingray 2 esaminato",
-    "pol": "zbadanie helikoptera Ogończa 2",
-    "rus": "исследован «Скат-2»",
-    "spa": "Pez Raya 2 registrado",
-    "ukr": "досліджено «Скат-2»"
-  },
-  "st_save_zat_b28_searched_heli_3": {
-    "eng": "Stingray 3 examined",
-    "fra": "Stingray 3 examiné",
-    "ger": "Stingray 3 untersucht",
-    "ita": "Stingray 3 esaminato",
-    "pol": "zbadanie helikoptera Ogończa 3",
-    "rus": "исследован «Скат-3»",
-    "spa": "Pez Raya 3 registrado",
-    "ukr": "досліджено «Скат-3»"
-  },
-  "st_save_jup_b8_searched_heli_4": {
-    "eng": "Stingray 4 examined",
-    "fra": "Stingray 4 examiné",
-    "ger": "Stingray 4 untersucht",
-    "ita": "Stingray 4 esaminato",
-    "pol": "zbadanie helikoptera Ogończa 4",
-    "rus": "исследован «Скат-4»",
-    "spa": "Pez Raya 4 registrado",
-    "ukr": "досліджено «Скат-4»"
-  },
-  "st_save_zat_b101_searched_heli_5": {
-    "eng": "Stingray 5 examined",
-    "fra": "Stingray 5 examiné",
-    "ger": "Stingray 5 untersucht",
-    "ita": "Stingray 5 esaminato",
-    "pol": "zbadanie helikoptera Ogończa 5",
-    "rus": "исследован «Скат-5»",
-    "spa": "Pez Raya 5 registrado",
-    "ukr": "досліджено «Скат-5»"
-  },
-  "st_save_zat_b18_noah_showed_teleport": {
-    "eng": "getting to the plateau",
-    "fra": "en route pour le plateau du sud",
-    "ger": "unterwegs zum Plateau",
-    "ita": "verso l'altopiano",
-    "pol": "dotarcie do płaskowyżu",
-    "rus": "путь на плато",
-    "spa": "llegando a la meseta",
-    "ukr": "шлях на плато"
-  },
-  "st_save_jup_b217_arrived_to_jup": {
-    "eng": "arrival at Yanov",
-    "fra": "arrivée ŕ Yanov",
-    "ger": "Ankunft in der Janow-Station",
-    "ita": "arrivo a Yanov",
-    "pol": "dotarcie do płaskowyżu",
-    "rus": "прибытие на «Янов»",
-    "spa": "llegada a Yanov",
-    "ukr": "прибуття на «Янів» "
-  },
-  "st_save_jup_a9_got_underpass_docs": {
-    "eng": "road to Pripyat found",
-    "fra": "route de Pripyat trouvée",
-    "ger": "Weg nach Pripyat gefunden",
-    "ita": "strada per Pripyat scoperta",
-    "pol": "znalezienie drogi do Prypeci",
-    "rus": "найден путь в Припять",
-    "spa": "camino a Pripyat encontrado",
-    "ukr": "знайдено шлях до Прип'яті"
-  },
-  "st_save_jup_b15_drunk_with_zulu": {
-    "eng": "Zulu joins the squad",
-    "fra": "Zulu rejoint le groupe",
-    "ger": "Zulu hat sich dem Trupp angeschlossen",
-    "ita": "Zulu si unisce alla squadra",
-    "pol": "Zulus dołącza do oddziału",
-    "rus": "к отряду примкнул Зулус",
-    "spa": "Zulu se une al escuadrón",
-    "ukr": "до загону долучився Зулус"
-  },
-  "st_save_jup_a10_gonna_return_debt": {
-    "eng": "Vano’s debt repaid",
-    "fra": "dette de Vano remboursée",
-    "ger": "Wanos Schulden wurden beglichen",
-    "ita": "debito di Vano ripagato",
-    "pol": "Wano spłaca dług",
-    "rus": "возврат долга Вано",
-    "spa": "Deuda de Vano saldada",
-    "ukr": "повернення боргу Вано"
-  },
-  "st_save_jup_b218_vano_in_squad": {
-    "eng": "Vano joins the squad",
-    "fra": "Vano rejoint le groupe",
-    "ger": "Wano hat sich dem Trupp angeschlossen",
-    "ita": "Vano si unisce alla squadra",
-    "pol": "Wano dołącza do oddziału",
-    "rus": "к отряду примкнул Вано",
-    "spa": "Vano se une al escuadrón",
-    "ukr": "до загону долучився Вано"
-  },
-  "st_save_jup_b206_got_anomalous_plant": {
-    "eng": "anomalous plant collected",
-    "fra": "plante anormale récupérée",
-    "ger": "anomale Pflanze eingesammelt",
-    "ita": "pianta anomala recuperata",
-    "pol": "zebranie anormalnej rośliny",
-    "rus": "взято аномальное растение",
-    "spa": "planta extrańa recogida",
-    "ukr": "взято аномальну рослину"
-  },
-  "st_save_jup_b218_sokolov_in_squad": {
-    "eng": "Sokolov joins the squad",
-    "fra": "Sokolov rejoint le groupe",
-    "ger": "Sokolow hat sich dem Trupp angeschlossen",
-    "ita": "Sokolov si unisce alla squadra",
-    "pol": "Sokołow dołącza do oddziału",
-    "rus": "к отряду примкнул Соколов",
-    "spa": "Sokolov se une al escuadrón",
-    "ukr": "до загону долучився Соколов"
-  },
-  "st_save_jup_b218_strider_in_squad": {
-    "eng": "Strider joins the squad",
-    "fra": "Arpenteur rejoint le groupe",
-    "ger": "Strider hat sich dem Trupp angeschlossen",
-    "ita": "Strider si unisce alla squadra",
-    "pol": "Włóczęga dołącza do oddziału",
-    "rus": "к отряду примкнул Бродяга",
-    "spa": "Strider se une al escuadrón",
-    "ukr": "до загону долучився Бродяга"
-  },
-  "st_save_jup_b218_travel_jup_to_pas": {
-    "eng": "squad assembled",
-    "fra": "groupe constitué",
-    "ger": "Trupp zusammengestellt",
-    "ita": "squadra assemblata",
-    "pol": "skompletowanie oddziału",
-    "rus": "отряд собран",
-    "spa": "pelotón reunido",
-    "ukr": "загін зібрано"
-  },
-  "st_save_pas_b400_underpass_start": {
-    "eng": "arrival in the underpass",
-    "fra": "arrivée au tunnel",
-    "ger": "Ankunft in der Unterführung",
-    "ita": "arrivo nel sottopasso",
-    "pol": "przybycie do tunelu",
-    "rus": "прибытие в путепровод",
-    "spa": "llegada al paso subterráneo",
-    "ukr": "прибуття до шляхопроводу"
-  },
-  "st_save_uni_travel_pas_to_pri": {
-    "eng": "arrival in Pripyat",
-    "fra": "arrivée ŕ Pripyat",
-    "ger": "Ankunft in Pripyat",
-    "ita": "arrivo a Pripyat",
-    "pol": "przybycie do Prypeci",
-    "rus": "выход в Припять",
-    "spa": "llegada a Pripyat",
-    "ukr": "вихід до Прип'яті"
-  },
-  "st_save_pri_a16_arrived_to_pri": {
-    "eng": "military forces located",
-    "fra": "militaires localisés",
-    "ger": "Militäreinheiten entdeckt",
-    "ita": "unitŕ militari individuate",
-    "pol": "zlokalizowanie sił wojskowych",
-    "rus": "найдены военные",
-    "spa": "fuerzas militares localizadas",
-    "ukr": "знайдено військових"
-  },
-  "st_save_pri_a17_hospital_start": {
-    "eng": "unidentified weapon captured",
-    "fra": "arme non identifiée récupérée",
-    "ger": "unbekannte Waffe sichergestellt",
-    "ita": "arma non identificata recuperata",
-    "pol": "zdobycie niezidentyfikowanej broni",
-    "rus": "захват неизвестного оружия",
-    "spa": "arma no identificada capturada",
-    "ukr": "захоплення невідомої зброї"
-  },
-  "st_save_pri_a20_found_dead_recon": {
-    "eng": "recon squad found",
-    "fra": "unité de reconnaissance trouvée",
-    "ger": "Spähtrupp gefunden",
-    "ita": "squadra di ricognizione individuata",
-    "pol": "znalezienie oddziału zwiadowczego",
-    "rus": "найдена разведгруппа",
-    "spa": "pelotón de reconocimiento encontrado",
-    "ukr": "знайдено розвідгрупу"
-  },
-  "st_save_pri_a18_met_reinforcement": {
-    "eng": "reinforcements arrived",
-    "fra": "arrivée des renforts",
-    "ger": "Verstärkung eingetroffen",
-    "ita": "rinforzi arrivati",
-    "pol": "nadejście posiłków",
-    "rus": "прибыло подкрепление",
-    "spa": "refuerzos recibidos",
-    "ukr": "прибуло підкріплення"
-  },
-  "st_save_pri_a18_searched_antenna": {
-    "eng": "“antenna” examined",
-    "fra": "\"antenne\" examinée",
-    "ger": "\"Antenne\" untersucht",
-    "ita": "\"antenna\" esaminata",
-    "pol": "zbadanie anteny",
-    "rus": "исследована «антенна»",
-    "spa": "\"antena\" registrada",
-    "ukr": "досліджено «антену»"
-  },
-  "st_save_pri_a21_approached_mad_sentry": {
-    "eng": "missing sentry found",
-    "fra": "sentinelle disparue retrouvée",
-    "ger": "Vermisste Wache gefunden",
-    "ita": "sentinella scomparsa individuata",
-    "pol": "znalezienie zaginionego wartownika",
-    "rus": "найден пропавший часовой",
-    "spa": "centinela desaparecido encontrado",
-    "ukr": "знайдено зниклого вартового"
-  },
-  "st_save_pri_a21_killed_controller": {
-    "eng": "controller near sentry killed",
-    "fra": "contrôleur prčs de la sentinelle tué",
-    "ger": "Controller bei der Wache ausgeschaltet",
-    "ita": "controllore vicino alla sentinella ucciso",
-    "pol": "zabicie kontrolera przy wartowniku",
-    "rus": "убит контролёр возле часового",
-    "spa": "controlador cercano al centinela asesinado",
-    "ukr": "вбито контролера коло вартового"
-  },
-  "st_save_zat_a23_entered_test_center": {
-    "eng": "testing workshop accessed",
-    "fra": "accčs ŕ l'atelier de test",
-    "ger": "Testwerkstatt betreten",
-    "ita": "ingresso nell'officina collaudi",
-    "pol": "wejście do magazynu testowego",
-    "rus": "вход в испытательный цех",
-    "spa": "taller de pruebas alcanzado",
-    "ukr": "вхід до дослідного цеху"
-  },
-  "st_save_zat_a23_got_gauss_docs": {
-    "eng": "Gauss rifle documentation found",
-    "fra": "documentation du fusil Gauss trouvé",
-    "ger": "Gaußgewehrdokumente gefunden",
-    "ita": "documenti sul fucile Gauss recuperati",
-    "pol": "znalezienie dokumentacji do karabinu Gaussa",
-    "rus": "найдена документация на гаусс-пушку",
-    "spa": "documentación de fusil Gauss encontrada",
-    "ukr": "знайдено документацію до гаус-гармати"
-  },
-  "st_save_pri_a22_found_dead_squad": {
-    "eng": "dead fighter found",
-    "fra": "cadavre de combattant trouvé",
-    "ger": "toten Kämpfer gefunden",
-    "ita": "combattente morto individuato",
-    "pol": "znalezienie martwego bojownika",
-    "rus": "найден погибший боец",
-    "spa": "cadáver de soldado encontrado",
-    "ukr": "знайдено загиблого бійця"
-  },
-  "st_save_pri_a25_gonna_place_explosive": {
-    "eng": "entry to the kindergarten",
-    "fra": "entrée dans l'école maternelle",
-    "ger": "Eingang zum Kindergarten",
-    "ita": "ingresso nell'asilo",
-    "pol": "wejście do przedszkola",
-    "rus": "вход в детский сад",
-    "spa": "entrada al jardín de infancia",
-    "ukr": "вхід до дитячого садка"
-  },
-  "st_save_pri_a25_freed_medic": {
-    "eng": "military medic rescued",
-    "fra": "infirmier de l'armée sauvé",
-    "ger": "Armeearzt gerettet",
-    "ita": "medico militare salvato",
-    "pol": "uratowanie lekarza wojskowego",
-    "rus": "спасён военный медик",
-    "spa": "médico militar rescatado",
-    "ukr": "врятовано військового медика"
-  },
-  "st_save_pri_a28_talked_with_ssu": {
-    "eng": "established communications with HQ",
-    "fra": "communication avec le QG rétablie",
-    "ger": "Kommunikation mit dem HQ hergestellt",
-    "ita": "comunizazioni con il QG stabilite",
-    "pol": "nawiązanie łączności z kwaterą główną",
-    "rus": "установлена связь с командованием",
-    "spa": "comunicaciones con el cuartel general establecidas",
-    "ukr": "встановлено зв'язок із командуванням"
-  },
-  "st_save_pri_a28_evacutaion_start": {
-    "eng": "Pripyat evacuation initiated",
-    "fra": "Début de l'évacuation de Pripyat",
-    "ger": "Evakuierung von Pripyat eingeleitet",
-    "ita": "evacuazione di Pripyat iniziata",
-    "pol": "rozpoczęcie ewakuacji Prypeci",
-    "rus": "начало эвакуации из Припяти",
-    "spa": "evacuación de Pripyat iniciada",
-    "ukr": "початок евакуації з Прип'яті"
-  },
-  "st_save_pri_a28_evacuation_end": {
-    "eng": "evacuation helicopters reached",
-    "fra": "hélicoptčres sur zone",
-    "ger": "Evakuierungshubschrauber erreicht",
-    "ita": "elicotteri per l'evacuazione raggiunti",
-    "pol": "dotarcie do helikopterów ewakuacyjnych",
-    "rus": "достигнуты вертолёты эвакуации",
-    "spa": "helicópteros de evacuación alcanzados",
-    "ukr": "досягнуто гелікоптерів евакуації"
-  },
-  "st_save_uni_zone_to_reality": {
-    "eng": "evacuation complete",
-    "fra": "évacuation terminée",
-    "ger": "Evakuierung abgeschlossen",
-    "ita": "evacuazione completata",
-    "pol": "zakończenie ewakuacji",
-    "rus": "уход из Зоны",
-    "spa": "evacuación completada",
-    "ukr": "відхід із Зони"
-  },
-  "st_save_jup_b209_placed_mutant_scanner": {
-    "eng": "mutant detector",
-    "fra": "détecteur de mutants",
-    "ger": "Mutantendetektor",
-    "ita": "rilevatore di mutanti",
-    "pol": "detektor mutantów",
-    "rus": "датчик присутствия мутантов",
-    "spa": "detector de mutantes",
-    "ukr": "датчик наявності мутантів"
-  },
-  "st_save_jup_a12_gave_artefact_for_hostage": {
-    "eng": "ransom paid for hostage",
-    "fra": "rançon payée",
-    "ger": "Lösegeld für Geisel gezahlt",
-    "ita": "riscatto per l'ostaggio pagato",
-    "pol": "zapłacenie okupu za zakładnika",
-    "rus": "выкуплен заложник",
-    "spa": "rescate pagado",
-    "ukr": "викуплено заручника"
-  },
-  "st_save_jup_a12_met_with_liberators": {
-    "eng": "hostage freed",
-    "fra": "otage libéré",
-    "ger": "Geisel befreit",
-    "ita": "ostaggio liberato",
-    "pol": "uwolnienie zakładnika",
-    "rus": "освобождение заложника",
-    "spa": "rehén liberado",
-    "ukr": "звільнення заручника"
-  },
-  "st_save_jup_b6_arrived_to_ash_heap": {
-    "eng": "Ash Heap anomaly measurements",
-    "fra": "relevés de l'anomalie Tas de cendres",
-    "ger": "Aschehügel-Anomalie-Messungen",
-    "ita": "misurazioni anomalia Cumulo di cenere",
-    "pol": "pomiary anomalii Popielisko",
-    "rus": "замеры аномалии «Пепелище»",
-    "spa": "medidas de la anomalía del Cenizal",
-    "ukr": "вимірювання аномалії «Попелище»"
-  },
-  "st_save_jup_b6_arrived_to_fen": {
-    "eng": "Plavni anomaly measurements",
-    "fra": "relevés de l'anomalie Plavni",
-    "ger": "Plawni-Anomalie-Messungen",
-    "ita": "misurazioni anomalia Plavni",
-    "pol": "pomiary anomalii Szuwary",
-    "rus": "замеры аномалии «Плавни»",
-    "spa": "medidas de la anomalía Plavni",
-    "ukr": "вимірювання аномалії «Плавні»"
-  },
-  "st_save_zat_b38_met_with_grouse": {
-    "eng": "bloodsucker lair",
-    "fra": "nid de sangsues",
-    "ger": "Blutsaugerlager",
-    "ita": "tana dei succhiasangue",
-    "pol": "legowisko pijawek",
-    "rus": "логово кровососов",
-    "spa": "guarida de chupasangres",
-    "ukr": "лігво кровососів"
-  },
-  "st_save_jup_b19_arrived_to_kopachy": {
-    "eng": "sent to Kopachy",
-    "fra": "envoyé ŕ Kopachy",
-    "ger": "nach Kopatschi geschickt",
-    "ita": "in viaggio verso Kopachy",
-    "pol": "przejście do Kopaczi",
-    "rus": "отправка в Копачи",
-    "spa": "enviado a Kopachy",
-    "ukr": "відправка до Копачів"
-  },
-  "st_save_zat_b40_warned_by_mercs": {
-    "eng": "approach to the waste processing station",
-    "fra": "abords de la station de traitement des déchets",
-    "ger": "Zugang zur Kläranlage",
-    "ita": "avvicinamento all'impianto dei rifiuti",
-    "pol": "podejście do zakładu utylizacji odpadów",
-    "rus": "подход к станции переработки отходов",
-    "spa": "acercamiento a la planta de tratamiento de basura",
-    "ukr": "підхід до станції переробляння відходів"
-  },
-  "st_save_zat_b7_met_with_robbers": {
-    "eng": "stalker hit",
-    "fra": "stalkers touchés",
-    "ger": "Stalker getroffen",
-    "ita": "attacco stalker",
-    "pol": "atak na stalkerów",
-    "rus": "наезд на сталкеров",
-    "spa": "stalker alcanzado",
-    "ukr": "наїзд на сталкерів"
-  },
-  "st_save_zat_b33_got_container": {
-    "eng": "container found in stash",
-    "fra": "conteneur trouvé dans la planque",
-    "ger": "Kiste in Versteck gefunden",
-    "ita": "contenitore trovato nel ripostiglio",
-    "pol": "znalezienie pojemnika w schowku",
-    "rus": "найден контейнер в тайнике",
-    "spa": "contenedor encontrado en el escondite",
-    "ukr": "знайдено контейнер у схованці"
-  },
-  "st_save_zat_b106_arrived_to_chimera_lair": {
-    "eng": "hunting the chimera",
-    "fra": "chasse ŕ la chimčre",
-    "ger": "jagt die Chimäre",
-    "ita": "a caccia della chimera",
-    "pol": "polowanie na chimerę",
-    "rus": "охота на химеру",
-    "spa": "caza de la quimera",
-    "ukr": "полювання на химеру"
-  },
-  "st_save_jup_b16_passed_labyrinth": {
-    "eng": "Oasis found",
-    "fra": "Oasis trouvé",
-    "ger": "Oase gefunden",
-    "ita": "Oasi trovata",
-    "pol": "znalezienie Oazy",
-    "rus": "найден «Оазис»",
-    "spa": "Oasis encontrado",
-    "ukr": "знайдено «Оазу»"
-  },
-  "st_save_pri_b35_ready_to_snipe": {
-    "eng": "Operation One Shot initiated",
-    "fra": "Opération Mise ŕ mort lancée",
-    "ger": "Operation \"Ein Schuss\" eingeleitet",
-    "ita": "operazione Occasione unica avviata",
-    "pol": "rozpoczęcie operacji Jeden Strzał",
-    "rus": "начало операции «Один выстрел»",
-    "spa": "Operación Un disparo iniciada",
-    "ukr": "початок операції «Один постріл»"
-  },
-  "st_save_jup_b1_entered_railroad_tunnel": {
-    "eng": "search for the psy-emission source",
-    "fra": "recherche de la source des émissions psi",
-    "ger": "Suche nach der Quelle der Psi-Emission",
-    "ita": "ricerca della fonte della psico-emissione",
-    "pol": "poszukiwanie źródła emisji psionicznej",
-    "rus": "поиск источника пси-излучения",
-    "spa": "búsqueda del origen de las emisiones psíquicas",
-    "ukr": "пошук джерела псі-випромінювання"
-  },
-  "st_save_jup_b47_got_admin_docs": {
-    "eng": "administrative documents",
-    "fra": "documents administratifs",
-    "ger": "Verwaltungsunterlagen",
-    "ita": "documenti amministrativi",
-    "pol": "dokumenty administracyjne",
-    "rus": "административные документы",
-    "spa": "documentos administrativos",
-    "ukr": "адміністративні документи"
-  },
-  "st_save_zat_b103_warned_by_mercs": {
-    "eng": "approach to the substation workshop",
-    "fra": "abords des ateliers du poste électrique",
-    "ger": "Zugang zu den Werkstätten des Umspannwerks",
-    "ita": "avvicinamento all'officina della sotto-stazione",
-    "pol": "podejście do magazynu podstacji",
-    "rus": "подход к цехам подстанции",
-    "spa": "acercamiento al taller de la subestación",
-    "ukr": "підхід до цехів підстанції"
-  },
-  "st_save_zat_b5_met_with_others": {
-    "eng": "deal by the ranger station",
-    "fra": "rencontre prčs du poste des rangers",
-    "ger": "Geschäft bei der Forststation",
-    "ita": "accordo vicino alla stazione dei ranger",
-    "pol": "transakcja przy leśniczówce",
-    "rus": "сделка возле лесничества",
-    "spa": "trato junto al puesto de guardabosques",
-    "ukr": "угода біля лісництва"
-  },
-  "st_save_jup_b207_arrived_to_duty_depot": {
-    "eng": "Duty warehouse",
-    "fra": "entrepôt du Devoir",
-    "ger": "Wächterlagerhaus",
-    "ita": "magazzino Duty",
-    "pol": "magazyn frakcji Powinność",
-    "rus": "склад «Долга»",
-    "spa": "almacén de Deber",
-    "ukr": "склад «Долгу»"
-  },
-  "st_save_zat_b14_got_altered_wheel": {
-    "eng": "strange glow source found",
-    "fra": "source de l'étrange lueur découverte",
-    "ger": "Quelle des seltsamen Leuchtens gefunden",
-    "ita": "fonte dello strano bagliore individuata",
-    "pol": "znalezienie źródła dziwnego światła",
-    "rus": "найден источник странного свечения",
-    "spa": "origen del extrańo brillo encontrado",
-    "ukr": "знайдено джерело дивного світіння"
-  },
-  "st_save_pri_b301_arrived_to_help_zulu": {
-    "eng": "Zulu found",
-    "fra": "Zulu trouvé",
-    "ger": "Zulu gefunden",
-    "ita": "Zulu individuato",
-    "pol": "znalezienie Zulusa",
-    "rus": "найден Зулус",
-    "spa": "Zulu encontrado",
-    "ukr": "знайдено Зулуса"
-  },
-  "st_save_zat_b42_arrived_to_controler_lair": {
-    "eng": "dangerous cave",
-    "fra": "grotte dangereuse",
-    "ger": "gefährliche Höhle",
-    "ita": "caverna pericolosa",
-    "pol": "niebezpieczna jaskinia",
-    "rus": "опасная пещера",
-    "spa": "cueva peligrosa",
-    "ukr": "небезпечна печера"
-  },
-  "ui_st_upgrade": {
-    "eng": "Repair/modifications",
-    "fra": "Réparations/modifications",
-    "ger": "Reparieren/Modifikationen",
-    "ita": "Riparazioni/Modifiche",
-    "pol": "Naprawa/modyfikacje",
-    "rus": "Ремонт/модификация",
-    "spa": "Reparaciones/modificaciones",
-    "ukr": "Ремонт/модифікація"
-  },
-  "ui_st_buy": {
-    "eng": "Buy",
-    "fra": "Acheter",
-    "ger": "Kaufen",
-    "ita": "Compra",
-    "pol": "Kup",
-    "rus": "Купить",
-    "spa": "Comprar",
-    "ukr": "Купити"
-  },
-  "ui_st_sell": {
-    "eng": "Sell",
-    "fra": "Vendre",
-    "ger": "Verkaufen",
-    "ita": "Vendi",
-    "pol": "Sprzedaj",
-    "rus": "Продать",
-    "spa": "Vender",
-    "ukr": "Продати"
-  },
-  "ui_st_trade": {
-    "eng": "Trade",
-    "fra": "Échanger",
-    "ger": "Handeln",
-    "ita": "Scambia",
-    "pol": "Handel",
-    "rus": "Торговля",
-    "spa": "Intercambiar",
-    "ukr": "Торгувати"
-  },
-  "ui_st_exit_hint": {
-    "eng": "Close window ($$ACTION_USE$$)",
-    "fra": "Fermer la fenętre ($$ACTION_USE$$)",
-    "ger": "Fenster schließen ($$ACTION_USE$$)",
-    "ita": "Chiudi la finestra ($$ACTION_USE$$)",
-    "pol": "Zamknij okno ($$ACTION_USE$$)",
-    "rus": "Закрыть окно ($$ACTION_USE$$)",
-    "spa": "Cerrar ventana ($$ACTION_USE$$)",
-    "ukr": "Закрити вікно ($$ACTION_USE$$)"
-  },
-  "ui_st_trade_hint": {
-    "eng": "Open trading window ($$ACTION_SPRINT_TOGGLE$$)",
-    "fra": "Ouvrir la fenętre Échanger ($$ACTION_SPRINT_TOGGLE$$)",
-    "ger": "Handelsfenster öffnen ($$ACTION_SPRINT_TOGGLE$$)",
-    "ita": "Apri la finestra del commercio ($$ACTION_SPRINT_TOGGLE$$)",
-    "pol": "Otwórz okno handlowania ($$ACTION_SPRINT_TOGGLE$$)",
-    "rus": "Открыть окно торговли ($$ACTION_SPRINT_TOGGLE$$)",
-    "spa": "Abrir ventana de intercambio ($$ACTION_SPRINT_TOGGLE$$)",
-    "ukr": "Відкрити вікно торгівлі ($$ACTION_SPRINT_TOGGLE$$)"
-  },
-  "ui_st_upgrade_hint": {
-    "eng": "Open repair and modification window ($$ACTION_SPRINT_TOGGLE$$)",
-    "fra": "Ouvrir la fenętre Réparations/modifications ($$ACTION_SPRINT_TOGGLE$$)",
-    "ger": "Reparatur- und Modifikationsfenster öffnen ($$ACTION_SPRINT_TOGGLE$$)",
-    "ita": "Apri la finestra di riparazioni e modifiche ($$ACTION_SPRINT_TOGGLE$$)",
-    "pol": "Otwórz okno naprawy i modyfikacji ($$ACTION_SPRINT_TOGGLE$$)",
-    "rus": "Открыть окно ремонта и модификации ($$ACTION_SPRINT_TOGGLE$$)",
-    "spa": "Abrir ventana de reparaciones y modificaciones ($$ACTION_SPRINT_TOGGLE$$)",
-    "ukr": "Відкрити вікно ремонту та модифікації ($$ACTION_SPRINT_TOGGLE$$)"
-  },
-  "ui_st_take_all_hint": {
-    "eng": "Move all items to your backpack ($$ACTION_SPRINT_TOGGLE$$)",
-    "fra": "Placer tous les objets dans le sac ŕ dos ($$ACTION_SPRINT_TOGGLE$$)",
-    "ger": "Alle Gegenstände in den Rucksack legen ($$ACTION_SPRINT_TOGGLE$$)",
-    "ita": "Sposta tutti gli oggetti nel tuo zaino ($$ACTION_SPRINT_TOGGLE$$)",
-    "pol": "Przenieś wszystkie przedmioty do plecaka ($$ACTION_SPRINT_TOGGLE$$)",
-    "rus": "Переместить все вещи в свой рюкзак ($$ACTION_SPRINT_TOGGLE$$)",
-    "spa": "Mover todos los objetos a tu mochila ($$ACTION_SPRINT_TOGGLE$$)",
-    "ukr": "Перемістити усі речі до свого рюкзака ($$ACTION_SPRINT_TOGGLE$$)"
-  },
-  "ui_st_buy_hint": {
-    "eng": "Buy selected items",
-    "fra": "Acheter les objets sélectionnés",
-    "ger": "Ausgewählte Gegenstände kaufen",
-    "ita": "Compra gli oggetti selezionati",
-    "pol": "Kup wybrane przedmioty",
-    "rus": "Купить выбранные вещи",
-    "spa": "Comprar los objetos seleccionados",
-    "ukr": "Придбати обрані речі"
-  },
-  "ui_st_sell_hint": {
-    "eng": "Sell selected items",
-    "fra": "Vendre les objets sélectionnés",
-    "ger": "Ausgewählte Gegenstände verkaufen",
-    "ita": "Vendi gli oggetti selezionati",
-    "pol": "Sprzedaj wybrane przedmioty",
-    "rus": "Продать выбранные вещи",
-    "spa": "Vender los objetos seleccionados",
-    "ukr": "Продати обрані речі"
-  },
-  "st_save_pri_a28_evacuation_heli": {
-    "eng": "evacuation helicopter take-off",
-    "fra": "décollage des hélicoptčres d'évacuation",
-    "ger": "Start des Evakuierungshubschraubers",
-    "ita": "decollo elicottero di evacuazione",
-    "pol": "start helikoptera ewakuacyjnego",
-    "rus": "отлёт вертолётов эвакуации",
-    "spa": "despegue del helicóptero de evacuación",
-    "ukr": "відліт гелікоптерів евакуації"
   }
 }

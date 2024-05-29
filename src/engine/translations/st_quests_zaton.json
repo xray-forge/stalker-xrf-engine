@@ -29,6 +29,16 @@
     "spa": "Mapas del lugar: encuentra a alguien interesado en los mapas",
     "ukr": "Карти місцевості: знайти зацікавлених"
   },
+  "zat_b100_guide_maps_01_text": {
+    "eng": "The Stingray 2 onboard computer had maps of the area between Zaton and Jupiter. You should find someone who could use them.",
+    "fra": "L'ordinateur de bord de Stingray 2 contenait des cartes du secteur entre Zaton et Jupiter. Vous devriez trouver quelqu'un qui en aura l'utilité.",
+    "ger": "Auf dem Bordcomputer von Stingray 2 befanden sich Karten der Gegend zwischen Zaton und der Jupiter-Anlage. Sie sollten jemanden finden, der etwas mit diesen Karten anfangen kann.",
+    "ita": "Il computer di bordo di Stingray 2 conteneva delle mappe dell'area tra Zaton e Jupiter. Trova qualcuno a cui potrebbero interessare.",
+    "pol": "Komputer pokładowy Ogończy 2 zawierał mapy terenu pomiędzy Zatonem i Jupiterem. Znajdź kogoś, kto mógłby zrobić z nich użytek.",
+    "rus": "В бортовом компьютере вертолёта «Скат-2» были карты местности между Затоном и «Юпитером». Стоит найти того, кому эти карты могут понадобиться.",
+    "spa": "El ordenador de a bordo del Pez Raya 2 tenía mapas de la zona comprendida entre Zaton y Júpiter. Deberías buscar a alguien que los necesite.",
+    "ukr": "У бортовому комп'ютері гелікоптеру «Скат-2» містилися мапи місцевості між Затоном та «Юпітером». Варто знайти того, кому ці мапи можуть знадобитися."
+  },
   "zat_b100_guide_maps_02_name": {
     "eng": "Area maps: offer the maps to Pilot",
     "fra": "Cartes de la zone : remettre les cartes ŕ Pilote.",
@@ -509,6 +519,26 @@
     "spa": "El origen del extrańo brillo era un peculiar artefacto. Aunque no tienes el artefacto, deberías hablarle a Barbas de él.",
     "ukr": "Джерелом дивного світіння був не менш дивний артефакт. Про це варто розказати Бороді."
   },
+  "zat_b20_ask_a_stalkers_name": {
+    "eng": "Getting to the plateau: talk to stalkers",
+    "fra": "Aller au plateau du sud : parler aux stalkers",
+    "ger": "Zum Plateau: Mit Stalkern reden",
+    "ita": "Verso l'altopiano: parla con gli stalker",
+    "pol": "Ścieżka na płaskowyż: porozmawiaj ze stalkerami",
+    "rus": "Путь на плато: расспросить сталкеров",
+    "spa": "Ascenso a la meseta: habla con stalkers",
+    "ukr": "Шлях на плато: розпитати сталкерів"
+  },
+  "zat_b20_ask_a_stalkers_text": {
+    "eng": "It looks like there’s no direct route to the plateau. Ask local stalkers about other ways of getting there.",
+    "fra": "On dirait qu'il n'y a pas de chemin direct menant au plateau. Demander aux stalkers du coin s'ils ne connaissent pas d'autres moyens de s'y rendre.",
+    "ger": "Es scheint so, als ob es keinen direkten Weg zum Plateau gäbe. Fragen Sie die Stalker vor Ort, wie sie dorthin gelangen.",
+    "ita": "Sembra che non ci sia modo di raggiungere direttamente l'altopiano. Chiedi agli stalker del posto come puoi fare per arrivarci.",
+    "pol": "Wygląda na to, że nie ma bezpośredniej drogi na płaskowyż. Popytaj miejscowych stalkerów, jak można się tam dostać.",
+    "rus": "Судя по всему, на плато не удастся попасть прямым путём. Необходимо расспросить местных сталкеров о других возможных путях.",
+    "spa": "Parece que no hay una ruta directa a la meseta. Pregunta a los stalkers del lugar por otros caminos para llegar allí.",
+    "ukr": "Судячи по всьому, на плато не вдасться трапити прямим шляхом. Необхідно розпитати місцевих сталкерів щодо інших можливих доріг."
+  },
   "zat_b20_cross_the_teleport_name": {
     "eng": "Getting to the plateau: jump into the anomaly",
     "fra": "Le plateau : sauter dans l'anomalie.",
@@ -919,6 +949,16 @@
     "spa": "Brújula: llévale el artefacto a Barbas",
     "ukr": "«Компас»: принести артефакт Бороді"
   },
+  "zat_b30_compass_to_barmen_task_give_text": {
+    "eng": "The artifact you got from Noah is the Compass that Beard wants.",
+    "fra": "L'artefact que vous a remis Noah est la Boussole que recherche le Barbu.",
+    "ger": "Sie haben von Noah das Kompass-Artefakt erhalten, das Beard will.",
+    "ita": "Il manufatto che hai ricevuto da Noah č la Bussola che Beard sta cercando.",
+    "pol": "Artefakt, który dał ci Noe, to Kompas, którego szuka Brodacz.",
+    "rus": "Полученный у Ноя артефакт и есть тот самый «Компас», что нужен Бороде.",
+    "spa": "El artefacto que te ha dado Noé es la Brújula que quiere Barbas.",
+    "ukr": "Отриманий в Ноя артефакт - це і є той самий «Компас», котрий так потрібен Бороді."
+  },
   "zat_b30_compass_to_sultan_task_find_name": {
     "eng": "Compass: find out where you can get the rare artifact from Noah",
     "fra": "Boussole : demander ŕ Noah oů trouver l'artefact.",
@@ -1099,6 +1139,26 @@
     "spa": "Debes hacer lo posible por quitarles los prototipos de detectores a los stalkers que buscan artefactos para Barbas. Sin detectores, no tendrá más remedio que aceptar las condiciones de Sultán.",
     "ukr": "Необхідно в будь-який спосіб відібрати прототипи детекторів у сталкерів, які шукають артефакти для Бороди. Коли Борода втратить детектори, йому доведеться погодитися на умови Султана."
   },
+  "zat_b30_sultan_task_8_name": {
+    "eng": "Shady business: start working for Beard",
+    "fra": "Affaires louches : travailler pour le Barbu.",
+    "ger": "Dunkle Geschäfte: Anfangen, für Beard zu arbeiten",
+    "ita": "Affare losco: inizia a lavorare per Beard",
+    "pol": "Ciemne interesy: zacznij pracować dla Brodacza",
+    "rus": "Тёмный бизнес: начать работать на Бороду",
+    "spa": "Un negocio turbio: comienza a trabajar para Barbas",
+    "ukr": "Темний бізнес: почати працювати на Бороду"
+  },
+  "zat_b30_sultan_task_8_text": {
+    "eng": "Taking detector prototypes off stalkers working for Beard requires you to blend into their ranks. This will allow you to find out where your competitors are.",
+    "fra": "Pour vous emparer des prototypes de détecteur des stalkers qui travaillent pour le Barbu, vous devrez infiltrer leurs rangs. Cela vous permettra de découvrir qui sont vos concurrents.",
+    "ger": "Um den Stalkern, die für Beard arbeiten, die Detektorprototypen abzunehmen, müssen Sie sich unter sie mischen. Dadurch erfahren Sie, wo Ihre Konkurrenten sind.",
+    "ita": "Per prendere i prototipi di rilevatori dagli stalker che lavorano per Beard dovrai mescolarti a loro. In questo modo potrai scoprire chi sono i tuoi rivali in affari.",
+    "pol": "Aby zabrać prototypy detektorów stalkerom pracującym dla Brodacza, musisz wstąpić w ich szeregi. Dzięki temu dowiesz się, gdzie są twoi rywale.",
+    "rus": "Чтобы отобрать прототипы детекторов у сталкеров, работающих на Бороду, необходимо влиться в их ряды. Это позволит разведать лагерь конкурентов",
+    "spa": "Para robar prototipos de detectores a los stalkers que trabajan para Barbas, tendrás que infiltrarte entre ellos. Así podrás averiguar quiénes son tus competidores.",
+    "ukr": "Щоб відібрати прототипи детекторів у сталкерів, які працюють на Бороду, необхідно стати до їхніх лав. Це дозволить розвідати табір конкурентів"
+  },
   "zat_b30_task_1_name": {
     "eng": "Tempting business: bring Novikov three Veles detectors",
     "fra": "Affaires alléchantes : apporter trois détecteurs Veles ŕ Novikov.",
@@ -1199,6 +1259,16 @@
     "spa": "Barbas opina que no le debe nada a Búho; tienes que averiguar quién tiene razón y exigirle tu parte.",
     "ukr": "Борода не визнає, що заборгував Сичеві. Необхідно з'ясувати, хто з торговців правий, і зажадати у винного свою частку."
   },
+  "zat_b33_zaporojec_name": {
+    "eng": "Unreachable stash: take the container to Snag",
+    "fra": "Une planque bien cachée : apporter le coffre ŕ Accroc.",
+    "ger": "Unerreichbares Versteck: Kiste zu Snag bringen",
+    "ita": "Nascondiglio irraggiungibile: porta il contenitore a Snag",
+    "pol": "Niedostępny schowek: zanieś pudełko Sękowi",
+    "rus": "Недоступный тайник: принести Коряге контейнер",
+    "spa": "Escondite inalcanzable: llévale el contenedor a Snag",
+    "ukr": "Недоступна схованка: принести Корчу контейнер"
+  },
   "zat_b33_zaporojec_text_01": {
     "eng": "Snag has asked you to bring him his container. He hid it in an old Zaporozhets car, which fell into a crack following an earthquake. Snag is afraid to go down there because it's full of snorks.",
     "fra": "Accroc vous a demandé de lui apporter le coffre qu'il a dissimulé dans une vieille voiture Zaporozhets, tombée dans une faille suite ŕ un tremblement de terre. Accroc refuse d'y aller lui-męme car l'endroit grouille de snorks.",
@@ -1218,6 +1288,16 @@
     "rus": "Контейнер Коряги получен. Теперь нужно отнести его владельцу и по-честному разделить содержимое.",
     "spa": "Tienes el estuche de Snag; deberías llevárselo a su dueńo para repartiros su contenido.",
     "ukr": "Контейнер Корча отримано. Тепер слід віднести його власникові по-чесному й розділити вміст."
+  },
+  "zat_b33_zaporojec_text_03": {
+    "eng": "You need to take the container and deliver it to its owner.",
+    "fra": "Vous devez prendre le coffre et l'apporter ŕ son propriétaire.",
+    "ger": "Sie müssen die Kiste nehmen und sie zu ihrem Besitzer bringen.",
+    "ita": "Devi prendere il contenitore e consegnarlo al proprietario.",
+    "pol": "Musisz wziąć pojemnik i dostarczyć go właścicielowi.",
+    "rus": "Необходимо взять контейнер и отнести его владельцу.",
+    "spa": "Tienes que coger el contenedor y llevárselo a su dueńo.",
+    "ukr": "Необхідно взяти контейнер та віднести його власникові."
   },
   "zat_b38_den_of_the_bloodsucker_inform_stalkers_name": {
     "eng": "Bloodsucker lair: tell the stalkers",
@@ -1438,6 +1518,16 @@
     "rus": "В месте, указанном Глухарём, был только мёртвый кровосос и никаких следов охотника Данилы. Но сам Глухарь, очевидно, нашёл что-то интересное и просит присоединиться к нему.",
     "spa": "En el lugar que te indicó Urogallo hay un chupasangre muerto, pero ni rastro del cazador Danila. No obstante, parece que Urogallo ha encontrado algo interesante y te ha pedido que te reúnas con él.",
     "ukr": "У місці, зазначеному Глухарем, був тільки мертвий кровосос і жодних слідів мисливця Данила. Але сам Глухар, мабуть, знайшов щось цікаве і просить приєднатися до нього."
+  },
+  "zat_b38_disappearance_stalkers_tell_barmen_about_medic_name": {
+    "eng": "Missing stalkers: tell the folks at Skadovsk what happened",
+    "fra": "Stalkers disparus : relater les événements aux stalkers du Skadovsk.",
+    "ger": "Verschwundene Stalker: Den Leuten auf der Skadowsk berichten, was geschehen ist",
+    "ita": "Stalker scomparsi: spiega alla gente della Skadovsk cosa č successo",
+    "pol": "Zaginieni stalkerzy: powiedz ludziom w Skadowsku, co się stało",
+    "rus": "Исчезновение сталкеров: рассказать на «Скадовске» о том, что произошло",
+    "spa": "Stalkers desaparecidos: informa a los de Skadovsk sobre lo sucedido",
+    "ukr": "Зникнення сталкерів: розповісти на «Скадовську» про те, що сталося"
   },
   "zat_b38_disappearance_stalkers_tell_barmen_about_medic_text": {
     "eng": "As it turns out, bloodsuckers had nothing to do with stalker disappearances - it was Tremor, the Skadovsk medic.",
@@ -1919,6 +2009,26 @@
     "spa": "Los documentos que has encontrado mencionan las llaves de un contenedor de latas de gas. Tienes que encontrarlas.",
     "ukr": "У знайденій документації згадуються ключі до контейнера із газовим балоном. Необхідно їх знайти."
   },
+  "zat_b57_den_of_the_bloodsucker_open_container_name": {
+    "eng": "Bloodsucker lair: get the gas tank out of the container",
+    "fra": "Le nid de sangsues : sortir la bonbonne de gaz du conteneur.",
+    "ger": "Blutsaugerlager: Flasche mit giftigem Gas aus der Kiste nehmen",
+    "ita": "Tana dei succhiasangue: estrai la tanica di gas dal contenitore.",
+    "pol": "Legowisko pijawek: zabierz zbiornik z gazem z pojemnika",
+    "rus": "Логово кровососов: достать газовый баллон из контейнера",
+    "spa": "Guarida de chupasangres: saca el tanque de gas del contenedor",
+    "ukr": "Лігвище кровососів: дістати газовий балон з контейнера"
+  },
+  "zat_b57_den_of_the_bloodsucker_open_container_text": {
+    "eng": "You need to open the container using the keys you found and take the poison gas tank out.",
+    "fra": "Vous devez ouvrir le conteneur avec les clés trouvées et sortir la bombonne de gaz empoisonné.",
+    "ger": "Mit den Schlüsseln, die Sie gefunden haben, müssen Sie die Kiste aufmachen und die Flasche mit dem giftigen Gas herausnehmen.",
+    "ita": "Devi aprire il contenitore usando le chiavi che hai trovato ed estrarre la tanica di gas velenoso.",
+    "pol": "Musisz otworzyć pojemnik, używając znalezionych kluczy, i zabrać zbiornik z gazem.",
+    "rus": "Необходимо открыть контейнер найденными ключами и достать из него баллон с отравляющим газом",
+    "spa": "Tienes que abrir el contenedor con las llaves que encontraste y sacar el tanque de gas envenenado.",
+    "ukr": "Необхідно відкрити контейнер знайденими ключами та дістати з нього балон з отруйним газом"
+  },
   "zat_b57_den_of_the_bloodsucker_open_gas_box_name": {
     "eng": "Bloodsucker lair: find a way to open the gas canister container",
     "fra": "Le nid de sangsues : trouver un moyen d'ouvrir le conteneur de bombonnes de gaz.",
@@ -2259,106 +2369,6 @@
     "spa": "Barbas prometió recompensarte si interrumpías la transacción de los bandidos y el comerciante. Ahora que has frustrado la venta, puedes ir a cobrar tu recompensa.",
     "ukr": "Борода обіцяв винагороду, якщо угоду між бандитами та баригою буде зірвано. Оскільки нині угоду вже точно не буде укладено, можна відправлятися по обіцяне."
   },
-  "zat_b5_talk_to_sultan_name": {
-    "eng": "Transaction: talk to the bandit leader",
-    "fra": "Transaction : parler au chef des bandits.",
-    "ger": "Transaktion: Mit dem Banditenanführer reden",
-    "ita": "Transazione: parla con il leader dei banditi",
-    "pol": "Transakcja: porozmawiaj z dowódcą bandytów",
-    "rus": "Сделка: поговорить с главарём бандитов",
-    "spa": "Transacción: habla con el líder de los bandidos",
-    "ukr": "Угода: поговорити із ватажком бандитів"
-  },
-  "zat_b5_talk_to_sultan_text": {
-    "eng": "You need to inform the bandit leader you're ready to take part in the transaction.",
-    "fra": "Vous devez informer le chef des bandits que vous ętes pręt ŕ participer ŕ la transaction.",
-    "ger": "Sie müssen dem Anführer der Banditen mitteilen, dass Sie bereit sind, bei der Transaktion mitzumachen.",
-    "ita": "Riferisci al leader dei banditi che sei pronto a partecipare alla transazione.",
-    "pol": "Musisz poinformować dowódcę bandytów o gotowości do wzięcia udziału w transakcji.",
-    "rus": "Надо сообщить главарю бандитов о готовности принять участие в сделке.",
-    "spa": "Tienes que informar al líder de los bandidos de que ya estás listo para participar en la transacción.",
-    "ukr": "Треба повідомити ватажкові бандитів про готовність взяти участь в угоді."
-  },
-  "zat_b7_stalkers_raiders_name": {
-    "eng": "The hit: decide what to do",
-    "fra": "Braquage : prendre une décision.",
-    "ger": "Der Überfall: Entscheiden, was zu tun ist",
-    "ita": "Il colpo: decidi cosa fare",
-    "pol": "Atak: zdecyduj, co zrobić",
-    "rus": "Наезд: решить, что предпринять",
-    "spa": "El golpe: decide lo que vas a hacer",
-    "ukr": "Наїзд: вирішити, що вчинити"
-  },
-  "zat_b7_stalkers_raiders_raiders_name": {
-    "eng": "The hit: attack the stalkers",
-    "fra": "Braquage : attaquer les stalkers.",
-    "ger": "Der Überfall: Die Stalker angreifen",
-    "ita": "Il colpo: attacca gli stalker",
-    "pol": "Atak: zaatakuj stalkerów",
-    "rus": "Наезд: напасть на сталкеров",
-    "spa": "El golpe: ataca a los stalkers",
-    "ukr": "Наїзд: напасти на сталкерів"
-  },
-  "zat_b7_stalkers_raiders_stalkers_reward_name": {
-    "eng": "The hit: collect your reward",
-    "fra": "Braquage : récupérer votre récompense.",
-    "ger": "Der Überfall: Ihre Belohnung kassieren",
-    "ita": "Il colpo: prendi la tua ricompensa",
-    "pol": "Atak: odbierz swoją nagrodę",
-    "rus": "Наезд: получить награду",
-    "spa": "El golpe: cobra tu recompensa",
-    "ukr": "Наїзд: отримати нагороду"
-  },
-  "zat_b7_stalkers_raiders_stalkers_reward_text": {
-    "eng": "The attack on the camp was repelled, so you can talk to the stalkers to get your reward. They would probably have had a very tough time if they hadn't been warned about the attack.",
-    "fra": "L'attaque menée sur le camp a été repoussée. Vous pouvez maintenant parler aux stalkers pour obtenir votre récompense. Sans votre avertissement, ils auraient passé un sale quart d'heure.",
-    "ger": "Der Überfall auf das Lager wurde abgewehrt, daher können Sie sich jetzt wegen Ihrer Belohnung an die Stalker wenden. Diese hätten es sehr schwer gehabt, wenn sie nicht gewarnt worden wären.",
-    "ita": "L'attacco contro il campo č stato respinto, quindi puoi ottenere la tua ricompensa dagli stalker. Se non fossero stati avvertiti dell'assalto, probabilmente non ce l'avrebbero fatta.",
-    "pol": "Atak na obóz został odparty, możesz więc porozmawiać ze stalkerami i odebrać swoją nagrodę. Prawdopodobnie mieliby niezłe piekło, gdyby nie zostali ostrzeżeni o ataku.",
-    "rus": "Нападение на лагерь отбито, можно поговорить со сталкерами и получить награду. Скорее всего, сталкерам пришлось бы туго, если бы они не были предупреждены о нападении.",
-    "spa": "El ataque al campamento ha sido rechazado; ya puedes hablar con los stalkers para cobrar tu recompensa. De no haber sido advertidos del ataque, lo habrían pasado muy mal.",
-    "ukr": "Напад на табір відбито, можна поговорити зі сталкерами та отримати винагороду. Швидше за все, сталкерам велося б непереливки, якби їх не було попереджено про напад."
-  },
-  "zat_b7_stalkers_raiders_text": {
-    "eng": "A group of stalkers has turned to a bandit existence of robbing their own kind. You need to decide whether to take part in their assault, warn the stalkers or not get involved.",
-    "fra": "Des stalkers peu scrupuleux détroussent leurs congénčres. Vous devez décider entre participer ŕ l'assaut, avertir les stalkers ou ne pas vous impliquer.",
-    "ger": "Eine Gruppe von Stalkern hat vor, wie Banditen ihre eigenen Leute zu überfallen. Sie müssen sich entscheiden, ob Sie bei dem Angriff mitmachen, die Stalker warnen oder sich überhaupt nicht einmischen.",
-    "ita": "Degli stalker hanno deciso di cambiare vita, diventando dei banditi a tutti gli effetti. Devi decidere se partecipare al loro assalto, avvisare gli stalker o restarne fuori.",
-    "pol": "Grupa stalkerów postanowiła zostać bandytami i rabować swoich. Musisz zdecydować, czy weźmiesz udział w ataku, ostrzeżesz stalkerów, czy nie będziesz się w to mieszać.",
-    "rus": "Группа сталкеров решила превратиться в банду и грабить своих же вчерашних коллег. Пора решать как быть: принять участие в наезде, предупредить будущих жертв или не вмешиваться?",
-    "spa": "Un grupo de stalkers ha recurrido al bandidaje y a asaltar a sus propios camaradas. Debes decidir entre unirte al asalto, advertir a los demás stalkers o no involucrarte.",
-    "ukr": "Група сталкерів вирішила перетворитися на банду і грабувати своїх же вчорашніх колег. Настав час вирішувати, як бути: взяти участь у наїзді, попередити сталкерів або ж не втручатися?"
-  },
-  "zat_b7_stalkers_raiders_wait_name": {
-    "eng": "The hit: wait for the agreed time",
-    "fra": "Braquage : attendre jusqu'ŕ l'heure convenue.",
-    "ger": "Der Überfall: Bis zum vereinbarten Zeitpunkt warten",
-    "ita": "Il colpo: aspetta l'ora concordata",
-    "pol": "Atak: poczekaj na uzgodnioną chwilę",
-    "rus": "Наезд: дождаться назначенного времени",
-    "spa": "El golpe: espera al momento acordado",
-    "ukr": "Наїзд: дочекатися призначеного часу"
-  },
-  "zat_b7_stalkers_raiders_time_name": {
-    "eng": "The hit: Wait for the right moment",
-    "fra": "Braquage : attendre jusqu'ŕ l'heure convenue.",
-    "ger": "Der Überfall: Auf den richtigen Moment warten",
-    "ita": "Il colpo: aspetta il momento giusto.",
-    "pol": "Atak: Poczekaj na właściwą chwilę",
-    "rus": "Наезд: дождаться подходящего момента",
-    "spa": "El golpe: espera al momento adecuado",
-    "ukr": "Наїзд: дочекатися слушного моменту"
-  },
-  "zat_b33_zaporojec_name": {
-    "eng": "Unreachable stash: take the container to Snag",
-    "fra": "Une planque bien cachée : apporter le coffre ŕ Accroc.",
-    "ger": "Unerreichbares Versteck: Kiste zu Snag bringen",
-    "ita": "Nascondiglio irraggiungibile: porta il contenitore a Snag",
-    "pol": "Niedostępny schowek: zanieś pudełko Sękowi",
-    "rus": "Недоступный тайник: принести Коряге контейнер",
-    "spa": "Escondite inalcanzable: llévale el contenedor a Snag",
-    "ukr": "Недоступна схованка: принести Корчу контейнер"
-  },
   "zat_b5_talk_stalkers_name": {
     "eng": "Transaction: talk to the leader of the stalker squad",
     "fra": "Transaction : parler au chef du groupe de stalkers.",
@@ -2379,35 +2389,25 @@
     "spa": "La transacción ha sufrido un sabotaje. El comerciante de armas ha muerto. Habla con el líder del escuadrón de stalkers.",
     "ukr": "Угоду зірвано, торговець зброєю мертвий. Необхідно поговорити з лідером загону сталкерів"
   },
-  "zat_b38_disappearance_stalkers_tell_barmen_about_medic_name": {
-    "eng": "Missing stalkers: tell the folks at Skadovsk what happened",
-    "fra": "Stalkers disparus : relater les événements aux stalkers du Skadovsk.",
-    "ger": "Verschwundene Stalker: Den Leuten auf der Skadowsk berichten, was geschehen ist",
-    "ita": "Stalker scomparsi: spiega alla gente della Skadovsk cosa č successo",
-    "pol": "Zaginieni stalkerzy: powiedz ludziom w Skadowsku, co się stało",
-    "rus": "Исчезновение сталкеров: рассказать на «Скадовске» о том, что произошло",
-    "spa": "Stalkers desaparecidos: informa a los de Skadovsk sobre lo sucedido",
-    "ukr": "Зникнення сталкерів: розповісти на «Скадовську» про те, що сталося"
+  "zat_b5_talk_to_sultan_name": {
+    "eng": "Transaction: talk to the bandit leader",
+    "fra": "Transaction : parler au chef des bandits.",
+    "ger": "Transaktion: Mit dem Banditenanführer reden",
+    "ita": "Transazione: parla con il leader dei banditi",
+    "pol": "Transakcja: porozmawiaj z dowódcą bandytów",
+    "rus": "Сделка: поговорить с главарём бандитов",
+    "spa": "Transacción: habla con el líder de los bandidos",
+    "ukr": "Угода: поговорити із ватажком бандитів"
   },
-  "zat_b57_den_of_the_bloodsucker_open_container_text": {
-    "eng": "You need to open the container using the keys you found and take the poison gas tank out.",
-    "fra": "Vous devez ouvrir le conteneur avec les clés trouvées et sortir la bombonne de gaz empoisonné.",
-    "ger": "Mit den Schlüsseln, die Sie gefunden haben, müssen Sie die Kiste aufmachen und die Flasche mit dem giftigen Gas herausnehmen.",
-    "ita": "Devi aprire il contenitore usando le chiavi che hai trovato ed estrarre la tanica di gas velenoso.",
-    "pol": "Musisz otworzyć pojemnik, używając znalezionych kluczy, i zabrać zbiornik z gazem.",
-    "rus": "Необходимо открыть контейнер найденными ключами и достать из него баллон с отравляющим газом",
-    "spa": "Tienes que abrir el contenedor con las llaves que encontraste y sacar el tanque de gas envenenado.",
-    "ukr": "Необхідно відкрити контейнер знайденими ключами та дістати з нього балон з отруйним газом"
-  },
-  "zat_b57_den_of_the_bloodsucker_open_container_name": {
-    "eng": "Bloodsucker lair: get the gas tank out of the container",
-    "fra": "Le nid de sangsues : sortir la bonbonne de gaz du conteneur.",
-    "ger": "Blutsaugerlager: Flasche mit giftigem Gas aus der Kiste nehmen",
-    "ita": "Tana dei succhiasangue: estrai la tanica di gas dal contenitore.",
-    "pol": "Legowisko pijawek: zabierz zbiornik z gazem z pojemnika",
-    "rus": "Логово кровососов: достать газовый баллон из контейнера",
-    "spa": "Guarida de chupasangres: saca el tanque de gas del contenedor",
-    "ukr": "Лігвище кровососів: дістати газовий балон з контейнера"
+  "zat_b5_talk_to_sultan_text": {
+    "eng": "You need to inform the bandit leader you're ready to take part in the transaction.",
+    "fra": "Vous devez informer le chef des bandits que vous ętes pręt ŕ participer ŕ la transaction.",
+    "ger": "Sie müssen dem Anführer der Banditen mitteilen, dass Sie bereit sind, bei der Transaktion mitzumachen.",
+    "ita": "Riferisci al leader dei banditi che sei pronto a partecipare alla transazione.",
+    "pol": "Musisz poinformować dowódcę bandytów o gotowości do wzięcia udziału w transakcji.",
+    "rus": "Надо сообщить главарю бандитов о готовности принять участие в сделке.",
+    "spa": "Tienes que informar al líder de los bandidos de que ya estás listo para participar en la transacción.",
+    "ukr": "Треба повідомити ватажкові бандитів про готовність взяти участь в угоді."
   },
   "zat_b7_stalkers_raiders_backstab_name": {
     "eng": "The hit: attack the robbers",
@@ -2439,36 +2439,6 @@
     "spa": "El golpe: reúnete con los ladrones",
     "ukr": "Наїзд: зустрітися з грабіжниками"
   },
-  "zat_b7_stalkers_raiders_raiders_text": {
-    "eng": "Join the robbers in attacking the stalker camp.",
-    "fra": "Rejoignez les voleurs pour attaquer le camp des stalkers.",
-    "ger": "Schließen Sie sich den Räubern beim Überfall auf das Stalkerlager an.",
-    "ita": "Unisciti ai rapinatori nell'attacco all'accampamento degli stalker.",
-    "pol": "Przyłącz się do złodziei podczas ataku na obóz stalkerów.",
-    "rus": "Участвовать с грабителями в нападении на лагерь сталкеров.",
-    "spa": "Únete a los ladrones para atacar el campamento stalker.",
-    "ukr": "Разом із грабіжниками здійснити напад на табір сталкерів."
-  },
-  "zat_b7_stalkers_raiders_stalkers_name": {
-    "eng": "The hit: join the robbers",
-    "fra": "Braquage : rejoindre les voleurs.",
-    "ger": "Der Überfall: Den Räubern anschließen",
-    "ita": "Il colpo: unisciti i rapinatori",
-    "pol": "Zabójstwo: przyłącz się do złodziei",
-    "rus": "Наезд: влиться в ряды грабителей",
-    "spa": "El golpe: únete a los ladrones",
-    "ukr": "Наїзд: влитися до лав грабіжників"
-  },
-  "zat_b7_stalkers_raiders_stalkers_text": {
-    "eng": "Stalkers have asked you to help them repel the robbers’ attack. You should join the robbers. When they begin the assault, you’ll be able to attack them from behind with impunity.",
-    "fra": "Les stalkers vous ont demandé de les aider ŕ repousser l'attaque des voleurs. Vous devriez rejoindre les bandits. Lorsqu'ils commenceront l'assaut, vous pourrez les attaquer par derričre en toute impunité.",
-    "ger": "Sie wurden von Stalkern gebeten, ihnen dabei zu helfen, den Überfall der Räuber abzuwehren. Sie sollten sich den Räubern anschließen. Wenn sie dann den Überfall starten, können Sie ihnen ohne Probleme in den Rücken fallen.",
-    "ita": "Gli stalker ti hanno chiesto di aiutarli a respingere l'attacco dei rapinatori. Unisciti ai rapinatori, cosě potrai attaccarli alle spalle di sorpresa non appena sferrano l'attacco.",
-    "pol": "Stalkerzy poprosili cię o pomoc w odparciu ataku złodziei. Przyłącz się do złodziei. Gdy rozpoczną napad, będzie można bezkarnie zaatakować ich od tyłu.",
-    "rus": "Сталкеры попросили помочь им отразить атаку грабителей. Нужно влиться в ряды грабителей, тогда во время нападения можно будет спокойно напасть на них со спины.",
-    "spa": "Unos stalkers te han pedido que les ayudes a rechazar el ataque de los ladrones. Debes unirte a los ladrones, así podrás atacarlos con total impunidad desde la retaguardia.",
-    "ukr": "Сталкери попрохали допомогти їм відбити атаку грабіжників. Потрібно влитися до лав грабіжників, тоді під час нападу можна буде спокійно напасти на них зі спини."
-  },
   "zat_b7_stalkers_raiders_meet_text": {
     "eng": "The robbers should be waiting by Shevchenko. You’ll need to meet them to take part in their assault on the stalkers.",
     "fra": "Les voleurs doivent attendre prčs du Chevtchenko. Vous devez les rejoindre pour participer ŕ l'attaque du camp des stalkers.",
@@ -2479,15 +2449,25 @@
     "spa": "Los ladrones deberían estar esperando en Shevchenko. Tienes que reunirte con ellos para participar en el asalto a los stalkers.",
     "ukr": "Грабіжники мають чекати біля «Шевченка». Слід зустрітися з ними, щоб взяти участь у наїзді на сталкерів."
   },
-  "zat_b7_stalkers_raiders_wait_text": {
-    "eng": "Wait for the meeting with the robbers. They want to attack the stalker camp after midnight while it’s still dark. The agreed meeting place is Shevchenko.",
-    "fra": "Attendez votre rendez-vous avec les voleurs ! Ils veulent attaquer le camp de stalkers entre minuit et le lever du soleil. Le point de rendez-vous se trouve au Chevtchenko.",
-    "ger": "Warten Sie auf das Treffen mit den Räubern. Sie wollen das Stalkerlager nach Mitternacht überfallen, während es dunkel ist. Der vereinbarte Treffpunkt ist die Schewtschenko.",
-    "ita": "Aspetta di incontrare i rapinatori. Vogliono attaccare l'accampamento degli stalker dopo la mezzanotte, ma prima dell'alba. Il luogo d'incontro č Shevchenko.",
-    "pol": "Poczekaj na spotkanie ze złodziejami. Chcą zaatakować obóz stalkerów po północy, dopóki jest ciemno. Uzgodnione miejsce spotkania to Szewczenko.",
-    "rus": "Дождаться времени встречи с грабителями: те хотят напасть на лагерь сталкеров поздно ночью, в темноте. Условленное место встречи - «Шевченко».",
-    "spa": "Espera para reunirte con los ladrones. Quieren atacar el campamento stalker después de medianoche, en la oscuridad. El punto de encuentro acordado es Shevchenko.",
-    "ukr": "Дочекатися часу зустрічі із грабіжниками: ті хочуть напасти на табір сталкерів пізно вночі, у темряві. Обумовлене місце зустрічі - «Шевченко»."
+  "zat_b7_stalkers_raiders_name": {
+    "eng": "The hit: decide what to do",
+    "fra": "Braquage : prendre une décision.",
+    "ger": "Der Überfall: Entscheiden, was zu tun ist",
+    "ita": "Il colpo: decidi cosa fare",
+    "pol": "Atak: zdecyduj, co zrobić",
+    "rus": "Наезд: решить, что предпринять",
+    "spa": "El golpe: decide lo que vas a hacer",
+    "ukr": "Наїзд: вирішити, що вчинити"
+  },
+  "zat_b7_stalkers_raiders_raiders_name": {
+    "eng": "The hit: attack the stalkers",
+    "fra": "Braquage : attaquer les stalkers.",
+    "ger": "Der Überfall: Die Stalker angreifen",
+    "ita": "Il colpo: attacca gli stalker",
+    "pol": "Atak: zaatakuj stalkerów",
+    "rus": "Наезд: напасть на сталкеров",
+    "spa": "El golpe: ataca a los stalkers",
+    "ukr": "Наїзд: напасти на сталкерів"
   },
   "zat_b7_stalkers_raiders_raiders_reward_name": {
     "eng": "The hit: get your cut",
@@ -2509,6 +2489,76 @@
     "spa": "El ataque a los stalkers ha tenido éxito; deberías cobrar tu parte del botín.",
     "ukr": "Напад на сталкерів пройшов успішно. Тепер треба перемовитися із подільниками."
   },
+  "zat_b7_stalkers_raiders_raiders_text": {
+    "eng": "Join the robbers in attacking the stalker camp.",
+    "fra": "Rejoignez les voleurs pour attaquer le camp des stalkers.",
+    "ger": "Schließen Sie sich den Räubern beim Überfall auf das Stalkerlager an.",
+    "ita": "Unisciti ai rapinatori nell'attacco all'accampamento degli stalker.",
+    "pol": "Przyłącz się do złodziei podczas ataku na obóz stalkerów.",
+    "rus": "Участвовать с грабителями в нападении на лагерь сталкеров.",
+    "spa": "Únete a los ladrones para atacar el campamento stalker.",
+    "ukr": "Разом із грабіжниками здійснити напад на табір сталкерів."
+  },
+  "zat_b7_stalkers_raiders_stalkers_name": {
+    "eng": "The hit: join the robbers",
+    "fra": "Braquage : rejoindre les voleurs.",
+    "ger": "Der Überfall: Den Räubern anschließen",
+    "ita": "Il colpo: unisciti i rapinatori",
+    "pol": "Zabójstwo: przyłącz się do złodziei",
+    "rus": "Наезд: влиться в ряды грабителей",
+    "spa": "El golpe: únete a los ladrones",
+    "ukr": "Наїзд: влитися до лав грабіжників"
+  },
+  "zat_b7_stalkers_raiders_stalkers_reward_name": {
+    "eng": "The hit: collect your reward",
+    "fra": "Braquage : récupérer votre récompense.",
+    "ger": "Der Überfall: Ihre Belohnung kassieren",
+    "ita": "Il colpo: prendi la tua ricompensa",
+    "pol": "Atak: odbierz swoją nagrodę",
+    "rus": "Наезд: получить награду",
+    "spa": "El golpe: cobra tu recompensa",
+    "ukr": "Наїзд: отримати нагороду"
+  },
+  "zat_b7_stalkers_raiders_stalkers_reward_text": {
+    "eng": "The attack on the camp was repelled, so you can talk to the stalkers to get your reward. They would probably have had a very tough time if they hadn't been warned about the attack.",
+    "fra": "L'attaque menée sur le camp a été repoussée. Vous pouvez maintenant parler aux stalkers pour obtenir votre récompense. Sans votre avertissement, ils auraient passé un sale quart d'heure.",
+    "ger": "Der Überfall auf das Lager wurde abgewehrt, daher können Sie sich jetzt wegen Ihrer Belohnung an die Stalker wenden. Diese hätten es sehr schwer gehabt, wenn sie nicht gewarnt worden wären.",
+    "ita": "L'attacco contro il campo č stato respinto, quindi puoi ottenere la tua ricompensa dagli stalker. Se non fossero stati avvertiti dell'assalto, probabilmente non ce l'avrebbero fatta.",
+    "pol": "Atak na obóz został odparty, możesz więc porozmawiać ze stalkerami i odebrać swoją nagrodę. Prawdopodobnie mieliby niezłe piekło, gdyby nie zostali ostrzeżeni o ataku.",
+    "rus": "Нападение на лагерь отбито, можно поговорить со сталкерами и получить награду. Скорее всего, сталкерам пришлось бы туго, если бы они не были предупреждены о нападении.",
+    "spa": "El ataque al campamento ha sido rechazado; ya puedes hablar con los stalkers para cobrar tu recompensa. De no haber sido advertidos del ataque, lo habrían pasado muy mal.",
+    "ukr": "Напад на табір відбито, можна поговорити зі сталкерами та отримати винагороду. Швидше за все, сталкерам велося б непереливки, якби їх не було попереджено про напад."
+  },
+  "zat_b7_stalkers_raiders_stalkers_text": {
+    "eng": "Stalkers have asked you to help them repel the robbers’ attack. You should join the robbers. When they begin the assault, you’ll be able to attack them from behind with impunity.",
+    "fra": "Les stalkers vous ont demandé de les aider ŕ repousser l'attaque des voleurs. Vous devriez rejoindre les bandits. Lorsqu'ils commenceront l'assaut, vous pourrez les attaquer par derričre en toute impunité.",
+    "ger": "Sie wurden von Stalkern gebeten, ihnen dabei zu helfen, den Überfall der Räuber abzuwehren. Sie sollten sich den Räubern anschließen. Wenn sie dann den Überfall starten, können Sie ihnen ohne Probleme in den Rücken fallen.",
+    "ita": "Gli stalker ti hanno chiesto di aiutarli a respingere l'attacco dei rapinatori. Unisciti ai rapinatori, cosě potrai attaccarli alle spalle di sorpresa non appena sferrano l'attacco.",
+    "pol": "Stalkerzy poprosili cię o pomoc w odparciu ataku złodziei. Przyłącz się do złodziei. Gdy rozpoczną napad, będzie można bezkarnie zaatakować ich od tyłu.",
+    "rus": "Сталкеры попросили помочь им отразить атаку грабителей. Нужно влиться в ряды грабителей, тогда во время нападения можно будет спокойно напасть на них со спины.",
+    "spa": "Unos stalkers te han pedido que les ayudes a rechazar el ataque de los ladrones. Debes unirte a los ladrones, así podrás atacarlos con total impunidad desde la retaguardia.",
+    "ukr": "Сталкери попрохали допомогти їм відбити атаку грабіжників. Потрібно влитися до лав грабіжників, тоді під час нападу можна буде спокійно напасти на них зі спини."
+  },
+  "zat_b7_stalkers_raiders_text": {
+    "eng": "A group of stalkers has turned to a bandit existence of robbing their own kind. You need to decide whether to take part in their assault, warn the stalkers or not get involved.",
+    "fra": "Des stalkers peu scrupuleux détroussent leurs congénčres. Vous devez décider entre participer ŕ l'assaut, avertir les stalkers ou ne pas vous impliquer.",
+    "ger": "Eine Gruppe von Stalkern hat vor, wie Banditen ihre eigenen Leute zu überfallen. Sie müssen sich entscheiden, ob Sie bei dem Angriff mitmachen, die Stalker warnen oder sich überhaupt nicht einmischen.",
+    "ita": "Degli stalker hanno deciso di cambiare vita, diventando dei banditi a tutti gli effetti. Devi decidere se partecipare al loro assalto, avvisare gli stalker o restarne fuori.",
+    "pol": "Grupa stalkerów postanowiła zostać bandytami i rabować swoich. Musisz zdecydować, czy weźmiesz udział w ataku, ostrzeżesz stalkerów, czy nie będziesz się w to mieszać.",
+    "rus": "Группа сталкеров решила превратиться в банду и грабить своих же вчерашних коллег. Пора решать как быть: принять участие в наезде, предупредить будущих жертв или не вмешиваться?",
+    "spa": "Un grupo de stalkers ha recurrido al bandidaje y a asaltar a sus propios camaradas. Debes decidir entre unirte al asalto, advertir a los demás stalkers o no involucrarte.",
+    "ukr": "Група сталкерів вирішила перетворитися на банду і грабувати своїх же вчорашніх колег. Настав час вирішувати, як бути: взяти участь у наїзді, попередити сталкерів або ж не втручатися?"
+  },
+  "zat_b7_stalkers_raiders_time_name": {
+    "eng": "The hit: Wait for the right moment",
+    "fra": "Braquage : attendre jusqu'ŕ l'heure convenue.",
+    "ger": "Der Überfall: Auf den richtigen Moment warten",
+    "ita": "Il colpo: aspetta il momento giusto.",
+    "pol": "Atak: Poczekaj na właściwą chwilę",
+    "rus": "Наезд: дождаться подходящего момента",
+    "spa": "El golpe: espera al momento adecuado",
+    "ukr": "Наїзд: дочекатися слушного моменту"
+  },
   "zat_b7_stalkers_raiders_time_text": {
     "eng": "Wait for the right moment when the robbers are distracted by the attack. You can then pounce on them from behind to help the Shevchenko stalkers.",
     "fra": "Attendez le bon moment, quand les voleurs seront distraits par l'attaque en cours ! Vous pourrez alors les prendre ŕ revers et aider les stalkers de Chevtchenko.",
@@ -2519,74 +2569,24 @@
     "spa": "Espera al momento adecuado para pillar a los ladrones distraídos por el ataque. Después podrás atacarlos por detrás para ayudar a los stalkers de Shevchenko.",
     "ukr": "Необхідно дочекатися моменту, коли увагу грабіжників буде відвернуто наїздом. Тоді можна буде вдарити їм у спину, щоб допомогти сталкерам на «Шевченко»."
   },
-  "zat_b30_sultan_task_8_name": {
-    "eng": "Shady business: start working for Beard",
-    "fra": "Affaires louches : travailler pour le Barbu.",
-    "ger": "Dunkle Geschäfte: Anfangen, für Beard zu arbeiten",
-    "ita": "Affare losco: inizia a lavorare per Beard",
-    "pol": "Ciemne interesy: zacznij pracować dla Brodacza",
-    "rus": "Тёмный бизнес: начать работать на Бороду",
-    "spa": "Un negocio turbio: comienza a trabajar para Barbas",
-    "ukr": "Темний бізнес: почати працювати на Бороду"
+  "zat_b7_stalkers_raiders_wait_name": {
+    "eng": "The hit: wait for the agreed time",
+    "fra": "Braquage : attendre jusqu'ŕ l'heure convenue.",
+    "ger": "Der Überfall: Bis zum vereinbarten Zeitpunkt warten",
+    "ita": "Il colpo: aspetta l'ora concordata",
+    "pol": "Atak: poczekaj na uzgodnioną chwilę",
+    "rus": "Наезд: дождаться назначенного времени",
+    "spa": "El golpe: espera al momento acordado",
+    "ukr": "Наїзд: дочекатися призначеного часу"
   },
-  "zat_b30_sultan_task_8_text": {
-    "eng": "Taking detector prototypes off stalkers working for Beard requires you to blend into their ranks. This will allow you to find out where your competitors are.",
-    "fra": "Pour vous emparer des prototypes de détecteur des stalkers qui travaillent pour le Barbu, vous devrez infiltrer leurs rangs. Cela vous permettra de découvrir qui sont vos concurrents.",
-    "ger": "Um den Stalkern, die für Beard arbeiten, die Detektorprototypen abzunehmen, müssen Sie sich unter sie mischen. Dadurch erfahren Sie, wo Ihre Konkurrenten sind.",
-    "ita": "Per prendere i prototipi di rilevatori dagli stalker che lavorano per Beard dovrai mescolarti a loro. In questo modo potrai scoprire chi sono i tuoi rivali in affari.",
-    "pol": "Aby zabrać prototypy detektorów stalkerom pracującym dla Brodacza, musisz wstąpić w ich szeregi. Dzięki temu dowiesz się, gdzie są twoi rywale.",
-    "rus": "Чтобы отобрать прототипы детекторов у сталкеров, работающих на Бороду, необходимо влиться в их ряды. Это позволит разведать лагерь конкурентов",
-    "spa": "Para robar prototipos de detectores a los stalkers que trabajan para Barbas, tendrás que infiltrarte entre ellos. Así podrás averiguar quiénes son tus competidores.",
-    "ukr": "Щоб відібрати прототипи детекторів у сталкерів, які працюють на Бороду, необхідно стати до їхніх лав. Це дозволить розвідати табір конкурентів"
-  },
-  "zat_b33_zaporojec_text_03": {
-    "eng": "You need to take the container and deliver it to its owner.",
-    "fra": "Vous devez prendre le coffre et l'apporter ŕ son propriétaire.",
-    "ger": "Sie müssen die Kiste nehmen und sie zu ihrem Besitzer bringen.",
-    "ita": "Devi prendere il contenitore e consegnarlo al proprietario.",
-    "pol": "Musisz wziąć pojemnik i dostarczyć go właścicielowi.",
-    "rus": "Необходимо взять контейнер и отнести его владельцу.",
-    "spa": "Tienes que coger el contenedor y llevárselo a su dueńo.",
-    "ukr": "Необхідно взяти контейнер та віднести його власникові."
-  },
-  "zat_b100_guide_maps_01_text": {
-    "eng": "The Stingray 2 onboard computer had maps of the area between Zaton and Jupiter. You should find someone who could use them.",
-    "fra": "L'ordinateur de bord de Stingray 2 contenait des cartes du secteur entre Zaton et Jupiter. Vous devriez trouver quelqu'un qui en aura l'utilité.",
-    "ger": "Auf dem Bordcomputer von Stingray 2 befanden sich Karten der Gegend zwischen Zaton und der Jupiter-Anlage. Sie sollten jemanden finden, der etwas mit diesen Karten anfangen kann.",
-    "ita": "Il computer di bordo di Stingray 2 conteneva delle mappe dell'area tra Zaton e Jupiter. Trova qualcuno a cui potrebbero interessare.",
-    "pol": "Komputer pokładowy Ogończy 2 zawierał mapy terenu pomiędzy Zatonem i Jupiterem. Znajdź kogoś, kto mógłby zrobić z nich użytek.",
-    "rus": "В бортовом компьютере вертолёта «Скат-2» были карты местности между Затоном и «Юпитером». Стоит найти того, кому эти карты могут понадобиться.",
-    "spa": "El ordenador de a bordo del Pez Raya 2 tenía mapas de la zona comprendida entre Zaton y Júpiter. Deberías buscar a alguien que los necesite.",
-    "ukr": "У бортовому комп'ютері гелікоптеру «Скат-2» містилися мапи місцевості між Затоном та «Юпітером». Варто знайти того, кому ці мапи можуть знадобитися."
-  },
-  "zat_b20_ask_a_stalkers_name": {
-    "eng": "Getting to the plateau: talk to stalkers",
-    "fra": "Aller au plateau du sud : parler aux stalkers",
-    "ger": "Zum Plateau: Mit Stalkern reden",
-    "ita": "Verso l'altopiano: parla con gli stalker",
-    "pol": "Ścieżka na płaskowyż: porozmawiaj ze stalkerami",
-    "rus": "Путь на плато: расспросить сталкеров",
-    "spa": "Ascenso a la meseta: habla con stalkers",
-    "ukr": "Шлях на плато: розпитати сталкерів"
-  },
-  "zat_b20_ask_a_stalkers_text": {
-    "eng": "It looks like there’s no direct route to the plateau. Ask local stalkers about other ways of getting there.",
-    "fra": "On dirait qu'il n'y a pas de chemin direct menant au plateau. Demander aux stalkers du coin s'ils ne connaissent pas d'autres moyens de s'y rendre.",
-    "ger": "Es scheint so, als ob es keinen direkten Weg zum Plateau gäbe. Fragen Sie die Stalker vor Ort, wie sie dorthin gelangen.",
-    "ita": "Sembra che non ci sia modo di raggiungere direttamente l'altopiano. Chiedi agli stalker del posto come puoi fare per arrivarci.",
-    "pol": "Wygląda na to, że nie ma bezpośredniej drogi na płaskowyż. Popytaj miejscowych stalkerów, jak można się tam dostać.",
-    "rus": "Судя по всему, на плато не удастся попасть прямым путём. Необходимо расспросить местных сталкеров о других возможных путях.",
-    "spa": "Parece que no hay una ruta directa a la meseta. Pregunta a los stalkers del lugar por otros caminos para llegar allí.",
-    "ukr": "Судячи по всьому, на плато не вдасться трапити прямим шляхом. Необхідно розпитати місцевих сталкерів щодо інших можливих доріг."
-  },
-  "zat_b30_compass_to_barmen_task_give_text": {
-    "eng": "The artifact you got from Noah is the Compass that Beard wants.",
-    "fra": "L'artefact que vous a remis Noah est la Boussole que recherche le Barbu.",
-    "ger": "Sie haben von Noah das Kompass-Artefakt erhalten, das Beard will.",
-    "ita": "Il manufatto che hai ricevuto da Noah č la Bussola che Beard sta cercando.",
-    "pol": "Artefakt, który dał ci Noe, to Kompas, którego szuka Brodacz.",
-    "rus": "Полученный у Ноя артефакт и есть тот самый «Компас», что нужен Бороде.",
-    "spa": "El artefacto que te ha dado Noé es la Brújula que quiere Barbas.",
-    "ukr": "Отриманий в Ноя артефакт - це і є той самий «Компас», котрий так потрібен Бороді."
+  "zat_b7_stalkers_raiders_wait_text": {
+    "eng": "Wait for the meeting with the robbers. They want to attack the stalker camp after midnight while it’s still dark. The agreed meeting place is Shevchenko.",
+    "fra": "Attendez votre rendez-vous avec les voleurs ! Ils veulent attaquer le camp de stalkers entre minuit et le lever du soleil. Le point de rendez-vous se trouve au Chevtchenko.",
+    "ger": "Warten Sie auf das Treffen mit den Räubern. Sie wollen das Stalkerlager nach Mitternacht überfallen, während es dunkel ist. Der vereinbarte Treffpunkt ist die Schewtschenko.",
+    "ita": "Aspetta di incontrare i rapinatori. Vogliono attaccare l'accampamento degli stalker dopo la mezzanotte, ma prima dell'alba. Il luogo d'incontro č Shevchenko.",
+    "pol": "Poczekaj na spotkanie ze złodziejami. Chcą zaatakować obóz stalkerów po północy, dopóki jest ciemno. Uzgodnione miejsce spotkania to Szewczenko.",
+    "rus": "Дождаться времени встречи с грабителями: те хотят напасть на лагерь сталкеров поздно ночью, в темноте. Условленное место встречи - «Шевченко».",
+    "spa": "Espera para reunirte con los ladrones. Quieren atacar el campamento stalker después de medianoche, en la oscuridad. El punto de encuentro acordado es Shevchenko.",
+    "ukr": "Дочекатися часу зустрічі із грабіжниками: ті хочуть напасти на табір сталкерів пізно вночі, у темряві. Обумовлене місце зустрічі - «Шевченко»."
   }
 }

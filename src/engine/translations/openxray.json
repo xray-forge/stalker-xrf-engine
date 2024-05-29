@@ -1,293 +1,13 @@
 {
-  "st_unload_magazine_after_pickup": {
-    "eng": "Autounload weapon after pickup",
-    "fra": "Arme à déchargement automatique après ramassage",
-    "ger": "Automatisches Entladen der Waffe nach dem Aufnehmen",
-    "ita": "Scarica automaticamente l'arma dopo averla raccolta",
-    "pol": "Automatycznie rozładuj broń po podniesieniu",
-    "rus": "Разряжать ор. при поднятии",
-    "spa": "Arma de descarga automática después de la recogida",
-    "ukr": "Авторозрядження зброї при піднятті"
-  },
-  "st_unload_magazine_all": {
-    "eng": "unload all weapons",
-    "fra": "décharger toutes les armes",
-    "ger": "entlade alle Waffen",
-    "ita": "scaricare tutte le armi",
-    "pol": "rozіaduj wszystkie bronie",
-    "rus": "разрядить всё оружие",
-    "spa": "descargar todas las armas",
-    "ukr": "розрядити всю зброю"
-  },
-  "st_unequip": {
-    "eng": "unequip",
-    "fra": "déséquiper",
-    "ger": "ausrüsten",
-    "ita": "disequipaggiato",
-    "pol": "Zdejmij",
-    "rus": "убрать в рюкзак",
-    "spa": "desequipar",
-    "ukr": "сховати"
-  },
-  "st_donate": {
-    "eng": "Donate",
-    "fra": "Faire un don",
-    "ger": "Spenden",
-    "ita": "Donare",
-    "pol": "Podaruj",
-    "rus": "Подарить",
-    "spa": "Donar",
-    "ukr": "Пожертвувати"
-  },
-  "st_loading_lights": {
-    "eng": "Loading lights",
-    "fra": "Éclairage de chargement",
-    "ger": "Beleuchtung wird geladen",
-    "ita": "Caricamento illuminazione",
-    "pol": "Wczytywanie oњwietlenia",
-    "rus": "Загрузка освещения",
-    "spa": "Cargando iluminación",
-    "ukr": "Завантаження освітлення"
-  },
-  "st_client_connecting_to": {
-    "eng": "CLIENT: Connecting to",
-    "fra": "CLIENT: Connexion à",
-    "ger": "KUNDE: Verbindung herstellen mit",
-    "ita": "CLIENTE: Connessione a",
-    "pol": "Klient: Czenie z",
-    "rus": "Клиент: Соединение с",
-    "spa": "CLIENTE: Conectándose a",
-    "ukr": "Клієнт: Зв'язок з"
-  },
-  "st_client_spawning": {
-    "eng": "CLIENT: Spawning",
-    "fra": "CLIENT : Frayer",
-    "ger": "KUNDE: Spawning",
-    "ita": "CLIENTE: Deposizione delle uova",
-    "pol": "Klient: Odradzanie",
-    "rus": "Клиент: Создание",
-    "spa": "CLIENTE: Desove",
-    "ukr": "Клієнт: Створення"
-  },
-  "st_client_synchronising": {
-    "eng": "CLIENT: Synchronizing",
-    "fra": "CLIENT: Synchronisation",
-    "ger": "KUNDE: Synchronisierung",
-    "ita": "CLIENTE: Sincronizzazione in corso",
-    "pol": "Klient: Synchronizacja",
-    "rus": "Клиент: Синхронизация",
-    "spa": "CLIENTE: Sincronizando",
-    "ukr": "Клиент: Синхронізація"
-  },
-  "st_creating_new_game": {
-    "eng": "Creating new game",
-    "fra": "Création d'un nouveau jeu",
-    "ger": "Neues Spiel erstellen",
-    "ita": "Creazione di un nuovo gioco",
-    "pol": "Tworzenie nowej gry",
-    "rus": "Создание новой игры",
-    "spa": "Creando nuevo juego",
-    "ukr": "Створення нової гри"
-  },
-  "ui_mm_always_active": {
-    "eng": "Always active",
-    "fra": "Toujours actif",
-    "ger": "Immer aktiv",
-    "ita": "Sempre attivo",
-    "pol": "Zawsze aktywny",
-    "rus": "Всегда активен",
-    "spa": "Siempre activo",
-    "ukr": "Завжди активний"
-  },
-  "ui_mm_ui_style": {
-    "eng": "Interface style",
-    "fra": "Style d'interface",
-    "ger": "Schnittstellenstil",
-    "ita": "Stile dell'interfaccia",
-    "pol": "Styl interfejsu",
-    "rus": "Стиль интерфейса",
-    "spa": "Estilo de interfaz",
-    "ukr": "Стиль інтерфейсу"
-  },
-  "ui_style_default": {
-    "eng": "Call of Pripyat",
-    "fra": "L'appel de Pripyat",
-    "ger": "Der Ruf von Pripyat",
-    "ita": "Il richiamo di Pripyat",
-    "pol": "Zew Prypeci",
-    "rus": "Зов Припяти",
-    "spa": "Llamada de Prípiat",
-    "ukr": "Поклик Прип'яті"
-  },
-  "ui_mm_simplified_item_pickup": {
-    "eng": "Simplified item pickup",
-    "fra": "Récupération simplifiée des articles",
-    "ger": "Vereinfachte Artikelabholung",
-    "ita": "Ritiro degli articoli semplificato",
-    "pol": "Uproszczone podn. przedmiotуw",
-    "rus": "Упр. подбор предметов",
-    "spa": "Recogida de artículos simplificada",
-    "ukr": "Спрощене підняття предметів"
-  },
-  "ui_mm_multi_item_pickup": {
-    "eng": "Multi item pickup",
-    "fra": "Ramassage de plusieurs articles",
-    "ger": "Abholung mehrerer Artikel",
-    "ita": "Ritiro di più articoli  ",
-    "pol": "Podn. wsz. przedmiotуw na raz",
-    "rus": "Множ. подбор предметов",
-    "spa": "Recogida de varios artículos",
-    "ukr": "Підняття декількох предметів"
-  },
-  "ui_mm_loadingstages": {
-    "eng": "Show loading stages",
-    "fra": "Afficher les étapes de chargement",
-    "ger": "Ladestufen anzeigen",
-    "ita": "Mostra le fasi di caricamento",
-    "pol": "Postкp wczytywania",
-    "rus": "Стадии загрузки",
-    "spa": "Mostrar etapas de carga",
-    "ukr": "Стадии загрузки"
-  },
-  "renderer_gl": {
-    "eng": "Enhanced full dyn. lighting (OpenGL)",
-    "fra": "Éclairage dynamique complet amélioré (OpenGL)",
-    "ger": "Verbesserte volldynamische Beleuchtung (OpenGL)",
-    "ita": "Illuminazione completamente dinamica migliorata (OpenGL)",
-    "pol": "Rozsz. peіne oњw. dynam. (OpenGL)",
-    "rus": "Ул. полное освещение (OpenGL)",
-    "spa": "Iluminación dinámica completa mejorada (OpenGL)",
-    "ukr": "Покр. повне освітлення (OpenGL)"
-  },
-  "ui_mm_r2_fxaa": {
-    "eng": "FXAA",
-    "fra": "FXAA",
-    "ger": "FXAA",
-    "ita": "FXAA",
-    "pol": "FXAA",
-    "rus": "FXAA",
-    "spa": "FXAA",
-    "ukr": "FXAA"
-  },
-  "ui_mm_r2_smap_size": {
-    "eng": "Shadow map quality",
-    "fra": "Qualité de la carte des ombres",
-    "ger": "Qualität der Schattenkarte",
-    "ita": "Qualità della mappa delle ombre",
-    "pol": "Jakoњж cieni map",
-    "rus": "Качество теневых карт",
-    "spa": "Calidad del mapa de sombras",
-    "ukr": "Якість тіньових мап"
-  },
-  "ui_mm_r3_dynamic_wet_surfaces_opt": {
-    "eng": "Wet surfaces optimization",
-    "fra": "Optimisation des surfaces mouillées",
-    "ger": "Optimierung nasser Oberflächen",
-    "ita": "Ottimizzazione delle superfici bagnate",
-    "pol": "Optymalizacja mokrych pow.",
-    "rus": "Оптимизация намокания",
-    "spa": "Optimización de superficies mojadas",
-    "ukr": "Оптимізация намокання"
-  },
-  "ui_mm_r3_dynamic_wet_surfaces_near": {
-    "eng": "Wet surfaces near dist.",
-    "fra": "Surfaces mouillées à proximité",
-    "ger": "Nasse Oberflächen in der Nähe",
-    "ita": "Superfici bagnate a distanza ravvicinata",
-    "pol": "Mokre pow. na blisk. odlegіoњci",
-    "rus": "Намокание вблизи",
-    "spa": "Superficies mojadas cerca de la distancia",
-    "ukr": "Вологі поверхні поблизу"
-  },
-  "ui_mm_r3_dynamic_wet_surfaces_far": {
-    "eng": "Wet surfaces far distance",
-    "fra": "Surfaces mouillées à grande distance",
-    "ger": "Nasse Oberflächen in großer Entfernung",
-    "ita": "Superfici bagnate a grande distanza",
-    "pol": "Mokre pow. na dal. odlegіoњci",
-    "rus": "Намокание вдали",
-    "spa": "Superficies mojadas a gran distancia",
-    "ukr": "Намокання вдалі"
-  },
-  "ui_mm_r3_dynamic_wet_surfaces_sm_res": {
-    "eng": "Wet surfaces quality",
-    "fra": "Qualité des surfaces mouillées",
-    "ger": "Qualität nasser Oberflächen",
-    "ita": "Qualità delle superfici bagnate",
-    "pol": "Jakoњж mokrych powierzchni",
-    "rus": "Качество намокания",
-    "spa": "Calidad de la superficie húmeda",
-    "ukr": "Якість намокання поверхонь"
-  },
-  "ui_mm_fov": {
-    "eng": "Field of view",
-    "fra": "Champ du vent",
-    "ger": "Feld des Windes",
-    "ita": "Campo del vento",
-    "pol": "Pole widzenia",
-    "rus": "Поле зрения",
-    "spa": "Campo visivo",
-    "ukr": "Поле зору"
-  },
-  "ui_mm_ui_fov": {
+  "cze": {
     "eng": null,
     "fra": null,
-    "ger": null,
+    "ger": "Tschechisch (Tzech)",
     "ita": null,
     "pol": null,
     "rus": null,
     "spa": null,
     "ukr": null
-  },
-  "st_switch_version_invitation": {
-    "eng": "Do you really want to launch another version of the game?",
-    "fra": "Voulez-vous vraiment lancer une autre version du jeu?",
-    "ger": "Möchten Sie wirklich eine andere Version des Spiels veröffentlichen?",
-    "ita": "Vuoi davvero lanciare un'altra versione del gioco?",
-    "pol": "Czy na pewno chcesz uruchomic kolejna wersje gry?",
-    "rus": "Вы действительно хотите запустить другую версию игры?",
-    "spa": "¿De verdad quieres lanzar otra versión del juego?",
-    "ukr": "Ви дійсно хочете запустити іншу версію гри?"
-  },
-  "ui_mm_localization": {
-    "eng": "Language",
-    "fra": "Langue",
-    "ger": "Sprache",
-    "ita": "Lingua",
-    "pol": "Jкzyk",
-    "rus": "Язык",
-    "spa": "Idioma",
-    "ukr": "Мова"
-  },
-  "ui_mm_gamepad_setup": {
-    "eng": "Gamepad setup",
-    "fra": "Configuration de la manette de jeu",
-    "ger": "Gamepad-Setup",
-    "ita": "Configurazione del gamepad",
-    "pol": "Konfiguracja gamepada",
-    "rus": "Настройка геймпада",
-    "spa": "Configuración del mando",
-    "ukr": "Налаштування геймпаду"
-  },
-  "ui_mm_fps_limit": {
-    "eng": "In-game FPS limit",
-    "fra": "Limiter les FPS avec grze",
-    "ger": "Begrenzen Sie die FPS auf Grze",
-    "ita": "Limita FPS con grze",
-    "pol": "Limit FPS w grze",
-    "rus": "Лимит FPS в игре",
-    "spa": "Limitar FPS con tamaño",
-    "ukr": "Ліміт FPS в грі"
-  },
-  "ui_mm_fps_limit_in_menu": {
-    "eng": "Menu FPS limit",
-    "fra": "Limiter les FPS avec le menu",
-    "ger": "FPS begrenzen im Menü",
-    "ita": "Limita FPS nel menu",
-    "pol": "Limit FPS w menu",
-    "rus": "Лимит FPS в меню",
-    "spa": "Limitar FPS con menú",
-    "ukr": "Ліміт FPS в меню"
   },
   "eng": {
     "eng": "English",
@@ -329,6 +49,16 @@
     "spa": "Italiana (Italian)",
     "ukr": "Італійська (Italian)"
   },
+  "jpn": {
+    "eng": null,
+    "fra": null,
+    "ger": "Japanisch (Japanese)",
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
   "pol": {
     "eng": "Polish",
     "fra": "Polonais (Polish)",
@@ -338,6 +68,26 @@
     "rus": "Польский (Polish)",
     "spa": "Polaca (Polish)",
     "ukr": "Польська (Polish)"
+  },
+  "renderer_gl": {
+    "eng": "Enhanced full dyn. lighting (OpenGL)",
+    "fra": "Éclairage dynamique complet amélioré (OpenGL)",
+    "ger": "Verbesserte volldynamische Beleuchtung (OpenGL)",
+    "ita": "Illuminazione completamente dinamica migliorata (OpenGL)",
+    "pol": "Rozsz. peіne oњw. dynam. (OpenGL)",
+    "rus": "Ул. полное освещение (OpenGL)",
+    "spa": "Iluminación dinámica completa mejorada (OpenGL)",
+    "ukr": "Покр. повне освітлення (OpenGL)"
+  },
+  "renderer_rgl": {
+    "eng": "Enhanced full dyn. lighting (OpenGL)",
+    "fra": "Écl. dyn. comp. amél. (OpenGL)",
+    "ger": "Erw. Volldyn. Beleuchtung (OpenGL)",
+    "ita": "Illum. din. compl. migli. (OpenGL)",
+    "pol": "Rozsz. peіne oњw. dynam. (OpenGL)",
+    "rus": "Ул. полное освещение (OpenGL)",
+    "spa": "Ilum. din. compl. mejor. (OpenGL)",
+    "ukr": "Покр. повне освітлення (OpenGL)"
   },
   "rus": {
     "eng": "Russian",
@@ -358,6 +108,496 @@
     "rus": "Испанский (Spanish)",
     "spa": "Española (Spanish)",
     "ukr": "Іспанська (Spanish)"
+  },
+  "st_client_connecting_to": {
+    "eng": "CLIENT: Connecting to",
+    "fra": "CLIENT: Connexion à",
+    "ger": "KUNDE: Verbindung herstellen mit",
+    "ita": "CLIENTE: Connessione a",
+    "pol": "Klient: Czenie z",
+    "rus": "Клиент: Соединение с",
+    "spa": "CLIENTE: Conectándose a",
+    "ukr": "Клієнт: Зв'язок з"
+  },
+  "st_client_spawning": {
+    "eng": "CLIENT: Spawning",
+    "fra": "CLIENT : Frayer",
+    "ger": "KUNDE: Spawning",
+    "ita": "CLIENTE: Deposizione delle uova",
+    "pol": "Klient: Odradzanie",
+    "rus": "Клиент: Создание",
+    "spa": "CLIENTE: Desove",
+    "ukr": "Клієнт: Створення"
+  },
+  "st_client_synchronising": {
+    "eng": "CLIENT: Synchronizing",
+    "fra": "CLIENT: Synchronisation",
+    "ger": "KUNDE: Synchronisierung",
+    "ita": "CLIENTE: Sincronizzazione in corso",
+    "pol": "Klient: Synchronizacja",
+    "rus": "Клиент: Синхронизация",
+    "spa": "CLIENTE: Sincronizando",
+    "ukr": "Клиент: Синхронізація"
+  },
+  "st_creating_new_game": {
+    "eng": "Creating new game",
+    "fra": "Création d'un nouveau jeu",
+    "ger": "Neues Spiel erstellen",
+    "ita": "Creazione di un nuovo gioco",
+    "pol": "Tworzenie nowej gry",
+    "rus": "Создание новой игры",
+    "spa": "Creando nuevo juego",
+    "ukr": "Створення нової гри"
+  },
+  "st_donate": {
+    "eng": "Donate",
+    "fra": "Faire un don",
+    "ger": "Spenden",
+    "ita": "Donare",
+    "pol": "Podaruj",
+    "rus": "Подарить",
+    "spa": "Donar",
+    "ukr": "Пожертвувати"
+  },
+  "st_loading_lights": {
+    "eng": "Loading lights",
+    "fra": "Éclairage de chargement",
+    "ger": "Beleuchtung wird geladen",
+    "ita": "Caricamento illuminazione",
+    "pol": "Wczytywanie oњwietlenia",
+    "rus": "Загрузка освещения",
+    "spa": "Cargando iluminación",
+    "ukr": "Завантаження освітлення"
+  },
+  "st_opt_fullscreen": {
+    "eng": "Fullscreen",
+    "fra": "Plein écran",
+    "ger": "Fullscreen",
+    "ita": "Schermo intero",
+    "pol": "Peіnoekranowy",
+    "rus": "Полноэкранный",
+    "spa": "Pantalla completa",
+    "ukr": "Повноекранний режим"
+  },
+  "st_opt_fullscreen_borderless": {
+    "eng": "Fullscreen (fast Alt+Tab)",
+    "fra": "Plein écran (Alt+Tab rapide)",
+    "ger": "Fullscreen (fast Alt+Tab)",
+    "ita": "Schermo intero (Alt+Tab veloce)",
+    "pol": "Peіnoekranowy (szybki Alt+Tab)",
+    "rus": "Полноэкранный (быстрый Alt+Tab)",
+    "spa": "Pantalla completa (Alt+Tab rápido)",
+    "ukr": "Повноекранний режим (швидкий Alt+Tab)"
+  },
+  "st_opt_windowed": {
+    "eng": "Windowed",
+    "fra": "Fenêtré",
+    "ger": "Windowed",
+    "ita": "In finestra",
+    "pol": "Okienkowy",
+    "rus": "Оконный",
+    "spa": "En ventana",
+    "ukr": "Віконний режим"
+  },
+  "st_opt_windowed_borderless": {
+    "eng": "Windowed borderless",
+    "fra": "Fenêtré sans bordures",
+    "ger": "Windowed borderless",
+    "ita": "Senza bordi in finestra",
+    "pol": "Okienkowy (bez ramek)",
+    "rus": "Оконный без рамок",
+    "spa": "Ventana sin bordes",
+    "ukr": "Безрамковий віконний режим"
+  },
+  "st_switch_version_invitation": {
+    "eng": "Do you really want to launch another version of the game?",
+    "fra": "Voulez-vous vraiment lancer une autre version du jeu?",
+    "ger": "Möchten Sie wirklich eine andere Version des Spiels veröffentlichen?",
+    "ita": "Vuoi davvero lanciare un'altra versione del gioco?",
+    "pol": "Czy na pewno chcesz uruchomic kolejna wersje gry?",
+    "rus": "Вы действительно хотите запустить другую версию игры?",
+    "spa": "¿De verdad quieres lanzar otra versión del juego?",
+    "ukr": "Ви дійсно хочете запустити іншу версію гри?"
+  },
+  "st_unequip": {
+    "eng": "unequip",
+    "fra": "déséquiper",
+    "ger": "ausrüsten",
+    "ita": "disequipaggiato",
+    "pol": "Zdejmij",
+    "rus": "убрать в рюкзак",
+    "spa": "desequipar",
+    "ukr": "сховати"
+  },
+  "st_unload_magazine_after_pickup": {
+    "eng": "Autounload weapon after pickup",
+    "fra": "Arme à déchargement automatique après ramassage",
+    "ger": "Automatisches Entladen der Waffe nach dem Aufnehmen",
+    "ita": "Scarica automaticamente l'arma dopo averla raccolta",
+    "pol": "Automatycznie rozładuj broń po podniesieniu",
+    "rus": "Разряжать ор. при поднятии",
+    "spa": "Arma de descarga automática después de la recogida",
+    "ukr": "Авторозрядження зброї при піднятті"
+  },
+  "st_unload_magazine_all": {
+    "eng": "unload all weapons",
+    "fra": "décharger toutes les armes",
+    "ger": "entlade alle Waffen",
+    "ita": "scaricare tutte le armi",
+    "pol": "rozіaduj wszystkie bronie",
+    "rus": "разрядить всё оружие",
+    "spa": "descargar todas las armas",
+    "ukr": "розрядити всю зброю"
+  },
+  "ui_mm_always_active": {
+    "eng": "Always active",
+    "fra": "Toujours actif",
+    "ger": "Immer aktiv",
+    "ita": "Sempre attivo",
+    "pol": "Zawsze aktywny",
+    "rus": "Всегда активен",
+    "spa": "Siempre activo",
+    "ukr": "Завжди активний"
+  },
+  "ui_mm_color_grading_cold": {
+    "eng": "cold",
+    "fra": null,
+    "ger": "cold",
+    "ita": null,
+    "pol": "cold",
+    "rus": "холодная",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_default": {
+    "eng": "default",
+    "fra": null,
+    "ger": "default",
+    "ita": null,
+    "pol": "default",
+    "rus": "стандартная",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_filmic_01": {
+    "eng": "Filmic 1",
+    "fra": null,
+    "ger": "Filmic 1",
+    "ita": null,
+    "pol": "Filmic 1",
+    "rus": "Filmic 1",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_filmic_02": {
+    "eng": "Filmic 2",
+    "fra": null,
+    "ger": "Filmic 2",
+    "ita": null,
+    "pol": "Filmic 2",
+    "rus": "Filmic 2",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_filmic_03": {
+    "eng": "Filmic 3",
+    "fra": null,
+    "ger": "Filmic 3",
+    "ita": null,
+    "pol": "Filmic 3",
+    "rus": "Filmic 3",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_hollywood": {
+    "eng": "Hollywood",
+    "fra": null,
+    "ger": "Hollywood",
+    "ita": null,
+    "pol": "Hollywood",
+    "rus": "Hollywood",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_preset": {
+    "eng": "Colour grading",
+    "fra": null,
+    "ger": "Colour grading",
+    "ita": null,
+    "pol": "Colour grading",
+    "rus": "Градация цветов",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_vanilla": {
+    "eng": "Vanilla",
+    "fra": null,
+    "ger": "Vanilla",
+    "ita": null,
+    "pol": "Vanilla",
+    "rus": "оригинальная",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_vibrant": {
+    "eng": "Vibrant",
+    "fra": null,
+    "ger": "Vibrant",
+    "ita": null,
+    "pol": "Vibrant",
+    "rus": "Vibrant",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_color_grading_warm": {
+    "eng": "warm",
+    "fra": null,
+    "ger": "warm",
+    "ita": null,
+    "pol": "warm",
+    "rus": "тёплая",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_detail_radius": {
+    "eng": "Grass detail radius",
+    "fra": "Rayon dét. herbe",
+    "ger": "Grasdetail Radius",
+    "ita": "Raggio dett. erba",
+    "pol": "Odlegіoњж rys. trawy",
+    "rus": "Дальность прор. травы",
+    "spa": "Radio de de. del césped",
+    "ukr": "Радіус дет. трави"
+  },
+  "ui_mm_fov": {
+    "eng": "Field of view",
+    "fra": "Champ du vent",
+    "ger": "Feld des Windes",
+    "ita": "Campo del vento",
+    "pol": "Pole widzenia",
+    "rus": "Поле зрения",
+    "spa": "Campo visivo",
+    "ukr": "Поле зору"
+  },
+  "ui_mm_hud_fov": {
+    "eng": "Hud field of view",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_fps_limit": {
+    "eng": "In-game FPS limit",
+    "fra": "Limiter les FPS avec grze",
+    "ger": "Begrenzen Sie die FPS auf Grze",
+    "ita": "Limita FPS con grze",
+    "pol": "Limit FPS w grze",
+    "rus": "Лимит FPS в игре",
+    "spa": "Limitar FPS con tamaño",
+    "ukr": "Ліміт FPS в грі"
+  },
+  "ui_mm_fps_limit_in_menu": {
+    "eng": "Menu FPS limit",
+    "fra": "Limiter les FPS avec le menu",
+    "ger": "FPS begrenzen im Menü",
+    "ita": "Limita FPS nel menu",
+    "pol": "Limit FPS w menu",
+    "rus": "Лимит FPS в меню",
+    "spa": "Limitar FPS con menú",
+    "ukr": "Ліміт FPS в меню"
+  },
+  "ui_mm_gamepad_setup": {
+    "eng": "Gamepad setup",
+    "fra": "Configuration de la manette de jeu",
+    "ger": "Gamepad-Setup",
+    "ita": "Configurazione del gamepad",
+    "pol": "Konfiguracja gamepada",
+    "rus": "Настройка геймпада",
+    "spa": "Configuración del mando",
+    "ukr": "Налаштування геймпаду"
+  },
+  "ui_mm_loadingstages": {
+    "eng": "Show loading stages",
+    "fra": "Afficher les étapes de chargement",
+    "ger": "Ladestufen anzeigen",
+    "ita": "Mostra le fasi di caricamento",
+    "pol": "Postкp wczytywania",
+    "rus": "Стадии загрузки",
+    "spa": "Mostrar etapas de carga",
+    "ukr": "Стадии загрузки"
+  },
+  "ui_mm_localization": {
+    "eng": "Language",
+    "fra": "Langue",
+    "ger": "Sprache",
+    "ita": "Lingua",
+    "pol": "Jкzyk",
+    "rus": "Язык",
+    "spa": "Idioma",
+    "ukr": "Мова"
+  },
+  "ui_mm_multi_item_pickup": {
+    "eng": "Multi item pickup",
+    "fra": "Ramassage de plusieurs articles",
+    "ger": "Abholung mehrerer Artikel",
+    "ita": "Ritiro di più articoli  ",
+    "pol": "Podn. wsz. przedmiotуw na raz",
+    "rus": "Множ. подбор предметов",
+    "spa": "Recogida de varios artículos",
+    "ukr": "Підняття декількох предметів"
+  },
+  "ui_mm_r2_fxaa": {
+    "eng": "FXAA",
+    "fra": "FXAA",
+    "ger": "FXAA",
+    "ita": "FXAA",
+    "pol": "FXAA",
+    "rus": "FXAA",
+    "spa": "FXAA",
+    "ukr": "FXAA"
+  },
+  "ui_mm_r2_smap_size": {
+    "eng": "Shadow map quality",
+    "fra": "Qualité de la carte des ombres",
+    "ger": "Qualität der Schattenkarte",
+    "ita": "Qualità della mappa delle ombre",
+    "pol": "Jakoњж cieni map",
+    "rus": "Качество теневых карт",
+    "spa": "Calidad del mapa de sombras",
+    "ukr": "Якість тіньових мап"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces_far": {
+    "eng": "Wet surfaces far distance",
+    "fra": "Surfaces mouillées à grande distance",
+    "ger": "Nasse Oberflächen in großer Entfernung",
+    "ita": "Superfici bagnate a grande distanza",
+    "pol": "Mokre pow. na dal. odlegіoњci",
+    "rus": "Намокание вдали",
+    "spa": "Superficies mojadas a gran distancia",
+    "ukr": "Намокання вдалі"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces_near": {
+    "eng": "Wet surfaces near dist.",
+    "fra": "Surfaces mouillées à proximité",
+    "ger": "Nasse Oberflächen in der Nähe",
+    "ita": "Superfici bagnate a distanza ravvicinata",
+    "pol": "Mokre pow. na blisk. odlegіoњci",
+    "rus": "Намокание вблизи",
+    "spa": "Superficies mojadas cerca de la distancia",
+    "ukr": "Вологі поверхні поблизу"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces_opt": {
+    "eng": "Wet surfaces optimization",
+    "fra": "Optimisation des surfaces mouillées",
+    "ger": "Optimierung nasser Oberflächen",
+    "ita": "Ottimizzazione delle superfici bagnate",
+    "pol": "Optymalizacja mokrych pow.",
+    "rus": "Оптимизация намокания",
+    "spa": "Optimización de superficies mojadas",
+    "ukr": "Оптимізация намокання"
+  },
+  "ui_mm_r3_dynamic_wet_surfaces_sm_res": {
+    "eng": "Wet surfaces quality",
+    "fra": "Qualité des surfaces mouillées",
+    "ger": "Qualität nasser Oberflächen",
+    "ita": "Qualità delle superfici bagnate",
+    "pol": "Jakoњж mokrych powierzchni",
+    "rus": "Качество намокания",
+    "spa": "Calidad de la superficie húmeda",
+    "ukr": "Якість намокання поверхонь"
+  },
+  "ui_mm_shader_preset": {
+    "eng": "Graphics mode",
+    "fra": "Mode graphique",
+    "ger": "Graphics mode",
+    "ita": "Modalità grafica",
+    "pol": "Graphics mode",
+    "rus": "Режим графики",
+    "spa": "Modo gráfico",
+    "ukr": "Графічний режим"
+  },
+  "ui_mm_shader_preset_enhanced_default": {
+    "eng": "enhanced (Default)",
+    "fra": null,
+    "ger": "enhanced (Default)",
+    "ita": null,
+    "pol": "enhanced (Default)",
+    "rus": "улучшенная (стандарт)",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_shader_preset_enhanced_high": {
+    "eng": "enhanced (High)",
+    "fra": null,
+    "ger": "enhanced (High)",
+    "ita": null,
+    "pol": "enhanced (High)",
+    "rus": "улучшенная (высоко)",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_shader_preset_vanilla": {
+    "eng": "vanilla",
+    "fra": null,
+    "ger": "vanilla",
+    "ita": null,
+    "pol": "vanilla",
+    "rus": "оригинальная",
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_simplified_item_pickup": {
+    "eng": "Simplified item pickup",
+    "fra": "Récupération simplifiée des articles",
+    "ger": "Vereinfachte Artikelabholung",
+    "ita": "Ritiro degli articoli semplificato",
+    "pol": "Uproszczone podn. przedmiotуw",
+    "rus": "Упр. подбор предметов",
+    "spa": "Recogida de artículos simplificada",
+    "ukr": "Спрощене підняття предметів"
+  },
+  "ui_mm_ui_fov": {
+    "eng": null,
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
+  },
+  "ui_mm_ui_style": {
+    "eng": "Interface style",
+    "fra": "Style d'interface",
+    "ger": "Schnittstellenstil",
+    "ita": "Stile dell'interfaccia",
+    "pol": "Styl interfejsu",
+    "rus": "Стиль интерфейса",
+    "spa": "Estilo de interfaz",
+    "ukr": "Стиль інтерфейсу"
+  },
+  "ui_mm_window_mode": {
+    "eng": "Window mode",
+    "fra": "Mode fenêtre",
+    "ger": "Window mode",
+    "ita": "Modalità finestra",
+    "pol": "Tryb wyњwietlania",
+    "rus": "Режим окна",
+    "spa": "Modo ventana",
+    "ukr": "Режим вікна"
+  },
+  "ui_style_default": {
+    "eng": "Call of Pripyat",
+    "fra": "L'appel de Pripyat",
+    "ger": "Der Ruf von Pripyat",
+    "ita": "Il richiamo di Pripyat",
+    "pol": "Zew Prypeci",
+    "rus": "Зов Припяти",
+    "spa": "Llamada de Prípiat",
+    "ukr": "Поклик Прип'яті"
   },
   "ukr": {
     "eng": "Ukrainian",

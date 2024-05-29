@@ -379,6 +379,16 @@
     "spa": "Me contaron que un helicóptero quiso jugar a ser submarino y se sumergió en un pantano. Como te imaginarás, se hundió rápidamente, el agua de allí no es que sea precisamente saludable: tiene un montón de veneno, compuestos químicos y vete a saber qué más.",
     "ukr": "Мені, корочє, двигали, шо тіпа одна вертушка в болото сіла. Тока в багнюку вся не ушла: тєма така, шо вона, по ходу, за островок зачепилася. Живого, думаю, там по-любе нікого нема: водичка в том болоті хужа за хрєнь, якою картоплю од жуков бризгають."
   },
+  "about_quests_dialog_bandit_27": {
+    "eng": "What are you talking about, punk? You have to smoke some real hardcore shit to see a chopper around here, ‘cause real ones don’t got nothin’ to do in this place.",
+    "fra": "De quoi tu causes ? Faudrait fumer de sacrés trucs pour voir un hélico dans les parages, vu que les vrais ont pas vraiment grand-chose ŕ y foutre !",
+    "ger": "Hey Bursche, was faselst du da? Du musst echt hartes Zeug rauchen, wenn du hier in der Gegend Hubschrauber gesehen haben willst. Richtige Helis gibt es hier nicht.",
+    "ita": "Di cosa stai parlando, teppista? Devi aver fumato roba andata a male per vedere un elicottero da queste parti, perché qui non ci azzeccano proprio per niente.",
+    "pol": "O czym ty mówisz, do cholery? Trzeba się napalić mocnego towaru, żeby zobaczyć tu śmigłowiec, bo prawdziwych tutaj nie uświadczysz.",
+    "rus": "Сышиш, ну какие ваще вертолёты? Те, которые с двух пузырей бывают - это, мля, суровая правда жизни! А те, которые по небу летают - это всё сказки не для нас, понял?",
+    "spa": "żPero qué dices, idiota? Tienes que fumar mucha mierda para ver helicópteros por aquí, porque los de verdad no tienen nada que hacer en este lugar.",
+    "ukr": "Сишиш, ну які ващє гелікоптери? Ті, которі після двох пузирєй кажуця - це, мля, сурова правда жизні! А ті, котрі по небу літають - то всьо казки не для нас, поняв?"
+  },
   "about_quests_dialog_bandit_3": {
     "eng": "You seen any military around?",
     "fra": "Il y a des militaires dans le coin ?",
@@ -528,6 +538,46 @@
     "rus": "Не подскажешь кого-нибудь, готового прорываться на Припять?",
     "spa": "żSabes de alguien sin muchos compromisos que quiera mudarse a Pripyat?",
     "ukr": "Не порадиш когось, хто був би готовий прориватися на Прип'ять?"
+  },
+  "about_quests_dialog_bandit_50": {
+    "eng": "Where can I find a suit with a closed-cycle respiratory module?",
+    "fra": "Oů est-ce que je peux trouver une combinaison équipée d'un module respiratoire en circuit fermé ?",
+    "ger": "Wo kann ich einen Schutzanzug mit geschlossenem Atemkreislauf finden?",
+    "ita": "Dove posso trovare una tuta provvista di modulo respiratorio a ciclo chiuso?",
+    "pol": "Gdzie znajdę kombinezon z aparatem tlenowym o zamkniętym obiegu?",
+    "rus": "Где можно достать костюм с замкнутой системой дыхания?",
+    "spa": "żDónde puedo encontrar un traje con un módulo de respiración de ciclo cerrado?",
+    "ukr": "Де можна дістати костюм із замкнутою системою дихання?"
+  },
+  "about_quests_dialog_bandit_501": {
+    "eng": "Not sure about find, but the right amount of coin will work wonders - if you know where to invest it. Have a chat with Nimble... If you agree on the details, he'll get your rags somehow. I hope you do... we'd enjoy a few days without him here on Skadovsk...",
+    "fra": "Je ne sais pas trop, mais l'argent fait parfois des miracles quand on sait oů l'investir. Il vaut mieux en parler ŕ Allegro... Si vous parvenez ŕ tomber d'accord, il se débrouillera pour en récupérer une. J'espčre que ça marchera... Ça me fera des vacances quand il sera parti.",
+    "ger": "Keine Ahnung, wo man so ein Ding \"finden\" kann, aber mit genug Geld kannst du deinem Glück bestimmt auf die Sprünge helfen - wenn du weißt, wo du es investieren musst. Sprich mal mit Nimble... wenn du dich mit ihm einigst, kann er dir sicher weiterhelfen. Ich hoffe, dass ihr euch einig werdet... wir würden uns über ein paar Tage ohne ihn auf der Skadowsk sehr freuen.",
+    "ita": "Non so dove cercare, ma con la giusta quantitŕ di denaro si fanno miracoli... se sai come investirla. Fai due chiacchiere con Nimble... Se vi mettete d'accordo sui dettagli, lui si procurerŕ i tuoi stracci in un modo o nell'altro. Spero che tu ce la faccia, qualche giorno senza di lui qui sulla Skadovsk sarebbe una liberazione.",
+    "pol": "Nie wiem, jak ze znalezieniem, ale odpowiednia kwota potrafi zdziałać cuda - o ile się wie, gdzie ją zainwestować. Porozmawiaj ze Żwawym... Jeśli się dogadacie, zdobędzie dla ciebie strój. Mam nadzieję, że tak się stanie... Przydałoby się nam na Skadowsku parę dni bez niego...",
+    "rus": "Достать - не достать, а за бабло всё купить можно. Главное - знать, где!.. Ты, короче, с Шустрым перетри. Если сговоритесь, он за твоим шмотьём смотается. Заодно лишний раз со «Скадовска» высунется, коз-злина...",
+    "spa": "Pues no sé decirte, pero con las monedas apropiadas puedes hacer maravillas, si sabes invertirlas. Habla con Nimble... Si llegáis a un acuerdo, te conseguirá lo que necesites. Espero que lo haga; no nos importaría perderlo de vista unos días en Skadovsk.",
+    "ukr": "Достать - не достать, а за бабло всьо купить можна. Главне - знать, де!.. Ти, корочє, із Шустрим перетри. Якшо договоритеся, він за твоїм шматьом змотаїться. І ще лишній раз со «Скадовска» висунеться, коз-злина... "
+  },
+  "about_quests_dialog_bandit_502": {
+    "eng": "Hell should I know? I ain't been here long myself...  You'd best ask at Zaton, our brothas there do their own networking.",
+    "fra": "J'ai une tęte ŕ savoir ce genre de truc ? Ça ne fait pas si longtemps que je suis ici aprčs tout... Tu devrais demander ŕ Zaton, nos frčres y ont leur propre réseau.",
+    "ger": "Woher zum Teufel soll ich das wissen? Bin ja selbst noch nicht so lange hier... frag besser in Zaton nach, unsere Brüder dort haben ihre eigenen Quellen.",
+    "ita": "E io cosa ne so? Non č molto che sono qui... Ti conviene chiedere a Zaton, i nostri fratelli da quelle parti hanno i loro contatti.",
+    "pol": "Skąd mam wiedzieć, do diabła? Sam jestem tu od niedawna... Najlepiej zapytaj na Zatonie, nasi bracia mają tam swoje kontakty.",
+    "rus": "А без дупля! Мы сами не местные... Ты братишек на Затоне поспрошай, там есть свои концы.",
+    "spa": "ˇY yo qué sé! No llevo mucho por aquí. Será mejor que preguntes en Zaton. Nuestra gente de ahí tiene sus propias redes.",
+    "ukr": "А без дупля! Ми самі не мєсниє... Ти братков на Затонє поспрошай, там є свої конци."
+  },
+  "about_quests_dialog_bandit_503": {
+    "eng": "Not a clue. Why, you planning on sticking your nose into an anomaly? Look, if you come into any artifacts, give us a holler. We'll be right there in a jiffy... To congratulate you on a job well done!",
+    "fra": "Pas la moindre idée... Pourquoi ? Tu comptes sauter ŕ pieds joints dans une anomalie ? Si tu trouves des artefacts, fais-nous signe, on viendra tout de suite... pour te féliciter d'avoir fait notre boulot, ah ah ah !",
+    "ger": "Keine Ahnung. Warum? Willst du dich in eine Anomalie verirren? Hey, wenn du dabei auf Artefakte stößt, gib uns Bescheid. Wir sind dann sofort zur Stelle... und gratulieren dir zu deiner tollen Arbeit! Ha ha ha!",
+    "ita": "Non ne ho idea. Perché, hai intenzione di infilare il naso in un'anomalia? Ascolta, se ti dovessi imbattere in qualche manufatto, facci un fischio. Arriveremo in men che non si dica... Per congratularci dell'ottimo lavoro! Ah ah ah!",
+    "pol": "Nie mam pojęcia. A co, zamierzasz wetknąć nos w anomalię? Słuchaj, jeśli znajdziesz jakieś artefakty, daj nam znać. Dotrzemy na miejsce raz-dwa... Żeby pogratulować ci dobrej roboty! Ha, ha!",
+    "rus": "Без понятия... А ты чё, в аномалию лезть собрался?! Ну смори, будешь с артефактами шуровать, так ты помаякуй. А мы к тебе мигом с цветами, подарками, тык-скыть... гы-гы-ы!..",
+    "spa": "Ni idea. żPor qué? żQuieres meter las narices en alguna anomalía? Pues mira, si consigues artefactos, avísanos, que aparecemos en un abrir y cerrar de ojos... ˇpara felicitarte por tu trabajo! ˇJa, ja, ja!",
+    "ukr": "Без поняття... А ти шо, в аномалію лізти собрався?! Ну смарі, будеш з артефактами шурувать, так ти помаякуй. А ми до тебе мигом з цвітами там, подарками, мароженим... ги-ги-и!.."
   },
   "about_quests_dialog_bandit_51": {
     "eng": "Pripyat ain't no place for guys like us. Think about it, it's full of mutants and anomalies... like the rest of the Zone... but without stalkers and their loot. When stalkers show up in Pripyat, give us a shout and we'll head on over there to maintain the natural order of things.",
@@ -1029,6 +1079,16 @@
     "spa": "Nuestra patrulla informó de que un helicóptero militar intentó hacer un aterrizaje forzoso cerca de la central de Júpiter. Por desgracia, el helicóptero se estrelló contra el tejado de los talleres. Dudo mucho que hubiese supervivientes: la patrulla no recibió ninguna seńal de socorro después del accidente.",
     "ukr": "Патруль докладывал, что военный вертолёт пытался совершить аварийную посадку в районе завода «Юпитер». К сожалению, ничего у ребят не вышло: въехали на скорости прямо в крышу над цехами. Выживших, скорее всего, не было: патруль сигналов о помощи не получал."
   },
+  "about_quests_dialog_dolg_27": {
+    "eng": "Our patrol watched the helicopters descending, but the details of this were reported to the Lieutenant Colonel personally. It’s on a need-to-know basis, and I really don’t need to know this stuff.",
+    "fra": "Notre patrouille les a observés en train de descendre, mais seul le lieutenant-colonel est au courant de tous les détails. Moi, je n'ai pas vraiment besoin d'en savoir plus.",
+    "ger": "Unsere Patrouille hat gesehen, wie die Hubschrauber an Höhe verloren haben, aber die Details dieses Vorfalls wurden dem Oberstleutnant selbst berichtet. Wir erhalten nur so viele Informationen, wie wir brauchen, deswegen weiß ich nicht viel über diese Angelegenheit.",
+    "ita": "La nostra pattuglia ha visto gli elicotteri precipitare, ma i dettagli sono stati riferiti direttamente al tenente colonnello in persona. Noi comunichiamo le informazioni solo ai diretti interessati, e io non sono tra quelli.",
+    "pol": "Nasz patrol widział spadające śmigłowce, ale szczegóły przekazał podpułkownikowi osobiście. Nic więcej o tym nie wiem, to problem podpułkownika.",
+    "rus": "Было дело - наш патруль видел снижение вертолётов, только детали этого всего касались только подполковника лично. Не моё это дело! У командования голова большая, вот пусть оно над этим и думает.",
+    "spa": "Nuestra patrulla vio descender a los helicópteros, pero los detalles fueron transmitidos personalmente al teniente coronel. Es una cuestión de necesitar o no información, y yo no la necesito.",
+    "ukr": "Было дело - наш патруль видел снижение вертолётов, только детали всего этого касались только подполковника лично. Не моё это дело! У командования голова большая, вот пусть оно над этим и думает."
+  },
   "about_quests_dialog_dolg_3": {
     "eng": "You seen any military around?",
     "fra": "Il y a des militaires dans le coin ?",
@@ -1188,6 +1248,46 @@
     "rus": "Не подскажешь кого-нибудь, готового прорываться на Припять?",
     "spa": "żSabes de alguien sin muchos compromisos que quiera mudarse a Pripyat?",
     "ukr": "Може, підкажеш когось, хто був би готовий прориватися на Прип'ять?"
+  },
+  "about_quests_dialog_dolg_50": {
+    "eng": "Where can I find a suit with a closed-cycle respiratory module?",
+    "fra": "Oů est-ce que je peux trouver une combinaison équipée d'un module respiratoire en circuit fermé ?",
+    "ger": "Wo kann ich einen Schutzanzug mit geschlossenem Atemkreislauf finden?",
+    "ita": "Dove posso trovare una tuta provvista di modulo respiratorio a ciclo chiuso?",
+    "pol": "Gdzie znajdę kombinezon z aparatem tlenowym o zamkniętym obiegu?",
+    "rus": "Где можно достать костюм с замкнутой системой дыхания?",
+    "spa": "żDónde puedo encontrar un traje con un módulo de respiración de ciclo cerrado?",
+    "ukr": "Де можна дістати костюм із замкнутою системою дихання?"
+  },
+  "about_quests_dialog_dolg_501": {
+    "eng": "How am I supposed to know? Wait... there's this one dude here on Skadovsk, they say he can get you whatever you need. Sits on the upper deck, name's Nimble.",
+    "fra": "Comment je saurais ça, moi ? Quoi que... il y a un mec sur le Skadovsk... Il paraît qu'il peut dégoter des trucs pas possibles. Il squatte le pont supérieur, en général, et il s'appelle Allegro.",
+    "ger": "Woher soll ich das wissen? Aber warte... hier auf der Skadowsk gibt es einen Typen, der soll alles beschaffen können, was man braucht. Du findest ihn auf dem oberen Deck, er heißt Nimble.",
+    "ita": "E io come faccio a saperlo? Aspetta... Sulla Skadovsk c'č un tipo che si dice sia in grado di procurarti tutto quello che ti serve. Sta sul ponte superiore e si chiama Nimble.",
+    "pol": "Skąd mam wiedzieć? Czekaj... Jest w Skadowsku pewien gość, podobno jest w stanie załatwić wszystko, o co zapytasz. Siedzi na górnym pokładzie, nazywa się Żwawy.",
+    "rus": "А я почем знаю? Хотя погоди... тут на «Скадовске» один парень есть, говорят, что хочешь достанет. Звать его Шустрым, он обычно на верхней палубе сидит.",
+    "spa": "żCómo voy a saberlo? Espera... Hay un tipo aquí, en Skadovsk... Dicen que puede conseguirte lo que le pidas. Está en la cubierta superior y se llama Nimble.",
+    "ukr": "А я почем знаю? Хотя погоди... тут на «Скадовске» один парень есть, говорят, что хочешь достанет. Звать его Шустрым, он обычно на верхней палубе сидит."
+  },
+  "about_quests_dialog_dolg_502": {
+    "eng": "Nah, no one's coming all the way out here with an extra suit like that... You'd better ask at Zaton - a step closer to civilization.",
+    "fra": "Y a personne qui risque de venir jusqu'ici avec une combinaison de rechange pareille... Il vaudrait mieux aller voir du côté de Zaton, c'est plus prčs de la civilisation.",
+    "ger": "Ach, ich glaube nicht, dass sich irgendjemand mit so einem tollen Schutzanzug hierher verirren würde. Schau dich lieber in Zaton um... das ist einen Schritt näher an der Zivilisation.",
+    "ita": "No, nessuno viene fino a qui con una tuta del genere in piů... Ti conviene chiedere a Zaton, un passo piů vicino alla civiltŕ.",
+    "pol": "Nie, nikt tu nie przytaszczy ze sobą dodatkowego kombinezonu... Zapytaj na Zatonie - jest o krok bliżej cywilizacji.",
+    "rus": "Здесь такой не достать, кто же сюда лишний костюм тащить будет? Ты лучше на Затоне поспрашивай, всё же поближе к людным местам будет.",
+    "spa": "No, nadie va a venir hasta aquí con un traje extra de ese calibre. Mejor pregunta en Zaton, algo más parecido a un lugar civilizado.",
+    "ukr": "Здесь такой не достать, кто же сюда лишний костюм тащить будет? Ты лучше на Затоне поспрашивай, всё же поближе к людным местам будет."
+  },
+  "about_quests_dialog_dolg_503": {
+    "eng": "I have no idea where you'd look for one... Suits like that are rare even among Duty members. They issue 'em only for special distinction in battle or running operations in highly anomalous areas.",
+    "fra": "Je n'en ai pas la moindre idée... Des combinaisons comme ça, męme les membres du Devoir n'en ont pas tous. Ils ne les donnent qu'aux soldats qui se sont distingués au combat ou qui participent ŕ des opérations dans des zones hautement anormales.",
+    "ger": "Ich habe keine Ahnung... solche Schutzanzüge sind selbst unter den Wächtern sehr selten. Sie setzen sie nur als besonderes Erkennungsmerkmal im Kampf oder bei Operationen in extrem anomalen Gebieten ein.",
+    "ita": "Non so proprio dove ne potresti cercare una... Tute del genere sono rare anche tra i membri della Duty. Le assegnano solo a chi si distingue in battaglia o a chi compie delle operazioni in zone altamente anomale.",
+    "pol": "Nie mam pojęcia, gdzie go szukać... Takie kombinezony są rzadkością wśród członków Powinności. Można taki dostać tylko za wyróżnienie się w walce albo gdy się prowadzi działania wśród skupisk anomalii.",
+    "rus": "Где тебе его искать - не знаю... Такие костюмы даже у нас, в «Долге», редкость. Выдают только особо отличившимся или там для проведения операций в районе повышенной аномальной активности.",
+    "spa": "No tengo ni idea de dónde podrías buscar... Ese tipo de traje escasea hasta entre los miembros de Deber. Los fabrican solo como distinción especial en combate o para operaciones extensas en áreas muy anómalas.",
+    "ukr": "Где тебе его искать - не знаю... Такие костюмы даже у нас, в «Долге», редкость. Выдают только особо отличившимся или там для проведения операций в районе повышенной аномальной активности."
   },
   "about_quests_dialog_dolg_51": {
     "eng": "Duty's presence in this area is limited. Speak to our people at Yanov.",
@@ -1729,6 +1829,16 @@
     "spa": "Sí. El otro día unos chicos vieron un helicóptero dando tumbos en el cielo. Y tampoco aterrizó muy bien: terminó estrellándose contra uno de los tejados de Júpiter. Los chicos dicen que atravesó el tejado y terminó dentro del edificio, arrastrando todo a su paso.",
     "ukr": "Так, наші хлопці нещодавно бачили один такий. Летіло воно, мов той гордий їжачок, котрому стусана дали... ну й сідало відповідно - бемцнулося на черевце. От лишень місце ті хлопці обрали ну ду-уже невдале: один з дахів «Юпітера». А там уже прогниле все, так та вертушка заразом із дахом углиб корпусу й гулькнула."
   },
+  "about_quests_dialog_freedom_27": {
+    "eng": "Huh? Nah, man, I don’t concern myself with shit like that. It don’t help with my mission of disseminating knowledge one bit, you know what I mean?",
+    "fra": "Hein ? Nan, je m'intéresse pas trop ŕ ce genre de truc... Ça cadre pas vraiment avec ma mission de dissémination des connaissances, si tu vois ce que je veux dire...",
+    "ger": "Hä? Ne, Mann, so ein Scheiß geht mich nichts an. Es nützt mir nichts bei meiner Mission, Wissen zu verbreiten, verstehst du?",
+    "ita": "Eh? No, amico, non mi impiccio di cose del genere. Non c'entra niente con la mia missione di diffondere la conoscenza, mi capisci?",
+    "pol": "Hę? Nie, nie zawracam sobie głowy takimi rzeczami. Ani trochę nie pomagają mi w mojej misji rozpowszechniania wiedzy.",
+    "rus": "А?.. Не-е, мэн, я себе такими штуками башку не забиваю. Оно в деле просвещения и прогресса никакой пользы не несёт!",
+    "spa": "żEh? No, a mí déjame en paz con toda esa mierda. Esas cosas no me ayudan con mi misión de divulgar conocimientos, tú ya me entiendes.",
+    "ukr": "А?.. Ні-і, мен, я собі такими штуками макітру не забиваю. Таке у справі просвіти та прогресу жодної користі не несе!"
+  },
   "about_quests_dialog_freedom_3": {
     "eng": "You seen any military around?",
     "fra": "Il y a des militaires dans le coin ?",
@@ -1888,6 +1998,46 @@
     "rus": "Не подскажешь кого-нибудь, готового прорываться на Припять?",
     "spa": "żSabes de alguien sin muchos compromisos que quiera mudarse a Pripyat?",
     "ukr": "Не порадиш когось, хто був би готовий прориватися на Прип'ять?"
+  },
+  "about_quests_dialog_freedom_50": {
+    "eng": "Where can I find a suit with a closed-cycle respiratory module?",
+    "fra": "Oů est-ce que je peux trouver une combinaison équipée d'un module respiratoire en circuit fermé ?",
+    "ger": "Wo kann ich einen Schutzanzug mit geschlossenem Atemkreislauf finden?",
+    "ita": "Dove posso trovare una tuta provvista di modulo respiratorio a ciclo chiuso?",
+    "pol": "Gdzie znajdę kombinezon z aparatem tlenowym o zamkniętym obiegu?",
+    "rus": "Где можно достать костюм с замкнутой системой дыхания?",
+    "spa": "żDónde puedo encontrar un traje con un módulo de respiración de ciclo cerrado?",
+    "ukr": "Де можна дістати костюм із замкнутою системою дихання?"
+  },
+  "about_quests_dialog_freedom_501": {
+    "eng": "I heard some stalkers talk about this man with connections, Nimble or something. He can get you almost anything. You know: gear, shooters, shit like that... not dope. Hangs out at Skadovsk, if you need him.",
+    "fra": "J'ai entendu des indépendants parler d'un mec qui a le bras long, un certain Allegro, je crois. Apparemment, il peut trouver n'importe quoi, des armes, du matos, ce genre de truc... Pas de came, par contre. Il traîne sur le Skadovsk.",
+    "ger": "Ich habe mal gehört, wie ein paar Leute über einen Typen mit guten Verbindungen gesprochen haben... Nimble oder so. Der kann dir wohl alles beschaffen. Du weißt schon... Ausrüstung, Waffen und so... keine Drogen. Hängt auf der Skadowsk ab, wenn du ihn finden willst.",
+    "ita": "Ho sentito parlare di quest'uomo che sembra avere un sacco di conoscenze, tale Nimble, che puň procurarti praticamente tutto. Sai, attrezzatura, armi e cose del genere... ma non fumo. Se hai bisogno di lui lo troverai sulla Skadovsk.",
+    "pol": "Słyszałem, jak stalkerzy mówili o człowieku z kontaktami, chyba nazywali go Żwawy. Może ci załatwić niemal wszystko, sprzęt, spluwy, tego typu rzeczy... Trawy ci nie załatwi. Siedzi w Skadowsku, jeśli chcesz go odwiedzić.",
+    "rus": "Я тут от вольных слыхал, что есть такой мэн продвинутый - Шустрым зовут. Так у него вроде почти всё можно достать. Ну ты понял, да? Снарягу там всякую, стволы... не вещества, не-е!.. Он на «Скадовске» обычно крутится, кстати.",
+    "spa": "He oído a algunos stalkers hablar de un tipo con contactos... Nimble o algo así. Puede conseguirte casi de todo. Ya sabes: equipo, armas... Mierdas de ésas, no droga. Anda por Skadovsk, si lo necesitas.",
+    "ukr": "Я тут від вільних чув, що є такий мен продвинутий - Спритником кличуть. Так у нього начебто майже все шо хочеш можна дістати. Ну ти зрозумів, еге? Снарягу там усяку, стволи... не кайф, ні. Він на «Скадовську» зазвичай крутиться, до речі."
+  },
+  "about_quests_dialog_freedom_502": {
+    "eng": "A good question, man... We don't ever wear those here in Freedom... I'd ask stalkers at Zaton if I were you. There might be someone there who runs that sort of business.",
+    "fra": "Bonne question, mon pote... On a pas ce genre de truc dans la Liberté... Tu devrais demander aux stalkers de Zaton, il y aura peut-ętre quelqu'un qui pourra t'en procurer une lŕ-bas.",
+    "ger": "Eine gute Frage, Mann... nicht mal wir hier bei der Freiheit tragen solche Anzüge. An deiner Stelle würde ich in Zaton fragen. Dort gibt es vielleicht jemanden, der solche Geschäfte betreibt.",
+    "ita": "Ottima domanda, amico... Qui alla Freedom non le indossiamo nemmeno... Fossi in te chiederei agli stalker a Zaton. Forse lě troverai qualcuno che gestisce affari del genere.",
+    "pol": "Dobre pytanie... W Wolności takich nie nosimy. Na twoim miejscu zapytałbym stalkerów na Zatonie. Tam może być ktoś, kto zajmuje się takimi sprawami.",
+    "rus": "Сложный вопрос, мэн... Ну, мы в «Свободе» вообще такие не таскаем, а так - я бы сталкеров поспрашивал на Затоне. Вроде там кто-то разные такие штуки может намутить.",
+    "spa": "Buena pregunta... En Libertad no usamos de ésos. Yo en tu lugar les preguntaría a los stalkers de Zaton. Debe de haber alguien que se ocupe de esas cosas.",
+    "ukr": "Складне питання, мен... Ну, ми у «Волі» взагалі таке не тягаємо, а так - я б сталкерів розпитався на Затоні. Там наче хтось різні такі штуки може намутити."
+  },
+  "about_quests_dialog_freedom_503": {
+    "eng": "Heh, whatcha need that crap for? It ain't no good in action. Then again... I guess it can be of some use. Makes breathing easier, and the sun doesn't get in your eyes as much... I might go for one of those myself. Hey, do you know where I could get one?...",
+    "fra": "Et ŕ quoi te servirait cette merde ? Si ça sert ŕ rien au combat, ça sert ŕ rien... Remarque... peut-ętre que ça peut servir quand męme. Plus facile de respirer et le soleil te fait plus chier... Hum... Pas con... Hé, tu saurais oů je pourrais en trouver une ?",
+    "ger": "Ha, für was brauchst du denn so einen Schrott? Wenn's abgeht, kannst du das Ding vergessen. Aber andererseits... wird schon seinen Nutzen haben, was? Macht das Atmen leichter und schützt die Augen vor der Sonne... vielleicht hole ich mir selbst so einen Schutzanzug! Hey, weißt du, wo ich so ein Ding finden kann?",
+    "ita": "Eh eh, e a cosa ti serve? In azione non vale niente. Comunque... forse puň tornarti utile. Con quella respiri piů facilmente, e il sole non ti arriva dritto negli occhi... Magari me ne posso procurare una pure io. Ehi, sai mica dove potrei trovarla?",
+    "pol": "A na cholerę ci to? Do walki się nie nadaje. Ale na coś chyba może się przydać. Łatwiej w nim oddychać i słońce tak nie świeci w oczy. Sam z chęcią bym sobie załatwił taki kombinezon. Nie wiesz, gdzie można go dostać?",
+    "rus": "Гы, чувак, а тебе зачем? Он же в бою никакой. Хотя... Если так подумать, польза, конечно, есть. И дым в атмосферу не уходит, и солнце по глазам не так бьет... Надо будет как-нить себе такой добыть - знать бы только, где такие дают.",
+    "spa": "Je, żpara qué necesitas esa chorrada? Luego, en acción, no sirve para nada. Aunque... supongo que puede ser útil. Facilita la respiración e impide que el sol te ciegue. Igual me agencio uno para mí. Eh, żdónde has dicho que podría conseguirlo?",
+    "ukr": "Ги, чувак, а тобі нащо? Він же ж у бою ніякий. Хоча... Якщо так подумати, користь, звісно, є. І дим до атмосфери не йде, і сонце по очах не так б'є... Треба буде якось собі такий добути - аби тільки знати, де їх дають."
   },
   "about_quests_dialog_freedom_51": {
     "eng": "Sorry, friend, I don't know anyone at Zaton... Take my advice and ask our boys at Yanov.",
@@ -2539,6 +2689,26 @@
     "spa": "Un stalker me contó que vio varios helicópteros militares en una situación peligrosa. Uno tenía el motor en llamas y se adentró en un pantano lleno de anomalías. No es difícil llegar allí, pero ese pantano es una puta pesadilla. No es lugar para humanos, te lo aseguro.",
     "ukr": "Один сталкер розповідав, начебто бачив кілька військових гелікоптерів. Ну й щось там в одного сталося: движок почав диміти, потім взагалі зайнявся, ну машина каменем униз і пішла. Десь прямісінько в мочарі поміж аномаліями. Ні, туди дістатися не проблема, проблема в іншому - в тих драговинах. Нема чого там робити людині, в якої зі здоровим глуздом усе гаразд."
   },
+  "about_quests_dialog_stalkers_27": {
+    "eng": "I heard about a few crashing... I don’t know the details - gossip ain’t my thing. Sorry if that doesn’t help you much.",
+    "fra": "J'ai entendu dire qu'il y en avait plusieurs qui s'étaient écrasés... Mais je n'ai pas de détails, je ne m'intéresse pas trop aux rumeurs. Désolé...",
+    "ger": "Ich habe gehört, dass ein paar abgestürzt sein sollen... aber Genaueres weiß ich nicht. Tratschen ist nicht so mein Ding. Tut mir leid, wenn dir das nicht weiterhilft.",
+    "ita": "Ho sentito di alcuni schianti, ma non conosco i dettagli. I pettegolezzi non fanno per me. Scusa se non ti sono di grande aiuto.",
+    "pol": "Słyszałem, że kilka się rozbiło... Nie znam szczegółów - nie zajmuję się plotkami. Przykro mi, że nie mogę bardziej ci pomóc.",
+    "rus": "Да слышал, что вроде упало несколько... Деталей только не знаю: недосуг было болтовню слушать. Тут уж, извини, я тебе не в помощь.",
+    "spa": "He oído hablar de algún que otro accidente... Nada concreto; lo de cotillear no es lo mío. Siento no ser de más ayuda.",
+    "ukr": "Та чув, що наче впало кілька... Деталей тільки не знаю: нема коли було ті теревені слухати. Тут уже, вибач, я тобі не допоможу."
+  },
+  "about_quests_dialog_stalkers_28": {
+    "eng": "Man, I’ve got other shit to worry about without your choppers... I mean, I bet crashing a heli hurts like hell, but other than that I don’t know what to say.",
+    "fra": "J'ai d'autres chats ŕ fouetter... Je veux dire, je me doute que s'écraser en hélicoptčre, ça doit faire un mal de chien, mais, en dehors de ça, je vois pas quoi dire...",
+    "ger": "Mann, ich habe andere Sorgen als deine blöden Hubschrauber... ich meine, so ein Hubschrauberabsturz dürfte verdammt wehtun, aber mehr kann ich dazu auch nicht sagen.",
+    "ita": "Amico, ho altro di cui preoccuparmi, altro che i tuoi elicotteri... Cioč, scommetto che un elicottero che si schianta fa un bel botto, ma a parte questo non so che dire.",
+    "pol": "Człowieku, mam wystarczająco wiele na głowie i bez twoich śmigłowców... Zakładam, że rozbicie takiej maszyny to nic przyjemnego, ale poza tym nie bardzo wiem, co miałbym ci powiedzieć.",
+    "rus": "Ох, мужик... мне только падающих вертолётов до кучи не хватало! Вон пусть у тех, кто эти вертушки уронил, голова болит, а у меня своих забот полон рот.",
+    "spa": "Oye, ya tengo suficientes preocupaciones para que vengas con tus helicópteros. Supongo que estrellarse en helicóptero duele lo suyo pero, żqué más quieres que te diga?",
+    "ukr": "Ох, мужик... мені ще хіба впалих гелікоптерів до купи не вистачало! Оно хай у тих, хто ці вертушки впустив, голова болить, а в мене своїх турбот отакенна купа."
+  },
   "about_quests_dialog_stalkers_3": {
     "eng": "You seen any military around?",
     "fra": "Il y a des militaires dans le coin ?",
@@ -2758,6 +2928,46 @@
     "rus": "Не подскажешь кого-нибудь, готового прорываться на Припять?",
     "spa": "żSabes de alguien sin muchos compromisos que quiera mudarse a Pripyat?",
     "ukr": "Не підкажеш кого-небудь, готового прориватися на Прип'ять?"
+  },
+  "about_quests_dialog_stalkers_50": {
+    "eng": "Where can I find a suit with a closed-cycle respiratory module?",
+    "fra": "Oů est-ce que je peux trouver une combinaison équipée d'un module respiratoire en circuit fermé ?",
+    "ger": "Wo kann ich einen Schutzanzug mit geschlossenem Atemkreislauf finden?",
+    "ita": "Dove posso trovare una tuta provvista di modulo respiratorio a ciclo chiuso?",
+    "pol": "Gdzie znajdę kombinezon z aparatem tlenowym o zamkniętym obiegu?",
+    "rus": "Где можно достать костюм с замкнутой системой дыхания?",
+    "spa": "żDónde puedo encontrar un traje con un módulo de respiración de ciclo cerrado?",
+    "ukr": "Де можна дістати костюм із замкнутою системою дихання?"
+  },
+  "about_quests_dialog_stalkers_501": {
+    "eng": "Well, my bet would be Nimble. Third deck at Skadovsk. That dude can get you snow in a friggin' desert... His services aren't easy on the pocket though.",
+    "fra": "Ŕ mon avis, Allegro, sur le troisičme pont du Skadovsk, doit pouvoir en trouver une. Ce mec pourrait trouver de la neige en plein désert... Mais tout a un prix avec lui...",
+    "ger": "Nun, ich würde sagen, bei Nimble. Drittes Deck der Skadowsk. Der Typ könnte dir sogar mitten in der verdammten Wüste Schnee besorgen. Aber er ist nicht gerade billig, musst du wissen.",
+    "ita": "Beh, fossi in te proverei da Nimble. Terzo ponte sulla Skadovsk. Quel tipo riuscirebbe a procurarti la neve nel deserto. Certo, i suoi servizi non sono adatti a tutte le tasche.",
+    "pol": "Myślę, że u Żwawego. Trzeci pokład Skadowska. On ci może załatwić śnieg na pustyni... Ale portfel ciężko znosi jego usługi.",
+    "rus": "Да у Шустрого, я так думаю. Он на третьей палубе «Скадовска» сидит. Этот и чёрта с рогами добыть может... Правда, ты учти: услуги Шустрого далеко не каждому по карману.",
+    "spa": "Bueno, yo apostaría por Nimble. Tercera cubierta en Skadovsk. Ese tipo puede conseguir hasta nieve en medio del puto desierto... aunque se lo sabe cobrar.",
+    "ukr": "Та в Спритника, я так думаю. Він на третій палубі «Скадовська» сидить. Він і чорта з рогами добути може... Ти, щоправда, врахуй: на послуги Спритника далеко не кожному купила стане."
+  },
+  "about_quests_dialog_stalkers_502": {
+    "eng": "Let me think... There used to be a man like that over at Zaton, went by Nimble. Try and see if he's still there. I heard he specializes in up-scale items.",
+    "fra": "Laisse-moi réfléchir... Il y avait un mec plein de ressources ŕ Zaton, Allegro qu'il s'appelait... Vois s'il est encore lŕ ! Je me souviens qu'il était spécialisé en matos haut de gamme.",
+    "ger": "Lass mich überlegen... in Zaton gab es mal einen Typen, Nimble hieß der. Schau am besten mal, ob der sich noch dort herumtreibt. Er soll sich auf dieses teure Zeug spezialisiert haben.",
+    "ita": "Fammi pensare... A Zaton c'era un uomo che avrebbe fatto al caso tuo, si chiamava Nimble. Vai a vedere se č ancora da quelle parti. Ho sentito che č specializzato in oggetti particolari.",
+    "pol": "Niech pomyślę... Był taki jeden na Zatonie, niejaki Żwawy. Sprawdź, czy ciągle tam jest. Podobno specjalizuje się w ekskluzywnym towarze.",
+    "rus": "Дай-ка подумать... Вроде был человек на Затоне, кличка - Шустрый. Попробуй его найти. По слухам он специалист по эксклюзивным товарам.",
+    "spa": "A ver, que piense... Había un tipo que se ocupaba de eso en Zaton. Nimble. Prueba a ver si sigue por ahí. Dicen que es especialista en objetos de alto nivel.",
+    "ukr": "Дай-ка подумати... Начебто була така людина на Затоні, прізвисько - Спритник. Спробуй його знайти. Подейкують, він є фахівцем з ексклюзивних товарів."
+  },
+  "about_quests_dialog_stalkers_503": {
+    "eng": "Dude, you talk about it like it's office supplies or something... No one knows for sure. Pieces like that are few and far between... Consider yourself lucky if you snatch one.",
+    "fra": "Hé, ça se trouve pas sous le sabot d'un cheval, ce genre de trucs... Les combinaisons comme ça, y en a pas plus d'une poignée dans la Zone... T'auras de la chance si t'en trouves une d'occasion !",
+    "ger": "Kumpel, du tust ja so, als ob das so etwas Gewöhnliches wie eine Fleischkonserve wäre! Nein, das kann dir niemand sicher sagen. Solche Schutzanzüge sind sehr selten... kannst dich glücklich schätzen, wenn du einen findest.",
+    "ita": "Amico, ne parli come fosse cancelleria... Nessuno saprebbe risponderti con sicurezza. Pezzi del genere sono scarsi, per non dire rari. Se riesci a procurartene uno puoi ritenerti fortunato.",
+    "pol": "Człowieku, pytasz, jakby to był zszywacz do papieru albo coś. Nikt nie wie. Taki towar to rarytas, pojawia się rzadko. Jeśli go zdobędziesz, możesz uważać się za szczęściarza.",
+    "rus": "Мужик, ты так спросил, будто его по талонам тут выдают. А хрен его знает! Такой товар - птица нечастая, прилетает редко. Кому повезло, тот и урвал, а загадывать...",
+    "spa": "Oye, lo dices como quien habla de suministros de oficina o algo así... ˇA saber! Ese tipo de cosas escasean. Puedes darte con un canto en los dientes si das con uno.",
+    "ukr": "Мужик, ти так ото запитав, нібито його по талонах тут видають. А біс його зна! Такий товар - птиця нечаста, прилітає рідко. Кому пощастило, той і схопив, а загадувати... "
   },
   "about_quests_dialog_stalkers_51": {
     "eng": "I don't think there's anyone like that around here. Everyone who wanted to be closer to the center of the Zone left for Jupiter. That's where I'd ask if I were you.",
@@ -2999,235 +3209,15 @@
     "spa": "Te paso las coordenadas a tu PDA... El único campamento cercano de por aquí es Skadovsk.",
     "ukr": "Зараз покажу... все, можеш дивитися у свій КПК. Назагал це старе цебро зветься «Скадовськ»."
   },
-  "actor_break_dialog_2": {
-    "eng": "See you next time.",
-    "fra": "Ŕ la prochaine !",
-    "ger": "Man sieht sich.",
-    "ita": "Alla prossima.",
+  "actor_break_dialog_0": {
+    "eng": "Laters.",
+    "fra": "Ŕ plus tard !",
+    "ger": "Wir sehen uns.",
+    "ita": "A piů tardi.",
     "pol": "Do zobaczenia.",
-    "rus": "До встречи.",
-    "spa": "Hasta la próxima.",
-    "ukr": "До зустрічі."
-  },
-  "about_quests_dialog_stalkers_27": {
-    "eng": "I heard about a few crashing... I don’t know the details - gossip ain’t my thing. Sorry if that doesn’t help you much.",
-    "fra": "J'ai entendu dire qu'il y en avait plusieurs qui s'étaient écrasés... Mais je n'ai pas de détails, je ne m'intéresse pas trop aux rumeurs. Désolé...",
-    "ger": "Ich habe gehört, dass ein paar abgestürzt sein sollen... aber Genaueres weiß ich nicht. Tratschen ist nicht so mein Ding. Tut mir leid, wenn dir das nicht weiterhilft.",
-    "ita": "Ho sentito di alcuni schianti, ma non conosco i dettagli. I pettegolezzi non fanno per me. Scusa se non ti sono di grande aiuto.",
-    "pol": "Słyszałem, że kilka się rozbiło... Nie znam szczegółów - nie zajmuję się plotkami. Przykro mi, że nie mogę bardziej ci pomóc.",
-    "rus": "Да слышал, что вроде упало несколько... Деталей только не знаю: недосуг было болтовню слушать. Тут уж, извини, я тебе не в помощь.",
-    "spa": "He oído hablar de algún que otro accidente... Nada concreto; lo de cotillear no es lo mío. Siento no ser de más ayuda.",
-    "ukr": "Та чув, що наче впало кілька... Деталей тільки не знаю: нема коли було ті теревені слухати. Тут уже, вибач, я тобі не допоможу."
-  },
-  "about_quests_dialog_stalkers_28": {
-    "eng": "Man, I’ve got other shit to worry about without your choppers... I mean, I bet crashing a heli hurts like hell, but other than that I don’t know what to say.",
-    "fra": "J'ai d'autres chats ŕ fouetter... Je veux dire, je me doute que s'écraser en hélicoptčre, ça doit faire un mal de chien, mais, en dehors de ça, je vois pas quoi dire...",
-    "ger": "Mann, ich habe andere Sorgen als deine blöden Hubschrauber... ich meine, so ein Hubschrauberabsturz dürfte verdammt wehtun, aber mehr kann ich dazu auch nicht sagen.",
-    "ita": "Amico, ho altro di cui preoccuparmi, altro che i tuoi elicotteri... Cioč, scommetto che un elicottero che si schianta fa un bel botto, ma a parte questo non so che dire.",
-    "pol": "Człowieku, mam wystarczająco wiele na głowie i bez twoich śmigłowców... Zakładam, że rozbicie takiej maszyny to nic przyjemnego, ale poza tym nie bardzo wiem, co miałbym ci powiedzieć.",
-    "rus": "Ох, мужик... мне только падающих вертолётов до кучи не хватало! Вон пусть у тех, кто эти вертушки уронил, голова болит, а у меня своих забот полон рот.",
-    "spa": "Oye, ya tengo suficientes preocupaciones para que vengas con tus helicópteros. Supongo que estrellarse en helicóptero duele lo suyo pero, żqué más quieres que te diga?",
-    "ukr": "Ох, мужик... мені ще хіба впалих гелікоптерів до купи не вистачало! Оно хай у тих, хто ці вертушки впустив, голова болить, а в мене своїх турбот отакенна купа."
-  },
-  "about_quests_dialog_bandit_27": {
-    "eng": "What are you talking about, punk? You have to smoke some real hardcore shit to see a chopper around here, ‘cause real ones don’t got nothin’ to do in this place.",
-    "fra": "De quoi tu causes ? Faudrait fumer de sacrés trucs pour voir un hélico dans les parages, vu que les vrais ont pas vraiment grand-chose ŕ y foutre !",
-    "ger": "Hey Bursche, was faselst du da? Du musst echt hartes Zeug rauchen, wenn du hier in der Gegend Hubschrauber gesehen haben willst. Richtige Helis gibt es hier nicht.",
-    "ita": "Di cosa stai parlando, teppista? Devi aver fumato roba andata a male per vedere un elicottero da queste parti, perché qui non ci azzeccano proprio per niente.",
-    "pol": "O czym ty mówisz, do cholery? Trzeba się napalić mocnego towaru, żeby zobaczyć tu śmigłowiec, bo prawdziwych tutaj nie uświadczysz.",
-    "rus": "Сышиш, ну какие ваще вертолёты? Те, которые с двух пузырей бывают - это, мля, суровая правда жизни! А те, которые по небу летают - это всё сказки не для нас, понял?",
-    "spa": "żPero qué dices, idiota? Tienes que fumar mucha mierda para ver helicópteros por aquí, porque los de verdad no tienen nada que hacer en este lugar.",
-    "ukr": "Сишиш, ну які ващє гелікоптери? Ті, которі після двох пузирєй кажуця - це, мля, сурова правда жизні! А ті, котрі по небу літають - то всьо казки не для нас, поняв?"
-  },
-  "about_quests_dialog_freedom_27": {
-    "eng": "Huh? Nah, man, I don’t concern myself with shit like that. It don’t help with my mission of disseminating knowledge one bit, you know what I mean?",
-    "fra": "Hein ? Nan, je m'intéresse pas trop ŕ ce genre de truc... Ça cadre pas vraiment avec ma mission de dissémination des connaissances, si tu vois ce que je veux dire...",
-    "ger": "Hä? Ne, Mann, so ein Scheiß geht mich nichts an. Es nützt mir nichts bei meiner Mission, Wissen zu verbreiten, verstehst du?",
-    "ita": "Eh? No, amico, non mi impiccio di cose del genere. Non c'entra niente con la mia missione di diffondere la conoscenza, mi capisci?",
-    "pol": "Hę? Nie, nie zawracam sobie głowy takimi rzeczami. Ani trochę nie pomagają mi w mojej misji rozpowszechniania wiedzy.",
-    "rus": "А?.. Не-е, мэн, я себе такими штуками башку не забиваю. Оно в деле просвещения и прогресса никакой пользы не несёт!",
-    "spa": "żEh? No, a mí déjame en paz con toda esa mierda. Esas cosas no me ayudan con mi misión de divulgar conocimientos, tú ya me entiendes.",
-    "ukr": "А?.. Ні-і, мен, я собі такими штуками макітру не забиваю. Таке у справі просвіти та прогресу жодної користі не несе!"
-  },
-  "about_quests_dialog_dolg_27": {
-    "eng": "Our patrol watched the helicopters descending, but the details of this were reported to the Lieutenant Colonel personally. It’s on a need-to-know basis, and I really don’t need to know this stuff.",
-    "fra": "Notre patrouille les a observés en train de descendre, mais seul le lieutenant-colonel est au courant de tous les détails. Moi, je n'ai pas vraiment besoin d'en savoir plus.",
-    "ger": "Unsere Patrouille hat gesehen, wie die Hubschrauber an Höhe verloren haben, aber die Details dieses Vorfalls wurden dem Oberstleutnant selbst berichtet. Wir erhalten nur so viele Informationen, wie wir brauchen, deswegen weiß ich nicht viel über diese Angelegenheit.",
-    "ita": "La nostra pattuglia ha visto gli elicotteri precipitare, ma i dettagli sono stati riferiti direttamente al tenente colonnello in persona. Noi comunichiamo le informazioni solo ai diretti interessati, e io non sono tra quelli.",
-    "pol": "Nasz patrol widział spadające śmigłowce, ale szczegóły przekazał podpułkownikowi osobiście. Nic więcej o tym nie wiem, to problem podpułkownika.",
-    "rus": "Было дело - наш патруль видел снижение вертолётов, только детали этого всего касались только подполковника лично. Не моё это дело! У командования голова большая, вот пусть оно над этим и думает.",
-    "spa": "Nuestra patrulla vio descender a los helicópteros, pero los detalles fueron transmitidos personalmente al teniente coronel. Es una cuestión de necesitar o no información, y yo no la necesito.",
-    "ukr": "Было дело - наш патруль видел снижение вертолётов, только детали всего этого касались только подполковника лично. Не моё это дело! У командования голова большая, вот пусть оно над этим и думает."
-  },
-  "about_quests_dialog_bandit_50": {
-    "eng": "Where can I find a suit with a closed-cycle respiratory module?",
-    "fra": "Oů est-ce que je peux trouver une combinaison équipée d'un module respiratoire en circuit fermé ?",
-    "ger": "Wo kann ich einen Schutzanzug mit geschlossenem Atemkreislauf finden?",
-    "ita": "Dove posso trovare una tuta provvista di modulo respiratorio a ciclo chiuso?",
-    "pol": "Gdzie znajdę kombinezon z aparatem tlenowym o zamkniętym obiegu?",
-    "rus": "Где можно достать костюм с замкнутой системой дыхания?",
-    "spa": "żDónde puedo encontrar un traje con un módulo de respiración de ciclo cerrado?",
-    "ukr": "Де можна дістати костюм із замкнутою системою дихання?"
-  },
-  "about_quests_dialog_bandit_501": {
-    "eng": "Not sure about find, but the right amount of coin will work wonders - if you know where to invest it. Have a chat with Nimble... If you agree on the details, he'll get your rags somehow. I hope you do... we'd enjoy a few days without him here on Skadovsk...",
-    "fra": "Je ne sais pas trop, mais l'argent fait parfois des miracles quand on sait oů l'investir. Il vaut mieux en parler ŕ Allegro... Si vous parvenez ŕ tomber d'accord, il se débrouillera pour en récupérer une. J'espčre que ça marchera... Ça me fera des vacances quand il sera parti.",
-    "ger": "Keine Ahnung, wo man so ein Ding \"finden\" kann, aber mit genug Geld kannst du deinem Glück bestimmt auf die Sprünge helfen - wenn du weißt, wo du es investieren musst. Sprich mal mit Nimble... wenn du dich mit ihm einigst, kann er dir sicher weiterhelfen. Ich hoffe, dass ihr euch einig werdet... wir würden uns über ein paar Tage ohne ihn auf der Skadowsk sehr freuen.",
-    "ita": "Non so dove cercare, ma con la giusta quantitŕ di denaro si fanno miracoli... se sai come investirla. Fai due chiacchiere con Nimble... Se vi mettete d'accordo sui dettagli, lui si procurerŕ i tuoi stracci in un modo o nell'altro. Spero che tu ce la faccia, qualche giorno senza di lui qui sulla Skadovsk sarebbe una liberazione.",
-    "pol": "Nie wiem, jak ze znalezieniem, ale odpowiednia kwota potrafi zdziałać cuda - o ile się wie, gdzie ją zainwestować. Porozmawiaj ze Żwawym... Jeśli się dogadacie, zdobędzie dla ciebie strój. Mam nadzieję, że tak się stanie... Przydałoby się nam na Skadowsku parę dni bez niego...",
-    "rus": "Достать - не достать, а за бабло всё купить можно. Главное - знать, где!.. Ты, короче, с Шустрым перетри. Если сговоритесь, он за твоим шмотьём смотается. Заодно лишний раз со «Скадовска» высунется, коз-злина...",
-    "spa": "Pues no sé decirte, pero con las monedas apropiadas puedes hacer maravillas, si sabes invertirlas. Habla con Nimble... Si llegáis a un acuerdo, te conseguirá lo que necesites. Espero que lo haga; no nos importaría perderlo de vista unos días en Skadovsk.",
-    "ukr": "Достать - не достать, а за бабло всьо купить можна. Главне - знать, де!.. Ти, корочє, із Шустрим перетри. Якшо договоритеся, він за твоїм шматьом змотаїться. І ще лишній раз со «Скадовска» висунеться, коз-злина... "
-  },
-  "about_quests_dialog_bandit_502": {
-    "eng": "Hell should I know? I ain't been here long myself...  You'd best ask at Zaton, our brothas there do their own networking.",
-    "fra": "J'ai une tęte ŕ savoir ce genre de truc ? Ça ne fait pas si longtemps que je suis ici aprčs tout... Tu devrais demander ŕ Zaton, nos frčres y ont leur propre réseau.",
-    "ger": "Woher zum Teufel soll ich das wissen? Bin ja selbst noch nicht so lange hier... frag besser in Zaton nach, unsere Brüder dort haben ihre eigenen Quellen.",
-    "ita": "E io cosa ne so? Non č molto che sono qui... Ti conviene chiedere a Zaton, i nostri fratelli da quelle parti hanno i loro contatti.",
-    "pol": "Skąd mam wiedzieć, do diabła? Sam jestem tu od niedawna... Najlepiej zapytaj na Zatonie, nasi bracia mają tam swoje kontakty.",
-    "rus": "А без дупля! Мы сами не местные... Ты братишек на Затоне поспрошай, там есть свои концы.",
-    "spa": "ˇY yo qué sé! No llevo mucho por aquí. Será mejor que preguntes en Zaton. Nuestra gente de ahí tiene sus propias redes.",
-    "ukr": "А без дупля! Ми самі не мєсниє... Ти братков на Затонє поспрошай, там є свої конци."
-  },
-  "about_quests_dialog_bandit_503": {
-    "eng": "Not a clue. Why, you planning on sticking your nose into an anomaly? Look, if you come into any artifacts, give us a holler. We'll be right there in a jiffy... To congratulate you on a job well done!",
-    "fra": "Pas la moindre idée... Pourquoi ? Tu comptes sauter ŕ pieds joints dans une anomalie ? Si tu trouves des artefacts, fais-nous signe, on viendra tout de suite... pour te féliciter d'avoir fait notre boulot, ah ah ah !",
-    "ger": "Keine Ahnung. Warum? Willst du dich in eine Anomalie verirren? Hey, wenn du dabei auf Artefakte stößt, gib uns Bescheid. Wir sind dann sofort zur Stelle... und gratulieren dir zu deiner tollen Arbeit! Ha ha ha!",
-    "ita": "Non ne ho idea. Perché, hai intenzione di infilare il naso in un'anomalia? Ascolta, se ti dovessi imbattere in qualche manufatto, facci un fischio. Arriveremo in men che non si dica... Per congratularci dell'ottimo lavoro! Ah ah ah!",
-    "pol": "Nie mam pojęcia. A co, zamierzasz wetknąć nos w anomalię? Słuchaj, jeśli znajdziesz jakieś artefakty, daj nam znać. Dotrzemy na miejsce raz-dwa... Żeby pogratulować ci dobrej roboty! Ha, ha!",
-    "rus": "Без понятия... А ты чё, в аномалию лезть собрался?! Ну смори, будешь с артефактами шуровать, так ты помаякуй. А мы к тебе мигом с цветами, подарками, тык-скыть... гы-гы-ы!..",
-    "spa": "Ni idea. żPor qué? żQuieres meter las narices en alguna anomalía? Pues mira, si consigues artefactos, avísanos, que aparecemos en un abrir y cerrar de ojos... ˇpara felicitarte por tu trabajo! ˇJa, ja, ja!",
-    "ukr": "Без поняття... А ти шо, в аномалію лізти собрався?! Ну смарі, будеш з артефактами шурувать, так ти помаякуй. А ми до тебе мигом з цвітами там, подарками, мароженим... ги-ги-и!.."
-  },
-  "about_quests_dialog_dolg_50": {
-    "eng": "Where can I find a suit with a closed-cycle respiratory module?",
-    "fra": "Oů est-ce que je peux trouver une combinaison équipée d'un module respiratoire en circuit fermé ?",
-    "ger": "Wo kann ich einen Schutzanzug mit geschlossenem Atemkreislauf finden?",
-    "ita": "Dove posso trovare una tuta provvista di modulo respiratorio a ciclo chiuso?",
-    "pol": "Gdzie znajdę kombinezon z aparatem tlenowym o zamkniętym obiegu?",
-    "rus": "Где можно достать костюм с замкнутой системой дыхания?",
-    "spa": "żDónde puedo encontrar un traje con un módulo de respiración de ciclo cerrado?",
-    "ukr": "Де можна дістати костюм із замкнутою системою дихання?"
-  },
-  "about_quests_dialog_dolg_501": {
-    "eng": "How am I supposed to know? Wait... there's this one dude here on Skadovsk, they say he can get you whatever you need. Sits on the upper deck, name's Nimble.",
-    "fra": "Comment je saurais ça, moi ? Quoi que... il y a un mec sur le Skadovsk... Il paraît qu'il peut dégoter des trucs pas possibles. Il squatte le pont supérieur, en général, et il s'appelle Allegro.",
-    "ger": "Woher soll ich das wissen? Aber warte... hier auf der Skadowsk gibt es einen Typen, der soll alles beschaffen können, was man braucht. Du findest ihn auf dem oberen Deck, er heißt Nimble.",
-    "ita": "E io come faccio a saperlo? Aspetta... Sulla Skadovsk c'č un tipo che si dice sia in grado di procurarti tutto quello che ti serve. Sta sul ponte superiore e si chiama Nimble.",
-    "pol": "Skąd mam wiedzieć? Czekaj... Jest w Skadowsku pewien gość, podobno jest w stanie załatwić wszystko, o co zapytasz. Siedzi na górnym pokładzie, nazywa się Żwawy.",
-    "rus": "А я почем знаю? Хотя погоди... тут на «Скадовске» один парень есть, говорят, что хочешь достанет. Звать его Шустрым, он обычно на верхней палубе сидит.",
-    "spa": "żCómo voy a saberlo? Espera... Hay un tipo aquí, en Skadovsk... Dicen que puede conseguirte lo que le pidas. Está en la cubierta superior y se llama Nimble.",
-    "ukr": "А я почем знаю? Хотя погоди... тут на «Скадовске» один парень есть, говорят, что хочешь достанет. Звать его Шустрым, он обычно на верхней палубе сидит."
-  },
-  "about_quests_dialog_dolg_502": {
-    "eng": "Nah, no one's coming all the way out here with an extra suit like that... You'd better ask at Zaton - a step closer to civilization.",
-    "fra": "Y a personne qui risque de venir jusqu'ici avec une combinaison de rechange pareille... Il vaudrait mieux aller voir du côté de Zaton, c'est plus prčs de la civilisation.",
-    "ger": "Ach, ich glaube nicht, dass sich irgendjemand mit so einem tollen Schutzanzug hierher verirren würde. Schau dich lieber in Zaton um... das ist einen Schritt näher an der Zivilisation.",
-    "ita": "No, nessuno viene fino a qui con una tuta del genere in piů... Ti conviene chiedere a Zaton, un passo piů vicino alla civiltŕ.",
-    "pol": "Nie, nikt tu nie przytaszczy ze sobą dodatkowego kombinezonu... Zapytaj na Zatonie - jest o krok bliżej cywilizacji.",
-    "rus": "Здесь такой не достать, кто же сюда лишний костюм тащить будет? Ты лучше на Затоне поспрашивай, всё же поближе к людным местам будет.",
-    "spa": "No, nadie va a venir hasta aquí con un traje extra de ese calibre. Mejor pregunta en Zaton, algo más parecido a un lugar civilizado.",
-    "ukr": "Здесь такой не достать, кто же сюда лишний костюм тащить будет? Ты лучше на Затоне поспрашивай, всё же поближе к людным местам будет."
-  },
-  "about_quests_dialog_dolg_503": {
-    "eng": "I have no idea where you'd look for one... Suits like that are rare even among Duty members. They issue 'em only for special distinction in battle or running operations in highly anomalous areas.",
-    "fra": "Je n'en ai pas la moindre idée... Des combinaisons comme ça, męme les membres du Devoir n'en ont pas tous. Ils ne les donnent qu'aux soldats qui se sont distingués au combat ou qui participent ŕ des opérations dans des zones hautement anormales.",
-    "ger": "Ich habe keine Ahnung... solche Schutzanzüge sind selbst unter den Wächtern sehr selten. Sie setzen sie nur als besonderes Erkennungsmerkmal im Kampf oder bei Operationen in extrem anomalen Gebieten ein.",
-    "ita": "Non so proprio dove ne potresti cercare una... Tute del genere sono rare anche tra i membri della Duty. Le assegnano solo a chi si distingue in battaglia o a chi compie delle operazioni in zone altamente anomale.",
-    "pol": "Nie mam pojęcia, gdzie go szukać... Takie kombinezony są rzadkością wśród członków Powinności. Można taki dostać tylko za wyróżnienie się w walce albo gdy się prowadzi działania wśród skupisk anomalii.",
-    "rus": "Где тебе его искать - не знаю... Такие костюмы даже у нас, в «Долге», редкость. Выдают только особо отличившимся или там для проведения операций в районе повышенной аномальной активности.",
-    "spa": "No tengo ni idea de dónde podrías buscar... Ese tipo de traje escasea hasta entre los miembros de Deber. Los fabrican solo como distinción especial en combate o para operaciones extensas en áreas muy anómalas.",
-    "ukr": "Где тебе его искать - не знаю... Такие костюмы даже у нас, в «Долге», редкость. Выдают только особо отличившимся или там для проведения операций в районе повышенной аномальной активности."
-  },
-  "about_quests_dialog_freedom_50": {
-    "eng": "Where can I find a suit with a closed-cycle respiratory module?",
-    "fra": "Oů est-ce que je peux trouver une combinaison équipée d'un module respiratoire en circuit fermé ?",
-    "ger": "Wo kann ich einen Schutzanzug mit geschlossenem Atemkreislauf finden?",
-    "ita": "Dove posso trovare una tuta provvista di modulo respiratorio a ciclo chiuso?",
-    "pol": "Gdzie znajdę kombinezon z aparatem tlenowym o zamkniętym obiegu?",
-    "rus": "Где можно достать костюм с замкнутой системой дыхания?",
-    "spa": "żDónde puedo encontrar un traje con un módulo de respiración de ciclo cerrado?",
-    "ukr": "Де можна дістати костюм із замкнутою системою дихання?"
-  },
-  "about_quests_dialog_freedom_501": {
-    "eng": "I heard some stalkers talk about this man with connections, Nimble or something. He can get you almost anything. You know: gear, shooters, shit like that... not dope. Hangs out at Skadovsk, if you need him.",
-    "fra": "J'ai entendu des indépendants parler d'un mec qui a le bras long, un certain Allegro, je crois. Apparemment, il peut trouver n'importe quoi, des armes, du matos, ce genre de truc... Pas de came, par contre. Il traîne sur le Skadovsk.",
-    "ger": "Ich habe mal gehört, wie ein paar Leute über einen Typen mit guten Verbindungen gesprochen haben... Nimble oder so. Der kann dir wohl alles beschaffen. Du weißt schon... Ausrüstung, Waffen und so... keine Drogen. Hängt auf der Skadowsk ab, wenn du ihn finden willst.",
-    "ita": "Ho sentito parlare di quest'uomo che sembra avere un sacco di conoscenze, tale Nimble, che puň procurarti praticamente tutto. Sai, attrezzatura, armi e cose del genere... ma non fumo. Se hai bisogno di lui lo troverai sulla Skadovsk.",
-    "pol": "Słyszałem, jak stalkerzy mówili o człowieku z kontaktami, chyba nazywali go Żwawy. Może ci załatwić niemal wszystko, sprzęt, spluwy, tego typu rzeczy... Trawy ci nie załatwi. Siedzi w Skadowsku, jeśli chcesz go odwiedzić.",
-    "rus": "Я тут от вольных слыхал, что есть такой мэн продвинутый - Шустрым зовут. Так у него вроде почти всё можно достать. Ну ты понял, да? Снарягу там всякую, стволы... не вещества, не-е!.. Он на «Скадовске» обычно крутится, кстати.",
-    "spa": "He oído a algunos stalkers hablar de un tipo con contactos... Nimble o algo así. Puede conseguirte casi de todo. Ya sabes: equipo, armas... Mierdas de ésas, no droga. Anda por Skadovsk, si lo necesitas.",
-    "ukr": "Я тут від вільних чув, що є такий мен продвинутий - Спритником кличуть. Так у нього начебто майже все шо хочеш можна дістати. Ну ти зрозумів, еге? Снарягу там усяку, стволи... не кайф, ні. Він на «Скадовську» зазвичай крутиться, до речі."
-  },
-  "about_quests_dialog_freedom_502": {
-    "eng": "A good question, man... We don't ever wear those here in Freedom... I'd ask stalkers at Zaton if I were you. There might be someone there who runs that sort of business.",
-    "fra": "Bonne question, mon pote... On a pas ce genre de truc dans la Liberté... Tu devrais demander aux stalkers de Zaton, il y aura peut-ętre quelqu'un qui pourra t'en procurer une lŕ-bas.",
-    "ger": "Eine gute Frage, Mann... nicht mal wir hier bei der Freiheit tragen solche Anzüge. An deiner Stelle würde ich in Zaton fragen. Dort gibt es vielleicht jemanden, der solche Geschäfte betreibt.",
-    "ita": "Ottima domanda, amico... Qui alla Freedom non le indossiamo nemmeno... Fossi in te chiederei agli stalker a Zaton. Forse lě troverai qualcuno che gestisce affari del genere.",
-    "pol": "Dobre pytanie... W Wolności takich nie nosimy. Na twoim miejscu zapytałbym stalkerów na Zatonie. Tam może być ktoś, kto zajmuje się takimi sprawami.",
-    "rus": "Сложный вопрос, мэн... Ну, мы в «Свободе» вообще такие не таскаем, а так - я бы сталкеров поспрашивал на Затоне. Вроде там кто-то разные такие штуки может намутить.",
-    "spa": "Buena pregunta... En Libertad no usamos de ésos. Yo en tu lugar les preguntaría a los stalkers de Zaton. Debe de haber alguien que se ocupe de esas cosas.",
-    "ukr": "Складне питання, мен... Ну, ми у «Волі» взагалі таке не тягаємо, а так - я б сталкерів розпитався на Затоні. Там наче хтось різні такі штуки може намутити."
-  },
-  "about_quests_dialog_freedom_503": {
-    "eng": "Heh, whatcha need that crap for? It ain't no good in action. Then again... I guess it can be of some use. Makes breathing easier, and the sun doesn't get in your eyes as much... I might go for one of those myself. Hey, do you know where I could get one?...",
-    "fra": "Et ŕ quoi te servirait cette merde ? Si ça sert ŕ rien au combat, ça sert ŕ rien... Remarque... peut-ętre que ça peut servir quand męme. Plus facile de respirer et le soleil te fait plus chier... Hum... Pas con... Hé, tu saurais oů je pourrais en trouver une ?",
-    "ger": "Ha, für was brauchst du denn so einen Schrott? Wenn's abgeht, kannst du das Ding vergessen. Aber andererseits... wird schon seinen Nutzen haben, was? Macht das Atmen leichter und schützt die Augen vor der Sonne... vielleicht hole ich mir selbst so einen Schutzanzug! Hey, weißt du, wo ich so ein Ding finden kann?",
-    "ita": "Eh eh, e a cosa ti serve? In azione non vale niente. Comunque... forse puň tornarti utile. Con quella respiri piů facilmente, e il sole non ti arriva dritto negli occhi... Magari me ne posso procurare una pure io. Ehi, sai mica dove potrei trovarla?",
-    "pol": "A na cholerę ci to? Do walki się nie nadaje. Ale na coś chyba może się przydać. Łatwiej w nim oddychać i słońce tak nie świeci w oczy. Sam z chęcią bym sobie załatwił taki kombinezon. Nie wiesz, gdzie można go dostać?",
-    "rus": "Гы, чувак, а тебе зачем? Он же в бою никакой. Хотя... Если так подумать, польза, конечно, есть. И дым в атмосферу не уходит, и солнце по глазам не так бьет... Надо будет как-нить себе такой добыть - знать бы только, где такие дают.",
-    "spa": "Je, żpara qué necesitas esa chorrada? Luego, en acción, no sirve para nada. Aunque... supongo que puede ser útil. Facilita la respiración e impide que el sol te ciegue. Igual me agencio uno para mí. Eh, żdónde has dicho que podría conseguirlo?",
-    "ukr": "Ги, чувак, а тобі нащо? Він же ж у бою ніякий. Хоча... Якщо так подумати, користь, звісно, є. І дим до атмосфери не йде, і сонце по очах не так б'є... Треба буде якось собі такий добути - аби тільки знати, де їх дають."
-  },
-  "about_quests_dialog_stalkers_50": {
-    "eng": "Where can I find a suit with a closed-cycle respiratory module?",
-    "fra": "Oů est-ce que je peux trouver une combinaison équipée d'un module respiratoire en circuit fermé ?",
-    "ger": "Wo kann ich einen Schutzanzug mit geschlossenem Atemkreislauf finden?",
-    "ita": "Dove posso trovare una tuta provvista di modulo respiratorio a ciclo chiuso?",
-    "pol": "Gdzie znajdę kombinezon z aparatem tlenowym o zamkniętym obiegu?",
-    "rus": "Где можно достать костюм с замкнутой системой дыхания?",
-    "spa": "żDónde puedo encontrar un traje con un módulo de respiración de ciclo cerrado?",
-    "ukr": "Де можна дістати костюм із замкнутою системою дихання?"
-  },
-  "about_quests_dialog_stalkers_501": {
-    "eng": "Well, my bet would be Nimble. Third deck at Skadovsk. That dude can get you snow in a friggin' desert... His services aren't easy on the pocket though.",
-    "fra": "Ŕ mon avis, Allegro, sur le troisičme pont du Skadovsk, doit pouvoir en trouver une. Ce mec pourrait trouver de la neige en plein désert... Mais tout a un prix avec lui...",
-    "ger": "Nun, ich würde sagen, bei Nimble. Drittes Deck der Skadowsk. Der Typ könnte dir sogar mitten in der verdammten Wüste Schnee besorgen. Aber er ist nicht gerade billig, musst du wissen.",
-    "ita": "Beh, fossi in te proverei da Nimble. Terzo ponte sulla Skadovsk. Quel tipo riuscirebbe a procurarti la neve nel deserto. Certo, i suoi servizi non sono adatti a tutte le tasche.",
-    "pol": "Myślę, że u Żwawego. Trzeci pokład Skadowska. On ci może załatwić śnieg na pustyni... Ale portfel ciężko znosi jego usługi.",
-    "rus": "Да у Шустрого, я так думаю. Он на третьей палубе «Скадовска» сидит. Этот и чёрта с рогами добыть может... Правда, ты учти: услуги Шустрого далеко не каждому по карману.",
-    "spa": "Bueno, yo apostaría por Nimble. Tercera cubierta en Skadovsk. Ese tipo puede conseguir hasta nieve en medio del puto desierto... aunque se lo sabe cobrar.",
-    "ukr": "Та в Спритника, я так думаю. Він на третій палубі «Скадовська» сидить. Він і чорта з рогами добути може... Ти, щоправда, врахуй: на послуги Спритника далеко не кожному купила стане."
-  },
-  "about_quests_dialog_stalkers_502": {
-    "eng": "Let me think... There used to be a man like that over at Zaton, went by Nimble. Try and see if he's still there. I heard he specializes in up-scale items.",
-    "fra": "Laisse-moi réfléchir... Il y avait un mec plein de ressources ŕ Zaton, Allegro qu'il s'appelait... Vois s'il est encore lŕ ! Je me souviens qu'il était spécialisé en matos haut de gamme.",
-    "ger": "Lass mich überlegen... in Zaton gab es mal einen Typen, Nimble hieß der. Schau am besten mal, ob der sich noch dort herumtreibt. Er soll sich auf dieses teure Zeug spezialisiert haben.",
-    "ita": "Fammi pensare... A Zaton c'era un uomo che avrebbe fatto al caso tuo, si chiamava Nimble. Vai a vedere se č ancora da quelle parti. Ho sentito che č specializzato in oggetti particolari.",
-    "pol": "Niech pomyślę... Był taki jeden na Zatonie, niejaki Żwawy. Sprawdź, czy ciągle tam jest. Podobno specjalizuje się w ekskluzywnym towarze.",
-    "rus": "Дай-ка подумать... Вроде был человек на Затоне, кличка - Шустрый. Попробуй его найти. По слухам он специалист по эксклюзивным товарам.",
-    "spa": "A ver, que piense... Había un tipo que se ocupaba de eso en Zaton. Nimble. Prueba a ver si sigue por ahí. Dicen que es especialista en objetos de alto nivel.",
-    "ukr": "Дай-ка подумати... Начебто була така людина на Затоні, прізвисько - Спритник. Спробуй його знайти. Подейкують, він є фахівцем з ексклюзивних товарів."
-  },
-  "about_quests_dialog_stalkers_503": {
-    "eng": "Dude, you talk about it like it's office supplies or something... No one knows for sure. Pieces like that are few and far between... Consider yourself lucky if you snatch one.",
-    "fra": "Hé, ça se trouve pas sous le sabot d'un cheval, ce genre de trucs... Les combinaisons comme ça, y en a pas plus d'une poignée dans la Zone... T'auras de la chance si t'en trouves une d'occasion !",
-    "ger": "Kumpel, du tust ja so, als ob das so etwas Gewöhnliches wie eine Fleischkonserve wäre! Nein, das kann dir niemand sicher sagen. Solche Schutzanzüge sind sehr selten... kannst dich glücklich schätzen, wenn du einen findest.",
-    "ita": "Amico, ne parli come fosse cancelleria... Nessuno saprebbe risponderti con sicurezza. Pezzi del genere sono scarsi, per non dire rari. Se riesci a procurartene uno puoi ritenerti fortunato.",
-    "pol": "Człowieku, pytasz, jakby to był zszywacz do papieru albo coś. Nikt nie wie. Taki towar to rarytas, pojawia się rzadko. Jeśli go zdobędziesz, możesz uważać się za szczęściarza.",
-    "rus": "Мужик, ты так спросил, будто его по талонам тут выдают. А хрен его знает! Такой товар - птица нечастая, прилетает редко. Кому повезло, тот и урвал, а загадывать...",
-    "spa": "Oye, lo dices como quien habla de suministros de oficina o algo así... ˇA saber! Ese tipo de cosas escasean. Puedes darte con un canto en los dientes si das con uno.",
-    "ukr": "Мужик, ти так ото запитав, нібито його по талонах тут видають. А біс його зна! Такий товар - птиця нечаста, прилітає рідко. Кому пощастило, той і схопив, а загадувати... "
-  },
-  "actor_break_dialog_3": {
-    "eng": "Bye.",
-    "fra": "Au revoir.",
-    "ger": "Tschüss.",
-    "ita": "Ciao.",
-    "pol": "Cześć.",
-    "rus": "Пока.",
+    "rus": "Увидимся.",
     "spa": "Adiós.",
-    "ukr": "Пока."
+    "ukr": "Побачимося."
   },
   "actor_break_dialog_1": {
     "eng": "See ya.",
@@ -3239,14 +3229,24 @@
     "spa": "Hasta luego.",
     "ukr": "Бувай."
   },
-  "actor_break_dialog_0": {
-    "eng": "Laters.",
-    "fra": "Ŕ plus tard !",
-    "ger": "Wir sehen uns.",
-    "ita": "A piů tardi.",
+  "actor_break_dialog_2": {
+    "eng": "See you next time.",
+    "fra": "Ŕ la prochaine !",
+    "ger": "Man sieht sich.",
+    "ita": "Alla prossima.",
     "pol": "Do zobaczenia.",
-    "rus": "Увидимся.",
+    "rus": "До встречи.",
+    "spa": "Hasta la próxima.",
+    "ukr": "До зустрічі."
+  },
+  "actor_break_dialog_3": {
+    "eng": "Bye.",
+    "fra": "Au revoir.",
+    "ger": "Tschüss.",
+    "ita": "Ciao.",
+    "pol": "Cześć.",
+    "rus": "Пока.",
     "spa": "Adiós.",
-    "ukr": "Побачимося."
+    "ukr": "Пока."
   }
 }

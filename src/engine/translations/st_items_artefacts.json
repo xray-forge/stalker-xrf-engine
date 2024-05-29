@@ -279,6 +279,16 @@
     "spa": "Soldado",
     "ukr": "«Колобок»"
   },
+  "st_af_glass_descr": {
+    "eng": "Firefly interacts with fields unknown to science, considerably speeding up regeneration of tissue and organs in living beings, as well as normalizing metabolic processes. This artifact can literally get a badly wounded stalker back on his feet in seconds. Unfortunately, Firefly is extremely rare. Emits radiation.",
+    "fra": "La Luciole interagit avec des champs de type inconnu pour accélérer la régénération des tissus et des organes des ętres vivants, et stabiliser les processus métaboliques. Cet artefact peut littéralement remettre un stalker agonisant sur pied en quelques secondes. Malheureusement, il est trčs rare. Émet des radiations.",
+    "ger": "Feuerfliege interagiert mit Feldern, die bisher wissenschaftlich unbekannt sind. Dadurch werden die Regeneration von Gewebe und Organen in Lebewesen sowie die Normalisierung metabolischer Prozesse beschleunigt. Mit diesem Artefakt kann ein schwer verletzter Stalker buchstäblich in Sekunden wieder auf die Beine kommen. Leider kommt Feuerfliege äußerst selten vor; darüber hinaus ist das Artefakt strahlungsaktiv.",
+    "ita": "Questo manufatto interagisce con campi di natura sconosciuta, accelerando notevolmente la rigenerazione di tessuti e organi e normalizzando i processi metabolici. Puň rimettere in piedi in pochi secondi uno stalker ferito gravemente, ma č un manufatto estremamente raro. Emette radiazioni.",
+    "pol": "Świetlik oddziałuje z polami nieznanym nauce, znacząco przyspieszając regenerację tkanek i organów u istot żywych, stabilizując przy tym procesy metaboliczne. Artefakt ten pozwala ciężko rannemu stalkerowi wyzdrowieć w ciągu dosłownie kilku sekund. Niestety, Świetlik jest bardzo rzadkim znaleziskiem. Emituje promieniowanie.",
+    "rus": "«Светляк» работает с недоступными науке полями, ускоряя регенерацию тканей и органов живых существ, а также нормализуя метаболические процессы. Способен буквально на глазах поставить на ноги человека с тяжёлыми ранениями. К сожалению, встречается этот артефакт крайне редко. Радиоактивен.",
+    "spa": "La Luciérnaga altera campos desconocidos por la ciencia para acelerar la tasa de regeneración de los tejidos y órganos de los seres vivos, además de normalizar sus procesos metabólicos. Este artefacto puede curar a un stalker gravemente herido en cuestión de segundos. Por desgracia, es extremadamente escaso. Emite radiación.",
+    "ukr": "«Світляк» працює із недоступними розумінню сучасної науки полями, прискорюючи регенерацію тканин та органів живих істот, а також нормалізуючи метаболічні процеси. Здатний буквально на очах поставити на ноги людину із важкими пораненнями. На жаль, зустрічається цей артефакт украй рідко. Радіоактивний."
+  },
   "st_af_glass_name": {
     "eng": "Firefly",
     "fra": "Luciole",
@@ -488,15 +498,5 @@
     "rus": "Артефакт из центра легендарного Оазиса. Судя по всему, представляет собой кристаллизовавшееся растение, которое переняло присущее Оазису свойство благотворно влиять на организм в целом. Исключительно радиоактивен, в отличие от самого Оазиса.",
     "spa": "Este artefacto se encontró en el centro del legendario Oasis. Parece ser una planta cristalizada que ha adquirido las propiedades curativas del Oasis. Sin embargo, a diferencia del propio Oasis, este artefacto es extremadamente radiactivo.",
     "ukr": "Артефакт із центра легендарної Оазиси. Зважаючи на все, являє собою рослину, що кристалізувалася та перейняла притаманну Оазі властивість цілющо впливати на організм у цілому. На відміну від самої Оази, надзвичайно радіоактивний."
-  },
-  "st_af_glass_descr": {
-    "eng": "Firefly interacts with fields unknown to science, considerably speeding up regeneration of tissue and organs in living beings, as well as normalizing metabolic processes. This artifact can literally get a badly wounded stalker back on his feet in seconds. Unfortunately, Firefly is extremely rare. Emits radiation.",
-    "fra": "La Luciole interagit avec des champs de type inconnu pour accélérer la régénération des tissus et des organes des ętres vivants, et stabiliser les processus métaboliques. Cet artefact peut littéralement remettre un stalker agonisant sur pied en quelques secondes. Malheureusement, il est trčs rare. Émet des radiations.",
-    "ger": "Feuerfliege interagiert mit Feldern, die bisher wissenschaftlich unbekannt sind. Dadurch werden die Regeneration von Gewebe und Organen in Lebewesen sowie die Normalisierung metabolischer Prozesse beschleunigt. Mit diesem Artefakt kann ein schwer verletzter Stalker buchstäblich in Sekunden wieder auf die Beine kommen. Leider kommt Feuerfliege äußerst selten vor; darüber hinaus ist das Artefakt strahlungsaktiv.",
-    "ita": "Questo manufatto interagisce con campi di natura sconosciuta, accelerando notevolmente la rigenerazione di tessuti e organi e normalizzando i processi metabolici. Puň rimettere in piedi in pochi secondi uno stalker ferito gravemente, ma č un manufatto estremamente raro. Emette radiazioni.",
-    "pol": "Świetlik oddziałuje z polami nieznanym nauce, znacząco przyspieszając regenerację tkanek i organów u istot żywych, stabilizując przy tym procesy metaboliczne. Artefakt ten pozwala ciężko rannemu stalkerowi wyzdrowieć w ciągu dosłownie kilku sekund. Niestety, Świetlik jest bardzo rzadkim znaleziskiem. Emituje promieniowanie.",
-    "rus": "«Светляк» работает с недоступными науке полями, ускоряя регенерацию тканей и органов живых существ, а также нормализуя метаболические процессы. Способен буквально на глазах поставить на ноги человека с тяжёлыми ранениями. К сожалению, встречается этот артефакт крайне редко. Радиоактивен.",
-    "spa": "La Luciérnaga altera campos desconocidos por la ciencia para acelerar la tasa de regeneración de los tejidos y órganos de los seres vivos, además de normalizar sus procesos metabólicos. Este artefacto puede curar a un stalker gravemente herido en cuestión de segundos. Por desgracia, es extremadamente escaso. Emite radiación.",
-    "ukr": "«Світляк» працює із недоступними розумінню сучасної науки полями, прискорюючи регенерацію тканин та органів живих істот, а також нормалізуючи метаболічні процеси. Здатний буквально на очах поставити на ноги людину із важкими пораненнями. На жаль, зустрічається цей артефакт украй рідко. Радіоактивний."
   }
 }

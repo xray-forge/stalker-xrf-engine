@@ -379,6 +379,46 @@
     "spa": "Arma en la anterior ranura",
     "ukr": "Зброя із попередньої комірки"
   },
+  "kb_quick_use_1": {
+    "eng": "Quick Access Slot 1",
+    "fra": "Emplacement d'accčs rapide 1",
+    "ger": "Schnellzugriffsfeld 1",
+    "ita": "Slot rapido 1",
+    "pol": "Szybki dostęp 1",
+    "rus": "Ячейка быстрого доступа 1",
+    "spa": "Ranura de acceso rápido 1",
+    "ukr": "Комірка швидкого доступу 1"
+  },
+  "kb_quick_use_2": {
+    "eng": "Quick Access Slot 2",
+    "fra": "Emplacement d'accčs rapide 2",
+    "ger": "Schnellzugriffsfeld 2",
+    "ita": "Slot rapido 2",
+    "pol": "Szybki dostęp 2",
+    "rus": "Ячейка быстрого доступа 2",
+    "spa": "Ranura de acceso rápido 2",
+    "ukr": "Комірка швидкого доступу 2"
+  },
+  "kb_quick_use_3": {
+    "eng": "Quick Access Slot 3",
+    "fra": "Emplacement d'accčs rapide 3",
+    "ger": "Schnellzugriffsfeld 3",
+    "ita": "Slot rapido 3",
+    "pol": "Szybki dostęp 3",
+    "rus": "Ячейка быстрого доступа 3",
+    "spa": "Ranura de acceso rápido 3",
+    "ukr": "Комірка швидкого доступу 3"
+  },
+  "kb_quick_use_4": {
+    "eng": "Quick Access Slot 4",
+    "fra": "Emplacement d'accčs rapide 4",
+    "ger": "Schnellzugriffsfeld 4",
+    "ita": "Slot rapido 4",
+    "pol": "Szybki dostęp 4",
+    "rus": "Ячейка быстрого доступа 4",
+    "spa": "Ranura de acceso rápido 4",
+    "ukr": "Комірка швидкого доступу 4"
+  },
   "kb_quit": {
     "eng": "Back",
     "fra": "Retour",
@@ -698,45 +738,5 @@
     "rus": "Голосовые сообщения (2)",
     "spa": "Mensajes de voz (2)",
     "ukr": "Голосові повідомлення (2)"
-  },
-  "kb_quick_use_1": {
-    "eng": "Quick Access Slot 1",
-    "fra": "Emplacement d'accčs rapide 1",
-    "ger": "Schnellzugriffsfeld 1",
-    "ita": "Slot rapido 1",
-    "pol": "Szybki dostęp 1",
-    "rus": "Ячейка быстрого доступа 1",
-    "spa": "Ranura de acceso rápido 1",
-    "ukr": "Комірка швидкого доступу 1"
-  },
-  "kb_quick_use_2": {
-    "eng": "Quick Access Slot 2",
-    "fra": "Emplacement d'accčs rapide 2",
-    "ger": "Schnellzugriffsfeld 2",
-    "ita": "Slot rapido 2",
-    "pol": "Szybki dostęp 2",
-    "rus": "Ячейка быстрого доступа 2",
-    "spa": "Ranura de acceso rápido 2",
-    "ukr": "Комірка швидкого доступу 2"
-  },
-  "kb_quick_use_3": {
-    "eng": "Quick Access Slot 3",
-    "fra": "Emplacement d'accčs rapide 3",
-    "ger": "Schnellzugriffsfeld 3",
-    "ita": "Slot rapido 3",
-    "pol": "Szybki dostęp 3",
-    "rus": "Ячейка быстрого доступа 3",
-    "spa": "Ranura de acceso rápido 3",
-    "ukr": "Комірка швидкого доступу 3"
-  },
-  "kb_quick_use_4": {
-    "eng": "Quick Access Slot 4",
-    "fra": "Emplacement d'accčs rapide 4",
-    "ger": "Schnellzugriffsfeld 4",
-    "ita": "Slot rapido 4",
-    "pol": "Szybki dostęp 4",
-    "rus": "Ячейка быстрого доступа 4",
-    "spa": "Ranura de acceso rápido 4",
-    "ukr": "Комірка швидкого доступу 4"
   }
 }

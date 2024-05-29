@@ -159,6 +159,16 @@
     "spa": "quitar silenciador",
     "ukr": "від'єднати глушник"
   },
+  "st_dress_helmet": {
+    "eng": "remove helmet",
+    "fra": "retirer casque",
+    "ger": "Helm absetzen",
+    "ita": "rimuovi il casco",
+    "pol": "Włóż hełm",
+    "rus": "надеть шлем",
+    "spa": "quitarse casco",
+    "ukr": "надягти шолом"
+  },
   "st_dress_outfit": {
     "eng": "wear suit",
     "fra": "mettre la combinaison",
@@ -168,6 +178,16 @@
     "rus": "надеть костюм",
     "spa": "poner traje",
     "ukr": "одягти костюм"
+  },
+  "st_drink": {
+    "eng": "drink",
+    "fra": "boire",
+    "ger": "Trinken",
+    "ita": "drink",
+    "pol": "Pij",
+    "rus": "выпить",
+    "spa": "bebida",
+    "ukr": "випити"
   },
   "st_drop": {
     "eng": "drop",
@@ -289,6 +309,26 @@
     "spa": "Estado del blindaje",
     "ukr": "Стан броні"
   },
+  "st_ui_bleeding_sensor": {
+    "eng": "Bleeding",
+    "fra": "Saignement",
+    "ger": "Blutung",
+    "ita": "Emorragia",
+    "pol": "Krwawienie",
+    "rus": "Кровотечение",
+    "spa": "Hemorragia",
+    "ukr": "Кровотеча"
+  },
+  "st_ui_health_sensor": {
+    "eng": "Health",
+    "fra": "Santé",
+    "ger": "Gesundheit",
+    "ita": "Salute",
+    "pol": "Zdrowie",
+    "rus": "Состояние здоровья",
+    "spa": "Salud",
+    "ukr": "Стан здоров'я"
+  },
   "st_ui_main_sensor": {
     "eng": "Radioactive contamination",
     "fra": "Irradiation",
@@ -298,6 +338,16 @@
     "rus": "Радиационное заражение",
     "spa": "Contaminación radiactiva",
     "ukr": "Радіаційне зараження"
+  },
+  "st_undress_helmet": {
+    "eng": "wear helmet",
+    "fra": "mettre casque",
+    "ger": "Helm tragen",
+    "ita": "indossa il casco",
+    "pol": "Zdejmij hełm",
+    "rus": "снять шлем",
+    "spa": "llevar casco",
+    "ukr": "зняти шолом"
   },
   "st_undress_outfit": {
     "eng": "remove suit",
@@ -348,6 +398,16 @@
     "rus": "Ёмк. магазина",
     "spa": "Tam. carg.",
     "ukr": "Міст. магазина"
+  },
+  "ui_ammo_types": {
+    "eng": "Ammo",
+    "fra": "Munitions",
+    "ger": "Munition",
+    "ita": "Munizioni",
+    "pol": "Amunicja",
+    "rus": "Боеприпасы",
+    "spa": "Munición",
+    "ukr": "Боєприпаси"
   },
   "ui_inv_accuracy": {
     "eng": "Accuracy",
@@ -438,6 +498,16 @@
     "rus": "Стартовый (F5)",
     "spa": "Predeterminado (F5)",
     "ukr": "Стартовий (F5)"
+  },
+  "ui_inv_effect_time": {
+    "eng": "Duration",
+    "fra": "Durée",
+    "ger": "Wirkungsdauer",
+    "ita": "Durata",
+    "pol": "Czas trwania",
+    "rus": "Время действия",
+    "spa": "Duración",
+    "ukr": "Тривалість"
   },
   "ui_inv_exit": {
     "eng": "Back",
@@ -609,6 +679,16 @@
     "spa": "Blindaje",
     "ukr": "Броня"
   },
+  "ui_inv_outfit_power_restore": {
+    "eng": "Energy recovery",
+    "fra": "Récupération d'énergie",
+    "ger": "Energieregeneration",
+    "ita": "Recupero energetico",
+    "pol": "Odzyskiwanie energii",
+    "rus": "Восстановление сил",
+    "spa": "Recuperación de energía",
+    "ukr": "Відновлення сил"
+  },
   "ui_inv_outfit_radiation_protection": {
     "eng": "Rad. prot.",
     "fra": "Protection antiradiations",
@@ -759,6 +839,16 @@
     "spa": "Comprar mira telescópica para fusil (S)",
     "ukr": "Придбати оптичний приціл для гвинтівки (S)"
   },
+  "ui_inv_seconds_short": {
+    "eng": "sec",
+    "fra": "sec.",
+    "ger": "Sek",
+    "ita": "sec",
+    "pol": "s",
+    "rus": "сек.",
+    "spa": "seg.",
+    "ukr": "сек."
+  },
   "ui_inv_sell_items(X)": {
     "eng": "Sell all items in backpack (X)",
     "fra": "Vendre tous les objets du sac ŕ dos (X)",
@@ -809,6 +899,16 @@
     "spa": "Francotirador",
     "ukr": "Снайперське"
   },
+  "ui_inv_survive_surge": {
+    "eng": "Allows you to survive an emission",
+    "fra": "Permet de survivre ŕ une émission",
+    "ger": "Ermöglicht es, eine Emission zu überleben",
+    "ita": "Consente di sopravvivere a un'emissione",
+    "pol": "Umożliwia przetrwanie emisji",
+    "rus": "Позволяет пережить выброс",
+    "spa": "Te permite sobrevivir a una emisión",
+    "ukr": "Дозволяє пережити викид"
+  },
   "ui_inv_time": {
     "eng": "Time",
     "fra": "Heure",
@@ -818,6 +918,16 @@
     "rus": "Время",
     "spa": "Tiempo",
     "ukr": "Час"
+  },
+  "ui_inv_weight": {
+    "eng": "Maximum weight",
+    "fra": "Poids maximal",
+    "ger": "Maximalgewicht",
+    "ita": "Peso massimo",
+    "pol": "Maksymalna waga",
+    "rus": "Макс. вес",
+    "spa": "Peso máximo",
+    "ukr": "Макс. вага"
   },
   "ui_inv_you_already_have": {
     "eng": "Already got one",
@@ -888,115 +998,5 @@
     "rus": "Общий вес:",
     "spa": "Peso total:",
     "ukr": "Загальна вага:"
-  },
-  "st_drink": {
-    "eng": "drink",
-    "fra": "boire",
-    "ger": "Trinken",
-    "ita": "drink",
-    "pol": "Pij",
-    "rus": "выпить",
-    "spa": "bebida",
-    "ukr": "випити"
-  },
-  "ui_inv_outfit_power_restore": {
-    "eng": "Energy recovery",
-    "fra": "Récupération d'énergie",
-    "ger": "Energieregeneration",
-    "ita": "Recupero energetico",
-    "pol": "Odzyskiwanie energii",
-    "rus": "Восстановление сил",
-    "spa": "Recuperación de energía",
-    "ukr": "Відновлення сил"
-  },
-  "st_ui_bleeding_sensor": {
-    "eng": "Bleeding",
-    "fra": "Saignement",
-    "ger": "Blutung",
-    "ita": "Emorragia",
-    "pol": "Krwawienie",
-    "rus": "Кровотечение",
-    "spa": "Hemorragia",
-    "ukr": "Кровотеча"
-  },
-  "ui_inv_weight": {
-    "eng": "Maximum weight",
-    "fra": "Poids maximal",
-    "ger": "Maximalgewicht",
-    "ita": "Peso massimo",
-    "pol": "Maksymalna waga",
-    "rus": "Макс. вес",
-    "spa": "Peso máximo",
-    "ukr": "Макс. вага"
-  },
-  "st_ui_health_sensor": {
-    "eng": "Health",
-    "fra": "Santé",
-    "ger": "Gesundheit",
-    "ita": "Salute",
-    "pol": "Zdrowie",
-    "rus": "Состояние здоровья",
-    "spa": "Salud",
-    "ukr": "Стан здоров'я"
-  },
-  "ui_ammo_types": {
-    "eng": "Ammo",
-    "fra": "Munitions",
-    "ger": "Munition",
-    "ita": "Munizioni",
-    "pol": "Amunicja",
-    "rus": "Боеприпасы",
-    "spa": "Munición",
-    "ukr": "Боєприпаси"
-  },
-  "ui_inv_effect_time": {
-    "eng": "Duration",
-    "fra": "Durée",
-    "ger": "Wirkungsdauer",
-    "ita": "Durata",
-    "pol": "Czas trwania",
-    "rus": "Время действия",
-    "spa": "Duración",
-    "ukr": "Тривалість"
-  },
-  "ui_inv_seconds_short": {
-    "eng": "sec",
-    "fra": "sec.",
-    "ger": "Sek",
-    "ita": "sec",
-    "pol": "s",
-    "rus": "сек.",
-    "spa": "seg.",
-    "ukr": "сек."
-  },
-  "ui_inv_survive_surge": {
-    "eng": "Allows you to survive an emission",
-    "fra": "Permet de survivre ŕ une émission",
-    "ger": "Ermöglicht es, eine Emission zu überleben",
-    "ita": "Consente di sopravvivere a un'emissione",
-    "pol": "Umożliwia przetrwanie emisji",
-    "rus": "Позволяет пережить выброс",
-    "spa": "Te permite sobrevivir a una emisión",
-    "ukr": "Дозволяє пережити викид"
-  },
-  "st_undress_helmet": {
-    "eng": "wear helmet",
-    "fra": "mettre casque",
-    "ger": "Helm tragen",
-    "ita": "indossa il casco",
-    "pol": "Zdejmij hełm",
-    "rus": "снять шлем",
-    "spa": "llevar casco",
-    "ukr": "зняти шолом"
-  },
-  "st_dress_helmet": {
-    "eng": "remove helmet",
-    "fra": "retirer casque",
-    "ger": "Helm absetzen",
-    "ita": "rimuovi il casco",
-    "pol": "Włóż hełm",
-    "rus": "надеть шлем",
-    "spa": "quitarse casco",
-    "ukr": "надягти шолом"
   }
 }

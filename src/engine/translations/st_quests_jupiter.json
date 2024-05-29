@@ -559,6 +559,16 @@
     "spa": "Nitro necesita material de radio. Puedes darle lo que ya tienes o ir a buscar más.",
     "ukr": "Азотові потрібні радіотехнічні матеріали. Можна віднести йому вже знайдені деталі або спробувати пошукати ще."
   },
+  "jup_b200_tech_materials_inside_text": {
+    "eng": "Nitro needs radio technical materials. You need to find them in the cement factory.",
+    "fra": "Nitro a besoin de matériel radio. Vous en trouverez dans la cimenterie.",
+    "ger": "Nitro braucht Funktechnikmaterialien. Sie müssen in der Zementfabrik danach suchen.",
+    "ita": "A Nitro servono dei dispositivi radio. Dovresti cercarli nella fabbrica di cemento.",
+    "pol": "Azot potrzebuje materiałów radiotechnicznych. Musisz je znaleźć w cementowni.",
+    "rus": "Азоту нужны материалы для радиотехники. Необходимо найти их в здании цементного завода.",
+    "spa": "Nitro necesita material de radio. Lo encontrarás en la fábrica de cemento.",
+    "ukr": "Азотові потрібні матеріали для радіотехніки. Необхідно відшукати їх у будівлі цементного заводу."
+  },
   "jup_b200_tech_materials_name": {
     "eng": "Radio equipment: find materials for Nitro",
     "fra": "Équipement radio : trouver du matériel pour Nitro.",
@@ -1119,6 +1129,26 @@
     "spa": "Nitro podría abrir la cerradura del paso de Pripyat 1, pero se niega a entrar en la central de Júpiter sin protección. Te ha recomendado que reúnas a varios hombres para atravesar el paso subterráneo. Sugiere que hables con Zulu para que te ayude a reunir un escuadrón.",
     "ukr": "Азот міг би відкрити шлюз шляхопроводу «Прип'ять-1», але він відмовляється йти на територію заводу «Юпітер» без охорони і рекомендує взяти із собою до шляхопроводу пару бійців. Він пропонує поговорити із Зулусом, який може допомогти зібрати загін."
   },
+  "jup_b218_soldier_do_scientist_quest_name": {
+    "eng": "Pripyat 1: complete Ozersky’s mission",
+    "fra": "Pripyat 1 : accomplir la mission d'Ozersky.",
+    "ger": "Pripyat 1: Oserskis Mission abschließen",
+    "ita": "Pripyat 1: completa la missione di Ozersky",
+    "pol": "Prypeć 1: wypełnij misję Oziorskiego",
+    "rus": "«Припять-1»: выполнить задание Озёрского",
+    "spa": "Pripyat 1: completa la misión de Ozersky",
+    "ukr": "«Прип'ять-1»: виконати завдання Озьорського"
+  },
+  "jup_b218_soldier_do_scientist_quest_text": {
+    "eng": "You need to complete Ozersky’s mission involving the anomalous plant to get a protective suit for Sokolov.",
+    "fra": "Vous devez mener ŕ bien la mission que vous a confiée Ozersky et lui rapporter la plante anormale pour obtenir une combinaison pour Sokolov.",
+    "ger": "Sie müssen Oserskis Mission mit der anomalen Pflanze abschließen, um einen Schutzanzug für Sokolow zu bekommen.",
+    "ita": "Devi completare la missione di Ozersky riguardante lo stabilimento anomalo per ottenere una tuta protettiva per Sokolov.",
+    "pol": "Musisz wypełnić misję Oziorskiego dotyczącą nietypowej rośliny, aby zdobyć kombinezon ochronny dla Sokołowa.",
+    "rus": "Чтобы получить защитный костюм для Соколова, необходимо выполнить задание Озёрского и принести аномальное растение.",
+    "spa": "Tienes que completar la misión de Ozersky en la planta anómala y conseguir un traje protector para Sokolov.",
+    "ukr": "Щоб одержати захисний костюм для Соколова, необхідно виконати завдання Озьорського і принести аномальну рослину."
+  },
   "jup_b218_soldier_guide_to_zulus_name": {
     "eng": "Pripyat 1: take Sokolov to see Zulu",
     "fra": "Pripyat 1 : emmener Sokolov voir Zulu.",
@@ -1308,6 +1338,36 @@
     "rus": "Хвастовство Флинта переходит всякие границы. Нужно переговорить с ним, причём объяснить всё так, чтобы до него дошло.",
     "spa": "Pedernal se está pasando con sus alardes; deberías hablar con él y hacerle ver tu opinión.",
     "ukr": "Хвастощі Флінта переходять усі межі. Потрібно перемовитися з ним, причому так усе пояснити, щоб до нього направду дійшло."
+  },
+  "jup_b25_flint_and_senya_text": {
+    "eng": "It was Flint who left Splinter to die in the anomaly. Talk to him and find out why he did it.",
+    "fra": "C'est Flint qui a laissé Senya mourir dans une anomalie. Allez lui parler et découvrez les raisons de son geste.",
+    "ger": "Es war Flint, der Splitter in der Anomalie zurückgelassen hat. Reden Sie mit ihm und finden Sie heraus, warum er das getan hat.",
+    "ita": "Flint ha lasciato morire Scheggia nell'anomalia. Parla con lui e cerca di scoprirne il motivo.",
+    "pol": "To Flint pozwolił Drzazdze zginąć w anomalii. Porozmawiaj z nim i dowiedz się, dlaczego to zrobił.",
+    "rus": "Щепку бросил умирать в аномалии именно Флинт. Нужно поговорить с ним и узнать, почему он так поступил.",
+    "spa": "Fue Pedernal quien dejó morir al disidente en la anomalía. Habla con él y averigua por qué lo hizo.",
+    "ukr": "Тріску кинув помирати в аномалії саме Флінт. Потрібно поговорити із ним та взнати, чому він так повівся."
+  },
+  "jup_b25_revenge_senya_name": {
+    "eng": "Retribution: avenge Splinter",
+    "fra": "Châtiment : venger Senya.",
+    "ger": "Vergeltung: Splitter rächen",
+    "ita": "Castigo: vendica Scheggia",
+    "pol": "Zemsta: pomścij Drzazgę",
+    "rus": "Возмездие: отомстить за Щепку",
+    "spa": "Retribución: venga al disidente",
+    "ukr": "Відплата: помститися за Тріску"
+  },
+  "jup_b25_revenge_senya_text": {
+    "eng": "Find whoever left Splinter to die in an anomaly, having taken the artifact and left. Unfortunately, Splinter didn’t manage to name the villain, so all that’s known about him is that he is a member of Freedom.",
+    "fra": "Trouvez celui qui a laissé Senya mourir dans une anomalie aprčs s'ętre emparé de son artefact. Malheureusement, Senya est mort avant de pouvoir vous donner un nom. Il a cependant précisé qu'il s'agissait d'un membre de la Liberté.",
+    "ger": "Finden Sie heraus, wer Splitter in einer Anomalie zurückgelassen und sich mit seinem Artefakt aus dem Staub gemacht hat. Leider konnte Splitter den Namen des Übeltäters nicht mehr verraten, daher ist über ihn nur bekannt, dass er ein Freiheitler ist.",
+    "ita": "Scopri chi ha lasciato morire Scheggia, scappando dopo aver preso il manufatto. Purtroppo, Scheggia č morto prima di poter dire il suo nome, l'unica cosa che si sa č che era un membro della Freedom.",
+    "pol": "Dowiedz się, kto porzucił Drzazgę na śmierć w anomalii, zabrał artefakt i odszedł. Niestety, Drzazga nie zdołał powiedzieć, kto to był. Wiadomo tylko, że jest członkiem Wolności.",
+    "rus": "Отыскать того, кто бросил Щепку умирать в аномалии, а сам забрал артефакт и ушёл. К сожалению, Щепка не успел сказать, как звали того сталкера - известно только, что он из «свободовцев».",
+    "spa": "Encuentra a quien dejó morir al disidente en la anomalía y después se marchó con su artefacto. Por desgracia, el disidente no logró decir de quién se trataba, solo se sabe que pertenece a Libertad.",
+    "ukr": "Відшукати того, хто кинув Тріску помирати в аномалії, а сам забрав артефакт і пішов. На жаль, Тріска не встиг сказати, як звали того сталкера - відомо лише, що він зі «свободівців»."
   },
   "jup_b25_senya_accuse_flint_text": {
     "eng": "Flint, AKA Magpie, is a sneaky son of a bitch. You should expose him to the stalkers at Zaton or other factions - that would be revenge of the highest order.",
@@ -1689,6 +1749,46 @@
     "spa": "Parece que la medición de datos en la anomalía ha atraído a varios zombis de Kopachy. Debes proteger a los stalkers hasta que hayan obtenido los datos requeridos.",
     "ukr": "Схоже, проведення вимірів у аномалії привернуло увагу зомбі з Копачів. Треба прикривати сталкерів доти, доки вимірювання не буде завершено."
   },
+  "jup_b6_employ_stalkers_name": {
+    "eng": "Research group: Hire the right people",
+    "fra": "Groupe de recherche : recruter des hommes de confiance",
+    "ger": "Forschungsgruppe: Die richtigen Leute anheuern",
+    "ita": "Gruppo di ricerca: assumi le persone giuste",
+    "pol": "Grupa badawcza: wynajmij odpowiednich ludzi",
+    "rus": "Исследовательская группа: подобрать людей",
+    "spa": "Grupo de investigación: contrata a la gente adecuada",
+    "ukr": "Дослідницька група: підібрати людей"
+  },
+  "jup_b6_employ_stalkers_reward_name": {
+    "eng": "Research group: Return to Hermann for the reward",
+    "fra": "Groupe de recherche : retourner auprčs d'Hermann pour obtenir la récompense.",
+    "ger": "Forschungsgruppe: Bei Hermann die Belohnung abholen",
+    "ita": "Gruppo di ricerca: torna da Hermann per ricevere la ricompensa",
+    "pol": "Grupa badawcza: wróć do Hermana po nagrodę",
+    "rus": "Исследовательская группа: вернуться к Герману за наградой",
+    "spa": "Grupo de investigación: vuelve con Hermann para recoger la recompensa",
+    "ukr": "Дослідницька група: повернутися до Германа по винагороду"
+  },
+  "jup_b6_employ_stalkers_reward_text": {
+    "eng": "You've found the right people for a new research group. Now return to Hermann to collect your reward.",
+    "fra": "Vous avez trouvé les candidats idéaux pour le groupe de recherche. Retournez auprčs d'Hermann pour obtenir votre récompense.",
+    "ger": "Sie haben die passenden Leute für eine neue Forschungsgruppe aufgetrieben. Kehren Sie jetzt zu Hermann zurück, um Ihre Belohnung zu kassieren.",
+    "ita": "Hai trovato le persone giuste per formare la nuova squadra di ricercatori. Ora torna da Hermann per ricevere la tua ricompensa.",
+    "pol": "Udało ci się znaleźć odpowiednich ludzi do nowej grupy badawczej. Możesz wrócić do Hermana, aby odebrać nagrodę.",
+    "rus": "Люди для новой исследовательской группы подобраны. Необходимо вернуться к Герману за причитающимся вознаграждением.",
+    "spa": "Has encontrado a la gente adecuada para un nuevo grupo de investigación. Ahora vuelve con Hermann y recoge tu recompensa.",
+    "ukr": "Людей для нової дослідницької групи підібрано. Необхідно повернутися до Германа по винагороду."
+  },
+  "jup_b6_employ_stalkers_text": {
+    "eng": "A research group working for the scientists has perished. You must staff a new group so research can continue.",
+    "fra": "Un groupe de recherche qui travaillait pour les scientifiques a été tué. Vous devez recruter de nouveaux hommes afin que les recherches puissent continuer.",
+    "ger": "Eine Forschungsgruppe, die für die Wissenschaftler gearbeitet hat, ist verschwunden. Sie müssen eine neue Gruppe zusammenstellen, damit die Arbeit fortgesetzt werden kann.",
+    "ita": "Tutti i membri di un gruppo di ricerca che lavorava per gli scienziati sono morti. Devi formare un nuovo gruppo perché la ricerca possa proseguire.",
+    "pol": "Członkowie grupy badawczej pracującej dla naukowców zginęli. Musisz zatrudnić nowych ludzi, aby kontynuować badania.",
+    "rus": "Исследовательская группа, работавшая на учёных, погибла. Необходимо подобрать новую группу для продолжения научной работы.",
+    "spa": "Un grupo de trabajo que trabajaba para los científicos ha perecido. Tienes que formar un nuevo grupo para que la investigación siga.",
+    "ukr": "Дослідницька група, що працювала на вчених, загинула. Необхідно підібрати нову групу для продовження наукової праці."
+  },
   "jup_b6_get_reward_name": {
     "eng": "Anomaly research: talk to Hermann",
     "fra": "Étude de l'anomalie : parler ŕ Hermann.",
@@ -1909,6 +2009,46 @@
     "spa": "Investiga el lugar del accidente del Pez Raya 1.",
     "ukr": "Дослідити місце падіння гелікоптера «Скат-1»."
   },
+  "pas_b400_pripyat_control_text": {
+    "eng": "You must unblock the gate to keep going. This can probably be done from the control room.",
+    "fra": "Vous devez déverrouiller le portail pour continuer. Pour cela, rendez-vous dans la salle de contrôle.",
+    "ger": "Sie müssen das Tor aufschließen, um weitergehen zu können. Dies kann vermutlich im Kontrollraum erledigt werden.",
+    "ita": "Per procedere devi sbloccare il cancello. Probabilmente puoi farlo dalla sala di controllo.",
+    "pol": "Musisz odblokować bramę, aby przejść dalej. Prawdopodobnie można to zrobić w sterowni.",
+    "rus": "Для дальнейшего продвижения необходимо разблокировать ворота. Предположительно это можно сделать из диспетчерской.",
+    "spa": "Debes desbloquear la puerta para continuar. Probablemente puedas hacerlo desde la sala de control.",
+    "ukr": "Для подальшого просування необхідно розблокувати ворота. Ймовірно, це можна зробити з диспетчерської."
+  },
+  "pas_b400_pripyat_door_text": {
+    "eng": "You must open the door to keep going.",
+    "fra": "Vous devez ouvrir la porte pour continuer.",
+    "ger": "Sie müssen die Tür öffnen, um weitergehen zu können.",
+    "ita": "Per procedere devi aprire la porta.",
+    "pol": "Musisz otworzyć drzwi, aby przejść dalej.",
+    "rus": "Для дальнейшего продвижения необходимо открыть дверь.",
+    "spa": "Debes abrir la puerta para continuar.",
+    "ukr": "Для подальшого просування необхідно відкрити двері."
+  },
+  "pas_b400_pripyat_gate_text": {
+    "eng": "You must open the gate to keep going.",
+    "fra": "Vous devez ouvrir le portail pour continuer.",
+    "ger": "Sie müssen das Tor öffnen, um weitergehen zu können.",
+    "ita": "Per procedere devi aprire il cancello.",
+    "pol": "Musisz otworzyć bramę, aby przejść dalej.",
+    "rus": "Для дальнейшего продвижения необходимо открыть ворота.",
+    "spa": "Debes abrir la puerta para continuar.",
+    "ukr": "Для подальшого просування необхідно відкрити ворота."
+  },
+  "pas_b400_pripyat_hall_door_text": {
+    "eng": "You must activate the power supply to the gate to keep going.",
+    "fra": "Vous devez activer l'alimentation du portail pour pouvoir continuer.",
+    "ger": "Sie müssen die Stromversorgung zum Tor aktivieren, um weitergehen zu können.",
+    "ita": "Devi attivare il sistema di alimentazione del cancello per procedere.",
+    "pol": "Musisz aktywować zasilanie w bramie, aby przejść dalej.",
+    "rus": "Для дальнейшего продвижения необходимо включить питание ворот.",
+    "spa": "Debes activar la corriente de la puerta para continuar.",
+    "ukr": "Для подальшого просування необхідно включити живлення воріт."
+  },
   "pas_b400_pripyat_name": {
     "eng": "Pripyat 1: get to Pripyat",
     "fra": "Pripyat 1 : aller ŕ Pripyat.",
@@ -2089,6 +2229,26 @@
     "spa": "Según la grabación de la caja negra de uno de los helicópteros, las unidades del ejército tenían que encontrarse en el punto de evacuación B28. A juzgar por los mapas hallados en el otro helicóptero que participó en la misión, este punto está en Pripyat. Tendrás que encontrar un modo de llegar hasta allí; habla con el guía.",
     "ukr": "Судячи із записів з «чорного ящика» одного з гелікоптерів, військові мали зібратися у точці евакуації Б28. Вона знаходиться у Прип'яті: так, в усякому разі, свідчать знайдені в іншому гелікоптері мапи. Доведеться шукати можливість потрапити туди - треба поговорити про це із проводирем."
   },
+  "zat_b207_depot_reward_task_duty_text": {
+    "eng": "Lieutenant Colonel Shulga has permitted you to take any equipment you want from the Duty warehouse if you manage to capture it.",
+    "fra": "Le lieutenant colonel Shulga vous a autorisé ŕ vous servir dans l'entrepôt du Devoir si vous parvenez ŕ en prendre le contrôle.",
+    "ger": "Oberstleutnant Shulga hat Ihnen die Erlaubnis erteilt, jede beliebige Ausrüstung aus dem Lagerhaus der Wächter zu nehmen, wenn Sie es erobern können.",
+    "ita": "Il Tenente Colonnello Shulga ti ha permetto di prelevare tutti gli equipaggiamenti che vorrai dal magazzino della Duty, se riuscirai a conquistarlo.",
+    "pol": "Podpułkownik Szulga pozwolił ci zabrać z magazynu Powinności co tylko chcesz, o ile zdołasz go odbić od oddziału Wolności.",
+    "rus": "Подполковник Шульга разрешил взять любое снаряжение со склада «Долга», если удастся отбить его у отряда «Свободы».",
+    "spa": "El teniente coronel Shulga te ha permitido llevarte cualquier equipo que quieras del almacén de Deber si consigues cogerlo.",
+    "ukr": "Підполковник Шульга дозволив узяти будь-яке спорядження зі складу «Долгу», якщо вдасться відбити його в загону «Волі»."
+  },
+  "zat_b207_depot_reward_task_freedom_text": {
+    "eng": "Loki has allowed you to take any equipment you want from the Duty warehouse as long as it’s held by Freedom fighters.",
+    "fra": "Loki vous a donné l'autorisation de vous servir dans l'entrepôt du Devoir tant qu'il restera aux mains des combattants de la Liberté.",
+    "ger": "Loki hat Ihnen die Erlaubnis erteilt, jede beliebige Ausrüstung aus dem Lagerhaus der Wächter zu nehmen, solange es von der Freiheit kontrolliert wird.",
+    "ita": "Loki ti ha permetto di prelevare tutti gli equipaggiamenti che vorrai dal magazzino della Duty, a patto che non siano di proprietŕ dei combattenti della Freedom.",
+    "pol": "Loki pozwolił ci brać z magazynu Powinności co tylko chcesz, dopóki jest on w posiadaniu wojowników Wolności.",
+    "rus": "Локи разрешил брать любое снаряжение со склада «Долга», пока его удерживают бойцы «Свободы».",
+    "spa": "Loki te ha permitido llevarte cualquier equipo que quieras del almacén de Deber mientras lo controlen los soldados de Libertad.",
+    "ukr": "Локі дозволив брати будь-яке спорядження зі складу «Долгу», доки його утримують бійці «Волі»."
+  },
   "zat_b207_depot_reward_task_name": {
     "eng": "Duty warehouse: take what you're owed",
     "fra": "L'entrepôt du Devoir : prendre ce qui vous revient.",
@@ -2118,165 +2278,5 @@
     "rus": "В качестве оплаты за молчание о его комбинациях барыга Морган предложил доступ к складу «Долга». Надо с ним встретиться в оговоренном месте - возле карьера.",
     "spa": "El comerciante Morgan te ha proporcionado acceso al almacén de Deber como pago por tu silencio. Tienes que reunirte con él junto a la cantera.",
     "ukr": "Як плату за мовчання про його комбінації барига Морган запропонував доступ до складу «Долгу». Треба із ним зустрітися в обговореному місці - біля кар'єру."
-  },
-  "pas_b400_pripyat_gate_text": {
-    "eng": "You must open the gate to keep going.",
-    "fra": "Vous devez ouvrir le portail pour continuer.",
-    "ger": "Sie müssen das Tor öffnen, um weitergehen zu können.",
-    "ita": "Per procedere devi aprire il cancello.",
-    "pol": "Musisz otworzyć bramę, aby przejść dalej.",
-    "rus": "Для дальнейшего продвижения необходимо открыть ворота.",
-    "spa": "Debes abrir la puerta para continuar.",
-    "ukr": "Для подальшого просування необхідно відкрити ворота."
-  },
-  "pas_b400_pripyat_door_text": {
-    "eng": "You must open the door to keep going.",
-    "fra": "Vous devez ouvrir la porte pour continuer.",
-    "ger": "Sie müssen die Tür öffnen, um weitergehen zu können.",
-    "ita": "Per procedere devi aprire la porta.",
-    "pol": "Musisz otworzyć drzwi, aby przejść dalej.",
-    "rus": "Для дальнейшего продвижения необходимо открыть дверь.",
-    "spa": "Debes abrir la puerta para continuar.",
-    "ukr": "Для подальшого просування необхідно відкрити двері."
-  },
-  "pas_b400_pripyat_hall_door_text": {
-    "eng": "You must activate the power supply to the gate to keep going.",
-    "fra": "Vous devez activer l'alimentation du portail pour pouvoir continuer.",
-    "ger": "Sie müssen die Stromversorgung zum Tor aktivieren, um weitergehen zu können.",
-    "ita": "Devi attivare il sistema di alimentazione del cancello per procedere.",
-    "pol": "Musisz aktywować zasilanie w bramie, aby przejść dalej.",
-    "rus": "Для дальнейшего продвижения необходимо включить питание ворот.",
-    "spa": "Debes activar la corriente de la puerta para continuar.",
-    "ukr": "Для подальшого просування необхідно включити живлення воріт."
-  },
-  "pas_b400_pripyat_control_text": {
-    "eng": "You must unblock the gate to keep going. This can probably be done from the control room.",
-    "fra": "Vous devez déverrouiller le portail pour continuer. Pour cela, rendez-vous dans la salle de contrôle.",
-    "ger": "Sie müssen das Tor aufschließen, um weitergehen zu können. Dies kann vermutlich im Kontrollraum erledigt werden.",
-    "ita": "Per procedere devi sbloccare il cancello. Probabilmente puoi farlo dalla sala di controllo.",
-    "pol": "Musisz odblokować bramę, aby przejść dalej. Prawdopodobnie można to zrobić w sterowni.",
-    "rus": "Для дальнейшего продвижения необходимо разблокировать ворота. Предположительно это можно сделать из диспетчерской.",
-    "spa": "Debes desbloquear la puerta para continuar. Probablemente puedas hacerlo desde la sala de control.",
-    "ukr": "Для подальшого просування необхідно розблокувати ворота. Ймовірно, це можна зробити з диспетчерської."
-  },
-  "jup_b6_employ_stalkers_name": {
-    "eng": "Research group: Hire the right people",
-    "fra": "Groupe de recherche : recruter des hommes de confiance",
-    "ger": "Forschungsgruppe: Die richtigen Leute anheuern",
-    "ita": "Gruppo di ricerca: assumi le persone giuste",
-    "pol": "Grupa badawcza: wynajmij odpowiednich ludzi",
-    "rus": "Исследовательская группа: подобрать людей",
-    "spa": "Grupo de investigación: contrata a la gente adecuada",
-    "ukr": "Дослідницька група: підібрати людей"
-  },
-  "jup_b6_employ_stalkers_text": {
-    "eng": "A research group working for the scientists has perished. You must staff a new group so research can continue.",
-    "fra": "Un groupe de recherche qui travaillait pour les scientifiques a été tué. Vous devez recruter de nouveaux hommes afin que les recherches puissent continuer.",
-    "ger": "Eine Forschungsgruppe, die für die Wissenschaftler gearbeitet hat, ist verschwunden. Sie müssen eine neue Gruppe zusammenstellen, damit die Arbeit fortgesetzt werden kann.",
-    "ita": "Tutti i membri di un gruppo di ricerca che lavorava per gli scienziati sono morti. Devi formare un nuovo gruppo perché la ricerca possa proseguire.",
-    "pol": "Członkowie grupy badawczej pracującej dla naukowców zginęli. Musisz zatrudnić nowych ludzi, aby kontynuować badania.",
-    "rus": "Исследовательская группа, работавшая на учёных, погибла. Необходимо подобрать новую группу для продолжения научной работы.",
-    "spa": "Un grupo de trabajo que trabajaba para los científicos ha perecido. Tienes que formar un nuevo grupo para que la investigación siga.",
-    "ukr": "Дослідницька група, що працювала на вчених, загинула. Необхідно підібрати нову групу для продовження наукової праці."
-  },
-  "jup_b6_employ_stalkers_reward_name": {
-    "eng": "Research group: Return to Hermann for the reward",
-    "fra": "Groupe de recherche : retourner auprčs d'Hermann pour obtenir la récompense.",
-    "ger": "Forschungsgruppe: Bei Hermann die Belohnung abholen",
-    "ita": "Gruppo di ricerca: torna da Hermann per ricevere la ricompensa",
-    "pol": "Grupa badawcza: wróć do Hermana po nagrodę",
-    "rus": "Исследовательская группа: вернуться к Герману за наградой",
-    "spa": "Grupo de investigación: vuelve con Hermann para recoger la recompensa",
-    "ukr": "Дослідницька група: повернутися до Германа по винагороду"
-  },
-  "jup_b6_employ_stalkers_reward_text": {
-    "eng": "You've found the right people for a new research group. Now return to Hermann to collect your reward.",
-    "fra": "Vous avez trouvé les candidats idéaux pour le groupe de recherche. Retournez auprčs d'Hermann pour obtenir votre récompense.",
-    "ger": "Sie haben die passenden Leute für eine neue Forschungsgruppe aufgetrieben. Kehren Sie jetzt zu Hermann zurück, um Ihre Belohnung zu kassieren.",
-    "ita": "Hai trovato le persone giuste per formare la nuova squadra di ricercatori. Ora torna da Hermann per ricevere la tua ricompensa.",
-    "pol": "Udało ci się znaleźć odpowiednich ludzi do nowej grupy badawczej. Możesz wrócić do Hermana, aby odebrać nagrodę.",
-    "rus": "Люди для новой исследовательской группы подобраны. Необходимо вернуться к Герману за причитающимся вознаграждением.",
-    "spa": "Has encontrado a la gente adecuada para un nuevo grupo de investigación. Ahora vuelve con Hermann y recoge tu recompensa.",
-    "ukr": "Людей для нової дослідницької групи підібрано. Необхідно повернутися до Германа по винагороду."
-  },
-  "jup_b218_soldier_do_scientist_quest_name": {
-    "eng": "Pripyat 1: complete Ozersky’s mission",
-    "fra": "Pripyat 1 : accomplir la mission d'Ozersky.",
-    "ger": "Pripyat 1: Oserskis Mission abschließen",
-    "ita": "Pripyat 1: completa la missione di Ozersky",
-    "pol": "Prypeć 1: wypełnij misję Oziorskiego",
-    "rus": "«Припять-1»: выполнить задание Озёрского",
-    "spa": "Pripyat 1: completa la misión de Ozersky",
-    "ukr": "«Прип'ять-1»: виконати завдання Озьорського"
-  },
-  "jup_b218_soldier_do_scientist_quest_text": {
-    "eng": "You need to complete Ozersky’s mission involving the anomalous plant to get a protective suit for Sokolov.",
-    "fra": "Vous devez mener ŕ bien la mission que vous a confiée Ozersky et lui rapporter la plante anormale pour obtenir une combinaison pour Sokolov.",
-    "ger": "Sie müssen Oserskis Mission mit der anomalen Pflanze abschließen, um einen Schutzanzug für Sokolow zu bekommen.",
-    "ita": "Devi completare la missione di Ozersky riguardante lo stabilimento anomalo per ottenere una tuta protettiva per Sokolov.",
-    "pol": "Musisz wypełnić misję Oziorskiego dotyczącą nietypowej rośliny, aby zdobyć kombinezon ochronny dla Sokołowa.",
-    "rus": "Чтобы получить защитный костюм для Соколова, необходимо выполнить задание Озёрского и принести аномальное растение.",
-    "spa": "Tienes que completar la misión de Ozersky en la planta anómala y conseguir un traje protector para Sokolov.",
-    "ukr": "Щоб одержати захисний костюм для Соколова, необхідно виконати завдання Озьорського і принести аномальну рослину."
-  },
-  "jup_b200_tech_materials_inside_text": {
-    "eng": "Nitro needs radio technical materials. You need to find them in the cement factory.",
-    "fra": "Nitro a besoin de matériel radio. Vous en trouverez dans la cimenterie.",
-    "ger": "Nitro braucht Funktechnikmaterialien. Sie müssen in der Zementfabrik danach suchen.",
-    "ita": "A Nitro servono dei dispositivi radio. Dovresti cercarli nella fabbrica di cemento.",
-    "pol": "Azot potrzebuje materiałów radiotechnicznych. Musisz je znaleźć w cementowni.",
-    "rus": "Азоту нужны материалы для радиотехники. Необходимо найти их в здании цементного завода.",
-    "spa": "Nitro necesita material de radio. Lo encontrarás en la fábrica de cemento.",
-    "ukr": "Азотові потрібні матеріали для радіотехніки. Необхідно відшукати їх у будівлі цементного заводу."
-  },
-  "jup_b25_flint_and_senya_text": {
-    "eng": "It was Flint who left Splinter to die in the anomaly. Talk to him and find out why he did it.",
-    "fra": "C'est Flint qui a laissé Senya mourir dans une anomalie. Allez lui parler et découvrez les raisons de son geste.",
-    "ger": "Es war Flint, der Splitter in der Anomalie zurückgelassen hat. Reden Sie mit ihm und finden Sie heraus, warum er das getan hat.",
-    "ita": "Flint ha lasciato morire Scheggia nell'anomalia. Parla con lui e cerca di scoprirne il motivo.",
-    "pol": "To Flint pozwolił Drzazdze zginąć w anomalii. Porozmawiaj z nim i dowiedz się, dlaczego to zrobił.",
-    "rus": "Щепку бросил умирать в аномалии именно Флинт. Нужно поговорить с ним и узнать, почему он так поступил.",
-    "spa": "Fue Pedernal quien dejó morir al disidente en la anomalía. Habla con él y averigua por qué lo hizo.",
-    "ukr": "Тріску кинув помирати в аномалії саме Флінт. Потрібно поговорити із ним та взнати, чому він так повівся."
-  },
-  "jup_b25_revenge_senya_name": {
-    "eng": "Retribution: avenge Splinter",
-    "fra": "Châtiment : venger Senya.",
-    "ger": "Vergeltung: Splitter rächen",
-    "ita": "Castigo: vendica Scheggia",
-    "pol": "Zemsta: pomścij Drzazgę",
-    "rus": "Возмездие: отомстить за Щепку",
-    "spa": "Retribución: venga al disidente",
-    "ukr": "Відплата: помститися за Тріску"
-  },
-  "jup_b25_revenge_senya_text": {
-    "eng": "Find whoever left Splinter to die in an anomaly, having taken the artifact and left. Unfortunately, Splinter didn’t manage to name the villain, so all that’s known about him is that he is a member of Freedom.",
-    "fra": "Trouvez celui qui a laissé Senya mourir dans une anomalie aprčs s'ętre emparé de son artefact. Malheureusement, Senya est mort avant de pouvoir vous donner un nom. Il a cependant précisé qu'il s'agissait d'un membre de la Liberté.",
-    "ger": "Finden Sie heraus, wer Splitter in einer Anomalie zurückgelassen und sich mit seinem Artefakt aus dem Staub gemacht hat. Leider konnte Splitter den Namen des Übeltäters nicht mehr verraten, daher ist über ihn nur bekannt, dass er ein Freiheitler ist.",
-    "ita": "Scopri chi ha lasciato morire Scheggia, scappando dopo aver preso il manufatto. Purtroppo, Scheggia č morto prima di poter dire il suo nome, l'unica cosa che si sa č che era un membro della Freedom.",
-    "pol": "Dowiedz się, kto porzucił Drzazgę na śmierć w anomalii, zabrał artefakt i odszedł. Niestety, Drzazga nie zdołał powiedzieć, kto to był. Wiadomo tylko, że jest członkiem Wolności.",
-    "rus": "Отыскать того, кто бросил Щепку умирать в аномалии, а сам забрал артефакт и ушёл. К сожалению, Щепка не успел сказать, как звали того сталкера - известно только, что он из «свободовцев».",
-    "spa": "Encuentra a quien dejó morir al disidente en la anomalía y después se marchó con su artefacto. Por desgracia, el disidente no logró decir de quién se trataba, solo se sabe que pertenece a Libertad.",
-    "ukr": "Відшукати того, хто кинув Тріску помирати в аномалії, а сам забрав артефакт і пішов. На жаль, Тріска не встиг сказати, як звали того сталкера - відомо лише, що він зі «свободівців»."
-  },
-  "zat_b207_depot_reward_task_duty_text": {
-    "eng": "Lieutenant Colonel Shulga has permitted you to take any equipment you want from the Duty warehouse if you manage to capture it.",
-    "fra": "Le lieutenant colonel Shulga vous a autorisé ŕ vous servir dans l'entrepôt du Devoir si vous parvenez ŕ en prendre le contrôle.",
-    "ger": "Oberstleutnant Shulga hat Ihnen die Erlaubnis erteilt, jede beliebige Ausrüstung aus dem Lagerhaus der Wächter zu nehmen, wenn Sie es erobern können.",
-    "ita": "Il Tenente Colonnello Shulga ti ha permetto di prelevare tutti gli equipaggiamenti che vorrai dal magazzino della Duty, se riuscirai a conquistarlo.",
-    "pol": "Podpułkownik Szulga pozwolił ci zabrać z magazynu Powinności co tylko chcesz, o ile zdołasz go odbić od oddziału Wolności.",
-    "rus": "Подполковник Шульга разрешил взять любое снаряжение со склада «Долга», если удастся отбить его у отряда «Свободы».",
-    "spa": "El teniente coronel Shulga te ha permitido llevarte cualquier equipo que quieras del almacén de Deber si consigues cogerlo.",
-    "ukr": "Підполковник Шульга дозволив узяти будь-яке спорядження зі складу «Долгу», якщо вдасться відбити його в загону «Волі»."
-  },
-  "zat_b207_depot_reward_task_freedom_text": {
-    "eng": "Loki has allowed you to take any equipment you want from the Duty warehouse as long as it’s held by Freedom fighters.",
-    "fra": "Loki vous a donné l'autorisation de vous servir dans l'entrepôt du Devoir tant qu'il restera aux mains des combattants de la Liberté.",
-    "ger": "Loki hat Ihnen die Erlaubnis erteilt, jede beliebige Ausrüstung aus dem Lagerhaus der Wächter zu nehmen, solange es von der Freiheit kontrolliert wird.",
-    "ita": "Loki ti ha permetto di prelevare tutti gli equipaggiamenti che vorrai dal magazzino della Duty, a patto che non siano di proprietŕ dei combattenti della Freedom.",
-    "pol": "Loki pozwolił ci brać z magazynu Powinności co tylko chcesz, dopóki jest on w posiadaniu wojowników Wolności.",
-    "rus": "Локи разрешил брать любое снаряжение со склада «Долга», пока его удерживают бойцы «Свободы».",
-    "spa": "Loki te ha permitido llevarte cualquier equipo que quieras del almacén de Deber mientras lo controlen los soldados de Libertad.",
-    "ukr": "Локі дозволив брати будь-яке спорядження зі складу «Долгу», доки його утримують бійці «Волі»."
   }
 }

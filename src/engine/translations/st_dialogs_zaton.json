@@ -159,6 +159,16 @@
     "spa": "Conseguiré un Gravi.",
     "ukr": "Я дістану «Граві»."
   },
+  "zat_a2_linker_b29_actor_get_adv_task_111": {
+    "eng": "OK, I’ll be waiting... Keep in mind that the job is urgent - it has to be done within two days.",
+    "fra": "Ok, je vais attendre... Mais il faut absolument que ce soit fait dans les deux jours.",
+    "ger": "In Ordnung, ich warte... vergiss aber nicht, dass der Job dringend ist - er muss innerhalb von zwei Tagen erledigt werden.",
+    "ita": "OK, aspetterň... Ma ricorda che il lavoro č urgente, deve essere portato a termine entro due giorni.",
+    "pol": "Dobra, będę czekać... Pamiętaj, że robota jest pilna - trzeba ją wykonać w ciągu dwóch dni.",
+    "rus": "Буду ждать с нетерпением. Учти, заказ срочный, нужно за двое суток выполнить.",
+    "spa": "Vale, te esperaré. Recuerda que es un trabajo urgente: tiene que hacerse en dos días.",
+    "ukr": "Чекатиму з нетерпінням. Врахуй, замовлення термінове, треба за дві доби виконати."
+  },
   "zat_a2_linker_b29_actor_get_adv_task_112": {
     "eng": "Excellent! That was quick. Here's your compensation.",
     "fra": "Génial ! T'as pas traîné ! Voilŕ ta prime !",
@@ -388,6 +398,16 @@
     "rus": "Расскажи про артефакты под заказ.",
     "spa": "Háblame de los pedidos de artefactos.",
     "ukr": "Розкажи про артефакти під замовлення."
+  },
+  "zat_a2_linker_b29_actor_info_1": {
+    "eng": "I have major customers outside the Zone who regularly order specific artifacts, which must be delivered within a specific period of time. You bring me what I ask and I pay you good money for it. Keep in mind that these orders are very important for me, which is why I try to commission several agents at a time... You get the full fee only if you deliver first.",
+    "fra": "J'ai de gros clients en dehors de la Zone qui ont réguličrement besoin de certains artefacts ŕ des moments bien précis. Tu me rapportes ce dont j'ai besoin et je te paie grassement en échange. Par contre, ces commandes sont trčs importantes pour moi, alors j'ai toujours plusieurs mecs sur le coup... Et seul le premier ŕ me livrer mon artefact empoche l'intégralité de la prime.",
+    "ger": "Außerhalb der Zone habe ich einige wichtige Kunden, die immer wieder ausgewählte Artefakte bestellen. Und die müssen zu vorgegebenen Zeiten geliefert werden. Wenn du mir bringst, was ich brauche, lass ich gutes Geld springen. Aber wie gesagt: Es handelt sich um sehr wichtige Bestellungen und deshalb schicke ich immer mehrere Leute los. Die volle Bezahlung bekommst du nur dann, wenn du auch als Erster lieferst.",
+    "ita": "All'interno della Zona lavoro con importanti clienti che regolarmente mi richiedono specifici manufatti che devono essere consegnati con puntualitŕ. Tu portami quello che ti chiedo e ti pagherň bene. Ricorda che questi ordini sono importanti per me, ecco perché cerco di commissionarli a piů agenti alla volta... Verrai pagato interamente solo se mi consegni il manufatto per primo.",
+    "pol": "Na zewnątrz Zony mam ważnych klientów, którzy regularnie zamawiają konkretne artefakty, a te z kolei muszą być dostarczone w określonym czasie. Przynoś mi to, o co proszę, a ja będę ci za to dobrze płacił. Pamiętaj, że te zamówienia są dla mnie bardzo ważne i dlatego zlecam robotę kilku agentom naraz... Pełną zapłatę dostaje tylko ten, kto przyniesie artefakt jako pierwszy.",
+    "rus": "У меня есть крупные заказчики за пределами Зоны. Время от времени они заказывают конкретные артефакты в конкретные сроки. Приносишь его - я плачу хорошие деньги. Учти: эти заказы очень важны для меня, поэтому я ищу нескольких исполнителей одновременно. И полную сумму получает только первый.",
+    "spa": "Tengo clientes importantes fuera de la Zona que habitualmente me encargan artefactos, y hay que entregárselos en un plazo determinado. Si me consigues lo que busco, te pagaré bien. Ten en cuenta que son pedidos muy importantes para mí; por eso intento encargárselos a varios agentes a la vez. Solo pago toda la recompensa a quien me lo trae primero.",
+    "ukr": "Я маю великих замовників за межами Зони. Час від часу вони замовляють конкретні артефакти у конкретний термін. Приносиш його - я плачу гарні гроші. Врахуй: ці замовлення дуже важливі для мене, тому я шукаю кількох виконавців одночасно. І повну суму отримує лише перший."
   },
   "zat_a2_stalker_barmen_about_sci_guards_0": {
     "eng": "Who could I hire to protect the scientists?",
@@ -1839,6 +1859,36 @@
     "spa": "Sí, gracias.",
     "ukr": "Так. Спасибі."
   },
+  "zat_b106_stalker_gonta_info_about_soroka_gone_0": {
+    "eng": "I found Magpie. He was at Yanov station, posing as 'Flint.' He’s been dealt with.",
+    "fra": "J'ai trouvé la Pie. Il se cachait dans la gare de Yanov oů il se faisait appeler Flint. Je me suis chargé de son cas.",
+    "ger": "Ich habe Magpie gefunden. Er war in der Janow-Station und hat sich dort als ein gewisser \"Flint\" ausgegeben. Ich habe mich um ihn gekümmert.",
+    "ita": "Ho trovato Magpie. Era alla stazione Yanov, dove si faceva chiamare 'Flint'. L'ho giŕ sistemato.",
+    "pol": "Znalazłem Srokę. Był w stacji Janów, przedstawiał się jako Flint. Już załatwiony.",
+    "rus": "Я нашёл Сороку - он был на станции «Янов» под именем Флинт. С ним уже разобрались.",
+    "spa": "He encontrado a Urraca. Estaba en la estación de Yanov, haciéndose pasar por Pedernal. Acabé con él.",
+    "ukr": "Я знайшов Сороку. На станції «Янів» він носив прізвисько Флінт. Із ним уже розібралися."
+  },
+  "zat_b106_stalker_gonta_info_about_soroka_gone_1": {
+    "eng": "Dealt with? That’s a pity. I sure would have loved to hurt that cockroach myself... Oh well, it's good news either way. Here, take this - I’m a man of my word.",
+    "fra": "Chargé de son cas ? Dommage, j'aurais aimé écraser ce cafard moi-męme... Tant pis, ça reste une bonne nouvelle. Voilŕ la récompense, je suis un homme de parole.",
+    "ger": "Um ihn gekümmert? Das ist schade. Ich hätte mich liebend gerne selbst um diese miese Ratte gekümmert... aber was soll's? Dennoch sind das gute Neuigkeiten! Hier, für dich - ich stehe zu meinem Wort.",
+    "ita": "Sistemato? Che peccato. Mi sarebbe piaciuto dare una lezione a quello scarafaggio... Oh, beh, č comunque una buona notizia. Ecco, prendi questo. Io sono un uomo di parola.",
+    "pol": "Załatwiony? Szkoda. Sam bym chciał rozdeptać tego robala... No nic, to i tak dobra wiadomość. Weź to - dotrzymuję słowa.",
+    "rus": "Разобрались? Эх, жаль! Даже за горло не подержался... Ну, ничего, все равно весть хорошая. Вот, держи. Как обещал.",
+    "spa": "żEn serio? Qué pena... Me hubiera encantado aplastar personalmente a esa cucaracha. En fin, es una buena noticia. Aquí tienes; soy un hombre de palabra.",
+    "ukr": "Розібралися? Эх, шкода! Навіть за горло не потримався... Ну, нічого, усе рівно звістка гарна. От, тримай. Як обіцяв."
+  },
+  "zat_b106_stalker_gonta_info_about_soroka_gone_11": {
+    "eng": "Thanks.",
+    "fra": "Merci.",
+    "ger": "Danke.",
+    "ita": "Grazie.",
+    "pol": "Dzięki.",
+    "rus": "Спасибо.",
+    "spa": "Gracias.",
+    "ukr": "Дякую."
+  },
   "zat_b106_stalker_gonta_info_about_soroka_start_11": {
     "eng": "Dude, you seen this Magpie guy? Know him?... No? Well, if you come across that scumbag, feel free to put a bullet in his head. Or you can tell me where he can be found and I'll make it worth your while.",
     "fra": "Eh, t'aurais pas vu la Pie, des fois ? Tu le connais ? Non ? Eh bien, si tu le vois, tu peux lui coller une balle entre les deux yeux de ma part ! Ou tu peux me dire oů le trouver... Tu le regretteras pas !",
@@ -2409,6 +2459,16 @@
     "spa": "En otra ocasión.",
     "ukr": "Якось іншим разом."
   },
+  "zat_b18_noah_plateau_way_112": {
+    "eng": "Via the burnt farmstead. Hrm... Who are you, anyway?",
+    "fra": "Par la ferme brűlée, hein ? Hum... qui t'es, d'abord ?",
+    "ger": "Über den abgebrannten Bauernhof. Hmm... wer bist du eigentlich?",
+    "ita": "Attraverso la fattoria bruciata. Mmm... ma tu chi sei?",
+    "pol": "Przez spalone gospodarstwo. Hmm... Kim ty właściwie jesteś?",
+    "rus": "Через сгоревший хутор. Хм-м... А ты вообще кто?",
+    "spa": "Por la granja quemada. Mmm... żQuién eres, si puede saberse?",
+    "ukr": "Через згорілий хутір. Хм-м... А ти взагалі хто?"
+  },
   "zat_b18_noah_plateau_way_1121": {
     "eng": "A stalker.",
     "fra": "Un stalker.",
@@ -2738,6 +2798,56 @@
     "rus": "Расскажи о выбросе.",
     "spa": "Háblame de las emisiones.",
     "ukr": "Розкажи про викид."
+  },
+  "zat_b215_stalker_guide_about_surge_1": {
+    "eng": "To be honest with you, there's not much to tell. Emissions are especially dangerous and almost always fatal. You can feel one coming on gradually, by the changing weather, but it passes soon after hitting its peak. At the first signs of its approach, run for the nearest cover - a cave, something made of concrete, bricks or steel... Like some others, I can feel an emission coming on when my back starts to ache. As for the nature of emissions, I don't have anything useful to tell you - I just don't know.",
+    "fra": "Franchement, y a pas grand-chose ŕ dire. Les émissions sont extręmement dangereuses et presque toujours mortelles. On peut les sentir approcher quand le temps change soudainement, mais ça ne dure pas. Aux premiers signes de l'émission, il faut courir se mettre ŕ l'abri. N'importe oů, dans une grotte, un abri en béton, en brique ou en métal... Je fais partie de ceux qui peuvent les sentir approcher... Elles réveillent une douleur dans mon dos. En ce qui concerne la nature des émissions, j'ai rien d'utile ŕ dire, vu que j'en sais rien.",
+    "ger": "Um ehrlich zu sein, gibt es nicht viel zu sagen. Emissionen sind hochgefährlich und nahezu immer tödlich. Man kann am wechselnden Wetter spüren, wenn langsam eine Emission im Anmarsch ist, aber wenn sie ihren Höhepunkt erreicht, ebbt sie auch recht schnell wieder ab. Sobald du die ersten Anzeichen einer Emission bemerkst, solltest du dich sofort in Sicherheit bringen - in eine Höhle oder irgendeinen Unterschlupf aus Beton, Ziegelsteinen oder Stahl! Ich z.B. spüre, dass eine Emission naht, wenn mein Rücken anfängt zu schmerzen. Aber über die Ursache der Emissionen selbst kann ich dir nichts sagen... ich habe einfach keine Ahnung.",
+    "ita": "A essere sincero, non c'č molto da dire. Le emissioni sono molto pericolose e quasi sempre letali. Puoi percepire gradualmente l'avvicinarsi di un'emissione a causa dei cambiamenti climatici, ma dopo aver raggiunto il suo picco passa piuttosto in fretta. Non appena ne percepisci l'arrivo, corri al rifugio piů vicino: una caverna, qualcosa fatto di cemento, mattoni o acciaio... Alcune persone, me compreso, sentono arrivare un'emissione quando gli fa male la schiena. Riguardo la natura delle emissioni, non ho niente di utile da dirti... perché non so niente.",
+    "pol": "Szczerze mówiąc, niewiele jest do opowiadania. Emisje są bardzo niebezpieczne i prawie zawsze zabójcze. Ich nadejście wyczuwa się stopniowo, poprzez zmiany pogody, ale mijają szybko, tuż po najsilniejszym uderzeniu. Przy pierwszych oznakach ich nadchodzenia natychmiast się chowaj - w jaskini, za czymś z betonu, cegieł albo stali... Ja, podobnie jak niektórzy, wyczuwam nadejście emisji, kiedy zaczynają mnie boleć plecy. W kwestii natury emisji nie powiem ci nic pożytecznego - po prostu sam nic nie wiem.",
+    "rus": "Честно говоря, рассказ будет короткий. Выброс исключительно опасен и почти всегда смертелен. Он накатывает постепенно, а уловить его приближение легче всего по изменению погоды. При первых признаках приближения нужно обязательно найти укрытие - пещеру или что-нибудь из бетона, кирпича, стали... Я, как и некоторые другие, ощущаю его приближение - у меня начинает ломить спину, по-особенному так. Хорошо хоть, пик выброса проходит достаточно быстро! А вот о природе его сказать ничего не могу - просто не знаю.",
+    "spa": "Para serte sincero, no hay mucho que contar. Las emisiones son especialmente peligrosas y casi siempre letales. Se nota cuando se aproximan gradualmente, por el cambio de tiempo, pero pasan poco después de alcanzar su punto crítico. Al primer signo de cercanía, corre a refugiarte a una cueva, o algo hecho de cemento, ladrillo o acero. Los hay como yo, a quienes nos duele la espalda cuando se avecina una emisión. En cuanto a su naturaleza, no puedo decirte nada útil. No tengo ni idea.",
+    "ukr": "Чесно кажучи, розповідь буде короткою. Викид дуже небезпечний і майже завжди смертельний. Він настає поступово, а вловити його наближення найлегше всього завдяки зміні погоди... За перших ознак наближення треба обов'язково знайти укриття - печеру або щось із бетону, цегли, сталі... Я, як і деякі інші, відчуваю його наближення: мені починає так по-особливому спину ломити. Що іще... Пік викиду минає доволі швидко, так... А от про природу викиду нічого сказати не можу - просто не знаю."
+  },
+  "zat_b215_stalker_guide_leave_zone_0": {
+    "eng": "I want to leave the Zone.",
+    "fra": "Je veux quitter la Zone.",
+    "ger": "Ich möchte die Zone verlassen.",
+    "ita": "Voglio andarmene dalla Zona.",
+    "pol": "Chcę opuścić Zonę.",
+    "rus": "Я хочу уйти из Зоны.",
+    "spa": "Quiero irme de la Zona.",
+    "ukr": "Я хочу піти із Зони."
+  },
+  "zat_b215_stalker_guide_leave_zone_1": {
+    "eng": "You sure? There ain’t no way back.",
+    "fra": "Vraiment ? Il sera impossible de changer d'avis plus tard...",
+    "ger": "Sicher? Es gibt keinen Weg zurück.",
+    "ita": "Sicuro? Poi non potrai piů tornare.",
+    "pol": "Na pewno? Nie będziesz już mógł wrócić.",
+    "rus": "Уверен? Это дорога в один конец.",
+    "spa": "żSeguro? No hay vuelta atrás.",
+    "ukr": "Ти певен? То дорога в один кінець."
+  },
+  "zat_b215_stalker_guide_leave_zone_11": {
+    "eng": "I’m sure. Let’s go.",
+    "fra": "Je suis sűr de moi. Allons-y !",
+    "ger": "Ich bin mir sicher. Gehen wir.",
+    "ita": "Sono sicuro. Andiamo.",
+    "pol": "Na pewno. Chodźmy.",
+    "rus": "Уверен. Пойдём.",
+    "spa": "Segurísimo. En marcha.",
+    "ukr": "Певен. Ходімо."
+  },
+  "zat_b215_stalker_guide_leave_zone_12": {
+    "eng": "Actually... I’ll stay for now.",
+    "fra": "En fait, je vais rester pour l'instant.",
+    "ger": "Ich glaube... ich bleibe noch.",
+    "ita": "In effetti... per ora resterň.",
+    "pol": "Właściwie jeszcze zostanę.",
+    "rus": "Хотя ладно... пока останусь.",
+    "spa": "Bueno... De momento me quedo.",
+    "ukr": "Хоча добре... поки залишуся."
   },
   "zat_b215_stalker_guide_maps_0": {
     "eng": "I have some maps of the area between Zaton and Jupiter. Want to have a look?",
@@ -3289,6 +3399,16 @@
     "spa": "żTremor? Maldita sea. Teníamos la serpiente delante de nuestras narices. Podría habernos pasado a cualquiera... O sea, que si Urogallo... Gracias, amigo. Has salvado a todo el campamento. Toma.",
     "ukr": "Тремор? Оце та-ак... пригріли зміюку!.. І це ж будь-хто на їхньому місці міг опинитися. Вже якщо навіть Глухар... Добре, спасибі тобі, друже. Виручив увесь табір. Тримай."
   },
+  "zat_b22_barmen_about_vampire_actor3_0": {
+    "eng": "Grouse is dead. It looks like Tremor killed him... but he’s dead too.",
+    "fra": "Le Faisan est mort. On dirait que Sismik l'a tué... mais lui non plus n'a pas survécu.",
+    "ger": "Grouse ist tot. Es sieht so aus, als ob Tremor ihn getötet hätte... aber der ist auch tot.",
+    "ita": "Grouse č morto. Sembra che sia stato Tremor a ucciderlo... ma č morto anche lui.",
+    "pol": "Głuszec nie żyje. Najwyraźniej to Wstrząs go zabił... Ale on też jest martwy.",
+    "rus": "Глухарь мёртв. Похоже, его убил Тремор... только он тоже мёртв.",
+    "spa": "Urogallo ha muerto. Parece que Tremor estaba involucrado, pero él también está muerto.",
+    "ukr": "Глухар мертвий. Схоже, його убив Тремор... та він теж мертвий."
+  },
   "zat_b22_barmen_about_vampire_actor3_1": {
     "eng": "Tremor?!... I'm sorry, pal, I just don't buy that. If there were some kind of evidence, then maybe... Poor Grouse.",
     "fra": "Sismik ?! Désolé, mon pote, mais j'y crois pas un seul instant ! Si encore t'avais des preuves... Pauvre Faisan.",
@@ -3409,6 +3529,16 @@
     "spa": "No has conseguido nada. ˇNadie me atrapará nunca!",
     "ukr": "Мене ніхто не зможе зрозуміти... "
   },
+  "zat_b22_stalker_medic_dialog_start_1111211": {
+    "eng": "[continue...]",
+    "fra": "[continuer...]",
+    "ger": "[fortfahren...]",
+    "ita": "[continua...]",
+    "pol": "[Dalej....]",
+    "rus": "[далее...]",
+    "spa": "[continuar...]",
+    "ukr": "[далі... ]"
+  },
   "zat_b22_stalker_medic_dialog_start_112": {
     "eng": "Why did you do it?",
     "fra": "Pourquoi as-tu fait ça ?",
@@ -3489,6 +3619,16 @@
     "spa": "No has conseguido nada. ˇNadie me atrapará nunca!",
     "ukr": "Мене ніхто не зможе зрозуміти... "
   },
+  "zat_b22_stalker_medic_dialog_start_1141111": {
+    "eng": "[continue...]",
+    "fra": "[continuer...]",
+    "ger": "[fortfahren...]",
+    "ita": "[continua...]",
+    "pol": "[Dalej....]",
+    "rus": "[далее...]",
+    "spa": "[continuar...]",
+    "ukr": "[далі... ]"
+  },
   "zat_b22_stalker_medic_dialog_start_21": {
     "eng": "I'm listening.",
     "fra": "J'écoute.",
@@ -3539,6 +3679,16 @@
     "spa": "A ver, que eche un ojo...",
     "ukr": "Давай подивлюся... "
   },
+  "zat_b22_stalker_medic_need_health_care_11": {
+    "eng": "[continue...]",
+    "fra": "[continuer...]",
+    "ger": "[fortfahren...]",
+    "ita": "[continua...]",
+    "pol": "[Dalej....]",
+    "rus": "[далее...]",
+    "spa": "[continuar...]",
+    "ukr": "[далі... ]"
+  },
   "zat_b22_stalker_medic_need_health_care_111": {
     "eng": "Well, that's about it. You can go.",
     "fra": "Ok, ça devrait ętre bon. Tu peux y aller.",
@@ -3548,6 +3698,16 @@
     "rus": "Так, вот и всё... Можешь идти.",
     "spa": "Bueno, ya está. Puedes irte.",
     "ukr": "Так, ось і все... Можеш іти."
+  },
+  "zat_b22_stalker_medic_need_health_care_2": {
+    "eng": "Let's have a look... With your health? Well, if you’re doing badly, I must be dead or something...",
+    "fra": "Voyons voir... Ah, si vous, vous allez mal, moi, je dois ętre mort...",
+    "ger": "Mal sehen... deine Gesundheit? Nun, wenn es dir schlecht geht, müsste ich wohl schon so gut wie tot sein...",
+    "ita": "Diamo un'occhiata... Con il tuo stato di salute? Beh, se tu te la passi male, io devo essere morto o qualcosa del genere...",
+    "pol": "Spójrzmy... Ale o co chodzi? Jeśli ty niedomagasz, to ja już chyba jestem trupem...",
+    "rus": "Сейчас посмотрим... с таким-то здоровьем? Да мне тогда, видимо, нужна немедленная путёвка в морг.",
+    "spa": "Veamos... żCon tu salud? Pues si a ti te va mal, yo debo de estar muerto o algo...",
+    "ukr": "Зараз подивимося... ото із таким здоров'ям?! Та мені тоді, вочевидь, потрібна негайна путівка до моргу."
   },
   "zat_b29_rivals_start_dialog_11": {
     "eng": "Howdy! Looking for artifacts, too?",
@@ -4039,6 +4199,16 @@
     "spa": "Toma.",
     "ukr": "Тримай."
   },
+  "zat_b30_owl_stalker_trader_buy_info_15311": {
+    "eng": "They also call that place the Iron Forest. The chopper crashed slap bang into the power pylons. None of the jarheads survived... Even if they did, they'd never make it out alive. Those poltergeists just love chasing people into electric anomalies... Those scumbags respond to the tiniest movement, as I’m sure you know.",
+    "fra": "On surnomme cet endroit la Foręt de Fer. L'hélico s'est planté droit dans les pylônes. Aucun des soldats n'aurait pu survivre ŕ l'accident... Et męme si c'était le cas, ils s'en seraient jamais sortis vivants. Ces poltergeists adorent piéger leurs victimes dans des anomalies électriques... Comme chacun le sais, ces saloperies sont sensibles au moindre mouvement.",
+    "ger": "Der Ort wird auch Eisenwald genannt. Der Hubschrauber ist mitten in die Strommasten gerauscht. Keiner der Armeejungs hat überlebt... und selbst wenn sie den Absturz überlebt hätten, wären sie da niemals lebend rausgekommen. Die Poltergeister dort lieben es, die Leute in Elektroanomalien zu hetzen... diese Viecher spüren selbst die kleinste Bewegung, wie du sicher weißt.",
+    "ita": "Chiamano quel posto Foresta d'acciaio. L'elicottero si č schiantato contro i tralicci della corrente elettrica. I marine sono morti tutti... E anche se qualcuno fosse sopravvissuto, sarebbe impossibile uscire vivi da lě. Quei poltergeist hanno la fissa di spingere la gente nelle anomalie elettriche... Come sicuramente saprai anche tu, quei sacchi d'immondizia reagiscono al minimo movimento.",
+    "pol": "To miejsce jest też nazywane Żelaznym Lasem. Helikopter rozwalił się o słupy wysokiego napięcia. Żaden z żołnierzy nie przeżył... A nawet jeśli ktoś nie zginął na miejscu, to i tak nie pożył długo. Te poltergeisty uwielbiają wpędzać ludzi w anomalie elektryczne... Na pewno wiesz, że dranie reagują na najlżejszy ruch.",
+    "rus": "Это место ещё называют Железным лесом. Вертолёт рухнул прямо на столбы электропередачи. Из военных никто не выжил... да если бы и выжил - не выбрался бы: полтергейсты, как пить дать, в «электры» бы загнали. Сам знаешь, эти твари на любое движение реагируют.",
+    "spa": "También llaman a ese lugar el Bosque de Hierro. El helicóptero se desplomó sobre las torres de electricidad. No sobrevivió ni un militar. Y aunque hubiesen sobrevivido, la habrían palmado enseguida. A esos poltergeists les encanta perseguir a gente en anomalías eléctricas. Y los muy cabrones responden al menor movimiento, como sabes.",
+    "ukr": "Це місце ще називають Залізним лісом. Вертоліт звалився прямо на стовпи електропередачі. З військових ніхто не вижив... та якби й вижив - не вибралися б: полтергейсти, стопудово, до «електр» загнали б. Сам знаєш, ці тварюки на будь-який рух реагують."
+  },
   "zat_b30_owl_stalker_trader_buy_info_154": {
     "eng": "I'll tell you for 200.",
     "fra": "Je peux te le dire pour la modique somme de 200 biftons.",
@@ -4058,6 +4228,16 @@
     "rus": "Держи.",
     "spa": "Toma.",
     "ukr": "Тримай."
+  },
+  "zat_b30_owl_stalker_trader_buy_info_15411": {
+    "eng": "Listen... After the chopper came down, five army guys were spotted there. Apparently they even managed to climb out of that swamp successfully... Reaching that place is no big deal, just stay away from water and keep to steady ground. And you'll need chemical protection, too. So, if you're planning on heading out there, buy some antidotes from the medic.",
+    "fra": "Alors... Aprčs que l'hélico s'est écrasé, on a vu cinq militaires sortir vivants du marais... C'est pas compliqué de se rendre sur place, il suffit de rester sur la terre ferme et d'éviter la flotte. Ah, par contre, il faudra prendre ses précautions. Si tu comptes y aller, le toubib peut te vendre des antidotes.",
+    "ger": "Hör zu... nachdem der Hubschrauber abgestürzt war, wurden dort fünf Armeetypen gesehen. Offenbar haben sie es auch geschafft, aus dem Sumpf zu entkommen. Es ist kein großes Problem, dorthin zu gelangen, halte dich nur vom Wasser fern und achte darauf, dass du immer festen Boden unter den Füßen hast. Und du wirst auch chemischen Schutz brauchen. Wenn du also vorhast, dorthin zu gehen, geh vorher besser zum Arzt und kauf dir reichlich Gegengift.",
+    "ita": "Ascolta, dopo che l'elicottero č precipitato, solo cinque militari sono stati visti uscire da quella palude. Raggiungere quel posto non č difficile, basta stare lontano dall'acqua e restare sulla terraferma. E ti occorrerŕ anche una protezione dalle sostanze chimiche. Se hai intenzione di metterti in viaggio, compra degli antidoti dal medico.",
+    "pol": "Słuchaj... Kiedy helikopter spadł, zauważono tam pięciu żołneirzy. Podobno udało im się nawet wydostać z tego bagna... Dotarcie do tego miejsca nie jest trudne, wystarczy unikać wody i trzymać się stałego lądu. Będziesz też potrzebował ochrony chemicznej. Więc jeśli planujesz tam wyruszyć, kup od lekarza trochę antidotum.",
+    "rus": "Лады, слушай: как туда вертолёт упал, там военных видели - человек пять всего. Вроде бы из топи они успешно выбрались. Да нет, туда добраться не сложно, главное - в воду не соваться, а по кочкам, прыжками. И защита от химии нужна. Так ты, если хочешь туда лезть, купи у медика антидотов.",
+    "spa": "Mira: cuando el helicóptero se desplomó, vieron a cinco soldados. Al parecer, hasta lograron salir del pantano por su propio pie. Llegar hasta ahí no es difícil; solo debes alejarte del agua y quedarte en terreno firme. Y también te hará falta protección química. Si tienes pensado ir para allá, cómprale al médico unos cuantos antídotos.",
+    "ukr": "Слу-ухай... як туди вертоліт упав, там військових бачили - чоловік із п'ять. Начебто із драговини вони успішно вибралися. Та ні, туди дістатися не складно, головне - у воду не лізти, а стрибати по купинах. І захист від хімії потрібен. То ти як хочеш туди лізти, купи в медика антидотів."
   },
   "zat_b30_owl_stalker_trader_buy_info_99": {
     "eng": "Nothing right now.",
@@ -4169,6 +4349,26 @@
     "spa": "Ahora no.",
     "ukr": "Не зараз."
   },
+  "zat_b30_owl_stalker_trader_choose_task_111213": {
+    "eng": "I’ve already got something from there.",
+    "fra": "J'ai déjŕ récupéré quelque chose.",
+    "ger": "Ich habe schon etwas von dort.",
+    "ita": "Mi sono giŕ procurato qualcosa.",
+    "pol": "Mam już coś stamtąd.",
+    "rus": "Я уже кое-что оттуда добыл.",
+    "spa": "Ya tengo algo de ahí.",
+    "ukr": "Я вже дещо звідтіль добув."
+  },
+  "zat_b30_owl_stalker_trader_choose_task_1112131": {
+    "eng": "Start talking... Did you get something for me?",
+    "fra": "Alors... Tu m'as apporté quelque chose ?",
+    "ger": "Raus mit der Sprache... hast du etwas für mich?",
+    "ita": "Comincia a parlare... Hai qualcosa per me?",
+    "pol": "Zacznij gadać... Masz coś dla mnie?",
+    "rus": "А чего ж тогда молчишь?.. Ну, нашлось что-нибудь для меня?",
+    "spa": "Empieza a hablar... żConseguiste algo para mí?",
+    "ukr": "То чого ж тоді мовчиш?.. Ну, знайшлося щось для мене?"
+  },
   "zat_b30_owl_stalker_trader_choose_task_1113": {
     "eng": "Tell me about protecting the trader.",
     "fra": "Parle-moi du boulot de protection du marchand !",
@@ -4258,6 +4458,16 @@
     "rus": "Небольшой бизнес с учёными. Дело плёвое: отнести-принести.",
     "spa": "Un trabajillo con los científicos. Está chupado, en serio: \"tráeme esto\", \"alcanza aquello\"...",
     "ukr": "Невеликий бізнес із вченими. Справа простенька: віднести-принести."
+  },
+  "zat_b30_owl_stalker_trader_choose_task_116": {
+    "eng": "I need information from the mercenary camp. It’s not as hard as it sounds.",
+    "fra": "J'ai besoin d'informations sur le camp des mercenaires. Ce n'est pas aussi dur que ça en a l'air.",
+    "ger": "Ich brauche Informationen aus dem Söldnerlager. Das ist nicht so schwierig, wie es klingt.",
+    "ita": "Mi servono informazioni sull'accampamento dei mercenari. Non č difficile come sembra.",
+    "pol": "Potrzebuję informacji z obozu najemników. To łatwiejsze niż się może wydawać.",
+    "rus": "Нужно добыть информацию в лагере наёмников. Не так сложно, как кажется.",
+    "spa": "Necesito información sobre el campamento de mercenarios. No es tan duro como parece.",
+    "ukr": "Потрібно добути інформацію в таборі найманців. То не так складно, як видається."
   },
   "zat_b30_owl_stalker_trader_choose_task_117": {
     "eng": "The trader still needs a guard for a business transaction. Easy as pie, that one.",
@@ -4779,6 +4989,16 @@
     "spa": "Trato hecho.",
     "ukr": "Домовилися."
   },
+  "zat_b30_owl_stalker_trader_sell_items_26": {
+    "eng": "Detector prototypes. Would you like to buy them back?",
+    "fra": "Des prototypes de détecteurs. Tu veux les racheter ?",
+    "ger": "Detektorprototypen. Willst du sie haben?",
+    "ita": "Prototipi di rilevatori. Ti interessa comprarli?",
+    "pol": "Prototypy detektorów. Chcesz je odkupić?",
+    "rus": "Прототипы детекторов. Не хочешь купить их обратно?",
+    "spa": "Prototipos de detectores. żQuerrías comprármelos?",
+    "ukr": "Прототипи детекторів. Не хочеш купити їх назад?"
+  },
   "zat_b30_owl_stalker_trader_sell_items_261": {
     "eng": "Nah. With Sultan involved, I'd rather stay out of it.",
     "fra": "Non. Si Sultan est dans le coup, je préfčre garder mes distances.",
@@ -4788,6 +5008,16 @@
     "rus": "Нет уж. Раз в это дело Султан влез, я лучше в сторонке постою.",
     "spa": "No. Con Sultán involucrado, prefiero no meterme.",
     "ukr": "Ото вже ні. Раз до цієї справи вліз Султан, я краще скраю постою."
+  },
+  "zat_b30_owl_stalker_trader_sell_items_27": {
+    "eng": "Secret documents, I found them on the bridge by the motor column. Wanna have a look?",
+    "fra": "Des documents secrets. Je les ai trouvés sur le pont prčs de la colonne motorisée. ",
+    "ger": "Geheime Dokumente, die ich auf der Brücke beim verlassenen Konvoi gefunden habe. Willst du einen Blick darauf werfen?",
+    "ita": "Documenti segreti. Li ho trovati sul ponte accanto alla colonna motore. Vuoi dare un'occhiata.",
+    "pol": "Tajne dokumenty. Znalazłem je na moście przy konwoju. Chcesz rzucić okiem?",
+    "rus": "Нашёл секретные документы на мосту у автоколонны. Хочешь взглянуть?",
+    "spa": "Documentos secretos. Los encontré en el puente que está junto a la columna motorizada. żQuieres verlos?",
+    "ukr": "Знайшов секретні документи на мосту біля автоколони. Хочеш глянути?"
   },
   "zat_b30_owl_stalker_trader_sell_items_271": {
     "eng": "Let's see... Yeah, this is good stuff. Buy it off you?",
@@ -4808,6 +5038,36 @@
     "rus": "Продам. Мне они ни к чему.",
     "spa": "Claro, a mí no me sirve de nada.",
     "ukr": "Продам. Мені вони ні до чого."
+  },
+  "zat_b30_owl_stalker_trader_sell_items_28": {
+    "eng": "Sultan’s messenger’s PDA.",
+    "fra": "Le PDA du messager de Sultan.",
+    "ger": "Den PDA von Sultans Boten.",
+    "ita": "PDA del messaggero di Sultan.",
+    "pol": "PDA posłańca Sułtana",
+    "rus": "КПК посланника Султана.",
+    "spa": "PDA del mensajero de Sultán.",
+    "ukr": "КПК посланця Султана."
+  },
+  "zat_b30_owl_stalker_trader_sell_items_281": {
+    "eng": "It’s not that interesting. I'll give you 500 for it.",
+    "fra": "Ce n'est pas trčs intéressant. Je suis pręt ŕ l'acheter pour 500.",
+    "ger": "Ist nicht besonders interessant. Ich gebe dir 500 dafür.",
+    "ita": "Non č particolarmente interessante. Te lo pagherň 500.",
+    "pol": "Nie jest to bardzo interesujące. Dam ci za to 500.",
+    "rus": "Не так уж интересно. Дам за него 500.",
+    "spa": "No me interesa tanto. Te doy 500 por ella.",
+    "ukr": "Не так уже цікаво. Дам за нього 500."
+  },
+  "zat_b30_owl_stalker_trader_sell_items_2811": {
+    "eng": "OK.",
+    "fra": "Ok.",
+    "ger": "OK.",
+    "ita": "OK.",
+    "pol": "Dobrze.",
+    "rus": "Договорились.",
+    "spa": "De acuerdo.",
+    "ukr": "Домовилися."
   },
   "zat_b30_owl_stalker_trader_sell_items_30": {
     "eng": "Notebook from the mercenary camp at the waste processing station.",
@@ -4839,6 +5099,16 @@
     "spa": "Trato hecho.",
     "ukr": "Домовилися."
   },
+  "zat_b30_owl_stalker_trader_sell_items_31": {
+    "eng": "A strange artifact. I found it at the dredge station.",
+    "fra": "Un artefact étrange que j'ai trouvé dans la station de dragage.",
+    "ger": "Ein seltsames Artefakt. Ich habe es beim Baggerschiff gefunden.",
+    "ita": "Uno strano manufatto. L'ho trovato alla stazione di drenaggio.",
+    "pol": "Dziwny artefakt. Znalazłem go przy pogłębiarce.",
+    "rus": "Странный артефакт. Нашёл на земснаряде.",
+    "spa": "Un artefacto extrańo. Lo encontré junto a la planta de dragado.",
+    "ukr": "Дивний артефакт. Знайшов на земснаряді."
+  },
   "zat_b30_owl_stalker_trader_sell_items_311": {
     "eng": "Heh... Well, take it to Beard or the scientists. I'm not keen on dubious merchandise... don't need me some acute radiation sickness at night.",
     "fra": "Hum... Tu devrais montrer ça au Barbu ou aux scientifiques. La marchandise louche, ça m'intéresse pas... Je tiens pas ŕ tomber malade ŕ cause des radiations.",
@@ -4849,6 +5119,16 @@
     "spa": "Je... Llévaselo a Barbas o a los científicos. No me gusta la mercancía dudosa. No me atrae la idea de despertarme enfermo por las radiaciones.",
     "ukr": "Хе-хе... Ну то ти його до Бороди або до вчених тягни! Мені сумнівний товар ні до чого. Раптом він мені гостру променеву хворобу за одну ніч організує?.."
   },
+  "zat_b30_owl_stalker_trader_sell_items_32": {
+    "eng": "A strange artifact. I found it near Yanov station.",
+    "fra": "Un artefact étrange que j'ai trouvé prčs de la gare de Yanov.",
+    "ger": "Ein seltsames Artefakt. Ich habe es in der Nähe der Janow-Station gefunden.",
+    "ita": "Uno strano manufatto. L'ho trovato alla stazione Yanov.",
+    "pol": "Dziwny artefakt. Znalazłem go przy stacji Janów.",
+    "rus": "Странный артефакт. Нашёл неподалёку от станции «Янов».",
+    "spa": "Un artefacto extrańo. Lo encontré junto a la estación de Yanov.",
+    "ukr": "Дивний артефакт. Знайшов неподалік станції «Янів»."
+  },
   "zat_b30_owl_stalker_trader_sell_items_321": {
     "eng": "And that's where it should stay. I don't like to take unnecessary risks. Who knows, maybe that thing will form an anomaly field around itself by midnight... Why don't you take it to the scientists, let them study it or something.",
     "fra": "Je toucherai pas ŕ ce truc... J'aime pas prendre de risques inutiles... Qui sait si un champ d'anomalies va pas se former autour de ce machin ? Tu devrais l'apporter aux scientifiques pour qu'ils y jettent un coup d'śil.",
@@ -4858,6 +5138,16 @@
     "rus": "Вот пускай у тебя и остаётся. В нашем деле рисковать ни к чему, а вдруг он к вечеру вокруг себя аномальное поле образует?.. Отнёс бы ты лучше его к учёным на исследование.",
     "spa": "Y ahí es donde debería estar. No me gusta asumir riesgos innecesarios. żQuién sabe? Puede que esa cosa origine un campo de anomalías a su alrededor a medianoche. żPor qué no se lo llevas a los científicos para que lo estudien o algo?",
     "ukr": "Ото нехай в тебе і лишається. У нашій справі ризикувати ні до чого... а раптом він до вечора навколо себе аномальне поле утворить? Краще відніс би ти його до вчених на дослідження."
+  },
+  "zat_b30_owl_stalker_trader_sell_items_33": {
+    "eng": "Heart of the Oasis artifact.",
+    "fra": "Le Cśur de l'Oasis.",
+    "ger": "Das Artefakt \"Herz der Oase\".",
+    "ita": "Manufatto Cuore dell'Oasi",
+    "pol": "Artefakt Serce Oazy.",
+    "rus": "Артефакт «Сердце Оазиса».",
+    "spa": "Artefacto Corazón del Oasis.",
+    "ukr": "Артефакт «Серце Оази»"
   },
   "zat_b30_owl_stalker_trader_sell_items_331": {
     "eng": "And I've got a nuclear warhead in my kitchen cabinet! You might get a laugh out of scientists, though - they dig that sort of stuff.",
@@ -5049,6 +5339,16 @@
     "spa": "Genial. Ahora esperaremos a que les haga unos ajustes. Novikov prometió que nos los mandaría con alguien de confianza cuando acabase.",
     "ukr": "Прекрасно. Почекаємо, поки він у них подлубається. Новіков обіцяв, що відправить їх із надійною людиною, як закінчить."
   },
+  "zat_b30_owl_stalker_trader_start_dialog_11": {
+    "eng": "Need goods? Information?.. Or maybe you want to sell information?",
+    "fra": "Besoin de marchandise ? D'informations ? Ŕ moins que tu n'aies des infos ŕ vendre ?",
+    "ger": "Brauchst du Ausrüstung? Informationen? Oder willst du vielleicht Informationen verkaufen?",
+    "ita": "Ti serve della merce? Delle informazioni? O forse hai tu delle informazioni da vendere?",
+    "pol": "Potrzebujesz towarów? Informacji?... A może sam masz jakieś informacje na sprzedaż?",
+    "rus": "Нужны товары? информация?.. Или, может, это ты хочешь продать информацию мне?",
+    "spa": "żNecesitas mercancía? żInformación? żO eres tú quien vendes?",
+    "ukr": "Потрібні товари? інформація?.. Чи, може, це ти хочеш продати інформацію мені?"
+  },
   "zat_b30_owl_stalker_trader_start_dialog_12": {
     "eng": "We've got problems. Our little business here is up in the air now. Novikov did a heck of a job on those detectors - extended the working range, improved sensitivity and some other stuff... These detectors let you run circles around all other artifact hunters. I made a deal with Beard so that stalkers he hires use these new detectors...",
     "fra": "On a un problčme... Notre petit marché est tombé ŕ l'eau. Novikov a fait un boulot formidable avec ces détecteurs : il a augmenté leur portée, leur sensibilité et tout un tas de trucs... Avec un détecteur pareil, tu peux battre tous les autres chasseurs d'artefacts ŕ plate couture ! J'ai passé un accord avec Barbu pour que les stalkers qu'il embauche utilisent ce nouveau matos.",
@@ -5078,6 +5378,56 @@
     "rus": "По уговору мы должны были делить хабар поровну. Только сталкеры отказываются приносить нашу с тобой половину! Тебе нужно пойти к Бороде и убедить его выполнить свою часть договора. Ты же хочешь получить свою долю?",
     "spa": "El acuerdo consistía en repartir el botín a partes iguales, pero los stalkers se negaron a traernos nuestra parte. Tienes que ir a ver a Barbas y convencerle de que cumpla. Tú también querrás tu parte, żno?",
     "ukr": "За домовленістю ми мали ділити хабар нарівно. Та сталкери відмовляються приносити нашу із тобою половину! Тобі слід піти до Бороди й переконати його виконати свою частину договору. Ти ж хочеш одержувати свою частку?"
+  },
+  "zat_b30_owl_stalker_trader_start_dialog_13": {
+    "eng": "Listen, there's some urgent business. A trader I know wants to swing a deal. Only problem is, his customers are the bothersome type, so he's hiring a security guard just in case. You interested?",
+    "fra": "J'ai une affaire urgente ŕ régler. Un marchand de ma connaissance va passer un accord, mais il ne fait trop confiance ŕ ses acheteurs, alors il cherche un garde du corps. Ça t'intéresse ?",
+    "ger": "Hör zu, es gibt etwas Dringendes zu erledigen. Ein Händler, den ich kenne, will ein Geschäft abwickeln. Das Problem dabei ist, dass seine Kunden nicht sehr vertrauenswürdig sind. Deswegen will er für den Fall der Fälle einen Leibwächter anheuern. Hättest du Interesse?",
+    "ita": "Ascolta, c'č una faccenda urgente. Un commerciante di mia conoscenza vuole chiudere un affare. Il problema č che i suoi clienti sono di quelli difficlii, quindi vuole assumere una guardia del corpo per stare piů tranquillo. Ti interessa?",
+    "pol": "Słuchaj, jest pilna sprawa. Mój znajomy handlarz ma interes do zrobienia. Problem w tym, że jego klienci są z tych kłopotliwych, więc na wszelki wypadek chce wynająć ochroniarza. Jesteś zainteresowany?",
+    "rus": "Слушай, есть срочное дело. Знакомый торговец одну сделку хочет провернуть. Только там клиенты беспокойные, нужна охрана на всякий случай. Интересует?",
+    "spa": "Oye, hay un asunto urgente. Un comerciante que conozco quiere cerrar un trato, pero sus clientes son de los que causan problemas, así que va a contratar a un guardia de seguridad, por si acaso. żTe interesa?",
+    "ukr": "Слухай, є термінова справа. Знайомий торговець одну угоду хоче провернути. Тільки там клієнти неспокійні, потрібна охорона про всяк випадок. Цікавить?"
+  },
+  "zat_b30_owl_stalker_trader_start_dialog_131": {
+    "eng": "Yes.",
+    "fra": "Oui.",
+    "ger": "Ja.",
+    "ita": "Sě.",
+    "pol": "Tak.",
+    "rus": "Да.",
+    "spa": "Sí.",
+    "ukr": "Так."
+  },
+  "zat_b30_owl_stalker_trader_start_dialog_1311": {
+    "eng": "OK. The trader will be waiting for you by the ranger station, he'll fill you in on the details.",
+    "fra": "Parfait. Le marchand t'attendra prčs du poste des rangers, il te donnera tous les détails.",
+    "ger": "Gut. Der Händler wird bei der Forststation auf dich warten. Er wird dir dann die Details erklären.",
+    "ita": "Bene. Il commerciante ti aspetterŕ alla stazione dei ranger e ti spiegherŕ tutti i dettagli.",
+    "pol": "Dobra. Handlarz będzie na ciebie czekał przy strażnicy, przekaże ci wszystkie szczegóły.",
+    "rus": "Хорошо. Торговец будет ждать возле лесничества - там и обсудите все подробности.",
+    "spa": "Vale. El comerciante te estará esperando en el puesto del guardabosques para informarte.",
+    "ukr": "Добре. Торговець чекатиме біля лісництва - там і обговорите всі подробиці."
+  },
+  "zat_b30_owl_stalker_trader_start_dialog_132": {
+    "eng": "Not really.",
+    "fra": "Pas vraiment.",
+    "ger": "Nein, nicht wirklich.",
+    "ita": "Non direi.",
+    "pol": "Nie.",
+    "rus": "Не особо.",
+    "spa": "No mucho.",
+    "ukr": "Не так щоб дуже."
+  },
+  "zat_b30_owl_stalker_trader_start_dialog_1321": {
+    "eng": "Up to you. If you do change your mind soon enough, the job may still be up for grabs.",
+    "fra": "Comme tu voudras. Si tu changes d'avis dans pas trop longtemps, reviens me voir. ",
+    "ger": "Wie du willst. Wenn du deine Meinung rechtzeitig änderst, könnte der Job noch zu haben sein.",
+    "ita": "Come vuoi. Se cambi idea, forse farai ancora in tempo ad avere il lavoro.",
+    "pol": "Twoja sprawa. Jeśli niedługo zmienisz zdanie, robota może być nadal do wzięcia.",
+    "rus": "Ну смотри. Чуток времени ещё есть, передумаешь - обращайся.",
+    "spa": "Tú verás. Si cambias de idea pronto, puede que aún estés a tiempo.",
+    "ukr": "Ну гляди. Троха часу ще є, передумаєш - звертайся."
   },
   "zat_b30_stalker_rival_1_about_detector_0": {
     "eng": "I need your new detector.",
@@ -6899,6 +7249,16 @@
     "spa": "ˇUn poco de brío! ˇAbre la siguiente botella! Bebamos por una causa común. Sí. El vodka me devuelve la inspiración, en serio.",
     "ukr": "Чого ти такий повільний? Діставай ще одну! За спільну справу - і не випити? Треба. Як піде біленька по організму, такі чудеса техніки почну виробляти - ти шо!"
   },
+  "zat_b3_stalker_tech_start_1311": {
+    "eng": "Too bad my buddies Joker and Barge aren't here... We'd have a hell of a time. We were like brothers, always got each others' backs... How did it all come to this?... I'm still here, but they're gone hell knows where...",
+    "fra": "Dommage que mes potes Barge et Joker soient pas lŕ... Qu'est-ce qu'on se marrait... On était comme des frčres, on pouvait compter les uns sur les autres... Comment j'en suis arrivé lŕ ? Je suis toujours ici, mais eux, ils sont partis...",
+    "ger": "Echt schade, dass meine Kumpels Joker und Barge nicht hier sind... wir hätten 'ne Menge Spaß. Wir waren wie Brüder, haben immer zusammengehalten. Wie konnte es nur soweit kommen? Ich bin noch hier, aber sie sind verschwunden und nur Gott weiß, wo sie sich herumtreiben...",
+    "ita": "Peccato che Barge e Joker non siano qui... ce la spasseremmo alla grande. Siamo come fratelli e ci proteggiamo sempre a vicenda... Come siamo arrivati a questo punto? Io sono ancora qui e loro se ne sono andati chissŕ dove...",
+    "pol": "Szkoda, że nie ma tu moich kumpli, Kawalarza i Stoga... Świetnie byśmy się bawili. Byliśmy jak bracia, jeden za wszystkich, wszyscy za jednego... Jak to się mogło stać? Ja ciągle tu jestem, ale ich gdzieś poniosło, diabli wiedzą, gdzie...",
+    "rus": "Эх, жаль, не застал ты товарищей моих - Шутника с Баржой... хорошо бы посидели! Мы ж были как братья, друг за дружку горой... и как только у нас так могло получиться?.. Я тут сижу, а они - неизвестно где...",
+    "spa": "Qué pena que no estén aquí mis amigos Barge y Bromista... Nos lo pasábamos de puta madre. Éramos como hermanos, siempre cubriéndonos las espaldas. żCómo ha podido ocurrir? Yo sigo aquí, pero ellos no.",
+    "ukr": "Ех, шкода, не застав ти товаришів моїх - Жартівника із Баржею... добре посиділи б! Ми ж як брати були, один за одного горою... і як тільки в нас так могло статися?.. Я тут сиджу, а вони - бозна-де... "
+  },
   "zat_b3_stalker_tech_start_1312": {
     "eng": "I wish Joker was here, we'd drink to Barge together... Well, may he rest in peace. He was good man, a real die-hard. Tough like a rock.",
     "fra": "Si seulement le Joker était ici... On trinquerait ŕ la mémoire de Barge tous les deux... Paix ŕ son âme... C'était un type bien, un vrai roc.",
@@ -6988,6 +7348,16 @@
     "rus": "Ну, наваяли! Ох, наваяли!.. Отвык я что-то уже от такого стиля документации.",
     "spa": "Esto es un galimatías. Supongo que he perdido la práctica con los textos técnicos...",
     "ukr": "Ото наліпили! Ну, наліпили!.. Відвик я щось уже від такого стилю документації."
+  },
+  "zat_b3_tech_buddies_about_0": {
+    "eng": "Tell me about Joker and Barge.",
+    "fra": "Parle-moi du Joker et de Barge !",
+    "ger": "Erzähl mir mehr über Joker und Barge.",
+    "ita": "Parlami di Joker e Barge.",
+    "pol": "Opowiedz mi o Kawalarzu i Stogu.",
+    "rus": "Расскажи про Шутника и Баржу.",
+    "spa": "Háblame de Bromista y de Barge.",
+    "ukr": "Розкажи про Жартівника та Баржу."
   },
   "zat_b3_tech_buddies_about_1": {
     "eng": "Yeah, I came to Zaton with two of my buddies, Barge and Joker... Young kids, full of piss and vinegar! Itching to get their hands on mountains of artifacts, dying to be the first, the fastest... And I looked at those burning eyes and I said to myself, that ain't gonna do them no good. Loot's nice to have, sure, but it ain't worth charging headlong into a mutant's jaws.",
@@ -7099,6 +7469,16 @@
     "spa": "żPara qué necesito una PDA? żDe quién es?",
     "ukr": "Що за КПК? Нащо він мені? "
   },
+  "zat_b3_tech_buddies_pda_11": {
+    "eng": "Barge's PDA. I found his dead body in the caves under the burnt farmstead.",
+    "fra": "Le PDA de Barge. J'ai trouvé son cadavre dans les grottes sous la ferme brűlée.",
+    "ger": "Barges PDA. Ich habe seine Leiche in den Höhlen unter dem abgebrannten Bauernhof gefunden.",
+    "ita": "Il PDA di Barge. Ho trovato il suo cadavere nelle grotte sotto la fattoria bruciata.",
+    "pol": "PDA Stoga. Znalazłem jego zwłoki w jaskiniach pod spalonym gospodarstwem.",
+    "rus": "КПК Баржи. Я нашел его труп в пещерах под сгоревшим хутором.",
+    "spa": "Es la PDA de Barge. Encontré su cadáver en las cuevas bajo la colina.",
+    "ukr": "КПК Баржі. Я знайшов його труп у печерах під згорілим хутором."
+  },
   "zat_b3_tech_buddies_pda_111": {
     "eng": "Barge is dead?!... I can't believe it!... Oh, man! He was as tough as they come... Oh, Barge... Rest in peace. I hope Joker is all right at least.",
     "fra": "Barge est mort ? Oh non ! J'arrive pas ŕ le croire ! C'était un vrai dur... Oh, Barge... Paix ŕ ton âme... J'espčre qu'il est rien arrivé au Joker...",
@@ -7118,6 +7498,46 @@
     "rus": "Баржа мёртвый?! Не может быть! Как же?.. Он ведь крепкий был, прямо скала!.. Эх, Баржа, Шутник... спите спокойно, друзья сердечные!.. Как же так вышло...",
     "spa": "ˇżBarge ha muerto?! ˇNo puede ser! ˇDios! Pero si no había quien pudiera con él... Oh, Barge... Y Bromista también... Descansad en paz. żCómo ha podido ocurrir...?",
     "ukr": "Баржа мертвий?! Не може бути! Як же?.. Він же міцний був, прямо тобі скеля!.. Ех, Баржа, Жартівник... Спіть спокійно, друзі сердешні!.. Як же так вийшло... "
+  },
+  "zat_b3_tech_buddies_pda_12": {
+    "eng": "I found it near some bare bones not far from Oakpine. It's Joker's PDA.",
+    "fra": "Le PDA du Joker. Je l'ai trouvé prčs d'un squelette, non loin du Pinchęne.",
+    "ger": "Ich habe das hier bei ein paar Knochen in der Nähe der Pinieneiche gefunden. Es ist Jokers PDA.",
+    "ita": "L'ho trovato vicino a delle ossa non lontano dalla Pinquercia. Č il PDA di Joker.",
+    "pol": "Znalazłem go przy kupce nagich kości w pobliżu Sosnodębu. To PDA Kawalarza.",
+    "rus": "Я нашел его возле скелета неподалёку от Соснодуба. Это КПК Шутника.",
+    "spa": "La encontré junto a unos huesos, cerca de Roblepino. Es la PDA de Bromista.",
+    "ukr": "Я знайшов його біля кістяка неподалік від Соснодуба. Це КПК Жартівника."
+  },
+  "zat_b3_tech_buddies_pda_121": {
+    "eng": "Joker's?!... That's impossible! Wow, I'm so devastated... Joker's dead... Oh Joker, we won't be laughing at your jokes anymore... Rest in peace... I hope Barge is all right at least...",
+    "fra": "Le Joker ? C'est pas possible ! Putain, ça me fait un de ces chocs... Le Joker est mort... Eh ben, on dirait que tu nous feras plus tellement rigoler, Joker... Paix ŕ ton âme ! J'espčre que Barge se porte bien, au moins.",
+    "ger": "Joker? Das ist... unmöglich! Oh Gott... ich bin schockiert! Joker... ist... tot. Oh Joker, wir werden nie wieder über deine Witze lachen... ruhe in Frieden! Ich hoffe, Barge ist wenigstens noch OK...",
+    "ita": "Di Joker? Ma č impossibile! Ehi, che tragedia... Oh, Joker, non rideremo piů delle tue battute... riposa in pace... Spero che almeno Barge stia bene...",
+    "pol": "Kawalarza?!... To niemożliwe! Rany, jestem zszokowany... Kawalarz nie żyje... Stary, już się nie pośmiejemy z twoich kawałów... Spoczywaj w pokoju... Mam nadzieję, że przynajmniej ze Stogiem wszystko w porządku...",
+    "rus": "Шутника?! Не может быть!.. Выходит, нет больше Шутника... Эх, Шутник, Шутник... не посмеяться нам больше!.. Спи спокойно... Хоть бы с Баржой всё было в порядке...",
+    "spa": "ˇżSu PDA?! ˇNo puede ser! Buf, no sé cómo reaccionar... Bromista ha muerto... Ya no volveremos a escuchar tus chistes... Descansa en paz. Espero que Barge esté bien...",
+    "ukr": "Жартівника?! Не може бути!.. Отже, нема більше Жартівника... Ех, Жартівниче, Жартівниче... не посміятися нам більше!.. Спи спокійно... Хоча б із Баржею усе було в порядку... "
+  },
+  "zat_b3_tech_buddies_pda_122": {
+    "eng": "Joker's?!... That's impossible! Wow, I'm so devastated... So Joker's dead too... Oh Joker, we won't be laughing at your jokes anymore... Rest in peace... And you too, Barge... How did it come to this...",
+    "fra": "Le Joker ? C'est pas possible ! Putain, ça me fait un de ces chocs... Le Joker est mort... Eh ben, on dirait que tu nous feras plus tellement rigoler, Joker... Paix ŕ ton âme. Et ŕ la tienne aussi, Barge... Bordel, comment on en est arrivés lŕ ?",
+    "ger": "Joker? Das ist... unmöglich! Oh Gott... ich bin schockiert! Joker ist also auch tot... Oh Joker, wir werden nie wieder über deine Witze lachen... ruhe in Frieden! Und du auch, Barge. Wie konnte das nur passieren...",
+    "ita": "Di Joker? Ma č impossibile! Ehi, che tragedia... Oh, Joker, non rideremo piů delle tue battute... riposa in pace... E anche tu, Barge... Come siamo potuti arrivare a questo?",
+    "pol": "Kawalarza?!... To niemożliwe! Rany, jestem zszokowany... Kawalarz nie żyje... Stary, już się nie pośmiejemy z twoich kawałów... Spoczywaj w pokoju... I ty też, Stóg... Jak to się mogło stać...",
+    "rus": "Шутника?! Не может быть!.. Выходит, нет больше Шутника... Эх, Шутник, Шутник... не посмеяться нам больше!.. А Баржа?! Как же так вышло?.. Эх, ребята... спите спокойно...",
+    "spa": "ˇżSu PDA?! ˇNo puede ser! Buf, no sé cómo reaccionar... Bromista también ha muerto... Ya no volveremos a escuchar tus chistes... Descansa en paz. Y Barge... żCómo ha podido ocurrir...?",
+    "ukr": "Жартівника?! Не може бути!.. Отже, нема більше Жартівника... Ех, Жартівниче, Жартівниче... не посміятися нам більше!.. А Баржа?! Як то так сталося?.. Спіть... спіть спокійно, хлопці... "
+  },
+  "zat_b3_tech_buddies_pda_13": {
+    "eng": "Barge's and Joker's. I found one by a skeleton near Oakpine, and the other on a dead body in the caves under the burnt farmstead.",
+    "fra": "Les PDA de Barge et du Joker. J'en ai trouvé un prčs d'un squelette ŕ côté du Pinchęne et l'autre sur un cadavre dans les grottes sous la ferme brűlée.",
+    "ger": "Von Barge und Joker. Einen habe ich bei einem Skelett in der Nähe der Pinieneiche gefunden und den anderen bei einer Leiche in den Höhlen unter dem abgebrannten Bauernhof.",
+    "ita": "Di Barge e di Joker. Ne ho trovato uno accanto a uno scheletro nei pressi della Pinquercia, e un altro addosso a un cadavere nelle caverne sotto la fattoria bruciata.",
+    "pol": "Stoga i Kawalarza. Znalazłem je przy szkielecie w pobliżu Sosnodębu i przy zwłokach w jaskiniach pod spalonym gospodarstwem.",
+    "rus": "Баржи и Шутника. Один нашел неподалёку от Соснодуба, возле скелета, другой - на мёртвом теле в пещерах под сгоревшим хутором.",
+    "spa": "La PDA de Barge y la de Bromista. Una la encontré junto a un esqueleto, cerca de Roblepino, y la otra en un cadáver, en las cuevas bajo la granja quemada.",
+    "ukr": "Баржі та Жартівника. Один знайшов неподалік Соснодуба, біля кістяка, інший - на мертвому тілі у печерах під згорілим хутором."
   },
   "zat_b3_tech_buddies_pda_131": {
     "eng": "They're dead!?... I can't believe it!... Oh, man! Barge was as tough as they come... and Joker... Oh, Joker... We won't be laughing at your jokes anymore. May you kids rest in peace. How did it come to this...",
@@ -7258,6 +7678,16 @@
     "rus": "Коряга.",
     "spa": "Snag.",
     "ukr": "Корч."
+  },
+  "zat_b51_stalker_nimble_b52_about_gun_questions_11111": {
+    "eng": "Well, that explains it. I know him. He's always been a crook, but lately he's gotten really out of hand, scamming stalkers like that... He needs to be put in his place.",
+    "fra": "Hum, ça explique tout... Je le connais, il a toujours été un peu escroc sur les bords, mais récemment, ça a empiré, il s'est mis ŕ arnaquer les stalkers... Il faut que quelqu'un lui donne une bonne leçon.",
+    "ger": "Nun, jetzt verstehe ich. Ich kenne ihn... er war schon immer ein Gauner, aber in letzter Zeit hat er es wirklich übertrieben... die Stalker so zu betrügen... jemand muss ihm seine Grenzen aufzeigen!",
+    "ita": "Beh, questo spiega tutto. Lo conosco. Č sempre stato un imbroglione, ma ultimamente sta davvero esagerando, a imbrogliare gli stalker a quel modo... Deve essere rimesso in riga.",
+    "pol": "To wszystko wyjaśnia. Znam go. Zawsze był z niego krętacz, ale ostatnio naprawdę wymknął się spod kontroli, żeby tak naciągać stalkerów... Trzeba mu pokazać, gdzie jego miejsce.",
+    "rus": "Ну тогда ясно. Знаю я его: тот ещё пройдоха и обнаглел, смотрю, сильно в последнее время. Сталкеров думает разводить... Надо бы поставить его на место.",
+    "spa": "Bueno, eso lo explicaría todo. Lo conozco. Siempre ha sido un ladrón, pero la cosa se le ha ido de las manos últimamente. Estafar a los stalkers de esa manera... Alguien tendría que ponerlo en su sitio.",
+    "ukr": "Ну тоді ясно. Я його знаю: іще той пройдисвіт, та й знахабнів, як бачу, за останній час добре. Сталкерів думає розводити... Треба було б поставити його на місце."
   },
   "zat_b51_stalker_nimble_b52_about_gun_questions_1112": {
     "eng": "What's it to you?",
@@ -8179,6 +8609,26 @@
     "spa": "No recuerdo haber quedado en eso.",
     "ukr": "Ми про таке не домовлялися."
   },
+  "zat_b52_robbery_port_bandits_1_1111": {
+    "eng": "I don't give a shit what you agreed to. Hand it over!",
+    "fra": "Rien ŕ foutre de votre accord ! Donne-moi ce flingue, et plus vite que ça !",
+    "ger": "Es ist mir scheißegal, an was du dich erinnerst. Her damit!",
+    "ita": "Non mi interessa cosa hai concordato. Dammi qui, e subito!",
+    "pol": "Gówno mnie obchodzi, na co się zgodziłeś. Oddawaj!",
+    "rus": "Да мне пофиг, кто за что добазарился. Гони всё сюда!",
+    "spa": "Me importa una mierda en lo que quedases. ˇDame eso pero ya!",
+    "ukr": "Та мені пофіг, хто за шо добазарився. Гоні всьо сюди!"
+  },
+  "zat_b52_robbery_port_bandits_1_11111": {
+    "eng": "Easy, easy... Here you go.",
+    "fra": "Du calme, du calme... Voilŕ.",
+    "ger": "Nur die Ruhe, ist ja schon gut... hier, bitte sehr.",
+    "ita": "Calma, calma... tieni.",
+    "pol": "Spokojnie, spokojnie... Bierzcie.",
+    "rus": "Эй, полегче... Вот, держи.",
+    "spa": "Tranquilo... Toma.",
+    "ukr": "Гей, легше... Осьо, тримай."
+  },
   "zat_b52_robbery_port_bandits_1_111111": {
     "eng": "Yeah, all right. We ain't no bitches to be waitin' on Snag like that.",
     "fra": "OK... Accroc commence ŕ me les briser menues, ŕ me faire poireauter comme ça.",
@@ -8229,6 +8679,16 @@
     "spa": "ˇHe dicho que no!",
     "ukr": "Я сказав - не вийде!"
   },
+  "zat_b52_robbery_port_bandits_1_1111212": {
+    "eng": "Okay, here you go.",
+    "fra": "Ok, voilŕ !",
+    "ger": "OK, bitte sehr.",
+    "ita": "OK, ecco qui.",
+    "pol": "Dobra, masz.",
+    "rus": "Хорошо, держи.",
+    "spa": "Vale, aquí tienes.",
+    "ukr": "Добре, тримай."
+  },
   "zat_b52_robbery_port_bandits_1_2": {
     "eng": "No. I don't know him.",
     "fra": "Non, je le connais pas.",
@@ -8238,6 +8698,16 @@
     "rus": "Нет. Я его не знаю.",
     "spa": "No, no lo conozco.",
     "ukr": "Ні. Я його не знаю."
+  },
+  "zat_b52_robbery_port_bandits_1_21": {
+    "eng": "You don't?... We don't give a rat's ass. Hand it over, moron!",
+    "fra": "Non ? J'en ai rien ŕ faire ! Donne-moi ça, connard !",
+    "ger": "Nicht? Das ist uns verdammt egal. Her damit, Vollidiot!",
+    "ita": "Ah, no? Me ne frego. Dammi qui, idiota!",
+    "pol": "Nie?... A my mamy to w dupie. Oddawaj go, gnoju!",
+    "rus": "Не в курсах?... Нам уже пофиг. Гони всё сюда, фраер!",
+    "spa": "żAh, no? Pues nos importa una mierda. ˇDanos eso, gilipollas!",
+    "ukr": "Не в курсах?... Нам вже пофіг. Гоні всьо сюди, фраєр!"
   },
   "zat_b53_artefact_hunter_1_gathering_artefacts_11": {
     "eng": "Ahh... damn... I'm hurt real bad... Help me, bud, I need a medkit... I ain't got long...",
@@ -8779,6 +9249,26 @@
     "spa": "Entiendo.",
     "ukr": "Я зрозумів."
   },
+  "zat_b5_stalker_commander_dialog_31": {
+    "eng": "You’re no use... Don’t expect a reward. Well, at least you came to have a chat, That’s something.",
+    "fra": "T'es vraiment inutile... Tu peux t'asseoir sur ta part du gâteau ! Mais au moins, t'es venu discuter, c'est toujours ça...",
+    "ger": "Du bist zu nichts zu gebrauchen... also erwarte keine Belohnung. Na ja, immerhin bist du auf ein Schwätzchen vorbeigekommen.",
+    "ita": "Sei inutile... Non aspettarti una ricompensa. Beh, almeno sei venuto per fare due chiacchiere. Č giŕ qualcosa.",
+    "pol": "Jesteś do niczego... Nie oczekuj nagrody. Ale przynajmniej przyszedłeś pogadać, to już coś.",
+    "rus": "Да, помощи от тебя - как с козла молока... Ладно... Сам понимаешь, награда тебе никак не светит: не за что её давать.",
+    "spa": "Eres un inútil... No esperes una recompensa. Pero al menos has venido a hablar, eso ya es algo.",
+    "ukr": "Так, допомоги від тебе - як із цапа вовни... Гаразд. Сам розумієш, нагорода тобі аж ніяк не світить: нема за що її давати."
+  },
+  "zat_b5_stalker_commander_dialog_311": {
+    "eng": "See ya.",
+    "fra": "Au revoir.",
+    "ger": "Bis dann.",
+    "ita": "Ci si vede.",
+    "pol": "Na razie.",
+    "rus": "Бывай.",
+    "spa": "Hasta luego.",
+    "ukr": "Бувай."
+  },
   "zat_b7_bandit_boss_sultan_about_0": {
     "eng": "Tell me about your life here.",
     "fra": "Parle-moi de la vie ici !",
@@ -8949,6 +9439,16 @@
     "spa": "He encontrado la Brújula. Toma.",
     "ukr": "Знайшов я «Компас». Тримай."
   },
+  "zat_b7_bandit_boss_sultan_b30_compass_give_actor_dialog_1": {
+    "eng": "Attaboy. Now we put the screws on our little client. I heard Beard gave his stalkers some very powerful detectors designed for finding rare artifacts. So you need to join up with those stalkers and make it so those detectors don't slip past your pocket. Catch my drift?",
+    "fra": "Bien. Reste plus qu'ŕ mettre la touche finale ! Il paraît que le Barbu a refilé de puissants détecteurs capables de repérer des artefacts trčs rares ŕ ses stalkers. Il faut que tu infiltres leurs rangs, histoire de pouvoir profiter, toi aussi, de ces petits bijoux. C'est compris ?",
+    "ger": "Sehr gut! Jetzt können wir unseren lieben Auftraggeber unter Druck setzen. Ich habe gehört, dass Beard seinen Stalkern einige sehr gute Detektoren gegeben hat, mit denen man seltene Artefakte finden kann. Also musst du dich jetzt diesen Stalkern anschließen und dir dann die Detektoren krallen. Wie klingt das für dich?",
+    "ita": "Bravo ragazzo. Ora abbiamo il coltello dalla parte del manico. Ho sentito dire che Beard ha dotato i suoi stalker di potenti rilevatori programmati per trovare manufatti rari. Devi unirti a quegli stalker e fare in modo che quei rilevatori non vedano quello che hai in tasca. Ci siamo capiti?",
+    "pol": "To mi się podoba. A teraz trochę dociśnij naszego klienta. Podobno Brodacz dał swoim stalkerom bardzo potężne detektory do wykrywania rzadkich artefaktów. Musisz się wkręcić między tych stalkerów i dopilnować, żeby detektory trafiły do ciebie. Kumasz?",
+    "rus": "Молоток! Теперь осталось терпилу чутка додавить. Мне шепнули, что Борода раздал своим сталкерам крутые детекторы, чтобы редкие артефакты чаще нашаривать. Надо бы записаться в эти сталкеры и сделать так, чтобы детекторы тебе на карман упали. Уловил?",
+    "spa": "Oye. Ahora le apretaremos las tuercas a nuestro clientillo. Barbas les dio a sus stalkers unos detectores muy potentes diseńados para encontrar artefactos extrańos. Tienes que unirte a ellos para conseguir que los detectores acaben en tu bolsillo, żme sigues?",
+    "ukr": "Молоток! Тепер остається терпилу троха додавити. Мені шепнули, що Борода роздав своїм сталкерам круті детектори, аби рідкісні артефакти частіше відшукувати. Треба б записатися до цих сталкерів і зробити так, щоби детектори тобі на карман впали. Уловив?"
+  },
   "zat_b7_bandit_boss_sultan_b30_compass_revert_actor_dialog_0": {
     "eng": "I refuse to look for the Compass for you.",
     "fra": "Je refuse de chercher la Boussole pour toi !",
@@ -9099,6 +9599,16 @@
     "spa": "Pero recuerda: pensar es malo para la salud.",
     "ukr": "Тока учті - багато думать плохо для здоров'я."
   },
+  "zat_b7_bandit_boss_sultan_b30_start_actor_dialog_2": {
+    "eng": "No chance of outmuscling him. I tried to squeeze up his supply routes but that bearded scumbag managed to get a Compass anyway. Looks like he’s doing just fine... for now.",
+    "fra": "Impossible de le faire déguerpir... J'ai essayé de couper son approvisionnement, mais ce tocard barbu a quand męme réussi ŕ récupérer une Boussole. On dirait qu'il s'en sort trčs bien... pour l'instant.",
+    "ger": "Keine Chance gegen ihn. Ich habe versucht, seine Versorgungswege zu kappen, aber der bärtige Halunke hat es trotzdem geschafft, an ein Kompass-Artefakt zu gelangen. Es sieht also gut für ihn aus... vorerst.",
+    "ita": "Con la forza non ce la possiamo fare. Ho provato a bloccare le sue linee di rifornimento, ma quel dannato bastardo barbuto č riuscito a trovare una Bussola. Se la sta cavando senza problemi... per ora.",
+    "pol": "Niestety jest silniejszy. Próbowałem odciąć go od szlaków zaopatrzeniowych, ale ta brodata szuja zdołała jakoś dorwać Kompas. Chyba nieźle sobie radzi... Na razie.",
+    "rus": "Фиг там. Нет возможности на него повлиять. Хотел пережать ему каналы поставок, так этот гад бородатый всё равно где-то достал «Компас». Считай, у него всё бархатом... пока что.",
+    "spa": "No hay forma de dominarlo. Intenté reducir sus rutas de suministros pero ese granuja consiguió una Brújula igualmente. Parece que le va bien... por el momento.",
+    "ukr": "Хрін там. Нема возможності на нього вплинуть. Хотів передавить йому всі канали, так цей гад бородатий все одно десь достав «Компас». Щітай, у нього всьо в шоколаді... поки шо."
+  },
   "zat_b7_bandit_boss_sultan_b52_about_nimble_0": {
     "eng": "Think Nimble might be dealing in stolen goods?",
     "fra": "Tu crois qu'Allegro revend des objets volés ?",
@@ -9238,6 +9748,76 @@
     "rus": "Сам по себе.",
     "spa": "Yo voy por libre.",
     "ukr": "Сам по собі."
+  },
+  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_0": {
+    "eng": "What kind of job can you offer me?",
+    "fra": "Quel genre de boulots tu proposes ?",
+    "ger": "Was für Arbeit hast du für mich?",
+    "ita": "Che tipo di lavoro puoi offrirmi?",
+    "pol": "Jaką masz dla mnie pracę?",
+    "rus": "Какую работу ты можешь предложить?",
+    "spa": "żQué clase de trabajo puedes ofrecerme?",
+    "ukr": "Яку роботу ти можеш запропонувати?"
+  },
+  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_1": {
+    "eng": "The money-making kind. Now think: why am I asking you? You're the new guy with no connections to speak of but if you play your cards right you could quickly gain the locals' respect. Wanna know what I'm thinking?",
+    "fra": "Des boulots qui rapportent. Maintenant, réfléchis : pourquoi c'est ŕ toi que je demande ? T'es nouveau dans le coin, personne te connaît, mais si tu te débrouilles bien, tu peux rapidement gagner la confiance des gars du coin. Tu veux que je te parle de mes projets ?",
+    "ger": "Arbeit, die dir zumindest Geld einbringt. Denk mal nach: Warum frage ich dich? Du bist neu hier und kennst niemanden... aber wenn du dich klug verhältst, könntest du dir hier sehr schnell Respekt verschaffen. Willst du wissen, um was es geht?",
+    "ita": "Un genere di lavoro di quelli ben pagati. Pensaci un attimo: perché mi rivolgo a te? Tu sei uno nuovo, senza nessuna conoscenza, ma se giochi bene le tue carte potresti ottenere alla svelta il rispetto della gente del posto. Vuoi sapere cosa sto pensando?",
+    "pol": "Taką, za którą można dostać kasę. Pomyśl: dlaczego zwracam się do ciebie? Jesteś nowy, nie masz przydatnych znajomości, ale jeśli dobrze się zakręcisz, możesz szybko zdobyć szacunek miejscowych. Chcesz wiedzieć, co wykombinowałem?",
+    "rus": "Выгодную. Тебя чего кликнули? Ты - человек новый, пока контактами не оброс, хотя мог бы подняться быстро, мог... Интересует, что мне есть сказать по этому поводу?",
+    "spa": "De los que dan dinero. Ahora piensa: żPor qué te lo pido a ti? Eres nuevo y sin contactos, pero si juegas tus cartas, podrías ganarte rápidamente el respeto de los locales. żTe digo lo que estoy pensando?",
+    "ukr": "Вигодну. Тебе чого кликнули? Ти - людина нова, пока контактами не оброс, хоча міг би підняться бистро, міг... Цікавить, шо я можу сказать по цьому поводу?"
+  },
+  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_11": {
+    "eng": "Yeah, sure.",
+    "fra": "Ouais, bien sűr.",
+    "ger": "Ja, sicher.",
+    "ita": "Certo, spara.",
+    "pol": "Tak, jasne.",
+    "rus": "Интересует.",
+    "spa": "Sí, claro.",
+    "ukr": "Цікавить."
+  },
+  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_111": {
+    "eng": "All right, then listen up. We got a mind to shake down a few of Beard's stalkers. It's a real cinch. Late at night, you and our guys come up to Shevchenko, and before these tourists figure out what's going down, you take ‘em for a ride. We get the dough, you get the props... Catch my drift? Alrighty then. See Knuckles standing over there? He'll give you all the details.",
+    "fra": "Ok, alors écoute. On s'est dit que ce serait pas con de se débarrasser de quelques-uns des stalkers du Barbu. Alors, dans la nuit, nos gars et toi, vous allez aller au Chevtchenko et avant qu'ils s'aperçoivent de quoi que ce soit, vous leur réglez leur compte... On récupčre l'argent, tu récupčres le matos... tu piges ? Cool, tu vois le Poing, lŕ dans le coin ? Il te mettra au jus pour les détails.",
+    "ger": "OK, dann hör zu. Wir haben vor, ein paar von Beards Stalkern hochzunehmen. Das wird echt ein Kinderspiel. Spät in der Nacht tauchst du mit unseren Männern auf der Schewtschenko auf und noch bevor diese Touristen kapieren, was los ist, haut ihr sie in die Pfanne. Wir kriegen das Geld, du die ganze Ausrüstung... verstehst du? Gut. Siehst du Haxe dort drüben? Er wird dir die ganzen Details erklären.",
+    "ita": "E va bene, allora scolta. Vogliamo dare una lezione agli stalker di Beard. Una passeggiata. A notte fonda tu e i nostri ragazzi andrete a Shevchenko e ancora prima che quei turisti capiscano cosa sta succedendo, li portate a fare un giro. Noi ci becchiamo i quattrini e tu la fama... Afferrato il discorso? Bene, allora. Vedi Knuckles laggiů? Lui ti spiegherŕ tutti i dettagli.",
+    "pol": "Dobra, to słuchaj. Chcemy przetrzepać kilku stalkerów Brodacza. To będzie łatwizna. Późno w nocy ty i nasi ludzie wejdziecie na Szewczenkę i zanim ci turyści połapią się, co się dzieje, załatwicie sprawę. My zyskujemy kasę, ty zyskujesz szacunek... Kumasz? No to bomba. Tam stoi Kastet, widzisz, który to? On ci przekaże szczegóły.",
+    "rus": "Тогда смотри сюда. Есть маза пару сталкеров Бороды на валюту поднять. Главное, что дело это тихое, шороху под него не намечается... Короче, придёшь с пацанами ночью к «Шевченко», ну и пока клиенты будут тупить, возьмёшь с них положенное. Нам - выгода, тебе персонально - авторитет... Уловил? Хорошо. Вон Кастет стоит, ты перетри с ним за детали.",
+    "spa": "Muy bien, atención. Tenemos pensado extorsionar a unos stalkers de Barbas. Es pan comido. Bien entrada la noche, tú y tus hombres os acercáis a Shevchenko, y antes de que esos turistas se den cuenta de lo que ocurre, te los llevas a dar una vuelta. Para nosotros la pasta y para ti lo demás, żme sigues? Perfecto. żVes a Knuckles ahí? Él te dará todos los detalles.",
+    "ukr": "Тоді гляди сюди. Є маза пару сталкерів Бороди на валюту піднять. Главне, що справа ця тиха, шороху под неї не намічається... Корочє, прийдеш із пацанами вночі до «Шевченка», ну й поки клієнти будуть тупить, візьмеш з них шо надо. Нам - вигода, тобі персонально - авторитет... Уловив? Добре. Он Кастет стоїть, ти перетри з ним за деталі."
+  },
+  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_12": {
+    "eng": "Not really.",
+    "fra": "Pas vraiment...",
+    "ger": "Nicht wirklich.",
+    "ita": "Non direi.",
+    "pol": "Nie.",
+    "rus": "Не особо.",
+    "spa": "No mucho.",
+    "ukr": "Не так щоб дуже."
+  },
+  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_121": {
+    "eng": "Too bad. Take some time and think it over... You'll come back if you know what's good for you, buddy.",
+    "fra": "Dommage. Prends ton temps et réfléchis bien... Si tu sais ce qui est bon pour toi, tu reviendras me voir, mon pote.",
+    "ger": "Schade. Lass dir ruhig etwas Zeit und denk darüber nach... du wirst sicher mitmachen, wenn du weißt, was gut für dich ist, Kumpel.",
+    "ita": "Peccato. Prenditi un po' di tempo per pensarci... Se sei uno che sa cosa gli conviene tornerai da me.",
+    "pol": "Szkoda. Nie spiesz się, przemyśl to... Jeśli wiesz, co dla ciebie dobre, to wrócisz, kolego.",
+    "rus": "Вот это зря, ты всё ж таки подумай... Как поймёшь, что для тебя реально хорошо, пообщаемся.",
+    "spa": "Vaya... Tómate tu tiempo y piénsatelo. Si sabes lo que te conviene, acabarás volviendo.",
+    "ukr": "Оце зря, ти все-таки подумай... Як поймеш, шо для тебе реально добре, пообщаємося."
+  },
+  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_2": {
+    "eng": "The kind you'd appreciate if you wanna go places... Wanna know what I'm thinking?",
+    "fra": "Le genre qui t'intéresse si t'as envie de voir du pays... Tu veux que je te parle de mes projets ?",
+    "ger": "Kumpel, ich hab den perfekten Job für dich, wenn du herumkommen willst... soll ich dir verraten, um was es geht?",
+    "ita": "Un lavoro di quelli adatti a chi ama viaggiare... Vuoi sapere cosa sto pensando?",
+    "pol": "Taką, która ci się spodoba, jeśli lubisz podróże... Chcesz wiedzieć, co wykombinowałem?",
+    "rus": "Тебе полезную, если подняться хочешь! Интересует, что мне есть сказать по этому поводу?",
+    "spa": "De los que te vienen bien si quieres ir a sitios. żQuieres saber qué estoy pensando?",
+    "ukr": "Тобі полєзно, якшо піднятися хочеш! Цікавить, шо я можу сказать по цьому поводу?"
   },
   "zat_b7_bandit_boss_sultan_intro_0": {
     "eng": "Remember. I'm Sultan. Everything that goes down here is either under my control or will be soon. If you want to live the good life, you gotta work for me. If you don't, you'll live the shitty life. That's how we roll, bro.",
@@ -9429,6 +10009,16 @@
     "spa": "Ya lo hablaremos luego. Hay demasiados matones rondando; hay que ponerlos en su sitio y, si se tercia, hablaremos de trabajo.",
     "ukr": "Давай пізніше про це поговоримо? Тут гопоти місцевої навколо розвелося - тьма. От утихомиримо їх трохи, тоді можна і про роботу думати."
   },
+  "zat_b7_stalkers_raiders_actor_choose_dialog_0": {
+    "eng": "Sultan says you’re planning to fleece the stalkers. Count me in.",
+    "fra": "Sultan dit que tu comptes plumer les stalkers. Tu peux compter sur moi !",
+    "ger": "Sultan sagt, dass du die Stalker ausnehmen willst. Ich bin dabei.",
+    "ita": "Sultan dice che stai pianificando di derubare gli stalker. Considerami dei tuoi.",
+    "pol": "Sułtan mówi, że chcesz oskubać stalkerów. Możesz na mnie liczyć.",
+    "rus": "Султан говорит, вы сталкеров хотите тряхнуть. Я с вами.",
+    "spa": "Sultán dice que planeas desplumar a los stalkers. Cuenta conmigo.",
+    "ukr": "Султан каже, ви сталкерів хочете труснути. Я з вами."
+  },
   "zat_b7_stalkers_raiders_actor_choose_dialog_1": {
     "eng": "All right, let's blow this joint. We'll give it to 'em good!",
     "fra": "OK, on fait tout sauter ! On va leur montrer !",
@@ -9438,6 +10028,36 @@
     "rus": "Ну чё, тогда погнали? Ща мы их быро...",
     "spa": "Venga, nos vamos pitando. ˇSe van a enterar!",
     "ukr": "Ну шо, тада погнали? Ща ми їх биро... "
+  },
+  "zat_b7_stalkers_raiders_actor_choose_dialog_2": {
+    "eng": "Great. Get your ass over to Shevchenko after midnight - we'll be waiting for you. Just don’t wait till morning to show up.",
+    "fra": "Cool. Ramčne ton cul au Chevtchenko aprčs minuit, on t'attendra. Mais attends pas que le jour se lčve pour te pointer, hein !",
+    "ger": "Gut. Beweg deinen Arsch nach Mitternacht zur Schewtschenko... wir werden auf dich warten. Aber kreuze dort nicht erst am Morgen auf.",
+    "ita": "Grandioso. Porta le chiappe a Shevchenko dopo mezzanotte. Ti aspetteremo. Ma non farci aspettare fino al mattino.",
+    "pol": "Świetnie. Po północy bądź przy Szewczence - będziemy na ciebie czekać. Tylko nie zwlekaj do rana, przyjdź wcześniej.",
+    "rus": "Отлично. Подваливай к «Шевченко» заполночь - мы тя будем ждать. Тока до утра не тяни.",
+    "spa": "Genial. Preséntate en Shevchenko después de medianoche; estaremos esperándote. No vayas a aparecer por la mańana.",
+    "ukr": "Атлічна! Підвалюй до «Шевченка» після полуночі - ми тя будем чекать. Тока до ранку не тягни."
+  },
+  "zat_b7_stalkers_raiders_actor_teleport_dialog_0": {
+    "eng": "I think I better stay with you. We’ll wait for midnight and then you can show me the way to Shevchenko.",
+    "fra": "Je ferais mieux de rester avec toi. On va attendre jusqu'ŕ minuit et tu pourras m'emmener au Chevtchenko.",
+    "ger": "Ich glaube, ich sollte besser bei dir bleiben. Wir warten bis Mitternacht und dann kannst du mir den Weg zur Schewtschenko zeigen.",
+    "ita": "Forse farň meglio a stare con te. Aspetteremo la mezzanotte, poi potrai mostrarmi la strada per Shevchenko.",
+    "pol": "Chyba lepiej zostanę z tobą. Poczekamy do północy i pokażesz mi drogę do Szewczenki.",
+    "rus": "Лучше я с тобой побуду. Как дождёмся полуночи, покажешь мне дорогу к «Шевченко».",
+    "spa": "Será mejor que me quede contigo. Esperaremos a medianoche y entonces podrás enseńarme el camino a Shevchenko.",
+    "ukr": "Краще я з тобою побуду. Як дочекаємося півночі, покажеш мені дорогу до «Шевченко»."
+  },
+  "zat_b7_stalkers_raiders_actor_teleport_dialog_1": {
+    "eng": "No problem, stick around. Taking you to the barge ain’t a problem.",
+    "fra": "Pas de problčme, reste dans le coin ! Je te montrerai le chemin.",
+    "ger": "Klar, bleib ruhig hier. Sollte kein Problem sein, dich zum Schiff zu bringen.",
+    "ita": "Nessun problema, tu resta da queste parti. Portarti alla chiatta non č un problema.",
+    "pol": "Nie ma problemu, możesz się tu kręcić. Pogadamy przy barce.",
+    "rus": "Не вопрос, оставайся. А к барже свести - это не проблема.",
+    "spa": "Perfecto, quédate. Llevarte a la barcaza no es ningún problema.",
+    "ukr": "Не вопрос, оставайся. А до баржі одвести - то не проблєма."
   },
   "zat_b7_stalkers_raiders_actor_teleport_dialog_11": {
     "eng": "Good.",
@@ -9449,6 +10069,16 @@
     "spa": "De acuerdo.",
     "ukr": "Добре."
   },
+  "zat_b7_stalkers_raiders_actor_teleport_dialog_12": {
+    "eng": "Actually... I’m gonna go take care of some things.",
+    "fra": "En fait... j'ai deux trois choses ŕ faire avant.",
+    "ger": "Eigentlich... habe ich noch etwas zu tun.",
+    "ita": "In realtŕ... Voglio sistemare alcune cose.",
+    "pol": "Właściwie muszę się czymś zająć.",
+    "rus": "Хотя нет. Я пока своими делами займусь.",
+    "spa": "Pues... tengo que ocuparme de unos asuntos.",
+    "ukr": "Хоча ні. Я поки своїми справами займуся."
+  },
   "zat_b7_stalkers_raiders_actor_teleport_dialog_2": {
     "eng": "We better find some cover though. It's the friggin' emission!",
     "fra": "On a intéręt ŕ se mettre ŕ l'abri... On va se coltiner une émission !",
@@ -9459,6 +10089,26 @@
     "spa": "Será mejor que nos pongamos a cubierto. ˇUna maldita emisión!",
     "ukr": "Краще де-то в укритті переждать. Викид, мать його!"
   },
+  "zat_b7_stalkers_raiders_dialog_13": {
+    "eng": "Oh, it's you, bro. So, what did you and Sultan agree on?",
+    "fra": "Oh, c'est toi. Alors, vous avez convenu de quoi, Sultan et toi ?",
+    "ger": "Oh, du bist es, Bruder. Also, was hast du mit Sultan besprochen?",
+    "ita": "Oh, sei tu, fratello. Allora, cosa hai concordato con Sultan?",
+    "pol": "A, to ty, brachu. No i co ustaliliście z Sułtanem?",
+    "rus": "А, братан! Так до чего вы с Султаном добазарились?",
+    "spa": "Ah, eres tú, hermano. żQué habéis acordado Sultán y tú?",
+    "ukr": "А, братан! Так про шо ви із Султаном добазарились?"
+  },
+  "zat_b7_stalkers_raiders_dialog_14": {
+    "eng": "So... Get over to the barge after midnight but before the sun comes up - we’ll be waiting for you.",
+    "fra": "Donc... viens sur la péniche entre minuit et le lever du soleil, on t'attendra.",
+    "ger": "Also... komm nach Mitternacht - aber vor Sonnenaufgang - zum Schiff. Wir werden auf dich warten.",
+    "ita": "Allora... Vai alla chiatta dopo mezzanotte ma prima dell'alba. Ti aspetteremo.",
+    "pol": "No więc... Przyjdź do barki po północy, ale przed wschodem słońca - będziemy na ciebie czekać.",
+    "rus": "Ну чё... Подваливай к барже после полуночи, пока светать не начало. Мы тя ждать будем.",
+    "spa": "Pues... ve a la barcaza después de medianoche, pero antes de que salga el sol. Te estaremos esperando.",
+    "ukr": "Ну шо... Подвалюй до баржі після повночі, пока світать не почало. Ми тя чекать будем."
+  },
   "zat_b7_stalkers_raiders_dialog_15": {
     "eng": "Let's blow this joint. We'll give it to 'em good! Stay cool, it's gonna be all right.",
     "fra": "On fait tout sauter ! On va leur montrer ! Relax, tout va bien se passer !",
@@ -9468,6 +10118,26 @@
     "rus": "Ну чё, погнали? Ща мы их быро... Ты, главное, не ссы.",
     "spa": "Larguémonos de aquí. ˇSe van a enterar! Tranquilidad, que todo saldrá bien.",
     "ukr": "Ну шо, погнали? Ща ми їх биро... Ти, главне, не сци."
+  },
+  "zat_b7_stalkers_raiders_dialog_151": {
+    "eng": "Let’s rock.",
+    "fra": "C'est parti !",
+    "ger": "Legen wir los.",
+    "ita": "Diamoci dentro.",
+    "pol": "Ruszajmy.",
+    "rus": "Поехали.",
+    "spa": "Vamos.",
+    "ukr": "Поїхали."
+  },
+  "zat_b7_stalkers_raiders_dialog_152": {
+    "eng": "Wait.",
+    "fra": "Une minute !",
+    "ger": "Halt.",
+    "ita": "Aspetta.",
+    "pol": "Czekaj.",
+    "rus": "Подожди.",
+    "spa": "Espera.",
+    "ukr": "Чекай."
   },
   "zat_b7_stalkers_raiders_dialog_16": {
     "eng": "Popped 'em good, eh! Here's the coin, pal. I'll holler atcha if we get any more 'business.'",
@@ -9499,6 +10169,46 @@
     "spa": "ˇżQué es lo que no entiendes?! ˇżEl sitio donde están los stalkers?! żPero qué cojones es esto? Te has chivado, żno? ˇNo ha podido ser nadie más! Mis hermanos no se han separado de mí... ˇAhora te machacaremos a ti como íbamos a hacer con ellos! żQué cońo miras? ˇVacía los bolsillos, imbécil!",
     "ukr": "Я не поняв... а сталкери де?.. Це шо... це ти, сука, здав?! Ти, зуб даю! Всі братани зі мною рядом були!.. От ща ми тебе замість сталкеров пошмонаємо! Шо, йопта, смориш? Вивертай кармани нах!"
   },
+  "zat_b7_stalkers_raiders_dialog_191": {
+    "eng": "OK, take the money. I don't want to fight.",
+    "fra": "D'accord, voilŕ l'argent. Je ne veux pas me battre.",
+    "ger": "Gut, nimm das Geld. Ich will keinen Ärger.",
+    "ita": "OK, prendi i soldi. Non voglio combattere.",
+    "pol": "Dobrze, weź pieniądze. Nie chcę walczyć.",
+    "rus": "Хорошо, бери деньги. Не будем ссориться.",
+    "spa": "Vale, coge el dinero. No quiero bronca.",
+    "ukr": "Добре, бери гроші. Не будемо сваритися."
+  },
+  "zat_b7_stalkers_raiders_dialog_1911": {
+    "eng": "Huh? Gimme everything you got, bitch! Then get lost and stay lost!",
+    "fra": "Hein ? File-moi tout ce que t'as et dégage, enfoiré ! J'veux pas te revoir ici !",
+    "ger": "Hä? Gib mir alles, was du hast, Vollidiot! Und dann verzieh dich besser!",
+    "ita": "Eh? Dammi tutto quello che hai, stronzo! Poi sparisci e non farti piů vedere!",
+    "pol": "Hę? Dawaj wszystko co masz, gnoju! A potem spadaj i nie pokazuj się tu więcej!",
+    "rus": "Чё?! Всё отдавай, нах! И вали отсюда, быстро!",
+    "spa": "żEh? ˇDame todo lo que tengas, cabronazo! ˇY piérdete y no aparezcas!",
+    "ukr": "Шо?! Всьо оддавай, нах! І вали звідси, биро!"
+  },
+  "zat_b7_stalkers_raiders_dialog_19111": {
+    "eng": "I'm leaving.",
+    "fra": "Je pars.",
+    "ger": "Ich gehe.",
+    "ita": "Me ne vado.",
+    "pol": "Idę stąd.",
+    "rus": "Ухожу.",
+    "spa": "Me voy.",
+    "ukr": "Іду."
+  },
+  "zat_b7_stalkers_raiders_dialog_192": {
+    "eng": "No can do!",
+    "fra": "Hors de question !",
+    "ger": "Das kann ich nicht!",
+    "ita": "Non posso!",
+    "pol": "Nic z tego!",
+    "rus": "Не выйдет!",
+    "spa": "ˇTe digo que no!",
+    "ukr": "Не вийде!"
+  },
   "zat_b7_stalkers_raiders_dialog_20": {
     "eng": "We should get going... to the barge.",
     "fra": "On devrait aller sur la péniche.",
@@ -9508,6 +10218,16 @@
     "rus": "Пошли типа это... к барже.",
     "spa": "Deberíamos ir... a la barca.",
     "ukr": "Пішли тіпа це... до баржі."
+  },
+  "zat_b7_stalkers_raiders_dialog_21": {
+    "eng": "Popped 'em good, eh! You didn’t get involved, so you ain’t getting a cut. I'll holler atcha if we get any more 'business.'",
+    "fra": "On s'est bien débrouillé, non ? Toi, par contre, comme t'as pas fait grand-chose, compte pas obtenir ta part du gâteau ! Je te ferai signe si on a d'autres plans.",
+    "ger": "Denen haben wir's aber gezeigt, was? Du hast nichts geleistet, also kriegst du auch nichts von der Beute ab. Ich lass dich wissen, wenn wir weitere \"Geschäfte\" zu erledigen haben...",
+    "ita": "Li abbiamo conciati per le feste, eh!?Tu non hai voluto partecipare, quindi non avrai nulla. Se avremo altri \"affari\" ti farň un fischio.",
+    "pol": "Urządziliśmy ich, a co! Ty się nie udzielałeś, więc nie dostaniesz kasy. Jak będzie nowa robota, dam ci cynk.",
+    "rus": "А круто мы их вольтанули! Только ты, фраер, в сторонке мялся, потому хрен тебе а не доля!.. Ладно, не ссы. Если ещё какое дело наклюнется, мы маякнём.",
+    "spa": "Menuda zurra, żeh? No te involucraste, así que no te llevarás tu parte. Ya te avisaré si surgen más \"negocios\".",
+    "ukr": "А круто ми їх вольтанули! Тока ти, фраєр, по углах никався, тому хрєн тобі, а не доля!.. Та лана, не сци. Якшо іще яке дєло замаячить, ми свиснем."
   },
   "zat_b7_stalkers_raiders_dialog_31": {
     "eng": "Hey there, chief. Sorry, but I ain't in the talking mood right now.",
@@ -9558,6 +10278,36 @@
     "rus": "Нет. На такие расклады я не согласен.",
     "spa": "No. Yo paso de eso.",
     "ukr": "Ні. На такі розклади я не згоден."
+  },
+  "zat_b7_stalkers_victims_actor_start_dialog_0": {
+    "eng": "A group of stalkers is planning to stick you up. Stay alert.",
+    "fra": "Un groupe de stalkers s'appręte ŕ vous tomber dessus. Restez sur vos gardes !",
+    "ger": "Eine Gruppe von Stalkern hat vor, euch zu überfallen. Seid auf der Hut.",
+    "ita": "Un gruppo di stalker vuole fregarti. Stai all'erta.",
+    "pol": "Grupa stalkerów chce cię obrabować. Bądź czujny.",
+    "rus": "Вас собирается ограбить группа сталкеров. Советую быть начеку.",
+    "spa": "Un grupo de stalkers planea atracarte. Ten cuidado.",
+    "ukr": "Вас збирається пограбувати група сталкерів. Раджу бути напоготові."
+  },
+  "zat_b7_stalkers_victims_actor_start_dialog_1": {
+    "eng": "Rat bastards... All right, we'll give them a warm welcome... Listen, try to make them think you’re on their side. Do that and you can help us fight them off... We'll make it worth your while...",
+    "fra": "Les salopards... Trčs bien, on va leur préparer un petit comité d'accueil... Alors, essaye de leur faire croire que tu es de leur côté, ça te permettra de nous filer un coup de main... Il y a une belle récompense ŕ la clé.",
+    "ger": "Miese Ratten! Aber gut, dann werden wir sie gebührend empfangen! Pass auf, lass sie glauben, dass du auf ihrer Seite bist. Wenn du das machst, kannst du uns dabei helfen, den Überfall abzuwehren. Wir werden dich dafür auch belohnen.",
+    "ita": "Maledetti bastardi... E va bene, gli daremo un caloroso benvenuto... Ascolta, fagli credere di essere dalla loro parte. Se ci riuscirai ci darai un grande aiuto nel respingerli... Sapremo come ricompensarti...",
+    "pol": "Co za gnojki... Dobra, przygotujemy im ciepłe powitanie... Słuchaj, niech myślą, że jesteś po ich stronie. Jeśli im to wmówisz, pomożesz nam ich odeprzeć... Dobrze cię wynagrodzimy...",
+    "rus": "Подонки! Ну ничего, мы им приготовим горячий приём... Слушай, если будет возможность, вотрись к ним в доверие. Разузнаешь, как и что, да поможешь нам отбиться... мы в долгу не останемся!",
+    "spa": "Cerdos... Muy bien, les daremos una cálida bienvenida. Mira, intenta convencerlos de que estás de su parte. Así nos ayudarás a acabar con ellos. Te recompensaremos bien por ello.",
+    "ukr": "Покидьки! Ну нічого, ми їм приготуємо гарячий прийом... Слухай, як буде можливість, увійди до них в довіру. Дізнаєшся, як і що, та допоможеш нам відбитися... за нами боргу не буде!"
+  },
+  "zat_b7_stalkers_victims_actor_start_dialog_2": {
+    "eng": "Rat bastards... All right, we'll give them a warm welcome... Listen, help us fight them off if you can. We'll make it worth your while...",
+    "fra": "Les salopards... Trčs bien, on va leur préparer un petit comité d'accueil... Aide-nous ŕ les combattre si tu peux et t'auras droit ŕ une récompense !",
+    "ger": "Miese Ratten! Aber gut, dann werden wir sie gebührend empfangen! Pass auf, du musst uns gegen diese Typen helfen. Wir werden dich dafür auch belohnen.",
+    "ita": "Maledetti bastardi... E va bene, gli daremo un caloroso benvenuto... Ascolta, aiutaci a respingerli, se puoi. Sapremo come ricompensarti...",
+    "pol": "Co za gnojki... Dobra, przygotujemy im ciepłe powitanie... Słuchaj, pomóż nam ich pokonać... Dobrze cię wynagrodzimy...",
+    "rus": "Подонки! Ну ничего, мы им подготовим горячий приём... Слушай, если есть такая возможность, помоги нам отбиться. Мы в долгу не останемся!",
+    "spa": "Cerdos... Muy bien, les daremos una cálida bienvenida. Ayúdanos a acabar con ellos. Te recompensaremos bien por ello.",
+    "ukr": "Покидьки! Ну нічого, ми їм підготуємо гарячий прийом... Слухай, як є така можливість, допоможи нам відбитися. За нами боргу не буде!"
   },
   "zat_b7_stalkers_victims_dialog_11": {
     "eng": "Howdy, stalker. I'm busy right now. Let's talk later, okay?",
@@ -9628,755 +10378,5 @@
     "rus": "Приветствую.",
     "spa": "Hola.",
     "ukr": "Вітаю."
-  },
-  "zat_b106_stalker_gonta_info_about_soroka_gone_0": {
-    "eng": "I found Magpie. He was at Yanov station, posing as 'Flint.' He’s been dealt with.",
-    "fra": "J'ai trouvé la Pie. Il se cachait dans la gare de Yanov oů il se faisait appeler Flint. Je me suis chargé de son cas.",
-    "ger": "Ich habe Magpie gefunden. Er war in der Janow-Station und hat sich dort als ein gewisser \"Flint\" ausgegeben. Ich habe mich um ihn gekümmert.",
-    "ita": "Ho trovato Magpie. Era alla stazione Yanov, dove si faceva chiamare 'Flint'. L'ho giŕ sistemato.",
-    "pol": "Znalazłem Srokę. Był w stacji Janów, przedstawiał się jako Flint. Już załatwiony.",
-    "rus": "Я нашёл Сороку - он был на станции «Янов» под именем Флинт. С ним уже разобрались.",
-    "spa": "He encontrado a Urraca. Estaba en la estación de Yanov, haciéndose pasar por Pedernal. Acabé con él.",
-    "ukr": "Я знайшов Сороку. На станції «Янів» він носив прізвисько Флінт. Із ним уже розібралися."
-  },
-  "zat_b106_stalker_gonta_info_about_soroka_gone_1": {
-    "eng": "Dealt with? That’s a pity. I sure would have loved to hurt that cockroach myself... Oh well, it's good news either way. Here, take this - I’m a man of my word.",
-    "fra": "Chargé de son cas ? Dommage, j'aurais aimé écraser ce cafard moi-męme... Tant pis, ça reste une bonne nouvelle. Voilŕ la récompense, je suis un homme de parole.",
-    "ger": "Um ihn gekümmert? Das ist schade. Ich hätte mich liebend gerne selbst um diese miese Ratte gekümmert... aber was soll's? Dennoch sind das gute Neuigkeiten! Hier, für dich - ich stehe zu meinem Wort.",
-    "ita": "Sistemato? Che peccato. Mi sarebbe piaciuto dare una lezione a quello scarafaggio... Oh, beh, č comunque una buona notizia. Ecco, prendi questo. Io sono un uomo di parola.",
-    "pol": "Załatwiony? Szkoda. Sam bym chciał rozdeptać tego robala... No nic, to i tak dobra wiadomość. Weź to - dotrzymuję słowa.",
-    "rus": "Разобрались? Эх, жаль! Даже за горло не подержался... Ну, ничего, все равно весть хорошая. Вот, держи. Как обещал.",
-    "spa": "żEn serio? Qué pena... Me hubiera encantado aplastar personalmente a esa cucaracha. En fin, es una buena noticia. Aquí tienes; soy un hombre de palabra.",
-    "ukr": "Розібралися? Эх, шкода! Навіть за горло не потримався... Ну, нічого, усе рівно звістка гарна. От, тримай. Як обіцяв."
-  },
-  "zat_b106_stalker_gonta_info_about_soroka_gone_11": {
-    "eng": "Thanks.",
-    "fra": "Merci.",
-    "ger": "Danke.",
-    "ita": "Grazie.",
-    "pol": "Dzięki.",
-    "rus": "Спасибо.",
-    "spa": "Gracias.",
-    "ukr": "Дякую."
-  },
-  "zat_b215_stalker_guide_leave_zone_0": {
-    "eng": "I want to leave the Zone.",
-    "fra": "Je veux quitter la Zone.",
-    "ger": "Ich möchte die Zone verlassen.",
-    "ita": "Voglio andarmene dalla Zona.",
-    "pol": "Chcę opuścić Zonę.",
-    "rus": "Я хочу уйти из Зоны.",
-    "spa": "Quiero irme de la Zona.",
-    "ukr": "Я хочу піти із Зони."
-  },
-  "zat_b215_stalker_guide_leave_zone_1": {
-    "eng": "You sure? There ain’t no way back.",
-    "fra": "Vraiment ? Il sera impossible de changer d'avis plus tard...",
-    "ger": "Sicher? Es gibt keinen Weg zurück.",
-    "ita": "Sicuro? Poi non potrai piů tornare.",
-    "pol": "Na pewno? Nie będziesz już mógł wrócić.",
-    "rus": "Уверен? Это дорога в один конец.",
-    "spa": "żSeguro? No hay vuelta atrás.",
-    "ukr": "Ти певен? То дорога в один кінець."
-  },
-  "zat_b215_stalker_guide_leave_zone_11": {
-    "eng": "I’m sure. Let’s go.",
-    "fra": "Je suis sűr de moi. Allons-y !",
-    "ger": "Ich bin mir sicher. Gehen wir.",
-    "ita": "Sono sicuro. Andiamo.",
-    "pol": "Na pewno. Chodźmy.",
-    "rus": "Уверен. Пойдём.",
-    "spa": "Segurísimo. En marcha.",
-    "ukr": "Певен. Ходімо."
-  },
-  "zat_b215_stalker_guide_leave_zone_12": {
-    "eng": "Actually... I’ll stay for now.",
-    "fra": "En fait, je vais rester pour l'instant.",
-    "ger": "Ich glaube... ich bleibe noch.",
-    "ita": "In effetti... per ora resterň.",
-    "pol": "Właściwie jeszcze zostanę.",
-    "rus": "Хотя ладно... пока останусь.",
-    "spa": "Bueno... De momento me quedo.",
-    "ukr": "Хоча добре... поки залишуся."
-  },
-  "zat_b7_stalkers_raiders_dialog_191": {
-    "eng": "OK, take the money. I don't want to fight.",
-    "fra": "D'accord, voilŕ l'argent. Je ne veux pas me battre.",
-    "ger": "Gut, nimm das Geld. Ich will keinen Ärger.",
-    "ita": "OK, prendi i soldi. Non voglio combattere.",
-    "pol": "Dobrze, weź pieniądze. Nie chcę walczyć.",
-    "rus": "Хорошо, бери деньги. Не будем ссориться.",
-    "spa": "Vale, coge el dinero. No quiero bronca.",
-    "ukr": "Добре, бери гроші. Не будемо сваритися."
-  },
-  "zat_b7_stalkers_raiders_dialog_1911": {
-    "eng": "Huh? Gimme everything you got, bitch! Then get lost and stay lost!",
-    "fra": "Hein ? File-moi tout ce que t'as et dégage, enfoiré ! J'veux pas te revoir ici !",
-    "ger": "Hä? Gib mir alles, was du hast, Vollidiot! Und dann verzieh dich besser!",
-    "ita": "Eh? Dammi tutto quello che hai, stronzo! Poi sparisci e non farti piů vedere!",
-    "pol": "Hę? Dawaj wszystko co masz, gnoju! A potem spadaj i nie pokazuj się tu więcej!",
-    "rus": "Чё?! Всё отдавай, нах! И вали отсюда, быстро!",
-    "spa": "żEh? ˇDame todo lo que tengas, cabronazo! ˇY piérdete y no aparezcas!",
-    "ukr": "Шо?! Всьо оддавай, нах! І вали звідси, биро!"
-  },
-  "zat_b7_stalkers_raiders_dialog_19111": {
-    "eng": "I'm leaving.",
-    "fra": "Je pars.",
-    "ger": "Ich gehe.",
-    "ita": "Me ne vado.",
-    "pol": "Idę stąd.",
-    "rus": "Ухожу.",
-    "spa": "Me voy.",
-    "ukr": "Іду."
-  },
-  "zat_b7_stalkers_raiders_dialog_192": {
-    "eng": "No can do!",
-    "fra": "Hors de question !",
-    "ger": "Das kann ich nicht!",
-    "ita": "Non posso!",
-    "pol": "Nic z tego!",
-    "rus": "Не выйдет!",
-    "spa": "ˇTe digo que no!",
-    "ukr": "Не вийде!"
-  },
-  "zat_b22_stalker_medic_need_health_care_2": {
-    "eng": "Let's have a look... With your health? Well, if you’re doing badly, I must be dead or something...",
-    "fra": "Voyons voir... Ah, si vous, vous allez mal, moi, je dois ętre mort...",
-    "ger": "Mal sehen... deine Gesundheit? Nun, wenn es dir schlecht geht, müsste ich wohl schon so gut wie tot sein...",
-    "ita": "Diamo un'occhiata... Con il tuo stato di salute? Beh, se tu te la passi male, io devo essere morto o qualcosa del genere...",
-    "pol": "Spójrzmy... Ale o co chodzi? Jeśli ty niedomagasz, to ja już chyba jestem trupem...",
-    "rus": "Сейчас посмотрим... с таким-то здоровьем? Да мне тогда, видимо, нужна немедленная путёвка в морг.",
-    "spa": "Veamos... żCon tu salud? Pues si a ti te va mal, yo debo de estar muerto o algo...",
-    "ukr": "Зараз подивимося... ото із таким здоров'ям?! Та мені тоді, вочевидь, потрібна негайна путівка до моргу."
-  },
-  "zat_b30_owl_stalker_trader_start_dialog_13": {
-    "eng": "Listen, there's some urgent business. A trader I know wants to swing a deal. Only problem is, his customers are the bothersome type, so he's hiring a security guard just in case. You interested?",
-    "fra": "J'ai une affaire urgente ŕ régler. Un marchand de ma connaissance va passer un accord, mais il ne fait trop confiance ŕ ses acheteurs, alors il cherche un garde du corps. Ça t'intéresse ?",
-    "ger": "Hör zu, es gibt etwas Dringendes zu erledigen. Ein Händler, den ich kenne, will ein Geschäft abwickeln. Das Problem dabei ist, dass seine Kunden nicht sehr vertrauenswürdig sind. Deswegen will er für den Fall der Fälle einen Leibwächter anheuern. Hättest du Interesse?",
-    "ita": "Ascolta, c'č una faccenda urgente. Un commerciante di mia conoscenza vuole chiudere un affare. Il problema č che i suoi clienti sono di quelli difficlii, quindi vuole assumere una guardia del corpo per stare piů tranquillo. Ti interessa?",
-    "pol": "Słuchaj, jest pilna sprawa. Mój znajomy handlarz ma interes do zrobienia. Problem w tym, że jego klienci są z tych kłopotliwych, więc na wszelki wypadek chce wynająć ochroniarza. Jesteś zainteresowany?",
-    "rus": "Слушай, есть срочное дело. Знакомый торговец одну сделку хочет провернуть. Только там клиенты беспокойные, нужна охрана на всякий случай. Интересует?",
-    "spa": "Oye, hay un asunto urgente. Un comerciante que conozco quiere cerrar un trato, pero sus clientes son de los que causan problemas, así que va a contratar a un guardia de seguridad, por si acaso. żTe interesa?",
-    "ukr": "Слухай, є термінова справа. Знайомий торговець одну угоду хоче провернути. Тільки там клієнти неспокійні, потрібна охорона про всяк випадок. Цікавить?"
-  },
-  "zat_b30_owl_stalker_trader_start_dialog_131": {
-    "eng": "Yes.",
-    "fra": "Oui.",
-    "ger": "Ja.",
-    "ita": "Sě.",
-    "pol": "Tak.",
-    "rus": "Да.",
-    "spa": "Sí.",
-    "ukr": "Так."
-  },
-  "zat_b30_owl_stalker_trader_start_dialog_1311": {
-    "eng": "OK. The trader will be waiting for you by the ranger station, he'll fill you in on the details.",
-    "fra": "Parfait. Le marchand t'attendra prčs du poste des rangers, il te donnera tous les détails.",
-    "ger": "Gut. Der Händler wird bei der Forststation auf dich warten. Er wird dir dann die Details erklären.",
-    "ita": "Bene. Il commerciante ti aspetterŕ alla stazione dei ranger e ti spiegherŕ tutti i dettagli.",
-    "pol": "Dobra. Handlarz będzie na ciebie czekał przy strażnicy, przekaże ci wszystkie szczegóły.",
-    "rus": "Хорошо. Торговец будет ждать возле лесничества - там и обсудите все подробности.",
-    "spa": "Vale. El comerciante te estará esperando en el puesto del guardabosques para informarte.",
-    "ukr": "Добре. Торговець чекатиме біля лісництва - там і обговорите всі подробиці."
-  },
-  "zat_b30_owl_stalker_trader_start_dialog_132": {
-    "eng": "Not really.",
-    "fra": "Pas vraiment.",
-    "ger": "Nein, nicht wirklich.",
-    "ita": "Non direi.",
-    "pol": "Nie.",
-    "rus": "Не особо.",
-    "spa": "No mucho.",
-    "ukr": "Не так щоб дуже."
-  },
-  "zat_b30_owl_stalker_trader_start_dialog_1321": {
-    "eng": "Up to you. If you do change your mind soon enough, the job may still be up for grabs.",
-    "fra": "Comme tu voudras. Si tu changes d'avis dans pas trop longtemps, reviens me voir. ",
-    "ger": "Wie du willst. Wenn du deine Meinung rechtzeitig änderst, könnte der Job noch zu haben sein.",
-    "ita": "Come vuoi. Se cambi idea, forse farai ancora in tempo ad avere il lavoro.",
-    "pol": "Twoja sprawa. Jeśli niedługo zmienisz zdanie, robota może być nadal do wzięcia.",
-    "rus": "Ну смотри. Чуток времени ещё есть, передумаешь - обращайся.",
-    "spa": "Tú verás. Si cambias de idea pronto, puede que aún estés a tiempo.",
-    "ukr": "Ну гляди. Троха часу ще є, передумаєш - звертайся."
-  },
-  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_0": {
-    "eng": "What kind of job can you offer me?",
-    "fra": "Quel genre de boulots tu proposes ?",
-    "ger": "Was für Arbeit hast du für mich?",
-    "ita": "Che tipo di lavoro puoi offrirmi?",
-    "pol": "Jaką masz dla mnie pracę?",
-    "rus": "Какую работу ты можешь предложить?",
-    "spa": "żQué clase de trabajo puedes ofrecerme?",
-    "ukr": "Яку роботу ти можеш запропонувати?"
-  },
-  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_1": {
-    "eng": "The money-making kind. Now think: why am I asking you? You're the new guy with no connections to speak of but if you play your cards right you could quickly gain the locals' respect. Wanna know what I'm thinking?",
-    "fra": "Des boulots qui rapportent. Maintenant, réfléchis : pourquoi c'est ŕ toi que je demande ? T'es nouveau dans le coin, personne te connaît, mais si tu te débrouilles bien, tu peux rapidement gagner la confiance des gars du coin. Tu veux que je te parle de mes projets ?",
-    "ger": "Arbeit, die dir zumindest Geld einbringt. Denk mal nach: Warum frage ich dich? Du bist neu hier und kennst niemanden... aber wenn du dich klug verhältst, könntest du dir hier sehr schnell Respekt verschaffen. Willst du wissen, um was es geht?",
-    "ita": "Un genere di lavoro di quelli ben pagati. Pensaci un attimo: perché mi rivolgo a te? Tu sei uno nuovo, senza nessuna conoscenza, ma se giochi bene le tue carte potresti ottenere alla svelta il rispetto della gente del posto. Vuoi sapere cosa sto pensando?",
-    "pol": "Taką, za którą można dostać kasę. Pomyśl: dlaczego zwracam się do ciebie? Jesteś nowy, nie masz przydatnych znajomości, ale jeśli dobrze się zakręcisz, możesz szybko zdobyć szacunek miejscowych. Chcesz wiedzieć, co wykombinowałem?",
-    "rus": "Выгодную. Тебя чего кликнули? Ты - человек новый, пока контактами не оброс, хотя мог бы подняться быстро, мог... Интересует, что мне есть сказать по этому поводу?",
-    "spa": "De los que dan dinero. Ahora piensa: żPor qué te lo pido a ti? Eres nuevo y sin contactos, pero si juegas tus cartas, podrías ganarte rápidamente el respeto de los locales. żTe digo lo que estoy pensando?",
-    "ukr": "Вигодну. Тебе чого кликнули? Ти - людина нова, пока контактами не оброс, хоча міг би підняться бистро, міг... Цікавить, шо я можу сказать по цьому поводу?"
-  },
-  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_11": {
-    "eng": "Yeah, sure.",
-    "fra": "Ouais, bien sűr.",
-    "ger": "Ja, sicher.",
-    "ita": "Certo, spara.",
-    "pol": "Tak, jasne.",
-    "rus": "Интересует.",
-    "spa": "Sí, claro.",
-    "ukr": "Цікавить."
-  },
-  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_111": {
-    "eng": "All right, then listen up. We got a mind to shake down a few of Beard's stalkers. It's a real cinch. Late at night, you and our guys come up to Shevchenko, and before these tourists figure out what's going down, you take ‘em for a ride. We get the dough, you get the props... Catch my drift? Alrighty then. See Knuckles standing over there? He'll give you all the details.",
-    "fra": "Ok, alors écoute. On s'est dit que ce serait pas con de se débarrasser de quelques-uns des stalkers du Barbu. Alors, dans la nuit, nos gars et toi, vous allez aller au Chevtchenko et avant qu'ils s'aperçoivent de quoi que ce soit, vous leur réglez leur compte... On récupčre l'argent, tu récupčres le matos... tu piges ? Cool, tu vois le Poing, lŕ dans le coin ? Il te mettra au jus pour les détails.",
-    "ger": "OK, dann hör zu. Wir haben vor, ein paar von Beards Stalkern hochzunehmen. Das wird echt ein Kinderspiel. Spät in der Nacht tauchst du mit unseren Männern auf der Schewtschenko auf und noch bevor diese Touristen kapieren, was los ist, haut ihr sie in die Pfanne. Wir kriegen das Geld, du die ganze Ausrüstung... verstehst du? Gut. Siehst du Haxe dort drüben? Er wird dir die ganzen Details erklären.",
-    "ita": "E va bene, allora scolta. Vogliamo dare una lezione agli stalker di Beard. Una passeggiata. A notte fonda tu e i nostri ragazzi andrete a Shevchenko e ancora prima che quei turisti capiscano cosa sta succedendo, li portate a fare un giro. Noi ci becchiamo i quattrini e tu la fama... Afferrato il discorso? Bene, allora. Vedi Knuckles laggiů? Lui ti spiegherŕ tutti i dettagli.",
-    "pol": "Dobra, to słuchaj. Chcemy przetrzepać kilku stalkerów Brodacza. To będzie łatwizna. Późno w nocy ty i nasi ludzie wejdziecie na Szewczenkę i zanim ci turyści połapią się, co się dzieje, załatwicie sprawę. My zyskujemy kasę, ty zyskujesz szacunek... Kumasz? No to bomba. Tam stoi Kastet, widzisz, który to? On ci przekaże szczegóły.",
-    "rus": "Тогда смотри сюда. Есть маза пару сталкеров Бороды на валюту поднять. Главное, что дело это тихое, шороху под него не намечается... Короче, придёшь с пацанами ночью к «Шевченко», ну и пока клиенты будут тупить, возьмёшь с них положенное. Нам - выгода, тебе персонально - авторитет... Уловил? Хорошо. Вон Кастет стоит, ты перетри с ним за детали.",
-    "spa": "Muy bien, atención. Tenemos pensado extorsionar a unos stalkers de Barbas. Es pan comido. Bien entrada la noche, tú y tus hombres os acercáis a Shevchenko, y antes de que esos turistas se den cuenta de lo que ocurre, te los llevas a dar una vuelta. Para nosotros la pasta y para ti lo demás, żme sigues? Perfecto. żVes a Knuckles ahí? Él te dará todos los detalles.",
-    "ukr": "Тоді гляди сюди. Є маза пару сталкерів Бороди на валюту піднять. Главне, що справа ця тиха, шороху под неї не намічається... Корочє, прийдеш із пацанами вночі до «Шевченка», ну й поки клієнти будуть тупить, візьмеш з них шо надо. Нам - вигода, тобі персонально - авторитет... Уловив? Добре. Он Кастет стоїть, ти перетри з ним за деталі."
-  },
-  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_12": {
-    "eng": "Not really.",
-    "fra": "Pas vraiment...",
-    "ger": "Nicht wirklich.",
-    "ita": "Non direi.",
-    "pol": "Nie.",
-    "rus": "Не особо.",
-    "spa": "No mucho.",
-    "ukr": "Не так щоб дуже."
-  },
-  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_121": {
-    "eng": "Too bad. Take some time and think it over... You'll come back if you know what's good for you, buddy.",
-    "fra": "Dommage. Prends ton temps et réfléchis bien... Si tu sais ce qui est bon pour toi, tu reviendras me voir, mon pote.",
-    "ger": "Schade. Lass dir ruhig etwas Zeit und denk darüber nach... du wirst sicher mitmachen, wenn du weißt, was gut für dich ist, Kumpel.",
-    "ita": "Peccato. Prenditi un po' di tempo per pensarci... Se sei uno che sa cosa gli conviene tornerai da me.",
-    "pol": "Szkoda. Nie spiesz się, przemyśl to... Jeśli wiesz, co dla ciebie dobre, to wrócisz, kolego.",
-    "rus": "Вот это зря, ты всё ж таки подумай... Как поймёшь, что для тебя реально хорошо, пообщаемся.",
-    "spa": "Vaya... Tómate tu tiempo y piénsatelo. Si sabes lo que te conviene, acabarás volviendo.",
-    "ukr": "Оце зря, ти все-таки подумай... Як поймеш, шо для тебе реально добре, пообщаємося."
-  },
-  "zat_b7_bandit_boss_sultan_b7_give_task_dialog_2": {
-    "eng": "The kind you'd appreciate if you wanna go places... Wanna know what I'm thinking?",
-    "fra": "Le genre qui t'intéresse si t'as envie de voir du pays... Tu veux que je te parle de mes projets ?",
-    "ger": "Kumpel, ich hab den perfekten Job für dich, wenn du herumkommen willst... soll ich dir verraten, um was es geht?",
-    "ita": "Un lavoro di quelli adatti a chi ama viaggiare... Vuoi sapere cosa sto pensando?",
-    "pol": "Taką, która ci się spodoba, jeśli lubisz podróże... Chcesz wiedzieć, co wykombinowałem?",
-    "rus": "Тебе полезную, если подняться хочешь! Интересует, что мне есть сказать по этому поводу?",
-    "spa": "De los que te vienen bien si quieres ir a sitios. żQuieres saber qué estoy pensando?",
-    "ukr": "Тобі полєзно, якшо піднятися хочеш! Цікавить, шо я можу сказать по цьому поводу?"
-  },
-  "zat_b3_tech_buddies_pda_11": {
-    "eng": "Barge's PDA. I found his dead body in the caves under the burnt farmstead.",
-    "fra": "Le PDA de Barge. J'ai trouvé son cadavre dans les grottes sous la ferme brűlée.",
-    "ger": "Barges PDA. Ich habe seine Leiche in den Höhlen unter dem abgebrannten Bauernhof gefunden.",
-    "ita": "Il PDA di Barge. Ho trovato il suo cadavere nelle grotte sotto la fattoria bruciata.",
-    "pol": "PDA Stoga. Znalazłem jego zwłoki w jaskiniach pod spalonym gospodarstwem.",
-    "rus": "КПК Баржи. Я нашел его труп в пещерах под сгоревшим хутором.",
-    "spa": "Es la PDA de Barge. Encontré su cadáver en las cuevas bajo la colina.",
-    "ukr": "КПК Баржі. Я знайшов його труп у печерах під згорілим хутором."
-  },
-  "zat_b3_tech_buddies_pda_12": {
-    "eng": "I found it near some bare bones not far from Oakpine. It's Joker's PDA.",
-    "fra": "Le PDA du Joker. Je l'ai trouvé prčs d'un squelette, non loin du Pinchęne.",
-    "ger": "Ich habe das hier bei ein paar Knochen in der Nähe der Pinieneiche gefunden. Es ist Jokers PDA.",
-    "ita": "L'ho trovato vicino a delle ossa non lontano dalla Pinquercia. Č il PDA di Joker.",
-    "pol": "Znalazłem go przy kupce nagich kości w pobliżu Sosnodębu. To PDA Kawalarza.",
-    "rus": "Я нашел его возле скелета неподалёку от Соснодуба. Это КПК Шутника.",
-    "spa": "La encontré junto a unos huesos, cerca de Roblepino. Es la PDA de Bromista.",
-    "ukr": "Я знайшов його біля кістяка неподалік від Соснодуба. Це КПК Жартівника."
-  },
-  "zat_b3_tech_buddies_pda_121": {
-    "eng": "Joker's?!... That's impossible! Wow, I'm so devastated... Joker's dead... Oh Joker, we won't be laughing at your jokes anymore... Rest in peace... I hope Barge is all right at least...",
-    "fra": "Le Joker ? C'est pas possible ! Putain, ça me fait un de ces chocs... Le Joker est mort... Eh ben, on dirait que tu nous feras plus tellement rigoler, Joker... Paix ŕ ton âme ! J'espčre que Barge se porte bien, au moins.",
-    "ger": "Joker? Das ist... unmöglich! Oh Gott... ich bin schockiert! Joker... ist... tot. Oh Joker, wir werden nie wieder über deine Witze lachen... ruhe in Frieden! Ich hoffe, Barge ist wenigstens noch OK...",
-    "ita": "Di Joker? Ma č impossibile! Ehi, che tragedia... Oh, Joker, non rideremo piů delle tue battute... riposa in pace... Spero che almeno Barge stia bene...",
-    "pol": "Kawalarza?!... To niemożliwe! Rany, jestem zszokowany... Kawalarz nie żyje... Stary, już się nie pośmiejemy z twoich kawałów... Spoczywaj w pokoju... Mam nadzieję, że przynajmniej ze Stogiem wszystko w porządku...",
-    "rus": "Шутника?! Не может быть!.. Выходит, нет больше Шутника... Эх, Шутник, Шутник... не посмеяться нам больше!.. Спи спокойно... Хоть бы с Баржой всё было в порядке...",
-    "spa": "ˇżSu PDA?! ˇNo puede ser! Buf, no sé cómo reaccionar... Bromista ha muerto... Ya no volveremos a escuchar tus chistes... Descansa en paz. Espero que Barge esté bien...",
-    "ukr": "Жартівника?! Не може бути!.. Отже, нема більше Жартівника... Ех, Жартівниче, Жартівниче... не посміятися нам більше!.. Спи спокійно... Хоча б із Баржею усе було в порядку... "
-  },
-  "zat_b3_tech_buddies_pda_122": {
-    "eng": "Joker's?!... That's impossible! Wow, I'm so devastated... So Joker's dead too... Oh Joker, we won't be laughing at your jokes anymore... Rest in peace... And you too, Barge... How did it come to this...",
-    "fra": "Le Joker ? C'est pas possible ! Putain, ça me fait un de ces chocs... Le Joker est mort... Eh ben, on dirait que tu nous feras plus tellement rigoler, Joker... Paix ŕ ton âme. Et ŕ la tienne aussi, Barge... Bordel, comment on en est arrivés lŕ ?",
-    "ger": "Joker? Das ist... unmöglich! Oh Gott... ich bin schockiert! Joker ist also auch tot... Oh Joker, wir werden nie wieder über deine Witze lachen... ruhe in Frieden! Und du auch, Barge. Wie konnte das nur passieren...",
-    "ita": "Di Joker? Ma č impossibile! Ehi, che tragedia... Oh, Joker, non rideremo piů delle tue battute... riposa in pace... E anche tu, Barge... Come siamo potuti arrivare a questo?",
-    "pol": "Kawalarza?!... To niemożliwe! Rany, jestem zszokowany... Kawalarz nie żyje... Stary, już się nie pośmiejemy z twoich kawałów... Spoczywaj w pokoju... I ty też, Stóg... Jak to się mogło stać...",
-    "rus": "Шутника?! Не может быть!.. Выходит, нет больше Шутника... Эх, Шутник, Шутник... не посмеяться нам больше!.. А Баржа?! Как же так вышло?.. Эх, ребята... спите спокойно...",
-    "spa": "ˇżSu PDA?! ˇNo puede ser! Buf, no sé cómo reaccionar... Bromista también ha muerto... Ya no volveremos a escuchar tus chistes... Descansa en paz. Y Barge... żCómo ha podido ocurrir...?",
-    "ukr": "Жартівника?! Не може бути!.. Отже, нема більше Жартівника... Ех, Жартівниче, Жартівниче... не посміятися нам більше!.. А Баржа?! Як то так сталося?.. Спіть... спіть спокійно, хлопці... "
-  },
-  "zat_b3_tech_buddies_pda_13": {
-    "eng": "Barge's and Joker's. I found one by a skeleton near Oakpine, and the other on a dead body in the caves under the burnt farmstead.",
-    "fra": "Les PDA de Barge et du Joker. J'en ai trouvé un prčs d'un squelette ŕ côté du Pinchęne et l'autre sur un cadavre dans les grottes sous la ferme brűlée.",
-    "ger": "Von Barge und Joker. Einen habe ich bei einem Skelett in der Nähe der Pinieneiche gefunden und den anderen bei einer Leiche in den Höhlen unter dem abgebrannten Bauernhof.",
-    "ita": "Di Barge e di Joker. Ne ho trovato uno accanto a uno scheletro nei pressi della Pinquercia, e un altro addosso a un cadavere nelle caverne sotto la fattoria bruciata.",
-    "pol": "Stoga i Kawalarza. Znalazłem je przy szkielecie w pobliżu Sosnodębu i przy zwłokach w jaskiniach pod spalonym gospodarstwem.",
-    "rus": "Баржи и Шутника. Один нашел неподалёку от Соснодуба, возле скелета, другой - на мёртвом теле в пещерах под сгоревшим хутором.",
-    "spa": "La PDA de Barge y la de Bromista. Una la encontré junto a un esqueleto, cerca de Roblepino, y la otra en un cadáver, en las cuevas bajo la granja quemada.",
-    "ukr": "Баржі та Жартівника. Один знайшов неподалік Соснодуба, біля кістяка, інший - на мертвому тілі у печерах під згорілим хутором."
-  },
-  "zat_b215_stalker_guide_about_surge_1": {
-    "eng": "To be honest with you, there's not much to tell. Emissions are especially dangerous and almost always fatal. You can feel one coming on gradually, by the changing weather, but it passes soon after hitting its peak. At the first signs of its approach, run for the nearest cover - a cave, something made of concrete, bricks or steel... Like some others, I can feel an emission coming on when my back starts to ache. As for the nature of emissions, I don't have anything useful to tell you - I just don't know.",
-    "fra": "Franchement, y a pas grand-chose ŕ dire. Les émissions sont extręmement dangereuses et presque toujours mortelles. On peut les sentir approcher quand le temps change soudainement, mais ça ne dure pas. Aux premiers signes de l'émission, il faut courir se mettre ŕ l'abri. N'importe oů, dans une grotte, un abri en béton, en brique ou en métal... Je fais partie de ceux qui peuvent les sentir approcher... Elles réveillent une douleur dans mon dos. En ce qui concerne la nature des émissions, j'ai rien d'utile ŕ dire, vu que j'en sais rien.",
-    "ger": "Um ehrlich zu sein, gibt es nicht viel zu sagen. Emissionen sind hochgefährlich und nahezu immer tödlich. Man kann am wechselnden Wetter spüren, wenn langsam eine Emission im Anmarsch ist, aber wenn sie ihren Höhepunkt erreicht, ebbt sie auch recht schnell wieder ab. Sobald du die ersten Anzeichen einer Emission bemerkst, solltest du dich sofort in Sicherheit bringen - in eine Höhle oder irgendeinen Unterschlupf aus Beton, Ziegelsteinen oder Stahl! Ich z.B. spüre, dass eine Emission naht, wenn mein Rücken anfängt zu schmerzen. Aber über die Ursache der Emissionen selbst kann ich dir nichts sagen... ich habe einfach keine Ahnung.",
-    "ita": "A essere sincero, non c'č molto da dire. Le emissioni sono molto pericolose e quasi sempre letali. Puoi percepire gradualmente l'avvicinarsi di un'emissione a causa dei cambiamenti climatici, ma dopo aver raggiunto il suo picco passa piuttosto in fretta. Non appena ne percepisci l'arrivo, corri al rifugio piů vicino: una caverna, qualcosa fatto di cemento, mattoni o acciaio... Alcune persone, me compreso, sentono arrivare un'emissione quando gli fa male la schiena. Riguardo la natura delle emissioni, non ho niente di utile da dirti... perché non so niente.",
-    "pol": "Szczerze mówiąc, niewiele jest do opowiadania. Emisje są bardzo niebezpieczne i prawie zawsze zabójcze. Ich nadejście wyczuwa się stopniowo, poprzez zmiany pogody, ale mijają szybko, tuż po najsilniejszym uderzeniu. Przy pierwszych oznakach ich nadchodzenia natychmiast się chowaj - w jaskini, za czymś z betonu, cegieł albo stali... Ja, podobnie jak niektórzy, wyczuwam nadejście emisji, kiedy zaczynają mnie boleć plecy. W kwestii natury emisji nie powiem ci nic pożytecznego - po prostu sam nic nie wiem.",
-    "rus": "Честно говоря, рассказ будет короткий. Выброс исключительно опасен и почти всегда смертелен. Он накатывает постепенно, а уловить его приближение легче всего по изменению погоды. При первых признаках приближения нужно обязательно найти укрытие - пещеру или что-нибудь из бетона, кирпича, стали... Я, как и некоторые другие, ощущаю его приближение - у меня начинает ломить спину, по-особенному так. Хорошо хоть, пик выброса проходит достаточно быстро! А вот о природе его сказать ничего не могу - просто не знаю.",
-    "spa": "Para serte sincero, no hay mucho que contar. Las emisiones son especialmente peligrosas y casi siempre letales. Se nota cuando se aproximan gradualmente, por el cambio de tiempo, pero pasan poco después de alcanzar su punto crítico. Al primer signo de cercanía, corre a refugiarte a una cueva, o algo hecho de cemento, ladrillo o acero. Los hay como yo, a quienes nos duele la espalda cuando se avecina una emisión. En cuanto a su naturaleza, no puedo decirte nada útil. No tengo ni idea.",
-    "ukr": "Чесно кажучи, розповідь буде короткою. Викид дуже небезпечний і майже завжди смертельний. Він настає поступово, а вловити його наближення найлегше всього завдяки зміні погоди... За перших ознак наближення треба обов'язково знайти укриття - печеру або щось із бетону, цегли, сталі... Я, як і деякі інші, відчуваю його наближення: мені починає так по-особливому спину ломити. Що іще... Пік викиду минає доволі швидко, так... А от про природу викиду нічого сказати не можу - просто не знаю."
-  },
-  "zat_b30_owl_stalker_trader_start_dialog_11": {
-    "eng": "Need goods? Information?.. Or maybe you want to sell information?",
-    "fra": "Besoin de marchandise ? D'informations ? Ŕ moins que tu n'aies des infos ŕ vendre ?",
-    "ger": "Brauchst du Ausrüstung? Informationen? Oder willst du vielleicht Informationen verkaufen?",
-    "ita": "Ti serve della merce? Delle informazioni? O forse hai tu delle informazioni da vendere?",
-    "pol": "Potrzebujesz towarów? Informacji?... A może sam masz jakieś informacje na sprzedaż?",
-    "rus": "Нужны товары? информация?.. Или, может, это ты хочешь продать информацию мне?",
-    "spa": "żNecesitas mercancía? żInformación? żO eres tú quien vendes?",
-    "ukr": "Потрібні товари? інформація?.. Чи, може, це ти хочеш продати інформацію мені?"
-  },
-  "zat_b7_stalkers_raiders_actor_choose_dialog_0": {
-    "eng": "Sultan says you’re planning to fleece the stalkers. Count me in.",
-    "fra": "Sultan dit que tu comptes plumer les stalkers. Tu peux compter sur moi !",
-    "ger": "Sultan sagt, dass du die Stalker ausnehmen willst. Ich bin dabei.",
-    "ita": "Sultan dice che stai pianificando di derubare gli stalker. Considerami dei tuoi.",
-    "pol": "Sułtan mówi, że chcesz oskubać stalkerów. Możesz na mnie liczyć.",
-    "rus": "Султан говорит, вы сталкеров хотите тряхнуть. Я с вами.",
-    "spa": "Sultán dice que planeas desplumar a los stalkers. Cuenta conmigo.",
-    "ukr": "Султан каже, ви сталкерів хочете труснути. Я з вами."
-  },
-  "zat_b7_stalkers_raiders_actor_choose_dialog_2": {
-    "eng": "Great. Get your ass over to Shevchenko after midnight - we'll be waiting for you. Just don’t wait till morning to show up.",
-    "fra": "Cool. Ramčne ton cul au Chevtchenko aprčs minuit, on t'attendra. Mais attends pas que le jour se lčve pour te pointer, hein !",
-    "ger": "Gut. Beweg deinen Arsch nach Mitternacht zur Schewtschenko... wir werden auf dich warten. Aber kreuze dort nicht erst am Morgen auf.",
-    "ita": "Grandioso. Porta le chiappe a Shevchenko dopo mezzanotte. Ti aspetteremo. Ma non farci aspettare fino al mattino.",
-    "pol": "Świetnie. Po północy bądź przy Szewczence - będziemy na ciebie czekać. Tylko nie zwlekaj do rana, przyjdź wcześniej.",
-    "rus": "Отлично. Подваливай к «Шевченко» заполночь - мы тя будем ждать. Тока до утра не тяни.",
-    "spa": "Genial. Preséntate en Shevchenko después de medianoche; estaremos esperándote. No vayas a aparecer por la mańana.",
-    "ukr": "Атлічна! Підвалюй до «Шевченка» після полуночі - ми тя будем чекать. Тока до ранку не тягни."
-  },
-  "zat_b7_stalkers_raiders_dialog_13": {
-    "eng": "Oh, it's you, bro. So, what did you and Sultan agree on?",
-    "fra": "Oh, c'est toi. Alors, vous avez convenu de quoi, Sultan et toi ?",
-    "ger": "Oh, du bist es, Bruder. Also, was hast du mit Sultan besprochen?",
-    "ita": "Oh, sei tu, fratello. Allora, cosa hai concordato con Sultan?",
-    "pol": "A, to ty, brachu. No i co ustaliliście z Sułtanem?",
-    "rus": "А, братан! Так до чего вы с Султаном добазарились?",
-    "spa": "Ah, eres tú, hermano. żQué habéis acordado Sultán y tú?",
-    "ukr": "А, братан! Так про шо ви із Султаном добазарились?"
-  },
-  "zat_b7_stalkers_raiders_dialog_14": {
-    "eng": "So... Get over to the barge after midnight but before the sun comes up - we’ll be waiting for you.",
-    "fra": "Donc... viens sur la péniche entre minuit et le lever du soleil, on t'attendra.",
-    "ger": "Also... komm nach Mitternacht - aber vor Sonnenaufgang - zum Schiff. Wir werden auf dich warten.",
-    "ita": "Allora... Vai alla chiatta dopo mezzanotte ma prima dell'alba. Ti aspetteremo.",
-    "pol": "No więc... Przyjdź do barki po północy, ale przed wschodem słońca - będziemy na ciebie czekać.",
-    "rus": "Ну чё... Подваливай к барже после полуночи, пока светать не начало. Мы тя ждать будем.",
-    "spa": "Pues... ve a la barcaza después de medianoche, pero antes de que salga el sol. Te estaremos esperando.",
-    "ukr": "Ну шо... Подвалюй до баржі після повночі, пока світать не почало. Ми тя чекать будем."
-  },
-  "zat_b7_stalkers_raiders_actor_teleport_dialog_0": {
-    "eng": "I think I better stay with you. We’ll wait for midnight and then you can show me the way to Shevchenko.",
-    "fra": "Je ferais mieux de rester avec toi. On va attendre jusqu'ŕ minuit et tu pourras m'emmener au Chevtchenko.",
-    "ger": "Ich glaube, ich sollte besser bei dir bleiben. Wir warten bis Mitternacht und dann kannst du mir den Weg zur Schewtschenko zeigen.",
-    "ita": "Forse farň meglio a stare con te. Aspetteremo la mezzanotte, poi potrai mostrarmi la strada per Shevchenko.",
-    "pol": "Chyba lepiej zostanę z tobą. Poczekamy do północy i pokażesz mi drogę do Szewczenki.",
-    "rus": "Лучше я с тобой побуду. Как дождёмся полуночи, покажешь мне дорогу к «Шевченко».",
-    "spa": "Será mejor que me quede contigo. Esperaremos a medianoche y entonces podrás enseńarme el camino a Shevchenko.",
-    "ukr": "Краще я з тобою побуду. Як дочекаємося півночі, покажеш мені дорогу до «Шевченко»."
-  },
-  "zat_b7_stalkers_raiders_actor_teleport_dialog_1": {
-    "eng": "No problem, stick around. Taking you to the barge ain’t a problem.",
-    "fra": "Pas de problčme, reste dans le coin ! Je te montrerai le chemin.",
-    "ger": "Klar, bleib ruhig hier. Sollte kein Problem sein, dich zum Schiff zu bringen.",
-    "ita": "Nessun problema, tu resta da queste parti. Portarti alla chiatta non č un problema.",
-    "pol": "Nie ma problemu, możesz się tu kręcić. Pogadamy przy barce.",
-    "rus": "Не вопрос, оставайся. А к барже свести - это не проблема.",
-    "spa": "Perfecto, quédate. Llevarte a la barcaza no es ningún problema.",
-    "ukr": "Не вопрос, оставайся. А до баржі одвести - то не проблєма."
-  },
-  "zat_b7_stalkers_raiders_actor_teleport_dialog_12": {
-    "eng": "Actually... I’m gonna go take care of some things.",
-    "fra": "En fait... j'ai deux trois choses ŕ faire avant.",
-    "ger": "Eigentlich... habe ich noch etwas zu tun.",
-    "ita": "In realtŕ... Voglio sistemare alcune cose.",
-    "pol": "Właściwie muszę się czymś zająć.",
-    "rus": "Хотя нет. Я пока своими делами займусь.",
-    "spa": "Pues... tengo que ocuparme de unos asuntos.",
-    "ukr": "Хоча ні. Я поки своїми справами займуся."
-  },
-  "zat_a2_linker_b29_actor_info_1": {
-    "eng": "I have major customers outside the Zone who regularly order specific artifacts, which must be delivered within a specific period of time. You bring me what I ask and I pay you good money for it. Keep in mind that these orders are very important for me, which is why I try to commission several agents at a time... You get the full fee only if you deliver first.",
-    "fra": "J'ai de gros clients en dehors de la Zone qui ont réguličrement besoin de certains artefacts ŕ des moments bien précis. Tu me rapportes ce dont j'ai besoin et je te paie grassement en échange. Par contre, ces commandes sont trčs importantes pour moi, alors j'ai toujours plusieurs mecs sur le coup... Et seul le premier ŕ me livrer mon artefact empoche l'intégralité de la prime.",
-    "ger": "Außerhalb der Zone habe ich einige wichtige Kunden, die immer wieder ausgewählte Artefakte bestellen. Und die müssen zu vorgegebenen Zeiten geliefert werden. Wenn du mir bringst, was ich brauche, lass ich gutes Geld springen. Aber wie gesagt: Es handelt sich um sehr wichtige Bestellungen und deshalb schicke ich immer mehrere Leute los. Die volle Bezahlung bekommst du nur dann, wenn du auch als Erster lieferst.",
-    "ita": "All'interno della Zona lavoro con importanti clienti che regolarmente mi richiedono specifici manufatti che devono essere consegnati con puntualitŕ. Tu portami quello che ti chiedo e ti pagherň bene. Ricorda che questi ordini sono importanti per me, ecco perché cerco di commissionarli a piů agenti alla volta... Verrai pagato interamente solo se mi consegni il manufatto per primo.",
-    "pol": "Na zewnątrz Zony mam ważnych klientów, którzy regularnie zamawiają konkretne artefakty, a te z kolei muszą być dostarczone w określonym czasie. Przynoś mi to, o co proszę, a ja będę ci za to dobrze płacił. Pamiętaj, że te zamówienia są dla mnie bardzo ważne i dlatego zlecam robotę kilku agentom naraz... Pełną zapłatę dostaje tylko ten, kto przyniesie artefakt jako pierwszy.",
-    "rus": "У меня есть крупные заказчики за пределами Зоны. Время от времени они заказывают конкретные артефакты в конкретные сроки. Приносишь его - я плачу хорошие деньги. Учти: эти заказы очень важны для меня, поэтому я ищу нескольких исполнителей одновременно. И полную сумму получает только первый.",
-    "spa": "Tengo clientes importantes fuera de la Zona que habitualmente me encargan artefactos, y hay que entregárselos en un plazo determinado. Si me consigues lo que busco, te pagaré bien. Ten en cuenta que son pedidos muy importantes para mí; por eso intento encargárselos a varios agentes a la vez. Solo pago toda la recompensa a quien me lo trae primero.",
-    "ukr": "Я маю великих замовників за межами Зони. Час від часу вони замовляють конкретні артефакти у конкретний термін. Приносиш його - я плачу гарні гроші. Врахуй: ці замовлення дуже важливі для мене, тому я шукаю кількох виконавців одночасно. І повну суму отримує лише перший."
-  },
-  "zat_b18_noah_plateau_way_112": {
-    "eng": "Via the burnt farmstead. Hrm... Who are you, anyway?",
-    "fra": "Par la ferme brűlée, hein ? Hum... qui t'es, d'abord ?",
-    "ger": "Über den abgebrannten Bauernhof. Hmm... wer bist du eigentlich?",
-    "ita": "Attraverso la fattoria bruciata. Mmm... ma tu chi sei?",
-    "pol": "Przez spalone gospodarstwo. Hmm... Kim ty właściwie jesteś?",
-    "rus": "Через сгоревший хутор. Хм-м... А ты вообще кто?",
-    "spa": "Por la granja quemada. Mmm... żQuién eres, si puede saberse?",
-    "ukr": "Через згорілий хутір. Хм-м... А ти взагалі хто?"
-  },
-  "zat_b30_owl_stalker_trader_buy_info_15311": {
-    "eng": "They also call that place the Iron Forest. The chopper crashed slap bang into the power pylons. None of the jarheads survived... Even if they did, they'd never make it out alive. Those poltergeists just love chasing people into electric anomalies... Those scumbags respond to the tiniest movement, as I’m sure you know.",
-    "fra": "On surnomme cet endroit la Foręt de Fer. L'hélico s'est planté droit dans les pylônes. Aucun des soldats n'aurait pu survivre ŕ l'accident... Et męme si c'était le cas, ils s'en seraient jamais sortis vivants. Ces poltergeists adorent piéger leurs victimes dans des anomalies électriques... Comme chacun le sais, ces saloperies sont sensibles au moindre mouvement.",
-    "ger": "Der Ort wird auch Eisenwald genannt. Der Hubschrauber ist mitten in die Strommasten gerauscht. Keiner der Armeejungs hat überlebt... und selbst wenn sie den Absturz überlebt hätten, wären sie da niemals lebend rausgekommen. Die Poltergeister dort lieben es, die Leute in Elektroanomalien zu hetzen... diese Viecher spüren selbst die kleinste Bewegung, wie du sicher weißt.",
-    "ita": "Chiamano quel posto Foresta d'acciaio. L'elicottero si č schiantato contro i tralicci della corrente elettrica. I marine sono morti tutti... E anche se qualcuno fosse sopravvissuto, sarebbe impossibile uscire vivi da lě. Quei poltergeist hanno la fissa di spingere la gente nelle anomalie elettriche... Come sicuramente saprai anche tu, quei sacchi d'immondizia reagiscono al minimo movimento.",
-    "pol": "To miejsce jest też nazywane Żelaznym Lasem. Helikopter rozwalił się o słupy wysokiego napięcia. Żaden z żołnierzy nie przeżył... A nawet jeśli ktoś nie zginął na miejscu, to i tak nie pożył długo. Te poltergeisty uwielbiają wpędzać ludzi w anomalie elektryczne... Na pewno wiesz, że dranie reagują na najlżejszy ruch.",
-    "rus": "Это место ещё называют Железным лесом. Вертолёт рухнул прямо на столбы электропередачи. Из военных никто не выжил... да если бы и выжил - не выбрался бы: полтергейсты, как пить дать, в «электры» бы загнали. Сам знаешь, эти твари на любое движение реагируют.",
-    "spa": "También llaman a ese lugar el Bosque de Hierro. El helicóptero se desplomó sobre las torres de electricidad. No sobrevivió ni un militar. Y aunque hubiesen sobrevivido, la habrían palmado enseguida. A esos poltergeists les encanta perseguir a gente en anomalías eléctricas. Y los muy cabrones responden al menor movimiento, como sabes.",
-    "ukr": "Це місце ще називають Залізним лісом. Вертоліт звалився прямо на стовпи електропередачі. З військових ніхто не вижив... та якби й вижив - не вибралися б: полтергейсти, стопудово, до «електр» загнали б. Сам знаєш, ці тварюки на будь-який рух реагують."
-  },
-  "zat_b30_owl_stalker_trader_buy_info_15411": {
-    "eng": "Listen... After the chopper came down, five army guys were spotted there. Apparently they even managed to climb out of that swamp successfully... Reaching that place is no big deal, just stay away from water and keep to steady ground. And you'll need chemical protection, too. So, if you're planning on heading out there, buy some antidotes from the medic.",
-    "fra": "Alors... Aprčs que l'hélico s'est écrasé, on a vu cinq militaires sortir vivants du marais... C'est pas compliqué de se rendre sur place, il suffit de rester sur la terre ferme et d'éviter la flotte. Ah, par contre, il faudra prendre ses précautions. Si tu comptes y aller, le toubib peut te vendre des antidotes.",
-    "ger": "Hör zu... nachdem der Hubschrauber abgestürzt war, wurden dort fünf Armeetypen gesehen. Offenbar haben sie es auch geschafft, aus dem Sumpf zu entkommen. Es ist kein großes Problem, dorthin zu gelangen, halte dich nur vom Wasser fern und achte darauf, dass du immer festen Boden unter den Füßen hast. Und du wirst auch chemischen Schutz brauchen. Wenn du also vorhast, dorthin zu gehen, geh vorher besser zum Arzt und kauf dir reichlich Gegengift.",
-    "ita": "Ascolta, dopo che l'elicottero č precipitato, solo cinque militari sono stati visti uscire da quella palude. Raggiungere quel posto non č difficile, basta stare lontano dall'acqua e restare sulla terraferma. E ti occorrerŕ anche una protezione dalle sostanze chimiche. Se hai intenzione di metterti in viaggio, compra degli antidoti dal medico.",
-    "pol": "Słuchaj... Kiedy helikopter spadł, zauważono tam pięciu żołneirzy. Podobno udało im się nawet wydostać z tego bagna... Dotarcie do tego miejsca nie jest trudne, wystarczy unikać wody i trzymać się stałego lądu. Będziesz też potrzebował ochrony chemicznej. Więc jeśli planujesz tam wyruszyć, kup od lekarza trochę antidotum.",
-    "rus": "Лады, слушай: как туда вертолёт упал, там военных видели - человек пять всего. Вроде бы из топи они успешно выбрались. Да нет, туда добраться не сложно, главное - в воду не соваться, а по кочкам, прыжками. И защита от химии нужна. Так ты, если хочешь туда лезть, купи у медика антидотов.",
-    "spa": "Mira: cuando el helicóptero se desplomó, vieron a cinco soldados. Al parecer, hasta lograron salir del pantano por su propio pie. Llegar hasta ahí no es difícil; solo debes alejarte del agua y quedarte en terreno firme. Y también te hará falta protección química. Si tienes pensado ir para allá, cómprale al médico unos cuantos antídotos.",
-    "ukr": "Слу-ухай... як туди вертоліт упав, там військових бачили - чоловік із п'ять. Начебто із драговини вони успішно вибралися. Та ні, туди дістатися не складно, головне - у воду не лізти, а стрибати по купинах. І захист від хімії потрібен. То ти як хочеш туди лізти, купи в медика антидотів."
-  },
-  "zat_b3_stalker_tech_start_1311": {
-    "eng": "Too bad my buddies Joker and Barge aren't here... We'd have a hell of a time. We were like brothers, always got each others' backs... How did it all come to this?... I'm still here, but they're gone hell knows where...",
-    "fra": "Dommage que mes potes Barge et Joker soient pas lŕ... Qu'est-ce qu'on se marrait... On était comme des frčres, on pouvait compter les uns sur les autres... Comment j'en suis arrivé lŕ ? Je suis toujours ici, mais eux, ils sont partis...",
-    "ger": "Echt schade, dass meine Kumpels Joker und Barge nicht hier sind... wir hätten 'ne Menge Spaß. Wir waren wie Brüder, haben immer zusammengehalten. Wie konnte es nur soweit kommen? Ich bin noch hier, aber sie sind verschwunden und nur Gott weiß, wo sie sich herumtreiben...",
-    "ita": "Peccato che Barge e Joker non siano qui... ce la spasseremmo alla grande. Siamo come fratelli e ci proteggiamo sempre a vicenda... Come siamo arrivati a questo punto? Io sono ancora qui e loro se ne sono andati chissŕ dove...",
-    "pol": "Szkoda, że nie ma tu moich kumpli, Kawalarza i Stoga... Świetnie byśmy się bawili. Byliśmy jak bracia, jeden za wszystkich, wszyscy za jednego... Jak to się mogło stać? Ja ciągle tu jestem, ale ich gdzieś poniosło, diabli wiedzą, gdzie...",
-    "rus": "Эх, жаль, не застал ты товарищей моих - Шутника с Баржой... хорошо бы посидели! Мы ж были как братья, друг за дружку горой... и как только у нас так могло получиться?.. Я тут сижу, а они - неизвестно где...",
-    "spa": "Qué pena que no estén aquí mis amigos Barge y Bromista... Nos lo pasábamos de puta madre. Éramos como hermanos, siempre cubriéndonos las espaldas. żCómo ha podido ocurrir? Yo sigo aquí, pero ellos no.",
-    "ukr": "Ех, шкода, не застав ти товаришів моїх - Жартівника із Баржею... добре посиділи б! Ми ж як брати були, один за одного горою... і як тільки в нас так могло статися?.. Я тут сиджу, а вони - бозна-де... "
-  },
-  "zat_b3_tech_buddies_about_0": {
-    "eng": "Tell me about Joker and Barge.",
-    "fra": "Parle-moi du Joker et de Barge !",
-    "ger": "Erzähl mir mehr über Joker und Barge.",
-    "ita": "Parlami di Joker e Barge.",
-    "pol": "Opowiedz mi o Kawalarzu i Stogu.",
-    "rus": "Расскажи про Шутника и Баржу.",
-    "spa": "Háblame de Bromista y de Barge.",
-    "ukr": "Розкажи про Жартівника та Баржу."
-  },
-  "zat_b30_owl_stalker_trader_choose_task_111213": {
-    "eng": "I’ve already got something from there.",
-    "fra": "J'ai déjŕ récupéré quelque chose.",
-    "ger": "Ich habe schon etwas von dort.",
-    "ita": "Mi sono giŕ procurato qualcosa.",
-    "pol": "Mam już coś stamtąd.",
-    "rus": "Я уже кое-что оттуда добыл.",
-    "spa": "Ya tengo algo de ahí.",
-    "ukr": "Я вже дещо звідтіль добув."
-  },
-  "zat_b30_owl_stalker_trader_choose_task_1112131": {
-    "eng": "Start talking... Did you get something for me?",
-    "fra": "Alors... Tu m'as apporté quelque chose ?",
-    "ger": "Raus mit der Sprache... hast du etwas für mich?",
-    "ita": "Comincia a parlare... Hai qualcosa per me?",
-    "pol": "Zacznij gadać... Masz coś dla mnie?",
-    "rus": "А чего ж тогда молчишь?.. Ну, нашлось что-нибудь для меня?",
-    "spa": "Empieza a hablar... żConseguiste algo para mí?",
-    "ukr": "То чого ж тоді мовчиш?.. Ну, знайшлося щось для мене?"
-  },
-  "zat_b51_stalker_nimble_b52_about_gun_questions_11111": {
-    "eng": "Well, that explains it. I know him. He's always been a crook, but lately he's gotten really out of hand, scamming stalkers like that... He needs to be put in his place.",
-    "fra": "Hum, ça explique tout... Je le connais, il a toujours été un peu escroc sur les bords, mais récemment, ça a empiré, il s'est mis ŕ arnaquer les stalkers... Il faut que quelqu'un lui donne une bonne leçon.",
-    "ger": "Nun, jetzt verstehe ich. Ich kenne ihn... er war schon immer ein Gauner, aber in letzter Zeit hat er es wirklich übertrieben... die Stalker so zu betrügen... jemand muss ihm seine Grenzen aufzeigen!",
-    "ita": "Beh, questo spiega tutto. Lo conosco. Č sempre stato un imbroglione, ma ultimamente sta davvero esagerando, a imbrogliare gli stalker a quel modo... Deve essere rimesso in riga.",
-    "pol": "To wszystko wyjaśnia. Znam go. Zawsze był z niego krętacz, ale ostatnio naprawdę wymknął się spod kontroli, żeby tak naciągać stalkerów... Trzeba mu pokazać, gdzie jego miejsce.",
-    "rus": "Ну тогда ясно. Знаю я его: тот ещё пройдоха и обнаглел, смотрю, сильно в последнее время. Сталкеров думает разводить... Надо бы поставить его на место.",
-    "spa": "Bueno, eso lo explicaría todo. Lo conozco. Siempre ha sido un ladrón, pero la cosa se le ha ido de las manos últimamente. Estafar a los stalkers de esa manera... Alguien tendría que ponerlo en su sitio.",
-    "ukr": "Ну тоді ясно. Я його знаю: іще той пройдисвіт, та й знахабнів, як бачу, за останній час добре. Сталкерів думає розводити... Треба було б поставити його на місце."
-  },
-  "zat_b30_owl_stalker_trader_choose_task_116": {
-    "eng": "I need information from the mercenary camp. It’s not as hard as it sounds.",
-    "fra": "J'ai besoin d'informations sur le camp des mercenaires. Ce n'est pas aussi dur que ça en a l'air.",
-    "ger": "Ich brauche Informationen aus dem Söldnerlager. Das ist nicht so schwierig, wie es klingt.",
-    "ita": "Mi servono informazioni sull'accampamento dei mercenari. Non č difficile come sembra.",
-    "pol": "Potrzebuję informacji z obozu najemników. To łatwiejsze niż się może wydawać.",
-    "rus": "Нужно добыть информацию в лагере наёмников. Не так сложно, как кажется.",
-    "spa": "Necesito información sobre el campamento de mercenarios. No es tan duro como parece.",
-    "ukr": "Потрібно добути інформацію в таборі найманців. То не так складно, як видається."
-  },
-  "zat_a2_linker_b29_actor_get_adv_task_111": {
-    "eng": "OK, I’ll be waiting... Keep in mind that the job is urgent - it has to be done within two days.",
-    "fra": "Ok, je vais attendre... Mais il faut absolument que ce soit fait dans les deux jours.",
-    "ger": "In Ordnung, ich warte... vergiss aber nicht, dass der Job dringend ist - er muss innerhalb von zwei Tagen erledigt werden.",
-    "ita": "OK, aspetterň... Ma ricorda che il lavoro č urgente, deve essere portato a termine entro due giorni.",
-    "pol": "Dobra, będę czekać... Pamiętaj, że robota jest pilna - trzeba ją wykonać w ciągu dwóch dni.",
-    "rus": "Буду ждать с нетерпением. Учти, заказ срочный, нужно за двое суток выполнить.",
-    "spa": "Vale, te esperaré. Recuerda que es un trabajo urgente: tiene que hacerse en dos días.",
-    "ukr": "Чекатиму з нетерпінням. Врахуй, замовлення термінове, треба за дві доби виконати."
-  },
-  "zat_b30_owl_stalker_trader_sell_items_28": {
-    "eng": "Sultan’s messenger’s PDA.",
-    "fra": "Le PDA du messager de Sultan.",
-    "ger": "Den PDA von Sultans Boten.",
-    "ita": "PDA del messaggero di Sultan.",
-    "pol": "PDA posłańca Sułtana",
-    "rus": "КПК посланника Султана.",
-    "spa": "PDA del mensajero de Sultán.",
-    "ukr": "КПК посланця Султана."
-  },
-  "zat_b30_owl_stalker_trader_sell_items_281": {
-    "eng": "It’s not that interesting. I'll give you 500 for it.",
-    "fra": "Ce n'est pas trčs intéressant. Je suis pręt ŕ l'acheter pour 500.",
-    "ger": "Ist nicht besonders interessant. Ich gebe dir 500 dafür.",
-    "ita": "Non č particolarmente interessante. Te lo pagherň 500.",
-    "pol": "Nie jest to bardzo interesujące. Dam ci za to 500.",
-    "rus": "Не так уж интересно. Дам за него 500.",
-    "spa": "No me interesa tanto. Te doy 500 por ella.",
-    "ukr": "Не так уже цікаво. Дам за нього 500."
-  },
-  "zat_b30_owl_stalker_trader_sell_items_2811": {
-    "eng": "OK.",
-    "fra": "Ok.",
-    "ger": "OK.",
-    "ita": "OK.",
-    "pol": "Dobrze.",
-    "rus": "Договорились.",
-    "spa": "De acuerdo.",
-    "ukr": "Домовилися."
-  },
-  "zat_b30_owl_stalker_trader_sell_items_26": {
-    "eng": "Detector prototypes. Would you like to buy them back?",
-    "fra": "Des prototypes de détecteurs. Tu veux les racheter ?",
-    "ger": "Detektorprototypen. Willst du sie haben?",
-    "ita": "Prototipi di rilevatori. Ti interessa comprarli?",
-    "pol": "Prototypy detektorów. Chcesz je odkupić?",
-    "rus": "Прототипы детекторов. Не хочешь купить их обратно?",
-    "spa": "Prototipos de detectores. żQuerrías comprármelos?",
-    "ukr": "Прототипи детекторів. Не хочеш купити їх назад?"
-  },
-  "zat_b30_owl_stalker_trader_sell_items_27": {
-    "eng": "Secret documents, I found them on the bridge by the motor column. Wanna have a look?",
-    "fra": "Des documents secrets. Je les ai trouvés sur le pont prčs de la colonne motorisée. ",
-    "ger": "Geheime Dokumente, die ich auf der Brücke beim verlassenen Konvoi gefunden habe. Willst du einen Blick darauf werfen?",
-    "ita": "Documenti segreti. Li ho trovati sul ponte accanto alla colonna motore. Vuoi dare un'occhiata.",
-    "pol": "Tajne dokumenty. Znalazłem je na moście przy konwoju. Chcesz rzucić okiem?",
-    "rus": "Нашёл секретные документы на мосту у автоколонны. Хочешь взглянуть?",
-    "spa": "Documentos secretos. Los encontré en el puente que está junto a la columna motorizada. żQuieres verlos?",
-    "ukr": "Знайшов секретні документи на мосту біля автоколони. Хочеш глянути?"
-  },
-  "zat_b30_owl_stalker_trader_sell_items_31": {
-    "eng": "A strange artifact. I found it at the dredge station.",
-    "fra": "Un artefact étrange que j'ai trouvé dans la station de dragage.",
-    "ger": "Ein seltsames Artefakt. Ich habe es beim Baggerschiff gefunden.",
-    "ita": "Uno strano manufatto. L'ho trovato alla stazione di drenaggio.",
-    "pol": "Dziwny artefakt. Znalazłem go przy pogłębiarce.",
-    "rus": "Странный артефакт. Нашёл на земснаряде.",
-    "spa": "Un artefacto extrańo. Lo encontré junto a la planta de dragado.",
-    "ukr": "Дивний артефакт. Знайшов на земснаряді."
-  },
-  "zat_b30_owl_stalker_trader_sell_items_32": {
-    "eng": "A strange artifact. I found it near Yanov station.",
-    "fra": "Un artefact étrange que j'ai trouvé prčs de la gare de Yanov.",
-    "ger": "Ein seltsames Artefakt. Ich habe es in der Nähe der Janow-Station gefunden.",
-    "ita": "Uno strano manufatto. L'ho trovato alla stazione Yanov.",
-    "pol": "Dziwny artefakt. Znalazłem go przy stacji Janów.",
-    "rus": "Странный артефакт. Нашёл неподалёку от станции «Янов».",
-    "spa": "Un artefacto extrańo. Lo encontré junto a la estación de Yanov.",
-    "ukr": "Дивний артефакт. Знайшов неподалік станції «Янів»."
-  },
-  "zat_b30_owl_stalker_trader_sell_items_33": {
-    "eng": "Heart of the Oasis artifact.",
-    "fra": "Le Cśur de l'Oasis.",
-    "ger": "Das Artefakt \"Herz der Oase\".",
-    "ita": "Manufatto Cuore dell'Oasi",
-    "pol": "Artefakt Serce Oazy.",
-    "rus": "Артефакт «Сердце Оазиса».",
-    "spa": "Artefacto Corazón del Oasis.",
-    "ukr": "Артефакт «Серце Оази»"
-  },
-  "zat_b7_stalkers_raiders_dialog_151": {
-    "eng": "Let’s rock.",
-    "fra": "C'est parti !",
-    "ger": "Legen wir los.",
-    "ita": "Diamoci dentro.",
-    "pol": "Ruszajmy.",
-    "rus": "Поехали.",
-    "spa": "Vamos.",
-    "ukr": "Поїхали."
-  },
-  "zat_b7_stalkers_raiders_dialog_152": {
-    "eng": "Wait.",
-    "fra": "Une minute !",
-    "ger": "Halt.",
-    "ita": "Aspetta.",
-    "pol": "Czekaj.",
-    "rus": "Подожди.",
-    "spa": "Espera.",
-    "ukr": "Чекай."
-  },
-  "zat_b7_stalkers_victims_actor_start_dialog_0": {
-    "eng": "A group of stalkers is planning to stick you up. Stay alert.",
-    "fra": "Un groupe de stalkers s'appręte ŕ vous tomber dessus. Restez sur vos gardes !",
-    "ger": "Eine Gruppe von Stalkern hat vor, euch zu überfallen. Seid auf der Hut.",
-    "ita": "Un gruppo di stalker vuole fregarti. Stai all'erta.",
-    "pol": "Grupa stalkerów chce cię obrabować. Bądź czujny.",
-    "rus": "Вас собирается ограбить группа сталкеров. Советую быть начеку.",
-    "spa": "Un grupo de stalkers planea atracarte. Ten cuidado.",
-    "ukr": "Вас збирається пограбувати група сталкерів. Раджу бути напоготові."
-  },
-  "zat_b7_stalkers_victims_actor_start_dialog_1": {
-    "eng": "Rat bastards... All right, we'll give them a warm welcome... Listen, try to make them think you’re on their side. Do that and you can help us fight them off... We'll make it worth your while...",
-    "fra": "Les salopards... Trčs bien, on va leur préparer un petit comité d'accueil... Alors, essaye de leur faire croire que tu es de leur côté, ça te permettra de nous filer un coup de main... Il y a une belle récompense ŕ la clé.",
-    "ger": "Miese Ratten! Aber gut, dann werden wir sie gebührend empfangen! Pass auf, lass sie glauben, dass du auf ihrer Seite bist. Wenn du das machst, kannst du uns dabei helfen, den Überfall abzuwehren. Wir werden dich dafür auch belohnen.",
-    "ita": "Maledetti bastardi... E va bene, gli daremo un caloroso benvenuto... Ascolta, fagli credere di essere dalla loro parte. Se ci riuscirai ci darai un grande aiuto nel respingerli... Sapremo come ricompensarti...",
-    "pol": "Co za gnojki... Dobra, przygotujemy im ciepłe powitanie... Słuchaj, niech myślą, że jesteś po ich stronie. Jeśli im to wmówisz, pomożesz nam ich odeprzeć... Dobrze cię wynagrodzimy...",
-    "rus": "Подонки! Ну ничего, мы им приготовим горячий приём... Слушай, если будет возможность, вотрись к ним в доверие. Разузнаешь, как и что, да поможешь нам отбиться... мы в долгу не останемся!",
-    "spa": "Cerdos... Muy bien, les daremos una cálida bienvenida. Mira, intenta convencerlos de que estás de su parte. Así nos ayudarás a acabar con ellos. Te recompensaremos bien por ello.",
-    "ukr": "Покидьки! Ну нічого, ми їм приготуємо гарячий прийом... Слухай, як буде можливість, увійди до них в довіру. Дізнаєшся, як і що, та допоможеш нам відбитися... за нами боргу не буде!"
-  },
-  "zat_b52_robbery_port_bandits_1_1111": {
-    "eng": "I don't give a shit what you agreed to. Hand it over!",
-    "fra": "Rien ŕ foutre de votre accord ! Donne-moi ce flingue, et plus vite que ça !",
-    "ger": "Es ist mir scheißegal, an was du dich erinnerst. Her damit!",
-    "ita": "Non mi interessa cosa hai concordato. Dammi qui, e subito!",
-    "pol": "Gówno mnie obchodzi, na co się zgodziłeś. Oddawaj!",
-    "rus": "Да мне пофиг, кто за что добазарился. Гони всё сюда!",
-    "spa": "Me importa una mierda en lo que quedases. ˇDame eso pero ya!",
-    "ukr": "Та мені пофіг, хто за шо добазарився. Гоні всьо сюди!"
-  },
-  "zat_b52_robbery_port_bandits_1_1111212": {
-    "eng": "Okay, here you go.",
-    "fra": "Ok, voilŕ !",
-    "ger": "OK, bitte sehr.",
-    "ita": "OK, ecco qui.",
-    "pol": "Dobra, masz.",
-    "rus": "Хорошо, держи.",
-    "spa": "Vale, aquí tienes.",
-    "ukr": "Добре, тримай."
-  },
-  "zat_b52_robbery_port_bandits_1_21": {
-    "eng": "You don't?... We don't give a rat's ass. Hand it over, moron!",
-    "fra": "Non ? J'en ai rien ŕ faire ! Donne-moi ça, connard !",
-    "ger": "Nicht? Das ist uns verdammt egal. Her damit, Vollidiot!",
-    "ita": "Ah, no? Me ne frego. Dammi qui, idiota!",
-    "pol": "Nie?... A my mamy to w dupie. Oddawaj go, gnoju!",
-    "rus": "Не в курсах?... Нам уже пофиг. Гони всё сюда, фраер!",
-    "spa": "żAh, no? Pues nos importa una mierda. ˇDanos eso, gilipollas!",
-    "ukr": "Не в курсах?... Нам вже пофіг. Гоні всьо сюди, фраєр!"
-  },
-  "zat_b52_robbery_port_bandits_1_11111": {
-    "eng": "Easy, easy... Here you go.",
-    "fra": "Du calme, du calme... Voilŕ.",
-    "ger": "Nur die Ruhe, ist ja schon gut... hier, bitte sehr.",
-    "ita": "Calma, calma... tieni.",
-    "pol": "Spokojnie, spokojnie... Bierzcie.",
-    "rus": "Эй, полегче... Вот, держи.",
-    "spa": "Tranquilo... Toma.",
-    "ukr": "Гей, легше... Осьо, тримай."
-  },
-  "zat_b7_stalkers_victims_actor_start_dialog_2": {
-    "eng": "Rat bastards... All right, we'll give them a warm welcome... Listen, help us fight them off if you can. We'll make it worth your while...",
-    "fra": "Les salopards... Trčs bien, on va leur préparer un petit comité d'accueil... Aide-nous ŕ les combattre si tu peux et t'auras droit ŕ une récompense !",
-    "ger": "Miese Ratten! Aber gut, dann werden wir sie gebührend empfangen! Pass auf, du musst uns gegen diese Typen helfen. Wir werden dich dafür auch belohnen.",
-    "ita": "Maledetti bastardi... E va bene, gli daremo un caloroso benvenuto... Ascolta, aiutaci a respingerli, se puoi. Sapremo come ricompensarti...",
-    "pol": "Co za gnojki... Dobra, przygotujemy im ciepłe powitanie... Słuchaj, pomóż nam ich pokonać... Dobrze cię wynagrodzimy...",
-    "rus": "Подонки! Ну ничего, мы им подготовим горячий приём... Слушай, если есть такая возможность, помоги нам отбиться. Мы в долгу не останемся!",
-    "spa": "Cerdos... Muy bien, les daremos una cálida bienvenida. Ayúdanos a acabar con ellos. Te recompensaremos bien por ello.",
-    "ukr": "Покидьки! Ну нічого, ми їм підготуємо гарячий прийом... Слухай, як є така можливість, допоможи нам відбитися. За нами боргу не буде!"
-  },
-  "zat_b7_stalkers_raiders_dialog_21": {
-    "eng": "Popped 'em good, eh! You didn’t get involved, so you ain’t getting a cut. I'll holler atcha if we get any more 'business.'",
-    "fra": "On s'est bien débrouillé, non ? Toi, par contre, comme t'as pas fait grand-chose, compte pas obtenir ta part du gâteau ! Je te ferai signe si on a d'autres plans.",
-    "ger": "Denen haben wir's aber gezeigt, was? Du hast nichts geleistet, also kriegst du auch nichts von der Beute ab. Ich lass dich wissen, wenn wir weitere \"Geschäfte\" zu erledigen haben...",
-    "ita": "Li abbiamo conciati per le feste, eh!?Tu non hai voluto partecipare, quindi non avrai nulla. Se avremo altri \"affari\" ti farň un fischio.",
-    "pol": "Urządziliśmy ich, a co! Ty się nie udzielałeś, więc nie dostaniesz kasy. Jak będzie nowa robota, dam ci cynk.",
-    "rus": "А круто мы их вольтанули! Только ты, фраер, в сторонке мялся, потому хрен тебе а не доля!.. Ладно, не ссы. Если ещё какое дело наклюнется, мы маякнём.",
-    "spa": "Menuda zurra, żeh? No te involucraste, así que no te llevarás tu parte. Ya te avisaré si surgen más \"negocios\".",
-    "ukr": "А круто ми їх вольтанули! Тока ти, фраєр, по углах никався, тому хрєн тобі, а не доля!.. Та лана, не сци. Якшо іще яке дєло замаячить, ми свиснем."
-  },
-  "zat_b5_stalker_commander_dialog_31": {
-    "eng": "You’re no use... Don’t expect a reward. Well, at least you came to have a chat, That’s something.",
-    "fra": "T'es vraiment inutile... Tu peux t'asseoir sur ta part du gâteau ! Mais au moins, t'es venu discuter, c'est toujours ça...",
-    "ger": "Du bist zu nichts zu gebrauchen... also erwarte keine Belohnung. Na ja, immerhin bist du auf ein Schwätzchen vorbeigekommen.",
-    "ita": "Sei inutile... Non aspettarti una ricompensa. Beh, almeno sei venuto per fare due chiacchiere. Č giŕ qualcosa.",
-    "pol": "Jesteś do niczego... Nie oczekuj nagrody. Ale przynajmniej przyszedłeś pogadać, to już coś.",
-    "rus": "Да, помощи от тебя - как с козла молока... Ладно... Сам понимаешь, награда тебе никак не светит: не за что её давать.",
-    "spa": "Eres un inútil... No esperes una recompensa. Pero al menos has venido a hablar, eso ya es algo.",
-    "ukr": "Так, допомоги від тебе - як із цапа вовни... Гаразд. Сам розумієш, нагорода тобі аж ніяк не світить: нема за що її давати."
-  },
-  "zat_b5_stalker_commander_dialog_311": {
-    "eng": "See ya.",
-    "fra": "Au revoir.",
-    "ger": "Bis dann.",
-    "ita": "Ci si vede.",
-    "pol": "Na razie.",
-    "rus": "Бывай.",
-    "spa": "Hasta luego.",
-    "ukr": "Бувай."
-  },
-  "zat_b7_bandit_boss_sultan_b30_compass_give_actor_dialog_1": {
-    "eng": "Attaboy. Now we put the screws on our little client. I heard Beard gave his stalkers some very powerful detectors designed for finding rare artifacts. So you need to join up with those stalkers and make it so those detectors don't slip past your pocket. Catch my drift?",
-    "fra": "Bien. Reste plus qu'ŕ mettre la touche finale ! Il paraît que le Barbu a refilé de puissants détecteurs capables de repérer des artefacts trčs rares ŕ ses stalkers. Il faut que tu infiltres leurs rangs, histoire de pouvoir profiter, toi aussi, de ces petits bijoux. C'est compris ?",
-    "ger": "Sehr gut! Jetzt können wir unseren lieben Auftraggeber unter Druck setzen. Ich habe gehört, dass Beard seinen Stalkern einige sehr gute Detektoren gegeben hat, mit denen man seltene Artefakte finden kann. Also musst du dich jetzt diesen Stalkern anschließen und dir dann die Detektoren krallen. Wie klingt das für dich?",
-    "ita": "Bravo ragazzo. Ora abbiamo il coltello dalla parte del manico. Ho sentito dire che Beard ha dotato i suoi stalker di potenti rilevatori programmati per trovare manufatti rari. Devi unirti a quegli stalker e fare in modo che quei rilevatori non vedano quello che hai in tasca. Ci siamo capiti?",
-    "pol": "To mi się podoba. A teraz trochę dociśnij naszego klienta. Podobno Brodacz dał swoim stalkerom bardzo potężne detektory do wykrywania rzadkich artefaktów. Musisz się wkręcić między tych stalkerów i dopilnować, żeby detektory trafiły do ciebie. Kumasz?",
-    "rus": "Молоток! Теперь осталось терпилу чутка додавить. Мне шепнули, что Борода раздал своим сталкерам крутые детекторы, чтобы редкие артефакты чаще нашаривать. Надо бы записаться в эти сталкеры и сделать так, чтобы детекторы тебе на карман упали. Уловил?",
-    "spa": "Oye. Ahora le apretaremos las tuercas a nuestro clientillo. Barbas les dio a sus stalkers unos detectores muy potentes diseńados para encontrar artefactos extrańos. Tienes que unirte a ellos para conseguir que los detectores acaben en tu bolsillo, żme sigues?",
-    "ukr": "Молоток! Тепер остається терпилу троха додавити. Мені шепнули, що Борода роздав своїм сталкерам круті детектори, аби рідкісні артефакти частіше відшукувати. Треба б записатися до цих сталкерів і зробити так, щоби детектори тобі на карман впали. Уловив?"
-  },
-  "zat_b7_bandit_boss_sultan_b30_start_actor_dialog_2": {
-    "eng": "No chance of outmuscling him. I tried to squeeze up his supply routes but that bearded scumbag managed to get a Compass anyway. Looks like he’s doing just fine... for now.",
-    "fra": "Impossible de le faire déguerpir... J'ai essayé de couper son approvisionnement, mais ce tocard barbu a quand męme réussi ŕ récupérer une Boussole. On dirait qu'il s'en sort trčs bien... pour l'instant.",
-    "ger": "Keine Chance gegen ihn. Ich habe versucht, seine Versorgungswege zu kappen, aber der bärtige Halunke hat es trotzdem geschafft, an ein Kompass-Artefakt zu gelangen. Es sieht also gut für ihn aus... vorerst.",
-    "ita": "Con la forza non ce la possiamo fare. Ho provato a bloccare le sue linee di rifornimento, ma quel dannato bastardo barbuto č riuscito a trovare una Bussola. Se la sta cavando senza problemi... per ora.",
-    "pol": "Niestety jest silniejszy. Próbowałem odciąć go od szlaków zaopatrzeniowych, ale ta brodata szuja zdołała jakoś dorwać Kompas. Chyba nieźle sobie radzi... Na razie.",
-    "rus": "Фиг там. Нет возможности на него повлиять. Хотел пережать ему каналы поставок, так этот гад бородатый всё равно где-то достал «Компас». Считай, у него всё бархатом... пока что.",
-    "spa": "No hay forma de dominarlo. Intenté reducir sus rutas de suministros pero ese granuja consiguió una Brújula igualmente. Parece que le va bien... por el momento.",
-    "ukr": "Хрін там. Нема возможності на нього вплинуть. Хотів передавить йому всі канали, так цей гад бородатий все одно десь достав «Компас». Щітай, у нього всьо в шоколаді... поки шо."
-  },
-  "zat_b22_stalker_medic_dialog_start_1111211": {
-    "eng": "[continue...]",
-    "fra": "[continuer...]",
-    "ger": "[fortfahren...]",
-    "ita": "[continua...]",
-    "pol": "[Dalej....]",
-    "rus": "[далее...]",
-    "spa": "[continuar...]",
-    "ukr": "[далі... ]"
-  },
-  "zat_b22_stalker_medic_dialog_start_1141111": {
-    "eng": "[continue...]",
-    "fra": "[continuer...]",
-    "ger": "[fortfahren...]",
-    "ita": "[continua...]",
-    "pol": "[Dalej....]",
-    "rus": "[далее...]",
-    "spa": "[continuar...]",
-    "ukr": "[далі... ]"
-  },
-  "zat_b22_stalker_medic_need_health_care_11": {
-    "eng": "[continue...]",
-    "fra": "[continuer...]",
-    "ger": "[fortfahren...]",
-    "ita": "[continua...]",
-    "pol": "[Dalej....]",
-    "rus": "[далее...]",
-    "spa": "[continuar...]",
-    "ukr": "[далі... ]"
-  },
-  "zat_b22_barmen_about_vampire_actor3_0": {
-    "eng": "Grouse is dead. It looks like Tremor killed him... but he’s dead too.",
-    "fra": "Le Faisan est mort. On dirait que Sismik l'a tué... mais lui non plus n'a pas survécu.",
-    "ger": "Grouse ist tot. Es sieht so aus, als ob Tremor ihn getötet hätte... aber der ist auch tot.",
-    "ita": "Grouse č morto. Sembra che sia stato Tremor a ucciderlo... ma č morto anche lui.",
-    "pol": "Głuszec nie żyje. Najwyraźniej to Wstrząs go zabił... Ale on też jest martwy.",
-    "rus": "Глухарь мёртв. Похоже, его убил Тремор... только он тоже мёртв.",
-    "spa": "Urogallo ha muerto. Parece que Tremor estaba involucrado, pero él también está muerto.",
-    "ukr": "Глухар мертвий. Схоже, його убив Тремор... та він теж мертвий."
   }
 }

@@ -269,6 +269,26 @@
     "spa": "Esto no es un estanque: es más bien un bańo de sangre. Escucharás ecos de balas y explosiones por sus pasillos de baldosas.",
     "ukr": "То не басейн, а кривава лазня. Викладеними кахлем коридорами гуляє луна пострілів та вибухів"
   },
+  "ui_map_desc_mp_pripyat_large": {
+    "eng": "Few dare to venture into the deserted city of Pripyat, formerly home to employees working at the CNPP. Despite this, the streets of the dead city have been troubled recently by fierce gunfire in a small part of the town between the Prometheus movie theater, the pier and houses on Kurchatova Street.",
+    "fra": "Peu nombreux sont ceux qui osent s'aventurer dans la ville fantôme de Pripyat, ancien lieu de résidence des employés de la centrale. Mais, récemment, le calme des rues de la ville morte a été troublé par des échanges de tirs entre le cinéma Prometheus, l'embarcadčre et les maisons de la rue Kurchatova.",
+    "ger": "Nur wenige wagen sich bis in die verlassene Stadt Pripyat vor, in der früher die Angestellten des Atomkraftwerks Tschernobyl lebten. Dennoch toben auf den Straßen der toten Stadt wilde Feuergefechte, und zwar in einem kleinen Gebiet zwischen dem Prometheus-Kino, dem Pier und den Häusern auf der Kurschatowa-Straße.",
+    "ita": "Pochi osano avventurarsi nella cittŕ deserta di Pripyat, un tempo casa degli impiegati alla centrale di Chernobyl. Nonostante questo, le strade della cittŕ fantasma sono state recentemente teatro di violenti scontri a fuoco in un quartiere tra il cinema Prometheus, il molo e le case di Kurchatova Street.",
+    "pol": "Niewielu odważa zapuścić się do opuszczonego miasta Prypeć, niegdyś zamieszkiwanego przez pracowników CEJ. Pomimo tego na ulicach miasta duchów niedawno rozległy się odgłosy walki, toczonej między kinem „Prometeusz”, przystanią i domami na ulicy Kurczatowej.",
+    "rus": "Мало кто осмеливается проникать в заброшенную Припять - бывший город атомщиков, работников ЧАЭС. Но и вот и среди мёртвых стен раздались выстрелы: часть города между кинотеатром «Прометей», причалом и домами по улице Курчатова стала местом ожесточённой перестрелки.",
+    "spa": "Pocos se atreven a adentrarse en la ciudad desierta de Pripyat, antiguo hogar de los trabajadores de la central de Chernóbil. A pesar de esto, se han producido salvajes tiroteos en las calles de la ciudad muerta, en una pequeńa parte de la ciudad comprendida entre el cine Prometeo, el muelle y las casas de la calle Kurchatova.",
+    "ukr": "Мало хто насмілюється проникати до покинутої Прип'яті - колишнього міста атомників, працівників ЧАЕС. Але ось і серед мертвих стін пролунали постріли: частина міста між кінотеатром «Прометей», причалом та будинками по вулиці Курчатова стала місцем запеклої перестрілки."
+  },
+  "ui_map_desc_mp_pripyat_short": {
+    "eng": "A small part of Pripyat between the Prometheus movie theater, the pier and houses on Kurchatova Street saw fierce fighting between the few who made it into the dead city.",
+    "fra": "Le quartier de Pripyat entre le cinéma Prometheus, l'embarcadčre et la rue Kurchatova est le théâtre d'affrontements acharnés entre ceux qui sont parvenus ŕ atteindre la ville morte.",
+    "ger": "In einem kleinen Teil von Pripyat zwischen dem Prometheus-Kino, dem Pier und den Häusern auf der Kurschatowa-Straße toben Feuergefechte zwischen den wenigen, die es bis in die tote Stadt geschafft haben.",
+    "ita": "Una piccola zona di Pripyat, tra il cinema Prometheus, il molo e le case di Kurchatova Street č stata teatro di violenti scontri a fuoco tra i pochi che sono riusciti ad arrivare in cittŕ.",
+    "pol": "W części Prypeci między kinem „Prometeusz”, przystanią i domami na ulicy Kurczatowej wybuchły zaciekłe walki między kilkoma osobami, które dotarły do opuszczonego miasta.",
+    "rus": "Часть Припяти между кинотеатром «Прометей», причалом и домами по улице Курчатова стала полем боя между теми, кто сумел проникнуть в мёртвый город.",
+    "spa": "Se han producido salvajes tiroteos en las calles de la ciudad muerta, en una pequeńa parte de la ciudad comprendida entre el cine Prometeo, el muelle y las casas de la calle Kurchatova.",
+    "ukr": "Частина Прип'яті між кінотеатром «Прометей», причалом та будинками по вулиці Курчатова стала полем бою між тими, хто зумів проникнути до мертвого міста."
+  },
   "ui_map_desc_mp_railraod_short": {
     "eng": "A small railway station near the Rostok factory.",
     "fra": "Petite gare prčs de l'usine de Rostock.",
@@ -388,25 +408,5 @@
     "rus": "Окраина завода «Росток» до прихода «Долга». Эти мрачные места очень богаты артефактами.",
     "spa": "Los restos de la fábrica de Rostok, antes de que Deber se asentase aquí. Es un lugar siniestro que, sin embargo, alberga numerosos artefactos. ",
     "ukr": "Околиця заводу «Росток» до приходу «Долгу». Ці похмурі місця дуже багаті на артефакти"
-  },
-  "ui_map_desc_mp_pripyat_large": {
-    "eng": "Few dare to venture into the deserted city of Pripyat, formerly home to employees working at the CNPP. Despite this, the streets of the dead city have been troubled recently by fierce gunfire in a small part of the town between the Prometheus movie theater, the pier and houses on Kurchatova Street.",
-    "fra": "Peu nombreux sont ceux qui osent s'aventurer dans la ville fantôme de Pripyat, ancien lieu de résidence des employés de la centrale. Mais, récemment, le calme des rues de la ville morte a été troublé par des échanges de tirs entre le cinéma Prometheus, l'embarcadčre et les maisons de la rue Kurchatova.",
-    "ger": "Nur wenige wagen sich bis in die verlassene Stadt Pripyat vor, in der früher die Angestellten des Atomkraftwerks Tschernobyl lebten. Dennoch toben auf den Straßen der toten Stadt wilde Feuergefechte, und zwar in einem kleinen Gebiet zwischen dem Prometheus-Kino, dem Pier und den Häusern auf der Kurschatowa-Straße.",
-    "ita": "Pochi osano avventurarsi nella cittŕ deserta di Pripyat, un tempo casa degli impiegati alla centrale di Chernobyl. Nonostante questo, le strade della cittŕ fantasma sono state recentemente teatro di violenti scontri a fuoco in un quartiere tra il cinema Prometheus, il molo e le case di Kurchatova Street.",
-    "pol": "Niewielu odważa zapuścić się do opuszczonego miasta Prypeć, niegdyś zamieszkiwanego przez pracowników CEJ. Pomimo tego na ulicach miasta duchów niedawno rozległy się odgłosy walki, toczonej między kinem „Prometeusz”, przystanią i domami na ulicy Kurczatowej.",
-    "rus": "Мало кто осмеливается проникать в заброшенную Припять - бывший город атомщиков, работников ЧАЭС. Но и вот и среди мёртвых стен раздались выстрелы: часть города между кинотеатром «Прометей», причалом и домами по улице Курчатова стала местом ожесточённой перестрелки.",
-    "spa": "Pocos se atreven a adentrarse en la ciudad desierta de Pripyat, antiguo hogar de los trabajadores de la central de Chernóbil. A pesar de esto, se han producido salvajes tiroteos en las calles de la ciudad muerta, en una pequeńa parte de la ciudad comprendida entre el cine Prometeo, el muelle y las casas de la calle Kurchatova.",
-    "ukr": "Мало хто насмілюється проникати до покинутої Прип'яті - колишнього міста атомників, працівників ЧАЕС. Але ось і серед мертвих стін пролунали постріли: частина міста між кінотеатром «Прометей», причалом та будинками по вулиці Курчатова стала місцем запеклої перестрілки."
-  },
-  "ui_map_desc_mp_pripyat_short": {
-    "eng": "A small part of Pripyat between the Prometheus movie theater, the pier and houses on Kurchatova Street saw fierce fighting between the few who made it into the dead city.",
-    "fra": "Le quartier de Pripyat entre le cinéma Prometheus, l'embarcadčre et la rue Kurchatova est le théâtre d'affrontements acharnés entre ceux qui sont parvenus ŕ atteindre la ville morte.",
-    "ger": "In einem kleinen Teil von Pripyat zwischen dem Prometheus-Kino, dem Pier und den Häusern auf der Kurschatowa-Straße toben Feuergefechte zwischen den wenigen, die es bis in die tote Stadt geschafft haben.",
-    "ita": "Una piccola zona di Pripyat, tra il cinema Prometheus, il molo e le case di Kurchatova Street č stata teatro di violenti scontri a fuoco tra i pochi che sono riusciti ad arrivare in cittŕ.",
-    "pol": "W części Prypeci między kinem „Prometeusz”, przystanią i domami na ulicy Kurczatowej wybuchły zaciekłe walki między kilkoma osobami, które dotarły do opuszczonego miasta.",
-    "rus": "Часть Припяти между кинотеатром «Прометей», причалом и домами по улице Курчатова стала полем боя между теми, кто сумел проникнуть в мёртвый город.",
-    "spa": "Se han producido salvajes tiroteos en las calles de la ciudad muerta, en una pequeńa parte de la ciudad comprendida entre el cine Prometeo, el muelle y las casas de la calle Kurchatova.",
-    "ukr": "Частина Прип'яті між кінотеатром «Прометей», причалом та будинками по вулиці Курчатова стала полем бою між тими, хто зумів проникнути до мертвого міста."
   }
 }

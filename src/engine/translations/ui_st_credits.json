@@ -1,14 +1,4 @@
 {
-  "st_chechin": {
-    "eng": "Sergey Chechin",
-    "fra": "Sergey Chechin",
-    "ger": "Sergey Chechin",
-    "ita": "Sergey Chechin",
-    "pol": "Sergey Chechin",
-    "rus": "Сергей Чечин",
-    "spa": "Sergey Chechin",
-    "ukr": "Сергій Чечін"
-  },
   "st_abramowicz": {
     "eng": "Maciej Abramowicz",
     "fra": "Maciej Abramowicz",
@@ -49,6 +39,16 @@
     "spa": "Control de calidad",
     "ukr": "Тестери"
   },
+  "st_alshekhly": {
+    "eng": "Omar Al-Shekhly",
+    "fra": "Omar Al-Shekhly",
+    "ger": "Omar Al-Shekhly",
+    "ita": "Omar Al-Shekhly",
+    "pol": "Omar Al-Shekhly",
+    "rus": "Omar Al-Shekhly",
+    "spa": "Omar Al-Shekhly",
+    "ukr": "Omar Al-Shekhly"
+  },
   "st_amdati": {
     "eng": "AMD/ATI",
     "fra": "AMD/ATI",
@@ -78,6 +78,16 @@
     "rus": "Аниматор",
     "spa": "Animación",
     "ukr": "Аніматор"
+  },
+  "st_arhipov": {
+    "eng": "Roman =Marauder= Arhipov",
+    "fra": "Roman =Marauder= Arhipov",
+    "ger": "Roman =Marauder= Arhipov",
+    "ita": "Roman =Marauder= Arhipov",
+    "pol": "Roman =Marauder= Arhipov",
+    "rus": "Роман =Marauder= Архипов",
+    "spa": "Roman =Marauder= Arhipov",
+    "ukr": "Роман «Marauder» Архіпов"
   },
   "st_art_department": {
     "eng": "Graphics Department",
@@ -208,6 +218,16 @@
     "rus": "Модели персонажей",
     "spa": "Modelos de personajes",
     "ukr": "Моделі персонажів"
+  },
+  "st_chechin": {
+    "eng": "Sergey Chechin",
+    "fra": "Sergey Chechin",
+    "ger": "Sergey Chechin",
+    "ita": "Sergey Chechin",
+    "pol": "Sergey Chechin",
+    "rus": "Сергей Чечин",
+    "spa": "Sergey Chechin",
+    "ukr": "Сергій Чечін"
   },
   "st_cherevatenko": {
     "eng": "Aleksey Cherevatenko",
@@ -609,6 +629,16 @@
     "spa": "Alexander Kachaniuk",
     "ukr": "Олександр Качанюк"
   },
+  "st_kalintsev": {
+    "eng": "Sergey “ion” Kalintsev",
+    "fra": "Sergey \"ion\" Kalintsev",
+    "ger": "Sergey \"ion\" Kalintsev",
+    "ita": "Sergey \"ion\" Kalintsev",
+    "pol": "Sergey “ion” Kalintsev",
+    "rus": "Сергей «ion» Калинцев",
+    "spa": "Sergey “ion” Kalintsev",
+    "ukr": "Сергій «ion» Калинцев"
+  },
   "st_kalita": {
     "eng": "Dmitry Kalita",
     "fra": "Dmitry Kalita",
@@ -748,6 +778,16 @@
     "rus": "Светлана Кудря",
     "spa": "Svetlana Kudrya",
     "ukr": "Світлана Кудря"
+  },
+  "st_kulikov": {
+    "eng": "Roman “RVCool” Kulikov",
+    "fra": "Roman \"RVCool\" Kulikov",
+    "ger": "Roman \"RVCool\" Kulikov",
+    "ita": "Roman \"RVCool\" Kulikov",
+    "pol": "Roman “RVCool” Kulikov",
+    "rus": "Роман «RVCool» Куликов",
+    "spa": "Roman “RVCool” Kulikov",
+    "ukr": "Роман «RVCool» Куликов"
   },
   "st_kurbatov": {
     "eng": "Sergey Kurbatov",
@@ -1479,6 +1519,16 @@
     "spa": "Konstantin Slipchenko",
     "ukr": "Костянтин Сліпченко"
   },
+  "st_smirnov": {
+    "eng": "Maxim Smirnov",
+    "fra": "Maxim Smirnov",
+    "ger": "Maxim Smirnov",
+    "ita": "Maxim Smirnov",
+    "pol": "Maxim Smirnov",
+    "rus": "Максим Смирнов",
+    "spa": "Maxim Smirnov",
+    "ukr": "Максим Смирнов"
+  },
   "st_sobotka": {
     "eng": "Tomasz Sobotka",
     "fra": "Tomasz Sobotka",
@@ -2139,6 +2189,16 @@
     "spa": "Valentin Yeltyshev",
     "ukr": "Валентин Єлтишев"
   },
+  "st_yuhno": {
+    "eng": "Victoria “Morrant” Yukhno",
+    "fra": "Victoria \"Morrant\" Yukhno",
+    "ger": "Victoria \"Morrant\" Yukhno",
+    "ita": "Victoria \"Morrant\" Yukhno",
+    "pol": "Victoria “Morrant” Yukhno",
+    "rus": "Виктория «Morrant» Юхно",
+    "spa": "Victoria “Morrant” Yukhno",
+    "ukr": "Вікторія «Morrant» Юхно"
+  },
   "st_zaitsev": {
     "eng": "Eugene Zaitsev",
     "fra": "Eugene Zaitsev",
@@ -2208,65 +2268,5 @@
     "rus": "Bartosz Zukowski",
     "spa": "Bartosz Zukowski",
     "ukr": "Bartosz Zukowski"
-  },
-  "st_yuhno": {
-    "eng": "Victoria “Morrant” Yukhno",
-    "fra": "Victoria \"Morrant\" Yukhno",
-    "ger": "Victoria \"Morrant\" Yukhno",
-    "ita": "Victoria \"Morrant\" Yukhno",
-    "pol": "Victoria “Morrant” Yukhno",
-    "rus": "Виктория «Morrant» Юхно",
-    "spa": "Victoria “Morrant” Yukhno",
-    "ukr": "Вікторія «Morrant» Юхно"
-  },
-  "st_kalintsev": {
-    "eng": "Sergey “ion” Kalintsev",
-    "fra": "Sergey \"ion\" Kalintsev",
-    "ger": "Sergey \"ion\" Kalintsev",
-    "ita": "Sergey \"ion\" Kalintsev",
-    "pol": "Sergey “ion” Kalintsev",
-    "rus": "Сергей «ion» Калинцев",
-    "spa": "Sergey “ion” Kalintsev",
-    "ukr": "Сергій «ion» Калинцев"
-  },
-  "st_kulikov": {
-    "eng": "Roman “RVCool” Kulikov",
-    "fra": "Roman \"RVCool\" Kulikov",
-    "ger": "Roman \"RVCool\" Kulikov",
-    "ita": "Roman \"RVCool\" Kulikov",
-    "pol": "Roman “RVCool” Kulikov",
-    "rus": "Роман «RVCool» Куликов",
-    "spa": "Roman “RVCool” Kulikov",
-    "ukr": "Роман «RVCool» Куликов"
-  },
-  "st_smirnov": {
-    "eng": "Maxim Smirnov",
-    "fra": "Maxim Smirnov",
-    "ger": "Maxim Smirnov",
-    "ita": "Maxim Smirnov",
-    "pol": "Maxim Smirnov",
-    "rus": "Максим Смирнов",
-    "spa": "Maxim Smirnov",
-    "ukr": "Максим Смирнов"
-  },
-  "st_alshekhly": {
-    "eng": "Omar Al-Shekhly",
-    "fra": "Omar Al-Shekhly",
-    "ger": "Omar Al-Shekhly",
-    "ita": "Omar Al-Shekhly",
-    "pol": "Omar Al-Shekhly",
-    "rus": "Omar Al-Shekhly",
-    "spa": "Omar Al-Shekhly",
-    "ukr": "Omar Al-Shekhly"
-  },
-  "st_arhipov": {
-    "eng": "Roman =Marauder= Arhipov",
-    "fra": "Roman =Marauder= Arhipov",
-    "ger": "Roman =Marauder= Arhipov",
-    "ita": "Roman =Marauder= Arhipov",
-    "pol": "Roman =Marauder= Arhipov",
-    "rus": "Роман =Marauder= Архипов",
-    "spa": "Roman =Marauder= Arhipov",
-    "ukr": "Роман «Marauder» Архіпов"
   }
 }
