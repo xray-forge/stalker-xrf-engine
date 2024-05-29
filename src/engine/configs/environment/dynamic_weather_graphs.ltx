@@ -1,54 +1,88 @@
-#include "dynamic_weather_graphs_surge.ltx"
+; dynamic weather graphs
 
 [weather_console_settings] ; dynamic weather console settings
+; settings to apply
 
-[weather_periods] ; period_section_name = hours_range_min, hours_range_max | set duration for each period, set of weathers
-neutral = 2, 7
-good = 2, 6
-alpha = 2, 3
-bad = 2, 5
-foggy = 2, 3
+[dof_kernels]
+clear = 2
+partly = 2
+foggy = 6
+veryfoggy = 10
+cloudy = 3
+rain = 4
+storm = 4
+foggy_no_sun = 6
+veryfoggy_no_sun = 10
+cloudy_no_sun = 3
 
-[dynamic_default] ; default weathers graph
-clear = 0.2
-alpha = 0.2
-cloudy = 0.2
+[atmosfear_clear]
+clear = 0.5
+partly = 0.5
+foggy = 0
+veryfoggy = 0
+cloudy = 0
+rain = 0
+storm = 0
+
+[atmosfear_clear_foggy]
+clear = 0.35
+partly = 0.35
+foggy = 0.3
+veryfoggy = 0
+cloudy = 0
+rain = 0
+storm = 0
+
+[atmosfear_foggy]
+clear = 0.05
+partly = 0.05
+foggy = 0.6
+veryfoggy = 0.3
+cloudy = 0
+rain = 0
+storm = 0
+
+[atmosfear_foggy_rainy]
+clear = 0
+partly = 0
 foggy = 0.2
+veryfoggy = 0.1
+cloudy = 0.3
+rain = 0.3
+storm = 0.1
+
+[atmosfear_rainy]
+clear = 0
+partly = 0
+foggy = 0.1
+veryfoggy = 0.05
+cloudy = 0.35
+rain = 0.4
+storm = 0.1
+
+[atmosfear_stormy]
+clear = 0
+partly = 0
+foggy = 0.1
+veryfoggy = 0.05
+cloudy = 0.2
+rain = 0.25
+storm = 0.4
+
+[atmosfear_transition]
+veryfoggy = 0.1
+cloudy = 0.9
+
+[atmosfear_pre_blowout]
+foggy_no_sun = 0.3
+veryfoggy_no_sun = 0.1
+cloudy_no_sun = 0.6
+
+[dynamic_default]
+clear = 0.2
+partly = 0.2
+foggy = 0.1
+veryfoggy = 0.1
+cloudy = 0.2
 rain = 0.1
 thunder = 0.1
-
-[transition] ; starts on one hour after prev period ending
-cloudy4 = 1.0
-
-[pre_blowout] ; pre blowout weathers
-pre_blowout = 1.0
-
-[good] ; good weathers period
-clear = 0.25
-clear2 = 0.25
-clear3 = 0.25
-clear4 = 0.25
-
-[neutral] ; neutral weathers period
-cloudy = 0.15
-cloudy2 = 0.10
-cloudy2_redmoon = 0.05
-cloudy3 = 0.10
-cloudy4 = 0.15
-cloudy5 = 0.15
-dark = 0.15
-etalon = 0.15
-
-[alpha] ; alpha weathers period
-alpha = 0.4
-alpha2 = 0.3
-alpha3 = 0.3
-
-[bad] ; bad weathers period
-rain = 0.5
-thunder = 0.5
-
-[foggy] ; foggy weathers period
-foggy = 0.4
-foggy_dark = 0.3
-foggy_nosun = 0.3

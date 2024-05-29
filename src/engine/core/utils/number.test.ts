@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { clamp, range, round } from "@/engine/core/utils/number";
+import { clamp, range, round, roundWithPrecision } from "@/engine/core/utils/number";
 
 describe("clamp util", () => {
   it("should correctly limit numbers", () => {
@@ -25,6 +25,33 @@ describe("round util", () => {
     expect(round(-1.6)).toBe(-2);
     expect(round(-1.5)).toBe(-1);
     expect(round(-1.1)).toBe(-1);
+  });
+});
+
+describe("roundWithPrecision util", () => {
+  it("should correctly round value with precision", () => {
+    expect(roundWithPrecision(0)).toBe(0);
+    expect(roundWithPrecision(-1)).toBe(-1);
+    expect(roundWithPrecision(1)).toBe(1);
+    expect(roundWithPrecision(10)).toBe(10);
+
+    expect(roundWithPrecision(10.4)).toBe(10);
+    expect(roundWithPrecision(10.5)).toBe(11);
+    expect(roundWithPrecision(10.123456789)).toBe(10);
+    expect(roundWithPrecision(10.123456789, 1)).toBe(10.1);
+    expect(roundWithPrecision(10.123456789, 2)).toBe(10.12);
+    expect(roundWithPrecision(10.123456789, 3)).toBe(10.123);
+    expect(roundWithPrecision(10.123456789, 4)).toBe(10.1235);
+    expect(roundWithPrecision(10.123456789, 5)).toBe(10.12346);
+
+    expect(roundWithPrecision(-10.4)).toBe(-10);
+    expect(roundWithPrecision(-10.5)).toBe(-11);
+    expect(roundWithPrecision(-10.123456789)).toBe(-10);
+    expect(roundWithPrecision(-10.123456789, 1)).toBe(-10.1);
+    expect(roundWithPrecision(-10.123456789, 2)).toBe(-10.12);
+    expect(roundWithPrecision(-10.123456789, 3)).toBe(-10.123);
+    expect(roundWithPrecision(-10.123456789, 4)).toBe(-10.1235);
+    expect(roundWithPrecision(-10.123456789, 5)).toBe(-10.12346);
   });
 });
 

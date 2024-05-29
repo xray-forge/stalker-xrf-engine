@@ -7,6 +7,8 @@ import { levels } from "@/engine/lib/constants/levels";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
+logger.info("Resolve and bind dialogs world");
+
 /**
  * Check whether current level is zaton.
  */

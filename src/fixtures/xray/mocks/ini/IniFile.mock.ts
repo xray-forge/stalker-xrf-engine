@@ -1,4 +1,11 @@
+import * as fs from "fs";
+import * as path from "path";
+
 import { jest } from "@jest/globals";
+import { parse } from "ini";
+
+import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
+import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
 
 import { AnyObject, IniFile, TName, TNumberId, TPath, TSection } from "@/engine/lib/types";
 import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
@@ -27,10 +34,20 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
   public content: string;
   public data: T;
 
-  public constructor(path: string, data?: T, content: string = "") {
-    this.path = path;
+  public constructor(iniPath: TPath, data?: T, content: string = "") {
+    this.path = iniPath;
     this.content = content;
-    this.data = data || (FILES_MOCKS[path as keyof typeof FILES_MOCKS] as unknown as T) || {};
+    this.data = data || (FILES_MOCKS[iniPath as keyof typeof FILES_MOCKS] as unknown as T);
+
+    if (!this.data) {
+      const absolutePath: TPath = path.resolve(GAME_DATA_LTX_CONFIGS_DIR, normalizeParameterPath(iniPath));
+
+      if (fs.existsSync(absolutePath)) {
+        this.data = parse(fs.readFileSync(path.resolve(absolutePath)).toString()) as T;
+      } else {
+        this.data = {} as T;
+      }
+    }
   }
 
   public w_string = jest.fn((section: TSection, field: TName, value: string) => {
@@ -41,7 +58,7 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
     this.data[section][field] = value;
   });
 
-  public r_float = jest.fn((section: TSection, field: TName) => this.data[section][field]);
+  public r_float = jest.fn((section: TSection, field: TName) => +this.data[section][field]);
 
   public r_u32 = jest.fn((section: TSection, field: TName) => {
     if (!(section in this.data)) {

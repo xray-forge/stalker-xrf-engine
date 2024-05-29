@@ -3,10 +3,15 @@ import { extern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInjured, isStalkerAlive } from "@/engine/core/utils/object";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { GameObject } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
+
+logger.info("Resolve and bind dialogs quest");
 
 /**
  * todo;

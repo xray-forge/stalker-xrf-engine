@@ -1,10 +1,8 @@
 import { config as alifeConfig } from "@/engine/configs/alife";
 import { config as forgeConfig } from "@/engine/configs/forge";
 import { AnyObject, TPath } from "@/engine/lib/types";
-import { mockDefaultWeatherGraphs } from "@/fixtures/xray/mocks/ini/files/default_weather_graphs.ltx.mock";
 import { mockDialogManager } from "@/fixtures/xray/mocks/ini/files/dialog_manager.ltx.mock";
 import { mockDropManager } from "@/fixtures/xray/mocks/ini/files/drop_manager.ltx.mock";
-import { mockGame } from "@/fixtures/xray/mocks/ini/files/game.ltx.mock";
 import { mockMapDisplayManager } from "@/fixtures/xray/mocks/ini/files/map_display_manager.ltx.mock";
 import { mockBoxGeneric } from "@/fixtures/xray/mocks/ini/files/ph_box_generic.ltx.mock";
 import { mockScriptSound } from "@/fixtures/xray/mocks/ini/files/script_sound.ltx.mock";
@@ -28,9 +26,7 @@ import { mockUpgradesManager } from "@/fixtures/xray/mocks/ini/files/upgrades_ma
  */
 export const FILES_MOCKS: Record<TPath, AnyObject> = {
   "alife.ltx": alifeConfig,
-  "environment\\dynamic_weather_graphs.ltx": mockDefaultWeatherGraphs,
   "forge.ltx": forgeConfig,
-  "game.ltx": mockGame,
   "item_upgrades.ltx": mockUpgradesLtx,
   "managers\\box_manager.ltx": mockBoxGeneric,
   "managers\\dialog_manager.ltx": mockDialogManager,

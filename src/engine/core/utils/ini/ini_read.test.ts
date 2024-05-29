@@ -9,6 +9,7 @@ import {
   readIniFieldsAsSet,
   readIniNumber,
   readIniNumberAndConditionList,
+  readIniSectionAsNumberMap,
   readIniSectionAsSet,
   readIniSectionAsStringMap,
   readIniSectionsAsList,
@@ -495,6 +496,34 @@ describe("readIniSectionAsStringMap util", () => {
     expect(readIniSectionAsStringMap(ini, "section3")).toEqualLuaTables({
       x: 1,
       y: false,
+    });
+  });
+});
+
+describe("readIniSectionAsNumberMap util", () => {
+  it("should correctly transform section to number based map", () => {
+    const ini: IniFile = MockIniFile.mock("example.ltx", {
+      section1: ["a", "b", "c"],
+      section2: { a: "1", c: 2, e: "f" },
+      section3: {
+        x: 1,
+        y: false,
+      },
+    });
+
+    expect(readIniSectionAsNumberMap(ini, "section1")).toEqualLuaTables({
+      a: null,
+      b: null,
+      c: null,
+    });
+    expect(readIniSectionAsNumberMap(ini, "section2")).toEqualLuaTables({
+      a: 1,
+      c: 2,
+      e: null,
+    });
+    expect(readIniSectionAsNumberMap(ini, "section3")).toEqualLuaTables({
+      x: 1,
+      y: null,
     });
   });
 });

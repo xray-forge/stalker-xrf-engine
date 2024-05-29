@@ -7,6 +7,7 @@ import { TreasureManager } from "@/engine/core/managers/treasures";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker, isObjectName } from "@/engine/core/utils/dialog";
 import { disableInfoPortion, giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
+import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { getObjectsRelationSafe, isActorEnemyWithFaction } from "@/engine/core/utils/relation";
 import {
@@ -44,6 +45,15 @@ import {
   TName,
   TSection,
 } from "@/engine/lib/types";
+
+const logger: LuaLogger = new LuaLogger($filename);
+
+logger.info("Resolve and bind dialogs jupiter");
+
+/**
+ * Declare globals object.
+ */
+extern("dialogs_jupiter", {});
 
 /**
  * todo;

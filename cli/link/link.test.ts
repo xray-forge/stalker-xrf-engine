@@ -10,7 +10,7 @@ import { replaceFunctionMock } from "@/fixtures/jest";
 jest.mock("fs/promises");
 jest.mock("#/utils/fs/get_game_paths");
 
-jest.mock("#/globals/paths", () => ({
+jest.mock("#/globals", () => ({
   TARGET_GAME_LINK_DIR: "game-path",
   TARGET_LOGS_LINK_DIR: "logs-path",
   TARGET_GAME_DATA_DIR: "target-gamedata-path",
@@ -41,7 +41,7 @@ describe("unlinkFolders util", () => {
 
     expect(fsp.symlink).toHaveBeenCalledTimes(3);
     expect(fsp.symlink).toHaveBeenCalledWith("root-path", "game-path", "junction");
-    expect(fsp.symlink).toHaveBeenCalledWith("root-path", "game-path", "junction");
+    expect(fsp.symlink).toHaveBeenCalledWith("target-gamedata-path", "gamedata-path", "junction");
     expect(fsp.symlink).toHaveBeenCalledWith("logs-path", "logs-path", "junction");
   });
 
@@ -58,7 +58,7 @@ describe("unlinkFolders util", () => {
 
     expect(fsp.symlink).toHaveBeenCalledTimes(3);
     expect(fsp.symlink).toHaveBeenCalledWith("root-path", "game-path", "junction");
-    expect(fsp.symlink).toHaveBeenCalledWith("root-path", "game-path", "junction");
+    expect(fsp.symlink).toHaveBeenCalledWith("target-gamedata-path", "gamedata-path", "junction");
     expect(fsp.symlink).toHaveBeenCalledWith("logs-path", "logs-path", "junction");
   });
 

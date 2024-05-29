@@ -71,11 +71,16 @@ export type TRate = number;
 export type TSize = number;
 
 /**
- * Boolean value not correctly casted from C++ number;
+ * Number based coordinate.
+ */
+export type TCoordinate = number;
+
+/**
+ * Boolean value not correctly cast from C++ number;
  */
 export type TNotCastedBoolean = 0 | 1;
 
 /**
- * Boolean value casted to string.
+ * Boolean value cast to string.
  */
 export type TStringifiedBoolean = "true" | "false";
