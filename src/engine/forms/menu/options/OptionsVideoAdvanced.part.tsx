@@ -207,6 +207,20 @@ export function OptionsVideoAdvanced(): JSXNode {
         <options_item entry={"r2_steep_parallax"} group={"mm_opt_video"} />
       </check_r2_steep_parallax>
 
+      <cap_r2_smap_size x={"16"} y={"3"} width={"108"} height={"24"}>
+        <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
+          ui_mm_r2_smap_size
+        </text>
+      </cap_r2_smap_size>
+      <list_r2_smap_size x={"144"} y={"0"} width={"188"} height={"20"} list_length={"8"}>
+        <options_item entry={"r2_smap_size"} group={"mm_opt_video"} depend={"restart"} />
+        <list_font r={"170"} g={"170"} b={"170"} font={"letterica16"} />
+        <text_color>
+          <e r={"170"} g={"170"} b={"170"} />
+          <d r={"70"} g={"70"} b={"70"} />
+        </text_color>
+      </list_r2_smap_size>
+
       <cap_r2_sun_quality x={"16"} y={"3"} width={"108"} height={"24"}>
         <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
           ui_mm_r2_sun_quality
@@ -230,6 +244,43 @@ export function OptionsVideoAdvanced(): JSXNode {
         <texture>ui_inGame2_checkbox</texture>
         <options_item entry={"r3_dynamic_wet_surfaces"} group={"mm_opt_video"} />
       </check_r3_dynamic_wet_surfaces>
+
+      <cap_r3_dynamic_wet_surfaces x={"16"} y={"3"} width={"108"} height={"24"}>
+        <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
+          ui_mm_r3_dynamic_wet_surfaces
+        </text>
+      </cap_r3_dynamic_wet_surfaces>
+      <check_r3_dynamic_wet_surfaces x={"133"} y={"0"} width={"35"} stretch={"1"} height={"29"}>
+        <texture>ui_inGame2_checkbox</texture>
+        <options_item entry={"r3_dynamic_wet_surfaces"} group={"mm_opt_video"} />
+      </check_r3_dynamic_wet_surfaces>
+
+      <cap_r3_dynamic_wet_surfaces_near x={"16"} y={"3"} width={"108"} height={"24"}>
+        <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
+          ui_mm_r3_dynamic_wet_surfaces_near
+        </text>
+      </cap_r3_dynamic_wet_surfaces_near>
+      <track_r3_dynamic_wet_surfaces_near x={"144"} y={"6"} width={"188"} height={"16"}>
+        <options_item entry={"r3_dynamic_wet_surfaces_near"} group={"mm_opt_video"} depend={"runtime"} />
+      </track_r3_dynamic_wet_surfaces_near>
+
+      <cap_r3_dynamic_wet_surfaces_far x={"16"} y={"3"} width={"108"} height={"24"}>
+        <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
+          ui_mm_r3_dynamic_wet_surfaces_far
+        </text>
+      </cap_r3_dynamic_wet_surfaces_far>
+      <track_r3_dynamic_wet_surfaces_far x={"144"} y={"6"} width={"188"} height={"16"}>
+        <options_item entry={"r3_dynamic_wet_surfaces_far"} group={"mm_opt_video"} depend={"runtime"} />
+      </track_r3_dynamic_wet_surfaces_far>
+
+      <cap_r3_dynamic_wet_surfaces_sm_res x={"16"} y={"3"} width={"108"} height={"24"}>
+        <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
+          ui_mm_r3_dynamic_wet_surfaces_sm_res
+        </text>
+      </cap_r3_dynamic_wet_surfaces_sm_res>
+      <track_r3_dynamic_wet_surfaces_sm_res x={"144"} y={"6"} width={"188"} height={"16"} step={"16"} is_integer={"1"}>
+        <options_item entry={"r3_dynamic_wet_surfaces_sm_res"} group={"mm_opt_video"} depend={"runtime"} />
+      </track_r3_dynamic_wet_surfaces_sm_res>
 
       <cap_r3_volumetric_smoke x={"16"} y={"3"} width={"108"} height={"24"}>
         <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
@@ -416,12 +467,13 @@ export function OptionsVideoAdvanced(): JSXNode {
         <options_item entry={"r3_msaa_opt"} group={"mm_opt_video_adv"} depend={"vid"} />
       </check_r3_msaa_opt>
 
-      <cap_r4_tessellation x={"25"} y={"2"} width={"90"} height={"21"} complex_mode={"1"}>
-        <text align={"l"} font={"letterica16"} r={"95"} g={"92"} b={"79"}>
+      <cap_r4_tessellation x={"16"} y={"3"} width={"108"} height={"24"}>
+        <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
           ui_mm_r4_enable_tessellation
         </text>
       </cap_r4_tessellation>
-      <check_r4_tessellation x={"115"} y={"0"} width={"30"} height={"21"}>
+      <check_r4_tessellation x={"133"} y={"0"} width={"35"} stretch={"1"} height={"29"}>
+        <texture>ui_inGame2_checkbox</texture>
         <options_item entry={"r4_enable_tessellation"} group={"mm_opt_video_adv"} depend={"vid"} />
       </check_r4_tessellation>
 
@@ -434,6 +486,16 @@ export function OptionsVideoAdvanced(): JSXNode {
           <e r={"210"} g={"210"} b={"210"} />
         </text_color>
       </btn_to_simply>
+
+      <cap_always_active x={"16"} y={"3"} width={"108"} height={"24"}>
+        <text r={"170"} g={"170"} b={"170"} font={"letterica16"} align={"r"} vert_align={"c"}>
+          ui_mm_always_active
+        </text>
+      </cap_always_active>
+      <check_always_active x={"133"} y={"0"} width={"35"} stretch={"1"} height={"29"}>
+        <texture>ui_inGame2_checkbox</texture>
+        <options_item entry={"rs_always_active"} group={"mm_opt_video_adv"} is_integer={"1"} />
+      </check_always_active>
     </video_adv>
   );
 }

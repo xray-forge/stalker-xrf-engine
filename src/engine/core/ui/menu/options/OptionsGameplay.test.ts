@@ -20,6 +20,6 @@ describe("OptionsVideoAdvanced", () => {
 
     gameplay.initialize(1, 1, xml, options);
 
-    expect(options.preconditions.length()).toBe(18);
+    expect(options.preconditions.length()).toBe(19);
   });
 });

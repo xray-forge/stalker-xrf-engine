@@ -43,6 +43,16 @@ export function preconditionOnly25andMoreMode(control: CUIWindow, id: EGameRende
 }
 
 /**
+ * Checks if renderer is in `3` mode and sets control enabled state accordingly.
+ *
+ * @param control - element to change enabled state based on renderer
+ * @param id - identifier of currently active renderer
+ */
+export function preconditionOnly3Mode(control: CUIWindow, id: EGameRenderer): void {
+  control.Enable(id === EGameRenderer.R3);
+}
+
+/**
  * Checks if renderer is in `3` mode or higher and sets control enabled state accordingly.
  *
  * @param control - element to change enabled state based on renderer
@@ -50,6 +60,16 @@ export function preconditionOnly25andMoreMode(control: CUIWindow, id: EGameRende
  */
 export function preconditionOnly3andMoreMode(control: CUIWindow, id: EGameRenderer): void {
   control.Enable(id >= EGameRenderer.R3);
+}
+
+/**
+ * Checks if renderer is in `4` mode or higher and sets control enabled state accordingly.
+ *
+ * @param control - element to change enabled state based on renderer
+ * @param id - identifier of currently active renderer
+ */
+export function preconditionOnly4andMoreMode(control: CUIWindow, id: EGameRenderer): void {
+  control.Enable(id >= EGameRenderer.R4);
 }
 
 /**

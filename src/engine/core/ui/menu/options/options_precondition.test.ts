@@ -9,6 +9,8 @@ import {
   preconditionOnly2andMoreMode,
   preconditionOnly3andMoreMode,
   preconditionOnly3andMoreModeVisible,
+  preconditionOnly3Mode,
+  preconditionOnly4andMoreMode,
 } from "@/engine/core/ui/menu/options/options_preconditions";
 import { EGameRenderer } from "@/engine/core/ui/menu/options/options_types";
 import { MockCUIWindow } from "@/fixtures/xray";
@@ -78,13 +80,37 @@ describe("preconditionOnly25andMoreMode util", () => {
 });
 
 describe("preconditionOnly3andMoreMode util", () => {
-  it("should correctly check 25", () => {
+  it("should correctly check 3", () => {
     [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25].forEach((it) => {
       checkPrecondition(it, false, preconditionOnly3andMoreMode);
     });
 
     [EGameRenderer.R3, EGameRenderer.R4].forEach((it) => {
       checkPrecondition(it, true, preconditionOnly3andMoreMode);
+    });
+  });
+});
+
+describe("preconditionOnly3Mode util", () => {
+  it("should correctly check 3", () => {
+    [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25, EGameRenderer.R4].forEach((it) => {
+      checkPrecondition(it, false, preconditionOnly3Mode);
+    });
+
+    [EGameRenderer.R3].forEach((it) => {
+      checkPrecondition(it, true, preconditionOnly3Mode);
+    });
+  });
+});
+
+describe("preconditionOnly4andMoreMode util", () => {
+  it("should correctly check 4", () => {
+    [EGameRenderer.R1, EGameRenderer.R2A, EGameRenderer.R2, EGameRenderer.R25, EGameRenderer.R3].forEach((it) => {
+      checkPrecondition(it, false, preconditionOnly4andMoreMode);
+    });
+
+    [EGameRenderer.R4].forEach((it) => {
+      checkPrecondition(it, true, preconditionOnly4andMoreMode);
     });
   });
 });
