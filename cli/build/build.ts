@@ -11,8 +11,7 @@ import {
   buildStaticConfigs,
   collectLog,
 } from "#/build/steps";
-import { buildDynamicTranslations } from "#/build/steps/translations_dynamic";
-import { buildStaticTranslations } from "#/build/steps/translations_static";
+import { buildTranslations } from "#/build/steps/translations";
 import { buildStaticUi } from "#/build/steps/ui_statics";
 import { default as config } from "#/config.json";
 import { TARGET_GAME_DATA_DIR } from "#/globals/paths";
@@ -139,10 +138,8 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
      * Build game translations / copy static XML.
      */
     if (buildTargets.includes(EBuildTarget.TRANSLATIONS)) {
-      await buildDynamicTranslations();
-      timeTracker.addMark("BUILT_DYNAMIC_TRANSLATIONS");
-      await buildStaticTranslations();
-      timeTracker.addMark("BUILT_STATIC_TRANSLATIONS");
+      await buildTranslations(parameters);
+      timeTracker.addMark("BUILT_TRANSLATIONS");
     } else {
       log.info("Translations build steps skipped");
       timeTracker.addMark("SKIP_TRANSLATIONS");
