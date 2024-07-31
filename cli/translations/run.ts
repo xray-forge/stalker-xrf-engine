@@ -30,6 +30,7 @@ export function setupTranslationsCommands(command: Command): void {
     .command("check")
     .description("list missing or wrong translations for provided path")
     .option("-l, --language <locale>", "use language to check instead of all at once")
+    .option("-s, --strict", "use strict mode to fail on missing entries")
     .option("-v, --verbose", "use verbose logging")
     .action(checkTranslations);
 }

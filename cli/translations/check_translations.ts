@@ -1,18 +1,15 @@
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as cp from "child_process";
 
-import { green, red, yellow } from "chalk";
+import { blue, yellow } from "chalk";
 
-import { GAME_DATA_TRANSLATIONS_DIR } from "#/globals";
-import { exists } from "#/utils/fs/exists";
-import { readDirContentFlat } from "#/utils/fs/read_dir_content_flat";
+import { GAME_DATA_TRANSLATIONS_DIR, XRF_UTILS_PATH } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
-import { AnyObject, EAssetExtension } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("CHECK_TRANSLATIONS");
 
 interface IListProblematicTranslationParameters {
   verbose?: boolean;
+  strict?: boolean;
   language?: string;
 }
 
@@ -25,60 +22,15 @@ export async function checkTranslations(parameters: IListProblematicTranslationP
   log.info("List problematic translations:", yellow(GAME_DATA_TRANSLATIONS_DIR), parameters.language || "all");
   log.debug("Running with parameters:", parameters);
 
-  // Throw, no path exists.
-  if (!(await exists(GAME_DATA_TRANSLATIONS_DIR))) {
-    log.error("Cannot find path for checking:", red(GAME_DATA_TRANSLATIONS_DIR));
+  const command: string = `${XRF_UTILS_PATH} verify-translations ${
+    parameters.verbose ? "--verbose " : "--silent "
+  }-p ${GAME_DATA_TRANSLATIONS_DIR} -l ${parameters.language || "all"} ${parameters.strict ? "--strict" : ""}`;
 
-    throw new Error("Translations path does not exist.");
-  }
+  log.info("Execute check command:", blue(command));
 
-  const files: Array<string> = (await readDirContentFlat(GAME_DATA_TRANSLATIONS_DIR)).filter(
-    (it) => path.extname(it) === EAssetExtension.JSON
-  );
-
-  try {
-    let issuesCount: number = 0;
-
-    for (const it of files) {
-      issuesCount += await analyzeTranslationJSON(it, parameters);
-    }
-
-    if (issuesCount) {
-      log.info("Detected issues:", issuesCount);
-    } else {
-      log.info("No issues detected");
-    }
-  } catch (error) {
-    log.error("Initialization of translations failed:", error.message);
-    throw error;
-  }
-}
-
-/**
- * Initialize all locale fields for the object.
- */
-async function analyzeTranslationJSON(
-  file: string,
-  parameters: IListProblematicTranslationParameters
-): Promise<number> {
-  const data: AnyObject = JSON.parse((await fsp.readFile(file)).toString());
-  let count: number = 0;
-
-  Object.entries(data).forEach(([key, value]) => {
-    if (parameters.language) {
-      if (!value[parameters.language]) {
-        log.info("Missing translation:", yellow(file), green(parameters.language), "->", yellow(key));
-        count += 1;
-      }
-    } else {
-      Object.entries(value).forEach(([currentLocale, currentTranslation]) => {
-        if (currentTranslation === null) {
-          log.info("Missing translation:", yellow(file), green(currentLocale), "->", yellow(key));
-          count += 1;
-        }
-      });
-    }
+  cp.execSync(command, {
+    stdio: "inherit",
   });
 
-  return count;
+  log.info("Checked translations");
 }
