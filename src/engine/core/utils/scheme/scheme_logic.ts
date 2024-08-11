@@ -166,7 +166,7 @@ export function activateSchemeBySection(
     sendToNearestAccessibleVertex(object, object.level_vertex_id());
   }
 
-  emitSchemeEvent(object, state[scheme] as IBaseSchemeState, ESchemeEvent.ACTIVATE, object, isLoading);
+  emitSchemeEvent(state[scheme] as IBaseSchemeState, ESchemeEvent.ACTIVATE, object, isLoading);
 }
 
 /**

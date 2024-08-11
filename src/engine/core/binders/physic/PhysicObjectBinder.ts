@@ -86,7 +86,7 @@ export class PhysicObjectBinder extends object_binder {
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
+      emitSchemeEvent(state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     const onOfflineCondlist: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
@@ -109,7 +109,7 @@ export class PhysicObjectBinder extends object_binder {
     }
 
     if (this.state.activeScheme) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
+      emitSchemeEvent(this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
     }
 
     getManager(SoundManager).update(this.object.id());
@@ -160,13 +160,7 @@ export class PhysicObjectBinder extends object_binder {
     logger.info("Object used: %s by %s", object.name(), object.section(), who?.name());
 
     if (this.state.activeScheme) {
-      emitSchemeEvent(
-        this.object,
-        this.state[this.state.activeScheme] as IBaseSchemeState,
-        ESchemeEvent.USE,
-        object,
-        who
-      );
+      emitSchemeEvent(this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.USE, object, who);
     }
   }
 
@@ -185,7 +179,6 @@ export class PhysicObjectBinder extends object_binder {
 
     if (this.state[EScheme.HIT]) {
       emitSchemeEvent(
-        this.object,
         this.state[EScheme.HIT] as IBaseSchemeState,
         ESchemeEvent.HIT,
         object,
@@ -198,7 +191,6 @@ export class PhysicObjectBinder extends object_binder {
 
     if (this.state.activeScheme) {
       emitSchemeEvent(
-        this.object,
         this.state[this.state.activeScheme] as IBaseSchemeState,
         ESchemeEvent.HIT,
         object,
@@ -220,13 +212,7 @@ export class PhysicObjectBinder extends object_binder {
     logger.info("Object destroyed: %s by %s", object.name(), object.section(), who.name());
 
     if (this.state.activeScheme) {
-      emitSchemeEvent(
-        this.object,
-        this.state[this.state.activeScheme] as IBaseSchemeState,
-        ESchemeEvent.DEATH,
-        object,
-        who
-      );
+      emitSchemeEvent(this.state[this.state.activeScheme] as IBaseSchemeState, ESchemeEvent.DEATH, object, who);
     }
 
     if (this.object.spawn_ini()?.section_exist("drop_box") || isBoxObject(this.object)) {

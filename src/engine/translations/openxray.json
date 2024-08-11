@@ -379,16 +379,6 @@
     "spa": "Campo visivo",
     "ukr": "Поле зору"
   },
-  "ui_mm_hud_fov": {
-    "eng": "Hud field of view",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
-  },
   "ui_mm_fps_limit": {
     "eng": "In-game FPS limit",
     "fra": "Limiter les FPS avec grze",
@@ -418,6 +408,16 @@
     "rus": "Настройка геймпада",
     "spa": "Configuración del mando",
     "ukr": "Налаштування геймпаду"
+  },
+  "ui_mm_hud_fov": {
+    "eng": "Hud field of view",
+    "fra": null,
+    "ger": null,
+    "ita": null,
+    "pol": null,
+    "rus": null,
+    "spa": null,
+    "ukr": null
   },
   "ui_mm_loadingstages": {
     "eng": "Show loading stages",

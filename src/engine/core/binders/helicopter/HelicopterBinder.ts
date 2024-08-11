@@ -81,7 +81,7 @@ export class HelicopterBinder extends object_binder {
     }
 
     if (this.state.activeScheme) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.UPDATE, delta);
+      emitSchemeEvent(this.state[this.state.activeScheme]!, ESchemeEvent.UPDATE, delta);
     }
 
     // Check helicopter health and state.
@@ -161,7 +161,7 @@ export class HelicopterBinder extends object_binder {
     this.helicopterFireManager.onHit();
 
     if (this.state.hit && (enemyClassId === clsid.actor || enemyClassId === clsid.script_stalker)) {
-      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, this.object, power, null, enemy, null);
+      emitSchemeEvent(this.state.hit, ESchemeEvent.HIT, this.object, power, null, enemy, null);
     }
   }
 
@@ -172,14 +172,7 @@ export class HelicopterBinder extends object_binder {
    */
   public onWaypoint(distance: TDistance, position: Vector, index: TIndex): void {
     if (this.state.activeScheme) {
-      emitSchemeEvent(
-        this.object,
-        this.state[this.state.activeScheme]!,
-        ESchemeEvent.WAYPOINT,
-        this.object,
-        null,
-        index
-      );
+      emitSchemeEvent(this.state[this.state.activeScheme]!, ESchemeEvent.WAYPOINT, this.object, null, index);
     }
   }
 }

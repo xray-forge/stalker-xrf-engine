@@ -74,7 +74,7 @@ export class RestrictorBinder extends object_binder {
     getManager(SoundManager).stop(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
+      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     unregisterZone(object);
@@ -104,7 +104,7 @@ export class RestrictorBinder extends object_binder {
     }
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
+      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
     }
 
     getManager(SoundManager).update(objectId);

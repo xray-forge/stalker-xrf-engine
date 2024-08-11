@@ -105,12 +105,7 @@ describe("PhysicObjectBinder", () => {
     expect(soundManager.stop).toHaveBeenCalledWith(binder.object.id());
     expect(level.map_remove_object_spot).toHaveBeenCalledWith(binder.object.id(), "ui_pda2_actor_box_location");
 
-    expect(emitSchemeEvent).toHaveBeenCalledWith(
-      binder.object,
-      state[EScheme.ANIMPOINT],
-      ESchemeEvent.SWITCH_OFFLINE,
-      binder.object
-    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(state[EScheme.ANIMPOINT], ESchemeEvent.SWITCH_OFFLINE, binder.object);
     expect(hasInfoPortion("test_info_pb")).toBe(true);
   });
 
@@ -138,7 +133,7 @@ describe("PhysicObjectBinder", () => {
 
     expect(binder.isInitialized).toBe(true);
     expect(initializeObjectSchemeLogic).toHaveBeenCalledWith(object, binder.state, false, ESchemeType.OBJECT);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(object, binder.state[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, 150);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(binder.state[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, 150);
     expect(getManager(SoundManager).update).toHaveBeenCalledWith(object.id());
   });
 
@@ -219,13 +214,7 @@ describe("PhysicObjectBinder", () => {
 
     binder.onUse(object, who);
 
-    expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
-      binder.state[EScheme.ANIMPOINT],
-      ESchemeEvent.USE,
-      object,
-      who
-    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(binder.state[EScheme.ANIMPOINT], ESchemeEvent.USE, object, who);
   });
 
   it("should handle hit events", () => {
@@ -242,7 +231,6 @@ describe("PhysicObjectBinder", () => {
     binder.onHit(object, 0.5, ZERO_VECTOR, who, 10);
 
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       binder.state[EScheme.HIT],
       ESchemeEvent.HIT,
       object,
@@ -252,7 +240,6 @@ describe("PhysicObjectBinder", () => {
       10
     );
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       binder.state[binder.state.activeScheme],
       ESchemeEvent.HIT,
       object,
@@ -287,7 +274,6 @@ describe("PhysicObjectBinder", () => {
     binder.onDeath(object, killer);
 
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       binder.state[binder.state.activeScheme],
       ESchemeEvent.DEATH,
       object,

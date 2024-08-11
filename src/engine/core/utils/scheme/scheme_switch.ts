@@ -129,7 +129,7 @@ export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, se
   }
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const activeSection: Optional<TSection> = state.activeSection as TSection;
+  const activeSection: Optional<TSection> = state.activeSection;
 
   if (activeSection === section) {
     return false;
@@ -138,8 +138,8 @@ export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, se
   logger.info("Switch section: '%s', '%s' -> '%s'", object.name(), activeSection, section);
 
   // Notify schemes about deactivation.
-  if (activeSection !== null) {
-    emitSchemeEvent(object, state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.DEACTIVATE, object);
+  if (activeSection) {
+    emitSchemeEvent(state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.DEACTIVATE, object);
   }
 
   state.activeSection = null;

@@ -30,50 +30,50 @@ describe("emitSchemeEvent util", () => {
       onWaypoint: jest.fn(),
     };
 
-    expect(() => emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE)).not.toThrow();
+    expect(() => emitSchemeEvent(schemeState, ESchemeEvent.ACTIVATE)).not.toThrow();
 
     schemeState.actions = new LuaTable();
-    expect(() => emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE)).not.toThrow();
+    expect(() => emitSchemeEvent(schemeState, ESchemeEvent.ACTIVATE)).not.toThrow();
 
     schemeState.actions.set(mockAction, true);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.ACTIVATE, object, 1, 2, 3);
+    emitSchemeEvent(schemeState, ESchemeEvent.ACTIVATE, object, 1, 2, 3);
     expect(mockAction.activate).toHaveBeenCalledWith(object, 1, 2, 3);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.DEACTIVATE);
+    emitSchemeEvent(schemeState, ESchemeEvent.DEACTIVATE);
     expect(mockAction.deactivate).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.DEATH);
+    emitSchemeEvent(schemeState, ESchemeEvent.DEATH);
     expect(mockAction.onDeath).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.CUTSCENE);
+    emitSchemeEvent(schemeState, ESchemeEvent.CUTSCENE);
     expect(mockAction.onCutscene).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.COMBAT);
+    emitSchemeEvent(schemeState, ESchemeEvent.COMBAT);
     expect(mockAction.onCombat).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.EXTRAPOLATE);
+    emitSchemeEvent(schemeState, ESchemeEvent.EXTRAPOLATE);
     expect(mockAction.onExtrapolate).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.SWITCH_OFFLINE);
+    emitSchemeEvent(schemeState, ESchemeEvent.SWITCH_OFFLINE);
     expect(mockAction.onSwitchOffline).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.SWITCH_ONLINE);
+    emitSchemeEvent(schemeState, ESchemeEvent.SWITCH_ONLINE);
     expect(mockAction.onSwitchOnline).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.HIT);
+    emitSchemeEvent(schemeState, ESchemeEvent.HIT);
     expect(mockAction.onHit).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.SAVE);
+    emitSchemeEvent(schemeState, ESchemeEvent.SAVE);
     expect(mockAction.save).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.UPDATE);
+    emitSchemeEvent(schemeState, ESchemeEvent.UPDATE);
     expect(mockAction.update).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.USE);
+    emitSchemeEvent(schemeState, ESchemeEvent.USE);
     expect(mockAction.onUse).toHaveBeenCalledTimes(1);
 
-    emitSchemeEvent(object, schemeState, ESchemeEvent.WAYPOINT);
+    emitSchemeEvent(schemeState, ESchemeEvent.WAYPOINT);
     expect(mockAction.onWaypoint).toHaveBeenCalledTimes(1);
   });
 });

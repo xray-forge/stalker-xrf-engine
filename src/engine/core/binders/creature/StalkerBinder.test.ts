@@ -224,7 +224,6 @@ describe("StalkerBinder", () => {
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(4);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       state[EScheme.ANIMPOINT],
       ESchemeEvent.HIT,
       object,
@@ -234,7 +233,6 @@ describe("StalkerBinder", () => {
       10
     );
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       state[EScheme.COMBAT_IGNORE],
       ESchemeEvent.HIT,
       object,
@@ -244,7 +242,6 @@ describe("StalkerBinder", () => {
       10
     );
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       state[EScheme.COMBAT],
       ESchemeEvent.HIT,
       object,
@@ -254,7 +251,6 @@ describe("StalkerBinder", () => {
       10
     );
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       state[EScheme.HIT],
       ESchemeEvent.HIT,
       object,

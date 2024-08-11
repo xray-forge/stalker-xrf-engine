@@ -4,7 +4,7 @@ import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { createSequence } from "@/engine/core/utils/animation";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { GameObject, TName } from "@/engine/lib/types";
+import { TName } from "@/engine/lib/types";
 
 /**
  * List of animpoint animations.

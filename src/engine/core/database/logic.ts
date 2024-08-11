@@ -41,7 +41,7 @@ export function saveObjectLogic(object: GameObject, packet: NetPacket): void {
   writeTimeToPacket(packet, state.activationGameTime);
 
   if (state.activeScheme) {
-    emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SAVE);
+    emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SAVE);
   }
 
   savePortableStore(object.id(), packet);

@@ -165,7 +165,6 @@ describe("MonsterBinder", () => {
     expect(manager.stop).toHaveBeenCalledWith(object.id());
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       state[state.activeScheme] as IBaseSchemeState,
       ESchemeEvent.SWITCH_OFFLINE,
       object
@@ -290,7 +289,6 @@ describe("MonsterBinder", () => {
     expect(object.set_tip_text).toHaveBeenCalledWith("");
     expect(trySwitchToAnotherSection).toHaveBeenCalledWith(object, state[state.activeScheme] as IBaseSchemeState);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       state[state.activeScheme] as IBaseSchemeState,
       ESchemeEvent.UPDATE,
       100
@@ -397,14 +395,7 @@ describe("MonsterBinder", () => {
     binder.onWaypoint(object, 1, 5);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
-      binder.state[EScheme.PATROL],
-      ESchemeEvent.WAYPOINT,
-      object,
-      1,
-      5
-    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(binder.state[EScheme.PATROL], ESchemeEvent.WAYPOINT, object, 1, 5);
   });
 
   it("should handle death event", () => {
@@ -440,8 +431,8 @@ describe("MonsterBinder", () => {
     expect(binder.resetCallbacks).toHaveBeenCalledTimes(1);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(2);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(object, state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(object, state[state.activeScheme], ESchemeEvent.DEATH, object, killer);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(state[state.activeScheme], ESchemeEvent.DEATH, object, killer);
 
     expect(manager.emitEvent).toHaveBeenCalledTimes(1);
     expect(manager.emitEvent).toHaveBeenCalledWith(EGameEvent.MONSTER_DEATH, object, killer);
@@ -490,7 +481,6 @@ describe("MonsterBinder", () => {
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      object,
       binder.state[EScheme.HIT],
       ESchemeEvent.HIT,
       object,

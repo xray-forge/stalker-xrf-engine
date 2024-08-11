@@ -179,11 +179,11 @@ export class StalkerBinder extends object_binder {
     registry.actorCombat.delete(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
+      emitSchemeEvent(state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     if (state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(object, state[EScheme.REACH_TASK], ESchemeEvent.SWITCH_OFFLINE, object);
+      emitSchemeEvent(state[EScheme.REACH_TASK], ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     // Call logics on offline.
@@ -429,15 +429,15 @@ export class StalkerBinder extends object_binder {
     this.updateLightState(object);
 
     if (state[EScheme.REACH_TASK]) {
-      emitSchemeEvent(object, state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
+      emitSchemeEvent(state[EScheme.REACH_TASK], ESchemeEvent.DEATH, victim, who);
     }
 
     if (state[EScheme.DEATH]) {
-      emitSchemeEvent(this.object, state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
+      emitSchemeEvent(state[EScheme.DEATH], ESchemeEvent.DEATH, victim, who);
     }
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme]!, ESchemeEvent.DEATH, victim, who);
+      emitSchemeEvent(state[state.activeScheme]!, ESchemeEvent.DEATH, victim, who);
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_DEATH, object, who);
@@ -470,7 +470,7 @@ export class StalkerBinder extends object_binder {
       activateMeetWithObject(object);
 
       if (this.state.activeScheme) {
-        emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.USE, object, who);
+        emitSchemeEvent(this.state[this.state.activeScheme]!, ESchemeEvent.USE, object, who);
       }
     }
   }
@@ -480,7 +480,7 @@ export class StalkerBinder extends object_binder {
    */
   public onPatrolExtrapolate(pointIndex: TIndex): boolean {
     if (this.state.activeScheme) {
-      emitSchemeEvent(this.object, this.state[this.state.activeScheme]!, ESchemeEvent.EXTRAPOLATE, pointIndex);
+      emitSchemeEvent(this.state[this.state.activeScheme]!, ESchemeEvent.EXTRAPOLATE, pointIndex);
       (this.state.patrolManager as StalkerPatrolManager).onExtrapolate(this.object, pointIndex);
     }
 
@@ -511,28 +511,19 @@ export class StalkerBinder extends object_binder {
     }
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme!]!, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+      emitSchemeEvent(state[state.activeScheme!]!, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
     if (state[EScheme.COMBAT_IGNORE]) {
-      emitSchemeEvent(
-        object,
-        state[EScheme.COMBAT_IGNORE],
-        ESchemeEvent.HIT,
-        object,
-        amount,
-        direction,
-        who,
-        boneIndex
-      );
+      emitSchemeEvent(state[EScheme.COMBAT_IGNORE], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
     if (state[EScheme.COMBAT]) {
-      emitSchemeEvent(object, state[EScheme.COMBAT], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+      emitSchemeEvent(state[EScheme.COMBAT], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
     if (state[EScheme.HIT]) {
-      emitSchemeEvent(object, state[EScheme.HIT], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+      emitSchemeEvent(state[EScheme.HIT], ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
     if (boneIndex !== 15 && amount > object.health * 100) {

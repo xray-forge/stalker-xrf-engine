@@ -74,7 +74,6 @@ describe("RestrictorBinder", () => {
     expect(soundManager.stop).toHaveBeenCalledWith(serverObject.id);
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
     expect(emitSchemeEvent).toHaveBeenCalledWith(
-      binder.object,
       objectState[EScheme.ANIMPOINT],
       ESchemeEvent.SWITCH_OFFLINE,
       binder.object
@@ -133,12 +132,7 @@ describe("RestrictorBinder", () => {
     expect(soundManager.update).toHaveBeenCalledWith(serverObject.id);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(
-      binder.object,
-      objectState[EScheme.ANIMPOINT],
-      ESchemeEvent.UPDATE,
-      100
-    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(objectState[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, 100);
 
     expect(onVisit).not.toHaveBeenCalled();
     expect(binder.isVisited).toBe(false);

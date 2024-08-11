@@ -108,7 +108,7 @@ export class MonsterBinder extends object_binder {
     registry.actorCombat.delete(objectId);
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
+      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
     const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
@@ -171,7 +171,7 @@ export class MonsterBinder extends object_binder {
     }
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
+      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.UPDATE, delta);
     }
   }
 
@@ -225,7 +225,6 @@ export class MonsterBinder extends object_binder {
   public onWaypoint(object: GameObject, actionType: number, index: TIndex): void {
     if (this.state.activeScheme) {
       emitSchemeEvent(
-        this.object,
         this.state[this.state.activeScheme] as IBaseSchemeState,
         ESchemeEvent.WAYPOINT,
         object,
@@ -251,11 +250,11 @@ export class MonsterBinder extends object_binder {
     this.onHit(object, 1, ZERO_VECTOR, killer, -1);
 
     if (state[EScheme.MOB_DEATH]) {
-      emitSchemeEvent(object, state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);
+      emitSchemeEvent(state[EScheme.MOB_DEATH], ESchemeEvent.DEATH, object, killer);
     }
 
     if (state.activeScheme) {
-      emitSchemeEvent(object, state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.DEATH, object, killer);
+      emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.DEATH, object, killer);
     }
 
     const hitObject: Hit = new hit();
@@ -294,7 +293,7 @@ export class MonsterBinder extends object_binder {
     boneIndex: TLabel | TIndex
   ): void {
     if (this.state[EScheme.HIT]) {
-      emitSchemeEvent(this.object, this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
+      emitSchemeEvent(this.state.hit, ESchemeEvent.HIT, object, amount, direction, who, boneIndex);
     }
 
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, object, amount, direction, who, boneIndex);

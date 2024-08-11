@@ -136,7 +136,7 @@ export class CampManager {
 
         if (state) {
           // Emit scheme logic update.
-          emitSchemeEvent(state.object, state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.UPDATE);
+          emitSchemeEvent(state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.UPDATE);
         }
 
         const meetManager: Optional<MeetManager> = (state?.[EScheme.MEET] as ISchemeMeetState)
@@ -279,7 +279,7 @@ export class CampManager {
 
     this.storyManager.registerObject(objectId);
 
-    emitSchemeEvent(state.object, state[state.activeScheme!]!, ESchemeEvent.UPDATE, -1);
+    emitSchemeEvent(state[state.activeScheme!]!, ESchemeEvent.UPDATE, -1);
   }
 
   /**

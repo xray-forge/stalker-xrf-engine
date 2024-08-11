@@ -136,12 +136,7 @@ describe("CampManager", () => {
 
     manager.registerObject(firstParticipant.id());
 
-    expect(emitSchemeEvent).toHaveBeenCalledWith(
-      firstParticipant,
-      firstState[EScheme.ANIMPOINT],
-      ESchemeEvent.UPDATE,
-      -1
-    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(firstState[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, -1);
     expect(manager.objects).toEqualLuaTables({
       [firstParticipant.id()]: {
         state: "idle",
@@ -173,12 +168,7 @@ describe("CampManager", () => {
         idle: EObjectCampRole.LISTENER,
       },
     });
-    expect(emitSchemeEvent).toHaveBeenCalledWith(
-      firstParticipant,
-      firstState[EScheme.ANIMPOINT],
-      ESchemeEvent.UPDATE,
-      -1
-    );
+    expect(emitSchemeEvent).toHaveBeenCalledWith(firstState[EScheme.ANIMPOINT], ESchemeEvent.UPDATE, -1);
     expect(firstState.camp).toBe(object.id());
     expect(secondState.camp).toBe(object.id());
     expect(manager.storyManager.registerObject).toHaveBeenCalledWith(secondParticipant.id());

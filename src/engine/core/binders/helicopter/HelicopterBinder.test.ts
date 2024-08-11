@@ -164,7 +164,7 @@ describe("HelicopterBinder", () => {
     expect(binder.helicopterFireManager.onHit).toHaveBeenCalledTimes(1);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(object, schemeState, ESchemeEvent.HIT, object, 0.5, null, enemy, null);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(schemeState, ESchemeEvent.HIT, object, 0.5, null, enemy, null);
   });
 
   it("should correctly handle waypoint events", () => {
@@ -180,6 +180,6 @@ describe("HelicopterBinder", () => {
     binder.onWaypoint(10, ZERO_VECTOR, 4);
 
     expect(emitSchemeEvent).toHaveBeenCalledTimes(1);
-    expect(emitSchemeEvent).toHaveBeenCalledWith(object, schemeState, ESchemeEvent.WAYPOINT, object, null, 4);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(schemeState, ESchemeEvent.WAYPOINT, object, null, 4);
   });
 });

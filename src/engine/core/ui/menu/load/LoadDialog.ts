@@ -270,7 +270,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    if (registry.simulator === null) {
+    if (!registry.simulator) {
       this.loadGameInternal();
 
       return;
@@ -278,7 +278,7 @@ export class LoadDialog extends CUIScriptWnd {
 
     const actor: Optional<GameObject> = registry.actor;
 
-    if (actor !== null && !actor.alive()) {
+    if (actor && !actor.alive()) {
       this.loadGameInternal();
 
       return;

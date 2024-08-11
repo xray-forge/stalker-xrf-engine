@@ -65,7 +65,7 @@ export function configureObjectSchemes(
 
   // Deactivate previous scheme section.
   if (state.activeSection) {
-    emitSchemeEvent(object, state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.DEACTIVATE, object);
+    emitSchemeEvent(state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.DEACTIVATE, object);
   }
 
   let actualIni: IniFile;

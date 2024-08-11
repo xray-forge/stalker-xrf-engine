@@ -20,13 +20,12 @@ describe("cutscene_utils module", () => {
 
   it("emitCutsceneEndedEvent should correctly emit scheme event", () => {
     const state: ISchemeCutsceneState = mockSchemeState(EScheme.SR_CUTSCENE);
-    const object: GameObject = MockGameObject.mock();
 
-    cutsceneConfig.objectCutscene = object;
+    cutsceneConfig.objectCutscene = MockGameObject.mock();
     cutsceneConfig.cutsceneState = state;
 
     emitCutsceneEndedEvent();
 
-    expect(emitSchemeEvent).toHaveBeenCalledWith(object, state, ESchemeEvent.CUTSCENE);
+    expect(emitSchemeEvent).toHaveBeenCalledWith(state, ESchemeEvent.CUTSCENE);
   });
 });
