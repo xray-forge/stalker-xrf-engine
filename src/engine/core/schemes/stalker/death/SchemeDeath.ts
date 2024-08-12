@@ -41,30 +41,25 @@ export class SchemeDeath extends AbstractScheme {
     objectState: IRegistryObjectState,
     section: TSection
   ): void {
-    const deathSection: Optional<TSection> = readIniString(
-      objectState.ini,
-      objectState.sectionLogic,
-      "on_death",
-      false
-    );
+    const deathSection: Optional<TSection> = readIniString(objectState.ini, objectState.sectionLogic, "on_death");
 
-    if (deathSection !== null) {
+    if (deathSection) {
       logger.info("Reset death: %s", object.name());
 
       if (!objectState.ini.section_exist(deathSection)) {
-        abort("There is no section [%s] for object [%s]", deathSection, object.name());
+        abort("There is no section '%s' for object '%s'.", deathSection, object.name());
       }
 
       const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION] as ISchemeDeathState;
-      const onInfo: Optional<string> = readIniString(objectState.ini, deathSection, "on_info", false);
+      const onInfo: Optional<string> = readIniString(objectState.ini, deathSection, "on_info");
 
-      if (onInfo !== null) {
+      if (onInfo) {
         state.info = parseConditionsList(onInfo);
       }
 
-      const onInfo2: Optional<string> = readIniString(objectState.ini, deathSection, "on_info2", false);
+      const onInfo2: Optional<string> = readIniString(objectState.ini, deathSection, "on_info2");
 
-      if (onInfo2 !== null) {
+      if (onInfo2) {
         state.info2 = parseConditionsList(onInfo2);
       }
     }

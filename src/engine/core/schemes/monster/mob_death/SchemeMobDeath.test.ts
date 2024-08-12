@@ -6,11 +6,17 @@ import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeat
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death/SchemeMobDeath";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeMobDeath", () => {
+  it("should be correctly defined", () => {
+    expect(SchemeMobDeath.SCHEME_SECTION).toBe("mob_death");
+    expect(SchemeMobDeath.SCHEME_SECTION).toBe(EScheme.MOB_DEATH);
+    expect(SchemeMobDeath.SCHEME_TYPE).toBe(ESchemeType.MONSTER);
+  });
+
   it("should correctly activate", () => {
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = MockIniFile.mock("test.ltx", {

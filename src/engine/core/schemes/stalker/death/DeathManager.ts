@@ -5,14 +5,19 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { EScheme, GameObject, Optional } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Handle death event and interop with scheme logics on stalker dying.
  */
 export class DeathManager extends AbstractSchemeManager<ISchemeDeathState> {
   /**
-   * todo: Description.
+   * Handle stalker death event.
+   * Interop with scheme logics and memoize killer info.
+   *
+   * @param victim - game object stalker dying
+   * @param killer - game object of stalker killer
    */
-  public override onDeath(victim: GameObject, who: Optional<GameObject>): void {
-    (registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState).killerId = who === null ? -1 : who.id();
+  public override onDeath(victim: GameObject, killer: Optional<GameObject>): void {
+    (registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState).killerId =
+      killer === null ? -1 : killer.id();
 
     if (this.state.info) {
       pickSectionFromCondList(registry.actor, this.object, this.state.info);

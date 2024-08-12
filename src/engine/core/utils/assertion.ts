@@ -6,6 +6,8 @@ import type { AnyArgs, Optional, TCount } from "@/engine/lib/types";
  * Call game abort and print reason.
  * Way to throw exceptions from lua code in x-ray engine.
  *
+ * Error message should start with capitalized letter and end with period.
+ *
  * @param format - c-like formatted string for interpolation
  * @param rest - rest parameters to interpolate into format string
  */
