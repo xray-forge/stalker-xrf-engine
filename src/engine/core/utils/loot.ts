@@ -2,10 +2,10 @@ import { level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
+import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/core/schemes/stalker/corpse_detection";
 import { corpseDetectionConfig } from "@/engine/core/schemes/stalker/corpse_detection/CorpseDetectionConfig";
 import { isLootableItemSection } from "@/engine/core/utils/section";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
-import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { GameObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**

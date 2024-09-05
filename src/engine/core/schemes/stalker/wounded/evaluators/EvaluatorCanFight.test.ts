@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { ISchemeWoundedState, PS_WOUNDED_FIGHT } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorCanFight } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorCanFight";
 import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
@@ -18,10 +18,10 @@ describe("EvaluatorCanFight", () => {
     evaluator.setup(object, MockPropertyStorage.mock());
     expect(evaluator.evaluate()).toBe(true);
 
-    setPortableStoreValue(object.id(), "wounded_fight", "false");
+    setPortableStoreValue(object.id(), PS_WOUNDED_FIGHT, "false");
     expect(evaluator.evaluate()).toBe(false);
 
-    setPortableStoreValue(object.id(), "wounded_fight", "true");
+    setPortableStoreValue(object.id(), PS_WOUNDED_FIGHT, "true");
     expect(evaluator.evaluate()).toBe(true);
 
     jest.spyOn(object, "critically_wounded").mockImplementation(() => true);

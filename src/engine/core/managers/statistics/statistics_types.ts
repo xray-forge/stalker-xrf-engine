@@ -3,6 +3,11 @@ import { TMonster } from "@/engine/lib/constants/monsters";
 import { Optional, TCount, TName } from "@/engine/lib/types";
 
 /**
+ * Key in portable store indicating count of used anabiotics.
+ */
+export const ANABIOTICS_USED_KEY: string = "anabiotics_used";
+
+/**
  * Interface describing actor statistics.
  */
 export interface IActorStatistics {

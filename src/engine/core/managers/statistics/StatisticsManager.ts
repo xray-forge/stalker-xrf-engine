@@ -3,7 +3,7 @@ import { clsid } from "xray16";
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import type { IActorStatistics } from "@/engine/core/managers/statistics/statistics_types";
+import { ANABIOTICS_USED_KEY, IActorStatistics } from "@/engine/core/managers/statistics/statistics_types";
 import type { TaskObject } from "@/engine/core/managers/tasks";
 import type { ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import { assert } from "@/engine/core/utils/assertion";
@@ -14,7 +14,6 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { ANABIOTICS_USED_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   GameObject,

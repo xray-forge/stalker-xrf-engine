@@ -1,12 +1,14 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { setPortableStoreValue } from "@/engine/core/database";
-import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
+import {
+  ISchemeCorpseDetectionState,
+  LOOTING_DEAD_OBJECT_KEY,
+} from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { getNearestCorpseToLoot } from "@/engine/core/utils/loot";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
-import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/lib/constants/portable_store_keys";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
 import { TNumberId } from "@/engine/lib/types";
 

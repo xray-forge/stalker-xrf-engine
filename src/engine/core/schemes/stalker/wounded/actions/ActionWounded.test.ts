@@ -13,7 +13,12 @@ import {
 } from "@/engine/core/database";
 import { registerWoundedObject } from "@/engine/core/database/wounded";
 import { SoundManager } from "@/engine/core/managers/sounds";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import {
+  ISchemeWoundedState,
+  PS_BEGIN_WOUNDED,
+  PS_WOUNDED_SOUND,
+  PS_WOUNDED_STATE,
+} from "@/engine/core/schemes/stalker/wounded";
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions/ActionWounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { TRUE } from "@/engine/lib/constants/words";
@@ -94,7 +99,7 @@ describe("ActionWounded", () => {
 
     action.nextSoundPlayAt = Infinity;
 
-    setPortableStoreValue(object.id(), "wounded_state", TRUE);
+    setPortableStoreValue(object.id(), PS_WOUNDED_STATE, TRUE);
 
     action.setup(object, MockPropertyStorage.mock());
     action.execute();
@@ -122,8 +127,8 @@ describe("ActionWounded", () => {
 
     action.nextSoundPlayAt = 0;
 
-    setPortableStoreValue(object.id(), "wounded_state", "test");
-    setPortableStoreValue(object.id(), "wounded_sound", "test_snd");
+    setPortableStoreValue(object.id(), PS_WOUNDED_STATE, "test");
+    setPortableStoreValue(object.id(), PS_WOUNDED_SOUND, "test_snd");
 
     action.setup(object, MockPropertyStorage.mock());
     action.execute();
@@ -151,20 +156,20 @@ describe("ActionWounded", () => {
 
     action.nextSoundPlayAt = Infinity;
 
-    setPortableStoreValue(object.id(), "wounded_state", TRUE);
+    setPortableStoreValue(object.id(), PS_WOUNDED_STATE, TRUE);
 
     action.setup(object, MockPropertyStorage.mock());
     action.execute();
 
     expect(registry.simulator.create).not.toHaveBeenCalled();
-    expect(getPortableStoreValue(object.id(), "begin_wounded")).toBe(1000);
+    expect(getPortableStoreValue(object.id(), PS_BEGIN_WOUNDED)).toBe(1000);
     expect(schemeState.woundManager.unlockMedkit).not.toHaveBeenCalled();
 
     replaceFunctionMockOnce(time_global, () => 100_000);
     action.execute();
 
     expect(registry.simulator.create).toHaveBeenCalled();
-    expect(getPortableStoreValue(object.id(), "begin_wounded")).toBe(1000);
+    expect(getPortableStoreValue(object.id(), PS_BEGIN_WOUNDED)).toBe(1000);
     expect(schemeState.woundManager.unlockMedkit).toHaveBeenCalled();
   });
 });

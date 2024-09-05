@@ -1,7 +1,17 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import type { TConditionList } from "@/engine/core/utils/ini";
-import type { LuaArray, Optional, TDistance, TNumberId, TSection } from "@/engine/lib/types";
+import type { LuaArray, Optional, TDistance, TNumberId, TSection, TStringId } from "@/engine/lib/types";
+
+export const PS_BEGIN_WOUNDED: TStringId = "begin_wounded";
+
+export const PS_WOUNDED_STATE: TStringId = "wounded_state";
+
+export const PS_WOUNDED_SOUND: TStringId = "wounded_sound";
+
+export const PS_WOUNDED_FIGHT: TStringId = "wounded_fight";
+
+export const PS_WOUNDED_VICTIM: TStringId = "wounded_victim";
 
 /**
  * Descriptor of wounded state configuration parameters.

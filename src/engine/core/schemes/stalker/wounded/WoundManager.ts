@@ -10,7 +10,14 @@ import {
   processPsyWound,
   processVictim,
 } from "@/engine/core/schemes/stalker/wounded/utils";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded/wounded_types";
+import {
+  ISchemeWoundedState,
+  PS_BEGIN_WOUNDED,
+  PS_WOUNDED_FIGHT,
+  PS_WOUNDED_SOUND,
+  PS_WOUNDED_STATE,
+  PS_WOUNDED_VICTIM,
+} from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
@@ -61,10 +68,10 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       this.victim = NIL;
     }
 
-    setPortableStoreValue(objectId, "wounded_state", this.woundState);
-    setPortableStoreValue(objectId, "wounded_sound", this.sound);
-    setPortableStoreValue(objectId, "wounded_fight", this.fight);
-    setPortableStoreValue(objectId, "wounded_victim", this.victim);
+    setPortableStoreValue(objectId, PS_WOUNDED_STATE, this.woundState);
+    setPortableStoreValue(objectId, PS_WOUNDED_SOUND, this.sound);
+    setPortableStoreValue(objectId, PS_WOUNDED_FIGHT, this.fight);
+    setPortableStoreValue(objectId, PS_WOUNDED_VICTIM, this.victim);
   }
 
   /**
@@ -101,13 +108,13 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       }
 
       const now: TTimestamp = time_global();
-      const beginAt: Optional<TTimestamp> = getPortableStoreValue(object.id(), "begin_wounded");
+      const beginAt: Optional<TTimestamp> = getPortableStoreValue(object.id(), PS_BEGIN_WOUNDED);
 
       if (beginAt !== null && now - beginAt <= 60_000) {
         getManager(SoundManager).play(object.id(), "help_thanks");
       }
 
-      setPortableStoreValue(object.id(), "begin_wounded", null);
+      setPortableStoreValue(object.id(), PS_BEGIN_WOUNDED, null);
     }
 
     this.canUseMedkit = false;

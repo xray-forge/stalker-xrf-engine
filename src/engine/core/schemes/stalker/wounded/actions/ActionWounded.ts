@@ -10,7 +10,12 @@ import {
 } from "@/engine/core/database";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import {
+  ISchemeWoundedState,
+  PS_BEGIN_WOUNDED,
+  PS_WOUNDED_SOUND,
+  PS_WOUNDED_STATE,
+} from "@/engine/core/schemes/stalker/wounded";
 import { schemeWoundedConfig } from "@/engine/core/schemes/stalker/wounded/SchemeWoundedConfig";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { abort } from "@/engine/core/utils/assertion";
@@ -87,18 +92,18 @@ export class ActionWounded extends action_base {
 
     // Handle healing up by objects after some timeout.
     if (this.state.isAutoHealing && !woundManager.canUseMedkit) {
-      const woundedAt: TTimestamp = getPortableStoreValue(objectId, "begin_wounded")!;
+      const woundedAt: TTimestamp = getPortableStoreValue(objectId, PS_BEGIN_WOUNDED)!;
 
       if (woundedAt === null) {
-        setPortableStoreValue(objectId, "begin_wounded", now);
+        setPortableStoreValue(objectId, PS_BEGIN_WOUNDED, now);
       } else if (now - woundedAt > schemeWoundedConfig.WOUNDED_TIMEOUT) {
         giveWoundedObjectMedkit(object);
         woundManager.unlockMedkit();
       }
     }
 
-    const woundManagerState: EStalkerState = getPortableStoreValue<EStalkerState>(objectId, "wounded_state")!;
-    const woundManagerSound: TName = getPortableStoreValue(objectId, "wounded_sound")!;
+    const woundManagerState: EStalkerState = getPortableStoreValue<EStalkerState>(objectId, PS_WOUNDED_STATE)!;
+    const woundManagerSound: TName = getPortableStoreValue(objectId, PS_WOUNDED_SOUND)!;
 
     if (woundManagerState === TRUE) {
       const hitObject: Hit = new hit();

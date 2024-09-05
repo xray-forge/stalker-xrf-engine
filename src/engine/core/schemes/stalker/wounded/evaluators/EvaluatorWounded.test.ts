@@ -2,7 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
-import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
+import { ISchemeWoundedState, PS_WOUNDED_FIGHT, PS_WOUNDED_STATE } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorWounded } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorWounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { EScheme, GameObject } from "@/engine/lib/types";
@@ -41,16 +41,16 @@ describe("EvaluatorWounded", () => {
 
     expect(evaluator.evaluate()).toBe(false);
 
-    setPortableStoreValue(object.id(), "wounded_state", "test");
+    setPortableStoreValue(object.id(), PS_WOUNDED_STATE, "test");
     expect(evaluator.evaluate()).toBe(false);
 
     state.isWoundedInitialized = true;
     expect(evaluator.evaluate()).toBe(true);
 
-    setPortableStoreValue(object.id(), "wounded_state", null);
+    setPortableStoreValue(object.id(), PS_WOUNDED_STATE, null);
     expect(evaluator.evaluate()).toBe(false);
 
-    setPortableStoreValue(object.id(), "wounded_state", "wounded");
+    setPortableStoreValue(object.id(), PS_WOUNDED_STATE, "wounded");
     expect(evaluator.evaluate()).toBe(true);
 
     jest.spyOn(object, "in_smart_cover").mockImplementation(() => true);
@@ -66,10 +66,10 @@ describe("EvaluatorWounded", () => {
 
     state.isWoundedInitialized = true;
 
-    setPortableStoreValue(object.id(), "wounded_state", "wounded");
+    setPortableStoreValue(object.id(), PS_WOUNDED_STATE, "wounded");
     expect(evaluator.evaluate()).toBe(true);
 
-    setPortableStoreValue(object.id(), "wounded_fight", "true");
+    setPortableStoreValue(object.id(), PS_WOUNDED_FIGHT, "true");
     expect(evaluator.evaluate()).toBe(false);
   });
 });
