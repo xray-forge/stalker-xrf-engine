@@ -50,8 +50,8 @@ export function parseStringsList<T extends string = string>(data: string): LuaAr
  * Parse util to transform string of numbers to array.
  * Example: "1, 2, 3" -> [1, 2, 3].
  *
- * @param data - string to parse.
- * @returns parsed array of numbers.
+ * @param data - string to parse
+ * @returns parsed array of numbers
  */
 export function parseNumbersList<T extends number = number>(data: string): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
@@ -177,7 +177,7 @@ export function parseConditionsList(data: string): TConditionList {
 
     const [, , newSection] = string.find(rest, "%s*(.*)%s*");
 
-    assertDefined(newSection, "Syntax error in switch condition: '%s' from entry '%s'", condition, data);
+    assertDefined(newSection, "Syntax error in switch condition: '%s' from entry '%s'.", condition, data);
 
     table.insert(result, {
       section: tostring(newSection),
@@ -219,7 +219,7 @@ export function parseInfoPortions(
 
     if (at !== null) {
       if (string.sub(infoPortion, -1) !== ")") {
-        abort("Wrong condlist '%s'.", data);
+        abort("Wrong condition list '%s'.", data);
       }
 
       if (at < string.len(infoPortion) - 1) {
@@ -268,7 +268,6 @@ export function parseInfoPortions(
 
       default:
         abort("Syntax error in switch condition.");
-        break;
     }
   }
 

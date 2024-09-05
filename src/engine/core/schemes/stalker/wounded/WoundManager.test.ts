@@ -9,7 +9,19 @@ import { MockGameObject } from "@/fixtures/xray";
 describe("WoundManager", () => {
   it.todo("should correctly handle updates");
 
-  it.todo("should correctly medkit eating");
+  it("should correctly unlock medkit eating", () => {
+    const object: GameObject = MockGameObject.mock();
+    const state: ISchemeWoundedState = mockSchemeState(EScheme.WOUNDED);
+    const manager: WoundManager = new WoundManager(object, state);
+
+    expect(manager.canUseMedkit).toBe(false);
+
+    manager.unlockMedkit();
+
+    expect(manager.canUseMedkit).toBe(true);
+  });
+
+  it.todo("should correctly process medkit eating");
 
   it.todo("should correctly process fight");
 

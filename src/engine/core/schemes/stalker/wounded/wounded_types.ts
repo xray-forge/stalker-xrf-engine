@@ -18,19 +18,26 @@ export interface IWoundedStateDescriptor {
  */
 export interface ISchemeWoundedState extends IBaseSchemeState {
   woundManager: WoundManager;
+  woundedSection: TSection;
+  helpStartDialog: Optional<string>;
+  helpDialog: TNumberId;
+  canUseMedkit: Optional<boolean>;
   isWoundedInitialized: boolean;
   isTalkEnabled: boolean;
   // Whether object should not be helped by other stalkers.
   isNotForHelp: Optional<boolean>;
-  woundedSection: TSection;
+  // Whether object can auto-heal after certain timeout.
+  isAutoHealing: boolean;
+  // States and sounds for wound handling.
   hpState: LuaArray<IWoundedStateDescriptor>;
+  // States and sounds for wound handling.
   hpStateSee: LuaArray<IWoundedStateDescriptor>;
+  // States and sounds for wound handling.
   hpVictim: LuaArray<IWoundedStateDescriptor>;
+  // States and sounds for wound handling.
   hpCover: LuaArray<IWoundedStateDescriptor>;
+  // States and sounds for wound handling.
   hpFight: LuaArray<IWoundedStateDescriptor>;
-  helpStartDialog: Optional<string>;
+  // States and sounds for wound handling.
   psyState: LuaArray<IWoundedStateDescriptor>;
-  useMedkit: Optional<boolean>;
-  helpDialog: TNumberId;
-  autoheal: boolean;
 }

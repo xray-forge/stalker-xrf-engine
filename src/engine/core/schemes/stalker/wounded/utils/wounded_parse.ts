@@ -1,15 +1,18 @@
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { LuaArray, Optional, TDistance } from "@/engine/lib/types";
+import { LuaArray, Optional, TDistance, TIndex, TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Parse serialized string as wounded state descriptors list.
+ *
+ * @param serialized - serialized wounded state description
+ * @returns list of parsed wounded state descriptors
  */
-export function parseWoundedData(target: Optional<string>): LuaArray<IWoundedStateDescriptor> {
+export function parseWoundedData(serialized: Optional<string>): LuaArray<IWoundedStateDescriptor> {
   const collection: LuaArray<any> = new LuaTable();
 
-  if (target) {
-    for (const name of string.gfind(target, "(%|*%d+%|[^%|]+)%p*")) {
+  if (serialized) {
+    for (const name of string.gfind(serialized, "(%|*%d+%|[^%|]+)%p*")) {
       const [tPosition] = string.find(name, "|", 1, true);
       const [sPosition] = string.find(name, "@", 1, true);
 
@@ -34,4 +37,28 @@ export function parseWoundedData(target: Optional<string>): LuaArray<IWoundedSta
   }
 
   return collection;
+}
+
+/**
+ * Get first descriptor index where distance is higher than provided parameter distance.
+ *
+ * todo: Get object ref instead? Get object ref and index as multi-return?
+ * todo: Returns previous value.
+ *
+ * @param descriptors - list of descriptors to search
+ * @param hp - minimal distance to match in searched descriptors list based on [0-100] hp value
+ * @returns optional index of descriptor matching provided distance requirement
+ */
+export function getStateIndexFromDistance(descriptors: LuaArray<IWoundedStateDescriptor>, hp: TRate): Optional<TIndex> {
+  let result: Optional<TIndex> = null;
+
+  for (const [index, value] of descriptors) {
+    if ((value.dist as TDistance) >= hp) {
+      result = index;
+    } else {
+      return result;
+    }
+  }
+
+  return result;
 }

@@ -42,9 +42,9 @@ describe("SchemeWounded", () => {
     expect(state.hpFight).toBeUndefined();
     expect(state.helpStartDialog).toBeUndefined();
     expect(state.psyState).toBeUndefined();
-    expect(state.useMedkit).toBeUndefined();
+    expect(state.canUseMedkit).toBeUndefined();
     expect(state.helpDialog).toBeUndefined();
-    expect(state.autoheal).toBeUndefined();
+    expect(state.isAutoHealing).toBeUndefined();
 
     const planner: ActionPlanner = object.motivation_action_manager();
 

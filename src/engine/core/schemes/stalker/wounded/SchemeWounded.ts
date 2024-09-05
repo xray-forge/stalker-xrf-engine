@@ -153,8 +153,8 @@ export class SchemeWounded extends AbstractScheme {
       state.hpFight = parseWoundedData(defaults.hp_fight);
       state.helpDialog = defaults.help_dialog;
       state.helpStartDialog = null;
-      state.useMedkit = defaults.use_medkit;
-      state.autoheal = true;
+      state.canUseMedkit = defaults.use_medkit;
+      state.isAutoHealing = true;
       state.isTalkEnabled = true;
       state.isNotForHelp = defaults.not_for_help;
     } else {
@@ -168,8 +168,8 @@ export class SchemeWounded extends AbstractScheme {
       state.hpFight = parseWoundedData(readIniString(ini, section, "hp_fight", false, null, defaults.hp_fight));
       state.helpDialog = readIniString(ini, section, "help_dialog", false, null, defaults.help_dialog);
       state.helpStartDialog = readIniString(ini, section, "help_start_dialog", false, null, null);
-      state.useMedkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);
-      state.autoheal = readIniBoolean(ini, section, "autoheal", false, true);
+      state.canUseMedkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);
+      state.isAutoHealing = readIniBoolean(ini, section, "autoheal", false, true);
       state.isTalkEnabled = readIniBoolean(ini, section, "enable_talk", false, true);
       state.isNotForHelp = readIniBoolean(ini, section, "not_for_help", false, defaults.not_for_help);
     }

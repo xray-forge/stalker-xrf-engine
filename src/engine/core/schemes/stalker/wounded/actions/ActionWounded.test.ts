@@ -115,7 +115,7 @@ describe("ActionWounded", () => {
 
     state.stateManager = { setState: jest.fn() } as unknown as StalkerStateManager;
 
-    schemeState.useMedkit = true;
+    schemeState.canUseMedkit = true;
 
     jest.spyOn(soundManager, "play").mockImplementation(() => null);
     replaceFunctionMockOnce(time_global, () => 1000);
@@ -131,7 +131,7 @@ describe("ActionWounded", () => {
     expect(object.hit).not.toHaveBeenCalled();
     expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test_snd");
     expect(action.nextSoundPlayAt).toBe(6000);
-    expect(schemeState.woundManager.eatMedkit).toHaveBeenCalled();
+    expect(schemeState.woundManager.useMedkit).toHaveBeenCalled();
     expect(state.stateManager.setState).toHaveBeenCalled();
   });
 
@@ -146,7 +146,7 @@ describe("ActionWounded", () => {
 
     const action: ActionWounded = new ActionWounded(schemeState);
 
-    schemeState.autoheal = true;
+    schemeState.isAutoHealing = true;
     replaceFunctionMockOnce(time_global, () => 1000);
 
     action.nextSoundPlayAt = Infinity;
