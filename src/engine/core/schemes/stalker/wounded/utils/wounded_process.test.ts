@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { getStateIndexFromDistance, parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
+import { getStateIndexByHp, parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { MockLuaTable } from "@/fixtures/lua";
 

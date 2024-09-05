@@ -9,7 +9,7 @@ import { LuaArray, Optional, TDistance, TIndex, TRate } from "@/engine/lib/types
  * @returns list of parsed wounded state descriptors
  */
 export function parseWoundedData(serialized: Optional<string>): LuaArray<IWoundedStateDescriptor> {
-  const collection: LuaArray<any> = new LuaTable();
+  const collection: LuaArray<IWoundedStateDescriptor> = new LuaTable();
 
   if (serialized) {
     for (const name of string.gfind(serialized, "(%|*%d+%|[^%|]+)%p*")) {
@@ -29,7 +29,7 @@ export function parseWoundedData(serialized: Optional<string>): LuaArray<IWounde
       }
 
       table.insert(collection, {
-        dist: tonumber(distance) as TDistance,
+        hp: tonumber(distance) as TDistance,
         state: state === null ? null : parseConditionsList(state),
         sound: sound === null ? null : parseConditionsList(sound),
       });
@@ -40,20 +40,20 @@ export function parseWoundedData(serialized: Optional<string>): LuaArray<IWounde
 }
 
 /**
- * Get first descriptor index where distance is higher than provided parameter distance.
+ * Get wounded state descriptor by current HP breakpoint.
  *
  * todo: Get object ref instead? Get object ref and index as multi-return?
  * todo: Returns previous value.
  *
  * @param descriptors - list of descriptors to search
- * @param hp - minimal distance to match in searched descriptors list based on [0-100] hp value
+ * @param hp - hp breakpoint to match in searched descriptors list based on [0-100] current hp value
  * @returns optional index of descriptor matching provided distance requirement
  */
-export function getStateIndexFromDistance(descriptors: LuaArray<IWoundedStateDescriptor>, hp: TRate): Optional<TIndex> {
+export function getStateIndexByHp(descriptors: LuaArray<IWoundedStateDescriptor>, hp: TRate): Optional<TIndex> {
   let result: Optional<TIndex> = null;
 
   for (const [index, value] of descriptors) {
-    if ((value.dist as TDistance) >= hp) {
+    if ((value.hp as TDistance) >= hp) {
       result = index;
     } else {
       return result;

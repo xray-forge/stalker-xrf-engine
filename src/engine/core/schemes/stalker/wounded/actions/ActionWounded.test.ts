@@ -107,7 +107,7 @@ describe("ActionWounded", () => {
     const state: IRegistryObjectState = registerObject(object);
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, {
       helpStartDialog: "test_dialog",
-      woundManager: { eatMedkit: jest.fn() } as unknown as WoundManager,
+      woundManager: { useMedkit: jest.fn() } as unknown as WoundManager,
     });
 
     const soundManager: SoundManager = getManager(SoundManager);

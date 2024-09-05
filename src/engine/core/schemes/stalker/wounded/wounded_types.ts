@@ -7,7 +7,8 @@ import type { LuaArray, Optional, TDistance, TNumberId, TSection } from "@/engin
  * Descriptor of wounded state configuration parameters.
  */
 export interface IWoundedStateDescriptor {
-  dist: Optional<TDistance>;
+  // Health breakpoint to apply state descriptor.
+  hp: Optional<TDistance>;
   state: Optional<TConditionList>;
   sound: Optional<TConditionList>;
 }

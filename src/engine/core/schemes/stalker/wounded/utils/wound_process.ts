@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded";
-import { getStateIndexFromDistance } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
+import { getStateIndexByHp } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, type LuaArray, Optional, TCount, TIndex, TRate } from "@/engine/lib/types";
@@ -14,7 +14,7 @@ export function processHPWound(
   hpStateSee: LuaArray<IWoundedStateDescriptor>,
   hp: TRate
 ): LuaMultiReturn<[string, string]> {
-  const key: Optional<TIndex> = getStateIndexFromDistance(hpState, hp);
+  const key: Optional<TIndex> = getStateIndexByHp(hpState, hp);
 
   if (key === null) {
     return $multi(NIL, NIL);
@@ -50,7 +50,7 @@ export function processPsyWound(
   psyState: LuaArray<IWoundedStateDescriptor>,
   hp: TCount
 ): LuaMultiReturn<[string, string]> {
-  const key: Optional<TIndex> = getStateIndexFromDistance(psyState, hp);
+  const key: Optional<TIndex> = getStateIndexByHp(psyState, hp);
 
   if (key === null) {
     return $multi(NIL, NIL);
@@ -76,7 +76,7 @@ export function processPsyWound(
  * todo: Description.
  */
 export function processVictim(object: GameObject, hpVictim: LuaArray<IWoundedStateDescriptor>, hp: TRate): string {
-  const key: Optional<TIndex> = getStateIndexFromDistance(hpVictim, hp);
+  const key: Optional<TIndex> = getStateIndexByHp(hpVictim, hp);
 
   if (key === null) {
     return NIL;
@@ -93,7 +93,7 @@ export function processVictim(object: GameObject, hpVictim: LuaArray<IWoundedSta
  * todo: Description.
  */
 export function processFight(object: GameObject, hpFight: LuaArray<IWoundedStateDescriptor>, hp: TRate): string {
-  const key: Optional<TIndex> = getStateIndexFromDistance(hpFight, hp);
+  const key: Optional<TIndex> = getStateIndexByHp(hpFight, hp);
 
   if (key === null) {
     return TRUE;
