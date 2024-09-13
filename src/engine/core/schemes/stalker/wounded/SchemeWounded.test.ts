@@ -92,17 +92,17 @@ describe("SchemeWounded", () => {
     state.sectionLogic = "logic";
     state[EScheme.WOUNDED] = schemeState;
 
-    jest.spyOn(SchemeWounded, "initialize").mockImplementationOnce(() => {});
+    jest.spyOn(SchemeWounded, "initializeWoundedState").mockImplementationOnce(() => {});
 
     SchemeWounded.reset(object, EScheme.WOUNDED, state, "some@test");
 
-    expect(SchemeWounded.initialize).toHaveBeenCalledWith(object, state.ini, "test_wounded", schemeState);
+    expect(SchemeWounded.initializeWoundedState).toHaveBeenCalledWith(object, state.ini, "test_wounded", schemeState);
     expect(schemeState.woundManager.onHit).toHaveBeenCalledTimes(1);
 
-    jest.spyOn(SchemeWounded, "initialize").mockImplementationOnce(() => {});
+    jest.spyOn(SchemeWounded, "initializeWoundedState").mockImplementationOnce(() => {});
 
     SchemeWounded.reset(object, EScheme.NIL, state, "some@test");
-    expect(SchemeWounded.initialize).toHaveBeenCalledWith(object, state.ini, "test_wounded_2", schemeState);
+    expect(SchemeWounded.initializeWoundedState).toHaveBeenCalledWith(object, state.ini, "test_wounded_2", schemeState);
     expect(schemeState.woundManager.onHit).toHaveBeenCalledTimes(2);
   });
 
@@ -116,7 +116,7 @@ describe("SchemeWounded", () => {
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, { ini: schemeIni });
 
     loadSchemeImplementation(SchemeWounded);
-    SchemeWounded.initialize(object, ini, "wounded@test", schemeState);
+    SchemeWounded.initializeWoundedState(object, ini, "wounded@test", schemeState);
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
@@ -169,7 +169,7 @@ describe("SchemeWounded", () => {
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, { ini: schemeIni });
 
     loadSchemeImplementation(SchemeWounded);
-    SchemeWounded.initialize(object, ini, "wounded@test", schemeState);
+    SchemeWounded.initializeWoundedState(object, ini, "wounded@test", schemeState);
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
@@ -219,7 +219,7 @@ describe("SchemeWounded", () => {
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, { ini: schemeIni });
 
     loadSchemeImplementation(SchemeWounded);
-    SchemeWounded.initialize(object, ini, "nil", schemeState);
+    SchemeWounded.initializeWoundedState(object, ini, "nil", schemeState);
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
@@ -263,7 +263,7 @@ describe("SchemeWounded", () => {
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, { ini: schemeIni });
 
     loadSchemeImplementation(SchemeWounded);
-    SchemeWounded.initialize(object, ini, "wounded@test", schemeState);
+    SchemeWounded.initializeWoundedState(object, ini, "wounded@test", schemeState);
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,
@@ -304,7 +304,7 @@ describe("SchemeWounded", () => {
     const schemeState: ISchemeWoundedState = mockSchemeState<ISchemeWoundedState>(EScheme.WOUNDED, { ini: schemeIni });
 
     loadSchemeImplementation(SchemeWounded);
-    SchemeWounded.initialize(object, ini, "wounded@test", schemeState);
+    SchemeWounded.initializeWoundedState(object, ini, "wounded@test", schemeState);
 
     expect(schemeState).toEqualLuaTables({
       ini: schemeIni,

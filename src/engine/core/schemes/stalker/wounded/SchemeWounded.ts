@@ -12,7 +12,7 @@ import { getObjectCommunity } from "@/engine/core/utils/community";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, AnyObject, GameObject, IniFile, LuaArray, TName } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, LuaArray, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -77,101 +77,127 @@ export class SchemeWounded extends AbstractScheme {
         ? readIniString(state.ini, state.sectionLogic, "wounded", false)
         : readIniString(state.ini, section, "wounded", false);
 
-    SchemeWounded.initialize(object, state.ini, woundedSection, state[EScheme.WOUNDED] as ISchemeWoundedState);
+    SchemeWounded.initializeWoundedState(
+      object,
+      state.ini,
+      woundedSection,
+      state[EScheme.WOUNDED] as ISchemeWoundedState
+    );
 
     (state[SchemeWounded.SCHEME_SECTION] as ISchemeWoundedState).woundManager.onHit();
   }
 
   /**
-   * todo: Description.
+   * Initialize object wounded scheme configuration from ini file or use already parsed cached values.
+   *
+   * @param object - target game object to initialize state
+   * @param ini - ini file with current logics configuration
+   * @param section - wounded scheme section to use for config initialization
+   * @param state - object wounded scheme state
    */
-  public static initialize(object: GameObject, ini: IniFile, section: TSection, state: ISchemeWoundedState): void {
+  public static initializeWoundedState(
+    object: GameObject,
+    ini: IniFile,
+    section: TSection,
+    state: ISchemeWoundedState
+  ): void {
+    // Do not parse scheme state from ini file over and over again.
     if (tostring(section) === state.woundedSection && tostring(section) !== NIL) {
       return;
+    } else {
+      state.woundedSection = tostring(section);
     }
-
-    state.woundedSection = tostring(section);
 
     const objectCommunity: TCommunity = getObjectCommunity(object);
-    const defaults: AnyObject = {};
+    const woundState: TSection = SchemeWounded.WOUNDED_STATES.get(math.mod(object.id(), 3) + 1);
 
-    // Initialize defaults:
-    if (objectCommunity === communities.monolith) {
-      const state = SchemeWounded.WOUNDED_STATES.get(math.mod(object.id(), 3) + 1);
+    let defaults;
 
-      defaults.hp_state = "20|" + state + "@nil";
-      defaults.hp_state_see = "20|" + state + "@nil";
-      defaults.psy_state = "";
-      defaults.hp_victim = "20|nil";
-      defaults.hp_cover = "20|false";
-      defaults.hp_fight = "20|false";
-      defaults.syndata = "";
-      defaults.help_dialog = null;
-      defaults.help_start_dialog = null;
-      defaults.use_medkit = false;
-      defaults.enable_talk = true;
-      defaults.not_for_help = true;
-    } else if (objectCommunity === communities.zombied) {
-      defaults.hp_state = "40|wounded_zombie@nil";
-      defaults.hp_state_see = "40|wounded_zombie@nil";
-      defaults.psy_state = "";
-      defaults.hp_victim = "40|nil";
-      defaults.hp_cover = "40|false";
-      defaults.hp_fight = "40|false";
-      defaults.syndata = "";
-      defaults.help_dialog = null;
-      defaults.help_start_dialog = null;
-      defaults.use_medkit = false;
-      defaults.enable_talk = true;
-      defaults.not_for_help = true;
-    } else {
-      const state = SchemeWounded.WOUNDED_STATES.get(math.mod(object.id(), 3) + 1);
+    switch (objectCommunity) {
+      case communities.monolith:
+        defaults = {
+          hpState: `20|${woundState}@nil`,
+          hpStateSee: `20|${woundState}@nil`,
+          psyState: "",
+          hpVictim: "20|nil",
+          hpCover: "20|false",
+          hpFight: "20|false",
+          syndata: "",
+          helpDialog: null,
+          helpStartDialog: null,
+          useMedkit: false,
+          enableTalk: true,
+          notForHelp: true,
+        };
+        break;
 
-      defaults.hp_state = "20|" + state + "@help_heavy";
-      defaults.hp_state_see = "20|" + state + "@help_heavy";
-      defaults.psy_state =
-        "20|{=best_pistol}psy_armed,psy_pain@wounded_psy|20|{=best_pistol}" +
-        "psy_shoot,psy_pain@{=best_pistol}wounded_psy_shoot,wounded_psy";
-      defaults.hp_victim = "20|nil";
-      defaults.hp_cover = "20|false";
-      defaults.hp_fight = "20|false";
-      defaults.syndata = "";
-      defaults.help_dialog = "dm_help_wounded_medkit_dialog";
-      defaults.help_start_dialog = null;
-      defaults.use_medkit = true;
-      defaults.enable_talk = true;
-      defaults.not_for_help = false;
+      case communities.zombied:
+        defaults = {
+          hpState: "40|wounded_zombie@nil",
+          hpStateSee: "40|wounded_zombie@nil",
+          psyState: "",
+          hpVictim: "40|nil",
+          hpCover: "40|false",
+          hpFight: "40|false",
+          syndata: "",
+          helpDialog: null,
+          helpStartDialog: null,
+          useMedkit: false,
+          enable_talk: true,
+          notForHelp: true,
+        };
+        break;
+
+      default:
+        defaults = {
+          hpState: `20|${woundState}@help_heavy`,
+          hpStateSee: `20|${woundState}@help_heavy`,
+          psyState:
+            "20|{=best_pistol}psy_armed,psy_pain@wounded_psy|20|{=best_pistol}" +
+            "psy_shoot,psy_pain@{=best_pistol}wounded_psy_shoot,wounded_psy",
+          hpVictim: "20|nil",
+          hpCover: "20|false",
+          hpFight: "20|false",
+          syndata: "",
+          helpDialog: "dm_help_wounded_medkit_dialog",
+          helpStartDialog: null,
+          useMedkit: true,
+          enableTalk: true,
+          notForHelp: false,
+        };
+        break;
     }
 
-    // Initialize state:
+    // Initialize state with defaults:
     if (tostring(section) === NIL) {
-      state.hpState = parseWoundedData(defaults.hp_state);
-      state.hpStateSee = parseWoundedData(defaults.hp_state_see);
-      state.psyState = parseWoundedData(defaults.psy_state);
-      state.hpVictim = parseWoundedData(defaults.hp_victim);
-      state.hpCover = parseWoundedData(defaults.hp_cover);
-      state.hpFight = parseWoundedData(defaults.hp_fight);
-      state.helpDialog = defaults.help_dialog;
+      state.hpState = parseWoundedData(defaults.hpState);
+      state.hpStateSee = parseWoundedData(defaults.hpStateSee);
+      state.psyState = parseWoundedData(defaults.psyState);
+      state.hpVictim = parseWoundedData(defaults.hpVictim);
+      state.hpCover = parseWoundedData(defaults.hpCover);
+      state.hpFight = parseWoundedData(defaults.hpFight);
+      state.helpDialog = defaults.helpDialog;
       state.helpStartDialog = null;
-      state.canUseMedkit = defaults.use_medkit;
+      state.canUseMedkit = defaults.useMedkit;
       state.isAutoHealing = true;
       state.isTalkEnabled = true;
-      state.isNotForHelp = defaults.not_for_help;
+      state.isNotForHelp = defaults.notForHelp;
     } else {
-      state.hpState = parseWoundedData(readIniString(ini, section, "hp_state", false, null, defaults.hp_state));
+      // Initialize state from section:
+      state.hpState = parseWoundedData(readIniString(ini, section, "hp_state", false, null, defaults.hpState));
       state.hpStateSee = parseWoundedData(
-        readIniString(ini, section, "hp_state_see", false, null, defaults.hp_state_see)
+        readIniString(ini, section, "hp_state_see", false, null, defaults.hpStateSee)
       );
-      state.psyState = parseWoundedData(readIniString(ini, section, "psy_state", false, null, defaults.psy_state));
-      state.hpVictim = parseWoundedData(readIniString(ini, section, "hp_victim", false, null, defaults.hp_victim));
-      state.hpCover = parseWoundedData(readIniString(ini, section, "hp_cover", false, null, defaults.hp_cover));
-      state.hpFight = parseWoundedData(readIniString(ini, section, "hp_fight", false, null, defaults.hp_fight));
-      state.helpDialog = readIniString(ini, section, "help_dialog", false, null, defaults.help_dialog);
-      state.helpStartDialog = readIniString(ini, section, "help_start_dialog", false, null, null);
-      state.canUseMedkit = readIniBoolean(ini, section, "use_medkit", false, defaults.use_medkit);
+      state.psyState = parseWoundedData(readIniString(ini, section, "psy_state", false, null, defaults.psyState));
+      state.hpVictim = parseWoundedData(readIniString(ini, section, "hp_victim", false, null, defaults.hpVictim));
+      state.hpCover = parseWoundedData(readIniString(ini, section, "hp_cover", false, null, defaults.hpCover));
+      state.hpFight = parseWoundedData(readIniString(ini, section, "hp_fight", false, null, defaults.hpFight));
+      state.helpDialog = readIniString(ini, section, "help_dialog", false, null, defaults.helpDialog);
+      state.helpStartDialog = readIniString(ini, section, "help_start_dialog");
+      state.canUseMedkit = readIniBoolean(ini, section, "use_medkit", false, defaults.useMedkit);
       state.isAutoHealing = readIniBoolean(ini, section, "autoheal", false, true);
       state.isTalkEnabled = readIniBoolean(ini, section, "enable_talk", false, true);
-      state.isNotForHelp = readIniBoolean(ini, section, "not_for_help", false, defaults.not_for_help);
+      state.isNotForHelp = readIniBoolean(ini, section, "not_for_help", false, defaults.notForHelp);
     }
 
     state.isWoundedInitialized = true;

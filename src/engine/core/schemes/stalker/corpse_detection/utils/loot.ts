@@ -1,6 +1,6 @@
 import { getManager, IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { ISchemeCorpseDetectionState, LOOTING_DEAD_OBJECT_KEY } from "@/engine/core/schemes/stalker/corpse_detection";
+import { ISchemeCorpseDetectionState, PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_detection";
 import { transferLoot } from "@/engine/core/utils/loot";
 import { chance } from "@/engine/core/utils/random";
 import { EScheme, GameObject, LuaArray, Optional, TNumberId } from "@/engine/lib/types";
@@ -35,7 +35,7 @@ export function finishCorpseLooting(object: GameObject): void {
 export function freeSelectedLootedObjectSpot(lootedObject: TNumberId): void {
   const lootedObjectState: Optional<IRegistryObjectState> = registry.objects.get(lootedObject);
 
-  if (lootedObjectState !== null) {
-    setPortableStoreValue(lootedObject, LOOTING_DEAD_OBJECT_KEY, null);
+  if (lootedObjectState) {
+    setPortableStoreValue(lootedObject, PS_LOOTING_DEAD_OBJECT, null);
   }
 }

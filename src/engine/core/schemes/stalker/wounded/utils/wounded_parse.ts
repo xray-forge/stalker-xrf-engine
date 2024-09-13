@@ -16,7 +16,7 @@ export function parseWoundedData(serialized: Optional<string>): LuaArray<IWounde
       const [tPosition] = string.find(name, "|", 1, true);
       const [sPosition] = string.find(name, "@", 1, true);
 
-      const distance = string.sub(name, 1, tPosition - 1);
+      const hp = string.sub(name, 1, tPosition - 1);
 
       let state: Optional<string> = null;
       let sound: Optional<string> = null;
@@ -29,7 +29,7 @@ export function parseWoundedData(serialized: Optional<string>): LuaArray<IWounde
       }
 
       table.insert(collection, {
-        hp: tonumber(distance) as TDistance,
+        hp: tonumber(hp) as TDistance,
         state: state === null ? null : parseConditionsList(state),
         sound: sound === null ? null : parseConditionsList(sound),
       });

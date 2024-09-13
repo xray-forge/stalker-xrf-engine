@@ -1,10 +1,10 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import { Optional, TNumberId, Vector } from "@/engine/lib/types";
+import { Optional, TNumberId, TStringId, Vector } from "@/engine/lib/types";
 
 /**
  * Key in portable store indicating who is looting corpse.
  */
-export const LOOTING_DEAD_OBJECT_KEY: string = "looting_dead_object";
+export const PS_LOOTING_DEAD_OBJECT: TStringId = "looting_dead_object";
 
 /**
  * State of corpse looting scheme.

@@ -31,7 +31,7 @@ export interface ISchemeWoundedState extends IBaseSchemeState {
   woundManager: WoundManager;
   woundedSection: TSection;
   helpStartDialog: Optional<string>;
-  helpDialog: TNumberId;
+  helpDialog: Optional<TStringId>;
   canUseMedkit: Optional<boolean>;
   isWoundedInitialized: boolean;
   isTalkEnabled: boolean;

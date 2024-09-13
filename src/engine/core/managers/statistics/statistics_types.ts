@@ -1,11 +1,11 @@
 import { TWeapon } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { Optional, TCount, TName } from "@/engine/lib/types";
+import { Optional, TCount, TName, TStringId } from "@/engine/lib/types";
 
 /**
  * Key in portable store indicating count of used anabiotics.
  */
-export const ANABIOTICS_USED_KEY: string = "anabiotics_used";
+export const PS_ANABIOTICS_USED: TStringId = "anabiotics_used";
 
 /**
  * Interface describing actor statistics.

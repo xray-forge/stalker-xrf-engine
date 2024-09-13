@@ -3,7 +3,7 @@ import { clsid } from "xray16";
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ANABIOTICS_USED_KEY, IActorStatistics } from "@/engine/core/managers/statistics/statistics_types";
+import { IActorStatistics, PS_ANABIOTICS_USED } from "@/engine/core/managers/statistics/statistics_types";
 import type { TaskObject } from "@/engine/core/managers/tasks";
 import type { ITreasureDescriptor } from "@/engine/core/managers/treasures";
 import { assert } from "@/engine/core/utils/assertion";
@@ -144,7 +144,7 @@ export class StatisticsManager extends AbstractManager {
    * @returns count of used anabiotics
    */
   public getUsedAnabioticsCount(): TCount {
-    return getPortableStoreValue(ACTOR_ID, ANABIOTICS_USED_KEY, 0);
+    return getPortableStoreValue(ACTOR_ID, PS_ANABIOTICS_USED, 0);
   }
 
   /**
@@ -153,7 +153,7 @@ export class StatisticsManager extends AbstractManager {
   public onSurvivedSurgeWithAnabiotic(): void {
     logger.info("Increment used anabiotics count");
 
-    setPortableStoreValue(ACTOR_ID, ANABIOTICS_USED_KEY, getPortableStoreValue(ACTOR_ID, ANABIOTICS_USED_KEY, 0) + 1);
+    setPortableStoreValue(ACTOR_ID, PS_ANABIOTICS_USED, getPortableStoreValue(ACTOR_ID, PS_ANABIOTICS_USED, 0) + 1);
   }
 
   /**

@@ -22,7 +22,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { FALSE, NIL } from "@/engine/lib/constants/words";
-import { AlifeSimulator, GameObject, Optional, TCount, TNumberId, TTimestamp } from "@/engine/lib/types";
+import { AlifeSimulator, GameObject, Optional, TCount, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -33,11 +33,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   public canUseMedkit: boolean = false;
 
-  public fight!: string;
-  public cover!: string;
-  public victim!: string;
-  public sound!: string;
-  public woundState!: string;
+  public fight!: TSection;
+  public cover!: TSection;
+  public victim!: TSection;
+  public sound!: TSection;
+  public woundState!: TSection;
 
   /**
    * Handle recalculation of wounded state on each iteration.

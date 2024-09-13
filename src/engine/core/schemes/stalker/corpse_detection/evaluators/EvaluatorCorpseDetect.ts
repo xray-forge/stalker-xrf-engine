@@ -3,7 +3,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { setPortableStoreValue } from "@/engine/core/database";
 import {
   ISchemeCorpseDetectionState,
-  LOOTING_DEAD_OBJECT_KEY,
+  PS_LOOTING_DEAD_OBJECT,
 } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { getNearestCorpseToLoot } from "@/engine/core/utils/loot";
@@ -60,7 +60,7 @@ export class EvaluatorCorpseDetect extends property_evaluator {
         freeSelectedLootedObjectSpot(this.state.selectedCorpseId);
       }
 
-      setPortableStoreValue(corpseId, LOOTING_DEAD_OBJECT_KEY, this.object.id());
+      setPortableStoreValue(corpseId, PS_LOOTING_DEAD_OBJECT, this.object.id());
 
       // Link looting state for current object and looted object.
       this.state.selectedCorpseId = corpseId;

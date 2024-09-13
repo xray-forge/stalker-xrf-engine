@@ -2,7 +2,7 @@ import { level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
-import { LOOTING_DEAD_OBJECT_KEY } from "@/engine/core/schemes/stalker/corpse_detection";
+import { PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_detection";
 import { corpseDetectionConfig } from "@/engine/core/schemes/stalker/corpse_detection/CorpseDetectionConfig";
 import { isLootableItemSection } from "@/engine/core/utils/section";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
@@ -70,7 +70,7 @@ export function getNearestCorpseToLoot(
 
     // Is registered in client side.
     if (corpseObject) {
-      const isLootedBy: Optional<TNumberId> = getPortableStoreValue(id, LOOTING_DEAD_OBJECT_KEY);
+      const isLootedBy: Optional<TNumberId> = getPortableStoreValue(id, PS_LOOTING_DEAD_OBJECT);
 
       if (
         // Is not looted by anyone or looted by current object.
