@@ -30,12 +30,16 @@ export function finishCorpseLooting(object: GameObject): void {
 }
 
 /**
- * todo;
+ * Free currently looted object corpse from being looted status lock.
+ *
+ * @param lootedObjectId - id of target game object being looted
  */
-export function freeSelectedLootedObjectSpot(lootedObject: TNumberId): void {
-  const lootedObjectState: Optional<IRegistryObjectState> = registry.objects.get(lootedObject);
+export function freeSelectedLootedObjectSpot(lootedObjectId: TNumberId): void {
+  const lootedObjectState: Optional<IRegistryObjectState> = registry.objects.get(
+    lootedObjectId
+  ) as Optional<IRegistryObjectState>;
 
   if (lootedObjectState) {
-    setPortableStoreValue(lootedObject, PS_LOOTING_DEAD_OBJECT, null);
+    setPortableStoreValue(lootedObjectId, PS_LOOTING_DEAD_OBJECT, null);
   }
 }
