@@ -164,7 +164,7 @@ export function create(): JSXNode {
       >
         <CharacterProfileCriticals />
         <StartDialog>pri_a17_military_base_commander_start</StartDialog>
-        <ActorDialog>pri_a17_military_base_commander_ActorDialog_1</ActorDialog>
+        <ActorDialog>pri_a17_military_base_commander_actor_dialog_1</ActorDialog>
         <ActorDialog>pri_a17_military_base_commander_actor_questions_dialog</ActorDialog>
         <ActorDialog>pri_a17_military_colonel_kovalski_a23_about_gauss_labx8</ActorDialog>
         <ActorDialog>pri_a16_colonel_a21_about_sentry_dialog</ActorDialog>

@@ -535,13 +535,13 @@ export function create(): JSXNode {
         <CharacterProfileCriticals />
         <StartDialog>zat_b7_bandit_boss_sultan_start_dialog</StartDialog>
         <ActorDialog>zat_b7_bandit_boss_sultan_b7_give_task_dialog</ActorDialog>
-        <ActorDialog>zat_b7_bandit_boss_sultan_b30_start_ActorDialog</ActorDialog>
-        <ActorDialog>zat_b7_bandit_boss_sultan_b30_detectors_ActorDialog</ActorDialog>
-        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_ActorDialog</ActorDialog>
-        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_give_ActorDialog</ActorDialog>
-        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_revert_ActorDialog</ActorDialog>
-        <ActorDialog>zat_b7_bandit_boss_sultan_b30_ruin_ActorDialog</ActorDialog>
-        <ActorDialog>zat_b7_bandit_boss_sultan_b30_barmen_under_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_start_actor_dialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_detectors_actor_dialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_actor_dialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_give_actor_dialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_compass_revert_actor_dialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_ruin_actor_dialog</ActorDialog>
+        <ActorDialog>zat_b7_bandit_boss_sultan_b30_barmen_under_actor_dialog</ActorDialog>
         <ActorDialog>zat_b7_bandit_boss_sultan_b52_about_snag</ActorDialog>
         <ActorDialog>zat_b7_bandit_boss_sultan_b52_about_nimble</ActorDialog>
         <ActorDialog>zat_b7_bandit_boss_sultan_about</ActorDialog>
@@ -729,7 +729,7 @@ export function create(): JSXNode {
         <ActorDialog>zat_a2_stalker_barmen_b30_compass_give_dialog</ActorDialog>
         <ActorDialog>zat_a2_stalker_barmen_b30_compass_double_dialog</ActorDialog>
         <ActorDialog>zat_a2_stalker_barmen_b30_compass_revert_dialog</ActorDialog>
-        <ActorDialog>zat_a2_stalker_barmen_b30_take_business_ActorDialog</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_take_business_actor_dialog</ActorDialog>
         <ActorDialog>zat_a2_stalker_barmen_army</ActorDialog>
         <ActorDialog>zat_a2_stalker_barmen_about_sci_guards</ActorDialog>
         <ActorDialog>zat_a2_stalker_barmen_about_sci_helpers</ActorDialog>
@@ -740,7 +740,7 @@ export function create(): JSXNode {
         <ActorDialog>zat_a2_linker_b29_actor_info</ActorDialog>
         <ActorDialog>zat_a2_linker_b29_actor_get_adv_task</ActorDialog>
         <ActorDialog>zat_a2_linker_b29_actor_give_adv_task</ActorDialog>
-        <ActorDialog>zat_a2_stalker_barmen_b30_take_money_ActorDialog</ActorDialog>
+        <ActorDialog>zat_a2_stalker_barmen_b30_take_money_actor_dialog</ActorDialog>
         <ActorDialog>zat_a2_stalker_barmen_actor_info</ActorDialog>
         <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
@@ -767,7 +767,7 @@ export function create(): JSXNode {
         <CharacterProfileCriticals />
         <StartDialog>zat_b22_stalker_medic_dialog_start</StartDialog>
         <ActorDialog>zat_b38_stalker_medic_bloodsucker_dialog</ActorDialog>
-        <ActorDialog>zat_b38_stalker_medic_info_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b38_stalker_medic_info_actor_dialog</ActorDialog>
         <ActorDialog>zat_b22_stalker_medic_b52_about_nimble</ActorDialog>
         <ActorDialog>zat_b22_stalker_medic_need_health_care</ActorDialog>
         <ActorDialog>actor_break_dialog</ActorDialog>
@@ -1007,7 +1007,7 @@ export function create(): JSXNode {
         <CharacterProfileCriticals />
         <StartDialog>zat_b7_stalkers_raiders_dialog</StartDialog>
         <ActorDialog>zat_b7_stalkers_raiders_actor_choose_dialog</ActorDialog>
-        <ActorDialog>zat_b7_killed_self_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b7_killed_self_actor_dialog</ActorDialog>
         <ActorDialog>zat_b7_stalkers_raiders_actor_teleport_dialog</ActorDialog>
         <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
@@ -1238,7 +1238,7 @@ export function create(): JSXNode {
       >
         <CharacterProfileCriticals />
         <DefaultCharacterDialogs />
-        <ActorDialog>zat_b29_stalker_rival_exchange_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b29_stalker_rival_exchange_actor_dialog</ActorDialog>
         <ActorDialog>zat_b30_stalker_rival_1_about_detector</ActorDialog>
         <ActorDialog>zat_b30_stalker_rival_2_about_detector</ActorDialog>
       </SpecificCharacter>
@@ -1266,7 +1266,7 @@ export function create(): JSXNode {
       >
         <CharacterProfileCriticals />
         <DefaultCharacterDialogs />
-        <ActorDialog>zat_b29_stalker_rival_exchange_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b29_stalker_rival_exchange_actor_dialog</ActorDialog>
         <ActorDialog>zat_b30_stalker_rival_1_about_detector</ActorDialog>
         <ActorDialog>zat_b30_stalker_rival_2_about_detector</ActorDialog>
       </SpecificCharacter>
@@ -1294,7 +1294,7 @@ export function create(): JSXNode {
       >
         <CharacterProfileCriticals />
         <DefaultCharacterDialogs />
-        <ActorDialog>zat_b29_stalker_rival_exchange_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b29_stalker_rival_exchange_actor_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter
@@ -1320,7 +1320,7 @@ export function create(): JSXNode {
       >
         <CharacterProfileCriticals />
         <DefaultCharacterDialogs />
-        <ActorDialog>zat_b29_stalker_rival_exchange_ActorDialog</ActorDialog>
+        <ActorDialog>zat_b29_stalker_rival_exchange_actor_dialog</ActorDialog>
       </SpecificCharacter>
 
       <SpecificCharacter

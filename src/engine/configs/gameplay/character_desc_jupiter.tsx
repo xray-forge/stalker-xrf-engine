@@ -100,7 +100,7 @@ export function create(): JSXNode {
         <ActorDialog>jup_a12_stalkers_choose_actor_power_take_dialog</ActorDialog>
         <ActorDialog>jup_a12_stalkers_choose_actor_wait_dialog</ActorDialog>
         <ActorDialog>jup_a12_stalkers_choose_actor_self_dialog</ActorDialog>
-        <ActorDialog>jup_a12_stalker_assaulter_after_scene_ActorDialog</ActorDialog>
+        <ActorDialog>jup_a12_stalker_assaulter_after_scene_actor_dialog</ActorDialog>
         <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
@@ -129,7 +129,7 @@ export function create(): JSXNode {
         <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
         <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
         <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
-        <ActorDialog>jup_a12_stalker_diplomat_after_scene_ActorDialog</ActorDialog>
+        <ActorDialog>jup_a12_stalker_diplomat_after_scene_actor_dialog</ActorDialog>
         <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
@@ -146,7 +146,7 @@ export function create(): JSXNode {
         rank={40}
       >
         <CharacterProfileCriticals />
-        <ActorDialog>jup_a12_stalker_prisoner_free_ActorDialog</ActorDialog>
+        <ActorDialog>jup_a12_stalker_prisoner_free_actor_dialog</ActorDialog>
         <ActorDialog>jup_a12_stalker_prisoner_employ_stalkers</ActorDialog>
         <ActorDialog>jup_a12_stalker_prisoner_come_with_me</ActorDialog>
         <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
@@ -1565,7 +1565,7 @@ export function create(): JSXNode {
         <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
         <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
         <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
-        <ActorDialog>jup_a12_stalker_assaulter_after_scene_ActorDialog</ActorDialog>
+        <ActorDialog>jup_a12_stalker_assaulter_after_scene_actor_dialog</ActorDialog>
         <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
@@ -1597,7 +1597,7 @@ export function create(): JSXNode {
         <ActorDialog>jup_b1_stalker_about_scrutiny</ActorDialog>
         <ActorDialog>jup_b1_stalker_about_scrutiny_2</ActorDialog>
         <ActorDialog>jup_b1_stalker_about_scrutiny_3</ActorDialog>
-        <ActorDialog>jup_a12_stalker_diplomat_after_scene_ActorDialog</ActorDialog>
+        <ActorDialog>jup_a12_stalker_diplomat_after_scene_actor_dialog</ActorDialog>
         <ActorDialog>actor_break_dialog</ActorDialog>
       </SpecificCharacter>
 
