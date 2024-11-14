@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
-import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded";
 import { getStateIndexByHp } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
+import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import { GameObject, type LuaArray, Optional, TCount, TIndex, TRate, TSection } from "@/engine/lib/types";

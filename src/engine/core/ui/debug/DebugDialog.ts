@@ -127,7 +127,7 @@ export class DebugDialog extends CUIScriptWnd {
   }
 
   /**
-   * Handle keboard button press events.
+   * Handle keyboard button press events.
    */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     const result: boolean = super.OnKeyboard(key, event);

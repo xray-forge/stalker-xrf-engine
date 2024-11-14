@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
-import { ISchemeWoundedState, PS_WOUNDED_FIGHT } from "@/engine/core/schemes/stalker/wounded";
+import { ISchemeWoundedState, PS_WOUNDED_FIGHT } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { FALSE } from "@/engine/lib/constants/words";
 
 /**

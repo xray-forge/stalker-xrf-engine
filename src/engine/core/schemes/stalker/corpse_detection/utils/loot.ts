@@ -1,6 +1,9 @@
 import { getManager, IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { ISchemeCorpseDetectionState, PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_detection";
+import {
+  ISchemeCorpseDetectionState,
+  PS_LOOTING_DEAD_OBJECT,
+} from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { transferLoot } from "@/engine/core/utils/loot";
 import { chance } from "@/engine/core/utils/random";
 import { EScheme, GameObject, LuaArray, Optional, TNumberId } from "@/engine/lib/types";

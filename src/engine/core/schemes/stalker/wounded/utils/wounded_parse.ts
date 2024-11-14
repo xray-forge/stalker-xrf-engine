@@ -1,4 +1,4 @@
-import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded";
+import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { LuaArray, Optional, TDistance, TIndex, TRate } from "@/engine/lib/types";
 

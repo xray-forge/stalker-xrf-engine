@@ -2,7 +2,7 @@ import { level } from "xray16";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
-import { PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_detection";
+import { PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { corpseDetectionConfig } from "@/engine/core/schemes/stalker/corpse_detection/CorpseDetectionConfig";
 import { isLootableItemSection } from "@/engine/core/utils/section";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";

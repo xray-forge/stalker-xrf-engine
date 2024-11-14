@@ -10,13 +10,13 @@ import {
 } from "@/engine/core/database";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
+import { schemeWoundedConfig } from "@/engine/core/schemes/stalker/wounded/SchemeWoundedConfig";
 import {
   ISchemeWoundedState,
   PS_BEGIN_WOUNDED,
   PS_WOUNDED_SOUND,
   PS_WOUNDED_STATE,
-} from "@/engine/core/schemes/stalker/wounded";
-import { schemeWoundedConfig } from "@/engine/core/schemes/stalker/wounded/SchemeWoundedConfig";
+} from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";

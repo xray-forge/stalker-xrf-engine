@@ -2,7 +2,11 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
-import { ISchemeWoundedState, PS_WOUNDED_FIGHT, PS_WOUNDED_STATE } from "@/engine/core/schemes/stalker/wounded";
+import {
+  ISchemeWoundedState,
+  PS_WOUNDED_FIGHT,
+  PS_WOUNDED_STATE,
+} from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import { ActionPlanner, GameObject, Optional } from "@/engine/lib/types";
 
