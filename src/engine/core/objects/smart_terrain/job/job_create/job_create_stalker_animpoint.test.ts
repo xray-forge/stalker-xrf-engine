@@ -8,7 +8,7 @@ import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_t
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job";
 import { createStalkerAnimpointJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_animpoint";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartCover, MockSmartTerrain, readInGameTestLtx, resetRegistry } from "@/fixtures/engine";
+import { MockSmartCover, MockSmartTerrain, readInGameTestLtx, resetRegistry } from "@/fixtures/engine";
 
 describe("should correctly generate stalker animpoint jobs", () => {
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe("should correctly generate stalker animpoint jobs", () => {
     );
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
-    const smartCover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const smartCover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");
 
     registerSmartCover(smartCover);
 
@@ -55,7 +55,7 @@ describe("should correctly generate stalker animpoint jobs", () => {
     );
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
-    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const cover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");
 
     terrain.defendRestrictor = "test_defend_restrictor";
 
@@ -83,7 +83,7 @@ describe("should correctly generate stalker animpoint jobs", () => {
     );
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
-    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const cover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");
 
     terrain.defendRestrictor = "test_defend_restrictor";
     terrain.terrainControl = { ignoreZone: "test_ignore_zone" } as SmartTerrainControl;

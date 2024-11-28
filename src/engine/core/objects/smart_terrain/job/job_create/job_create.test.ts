@@ -21,7 +21,7 @@ import {
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { range } from "@/engine/core/utils/number";
 import { AnyObject } from "@/engine/lib/types";
-import { mockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { MockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { MockAlifeCreatureActor, MockIniFile } from "@/fixtures/xray";
 
 function getSmartTerrainTaskDetails(): AnyObject {
@@ -45,7 +45,7 @@ describe("jobs_create", () => {
     );
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
-    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const cover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");
 
     registerSmartCover(cover);
     terrain.on_register();

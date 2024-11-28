@@ -21,7 +21,7 @@ import {
 } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { mockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
+import { MockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 
 describe("should correctly generate stalker jobs", () => {
   it("should correctly generate default stalker jobs", async () => {
@@ -30,7 +30,7 @@ describe("should correctly generate stalker jobs", () => {
     );
 
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
-    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const cover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");
 
     registerSmartCover(cover);
 
