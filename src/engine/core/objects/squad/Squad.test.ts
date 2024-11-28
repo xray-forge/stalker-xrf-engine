@@ -172,7 +172,7 @@ describe("Squad object", () => {
     chaser.mockAddMember(second);
 
     jest.spyOn(chaser, "setLocationTypes").mockImplementation(jest.fn());
-    jest.spyOn(simulationManager, "assignSquadToSmartTerrain").mockImplementation(jest.fn());
+    jest.spyOn(simulationManager, "assignSquadToTerrain").mockImplementation(jest.fn());
 
     registry.offlineObjects.set(first.id, { levelVertexId: 1000, activeSection: "test" });
 

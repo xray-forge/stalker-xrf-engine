@@ -149,7 +149,7 @@ describe("Squad server object", () => {
     registerOfflineObject(second.id, { levelVertexId: 11, activeSection: "test_section" });
 
     jest.spyOn(another, "setLocationTypes").mockImplementation(jest.fn());
-    jest.spyOn(simulationManager, "assignSquadToSmartTerrain").mockImplementation(jest.fn());
+    jest.spyOn(simulationManager, "assignSquadToTerrain").mockImplementation(jest.fn());
 
     squad.onSimulationTargetSelected(another);
 
