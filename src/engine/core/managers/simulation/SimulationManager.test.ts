@@ -12,7 +12,7 @@ import { Optional, TName, TNumberId } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
-describe("SimulationBoardManager", () => {
+describe("SimulationManager", () => {
   beforeEach(() => {
     resetRegistry();
   });
@@ -22,9 +22,9 @@ describe("SimulationBoardManager", () => {
 
     expect(manager.areDefaultSimulationSquadsSpawned).toBe(false);
     expect(manager.getSquads()).toEqualLuaTables({});
-    expect(manager.getSmartTerrainDescriptors()).toEqualLuaTables({});
-    expect(manager.getSmartTerrainByName("any")).toBeNull();
-    expect(manager.getSmartTerrainDescriptor(123)).toBeNull();
+    expect(manager.getTerrainDescriptors()).toEqualLuaTables({});
+    expect(manager.getTerrainByName("any")).toBeNull();
+    expect(manager.getTerrainDescriptorById(123)).toBeNull();
   });
 
   it("should correctly initialize", () => {
@@ -66,7 +66,7 @@ describe("SimulationBoardManager", () => {
     const first: SmartTerrain = MockSmartTerrain.mockRegistered();
     const second: SmartTerrain = MockSmartTerrain.mockRegistered();
 
-    const smartTerrains: LuaTable<TName, SmartTerrain> = manager.getSmartTerrains();
+    const smartTerrains: LuaTable<TName, SmartTerrain> = manager.getTerrains();
 
     expect(smartTerrains.length()).toBe(2);
     expect(smartTerrains.get(first.name())).toBe(first);
@@ -80,8 +80,8 @@ describe("SimulationBoardManager", () => {
     const first: SmartTerrain = MockSmartTerrain.mockRegistered();
     const second: SmartTerrain = MockSmartTerrain.mockRegistered();
 
-    expect(manager.getSmartTerrainByName(first.name())).toBe(first);
-    expect(manager.getSmartTerrainByName(second.name())).toBe(second);
+    expect(manager.getTerrainByName(first.name())).toBe(first);
+    expect(manager.getTerrainByName(second.name())).toBe(second);
   });
 
   it("should correctly get smart terrain descriptor by id", () => {
@@ -91,14 +91,14 @@ describe("SimulationBoardManager", () => {
     const first: SmartTerrain = MockSmartTerrain.mockRegistered();
     const second: SmartTerrain = MockSmartTerrain.mockRegistered();
 
-    const firstDescriptor: Optional<ISmartTerrainDescriptor> = manager.getSmartTerrainDescriptor(first.id);
-    const secondDescriptor: Optional<ISmartTerrainDescriptor> = manager.getSmartTerrainDescriptor(second.id);
+    const firstDescriptor: Optional<ISmartTerrainDescriptor> = manager.getTerrainDescriptorById(first.id);
+    const secondDescriptor: Optional<ISmartTerrainDescriptor> = manager.getTerrainDescriptorById(second.id);
 
-    expect(firstDescriptor?.smartTerrain).toBe(first);
+    expect(firstDescriptor?.terrain).toBe(first);
     expect(firstDescriptor?.assignedSquadsCount).toBe(0);
     expect(firstDescriptor?.assignedSquads).toEqualLuaTables({});
 
-    expect(secondDescriptor?.smartTerrain).toBe(second);
+    expect(secondDescriptor?.terrain).toBe(second);
     expect(secondDescriptor?.assignedSquadsCount).toBe(0);
     expect(secondDescriptor?.assignedSquads).toEqualLuaTables({});
   });
@@ -107,7 +107,7 @@ describe("SimulationBoardManager", () => {
     mockRegisteredActor();
 
     const manager: SimulationManager = getManager(SimulationManager);
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mockRegistered();
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered();
 
     const first: Squad = MockSquad.mockRegistered();
     const second: Squad = MockSquad.mockRegistered();
@@ -116,58 +116,58 @@ describe("SimulationBoardManager", () => {
     jest.spyOn(first, "getScriptedSimulationTarget").mockImplementation(() => 1);
     jest.spyOn(second, "getScriptedSimulationTarget").mockImplementation(() => 1);
 
-    manager.assignSquadToSmartTerrain(first, smartTerrain.id);
-    manager.assignSquadToSmartTerrain(second, smartTerrain.id);
-    manager.assignSquadToSmartTerrain(third, smartTerrain.id);
+    manager.assignSquadToTerrain(first, terrain.id);
+    manager.assignSquadToTerrain(second, terrain.id);
+    manager.assignSquadToTerrain(third, terrain.id);
 
-    expect(manager.getSmartTerrainAssignedSquadsCount(smartTerrain.id)).toBe(1);
+    expect(manager.getTerrainAssignedSquadsCount(terrain.id)).toBe(1);
 
     jest.spyOn(second, "getScriptedSimulationTarget").mockImplementation(() => null);
     jest.spyOn(first, "getScriptedSimulationTarget").mockImplementation(() => null);
 
-    expect(manager.getSmartTerrainAssignedSquadsCount(smartTerrain.id)).toBe(3);
+    expect(manager.getTerrainAssignedSquadsCount(terrain.id)).toBe(3);
 
-    manager.assignSquadToSmartTerrain(first, null);
-    manager.assignSquadToSmartTerrain(second, null);
-    manager.assignSquadToSmartTerrain(third, null);
+    manager.assignSquadToTerrain(first, null);
+    manager.assignSquadToTerrain(second, null);
+    manager.assignSquadToTerrain(third, null);
 
-    expect(manager.getSmartTerrainAssignedSquadsCount(smartTerrain.id)).toBe(0);
+    expect(manager.getTerrainAssignedSquadsCount(terrain.id)).toBe(0);
   });
 
   it("should correctly register/unregister smart terrains", () => {
     mockRegisteredActor();
 
     const manager: SimulationManager = getManager(SimulationManager);
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
 
-    expect(manager.getSmartTerrains().length()).toBe(0);
-    expect(manager.getSmartTerrainDescriptors().length()).toBe(0);
+    expect(manager.getTerrains().length()).toBe(0);
+    expect(manager.getTerrainDescriptors().length()).toBe(0);
 
-    manager.registerSmartTerrain(smartTerrain);
+    manager.registerTerrain(terrain);
 
-    expect(manager.getSmartTerrains().length()).toBe(1);
-    expect(manager.getSmartTerrainDescriptors().length()).toBe(1);
+    expect(manager.getTerrains().length()).toBe(1);
+    expect(manager.getTerrainDescriptors().length()).toBe(1);
 
-    const descriptor: Optional<ISmartTerrainDescriptor> = manager.getSmartTerrainDescriptor(smartTerrain.id);
+    const descriptor: Optional<ISmartTerrainDescriptor> = manager.getTerrainDescriptorById(terrain.id);
 
     expect(descriptor?.assignedSquads).toEqualLuaTables({});
     expect(descriptor?.assignedSquadsCount).toBe(0);
-    expect(descriptor?.smartTerrain).toBe(smartTerrain);
+    expect(descriptor?.terrain).toBe(terrain);
 
-    expect(manager.getSmartTerrainByName(smartTerrain.name())).toBe(smartTerrain);
+    expect(manager.getTerrainByName(terrain.name())).toBe(terrain);
 
-    expect(() => manager.registerSmartTerrain(smartTerrain)).toThrow(
-      `Smart terrain '${smartTerrain.name()}' is already registered in simulation board.`
+    expect(() => manager.registerTerrain(terrain)).toThrow(
+      `Smart terrain '${terrain.name()}' is already registered in simulation board.`
     );
 
-    manager.unregisterSmartTerrain(smartTerrain);
+    manager.unregisterTerrain(terrain);
 
-    expect(manager.getSmartTerrains().length()).toBe(0);
-    expect(manager.getSmartTerrainDescriptors().length()).toBe(0);
-    expect(manager.getSmartTerrainByName(smartTerrain.name())).toBeNull();
+    expect(manager.getTerrains().length()).toBe(0);
+    expect(manager.getTerrainDescriptors().length()).toBe(0);
+    expect(manager.getTerrainByName(terrain.name())).toBeNull();
 
-    expect(() => manager.unregisterSmartTerrain(smartTerrain)).toThrow(
-      `Trying to unregister not registered smart terrain '${smartTerrain.name()}'.`
+    expect(() => manager.unregisterTerrain(terrain)).toThrow(
+      `Trying to unregister not registered smart terrain '${terrain.name()}'.`
     );
   });
 

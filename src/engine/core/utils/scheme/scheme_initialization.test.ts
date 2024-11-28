@@ -11,7 +11,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
+import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse";
@@ -153,10 +153,7 @@ describe("configureObjectSchemes util", () => {
       jest.spyOn(it, "reset").mockImplementation(() => {});
     });
 
-    replaceFunctionMock(
-      getSmartTerrainJobByObjectId,
-      () => ({ iniPath: "job_test.ltx" }) as ISmartTerrainJobDescriptor
-    );
+    replaceFunctionMock(getTerrainJobByObjectId, () => ({ iniPath: "job_test.ltx" }) as ISmartTerrainJobDescriptor);
 
     resetFunctionMock(registry.simulator.create);
 

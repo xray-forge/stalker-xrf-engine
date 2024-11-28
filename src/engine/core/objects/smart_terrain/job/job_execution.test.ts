@@ -2,9 +2,9 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator } from "@/engine/core/database";
 import {
-  selectSmartTerrainObjectJob,
-  switchSmartTerrainObjectToDesiredJob,
-  updateSmartTerrainJobs,
+  selectTerrainObjectJob,
+  switchTerrainObjectToDesiredJob,
+  updateTerrainJobs,
 } from "@/engine/core/objects/smart_terrain/job/job_execution";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
@@ -182,7 +182,7 @@ describe("job_execution logic", () => {
     // Arrived.
     (firstStalker as AnyObject).m_game_vertex_id = 512;
 
-    updateSmartTerrainJobs(terrain);
+    updateTerrainJobs(terrain);
 
     expect(terrain.objectByJobSection.length()).toBe(2);
     expect(terrain.objectJobDescriptors.length()).toBe(2);
@@ -360,7 +360,7 @@ describe("switchSmartTerrainObjectToDesiredJob util", () => {
     });
 
     terrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(terrain, firstStalker.id);
+    switchTerrainObjectToDesiredJob(terrain, firstStalker.id);
 
     expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_sniper_1_walk": firstStalker.id,
@@ -368,7 +368,7 @@ describe("switchSmartTerrainObjectToDesiredJob util", () => {
     });
 
     terrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_camper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(terrain, firstStalker.id);
+    switchTerrainObjectToDesiredJob(terrain, firstStalker.id);
 
     expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_camper_1_walk": firstStalker.id,
@@ -376,8 +376,8 @@ describe("switchSmartTerrainObjectToDesiredJob util", () => {
     });
 
     terrain.objectJobDescriptors.get(firstStalker.id).desiredJob = "logic@test_smart_sniper_1_walk";
-    switchSmartTerrainObjectToDesiredJob(terrain, firstStalker.id);
-    updateSmartTerrainJobs(terrain);
+    switchTerrainObjectToDesiredJob(terrain, firstStalker.id);
+    updateTerrainJobs(terrain);
 
     expect(terrain.objectByJobSection).toEqualLuaTables({
       "logic@test_smart_sniper_1_walk": firstStalker.id,
@@ -408,23 +408,11 @@ describe("selectSmartTerrainObjectJob util", () => {
     terrain.register_npc(firstStalker);
     terrain.register_npc(secondStalker);
 
-    const [firstJobId, firstJob] = selectSmartTerrainObjectJob(
-      terrain,
-      terrain.objectJobDescriptors.get(secondStalker.id)
-    );
+    const [firstJobId, firstJob] = selectTerrainObjectJob(terrain, terrain.objectJobDescriptors.get(secondStalker.id));
 
-    const [secondJobId, secondJob] = selectSmartTerrainObjectJob(
-      terrain,
-      terrain.objectJobDescriptors.get(firstStalker.id)
-    );
-    const [thirdJobId, thirdJob] = selectSmartTerrainObjectJob(
-      terrain,
-      terrain.objectJobDescriptors.get(secondStalker.id)
-    );
-    const [fourthJobId, fourthJob] = selectSmartTerrainObjectJob(
-      terrain,
-      terrain.objectJobDescriptors.get(firstStalker.id)
-    );
+    const [secondJobId, secondJob] = selectTerrainObjectJob(terrain, terrain.objectJobDescriptors.get(firstStalker.id));
+    const [thirdJobId, thirdJob] = selectTerrainObjectJob(terrain, terrain.objectJobDescriptors.get(secondStalker.id));
+    const [fourthJobId, fourthJob] = selectTerrainObjectJob(terrain, terrain.objectJobDescriptors.get(firstStalker.id));
 
     expect(firstJobId).toBe(5);
     expect(secondJobId).toBe(4);

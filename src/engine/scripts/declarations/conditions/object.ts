@@ -36,7 +36,7 @@ import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { getObjectId } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import {
-  getObjectSmartTerrain,
+  getObjectTerrain,
   isDistanceBetweenObjectsGreaterOrEqual,
   isDistanceBetweenObjectsLessOrEqual,
   isObjectInZone,
@@ -214,8 +214,8 @@ extern(
   "xr_conditions.is_obj_on_job",
   (_: GameObject, object: GameObject, [section, terrainName]: [TSection, Optional<TName>]): boolean => {
     const terrain: Optional<SmartTerrain> = terrainName
-      ? getManager(SimulationManager).getSmartTerrainByName(terrainName)
-      : getObjectSmartTerrain(object);
+      ? getManager(SimulationManager).getTerrainByName(terrainName)
+      : getObjectTerrain(object);
 
     if (!terrain) {
       return false;
@@ -675,18 +675,18 @@ extern("xr_conditions.squad_has_enemy", (_: GameObject, __: GameObject, [storyId
  * todo: use generic condition?
  */
 extern("xr_conditions.squads_in_zone_b41", (): boolean => {
-  const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName("jup_b41");
+  const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getTerrainByName("jup_b41");
   const zone: Optional<GameObject> = registry.zones.get("jup_b41_sr_light");
 
   if (zone === null) {
     return false;
   }
 
-  if (smartTerrain === null) {
+  if (terrain === null) {
     return false;
   }
 
-  for (const [k, v] of getManager(SimulationManager).getSmartTerrainDescriptor(smartTerrain.id)!.assignedSquads) {
+  for (const [k, v] of getManager(SimulationManager).getTerrainDescriptorById(terrain.id)!.assignedSquads) {
     if (v !== null) {
       for (const j of v.squad_members()) {
         if (!zone.inside(j.object.position)) {
@@ -831,7 +831,7 @@ extern(
 extern(
   "xr_conditions.distance_to_obj_on_job_le",
   (_: GameObject, object: GameObject, [section, distance]: [TSection, TDistance]): boolean => {
-    const terrain: SmartTerrain = getObjectSmartTerrain(object)!;
+    const terrain: SmartTerrain = getObjectTerrain(object)!;
 
     for (const [, descriptor] of terrain.objectJobDescriptors) {
       if (descriptor.job && descriptor.job.section === section) {
@@ -990,7 +990,7 @@ extern("xr_conditions.check_enemy_smart", (_: GameObject, object: GameObject, [t
     return false;
   }
 
-  const enemyTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(enemy);
+  const enemyTerrain: Optional<SmartTerrain> = getObjectTerrain(enemy);
 
   return enemyTerrain ? enemyTerrain.name() === terrainName : false;
 });

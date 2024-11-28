@@ -35,7 +35,7 @@ import {
  * Manages alarm and notifications about weapon hiding.
  */
 export class SmartTerrainControl {
-  public readonly smartTerrain: SmartTerrain;
+  public readonly terrain: SmartTerrain;
   public status: ESmartTerrainStatus = ESmartTerrainStatus.NORMAL;
 
   public noWeaponZone: TName;
@@ -45,8 +45,8 @@ export class SmartTerrainControl {
   public alarmStartSoundConditionList: TConditionList;
   public alarmStopSoundConditionList: TConditionList;
 
-  public constructor(smartTerrain: SmartTerrain, ini: IniFile, section: TSection) {
-    this.smartTerrain = smartTerrain;
+  public constructor(terrain: SmartTerrain, ini: IniFile, section: TSection) {
+    this.terrain = terrain;
 
     this.noWeaponZone = readIniString(ini, section, "noweap_zone", true);
     this.ignoreZone = readIniString(ini, section, "ignore_zone", false);
@@ -66,7 +66,7 @@ export class SmartTerrainControl {
 
       const sound: Optional<TName> = pickSectionFromCondList(
         registry.actor,
-        this.smartTerrain,
+        this.terrain,
         this.alarmStopSoundConditionList
       );
 
@@ -74,8 +74,7 @@ export class SmartTerrainControl {
         getManager(SoundManager).play(ACTOR_ID, sound);
       }
 
-      for (const [id] of getManager(SimulationManager).getSmartTerrainDescriptor(this.smartTerrain.id)!
-        .assignedSquads) {
+      for (const [id] of getManager(SimulationManager).getTerrainDescriptorById(this.terrain.id)!.assignedSquads) {
         updateSquadIdRelationToActor(id, ERelation.NEUTRAL);
       }
 
@@ -103,13 +102,13 @@ export class SmartTerrainControl {
     }
 
     if (!zoneObject.inside(registry.actor.position())) {
-      if (registry.activeSmartTerrainId === this.smartTerrain.id) {
+      if (registry.activeSmartTerrainId === this.terrain.id) {
         registry.activeSmartTerrainId = null;
       }
 
       return false;
     } else {
-      registry.activeSmartTerrainId = this.smartTerrain.id;
+      registry.activeSmartTerrainId = this.terrain.id;
     }
 
     if (isWeapon(registry.actor.active_item())) {
@@ -127,7 +126,7 @@ export class SmartTerrainControl {
     if (this.status !== ESmartTerrainStatus.ALARM) {
       const sound: Optional<TStringId> = pickSectionFromCondList(
         registry.actor,
-        this.smartTerrain,
+        this.terrain,
         this.alarmStartSoundConditionList
       );
 
@@ -135,8 +134,7 @@ export class SmartTerrainControl {
         getManager(SoundManager).play(ACTOR_ID, sound);
       }
 
-      for (const [squadId] of getManager(SimulationManager).getSmartTerrainDescriptor(this.smartTerrain.id)!
-        .assignedSquads) {
+      for (const [squadId] of getManager(SimulationManager).getTerrainDescriptorById(this.terrain.id)!.assignedSquads) {
         updateSquadIdRelationToActor(squadId, ERelation.ENEMY);
       }
     }

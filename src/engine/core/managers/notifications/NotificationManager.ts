@@ -307,12 +307,12 @@ export class NotificationManager extends AbstractManager {
 
     // todo: Probably name and number id problem? Not real condition?
     if (point) {
-      const smartDescriptor: Optional<ISmartTerrainDescriptor> = getManager(
+      const terrainDescriptor: Optional<ISmartTerrainDescriptor> = getManager(
         SimulationManager
-      ).getSmartTerrainDescriptor(point as TNumberId);
+      ).getTerrainDescriptorById(point as TNumberId);
 
-      pointName = smartDescriptor
-        ? getSmartTerrainNameCaption(smartDescriptor.smartTerrain)
+      pointName = terrainDescriptor
+        ? getSmartTerrainNameCaption(terrainDescriptor.terrain)
         : game.translate_string(point as TName);
     }
 

@@ -1,7 +1,7 @@
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
-import { getObjectSmartTerrain } from "@/engine/core/utils/position";
+import { getObjectTerrain } from "@/engine/core/utils/position";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { GameObject, LuaArray, Optional, TName } from "@/engine/lib/types";
@@ -86,9 +86,9 @@ function animpointPredicateHarmonica(object: GameObject, isInCamp?: Optional<boo
  * todo;
  */
 function animpointPredicateWeapon(object: GameObject): boolean {
-  const smartTerrainName: Optional<TName> = getObjectSmartTerrain(object)?.name() as Optional<TName>;
+  const terrainName: Optional<TName> = getObjectTerrain(object)?.name() as Optional<TName>;
 
-  if (smartTerrainName && registry.noCombatSmartTerrains.get(smartTerrainName)) {
+  if (terrainName && registry.noCombatSmartTerrains.get(terrainName)) {
     return false;
   }
 
@@ -96,7 +96,7 @@ function animpointPredicateWeapon(object: GameObject): boolean {
 }
 
 /**
- * todo;
+ * todo: Move to config file
  */
 const eatableVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_hero\\stalker_hero_1"]: true,
@@ -155,6 +155,9 @@ const eatableVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_neutral\\stalker_neutral_nauchniy_face_2"]: true,
 });
 
+/**
+ * todo: Move to config file
+ */
 const harmonicaVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_hero\\stalker_hero_1"]: true,
   ["actors\\stalker_hero\\stalker_hero_novice_1"]: true,

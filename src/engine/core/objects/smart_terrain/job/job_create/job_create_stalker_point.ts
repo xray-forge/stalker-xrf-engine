@@ -7,20 +7,20 @@ import { TName } from "@/engine/lib/types";
 /**
  * Create point jobs for stalkers in smart terrain.
  *
- * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param terrain - smart terrain to create default animpoint jobs for
  * @param jobs - list of smart terrain jobs to insert into
  * @param builder - builder of large ltx file
  * @returns cover jobs list and updated string builder
  */
 export function createStalkerPointJobs(
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
   builder: StringBuilder
 ): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
-  const smartTerrainName: TName = smartTerrain.name();
+  const terrainName: TName = terrain.name();
 
   for (const index of $range(1, smartTerrainConfig.JOBS.STALKER_POINT.COUNT)) {
-    const patrolName: TName = string.format("%s_point_%s", smartTerrainName, index);
+    const patrolName: TName = string.format("%s_point_%s", terrainName, index);
 
     table.insert(jobs, {
       type: EJobType.POINT,
@@ -45,17 +45,17 @@ anim = {!npc_community(zombied)} sit, guard
         patrolName,
         patrolName,
         patrolName,
-        smartTerrainName,
+        terrainName,
         smartTerrainConfig.JOBS.STALKER_POINT.MIN_RADIUS,
         smartTerrainConfig.JOBS.STALKER_POINT.MAX_RADIUS
       )
     );
 
-    if (smartTerrain.defendRestrictor !== null) {
-      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
+    if (terrain.defendRestrictor !== null) {
+      builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
-    if (smartTerrain.terrainControl !== null && smartTerrain.terrainControl.ignoreZone !== null) {
+    if (terrain.terrainControl !== null && terrain.terrainControl.ignoreZone !== null) {
       // todo: Probably smart.base_on_actor_control.ignore_zone should be injected? Original issue.
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true

@@ -17,13 +17,13 @@ import { StringBuilder } from "@/engine/core/utils/string";
 /**
  * Create list of jobs for stalkers in smart terrain.
  *
- * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param terrain - smart terrain to create default animpoint jobs for
  * @param jobs - list of smart terrain jobs to insert into
  * @param builder - builder of large ltx file
  * @returns cover jobs list and updated string builder
  */
 export function createStalkerJobs(
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
   builder: StringBuilder
 ): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
@@ -64,16 +64,16 @@ meet_on_talking = false
 use_text = nil
 `);
 
-  createStalkerSurgeJobs(smartTerrain, jobs, builder);
-  createStalkerCamperJobs(smartTerrain, jobs, builder);
-  createStalkerSniperJobs(smartTerrain, jobs, builder);
-  createStalkerCollectorJobs(smartTerrain, jobs, builder);
-  createStalkerGuardJobs(smartTerrain, jobs, builder);
-  createStalkerPatrolJobs(smartTerrain, jobs, builder);
-  createStalkerWalkerJobs(smartTerrain, jobs, builder);
-  createStalkerAnimpointJobs(smartTerrain, jobs, builder);
-  createStalkerSleepJobs(smartTerrain, jobs, builder);
-  createStalkerPointJobs(smartTerrain, jobs, builder);
+  createStalkerSurgeJobs(terrain, jobs, builder);
+  createStalkerCamperJobs(terrain, jobs, builder);
+  createStalkerSniperJobs(terrain, jobs, builder);
+  createStalkerCollectorJobs(terrain, jobs, builder);
+  createStalkerGuardJobs(terrain, jobs, builder);
+  createStalkerPatrolJobs(terrain, jobs, builder);
+  createStalkerWalkerJobs(terrain, jobs, builder);
+  createStalkerAnimpointJobs(terrain, jobs, builder);
+  createStalkerSleepJobs(terrain, jobs, builder);
+  createStalkerPointJobs(terrain, jobs, builder);
 
   return $multi(jobs, builder);
 }

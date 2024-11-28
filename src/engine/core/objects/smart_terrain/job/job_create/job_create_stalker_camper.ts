@@ -12,22 +12,22 @@ import { Patrol, TDistance, TIndex, TName } from "@/engine/lib/types";
 /**
  * Create camper jobs for stalkers in smart terrain.
  *
- * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param terrain - smart terrain to create default animpoint jobs for
  * @param jobs - list of smart terrain jobs to insert into
  * @param builder - builder of large ltx file
  * @returns cover jobs list and updated string builder
  */
 export function createStalkerCamperJobs(
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
   builder: StringBuilder
 ): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
-  const smartTerrainName: TName = smartTerrain.name();
+  const terrainName: TName = terrain.name();
 
   let index: TIndex = 1;
 
-  while (level.patrol_path_exists(string.format("%s_camper_%s_walk", smartTerrainName, index))) {
-    const patrolName: TName = string.format("%s_camper_%s_walk", smartTerrainName, index);
+  while (level.patrol_path_exists(string.format("%s_camper_%s_walk", terrainName, index))) {
+    const patrolName: TName = string.format("%s_camper_%s_walk", terrainName, index);
     const jobPatrol: Patrol = new patrol(patrolName);
     const waypointData: IWaypointData = parseWaypointData(patrolName, jobPatrol.flags(0), jobPatrol.name(0));
 
@@ -76,12 +76,12 @@ def_state_campering_fire = %s_fire
       )
     );
 
-    if (level.patrol_path_exists(string.format("%s_camper_%s_look", smartTerrainName, index))) {
+    if (level.patrol_path_exists(string.format("%s_camper_%s_look", terrainName, index))) {
       builder.append(string.format("path_look = camper_%s_look\n", index));
     }
 
-    if (smartTerrain.defendRestrictor !== null) {
-      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
+    if (terrain.defendRestrictor !== null) {
+      builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
     index += 1;

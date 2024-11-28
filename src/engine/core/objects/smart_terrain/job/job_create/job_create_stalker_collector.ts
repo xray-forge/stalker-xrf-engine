@@ -11,17 +11,17 @@ import { TIndex, TName } from "@/engine/lib/types";
 /**
  * Create collector jobs for stalkers in smart terrain.
  *
- * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param terrain - smart terrain to create default animpoint jobs for
  * @param jobs - list of smart terrain jobs to insert into
  * @param builder - builder of large ltx file
  * @returns cover jobs list and updated string builder
  */
 export function createStalkerCollectorJobs(
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
   builder: StringBuilder
 ): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
-  const smartTerrainName: TName = smartTerrain.name();
+  const smartTerrainName: TName = terrain.name();
 
   let index: TIndex = 1;
 
@@ -60,18 +60,18 @@ def_state_moving = patrol
       builder.append(string.format("path_look = collector_%s_look\n", index));
     }
 
-    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, patrolName)) {
+    if (terrain.safeRestrictor !== null && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
-    if (smartTerrain.defendRestrictor !== null) {
-      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
+    if (terrain.defendRestrictor !== null) {
+      builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
     if (
-      smartTerrain.terrainControl !== null &&
-      smartTerrain.terrainControl.ignoreZone !== null &&
-      isPatrolInRestrictor(smartTerrain.terrainControl.ignoreZone, patrolName)
+      terrain.terrainControl !== null &&
+      terrain.terrainControl.ignoreZone !== null &&
+      isPatrolInRestrictor(terrain.terrainControl.ignoreZone, patrolName)
     ) {
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true

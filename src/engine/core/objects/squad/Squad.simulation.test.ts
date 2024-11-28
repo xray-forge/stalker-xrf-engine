@@ -73,13 +73,13 @@ describe("Squad server object", () => {
     const squad: MockSquad = MockSquad.mock();
     const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
 
-    terrain.simulationManager.assignSquadToSmartTerrain(squad, terrain.id);
+    terrain.simulationManager.assignSquadToTerrain(squad, terrain.id);
     expect(squad.isSimulationAvailable()).toBe(true);
 
     terrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);
     expect(squad.isSimulationAvailable()).toBe(false);
 
-    squad.assignedSmartTerrainId = null;
+    squad.assignedTerrainId = null;
     expect(squad.isSimulationAvailable()).toBe(true);
   });
 
@@ -154,7 +154,7 @@ describe("Squad server object", () => {
     squad.onSimulationTargetSelected(another);
 
     expect(another.setLocationTypes).toHaveBeenCalledTimes(1);
-    expect(simulationManager.assignSquadToSmartTerrain).toHaveBeenCalledWith(another, null);
+    expect(simulationManager.assignSquadToTerrain).toHaveBeenCalledWith(another, null);
 
     expect(registry.offlineObjects.length()).toBe(2);
     expect(registry.offlineObjects.get(first.id)).toEqual({

@@ -26,7 +26,7 @@ import {
  * @param object - server or game object
  * @returns object smart terrain server object or null
  */
-export function getObjectSmartTerrain(object: GameObject | ServerCreatureObject): Optional<SmartTerrain> {
+export function getObjectTerrain(object: GameObject | ServerCreatureObject): Optional<SmartTerrain> {
   const simulator: AlifeSimulator = registry.simulator;
 
   if (type(object.id) === "function") {
@@ -50,7 +50,7 @@ export function getObjectSmartTerrain(object: GameObject | ServerCreatureObject)
  * @returns whether object is assigned to smart terrain with desired name
  */
 export function isObjectInSmartTerrain(object: GameObject, terrainName: TName): boolean {
-  const terrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+  const terrain: Optional<SmartTerrain> = getObjectTerrain(object);
 
   return terrain ? terrain.name() === terrainName : false;
 }

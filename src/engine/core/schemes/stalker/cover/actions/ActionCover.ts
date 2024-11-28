@@ -71,7 +71,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
   public activate(): void {
     this.state.signals = new LuaTable();
 
-    const smartTerrainVertexId: TNumberId = getManager(SimulationManager).getSmartTerrainByName(
+    const smartTerrainVertexId: TNumberId = getManager(SimulationManager).getTerrainByName(
       this.state.smartTerrainName
     )!.m_level_vertex_id;
 

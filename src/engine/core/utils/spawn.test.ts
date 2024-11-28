@@ -259,25 +259,25 @@ describe("spawnSquadInSmart util", () => {
     expect(() => spawnSquadInSmart("squad", "some_terrain")).toThrow();
 
     const simulationManager: SimulationManager = getManager(SimulationManager);
-    const smartTerrain: ServerSmartZoneObject = MockSmartTerrain.mock();
+    const terrain: ServerSmartZoneObject = MockSmartTerrain.mock();
     const squad: Squad = MockSquad.mock();
 
     mockRegisteredActor();
 
-    jest.spyOn(simulationManager, "assignSquadToSmartTerrain").mockImplementation(() => {});
+    jest.spyOn(simulationManager, "assignSquadToTerrain").mockImplementation(() => {});
     jest.spyOn(simulationManager, "createSquad").mockImplementation(() => squad);
     jest.spyOn(simulationManager, "setupObjectSquadAndGroup").mockImplementation(() => {});
 
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
+    terrain.on_before_register();
+    terrain.on_register();
 
     squad.addMember("test", MockVector.mock(1, 1, 1), 1, 2);
     squad.addMember("test", MockVector.mock(2, 2, 2), 1, 2);
 
-    const createdSquad: ServerGroupObject = spawnSquadInSmart("test_squad", smartTerrain.name());
+    const createdSquad: ServerGroupObject = spawnSquadInSmart("test_squad", terrain.name());
 
     expect(createdSquad).toBe(squad);
-    expect(simulationManager.createSquad).toHaveBeenCalledWith(smartTerrain, "test_squad");
+    expect(simulationManager.createSquad).toHaveBeenCalledWith(terrain, "test_squad");
     expect(simulationManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(2);
     expect(squad.update).toHaveBeenCalled();
   });

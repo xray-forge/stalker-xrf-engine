@@ -92,10 +92,10 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
 
     // Assign mob home.
     if (this.state.isSmartTerrainPoint) {
-      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(
+      const terrain: Optional<SmartTerrain> = registry.simulator.object(
         registry.simulator.object<ServerCreatureObject>(this.object.id())!.m_smart_terrain_id
       );
-      const vertexId: Optional<TNumberId> = smartTerrain ? smartTerrain.m_level_vertex_id : null;
+      const vertexId: Optional<TNumberId> = terrain ? terrain.m_level_vertex_id : null;
 
       return $multi(vertexId as TNumberId, minRadius, maxRadius, isAggressive, midRadius);
     }

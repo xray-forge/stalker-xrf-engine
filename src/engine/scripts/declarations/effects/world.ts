@@ -63,9 +63,7 @@ extern(
     object: GameObject,
     [theme, faction, terrainNameOrId]: [Optional<TName>, Optional<TCommunity>, Optional<TName | TNumberId>]
   ): void => {
-    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
-      terrainNameOrId as TName
-    );
+    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getTerrainByName(terrainNameOrId as TName);
     const terrainId: TNumberId = terrain ? terrain.id : (terrainNameOrId as TNumberId);
 
     if (object && isStalker(object) && !object.alive()) {
@@ -118,9 +116,7 @@ extern(
     __: GameObject,
     [storyId, theme, faction, terrainNameOrId]: [TStringId, TName, TName, TName | TNumberId]
   ): void => {
-    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(
-      terrainNameOrId as TName
-    );
+    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getTerrainByName(terrainNameOrId as TName);
     const terrainId: TNumberId = terrain ? terrain.id : (terrainNameOrId as TNumberId);
 
     getManager(SoundManager).play(getObjectIdByStoryId(storyId) as TNumberId, theme, faction, terrainId);

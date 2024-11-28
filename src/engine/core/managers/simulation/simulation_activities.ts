@@ -55,13 +55,13 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
     },
     [ESimulationRole.SMART_TERRAIN]: {
       base: (squad: Squad, target: ServerObject) => {
-        const smartName: TName = target.name();
+        const terrainName: TName = target.name();
 
         return (
           isInTimeInterval(21, 8) &&
           !surgeConfig.IS_STARTED &&
           !isAnySquadMemberEnemyToActor(squad) &&
-          (smartName === storyNames.zat_stalker_base_smart || smartName === storyNames.jup_a10_smart_terrain)
+          (terrainName === storyNames.zat_stalker_base_smart || terrainName === storyNames.jup_a10_smart_terrain)
         );
       },
       territory: () => isInTimeInterval(8, 21) && !surgeConfig.IS_STARTED,

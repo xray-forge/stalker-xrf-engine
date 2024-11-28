@@ -14,7 +14,7 @@ import {
 } from "@/engine/core/database";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { switchSmartTerrainObjectToDesiredJob } from "@/engine/core/objects/smart_terrain/job";
+import { switchTerrainObjectToDesiredJob } from "@/engine/core/objects/smart_terrain/job";
 import type { Squad } from "@/engine/core/objects/squad";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
@@ -31,7 +31,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
-import { getObjectSmartTerrain } from "@/engine/core/utils/position";
+import { getObjectTerrain } from "@/engine/core/utils/position";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
   releaseObject,
@@ -352,9 +352,9 @@ extern(
 
     const simulationManager: SimulationManager = getManager(SimulationManager);
     const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
-    const squadSmartTerrain: Optional<SmartTerrain> = simulationManager.getSmartTerrainDescriptor(
-      squad.assignedSmartTerrainId as TNumberId
-    )!.smartTerrain;
+    const squadTerrain: Optional<SmartTerrain> = simulationManager.getTerrainDescriptorById(
+      squad.assignedTerrainId as TNumberId
+    )!.terrain;
 
     if (params[2] !== null) {
       let spawnPoint: TStringId;
@@ -363,7 +363,7 @@ extern(
         const data: string = readIniString(SYSTEM_INI, squad.section_name(), "spawn_point", false);
         const condlist: LuaArray<IConfigSwitchCondition> =
           data === "" || data === null
-            ? parseConditionsList(squadSmartTerrain.spawnPointName as string)
+            ? parseConditionsList(squadTerrain.spawnPointName as string)
             : parseConditionsList(data);
 
         spawnPoint = pickSectionFromCondList(actor, object, condlist) as TStringId;
@@ -391,7 +391,7 @@ extern(
       gameVertexId
     );
 
-    squad.assignMemberToSmartTerrain(newSquadMember.id, squadSmartTerrain, null);
+    squad.assignMemberToTerrain(newSquadMember.id, squadTerrain, null);
     simulationManager.setupObjectSquadAndGroup(newSquadMember);
     // --squad_smart.refresh()
     squad.update();
@@ -497,10 +497,9 @@ extern(
     }
 
     const simulationManager: SimulationManager = getManager(SimulationManager);
-    const smartTerrain: SmartTerrain = simulationManager.getSmartTerrainByName(terrainName) as SmartTerrain;
-    const smartTerrainId: TNumberId = smartTerrain.id;
+    const terrain: SmartTerrain = simulationManager.getTerrainByName(terrainName) as SmartTerrain;
 
-    for (const [, squad] of simulationManager.getSmartTerrainDescriptor(smartTerrainId)!.assignedSquads) {
+    for (const [, squad] of simulationManager.getTerrainDescriptorById(terrain.id)!.assignedSquads) {
       if (clearStory === FALSE) {
         if (!getStoryIdByObjectId(squad.id)) {
           logger.info("Remove smart terrain squads on effect: '%s', '%s'", terrainName, squad.name());
@@ -739,7 +738,7 @@ extern("xr_effects.clear_monster_animation", (_: GameObject, object: GameObject)
  * todo;
  */
 extern("xr_effects.switch_to_desired_job", (_: GameObject, object: GameObject): void => {
-  switchSmartTerrainObjectToDesiredJob(getObjectSmartTerrain(object) as SmartTerrain, object.id());
+  switchTerrainObjectToDesiredJob(getObjectTerrain(object) as SmartTerrain, object.id());
 });
 
 /**

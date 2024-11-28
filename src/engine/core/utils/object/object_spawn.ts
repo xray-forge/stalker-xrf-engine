@@ -21,17 +21,17 @@ export function syncSpawnedObjectPosition(object: GameObject, terrainId: Optiona
   } else if (registry.offlineObjects.get(objectId)?.levelVertexId) {
     object.set_npc_position(level.vertex_position(registry.offlineObjects.get(objectId).levelVertexId as TNumberId));
   } else if (terrainId && terrainId !== MAX_ALIFE_ID) {
-    const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(terrainId)!;
+    const terrain: SmartTerrain = registry.simulator.object<SmartTerrain>(terrainId)!;
 
-    if (!smartTerrain.arrivingObjects.get(objectId)) {
-      const job: Optional<ISmartTerrainJobDescriptor> = smartTerrain.objectJobDescriptors.get(objectId)?.job;
+    if (!terrain.arrivingObjects.get(objectId)) {
+      const job: Optional<ISmartTerrainJobDescriptor> = terrain.objectJobDescriptors.get(objectId)?.job;
       const task: ALifeSmartTerrainTask = job?.alifeTask as ALifeSmartTerrainTask;
 
       assert(
         task,
         "Expected terrain task to exist when spawning in smart terrain: '%s' in '%s', job: '%s'.",
         object.name(),
-        smartTerrain.name(),
+        terrain.name(),
         job?.section
       );
 

@@ -22,8 +22,8 @@ export function syncObjectHitSmartTerrainAlert(object: GameObject): void {
   const graph: CGameGraph = game_graph();
   const actorVertexLevelId: TNumberId = graph.vertex(registry.actorServer.m_game_vertex_id).level_id();
 
-  for (const [, descriptor] of getManager(SimulationManager).getSmartTerrainDescriptors()) {
-    const terrain: SmartTerrain = descriptor.smartTerrain;
+  for (const [, descriptor] of getManager(SimulationManager).getTerrainDescriptors()) {
+    const terrain: SmartTerrain = descriptor.terrain;
 
     if (
       terrain.terrainControl &&

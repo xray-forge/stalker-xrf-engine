@@ -112,7 +112,7 @@ describe("Stalker server object", () => {
     terrain.register_npc = jest.fn();
     terrain.unregister_npc = jest.fn();
 
-    getManager(SimulationManager).registerSmartTerrain(terrain);
+    getManager(SimulationManager).registerTerrain(terrain);
 
     stalker.on_register();
     stalker.on_unregister();

@@ -230,15 +230,15 @@ export function spawnSquadInSmart(section: Optional<TSection>, terrainName: Opti
   assert(terrainName, "Wrong squad name in spawnSquad function.");
   assert(SYSTEM_INI.section_exist(section), "Wrong squad identifier '%s'. Squad doesnt exist in ini.", section);
 
-  const simulationBoardManager: SimulationManager = getManager(SimulationManager);
-  const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(terrainName);
+  const simulationManager: SimulationManager = getManager(SimulationManager);
+  const terrain: Optional<SmartTerrain> = simulationManager.getTerrainByName(terrainName);
 
-  assert(smartTerrain, "Wrong smartName '%s' for faction in spawnSquad function.", tostring(terrainName));
+  assert(terrain, "Wrong terrain name '%s' for faction in spawnSquad function.", tostring(terrainName));
 
-  const squad: Squad = simulationBoardManager.createSquad(smartTerrain, section);
+  const squad: Squad = simulationManager.createSquad(terrain, section);
 
   for (const squadMember of squad.squad_members()) {
-    simulationBoardManager.setupObjectSquadAndGroup(squadMember.object);
+    simulationManager.setupObjectSquadAndGroup(squadMember.object);
   }
 
   squad.update();

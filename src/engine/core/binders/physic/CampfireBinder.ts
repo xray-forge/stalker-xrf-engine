@@ -20,9 +20,9 @@ export class CampfireBinder extends object_binder {
 
     // logger.format("Register: %s", object.name());
 
-    const [smartTerrainName] = string.gsub(this.object.name(), "_campfire_%d*", "");
+    const [terrainName] = string.gsub(this.object.name(), "_campfire_%d*", "");
 
-    this.terrain = getManager(SimulationManager).getSmartTerrainByName(smartTerrainName);
+    this.terrain = getManager(SimulationManager).getTerrainByName(terrainName);
 
     if (this.terrain) {
       registerSmartTerrainCampfire(this.terrain, this.object);

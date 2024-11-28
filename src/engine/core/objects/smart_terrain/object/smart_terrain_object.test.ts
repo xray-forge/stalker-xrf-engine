@@ -5,8 +5,8 @@ import { getManager, registerObject, updateSimulationObjectAvailability } from "
 import { SimulationManager } from "@/engine/core/managers/simulation";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
-  isObjectArrivedToSmartTerrain,
-  isSquadArrivedToSmartTerrain,
+  isObjectArrivedToTerrain,
+  isSquadArrivedToTerrain,
 } from "@/engine/core/objects/smart_terrain/object/smart_terrain_object";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
@@ -24,29 +24,29 @@ describe("isObjectArrivedToSmartTerrain utility", () => {
     const squad: Squad = MockSquad.mock();
     const terrain: SmartTerrain = MockSmartTerrain.mock();
 
-    getManager(SimulationManager).registerSmartTerrain(terrain);
+    getManager(SimulationManager).registerTerrain(terrain);
 
     object.group_id = squad.id;
     squad.currentAction = new SquadStayOnTargetAction(squad);
 
-    expect(isObjectArrivedToSmartTerrain(object, terrain)).toBe(true);
+    expect(isObjectArrivedToTerrain(object, terrain)).toBe(true);
   });
 
   it("should correctly check arrived state based on server object", () => {
     const serverObject: ServerCreatureObject = MockAlifeHumanStalker.mock();
     const terrain: SmartTerrain = MockSmartTerrain.mock();
 
-    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(true);
+    expect(isObjectArrivedToTerrain(serverObject, terrain)).toBe(true);
 
     jest.spyOn(serverObject.position, "distance_to_sqr").mockImplementation(() => 10_001);
-    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(false);
+    expect(isObjectArrivedToTerrain(serverObject, terrain)).toBe(false);
 
     jest.spyOn(serverObject.position, "distance_to_sqr").mockImplementation(() => 9999);
-    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(true);
+    expect(isObjectArrivedToTerrain(serverObject, terrain)).toBe(true);
 
     (terrain as AnyObject).m_game_vertex_id = 550;
     jest.spyOn(game_graph().vertex(550), "level_id").mockImplementation(() => 1001);
-    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(false);
+    expect(isObjectArrivedToTerrain(serverObject, terrain)).toBe(false);
   });
 
   it("should correctly check arrived state based on object online", () => {
@@ -56,17 +56,17 @@ describe("isObjectArrivedToSmartTerrain utility", () => {
 
     registerObject(object);
 
-    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(true);
+    expect(isObjectArrivedToTerrain(serverObject, terrain)).toBe(true);
 
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 10_001);
-    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(false);
+    expect(isObjectArrivedToTerrain(serverObject, terrain)).toBe(false);
 
     jest.spyOn(object.position(), "distance_to_sqr").mockImplementation(() => 9999);
-    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(true);
+    expect(isObjectArrivedToTerrain(serverObject, terrain)).toBe(true);
 
     jest.spyOn(object, "game_vertex_id").mockImplementation(() => 551);
     jest.spyOn(game_graph().vertex(551), "level_id").mockImplementation(() => 1002);
-    expect(isObjectArrivedToSmartTerrain(serverObject, terrain)).toBe(false);
+    expect(isObjectArrivedToTerrain(serverObject, terrain)).toBe(false);
   });
 });
 
@@ -78,7 +78,7 @@ describe("isSquadArrivedToSmartTerrain utility", () => {
   it("should return null on unknown status", () => {
     const squad: Squad = MockSquad.mock();
 
-    expect(isSquadArrivedToSmartTerrain(squad)).toBeNull();
+    expect(isSquadArrivedToTerrain(squad)).toBeNull();
   });
 
   it("should correctly check arrived state based on react target action", () => {
@@ -92,10 +92,10 @@ describe("isSquadArrivedToSmartTerrain utility", () => {
     squad.currentAction = new SquadReachTargetAction(squad);
 
     jest.spyOn(target, "isReachedBySimulationObject").mockImplementation(() => true);
-    expect(isSquadArrivedToSmartTerrain(squad)).toBe(true);
+    expect(isSquadArrivedToTerrain(squad)).toBe(true);
 
     jest.spyOn(target, "isReachedBySimulationObject").mockImplementation(() => false);
-    expect(isSquadArrivedToSmartTerrain(squad)).toBe(false);
+    expect(isSquadArrivedToTerrain(squad)).toBe(false);
 
     expect(target.isReachedBySimulationObject).toHaveBeenCalledTimes(2);
     expect(target.isReachedBySimulationObject).toHaveBeenCalledWith(squad);
@@ -106,6 +106,6 @@ describe("isSquadArrivedToSmartTerrain utility", () => {
 
     squad.currentAction = new SquadStayOnTargetAction(squad);
 
-    expect(isSquadArrivedToSmartTerrain(squad)).toBe(true);
+    expect(isSquadArrivedToTerrain(squad)).toBe(true);
   });
 });

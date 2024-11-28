@@ -10,7 +10,7 @@ import {
   registry,
 } from "@/engine/core/database";
 import { updateObjectMapSpot } from "@/engine/core/managers/map/utils";
-import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
+import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { assert, assertDefined } from "@/engine/core/utils/assertion";
 import {
@@ -21,7 +21,7 @@ import {
   readIniString,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
+import { getObjectTerrain, sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { scriptReleaseMonster } from "@/engine/core/utils/scheme/scheme_monster";
 import {
@@ -135,11 +135,11 @@ export function activateSchemeBySection(
 
   // Assign scheme with smart terrain jobs.
   if (section === null) {
-    const currentSmartTerrain: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+    const currentSmartTerrain: Optional<SmartTerrain> = getObjectTerrain(object);
 
     assert(currentSmartTerrain, "scheme/logic: activate_by_section: section is NIL && NPC !in smart.");
 
-    section = getSmartTerrainJobByObjectId(currentSmartTerrain, object.id())?.section as TSection;
+    section = getTerrainJobByObjectId(currentSmartTerrain, object.id())?.section as TSection;
   }
 
   const scheme: Optional<EScheme> = getSchemeFromSection(section);

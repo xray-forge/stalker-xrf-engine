@@ -109,7 +109,7 @@ describe("SmartTerrain generic logic", () => {
 
     terrain.on_before_register();
 
-    expect(terrain.simulationManager.getSmartTerrainByName(terrain.name())).toBe(terrain);
+    expect(terrain.simulationManager.getTerrainByName(terrain.name())).toBe(terrain);
   });
 
   it("should correctly handle register", () => {
@@ -157,8 +157,8 @@ describe("SmartTerrain generic logic", () => {
 
     expect(registry.storyLink.idBySid.get("test_smart_sid")).toBeNull();
     expect(registry.storyLink.sidById.get(terrain.id)).toBeNull();
-    expect(terrain.simulationManager.getSmartTerrainDescriptor(terrain.id)).toBeNull();
-    expect(terrain.simulationManager.getSmartTerrainByName(terrain.name())).toBeNull();
+    expect(terrain.simulationManager.getTerrainDescriptorById(terrain.id)).toBeNull();
+    expect(terrain.simulationManager.getTerrainByName(terrain.name())).toBeNull();
     expect(terrain.isRegistered).toBe(false);
   });
 

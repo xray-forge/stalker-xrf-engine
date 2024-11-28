@@ -48,7 +48,7 @@ export class Monster extends cse_alife_monster_base {
 
     const terrainName: Optional<TName> = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain");
     const terrain: Optional<SmartTerrain> = terrainName
-      ? getManager(SimulationManager).getSmartTerrainByName(terrainName)
+      ? getManager(SimulationManager).getTerrainByName(terrainName)
       : null;
 
     if (terrain) {

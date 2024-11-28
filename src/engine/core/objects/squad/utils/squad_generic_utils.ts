@@ -29,7 +29,7 @@ export function getSquadMapDisplayHint(squad: Squad): TLabel {
 
     hint += string.format(
       "[smart_terrain]\\nassigned = %s\\n",
-      squad.assignedSmartTerrainId && simulator.object(squad.assignedSmartTerrainId)?.name()
+      squad.assignedTerrainId && simulator.object(squad.assignedTerrainId)?.name()
     );
 
     hint += string.format(

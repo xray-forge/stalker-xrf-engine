@@ -7,7 +7,7 @@ import {
   getDistanceBetween,
   getDistanceBetweenSqr,
   getObjectPositioning,
-  getObjectSmartTerrain,
+  getObjectTerrain,
   getServerDistanceBetween,
   isActorInNoWeaponZone,
   isDistanceBetweenObjectsGreaterOrEqual,
@@ -282,8 +282,8 @@ describe("getObjectSmartTerrain util", () => {
   });
 
   it("should correctly get smart terrain of an object", () => {
-    expect(getObjectSmartTerrain(MockGameObject.mock())).toBeNull();
-    expect(getObjectSmartTerrain(MockAlifeHumanStalker.mock())).toBeNull();
+    expect(getObjectTerrain(MockGameObject.mock())).toBeNull();
+    expect(getObjectTerrain(MockAlifeHumanStalker.mock())).toBeNull();
 
     const terrain: ServerSmartZoneObject = MockAlifeSmartZone.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -291,13 +291,13 @@ describe("getObjectSmartTerrain util", () => {
 
     serverObject.m_smart_terrain_id = terrain.id;
 
-    expect(getObjectSmartTerrain(gameObject)).toBe(terrain);
-    expect(getObjectSmartTerrain(serverObject)).toBe(terrain);
+    expect(getObjectTerrain(gameObject)).toBe(terrain);
+    expect(getObjectTerrain(serverObject)).toBe(terrain);
 
     serverObject.m_smart_terrain_id = 99_999;
 
-    expect(getObjectSmartTerrain(gameObject)).toBeNull();
-    expect(getObjectSmartTerrain(serverObject)).toBeNull();
+    expect(getObjectTerrain(gameObject)).toBeNull();
+    expect(getObjectTerrain(serverObject)).toBeNull();
   });
 });
 

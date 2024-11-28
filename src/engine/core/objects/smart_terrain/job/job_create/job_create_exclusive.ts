@@ -27,31 +27,31 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
  * Create exclusive jobs defined for smart terrain.
  * Handles `exclusive` section in smart terrain ltx file config.
  *
- * @param smartTerrain - target smart terrain to create jobs for
+ * @param terrain - target smart terrain to create jobs for
  * @param jobs - list of jobs to insert new jobs into
  * @returns list of jobs where exclusive jobs are inserted
  */
-export function createExclusiveJobs(smartTerrain: SmartTerrain, jobs: TSmartTerrainJobsList): TSmartTerrainJobsList {
-  const smartTerrainIni: IniFile = smartTerrain.ini;
+export function createExclusiveJobs(terrain: SmartTerrain, jobs: TSmartTerrainJobsList): TSmartTerrainJobsList {
+  const terrainIni: IniFile = terrain.ini;
 
   // No smart terrain jobs configuration in spawn ini.
-  if (!smartTerrainIni.section_exist("smart_terrain")) {
+  if (!terrainIni.section_exist("smart_terrain")) {
     return jobs;
   }
 
-  if (smartTerrainIni.section_exist("exclusive")) {
-    const exclusiveJobsCount: TCount = smartTerrainIni.line_count("exclusive");
+  if (terrainIni.section_exist("exclusive")) {
+    const exclusiveJobsCount: TCount = terrainIni.line_count("exclusive");
 
     for (const i of $range(0, exclusiveJobsCount - 1)) {
-      const [, field] = smartTerrainIni.r_line("exclusive", i, "", "");
+      const [, field] = terrainIni.r_line("exclusive", i, "", "");
 
-      createExclusiveJob(smartTerrainIni, "exclusive", field, jobs);
+      createExclusiveJob(terrainIni, "exclusive", field, jobs);
     }
   } else {
     let index: TIndex = 1;
 
-    while (smartTerrainIni.line_exist("smart_terrain", `work${index}`)) {
-      createExclusiveJob(smartTerrainIni, "smart_terrain", `work${index}`, jobs);
+    while (terrainIni.line_exist("smart_terrain", `work${index}`)) {
+      createExclusiveJob(terrainIni, "smart_terrain", `work${index}`, jobs);
       index += 1;
     }
   }

@@ -100,21 +100,21 @@ export class DebugTeleportSection extends AbstractDebugSection {
   /**
    * Add item to spawn list UI element.
    */
-  public addSmartTerrainToList(smartTerrain: SmartTerrain): void {
-    let smartTerrainName: TName = getSmartTerrainNameCaption(smartTerrain);
+  public addSmartTerrainToList(terrain: SmartTerrain): void {
+    let terrainName: TName = getSmartTerrainNameCaption(terrain);
 
-    if (smartTerrainName.endsWith("smart_terrain_name")) {
-      smartTerrainName = smartTerrainName.replace("smart_terrain_name", "name");
+    if (terrainName.endsWith("smart_terrain_name")) {
+      terrainName = terrainName.replace("smart_terrain_name", "name");
     }
 
     const teleportItem: DebugTeleportListEntry = new DebugTeleportListEntry(
       this.uiItemListMainSize.y,
       this.uiItemListDdSize.x,
-      smartTerrain.name(),
-      string.format("%s - %s", game.translate_string(smartTerrainName), vectorToString(smartTerrain.position)),
-      smartTerrain.position,
-      smartTerrain.m_level_vertex_id,
-      smartTerrain.m_game_vertex_id
+      terrain.name(),
+      string.format("%s - %s", game.translate_string(terrainName), vectorToString(terrain.position)),
+      terrain.position,
+      terrain.m_level_vertex_id,
+      terrain.m_game_vertex_id
     );
 
     teleportItem.SetWndSize(this.uiItemListMainSize);

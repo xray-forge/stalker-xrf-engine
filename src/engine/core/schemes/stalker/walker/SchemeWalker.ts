@@ -27,18 +27,18 @@ export class SchemeWalker extends AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    smartTerrain: TName
+    terrain: TName
   ): ISchemeWalkerState {
     logger.info("Activate scheme: %s", object.name());
 
     const state: ISchemeWalkerState = AbstractScheme.assign(object, ini, scheme, section);
 
     state.logic = getConfigSwitchConditions(ini, section);
-    state.pathWalk = readIniString(ini, section, "path_walk", true, smartTerrain);
+    state.pathWalk = readIniString(ini, section, "path_walk", true, terrain);
 
     assert(level.patrol_path_exists(state.pathWalk), "There is no patrol path %s", state.pathWalk);
 
-    state.pathLook = readIniString(ini, section, "path_look", false, smartTerrain);
+    state.pathLook = readIniString(ini, section, "path_look", false, terrain);
 
     assert(
       state.pathWalk !== state.pathLook,
@@ -47,7 +47,7 @@ export class SchemeWalker extends AbstractScheme {
       object.name()
     );
 
-    state.team = readIniString(ini, section, "team", false, smartTerrain);
+    state.team = readIniString(ini, section, "team", false, terrain);
     state.soundIdle = readIniString(ini, section, "sound_idle", false);
     state.useCamp = readIniBoolean(ini, section, "use_camp", false, false);
 

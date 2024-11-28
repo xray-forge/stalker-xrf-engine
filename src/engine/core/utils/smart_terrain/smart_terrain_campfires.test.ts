@@ -4,7 +4,7 @@ import { registerSmartTerrainCampfire } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
   turnOffSmartTerrainCampfires,
-  turnOnSmartTerrainCampfires,
+  turnOnTerrainCampfires,
 } from "@/engine/core/utils/smart_terrain/smart_terrain_campfires";
 import { GameObject, ZoneCampfire } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
@@ -28,7 +28,7 @@ describe("turnOnSmartTerrainCampfires/turnOffSmartTerrainCampfires utils", () =>
     expect(third.is_on()).toBe(true);
     expect(fourth.is_on()).toBe(false);
 
-    turnOnSmartTerrainCampfires(terrain);
+    turnOnTerrainCampfires(terrain);
 
     expect(terrain.areCampfiresOn).toBe(true);
     expect(first.is_on()).toBe(true);
@@ -48,7 +48,7 @@ describe("turnOnSmartTerrainCampfires/turnOffSmartTerrainCampfires utils", () =>
     expect(first.is_on()).toBe(false);
     expect(second.is_on()).toBe(false);
 
-    turnOnSmartTerrainCampfires(terrain);
+    turnOnTerrainCampfires(terrain);
 
     expect(terrain.areCampfiresOn).toBe(true);
     expect(first.is_on()).toBe(true);

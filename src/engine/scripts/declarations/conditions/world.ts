@@ -133,9 +133,8 @@ extern(
       return abort("Wrong status '%s' in 'check_smart_alarm_status' condition.", status);
     }
 
-    const terrainControl: Optional<SmartTerrainControl> = getManager(SimulationManager).getSmartTerrainByName(
-      terrainName
-    )?.terrainControl as Optional<SmartTerrainControl>;
+    const terrainControl: Optional<SmartTerrainControl> = getManager(SimulationManager).getTerrainByName(terrainName)
+      ?.terrainControl as Optional<SmartTerrainControl>;
 
     if (!terrainControl) {
       return abort("Cannot calculate 'check_smart_alarm_status' for terrain '%s'.", terrainName);

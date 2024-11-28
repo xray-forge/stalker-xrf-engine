@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { registerActorServer, registerSimulator, registerSmartCover } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { createSmartTerrainJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create";
+import { createTerrainJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create";
 import {
   jobPreconditionAnimpoint,
   jobPreconditionCamper,
@@ -50,7 +50,7 @@ describe("jobs_create", () => {
     registerSmartCover(cover);
     terrain.on_register();
 
-    const [jobsList, ltxConfig, ltxName] = createSmartTerrainJobs(terrain);
+    const [jobsList, ltxConfig, ltxName] = createTerrainJobs(terrain);
 
     expect(ltxName).toBe("*test_smart");
     expect((ltxConfig as unknown as MockIniFile).content).toBe(defaultJobsLtx);
@@ -232,7 +232,7 @@ describe("jobs_create", () => {
 
     terrain.on_register();
 
-    const [jobsList, ltx, ltxName] = createSmartTerrainJobs(terrain);
+    const [jobsList, ltx, ltxName] = createTerrainJobs(terrain);
 
     expect(ltxName).toBe("*test_smart_empty");
     expect((ltx as unknown as MockIniFile).content).toBe(emptyJobsLtx);

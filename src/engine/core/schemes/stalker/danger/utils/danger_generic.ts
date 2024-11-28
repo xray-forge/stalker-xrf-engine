@@ -162,14 +162,10 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
       const zone: Optional<GameObject> = registry.zones.get(name);
 
       if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
-        const smartTerrain: Optional<SmartTerrain> = simulationManager.getSmartTerrainByName(storyId);
+        const terrain: Optional<SmartTerrain> = simulationManager.getTerrainByName(storyId);
 
         // Still allow combat if zone is set to alarm.
-        if (
-          smartTerrain &&
-          smartTerrain.terrainControl !== null &&
-          smartTerrain.terrainControl.status !== ESmartTerrainStatus.ALARM
-        ) {
+        if (terrain && terrain.terrainControl !== null && terrain.terrainControl.status !== ESmartTerrainStatus.ALARM) {
           return false;
         }
       }

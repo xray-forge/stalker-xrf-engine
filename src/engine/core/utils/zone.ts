@@ -14,17 +14,13 @@ import { GameObject, Optional, ServerObject, TRate } from "@/engine/lib/types";
 export function isInNoCombatZone(object: ServerObject): boolean {
   const simulationManager: SimulationManager = getManager(SimulationManager);
 
-  for (const [zoneName, smartTerrainName] of registry.noCombatZones) {
+  for (const [zoneName, terrainName] of registry.noCombatZones) {
     const zone: Optional<GameObject> = registry.zones.get(zoneName);
 
     if (zone && zone.inside(object.position)) {
-      const smartTerrain: Optional<SmartTerrain> = simulationManager.getSmartTerrainByName(smartTerrainName);
+      const terrain: Optional<SmartTerrain> = simulationManager.getTerrainByName(terrainName);
 
-      if (
-        smartTerrain &&
-        smartTerrain.terrainControl &&
-        smartTerrain.terrainControl.status !== ESmartTerrainStatus.ALARM
-      ) {
+      if (terrain && terrain.terrainControl && terrain.terrainControl.status !== ESmartTerrainStatus.ALARM) {
         return true;
       }
     }
@@ -41,15 +37,13 @@ export function isInNoCombatZone(object: ServerObject): boolean {
  */
 export function isInNoWeaponBase(squad: Squad): boolean {
   // todo: Should be u16 max checks?
-  if (!squad.assignedSmartTerrainId) {
+  if (!squad.assignedTerrainId) {
     return false;
   }
 
-  const assignedSmartTerrain: SmartTerrain = registry.simulator.object(squad.assignedSmartTerrainId) as SmartTerrain;
-  const smartTerrainBaseProperties: Optional<TRate> = assignedSmartTerrain.simulationProperties?.get(
-    ESimulationTerrainRole.BASE
-  );
+  const assignedTerrain: SmartTerrain = registry.simulator.object(squad.assignedTerrainId) as SmartTerrain;
+  const terrainBaseProperties: Optional<TRate> = assignedTerrain.simulationProperties?.get(ESimulationTerrainRole.BASE);
 
   // Squad is in a base type terrain.
-  return smartTerrainBaseProperties !== null && smartTerrainBaseProperties > 0;
+  return terrainBaseProperties !== null && terrainBaseProperties > 0;
 }

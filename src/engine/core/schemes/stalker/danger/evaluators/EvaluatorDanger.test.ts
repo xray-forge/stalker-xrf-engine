@@ -7,7 +7,7 @@ import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators/EvaluatorDanger";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
-import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
+import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { ActionPlanner, DangerObject, EScheme, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockSchemeState, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
@@ -21,7 +21,7 @@ describe("EvaluatorDanger", () => {
     resetRegistry();
     registerSimulator();
     resetFunctionMock(isObjectFacingDanger);
-    resetFunctionMock(startSmartTerrainAlarm);
+    resetFunctionMock(startTerrainAlarm);
 
     jest.spyOn(Date, "now").mockImplementation(() => 60_000);
   });
@@ -41,14 +41,14 @@ describe("EvaluatorDanger", () => {
 
     expect(evaluator.evaluate()).toBe(true);
     expect(state.dangerTime).toBeUndefined();
-    expect(startSmartTerrainAlarm).not.toHaveBeenCalled();
+    expect(startTerrainAlarm).not.toHaveBeenCalled();
 
     jest.spyOn(planner, "initialized").mockImplementation(() => true);
     jest.spyOn(planner, "current_action_id").mockImplementation(() => EActionId.DANGER);
 
     expect(evaluator.evaluate()).toBe(true);
     expect(state.dangerTime).toBe(16_000);
-    expect(startSmartTerrainAlarm).not.toHaveBeenCalled();
+    expect(startTerrainAlarm).not.toHaveBeenCalled();
   });
 
   it("should correctly handle checks when facing danger with smart terrain", () => {
@@ -68,7 +68,7 @@ describe("EvaluatorDanger", () => {
     evaluator.setup(object, MockPropertyStorage.mock());
 
     expect(evaluator.evaluate()).toBe(true);
-    expect(startSmartTerrainAlarm).toHaveBeenCalledWith(terrain);
+    expect(startTerrainAlarm).toHaveBeenCalledWith(terrain);
   });
 
   it("should correctly handle checks when there is no danger", () => {

@@ -124,13 +124,13 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       return false;
     }
 
-    for (const [zoneName, smartName] of registry.noCombatZones) {
+    for (const [zoneName, terrainName] of registry.noCombatZones) {
       const zone: Optional<GameObject> = registry.zones.get(zoneName);
 
       if (zone?.inside(this.position)) {
-        const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(smartName);
+        const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getTerrainByName(terrainName);
 
-        if (smartTerrain && smartTerrain.terrainControl?.status !== ESmartTerrainStatus.ALARM) {
+        if (terrain && terrain.terrainControl?.status !== ESmartTerrainStatus.ALARM) {
           return false;
         }
       }
@@ -140,13 +140,13 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       return true;
     }
 
-    const activeSmartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(
+    const activeTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(
       registry.activeSmartTerrainId
     ) as SmartTerrain;
 
     if (
-      activeSmartTerrain.terrainControl?.status === ESmartTerrainStatus.NORMAL &&
-      registry.zones.get(activeSmartTerrain.terrainControl.noWeaponZone)?.inside(this.position)
+      activeTerrain.terrainControl?.status === ESmartTerrainStatus.NORMAL &&
+      registry.zones.get(activeTerrain.terrainControl.noWeaponZone)?.inside(this.position)
     ) {
       return false;
     }
@@ -180,6 +180,6 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       softResetOfflineObject(squadMember.id);
     }
 
-    getManager(SimulationManager).assignSquadToSmartTerrain(squad, null);
+    getManager(SimulationManager).assignSquadToTerrain(squad, null);
   }
 }

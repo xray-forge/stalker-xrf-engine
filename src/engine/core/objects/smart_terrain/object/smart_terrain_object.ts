@@ -8,17 +8,17 @@ import { GameGraphVertex, GameObject, Optional, ServerCreatureObject, Vector } f
 
 /**
  * @param object - server object to check
- * @param smartTerrain - target smart terrain to check reached state
+ * @param terrain - target smart terrain to check reached state
  * @returns whether object has arrived to the smart terrain
  */
-export function isObjectArrivedToSmartTerrain(object: ServerCreatureObject, smartTerrain: SmartTerrain): boolean {
+export function isObjectArrivedToTerrain(object: ServerCreatureObject, terrain: SmartTerrain): boolean {
   // Do squad based checks for object if possible.
   // todo: Check max u16 instead?
   const squad: Optional<Squad> =
-    object.group_id === null ? null : smartTerrain.simulationManager.getSquads().get(object.group_id);
+    object.group_id === null ? null : terrain.simulationManager.getSquads().get(object.group_id);
 
   if (squad) {
-    const isSquadArrived: Optional<boolean> = isSquadArrivedToSmartTerrain(squad);
+    const isSquadArrived: Optional<boolean> = isSquadArrivedToTerrain(squad);
 
     // When sure about squad status, return it.
     // Check object otherwise.
@@ -28,7 +28,7 @@ export function isObjectArrivedToSmartTerrain(object: ServerCreatureObject, smar
   }
 
   const graph: CGameGraph = game_graph();
-  const smartTerrainGameVertex: GameGraphVertex = graph.vertex(smartTerrain.m_game_vertex_id);
+  const smartTerrainGameVertex: GameGraphVertex = graph.vertex(terrain.m_game_vertex_id);
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id) as Optional<IRegistryObjectState>;
 
   let objectGameVertex: GameGraphVertex;
@@ -47,7 +47,7 @@ export function isObjectArrivedToSmartTerrain(object: ServerCreatureObject, smar
 
   return (
     objectGameVertex.level_id() === smartTerrainGameVertex.level_id() &&
-    objectPosition.distance_to_sqr(smartTerrain.position) <= 10_000 // 100 * 100
+    objectPosition.distance_to_sqr(terrain.position) <= 10_000 // 100 * 100
   );
 }
 
@@ -55,7 +55,7 @@ export function isObjectArrivedToSmartTerrain(object: ServerCreatureObject, smar
  * @param squad - squad object to check
  * @returns whether object has arrived to the smart terrain
  */
-export function isSquadArrivedToSmartTerrain(squad: Squad): Optional<boolean> {
+export function isSquadArrivedToTerrain(squad: Squad): Optional<boolean> {
   switch (squad.currentAction?.type) {
     case ESquadActionType.REACH_TARGET: {
       const squadTarget: TSimulationObject =

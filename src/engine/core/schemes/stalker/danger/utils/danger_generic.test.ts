@@ -196,7 +196,7 @@ describe("canObjectSelectAsEnemy util", () => {
 
     registry.zones.set("zat_a2_sr_no_assault", noCombatZone);
     jest.spyOn(noCombatZone, "inside").mockImplementation(() => true);
-    getManager(SimulationManager).registerSmartTerrain(noCombatSmart as SmartTerrain);
+    getManager(SimulationManager).registerTerrain(noCombatSmart as SmartTerrain);
 
     (noCombatSmart as SmartTerrain).terrainControl = {
       status: ESmartTerrainStatus.NORMAL,

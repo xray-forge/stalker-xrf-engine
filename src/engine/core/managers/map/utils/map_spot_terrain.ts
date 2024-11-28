@@ -92,7 +92,7 @@ export function getTerrainMapSpotHint(terrain: SmartTerrain): TLabel {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
     const terrainDescriptor: ISmartTerrainDescriptor = (
       getManagerByName<SimulationManager>("SimulationManager") as SimulationManager
-    ).getSmartTerrainDescriptor(terrain.id)!;
+    ).getTerrainDescriptorById(terrain.id)!;
 
     let caption: TLabel = string.format(
       "[%s] (%s) (%s)\\navailable = %s\\nonline = %s\\nsimulation_role = %s\\nsquad_id = %s\\ncapacity = %s\\%s\\n",

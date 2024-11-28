@@ -245,7 +245,7 @@ describe("world conditions implementation", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
     const manager: SimulationManager = getManager(SimulationManager);
 
-    manager.registerSmartTerrain(terrain);
+    manager.registerTerrain(terrain);
 
     expect(() => {
       return callXrCondition("check_smart_alarm_status", MockGameObject.mockActor(), MockGameObject.mock());

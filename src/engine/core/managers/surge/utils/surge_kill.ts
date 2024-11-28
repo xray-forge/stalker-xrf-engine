@@ -28,11 +28,11 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: Description.
  */
 export function killAllSurgeUnhiddenAfterActorDeath(): void {
-  const simulationBoardManager: SimulationManager = getManager(SimulationManager);
+  const simulationManager: SimulationManager = getManager(SimulationManager);
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
-  for (const [, squad] of simulationBoardManager.getSquads()) {
+  for (const [, squad] of simulationManager.getSquads()) {
     if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeSquad(squad)) {
       for (const member of squad.squad_members()) {
         let isInSurgeCover: boolean = false;
@@ -90,13 +90,13 @@ export function killAllSurgeUnhidden(): void {
     }
   }
 
-  const simulationBoardManager: SimulationManager = getManager(SimulationManager);
+  const simulationManager: SimulationManager = getManager(SimulationManager);
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
   logger.info("Killing squads");
 
-  for (const [, squad] of simulationBoardManager.getSquads()) {
+  for (const [, squad] of simulationManager.getSquads()) {
     if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeSquad(squad) && !isStoryObject(squad)) {
       for (const member of squad.squad_members()) {
         if (!isStoryObject(member.object)) {

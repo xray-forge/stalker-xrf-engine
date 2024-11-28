@@ -6,13 +6,13 @@ import { Optional, TNumberId, ZoneCampfire } from "@/engine/lib/types";
 /**
  * Turn on smart terrain camp fires.
  *
- * @param smartTerrain - terrain to turn on linked campfires
+ * @param terrain - terrain to turn on linked campfires
  */
-export function turnOnSmartTerrainCampfires(smartTerrain: SmartTerrain): void {
-  // logger.format("Turn on campfires for: %s", smartTerrain.name());
+export function turnOnTerrainCampfires(terrain: SmartTerrain): void {
+  // logger.format("Turn on campfires for: %s", terrain.name());
 
   const smartTerrainCampfires: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
-    smartTerrain.name()
+    terrain.name()
   );
 
   if (!isEmpty(smartTerrainCampfires)) {
@@ -23,19 +23,19 @@ export function turnOnSmartTerrainCampfires(smartTerrain: SmartTerrain): void {
     }
   }
 
-  smartTerrain.areCampfiresOn = true;
+  terrain.areCampfiresOn = true;
 }
 
 /**
  * Turn off smart terrain camp fires.
  *
- * @param smartTerrain - terrain to turn off linked campfires
+ * @param terrain - terrain to turn off linked campfires
  */
-export function turnOffSmartTerrainCampfires(smartTerrain: SmartTerrain): void {
-  // logger.format("Turn off campfires for: %s", smartTerrain.name());
+export function turnOffSmartTerrainCampfires(terrain: SmartTerrain): void {
+  // logger.format("Turn off campfires for: %s", terrain.name());
 
   const smartTerrainCampfires: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
-    smartTerrain.name()
+    terrain.name()
   );
 
   if (!isEmpty(smartTerrainCampfires)) {
@@ -46,5 +46,5 @@ export function turnOffSmartTerrainCampfires(smartTerrain: SmartTerrain): void {
     }
   }
 
-  smartTerrain.areCampfiresOn = false;
+  terrain.areCampfiresOn = false;
 }

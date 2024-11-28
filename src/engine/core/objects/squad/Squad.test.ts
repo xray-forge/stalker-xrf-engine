@@ -179,7 +179,7 @@ describe("Squad object", () => {
     squad.onSimulationTargetSelected(chaser);
 
     expect(chaser.setLocationTypes).toHaveBeenCalled();
-    expect(simulationManager.assignSquadToSmartTerrain).toHaveBeenCalledWith(chaser, null);
+    expect(simulationManager.assignSquadToTerrain).toHaveBeenCalledWith(chaser, null);
     expect(registry.offlineObjects.length()).toBe(1);
     expect(registry.offlineObjects.get(first.id)).toEqual({ levelVertexId: null, activeSection: null });
   });

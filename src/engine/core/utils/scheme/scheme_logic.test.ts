@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/database";
 import { updateObjectMapSpot } from "@/engine/core/managers/map/utils";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
+import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death";
 import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit";
@@ -189,21 +189,21 @@ describe("activateSchemeBySection util", () => {
     const object: GameObject = MockGameObject.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock({ id: object.id() });
     const state: IRegistryObjectState = registerObject(object);
-    const smartTerrain: SmartTerrain = new SmartTerrain("smart_terrain");
+    const terrain: SmartTerrain = new SmartTerrain("smart_terrain");
 
     registerActor(MockGameObject.mock());
 
     MockAlifeSimulator.addToRegistry(serverObject);
-    MockAlifeSimulator.addToRegistry(smartTerrain);
+    MockAlifeSimulator.addToRegistry(terrain);
 
-    serverObject.m_smart_terrain_id = smartTerrain.id;
+    serverObject.m_smart_terrain_id = terrain.id;
 
     loadGenericSchemes();
     loadSchemeImplementation(SchemePatrol);
 
     jest.spyOn(SchemePatrol, "activate").mockImplementation(() => mockSchemeState(EScheme.PATROL));
 
-    replaceFunctionMock(getSmartTerrainJobByObjectId, () => ({ section: "patrol@test" }) as ISmartTerrainJobDescriptor);
+    replaceFunctionMock(getTerrainJobByObjectId, () => ({ section: "patrol@test" }) as ISmartTerrainJobDescriptor);
 
     const ini: IniFile = MockIniFile.mock("test.ltx", {
       "patrol@test": {},

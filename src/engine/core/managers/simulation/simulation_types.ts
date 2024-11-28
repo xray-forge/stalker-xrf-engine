@@ -9,18 +9,9 @@ import { ALifeSmartTerrainTask, Optional, PartialRecord, TCount, TName, TNumberI
  * Smart terrain details descriptor for alife participation.
  */
 export interface ISmartTerrainDescriptor {
-  smartTerrain: SmartTerrain;
+  terrain: SmartTerrain;
   assignedSquads: LuaTable<TNumberId, Squad>;
   assignedSquadsCount: TCount;
-}
-
-/**
- * Descriptor of faction participating in alife.
- */
-export interface ISimulationFactionDescriptor {
-  id: TNumberId;
-  name: TCommunity;
-  isCommunity: boolean;
 }
 
 /**
