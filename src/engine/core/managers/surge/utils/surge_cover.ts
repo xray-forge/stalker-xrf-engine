@@ -1,7 +1,8 @@
 import { level } from "xray16";
 
-import { getManager, registry } from "@/engine/core/database";
-import { ESimulationTerrainRole, SimulationManager } from "@/engine/core/managers/simulation";
+import { registry } from "@/engine/core/database";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { SURGE_MANAGER_CONFIG_LTX, surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
@@ -27,13 +28,11 @@ export function isActorInSurgeCover(): boolean {
  * @param squad
  */
 export function canSurgeKillSquad(squad: Squad): boolean {
-  const simulationManager: SimulationManager = getManager(SimulationManager);
-
   if (!squad.assignedTerrainId) {
     return false;
   }
 
-  const terrain: Optional<SmartTerrain> = simulationManager.getTerrainDescriptorById(squad.assignedTerrainId)
+  const terrain: Optional<SmartTerrain> = getSimulationTerrainDescriptorById(squad.assignedTerrainId)
     ?.terrain as Optional<SmartTerrain>;
 
   return terrain !== null && tonumber(terrain.simulationProperties.get(ESimulationTerrainRole.SURGE))! <= 0;

@@ -44,6 +44,12 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
     }
   }
 
+  public addMember(): void {}
+
+  public assignToTerrain(): void {}
+
+  public getScriptedSimulationTarget(): void {}
+
   public add_location_type = jest.fn(() => {});
 
   public clear_location_types = jest.fn(() => {});

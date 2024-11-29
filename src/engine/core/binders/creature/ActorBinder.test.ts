@@ -12,7 +12,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save";
-import { TSimulationObject } from "@/engine/core/managers/simulation";
+import { TSimulationObject } from "@/engine/core/managers/simulation/simulation_types";
 import { ISchemeDeimosState, SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";

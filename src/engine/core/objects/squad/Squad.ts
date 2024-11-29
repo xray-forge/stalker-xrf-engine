@@ -3,7 +3,6 @@ import { CALifeSmartTerrainTask, cse_alife_online_offline_group, LuabindClass } 
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getManager,
   openLoadMarker,
   openSaveMarker,
   registerObjectStoryLinks,
@@ -17,14 +16,24 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
+import { simulationActivities } from "@/engine/core/managers/simulation/simulation_activities";
 import {
   ESimulationTerrainRole,
   ISimulationTarget,
-  simulationActivities,
   TSimulationObject,
-} from "@/engine/core/managers/simulation";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { getSquadSimulationTarget } from "@/engine/core/managers/simulation/utils";
+} from "@/engine/core/managers/simulation/simulation_types";
+import {
+  getSimulationTerrainByName,
+  getSimulationTerrainDescriptorById,
+  getSimulationTerrains,
+} from "@/engine/core/managers/simulation/utils/simulation_data";
+import { getSquadSimulationTarget } from "@/engine/core/managers/simulation/utils/simulation_priority";
+import {
+  assignSimulationSquadToTerrain,
+  registerSimulationSquad,
+  releaseSimulationSquad,
+  unRegisterSimulationSquad,
+} from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
@@ -77,7 +86,6 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
  */
 @LuabindClass()
 export class Squad extends cse_alife_online_offline_group implements ISimulationTarget {
-  public readonly simulationManager: SimulationManager = getManager(SimulationManager);
   public readonly storyManager: StoryManager = getStoryManager(`squad_${this.section_name()}`);
 
   public isSimulationAvailableConditionList: TConditionList = parseConditionsList(TRUE);
@@ -309,7 +317,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     logger.info("Initialize squad on load: %s", this.name());
 
     this.updateSympathy();
-    this.simulationManager.assignSquadToTerrain(this, this.assignedTerrainId);
+    assignSimulationSquadToTerrain(this, this.assignedTerrainId);
     this.isLocationMasksResetNeeded = true;
 
     closeLoadMarker(packet, Squad.__name);
@@ -318,8 +326,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public override on_register(): void {
     super.on_register();
 
-    this.simulationManager.registerSquad(this);
-
+    registerSimulationSquad(this);
     registerObjectStoryLinks(this);
     registerSimulationObject(this);
 
@@ -332,8 +339,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     unregisterStoryLinkByObjectId(this.id);
     unregisterSimulationObject(this);
 
-    this.simulationManager.unRegisterSquad(this);
-    this.simulationManager.assignSquadToTerrain(this, null);
+    unRegisterSimulationSquad(this);
+    assignSimulationSquadToTerrain(this, null);
 
     // todo: Method for smart terrain onSpawnedSquadKilled.
     if (this.respawnPointId !== null) {
@@ -409,7 +416,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       nextTargetName = this.parsedTargets.get(this.nextTargetIndex as TNumberId);
     }
 
-    return (this.simulationManager.getTerrainByName(nextTargetName) as SmartTerrain).id;
+    return (getSimulationTerrainByName(nextTargetName) as SmartTerrain).id;
   }
 
   /**
@@ -510,9 +517,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         oldTerrainId !== null &&
         oldTerrainId !== MAX_ALIFE_ID &&
         object.m_smart_terrain_id === oldTerrainId &&
-        this.simulationManager.getTerrainDescriptorById(oldTerrainId)
+        getSimulationTerrainDescriptorById(oldTerrainId)
       ) {
-        this.simulationManager.getTerrainDescriptorById(oldTerrainId)!.terrain.unregister_npc(object);
+        // todo: Simplify IF with .? operator.
+        getSimulationTerrainDescriptorById(oldTerrainId)!.terrain.unregister_npc(object);
       }
 
       if (terrain) {
@@ -567,7 +575,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         this.setLocationTypesMaskFromSection(newLocationSection);
       }
     } else {
-      for (const [terrainName, terrain] of this.simulationManager.getTerrains()) {
+      for (const [terrainName, terrain] of getSimulationTerrains()) {
         const baseRate: Optional<TRate> = terrain.simulationProperties.get(ESimulationTerrainRole.BASE);
 
         if (baseRate && baseRate !== 0) {
@@ -668,7 +676,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         pickSectionFromCondList(registry.actor, this, this.deathConditionList);
       }
 
-      this.simulationManager.releaseSquad(this);
+      releaseSimulationSquad(this);
     } else {
       // Synchronize squad map spot to correctly display leader.
       updateSquadMapSpot(this);
@@ -728,6 +736,6 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       softResetOfflineObject(member.id);
     }
 
-    this.simulationManager.assignSquadToTerrain(squad, null);
+    assignSimulationSquadToTerrain(squad, null);
   }
 }

@@ -8,7 +8,10 @@ import {
   isStoryObjectExisting,
   registry,
 } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import {
+  getSimulationTerrainByName,
+  getSimulationTerrainDescriptorById,
+} from "@/engine/core/managers/simulation/utils";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
@@ -214,7 +217,7 @@ extern(
   "xr_conditions.is_obj_on_job",
   (_: GameObject, object: GameObject, [section, terrainName]: [TSection, Optional<TName>]): boolean => {
     const terrain: Optional<SmartTerrain> = terrainName
-      ? getManager(SimulationManager).getTerrainByName(terrainName)
+      ? getSimulationTerrainByName(terrainName)
       : getObjectTerrain(object);
 
     if (!terrain) {
@@ -675,7 +678,7 @@ extern("xr_conditions.squad_has_enemy", (_: GameObject, __: GameObject, [storyId
  * todo: use generic condition?
  */
 extern("xr_conditions.squads_in_zone_b41", (): boolean => {
-  const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getTerrainByName("jup_b41");
+  const terrain: Optional<SmartTerrain> = getSimulationTerrainByName("jup_b41");
   const zone: Optional<GameObject> = registry.zones.get("jup_b41_sr_light");
 
   if (zone === null) {
@@ -686,7 +689,7 @@ extern("xr_conditions.squads_in_zone_b41", (): boolean => {
     return false;
   }
 
-  for (const [k, v] of getManager(SimulationManager).getTerrainDescriptorById(terrain.id)!.assignedSquads) {
+  for (const [k, v] of getSimulationTerrainDescriptorById(terrain.id)!.assignedSquads) {
     if (v !== null) {
       for (const j of v.squad_members()) {
         if (!zone.inside(j.object.position)) {

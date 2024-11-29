@@ -1,7 +1,12 @@
 import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation";
+import {
+  assignSimulationSquadToTerrain,
+  createSimulationSquad,
+  getSimulationTerrainAssignedSquadsCount,
+  setupSimulationObjectSquadAndGroup,
+} from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { Squad } from "@/engine/core/objects/squad";
@@ -97,21 +102,13 @@ export function respawnSmartTerrainSquad(terrain: SmartTerrain): Optional<Squad>
     return null;
   }
 
-  const simulationManager: SimulationManager = terrain.simulationManager;
   const spawnSection: TSection = table.random(availableSections)[1];
   const squadSection: TSection = table.random(terrain.spawnSquadsConfiguration.get(spawnSection).squads)[1];
 
-  const squad: Squad = simulationManager.createSquad(terrain, squadSection);
+  const squad: Squad = createSimulationSquad(terrain, squadSection);
 
   squad.respawnPointId = terrain.id;
   squad.respawnPointSection = spawnSection;
-
-  simulationManager.assignSquadToTerrain(squad, terrain.id);
-
-  // Is it duplicated with create squad method? Should we do it twice?
-  for (const squadMember of squad.squad_members()) {
-    simulationManager.setupObjectSquadAndGroup(squadMember.object);
-  }
 
   terrain.spawnedSquadsList.get(spawnSection).num += 1;
 
@@ -138,7 +135,7 @@ export function canRespawnSmartTerrainSquad(terrain: SmartTerrain): boolean {
 
   return (
     pickSectionFromCondList(registry.actor, terrain, terrain.isSimulationAvailableConditionList) === TRUE &&
-    terrain.simulationManager.getTerrainAssignedSquadsCount(terrain.id) < terrain.maxStayingSquadsCount &&
+    getSimulationTerrainAssignedSquadsCount(terrain.id) < terrain.maxStayingSquadsCount &&
     registry.actorServer.position.distance_to_sqr(terrain.position) > smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR
   );
 }

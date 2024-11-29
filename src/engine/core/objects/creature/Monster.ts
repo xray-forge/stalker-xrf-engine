@@ -1,7 +1,6 @@
 import { cse_alife_monster_base, level, LuabindClass } from "xray16";
 
 import {
-  getManager,
   IRegistryOfflineState,
   registerObjectStoryLinks,
   registerOfflineObject,
@@ -10,7 +9,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
@@ -47,9 +46,7 @@ export class Monster extends cse_alife_monster_base {
     this.brain().can_choose_alife_tasks(false);
 
     const terrainName: Optional<TName> = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain");
-    const terrain: Optional<SmartTerrain> = terrainName
-      ? getManager(SimulationManager).getTerrainByName(terrainName)
-      : null;
+    const terrain: Optional<SmartTerrain> = terrainName ? getSimulationTerrainByName(terrainName) : null;
 
     if (terrain) {
       registry.simulator.object<SmartTerrain>(terrain.id)!.register_npc(this);

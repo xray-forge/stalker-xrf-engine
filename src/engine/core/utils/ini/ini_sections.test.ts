@@ -22,6 +22,7 @@ describe("getSectionsWithoutStoryIDs util", () => {
     expect(all).toEqualLuaArrays([
       "test_squad",
       "simulation_stalker",
+      "simulation_stalker_squad",
       "stalker_sim_squad_novice",
       "simulation_bandit",
       "simulation_duty_1",
@@ -49,6 +50,7 @@ describe("getSimulationGroupSections util", () => {
     expect(getSimulationGroupSections()).toEqualLuaArrays([
       "test_squad",
       "simulation_stalker",
+      "simulation_stalker_squad",
       "stalker_sim_squad_novice",
       "simulation_bandit",
       "simulation_duty_1",

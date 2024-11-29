@@ -1,7 +1,6 @@
 import { cse_alife_human_stalker, level, LuabindClass } from "xray16";
 
 import {
-  getManager,
   IRegistryOfflineState,
   registerObjectStoryLinks,
   registerOfflineObject,
@@ -10,7 +9,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { assert } from "@/engine/core/utils/assertion";
@@ -58,10 +57,8 @@ export class Stalker extends cse_alife_human_stalker {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const simulationManager: SimulationManager = getManager(SimulationManager);
-
     const terrainName: TName = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain", false, null, "");
-    const terrain: Optional<SmartTerrain> = simulationManager.getTerrainByName(terrainName);
+    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
     if (terrain) {
       terrain.register_npc(this);

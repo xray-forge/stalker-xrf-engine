@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator, registerZone } from "@/engine/core/database";
-import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { GameObject, ServerHumanObject } from "@/engine/lib/types";
@@ -68,7 +69,7 @@ describe("isInNoWeaponBase util", () => {
     const squad: MockSquad = MockSquad.mock();
     const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
 
-    terrain.simulationManager.assignSquadToTerrain(squad, terrain.id);
+    assignSimulationSquadToTerrain(squad, terrain.id);
     expect(isInNoWeaponBase(squad)).toBe(false);
 
     terrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);

@@ -3,16 +3,63 @@ import { patrol } from "xray16";
 
 import { registerSimulator, SYSTEM_INI } from "@/engine/core/database";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
-import { createSquadMembers } from "@/engine/core/objects/squad/creation/squad_creation";
+import { getSimulationSquads } from "@/engine/core/managers/simulation/utils/simulation_data";
+import { destroySimulationData } from "@/engine/core/managers/simulation/utils/simulation_initialization";
+import {
+  createSimulationSquadMembers,
+  registerSimulationSquad,
+  unRegisterSimulationSquad,
+} from "@/engine/core/managers/simulation/utils/simulation_squads";
+import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
-import { Patrol, ServerCreatureObject } from "@/engine/lib/types";
+import { Patrol, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIniFile } from "@/fixtures/xray";
 
-jest.mock("@/engine/core/managers/map/utils");
+jest.mock("@/engine/core/managers/map/utils/map_spot_squad");
 
-describe("createSquadMembers util", () => {
+describe("registerSimulationSquad / unRegisterSimulationSquad util", () => {
+  beforeEach(() => {
+    resetRegistry();
+    registerSimulator();
+    destroySimulationData();
+  });
+
+  it("should correctly register and unregister squads", () => {
+    mockRegisteredActor();
+
+    expect(getSimulationSquads().length()).toBe(0);
+
+    const first: Squad = MockSquad.mockRegistered();
+    const second: Squad = MockSquad.mockRegistered();
+    const squads: LuaTable<TNumberId, Squad> = getSimulationSquads();
+
+    expect(squads.length()).toBe(2);
+    expect(squads.get(first.id)).toBe(first);
+    expect(squads.get(second.id)).toBe(second);
+
+    unRegisterSimulationSquad(first);
+
+    expect(squads.length()).toBe(1);
+    expect(squads.get(second.id)).toBe(second);
+
+    unRegisterSimulationSquad(second);
+
+    expect(squads.length()).toBe(0);
+
+    registerSimulationSquad(first);
+
+    expect(squads.length()).toBe(1);
+    expect(squads.get(first.id)).toBe(first);
+  });
+});
+
+describe("createSimulationSquad util", () => {
+  it.todo("should correctly create squads for terrains");
+});
+
+describe("createSimulationSquadMembers util", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -28,7 +75,7 @@ describe("createSquadMembers util", () => {
     const squad: MockSquad = MockSquad.mock({ section: "test_squad_without_members" });
     const terrain: MockSmartTerrain = MockSmartTerrain.mock();
 
-    expect(() => createSquadMembers(squad, terrain)).toThrow(
+    expect(() => createSimulationSquadMembers(squad, terrain)).toThrow(
       "Unexpected attempt to spawn an empty squad 'test_squad_without_members'."
     );
   });
@@ -44,7 +91,7 @@ describe("createSquadMembers util", () => {
 
     jest.spyOn(squad, "addMember").mockImplementation(jest.fn(() => null as unknown as ServerCreatureObject));
 
-    createSquadMembers(squad, terrain);
+    createSimulationSquadMembers(squad, terrain);
 
     expect(squad.assignedTerrainId).toBe(terrain.id);
     expect(updateSquadMapSpot).toHaveBeenCalledWith(squad);
@@ -79,7 +126,7 @@ describe("createSquadMembers util", () => {
 
     jest.spyOn(squad, "addMember").mockImplementation(jest.fn(() => null as unknown as ServerCreatureObject));
 
-    createSquadMembers(squad, terrain);
+    createSimulationSquadMembers(squad, terrain);
 
     expect(squad.assignedTerrainId).toBe(terrain.id);
     expect(updateSquadMapSpot).toHaveBeenCalledWith(squad);
@@ -112,7 +159,7 @@ describe("createSquadMembers util", () => {
 
     jest.spyOn(squad, "addMember").mockImplementation(jest.fn(() => null as unknown as ServerCreatureObject));
 
-    createSquadMembers(squad, terrain);
+    createSimulationSquadMembers(squad, terrain);
 
     expect(squad.assignedTerrainId).toBe(terrain.id);
     expect(updateSquadMapSpot).toHaveBeenCalledWith(squad);
@@ -144,7 +191,7 @@ describe("createSquadMembers util", () => {
 
     jest.spyOn(squad, "addMember").mockImplementation(jest.fn(() => null as unknown as ServerCreatureObject));
 
-    createSquadMembers(squad, terrain);
+    createSimulationSquadMembers(squad, terrain);
 
     expect(squad.assignedTerrainId).toBe(terrain.id);
     expect(updateSquadMapSpot).toHaveBeenCalledWith(squad);
@@ -182,8 +229,20 @@ describe("createSquadMembers util", () => {
 
     jest.spyOn(squad, "addMember").mockImplementation(jest.fn(() => null as unknown as ServerCreatureObject));
 
-    expect(() => createSquadMembers(squad, terrain)).toThrow(
+    expect(() => createSimulationSquadMembers(squad, terrain)).toThrow(
       "When spawning squad min count can't be greater then max count in 'test_squad_without_members'."
     );
   });
+});
+
+describe("releaseSimulationSquad util", () => {
+  it.todo("should correctly release squads");
+});
+
+describe("setupSimulationObjectSquadAndGroup util", () => {
+  it.todo("should correctly setup objects");
+});
+
+describe("assignSimulationSquadToTerrain util", () => {
+  it.todo("should correctly assign terrains for squads");
 });

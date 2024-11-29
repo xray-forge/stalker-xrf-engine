@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { getManager, registerStoryLink } from "@/engine/core/database";
+import { registerStoryLink } from "@/engine/core/database";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import {
   getTerrainMapSpotHint,
@@ -9,7 +9,8 @@ import {
   updateTerrainMapSpot,
   updateTerrainsMapSpotDisplay,
 } from "@/engine/core/managers/map/utils/map_spot_terrain";
-import { ESimulationTerrainRole, ISmartTerrainDescriptor, SimulationManager } from "@/engine/core/managers/simulation";
+import { ESimulationTerrainRole, ISmartTerrainDescriptor } from "@/engine/core/managers/simulation";
+import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { getSmartTerrainNameCaption, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import { Squad } from "@/engine/core/objects/squad";
@@ -250,7 +251,7 @@ working = 0
     terrain.objectJobDescriptors.set(4000, createObjectJobDescriptor(MockAlifeHumanStalker.mock({ id: 4000 })));
     terrain.arrivingObjects.set(4001, MockAlifeHumanStalker.mock({ id: 4001 }));
 
-    const descriptor: ISmartTerrainDescriptor = getManager(SimulationManager).getTerrainDescriptorById(
+    const descriptor: ISmartTerrainDescriptor = getSimulationTerrainDescriptorById(
       terrain.id
     ) as ISmartTerrainDescriptor;
 

@@ -5,8 +5,13 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
-import { TSimulationObject } from "@/engine/core/managers/simulation";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { TSimulationObject } from "@/engine/core/managers/simulation/simulation_types";
+import {
+  assignSimulationSquadToTerrain,
+  getSimulationTerrainByName,
+  getSimulationTerrainDescriptorById,
+  releaseSimulationSquad,
+} from "@/engine/core/managers/simulation/utils";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
@@ -273,7 +278,7 @@ export class TravelManager extends AbstractManager {
       return false;
     }
 
-    const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getTerrainByName(terrainName);
+    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
     if (terrain === null) {
       abort("Error in travel manager. Smart terrain '%s' does not exist.", terrainName);
@@ -338,13 +343,12 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public getTravelPriceByObjectPhrase(object: GameObject, phraseId: TStringId): TCount {
-    const simulationManager: SimulationManager = getManager(SimulationManager);
     const terrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(
       string.sub(phraseId, 1, string.len(phraseId) - 2)
     );
 
     return this.getTravelPriceByDistance(
-      object.position().distance_to(simulationManager.getTerrainByName(terrainName)!.position)
+      object.position().distance_to(getSimulationTerrainByName(terrainName)!.position)
     );
   }
 
@@ -393,12 +397,11 @@ export class TravelManager extends AbstractManager {
 
       const point: Patrol = new patrol(this.travelActorPath!);
       const direction: TDirection = -point.point(1).sub(point.point(0)).getH();
-      const board: SimulationManager = getManager(SimulationManager);
 
       // todo: Why releasing enemies? Probably not needed.
-      for (const [, squad] of board.getTerrainDescriptorById(this.travelToSmartId!)!.assignedSquads) {
+      for (const [, squad] of getSimulationTerrainDescriptorById(this.travelToSmartId!)!.assignedSquads) {
         if (getStoryIdByObjectId(squad.id) === null && isAnySquadMemberEnemyToActor(squad)) {
-          board.releaseSquad(squad);
+          releaseSimulationSquad(squad);
         }
       }
 
@@ -407,8 +410,8 @@ export class TravelManager extends AbstractManager {
       if (currentSmartId !== null) {
         logger.info("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);
 
-        board.assignSquadToTerrain(this.travelSquad!, null);
-        board.assignSquadToTerrain(this.travelSquad!, currentSmartId);
+        assignSimulationSquadToTerrain(this.travelSquad!, null);
+        assignSimulationSquadToTerrain(this.travelSquad!, currentSmartId);
       }
 
       const position: Vector = new patrol(this.travelSquadPath!).point(0);
@@ -468,10 +471,9 @@ export class TravelManager extends AbstractManager {
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
-    const simulationManager: SimulationManager = getManager(SimulationManager);
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 3);
     const terrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(travelPhraseId);
-    const terrain: Optional<SmartTerrain> = simulationManager.getTerrainByName(terrainName)!;
+    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName)!;
     const squad: Squad = getObjectSquad(object) as Squad;
 
     logger.info("Actor travel with squad: '%s' -> '%s'", squad.name(), terrainName);

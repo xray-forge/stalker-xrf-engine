@@ -2,14 +2,13 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { danger_object } from "xray16";
 
 import {
-  getManager,
   ILogicsOverrides,
   IRegistryObjectState,
   registerObject,
   registerSimulator,
   registry,
 } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore";
@@ -196,7 +195,7 @@ describe("canObjectSelectAsEnemy util", () => {
 
     registry.zones.set("zat_a2_sr_no_assault", noCombatZone);
     jest.spyOn(noCombatZone, "inside").mockImplementation(() => true);
-    getManager(SimulationManager).registerTerrain(noCombatSmart as SmartTerrain);
+    registerSimulationTerrain(noCombatSmart as SmartTerrain);
 
     (noCombatSmart as SmartTerrain).terrainControl = {
       status: ESmartTerrainStatus.NORMAL,

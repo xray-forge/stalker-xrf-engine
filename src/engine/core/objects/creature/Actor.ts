@@ -16,8 +16,9 @@ import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { registerSimulationObject, unregisterSimulationObject } from "@/engine/core/database/simulation";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
-import { ISimulationTarget, simulationActivities } from "@/engine/core/managers/simulation";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { simulationActivities } from "@/engine/core/managers/simulation/simulation_activities";
+import { ISimulationTarget } from "@/engine/core/managers/simulation/simulation_types";
+import { assignSimulationSquadToTerrain, getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { Squad } from "@/engine/core/objects/squad/Squad";
@@ -128,7 +129,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       const zone: Optional<GameObject> = registry.zones.get(zoneName);
 
       if (zone?.inside(this.position)) {
-        const terrain: Optional<SmartTerrain> = getManager(SimulationManager).getTerrainByName(terrainName);
+        const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
         if (terrain && terrain.terrainControl?.status !== ESmartTerrainStatus.ALARM) {
           return false;
@@ -180,6 +181,6 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       softResetOfflineObject(squadMember.id);
     }
 
-    getManager(SimulationManager).assignSquadToTerrain(squad, null);
+    assignSimulationSquadToTerrain(squad, null);
   }
 }

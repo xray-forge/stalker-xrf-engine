@@ -8,7 +8,7 @@ import {
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
@@ -74,7 +74,7 @@ export class SmartTerrainControl {
         getManager(SoundManager).play(ACTOR_ID, sound);
       }
 
-      for (const [id] of getManager(SimulationManager).getTerrainDescriptorById(this.terrain.id)!.assignedSquads) {
+      for (const [id] of getSimulationTerrainDescriptorById(this.terrain.id)!.assignedSquads) {
         updateSquadIdRelationToActor(id, ERelation.NEUTRAL);
       }
 
@@ -134,7 +134,7 @@ export class SmartTerrainControl {
         getManager(SoundManager).play(ACTOR_ID, sound);
       }
 
-      for (const [squadId] of getManager(SimulationManager).getTerrainDescriptorById(this.terrain.id)!.assignedSquads) {
+      for (const [squadId] of getSimulationTerrainDescriptorById(this.terrain.id)!.assignedSquads) {
         updateSquadIdRelationToActor(squadId, ERelation.ENEMY);
       }
     }

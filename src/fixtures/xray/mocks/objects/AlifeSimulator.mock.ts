@@ -49,15 +49,17 @@ export class MockAlifeSimulator {
   public object = jest.fn((id: number) => MockAlifeSimulator.registry[id] || null);
 
   public create = jest.fn((section: string, position: MockVector, lvid: TNumberId, gvid: TNumberId) => {
-    if (section === "stalker") {
+    if (section === "stalker" || section.endsWith("_stalker")) {
       return MockAlifeHumanStalker.mock({
         clsid: mockClsid.script_stalker,
         position: position as unknown as Vector,
         levelVertexId: lvid,
         gameVertexId: gvid,
       });
-    } else if (section === "squad") {
-      return MockAlifeOnlineOfflineGroup.mock();
+    } else if (section === "squad" || section.endsWith("_squad")) {
+      return MockAlifeOnlineOfflineGroup.mock({
+        section,
+      });
     }
 
     return MockAlifeObject.mock({

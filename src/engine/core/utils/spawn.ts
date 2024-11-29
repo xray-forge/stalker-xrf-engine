@@ -1,7 +1,11 @@
 import { clsid, level, patrol } from "xray16";
 
-import { getManager, registry, SYSTEM_INI } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { registry, SYSTEM_INI } from "@/engine/core/database";
+import {
+  createSimulationSquad,
+  getSimulationTerrainByName,
+  setupSimulationObjectSquadAndGroup,
+} from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { abort, assert } from "@/engine/core/utils/assertion";
@@ -230,15 +234,15 @@ export function spawnSquadInSmart(section: Optional<TSection>, terrainName: Opti
   assert(terrainName, "Wrong squad name in spawnSquad function.");
   assert(SYSTEM_INI.section_exist(section), "Wrong squad identifier '%s'. Squad doesnt exist in ini.", section);
 
-  const simulationManager: SimulationManager = getManager(SimulationManager);
-  const terrain: Optional<SmartTerrain> = simulationManager.getTerrainByName(terrainName);
+  const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
-  assert(terrain, "Wrong terrain name '%s' for faction in spawnSquad function.", tostring(terrainName));
+  assert(terrain, "Wrong terrain name '%s' for faction in spawnSquadInSmart function.", tostring(terrainName));
 
-  const squad: Squad = simulationManager.createSquad(terrain, section);
+  const squad: Squad = createSimulationSquad(terrain, section);
 
+  // Probably not needed duplicate code.
   for (const squadMember of squad.squad_members()) {
-    simulationManager.setupObjectSquadAndGroup(squadMember.object);
+    setupSimulationObjectSquadAndGroup(squadMember.object);
   }
 
   squad.update();

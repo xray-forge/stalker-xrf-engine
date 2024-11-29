@@ -40,7 +40,7 @@ export function getObjectCommunity(object: AnyGameObject): TCommunity {
  * Change object team/squad/group.
  *
  * @param object - alife server object to change team parameters
- * @param teamId - ?
+ * @param teamId - ??? faction ID ???
  * @param squadId - id of the parent squad, bound to spawning smart
  * @param groupId - id of the level group
  */

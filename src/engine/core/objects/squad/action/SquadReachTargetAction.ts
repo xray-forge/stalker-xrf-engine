@@ -1,5 +1,6 @@
 import { registry } from "@/engine/core/database";
-import { SimulationManager, TSimulationObject } from "@/engine/core/managers/simulation";
+import type { TSimulationObject } from "@/engine/core/managers/simulation/simulation_types";
+import { setupSimulationObjectSquadAndGroup } from "@/engine/core/managers/simulation/utils";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { Optional, TNumberId } from "@/engine/lib/types";
@@ -27,10 +28,8 @@ export class SquadReachTargetAction implements ISquadAction {
       target.onSimulationTargetSelected(this.squad);
     }
 
-    const simulationManager: SimulationManager = this.squad.simulationManager;
-
     for (const squadMember of this.squad.squad_members()) {
-      simulationManager.setupObjectSquadAndGroup(squadMember.object);
+      setupSimulationObjectSquadAndGroup(squadMember.object);
     }
   }
 

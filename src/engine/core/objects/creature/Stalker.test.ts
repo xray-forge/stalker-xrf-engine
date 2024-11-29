@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { getManager, IRegistryOfflineState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationManager } from "@/engine/core/managers/simulation";
+import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils";
 import { Stalker } from "@/engine/core/objects/creature/Stalker";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
@@ -112,7 +112,7 @@ describe("Stalker server object", () => {
     terrain.register_npc = jest.fn();
     terrain.unregister_npc = jest.fn();
 
-    getManager(SimulationManager).registerTerrain(terrain);
+    registerSimulationTerrain(terrain);
 
     stalker.on_register();
     stalker.on_unregister();

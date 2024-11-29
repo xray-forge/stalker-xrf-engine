@@ -1,7 +1,8 @@
 import { CGameGraph, game_graph } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { TSimulationObject } from "@/engine/core/managers/simulation";
+import type { TSimulationObject } from "@/engine/core/managers/simulation";
+import { getSimulationSquads } from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { GameGraphVertex, GameObject, Optional, ServerCreatureObject, Vector } from "@/engine/lib/types";
@@ -14,8 +15,7 @@ import { GameGraphVertex, GameObject, Optional, ServerCreatureObject, Vector } f
 export function isObjectArrivedToTerrain(object: ServerCreatureObject, terrain: SmartTerrain): boolean {
   // Do squad based checks for object if possible.
   // todo: Check max u16 instead?
-  const squad: Optional<Squad> =
-    object.group_id === null ? null : terrain.simulationManager.getSquads().get(object.group_id);
+  const squad: Optional<Squad> = object.group_id === null ? null : getSimulationSquads().get(object.group_id);
 
   if (squad) {
     const isSquadArrived: Optional<boolean> = isSquadArrivedToTerrain(squad);

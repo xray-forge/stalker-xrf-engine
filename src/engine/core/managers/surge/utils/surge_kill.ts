@@ -1,9 +1,9 @@
 import { hit, level } from "xray16";
 
-import { getManager, getManagerByName, isStoryObject, registry } from "@/engine/core/database";
+import { getManagerByName, isStoryObject, registry } from "@/engine/core/database";
 import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationManager } from "@/engine/core/managers/simulation";
+import { getSimulationSquads } from "@/engine/core/managers/simulation/utils";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import {
   canSurgeKillSquad,
@@ -28,11 +28,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * todo: Description.
  */
 export function killAllSurgeUnhiddenAfterActorDeath(): void {
-  const simulationManager: SimulationManager = getManager(SimulationManager);
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
-  for (const [, squad] of simulationManager.getSquads()) {
+  for (const [, squad] of getSimulationSquads()) {
     if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeSquad(squad)) {
       for (const member of squad.squad_members()) {
         let isInSurgeCover: boolean = false;
@@ -90,13 +89,12 @@ export function killAllSurgeUnhidden(): void {
     }
   }
 
-  const simulationManager: SimulationManager = getManager(SimulationManager);
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
   const levelName: TLevel = level.name();
 
   logger.info("Killing squads");
 
-  for (const [, squad] of simulationManager.getSquads()) {
+  for (const [, squad] of getSimulationSquads()) {
     if (isObjectOnLevel(squad, levelName) && !isImmuneToSurgeSquad(squad) && !isStoryObject(squad)) {
       for (const member of squad.squad_members()) {
         if (!isStoryObject(member.object)) {

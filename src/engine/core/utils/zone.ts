@@ -1,5 +1,6 @@
-import { getManager, registry } from "@/engine/core/database";
-import { ESimulationTerrainRole, SimulationManager } from "@/engine/core/managers/simulation";
+import { registry } from "@/engine/core/database";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
@@ -12,13 +13,11 @@ import { GameObject, Optional, ServerObject, TRate } from "@/engine/lib/types";
  * @returns whether object is in one of defined no combat zones
  */
 export function isInNoCombatZone(object: ServerObject): boolean {
-  const simulationManager: SimulationManager = getManager(SimulationManager);
-
   for (const [zoneName, terrainName] of registry.noCombatZones) {
     const zone: Optional<GameObject> = registry.zones.get(zoneName);
 
     if (zone && zone.inside(object.position)) {
-      const terrain: Optional<SmartTerrain> = simulationManager.getTerrainByName(terrainName);
+      const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
       if (terrain && terrain.terrainControl && terrain.terrainControl.status !== ESmartTerrainStatus.ALARM) {
         return true;

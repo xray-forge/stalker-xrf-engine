@@ -2,7 +2,7 @@ import { level } from "xray16";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { getManager, registry } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ALARM_STATUSES, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
@@ -133,7 +133,7 @@ extern(
       return abort("Wrong status '%s' in 'check_smart_alarm_status' condition.", status);
     }
 
-    const terrainControl: Optional<SmartTerrainControl> = getManager(SimulationManager).getTerrainByName(terrainName)
+    const terrainControl: Optional<SmartTerrainControl> = getSimulationTerrainByName(terrainName)
       ?.terrainControl as Optional<SmartTerrainControl>;
 
     if (!terrainControl) {

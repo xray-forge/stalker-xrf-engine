@@ -2,7 +2,7 @@ import { action_base, level, LuabindClass } from "xray16";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, registry, setStalkerState } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
@@ -71,9 +71,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
   public activate(): void {
     this.state.signals = new LuaTable();
 
-    const smartTerrainVertexId: TNumberId = getManager(SimulationManager).getTerrainByName(
-      this.state.smartTerrainName
-    )!.m_level_vertex_id;
+    const smartTerrainVertexId: TNumberId = getSimulationTerrainByName(this.state.smartTerrainName)!.m_level_vertex_id;
 
     const directionVector: Vector = createVector(math.random(-100, 100), 0, math.random(-100, 100));
     const baseVertexId: TNumberId = level.vertex_in_direction(
