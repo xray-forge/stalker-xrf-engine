@@ -3,7 +3,7 @@ import { CALifeSmartTerrainTask } from "xray16";
 
 import { getManager, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationManager } from "@/engine/core/managers/simulation";
+import { assignSimulationSquadToTerrain, releaseSimulationSquad } from "@/engine/core/managers/simulation/utils";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
@@ -11,15 +11,19 @@ import { X_VECTOR, Y_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/ini/ini_config");
+jest.mock("@/engine/core/managers/simulation/utils/simulation_squads");
 
 describe("Squad object", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
     mockRegisteredActor();
+
+    resetFunctionMock(assignSimulationSquadToTerrain);
   });
 
   it("should correctly emit lifecycle events", () => {
@@ -44,7 +48,6 @@ describe("Squad object", () => {
   });
 
   it("should correctly handle member death when not empty", () => {
-    const simulationManager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -56,7 +59,6 @@ describe("Squad object", () => {
     squad.mockAddMember(first);
     squad.mockAddMember(second);
 
-    jest.spyOn(simulationManager, "releaseSquad").mockImplementation(jest.fn());
     jest.spyOn(action, "finalize").mockImplementation(jest.fn());
     jest.spyOn(squad.storyManager, "unregisterObject").mockImplementation(jest.fn());
 
@@ -66,7 +68,7 @@ describe("Squad object", () => {
     expect(squad.storyManager.unregisterObject).toHaveBeenCalledWith(second.id);
     expect(squad.currentAction.finalize).toHaveBeenCalledTimes(0);
     expect(pickSectionFromCondList).toHaveBeenCalledTimes(0);
-    expect(simulationManager.releaseSquad).toHaveBeenCalledTimes(0);
+    expect(releaseSimulationSquad).toHaveBeenCalledTimes(0);
 
     squad.onMemberDeath(first);
 
@@ -75,7 +77,8 @@ describe("Squad object", () => {
     expect(squad.currentAction).toBeNull();
     expect(action.finalize).toHaveBeenCalledTimes(1);
     expect(pickSectionFromCondList).toHaveBeenCalledWith(registry.actor, squad, squad.deathConditionList);
-    expect(simulationManager.releaseSquad).toHaveBeenCalledWith(squad);
+    expect(releaseSimulationSquad).toHaveBeenCalledTimes(1);
+    expect(releaseSimulationSquad).toHaveBeenCalledWith(squad);
   });
 
   it("should correctly handle member addition", () => {
@@ -162,7 +165,6 @@ describe("Squad object", () => {
   });
 
   it("onSimulationTargetSelected should reset chasing squad", () => {
-    const simulationManager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const chaser: MockSquad = MockSquad.mock();
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -172,14 +174,13 @@ describe("Squad object", () => {
     chaser.mockAddMember(second);
 
     jest.spyOn(chaser, "setLocationTypes").mockImplementation(jest.fn());
-    jest.spyOn(simulationManager, "assignSquadToTerrain").mockImplementation(jest.fn());
 
     registry.offlineObjects.set(first.id, { levelVertexId: 1000, activeSection: "test" });
 
     squad.onSimulationTargetSelected(chaser);
 
     expect(chaser.setLocationTypes).toHaveBeenCalled();
-    expect(simulationManager.assignSquadToTerrain).toHaveBeenCalledWith(chaser, null);
+    expect(assignSimulationSquadToTerrain).toHaveBeenCalledWith(chaser, null);
     expect(registry.offlineObjects.length()).toBe(1);
     expect(registry.offlineObjects.get(first.id)).toEqual({ levelVertexId: null, activeSection: null });
   });
