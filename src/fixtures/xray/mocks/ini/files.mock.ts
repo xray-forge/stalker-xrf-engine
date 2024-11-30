@@ -6,6 +6,7 @@ import { mockDropManager } from "@/fixtures/xray/mocks/ini/files/drop_manager.lt
 import { mockMapDisplayManager } from "@/fixtures/xray/mocks/ini/files/map_display_manager.ltx.mock";
 import { mockBoxGeneric } from "@/fixtures/xray/mocks/ini/files/ph_box_generic.ltx.mock";
 import { mockScriptSound } from "@/fixtures/xray/mocks/ini/files/script_sound.ltx.mock";
+import { mockSimulation } from "@/fixtures/xray/mocks/ini/files/simulation.ltx.mock";
 import { mockSimulationObjectsProps } from "@/fixtures/xray/mocks/ini/files/simulation_objects_props.ltx.mock";
 import { mockSoundStories } from "@/fixtures/xray/mocks/ini/files/sound_stories.ltx.mock";
 import { mockSpawnIni } from "@/fixtures/xray/mocks/ini/files/spawn.ini.mock";
@@ -33,6 +34,7 @@ export const FILES_MOCKS: Record<TPath, AnyObject> = {
   "managers\\drop_manager.ltx": mockDropManager,
   "managers\\map_display_manager.ltx": mockMapDisplayManager,
   "managers\\simulation\\simulation_objects_props.ltx": mockSimulationObjectsProps,
+  "managers\\simulation\\simulation.ltx": mockSimulation,
   "managers\\simulation\\squad_behaviours.ltx": mockSquadBehaviours,
   "managers\\sounds\\script_sound.ltx": mockScriptSound,
   "managers\\sounds\\sound_stories.ltx": mockSoundStories,

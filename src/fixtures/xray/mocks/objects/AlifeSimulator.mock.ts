@@ -72,7 +72,19 @@ export class MockAlifeSimulator {
 
   public create_ammo = jest.fn(() => {});
 
-  public level_name = jest.fn(() => "pripyat");
+  public level_name = jest.fn((levelId: TNumberId) => {
+    switch (levelId) {
+      case 1:
+        return "zaton";
+      case 2:
+        return "jupiter";
+      case 3:
+        return "pripyat";
+
+      default:
+        return "unknown";
+    }
+  });
 
   public level_id = jest.fn(() => 3);
 
