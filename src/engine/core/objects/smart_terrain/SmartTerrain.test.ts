@@ -3,7 +3,11 @@ import { time_global } from "xray16";
 
 import { getManager, registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import {
+  getSimulationTerrainByName,
+  getSimulationTerrainDescriptorById,
+} from "@/engine/core/managers/simulation/utils";
 import { Actor } from "@/engine/core/objects/creature";
 import { IObjectJobState, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain/index";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";
@@ -76,7 +80,6 @@ describe("SmartTerrain generic logic", () => {
     expect(terrain.jobDeadTimeById.length()).toBe(0);
     expect(terrain.smartTerrainAlifeTask).toBeUndefined();
 
-    expect(terrain.simulationManager).toBeDefined();
     expect(terrain.simulationProperties).toBeUndefined();
     expect(terrain.spawnSquadsConfiguration.length()).toBe(0);
     expect(terrain.spawnedSquadsList.length()).toBe(0);
@@ -109,7 +112,7 @@ describe("SmartTerrain generic logic", () => {
 
     terrain.on_before_register();
 
-    expect(terrain.simulationManager.getSmartTerrainByName(terrain.name())).toBe(terrain);
+    expect(getSimulationTerrainByName(terrain.name())).toBe(terrain);
   });
 
   it("should correctly handle register", () => {
@@ -157,8 +160,8 @@ describe("SmartTerrain generic logic", () => {
 
     expect(registry.storyLink.idBySid.get("test_smart_sid")).toBeNull();
     expect(registry.storyLink.sidById.get(terrain.id)).toBeNull();
-    expect(terrain.simulationManager.getSmartTerrainDescriptor(terrain.id)).toBeNull();
-    expect(terrain.simulationManager.getSmartTerrainByName(terrain.name())).toBeNull();
+    expect(getSimulationTerrainDescriptorById(terrain.id)).toBeNull();
+    expect(getSimulationTerrainByName(terrain.name())).toBeNull();
     expect(terrain.isRegistered).toBe(false);
   });
 

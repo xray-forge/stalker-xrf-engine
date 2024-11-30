@@ -106,8 +106,8 @@ export interface ISmartTerrainJobDescriptor {
   preconditionParameters?: AnyObject;
   preconditionFunction?: (
     this: void,
-    serverObject: ServerCreatureObject,
-    smartTerrain: SmartTerrain,
+    object: ServerCreatureObject,
+    terrain: SmartTerrain,
     preconditionParameters: AnyObject,
     objectJobDescriptor: IObjectJobState
   ) => boolean;

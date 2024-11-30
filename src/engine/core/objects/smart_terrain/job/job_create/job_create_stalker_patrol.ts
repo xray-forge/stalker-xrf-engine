@@ -12,17 +12,17 @@ import { Patrol, TCount, TIndex, TName } from "@/engine/lib/types";
 /**
  * Create patrol jobs for stalkers in smart terrain.
  *
- * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param terrain - smart terrain to create default animpoint jobs for
  * @param jobs - list of smart terrain jobs to insert into
  * @param builder - builder of large ltx file
  * @returns cover jobs list and updated string builder
  */
 export function createStalkerPatrolJobs(
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
   builder: StringBuilder
 ): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
-  const smartTerrainName: TName = smartTerrain.name();
+  const smartTerrainName: TName = terrain.name();
 
   let index: TIndex = 1;
 
@@ -72,12 +72,12 @@ on_signal = end|%%=search_gulag_job%%
       builder.append(string.format("path_look = patrol_%s_look\n", index));
     }
 
-    if (smartTerrain.safeRestrictor !== null && isPatrolInRestrictor(smartTerrain.safeRestrictor, patrolName)) {
+    if (terrain.safeRestrictor !== null && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
-    if (smartTerrain.defendRestrictor !== null) {
-      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
+    if (terrain.defendRestrictor !== null) {
+      builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
     index += 1;

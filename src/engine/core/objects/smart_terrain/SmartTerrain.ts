@@ -12,7 +12,6 @@ import {
 import {
   closeLoadMarker,
   closeSaveMarker,
-  getManager,
   IRegistryObjectState,
   openLoadMarker,
   openSaveMarker,
@@ -26,25 +25,32 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils";
+import { simulationActivities } from "@/engine/core/managers/simulation/simulation_activities";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,
   ISimulationTarget,
-  simulationActivities,
-  SimulationManager,
   VALID_SMART_TERRAINS_SIMULATION_ROLES,
-} from "@/engine/core/managers/simulation";
+} from "@/engine/core/managers/simulation/simulation_types";
+import {
+  assignSimulationSquadToTerrain,
+  getSimulationTerrainAssignedSquadsCount,
+  initializeSimulationTerrain,
+  registerSimulationTerrain,
+  setupSimulationObjectSquadAndGroup,
+  unregisterSimulationTerrain,
+} from "@/engine/core/managers/simulation/utils";
 import {
   areNoStalkersWorkingOnJobs,
   createObjectJobDescriptor,
-  createSmartTerrainJobs,
+  createTerrainJobs,
   IObjectJobState,
-  selectSmartTerrainObjectJob,
+  selectTerrainObjectJob,
   TSmartTerrainJobsList,
-  unlinkSmartTerrainObjectJob,
-  updateSmartTerrainJobs,
+  unlinkTerrainObjectJob,
+  updateTerrainJobs,
 } from "@/engine/core/objects/smart_terrain/job";
-import { isObjectArrivedToSmartTerrain } from "@/engine/core/objects/smart_terrain/object";
+import { isObjectArrivedToTerrain } from "@/engine/core/objects/smart_terrain/object";
 import {
   ESmartTerrainStatus,
   ISmartTerrainSpawnConfiguration,
@@ -73,8 +79,8 @@ import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
 import {
   turnOffSmartTerrainCampfires,
-  turnOnSmartTerrainCampfires,
-  updateSmartTerrainAlarmStatus,
+  turnOnTerrainCampfires,
+  updateTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
@@ -110,8 +116,6 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode
  */
 @LuabindClass()
 export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTarget {
-  public readonly simulationManager: SimulationManager = getManager(SimulationManager);
-
   public ini!: IniFile;
   public jobsConfig!: IniFile;
   public jobsConfigName!: TName;
@@ -174,7 +178,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     super.on_before_register();
 
     // Register smart in simulation as first priority, other objects may require it for registering.
-    this.simulationManager.registerSmartTerrain(this);
+    registerSimulationTerrain(this);
   }
 
   public override on_register(): void {
@@ -196,8 +200,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     logger.info("Initialize smart jobs: %s", this.name());
 
-    [this.jobs, this.jobsConfig, this.jobsConfigName] = createSmartTerrainJobs(this);
-    this.simulationManager.initializeSmartTerrainSimulation(this);
+    [this.jobs, this.jobsConfig, this.jobsConfigName] = createTerrainJobs(this);
+
+    initializeSimulationTerrain(this);
 
     if (this.isObjectsInitializationNeeded) {
       this.isObjectsInitializationNeeded = false;
@@ -220,8 +225,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     unregisterStoryLinkByObjectId(this.id);
     unregisterSimulationObject(this);
+    unregisterSimulationTerrain(this);
 
-    this.simulationManager.unregisterSmartTerrain(this);
     this.isRegistered = false;
 
     super.on_unregister();
@@ -253,11 +258,11 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     // If object arrived, select new job.
     // In other cases track it and wait for arrival.
 
-    if (isObjectArrivedToSmartTerrain(object, this)) {
+    if (isObjectArrivedToTerrain(object, this)) {
       this.jobDeadTimeById = new LuaTable();
       this.objectJobDescriptors.set(object.id, createObjectJobDescriptor(object));
 
-      const [jobId, job] = selectSmartTerrainObjectJob(this, this.objectJobDescriptors.get(object.id));
+      const [jobId, job] = selectTerrainObjectJob(this, this.objectJobDescriptors.get(object.id));
 
       logger.info("Assign to job on register: %s, %s, %s - %s", this.name(), object.name(), jobId, job?.section);
     } else {
@@ -280,7 +285,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     // Other cases are unexpected.
 
     if (objectJobDescriptor) {
-      unlinkSmartTerrainObjectJob(this, objectJobDescriptor);
+      unlinkTerrainObjectJob(this, objectJobDescriptor);
 
       this.objectJobDescriptors.delete(object.id);
 
@@ -483,7 +488,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     if (this.areCampfiresOn && areNoStalkersWorkingOnJobs(this.objectJobDescriptors)) {
       turnOffSmartTerrainCampfires(this);
     } else if (!this.areCampfiresOn && !areNoStalkersWorkingOnJobs(this.objectJobDescriptors)) {
-      turnOnSmartTerrainCampfires(this);
+      turnOnTerrainCampfires(this);
     }
 
     if (registry.actor as Optional<GameObject>) {
@@ -503,8 +508,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       }
     }
 
-    updateSmartTerrainAlarmStatus(this);
-    updateSmartTerrainJobs(this);
+    updateTerrainAlarmStatus(this);
+    updateTerrainJobs(this);
     updateSimulationObjectAvailability(this);
 
     this.terrainControl?.update();
@@ -721,7 +726,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return false;
     }
 
-    let squadsCount: TCount = this.simulationManager.getSmartTerrainAssignedSquadsCount(this.id);
+    let squadsCount: TCount = getSimulationTerrainAssignedSquadsCount(this.id);
 
     if (isPopulationDecreaseNeeded) {
       squadsCount -= 1;
@@ -811,7 +816,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       softResetOfflineObject(it.id);
     }
 
-    this.simulationManager.assignSquadToSmartTerrain(squad, this.id);
+    assignSimulationSquadToTerrain(squad, this.id);
   }
 
   /**
@@ -819,7 +824,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
    */
   public onSimulationTargetDeselected(squad: Squad): void {
     for (const squadMember of squad.squad_members()) {
-      squad.simulationManager.setupObjectSquadAndGroup(squadMember.object);
+      setupSimulationObjectSquadAndGroup(squadMember.object);
     }
 
     squad.currentTargetId = this.id;

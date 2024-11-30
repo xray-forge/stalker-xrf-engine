@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator, registerZone } from "@/engine/core/database";
-import { ESimulationTerrainRole } from "@/engine/core/managers/simulation";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { GameObject, ServerHumanObject } from "@/engine/lib/types";
@@ -18,19 +19,19 @@ describe("isInNoCombatZone util", () => {
     registerSimulator();
 
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
-    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mock();
-    const zone: GameObject = MockGameObject.mock({ id: smartTerrain.id });
+    const terrain: MockSmartTerrain = MockSmartTerrain.mock();
+    const zone: GameObject = MockGameObject.mock({ id: terrain.id });
 
-    jest.spyOn(smartTerrain, "name").mockImplementation(jest.fn(() => "zat_stalker_base_smart"));
+    jest.spyOn(terrain, "name").mockImplementation(jest.fn(() => "zat_stalker_base_smart"));
     jest.spyOn(zone, "name").mockImplementation(jest.fn(() => "zat_a2_sr_no_assault"));
 
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
+    terrain.on_before_register();
+    terrain.on_register();
 
     registerZone(zone);
 
-    smartTerrain.terrainControl = new SmartTerrainControl(
-      smartTerrain,
+    terrain.terrainControl = new SmartTerrainControl(
+      terrain,
       MockIniFile.mock("test.ltx", {
         test_control: {
           noweap_zone: "no_weap_test",
@@ -41,17 +42,17 @@ describe("isInNoCombatZone util", () => {
       }),
       "test_control"
     );
-    smartTerrain.terrainControl.status = ESmartTerrainStatus.NORMAL;
+    terrain.terrainControl.status = ESmartTerrainStatus.NORMAL;
 
     expect(isInNoCombatZone(stalker)).toBe(false);
 
     jest.spyOn(zone, "inside").mockImplementation(() => true);
     expect(isInNoCombatZone(stalker)).toBe(true);
 
-    smartTerrain.terrainControl.status = ESmartTerrainStatus.ALARM;
+    terrain.terrainControl.status = ESmartTerrainStatus.ALARM;
     expect(isInNoCombatZone(stalker)).toBe(false);
 
-    smartTerrain.terrainControl.status = ESmartTerrainStatus.NORMAL;
+    terrain.terrainControl.status = ESmartTerrainStatus.NORMAL;
     expect(isInNoCombatZone(stalker)).toBe(true);
   });
 });
@@ -66,15 +67,15 @@ describe("isInNoWeaponBase util", () => {
     registerSimulator();
 
     const squad: MockSquad = MockSquad.mock();
-    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
+    const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
 
-    smartTerrain.simulationManager.assignSquadToSmartTerrain(squad, smartTerrain.id);
+    assignSimulationSquadToTerrain(squad, terrain.id);
     expect(isInNoWeaponBase(squad)).toBe(false);
 
-    smartTerrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);
+    terrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);
     expect(isInNoWeaponBase(squad)).toBe(true);
 
-    squad.assignedSmartTerrainId = null;
+    squad.assignedTerrainId = null;
     expect(isInNoWeaponBase(squad)).toBe(false);
   });
 });

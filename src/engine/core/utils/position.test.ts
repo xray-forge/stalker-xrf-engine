@@ -7,7 +7,7 @@ import {
   getDistanceBetween,
   getDistanceBetweenSqr,
   getObjectPositioning,
-  getObjectSmartTerrain,
+  getObjectTerrain,
   getServerDistanceBetween,
   isActorInNoWeaponZone,
   isDistanceBetweenObjectsGreaterOrEqual,
@@ -91,13 +91,20 @@ describe("isObjectOnLevel util", () => {
   });
 
   it("should check object on level", () => {
-    const object: ServerObject = MockAlifeObject.mock();
+    const first: ServerObject = MockAlifeObject.mock({ gameVertexId: 350 });
+    const second: ServerObject = MockAlifeObject.mock({ gameVertexId: 152 });
 
     expect(isObjectOnLevel(null, "zaton")).toBe(false);
-    expect(isObjectOnLevel(object, "pripyat")).toBe(true);
+    expect(isObjectOnLevel(first, "pripyat")).toBe(true);
 
-    expect(game_graph().vertex(object.m_game_vertex_id).level_id()).toBe(5120);
-    expect(registry.simulator.level_name).toHaveBeenCalledWith(5120);
+    expect(game_graph().vertex(first.m_game_vertex_id).level_id()).toBe(3);
+    expect(registry.simulator.level_name).toHaveBeenCalledWith(3);
+
+    expect(isObjectOnLevel(second, "zaton")).toBe(true);
+    expect(isObjectOnLevel(second, "pripyat")).toBe(false);
+
+    expect(game_graph().vertex(second.m_game_vertex_id).level_id()).toBe(1);
+    expect(registry.simulator.level_name).toHaveBeenCalledWith(1);
   });
 });
 
@@ -108,9 +115,9 @@ describe("areObjectsOnSameLevel util", () => {
 
   it("should check objects on level", () => {
     expect(areObjectsOnSameLevel(MockAlifeObject.mock(), MockAlifeObject.mock())).toBe(true);
-    expect(areObjectsOnSameLevel(MockAlifeObject.mock(), MockAlifeObject.mock({ gameVertexId: 990 }))).toBe(false);
+    expect(areObjectsOnSameLevel(MockAlifeObject.mock(), MockAlifeObject.mock({ gameVertexId: 330 }))).toBe(false);
     expect(
-      areObjectsOnSameLevel(MockAlifeObject.mock({ gameVertexId: 990 }), MockAlifeObject.mock({ gameVertexId: 990 }))
+      areObjectsOnSameLevel(MockAlifeObject.mock({ gameVertexId: 200 }), MockAlifeObject.mock({ gameVertexId: 200 }))
     ).toBe(true);
   });
 });
@@ -282,8 +289,8 @@ describe("getObjectSmartTerrain util", () => {
   });
 
   it("should correctly get smart terrain of an object", () => {
-    expect(getObjectSmartTerrain(MockGameObject.mock())).toBeNull();
-    expect(getObjectSmartTerrain(MockAlifeHumanStalker.mock())).toBeNull();
+    expect(getObjectTerrain(MockGameObject.mock())).toBeNull();
+    expect(getObjectTerrain(MockAlifeHumanStalker.mock())).toBeNull();
 
     const terrain: ServerSmartZoneObject = MockAlifeSmartZone.mock();
     const serverObject: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -291,13 +298,13 @@ describe("getObjectSmartTerrain util", () => {
 
     serverObject.m_smart_terrain_id = terrain.id;
 
-    expect(getObjectSmartTerrain(gameObject)).toBe(terrain);
-    expect(getObjectSmartTerrain(serverObject)).toBe(terrain);
+    expect(getObjectTerrain(gameObject)).toBe(terrain);
+    expect(getObjectTerrain(serverObject)).toBe(terrain);
 
     serverObject.m_smart_terrain_id = 99_999;
 
-    expect(getObjectSmartTerrain(gameObject)).toBeNull();
-    expect(getObjectSmartTerrain(serverObject)).toBeNull();
+    expect(getObjectTerrain(gameObject)).toBeNull();
+    expect(getObjectTerrain(serverObject)).toBeNull();
   });
 });
 

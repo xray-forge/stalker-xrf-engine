@@ -6,7 +6,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger";
 import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
-import { startSmartTerrainAlarm } from "@/engine/core/utils/smart_terrain";
+import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { ActionPlanner, DangerObject, GameObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
 
@@ -40,9 +40,7 @@ export class EvaluatorDanger extends property_evaluator {
       const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(object.id());
 
       if (serverObject && serverObject.m_smart_terrain_id !== MAX_ALIFE_ID) {
-        startSmartTerrainAlarm(
-          registry.simulator.object<SmartTerrain>(serverObject.m_smart_terrain_id) as SmartTerrain
-        );
+        startTerrainAlarm(registry.simulator.object<SmartTerrain>(serverObject.m_smart_terrain_id) as SmartTerrain);
       }
 
       return true;

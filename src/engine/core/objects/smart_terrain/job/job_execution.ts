@@ -1,9 +1,9 @@
 import { hardResetOfflineObject, IRegistryObjectState, registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";
-import { selectSmartTerrainJob } from "@/engine/core/objects/smart_terrain/job/job_pick";
+import { selectTerrainJob } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
-import { isObjectArrivedToSmartTerrain } from "@/engine/core/objects/smart_terrain/object";
+import { isObjectArrivedToTerrain } from "@/engine/core/objects/smart_terrain/object";
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
@@ -16,44 +16,44 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "job_execution" });
 /**
  * Perform generic sync and update of current smart terrain jobs.
  *
- * @param smartTerrain - target smart terrain to update current jobs state for
+ * @param terrain - target smart terrain to update current jobs state for
  */
-export function updateSmartTerrainJobs(smartTerrain: SmartTerrain): void {
-  for (const [id, object] of smartTerrain.arrivingObjects) {
-    if (isObjectArrivedToSmartTerrain(object, smartTerrain)) {
+export function updateTerrainJobs(terrain: SmartTerrain): void {
+  for (const [id, object] of terrain.arrivingObjects) {
+    if (isObjectArrivedToTerrain(object, terrain)) {
       const arrivingObjectJob: IObjectJobState = createObjectJobDescriptor(object);
 
-      smartTerrain.jobDeadTimeById = new LuaTable();
-      smartTerrain.objectJobDescriptors.set(object.id, arrivingObjectJob);
-      smartTerrain.arrivingObjects.delete(id);
+      terrain.jobDeadTimeById = new LuaTable();
+      terrain.objectJobDescriptors.set(object.id, arrivingObjectJob);
+      terrain.arrivingObjects.delete(id);
 
-      selectSmartTerrainObjectJob(smartTerrain, arrivingObjectJob);
+      selectTerrainObjectJob(terrain, arrivingObjectJob);
     }
   }
 
-  table.sort(smartTerrain.objectJobDescriptors, (a, b) => a.jobPriority < b.jobPriority);
+  table.sort(terrain.objectJobDescriptors, (a, b) => a.jobPriority < b.jobPriority);
 
-  for (const [, objectJobDescriptor] of smartTerrain.objectJobDescriptors) {
-    selectSmartTerrainObjectJob(smartTerrain, objectJobDescriptor);
+  for (const [, objectJobDescriptor] of terrain.objectJobDescriptors) {
+    selectTerrainObjectJob(terrain, objectJobDescriptor);
   }
 }
 
 /**
- * @param smartTerrain - smart terrain to get object job for
+ * @param terrain - smart terrain to get object job for
  * @param jobSection - section of job to get working object ID
  * @returns ID of game object working with provided section
  */
-export function getSmartTerrainObjectIdByJobSection(smartTerrain: SmartTerrain, jobSection: TSection): TNumberId {
-  return smartTerrain.objectByJobSection.get(jobSection);
+export function getTerrainObjectIdByJobSection(terrain: SmartTerrain, jobSection: TSection): TNumberId {
+  return terrain.objectByJobSection.get(jobSection);
 }
 
 /**
- * @param smartTerrain - target smart terrain to unlink job in
+ * @param terrain - target smart terrain to unlink job in
  * @param objectJobDescriptor - descriptor of object job state
  */
-export function unlinkSmartTerrainObjectJob(smartTerrain: SmartTerrain, objectJobDescriptor: IObjectJobState): void {
+export function unlinkTerrainObjectJob(terrain: SmartTerrain, objectJobDescriptor: IObjectJobState): void {
   if (objectJobDescriptor.job) {
-    smartTerrain.objectByJobSection.delete(objectJobDescriptor.job.section);
+    terrain.objectByJobSection.delete(objectJobDescriptor.job.section);
     objectJobDescriptor.job.objectId = null;
   }
 }
@@ -62,30 +62,30 @@ export function unlinkSmartTerrainObjectJob(smartTerrain: SmartTerrain, objectJo
  * Try switch smart terrain object to desired object (stored in descriptor).
  * Tries to gracefully assign job for the object and find new one if someone already took it.
  *
- * @param smartTerrain - target smart terrain to switch job in
+ * @param terrain - target smart terrain to switch job in
  * @param objectId - target object ID to switch job for
  */
-export function switchSmartTerrainObjectToDesiredJob(smartTerrain: SmartTerrain, objectId: TNumberId): void {
-  logger.info("Switch to desired job: %s %s", smartTerrain.name(), objectId);
+export function switchTerrainObjectToDesiredJob(terrain: SmartTerrain, objectId: TNumberId): void {
+  logger.info("Switch to desired job: %s %s", terrain.name(), objectId);
 
-  const objectJobDescriptor: IObjectJobState = smartTerrain.objectJobDescriptors.get(objectId);
-  const changingObjectId: Optional<TNumberId> = smartTerrain.objectByJobSection.get(objectJobDescriptor.desiredJob);
+  const objectJobDescriptor: IObjectJobState = terrain.objectJobDescriptors.get(objectId);
+  const changingObjectId: Optional<TNumberId> = terrain.objectByJobSection.get(objectJobDescriptor.desiredJob);
 
   // todo: What if desired job is NIL?
 
   // Just replacing when no another object exists / no jobs for another object.
-  if (!changingObjectId || !smartTerrain.objectJobDescriptors.get(changingObjectId)) {
-    unlinkSmartTerrainObjectJob(smartTerrain, objectJobDescriptor);
+  if (!changingObjectId || !terrain.objectJobDescriptors.get(changingObjectId)) {
+    unlinkTerrainObjectJob(terrain, objectJobDescriptor);
 
     objectJobDescriptor.job = null;
     objectJobDescriptor.jobId = -1;
     objectJobDescriptor.jobPriority = -1;
 
-    selectSmartTerrainObjectJob(smartTerrain, objectJobDescriptor);
+    selectTerrainObjectJob(terrain, objectJobDescriptor);
   } else {
-    unlinkSmartTerrainObjectJob(smartTerrain, objectJobDescriptor);
+    unlinkTerrainObjectJob(terrain, objectJobDescriptor);
 
-    const selectedJob: ISmartTerrainJobDescriptor = smartTerrain.objectJobDescriptors.get(changingObjectId).job!;
+    const selectedJob: ISmartTerrainJobDescriptor = terrain.objectJobDescriptors.get(changingObjectId).job!;
 
     selectedJob.objectId = objectJobDescriptor.object.id;
 
@@ -95,51 +95,48 @@ export function switchSmartTerrainObjectToDesiredJob(smartTerrain: SmartTerrain,
     objectJobDescriptor.isBegun = true;
     objectJobDescriptor.job = selectedJob;
 
-    smartTerrain.objectByJobSection.set(
-      smartTerrain.jobs.get(selectedJob.id as TNumberId).section,
-      selectedJob.objectId
-    );
+    terrain.objectByJobSection.set(terrain.jobs.get(selectedJob.id as TNumberId).section, selectedJob.objectId);
 
     const state: Optional<IRegistryObjectState> = registry.objects.get(objectId) as Optional<IRegistryObjectState>;
 
     if (state) {
-      setupSmartTerrainObjectJobLogic(smartTerrain, state.object!);
+      setupSmartTerrainObjectJobLogic(terrain, state.object!);
     }
 
     // For previous object reset current job and then select new one.
     // Make sure next free highest priority job is assigned to the object.
-    const changingObjectJobDescriptor: IObjectJobState = smartTerrain.objectJobDescriptors.get(changingObjectId);
+    const changingObjectJobDescriptor: IObjectJobState = terrain.objectJobDescriptors.get(changingObjectId);
 
     changingObjectJobDescriptor.job = null;
     changingObjectJobDescriptor.jobId = -1;
     changingObjectJobDescriptor.jobPriority = -1;
 
-    selectSmartTerrainObjectJob(smartTerrain, changingObjectJobDescriptor);
+    selectTerrainObjectJob(terrain, changingObjectJobDescriptor);
   }
 }
 
 /**
  * Select new job for provided object descriptor
  *
- * @param smartTerrain - target smart terrain to select job in
+ * @param terrain - target smart terrain to select job in
  * @param objectJobDescriptor - descriptor of active job for an object
  */
-export function selectSmartTerrainObjectJob(
-  smartTerrain: SmartTerrain,
+export function selectTerrainObjectJob(
+  terrain: SmartTerrain,
   objectJobDescriptor: IObjectJobState
 ): LuaMultiReturn<[Optional<TNumberId>, Optional<ISmartTerrainJobDescriptor>]> {
-  const [selectedJobId, selectedJob] = selectSmartTerrainJob(smartTerrain, smartTerrain.jobs, objectJobDescriptor);
+  const [selectedJobId, selectedJob] = selectTerrainJob(terrain, terrain.jobs, objectJobDescriptor);
 
   if (selectedJobId === null) {
     abort(
       "Insufficient smart terrain jobs: %s, %s @ '%s' '%s' %s/%s",
-      smartTerrain.name(),
+      terrain.name(),
       objectJobDescriptor.object.name(),
-      smartTerrain.simulationRole,
-      table.size(smartTerrain.jobs),
+      terrain.simulationRole,
+      table.size(terrain.jobs),
       objectJobDescriptor.jobId,
-      smartTerrain.stayingObjectsCount,
-      smartTerrain.maxStayingSquadsCount
+      terrain.stayingObjectsCount,
+      terrain.maxStayingSquadsCount
     );
   }
 
@@ -150,7 +147,7 @@ export function selectSmartTerrainObjectJob(
   // Job changed and current job exists.
   if (selectedJob && selectedJobId !== objectJobDescriptor.jobId) {
     // Clear previous.
-    unlinkSmartTerrainObjectJob(smartTerrain, objectJobDescriptor);
+    unlinkTerrainObjectJob(terrain, objectJobDescriptor);
 
     // Link new job.
     selectedJob.objectId = objectJobDescriptor.object.id;
@@ -160,14 +157,11 @@ export function selectSmartTerrainObjectJob(
     objectJobDescriptor.jobPriority = selectedJob.priority;
     objectJobDescriptor.job = selectedJob;
 
-    smartTerrain.objectByJobSection.set(
-      smartTerrain.jobs.get(selectedJob.id as TNumberId).section,
-      selectedJob.objectId
-    );
+    terrain.objectByJobSection.set(terrain.jobs.get(selectedJob.id as TNumberId).section, selectedJob.objectId);
 
     // Reset object active scheme.
     if (state) {
-      switchObjectSchemeToSection(state.object, smartTerrain.jobsConfig, NIL);
+      switchObjectSchemeToSection(state.object, terrain.jobsConfig, NIL);
     }
   }
 
@@ -179,7 +173,7 @@ export function selectSmartTerrainObjectJob(
 
     // Setup logic and switch to desired section.
     if (state) {
-      setupSmartTerrainObjectJobLogic(smartTerrain, state.object!);
+      setupSmartTerrainObjectJobLogic(terrain, state.object!);
     }
   }
 

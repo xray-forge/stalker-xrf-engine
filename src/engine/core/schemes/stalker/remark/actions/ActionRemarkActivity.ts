@@ -2,9 +2,9 @@ import { action_base, level, LuabindClass, patrol } from "xray16";
 
 import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
 import { getManager, getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
-import { getSmartTerrainObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
+import { getTerrainObjectIdByJobSection } from "@/engine/core/objects/smart_terrain/job";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
 import { abort } from "@/engine/core/utils/assertion";
@@ -252,10 +252,10 @@ export function initTarget(
       isTargetInitialized = true;
     }
   } else if (targetType === "job") {
-    const [job, smartTerrainName] = parseTarget(target);
-    const smartTerrain: SmartTerrain = getManager(SimulationManager).getSmartTerrainByName(smartTerrainName!)!;
+    const [job, terrainName] = parseTarget(target);
+    const terrain: SmartTerrain = getSimulationTerrainByName(terrainName!)!;
 
-    targetId = getSmartTerrainObjectIdByJobSection(smartTerrain, job as TStringId);
+    targetId = getTerrainObjectIdByJobSection(terrain, job as TStringId);
     isTargetInitialized = targetId !== null;
   } else {
     instruction(object, targetString);

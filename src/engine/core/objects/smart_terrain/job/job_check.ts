@@ -11,32 +11,32 @@ import { AnyObject, TNumberId } from "@/engine/lib/types";
  * Validates if it is matching for creature type and job preconditions are met.
  *
  * @param objectJob - descriptor of object job
- * @param smartTerrainJob - descriptor of smart terrain job
- * @param smartTerrain - target smart terrain where job should be processed
+ * @param terrainJob - descriptor of smart terrain job
+ * @param terrain - target smart terrain where job should be processed
  * @returns whether job is available for object
  */
 export function isJobAvailableToObject(
   objectJob: IObjectJobState,
-  smartTerrainJob: ISmartTerrainJobDescriptor,
-  smartTerrain: SmartTerrain
+  terrainJob: ISmartTerrainJobDescriptor,
+  terrain: SmartTerrain
 ): boolean {
   // Job worker recently died, ignore it for now.
-  if (smartTerrain.jobDeadTimeById.get(smartTerrainJob.id as TNumberId) !== null) {
+  if (terrain.jobDeadTimeById.get(terrainJob.id as TNumberId) !== null) {
     return false;
   }
 
   // Check monster / stalker restriction for job.
-  if (smartTerrainJob.isMonsterJob !== null && smartTerrainJob.isMonsterJob !== objectJob.isMonster) {
+  if (terrainJob.isMonsterJob !== null && terrainJob.isMonsterJob !== objectJob.isMonster) {
     return false;
   }
 
   // Has callback checker - call it.
   return (
-    !smartTerrainJob.preconditionFunction ||
-    smartTerrainJob.preconditionFunction(
+    !terrainJob.preconditionFunction ||
+    terrainJob.preconditionFunction(
       objectJob.object,
-      smartTerrain,
-      smartTerrainJob.preconditionParameters as AnyObject,
+      terrain,
+      terrainJob.preconditionParameters as AnyObject,
       objectJob
     )
   );

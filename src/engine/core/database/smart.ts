@@ -11,11 +11,11 @@ import { GameObject, Optional, TName, TNumberId, ZoneCampfire } from "@/engine/l
  * Register smart terrain object.
  *
  * @param object - smart terrain client game object
- * @param smartTerrain - smart terrain server game object
+ * @param terrain - smart terrain server game object
  * @returns object state representation in registry
  */
-export function registerSmartTerrain(object: GameObject, smartTerrain: SmartTerrain): IRegistryObjectState {
-  registry.smartTerrains.set(smartTerrain.id, smartTerrain);
+export function registerSmartTerrain(object: GameObject, terrain: SmartTerrain): IRegistryObjectState {
+  registry.smartTerrains.set(terrain.id, terrain);
 
   return registerZone(object);
 }
@@ -24,11 +24,11 @@ export function registerSmartTerrain(object: GameObject, smartTerrain: SmartTerr
  * Unregister smart terrain object.
  *
  * @param object - smart terrain client game object
- * @param smartTerrain - smart terrain server game object
+ * @param terrain - smart terrain server game object
  */
-export function unregisterSmartTerrain(object: GameObject, smartTerrain: SmartTerrain): void {
+export function unregisterSmartTerrain(object: GameObject, terrain: SmartTerrain): void {
   unregisterZone(object);
-  registry.smartTerrains.delete(smartTerrain.id);
+  registry.smartTerrains.delete(terrain.id);
 }
 
 /**
@@ -52,20 +52,20 @@ export function unregisterSmartCover(smartCover: SmartCover): void {
 /**
  * Register smart terrain campfire object.
  *
- * @param smartTerrain - smart terrain object to register for
+ * @param terrain - smart terrain object to register for
  * @param object - game object to register as campfire
  */
-export function registerSmartTerrainCampfire(smartTerrain: SmartTerrain, object: GameObject): void {
-  const smartTerrainName: TName = smartTerrain.name();
+export function registerSmartTerrainCampfire(terrain: SmartTerrain, object: GameObject): void {
+  const terrainName: TName = terrain.name();
   const campfire: ZoneCampfire = object.get_campfire();
 
   campfire.turn_off();
 
-  if (registry.smartTerrainsCampfires.get(smartTerrainName) === null) {
-    registry.smartTerrainsCampfires.set(smartTerrainName, new LuaTable());
+  if (registry.smartTerrainsCampfires.get(terrainName) === null) {
+    registry.smartTerrainsCampfires.set(terrainName, new LuaTable());
   }
 
-  registry.smartTerrainsCampfires.get(smartTerrainName).set(object.id(), campfire);
+  registry.smartTerrainsCampfires.get(terrainName).set(object.id(), campfire);
 
   registerObject(object);
 }
@@ -73,19 +73,18 @@ export function registerSmartTerrainCampfire(smartTerrain: SmartTerrain, object:
 /**
  * Unregister smart terrain campfire object.
  *
- * @param smartTerrain - smart terrain object to unregister for
+ * @param terrain - smart terrain object to unregister for
  * @param object - game object to unregister as campfire
  */
-export function unRegisterSmartTerrainCampfire(smartTerrain: SmartTerrain, object: GameObject): void {
-  const smartTerrainName: TName = smartTerrain.name();
-  const smartTerrainList: Optional<LuaTable<TNumberId, ZoneCampfire>> =
-    registry.smartTerrainsCampfires.get(smartTerrainName);
+export function unRegisterSmartTerrainCampfire(terrain: SmartTerrain, object: GameObject): void {
+  const terrainName: TName = terrain.name();
+  const terrainList: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(terrainName);
 
-  if (smartTerrainList !== null) {
-    smartTerrainList.delete(object.id());
+  if (terrainList !== null) {
+    terrainList.delete(object.id());
 
-    if (isEmpty(smartTerrainList)) {
-      registry.smartTerrainsCampfires.delete(smartTerrainName);
+    if (isEmpty(terrainList)) {
+      registry.smartTerrainsCampfires.delete(terrainName);
     }
   }
 

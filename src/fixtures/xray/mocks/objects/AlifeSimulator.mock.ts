@@ -49,15 +49,17 @@ export class MockAlifeSimulator {
   public object = jest.fn((id: number) => MockAlifeSimulator.registry[id] || null);
 
   public create = jest.fn((section: string, position: MockVector, lvid: TNumberId, gvid: TNumberId) => {
-    if (section === "stalker") {
+    if (section === "stalker" || section.endsWith("_stalker")) {
       return MockAlifeHumanStalker.mock({
         clsid: mockClsid.script_stalker,
         position: position as unknown as Vector,
         levelVertexId: lvid,
         gameVertexId: gvid,
       });
-    } else if (section === "squad") {
-      return MockAlifeOnlineOfflineGroup.mock();
+    } else if (section === "squad" || section.endsWith("_squad") || section.endsWith("_group")) {
+      return MockAlifeOnlineOfflineGroup.mock({
+        section,
+      });
     }
 
     return MockAlifeObject.mock({
@@ -70,7 +72,19 @@ export class MockAlifeSimulator {
 
   public create_ammo = jest.fn(() => {});
 
-  public level_name = jest.fn(() => "pripyat");
+  public level_name = jest.fn((levelId: TNumberId) => {
+    switch (levelId) {
+      case 1:
+        return "zaton";
+      case 2:
+        return "jupiter";
+      case 3:
+        return "pripyat";
+
+      default:
+        return "unknown";
+    }
+  });
 
   public level_id = jest.fn(() => 3);
 

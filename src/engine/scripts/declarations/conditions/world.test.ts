@@ -3,7 +3,7 @@ import { level } from "xray16";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { getManager } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation";
+import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ESmartTerrainStatus, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
@@ -243,9 +243,8 @@ describe("world conditions implementation", () => {
 
   it("check_smart_alarm_status should check smart terrain alarm status", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
-    const manager: SimulationManager = getManager(SimulationManager);
 
-    manager.registerSmartTerrain(terrain);
+    registerSimulationTerrain(terrain);
 
     expect(() => {
       return callXrCondition("check_smart_alarm_status", MockGameObject.mockActor(), MockGameObject.mock());

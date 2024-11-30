@@ -1,7 +1,6 @@
 import { cse_alife_human_stalker, level, LuabindClass } from "xray16";
 
 import {
-  getManager,
   IRegistryOfflineState,
   registerObjectStoryLinks,
   registerOfflineObject,
@@ -10,7 +9,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { assert } from "@/engine/core/utils/assertion";
@@ -58,13 +57,11 @@ export class Stalker extends cse_alife_human_stalker {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const simulationBoardManager: SimulationManager = getManager(SimulationManager);
+    const terrainName: TName = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain", false, null, "");
+    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
-    const smartName: TName = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain", false, null, "");
-    const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName);
-
-    if (smartTerrain) {
-      smartTerrain.register_npc(this);
+    if (terrain) {
+      terrain.register_npc(this);
     }
 
     EventsManager.emitEvent(EGameEvent.STALKER_REGISTER, this);
@@ -73,12 +70,11 @@ export class Stalker extends cse_alife_human_stalker {
   public override on_unregister(): void {
     EventsManager.emitEvent(EGameEvent.STALKER_UNREGISTER, this);
 
-    const smartTerrainId: TNumberId = this.smart_terrain_id();
-    const smartTerrain: Optional<SmartTerrain> =
-      smartTerrainId === MAX_ALIFE_ID ? null : registry.simulator.object(smartTerrainId);
+    const terrainId: TNumberId = this.smart_terrain_id();
+    const terrain: Optional<SmartTerrain> = terrainId === MAX_ALIFE_ID ? null : registry.simulator.object(terrainId);
 
-    if (smartTerrain) {
-      smartTerrain.unregister_npc(this);
+    if (terrain) {
+      terrain.unregister_npc(this);
     }
 
     unregisterOfflineObject(this.id);
@@ -93,14 +89,14 @@ export class Stalker extends cse_alife_human_stalker {
     logger.info("Stalker death: %s %s %s", this.name(), killer.id, killer?.name());
 
     // Notify assigned smart terrain about abject death.
-    const smartTerrainId: TNumberId = this.smart_terrain_id();
+    const terrainId: TNumberId = this.smart_terrain_id();
 
-    if (smartTerrainId !== MAX_ALIFE_ID) {
-      const smartTerrain: Optional<SmartTerrain> = registry.simulator.object(smartTerrainId);
+    if (terrainId !== MAX_ALIFE_ID) {
+      const terrain: Optional<SmartTerrain> = registry.simulator.object(terrainId);
 
-      assert(smartTerrain, "Smart terrain with ID '%s' not found.", this.group_id);
+      assert(terrain, "Smart terrain with ID '%s' not found.", this.group_id);
 
-      smartTerrain.onObjectDeath(this);
+      terrain.onObjectDeath(this);
     }
 
     // Notify assigned squad about abject death.

@@ -1,15 +1,17 @@
 import { registry } from "@/engine/core/database";
-import { SimulationManager, TSimulationObject } from "@/engine/core/managers/simulation";
+import type { TSimulationObject } from "@/engine/core/managers/simulation/simulation_types";
+import { setupSimulationObjectSquadAndGroup } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { Optional, TNumberId } from "@/engine/lib/types";
 
 /**
  * Implement movement to target action.
+ * Once activated, squad will try to follow/reach terrain or another squad.
  */
 export class SquadReachTargetAction implements ISquadAction {
   public readonly type: ESquadActionType = ESquadActionType.REACH_TARGET;
-  public readonly squad: Squad; // Squad performing reach target action.
+  public readonly squad: Squad;
 
   public constructor(squad: Squad) {
     this.squad = squad;
@@ -17,6 +19,9 @@ export class SquadReachTargetAction implements ISquadAction {
 
   /**
    * Start reaching target, initialize action.
+   * todo: Clarify simulation flag.
+   *
+   * @param isUnderSimulation - whether squad initializing new action is under simulation
    */
   public initialize(isUnderSimulation: boolean): void {
     const target: Optional<TSimulationObject> = isUnderSimulation
@@ -27,10 +32,8 @@ export class SquadReachTargetAction implements ISquadAction {
       target.onSimulationTargetSelected(this.squad);
     }
 
-    const simulationManager: SimulationManager = this.squad.simulationManager;
-
     for (const squadMember of this.squad.squad_members()) {
-      simulationManager.setupObjectSquadAndGroup(squadMember.object);
+      setupSimulationObjectSquadAndGroup(squadMember.object);
     }
   }
 
@@ -40,6 +43,9 @@ export class SquadReachTargetAction implements ISquadAction {
   public finalize(): void {}
 
   /**
+   * todo: Clarify simulation flag.
+   *
+   * @param isUnderSimulation - whether squad initializing new action is under simulation
    * @returns whether task is finished
    */
   public update(isUnderSimulation: boolean): boolean {

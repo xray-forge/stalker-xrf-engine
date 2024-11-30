@@ -5,11 +5,11 @@ import { EJobPathType, SmartTerrain } from "@/engine/core/objects/smart_terrain"
 import {
   createObjectJobDescriptor,
   EJobType,
-  getSmartTerrainJobByObjectId,
-  getSmartTerrainObjectIdByJobSection,
+  getTerrainJobByObjectId,
+  getTerrainObjectIdByJobSection,
   IObjectJobState,
   ISmartTerrainJobDescriptor,
-  selectSmartTerrainJob,
+  selectTerrainJob,
 } from "@/engine/core/objects/smart_terrain/job";
 import { jobPreconditionCamper, jobPreconditionSniper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { AnyObject, IniFile, ServerHumanObject, ServerMonsterBaseObject, TNumberId } from "@/engine/lib/types";
@@ -27,14 +27,14 @@ describe("selectSmartTerrainJob util", () => {
     const object: ServerHumanObject = MockAlifeHumanStalker.mock();
     const job: IObjectJobState = createObjectJobDescriptor(object);
 
-    const [firstId, firstJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
+    const [firstId, firstJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
     expect(firstId).toBeNull();
     expect(firstJob).toBeNull();
 
     terrain.on_register();
 
-    const [secondId, secondJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
+    const [secondId, secondJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
     expect(secondId).toBe(4);
     expect(secondJob).toEqual({
@@ -50,7 +50,7 @@ describe("selectSmartTerrainJob util", () => {
       gameVertexId: 20001,
       id: 4,
       isMonsterJob: false,
-      levelId: 200010,
+      levelId: 2,
       pathType: 1,
       position: {
         x: 10,
@@ -69,7 +69,7 @@ describe("selectSmartTerrainJob util", () => {
     // Assign to another object.
     (secondJob as ISmartTerrainJobDescriptor).objectId = 10;
 
-    const [thirdId, thirdJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
+    const [thirdId, thirdJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
     expect(thirdId).toBe(5);
     expect(thirdJob).toEqual({
@@ -85,7 +85,7 @@ describe("selectSmartTerrainJob util", () => {
       gameVertexId: 20001,
       id: 5,
       isMonsterJob: false,
-      levelId: 200010,
+      levelId: 2,
       pathType: 1,
       position: {
         x: 10,
@@ -106,7 +106,7 @@ describe("selectSmartTerrainJob util", () => {
     (thirdJob as ISmartTerrainJobDescriptor).objectId = object.id;
     job.jobId = thirdJob?.id as TNumberId;
 
-    const [fourthId, fourthJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
+    const [fourthId, fourthJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
     expect(fourthId).toBe(thirdId);
     expect(fourthJob).toBe(thirdJob);
@@ -117,14 +117,14 @@ describe("selectSmartTerrainJob util", () => {
     const object: ServerMonsterBaseObject = MockAlifeMonsterBase.mock();
     const job: IObjectJobState = createObjectJobDescriptor(object);
 
-    const [firstId, firstJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
+    const [firstId, firstJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
     expect(firstId).toBeNull();
     expect(firstJob).toBeNull();
 
     terrain.on_register();
 
-    const [secondId, secondJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
+    const [secondId, secondJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
     expect(secondId).toBe(15);
     expect(secondJob).toEqual({
@@ -140,7 +140,7 @@ describe("selectSmartTerrainJob util", () => {
       gameVertexId: 512,
       id: 15,
       isMonsterJob: true,
-      levelId: 5120,
+      levelId: 5,
       pathType: 2,
       position: {
         x: 1,
@@ -155,7 +155,7 @@ describe("selectSmartTerrainJob util", () => {
     // Assign to another object.
     (secondJob as ISmartTerrainJobDescriptor).objectId = 11;
 
-    const [thirdId, thirdJob] = selectSmartTerrainJob(terrain, terrain.jobs, job);
+    const [thirdId, thirdJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
     expect(thirdId).toBe(16);
     expect(thirdJob).toEqual({
@@ -171,7 +171,7 @@ describe("selectSmartTerrainJob util", () => {
       gameVertexId: 512,
       id: 16,
       isMonsterJob: true,
-      levelId: 5120,
+      levelId: 5,
       pathType: 2,
       position: {
         x: 1,
@@ -208,7 +208,7 @@ describe("getSmartTerrainJobByObjectId util", () => {
     terrain.register_npc(firstStalker);
     terrain.register_npc(secondStalker);
 
-    expect(getSmartTerrainJobByObjectId(terrain, firstStalker.id)).toEqual({
+    expect(getTerrainJobByObjectId(terrain, firstStalker.id)).toEqual({
       alifeTask: {
         gameVertexId: 20001,
         levelVertexId: 20002,
@@ -223,7 +223,7 @@ describe("getSmartTerrainJobByObjectId util", () => {
       objectId: firstStalker.id,
       id: 4,
       type: EJobType.CAMPER,
-      levelId: 200010,
+      levelId: 2,
       position: {
         x: 10,
         y: 20,
@@ -238,6 +238,6 @@ describe("getSmartTerrainJobByObjectId util", () => {
       },
     });
 
-    expect(getSmartTerrainObjectIdByJobSection(terrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
+    expect(getTerrainObjectIdByJobSection(terrain, "logic@test_smart_camper_1_walk")).toBe(firstStalker.id);
   });
 });

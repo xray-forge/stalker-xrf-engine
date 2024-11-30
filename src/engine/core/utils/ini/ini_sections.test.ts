@@ -22,15 +22,25 @@ describe("getSectionsWithoutStoryIDs util", () => {
     expect(all).toEqualLuaArrays([
       "test_squad",
       "simulation_stalker",
+      "simulation_stalker_squad",
       "stalker_sim_squad_novice",
       "simulation_bandit",
       "simulation_duty_1",
       "jup_a10_bandit_squad",
+      "zat_a2_stalker_nimble_squad",
+      "zat_b30_owl_stalker_trader_squad",
+      "zat_b7_bandit_boss_sultan_squad",
+      "jup_b6_scientist_group",
+      "jup_b43_stalker_assistant_squad",
+      "pri_a22_military_merkulov_squad",
+      "pri_a22_military_skelja_squad",
+      "pri_a22_military_yarmoshuk_squad",
     ]);
 
     expect(getSectionsWithoutStoryIDs(all)).toEqualLuaArrays([
       "test_squad",
       "simulation_stalker",
+      "simulation_stalker_squad",
       "stalker_sim_squad_novice",
       "simulation_bandit",
       "simulation_duty_1",
@@ -49,10 +59,19 @@ describe("getSimulationGroupSections util", () => {
     expect(getSimulationGroupSections()).toEqualLuaArrays([
       "test_squad",
       "simulation_stalker",
+      "simulation_stalker_squad",
       "stalker_sim_squad_novice",
       "simulation_bandit",
       "simulation_duty_1",
       "jup_a10_bandit_squad",
+      "zat_a2_stalker_nimble_squad",
+      "zat_b30_owl_stalker_trader_squad",
+      "zat_b7_bandit_boss_sultan_squad",
+      "jup_b6_scientist_group",
+      "jup_b43_stalker_assistant_squad",
+      "pri_a22_military_merkulov_squad",
+      "pri_a22_military_skelja_squad",
+      "pri_a22_military_yarmoshuk_squad",
     ]);
   });
 });

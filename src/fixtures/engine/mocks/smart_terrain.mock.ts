@@ -5,7 +5,7 @@ import { IniFile, Optional, TName, TSection } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 /**
- * Mock smart terrain mocked server object.
+ * Smart terrain mocked server object.
  */
 export class MockSmartTerrain extends SmartTerrain {
   public static mock(name: Optional<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {

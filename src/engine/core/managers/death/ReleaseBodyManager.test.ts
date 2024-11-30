@@ -132,7 +132,7 @@ describe("ReleaseBodyManager", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(processor.dataList).toEqual([4, 10, 11, 12, 13, 5120, 6]);
+    expect(processor.dataList).toEqual([4, 10, 11, 12, 13, 5, 6]);
 
     disposeManager(ReleaseBodyManager);
 
@@ -171,7 +171,7 @@ describe("ReleaseBodyManager", () => {
       EPacketDataType.U16,
       EPacketDataType.U16,
     ]);
-    expect(processor.dataList).toEqual([2, 10, 11, 5120, 4]);
+    expect(processor.dataList).toEqual([2, 10, 11, 5, 4]);
 
     disposeManager(ReleaseBodyManager);
 

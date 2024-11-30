@@ -18,8 +18,10 @@ describe("isGameVertexFromLevel util", () => {
   });
 
   it("isGameVertexFromLevel should correctly check level name", () => {
-    expect(isGameVertexFromLevel("pripyat", 50)).toBe(true);
-    expect(isGameVertexFromLevel("zaton", 51)).toBe(false);
+    expect(isGameVertexFromLevel("pripyat", 3213)).toBe(true);
+    expect(isGameVertexFromLevel("pripyat", 232)).toBe(false);
+    expect(isGameVertexFromLevel("zaton", 45235)).toBe(false);
+    expect(isGameVertexFromLevel("zaton", 1241)).toBe(true);
   });
 });
 

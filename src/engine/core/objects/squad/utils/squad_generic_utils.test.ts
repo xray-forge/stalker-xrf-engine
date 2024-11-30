@@ -51,7 +51,7 @@ current = nil
   });
 
   it("should correctly get hint with debug and custom values", () => {
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mock();
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
     const squad: Squad = MockSquad.mock();
     const target: Squad = MockSquad.mock();
     const assigned: Squad = MockSquad.mock();
@@ -63,7 +63,7 @@ current = nil
     squad.currentAction = new SquadStayOnTargetAction(target);
 
     squad.assignedTargetId = 5000;
-    squad.assignedSmartTerrainId = smartTerrain.id;
+    squad.assignedTerrainId = terrain.id;
     squad.nextTargetIndex = next.id;
     squad.assignedTargetId = assigned.id;
 
@@ -75,7 +75,7 @@ community = stalker
 spawn_id = nil
 spawn_section = nil
 [smart_terrain]
-assigned = ${smartTerrain.name()}
+assigned = ${terrain.name()}
 [target]
 current = ${target.name()}
 assigned = ${assigned.name()}

@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CALifeSmartTerrainTask, level } from "xray16";
 
-import { getManager, registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
-import { ESimulationTerrainRole, SimulationManager } from "@/engine/core/managers/simulation";
+import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { communities } from "@/engine/lib/constants/communities";
@@ -73,13 +74,13 @@ describe("Squad server object", () => {
     const squad: MockSquad = MockSquad.mock();
     const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
 
-    terrain.simulationManager.assignSquadToSmartTerrain(squad, terrain.id);
+    assignSimulationSquadToTerrain(squad, terrain.id);
     expect(squad.isSimulationAvailable()).toBe(true);
 
     terrain.simulationProperties.set(ESimulationTerrainRole.BASE, 1);
     expect(squad.isSimulationAvailable()).toBe(false);
 
-    squad.assignedSmartTerrainId = null;
+    squad.assignedTerrainId = null;
     expect(squad.isSimulationAvailable()).toBe(true);
   });
 
@@ -137,7 +138,6 @@ describe("Squad server object", () => {
   it("should correctly handle simulation target selection", () => {
     const squad: MockSquad = MockSquad.mock();
     const another: MockSquad = MockSquad.mock();
-    const simulationManager: SimulationManager = getManager(SimulationManager);
 
     const first: ServerHumanObject = MockAlifeHumanStalker.mock();
     const second: ServerHumanObject = MockAlifeHumanStalker.mock();
@@ -149,12 +149,12 @@ describe("Squad server object", () => {
     registerOfflineObject(second.id, { levelVertexId: 11, activeSection: "test_section" });
 
     jest.spyOn(another, "setLocationTypes").mockImplementation(jest.fn());
-    jest.spyOn(simulationManager, "assignSquadToSmartTerrain").mockImplementation(jest.fn());
+    jest.spyOn(another, "assignToTerrain").mockImplementation(jest.fn());
 
     squad.onSimulationTargetSelected(another);
 
     expect(another.setLocationTypes).toHaveBeenCalledTimes(1);
-    expect(simulationManager.assignSquadToSmartTerrain).toHaveBeenCalledWith(another, null);
+    expect(another.assignToTerrain).toHaveBeenCalledWith(null);
 
     expect(registry.offlineObjects.length()).toBe(2);
     expect(registry.offlineObjects.get(first.id)).toEqual({

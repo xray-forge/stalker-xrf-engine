@@ -12,22 +12,22 @@ import { Patrol, TIndex, TName } from "@/engine/lib/types";
 /**
  * Create sniper jobs for stalkers in smart terrain.
  *
- * @param smartTerrain - smart terrain to create default animpoint jobs for
+ * @param terrain - smart terrain to create default animpoint jobs for
  * @param jobs - list of smart terrain jobs to insert into
  * @param builder - builder of large ltx file
  * @returns cover jobs list and updated string builder
  */
 export function createStalkerSniperJobs(
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
   builder: StringBuilder
 ): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
-  const smartTerrainName: TName = smartTerrain.name();
+  const terrainName: TName = terrain.name();
 
   let index: TIndex = 1;
 
-  while (level.patrol_path_exists(string.format("%s_sniper_%s_walk", smartTerrainName, index))) {
-    const patrolName: TName = string.format("%s_sniper_%s_walk", smartTerrainName, index);
+  while (level.patrol_path_exists(string.format("%s_sniper_%s_walk", terrainName, index))) {
+    const patrolName: TName = string.format("%s_sniper_%s_walk", terrainName, index);
     const jobPatrol: Patrol = new patrol(patrolName);
     const waypointData: IWaypointData = parseWaypointData(patrolName, jobPatrol.flags(0), jobPatrol.name(0));
 
@@ -72,8 +72,8 @@ def_state_campering_fire = %s_fire
       )
     );
 
-    if (smartTerrain.defendRestrictor !== null) {
-      builder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
+    if (terrain.defendRestrictor !== null) {
+      builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
     index += 1;

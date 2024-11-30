@@ -30,7 +30,7 @@ import { IObjectJobState } from "@/engine/core/objects/smart_terrain/job/job_typ
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { AnyObject, GameObject, ServerHumanObject, TNumberId, TSection } from "@/engine/lib/types";
-import { mockSmartCover, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
+import { MockSmartCover, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockCTime, MockGameObject } from "@/fixtures/xray";
 
 describe("job_precondition utilities", () => {
@@ -105,7 +105,7 @@ describe("job_precondition utilities", () => {
 
   it("jobPreconditionAnimpoint should correctly check animpoint preconditions", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock("test_smart");
-    const cover: SmartCover = mockSmartCover("test_smart_animpoint_1");
+    const cover: SmartCover = MockSmartCover.mock("test_smart_animpoint_1");
     const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
 
     registerSmartCover(cover);

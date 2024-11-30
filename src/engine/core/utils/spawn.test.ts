@@ -1,8 +1,7 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it } from "@jest/globals";
 
-import { getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
-import { Squad } from "@/engine/core/objects/squad";
+import { registerActor, registerSimulator, registry } from "@/engine/core/database";
+import { getSimulationTerrainAssignedSquadsCount } from "@/engine/core/managers/simulation/utils";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import {
   releaseObject,
@@ -22,13 +21,12 @@ import {
   AlifeSimulator,
   GameObject,
   ServerActorObject,
-  ServerGroupObject,
   ServerHumanObject,
   ServerSmartZoneObject,
   TSection,
 } from "@/engine/lib/types";
-import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
-import { MockAlifeCreatureActor, MockAlifeObject, MockGameObject, MockVector } from "@/fixtures/xray";
+import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
+import { MockAlifeCreatureActor, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
 describe("spawnItemsForObject util", () => {
   beforeEach(() => {
@@ -258,28 +256,16 @@ describe("spawnSquadInSmart util", () => {
     expect(() => spawnSquadInSmart("abc", "abc")).toThrow();
     expect(() => spawnSquadInSmart("squad", "some_terrain")).toThrow();
 
-    const simulationManager: SimulationManager = getManager(SimulationManager);
-    const smartTerrain: ServerSmartZoneObject = MockSmartTerrain.mock();
-    const squad: Squad = MockSquad.mock();
+    const terrain: ServerSmartZoneObject = MockSmartTerrain.mock();
 
     mockRegisteredActor();
 
-    jest.spyOn(simulationManager, "assignSquadToSmartTerrain").mockImplementation(() => {});
-    jest.spyOn(simulationManager, "createSquad").mockImplementation(() => squad);
-    jest.spyOn(simulationManager, "setupObjectSquadAndGroup").mockImplementation(() => {});
+    terrain.on_before_register();
+    terrain.on_register();
 
-    smartTerrain.on_before_register();
-    smartTerrain.on_register();
+    spawnSquadInSmart("simulation_stalker_squad", terrain.name());
 
-    squad.addMember("test", MockVector.mock(1, 1, 1), 1, 2);
-    squad.addMember("test", MockVector.mock(2, 2, 2), 1, 2);
-
-    const createdSquad: ServerGroupObject = spawnSquadInSmart("test_squad", smartTerrain.name());
-
-    expect(createdSquad).toBe(squad);
-    expect(simulationManager.createSquad).toHaveBeenCalledWith(smartTerrain, "test_squad");
-    expect(simulationManager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(2);
-    expect(squad.update).toHaveBeenCalled();
+    expect(getSimulationTerrainAssignedSquadsCount(terrain.id)).toBe(1);
   });
 });
 

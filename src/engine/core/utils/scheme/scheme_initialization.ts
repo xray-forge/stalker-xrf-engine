@@ -10,12 +10,12 @@ import {
 } from "@/engine/core/database";
 import { TradeManager } from "@/engine/core/managers/trade/TradeManager";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
-import { getSmartTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
+import { getTerrainJobByObjectId } from "@/engine/core/objects/smart_terrain/job/job_pick";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain } from "@/engine/core/utils/position";
+import { getObjectTerrain } from "@/engine/core/utils/position";
 import { ERelation } from "@/engine/core/utils/relation";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import {
@@ -90,10 +90,10 @@ export function configureObjectSchemes(
       return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, logicsSection, smartTerrainName);
     } else {
       if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
-        const currentSmart: Optional<SmartTerrain> = getObjectSmartTerrain(object);
+        const currentSmart: Optional<SmartTerrain> = getObjectTerrain(object);
 
         if (currentSmart) {
-          state.jobIni = getSmartTerrainJobByObjectId(currentSmart, object.id())?.iniPath as Optional<TPath>;
+          state.jobIni = getTerrainJobByObjectId(currentSmart, object.id())?.iniPath as Optional<TPath>;
         }
       }
 

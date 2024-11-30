@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { getManager, registerStoryLink } from "@/engine/core/database";
+import { registerStoryLink } from "@/engine/core/database";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import {
   getTerrainMapSpotHint,
@@ -9,7 +9,8 @@ import {
   updateTerrainMapSpot,
   updateTerrainsMapSpotDisplay,
 } from "@/engine/core/managers/map/utils/map_spot_terrain";
-import { ESimulationTerrainRole, ISmartTerrainDescriptor, SimulationManager } from "@/engine/core/managers/simulation";
+import { ESimulationTerrainRole, ISmartTerrainDescriptor } from "@/engine/core/managers/simulation";
+import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { getSmartTerrainNameCaption, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import { Squad } from "@/engine/core/objects/squad";
@@ -184,23 +185,23 @@ describe("getSmartTerrainMapDisplayHint util", () => {
   });
 
   it("should correctly generate map hints without debug", () => {
-    const smartTerrain: SmartTerrain = new SmartTerrain("test_init");
+    const terrain: SmartTerrain = new SmartTerrain("test_init");
 
-    expect(getTerrainMapSpotHint(smartTerrain)).toBe(getSmartTerrainNameCaption(smartTerrain));
+    expect(getTerrainMapSpotHint(terrain)).toBe(getSmartTerrainNameCaption(terrain));
   });
 
   it("should correctly generate map hints with debug and defaults", () => {
     mockRegisteredActor();
 
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mockRegistered("test_smart");
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered("test_smart");
 
-    smartTerrain.isSimulationAvailableConditionList = parseConditionsList(FALSE);
-    smartTerrain.isRespawnPoint = false;
+    terrain.isSimulationAvailableConditionList = parseConditionsList(FALSE);
+    terrain.isRespawnPoint = false;
 
     forgeConfig.DEBUG.IS_SIMULATION_ENABLED = true;
 
-    expect(getTerrainMapSpotHint(smartTerrain).replaceAll("\\n", "\n")).toBe(
-      `[translated_st_test_smart_name] (${smartTerrain.name()}) (${smartTerrain.id})
+    expect(getTerrainMapSpotHint(terrain).replaceAll("\\n", "\n")).toBe(
+      `[translated_st_test_smart_name] (${terrain.name()}) (${terrain.id})
 available = false
 online = true
 simulation_role = default
@@ -219,7 +220,7 @@ working = 0
   it("getSmartTerrainMapDisplayHint should correctly generate map hints with debug and some custom values", () => {
     mockRegisteredActor();
 
-    const smartTerrain: SmartTerrain = MockSmartTerrain.mockRegistered("test_smart");
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered("test_smart");
     const squads: Array<Squad> = [
       MockSquad.mock(),
       MockSquad.mock(),
@@ -231,27 +232,27 @@ working = 0
 
     forgeConfig.DEBUG.IS_SIMULATION_ENABLED = true;
 
-    smartTerrain.isRespawnPoint = true;
-    smartTerrain.simulationProperties = $fromObject<TName, TRate>({ a: 1, b: 2 });
-    (smartTerrain as AnyObject).online = true;
-    smartTerrain.simulationRole = ESimulationTerrainRole.SURGE;
-    smartTerrain.squadId = 155;
-    smartTerrain.maxStayingSquadsCount = 10;
-    smartTerrain.stayingObjectsCount = 3;
+    terrain.isRespawnPoint = true;
+    terrain.simulationProperties = $fromObject<TName, TRate>({ a: 1, b: 2 });
+    (terrain as AnyObject).online = true;
+    terrain.simulationRole = ESimulationTerrainRole.SURGE;
+    terrain.squadId = 155;
+    terrain.maxStayingSquadsCount = 10;
+    terrain.stayingObjectsCount = 3;
 
-    smartTerrain.lastRespawnUpdatedAt = MockCTime.mock(2015, 2, 14, 14, 25, 30, 100);
-    smartTerrain.spawnedSquadsList.set("test-1", { num: 3 });
-    smartTerrain.spawnedSquadsList.set("test-2", { num: 3 });
+    terrain.lastRespawnUpdatedAt = MockCTime.mock(2015, 2, 14, 14, 25, 30, 100);
+    terrain.spawnedSquadsList.set("test-1", { num: 3 });
+    terrain.spawnedSquadsList.set("test-2", { num: 3 });
 
-    smartTerrain.spawnSquadsConfiguration.set("test-1", { num: parseConditionsList("3"), squads: new LuaTable() });
-    smartTerrain.spawnSquadsConfiguration.set("test-2", { num: parseConditionsList("3"), squads: new LuaTable() });
+    terrain.spawnSquadsConfiguration.set("test-1", { num: parseConditionsList("3"), squads: new LuaTable() });
+    terrain.spawnSquadsConfiguration.set("test-2", { num: parseConditionsList("3"), squads: new LuaTable() });
 
-    smartTerrain.objectByJobSection.set("some-job", 4000);
-    smartTerrain.objectJobDescriptors.set(4000, createObjectJobDescriptor(MockAlifeHumanStalker.mock({ id: 4000 })));
-    smartTerrain.arrivingObjects.set(4001, MockAlifeHumanStalker.mock({ id: 4001 }));
+    terrain.objectByJobSection.set("some-job", 4000);
+    terrain.objectJobDescriptors.set(4000, createObjectJobDescriptor(MockAlifeHumanStalker.mock({ id: 4000 })));
+    terrain.arrivingObjects.set(4001, MockAlifeHumanStalker.mock({ id: 4001 }));
 
-    const descriptor: ISmartTerrainDescriptor = getManager(SimulationManager).getSmartTerrainDescriptor(
-      smartTerrain.id
+    const descriptor: ISmartTerrainDescriptor = getSimulationTerrainDescriptorById(
+      terrain.id
     ) as ISmartTerrainDescriptor;
 
     descriptor.assignedSquadsCount = 6;
@@ -259,8 +260,8 @@ working = 0
     squads.forEach((it) => descriptor.assignedSquads.set(it.id, it));
     squads.forEach((it, index) => jest.spyOn(it, "getScriptedSimulationTarget").mockImplementation(() => index));
 
-    expect(getTerrainMapSpotHint(smartTerrain).replaceAll("\\n", "\n")).toBe(
-      `[translated_st_test_smart_name] (${smartTerrain.name()}) (${smartTerrain.id})
+    expect(getTerrainMapSpotHint(terrain).replaceAll("\\n", "\n")).toBe(
+      `[translated_st_test_smart_name] (${terrain.name()}) (${terrain.id})
 available = true
 online = true
 simulation_role = surge

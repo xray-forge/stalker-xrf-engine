@@ -1,21 +1,25 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getManager, registerSimulator, updateSimulationObjectAvailability } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation";
+import { registerSimulator, updateSimulationObjectAvailability } from "@/engine/core/database";
+import { setupSimulationObjectSquadAndGroup } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { SquadReachTargetAction } from "@/engine/core/objects/squad/action/SquadReachTargetAction";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { ServerHumanObject } from "@/engine/lib/types";
 import { MockSquad, resetRegistry } from "@/fixtures/engine";
+import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/managers/simulation/utils/simulation_squads");
 
 describe("SquadReachTargetAction", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
+
+    resetFunctionMock(setupSimulationObjectSquadAndGroup);
   });
 
   it("should correctly initialize under simulation", () => {
-    const manager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const target: MockSquad = MockSquad.mock();
     const action: SquadReachTargetAction = new SquadReachTargetAction(squad);
@@ -32,7 +36,6 @@ describe("SquadReachTargetAction", () => {
     expect(action.type).toBe(ESquadActionType.REACH_TARGET);
 
     jest.spyOn(target, "onSimulationTargetSelected").mockImplementation(jest.fn());
-    jest.spyOn(manager, "setupObjectSquadAndGroup").mockImplementation(jest.fn());
 
     updateSimulationObjectAvailability(target);
 
@@ -41,13 +44,12 @@ describe("SquadReachTargetAction", () => {
     expect(target.onSimulationTargetSelected).toHaveBeenCalledTimes(1);
     expect(target.onSimulationTargetSelected).toHaveBeenCalledWith(squad);
 
-    expect(manager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(2);
-    expect(manager.setupObjectSquadAndGroup).toHaveBeenCalledWith(first);
-    expect(manager.setupObjectSquadAndGroup).toHaveBeenCalledWith(second);
+    expect(setupSimulationObjectSquadAndGroup).toHaveBeenCalledTimes(2);
+    expect(setupSimulationObjectSquadAndGroup).toHaveBeenCalledWith(first);
+    expect(setupSimulationObjectSquadAndGroup).toHaveBeenCalledWith(second);
   });
 
   it("should correctly initialize without simulation", () => {
-    const manager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const target: MockSquad = MockSquad.mock();
     const action: SquadReachTargetAction = new SquadReachTargetAction(squad);
@@ -64,16 +66,15 @@ describe("SquadReachTargetAction", () => {
     expect(action.type).toBe(ESquadActionType.REACH_TARGET);
 
     jest.spyOn(target, "onSimulationTargetSelected").mockImplementation(jest.fn());
-    jest.spyOn(manager, "setupObjectSquadAndGroup").mockImplementation(jest.fn());
 
     action.initialize(false);
 
     expect(target.onSimulationTargetSelected).toHaveBeenCalledTimes(1);
     expect(target.onSimulationTargetSelected).toHaveBeenCalledWith(squad);
 
-    expect(manager.setupObjectSquadAndGroup).toHaveBeenCalledTimes(2);
-    expect(manager.setupObjectSquadAndGroup).toHaveBeenCalledWith(first);
-    expect(manager.setupObjectSquadAndGroup).toHaveBeenCalledWith(second);
+    expect(setupSimulationObjectSquadAndGroup).toHaveBeenCalledTimes(2);
+    expect(setupSimulationObjectSquadAndGroup).toHaveBeenCalledWith(first);
+    expect(setupSimulationObjectSquadAndGroup).toHaveBeenCalledWith(second);
   });
 
   it("should correctly finalize", () => {
@@ -104,7 +105,6 @@ describe("SquadReachTargetAction", () => {
   });
 
   it("should correctly update under simulation", () => {
-    const manager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const target: MockSquad = MockSquad.mock();
     const action: SquadReachTargetAction = new SquadReachTargetAction(squad);
@@ -123,7 +123,6 @@ describe("SquadReachTargetAction", () => {
     jest.spyOn(target, "onSimulationTargetSelected").mockImplementation(jest.fn());
     jest.spyOn(target, "onSimulationTargetDeselected").mockImplementation(jest.fn());
     jest.spyOn(target, "isReachedBySimulationObject").mockImplementation(jest.fn(() => false));
-    jest.spyOn(manager, "setupObjectSquadAndGroup").mockImplementation(jest.fn());
 
     updateSimulationObjectAvailability(target);
 
@@ -145,7 +144,6 @@ describe("SquadReachTargetAction", () => {
   });
 
   it("should correctly update without simulation", () => {
-    const manager: SimulationManager = getManager(SimulationManager);
     const squad: MockSquad = MockSquad.mock();
     const target: MockSquad = MockSquad.mock();
     const action: SquadReachTargetAction = new SquadReachTargetAction(squad);
@@ -164,7 +162,6 @@ describe("SquadReachTargetAction", () => {
     jest.spyOn(target, "onSimulationTargetSelected").mockImplementation(jest.fn());
     jest.spyOn(target, "onSimulationTargetDeselected").mockImplementation(jest.fn());
     jest.spyOn(target, "isReachedBySimulationObject").mockImplementation(jest.fn(() => false));
-    jest.spyOn(manager, "setupObjectSquadAndGroup").mockImplementation(jest.fn());
 
     action.initialize(false);
 

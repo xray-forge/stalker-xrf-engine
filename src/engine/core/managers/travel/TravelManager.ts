@@ -5,8 +5,13 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
-import { TSimulationObject } from "@/engine/core/managers/simulation";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { TSimulationObject } from "@/engine/core/managers/simulation/simulation_types";
+import {
+  assignSimulationSquadToTerrain,
+  getSimulationTerrainByName,
+  getSimulationTerrainDescriptorById,
+  releaseSimulationSquad,
+} from "@/engine/core/managers/simulation/utils";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
@@ -21,7 +26,7 @@ import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
-import { getObjectSmartTerrain, getServerDistanceBetween } from "@/engine/core/utils/position";
+import { getObjectTerrain, getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { vectorToString } from "@/engine/core/utils/vector";
@@ -186,7 +191,7 @@ export class TravelManager extends AbstractManager {
       return false;
     } else if (objectCommunity === communities.bandit || objectCommunity === communities.army) {
       return false;
-    } else if (getObjectSmartTerrain(object)?.name() === "jup_b41") {
+    } else if (getObjectTerrain(object)?.name() === "jup_b41") {
       return false;
     }
 
@@ -218,13 +223,13 @@ export class TravelManager extends AbstractManager {
     const targetClsId: TClassId = targetSquadObject.clsid();
 
     if (isSmartTerrain(targetSquadObject)) {
-      const smartDescription: TLabel = travelConfig.TRAVEL_LOCATIONS.get(targetSquadObject.name());
+      const terrainDescription: TLabel = travelConfig.TRAVEL_LOCATIONS.get(targetSquadObject.name());
 
-      if (smartDescription === null) {
-        abort("wrong smart name '%s' in travel_manager.ltx", targetSquadObject.name());
+      if (terrainDescription === null) {
+        abort("Wrong smart name '%s' in travel_manager.ltx", targetSquadObject.name());
       }
 
-      return smartDescription;
+      return terrainDescription;
     } else if (isSquad(targetSquadObject)) {
       return string.format(
         "dm_%s_chasing_squad_%s",
@@ -264,24 +269,24 @@ export class TravelManager extends AbstractManager {
   /**
    * todo: Description.
    */
-  public isSmartAvailableToReach(smartName: TName, descriptor: ITravelRouteDescriptor, squad: Squad): boolean {
+  public isSmartAvailableToReach(terrainName: TName, descriptor: ITravelRouteDescriptor, squad: Squad): boolean {
     if (descriptor.level !== level.name()) {
       return false;
     }
 
-    if (mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT && !hasInfoPortion(string.format("%s_visited", smartName))) {
+    if (mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT && !hasInfoPortion(string.format("%s_visited", terrainName))) {
       return false;
     }
 
-    const smartTerrain: Optional<SmartTerrain> = getManager(SimulationManager).getSmartTerrainByName(smartName);
+    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
-    if (smartTerrain === null) {
-      abort("Error in travel manager. Smart terrain '%s' does not exist.", smartName);
+    if (terrain === null) {
+      abort("Error in travel manager. Smart terrain '%s' does not exist.", terrainName);
     }
 
     return (
-      pickSectionFromCondList(registry.actor, smartTerrain, descriptor.condlist) === TRUE &&
-      getServerDistanceBetween(squad, smartTerrain) > travelConfig.TRAVEL_DISTANCE_MIN_THRESHOLD
+      pickSectionFromCondList(registry.actor, terrain, descriptor.condlist) === TRUE &&
+      getServerDistanceBetween(squad, terrain) > travelConfig.TRAVEL_DISTANCE_MIN_THRESHOLD
     );
   }
 
@@ -311,15 +316,15 @@ export class TravelManager extends AbstractManager {
     prevPhraseId: TStringId,
     phraseId: TStringId
   ): boolean {
-    const smartName: Optional<TName> = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(phraseId);
+    const terrainName: Optional<TName> = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(phraseId);
 
-    if (smartName === null) {
+    if (terrainName === null) {
       abort("Error in travel manager, not available smart name: '%s'.", tostring(phraseId));
     }
 
     return this.isSmartAvailableToReach(
-      smartName,
-      travelConfig.TRAVEL_DESCRIPTORS_BY_NAME.get(smartName),
+      terrainName,
+      travelConfig.TRAVEL_DESCRIPTORS_BY_NAME.get(terrainName),
       getObjectSquad(object)!
     );
   }
@@ -338,13 +343,12 @@ export class TravelManager extends AbstractManager {
    * todo: Description.
    */
   public getTravelPriceByObjectPhrase(object: GameObject, phraseId: TStringId): TCount {
-    const simulationBoardManager: SimulationManager = getManager(SimulationManager);
-    const smartTerrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(
+    const terrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(
       string.sub(phraseId, 1, string.len(phraseId) - 2)
     );
 
     return this.getTravelPriceByDistance(
-      object.position().distance_to(simulationBoardManager.getSmartTerrainByName(smartTerrainName)!.position)
+      object.position().distance_to(getSimulationTerrainByName(terrainName)!.position)
     );
   }
 
@@ -393,22 +397,21 @@ export class TravelManager extends AbstractManager {
 
       const point: Patrol = new patrol(this.travelActorPath!);
       const direction: TDirection = -point.point(1).sub(point.point(0)).getH();
-      const board: SimulationManager = getManager(SimulationManager);
 
       // todo: Why releasing enemies? Probably not needed.
-      for (const [, squad] of board.getSmartTerrainDescriptor(this.travelToSmartId!)!.assignedSquads) {
+      for (const [, squad] of getSimulationTerrainDescriptorById(this.travelToSmartId!)!.assignedSquads) {
         if (getStoryIdByObjectId(squad.id) === null && isAnySquadMemberEnemyToActor(squad)) {
-          board.releaseSquad(squad);
+          releaseSimulationSquad(squad);
         }
       }
 
-      const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedSmartTerrainId;
+      const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedTerrainId;
 
       if (currentSmartId !== null) {
         logger.info("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);
 
-        board.assignSquadToSmartTerrain(this.travelSquad!, null);
-        board.assignSquadToSmartTerrain(this.travelSquad!, currentSmartId);
+        assignSimulationSquadToTerrain(this.travelSquad!, null);
+        assignSimulationSquadToTerrain(this.travelSquad!, currentSmartId);
       }
 
       const position: Vector = new patrol(this.travelSquadPath!).point(0);
@@ -468,13 +471,12 @@ export class TravelManager extends AbstractManager {
     dialogId: TStringId,
     phraseId: TStringId
   ): void {
-    const simulationBoardManager: SimulationManager = getManager(SimulationManager);
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 3);
-    const smartName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(travelPhraseId);
-    const smartTerrain: Optional<SmartTerrain> = simulationBoardManager.getSmartTerrainByName(smartName)!;
+    const terrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(travelPhraseId);
+    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName)!;
     const squad: Squad = getObjectSquad(object) as Squad;
 
-    logger.info("Actor travel with squad: '%s' -> '%s'", squad.name(), smartName);
+    logger.info("Actor travel with squad: '%s' -> '%s'", squad.name(), terrainName);
 
     createGameAutoSave("st_save_uni_travel_generic");
 
@@ -485,7 +487,7 @@ export class TravelManager extends AbstractManager {
     level.add_pp_effector(postProcessors.fade_in_out, 613, false);
 
     // todo: Alife distance vs abs distance.
-    const distance: TDistance = getServerDistanceBetween(squad!, smartTerrain);
+    const distance: TDistance = getServerDistanceBetween(squad!, terrain);
     const price: TCount = this.getTravelPriceByDistance(distance);
 
     logger.info("Actor travel distance and price: '%s' -> '%s'", distance, price);
@@ -496,9 +498,9 @@ export class TravelManager extends AbstractManager {
     this.isTravelTeleported = false;
     this.isTraveling = true;
 
-    this.travelActorPath = smartTerrain.travelerActorPointName;
-    this.travelSquadPath = smartTerrain.travelerSquadPointName;
-    this.travelToSmartId = smartTerrain.id;
+    this.travelActorPath = terrain.travelerActorPointName;
+    this.travelSquadPath = terrain.travelerSquadPointName;
+    this.travelToSmartId = terrain.id;
     this.travelSquad = squad;
     this.travelDistance = distance;
     this.travelingStartedAt = time_global();
@@ -519,7 +521,7 @@ export class TravelManager extends AbstractManager {
 
     const squad: Squad = getObjectSquad(object)!;
     const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
-    const smartTerrain: SmartTerrain = registry.simulator.object<SmartTerrain>(squadTargetId!)!;
+    const terrain: SmartTerrain = registry.simulator.object<SmartTerrain>(squadTargetId!)!;
 
     object.stop_talk();
 
@@ -530,10 +532,10 @@ export class TravelManager extends AbstractManager {
     this.isTravelTeleported = false;
     this.isTraveling = true;
 
-    this.travelDistance = getServerDistanceBetween(squad, smartTerrain);
-    this.travelActorPath = smartTerrain.travelerActorPointName;
-    this.travelSquadPath = smartTerrain.travelerSquadPointName;
-    this.travelToSmartId = smartTerrain.id;
+    this.travelDistance = getServerDistanceBetween(squad, terrain);
+    this.travelActorPath = terrain.travelerActorPointName;
+    this.travelSquadPath = terrain.travelerSquadPointName;
+    this.travelToSmartId = terrain.id;
     this.travelSquad = squad;
     this.travelingStartedAt = time_global();
   }

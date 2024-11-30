@@ -8,24 +8,24 @@ import { TName } from "@/engine/lib/types";
  * Create list of default smart terrain jobs for monsters.
  * Usually it assigns monster home for some point.
  *
- * @param smartTerrain - terrain to create jobs for
+ * @param terrain - terrain to create jobs for
  * @param jobsList - list of jobs to insert into
  * @param stringBuilder - builder of large strings to inject LTX
  * @returns jobs descriptor and ltx config text for matching jobs
  */
 export function createMonsterJobs(
-  smartTerrain: SmartTerrain,
+  terrain: SmartTerrain,
   jobsList: TSmartTerrainJobsList,
   stringBuilder: StringBuilder
 ): LuaMultiReturn<[TSmartTerrainJobsList, StringBuilder]> {
-  const smartTerrainName: TName = smartTerrain.name();
+  const terrainName: TName = terrain.name();
 
   // ===================================================================================================================
   // = Mob home
   // ===================================================================================================================
 
   for (const it of $range(1, smartTerrainConfig.JOBS.MOB_HOME.COUNT)) {
-    const patrolName: TName = string.format("%s_home_%s", smartTerrainName, it);
+    const patrolName: TName = string.format("%s_home_%s", terrainName, it);
 
     table.insert(jobsList, {
       type: EJobType.MONSTER_HOME,
@@ -54,8 +54,8 @@ home_max_radius = %s
       )
     );
 
-    if (smartTerrain.defendRestrictor !== null) {
-      stringBuilder.append(string.format("out_restr = %s\n", smartTerrain.defendRestrictor));
+    if (terrain.defendRestrictor !== null) {
+      stringBuilder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
   }
 

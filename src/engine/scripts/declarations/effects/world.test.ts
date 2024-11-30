@@ -76,20 +76,20 @@ describe("world effects implementation", () => {
   it("play_sound should force play sounds", () => {
     const { actorGameObject } = mockRegisteredActor();
     const object: GameObject = MockGameObject.mockStalker();
-    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
+    const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
     const soundManager: SoundManager = getManager(SoundManager);
 
     jest.spyOn(soundManager, "play").mockImplementation(jest.fn(() => null as unknown as SoundObject));
 
-    callXrEffect("play_sound", actorGameObject, object, "test_theme", "test_faction", smartTerrain.name());
+    callXrEffect("play_sound", actorGameObject, object, "test_theme", "test_faction", terrain.name());
 
     expect(soundManager.play).toHaveBeenCalledTimes(1);
-    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test_theme", "test_faction", smartTerrain.id);
+    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test_theme", "test_faction", terrain.id);
 
     jest.spyOn(object, "alive").mockImplementation(() => false);
 
     expect(() => {
-      callXrEffect("play_sound", actorGameObject, object, "test_theme", "test_faction", smartTerrain.name());
+      callXrEffect("play_sound", actorGameObject, object, "test_theme", "test_faction", terrain.name());
     }).toThrow(`Stalker '${object.name()}' is dead while trying to play theme sound 'test_theme'.`);
   });
 
@@ -134,7 +134,7 @@ describe("world effects implementation", () => {
 
     const object: GameObject = MockGameObject.mock();
     const soundManager: SoundManager = getManager(SoundManager);
-    const smartTerrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
+    const terrain: MockSmartTerrain = MockSmartTerrain.mockRegistered();
 
     jest.spyOn(soundManager, "play").mockImplementation(jest.fn(() => null as unknown as SoundObject));
 
@@ -147,11 +147,11 @@ describe("world effects implementation", () => {
       "test-sid",
       "test-theme",
       "test-faction",
-      smartTerrain.name()
+      terrain.name()
     );
 
     expect(soundManager.play).toHaveBeenCalledTimes(1);
-    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test-theme", "test-faction", smartTerrain.id);
+    expect(soundManager.play).toHaveBeenCalledWith(object.id(), "test-theme", "test-faction", terrain.id);
   });
 
   it("reset_sound_npc should reset sound", () => {
