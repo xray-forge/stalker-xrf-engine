@@ -56,7 +56,7 @@ export class MockAlifeSimulator {
         levelVertexId: lvid,
         gameVertexId: gvid,
       });
-    } else if (section === "squad" || section.endsWith("_squad")) {
+    } else if (section === "squad" || section.endsWith("_squad") || section.endsWith("_group")) {
       return MockAlifeOnlineOfflineGroup.mock({
         section,
       });

@@ -135,7 +135,7 @@ describe("job_execution logic", () => {
         },
         gameVertexId: 20001,
         pathType: EJobPathType.PATH,
-        levelId: 200010,
+        levelId: 2,
         position: {
           x: 10,
           y: 20,
@@ -161,7 +161,7 @@ describe("job_execution logic", () => {
     jest.spyOn(terrain, "name").mockImplementation(() => "test_smart");
 
     (terrain as AnyObject).m_game_vertex_id = 512;
-    (firstStalker as AnyObject).m_game_vertex_id = 510;
+    (firstStalker as AnyObject).m_game_vertex_id = 430;
     (secondStalker as AnyObject).m_game_vertex_id = 512;
 
     expect(secondStalker.m_smart_terrain_id).toBe(MAX_ALIFE_ID);
@@ -216,7 +216,7 @@ describe("job_execution logic", () => {
           },
           gameVertexId: 20001,
           pathType: EJobPathType.PATH,
-          levelId: 200010,
+          levelId: 2,
           position: {
             x: 10,
             y: 20,
@@ -254,7 +254,7 @@ describe("job_execution logic", () => {
           },
           gameVertexId: 20001,
           pathType: EJobPathType.PATH,
-          levelId: 200010,
+          levelId: 2,
           position: {
             x: 10,
             y: 20,
@@ -314,7 +314,7 @@ describe("job_execution logic", () => {
         },
         gameVertexId: 512,
         pathType: EJobPathType.POINT,
-        levelId: 5120,
+        levelId: 5,
         position: {
           x: 1,
           y: 2,
@@ -453,7 +453,7 @@ describe("selectSmartTerrainObjectJob util", () => {
           },
           gameVertexId: 20001,
           pathType: EJobPathType.PATH,
-          levelId: 200010,
+          levelId: 2,
           position: {
             x: 10,
             y: 20,
@@ -491,7 +491,7 @@ describe("selectSmartTerrainObjectJob util", () => {
           },
           gameVertexId: 20001,
           pathType: EJobPathType.PATH,
-          levelId: 200010,
+          levelId: 2,
           position: {
             x: 10,
             y: 20,

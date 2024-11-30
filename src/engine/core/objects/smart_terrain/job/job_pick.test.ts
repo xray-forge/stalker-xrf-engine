@@ -50,7 +50,7 @@ describe("selectSmartTerrainJob util", () => {
       gameVertexId: 20001,
       id: 4,
       isMonsterJob: false,
-      levelId: 200010,
+      levelId: 2,
       pathType: 1,
       position: {
         x: 10,
@@ -85,7 +85,7 @@ describe("selectSmartTerrainJob util", () => {
       gameVertexId: 20001,
       id: 5,
       isMonsterJob: false,
-      levelId: 200010,
+      levelId: 2,
       pathType: 1,
       position: {
         x: 10,
@@ -140,7 +140,7 @@ describe("selectSmartTerrainJob util", () => {
       gameVertexId: 512,
       id: 15,
       isMonsterJob: true,
-      levelId: 5120,
+      levelId: 5,
       pathType: 2,
       position: {
         x: 1,
@@ -171,7 +171,7 @@ describe("selectSmartTerrainJob util", () => {
       gameVertexId: 512,
       id: 16,
       isMonsterJob: true,
-      levelId: 5120,
+      levelId: 5,
       pathType: 2,
       position: {
         x: 1,
@@ -223,7 +223,7 @@ describe("getSmartTerrainJobByObjectId util", () => {
       objectId: firstStalker.id,
       id: 4,
       type: EJobType.CAMPER,
-      levelId: 200010,
+      levelId: 2,
       position: {
         x: 10,
         y: 20,

@@ -46,7 +46,7 @@ describe("initializeDefaultSimulationSquads util", () => {
     expect(createSimulationSquad).toHaveBeenCalledWith(terrainZatStalkerBase, "zat_b7_bandit_boss_sultan_squad");
 
     expect(createSimulationSquad).toHaveBeenCalledWith(terrainJupB41, "jup_b6_scientist_group");
-    expect(createSimulationSquad).toHaveBeenCalledWith(terrainJupB41, "jup_b43_stalker_assistant_squad_sq");
+    expect(createSimulationSquad).toHaveBeenCalledWith(terrainJupB41, "jup_b43_stalker_assistant_squad");
 
     expect(createSimulationSquad).toHaveBeenCalledWith(terrainPriA16, "pri_a22_military_merkulov_squad");
     expect(createSimulationSquad).toHaveBeenCalledWith(terrainPriA16, "pri_a22_military_skelja_squad");

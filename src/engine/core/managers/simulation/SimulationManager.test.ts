@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { actor_stats } from "xray16";
 
-import { disposeManager, getManager, initializeManager } from "@/engine/core/database";
+import { disposeManager, getManager, initializeManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
@@ -11,13 +11,16 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TName, TNumberId } from "@/engine/lib/types";
-import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
+import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SimulationManager", () => {
   beforeEach(() => {
     resetRegistry();
     destroySimulationData();
+
+    registerSimulator();
+    mockRegisteredActor();
 
     simulationConfig.IS_SIMULATION_INITIALIZED = false;
   });
@@ -59,6 +62,10 @@ describe("SimulationManager", () => {
     expect(simulationConfig.IS_SIMULATION_INITIALIZED).toBe(false);
 
     initializeManager(SimulationManager);
+
+    MockSmartTerrain.mockRegistered("pri_a16");
+    MockSmartTerrain.mockRegistered("zat_stalker_base_smart");
+    MockSmartTerrain.mockRegistered("jup_b41");
 
     EventsManager.emitEvent(EGameEvent.ACTOR_REGISTER);
 
