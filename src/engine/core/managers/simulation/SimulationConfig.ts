@@ -11,6 +11,9 @@ export const SIMULATION_OBJECTS_PROPERTIES_LTX: IniFile = new ini_file(
 );
 
 export const simulationConfig = {
+  ALIFE_DISTANCE_NEAR: 150,
+  ALIFE_DAY_START_HOUR: 6,
+  ALIFE_DAY_END_HOUR: 19,
   IS_SIMULATION_INITIALIZED: false,
   TERRAINS: new LuaTable<TName, SmartTerrain>(),
   TERRAIN_DESCRIPTORS: new LuaTable<TNumberId, ISmartTerrainDescriptor>(),

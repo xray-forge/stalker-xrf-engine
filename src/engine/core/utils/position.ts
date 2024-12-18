@@ -148,6 +148,8 @@ export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject)
  * Approximately calculates distance for servers that are offline and may be on different levels.
  *
  * todo: Use table memo for storing distance between different static vertexes.
+ * todo: Check other implementation to confirm it is worth it.
+ * todo: Make it configurable.
  *
  * @param first - object to check
  * @param second - object to check
