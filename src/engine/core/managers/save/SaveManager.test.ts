@@ -23,7 +23,7 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
-import { AnyObject } from "@/engine/lib/types";
+import { AnyObject, TName } from "@/engine/lib/types";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIoFile } from "@/fixtures/lua";
@@ -157,7 +157,8 @@ describe("SaveManager", () => {
     registry.extensions.set(firstExtension.name, firstExtension);
     registry.extensions.set(secondExtension.name, secondExtension);
 
-    const onSave = jest.fn((data: AnyObject) => {
+    const onSave = jest.fn((saveName: TName, data: AnyObject) => {
+      expect(saveName).toBe("test.scop");
       data.example = 123;
     });
 
@@ -184,6 +185,19 @@ describe("SaveManager", () => {
     expect(file.close).toHaveBeenCalledTimes(1);
   });
 
+  it("should properly handle after game saved event", () => {
+    const saveManager: SaveManager = getManager(SaveManager);
+
+    const onSaved = jest.fn();
+
+    getManager(EventsManager).registerCallback(EGameEvent.GAME_SAVED, onSaved);
+
+    saveManager.onGameSave("test.scop");
+
+    expect(onSaved).toHaveBeenCalledTimes(1);
+    expect(onSaved).toHaveBeenCalledWith("test.scop");
+  });
+
   it("should properly load dynamic saves", () => {
     const saveManager: SaveManager = getManager(SaveManager);
     const file: MockIoFile = new MockIoFile("test", "wb");
@@ -204,7 +218,8 @@ describe("SaveManager", () => {
       objects: {},
     });
 
-    const onLoad = jest.fn((data: AnyObject) => {
+    const onLoad = jest.fn((saveName: TName, data: AnyObject) => {
+      expect(saveName).toBe("F:\\\\parent\\\\test.scop");
       expect(data).toEqual({ example: 123 });
     });
 
@@ -252,5 +267,18 @@ describe("SaveManager", () => {
     file.isOpen = false;
     saveManager.onGameLoad("F:\\\\parent\\\\test.scop");
     expect(contentAfter).toBe(registry.dynamicData);
+  });
+
+  it("should properly handle callback after game loaded", () => {
+    const saveManager: SaveManager = getManager(SaveManager);
+
+    const onLoad = jest.fn();
+
+    getManager(EventsManager).registerCallback(EGameEvent.GAME_LOADED, onLoad);
+
+    saveManager.onAfterGameLoad("F:\\\\parent\\\\test.scop");
+
+    expect(onLoad).toHaveBeenCalledTimes(1);
+    expect(onLoad).toHaveBeenCalledWith("F:\\\\parent\\\\test.scop");
   });
 });

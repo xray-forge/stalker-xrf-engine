@@ -103,4 +103,6 @@ describe("game external callbacks", () => {
     callAlifeStorageBinding("CALifeStorageManager_after_load", ["name4"]);
     expect(saveManager.onAfterGameLoad).toHaveBeenCalledWith("name4");
   });
+
+  it.todo("level_input callbacks should be defined");
 });

@@ -47,6 +47,13 @@ extern("trade_manager", {
   get_buy_discount: (objectId: TNumberId) => getManager(TradeManager).getBuyDiscountForObject(objectId),
 });
 
+/**
+ * AlifeStorage callbacks module.
+ * Includes methods working with game saves to provide alternatives for storage packets.
+ * Alternative variants are:
+ *  - Flexible, not hardcoded, can contain extensive data
+ *  - Not limited by game save file upper limits
+ */
 extern("alife_storage_manager", {
   /**
    * Called from game engine on loading game save.
@@ -64,4 +71,11 @@ extern("alife_storage_manager", {
    * Called from game engine when game save is created.
    */
   CALifeStorageManager_save: (saveName: TName) => getManager(SaveManager).onGameSave(saveName),
+});
+
+/**
+ * todo: Input callback.
+ */
+extern("level_input.on_key_press", {
+  on_key_press: (key: TName, bind: TName) => logger.info("Todo: %s -> %s", key, bind),
 });
