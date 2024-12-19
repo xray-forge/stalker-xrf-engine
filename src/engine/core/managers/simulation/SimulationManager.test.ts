@@ -3,9 +3,9 @@ import { actor_stats } from "xray16";
 
 import { disposeManager, getManager, initializeManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
 import { destroySimulationData } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";

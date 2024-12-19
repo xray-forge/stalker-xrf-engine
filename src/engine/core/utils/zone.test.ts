@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator, registerZone } from "@/engine/core/database";
-import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";

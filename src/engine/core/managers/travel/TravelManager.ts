@@ -5,7 +5,7 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
-import { TSimulationObject } from "@/engine/core/managers/simulation/simulation_types";
+import { TSimulationObject } from "@/engine/core/managers/simulation/types";
 import {
   assignSimulationSquadToTerrain,
   getSimulationTerrainByName,

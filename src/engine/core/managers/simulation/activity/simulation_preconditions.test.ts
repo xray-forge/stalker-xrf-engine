@@ -10,7 +10,7 @@ import {
   simulationPreconditionNight,
   simulationPreconditionNotSurge,
   simulationPreconditionSurge,
-} from "@/engine/core/managers/simulation/simulation_preconditions";
+} from "@/engine/core/managers/simulation/activity/simulation_preconditions";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { Squad } from "@/engine/core/objects/squad";
 import { MockSquad } from "@/fixtures/engine";

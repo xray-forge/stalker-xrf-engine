@@ -21,7 +21,7 @@ import {
   ITreasureNotification,
 } from "@/engine/core/managers/notifications/notifications_types";
 import { notificationsConfig } from "@/engine/core/managers/notifications/NotificationsConfig";
-import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
+import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ETaskState } from "@/engine/core/managers/tasks/types";

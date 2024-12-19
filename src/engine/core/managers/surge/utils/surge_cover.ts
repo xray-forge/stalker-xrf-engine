@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils";
 import { SURGE_MANAGER_CONFIG_LTX, surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";

@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator } from "@/engine/core/database";
-import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
+import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
 import {
   destroySimulationData,
   initializeDefaultSimulationSquads,

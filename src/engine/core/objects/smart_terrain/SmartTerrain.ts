@@ -25,13 +25,13 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils";
-import { simulationActivities } from "@/engine/core/managers/simulation/simulation_activities";
+import { simulationActivities } from "@/engine/core/managers/simulation/activity/simulation_activities";
+import { VALID_SMART_TERRAINS_SIMULATION_ROLES } from "@/engine/core/managers/simulation/SimulationConfig";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,
   ISimulationTarget,
-  VALID_SMART_TERRAINS_SIMULATION_ROLES,
-} from "@/engine/core/managers/simulation/simulation_types";
+} from "@/engine/core/managers/simulation/types";
 import {
   assignSimulationSquadToTerrain,
   getSimulationTerrainAssignedSquadsCount,

@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import type { TSimulationObject } from "@/engine/core/managers/simulation/simulation_types";
+import type { TSimulationObject } from "@/engine/core/managers/simulation/types";
 import { setupSimulationObjectSquadAndGroup } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";

@@ -1,5 +1,5 @@
 import { registry } from "@/engine/core/database";
-import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";

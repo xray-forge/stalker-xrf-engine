@@ -8,10 +8,9 @@ import {
   simulationPreconditionNight,
   simulationPreconditionNotSurge,
   simulationPreconditionSurge,
-} from "@/engine/core/managers/simulation/simulation_preconditions";
-import { ESimulationRole, ISimulationActivityDescriptor } from "@/engine/core/managers/simulation/simulation_types";
+} from "@/engine/core/managers/simulation/activity/simulation_preconditions";
+import { ESimulationRole, ISimulationActivityDescriptor } from "@/engine/core/managers/simulation/types";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { getServerDistanceBetween } from "@/engine/core/utils/position";
@@ -34,7 +33,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
   [communities.stalker]: {
     [ESimulationRole.ACTOR]: null,
     [ESimulationRole.SMART_TERRAIN]: {
-      base: (squad: Squad, target: SmartTerrain) => {
+      base: (squad: Squad, target: ServerObject) => {
         return (
           isInTimeInterval(18, 8) &&
           !surgeConfig.IS_STARTED &&

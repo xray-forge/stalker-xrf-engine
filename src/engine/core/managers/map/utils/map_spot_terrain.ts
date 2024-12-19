@@ -2,7 +2,7 @@ import { game, level } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
-import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/simulation_types";
+import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils/simulation_data";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";

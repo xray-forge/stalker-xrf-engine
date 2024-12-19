@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CALifeSmartTerrainTask, level } from "xray16";
 
 import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
-import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/simulation_types";
+import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { parseConditionsList } from "@/engine/core/utils/ini";

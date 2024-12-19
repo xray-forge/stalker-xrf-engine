@@ -1,34 +1,16 @@
 import type { Actor } from "@/engine/core/objects/creature/Actor";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
-import { TCommunity } from "@/engine/lib/constants/communities";
-import { levels, TLevel } from "@/engine/lib/constants/levels";
-import { ALifeSmartTerrainTask, Optional, PartialRecord, TCount, TName, TNumberId, TRate } from "@/engine/lib/types";
-
-/**
- * Smart terrain details descriptor for alife participation.
- */
-export interface ISmartTerrainDescriptor {
-  terrain: SmartTerrain;
-  assignedSquads: LuaTable<TNumberId, Squad>;
-  assignedSquadsCount: TCount;
-}
-
-/**
- * todo: Remove / use strings / solve it
- */
-export const groupIdByLevelName: LuaTable<TLevel, TNumberId> = $fromObject({
-  [levels.zaton]: 1,
-  [levels.pripyat]: 2,
-  [levels.jupiter]: 3,
-  [levels.labx8]: 4,
-  [levels.jupiter_underground]: 5,
-});
-
-/**
- * Simulation interaction object generic.
- */
-export type TSimulationObject = Squad | SmartTerrain | Actor;
+import type { TCommunity } from "@/engine/lib/constants/communities";
+import type {
+  ALifeSmartTerrainTask,
+  Optional,
+  PartialRecord,
+  TCount,
+  TName,
+  TNumberId,
+  TRate,
+} from "@/engine/lib/types";
 
 /**
  * Type of smart terrain simulation role.
@@ -52,16 +34,18 @@ export enum ESimulationTerrainRole {
 }
 
 /**
- * todo;
+ * Simulation interaction object generic.
  */
-export const VALID_SMART_TERRAINS_SIMULATION_ROLES: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
-  [ESimulationTerrainRole.DEFAULT]: true,
-  [ESimulationTerrainRole.BASE]: true,
-  [ESimulationTerrainRole.SURGE]: true,
-  [ESimulationTerrainRole.RESOURCE]: true,
-  [ESimulationTerrainRole.TERRITORY]: true,
-  [ESimulationTerrainRole.LAIR]: true,
-});
+export type TSimulationObject = Squad | SmartTerrain | Actor;
+
+/**
+ * Smart terrain details descriptor for alife participation.
+ */
+export interface ISmartTerrainDescriptor {
+  terrain: SmartTerrain;
+  assignedSquads: LuaTable<TNumberId, Squad>;
+  assignedSquadsCount: TCount;
+}
 
 /**
  * Generic simulation target.

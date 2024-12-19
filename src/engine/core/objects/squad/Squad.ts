@@ -16,12 +16,8 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
-import { simulationActivities } from "@/engine/core/managers/simulation/simulation_activities";
-import {
-  ESimulationTerrainRole,
-  ISimulationTarget,
-  TSimulationObject,
-} from "@/engine/core/managers/simulation/simulation_types";
+import { simulationActivities } from "@/engine/core/managers/simulation/activity";
+import { ESimulationTerrainRole, ISimulationTarget, TSimulationObject } from "@/engine/core/managers/simulation/types";
 import {
   getSimulationTerrainByName,
   getSimulationTerrainDescriptorById,
