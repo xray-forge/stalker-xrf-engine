@@ -76,20 +76,23 @@ extern("alife_storage_manager", {
 /**
  * todo: Input callback.
  */
-extern("level_input.on_key_press", {
+extern("level_input", {
   on_key_press: (key: TName, bind: TName) => logger.info("Todo: %s -> %s", key, bind),
 });
 
-/**
- *
- * //Alundaio: hijack not_yet_visible_object to lua
- *     luabind::functor<float> funct;
- *     if (GEnv.ScriptEngine->functor("visual_memory_manager.get_visible_value", funct))
- *         return (funct(m_object ? m_object->lua_game_object() : nullptr, game_object ? game_object->lua_game_object()
- *         : nullptr, time_delta, current_state().m_time_quant, luminocity, current_state().m_velocity_factor,
- *         object_velocity, distance, object_distance, always_visible_distance));
- *     //-Alundaio
- */
+extern("visual_memory_manager", {
+  /**
+   *
+   * //Alundaio: hijack not_yet_visible_object to lua
+   *     luabind::functor<float> funct;
+   *     if (GEnv.ScriptEngine->functor("visual_memory_manager.get_visible_value", funct))
+   *         return (funct(m_object ? m_object->lua_game_object() : nullptr, game_object
+   *         ? game_object->lua_game_object()
+   *         : nullptr, time_delta, current_state().m_time_quant, luminocity, current_state().m_velocity_factor,
+   *         object_velocity, distance, object_distance, always_visible_distance));
+   *     //-Alundaio
+   */
+});
 
 /**
  * CALifeUpdateManager
@@ -104,8 +107,10 @@ extern("level_input.on_key_press", {
  *     Level().MapManager().OnObjectDestroyNotify(ID);
  */
 
-/**
- *  luabind::functor<CScriptGameObject*> funct;
- *     if (GEnv.ScriptEngine->functor("ai_stalker.update_best_weapon", funct))
- *     {
- */
+extern("ai_stalker", {
+  /**
+   *  luabind::functor<CScriptGameObject*> funct;
+   *     if (GEnv.ScriptEngine->functor("ai_stalker.update_best_weapon", funct))
+   *     {
+   */
+});
