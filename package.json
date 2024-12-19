@@ -21,13 +21,13 @@
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "dependencies": {
-    "xray16": "1.1.2"
+    "xray16": "1.2.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@types/ini": "^4.1.1",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.0.2",
+    "@types/node": "^22.10.2",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@typescript-to-lua/language-extensions": "^1.19.0",
@@ -55,8 +55,8 @@
     "ts-jest": "^29.2.3",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.6.2",
-    "typescript-to-lua": "^1.27.1"
+    "typescript": "^5.7.2",
+    "typescript-to-lua": "^1.28.1"
   },
   "bin": {
     "xrf": "./cli/run.ts"
