@@ -140,8 +140,8 @@ describe("SaveManager", () => {
 
     expect(saveManager.onBeforeGameSave).toBeDefined();
     expect(saveManager.onGameSave).toBeDefined();
-    expect(saveManager.onBeforeGameLoad).toBeDefined();
     expect(saveManager.onGameLoad).toBeDefined();
+    expect(saveManager.onAfterGameLoad).toBeDefined();
   });
 
   it("should properly create dynamic saves", () => {
@@ -214,7 +214,7 @@ describe("SaveManager", () => {
 
     const contentBefore: AnyObject = registry.dynamicData;
 
-    saveManager.onBeforeGameLoad("F:\\\\parent\\\\test.scop");
+    saveManager.onGameLoad("F:\\\\parent\\\\test.scop");
 
     expect(marshal.decode).toHaveBeenCalledWith(file.content);
     expect(onLoad).toHaveBeenCalledTimes(1);
@@ -241,16 +241,16 @@ describe("SaveManager", () => {
     const contentAfter: AnyObject = registry.dynamicData;
 
     file.content = "";
-    saveManager.onBeforeGameLoad("F:\\\\parent\\\\test.scop");
+    saveManager.onGameLoad("F:\\\\parent\\\\test.scop");
     expect(contentAfter).toBe(registry.dynamicData);
 
     file.content = null;
-    saveManager.onBeforeGameLoad("F:\\\\parent\\\\test.scop");
+    saveManager.onGameLoad("F:\\\\parent\\\\test.scop");
     expect(contentAfter).toBe(registry.dynamicData);
 
     file.content = "{}";
     file.isOpen = false;
-    saveManager.onBeforeGameLoad("F:\\\\parent\\\\test.scop");
+    saveManager.onGameLoad("F:\\\\parent\\\\test.scop");
     expect(contentAfter).toBe(registry.dynamicData);
   });
 });

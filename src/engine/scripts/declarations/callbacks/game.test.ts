@@ -8,6 +8,10 @@ import { TradeManager } from "@/engine/core/managers/trade";
 import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
 
+function callAlifeStorageBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["alife_storage_manager"]);
+}
+
 function callTradeBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject)["trade_manager"]);
 }
@@ -31,6 +35,7 @@ describe("game external callbacks", () => {
     checkNestedBinding("smart_covers", "descriptions");
     checkBinding("outro");
     checkBinding("trade_manager");
+    checkBinding("alife_storage_manager");
   });
 
   it("main to be defined for custom scripts", () => {
@@ -78,39 +83,24 @@ describe("game external callbacks", () => {
     expect(tradeManager.getBuyDiscountForObject).toHaveBeenCalledWith(40);
   });
 
-  it("on_before_game_save should be handled", () => {
+  it("alife storage save methods should be defined", () => {
     const saveManager: SaveManager = getManager(SaveManager);
 
     jest.spyOn(saveManager, "onBeforeGameSave");
-
-    callBinding("on_before_game_save", ["name"]);
-    expect(saveManager.onBeforeGameSave).toHaveBeenCalledWith("name");
-  });
-
-  it("on_game_save should be handled", () => {
-    const saveManager: SaveManager = getManager(SaveManager);
-
     jest.spyOn(saveManager, "onGameSave");
-
-    callBinding("on_game_save", ["name"]);
-    expect(saveManager.onGameSave).toHaveBeenCalledWith("name");
-  });
-
-  it("on_before_game_load should be handled", () => {
-    const saveManager: SaveManager = getManager(SaveManager);
-
-    jest.spyOn(saveManager, "onBeforeGameLoad");
-
-    callBinding("on_before_game_load", ["name"]);
-    expect(saveManager.onBeforeGameLoad).toHaveBeenCalledWith("name");
-  });
-
-  it("on_game_load should be handled", () => {
-    const saveManager: SaveManager = getManager(SaveManager);
-
     jest.spyOn(saveManager, "onGameLoad");
+    jest.spyOn(saveManager, "onAfterGameLoad");
 
-    callBinding("on_game_load", ["name"]);
-    expect(saveManager.onGameLoad).toHaveBeenCalledWith("name");
+    callAlifeStorageBinding("CALifeStorageManager_before_save", ["name1"]);
+    expect(saveManager.onBeforeGameSave).toHaveBeenCalledWith("name1");
+
+    callAlifeStorageBinding("CALifeStorageManager_save", ["name2"]);
+    expect(saveManager.onGameSave).toHaveBeenCalledWith("name2");
+
+    callAlifeStorageBinding("CALifeStorageManager_load", ["name3"]);
+    expect(saveManager.onGameLoad).toHaveBeenCalledWith("name3");
+
+    callAlifeStorageBinding("CALifeStorageManager_after_load", ["name4"]);
+    expect(saveManager.onAfterGameLoad).toHaveBeenCalledWith("name4");
   });
 });

@@ -120,8 +120,8 @@ export class SaveManager extends AbstractManager {
    *
    * @param saveName - name of save file, full path with disk/system folders structure
    */
-  public onBeforeGameLoad(saveName: TName): void {
-    logger.info("Before game load: %s", saveName);
+  public onGameLoad(saveName: TName): void {
+    logger.info("On game load: %s", saveName);
 
     registry.dynamicData = loadDynamicGameSave(saveName) ?? registry.dynamicData;
 
@@ -137,8 +137,8 @@ export class SaveManager extends AbstractManager {
    *
    * @param saveName - name of save file, full path with disk/system folders structure
    */
-  public onGameLoad(saveName: TName): void {
-    logger.info("On game load: %s", saveName);
+  public onAfterGameLoad(saveName: TName): void {
+    logger.info("On after game load: %s", saveName);
   }
 
   /**

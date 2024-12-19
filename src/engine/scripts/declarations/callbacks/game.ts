@@ -47,22 +47,21 @@ extern("trade_manager", {
   get_buy_discount: (objectId: TNumberId) => getManager(TradeManager).getBuyDiscountForObject(objectId),
 });
 
-/**
- * Called from game engine just before creating game save.
- */
-extern("on_before_game_save", (saveName: TName) => getManager(SaveManager).onBeforeGameSave(saveName));
-
-/**
- * Called from game engine when game save is created.
- */
-extern("on_game_save", (saveName: TName) => getManager(SaveManager).onGameSave(saveName));
-
-/**
- * Called from game engine just before loading game save.
- */
-extern("on_before_game_load", (saveName: TName) => getManager(SaveManager).onBeforeGameLoad(saveName));
-
-/**
- * Called from game engine after loading game save.
- */
-extern("on_game_load", (saveName: TName) => getManager(SaveManager).onGameLoad(saveName));
+extern("alife_storage_manager", {
+  /**
+   * Called from game engine on loading game save.
+   */
+  CALifeStorageManager_load: (saveName: TName) => getManager(SaveManager).onGameLoad(saveName),
+  /**
+   * Called from game engine after successful game load.
+   */
+  CALifeStorageManager_after_load: (saveName: TName) => getManager(SaveManager).onAfterGameLoad(saveName),
+  /**
+   * Called from game engine just before creating game save.
+   */
+  CALifeStorageManager_before_save: (saveName: TName) => getManager(SaveManager).onBeforeGameSave(saveName),
+  /**
+   * Called from game engine when game save is created.
+   */
+  CALifeStorageManager_save: (saveName: TName) => getManager(SaveManager).onGameSave(saveName),
+});
