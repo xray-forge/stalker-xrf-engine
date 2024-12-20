@@ -34,6 +34,8 @@ import {
   ServerActorObject,
   TCount,
   TDuration,
+  TName,
+  TSection,
   TTaskState,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -233,10 +235,14 @@ export class ActorBinder extends object_binder {
     object.set_callback(callback.use_object, (object: GameObject) => {
       eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
     });
+    object.set_callback(callback.hud_animation_end, (object: GameObject, hudSection: TSection, motion: TName) => {
+      logger.info("Hud animation ended: %s - %s - %s", object.name(), hudSection, motion);
+    });
 
     // todo: article_info info callback.
     // todo: level_border_enter info callback.
     // todo: level_border_exit info callback.
+    // todo: before death callback.
   }
 
   /**

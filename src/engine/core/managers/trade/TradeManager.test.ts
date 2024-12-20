@@ -106,7 +106,7 @@ describe("TradeManager class implementation", () => {
     expect(tradeManager.getBuyDiscountForObject(object.id())).toBe(0.3);
   });
 
-  it("TradeManager should correctly save and load data when not initialized", () => {
+  it("should correctly save and load data when not initialized", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
     const processor: MockNetProcessor = new MockNetProcessor();
@@ -127,7 +127,11 @@ describe("TradeManager class implementation", () => {
     expect(registry.trade.get(object.id())).toBeNull();
   });
 
-  it("TradeManager should correctly save and load data when not updated", () => {
+  it("should correctly check if item can be traded (now always true)", () => {
+    expect(getManager(TradeManager).isItemAvailableForTrade(MockGameObject.mock(), MockGameObject.mock())).toBe(true);
+  });
+
+  it("should correctly save and load data when not updated", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");
@@ -171,7 +175,7 @@ describe("TradeManager class implementation", () => {
     });
   });
 
-  it("TradeManager should correctly save and load data when updated", () => {
+  it("should correctly save and load data when updated", () => {
     const tradeManager: TradeManager = getManager(TradeManager);
     const object: GameObject = MockGameObject.mock();
     const ini: IniFile = loadIniFile("managers\\trade\\trade_generic.ltx");

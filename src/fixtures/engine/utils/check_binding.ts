@@ -27,6 +27,21 @@ export function callBinding<T>(name: TName, args: AnyArgs = [], container: AnyOb
 }
 
 /**
+ * Call nested binding function.
+ *
+ * @param base - base name of global binding object
+ * @param name - name of nested binding
+ * @param args - variadic list of arguments
+ * @param container - container object
+ * @returns generic value from binding function
+ */
+export function callNestedBinding<T>(base: TName, name: TName, args: AnyArgs = [], container: AnyObject = _G): T {
+  checkNestedBinding(base, name, container);
+
+  return (container[base][name] as AnyCallable)(...args) as T;
+}
+
+/**
  * Expect binding to be defined in nested global container.
  *
  * @param base - name of global binding base object

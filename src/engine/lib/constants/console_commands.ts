@@ -92,6 +92,7 @@
  * CMD3(CCC_Mask, "lua_debug", &g_LuaDebug, 1);
  * CMD3(CCC_Mask, "g_god", &psActorFlags, AF_GODMODE);
  * CMD3(CCC_Mask, "g_unlimitedammo", &psActorFlags, AF_UNLIMITEDAMMO);
+ * CMD3(CCC_Mask, "g_use_tracers", &psActorFlags, AF_USE_TRACERS);
  * CMD4(CCC_TimeFactorSingle, "time_factor_single", &g_fTimeFactor, 0.f, 1000.0f);
  * CMD4(CCC_Vector3, "psp_cam_offset", &CCameraLook2::m_cam_offset, Fvector().set(-1000, -1000, -1000),
  * CMD4(CCC_Float, "ai_smart_factor", &g_smart_cover_factor, 0.f, 1000000.f);

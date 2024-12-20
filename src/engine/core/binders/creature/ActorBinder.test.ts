@@ -119,14 +119,15 @@ describe("ActorBinder", () => {
     expect(state).not.toBeNull();
     expect(state.portableStore).not.toBeNull();
 
-    expect(actor.set_callback).toHaveBeenCalledTimes(7);
+    expect(actor.set_callback).toHaveBeenCalledTimes(8);
     expect(actor.set_callback).toHaveBeenCalledWith(callback.inventory_info, expect.any(Function));
+    expect(actor.set_callback).toHaveBeenCalledWith(callback.take_item_from_box, expect.any(Function));
     expect(actor.set_callback).toHaveBeenCalledWith(callback.on_item_take, expect.any(Function));
     expect(actor.set_callback).toHaveBeenCalledWith(callback.on_item_drop, expect.any(Function));
     expect(actor.set_callback).toHaveBeenCalledWith(callback.trade_sell_buy_item, expect.any(Function));
     expect(actor.set_callback).toHaveBeenCalledWith(callback.task_state, expect.any(Function));
-    expect(actor.set_callback).toHaveBeenCalledWith(callback.take_item_from_box, expect.any(Function));
     expect(actor.set_callback).toHaveBeenCalledWith(callback.use_object, expect.any(Function));
+    expect(actor.set_callback).toHaveBeenCalledWith(callback.hud_animation_end, expect.any(Function));
 
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_REINIT, binder);
   });

@@ -23,6 +23,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Manage persisting dead bodies.
  * Release the most further of them from time to time to keep up with limits.
+ *
+ * todo: EGameEvent.BEFORE_LEVEL_CHANGE -> call releaseCorpses?
  */
 export class ReleaseBodyManager extends AbstractManager {
   public override initialize(): void {

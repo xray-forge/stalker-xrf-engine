@@ -1,12 +1,15 @@
+import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/actor";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameOutroManager } from "@/engine/core/managers/outro";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TName, TNumberId } from "@/engine/lib/types";
+import { NetPacket, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -17,6 +20,24 @@ logger.info("Resolve and bind game externals");
  * In case if custom script is executed from console and has no `main` function, this placeholder will be used.
  */
 extern("main", () => {});
+
+/**
+ * Declare method for all dynamic objects unregister event.
+ * Good place to remove ids from persistent tables and clean up all object data.
+ */
+extern("CSE_ALifeDynamicObject_on_unregister", (id: TNumberId) => {
+  EventsManager.emitEvent(EGameEvent.SERVER_OBJECT_UNREGISTERED, id);
+});
+
+/**
+ * Handle event before level change.
+ * As an idea - clear corpses or other cleanup logics parts.
+ */
+extern("CALifeUpdateManager__on_before_change_level", (packet: NetPacket) => {
+  logger.info("On before level change callback");
+
+  EventsManager.emitEvent(EGameEvent.BEFORE_LEVEL_CHANGE, packet);
+});
 
 /**
  * Declare list of available smart covers for game engine.
@@ -48,21 +69,48 @@ extern("trade_manager", {
 });
 
 /**
- * Called from game engine just before creating game save.
+ * AlifeStorage callbacks module.
+ * Includes methods working with game saves to provide alternatives for storage packets.
+ * Alternative variants are:
+ *  - Flexible, not hardcoded, can contain extensive data
+ *  - Not limited by game save file upper limits
  */
-extern("on_before_game_save", (saveName: TName) => getManager(SaveManager).onBeforeGameSave(saveName));
+extern("alife_storage_manager", {
+  /**
+   * Called from game engine on loading game save.
+   */
+  CALifeStorageManager_load: (saveName: TName) => getManager(SaveManager).onGameLoad(saveName),
+  /**
+   * Called from game engine after successful game load.
+   */
+  CALifeStorageManager_after_load: (saveName: TName) => getManager(SaveManager).onAfterGameLoad(saveName),
+  /**
+   * Called from game engine just before creating game save.
+   */
+  CALifeStorageManager_before_save: (saveName: TName) => getManager(SaveManager).onBeforeGameSave(saveName),
+  /**
+   * Called from game engine when game save is created.
+   */
+  CALifeStorageManager_save: (saveName: TName) => getManager(SaveManager).onGameSave(saveName),
+});
 
 /**
- * Called from game engine when game save is created.
+ * Callbacks related to game input from player.
  */
-extern("on_game_save", (saveName: TName) => getManager(SaveManager).onGameSave(saveName));
+extern("level_input", {
+  on_key_press: (key: TNumberId, bind: TNumberId) => getManager(ActorInputManager).onKeyPress(key, bind),
+});
 
 /**
- * Called from game engine just before loading game save.
+ * Callbacks related to objects visibility and memory calculation for AI logics execution.
  */
-extern("on_before_game_load", (saveName: TName) => getManager(SaveManager).onBeforeGameLoad(saveName));
+extern("visual_memory_manager", {
+  get_visible_value: calculateObjectVisibility,
+});
 
 /**
- * Called from game engine after loading game save.
+ * Callbacks related to objects AI logics calculation and execution.
  */
-extern("on_game_load", (saveName: TName) => getManager(SaveManager).onGameLoad(saveName));
+extern("ai_stalker", {
+  update_best_weapon: selectBestStalkerWeapon,
+});

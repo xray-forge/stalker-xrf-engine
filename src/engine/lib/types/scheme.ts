@@ -146,8 +146,6 @@ export enum ESchemeEvent {
  */
 export interface ISchemeEventHandler {
   /**
-   * todo: Swap params order.
-   *
    * Handle schema activation event.
    *
    * @param object - game object activation happen for

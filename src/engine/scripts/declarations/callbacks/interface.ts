@@ -2,6 +2,7 @@ import { getManager } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/pda/PdaManager";
+import { TradeManager } from "@/engine/core/managers/trade";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import {
   getRepairItemAskReplicLabel,
@@ -29,6 +30,7 @@ import {
   TLabel,
   TName,
   TNotCastedBoolean,
+  TNumberId,
   TRate,
   TSection,
 } from "@/engine/lib/types";
@@ -46,7 +48,7 @@ extern("loadscreen", {
 });
 
 /**
- * Handle item upgrade callbacks from game engine.
+ * Item upgrade callbacks from game engine.
  */
 extern("inventory_upgrades", {
   get_upgrade_cost: (section: TSection): TLabel => getUpgradeCostLabel(section),
@@ -71,7 +73,7 @@ extern("inventory_upgrades", {
 });
 
 /**
- * Handle actor menu modes switching (pda, map, inventory).
+ * Actor menu modes switching (pda, map, inventory) callbacks declaration.
  */
 extern("actor_menu", {
   actor_menu_mode: (mode: EActorMenuMode): void => {
@@ -80,7 +82,7 @@ extern("actor_menu", {
 });
 
 /**
- * Handle actor menu callbacks.
+ * Actor menu callbacks declaration.
  */
 extern("actor_menu_inventory", {
   /**
@@ -102,14 +104,32 @@ extern("actor_menu_inventory", {
 
     return true;
   },
+  /**
+   * @param item - item game object receiving focus
+   */
+  CUIActorMenu_OnItemFocusReceive: (item: GameObject) =>
+    getManager(ActorInventoryMenuManager).onItemFocusReceived(item),
+  /**
+   * @param item - item game object losing focus
+   */
+  CUIActorMenu_OnItemFocusLost: (item: GameObject) => getManager(ActorInventoryMenuManager).onItemFocusLost(item),
+  /**
+   * Script utils for logics extending to override availability of some items in NPC trading.
+   *
+   * @param owner - item owning game object
+   * @param item - item game object for check
+   * @returns whether item is available for trading
+   */
+  CInventory_ItemAvailableToTrade: (owner: GameObject, item: GameObject): boolean =>
+    getManager(TradeManager).isItemAvailableForTrade(owner, item),
 });
 
 /**
  * PDA callbacks.
  */
 extern("pda", {
-  set_active_subdialog: (...args: AnyArgs): void => {
-    logger.info("Set active subdialog");
+  set_active_subdialog: (section: TSection): void => {
+    logger.info("Set active sub-dialog: %s", section);
   },
   get_max_resource: (): TCount => {
     return 10;
@@ -120,16 +140,16 @@ extern("pda", {
   get_max_member_count: (): TCount => {
     return 10;
   },
-  actor_menu_mode: (...args: AnyArgs): void => {
-    logger.info("Pda actor menu mode changed");
+  actor_menu_mode: (mode: TNumberId): void => {
+    logger.info("PDA actor menu mode changed: %s", mode);
   },
   // todo: m_UIPropertiesBox, m_cur_location
   property_box_clicked: (...args: AnyArgs): void => {
-    logger.info("Pda box property clicked");
+    logger.info("PDA box property clicked");
   },
   // todo: m_UIPropertiesBox, m_cur_location->ObjectID(), (LPCSTR)m_cur_location->GetLevelName().c_str(), m_cur_location
   property_box_add_properties: (...args: AnyArgs): void => {
-    logger.info("Pda box property added");
+    logger.info("PDA box property added");
   },
   fill_fraction_state: (state: AnyObject): void => {
     getManager(PdaManager).fillFactionState(state);
@@ -149,7 +169,7 @@ extern("pda", {
 });
 
 /**
- * Params in weapon menu in inventory.
+ * Params calculation for weapon menu in inventory.
  */
 extern("ui_wpn_params", {
   GetRPM: (section: TSection, upgradeSections: string): number => readWeaponRPM(section, upgradeSections),

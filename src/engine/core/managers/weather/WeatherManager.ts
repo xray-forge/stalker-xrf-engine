@@ -39,6 +39,7 @@ import {
   readIniString,
   TConditionList,
 } from "@/engine/core/utils/ini";
+import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
 import {
@@ -353,10 +354,12 @@ export class WeatherManager extends AbstractManager {
    * Detect current level and environment, reset and re-init states.
    */
   protected onActorNetworkSpawn(): void {
-    logger.info("Initialize weather on network spawn");
-
     const levelName: TName = level.name();
     const levelWeather: TName = readIniString(GAME_LTX, levelName, "weathers", false, null, ATMOSFEAR_WEATHER);
+
+    logger.info("Initialize weather on network spawn: %s, %s", levelName, levelWeather);
+
+    weatherConfig.IS_UNDERGROUND_WEATHER = isUndergroundLevel(levelName);
 
     this.weatherSection = levelWeather;
     this.weatherConditionList = parseConditionsList(levelWeather);

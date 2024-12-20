@@ -23,4 +23,6 @@ export const weatherConfig = {
   // Defines how far fog should be based on time / weather section.
   FOG_DISTANCES: readFogDistances(DYNAMIC_WEATHER_GRAPHS_LTX),
   MONTH_DAYS: $fromArray([31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]),
+  // Whether current weather is considered underground.
+  IS_UNDERGROUND_WEATHER: false,
 };

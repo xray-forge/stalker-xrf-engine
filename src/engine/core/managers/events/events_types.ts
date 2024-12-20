@@ -127,6 +127,10 @@ export enum EGameEvent {
    */
   STALKER_DEATH_ALIFE,
   /**
+   * Stalker weapon selection is needed.
+   */
+  STALKER_WEAPON_SELECT,
+  /**
    * On monster register.
    */
   MONSTER_REGISTER,
@@ -425,6 +429,10 @@ export enum EGameEvent {
    */
   ITEM_WEAPON_SHOTGUN_UNREGISTERED,
   /**
+   * Unregistered generic server ALifeDynamicObject.
+   */
+  SERVER_OBJECT_UNREGISTERED,
+  /**
    * Surge ended.
    */
   SURGE_ENDED,
@@ -485,9 +493,21 @@ export enum EGameEvent {
    */
   GAME_SAVE,
   /**
+   * Game state saved.
+   */
+  GAME_SAVED,
+  /**
    * Game state load.
    */
   GAME_LOAD,
+  /**
+   * Game state loaded.
+   */
+  GAME_LOADED,
+  /**
+   * Event called before level change.
+   */
+  BEFORE_LEVEL_CHANGE,
 }
 
 /**
