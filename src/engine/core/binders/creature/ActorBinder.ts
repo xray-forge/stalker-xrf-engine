@@ -34,6 +34,8 @@ import {
   ServerActorObject,
   TCount,
   TDuration,
+  TName,
+  TSection,
   TTaskState,
   TTimestamp,
 } from "@/engine/lib/types";
@@ -233,32 +235,14 @@ export class ActorBinder extends object_binder {
     object.set_callback(callback.use_object, (object: GameObject) => {
       eventsManager.emitEvent(EGameEvent.ACTOR_USE_ITEM, object);
     });
+    object.set_callback(callback.hud_animation_end, (object: GameObject, hudSection: TSection, motion: TName) => {
+      logger.info("Hud animation ended: %s - %s - %s", object.name(), hudSection, motion);
+    });
 
     // todo: article_info info callback.
     // todo: level_border_enter info callback.
     // todo: level_border_exit info callback.
-
-    /**
-     *    if (const auto actor = smart_cast<CActor*>(object().H_Parent()))
-     *     {
-     *         actor->callback(GameObject::eActorHudAnimationEnd)(
-     *             smart_cast<CGameObject*>(this)->lua_game_object(),
-     *             hud_sect.c_str(), m_current_motion.c_str(), state, animation_slot());
-     *     }
-     */
-
-    /**
-     *    object->callback(GameObject::eOnWeaponJammed)(object->lua_game_object(), this->lua_game_object());
-     */
-
-    /**
-     *
-     *     if (IsGameTypeSingle() && ParentIsActor())
-     *     {
-     *         int AC = GetSuitableAmmoTotal();
-     *         Actor()->callback(GameObject::eOnWeaponMagazineEmpty)(lua_game_object(), AC);
-     *     }
-     */
+    // todo: before death callback.
   }
 
   /**
