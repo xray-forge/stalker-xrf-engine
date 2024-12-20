@@ -127,6 +127,10 @@ export enum EGameEvent {
    */
   STALKER_DEATH_ALIFE,
   /**
+   * Stalker weapon selection is needed.
+   */
+  STALKER_WEAPON_SELECT,
+  /**
    * On monster register.
    */
   MONSTER_REGISTER,

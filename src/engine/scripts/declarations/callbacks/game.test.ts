@@ -1,12 +1,20 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
+import { selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
 import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
-import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
+import { MockGameObject } from "@/fixtures/xray";
+
+jest.mock("@/engine/core/ai/combat");
+
+function callAiStalkerBinding(name: TName, args: AnyArgs = []): unknown {
+  return callBinding(name, args, (_G as AnyObject)["ai_stalker"]);
+}
 
 function callAlifeStorageBinding(name: TName, args: AnyArgs = []): unknown {
   return callBinding(name, args, (_G as AnyObject)["alife_storage_manager"]);
@@ -105,4 +113,16 @@ describe("game external callbacks", () => {
   });
 
   it.todo("level_input callbacks should be defined");
+
+  it.todo("visual_memory_manager callbacks should be defined");
+
+  it("ai_stalker callbacks should be defined", () => {
+    const object: GameObject = MockGameObject.mock();
+    const weapon: GameObject = MockGameObject.mock();
+
+    callAiStalkerBinding("update_best_weapon", [object, weapon]);
+
+    expect(selectBestStalkerWeapon).toHaveBeenCalledTimes(1);
+    expect(selectBestStalkerWeapon).toHaveBeenCalledWith(object, weapon);
+  });
 });

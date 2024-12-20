@@ -1,3 +1,4 @@
+import { selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
 import { GameOutroManager } from "@/engine/core/managers/outro";
@@ -78,6 +79,127 @@ extern("alife_storage_manager", {
  */
 extern("level_input", {
   on_key_press: (key: TName, bind: TName) => logger.info("Todo: %s -> %s", key, bind),
+
+  /**
+   * function on_key_press(dik,bind)
+   *
+   *  if (level.present() and db.actor) then
+   *    if (bind == key_bindings.kQUICK_SAVE) then
+   *      return action_quick_save(dik,bind)
+   *    elseif (bind == key_bindings.kQUICK_LOAD) then
+   *      return action_quick_load(dik,bind)
+   *    --[[
+   *    elseif (bind == key_bindings.kPDA_TAB1) then
+   *      return action_toggle_pda_tab("eptTasks")
+   *    elseif (bind == key_bindings.kPDA_TAB2) then
+   *      return action_toggle_pda_tab("eptRelations")
+   *    elseif (bind == key_bindings.kPDA_TAB3) then
+   *      return action_toggle_pda_tab("eptContacts")
+   *    elseif (bind == key_bindings.kPDA_TAB4) then
+   *      return action_toggle_pda_tab("eptRanking")
+   *    elseif (bind == key_bindings.kPDA_TAB5) then
+   *      return action_toggle_pda_tab("eptLogs")
+   *    elseif (bind == key_bindings.kPDA_TAB6) then
+   *      return action_toggle_pda_tab("eptEncyclopedia")
+   *    --]]
+   *    end
+   *  end
+   *
+   *  return false
+   * end
+   *
+   *
+   * function action_quick_save(dik,bind)
+   *  if not (db.actor:alive() and actor_menu.is_hud_free()) then
+   *    return false
+   *  end
+   *
+   *  --	Saving will be interrupted if flags.ret is set to true by a custom script that have "on_before_save_input"
+   *  if level.present() then
+   *    flags.ret = false
+   *    SendScriptCallback("on_before_save_input", flags, 2, game.translate_string("st_ui_save"))
+   *    if (flags.ret == true) then
+   *      return true
+   *    end
+   *  end
+   *
+   *  --if game isn't already paused, then force a pause here
+   *  local force_pause
+   *  if not (device():is_paused()) then
+   *    device():pause(true)
+   *    force_pause = true
+   *  end
+   *
+   *  -- get list of savegames with most recently modified first.
+   *  local flist = getFS():file_list_open_ex("$game_saves$",	bit_or(FS.FS_ListFiles,FS.FS_RootOnly),"*".. ui_load_dialog.saved_game_extension)
+   *  local f_cnt = flist and flist:Size() or 0
+   *
+   *  local inc = 0
+   *  if (f_cnt > 0) then
+   *    flist:Sort(FS.FS_sort_by_modif_down)
+   *
+   *    for it=0, f_cnt-1 do
+   *      local file_name = flist:GetAt(it):NameFull():sub(0,-6):lower()
+   *
+   *      -- grab last modified quicksave increment count
+   *      local d = tonumber( string.match(file_name,"quicksave_(%d+)") )
+   *      if (d) then
+   *        inc = d
+   *        break
+   *      end
+   *    end
+   *  end
+   *
+   *  inc = (inc >= ui_options.get("other/quicksave_cnt")) and 1 or inc + 1
+   *
+   *  exec_console_cmd("save " .. (user_name() or "") .. " - quicksave_" .. inc)
+   *
+   *  --[[
+   *  local comm = utils_xml.get_special_txt(db.actor:character_community())
+   *  local map = utils_xml.get_special_txt(level.name())
+   *  exec_console_cmd("save " .. comm .. " - " .. map .. " - quicksave_" .. inc)
+   *  --]]
+   *
+   *  if (force_pause) then
+   *    device():pause(false)
+   *  end
+   *
+   *  return true
+   * end
+   *
+   * function action_quick_load(dik,bind)
+   *
+   *  --	You must check in your callback, and set flags.ret = true if an action took place
+   *  flags.ret = false
+   *  SendScriptCallback("on_before_load_input",dik, bind,flags)
+   *  if (flags.ret == true) then
+   *    return true
+   *  end
+   *
+   *  if not (device():is_paused()) then
+   *    device():pause(true)
+   *  end
+   *
+   *  local flist = getFS():file_list_open_ex("$game_saves$",	bit_or(FS.FS_ListFiles,FS.FS_RootOnly),"*".. ui_load_dialog.saved_game_extension)
+   *  local f_cnt = flist and flist:Size() or 0
+   *
+   *  if (f_cnt > 0) then
+   *    flist:Sort(FS.FS_sort_by_modif_down)
+   *
+   *    for it=0, f_cnt-1 do
+   *      local file_name = flist:GetAt(it):NameFull():sub(0,-6):lower()
+   *
+   *      -- grab last modified quicksave
+   *      if (string.match(file_name,".* %- quicksave_(%d+)")) then
+   *        exec_console_cmd("load " .. file_name)
+   *        return true
+   *      end
+   *    end
+   *  end
+   *
+   *  return true
+   * end
+   */
 });
 
 extern("visual_memory_manager", {
@@ -202,127 +324,5 @@ extern("visual_memory_manager", {
  */
 
 extern("ai_stalker", {
-  /**
-   * From anomaly:
-   *
-   * -- if return game_object then it ignores engine. If return nil, then engine tries to find item to kill
-   * -- called from engine!
-   * function update_best_weapon(npc,cur_wpn)
-   *  --[[
-   *  local st = db.storage[npc:id()]
-   *  if not (st) then
-   *    return cur_wpn
-   *  end
-   *
-   *  -- we want to choose new best_weapon every n seconds unless we don't have one
-   *  local tg = time_global()
-   *  if (cur_wpn and st._choose_bw_timer and tg < st._choose_bw_timer) then
-   *    return cur_wpn
-   *  end
-   *
-   *  st._choose_bw_timer = tg+10000
-   *
-   *  -- weapon priority
-   *  local prior = {}
-   *
-   *  local be = npc:best_enemy()
-   *  if (be) then
-   *    if (IsMonster(nil,be:clsid())) then
-   *      if (be:position():distance_to_sqr(npc:position()) > 2500) then
-   *        prior[#prior+1] = _G.IsRifle
-   *        prior[#prior+1] = _G.IsSniper
-   *        prior[#prior+1] = _G.IsPistol
-   *        prior[#prior+1] = _G.IsShotgun
-   *        prior[#prior+1] = _G.IsLauncher
-   *      else
-   *        prior[#prior+1] = _G.IsShotgun
-   *        prior[#prior+1] = _G.IsRifle
-   *        prior[#prior+1] = _G.IsPistol
-   *        prior[#prior+1] = _G.IsSniper
-   *        prior[#prior+1] = _G.IsLauncher
-   *      end
-   *    elseif (be:position():distance_to_sqr(npc:position()) > 1000) then
-   *      prior[#prior+1] = _G.IsSniper
-   *      prior[#prior+1] = _G.IsRifle
-   *      prior[#prior+1] = _G.IsPistol
-   *      prior[#prior+1] = _G.IsShotgun
-   *      prior[#prior+1] = _G.IsLauncher
-   *    elseif (be:position():distance_to_sqr(npc:position()) > 2500) then
-   *      prior[#prior+1] = _G.IsRifle
-   *      prior[#prior+1] = _G.IsSniper
-   *      prior[#prior+1] = _G.IsPistol
-   *      prior[#prior+1] = _G.IsShotgun
-   *      prior[#prior+1] = _G.IsLauncher
-   *    else
-   *      prior[#prior+1] = _G.IsRifle
-   *      prior[#prior+1] = _G.IsShotgun
-   *      prior[#prior+1] = _G.IsPistol
-   *      prior[#prior+1] = _G.IsSniper
-   *      prior[#prior+1] = _G.IsLauncher
-   *    end
-   *  elseif (axr_npc_vs_heli.is_under_npc_vs_heli(npc)) then
-   *    prior[#prior+1] = _G.IsLauncher
-   *    prior[#prior+1] = _G.IsSniper
-   *    prior[#prior+1] = _G.IsRifle
-   *    prior[#prior+1] = _G.IsPistol
-   *    prior[#prior+1] = _G.IsShotgun
-   *  else
-   *    prior[#prior+1] = _G.IsRifle
-   *    prior[#prior+1] = _G.IsSniper
-   *    prior[#prior+1] = _G.IsPistol
-   *    prior[#prior+1] = _G.IsShotgun
-   *    prior[#prior+1] = _G.IsLauncher
-   *  end
-   *
-   *  local best_weapons = {}
-   *
-   *  local function itr(npc,wpn)
-   *    local cls = wpn:clsid()
-   *    if (IsWeapon(nil,cls) ~= true) then
-   *      return false
-   *    end
-   *    --if (wpn:get_ammo_in_magazine() > 0) then
-   *      for i=1,#prior do
-   *        if (prior[i](nil,cls)) then
-   *          best_weapons[wpn] = ini_sys:r_float_ex(wpn:section(),"cost")
-   *          break
-   *        end
-   *      end
-   *    --end
-   *    return false
-   *  end
-   *
-   *  npc:iterate_inventory(itr,npc)
-   *
-   *
-   *  for wpn,cost in spairs(best_weapons,function(t,a,b) return t[a] > t[b] end) do
-   *    DEBUG_NPC = level.get_target_obj and level.get_target_obj()
-   *    if (DEBUG_NPC) then
-   *      actor_menu.set_msg(1, strformat("%s bw=%s",DEBUG_NPC:name(),wpn and wpn:name()), 2)
-   *    end
-   *    return wpn
-   *  end
-   *
-   *  --]]
-   *
-   *  local flags = {gun_id = nil}
-   *  SendScriptCallback("npc_on_choose_weapon", npc, cur_wpn, flags)
-   *
-   *  if flags.gun_id and tonumber(flags.gun_id) then
-   *    local se_gun = alife_object(tonumber(flags.gun_id))
-   *    if se_gun and IsWeapon(nil, se_gun:clsid()) and se_gun.parent_id == npc:id() then
-   *      printf('%s does not point to a valid gun in npc inventory, %s will choose gun from engine',
-   *      flags.gun_id, npc:name())
-   *
-   *      local obj = level.object_by_id(tonumber(flags.gun_id))
-   *      if obj then return obj else
-   *        printf('%s online object is not available, %s will choose gun from engine', se_gun:name(), npc:name())
-   *        return
-   *      end
-   *    end
-   *  end
-   *
-   *  return
-   * end
-   */
+  update_best_weapon: selectBestStalkerWeapon,
 });
