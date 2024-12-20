@@ -12,7 +12,7 @@ export const SIMULATION_OBJECTS_PROPERTIES_LTX: IniFile = new ini_file(
 );
 
 /**
- * todo: Remove / use strings / solve it
+ * todo: Remove / use strings / simplify and make more scalable
  */
 export const GROUP_ID_BY_LEVEL_NAME: LuaTable<TLevel, TNumberId> = $fromObject({
   [levels.zaton]: 1,

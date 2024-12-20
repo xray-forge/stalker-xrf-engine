@@ -485,9 +485,17 @@ export enum EGameEvent {
    */
   GAME_SAVE,
   /**
+   * Game state saved.
+   */
+  GAME_SAVED,
+  /**
    * Game state load.
    */
   GAME_LOAD,
+  /**
+   * Game state loaded.
+   */
+  GAME_LOADED,
 }
 
 /**

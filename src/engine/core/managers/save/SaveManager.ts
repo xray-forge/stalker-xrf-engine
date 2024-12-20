@@ -97,7 +97,7 @@ export class SaveManager extends AbstractManager {
   public onBeforeGameSave(saveName: TName): void {
     logger.info("Before game save: %s", saveName);
 
-    EventsManager.emitEvent(EGameEvent.GAME_SAVE, registry.dynamicData.event);
+    EventsManager.emitEvent(EGameEvent.GAME_SAVE, saveName, registry.dynamicData.event);
 
     for (const [, extension] of registry.extensions) {
       saveExtension(extension);
@@ -113,15 +113,17 @@ export class SaveManager extends AbstractManager {
    */
   public onGameSave(saveName: TName): void {
     logger.info("On game save: %s", saveName);
+
+    EventsManager.emitEvent(EGameEvent.GAME_SAVED, saveName);
   }
 
   /**
-   * When game save loading starts.
+   * When game loading starts.
    *
    * @param saveName - name of save file, full path with disk/system folders structure
    */
-  public onBeforeGameLoad(saveName: TName): void {
-    logger.info("Before game load: %s", saveName);
+  public onGameLoad(saveName: TName): void {
+    logger.info("On game load: %s", saveName);
 
     registry.dynamicData = loadDynamicGameSave(saveName) ?? registry.dynamicData;
 
@@ -129,16 +131,18 @@ export class SaveManager extends AbstractManager {
       loadExtension(extension);
     }
 
-    EventsManager.emitEvent(EGameEvent.GAME_LOAD, registry.dynamicData.event);
+    EventsManager.emitEvent(EGameEvent.GAME_LOAD, saveName, registry.dynamicData.event);
   }
 
   /**
-   * When game save loaded successfully.
+   * When game loaded successfully.
    *
    * @param saveName - name of save file, full path with disk/system folders structure
    */
-  public onGameLoad(saveName: TName): void {
-    logger.info("On game load: %s", saveName);
+  public onAfterGameLoad(saveName: TName): void {
+    logger.info("On after game load: %s", saveName);
+
+    EventsManager.emitEvent(EGameEvent.GAME_LOADED, saveName);
   }
 
   /**

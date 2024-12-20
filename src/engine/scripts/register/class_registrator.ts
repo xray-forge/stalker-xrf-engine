@@ -385,4 +385,9 @@ export function registerGameClasses(factory: ObjectFactory): void {
     EConfigClassId.SM_DOG_F,
     EScriptClassId.PSY_DOG_PHANTOM_S
   );
+
+  /**
+   * todo:
+   * ADD(CHolderEntityObject, CSE_ALifeDynamicObjectVisual, CLSID_OBJECT_HOLDER_ENT, "obj_holder_ent");
+   */
 }

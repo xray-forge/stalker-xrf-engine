@@ -102,6 +102,16 @@ extern("actor_menu_inventory", {
 
     return true;
   },
+  /**
+   * todo: Focus methods:
+   *
+   * if (GEnv.ScriptEngine->functor("actor_menu_inventory.CUIActorMenu_OnItemFocusLost", funct1))
+   *
+   *  luabind::functor<bool> funct1;
+   *  if (GEnv.ScriptEngine->functor("actor_menu_inventory.CUIActorMenu_OnItemFocusReceive", funct1))
+   *
+   *  if (GEnv.ScriptEngine->functor("actor_menu_inventory.CInventory_ItemAvailableToTrade", funct))
+   */
 });
 
 /**

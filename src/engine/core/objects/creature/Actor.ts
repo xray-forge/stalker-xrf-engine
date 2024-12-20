@@ -96,7 +96,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   }
 
   /**
-   * Get generic task.
+   * @returns generic simulation task based on current game graph IDs
    */
   public getSimulationTask(): ALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
