@@ -1,6 +1,7 @@
 import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameOutroManager } from "@/engine/core/managers/outro";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
@@ -8,7 +9,7 @@ import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TName, TNumberId } from "@/engine/lib/types";
+import { NetPacket, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,77 +30,13 @@ extern("CSE_ALifeDynamicObject_on_unregister", (id: TNumberId) => {
 });
 
 /**
- * todo
+ * Handle event before level change.
+ * As an idea - clear corpses or other cleanup logics parts.
  */
-extern("CALifeUpdateManager__on_before_change_level", () => {
-  /**
-   * CALifeUpdateManager
-   *     if (GEnv.ScriptEngine->functor("_G.CALifeUpdateManager__on_before_change_level", funct))
-   *         funct(&net_packet);
-   *
-   * Anomaly impl:
-   *
-   *
-   *         function CALifeUpdateManager__on_before_change_level(packet)
-   * --[[
-   *  C++:
-   *  net_packet.r					(&graph().actor()->m_tGraphID,sizeof(graph().actor()->m_tGraphID));
-   *  net_packet.r					(&graph().actor()->m_tNodeID,sizeof(graph().actor()->m_tNodeID));
-   *  net_packet.r_vec3				(graph().actor()->o_Position);
-   *  net_packet.r_vec3				(graph().actor()->o_Angle);
-   * --]]
-   * -- Here you can do stuff when level changes BEFORE save is called, even change destination!.
-   * -- Packet is constructed as stated above
-   *
-   *  -- Release dead bodies on level change (TODO: Determine if it's a bad idea to do this here)
-   *  --
-   *  local rbm = release_body_manager.get_release_body_manager()
-   *  if (rbm) then
-   *    rbm:clear(true)
-   *  end
-   *  --
-   *
-   *  -- READ PACKET
-   *  local pos,angle = vector(),vector()
-   *  local gvid = packet:r_u16()
-   *  local lvid = packet:r_u32()
-   *  packet:r_vec3(pos)
-   *  packet:r_vec3(angle)
-   *  -- crazy hack to help prevent crash on Trucks Cemetery
-   *  --[[local gg = game_graph()
-   *  if (gg:valid_vertex_id(gvid) and alife():level_name(gg:vertex(gvid):level_id()) == "k02_trucks_cemetery") then
-   *    log("k02_trucks_cemetery hack r__clear_models_on_unload 1")
-   *    exec_console_cmd("r__clear_models_on_unload 1")
-   *  end --]]
-   *  --printf("CALifeUpdateManager__on_before_change_level pos=%s gvid=%s lvid=%s angle=%s",pos,gvid,lvid,angle)
-   *  -- fix for car in 1.6 (TODO*kinda For some reason after loading a game ALL physic objects will not be teleported
-   *  -- by TeleportObject need to investigate as to why, possibly something to do with object flags)
-   *  local car = db.actor and db.actor:get_attached_vehicle()
-   *  if (car) then
-   *    TeleportObject(car:id(),pos,lvid,gvid)
-   *  end
-   *    -- REPACK it for engine method to read as normal
-   *  --[[
-   *  packet:w_begin(13)
-   *  packet:w_u16(gvid)
-   *  packet:w_u32(lvid)
-   *  packet:w_vec3(pos)
-   *  packet:w_vec3(angle)
-   *  --]]
-   *  -- reset read pointer
-   *  packet:r_seek(2)
-   *
-   *  if (bind_container.containers) then
-   *    for id,t in pairs(bind_container.containers) do
-   *      if (t.id) then
-   *        pos.y = pos.y+100
-   *        TeleportObject(t.id,pos,lvid,gvid)
-   *      end
-   *    end
-   *  end
-   * end
-   *
-   */
+extern("CALifeUpdateManager__on_before_change_level", (packet: NetPacket) => {
+  logger.info("On before level change callback");
+
+  EventsManager.emitEvent(EGameEvent.BEFORE_LEVEL_CHANGE, packet);
 });
 
 /**
@@ -158,133 +95,10 @@ extern("alife_storage_manager", {
 });
 
 /**
- * todo: Input callback.
+ * Callbacks related to game input from player.
  */
 extern("level_input", {
-  on_key_press: (key: TName, bind: TName) => logger.info("Todo: %s -> %s", key, bind),
-
-  /**
-   * function on_key_press(dik,bind)
-   *
-   *  if (level.present() and db.actor) then
-   *    if (bind == key_bindings.kQUICK_SAVE) then
-   *      return action_quick_save(dik,bind)
-   *    elseif (bind == key_bindings.kQUICK_LOAD) then
-   *      return action_quick_load(dik,bind)
-   *    --[[
-   *    elseif (bind == key_bindings.kPDA_TAB1) then
-   *      return action_toggle_pda_tab("eptTasks")
-   *    elseif (bind == key_bindings.kPDA_TAB2) then
-   *      return action_toggle_pda_tab("eptRelations")
-   *    elseif (bind == key_bindings.kPDA_TAB3) then
-   *      return action_toggle_pda_tab("eptContacts")
-   *    elseif (bind == key_bindings.kPDA_TAB4) then
-   *      return action_toggle_pda_tab("eptRanking")
-   *    elseif (bind == key_bindings.kPDA_TAB5) then
-   *      return action_toggle_pda_tab("eptLogs")
-   *    elseif (bind == key_bindings.kPDA_TAB6) then
-   *      return action_toggle_pda_tab("eptEncyclopedia")
-   *    --]]
-   *    end
-   *  end
-   *
-   *  return false
-   * end
-   *
-   *
-   * function action_quick_save(dik,bind)
-   *  if not (db.actor:alive() and actor_menu.is_hud_free()) then
-   *    return false
-   *  end
-   *
-   *  --	Saving will be interrupted if flags.ret is set to true by a custom script that have "on_before_save_input"
-   *  if level.present() then
-   *    flags.ret = false
-   *    SendScriptCallback("on_before_save_input", flags, 2, game.translate_string("st_ui_save"))
-   *    if (flags.ret == true) then
-   *      return true
-   *    end
-   *  end
-   *
-   *  --if game isn't already paused, then force a pause here
-   *  local force_pause
-   *  if not (device():is_paused()) then
-   *    device():pause(true)
-   *    force_pause = true
-   *  end
-   *
-   *  -- get list of savegames with most recently modified first.
-   *  local flist = getFS():file_list_open_ex("$game_saves$",	bit_or(FS.FS_ListFiles,FS.FS_RootOnly),
-   *  "*".. ui_load_dialog.saved_game_extension)
-   *  local f_cnt = flist and flist:Size() or 0
-   *
-   *  local inc = 0
-   *  if (f_cnt > 0) then
-   *    flist:Sort(FS.FS_sort_by_modif_down)
-   *
-   *    for it=0, f_cnt-1 do
-   *      local file_name = flist:GetAt(it):NameFull():sub(0,-6):lower()
-   *
-   *      -- grab last modified quicksave increment count
-   *      local d = tonumber( string.match(file_name,"quicksave_(%d+)") )
-   *      if (d) then
-   *        inc = d
-   *        break
-   *      end
-   *    end
-   *  end
-   *
-   *  inc = (inc >= ui_options.get("other/quicksave_cnt")) and 1 or inc + 1
-   *
-   *  exec_console_cmd("save " .. (user_name() or "") .. " - quicksave_" .. inc)
-   *
-   *  --[[
-   *  local comm = utils_xml.get_special_txt(db.actor:character_community())
-   *  local map = utils_xml.get_special_txt(level.name())
-   *  exec_console_cmd("save " .. comm .. " - " .. map .. " - quicksave_" .. inc)
-   *  --]]
-   *
-   *  if (force_pause) then
-   *    device():pause(false)
-   *  end
-   *
-   *  return true
-   * end
-   *
-   * function action_quick_load(dik,bind)
-   *
-   *  --	You must check in your callback, and set flags.ret = true if an action took place
-   *  flags.ret = false
-   *  SendScriptCallback("on_before_load_input",dik, bind,flags)
-   *  if (flags.ret == true) then
-   *    return true
-   *  end
-   *
-   *  if not (device():is_paused()) then
-   *    device():pause(true)
-   *  end
-   *
-   *  local flist = getFS():file_list_open_ex("$game_saves$",
-   *  bit_or(FS.FS_ListFiles,FS.FS_RootOnly),"*".. ui_load_dialog.saved_game_extension)
-   *  local f_cnt = flist and flist:Size() or 0
-   *
-   *  if (f_cnt > 0) then
-   *    flist:Sort(FS.FS_sort_by_modif_down)
-   *
-   *    for it=0, f_cnt-1 do
-   *      local file_name = flist:GetAt(it):NameFull():sub(0,-6):lower()
-   *
-   *      -- grab last modified quicksave
-   *      if (string.match(file_name,".* %- quicksave_(%d+)")) then
-   *        exec_console_cmd("load " .. file_name)
-   *        return true
-   *      end
-   *    end
-   *  end
-   *
-   *  return true
-   * end
-   */
+  on_key_press: (key: TNumberId, bind: TNumberId) => getManager(ActorInputManager).onKeyPress(key, bind),
 });
 
 /**

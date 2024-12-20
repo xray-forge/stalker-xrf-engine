@@ -34,6 +34,7 @@ import {
   Optional,
   TDuration,
   TIndex,
+  TNumberId,
   TRate,
 } from "@/engine/lib/types";
 
@@ -399,5 +400,26 @@ export class ActorInputManager extends AbstractManager {
    */
   public onSurgeSurviveEnd(): void {
     this.enableGameUi();
+  }
+
+  /**
+   * Handle actor keyboard input pressing.
+   *
+   * @param key - key code
+   * @param bind - key binding code
+   * @returns whether action was handled by script and engine should stop further execution of callbacks
+   */
+  public onKeyPress(key: TNumberId, bind: TNumberId): boolean {
+    /**
+     * Place to implement quick save / quick load logics with incremental naming / rotating files.
+     * For reference, check anomaly/CoC etc.
+     *
+     * -> scripts/level_input.script
+     *    on_key_press
+     *    action_quick_save
+     *    action_quick_load
+     */
+
+    return false;
   }
 }

@@ -3,13 +3,14 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
+import { ActorInputManager } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
-import { AnyObject, GameObject } from "@/engine/lib/types";
+import { AnyObject, GameObject, NetPacket } from "@/engine/lib/types";
 import { callBinding, callNestedBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject } from "@/fixtures/xray";
+import { MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/ai/combat");
 
@@ -64,6 +65,7 @@ describe("game external callbacks", () => {
 
   it("CSE_ALifeDynamicObject_on_unregister to be defined and emit events", () => {
     const manager: EventsManager = getManager(EventsManager);
+
     const onUnregister = jest.fn();
 
     manager.registerCallback(EGameEvent.SERVER_OBJECT_UNREGISTERED, onUnregister);
@@ -71,6 +73,19 @@ describe("game external callbacks", () => {
     expect(() => callBinding("CSE_ALifeDynamicObject_on_unregister", [5_000])).not.toThrow();
     expect(onUnregister).toHaveBeenCalledTimes(1);
     expect(onUnregister).toHaveBeenCalledWith(5_000);
+  });
+
+  it("CALifeUpdateManager__on_before_change_level to be defined and emit events", () => {
+    const manager: EventsManager = getManager(EventsManager);
+    const packet: NetPacket = MockNetProcessor.mockNetPacket();
+
+    const onBeforeLevelChange = jest.fn();
+
+    manager.registerCallback(EGameEvent.BEFORE_LEVEL_CHANGE, onBeforeLevelChange);
+
+    expect(() => callBinding("CALifeUpdateManager__on_before_change_level", [packet])).not.toThrow();
+    expect(onBeforeLevelChange).toHaveBeenCalledTimes(1);
+    expect(onBeforeLevelChange).toHaveBeenCalledWith(packet);
   });
 
   it("smart_covers should be defined", () => {
@@ -135,7 +150,16 @@ describe("game external callbacks", () => {
     expect(saveManager.onAfterGameLoad).toHaveBeenCalledWith("name4");
   });
 
-  it.todo("level_input callbacks should be defined");
+  it("level_input callbacks should be defined", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    jest.spyOn(manager, "onKeyPress").mockImplementation(jest.fn(() => false));
+
+    callNestedBinding("level_input", "on_key_press", [1, 2]);
+
+    expect(manager.onKeyPress).toHaveBeenCalledTimes(1);
+    expect(manager.onKeyPress).toHaveBeenCalledWith(1, 2);
+  });
 
   it("visual_memory_manager callbacks should be defined", () => {
     const object: GameObject = MockGameObject.mock();

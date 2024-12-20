@@ -504,6 +504,10 @@ export enum EGameEvent {
    * Game state loaded.
    */
   GAME_LOADED,
+  /**
+   * Event called before level change.
+   */
+  BEFORE_LEVEL_CHANGE,
 }
 
 /**

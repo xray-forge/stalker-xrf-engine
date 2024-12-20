@@ -173,7 +173,7 @@ describe("ActorInputManager", () => {
     expect(registry.effectsVolume).toBe(0.8);
   });
 
-  it("should correctly first update event", () => {
+  it("should correctly handle first update event", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     actorConfig.ACTIVE_ITEM_SLOT = EActiveItemSlot.PRIMARY;
@@ -187,7 +187,7 @@ describe("ActorInputManager", () => {
     expect(registry.actor.activate_slot).toHaveBeenNthCalledWith(2, EActiveItemSlot.KNIFE);
   });
 
-  it("should correctly network spawn event", () => {
+  it("should correctly handle network spawn event", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     actorConfig.DISABLED_INPUT_AT = MockCTime.mock(2012, 12, 1, 12, 30, 5, 500);
@@ -197,5 +197,11 @@ describe("ActorInputManager", () => {
     actorConfig.DISABLED_INPUT_AT = null;
     manager.onActorGoOnline();
     expect(level.enable_input).toHaveBeenCalledTimes(1);
+  });
+
+  it("should correctly handle keyboard input event", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+
+    expect(manager.onKeyPress(1, 2)).toBe(false);
   });
 });
