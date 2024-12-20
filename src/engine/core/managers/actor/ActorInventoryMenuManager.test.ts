@@ -90,6 +90,18 @@ describe("ActorInventoryMenuManager", () => {
     expect(manager.onWindowClosed).toHaveBeenCalledWith(EActorMenuMode.TALK_DIALOG);
   });
 
+  it("should correctly handle item focus receive event", () => {
+    expect(() => {
+      getManager(ActorInventoryMenuManager).onItemFocusReceived(MockGameObject.mock());
+    }).not.toThrow();
+  });
+
+  it("should correctly handle item focus lost event", () => {
+    expect(() => {
+      getManager(ActorInventoryMenuManager).onItemFocusLost(MockGameObject.mock());
+    }).not.toThrow();
+  });
+
   it("should correctly handle drop item event", () => {
     expect(() => {
       getManager(ActorInventoryMenuManager).onItemDropped(

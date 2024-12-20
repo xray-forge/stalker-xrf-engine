@@ -193,6 +193,15 @@ export class TradeManager extends AbstractManager {
   }
 
   /**
+   * @param owner - item owner game object
+   * @param item - target item to check
+   * @returns whether item can be traded (script logics overriding)
+   */
+  public isItemAvailableForTrade(owner: GameObject, item: GameObject): boolean {
+    return true;
+  }
+
+  /**
    * Save object state in net processor.
    *
    * @param object - game object to save data for

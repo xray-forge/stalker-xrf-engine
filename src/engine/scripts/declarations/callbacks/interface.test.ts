@@ -4,6 +4,7 @@ import { getManager } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
 import { PdaManager } from "@/engine/core/managers/pda";
+import { TradeManager } from "@/engine/core/managers/trade";
 import {
   canRepairItem,
   getRepairItemAskReplicLabel,
@@ -176,8 +177,16 @@ describe("interface external callbacks", () => {
 
   it("actor_menu_inventory callbacks", () => {
     const actorInventoryMenuManager: ActorInventoryMenuManager = getManager(ActorInventoryMenuManager);
+    const tradeManager: TradeManager = getManager(TradeManager);
 
     jest.spyOn(actorInventoryMenuManager, "onItemDropped").mockImplementation(jest.fn());
+    jest.spyOn(actorInventoryMenuManager, "onItemFocusReceived").mockImplementation(jest.fn());
+    jest.spyOn(actorInventoryMenuManager, "onItemFocusLost").mockImplementation(jest.fn());
+
+    jest.spyOn(tradeManager, "isItemAvailableForTrade").mockImplementation(jest.fn(() => false));
+
+    const owner: GameObject = MockGameObject.mock();
+    const item: GameObject = MockGameObject.mock();
 
     const from: GameObject = MockGameObject.mock();
     const to: GameObject = MockGameObject.mock();
@@ -186,6 +195,16 @@ describe("interface external callbacks", () => {
 
     callBinding("CUIActorMenu_OnItemDropped", [from, to, oldList, newList], (_G as AnyObject)["actor_menu_inventory"]);
     expect(actorInventoryMenuManager.onItemDropped).toHaveBeenCalledWith(from, to, oldList, newList);
+
+    callBinding("CUIActorMenu_OnItemFocusLost", [item], (_G as AnyObject)["actor_menu_inventory"]);
+    expect(actorInventoryMenuManager.onItemFocusLost).toHaveBeenCalledWith(item);
+
+    callBinding("CUIActorMenu_OnItemFocusReceive", [item], (_G as AnyObject)["actor_menu_inventory"]);
+    expect(actorInventoryMenuManager.onItemFocusReceived).toHaveBeenCalledWith(item);
+
+    callBinding("CInventory_ItemAvailableToTrade", [owner, item], (_G as AnyObject)["actor_menu_inventory"]);
+    expect(tradeManager.isItemAvailableForTrade).toHaveBeenCalledWith(owner, item);
+    expect(tradeManager.isItemAvailableForTrade).toHaveReturnedWith(false);
   });
 
   it("pda callbacks", () => {
