@@ -131,7 +131,8 @@ extern("level_input", {
    *  end
    *
    *  -- get list of savegames with most recently modified first.
-   *  local flist = getFS():file_list_open_ex("$game_saves$",	bit_or(FS.FS_ListFiles,FS.FS_RootOnly),"*".. ui_load_dialog.saved_game_extension)
+   *  local flist = getFS():file_list_open_ex("$game_saves$",	bit_or(FS.FS_ListFiles,FS.FS_RootOnly),
+   *  "*".. ui_load_dialog.saved_game_extension)
    *  local f_cnt = flist and flist:Size() or 0
    *
    *  local inc = 0
@@ -180,7 +181,8 @@ extern("level_input", {
    *    device():pause(true)
    *  end
    *
-   *  local flist = getFS():file_list_open_ex("$game_saves$",	bit_or(FS.FS_ListFiles,FS.FS_RootOnly),"*".. ui_load_dialog.saved_game_extension)
+   *  local flist = getFS():file_list_open_ex("$game_saves$",
+   *  bit_or(FS.FS_ListFiles,FS.FS_RootOnly),"*".. ui_load_dialog.saved_game_extension)
    *  local f_cnt = flist and flist:Size() or 0
    *
    *  if (f_cnt > 0) then
