@@ -429,6 +429,10 @@ export enum EGameEvent {
    */
   ITEM_WEAPON_SHOTGUN_UNREGISTERED,
   /**
+   * Unregistered generic server ALifeDynamicObject.
+   */
+  SERVER_OBJECT_UNREGISTERED,
+  /**
    * Surge ended.
    */
   SURGE_ENDED,

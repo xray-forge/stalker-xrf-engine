@@ -1,32 +1,17 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { selectBestStalkerWeapon } from "@/engine/core/ai/combat";
+import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
-import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
-import { callBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
+import { AnyObject, GameObject } from "@/engine/lib/types";
+import { callBinding, callNestedBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/ai/combat");
-
-function callAiStalkerBinding(name: TName, args: AnyArgs = []): unknown {
-  return callBinding(name, args, (_G as AnyObject)["ai_stalker"]);
-}
-
-function callAlifeStorageBinding(name: TName, args: AnyArgs = []): unknown {
-  return callBinding(name, args, (_G as AnyObject)["alife_storage_manager"]);
-}
-
-function callTradeBinding(name: TName, args: AnyArgs = []): unknown {
-  return callBinding(name, args, (_G as AnyObject)["trade_manager"]);
-}
-
-function callOutroBinding(name: TName, args: AnyArgs = []): void {
-  return callBinding(name, args, (_G as AnyObject)["outro"]);
-}
 
 describe("game external callbacks", () => {
   beforeAll(() => {
@@ -39,15 +24,53 @@ describe("game external callbacks", () => {
 
   it("should correctly inject external methods for game", () => {
     checkBinding("main");
+
+    checkBinding("CSE_ALifeDynamicObject_on_unregister");
+    checkBinding("CALifeUpdateManager__on_before_change_level");
+
     checkBinding("smart_covers");
     checkNestedBinding("smart_covers", "descriptions");
+
     checkBinding("outro");
+    checkNestedBinding("outro", "conditions");
+    checkNestedBinding("outro", "start_bk_sound");
+    checkNestedBinding("outro", "stop_bk_sound");
+    checkNestedBinding("outro", "update_bk_sound_fade_start");
+    checkNestedBinding("outro", "update_bk_sound_fade_stop");
+
     checkBinding("trade_manager");
+    checkNestedBinding("trade_manager", "get_sell_discount");
+    checkNestedBinding("trade_manager", "get_buy_discount");
+
     checkBinding("alife_storage_manager");
+    checkNestedBinding("alife_storage_manager", "CALifeStorageManager_load");
+    checkNestedBinding("alife_storage_manager", "CALifeStorageManager_after_load");
+    checkNestedBinding("alife_storage_manager", "CALifeStorageManager_before_save");
+    checkNestedBinding("alife_storage_manager", "CALifeStorageManager_save");
+
+    checkBinding("level_input");
+    checkNestedBinding("level_input", "on_key_press");
+
+    checkBinding("visual_memory_manager");
+    checkNestedBinding("visual_memory_manager", "get_visible_value");
+
+    checkBinding("ai_stalker");
+    checkNestedBinding("ai_stalker", "update_best_weapon");
   });
 
   it("main to be defined for custom scripts", () => {
     expect(() => callBinding("main")).not.toThrow();
+  });
+
+  it("CSE_ALifeDynamicObject_on_unregister to be defined and emit events", () => {
+    const manager: EventsManager = getManager(EventsManager);
+    const onUnregister = jest.fn();
+
+    manager.registerCallback(EGameEvent.SERVER_OBJECT_UNREGISTERED, onUnregister);
+
+    expect(() => callBinding("CSE_ALifeDynamicObject_on_unregister", [5_000])).not.toThrow();
+    expect(onUnregister).toHaveBeenCalledTimes(1);
+    expect(onUnregister).toHaveBeenCalledWith(5_000);
   });
 
   it("smart_covers should be defined", () => {
@@ -64,17 +87,17 @@ describe("game external callbacks", () => {
 
     expect((_G as AnyObject)["outro"]["conditions"]).toBe(gameOutroConfig.OUTRO_CONDITIONS);
 
-    callOutroBinding("start_bk_sound");
+    callNestedBinding("outro", "start_bk_sound");
     expect(outroManager.startBlackScreenAndSound).toHaveBeenCalled();
 
-    callOutroBinding("stop_bk_sound");
+    callNestedBinding("outro", "stop_bk_sound");
     expect(outroManager.stopBlackScreenAndSound).toHaveBeenCalled();
 
-    callOutroBinding("update_bk_sound_fade_start", [25]);
+    callNestedBinding("outro", "update_bk_sound_fade_start", [25]);
     expect(outroManager.updateBlackScreenAndSoundFadeStart).toHaveBeenCalledWith(25);
     expect(outroManager.stopBlackScreenAndSound).toHaveBeenCalled();
 
-    callOutroBinding("update_bk_sound_fade_stop", [35]);
+    callNestedBinding("outro", "update_bk_sound_fade_stop", [35]);
     expect(outroManager.updateBlackScreenAndSoundFadeStop).toHaveBeenCalledWith(35);
   });
 
@@ -84,10 +107,10 @@ describe("game external callbacks", () => {
     jest.spyOn(tradeManager, "getSellDiscountForObject").mockImplementation(() => 10);
     jest.spyOn(tradeManager, "getBuyDiscountForObject").mockImplementation(() => 20);
 
-    expect(callTradeBinding("get_sell_discount", [30])).toBe(10);
+    expect(callNestedBinding("trade_manager", "get_sell_discount", [30])).toBe(10);
     expect(tradeManager.getSellDiscountForObject).toHaveBeenCalledWith(30);
 
-    expect(callTradeBinding("get_buy_discount", [40])).toBe(20);
+    expect(callNestedBinding("trade_manager", "get_buy_discount", [40])).toBe(20);
     expect(tradeManager.getBuyDiscountForObject).toHaveBeenCalledWith(40);
   });
 
@@ -99,28 +122,36 @@ describe("game external callbacks", () => {
     jest.spyOn(saveManager, "onGameLoad");
     jest.spyOn(saveManager, "onAfterGameLoad");
 
-    callAlifeStorageBinding("CALifeStorageManager_before_save", ["name1"]);
+    callNestedBinding("alife_storage_manager", "CALifeStorageManager_before_save", ["name1"]);
     expect(saveManager.onBeforeGameSave).toHaveBeenCalledWith("name1");
 
-    callAlifeStorageBinding("CALifeStorageManager_save", ["name2"]);
+    callNestedBinding("alife_storage_manager", "CALifeStorageManager_save", ["name2"]);
     expect(saveManager.onGameSave).toHaveBeenCalledWith("name2");
 
-    callAlifeStorageBinding("CALifeStorageManager_load", ["name3"]);
+    callNestedBinding("alife_storage_manager", "CALifeStorageManager_load", ["name3"]);
     expect(saveManager.onGameLoad).toHaveBeenCalledWith("name3");
 
-    callAlifeStorageBinding("CALifeStorageManager_after_load", ["name4"]);
+    callNestedBinding("alife_storage_manager", "CALifeStorageManager_after_load", ["name4"]);
     expect(saveManager.onAfterGameLoad).toHaveBeenCalledWith("name4");
   });
 
   it.todo("level_input callbacks should be defined");
 
-  it.todo("visual_memory_manager callbacks should be defined");
+  it("visual_memory_manager callbacks should be defined", () => {
+    const object: GameObject = MockGameObject.mock();
+    const target: GameObject = MockGameObject.mock();
+
+    callNestedBinding("visual_memory_manager", "get_visible_value", [object, target, 1000, 50, 25, 5, 1, 200, 20, 2]);
+
+    expect(calculateObjectVisibility).toHaveBeenCalledTimes(1);
+    expect(calculateObjectVisibility).toHaveBeenCalledWith(object, target, 1000, 50, 25, 5, 1, 200, 20, 2);
+  });
 
   it("ai_stalker callbacks should be defined", () => {
     const object: GameObject = MockGameObject.mock();
     const weapon: GameObject = MockGameObject.mock();
 
-    callAiStalkerBinding("update_best_weapon", [object, weapon]);
+    callNestedBinding("ai_stalker", "update_best_weapon", [object, weapon]);
 
     expect(selectBestStalkerWeapon).toHaveBeenCalledTimes(1);
     expect(selectBestStalkerWeapon).toHaveBeenCalledWith(object, weapon);

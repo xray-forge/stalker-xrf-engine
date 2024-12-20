@@ -1,6 +1,7 @@
-import { selectBestStalkerWeapon } from "@/engine/core/ai/combat";
+import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameOutroManager } from "@/engine/core/managers/outro";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { SaveManager } from "@/engine/core/managers/save";
@@ -18,6 +19,88 @@ logger.info("Resolve and bind game externals");
  * In case if custom script is executed from console and has no `main` function, this placeholder will be used.
  */
 extern("main", () => {});
+
+/**
+ * Declare method for all dynamic objects unregister event.
+ * Good place to remove ids from persistent tables and clean up all object data.
+ */
+extern("CSE_ALifeDynamicObject_on_unregister", (id: TNumberId) => {
+  EventsManager.emitEvent(EGameEvent.SERVER_OBJECT_UNREGISTERED, id);
+});
+
+/**
+ * todo
+ */
+extern("CALifeUpdateManager__on_before_change_level", () => {
+  /**
+   * CALifeUpdateManager
+   *     if (GEnv.ScriptEngine->functor("_G.CALifeUpdateManager__on_before_change_level", funct))
+   *         funct(&net_packet);
+   *
+   * Anomaly impl:
+   *
+   *
+   *         function CALifeUpdateManager__on_before_change_level(packet)
+   * --[[
+   *  C++:
+   *  net_packet.r					(&graph().actor()->m_tGraphID,sizeof(graph().actor()->m_tGraphID));
+   *  net_packet.r					(&graph().actor()->m_tNodeID,sizeof(graph().actor()->m_tNodeID));
+   *  net_packet.r_vec3				(graph().actor()->o_Position);
+   *  net_packet.r_vec3				(graph().actor()->o_Angle);
+   * --]]
+   * -- Here you can do stuff when level changes BEFORE save is called, even change destination!.
+   * -- Packet is constructed as stated above
+   *
+   *  -- Release dead bodies on level change (TODO: Determine if it's a bad idea to do this here)
+   *  --
+   *  local rbm = release_body_manager.get_release_body_manager()
+   *  if (rbm) then
+   *    rbm:clear(true)
+   *  end
+   *  --
+   *
+   *  -- READ PACKET
+   *  local pos,angle = vector(),vector()
+   *  local gvid = packet:r_u16()
+   *  local lvid = packet:r_u32()
+   *  packet:r_vec3(pos)
+   *  packet:r_vec3(angle)
+   *  -- crazy hack to help prevent crash on Trucks Cemetery
+   *  --[[local gg = game_graph()
+   *  if (gg:valid_vertex_id(gvid) and alife():level_name(gg:vertex(gvid):level_id()) == "k02_trucks_cemetery") then
+   *    log("k02_trucks_cemetery hack r__clear_models_on_unload 1")
+   *    exec_console_cmd("r__clear_models_on_unload 1")
+   *  end --]]
+   *  --printf("CALifeUpdateManager__on_before_change_level pos=%s gvid=%s lvid=%s angle=%s",pos,gvid,lvid,angle)
+   *  -- fix for car in 1.6 (TODO*kinda For some reason after loading a game ALL physic objects will not be teleported
+   *  -- by TeleportObject need to investigate as to why, possibly something to do with object flags)
+   *  local car = db.actor and db.actor:get_attached_vehicle()
+   *  if (car) then
+   *    TeleportObject(car:id(),pos,lvid,gvid)
+   *  end
+   *    -- REPACK it for engine method to read as normal
+   *  --[[
+   *  packet:w_begin(13)
+   *  packet:w_u16(gvid)
+   *  packet:w_u32(lvid)
+   *  packet:w_vec3(pos)
+   *  packet:w_vec3(angle)
+   *  --]]
+   *  -- reset read pointer
+   *  packet:r_seek(2)
+   *
+   *  if (bind_container.containers) then
+   *    for id,t in pairs(bind_container.containers) do
+   *      if (t.id) then
+   *        pos.y = pos.y+100
+   *        TeleportObject(t.id,pos,lvid,gvid)
+   *      end
+   *    end
+   *  end
+   * end
+   *
+   */
+});
 
 /**
  * Declare list of available smart covers for game engine.
@@ -204,127 +287,16 @@ extern("level_input", {
    */
 });
 
+/**
+ * Callbacks related to objects visibility and memory calculation for AI logics execution.
+ */
 extern("visual_memory_manager", {
-  /**
-   *
-   * //Alundaio: hijack not_yet_visible_object to lua
-   *     luabind::functor<float> funct;
-   *     if (GEnv.ScriptEngine->functor("visual_memory_manager.get_visible_value", funct))
-   *         return (funct(m_object ? m_object->lua_game_object() : nullptr, game_object
-   *         ? game_object->lua_game_object()
-   *         : nullptr, time_delta, current_state().m_time_quant, luminocity, current_state().m_velocity_factor,
-   *         object_velocity, distance, object_distance, always_visible_distance));
-   *     //-Alundaio
-   *
-   *
-   * -- Visual Memory Manager exports
-   * -- by Alundaio
-   *
-   * -- called from engine
-   * -- This occurs during the visible check. If value >= visiblity_threshold then object is considered visible
-   * -- warning npc and who can be nil sometimes
-   * function get_visible_value(npc,who,time_delta,time_quant,luminocity,velocity_factor,velocity,distance,
-   * object_distance,always_visible_distance)
-   *  distance = distance <= 0 and 0.00001 or distance
-   *  luminocity = luminocity <= 0 and 0.0001 or luminocity
-   *
-   *  if (level_weathers.bLevelUnderground) then
-   *    luminocity = luminocity + 0.35
-   *  end
-   *
-   *  -- unaltered formula
-   *  -- time_delta / time_quant * luminocity * (1 + velocity_factor*velocity) *
-   *  (distance - object_distance) / (distance - always_visible_distance)
-   *
-   *  return  time_delta / time_quant * luminocity * (1 + velocity_factor*velocity) *
-   *  (distance - object_distance) / distance
-   * end
-   */
+  get_visible_value: calculateObjectVisibility,
 });
 
 /**
- * CALifeUpdateManager
- *     if (GEnv.ScriptEngine->functor("_G.CALifeUpdateManager__on_before_change_level", funct))
- *         funct(&net_packet);
- *
- * Anomaly impl:
- *
- *
- *         function CALifeUpdateManager__on_before_change_level(packet)
- * --[[
- *  C++:
- *  net_packet.r					(&graph().actor()->m_tGraphID,sizeof(graph().actor()->m_tGraphID));
- *  net_packet.r					(&graph().actor()->m_tNodeID,sizeof(graph().actor()->m_tNodeID));
- *  net_packet.r_vec3				(graph().actor()->o_Position);
- *  net_packet.r_vec3				(graph().actor()->o_Angle);
- * --]]
- * -- Here you can do stuff when level changes BEFORE save is called, even change destination!.
- * -- Packet is constructed as stated above
- *
- *  -- Release dead bodies on level change (TODO: Determine if it's a bad idea to do this here)
- *  --
- *  local rbm = release_body_manager.get_release_body_manager()
- *  if (rbm) then
- *    rbm:clear(true)
- *  end
- *  --
- *
- *  -- READ PACKET
- *  local pos,angle = vector(),vector()
- *  local gvid = packet:r_u16()
- *  local lvid = packet:r_u32()
- *  packet:r_vec3(pos)
- *  packet:r_vec3(angle)
- *  -- crazy hack to help prevent crash on Trucks Cemetery
- *  --[[local gg = game_graph()
- *  if (gg:valid_vertex_id(gvid) and alife():level_name(gg:vertex(gvid):level_id()) == "k02_trucks_cemetery") then
- *    log("k02_trucks_cemetery hack r__clear_models_on_unload 1")
- *    exec_console_cmd("r__clear_models_on_unload 1")
- *  end --]]
- *  --printf("CALifeUpdateManager__on_before_change_level pos=%s gvid=%s lvid=%s angle=%s",pos,gvid,lvid,angle)
- *  -- fix for car in 1.6 (TODO*kinda For some reason after loading a game ALL physic objects will not be teleported
- *  -- by TeleportObject need to investigate as to why, possibly something to do with object flags)
- *  local car = db.actor and db.actor:get_attached_vehicle()
- *  if (car) then
- *    TeleportObject(car:id(),pos,lvid,gvid)
- *  end
- *    -- REPACK it for engine method to read as normal
- *  --[[
- *  packet:w_begin(13)
- *  packet:w_u16(gvid)
- *  packet:w_u32(lvid)
- *  packet:w_vec3(pos)
- *  packet:w_vec3(angle)
- *  --]]
- *  -- reset read pointer
- *  packet:r_seek(2)
- *
- *  if (bind_container.containers) then
- *    for id,t in pairs(bind_container.containers) do
- *      if (t.id) then
- *        pos.y = pos.y+100
- *        TeleportObject(t.id,pos,lvid,gvid)
- *      end
- *    end
- *  end
- * end
- *
+ * Callbacks related to objects AI logics calculation and execution.
  */
-
-/**
- *  luabind::functor<void> funct;
- *     if (GEnv.ScriptEngine->functor("_G.CSE_ALifeDynamicObject_on_unregister", funct))
- *         funct(ID);
- *     Level().MapManager().OnObjectDestroyNotify(ID);
- *
- *
- * -- called in CSE_ALifeDynamicObject::on_unregister()
- * -- good place to remove ids from persistent tables
- * function CSE_ALifeDynamicObject_on_unregister(id)
- *
- * end
- */
-
 extern("ai_stalker", {
   update_best_weapon: selectBestStalkerWeapon,
 });

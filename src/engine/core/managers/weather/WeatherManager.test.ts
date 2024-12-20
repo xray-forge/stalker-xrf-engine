@@ -1,9 +1,10 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { EWeatherPeriodType, IWeatherState } from "@/engine/core/managers/weather/weather_types";
+import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
 import { resetRegistry } from "@/fixtures/engine";
@@ -14,6 +15,8 @@ import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 describe("WeatherManager", () => {
   beforeEach(() => {
     resetRegistry();
+
+    weatherConfig.IS_UNDERGROUND_WEATHER = false;
   });
 
   it("should correctly initialize and destroy", () => {
@@ -36,11 +39,20 @@ describe("WeatherManager", () => {
 
     eventsManager.emitEvent(EGameEvent.ACTOR_GO_ONLINE);
 
-    expect(level.name()).toBe("zaton");
+    jest.spyOn(level, "name").mockImplementation(() => "zaton");
 
+    expect(level.name()).toBe("zaton");
+    expect(weatherConfig.IS_UNDERGROUND_WEATHER).toBe(false);
     expect(manager.weatherPeriod).toBe("good");
     expect(manager.weatherSection).toBe("atmosfear_clear_foggy");
     expect(String(getFunctionMock(level.set_weather).mock.calls[0][0]).startsWith("af3_slight_")).toBeTruthy();
+
+    jest.spyOn(level, "name").mockImplementation(() => "jupiter_underground");
+
+    expect(level.name()).toBe("jupiter_underground");
+    expect(weatherConfig.IS_UNDERGROUND_WEATHER).toBe(false);
+
+    jest.spyOn(level, "name").mockImplementation(() => "zaton");
   });
 
   it("should correctly set state", () => {
