@@ -119,7 +119,7 @@ describe("ActorBinder", () => {
     expect(state).not.toBeNull();
     expect(state.portableStore).not.toBeNull();
 
-    expect(actor.set_callback).toHaveBeenCalledTimes(7);
+    expect(actor.set_callback).toHaveBeenCalledTimes(8);
     expect(actor.set_callback).toHaveBeenCalledWith(callback.inventory_info, expect.any(Function));
     expect(actor.set_callback).toHaveBeenCalledWith(callback.on_item_take, expect.any(Function));
     expect(actor.set_callback).toHaveBeenCalledWith(callback.on_item_drop, expect.any(Function));

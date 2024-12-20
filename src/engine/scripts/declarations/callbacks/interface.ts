@@ -30,6 +30,7 @@ import {
   TLabel,
   TName,
   TNotCastedBoolean,
+  TNumberId,
   TRate,
   TSection,
 } from "@/engine/lib/types";
@@ -127,8 +128,8 @@ extern("actor_menu_inventory", {
  * PDA callbacks.
  */
 extern("pda", {
-  set_active_subdialog: (...args: AnyArgs): void => {
-    logger.info("Set active subdialog");
+  set_active_subdialog: (section: TSection): void => {
+    logger.info("Set active sub-dialog: %s", section);
   },
   get_max_resource: (): TCount => {
     return 10;
@@ -139,16 +140,16 @@ extern("pda", {
   get_max_member_count: (): TCount => {
     return 10;
   },
-  actor_menu_mode: (...args: AnyArgs): void => {
-    logger.info("Pda actor menu mode changed");
+  actor_menu_mode: (mode: TNumberId): void => {
+    logger.info("PDA actor menu mode changed: %s", mode);
   },
   // todo: m_UIPropertiesBox, m_cur_location
   property_box_clicked: (...args: AnyArgs): void => {
-    logger.info("Pda box property clicked");
+    logger.info("PDA box property clicked");
   },
   // todo: m_UIPropertiesBox, m_cur_location->ObjectID(), (LPCSTR)m_cur_location->GetLevelName().c_str(), m_cur_location
   property_box_add_properties: (...args: AnyArgs): void => {
-    logger.info("Pda box property added");
+    logger.info("PDA box property added");
   },
   fill_fraction_state: (state: AnyObject): void => {
     getManager(PdaManager).fillFactionState(state);
