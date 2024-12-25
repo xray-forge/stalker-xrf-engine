@@ -1,6 +1,7 @@
 import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 
 import { getManager, SYSTEM_INI } from "@/engine/core/database";
+import { DebugManager } from "@/engine/core/managers/debug";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -65,7 +66,12 @@ export class DebugGeneralSection extends AbstractDebugSection {
 
     initializeElement(xml, EElementType.BUTTON, "dump_system_ini_button", this, {
       context: this.owner,
-      [ui_events.BUTTON_CLICKED]: () => this.onDumpSystemIni(),
+      [ui_events.BUTTON_CLICKED]: () => getManager(DebugManager).dumpSystemIni(),
+    });
+
+    initializeElement(xml, EElementType.BUTTON, "dump_lua_data_button", this, {
+      context: this.owner,
+      [ui_events.BUTTON_CLICKED]: () => getManager(DebugManager).dumpLuaData(),
     });
 
     this.uiProfilingReportButton = initializeElement(xml, EElementType.BUTTON, "profiling_log_button", this, {
@@ -155,14 +161,6 @@ export class DebugGeneralSection extends AbstractDebugSection {
     forgeConfig.DEBUG.IS_SIMULATION_ENABLED = !forgeConfig.DEBUG.IS_SIMULATION_ENABLED;
 
     this.initializeState();
-  }
-
-  /**
-   * Dump system ini file for exploring.
-   */
-  public onDumpSystemIni(): void {
-    logger.info("Saving system ini as gamedata\\system.ltx");
-    SYSTEM_INI.save_as("gamedata\\system.ltx");
   }
 
   /**

@@ -21,7 +21,7 @@
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "dependencies": {
-    "xray16": "1.2.2"
+    "xray16": "1.2.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

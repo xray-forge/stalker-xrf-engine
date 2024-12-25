@@ -10,9 +10,9 @@ describe("saveTextToFile util", () => {
 
     jest.spyOn(io, "open").mockImplementation(() => $multi(file.asMock()));
 
-    saveTextToFile("base\\", "base\\example.scopx", "abcdefg");
+    saveTextToFile("base", "example.scopx", "abcdefg");
 
-    expect(lfs.mkdir).toHaveBeenCalledWith("base\\");
+    expect(lfs.mkdir).toHaveBeenCalledWith("base");
     expect(io.open).toHaveBeenCalledWith("base\\example.scopx", "wb");
     expect(file.write).toHaveBeenCalledWith("abcdefg");
     expect(file.close).toHaveBeenCalledTimes(1);
@@ -20,8 +20,10 @@ describe("saveTextToFile util", () => {
     expect(file.content).toBe("abcdefg");
 
     file.isOpen = false;
-    saveTextToFile("base\\", "base\\example.scopx", "aab");
+    saveTextToFile("base\\", "example2.scopx", "aab");
 
+    expect(lfs.mkdir).toHaveBeenCalledWith("base\\");
+    expect(io.open).toHaveBeenCalledWith("base\\example2.scopx", "wb");
     expect(file.write).toHaveBeenCalledTimes(1);
     expect(file.content).toBe("abcdefg");
     expect(file.close).toHaveBeenCalledTimes(1);
@@ -36,7 +38,7 @@ describe("saveObjectToFile util", () => {
 
     const data: AnyObject = { a: 1, b: 2, c: 3 };
 
-    saveObjectToFile("base\\", "base\\example.scopx", data);
+    saveObjectToFile("base\\", "example.scopx", data);
 
     expect(marshal.encode).toHaveBeenCalledWith(data);
     expect(lfs.mkdir).toHaveBeenCalledWith("base\\");
@@ -47,8 +49,10 @@ describe("saveObjectToFile util", () => {
     expect(file.content).toBe(JSON.stringify({ a: 1, b: 2, c: 3 }));
 
     file.isOpen = false;
-    saveObjectToFile("base\\", "base\\example.scopx", { a: 1000 });
+    saveObjectToFile("base", "example.scopx", { a: 1000 });
 
+    expect(lfs.mkdir).toHaveBeenCalledWith("base");
+    expect(io.open).toHaveBeenCalledWith("base\\example.scopx", "wb");
     expect(file.write).toHaveBeenCalledTimes(1);
     expect(file.content).toBe(JSON.stringify({ a: 1, b: 2, c: 3 }));
     expect(file.close).toHaveBeenCalledTimes(1);

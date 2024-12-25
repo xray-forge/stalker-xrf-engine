@@ -9,9 +9,9 @@ Combines compressed archives, static assets and game engine together.
 
 List of arguments:
 
-- `-c, --clean` - perform `game_pack` folder clean before building
+- `-c, --clean` - perform `game_pack` dir clean before building
 - `--nb, --no-build` - prevent run build before creation
-- `--se, --skip-engine` - do not include `bin` folder in resulting package
+- `--se, --skip-engine` - do not include `bin` dir in resulting package
 - `-e, --engine <type>` - use provided engine
 - `-o, --optimize ` - use build optimizations
 - `-v, --verbose ` - use verbose logging

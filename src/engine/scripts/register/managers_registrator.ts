@@ -2,6 +2,7 @@ import { initializeManager } from "@/engine/core/database";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { ActorInputManager, ActorInventoryMenuManager } from "@/engine/core/managers/actor";
 import { ReleaseBodyManager } from "@/engine/core/managers/death";
+import { DebugManager } from "@/engine/core/managers/debug";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EventsManager } from "@/engine/core/managers/events";
@@ -34,6 +35,7 @@ export function registerManagers(): void {
   const managers: Array<TAbstractCoreManagerConstructor> = [
     ActorInputManager,
     ActorInventoryMenuManager,
+    DebugManager,
     DialogManager,
     MusicManager,
     EventsManager,

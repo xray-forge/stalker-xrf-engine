@@ -197,7 +197,7 @@ function copyDatabaseAssets(): void {
 }
 
 /**
- * Copy game configs for root folder.
+ * Copy game configs for root dir.
  * Default graphics settings and FS mappings.
  */
 function copyRootAssets(): void {
