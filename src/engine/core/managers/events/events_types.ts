@@ -509,9 +509,9 @@ export enum EGameEvent {
    */
   BEFORE_LEVEL_CHANGE,
   /**
-   * Dumping state from lua.
+   * Dumping data from lua.
    */
-  DUMP_LUA_STATE,
+  DUMP_LUA_DATA,
 }
 
 /**

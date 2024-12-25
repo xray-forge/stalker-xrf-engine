@@ -16,7 +16,7 @@ export function toJSON(
   circular: LuaTable<AnyNotNil, boolean> = new LuaTable()
 ): string {
   if (depth > maxDepth) {
-    return "<depth_limit>";
+    return "\"<depth_limit>\"";
   }
 
   const targetType: string = type(target);
@@ -26,16 +26,16 @@ export function toJSON(
   } else if (targetType === "number") {
     return tostring(target);
   } else if (targetType === "nil") {
-    return "<nil>";
+    return "\"<nil>\"";
   } else if (targetType === "boolean") {
-    return `<bool: ${target === true ? "true" : "false"}>`;
+    return `"<bool: ${target === true ? "true" : "false"}>"`;
   } else if (targetType === "function") {
-    return "<function>";
+    return "\"<function>\"";
   } else if (targetType === "userdata") {
-    return "<userdata>";
+    return "\"<userdata>\"";
   } else if (targetType === "table") {
     if (circular.has(target as AnyNotNil)) {
-      return "<circular_reference>";
+      return "\"<circular_reference>\"";
     } else {
       circular.set(target as AnyNotNil, true);
     }
@@ -61,7 +61,7 @@ export function toJSON(
     return result + "}";
   }
 
-  return "<unknown>";
+  return "\"<unknown>\"";
 }
 
 /**

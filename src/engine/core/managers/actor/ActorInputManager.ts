@@ -26,6 +26,7 @@ import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
 import {
+  AnyObject,
   EActiveItemSlot,
   GameHud,
   GameObject,
@@ -47,6 +48,7 @@ export class ActorInputManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onUpdate, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_FIRST_UPDATE, this.onFirstUpdate, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorGoOnline, this);
@@ -56,6 +58,7 @@ export class ActorInputManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onUpdate);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_FIRST_UPDATE, this.onFirstUpdate);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorGoOnline);
@@ -421,5 +424,19 @@ export class ActorInputManager extends AbstractManager {
      */
 
     return false;
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      activeSlot: registry.actor.active_slot(),
+      actorConfig: actorConfig,
+    };
+
+    return data;
   }
 }

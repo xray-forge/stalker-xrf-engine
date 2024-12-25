@@ -5,7 +5,7 @@ import { disposeManager, getManager, registerActor, registry } from "@/engine/co
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { Console, EActiveItemSlot, GameObject } from "@/engine/lib/types";
+import { AnyObject, Console, EActiveItemSlot, GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockCTime, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
@@ -23,11 +23,12 @@ describe("ActorInputManager", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(4);
+    expect(eventsManager.getSubscribersCount()).toBe(5);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_FIRST_UPDATE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_ONLINE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_USE_ITEM)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
 
     disposeManager(ActorInputManager);
 
@@ -203,5 +204,15 @@ describe("ActorInputManager", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
     expect(manager.onKeyPress(1, 2)).toBe(false);
+  });
+
+  it("should correctly dump event", () => {
+    const manager: ActorInputManager = getManager(ActorInputManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ ActorInputManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ ActorInputManager: expect.any(Object) });
   });
 });

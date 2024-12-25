@@ -20,13 +20,13 @@ export class DebugManager extends AbstractManager {
    */
   public dumpLuaData(): void {
     const folder: TPath = getFS().update_path(roots.appDataRoot, "dumps");
-    const name: TPath = "lua_data.ltx";
+    const name: TPath = "lua_data.json";
 
     logger.info("Dumping LUA state data as '%s'", name);
 
     const data: AnyObject = {};
 
-    EventsManager.emitEvent(EGameEvent.DUMP_LUA_STATE, data);
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
 
     saveTextToFile(folder, name, toJSON(data));
   }
