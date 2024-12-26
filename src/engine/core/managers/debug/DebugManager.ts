@@ -18,7 +18,7 @@ export class DebugManager extends AbstractManager {
   /**
    * Dump in-memory lua data from various configs / managers.
    */
-  public dumpLuaData(): void {
+  public dumpLuaData(): AnyObject {
     const folder: TPath = getFS().update_path(roots.appDataRoot, "dumps");
     const name: TPath = "lua_data.json";
 
@@ -29,6 +29,8 @@ export class DebugManager extends AbstractManager {
     EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
 
     saveTextToFile(folder, name, toJSON(data));
+
+    return data;
   }
 
   /**
