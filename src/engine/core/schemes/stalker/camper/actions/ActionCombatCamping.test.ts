@@ -9,7 +9,7 @@ import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper";
 import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/actions/ActionCombatCamping";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { DangerObject, EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme, GameObject } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockDangerObject, MockGameObject, MockPropertyStorage } from "@/fixtures/xray";

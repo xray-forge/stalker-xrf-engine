@@ -1,6 +1,6 @@
 import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 
-import { getManager, SYSTEM_INI } from "@/engine/core/database";
+import { getManager } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";

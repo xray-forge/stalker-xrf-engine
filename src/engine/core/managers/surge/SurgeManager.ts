@@ -25,7 +25,6 @@ import {
   playSurgeWillHappenSoonSound,
 } from "@/engine/core/managers/surge/utils";
 import { TaskManager } from "@/engine/core/managers/tasks";
-import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { isArtefact } from "@/engine/core/utils/class_ids";
 import { isBlackScreen } from "@/engine/core/utils/game";

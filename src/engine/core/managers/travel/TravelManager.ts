@@ -15,7 +15,6 @@ import {
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
-import { treasureConfig } from "@/engine/core/managers/treasures";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";

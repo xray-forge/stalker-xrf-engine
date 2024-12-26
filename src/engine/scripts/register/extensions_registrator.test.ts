@@ -6,7 +6,7 @@ import {
   saveExtensionsState,
   syncExtensionsState,
 } from "@/engine/core/utils/extensions/extensions_state";
-import { AnyObject, LuaArray } from "@/engine/lib/types";
+import { LuaArray } from "@/engine/lib/types";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { replaceFunctionMockOnce } from "@/fixtures/jest";
 

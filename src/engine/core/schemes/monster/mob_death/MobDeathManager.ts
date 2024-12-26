@@ -2,7 +2,7 @@ import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
+import { EScheme, GameObject, Optional } from "@/engine/lib/types";
 
 /**
  * Handler to manage monster death events.

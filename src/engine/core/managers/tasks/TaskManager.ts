@@ -7,7 +7,6 @@ import { NotificationManager } from "@/engine/core/managers/notifications";
 import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
-import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {

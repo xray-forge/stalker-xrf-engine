@@ -12,7 +12,6 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { removeTreasureMapSpot, showTreasureMapSpot } from "@/engine/core/managers/map/utils";
 import { ETreasureState, NotificationManager } from "@/engine/core/managers/notifications";
-import { gameOutroConfig } from "@/engine/core/managers/outro";
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ITreasureDescriptor, ITreasureItemsDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { assert } from "@/engine/core/utils/assertion";

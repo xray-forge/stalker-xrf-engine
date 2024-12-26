@@ -10,14 +10,12 @@ import {
   IWaypointData,
   TConditionList,
 } from "@/engine/core/utils/ini/ini_types";
-import { trimString } from "@/engine/core/utils/string";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AnyObject,
   EScheme,
   Flags32,
-  IniFile,
   LuaArray,
   Optional,
   Patrol,

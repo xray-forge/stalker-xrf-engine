@@ -4,7 +4,7 @@ import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutsce
 import { cutsceneConfig } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneConfig";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
-import { EScheme, ESchemeEvent, GameObject } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

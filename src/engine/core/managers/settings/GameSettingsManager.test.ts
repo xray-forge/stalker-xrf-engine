@@ -4,7 +4,6 @@ import { level } from "xray16";
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameSettingsManager } from "@/engine/core/managers/settings/GameSettingsManager";
-import { SimulationManager } from "@/engine/core/managers/simulation";
 import { EGameDifficulty, gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { AnyObject, Console } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
