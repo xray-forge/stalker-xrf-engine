@@ -34,7 +34,7 @@ export class DatabaseManager extends AbstractManager {
 
     // Display objects by name ID for more context.
     for (const [key, value] of registry.objects) {
-      objects.set(value.object ? `${key}#${value.object.name()}` : key, value);
+      objects.set(value.object === null ? key : `${key}#${value.object.name()}`, value);
       maxObjectId = math.max(maxObjectId, key);
     }
 
