@@ -75,7 +75,7 @@ describe("GameOutroManager", () => {
 
   it.todo("should correctly update black screen and sound fade stop");
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: GameOutroManager = getManager(GameOutroManager);
     const data: AnyObject = {};
 

@@ -188,7 +188,7 @@ describe("SleepManager", () => {
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_FINISH_SLEEP);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: SleepManager = getManager(SleepManager);
     const data: AnyObject = {};
 

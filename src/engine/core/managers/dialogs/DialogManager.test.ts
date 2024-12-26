@@ -150,7 +150,7 @@ describe("DialogManager", () => {
     expect(dialogConfig.ACTIVE_SPEAKER).toBe(object);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: DialogManager = getManager(DialogManager);
     const data: AnyObject = {};
 

@@ -53,7 +53,7 @@ describe("GameSettingsManager", () => {
     expect(processor.dataList).toHaveLength(0);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: GameSettingsManager = getManager(GameSettingsManager);
     const data: AnyObject = {};
 

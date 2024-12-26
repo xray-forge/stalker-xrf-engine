@@ -52,7 +52,7 @@ describe("MapDisplayManager", () => {
     expect(updateTerrainsMapSpotDisplay).toHaveBeenCalledTimes(2);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: MapDisplayManager = getManager(MapDisplayManager);
     const data: AnyObject = {};
 

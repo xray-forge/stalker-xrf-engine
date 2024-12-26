@@ -249,7 +249,7 @@ describe("TradeManager class implementation", () => {
     });
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: TradeManager = getManager(TradeManager);
     const data: AnyObject = {};
 

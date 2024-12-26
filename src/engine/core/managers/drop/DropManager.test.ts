@@ -60,7 +60,7 @@ describe("DropManager", () => {
     expect(createCorpseReleaseItems).toHaveBeenLastCalledWith(object);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: DropManager = getManager(DropManager);
     const data: AnyObject = {};
 

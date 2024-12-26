@@ -464,7 +464,7 @@ describe("TravelManager", () => {
 
   it.todo("should correctly handle updates");
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: TravelManager = getManager(TravelManager);
     const data: AnyObject = {};
 

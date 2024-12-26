@@ -104,7 +104,7 @@ describe("SimulationManager", () => {
     expect(simulationConfig.IS_SIMULATION_INITIALIZED).toBe(true);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: SimulationManager = getManager(SimulationManager);
     const data: AnyObject = {};
 

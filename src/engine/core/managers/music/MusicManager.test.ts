@@ -271,7 +271,7 @@ describe("MusicManager", () => {
     expect(manager.theme.stop).toHaveBeenCalled();
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: MusicManager = getManager(MusicManager);
     const data: AnyObject = {};
 

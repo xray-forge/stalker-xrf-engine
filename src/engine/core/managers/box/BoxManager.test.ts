@@ -154,7 +154,7 @@ describe("BoxManager", () => {
     );
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: BoxManager = getManager(BoxManager);
     const data: AnyObject = {};
 

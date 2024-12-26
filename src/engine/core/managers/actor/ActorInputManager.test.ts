@@ -206,7 +206,7 @@ describe("ActorInputManager", () => {
     expect(manager.onKeyPress(1, 2)).toBe(false);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
     const data: AnyObject = {};
 

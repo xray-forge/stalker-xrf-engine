@@ -157,7 +157,7 @@ describe("UpgradesManager", () => {
 
   it.todo("should correctly get property functor A");
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: UpgradesManager = getManager(UpgradesManager);
     const data: AnyObject = {};
 

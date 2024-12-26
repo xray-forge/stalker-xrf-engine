@@ -273,7 +273,7 @@ describe("SurgeManager", () => {
     expect(registry.artefacts.ways.has(object.id())).toBe(false);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: SurgeManager = getManager(SurgeManager);
     const data: AnyObject = {};
 

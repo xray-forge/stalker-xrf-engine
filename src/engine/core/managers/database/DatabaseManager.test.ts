@@ -25,7 +25,7 @@ describe("DatabaseManager", () => {
     expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     registerObject(MockGameObject.mock());
     registerSimulationObject(MockSmartTerrain.mock());
 

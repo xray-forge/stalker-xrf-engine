@@ -133,7 +133,7 @@ describe("WeatherManager", () => {
 
   it.todo("should correctly update weather");
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: WeatherManager = getManager(WeatherManager);
     const data: AnyObject = {};
 

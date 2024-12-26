@@ -342,7 +342,7 @@ describe("SoundManager", () => {
     expect(manager.stop).toHaveBeenCalledWith(ACTOR_ID);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: SoundManager = getManager(SoundManager);
     const data: AnyObject = {};
 

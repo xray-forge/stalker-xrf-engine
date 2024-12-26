@@ -395,7 +395,7 @@ describe("TreasureManager", () => {
     });
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: TreasureManager = getManager(TreasureManager);
     const data: AnyObject = {};
 

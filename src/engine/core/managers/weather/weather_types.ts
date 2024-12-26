@@ -1,10 +1,4 @@
-import {
-  Optional,
-  TDuration,
-  TName,
-  TProbability,
-  TSection,
-} from "@/engine/lib/types";
+import { Optional, TDuration, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * Name of atmosfear weather base.

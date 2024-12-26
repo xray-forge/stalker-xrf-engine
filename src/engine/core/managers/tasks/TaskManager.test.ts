@@ -181,7 +181,7 @@ describe("TaskManager", () => {
 
   it.todo("should correctly handle task updates");
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: TaskManager = getManager(TaskManager);
     const data: AnyObject = {};
 

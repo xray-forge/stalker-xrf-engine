@@ -493,7 +493,7 @@ describe("NotificationManager", () => {
     resetFunctionMock(registry.actor.give_game_news);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: NotificationManager = getManager(NotificationManager);
     const data: AnyObject = {};
 

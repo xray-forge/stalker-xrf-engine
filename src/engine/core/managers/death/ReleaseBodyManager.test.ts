@@ -201,7 +201,7 @@ describe("ReleaseBodyManager", () => {
     expect(manager.registerCorpse).toHaveBeenCalledWith(object);
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: ReleaseBodyManager = getManager(ReleaseBodyManager);
     const data: AnyObject = {};
 

@@ -471,7 +471,7 @@ describe("StatisticsManager", () => {
     });
   });
 
-  it("should correctly dump event", () => {
+  it("should correctly handle debug dump event", () => {
     const manager: StatisticsManager = getManager(StatisticsManager);
     const data: AnyObject = {};
 
