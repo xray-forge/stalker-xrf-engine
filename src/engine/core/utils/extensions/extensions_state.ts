@@ -14,9 +14,12 @@ import { LuaArray, Optional, TPath } from "@/engine/lib/types";
 export function saveExtensionsState(extensions: LuaArray<IExtensionsDescriptor>): void {
   const fs: FS = getFS();
   const savesFolder: TPath = fs.update_path(roots.gameSaves, "");
-  const orderFile: TPath = fs.update_path(roots.gameSaves, forgeConfig.EXTENSIONS.ORDER_FILE);
 
-  saveObjectToFile(savesFolder, orderFile, $fromArray($fromLuaArray(extensions).map(({ module, ...rest }) => rest)));
+  saveObjectToFile(
+    savesFolder,
+    forgeConfig.EXTENSIONS.ORDER_FILE,
+    $fromArray($fromLuaArray(extensions).map(({ module, ...rest }) => rest))
+  );
 }
 
 /**

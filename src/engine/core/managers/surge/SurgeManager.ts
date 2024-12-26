@@ -41,6 +41,7 @@ import { TLevel } from "@/engine/lib/constants/levels";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
+  AnyObject,
   GameObject,
   Hit,
   NetPacket,
@@ -92,6 +93,7 @@ export class SurgeManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorGoOnline, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
@@ -100,6 +102,7 @@ export class SurgeManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_ONLINE, this.onActorGoOnline);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
@@ -562,5 +565,31 @@ export class SurgeManager extends AbstractManager {
    */
   public onActorGoOnline(): void {
     initializeSurgeCovers();
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      surgeConfig: surgeConfig,
+      respawnArtefactsForLevel: this.respawnArtefactsForLevel,
+      currentDuration: this.currentDuration,
+      isEffectorSet: this.isEffectorSet,
+      isAfterGameLoad: this.isAfterGameLoad,
+      isUiDisabled: this.isUiDisabled,
+      isTaskGiven: this.isTaskGiven,
+      isSecondMessageGiven: this.isSecondMessageGiven,
+      isSkipMessageToggled: this.isSkipMessageToggled,
+      isBlowoutSoundStarted: this.isBlowoutSoundStarted,
+      initializedAt: this.initializedAt,
+      lastSurgeAt: this.lastSurgeAt,
+      surgeMessage: this.surgeMessage,
+      surgeTaskSection: this.surgeTaskSection,
+    };
+
+    return data;
   }
 }

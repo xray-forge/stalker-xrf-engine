@@ -88,12 +88,12 @@ export function deleteGameSave(name: TName): void {
 /**
  * Create dynamic game save based on stringified binary data.
  *
- * @param name - target save filename base to create or overwrite it
+ * @param path - target save filename base to create or overwrite it
  * @param data - data to save
  */
-export function saveDynamicGameSave(name: TName, data: AnyObject): void {
+export function saveDynamicGameSave(path: TName, data: AnyObject): void {
   const folder: TPath = getFS().update_path(roots.gameSaves, "");
-  const file: TPath = folder + string.lower(string.sub(name, 0, -6)) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
+  const file: TPath = string.lower(string.sub(path, 0, -6)) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION;
 
   saveObjectToFile(folder, file, data);
 }
@@ -101,11 +101,11 @@ export function saveDynamicGameSave(name: TName, data: AnyObject): void {
 /**
  * Read dynamic game save with stringified binary data.
  *
- * @param name - target save filename full path
+ * @param path - generic save file name path
  * @returns stringified binary data or null
  */
-export function loadDynamicGameSave<T extends AnyObject>(name: TName): Optional<T> {
-  return loadObjectFromFile(string.sub(name, 0, -6) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION);
+export function loadDynamicGameSave<T extends AnyObject>(path: TPath): Optional<T> {
+  return loadObjectFromFile(string.sub(path, 0, -6) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION);
 }
 
 /**

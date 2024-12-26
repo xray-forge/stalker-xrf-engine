@@ -6,7 +6,7 @@ import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { DialogManager } from "@/engine/core/managers/dialogs/DialogManager";
 import { fillPhrasesPriorities } from "@/engine/core/managers/dialogs/utils/dialog_priority";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { GameObject } from "@/engine/lib/types";
+import { AnyObject, GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
@@ -22,7 +22,8 @@ describe("DialogManager", () => {
 
     getManager(DialogManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.STALKER_INTERACTION)).toBe(1);
 
     disposeManager(DialogManager);
@@ -147,5 +148,15 @@ describe("DialogManager", () => {
     manager.onInteractWithObject(object);
 
     expect(dialogConfig.ACTIVE_SPEAKER).toBe(object);
+  });
+
+  it("should correctly handle debug dump event", () => {
+    const manager: DialogManager = getManager(DialogManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ DialogManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ DialogManager: expect.any(Object) });
   });
 });

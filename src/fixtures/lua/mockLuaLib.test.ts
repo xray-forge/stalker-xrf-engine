@@ -19,10 +19,28 @@ describe("lua VM mocks to test libraries", () => {
   });
 
   it("string sub should be applied", () => {
+    expect(string.sub("1234", 0)).toBe("1234");
+    expect(string.sub("1234", 0, 0)).toBe("");
+    expect(string.sub("1234", 0, 1)).toBe("1");
+    expect(string.sub("1234", 0, 4)).toBe("1234");
+    expect(string.sub("1234", 0, 10)).toBe("1234");
+
     expect(string.sub("55", 1, 2)).toBe("55");
+    expect(string.sub("55", 1, 0)).toBe("");
     expect(string.sub("1234", 2, 3)).toBe("23");
     expect(string.sub("1234", 6, 7)).toBe("");
     expect(string.sub("1234", 5125, 7)).toBe("");
+
+    expect(string.sub("1234", -1)).toBe("4");
+    expect(string.sub("1234", -2)).toBe("34");
+    expect(string.sub("1234", -2, 1)).toBe("");
+    expect(string.sub("1234", -2, 10)).toBe("34");
+    expect(string.sub("1234", -4)).toBe("1234");
+    expect(string.sub("1234", -4, 2)).toBe("12");
+    expect(string.sub("1234", -4, 0)).toBe("");
+    expect(string.sub("1234", -4, -4)).toBe("1");
+    expect(string.sub("1234", -4, -3)).toBe("12");
+    expect(string.sub("1234", -4, -2)).toBe("123");
   });
 
   it("string gsub should be applied", () => {

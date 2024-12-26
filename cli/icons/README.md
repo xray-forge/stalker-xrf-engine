@@ -14,7 +14,6 @@ List of arguments:
 - `-h, --help` - display help for command
 - `-v, --verbose` - enable verbose logging
 
-
 ### Example
 
 - `npm run cli icons pack-descriptions -d ui_actor_armor.xml`

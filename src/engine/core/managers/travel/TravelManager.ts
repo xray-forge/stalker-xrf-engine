@@ -35,6 +35,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
+  AnyObject,
   GameObject,
   Optional,
   Patrol,
@@ -77,12 +78,14 @@ export class TravelManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
   }
 
@@ -538,5 +541,25 @@ export class TravelManager extends AbstractManager {
     this.travelToSmartId = terrain.id;
     this.travelSquad = squad;
     this.travelingStartedAt = time_global();
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      travelConfig: travelConfig,
+      isTraveling: this.isTraveling,
+      travelingStartedAt: this.travelingStartedAt,
+      travelToSmartId: this.travelToSmartId,
+      travelDistance: this.travelDistance,
+      travelActorPath: this.travelActorPath,
+      travelSquadPath: this.travelSquadPath,
+      travelSquad: this.travelSquad,
+    };
+
+    return data;
   }
 }

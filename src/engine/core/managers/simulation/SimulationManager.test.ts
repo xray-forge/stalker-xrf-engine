@@ -10,7 +10,7 @@ import { destroySimulationData } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { TName, TNumberId } from "@/engine/lib/types";
+import { AnyObject, TName, TNumberId } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
@@ -30,7 +30,8 @@ describe("SimulationManager", () => {
 
     getManager(SimulationManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_REGISTER)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_OFFLINE)).toBe(1);
 
@@ -101,5 +102,15 @@ describe("SimulationManager", () => {
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toHaveLength(0);
     expect(simulationConfig.IS_SIMULATION_INITIALIZED).toBe(true);
+  });
+
+  it("should correctly handle debug dump event", () => {
+    const manager: SimulationManager = getManager(SimulationManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ SimulationManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ SimulationManager: expect.any(Object) });
   });
 });

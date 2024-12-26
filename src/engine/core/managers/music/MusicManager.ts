@@ -17,6 +17,7 @@ import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { setMusicVolume } from "@/engine/core/utils/sound";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import {
+  AnyObject,
   GameObject,
   LuaArray,
   Optional,
@@ -61,6 +62,7 @@ export class MusicManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorNetworkDestroy, this);
     eventsManager.registerCallback(EGameEvent.MAIN_MENU_ON, this.onMainMenuOn, this);
@@ -70,6 +72,7 @@ export class MusicManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorNetworkDestroy);
     eventsManager.unregisterCallback(EGameEvent.MAIN_MENU_ON, this.onMainMenuOn);
@@ -402,5 +405,34 @@ export class MusicManager extends AbstractManager {
         this.theme.stop();
       }
     }
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      musicConfig: musicConfig,
+      themes: this.themes,
+      theme: this.theme,
+      updateDelta: this.updateDelta,
+      previousFadeStepAppliedAt: this.previousFadeStepAppliedAt,
+      themeAmbientVolume: this.themeAmbientVolume,
+      dynamicThemeVolume: this.dynamicThemeVolume,
+      gameAmbientVolume: this.gameAmbientVolume,
+      fadeToAmbientVolume: this.fadeToAmbientVolume,
+      fadeToThemeVolume: this.fadeToThemeVolume,
+      volumeChangeStep: this.volumeChangeStep,
+      currentThemeIndex: this.currentThemeIndex,
+      currentTrackIndex: this.currentTrackIndex,
+      areThemesInitialized: this.areThemesInitialized,
+      forceFade: this.forceFade,
+      wasInSilence: this.wasInSilence,
+      nextTrackStartAt: this.nextTrackStartAt,
+    };
+
+    return data;
   }
 }

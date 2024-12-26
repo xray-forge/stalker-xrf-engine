@@ -126,6 +126,8 @@ export class MockIniFile<T extends AnyObject = AnyObject> {
 
   public set_override_names = jest.fn();
 
+  public save_as = jest.fn();
+
   public save_at_end = jest.fn();
 
   public section_for_each = jest.fn((cb: (section: TSection) => void) => {

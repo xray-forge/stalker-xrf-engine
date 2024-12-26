@@ -3,7 +3,7 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGenericPhraseCategory, TPhrasesPriorityMap } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { GameObject, NetPacket, NetProcessor, TNumberId, TStringId } from "@/engine/lib/types";
+import { AnyObject, GameObject, NetPacket, NetProcessor, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Manager of dialogs interaction / scripting when actor is speaking to stalker objects.
@@ -27,12 +27,14 @@ export class DialogManager extends AbstractManager {
 
     // todo: Find event when stop object interaction.
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.STALKER_INTERACTION, this.onInteractWithObject);
   }
 
@@ -116,5 +118,21 @@ export class DialogManager extends AbstractManager {
    */
   public onInteractWithObject(object: GameObject): void {
     dialogConfig.ACTIVE_SPEAKER = object;
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      dialogConfig: dialogConfig,
+      disabledPhrases: this.disabledPhrases,
+      questDisabledPhrases: this.questDisabledPhrases,
+      priorityTable: this.priorityTable,
+    };
+
+    return data;
   }
 }

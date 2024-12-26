@@ -23,7 +23,7 @@ export interface ILinkCommandParameters {
 }
 
 /**
- * Link gamedata/engine/logs folders.
+ * Link gamedata/engine/logs dirs.
  *
  * @param parameters - command arguments
  */

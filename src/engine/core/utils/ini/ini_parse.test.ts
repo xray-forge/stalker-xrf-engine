@@ -23,8 +23,8 @@ import {
 import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
 import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 import { NIL } from "@/engine/lib/constants/words";
-import { Flags32, GameObject, IniFile, LuaArray } from "@/engine/lib/types";
-import { MockFlags32, MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { Flags32, GameObject, LuaArray } from "@/engine/lib/types";
+import { MockFlags32, MockGameObject } from "@/fixtures/xray";
 
 describe("parseStringsList util", () => {
   it("should correctly parse names array", () => {

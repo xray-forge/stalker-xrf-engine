@@ -115,7 +115,7 @@ function transformXmlToJSON(schema: AnyObject, locale: string, base: AnyObject =
 
     acc[currentTranslationId] = config.available_locales.reduce((translation, lang) => {
       if (lang === locale) {
-        translation[lang] = it.text.includes("\\n") ? it.text.split("\\n") : it.text ?? null;
+        translation[lang] = it.text.includes("\\n") ? it.text.split("\\n") : (it.text ?? null);
       } else {
         translation[lang] = currentTranslationRecord[lang] ?? null;
       }

@@ -110,6 +110,18 @@ export function create(): JSXNode {
         textColor={WHITE}
         texture={"ui_inGame2_Mp_bigbuttone"}
       />
+
+      <Xr3tButton
+        tag={"dump_lua_data_button"}
+        x={108}
+        y={92}
+        height={16}
+        width={90}
+        label={"Dump LUA data"}
+        font={fonts.letterica16}
+        textColor={WHITE}
+        texture={"ui_inGame2_Mp_bigbuttone"}
+      />
     </XrRoot>
   );
 }

@@ -16,7 +16,16 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { isCreature } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
-import { GameObject, NetPacket, NetProcessor, Optional, ServerObject, TCount, TNumberId } from "@/engine/lib/types";
+import {
+  AnyObject,
+  GameObject,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  ServerObject,
+  TCount,
+  TNumberId,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -30,12 +39,14 @@ export class ReleaseBodyManager extends AbstractManager {
   public override initialize(): void {
     const manager: EventsManager = getManager(EventsManager);
 
+    manager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     manager.registerCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath, this);
   }
 
   public override destroy(): void {
     const manager: EventsManager = getManager(EventsManager);
 
+    manager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     manager.unregisterCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath);
   }
 
@@ -144,5 +155,18 @@ export class ReleaseBodyManager extends AbstractManager {
    */
   public onStalkerDeath(object: GameObject): void {
     this.registerCorpse(object);
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      deathConfig: deathConfig,
+    };
+
+    return data;
   }
 }

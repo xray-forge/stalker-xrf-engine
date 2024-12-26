@@ -1,6 +1,7 @@
 import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
 
-import { getManager, SYSTEM_INI } from "@/engine/core/database";
+import { getManager } from "@/engine/core/database";
+import { DebugManager } from "@/engine/core/managers/debug";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
@@ -65,7 +66,12 @@ export class DebugGeneralSection extends AbstractDebugSection {
 
     initializeElement(xml, EElementType.BUTTON, "dump_system_ini_button", this, {
       context: this.owner,
-      [ui_events.BUTTON_CLICKED]: () => this.onDumpSystemIni(),
+      [ui_events.BUTTON_CLICKED]: () => getManager(DebugManager).dumpSystemIni(),
+    });
+
+    initializeElement(xml, EElementType.BUTTON, "dump_lua_data_button", this, {
+      context: this.owner,
+      [ui_events.BUTTON_CLICKED]: () => getManager(DebugManager).dumpLuaData(),
     });
 
     this.uiProfilingReportButton = initializeElement(xml, EElementType.BUTTON, "profiling_log_button", this, {
@@ -75,7 +81,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
 
     initializeElement(xml, EElementType.BUTTON, "portions_log_button", this, {
       context: this.owner,
-      [ui_events.BUTTON_CLICKED]: () => this.onLogPortionsStatsButtonClick(),
+      [ui_events.BUTTON_CLICKED]: () => getManager(ProfilingManager).logProfilingPortionsStats(),
     });
   }
 
@@ -142,13 +148,6 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * Handle click on `log` button to display generic debug information in game console.
-   */
-  public onLogPortionsStatsButtonClick(): void {
-    getManager(ProfilingManager).logProfilingPortionsStats();
-  }
-
-  /**
    * Toggle simulation debug with squad / smarts display on map with stats.
    */
   public onToggleSimulationDebugButtonClick(): void {
@@ -158,18 +157,10 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * Dump system ini file for exploring.
-   */
-  public onDumpSystemIni(): void {
-    logger.info("Saving system ini as gamedata\\system.ltx");
-    SYSTEM_INI.save_as("gamedata\\system.ltx");
-  }
-
-  /**
    * Handle refreshing of used RAM in game UI display elements.
    */
   public onRefreshMemoryButtonClick(): void {
-    logger.info("Collect memory usage");
+    logger.info("Refresh memory usage");
 
     this.uiMemoryUsageCountLabel.TextControl().SetText(this.getUsedMemoryLabel());
   }
@@ -178,6 +169,6 @@ export class DebugGeneralSection extends AbstractDebugSection {
    * @returns label to display used RAM
    */
   public getUsedMemoryLabel(): string {
-    return string.format("RAM: %.03f MB", getManager(ProfilingManager).getLuaMemoryUsed() / 1024);
+    return string.format("RAM: %.03f MB", getManager(ProfilingManager).getLuaMemoryUsed() / 1_024);
   }
 }

@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { registerSimulator } from "@/engine/core/database";
 import { EJobPathType, SmartTerrain } from "@/engine/core/objects/smart_terrain";

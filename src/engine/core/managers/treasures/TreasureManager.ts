@@ -21,6 +21,7 @@ import { SECRET_SECTION } from "@/engine/lib/constants/sections";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AlifeSimulator,
+  AnyObject,
   GameObject,
   IniFile,
   LuaArray,
@@ -65,6 +66,7 @@ export class TreasureManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake, this);
     eventsManager.registerCallback(EGameEvent.RESTRICTOR_ZONE_REGISTERED, this.onRegisterRestrictor, this);
@@ -73,6 +75,7 @@ export class TreasureManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorItemTake);
     eventsManager.unregisterCallback(EGameEvent.RESTRICTOR_ZONE_REGISTERED, this.onRegisterRestrictor);
@@ -423,5 +426,22 @@ export class TreasureManager extends AbstractManager {
 
       this.treasuresRestrictorByItem.delete(objectId);
     }
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      treasureConfig: treasureConfig,
+      areItemsSpawned: this.areItemsSpawned,
+      lastUpdatedAt: this.lastUpdatedAt,
+      treasuresRestrictorByName: this.treasuresRestrictorByName,
+      treasuresRestrictorByItem: this.treasuresRestrictorByItem,
+    };
+
+    return data;
   }
 }

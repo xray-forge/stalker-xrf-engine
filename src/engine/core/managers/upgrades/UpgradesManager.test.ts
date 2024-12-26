@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getManager } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, TLabel } from "@/engine/lib/types";
+import { AnyObject, LuaArray, TLabel } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("UpgradesManager", () => {
@@ -17,6 +18,21 @@ describe("UpgradesManager", () => {
     upgradesConfig.PRICE_DISCOUNT_RATE = 1;
     upgradesConfig.UPGRADES_HINTS = null;
     upgradesConfig.CURRENT_MECHANIC_NAME = "";
+  });
+
+  it("should correctly initialize and destroy", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+
+    const manager: UpgradesManager = getManager(UpgradesManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+
+    disposeManager(UpgradesManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
   it("should correctly set hints", () => {
@@ -140,4 +156,14 @@ describe("UpgradesManager", () => {
   it.todo("should correctly handle effect A");
 
   it.todo("should correctly get property functor A");
+
+  it("should correctly handle debug dump event", () => {
+    const manager: UpgradesManager = getManager(UpgradesManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ UpgradesManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ UpgradesManager: expect.any(Object) });
+  });
 });

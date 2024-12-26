@@ -37,7 +37,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
       for (const it of $range(1, path.count())) {
         const waypointData: IWaypointData = flags.get(it - 1);
         const soundName: Optional<TName> = waypointData.s as Optional<TName>;
-        const delay: TCount = waypointData["d"] ? tonumber(waypointData["d"]) ?? 0 : 0;
+        const delay: TCount = waypointData["d"] ? (tonumber(waypointData["d"]) ?? 0) : 0;
 
         /**
          *     local sound_name = nil

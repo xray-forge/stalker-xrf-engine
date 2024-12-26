@@ -5,7 +5,7 @@ import { DROP_MANAGER_CONFIG_LTX } from "@/engine/core/managers/drop/DropConfig"
 import { DropManager } from "@/engine/core/managers/drop/DropManager";
 import { createCorpseReleaseItems, readIniDropCountByLevel } from "@/engine/core/managers/drop/utils";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { GameObject } from "@/engine/lib/types";
+import { AnyObject, GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
@@ -28,7 +28,8 @@ describe("DropManager", () => {
 
     getManager(DropManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.STALKER_DEATH)).toBe(1);
 
     expect(readIniDropCountByLevel).toHaveBeenCalledTimes(1);
@@ -57,5 +58,15 @@ describe("DropManager", () => {
 
     expect(createCorpseReleaseItems).toHaveBeenCalledTimes(1);
     expect(createCorpseReleaseItems).toHaveBeenLastCalledWith(object);
+  });
+
+  it("should correctly handle debug dump event", () => {
+    const manager: DropManager = getManager(DropManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ DropManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ DropManager: expect.any(Object) });
   });
 });

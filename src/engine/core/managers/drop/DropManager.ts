@@ -3,7 +3,7 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { DROP_MANAGER_CONFIG_LTX, dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { createCorpseReleaseItems, readIniDropCountByLevel } from "@/engine/core/managers/drop/utils";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { GameObject } from "@/engine/lib/types";
+import { AnyObject, GameObject } from "@/engine/lib/types";
 
 /**
  * Manage objects loot after death.
@@ -17,12 +17,14 @@ export class DropManager extends AbstractManager {
 
     const manager: EventsManager = getManager(EventsManager);
 
+    manager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     manager.registerCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath, this);
   }
 
   public override destroy(): void {
     const manager: EventsManager = getManager(EventsManager);
 
+    manager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     manager.unregisterCallback(EGameEvent.STALKER_DEATH, this.onStalkerDeath);
   }
 
@@ -44,5 +46,18 @@ export class DropManager extends AbstractManager {
    */
   public onStalkerDeath(object: GameObject): void {
     createCorpseReleaseItems(object);
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      dropConfig: dropConfig,
+    };
+
+    return data;
   }
 }

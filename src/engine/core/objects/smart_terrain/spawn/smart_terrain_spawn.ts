@@ -2,10 +2,8 @@ import { game } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import {
-  assignSimulationSquadToTerrain,
   createSimulationSquad,
   getSimulationTerrainAssignedSquadsCount,
-  setupSimulationObjectSquadAndGroup,
 } from "@/engine/core/managers/simulation/utils";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";

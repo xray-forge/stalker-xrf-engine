@@ -34,6 +34,7 @@ import { isObjectWounded } from "@/engine/core/utils/planner";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   AlifeSimulator,
+  AnyObject,
   GameObject,
   GameTask,
   Optional,
@@ -60,6 +61,7 @@ export class NotificationManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.SURGE_SKIPPED, this.onSurgeSkipped, this);
     eventsManager.registerCallback(EGameEvent.NOTIFICATION, this.sendNotification, this);
   }
@@ -67,6 +69,7 @@ export class NotificationManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.SURGE_SKIPPED, this.onSurgeSkipped);
     eventsManager.unregisterCallback(EGameEvent.NOTIFICATION, this.sendNotification);
   }
@@ -400,5 +403,18 @@ export class NotificationManager extends AbstractManager {
         registry.actor.give_game_news(notificationTitle, notificationText, notificationIcon, delay, showTime, type);
       }
     }
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      notificationsConfig: notificationsConfig,
+    };
+
+    return data;
   }
 }

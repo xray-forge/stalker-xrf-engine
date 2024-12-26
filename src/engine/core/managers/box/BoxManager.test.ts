@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { getManager } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
 import {
   BOX_METAL_01,
   BOX_SCIENCE,
@@ -10,10 +10,11 @@ import {
   boxConfig,
 } from "@/engine/core/managers/box/BoxConfig";
 import { BoxManager } from "@/engine/core/managers/box/BoxManager";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { spawnItemsAtPosition } from "@/engine/core/utils/spawn";
 import { copyVector } from "@/engine/core/utils/vector";
-import { GameObject, IniFile } from "@/engine/lib/types";
+import { AnyObject, GameObject, IniFile } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
@@ -28,12 +29,21 @@ describe("BoxManager", () => {
     boxConfig.DROP_COUNT_BY_LEVEL = new LuaTable();
   });
 
-  it("should correctly initialize", () => {
+  it("should correctly initialize and destroy", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
     getManager(BoxManager);
 
     expect(boxConfig.DROP_ITEMS_BY_SECTION.length()).toBe(9);
     expect(boxConfig.DROP_RATE_BY_LEVEL.length()).toBe(4);
     expect(boxConfig.DROP_COUNT_BY_LEVEL.length()).toBe(3);
+
+    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+
+    disposeManager(BoxManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
   it("spawnBoxObjectItems should correctly spawn drop box items when have strict box definition", async () => {
@@ -142,5 +152,15 @@ describe("BoxManager", () => {
       expect.any(Number),
       100
     );
+  });
+
+  it("should correctly handle debug dump event", () => {
+    const manager: BoxManager = getManager(BoxManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ BoxManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ BoxManager: expect.any(Object) });
   });
 });
