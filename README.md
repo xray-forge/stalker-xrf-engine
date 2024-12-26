@@ -9,7 +9,7 @@
 [![codecov](https://codecov.io/gh/xray-forge/stalker-xrf-engine/graph/badge.svg?token=4D1ZLNG8YJ)](https://codecov.io/gh/xray-forge/stalker-xrf-engine)
 
 <p>
-Fully rewritten stalker lua script engine with typescript. <br/>
+Fully rewritten stalker script engine with typescript. <br/>
 </p>
 
 ## 📦 In short
@@ -70,6 +70,10 @@ Breaking / radical changes can be implemented as extensions.
 
 ## 🧰 State / bugs
 
-It took ~3 months just to migrate all the 20 years of LUA codebase to typescript / support luabind. <br/>
+It took ~3 months just to migrate all the 20 years of LUA codebase to typescript. <br/>
 Further game testing and re-architecture produces new bugs and issues which are easier to prevent with unit tests. <br/>
-As for now, main focus is separation and clarification of logics, unit tests coverage.
+Some things were not tested fully yet.
+
+## 📦 Credits
+
+[Link.](https://xray-forge.github.io/stalker-xrf-book/CREDITS.html)
