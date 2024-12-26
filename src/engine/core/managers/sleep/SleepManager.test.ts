@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 
-import { getManager, registry } from "@/engine/core/database";
+import { disposeManager, getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { sleepConfig, SleepManager } from "@/engine/core/managers/sleep";
@@ -12,7 +12,7 @@ import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portio
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { Console } from "@/engine/lib/types";
+import { AnyObject, Console } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockConsole, MockCUITrackBar } from "@/fixtures/xray";
 
@@ -31,6 +31,18 @@ describe("SleepManager", () => {
     sleepConfig.SLEEP_DIALOG = null;
     surgeConfig.IS_STARTED = false;
     surgeConfig.IS_TIME_FORWARDED = false;
+  });
+
+  it("should correctly initialize and destroy", () => {
+    const manager: SleepManager = getManager(SleepManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+
+    disposeManager(SleepManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
   it("should correctly show and initialize sleep dialog", () => {
@@ -174,5 +186,15 @@ describe("SleepManager", () => {
     expect(hasInfoPortion(infoPortions.sleep_active)).toBe(false);
 
     expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.ACTOR_FINISH_SLEEP);
+  });
+
+  it("should correctly dump event", () => {
+    const manager: SleepManager = getManager(SleepManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ SleepManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ SleepManager: expect.any(Object) });
   });
 });

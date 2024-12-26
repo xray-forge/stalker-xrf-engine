@@ -8,7 +8,7 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { initializeSurgeCovers } from "@/engine/core/managers/surge/utils";
 import { createVector } from "@/engine/core/utils/vector";
-import { GameObject } from "@/engine/lib/types";
+import { AnyObject, GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockCArtefact, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
@@ -27,7 +27,8 @@ describe("SurgeManager", () => {
 
     getManager(SurgeManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getSubscribersCount()).toBe(4);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_ONLINE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(1);
@@ -270,5 +271,15 @@ describe("SurgeManager", () => {
     expect(artefact.FollowByPath).toHaveBeenCalledTimes(1);
     expect(artefact.FollowByPath).toHaveBeenCalledWith("NULL", 0, createVector(500, 500, 500));
     expect(registry.artefacts.ways.has(object.id())).toBe(false);
+  });
+
+  it("should correctly dump event", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ SurgeManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ SurgeManager: expect.any(Object) });
   });
 });

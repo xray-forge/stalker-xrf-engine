@@ -11,7 +11,7 @@ import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treas
 import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { GameObject, ServerObject, TName, TNumberId } from "@/engine/lib/types";
+import { AnyObject, GameObject, ServerObject, TName, TNumberId } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
@@ -96,21 +96,19 @@ describe("TreasureManager", () => {
   });
 
   it("should correctly initialize and destroy", () => {
-    const treasureManager: TreasureManager = getManager(TreasureManager);
+    const manager: TreasureManager = getManager(TreasureManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    treasureManager.initialize();
+    manager.initialize();
 
+    expect(eventsManager.getSubscribersCount()).toBe(4);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.RESTRICTOR_ZONE_REGISTERED)).toBe(1);
-    expect(eventsManager.getSubscribersCount()).toBe(3);
 
-    treasureManager.destroy();
+    manager.destroy();
 
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(0);
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(0);
-    expect(eventsManager.getEventSubscribersCount(EGameEvent.RESTRICTOR_ZONE_REGISTERED)).toBe(0);
     expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
@@ -395,5 +393,15 @@ describe("TreasureManager", () => {
       items: expect.any(Object),
       itemsToFindRemain: 0,
     });
+  });
+
+  it("should correctly dump event", () => {
+    const manager: TreasureManager = getManager(TreasureManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ TreasureManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ TreasureManager: expect.any(Object) });
   });
 });

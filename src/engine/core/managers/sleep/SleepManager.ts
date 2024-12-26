@@ -15,7 +15,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { TDuration } from "@/engine/lib/types";
+import { AnyObject, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -24,6 +24,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class SleepManager extends AbstractManager {
   public nextSleepDuration: TDuration = 0;
+
+  public override initialize(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
+  }
 
   /**
    * Show sleep dialog and set current active time for it.
@@ -106,5 +118,19 @@ export class SleepManager extends AbstractManager {
     disableInfoPortion(infoPortions.sleep_active);
 
     EventsManager.emitEvent(EGameEvent.ACTOR_FINISH_SLEEP);
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      sleepConfig: sleepConfig,
+      nextSleepDuration: this.nextSleepDuration,
+    };
+
+    return data;
   }
 }

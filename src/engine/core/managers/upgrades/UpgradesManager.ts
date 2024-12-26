@@ -1,8 +1,9 @@
 import { game } from "xray16";
 
-import { registry } from "@/engine/core/database";
+import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TItemUpgradeBranch } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { ITEM_UPGRADES, STALKER_UPGRADE_INFO, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { getRepairPrice } from "@/engine/core/managers/upgrades/utils";
@@ -13,13 +14,35 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { GameObject, LuaArray, Optional, TCount, TLabel, TName, TNotCastedBoolean, TRate } from "@/engine/lib/types";
+import {
+  AnyObject,
+  GameObject,
+  LuaArray,
+  Optional,
+  TCount,
+  TLabel,
+  TName,
+  TNotCastedBoolean,
+  TRate,
+} from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 /**
  * Manager to handle upgrading of items with mechanics logics.
  */
 export class UpgradesManager extends AbstractManager {
+  public override initialize(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
+  }
+
   /**
    * @param hints - list of hints to set as current upgrading values
    */
@@ -235,5 +258,18 @@ export class UpgradesManager extends AbstractManager {
     }
 
     return translatedPropertyName + " " + value + "%";
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      upgradesConfig: upgradesConfig,
+    };
+
+    return data;
   }
 }

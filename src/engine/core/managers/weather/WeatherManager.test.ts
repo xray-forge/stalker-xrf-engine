@@ -7,6 +7,7 @@ import { EWeatherPeriodType, IWeatherState } from "@/engine/core/managers/weathe
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
+import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { getFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
@@ -26,7 +27,11 @@ describe("WeatherManager", () => {
     expect(weatherManager.weatherPeriod).toBe("good");
     expect(weatherManager.lastUpdatedAtHour).toBe(0);
     expect(weatherManager.weatherFxTime).toBe(0);
-    expect(eventsManager.getSubscribersCount()).toBe(2);
+
+    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_ONLINE)).toBe(1);
 
     disposeManager(WeatherManager);
 
@@ -127,4 +132,14 @@ describe("WeatherManager", () => {
   it.todo("should correctly force weather change");
 
   it.todo("should correctly update weather");
+
+  it("should correctly dump event", () => {
+    const manager: WeatherManager = getManager(WeatherManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ WeatherManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ WeatherManager: expect.any(Object) });
+  });
 });

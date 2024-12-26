@@ -7,7 +7,7 @@ import { simulationConfig } from "@/engine/core/managers/simulation/SimulationCo
 import { destroySimulationData, initializeDefaultSimulationSquads } from "@/engine/core/managers/simulation/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { NetPacket, NetProcessor } from "@/engine/lib/types";
+import { AnyObject, NetPacket, NetProcessor } from "@/engine/lib/types";
 
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });
 
@@ -19,6 +19,7 @@ export class SimulationManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy, this);
   }
@@ -26,6 +27,7 @@ export class SimulationManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_REGISTER, this.onActorRegister);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorDestroy);
 
@@ -58,5 +60,18 @@ export class SimulationManager extends AbstractManager {
     simulationLogger.info("Actor network register");
 
     initializeDefaultSimulationSquads();
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      simulationConfig: simulationConfig,
+    };
+
+    return data;
   }
 }

@@ -4,18 +4,21 @@ import { TAnimationSequenceElement } from "@/engine/core/animation/types";
 import {
   closeLoadMarker,
   closeSaveMarker,
+  getManager,
   loadIniFile,
   openLoadMarker,
   openSaveMarker,
   registry,
 } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ITradeManagerDescriptor } from "@/engine/core/managers/trade/trade_types";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import {
+  AnyObject,
   GameObject,
   IniFile,
   NetPacket,
@@ -35,6 +38,18 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "trade" });
  * Handles initialization and updating of trading states, manages descriptors with trading information.
  */
 export class TradeManager extends AbstractManager {
+  public override initialize(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
+  }
+
   /**
    * Initialize trade manager descriptor for provided stalker object.
    */
@@ -277,5 +292,18 @@ export class TradeManager extends AbstractManager {
     }
 
     closeLoadMarker(reader, TradeManager.name);
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      tradeConfig: tradeConfig,
+    };
+
+    return data;
   }
 }

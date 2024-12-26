@@ -1,15 +1,33 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { game, sound_object } from "xray16";
 
-import { getManager } from "@/engine/core/database";
+import { disposeManager, getManager } from "@/engine/core/database";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameOutroManager } from "@/engine/core/managers/outro/GameOutroManager";
-import { ESoundObjectType, SoundObject } from "@/engine/lib/types";
+import { AnyObject, ESoundObjectType, SoundObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockSoundObject } from "@/fixtures/xray";
 
 describe("GameOutroManager", () => {
   beforeEach(() => {
     resetRegistry();
+  });
+
+  it("should correctly initialize and destroy", () => {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
+
+    const manager: GameOutroManager = getManager(GameOutroManager);
+
+    expect(manager.sound).toBeNull();
+
+    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+
+    disposeManager(GameOutroManager);
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
   it("should correctly start ending tutorial", () => {
@@ -56,4 +74,14 @@ describe("GameOutroManager", () => {
   it.todo("should correctly update black screen and sound fade start");
 
   it.todo("should correctly update black screen and sound fade stop");
+
+  it("should correctly dump event", () => {
+    const manager: GameOutroManager = getManager(GameOutroManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ GameOutroManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ GameOutroManager: expect.any(Object) });
+  });
 });

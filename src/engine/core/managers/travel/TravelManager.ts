@@ -15,6 +15,7 @@ import {
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { ITravelRouteDescriptor } from "@/engine/core/managers/travel/travel_types";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
+import { treasureConfig } from "@/engine/core/managers/treasures";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
@@ -35,6 +36,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
+  AnyObject,
   GameObject,
   Optional,
   Patrol,
@@ -77,12 +79,14 @@ export class TravelManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.update, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.update);
   }
 
@@ -538,5 +542,25 @@ export class TravelManager extends AbstractManager {
     this.travelToSmartId = terrain.id;
     this.travelSquad = squad;
     this.travelingStartedAt = time_global();
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      travelConfig: travelConfig,
+      isTraveling: this.isTraveling,
+      travelingStartedAt: this.travelingStartedAt,
+      travelToSmartId: this.travelToSmartId,
+      travelDistance: this.travelDistance,
+      travelActorPath: this.travelActorPath,
+      travelSquadPath: this.travelSquadPath,
+      travelSquad: this.travelSquad,
+    };
+
+    return data;
   }
 }

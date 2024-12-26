@@ -28,7 +28,7 @@ export function toJSON(
   } else if (targetType === "nil") {
     return "\"<nil>\"";
   } else if (targetType === "boolean") {
-    return `"<bool: ${target === true ? "true" : "false"}>"`;
+    return tostring(target);
   } else if (targetType === "function") {
     return "\"<function>\"";
   } else if (targetType === "userdata") {

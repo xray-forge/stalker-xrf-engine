@@ -1,12 +1,18 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
-import { EventsManager } from "@/engine/core/managers/events";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "@/engine/lib/types";
+import {
+  AnyObject,
+  GameObject,
+  ServerCreatureObject,
+  ServerGroupObject,
+  ServerSmartZoneObject,
+} from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import {
   MockAlifeHumanStalker,
@@ -27,9 +33,13 @@ describe("TravelManager", () => {
     const manager: TravelManager = getManager(TravelManager);
 
     manager.initialize();
-    expect(eventsManager.getSubscribersCount()).toBe(1);
+
+    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
 
     manager.destroy();
+
     expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
@@ -453,4 +463,14 @@ describe("TravelManager", () => {
   it.todo("should correctly handle traveling with squad to specific destination");
 
   it.todo("should correctly handle updates");
+
+  it("should correctly dump event", () => {
+    const manager: TravelManager = getManager(TravelManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ TravelManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ TravelManager: expect.any(Object) });
+  });
 });

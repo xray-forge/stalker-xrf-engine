@@ -8,7 +8,7 @@ import { SCRIPT_SOUND_LTX, soundsConfig } from "@/engine/core/managers/sounds/So
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { NIL } from "@/engine/lib/constants/words";
-import { GameObject } from "@/engine/lib/types";
+import { AnyObject, GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
@@ -26,7 +26,8 @@ describe("SoundManager", () => {
 
     getManager(SoundManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_OFFLINE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
 
@@ -339,5 +340,15 @@ describe("SoundManager", () => {
 
     expect(manager.stop).toHaveBeenCalledTimes(1);
     expect(manager.stop).toHaveBeenCalledWith(ACTOR_ID);
+  });
+
+  it("should correctly dump event", () => {
+    const manager: SoundManager = getManager(SoundManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ SoundManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ SoundManager: expect.any(Object) });
   });
 });

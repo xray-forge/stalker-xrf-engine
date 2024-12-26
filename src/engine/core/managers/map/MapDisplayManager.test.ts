@@ -8,6 +8,7 @@ import {
   updateSleepZonesDisplay,
   updateTerrainsMapSpotDisplay,
 } from "@/engine/core/managers/map/utils";
+import { AnyObject } from "@/engine/lib/types";
 
 jest.mock("@/engine/core/managers/map/utils");
 
@@ -19,7 +20,8 @@ describe("MapDisplayManager", () => {
 
     getManager(MapDisplayManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE_5000)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.STALKER_DEATH)).toBe(1);
 
@@ -48,5 +50,15 @@ describe("MapDisplayManager", () => {
     expect(updateAnomalyZonesDisplay).toHaveBeenCalledTimes(1);
     expect(updateSleepZonesDisplay).toHaveBeenCalledTimes(2);
     expect(updateTerrainsMapSpotDisplay).toHaveBeenCalledTimes(2);
+  });
+
+  it("should correctly dump event", () => {
+    const manager: MapDisplayManager = getManager(MapDisplayManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ MapDisplayManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ MapDisplayManager: expect.any(Object) });
   });
 });

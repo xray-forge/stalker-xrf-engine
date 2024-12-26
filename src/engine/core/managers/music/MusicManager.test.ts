@@ -7,7 +7,7 @@ import { musicConfig } from "@/engine/core/managers/music/MusicConfig";
 import { MusicManager } from "@/engine/core/managers/music/MusicManager";
 import { IDynamicMusicDescriptor } from "@/engine/core/managers/sounds";
 import { StereoSound } from "@/engine/core/managers/sounds/objects";
-import { Console, LuaArray } from "@/engine/lib/types";
+import { AnyObject, Console, LuaArray } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
@@ -33,7 +33,8 @@ describe("MusicManager", () => {
     expect(manager.themes).toEqualLuaTables({});
     expect(manager.theme).toBeNull();
 
-    expect(eventsManager.getSubscribersCount()).toBe(4);
+    expect(eventsManager.getSubscribersCount()).toBe(5);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_GO_OFFLINE)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.MAIN_MENU_ON)).toBe(1);
@@ -268,5 +269,15 @@ describe("MusicManager", () => {
 
     expect(manager.areThemesInitialized).toBe(false);
     expect(manager.theme.stop).toHaveBeenCalled();
+  });
+
+  it("should correctly dump event", () => {
+    const manager: MusicManager = getManager(MusicManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ MusicManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ MusicManager: expect.any(Object) });
   });
 });

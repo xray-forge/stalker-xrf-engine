@@ -10,8 +10,8 @@ describe("toJSON util", () => {
     expect(toJSON("bca")).toBe(quoted("bca"));
     expect(toJSON(123)).toBe("123");
     expect(toJSON(321)).toBe("321");
-    expect(toJSON(true)).toBe(quoted("<bool: true>"));
-    expect(toJSON(false)).toBe(quoted("<bool: false>"));
+    expect(toJSON(true)).toBe("true");
+    expect(toJSON(false)).toBe("false");
     expect(toJSON(null)).toBe(quoted("<nil>"));
     expect(toJSON(undefined)).toBe(quoted("<nil>"));
   });
@@ -20,7 +20,7 @@ describe("toJSON util", () => {
     expect(toJSON({})).toBe("{}");
     expect(toJSON({ a: 10 })).toBe(`{${quoted("a")}: 10}`);
     expect(toJSON({ b: "ab", c: 5, d: false, e: null })).toBe(
-      `{${quoted("b")}: "ab", "c": 5, "d": "<bool: false>", "e": "<nil>"}`
+      `{${quoted("b")}: "ab", "c": 5, "d": false, "e": "<nil>"}`
     );
     expect(toJSON({ a: 10, b: { c: 1234 } })).toBe(`{${quoted("a")}: 10, "b": {"c": 1234}}`);
   });

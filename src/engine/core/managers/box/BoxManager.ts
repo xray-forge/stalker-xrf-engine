@@ -1,3 +1,4 @@
+import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IBoxDropProbabilityDescriptor } from "@/engine/core/managers/box/box_types";
 import {
@@ -9,13 +10,24 @@ import {
   boxConfig,
 } from "@/engine/core/managers/box/BoxConfig";
 import { initializeDropBoxesLootTables } from "@/engine/core/managers/box/utils";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { chance } from "@/engine/core/utils/random";
 import { spawnItemsAtPosition } from "@/engine/core/utils/spawn";
 import { copyVector } from "@/engine/core/utils/vector";
-import { GameObject, IniFile, Optional, TCount, TDirection, TProbability, TSection, Vector } from "@/engine/lib/types";
+import {
+  AnyObject,
+  GameObject,
+  IniFile,
+  Optional,
+  TCount,
+  TDirection,
+  TProbability,
+  TSection,
+  Vector,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -24,7 +36,17 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class BoxManager extends AbstractManager {
   public override initialize(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
+
     initializeDropBoxesLootTables();
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
   }
 
   /**
@@ -86,5 +108,18 @@ export class BoxManager extends AbstractManager {
 
       spawnItemsAtPosition(section, gvid, lvid, destination, count, probability);
     }
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      boxConfig: boxConfig,
+    };
+
+    return data;
   }
 }

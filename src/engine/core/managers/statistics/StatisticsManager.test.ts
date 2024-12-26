@@ -5,7 +5,7 @@ import { disposeManager, getManager, registerActor, registerSimulator } from "@/
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GameObject, TName } from "@/engine/lib/types";
+import { AnyObject, GameObject, TName } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockLuaTable } from "@/fixtures/lua";
@@ -28,7 +28,19 @@ describe("StatisticsManager", () => {
     const statisticsManager: StatisticsManager = getManager(StatisticsManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(10);
+    expect(eventsManager.getSubscribersCount()).toBe(11);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.TASK_COMPLETED)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.ACTOR_ITEM_TAKE)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.SURGE_SKIPPED)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.SURGE_ENDED)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.TREASURE_FOUND)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.STALKER_HIT)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.STALKER_DEATH)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.MONSTER_HIT)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.MONSTER_DEATH)).toBe(1);
+
     expect(statisticsManager.takenArtefacts).toEqualLuaTables(new LuaTable());
     expect(statisticsManager.actorStatistics).toEqual({
       surgesCount: 0,
@@ -457,5 +469,15 @@ describe("StatisticsManager", () => {
       favoriteWeapon: "wpn_ak74",
       bestKilledMonster: "bloodsucker_strong",
     });
+  });
+
+  it("should correctly dump event", () => {
+    const manager: StatisticsManager = getManager(StatisticsManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ StatisticsManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ StatisticsManager: expect.any(Object) });
   });
 });

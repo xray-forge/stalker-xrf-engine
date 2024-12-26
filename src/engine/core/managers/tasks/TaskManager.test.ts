@@ -1,13 +1,13 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { disposeManager, getManager } from "@/engine/core/database";
-import { EventsManager } from "@/engine/core/managers/events";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { NIL } from "@/engine/lib/constants/words";
-import { TSection } from "@/engine/lib/types";
+import { AnyObject, TSection } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
@@ -28,7 +28,9 @@ describe("TaskManager", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
 
     expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(0);
-    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.TASK_STATE_UPDATE)).toBe(1);
 
     disposeManager(TaskManager);
 
@@ -178,4 +180,14 @@ describe("TaskManager", () => {
   });
 
   it.todo("should correctly handle task updates");
+
+  it("should correctly dump event", () => {
+    const manager: TaskManager = getManager(TaskManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ TaskManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ TaskManager: expect.any(Object) });
+  });
 });

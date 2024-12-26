@@ -3,9 +3,10 @@ import { time_global } from "xray16";
 
 import { getManager, loadIniFile } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { GameObject, IniFile } from "@/engine/lib/types";
+import { AnyObject, GameObject, IniFile } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
@@ -13,6 +14,20 @@ import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xr
 describe("TradeManager class implementation", () => {
   beforeEach(() => {
     resetRegistry();
+  });
+
+  it("should correctly initialize and destroy", () => {
+    const manager: TradeManager = getManager(TradeManager);
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    manager.initialize();
+
+    expect(eventsManager.getSubscribersCount()).toBe(1);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
+
+    manager.destroy();
+
+    expect(eventsManager.getSubscribersCount()).toBe(0);
   });
 
   it("should correctly initialize for objects", () => {
@@ -232,5 +247,15 @@ describe("TradeManager class implementation", () => {
       resupplyAt: 86420000,
       updateAt: 3620000,
     });
+  });
+
+  it("should correctly dump event", () => {
+    const manager: TradeManager = getManager(TradeManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ TradeManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ TradeManager: expect.any(Object) });
   });
 });

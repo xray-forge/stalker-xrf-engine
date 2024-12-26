@@ -8,6 +8,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
+  AnyObject,
   GameObject,
   NetPacket,
   NetProcessor,
@@ -31,6 +32,7 @@ export class SoundManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorNetworkDestroy, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate, this);
   }
@@ -38,6 +40,7 @@ export class SoundManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_GO_OFFLINE, this.onActorNetworkDestroy);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_UPDATE, this.onActorUpdate);
   }
@@ -324,5 +327,18 @@ export class SoundManager extends AbstractManager {
    */
   public onActorUpdate(): void {
     this.update(ACTOR_ID);
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      soundsConfig: soundsConfig,
+    };
+
+    return data;
   }
 }

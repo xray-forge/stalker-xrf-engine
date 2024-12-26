@@ -16,6 +16,7 @@ import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
 import { NIL } from "@/engine/lib/constants/words";
 import {
+  AnyObject,
   GameObject,
   NetPacket,
   NetProcessor,
@@ -111,6 +112,7 @@ export class StatisticsManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.TASK_COMPLETED, this.onTaskCompleted, this);
     eventsManager.registerCallback(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC, this.onSurvivedSurgeWithAnabiotic, this);
     eventsManager.registerCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorCollectedItem, this);
@@ -126,6 +128,7 @@ export class StatisticsManager extends AbstractManager {
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.TASK_COMPLETED, this.onTaskCompleted);
     eventsManager.unregisterCallback(EGameEvent.SURGE_SURVIVED_WITH_ANABIOTIC, this.onSurvivedSurgeWithAnabiotic);
     eventsManager.unregisterCallback(EGameEvent.ACTOR_ITEM_TAKE, this.onActorCollectedItem);
@@ -136,6 +139,94 @@ export class StatisticsManager extends AbstractManager {
     eventsManager.unregisterCallback(EGameEvent.STALKER_DEATH, this.onStalkerKilled);
     eventsManager.unregisterCallback(EGameEvent.MONSTER_HIT, this.onObjectHit);
     eventsManager.unregisterCallback(EGameEvent.MONSTER_DEATH, this.onMonsterKilled);
+  }
+
+  public override load(reader: NetProcessor): void {
+    this.actorStatistics = {} as IActorStatistics;
+    this.actorStatistics.surgesCount = reader.r_u16();
+    this.actorStatistics.completedTasksCount = reader.r_u16();
+    this.actorStatistics.killedMonstersCount = reader.r_u32();
+    this.actorStatistics.killedStalkersCount = reader.r_u32();
+    this.actorStatistics.collectedTreasuresCount = reader.r_u16();
+    this.actorStatistics.collectedArtefactsCount = reader.r_u16();
+    this.actorStatistics.bestKilledMonsterRank = reader.r_u32();
+
+    const bestMonster: StringOptional<TMonster> = reader.r_stringZ();
+
+    this.actorStatistics.bestKilledMonster = bestMonster === NIL ? null : bestMonster;
+
+    const favoriteWeapon: StringOptional<TWeapon> = reader.r_stringZ();
+
+    this.actorStatistics.favoriteWeapon = favoriteWeapon === NIL ? null : favoriteWeapon;
+
+    this.weaponsStatistics = new LuaTable();
+
+    const weaponsCount: TCount = reader.r_u8();
+
+    for (const _ of $range(1, weaponsCount)) {
+      const k: TWeapon = reader.r_stringZ();
+      const v: TCount = reader.r_float();
+
+      this.weaponsStatistics.set(k, v);
+    }
+
+    this.actorStatistics.collectedArtefacts = new LuaTable();
+
+    const artefactsCount: TCount = reader.r_u8();
+
+    for (const _ of $range(1, artefactsCount)) {
+      const k: TArtefact = reader.r_stringZ();
+      const v: boolean = reader.r_bool();
+
+      this.actorStatistics.collectedArtefacts.set(k, v);
+    }
+
+    this.takenArtefacts = new LuaTable();
+
+    const takenArtefactsCount: TCount = reader.r_u8();
+
+    for (const _ of $range(1, takenArtefactsCount)) {
+      const k: TNumberId = reader.r_u32();
+
+      this.takenArtefacts.set(k, k);
+    }
+  }
+
+  public override save(packet: NetPacket): void {
+    packet.w_u16(this.actorStatistics.surgesCount);
+    packet.w_u16(this.actorStatistics.completedTasksCount);
+    packet.w_u32(this.actorStatistics.killedMonstersCount);
+    packet.w_u32(this.actorStatistics.killedStalkersCount);
+    packet.w_u16(this.actorStatistics.collectedTreasuresCount);
+    packet.w_u16(this.actorStatistics.collectedArtefactsCount);
+    packet.w_u32(this.actorStatistics.bestKilledMonsterRank);
+    packet.w_stringZ(tostring(this.actorStatistics.bestKilledMonster));
+    packet.w_stringZ(tostring(this.actorStatistics.favoriteWeapon));
+
+    const weaponsCount: TCount = table.size(this.weaponsStatistics);
+
+    packet.w_u8(weaponsCount);
+
+    for (const [section, damageDone] of this.weaponsStatistics) {
+      packet.w_stringZ(tostring(section));
+      packet.w_float(damageDone);
+    }
+
+    const artefactsCount: TCount = table.size(this.actorStatistics.collectedArtefacts);
+
+    packet.w_u8(artefactsCount);
+
+    for (const [section, isCollected] of this.actorStatistics.collectedArtefacts) {
+      packet.w_stringZ(tostring(section));
+      packet.w_bool(isCollected);
+    }
+
+    const takenArtefactsCount: TCount = table.size(this.takenArtefacts);
+
+    packet.w_u8(takenArtefactsCount);
+    for (const [id] of this.takenArtefacts) {
+      packet.w_u32(id);
+    }
   }
 
   /**
@@ -347,91 +438,18 @@ export class StatisticsManager extends AbstractManager {
     }
   }
 
-  public override load(reader: NetProcessor): void {
-    this.actorStatistics = {} as IActorStatistics;
-    this.actorStatistics.surgesCount = reader.r_u16();
-    this.actorStatistics.completedTasksCount = reader.r_u16();
-    this.actorStatistics.killedMonstersCount = reader.r_u32();
-    this.actorStatistics.killedStalkersCount = reader.r_u32();
-    this.actorStatistics.collectedTreasuresCount = reader.r_u16();
-    this.actorStatistics.collectedArtefactsCount = reader.r_u16();
-    this.actorStatistics.bestKilledMonsterRank = reader.r_u32();
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      actorStatistics: this.actorStatistics,
+      weaponsStatistics: this.weaponsStatistics,
+      takenArtefacts: this.takenArtefacts,
+    };
 
-    const bestMonster: StringOptional<TMonster> = reader.r_stringZ();
-
-    this.actorStatistics.bestKilledMonster = bestMonster === NIL ? null : bestMonster;
-
-    const favoriteWeapon: StringOptional<TWeapon> = reader.r_stringZ();
-
-    this.actorStatistics.favoriteWeapon = favoriteWeapon === NIL ? null : favoriteWeapon;
-
-    this.weaponsStatistics = new LuaTable();
-
-    const weaponsCount: TCount = reader.r_u8();
-
-    for (const _ of $range(1, weaponsCount)) {
-      const k: TWeapon = reader.r_stringZ();
-      const v: TCount = reader.r_float();
-
-      this.weaponsStatistics.set(k, v);
-    }
-
-    this.actorStatistics.collectedArtefacts = new LuaTable();
-
-    const artefactsCount: TCount = reader.r_u8();
-
-    for (const _ of $range(1, artefactsCount)) {
-      const k: TArtefact = reader.r_stringZ();
-      const v: boolean = reader.r_bool();
-
-      this.actorStatistics.collectedArtefacts.set(k, v);
-    }
-
-    this.takenArtefacts = new LuaTable();
-
-    const takenArtefactsCount: TCount = reader.r_u8();
-
-    for (const _ of $range(1, takenArtefactsCount)) {
-      const k: TNumberId = reader.r_u32();
-
-      this.takenArtefacts.set(k, k);
-    }
-  }
-
-  public override save(packet: NetPacket): void {
-    packet.w_u16(this.actorStatistics.surgesCount);
-    packet.w_u16(this.actorStatistics.completedTasksCount);
-    packet.w_u32(this.actorStatistics.killedMonstersCount);
-    packet.w_u32(this.actorStatistics.killedStalkersCount);
-    packet.w_u16(this.actorStatistics.collectedTreasuresCount);
-    packet.w_u16(this.actorStatistics.collectedArtefactsCount);
-    packet.w_u32(this.actorStatistics.bestKilledMonsterRank);
-    packet.w_stringZ(tostring(this.actorStatistics.bestKilledMonster));
-    packet.w_stringZ(tostring(this.actorStatistics.favoriteWeapon));
-
-    const weaponsCount: TCount = table.size(this.weaponsStatistics);
-
-    packet.w_u8(weaponsCount);
-
-    for (const [section, damageDone] of this.weaponsStatistics) {
-      packet.w_stringZ(tostring(section));
-      packet.w_float(damageDone);
-    }
-
-    const artefactsCount: TCount = table.size(this.actorStatistics.collectedArtefacts);
-
-    packet.w_u8(artefactsCount);
-
-    for (const [section, isCollected] of this.actorStatistics.collectedArtefacts) {
-      packet.w_stringZ(tostring(section));
-      packet.w_bool(isCollected);
-    }
-
-    const takenArtefactsCount: TCount = table.size(this.takenArtefacts);
-
-    packet.w_u8(takenArtefactsCount);
-    for (const [id] of this.takenArtefacts) {
-      packet.w_u32(id);
-    }
+    return data;
   }
 }

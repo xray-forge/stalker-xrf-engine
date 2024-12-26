@@ -3,13 +3,14 @@ import { game, get_hud, sound_object } from "xray16";
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager } from "@/engine/core/managers/actor";
+import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { calculateSoundFade } from "@/engine/core/managers/outro/utils/outro_sound_utils";
 import { getExtern } from "@/engine/core/utils/binding";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
-import { AnyCallablesModule, ESoundObjectType, Optional, SoundObject } from "@/engine/lib/types";
+import { AnyCallablesModule, AnyObject, ESoundObjectType, Optional, SoundObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,6 +19,18 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class GameOutroManager extends AbstractManager {
   public sound: Optional<SoundObject> = null;
+
+  public override initialize(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
+  }
+
+  public override destroy(): void {
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
+  }
 
   /**
    * Start game outro tutorial (scenes shown to summarize game plot).
@@ -100,5 +113,19 @@ export class GameOutroManager extends AbstractManager {
         ? calculateSoundFade(factor, 0, 0.12, gameOutroConfig.VOLUME_MIN, gameOutroConfig.VOLUME_MAX)
         : calculateSoundFade(factor, 0.7, 0.95, gameOutroConfig.VOLUME_MAX, 0.0)
     );
+  }
+
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      gameOutroConfig: gameOutroConfig,
+      sound: this.sound,
+    };
+
+    return data;
   }
 }

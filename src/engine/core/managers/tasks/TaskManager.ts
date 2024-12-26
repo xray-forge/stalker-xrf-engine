@@ -7,9 +7,19 @@ import { NotificationManager } from "@/engine/core/managers/notifications";
 import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
+import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { GameTask, NetPacket, NetProcessor, Optional, TCount, TStringId, TTaskState } from "@/engine/lib/types";
+import {
+  AnyObject,
+  GameTask,
+  NetPacket,
+  NetProcessor,
+  Optional,
+  TCount,
+  TStringId,
+  TTaskState,
+} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -20,13 +30,50 @@ export class TaskManager extends AbstractManager {
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.registerCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump, this);
     eventsManager.registerCallback(EGameEvent.TASK_STATE_UPDATE, this.onTaskStateUpdate, this);
   }
 
   public override destroy(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
 
+    eventsManager.unregisterCallback(EGameEvent.DUMP_LUA_DATA, this.onDebugDump);
     eventsManager.unregisterCallback(EGameEvent.TASK_STATE_UPDATE, this.onTaskStateUpdate);
+  }
+
+  public override save(packet: NetPacket): void {
+    openSaveMarker(packet, TaskManager.name);
+
+    const count: TCount = table.size(taskConfig.ACTIVE_TASKS);
+
+    packet.w_u16(count);
+
+    for (const [section, task] of taskConfig.ACTIVE_TASKS) {
+      packet.w_stringZ(section);
+      task.save(packet);
+    }
+
+    closeSaveMarker(packet, TaskManager.name);
+  }
+
+  public override load(reader: NetProcessor): void {
+    openLoadMarker(reader, TaskManager.name);
+
+    // Clean up tasks list since loading new info.
+    taskConfig.ACTIVE_TASKS = new LuaTable();
+
+    const count: TCount = reader.r_u16();
+
+    for (const _ of $range(1, count)) {
+      const id: TStringId = reader.r_stringZ();
+      const object: TaskObject = new TaskObject(id, TASK_MANAGER_CONFIG_LTX);
+
+      object.load(reader);
+
+      taskConfig.ACTIVE_TASKS.set(id, object);
+    }
+
+    closeLoadMarker(reader, TaskManager.name);
   }
 
   /**
@@ -99,38 +146,16 @@ export class TaskManager extends AbstractManager {
     }
   }
 
-  public override save(packet: NetPacket): void {
-    openSaveMarker(packet, TaskManager.name);
+  /**
+   * Handle dump data event.
+   *
+   * @param data - data to dump into file
+   */
+  public onDebugDump(data: AnyObject): AnyObject {
+    data[this.constructor.name] = {
+      taskConfig: taskConfig,
+    };
 
-    const count: TCount = table.size(taskConfig.ACTIVE_TASKS);
-
-    packet.w_u16(count);
-
-    for (const [section, task] of taskConfig.ACTIVE_TASKS) {
-      packet.w_stringZ(section);
-      task.save(packet);
-    }
-
-    closeSaveMarker(packet, TaskManager.name);
-  }
-
-  public override load(reader: NetProcessor): void {
-    openLoadMarker(reader, TaskManager.name);
-
-    // Clean up tasks list since loading new info.
-    taskConfig.ACTIVE_TASKS = new LuaTable();
-
-    const count: TCount = reader.r_u16();
-
-    for (const _ of $range(1, count)) {
-      const id: TStringId = reader.r_stringZ();
-      const object: TaskObject = new TaskObject(id, TASK_MANAGER_CONFIG_LTX);
-
-      object.load(reader);
-
-      taskConfig.ACTIVE_TASKS.set(id, object);
-    }
-
-    closeLoadMarker(reader, TaskManager.name);
+    return data;
   }
 }

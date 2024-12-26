@@ -29,7 +29,8 @@ import { ActorSound } from "@/engine/core/managers/sounds/objects/ActorSound";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { ETaskState } from "@/engine/core/managers/tasks";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { GameObject, GameTask } from "@/engine/lib/types";
+import { AnyObject, GameObject, GameTask } from "@/engine/lib/types";
+import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
@@ -38,6 +39,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("NotificationManager", () => {
   beforeEach(() => {
+    resetRegistry();
     registerSimulator();
     registerActor(MockGameObject.mock());
     initializeManager(NotificationManager);
@@ -52,7 +54,8 @@ describe("NotificationManager", () => {
 
     initializeManager(NotificationManager);
 
-    expect(eventsManager.getSubscribersCount()).toBe(2);
+    expect(eventsManager.getSubscribersCount()).toBe(3);
+    expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.SURGE_SKIPPED)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.NOTIFICATION)).toBe(1);
 
@@ -488,5 +491,15 @@ describe("NotificationManager", () => {
     expect(registry.actor.give_talk_message2).toHaveBeenCalledTimes(0);
 
     resetFunctionMock(registry.actor.give_game_news);
+  });
+
+  it("should correctly dump event", () => {
+    const manager: NotificationManager = getManager(NotificationManager);
+    const data: AnyObject = {};
+
+    EventsManager.emitEvent(EGameEvent.DUMP_LUA_DATA, data);
+
+    expect(data).toEqual({ NotificationManager: expect.any(Object) });
+    expect(manager.onDebugDump({})).toEqual({ NotificationManager: expect.any(Object) });
   });
 });
