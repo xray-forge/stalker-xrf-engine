@@ -681,30 +681,37 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Handle death of smart terrain assigned object.
+   *
+   * @param object - dying object assigned to terrain
    */
   public onObjectDeath(object: ServerCreatureObject): void {
-    logger.info("Clear dead: %s %s", this.name(), object.name());
+    logger.info("Clear assigned object on death: %s %s", this.name(), object.name());
 
+    // Object arrived and aws assigned to job.
     if (this.objectJobDescriptors.get(object.id) as Optional<IObjectJobState>) {
       this.jobDeadTimeById.set(this.objectJobDescriptors.get(object.id).jobId, game.get_game_time());
 
       this.objectJobDescriptors.get(object.id).job!.objectId = null;
       this.objectJobDescriptors.delete(object.id);
+
       object.clear_smart_terrain();
 
       return;
     }
 
+    // Object was in process of arriving.
     if (this.arrivingObjects.get(object.id) as Optional<ServerCreatureObject>) {
       this.arrivingObjects.delete(object.id);
+
       object.clear_smart_terrain();
 
       return;
     }
 
-    abort("this.npc_info[obj.id] = null !!! obj.id=%d", object.id);
+    abort("Smart terrain object is assigned, but not arriving or on job: '%s', at '%s'.", object.name(), this.name());
   }
+
   /**
    * todo: Description.
    */

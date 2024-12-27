@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { time_global } from "xray16";
+import { beforeEach, describe, expect, fit, it, jest } from "@jest/globals";
+import { game, time_global } from "xray16";
 
 import { getManager, registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -14,7 +14,7 @@ import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/j
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { IniFile, ServerHumanObject } from "@/engine/lib/types";
+import { GameObject, IniFile, ServerCreatureObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {
@@ -23,8 +23,10 @@ import {
   MockAlifeHumanStalker,
   MockCALifeSmartTerrainTask,
   MockCTime,
+  MockGameObject,
   MockIniFile,
   MockNetProcessor,
+  MockServerAlifeCreatureAbstract,
 } from "@/fixtures/xray";
 
 describe("SmartTerrain generic logic", () => {
@@ -421,6 +423,60 @@ describe("SmartTerrain generic logic", () => {
     expect(terrain.objectsToRegister.length()).toBe(2);
     expect(terrain.objectsToRegister.get(first.id)).toBe(first);
     expect(terrain.objectsToRegister.get(second.id)).toBe(second);
+  });
+
+  it("onObjectDeath should correctly handle dying of object assigned", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered();
+    const object: GameObject = MockGameObject.mock();
+    const serverObject: ServerCreatureObject = MockServerAlifeCreatureAbstract.mock({ id: object.id() });
+
+    jest.spyOn(serverObject.position, "distance_to_sqr").mockImplementation(() => 100 * 100 - 1);
+
+    terrain.register_npc(serverObject);
+
+    expect(serverObject.m_smart_terrain_id).toBe(terrain.id);
+    expect(terrain.stayingObjectsCount).toBe(1);
+    expect(terrain.objectJobDescriptors.length()).toBe(1);
+    expect(terrain.jobDeadTimeById.length()).toBe(0);
+    expect(terrain.arrivingObjects.length()).toBe(0);
+
+    terrain.onObjectDeath(serverObject);
+
+    expect(terrain.objectJobDescriptors.length()).toBe(0);
+    expect(terrain.arrivingObjects.length()).toBe(0);
+    expect(terrain.jobDeadTimeById.length()).toBe(1);
+    expect(MockCTime.areEqual(terrain.jobDeadTimeById.get(1), game.get_game_time())).toBe(true);
+    expect(serverObject.clear_smart_terrain).toHaveBeenCalledTimes(1);
+  });
+
+  it("onObjectDeath should correctly handle dying of object arriving", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mockRegistered();
+    const object: GameObject = MockGameObject.mock();
+    const serverObject: ServerCreatureObject = MockServerAlifeCreatureAbstract.mock({ id: object.id() });
+
+    jest.spyOn(serverObject.position, "distance_to_sqr").mockImplementation(() => 100 * 100 + 1);
+
+    terrain.register_npc(serverObject);
+
+    expect(serverObject.m_smart_terrain_id).toBe(terrain.id);
+    expect(terrain.stayingObjectsCount).toBe(1);
+    expect(terrain.objectJobDescriptors.length()).toBe(0);
+    expect(terrain.arrivingObjects).toEqualLuaTables({ [serverObject.id]: serverObject });
+
+    terrain.onObjectDeath(serverObject);
+
+    expect(terrain.arrivingObjects).toEqualLuaTables({});
+    expect(serverObject.clear_smart_terrain).toHaveBeenCalledTimes(1);
+  });
+
+  it("onObjectDeath should correctly throw on unexpected conditions", () => {
+    const terrain: SmartTerrain = MockSmartTerrain.mock();
+    const object: GameObject = MockGameObject.mock();
+    const serverObject: ServerCreatureObject = MockServerAlifeCreatureAbstract.mock({ id: object.id() });
+
+    expect(() => terrain.onObjectDeath(serverObject)).toThrow(
+      `Smart terrain object is assigned, but not arriving or on job: '${serverObject.name()}', at '${terrain.name()}'.`
+    );
   });
 
   it.todo("register_npc should correctly count and assign objects after registration");

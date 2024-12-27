@@ -153,6 +153,8 @@ export class MockAlifeObject extends MockLuabindClass {
 
   public update = jest.fn();
 
+  public clear_smart_terrain = jest.fn();
+
   public STATE_Write(packet: NetPacket): void {
     packet.w_stringZ(`state_write_from_${this.constructor.name}`);
   }
