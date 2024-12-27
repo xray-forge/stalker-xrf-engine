@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { game_graph } from "xray16";
+import { game_graph, sound_object } from "xray16";
 
 import { registerSimulator, registerZone, registry } from "@/engine/core/database";
 import {
@@ -22,9 +22,22 @@ import {
 } from "@/engine/core/utils/position";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { GameObject, ServerHumanObject, ServerObject, ServerSmartZoneObject, Vector } from "@/engine/lib/types";
+import {
+  ESoundObjectType,
+  GameObject,
+  ServerHumanObject,
+  ServerObject,
+  ServerSmartZoneObject,
+  Vector,
+} from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockAlifeObject, MockAlifeSmartZone, MockGameObject } from "@/fixtures/xray";
+import {
+  MockAlifeHumanStalker,
+  MockAlifeObject,
+  MockAlifeSmartZone,
+  MockGameObject,
+  MockSoundObject,
+} from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("isObjectInSmartTerrain util", () => {
@@ -241,6 +254,7 @@ describe("sendToNearestAccessibleVertex util", () => {
 describe("teleportActorWithEffects util", () => {
   beforeEach(() => {
     registerSimulator();
+    MockSoundObject.resetRegistry();
   });
 
   it("should correctly teleport actor", () => {
@@ -252,6 +266,16 @@ describe("teleportActorWithEffects util", () => {
 
     expect(actor.set_actor_position).toHaveBeenCalledWith(destination);
     expect(actor.set_actor_direction).toHaveBeenCalledWith(-direction.getH());
+
+    expect(MockSoundObject.SOUND_OBJECT_REGISTRY).toHaveLength(1);
+    expect(MockSoundObject.SOUND_OBJECT_REGISTRY[0].path).toBe("affects\\tinnitus3a");
+    expect(MockSoundObject.SOUND_OBJECT_REGISTRY[0].play_no_feedback).toHaveBeenCalledWith(
+      actor,
+      ESoundObjectType.S2D,
+      0,
+      ZERO_VECTOR,
+      1.0
+    );
   });
 });
 

@@ -223,7 +223,7 @@ export function teleportActorWithEffects(actor: GameObject, position: Vector, di
   actor.set_actor_position(position);
   actor.set_actor_direction(-direction.getH());
 
-  new sound_object("affects_tinnitus3a").play_no_feedback(actor, ESoundObjectType.S2D, 0, ZERO_VECTOR, 1.0);
+  new sound_object("affects\\tinnitus3a").play_no_feedback(actor, ESoundObjectType.S2D, 0, ZERO_VECTOR, 1.0);
 }
 
 /**
