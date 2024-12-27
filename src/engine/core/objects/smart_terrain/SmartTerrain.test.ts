@@ -165,6 +165,32 @@ describe("SmartTerrain generic logic", () => {
     expect(terrain.isRegistered).toBe(false);
   });
 
+  it("should fail on validate simulation roles", () => {
+    const correctTerrain: SmartTerrain = new SmartTerrain("test_correct_role");
+    const incorrectTerrain: SmartTerrain = new SmartTerrain("test_incorrect_role");
+
+    jest.spyOn(correctTerrain, "spawn_ini").mockImplementation(() => {
+      return MockIniFile.mock("test.ltx", {
+        smart_terrain: {
+          sim_type: "territory",
+        },
+      });
+    });
+
+    jest.spyOn(incorrectTerrain, "spawn_ini").mockImplementation(() => {
+      return MockIniFile.mock("test.ltx", {
+        smart_terrain: {
+          sim_type: "unexpected",
+        },
+      });
+    });
+
+    expect(() => correctTerrain.initialize()).not.toThrow();
+    expect(() => incorrectTerrain.initialize()).toThrow(
+      `Wrong simulation role value (sim_type) 'unexpected' in smart terrain '${incorrectTerrain.name()}' configuration.`
+    );
+  });
+
   it("should correctly save and load data when have meaningful info", () => {
     const terrain: SmartTerrain = new SmartTerrain("test_init");
     const processor: MockNetProcessor = new MockNetProcessor();

@@ -4,10 +4,22 @@
  * List of available levels.
  */
 export const levels = {
+  agroprom: "agroprom",
+  agroprom_underground: "agroprom_underground",
+  darkvalley: "darkvalley",
+  escape: "escape",
+  garbage: "garbage",
+  hospital: "hospital",
   jupiter: "jupiter",
   jupiter_underground: "jupiter_underground",
   labx8: "labx8",
+  limansk: "limansk",
+  marsh: "marsh",
+  military: "military",
   pripyat: "pripyat",
+  red_forest: "red_forest",
+  stancia_2: "stancia_2",
+  yantar: "yantar",
   zaton: "zaton",
 } as const;
 

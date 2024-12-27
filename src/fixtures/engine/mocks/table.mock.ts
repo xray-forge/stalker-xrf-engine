@@ -51,4 +51,30 @@ export const mockTableUtils = {
 
     return destination;
   },
+  getTableKeys: (from: LuaTable | AnyObject) => {
+    if (from instanceof MockLuaTable) {
+      return MockLuaTable.fromArray([...from.keys()]);
+    } else {
+      return MockLuaTable.fromArray(Object.keys(from));
+    }
+  },
+  getTableValuesAsSet: (from: LuaTable | AnyObject) => {
+    if (from instanceof MockLuaTable) {
+      const result = MockLuaTable.mock();
+
+      for (const [, value] of from) {
+        result.set(value, true);
+      }
+
+      return result;
+    } else {
+      const result = MockLuaTable.mock();
+
+      for (const value of Object.values(from)) {
+        result.set(value, true);
+      }
+
+      return result;
+    }
+  },
 };

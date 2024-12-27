@@ -1,12 +1,16 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 const tableUtils: {
   isEmpty: <T extends AnyNotNil>(target: Optional<LuaTable<T>>) => boolean;
   resetTable: <T extends AnyNotNil>(target: LuaTable<T>) => void;
   copyTable: (first: AnyObject, second: AnyObject) => AnyObject;
   mergeTables: <T extends AnyNotNil>(base: LuaTable<T>, ...rest: Array<LuaTable<T>>) => AnyObject;
+  getTableKeys: <TKey extends AnyNotNil = AnyNotNil>(target: LuaTable<any>) => LuaArray<TKey>;
+  getTableValuesAsSet: <TValue extends AnyNotNil = AnyNotNil>(
+    target: LuaTable<any, TValue>
+  ) => LuaTable<TValue, boolean>;
 } = jest.requireActual("@/engine/core/utils/table");
 
 describe("resetTable util", () => {
@@ -66,5 +70,24 @@ describe("isEmpty util", () => {
     expect(tableUtils.isEmpty($fromArray<unknown>([]))).toBe(true);
     expect(tableUtils.isEmpty($fromObject<string, unknown>({}))).toBe(true);
     expect(tableUtils.isEmpty(null)).toBe(true);
+  });
+});
+
+describe("getTableKeys util", () => {
+  it("should correctly return list of keys", () => {
+    expect(tableUtils.getTableKeys($fromObject<TName, TName>({}))).toEqualLuaArrays([]);
+    expect(tableUtils.getTableKeys($fromObject({ a: 1, b: 2, c: 3 }))).toEqualLuaArrays(["a", "b", "c"]);
+    expect(tableUtils.getTableKeys($fromObject({ x: "1", [1]: "2" }))).toEqualLuaArrays([1, "x"]);
+  });
+});
+
+describe("getTableValuesAsSet util", () => {
+  it("should correctly return list of keys", () => {
+    expect(tableUtils.getTableValuesAsSet($fromObject<TName, TName>({}))).toEqualLuaTables({});
+    expect(tableUtils.getTableValuesAsSet($fromObject({ a: 1, b: 2, c: "3" }))).toEqualLuaTables({
+      [1]: true,
+      [2]: true,
+      "3": true,
+    });
   });
 });

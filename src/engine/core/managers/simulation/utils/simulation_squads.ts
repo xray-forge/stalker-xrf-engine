@@ -3,7 +3,7 @@ import { clsid, level, patrol } from "xray16";
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { removeSquadMapSpot, updateSquadMapSpot } from "@/engine/core/managers/map/utils/map_spot_squad";
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils/map_spot_terrain";
-import { GROUP_ID_BY_LEVEL_NAME, simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
+import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainAssignedSquadsCount } from "@/engine/core/managers/simulation/utils/simulation_data";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -204,7 +204,7 @@ export function releaseSimulationSquad(squad: Squad): void {
  */
 export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject): void {
   const levelName: TLevel = level.name();
-  const groupId: TNumberId = GROUP_ID_BY_LEVEL_NAME.get(levelName) || 0;
+  const groupId: TNumberId = simulationConfig.GROUP_ID_BY_LEVEL_NAME.get(levelName) ?? 0;
 
   // Reload, probably not needed.
   object = registry.simulator.object(object.id)!;

@@ -1,4 +1,4 @@
-import { Optional } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
 
 /**
  * Check if provided container is empty collection.
@@ -71,4 +71,38 @@ export function resetTable(target: LuaTable<any>): void {
   for (const [k] of target) {
     target.delete(k);
   }
+}
+
+/**
+ * Get list of table keys as new table.
+ *
+ * @param target - table to get list of keys from
+ * @returns list of table keys
+ */
+export function getTableKeys<TKey extends AnyNotNil = AnyNotNil>(target: LuaTable<TKey>): LuaArray<TKey> {
+  const keys: LuaArray<TKey> = new LuaTable();
+
+  for (const [key] of target) {
+    table.insert(keys, key);
+  }
+
+  return keys;
+}
+
+/**
+ * Get table values as set object.
+ *
+ * @param target - table to create set from
+ * @returns set of target table values
+ */
+export function getTableValuesAsSet<TValue extends AnyNotNil = AnyNotNil>(
+  target: LuaTable<any, TValue> | AnyObject
+): LuaTable<TValue, boolean> {
+  const set: LuaTable<TValue, boolean> = new LuaTable();
+
+  for (const [, value] of target as LuaTable<AnyNotNil, TValue>) {
+    set.set(value, true);
+  }
+
+  return set;
 }

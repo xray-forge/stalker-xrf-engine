@@ -25,6 +25,17 @@ describe("SimulationManager", () => {
     simulationConfig.IS_SIMULATION_INITIALIZED = false;
   });
 
+  it("should have correct initial config", () => {
+    expect(simulationConfig.VALID_SMART_TERRAINS_SIMULATION_ROLES).toEqualLuaTables({
+      base: true,
+      default: true,
+      lair: true,
+      resource: true,
+      surge: true,
+      territory: true,
+    });
+  });
+
   it("should correctly initialize", () => {
     const eventsManager: EventsManager = getManager(EventsManager);
 

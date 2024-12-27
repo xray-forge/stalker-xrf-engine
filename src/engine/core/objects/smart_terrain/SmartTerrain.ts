@@ -26,7 +26,7 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils";
 import { simulationActivities } from "@/engine/core/managers/simulation/activity/simulation_activities";
-import { VALID_SMART_TERRAINS_SIMULATION_ROLES } from "@/engine/core/managers/simulation/SimulationConfig";
+import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import {
   ESimulationTerrainRole,
   ISimulationActivityDescriptor,
@@ -545,9 +545,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     ) as ESimulationTerrainRole;
 
     // Check if role is defined in enum.
-    if (VALID_SMART_TERRAINS_SIMULATION_ROLES.get(this.simulationRole) === null) {
+    if (simulationConfig.VALID_SMART_TERRAINS_SIMULATION_ROLES.get(this.simulationRole) === null) {
       abort(
-        "Wrong simulation role value (sim_type) '%s' in smart terrain '%s'.",
+        "Wrong simulation role value (sim_type) '%s' in smart terrain '%s' configuration.",
         this.simulationRole,
         smartTerrainName
       );
