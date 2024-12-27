@@ -103,7 +103,12 @@ export class ReleaseBodyManager extends AbstractManager {
       return;
     }
 
-    logger.info("Register corpse object: %s", object.name());
+    logger.info(
+      "Register corpse object: %s, %s/%s",
+      object.name(),
+      deathConfig.RELEASE_OBJECTS_REGISTRY.length(),
+      deathConfig.MAX_BODY_COUNT
+    );
 
     table.insert(deathConfig.RELEASE_OBJECTS_REGISTRY, {
       id: object.id(),

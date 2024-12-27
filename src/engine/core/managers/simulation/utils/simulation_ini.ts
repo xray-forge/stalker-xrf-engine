@@ -16,7 +16,7 @@ const log: LuaLogger = new LuaLogger($filename);
  * @returns map of simulation group IDs by level name
  */
 export function initializeLevelSimulationGroupIds(ini: IniFile): LuaTable<TName, TNumberId> {
-  log.info("Initialize level simulation group IDs from: '%s', '%s' levels", ini.fname(), table.size(levels));
+  log.info("Initialize level simulation group IDs from: '%s', %s levels", ini.fname(), table.size(levels));
 
   const availableLevels: LuaArray<TLevel> = getTableKeys($fromObject(levels));
   const usedGroupIds: LuaTable<TNumberId, TName> = new LuaTable();
