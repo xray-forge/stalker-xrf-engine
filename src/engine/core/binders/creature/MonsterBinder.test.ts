@@ -498,7 +498,13 @@ describe("MonsterBinder", () => {
 
     jest.spyOn(SchemeHear, "onObjectHearSound").mockImplementation(jest.fn());
 
+    // Do not listen for self.
     binder.onHearSound(object, object.id(), 128, X_VECTOR, 10);
+    expect(SchemeHear.onObjectHearSound).not.toHaveBeenCalled();
+
+    // Do not listen when dead.
+    jest.spyOn(object, "alive").mockImplementationOnce(() => false);
+    binder.onHearSound(object, ACTOR_ID, 128, X_VECTOR, 10);
     expect(SchemeHear.onObjectHearSound).not.toHaveBeenCalled();
 
     binder.onHearSound(object, ACTOR_ID, 128, X_VECTOR, 10);

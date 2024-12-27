@@ -301,7 +301,13 @@ export class MonsterBinder extends object_binder {
 
   /**
    * On monster hear sound.
-   * Handle surrounding sounds and process danger / aggression based on sound type and power.
+   * Handle surrounding sounds and process danger / aggression / condlists based on sound type and power.
+   *
+   * @param object - game object hearing sounds
+   * @param sourceId - ID of object producing sound
+   * @param soundType - mask object with types of sounds heard
+   * @param soundPosition - vector with 3d position of sounds source
+   * @param soundPower - power level of sound
    */
   public onHearSound(
     object: GameObject,
@@ -310,8 +316,16 @@ export class MonsterBinder extends object_binder {
     soundPosition: Vector,
     soundPower: TRate
   ): void {
-    if (sourceId !== object.id()) {
-      SchemeHear.onObjectHearSound(object, sourceId, soundType, soundPosition, soundPower);
+    // Don't handle own sounds.
+    if (sourceId === object.id()) {
+      return;
     }
+
+    // Don't handle sounds when dead.
+    if (!object.alive()) {
+      return;
+    }
+
+    SchemeHear.onObjectHearSound(object, sourceId, soundType, soundPosition, soundPower);
   }
 }

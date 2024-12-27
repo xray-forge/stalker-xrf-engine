@@ -8,6 +8,7 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { syncObjectHitSmartTerrainAlert } from "@/engine/core/objects/smart_terrain/utils";
+import { SchemeHear } from "@/engine/core/schemes/shared/hear";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle";
 import { SchemeReachTask } from "@/engine/core/schemes/stalker/reach_task";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
@@ -18,7 +19,8 @@ import {
   syncSpawnedObjectPosition,
 } from "@/engine/core/utils/object";
 import { emitSchemeEvent, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
+import { ACTOR_ID } from "@/engine/lib/constants/ids";
+import { X_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { AnyObject, EScheme, ESchemeEvent, ESchemeType, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
@@ -177,7 +179,24 @@ describe("StalkerBinder", () => {
 
   it.todo("should correctly handle death event");
 
-  it.todo("should correctly handle hear event");
+  it("should handle hear event", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: StalkerBinder = new StalkerBinder(object);
+
+    jest.spyOn(SchemeHear, "onObjectHearSound").mockImplementation(jest.fn());
+
+    // Do not listen for self.
+    binder.onHearSound(object, object.id(), 128, X_VECTOR, 10);
+    expect(SchemeHear.onObjectHearSound).not.toHaveBeenCalled();
+
+    // Do not listen when dead.
+    jest.spyOn(object, "alive").mockImplementationOnce(() => false);
+    binder.onHearSound(object, ACTOR_ID, 128, X_VECTOR, 10);
+    expect(SchemeHear.onObjectHearSound).not.toHaveBeenCalled();
+
+    binder.onHearSound(object, ACTOR_ID, 128, X_VECTOR, 10);
+    expect(SchemeHear.onObjectHearSound).toHaveBeenCalledWith(object, ACTOR_ID, 128, X_VECTOR, 10);
+  });
 
   it.todo("should correctly handle use event");
 

@@ -390,21 +390,33 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * On stalker hear sound.
+   * Handle surrounding sounds and process danger / aggression / condlists based on sound type and power.
+   *
+   * @param object - game object hearing sounds
+   * @param sourceId - ID of object producing sound
+   * @param soundType - mask object with types of sounds heard
+   * @param soundPosition - vector with 3d position of sounds source
+   * @param soundPower - power level of sound
    */
   public onHearSound(
     object: GameObject,
-    whoId: TNumberId,
+    sourceId: TNumberId,
     soundType: TSoundType,
     soundPosition: Vector,
     soundPower: TRate
   ): void {
     // Don't handle own sounds.
-    if (whoId === object.id()) {
+    if (sourceId === object.id()) {
       return;
     }
 
-    SchemeHear.onObjectHearSound(object, whoId, soundType, soundPosition, soundPower);
+    // Don't handle sounds when dead.
+    if (!object.alive()) {
+      return;
+    }
+
+    SchemeHear.onObjectHearSound(object, sourceId, soundType, soundPosition, soundPower);
   }
 
   /**
