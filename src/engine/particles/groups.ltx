@@ -161,23 +161,6 @@ time_0 = 0
 time_1 = 0
 flags = 4
 
-[anomaly\marevo2]
-$type = particle_group
-version = 3
-name = anomaly\marevo2
-flags = 0
-time_limit = 0
-
-[anomaly\marevo2.effect.0]
-$type = particle_group_effect
-name = anomaly\effects\marevo2
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 4
-
 [anomaly2\anomaly_bolling_small]
 $type = particle_group
 version = 3
@@ -1174,6 +1157,70 @@ time_0 = 0
 time_1 = 0
 flags = 4
 
+[anomaly2\electra2_blast]
+$type = particle_group
+version = 3
+name = anomaly2\electra2_blast
+flags = 0
+time_limit = 5
+
+[anomaly2\electra2_blast.effect.0]
+$type = particle_group_effect
+name = anomaly2\effects\electra2_flash
+on_play_child_name = 
+on_birth_child_name = anomaly2\effects\star_glow_06
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 36
+
+[anomaly2\electra2_blast.effect.1]
+$type = particle_group_effect
+name = anomaly2\effects\electra2_sparks
+on_play_child_name = anomaly2\effects\electra2_trails
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0.08
+time_1 = 0
+flags = 6
+
+[anomaly2\electra2_blast.effect.2]
+$type = particle_group_effect
+name = anomaly2\effects\star_glow_04
+on_play_child_name = anomaly2\effects\tornado_flash_04
+on_birth_child_name = anomaly2\effects\tornado_flash_03
+on_dead_child_name = 
+time_0 = 0.1
+time_1 = 0
+flags = 38
+
+[anomaly2\electra2_blast_00]
+$type = particle_group
+version = 3
+name = anomaly2\electra2_blast_00
+flags = 0
+time_limit = 5
+
+[anomaly2\electra2_blast_00.effect.0]
+$type = particle_group_effect
+name = anomaly2\effects\electra2_sparks
+on_play_child_name = anomaly2\effects\electra2_trails
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 6
+
+[anomaly2\electra2_blast_00.effect.1]
+$type = particle_group_effect
+name = anomaly2\effects\star_glow_04
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 4
+
 [anomaly2\electra_damage_01_smoke]
 $type = particle_group
 version = 3
@@ -1315,70 +1362,6 @@ on_dead_child_name =
 time_0 = 0
 time_1 = 0
 flags = 36
-
-[anomaly2\electra2_blast]
-$type = particle_group
-version = 3
-name = anomaly2\electra2_blast
-flags = 0
-time_limit = 5
-
-[anomaly2\electra2_blast.effect.0]
-$type = particle_group_effect
-name = anomaly2\effects\electra2_flash
-on_play_child_name = 
-on_birth_child_name = anomaly2\effects\star_glow_06
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 36
-
-[anomaly2\electra2_blast.effect.1]
-$type = particle_group_effect
-name = anomaly2\effects\electra2_sparks
-on_play_child_name = anomaly2\effects\electra2_trails
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0.08
-time_1 = 0
-flags = 6
-
-[anomaly2\electra2_blast.effect.2]
-$type = particle_group_effect
-name = anomaly2\effects\star_glow_04
-on_play_child_name = anomaly2\effects\tornado_flash_04
-on_birth_child_name = anomaly2\effects\tornado_flash_03
-on_dead_child_name = 
-time_0 = 0.1
-time_1 = 0
-flags = 38
-
-[anomaly2\electra2_blast_00]
-$type = particle_group
-version = 3
-name = anomaly2\electra2_blast_00
-flags = 0
-time_limit = 5
-
-[anomaly2\electra2_blast_00.effect.0]
-$type = particle_group_effect
-name = anomaly2\effects\electra2_sparks
-on_play_child_name = anomaly2\effects\electra2_trails
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 6
-
-[anomaly2\electra2_blast_00.effect.1]
-$type = particle_group_effect
-name = anomaly2\effects\star_glow_04
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 4
 
 [anomaly2\emi_damage_big_smoke]
 $type = particle_group
@@ -4459,6 +4442,23 @@ on_birth_child_name =
 on_dead_child_name = 
 time_0 = 3
 time_1 = 10
+flags = 4
+
+[anomaly\marevo2]
+$type = particle_group
+version = 3
+name = anomaly\marevo2
+flags = 0
+time_limit = 0
+
+[anomaly\marevo2.effect.0]
+$type = particle_group_effect
+name = anomaly\effects\marevo2
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
 flags = 4
 
 [artefact\af_acidic_hide]
@@ -7677,63 +7677,6 @@ time_0 = 0
 time_1 = 0
 flags = 4
 
-[explosions\explosion_01b_hot]
-$type = particle_group
-version = 3
-name = explosions\explosion_01b_hot
-flags = 0
-time_limit = 2.5
-
-[explosions\explosion_01b_hot.effect.0]
-$type = particle_group_effect
-name = explosions\effects\expl_wall_glow
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 4
-
-[explosions\explosion_01b_hot.effect.1]
-$type = particle_group_effect
-name = explosions\effects\expl_glow_01
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 4
-
-[explosions\explosion_01b_hot.effect.2]
-$type = particle_group_effect
-name = explosions\effects\expl_smoke_02
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0.12
-time_1 = 0
-flags = 4
-
-[explosions\explosion_01b_hot.effect.3]
-$type = particle_group_effect
-name = explosions\effects\expl_distortion
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 4
-
-[explosions\explosion_01b_hot.effect.4]
-$type = particle_group_effect
-name = explosions\effects\expl_benzin_06
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 4
-
 [explosions\explosion_01b00]
 $type = particle_group
 version = 3
@@ -7788,6 +7731,63 @@ on_play_child_name =
 on_birth_child_name = 
 on_dead_child_name = 
 time_0 = 0.08
+time_1 = 0
+flags = 4
+
+[explosions\explosion_01b_hot]
+$type = particle_group
+version = 3
+name = explosions\explosion_01b_hot
+flags = 0
+time_limit = 2.5
+
+[explosions\explosion_01b_hot.effect.0]
+$type = particle_group_effect
+name = explosions\effects\expl_wall_glow
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 4
+
+[explosions\explosion_01b_hot.effect.1]
+$type = particle_group_effect
+name = explosions\effects\expl_glow_01
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 4
+
+[explosions\explosion_01b_hot.effect.2]
+$type = particle_group_effect
+name = explosions\effects\expl_smoke_02
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0.12
+time_1 = 0
+flags = 4
+
+[explosions\explosion_01b_hot.effect.3]
+$type = particle_group_effect
+name = explosions\effects\expl_distortion
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 4
+
+[explosions\explosion_01b_hot.effect.4]
+$type = particle_group_effect
+name = explosions\effects\expl_benzin_06
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
 time_1 = 0
 flags = 4
 
@@ -13010,261 +13010,6 @@ time_0 = 0
 time_1 = 0
 flags = 4
 
-[weapons\generic_weapon_btr]
-$type = particle_group
-version = 3
-name = weapons\generic_weapon_btr
-flags = 0
-time_limit = 0.1
-
-[weapons\generic_weapon_btr.effect.0]
-$type = particle_group_effect
-name = weapons\effects\weapon_test_02_sparks
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0.1
-flags = 4
-
-[weapons\generic_weapon_btr.effect.1]
-$type = particle_group_effect
-name = weapons\effects\weapon_shot_invert_glow
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0.1
-flags = 4
-
-[weapons\generic_weapon_btr.effect.2]
-$type = particle_group_effect
-name = weapons\effects\weapon_test_01a
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0.1
-flags = 4
-
-[weapons\generic_weapon_btr.effect.3]
-$type = particle_group_effect
-name = weapons\effects\weapon_shot_invert_big
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0.1
-flags = 4
-
-[weapons\generic_weapon_btr.effect.4]
-$type = particle_group_effect
-name = weapons\effects\weapon_test_01c
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0.1
-flags = 4
-
-[weapons\generic_weapon_controller]
-$type = particle_group
-version = 3
-name = weapons\generic_weapon_controller
-flags = 0
-time_limit = 2.5
-
-[weapons\generic_weapon_controller.effect.0]
-$type = particle_group_effect
-name = weapons\effects\shot_matrix_controller_dark
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0.1
-time_1 = 0
-flags = 4
-
-[weapons\generic_weapon_controller.effect.1]
-$type = particle_group_effect
-name = weapons\effects\shot_matrix_controller_dist_00
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 4
-
-[weapons\generic_weapon_controller.effect.2]
-$type = particle_group_effect
-name = weapons\effects\shot_matrix_controller_02_dark
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0.1
-time_1 = 0
-flags = 4
-
-[weapons\generic_weapon_controller.effect.3]
-$type = particle_group_effect
-name = weapons\effects\shot_matrix_controller_color
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 4
-
-[weapons\generic_weapon_gauss]
-$type = particle_group
-version = 3
-name = weapons\generic_weapon_gauss
-flags = 0
-time_limit = 0.5
-
-[weapons\generic_weapon_gauss.effect.0]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_sparks
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0.5
-flags = 4
-
-[weapons\generic_weapon_gauss.effect.1]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_sparks_glow
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0.5
-flags = 4
-
-[weapons\generic_weapon_gauss_]
-$type = particle_group
-version = 3
-name = weapons\generic_weapon_gauss_
-flags = 0
-time_limit = 1.55
-
-[weapons\generic_weapon_gauss_.effect.0]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_45
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0
-time_1 = 0
-flags = 36
-
-[weapons\generic_weapon_gauss_.effect.1]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_40
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.01
-time_1 = 0
-flags = 32
-
-[weapons\generic_weapon_gauss_.effect.2]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_35
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.02
-time_1 = 0
-flags = 36
-
-[weapons\generic_weapon_gauss_.effect.3]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_30
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.03
-time_1 = 0
-flags = 32
-
-[weapons\generic_weapon_gauss_.effect.4]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_25
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.04
-time_1 = 0
-flags = 36
-
-[weapons\generic_weapon_gauss_.effect.5]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_20
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.05
-time_1 = 0
-flags = 32
-
-[weapons\generic_weapon_gauss_.effect.6]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_15
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.06
-time_1 = 0
-flags = 36
-
-[weapons\generic_weapon_gauss_.effect.7]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_10
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.07
-time_1 = 0
-flags = 32
-
-[weapons\generic_weapon_gauss_.effect.8]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_5
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.08
-time_1 = 0
-flags = 36
-
-[weapons\generic_weapon_gauss_.effect.9]
-$type = particle_group_effect
-name = weapons\effects\gauss_shot_spark_0
-on_play_child_name = 
-on_birth_child_name = weapons\effects\gauss_shot_spark_glow
-on_dead_child_name = 
-time_0 = 0.09
-time_1 = 0
-flags = 36
-
-[weapons\generic_weapon_svu]
-$type = particle_group
-version = 3
-name = weapons\generic_weapon_svu
-flags = 0
-time_limit = 1
-
-[weapons\generic_weapon_svu.effect.0]
-$type = particle_group_effect
-name = weapons\effects\weapon_svu_smoke
-on_play_child_name = 
-on_birth_child_name = 
-on_dead_child_name = 
-time_0 = 0.1
-time_1 = 0
-flags = 4
-
 [weapons\generic_weapon00]
 $type = particle_group
 version = 3
@@ -13766,6 +13511,261 @@ on_birth_child_name =
 on_dead_child_name = 
 time_0 = 0
 time_1 = 0.1
+flags = 4
+
+[weapons\generic_weapon_btr]
+$type = particle_group
+version = 3
+name = weapons\generic_weapon_btr
+flags = 0
+time_limit = 0.1
+
+[weapons\generic_weapon_btr.effect.0]
+$type = particle_group_effect
+name = weapons\effects\weapon_test_02_sparks
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0.1
+flags = 4
+
+[weapons\generic_weapon_btr.effect.1]
+$type = particle_group_effect
+name = weapons\effects\weapon_shot_invert_glow
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0.1
+flags = 4
+
+[weapons\generic_weapon_btr.effect.2]
+$type = particle_group_effect
+name = weapons\effects\weapon_test_01a
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0.1
+flags = 4
+
+[weapons\generic_weapon_btr.effect.3]
+$type = particle_group_effect
+name = weapons\effects\weapon_shot_invert_big
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0.1
+flags = 4
+
+[weapons\generic_weapon_btr.effect.4]
+$type = particle_group_effect
+name = weapons\effects\weapon_test_01c
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0.1
+flags = 4
+
+[weapons\generic_weapon_controller]
+$type = particle_group
+version = 3
+name = weapons\generic_weapon_controller
+flags = 0
+time_limit = 2.5
+
+[weapons\generic_weapon_controller.effect.0]
+$type = particle_group_effect
+name = weapons\effects\shot_matrix_controller_dark
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0.1
+time_1 = 0
+flags = 4
+
+[weapons\generic_weapon_controller.effect.1]
+$type = particle_group_effect
+name = weapons\effects\shot_matrix_controller_dist_00
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 4
+
+[weapons\generic_weapon_controller.effect.2]
+$type = particle_group_effect
+name = weapons\effects\shot_matrix_controller_02_dark
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0.1
+time_1 = 0
+flags = 4
+
+[weapons\generic_weapon_controller.effect.3]
+$type = particle_group_effect
+name = weapons\effects\shot_matrix_controller_color
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 4
+
+[weapons\generic_weapon_gauss]
+$type = particle_group
+version = 3
+name = weapons\generic_weapon_gauss
+flags = 0
+time_limit = 0.5
+
+[weapons\generic_weapon_gauss.effect.0]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_sparks
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0.5
+flags = 4
+
+[weapons\generic_weapon_gauss.effect.1]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_sparks_glow
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0.5
+flags = 4
+
+[weapons\generic_weapon_gauss_]
+$type = particle_group
+version = 3
+name = weapons\generic_weapon_gauss_
+flags = 0
+time_limit = 1.55
+
+[weapons\generic_weapon_gauss_.effect.0]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_45
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0
+time_1 = 0
+flags = 36
+
+[weapons\generic_weapon_gauss_.effect.1]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_40
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.01
+time_1 = 0
+flags = 32
+
+[weapons\generic_weapon_gauss_.effect.2]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_35
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.02
+time_1 = 0
+flags = 36
+
+[weapons\generic_weapon_gauss_.effect.3]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_30
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.03
+time_1 = 0
+flags = 32
+
+[weapons\generic_weapon_gauss_.effect.4]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_25
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.04
+time_1 = 0
+flags = 36
+
+[weapons\generic_weapon_gauss_.effect.5]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_20
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.05
+time_1 = 0
+flags = 32
+
+[weapons\generic_weapon_gauss_.effect.6]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_15
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.06
+time_1 = 0
+flags = 36
+
+[weapons\generic_weapon_gauss_.effect.7]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_10
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.07
+time_1 = 0
+flags = 32
+
+[weapons\generic_weapon_gauss_.effect.8]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_5
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.08
+time_1 = 0
+flags = 36
+
+[weapons\generic_weapon_gauss_.effect.9]
+$type = particle_group_effect
+name = weapons\effects\gauss_shot_spark_0
+on_play_child_name = 
+on_birth_child_name = weapons\effects\gauss_shot_spark_glow
+on_dead_child_name = 
+time_0 = 0.09
+time_1 = 0
+flags = 36
+
+[weapons\generic_weapon_svu]
+$type = particle_group
+version = 3
+name = weapons\generic_weapon_svu
+flags = 0
+time_limit = 1
+
+[weapons\generic_weapon_svu.effect.0]
+$type = particle_group_effect
+name = weapons\effects\weapon_svu_smoke
+on_play_child_name = 
+on_birth_child_name = 
+on_dead_child_name = 
+time_0 = 0.1
+time_1 = 0
 flags = 4
 
 [weapons\heli_weapon]
