@@ -94,10 +94,12 @@ export function createSpawnLoadout(descriptors: Array<ILoadoutItemDescriptor>, l
 }
 
 /**
- * todo;
+ * Serialize parameter data into loadout string.
+ * Format and stringify data to propagate it into c++ engine correctly.
  *
- * @param name
- * @param data
+ * @param name - name of the parameter to serialize
+ * @param data - value to inject into serialized string
+ * @returns raw string part for item field loadout configuration
  */
 export function createSpawnLoadoutFlag(name: TName, data?: TRate | boolean): string {
   if (data) {
