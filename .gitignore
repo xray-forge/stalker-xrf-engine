@@ -1,8 +1,7 @@
-.idea/
 node_modules/
+
+.idea/
+!.idea/runConfigurations/*
 
 target/*
 !target/README.md
-
-/.idea/*
-!/.idea/runConfigurations

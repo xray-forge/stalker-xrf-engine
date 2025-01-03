@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="unpack:spawn" type="js.build_tools.npm" folderName="spawn">
+  <configuration default="false" name="unpack:particles" type="js.build_tools.npm" folderName="particles">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
       <script value="cli" />
     </scripts>
-    <arguments value="spawn unpack -- -f" />
+    <arguments value="particles unpack -- -f" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />
