@@ -2,13 +2,14 @@
 
 ### Description
 
-Commands to work with \*.spawn files. <br/>
+Commands to work with particles.xr files. <br/>
 
 ### Arguments
 
 List of arguments:
 
-- `unpack` - unpack single spawn file as few ltx configuration files
+- `unpack` - unpack single particles.xr file as separate ltx configs
+- `pack` - pack particles configs as single particles.xr file
 
 List of parameters:
 
@@ -18,5 +19,6 @@ List of parameters:
 
 ### Example
 
-- `npm run cli spawn unpack -f`
-- `npm run cli spawn unpack -p ..\..\stalker-xrf-resources-extended\spawns\all.spawn`
+- `npm run cli particles pack`
+- `npm run cli particles unpack -f`
+- `npm run cli particles unpack -p ./src/resources/particles.xr`

@@ -10,13 +10,18 @@ Verifies whether custom engine is active, config is correct and symlinks are act
 
 #### LTX
 
-Verifies LTX configs files: include statements, inheritance of sections, $scheme validity
+Verifies LTX configs files: include statements, inheritance of sections, $scheme validity.
+
+#### Particles
+
+Verifies particles files: packed and unpacked particles.
 
 ### Arguments
 
 List of arguments:
 
 - `ltx` - verify project ltx files
+- `particles` - verify project particles files
 
 - `-s, --strict` - perform `strict` check where all sections should have defined schemes
 - `-v, --verbose` - perform check in verbose logging mode
