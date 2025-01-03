@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="verify:particles" type="js.build_tools.npm" folderName="check">
+  <configuration default="false" name="verify:particles:packed" type="js.build_tools.npm" folderName="particles">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
       <script value="cli" />
     </scripts>
-    <arguments value="verify particles" />
+    <arguments value="verify particles-packed" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

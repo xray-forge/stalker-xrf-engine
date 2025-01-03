@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="check:translations" type="js.build_tools.npm" folderName="translations">
+  <configuration default="false" name="test:project" type="js.build_tools.npm" folderName="check">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="cli" />
+      <script value="test" />
     </scripts>
-    <arguments value="translations check" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

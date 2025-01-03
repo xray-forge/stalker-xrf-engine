@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="check:translations" type="js.build_tools.npm" folderName="translations">
+  <configuration default="false" name="relink:project" type="js.build_tools.npm" folderName="setup">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
       <script value="cli" />
     </scripts>
-    <arguments value="translations check" />
+    <arguments value="relink" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

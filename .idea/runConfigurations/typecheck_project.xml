@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="typecheck" type="js.build_tools.npm" folderName="check">
+  <configuration default="false" name="typecheck:project" type="js.build_tools.npm" folderName="check">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>

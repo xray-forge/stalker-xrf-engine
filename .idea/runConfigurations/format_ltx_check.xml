@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="format:ltx:check" type="js.build_tools.npm" folderName="check">
+  <configuration default="false" name="format:ltx:check" type="js.build_tools.npm" folderName="ltx">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>

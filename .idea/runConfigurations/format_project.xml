@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="link" type="js.build_tools.npm" folderName="setup">
+  <configuration default="false" name="format:project" type="js.build_tools.npm" folderName="check">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="cli" />
+      <script value="format" />
     </scripts>
-    <arguments value="link" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />
