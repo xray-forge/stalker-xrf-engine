@@ -1,0 +1,41 @@
+import * as cp from "child_process";
+import * as path from "path";
+
+import { blue } from "chalk";
+
+import { GAME_DATA_PARTICLES_DIR, RESOURCES_DIR, TARGET_DIR, XRF_UTILS_PATH } from "#/globals";
+import { NodeLogger } from "#/utils/logging";
+import { TimeTracker } from "#/utils/timing";
+
+const log: NodeLogger = new NodeLogger("PACK_PARTICLES");
+
+export interface IPackParticlesParameters {
+  verbose?: boolean;
+  path?: string;
+  dest?: string;
+  force?: boolean;
+}
+
+/**
+ * Pack particles file.
+ */
+export async function packParticles(parameters: IPackParticlesParameters = {}): Promise<void> {
+  NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
+
+  log.info("Unpacking particles file:");
+
+  const timeTracker: TimeTracker = new TimeTracker().start();
+  const from: string = parameters.path ?? GAME_DATA_PARTICLES_DIR;
+  const to: string = parameters.dest ?? path.resolve(RESOURCES_DIR, "particles.xr");
+
+  const command: string = `${XRF_UTILS_PATH} pack-particles -p ${from} -d ${to} ${parameters.force ? "-f" : ""}`;
+
+  log.info("Execute:", blue(command));
+
+  cp.execSync(command, {
+    cwd: TARGET_DIR,
+    stdio: "inherit",
+  });
+
+  log.info("Successfully executed pack particles command, took:", timeTracker.end().getDuration() / 1000, "sec");
+}

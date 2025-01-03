@@ -29,10 +29,7 @@ export async function verifyLtx(parameters: IFormatLtxParameters = {}): Promise<
   }${parameters.verbose ? "-v " : ""}`;
 
   log.info("Execute:", blue(command));
+  cp.execSync(command, { stdio: "inherit" });
 
-  cp.execSync(command, {
-    stdio: "inherit",
-  });
-
-  log.info("Successfully executed format command, took:", timeTracker.end().getDuration() / 1000, "sec");
+  log.info("Successfully executed verify command, took:", timeTracker.end().getDuration() / 1000, "sec");
 }

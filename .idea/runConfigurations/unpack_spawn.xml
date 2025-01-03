@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="unpack:spawn" type="js.build_tools.npm" folderName="pack">
+  <configuration default="false" name="unpack:spawn" type="js.build_tools.npm" folderName="spawn">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>

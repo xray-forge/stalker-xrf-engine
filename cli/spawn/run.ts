@@ -1,14 +1,14 @@
 import { Command, Option } from "commander";
 
-import { unpackSpawn } from "#/spawn/spawn";
+import { unpackSpawn } from "#/spawn/unpack_spawn";
 
 /**
  * Setup spawn commands.
  */
 export function setupSpawnCommands(command: Command): void {
-  const formatCommand: Command = command.command("spawn").description("alife spawn file commands");
+  const spawnCommand: Command = command.command("spawn").description("alife spawn file commands");
 
-  formatCommand
+  spawnCommand
     .command("unpack")
     .description("unpack alife spawn file")
     .addOption(new Option("-p, --path <path>", "Source spawn file path to unpack").default(null))

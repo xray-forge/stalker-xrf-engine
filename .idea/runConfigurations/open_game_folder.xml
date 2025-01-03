@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="open_game_folder" type="js.build_tools.npm" folderName="dev">
+  <configuration default="false" name="open:game-folder" type="js.build_tools.npm" folderName="dev">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
