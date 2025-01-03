@@ -1,6 +1,7 @@
 import { Command, Option } from "commander";
 
 import { verifyLtx } from "#/verify/verify_ltx";
+import { verifyParticles } from "#/verify/verify_particles";
 import { verifyProject } from "#/verify/verify_project";
 
 /**
@@ -17,4 +18,10 @@ export function setupVerifyCommands(command: Command): void {
     .addOption(new Option("-s, --strict", "Run ltx checker in strict mode").default(false))
     .addOption(new Option("-v, --verbose", "Whether verbose logging mode is enabled").default(false))
     .action(verifyLtx);
+
+  verifyCommand
+    .command("particles")
+    .description("verify packed and unpacked particles")
+    .addOption(new Option("-v, --verbose", "Whether verbose logging mode is enabled").default(false))
+    .action(verifyParticles);
 }

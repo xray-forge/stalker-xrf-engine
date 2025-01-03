@@ -1,6 +1,6 @@
 import { Command, Option } from "commander";
 
-import { unpackSpawn } from "#/spawn/spawn";
+import { unpackSpawn } from "#/spawn/unpack_spawn";
 
 /**
  * Setup spawn commands.
