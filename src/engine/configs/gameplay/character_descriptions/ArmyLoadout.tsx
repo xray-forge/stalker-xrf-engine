@@ -160,17 +160,17 @@ export function ArmyLoadout(): JSXNode {
         ]}
         loadouts={[
           [
-            { section: weapons.wpn_groza, scope: true, ammoType: 2 },
-            { section: weapons.wpn_abakan, scope: true, ammoType: 2 },
-            { section: weapons.wpn_val, scope: true, ammoType: 2 },
+            { section: weapons.wpn_groza, scope: 0.2, silencer: 0.2, ammoType: 2 },
+            { section: weapons.wpn_abakan, scope: 0.2, ammoType: 2 },
+            { section: weapons.wpn_val, scope: 0.2, ammoType: 2 },
           ],
           [
             { section: weapons.wpn_fort, ammoType: 2 },
             { section: weapons.wpn_pb, ammoType: 2 },
           ],
           [
-            { section: weapons.grenade_f1, count: 1 },
-            { section: weapons.grenade_rgd5, count: 1 },
+            { section: weapons.grenade_f1, count: 2 },
+            { section: weapons.grenade_rgd5, count: 3 },
           ],
         ]}
       >

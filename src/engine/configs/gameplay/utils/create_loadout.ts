@@ -56,11 +56,11 @@ export interface ILoadoutItemDescriptor {
   ammoType?: number;
   cond?: TRate;
   count?: TCount;
-  launcher?: boolean;
+  launcher?: TRate | boolean;
   level?: TName;
-  scope?: boolean;
+  scope?: TRate | boolean;
   section: TSection;
-  silencer?: boolean;
+  silencer?: TRate | boolean;
 }
 
 /**
@@ -73,17 +73,9 @@ export function createSpawnLoadout(descriptors: Array<ILoadoutItemDescriptor>, l
   return descriptors.reduce((acc, it) => {
     let current: string = `${it.section}=${it.count ?? 1}`;
 
-    if (it.scope) {
-      current += ", scope";
-    }
-
-    if (it.silencer) {
-      current += ", silencer";
-    }
-
-    if (it.launcher) {
-      current += ", launcher";
-    }
+    current += createSpawnLoadoutFlag("scope", it.scope);
+    current += createSpawnLoadoutFlag("silencer", it.silencer);
+    current += createSpawnLoadoutFlag("launcher", it.launcher);
 
     if (it.ammoType) {
       current += `, ammo_type=${it.ammoType}`;
@@ -99,4 +91,26 @@ export function createSpawnLoadout(descriptors: Array<ILoadoutItemDescriptor>, l
 
     return acc + current + ` \\n${lineEnding}`;
   }, "");
+}
+
+/**
+ * todo;
+ *
+ * @param name
+ * @param data
+ */
+export function createSpawnLoadoutFlag(name: TName, data?: TRate | boolean): string {
+  if (data) {
+    if (typeof data === "number") {
+      if (data < 0 || data > 1) {
+        throw new Error(`Invalid range for scope probability value: ${name} as ${data}`);
+      }
+
+      return `, ${name}=${data}`;
+    } else {
+      return `, ${name}`;
+    }
+  }
+
+  return "";
 }
