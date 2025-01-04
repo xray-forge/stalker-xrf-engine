@@ -7,11 +7,11 @@ import { TCount, TName, TRate, TSection } from "@/engine/lib/types";
 export interface ISpawnItemDescriptor {
   cond?: TRate;
   count?: TCount;
-  launcher?: boolean;
+  launcher?: TRate | boolean;
   probability?: TRate;
-  scope?: boolean;
+  scope?: TRate | boolean;
   section: TSection;
-  silencer?: boolean;
+  silencer?: TRate | boolean;
 }
 
 /**
@@ -22,19 +22,11 @@ export interface ISpawnItemDescriptor {
  */
 export function createSpawnList(descriptors: Array<ISpawnItemDescriptor>, lineEnding: string = "\n"): string {
   return descriptors.reduce((acc, it) => {
-    let current: string = `${it.section} = ${it.count ?? 1}`;
+    let current: string = `${it.section}=${it.count ?? 1}`;
 
-    if (it.scope) {
-      current += ", scope";
-    }
-
-    if (it.silencer) {
-      current += ", silencer";
-    }
-
-    if (it.launcher) {
-      current += ", launcher";
-    }
+    current += createSpawnLoadoutFlag("scope", it.scope);
+    current += createSpawnLoadoutFlag("silencer", it.silencer);
+    current += createSpawnLoadoutFlag("launcher", it.launcher);
 
     if (typeof it.probability === "number" && it.probability !== 1) {
       current += `, prob=${it.probability}`;
@@ -103,14 +95,14 @@ export function createSpawnLoadout(descriptors: Array<ILoadoutItemDescriptor>, l
  */
 export function createSpawnLoadoutFlag(name: TName, data?: TRate | boolean): string {
   if (data) {
-    if (typeof data === "number") {
+    if (data === true || data === 1) {
+      return `, ${name}`;
+    } else if (typeof data === "number") {
       if (data < 0 || data > 1) {
-        throw new Error(`Invalid range for scope probability value: ${name} as ${data}`);
+        throw new Error(`Invalid range for scope probability value: '${name}' set to ${data}.`);
       }
 
       return `, ${name}=${data}`;
-    } else {
-      return `, ${name}`;
     }
   }
 
