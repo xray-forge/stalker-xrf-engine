@@ -15,8 +15,16 @@ import { Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
 
-const GENERIC_FILES: Array<string> = ["README.md", "LICENSE", ".git", ".gitignore", ".gitattributes"];
-const UNEXPECTED_DIRECTORIES: Array<string> = ["core", "configs", "forms,", "lib", "scripts"];
+const UNEXPECTED_ENTITIES: Array<string> = ["core", "configs", "forms,", "lib", "scripts"];
+const EXCLUDED_ENTITIES: Array<string> = [
+  "README.md",
+  "LICENSE",
+  ".git",
+  ".gitignore",
+  ".gitattributes",
+  "textures_unpacked",
+  "particles_unpacked",
+];
 
 /**
  * Build mod statics from configured destinations.
@@ -78,10 +86,17 @@ async function validateResources(folderPath: string): Promise<Array<string>> {
 
   function allowFiles(dirent: fs.Dirent): Optional<string> {
     const name: string = dirent.name;
+    const target: string = path.join(folderPath, name);
+
+    if (EXCLUDED_ENTITIES.includes(name)) {
+      log.debug("SKIP EXCLUDED:", name, "=>", target);
+
+      return null;
+    }
 
     if (dirent.isDirectory()) {
       // Do not allow copy of folders that overlap with auto-generated code.
-      if (UNEXPECTED_DIRECTORIES.includes(name)) {
+      if (UNEXPECTED_ENTITIES.includes(name)) {
         throw new Error(`Provided not expected directory for resources copy: '${name}'.`);
       }
 
@@ -89,15 +104,9 @@ async function validateResources(folderPath: string): Promise<Array<string>> {
       if (name.startsWith(".")) {
         return null;
       }
-
-      return path.join(folderPath, name);
     }
 
-    if (!GENERIC_FILES.includes(name)) {
-      return path.join(folderPath, name);
-    }
-
-    return null;
+    return target;
   }
 
   return folders.map(allowFiles).filter(Boolean);
