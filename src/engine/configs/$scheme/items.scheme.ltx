@@ -162,7 +162,7 @@ description = string
 frag_hit_critical = u8
 hit_power_critical = f32[]
 k_hit_critical = u32
-slot = i8
+slot = enum:-1,0,1,2,3,4,5
 sprint_allowed = bool
 use_aim_bullet = bool
 use_first_bullet = bool
@@ -270,7 +270,6 @@ kill_msg_y = ?u32
 magnetic_beam_shot = ?bool ; true by default
 tracer = ?enum:on,off
 tracer_color_ID = ?u8
-tracers = ?enum:on,off
 wallmark_section = ?section
 wm_size = f32
 
