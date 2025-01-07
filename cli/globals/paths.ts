@@ -13,7 +13,7 @@ export const BUILD_LUA_TSCONFIG: string = path.resolve(CLI_DIR, "build/tsconfig.
 export const CLI_CONFIG: string = path.resolve(CLI_DIR, "config.json");
 
 export const RESOURCES_DIR: string = path.resolve(CLI_DIR, config.resources.mod_assets_base_folder);
-export const RESOURCES_PARTICLES_DIR: string = path.resolve(RESOURCES_DIR, "particles");
+export const RESOURCES_PARTICLES_UNPACKED_DIR: string = path.resolve(RESOURCES_DIR, "particles_unpacked");
 
 export const GAME_DATA_LTX_CONFIGS_DIR: string = path.resolve(CLI_DIR, config.build.configs);
 export const GAME_DATA_SCRIPTS_DIR: string = path.resolve(CLI_DIR, config.build.scripts);
