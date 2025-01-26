@@ -1,4 +1,4 @@
-import path from "path";
+import * as path from "path";
 
 import { default as config } from "#/config.json";
 import { CLI_DIR } from "#/globals";
