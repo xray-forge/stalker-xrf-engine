@@ -27,5 +27,4 @@ export const lootableTableExclude = {
   [misc.device_torch]: misc.device_torch,
   [misc.harmonica_a]: misc.harmonica_a,
   [weapons.wpn_binoc]: weapons.wpn_binoc,
-  [weapons.wpn_binocular]: weapons.wpn_binocular,
 } as const;
