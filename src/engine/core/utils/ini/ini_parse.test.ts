@@ -52,7 +52,7 @@ describe("parseStringsSet util", () => {
       example_b: true,
       name_complex_here: true,
     });
-    expect(parseStringsSet("-1, 2, -3")).toEqualLuaTables({ a: true, b: true, c: true });
+    expect(parseStringsSet("-1, 2, -3")).toEqualLuaTables({ "-1": true, "2": true, "-3": true });
     expect(parseStringsSet("-1 2 -3")).toEqualLuaTables({ "-1": true, "2": true, "-3": true });
     expect(parseStringsSet("-1.5 2.255")).toEqualLuaTables({ "-1.5": true, "2.255": true });
     expect(parseStringsSet("a_b, c_d")).toEqualLuaTables({ a_b: true, c_d: true });
