@@ -9,6 +9,7 @@ import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EventsManager } from "@/engine/core/managers/events";
 import { LoadScreenManager } from "@/engine/core/managers/interface";
+import { LoadoutManager } from "@/engine/core/managers/loadout";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { MusicManager } from "@/engine/core/managers/music";
 import { NotificationManager } from "@/engine/core/managers/notifications";
@@ -38,7 +39,7 @@ describe("managers_registrator entry point", () => {
   it("registerSchemeModules should correctly re-register required managers", () => {
     registerManagers();
 
-    expect((registry.managers as AnyObject).size).toBe(26);
+    expect((registry.managers as AnyObject).size).toBe(27);
 
     [
       ActorInputManager,
@@ -46,13 +47,12 @@ describe("managers_registrator entry point", () => {
       DatabaseManager,
       DebugManager,
       DialogManager,
-      MusicManager,
       EventsManager,
       GameSettingsManager,
-      SoundManager,
-      UpgradesManager,
       LoadScreenManager,
+      LoadoutManager,
       MapDisplayManager,
+      MusicManager,
       NotificationManager,
       PdaManager,
       PhantomManager,
@@ -61,11 +61,13 @@ describe("managers_registrator entry point", () => {
       SaveManager,
       SimulationManager,
       SleepManager,
+      SoundManager,
       StatisticsManager,
       TaskManager,
       TradeManager,
       TravelManager,
       TreasureManager,
+      UpgradesManager,
       WeatherManager,
     ].forEach((it) => expect(registry.managers.has(it)).toBe(true));
   });

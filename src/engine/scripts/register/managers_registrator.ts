@@ -8,6 +8,7 @@ import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
 import { DialogManager } from "@/engine/core/managers/dialogs";
 import { EventsManager } from "@/engine/core/managers/events";
 import { LoadScreenManager } from "@/engine/core/managers/interface";
+import { LoadoutManager } from "@/engine/core/managers/loadout";
 import { MapDisplayManager } from "@/engine/core/managers/map";
 import { MusicManager } from "@/engine/core/managers/music";
 import { NotificationManager } from "@/engine/core/managers/notifications";
@@ -39,13 +40,12 @@ export function registerManagers(): void {
     DatabaseManager,
     DebugManager,
     DialogManager,
-    MusicManager,
     EventsManager,
     GameSettingsManager,
-    SoundManager,
-    UpgradesManager,
     LoadScreenManager,
+    LoadoutManager,
     MapDisplayManager,
+    MusicManager,
     NotificationManager,
     PdaManager,
     PhantomManager,
@@ -54,11 +54,13 @@ export function registerManagers(): void {
     SaveManager,
     SimulationManager,
     SleepManager,
+    SoundManager,
     StatisticsManager,
     TaskManager,
     TradeManager,
     TravelManager,
     TreasureManager,
+    UpgradesManager,
     WeatherManager,
   ];
 

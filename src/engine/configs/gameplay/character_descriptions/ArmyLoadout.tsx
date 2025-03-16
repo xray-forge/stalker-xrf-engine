@@ -9,7 +9,6 @@ import {
   loadoutCharacterItemsWithoutDetector,
   loadoutF1Grenades,
   loadoutFort,
-  loadoutGroza,
   loadoutPm,
   loadoutRgd5Grenades,
   loadoutSvd,
@@ -41,10 +40,11 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
-        loadout={[
-          { section: weapons.wpn_ak74u, ammoType: 1 },
-          { section: weapons.wpn_ak74, ammoType: 1 },
-          { section: weapons.wpn_ak74, ammoType: 2 },
+        loadouts={[
+          [
+            { section: weapons.wpn_ak74u, ammoType: 1 },
+            { section: weapons.wpn_ak74, ammoType: 1 },
+          ],
         ]}
       >
         <CharacterProfileCriticals />
@@ -66,11 +66,11 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
-        loadout={[
-          { section: weapons.wpn_ak74u, ammoType: 2 },
-          { section: weapons.wpn_ak74, ammoType: 1 },
-          { section: weapons.wpn_ak74, ammoType: 2 },
-          { section: weapons.wpn_ak74, scope: true, ammoType: 2 },
+        loadouts={[
+          [
+            { section: weapons.wpn_ak74u, ammoType: 2 },
+            { section: weapons.wpn_ak74, ammoType: 2 },
+          ],
         ]}
       >
         <CharacterProfileCriticals />
@@ -92,10 +92,11 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
-        loadout={[
-          { section: weapons.wpn_abakan, ammoType: 1 },
-          { section: weapons.wpn_abakan, ammoType: 2 },
-          { section: weapons.wpn_ak74, ammoType: 1 },
+        loadouts={[
+          [
+            { section: weapons.wpn_abakan, ammoType: 1 },
+            { section: weapons.wpn_ak74, ammoType: 1 },
+          ],
         ]}
       >
         <CharacterProfileCriticals />
@@ -117,11 +118,7 @@ export function ArmyLoadout(): JSXNode {
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
-        loadout={[
-          { section: weapons.wpn_abakan, ammoType: 1 },
-          { section: weapons.wpn_abakan, ammoType: 2 },
-          { section: weapons.wpn_abakan, scope: true, ammoType: 2 },
-        ]}
+        loadouts={[[{ section: weapons.wpn_abakan, ammoType: 2 }]]}
       >
         <CharacterProfileCriticals />
         <DefaultCharacterDialogs />
@@ -157,20 +154,24 @@ export function ArmyLoadout(): JSXNode {
         soundConfig={"characters_voice\\human_03\\military\\"}
         rank={60}
         supplies={[
-          ...loadoutGroza({ ap: true }),
-          ...loadoutFort(),
-          ...loadoutF1Grenades(4),
           ...loadoutCharacterItemsWithoutDetector(),
           ...loadoutCharacterDrugsBase(),
           ...loadoutCharacterFood(),
         ]}
-        loadout={[
-          { section: weapons.wpn_groza, ammoType: 2 },
-          { section: weapons.wpn_groza, scope: true, ammoType: 2 },
-          { section: weapons.wpn_abakan, ammoType: 2 },
-          { section: weapons.wpn_abakan, scope: true, ammoType: 2 },
-          { section: weapons.wpn_val, ammoType: 2 },
-          { section: weapons.wpn_val, scope: true, ammoType: 2 },
+        loadouts={[
+          [
+            { section: weapons.wpn_groza, scope: 0.25, silencer: 0.2, ammoType: 2 },
+            { section: weapons.wpn_abakan, scope: 0.25, ammoType: 2 },
+            { section: weapons.wpn_val, scope: 0.25, ammoType: 2 },
+          ],
+          [
+            { section: weapons.wpn_fort, ammoType: 2 },
+            { section: weapons.wpn_pb, ammoType: 2 },
+          ],
+          [
+            { section: weapons.grenade_f1, count: 2 },
+            { section: weapons.grenade_rgd5, count: 3 },
+          ],
         ]}
       >
         <CharacterProfileCriticals />

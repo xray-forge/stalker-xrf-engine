@@ -5,6 +5,7 @@ import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { LoadoutManager } from "@/engine/core/managers/loadout";
 import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
@@ -172,6 +173,10 @@ describe("game external callbacks", () => {
   });
 
   it("ai_stalker callbacks should be defined", () => {
+    const manager: LoadoutManager = getManager(LoadoutManager);
+
+    jest.spyOn(manager, "onGenerateServerObjectLoadout").mockImplementation(jest.fn(() => false));
+
     const object: GameObject = MockGameObject.mock();
     const weapon: GameObject = MockGameObject.mock();
 
@@ -179,5 +184,10 @@ describe("game external callbacks", () => {
 
     expect(selectBestStalkerWeapon).toHaveBeenCalledTimes(1);
     expect(selectBestStalkerWeapon).toHaveBeenCalledWith(object, weapon);
+
+    callNestedBinding("ai_stalker", "CSE_ALifeObject_spawn_supplies", [object, object.id(), "test"]);
+
+    expect(manager.onGenerateServerObjectLoadout).toHaveBeenCalledTimes(1);
+    expect(manager.onGenerateServerObjectLoadout).toHaveBeenCalledWith(object, object.id(), "test");
   });
 });
