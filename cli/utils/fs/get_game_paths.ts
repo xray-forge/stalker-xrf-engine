@@ -23,6 +23,10 @@ type TGamePaths = typeof GAME_PATHS;
  */
 export async function getGamePaths(): Promise<TGamePaths> {
   const { path: gamePath } = await getAppPath(config.targets.stalker_game_steam_id).catch(() => {
+    // Cases:
+    // - Steam not found
+    // - Game is not installed
+    // - Game was installed, but windows registry was not updated (or no OS reset after install)
     return { path: config.targets.stalker_game_fallback_path };
   });
 

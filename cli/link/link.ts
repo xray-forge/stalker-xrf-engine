@@ -3,6 +3,7 @@ import * as fsp from "fs/promises";
 import { blue, red, yellow, yellowBright } from "chalk";
 
 import {
+  CLI_CONFIG,
   PLUS_SIGN,
   SKIP_SIGN,
   TARGET_GAME_DATA_DIR,
@@ -36,6 +37,7 @@ export async function linkFolders(parameters: ILinkCommandParameters): Promise<v
     await linkLogsFolders(parameters);
   } catch (error) {
     log.error("Links creation failed:", red(error.message));
+    log.error("Verify steam game installation path or provide fallback in:", CLI_CONFIG);
   }
 }
 
