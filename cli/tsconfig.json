@@ -6,6 +6,7 @@
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
+    "isolatedModules": true,
     "rootDir": "../",
     "baseUrl": "./",
     "jsx": "react",

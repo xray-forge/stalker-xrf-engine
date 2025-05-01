@@ -92,6 +92,18 @@ export class MockCGameTask implements GameTask {
   });
 
   public set_type = jest.fn((type: number): void => {});
+
+  public get_map_location = jest.fn((): string => {
+    throw new Error("Method not implemented.");
+  });
+
+  public get_map_object_id = jest.fn((): number => {
+    throw new Error("Method not implemented.");
+  });
+
+  public create_map_location = jest.fn((): string => {
+    throw new Error("Method not implemented.");
+  });
 }
 
 /**

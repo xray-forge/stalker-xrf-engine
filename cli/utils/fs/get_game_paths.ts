@@ -38,7 +38,7 @@ export async function getGamePaths(): Promise<TGamePaths> {
     const normalPath: string = path.normalize(location);
     const isAbsolute: boolean = path.isAbsolute(normalPath);
 
-    paths[name] = isAbsolute ? normalPath : path.join(gamePath, normalPath);
+    paths[name as keyof TGamePaths] = isAbsolute ? normalPath : path.join(gamePath, normalPath);
 
     return paths;
   }, {} as TGamePaths);
