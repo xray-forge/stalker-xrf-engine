@@ -57,10 +57,10 @@ ph_crash_speed_max = 300
 ph_collision_damage_factor = 0.1
 ph_mass = 90 ; 170.
 destroyed_vis_name = dynamics\Dead_Body\skelet_crash
-ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (������� ��-�� ����, ��� ������ ���������� ����������� 0.002 �� ����)
-ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 0.3 �� ���� (0.0*0.3=0.0))
-ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 5.0 �� ����)
-ph_skeleton_ddelay = 15.0 ; ����� ��������� �������� ������ � ������� � ������� �������� �����, ���
+ph_skeleton_airr_lin_factor = 2.0
+ph_skeleton_airr_ang_factor = 0.0
+ph_skeleton_hinger_factor1 = 1.0
+ph_skeleton_ddelay = 15.0
 ph_skel_fatal_impulse_factor = 6.0
 ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor = 0.25
@@ -83,11 +83,11 @@ MinAttackDist = 1.5 ; 0.5
 MaxAttackDist = 2.9 ; 3.8
 as_min_dist = 0.8
 as_step = 0.5
-DayTime_Begin = 0 ; ������ ��� ��� �������
-DayTime_End = 21 ; ����� ��� ��� �������
-Min_Satiety = 0.6 ; ���. ����� ������� (������ - ��� ��������)
-Max_Satiety = 0.9 ; ����. ����� ������� (������ - ����� �����)
-distance_to_corpse = 1.2 ; ����. �� �����, ��� ������� �� ��������� � ��������� ���
+DayTime_Begin = 0
+DayTime_End = 21
+Min_Satiety = 0.6
+Max_Satiety = 0.9
+distance_to_corpse = 1.2
 ; fSearchRange,fOptEnemyDistance,fOptEnemyDistanceWeight,fMinEnemyDistance,fMinEnemyDistanceWeight,fMaxEnemyDistance,fMaxEnemyDistanceWeight
 selector_free_hunting = 20.0, 20.0, 1000.0, 0.0, 10000.0, 1000.0, 10000.0,
 ; fSearchRange,fCoverFromEnemyWeight,fOptEnemyDistance,fOptEnemyDistanceWeight,fMinEnemyDistance,fMinEnemyDistanceWeight,fMaxEnemyDistance,fMaxEnemyDistanceWeight
@@ -99,29 +99,28 @@ selector_approach = 20.0, 1.0, 1000.0, 0.0, 0.0, 1000.0, 10000.0,
 selector_walk_around = 20.0, 6.0, 1000.0, 4.0, 5000.0, 8.0, 5000.0,
 terrain = controller_terrain
 hit_type = wound
-satiety_v = 0.0005 ; 0.01 ; �������� ���������� ������� �� ��������
-radiation_v = 0.00001 ; 0.004 ; �������� ���������� ��������
-satiety_power_v = 0.001 ; 0.01 ; ���������� ���� ��� ���������� �������
-satiety_health_v = 0.001 ; 0.03 ; ���������� �������� ��� ���������� �������
-satiety_critical = -1.0 ; 0.25 ; ����������� �������� ������� (� ��������� �� 0..1) ����� �������� ��������� �����������
-radiation_health_v = 0.01 ; 0.006 ; ���������� �������� ��� ����������� ��������
-morale_v = 0.1 ; �������� �������������� ������
-health_hit_part = 0.25 ; 0.1 ; 0.8 ; ������� ����, �������� �� ��������� ��������
-power_hit_part = 0.1 ; 0.9 ; ������� ����, �������� �� ��������� ����
-psy_health_v = 0.1 ; �������� �������������� psy-��������
+satiety_v = 0.0005 ; 0.01
+radiation_v = 0.00001 ; 0.004
+satiety_power_v = 0.001 ; 0.01
+satiety_health_v = 0.001 ; 0.03
+satiety_critical = -1.0 ; 0.25
+radiation_health_v = 0.01 ; 0.006
+morale_v = 0.1
+health_hit_part = 0.25 ; 0.1 ; 0.8
+power_hit_part = 0.1 ; 0.9
+psy_health_v = 0.1
 immunities_sect = controller_immunities
-; �������� ����
-bleeding_v = 0.04 ; ������ ����� ��� ����������� ���� � �������
-wound_incarnation_v = 0.05 ; �������� ������ ���������� (����� ������� ���� ��������� ����� ���������� � ������� �������)
+bleeding_v = 0.04
+wound_incarnation_v = 0.05
 min_wound_size = 0.01
-sleep_health = 1.0 ; 1.5 ; ������������ ��������� ��������� ���������� �� ����� ���
+sleep_health = 1.0 ; 1.5
 sleep_power = 1.0 ; 1.5
 sleep_satiety = 1.0 ; 0.8
 sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
-eat_freq = 5.0 ; ������� ������ � ���
-eat_slice = 0.04 ; ���������� ������� ��� 1 �����
-eat_slice_weight = 10.0 ; ���������� ��� � �����
+eat_freq = 5.0
+eat_slice = 0.04
+eat_slice_weight = 10.0
 satiety_threshold = 0.5 ; below this value monster fill hunger
 ; Morale
 Morale_Hit_Quant = 0.05
@@ -183,7 +182,6 @@ Max_Controlled_Count = 10 ; 4
 control_effector = controller_control_effector
 Friend_Community_Overrides = monolith
 ; Anti-aim Ability
-; -------------------------------------------------------------------------
 ; anti_aim_timeout = 4 ; sec
 ; anti_aim_effectors = effector_monster_hit_1, effector_monster_hit_2, effector_monster_hit_3, effector_monster_hit_4
 ; anti_aim_animation = stand_attack_
@@ -201,8 +199,6 @@ eye_fov = 110 ; 150
 eye_range = 60 ; 100
 vision_free_section = controller_vision_free
 vision_danger_section = controller_vision_danger
-; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
-; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
 [m_controller_normal]:m_controller_e
 $spawn = "monsters\old\controller_normal"
@@ -224,26 +220,26 @@ community = controller
 
 [controller_vision_free]
 $scheme = $monster_vision
-min_view_distance = 0.5 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-max_view_distance = 1.0 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-visibility_threshold = 100.0 ; ��������, ��� ���������� ������ �������� ������ ��������� �������
+min_view_distance = 0.5
+max_view_distance = 1.0
+visibility_threshold = 100.0
 always_visible_distance = 0.3
 time_quant = 0.001
-decrease_value = 0.01 ; ��������, �� ������� ����������� ���, ���� ������ ����� � �������, �� ������ �� �����-�� ��������
+decrease_value = 0.01
 velocity_factor = 0.5
-luminocity_factor = 0.5 ; ������ ��������� (������ ��� �����)
+luminocity_factor = 0.5
 transparency_threshold = 0.25
 
 [controller_vision_danger]
 $scheme = $monster_vision
-min_view_distance = 0.5 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-max_view_distance = 1.0 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-visibility_threshold = 100.0 ; ��������, ��� ���������� ������ �������� ������ ��������� �������
+min_view_distance = 0.5
+max_view_distance = 1.0
+visibility_threshold = 100.0
 always_visible_distance = 0.3
 time_quant = 0.001
-decrease_value = 0.01 ; ��������, �� ������� ����������� ���, ���� ������ ����� � �������, �� ������ �� �����-�� ��������
+decrease_value = 0.01
 velocity_factor = 0.5
-luminocity_factor = 0.5 ; ������ ��������� (������ ��� �����)
+luminocity_factor = 0.5
 transparency_threshold = 0.25
 
 [controller_protections]
@@ -260,7 +256,7 @@ stand_run_dmg_0 = 1, 0.01, 1, 0.25, 0.6,
 
 [controller_immunities]
 $scheme = $immunities
-burn_immunity = 1.0 ; ������������ ����������
+burn_immunity = 1.0
 strike_immunity = 0.9
 shock_immunity = 1.0
 wound_immunity = 0.2
@@ -349,9 +345,9 @@ stand_attack_1 = 0.25, 0.55, 60, 0.0, 1.0, 0.0, -1.6, 1.6, -1.6, 1.6, 3.5
 
 [controller_terrain]
 255,000,255,255
-010,001,255,255 ; ��������� ������ �� ������� ������ �� ������
-014,001,255,255 ; ��������� ������ �� ������� ������ �� ������
-016,001,255,255 ; ��������� ������ �� ������� ������ �� �������
+010,001,255,255
+014,001,255,255
+016,001,255,255
 
 [m_controller_damage]
 ; bone_name = <hit_scale>,-1,<wound_scale>

@@ -1,22 +1,22 @@
 [volume]
 $scheme = $fog_volume
 EmittersNum = 2
-ConfinementScale = 0.15 ; ��������������. 0 - ����� �������
-Decay = 0.990 ; ��������� ����. 1 - ��� �� ��������
-GravityBuoyancy = -0.005 ; ��� �������������/������������� ����
+ConfinementScale = 0.15
+Decay = 0.990
+GravityBuoyancy = -0.005
 Hemi = -1.5
 
 [emitter01]
 $scheme = $fog
-Type = SimpleGaussian ; ������ �����������
-Position = 61.0, 66.0, 35.0 ; � ��������� �����������
-Radius = 0.33 ; ������ ���������. ��� ������ �����, ��� ������ ��������
-Sigma = 1 ; ������ �����������
-FlowSpeed = 0.2 ; �������� ������
-FlowDirection = -0.5, -1.0, 0.0 ; ����������� ������ � ��������� �����������
-Density = 1.0 ; ��������� ����
-ApplyDensity = 1 ; �������� ���������� ��������
-ApplyImpulse = 1 ; �������� ��������� ��������
+Type = SimpleGaussian
+Position = 61.0, 66.0, 35.0
+Radius = 0.33
+Sigma = 1
+FlowSpeed = 0.2
+FlowDirection = -0.5, -1.0, 0.0
+Density = 1.0
+ApplyDensity = 1
+ApplyImpulse = 1
 
 [emitter00]
 $scheme = $fog
@@ -28,8 +28,8 @@ Sigma = 1
 FlowSpeed = 0.5
 FlowDirection = 0.0, 0.0, 0.5
 Density = 1.0
-DraughtPeriod = 10.0 ; ������ ��������� �������� � ��������
-DraughtPhase = 0.0 ; ���� ��������� �������� [0..1]
+DraughtPeriod = 10.0
+DraughtPhase = 0.0
 $scheme = $fog
 DraughtAmp = 0.5 ; a�������� ��������� [FlowSpeed*(1-DraughtAmp)..FlowSpeed*(1+DraughtAmp)]
 $scheme = $fog

@@ -1,5 +1,3 @@
-; �������� �������
-
 [pri_a17_task_find_gauss_rifle]
 icon = ui_inGame2_Neizvestnoe_oruzhie
 on_init = %=send_tip(st_resupply_ready:can_resupply) +pri_a22_actor_needs_ammo_supply -pri_a22_actor_needs_ammo_supply_one_done +pri_a22_actor_needs_grenade_supply +pri_a25_actor_needs_medikit_supply +pri_a25_actor_needs_medikit_basic_supply +pri_a25_free_repair%
@@ -113,7 +111,6 @@ title = {-lx8_doc_1 -lx8_doc_2 -lx8_doc_3 -lx8_doc_4 -lx8_doc_5 -lx8_doc_6} pri_
 descr = {-lx8_doc_1 -lx8_doc_2 -lx8_doc_3 -lx8_doc_4 -lx8_doc_5 -lx8_doc_6} pri_a19_lab_x8_investigation_text, {-lx8_doc_2 -lx8_doc_3 -lx8_doc_4 -lx8_doc_5 -lx8_doc_6} pri_a19_lab_x8_investigation_1_text, {-lx8_doc_3 -lx8_doc_4 -lx8_doc_5 -lx8_doc_6} pri_a19_lab_x8_investigation_2_text, {-lx8_doc_4 -lx8_doc_5 -lx8_doc_6} pri_a19_lab_x8_investigation_1_text, {-lx8_doc_5 -lx8_doc_6} pri_a19_lab_x8_investigation_2_text, {-lx8_doc_6} pri_a19_lab_x8_investigation_1_text, pri_a19_lab_x8_investigation_3_text
 target = {!actor_on_level(labx8)} pri_b306_sr_control, {=actor_on_level(labx8) -lx8_doc_1} nil, {=actor_on_level(labx8)} lx8_lift_button ; {-lx8_doc_1 -lx8_doc_2 -lx8_doc_3 -lx8_doc_4 -lx8_doc_5} pri_a19_lab_x8_investigation_map, {-lx8_doc_2 -lx8_doc_3 -lx8_doc_4 -lx8_doc_5} pri_a19_lab_x8_investigation_map, {-lx8_doc_3 -lx8_doc_4 -lx8_doc_5} pri_a19_lab_x8_investigation_map, {-lx8_doc_4 -lx8_doc_5} pri_a19_lab_x8_investigation_map, {-lx8_doc_5} pri_a19_lab_x8_investigation_map, pri_a19_lab_x8_investigation_map
 condlist_0 = {!actor_on_level(labx8) +lx8_doc_1} complete
-; �������������� �������
 
 [pri_b35_task]
 icon = ui_inGame2_Odin_vistrel

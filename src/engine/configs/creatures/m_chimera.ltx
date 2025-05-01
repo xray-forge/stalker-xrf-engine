@@ -60,7 +60,7 @@ destroyed_vis_name = dynamics\Dead_Body\skelet_crash_monster
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (������� ��-�� ����, ��� ������ ���������� ����������� 0.002 �� ����)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 0.3 �� ���� (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 5.0 �� ����)
-ph_skeleton_ddelay = 15.0 ; ����� ��������� �������� ������ � ������� � ������� �������� �����, ���
+ph_skeleton_ddelay = 15.0
 ph_skel_fatal_impulse_factor = 12.0
 ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor = 0.25
@@ -104,32 +104,31 @@ jump_max_angle = 3.14
 jump_max_height = 3.5
 jump_auto_aim_factor = 0.5
 ; Entity Conditions
-satiety_v = 0.0001 ; 0.01 ; �������� ���������� ������� �� ��������
-radiation_v = 0.00001 ; 0.004 ; �������� ���������� ��������
-satiety_power_v = 0.0001 ; 0.01 ; ���������� ���� ��� ���������� �������
-satiety_health_v = 0.0001 ; 0.03 ; ���������� �������� ��� ���������� �������
-satiety_critical = -1.0 ; 0.25 ; ����������� �������� ������� (� ��������� �� 0..1) ����� �������� ��������� �����������
-radiation_health_v = 0.01 ; 0.006 ; ���������� �������� ��� ����������� ��������
-morale_v = 0.01 ; �������� �������������� ������
-health_hit_part = 1.0 ; 0.8 ; ������� ����, �������� �� ��������� ��������
-power_hit_part = 1.0 ; 0.9 ; ������� ����, �������� �� ��������� ����
-psy_health_v = 0.1 ; �������� �������������� psy-��������
+satiety_v = 0.0001 ; 0.01
+radiation_v = 0.00001 ; 0.004
+satiety_power_v = 0.0001 ; 0.01
+satiety_health_v = 0.0001 ; 0.03
+satiety_critical = -1.0 ; 0.25
+radiation_health_v = 0.01 ; 0.006
+morale_v = 0.01
+health_hit_part = 1.0 ; 0.8
+power_hit_part = 1.0 ; 0.9
+psy_health_v = 0.1
 protections_sect = chimera_protections
 immunities_sect = chimera_immunities
-; �������� ����
-bleeding_v = 0.04 ; ������ ����� ��� ����������� ���� � �������
-wound_incarnation_v = 0.05 ; �������� ������ ���������� (����� ������� ���� ��������� ����� ���������� � ������� �������)
+bleeding_v = 0.04
+wound_incarnation_v = 0.05
 min_wound_size = 0.01
 ; Health from which to play injured animation
 DamagedThreshold = 0.2
-sleep_health = 1.0 ; 1.5 ; ������������ ��������� ��������� ���������� �� ����� ���
+sleep_health = 1.0 ; 1.5
 sleep_power = 1.0 ; 1.5
 sleep_satiety = 1.0 ; 0.8
 sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
-eat_freq = 5.0 ; ������� ������ � ���
-eat_slice = 0.001 ; ���������� ������� ��� 1 �����
-eat_slice_weight = 10.0 ; ���������� ��� � �����
+eat_freq = 5.0
+eat_slice = 0.001
+eat_slice_weight = 10.0
 satiety_threshold = 0.5 ; below this value monster fill hunger
 Morale_Hit_Quant = 0.2
 Morale_Attack_Success_Quant = 0.1
@@ -181,17 +180,15 @@ step_params = m_chimera_step_params
 LegsCount = 4
 ; species of monster
 species = chimera
-DayTime_Begin = 0 ; ������ ��� ��� �������
-DayTime_End = 21 ; ����� ��� ��� �������
-Min_Satiety = 0.6 ; ���. ����� ������� (������ - ��� ��������)
-Max_Satiety = 0.9 ; ����. ����� ������� (������ - ����� �����)
-distance_to_corpse = 1.2 ; ����. �� �����, ��� ������� �� ��������� � ��������� ���
+DayTime_Begin = 0
+DayTime_End = 21
+Min_Satiety = 0.6
+Max_Satiety = 0.9
+distance_to_corpse = 1.2
 eye_fov = 110 ; 140
 eye_range = 100 ; 50
 vision_free_section = chimera_vision_free
 vision_danger_section = chimera_vision_danger
-; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
-; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
 [chimera_normal]:m_chimera_e
 corpse_visual = monsters\chimera\chimera_dead
@@ -203,26 +200,26 @@ spec_rank = normal
 
 [chimera_vision_free]
 $scheme = $monster_vision
-min_view_distance = 0.8 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-max_view_distance = 1.0 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-visibility_threshold = 100.0 ; ��������, ��� ���������� ������ �������� ������ ��������� �������
+min_view_distance = 0.8
+max_view_distance = 1.0
+visibility_threshold = 100.0
 always_visible_distance = 0.3
 time_quant = 0.001
-decrease_value = 0.01 ; ��������, �� ������� ����������� ���, ���� ������ ����� � �������, �� ������ �� �����-�� ��������
+decrease_value = 0.01
 velocity_factor = 0.5
-luminocity_factor = 0.1 ; ������ ��������� (������ ��� �����)
+luminocity_factor = 0.1
 transparency_threshold = 0.25
 
 [chimera_vision_danger]
 $scheme = $monster_vision
-min_view_distance = 0.8 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-max_view_distance = 1.0 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-visibility_threshold = 100.0 ; ��������, ��� ���������� ������ �������� ������ ��������� �������
+min_view_distance = 0.8
+max_view_distance = 1.0
+visibility_threshold = 100.0
 always_visible_distance = 0.3
 time_quant = 0.001
-decrease_value = 0.01 ; ��������, �� ������� ����������� ���, ���� ������ ����� � �������, �� ������ �� �����-�� ��������
+decrease_value = 0.01
 velocity_factor = 0.5
-luminocity_factor = 0.1 ; ������ ��������� (������ ��� �����)
+luminocity_factor = 0.1
 transparency_threshold = 0.25
 
 [chimera_protections]
@@ -263,7 +260,7 @@ stand_run_fwd_0 = 1, 0.01, 1, 0.25, 0.6,
 
 [chimera_immunities]
 $scheme = $immunities
-burn_immunity = 0.1 ; ������������ ����������
+burn_immunity = 0.1
 strike_immunity = 0.0
 shock_immunity = 0.1
 wound_immunity = 0.3

@@ -47,15 +47,13 @@ destroyed_vis_name = dynamics\Dead_Body\skelet_crash_monster
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (������� ��-�� ����, ��� ������ ���������� ����������� 0.002 �� ����)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 0.3 �� ���� (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 5.0 �� ����)
-ph_skeleton_ddelay = 15.0 ; ����� ��������� �������� ������ � ������� � ������� �������� �����, ���
+ph_skeleton_ddelay = 15.0
 ph_skel_fatal_impulse_factor = 12.0
 ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor = 0.25
-; ---------------------------------------------------------------------
 ; Squad seperation behaviour (�������������)
-; ---------------------------------------------------------------------
-separate_factor = 0.8 ; ���� �������������
-separate_range = 3 ; ������ � ������� ������������� ���������
+separate_factor = 0.8
+separate_range = 3
 ; speed factors linear | angular_real | angular_path | min | max
 Velocity_Stand = 0, 3.4, 3.0, 1, 1
 Velocity_RunFwdNormal = 5.5, 3.0, 2.8, 0.4, 1
@@ -96,33 +94,32 @@ aom_prepare_time = 4
 aom_attack_radius = 1
 aom_update_side_period = 3
 aom_prediction_factor = 1.2
-satiety_v = 0.0005 ; 0.01 ; �������� ���������� ������� �� ��������
-radiation_v = 0.00001 ; 0.004 ; �������� ���������� ��������
-satiety_power_v = 0.00001 ; 0.005 ; 0.01 ; ���������� ���� ��� ���������� �������
-satiety_health_v = 0.001 ; 0.03 ; ���������� �������� ��� ���������� �������
-satiety_critical = -1.0 ; 0.25 ; ����������� �������� ������� (� ��������� �� 0..1) ����� �������� ��������� �����������
-radiation_health_v = 0.00 ; 0.006 ; ���������� �������� ��� ����������� ��������
-morale_v = 0.01 ; �������� �������������� ������
-health_hit_part = 1.0 ; 0.8 ; ������� ����, �������� �� ��������� ��������
-power_hit_part = 1.0 ; 0.9 ; ������� ����, �������� �� ��������� ����
-psy_health_v = 0.1 ; �������� �������������� psy-��������
+satiety_v = 0.0005 ; 0.01
+radiation_v = 0.00001 ; 0.004
+satiety_power_v = 0.00001 ; 0.005 ; 0.01
+satiety_health_v = 0.001 ; 0.03
+satiety_critical = -1.0 ; 0.25
+radiation_health_v = 0.00 ; 0.006
+morale_v = 0.01
+health_hit_part = 1.0 ; 0.8
+power_hit_part = 1.0 ; 0.9
+psy_health_v = 0.1
 ; Immunities
 immunities_sect = boar_immunities
 protections_sect = boar_protections
-; �������� ����
-bleeding_v = 0.05 ; ������ ����� ��� ����������� ���� � �������
-wound_incarnation_v = 0.04 ; �������� ������ ���������� (����� ������� ���� ��������� ����� ���������� � ������� �������)
+bleeding_v = 0.05
+wound_incarnation_v = 0.04
 min_wound_size = 0.01
 ; Sleep Settings
-sleep_health = 1.0 ; 1.5 ; �����������v ��������� ��������� ��������� �� ���� ���
+sleep_health = 1.0 ; 1.5
 sleep_power = 1.0 ; 1.5
 sleep_satiety = 1.0 ; 0.8
 sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
 ; Eat settings
-eat_freq = 5.0 ; ����� ������ � ���
-eat_slice = 0.01 ; ���������� �v����� ��� 1 �����
-eat_slice_weight = 10.0 ; ���������� ��v � �����
+eat_freq = 5.0
+eat_slice = 0.01
+eat_slice_weight = 10.0
 satiety_threshold = 0.5 ; below this value monster fill hunger
 sound_idle = monsters\boar\boar_idle_ ; idle_
 sound_eat = monsters\boar\boar_eat_ ; eat_
@@ -178,9 +175,9 @@ weapon_usage = 0 ; boolean
 actor_restrictor = medium_monster ; medium_monster,stalker,none
 step_params = m_boar_step_params
 LegsCount = 4
-DayTime_Begin = 0 ; ����� ��� ��� �������
-DayTime_End = 21 ; ����� ��� ��� �������
-distance_to_corpse = 2.1 ; ����. �� �����, ��� ������� �� ��������� � ��������� ��v
+DayTime_Begin = 0
+DayTime_End = 21
+distance_to_corpse = 2.1
 terrain = boar_terrain
 material = creatures\hoof
 DynamicObjectsCount = 32
@@ -190,8 +187,6 @@ eye_fov = 110 ; 130
 eye_range = 40 ; 60
 vision_free_section = boar_vision_free
 vision_danger_section = boar_vision_danger
-; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
-; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
 [boar_normal]:m_boar_e
 $spawn = "monsters\boars\boar_02_normal"
@@ -218,26 +213,26 @@ community = boar
 
 [boar_vision_free]
 $scheme = $monster_vision
-min_view_distance = 0.51 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-max_view_distance = 1.01 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-visibility_threshold = 100.01 ; ��������, ��� ���������� ������ �������� ������ ��������� �������
+min_view_distance = 0.51
+max_view_distance = 1.01
+visibility_threshold = 100.01
 always_visible_distance = 0.31
 time_quant = 0.0011
-decrease_value = 0.011 ; ��������, �� ������� ����������� ���, ���� ������ ����� � �������, �� ������ �� �����-�� ��������
+decrease_value = 0.011
 velocity_factor = 0.51
-luminocity_factor = 0.51 ; ������ ��������� (������ ��� �����)
+luminocity_factor = 0.51
 transparency_threshold = 0.251
 
 [boar_vision_danger]
 $scheme = $monster_vision
-min_view_distance = 0.5 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-max_view_distance = 1.0 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-visibility_threshold = 100.0 ; ��������, ��� ���������� ������ �������� ������ ��������� �������
+min_view_distance = 0.5
+max_view_distance = 1.0
+visibility_threshold = 100.0
 always_visible_distance = 0.3
 time_quant = 0.001
-decrease_value = 0.01 ; ��������, �� ������� ����������� ���, ���� ������ ����� � �������, �� ������ �� �����-�� ��������
+decrease_value = 0.01
 velocity_factor = 0.5
-luminocity_factor = 0.5 ; ������ ��������� (������ ��� �����)
+luminocity_factor = 0.5
 transparency_threshold = 0.25
 
 [m_boar_attack_params]
@@ -358,7 +353,7 @@ stand_drag_0 = 1, 0.2, 1, 0.25, 0.7, 0.7, 1.0, 0.7, 1.0
 
 [boar_immunities]
 $scheme = $immunities
-burn_immunity = 1.0 ; ������������ ����������
+burn_immunity = 1.0
 strike_immunity = 0.8
 shock_immunity = 0.8
 wound_immunity = 0.5

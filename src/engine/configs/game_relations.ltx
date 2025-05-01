@@ -13,11 +13,11 @@ goodwill_neutal = 0
 goodwill_friend = 1000
 communities = actor, 0, bandit, 1, dolg, 2, ecolog, 3, freedom, 4, killer, 5, army, 6, monolith, 7, monster, 8, stalker, 9, zombied, 10
 ; communities = actor, 0, actor_dolg, 1, actor_freedom, 2, stalker, 5, monolith, 6, army, 7, killer, 8, ecolog, 9, dolg, 10, freedom, 11, bandit, 12, zombied, 13, csky, 14, trader, 15, arena_enemy, 16, monster, 17
-; attitude = personal_goodwill + //������ ��������� ��������� � ������ (���� ������ �� �����������, �� 0)
-; community_goodwill + //��������� ����������� ��������� ����� � ������ (���� ������ ��������� �� ����, �� 0)
-; community_to_community + //��������� ����������� ��������� � ����������� ������ �� [communities_relations]
-; reputation_goodwill + //��������� ��������� ��������� � ��������� ������ �� [reputation_relations]
-; rank_goodwill //��������� ����� ��������� � ����� ������ �� [rank_relations]
+; attitude = personal_goodwill
+; community_goodwill
+; community_to_community [communities_relations]
+; reputation_goodwill [reputation_relations]
+; rank_goodwill [rank_relations]
 
 [communities_relations] ; list
 ; |actor|bandit|dolg|ecolog|freedom|killer|army|monolith|monster|stalker|zombied|
@@ -55,11 +55,6 @@ novice = 0
 experienced = 0
 veteran = 0
 master = 0
-; ������������ "����������" �����������
-; ����� ����������� �� ������ �� ������ �����������
-; goodwill ��� ��������������� �� ��������� ������ �����������
-; � ������������ �������������
-; (������� ������ ��������� � communities_relations)
 
 [communities_sympathy] ; list
 actor = 0.0
