@@ -39,7 +39,7 @@ jobs:
         id: cache-jest-restore
         uses: actions/cache/restore@v4
         with:
-          path: /tmp/jest_rt
+          path: target/jest_cache
           key: jest-${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
 
       - run: npm run test -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --maxWorkers=100%
@@ -49,7 +49,7 @@ jobs:
         id: cache-jest-save
         uses: actions/cache/save@v4
         with:
-          path: /tmp/jest_rt
+          path: target/jest_cache
           key: ${{ steps.cache-jest-restore.outputs.cache-primary-key }}
 
       - run: mv target/coverage_report/coverage-final.json target/coverage_report/${{matrix.shard}}.json

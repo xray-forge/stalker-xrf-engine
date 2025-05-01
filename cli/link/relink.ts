@@ -1,9 +1,9 @@
 import { red } from "chalk";
 
+import { CLI_CONFIG } from "#/globals";
 import { linkFolders } from "#/link/link";
 import { unlinkFolders } from "#/link/unlink";
 import { NodeLogger } from "#/utils/logging";
-import { CLI_CONFIG } from "#/globals";
 
 const log: NodeLogger = new NodeLogger("RELINK");
 
