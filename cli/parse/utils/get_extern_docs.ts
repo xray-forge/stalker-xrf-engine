@@ -28,7 +28,7 @@ import {
 } from "typescript";
 
 import { IExternCallbackParameterDescriptor, IExternFileDescriptor } from "#/parse/utils/types";
-import { Optional } from "#/utils/types";
+import { AnyObject, Optional } from "#/utils/types";
 
 /**
  * Method name used for externals declaration.
@@ -46,7 +46,7 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
       .filter((it: Statement) => {
         if (!isExpressionStatement(it)) {
           return false;
-        } else if (it.expression?.["expression"]?.escapedText !== EXTERN_METHOD_NAME) {
+        } else if ((it.expression as AnyObject)?.["expression"]?.escapedText !== EXTERN_METHOD_NAME) {
           return false;
         }
 
@@ -64,10 +64,10 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
       })
       .map((statement: Statement) => {
         const callExpression: CallExpression = (statement as ExpressionStatement).expression as CallExpression;
-        const doc: Optional<JSDoc> = statement["jsDoc"] && statement["jsDoc"][0];
+        const doc: Optional<JSDoc> = (statement as AnyObject)["jsDoc"] && (statement as AnyObject)["jsDoc"][0];
         const externCallback: ArrowFunction = callExpression.arguments[1] as ArrowFunction;
 
-        const externName: string = callExpression.arguments[0]["text"];
+        const externName: string = (callExpression.arguments[0] as AnyObject)["text"];
         let docComment: string = doc ? (doc.comment as string) : "";
         let callbackDescription: Array<IExternCallbackParameterDescriptor> = [];
 
@@ -77,7 +77,9 @@ export function getExternDocs(files: Array<string>): Array<IExternFileDescriptor
             doc.tags
               .map((it: JSDocTag): string => {
                 const tagName: string = it.tagName.escapedText as string;
-                const itemName = it["name"] ? it["name"].escapedText : null;
+                const itemName: Optional<string> = (it as AnyObject)["name"]
+                  ? (it as AnyObject)["name"].escapedText
+                  : null;
 
                 return `[${tagName}] ${itemName ? itemName + " " : ""}${(it.comment as string) || ""}`;
               })
@@ -151,12 +153,12 @@ function getNodeTypeLabel(node: TypeNode | NullLiteral): string {
  * Get parameter label for provided AST node.
  */
 function getNodeName(node: NamedDeclaration): string {
-  if ((node.name.kind as SyntaxKind) === SyntaxKind.ArrayBindingPattern) {
+  if ((node.name?.kind as SyntaxKind) === SyntaxKind.ArrayBindingPattern) {
     return `[${(node.name as unknown as ArrayBindingPattern).elements
       .map((it) => getNodeName(it as unknown as ParameterDeclaration))
       .join(", ")}]`;
   } else {
-    return node.name["escapedText"] as string;
+    return (node.name as AnyObject)?.["escapedText"] as string;
   }
 }
 
@@ -164,7 +166,7 @@ function getNodeName(node: NamedDeclaration): string {
  * Get descriptor of callback parameter AST node.
  */
 function getCallbackParameterDescriptor(parameter: ParameterDeclaration): IExternCallbackParameterDescriptor {
-  switch (parameter.type.kind) {
+  switch (parameter.type?.kind) {
     case SyntaxKind.NumberKeyword:
     case SyntaxKind.StringKeyword:
     case SyntaxKind.BooleanKeyword:
@@ -172,7 +174,7 @@ function getCallbackParameterDescriptor(parameter: ParameterDeclaration): IExter
     case SyntaxKind.TupleType:
       return {
         parameterName: getNodeName(parameter),
-        parameterTypeName: getNodeTypeLabel(parameter.type),
+        parameterTypeName: getNodeTypeLabel(parameter.type as TypeNode),
       };
 
     default:

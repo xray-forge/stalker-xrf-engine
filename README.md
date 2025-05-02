@@ -42,7 +42,7 @@ Fully rewritten stalker script engine with typescript. <br/>
 - [Docs](https://xray-forge.github.io/stalker-xrf-book/GENERAL.html)
 - [Types](https://xray-forge.github.io/xray-16-types/modules.html), [source](https://github.com/xray-forge/xray-16-types)
 
-## 📌What is used
+## 📌 What is used
 
 - [NodeJS](https://nodejs.org/en/)
 - [Typescript](https://www.typescriptlang.org/)
@@ -77,3 +77,12 @@ Some things were not tested fully yet.
 ## 📦 Credits
 
 [Link.](https://xray-forge.github.io/stalker-xrf-book/CREDITS.html)
+
+## 📌 License
+
+This community project is not affiliated with GSC Game World in any way.\
+When using XRF script engine and OpenXRay for making modifications for S.T.A.L.K.E.R. games developed by GSC Game World,
+follow the official EULA and Fan Content Creation Guidelines:
+
+- https://www.gsc-game.com/eula/
+- https://www.gsc-game.com/guidelines/

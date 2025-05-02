@@ -72,7 +72,7 @@ describe("filterObjectDeathLoot", () => {
 
   it("should set weapon conditions and skip grenades", () => {
     const ak74u: GameObject = MockGameObject.mock({ section: weapons.wpn_ak74u, clsid: clsid.wpn_ak74_s });
-    const f1: GameObject = MockGameObject.mock({ section: weapons.wpn_grenade_f1, clsid: clsid.wpn_grenade_f1_s });
+    const f1: GameObject = MockGameObject.mock({ section: weapons.grenade_f1, clsid: clsid.wpn_grenade_f1_s });
 
     const object: GameObject = MockGameObject.mock({
       inventory: [
@@ -118,7 +118,6 @@ describe("shouldFilterLootItem", () => {
     expect(shouldFilterLootItem(MockGameObject.mock({ section: misc.device_torch }))).toBe(true);
     expect(shouldFilterLootItem(MockGameObject.mock({ section: misc.harmonica_a }))).toBe(true);
     expect(shouldFilterLootItem(MockGameObject.mock({ section: weapons.wpn_binoc }))).toBe(true);
-    expect(shouldFilterLootItem(MockGameObject.mock({ section: weapons.wpn_binocular }))).toBe(true);
   });
 
   it("should handle keep items", () => {

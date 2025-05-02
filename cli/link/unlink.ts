@@ -6,7 +6,7 @@ import { PLUS_SIGN, SKIP_SIGN, WARNING_SIGN } from "#/globals";
 import { TARGET_GAME_LINK_DIR, TARGET_LOGS_LINK_DIR } from "#/globals/paths";
 import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
-import { Optional } from "#/utils/types";
+import { AnyObject, Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("UNLINK");
 
@@ -23,7 +23,7 @@ export async function unlinkFolders(): Promise<void> {
     await unlink(TARGET_LOGS_LINK_DIR);
     await unlink(TARGET_GAME_LINK_DIR);
   } catch (error) {
-    log.error("Links removal failed:", red(error.message));
+    log.error("Links removal failed:", red((error as AnyObject)?.message));
   }
 }
 

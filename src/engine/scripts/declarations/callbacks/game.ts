@@ -3,13 +3,14 @@ import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { LoadoutManager } from "@/engine/core/managers/loadout";
 import { GameOutroManager } from "@/engine/core/managers/outro";
 import { gameOutroConfig } from "@/engine/core/managers/outro/GameOutroConfig";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, TName, TNumberId } from "@/engine/lib/types";
+import { NetPacket, ServerObject, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -113,4 +114,7 @@ extern("visual_memory_manager", {
  */
 extern("ai_stalker", {
   update_best_weapon: selectBestStalkerWeapon,
+  CSE_ALifeObject_spawn_supplies: (object: ServerObject, id: TNumberId, iniData: string) => {
+    return getManager(LoadoutManager).onGenerateServerObjectLoadout(object, id, iniData);
+  },
 });

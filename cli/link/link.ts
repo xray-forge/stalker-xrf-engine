@@ -3,6 +3,7 @@ import * as fsp from "fs/promises";
 import { blue, red, yellow, yellowBright } from "chalk";
 
 import {
+  CLI_CONFIG,
   PLUS_SIGN,
   SKIP_SIGN,
   TARGET_GAME_DATA_DIR,
@@ -14,7 +15,7 @@ import { exists } from "#/utils/fs/exists";
 import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { isSamePath } from "#/utils/fs/is_same_path";
 import { NodeLogger } from "#/utils/logging";
-import { Optional } from "#/utils/types";
+import { AnyObject, Optional } from "#/utils/types";
 
 const log: NodeLogger = new NodeLogger("LINK");
 
@@ -35,7 +36,8 @@ export async function linkFolders(parameters: ILinkCommandParameters): Promise<v
     await linkGamedataFolders(parameters);
     await linkLogsFolders(parameters);
   } catch (error) {
-    log.error("Links creation failed:", red(error.message));
+    log.error("Links creation failed:", red((error as AnyObject).message));
+    log.error("Verify steam game installation path or provide fallback in:", CLI_CONFIG);
   }
 }
 
@@ -62,7 +64,7 @@ async function linkGamedataFolders(parameters: ILinkCommandParameters): Promise<
 
       await fsp.rm(gameGamedataFolderPath, { recursive: true });
     } else {
-      if (isLink && isSamePath(linkPath, TARGET_GAME_DATA_DIR)) {
+      if (isLink && isSamePath(linkPath as string, TARGET_GAME_DATA_DIR)) {
         log.warn(SKIP_SIGN, "Skip, gamedata link already exists:", blue(gameGamedataFolderPath));
       } else if (isLink) {
         log.warn(WARNING_SIGN, "Skip, gamedata link already exists but points to another place:", red(linkPath));

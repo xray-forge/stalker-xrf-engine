@@ -3,24 +3,21 @@
 [outfit_base]
 $scheme = $outfit_base
 $inventory_icon = true
-script_binding = bind.outfit ; xrf change
-additional_inventory_weight = 0 ; +max_walk_weight
-additional_inventory_weight2 = 0 ; +40 kg
+script_binding = bind.outfit
+additional_inventory_weight = 0
+additional_inventory_weight2 = 0
 full_icon_name = npc_icon_without_outfit
 default_to_ruck = false
 sprint_allowed = true
 control_inertion_factor = 1
-; player_hud_section = actor_hud_05
 
 [without_outfit]:outfit_base
-; player_hud_section = actor_hud_05
 
 [novice_outfit]:outfit_base
 $scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\novice_outfit"
-; $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\novice_outfit
@@ -31,10 +28,6 @@ inv_name = novice_outfit_name
 inv_name_short = novice_outfit_name
 description = novice_outfit_description
 inv_weight = 4.0
-; inv_grid_width = 2
-; inv_grid_height = 2
-; inv_grid_x = 12
-; inv_grid_y = 0
 inv_grid_width = 2
 inv_grid_height = 2
 inv_grid_x = 31
@@ -48,7 +41,6 @@ cost = 500
 slot = 6
 immunities_sect = sect_novice_outfit_immunities
 power_loss = 0.65
-; NO RESISTANCE
 burn_protection = 0.0250
 shock_protection = 0.0
 radiation_protection = 0.0
@@ -66,7 +58,7 @@ upgrade_scheme = upgrade_scheme_novice_outfit
 
 [sect_novice_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.05 ; ������������ ���������� ������ �������
+burn_immunity = 0.05
 strike_immunity = 0.0
 shock_immunity = 0.05
 wound_immunity = 0.05
@@ -78,7 +70,7 @@ fire_wound_immunity = 0.02
 
 [sect_novice_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.01 ; ������������ ���������� ������ �������
+burn_immunity = -0.01
 strike_immunity = 0.0
 shock_immunity = -0.01
 wound_immunity = -0.01
@@ -93,7 +85,6 @@ $scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\stalker_outfit"
-; $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\stalker_outfit
@@ -115,8 +106,8 @@ upgr_icon_height = 130
 full_icon_name = npc_icon_stalker_outfit
 cost = 5000
 slot = 6
-additional_inventory_weight = 0 ; +max_walk_weight
-additional_inventory_weight2 = 0 ; +40 kg
+additional_inventory_weight = 0
+additional_inventory_weight2 = 0
 artefact_count = 2
 default_to_ruck = false
 immunities_sect = sect_stalker_outfit_immunities
@@ -138,7 +129,7 @@ upgrade_scheme = upgrade_scheme_stalker_outfit
 
 [sect_stalker_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.03 ; ������������ ���������� ������ �������
+burn_immunity = 0.03
 strike_immunity = 0.0
 shock_immunity = 0.03
 wound_immunity = 0.03
@@ -150,7 +141,7 @@ fire_wound_immunity = 0.015
 
 [sect_stalker_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.015 ; ������������ ���������� ������ �������
+burn_immunity = -0.015
 strike_immunity = 0.0
 shock_immunity = -0.015
 wound_immunity = -0.015
@@ -165,7 +156,6 @@ $scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\svoboda_light_outfit"
-; $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\svoboda_light_outfit
@@ -188,7 +178,6 @@ full_icon_name = npc_icon_svoboda_light_outfit
 cost = 6500
 slot = 6
 immunities_sect = sect_svoboda_light_outfit_immunities
-; LOW RESISTANCE
 burn_protection = 0.0700
 shock_protection = 0.250
 radiation_protection = 0.0035
@@ -208,7 +197,7 @@ upgrade_scheme = upgrade_scheme_svoboda_light_outfit
 
 [sect_svoboda_light_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.05 ; ������������ ���������� ������ �������
+burn_immunity = 0.05
 strike_immunity = 0.0
 shock_immunity = 0.05
 wound_immunity = 0.05
@@ -220,7 +209,7 @@ fire_wound_immunity = 0.015
 
 [sect_svoboda_light_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.02 ; ������������ ���������� ������ �������
+burn_immunity = -0.02
 strike_immunity = 0.0
 shock_immunity = -0.02
 wound_immunity = -0.02
@@ -235,7 +224,6 @@ $scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\dolg_outfit"
-; $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\dolg_outfit
@@ -258,7 +246,6 @@ full_icon_name = npc_icon_dolg_outfit
 cost = 6500
 slot = 6
 immunities_sect = sect_dolg_outfit_immunities
-; LOW RESISTANCE
 burn_protection = 0.0500
 shock_protection = 0.200
 radiation_protection = 0.0025
@@ -278,7 +265,7 @@ upgrade_scheme = upgrade_scheme_dolg_outfit
 
 [sect_dolg_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.04 ; ������������ ���������� ������ �������
+burn_immunity = 0.04
 strike_immunity = 0.0
 shock_immunity = 0.04
 wound_immunity = 0.04
@@ -290,7 +277,7 @@ fire_wound_immunity = 0.01
 
 [sect_dolg_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.015 ; ������������ ���������� ������ �������
+burn_immunity = -0.015
 strike_immunity = 0.0
 shock_immunity = -0.015
 wound_immunity = -0.015
@@ -329,7 +316,6 @@ full_icon_name = npc_icon_scientific_outfit
 cost = 25000
 immunities_sect = sect_scientific_outfit_immunities
 helmet_avaliable = false
-; MEDIUM RESISTANCE
 burn_protection = 0.0875
 shock_protection = 0.400
 radiation_protection = 0.0080
@@ -349,7 +335,7 @@ upgrade_scheme = upgrade_scheme_scientific_outfit
 
 [sect_scientific_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.01 ; ������������ ���������� ������ �������
+burn_immunity = 0.01
 strike_immunity = 0.0
 shock_immunity = 0.0
 wound_immunity = 0.03
@@ -361,7 +347,7 @@ fire_wound_immunity = 0.02
 
 [sect_scientific_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.01 ; ������������ ���������� ������ �������
+burn_immunity = -0.01
 strike_immunity = 0.0
 shock_immunity = 0.0
 wound_immunity = -0.01
@@ -376,7 +362,6 @@ $scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\cs_heavy_outfit"
-; $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\cs_heavy_outfit
@@ -400,7 +385,6 @@ cost = 20000
 slot = 6
 immunities_sect = sect_cs_heavy_outfit_immunities
 power_loss = 0.9
-; MEDIUM RESISTANCE
 burn_protection = 0.0800
 shock_protection = 0.300
 radiation_protection = 0.0045
@@ -419,7 +403,7 @@ upgrade_scheme = upgrade_scheme_cs_heavy_outfit
 
 [sect_cs_heavy_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.04 ; ������������ ���������� ������ �������
+burn_immunity = 0.04
 strike_immunity = 0.0
 shock_immunity = 0.04
 wound_immunity = 0.04
@@ -431,7 +415,7 @@ fire_wound_immunity = 0.01
 
 [sect_cs_heavy_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.01 ; ������������ ���������� ������ �������
+burn_immunity = -0.01
 strike_immunity = -0.01
 shock_immunity = 0.0
 wound_immunity = -0.01
@@ -446,7 +430,6 @@ $scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\svoboda_heavy_outfit"
-; $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\svoboda_heavy_outfit
@@ -470,7 +453,6 @@ cost = 18500
 slot = 6
 power_loss = 0.7
 immunities_sect = sect_svoboda_heavy_outfit_immunities
-; MEDIUM RESISTANCE
 burn_protection = 0.0825
 shock_protection = 0.350
 radiation_protection = 0.0060
@@ -489,7 +471,7 @@ upgrade_scheme = upgrade_scheme_svoboda_heavy_outfit
 
 [sect_svoboda_heavy_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.05 ; ������������ ���������� ������ �������
+burn_immunity = 0.05
 strike_immunity = 0.0
 shock_immunity = 0.05
 wound_immunity = 0.05
@@ -501,7 +483,7 @@ fire_wound_immunity = 0.01
 
 [sect_svoboda_heavy_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.02 ; ������������ ���������� ������ �������
+burn_immunity = -0.02
 strike_immunity = 0.0
 shock_immunity = -0.02
 wound_immunity = -0.02
@@ -516,7 +498,6 @@ $scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\specops_outfit"
-; $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\specops_outfit
@@ -540,7 +521,6 @@ cost = 12500
 slot = 6
 power_loss = 0.8
 immunities_sect = sect_specops_outfit_immunities
-; LOW RESISTANCE
 burn_protection = 0.0500
 shock_protection = 0.100
 radiation_protection = 0.0015
@@ -559,7 +539,7 @@ upgrade_scheme = upgrade_scheme_specops
 
 [sect_specops_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.04 ; ������������ ���������� ������ �������
+burn_immunity = 0.04
 strike_immunity = 0.0
 shock_immunity = 0.04
 wound_immunity = 0.04
@@ -571,7 +551,7 @@ fire_wound_immunity = 0.01
 
 [sect_specops_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.01 ; ������������ ���������� ������ �������
+burn_immunity = -0.01
 strike_immunity = 0.0
 shock_immunity = -0.01
 wound_immunity = -0.01
@@ -586,12 +566,10 @@ $scheme = $item_outfit
 GroupControlSection = spawn_group
 discovery_dependency =
 $spawn = "outfit\military_outfit"
-; $prefetch = 32
 class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\military_outfit
 actor_visual = actors\stalker_hero\stalker_hero_military.ogf
-; actor_visual = actors\stalker_soldier\stalker_soldier_4.ogf
 player_hud_section = actor_hud_06
 ef_equipment_type = 4
 inv_name = military_outfit_name
@@ -611,7 +589,6 @@ full_icon_name = npc_icon_military_outfit
 cost = 25000
 power_loss = 0.85
 immunities_sect = sect_military_outfit_immunities
-; MEDIUM RESISTANCE
 burn_protection = 0.0750
 shock_protection = 0.200
 radiation_protection = 0.0030
@@ -630,7 +607,7 @@ upgrade_scheme = upgrade_scheme_military_outfit
 
 [sect_military_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.04 ; ������������ ���������� ������ �������
+burn_immunity = 0.04
 strike_immunity = 0.0
 shock_immunity = 0.04
 wound_immunity = 0.04
@@ -642,7 +619,7 @@ fire_wound_immunity = 0.01
 
 [sect_military_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.01 ; ������������ ���������� ������ �������
+burn_immunity = -0.01
 strike_immunity = 0.0
 shock_immunity = -0.01
 wound_immunity = -0.01
@@ -680,7 +657,6 @@ upgr_icon_height = 157
 full_icon_name = npc_icon_dolg_heavy_outfit
 cost = 25000
 immunities_sect = sect_dolg_heavy_outfit_immunities
-; MEDIUM RESISTANCE
 burn_protection = 0.0500
 shock_protection = 0.200
 radiation_protection = 0.0020
@@ -702,7 +678,7 @@ upgrade_scheme = upgrade_scheme_dolg_heavy_outfit
 
 [sect_dolg_heavy_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.03 ; ������������ ���������� ������ �������
+burn_immunity = 0.03
 strike_immunity = 0.0
 shock_immunity = 0.03
 wound_immunity = 0.03
@@ -714,7 +690,7 @@ fire_wound_immunity = 0.01
 
 [sect_dolg_heavy_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.01 ; ������������ ���������� ������ �������
+burn_immunity = -0.01
 strike_immunity = 0.0
 shock_immunity = -0.01
 wound_immunity = -0.01
@@ -734,7 +710,6 @@ class = E_STLK
 cform = skeleton
 visual = dynamics\outfit\exo_outfit
 actor_visual = actors\stalker_hero\stalker_hero_exo.ogf
-; actor_visual = actors\stalker_neutral\stalker_neutral_4.ogf
 player_hud_section = actor_hud_exo
 ef_equipment_type = 5
 inv_name = exo_outfit_name
@@ -753,7 +728,6 @@ upgr_icon_height = 159
 full_icon_name = npc_icon_exo_outfit
 cost = 50000
 immunities_sect = sect_exo_outfit_immunities
-; MEDIUM RESISTANCE
 burn_protection = 0.0750
 shock_protection = 0.300
 radiation_protection = 0.0040
@@ -764,7 +738,6 @@ explosion_protection = 0.45
 wound_protection = 0.4
 hit_fraction_actor = 0.25
 bones_koeff_protection = actor_armor_exo
-; ���������� ������ Sprint ��� ������
 sprint_allowed = false
 helmet_avaliable = false
 power_loss = 1.0
@@ -778,7 +751,7 @@ upgrade_scheme = upgrade_scheme_exo_outfit
 
 [sect_exo_outfit_immunities]
 $scheme = $immunities
-burn_immunity = 0.02 ; ������������ ���������� ������ �������
+burn_immunity = 0.02
 strike_immunity = 0.0
 shock_immunity = 0.02
 wound_immunity = 0.02
@@ -790,7 +763,7 @@ fire_wound_immunity = 0.02
 
 [sect_exo_outfit_immunities_add]
 $scheme = $immunities
-burn_immunity = -0.01 ; ������������ ���������� ������ �������
+burn_immunity = -0.01
 strike_immunity = 0.0
 shock_immunity = -0.01
 wound_immunity = -0.01
@@ -803,10 +776,9 @@ fire_wound_immunity = -0.0025
 [helmet]
 $scheme = $item_helmet
 $inventory_icon = true
-script_binding = bind.helmet ; xrf change
+script_binding = bind.helmet
 GroupControlSection = spawn_group
 discovery_dependency =
-; $spawn = "outfit\helmet"
 $prefetch = 32
 class = E_HLMET
 cform = skeleton
@@ -988,7 +960,6 @@ chemical_burn_protection = 0.0200
 strike_protection = 0.0
 explosion_protection = 0.0
 wound_protection = 0.0
-; nearest_enemies_show_dist = 20
 upgrades = up_gr_firstab_helm_tactic, up_gr_seconab_helm_tactic
 installed_upgrades =
 upgrade_scheme = upgrade_scheme_helm_tactic

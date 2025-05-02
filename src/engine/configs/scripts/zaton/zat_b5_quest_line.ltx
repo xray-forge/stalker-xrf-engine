@@ -5,7 +5,6 @@ active = sr_idle@wait
 on_info = {+zat_b5_actor_with_bandits} sr_idle@with_bandits %=give_task(zat_b5_come_to_bandits) +zat_b5_task_start%
 on_info2 = {+zat_b5_actor_with_stalkers} sr_idle@with_stalkers %=give_task(zat_b5_come_to_stalkers) +zat_b5_task_start%
 on_info3 = {+zat_b5_actor_with_dealer} sr_idle@with_dealer %=give_task(zat_b5_come_to_dealer) +zat_b5_task_start%
-; -----------------------------------
 
 [sr_idle@with_bandits]
 on_game_timer = 10800 | {=dist_to_actor_ge(200)} sr_idle@destroy_bandits %+zat_b5_leave_for_bandit_quest%
@@ -27,7 +26,6 @@ on_game_timer = 20 | sr_idle@nil %=spawn_corpse(zat_b5_stalker_commander:zat_b5_
 
 [sr_idle@destroy_bandits]
 on_info = {=squad_exist(zat_b5_bandit_squad)} sr_idle@nil %=remove_squad(zat_b5_bandit_squad)%, {!squad_exist(zat_b5_bandit_squad)} sr_idle@nil
-; ------------------------
 
 [sr_idle@with_dealer]
 on_info = {+zat_b5_actor_go_to_trader} sr_idle@cover_dealer %+zat_b5_come_to_dealer_done%
@@ -79,7 +77,6 @@ on_info = {=squad_exist(zat_b5_dolg_assist_squad)} sr_idle@nil %=remove_squad(za
 
 [sr_idle@check_assist]
 on_info = {=squad_exist(zat_b5_dolg_assist_squad)} sr_idle@nil %=set_squad_goodwill(zat_b5_dolg_assist_squad:friend)%, {!squad_exist(zat_b5_dolg_assist_squad)} sr_idle@nil
-; -------------------------------
 
 [sr_idle@with_stalkers]
 on_game_timer = 10800 | {=dist_to_actor_ge(200)} sr_idle@destroy_stalkers %+zat_b5_time_is_out%

@@ -43,9 +43,17 @@ export interface ILtxFieldDescriptor<T> {
 export interface ILtxConfigDescriptor
   extends Record<
     string,
-    ILtxConfigDescriptor | Record<string, ILtxFieldDescriptor<unknown> | TPrimitive> | TPrimitive
+    | ILtxConfigDescriptor
+    | Record<string, ILtxFieldDescriptor<unknown> | TPrimitive | null | undefined>
+    | TPrimitive
+    | null
+    | undefined
   > {
-  [index: symbol]: Record<string, ILtxFieldDescriptor<unknown> | TPrimitive> | TPrimitive;
+  [index: symbol]:
+    | Record<string, ILtxFieldDescriptor<unknown> | TPrimitive | null | undefined>
+    | TPrimitive
+    | null
+    | undefined;
 }
 
 /**
@@ -69,5 +77,5 @@ export const LTX_INCLUDE: unique symbol = Symbol("LTX_INCLUDE");
 export interface IConditionListDescriptor {
   condition?: Array<string>;
   action?: Array<string>;
-  value?: string | number | boolean;
+  value?: Optional<string | number | boolean>;
 }

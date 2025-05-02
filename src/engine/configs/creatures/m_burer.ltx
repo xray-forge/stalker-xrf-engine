@@ -44,7 +44,7 @@ destroyed_vis_name = dynamics\Dead_Body\skelet_crash
 ph_skeleton_airr_lin_factor = 2.0 ; 550.0 (������� ��-�� ����, ��� ������ ���������� ����������� 0.002 �� ����)
 ph_skeleton_airr_ang_factor = 0.0 ; 0.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 0.3 �� ���� (0.0*0.3=0.0))
 ph_skeleton_hinger_factor1 = 1.0 ; 1.0 (������� ��-�� ����, ��� ������ ���������� �� ����������� 5.0 �� ����)
-ph_skeleton_ddelay = 15.0 ; ����� ��������� �������� ������ � ������� � ������� �������� �����, ���
+ph_skeleton_ddelay = 15.0
 ph_skel_fatal_impulse_factor = 6.0
 ph_after_death_velocity_factor = 0.75
 ph_skel_shot_up_factor = 0.25
@@ -70,33 +70,32 @@ as_step = 0.3
 attack_effector = m_burer_attack_effector
 attack_params = m_burer_attack_params
 Melee_Rotation_Factor = 1.8
-satiety_v = 0.0001 ; �������� ���������� ������� �� ��������
-radiation_v = 0.00001 ; �������� ���������� ��������
-satiety_power_v = 0.001 ; ���������� ���� ��� ���������� �������
-satiety_health_v = 0.00007 ; ���������� �������� ��� ���������� �������
-satiety_critical = -1.0 ; ����������� �������� ������� (� ��������� �� 0..1) ����� �������� ��������� �����������
-radiation_health_v = 0.01 ; ���������� �������� ��� ����������� ��������
-morale_v = 0.01 ; �������� �������������� ������
-health_hit_part = 0.5 ; ������� ����, �������� �� ��������� ��������
-power_hit_part = 1.0 ; ������� ����, �������� �� ��������� ����
-psy_health_v = 0.1 ; �������� �������������� psy-��������
-; �������� ����
-bleeding_v = 0.05 ; ������ ����� ��� ����������� ���� � �������
-wound_incarnation_v = 0.04 ; �������� ������ ���������� (����� ������� ���� ��������� ����� ���������� � ������� �������)
+satiety_v = 0.0001
+radiation_v = 0.00001
+satiety_power_v = 0.001
+satiety_health_v = 0.00007
+satiety_critical = -1.0
+radiation_health_v = 0.01
+morale_v = 0.01
+health_hit_part = 0.5
+power_hit_part = 1.0
+psy_health_v = 0.1
+bleeding_v = 0.05
+wound_incarnation_v = 0.04
 min_wound_size = 0.01
-sleep_health = 1.0 ; 1.5 ; ������������ ��������� ��������� ���������� �� ����� ���
+sleep_health = 1.0 ; 1.5
 sleep_power = 1.0 ; 1.5
 sleep_satiety = 1.0 ; 0.8
 sleep_radiation = 1.0 ; 1.1
 sleep_psy_health = 1.0
-eat_freq = 5.0 ; ������� ������ � ���
-eat_slice = 0.01 ; ���������� ������� ��� 1 �����
-eat_slice_weight = 10.0 ; ���������� ��� � �����
+eat_freq = 5.0
+eat_slice = 0.01
+eat_slice_weight = 10.0
 bone_head = head ; bone name
-DayTime_Begin = 0 ; ������ ��� ��� �������
-DayTime_End = 21 ; ����� ��� ��� �������
-Min_Satiety = 0.6 ; ���. ����� ������� (������ - ��� ��������)
-Max_Satiety = 0.9 ; ����. ����� ������� (������ - ����� �����)
+DayTime_Begin = 0
+DayTime_End = 21
+Min_Satiety = 0.6
+Max_Satiety = 0.9
 satiety_threshold = 0.5 ; below this value monster fill hunger
 sound_idle = monsters\burer\burer_idle_
 sound_eat = monsters\burer\burer_idle_
@@ -165,11 +164,11 @@ Tele_Fly_Velocity = 70 ; 50
 Tele_Object_Height = 3 ; 2
 sound_tele_hold = monsters\burer\burer_tele_hold
 sound_tele_throw = monsters\burer\burer_tele_throw
-scan_critical_value = 25.0 ; ��������� ��������
-scan_radius = 50.0 ; ������ ������������
-scan_velocity_threshold = 4.0 ; ��������� ��������, �� ������� �������� ������ ������������
-scan_decrease_value = 0.3 ; ���������� ������� ����� � �������
-scan_trace_time_freq = 2 ; ������� ������ �������� (for programmer only) (1 = 2 ���� � ���)
+scan_critical_value = 25.0
+scan_radius = 50.0
+scan_velocity_threshold = 4.0
+scan_decrease_value = 0.3
+scan_trace_time_freq = 2
 scan_sound = monsters\burer\burer_scan_affect_0
 scan_effector_section = m_burer_scan_effector
 Particle_Tele_Object = static\fire_distort
@@ -189,7 +188,7 @@ bone_head = head ; bone name
 bone_fire = head ; bone name
 weapon_usage = 0 ; boolean
 actor_restrictor = medium_monster ; medium_monster,stalker,none
-distance_to_corpse = 1.2 ; ����. �� �����, ��� ������� �� ��������� � ��������� ���
+distance_to_corpse = 1.2
 selector_approach = 20.0, 1.0, 1000.0, 0.0, 0.0, 1000.0, 10000.0,
 terrain = burer_terrain
 hit_type = wound
@@ -211,8 +210,6 @@ eye_fov = 130
 eye_range = 110
 vision_free_section = burer_vision_free
 vision_danger_section = burer_vision_danger
-; �������� visibility_threshold ������ ���� ����� ��� ������� � ���,
-; ����� ��������� ��������� � ������� ��������� ��� �������� �� ������� �� ���.
 
 [burer_normal]:m_burer_e
 $spawn = "monsters\burer\burer_normal"
@@ -241,26 +238,26 @@ fire_wound_immunity = 0.7
 
 [burer_vision_free]
 $scheme = $monster_vision
-min_view_distance = 0.6 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-max_view_distance = 1.0 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-visibility_threshold = 100.0 ; ��������, ��� ���������� ������ �������� ������ ��������� �������
+min_view_distance = 0.6
+max_view_distance = 1.0
+visibility_threshold = 100.0
 always_visible_distance = 0.3
 time_quant = 0.001
-decrease_value = 0.01 ; ��������, �� ������� ����������� ���, ���� ������ ����� � �������, �� ������ �� �����-�� ��������
+decrease_value = 0.01
 velocity_factor = 0.5
-luminocity_factor = 0.5 ; ������ ��������� (������ ��� �����)
+luminocity_factor = 0.5
 transparency_threshold = 0.25
 
 [burer_vision_danger]
 $scheme = $monster_vision
-min_view_distance = 0.6 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-max_view_distance = 1.0 ; �����������, ������� �������� �� eye_range, � ����������� �� ����
-visibility_threshold = 100.0 ; ��������, ��� ���������� ������ �������� ������ ��������� �������
+min_view_distance = 0.6
+max_view_distance = 1.0
+visibility_threshold = 100.0
 always_visible_distance = 0.3
 time_quant = 0.001
-decrease_value = 0.01 ; ��������, �� ������� ����������� ���, ���� ������ ����� � �������, �� ������ �� �����-�� ��������
+decrease_value = 0.01
 velocity_factor = 0.5
-luminocity_factor = 0.5 ; ������ ��������� (������ ��� �����)
+luminocity_factor = 0.5
 transparency_threshold = 0.25
 
 [m_burer_attack_params]

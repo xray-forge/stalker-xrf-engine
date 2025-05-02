@@ -32,7 +32,7 @@ export interface ICharacterDescriptionProps {
   crouchType?: number;
   terrainSection?: Optional<string>;
   supplies?: Array<ISpawnItemDescriptor>;
-  loadout?: Array<ILoadoutItemDescriptor>;
+  loadouts?: Array<Array<ILoadoutItemDescriptor>>;
   noRandom?: boolean;
   mechanicMode?: boolean;
   mapIcon?: JSXNode;
@@ -63,7 +63,7 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
     visual,
     soundConfig,
     supplies = [],
-    loadout = [],
+    loadouts = [],
     noRandom,
     moneyInfinite,
     terrainSection = "stalker_terrain",
@@ -76,6 +76,20 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
 
   if (!characterVisual) {
     throw new Error(`Expected visual to be present for character profile with icon '${icon}'.`);
+  }
+
+  if (loadouts) {
+    for (const loadout of loadouts) {
+      loadout.reduce((acc, it) => {
+        if (acc.has(it.section)) {
+          throw new Error(`Duplicate loadout section for specific character description:" [${it.section}] in '${id}'.`);
+        } else {
+          acc.add(it.section);
+        }
+
+        return acc;
+      }, new Set());
+    }
   }
 
   return (
@@ -103,10 +117,12 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
       {team ? <team>{team}</team> : null}
       {terrainSection ? <terrain_sect>{terrainSection}</terrain_sect> : null}
       {soundConfig ? <snd_config>{soundConfig}</snd_config> : null}
-      {loadout.length || supplies.length ? (
+      {loadouts.length || supplies.length ? (
         <supplies>
           {supplies.length ? `\n[spawn]\\n\n${createSpawnList(supplies, "\n")}` : null}
-          {loadout.length ? `\n[spawn_loadout]\\n\n${createSpawnLoadout(loadout)}` : null}
+          {loadouts.length
+            ? loadouts.map((loadout, index) => `\n[spawn_loadout${index || ""}]\\n\n${createSpawnLoadout(loadout)}`)
+            : null}
         </supplies>
       ) : (
         <supplies />

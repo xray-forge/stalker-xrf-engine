@@ -7,6 +7,7 @@ const ROOT_DIR = path.resolve(__dirname, "../../");
 module.exports = {
   clearMocks: true,
   collectCoverage: true,
+  cacheDirectory: "<rootDir>/target/jest_cache",
   coverageDirectory: "<rootDir>/target/coverage_report",
   coveragePathIgnorePatterns: ["/node_modules/"],
   coverageReporters: ["json", "html"],
