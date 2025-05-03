@@ -1,11 +1,11 @@
-import * as cp from "child_process";
+import * as cp from "node:child_process";
 
 import { blue, yellow } from "chalk";
 
 import { GAME_DATA_TRANSLATIONS_DIR, XRF_UTILS_PATH } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("CHECK_TRANSLATIONS");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 interface IListProblematicTranslationParameters {
   verbose?: boolean;

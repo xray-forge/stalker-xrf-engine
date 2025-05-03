@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import * as os from "os";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as os from "node:os";
+import * as path from "node:path";
 
 import { yellow } from "chalk";
 
@@ -9,7 +9,7 @@ import { readLastLinesOfFile } from "#/utils/fs/read_last_lines_of_file";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("LOGS");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Print last 'n' lines from logs file.

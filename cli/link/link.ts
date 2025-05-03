@@ -1,4 +1,4 @@
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { blue, red, yellow, yellowBright } from "chalk";
 
@@ -17,7 +17,7 @@ import { isSamePath } from "#/utils/fs/is_same_path";
 import { NodeLogger } from "#/utils/logging";
 import { AnyObject, Optional } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("LINK");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 export interface ILinkCommandParameters {
   force?: boolean;

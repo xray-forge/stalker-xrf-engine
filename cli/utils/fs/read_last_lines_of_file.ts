@@ -1,4 +1,4 @@
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { exists } from "#/utils/fs/exists";
 import { Optional } from "#/utils/types";

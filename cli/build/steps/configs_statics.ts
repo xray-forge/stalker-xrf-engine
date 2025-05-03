@@ -1,4 +1,4 @@
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { blueBright, yellow } from "chalk";
 
@@ -9,7 +9,7 @@ import { createDirForConfigs } from "#/utils/fs/create_dir_for_configs";
 import { NodeLogger } from "#/utils/logging";
 import { EAssetExtension, TFolderReplicationDescriptor } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_STATICS");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Simply copy .xml and .ltx config statics to resulting gamedata directory.

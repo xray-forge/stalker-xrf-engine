@@ -1,4 +1,4 @@
-import * as cp from "child_process";
+import * as cp from "node:child_process";
 
 import { blue } from "chalk";
 
@@ -8,7 +8,7 @@ import { getProjectAssetsRoots } from "#/utils/build";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 
-const log: NodeLogger = new NodeLogger("VERIFY_GAMEDATA");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 export interface IVerifyGamedataParameters {
   verbose?: boolean;

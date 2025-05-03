@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { blueBright, yellowBright } from "chalk";
 
@@ -12,7 +12,7 @@ import { readFolderGen } from "#/utils/fs/read_dir_content_flat_gen";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("BUILD_ASSET_STATICS");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 const UNEXPECTED_ENTITIES: Array<string> = ["core", "configs", "forms,", "lib", "scripts"];
 const EXCLUDED_ENTITIES: Array<string> = [

@@ -1,11 +1,11 @@
 import { Stats } from "fs";
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { isSymlink } from "#/utils/fs/is_symlink";
 
-jest.mock("fs/promises");
+jest.mock("node:fs/promises");
 
 describe("isSymlink", () => {
   it("should correctly check cases with exception", async () => {

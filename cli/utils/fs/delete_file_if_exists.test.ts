@@ -1,10 +1,10 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { deleteFileIfExists } from "#/utils/fs/delete_file_if_exists";
 
-jest.mock("fs");
+jest.mock("node:fs");
 
 describe("delete_file_if_exists util", () => {
   it("should correctly call fs methods to delete file if existing", () => {

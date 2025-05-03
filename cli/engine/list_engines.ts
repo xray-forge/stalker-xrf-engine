@@ -1,11 +1,11 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
 
 import { yellowBright } from "chalk";
 
 import { OPEN_XRAY_ENGINES_DIR } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("LIST_ENGINES");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Print list of available engines.

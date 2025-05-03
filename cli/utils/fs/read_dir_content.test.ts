@@ -1,5 +1,5 @@
 import { Dirent } from "fs";
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
@@ -11,7 +11,7 @@ function mockDirent(base: Partial<Dirent> = {}): Dirent {
   return { isDirectory: () => false, ...base } as Dirent;
 }
 
-jest.mock("fs/promises");
+jest.mock("node:fs/promises");
 
 describe("readDirContent util", () => {
   it("should handle empty directories", async () => {

@@ -1,13 +1,13 @@
-import * as fs from "fs";
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { blueBright, yellowBright } from "chalk";
 
 import { TARGET_DIR } from "#/globals/paths";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("BUILD_COLLECT_LOG");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Collect build detailed build log file.

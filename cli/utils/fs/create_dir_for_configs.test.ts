@@ -1,11 +1,11 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { createDirForConfigs } from "#/utils/fs/create_dir_for_configs";
 import { NodeLogger } from "#/utils/logging";
 
-jest.mock("fs");
+jest.mock("node:fs");
 
 describe("create_dir_for_configs util", () => {
   it("should correctly call fs methods to create dir", () => {

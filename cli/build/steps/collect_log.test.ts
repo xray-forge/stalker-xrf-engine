@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
@@ -8,8 +8,8 @@ import { collectLog } from "#/build/steps/collect_log";
 import { TARGET_DIR } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
 
-jest.mock("fs");
-jest.mock("fs/promises");
+jest.mock("node:fs");
+jest.mock("node:fs/promises");
 
 describe("collectLog build step", () => {
   const logDestination: string = path.resolve(TARGET_DIR, "xrf_build.log");

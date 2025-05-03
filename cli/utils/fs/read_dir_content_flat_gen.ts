@@ -1,6 +1,6 @@
-import type { Dirent } from "fs";
-import * as fsp from "fs/promises";
-import * as path from "path";
+import type { Dirent } from "node:fs";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 /**
  * Read folder content with generator.

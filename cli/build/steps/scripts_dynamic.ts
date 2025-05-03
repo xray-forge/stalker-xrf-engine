@@ -6,7 +6,7 @@ import { IBuildCommandParameters } from "#/build/build";
 import { BUILD_LUA_TSCONFIG } from "#/globals/paths";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("BUILD_LUA_SCRIPTS");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Transform typescript codebase to lua scripts and replace .lua with .script extensions.

@@ -1,4 +1,4 @@
-import fsp from "fs/promises";
+import fsp from "node:fs/promises";
 
 import { yellow } from "chalk";
 
@@ -6,7 +6,7 @@ import { exists } from "#/utils/fs/exists";
 import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("ROLLBACK_ENGINE");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Rollback current engine to the default one.

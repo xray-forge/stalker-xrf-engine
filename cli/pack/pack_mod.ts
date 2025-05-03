@@ -1,6 +1,6 @@
-import { default as assert } from "assert";
-import * as fs from "fs";
-import * as path from "path";
+import { default as assert } from "node:assert";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 import { blue, yellow, yellowBright } from "chalk";
 
@@ -13,7 +13,7 @@ import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 
-const log: NodeLogger = new NodeLogger("PACK_MOD");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Pack engine and gamedata into separate mod pack, ensure everything works correctly.

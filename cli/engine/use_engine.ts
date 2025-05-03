@@ -1,5 +1,5 @@
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { blue, green, yellow, yellowBright } from "chalk";
 
@@ -11,7 +11,7 @@ import { isSymlink } from "#/utils/fs/is_symlink";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("USE_ENGINE");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Switch current game engine to provided one.

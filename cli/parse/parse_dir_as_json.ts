@@ -1,5 +1,5 @@
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { green, yellowBright } from "chalk";
 
@@ -8,7 +8,7 @@ import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
 import { readDirContentFlat } from "#/utils/fs/read_dir_content_flat";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 interface IParseDirParameters {
   extension: boolean;

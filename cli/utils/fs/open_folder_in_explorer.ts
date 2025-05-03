@@ -1,5 +1,5 @@
-import * as cp from "child_process";
-import * as os from "os";
+import * as cp from "node:child_process";
+import * as os from "node:os";
 
 /**
  * Open folder in OS explorer application for fast access.

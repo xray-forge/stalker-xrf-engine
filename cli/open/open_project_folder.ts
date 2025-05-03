@@ -4,7 +4,7 @@ import { ROOT_DIR } from "#/globals/paths";
 import { openFolderInExplorer } from "#/utils/fs/open_folder_in_explorer";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("OPEN_GAME_FOLDER");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Open project folder in system explorer.

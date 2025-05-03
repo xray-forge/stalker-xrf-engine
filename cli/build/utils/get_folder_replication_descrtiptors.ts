@@ -1,4 +1,4 @@
-import * as path from "path";
+import * as path from "node:path";
 
 import { readDirContent } from "#/utils/fs/read_dir_content";
 import { EAssetExtension, TFolderFiles, TFolderReplicationDescriptor } from "#/utils/types";

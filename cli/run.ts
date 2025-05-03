@@ -38,4 +38,4 @@ setupStartCommands(program);
 setupTranslationsCommands(program);
 setupVerifyCommands(program);
 
-program.parseAsync();
+program.parse();

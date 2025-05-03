@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
 
 import { blue, green, yellowBright } from "chalk";
 
@@ -20,7 +20,7 @@ import { TimeTracker } from "#/utils/timing";
 
 import { default as pkg } from "#/../package.json";
 
-const log: NodeLogger = new NodeLogger("BUILD_ALL");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Enumeration of possible gamedata assets to build.

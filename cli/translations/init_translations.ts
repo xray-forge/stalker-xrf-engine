@@ -1,11 +1,11 @@
-import * as cp from "child_process";
+import * as cp from "node:child_process";
 
 import { blue, yellow } from "chalk";
 
 import { XRF_UTILS_PATH } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("INIT_TRANSLATIONS");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 interface IInitTranslationParameters {
   verbose?: boolean;

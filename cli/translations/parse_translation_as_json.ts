@@ -1,6 +1,6 @@
-import * as fs from "fs";
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fs from "node:fs";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { green, red, yellow, yellowBright } from "chalk";
 import { XMLParser } from "fast-xml-parser";
@@ -22,7 +22,7 @@ import {
   Optional,
 } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("PARSE_TRANSLATION_AS_JSON");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 const DEFAULT_TARGET_ENCODING_CHECK_LIMIT: number = 64;
 

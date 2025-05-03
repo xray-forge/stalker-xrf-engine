@@ -1,5 +1,5 @@
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { green, greenBright, red, yellow, yellowBright } from "chalk";
 
@@ -9,7 +9,7 @@ import { exists } from "#/utils/fs/exists";
 import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("VERIFY_PROJECT");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Verify project setup and configuration.

@@ -1,5 +1,5 @@
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 /**
  * Read contents of directory including folders and scripts.

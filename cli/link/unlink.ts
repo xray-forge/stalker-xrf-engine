@@ -1,4 +1,4 @@
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { red, yellow, yellowBright } from "chalk";
 
@@ -8,7 +8,7 @@ import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
 import { AnyObject, Optional } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("UNLINK");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Unlink gamedata/engine/logs folders.

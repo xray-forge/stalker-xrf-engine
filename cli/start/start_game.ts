@@ -1,11 +1,11 @@
-import { exec } from "child_process";
+import { exec } from "node:child_process";
 
 import { green, yellowBright } from "chalk";
 
 import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("START_GAME");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Start game executable provided in config.json file.

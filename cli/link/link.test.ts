@@ -1,4 +1,4 @@
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 
@@ -7,7 +7,7 @@ import { getGamePaths } from "#/utils/fs/get_game_paths";
 
 import { replaceFunctionMock } from "@/fixtures/jest";
 
-jest.mock("fs/promises");
+jest.mock("node:fs/promises");
 jest.mock("#/utils/fs/get_game_paths");
 
 jest.mock("#/globals", () => ({

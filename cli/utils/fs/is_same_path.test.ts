@@ -1,10 +1,10 @@
-import * as os from "os";
+import * as os from "node:os";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { isSamePath } from "#/utils/fs/is_same_path";
 
-jest.mock("os");
+jest.mock("node:os");
 
 describe("is_same_path util", () => {
   it("should correctly check for win32", () => {

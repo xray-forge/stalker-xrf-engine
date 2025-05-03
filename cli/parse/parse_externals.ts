@@ -1,5 +1,5 @@
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { yellowBright } from "chalk";
 
@@ -14,7 +14,7 @@ import { NodeLogger } from "#/utils/logging";
 import { TFolderFiles } from "#/utils/types";
 import { renderJsxToXmlText } from "#/utils/xml";
 
-const log: NodeLogger = new NodeLogger("PARSE_DIR_AS_JSON");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Parse game engine externals and generate docs.

@@ -1,10 +1,10 @@
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { exists } from "#/utils/fs/exists";
 
-jest.mock("fs/promises");
+jest.mock("node:fs/promises");
 
 describe("exists util", () => {
   it("should correctly call exists method to confirm existing", async () => {

@@ -1,4 +1,4 @@
-import * as cp from "child_process";
+import * as cp from "node:child_process";
 
 import { blue, blueBright } from "chalk";
 
@@ -6,7 +6,7 @@ import { IBuildCommandParameters } from "#/build/build";
 import { GAME_DATA_TRANSLATIONS_DIR, TARGET_GAME_DATA_TRANSLATIONS_DIR, XRF_UTILS_PATH } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("BUILD_TRANSLATIONS");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Build translation files.

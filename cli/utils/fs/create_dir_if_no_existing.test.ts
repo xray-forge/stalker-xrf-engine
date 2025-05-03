@@ -1,10 +1,10 @@
-import * as fs from "fs";
+import * as fs from "node:fs";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { createDirIfNoExisting } from "#/utils/fs/create_dir_if_no_existing";
 
-jest.mock("fs");
+jest.mock("node:fs");
 
 describe("create_dir_if_no_existing util", () => {
   it("should correctly call fs methods to create dir if existing", () => {

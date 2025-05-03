@@ -1,5 +1,5 @@
-import * as fsp from "fs/promises";
-import * as path from "path";
+import * as fsp from "node:fs/promises";
+import * as path from "node:path";
 
 import { blue, blueBright } from "chalk";
 
@@ -12,7 +12,7 @@ import { ILtxConfigDescriptor, renderJsonToLtx } from "#/utils/ltx";
 import { EAssetExtension, Optional, TFolderReplicationDescriptor } from "#/utils/types";
 import { renderJsxToXmlText } from "#/utils/xml";
 
-const log: NodeLogger = new NodeLogger("BUILD_CONFIGS_DYNAMIC");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Transform typescript config files to LTX/XML configs.

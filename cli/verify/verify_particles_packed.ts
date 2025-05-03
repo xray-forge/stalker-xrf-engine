@@ -1,5 +1,5 @@
-import * as cp from "child_process";
-import * as path from "path";
+import * as cp from "node:child_process";
+import * as path from "node:path";
 
 import { blue } from "chalk";
 
@@ -7,7 +7,7 @@ import { RESOURCES_DIR, XRF_UTILS_PATH } from "#/globals";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 
-const log: NodeLogger = new NodeLogger("VERIFY_PARTICLES_PACKED");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 export interface IFormatParticlesPackedParameters {
   verbose?: boolean;

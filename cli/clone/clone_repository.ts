@@ -1,6 +1,6 @@
-import * as cp from "child_process";
-import * as fs from "fs";
-import * as path from "path";
+import * as cp from "node:child_process";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
 import { blue, green, red, yellowBright } from "chalk";
 
@@ -10,7 +10,7 @@ import { deleteDirIfExists } from "#/utils/fs/delete_dir_if_exists";
 import { NodeLogger } from "#/utils/logging";
 import { Optional } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("CLONE_REPOSITORY");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Parameters of CLI clone command.

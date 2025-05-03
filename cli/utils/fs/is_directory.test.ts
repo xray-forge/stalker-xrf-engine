@@ -1,11 +1,11 @@
-import * as fs from "fs";
-import * as fsp from "fs/promises";
+import * as fs from "node:fs";
+import * as fsp from "node:fs/promises";
 
 import { describe, expect, it, jest } from "@jest/globals";
 
 import { isDirectory } from "#/utils/fs/is_directory";
 
-jest.mock("fs/promises");
+jest.mock("node:fs/promises");
 
 describe("is_directory util", () => {
   it("should correctly check", async () => {

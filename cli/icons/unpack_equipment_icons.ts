@@ -1,5 +1,5 @@
-import * as cp from "child_process";
-import * as path from "path";
+import * as cp from "node:child_process";
+import * as path from "node:path";
 
 import { blue, blueBright } from "chalk";
 
@@ -8,7 +8,7 @@ import { IIconsCommandParameters } from "#/icons/run";
 import { NodeLogger } from "#/utils/logging";
 import { TimeTracker } from "#/utils/timing";
 
-const log: NodeLogger = new NodeLogger("UNPACK_EQUIPMENT_ICONS");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Disassemble DDS sprite files based on many small DDS elements.

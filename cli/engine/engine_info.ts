@@ -4,7 +4,7 @@ import { exists } from "#/utils/fs/exists";
 import { getGamePaths } from "#/utils/fs/get_game_paths";
 import { NodeLogger } from "#/utils/logging";
 
-const log: NodeLogger = new NodeLogger("ENGINE_INFO");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
  * Print current active engine info.

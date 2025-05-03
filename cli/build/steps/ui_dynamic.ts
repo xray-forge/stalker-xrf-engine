@@ -1,4 +1,4 @@
-import * as fsp from "fs/promises";
+import * as fsp from "node:fs/promises";
 
 import { blue, blueBright } from "chalk";
 
@@ -10,7 +10,7 @@ import { NodeLogger } from "#/utils/logging";
 import { EAssetExtension, TFolderReplicationDescriptor } from "#/utils/types";
 import { renderJsxToXmlText } from "#/utils/xml";
 
-const log: NodeLogger = new NodeLogger("BUILD_UI_DYNAMIC");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 const EXPECTED_DYNAMIC_XML_EXTENSIONS: Array<EAssetExtension> = [EAssetExtension.TS, EAssetExtension.TSX];
 

@@ -6,7 +6,7 @@ import { unlinkFolders } from "#/link/unlink";
 import { NodeLogger } from "#/utils/logging";
 import { AnyObject } from "#/utils/types";
 
-const log: NodeLogger = new NodeLogger("RELINK");
+const log: NodeLogger = NodeLogger.forFile(__filename);
 
 export interface IRelinkCommandParameters {
   force?: boolean;

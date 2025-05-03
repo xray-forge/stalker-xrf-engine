@@ -1,3 +1,5 @@
+import * as path from "node:path";
+
 import { green } from "chalk";
 
 import { stringifyValue } from "#/utils/logging/stringify_value";
@@ -25,7 +27,7 @@ export class NodeLogger {
   private readonly isEnabled: boolean = true;
 
   /**
-   * Get global logger singleton object to do inline printing.
+   * @returns global logger singleton object to do inline printing
    */
   public static getGlobal(): NodeLogger {
     if (!NodeLogger.GLOBAL) {
@@ -33,6 +35,14 @@ export class NodeLogger {
     }
 
     return NodeLogger.GLOBAL;
+  }
+
+  /**
+   * @param filename - full file name including path
+   * @returns logger with prefix based on filename
+   */
+  public static forFile(filename: string): NodeLogger {
+    return new NodeLogger(path.basename(filename, ".ts").toUpperCase());
   }
 
   /**
