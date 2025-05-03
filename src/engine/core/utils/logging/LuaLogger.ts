@@ -1,9 +1,9 @@
 import { log, print_stack, time_global } from "xray16";
 
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { openLogFile } from "@/engine/core/utils/logging/logging_files";
 import { ELuaLoggerMode, ILuaLoggerConfig } from "@/engine/core/utils/logging/logging_types";
 import { toJSON } from "@/engine/core/utils/transform/json";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { AnyArgs, AnyObject, Optional, TLabel } from "@/engine/lib/types";
 
 /**

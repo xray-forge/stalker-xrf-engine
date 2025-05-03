@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { log, print_stack, time_global } from "xray16";
 
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { LuaLogger } from "@/engine/core/utils/logging/LuaLogger";
 import { toJSON } from "@/engine/core/utils/transform/json";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 
 describe("LuaLogger", () => {

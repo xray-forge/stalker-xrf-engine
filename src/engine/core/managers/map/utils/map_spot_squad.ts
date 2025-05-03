@@ -1,5 +1,6 @@
 import { level } from "xray16";
 
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import type { Squad } from "@/engine/core/objects/squad";
 import { getSquadMapDisplayHint } from "@/engine/core/objects/squad/utils";
 import {
@@ -8,7 +9,6 @@ import {
   getSquadMembersRelationToActorSafe,
 } from "@/engine/core/utils/relation";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/section";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { Optional, TLabel, TNumberId } from "@/engine/lib/types";
 

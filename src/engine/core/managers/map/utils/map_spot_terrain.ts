@@ -1,6 +1,7 @@
 import { game, level } from "xray16";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainDescriptorById } from "@/engine/core/managers/simulation/utils/simulation_data";
@@ -11,7 +12,6 @@ import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ERelation } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { TRUE } from "@/engine/lib/constants/words";
 import { Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
 

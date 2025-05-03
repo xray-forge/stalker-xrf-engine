@@ -1,6 +1,6 @@
 import { entity_action } from "xray16";
 
-import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
+import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { EntityAction, GameObject, TEntityActionType, TName } from "@/engine/lib/types";
 
 /**

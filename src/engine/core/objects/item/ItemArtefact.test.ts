@@ -10,9 +10,9 @@ import {
   registry,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { Actor } from "@/engine/core/objects/creature";
 import { ItemArtefact } from "@/engine/core/objects/item/ItemArtefact";
-import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 

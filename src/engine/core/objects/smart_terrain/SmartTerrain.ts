@@ -24,6 +24,7 @@ import {
   updateSimulationObjectAvailability,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { updateTerrainMapSpot } from "@/engine/core/managers/map/utils";
 import { simulationActivities } from "@/engine/core/managers/simulation/activity/simulation_activities";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
@@ -83,7 +84,6 @@ import {
   updateTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";

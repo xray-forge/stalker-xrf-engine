@@ -2,10 +2,10 @@ import { profile_timer } from "xray16";
 
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { AnyCallable, LuaArray, Optional, ProfileTimer, TCount, TDuration, TName } from "@/engine/lib/types";
 

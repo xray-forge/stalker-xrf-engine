@@ -3,10 +3,10 @@ import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "x
 import { getManager } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { TPath, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

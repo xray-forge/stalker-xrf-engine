@@ -1,6 +1,6 @@
 import { registry } from "@/engine/core/database";
+import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 const logger: LuaLogger = new LuaLogger($filename);

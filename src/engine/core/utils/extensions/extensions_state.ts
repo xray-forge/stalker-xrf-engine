@@ -1,8 +1,8 @@
 import { FS, getFS } from "xray16";
 
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import { LuaArray, Optional, TPath } from "@/engine/lib/types";
 

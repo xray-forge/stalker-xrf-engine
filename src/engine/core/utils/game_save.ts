@@ -1,12 +1,12 @@
 import { bit_or, CSavedGameWrapper, device, FS, game, getFS, IsImportantSave, user_name } from "xray16";
 
 import { registry } from "@/engine/core/database/registry";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTimeToString } from "@/engine/core/utils/time";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { roots } from "@/engine/lib/constants/roots";

@@ -15,6 +15,7 @@ import {
 } from "xray16";
 
 import { registry } from "@/engine/core/database";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { LoadItem } from "@/engine/core/ui/menu/load/LoadItem";
 import {
   deleteGameSave,
@@ -27,7 +28,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyRectangle, createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import {
   FSItem,
   GameObject,

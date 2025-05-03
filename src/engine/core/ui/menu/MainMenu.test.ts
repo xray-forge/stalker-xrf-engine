@@ -3,12 +3,12 @@ import { DIK_keys, game, get_console, IsGameTypeSingle, level, ui_events } from 
 
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
 import { MainMenu } from "@/engine/core/ui/menu/MainMenu";
 import { EMainMenuModalMode } from "@/engine/core/ui/menu/menu_types";
 import { getGameSaves, loadLastGameSave } from "@/engine/core/utils/game_save";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 

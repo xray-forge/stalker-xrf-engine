@@ -19,11 +19,11 @@ import { updateSimulationObjectAvailability } from "@/engine/core/database/simul
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
 import { SaveManager } from "@/engine/core/managers/save/SaveManager";
+import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { ISchemeDeimosState } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeDeimos";
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
   GameObject,

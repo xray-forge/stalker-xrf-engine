@@ -17,6 +17,7 @@ import {
 import { registry } from "@/engine/core/database";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { EventsManager } from "@/engine/core/managers/events/EventsManager";
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { DebugDialog } from "@/engine/core/ui/debug/DebugDialog";
 import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { LoadDialog } from "@/engine/core/ui/menu/load/LoadDialog";
@@ -28,7 +29,6 @@ import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";

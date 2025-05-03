@@ -15,13 +15,13 @@ import {
   ui_events,
 } from "xray16";
 
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
 import { createGameSave, deleteGameSave, getGameSaves } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import {
   FSFileList,

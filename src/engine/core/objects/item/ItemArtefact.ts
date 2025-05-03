@@ -7,7 +7,7 @@ import {
   unregisterStoryLinkByObjectId,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { alifeConfig } from "@/engine/lib/configs/AlifeConfig";
+import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { Optional, ServerActorObject } from "@/engine/lib/types";
 
 /**
@@ -40,7 +40,7 @@ export class ItemArtefact extends cse_alife_item_artefact {
   public override can_switch_offline(): boolean {
     const actor: Optional<ServerActorObject> = registry.actorServer;
 
-    if (actor !== null && actor.position.distance_to_sqr(this.position) <= alifeConfig.SWITCH_DISTANCE_SQR) {
+    if (actor && actor.position.distance_to_sqr(this.position) <= alifeConfig.SWITCH_DISTANCE_SQR) {
       return false;
     }
 

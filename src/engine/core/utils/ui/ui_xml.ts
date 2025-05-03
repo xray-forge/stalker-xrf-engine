@@ -1,8 +1,8 @@
 import { CScriptXmlInit, getFS } from "xray16";
 
+import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { isWideScreen } from "@/engine/core/utils/ui/ui_screen";
-import { forgeConfig } from "@/engine/lib/configs/ForgeConfig";
 import { roots } from "@/engine/lib/constants/roots";
 import { TPath, XmlInit } from "@/engine/lib/types";
 
