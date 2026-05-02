@@ -599,7 +599,7 @@ describe("pickSectionFromCondList util", () => {
         target,
         parseConditionsList("{+test_info -unexpected_info} simple %+another_info -available_info%, fallback")
       )
-    ).toBe("simple ");
+    ).toBe("simple");
 
     expect(hasInfoPortion("another_info")).toBe(true);
     expect(hasInfoPortion("available_info")).toBe(false);

@@ -51,18 +51,70 @@ describe("lua VM mocks to test libraries", () => {
 
   it("string find mock should be applied", () => {
     expect(string.find("abcd54abc", "54")).toEqual([5, 6, null]);
-    expect(string.find("abcd54abc", "%d+")).toEqual([5, 6, ""]);
+    expect(string.find("abcd54abc", "%d+")).toEqual([5, 6, null]);
     expect(string.find("abcd54abc", "43")).toEqual([null, null, null]);
+
+    expect(string.find("abcd%d+abc", "%d+", 1, true)).toEqual([5, 7, null]);
+
+    expect(string.find("abcd54abc54", "54", 7)).toEqual([10, 11, null]);
+
+    expect(string.find("abcd54abc", "cd(%d+)ab")).toEqual([3, 8, "54"]);
+    expect(string.find("abcd54abc", "(%d+)")).toEqual([5, 6, "54"]);
+    expect(string.find("abcd54abc", "(a)b(c)d")).toEqual([1, 4, "a", "c"]);
+
+    expect(string.find("abc123abc", "%d+", 1)).toEqual([4, 6, null]);
+    expect(string.find("abc123abc", "%d+", 7)).toEqual([null, null, null]);
+
+    expect(string.find("", ".*")).toEqual([1, 0, null]);
+
+    expect(string.find("a.b+c", "b+")).toEqual([3, 3, null]);
+    expect(string.find("a.bb+c", "b+")).toEqual([3, 4, null]);
+    expect(string.find("a.b+c", "b%+", 1)).toEqual([3, 4, null]);
+    expect(string.find("a.b+c", "b+", 1, true)).toEqual([3, 4, null]);
+
+    expect(string.find("a.b.c.d.e", "([^.]+).([^.]+).([^.]+).([^.]+).([^.]+)")).toEqual([
+      1,
+      9,
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+    ]);
+
+    expect(string.find("h.i.j", "([^.]+).([^.]+).([^.]+)")).toEqual([1, 5, "h", "i", "j"]);
   });
 
-  it("string find mock should handle many parameters", () => {
-    const [s1, e1, a, b, c, d, e] = string.find("a.b.c.d.e", "([^.]+).([^.]+).([^.]+).([^.]+).([^.]+)");
+  it("string trim should be applied", () => {
+    expect(string.trim("  abc  ")).toBe("abc");
+    expect(string.trim("abc")).toBe("abc");
+    expect(string.trim("")).toBe("");
+  });
 
-    expect([s1, e1, a, b, c, d, e]).toEqual([1, 9, "a", "b", "c", "d", "e"]);
+  it("string trim_l should be applied", () => {
+    expect(string.trim_l("  abc  ")).toBe("abc  ");
+    expect(string.trim_l("abc")).toBe("abc");
+  });
 
-    const [s2, e2, h, i, j] = string.find("h.i.j", "([^.]+).([^.]+).([^.]+)");
+  it("string trim_r should be applied", () => {
+    expect(string.trim_r("  abc  ")).toBe("  abc");
+    expect(string.trim_r("abc")).toBe("abc");
+  });
 
-    expect([s2, e2, h, i, j]).toEqual([1, 5, "h", "i", "j"]);
+  it("string trim_w should be applied", () => {
+    expect(string.trim_w("  abc  def  ")).toBe("abc  def  ");
+    expect(string.trim_w("abc")).toBe("abc");
+  });
+
+  it("string find mock should trim captures", () => {
+    expect(string.find("  abc  ", "  (.*)  ")).toEqual([1, 7, "abc"]);
+    expect(string.find("  123  ", "  (%d+)  ")).toEqual([1, 7, "123"]);
+  });
+
+  it("string gmatch/gfind mock should trim matches", () => {
+    expect(string.gmatch(" a , b ", "([^,]+)")).toEqual(["a", "b"]);
+    expect(string.gfind(" a , b ", "([^,]+)")).toEqual(["a", "b"]);
+    expect(string.gfind("       a    ,    b   ", "%s*([^,]+)%s*")).toEqual(["a", "b"]);
   });
 
   it("string format mock should be applied", () => {

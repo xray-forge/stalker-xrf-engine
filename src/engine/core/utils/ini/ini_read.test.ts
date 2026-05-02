@@ -339,7 +339,7 @@ describe("readIniStringAndCondList util", () => {
         "sr_idle@two %+lx8_lab_tushkano_spawn =create_squad(lx8_tushkano_lab_squad:lx8_smart_terrain)%"
       ),
       objectId: null,
-      p1: "lx8_sr_lab ",
+      p1: "lx8_sr_lab",
       p2: null,
     });
 
@@ -347,7 +347,7 @@ describe("readIniStringAndCondList util", () => {
       name: "b",
       condlist: parseConditionsList("camper@military_2_heli_2_fight"),
       objectId: null,
-      p1: "path_end ",
+      p1: "path_end",
       p2: null,
     });
   });

@@ -34,9 +34,8 @@ export const mockString = {
 
     return to_jsstring(lauxlib.luaL_tolstring(L, -1));
   },
-  find: (target: string, pattern: string, startIndex?: number): Array<Optional<string | number>> => {
+  find: (target: string, pattern: string, startIndex?: number, plain?: boolean): Array<Optional<string | number>> => {
     const L: ILuaState = lauxlib.luaL_newstate();
-    const MAX_RETURN_VALUES: number = 16;
 
     lualib.luaL_openlibs(L);
 
@@ -47,38 +46,50 @@ export const mockString = {
 
     if (typeof startIndex === "number") {
       lua.lua_pushnumber(L, startIndex);
-      lua.lua_call(L, 3, MAX_RETURN_VALUES);
-    } else {
-      lua.lua_call(L, 2, MAX_RETURN_VALUES);
-    }
 
-    const stackValues: Array<Optional<string | number>> = [];
-
-    for (let it = 0; it < MAX_RETURN_VALUES; it++) {
-      if (lua.lua_isnil(L, -1)) {
-        stackValues.push(null);
-      } else if (lua.lua_isnumber(L, -1)) {
-        stackValues.push(lua.lua_tonumber(L, -1));
+      if (typeof plain === "boolean") {
+        lua.lua_pushboolean(L, plain);
+        lua.lua_call(L, 4, -1);
       } else {
-        stackValues.push(to_jsstring(lua.lua_tostring(L, -1)));
+        lua.lua_call(L, 3, -1);
       }
-
-      lua.lua_pop(L, 1);
+    } else {
+      lua.lua_call(L, 2, -1);
     }
 
-    stackValues.reverse();
-
+    const resultsCount: number = lua.lua_gettop(L) - 1;
     const result: Array<Optional<string | number>> = [];
 
-    for (let it = 0; it < stackValues.length; it++) {
-      if (stackValues[it] === null) {
-        break;
-      }
+    for (let it = 0; it < resultsCount; it++) {
+      const index: number = -(it + 1);
 
-      result.push(stackValues[it]);
+      if (lua.lua_isnil(L, index)) {
+        result.push(null);
+      } else if (lua.lua_isnumber(L, index)) {
+        // Only indices are returned as numbers, further values are string based.
+        if (it === resultsCount - 1 || it === resultsCount - 2) {
+          result.push(lua.lua_tonumber(L, index));
+        } else {
+          const value: string = to_jsstring(lua.lua_tostring(L, index));
+
+          result.push(value.trim());
+        }
+      } else {
+        const value: string = to_jsstring(lua.lua_tostring(L, index));
+
+        result.push(value.trim());
+      }
     }
 
-    // Ensure at least 3 args returned.
+    result.reverse();
+
+    // In Lua if no match, string.find returns nil.
+    if (result.length === 0) {
+      return [null, null, null];
+    }
+
+    // Ensure at least 3 args returned if it matches.
+    // In Lua if no captures are present, it returns only start and end indices.
     while (result.length < 3) {
       result.push(null);
     }
@@ -150,7 +161,7 @@ export const mockString = {
     lua.lua_call(L, 0, 1);
 
     while (!lua.lua_isnil(L, -1)) {
-      result.push(to_jsstring(lua.lua_tostring(L, -1)));
+      result.push(to_jsstring(lua.lua_tostring(L, -1)).trim());
 
       lua.lua_pop(L, 1);
       lua.lua_pushvalue(L, -1);
@@ -194,4 +205,8 @@ export const mockString = {
     return Number.parseInt(to_jsstring(lauxlib.luaL_tolstring(L, -1)));
   },
   lower: (target: string) => target.toLowerCase(),
+  trim: (target: string): string => target.trim(),
+  trim_l: (target: string): string => target.trimStart(),
+  trim_r: (target: string): string => target.trimEnd(),
+  trim_w: (target: string): string => target.replace(/^\s+/, ""),
 };
