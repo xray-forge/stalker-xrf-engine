@@ -112,9 +112,11 @@ describe("lua VM mocks to test libraries", () => {
   });
 
   it("string gmatch/gfind mock should trim matches", () => {
-    expect(string.gmatch(" a , b ", "([^,]+)")).toEqual(["a", "b"]);
-    expect(string.gfind(" a , b ", "([^,]+)")).toEqual(["a", "b"]);
-    expect(string.gfind("       a    ,    b   ", "%s*([^,]+)%s*")).toEqual(["a", "b"]);
+    expect(string.gmatch(" a , b ", "([^,]+)")).toEqual([" a ", " b "]);
+    expect(string.gfind(" a , b ", "([^,]+)")).toEqual([" a ", " b "]);
+    expect(string.gfind(" a , b ", "([^,^%s]+)")).toEqual(["a", "b"]);
+    expect(string.gfind("       a    ,    b   ", "%s*([^,]+)%s*")).toEqual(["a    ", "b   "]);
+    expect(string.gfind("       a    ,    b   ", "%s*([^,%s]+)%s*")).toEqual(["a", "b"]);
   });
 
   it("string format mock should be applied", () => {

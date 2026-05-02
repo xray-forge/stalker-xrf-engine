@@ -70,26 +70,16 @@ export const mockString = {
         if (it === resultsCount - 1 || it === resultsCount - 2) {
           result.push(lua.lua_tonumber(L, index));
         } else {
-          const value: string = to_jsstring(lua.lua_tostring(L, index));
-
-          result.push(value.trim());
+          result.push(to_jsstring(lua.lua_tostring(L, index)));
         }
       } else {
-        const value: string = to_jsstring(lua.lua_tostring(L, index));
-
-        result.push(value.trim());
+        result.push(to_jsstring(lua.lua_tostring(L, index)));
       }
     }
 
     result.reverse();
 
-    // In Lua if no match, string.find returns nil.
-    if (result.length === 0) {
-      return [null, null, null];
-    }
-
-    // Ensure at least 3 args returned if it matches.
-    // In Lua if no captures are present, it returns only start and end indices.
+    // Ensure at least 3 args returned.
     while (result.length < 3) {
       result.push(null);
     }
@@ -161,7 +151,7 @@ export const mockString = {
     lua.lua_call(L, 0, 1);
 
     while (!lua.lua_isnil(L, -1)) {
-      result.push(to_jsstring(lua.lua_tostring(L, -1)).trim());
+      result.push(to_jsstring(lua.lua_tostring(L, -1)));
 
       lua.lua_pop(L, 1);
       lua.lua_pushvalue(L, -1);

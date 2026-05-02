@@ -124,9 +124,9 @@ describe("parseConditionsList util", () => {
       {
         infop_check: { 1: { name: "zat_b104_task_end", required: true }, 2: { name: "another", required: true } },
         infop_set: {},
-        section: "4",
+        section: "4 ",
       },
-      { infop_check: {}, section: "0", infop_set: {} },
+      { infop_check: {}, section: "0   ", infop_set: {} },
     ]);
 
     expect(parseConditionsList("zat_b28_heli_3_crash_name")).toStrictEqualLuaArrays([
@@ -599,7 +599,7 @@ describe("pickSectionFromCondList util", () => {
         target,
         parseConditionsList("{+test_info -unexpected_info} simple %+another_info -available_info%, fallback")
       )
-    ).toBe("simple");
+    ).toBe("simple ");
 
     expect(hasInfoPortion("another_info")).toBe(true);
     expect(hasInfoPortion("available_info")).toBe(false);
