@@ -41,7 +41,7 @@ export async function parseTranslationAsJson(target: string, parameters: IParseT
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
 
   const locale: string = getTargetLocale(parameters);
-  const encoding: string = parameters.encoding;
+  const encoding: string = String(parameters.encoding);
   const output: string = parameters.output ? path.resolve(parameters.output) : TARGET_PARSED_DIR;
 
   const isCustomOutput: boolean = output !== TARGET_PARSED_DIR;
@@ -96,7 +96,7 @@ export async function parseTranslationAsJson(target: string, parameters: IParseT
       log.info("Saved resulting file to:", yellow(destination));
     }
   } catch (error) {
-    log.error("Parsing of translations failed:", error.message);
+    log.error("Parsing of translations failed:", error instanceof Error ? error?.message : error);
     throw error;
   }
 }
@@ -109,19 +109,22 @@ function transformXmlToJSON(schema: AnyObject, locale: string, base: AnyObject =
     throw new Error("Invalid XML schema file provided, expected XRay translations XML file.");
   }
 
-  return schema["string_table"]["string"].reduce((acc, it) => {
+  return schema["string_table"]["string"].reduce((acc: IJsonTranslationSchema, it) => {
     const currentTranslationId: string = it["@_id"];
     const currentTranslationRecord: AnyObject = acc[currentTranslationId] || {};
 
-    acc[currentTranslationId] = config.available_locales.reduce((translation, lang) => {
-      if (lang === locale) {
-        translation[lang] = it.text.includes("\\n") ? it.text.split("\\n") : (it.text ?? null);
-      } else {
-        translation[lang] = currentTranslationRecord[lang] ?? null;
-      }
+    acc[currentTranslationId] = config.available_locales.reduce(
+      (translation: Record<string, string | Array<string>>, lang: string) => {
+        if (lang === locale) {
+          translation[lang] = it.text.includes("\\n") ? it.text.split("\\n") : (it.text ?? null);
+        } else {
+          translation[lang] = currentTranslationRecord[lang] ?? null;
+        }
 
-      return translation;
-    }, {});
+        return translation;
+      },
+      {}
+    );
 
     return acc;
   }, base);
@@ -160,7 +163,7 @@ async function parseXmlToJson(file: string, encoding: string, locale: string): P
 }
 
 /**
- * Get locale to use as key.
+ * Get locale to use as a key.
  */
 function getTargetLocale(parameters: IParseTranslationParameters): string {
   const locale: string = parameters.language ?? "";
@@ -175,11 +178,11 @@ function getTargetLocale(parameters: IParseTranslationParameters): string {
 }
 
 /**
- * Try to guess encoding from XML file.
+ * Try to guess encoding from the XML file.
  */
 function readEncodingFromBuffer(buffer: Buffer): Optional<string> {
   const beginning: string = buffer.toString(EEncoding.UTF_8, 0, DEFAULT_TARGET_ENCODING_CHECK_LIMIT);
-  const matches: RegExpMatchArray = beginning.match(/encoding="(.+)"/);
+  const matches: Optional<RegExpMatchArray> = beginning.match(/encoding="(.+)"/);
 
   if (matches && matches.length > 1 && encodingExists(matches[1])) {
     log.debug("Guessed encoding from XML heading:", matches[1]);

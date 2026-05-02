@@ -1,19 +1,20 @@
+import * as fs from "node:fs";
 import * as fsp from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
 
 interface IFileStat {
-  mtime: Date;
+  modified: Date;
   size: number;
 }
 
-type FileMap = Record<string, IFileStat>;
+type TFileMap = Record<string, IFileStat>;
 
-type FilePathMap = string | FileMap;
+type TFilePathMap = TFileMap;
 
 interface IFileStats {
   totalSize: number;
-  files: FileMap;
+  files: TFileMap;
 }
 
 interface IDiffOptions {
@@ -91,7 +92,8 @@ async function getFileStats(
   await ensureDirAccess(dir);
 
   const { exclusions = [], pathSeparator = path.posix.sep, encodePath = false } = options;
-  const fileStats = {
+
+  const fileStats: IFileStats = {
     totalSize: 0,
     files: {},
   };
@@ -101,9 +103,9 @@ async function getFileStats(
       continue;
     }
 
-    const stats = await fsp.stat(filePath);
-    const relativeFilePath = filePath.slice(dir.length + 1);
-    const posixPath =
+    const stats: fs.Stats = await fsp.stat(filePath);
+    const relativeFilePath: string = filePath.slice(dir.length + 1);
+    const posixPath: string =
       os.platform() === "win32" ? relativeFilePath.split(path.sep).join(pathSeparator) : relativeFilePath;
 
     fileStats.totalSize += stats.size;
@@ -124,27 +126,35 @@ async function getFileStats(
  * @param options - diff checking configuration
  * @returns promise resolving diffs between two sets of files
  */
-export async function getDiffs(base: FilePathMap, target: FilePathMap, options?: IDiffOptions): Promise<IDiffs> {
+export async function getDiffs(
+  base: string | TFilePathMap,
+  target: string | TFilePathMap,
+  options?: IDiffOptions
+): Promise<IDiffs> {
   const { exclusions = [], compareSizes = true } = options || {};
-  const statsOptions = { exclusions };
-  let baseFiles = base;
-  let targetFilesGz = target;
+
+  let baseFiles: TFilePathMap;
+  let targetFilesGz: TFilePathMap;
 
   if (typeof base === "string") {
-    const baseRepo = path.resolve(base);
-    const { files } = await getFileStats(baseRepo, statsOptions);
+    const baseRepo: string = path.resolve(base);
+    const { files } = await getFileStats(baseRepo, { exclusions });
 
     baseFiles = files;
+  } else {
+    baseFiles = base;
   }
 
   if (typeof target === "string") {
     const targetRepo = path.resolve(target);
-    const { files } = await getFileStats(targetRepo, statsOptions);
+    const { files } = await getFileStats(targetRepo, { exclusions });
 
     targetFilesGz = files;
+  } else {
+    targetFilesGz = target;
   }
 
-  const targetFiles = {};
+  const targetFiles: TFilePathMap = {};
 
   for (const path of Object.keys(targetFilesGz)) {
     let noGzPath = path;
@@ -154,16 +164,16 @@ export async function getDiffs(base: FilePathMap, target: FilePathMap, options?:
     targetFiles[noGzPath] = targetFilesGz[path];
   }
 
-  const additions = {
+  const additions: IDiff = {
     totalSize: 0,
     files: [],
   };
 
   for (const path of Object.keys(baseFiles)) {
-    const noFile = targetFiles[path] === undefined;
-    const baseFileStats = baseFiles[path];
+    const hasNoFile: boolean = targetFiles[path] === undefined;
+    const baseFileStats: IFileStat = baseFiles[path];
 
-    if (noFile) {
+    if (hasNoFile) {
       additions.totalSize += baseFileStats.size;
       additions.files.push(path);
     } else {
@@ -181,7 +191,7 @@ export async function getDiffs(base: FilePathMap, target: FilePathMap, options?:
     }
   }
 
-  const deletions = {
+  const deletions: IDiff = {
     totalSize: 0,
     files: [],
   };

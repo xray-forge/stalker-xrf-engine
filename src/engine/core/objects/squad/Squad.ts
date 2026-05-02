@@ -382,7 +382,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * As example, squad on start of original COP always will go to actor spawn point.
    * Some squads can rotate over few smart terrains and completely ignore priorities.
    *
-   * @return target ID assigned for smart by condlists from ltx script configuration
+   * @returns target ID assigned for smart by condlists from ltx script configuration
    */
   public getScriptedSimulationTarget(): Optional<TNumberId> {
     const newTarget: Optional<TSection> = pickSectionFromCondList(registry.actor, this, this.targetConditionList);

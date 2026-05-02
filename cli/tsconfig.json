@@ -12,12 +12,14 @@
     "jsx": "react",
     "jsxFactory": "JSXXML",
     "lib": ["esnext", "dom"],
+    "types": ["node"],
     "paths": {
       "#/*": ["./*"],
       "@/*": ["../src/*"]
-    }
+    },
+    "ignoreDeprecations": "6.0"
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]
-  },
+  }
 }

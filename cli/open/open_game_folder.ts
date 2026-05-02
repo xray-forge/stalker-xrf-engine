@@ -7,7 +7,7 @@ import { NodeLogger } from "#/utils/logging";
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
- * Open game folder configured in config.json file with system explorer.
+ * Open the game folder configured in the config.json file with a system explorer.
  */
 export async function openGameFolder(): Promise<void> {
   log.info("Opening game folder");
@@ -18,7 +18,7 @@ export async function openGameFolder(): Promise<void> {
     log.info("Open system explorer in:", yellow(gameFolderPath));
 
     await openFolderInExplorer(gameFolderPath).catch(() => {});
-  } catch (error) {
-    log.error("Open folder error:", red(error.message));
+  } catch (error: unknown) {
+    log.error("Open folder error:", error instanceof Error ? red(error.message) : error);
   }
 }

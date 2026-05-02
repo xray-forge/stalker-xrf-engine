@@ -97,7 +97,7 @@ async function validateResources(folderPath: string): Promise<Array<string>> {
     return target;
   }
 
-  return folders.map(allowFiles).filter(Boolean);
+  return folders.map(allowFiles).filter(Boolean) as Array<string>;
 }
 
 /**

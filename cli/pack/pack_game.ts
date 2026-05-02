@@ -24,7 +24,7 @@ import { TimeTracker } from "#/utils/timing";
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
- * Pack engine and gamedata into complete game, ensure everything works correctly.
+ * Pack engine and gamedata into the complete game, ensure everything works correctly.
  */
 export async function packGame(parameters: IPackParameters): Promise<void> {
   NodeLogger.IS_VERBOSE = Boolean(parameters.verbose);
@@ -54,8 +54,8 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
     assert(isValidEngine(engine), `Expected engine to be valid, got '${engine}'.`);
 
     const timeTracker: TimeTracker = new TimeTracker().start();
-    const isBuildRequired: boolean = parameters.build;
-    const isCompressionRequired: boolean = parameters.compress;
+    const isBuildRequired: boolean = Boolean(parameters.build);
+    const isCompressionRequired: boolean = Boolean(parameters.compress);
 
     if (parameters.clean) {
       log.info("Perform package cleanup:", yellowBright(TARGET_GAME_PACKAGE_DIR));
@@ -73,7 +73,7 @@ export async function packGame(parameters: IPackParameters): Promise<void> {
 
       await build({
         clean: true,
-        assetOverrides: parameters.assetOverrides,
+        assetOverrides: Boolean(parameters.assetOverrides),
         verbose: parameters.verbose,
         luaLogs: !parameters.optimize,
         include: "all",

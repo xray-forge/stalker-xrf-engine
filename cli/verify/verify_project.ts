@@ -26,7 +26,7 @@ export async function verifyProject(): Promise<void> {
     await verifyLogsLink();
     await verifyAssets();
   } catch (error) {
-    log.error("Verification failed:", red(error.message));
+    log.error("Verification failed:", error instanceof Error ? red(error.message) : error);
   }
 }
 
@@ -91,7 +91,9 @@ async function verifyAssets(): Promise<void> {
     }
   }
 
-  for (const entry of config.resources.mod_assets_locales[config.locale]) {
+  for (const entry of config.resources.mod_assets_locales[
+    config.locale as keyof typeof config.resources.mod_assets_locales
+  ]) {
     if (await exists(path.resolve(CLI_DIR, entry))) {
       log.info("Locale resources:", greenBright("OK"), green(entry));
     } else {

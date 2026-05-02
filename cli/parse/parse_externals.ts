@@ -33,7 +33,7 @@ export async function parseExternals(): Promise<void> {
 
   const content: string = renderJsxToXmlText(
     renderExternals(
-      docs.reduce((acc, it: IExternFileDescriptor) => {
+      docs.reduce((acc: Record<string, Array<IExternFunction>>, it: IExternFileDescriptor) => {
         const moduleName: string = getPathParentFolder(it.file);
 
         acc[moduleName] = [...(acc[moduleName] ?? []), ...it.extern] as Array<IExternFunction>;

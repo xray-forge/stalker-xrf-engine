@@ -7,7 +7,7 @@ import { AnyGameObject, GameObject, Optional, ServerCreatureObject, TNumberId } 
  * Get squad of provided object.
  *
  * @param object - server or game object
- * @return object squad server object or null
+ * @returns object squad server object or null
  */
 export function getObjectSquad(object: AnyGameObject): Optional<Squad> {
   // Get for game object.
@@ -29,7 +29,7 @@ export function getObjectSquad(object: AnyGameObject): Optional<Squad> {
  * Get squad of provided object.
  *
  * @param objectId - object id to check
- * @return object squad server object or null
+ * @returns object squad server object or null
  */
 export function getObjectSquadByObjectId(objectId: TNumberId): Optional<Squad> {
   const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(objectId);

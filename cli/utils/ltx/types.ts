@@ -40,15 +40,14 @@ export interface ILtxFieldDescriptor<T> {
 /**
  * Generic descriptor of config object before transformation to LTX file.
  */
-export interface ILtxConfigDescriptor
-  extends Record<
-    string,
-    | ILtxConfigDescriptor
-    | Record<string, ILtxFieldDescriptor<unknown> | TPrimitive | null | undefined>
-    | TPrimitive
-    | null
-    | undefined
-  > {
+export interface ILtxConfigDescriptor extends Record<
+  string,
+  | ILtxConfigDescriptor
+  | Record<string, ILtxFieldDescriptor<unknown> | TPrimitive | null | undefined>
+  | TPrimitive
+  | null
+  | undefined
+> {
   [index: symbol]:
     | Record<string, ILtxFieldDescriptor<unknown> | TPrimitive | null | undefined>
     | TPrimitive

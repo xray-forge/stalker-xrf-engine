@@ -41,7 +41,7 @@ export function compress(parameters: ICompressParameters): void {
   if (parameters.include !== "all") {
     parameters.include.forEach((it) => {
       assert(
-        config[it],
+        config[it as keyof typeof config],
         `Expected include to list existing field, got '${it}'. Valid options: '${Object.keys(config).join(",")}'.`
       );
     });
@@ -56,8 +56,8 @@ export function compress(parameters: ICompressParameters): void {
     for (const [key, descriptor] of Object.entries(config)) {
       if (parameters.include === "all" || parameters.include.includes(key)) {
         compressWithConfig(key, {
-          fast: Boolean(descriptor["fast"]),
-          store: Boolean(descriptor["store"]),
+          fast: Boolean((descriptor as Record<string, unknown>)["fast"]),
+          store: Boolean((descriptor as Record<string, unknown>)["store"]),
           folders: descriptor.folders,
           files: descriptor.files,
         });
@@ -125,7 +125,7 @@ function compressWithConfig(
    */
   fs.readdirSync(TARGET_DIR, { withFileTypes: true }).forEach((it) => {
     if (it.isFile() && it.name.startsWith("gamedata.pack_")) {
-      const index: number = Number.parseInt(it.name.match(/\d+/)[0]);
+      const index: number = Number.parseInt(it.name.match(/\d+/)![0]);
 
       fs.renameSync(path.resolve(TARGET_DIR, it.name), path.resolve(TARGET_DATABASE_DIR, `${configName}.db${index}`));
     }

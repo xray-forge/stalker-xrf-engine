@@ -236,7 +236,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
  *
  * @param ini - target ini config file
  * @param section - section in ini file to read
- * @return optional list of scheme logic switcher descriptors
+ * @returns optional list of scheme logic switcher descriptors
  */
 export function getConfigSwitchConditions(ini: IniFile, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
   const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();

@@ -293,7 +293,7 @@ export function parseInfoPortions(
  * Example: `1:zat_b42_mayron_walk:2` or `a:b:c:10:-10:10.5`.
  *
  * @param data - string to parse
- * @return list of parameters parsed as strings or numbers
+ * @returns list of parameters parsed as strings or numbers
  */
 export function parseFunctionParams(data: string): LuaArray<string | number> {
   const list: LuaArray<string | number> = new LuaTable();

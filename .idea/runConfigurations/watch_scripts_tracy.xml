@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="format" type="js.build_tools.npm" folderName="check" nameIsGenerated="true">
+  <configuration default="false" name="watch:scripts-tracy" type="js.build_tools.npm" folderName="dev">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="format" />
+      <script value="watch:scripts-tracy" />
     </scripts>
     <node-interpreter value="project" />
     <envs />

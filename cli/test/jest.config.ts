@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const path = require("path");
+const path = require("node:path");
 
 const ROOT_DIR = path.resolve(__dirname, "../../");
 

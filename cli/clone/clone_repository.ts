@@ -22,6 +22,8 @@ export interface ICloneRepositoryParameters {
   list?: boolean;
 }
 
+export type TPossibleRepositoryName = keyof typeof config.repositories;
+
 /**
  * Clone provided repository for simplified additional resources usage.
  */
@@ -37,7 +39,7 @@ export async function cloneRepository(name: Optional<string>, parameters: IClone
   log.info("Cloning repository:", blue(name));
   log.info("Cloning into root:", yellowBright(cloneDirectoryRoot));
 
-  const targetRepositoryUrl: Optional<string> = name ? config.repositories[name]?.url : null;
+  const targetRepositoryUrl: Optional<string> = name ? config.repositories[name as TPossibleRepositoryName]?.url : null;
 
   /**
    * Validate input parameters.
@@ -48,7 +50,7 @@ export async function cloneRepository(name: Optional<string>, parameters: IClone
     throw new Error(
       "Expected valid repository name from list, try checking usage with '--help' and list with '--list' command flags."
     );
-  } else if (!config.repositories[name]) {
+  } else if (!config.repositories[name as TPossibleRepositoryName]) {
     log.error("Not existing name option provided:", red(name));
 
     printPossibleCloneOptions();

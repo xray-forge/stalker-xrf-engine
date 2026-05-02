@@ -40,14 +40,18 @@ export async function buildDynamicScripts(parameters: IBuildCommandParameters): 
     log.warn("Lua build issues:", result.diagnostics.length);
 
     result.diagnostics.forEach((it) => {
-      let errorLineStartPosition: number = it.start;
-      let errorLineStopPosition: number = it.start + it.length;
+      let errorLineStartPosition: number = it.start as number;
+      let errorLineStopPosition: number = (it.start as number) + (it.length as number);
 
-      while (it.file.text[errorLineStartPosition - 1] !== "\n" && errorLineStartPosition > 0) {
+      while (it.file && it.file.text[errorLineStartPosition - 1] !== "\n" && errorLineStartPosition > 0) {
         errorLineStartPosition -= 1;
       }
 
-      while (it.file.text[errorLineStopPosition + 1] !== "\n" && errorLineStopPosition < it.file.text.length) {
+      while (
+        it.file &&
+        it.file.text[errorLineStopPosition + 1] !== "\n" &&
+        errorLineStopPosition < it.file.text.length
+      ) {
         errorLineStopPosition += 1;
       }
 
@@ -55,8 +59,8 @@ export async function buildDynamicScripts(parameters: IBuildCommandParameters): 
         red("Lua issue:"),
         it.code,
         it.category,
-        yellowBright(it.file.fileName),
-        `"${it.file.text.slice(errorLineStartPosition, errorLineStopPosition).trim()}"`,
+        yellowBright(it.file?.fileName),
+        `"${it.file?.text.slice(errorLineStartPosition, errorLineStopPosition).trim()}"`,
         red(it.messageText)
       );
     });

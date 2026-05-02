@@ -7,7 +7,7 @@ import { NodeLogger } from "#/utils/logging";
 const log: NodeLogger = NodeLogger.forFile(__filename);
 
 /**
- * Open project folder in system explorer.
+ * Open the project folder in a system explorer.
  */
 export async function openProjectFolder(): Promise<void> {
   log.info("Opening game folder");
@@ -17,6 +17,6 @@ export async function openProjectFolder(): Promise<void> {
 
     await openFolderInExplorer(ROOT_DIR).catch(() => {});
   } catch (error) {
-    log.error("Open folder error:", red(error.message));
+    log.error("Open folder error:", error instanceof Error ? red(error.message) : error);
   }
 }

@@ -40,12 +40,12 @@ export async function readLastLinesOfFile(
             lines = lines.substring(1);
           }
 
-          await file.close();
+          await file?.close();
 
           return Buffer.from(lines, "binary").toString(encoding);
         }
 
-        const result = await file.read(Buffer.alloc(1), 0, 1, stat.size - 1 - chars);
+        const result = await file!.read(Buffer.alloc(1), 0, 1, stat.size - 1 - chars);
         const nextCharacter = String.fromCharCode(result.buffer[0]);
 
         lines = nextCharacter + lines;

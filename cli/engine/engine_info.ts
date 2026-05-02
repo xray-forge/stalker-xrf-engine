@@ -26,7 +26,7 @@ export async function printEngineInfo(): Promise<void> {
   }
 
   if (isLinkedEngine) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // @ts-ignore
     const config = require(engineDescriptorPath);
 
     log.info("Linked X-Ray engine detected");

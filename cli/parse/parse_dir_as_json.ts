@@ -15,7 +15,7 @@ interface IParseDirParameters {
 }
 
 /**
- * Parse provided dir tree to JSON file.
+ * Parse the provided directory tree to the JSON file.
  */
 export async function parseDirAsJson(targetPath: string, parameters: IParseDirParameters): Promise<void> {
   if (targetPath) {
@@ -36,7 +36,7 @@ export async function parseDirAsJson(targetPath: string, parameters: IParseDirPa
       log.debug("MKDIR:", yellowBright(TARGET_PARSED_DIR));
     }
 
-    const resultingObject: Record<string, string> = tree.reduce((acc, it) => {
+    const resultingObject: Record<string, string> = tree.reduce((acc: Record<string, string>, it: string) => {
       const withoutExt: string = it.substring(0, it.lastIndexOf("."));
       const normalizedToKey: string = withoutExt.replaceAll("\\", "_");
 

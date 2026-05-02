@@ -726,7 +726,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * @param squad - squad checking availability of current smart terrain
    * @param isPopulationDecreaseNeeded - whether population decrease should be estimated with check
-   * @return whether current smart terrain is valid simulation target for provided squad
+   * @returns whether current smart terrain is valid simulation target for provided squad
    */
   public isValidSimulationTarget(squad: Squad, isPopulationDecreaseNeeded?: boolean): boolean {
     if (this.isRespawnOnlySmart) {

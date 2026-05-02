@@ -31,7 +31,7 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
   /**
    * Collect list of built files.
    */
-  function collectFiles(acc, it): Array<Array<string>> {
+  function collectFiles(acc: Array<string>, it: Array<string> | string): Array<string> {
     if (Array.isArray(it)) {
       it.forEach((nested) => collectFiles(acc, nested));
     } else {
@@ -89,10 +89,10 @@ export async function buildMeta({ meta, timeTracker }: IBuildMetaParams): Promis
 /**
  * Get pretty displayed stats descriptor object of time performance based on time tracker.
  */
-export function getTimingsInfo(timeTracker: TimeTracker): Record<string, string | number> {
+export function getTimingsInfo(timeTracker: TimeTracker): Record<string, string> {
   const total: number = timeTracker.getDuration();
 
-  return Object.entries(timeTracker.getStats()).reduce((acc, [key, value]) => {
+  return Object.entries(timeTracker.getStats()).reduce((acc: Record<string, string>, [key, value]) => {
     acc[key] = `${(value / (total / 100)).toFixed(1)}% ${value / 1000} SEC`;
 
     return acc;
@@ -116,7 +116,7 @@ export async function getFolderSizesSummary(directoryTree: Array<string>): Promi
     })
   );
 
-  return Object.entries(statistics).reduce((acc, [key, value]) => {
+  return Object.entries(statistics).reduce((acc: Record<string, string>, [key, value]) => {
     acc[key] = transformBytesToMegabytes(value) + " MB";
 
     return acc;

@@ -3,7 +3,7 @@ export interface IXmlTranslationSchema {
 }
 
 export interface IJsonTranslationSchema {
-  [key: string]: Record<string, string>;
+  [key: string]: Record<string, string | Array<string>>;
 }
 
 /**

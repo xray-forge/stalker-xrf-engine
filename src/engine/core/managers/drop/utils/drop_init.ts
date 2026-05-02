@@ -10,7 +10,7 @@ import type { IniFile, LuaArray, TCount, TName, TProbability, TSection, TStringI
 
 /**
  * @param ini - target ini file to read data from
- * @returs map of drop item sections + chance for game communities
+ * @returns map of drop item sections + chance for game communities
  */
 export function readIniDropByCommunity(ini: IniFile): LuaTable<TCommunity, LuaTable<TInventoryItem, TProbability>> {
   const itemsByCommunity: LuaTable<TCommunity, LuaTable<TInventoryItem, TProbability>> = new LuaTable();

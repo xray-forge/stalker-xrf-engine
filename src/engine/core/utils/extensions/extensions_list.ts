@@ -26,7 +26,6 @@ export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
 
       // If entry exists and has register callback, collect descriptor.
       if (lfs.attributes(extensionEntryPath)) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
         const module: Optional<AnyObject> = require(string.format("extensions.%s.main", directoryItem));
 
         if (module && type(module.register) === "function") {

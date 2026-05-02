@@ -2,12 +2,6 @@ import { TRate } from "@/engine/lib/types";
 
 /**
  * todo;
- *
- * @param factor
- * @param startPoint
- * @param stopPoint
- * @param fade1Volume
- * @param fade2Volume
  */
 export function calculateSoundFade(
   factor: TRate,

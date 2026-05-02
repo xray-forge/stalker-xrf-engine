@@ -24,8 +24,6 @@ export function isActorInSurgeCover(): boolean {
 
 /**
  * todo;
- *
- * @param squad
  */
 export function canSurgeKillSquad(squad: Squad): boolean {
   if (!squad.assignedTerrainId) {
