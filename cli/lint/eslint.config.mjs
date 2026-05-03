@@ -1,15 +1,13 @@
-// @ts-check
+import js from "@eslint/js";
+import importPlugin from "eslint-plugin-import";
+import jestPlugin from "eslint-plugin-jest";
+import jsdocPlugin from "eslint-plugin-jsdoc";
+import reactPlugin from "eslint-plugin-react";
+import sortKeysFixPlugin from "eslint-plugin-sort-keys-fix";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
-const js = require("@eslint/js");
-const importPlugin = require("eslint-plugin-import");
-const jestPlugin = require("eslint-plugin-jest");
-const jsdocPlugin = require("eslint-plugin-jsdoc");
-const reactPlugin = require("eslint-plugin-react");
-const sortKeysFixPlugin = require("eslint-plugin-sort-keys-fix");
-const globals = require("globals");
-const tseslint = require("typescript-eslint");
-
-module.exports = tseslint.config(
+export default [
   {
     ignores: ["target/**", "cli/bin/**", "src/resources/**", "cli/parse/utils/**"],
   },
@@ -21,7 +19,7 @@ module.exports = tseslint.config(
   jsdocPlugin.configs["flat/recommended"],
   reactPlugin.configs.flat.recommended,
   {
-    files: ["**/*.ts", "**/*.tsx", "**/*.js"],
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.mjs"],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -147,5 +145,5 @@ module.exports = tseslint.config(
       "react/no-unknown-property": "off",
       "react/react-in-jsx-scope": "off",
     },
-  }
-);
+  },
+];

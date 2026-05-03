@@ -1,10 +1,8 @@
-// @ts-check
+import unusedImportsPlugin from "eslint-plugin-unused-imports";
 
-const unusedImportsPlugin = require("eslint-plugin-unused-imports");
+import baseConfig from "./eslint.config.mjs";
 
-const baseConfig = require("./eslint.config.js");
-
-module.exports = [
+export default [
   ...baseConfig,
   {
     plugins: {
