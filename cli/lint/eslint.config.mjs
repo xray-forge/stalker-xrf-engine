@@ -1,18 +1,18 @@
-import js from "@eslint/js";
+import jsPlugin from "@eslint/js";
 import importPlugin from "eslint-plugin-import";
 import jestPlugin from "eslint-plugin-jest";
 import jsdocPlugin from "eslint-plugin-jsdoc";
 import reactPlugin from "eslint-plugin-react";
 import sortKeysFixPlugin from "eslint-plugin-sort-keys-fix";
 import globals from "globals";
-import tseslint from "typescript-eslint";
+import tsPlugin from "typescript-eslint";
 
 export default [
   {
     ignores: ["target/**", "cli/bin/**", "src/resources/**", "cli/parse/utils/**"],
   },
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
+  jsPlugin.configs.recommended,
+  ...tsPlugin.configs.recommended,
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   jestPlugin.configs["flat/style"],
