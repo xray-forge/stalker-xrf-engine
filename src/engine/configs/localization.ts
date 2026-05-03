@@ -1,7 +1,7 @@
 import { default as projectConfig } from "#/config.json";
 
 /**
- * Configuration of game active locale.
+ * Configuration of the game active locale.
  */
 export const config = {
   string_table: {

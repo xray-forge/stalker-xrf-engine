@@ -1,7 +1,7 @@
 import { EActiveItemSlot, EActorMenuMode, Optional, TDuration, Time } from "@/engine/lib/types";
 
 export const actorConfig = {
-  ACTOR_MENU_MODE: EActorMenuMode.UNDEFINED,
+  ACTOR_MENU_MODE: EActorMenuMode.UNDEFINED as EActorMenuMode,
   // Input configuration:
   IS_WEAPON_HIDDEN: false,
   IS_WEAPON_HIDDEN_IN_DIALOG: false,

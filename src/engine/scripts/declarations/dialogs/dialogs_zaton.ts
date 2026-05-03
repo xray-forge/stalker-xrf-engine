@@ -876,7 +876,6 @@ extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (): void => {
   } as unknown as LuaTable<string, LuaArray<string>>;
 
   let zone: TSection = "";
-  let zoneName: TName = "";
   let key;
 
   for (const [k, v] of zatB29InfopBringTable) {
@@ -887,7 +886,7 @@ extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (): void => {
     }
   }
 
-  zoneName = anomaliesNamesTbl.get(zone).get(math.random(1, anomaliesNamesTbl.get(zone).length()));
+  const zoneName: TName = anomaliesNamesTbl.get(zone).get(math.random(1, anomaliesNamesTbl.get(zone).length()));
 
   registry.anomalyZones.get(zoneName).setForcedSpawnOverride(zatB29AfTable.get(key as number));
 });

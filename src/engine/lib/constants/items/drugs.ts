@@ -10,17 +10,17 @@ export const medkits = {
 } as const;
 
 /**
- * Type definition of medkits list.
+ * Type definition of the medkits list.
  */
 export type TMedkits = typeof medkits;
 
 /**
- * Type definition of single medkit section available in game.
+ * Type definition of a single medkit section available in the game.
  */
 export type TMedkit = TMedkits[keyof TMedkits];
 
 /**
- * List of drug sections available in game.
+ * List of drug sections available in the game.
  */
 export const drugs = {
   ...medkits,
@@ -35,11 +35,11 @@ export const drugs = {
 } as const;
 
 /**
- * Type definition of ddrugs sections list.
+ * Type definition of drugs sections list.
  */
 export type TDrugItems = typeof drugs;
 
 /**
- * Type definition of single drug section item available in game.
+ * Type definition of a single drug section item available in the game.
  */
 export type TDrugItem = TDrugItems[keyof TDrugItems];
