@@ -1681,23 +1681,23 @@
   },
   "st_opt_fullscreen": {
     "eng": "Fullscreen",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
+    "fra": "Plein écran",
+    "ger": "Fullscreen",
+    "ita": "Schermo intero",
+    "pol": "Peіnoekranowy",
+    "rus": "Полноэкранный",
+    "spa": "Pantalla completa",
+    "ukr": "Повноекранний режим"
   },
   "st_opt_fullscreen_borderless": {
     "eng": "Fullscreen (fast Alt+Tab)",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
+    "fra": "Plein écran (Alt+Tab rapide)",
+    "ger": "Fullscreen (fast Alt+Tab)",
+    "ita": "Schermo intero (Alt+Tab veloce)",
+    "pol": "Peіnoekranowy (szybki Alt+Tab)",
+    "rus": "Полноэкранный (быстрый Alt+Tab)",
+    "spa": "Pantalla completa (Alt+Tab rápido)",
+    "ukr": "Повноекранний режим (швидкий Alt+Tab)"
   },
   "st_opt_high": {
     "eng": "high",
@@ -1751,23 +1751,23 @@
   },
   "st_opt_windowed": {
     "eng": "Windowed",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
+    "fra": "Fenêtré",
+    "ger": "Windowed",
+    "ita": "In finestra",
+    "pol": "Okienkowy",
+    "rus": "Оконный",
+    "spa": "En ventana",
+    "ukr": "Віконний режим"
   },
   "st_opt_windowed_borderless": {
     "eng": "Windowed borderless",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
+    "fra": "Fenêtré sans bordures",
+    "ger": "Windowed borderless",
+    "ita": "Senza bordi in finestra",
+    "pol": "Okienkowy (bez ramek)",
+    "rus": "Оконный без рамок",
+    "spa": "Ventana sin bordes",
+    "ukr": "Безрамковий віконний режим"
   },
   "st_rank_experienced": {
     "eng": "experienced",
@@ -2938,16 +2938,6 @@
     "rus": "Верт. синхронизация",
     "spa": "Sincronización vertical",
     "ukr": "Верт. синхронізація"
-  },
-  "ui_mm_window_mode": {
-    "eng": "Window mode",
-    "fra": null,
-    "ger": null,
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
   },
   "ui_mp_gamespy_changing_unique_nick": {
     "eng": "Change unique name",
