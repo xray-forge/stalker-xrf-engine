@@ -1,14 +1,4 @@
 {
-  "cze": {
-    "eng": null,
-    "fra": null,
-    "ger": "Tschechisch (Tzech)",
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
-  },
   "eng": {
     "eng": "English",
     "fra": "Anglaise (English)",
@@ -48,16 +38,6 @@
     "rus": "Итальянский (Italian)",
     "spa": "Italiana (Italian)",
     "ukr": "Італійська (Italian)"
-  },
-  "jpn": {
-    "eng": null,
-    "fra": null,
-    "ger": "Japanisch (Japanese)",
-    "ita": null,
-    "pol": null,
-    "rus": null,
-    "spa": null,
-    "ukr": null
   },
   "pol": {
     "eng": "Polish",
@@ -169,46 +149,6 @@
     "spa": "Cargando iluminación",
     "ukr": "Завантаження освітлення"
   },
-  "st_opt_fullscreen": {
-    "eng": "Fullscreen",
-    "fra": "Plein écran",
-    "ger": "Fullscreen",
-    "ita": "Schermo intero",
-    "pol": "Peіnoekranowy",
-    "rus": "Полноэкранный",
-    "spa": "Pantalla completa",
-    "ukr": "Повноекранний режим"
-  },
-  "st_opt_fullscreen_borderless": {
-    "eng": "Fullscreen (fast Alt+Tab)",
-    "fra": "Plein écran (Alt+Tab rapide)",
-    "ger": "Fullscreen (fast Alt+Tab)",
-    "ita": "Schermo intero (Alt+Tab veloce)",
-    "pol": "Peіnoekranowy (szybki Alt+Tab)",
-    "rus": "Полноэкранный (быстрый Alt+Tab)",
-    "spa": "Pantalla completa (Alt+Tab rápido)",
-    "ukr": "Повноекранний режим (швидкий Alt+Tab)"
-  },
-  "st_opt_windowed": {
-    "eng": "Windowed",
-    "fra": "Fenêtré",
-    "ger": "Windowed",
-    "ita": "In finestra",
-    "pol": "Okienkowy",
-    "rus": "Оконный",
-    "spa": "En ventana",
-    "ukr": "Віконний режим"
-  },
-  "st_opt_windowed_borderless": {
-    "eng": "Windowed borderless",
-    "fra": "Fenêtré sans bordures",
-    "ger": "Windowed borderless",
-    "ita": "Senza bordi in finestra",
-    "pol": "Okienkowy (bez ramek)",
-    "rus": "Оконный без рамок",
-    "spa": "Ventana sin bordes",
-    "ukr": "Безрамковий віконний режим"
-  },
   "st_switch_version_invitation": {
     "eng": "Do you really want to launch another version of the game?",
     "fra": "Voulez-vous vraiment lancer une autre version du jeu?",
@@ -258,106 +198,6 @@
     "rus": "Всегда активен",
     "spa": "Siempre activo",
     "ukr": "Завжди активний"
-  },
-  "ui_mm_color_grading_cold": {
-    "eng": "cold",
-    "fra": null,
-    "ger": "cold",
-    "ita": null,
-    "pol": "cold",
-    "rus": "холодная",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_default": {
-    "eng": "default",
-    "fra": null,
-    "ger": "default",
-    "ita": null,
-    "pol": "default",
-    "rus": "стандартная",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_filmic_01": {
-    "eng": "Filmic 1",
-    "fra": null,
-    "ger": "Filmic 1",
-    "ita": null,
-    "pol": "Filmic 1",
-    "rus": "Filmic 1",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_filmic_02": {
-    "eng": "Filmic 2",
-    "fra": null,
-    "ger": "Filmic 2",
-    "ita": null,
-    "pol": "Filmic 2",
-    "rus": "Filmic 2",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_filmic_03": {
-    "eng": "Filmic 3",
-    "fra": null,
-    "ger": "Filmic 3",
-    "ita": null,
-    "pol": "Filmic 3",
-    "rus": "Filmic 3",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_hollywood": {
-    "eng": "Hollywood",
-    "fra": null,
-    "ger": "Hollywood",
-    "ita": null,
-    "pol": "Hollywood",
-    "rus": "Hollywood",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_preset": {
-    "eng": "Colour grading",
-    "fra": null,
-    "ger": "Colour grading",
-    "ita": null,
-    "pol": "Colour grading",
-    "rus": "Градация цветов",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_vanilla": {
-    "eng": "Vanilla",
-    "fra": null,
-    "ger": "Vanilla",
-    "ita": null,
-    "pol": "Vanilla",
-    "rus": "оригинальная",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_vibrant": {
-    "eng": "Vibrant",
-    "fra": null,
-    "ger": "Vibrant",
-    "ita": null,
-    "pol": "Vibrant",
-    "rus": "Vibrant",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_color_grading_warm": {
-    "eng": "warm",
-    "fra": null,
-    "ger": "warm",
-    "ita": null,
-    "pol": "warm",
-    "rus": "тёплая",
-    "spa": null,
-    "ukr": null
   },
   "ui_mm_detail_radius": {
     "eng": "Grass detail radius",
@@ -412,12 +252,12 @@
   "ui_mm_hud_fov": {
     "eng": "Hud field of view",
     "fra": null,
-    "ger": null,
+    "ger": "Sichtfeld der HUD",
     "ita": null,
-    "pol": null,
-    "rus": null,
+    "pol": "Kąt widzenia HUD",
+    "rus": "Угол обзора HUD",
     "spa": null,
-    "ukr": null
+    "ukr": "Кут огляду HUD"
   },
   "ui_mm_loadingstages": {
     "eng": "Show loading stages",
@@ -509,46 +349,6 @@
     "spa": "Calidad de la superficie húmeda",
     "ukr": "Якість намокання поверхонь"
   },
-  "ui_mm_shader_preset": {
-    "eng": "Graphics mode",
-    "fra": "Mode graphique",
-    "ger": "Graphics mode",
-    "ita": "Modalità grafica",
-    "pol": "Graphics mode",
-    "rus": "Режим графики",
-    "spa": "Modo gráfico",
-    "ukr": "Графічний режим"
-  },
-  "ui_mm_shader_preset_enhanced_default": {
-    "eng": "enhanced (Default)",
-    "fra": null,
-    "ger": "enhanced (Default)",
-    "ita": null,
-    "pol": "enhanced (Default)",
-    "rus": "улучшенная (стандарт)",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_shader_preset_enhanced_high": {
-    "eng": "enhanced (High)",
-    "fra": null,
-    "ger": "enhanced (High)",
-    "ita": null,
-    "pol": "enhanced (High)",
-    "rus": "улучшенная (высоко)",
-    "spa": null,
-    "ukr": null
-  },
-  "ui_mm_shader_preset_vanilla": {
-    "eng": "vanilla",
-    "fra": null,
-    "ger": "vanilla",
-    "ita": null,
-    "pol": "vanilla",
-    "rus": "оригинальная",
-    "spa": null,
-    "ukr": null
-  },
   "ui_mm_simplified_item_pickup": {
     "eng": "Simplified item pickup",
     "fra": "Récupération simplifiée des articles",
@@ -560,14 +360,14 @@
     "ukr": "Спрощене підняття предметів"
   },
   "ui_mm_ui_fov": {
-    "eng": null,
+    "eng": "Field of view",
     "fra": null,
-    "ger": null,
+    "ger": "Sichtfeld",
     "ita": null,
-    "pol": null,
-    "rus": null,
+    "pol": "Kąt widzenia",
+    "rus": "Угол обзора",
     "spa": null,
-    "ukr": null
+    "ukr": "Кут огляду"
   },
   "ui_mm_ui_style": {
     "eng": "Interface style",
