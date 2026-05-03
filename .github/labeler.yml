@@ -1,48 +1,67 @@
 cli:
-  - .github/**
-  - cli/**
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/**
+          - cli/**
 
 binaries:
-  - cli/bin/**
+  - changed-files:
+      - any-glob-to-any-file: cli/bin/**
 
 test:
-  - src/**/*.test.ts
-  - src/fixtures/**
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/**/*.test.ts
+          - src/fixtures/**
 
 configs:
-  - src/engine/configs/**
+  - changed-files:
+      - any-glob-to-any-file: src/engine/configs/**
 
 ai:
-  - src/engine/core/ai/**
+  - changed-files:
+      - any-glob-to-any-file: src/engine/core/ai/**
 
 animation:
-  - src/engine/core/animation/**
+  - changed-files:
+      - any-glob-to-any-file: src/engine/core/animation/**
 
 managers:
-  - src/engine/core/managers/**
+  - changed-files:
+      - any-glob-to-any-file: src/engine/core/managers/**
 
 schemes:
-  - src/engine/core/schemes/**
+  - changed-files:
+      - any-glob-to-any-file: src/engine/core/schemes/**
 
 extensions:
-  - src/engine/extensions/**
+  - changed-files:
+      - any-glob-to-any-file: src/engine/extensions/**
 
 ui:
-  - src/engine/forms/**
-  - src/engine/core/ui/**
+  - changed-files:
+      - any-glob-to-any-file:
+          - src/engine/forms/**
+          - src/engine/core/ui/**
 
 scripts:
-  - src/engine/scripts/**
+  - changed-files:
+      - any-glob-to-any-file: src/engine/scripts/**
 
 translations:
-  - src/engine/translations/**
+  - changed-files:
+      - any-glob-to-any-file: src/engine/translations/**
 
 resources:
-  - src/resources/**
+  - changed-files:
+      - any-glob-to-any-file: src/resources/**
 
 typedefs:
-  - src/typedefs/**
+  - changed-files:
+      - any-glob-to-any-file: src/typedefs/**
 
 dependencies:
-  - package.json
-  - package-lock.json
+  - changed-files:
+      - any-glob-to-any-file:
+          - package.json
+          - package-lock.json
