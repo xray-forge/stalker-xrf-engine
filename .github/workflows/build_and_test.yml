@@ -42,7 +42,7 @@ jobs:
           path: target/jest_cache
           key: jest-${{ hashFiles('**/package-lock.json') }}-${{ matrix.shard }}
 
-      - run: npm run test -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --maxWorkers=100%
+      - run: npm run test:coverage -- --shard=${{ matrix.shard }}/${{ strategy.job-total }} --maxWorkers=100%
 
       - name: Save jest cache
         if: ${{ steps.cache-jest-restore.outputs.cache-hit != 'true' && github.event_name != 'pull_request' }}

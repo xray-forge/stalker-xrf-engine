@@ -5,7 +5,7 @@ const ROOT_DIR = path.resolve(__dirname, "../../");
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   clearMocks: true,
-  collectCoverage: true,
+  collectCoverage: false,
   cacheDirectory: "<rootDir>/target/jest_cache",
   coverageDirectory: "<rootDir>/target/coverage_report",
   coveragePathIgnorePatterns: ["/node_modules/"],

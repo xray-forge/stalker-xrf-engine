@@ -20,6 +20,7 @@
     "lint": "eslint . --config cli/lint/eslint.config.mjs --cache --cache-location target/eslint/cache.json",
     "lint:strict": "eslint . --config cli/lint/eslint.config.strict.mjs",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "dependencies": {
