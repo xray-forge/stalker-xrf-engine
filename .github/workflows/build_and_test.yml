@@ -71,7 +71,7 @@ jobs:
           path: target/coverage_report
 
       - name: Merge code coverage
-        run: npx nyc merge target/coverage_report/ target/coverage-report/coverage-final.json
+        run: npx nyc merge target/coverage_report/ target/coverage_report/coverage-final.json
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v6
