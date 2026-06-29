@@ -16,7 +16,7 @@ import { LuaArray, NetPacket, Optional, TCount, TLabel, TSection, TStringId } fr
 /**
  * Server representation of smart cover game object.
  *
- * todo: Find any info / document display of smart covers and loopholes inside game engine.
+ * Todo: Find any info / document display of smart covers and loopholes inside game engine.
  */
 @LuabindClass()
 export class SmartCover extends cse_smart_cover {

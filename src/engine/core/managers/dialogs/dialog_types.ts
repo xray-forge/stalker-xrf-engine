@@ -2,7 +2,7 @@ import type { IConfigCondition } from "@/engine/core/utils/ini";
 import type { LuaArray, Optional, TName, TStringId, TStringifiedBoolean } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export interface IPhrasesDescriptor {
   id: TStringId;
@@ -24,7 +24,7 @@ export interface IPhrasesDescriptor {
 export type TPhrasesAvailableMap = LuaTable<TStringId, IPhrasesDescriptor>;
 
 /**
- * todo;
+ * Todo.
  */
 export type TPhrasesPriorityMap = LuaTable<
   number,
@@ -32,7 +32,7 @@ export type TPhrasesPriorityMap = LuaTable<
 >;
 
 /**
- * todo;
+ * Todo.
  */
 export enum EGenericPhraseCategory {
   ANOMALIES = "anomalies",

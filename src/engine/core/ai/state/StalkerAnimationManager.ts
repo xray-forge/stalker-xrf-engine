@@ -82,8 +82,8 @@ export class StalkerAnimationManager {
   /**
    * Set new animation state and reset all markers.
    *
-   * @param state - target state to set
-   * @param isForced - whether state transition should be forced and skip all `out` animations
+   * @param state - Target state to set.
+   * @param isForced - Whether state transition should be forced and skip all `out` animations.
    */
   public setState(state: Optional<EStalkerState>, isForced?: Optional<boolean>): void {
     const now: TTimestamp = time_global();
@@ -143,8 +143,8 @@ export class StalkerAnimationManager {
   /**
    * Add animation for object execution.
    *
-   * @param animation - animation scenario name to execute by game object
-   * @param animationDescriptor - animation descriptor to play
+   * @param animation - Animation scenario name to execute by game object.
+   * @param animationDescriptor - Animation descriptor to play.
    */
   public addAnimation(animation: TName, animationDescriptor: IAnimationDescriptor): void {
     const object: GameObject = this.object;
@@ -173,9 +173,9 @@ export class StalkerAnimationManager {
    * Get matching animation sequence for currently active weapon slot.
    * If weapon slot animation does not exist, return `0` from list.
    *
-   * @param weaponSlot - active weapon slot of the game object
-   * @param animationsList - animations scenarios list
-   * @returns possible animation sequence for slot
+   * @param weaponSlot - Active weapon slot of the game object.
+   * @param animationsList - Animations scenarios list.
+   * @returns Possible animation sequence for slot.
    */
   public getAnimationForWeaponSlot(
     weaponSlot: TIndex,
@@ -191,7 +191,7 @@ export class StalkerAnimationManager {
   /**
    * Select active animation for execution on update tick.
    *
-   * @returns tuple with animation name and descriptor or tuple with nulls
+   * @returns Tuple with animation name and descriptor or tuple with nulls.
    */
   public selectAnimation(): LuaMultiReturn<[TName, IAnimationDescriptor] | [null, null]> {
     const states: IAnimationManagerState = this.state;
@@ -317,10 +317,10 @@ export class StalkerAnimationManager {
    * Select random animation sequence to play for `rnd` animation.
    * Random animations are part of idle state to make actions more diverse.
    *
-   * @param animationDescriptor - descriptor of animation to pick random from
-   * @param weaponSlot - item slot to check animation for
-   * @param shouldPlay - whether animation should be played
-   * @returns random animation sequence if valid one exists
+   * @param animationDescriptor - Descriptor of animation to pick random from.
+   * @param weaponSlot - Item slot to check animation for.
+   * @param shouldPlay - Whether animation should be played.
+   * @returns Random animation sequence if valid one exists.
    */
   public selectRandom(
     animationDescriptor: IAnimationDescriptor,
@@ -366,7 +366,7 @@ export class StalkerAnimationManager {
    * Process special action as part of animation scenario.
    * It may include sounds/items/hit etc.
    *
-   * @param actionTable - table with action to process
+   * @param actionTable - Table with action to process.
    */
   public processSpecialAction(actionTable: LuaTable): void {
     // Attach item.
@@ -417,7 +417,7 @@ export class StalkerAnimationManager {
    * On animation scenario finish by an object.
    * Handle different phases of animation and proceed animations list of transform from one marker to another.
    *
-   * @param skipMultiAnimationCheck - skip multiple animations scenario and transfer to another marker
+   * @param skipMultiAnimationCheck - Skip multiple animations scenario and transfer to another marker.
    */
   public onAnimationCallback(skipMultiAnimationCheck?: boolean): void {
     if (this.state.animationMarker === null || this.object.animation_count() > 0) {

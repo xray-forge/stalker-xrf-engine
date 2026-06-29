@@ -1,7 +1,7 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Todo.
  */
 export function MapMultiplayerSpots(): JSXNode {
   return (
@@ -58,8 +58,6 @@ export function MapMultiplayerSpots(): JSXNode {
       <mp_hit_sector_location hint={"hit_sector"} ttl={"3"} pos_to_actor={"1"}>
         <mini_map spot={"mp_hit_sector_mini_spot"} />
       </mp_hit_sector_location>
-
-      {/** <!-- multiplayer level spots --> */}
 
       <mp_team_base_1_level_spot x={"0"} y={"0"} width={"32"} stretch={"1"} height={"32"} alignment={"c"}>
         <texture r={"0"} g={"255"} b={"0"}>
@@ -121,7 +119,6 @@ export function MapMultiplayerSpots(): JSXNode {
         </texture>
       </mp_af_neutral_level_spot>
 
-      {/** <!-- multiplayer --> */}
       <mp_team_base_1_mini_spot x={"0"} y={"0"} width={"15"} height={"15"} stretch={"0"} alignment={"c"}>
         <texture r={"0"} g={"255"} b={"0"}>
           ui_mmap_base
@@ -206,7 +203,6 @@ export function MapMultiplayerSpots(): JSXNode {
         </texture>
       </mp_hit_sector_mini_spot>
 
-      {/** <!-- multiplayer --> */}
       <mp_team_base_1_pointer x={"0"} y={"0"} width={"15"} height={"17"} heading={"1"} alignment={"c"}>
         <texture a={"255"} color={"green"}>
           ui_hud_map_arrow

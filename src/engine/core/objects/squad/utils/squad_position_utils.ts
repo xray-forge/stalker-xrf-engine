@@ -12,8 +12,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Set squad position in current level by supplied vector.
  * Works within one level limits.
  *
- * @param squad - target squad to change position
- * @param position - new squad position
+ * @param squad - Target squad to change position.
+ * @param position - New squad position.
  */
 export function setSquadPosition(squad: Squad, position: Vector): void {
   logger.info("Set squad position: '%s', '%s', '%s'", squad.name(), squad.online, vectorToString(position));

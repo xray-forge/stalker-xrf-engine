@@ -14,7 +14,7 @@ const log: NodeLogger = NodeLogger.forFile(__filename);
 /**
  * Copy static XML files of UI.
  *
- * @param parameters - build command run parameters
+ * @param parameters - Build command run parameters.
  */
 export async function buildStaticUi(parameters: IBuildCommandParameters): Promise<void> {
   log.info(blueBright("Copy static UI schemas"));

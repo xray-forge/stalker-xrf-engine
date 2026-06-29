@@ -190,7 +190,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateMovementState(): void {
     this.isHelicopterMoving = true;

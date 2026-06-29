@@ -26,7 +26,7 @@ export interface ILinkCommandParameters {
 /**
  * Link gamedata/engine/logs dirs.
  *
- * @param parameters - command arguments
+ * @param parameters - Command arguments.
  */
 export async function linkFolders(parameters: ILinkCommandParameters): Promise<void> {
   log.info("Linking engine mod development folders");
@@ -42,9 +42,9 @@ export async function linkFolders(parameters: ILinkCommandParameters): Promise<v
 }
 
 /**
- * Link target gamedata folder for faster / easier development
+ * Link target gamedata folder for faster / easier development.
  *
- * @param parameters - command arguments
+ * @param parameters - Command arguments.
  */
 async function linkGamedataFolders(parameters: ILinkCommandParameters): Promise<void> {
   log.info("Linking gamedata folders");
@@ -84,7 +84,7 @@ async function linkGamedataFolders(parameters: ILinkCommandParameters): Promise<
 /**
  * Link game folder.
  *
- * @param parameters - command arguments
+ * @param parameters - Command arguments.
  */
 async function linkGameFolder(parameters: ILinkCommandParameters): Promise<void> {
   log.info("Linking game folders");
@@ -111,7 +111,7 @@ async function linkGameFolder(parameters: ILinkCommandParameters): Promise<void>
 /**
  * Link open-xray logs folder for easier check in project.
  *
- * @param parameters - command arguments
+ * @param parameters - Command arguments.
  */
 async function linkLogsFolders(parameters: ILinkCommandParameters): Promise<void> {
   log.info("Linking logs folders");

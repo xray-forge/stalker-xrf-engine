@@ -12,7 +12,7 @@ interface IFolderReplicationDescriptorsConfig {
 }
 
 /**
- * @returns list of replication descriptors based on configuration
+ * @returns List of replication descriptors based on configuration.
  */
 export async function getFolderReplicationDescriptors({
   fromDirectory,

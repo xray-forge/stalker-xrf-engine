@@ -8,8 +8,8 @@ import { GameObject, Optional } from "@/engine/lib/types";
 /**
  * Handle object reach target movement type and animation psychic state.
  *
- * @param object - game object to handle state for
- * @param target - object we are trying to reach
+ * @param object - Game object to handle state for.
+ * @param target - Object we are trying to reach.
  */
 export function updateObjectReachTaskMovement(object: GameObject, target: Optional<TSimulationObject>): void {
   if (target !== null && !object.is_talking()) {

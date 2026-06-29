@@ -7,7 +7,7 @@ import { OptionsVideo } from "@/engine/forms/menu/options/OptionsVideo.part";
 import { OptionsVideoAdvanced } from "@/engine/forms/menu/options/OptionsVideoAdvanced.part";
 
 /**
- * todo;
+ * Todo.
  */
 export function create(): JSXNode {
   return (
@@ -34,7 +34,7 @@ export function create(): JSXNode {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function OptionsBody(): JSXNode {
   return (
@@ -112,7 +112,7 @@ function OptionsBody(): JSXNode {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function OptionsBackground(): JSXNode {
   return (

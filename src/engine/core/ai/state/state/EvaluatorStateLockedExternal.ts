@@ -16,7 +16,7 @@ export class EvaluatorStateLockedExternal extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override evaluate(): boolean {
     return this.stateManager.isCombat || this.stateManager.isAlife;

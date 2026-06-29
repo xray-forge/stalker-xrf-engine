@@ -5,7 +5,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { GameObject } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo;
  * todo: Also unregister on deactivate?
  */
 export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
@@ -25,7 +25,7 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public checkStalker(object: GameObject): LuaMultiReturn<[boolean, boolean]> {
     if (!this.active) {

@@ -6,14 +6,14 @@ declare namespace table {
    * Get random value from table.
    * Provided by lua extensions lib in open-xray.
    *
-   * @returns random value from table
+   * @returns Random value from table.
    */
   function random<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaMultiReturn<[K, V]>;
   /**
    * Get table size.
    * Provided by lua extensions lib in open-xray.
    *
-   * @returns table size
+   * @returns Table size.
    */
   function size<V>(list: Array<V>): number;
   function size<V extends string = string>(list: Record<V, unknown>): number;
@@ -22,14 +22,14 @@ declare namespace table {
    * Get table keys.
    * Provided by lua extensions lib in open-xray.
    *
-   * @returns list of keys in an unordered way
+   * @returns List of keys in an unordered way.
    */
   function keys<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaTable<number, K>;
   /**
    * Get table values.
    * Provided by lua extensions lib in open-xray.
    *
-   * @returns list of values in an unordered way
+   * @returns List of values in an unordered way.
    */
   function values<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaTable<number, V>;
 }

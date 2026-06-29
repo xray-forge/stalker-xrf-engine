@@ -6,9 +6,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Save text data to the file.
  *
- * @param dir - target dir to save file, make sure it exists before writing to the file
- * @param filename - target file to save data
- * @param data - target data to save
+ * @param dir - Target dir to save file, make sure it exists before writing to the file.
+ * @param filename - Target file to save data.
+ * @param data - Target data to save.
  */
 export function saveTextToFile(dir: TPath, filename: TPath, data: string): void {
   // Make sure target directory exists.
@@ -32,9 +32,9 @@ export function saveTextToFile(dir: TPath, filename: TPath, data: string): void 
 /**
  * Save text data to the file.
  *
- * @param dir - target dir to save file, make sure it exists before writing to the file
- * @param filename - target file to save data
- * @param data - target table data to save
+ * @param dir - Target dir to save file, make sure it exists before writing to the file.
+ * @param filename - Target file to save data.
+ * @param data - Target table data to save.
  */
 export function saveObjectToFile(dir: TPath, filename: TPath, data: AnyObject): void {
   if (marshal === null) {
@@ -49,8 +49,8 @@ export function saveObjectToFile(dir: TPath, filename: TPath, data: AnyObject): 
 /**
  * Read text data from the file.
  *
- * @param path - target path to read file
- * @returns string data from the file or null
+ * @param path - Target path to read file.
+ * @returns String data from the file or null.
  */
 export function loadTextFromFile(path: TPath): Optional<string> {
   const [file] = io.open(path, "rb");
@@ -73,8 +73,8 @@ export function loadTextFromFile(path: TPath): Optional<string> {
 /**
  * Read object data from the file.
  *
- * @param path - target path to read file
- * @returns optional deserialized object
+ * @param path - Target path to read file.
+ * @returns Optional deserialized object.
  */
 export function loadObjectFromFile<T extends AnyObject>(path: TPath): Optional<T> {
   const data: Optional<string> = loadTextFromFile(path);

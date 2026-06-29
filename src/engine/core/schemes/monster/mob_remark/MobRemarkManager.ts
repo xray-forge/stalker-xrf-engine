@@ -9,7 +9,7 @@ import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/
 import { Cond, LuaArray, TDuration, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class MobRemarkManager extends AbstractSchemeManager<ISchemeMobRemarkState> {
   public isTipSent: boolean = false;

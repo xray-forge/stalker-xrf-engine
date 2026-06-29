@@ -6,10 +6,10 @@ import { MockActionBase } from "@/fixtures/xray";
 /**
  * Util to check GOAP action setup in graph.
  *
- * @param action - target action to check
- * @param target - target action to compare with (name or class of implementation)
- * @param properties - expected properties of provided action
- * @param effects - expected effects of provided action
+ * @param action - Target action to check.
+ * @param target - Target action to compare with (name or class of implementation).
+ * @param properties - Expected properties of provided action.
+ * @param effects - Expected effects of provided action.
  */
 export function checkPlannerAction(
   action: Optional<MockActionBase | ActionBase>,

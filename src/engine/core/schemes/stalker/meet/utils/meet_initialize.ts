@@ -10,10 +10,10 @@ import { EGameObjectRelation, GameObject, IniFile, Optional, TSection } from "@/
 /**
  * Initialize meet scheme defaults based on object relations and current section logics preferences.
  *
- * @param object - game object
- * @param ini - target ini file to read config from
- * @param section - currently active section
- * @param state - target meet scheme logics state
+ * @param object - Game object.
+ * @param ini - Target ini file to read config from.
+ * @param section - Currently active section.
+ * @param state - Target meet scheme logics state.
  */
 export function initializeMeetScheme(
   object: GameObject,

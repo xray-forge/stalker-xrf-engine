@@ -12,7 +12,7 @@ export interface IWaypointData {
   b?: string;
   r?: string;
   /**
-   * todo;
+   * Todo.
    */
   ret: Optional<string>;
   /**
@@ -49,7 +49,7 @@ export interface IWaypointData {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export interface ISpawnDescriptor {
   count: TCount;
@@ -69,7 +69,7 @@ export interface IConfigCondition {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export interface IConfigSwitchCondition {
   readonly section: TSection;
@@ -80,7 +80,7 @@ export interface IConfigSwitchCondition {
 export type TConditionList = LuaArray<IConfigSwitchCondition>;
 
 /**
- * todo; probably remove?
+ * Todo; probably remove?
  */
 export interface IConfigSwitchConditionsDescriptor {
   name: TName;

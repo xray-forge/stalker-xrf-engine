@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 
 /**
- * todo;
+ * Todo.
  */
 export function create(): JSXNode {
   return (

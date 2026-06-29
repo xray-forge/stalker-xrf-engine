@@ -7,9 +7,9 @@ import { GameObject, Optional, TDistance, TName, TNumberId } from "@/engine/lib/
 /**
  * Check whether provided vertex ID is from level.
  *
- * @param levelName - target level to expect
- * @param gameVertexId - game vertex id to check level
- * @returns whether gameVertexId is part of level with name `levelName`
+ * @param levelName - Target level to expect.
+ * @param gameVertexId - Game vertex id to check level.
+ * @returns Whether gameVertexId is part of level with name `levelName`.
  */
 export function isGameVertexFromLevel(levelName: TName, gameVertexId: TNumberId): boolean {
   return levelName === registry.simulator.level_name(game_graph().vertex(gameVertexId).level_id());
@@ -18,9 +18,9 @@ export function isGameVertexFromLevel(levelName: TName, gameVertexId: TNumberId)
 /**
  * Get graph distance between two vertexes.
  *
- * @param firstVertexId - from vertex id
- * @param secondVertexId - to vertex id
- * @returns distance between vertexes
+ * @param firstVertexId - From vertex id.
+ * @param secondVertexId - To vertex id.
+ * @returns Distance between vertexes.
  */
 export function graphDistance(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
   return game_graph().vertex(firstVertexId).game_point().distance_to(game_graph().vertex(secondVertexId).game_point());
@@ -29,9 +29,9 @@ export function graphDistance(firstVertexId: TNumberId, secondVertexId: TNumberI
 /**
  * Get squared graph distance between two vertexes.
  *
- * @param firstVertexId - from vertex id
- * @param secondVertexId - to vertex id
- * @returns squared distance between vertexes
+ * @param firstVertexId - From vertex id.
+ * @param secondVertexId - To vertex id.
+ * @returns Squared distance between vertexes.
  */
 export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumberId): TDistance {
   return game_graph()
@@ -41,9 +41,9 @@ export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumb
 }
 
 /**
- * @param object - object to validate vertex against
- * @param vertexId - vertex ID to check
- * @returns whether provided vertex is valid and can be accessed by the object
+ * @param object - Object to validate vertex against.
+ * @param vertexId - Vertex ID to check.
+ * @returns Whether provided vertex is valid and can be accessed by the object.
  */
 export function isValidAccessibleVertex(object: GameObject, vertexId: Optional<TNumberId>): boolean {
   return vertexId !== null && vertexId < MAX_U32 && object.accessible(vertexId);

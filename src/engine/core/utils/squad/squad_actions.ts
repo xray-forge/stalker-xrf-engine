@@ -21,8 +21,8 @@ import {
 /**
  * Precondition checker to verify if squad can help actor in case of attack by another squad / monsters etc.
  *
- * @param squad - target squad to check help state
- * @returns whether squad can assist actor in fighting
+ * @param squad - Target squad to check help state.
+ * @returns Whether squad can assist actor in fighting.
  */
 export function canSquadHelpActor(squad: Squad): boolean {
   if (isEmpty(registry.actorCombat) || !areObjectsOnSameLevel(squad, registry.actorServer)) {
@@ -48,7 +48,7 @@ export function canSquadHelpActor(squad: Squad): boolean {
  * Check if squad can help actor.
  * If any valid target in combat can be targeted, try to help actor.
  *
- * @returns optional help target id to start combat with
+ * @returns Optional help target id to start combat with.
  */
 export function getSquadHelpActorTargetId(squad: Squad): Optional<TNumberId> {
   if (!canSquadHelpActor(squad)) {
@@ -81,8 +81,8 @@ export function getSquadHelpActorTargetId(squad: Squad): Optional<TNumberId> {
 /**
  * Check whether provided object is commander of squad.
  *
- * @param object - game object to check
- * @returns whether object is commanding squad
+ * @param object - Game object to check.
+ * @returns Whether object is commanding squad.
  */
 export function isObjectSquadCommander(object: AnyGameObject): boolean {
   const squad: Optional<Squad> = getObjectSquad(object);
@@ -96,8 +96,8 @@ export function isObjectSquadCommander(object: AnyGameObject): boolean {
 /**
  * Check whether provided object id is commander of squad.
  *
- * @param objectId - game object ID to check
- * @returns whether object is commanding squad
+ * @param objectId - Game object ID to check.
+ * @returns Whether object is commanding squad.
  */
 export function isObjectSquadCommanderById(objectId: TNumberId): boolean {
   const squad: Optional<Squad> = getObjectSquadByObjectId(objectId);
@@ -106,9 +106,9 @@ export function isObjectSquadCommanderById(objectId: TNumberId): boolean {
 }
 
 /**
- * @param squad - target squad to check
- * @param action - action type to expect
- * @returns whether current squad action matches provided type
+ * @param squad - Target squad to check.
+ * @param action - Action type to expect.
+ * @returns Whether current squad action matches provided type.
  */
 export function isSquadAction(squad: Squad, action: ESquadActionType): boolean {
   return squad.currentAction?.type === action;

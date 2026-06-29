@@ -8,8 +8,8 @@ import type { GameObject, ServerActorObject } from "@/engine/lib/types";
  * Register new actor entry in db.
  * Usually means that game is loaded or started.
  *
- * @param object - game object to register as actor
- * @returns registry object state
+ * @param object - Game object to register as actor.
+ * @returns Registry object state.
  */
 export function registerActor(object: GameObject): IRegistryObjectState {
   registry.actor = object;
@@ -30,8 +30,8 @@ export function unregisterActor(): void {
 /**
  * Register new actor server entry in db.
  *
- * @param object - server object to register as actor
- * @returns registered object
+ * @param object - Server object to register as actor.
+ * @returns Registered object.
  */
 export function registerActorServer(object: ServerActorObject): Actor {
   registry.actorServer = object as Actor;

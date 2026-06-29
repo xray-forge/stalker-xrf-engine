@@ -29,7 +29,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public initializeEntry(command: TConsoleCommand, console: CConsole, type: "numeric" | "boolean"): void {
     const item: CUIStatic = this.xml.InitStatic("command_item", this.uiCommandsList);

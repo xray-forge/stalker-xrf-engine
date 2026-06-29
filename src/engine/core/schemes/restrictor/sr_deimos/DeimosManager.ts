@@ -13,7 +13,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyObject, GameObject, Optional, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   public phase: TIndex = 0;

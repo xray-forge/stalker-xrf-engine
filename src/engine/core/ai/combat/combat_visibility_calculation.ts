@@ -5,17 +5,17 @@ import { GameObject, Optional, TDistance, TDuration, TRate } from "@/engine/lib/
  * If value >= visiblity_threshold then object is considered visible.
  * `visibility_threshold` is configured in LTX files for each monster / stalker separately.
  *
- * @param object - target object checking visibility
- * @param target - target checking visibility for from perspective of object
- * @param timeDelta - ?
- * @param timeQuantity - ?
- * @param luminosity - level of brightness outside
- * @param velocityFactor - ?
- * @param velocity - ?
- * @param distance - ?
- * @param objectDistance - ?
- * @param alwaysVisibleDistance -?
- * @returns visibility rate
+ * @param object - Target object checking visibility.
+ * @param target - Target checking visibility for from perspective of object.
+ * @param timeDelta - ?.
+ * @param timeQuantity - ?.
+ * @param luminosity - Level of brightness outside.
+ * @param velocityFactor - ?.
+ * @param velocity - ?.
+ * @param distance - ?.
+ * @param objectDistance - ?.
+ * @param alwaysVisibleDistance - ?.
+ * @returns Visibility rate.
  */
 export function calculateObjectVisibility(
   object: Optional<GameObject>,

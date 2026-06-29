@@ -7,7 +7,7 @@ import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
- * @param manager - instance to initialize
+ * @param manager - Instance to initialize.
  */
 export function initializeHelicopterCombatSearch(manager: HelicopterCombatManager): void {
   manager.isSearchInitialized = true;
@@ -28,7 +28,7 @@ export function initializeHelicopterCombatSearch(manager: HelicopterCombatManage
 }
 
 /**
- * @param manager - instance to setup
+ * @param manager - Instance to setup.
  */
 export function setupHelicopterCombatSearchFlight(manager: HelicopterCombatManager): void {
   manager.centerPos = manager.enemyLastSeenPos as Vector;
@@ -44,8 +44,8 @@ export function setupHelicopterCombatSearchFlight(manager: HelicopterCombatManag
 }
 
 /**
- * @param manager - instance to update
- * @param seeEnemy - whether enemy is seen
+ * @param manager - Instance to update.
+ * @param seeEnemy - Whether enemy is seen.
  */
 export function updateHelicopterCombatSearchShooting(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (seeEnemy) {
@@ -65,7 +65,7 @@ export function updateHelicopterCombatSearchShooting(manager: HelicopterCombatMa
 }
 
 /**
- * @param manager - instance to update
+ * @param manager - Instance to update.
  */
 export function updateHelicopterCombatSearchFlight(manager: HelicopterCombatManager): void {
   const now: TTimestamp = time_global();
@@ -96,8 +96,8 @@ export function updateHelicopterCombatSearchFlight(manager: HelicopterCombatMana
 }
 
 /**
- * @param manager - instance to update
- * @param seeEnemy - whether enemy is seen
+ * @param manager - Instance to update.
+ * @param seeEnemy - Whether enemy is seen.
  */
 export function updateHelicopterCombatSearch(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (!manager.isSearchInitialized) {

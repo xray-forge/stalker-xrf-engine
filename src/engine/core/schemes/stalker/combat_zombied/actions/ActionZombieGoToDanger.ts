@@ -20,7 +20,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class ActionZombieGoToDanger extends action_base {
@@ -67,7 +67,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
     if (state !== this.lastState) {
@@ -79,7 +79,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -115,7 +115,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onHit(object: GameObject, amount: TRate, direction: Vector, who: GameObject, boneId: TIndex): void {
     if (who === null) {

@@ -6,28 +6,28 @@ import { ESoundType } from "@/engine/lib/constants/sound";
 import { GameObject, TRate, TSoundType } from "@/engine/lib/types";
 
 /**
- * @returns currently set music volume
+ * @returns Currently set music volume.
  */
 export function getMusicVolume(): TRate {
   return get_console().get_float(consoleCommands.snd_volume_music);
 }
 
 /**
- * @returns currently set effects volume
+ * @returns Currently set effects volume.
  */
 export function getEffectsVolume(): TRate {
   return get_console().get_float(consoleCommands.snd_volume_eff);
 }
 
 /**
- * @param volume - rate to set music volume
+ * @param volume - Rate to set music volume.
  */
 export function setMusicVolume(volume: TRate): void {
   get_console().execute(string.format("%s %s", consoleCommands.snd_volume_music, volume));
 }
 
 /**
- * @param volume - rate to set effects volume
+ * @param volume - Rate to set effects volume.
  */
 export function setEffectsVolume(volume: TRate): void {
   get_console().execute(string.format("%s %s", consoleCommands.snd_volume_eff, volume));
@@ -36,9 +36,9 @@ export function setEffectsVolume(volume: TRate): void {
 /**
  * Check whether sound is included in actual sound bit mask.
  *
- * @param heard - actual heard sound bit mask
- * @param expected - sound to check containing in the mask
- * @returns whether expected sound type is provided
+ * @param heard - Actual heard sound bit mask.
+ * @param expected - Sound to check containing in the mask.
+ * @returns Whether expected sound type is provided.
  */
 export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
   return bit_and(heard, expected) === expected;
@@ -47,8 +47,8 @@ export function isSoundType(heard: TSoundType, expected: TSoundType): boolean {
 /**
  * Check whether is playing sound.
  *
- * @param object - game object to check playing
- * @returns whether currently sound is playing
+ * @param object - Game object to check playing.
+ * @returns Whether currently sound is playing.
  */
 export function isPlayingSound(object: GameObject): boolean {
   return soundsConfig.playing.has(object.id());
@@ -57,7 +57,7 @@ export function isPlayingSound(object: GameObject): boolean {
 /**
  * Stop playing sound for client game object.
  *
- * @param object - target object to stop playing
+ * @param object - Target object to stop playing.
  */
 export function stopPlayingObjectSound(object: GameObject): void {
   if (object.alive()) {
@@ -69,8 +69,8 @@ export function stopPlayingObjectSound(object: GameObject): void {
 /**
  * Transforms heard sound type from mask value to specific enum.
  *
- * @param soundMask - heard sound mask
- * @returns transformed mask to enum value
+ * @param soundMask - Heard sound mask.
+ * @returns Transformed mask to enum value.
  */
 export function mapSoundMaskToSoundType(soundMask: TSoundType): ESoundType {
   if (bit_and(soundMask, snd_type.weapon) === snd_type.weapon) {

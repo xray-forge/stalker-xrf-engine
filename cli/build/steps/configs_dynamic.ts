@@ -17,7 +17,7 @@ const log: NodeLogger = NodeLogger.forFile(__filename);
 /**
  * Transform typescript config files to LTX/XML configs.
  *
- * @param parameters - build command run parameters
+ * @param parameters - Build command run parameters.
  */
 export async function buildDynamicConfigs(parameters: IBuildCommandParameters): Promise<void> {
   log.info(blueBright("Build dynamic configs:", parameters.filter));
@@ -44,7 +44,7 @@ export async function buildDynamicConfigs(parameters: IBuildCommandParameters): 
 }
 
 /**
- * @param descriptors - list of replication descriptors
+ * @param descriptors - List of replication descriptors.
  */
 async function buildDynamicLtx(descriptors: Array<TFolderReplicationDescriptor>): Promise<void> {
   if (descriptors.length) {
@@ -84,7 +84,7 @@ async function buildDynamicLtx(descriptors: Array<TFolderReplicationDescriptor>)
 }
 
 /**
- * @param descriptors - list of replication descriptors
+ * @param descriptors - List of replication descriptors.
  */
 async function buildDynamicXml(descriptors: Array<TFolderReplicationDescriptor>): Promise<void> {
   if (descriptors.length) {

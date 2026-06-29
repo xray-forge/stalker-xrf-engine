@@ -44,7 +44,7 @@ export class CameraEffectorSet {
   /**
    * Handle starting of camera effector.
    *
-   * @param effect - descriptor item of effect to run
+   * @param effect - Descriptor item of effect to run.
    */
   public startEffect(effect: ICameraEffectorSetDescriptorItem): void {
     logger.info("Start effect: %s", effect.anim);
@@ -108,7 +108,7 @@ export class CameraEffectorSet {
   }
 
   /**
-   * @returns optional effector descriptor based on current state / effect index for further execution
+   * @returns Optional effector descriptor based on current state / effect index for further execution.
    */
   public getNextEffector(): Optional<ICameraEffectorSetDescriptorItem> {
     if (this.isLooped) {

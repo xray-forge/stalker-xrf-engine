@@ -26,8 +26,8 @@ export class ProfilingManager extends AbstractManager {
   public isProfilingStarted: boolean = false;
 
   /**
-   * c - call statements profiling.
-   * r - return statements profiling to count function returns.
+   * C - call statements profiling.
+   * R - return statements profiling to count function returns.
    */
   public mode: string = "r";
 
@@ -59,7 +59,7 @@ export class ProfilingManager extends AbstractManager {
   /**
    * Get currently used RAM volume by lua VM.
    *
-   * @returns count of used RAM in kilobytes
+   * @returns Count of used RAM in kilobytes.
    */
   public getLuaMemoryUsed(): TCount {
     return collectgarbage("count");
@@ -68,8 +68,8 @@ export class ProfilingManager extends AbstractManager {
   /**
    * Get string descriptor of any function in lua by debug information.
    *
-   * @param info - debug information describing function state in stack
-   * @returns function name descriptor based on debug information
+   * @param info - Debug information describing function state in stack.
+   * @returns Function name descriptor based on debug information.
    */
   public getFunctionName(info: debug.FunctionInfo): string {
     if (info === null) {
@@ -123,8 +123,8 @@ export class ProfilingManager extends AbstractManager {
   /**
    * Setups lua debug/profile hook based on provided mode.
    *
-   * @param mode - mode mask to run hook in
-   * @param skipLogs - whether information about hook setup should be logged (usually turned off for restart)
+   * @param mode - Mode mask to run hook in.
+   * @param skipLogs - Whether information about hook setup should be logged (usually turned off for restart).
    */
   public setupHook(mode: string = this.mode, skipLogs?: boolean): void {
     this.mode = mode;
@@ -170,7 +170,7 @@ export class ProfilingManager extends AbstractManager {
    * Hook function that is called by debug module every time function executes/returns/line changes.
    * Based on debug mask provided for hook setup.
    *
-   * @param context - context of hook call based on call case
+   * @param context - Context of hook call based on call case.
    */
   protected hook(context: string): void {
     logger.info("Skip setup, already started");
@@ -261,7 +261,7 @@ export class ProfilingManager extends AbstractManager {
   /**
    * Print calls measurement stats based on automated hook profiling observation.
    *
-   * @param limit - count of captured call stats to print
+   * @param limit - Count of captured call stats to print.
    */
   public logHookedCallsCountStats(limit: TCount = 128): void {
     if (!this.isProfilingStarted) {
@@ -290,7 +290,7 @@ export class ProfilingManager extends AbstractManager {
     table.sort(outStats, (left, right) => left.count > right.count);
 
     /**
-     * Print summary of profiled calls count data:
+     * Print summary of profiled calls count data,.
      */
 
     logger.pushEmptyLine();
@@ -329,7 +329,7 @@ export class ProfilingManager extends AbstractManager {
   /**
    * Print manual measurement stats based on pushed profiling portions.
    *
-   * @param limit - count of captured call stats to print
+   * @param limit - Count of captured call stats to print.
    */
   public logProfilingPortionsStats(limit: TCount = 128): void {
     let totalCalls: TCount = 0;
@@ -387,7 +387,7 @@ export class ProfilingManager extends AbstractManager {
     }
 
     /**
-     * Print summary of profiled calls count data:
+     * Print summary of profiled calls count data.
      */
 
     logger.pushEmptyLine();

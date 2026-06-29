@@ -5,8 +5,8 @@ import * as path from "node:path";
 /**
  * Read folder content with generator.
  *
- * @param directory - target folder to traverse
- * @yields next item in directory
+ * @param directory - Target folder to traverse.
+ * @yields Next item in directory.
  */
 export async function* readFolderGen(directory: string): AsyncGenerator<string> {
   const folders: Array<Dirent> = await fsp.readdir(directory, { withFileTypes: true });

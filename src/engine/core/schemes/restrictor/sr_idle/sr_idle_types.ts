@@ -1,7 +1,7 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 
 /**
- * todo;
+ * Todo.
  */
 export interface ISchemeIdleState extends IBaseSchemeState {
   //

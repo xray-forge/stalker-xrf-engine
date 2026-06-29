@@ -17,7 +17,7 @@ export interface IXrEditBoxProps extends IBaseXmlNode {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function XrEditBox(props: IXrEditBoxProps): JSXNode {
   const {

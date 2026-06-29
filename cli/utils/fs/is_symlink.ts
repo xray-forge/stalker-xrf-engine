@@ -1,8 +1,8 @@
 import * as fsp from "node:fs/promises";
 
 /**
- * @param target - path to check
- * @returns whether provided path is pointing to symlink, returns false if path does not exist
+ * @param target - Path to check.
+ * @returns Whether provided path is pointing to symlink, returns false if path does not exist.
  */
 export async function isSymlink(target: string): Promise<boolean> {
   return fsp

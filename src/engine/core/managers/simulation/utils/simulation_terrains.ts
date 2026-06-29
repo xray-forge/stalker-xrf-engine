@@ -9,7 +9,7 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 /**
  * Register smart terrain in simulation.
  *
- * @param terrain - target smart terrain object to register in alife simulation
+ * @param terrain - Target smart terrain object to register in alife simulation.
  */
 export function registerSimulationTerrain(terrain: SmartTerrain): void {
   simulationLogger.info("Register smart terrain: %s", terrain.name());
@@ -29,7 +29,7 @@ export function registerSimulationTerrain(terrain: SmartTerrain): void {
 /**
  * Unregister smart terrain from simulation.
  *
- * @param terrain - target smart terrain to unregister
+ * @param terrain - Target smart terrain to unregister.
  */
 export function unregisterSimulationTerrain(terrain: SmartTerrain): void {
   simulationLogger.info("Unregister smart terrain: %s", terrain.name());
@@ -46,7 +46,7 @@ export function unregisterSimulationTerrain(terrain: SmartTerrain): void {
  * Assign squads that were registered before smart terrain.
  * Fixes race condition when some objects are initialized before smart terrains.
  *
- * @param terrain - target smart terrain to initialize delayed squads for
+ * @param terrain - Target smart terrain to initialize delayed squads for.
  */
 export function initializeSimulationTerrain(terrain: SmartTerrain): void {
   // Resolve assigned squads state.

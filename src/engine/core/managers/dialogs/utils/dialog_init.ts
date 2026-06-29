@@ -13,8 +13,8 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Generate dialog options and actions for provided category.
  * Links dialog phrases, preconditions and action scripts for provided dialog object.
  *
- * @param dialog - instance to initialize with start options
- * @param category - category to initialize with dialog
+ * @param dialog - Instance to initialize with start options.
+ * @param category - Category to initialize with dialog.
  */
 export function initializeCategoryDialogs(dialog: PhraseDialog, category: EGenericPhraseCategory): void {
   assert(dialogConfig.PHRASES.get(category), "Expected to have pre-defined phrases for category '%s'.", category);
@@ -60,7 +60,7 @@ export function initializeCategoryDialogs(dialog: PhraseDialog, category: EGener
 /**
  * Initialize generic phrases for object starting dialog.
  *
- * @param dialog - instance to initialize with default phrases
+ * @param dialog - Instance to initialize with default phrases.
  */
 export function initializeNewDialog(dialog: PhraseDialog): void {
   logger.info("Initialize new dialog");

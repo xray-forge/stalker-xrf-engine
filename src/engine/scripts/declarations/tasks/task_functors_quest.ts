@@ -64,7 +64,7 @@ extern("task_functors.zat_b29_adv_descr", (): Optional<TLabel> => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("task_functors.zat_b29_adv_target", () => {
   const actor: GameObject = registry.actor;

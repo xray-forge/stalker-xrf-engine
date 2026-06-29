@@ -9,7 +9,7 @@ import { GameObject } from "@/engine/lib/types";
 /**
  * Punch actor as object.
  *
- * @param object - game object that should hit actor
+ * @param object - Game object that should hit actor.
  */
 export function objectPunchActor(object: GameObject): void {
   // Too far to hit.

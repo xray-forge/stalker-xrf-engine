@@ -14,7 +14,7 @@ import { LuaArray, Optional, TDuration, TName, TPath, TRate, TTimestamp } from "
  * Get list all possible weather configs to set.
  * Checks environment configs list and fills list with possible ltx files describing weather cycles.
  *
- * @returns array containing all possible weather names
+ * @returns Array containing all possible weather names.
  */
 export function getPossibleWeathersList(): LuaArray<TName> {
   const list: LuaArray<TName> = new LuaTable();
@@ -41,8 +41,8 @@ export function getPossibleWeathersList(): LuaArray<TName> {
 /**
  * Get one of possible weathers from change weather graph.
  *
- * @param graph - list of weather-probability pairs to toggle
- * @returns next weather selected from possibilities graph
+ * @param graph - List of weather-probability pairs to toggle.
+ * @returns Next weather selected from possibilities graph.
  */
 export function getNextWeatherFromGraph(graph: TWeatherGraph): TName {
   let totalProbability: TRate = 0;
@@ -69,7 +69,7 @@ export function getNextWeatherFromGraph(graph: TWeatherGraph): TName {
 }
 
 /**
- * @returns descriptor of level weather periods, defaults for unknown levels
+ * @returns Descriptor of level weather periods, defaults for unknown levels.
  */
 export function getLevelWeatherDescriptor(): IAtmosfearLevelWeatherConfig {
   return (
@@ -81,9 +81,9 @@ export function getLevelWeatherDescriptor(): IAtmosfearLevelWeatherConfig {
  * Get next period change hour based on previous change and configuration of level periods.
  * Randomizes change between max period duration and 2/3 of duration.
  *
- * @param period - type of current weather period
- * @param lastPeriodChangedAt - hour of last period change
- * @returns next hour to change period
+ * @param period - Type of current weather period.
+ * @param lastPeriodChangedAt - Hour of last period change.
+ * @returns Next hour to change period.
  */
 export function getNextPeriodChangeHour(period: EWeatherPeriodType, lastPeriodChangedAt: TTimestamp): TTimestamp {
   const length: TDuration =
@@ -97,8 +97,8 @@ export function getNextPeriodChangeHour(period: EWeatherPeriodType, lastPeriodCh
 /**
  * Check if weather section is indoors.
  *
- * @param weather - section of weather to check
- * @returns whether weather section is indoor
+ * @param weather - Section of weather to check.
+ * @returns Whether weather section is indoor.
  */
 export function isIndoorWeather(weather: TName): boolean {
   return containsSubstring(weather, "indoor");
@@ -107,8 +107,8 @@ export function isIndoorWeather(weather: TName): boolean {
 /**
  * Check if weather section is pre-blowout.
  *
- * @param weather - section of weather to check
- * @returns whether weather section is pre-blowout
+ * @param weather - Section of weather to check.
+ * @returns Whether weather section is pre-blowout.
  */
 export function isPreBlowoutWeather(weather: TName): boolean {
   return containsSubstring(weather, "pre_blowout");
@@ -117,8 +117,8 @@ export function isPreBlowoutWeather(weather: TName): boolean {
 /**
  * Check if weather section is transition.
  *
- * @param weather - section of weather to check
- * @returns whether weather section is transitioning
+ * @param weather - Section of weather to check.
+ * @returns Whether weather section is transitioning.
  */
 export function isTransitionWeather(weather: TName): boolean {
   return containsSubstring(weather, "transition");

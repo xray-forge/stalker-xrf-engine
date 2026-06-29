@@ -8,7 +8,7 @@ import { roots } from "@/engine/lib/constants/roots";
 import { GameObject, IniFile, Optional, TNumberId, TSection, TSoundObjectType } from "@/engine/lib/types";
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export class LoopedSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.LOOPED;
@@ -26,7 +26,7 @@ export class LoopedSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public play(objectId: TNumberId): boolean {
     const object: Optional<GameObject> = registry.objects.get(objectId).object!;

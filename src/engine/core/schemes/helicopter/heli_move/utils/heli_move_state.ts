@@ -4,8 +4,8 @@ import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/Hel
 import type { GameObject, TNumberId } from "@/engine/lib/types";
 
 /**
- * @param object - target game object representing helicopter
- * @returns singleton of fire manager matching helicopter object
+ * @param object - Target game object representing helicopter.
+ * @returns Singleton of fire manager matching helicopter object.
  */
 export function getHelicopterFireManager(object: GameObject): HelicopterFireManager {
   const objectId: TNumberId = object.id();
@@ -22,8 +22,8 @@ export function getHelicopterFireManager(object: GameObject): HelicopterFireMana
 }
 
 /**
- * @param object - target game object representing helicopter
- * @returns singleton of fly manager matching helicopter object
+ * @param object - Target game object representing helicopter.
+ * @returns Singleton of fly manager matching helicopter object.
  */
 export function getHelicopterFlyManager(object: GameObject): HelicopterFlyManager {
   const objectId: TNumberId = object.id();

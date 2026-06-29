@@ -31,14 +31,14 @@ logger.info("Resolve and bind dialogs pripyat");
 extern("dialogs_pripyat", {});
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b301_zulus_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_pkm_zulus);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_a17_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (hasInfoPortion(infoPortions.pri_a17_reward_well)) {
@@ -51,7 +51,7 @@ extern("dialogs_pripyat.pri_a17_reward", (firstSpeaker: GameObject, secondSpeake
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_pripyat.actor_has_pri_a17_gauss_rifle",
@@ -61,7 +61,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_pripyat.actor_hasnt_pri_a17_gauss_rifle",
@@ -74,14 +74,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.transfer_artifact_af_baloon", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_baloon);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pay_cost_to_guide_to_zaton", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (hasInfoPortion(infoPortions.zat_b215_gave_maps)) {
@@ -92,7 +92,7 @@ extern("dialogs_pripyat.pay_cost_to_guide_to_zaton", (firstSpeaker: GameObject, 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_pripyat.jup_b43_actor_has_10000_money",
@@ -106,7 +106,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_pripyat.jup_b43_actor_do_not_has_10000_money",
@@ -119,14 +119,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pay_cost_to_guide_to_jupiter", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 7000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_pripyat.jup_b43_actor_has_7000_money",
@@ -136,7 +136,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_pripyat.jup_b43_actor_do_not_has_7000_money",
@@ -146,7 +146,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b35_transfer_svd", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_svd);
@@ -154,7 +154,7 @@ extern("dialogs_pripyat.pri_b35_transfer_svd", (firstSpeaker: GameObject, second
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b35_give_actor_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const amount: TCount = hasInfoPortion(infoPortions.pri_b35_secondary) ? 3 : 1;
@@ -163,7 +163,7 @@ extern("dialogs_pripyat.pri_b35_give_actor_reward", (firstSpeaker: GameObject, s
 });
 
 /**
- * todo;
+ * Todo.
  */
 const medicItemsTable = {
   ["basic"]: {
@@ -187,7 +187,7 @@ const medicItemsTable = {
 } as unknown as LuaTable<TInfoPortion, LuaTable<TInventoryItem, TCount>>;
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_a25_medic_give_kit", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   let kit = "basic";
@@ -237,7 +237,7 @@ extern("dialogs_pripyat.pri_a22_army_signaller_supply", (firstSpeaker: GameObjec
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_a22_give_actor_outfit", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), outfits.military_outfit);
@@ -245,7 +245,7 @@ extern("dialogs_pripyat.pri_a22_give_actor_outfit", (firstSpeaker: GameObject, s
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_notes", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -258,7 +258,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_notes", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_1", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -271,7 +271,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_1", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_2", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -284,7 +284,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_2", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_3", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -297,7 +297,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_3", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_12", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -310,7 +310,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_12", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_13", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -323,7 +323,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_13", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_23", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -336,7 +336,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_23", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_all", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -349,7 +349,7 @@ extern("dialogs_pripyat.pri_b305_actor_has_strelok_note_all", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_pripyat.pri_b305_sell_strelok_notes", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const itemsTable: LuaArray<string> = $fromArray<string>([
@@ -385,7 +385,7 @@ extern("dialogs_pripyat.pri_b305_sell_strelok_notes", (firstSpeaker: GameObject,
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_pripyat.pri_a17_sokolov_is_not_at_base",

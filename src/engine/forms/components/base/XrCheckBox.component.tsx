@@ -23,7 +23,7 @@ export interface IXrCheckBoxProps extends IBaseXmlNode {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function XrCheckBox(props: IXrCheckBoxProps): JSXNode {
   const {

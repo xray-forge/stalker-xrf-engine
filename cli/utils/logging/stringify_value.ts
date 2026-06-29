@@ -1,6 +1,6 @@
 /**
- * @param value - any javascript value reference to stringify
- * @returns stringified value to correctly display in logs
+ * @param value - Any javascript value reference to stringify.
+ * @returns Stringified value to correctly display in logs.
  */
 export function stringifyValue(value: unknown): string {
   const references: Array<unknown> = [];

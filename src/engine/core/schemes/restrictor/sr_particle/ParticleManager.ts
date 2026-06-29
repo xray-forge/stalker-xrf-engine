@@ -13,7 +13,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TName, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo;
  * todo: Should be table insert + ipairs where possible instead of $range loops.
  */
 export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState> {
@@ -40,14 +40,14 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
         const delay: TCount = waypointData["d"] ? (tonumber(waypointData["d"]) ?? 0) : 0;
 
         /**
-         *     local sound_name = nil
+         *     Local sound_name = nil
          *            if flags[a - 1]["s"] ~= nil then
          *               sound_name = flags[a - 1]["s"]
-         *            end
-         *            local snd_obj = nil
+         *            end.
+         *            Local snd_obj = nil
          *            if sound_name ~= nil and sound_name ~= "" then
          *               snd_obj = xr_sound.get_sound_object(sound_name, "random")
-         *            end
+         *            end.
          */
 
         if (soundName) {
@@ -196,7 +196,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   /**
    * Note: has side effect with set signal.
    *
-   * @returns whether particle playback is ended
+   * @returns Whether particle playback is ended.
    */
   public isEnded(): boolean {
     if (this.state.looped || !this.isFirstPlayed) {

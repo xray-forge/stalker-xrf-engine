@@ -35,8 +35,8 @@ export interface IDiffs {
 /**
  * Get time value from date or date string.
  *
- * @param dateOrDateString - serialized date or date instance
- * @returns timestamp parsed from date
+ * @param dateOrDateString - Serialized date or date instance.
+ * @returns Timestamp parsed from date.
  */
 function getTime(dateOrDateString: Date | string): number {
   return typeof dateOrDateString === "string" ? Date.parse(dateOrDateString) : dateOrDateString.getTime();
@@ -46,8 +46,8 @@ function getTime(dateOrDateString: Date | string): number {
  * Make sure directory is accessible.
  * If cannot access it, generate subtree in a recursive way.
  *
- * @param directory - path to directory
- * @returns promise for ensuring directory is accessible
+ * @param directory - Path to directory.
+ * @returns Promise for ensuring directory is accessible.
  */
 async function ensureDirAccess(directory: string): Promise<void> {
   try {
@@ -60,7 +60,7 @@ async function ensureDirAccess(directory: string): Promise<void> {
 /**
  * Get files from some directory with async generator.
  *
- * @yields - files from directory in a recursive way
+ * @yields - files from directory in a recursive way.
  */
 async function* getFiles(directory: string): AsyncGenerator<string> {
   const dirents = await fsp.readdir(directory, { withFileTypes: true });
@@ -76,12 +76,12 @@ async function* getFiles(directory: string): AsyncGenerator<string> {
 /**
  * Get file stats for file by path.
  *
- * @param file - full path to file
- * @param options - configuration of stats access
- * @param options.exclusions - exclusions list
- * @param options.pathSeparator - separator of paths
- * @param options.encodePath - whether path should be encoded
- * @returns promise resolving file stats
+ * @param file - Full path to file.
+ * @param options - Configuration of stats access.
+ * @param options.exclusions - Exclusions list.
+ * @param options.pathSeparator - Separator of paths.
+ * @param options.encodePath - Whether path should be encoded.
+ * @returns Promise resolving file stats.
  */
 async function getFileStats(
   file: string,
@@ -121,10 +121,10 @@ async function getFileStats(
 /**
  * Get diff between two sets of files.
  *
- * @param base - base to check diffs from
- * @param target - target to check diffs from base
- * @param options - diff checking configuration
- * @returns promise resolving diffs between two sets of files
+ * @param base - Base to check diffs from.
+ * @param target - Target to check diffs from base.
+ * @param options - Diff checking configuration.
+ * @returns Promise resolving diffs between two sets of files.
  */
 export async function getDiffs(
   base: string | TFilePathMap,

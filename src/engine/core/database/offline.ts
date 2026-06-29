@@ -5,9 +5,9 @@ import { Optional, TNumberId } from "@/engine/lib/types";
 /**
  * Register offline object representation in database.
  *
- * @param objectId - game object ID to register offline representation
- * @param state - base offline state to register
- * @returns stored offline object state representation
+ * @param objectId - Game object ID to register offline representation.
+ * @param state - Base offline state to register.
+ * @returns Stored offline object state representation.
  */
 export function registerOfflineObject(
   objectId: TNumberId,
@@ -59,7 +59,7 @@ export function softResetOfflineObject(
 /**
  * Unregister offline object representation in database.
  *
- * @param objectId - game object ID to unregister offline representation
+ * @param objectId - Game object ID to unregister offline representation.
  */
 export function unregisterOfflineObject(objectId: TNumberId): void {
   registry.offlineObjects.delete(objectId);

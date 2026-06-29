@@ -6,9 +6,9 @@ import { EGameType } from "@/engine/lib/constants/game_types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * @param gameType - current game type
- * @param isServer - whether it is single game or server
- * @returns currently active game mode class id
+ * @param gameType - Current game type.
+ * @param isServer - Whether it is single game or server.
+ * @returns Currently active game mode class id.
  */
 export function getGameClassId(gameType: EGameType, isServer: boolean): TGameClassId {
   assert(type(isServer) === "boolean", "Expected boolean value for game class getter as parameter.");

@@ -15,9 +15,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Set object goodwill based on relation type and client objects.
  *
- * @param from - game object from
- * @param to - game object to
- * @param relation - relation type to set
+ * @param from - Game object from.
+ * @param to - Game object to.
+ * @param relation - Relation type to set.
  */
 export function setGameObjectRelation(from: Optional<GameObject>, to: Optional<GameObject>, relation: ERelation): void {
   assert(from && to, "One of objects is not set in c-goodwill function.");
@@ -27,9 +27,9 @@ export function setGameObjectRelation(from: Optional<GameObject>, to: Optional<G
 /**
  * Set object goodwill based on relation type and server objects.
  *
- * @param from - server object from
- * @param to - server object to
- * @param relation - relation type to set
+ * @param from - Server object from.
+ * @param to - Server object to.
+ * @param relation - Relation type to set.
  */
 export function setServerObjectRelation(
   from: Optional<ServerCreatureObject>,
@@ -43,9 +43,9 @@ export function setServerObjectRelation(
 /**
  * Set goodwill from one community to another.
  *
- * @param from - from community
- * @param to - to community
- * @param goodwill - value to set
+ * @param from - From community.
+ * @param to - To community.
+ * @param goodwill - Value to set.
  */
 export function setGoodwillFromCommunityToCommunity(
   from: Optional<TCommunity>,
@@ -62,9 +62,9 @@ export function setGoodwillFromCommunityToCommunity(
 /**
  * Set relation from one community to object by id.
  *
- * @param from - from community
- * @param to - to community
- * @param relation - new relation
+ * @param from - From community.
+ * @param to - To community.
+ * @param relation - New relation.
  */
 export function setRelationFromCommunityToCommunity(
   from: Optional<TCommunity>,
@@ -81,11 +81,11 @@ export function setRelationFromCommunityToCommunity(
 /**
  * Set goodwill from one community to object by id.
  *
- * todo: Rename to match `change`. Can also decrease.
+ * Todo: Rename to match `change`. Can also decrease.
  *
- * @param from - from community
- * @param toId - to object id
- * @param delta - delta value to change from current state (+20, +1000, -50, -500 etc)
+ * @param from - From community.
+ * @param toId - To object id.
+ * @param delta - Delta value to change from current state (+20, +1000, -50, -500 etc).
  */
 export function increaseCommunityGoodwillToId(
   from: Optional<TCommunity>,
@@ -102,8 +102,8 @@ export function increaseCommunityGoodwillToId(
 /**
  * Set object sympathy level.
  *
- * @param object - object to set sympathy
- * @param sympathy - value to set
+ * @param object - Object to set sympathy.
+ * @param sympathy - Value to set.
  */
 export function setObjectSympathy(object: Optional<GameObject>, sympathy: TCount): void {
   assert(object, "Object not set in sympathy function.");
@@ -113,9 +113,9 @@ export function setObjectSympathy(object: Optional<GameObject>, sympathy: TCount
 /**
  * Set squad relation to community.
  *
- * @param squadId - target squad id or story id
- * @param to - community to set relation from squad
- * @param relation - type of relations to set
+ * @param squadId - Target squad id or story id.
+ * @param to - Community to set relation from squad.
+ * @param relation - Type of relations to set.
  */
 export function setSquadRelationToCommunity(squadId: TNumberId | TStringId, to: TCommunity, relation: ERelation): void {
   const squad: Optional<Squad> =
@@ -140,9 +140,9 @@ export function setSquadRelationToCommunity(squadId: TNumberId | TStringId, to: 
  * Set relation type for squad and object.
  * Updates relation from squad to object and from object to squad.
  *
- * @param squadId - target squad id or story id
- * @param object - target object
- * @param relation - relation type to set
+ * @param squadId - Target squad id or story id.
+ * @param object - Target object.
+ * @param relation - Relation type to set.
  */
 export function setSquadRelationWithObject(
   squadId: TStringId | TNumberId,
@@ -171,8 +171,8 @@ export function setSquadRelationWithObject(
  * Update relation of squad members to actor.
  * Uses squad config defined relation as fallback.
  *
- * @param squadId - target squad id or story id
- * @param relation - relation type to set
+ * @param squadId - Target squad id or story id.
+ * @param relation - Relation type to set.
  */
 export function updateSquadIdRelationToActor(
   squadId: TStringId | TNumberId,
@@ -195,8 +195,8 @@ export function updateSquadIdRelationToActor(
 /**
  * Set relation of squad members to actor.
  *
- * @param squad - target squad object
- * @param relation - relation type to set
+ * @param squad - Target squad object.
+ * @param relation - Relation type to set.
  */
 export function setSquadRelationToActor(squad: Squad, relation: ERelation): void {
   for (const squadMember of squad.squad_members()) {

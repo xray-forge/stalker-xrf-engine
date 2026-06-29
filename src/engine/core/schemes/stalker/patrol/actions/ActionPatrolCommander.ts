@@ -123,8 +123,8 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
   /**
    * Handle waypoints in patrol processing callback.
    *
-   * @param mode - waypoint arrival mode
-   * @param returnValue - patrol waypoint processing result value
+   * @param mode - Waypoint arrival mode.
+   * @param returnValue - Patrol waypoint processing result value.
    */
   public onProcessWaypoint(mode: EWaypointArrivalType, returnValue: Optional<number>): void {
     switch (returnValue) {

@@ -1,7 +1,7 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Todo.
  */
 export function SmartTerrainSpots(): JSXNode {
   return (

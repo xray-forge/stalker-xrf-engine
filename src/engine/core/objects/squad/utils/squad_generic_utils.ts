@@ -9,8 +9,8 @@ import { AlifeSimulator, TLabel } from "@/engine/lib/types";
 /**
  * Get map display hint for debugging and display in game UI map.
  *
- * @param squad - target squad to get hint for
- * @returns hint to show when hovering over in PDA map
+ * @param squad - Target squad to get hint for.
+ * @returns Hint to show when hovering over in PDA map.
  */
 export function getSquadMapDisplayHint(squad: Squad): TLabel {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {

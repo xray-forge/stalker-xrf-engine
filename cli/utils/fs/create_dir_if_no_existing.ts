@@ -3,8 +3,8 @@ import * as fs from "node:fs";
 /**
  * Create directory if provided path does not exist.
  *
- * @param path - system path to directory
- * @returns whether new directory was created
+ * @param path - System path to directory.
+ * @returns Whether new directory was created.
  */
 export function createDirIfNoExisting(path: string): boolean {
   if (fs.existsSync(path)) {

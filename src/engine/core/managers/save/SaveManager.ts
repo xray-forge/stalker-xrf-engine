@@ -92,7 +92,7 @@ export class SaveManager extends AbstractManager {
   /**
    * When game save creation starting.
    *
-   * @param saveName - name of save file, just base name with extension like `example.scop`
+   * @param saveName - Name of save file, just base name with extension like `example.scop`.
    */
   public onBeforeGameSave(saveName: TName): void {
     logger.info("Before game save: %s", saveName);
@@ -109,7 +109,7 @@ export class SaveManager extends AbstractManager {
   /**
    * When game saved successfully.
    *
-   * @param saveName - name of save file, just base name with extension like `example.scop`
+   * @param saveName - Name of save file, just base name with extension like `example.scop`.
    */
   public onGameSave(saveName: TName): void {
     logger.info("On game save: %s", saveName);
@@ -120,7 +120,7 @@ export class SaveManager extends AbstractManager {
   /**
    * When game loading starts.
    *
-   * @param saveName - name of save file, full path with disk/system folders structure
+   * @param saveName - Name of save file, full path with disk/system folders structure.
    */
   public onGameLoad(saveName: TName): void {
     logger.info("On game load: %s", saveName);
@@ -137,7 +137,7 @@ export class SaveManager extends AbstractManager {
   /**
    * When game loaded successfully.
    *
-   * @param saveName - name of save file, full path with disk/system folders structure
+   * @param saveName - Name of save file, full path with disk/system folders structure.
    */
   public onAfterGameLoad(saveName: TName): void {
     logger.info("On after game load: %s", saveName);

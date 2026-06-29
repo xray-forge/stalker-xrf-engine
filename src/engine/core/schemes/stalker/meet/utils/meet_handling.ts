@@ -14,7 +14,7 @@ import { EGameObjectRelation, EScheme, GameObject, Optional, TCount, TName } fro
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function updateObjectMeetAvailability(object: GameObject): void {
   if (isObjectWounded(object.id())) {
@@ -56,7 +56,7 @@ export function updateObjectMeetAvailability(object: GameObject): void {
 /**
  * Handle meet interaction with object.
  *
- * todo: Description.
+ * Todo: Description.
  */
 export function activateMeetWithObject(object: GameObject): void {
   if (!object.alive()) {
@@ -93,8 +93,8 @@ export function activateMeetWithObject(object: GameObject): void {
 /**
  * Increment abuse for object.
  *
- * @param object - game object
- * @param value - count of abuse to add
+ * @param object - Game object.
+ * @param value - Count of abuse to add.
  */
 export function addObjectAbuse(object: GameObject, value: TCount): void {
   const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
@@ -105,7 +105,7 @@ export function addObjectAbuse(object: GameObject, value: TCount): void {
 /**
  * Clear abuse state for object.
  *
- * @param object - game object
+ * @param object - Game object.
  */
 export function clearObjectAbuse(object: GameObject): void {
   const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
@@ -116,8 +116,8 @@ export function clearObjectAbuse(object: GameObject): void {
 /**
  * Set object abuse state.
  *
- * @param object - game object
- * @param isEnabled - whether object abuse state should be enabled
+ * @param object - Game object.
+ * @param isEnabled - Whether object abuse state should be enabled.
  */
 export function setObjectAbuseState(object: GameObject, isEnabled: boolean): void {
   const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;

@@ -29,7 +29,7 @@ const DIST_RUN = 20;
 const SOUND_WAIT = "weather,state";
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class ActionCompanionActivity extends action_base {
@@ -45,7 +45,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override initialize(): void {
     super.initialize();
@@ -63,7 +63,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public behWalkSimple(): void {
     const actor: Optional<GameObject> = registry.actor;
@@ -126,7 +126,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public behWaitSimple(): void {
     const nextState: EStalkerState = EStalkerState.THREAT;
@@ -145,7 +145,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -158,7 +158,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override finalize(): void {
     super.finalize();
@@ -166,7 +166,7 @@ export class ActionCompanionActivity extends action_base {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function selectPosition(object: GameObject): Optional<TNumberId> {
   const actor: GameObject = registry.actor;

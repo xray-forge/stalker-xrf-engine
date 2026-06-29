@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Set game UI visibility of player.
  *
- * @param isVisible - whether UI should be visible
+ * @param isVisible - Whether UI should be visible.
  */
 export function setUiVisibility(isVisible: boolean): void {
   const hud: GameHud = get_hud();

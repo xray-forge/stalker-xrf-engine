@@ -28,7 +28,7 @@ export async function unlinkFolders(): Promise<void> {
 }
 
 /**
- * Link target gamedata folder for faster / easier development
+ * Link target gamedata folder for faster / easier development.
  */
 async function unlink(target: string): Promise<void> {
   log.info("Unlinking:", yellowBright(target));

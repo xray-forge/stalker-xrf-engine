@@ -93,7 +93,7 @@ export class ActorInputManager extends AbstractManager {
   /**
    * Disable game input for delta duration.
    *
-   * @param duration - time to stop handling of actor controls input
+   * @param duration - Time to stop handling of actor controls input.
    */
   public setInactiveInputTime(duration: TDuration): void {
     logger.info("Deactivate actor input: '%s'", duration);
@@ -161,7 +161,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public disableGameUi(resetSlot: boolean = false): void {
     logger.info("Disable game UI");
@@ -196,7 +196,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public enableGameUi(restore: boolean = false): void {
     logger.info("Enable game UI");
@@ -221,7 +221,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public disableGameUiOnly(): void {
     logger.info("Disable game UI only");
@@ -345,7 +345,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onAnabioticSleep(): void {
     level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.on_anabiotic_wake_up");
@@ -372,7 +372,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onAnabioticWakeUp(): void {
     getManager(ActorInputManager).enableGameUi();
@@ -387,7 +387,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onSurgeSurviveStart(): void {
     level.add_cam_effector(
@@ -399,7 +399,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onSurgeSurviveEnd(): void {
     this.enableGameUi();
@@ -408,9 +408,9 @@ export class ActorInputManager extends AbstractManager {
   /**
    * Handle actor keyboard input pressing.
    *
-   * @param key - key code
-   * @param bind - key binding code
-   * @returns whether action was handled by script and engine should stop further execution of callbacks
+   * @param key - Key code.
+   * @param bind - Key binding code.
+   * @returns Whether action was handled by script and engine should stop further execution of callbacks.
    */
   public onKeyPress(key: TNumberId, bind: TNumberId): boolean {
     /**
@@ -420,7 +420,7 @@ export class ActorInputManager extends AbstractManager {
      * -> scripts/level_input.script
      *    on_key_press
      *    action_quick_save
-     *    action_quick_load
+     *    action_quick_load.
      */
 
     return false;
@@ -429,7 +429,7 @@ export class ActorInputManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

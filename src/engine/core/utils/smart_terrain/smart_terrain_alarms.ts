@@ -6,7 +6,7 @@ import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTer
 /**
  * Start alarm for smart terrain.
  *
- * @param terrain - smart terrain to start alarm for
+ * @param terrain - Smart terrain to start alarm for.
  */
 export function startTerrainAlarm(terrain: SmartTerrain): void {
   terrain.alarmStartedAt = game.get_game_time();
@@ -15,7 +15,7 @@ export function startTerrainAlarm(terrain: SmartTerrain): void {
 /**
  * Update status of smart terrain alarm, check whether it should be turned off.
  *
- * @param terrain - smart terrain to try updating for
+ * @param terrain - Smart terrain to try updating for.
  */
 export function updateTerrainAlarmStatus(terrain: SmartTerrain): void {
   if (

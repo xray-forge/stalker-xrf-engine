@@ -5,7 +5,7 @@ import { stalker_ids } from "xray16";
  */
 export enum EActionId {
   /**
-   * Default C++ side defined actions:
+   * Default C++ side defined actions.
    */
   DYING = stalker_ids.action_dying, // 1
   GATHER_ITEMS = stalker_ids.action_gather_items, // 2
@@ -63,7 +63,7 @@ export enum EActionId {
   DANGER = stalker_ids.action_danger_planner, // 91
   SCRIPT = stalker_ids.action_script, // 92
   /**
-   * Custom LUA scripts defined actions:
+   * Custom LUA scripts defined actions.
    */
   // Search corpse action, when searching dead bodies.
   SEARCH_CORPSE = 142, // 142

@@ -7,9 +7,9 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { AlifeSimulator, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 
 /**
- * Iterate over object inventory and release items
+ * Iterate over object inventory and release items.
  *
- * @param object - game object to filter inventory items after death
+ * @param object - Game object to filter inventory items after death.
  */
 export function filterObjectDeathLoot(object: GameObject): void {
   const simulator: AlifeSimulator = registry.simulator;
@@ -39,8 +39,8 @@ export function filterObjectDeathLoot(object: GameObject): void {
 /**
  * Filter object item and verify that it can be dropped.
  *
- * @param item - item game object to check availability in drop
- * @returns whether provided item should be filtered from loot
+ * @param item - Item game object to check availability in drop.
+ * @returns Whether provided item should be filtered from loot.
  */
 export function shouldFilterLootItem(item: GameObject): boolean {
   const section: TSection = item.section();

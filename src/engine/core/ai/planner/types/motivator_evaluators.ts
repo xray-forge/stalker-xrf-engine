@@ -5,7 +5,7 @@ import { stalker_ids } from "xray16";
  */
 export enum EEvaluatorId {
   /**
-   * Default C++ side defined evaluators:
+   * Default C++ side defined evaluators.
    */
   ALIVE = stalker_ids.property_alive, // 0
   DEAD = stalker_ids.property_dead, // 1
@@ -50,7 +50,7 @@ export enum EEvaluatorId {
   SCRIPT = stalker_ids.property_script, // 74
   // ...
   /**
-   * Custom LUA scripts defined evaluators:
+   * Custom LUA scripts defined evaluators.
    */
   // Whether any corpse to loot exists nearby.
   IS_CORPSE_EXISTING = 124, // 124

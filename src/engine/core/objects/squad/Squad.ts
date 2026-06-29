@@ -184,7 +184,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateCurrentGenericAction(): void {
     const helpTargetId: Optional<TNumberId> = getSquadHelpActorTargetId(this);
@@ -236,7 +236,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public updateCurrentScriptedAction(scriptTarget: TNumberId): void {
     let isNewActionNeeded: boolean = false;
@@ -351,7 +351,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override get_current_task(): CALifeSmartTerrainTask {
     const target: Optional<TSimulationObject> =
@@ -382,7 +382,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * As example, squad on start of original COP always will go to actor spawn point.
    * Some squads can rotate over few smart terrains and completely ignore priorities.
    *
-   * @returns target ID assigned for smart by condlists from ltx script configuration
+   * @returns Target ID assigned for smart by condlists from ltx script configuration.
    */
   public getScriptedSimulationTarget(): Optional<TNumberId> {
     const newTarget: Optional<TSection> = pickSectionFromCondList(registry.actor, this, this.targetConditionList);
@@ -416,8 +416,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
-   * todo: has side effect
+   * Todo: Description.
+   * Todo: has side effect.
    *
    * Check if currently assigned target is assigned as smart terrain.
    * If yes, switch to next smart terrain target in the list.
@@ -443,7 +443,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * Check whether squad assigned target available.
    *
-   * @returns if currently assigned target written in field is available and can be reached in simulation
+   * @returns If currently assigned target written in field is available and can be reached in simulation.
    */
   public isAssignedTargetAvailable(): boolean {
     return this.assignedTargetId
@@ -461,7 +461,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public selectNewAction(isUnderSimulation: boolean): void {
     const squadTarget: Optional<TSimulationObject> = registry.simulator.object<TSimulationObject>(
@@ -495,7 +495,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public assignMemberToTerrain(
     memberId: TNumberId,
@@ -526,7 +526,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public assignToTerrain(terrain: Optional<SmartTerrain>): void {
     const oldTerrainId: TNumberId = this.assignedTerrainId!;
@@ -539,7 +539,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setLocationTypesMaskFromSection(section: TSection): void {
     if (SMART_TERRAIN_MASKS_LTX.section_exist(section)) {
@@ -550,7 +550,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setLocationTypes(newLocationSection?: TSection): void {
     this.clear_location_types();
@@ -584,11 +584,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * Add newly spawned squad member.
    *
-   * @param section - object section to create as squad member
-   * @param position - world position of newly spawned member
-   * @param levelVertexId - assigned level vertex id
-   * @param gameVertexId - assigned game vertex id
-   * @returns created squad member object
+   * @param section - Object section to create as squad member.
+   * @param position - World position of newly spawned member.
+   * @param levelVertexId - Assigned level vertex id.
+   * @param gameVertexId - Assigned game vertex id.
+   * @returns Created squad member object.
    */
   public addMember(
     section: TSection,
@@ -630,7 +630,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * Update objects sympathy between objects within squad.
    *
-   * @param sympathy - target sympathy level to set with between squad members
+   * @param sympathy - Target sympathy level to set with between squad members.
    */
   public updateSympathy(sympathy: Optional<TCount> = this.sympathy): void {
     if (!sympathy) {
@@ -651,7 +651,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * Callback to handle death of squad members.
    *
-   * @param object - object facing death event
+   * @param object - Object facing death event.
    */
   public onMemberDeath(object: ServerObject): void {
     simulationLogger.info("On squad member death: %s %s", this.name(), object.name());
@@ -680,21 +680,21 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * @returns whether squad targeting another squad can be finished since one is eliminated
+   * @returns Whether squad targeting another squad can be finished since one is eliminated.
    */
   public isReachedBySimulationObject(squad: Squad): boolean {
     return this.npc_count() === 0;
   }
 
   /**
-   * @returns alife smart terrain task to reach/stay on current object
+   * @returns Alife smart terrain task to reach/stay on current object.
    */
   public getSimulationTask(): ALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
   /**
-   * @returns if current squad can be simulation target for other squads
+   * @returns If current squad can be simulation target for other squads.
    */
   public isSimulationAvailable(): boolean {
     return (
@@ -708,22 +708,22 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * @param squad - another squad checking availability of current one
-   * @returns whether current squad is valid simulation target for provided squad
+   * @param squad - Another squad checking availability of current one.
+   * @returns Whether current squad is valid simulation target for provided squad.
    */
   public isValidSimulationTarget(squad: Squad): boolean {
     return simulationActivities.get(squad.faction)?.squad?.[this.faction]?.(squad, this) === true;
   }
 
   /**
-   * @param squad - squad that deselected current one from priority targets
+   * @param squad - Squad that deselected current one from priority targets.
    */
   public onSimulationTargetDeselected(squad: Squad): void {
     // Nothing to do currently.
   }
 
   /**
-   * @param squad - squad that selected current one as active target
+   * @param squad - Squad that selected current one as active target.
    */
   public onSimulationTargetSelected(squad: Squad): void {
     squad.setLocationTypes();

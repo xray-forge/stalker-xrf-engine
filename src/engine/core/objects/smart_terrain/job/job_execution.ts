@@ -16,7 +16,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "job_execution" });
 /**
  * Perform generic sync and update of current smart terrain jobs.
  *
- * @param terrain - target smart terrain to update current jobs state for
+ * @param terrain - Target smart terrain to update current jobs state for.
  */
 export function updateTerrainJobs(terrain: SmartTerrain): void {
   for (const [id, object] of terrain.arrivingObjects) {
@@ -39,17 +39,17 @@ export function updateTerrainJobs(terrain: SmartTerrain): void {
 }
 
 /**
- * @param terrain - smart terrain to get object job for
- * @param jobSection - section of job to get working object ID
- * @returns ID of game object working with provided section
+ * @param terrain - Smart terrain to get object job for.
+ * @param jobSection - Section of job to get working object ID.
+ * @returns ID of game object working with provided section.
  */
 export function getTerrainObjectIdByJobSection(terrain: SmartTerrain, jobSection: TSection): TNumberId {
   return terrain.objectByJobSection.get(jobSection);
 }
 
 /**
- * @param terrain - target smart terrain to unlink job in
- * @param objectJobDescriptor - descriptor of object job state
+ * @param terrain - Target smart terrain to unlink job in.
+ * @param objectJobDescriptor - Descriptor of object job state.
  */
 export function unlinkTerrainObjectJob(terrain: SmartTerrain, objectJobDescriptor: IObjectJobState): void {
   if (objectJobDescriptor.job) {
@@ -62,8 +62,8 @@ export function unlinkTerrainObjectJob(terrain: SmartTerrain, objectJobDescripto
  * Try switch smart terrain object to desired object (stored in descriptor).
  * Tries to gracefully assign job for the object and find new one if someone already took it.
  *
- * @param terrain - target smart terrain to switch job in
- * @param objectId - target object ID to switch job for
+ * @param terrain - Target smart terrain to switch job in.
+ * @param objectId - Target object ID to switch job for.
  */
 export function switchTerrainObjectToDesiredJob(terrain: SmartTerrain, objectId: TNumberId): void {
   logger.info("Switch to desired job: %s %s", terrain.name(), objectId);
@@ -116,10 +116,10 @@ export function switchTerrainObjectToDesiredJob(terrain: SmartTerrain, objectId:
 }
 
 /**
- * Select new job for provided object descriptor
+ * Select new job for provided object descriptor.
  *
- * @param terrain - target smart terrain to select job in
- * @param objectJobDescriptor - descriptor of active job for an object
+ * @param terrain - Target smart terrain to select job in.
+ * @param objectJobDescriptor - Descriptor of active job for an object.
  */
 export function selectTerrainObjectJob(
   terrain: SmartTerrain,

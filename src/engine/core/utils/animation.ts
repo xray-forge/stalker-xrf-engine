@@ -4,8 +4,8 @@ import { LuaArray, Optional } from "@/engine/lib/types";
 /**
  * Create animation sequence.
  *
- * @param sequence - variadic parameters describing animations
- * @returns sequence of animations, 0-based array
+ * @param sequence - Variadic parameters describing animations.
+ * @returns Sequence of animations, 0-based array.
  */
 export function createSequence(
   ...sequence: Array<

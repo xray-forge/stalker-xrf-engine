@@ -10,7 +10,7 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { Color, GameObject, Hit, Noise, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcessState> {
   public isActorInside: boolean = false;
@@ -105,7 +105,7 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateHit(delta: number): void {
     if (!this.isActorInside) {

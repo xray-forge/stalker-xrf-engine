@@ -24,7 +24,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public isActorInside: Optional<boolean> = null;
@@ -138,7 +138,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onEnter(): void {
     this.resetPath();
@@ -146,7 +146,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public resetPath(): void {
     this.curPoint = 0;
@@ -172,7 +172,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getNextPoint(): TIndex {
     if (this.curPoint! + 1 < this.state.path.count()) {
@@ -183,7 +183,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setPositions(): void {
     if (this.getNextPoint() === 0) {

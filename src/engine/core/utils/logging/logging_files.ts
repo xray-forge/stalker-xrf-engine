@@ -7,8 +7,8 @@ import { Optional, TName, TPath } from "@/engine/lib/types";
 /**
  * Open log file and reserve it for writing of logs.
  *
- * @param name - name of file log
- * @returns file reference for writing
+ * @param name - Name of file log.
+ * @returns File reference for writing.
  */
 export function openLogFile(name: TName): LuaFile {
   const file: Optional<LuaFile> = loggingRegistry.get(name) as Optional<LuaFile>;

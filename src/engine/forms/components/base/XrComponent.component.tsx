@@ -7,7 +7,7 @@ import { IBaseXmlNode } from "@/engine/lib/types";
 export interface IXrContainerProps extends IBaseXmlNode {}
 
 /**
- * todo;
+ * Todo.
  */
 export function XrComponent(props: IXrContainerProps): JSXNode {
   const { x, y, width, height, stretch } = normalizeBaseNodeProps(props);

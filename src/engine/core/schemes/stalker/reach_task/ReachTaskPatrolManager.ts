@@ -24,7 +24,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 const accelerationByCurrentType: LuaTable<EStalkerState, EStalkerState> = $fromObject<EStalkerState, EStalkerState>({
   [EStalkerState.WALK]: EStalkerState.RUN,
@@ -35,7 +35,7 @@ const accelerationByCurrentType: LuaTable<EStalkerState, EStalkerState> = $fromO
 } as Record<EStalkerState, EStalkerState>);
 
 /**
- * todo;
+ * Todo.
  */
 export class ReachTaskPatrolManager {
   public objectsList: LuaTable<
@@ -56,7 +56,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public addObjectToPatrol(object: GameObject): void {
     if (!object.alive() || this.objectsList.has(object.id())) {
@@ -78,7 +78,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public removeObjectFromPatrol(object: GameObject): void {
     logger.info("Remove object from patrol: %s %s", object.name(), this.targetId);
@@ -97,7 +97,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public resetPositions(): void {
     const form_ = reachTaskConfig.FORMATIONS[this.formation as "back"];
@@ -128,7 +128,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setFormation(formation: EPatrolFormation): void {
     if (formation === null) {
@@ -144,7 +144,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getCommander(object: GameObject): GameObject {
     if (object === null) {
@@ -169,7 +169,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getObjectOrders(object: GameObject): LuaMultiReturn<[TNumberId, Vector, Optional<EStalkerState>]> {
     if (object === null) {
@@ -237,7 +237,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setObjectOrders(object: GameObject, command: EStalkerState, formation: EPatrolFormation): void {
     if (object === null || !object.alive()) {
@@ -260,7 +260,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isCommander(objectId: TNumberId): boolean {
     return objectId === this.commanderId;

@@ -262,7 +262,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateLightState(object: GameObject): void {
     if (object === null) {
@@ -392,11 +392,11 @@ export class StalkerBinder extends object_binder {
    * On stalker hear sound.
    * Handle surrounding sounds and process danger / aggression / condlists based on sound type and power.
    *
-   * @param object - game object hearing sounds
-   * @param sourceId - ID of object producing sound
-   * @param soundType - mask object with types of sounds heard
-   * @param soundPosition - vector with 3d position of sounds source
-   * @param soundPower - power level of sound
+   * @param object - Game object hearing sounds.
+   * @param sourceId - ID of object producing sound.
+   * @param soundType - Mask object with types of sounds heard.
+   * @param soundPosition - Vector with 3d position of sounds source.
+   * @param soundPower - Power level of sound.
    */
   public onHearSound(
     object: GameObject,
@@ -419,7 +419,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onDeath(victim: GameObject, who: Optional<GameObject>): void {
     const object: GameObject = this.object;
@@ -469,7 +469,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onUse(object: GameObject, who: GameObject): void {
     logger.info("Stalker used: %s by %s", this.object.name(), who.name());
@@ -487,7 +487,7 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onPatrolExtrapolate(pointIndex: TIndex): boolean {
     if (this.state.activeScheme) {
@@ -501,11 +501,11 @@ export class StalkerBinder extends object_binder {
   /**
    * Handle stalker hit event.
    *
-   * @param object - game object being hit
-   * @param amount - value of damage received, ranges from 0 to 100 in usual cases
-   * @param direction - vector of hit direction
-   * @param who - source of damage
-   * @param boneIndex - index of bone bing hit
+   * @param object - Game object being hit.
+   * @param amount - Value of damage received, ranges from 0 to 100 in usual cases.
+   * @param direction - Vector of hit direction.
+   * @param who - Source of damage.
+   * @param boneIndex - Index of bone bing hit.
    */
   public onHit(
     object: GameObject,

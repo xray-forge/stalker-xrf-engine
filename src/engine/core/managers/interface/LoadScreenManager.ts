@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class LoadScreenManager extends AbstractManager {
   /**
-   * @returns random tip index for single player game
+   * @returns Random tip index for single player game.
    */
   public getRandomTipIndex(): TIndex {
     logger.info("Get tip for single player game");
@@ -18,7 +18,7 @@ export class LoadScreenManager extends AbstractManager {
   }
 
   /**
-   * @returns random tip index for multiplayer game
+   * @returns Random tip index for multiplayer game.
    */
   public getRandomMultiplayerTipIndex(): TIndex {
     logger.info("Get tip for multiplayer game");

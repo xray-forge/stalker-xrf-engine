@@ -225,7 +225,7 @@ export class DoorBinder extends object_binder {
   /**
    * Starts forward animation of the door.
    *
-   * @param isForward - whether it is forward or backward animation
+   * @param isForward - Whether it is forward or backward animation.
    */
   public startAnimation(isForward: boolean): void {
     const object: GameObject = this.object;
@@ -276,7 +276,7 @@ export class DoorBinder extends object_binder {
   /**
    * Handle animation event callback.
    *
-   * @param isEnd - whether it is end or start of the animation
+   * @param isEnd - Whether it is end or start of the animation.
    */
   public onAnimation(isEnd?: Optional<boolean>): void {
     if (isEnd) {
@@ -296,7 +296,7 @@ export class DoorBinder extends object_binder {
   /**
    * Handle door usage logics.
    *
-   * @param object - game object used
+   * @param object - Game object used.
    */
   public onUse(object: GameObject): void {
     pickSectionFromCondList(registry.actor, object, this.onUseConditionList);

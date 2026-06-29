@@ -153,8 +153,8 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * Handle object being used.
    *
-   * @param object - game object being used
-   * @param who - game object using it
+   * @param object - Game object being used.
+   * @param who - Game object using it.
    */
   public onUse(object: GameObject, who: Optional<GameObject>): void {
     logger.info("Object used: %s by %s", object.name(), object.section(), who?.name());
@@ -168,11 +168,11 @@ export class PhysicObjectBinder extends object_binder {
    * Handle object being hit.
    * Emit corresponding event to capture them with activated schemes.
    *
-   * @param object - game object being hit
-   * @param amount - amount of damage with hit
-   * @param direction - direction of the hit relative to current object
-   * @param who - object hitting current object
-   * @param boneIndex - index of the bone being hit
+   * @param object - Game object being hit.
+   * @param amount - Amount of damage with hit.
+   * @param direction - Direction of the hit relative to current object.
+   * @param who - Object hitting current object.
+   * @param boneIndex - Index of the bone being hit.
    */
   public onHit(object: GameObject, amount: TCount, direction: Vector, who: GameObject, boneIndex: TIndex): void {
     // logger.format("Object hit: %s by %s", object.name(), object.section(), who.name());
@@ -205,8 +205,8 @@ export class PhysicObjectBinder extends object_binder {
   /**
    * Handle destruction of the physical object.
    *
-   * @param object - game object that was killed/destroyed
-   * @param who - game object that destroyed it
+   * @param object - Game object that was killed/destroyed.
+   * @param who - Game object that destroyed it.
    */
   public onDeath(object: GameObject, who: GameObject): void {
     logger.info("Object destroyed: %s by %s", object.name(), object.section(), who.name());

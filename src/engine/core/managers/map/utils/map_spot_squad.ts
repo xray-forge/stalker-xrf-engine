@@ -15,7 +15,7 @@ import { Optional, TLabel, TNumberId } from "@/engine/lib/types";
 /**
  * Update map spot for squad.
  *
- * @param squad - target squad server object
+ * @param squad - Target squad server object.
  */
 export function updateSquadMapSpot(squad: Squad): void {
   const commanderId: TNumberId = squad.commander_id();
@@ -111,7 +111,7 @@ export function updateSquadMapSpot(squad: Squad): void {
 /**
  * Remove map spot for squad.
  *
- * @param squad - target squad server object
+ * @param squad - Target squad server object.
  */
 export function removeSquadMapSpot(squad: Squad): void {
   if (squad.currentMapSpotId === null || squad.currentMapSpotSection === null) {

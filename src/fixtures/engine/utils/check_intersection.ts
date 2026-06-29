@@ -1,8 +1,8 @@
 /**
  * Assert intersection of two arrays.
  *
- * @param target - array to check
- * @param expected - array with expected values
+ * @param target - Array to check.
+ * @param expected - Array with expected values.
  */
 export function assertArraysIntersecting(target: Array<unknown>, expected: Array<unknown>): void {
   target.forEach((it) => {

@@ -18,7 +18,7 @@ export interface IXrScrollViewProps extends IBaseXmlNode {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function XrScrollView(props: IXrScrollViewProps): JSXNode {
   const {

@@ -17,7 +17,7 @@ import { LuaArray, Optional, TLabel, TNumberId, TSection } from "@/engine/lib/ty
  * Note:
  *  - Called on first init
  *  - Called when artefacts respawn
- *  - Called on artefact pickup
+ *  - Called on artefact pickup.
  */
 export function updateAnomalyZonesDisplay(): void {
   if (!hasInfoPortion(infoPortions.jup_b32_scanner_reward)) {

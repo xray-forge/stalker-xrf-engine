@@ -6,7 +6,7 @@ import { AnyCallable } from "@/engine/lib/types";
 /**
  * Reset hidden mock functions.
  *
- * @param callable - function to reset
+ * @param callable - Function to reset.
  */
 export function resetFunctionMock(callable: AnyCallable): void {
   if (jest.isMockFunction(callable)) {
@@ -31,8 +31,8 @@ export function getFunctionMock(callable: AnyCallable): Mock {
  * Replace mock function.
  * Assuming provided mock is jest mock.
  *
- * @param callable - any callable to replace
- * @param newImplementation - new variant of implementation
+ * @param callable - Any callable to replace.
+ * @param newImplementation - New variant of implementation.
  */
 export function replaceFunctionMock(callable: AnyCallable, newImplementation: AnyCallable): void {
   if (jest.isMockFunction(callable)) {
@@ -46,8 +46,8 @@ export function replaceFunctionMock(callable: AnyCallable, newImplementation: An
  * Replace mock function once.
  * Assuming provided mock is jest mock.
  *
- * @param callable - any callable to replace
- * @param newImplementation - new variant of implementation
+ * @param callable - Any callable to replace.
+ * @param newImplementation - New variant of implementation.
  */
 export function replaceFunctionMockOnce(callable: AnyCallable, newImplementation: AnyCallable): void {
   if (jest.isMockFunction(callable)) {

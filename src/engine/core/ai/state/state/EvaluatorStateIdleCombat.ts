@@ -7,7 +7,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class EvaluatorStateIdleCombat extends property_evaluator {

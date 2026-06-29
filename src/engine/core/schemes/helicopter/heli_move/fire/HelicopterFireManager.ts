@@ -32,7 +32,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class HelicopterFireManager {
   public readonly object: GameObject;
@@ -58,7 +58,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateEnemyState(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
@@ -92,7 +92,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public showHelicopterFightUI(): void {
     const hud: CUIGameCustom = get_hud();
@@ -110,7 +110,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setHelicopterFightUIHealth(): void {
     const hud: CUIGameCustom = get_hud();
@@ -134,7 +134,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public removeHelicopterFightUI(): void {
     const hud: CUIGameCustom = get_hud();
@@ -145,7 +145,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setEnemy(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
@@ -195,7 +195,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateEnemyArr(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();

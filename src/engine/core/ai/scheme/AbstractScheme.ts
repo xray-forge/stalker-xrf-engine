@@ -21,11 +21,11 @@ export abstract class AbstractScheme {
    * Implementation of scheme activation.
    * Handling of logics section switching to current scheme from ltx script file.
    *
-   * @param object - game object to handle with provided scheme
-   * @param ini - ini file with scheme details
-   * @param scheme - name of scheme to activate, `mob_home` as example
-   * @param section - scheme section, `mob_home@2` as example
-   * @param terrain - additional scheme data with smart terrain name
+   * @param object - Game object to handle with provided scheme.
+   * @param ini - Ini file with scheme details.
+   * @param scheme - Name of scheme to activate, `mob_home` as example.
+   * @param section - Scheme section, `mob_home@2` as example.
+   * @param terrain - Additional scheme data with smart terrain name.
    */
   public static activate(
     object: GameObject,
@@ -41,11 +41,11 @@ export abstract class AbstractScheme {
    * Assign scheme data for working with logics.
    * Initializes base state in object registry where key is current scheme.
    *
-   * @param object - game object
-   * @param ini - file to read scheme configuration from
-   * @param scheme - type of scheme activated
-   * @param section - section of activated logics
-   * @returns base scheme state for provided `scheme`
+   * @param object - Game object.
+   * @param ini - File to read scheme configuration from.
+   * @param scheme - Type of scheme activated.
+   * @param section - Section of activated logics.
+   * @returns Base scheme state for provided `scheme`.
    */
   protected static assign<T extends IBaseSchemeState>(
     object: GameObject,
@@ -73,11 +73,11 @@ export abstract class AbstractScheme {
   /**
    * Initialize current state and add scheme state handlers for game object state.
    *
-   * @param object - game object
-   * @param ini - ini file describing object logic
-   * @param scheme - new scheme type
-   * @param section - new logic section
-   * @param state - state of new scheme to initialize data into
+   * @param object - Game object.
+   * @param ini - Ini file describing object logic.
+   * @param scheme - New scheme type.
+   * @param section - New logic section.
+   * @param state - State of new scheme to initialize data into.
    */
   public static add(
     object: GameObject,
@@ -94,10 +94,10 @@ export abstract class AbstractScheme {
    * Scheme may be different or same, but expected section is different.
    * Mainly used for shared generic schemes that are always active.
    *
-   * @param object - game object
-   * @param scheme - new scheme type
-   * @param state - target object registry state
-   * @param section - new active section
+   * @param object - Game object.
+   * @param scheme - New scheme type.
+   * @param state - Target object registry state.
+   * @param section - New active section.
    */
   public static reset(object: GameObject, scheme: EScheme, state: IRegistryObjectState, section: TSection): void {
     abort("Called not implemented 'reset' method: '%s', '%s', '%s'.", object.name(), scheme, section);
@@ -107,8 +107,8 @@ export abstract class AbstractScheme {
    * Generic method to disable scheme logics.
    * Used with persistent schemes that are always active independently of current logics section.
    *
-   * @param object - game object
-   * @param scheme - target scheme to disable for
+   * @param object - Game object.
+   * @param scheme - Target scheme to disable for.
    */
   public static disable(object: GameObject, scheme: EScheme): void {
     abort("Called not implemented 'disable' method: '%s', '%s'.", object.name(), scheme);
@@ -118,8 +118,8 @@ export abstract class AbstractScheme {
    * Subscribe provided scheme state to scheme actions.
    * Once scheme events occur subscriber will be used to handle them.
    *
-   * @param state - scheme state owning action subscriber
-   * @param subscriber - action subscribing handler
+   * @param state - Scheme state owning action subscriber.
+   * @param subscriber - Action subscribing handler.
    */
   public static subscribe(state: IBaseSchemeState, subscriber: ISchemeEventHandler): void {
     if (!state.actions) {
@@ -132,8 +132,8 @@ export abstract class AbstractScheme {
   /**
    * Ub-subscribe provided action class from scheme events.
    *
-   * @param state - scheme state owning action subscriber
-   * @param subscriber - action subscribing handler
+   * @param state - Scheme state owning action subscriber.
+   * @param subscriber - Action subscribing handler.
    */
   public static unsubscribe(state: IBaseSchemeState, subscriber: ISchemeEventHandler): void {
     if (state.actions) {

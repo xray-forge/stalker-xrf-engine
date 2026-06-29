@@ -302,11 +302,11 @@ export class MonsterBinder extends object_binder {
    * On monster hear sound.
    * Handle surrounding sounds and process danger / aggression / condlists based on sound type and power.
    *
-   * @param object - game object hearing sounds
-   * @param sourceId - ID of object producing sound
-   * @param soundType - mask object with types of sounds heard
-   * @param soundPosition - vector with 3d position of sounds source
-   * @param soundPower - power level of sound
+   * @param object - Game object hearing sounds.
+   * @param sourceId - ID of object producing sound.
+   * @param soundType - Mask object with types of sounds heard.
+   * @param soundPosition - Vector with 3d position of sounds source.
+   * @param soundPower - Power level of sound.
    */
   public onHearSound(
     object: GameObject,

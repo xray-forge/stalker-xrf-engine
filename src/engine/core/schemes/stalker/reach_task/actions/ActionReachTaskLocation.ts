@@ -102,7 +102,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override execute(): void {
     const now: TTimestamp = time_global();
@@ -145,7 +145,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public executeSquadCommander(squad: Squad, target: Optional<TSimulationObject>): void {
     if (target !== null && !this.object.is_talking()) {
@@ -183,7 +183,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public executeSquadSoldier(squad: Squad, target: Optional<TSimulationObject>): void {
     const [lvi, direction, currentState] = reachTaskConfig.PATROLS.get(this.squadId).getObjectOrders(this.object);
@@ -224,7 +224,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * Handle object death.
    * Unregister it from active patrol.
    *
-   * @param object - game object to switch
+   * @param object - Game object to switch.
    */
   public onDeath(object: GameObject): void {
     if (!this.patrolManager) {
@@ -238,7 +238,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * Handle object switching offline.
    * Unregister it from active patrol.
    *
-   * @param object - game object to switch
+   * @param object - Game object to switch.
    */
   public onSwitchOffline(object: GameObject): void {
     if (!this.patrolManager) {

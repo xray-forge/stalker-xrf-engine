@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { config as forgeConfig } from "@/engine/configs/forge";
 
 /**
- * todo;
+ * Todo.
  */
 export function GameVendorsIntro(): JSXNode {
   if (forgeConfig.config.intro_videos_enabled) {

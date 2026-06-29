@@ -62,7 +62,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  *
  * Where:
  * - text - string to show in dialog
- * - canStay - whether actor can leave zone
+ * - canStay - whether actor can leave zone.
  */
 extern(
   "xr_effects.show_freeplay_dialog",
@@ -109,7 +109,7 @@ extern("xr_effects.pri_b306_generator_start", (): void => {
 });
 
 /**
- * todo: Simplify with utils for object destruction
+ * Todo: Simplify with utils for object destruction.
  */
 extern("xr_effects.jup_b206_get_plant", (_: GameObject, object: GameObject): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b206_sr_quest_line"))) {
@@ -134,7 +134,7 @@ extern("xr_effects.pas_b400_switcher", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b209_place_scanner", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b209_hypotheses"))) {
@@ -146,7 +146,7 @@ extern("xr_effects.jup_b209_place_scanner", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b9_heli_1_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b9_heli_1"))) {
@@ -155,7 +155,7 @@ extern("xr_effects.jup_b9_heli_1_searching", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.pri_a18_use_idol", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("pri_a18_use_idol_restrictor"))) {
@@ -164,7 +164,7 @@ extern("xr_effects.pri_a18_use_idol", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b8_heli_4_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b8_heli_4"))) {
@@ -173,7 +173,7 @@ extern("xr_effects.jup_b8_heli_4_searching", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b10_ufo_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b10_ufo_restrictor"))) {
@@ -183,7 +183,7 @@ extern("xr_effects.jup_b10_ufo_searching", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.zat_b101_heli_5_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("zat_b101_heli_5"))) {
@@ -192,7 +192,7 @@ extern("xr_effects.zat_b101_heli_5_searching", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.zat_b28_heli_3_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("zat_b28_heli_3"))) {
@@ -201,7 +201,7 @@ extern("xr_effects.zat_b28_heli_3_searching", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.zat_b100_heli_2_searching", (): void => {
   logger.info("Searching helicopter #2");
@@ -212,7 +212,7 @@ extern("xr_effects.zat_b100_heli_2_searching", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_teleport_actor", (actor: GameObject, object: GameObject): void => {
   const pointIn: Vector = new patrol("jup_b16_teleport_in").point(0);
@@ -232,7 +232,7 @@ let jupB219LVId: Optional<number> = null;
 let jupB219GVId: Optional<number> = null;
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b219_save_pos", (): void => {
   const object: Optional<GameObject> = getObjectByStoryId("jup_b219_gate_id");
@@ -253,7 +253,7 @@ extern("xr_effects.jup_b219_save_pos", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b219_restore_gate", () => {
   const yaw: TRate = 0;
@@ -274,7 +274,7 @@ extern("xr_effects.jup_b219_restore_gate", () => {
 let particlesList: Optional<LuaArray<{ particle: ParticlesObject; sound: SoundObject }>> = null;
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object: GameObject, p: [number]) => {
   if (particlesList === null) {
@@ -302,7 +302,7 @@ extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object:
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.zat_b29_create_random_infop",
@@ -345,7 +345,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [string]) => {
   // --	const story_object = p && getStoryObject(p[1])
@@ -380,7 +380,7 @@ extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [s
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p: [string, string]) => {
   let item: Optional<string> = null;
@@ -413,7 +413,7 @@ extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object: GameObject): void => {
   const inventoryBoxOut: Optional<GameObject> = getObjectByStoryId("jup_b202_actor_treasure");
@@ -434,7 +434,7 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object:
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: GameObject, params: [string]): void => {
   const itemsAll = {
@@ -516,7 +516,7 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: GameObject, p: []) => {
   const spawnItemsList = [
@@ -598,7 +598,7 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: Game
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b221_play_main", (actor: GameObject, object: GameObject, p: [string]) => {
   let infoPortionsList: LuaArray<TInfoPortion> = new LuaTable();
@@ -720,21 +720,21 @@ extern("xr_effects.oasis_heal", (): void => {
 });
 
 /**
- * todo
+ * Todo.
  */
 extern("xr_effects.pas_b400_play_particle", (actor: GameObject, object: GameObject): void => {
   registry.actor.start_particles("zones\\zone_acidic_idle", "bip01_head");
 });
 
 /**
- * todo
+ * Todo.
  */
 extern("xr_effects.pas_b400_stop_particle", (actor: GameObject, object: GameObject): void => {
   registry.actor.stop_particles("zones\\zone_acidic_idle", "bip01_head");
 });
 
 /**
- * todo
+ * Todo.
  */
 extern("xr_effects.damage_pri_a17_gauss", (): void => {
   const object: Optional<GameObject> = getObjectByStoryId(questItems.pri_a17_gauss_rifle);
@@ -745,7 +745,7 @@ extern("xr_effects.damage_pri_a17_gauss", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
   const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
@@ -757,7 +757,7 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: Ga
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b217_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
   const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
@@ -909,7 +909,7 @@ extern("xr_effects.pri_a28_talk_ssu_video_end", (_: GameObject, __: GameObject):
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.zat_b33_pic_snag_container", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("zat_b33_tutor"))) {
@@ -928,7 +928,7 @@ extern("xr_effects.zat_b33_pic_snag_container", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObject, p: []) => {
   const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
@@ -971,7 +971,7 @@ extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObj
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.pri_a28_check_zones", (): void => {
   const actor: GameObject = registry.actor;
@@ -1054,7 +1054,7 @@ const materialsTable: LuaArray<TStringId> = $fromArray([
 ]);
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.jup_b200_count_found", (): void => {
   let count: TCount = 0;

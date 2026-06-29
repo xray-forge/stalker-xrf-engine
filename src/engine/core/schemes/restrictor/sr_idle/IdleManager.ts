@@ -4,7 +4,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { TCount } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class IdleManager extends AbstractSchemeManager<ISchemeIdleState> {
   public override activate(): void {

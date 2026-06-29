@@ -103,7 +103,7 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   }
 
   /**
-   * Create new object from LUA table
+   * Create new object from LUA table.
    */
   public static mockToObject<K extends keyof any, T>(from: LuaTable<K, T>): Record<K, T> {
     return MockLuaTable.toObject(from as unknown as MockLuaTable<K, T>);

@@ -71,7 +71,7 @@ export class StalkerStateManager {
   /**
    * Get target state of game object state manager.
    *
-   * @returns target state or null
+   * @returns Target state or null.
    */
   public getState(): Optional<EStalkerState> {
     return this.targetState;
@@ -80,11 +80,11 @@ export class StalkerStateManager {
   /**
    * Set object animation state.
    *
-   * @param state - target game state to set
-   * @param callback - state manager callback for call once state is set
-   * @param timeout - time to wait for callback call once state is set
-   * @param target - target look/position description for state
-   * @param extra - additional configuration of state
+   * @param state - Target game state to set.
+   * @param callback - State manager callback for call once state is set.
+   * @param timeout - Time to wait for callback call once state is set.
+   * @param target - Target look/position description for state.
+   * @param extra - Additional configuration of state.
    */
   public setState(
     state: EStalkerState,
@@ -240,7 +240,7 @@ export class StalkerStateManager {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public isLookObjectType(): boolean {
     if (LOOK_DIRECTION_STATES.get(this.targetState)) {
@@ -251,7 +251,7 @@ export class StalkerStateManager {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public getObjectLookPositionType(): TLookType {
     // Has animation defined look direction.
@@ -268,7 +268,7 @@ export class StalkerStateManager {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public turn(): void {
     this.isObjectPointDirectionLook = this.isLookObjectType();

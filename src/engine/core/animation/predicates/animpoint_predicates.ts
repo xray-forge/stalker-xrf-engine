@@ -7,14 +7,14 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { GameObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function animpointPredicateAlways(): boolean {
   return true;
 }
 
 /**
- * todo;
+ * Todo.
  */
 function animpointPredicateBread(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.bread)) {
@@ -25,7 +25,7 @@ function animpointPredicateBread(object: GameObject): boolean {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function animpointPredicateKolbasa(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.kolbasa)) {
@@ -38,8 +38,8 @@ function animpointPredicateKolbasa(object: GameObject): boolean {
 /**
  * Check whether vodka animations can be used for actor.
  *
- * @param object - game object to checek
- * @returns whether vodka animation can be used
+ * @param object - Game object to checek.
+ * @returns Whether vodka animation can be used.
  */
 function animpointPredicateVodka(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.vodka)) {
@@ -50,7 +50,7 @@ function animpointPredicateVodka(object: GameObject): boolean {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function animpointPredicateEnergy(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.energy_drink)) {
@@ -61,7 +61,7 @@ function animpointPredicateEnergy(object: GameObject): boolean {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function animpointPredicateGuitar(object: GameObject, isInCamp?: Optional<boolean>): boolean {
   if (isInCamp && object.object(misc.guitar_a)) {
@@ -72,7 +72,7 @@ function animpointPredicateGuitar(object: GameObject, isInCamp?: Optional<boolea
 }
 
 /**
- * todo;
+ * Todo.
  */
 function animpointPredicateHarmonica(object: GameObject, isInCamp?: Optional<boolean>): boolean {
   if (isInCamp === true && harmonicaVisuals.get(object.get_visual_name()) && object.object(misc.harmonica_a)) {
@@ -83,7 +83,7 @@ function animpointPredicateHarmonica(object: GameObject, isInCamp?: Optional<boo
 }
 
 /**
- * todo;
+ * Todo.
  */
 function animpointPredicateWeapon(object: GameObject): boolean {
   const terrainName: Optional<TName> = getObjectTerrain(object)?.name() as Optional<TName>;
@@ -96,7 +96,7 @@ function animpointPredicateWeapon(object: GameObject): boolean {
 }
 
 /**
- * todo: Move to config file
+ * Todo: Move to config file.
  */
 const eatableVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_hero\\stalker_hero_1"]: true,
@@ -156,7 +156,7 @@ const eatableVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
 });
 
 /**
- * todo: Move to config file
+ * Todo: Move to config file.
  */
 const harmonicaVisuals: LuaTable<TName, boolean> = $fromObject<TName, boolean>({
   ["actors\\stalker_hero\\stalker_hero_1"]: true,

@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 /**
  *  Used.
  *  Defined in C++ codebase: src/xrGame/ui/UIMPAdminMenu.h
- *  Defined in C++ codebase: src/xrGame/ui/UIMPAdminMenu.cpp
+ *  Defined in C++ codebase: src/xrGame/ui/UIMPAdminMenu.cpp.
  */
 export function create(): JSXNode {
   return (

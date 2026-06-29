@@ -7,7 +7,7 @@ import { LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types
 /**
  * Get squads participating in simulation.
  *
- * @returns map of squads, where key is id and value is squad server object
+ * @returns Map of squads, where key is id and value is squad server object.
  */
 export function getSimulationSquads(): LuaTable<TNumberId, Squad> {
   return simulationConfig.SQUADS;
@@ -16,8 +16,8 @@ export function getSimulationSquads(): LuaTable<TNumberId, Squad> {
 /**
  * Get assigned squads count for smart terrain.
  *
- * @param terrainId - id of smart terrain to get count of assigned squads
- * @returns count of squads assigned to smart terrain
+ * @param terrainId - Id of smart terrain to get count of assigned squads.
+ * @returns Count of squads assigned to smart terrain.
  */
 export function getSimulationTerrainAssignedSquadsCount(terrainId: TNumberId): TCount {
   let count: TCount = 0;
@@ -34,8 +34,8 @@ export function getSimulationTerrainAssignedSquadsCount(terrainId: TNumberId): T
 /**
  * Get assigned squads count for smart terrain.
  *
- * @param terrainId - id of smart terrain to get count of assigned squads
- * @returns count of squads assigned to smart terrain
+ * @param terrainId - Id of smart terrain to get count of assigned squads.
+ * @returns Count of squads assigned to smart terrain.
  */
 export function getSimulationTerrainAssignedSquads(terrainId: TNumberId): LuaArray<Squad> {
   const squads: LuaArray<Squad> = new LuaTable();
@@ -52,14 +52,14 @@ export function getSimulationTerrainAssignedSquads(terrainId: TNumberId): LuaArr
 /**
  * Get list of smart terrain descriptors registered in simulation.
  *
- * @returns list of smart terrains descriptors participating in simulation
+ * @returns List of smart terrains descriptors participating in simulation.
  */
 export function getSimulationTerrainDescriptors(): LuaTable<TNumberId, ISmartTerrainDescriptor> {
   return simulationConfig.TERRAIN_DESCRIPTORS;
 }
 
 /**
- * @returns map of registered smart terrains by name
+ * @returns Map of registered smart terrains by name.
  */
 export function getSimulationTerrains(): LuaTable<TName, SmartTerrain> {
   return simulationConfig.TERRAINS;
@@ -68,8 +68,8 @@ export function getSimulationTerrains(): LuaTable<TName, SmartTerrain> {
 /**
  * Get smart terrain object by name.
  *
- * @param name - smart terrain name to get server object for
- * @returns matching smart terrain server object or null
+ * @param name - Smart terrain name to get server object for.
+ * @returns Matching smart terrain server object or null.
  */
 export function getSimulationTerrainByName(name: TName): Optional<SmartTerrain> {
   return simulationConfig.TERRAINS.get(name);
@@ -78,8 +78,8 @@ export function getSimulationTerrainByName(name: TName): Optional<SmartTerrain> 
 /**
  * Get smart terrain simulation descriptor.
  *
- * @param terrainId - id of smart terrain to get descriptor for
- * @returns smart terrain descriptor if it participates in simulation
+ * @param terrainId - Id of smart terrain to get descriptor for.
+ * @returns Smart terrain descriptor if it participates in simulation.
  */
 export function getSimulationTerrainDescriptorById(terrainId: TNumberId): Optional<ISmartTerrainDescriptor> {
   return simulationConfig.TERRAIN_DESCRIPTORS.get(terrainId);

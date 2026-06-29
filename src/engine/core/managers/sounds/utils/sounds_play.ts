@@ -6,7 +6,7 @@ import { TCommunity } from "@/engine/lib/constants/communities";
 import { GameObject } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function initializeObjectThemes(object: GameObject): void {
   const objectCommunity: TCommunity = getObjectCommunity(object);

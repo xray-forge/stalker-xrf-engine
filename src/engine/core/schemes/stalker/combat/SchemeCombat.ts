@@ -88,7 +88,7 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public static setCombatType(
     object: GameObject,

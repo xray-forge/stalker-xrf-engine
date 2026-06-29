@@ -76,7 +76,7 @@ export type TSize = number;
 export type TCoordinate = number;
 
 /**
- * Boolean value not correctly cast from C++ number;
+ * Boolean value not correctly cast from C++ number.
  */
 export type TNotCastedBoolean = 0 | 1;
 

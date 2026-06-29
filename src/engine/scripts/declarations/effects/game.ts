@@ -58,7 +58,7 @@ extern("xr_effects.set_counter", (_: GameObject, __: GameObject, [name, count]: 
 extern("xr_effects.game_disconnect", (): void => disconnectFromGame());
 
 /**
- * Handle gave over credits
+ * Handle gave over credits.
  */
 extern("xr_effects.game_over", (): void => {
   logger.info("Game over, credits sequence ended");

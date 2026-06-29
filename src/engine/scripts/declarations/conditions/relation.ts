@@ -21,7 +21,7 @@ import { AnyGameObject, EGameObjectRelation, EScheme, GameObject, Optional, TStr
  * Check whether actor faction is enemy with provided parameter community.
  *
  * Where:
- * - community - community name to check against current actor community
+ * - community - community name to check against current actor community.
  */
 extern(
   "xr_conditions.is_factions_enemies",
@@ -34,7 +34,7 @@ extern(
  * Check whether actor faction is neutral with provided parameter community.
  *
  * Where:
- * - community - community name to check against current actor community
+ * - community - community name to check against current actor community.
  */
 extern(
   "xr_conditions.is_factions_neutrals",
@@ -54,7 +54,7 @@ extern(
  * Whether actor faction is friendly with provided parameter community.
  *
  * Where:
- * - community - community name to check against current actor community
+ * - community - community name to check against current actor community.
  */
 extern(
   "xr_conditions.is_factions_friends",
@@ -67,7 +67,7 @@ extern(
  * Check whether provided community has enemy relation to actor.
  *
  * Where:
- * - community - community name to check against current actor community
+ * - community - community name to check against current actor community.
  */
 extern(
   "xr_conditions.is_faction_enemy_to_actor",
@@ -80,7 +80,7 @@ extern(
  * Check whether provided community has friendly relation to actor.
  *
  * Where:
- * - community - community name to check against current actor community
+ * - community - community name to check against current actor community.
  */
 extern(
   "xr_conditions.is_faction_friend_to_actor",
@@ -93,7 +93,7 @@ extern(
  * Check whether provided community has neutral relation to actor.
  *
  * Where:
- * - community - community name to check against current actor community
+ * - community - community name to check against current actor community.
  */
 extern(
   "xr_conditions.is_faction_neutral_to_actor",
@@ -107,7 +107,7 @@ extern(
  * Checks list of provided story IDs and expect at least one member of at least one squad to be friend.
  *
  * Where:
- * - params - variadic list of squad story IDs to check
+ * - params - variadic list of squad story IDs to check.
  */
 extern("xr_conditions.is_squad_friend_to_actor", (_: GameObject, __: GameObject, params: Array<TStringId>): boolean => {
   for (const [, squadStoryId] of ipairs(params)) {
@@ -126,7 +126,7 @@ extern("xr_conditions.is_squad_friend_to_actor", (_: GameObject, __: GameObject,
  * Checks list of provided story IDs and expect at least one member of at least one squad to be enemy.
  *
  * Where:
- * - params - variadic list of squad story IDs to check
+ * - params - variadic list of squad story IDs to check.
  */
 extern("xr_conditions.is_squad_enemy_to_actor", (_: GameObject, __: GameObject, params: Array<TStringId>): boolean => {
   for (const [, squadStoryId] of ipairs(params)) {

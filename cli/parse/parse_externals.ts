@@ -49,7 +49,7 @@ export async function parseExternals(): Promise<void> {
 }
 
 /**
- * @returns descriptors of files to parse and generate docs
+ * @returns Descriptors of files to parse and generate docs.
  */
 async function getSourcesList(source: string): Promise<Array<string>> {
   /**

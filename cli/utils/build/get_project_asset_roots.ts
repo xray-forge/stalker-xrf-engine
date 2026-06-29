@@ -6,8 +6,8 @@ import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
 import { Optional } from "#/utils/types";
 
 /**
- * @param language - locale to use for additional assets
- * @returns list of additional assets based on XRF config and locale
+ * @param language - Locale to use for additional assets.
+ * @returns List of additional assets based on XRF config and locale.
  */
 export function getProjectAssetsRoots(language?: string): Array<string> {
   const assetRoots: Array<string> = config.resources.mod_assets_override_folders.map((it) => {

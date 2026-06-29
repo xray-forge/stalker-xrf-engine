@@ -4,27 +4,27 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { TCount, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class PhantomManager extends AbstractManager {
   public phantomsCount: TCount = 0;
 
   /**
-   * todo;
+   * Todo.
    */
   public addPhantom(): void {
     this.phantomsCount = this.phantomsCount + 1;
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public removePhantom(): void {
     this.phantomsCount = this.phantomsCount - 1;
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public spawnPhantom(position: Vector): void {
     level.spawn_phantom(position);

@@ -39,9 +39,9 @@ import {
  * Parse array of `|` separated condition lists.
  * Original regexp - "(%|*[^%|]+%|*)%p*".
  *
- * @param object - game object
- * @param data - target data list string to parse
- * @returns parsed list of sections from processed condition lists
+ * @param object - Game object.
+ * @param data - Target data list string to parse.
+ * @returns Parsed list of sections from processed condition lists.
  */
 export function getSectionsFromConditionLists(object: GameObject, data: Optional<string>): LuaArray<TInfoPortion> {
   const infos: LuaArray<TInfoPortion> = new LuaTable();
@@ -65,12 +65,12 @@ export function getSectionsFromConditionLists(object: GameObject, data: Optional
  * Pick resulting scheme based on info portions and xr_conditions requirements.
  * Process side effects of such checks and give needed infos and call effects on switch.
  *
- * todo: Implement static condlists and check performance without parsing etc.
+ * Todo: Implement static condlists and check performance without parsing etc.
  *
- * @param actor - actor game object
- * @param object - game object
- * @param condlist - target condlist to process
- * @returns picked section based on condlist and actual checks
+ * @param actor - Actor Game object.
+ * @param object - Game object.
+ * @param condlist - Target condlist to process.
+ * @returns Picked section based on condlist and actual checks.
  */
 export function pickSectionFromCondList<T extends TSection>(
   actor: GameObject,
@@ -163,10 +163,10 @@ export function pickSectionFromCondList<T extends TSection>(
  * Parse config field containing zone name, story ID and condlist.
  * Example: `zat_cop_id|zat_b38_actor_jump_down|walker@get_out`.
  *
- * @param ini - target ini file to read
- * @param section - target section to read
- * @param field - section field name to read
- * @returns parse scheme logic descriptor
+ * @param ini - Target ini file to read.
+ * @param section - Target section to read.
+ * @param field - Section field name to read.
+ * @returns Parse scheme logic descriptor.
  */
 export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const target: Optional<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
@@ -191,10 +191,10 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
 /**
  * Get config overrides from object logics section.
  *
- * @param ini - target ini file
- * @param section - section name to read from ini file
- * @param object - game object
- * @returns overrides object
+ * @param ini - Target ini file.
+ * @param section - Section name to read from ini file.
+ * @param object - Game object.
+ * @returns Overrides object.
  */
 export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: GameObject): ILogicsOverrides {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -234,9 +234,9 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
  * Get switch conditions for provided scheme section like `mob_home@2`.
  * Parses all possible switch cases for checking and switching later if conditions are satisfied.
  *
- * @param ini - target ini config file
- * @param section - section in ini file to read
- * @returns optional list of scheme logic switcher descriptors
+ * @param ini - Target ini config file.
+ * @param section - Section in ini file to read.
+ * @returns Optional list of scheme logic switcher descriptors.
  */
 export function getConfigSwitchConditions(ini: IniFile, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
   const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();
@@ -249,7 +249,7 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
   let index: TIndex = 1;
 
   /**
-   * todo;
+   * Todo.
    */
   function addConditions(
     func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
@@ -289,10 +289,10 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
 /**
  * Add condition to list.
  *
- * @param conditionsList - list to insert new scheme
- * @param at - index to insert at
- * @param conditionScheme - scheme to insert in list
- * @returns index where next element should be inserted
+ * @param conditionsList - List to insert new scheme.
+ * @param at - Index to insert at.
+ * @param conditionScheme - Scheme to insert in list.
+ * @returns Index where next element should be inserted.
  */
 export function addConditionToList(
   conditionsList: LuaArray<IBaseSchemeLogic>,

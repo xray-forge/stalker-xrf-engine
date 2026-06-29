@@ -41,8 +41,8 @@ export class DialogManager extends AbstractManager {
   /**
    * Save dialogs data for provided object.
    *
-   * @param object - game object to save data for
-   * @param packet - net packet to save data to
+   * @param object - Game object to save data for.
+   * @param packet - Net packet to save data to.
    */
   public saveObjectDialogs(object: GameObject, packet: NetPacket): void {
     const objectId: TNumberId = object.id();
@@ -61,8 +61,8 @@ export class DialogManager extends AbstractManager {
   /**
    * Load object dialogs data.
    *
-   * @param object - game object to save data for
-   * @param reader - net reader to read data from
+   * @param object - Game object to save data for.
+   * @param reader - Net reader to read data from.
    */
   public loadObjectDialogs(object: GameObject, reader: NetProcessor): void {
     openLoadMarker(reader, DialogManager.name);
@@ -79,10 +79,10 @@ export class DialogManager extends AbstractManager {
   /**
    * Check whether provided phrase was told to object with provided ID.
    *
-   * @param objectId - target object ID
-   * @param phrase - phrase to check
+   * @param objectId - Target object ID.
+   * @param phrase - Phrase to check.
    *
-   * @returns whether phrase was already told
+   * @returns Whether phrase was already told.
    */
   public isObjectPhraseCategoryTold(objectId: TNumberId, phrase: EGenericPhraseCategory): boolean {
     return this.priorityTable.get(phrase).get(objectId)?.told === true;
@@ -91,8 +91,8 @@ export class DialogManager extends AbstractManager {
   /**
    * Disable phrase for object.
    *
-   * @param objectId - target object ID
-   * @param phraseId - target phrase ID
+   * @param objectId - Target object ID.
+   * @param phraseId - Target phrase ID.
    */
   public disableObjectPhrase(objectId: TNumberId, phraseId: TStringId): void {
     if (this.disabledPhrases.get(objectId) === null) {
@@ -105,7 +105,7 @@ export class DialogManager extends AbstractManager {
   /**
    * Reset disabled phrases for provided object.
    *
-   * @param objectId - target object ID
+   * @param objectId - Target object ID.
    */
   public resetObjectPhrases(objectId: TNumberId): void {
     this.disabledPhrases.delete(objectId);
@@ -114,7 +114,7 @@ export class DialogManager extends AbstractManager {
   /**
    * Store currently active speaker as side effect of interaction with game object.
    *
-   * @param object - game object interacting with
+   * @param object - Game object interacting with.
    */
   public onInteractWithObject(object: GameObject): void {
     dialogConfig.ACTIVE_SPEAKER = object;
@@ -123,7 +123,7 @@ export class DialogManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

@@ -41,7 +41,7 @@ export class SquadStayOnTargetAction implements ISquadAction {
   }
 
   /**
-   * @returns remaining duration to stay on target
+   * @returns Remaining duration to stay on target.
    */
   public getStayIdleDuration(): TDuration {
     return this.actionStartTime ? this.actionIdleTime - game.get_game_time().diffSec(this.actionStartTime) : 0;

@@ -29,8 +29,8 @@ import {
 /**
  * Check whether object is facing any danger.
  *
- * @param object - game object to check
- * @returns whether object is facing any danger right now
+ * @param object - Game object to check.
+ * @returns Whether object is facing any danger right now.
  */
 export function isObjectFacingDanger(object: GameObject): boolean {
   const bestDanger: Optional<DangerObject> = object.best_danger();
@@ -60,7 +60,7 @@ export function isObjectFacingDanger(object: GameObject): boolean {
      *  --const corpse_object = best_danger:object()
      *  --if time_global() - corpse_object:death_time() >= DANGER_INERTION_TIME then
      *  --    return false
-     *  --end
+     *  --end.
      */
   }
 
@@ -102,9 +102,9 @@ export function isObjectFacingDanger(object: GameObject): boolean {
 
   // todo: Update, originally incorrect.
   /**
-   if (active_scheme === "camper" && bd_type !== danger_object.grenade) {
+   If (active_scheme === "camper" && bd_type !== danger_object.grenade) {
         return false;
-      }
+      }.
    */
 
   return true;
@@ -113,9 +113,9 @@ export function isObjectFacingDanger(object: GameObject): boolean {
 /**
  * Check whether object is valid enemy of another object.
  *
- * @param object - target object to check
- * @param enemy - possible enemy to check
- * @returns whether object os enemy of provided client entity
+ * @param object - Target object to check.
+ * @param enemy - Possible enemy to check.
+ * @returns Whether object os enemy of provided client entity.
  */
 export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): boolean {
   // Dead, cannot select enemies.

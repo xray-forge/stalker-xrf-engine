@@ -5,9 +5,9 @@ import { Time, TIndex, TLabel } from "@/engine/lib/types";
 /**
  * Calculate current moon phase based on game date time.
  *
- * @param time - current game time to calculate
- * @param period - phase setting of moon
- * @returns phase of moon
+ * @param time - Current game time to calculate.
+ * @param period - Phase setting of moon.
+ * @returns Phase of moon.
  */
 export function getMoonPhase(time: Time, period: EWeatherMoonPeriod): TLabel {
   const [Y, M, D, h] = time.get(0, 0, 0, 0, 0, 0, 0);

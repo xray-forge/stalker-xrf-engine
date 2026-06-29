@@ -37,7 +37,7 @@ export const mockMath = {
   },
   floor: (value: number) => Math.floor(value),
   /**
-   * value – a number representing a cosine, where x is between -1 and 1
+   * Value – a number representing a cosine, where x is between -1 and 1.
    */
   acos: (value: number) => Math.acos(value),
 };

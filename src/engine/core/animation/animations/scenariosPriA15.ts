@@ -22,7 +22,7 @@ const WEAPONS_TABLE_UNSTRAPPED: LuaArray<TName> = $fromArray([
 ]);
 
 /**
- * todo;
+ * Todo.
  */
 function unstrapWeapon(object: GameObject): void {
   let item: Optional<GameObject> = null;
@@ -44,7 +44,7 @@ function unstrapWeapon(object: GameObject): void {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function strapWeapon(object: GameObject): void {
   let item: Optional<GameObject> = null;
@@ -643,7 +643,7 @@ function check_availability(precondition: LuaArray<string>, existing_npc: string
 // --get_sequence_for_npc("vano", "vano")
 
 /**
- * todo; Needs fix
+ * Todo; Needs fix.
  */
 function createSequenceForNpc(objectName: TName, existingObject: string): LuaArray<TAnimationSequenceElements> {
   const result: TAnimationSequenceElements = new LuaTable();
@@ -709,7 +709,7 @@ function createSequenceForNpc(objectName: TName, existingObject: string): LuaArr
 }
 
 /**
- * todo;
+ * Todo.
  */
 export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = $fromObject<
   TName,

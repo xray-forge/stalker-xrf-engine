@@ -8,8 +8,8 @@ import { ActionPlanner } from "@/engine/lib/types";
 /**
  * Setup GOAP logics related to mental state changes of stalkers.
  *
- * @param planner - action planner to configure
- * @param stateManager - target object state manager
+ * @param planner - Action planner to configure.
+ * @param stateManager - Target object state manager.
  */
 export function setupStalkerMentalStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
   const mentalFreeAction: ActionMentalFree = new ActionMentalFree(stateManager);

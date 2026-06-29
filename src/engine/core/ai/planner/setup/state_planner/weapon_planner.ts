@@ -13,8 +13,8 @@ import { ActionPlanner } from "@/engine/lib/types";
 /**
  * Setup GOAP logics related to weapon state changes of stalkers.
  *
- * @param planner - action planner to configure
- * @param stateManager - target object state manager
+ * @param planner - Action planner to configure.
+ * @param stateManager - Target object state manager.
  */
 export function setupStalkerWeaponStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
   const unstrapAction: ActionWeaponUnstrap = new ActionWeaponUnstrap(stateManager);

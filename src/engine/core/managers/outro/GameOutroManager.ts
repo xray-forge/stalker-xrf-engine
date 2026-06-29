@@ -68,7 +68,7 @@ export class GameOutroManager extends AbstractManager {
   /**
    * Set volume of current end game sound.
    *
-   * @param volume - target music volume
+   * @param volume - Target music volume.
    */
   public setSoundVolume(volume: number): void {
     if (this.sound) {
@@ -88,7 +88,7 @@ export class GameOutroManager extends AbstractManager {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public stopBlackScreenAndSound(): void {
     this.stopSound();
@@ -98,14 +98,14 @@ export class GameOutroManager extends AbstractManager {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public updateBlackScreenAndSoundFadeStart(factor: number): void {
     this.setSoundVolume(calculateSoundFade(factor, 0.6, 1.0, gameOutroConfig.VOLUME_MAX, gameOutroConfig.VOLUME_MIN));
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public updateBlackScreenAndSoundFadeStop(factor: number): void {
     this.setSoundVolume(
@@ -118,7 +118,7 @@ export class GameOutroManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

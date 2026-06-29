@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class EvaluatorCheckCombat extends property_evaluator {
@@ -16,7 +16,7 @@ export class EvaluatorCheckCombat extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override evaluate(): boolean {
     if (this.state.enabled && this.object.best_enemy()) {

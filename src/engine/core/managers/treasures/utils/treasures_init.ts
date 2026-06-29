@@ -14,8 +14,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Initialize treasures descriptors from ini file.
  *
- * @param ini - target file to read secrets from
- * @returns list of parsed secrets
+ * @param ini - Target file to read secrets from.
+ * @returns List of parsed secrets.
  */
 export function readIniTreasuresList(ini: IniFile): LuaTable<TSection, ITreasureDescriptor> {
   const secrets: LuaTable<TSection, ITreasureDescriptor> = new LuaTable();

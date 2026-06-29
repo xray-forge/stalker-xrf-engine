@@ -6,7 +6,7 @@ import { isActiveSection } from "@/engine/core/utils/scheme";
 import { ActionPlanner, Optional, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class EvaluatorCloseCombat extends property_evaluator {
@@ -20,7 +20,7 @@ export class EvaluatorCloseCombat extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override evaluate(): boolean {
     if (!isActiveSection(this.object, this.state.section)) {

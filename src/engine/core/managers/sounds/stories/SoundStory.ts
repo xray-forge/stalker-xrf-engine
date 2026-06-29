@@ -52,7 +52,7 @@ export class SoundStory {
   }
 
   /**
-   * @returns whether story is finished
+   * @returns Whether story is finished.
    */
   public isFinished(): boolean {
     return this.nextPhraseIndex > this.maxPhrasesCount;
@@ -66,7 +66,7 @@ export class SoundStory {
   }
 
   /**
-   * @returns descriptor of next phrase
+   * @returns Descriptor of next phrase.
    */
   public getNextPhraseDescriptor(): IReplicDescriptor {
     const phrase: IReplicDescriptor = this.replicas.get(this.nextPhraseIndex);

@@ -5,8 +5,8 @@ import { LuaArray, Optional, TDistance, TIndex, TRate } from "@/engine/lib/types
 /**
  * Parse serialized string as wounded state descriptors list.
  *
- * @param serialized - serialized wounded state description
- * @returns list of parsed wounded state descriptors
+ * @param serialized - Serialized wounded state description.
+ * @returns List of parsed wounded state descriptors.
  */
 export function parseWoundedData(serialized: Optional<string>): LuaArray<IWoundedStateDescriptor> {
   const collection: LuaArray<IWoundedStateDescriptor> = new LuaTable();
@@ -42,12 +42,12 @@ export function parseWoundedData(serialized: Optional<string>): LuaArray<IWounde
 /**
  * Get wounded state descriptor by current HP breakpoint.
  *
- * todo: Get object ref instead? Get object ref and index as multi-return?
- * todo: Returns previous value.
+ * Todo: Get object ref instead? Get object ref and index as multi-return?
+ * Todo: Returns previous value.
  *
- * @param descriptors - list of descriptors to search
- * @param hp - hp breakpoint to match in searched descriptors list based on [0-100] current hp value
- * @returns optional index of descriptor matching provided distance requirement
+ * @param descriptors - List of descriptors to search.
+ * @param hp - Hp breakpoint to match in searched descriptors list based on [0-100] current hp value.
+ * @returns Optional index of descriptor matching provided distance requirement.
  */
 export function getStateIndexByHp(descriptors: LuaArray<IWoundedStateDescriptor>, hp: TRate): Optional<TIndex> {
   let result: Optional<TIndex> = null;

@@ -25,7 +25,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * @returns list of game saves file system items
+ * @returns List of game saves file system items.
  */
 export function getGameSaves(): LuaArray<FSItem> {
   const saves: LuaArray<FSItem> = new LuaTable();
@@ -51,8 +51,8 @@ export function getGameSaves(): LuaArray<FSItem> {
 /**
  * Check whether save file exists with provided name.
  *
- * @param name - target name to search in saves folder
- * @returns whether file exists
+ * @param name - Target name to search in saves folder.
+ * @returns Whether file exists.
  */
 export function isGameSaveFileExist(name: TName): boolean {
   return getFS().file_list_open_ex(roots.gameSaves, bit_or(FS.FS_ListFiles, FS.FS_RootOnly), name).Size() > 0;
@@ -61,7 +61,7 @@ export function isGameSaveFileExist(name: TName): boolean {
 /**
  * Delete game save file and dds file.
  *
- * @param name - target name to delete from saves folder
+ * @param name - Target name to delete from saves folder.
  */
 export function deleteGameSave(name: TName): void {
   const saveBaseFile: TName = name + forgeConfig.SAVE.GAME_SAVE_EXTENSION;
@@ -88,8 +88,8 @@ export function deleteGameSave(name: TName): void {
 /**
  * Create dynamic game save based on stringified binary data.
  *
- * @param path - target save filename base to create or overwrite it
- * @param data - data to save
+ * @param path - Target save filename base to create or overwrite it.
+ * @param data - Data to save.
  */
 export function saveDynamicGameSave(path: TName, data: AnyObject): void {
   const folder: TPath = getFS().update_path(roots.gameSaves, "");
@@ -101,8 +101,8 @@ export function saveDynamicGameSave(path: TName, data: AnyObject): void {
 /**
  * Read dynamic game save with stringified binary data.
  *
- * @param path - generic save file name path
- * @returns stringified binary data or null
+ * @param path - Generic save file name path.
+ * @returns Stringified binary data or null.
  */
 export function loadDynamicGameSave<T extends AnyObject>(path: TPath): Optional<T> {
   return loadObjectFromFile(string.sub(path, 0, -6) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION);
@@ -111,8 +111,8 @@ export function loadDynamicGameSave<T extends AnyObject>(path: TPath): Optional<
 /**
  * Get label with description for file name.
  *
- * @param name - name of save file to check
- * @returns label with save file description
+ * @param name - Name of save file to check.
+ * @returns Label with save file description.
  */
 export function getFileDataForGameSave(name: TName): TLabel {
   const files: FSFileListEX = getFS().file_list_open_ex(
@@ -148,8 +148,8 @@ export function getFileDataForGameSave(name: TName): TLabel {
 /**
  * Save game on some scenario moments automatically.
  *
- * @param name - name of the file / record to save
- * @param translate - whether name should be translated
+ * @param name - Name of the file / record to save.
+ * @param translate - Whether name should be translated.
  */
 export function createGameAutoSave(name: Optional<TName>, translate: boolean = true): void {
   assert(name, "You are trying to use scenario save without name.");
@@ -166,7 +166,7 @@ export function createGameAutoSave(name: Optional<TName>, translate: boolean = t
 /**
  * Save game with provided parameters.
  *
- * @param name - name of the file / record to save
+ * @param name - Name of the file / record to save.
  */
 export function createGameSave(name: Optional<TName>): void {
   assert(name, "You are trying to save without name.");
@@ -188,7 +188,7 @@ export function loadLastGameSave(): void {
  * Loads game save by name.
  * If game is not started, initializes new world.
  *
- * @param name - name of game save to load
+ * @param name - Name of game save to load.
  */
 export function loadGameSave(name: Optional<TName>): void {
   assert(name, "You are trying to load without name.");
@@ -204,7 +204,7 @@ export function loadGameSave(name: Optional<TName>): void {
 /**
  * Starts new single game server/save.
  *
- * @param difficulty - level of difficulty for new game, optional
+ * @param difficulty - Level of difficulty for new game, optional.
  */
 export function startNewGame(difficulty: Optional<TGameDifficulty> = null): void {
   if (difficulty) {

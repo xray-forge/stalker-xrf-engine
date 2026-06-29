@@ -178,14 +178,14 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * @returns tuple with animpoint position and direction
+   * @returns Tuple with animpoint position and direction.
    */
   public getAnimationParameters(): LuaMultiReturn<[Optional<Vector>, Optional<Vector>]> {
     return $multi(this.position, this.smartCoverDirection);
   }
 
   /**
-   * @returns whether object reached position where animpoint scheme should activate animations
+   * @returns Whether object reached position where animpoint scheme should activate animations.
    */
   public isPositionReached(): boolean {
     if (this.currentAction !== null) {
@@ -215,7 +215,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public fillPossibleAnimationActions(): void {
     const isInCamp: boolean = this.campManager !== null;

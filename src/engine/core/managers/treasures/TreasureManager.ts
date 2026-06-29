@@ -210,7 +210,7 @@ export class TreasureManager extends AbstractManager {
   /**
    * Spawn treasure items if needed and link IDs.
    *
-   * @param treasureId - section ID of the treasure to spawn
+   * @param treasureId - Section ID of the treasure to spawn.
    */
   protected spawnTreasure(treasureId: TStringId): void {
     // logger.format("Spawn treasure ID: %s", treasureId);
@@ -258,7 +258,7 @@ export class TreasureManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public giveActorTreasureCoordinates(treasureId: TStringId, spawn: boolean = false): void {
     logger.info("Give treasure: %s %s", treasureId, spawn);
@@ -331,7 +331,7 @@ export class TreasureManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onRegisterItem(object: ServerObject): boolean {
     const spawnIni: Optional<IniFile> = object.spawn_ini();
@@ -378,7 +378,7 @@ export class TreasureManager extends AbstractManager {
    * Register game restrictor linked with secret.
    * Note: name of restrictor should match secret section.
    *
-   * @param object - restrictor zone server object
+   * @param object - Restrictor zone server object.
    */
   public onRegisterRestrictor(object: ServerObject): boolean {
     if (object.spawn_ini()?.section_exist(SECRET_SECTION)) {
@@ -431,7 +431,7 @@ export class TreasureManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

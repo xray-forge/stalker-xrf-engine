@@ -37,7 +37,7 @@ export class AnomalyFieldBinder extends object_binder {
   /**
    * Toggle anomaly field availability.
    *
-   * @param isEnabled - anomaly field next state
+   * @param isEnabled - Anomaly field next state.
    */
   public setEnabled(isEnabled: boolean): void {
     if (isEnabled) {

@@ -23,7 +23,7 @@ export function register(): void {
 }
 
 /**
- * @param data - generic object to save extension data
+ * @param data - Generic object to save extension data.
  */
 export function save(data: AnyObject): void {
   data.lastDetectiveAchievementSpawnAt = achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT
@@ -36,7 +36,7 @@ export function save(data: AnyObject): void {
 }
 
 /**
- * @param data - generic object to load extension data from
+ * @param data - Generic object to load extension data from.
  */
 export function load(data: AnyObject): void {
   achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = data.lastDetectiveAchievementSpawnAt

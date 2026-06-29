@@ -8,19 +8,19 @@ import { gameConfig } from "@/engine/lib/configs/GameConfig";
 import { LuaArray, Optional, TCount, TLabel, TName, TRate, TSection } from "@/engine/lib/types";
 
 /**
- * @param section - item section to get upgrade cost
- * @returns upgrade cost label for provided item section
+ * @param section - Item section to get upgrade cost.
+ * @returns Upgrade cost label for provided item section.
  */
 export function getUpgradeCostLabel(section: TSection): TLabel {
   return registry.actor === null ? " " : `${game.translate_string("st_upgr_cost")}: ${getUpgradeCost(section)}`;
 }
 
 /**
- * @param section - item section to get replic label for
- * @param condition - item condition
- * @param canRepair - whether item can be repaired
- * @param mechanicName - name of the mechanic
- * @returns label with confirmation or warning about item repair process
+ * @param section - Item section to get replic label for.
+ * @param condition - Item condition.
+ * @param canRepair - Whether item can be repaired.
+ * @param mechanicName - Name of the mechanic.
+ * @returns Label with confirmation or warning about item repair process.
  */
 export function getRepairItemAskReplicLabel(
   section: TSection,
@@ -60,9 +60,9 @@ export function getRepairItemAskReplicLabel(
 }
 
 /**
- * @param data - comma separated list of upgrades to add (?)
- * @param upgrade - name of upgrade
- * @returns issued property label
+ * @param data - Comma separated list of upgrades to add (?).
+ * @param upgrade - Name of upgrade.
+ * @returns Issued property label.
  */
 export function issueUpgradeProperty(data: string, upgrade: TName): TLabel {
   const propertyName: TLabel = game.translate_string(ITEM_UPGRADES.r_string(upgrade, "name"));

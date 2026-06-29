@@ -11,7 +11,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 
 /**
- * @returns whether actor has pioneer achievement
+ * @returns Whether actor has pioneer achievement.
  */
 export function hasAchievedPioneer(): boolean {
   if (hasInfoPortion(infoPortions.pioneer_achievement_gained)) {
@@ -40,7 +40,7 @@ export function hasAchievedPioneer(): boolean {
 }
 
 /**
- * @returns whether actor has mutant hunter achievement
+ * @returns Whether actor has mutant hunter achievement.
  */
 export function hasAchievedMutantHunter(): boolean {
   if (hasInfoPortion(infoPortions.mutant_hunter_achievement_gained)) {
@@ -69,7 +69,7 @@ export function hasAchievedMutantHunter(): boolean {
 }
 
 /**
- * @returns whether actor has detective achievement
+ * @returns Whether actor has detective achievement.
  */
 export function hasAchievedDetective(): boolean {
   if (hasInfoPortion(infoPortions.detective_achievement_gained)) {
@@ -92,7 +92,7 @@ export function hasAchievedDetective(): boolean {
 }
 
 /**
- * @returns whether actor has one of lads achievement
+ * @returns Whether actor has one of lads achievement.
  */
 export function hasAchievedOneOfLads(): boolean {
   if (hasInfoPortion(infoPortions.one_of_the_lads_gained)) {
@@ -115,7 +115,7 @@ export function hasAchievedOneOfLads(): boolean {
 }
 
 /**
- * @returns whether actor has kingpin achievement
+ * @returns Whether actor has kingpin achievement.
  */
 export function hasAchievedKingpin(): boolean {
   if (hasInfoPortion(infoPortions.kingpin_gained)) {
@@ -138,7 +138,7 @@ export function hasAchievedKingpin(): boolean {
 }
 
 /**
- * @returns whether actor has herald of justice achievement
+ * @returns Whether actor has herald of justice achievement.
  */
 export function hasAchievedHeraldOfJustice(): boolean {
   if (hasInfoPortion(infoPortions.herald_of_justice_achievement_gained)) {
@@ -171,7 +171,7 @@ export function hasAchievedHeraldOfJustice(): boolean {
  * It is given as reward for collecting all unique game artefacts.
  * By default, in COP there are 22 unique artefact sections.
  *
- * @returns whether actor has seeker achievement
+ * @returns Whether actor has seeker achievement.
  */
 export function hasAchievedSeeker(): boolean {
   if (hasInfoPortion(infoPortions.sim_bandit_attack_harder)) {
@@ -196,7 +196,7 @@ export function hasAchievedSeeker(): boolean {
 }
 
 /**
- * @returns whether actor has battle systems master achievement
+ * @returns Whether actor has battle systems master achievement.
  */
 export function hasAchievedBattleSystemsMaster(): boolean {
   if (hasInfoPortion(infoPortions.battle_systems_master_achievement_gained)) {
@@ -219,7 +219,7 @@ export function hasAchievedBattleSystemsMaster(): boolean {
 }
 
 /**
- * @returns whether actor has high-tech master achievement
+ * @returns Whether actor has high-tech master achievement.
  */
 export function hasAchievedHighTechMaster(): boolean {
   if (hasInfoPortion(infoPortions.high_tech_master_achievement_gained)) {
@@ -248,7 +248,7 @@ export function hasAchievedHighTechMaster(): boolean {
 }
 
 /**
- * @returns whether actor has skilled stalker achievement
+ * @returns Whether actor has skilled stalker achievement.
  */
 export function hasAchievedSkilledStalker(): boolean {
   if (hasInfoPortion(infoPortions.skilled_stalker_achievement_gained)) {
@@ -271,7 +271,7 @@ export function hasAchievedSkilledStalker(): boolean {
 }
 
 /**
- * @returns whether actor has leader achievement
+ * @returns Whether actor has leader achievement.
  */
 export function hasAchievedLeader(): boolean {
   if (hasInfoPortion(infoPortions.leader_achievement_gained)) {
@@ -300,7 +300,7 @@ export function hasAchievedLeader(): boolean {
 }
 
 /**
- * @returns whether actor has diplomat achievement
+ * @returns Whether actor has diplomat achievement.
  */
 export function hasAchievedDiplomat(): boolean {
   if (hasInfoPortion(infoPortions.diplomat_achievement_gained)) {
@@ -337,7 +337,7 @@ export function hasAchievedDiplomat(): boolean {
 }
 
 /**
- * @returns whether actor has research man achievement
+ * @returns Whether actor has research man achievement.
  */
 export function hasAchievedResearchMan(): boolean {
   if (hasInfoPortion(infoPortions.research_man_gained)) {
@@ -374,7 +374,7 @@ export function hasAchievedResearchMan(): boolean {
 }
 
 /**
- * @returns whether actor has friend of duty achievement
+ * @returns Whether actor has friend of duty achievement.
  */
 export function hasAchievedFriendOfDuty(): boolean {
   if (hasInfoPortion(infoPortions.sim_duty_help_harder)) {
@@ -404,7 +404,7 @@ export function hasAchievedFriendOfDuty(): boolean {
 }
 
 /**
- * @returns whether actor has friends of freedom achievement
+ * @returns Whether actor has friends of freedom achievement.
  */
 export function hasAchievedFriendOfFreedom(): boolean {
   if (hasInfoPortion(infoPortions.sim_freedom_help_harder)) {
@@ -434,7 +434,7 @@ export function hasAchievedFriendOfFreedom(): boolean {
 }
 
 /**
- * @returns whether actor has balance advocate achievement
+ * @returns Whether actor has balance advocate achievement.
  */
 export function hasAchievedBalanceAdvocate(): boolean {
   if (hasInfoPortion(infoPortions.balance_advocate_gained)) {
@@ -463,7 +463,7 @@ export function hasAchievedBalanceAdvocate(): boolean {
 }
 
 /**
- * @returns whether actor has wealthy status achievement
+ * @returns Whether actor has wealthy status achievement.
  */
 export function hasAchievedWealthy(): boolean {
   if (hasInfoPortion(infoPortions.actor_wealthy)) {
@@ -486,7 +486,7 @@ export function hasAchievedWealthy(): boolean {
 }
 
 /**
- * @returns whether actor has keeper of secrets achievement
+ * @returns Whether actor has keeper of secrets achievement.
  */
 export function hasAchievedKeeperOfSecrets(): boolean {
   if (hasInfoPortion(infoPortions.keeper_of_secrets_achievement_gained)) {
@@ -509,7 +509,7 @@ export function hasAchievedKeeperOfSecrets(): boolean {
 }
 
 /**
- * @returns whether actor has marked by zone achievement after usage of anabiotics
+ * @returns Whether actor has marked by zone achievement after usage of anabiotics.
  */
 export function hasAchievedMarkedByZone(): boolean {
   if (hasInfoPortion(infoPortions.actor_marked_by_zone_3_times)) {
@@ -532,7 +532,7 @@ export function hasAchievedMarkedByZone(): boolean {
 }
 
 /**
- * @returns whether actor has information trader achievement after trading different kind of info
+ * @returns Whether actor has information trader achievement after trading different kind of info.
  */
 export function hasAchievedInformationDealer(): boolean {
   if (hasInfoPortion(infoPortions.actor_information_dealer)) {
@@ -577,7 +577,7 @@ export function hasAchievedInformationDealer(): boolean {
 }
 
 /**
- * @returns whether actor has friend of stalker achievement
+ * @returns Whether actor has friend of stalker achievement.
  */
 export function hasAchievedFriendOfStalkers(): boolean {
   if (hasInfoPortion(infoPortions.sim_stalker_help_harder)) {

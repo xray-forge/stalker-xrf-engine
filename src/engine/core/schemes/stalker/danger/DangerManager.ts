@@ -14,9 +14,9 @@ import { EGameObjectRelation, GameObject, Optional, TNumberId, TRate, TSoundType
 export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
   /**
    * Based on hearing enemies or different events turn on danger state.
-   * todo: Warn squad?
-   * todo: If hear sound and already in danger just extend it?
-   * todo: Adjust sound power to ignore silencers or weak sounds
+   * Todo: Warn squad?
+   * Todo: If hear sound and already in danger just extend it?
+   * Todo: Adjust sound power to ignore silencers or weak sounds
    * todo: Description.
    */
   public onHear(
@@ -45,7 +45,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
 
       /**
        * If sound is near:
-       *  - If source object is enemy, start warning state
+       *  - If source object is enemy, start warning state.
        */
       if (isSoundNear) {
         this.state.dangerTime = time_global();

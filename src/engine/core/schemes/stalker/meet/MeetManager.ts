@@ -27,7 +27,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
  * - dialogs
  * - trading
  * - stop and wait actor interaction
- * - hello / goodbye when moving around
+ * - hello / goodbye when moving around.
  */
 export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public startDialog: Optional<TName> = null;
@@ -47,7 +47,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public isByePassed: boolean = false;
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public initialize(): void {
     const actor: Optional<GameObject> = registry.actor;
@@ -128,7 +128,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public update(): void {
     const actor: GameObject = registry.actor;

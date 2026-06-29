@@ -5,7 +5,7 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { GameObject, LuaArray, Optional, TDistance, TRate, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class HelicopterFlyManager {
   public readonly object: GameObject;
@@ -23,7 +23,7 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public flyOnPointWithVector(
     destPoint: Vector,
@@ -89,7 +89,7 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public calculatePoint(): Vector {
     const result: Vector = createEmptyVector();
@@ -130,7 +130,7 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public lagrange(x: number, xList: LuaArray<number>, yList: LuaArray<number>): TRate {
     let s: TRate = 0;
@@ -151,7 +151,7 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public correctVelocity(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
@@ -169,7 +169,7 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public lookAtPosition(): void {
     if (this.blockFlook) {
@@ -180,14 +180,14 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setBlockFlook(isFlookBlocked: boolean): void {
     this.blockFlook = isFlookBlocked;
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setLookPoint(lPoint: Vector): void {
     this.pointByLook = lPoint;

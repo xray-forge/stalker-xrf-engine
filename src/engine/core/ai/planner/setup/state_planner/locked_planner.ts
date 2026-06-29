@@ -8,8 +8,8 @@ import { ActionPlanner } from "@/engine/lib/types";
 /**
  * Setup GOAP logics related to locked state changes of stalkers logics.
  *
- * @param planner - action planner to configure
- * @param stateManager - target object state manager
+ * @param planner - Action planner to configure.
+ * @param stateManager - Target object state manager.
  */
 export function setupStalkerLockedStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
   const lockedAction: ActionStateLocked = new ActionStateLocked(stateManager, "ActionStateLocked");

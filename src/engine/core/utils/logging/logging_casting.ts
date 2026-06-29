@@ -2,8 +2,8 @@ import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import { TLabel, TName } from "@/engine/lib/types";
 
 /**
- * @param value - any data to cast for lua logging
- * @returns value casted to log string
+ * @param value - Any data to cast for lua logging.
+ * @returns Value casted to log string.
  */
 export function toLogValue(value: unknown): TLabel {
   const valueType: TName = type(value);

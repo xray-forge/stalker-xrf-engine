@@ -62,7 +62,7 @@ export async function build(parameters: IBuildCommandParameters): Promise<void> 
     log.debug("XRF targets:", buildTargets);
 
     /**
-     * Apply locale parameters.`
+     * Apply locale parameters.`.
      */
     parameters.language = parameters.language ?? config.locale;
     process.env.language = parameters.language;

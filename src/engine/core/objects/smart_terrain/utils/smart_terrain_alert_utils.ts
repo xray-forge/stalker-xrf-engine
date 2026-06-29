@@ -8,10 +8,10 @@ import { EGameObjectRelation, GameObject, TNumberId } from "@/engine/lib/types";
 /**
  * Handle object hit event and verify nearest bases to alert.
  *
- * todo: Probably separate terrains alert manager.
- * todo: Track controlled terrains separately, too many iterations on single hit event.
+ * Todo: Probably separate terrains alert manager.
+ * Todo: Track controlled terrains separately, too many iterations on single hit event.
  *
- * @param object - game object being hit
+ * @param object - Game object being hit.
  */
 export function syncObjectHitSmartTerrainAlert(object: GameObject): void {
   // Generic enemy attack, no ambush etc.

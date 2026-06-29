@@ -8,10 +8,10 @@ import { TName } from "@/engine/lib/types";
  * Create list of default smart terrain jobs for monsters.
  * Usually it assigns monster home for some point.
  *
- * @param terrain - terrain to create jobs for
- * @param jobsList - list of jobs to insert into
- * @param stringBuilder - builder of large strings to inject LTX
- * @returns jobs descriptor and ltx config text for matching jobs
+ * @param terrain - Terrain to create jobs for.
+ * @param jobsList - List of jobs to insert into.
+ * @param stringBuilder - Builder of large strings to inject LTX.
+ * @returns Jobs descriptor and ltx config text for matching jobs.
  */
 export function createMonsterJobs(
   terrain: SmartTerrain,

@@ -15,7 +15,7 @@ export class EvaluatorReachAnimpoint extends property_evaluator {
   }
 
   /**
-   * @returns whether object animation requires position reaching
+   * @returns Whether object animation requires position reaching.
    */
   public override evaluate(): boolean {
     return this.state.animpointManager.isPositionReached();

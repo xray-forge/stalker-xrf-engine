@@ -8,7 +8,7 @@ import { GameObject } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class ActionSmartCoverExit extends action_base {

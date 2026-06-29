@@ -56,7 +56,7 @@ export class SmartTerrainControl {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public update(): void {
     if (this.status === ESmartTerrainStatus.ALARM) {
@@ -92,7 +92,7 @@ export class SmartTerrainControl {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getActorStatus(): boolean {
     const zoneObject: GameObject = registry.zones.get(this.noWeaponZone);

@@ -144,7 +144,7 @@ export class TaskObject {
   }
 
   /**
-   * @returns whether task is completed
+   * @returns Whether task is completed.
    */
   public isCompleted(): boolean {
     this.update();
@@ -153,7 +153,7 @@ export class TaskObject {
   }
 
   /**
-   * @returns whether task is failed
+   * @returns Whether task is failed.
    */
   public isFailed(): boolean {
     this.update();
@@ -259,7 +259,7 @@ export class TaskObject {
    * Update direction guiding based on current level and quest target.
    * If quest target is on another level, point to guider to navigate over location.
    *
-   * @param targetId - task object target id, used for getting direction
+   * @param targetId - Task object target id, used for getting direction.
    */
   public updateLevelDirection(targetId: Optional<TNumberId>): void {
     if (!targetId || !registry.actor.is_active_task(this.task as GameTask)) {
@@ -326,7 +326,7 @@ export class TaskObject {
   /**
    * Handle task deactivation based on current state.
    *
-   * @param task - C game task object linked to current one
+   * @param task - C game task object linked to current one.
    */
   public onDeactivate(task: GameTask): void {
     logger.info("Deactivate task: %s %s", this.title, this.state);

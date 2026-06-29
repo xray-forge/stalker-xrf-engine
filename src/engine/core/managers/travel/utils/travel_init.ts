@@ -4,10 +4,10 @@ import { TLevel } from "@/engine/lib/constants/levels";
 import { IniFile, TCount, TName, TStringId } from "@/engine/lib/types";
 
 /**
- * Read list of travel routes descriptors / phrases configuration
+ * Read list of travel routes descriptors / phrases configuration.
  *
- * @param ini - target file to read from
- * @returns tuple with descriptors by name and names by dialog phrase id
+ * @param ini - Target file to read from.
+ * @returns Tuple with descriptors by name and names by dialog phrase id.
  */
 export function readIniTravelDialogs(
   ini: IniFile

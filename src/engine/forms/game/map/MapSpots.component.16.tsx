@@ -8,7 +8,7 @@ import { TaskSpots } from "@/engine/forms/game/map/spots/TaskSpots";
 import { TreasureSpots } from "@/engine/forms/game/map/spots/TreasureSpots";
 
 /**
- * todo;
+ * Todo.
  */
 export function MapSpots(): JSXNode {
   return (
@@ -492,7 +492,6 @@ export function MapSpots(): JSXNode {
         <texture>ui_sm_mapQuest_gold</texture>
       </alife_combat_attack_spot_mini>
 
-      {/** <!-- Новые мапспоты для симуляции --> */}
       <alife_combat>
         <level_map spot={"alife_combat_spot"} />
       </alife_combat>
@@ -520,7 +519,6 @@ export function MapSpots(): JSXNode {
         </texture>
       </debug_stalker_spot>
 
-      {/** <!-- Группировки --> */}
       <alife_presentation_faction_duty>
         <level_map spot={"alife_presentation_faction_duty_spot"} />
       </alife_presentation_faction_duty>
@@ -696,7 +694,6 @@ export function MapSpots(): JSXNode {
         <level_map spot={"alife_presentation_faction_digger_spot"} />
       </alife_presentation_faction_monolith>
 
-      {/** <!-- level_spot --> */}
       <ui_pda2_mechanic_location hint={"st_ui_pda_legend_mechanic"}>
         <level_map spot={"ui_pda2_mechanic_location_spot"} />
         <mini_map spot={"ui_pda2_mechanic_location_mini_spot"} />
@@ -888,7 +885,6 @@ export function MapSpots(): JSXNode {
 
       <primary_object>
         <level_map spot={"primary_object_spot"} />
-        {/** <!--                <mini_map spot="primary_object_spot_mini"/> --> */}
       </primary_object>
       <primary_object_spot
         width={"15"}

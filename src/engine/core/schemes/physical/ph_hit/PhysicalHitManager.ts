@@ -7,7 +7,7 @@ import { copyVector } from "@/engine/core/utils/vector";
 import { Hit, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHitState> {
   public override activate(): void {
@@ -36,18 +36,18 @@ export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHit
    *    if this.state.locked then
    *        if this.state.snd_open_start then
    *            this:door_play_snd_from_set(this.state.snd_open_start)
-   *        end
-   *        return
-   *    end
+   *        end.
+   *        Return
+   *    end.
    *
-   *    const angle = this.joint:get_axis_angle(90)
+   *    Const angle = this.joint:get_axis_angle(90).
    *
-   *    if angle - this.low_limits > this.hi_limits - angle then
+   *    If angle - this.low_limits > this.hi_limits - angle then
    *        this:open_door()
    *    else
    *        this:close_door(false)
    *    end
    * end
-   * --]]
+   * --]].
    */
 }

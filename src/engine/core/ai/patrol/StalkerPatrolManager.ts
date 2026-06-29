@@ -39,7 +39,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
  * Manager handling patrol movement of stalker objects.
  * Responsible for patrolling schemes logic and mainly called from related schemes (walker, sleep, patrol).
  *
- * {@link https://xray-forge.github.io/stalker-xrf-book/script_engine/patrols.html patrols system}
+ * See {@link https://xray-forge.github.io/stalker-xrf-book/script_engine/patrols.html patrols system}.
  */
 export class StalkerPatrolManager {
   public readonly object: GameObject;
@@ -88,7 +88,7 @@ export class StalkerPatrolManager {
   /**
    * Initialize patrol manager, setup state and callbacks.
    *
-   * @returns initialized manager reference
+   * @returns Initialized manager reference.
    */
   public initialize(): StalkerPatrolManager {
     logger.info("Initialize patrol manager for: '%s'", this.object.name());
@@ -101,7 +101,7 @@ export class StalkerPatrolManager {
   /**
    * Reset state for movement manager.
    *
-   * todo;
+   * Todo.
    */
   public reset(
     walkPathName: TName,
@@ -240,7 +240,7 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setup(): void {
     this.object.set_path_type(EGameObjectPath.PATROL_PATH);
@@ -415,7 +415,7 @@ export class StalkerPatrolManager {
 
   /**
    * Handle reaching `walk` waypoint of patrol.
-   * todo: Description.
+   * Todo: Description.
    */
   public onWalkWaypoint(object: GameObject, actionType: Optional<number>, index: Optional<TIndex>): void {
     logger.info(
@@ -496,7 +496,7 @@ export class StalkerPatrolManager {
 
   /**
    * Handle reaching `look` waypoint of patrol.
-   * todo: Description.
+   * Todo: Description.
    */
   public onLookWaypoint(
     object: GameObject,
@@ -576,8 +576,8 @@ export class StalkerPatrolManager {
   /**
    * Handle object extrapolate callback.
    *
-   * @param object - target object callback is called for
-   * @param pointIndex - index of extrapolate point
+   * @param object - Target object callback is called for.
+   * @param pointIndex - Index of extrapolate point.
    */
   public onExtrapolate(object: GameObject, pointIndex: TIndex): void {
     this.canUseGetCurrentPointIndex = true;

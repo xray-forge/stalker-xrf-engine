@@ -23,7 +23,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDoorState> {
   public isInitialized: boolean = false;
@@ -93,7 +93,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public fastcall(): boolean {
     if (!this.isInitialized) {
@@ -111,7 +111,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isClosed(): boolean {
     const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
@@ -120,7 +120,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isOpen(): boolean {
     const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
@@ -129,7 +129,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public openFastcall(): boolean {
     if (!this.isInitialized) {
@@ -147,7 +147,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public closeAction(): void {
     if (this.state.noForce) {
@@ -175,7 +175,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public openDoor(disableSound?: boolean): void {
     logger.info("Open door: %s %s", this.object.name(), this.state.section);
@@ -216,7 +216,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public closeDoor(disableSound: boolean): void {
     logger.info("Close door: %s %s", this.object.name(), this.state.section);

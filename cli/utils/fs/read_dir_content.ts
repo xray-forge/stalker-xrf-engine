@@ -6,9 +6,9 @@ import { TDirectoryFilesTree } from "#/utils/fs/types";
 /**
  * Read contents of directory including folders and scripts.
  *
- * @param directory - path to directory to scan
- * @param isRecursive - whether scan should be recursive
- * @returns array of directory files tree
+ * @param directory - Path to directory to scan.
+ * @param isRecursive - Whether scan should be recursive.
+ * @returns Array of directory files tree.
  */
 export async function readDirContent(directory: string, isRecursive: boolean = true): Promise<TDirectoryFilesTree> {
   return (await Promise.all(

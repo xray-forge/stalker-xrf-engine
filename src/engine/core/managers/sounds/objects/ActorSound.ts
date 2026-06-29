@@ -33,7 +33,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo;
  * todo: Probably enums for playlist types.
  */
 export class ActorSound extends AbstractPlayableSound {
@@ -97,7 +97,7 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public play(object: GameObject, faction: string, point: string, message: string): boolean {
     if (!this.canPlaySound) {
@@ -134,7 +134,7 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
     logger.info(
@@ -169,7 +169,7 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public selectNextSound(): Optional<TIndex> {
     const soundsCount: TCount = this.soundPaths.length();
@@ -219,7 +219,7 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override reset(): void {
     this.playingStartedAt = null;
@@ -227,14 +227,14 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override save(packet: NetPacket): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override load(reader: NetProcessor): void {
     const id: StringOptional<TStringId> = reader.r_stringZ();

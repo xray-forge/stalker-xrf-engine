@@ -21,7 +21,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export interface IBaseSchemeLogic {
   name: TName;
@@ -95,7 +95,7 @@ export interface IRegistryObjectStateLogic {
    */
   smartTerrainName: Optional<TName>;
   /**
-   * todo;
+   * Todo.
    */
   overrides: Optional<ILogicsOverrides>;
   /**
@@ -172,7 +172,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   restrictionsManager: Optional<ObjectRestrictionsManager>;
   /**
-   * todo;
+   * Todo.
    */
   hearInfo: Optional<IActionSchemeHearState>;
   /**
@@ -181,15 +181,15 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   invulnerable: Optional<boolean>;
   /**
    * Whether game object is immortal.
-   * todo: Applicable for heli only. Should be somewhere else?
+   * Todo: Applicable for heli only. Should be somewhere else?
    */
   immortal: Optional<boolean>;
   /**
-   * todo;
+   * Todo.
    */
   mute: Optional<boolean>;
   /**
-   * todo;
+   * Todo.
    */
   old_aim_time: Optional<TTimestamp>;
   /**
@@ -201,7 +201,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   enemy: Optional<GameObject>;
   /**
-   * todo;
+   * Todo.
    */
   scriptCombatType: Optional<TName>;
   /**

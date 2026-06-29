@@ -8,9 +8,9 @@ import { TLabel, TName, TNumberId } from "@/engine/lib/types";
 /**
  * Display map spot for treasure.
  *
- * @param id - treasure restrictor ID to display on game map
- * @param descriptor - treasure descriptor
- * @param hint - label to display on secret hovering
+ * @param id - Treasure restrictor ID to display on game map.
+ * @param descriptor - Treasure descriptor.
+ * @param hint - Label to display on secret hovering.
  */
 export function showTreasureMapSpot(id: TNumberId, descriptor: ITreasureDescriptor, hint?: TLabel): void {
   level.map_add_object_spot_ser(id, getTreasureMapSpot(descriptor), hint ?? "");
@@ -19,16 +19,16 @@ export function showTreasureMapSpot(id: TNumberId, descriptor: ITreasureDescript
 /**
  * Remove treasure spot for treasure descriptor.
  *
- * @param id - treasure restrictor ID to remove from game map
- * @param descriptor - treasure descriptor
+ * @param id - Treasure restrictor ID to remove from game map.
+ * @param descriptor - Treasure descriptor.
  */
 export function removeTreasureMapSpot(id: TNumberId, descriptor: ITreasureDescriptor): void {
   level.map_remove_object_spot(id, getTreasureMapSpot(descriptor));
 }
 
 /**
- * @param descriptor - descriptor of treasure object to get mark for
- * @returns icon name for provided descriptor, based on treasure type
+ * @param descriptor - Descriptor of treasure object to get mark for.
+ * @returns Icon name for provided descriptor, based on treasure type.
  */
 export function getTreasureMapSpot(descriptor: ITreasureDescriptor): TName {
   if (!treasureConfig.ENHANCED_MODE_ENABLED) {

@@ -7,8 +7,8 @@ import { GameObject, TIndex } from "@/engine/lib/types";
 /**
  * Register helicopter binder object.
  *
- * @param helicopter - helicopter binder object to register
- * @returns registry state for provided object
+ * @param helicopter - Helicopter binder object to register.
+ * @returns Registry state for provided object.
  */
 export function registerHelicopter(helicopter: HelicopterBinder): IRegistryObjectState {
   registry.helicopter.storage.set(helicopter.object.id(), helicopter.object);
@@ -19,7 +19,7 @@ export function registerHelicopter(helicopter: HelicopterBinder): IRegistryObjec
 /**
  * Unregister helicopter binder object.
  *
- * @param helicopter - helicopter binder object to unregister
+ * @param helicopter - Helicopter binder object to unregister.
  */
 export function unregisterHelicopter(helicopter: HelicopterBinder): void {
   return unregisterHelicopterObject(helicopter.object);
@@ -28,7 +28,7 @@ export function unregisterHelicopter(helicopter: HelicopterBinder): void {
 /**
  * Unregister helicopter object.
  *
- * @param object - helicopter game object to unregister
+ * @param object - Helicopter game object to unregister.
  */
 export function unregisterHelicopterObject(object: GameObject): void {
   unregisterObject(object);
@@ -38,8 +38,8 @@ export function unregisterHelicopterObject(object: GameObject): void {
 /**
  * Register object as enemy for helicopters.
  *
- * @param object - object to register as enemy
- * @returns index of newly added enemy
+ * @param object - Object to register as enemy.
+ * @returns Index of newly added enemy.
  */
 export function registerHelicopterEnemy(object: GameObject): TIndex {
   const index: TIndex = registry.helicopter.enemyIndex;
@@ -53,7 +53,7 @@ export function registerHelicopterEnemy(object: GameObject): TIndex {
 /**
  * Unregister enemy from registry.
  *
- * @param enemyIndex - index of enemy to remove
+ * @param enemyIndex - Index of enemy to remove.
  */
 export function unregisterHelicopterEnemy(enemyIndex: TIndex): void {
   registry.helicopter.enemies.delete(enemyIndex);

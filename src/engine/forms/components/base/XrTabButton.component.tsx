@@ -12,7 +12,7 @@ export interface IXrTabButtonProps extends IBaseXmlNode {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function XrTabButton(props: IXrTabButtonProps): JSXNode {
   const { x, y, width, height, children, texture, id, stretch } = normalizeBaseNodeProps(props);

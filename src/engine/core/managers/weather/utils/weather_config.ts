@@ -15,8 +15,8 @@ import { IniFile, TCount, TDistance, TName, TSection } from "@/engine/lib/types"
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * @param ini - ini file to read atmosfear configuration from
- * @returns global level configuration for atmosfear
+ * @param ini - Ini file to read atmosfear configuration from.
+ * @returns Global level configuration for atmosfear.
  */
 export function readAtmosfearConfig(ini: IniFile): IAtmosfearConfig {
   return {
@@ -42,8 +42,8 @@ export function readAtmosfearConfig(ini: IniFile): IAtmosfearConfig {
 /**
  * Read fog distance based on current weather cycles/periods.
  *
- * @param ini - target ini to read fog distances from
- * @returns object defining weather fog distance based on active cycle and daytime
+ * @param ini - Target ini to read fog distances from.
+ * @returns Object defining weather fog distance based on active cycle and daytime.
  */
 export function readFogDistances(ini: IniFile): LuaTable<TSection, LuaTable<TSection, TDistance>> {
   const distances: LuaTable<TSection, LuaTable<TSection, TDistance>> = new LuaTable();
@@ -77,8 +77,8 @@ export function readFogDistances(ini: IniFile): LuaTable<TSection, LuaTable<TSec
  * Read configuration of level weathers.
  * Defines periods and durations of weather for specific levels.
  *
- * @param ini - file to read data from or fallback to defaults
- * @returns configuration of weather for levels
+ * @param ini - File to read data from or fallback to defaults.
+ * @returns Configuration of weather for levels.
  */
 export function readLevelWeathersConfiguration(ini: IniFile): LuaTable<TName, IAtmosfearLevelWeatherConfig> {
   const list: LuaTable<TName, IAtmosfearLevelWeatherConfig> = new LuaTable();

@@ -8,12 +8,12 @@ import { AnyCallable, PartialRecord, TStringId, TUIEvent, XmlInit } from "@/engi
  * Initialize UI element and add callback handlers for it.
  * Shorter variant than original API.
  *
- * @param xml - base xml file with form
- * @param type - type of element to initialize
- * @param selector - string id of element in base XML for reading
- * @param base - reference of base element to which element should be initialized
- * @param descriptor - configuration of element registration events
- * @returns initialized UI element instance
+ * @param xml - Base xml file with form.
+ * @param type - Type of element to initialize.
+ * @param selector - String id of element in base XML for reading.
+ * @param base - Reference of base element to which element should be initialized.
+ * @param descriptor - Configuration of element registration events.
+ * @returns Initialized UI element instance.
  */
 export function initializeElement<T extends CUIWindow>(
   xml: XmlInit,
@@ -135,9 +135,9 @@ export function initializeElement<T extends CUIWindow>(
  * Register static element from XML file.
  * Shortcut to init one static element.
  *
- * @param xml - file with forms
- * @param base - base element to init new statics relatively from
- * @param selector - selector name for statics init
+ * @param xml - File with forms.
+ * @param base - Base element to init new statics relatively from.
+ * @param selector - Selector name for statics init.
  */
 export function initializeStatic(xml: XmlInit, base: CUIWindow, selector: TStringId): CUIStatic {
   return initializeElement(xml, EElementType.STATIC, selector, base);
@@ -147,9 +147,9 @@ export function initializeStatic(xml: XmlInit, base: CUIWindow, selector: TStrin
  * Register statics from XML file.
  * Shortcut to init many elements in a single call.
  *
- * @param xml - file with forms
- * @param base - base element to init new statics relatively from
- * @param selectors - variadic selectors list to initialize
+ * @param xml - File with forms.
+ * @param base - Base element to init new statics relatively from.
+ * @param selectors - Variadic selectors list to initialize.
  */
 export function initializeStatics(xml: XmlInit, base: CUIWindow, ...selectors: Array<TStringId>): void {
   for (const selector of selectors) {

@@ -4,9 +4,9 @@ import { AnyObject } from "@/engine/lib/types";
  * Utility to declare global variables and extern them for game engine usage.
  * Declared values can be found in _G / global LUA scope.
  *
- * @param key - name of the value to extern
- * @param value - value to extern
- * @param target - object to set value, global _G by default
+ * @param key - Name of the Value to extern.
+ * @param value - Value to extern.
+ * @param target - Object to set value, global _G by default.
  */
 export function extern(key: string, value: unknown, target: AnyObject = _G): void {
   const entries: Array<string> = key.split(".");
@@ -28,8 +28,8 @@ export function extern(key: string, value: unknown, target: AnyObject = _G): voi
 /**
  * Get LUA globals/extern values with utility.
  *
- * @param key - name of value to be retrieved
- * @param target - object to get value, global _G by default
+ * @param key - Name of value to be retrieved.
+ * @param target - Object to get value, global _G by default.
  */
 export function getExtern<T>(key: string, target: AnyObject = _G): T {
   return target[key];

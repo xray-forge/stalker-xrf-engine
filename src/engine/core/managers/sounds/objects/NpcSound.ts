@@ -46,7 +46,7 @@ export interface INpcSoundDescriptor {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export class NpcSound extends AbstractPlayableSound {
   public static readonly AVAILABLE_COMMUNITIES_ALL: string = string.format(
@@ -66,7 +66,7 @@ export class NpcSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.NPC;
 
   /**
-   * todo;
+   * Todo.
    */
   public static getNextId(): TIndex {
     NpcSound.baseIndex += 1;
@@ -131,7 +131,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override reset(objectId: TNumberId): void {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object as Optional<GameObject>;
@@ -153,7 +153,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override isPlaying(objectId: TNumberId): boolean {
     const object: Optional<GameObject> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
@@ -166,7 +166,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public play(objectId: TNumberId, faction: string, point: Optional<string>, message: TLabel): boolean {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
@@ -271,7 +271,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override stop(objectId: TNumberId): void {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
@@ -288,7 +288,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
     logger.info(
@@ -333,7 +333,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override save(packet: NetPacket): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
@@ -344,7 +344,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override load(reader: NetProcessor): void {
     const id: string = reader.r_stringZ();
@@ -357,7 +357,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override saveObject(packet: NetPacket, object: GameObject): void {
     if (!this.isGroupSound) {
@@ -366,7 +366,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override loadObject(reader: NetProcessor, object: GameObject): void {
     if (!this.isGroupSound) {
@@ -375,7 +375,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo;
    * Note: Performance heavy method, especially when sound files are not cached yet.
    */
   public initializeObject(object: GameObject): void {
@@ -441,7 +441,7 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public selectNextSound(objectId: TNumberId): TNumberId {
     const objectDescriptor: Optional<INpcSoundDescriptor> = this.objects.get(objectId);

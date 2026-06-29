@@ -20,8 +20,8 @@ export enum EPortableStoreType {
 /**
  * Check whether provided value is correct for saving in portable store.
  *
- * @param value - value to check portable store type validity
- * @returns whether value is valid to be stored in portable store
+ * @param value - Value to check portable store type validity.
+ * @returns Whether value is valid to be stored in portable store.
  */
 export function isValidPortableStoreValue(value: unknown): boolean {
   if (value === null) {
@@ -36,9 +36,9 @@ export function isValidPortableStoreValue(value: unknown): boolean {
 /**
  * Set value in object portable store by key.
  *
- * @param objectId - game object id to set portable value for
- * @param key - portable store key to set
- * @param value - value to set in portable store
+ * @param objectId - Game object id to set portable value for.
+ * @param key - Portable store key to set.
+ * @param value - Value to set in portable store.
  */
 export function setPortableStoreValue<T extends TPortableStoreValue>(objectId: TNumberId, key: TName, value: T): void {
   if (!isValidPortableStoreValue(value)) {
@@ -58,8 +58,8 @@ export function setPortableStoreValue<T extends TPortableStoreValue>(objectId: T
 /**
  * Get value from object portable store.
  *
- * @param objectId - game object id to load portable store value from
- * @param key - portable store key to get value
+ * @param objectId - Game object id to load portable store value from.
+ * @param key - Portable store key to get value.
  */
 export function getPortableStoreValue<T extends TPortableStoreValue>(objectId: TNumberId, key: TName): Optional<T>;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
@@ -86,8 +86,8 @@ export function getPortableStoreValue<T extends TPortableStoreValue>(
 /**
  * Save object portable store data into net packet.
  *
- * @param objectId - game object id to save portable store for
- * @param packet - net packet to save data in
+ * @param objectId - Game object id to save portable store for.
+ * @param packet - Net packet to save data in.
  */
 export function savePortableStore(objectId: TNumberId, packet: NetPacket): void {
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
@@ -129,8 +129,8 @@ export function savePortableStore(objectId: TNumberId, packet: NetPacket): void 
 /**
  * Load object portable store data from net packet.
  *
- * @param objectId - game object id to load portable store for
- * @param reader - net processor to load data from
+ * @param objectId - Game object id to load portable store for.
+ * @param reader - Net processor to load data from.
  */
 export function loadPortableStore(objectId: TNumberId, reader: NetProcessor): void {
   let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
@@ -168,7 +168,7 @@ export function loadPortableStore(objectId: TNumberId, reader: NetProcessor): vo
 /**
  * Initialize object portable store if it does not exist.
  *
- * @param objectId - game object id for portable store initialization
+ * @param objectId - Game object id for portable store initialization.
  */
 export function initializePortableStore(objectId: TNumberId): void {
   const state: IRegistryObjectState = registry.objects.get(objectId);
@@ -181,7 +181,7 @@ export function initializePortableStore(objectId: TNumberId): void {
 /**
  * Destroy object portable store if it is defined.
  *
- * @param objectId - game object id for portable store destruction
+ * @param objectId - Game object id for portable store destruction.
  */
 export function destroyPortableStore(objectId: TNumberId): void {
   registry.objects.get(objectId).portableStore = null;
@@ -190,7 +190,7 @@ export function destroyPortableStore(objectId: TNumberId): void {
 /**
  * Reset object portable store if it does not exist.
  *
- * @param objectId - game object id for portable store reset
+ * @param objectId - Game object id for portable store reset.
  */
 export function resetPortableStore(objectId: TNumberId): void {
   registry.objects.get(objectId).portableStore = new LuaTable();

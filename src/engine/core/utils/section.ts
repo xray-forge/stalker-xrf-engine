@@ -4,31 +4,31 @@ import { lootableTable, lootableTableExclude } from "@/engine/lib/constants/item
 import { TSection } from "@/engine/lib/types";
 
 /**
- * @param section - section to check if it is ammo
- * @returns whether section is ammo-defined
+ * @param section - Section to check if it is ammo.
+ * @returns Whether section is ammo-defined.
  */
 export function isAmmoSection(section: TSection): section is TAmmoItem {
   return section in ammo;
 }
 
 /**
- * @returns whether object can be looted by stalkers from corpses
+ * @returns Whether object can be looted by stalkers from corpses.
  */
 export function isLootableItemSection(section: TSection): boolean {
   return section in lootableTable;
 }
 
 /**
- * @param section - object section to check if lootable
- * @returns whether object is excluded from loot drop
+ * @param section - Object section to check if lootable.
+ * @returns Whether object is excluded from loot drop.
  */
 export function isExcludedFromLootDropItemSection(section: TSection): boolean {
   return section in lootableTableExclude;
 }
 
 /**
- * @param community - target community to check
- * @returns whether community matches squad monsters
+ * @param community - Target community to check.
+ * @returns Whether community matches squad monsters.
  */
 export function isSquadMonsterCommunity(community: TSection): boolean {
   return community in squadMonsters;

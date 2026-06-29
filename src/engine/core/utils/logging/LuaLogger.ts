@@ -36,8 +36,8 @@ export class LuaLogger {
   /**
    * Print generic info level message.
    *
-   * @param base - base string for interpolation
-   * @param args - variadic list of values to log
+   * @param base - Base string for interpolation.
+   * @param args - Variadic list of values to log.
    */
   public info(base: string, ...args: AnyArgs): void {
     // Log is disabled globally or for this instance.
@@ -99,7 +99,7 @@ export class LuaLogger {
   /**
    * Get full string prefix for current logger instance.
    *
-   * @returns current logger prefix string
+   * @returns Current logger prefix string.
    */
   public getFullPrefix(): TLabel {
     return string.format("[%s][%s]", time_global(), this.prefix);

@@ -83,7 +83,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public reset(): void {
     this.timer = {
@@ -140,7 +140,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onPatrolCallback(): boolean {
     this.sleepingState = ESleeperState.SLEEPING;

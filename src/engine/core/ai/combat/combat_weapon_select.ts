@@ -11,9 +11,9 @@ import { GameObject, Optional, ServerObject, TNumberId, TStringId } from "@/engi
  *
  * This method leaves place for weapon custom logics implementation using events / extensions.
  *
- * @param object - stalker object to pick the best weapon for
- * @param weapon - currently selected best weapon to kill enemy
- * @returns best weapon to use for enemy kill or null
+ * @param object - Stalker object to pick the best weapon for.
+ * @param weapon - Currently selected best weapon to kill enemy.
+ * @returns Best weapon to use for enemy kill or null.
  */
 export function selectBestStalkerWeapon(object: GameObject, weapon: Optional<GameObject>): Optional<GameObject> {
   const data = { weaponId: null as Optional<TNumberId | TStringId> };

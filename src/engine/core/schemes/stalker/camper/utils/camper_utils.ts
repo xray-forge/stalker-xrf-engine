@@ -5,9 +5,9 @@ import { getPatrolFlag, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
 import { GameObject, Optional, Patrol } from "@/engine/lib/types";
 
 /**
- * @param object - game object to check
- * @param state - state of camper scheme
- * @returns whether object is on patrol waypoint and waypoint flag mask is matching
+ * @param object - Game object to check.
+ * @param state - State of camper scheme.
+ * @returns Whether object is on patrol waypoint and waypoint flag mask is matching.
  */
 export function isOnCampPatrolWalkPoint(object: GameObject, state: ISchemeCamperState): boolean {
   if (state.noRetreat) {
@@ -34,7 +34,7 @@ export function isOnCampPatrolWalkPoint(object: GameObject, state: ISchemeCamper
 }
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function getNextCampPatrolPoint(flag: number, state: ISchemeCamperState): Optional<ICampPoint> {
   let isNext: boolean = false;

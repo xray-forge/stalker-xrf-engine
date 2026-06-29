@@ -18,10 +18,10 @@ import type {
 
 /**
  *
- * @param object - target object to check
- * @param patrolPath - target patrol to check
- * @param patrolPointIndex - index of patrol to check
- * @returns whether object reached patrol point with provided index
+ * @param object - Target object to check.
+ * @param patrolPath - Target patrol to check.
+ * @param patrolPointIndex - Index of patrol to check.
+ * @returns Whether object reached patrol point with provided index.
  */
 export function isObjectAtWaypoint(object: GameObject, patrolPath: Patrol, patrolPointIndex: TIndex): boolean {
   const objectPosition: Vector = object.position();
@@ -34,9 +34,9 @@ export function isObjectAtWaypoint(object: GameObject, patrolPath: Patrol, patro
  * Check if object standing on terminal patrol waypoint.
  * Verifies that object is on one of terminal waypoints.
  *
- * @param object - game object to check
- * @param patrol - target patrol object to check
- * @returns [whether on terminal point, terminal point index]
+ * @param object - Game object to check.
+ * @param patrol - Target patrol object to check.
+ * @returns [whether on terminal point, terminal point index].
  */
 export function isObjectAtTerminalWaypoint(
   object: GameObject,
@@ -55,11 +55,11 @@ export function isObjectAtTerminalWaypoint(
 /**
  * Check if all points of patrol are in restrictor.
  *
- * todo: isSafeJob checks looks like `!== false`, probably should be corrected.
+ * Todo: isSafeJob checks looks like `!== false`, probably should be corrected.
  *
- * @param restrictorName - name of restrictor to check patrol in
- * @param patrolName - name of patrol to check
- * @returns whether all points of patrol are in restrictor zone
+ * @param restrictorName - Name of restrictor to check patrol in.
+ * @param patrolName - Name of patrol to check.
+ * @returns Whether all points of patrol are in restrictor zone.
  */
 export function isPatrolInRestrictor(restrictorName: Optional<TName>, patrolName: TName): Optional<boolean> {
   if (restrictorName === null) {
@@ -87,12 +87,12 @@ export function isPatrolInRestrictor(restrictorName: Optional<TName>, patrolName
 /**
  * Choose point from patrol matching required flags.
  *
- * todo: Is patrol needed? probably just waypoints and flags
+ * Todo: Is patrol needed? Probably just waypoints and flags.
  *
- * @param patrol - patrol object to check for random waypoint
- * @param waypoints - patrol waypoint descriptors list
- * @param flags - search flags to look for in the list
- * @returns [index of selected point, count of matching points]
+ * @param patrol - Patrol object to check for random waypoint.
+ * @param waypoints - Patrol waypoint descriptors list.
+ * @param flags - Search flags to look for in the list.
+ * @returns [index of selected point, count of matching points].
  */
 export function choosePatrolWaypointByFlags(
   patrol: Patrol,
@@ -124,9 +124,9 @@ export function choosePatrolWaypointByFlags(
 }
 
 /**
- * @param patrol - target patrol to check
- * @param index - point index of the patrol to check
- * @returns flag 32 bit index or null if patrol is not flagged at all
+ * @param patrol - Target patrol to check.
+ * @param index - Point index of the patrol to check.
+ * @returns Flag 32 bit index or null if patrol is not flagged at all.
  */
 export function getPatrolFlag(patrol: Patrol, index: TIndex): Optional<TIndex> {
   for (const flag of $range(0, 31)) {

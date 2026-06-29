@@ -14,9 +14,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class AbstractTimersManager extends AbstractManager {
   /**
-   * @param callback - functor to call on defined period
-   * @param period - period time to call functor, expect values bigger than 50
-   * @returns cancel, descriptor, callback
+   * @param callback - Functor to call on defined period.
+   * @param period - Period time to call functor, expect values bigger than 50.
+   * @returns Cancel, descriptor, callback.
    */
   public static registerGameInterval(
     callback: (offset: TDuration) => void,
@@ -26,9 +26,9 @@ export class AbstractTimersManager extends AbstractManager {
   }
 
   /**
-   * @param callback - functor to call after delay
-   * @param delay - delay time
-   * @returns cancel, descriptor, callback
+   * @param callback - Functor to call after delay.
+   * @param delay - Delay time.
+   * @returns Cancel, descriptor, callback.
    */
   public static registerGameTimeout(
     callback: (offset: TDuration) => void,
@@ -45,9 +45,9 @@ export class AbstractTimersManager extends AbstractManager {
    * Guarantees that callback will be called on period and not frequently than `period` time.
    * Some offsets/delays may happen so actual call offset is supplied as parameter to each callback call.
    *
-   * @param callback - functor to call on defined period
-   * @param period - period time to call functor, expect values bigger than 50
-   * @returns cancel, descriptor, callback
+   * @param callback - Functor to call on defined period.
+   * @param period - Period time to call functor, expect values bigger than 50.
+   * @returns Cancel, descriptor, callback.
    */
   public registerGameInterval(
     callback: (offset: TDuration) => void,
@@ -67,7 +67,7 @@ export class AbstractTimersManager extends AbstractManager {
   /**
    * Unregister game interval.
    *
-   * @param descriptor - descriptor of interval to stop
+   * @param descriptor - Descriptor of interval to stop.
    */
   public unregisterGameInterval(descriptor: IIntervalDescriptor): void {
     if (this.intervals.has(descriptor)) {
@@ -83,9 +83,9 @@ export class AbstractTimersManager extends AbstractManager {
    * Guarantees that callback will be called only after certain period of time once.
    * Some offsets/delays may happen so actual call offset is supplied as parameter when calling delayed function.
    *
-   * @param callback - functor to call after delay
-   * @param delay - delay time
-   * @returns cancel, descriptor, callback
+   * @param callback - Functor to call after delay.
+   * @param delay - Delay time.
+   * @returns Cancel, descriptor, callback.
    */
   public registerGameTimeout(
     callback: (offset: TDuration) => void,
@@ -104,7 +104,7 @@ export class AbstractTimersManager extends AbstractManager {
   /**
    * Unregister game timeout.
    *
-   * @param descriptor - descriptor of timeout to stop
+   * @param descriptor - Descriptor of timeout to stop.
    */
   public unregisterGameTimeout(descriptor: ITimeoutDescriptor): void {
     if (this.timeouts.has(descriptor)) {
@@ -144,14 +144,14 @@ export class AbstractTimersManager extends AbstractManager {
   }
 
   /**
-   * @returns count of active intervals
+   * @returns Count of active intervals.
    */
   public getIntervalsCount(): TCount {
     return table.size(this.intervals);
   }
 
   /**
-   * @returns count of active timeouts
+   * @returns Count of active timeouts.
    */
   public getTimeoutsCount(): TCount {
     return table.size(this.timeouts);

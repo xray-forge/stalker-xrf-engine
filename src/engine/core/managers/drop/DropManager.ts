@@ -8,7 +8,7 @@ import { AnyObject, GameObject } from "@/engine/lib/types";
 /**
  * Manage objects loot after death.
  *
- * todo: Maybe add reset method and re-assign all 5 objects with info on each reset to clear information.
+ * Todo: Maybe add reset method and re-assign all 5 objects with info on each reset to clear information.
  */
 export class DropManager extends AbstractManager {
   public override initialize(): void {
@@ -32,7 +32,7 @@ export class DropManager extends AbstractManager {
    * Force spawn of death  loot for an object.
    * In cases of spawning death creatures there will be no death event, so forced spawn can help with it.
    *
-   * @param object - game object to spawn loot for
+   * @param object - Game object to spawn loot for.
    */
   public forceCorpseReleaseItemsSpawn(object: GameObject): void {
     createCorpseReleaseItems(object);
@@ -42,7 +42,7 @@ export class DropManager extends AbstractManager {
    * Handle game object death.
    * Spawn required loot, filter existing loot and mark state of items in inventory.
    *
-   * @param object - game object facing death event
+   * @param object - Game object facing death event.
    */
   public onStalkerDeath(object: GameObject): void {
     createCorpseReleaseItems(object);
@@ -51,7 +51,7 @@ export class DropManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

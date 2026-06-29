@@ -80,14 +80,14 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * @returns whether theme volume is fading right now
+   * @returns Whether theme volume is fading right now.
    */
   public isThemeFading(): boolean {
     return this.dynamicThemeVolume !== this.fadeToThemeVolume;
   }
 
   /**
-   * @returns whether ambient volume is fading right now
+   * @returns Whether ambient volume is fading right now.
    */
   public isAmbientFading(): boolean {
     return this.themeAmbientVolume !== this.fadeToAmbientVolume;
@@ -172,7 +172,7 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getThemeState(): Optional<EDynamicMusicState> {
     const actor: GameObject = registry.actor;
@@ -254,7 +254,7 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public fadeTheme(): void {
     const now: TTimestamp = time_global();
@@ -287,7 +287,7 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public fadeAmbient(): void {
     const now: TTimestamp = time_global();
@@ -321,7 +321,7 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onActorUpdate(delta: TDuration): void {
     this.updateDelta += delta;
@@ -410,7 +410,7 @@ export class MusicManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

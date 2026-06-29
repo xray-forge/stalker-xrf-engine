@@ -21,7 +21,7 @@ import {
 /**
  * Parses game ranks and caches list with them.
  *
- * @returns list of game ranks names
+ * @returns List of game ranks names.
  */
 export function readRanksList(ini: IniFile, section: TSection, field: TName): LuaArray<IRankDescriptor> {
   const list: LuaArray<IRankDescriptor> = new LuaTable();
@@ -47,8 +47,8 @@ export function readRanksList(ini: IniFile, section: TSection, field: TName): Lu
 /**
  * Get stalker rank descriptor by rank name.
  *
- * @param rank - name of rank to check
- * @returns descriptor of the rank
+ * @param rank - Name of rank to check.
+ * @returns Descriptor of the rank.
  */
 export function getStalkerRankByName(rank: TName): IRankDescriptor {
   for (const [, descriptor] of registry.ranks.stalker) {
@@ -63,8 +63,8 @@ export function getStalkerRankByName(rank: TName): IRankDescriptor {
 /**
  * Get stalker rank descriptor by rank value.
  *
- * @param value - value of rank points to check
- * @returns descriptor of the rank
+ * @param value - Value of rank points to check.
+ * @returns Descriptor of the rank.
  */
 export function getStalkerRankByValue(value: TRate): IRankDescriptor {
   for (const [, descriptor] of registry.ranks.stalker) {
@@ -79,8 +79,8 @@ export function getStalkerRankByValue(value: TRate): IRankDescriptor {
 /**
  * Get monster rank descriptor by rank value.
  *
- * @param value - value of rank points to check
- * @returns descriptor of the rank
+ * @param value - Value of rank points to check.
+ * @returns Descriptor of the rank.
  */
 export function getMonsterRankByValue(value: TRate): IRankDescriptor {
   for (const [, descriptor] of registry.ranks.monster) {
@@ -95,8 +95,8 @@ export function getMonsterRankByValue(value: TRate): IRankDescriptor {
 /**
  * Get monster rank descriptor by rank name.
  *
- * @param rank - name of rank to check
- * @returns descriptor of the rank
+ * @param rank - Name of rank to check.
+ * @returns Descriptor of the rank.
  */
 export function getMonsterRankByName(rank: TName): IRankDescriptor {
   for (const [, descriptor] of registry.ranks.monster) {
@@ -111,8 +111,8 @@ export function getMonsterRankByName(rank: TName): IRankDescriptor {
 /**
  * Get next stalker rank descriptor based on current.
  *
- * @param rank - name of rank to check
- * @returns descriptor of the next rank
+ * @param rank - Name of rank to check.
+ * @returns Descriptor of the next rank.
  */
 export function getNextStalkerRank(rank: TName): IRankDescriptor {
   for (const [index, descriptor] of registry.ranks.stalker) {
@@ -127,8 +127,8 @@ export function getNextStalkerRank(rank: TName): IRankDescriptor {
 /**
  * Get next monster rank descriptor based on current.
  *
- * @param rank - name of rank to check
- * @returns descriptor of the next rank
+ * @param rank - Name of rank to check.
+ * @returns Descriptor of the next rank.
  */
 export function getNextMonsterRank(rank: TName): IRankDescriptor {
   for (const [index, descriptor] of registry.ranks.monster) {
@@ -141,9 +141,9 @@ export function getNextMonsterRank(rank: TName): IRankDescriptor {
 }
 
 /**
- * @param object - game object to get rank descriptor for
+ * @param object - Game object to get rank descriptor for.
  *
- * @returns game object rank descriptor
+ * @returns Game object rank descriptor.
  */
 export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor> {
   const classId: TClassId = object.clsid();
@@ -155,9 +155,9 @@ export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor>
 }
 
 /**
- * @param object - server object to get rank descriptor for
+ * @param object - Server object to get rank descriptor for.
  *
- * @returns server object rank descriptor
+ * @returns Server object rank descriptor.
  */
 export function getServerObjectRank(object: ServerMonsterAbstractObject): Optional<IRankDescriptor> {
   const classId: TClassId = object.clsid();

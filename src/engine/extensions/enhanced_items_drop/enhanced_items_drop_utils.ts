@@ -8,7 +8,7 @@ import { GameObject, Optional, TCount, TNumberId, TRate } from "@/engine/lib/typ
 /**
  * Handle item going online (spawning) first time.
  *
- * @param object - game object of item switching online
+ * @param object - Game object of item switching online.
  */
 export function onItemGoOnlineFirstTime(object: GameObject): void {
   const ownerId: Optional<TNumberId> = getItemOwnerId(object.id());

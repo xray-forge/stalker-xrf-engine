@@ -9,7 +9,7 @@ import { EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
  * Finish helping wounded on successful healing animation.
  * Give medkit and enable healing for wounded object.
  *
- * @param object - target object animation is finished for (healer)
+ * @param object - Target object animation is finished for (healer).
  */
 export function finishObjectHelpWounded(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -27,7 +27,7 @@ export function finishObjectHelpWounded(object: GameObject): void {
 }
 
 /**
- * @param helpingId - target object to free helping spot
+ * @param helpingId - Target object to free helping spot.
  */
 export function freeSelectedWoundedStalkerSpot(helpingId: Optional<TNumberId>): void {
   if (helpingId) {

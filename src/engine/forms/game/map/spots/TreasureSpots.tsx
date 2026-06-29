@@ -32,7 +32,7 @@ function TreasureSpot({ id, texture }: { id: TStringId; texture: TName }): JSXNo
       <XrElement tag={`${id}_spot`} width={20} height={20} alignment={"c"} stretch={true}>
         {/**
          <!-- scale="1" scale_min="1.1" scale_max="3.1" light_anim="map_spot_secrets" la_cyclic="0"
-         la_texture="1" la_text="0" la_alpha="1"-->
+         la_texture="1" la_text="0" la_alpha="1"-->.
           */}
         <XrTexture id={texture} />
       </XrElement>

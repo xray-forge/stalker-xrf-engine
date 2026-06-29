@@ -14,7 +14,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 logger.info("Resolve and bind dialogs quest");
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.quest_dialog_heli_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !(
@@ -28,7 +28,7 @@ extern("dialogs.quest_dialog_heli_precond", (firstSpeaker: GameObject, secondSpe
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.quest_dialog_military_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.zat_b28_heli_3_searched) || hasInfoPortion(infoPortions.jup_b9_blackbox_decrypted)) {
@@ -43,7 +43,7 @@ extern("dialogs.quest_dialog_military_precond", (firstSpeaker: GameObject, secon
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.quest_dialog_squad_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !(
@@ -54,7 +54,7 @@ extern("dialogs.quest_dialog_squad_precond", (firstSpeaker: GameObject, secondSp
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.quest_dialog_toolkits_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.zat_a2_mechanic_toolkit_search) && !hasInfoPortion(infoPortions.zat_b3_task_end)) {
@@ -70,7 +70,7 @@ extern("dialogs.quest_dialog_toolkits_precond", (firstSpeaker: GameObject, secon
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.monolith_leader_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (
@@ -92,7 +92,7 @@ extern("dialogs.monolith_leader_is_alive", (firstSpeaker: GameObject, secondSpea
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.monolith_leader_dead_or_hired", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
@@ -118,7 +118,7 @@ extern("dialogs.monolith_leader_dead_or_hired", (firstSpeaker: GameObject, secon
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.monolith_leader_dead_or_dolg", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
@@ -144,133 +144,133 @@ extern("dialogs.monolith_leader_dead_or_dolg", (firstSpeaker: GameObject, second
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b101", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b101");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b103", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b103");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b104", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b104");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b213", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b213");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b214", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b214");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b304", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "pri_b304_monsters_smart_terrain");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b303", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "pri_b303");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b40", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b40_smart_terrain");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b18", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_b18");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b6", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b41");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b205", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b205_smart_terrain");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_not_in_smart_b47", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b47");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_in_smart_zat_base", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "zat_stalker_base_smart");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.squad_in_smart_jup_b25", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_a6");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.spartak_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStalkerAlive("zat_b7_stalker_victim_1");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.tesak_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStalkerAlive("zat_b103_lost_merc_leader");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.gonta_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStalkerAlive("zat_b103_lost_merc_leader");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.mityay_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStalkerAlive("jup_a12_stalker_assaulter");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.dolg_can_work_for_sci", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !(
@@ -280,7 +280,7 @@ extern("dialogs.dolg_can_work_for_sci", (firstSpeaker: GameObject, secondSpeaker
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.dolg_can_not_work_for_sci", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
@@ -290,7 +290,7 @@ extern("dialogs.dolg_can_not_work_for_sci", (firstSpeaker: GameObject, secondSpe
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.freedom_can_work_for_sci", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !(
@@ -300,7 +300,7 @@ extern("dialogs.freedom_can_work_for_sci", (firstSpeaker: GameObject, secondSpea
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.freedom_can_not_work_for_sci", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
@@ -310,7 +310,7 @@ extern("dialogs.freedom_can_not_work_for_sci", (firstSpeaker: GameObject, second
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.monolith_leader_dead_or_freedom", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.jup_b218_soldier_hired)) {
@@ -362,70 +362,70 @@ extern("dialogs.actor_is_damn_healthy", (firstSpeaker: GameObject, secondSpeaker
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.leave_zone_save", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_zone_to_reality");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_uni_travel_zat_to_jup", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_zat_to_jup");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_uni_travel_zat_to_pri", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_zat_to_pri");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_uni_travel_jup_to_zat", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_jup_to_zat");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_uni_travel_jup_to_pri", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_jup_to_pri");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_uni_travel_pri_to_zat", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_pri_to_zat");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_uni_travel_pri_to_jup", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_uni_travel_pri_to_jup");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_jup_b218_travel_jup_to_pas", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_jup_b218_travel_jup_to_pas");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_pri_a17_hospital_start", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_pri_a17_hospital_start");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_jup_a10_gonna_return_debt", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (!hasInfoPortion(infoPortions.jup_a10_avtosave)) {
@@ -435,35 +435,35 @@ extern("dialogs.save_jup_a10_gonna_return_debt", (firstSpeaker: GameObject, seco
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_jup_b6_arrived_to_fen", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_jup_b6_arrived_to_fen");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_jup_b6_arrived_to_ash_heap", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_jup_b6_arrived_to_ash_heap");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_jup_b19_arrived_to_kopachy", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_jup_b19_arrived_to_kopachy");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_zat_b106_arrived_to_chimera_lair", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_zat_b106_arrived_to_chimera_lair");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs.save_zat_b5_met_with_others", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   createGameAutoSave("st_save_zat_b5_met_with_others");

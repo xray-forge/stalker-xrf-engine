@@ -51,7 +51,7 @@ export class MapDisplayManager extends AbstractManager {
   /**
    * Handle game object death.
    *
-   * @param object - game object facing death event
+   * @param object - Game object facing death event.
    */
   public onStalkerDeath(object: GameObject): void {
     removeObjectMapSpot(object);
@@ -60,7 +60,7 @@ export class MapDisplayManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

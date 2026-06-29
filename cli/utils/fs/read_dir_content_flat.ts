@@ -4,10 +4,10 @@ import * as path from "node:path";
 /**
  * Read contents of directory including folders and scripts.
  *
- * @param dirPath - target directory path to scan
- * @param container - target container to insert results
- * @param isRecursive - whether scan should be recursive
- * @returns flat list of scanned files/directories
+ * @param dirPath - Target directory path to scan.
+ * @param container - Target container to insert results.
+ * @param isRecursive - Whether scan should be recursive.
+ * @returns Flat list of scanned files/directories.
  */
 export async function readDirContentFlat(
   dirPath: string,

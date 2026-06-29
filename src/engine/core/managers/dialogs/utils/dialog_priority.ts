@@ -17,7 +17,7 @@ import { GameObject, Optional, TName, TNumberId, TRate, TStringId } from "@/engi
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 export function setPhraseHighestPriority(
   priorities: TPhrasesPriorityMap,
@@ -32,7 +32,7 @@ export function setPhraseHighestPriority(
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function resetPhrasePriority(
   phrases: TPhrasesAvailableMap,
@@ -57,7 +57,7 @@ export function resetPhrasePriority(
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function getHighestPriorityPhrase(
   phrases: TPhrasesAvailableMap,
@@ -88,7 +88,7 @@ export function getHighestPriorityPhrase(
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function fillPhrasesPriorities(
   object: GameObject,
@@ -108,7 +108,7 @@ export function fillPhrasesPriorities(
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function calculatePhrasePriority(
   phraseDescriptor: IPhrasesDescriptor,

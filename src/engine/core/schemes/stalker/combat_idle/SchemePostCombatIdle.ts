@@ -19,7 +19,7 @@ export class SchemePostCombatIdle extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   /**
-   * @param object - target object to setup schema for
+   * @param object - Target object to setup schema for.
    */
   public static setup(object: GameObject): void {
     // Zombied stalkers do not wait for more enemies after ending of combat.

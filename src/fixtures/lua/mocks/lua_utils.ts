@@ -52,8 +52,8 @@ export function luaTableToObject(value: unknown): unknown {
 }
 
 /**
- * @param value - lua table, object or class instance to transform
- * @returns object based map from lua value
+ * @param value - Lua table, object or class instance to transform.
+ * @returns Object based map from lua value.
  */
 export function mapFromLua<T>(value: T): T {
   if (value instanceof MockLuaTable) {

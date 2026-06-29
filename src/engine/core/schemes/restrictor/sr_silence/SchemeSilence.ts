@@ -10,7 +10,7 @@ import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
  * Scheme to implement zones where playing dynamic music is restricted.
  * Used to stop combat music when actor entering bases or safe places.
  *
- * todo: Possibly deactivation part is missing for the scheme and was never implemented before.
+ * Todo: Possibly deactivation part is missing for the scheme and was never implemented before.
  */
 export class SchemeSilence extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_SILENCE;

@@ -8,8 +8,8 @@ import { AnyArgs, Maybe, Optional, TCount } from "@/engine/lib/types";
  *
  * Error message should start with capitalized letter and end with period.
  *
- * @param format - c-like formatted string for interpolation
- * @param rest - rest parameters to interpolate into format string
+ * @param format - C-like formatted string for interpolation.
+ * @param rest - Rest parameters to interpolate into format string.
  */
 export function abort(format: string, ...rest: AnyArgs): never {
   const reason: string = string.format(format, ...rest);
@@ -22,9 +22,9 @@ export function abort(format: string, ...rest: AnyArgs): never {
  * Assertion function to ensure provided condition is truthy.
  * Call 'abort' in case of invalid condition.
  *
- * @param condition - condition to call assertion abort
- * @param format - c-like formatted string for interpolation
- * @param rest - rest parameters to interpolate into format string
+ * @param condition - Condition to call assertion abort.
+ * @param format - C-like formatted string for interpolation.
+ * @param rest - Rest parameters to interpolate into format string.
  */
 export function assert<T = boolean>(condition: T, format: string, ...rest: AnyArgs): asserts condition {
   if (!condition) {
@@ -35,9 +35,9 @@ export function assert<T = boolean>(condition: T, format: string, ...rest: AnyAr
 /**
  * Assertion function to ensure provided value is not null.
  *
- * @param value - value to check
- * @param format - optional c-like formatted string for interpolation
- * @param rest - rest parameters to interpolate into format string
+ * @param value - Value to check.
+ * @param format - Optional c-like formatted string for interpolation.
+ * @param rest - Rest parameters to interpolate into format string.
  */
 export function assertDefined<T>(
   value: Maybe<T>,
@@ -52,9 +52,9 @@ export function assertDefined<T>(
 /**
  * Assertion function to ensure provided value is boolean.
  *
- * @param value - value to check
- * @param format - optional c-like formatted string for interpolation
- * @param rest - rest parameters to interpolate into format string
+ * @param value - Value to check.
+ * @param format - Optional c-like formatted string for interpolation.
+ * @param rest - Rest parameters to interpolate into format string.
  */
 export function assertNonEmptyString(
   value: Optional<string>,
@@ -69,7 +69,7 @@ export function assertNonEmptyString(
 /**
  * Print callstack for debugging purposes.
  *
- * @param level - stack levels to print in trace logs
+ * @param level - Stack levels to print in trace logs.
  */
 export function callstack(level: TCount = 5): void {
   if (debug !== null) {

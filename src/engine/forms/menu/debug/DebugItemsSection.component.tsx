@@ -7,7 +7,7 @@ import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDi
 import { WHITE } from "@/engine/lib/constants/colors";
 
 /**
- * todo;
+ * Todo.
  */
 export function create(): JSXNode {
   return (

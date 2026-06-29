@@ -17,7 +17,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main", "path_home", "center_point"]);
 

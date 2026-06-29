@@ -56,7 +56,7 @@ export class ActionSearchCorpse extends action_base {
   /**
    * Execute corpse loot action.
    * - Reach corpse
-   * - Loot corpse and play sound
+   * - Loot corpse and play sound.
    */
   public override execute(): void {
     super.execute();

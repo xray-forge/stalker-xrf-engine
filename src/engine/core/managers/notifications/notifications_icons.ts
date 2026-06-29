@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Todo.
  */
 export const notificationsIcons = {
   pioneer: "ui_inGame2_PD_Pervootkrivatel",
@@ -40,16 +40,16 @@ export const notificationsIcons = {
 } as const;
 
 /**
- * todo;
+ * Todo.
  */
 export type TNotificationIcons = typeof notificationsIcons;
 
 /**
- * todo;
+ * Todo.
  */
 export type TNotificationIcon = TNotificationIcons[keyof TNotificationIcons];
 
 /**
- * todo;
+ * Todo.
  */
 export type TNotificationIconKey = keyof TNotificationIcons;

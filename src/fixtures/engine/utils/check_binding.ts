@@ -3,8 +3,8 @@ import { AnyArgs, AnyCallable, AnyObject, GameObject, Optional, TName } from "@/
 /**
  * Expect binding to be defined in global container.
  *
- * @param name - name of global binding
- * @param container - container object, defaults to `global`
+ * @param name - Name of global binding.
+ * @param container - Container object, defaults to `global`.
  */
 export function checkBinding(name: TName, container: AnyObject = _G): void {
   if (!container[name]) {
@@ -15,10 +15,10 @@ export function checkBinding(name: TName, container: AnyObject = _G): void {
 /**
  * Call global binding function.
  *
- * @param name - name of global binding
- * @param args - variadic list of arguments
- * @param container - container object
- * @returns generic value from binding function
+ * @param name - Name of global binding.
+ * @param args - Variadic list of arguments.
+ * @param container - Container object.
+ * @returns Generic value from binding function.
  */
 export function callBinding<T>(name: TName, args: AnyArgs = [], container: AnyObject = _G): T {
   checkBinding(name, container);
@@ -29,11 +29,11 @@ export function callBinding<T>(name: TName, args: AnyArgs = [], container: AnyOb
 /**
  * Call nested binding function.
  *
- * @param base - base name of global binding object
- * @param name - name of nested binding
- * @param args - variadic list of arguments
- * @param container - container object
- * @returns generic value from binding function
+ * @param base - Base name of global binding object.
+ * @param name - Name of nested binding.
+ * @param args - Variadic list of arguments.
+ * @param container - Container object.
+ * @returns Generic value from binding function.
  */
 export function callNestedBinding<T>(base: TName, name: TName, args: AnyArgs = [], container: AnyObject = _G): T {
   checkNestedBinding(base, name, container);
@@ -44,9 +44,9 @@ export function callNestedBinding<T>(base: TName, name: TName, args: AnyArgs = [
 /**
  * Expect binding to be defined in nested global container.
  *
- * @param base - name of global binding base object
- * @param name - name of global binding
- * @param container - container object, defaults to `global`
+ * @param base - Name of global binding base object.
+ * @param name - Name of global binding.
+ * @param container - Container object, defaults to `global`.
  */
 export function checkNestedBinding(base: TName, name: TName, container: AnyObject = _G): void {
   if (!container[base]) {
@@ -59,8 +59,8 @@ export function checkNestedBinding(base: TName, name: TName, container: AnyObjec
 /**
  * Expect condition binding to be defined in nested global container.
  *
- * @param name - name of condition binding
- * @param container - container object, defaults to `global`
+ * @param name - Name of condition binding.
+ * @param container - Container object, defaults to `global`.
  */
 export function checkXrCondition(name: TName, container: AnyObject = _G): void {
   return checkNestedBinding("xr_conditions", name, container);
@@ -69,11 +69,11 @@ export function checkXrCondition(name: TName, container: AnyObject = _G): void {
 /**
  * Call condition similar to game scripts.
  *
- * @param name - name of condition binding
- * @param actor - current game actor object
- * @param object - target object to call condition for
- * @param parameters - list of parameters for the condition
- * @returns condition value
+ * @param name - Name of condition binding.
+ * @param actor - Current game actor object.
+ * @param object - Target object to call condition for.
+ * @param parameters - List of parameters for the condition.
+ * @returns Condition value.
  */
 export function callXrCondition(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): boolean {
   const effects: Optional<AnyObject> = (_G as AnyObject)["xr_conditions"];
@@ -102,8 +102,8 @@ export function callXrCondition(name: TName, actor: GameObject, object: GameObje
 /**
  * Expect effect binding to be defined in nested global container.
  *
- * @param name - name of effect binding
- * @param container - container object, defaults to `global`
+ * @param name - Name of effect binding.
+ * @param container - Container object, defaults to `global`.
  */
 export function checkXrEffect(name: TName, container: AnyObject = _G): void {
   return checkNestedBinding("xr_effects", name, container);
@@ -112,10 +112,10 @@ export function checkXrEffect(name: TName, container: AnyObject = _G): void {
 /**
  * Call effect similar to game scripts.
  *
- * @param name - name of effect binding
- * @param actor - current game actor object
- * @param object - target object to call effect for
- * @param parameters - list of parameters for the effect
+ * @param name - Name of effect binding.
+ * @param actor - Current game actor object.
+ * @param object - Target object to call effect for.
+ * @param parameters - List of parameters for the effect.
  */
 export function callXrEffect(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): void {
   const effects: Optional<AnyObject> = (_G as AnyObject)["xr_effects"];

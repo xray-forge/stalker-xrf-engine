@@ -7,8 +7,8 @@ import { GameObject, LuaArray, TCount, TSection } from "@/engine/lib/types";
 /**
  * Add single random update for item object.
  *
- * @param object - target item object to add upgrades for
- * @returns whether upgrade was installed
+ * @param object - Target item object to add upgrades for.
+ * @returns Whether upgrade was installed.
  */
 export function addRandomUpgrade(object: GameObject): boolean {
   const installed: LuaTable<TSection, boolean> = getItemInstalledUpgradesSet(object);
@@ -35,8 +35,8 @@ export function addRandomUpgrade(object: GameObject): boolean {
 /**
  * Install random upgrades for item object.
  *
- * @param object - target item object to add upgrades for
- * @param count - count of upgrades to install
+ * @param object - Target item object to add upgrades for.
+ * @param count - Count of upgrades to install.
  */
 export function addRandomUpgrades(object: GameObject, count: TCount): void {
   const available: LuaTable<IUpgradeDescriptor, boolean> = new LuaTable();

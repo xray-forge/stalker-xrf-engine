@@ -6,8 +6,8 @@ import { registerZone, unregisterZone } from "@/engine/core/database/zones";
 /**
  * Register anomaly zone object binder.
  *
- * @param anomalyZone - anomaly object binder
- * @returns object registry state representation
+ * @param anomalyZone - Anomaly object binder.
+ * @returns Object registry state representation.
  */
 export function registerAnomalyZone(anomalyZone: AnomalyZoneBinder): IRegistryObjectState {
   registry.anomalyZones.set(anomalyZone.object.name(), anomalyZone);
@@ -18,7 +18,7 @@ export function registerAnomalyZone(anomalyZone: AnomalyZoneBinder): IRegistryOb
 /**
  * Unregister anomaly zone object binder.
  *
- * @param anomalyZone - anomaly object binder
+ * @param anomalyZone - Anomaly object binder.
  */
 export function unregisterAnomalyZone(anomalyZone: AnomalyZoneBinder): void {
   registry.anomalyZones.delete(anomalyZone.object.name());
@@ -28,8 +28,8 @@ export function unregisterAnomalyZone(anomalyZone: AnomalyZoneBinder): void {
 /**
  * Register anomaly field object binder.
  *
- * @param anomalyField - anomaly field object binder
- * @returns object registry state representation
+ * @param anomalyField - Anomaly field object binder.
+ * @returns Object registry state representation.
  */
 export function registerAnomalyField(anomalyField: AnomalyFieldBinder): IRegistryObjectState {
   registry.anomalyFields.set(anomalyField.object.name(), anomalyField);
@@ -40,7 +40,7 @@ export function registerAnomalyField(anomalyField: AnomalyFieldBinder): IRegistr
 /**
  * Unregister anomaly field object binder.
  *
- * @param anomalyField - anomaly field object binder
+ * @param anomalyField - Anomaly field object binder.
  */
 export function unregisterAnomalyField(anomalyField: AnomalyFieldBinder): void {
   unregisterZone(anomalyField.object);

@@ -6,8 +6,8 @@ import type { AnyObject, IConstructor } from "@/engine/lib/types";
 /**
  * Check if scheme manager is subscribed in scheme base state.
  *
- * @param state - base state to check
- * @param action - action class to verify subscription for
+ * @param state - Base state to check.
+ * @param action - Action class to verify subscription for.
  */
 export function assertSchemeSubscribedToManager(state: IBaseSchemeState, action: IConstructor<AnyObject>): void {
   for (const [subscriber] of state.actions as LuaTable<AnyObject, boolean>) {
@@ -22,7 +22,7 @@ export function assertSchemeSubscribedToManager(state: IBaseSchemeState, action:
 /**
  * Check if scheme manager is not subscribed to actions.
  *
- * @param state - base state to check
+ * @param state - Base state to check.
  */
 export function assertSchemeNotToBeSubscribed(state: IBaseSchemeState): void {
   if (state.actions) {

@@ -18,7 +18,7 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   public lastUpdatedAt: Optional<TTimestamp> = null;
 
   /**
-   * @returns whether target is abused
+   * @returns Whether target is abused.
    */
   public update(): boolean {
     if (!this.isEnabled) {
@@ -58,7 +58,7 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   }
 
   /**
-   * @returns whether object is abused
+   * @returns Whether object is abused.
    */
   public isAbused(): boolean {
     return this.abuseValue >= this.abuseThreshold;

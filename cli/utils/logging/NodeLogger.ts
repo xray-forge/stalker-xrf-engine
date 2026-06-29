@@ -27,7 +27,7 @@ export class NodeLogger {
   private readonly isEnabled: boolean = true;
 
   /**
-   * @returns global logger singleton object to do inline printing
+   * @returns Global logger singleton object to do inline printing.
    */
   public static getGlobal(): NodeLogger {
     if (!NodeLogger.GLOBAL) {
@@ -38,8 +38,8 @@ export class NodeLogger {
   }
 
   /**
-   * @param filename - full file name including path
-   * @returns logger with prefix based on filename
+   * @param filename - Full file name including path.
+   * @returns Logger with prefix based on filename.
    */
   public static forFile(filename: string): NodeLogger {
     return new NodeLogger(path.basename(filename, ".ts").toUpperCase());

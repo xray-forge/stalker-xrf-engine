@@ -94,8 +94,8 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * Handle entering arena zone.
    *
-   * @param zone - game object representing arena zone
-   * @param object - game object entering zone
+   * @param zone - Game object representing arena zone.
+   * @param object - Game object entering zone.
    */
   public onEnterArenaZone(zone: GameObject, object: GameObject): void {
     const objectId: TNumberId = object.id();
@@ -113,8 +113,8 @@ export class ArenaZoneBinder extends object_binder {
   /**
    * Handle leaving arena zone.
    *
-   * @param zone - game object representing arena zone
-   * @param object - game object leaving zone
+   * @param zone - Game object representing arena zone.
+   * @param object - Game object leaving zone.
    */
   public onExitArenaZone(zone: GameObject, object: GameObject): void {
     this.savedObjects.delete(object.id());

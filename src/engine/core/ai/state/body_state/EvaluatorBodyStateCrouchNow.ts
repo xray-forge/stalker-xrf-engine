@@ -15,7 +15,7 @@ export class EvaluatorBodyStateCrouchNow extends property_evaluator {
   }
 
   /**
-   * Check if crouching at the moment
+   * Check if crouching at the moment.
    */
   public override evaluate(): boolean {
     return this.object.target_body_state() === move.crouch;

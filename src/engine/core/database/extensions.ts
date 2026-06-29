@@ -8,8 +8,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Register game mod extension in the registry.
  *
- * @param extension - extension descriptor to register in the database
- * @returns registered extension descriptor
+ * @param extension - Extension descriptor to register in the database.
+ * @returns Registered extension descriptor.
  */
 export function registerExtension(extension: IExtensionsDescriptor): IExtensionsDescriptor {
   assert(extension.name, "Expected extension to have name when registering.");
@@ -26,7 +26,7 @@ export function registerExtension(extension: IExtensionsDescriptor): IExtensions
 /**
  * Check whether game have any extensions activated.
  *
- * @returns if have at least one extension active
+ * @returns If have at least one extension active.
  */
 export function haveExtensions(): boolean {
   return registry.extensions.length() > 0;

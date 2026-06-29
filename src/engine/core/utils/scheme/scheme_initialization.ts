@@ -45,13 +45,13 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 /**
  * Configure object schemes and get ini config describing object scripts.
  *
- * @param object - game object
- * @param ini - ini file containing object spawn or job info
- * @param iniName - ini file name
- * @param schemeType - object scheme type
- * @param logicsSection - section describing object initial logic
- * @param smartTerrainName - object smart terrain name
- * @returns ini file containing object logics
+ * @param object - Game object.
+ * @param ini - Ini file containing object spawn or job info.
+ * @param iniName - Ini file name.
+ * @param schemeType - Object scheme type.
+ * @param logicsSection - Section describing object initial logic.
+ * @param smartTerrainName - Object smart terrain name.
+ * @returns Ini file containing object logics.
  */
 export function configureObjectSchemes(
   object: GameObject,
@@ -138,10 +138,10 @@ export function configureObjectSchemes(
  * Initialize object scheme logics on object logics change/load/spawn.
  * Called on first object update or when smart terrain assignments change and object has to get new logic.
  *
- * @param object - game object
- * @param state - target object registry state
- * @param isLoading - whether initialization is happening on object load
- * @param schemeType - type of object schemes applied
+ * @param object - Game object.
+ * @param state - Target object registry state.
+ * @param isLoading - Whether initialization is happening on object load.
+ * @param schemeType - Type of object schemes applied.
  */
 export function initializeObjectSchemeLogic(
   object: GameObject,
@@ -212,8 +212,8 @@ export function initializeObjectSchemeLogic(
  * Spawn object items on logics section change for an object.
  * Allows giving items to objects on specific logics activation.
  *
- * @param object - game object
- * @param state - object registry state
+ * @param object - Game object.
+ * @param state - Object registry state.
  */
 export function initializeObjectSectionItems(object: GameObject, state: IRegistryObjectState): void {
   const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.sectionLogic, "spawn", false);

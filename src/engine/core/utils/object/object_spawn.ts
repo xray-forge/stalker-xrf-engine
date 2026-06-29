@@ -9,8 +9,8 @@ import { ALifeSmartTerrainTask, GameObject, Optional, TNumberId } from "@/engine
 /**
  * Handle object position sync when net spawn event is happening.
  *
- * @param object - game object
- * @param terrainId - target object linked smart terrain id
+ * @param object - Game object.
+ * @param terrainId - Target object linked smart terrain id.
  */
 export function setupSpawnedObjectPosition(object: GameObject, terrainId: Optional<TNumberId> = null): void {
   const objectId: TNumberId = object.id();

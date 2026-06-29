@@ -5,7 +5,7 @@ import { RenderDevice } from "@/engine/lib/types";
 /**
  * Check whether game is in wide screen mode right now.
  *
- * @returns whether game resolution is wide screen
+ * @returns Whether game resolution is wide screen.
  */
 export function isWideScreen(): boolean {
   const renderDevice: RenderDevice = device();

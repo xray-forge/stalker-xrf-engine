@@ -7,16 +7,16 @@ import { NetPacket, NetProcessor, Optional, Time, TLabel, TRate, TTimestamp } fr
 /**
  * Add part of time digit to a data string.
  *
- * @param digit - number convert
- * @returns concatenated time string
+ * @param digit - Number convert.
+ * @returns Concatenated time string.
  */
 export function toTimeDigit(digit: number): string {
   return digit > 9 ? tostring(digit) : "0" + digit;
 }
 
 /**
- * @param time - time to stringify
- * @returns stringified time string
+ * @param time - Time to stringify.
+ * @returns Stringified time string.
  */
 export function gameTimeToString(time: Time): string {
   const [y, m, d, h, min] = time.get(0, 0, 0, 0, 0, 0, 0);
@@ -36,16 +36,16 @@ export function gameTimeToString(time: Time): string {
  *
  * Example: 6 -> "06:00:00".
  *
- * @param hours - hours to transform
- * @returns section for provided hour period
+ * @param hours - Hours to transform.
+ * @returns Section for provided hour period.
  */
 export function hoursToWeatherPeriod(hours: TTimestamp): TLabel {
   return hours < 10 ? `0${hours}:00:00` : `${hours}:00:00`;
 }
 
 /**
- * @param time - time duration in millis
- * @returns hh:mm:ss formatted time
+ * @param time - Time duration in millis.
+ * @returns Hh:mm:ss formatted time.
  */
 export function globalTimeToString(time: number): string {
   const hours: number = math.floor(time / 3_600_000);
@@ -58,9 +58,9 @@ export function globalTimeToString(time: number): string {
 /**
  * Check whether current time interval is between desired values.
  *
- * @param fromHours - lower time bound
- * @param toHours - upper time bound
- * @returns whether current game time is in provided time bounds
+ * @param fromHours - Lower time bound.
+ * @param toHours - Upper time bound.
+ * @returns Whether current game time is in provided time bounds.
  */
 export function isInTimeInterval(fromHours: TTimestamp, toHours: TTimestamp): boolean {
   const gameHours: TTimestamp = level.get_time_hours();
@@ -76,9 +76,9 @@ export function isInTimeInterval(fromHours: TTimestamp, toHours: TTimestamp): bo
  * Set current time in level.
  * Creates idle state with multiplied time factor.
  *
- * @param hour - desired day hour
- * @param min - desired day min
- * @param sec - desired day sec
+ * @param hour - Desired day hour.
+ * @param min - Desired day min.
+ * @param sec - Desired day sec.
  */
 export function setCurrentTime(hour: number, min: number, sec: number): void {
   const currentTimeFactor: TRate = level.get_time_factor();
@@ -107,8 +107,8 @@ export function setCurrentTime(hour: number, min: number, sec: number): void {
 /**
  * Save time object into net packet.
  *
- * @param packet - target packet to write data
- * @param time - time object to write
+ * @param packet - Target packet to write data.
+ * @param time - Time object to write.
  */
 export function writeTimeToPacket(packet: NetPacket, time: Optional<Time> = null): void {
   if (time === null) {
@@ -129,8 +129,8 @@ export function writeTimeToPacket(packet: NetPacket, time: Optional<Time> = null
 /**
  * Read time object from net packet.
  *
- * @param reader - target packet to read data
- * @returns time object or null
+ * @param reader - Target packet to read data.
+ * @returns Time object or null.
  */
 export function readTimeFromPacket(reader: NetProcessor): Optional<Time> {
   const Y: number = reader.r_u8();
@@ -154,8 +154,8 @@ export function readTimeFromPacket(reader: NetProcessor): Optional<Time> {
 }
 
 /**
- * @param time - object to serialize
- * @returns serialized time string
+ * @param time - Object to serialize.
+ * @returns Serialized time string.
  */
 export function serializeTime(time: CTime): string {
   const [Y, M, D, h, m, s, ms] = time.get(0, 0, 0, 0, 0, 0, 0);
@@ -164,8 +164,8 @@ export function serializeTime(time: CTime): string {
 }
 
 /**
- * @param data - serialized time
- * @returns deserialized object
+ * @param data - Serialized time.
+ * @returns Deserialized object.
  */
 export function deserializeTime(data: string): CTime {
   const time: CTime = game.CTime();

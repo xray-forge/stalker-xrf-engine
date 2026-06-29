@@ -49,7 +49,7 @@ extern("xr_conditions.is_dark_night", (): boolean => {
  *
  * Where:
  * - shift - time shift
- * - period - time period
+ * - period - time period.
  */
 extern(
   "xr_conditions.time_period",
@@ -67,7 +67,7 @@ extern(
  *
  * Where:
  * - anomalyName - name of the anomaly to check
- * - artefactSection - section of the artefact to check
+ * - artefactSection - section of the artefact to check.
  */
 extern(
   "xr_conditions.anomaly_has_artefact",
@@ -101,7 +101,7 @@ extern("xr_conditions.surge_kill_all", (): boolean => {
  * Check whether surge signal rockets flying.
  *
  * Where:
- * - name - name of signal light to check flying state
+ * - name - name of signal light to check flying state.
  *
  * Throws, if signal rocket is not found.
  */
@@ -120,7 +120,7 @@ extern("xr_conditions.signal_rocket_flying", (_: GameObject, __: GameObject, [na
  *
  * Where:
  * - terrainName - name of target smart terrain
- * - alarmStatus - status value to check in smart terrain
+ * - alarmStatus - status value to check in smart terrain.
  *
  * Throws, if parameters are invalid or target smart terrain is invalid.
  */

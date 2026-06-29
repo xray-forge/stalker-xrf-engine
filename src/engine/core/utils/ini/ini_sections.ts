@@ -11,8 +11,8 @@ import {
 import { LuaArray, TSection } from "@/engine/lib/types";
 
 /**
- * @param sections - list of sections to check and filter
- * @returns filtered list of sections that does not contain sections with defined story id
+ * @param sections - List of sections to check and filter.
+ * @returns Filtered list of sections that does not contain sections with defined story id.
  */
 export function getSectionsWithoutStoryIDs(sections: LuaArray<TSection>): LuaArray<TSection> {
   const filtered: LuaArray<TSection> = new LuaTable();
@@ -27,7 +27,7 @@ export function getSectionsWithoutStoryIDs(sections: LuaArray<TSection>): LuaArr
 }
 
 /**
- * @returns list of weapons / grenades sections
+ * @returns List of weapons / grenades sections.
  */
 export function getWeaponSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -42,7 +42,7 @@ export function getWeaponSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of weapons addons sections like scopes and grenade launchers
+ * @returns List of weapons addons sections like scopes and grenade launchers.
  */
 export function getWeaponAddonsSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -57,7 +57,7 @@ export function getWeaponAddonsSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of helmets sections
+ * @returns List of helmets sections.
  */
 export function getHelmetsSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -72,7 +72,7 @@ export function getHelmetsSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of ammo sections
+ * @returns List of ammo sections.
  */
 export function getAmmoSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -87,7 +87,7 @@ export function getAmmoSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of artefacts sections
+ * @returns List of artefacts sections.
  */
 export function getArtefactsSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -102,7 +102,7 @@ export function getArtefactsSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of detectors sections
+ * @returns List of detectors sections.
  */
 export function getDetectorsSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -117,7 +117,7 @@ export function getDetectorsSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of outfits sections
+ * @returns List of outfits sections.
  */
 export function getOutfitSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -132,7 +132,7 @@ export function getOutfitSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of simulation groups sections
+ * @returns List of simulation groups sections.
  */
 export function getSimulationGroupSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -147,7 +147,7 @@ export function getSimulationGroupSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of stalker sections
+ * @returns List of stalker sections.
  */
 export function getStalkerSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -162,7 +162,7 @@ export function getStalkerSections(): LuaArray<TSection> {
 }
 
 /**
- * @returns list of boosters sections
+ * @returns List of boosters sections.
  */
 export function getBoosterSections(): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();

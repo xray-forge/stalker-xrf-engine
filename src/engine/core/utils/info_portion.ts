@@ -8,7 +8,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "info_portions", mode
 /**
  * Give info portion to actor.
  *
- * @param name - info portion to give to actor
+ * @param name - Info portion to give to actor.
  */
 export function giveInfoPortion(name: TName): void {
   logger.info("Give info portion: %s", name);
@@ -19,7 +19,7 @@ export function giveInfoPortion(name: TName): void {
 /**
  * Disable actor info portion.
  *
- * @param name - info portion to disable
+ * @param name - Info portion to disable.
  */
 export function disableInfoPortion(name: TName): void {
   logger.info("Disable info portion: %s", name);
@@ -33,7 +33,7 @@ export function disableInfoPortion(name: TName): void {
  * Whether actor has info portion set.
  * Fallbacks to false if actor is not registered.
  *
- * @returns whether actor has info portion set already
+ * @returns Whether actor has info portion set already.
  */
 export function hasInfoPortion(name: TName): name is TInfoPortion {
   if (registry.actor === null) {
@@ -46,8 +46,8 @@ export function hasInfoPortion(name: TName): name is TInfoPortion {
 /**
  * Whether actor has all alife info from the list.
  *
- * @param names - array of infos to check
- * @returns whether actor has info portions active
+ * @param names - Array of infos to check.
+ * @returns Whether actor has info portions active.
  */
 export function hasInfoPortions(names: Array<TName>): boolean {
   return hasFewInfoPortions(names, table.size(names));
@@ -56,8 +56,8 @@ export function hasInfoPortions(names: Array<TName>): boolean {
 /**
  * Whether actor has at least one alife info from the list.
  *
- * @param names - array of infos to check
- * @returns whether actor has at least one info portion from list
+ * @param names - Array of infos to check.
+ * @returns Whether actor has at least one info portion from list.
  */
 export function hasAtLeastOneInfoPortion(names: Array<TName>): boolean {
   return hasFewInfoPortions(names, 1);
@@ -66,9 +66,9 @@ export function hasAtLeastOneInfoPortion(names: Array<TName>): boolean {
 /**
  * Whether actor has alife infos from the list.
  *
- * @param names - array of infos to check
- * @param count - count of infos required to satisfy conditions
- * @returns whether actor has few of required info portions
+ * @param names - Array of infos to check.
+ * @param count - Count of infos required to satisfy conditions.
+ * @returns Whether actor has few of required info portions.
  */
 export function hasFewInfoPortions(names: Array<TName>, count: TCount): boolean {
   let activeInfos: TCount = 0;

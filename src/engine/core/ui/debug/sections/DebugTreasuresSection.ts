@@ -133,8 +133,8 @@ export class DebugTreasuresSection extends AbstractDebugSection {
   }
 
   /**
-   * @param section - descriptor section to build label for
-   * @returns label with debug information for the treasure
+   * @param section - Descriptor section to build label for.
+   * @returns Label with debug information for the treasure.
    */
   public getTreasureDescription(section: Optional<TSection>): TLabel {
     if (section) {

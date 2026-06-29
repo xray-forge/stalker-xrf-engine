@@ -31,7 +31,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerState> {
   public lastIndex: Optional<TIndex> = null;
@@ -202,7 +202,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateMovementState(): void {
     scriptCaptureMonster(this.object, true);
@@ -235,7 +235,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateStandingState(): void {
     scriptCaptureMonster(this.object, true);
@@ -258,7 +258,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public lookAtWaypoint(index: TIndex): void {
     if (!this.patrolLook) {

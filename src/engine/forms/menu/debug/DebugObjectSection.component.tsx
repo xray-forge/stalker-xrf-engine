@@ -5,7 +5,7 @@ import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
- * todo;
+ * Todo.
  */
 export function create(): JSXNode {
   return (
@@ -29,7 +29,7 @@ export function create(): JSXNode {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function renderLoggingButtons(): JSXNode {
   return (
@@ -93,7 +93,7 @@ function renderLoggingButtons(): JSXNode {
 }
 
 /**
- * todo;
+ * Todo.
  */
 function renderRelationButtons(): JSXNode {
   return (

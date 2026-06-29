@@ -36,7 +36,7 @@ export function updateTerrainsMapSpotDisplay(): void {
 }
 
 /**
- * @param terrain - target smart terrain to update map spot for
+ * @param terrain - Target smart terrain to update map spot for.
  */
 export function updateTerrainMapSpot(terrain: SmartTerrain): void {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {
@@ -48,7 +48,7 @@ export function updateTerrainMapSpot(terrain: SmartTerrain): void {
 }
 
 /**
- * @param terrain - target smart terrain to update map spot for in debug mode
+ * @param terrain - Target smart terrain to update map spot for in debug mode.
  */
 export function updateTerrainDebugMapSpot(terrain: SmartTerrain): void {
   const previousSpot: TName = string.format("alife_presentation_smart_%s_%s", terrain.simulationRole, terrain.mapSpot);
@@ -76,7 +76,7 @@ export function updateTerrainDebugMapSpot(terrain: SmartTerrain): void {
 }
 
 /**
- * @param terrain - smart terrain to remove map display spot for
+ * @param terrain - Smart terrain to remove map display spot for.
  */
 export function removeTerrainMapSpot(terrain: SmartTerrain): void {
   if (terrain.mapSpot) {
@@ -85,8 +85,8 @@ export function removeTerrainMapSpot(terrain: SmartTerrain): void {
 }
 
 /**
- * @param terrain - target smart terrain to get hint for
- * @returns label displayed on hover when using in-game map
+ * @param terrain - Target smart terrain to get hint for.
+ * @returns Label displayed on hover when using in-game map.
  */
 export function getTerrainMapSpotHint(terrain: SmartTerrain): TLabel {
   if (forgeConfig.DEBUG.IS_SIMULATION_ENABLED) {

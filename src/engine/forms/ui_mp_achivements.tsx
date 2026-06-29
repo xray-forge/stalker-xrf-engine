@@ -3,7 +3,7 @@ import { JSXNode, JSXXML } from "jsx-xml";
 /**
  *  Used.
  *  Defined in C++ codebase: src/xrGame/UIAchivementsIndicator.h
- *  Defined in C++ codebase: src/xrGame/UIAchivementsIndicator.cpp
+ *  Defined in C++ codebase: src/xrGame/UIAchivementsIndicator.cpp.
  */
 export function create(): JSXNode {
   return (

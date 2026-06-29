@@ -82,7 +82,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public useMedkit(): void {
     if (this.canUseMedkit) {

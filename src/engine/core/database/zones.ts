@@ -7,8 +7,8 @@ import { GameObject, Optional, Vector } from "@/engine/lib/types";
 /**
  * Register zone object.
  *
- * @param object - zone game object to register
- * @returns registry state for provided object
+ * @param object - Zone game object to register.
+ * @returns Registry state for provided object.
  */
 export function registerZone(object: GameObject): IRegistryObjectState {
   registry.zones.set(object.name(), object);
@@ -19,7 +19,7 @@ export function registerZone(object: GameObject): IRegistryObjectState {
 /**
  * Unregister zone object.
  *
- * @param object - zone game object to unregister
+ * @param object - Zone game object to unregister.
  */
 export function unregisterZone(object: GameObject): void {
   registry.zones.delete(object.name());
@@ -30,8 +30,8 @@ export function unregisterZone(object: GameObject): void {
  * Get camp for provided game vector position.
  * Count of camps is limited to alife range so check should not be very intensive.
  *
- * @param position - current position to get manager for
- * @returns instance of manager for NPC position if camp exists
+ * @param position - Current position to get manager for.
+ * @returns Instance of manager for NPC position if camp exists.
  */
 export function getCampZoneForPosition(position: Optional<Vector>): Optional<CampManager> {
   if (position === null) {
@@ -51,8 +51,8 @@ export function getCampZoneForPosition(position: Optional<Vector>): Optional<Cam
 /**
  * Register camp object on net spawn.
  *
- * @param object - target camp game object to register
- * @param manager - linked manager to register
+ * @param object - Target camp game object to register.
+ * @param manager - Linked manager to register.
  */
 export function registerCampZone(object: GameObject, manager: Optional<CampManager>): void {
   registerZone(object);
@@ -65,7 +65,7 @@ export function registerCampZone(object: GameObject, manager: Optional<CampManag
 /**
  * Unregister camp on net despawn.
  *
- * @param object - target camp game object to unregister
+ * @param object - Target camp game object to unregister.
  */
 export function unregisterCampZone(object: GameObject): void {
   unregisterZone(object);
@@ -76,7 +76,7 @@ export function unregisterCampZone(object: GameObject): void {
  * Reset camp instance on object re-init.
  * Rewrites game object reference.
  *
- * @param object - target camp game object to reset
+ * @param object - Target camp game object to reset.
  */
 export function resetCampZone(object: GameObject): void {
   resetObject(object);

@@ -6,8 +6,8 @@ import { registry } from "@/engine/core/database/registry";
 /**
  * Register door binder object.
  *
- * @param doorBinder - binder object to register
- * @returns game object registry state
+ * @param doorBinder - Binder object to register.
+ * @returns Game object registry state.
  */
 export function registerDoor(doorBinder: DoorBinder): IRegistryObjectState {
   registry.doors.set(doorBinder.object.name(), doorBinder);
@@ -18,7 +18,7 @@ export function registerDoor(doorBinder: DoorBinder): IRegistryObjectState {
 /**
  * Unregister door binder object.
  *
- * @param doorBinder - binder object to unregister
+ * @param doorBinder - Binder object to unregister.
  */
 export function unregisterDoor(doorBinder: DoorBinder): void {
   registry.doors.delete(doorBinder.object.name());

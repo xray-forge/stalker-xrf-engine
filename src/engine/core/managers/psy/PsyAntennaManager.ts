@@ -41,11 +41,11 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 export class PsyAntennaManager extends AbstractManager {
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public static load(reader: NetProcessor): void {
     openLoadMarker(reader, PsyAntennaManager.name + "_static");
@@ -62,7 +62,7 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public static save(packet: NetPacket): void {
     openSaveMarker(packet, PsyAntennaManager.name + "_static");
@@ -150,7 +150,7 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public generatePhantoms(): void {
     const now: TTimestamp = time_global();
@@ -177,7 +177,7 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override update(delta: TDuration): void {
     // todo: Move to utility or separate method.
@@ -211,7 +211,7 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateSound(): void {
     if (!this.soundInitialized) {
@@ -242,7 +242,7 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updatePostprocess(pp: IPsyPostProcessDescriptor): boolean {
     if (pp.intensity === 0) {
@@ -258,7 +258,7 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updatePsyHit(delta: number): void {
     const hud: GameHud = get_hud();

@@ -6,7 +6,7 @@ import { Optional, TNumberId, ZoneCampfire } from "@/engine/lib/types";
 /**
  * Turn on smart terrain camp fires.
  *
- * @param terrain - terrain to turn on linked campfires
+ * @param terrain - Terrain to turn on linked campfires.
  */
 export function turnOnTerrainCampfires(terrain: SmartTerrain): void {
   // logger.format("Turn on campfires for: %s", terrain.name());
@@ -29,7 +29,7 @@ export function turnOnTerrainCampfires(terrain: SmartTerrain): void {
 /**
  * Turn off smart terrain camp fires.
  *
- * @param terrain - terrain to turn off linked campfires
+ * @param terrain - Terrain to turn off linked campfires.
  */
 export function turnOffSmartTerrainCampfires(terrain: SmartTerrain): void {
   // logger.format("Turn off campfires for: %s", terrain.name());

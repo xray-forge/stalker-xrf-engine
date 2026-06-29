@@ -9,12 +9,12 @@ import { TPath, XmlInit } from "@/engine/lib/types";
 /**
  * Util to get XML file for current screen resolution.
  *
- * todo: Respect dot-separated files in XRAY.
- * todo: Respect folders in XRAY.
+ * Todo: Respect dot-separated files in XRAY.
+ * Todo: Respect folders in XRAY.
  *
- * @param path - target path to parse xml from
- * @param hasWideScreenSupport - if should check existence of `.16.xml` alternative and use it in wide screen
- * @returns normalized xml form file path
+ * @param path - Target path to parse xml from.
+ * @param hasWideScreenSupport - If should check existence of `.16.xml` alternative and use it in wide screen.
+ * @returns Normalized xml form file path.
  */
 export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = false): TPath {
   const base: string = path.endsWith(".xml") ? path.slice(0, path.length - 4) : path;
@@ -38,10 +38,10 @@ export function resolveXmlFormPath(path: TPath, hasWideScreenSupport: boolean = 
 /**
  * Resolve xml file by path and try parsing it.
  *
- * @param path - xml form file path
- * @param xml - target xml form initializer, or it will be created from empty
- * @param hasWideScreenSupport - if should check existence of `.16.xml` alternative and use it in wide screen
- * @returns xml initialized based on provided path
+ * @param path - Xml form file path.
+ * @param xml - Target xml form initializer, or it will be created from empty.
+ * @param hasWideScreenSupport - If should check existence of `.16.xml` alternative and use it in wide screen.
+ * @returns Xml initialized based on provided path.
  */
 export function resolveXmlFile(
   path: TPath,

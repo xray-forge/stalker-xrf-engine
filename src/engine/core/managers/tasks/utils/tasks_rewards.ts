@@ -11,9 +11,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Give possible task rewards.
  * - money
- * - items list based on task config
+ * - items list based on task config.
  *
- * @param task - task object to give rewards for
+ * @param task - Task object to give rewards for.
  */
 export function giveTaskReward(task: TaskObject): void {
   const money: Optional<string> = pickSectionFromCondList(

@@ -4,8 +4,8 @@ import * as os from "node:os";
 /**
  * Open folder in OS explorer application for fast access.
  *
- * @param path - directory path to open
- * @returns promise resolving on open folder command execution
+ * @param path - Directory path to open.
+ * @returns Promise resolving on open folder command execution.
  */
 export function openFolderInExplorer(path: string): Promise<void> {
   return new Promise((resolve, reject) => {

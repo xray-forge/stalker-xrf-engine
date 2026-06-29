@@ -26,7 +26,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Manager of game effects/sounds/voices triggered from script engine.
  *
- * todo: Unify looped and non-looped play-stop methods?
+ * Todo: Unify looped and non-looped play-stop methods?
  */
 export class SoundManager extends AbstractManager {
   public override initialize(): void {
@@ -124,8 +124,8 @@ export class SoundManager extends AbstractManager {
   /**
    * Perform sound state saving for provided object.
    *
-   * @param object - game object to save
-   * @param packet - net packet to save data into
+   * @param object - Game object to save.
+   * @param packet - Net packet to save data into.
    */
   public saveObject(object: GameObject, packet: NetPacket): void {
     openSaveMarker(packet, SoundManager.name + "Object");
@@ -140,8 +140,8 @@ export class SoundManager extends AbstractManager {
   /**
    * Perform sound state saving for provided object.
    *
-   * @param object - game object to save
-   * @param reader - net reader to read data from
+   * @param object - Game object to save.
+   * @param reader - Net reader to read data from.
    */
   public loadObject(object: GameObject, reader: NetProcessor): void {
     openLoadMarker(reader, SoundManager.name + "Object");
@@ -157,13 +157,13 @@ export class SoundManager extends AbstractManager {
    * Play sound for provided object.
    * Based on parsed themes library defined with `script_sounds.ltx`.
    *
-   * todo: Get rid of nullable name type.
+   * Todo: Get rid of nullable name type.
    *
-   * @param objectId - target object ID to play sound for
-   * @param name - name of the sound
-   * @param faction - faction of the object to play sound
-   * @param point - ? todo;
-   * @returns playing sound object
+   * @param objectId - Target object ID to play sound for.
+   * @param name - Name of the sound.
+   * @param faction - Faction of the object to play sound.
+   * @param point - ? Todo.
+   * @returns Playing sound object.
    */
   public play(
     objectId: TNumberId,
@@ -206,7 +206,7 @@ export class SoundManager extends AbstractManager {
   /**
    * Stops all sounds for provided object ID.
    *
-   * @param objectId - target object ID to stop all sounds for
+   * @param objectId - Target object ID to stop all sounds for.
    */
   public stop(objectId: TNumberId): void {
     const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(
@@ -235,8 +235,8 @@ export class SoundManager extends AbstractManager {
   /**
    * Start looped sound playing for provided object ID.
    *
-   * @param objectId - target object ID to play sound for
-   * @param name - name of the looped sound to start
+   * @param objectId - Target object ID to play sound for.
+   * @param name - Name of the looped sound to start.
    */
   public playLooped(objectId: TNumberId, name: TName): void {
     const looped: Optional<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(objectId);
@@ -265,8 +265,8 @@ export class SoundManager extends AbstractManager {
   /**
    * Stop looped sound by object ID and name.
    *
-   * @param objectId - target object ID to stop sound for
-   * @param name - name of the looped sound to stop
+   * @param objectId - Target object ID to stop sound for.
+   * @param name - Name of the looped sound to stop.
    */
   public stopLooped(objectId: TNumberId, name: TName): void {
     const collection: LuaTable<TStringId, AbstractPlayableSound> = soundsConfig.looped.get(objectId);
@@ -288,7 +288,7 @@ export class SoundManager extends AbstractManager {
   /**
    * Stop all looped sounds for object.
    *
-   * @param objectId - target object ID to stop sounds for
+   * @param objectId - Target object ID to stop sounds for.
    */
   public stopAllLooped(objectId: TNumberId): void {
     const collection: LuaTable<TStringId, AbstractPlayableSound> = soundsConfig.looped.get(objectId);
@@ -303,9 +303,9 @@ export class SoundManager extends AbstractManager {
   }
 
   /**
-   * @param objectId - target object ID to set sound volume for
-   * @param name - name of the sound to set volume for
-   * @param volume - value of volume to set
+   * @param objectId - Target object ID to set sound volume for.
+   * @param name - Name of the sound to set volume for.
+   * @param volume - Value of volume to set.
    */
   public setLoopedSoundVolume(objectId: TNumberId, name: TName, volume: TRate): void {
     const sound: Optional<AbstractPlayableSound> = soundsConfig.looped.get(objectId)?.get(name);
@@ -332,7 +332,7 @@ export class SoundManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

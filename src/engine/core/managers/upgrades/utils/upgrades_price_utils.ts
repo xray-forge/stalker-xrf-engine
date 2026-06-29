@@ -5,10 +5,10 @@ import { getItemPrice } from "@/engine/core/utils/item";
 import { TCount, TName, TRate, TSection } from "@/engine/lib/types";
 
 /**
- * @param section - item section
- * @param condition - item condition rate
- * @param mechanicName - name of mechanic to repair with
- * @returns whether item can be repaired
+ * @param section - Item section.
+ * @param condition - Item condition rate.
+ * @param mechanicName - Name of mechanic to repair with.
+ * @returns Whether item can be repaired.
  */
 export function canRepairItem(section: TSection, condition: TRate, mechanicName: TName): boolean {
   // Item defined as no repairable.
@@ -20,9 +20,9 @@ export function canRepairItem(section: TSection, condition: TRate, mechanicName:
 }
 
 /**
- * @param section - section of the item to get price for
- * @param condition - current condition state of the item object
- * @returns repair price based on item price and condition
+ * @param section - Section of the item to get price for.
+ * @param condition - Current condition state of the item object.
+ * @returns Repair price based on item price and condition.
  */
 export function getRepairPrice(section: TSection, condition: TRate): TCount {
   return math.floor(
@@ -34,8 +34,8 @@ export function getRepairPrice(section: TSection, condition: TRate): TCount {
 }
 
 /**
- * @param section - item section to get upgrade cost
- * @returns upgrade cost label for provided item section
+ * @param section - Item section to get upgrade cost.
+ * @returns Upgrade cost label for provided item section.
  */
 export function getUpgradeCost(section: TSection): TCount {
   return math.floor(ITEM_UPGRADES.r_u32(section, "cost") * upgradesConfig.PRICE_DISCOUNT_RATE);

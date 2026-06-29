@@ -7,10 +7,10 @@ import { TName } from "@/engine/lib/types";
 /**
  * Create point jobs for stalkers in smart terrain.
  *
- * @param terrain - smart terrain to create default animpoint jobs for
- * @param jobs - list of smart terrain jobs to insert into
- * @param builder - builder of large ltx file
- * @returns cover jobs list and updated string builder
+ * @param terrain - Smart terrain to create default animpoint jobs for.
+ * @param jobs - List of smart terrain jobs to insert into.
+ * @param builder - Builder of large ltx file.
+ * @returns Cover jobs list and updated string builder.
  */
 export function createStalkerPointJobs(
   terrain: SmartTerrain,

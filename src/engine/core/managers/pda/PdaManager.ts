@@ -13,8 +13,8 @@ import { Optional, TLabel, TName, TSection } from "@/engine/lib/types";
  */
 export class PdaManager extends AbstractManager {
   /**
-   * @param section - PDA statistics section to get label for
-   * @returns section label
+   * @param section - PDA statistics section to get label for.
+   * @returns Section label.
    */
   public getStatisticsLabel(section: EPdaStatSection): TLabel {
     const statisticsManager: StatisticsManager = getManager(StatisticsManager);
@@ -40,7 +40,7 @@ export class PdaManager extends AbstractManager {
   }
 
   /**
-   * @returns best killed monster icon path
+   * @returns Best killed monster icon path.
    */
   public getMonsterBackground(): TName {
     const bestKilledMonster: Optional<TMonster> = getManager(StatisticsManager).actorStatistics.bestKilledMonster;
@@ -53,7 +53,7 @@ export class PdaManager extends AbstractManager {
   }
 
   /**
-   * @returns most used actor weapon
+   * @returns Most used actor weapon.
    */
   public getFavoriteWeapon(): TSection {
     return getManager(StatisticsManager).actorStatistics.favoriteWeapon ?? weapons.wpn_knife;
@@ -61,10 +61,10 @@ export class PdaManager extends AbstractManager {
 
   /**
    * Fill faction state.
-   * todo: Faction warfare from CS?
+   * Todo: Faction warfare from CS?
    *
-   * @param state - state object to fill
-   * @returns updated state object
+   * @param state - State object to fill.
+   * @returns Updated state object.
    */
   public fillFactionState(state: Record<string, string | number>): Record<string, string | number> {
     state.member_count = 0;

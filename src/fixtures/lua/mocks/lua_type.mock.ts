@@ -3,8 +3,8 @@ import { NIL } from "@/engine/lib/constants/words";
 /**
  * Mock lua `type` global method.
  *
- * @param value - target value to check type for
- * @returns type of value
+ * @param value - Target value to check type for.
+ * @returns Type of value.
  */
 export function mockType(value: unknown): string {
   const type = typeof value;

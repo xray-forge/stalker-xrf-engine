@@ -17,7 +17,7 @@ import type {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export enum ESmartCoverState {
   DEFAULT = "default_behaviour",
@@ -28,7 +28,7 @@ export enum ESmartCoverState {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export enum EStalkerState {
   ANIMPOINT_SIT_ASS = "animpoint_sit_ass",
@@ -210,7 +210,7 @@ export enum EStalkerState {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export interface IStateDescriptor {
   weapon: Optional<EWeaponAnimation>;
@@ -234,7 +234,7 @@ export interface ILookTargetDescriptor {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject> {
   begin?: Optional<TTimestamp>;
@@ -245,7 +245,7 @@ export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject
 }
 
 /**
- * todo;
+ * Todo.
  */
 export interface ITargetStateDescriptorExtras {
   isForced?: boolean;
@@ -255,7 +255,7 @@ export interface ITargetStateDescriptorExtras {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export const LOOK_DIRECTION_STATES: LuaTable<EStalkerState, boolean> = $fromObject({
   threat_na: true,

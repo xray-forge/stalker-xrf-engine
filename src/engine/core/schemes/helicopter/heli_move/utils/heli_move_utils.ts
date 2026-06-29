@@ -2,11 +2,11 @@ import { copyVector, createVector } from "@/engine/core/utils/vector";
 import { TDistance, TRate, Vector } from "@/engine/lib/types";
 
 /**
- * @param position - object position
- * @param velocity - object velocity
- * @param destination - destination to calculate position around
- * @param radius - radius around destination
- * @returns position in radius around required destination
+ * @param position - Object position.
+ * @param velocity - Object velocity.
+ * @param destination - Destination to calculate position around.
+ * @param radius - Radius around destination.
+ * @returns Position in radius around required destination.
  */
 export function calculatePositionInRadius(
   position: Readonly<Vector>,

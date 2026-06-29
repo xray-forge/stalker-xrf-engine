@@ -3,10 +3,10 @@ import { TIndex } from "@/engine/lib/types";
 /**
  * Clamp number to limits.
  *
- * @param value - target number value
- * @param min - minimal bound
- * @param max - maximal bound
- * @returns clamped to provided bounds number
+ * @param value - Target number value.
+ * @param min - Minimal bound.
+ * @param max - Maximal bound.
+ * @returns Clamped to provided bounds number.
  */
 export function clamp(value: number, min: number, max: number): number {
   if (value < min) {
@@ -21,8 +21,8 @@ export function clamp(value: number, min: number, max: number): number {
 /**
  * Round value.
  *
- * @param value - target number to round
- * @returns rounded integer
+ * @param value - Target number to round.
+ * @returns Rounded integer.
  */
 export function round(value: number): number {
   const min: number = math.floor(value);
@@ -34,9 +34,9 @@ export function round(value: number): number {
 /**
  * Round value with precision.
  *
- * @param value - target number to round
- * @param precision - target precision to round
- * @returns rounded integer
+ * @param value - Target number to round.
+ * @param precision - Target precision to round.
+ * @returns Rounded integer.
  */
 export function roundWithPrecision(value: number, precision?: number): number {
   const magnitude: number = Math.pow(10, precision ?? 0);
@@ -47,8 +47,8 @@ export function roundWithPrecision(value: number, precision?: number): number {
 /**
  * Range util for easier lambda iteration over specified number ranges.
  *
- * @param size - size of rage
- * @param startAt - first value in range
+ * @param size - Size of rage.
+ * @param startAt - First value in range.
  */
 export function range(size: number, startAt: number = 0): ReadonlyArray<number> {
   return [...Array(size)].map((it: TIndex, index) => index + startAt);

@@ -9,8 +9,8 @@ import { GameObject, Optional, TName, TNumberId } from "@/engine/lib/types";
  *
  * Note: dead/offline objects are excluded from sync check.
  *
- * @param teamName - optional team name to check for sync state
- * @returns whether all patrol team participants are synchronized
+ * @param teamName - Optional team name to check for sync state.
+ * @returns Whether all patrol team participants are synchronized.
  */
 export function isPatrolTeamSynchronized(teamName: Optional<TName>): boolean {
   if (!teamName) {

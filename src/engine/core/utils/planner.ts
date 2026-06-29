@@ -6,16 +6,16 @@ import { NIL } from "@/engine/lib/constants/words";
 import { ActionPlanner, EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * @param objectId - target object id to check state
- * @returns whether object is currently asleep
+ * @param objectId - Target object id to check state.
+ * @returns Whether object is currently asleep.
  */
 export function isObjectAsleep(objectId: TNumberId): boolean {
   return registry.objects.get(objectId)?.stateManager?.animstate.state.currentState === EStalkerState.SLEEP;
 }
 
 /**
- * @param objectId - target object id to check
- * @returns whether object is wounded.
+ * @param objectId - Target object id to check.
+ * @returns Whether object is wounded.
  */
 export function isObjectWounded(objectId: TNumberId): boolean {
   const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
@@ -29,8 +29,8 @@ export function isObjectWounded(objectId: TNumberId): boolean {
 }
 
 /**
- * @param object - game object to check
- * @returns whether object is meeting with someone.
+ * @param object - Game object to check.
+ * @returns Whether object is meeting with someone.
  */
 export function isObjectMeeting(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();
@@ -41,8 +41,8 @@ export function isObjectMeeting(object: GameObject): boolean {
 /**
  * Check whether provided object is in combat.
  *
- * @param object - game object to check
- * @returns whether object is in combat
+ * @param object - Game object to check.
+ * @returns Whether object is in combat.
  */
 export function isObjectInCombat(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();
@@ -59,8 +59,8 @@ export function isObjectInCombat(object: GameObject): boolean {
 /**
  * Check whether provided object is searching corpse.
  *
- * @param object - game object to check
- * @returns whether object is searching corpse
+ * @param object - Game object to check.
+ * @returns Whether object is searching corpse.
  */
 export function isObjectSearchingCorpse(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();
@@ -71,8 +71,8 @@ export function isObjectSearchingCorpse(object: GameObject): boolean {
 /**
  * Check whether provided object is helping wounded.
  *
- * @param object - game object to check
- * @returns whether object is helping wounded
+ * @param object - Game object to check.
+ * @returns Whether object is helping wounded.
  */
 export function isObjectHelpingWounded(object: GameObject): boolean {
   const planner: ActionPlanner = object.motivation_action_manager();

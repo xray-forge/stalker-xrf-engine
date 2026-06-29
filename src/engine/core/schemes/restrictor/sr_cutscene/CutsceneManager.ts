@@ -21,7 +21,7 @@ import { AnyCallablesModule, GameObject, Optional, TName, TNumberId } from "@/en
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState> {
   public isUiDisabled: boolean = false;
@@ -54,7 +54,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onZoneEnter(): void {
     logger.info("Zone enter: %s", this.object.name());
@@ -88,7 +88,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public selectNextMotion(): void {
     logger.info("Select next cutscene motion");

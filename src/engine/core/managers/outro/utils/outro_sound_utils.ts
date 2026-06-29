@@ -1,7 +1,7 @@
 import { TRate } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function calculateSoundFade(
   factor: TRate,

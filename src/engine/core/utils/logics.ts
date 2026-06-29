@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ActionPlanner, GameObject, Optional } from "@/engine/lib/types";
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function updateStalkerLogic(object: GameObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());

@@ -37,8 +37,8 @@ export class SchemeReachTask extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
-   * todo: generic init method?
+   * Todo: Description.
+   * Todo: generic init method?
    */
   public static setup(object: GameObject): void {
     const planner: ActionPlanner = object.motivation_action_manager();

@@ -24,15 +24,15 @@ export class ActorInventoryMenuManager extends AbstractManager {
   }
 
   /**
-   * @param mode - type of inventory to check
-   * @returns whether current inventory mode matches provided type
+   * @param mode - Type of inventory to check.
+   * @returns Whether current inventory mode matches provided type.
    */
   public isActiveMode(mode: EActorMenuMode): boolean {
     return actorConfig.ACTOR_MENU_MODE === mode;
   }
 
   /**
-   * @param nextMode - mode to set in inventory
+   * @param nextMode - Mode to set in inventory.
    */
   public setActiveMode(nextMode: EActorMenuMode): void {
     if (nextMode === EActorMenuMode.UNDEFINED || nextMode === EActorMenuMode.TALK_DIALOG_HIDE) {
@@ -45,7 +45,7 @@ export class ActorInventoryMenuManager extends AbstractManager {
   /**
    * Open in-game hud menu.
    *
-   * @param mode - menu mode to show
+   * @param mode - Menu mode to show.
    */
   public openActorMenu(mode: EActorMenuMode): void {
     switch (mode) {
@@ -85,38 +85,38 @@ export class ActorInventoryMenuManager extends AbstractManager {
   }
 
   /**
-   * @param item - item game object receiving UI focus
+   * @param item - Item game object receiving UI focus.
    */
   public onItemFocusReceived(item: GameObject): void {
     // logger.info("Actor item focus received: %s", item?.name());
   }
 
   /**
-   * @param item - item game object losing UI focus
+   * @param item - Item game object losing UI focus.
    */
   public onItemFocusLost(item: GameObject): void {
     // logger.info("Actor item focus lost: %s", item?.name());
   }
 
   /**
-   * @param from - game object owner of previous list
-   * @param to - game object owner of next list
-   * @param oldList - type of previous list
-   * @param newList - type of next list
+   * @param from - Game object owner of previous list.
+   * @param to - Game object owner of next list.
+   * @param oldList - Type of previous list.
+   * @param newList - Type of next list.
    */
   public onItemDropped(from: GameObject, to: GameObject, oldList: EActorMenuType, newList: EActorMenuType): void {
     logger.info("Actor menu inventory item dropped: %s %s %s %s", from?.name(), to?.name(), oldList, newList);
   }
 
   /**
-   * @param mode - type of actor menu open
+   * @param mode - Type of actor menu open.
    */
   public onWindowOpen(mode: EActorMenuMode): void {
     logger.info("Actor menu open: %s", EActorMenuMode[mode]);
   }
 
   /**
-   * @param mode - type of actor menu closed
+   * @param mode - Type of actor menu closed.
    */
   public onWindowClosed(mode: EActorMenuMode): void {
     logger.info("Actor menu close: %s", EActorMenuMode[mode]);

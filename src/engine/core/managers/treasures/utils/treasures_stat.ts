@@ -2,7 +2,7 @@ import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig"
 import { TCount } from "@/engine/lib/types";
 
 /**
- * @returns count of all in-game treasures.
+ * @returns Count of all in-game treasures.
  */
 export function getTreasuresCount(): TCount {
   return table.size(treasureConfig.TREASURES);

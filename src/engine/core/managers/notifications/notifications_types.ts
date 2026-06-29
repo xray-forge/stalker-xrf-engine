@@ -61,7 +61,7 @@ export interface IItemRelocatedNotification extends INotification {
 }
 
 /**
- * Money relocated notification
+ * Money relocated notification.
  */
 export interface IMoneyRelocatedNotification extends INotification {
   direction: ENotificationDirection;

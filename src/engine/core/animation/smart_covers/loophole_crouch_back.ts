@@ -3,7 +3,7 @@ import { MX_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { Optional, TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function getCrouchBackLoophole(
   id: TStringId,

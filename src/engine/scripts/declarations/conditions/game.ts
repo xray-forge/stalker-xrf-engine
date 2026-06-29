@@ -11,7 +11,7 @@ import { GameObject, Optional, TCount, TName } from "@/engine/lib/types";
  * Check if provided scheme signal is active.
  *
  * Where:
- * - name - signal name to check
+ * - name - signal name to check.
  */
 extern("xr_conditions.signal", (_: GameObject, object: GameObject, [name]: [TName]): boolean => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -26,7 +26,7 @@ extern("xr_conditions.signal", (_: GameObject, object: GameObject, [name]: [TNam
  *
  * Where:
  * - key - portable store key value
- * - count - number value to check against
+ * - count - number value to check against.
  */
 extern(
   "xr_conditions.counter_greater",
@@ -45,7 +45,7 @@ extern(
  *
  * Where:
  * - key - portable store key value
- * - count - number value to check against
+ * - count - number value to check against.
  */
 extern(
   "xr_conditions.counter_equal",

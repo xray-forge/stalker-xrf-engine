@@ -8,7 +8,7 @@ import { AnyObject, LuaArray, Optional, TName, TPath } from "@/engine/lib/types"
  * Get list of possible extension modules.
  * Finds entry-points and validates them for further execution.
  *
- * @returns list of possible extensions descriptors
+ * @returns List of possible extensions descriptors.
  */
 export function getAvailableExtensions(): LuaArray<IExtensionsDescriptor> {
   const fs: FS = getFS();

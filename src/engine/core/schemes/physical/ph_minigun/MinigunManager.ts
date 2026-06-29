@@ -25,7 +25,7 @@ import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Car, GameObject, Optional, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public mgun: Car;
@@ -207,14 +207,14 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     this.checkFireTime();
   }
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setShooting(shooting: number): void {
     this.mgun.Action(CCar.eWpnFire, shooting);
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public checkFireTime(): void {
     if (this.state.fireRep === -1) {
@@ -239,12 +239,12 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public save(): void {}
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public rotToFiredir(direction: Optional<Vector>): void {
     if (direction) {
@@ -253,7 +253,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public rotToFirepoint(pt: Optional<Vector>): void {
     if (pt) {
@@ -262,7 +262,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public fastcall(): boolean {
     if (isActiveSection(this.object, this.state.section)) {
@@ -275,7 +275,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public fastUpdate(): boolean {
     if (this.mgun.GetfHealth() <= 0) {
@@ -428,7 +428,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public destroyCar(): void {
     this.stateCannon = EMinigunCannonState.NONE;
@@ -447,7 +447,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getAngleXZ(object: GameObject, position: Vector, direction: Vector): number {
     const dir1: Vector = direction;

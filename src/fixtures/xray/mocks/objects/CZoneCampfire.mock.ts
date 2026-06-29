@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 import type { CZoneCampfire } from "xray16";
 
 /**
- * Mock campfire game object
+ * Mock campfire game object.
  */
 export class MockCZoneCampfire {
   public static mock(state: boolean): CZoneCampfire {

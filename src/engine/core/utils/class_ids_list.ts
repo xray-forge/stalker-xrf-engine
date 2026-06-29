@@ -10,9 +10,9 @@ import type { TClassId } from "@/engine/lib/types";
  * Main reasons to store class IDs:
  *  - class IDs are dynamic
  *  - assigning of class IDs happen when game register scripts execute
- *  - to minimize engine access with short class IDs checks it is better to be initialized and stored once
+ *  - to minimize engine access with short class IDs checks it is better to be initialized and stored once.
  *
- * @returns grouped sets of class identifiers
+ * @returns Grouped sets of class identifiers.
  */
 export function createClassIds(): IClassIdsGrouped {
   if (clsid === null) {
@@ -35,7 +35,7 @@ export function createClassIds(): IClassIdsGrouped {
 /**
  * Synchronize and update current class identifiers list.
  *
- * @param target - memoized class identifiers sets to synchronize with game engine
+ * @param target - Memoized class identifiers sets to synchronize with game engine.
  */
 export function updateClassIds(target: IClassIdsGrouped): void {
   target.artefact = createArtefactClassIds();
@@ -45,7 +45,7 @@ export function updateClassIds(target: IClassIdsGrouped): void {
 }
 
 /**
- * @returns dynamic set of current monster class identifiers
+ * @returns Dynamic set of current monster class identifiers.
  */
 export function createMonsterClassIds(): LuaTable<TClassId, boolean> {
   return $fromObject({
@@ -67,7 +67,7 @@ export function createMonsterClassIds(): LuaTable<TClassId, boolean> {
 }
 
 /**
- * @returns dynamic set of current stalker class identifiers
+ * @returns Dynamic set of current stalker class identifiers.
  */
 export function createStalkerClassIds(): LuaTable<TClassId, boolean> {
   return $fromObject({
@@ -77,7 +77,7 @@ export function createStalkerClassIds(): LuaTable<TClassId, boolean> {
 }
 
 /**
- * @returns dynamic set of current weapon class identifiers
+ * @returns Dynamic set of current weapon class identifiers.
  */
 export function createWeaponClassIds(): LuaTable<TClassId, boolean> {
   return $fromObject({
@@ -135,7 +135,7 @@ export function createWeaponClassIds(): LuaTable<TClassId, boolean> {
 }
 
 /**
- * @returns dynamic set of current artefact class identifiers
+ * @returns Dynamic set of current artefact class identifiers.
  */
 export function createArtefactClassIds(): LuaTable<TClassId, boolean> {
   return $fromObject({

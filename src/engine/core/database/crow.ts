@@ -6,8 +6,8 @@ import { GameObject, TNumberId } from "@/engine/lib/types";
 /**
  * Register crow game object in lua in-memory registry.
  *
- * @param object - client game object to register
- * @returns registry object for provided game object
+ * @param object - Client game object to register.
+ * @returns Registry object for provided game object.
  */
 export function registerCrow(object: GameObject): IRegistryObjectState {
   const objectId: TNumberId = object.id();
@@ -21,7 +21,7 @@ export function registerCrow(object: GameObject): IRegistryObjectState {
 /**
  * Unregister crow game object from lua in-memory registry.
  *
- * @param object - client game object to unregister
+ * @param object - Client game object to unregister.
  */
 export function unregisterCrow(object: GameObject): void {
   const objectId: TNumberId = object.id();

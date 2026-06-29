@@ -25,7 +25,7 @@ import { GameObject, Hit, LuaArray, Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function killAllSurgeUnhiddenAfterActorDeath(): void {
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
@@ -65,7 +65,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
 }
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function killAllSurgeUnhidden(): void {
   logger.info("Kill all surge not unhidden");

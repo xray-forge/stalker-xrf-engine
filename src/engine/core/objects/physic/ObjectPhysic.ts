@@ -11,9 +11,9 @@ import { Optional } from "@/engine/lib/types";
  *
  * Examples:
  * - Static artefacts in scientist bunker
- * - Detectors to place in anomaly by quest
+ * - Detectors to place in anomaly by quest.
  *
- * todo: Rename to PhysicObject to match c++.
+ * Todo: Rename to PhysicObject to match c++.
  */
 @LuabindClass()
 export class ObjectPhysic extends cse_alife_object_physic {

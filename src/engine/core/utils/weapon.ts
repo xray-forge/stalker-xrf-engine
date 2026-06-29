@@ -8,16 +8,16 @@ import { GameObject, Optional, TIndex } from "@/engine/lib/types";
 /**
  * Check whether object is strapping weapon.
  *
- * @param object - game object to check
- * @returns whether strapping/unstrapping weapon is in process
+ * @param object - Game object to check.
+ * @returns Whether strapping/unstrapping weapon is in process.
  */
 export function isObjectStrappingWeapon(object: GameObject): boolean {
   return !(object.weapon_unstrapped() || object.weapon_strapped());
 }
 
 /**
- * @param object - game object to check weapon state for
- * @returns whether object is in locked state for the object
+ * @param object - Game object to check weapon state for.
+ * @returns Whether object is in locked state for the object.
  */
 export function isObjectWeaponLocked(object: GameObject): boolean {
   const bestWeapon: Optional<GameObject> = object.best_weapon();
@@ -43,7 +43,7 @@ export function isObjectWeaponLocked(object: GameObject): boolean {
 /**
  * Force object to get the best weapon and set it to idle state.
  *
- * @param target - game object to force getting best weapon
+ * @param target - Game object to force getting best weapon.
  */
 export function setObjectBestWeapon(target: GameObject): void {
   const bestWeapon: Optional<GameObject> = target.best_weapon();
@@ -56,8 +56,8 @@ export function setObjectBestWeapon(target: GameObject): void {
 /**
  * Get active weapon slot of an object for animating.
  *
- * @param object - game object to check
- * @returns active weapon slot index
+ * @param object - Game object to check.
+ * @returns Active weapon slot index.
  */
 export function getObjectActiveWeaponSlot(object: GameObject): TIndex {
   const weapon: Optional<GameObject> = object.active_item();
@@ -70,7 +70,7 @@ export function getObjectActiveWeaponSlot(object: GameObject): TIndex {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function getWeaponActionForAnimationState(targetState: EStalkerState): TXR_object_action {
   const stateDescriptor: IStateDescriptor = states.get(targetState);
@@ -87,9 +87,9 @@ export function getWeaponActionForAnimationState(targetState: EStalkerState): TX
 }
 
 /**
- * @param object - game object to get weapon from
- * @param targetState - animation state to get weapon for
- * @returns weapon matching desired animation state or null
+ * @param object - Game object to get weapon from.
+ * @param targetState - Animation state to get weapon for.
+ * @returns Weapon matching desired animation state or null.
  */
 export function getObjectWeaponForAnimationState(object: GameObject, targetState: EStalkerState): Optional<GameObject> {
   const weaponSlot: Optional<TIndex> = states.get(targetState).weaponSlot as Optional<TIndex>;

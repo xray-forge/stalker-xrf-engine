@@ -14,7 +14,7 @@ import type {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export interface ICampPoint {
   key: number;

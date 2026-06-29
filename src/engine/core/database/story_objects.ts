@@ -19,7 +19,7 @@ import {
 /**
  * Register story object link based on ini configuration.
  *
- * @param object - server object to register links
+ * @param object - Server object to register links.
  */
 export function registerObjectStoryLinks(object: ServerObject): void {
   const ini: IniFile = object.spawn_ini() as IniFile;
@@ -46,8 +46,8 @@ export function registerObjectStoryLinks(object: ServerObject): void {
 /**
  * Register story links based on object information.
  *
- * @param objectId - game object ID
- * @param storyObjectId - game object story ID
+ * @param objectId - Game object ID.
+ * @param storyObjectId - Game object story ID.
  */
 export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId): void {
   if (registry.storyLink.idBySid.get(storyObjectId) !== null) {
@@ -77,7 +77,7 @@ export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId)
 /**
  * Unregister story object link by provided object ID.
  *
- * @param objectId - game object ID to unregister story links
+ * @param objectId - Game object ID to unregister story links.
  */
 export function unregisterStoryLinkByObjectId(objectId: TNumberId): void {
   if (registry.storyLink.sidById.get(objectId) !== null) {
@@ -89,7 +89,7 @@ export function unregisterStoryLinkByObjectId(objectId: TNumberId): void {
 /**
  * Unregister story object link by provided story ID.
  *
- * @param storyId - story object ID to unregister story links
+ * @param storyId - Story object ID to unregister story links.
  */
 export function unregisterStoryLinkByStoryId(storyId: TStringId): void {
   if (registry.storyLink.idBySid.get(storyId) !== null) {
@@ -101,8 +101,8 @@ export function unregisterStoryLinkByStoryId(storyId: TStringId): void {
 /**
  * Check whether object has story link.
  *
- * @param object - object to check
- * @returns whether provided object has linked story id.
+ * @param object - Object to check.
+ * @returns Whether provided object has linked story id.
  */
 export function isStoryObject(object: AnyGameObject): boolean {
   if (type(object.id) === "function") {
@@ -115,8 +115,8 @@ export function isStoryObject(object: AnyGameObject): boolean {
 /**
  * Check whether story object exists.
  *
- * @param storyId - story ID to check existing
- * @returns whether story object exists
+ * @param storyId - Story ID to check existing.
+ * @returns Whether story object exists.
  */
 export function isStoryObjectExisting(storyId: TStringId): boolean {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
@@ -127,8 +127,8 @@ export function isStoryObjectExisting(storyId: TStringId): boolean {
 /**
  * Get object story ID by provided game object ID.
  *
- * @param objectId - game object ID
- * @returns story object id
+ * @param objectId - Game object ID.
+ * @returns Story object id.
  */
 export function getStoryIdByObjectId(objectId: TNumberId): Optional<TStringId> {
   return registry.storyLink.sidById.get(objectId);
@@ -137,8 +137,8 @@ export function getStoryIdByObjectId(objectId: TNumberId): Optional<TStringId> {
 /**
  * Get game object ID by provided story ID.
  *
- * @param storyId - story ID of the object
- * @returns game object ID
+ * @param storyId - Story ID of the object.
+ * @returns Game object ID.
  */
 export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
   return registry.storyLink.idBySid.get(storyId);
@@ -147,8 +147,8 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
 /**
  * Get server object by provided story ID.
  *
- * @param storyId - story id to search
- * @returns existing server object instance or null
+ * @param storyId - Story id to search.
+ * @returns Existing server object instance or null.
  */
 export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStringId): Optional<T> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId) as Optional<TNumberId>;
@@ -159,8 +159,8 @@ export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStrin
 /**
  * Get game object by provided story ID.
  *
- * @param storyId - story id to search
- * @returns existing game object instance or null
+ * @param storyId - Story id to search.
+ * @returns Existing game object instance or null.
  */
 export function getObjectByStoryId(storyId: TStringId): Optional<GameObject> {
   const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
@@ -178,7 +178,7 @@ export function getObjectByStoryId(storyId: TStringId): Optional<GameObject> {
 }
 
 /**
- * todo;
+ * Todo;
  * todo: Probably remove, is it working at all? Used with heli only.
  */
 export function getIdBySid(sid: TNumberId): Optional<TNumberId> {

@@ -11,7 +11,7 @@ export interface IXrListComponentProps extends IBaseXmlNode {
   canSelect?: boolean;
 }
 /**
- * todo;
+ * Todo.
  */
 export function XrList(props: IXrListComponentProps): JSXNode {
   const {

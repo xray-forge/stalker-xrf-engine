@@ -9,9 +9,9 @@ import { LuaArray, Optional, ServerObject, TCount, TIndex, TNumberId, TRate } fr
  * Evaluates simulation priority by distance.
  * Used as normalizer to pick better tasks based on distance from object.
  *
- * @param first - one of objects to measure priority by distance
- * @param second - one of objects to measure priority by distance
- * @returns priority evaluated by distance
+ * @param first - One of objects to measure priority by distance.
+ * @param second - One of objects to measure priority by distance.
+ * @returns Priority evaluated by distance.
  */
 export function evaluateSimulationPriorityByDistance(first: ServerObject, second: ServerObject): TRate {
   return 1 + 1 / math.max(getServerDistanceBetween(first, second), 1);
@@ -20,9 +20,9 @@ export function evaluateSimulationPriorityByDistance(first: ServerObject, second
 /**
  * Evaluate objects selection priority for alife simulation.
  *
- * @param target - simulation target to evaluate priority for
- * @param squad - squad trying to reach the target
- * @returns alife simulation priority for target selection
+ * @param target - Simulation target to evaluate priority for.
+ * @param squad - Squad trying to reach the target.
+ * @returns Alife simulation priority for target selection.
  */
 export function evaluateSimulationPriority(target: TSimulationObject, squad: Squad): TRate {
   let priority: TRate = 3;
@@ -50,8 +50,8 @@ export function evaluateSimulationPriority(target: TSimulationObject, squad: Squ
  * Get all available simulation targets for an object.
  * Targets are sorted by priority.
  *
- * @param squad - squad to get simulation targets for
- * @returns list of possible simulation targets to pick with priorities
+ * @param squad - Squad to get simulation targets for.
+ * @returns List of possible simulation targets to pick with priorities.
  */
 export function getAvailableSimulationTargets(squad: Squad): LuaArray<IAvailableSimulationTargetDescriptor> {
   const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = new LuaTable();
@@ -74,9 +74,9 @@ export function getAvailableSimulationTargets(squad: Squad): LuaArray<IAvailable
  * Get sliced available simulation targets for an object.
  * Targets are sorted by priority and count / rotation is based on slice parameter.
  *
- * @param squad - squad to get simulation targets for
- * @param slice - number of priority tasks to get
- * @returns list of possible simulation targets to pick with priorities
+ * @param squad - Squad to get simulation targets for.
+ * @param slice - Number of priority tasks to get.
+ * @returns List of possible simulation targets to pick with priorities.
  */
 export function getSlicedSimulationTargets(
   squad: Squad,
@@ -115,8 +115,8 @@ export function getSlicedSimulationTargets(
 /**
  * Get simulation target for squad participating in alife.
  *
- * @param squad - squad to generate simulation target for
- * @returns simulation object to target or null based on priorities
+ * @param squad - Squad to generate simulation target for.
+ * @returns Simulation object to target or null based on priorities.
  */
 export function getSquadSimulationTarget(squad: Squad): Optional<TSimulationObject> {
   const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = getSlicedSimulationTargets(squad, 5);

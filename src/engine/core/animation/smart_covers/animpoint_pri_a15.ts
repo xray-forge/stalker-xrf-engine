@@ -5,7 +5,7 @@ import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/type
 import { Z_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * todo;
+ * Todo.
  */
 export function getSmartCoverAnimpointPriA15(): ISmartCoverDescriptor {
   return {

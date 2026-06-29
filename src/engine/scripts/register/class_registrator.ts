@@ -34,9 +34,9 @@ const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Register game classes and link corresponding c++, lua and ltx matches.
- * Related to xray: src/xrServerEntities/clsid_game.h
+ * Related to xray: src/xrServerEntities/clsid_game.h.
  *
- * @param factory - game engine factory to register game objects links
+ * @param factory - Game engine factory to register game objects links.
  */
 export function registerGameClasses(factory: ObjectFactory): void {
   logger.info("Registering game classes bindings");

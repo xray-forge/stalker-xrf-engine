@@ -26,7 +26,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
   /**
    * Handle received number from modal input.
    *
-   * @param text - input text from the modal sent by player
+   * @param text - Input text from the modal sent by player.
    */
   public onNumberReceive(text: TLabel): void {
     if (this.state.code) {

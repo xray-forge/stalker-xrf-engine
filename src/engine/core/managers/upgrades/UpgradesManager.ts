@@ -44,14 +44,14 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * @param hints - list of hints to set as current upgrading values
+   * @param hints - List of hints to set as current upgrading values.
    */
   public setCurrentHints(hints: Optional<LuaArray<TLabel>>): void {
     upgradesConfig.UPGRADES_HINTS = hints;
   }
 
   /**
-   * @param rate - discount rate [0...1] for current upgrading operations
+   * @param rate - Discount rate [0...1] for current upgrading operations.
    */
   public setCurrentPriceDiscount(rate: TRate): void {
     upgradesConfig.PRICE_DISCOUNT_RATE = rate;
@@ -60,17 +60,17 @@ export class UpgradesManager extends AbstractManager {
   /**
    * Gets repair service payment from the actor.
    *
-   * @param section - section of the item to get price for
-   * @param condition - current condition state of the item object
+   * @param section - Section of the item to get price for.
+   * @param condition - Current condition state of the item object.
    */
   public getRepairItemPayment(section: TSection, condition: TRate): void {
     registry.actor.give_money(-getRepairPrice(section, condition));
   }
 
   /**
-   * @param name - ?
-   * @param section - upgrade section
-   * @param loading - not casted value, whether game is loading
+   * @param name - Unused name value.
+   * @param section - Upgrade section.
+   * @param loading - Not casted value, whether game is loading.
    */
   public getUpgradeItemPayment(name: TName, section: TSection, loading: TNotCastedBoolean): void {
     if (loading === 0) {
@@ -81,9 +81,9 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * @param mechanicName - name of the mechanic
-   * @param possibilities - condition list to switch possibilities logics
-   * @returns label describing upgrade possibilities
+   * @param mechanicName - Name of the mechanic.
+   * @param possibilities - Condition list to switch possibilities logics.
+   * @returns Label describing upgrade possibilities.
    */
   public getPossibilitiesLabel(mechanicName: TName, possibilities: TConditionList): TLabel {
     let hintsLabel: TLabel = "";
@@ -98,9 +98,9 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * @param section - item section to check
-   * @param mechanicName - name of the mechanic to verify
-   * @returns whether mechanic can upgrade item of provided section
+   * @param section - Item section to check.
+   * @param mechanicName - Name of the mechanic to verify.
+   * @returns Whether mechanic can upgrade item of provided section.
    */
   public canUpgradeItem(section: TSection, mechanicName: TName): boolean {
     upgradesConfig.CURRENT_MECHANIC_NAME = mechanicName;
@@ -127,7 +127,7 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getPreconditionFunctorA(name: TName, section: TSection): TItemUpgradeBranch {
     if (STALKER_UPGRADE_INFO.line_exist(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section)) {
@@ -164,7 +164,7 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getPreRequirementsFunctorA(name: TName, section: TSection): TLabel {
     const actor: GameObject = registry.actor;
@@ -206,7 +206,7 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getPropertyFunctorA(data: string, upgrade: TName): TLabel {
     const propertyName: TName = ITEM_UPGRADES.r_string(upgrade, "name");
@@ -263,7 +263,7 @@ export class UpgradesManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

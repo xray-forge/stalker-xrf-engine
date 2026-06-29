@@ -144,7 +144,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
   }
 
   /**
-   * When select different extension in menu
+   * When select different extension in menu.
    */
   public onActiveExtensionChange(): void {
     const activeIndex: TIndex = this.uiItemsList.GetSelectedIndex();

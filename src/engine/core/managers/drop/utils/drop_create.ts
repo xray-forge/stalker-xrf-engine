@@ -10,9 +10,9 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { GameObject, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  *
- * @param object - target object to create release items.
+ * @param object - Target object to create release items.
  */
 export function createCorpseReleaseItems(object: GameObject): void {
   const stalker: Optional<Stalker> = registry.simulator.object<Stalker>(object.id());
@@ -61,7 +61,7 @@ export function createCorpseReleaseItems(object: GameObject): void {
 }
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function checkItemDependentDrops(object: GameObject, section: TSection): boolean {
   if (!dropConfig.ITEMS_DEPENDENCIES.has(section)) {

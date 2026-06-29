@@ -21,8 +21,8 @@ export function getObjectsRelationSafe(from: Optional<GameObject>, to: Optional<
  *
  * Offline squad may be empty.
  *
- * @param squad - target squad to check
- * @returns relation of squad members to actor or squad community relation is squad is empty
+ * @param squad - Target squad to check.
+ * @returns Relation of squad members to actor or squad community relation is squad is empty.
  */
 export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
   const actor: Optional<GameObject> = registry.actor;
@@ -64,7 +64,7 @@ export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
  *
  * Offline squad may be empty.
  *
- * @returns average relation of squad members to actor, `null` if squad is empty
+ * @returns Average relation of squad members to actor, `null` if squad is empty.
  */
 export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation> {
   const actor: Optional<GameObject> = registry.actor;
@@ -105,9 +105,9 @@ export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation
  * Get relation value between communities.
  * Handle possible exceptional cases.
  *
- * @param from - community from
- * @param to - community to
- * @returns goodwill value from community to another one
+ * @param from - Community from.
+ * @param to - Community to.
+ * @returns Goodwill value from community to another one.
  */
 export function getNumberRelationBetweenCommunities(
   from: Optional<TCommunity>,
@@ -123,8 +123,8 @@ export function getNumberRelationBetweenCommunities(
 /**
  * Get community relation type from squad to actor.
  *
- * @param squadStoryId - target squad story id
- * @returns relation type of squad to actor
+ * @param squadStoryId - Target squad story id.
+ * @returns Relation type of squad to actor.
  */
 export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERelation {
   const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
@@ -153,8 +153,8 @@ export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERela
 /**
  * Get squad relation to actor based on config preference or squad/actor community relation.
  *
- * @param squadId - target squad id
- * @returns relation type of squad to actor based on community
+ * @param squadId - Target squad id.
+ * @returns Relation type of squad to actor based on community.
  */
 export function getSquadRelationToActorById(squadId: TNumberId): ERelation {
   const squad: Optional<Squad> = registry.simulator.object<Squad>(squadId);

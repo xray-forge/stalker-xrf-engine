@@ -14,7 +14,7 @@ export function unlockSystemIniOverriding(): void {
  * Override currently active system ini file based on another ini file content.
  * Reads lines of target file and injects sections/fields into system.ini.
  *
- * @param extension - target file to read base data from
+ * @param extension - Target file to read base data from.
  */
 export function overrideSystemIni(extension: IniFile): void {
   extension.section_for_each((it) => {

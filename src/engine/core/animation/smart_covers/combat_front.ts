@@ -10,7 +10,7 @@ import { createVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * todo;
+ * Todo.
  */
 export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
   return {
@@ -535,7 +535,7 @@ export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
         vertex1: "",
         weight: 1.1,
         actions: [
-          /**
+          /*
              ### {
             precondition_functor: "xr_conditions.always",
             precondition_params: "",
@@ -544,9 +544,9 @@ export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
                     animation: "loophole_2_jump_0",
                     position: createVector(-3,0,0),
                     body_state: move.crouch, movement_type: move.run,
-                  },
-                  },
-          },
+                  },.
+                  },.
+          },.
            */
           {
             precondition_functor: "xr_conditions.always",

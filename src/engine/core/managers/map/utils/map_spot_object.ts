@@ -24,10 +24,10 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Update map display for game object.
  *
- * @param object - game object
- * @param scheme - active logic scheme
- * @param state - target object registry state
- * @param section - active logic section
+ * @param object - Game object.
+ * @param scheme - Active logic scheme.
+ * @param state - Target object registry state.
+ * @param section - Active logic section.
  */
 export function updateObjectMapSpot(
   object: GameObject,
@@ -86,7 +86,7 @@ export function updateObjectMapSpot(
 /**
  * Remove object map spot display.
  *
- * @param object - game object
+ * @param object - Game object.
  */
 export function removeObjectMapSpot(object: GameObject): void {
   logger.info("Remove object spot: %s", object.name());

@@ -21,7 +21,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Shown in the sky when surge happens and safe stalker bases are signaling about secure point.
  * Starts with fast signal light animation and then slowly falls after few seconds.
  *
- * Example: check zaton stalker base sky after surge start
+ * Example: check zaton stalker base sky after surge start.
  */
 @LuabindClass()
 export class SignalLightBinder extends object_binder {
@@ -151,7 +151,7 @@ export class SignalLightBinder extends object_binder {
   }
 
   /**
-   * @returns whether signal light is flying right now
+   * @returns Whether signal light is flying right now.
    */
   public isFlying(): boolean {
     return this.startTime !== null;
@@ -161,7 +161,7 @@ export class SignalLightBinder extends object_binder {
    * Start fly animation if it is not started already.
    * Forces light object to fly up with high impact.
    *
-   * @returns whether fly animation was started
+   * @returns Whether fly animation was started.
    */
   public startFly(): boolean {
     if (this.startTime !== null || registry.actor === null) {

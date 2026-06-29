@@ -13,8 +13,8 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * @param squad - target squad to get community for
- * @returns squad community section
+ * @param squad - Target squad to get community for.
+ * @returns Squad community section.
  */
 export function getSquadCommunity(squad: Squad): TCommunity {
   return squadCommunityByBehaviour.get(squad.faction);
@@ -23,8 +23,8 @@ export function getSquadCommunity(squad: Squad): TCommunity {
 /**
  * Returns community of provided object.
  *
- * @param object - game object or server stalker/group
- * @returns object community
+ * @param object - Game object or server stalker/group.
+ * @returns Object community.
  */
 export function getObjectCommunity(object: AnyGameObject): TCommunity {
   if (isStalker(object)) {
@@ -39,10 +39,10 @@ export function getObjectCommunity(object: AnyGameObject): TCommunity {
 /**
  * Change object team/squad/group.
  *
- * @param object - alife server object to change team parameters
- * @param teamId - ??? faction ID ???
- * @param squadId - id of the parent squad, bound to spawning smart
- * @param groupId - id of the level group
+ * @param object - Alife server object to change team parameters.
+ * @param teamId - ??? Faction ID ???
+ * @param squadId - Id of the parent squad, bound to spawning smart.
+ * @param groupId - Id of the level group.
  */
 export function setObjectTeamSquadGroup(
   object: ServerCreatureObject,

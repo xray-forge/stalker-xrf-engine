@@ -6,7 +6,7 @@ import { IMockGameObjectConfig, MockGameObject } from "@/fixtures/xray/mocks/obj
 import { MockAlifeObject } from "@/fixtures/xray/mocks/objects/server";
 
 /**
- * @returns generic object with some items in inventory
+ * @returns Generic object with some items in inventory.
  */
 export function createObjectWithItems(): GameObject {
   return MockGameObject.mock({
@@ -29,8 +29,8 @@ export function createObjectWithItems(): GameObject {
 }
 
 /**
- * @param config - configuration of game object mock
- * @returns tuple with game and server object
+ * @param config - Configuration of game object mock.
+ * @returns Tuple with game and server object.
  */
 export function mockInSimulator(config: IMockGameObjectConfig = {}): [GameObject, ServerObject] {
   const object: MockGameObject = new MockGameObject(config);

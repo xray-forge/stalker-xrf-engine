@@ -12,7 +12,7 @@ export enum EEffectorState {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export enum ESceneState {
   NONE = "",
@@ -46,6 +46,6 @@ export interface ICameraEffectorSetDescriptorItem {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export type TCamEffectorSetDescriptor = Record<EEffectorState, LuaArray<ICameraEffectorSetDescriptorItem>>;

@@ -1,8 +1,8 @@
 import * as path from "node:path";
 
 /**
- * @param directory - target directory to get parent
- * @returns parent folder from provided path
+ * @param directory - Target directory to get parent.
+ * @returns Parent folder from provided path.
  */
 export function getPathParentFolder(directory: string): string {
   // Normalize win32 base to omit disk name from path root.

@@ -76,24 +76,24 @@ export class TaskManager extends AbstractManager {
   }
 
   /**
-   * @param taskId - id of the task to check
-   * @returns if task is active
+   * @param taskId - Id of the task to check.
+   * @returns If task is active.
    */
   public isTaskActive(taskId: TStringId): boolean {
     return taskConfig.ACTIVE_TASKS.has(taskId);
   }
 
   /**
-   * @param taskId - id of the task to check
-   * @returns if task is failed
+   * @param taskId - Id of the task to check.
+   * @returns If task is failed.
    */
   public isTaskFailed(taskId: TStringId): boolean {
     return taskConfig.ACTIVE_TASKS.get(taskId)?.isFailed() === true;
   }
 
   /**
-   * @param taskId - id of the task to check
-   * @returns if task is completed
+   * @param taskId - Id of the task to check.
+   * @returns If task is completed.
    */
   public isTaskCompleted(taskId: TStringId): boolean {
     return taskConfig.ACTIVE_TASKS.get(taskId)?.isCompleted() === true;
@@ -102,7 +102,7 @@ export class TaskManager extends AbstractManager {
   /**
    * Give actor task and put it in the tasks list.
    *
-   * @param taskId - id of the tasks to give for the actor
+   * @param taskId - Id of the tasks to give for the actor.
    */
   public giveTask(taskId: TStringId): void {
     assert(
@@ -119,7 +119,7 @@ export class TaskManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    *
    * Fired from game callback event.
    */
@@ -148,7 +148,7 @@ export class TaskManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

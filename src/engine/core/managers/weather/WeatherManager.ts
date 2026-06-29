@@ -208,7 +208,7 @@ export class WeatherManager extends AbstractManager {
   /**
    * Try to change current weather based on current cycle, period and state.
    *
-   * @param now - whether weather should be changed immediately
+   * @param now - Whether weather should be changed immediately.
    */
   public updateWeather(now?: boolean): void {
     let weatherSection: TSection = pickSectionFromCondList(
@@ -298,7 +298,7 @@ export class WeatherManager extends AbstractManager {
   }
 
   /**
-   * @returns whether current weather section is one of atmosfear options
+   * @returns Whether current weather section is one of atmosfear options.
    */
   public isAtmosfearWeatherActive(): boolean {
     return string.sub(this.weatherSection, 1, 9) === ATMOSFEAR_WEATHER;
@@ -377,7 +377,7 @@ export class WeatherManager extends AbstractManager {
   /**
    * Transform current state into string.
    *
-   * @returns string containing level states, example: `dynamic_default=clear,cloudy;another=cloudy,rainy`
+   * @returns String containing level states, example: `dynamic_default=clear,cloudy;another=cloudy,rainy`.
    */
   public getStateAsString(): string {
     const levelStrings: LuaArray<string> = new LuaTable();
@@ -395,8 +395,8 @@ export class WeatherManager extends AbstractManager {
   /**
    * Get weather changes graph by section name.
    *
-   * @param section - name of the section to parse / read
-   * @returns graph describing provided section
+   * @param section - Name of the section to parse / read.
+   * @returns Graph describing provided section.
    */
   public getGraphBySection(section: TSection): Optional<TWeatherGraph> {
     if (!this.graphs.has(section)) {
@@ -433,7 +433,7 @@ export class WeatherManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

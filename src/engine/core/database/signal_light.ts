@@ -6,8 +6,8 @@ import { registry } from "@/engine/core/database/registry";
 /**
  * Register signal light object.
  *
- * @param binder - binder to register
- * @returns registry object for provided binder
+ * @param binder - Binder to register.
+ * @returns Registry object for provided binder.
  */
 export function registerSignalLight(binder: SignalLightBinder): IRegistryObjectState {
   registry.signalLights.set(binder.object.name(), binder);
@@ -18,7 +18,7 @@ export function registerSignalLight(binder: SignalLightBinder): IRegistryObjectS
 /**
  * Unregister signal light object.
  *
- * @param binder - binder to unregister
+ * @param binder - Binder to unregister.
  */
 export function unregisterSignalLight(binder: SignalLightBinder): void {
   registry.signalLights.delete(binder.object.name());

@@ -1,5 +1,5 @@
 /**
- * todo;
+ * Todo.
  */
 export interface IPsyPostProcessDescriptor {
   intensityBase: number;

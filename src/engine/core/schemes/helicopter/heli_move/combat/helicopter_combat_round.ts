@@ -7,7 +7,7 @@ import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { TTimestamp } from "@/engine/lib/types";
 
 /**
- * @param manager - instance to initialize
+ * @param manager - Instance to initialize.
  */
 export function initializeHelicopterCombatRound(manager: HelicopterCombatManager): void {
   manager.changeDirAt = 0;
@@ -27,8 +27,8 @@ export function initializeHelicopterCombatRound(manager: HelicopterCombatManager
 }
 
 /**
- * @param manager - instance to setup
- * @param direction - direction of flight to setup
+ * @param manager - Instance to setup.
+ * @param direction - Direction of flight to setup.
  */
 export function roundSetupFlight(manager: HelicopterCombatManager, direction: boolean): void {
   manager.centerPos = manager.enemyLastSeenPos!;
@@ -39,8 +39,8 @@ export function roundSetupFlight(manager: HelicopterCombatManager, direction: bo
 }
 
 /**
- * @param manager - instance to initialize
- * @param seeEnemy - whether enemy is seen
+ * @param manager - Instance to initialize.
+ * @param seeEnemy - Whether enemy is seen.
  */
 export function updateHelicopterCombatRoundShooting(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (seeEnemy) {
@@ -60,7 +60,7 @@ export function updateHelicopterCombatRoundShooting(manager: HelicopterCombatMan
 }
 
 /**
- * @param manager - instance to update
+ * @param manager - Instance to update.
  */
 export function updateHelicopterCombatRoundFlight(manager: HelicopterCombatManager): void {
   const now: TTimestamp = time_global();
@@ -82,8 +82,8 @@ export function updateHelicopterCombatRoundFlight(manager: HelicopterCombatManag
 }
 
 /**
- * @param manager - instance to update
- * @param seeEnemy - whether enemy is seen
+ * @param manager - Instance to update.
+ * @param seeEnemy - Whether enemy is seen.
  */
 export function updateHelicopterCombatRound(manager: HelicopterCombatManager, seeEnemy: boolean): void {
   if (!manager.isRoundInitialized) {

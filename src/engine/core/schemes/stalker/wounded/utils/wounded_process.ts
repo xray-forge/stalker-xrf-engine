@@ -8,11 +8,11 @@ import { GameObject, type LuaArray, Optional, TCount, TIndex, TRate, TSection } 
 /**
  * Process object wounded condition lists for HP based on whether actor sees object or not.
  *
- * @param object - target game object to process logics for
- * @param states - list of wounded state breakpoints when object does not see actor
- * @param statesSee - list of wounded state breakpoints when object see actor
- * @param hp - current object health in [0, 100] range
- * @returns multiple values, where first is result of state condition list and second is result of sound condition list
+ * @param object - Target game object to process logics for.
+ * @param states - List of wounded state breakpoints when object does not see actor.
+ * @param statesSee - List of wounded state breakpoints when object see actor.
+ * @param hp - Current object health in [0, 100] range.
+ * @returns Multiple values, where first is result of state condition list and second is result of sound condition list.
  */
 export function processHPWound(
   object: GameObject,
@@ -47,10 +47,10 @@ export function processHPWound(
 /**
  * Process object wounded condition lists for psy HP.
  *
- * @param object - target game object to process logics for
- * @param states - list of wounded state breakpoints
- * @param hp - current object psy health in [0, 100] range
- * @returns multiple values, where first is result of state condition list and second is result of sound condition list
+ * @param object - Target game object to process logics for.
+ * @param states - List of wounded state breakpoints.
+ * @param hp - Current object psy health in [0, 100] range.
+ * @returns Multiple values, where first is result of state condition list and second is result of sound condition list.
  */
 export function processPsyWound(
   object: GameObject,
@@ -82,10 +82,10 @@ export function processPsyWound(
 /**
  * Process object being wound victim condition lists.
  *
- * @param object - target game object to process logics for
- * @param states - list of wounded state breakpoints for victim logics
- * @param hp - current object psy health in [0, 100] range
- * @returns result of victim condition list based on current HP breakpoint
+ * @param object - Target game object to process logics for.
+ * @param states - List of wounded state breakpoints for victim logics.
+ * @param hp - Current object psy health in [0, 100] range.
+ * @returns Result of victim condition list based on current HP breakpoint.
  */
 export function processVictim(object: GameObject, states: LuaArray<IWoundedStateDescriptor>, hp: TRate): string {
   const key: Optional<TIndex> = getStateIndexByHp(states, hp);
@@ -104,10 +104,10 @@ export function processVictim(object: GameObject, states: LuaArray<IWoundedState
 /**
  * Process object fighting logics while wounded.
  *
- * @param object - target game object to process logics for
- * @param states - list of wounded state breakpoints for fighting logics
- * @param hp - current object psy health in [0, 100] range
- * @returns result of fight condition list based on current HP breakpoint
+ * @param object - Target game object to process logics for.
+ * @param states - List of wounded state breakpoints for fighting logics.
+ * @param hp - Current object psy health in [0, 100] range.
+ * @returns Result of fight condition list based on current HP breakpoint.
  */
 export function processFight(object: GameObject, states: LuaArray<IWoundedStateDescriptor>, hp: TRate): string {
   const key: Optional<TIndex> = getStateIndexByHp(states, hp);

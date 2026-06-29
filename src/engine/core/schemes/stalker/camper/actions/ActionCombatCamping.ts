@@ -25,7 +25,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class ActionCombatCamping extends action_base implements ISchemeEventHandler {
@@ -70,7 +70,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public reset(): void {
     setStalkerState(this.object, EStalkerState.PATROL);
@@ -287,7 +287,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public canShoot(): boolean {
     switch (this.state.shoot) {
@@ -317,7 +317,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   }
 
   /**
-   * @returns whether there is any danger
+   * @returns Whether there is any danger.
    */
   public processDanger(): boolean {
     if (!isObjectFacingDanger(this.object)) {
@@ -354,7 +354,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public scan(flag: number): void {
     if (this.state.scanTable!.get(flag) === null) {

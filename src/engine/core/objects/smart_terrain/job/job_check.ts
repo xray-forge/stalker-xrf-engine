@@ -10,10 +10,10 @@ import { AnyObject, TNumberId } from "@/engine/lib/types";
  * Check if object can use job.
  * Validates if it is matching for creature type and job preconditions are met.
  *
- * @param objectJob - descriptor of object job
- * @param terrainJob - descriptor of smart terrain job
- * @param terrain - target smart terrain where job should be processed
- * @returns whether job is available for object
+ * @param objectJob - Descriptor of object job.
+ * @param terrainJob - Descriptor of smart terrain job.
+ * @param terrain - Target smart terrain where job should be processed.
+ * @returns Whether job is available for object.
  */
 export function isJobAvailableToObject(
   objectJob: IObjectJobState,
@@ -46,8 +46,8 @@ export function isJobAvailableToObject(
  * Check if no stalkers are working on smart terrain jobs.
  * If no one is working or only monsters, return true.
  *
- * @param descriptors - list of object job descriptors to check
- * @returns whether no stalkers working on jobs
+ * @param descriptors - List of object job descriptors to check.
+ * @returns Whether no stalkers working on jobs.
  */
 export function areNoStalkersWorkingOnJobs(descriptors: TObjectJobsList): boolean {
   for (const [, descriptor] of descriptors) {

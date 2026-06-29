@@ -18,7 +18,7 @@ export interface ISpawnItemDescriptor {
  * Create list of items for character descriptions.
  * Uses `[spawn]` section as string destination.
  *
- * @returns stringified loadout items list
+ * @returns Stringified loadout items list.
  */
 export function createSpawnList(descriptors: Array<ISpawnItemDescriptor>, lineEnding: string = "\n"): string {
   return descriptors.reduce((acc, it) => {
@@ -59,7 +59,7 @@ export interface ILoadoutItemDescriptor {
  * Create list of items for character descriptions.
  * Uses `[spawn_loadout]` section as string destination.
  *
- * @returns stringified loadout items list
+ * @returns Stringified loadout items list.
  */
 export function createSpawnLoadout(descriptors: Array<ILoadoutItemDescriptor>, lineEnding: string = "\n"): string {
   return descriptors.reduce((acc, it) => {
@@ -89,9 +89,9 @@ export function createSpawnLoadout(descriptors: Array<ILoadoutItemDescriptor>, l
  * Serialize parameter data into loadout string.
  * Format and stringify data to propagate it into c++ engine correctly.
  *
- * @param name - name of the parameter to serialize
- * @param data - value to inject into serialized string
- * @returns raw string part for item field loadout configuration
+ * @param name - Name of the parameter to serialize.
+ * @param data - Value to inject into serialized string.
+ * @returns Raw string part for item field loadout configuration.
  */
 export function createSpawnLoadoutFlag(name: TName, data?: TRate | boolean): string {
   if (data) {

@@ -6,57 +6,57 @@ import { isInTimeInterval } from "@/engine/core/utils/time";
 import { ServerObject } from "@/engine/lib/types";
 
 /**
- * @returns always true
+ * @returns Always true.
  */
 export function simulationPreconditionAlways(): boolean {
   return true;
 }
 
 /**
- * @returns whether surge is active at the moment
+ * @returns Whether surge is active at the moment.
  */
 export function simulationPreconditionSurge(): boolean {
   return surgeConfig.IS_STARTED;
 }
 
 /**
- * @returns whether surge is not active at the moment
+ * @returns Whether surge is not active at the moment.
  */
 export function simulationPreconditionNotSurge(): boolean {
   return !surgeConfig.IS_STARTED;
 }
 
 /**
- * @param squad - target squad to check
- * @param target - squad activity target
- * @returns whether currently day
+ * @param squad - Target squad to check.
+ * @param target - Squad activity target.
+ * @returns Whether currently day.
  */
 export function simulationPreconditionDay(squad: Squad, target: ServerObject): boolean {
   return isInTimeInterval(simulationConfig.ALIFE_DAY_START_HOUR, simulationConfig.ALIFE_DAY_END_HOUR);
 }
 
 /**
- * @param squad - target squad to check
- * @param target - squad activity target
- * @returns whether currently night
+ * @param squad - Target squad to check.
+ * @param target - Squad activity target.
+ * @returns Whether currently night.
  */
 export function simulationPreconditionNight(squad: Squad, target: ServerObject): boolean {
   return isInTimeInterval(simulationConfig.ALIFE_DAY_END_HOUR, simulationConfig.ALIFE_DAY_START_HOUR);
 }
 
 /**
- * @param squad - target squad to check
- * @param target - squad activity target
- * @returns whether target is near squad (based on object vertexes)
+ * @param squad - Target squad to check.
+ * @param target - Squad activity target.
+ * @returns Whether target is near squad (based on object vertexes).
  */
 export function simulationPreconditionNear(squad: Squad, target: ServerObject): boolean {
   return getServerDistanceBetween(squad, target) <= simulationConfig.ALIFE_DISTANCE_NEAR;
 }
 
 /**
- * @param squad - target squad to check
- * @param target - squad activity target
- * @returns whether squad and squad target are near (based on object vertexes), currently day
+ * @param squad - Target squad to check.
+ * @param target - Squad activity target.
+ * @returns Whether squad and squad target are near (based on object vertexes), currently day.
  */
 export function simulationPreconditionNearAndDay(squad: Squad, target: ServerObject): boolean {
   return (
@@ -66,9 +66,9 @@ export function simulationPreconditionNearAndDay(squad: Squad, target: ServerObj
 }
 
 /**
- * @param squad - target squad to check
- * @param target - squad activity target
- * @returns whether squad and squad target are near (based on object vertexes), currently night
+ * @param squad - Target squad to check.
+ * @param target - Squad activity target.
+ * @returns Whether squad and squad target are near (based on object vertexes), currently night.
  */
 export function simulationPreconditionNearAndNight(squad: Squad, target: ServerObject): boolean {
   return (

@@ -1,7 +1,7 @@
 import { LuaArray, TMoveType, TName, TRate, TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo;
  * Note: Used by engine so types are not camelcase.
  */
 export interface ISmartCoverDescriptor {
@@ -30,7 +30,7 @@ export interface ISmartCoverDescriptor {
 }
 
 /**
- * todo;
+ * Todo;
  * Note: Used by engine so types are not camelcase.
  */
 export interface ISmartCoverLoopholeDescriptor {

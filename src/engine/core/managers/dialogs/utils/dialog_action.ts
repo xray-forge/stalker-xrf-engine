@@ -4,7 +4,7 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function processPhraseAction(
   objectId: TNumberId,

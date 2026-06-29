@@ -6,7 +6,7 @@ import { GameObject, IniFile, Optional, TCount, TName, TSection } from "@/engine
  * Setup object visuals based on global section description.
  * Used to copy current actor visual in cutscenes and display same armor/helmet as currently equipped by player.
  *
- * @param object - game object to initialize visuals for
+ * @param object - Game object to initialize visuals for.
  */
 export function setupObjectStalkerVisual(object: GameObject): void {
   const visual: Optional<TName> = readIniString(SYSTEM_INI, object.section(), "set_visual", false);
@@ -19,9 +19,9 @@ export function setupObjectStalkerVisual(object: GameObject): void {
 /**
  * Setup object info portions for game object.
  *
- * @param object - game to object to initialize info portions for
- * @param ini - ini file to read info from
- * @param section - ini file section to read info from
+ * @param object - Game to object to initialize info portions for.
+ * @param ini - Ini file to read info from.
+ * @param section - Ini file section to read info from.
  */
 export function setupObjectInfoPortions(object: GameObject, ini: IniFile, section: Optional<TSection> = null): void {
   section = section === null ? "known_info" : section;

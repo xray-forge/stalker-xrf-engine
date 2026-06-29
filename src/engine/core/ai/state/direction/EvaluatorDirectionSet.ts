@@ -6,7 +6,7 @@ import { areSameVectorsByPrecision, subVectors } from "@/engine/core/utils/vecto
 import { AnyCallable, TSightType, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class EvaluatorDirectionSet extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override evaluate(): boolean {
     const manager: StalkerStateManager = this.stateManager;
@@ -79,7 +79,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onTurnEnd(): void {
     if (this.stateManager.callback?.turnEndCallback) {

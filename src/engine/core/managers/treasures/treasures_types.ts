@@ -2,7 +2,7 @@ import { TConditionList } from "@/engine/core/utils/ini";
 import { LuaArray, Optional, TCount, TNumberId, TProbability, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export interface ITreasureItemsDescriptor {
   count: TCount;
@@ -12,7 +12,7 @@ export interface ITreasureItemsDescriptor {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export interface ITreasureDescriptor {
   given: boolean;

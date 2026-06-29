@@ -18,7 +18,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Debug object inventory items.
  *
- * @param object - game object
+ * @param object - Game object.
  */
 export function logObjectInventoryItems(object: GameObject): void {
   logger.pushSeparator();
@@ -37,7 +37,7 @@ export function logObjectInventoryItems(object: GameObject): void {
 /**
  * Debug action planner state.
  *
- * @param object - game object
+ * @param object - Game object.
  */
 export function logObjectPlannerState(object: GameObject): void {
   logger.pushSeparator();
@@ -102,7 +102,7 @@ export function logObjectPlannerState(object: GameObject): void {
 /**
  * Details about state management of the object.
  *
- * @param object - game object
+ * @param object - Game object.
  */
 export function logObjectStateManager(object: GameObject): void {
   logger.pushSeparator();
@@ -142,7 +142,7 @@ export function logObjectStateManager(object: GameObject): void {
 /**
  * Details about state management of the object.
  *
- * @param object - game object
+ * @param object - Game object.
  */
 export function logObjectRelations(object: GameObject): void {
   logger.pushSeparator();
@@ -187,7 +187,7 @@ export function logObjectRelations(object: GameObject): void {
 /**
  * Log object scheme state for easier debug.
  *
- * @param object - game object
+ * @param object - Game object.
  */
 export function logObjectState(object: GameObject): void {
   logger.pushSeparator();

@@ -10,7 +10,7 @@ export enum EWaypointArrivalType {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export interface IPatrolSuggestedState {
   standing: Optional<EStalkerState>;

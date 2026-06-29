@@ -10,11 +10,11 @@ import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeCombatIgnoreState> {
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onObjectEnemy(object: GameObject, enemy: GameObject): boolean {
     if (enemy.id() === ACTOR_ID) {
@@ -53,7 +53,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override onHit(
     object: GameObject,

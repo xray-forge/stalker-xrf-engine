@@ -100,7 +100,7 @@ extern("xr_effects.anim_obj_stop", (_: GameObject, __: GameObject, doors: Array<
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.hit_obj",
@@ -181,7 +181,7 @@ extern("xr_effects.sniper_fire_mode", (_: GameObject, object: GameObject, parame
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.kill_npc", (_: GameObject, object: Optional<GameObject>, [storyId]: [Optional<TStringId>]): void => {
   if (storyId) {
@@ -194,7 +194,7 @@ extern("xr_effects.kill_npc", (_: GameObject, object: Optional<GameObject>, [sto
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.remove_npc", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]): void => {
   let objectId: Optional<TNumberId> = null;
@@ -216,7 +216,7 @@ extern("xr_effects.clear_abuse", (_: GameObject, object: GameObject): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.disable_combat_handler", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -231,7 +231,7 @@ extern("xr_effects.disable_combat_handler", (_: GameObject, object: GameObject):
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.disable_combat_ignore_handler", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -242,7 +242,7 @@ extern("xr_effects.disable_combat_ignore_handler", (_: GameObject, object: GameO
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.spawn_object",
@@ -296,7 +296,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.destroy_object",
@@ -327,7 +327,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.create_squad",
@@ -337,7 +337,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo;
  * todo: Move member creation to squad / squad util.
  */
 extern(
@@ -404,7 +404,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   if (!storyId) {
@@ -421,7 +421,7 @@ extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TS
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Optional<TStringId>]): void => {
   const storyId: Optional<TStringId> = p[0];
@@ -454,7 +454,7 @@ extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Opti
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.heal_squad",
@@ -486,7 +486,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.clear_smart_terrain",
@@ -518,7 +518,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: LuaArray<TStringId>): void => {
   for (const [, storyId] of params) {
@@ -548,7 +548,7 @@ extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: Lu
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: LuaArray<TStringId>): void => {
   for (const [, storyId] of params) {
@@ -565,7 +565,7 @@ extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: Lu
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.hit_npc",
@@ -608,14 +608,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.restore_health", (_: GameObject, object: GameObject): void => {
   object.health = 1;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.force_obj",
@@ -684,7 +684,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.disable_memory_object", (_: GameObject, object: GameObject): void => {
   const bestEnemy: Optional<GameObject> = object.best_enemy();
@@ -695,7 +695,7 @@ extern("xr_effects.disable_memory_object", (_: GameObject, object: GameObject): 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.set_force_sleep_animation", (_: GameObject, object: GameObject, [duration]: [TDuration]): void => {
   object.force_stand_sleep_animation(tonumber(duration) as TDuration);
@@ -709,7 +709,7 @@ extern("xr_effects.release_force_sleep_animation", (_: GameObject, object: GameO
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.set_visual_memory_enabled", (_: GameObject, object: GameObject, p: [number]): void => {
   if (p && p[0] && tonumber(p[0])! >= 0 && tonumber(p[0])! <= 1) {
@@ -718,7 +718,7 @@ extern("xr_effects.set_visual_memory_enabled", (_: GameObject, object: GameObjec
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.set_monster_animation",
@@ -739,14 +739,14 @@ extern("xr_effects.clear_monster_animation", (_: GameObject, object: GameObject)
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.switch_to_desired_job", (_: GameObject, object: GameObject): void => {
   switchTerrainObjectToDesiredJob(getObjectTerrain(object) as SmartTerrain, object.id());
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.spawn_item_to_npc", (_: GameObject, object: GameObject, [section]: [Optional<TSection>]): void => {
   if (section) {
@@ -761,7 +761,7 @@ extern("xr_effects.spawn_item_to_npc", (_: GameObject, object: GameObject, [sect
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.give_money_to_npc", (_: GameObject, object: GameObject, [money]: [Optional<TCount>]): void => {
   if (money) {
@@ -770,7 +770,7 @@ extern("xr_effects.give_money_to_npc", (_: GameObject, object: GameObject, [mone
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.seize_money_to_npc", (_: GameObject, object: GameObject, p: [Optional<number>]): void => {
   const money: Optional<TCount> = p[0];
@@ -781,14 +781,14 @@ extern("xr_effects.seize_money_to_npc", (_: GameObject, object: GameObject, p: [
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.heli_start_flame", (_: GameObject, object: GameObject): void => {
   object.get_helicopter().StartFlame();
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.heli_die", (_: GameObject, object: GameObject): void => {
   object.get_helicopter().Die();
@@ -796,7 +796,7 @@ extern("xr_effects.heli_die", (_: GameObject, object: GameObject): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Optional<GameObject>, p: [string, string]): void => {
   if ((p && p[0]) === null) {
@@ -820,7 +820,7 @@ extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Optional<Game
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.clear_box", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   logger.info("Clear box");
@@ -857,7 +857,7 @@ extern("xr_effects.polter_actor_ignore", (_: GameObject, object: GameObject, [ig
  *
  * Where:
  * - storyId - story ID of object to toggle torch
- * - state - string value representing next torch state (on, off)
+ * - state - string value representing next torch state (on, off).
  */
 extern(
   "xr_effects.set_torch_state",

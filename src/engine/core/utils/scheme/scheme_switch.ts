@@ -32,8 +32,8 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
  * Lua does not support switch cases so instead of 10+ IFs one callback from mapped object is called.
  * Comparing to original logic where for loop also calls 10+ IFs it is considered optimization.
  *
- * key - scheme condition type
- * value - callback checker+switcher, returns whether switch is activated
+ * Key - scheme condition type
+ * value - callback checker+switcher, returns whether switch is activated.
  */
 const SCHEME_LOGIC_SWITCH: Record<
   ESchemeCondition | typeof NIL,
@@ -93,9 +93,9 @@ const SCHEME_LOGIC_SWITCH: Record<
  * Try switching of active object scheme based on configured logic.
  * Checks object active logics conditions and verifies whether it should stay the same or pick new logics section.
  *
- * @param object - game object to try switching
- * @param state - current scheme state
- * @returns whether switch to another section was successful
+ * @param object - Game object to try switching.
+ * @param state - Current scheme state.
+ * @returns Whether switch to another section was successful.
  */
 export function trySwitchToAnotherSection(object: GameObject, state: IBaseSchemeState): boolean {
   const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
@@ -118,10 +118,10 @@ export function trySwitchToAnotherSection(object: GameObject, state: IBaseScheme
  * Force active scheme to deactivate if it exists and is active - emit deactivation signal and proceed with switch.
  * If new section is invalid or matches active, skip any actions.
  *
- * @param object - object to switch
- * @param ini - object spawn ini
- * @param section - next active section
- * @returns whether scheme switch happened
+ * @param object - Object to switch.
+ * @param ini - Object spawn ini.
+ * @param section - Next active section.
+ * @returns Whether scheme switch happened.
  */
 export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, section: Optional<TSection>): boolean {
   if (section === "" || section === null) {

@@ -11,8 +11,8 @@ import { GameObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/
 /**
  * Check if object has valuable loot.
  *
- * @param object - game object to check
- * @returns whether object has any valuables to loot
+ * @param object - Game object to check.
+ * @returns Whether object has any valuables to loot.
  */
 export function isObjectWithValuableLoot(object: GameObject): boolean {
   let hasValuableLoot: boolean = false;
@@ -32,9 +32,9 @@ export function isObjectWithValuableLoot(object: GameObject): boolean {
 /**
  * Transfer all lootable items from one object to another.
  *
- * @param from - game object to move loot from
- * @param to - game object to move loot to
- * @returns transfered objects lists
+ * @param from - Game object to move loot from.
+ * @param to - Game object to move loot to.
+ * @returns Transfered objects lists.
  */
 export function transferLoot(from: GameObject, to: GameObject): LuaArray<GameObject> {
   const list: LuaArray<GameObject> = new LuaTable();
@@ -52,8 +52,8 @@ export function transferLoot(from: GameObject, to: GameObject): LuaArray<GameObj
 /**
  * Get nearest corpse for game object.
  *
- * @param object - game object to get nearest corpse
- * @returns tuple with object, vertex id, position
+ * @param object - Game object to get nearest corpse.
+ * @returns Tuple with object, vertex id, position.
  */
 export function getNearestCorpseToLoot(
   object: GameObject

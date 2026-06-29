@@ -1,7 +1,7 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * todo;
+ * Todo.
  */
 export function OptionsVideoAdvanced(): JSXNode {
   return (

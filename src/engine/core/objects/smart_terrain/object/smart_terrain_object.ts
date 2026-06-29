@@ -8,9 +8,9 @@ import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { GameGraphVertex, GameObject, Optional, ServerCreatureObject, Vector } from "@/engine/lib/types";
 
 /**
- * @param object - server object to check
- * @param terrain - target smart terrain to check reached state
- * @returns whether object has arrived to the smart terrain
+ * @param object - Server object to check.
+ * @param terrain - Target smart terrain to check reached state.
+ * @returns Whether object has arrived to the smart terrain.
  */
 export function isObjectArrivedToTerrain(object: ServerCreatureObject, terrain: SmartTerrain): boolean {
   // Do squad based checks for object if possible.
@@ -52,8 +52,8 @@ export function isObjectArrivedToTerrain(object: ServerCreatureObject, terrain: 
 }
 
 /**
- * @param squad - squad object to check
- * @returns whether object has arrived to the smart terrain
+ * @param squad - Squad object to check.
+ * @returns Whether object has arrived to the smart terrain.
  */
 export function isSquadArrivedToTerrain(squad: Squad): Optional<boolean> {
   switch (squad.currentAction?.type) {

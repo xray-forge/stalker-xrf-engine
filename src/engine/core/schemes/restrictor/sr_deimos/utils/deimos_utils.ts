@@ -4,10 +4,10 @@ import { EScheme, GameObject, TName, TRate } from "@/engine/lib/types";
 
 /**
  *
- * @param object - restrictor object to check phase for
- * @param bounds - type of deimos phase bounds
- * @param isIncreasing - whether deimos phase direction is increasing or decreasing
- * @returns whether deimos phase is active in restrictor game object
+ * @param object - Restrictor object to check phase for.
+ * @param bounds - Type of deimos phase bounds.
+ * @param isIncreasing - Whether deimos phase direction is increasing or decreasing.
+ * @returns Whether deimos phase is active in restrictor game object.
  */
 export function isDeimosPhaseActive(object: GameObject, bounds: TName, isIncreasing: boolean): boolean {
   const state: IRegistryObjectState = registry.objects.get(object.id());

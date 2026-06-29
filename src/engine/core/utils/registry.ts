@@ -19,9 +19,9 @@ import {
 /**
  * Get nearest to actor server object.
  *
- * @param pattern - callback checker, name checker or class id checker
- * @param searchOffline - should search for offline object or include only online objects
- * @returns list of matching client objects
+ * @param pattern - Callback checker, name checker or class id checker.
+ * @param searchOffline - Should search for offline object or include only online objects.
+ * @returns List of matching client objects.
  */
 export function getNearestServerObject(
   pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
@@ -81,9 +81,9 @@ export function getNearestServerObject(
 /**
  * Get list of server objects by pattern/predicate.
  *
- * @param pattern - callback checker, name checker or class id checker
- * @param searchOffline - should search for offline objects or online state is required
- * @returns list of matching server objects
+ * @param pattern - Callback checker, name checker or class id checker.
+ * @param searchOffline - Should search for offline objects or online state is required.
+ * @returns List of matching server objects.
  */
 export function getServerObjects<T extends ServerObject>(
   pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
@@ -126,8 +126,8 @@ export function getServerObjects<T extends ServerObject>(
 /**
  * Get nearest to actor game object.
  *
- * @param pattern - callback checker, name checker or class id checker
- * @returns list of matching client objects
+ * @param pattern - Callback checker, name checker or class id checker.
+ * @returns List of matching client objects.
  */
 export function getNearestGameObject(
   pattern: Optional<TName | TClassId | ((object: GameObject) => boolean)> = null
@@ -177,8 +177,8 @@ export function getNearestGameObject(
 /**
  * Get list of client objects by pattern/predicate.
  *
- * @param pattern - callback checker, name checker or class id checker
- * @returns list of matching client objects
+ * @param pattern - Callback checker, name checker or class id checker.
+ * @returns List of matching client objects.
  */
 export function getGameObjects(
   pattern: Optional<TName | TClassId | ((object: GameObject) => boolean)> = null

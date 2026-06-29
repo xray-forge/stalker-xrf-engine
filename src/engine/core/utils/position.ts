@@ -23,8 +23,8 @@ import {
 /**
  * Get smart terrain linked to object.
  *
- * @param object - server or game object
- * @returns object smart terrain server object or null
+ * @param object - Server or game object.
+ * @returns Object smart terrain server object or null.
  */
 export function getObjectTerrain(object: GameObject | ServerCreatureObject): Optional<SmartTerrain> {
   const simulator: AlifeSimulator = registry.simulator;
@@ -45,9 +45,9 @@ export function getObjectTerrain(object: GameObject | ServerCreatureObject): Opt
 /**
  * Check whether object is in provided smart terrain (name).
  *
- * @param object - game object to check
- * @param terrainName - desired smart terrain to check
- * @returns whether object is assigned to smart terrain with desired name
+ * @param object - Game object to check.
+ * @param terrainName - Desired smart terrain to check.
+ * @returns Whether object is assigned to smart terrain with desired name.
  */
 export function isObjectInSmartTerrain(object: GameObject, terrainName: TName): boolean {
   const terrain: Optional<SmartTerrain> = getObjectTerrain(object);
@@ -58,9 +58,9 @@ export function isObjectInSmartTerrain(object: GameObject, terrainName: TName): 
 /**
  * Check whether object is inside another zone object.
  *
- * @param object - game object to check
- * @param zone - target zone to check
- * @returns whether object is inside zone object.
+ * @param object - Game object to check.
+ * @param zone - Target zone to check.
+ * @returns Whether object is inside zone object.
  */
 export function isObjectInZone(object: Optional<GameObject>, zone: Optional<GameObject>): boolean {
   return object !== null && zone !== null && zone.inside(object.position());
@@ -69,8 +69,8 @@ export function isObjectInZone(object: Optional<GameObject>, zone: Optional<Game
 /**
  * Check whether object is inside silence zone.
  *
- * @param object - game object to check
- * @returns whether object is inside silence zone
+ * @param object - Game object to check.
+ * @returns Whether object is inside silence zone.
  */
 export function isObjectInSilenceZone(object: GameObject): boolean {
   const position: Vector = object.position();
@@ -87,9 +87,9 @@ export function isObjectInSilenceZone(object: GameObject): boolean {
 /**
  * Check whether object is on matching level.
  *
- * @param object - target object to check
- * @param levelName - target level name
- * @returns whether provided object is on a level
+ * @param object - Target object to check.
+ * @param levelName - Target level name.
+ * @returns Whether provided object is on a level.
  */
 export function isObjectOnLevel(object: Optional<ServerObject>, levelName: TName): boolean {
   return (
@@ -101,10 +101,10 @@ export function isObjectOnLevel(object: Optional<ServerObject>, levelName: TName
 /**
  * Check distance between objects.
  *
- * @param first - object distance from
- * @param second - object distance to
- * @param distance - distance in meters
- * @returns whether distance between objects greater or equal
+ * @param first - Object distance from.
+ * @param second - Object distance to.
+ * @param distance - Distance in meters.
+ * @returns Whether distance between objects greater or equal.
  */
 export function isDistanceBetweenObjectsGreaterOrEqual(
   first: GameObject,
@@ -117,10 +117,10 @@ export function isDistanceBetweenObjectsGreaterOrEqual(
 /**
  * Check distance between objects.
  *
- * @param first - object distance from
- * @param second - object distance to
- * @param distance - distance in meters
- * @returns whether distance between objects less or equal
+ * @param first - Object distance from.
+ * @param second - Object distance to.
+ * @param distance - Distance in meters.
+ * @returns Whether distance between objects less or equal.
  */
 export function isDistanceBetweenObjectsLessOrEqual(
   first: GameObject,
@@ -133,9 +133,9 @@ export function isDistanceBetweenObjectsLessOrEqual(
 /**
  * Check whether objects are on same level.
  *
- * @param first - object to compare
- * @param second - object to compare
- * @returns whether objects are on same level
+ * @param first - Object to compare.
+ * @param second - Object to compare.
+ * @returns Whether objects are on same level.
  */
 export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject): boolean {
   const graph: CGameGraph = game_graph();
@@ -147,13 +147,13 @@ export function areObjectsOnSameLevel(first: ServerObject, second: ServerObject)
  * Get distance for objects based on game graphs.
  * Approximately calculates distance for servers that are offline and may be on different levels.
  *
- * todo: Use table memo for storing distance between different static vertexes.
- * todo: Check other implementation to confirm it is worth it.
- * todo: Make it configurable.
+ * Todo: Use table memo for storing distance between different static vertexes.
+ * Todo: Check other implementation to confirm it is worth it.
+ * Todo: Make it configurable.
  *
- * @param first - object to check
- * @param second - object to check
- * @returns graph distance between two objects
+ * @param first - Object to check.
+ * @param second - Object to check.
+ * @returns Graph distance between two objects.
  */
 export function getServerDistanceBetween(first: ServerObject, second: ServerObject): TDistance {
   return graphDistance(first.m_game_vertex_id, second.m_game_vertex_id);
@@ -162,9 +162,9 @@ export function getServerDistanceBetween(first: ServerObject, second: ServerObje
 /**
  * Get distance for objects based on game vectors.
  *
- * @param first - object to check
- * @param second - object to check
- * @returns vector distance between two objects
+ * @param first - Object to check.
+ * @param second - Object to check.
+ * @returns Vector distance between two objects.
  */
 export function getDistanceBetween(first: GameObject, second: GameObject): TDistance {
   return first.position().distance_to(second.position());
@@ -173,9 +173,9 @@ export function getDistanceBetween(first: GameObject, second: GameObject): TDist
 /**
  * Get squared distance for objects based on game vectors.
  *
- * @param first - object to check
- * @param second - object to check
- * @returns squared vector distance between two objects
+ * @param first - Object to check.
+ * @param second - Object to check.
+ * @returns Squared vector distance between two objects.
  */
 export function getDistanceBetweenSqr(first: GameObject, second: GameObject): TDistance {
   return first.position().distance_to_sqr(second.position());
@@ -184,9 +184,9 @@ export function getDistanceBetweenSqr(first: GameObject, second: GameObject): TD
 /**
  * Send object to desired vertex or nearest accessible one.
  *
- * @param object - target object to send
- * @param vertexId - destination vertex id
- * @returns actual vertex id to send object
+ * @param object - Target object to send.
+ * @param vertexId - Destination vertex id.
+ * @returns Actual vertex id to send object.
  */
 export function sendToNearestAccessibleVertex(object: GameObject, vertexId: Optional<TNumberId>): TNumberId {
   if (vertexId === null || vertexId >= MAX_LEVEL_VERTEX_ID) {
@@ -205,8 +205,8 @@ export function sendToNearestAccessibleVertex(object: GameObject, vertexId: Opti
 }
 
 /**
- * @param object - target object to check
- * @returns whether object is in visibility frustum of actor point of view
+ * @param object - Target object to check.
+ * @returns Whether object is in visibility frustum of actor point of view.
  */
 export function isObjectInActorFrustum(object: GameObject): boolean {
   return yawDegree3d(device().cam_dir, object.position().sub(registry.actor.position())) < 35;
@@ -215,9 +215,9 @@ export function isObjectInActorFrustum(object: GameObject): boolean {
 /**
  * Teleport actor to a specified point/direction with corresponding teleportation sound.
  *
- * @param actor - client actor object to teleport
- * @param position - vector destination
- * @param direction - vector direction
+ * @param actor - Client actor object to teleport.
+ * @param position - Vector destination.
+ * @param direction - Vector direction.
  */
 export function teleportActorWithEffects(actor: GameObject, position: Vector, direction: Vector): void {
   actor.set_actor_position(position);
@@ -227,8 +227,8 @@ export function teleportActorWithEffects(actor: GameObject, position: Vector, di
 }
 
 /**
- * @param object - any game object used by the game engine.
- * @returns tuple of object position details: id, gvi, lvi, position.
+ * @param object - Any game object used by the game engine.
+ * @returns Tuple of object position details: id, gvi, lvi, position.
  */
 export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNumberId, TNumberId, TNumberId, Vector]> {
   if (type(object.id) === "number") {
@@ -249,7 +249,7 @@ export function getObjectPositioning(object: AnyGameObject): LuaMultiReturn<[TNu
 }
 
 /**
- * @returns whether actor is inside any no weapon zone
+ * @returns Whether actor is inside any no weapon zone.
  */
 export function isActorInNoWeaponZone(): boolean {
   for (const [, isActive] of registry.noWeaponZones) {

@@ -166,7 +166,7 @@ export class DebugGeneralSection extends AbstractDebugSection {
   }
 
   /**
-   * @returns label to display used RAM
+   * @returns Label to display used RAM.
    */
   public getUsedMemoryLabel(): string {
     return string.format("RAM: %.03f MB", getManager(ProfilingManager).getLuaMemoryUsed() / 1_024);

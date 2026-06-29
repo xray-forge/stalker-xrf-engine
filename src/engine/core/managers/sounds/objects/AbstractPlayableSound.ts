@@ -15,7 +15,7 @@ import {
 import { TSection } from "@/engine/lib/types/scheme";
 
 /**
- * todo;
+ * Todo.
  */
 export abstract class AbstractPlayableSound {
   public abstract readonly type: EPlayableSound;
@@ -31,14 +31,14 @@ export abstract class AbstractPlayableSound {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isPlaying(...args: AnyArgs): boolean {
     return this.soundObject === null ? false : this.soundObject.playing();
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public stop(...args: AnyArgs): void {
     if (this.soundObject) {
@@ -47,7 +47,7 @@ export abstract class AbstractPlayableSound {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setVolume(level: TRate): void {
     if (this.soundObject) {
@@ -56,37 +56,37 @@ export abstract class AbstractPlayableSound {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public abstract play(...args: AnyArgs): boolean;
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public reset(...args: AnyArgs): void {}
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onSoundPlayEnded(objectId: TNumberId): void {}
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public save(packet: NetPacket): void {}
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public load(reader: NetProcessor): void {}
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public saveObject(packet: NetPacket, object: GameObject): void {}
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public loadObject(processor: NetProcessor, object: GameObject): void {}
 }

@@ -16,8 +16,8 @@ export class EventsManager extends AbstractTimersManager {
   /**
    * Emit event directly from class statics for simplicity.
    *
-   * @param event - event type to emit
-   * @param data - event parameters
+   * @param event - Event type to emit.
+   * @param data - Event parameters.
    */
   public static emitEvent<T>(event: EGameEvent, data: T): void;
   public static emitEvent(event: EGameEvent, ...data: AnyArgs): void;
@@ -38,9 +38,9 @@ export class EventsManager extends AbstractTimersManager {
    * Register callback and subscribe to event.
    * Context parameter is needed to do a proper call of listeners.
    *
-   * @param event - type of event to register callback
-   * @param callback - callback to register for event
-   * @param context to call callback at
+   * @param event - Type of event to register callback.
+   * @param callback - Callback to register for event.
+   * @param context To call callback at.
    */
   public registerCallback<T extends AnyObject>(event: EGameEvent, callback: AnyContextualCallable<T>, context: T): void;
   public registerCallback(event: EGameEvent, callback: AnyCallable): void;
@@ -56,8 +56,8 @@ export class EventsManager extends AbstractTimersManager {
   /**
    * Unregister provided callback from event.
    *
-   * @param event - type of event to unregister callback
-   * @param callback - callback to unregister for event
+   * @param event - Type of event to unregister callback.
+   * @param callback - Callback to unregister for event.
    */
   public unregisterCallback<T>(event: EGameEvent, callback: AnyContextualCallable): void;
   public unregisterCallback<T>(event: EGameEvent, callback: AnyCallable): void {
@@ -68,8 +68,8 @@ export class EventsManager extends AbstractTimersManager {
   /**
    * Emit custom event and trigger all registered callbacks.
    *
-   * @param event - type of event to emit
-   * @param data - arguments for event emit
+   * @param event - Type of event to emit.
+   * @param data - Arguments for event emit.
    */
   public emitEvent<T>(event: EGameEvent, data: T): void;
   public emitEvent(event: EGameEvent, ...data: AnyArgs): void;
@@ -86,7 +86,7 @@ export class EventsManager extends AbstractTimersManager {
   /**
    * Get count of subscribers active in manager.
    *
-   * @returns subscribers to manager count
+   * @returns Subscribers to manager count.
    */
   public getSubscribersCount(): TCount {
     return Object.values(this.callbacks).reduce((acc, it) => {
@@ -97,8 +97,8 @@ export class EventsManager extends AbstractTimersManager {
   /**
    * Get count of subscribers active in manager.
    *
-   * @param event - event to check
-   * @returns count of event subscribers
+   * @param event - Event to check.
+   * @returns Count of event subscribers.
    */
   public getEventSubscribersCount(event: EGameEvent): TCount {
     return this.callbacks[event].length();
@@ -107,7 +107,7 @@ export class EventsManager extends AbstractTimersManager {
   /**
    * Assert provided event type is already registered and can be used in game.
    *
-   * @param event - event to assert declaration in list of callbacks
+   * @param event - Event to assert declaration in list of callbacks.
    */
   public assertEventIsDeclared(event: EGameEvent): void {
     assert(this.callbacks[event], "Callback name '%s' is unknown.", event);

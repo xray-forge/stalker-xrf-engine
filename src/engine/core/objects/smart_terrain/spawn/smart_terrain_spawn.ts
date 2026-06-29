@@ -17,8 +17,8 @@ import { LuaArray, Optional, TCount, Time, TSection } from "@/engine/lib/types";
  * Apply respawn configuration for provided smart terrain.
  * Based on provided section tries to read list of squad sections to get exact targets and count to spawn.
  *
- * @param terrain - target smart terrain to set configuration for
- * @param section - section in smart terrain ini configuration file to read spawn information from
+ * @param terrain - Target smart terrain to set configuration for.
+ * @param section - Section in smart terrain ini configuration file to read spawn information from.
  */
 export function applySmartTerrainRespawnSectionsConfig(terrain: SmartTerrain, section: TSection): void {
   terrain.isRespawnPoint = true;
@@ -77,8 +77,8 @@ export function applySmartTerrainRespawnSectionsConfig(terrain: SmartTerrain, se
  * Respawn random squad section from smart terrain spawn config.
  * Finds random one available to spawn and assigns it to the terrain.
  *
- * @param terrain - target smart terrain to spawn squad in
- * @returns spawned squad or null if cannot spawn any
+ * @param terrain - Target smart terrain to spawn squad in.
+ * @returns Spawned squad or null if cannot spawn any.
  */
 export function respawnSmartTerrainSquad(terrain: SmartTerrain): Optional<Squad> {
   // logger.format("Respawn squad in smart: %s", this.name());
@@ -114,8 +114,8 @@ export function respawnSmartTerrainSquad(terrain: SmartTerrain): Optional<Squad>
 }
 
 /**
- * @param terrain - target smart terrain to check spawn availability for
- * @returns whether smart terrain squad spawn operation can be performed
+ * @param terrain - Target smart terrain to check spawn availability for.
+ * @returns Whether smart terrain squad spawn operation can be performed.
  */
 export function canRespawnSmartTerrainSquad(terrain: SmartTerrain): boolean {
   const now: Time = game.get_game_time();

@@ -3,7 +3,7 @@ import { MX_VECTOR } from "@/engine/lib/constants/vectors";
 import { TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function getAnimpointSitHighLoophole(
   id: TStringId,

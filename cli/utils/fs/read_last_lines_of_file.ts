@@ -8,10 +8,10 @@ const NEW_LINE_CHARACTERS: Array<string> = ["\n"];
 /**
  * Read last lines of some text file in a streamed way.
  *
- * @param filePath - full path to read file
- * @param maxLineCount - number of lines to read from EOF
- * @param encoding - encoding to use when reading file as text
- * @returns last lines of text file
+ * @param filePath - Full path to read file.
+ * @param maxLineCount - Number of lines to read from EOF.
+ * @param encoding - Encoding to use when reading file as text.
+ * @returns Last lines of text file.
  */
 export async function readLastLinesOfFile(
   filePath: string,

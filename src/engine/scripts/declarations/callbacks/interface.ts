@@ -88,11 +88,11 @@ extern("actor_menu_inventory", {
   /**
    * Handle drag and drop event in inventory.
    *
-   * @param from - from object in inventory dropped
-   * @param to - to object in inventory dropped
-   * @param oldList - old menu type
-   * @param newList - new menu type
-   * @returns whether drag drop was handled
+   * @param from - From object in inventory dropped.
+   * @param to - To object in inventory dropped.
+   * @param oldList - Old menu type.
+   * @param newList - New menu type.
+   * @returns Whether drag drop was handled.
    */
   CUIActorMenu_OnItemDropped: (
     from: GameObject,
@@ -105,20 +105,20 @@ extern("actor_menu_inventory", {
     return true;
   },
   /**
-   * @param item - item game object receiving focus
+   * @param item - Item game object receiving focus.
    */
   CUIActorMenu_OnItemFocusReceive: (item: GameObject) =>
     getManager(ActorInventoryMenuManager).onItemFocusReceived(item),
   /**
-   * @param item - item game object losing focus
+   * @param item - Item game object losing focus.
    */
   CUIActorMenu_OnItemFocusLost: (item: GameObject) => getManager(ActorInventoryMenuManager).onItemFocusLost(item),
   /**
    * Script utils for logics extending to override availability of some items in NPC trading.
    *
-   * @param owner - item owning game object
-   * @param item - item game object for check
-   * @returns whether item is available for trading
+   * @param owner - Item owning game object.
+   * @param item - Item game object for check.
+   * @returns Whether item is available for trading.
    */
   CInventory_ItemAvailableToTrade: (owner: GameObject, item: GameObject): boolean =>
     getManager(TradeManager).isItemAvailableForTrade(owner, item),

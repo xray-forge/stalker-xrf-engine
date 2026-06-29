@@ -4,9 +4,9 @@ import { registry } from "@/engine/core/database";
 import { GameObject, Optional, TRate } from "@/engine/lib/types";
 
 /**
- * @param helicopter - helicopter object to check
- * @param isInvulnerable - whether object is invulnerable
- * @returns helicopter health
+ * @param helicopter - Helicopter object to check.
+ * @param isInvulnerable - Whether object is invulnerable.
+ * @returns Helicopter health.
  */
 export function getHelicopterHealth(helicopter: CHelicopter, isInvulnerable: Optional<boolean> = null): TRate {
   if (isInvulnerable) {
@@ -27,8 +27,8 @@ export function getHelicopterHealth(helicopter: CHelicopter, isInvulnerable: Opt
 }
 
 /**
- * @param object - game object to check
- * @returns whether helicopter is still alive
+ * @param object - Game object to check.
+ * @returns Whether helicopter is still alive.
  */
 export function isHelicopterAlive(object: GameObject): boolean {
   return getHelicopterHealth(object.get_helicopter(), registry.objects.get(object.id()).invulnerable) > 0.005;

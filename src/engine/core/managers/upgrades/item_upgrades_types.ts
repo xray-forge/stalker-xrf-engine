@@ -1,7 +1,7 @@
 import { LuaArray, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export type TItemUpgradeBranch = 0 | 1 | 2;
 

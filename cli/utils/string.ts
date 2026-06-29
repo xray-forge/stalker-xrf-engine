@@ -1,8 +1,8 @@
 /**
  * Wrap provided string with quotes.
  *
- * @param data - string to wrap
- * @returns quited string
+ * @param data - String to wrap.
+ * @returns Quited string.
  */
 export function quoted(data: string): string {
   return `"${data}"`;

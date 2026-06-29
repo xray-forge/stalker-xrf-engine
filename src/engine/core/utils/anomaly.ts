@@ -5,9 +5,9 @@ import { registry } from "@/engine/core/database";
 import { LuaArray, Optional, Patrol, ServerObject, TIndex, TName, TSection } from "@/engine/lib/types";
 
 /**
- * @param name - name of anomaly zone to check
- * @param section - name of artefact to search in the anomaly
- * @returns whether anomaly has artefact
+ * @param name - Name of anomaly zone to check.
+ * @param section - Name of artefact to search in the anomaly.
+ * @returns Whether anomaly has artefact.
  */
 export function anomalyHasArtefact(name: TName, section: TSection): boolean {
   const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(name);
@@ -28,8 +28,8 @@ export function anomalyHasArtefact(name: TName, section: TSection): boolean {
 }
 
 /**
- * @param name - name of anomaly zone to check
- * @returns list of artefacts in the anomaly
+ * @param name - Name of anomaly zone to check.
+ * @returns List of artefacts in the anomaly.
  */
 export function getAnomalyArtefacts(name: TName): LuaArray<TSection> {
   const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(name);
@@ -51,7 +51,7 @@ export function getAnomalyArtefacts(name: TName): LuaArray<TSection> {
 }
 
 /**
- * @returns list of current layer paths that are not used by existing artefacts
+ * @returns List of current layer paths that are not used by existing artefacts.
  */
 export function getAnomalyFreePaths(anomaly: AnomalyZoneBinder): LuaArray<TSection> {
   const paths: LuaArray<TName> = new LuaTable();
@@ -76,9 +76,9 @@ export function getAnomalyFreePaths(anomaly: AnomalyZoneBinder): LuaArray<TSecti
 /**
  * Spawn artefact in provided anomaly object.
  *
- * @param anomaly - anomaly zone to follow
- * @param artefact - section of artefact to spawn
- * @param pathName - name of patrol to follow in anomaly
+ * @param anomaly - Anomaly zone to follow.
+ * @param artefact - Section of artefact to spawn.
+ * @param pathName - Name of patrol to follow in anomaly.
  */
 export function spawnArtefactInAnomaly(anomaly: AnomalyZoneBinder, artefact: TSection, pathName: TName): ServerObject {
   const path: Patrol = new patrol(pathName);

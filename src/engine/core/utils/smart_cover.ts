@@ -3,7 +3,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GameObject, LuaArray, TName, TTimestamp } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 const stateQueueParameters: LuaTable<TName, LuaArray<number>> = $fromObject<TName, LuaArray<number>>({
   barricade_0_attack: $fromArray([5, 300, 0]),
@@ -17,7 +17,7 @@ const stateQueueParameters: LuaTable<TName, LuaArray<number>> = $fromObject<TNam
 });
 
 /**
- * todo;
+ * Todo.
  */
 export function getObjectSmartCoverStateQueueParams(
   object: GameObject,

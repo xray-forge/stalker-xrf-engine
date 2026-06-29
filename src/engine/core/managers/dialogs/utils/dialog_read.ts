@@ -9,9 +9,9 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { IniFile, Optional, TName, TNumberId, TStringifiedBoolean } from "@/engine/lib/types";
 
 /**
- * @param ini - target file to read descriptors from
- * @param getPhraseId - getter of generic unique phrase ID
- * @returns map of default generic dialogs descriptors for basic categories
+ * @param ini - Target file to read descriptors from.
+ * @param getPhraseId - Getter of generic unique phrase ID.
+ * @returns Map of default generic dialogs descriptors for basic categories.
  */
 export function readIniGenericDialogs(
   ini: IniFile,

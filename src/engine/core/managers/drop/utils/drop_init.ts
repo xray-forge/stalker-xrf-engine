@@ -9,8 +9,8 @@ import type { TLevel } from "@/engine/lib/constants/levels";
 import type { IniFile, LuaArray, TCount, TName, TProbability, TSection, TStringId } from "@/engine/lib/types";
 
 /**
- * @param ini - target ini file to read data from
- * @returns map of drop item sections + chance for game communities
+ * @param ini - Target ini file to read data from.
+ * @returns Map of drop item sections + chance for game communities.
  */
 export function readIniDropByCommunity(ini: IniFile): LuaTable<TCommunity, LuaTable<TInventoryItem, TProbability>> {
   const itemsByCommunity: LuaTable<TCommunity, LuaTable<TInventoryItem, TProbability>> = new LuaTable();
@@ -36,8 +36,8 @@ export function readIniDropByCommunity(ini: IniFile): LuaTable<TCommunity, LuaTa
 }
 
 /**
- * @param ini - target ini file to read data from
- * @returns list of dependencies for each item that should be spawned together
+ * @param ini - Target ini file to read data from.
+ * @returns List of dependencies for each item that should be spawned together.
  */
 export function readIniDropDependentItems(ini: IniFile): LuaTable<TStringId, LuaTable<TStringId, boolean>> {
   const dependencies: LuaTable<TStringId, LuaTable<TStringId, boolean>> = new LuaTable();
@@ -62,8 +62,8 @@ export function readIniDropDependentItems(ini: IniFile): LuaTable<TStringId, Lua
 }
 
 /**
- * @param ini - target ini file to read data from
- * @returns list of item count based on level and difficulty
+ * @param ini - Target ini file to read data from.
+ * @returns List of item count based on level and difficulty.
  */
 export function readIniDropCountByLevel(ini: IniFile): LuaTable<TStringId, IItemDropAmountDescriptor> {
   if (alife() === null) {

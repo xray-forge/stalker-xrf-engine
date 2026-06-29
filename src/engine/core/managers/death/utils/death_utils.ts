@@ -17,8 +17,8 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * @param object - game object to check
- * @returns whether object corpse can be safely released
+ * @param object - Game object to check.
+ * @returns Whether object corpse can be safely released.
  */
 export function canReleaseObjectCorpse(object: GameObject): boolean {
   if (getStoryIdByObjectId(object.id())) {
@@ -39,8 +39,8 @@ export function canReleaseObjectCorpse(object: GameObject): boolean {
 }
 
 /**
- * @param descriptors - list of descriptors to check for release
- * @returns multiple values with descriptor and index of release object
+ * @param descriptors - List of descriptors to check for release.
+ * @returns Multiple values with descriptor and index of release object.
  */
 export function getNearestCorpseToRelease(
   descriptors: LuaArray<IReleaseDescriptor>

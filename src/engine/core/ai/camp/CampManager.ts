@@ -87,8 +87,8 @@ export class CampManager {
   /**
    * Get activity in camp for provided object.
    *
-   * @param objectId - target object id to check and get action / state
-   * @returns tuple with action name and whether object is director
+   * @param objectId - Target object id to check and get action / state.
+   * @returns Tuple with action name and whether object is director.
    */
   public getObjectActivity(objectId: TNumberId): LuaMultiReturn<[Optional<EObjectCampActivity>, Optional<boolean>]> {
     const descriptor: Optional<ICampStateDescriptor> = this.objects.get(objectId) as Optional<ICampStateDescriptor>;
@@ -173,7 +173,7 @@ export class CampManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateNextState(): void {
     const transitions: LuaTable<EObjectCampActivity, TProbability> = campConfig.CAMP_ACTIVITIES.get(
@@ -208,7 +208,7 @@ export class CampManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateActivityDirector(): void {
     if (this.activity === EObjectCampActivity.IDLE) {
@@ -256,7 +256,7 @@ export class CampManager {
   /**
    * Register object in camp and check possible activities for it.
    *
-   * @param objectId - target object id to register
+   * @param objectId - Target object id to register.
    */
   public registerObject(objectId: TNumberId): void {
     logger.info("Register object in camp: %s", objectId);
@@ -285,7 +285,7 @@ export class CampManager {
   /**
    * Unregister object from camp.
    *
-   * @param objectId - target object id to unregister
+   * @param objectId - Target object id to unregister.
    */
   public unregisterObject(objectId: TNumberId): void {
     logger.info("Unregister object from camp: %s", objectId);

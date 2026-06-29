@@ -35,8 +35,8 @@ export class PatrolManager {
   }
 
   /**
-   * @param object - object to register in patrol
-   * @param isCommander - whether object should become patrol commander
+   * @param object - Object to register in patrol.
+   * @param isCommander - Whether object should become patrol commander.
    */
   public registerObject(object: GameObject, isCommander: Optional<boolean> = null): void {
     if (!object.alive() || this.objects.has(object.id())) {
@@ -59,7 +59,7 @@ export class PatrolManager {
   }
 
   /**
-   * @param object - object to unregister from patrol
+   * @param object - Object to unregister from patrol.
    */
   public unregisterObject(object: GameObject): void {
     if (this.objects.has(object.id())) {
@@ -73,7 +73,7 @@ export class PatrolManager {
   }
 
   /**
-   * @param formation - formation type to set in current patrol
+   * @param formation - Formation type to set in current patrol.
    */
   public setFormation(formation: EPatrolFormation): void {
     this.formation = formation;
@@ -126,8 +126,8 @@ export class PatrolManager {
   }
 
   /**
-   * @param object - game object to get target state for
-   * @returns tuple with level vertex id, direction and animation state
+   * @param object - Game object to get target state for.
+   * @returns Tuple with level vertex id, direction and animation state.
    */
   public getFollowerTarget(object: GameObject): LuaMultiReturn<[TNumberId, Vector, EStalkerState]> {
     const objectId: TNumberId = object.id();

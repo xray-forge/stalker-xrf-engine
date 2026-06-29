@@ -4,7 +4,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { TName } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function launchSurgeSignalRockets(): void {
   for (const [, signalLight] of registry.signalLights) {
@@ -17,7 +17,7 @@ export function launchSurgeSignalRockets(): void {
 /**
  * Check whether surge is enabled on the level.
  *
- * @returns whether surge can be started on provided level.
+ * @returns Whether surge can be started on provided level.
  */
 export function isSurgeEnabledOnLevel(levelName: TName): boolean {
   return !surgeConfig.SURGE_DISABLED_LEVELS.get(levelName);
@@ -26,8 +26,8 @@ export function isSurgeEnabledOnLevel(levelName: TName): boolean {
 /**
  * Check whether squad is immune to surge damage.
  *
- * @param object - squad object to check
- * @returns whether provided community squad is immune to surge.
+ * @param object - Squad object to check.
+ * @returns Whether provided community squad is immune to surge.
  */
 export function isImmuneToSurgeSquad(object: Squad): boolean {
   return surgeConfig.IMMUNE_SQUAD_COMMUNITIES.get(object.faction) === true;

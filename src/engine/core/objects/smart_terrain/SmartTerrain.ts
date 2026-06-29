@@ -627,7 +627,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public initializeObjectsAfterLoad(): void {
     logger.info("Initialize objects after load: %s", this.name());
@@ -683,7 +683,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   /**
    * Handle death of smart terrain assigned object.
    *
-   * @param object - dying object assigned to terrain
+   * @param object - Dying object assigned to terrain.
    */
   public onObjectDeath(object: ServerCreatureObject): void {
     logger.info("Clear assigned object on death: %s %s", this.name(), object.name());
@@ -713,7 +713,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isSimulationAvailable(): boolean {
     if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== TRUE) {
@@ -724,9 +724,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * @param squad - squad checking availability of current smart terrain
-   * @param isPopulationDecreaseNeeded - whether population decrease should be estimated with check
-   * @returns whether current smart terrain is valid simulation target for provided squad
+   * @param squad - Squad checking availability of current smart terrain.
+   * @param isPopulationDecreaseNeeded - Whether population decrease should be estimated with check.
+   * @returns Whether current smart terrain is valid simulation target for provided squad.
    */
   public isValidSimulationTarget(squad: Squad, isPopulationDecreaseNeeded?: boolean): boolean {
     if (this.isRespawnOnlySmart) {
@@ -789,14 +789,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getSimulationTask(): CALifeSmartTerrainTask {
     return this.smartTerrainAlifeTask;
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isReachedBySimulationObject(squad: Squad): boolean {
     if (!areObjectsOnSameLevel(squad, this)) {
@@ -814,7 +814,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onSimulationTargetSelected(squad: Squad): void {
     squad.setLocationTypes(this.name());
@@ -827,7 +827,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onSimulationTargetDeselected(squad: Squad): void {
     for (const squadMember of squad.squad_members()) {

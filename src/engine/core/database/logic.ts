@@ -23,8 +23,8 @@ import {
 /**
  * Save game object schemes/logic details.
  *
- * @param object - game object to save logic
- * @param packet - net packet to save login into
+ * @param object - Game object to save logic.
+ * @param packet - Net packet to save login into.
  */
 export function saveObjectLogic(object: GameObject, packet: NetPacket): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -51,8 +51,8 @@ export function saveObjectLogic(object: GameObject, packet: NetPacket): void {
 /**
  * Load game object schemes/logic details.
  *
- * @param object - game object to load logic
- * @param reader - reader to load data from
+ * @param object - Game object to load logic.
+ * @param reader - Reader to load data from.
  */
 export function loadObjectLogic(object: GameObject, reader: NetProcessor): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());

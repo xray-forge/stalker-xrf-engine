@@ -6,7 +6,7 @@ import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
- * todo;
+ * Todo.
  */
 export function create(): JSXNode {
   return (

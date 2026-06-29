@@ -16,14 +16,14 @@ import { GameObject, LuaArray, Optional, TDistance } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * @returns whether actor is in surge cover right now
+ * @returns Whether actor is in surge cover right now.
  */
 export function isActorInSurgeCover(): boolean {
   return getNearestAvailableSurgeCover(registry.actor)?.inside(registry.actor.position()) === true;
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function canSurgeKillSquad(squad: Squad): boolean {
   if (!squad.assignedTerrainId) {
@@ -37,7 +37,7 @@ export function canSurgeKillSquad(squad: Squad): boolean {
 }
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function initializeSurgeCovers(): void {
   const levelName: TLevel = level.name();
@@ -65,7 +65,7 @@ export function initializeSurgeCovers(): void {
 }
 
 /**
- * @returns list of game objects representing possible covers registered online
+ * @returns List of game objects representing possible covers registered online.
  */
 export function getOnlineSurgeCoversList(): LuaArray<GameObject> {
   const covers: LuaArray<GameObject> = new LuaTable();
@@ -82,7 +82,7 @@ export function getOnlineSurgeCoversList(): LuaArray<GameObject> {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function getNearestAvailableSurgeCover(object: GameObject): Optional<GameObject> {
   let nearestCover: Optional<GameObject> = null;
@@ -92,7 +92,7 @@ export function getNearestAvailableSurgeCover(object: GameObject): Optional<Game
    * Check if cover can be actually used and then mark as possible cover.
    * - Alarms
    * - Quest conditions
-   * - Blocked by different conditions
+   * - Blocked by different conditions.
    */
   for (const [, descriptor] of surgeConfig.SURGE_COVERS) {
     const zone: Optional<GameObject> = registry.zones.get(descriptor.name);
@@ -125,7 +125,7 @@ export function getNearestAvailableSurgeCover(object: GameObject): Optional<Game
 /**
  * Get target surge cover ID for actor to navigate to.
  *
- * @returns nearest cover ID if it exists or null if none found / actor in one currently.
+ * @returns Nearest cover ID if it exists or null if none found / actor in one currently.
  */
 export function getActorTargetSurgeCover(): Optional<GameObject> {
   const coverObject: Optional<GameObject> = getNearestAvailableSurgeCover(registry.actor);

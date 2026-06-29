@@ -33,7 +33,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manage persisting dead bodies.
  * Release the most further of them from time to time to keep up with limits.
  *
- * todo: EGameEvent.BEFORE_LEVEL_CHANGE -> call releaseCorpses?
+ * Todo: EGameEvent.BEFORE_LEVEL_CHANGE -> call releaseCorpses?
  */
 export class ReleaseBodyManager extends AbstractManager {
   public override initialize(): void {
@@ -95,7 +95,7 @@ export class ReleaseBodyManager extends AbstractManager {
   /**
    * Register provided object as corpse and try to release other objects that are far from the actor.
    *
-   * @param object - game object to register as corpse
+   * @param object - Game object to register as corpse.
    */
   public registerCorpse(object: GameObject): void {
     // Nothing to do with corpse, is quest related / has quest items.
@@ -156,7 +156,7 @@ export class ReleaseBodyManager extends AbstractManager {
   /**
    * Handle game object death.
    *
-   * @param object - game object facing death event
+   * @param object - Game object facing death event.
    */
   public onStalkerDeath(object: GameObject): void {
     this.registerCorpse(object);
@@ -165,7 +165,7 @@ export class ReleaseBodyManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

@@ -9,7 +9,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Handle save event for provided extension.
  * Save data in registry dynamic storage for future serialization and storing with lua `marshal` lib.
  *
- * @param extension - descriptor of extension to save data for
+ * @param extension - Descriptor of extension to save data for.
  */
 export function saveExtension(extension: IExtensionsDescriptor): void {
   if (extension.module.save) {
@@ -27,7 +27,7 @@ export function saveExtension(extension: IExtensionsDescriptor): void {
  * Handle load event for provided extension.
  * Load data into registry dynamic storage and deserialize it with lua `marshal` lib.
  *
- * @param extension - descriptor of extension to load data for
+ * @param extension - Descriptor of extension to load data for.
  */
 export function loadExtension(extension: IExtensionsDescriptor): void {
   if (extension.module.load) {

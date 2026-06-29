@@ -28,21 +28,21 @@ export class StoryManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setStoryTeller(objectId: Optional<TNumberId>): void {
     this.storyteller = objectId;
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public registerObject(objectId: TNumberId): void {
     table.insert(this.objects, { objectId: objectId });
   }
 
   /**
-   * @returns whether sound story is finished
+   * @returns Whether sound story is finished.
    */
   public isFinished(): boolean {
     return !this.story || this.story.isFinished();
@@ -51,14 +51,14 @@ export class StoryManager {
   /**
    * Set active story sound to play by ID of the story.
    *
-   * @param storyId - id of sound story to play
+   * @param storyId - Id of sound story to play.
    */
   public setActiveStory(storyId: TStringId): void {
     this.story = new SoundStory(storyId);
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public unregisterObject(objectId: TNumberId): void {
     if (this.lastPlayingObjectId === objectId && soundsConfig.playing.get(this.lastPlayingObjectId)) {
@@ -85,7 +85,7 @@ export class StoryManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public update(): void {
     if (this.story === null) {

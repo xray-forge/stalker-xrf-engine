@@ -2,7 +2,7 @@ import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { TCount, TRate, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export interface ISchemeDeimosState extends IBaseSchemeState {
   movementSpeed: TRate;

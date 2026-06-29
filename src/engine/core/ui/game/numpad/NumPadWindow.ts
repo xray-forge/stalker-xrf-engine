@@ -14,7 +14,7 @@ export interface INumPadWindowOwner {
 
 /**
  * Custom window to enter password.
- * Shown to open locks/doors etc. when custom password scheme logics is active.
+ * Shown to open locks/doors etc. When custom password scheme logics is active.
  */
 @LuabindClass()
 export class NumPadWindow extends CUIScriptWnd {
@@ -95,7 +95,7 @@ export class NumPadWindow extends CUIScriptWnd {
   /**
    * Handle input of number value from input window.
    *
-   * @param number - value to add as input
+   * @param number - Value to add as input.
    */
   public addNumber(number: number): void {
     const text: TLabel = this.uiEditBox.TextControl().GetText() ?? "";
@@ -159,8 +159,8 @@ export class NumPadWindow extends CUIScriptWnd {
   /**
    * Handle keyboard events for custom password window.
    *
-   * @param key - key code
-   * @param event - game event
+   * @param key - Key code.
+   * @param event - Game event.
    */
   public override OnKeyboard(key: TKeyCode, event: TUIEvent): boolean {
     super.OnKeyboard(key, event);

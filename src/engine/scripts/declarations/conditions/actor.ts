@@ -80,7 +80,7 @@ extern("xr_conditions.npc_in_actor_frustum", (_: GameObject, object: GameObject)
  * Check whether distance between actor and object is less or equal.
  *
  * Where:
- * - distance - number in metres to check
+ * - distance - number in metres to check.
  */
 extern(
   "xr_conditions.dist_to_actor_le",
@@ -95,7 +95,7 @@ extern(
  * Check whether distance between actor and position is bigger or equal to provided number.
  *
  * Where:
- * - distance - number in metres to check
+ * - distance - number in metres to check.
  */
 extern(
   "xr_conditions.dist_to_actor_ge",
@@ -110,7 +110,7 @@ extern(
  * Check whether actor health is less than provided value.
  *
  * Where:
- * - health - number in from 0 to 1 to check
+ * - health - number in from 0 to 1 to check.
  */
 extern("xr_conditions.actor_health_le", (actor: GameObject, __: GameObject, [health]: [Optional<TRate>]): boolean => {
   return health !== null && actor.health < health;
@@ -120,7 +120,7 @@ extern("xr_conditions.actor_health_le", (actor: GameObject, __: GameObject, [hea
  * Check whether actor is in zone with provided name.
  *
  * Where:
- * - zoneName - name of the zone to check
+ * - zoneName - name of the zone to check.
  */
 extern("xr_conditions.actor_in_zone", (_: GameObject, __: GameObject, [zoneName]: [TName]): boolean => {
   return isObjectInZone(registry.actor, registry.zones.get(zoneName));
@@ -137,7 +137,7 @@ extern("xr_conditions.heli_see_actor", (actor: GameObject, object: GameObject): 
  * Check if actor has specific item in inventory.
  *
  * Where:
- * - section - item section to check
+ * - section - item section to check.
  */
 extern(
   "xr_conditions.actor_has_item",
@@ -151,7 +151,7 @@ extern(
  *
  * Where:
  * - section - item section to check
- * - count - items count to require
+ * - count - items count to require.
  */
 extern(
   "xr_conditions.actor_has_item_count",
@@ -189,7 +189,7 @@ extern("xr_conditions.actor_has_weapon", (actor: GameObject): boolean => {
  * Check if actor has active detector of provided section on belt.
  *
  * Where:
- * - section - detector section to check
+ * - section - detector section to check.
  */
 extern(
   "xr_conditions.actor_active_detector",
@@ -208,7 +208,7 @@ extern(
  * Check whether actor is on level with one of provided names.
  *
  * Where:
- * - levels - variadic list of level names to check
+ * - levels - variadic list of level names to check.
  */
 extern("xr_conditions.actor_on_level", (_: GameObject, __: GameObject, levels: LuaArray<TName>): boolean => {
   const currentLevelName: TName = level.name();
@@ -269,7 +269,7 @@ extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject): bool
 });
 
 /**
- * Check if actor is currently searching dead body
+ * Check if actor is currently searching dead body.
  */
 extern("xr_conditions.dead_body_searching", (): boolean => {
   return actorConfig.ACTOR_MENU_MODE === EActorMenuMode.DEAD_BODY_SEARCH;

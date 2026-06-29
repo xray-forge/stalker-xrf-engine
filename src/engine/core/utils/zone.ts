@@ -9,8 +9,8 @@ import { GameObject, Optional, ServerObject, TRate } from "@/engine/lib/types";
 /**
  * Checks online state of object relatively to no combat zones.
  *
- * @param object - target object to check
- * @returns whether object is in one of defined no combat zones
+ * @param object - Target object to check.
+ * @returns Whether object is in one of defined no combat zones.
  */
 export function isInNoCombatZone(object: ServerObject): boolean {
   for (const [zoneName, terrainName] of registry.noCombatZones) {
@@ -31,8 +31,8 @@ export function isInNoCombatZone(object: ServerObject): boolean {
 /**
  * Checks if squad is assigned to base type smart terrain.
  *
- * @param squad - target squad to check
- * @returns whether the squad is in terrain defined as `base`
+ * @param squad - Target squad to check.
+ * @returns Whether the squad is in terrain defined as `base`.
  */
 export function isInNoWeaponBase(squad: Squad): boolean {
   // todo: Should be u16 max checks?

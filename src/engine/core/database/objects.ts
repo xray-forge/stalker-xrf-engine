@@ -5,8 +5,8 @@ import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
 /**
  * Register game object in lua in-memory registry.
  *
- * @param object - client game object to register
- * @returns registry object for provided game object
+ * @param object - Client game object to register.
+ * @returns Registry object for provided game object.
  */
 export function registerObject(object: GameObject): IRegistryObjectState {
   const stored: Optional<IRegistryObjectState> = registry.objects.get(object.id());
@@ -27,7 +27,7 @@ export function registerObject(object: GameObject): IRegistryObjectState {
 /**
  * Unregister game object from lya in-memory registry.
  *
- * @param object - client game object to unregister
+ * @param object - Client game object to unregister.
  */
 export function unregisterObject(object: GameObject): void {
   registry.objects.delete(object.id());
@@ -37,9 +37,9 @@ export function unregisterObject(object: GameObject): void {
  * Reset object state in registry.
  * Supply partial to override empty state.
  *
- * @param object - client game object to reset state
- * @param state - optional initial state to use for reset
- * @returns new game object state object
+ * @param object - Client game object to reset state.
+ * @param state - Optional initial state to use for reset.
+ * @returns New game object state object.
  */
 export function resetObject(object: GameObject, state: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
   state.object = object;
@@ -52,9 +52,9 @@ export function resetObject(object: GameObject, state: Partial<IRegistryObjectSt
  * Get dynamic state for game object.
  * Dynamic state is persistent and saved in files by lua marshal lib.
  *
- * @param objectId - game object ID
- * @param initialize - whether data should be initialized in case it is null
- * @returns dynamic state of the object
+ * @param objectId - Game object ID.
+ * @param initialize - Whether data should be initialized in case it is null.
+ * @returns Dynamic state of the object.
  */
 export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean): IDynamicObjectState {
   let state: Optional<IDynamicObjectState> = registry.dynamicData.objects.get(objectId);
@@ -70,8 +70,8 @@ export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean)
 /**
  * Register dynamic state for game object.
  *
- * @param objectId - game object ID
- * @returns new initialized dynamic state
+ * @param objectId - Game object ID.
+ * @returns New initialized dynamic state.
  */
 export function registerObjectDynamicState(objectId: TNumberId): IDynamicObjectState {
   const state: IDynamicObjectState = {} as IDynamicObjectState;
@@ -84,7 +84,7 @@ export function registerObjectDynamicState(objectId: TNumberId): IDynamicObjectS
 /**
  * Unregister dynamic state for the object.
  *
- * @param objectId - game object ID
+ * @param objectId - Game object ID.
  */
 export function unregisterObjectDynamicState(objectId: TNumberId): void {
   registry.dynamicData.objects.delete(objectId);

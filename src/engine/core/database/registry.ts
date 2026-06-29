@@ -238,7 +238,7 @@ export const registry = {
   /**
    * Map of no assault zones.
    * - key is name of no assault zone
-   * - value is story name of smart terrain
+   * - value is story name of smart terrain.
    */
   noCombatZones: $fromObject<TName, TStoryName>({
     ["zat_a2_sr_no_assault"]: storyNames.zat_stalker_base_smart,

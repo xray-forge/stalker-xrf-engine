@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * todo: Probably move to xrf book and do not define here.
+ * Todo: Probably move to xrf book and do not define here.
  *
  * DOC ref:
  *
@@ -241,7 +241,7 @@
  * CMD4(CCC_Integer, "hit_anims_tune", &tune_hit_anims, 0, 1);
  * CMD4(CCC_Integer, "ai_dbg_inactive_time", &g_AI_inactive_time, 0, 1000000);
  * CMD_RADIOGROUPMASK2("dbg_ph_ai_always_phmove", &ph_dbg_draw_mask, phDbgAlwaysUseAiPhMove,
- *   "dbg_ph_ai_never_phmove",&ph_dbg_draw_mask, phDbgNeverUseAiPhMove);
+ *   "dbg_ph_ai_never_phmove",&ph_dbg_draw_mask, phDbgNeverUseAiPhMove).
  *
  * #endif // DEBUG
  */
@@ -333,7 +333,7 @@
  * CMD1(CCC_E_Signal, "e_signal");
  * CMD3(CCC_Mask, "rs_clear_bb", &psDeviceFlags, rsClearBB);
  * #endif
- * };
+ * }.
  */
 export const consoleCommands = {
   ai_dbg_alife: "ai_dbg_alife",
@@ -364,7 +364,7 @@ export const consoleCommands = {
    */
   check_for_updates: "check_for_updates",
   /**
-   * todo: ???
+   * Todo: ???
    */
   cl_mpdemosave: "cl_mpdemosave",
   dbg_destroy: "dbg_destroy",
@@ -425,7 +425,7 @@ export const consoleCommands = {
    */
   g_game_difficulty: "g_game_difficulty",
   /**
-   * Debug commands:
+   * Debug commands.
    */
   g_god: "g_god",
   g_unlimitedammo: "g_unlimitedammo",
@@ -461,15 +461,15 @@ export const consoleCommands = {
   slot_2: "slot_2",
   slot_3: "slot_3",
   /**
-   * todo: ???
+   * Todo: ???
    */
   snd_volume_eff: "snd_volume_eff",
   /**
-   * todo: ???
+   * Todo: ???
    */
   snd_volume_music: "snd_volume_music",
   /**
-   * todo: ???
+   * Todo: ???
    */
   start: "start",
   wpn_aim_toggle: "wpn_aim_toggle",

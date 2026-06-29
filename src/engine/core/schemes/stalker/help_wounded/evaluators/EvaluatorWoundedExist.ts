@@ -48,7 +48,7 @@ export class EvaluatorWoundedExist extends property_evaluator {
   }
 
   /**
-   * @returns whether any wounded stalker to heal exists nearby
+   * @returns Whether any wounded stalker to heal exists nearby.
    */
   public hasWoundedToHeal(): boolean {
     const [nearestObject, nearestVertexId, nearestPosition] = getNearestWoundedToHelp(this.object);

@@ -5,7 +5,7 @@ import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/type
 import { MZ_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * todo;
+ * Todo.
  */
 export function getSmartCoverAnimpointSitLow(): ISmartCoverDescriptor {
   return {

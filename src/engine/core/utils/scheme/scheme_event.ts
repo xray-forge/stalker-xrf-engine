@@ -13,9 +13,9 @@ import type {
 /**
  * Emit scheme event for active `actions` list in scheme state.
  *
- * @param state - scheme state for emitting
- * @param event - event type to emit
- * @param rest - event args
+ * @param state - Scheme state for emitting.
+ * @param event - Event type to emit.
+ * @param rest - Event args.
  */
 export function emitSchemeEvent(state: IBaseSchemeState, event: ESchemeEvent, ...rest: AnyArgs): void {
   if (!state || !state.actions) {
@@ -32,8 +32,8 @@ export function emitSchemeEvent(state: IBaseSchemeState, event: ESchemeEvent, ..
 /**
  * Set currently active scheme signal as activated for the object.
  *
- * @param object - object to set signal in state for
- * @param signal - name of the signal to set
+ * @param object - Object to set signal in state for.
+ * @param signal - Name of the signal to set.
  */
 export function setObjectActiveSchemeSignal(object: GameObject, signal: TName): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());

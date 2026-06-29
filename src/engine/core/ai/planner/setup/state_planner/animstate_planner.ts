@@ -9,8 +9,8 @@ import { ActionPlanner } from "@/engine/lib/types";
 /**
  * Setup GOAP logics related to animstate execution of stalkers.
  *
- * @param planner - action planner to configure
- * @param stateManager - target object state manager
+ * @param planner - Action planner to configure.
+ * @param stateManager - Target object state manager.
  */
 export function setupStalkerAnimstateStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
   const animstateStartAction: ActionAnimstateStart = new ActionAnimstateStart(stateManager);

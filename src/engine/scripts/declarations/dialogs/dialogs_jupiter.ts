@@ -56,7 +56,7 @@ logger.info("Resolve and bind dialogs jupiter");
 extern("dialogs_jupiter", {});
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b208_give_reward", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(5000);
@@ -69,7 +69,7 @@ extern("dialogs_jupiter.jup_b208_give_reward", (_: GameObject, __: GameObject): 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jupiter_a9_actor_hasnt_all_mail_items",
@@ -82,7 +82,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_actor_has_all_mail_items", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -95,7 +95,7 @@ extern("dialogs_jupiter.jupiter_a9_actor_has_all_mail_items", (_: GameObject, __
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_actor_has_any_items", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -112,7 +112,7 @@ extern("dialogs_jupiter.jupiter_a9_actor_has_any_items", (_: GameObject, __: Gam
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_actor_has_any_mail_items", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -125,7 +125,7 @@ extern("dialogs_jupiter.jupiter_a9_actor_has_any_mail_items", (_: GameObject, __
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_actor_has_any_secondary_items", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -139,7 +139,7 @@ extern("dialogs_jupiter.jupiter_a9_actor_has_any_secondary_items", (_: GameObjec
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_actor_hasnt_any_mail_items", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -152,63 +152,63 @@ extern("dialogs_jupiter.jupiter_a9_actor_hasnt_any_mail_items", (_: GameObject, 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_delivery", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_evacuation", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_losses", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_meeting", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_delivery", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_evacuation", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_losses", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_meeting", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info",
@@ -220,7 +220,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info",
@@ -232,7 +232,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_losses_info",
@@ -244,7 +244,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info",
@@ -256,7 +256,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jupiter_a9_dolg_leader_jupiter_sell_all_secondary_items",
@@ -313,7 +313,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jupiter_a9_freedom_leader_jupiter_sell_all_secondary_items",
@@ -370,14 +370,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_conservation_info", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_a9_conservation_info) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_conservation_info",
@@ -390,7 +390,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.actor_relocate_conservation_info",
@@ -400,14 +400,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_power_info", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_a9_power_info) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_power_info",
@@ -420,21 +420,21 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_relocate_power_info", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_power_info);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_way_info", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_a9_way_info) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_way_info",
@@ -447,21 +447,21 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_relocate_way_info", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_way_info);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_meeting_info", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_a9_meeting_info) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_meeting_info",
@@ -474,7 +474,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_relocate_meeting_info", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_meeting_info);
@@ -482,14 +482,14 @@ extern("dialogs_jupiter.actor_relocate_meeting_info", (firstSpeaker: GameObject,
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_delivery_info", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_a9_delivery_info) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_delivery_info",
@@ -502,14 +502,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_evacuation_info", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_a9_evacuation_info) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_evacuation_info",
@@ -522,7 +522,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.actor_relocate_evacuation_info",
@@ -533,7 +533,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_relocate_delivery_info", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_delivery_info);
@@ -541,14 +541,14 @@ extern("dialogs_jupiter.actor_relocate_delivery_info", (firstSpeaker: GameObject
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a9_actor_has_losses_info", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_a9_losses_info) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a9_actor_hasnt_losses_info",
@@ -561,7 +561,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_relocate_losses_info", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_a9_losses_info);
@@ -569,28 +569,28 @@ extern("dialogs_jupiter.actor_relocate_losses_info", (firstSpeaker: GameObject, 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_has_plant", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_b206_plant) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_relocate_plant", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b206_plant);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_relocate_trapper_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_wincheaster1300_trapper);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.zat_b106_trapper_reward", (_: GameObject, __: GameObject): void => {
   if (hasInfoPortion(infoPortions.zat_b106_one_hit)) {
@@ -601,7 +601,7 @@ extern("dialogs_jupiter.zat_b106_trapper_reward", (_: GameObject, __: GameObject
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a10_proverka_wpn", (_: GameObject, __: GameObject): boolean => {
   const table = [
@@ -642,14 +642,14 @@ extern("dialogs_jupiter.jup_a10_proverka_wpn", (_: GameObject, __: GameObject): 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a10_proverka_wpn_false", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("jup_a10_proverka_wpn", getExtern("dialogs_jupiter"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a10_actor_has_money", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -662,7 +662,7 @@ extern("dialogs_jupiter.jup_a10_actor_has_money", (_: GameObject, __: GameObject
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a10_actor_has_not_money",
@@ -675,7 +675,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a10_actor_give_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (hasInfoPortion(infoPortions.jup_a10_debt_wo_percent)) {
@@ -688,14 +688,14 @@ extern("dialogs_jupiter.jup_a10_actor_give_money", (firstSpeaker: GameObject, se
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a10_vano_give_money", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(5000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a10_actor_give_outfit_money",
@@ -705,14 +705,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a10_actor_has_outfit_money", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.money() >= 5000;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a10_actor_has_not_outfit_money",
@@ -725,14 +725,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.if_actor_has_jup_b16_oasis_artifact", (firstSpeaker: GameObject, __: GameObject): boolean => {
   return firstSpeaker.object(artefacts.af_oasis_heart) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.if_actor_hasnt_jup_b16_oasis_artifact",
@@ -745,35 +745,35 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_b16_reward", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(7000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.give_jup_b16_oasis_artifact", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_oasis_heart);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_15000_money", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.money() >= 15000;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_actor_do_not_has_15000_money", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.money() < 15000;
 });
 
 /**
- * todo;
+ * Todo.
  */
 const jupA12AfTable: LuaArray<TArtefact> = $fromArray<TArtefact>([
   artefacts.af_fire,
@@ -783,7 +783,7 @@ const jupA12AfTable: LuaArray<TArtefact> = $fromArray<TArtefact>([
 ]);
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefacts", (_: GameObject, __: GameObject): boolean => {
   for (const [k, v] of jupA12AfTable) {
@@ -796,35 +796,35 @@ extern("dialogs_jupiter.jup_a12_actor_has_artefacts", (_: GameObject, __: GameOb
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefact_1", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(jupA12AfTable.get(1)) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefact_2", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(jupA12AfTable.get(2)) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefact_3", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(jupA12AfTable.get(3)) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_actor_has_artefact_4", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(jupA12AfTable.get(4)) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_actor_do_not_has_artefacts", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -839,7 +839,7 @@ extern("dialogs_jupiter.jup_a12_actor_do_not_has_artefacts", (_: GameObject, __:
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a12_transfer_ransom_from_actor",
@@ -868,7 +868,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_a12_transfer_5000_money_to_actor", (_: GameObject, __: GameObject): void => {
   const treasureManager: TreasureManager = getManager(TreasureManager);
@@ -880,7 +880,7 @@ extern("dialogs_jupiter.jup_a12_transfer_5000_money_to_actor", (_: GameObject, _
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a12_transfer_artefact_to_actor",
@@ -897,7 +897,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_a12_transfer_cashier_money_from_actor",
@@ -914,14 +914,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.zat_b30_transfer_detectors", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_elite, 3);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.zat_b30_actor_do_not_has_transfer_items",
@@ -934,7 +934,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.zat_b30_actor_has_transfer_items", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -952,7 +952,7 @@ extern("dialogs_jupiter.zat_b30_actor_has_transfer_items", (_: GameObject, __: G
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b6_scientist_nuclear_physicist_scan_anomaly_precond",
@@ -970,42 +970,42 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b32_task_give_dialog_precond", (_: GameObject, __: GameObject): boolean => {
   return !(hasInfoPortion(infoPortions.jup_b32_task_start) && !hasInfoPortion("jup_b32_task_end"));
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b32_transfer_scanners", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.jup_b32_scanner_device, 3);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b32_transfer_scanners_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.jup_b32_scanner_device, 2);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b32_give_reward_to_actor", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(5000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b209_get_monster_scanner", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b209_monster_scanner", 1);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b209_return_monster_scanner",
@@ -1015,7 +1015,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b32_anomaly_do_not_has_af", (_: GameObject, __: GameObject): boolean => {
   if (hasInfoPortion("jup_b32_anomaly_true")) {
@@ -1070,7 +1070,7 @@ extern("dialogs_jupiter.jup_b32_anomaly_do_not_has_af", (_: GameObject, __: Game
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b207_generic_decrypt_need_dialog_precond",
@@ -1090,14 +1090,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b207_actor_has_dealers_pda", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object("device_pda_zat_b5_dealer") !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b207_sell_dealers_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "device_pda_zat_b5_dealer");
@@ -1106,21 +1106,21 @@ extern("dialogs_jupiter.jup_b207_sell_dealers_pda", (firstSpeaker: GameObject, s
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b207_give_dealers_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "device_pda_zat_b5_dealer");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b207_actor_has_merc_pda_with_contract", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object("jup_b207_merc_pda_with_contract") !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b207_sell_merc_pda_with_contract",
@@ -1134,7 +1134,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b207_transfer_blackmail_reward",
@@ -1144,7 +1144,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b207_transfer_blackmail_reward_for_pda",
@@ -1155,21 +1155,21 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.give_jup_b1_art", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b1_half_artifact");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.if_actor_has_jup_b1_art", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object("jup_b1_half_artifact") !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b1_actor_do_not_have_good_suit",
@@ -1182,14 +1182,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b1_reward_actor", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(6000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_actor_outfit_cs", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -1202,49 +1202,49 @@ extern("dialogs_jupiter.jup_b6_actor_outfit_cs", (_: GameObject, __: GameObject)
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_first_reward_for_actor", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(2500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_second_reward_for_actor", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(2500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_all_reward_for_actor", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(5000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_first_reward_for_actor_extra", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(3500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_second_reward_for_actor_extra", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(3500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_all_reward_for_actor_extra", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(7000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b6_reward_actor_by_detector",
@@ -1254,7 +1254,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b1_actor_have_good_suit", (_: GameObject, __: GameObject): boolean => {
   const suitsList: LuaTable<string, boolean> = $fromObject<string, boolean>({
@@ -1287,14 +1287,14 @@ extern("dialogs_jupiter.jup_b1_actor_have_good_suit", (_: GameObject, __: GameOb
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_actor_can_not_start", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("jup_b6_actor_can_start", getExtern("dialogs_jupiter"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b6_actor_can_start", (_: GameObject, __: GameObject): boolean => {
   if (
@@ -1313,7 +1313,7 @@ extern("dialogs_jupiter.jup_b6_actor_can_start", (_: GameObject, __: GameObject)
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b1_stalker_squad_thanks", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), drugs.medkit_scientic, 3);
@@ -1326,7 +1326,7 @@ extern("dialogs_jupiter.jup_b1_stalker_squad_thanks", (firstSpeaker: GameObject,
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b202_actor_has_medkit", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -1339,7 +1339,7 @@ extern("dialogs_jupiter.jup_b202_actor_has_medkit", (_: GameObject, __: GameObje
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b202_hit_bandit_from_actor",
@@ -1354,7 +1354,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b202_medic_dialog_precondition", (_: GameObject, __: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.jup_b218_gather_squad_complete)) {
@@ -1365,7 +1365,7 @@ extern("dialogs_jupiter.jup_b202_medic_dialog_precondition", (_: GameObject, __:
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b6_stalker_dialog_precond",
@@ -1414,7 +1414,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b217_actor_got_toolkit", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor as GameObject;
@@ -1443,7 +1443,7 @@ extern("dialogs_jupiter.jup_b217_actor_got_toolkit", (_: GameObject, __: GameObj
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jupiter_b200_tech_materials_relocate",
@@ -1488,14 +1488,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.npc_in_b4_smart", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isObjectInSmartTerrain(getNpcSpeaker(firstSpeaker, secondSpeaker), "jup_b4");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b202_transfer_medkit", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
@@ -1510,7 +1510,7 @@ extern("dialogs_jupiter.jup_b202_transfer_medkit", (firstSpeaker: GameObject, se
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_b220_all_hunted", (_: GameObject, __: GameObject): boolean => {
   if (
@@ -1527,7 +1527,7 @@ extern("dialogs_jupiter.jupiter_b220_all_hunted", (_: GameObject, __: GameObject
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_b220_no_one_hunted", (_: GameObject, __: GameObject): boolean => {
   if (
@@ -1562,12 +1562,12 @@ extern("dialogs_jupiter.jupiter_b220_no_one_hunted", (_: GameObject, __: GameObj
 });
 
 /**
- * todo;
+ * Todo.
  */
 const moneyCountTable: LuaArray<TCount> = $fromArray([3000, 2850, 2700, 2550, 2400, 2250, 2100, 1950, 1800, 1650]);
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b9_actor_has_money", (_: GameObject, __: GameObject): boolean => {
   let moneyCount: TCount = 0;
@@ -1582,7 +1582,7 @@ extern("dialogs_jupiter.jup_b9_actor_has_money", (_: GameObject, __: GameObject)
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   let moneyCount: TCount = 0;
@@ -1597,42 +1597,42 @@ extern("dialogs_jupiter.jupiter_b9_relocate_money", (firstSpeaker: GameObject, s
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.give_jup_b9_blackbox", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b9_blackbox);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b9_actor_has_not_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("jup_b9_actor_has_money", getExtern("dialogs_jupiter"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.if_actor_has_jup_b9_blackbox", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_b9_blackbox) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.if_actor_has_af_mincer_meat", (firstSpeaker: GameObject, __: GameObject): boolean => {
   return firstSpeaker.object(artefacts.af_mincer_meat) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.if_actor_has_af_fuzz_kolobok", (firstSpeaker: GameObject, __: GameObject): boolean => {
   return firstSpeaker.object(artefacts.af_fuzz_kolobok) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.actor_has_first_or_second_artefact", (firstSpeaker: GameObject, __: GameObject): boolean => {
   return (
@@ -1641,14 +1641,14 @@ extern("dialogs_jupiter.actor_has_first_or_second_artefact", (firstSpeaker: Game
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.transfer_af_mincer_meat", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_mincer_meat);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b15_dec_counter", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
@@ -1658,7 +1658,7 @@ extern("dialogs_jupiter.jup_b15_dec_counter", (firstSpeaker: GameObject, secondS
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b46_sell_duty_founder_pda", (_: GameObject, __: GameObject): void => {
   if (hasInfoPortion(infoPortions.jup_b46_duty_founder_pda_to_freedom)) {
@@ -1674,7 +1674,7 @@ extern("dialogs_jupiter.jup_b46_sell_duty_founder_pda", (_: GameObject, __: Game
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b46_transfer_duty_founder_pda",
@@ -1686,7 +1686,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b46_sell_duty_founder_pda_to_owl",
@@ -1699,14 +1699,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b46_actor_has_founder_pda", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_b46_duty_founder_pda) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_jupiter_docs_enabled", (_: GameObject, __: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -1739,77 +1739,77 @@ extern("dialogs_jupiter.jup_b47_jupiter_docs_enabled", (_: GameObject, __: GameO
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.transfer_af_fuzz_kolobok", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), "af_fuzz_kolobok");
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.pay_cost_to_guide_to_pripyat", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 5000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b43_actor_has_5000_money", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.money() >= 5000;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b43_actor_do_not_has_5000_money", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.money() < 5000;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b43_reward_for_first_artefact", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(2500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b43_reward_for_second_artefact", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(3500);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b43_reward_for_both_artefacts", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(6000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b218_counter_not_3", (_: GameObject, __: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "jup_b218_squad_members_count", 0 as number) !== 3;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b218_counter_equal_3", (_: GameObject, __: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "jup_b218_squad_members_count", 0 as number) === 3;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b218_counter_not_0", (_: GameObject, __: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "jup_b218_squad_members_count", 0 as number) !== 0;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b25_frase_count_inc", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
@@ -1819,7 +1819,7 @@ extern("dialogs_jupiter.jup_b25_frase_count_inc", (firstSpeaker: GameObject, sec
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b32_anomaly_has_af", (_: GameObject, __: GameObject): boolean => {
   const azTable: LuaArray<string> = $fromArray<string>([
@@ -1867,7 +1867,7 @@ extern("dialogs_jupiter.jup_b32_anomaly_has_af", (_: GameObject, __: GameObject)
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_not_enemies_to_freedom",
@@ -1880,7 +1880,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_enemies_to_freedom",
@@ -1890,7 +1890,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_friend_to_freedom",
@@ -1900,7 +1900,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_neutral_to_freedom",
@@ -1910,7 +1910,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_not_enemies_to_dolg",
@@ -1923,7 +1923,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_enemies_to_dolg",
@@ -1933,7 +1933,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_friend_to_dolg",
@@ -1943,7 +1943,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b4_is_actor_neutral_to_dolg",
@@ -1953,21 +1953,21 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_jupiter_products_info_enabled", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_b47_jupiter_products_info) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_jupiter_products_info_disabled", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_b47_jupiter_products_info) === null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b47_jupiter_products_info_revard",
@@ -1984,14 +1984,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_actor_has_merc_pda", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object("jup_b47_merc_pda") !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b47_actor_has_not_merc_pda",
@@ -2004,7 +2004,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_merc_pda_revard", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.jup_b47_merc_pda);
@@ -2012,7 +2012,7 @@ extern("dialogs_jupiter.jup_b47_merc_pda_revard", (firstSpeaker: GameObject, sec
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_actor_can_take_task", (_: GameObject, __: GameObject): boolean => {
   const a: boolean = hasInfoPortion(infoPortions.jup_b6_task_done) && !hasInfoPortion(infoPortions.jup_b6_task_fail);
@@ -2022,7 +2022,7 @@ extern("dialogs_jupiter.jup_b47_actor_can_take_task", (_: GameObject, __: GameOb
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_employ_squad", (_: GameObject, __: GameObject): boolean => {
   const a: boolean =
@@ -2035,7 +2035,7 @@ extern("dialogs_jupiter.jup_b47_employ_squad", (_: GameObject, __: GameObject): 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_bunker_guard_revard", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(4000);
@@ -2045,21 +2045,21 @@ extern("dialogs_jupiter.jup_b47_bunker_guard_revard", (_: GameObject, __: GameOb
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_gauss_rifle_revard", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(12000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_actor_has_hauss_rifle_docs", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.zat_a23_gauss_rifle_docs) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 // -- Jupiter B10 --------------------------------------------------------------
 extern(
@@ -2070,14 +2070,14 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b10_ufo_memory_give_to_actor", (firstSpeaker: GameObject, __: GameObject): boolean => {
   return firstSpeaker.object(questItems.jup_b10_ufo_memory) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_memory_2_give_to_actor",
@@ -2087,21 +2087,21 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b10_ufo_has_money_1000", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.money() >= 1000;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b10_ufo_has_money_3000", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.money() >= 2000;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_hasnt_money_1000",
@@ -2114,7 +2114,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_hasnt_money_3000",
@@ -2127,7 +2127,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_relocate_money_1000",
@@ -2137,7 +2137,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b10_ufo_relocate_money_3000",
@@ -2147,21 +2147,21 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b10_actor_has_ufo_memory", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_b10_ufo_memory) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b211_kill_bludsuckers_reward", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(3000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.jup_b19_transfer_conserva_to_actor",
@@ -2171,21 +2171,21 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jupiter_b6_sell_halfartefact", (_: GameObject, __: GameObject): void => {
   giveMoneyToActor(2000);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.pri_a15_sokolov_actor_has_note", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(questItems.jup_b205_sokolov_note) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.pri_a15_sokolov_actor_has_not_note",
@@ -2198,7 +2198,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialogs_jupiter.pri_a15_sokolov_actor_give_note",
@@ -2209,35 +2209,35 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_actor_not_enemy_to_freedom", (_: GameObject, __: GameObject): boolean => {
   return !isActorEnemyWithFaction(communities.freedom);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b47_actor_not_enemy_to_dolg", (_: GameObject, __: GameObject): boolean => {
   return !isActorEnemyWithFaction(communities.dolg);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b15_actor_sci_outfit", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(outfits.scientific_outfit) !== null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b15_no_actor_sci_outfit", (_: GameObject, __: GameObject): boolean => {
   return registry.actor.object(outfits.scientific_outfit) === null;
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("dialogs_jupiter.jup_b19_reward", (_: GameObject, __: GameObject): void => {
   TreasureManager.giveTreasureCoordinates("jup_hiding_place_38");

@@ -10,9 +10,9 @@ import { GameObject, Optional, TName, TNumberId, ZoneCampfire } from "@/engine/l
 /**
  * Register smart terrain object.
  *
- * @param object - smart terrain client game object
- * @param terrain - smart terrain server game object
- * @returns object state representation in registry
+ * @param object - Smart terrain client game object.
+ * @param terrain - Smart terrain server game object.
+ * @returns Object state representation in registry.
  */
 export function registerSmartTerrain(object: GameObject, terrain: SmartTerrain): IRegistryObjectState {
   registry.smartTerrains.set(terrain.id, terrain);
@@ -23,8 +23,8 @@ export function registerSmartTerrain(object: GameObject, terrain: SmartTerrain):
 /**
  * Unregister smart terrain object.
  *
- * @param object - smart terrain client game object
- * @param terrain - smart terrain server game object
+ * @param object - Smart terrain client game object.
+ * @param terrain - Smart terrain server game object.
  */
 export function unregisterSmartTerrain(object: GameObject, terrain: SmartTerrain): void {
   unregisterZone(object);
@@ -34,7 +34,7 @@ export function unregisterSmartTerrain(object: GameObject, terrain: SmartTerrain
 /**
  * Register smart cover object.
  *
- * @param smartCover - smart cover server game object
+ * @param smartCover - Smart cover server game object.
  */
 export function registerSmartCover(smartCover: SmartCover): void {
   registry.smartCovers.set(smartCover.name(), smartCover);
@@ -43,7 +43,7 @@ export function registerSmartCover(smartCover: SmartCover): void {
 /**
  * Unregister smart cover object.
  *
- * @param smartCover - smart cover server game object
+ * @param smartCover - Smart cover server game object.
  */
 export function unregisterSmartCover(smartCover: SmartCover): void {
   registry.smartCovers.delete(smartCover.name());
@@ -52,8 +52,8 @@ export function unregisterSmartCover(smartCover: SmartCover): void {
 /**
  * Register smart terrain campfire object.
  *
- * @param terrain - smart terrain object to register for
- * @param object - game object to register as campfire
+ * @param terrain - Smart terrain object to register for.
+ * @param object - Game object to register as campfire.
  */
 export function registerSmartTerrainCampfire(terrain: SmartTerrain, object: GameObject): void {
   const terrainName: TName = terrain.name();
@@ -73,8 +73,8 @@ export function registerSmartTerrainCampfire(terrain: SmartTerrain, object: Game
 /**
  * Unregister smart terrain campfire object.
  *
- * @param terrain - smart terrain object to unregister for
- * @param object - game object to unregister as campfire
+ * @param terrain - Smart terrain object to unregister for.
+ * @param object - Game object to unregister as campfire.
  */
 export function unRegisterSmartTerrainCampfire(terrain: SmartTerrain, object: GameObject): void {
   const terrainName: TName = terrain.name();

@@ -5,7 +5,7 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { Vector } from "@/engine/lib/types";
 
 /**
- * @param manager - instance to initialize
+ * @param manager - Instance to initialize.
  */
 export function initializeHelicopterCombatFlyBy(manager: HelicopterCombatManager): void {
   manager.isFlybyInitialized = true;
@@ -24,7 +24,7 @@ export function initializeHelicopterCombatFlyBy(manager: HelicopterCombatManager
 }
 
 /**
- * @param manager - instance to update
+ * @param manager - Instance to update.
  */
 export function updateHelicopterCombatFlyByFlight(manager: HelicopterCombatManager): void {
   if (manager.wasCallback) {
@@ -81,7 +81,7 @@ export function updateHelicopterCombatFlyByFlight(manager: HelicopterCombatManag
 }
 
 /**
- * @param manager - instance to update
+ * @param manager - Instance to update.
  */
 export function updateHelicopterCombatFlyby(manager: HelicopterCombatManager): void {
   if (!manager.isFlybyInitialized) {

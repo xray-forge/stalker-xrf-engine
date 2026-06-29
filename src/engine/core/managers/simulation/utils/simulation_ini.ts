@@ -12,8 +12,8 @@ const log: LuaLogger = new LuaLogger($filename);
  * Assign simulation group IDs for levels based on data from ini file.
  * Try to assign placeholder IDs if group is not defined in ini file.
  *
- * @param ini - target ini file to read data from
- * @returns map of simulation group IDs by level name
+ * @param ini - Target ini file to read data from.
+ * @returns Map of simulation group IDs by level name.
  */
 export function initializeLevelSimulationGroupIds(ini: IniFile): LuaTable<TName, TNumberId> {
   log.info("Initialize level simulation group IDs from: '%s', %s levels", ini.fname(), table.size(levels));

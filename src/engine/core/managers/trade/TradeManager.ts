@@ -92,7 +92,7 @@ export class TradeManager extends AbstractManager {
   /**
    * Perform trading schemes update for game object instance.
    *
-   * @param object - game object to update trading state
+   * @param object - Game object to update trading state.
    */
   public updateForObject(object: GameObject): void {
     const tradeDescriptor: Optional<ITradeManagerDescriptor> = registry.trade.get(object.id());
@@ -166,8 +166,8 @@ export class TradeManager extends AbstractManager {
   }
 
   /**
-   * @param objectId - target object ID to get buy discount for
-   * @returns discount rate for object ID based on currently active trading section
+   * @param objectId - Target object ID to get buy discount for.
+   * @returns Discount rate for object ID based on currently active trading section.
    */
   public getBuyDiscountForObject(objectId: TNumberId): TRate {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
@@ -187,8 +187,8 @@ export class TradeManager extends AbstractManager {
   }
 
   /**
-   * @param objectId - target object ID to get sell discount for
-   * @returns discount rate for object ID based on currently active trading section
+   * @param objectId - Target object ID to get sell discount for.
+   * @returns Discount rate for object ID based on currently active trading section.
    */
   public getSellDiscountForObject(objectId: TNumberId): TRate {
     const tradeManagerDescriptor: ITradeManagerDescriptor = registry.trade.get(objectId);
@@ -208,9 +208,9 @@ export class TradeManager extends AbstractManager {
   }
 
   /**
-   * @param owner - item owner game object
-   * @param item - target item to check
-   * @returns whether item can be traded (script logics overriding)
+   * @param owner - Item owner game object.
+   * @param item - Target item to check.
+   * @returns Whether item can be traded (script logics overriding).
    */
   public isItemAvailableForTrade(owner: GameObject, item: GameObject): boolean {
     return true;
@@ -219,8 +219,8 @@ export class TradeManager extends AbstractManager {
   /**
    * Save object state in net processor.
    *
-   * @param object - game object to save data for
-   * @param packet - net packet to save data in
+   * @param object - Game object to save data for.
+   * @param packet - Net packet to save data in.
    */
   public saveObjectState(object: GameObject, packet: NetPacket): void {
     const tradeDescriptor: ITradeManagerDescriptor = registry.trade.get(object.id());
@@ -249,8 +249,8 @@ export class TradeManager extends AbstractManager {
   /**
    * Load state for object and store in registry.
    *
-   * @param object - game object to read for
-   * @param reader - net processor to read from
+   * @param object - Game object to read for.
+   * @param reader - Net processor to read from.
    */
   public loadObjectState(object: GameObject, reader: NetProcessor): void {
     openLoadMarker(reader, TradeManager.name);
@@ -297,7 +297,7 @@ export class TradeManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

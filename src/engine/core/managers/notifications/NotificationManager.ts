@@ -55,7 +55,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager for processing of notifications on different game events.
  * Display information about new treasures, quests or items/money operations.
  *
- * todo: Handle notification events from app-level events without direct imports.
+ * Todo: Handle notification events from app-level events without direct imports.
  */
 export class NotificationManager extends AbstractManager {
   public override initialize(): void {
@@ -408,7 +408,7 @@ export class NotificationManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

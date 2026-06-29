@@ -62,7 +62,7 @@ export class SchemeHear extends AbstractScheme {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public static onObjectHearSound(
     object: GameObject,

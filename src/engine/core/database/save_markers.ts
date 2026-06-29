@@ -8,8 +8,8 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Open save marker and verify net packet packet size.
  *
- * @param packet - net packet to save data in
- * @param markerName - net packet transaction marker to verify data integrity
+ * @param packet - Net packet to save data in.
+ * @param markerName - Net packet transaction marker to verify data integrity.
  */
 export function openSaveMarker(packet: NetPacket, markerName: TName): void {
   const packetSize: TCount = packet.w_tell();
@@ -21,9 +21,9 @@ export function openSaveMarker(packet: NetPacket, markerName: TName): void {
 /**
  * Close save marker and verify net packet packet size.
  *
- * @param packet - net packet to save data in
- * @param markerName - net packet transaction marker to verify data integrity
- * @returns marker transaction saving size
+ * @param packet - Net packet to save data in.
+ * @param markerName - Net packet transaction marker to verify data integrity.
+ * @returns Marker transaction saving size.
  */
 export function closeSaveMarker(packet: NetPacket, markerName: TName): TCount {
   assert(registry.saveMarkers.get(markerName) !== null, "Trying to check without marker: '%s'.", markerName);
@@ -44,8 +44,8 @@ export function closeSaveMarker(packet: NetPacket, markerName: TName): TCount {
 /**
  * Open load marker.
  *
- * @param reader - reader to load data from
- * @param markerName - reader transaction marker to verify data integrity
+ * @param reader - Reader to load data from.
+ * @param markerName - Reader transaction marker to verify data integrity.
  */
 export function openLoadMarker(reader: NetProcessor, markerName: TName): void {
   registry.saveMarkers.set(markerName, reader.r_tell());
@@ -54,9 +54,9 @@ export function openLoadMarker(reader: NetProcessor, markerName: TName): void {
 /**
  * Close load marker and verify net reader size.
  *
- * @param reader - reader to load data from
- * @param markerName - reader transaction marker to verify data integrity
- * @returns marker transaction loading size
+ * @param reader - Reader to load data from.
+ * @param markerName - Reader transaction marker to verify data integrity.
+ * @returns Marker transaction loading size.
  */
 export function closeLoadMarker(reader: NetProcessor, markerName: TName): TCount {
   assert(registry.saveMarkers.get(markerName) !== null, "Trying to check without marker: '%s'", markerName);

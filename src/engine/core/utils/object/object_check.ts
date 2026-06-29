@@ -13,7 +13,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * @returns whether actor can start sleeping
+ * @returns Whether actor can start sleeping.
  */
 export function canActorSleep(): boolean {
   const actor: GameObject = registry.actor;
@@ -24,8 +24,8 @@ export function canActorSleep(): boolean {
 /**
  * Is provided target stalker and alive.
  *
- * @param targetObject - client/server object or story ID to check
- * @returns whether target stalker object is alive
+ * @param targetObject - Client/server object or story ID to check.
+ * @returns Whether target stalker object is alive.
  */
 export function isStalkerAlive(targetObject: GameObject | ServerObject | TStringId): boolean {
   let targetId: Optional<TNumberId>;
@@ -50,8 +50,8 @@ export function isStalkerAlive(targetObject: GameObject | ServerObject | TString
 /**
  * Check whether object is alive and actor is seen by object.
  *
- * @param object - game object to check
- * @returns whether actor is seen by object
+ * @param object - Game object to check.
+ * @returns Whether actor is seen by object.
  */
 export function isActorSeenByObject(object: GameObject): boolean {
   return object.alive() && object.see(registry.actor);
@@ -60,8 +60,8 @@ export function isActorSeenByObject(object: GameObject): boolean {
 /**
  * Check whether actor is alive and object is seen by actor.
  *
- * @param object - game object to check
- * @returns whether object is seen by actor
+ * @param object - Game object to check.
+ * @returns Whether object is seen by actor.
  */
 export function isObjectSeenByActor(object: GameObject): boolean {
   return registry.actor.alive() && registry.actor.see(object);
@@ -70,16 +70,16 @@ export function isObjectSeenByActor(object: GameObject): boolean {
 /**
  * Check whether object is injured.
  *
- * @param object - game object to check
- * @returns whether object is injured/bleeding/contaminated
+ * @param object - Game object to check.
+ * @returns Whether object is injured/bleeding/contaminated.
  */
 export function isObjectInjured(object: GameObject): boolean {
   return object.health < 1 || object.radiation > 0 || object.bleeding > 0;
 }
 
 /**
- * @param object - game object to check
- * @returns whether object has defined known_info section
+ * @param object - Game object to check.
+ * @returns Whether object has defined known_info section.
  */
 export function isObjectWithKnownInfo(object: GameObject): boolean {
   const ini: IniFile = getObjectSpawnIni(object);

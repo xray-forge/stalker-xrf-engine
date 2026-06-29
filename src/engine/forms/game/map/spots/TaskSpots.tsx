@@ -67,7 +67,7 @@ export function TaskSpots(): JSXNode {
         <texture_below>storyline_task_spot_below</texture_below>
         <texture_above>storyline_task_spot_above</texture_above>
       </storyline_task_spot_mini>
-      {/** <!-- Второстепенные задания --> */}
+
       <secondary_task_location>
         <level_map spot={"secondary_task_spot"} pointer={"quest_pointer"} />
         <mini_map spot={"secondary_task_spot_mini"} pointer={"quest_pointer"} />
@@ -127,7 +127,6 @@ export function TaskSpots(): JSXNode {
         <texture_above>secondary_task_spot_above</texture_above>
       </secondary_task_spot_mini>
 
-      {/** <!--task_highlight --> */}
       <ui_storyline_task_blink ttl={"15"} hint={"disable_hint"} location_level={"-1"}>
         <level_map spot={"ui_storyline_task_blink_spot"} />
       </ui_storyline_task_blink>
@@ -231,7 +230,6 @@ export function TaskSpots(): JSXNode {
 
    --> */}
 
-      {/** <!-- Сюжетные задания --> */}
       <no_spot x={"0"} y={"0"} width={"0"} height={"0"} stretch={"1"} alignment={"c"}>
         <texture>ui_pda2_hl_seq_quest2</texture>
       </no_spot>
@@ -399,7 +397,7 @@ export function TaskSpots(): JSXNode {
          light_anim_cyclic="1" la_alpha="1" la_texture="1"
          xform_anim="map_spot_border_xform" xform_anim_cyclic="1">
          <texture r="242" g="31" b="11">ui_pda2_stask_last_02</texture>
-         </focused_border-->
+         </focused_border-->.
           */}
       </secondary_task_eliminate_smart_complex_spot>
 
@@ -500,7 +498,7 @@ export function TaskSpots(): JSXNode {
           <!--
          <complex_spot spot="secondary_task_defend_smart_delay_complex_spot" pointer="quest_pointer2"/>
          <mini_map     spot="secondary_task_spot_mini" pointer="quest_pointer2"/>
-         -->
+         -->.
           */}
       </secondary_task_location_complex_defend_smart_delay>
 
@@ -519,7 +517,7 @@ export function TaskSpots(): JSXNode {
        <texture></texture>
        </timer>
        </secondary_task_defend_smart_delay_complex_spot>
-       -->
+       -->.
         */}
 
       <secondary_task_location_complex_bring_item>

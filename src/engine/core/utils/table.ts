@@ -4,8 +4,8 @@ import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
  * Check if provided container is empty collection.
  * Very lua-specific checks, do not apply TS logic here.
  *
- * @param target - object to check emptiness
- * @returns whether target table is empty
+ * @param target - Object to check emptiness.
+ * @returns Whether target table is empty.
  */
 export function isEmpty(target: Optional<LuaTable<any>>): target is LuaTable {
   if (target === null) {
@@ -23,9 +23,9 @@ export function isEmpty(target: Optional<LuaTable<any>>): target is LuaTable {
  * Copy table values from one table to another.
  * Tables are copied recursively.
  *
- * @param target - table to copy in
- * @param source - table to copy from
- * @returns target table with copied content
+ * @param target - Table to copy in.
+ * @param source - Table to copy from.
+ * @returns Target table with copied content.
  */
 export function copyTable<T extends Record<any, any>, D extends Record<any, any>>(target: T, source: D): T;
 export function copyTable(
@@ -47,9 +47,9 @@ export function copyTable(
 /**
  * Merge tables into single destination.
  *
- * @param destination - target to merge all the lua tables
- * @param rest - list of tables to merge
- * @returns resulting merged table
+ * @param destination - Target to merge all the lua tables.
+ * @param rest - List of tables to merge.
+ * @returns Resulting merged table.
  */
 export function mergeTables<K extends AnyNotNil, V>(
   destination: LuaTable<K, V>,
@@ -65,7 +65,7 @@ export function mergeTables<K extends AnyNotNil, V>(
 /**
  * Reset table values in map-styled table.
  *
- * @param target - table to reset and empty
+ * @param target - Table to reset and empty.
  */
 export function resetTable(target: LuaTable<any>): void {
   for (const [k] of target) {
@@ -76,8 +76,8 @@ export function resetTable(target: LuaTable<any>): void {
 /**
  * Get list of table keys as new table.
  *
- * @param target - table to get list of keys from
- * @returns list of table keys
+ * @param target - Table to get list of keys from.
+ * @returns List of table keys.
  */
 export function getTableKeys<TKey extends AnyNotNil = AnyNotNil>(target: LuaTable<TKey>): LuaArray<TKey> {
   const keys: LuaArray<TKey> = new LuaTable();
@@ -92,8 +92,8 @@ export function getTableKeys<TKey extends AnyNotNil = AnyNotNil>(target: LuaTabl
 /**
  * Get table values as set object.
  *
- * @param target - table to create set from
- * @returns set of target table values
+ * @param target - Table to create set from.
+ * @returns Set of target table values.
  */
 export function getTableValuesAsSet<TValue extends AnyNotNil = AnyNotNil>(
   target: LuaTable<any, TValue> | AnyObject

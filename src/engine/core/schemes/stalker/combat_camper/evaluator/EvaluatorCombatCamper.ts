@@ -16,7 +16,7 @@ export class EvaluatorCombatCamper extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override evaluate(): boolean {
     // todo: Probably get from this.state? Maybe invalid.

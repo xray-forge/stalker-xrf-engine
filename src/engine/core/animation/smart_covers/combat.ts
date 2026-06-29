@@ -15,7 +15,7 @@ import { createVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * todo;
+ * Todo.
  */
 function getSmartCoverCombat(): ISmartCoverDescriptor {
   return {

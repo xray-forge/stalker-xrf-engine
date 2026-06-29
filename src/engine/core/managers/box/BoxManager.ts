@@ -52,7 +52,7 @@ export class BoxManager extends AbstractManager {
   /**
    * Spawn box items on destruction (or another event) to drop.
    *
-   * @param object - game object to spawn box items for
+   * @param object - Game object to spawn box items for.
    */
   public spawnBoxObjectItems(object: GameObject): void {
     const spawnIni: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;
@@ -90,8 +90,8 @@ export class BoxManager extends AbstractManager {
    * Specifics of this spawning is to place all items on top and minimize clipping (fuzz Y coordinate).
    * Also place item as not linked to any object.
    *
-   * @param object - target object to spawn for
-   * @param items - list of item section to check and try to spawn
+   * @param object - Target object to spawn for.
+   * @param items - List of item section to check and try to spawn.
    */
   public spawnBoxObjectItemsFromList(object: GameObject, items: LuaTable<TSection, TProbability>): void {
     const [, gvid, lvid, position] = getObjectPositioning(object);
@@ -113,7 +113,7 @@ export class BoxManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

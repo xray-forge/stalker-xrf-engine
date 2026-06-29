@@ -61,8 +61,8 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "travel", mode: ELuaL
 /**
  * Manager to handle fast traveling of actor.
  *
- * todo: Fix faction-specific labels and answers. Originally commented and hardcoded to stalkers?
- * todo: Move some pure methods to utils.
+ * Todo: Fix faction-specific labels and answers. Originally commented and hardcoded to stalkers?
+ * Todo: Move some pure methods to utils.
  */
 export class TravelManager extends AbstractManager {
   public isTraveling: boolean = false;
@@ -92,7 +92,7 @@ export class TravelManager extends AbstractManager {
   /**
    * Create fast traveling phrases for provided dialog.
    *
-   * @param dialog - target dialog to modify
+   * @param dialog - Target dialog to modify.
    */
   public initializeTravellerDialog(dialog: PhraseDialog): void {
     const community: TCommunity = communities.stalker; // -- object:character_community()
@@ -182,9 +182,9 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * @param actor - actor game object
-   * @param object - target object to check whether actor can travel
-   * @returns whether object actor can discuss traveling with object
+   * @param actor - Actor game object.
+   * @param object - Target object to check whether actor can travel.
+   * @returns Whether object actor can discuss traveling with object.
    */
   public canStartTravelingDialogs(actor: GameObject, object: GameObject): boolean {
     const squad: Optional<Squad> = getObjectSquad(object);
@@ -202,7 +202,7 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getSquadCurrentActionDescription(
     actor: GameObject,
@@ -249,7 +249,7 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public canActorMoveWithSquad(
     actor: GameObject,
@@ -261,7 +261,7 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public canSquadTakeActor(object: GameObject, actor: GameObject, dialogId?: TStringId, phraseId?: TStringId): boolean {
     const squad: Squad = getObjectSquad(object) as Squad;
@@ -270,7 +270,7 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isSmartAvailableToReach(terrainName: TName, descriptor: ITravelRouteDescriptor, squad: Squad): boolean {
     if (descriptor.level !== level.name()) {
@@ -294,7 +294,7 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public canSquadTravel(object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId): boolean {
     const squad: Squad = getObjectSquad(object)!;
@@ -310,7 +310,7 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public canNegotiateTravelToSmart(
     actor: GameObject,
@@ -333,17 +333,17 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Move to utils.
+   * Todo: Move to utils.
    *
-   * @param distance - traveling distance from current point to destination
-   * @returns travel price based on travel distance
+   * @param distance - Traveling distance from current point to destination.
+   * @returns Travel price based on travel distance.
    */
   public getTravelPriceByDistance(distance: TDistance): TCount {
     return math.ceil(distance / 50) * 50;
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getTravelPriceByObjectPhrase(object: GameObject, phraseId: TStringId): TCount {
     const terrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(
@@ -356,7 +356,7 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getTravelCostLabel(actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId): TLabel {
     return string.format(
@@ -367,7 +367,7 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isEnoughMoneyToTravel(
     actor: GameObject,
@@ -380,7 +380,7 @@ export class TravelManager extends AbstractManager {
 
   /**
    * Tick of active actor update when teleporting from one place to another.
-   * todo;
+   * Todo;
    * todo: Probably add some 'isTraveling' checker with assertion of types.
    */
   public override update(): void {
@@ -466,7 +466,7 @@ export class TravelManager extends AbstractManager {
 
   /**
    * Travel together with squad to selected squad, pay them and ask to take somewhere.
-   * todo;
+   * Todo.
    */
   public onTravelToSpecificSmartWithSquad(
     actor: GameObject,
@@ -512,7 +512,7 @@ export class TravelManager extends AbstractManager {
   /**
    * Travel together with squad to their assigned goal, just follow them.
    * Used when actor agrees to travel somewhere where squad heads.
-   * todo;
+   * Todo.
    */
   public onTravelTogetherWithSquad(
     actor: GameObject,
@@ -546,7 +546,7 @@ export class TravelManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

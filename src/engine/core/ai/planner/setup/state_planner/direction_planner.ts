@@ -8,8 +8,8 @@ import { ActionPlanner } from "@/engine/lib/types";
 /**
  * Setup GOAP logics related to body direction changes of stalkers.
  *
- * @param planner - action planner to configure
- * @param stateManager - target object state manager
+ * @param planner - Action planner to configure.
+ * @param stateManager - Target object state manager.
  */
 export function setupStalkerDirectionStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
   const directionTurnAction: ActionDirectionTurn = new ActionDirectionTurn(stateManager);

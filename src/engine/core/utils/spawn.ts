@@ -40,11 +40,11 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Spawn items of provided section for an object.
  *
- * @param object - target object to spawn items for
- * @param section - section of item
- * @param count - count of items to spawn
- * @param probability - probability to spawn item, 100% by default
- * @returns count of spawned items
+ * @param object - Target object to spawn items for.
+ * @param section - Section of item.
+ * @param count - Count of items to spawn.
+ * @param probability - Probability to spawn item, 100% by default.
+ * @returns Count of spawned items.
  */
 export function spawnItemsForObject(
   object: AnyGameObject,
@@ -76,13 +76,13 @@ export function spawnItemsForObject(
 /**
  * Spawn items of provided section for an object.
  *
- * @param section - section of item
- * @param gameVertexId - game vertex to spawn in
- * @param levelVertexId - level vertex to spawn in
- * @param position - target position to place items at
- * @param count - count of items to spawn
- * @param probability - probability to spawn item, 100% by default
- * @returns count of spawned items
+ * @param section - Section of item.
+ * @param gameVertexId - Game vertex to spawn in.
+ * @param levelVertexId - Level vertex to spawn in.
+ * @param position - Target position to place items at.
+ * @param count - Count of items to spawn.
+ * @param probability - Probability to spawn item, 100% by default.
+ * @returns Count of spawned items.
  */
 export function spawnItemsAtPosition(
   section: TSection,
@@ -115,11 +115,11 @@ export function spawnItemsAtPosition(
 /**
  * Spawn ammo objects for provided object.
  *
- * @param object - target object to spawn items for
- * @param section - section of ammo item
- * @param count - count of ammo to spawn
- * @param probability - probability to spawn item, 100% by default
- * @returns count of spawned ammo
+ * @param object - Target object to spawn items for.
+ * @param section - Section of ammo item.
+ * @param count - Count of ammo to spawn.
+ * @param probability - Probability to spawn item, 100% by default.
+ * @returns Count of spawned ammo.
  */
 export function spawnAmmoForObject(
   object: AnyGameObject,
@@ -158,13 +158,13 @@ export function spawnAmmoForObject(
 /**
  * Spawn ammo objects at provided position.
  *
- * @param section - section of ammo item
- * @param gameVertexId - game vertex to spawn in
- * @param levelVertexId - level vertex to spawn in
- * @param position - target position to place items at
- * @param count - count of ammo to spawn
- * @param probability - probability to spawn item, 100% by default
- * @returns count of spawned ammo
+ * @param section - Section of ammo item.
+ * @param gameVertexId - Game vertex to spawn in.
+ * @param levelVertexId - Level vertex to spawn in.
+ * @param position - Target position to place items at.
+ * @param count - Count of ammo to spawn.
+ * @param probability - Probability to spawn item, 100% by default.
+ * @returns Count of spawned ammo.
  */
 export function spawnAmmoAtPosition(
   section: TSection,
@@ -204,9 +204,9 @@ export function spawnAmmoAtPosition(
 /**
  * Spawn random items from provided lists for an object.
  *
- * @param object - target object to spawn items for
- * @param itemSections - list of possible sections
- * @param count - count of items to spawn
+ * @param object - Target object to spawn items for.
+ * @param itemSections - List of possible sections.
+ * @param count - Count of items to spawn.
  */
 export function spawnItemsForObjectFromList<T extends TSection>(
   object: AnyGameObject,
@@ -225,9 +225,9 @@ export function spawnItemsForObjectFromList<T extends TSection>(
 /**
  * Spawn new squad with provided story id in a smart terrain.
  *
- * @param section - squad section to spawn
- * @param terrainName - name of smart terrain to spawn in
- * @returns spawned squad
+ * @param section - Squad section to spawn.
+ * @param terrainName - Name of smart terrain to spawn in.
+ * @returns Spawned squad.
  */
 export function spawnSquadInSmart(section: Optional<TSection>, terrainName: Optional<TName>): Squad {
   assert(section, "Wrong squad identifier in spawnSquad function.");
@@ -253,10 +253,10 @@ export function spawnSquadInSmart(section: Optional<TSection>, terrainName: Opti
 /**
  * Spawn new object.
  *
- * @param section - object section to spawn
- * @param pathName - target pathname to spawn
- * @param index - patrol path index
- * @param yaw - spawned object yaw
+ * @param section - Object section to spawn.
+ * @param pathName - Target pathname to spawn.
+ * @param index - Patrol path index.
+ * @param yaw - Spawned object yaw.
  */
 export function spawnObject<T extends ServerObject>(
   section: Optional<TSection>,
@@ -291,9 +291,9 @@ export function spawnObject<T extends ServerObject>(
 /**
  * Spawn new object in object (chest, stalker etc).
  *
- * @param section - item section to spawn
- * @param targetId - id of object to spawn in
- * @returns newly create server object
+ * @param section - Item section to spawn.
+ * @param targetId - Id of object to spawn in.
+ * @returns Newly create server object.
  */
 export function spawnObjectInObject<T extends ServerObject>(
   section: Optional<TSection>,
@@ -318,7 +318,7 @@ export function spawnObjectInObject<T extends ServerObject>(
  * Release object by provided ID.
  * Prints warning if object is not found in registry.
  *
- * @param objectId - object id to release
+ * @param objectId - Object id to release.
  */
 export function releaseObject(objectId: TNumberId): void {
   const serverObject: Optional<ServerObject> = registry.simulator.object(objectId);
@@ -335,9 +335,9 @@ export function releaseObject(objectId: TNumberId): void {
 /**
  * Spawn creature based on actor sight direction, near actor.
  *
- * @param section - section to spawn
- * @param distance - distance to spawn from actor
- * @returns newly created server object
+ * @param section - Section to spawn.
+ * @param distance - Distance to spawn from actor.
+ * @returns Newly created server object.
  */
 export function spawnCreatureNearActor<T extends ServerObject>(section: TSection, distance: TDistance): T {
   const actor: GameObject = registry.actor;

@@ -13,8 +13,8 @@ import { ActionPlanner } from "@/engine/lib/types";
  * Setup GOAP planner of stalker motivation.
  * Merges existing C++ logic with custom scripted logics and scripted state manager.
  *
- * @param planner - motivation action planner to modify logics
- * @param stateManager - state manager controlling animation/state of objects from lua side
+ * @param planner - Motivation action planner to modify logics.
+ * @param stateManager - State manager controlling animation/state of objects from lua side.
  */
 export function setupStalkerMotivationPlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
   planner.add_evaluator(EEvaluatorId.IS_STATE_IDLE_COMBAT, new EvaluatorStateIdleCombat(stateManager));

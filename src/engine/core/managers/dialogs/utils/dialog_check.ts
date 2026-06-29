@@ -14,7 +14,7 @@ import {
 import { GameObject, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function shouldShowPhrase(
   object: GameObject,
@@ -34,7 +34,7 @@ export function shouldShowPhrase(
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function shouldHidePhraseCategory(object: GameObject, category: EGenericPhraseCategory): boolean {
   const dialogManager: DialogManager = getManager(DialogManager);
@@ -49,7 +49,7 @@ export function shouldHidePhraseCategory(object: GameObject, category: EGenericP
 }
 
 /**
- * todo;
+ * Todo.
  */
 export function isHighestPriorityPhrase(
   PTsubtable: TPhrasesAvailableMap,

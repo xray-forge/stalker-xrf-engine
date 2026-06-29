@@ -6,7 +6,7 @@ import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover
 import { EScheme, Optional } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class EvaluatorSmartCoverLocked extends property_evaluator {
@@ -18,7 +18,7 @@ export class EvaluatorSmartCoverLocked extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override evaluate(): boolean {
     const smartCoverState: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[

@@ -473,7 +473,7 @@ export enum EGameEvent {
    */
   NOTIFICATION,
   /**
-   * todo;
+   * Todo.
    */
   HIT,
   /**

@@ -11,9 +11,9 @@ import { GameObject, Optional, TCount, TRate, TStringId } from "@/engine/lib/typ
 /**
  * Check whether is enemy with faction.
  *
- * @param faction - target faction to check
- * @param actor - optional actor object override
- * @returns whether actor is enemy with faction
+ * @param faction - Target faction to check.
+ * @param actor - Optional actor object override.
+ * @returns Whether actor is enemy with faction.
  */
 export function isActorEnemyWithFaction(faction: TCommunity, actor: GameObject = registry.actor): boolean {
   return relation_registry.community_goodwill(faction, actor.id()) <= EGoodwill.ENEMIES;
@@ -22,9 +22,9 @@ export function isActorEnemyWithFaction(faction: TCommunity, actor: GameObject =
 /**
  * Check whether is friend with faction.
  *
- * @param faction - target faction to check
- * @param actor - optional actor object override
- * @returns whether actor is friend with faction
+ * @param faction - Target faction to check.
+ * @param actor - Optional actor object override.
+ * @returns Whether actor is friend with faction.
  */
 export function isActorFriendWithFaction(faction: TCommunity, actor: GameObject = registry.actor): boolean {
   return relation_registry.community_goodwill(faction, actor.id()) >= EGoodwill.FRIENDS;
@@ -33,9 +33,9 @@ export function isActorFriendWithFaction(faction: TCommunity, actor: GameObject 
 /**
  * Check whether is neutral with faction.
  *
- * @param faction - target faction to check
- * @param actor - optional actor object override
- * @returns whether actor is neutral with faction
+ * @param faction - Target faction to check.
+ * @param actor - Optional actor object override.
+ * @returns Whether actor is neutral with faction.
  */
 export function isActorNeutralWithFaction(faction: TCommunity, actor: GameObject = registry.actor): boolean {
   const goodwill: TCount = relation_registry.community_goodwill(faction, actor.id());
@@ -46,8 +46,8 @@ export function isActorNeutralWithFaction(faction: TCommunity, actor: GameObject
 /**
  * Check whether squad is enemy to actor.
  *
- * @param squadStoryId - squad story id
- * @returns whether actor is enemy to squad
+ * @param squadStoryId - Squad story id.
+ * @returns Whether actor is enemy to squad.
  */
 export function isSquadCommunityEnemyToActor(squadStoryId: TStringId): boolean {
   return getSquadCommunityRelationToActor(squadStoryId) === ERelation.ENEMY;
@@ -56,8 +56,8 @@ export function isSquadCommunityEnemyToActor(squadStoryId: TStringId): boolean {
 /**
  * Check whether squad is friend to actor.
  *
- * @param squadStoryId - squad story id
- * @returns whether actor is friend to squad
+ * @param squadStoryId - Squad story id.
+ * @returns Whether actor is friend to squad.
  */
 export function isSquadCommunityFriendToActor(squadStoryId: TStringId): boolean {
   return getSquadCommunityRelationToActor(squadStoryId) === ERelation.FRIEND;
@@ -66,8 +66,8 @@ export function isSquadCommunityFriendToActor(squadStoryId: TStringId): boolean 
 /**
  * Check whether squad is neutral to actor.
  *
- * @param squadStoryId - squad story id
- * @returns whether actor is neutral to squad
+ * @param squadStoryId - Squad story id.
+ * @returns Whether actor is neutral to squad.
  */
 export function isSquadCommunityNeutralToActor(squadStoryId: TStringId): boolean {
   return getSquadCommunityRelationToActor(squadStoryId) === ERelation.NEUTRAL;
@@ -76,9 +76,9 @@ export function isSquadCommunityNeutralToActor(squadStoryId: TStringId): boolean
 /**
  * Check general goodwill level between factions and assume whether they are friends.
  *
- * @param from - community relation check from
- * @param to - community relation check to
- * @returns whether faction `from` considers `to` friend
+ * @param from - Community relation check from.
+ * @param to - Community relation check to.
+ * @returns Whether faction `from` considers `to` friend.
  */
 export function areCommunitiesFriendly(from: Optional<TCommunity>, to: TCommunity): boolean {
   if (from && from !== communities.none && to !== communities.none) {
@@ -91,9 +91,9 @@ export function areCommunitiesFriendly(from: Optional<TCommunity>, to: TCommunit
 /**
  * Check general goodwill level between factions and assume whether they are neutral.
  *
- * @param from - community relation check from
- * @param to - community relation check to
- * @returns whether faction `from` considers `to` neutral
+ * @param from - Community relation check from.
+ * @param to - Community relation check to.
+ * @returns Whether faction `from` considers `to` neutral.
  */
 export function areCommunitiesNeutral(from: Optional<TCommunity>, to: TCommunity): boolean {
   if (from && from !== communities.none && to !== communities.none) {
@@ -108,9 +108,9 @@ export function areCommunitiesNeutral(from: Optional<TCommunity>, to: TCommunity
 /**
  * Check general goodwill level between factions and assume whether they are enemies.
  *
- * @param from - community relation check from
- * @param to - community relation check to
- * @returns whether faction `from` considers `to` enemy
+ * @param from - Community relation check from.
+ * @param to - Community relation check to.
+ * @returns Whether faction `from` considers `to` enemy.
  */
 export function areCommunitiesEnemies(from: Optional<TCommunity>, to: TCommunity): boolean {
   if (from && from !== communities.none && to !== communities.none) {
@@ -123,8 +123,8 @@ export function areCommunitiesEnemies(from: Optional<TCommunity>, to: TCommunity
 /**
  * Check if anyone from squad is enemy to actor.
  *
- * @param squad - target squad to check
- * @returns whether any member is enemy to actor
+ * @param squad - Target squad to check.
+ * @returns Whether any member is enemy to actor.
  */
 export function isAnySquadMemberEnemyToActor(squad: Squad): boolean {
   for (const squadMember of squad.squad_members()) {
@@ -139,8 +139,8 @@ export function isAnySquadMemberEnemyToActor(squad: Squad): boolean {
 /**
  * Check if anyone from squad is friend to actor.
  *
- * @param squad - target squad to check
- * @returns whether any member is friend to actor
+ * @param squad - Target squad to check.
+ * @returns Whether any member is friend to actor.
  */
 export function isAnySquadMemberFriendToActor(squad: Squad): boolean {
   for (const squadMember of squad.squad_members()) {

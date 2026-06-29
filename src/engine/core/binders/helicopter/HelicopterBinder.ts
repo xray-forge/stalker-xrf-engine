@@ -148,10 +148,10 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * @param power - hit power
-   * @param impulse - impulse power
-   * @param type - type of the hit
-   * @param objectId - object hitting helicopter
+   * @param power - Hit power.
+   * @param impulse - Impulse power.
+   * @param type - Type of the hit.
+   * @param objectId - Object hitting helicopter.
    */
   public onHit(power: TRate, impulse: TRate, type: TNumberId, objectId: TNumberId): void {
     const enemy: Optional<GameObject> = level.object_by_id(objectId);
@@ -166,9 +166,9 @@ export class HelicopterBinder extends object_binder {
   }
 
   /**
-   * @param distance - ?
-   * @param position - waypoint position
-   * @param index - patrol point index
+   * @param distance - Waypoint distance.
+   * @param position - Waypoint position.
+   * @param index - Patrol point index.
    */
   public onWaypoint(distance: TDistance, position: Vector, index: TIndex): void {
     if (this.state.activeScheme) {

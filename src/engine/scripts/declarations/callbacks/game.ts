@@ -74,7 +74,7 @@ extern("trade_manager", {
  * Includes methods working with game saves to provide alternatives for storage packets.
  * Alternative variants are:
  *  - Flexible, not hardcoded, can contain extensive data
- *  - Not limited by game save file upper limits
+ *  - Not limited by game save file upper limits.
  */
 extern("alife_storage_manager", {
   /**

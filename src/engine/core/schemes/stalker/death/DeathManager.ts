@@ -12,8 +12,8 @@ export class DeathManager extends AbstractSchemeManager<ISchemeDeathState> {
    * Handle stalker death event.
    * Interop with scheme logics and memoize killer info.
    *
-   * @param victim - game object stalker dying
-   * @param killer - game object of stalker killer
+   * @param victim - Game object stalker dying.
+   * @param killer - Game object of stalker killer.
    */
   public override onDeath(victim: GameObject, killer: Optional<GameObject>): void {
     (registry.objects.get(victim.id())[EScheme.DEATH] as ISchemeDeathState).killerId =

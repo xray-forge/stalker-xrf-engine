@@ -37,7 +37,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class HelicopterCombatManager {
   public readonly object: GameObject;
@@ -133,7 +133,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public initialize(): void {
     this.enemyLastSeenPos = copyVector(this.enemy!.position());
@@ -156,7 +156,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public save(packet: NetPacket): void {
     openSaveMarker(packet, HelicopterCombatManager.name);
@@ -195,7 +195,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public load(reader: NetReader): void {
     openLoadMarker(reader, HelicopterCombatManager.name);
@@ -230,7 +230,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public shouldCombatIgnore(): boolean {
     return (
@@ -239,7 +239,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setCombatType(newCombatType: EHelicopterCombatType): void {
     if (newCombatType !== this.combatType) {
@@ -252,7 +252,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateCustomDataSettings(): void {
     if (this.isSectionChanged) {
@@ -268,7 +268,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateEnemyVisibility(): boolean {
     if (this.visibility >= this.visibilityThreshold) {
@@ -282,7 +282,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public forgetEnemy(): void {
     this.isInitialized = false;
@@ -291,7 +291,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public updateForgetting(): void {
     if (
@@ -303,7 +303,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getCombatType(seeEnemy?: boolean): EHelicopterCombatType {
     let combatType: EHelicopterCombatType = this.combatType;
@@ -348,7 +348,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public fastcall(): boolean {
     if (this.isInitialized) {
@@ -379,7 +379,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public update(): boolean {
     if (this.enemyId) {
@@ -432,7 +432,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public calculatePositionInRadius(radius: TDistance): Vector {
     const position: Vector = this.object.position();
@@ -452,7 +452,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onWaypoint(): boolean {
     if (this.enemyId && !this.shouldCombatIgnore()) {

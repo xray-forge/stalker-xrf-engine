@@ -17,7 +17,7 @@ export interface ISquadAction {
   /**
    * Initialize action.
    *
-   * @param isUnderSimulation - is squad under simulation
+   * @param isUnderSimulation - Is squad under simulation.
    */
   initialize: (isUnderSimulation: boolean) => void;
   /**
@@ -28,8 +28,8 @@ export interface ISquadAction {
   /**
    * Perform generic update tick for action.
    *
-   * @param isUnderSimulation - is squad under simulation
-   * @returns whether action is finished
+   * @param isUnderSimulation - Is squad under simulation.
+   * @returns Whether action is finished.
    */
   update: (isUnderSimulation: boolean) => boolean;
 }

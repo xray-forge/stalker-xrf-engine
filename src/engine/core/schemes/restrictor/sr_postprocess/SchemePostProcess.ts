@@ -5,7 +5,7 @@ import { getConfigSwitchConditions, readIniNumber } from "@/engine/core/utils/in
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class SchemePostProcess extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_POSTPROCESS;

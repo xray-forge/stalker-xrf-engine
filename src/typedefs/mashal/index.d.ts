@@ -1,6 +1,6 @@
 /**
  * Marshal LUA library.
- * https://github.com/richardhundt/lua-marshal
+ * Https://github.com/richardhundt/lua-marshal.
  */
 declare namespace marshal {
   /**

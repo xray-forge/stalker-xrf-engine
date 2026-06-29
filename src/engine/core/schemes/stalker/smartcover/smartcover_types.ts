@@ -4,7 +4,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TDuration, TName, TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export const COVER_SUBSTATE_TABLE: Record<ESmartCoverState, EStalkerState> = {
   [ESmartCoverState.DEFAULT]: NIL as EStalkerState,

@@ -20,7 +20,7 @@ export class EvaluatorWeaponSet extends property_evaluator {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override evaluate(): boolean {
     const weaponAnimation: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;

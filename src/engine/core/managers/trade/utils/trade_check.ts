@@ -4,8 +4,8 @@ import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade
 import { Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * @param id - target object id to check
- * @returns if object is considered trader (trading config is non-default)
+ * @param id - Target object id to check.
+ * @returns If object is considered trader (trading config is non-default).
  */
 export function isObjectTrader(id: TNumberId): boolean {
   const state: Optional<IRegistryObjectState> = registry.objects.get(id);

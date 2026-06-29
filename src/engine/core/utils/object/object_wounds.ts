@@ -21,7 +21,7 @@ import {
 /**
  * Gives wounds medication for target object to heal up.
  *
- * @param object - game object to give healing item
+ * @param object - Game object to give healing item.
  */
 export function giveWoundedObjectMedkit(object: GameObject): void {
   // Give script medkit to heal up for an object.
@@ -38,7 +38,7 @@ export function giveWoundedObjectMedkit(object: GameObject): void {
  * Wounds object to have minimal health amount.
  * As result, object is expected to be wounded.
  *
- * @param object - game object to hit and wound
+ * @param object - Game object to hit and wound.
  */
 export function setObjectWounded(object: GameObject): void {
   const hitObject: Hit = new hit();
@@ -56,7 +56,7 @@ export function setObjectWounded(object: GameObject): void {
  * Allow wounded object to heal.
  * If object healing is enabled, it will try to use medication and resolve current state.
  *
- * @param object - game object to enable healing
+ * @param object - Game object to enable healing.
  */
 export function enableObjectWoundedHealing(object: GameObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
@@ -65,8 +65,8 @@ export function enableObjectWoundedHealing(object: GameObject): void {
 }
 
 /**
- * @param object - game object to check
- * @returns whether object is wounded with physical damage
+ * @param object - Game object to check.
+ * @returns Whether object is wounded with physical damage.
  */
 export function isObjectPsyWounded(object: GameObject): boolean {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
@@ -90,8 +90,8 @@ export function isObjectPsyWounded(object: GameObject): boolean {
 /**
  * Find nearest wounded object asking for help relatively to provided object.
  *
- * @param object - target object to search wounded from its perspective
- * @returns tuple of optional object, vertex id and position vector
+ * @param object - Target object to search wounded from its perspective.
+ * @returns Tuple of optional object, vertex id and position vector.
  */
 export function getNearestWoundedToHelp(
   object: Readonly<GameObject>

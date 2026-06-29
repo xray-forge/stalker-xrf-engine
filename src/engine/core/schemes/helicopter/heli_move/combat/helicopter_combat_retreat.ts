@@ -2,7 +2,7 @@ import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_m
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * @param manager - instance to update
+ * @param manager - Instance to update.
  */
 export function updateHelicopterCombatRetreat(manager: HelicopterCombatManager): void {
   if (!manager.isRetreatInitialized) {

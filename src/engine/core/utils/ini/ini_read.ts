@@ -12,13 +12,13 @@ import { IniFile, LuaArray, Optional, TCount, TName, TSection } from "@/engine/l
 /**
  * Read string field from provided ini file section.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @param required - whether field is required, throw exception if field is required and not present
- * @param prefix - prefix for return values
- * @param defaultValue - value to use in case if ini field is missing
- * @returns value from ini file section or default value if section is not declared in ini
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @param required - Whether field is required, throw exception if field is required and not present.
+ * @param prefix - Prefix for return values.
+ * @param defaultValue - Value to use in case if ini field is missing.
+ * @returns Value from ini file section or default value if section is not declared in ini.
  */
 export function readIniString<D = string>(
   ini: IniFile,
@@ -48,13 +48,13 @@ export function readIniString<D = string>(
  * Read string field from provided ini file section.
  * WB variants preserves spaces in read data and strips quotes from original data.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @param required - whether field is required, throw exception if field is required and not present
- * @param prefix - prefix for return values
- * @param defaultValue - value to use in case if ini field is missing
- * @returns value from ini file section or default value if section is not declared in ini
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @param required - Whether field is required, throw exception if field is required and not present.
+ * @param prefix - Prefix for return values.
+ * @param defaultValue - Value to use in case if ini field is missing.
+ * @returns Value from ini file section or default value if section is not declared in ini.
  */
 export function readIniStringWB<D = string>(
   ini: IniFile,
@@ -83,12 +83,12 @@ export function readIniStringWB<D = string>(
 /**
  * Read string list field from provided ini file section and parse as comma separated array.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @param required - whether field is required, throw exception if field is required and not present
- * @param defaultValue - value to use in case if ini field is missing
- * @returns list from ini file section or parsed default value if section is not declared in ini
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @param required - Whether field is required, throw exception if field is required and not present.
+ * @param defaultValue - Value to use in case if ini field is missing.
+ * @returns List from ini file section or parsed default value if section is not declared in ini.
  */
 export function readIniStringList<D extends string = string>(
   ini: IniFile,
@@ -113,12 +113,12 @@ export function readIniStringList<D extends string = string>(
 /**
  * Read string list field from provided ini file section and parse as comma separated set.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @param required - whether field is required, throw exception if field is required and not present
- * @param defaultValue - value to use in case if ini field is missing
- * @returns set from ini file section or parsed default value if section is not declared in ini
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @param required - Whether field is required, throw exception if field is required and not present.
+ * @param defaultValue - Value to use in case if ini field is missing.
+ * @returns Set from ini file section or parsed default value if section is not declared in ini.
  */
 export function readIniStringSet<D extends string = string>(
   ini: IniFile,
@@ -143,12 +143,12 @@ export function readIniStringSet<D extends string = string>(
 /**
  * Read string field from provided ini file section.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @param required - whether field is required, throw exception if field is required and not present
- * @param defaultValue - value to use in case if ini field is missing
- * @returns value from ini file section or default value if section is not declared in ini
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @param required - Whether field is required, throw exception if field is required and not present.
+ * @param defaultValue - Value to use in case if ini field is missing.
+ * @returns Value from ini file section or default value if section is not declared in ini.
  */
 export function readIniNumber<D = number>(
   ini: IniFile,
@@ -171,12 +171,12 @@ export function readIniNumber<D = number>(
 /**
  * Read number list field from provided ini file section and parse as comma separated array.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @param required - whether field is required, throw exception if field is required and not present
- * @param defaultValue - value to use in case if ini field is missing
- * @returns list from ini file section or parsed default value if section is not declared in ini
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @param required - Whether field is required, throw exception if field is required and not present.
+ * @param defaultValue - Value to use in case if ini field is missing.
+ * @returns List from ini file section or parsed default value if section is not declared in ini.
  */
 export function readIniNumberList<D extends number = number>(
   ini: IniFile,
@@ -201,12 +201,12 @@ export function readIniNumberList<D extends number = number>(
 /**
  * Read string field from provided ini file section.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @param required - whether field is required, throw exception if field is required and not present
- * @param defaultValue - value to use in case if ini field is missing
- * @returns value from ini file section or default value if section is not declared in ini
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @param required - Whether field is required, throw exception if field is required and not present.
+ * @param defaultValue - Value to use in case if ini field is missing.
+ * @returns Value from ini file section or default value if section is not declared in ini.
  */
 export function readIniBoolean(
   ini: IniFile,
@@ -233,12 +233,12 @@ export function readIniBoolean(
 /**
  * Get two numbers from ini line.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @param default1 - first default value if config is missing
- * @param default2 - second default value if config is missing
- * @returns two numbers as multi return
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @param default1 - First default value if config is missing.
+ * @param default2 - Second default value if config is missing.
+ * @returns Two numbers as multi return.
  */
 export function readIniTwoNumbers(
   ini: IniFile,
@@ -258,12 +258,12 @@ export function readIniTwoNumbers(
 
 /**
  * Read from ini config conditions list without additional parameters.
- * Sample data format: `condlist`
+ * Sample data format: `condlist`.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @returns logics scheme object
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @returns Logics scheme object.
  */
 export function readIniConditionList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const data: Optional<string> = readIniString(ini, section, field);
@@ -287,12 +287,12 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
 
 /**
  * Read from ini config string and following conditions list after it.
- * Sample data format: `string | condlist`
+ * Sample data format: `string | condlist`.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @returns logics scheme object
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @returns Logics scheme object.
  */
 export function readIniStringAndCondList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
   const data: string = readIniString(ini, section, field);
@@ -316,12 +316,12 @@ export function readIniStringAndCondList(ini: IniFile, section: TSection, field:
 
 /**
  * Read from ini config number and following conditions list after it.
- * Sample data format: `number | condlist`
+ * Sample data format: `number | condlist`.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @returns logics scheme object
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @returns Logics scheme object.
  */
 export function readIniNumberAndConditionList(
   ini: IniFile,
@@ -349,12 +349,12 @@ export function readIniNumberAndConditionList(
 
 /**
  * Read from ini config string and following conditions list after it.
- * Sample data format: `string | string | condlist`
+ * Sample data format: `string | string | condlist`.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @param field - section field to read
- * @returns logics scheme object
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @param field - Section field to read.
+ * @returns Logics scheme object.
  */
 export function readIniTwoStringsAndConditionsList(
   ini: IniFile,
@@ -383,9 +383,9 @@ export function readIniTwoStringsAndConditionsList(
 /**
  * Read section fields and transform to set.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @returns set transformed from ini section
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @returns Set transformed from ini section.
  */
 export function readIniSectionAsSet<T extends string = string>(ini: IniFile, section: TSection): LuaTable<T, boolean> {
   const set: LuaTable<T, boolean> = new LuaTable();
@@ -406,8 +406,8 @@ export function readIniSectionAsSet<T extends string = string>(ini: IniFile, sec
 /**
  * Read sections list from ini file.
  *
- * @param ini - config file to read
- * @returns list of sections from ini file
+ * @param ini - Config file to read.
+ * @returns List of sections from ini file.
  */
 export function readIniSectionsAsList<T extends TSection = TSection>(ini: IniFile): LuaArray<T> {
   const list: LuaArray<T> = new LuaTable();
@@ -420,9 +420,9 @@ export function readIniSectionsAsList<T extends TSection = TSection>(ini: IniFil
 /**
  * Read section fields list from ini file.
  *
- * @param ini - config file to read data from
- * @param section - section to read fields from
- * @returns list of section fields from ini file
+ * @param ini - Config file to read data from.
+ * @param section - Section to read fields from.
+ * @returns List of section fields from ini file.
  */
 export function readIniFieldsAsList<T extends string = string>(ini: IniFile, section: TSection): LuaArray<T> {
   const list: LuaArray<T> = new LuaTable();
@@ -440,9 +440,9 @@ export function readIniFieldsAsList<T extends string = string>(ini: IniFile, sec
 /**
  * Read section fields list from ini file.
  *
- * @param ini - config file to read data from
- * @param section - section to read fields from
- * @returns set of section fields from ini file
+ * @param ini - Config file to read data from.
+ * @param section - Section to read fields from.
+ * @returns Set of section fields from ini file.
  */
 export function readIniFieldsAsSet<T extends string = string>(ini: IniFile, section: TSection): LuaTable<T, boolean> {
   const list: LuaTable<T, boolean> = new LuaTable();
@@ -460,8 +460,8 @@ export function readIniFieldsAsSet<T extends string = string>(ini: IniFile, sect
 /**
  * Read sections set from ini file.
  *
- * @param ini - config file to read
- * @returns set of sections from ini file
+ * @param ini - Config file to read.
+ * @returns Set of sections from ini file.
  */
 export function readIniSectionsAsSet<T extends TSection = TSection>(ini: IniFile): LuaTable<T, boolean> {
   const list: LuaTable<T, boolean> = new LuaTable();
@@ -474,9 +474,9 @@ export function readIniSectionsAsSet<T extends TSection = TSection>(ini: IniFile
 /**
  * Read section fields and transform to string based map.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @returns map transformed from ini section
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @returns Map transformed from ini section.
  */
 export function readIniSectionAsStringMap<K extends string = string, V extends string = string>(
   ini: IniFile,
@@ -500,9 +500,9 @@ export function readIniSectionAsStringMap<K extends string = string, V extends s
 /**
  * Read section fields and transform to string based map with number values.
  *
- * @param ini - config file to read
- * @param section - config section to read
- * @returns map transformed from ini section
+ * @param ini - Config file to read.
+ * @param section - Config section to read.
+ * @returns Map transformed from ini section.
  */
 export function readIniSectionAsNumberMap<K extends string = string, V extends number = number>(
   ini: IniFile,

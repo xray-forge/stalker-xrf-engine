@@ -35,7 +35,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    *
    * Go to cover location if it is not reached.
    * In other cases sit in it and play desired animation.
@@ -66,7 +66,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
 
   /**
    * Handle scheme activation event.
-   * todo: Description.
+   * Todo: Description.
    */
   public activate(): void {
     this.state.signals = new LuaTable();

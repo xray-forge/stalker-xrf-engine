@@ -170,7 +170,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.action_job_dialogs",
@@ -190,7 +190,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_no_more",
@@ -200,7 +200,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_do_not_know",
@@ -210,7 +210,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs",
@@ -239,7 +239,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.action_anomalies_dialogs",
@@ -259,7 +259,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.precondition_information_dialogs_no_more",
@@ -269,7 +269,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.precondition_information_dialogs_do_not_know",
@@ -279,7 +279,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.precondition_information_dialogs",
@@ -294,7 +294,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.action_information_dialogs",
@@ -314,7 +314,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.precondition_is_phrase_disabled",
@@ -354,7 +354,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "dialog_manager.action_disable_quest_phrase",
@@ -377,7 +377,7 @@ extern(
 let rnd: number = 0;
 
 /**
- * todo;
+ * Todo;
  * todo: Just use 'pick random' from list.
  */
 extern("dialog_manager.create_bye_phrase", (): string => {

@@ -22,7 +22,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class ActionZombieShoot extends action_base {
@@ -52,7 +52,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override initialize(): void {
     logger.info("Activate: %s", this.object.name());
@@ -79,7 +79,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override finalize(): void {
     logger.info("Deactivate: %s", this.object.name());
@@ -89,7 +89,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public override execute(): void {
     super.execute();
@@ -161,7 +161,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
     this.targetStateDescriptor.lookObjectId = bestEnemy ? bestEnemy.id() : null;
@@ -173,7 +173,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public getRandomLookDirection(): Vector {
     const angle: TRate = math.pi * 2 * math.random();
@@ -186,7 +186,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onHit(object: GameObject, amount: TRate, direction: Vector, who: Optional<GameObject>, boneId: TIndex): void {
     if (who === null) {

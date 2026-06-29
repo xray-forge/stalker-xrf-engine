@@ -10,10 +10,10 @@ import { Optional, TNumberId } from "@/engine/lib/types";
 /**
  * Select smart terrain job for an object.
  *
- * @param terrain - terrain to search for job inside
- * @param jobs - list of jobs to search in
- * @param objectJobDescriptor - descriptor of selected object work
- * @returns selected job id, priority and link
+ * @param terrain - Terrain to search for job inside.
+ * @param jobs - List of jobs to search in.
+ * @param objectJobDescriptor - Descriptor of selected object work.
+ * @returns Selected job id, priority and link.
  */
 export function selectTerrainJob(
   terrain: SmartTerrain,
@@ -34,9 +34,9 @@ export function selectTerrainJob(
 }
 
 /**
- * @param terrain - target smart terrain to get job in
- * @param objectId - target object ID to get active job for
- * @returns descriptor of the job object is assigned to or null
+ * @param terrain - Target smart terrain to get job in.
+ * @param objectId - Target object ID to get active job for.
+ * @returns Descriptor of the job object is assigned to or null.
  */
 export function getTerrainJobByObjectId(
   terrain: SmartTerrain,

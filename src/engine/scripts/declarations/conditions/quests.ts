@@ -61,7 +61,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.jup_b221_who_will_start", (_: GameObject, __: GameObject, p: [string]): boolean => {
   const reachableTheme: LuaArray<number> = new LuaTable();
@@ -119,7 +119,7 @@ extern("xr_conditions.jup_b221_who_will_start", (_: GameObject, __: GameObject, 
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.pas_b400_actor_far_forward", (actor: GameObject, object: GameObject): boolean => {
   const forwardObject: Optional<GameObject> = getObjectByStoryId("pas_b400_fwd");
@@ -155,7 +155,7 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: GameObject, object: G
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.pas_b400_actor_far_backward", (actor: GameObject, object: GameObject): boolean => {
   const backwardObject: Optional<GameObject> = getObjectByStoryId("pas_b400_bwd");
@@ -209,7 +209,7 @@ extern("xr_conditions.pri_a28_actor_is_far", (actor: GameObject, object: GameObj
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.jup_b25_senya_spawn_condition", (): boolean => {
   return (
@@ -233,7 +233,7 @@ extern("xr_conditions.jup_b25_flint_gone_condition", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.zat_b103_actor_has_needed_food", (actor: GameObject, object: GameObject): boolean => {
   return (
@@ -243,7 +243,7 @@ extern("xr_conditions.zat_b103_actor_has_needed_food", (actor: GameObject, objec
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: GameObject, object: GameObject): boolean => {
   const squadsList: LuaArray<TName> = $fromArray<TName>([

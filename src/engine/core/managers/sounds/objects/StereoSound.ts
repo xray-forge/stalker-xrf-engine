@@ -35,7 +35,7 @@ export class StereoSound {
   }
 
   /**
-   * @returns whether object is playing now
+   * @returns Whether object is playing now.
    */
   public isPlaying(): boolean {
     return this.soundObject?.playing() === true;

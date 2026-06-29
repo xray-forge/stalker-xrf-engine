@@ -90,10 +90,10 @@ export class SchemeWounded extends AbstractScheme {
   /**
    * Initialize object wounded scheme configuration from ini file or use already parsed cached values.
    *
-   * @param object - target game object to initialize state
-   * @param ini - ini file with current logics configuration
-   * @param section - wounded scheme section to use for config initialization
-   * @param state - object wounded scheme state
+   * @param object - Target game object to initialize state.
+   * @param ini - Ini file with current logics configuration.
+   * @param section - Wounded scheme section to use for config initialization.
+   * @param state - Object wounded scheme state.
    */
   public static initializeWoundedState(
     object: GameObject,

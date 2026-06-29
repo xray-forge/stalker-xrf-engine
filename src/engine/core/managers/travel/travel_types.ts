@@ -3,7 +3,7 @@ import { TLevel } from "@/engine/lib/constants/levels";
 import { TName, TStringId } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export interface ITravelRouteDescriptor {
   phraseId: TStringId;

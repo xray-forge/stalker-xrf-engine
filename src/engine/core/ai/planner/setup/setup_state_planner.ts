@@ -24,8 +24,8 @@ import { ActionPlanner, WorldState } from "@/engine/lib/types";
  *
  * End goal is ended state of all animations and body states.
  *
- * @param planner - target state planner to initialize
- * @param stateManager - target state manager to initialize
+ * @param planner - Target state planner to initialize.
+ * @param stateManager - Target state manager to initialize.
  */
 export function setupStalkerStatePlanner(planner: ActionPlanner, stateManager: StalkerStateManager): void {
   setupStalkerStateEvaluators(planner, stateManager);

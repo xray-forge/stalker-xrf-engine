@@ -11,7 +11,7 @@ import { EScheme, GameObject, LuaArray, Optional, TNumberId } from "@/engine/lib
 /**
  * Finish loot corpse action - transfer all the items from corpse and play sound notification about loot quality.
  *
- * @param object - target object to finish looting of corpse
+ * @param object - Target object to finish looting of corpse.
  */
 export function finishCorpseLooting(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -35,7 +35,7 @@ export function finishCorpseLooting(object: GameObject): void {
 /**
  * Free currently looted object corpse from being looted status lock.
  *
- * @param lootedObjectId - id of target game object being looted
+ * @param lootedObjectId - Id of target game object being looted.
  */
 export function freeSelectedLootedObjectSpot(lootedObjectId: TNumberId): void {
   const lootedObjectState: Optional<IRegistryObjectState> = registry.objects.get(

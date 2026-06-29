@@ -5,9 +5,9 @@ import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engin
 import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
 
 /**
+ * Todo;
  * todo;
- * todo;
- * Scheme only for 1 quest in the end of game? (pri_a28_sr_horror)
+ * Scheme only for 1 quest in the end of game? (pri_a28_sr_horror).
  */
 export class SchemeDeimos extends AbstractScheme {
   public static override readonly SCHEME_SECTION: EScheme = EScheme.SR_DEIMOS;

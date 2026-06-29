@@ -8,7 +8,7 @@ import { GameObject, Optional } from "@/engine/lib/types";
  * Updates squad members invulnerability state based on defined logics condlist.
  * Updates each squad member separately and verifies each object has own section logics.
  *
- * @param squad - target squad object to update invulnerability state
+ * @param squad - Target squad object to update invulnerability state.
  */
 export function updateSquadInvulnerabilityState(squad: Squad): void {
   if (!squad.online) {

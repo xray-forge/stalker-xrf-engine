@@ -34,7 +34,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo;
+ * Todo.
  */
 export class ObjectSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound["3D"];
@@ -87,7 +87,7 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public play(objectId: TNumberId, faction: string, point: string, message: string): boolean {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
@@ -139,7 +139,7 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override stop(): void {
     super.stop();
@@ -151,7 +151,7 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public selectNextSound(): Optional<TIndex> {
     const soundsCount: TCount = this.soundPaths.length();
@@ -198,7 +198,7 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
     logger.info(
@@ -238,14 +238,14 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override save(packet: NetPacket): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
   }
 
   /**
-   * todo;
+   * Todo.
    */
   public override load(reader: NetProcessor): void {
     const id: StringOptional<TStringId> = reader.r_stringZ();

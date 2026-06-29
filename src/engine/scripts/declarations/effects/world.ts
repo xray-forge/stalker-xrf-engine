@@ -54,7 +54,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Where:
  * - theme - name of sound theme to play
  * - faction - faction prefix for theme playing
- * - terrainNameOrId - name of smart terrain or ID to play sound in
+ * - terrainNameOrId - name of smart terrain or ID to play sound in.
  */
 extern(
   "xr_effects.play_sound",
@@ -85,7 +85,7 @@ extern("xr_effects.stop_sound", (_: GameObject, object: GameObject): void => {
  * Start looped sound playback by theme name.
  *
  * Where:
- * - name - name of sound theme to play in loop
+ * - name - name of sound theme to play in loop.
  */
 extern("xr_effects.play_sound_looped", (_: GameObject, object: GameObject, [name]: [TName]): void => {
   getManager(SoundManager).playLooped(object.id(), name);
@@ -105,9 +105,9 @@ extern("xr_effects.stop_sound_looped", (_: GameObject, object: GameObject): void
  * - storyId - story ID of object to play sound for
  * - theme - name of sound theme to play
  * - faction - name of faction prefix for sound theme
- * - terrainNameOrId - name or identifier of smart terrain to play in
+ * - terrainNameOrId - name or identifier of smart terrain to play in.
  *
- * todo: Is it used with smart terrain ID at all?
+ * Todo: Is it used with smart terrain ID at all?
  */
 extern(
   "xr_effects.play_sound_by_story",
@@ -140,7 +140,7 @@ extern("xr_effects.reset_sound_npc", (_: GameObject, object: GameObject): void =
  * Explode game object by story id.
  *
  * Where:
- * - storyId - story ID of object to explode
+ * - storyId - story ID of object to explode.
  */
 extern("xr_effects.barrel_explode", (_: GameObject, __: GameObject, [storyId]: [TStringId]) => {
   const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
@@ -151,7 +151,7 @@ extern("xr_effects.barrel_explode", (_: GameObject, __: GameObject, [storyId]: [
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.set_game_time", (_: GameObject, __: GameObject, [hoursString, minutesString]: [string, string]) => {
   logger.info("Set game time: %s %s", hoursString, minutesString);
@@ -183,7 +183,7 @@ extern("xr_effects.set_game_time", (_: GameObject, __: GameObject, [hoursString,
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.forward_game_time",
@@ -268,7 +268,7 @@ extern(
  * Toggle anomaly zone enabled state as OFF.
  *
  * Where:
- * - zoneName - name of anomaly binding object to turn off
+ * - zoneName - name of anomaly binding object to turn off.
  */
 extern("xr_effects.anomaly_turn_off", (_: GameObject, __: GameObject, [zoneName]: [TName]): void => {
   const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
@@ -283,7 +283,7 @@ extern("xr_effects.anomaly_turn_off", (_: GameObject, __: GameObject, [zoneName]
  *
  * Where:
  * - zoneName - name of anomaly binding object to turn on
- * - isForced - flag to determine whether artefacts should be respawned
+ * - isForced - flag to determine whether artefacts should be respawned.
  */
 extern(
   "xr_effects.anomaly_turn_on",
@@ -297,7 +297,7 @@ extern(
 );
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_effects.turn_off_underpass_lamps", (_: GameObject, __: GameObject): void => {
   const lampsList = {
@@ -437,7 +437,7 @@ extern("xr_effects.stop_surge", (): void => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.set_surge_mess_and_task",
@@ -456,7 +456,7 @@ extern(
  * Enable anomaly by story ID.
  *
  * Where:
- * - storyId - story ID of anomaly object to enable
+ * - storyId - story ID of anomaly object to enable.
  */
 extern("xr_effects.enable_anomaly", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]) => {
   assert(storyId, "Story id for 'enable_anomaly' effect is not provided.");
@@ -472,7 +472,7 @@ extern("xr_effects.enable_anomaly", (_: GameObject, __: GameObject, [storyId]: [
  * Disable anomaly by story ID.
  *
  * Where:
- * - storyId - story ID of anomaly object to disable
+ * - storyId - story ID of anomaly object to disable.
  */
 extern("xr_effects.disable_anomaly", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   assert(storyId, "Story id for 'disable_anomaly' effect is not provided.");
@@ -490,7 +490,7 @@ extern("xr_effects.disable_anomaly", (_: GameObject, __: GameObject, [storyId]: 
  * Launch signal rocket by provided name.
  *
  * Where:
- * - name - name of signal light rocket object
+ * - name - name of signal light rocket object.
  */
 extern("xr_effects.launch_signal_rocket", (_: GameObject, __: GameObject, [name]: [TName]): void => {
   const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name) as Optional<SignalLightBinder>;
@@ -503,7 +503,7 @@ extern("xr_effects.launch_signal_rocket", (_: GameObject, __: GameObject, [name]
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_effects.create_cutscene_actor_with_weapon",

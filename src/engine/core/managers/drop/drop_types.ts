@@ -1,7 +1,7 @@
 import { TCount } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export interface IItemDropAmountDescriptor {
   min: TCount;

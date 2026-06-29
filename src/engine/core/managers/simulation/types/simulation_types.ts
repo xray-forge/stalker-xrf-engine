@@ -56,15 +56,15 @@ export interface ISimulationTarget {
   simulationProperties: LuaTable<TName, TRate>;
 
   /**
-   * @returns whether object is participating in simulation
+   * @returns Whether object is participating in simulation.
    */
   isSimulationAvailable(): boolean;
   /**
-   * @returns whether object can be selected as simulation target by squad
+   * @returns Whether object can be selected as simulation target by squad.
    */
   isValidSimulationTarget(squad: Squad): boolean;
   /**
-   * @returns whether object reached by squad
+   * @returns Whether object reached by squad.
    */
   isReachedBySimulationObject(squad: Squad): boolean;
   /**

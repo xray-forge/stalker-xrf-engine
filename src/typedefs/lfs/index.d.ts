@@ -1,6 +1,6 @@
 /**
  * LuaFileSystem LUA library.
- * https://lunarmodules.github.io/luafilesystem/index.html
+ * Https://lunarmodules.github.io/luafilesystem/index.html.
  */
 declare namespace lfs {
   function lock(filehandle: unknown): void;

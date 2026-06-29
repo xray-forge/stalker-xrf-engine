@@ -8,9 +8,9 @@ import { GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
 /**
  * Read monster state from provided ini file.
  *
- * @param ini - config file to read state from
- * @param section - ini file section to read state field from
- * @returns monster state from ini config or null
+ * @param ini - Config file to read state from.
+ * @param section - Ini file section to read state field from.
+ * @returns Monster state from ini config or null.
  */
 export function getMonsterState(ini: IniFile, section: TSection): Optional<EMonsterState> {
   const state: EMonsterState = readIniString(ini, section, "state", false, null, "") as EMonsterState;
@@ -21,8 +21,8 @@ export function getMonsterState(ini: IniFile, section: TSection): Optional<EMons
 /**
  * Set monster object state.
  *
- * @param object - client game object to set state
- * @param state - target state to set
+ * @param object - Client game object to set state.
+ * @param state - Target state to set.
  */
 export function setMonsterState(object: GameObject, state: Optional<EMonsterState>): void {
   if (state === null || state === EMonsterState.NONE) {

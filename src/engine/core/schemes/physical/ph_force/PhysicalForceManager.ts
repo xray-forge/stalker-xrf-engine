@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalForceState> {
   public time: number = 0;

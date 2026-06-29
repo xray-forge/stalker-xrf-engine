@@ -13,10 +13,10 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Load scheme implementation into registry.
  * Based on abstract implementation fields define scheme type and name.
  *
- * todo: Throw on duplicate scheme register?
+ * Todo: Throw on duplicate scheme register?
  *
- * @param schemeImplementation - abstract scheme implementation to read definition (name, type)
- * @param schemeNameOverride - name override for schemes, handle cases when 1 scheme can have few names
+ * @param schemeImplementation - Abstract scheme implementation to read definition (name, type).
+ * @param schemeNameOverride - Name override for schemes, handle cases when 1 scheme can have few names.
  */
 export function loadSchemeImplementation(
   schemeImplementation: TAbstractSchemeConstructor,
@@ -35,7 +35,7 @@ export function loadSchemeImplementation(
 /**
  * Load list of schemes at once.
  *
- * @param schemeImplementations - list of schemes for registration
+ * @param schemeImplementations - List of schemes for registration.
  */
 export function loadSchemeImplementations(schemeImplementations: LuaArray<TAbstractSchemeConstructor>): void {
   for (const [, schemeImplementation] of schemeImplementations) {
@@ -46,7 +46,7 @@ export function loadSchemeImplementations(schemeImplementations: LuaArray<TAbstr
 /**
  * Add common preconditions for base action to give priority for other default actions.
  *
- * @param action - action fore preconditions addition
+ * @param action - Action fore preconditions addition.
  */
 export function addCommonActionPreconditions(action: ActionBase): void {
   action.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
@@ -60,10 +60,10 @@ export function addCommonActionPreconditions(action: ActionBase): void {
 /**
  * Disable object base schemes.
  *
- * todo; Use shared generic to disable schemes by type, probably config based approach for each type.
+ * Todo; Use shared generic to disable schemes by type, probably config based approach for each type.
  *
- * @param object - game object for schemes disabling
- * @param schemeType - type of scheme applied for provided object
+ * @param object - Game object for schemes disabling.
+ * @param schemeType - Type of scheme applied for provided object.
  */
 export function disableObjectBaseSchemes(object: GameObject, schemeType: ESchemeType): void {
   switch (schemeType) {

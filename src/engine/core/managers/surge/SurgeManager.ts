@@ -60,7 +60,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * todo: Separate manager to handle artefacts spawn / ownership etc in parallel, do not mix logic.
+ * Todo: Separate manager to handle artefacts spawn / ownership etc in parallel, do not mix logic.
  */
 export class SurgeManager extends AbstractManager {
   // Whether manager should respawn artefacts for specific level.
@@ -174,35 +174,35 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * todo
+   * Todo.
    */
   public setSkipResurrectMessage(): void {
     this.isSkipMessageToggled = false;
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setSurgeTask(task: TSection): void {
     this.surgeTaskSection = task;
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public setSurgeMessage(message: TLabel): void {
     this.surgeMessage = message;
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public isKillingAll(): boolean {
     return surgeConfig.IS_STARTED && this.isUiDisabled;
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   protected giveSurgeHideTask(): void {
     if (this.surgeTaskSection !== "empty") {
@@ -212,7 +212,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public requestSurgeStart(): void {
     logger.info("Request surge start");
@@ -225,7 +225,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public requestSurgeStop(): void {
     logger.info("Request surge stop");
@@ -278,7 +278,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public skipSurge(): void {
     logger.info("Skipped surge");
@@ -313,7 +313,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public endSurge(manual?: boolean): void {
     logger.info("Ending surge: %s", manual);
@@ -369,7 +369,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     const levelName: TLevel = level.name();
@@ -541,7 +541,7 @@ export class SurgeManager extends AbstractManager {
   /**
    * Handle actor taking artefacts.
    *
-   * @param object - taken by actor game object
+   * @param object - Taken by actor game object.
    */
   public onActorItemTake(object: GameObject): void {
     if (isArtefact(object)) {
@@ -570,7 +570,7 @@ export class SurgeManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

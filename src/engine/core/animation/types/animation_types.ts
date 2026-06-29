@@ -102,7 +102,7 @@ export enum EAnimationMarker {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export interface IAnimationManagerState {
   lastIndex: Optional<TIndex>;
@@ -122,6 +122,6 @@ export enum EAnimationType {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export const WEAPON_POSTFIX: TLabel = "_weapon";

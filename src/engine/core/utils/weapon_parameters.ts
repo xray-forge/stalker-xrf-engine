@@ -5,18 +5,18 @@ import { clamp } from "@/engine/core/utils/number";
 import { IniFile, Optional, TName, TRate, TSection } from "@/engine/lib/types";
 
 /**
- * @param section - section of weapon to read stats
- * @param upgradeSections - serialized list of weapon upgrades
- * @returns weapon RPM stat
+ * @param section - Section of weapon to read stats.
+ * @param upgradeSections - Serialized list of weapon upgrades.
+ * @returns Weapon RPM stat.
  */
 export function readWeaponRPM(section: TSection, upgradeSections: Optional<string> = null): TRate {
   return normalizeWeaponParameter(readWeaponParameter(SYSTEM_INI, section, upgradeSections, "rpm"), 0, 1150);
 }
 
 /**
- * @param section - section of weapon to read stats
- * @param upgradeSections - serialized list of weapon upgrades
- * @returns weapon handling stat
+ * @param section - Section of weapon to read stats.
+ * @param upgradeSections - Serialized list of weapon upgrades.
+ * @returns Weapon handling stat.
  */
 export function readWeaponHandling(section: TSection, upgradeSections: Optional<string> = null): TRate {
   const inertion: TRate = SYSTEM_INI.line_exist(section, "crosshair_inertion")
@@ -27,9 +27,9 @@ export function readWeaponHandling(section: TSection, upgradeSections: Optional<
 }
 
 /**
- * @param section - section of weapon to read stats
- * @param upgradeSections - serialized list of weapon upgrades
- * @returns weapon accuracy stat
+ * @param section - Section of weapon to read stats.
+ * @param upgradeSections - Serialized list of weapon upgrades.
+ * @returns Weapon accuracy stat.
  */
 export function readWeaponAccuracy(section: TSection, upgradeSections: Optional<string> = null): TRate {
   return normalizeWeaponParameter(
@@ -40,18 +40,18 @@ export function readWeaponAccuracy(section: TSection, upgradeSections: Optional<
 }
 
 /**
- * @param section - section of weapon to read stats
- * @param upgradeSections - serialized list of weapon upgrades
- * @returns weapon damage stat for single player game
+ * @param section - Section of weapon to read stats.
+ * @param upgradeSections - Serialized list of weapon upgrades.
+ * @returns Weapon damage stat for single player game.
  */
 export function readWeaponDamage(section: TSection, upgradeSections: Optional<string> = null): TRate {
   return normalizeWeaponParameter(readWeaponParameter(SYSTEM_INI, section, upgradeSections, "hit_power"), 0, 0.9);
 }
 
 /**
- * @param section - section of weapon to read stats
- * @param upgradeSections - serialized list of weapon upgrades
- * @returns weapon damage stat for multiplayer game
+ * @param section - Section of weapon to read stats.
+ * @param upgradeSections - Serialized list of weapon upgrades.
+ * @returns Weapon damage stat for multiplayer game.
  */
 export function readWeaponDamageMultiplayer(section: TSection, upgradeSections: Optional<string> = null): TRate {
   return normalizeWeaponParameterInMultiplayer(
@@ -60,11 +60,11 @@ export function readWeaponDamageMultiplayer(section: TSection, upgradeSections: 
 }
 
 /**
- * @param ini - ini file to read data from
- * @param section - section to read in ini
- * @param upgradeSections - comma-separated list of applied upgrades
- * @param field - field to read in ini
- * @returns weapon parameter based on section/field and upgrades
+ * @param ini - Ini file to read data from.
+ * @param section - Section to read in ini.
+ * @param upgradeSections - Comma-separated list of applied upgrades.
+ * @param field - Field to read in ini.
+ * @returns Weapon parameter based on section/field and upgrades.
  */
 export function readWeaponParameter(
   ini: IniFile,
@@ -102,18 +102,18 @@ export function readWeaponParameter(
 }
 
 /**
- * @param value - value to normalize
- * @param min - minimal value
- * @param max - maximal value
- * @returns normalize parameter for single player variant
+ * @param value - Value to normalize.
+ * @param min - Minimal value.
+ * @param max - Maximal value.
+ * @returns Normalize parameter for single player variant.
  */
 export function normalizeWeaponParameter(value: TRate, min: TRate, max: TRate): TRate {
   return math.max((100 * (value - min)) / (max - min), 0);
 }
 
 /**
- * @param value - value to normalize
- * @returns normalize parameter for multiplayer variant
+ * @param value - Value to normalize.
+ * @returns Normalize parameter for multiplayer variant.
  */
 export function normalizeWeaponParameterInMultiplayer(value: TRate): TRate {
   return clamp(value, 1, 100);

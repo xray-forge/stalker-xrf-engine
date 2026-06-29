@@ -15,7 +15,7 @@ import { GameObject } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename, { file: "psy" });
 
 /**
- * todo;
+ * Todo.
  */
 export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAntennaState> {
   public antennaState: EAntennaState = EAntennaState.VOID;
@@ -54,7 +54,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public switchState(actor: GameObject): void {
     if (this.antennaState !== EAntennaState.INSIDE) {
@@ -69,7 +69,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onZoneEnter(): void {
     logger.info("Enter psy antenna zone");
@@ -113,7 +113,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public onZoneLeave(): void {
     logger.info("Leave psy antenna zone");

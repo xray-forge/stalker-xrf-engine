@@ -19,9 +19,9 @@ export class SquadReachTargetAction implements ISquadAction {
 
   /**
    * Start reaching target, initialize action.
-   * todo: Clarify simulation flag.
+   * Todo: Clarify simulation flag.
    *
-   * @param isUnderSimulation - whether squad initializing new action is under simulation
+   * @param isUnderSimulation - Whether squad initializing new action is under simulation.
    */
   public initialize(isUnderSimulation: boolean): void {
     const target: Optional<TSimulationObject> = isUnderSimulation
@@ -43,10 +43,10 @@ export class SquadReachTargetAction implements ISquadAction {
   public finalize(): void {}
 
   /**
-   * todo: Clarify simulation flag.
+   * Todo: Clarify simulation flag.
    *
-   * @param isUnderSimulation - whether squad initializing new action is under simulation
-   * @returns whether task is finished
+   * @param isUnderSimulation - Whether squad initializing new action is under simulation.
+   * @returns Whether task is finished.
    */
   public update(isUnderSimulation: boolean): boolean {
     const target: Optional<TSimulationObject> = isUnderSimulation

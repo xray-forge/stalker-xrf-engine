@@ -5,16 +5,16 @@ import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { GameObject, LuaArray, Optional, ServerObject, TCount, TNumberId, TRate, TSection } from "@/engine/lib/types";
 
 /**
- * @param section - item section to get cost for
- * @returns cost of the item by section
+ * @param section - Item section to get cost for.
+ * @returns Cost of the item by section.
  */
 export function getItemPrice(section: TSection): TCount {
   return SYSTEM_INI.r_u32(section, "cost");
 }
 
 /**
- * @param id - item object id to get owner
- * @returns id of item owner or null
+ * @param id - Item object id to get owner.
+ * @returns Id of item owner or null.
  */
 export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
   const serverObject: Optional<ServerObject> = registry.simulator.object(id);
@@ -27,8 +27,8 @@ export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
 }
 
 /**
- * @param object - target object to get pistol from
- * @returns pistol from object inventory
+ * @param object - Target object to get pistol from.
+ * @returns Pistol from object inventory.
  */
 export function getAnyObjectPistol(object: GameObject): Optional<GameObject> {
   let pistol: Optional<GameObject> = null;
@@ -47,9 +47,9 @@ export function getAnyObjectPistol(object: GameObject): Optional<GameObject> {
 /**
  * Get available medkit or null.
  *
- * @param list - list of medical kits to check in inventory
- * @param actor - target object to get medkit, gets actor from registry by default
- * @returns get medkit or null
+ * @param list - List of medical kits to check in inventory.
+ * @param actor - Target object to get medkit, gets actor from registry by default.
+ * @returns Get medkit or null.
  */
 export function getActorAvailableMedKit(
   list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
@@ -67,8 +67,8 @@ export function getActorAvailableMedKit(
 /**
  * Set item condition.
  *
- * @param object - game object to change condition
- * @param condition - value from 0 to 100, percents
+ * @param object - Game object to change condition.
+ * @param condition - Value from 0 to 100, percents.
  */
 export function setItemCondition(object: GameObject, condition: TRate): void {
   object.set_condition(condition / 100);
@@ -77,9 +77,9 @@ export function setItemCondition(object: GameObject, condition: TRate): void {
 /**
  * Check whether actor has at least one med kit.
  *
- * @param list - list of medical kits to check in inventory
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has at least one med kit
+ * @param list - List of medical kits to check in inventory.
+ * @param actor - Target object to check, gets actor from registry by default.
+ * @returns Whether actor has at least one med kit.
  */
 export function actorHasMedKit(
   list: LuaArray<TSection | TNumberId> = medkits as unknown as LuaArray<TSection | TNumberId>,
@@ -91,9 +91,9 @@ export function actorHasMedKit(
 /**
  * Check whether actor has item in inventory.
  *
- * @param section - item section to check in the inventory
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has all of provided items
+ * @param section - Item section to check in the inventory.
+ * @param actor - Target object to check, gets actor from registry by default.
+ * @returns Whether actor has all of provided items.
  */
 export function actorHasItem(section: TSection | TNumberId, actor: GameObject = registry.actor): boolean {
   return actor.object(section) !== null;
@@ -102,9 +102,9 @@ export function actorHasItem(section: TSection | TNumberId, actor: GameObject = 
 /**
  * Check whether actor has all items from provided list.
  *
- * @param sections - list of item sections to check in the inventory
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has all of provided items
+ * @param sections - List of item sections to check in the inventory.
+ * @param actor - Target object to check, gets actor from registry by default.
+ * @returns Whether actor has all of provided items.
  */
 export function actorHasItems(
   sections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
@@ -120,10 +120,10 @@ export function actorHasItems(
 }
 
 /**
- * @param section - item section to check in the inventory
- * @param count - desired item count to verify
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has desired count of provided section items
+ * @param section - Item section to check in the inventory.
+ * @param count - Desired item count to verify.
+ * @param actor - Target object to check, gets actor from registry by default.
+ * @returns Whether actor has desired count of provided section items.
  */
 export function actorHasItemCount(section: TSection, count: TCount, actor: GameObject = registry.actor): boolean {
   let hasCount: TCount = 0;
@@ -146,9 +146,9 @@ export function actorHasItemCount(section: TSection, count: TCount, actor: GameO
 /**
  * Check whether actor has at least one item from the list.
  *
- * @param itemSections - list of item sections to check in the inventory
- * @param actor - target object to check, gets actor from registry by default
- * @returns whether actor has at least one of provided items
+ * @param itemSections - List of item sections to check in the inventory.
+ * @param actor - Target object to check, gets actor from registry by default.
+ * @returns Whether actor has at least one of provided items.
  */
 export function actorHasAtLeastOneItem(
   itemSections: LuaArray<TSection | TNumberId> | Array<TSection | TNumberId>,
@@ -166,17 +166,17 @@ export function actorHasAtLeastOneItem(
 /**
  * Check whether object has item in inventory.
  *
- * @param object - target object to check inventory
- * @param itemSectionOrId - item section or ID to check in inventory
- * @returns whether object has item in inventory
+ * @param object - Target object to check inventory.
+ * @param itemSectionOrId - Item section or ID to check in inventory.
+ * @returns Whether object has item in inventory.
  */
 export function objectHasItem(object: GameObject, itemSectionOrId: TSection | TNumberId): boolean {
   return object.object(itemSectionOrId) !== null;
 }
 
 /**
- * @param object - target item object to get upgrades from
- * @returns list of installed upgrades
+ * @param object - Target item object to get upgrades from.
+ * @returns List of installed upgrades.
  */
 export function getItemInstalledUpgradesList(object: GameObject): LuaArray<TSection> {
   const list: LuaArray<TSection> = new LuaTable();
@@ -187,8 +187,8 @@ export function getItemInstalledUpgradesList(object: GameObject): LuaArray<TSect
 }
 
 /**
- * @param object - target item object to get upgrades from
- * @returns set of installed upgrades
+ * @param object - Target item object to get upgrades from.
+ * @returns Set of installed upgrades.
  */
 export function getItemInstalledUpgradesSet(object: GameObject): LuaTable<TSection, boolean> {
   const set: LuaTable<TSection, boolean> = new LuaTable();

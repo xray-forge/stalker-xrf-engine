@@ -12,7 +12,7 @@ import { IniFile, LuaArray, TCount, TName } from "@/engine/lib/types";
 /**
  * Read list of map spots from manager config.
  *
- * @param ini - target ini file to read map spots from
+ * @param ini - Target ini file to read map spots from.
  */
 export function readIniMapSpots(ini: IniFile): LuaArray<IMapGenericSpotDescriptor> {
   assert(ini.section_exist("map_spots"), "Expect 'map_spots' section to exist in ini file.");
@@ -32,7 +32,7 @@ export function readIniMapSpots(ini: IniFile): LuaArray<IMapGenericSpotDescripto
 /**
  * Read list of sleep spots from manager config.
  *
- * @param ini - target ini file to read sleep spots from
+ * @param ini - Target ini file to read sleep spots from.
  */
 export function readIniSleepSpots(ini: IniFile): LuaArray<IMapSleepSpotDescriptor> {
   assert(ini.section_exist("sleep_spots"), "Expect 'sleep_spots' section to exist in ini file.");
@@ -52,7 +52,7 @@ export function readIniSleepSpots(ini: IniFile): LuaArray<IMapSleepSpotDescripto
 /**
  * Read list of generic map marks from manager config.
  *
- * @param ini - target ini file to read sleep spots from
+ * @param ini - Target ini file to read sleep spots from.
  */
 export function readIniMapMarks(ini: IniFile): LuaTable<TName, IMapMarkDescriptor> {
   assert(ini.section_exist("map_marks"), "Expect 'map_marks' section to exist in ini file.");
@@ -72,7 +72,7 @@ export function readIniMapMarks(ini: IniFile): LuaTable<TName, IMapMarkDescripto
 /**
  * Read list of generic map marks from manager config.
  *
- * @param ini - target ini file to read sleep spots from
+ * @param ini - Target ini file to read sleep spots from.
  */
 export function readIniMapScannerSpots(ini: IniFile): LuaArray<IMapAnomalyScanDescriptor> {
   assert(ini.section_exist("scanner_spots"), "Expect 'scanner_spots' section to exist in ini file.");

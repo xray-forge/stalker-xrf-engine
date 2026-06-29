@@ -22,7 +22,7 @@ export class EvaluatorStateEnd extends property_evaluator {
   /**
    * Perform silly checks of state with side effects.
    *
-   * @returns false since state never ends
+   * @returns False since state never ends.
    */
   public override evaluate(): boolean {
     this.actionPlanner = this.actionPlanner ?? this.object.motivation_action_manager();

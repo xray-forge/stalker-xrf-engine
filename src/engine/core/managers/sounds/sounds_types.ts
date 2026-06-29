@@ -9,7 +9,7 @@ export interface IDynamicMusicDescriptor {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export enum EDynamicMusicState {
   IDLE,
@@ -31,7 +31,7 @@ export enum EPlayableSound {
  * Type of playback for playable sounds.
  * - Play random sound from playlist
  * - Play in loop whole playlist
- * - Play once in sequence
+ * - Play once in sequence.
  */
 export enum ESoundPlaylistType {
   RANDOM = "rnd",
@@ -40,7 +40,7 @@ export enum ESoundPlaylistType {
 }
 
 /**
- * todo;
+ * Todo.
  */
 export enum ESoundStoryParticipant {
   TELLER = "teller",
@@ -49,7 +49,7 @@ export enum ESoundStoryParticipant {
 }
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export interface IReplicDescriptor {
   who: TName;

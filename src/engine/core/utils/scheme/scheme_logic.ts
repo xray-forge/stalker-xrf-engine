@@ -40,9 +40,9 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 /**
  * Check whether section is active in logics for an object.
  *
- * @param object - object to check
- * @param section - logic section to check
- * @returns whether object logics active section is same as provided
+ * @param object - Object to check.
+ * @param section - Logic section to check.
+ * @returns Whether object logics active section is same as provided.
  */
 export function isActiveSection(object: GameObject, section?: Optional<TSection>): boolean {
   return section === registry.objects.get(object.id()).activeSection;
@@ -53,10 +53,10 @@ export function isActiveSection(object: GameObject, section?: Optional<TSection>
  * In case of offline->online switch try to restore previous job.
  * In other cases try to get active scheme from ini config settings.
  *
- * @param object - game object to get object section
- * @param ini - ini file of the object
- * @param section - desired logics section
- * @returns section to activate
+ * @param object - Game object to get object section.
+ * @param ini - Ini file of the object.
+ * @param section - Desired logics section.
+ * @returns Section to activate.
  */
 export function getSectionToActivate(object: GameObject, ini: IniFile, section: TSection): TSection {
   if (!ini.section_exist(section)) {
@@ -98,11 +98,11 @@ export function getSectionToActivate(object: GameObject, ini: IniFile, section: 
  * If no section provided (null), try to find any section from active smart terrain.
  * Emit activation signal for new scheme implementation.
  *
- * @param object - game object
- * @param ini - target object logics ini file
- * @param section - target section to activate
- * @param smartTerrainName - smart terrain name
- * @param isLoading - whether loading object on game load, `false` means manual scheme switch
+ * @param object - Game object.
+ * @param ini - Target object logics ini file.
+ * @param section - Target section to activate.
+ * @param smartTerrainName - Smart terrain name.
+ * @param isLoading - Whether loading object on game load, `false` means manual scheme switch.
  */
 export function activateSchemeBySection(
   object: GameObject,
@@ -172,10 +172,10 @@ export function activateSchemeBySection(
 /**
  * Enable generic base schemes for object on logics activation.
  *
- * @param object - game object
- * @param ini - target object ini configuration
- * @param schemeType - type of object applied scheme
- * @param logicsSection - next active logic section, source of object logic
+ * @param object - Game object.
+ * @param ini - Target object ini configuration.
+ * @param schemeType - Type of object applied scheme.
+ * @param logicsSection - Next active logic section, source of object logic.
  */
 export function enableObjectBaseSchemes(
   object: GameObject,
@@ -289,9 +289,9 @@ export function enableObjectBaseSchemes(
  * Reset generic schemes on activation of new scheme.
  * Called after scheme switch to new section.
  *
- * @param object - game object
- * @param scheme - new active scheme type
- * @param section - new active section
+ * @param object - Game object.
+ * @param scheme - New active scheme type.
+ * @param section - New active section.
  */
 export function resetObjectGenericSchemesOnSectionSwitch(object: GameObject, scheme: EScheme, section: TSection): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());

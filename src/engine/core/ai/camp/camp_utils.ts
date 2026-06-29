@@ -10,7 +10,7 @@ import { GameObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/engi
  * Start playing guitar for an object.
  * Checks whether object is in camp and tries to start new guitar action with guitar playing.
  *
- * @param object - stalker game object to start playing guitar for
+ * @param object - Stalker game object to start playing guitar for.
  */
 export function startPlayingGuitar(object: GameObject): void {
   const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
@@ -31,7 +31,7 @@ export function startPlayingGuitar(object: GameObject): void {
  * Start playing harmonica for an object.
  * Checks whether object is in camp and tries to start new harmonica action with guitar playing.
  *
- * @param object - stalker game object to start playing harmonica for
+ * @param object - Stalker game object to start playing harmonica for.
  */
 export function startPlayingHarmonica(object: GameObject): void {
   const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
@@ -49,8 +49,8 @@ export function startPlayingHarmonica(object: GameObject): void {
 }
 
 /**
- * @param manager - manager to check
- * @returns whether guitar can be played in camp
+ * @param manager - Manager to check.
+ * @returns Whether guitar can be played in camp.
  */
 export function canPlayCampGuitar(manager: CampManager): boolean {
   if (manager.availableGuitarStories.length() === 0 || table.size(manager.objects) < 2) {
@@ -79,8 +79,8 @@ export function canPlayCampGuitar(manager: CampManager): boolean {
 }
 
 /**
- * @param manager - manager instance to check
- * @returns whether harmonica can be played in camp
+ * @param manager - Manager instance to check.
+ * @returns Whether harmonica can be played in camp.
  */
 export function canPlayCampHarmonica(manager: CampManager): boolean {
   // Nothing to play here.
@@ -113,7 +113,7 @@ export function canPlayCampHarmonica(manager: CampManager): boolean {
  * Checker to verify if story can be told in camp.
  * Used by animstate checkers when objects have correct animation.
  *
- * @returns whether story can be told in camp
+ * @returns Whether story can be told in camp.
  */
 export function canTellCampStory(manager: CampManager): boolean {
   // Nothing to tell here.
@@ -143,9 +143,9 @@ export function canTellCampStory(manager: CampManager): boolean {
 /**
  * Get object role based on id/state for current camp activity.
  *
- * @param objectId - game object ID
- * @param activity - camp activity name to check role for
- * @returns whether object animpoint state is correct and what role can be used for it
+ * @param objectId - Game object ID.
+ * @param activity - Camp activity name to check role for.
+ * @returns Whether object animpoint state is correct and what role can be used for it.
  */
 export function getObjectCampActivityRole(objectId: TNumberId, activity: EObjectCampActivity): EObjectCampRole {
   const schemeState: Optional<ISchemeAnimpointState> = registry.objects.get(objectId)[

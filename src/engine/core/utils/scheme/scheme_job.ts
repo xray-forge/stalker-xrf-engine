@@ -9,10 +9,10 @@ import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { ESchemeType, GameObject, IniFile, Optional, ServerCreatureObject, TName, TSection } from "@/engine/lib/types";
 
 /**
- * @param object - game object to setup logic
- * @param state - target object registry state
- * @param schemeType - target object active scheme type
- * @param isLoaded - whether object is initialized after game load
+ * @param object - Game object to setup logic.
+ * @param state - Target object registry state.
+ * @param schemeType - Target object active scheme type.
+ * @param isLoaded - Whether object is initialized after game load.
  */
 export function setupObjectLogicsOnSpawn(
   object: GameObject,
@@ -42,8 +42,8 @@ export function setupObjectLogicsOnSpawn(
  * Initialize and setup object job logics in smart terrain based on currently active job.
  * If object job descriptor is updated and linked, logics schemas will be activated as needed.
  *
- * @param terrain - target smart terrain to setup logic in
- * @param object - game object to setup logics
+ * @param terrain - Target smart terrain to setup logic in.
+ * @param object - Game object to setup logics.
  */
 export function setupSmartTerrainObjectJobLogic(terrain: SmartTerrain, object: GameObject): void {
   // logger.format("Setup logic: %s %s", this.name(), object.name());

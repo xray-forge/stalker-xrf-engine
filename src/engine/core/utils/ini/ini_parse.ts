@@ -31,8 +31,8 @@ import {
 /**
  * Parse list of strings separated by commas and whitespaces.
  *
- * @param data - string to parse
- * @returns list of parsed strings
+ * @param data - String to parse.
+ * @returns List of parsed strings.
  */
 export function parseStringsList<T extends string = string>(data: string): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
@@ -47,8 +47,8 @@ export function parseStringsList<T extends string = string>(data: string): LuaAr
 /**
  * Parse list of strings separated by commas and whitespaces as set.
  *
- * @param data - string to parse
- * @returns list of parsed strings
+ * @param data - String to parse.
+ * @returns List of parsed strings.
  */
 export function parseStringsSet<T extends string = string>(data: string): LuaTable<T, boolean> {
   const result: LuaTable<T, boolean> = new LuaTable();
@@ -64,8 +64,8 @@ export function parseStringsSet<T extends string = string>(data: string): LuaTab
  * Parse util to transform string of numbers to array.
  * Example: "1, 2, 3" -> [1, 2, 3].
  *
- * @param data - string to parse
- * @returns parsed array of numbers
+ * @param data - String to parse.
+ * @returns Parsed array of numbers.
  */
 export function parseNumbersList<T extends number = number>(data: string): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
@@ -82,12 +82,12 @@ export function parseNumbersList<T extends number = number>(data: string): LuaAr
  * Example input values:
  * - "1,1"
  * - "2,1"
- * - "1,0.5,1,1"
+ * - "1,0.5,1,1".
  *
- * todo: Just simplify and expect even number of parameters after parse or throw.
+ * Todo: Just simplify and expect even number of parameters after parse or throw.
  *
- * @param data - string to parse
- * @returns list of spawn details
+ * @param data - String to parse.
+ * @returns List of spawn details.
  */
 export function parseSpawnDetails(data: string): LuaArray<ISpawnDescriptor> {
   const list: LuaArray<ISpawnDescriptor> = new LuaTable();
@@ -127,10 +127,10 @@ export function parseSpawnDetails(data: string): LuaArray<ISpawnDescriptor> {
  * Parse function call parameters separated with pipe.
  *
  * Example: "a|b|c" ==> { 1 = "a", 2 = "b", 3 = "c" }
- * todo: trim parameters
+ * todo: trim parameters.
  *
- * @param data - string to parse
- * @returns array of parsed parameters separated with `|`
+ * @param data - String to parse.
+ * @returns Array of parsed parameters separated with `|`.
  */
 export function parseParameters<T extends string>(data: T): LuaArray<T> {
   const result: LuaArray<T> = new LuaTable();
@@ -151,13 +151,13 @@ export function parseParameters<T extends string>(data: T): LuaArray<T> {
  * {
  *   1 = { infop_check = { 1 = {"infop1" = true} }, infop_set = { 1 = {"infop2" = false } }, section = "section1" },
  *   2 = { infop_check = { 1 = {"infop3" = true}, 2 = {"infop4" = false} }, infop_set = {}, section = "section2" },
- * }
+ * }.
  *
- * todo: trimming of whitespaces in names
+ * Todo: trimming of whitespaces in names
  * todo: throw on empty string?
  *
- * @param data - raw string from config to parse
- * @returns parsed condlist descriptor
+ * @param data - Raw string from config to parse.
+ * @returns Parsed condlist descriptor.
  */
 export function parseConditionsList(data: string): TConditionList {
   // All condition lists are just readonly descriptors. Cache them.
@@ -211,9 +211,9 @@ export function parseConditionsList(data: string): TConditionList {
  * Has side effect - modifies provided destination lua array.
  * Example: `+save_zat_b42_arrived_to_controler_lair =scenario_autosave(st_save_zat_b42_arrived_to_controler_lair)`.
  *
- * @param destination - target array for insertion
- * @param data - condlist part to parse
- * @returns modified list of config conditions
+ * @param destination - Target array for insertion.
+ * @param data - Condlist part to parse.
+ * @returns Modified list of config conditions.
  */
 export function parseInfoPortions(
   destination: LuaArray<IConfigCondition>,
@@ -292,8 +292,8 @@ export function parseInfoPortions(
  * Parse part of condlist - function params.
  * Example: `1:zat_b42_mayron_walk:2` or `a:b:c:10:-10:10.5`.
  *
- * @param data - string to parse
- * @returns list of parameters parsed as strings or numbers
+ * @param data - String to parse.
+ * @returns List of parameters parsed as strings or numbers.
  */
 export function parseFunctionParams(data: string): LuaArray<string | number> {
   const list: LuaArray<string | number> = new LuaTable();
@@ -310,10 +310,10 @@ export function parseFunctionParams(data: string): LuaArray<string | number> {
 /**
  * Parse waypoint data from string.
  *
- * @param patrolName - name of waypoint
- * @param patrolFlags - patrol flags32
- * @param pointName - patrol name, source of data to parse
- * @returns parsed waypoint data
+ * @param patrolName - Name of waypoint.
+ * @param patrolFlags - Patrol flags32.
+ * @param pointName - Patrol name, source of data to parse.
+ * @returns Parsed waypoint data.
  */
 export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, pointName: TName): IWaypointData {
   const waypointData: IWaypointData = {
@@ -368,8 +368,8 @@ export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, point
  * Parse patrol waypoints data.
  * Collects all waypoints from patrol and maps to waypoint data.
  *
- * @param patrolName - name of patrol to parse
- * @returns list of waypoint descriptors
+ * @param patrolName - Name of patrol to parse.
+ * @returns List of waypoint descriptors.
  */
 export function parseWaypointsData(patrolName: null): null;
 export function parseWaypointsData(patrolName: TPath): LuaTable<TIndex, IWaypointData>;
@@ -401,10 +401,10 @@ export function parseWaypointsData(patrolName: Optional<TPath>): Optional<LuaTab
  * Parse waypoints data based on parameters overrides.
  * Same as parsing from path patrol, but requires variadic arguments with overrides of index/name.
  *
- * @param patrolName - name of patrol
- * @param pointsCount - count of points in patrol
- * @param args - variadic list of points overrides
- * @returns list of waypoint descriptors
+ * @param patrolName - Name of patrol.
+ * @param pointsCount - Count of points in patrol.
+ * @param args - Variadic list of points overrides.
+ * @returns List of waypoint descriptors.
  */
 export function parseWaypointsDataFromList(
   patrolName: TName,
@@ -442,8 +442,8 @@ export function parseWaypointsDataFromList(
  * Parse descriptors for bone index.
  * Matches bone index to related state condlist.
  *
- * @param data - input string to parse
- * @returns list of bone state descriptors
+ * @param data - Input string to parse.
+ * @returns List of bone state descriptors.
  */
 export function parseBoneStateDescriptors(data: Optional<string>): LuaArray<IBoneStateDescriptor> {
   const target: LuaArray<IBoneStateDescriptor> = new LuaTable();
@@ -467,8 +467,8 @@ export function parseBoneStateDescriptors(data: Optional<string>): LuaArray<IBon
 /**
  * Utility shortcut to handle string 'nil' values stored in net packets as string.
  *
- * @param value - value to check
- * @returns value or null in case of `nil` string
+ * @param value - Value to check.
+ * @returns Value or null in case of `nil` string.
  */
 export function parseStringOptional<T extends StringOptional>(value: Optional<T>): Optional<T> {
   return value === NIL ? null : value;
@@ -477,8 +477,8 @@ export function parseStringOptional<T extends StringOptional>(value: Optional<T>
 /**
  * Utility shortcut to handle number 'nil' values stored in net packets as string.
  *
- * @param value - value to check
- * @returns parsed number value or null in case of `nil` string
+ * @param value - Value to check.
+ * @returns Parsed number value or null in case of `nil` string.
  */
 export function parseNumberOptional<T extends StringOptional>(value: T): Optional<number> {
   return value === NIL ? null : (tonumber(value) as number);
@@ -487,8 +487,8 @@ export function parseNumberOptional<T extends StringOptional>(value: T): Optiona
 /**
  * Get scheme name from full section name.
  *
- * @param section - full section name
- * @returns scheme name
+ * @param section - Full section name.
+ * @returns Scheme name.
  * @example some_name@parameter -> some_name
  */
 export function getSchemeFromSection(section: TSection): Optional<EScheme> {

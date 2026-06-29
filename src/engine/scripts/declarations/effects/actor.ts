@@ -263,7 +263,7 @@ extern("xr_effects.make_actor_visible_to_squad", (actor: GameObject, __: GameObj
  * Trigger sleep dialog for actor.
  * Checks if actor is in one of sleep zones and shows UI.
  *
- * todo: Is zone check needed?
+ * Todo: Is zone check needed?
  */
 extern("xr_effects.sleep", (): void => {
   logger.info("Sleep effect");

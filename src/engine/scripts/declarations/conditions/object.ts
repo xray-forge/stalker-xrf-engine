@@ -135,7 +135,7 @@ extern("xr_conditions.is_monster_boar", (_: GameObject, object: GameObject): boo
  * Check if object enemy (actor) is in zone.
  *
  * Where:
- * - name - name of zone object to check
+ * - name - name of zone object to check.
  *
  * Throws, if zone with provided name does not exist.
  */
@@ -151,7 +151,7 @@ extern("xr_conditions.enemy_in_zone", (_: GameObject, __: GameObject, [name]: [T
  * Check if object name matches one of provided parameters.
  *
  * Where:
- * - parameters - variadic list of strings to match object name
+ * - parameters - variadic list of strings to match object name.
  */
 extern("xr_conditions.check_npc_name", (_: GameObject, object: GameObject, params: LuaArray<TName>): boolean => {
   const objectName: TName = object.name();
@@ -169,7 +169,7 @@ extern("xr_conditions.check_npc_name", (_: GameObject, object: GameObject, param
  * Check if object enemy is alive and enemy name is matching.
  *
  * Where:
- * - params - variadic list of strings to match object enemy name
+ * - params - variadic list of strings to match object enemy name.
  */
 extern("xr_conditions.check_enemy_name", (_: GameObject, object: GameObject, params: LuaArray<TName>): boolean => {
   const enemy: Optional<GameObject> = registry.objects.get(object.id()).enemy;
@@ -191,7 +191,7 @@ extern("xr_conditions.check_enemy_name", (_: GameObject, object: GameObject, par
  * Check if object can see another object with provided story id.
  *
  * Where:
- * - storyId - story object id to check being seen by object
+ * - storyId - story object id to check being seen by object.
  */
 extern("xr_conditions.see_npc", (_: GameObject, object: GameObject, [storyId]: [TStringId]): boolean => {
   const target: Optional<GameObject> = getObjectByStoryId(storyId);
@@ -211,7 +211,7 @@ extern("xr_conditions.is_wounded", (_: GameObject, object: GameObject): boolean 
  *
  * Where:
  * - section - job section to check
- * - terrainName - name of smart terrain to check
+ * - terrainName - name of smart terrain to check.
  */
 extern(
   "xr_conditions.is_obj_on_job",
@@ -238,7 +238,7 @@ extern(
  * Check if at least one of provided story ID objects is inside zone object.
  *
  * Where:
- * - params - variadic list of story IDs to check presence in current zone object
+ * - params - variadic list of story IDs to check presence in current zone object.
  */
 extern("xr_conditions.obj_in_zone", (_: GameObject, object: GameObject, params: Array<TStringId>): boolean => {
   const simulator: AlifeSimulator = registry.simulator;
@@ -258,7 +258,7 @@ extern("xr_conditions.obj_in_zone", (_: GameObject, object: GameObject, params: 
  * Check if object health is less than provided value.
  *
  * Where:
- * - health - number value between 0 and 1 to check against
+ * - health - number value between 0 and 1 to check against.
  */
 extern("xr_conditions.health_le", (_: GameObject, object: GameObject, [health]: [Optional<TRate>]): boolean => {
   return health !== null && object.health < health;
@@ -268,7 +268,7 @@ extern("xr_conditions.health_le", (_: GameObject, object: GameObject, [health]: 
  * Check if helicopter object health is less than provided value.
  *
  * Where:
- * - health - number value between 0 and 1 to check against
+ * - health - number value between 0 and 1 to check against.
  */
 extern("xr_conditions.heli_health_le", (_: GameObject, object: GameObject, [health]: [Optional<TRate>]): boolean => {
   return health !== null && object.get_helicopter().GetfHealth() < health;
@@ -279,7 +279,7 @@ extern("xr_conditions.heli_health_le", (_: GameObject, object: GameObject, [heal
  *
  * Where:
  * - storyId - story ID of object to check
- * - zoneName - name of zone object to check object in
+ * - zoneName - name of zone object to check object in.
  */
 extern(
   "xr_conditions.story_obj_in_zone_by_name",
@@ -299,7 +299,7 @@ extern(
  * Check if object is in provided zone name.
  *
  * Where:
- * - zoneName - name of the zone object to check object is inside
+ * - zoneName - name of the zone object to check object is inside.
  */
 extern(
   "xr_conditions.npc_in_zone",
@@ -325,7 +325,7 @@ extern(
  * Check if helicopter object sees object with provided story ID.
  *
  * Where:
- * - storyId - story ID of the object to check visibility by helicopter object
+ * - storyId - story ID of the object to check visibility by helicopter object.
  */
 extern("xr_conditions.heli_see_npc", (_: GameObject, object: GameObject, [storyId]: [Optional<TStringId>]): boolean => {
   if (storyId) {
@@ -341,7 +341,7 @@ extern("xr_conditions.heli_see_npc", (_: GameObject, object: GameObject, [storyI
  * Check if object is hit by one of provided story ID objects.
  *
  * Where:
- * - parameters - variadic list of story IDs to check
+ * - parameters - variadic list of story IDs to check.
  */
 extern("xr_conditions.hitted_by", (_: GameObject, object: GameObject, parameters: Array<TStringId>): boolean => {
   const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState;
@@ -366,7 +366,7 @@ extern("xr_conditions.hitted_by", (_: GameObject, object: GameObject, parameters
  * Check whether object was hit in bone with on of provided string identifiers.
  *
  * Where:
- * - parameters - variadic list of bone IDs to match against
+ * - parameters - variadic list of bone IDs to match against.
  */
 extern("xr_conditions.hitted_on_bone", (_: GameObject, object: GameObject, parameters: Array<TStringId>): boolean => {
   const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[EScheme.HIT] as ISchemeHitState;
@@ -402,7 +402,7 @@ extern("xr_conditions.deadly_hit", (_: GameObject, object: GameObject): boolean 
  * Check if object was killed by one of provided story IDs.
  *
  * Where:
- * - parameters - variadic list of story IDs to check
+ * - parameters - variadic list of story IDs to check.
  */
 extern("xr_conditions.killed_by", (_: GameObject, object: GameObject, parameters: Array<TStringId>): boolean => {
   const state: Optional<ISchemeDeathState> = registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState;
@@ -430,10 +430,10 @@ extern("xr_conditions.killed_by", (_: GameObject, object: GameObject, parameters
  * Notes:
  * - Returns true if provided story IDs list is empty
  * - Returns false if object with provided story ID is not found
- * - Returns false if provided story ID object is not stalker
+ * - Returns false if provided story ID object is not stalker.
  *
  * Where:
- * - parameters - variadic list of story IDs
+ * - parameters - variadic list of story IDs.
  */
 extern("xr_conditions.is_alive_all", (_: GameObject, __: GameObject, parameters: Array<TStringId>): boolean => {
   const simulator: AlifeSimulator = registry.simulator;
@@ -460,10 +460,10 @@ extern("xr_conditions.is_alive_all", (_: GameObject, __: GameObject, parameters:
  *
  * Notes:
  * - Returns false if provided story IDs list is empty
- * - Returns true only if at least one object is alive stalker
+ * - Returns true only if at least one object is alive stalker.
  *
  * Where:
- * - parameters - variadic list of story IDs
+ * - parameters - variadic list of story IDs.
  */
 extern("xr_conditions.is_alive_one", (_: GameObject, __: GameObject, parameters: Array<TStringId>): boolean => {
   for (const [, storyId] of ipairs(parameters)) {
@@ -488,7 +488,7 @@ extern("xr_conditions.is_alive_one", (_: GameObject, __: GameObject, parameters:
  * Runs checks against current object if story ID is not provided.
  *
  * Where:
- * - storyId - optional story ID of object to check
+ * - storyId - optional story ID of object to check.
  */
 extern("xr_conditions.is_alive", (_: GameObject, object: AnyGameObject, [storyId]: [Optional<TStringId>]): boolean => {
   const objectId: Optional<TNumberId> = storyId ? getObjectIdByStoryId(storyId) : getObjectId(object);
@@ -507,7 +507,7 @@ extern("xr_conditions.is_alive", (_: GameObject, object: AnyGameObject, [storyId
  * Check if object is dead or not existing by story ID.
  *
  * Where:
- * - storyId - optional story ID of object to check
+ * - storyId - optional story ID of object to check.
  */
 extern("xr_conditions.is_dead", (_: GameObject, __: GameObject, [storyId]: [TStringId]): boolean => {
   const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
@@ -519,7 +519,7 @@ extern("xr_conditions.is_dead", (_: GameObject, __: GameObject, [storyId]: [TStr
  * Check if object with provided story ID exists.
  *
  * Where:
- * - storyId - optional story ID of object to check
+ * - storyId - optional story ID of object to check.
  */
 extern("xr_conditions.story_object_exist", (_: GameObject, __: GameObject, [storyId]: [TStringId]): boolean => {
   return getObjectByStoryId(storyId) !== null;
@@ -580,7 +580,7 @@ extern("xr_conditions.mob_was_hit", (_: GameObject, object: GameObject): boolean
  *
  * Where:
  * - storyId - story ID of the squad
- * - zoneName - name of the zone to check (current object will be checked by default)
+ * - zoneName - name of the zone to check (current object will be checked by default).
  */
 extern(
   "xr_conditions.squad_in_zone",
@@ -612,10 +612,10 @@ extern(
  *
  * Params:
  * - storyId - story ID of the squad to check
- * - zoneName - target zone name
+ * - zoneName - target zone name.
  *
  * Notes:
- * - Returns true is squad is empty
+ * - Returns true is squad is empty.
  */
 extern(
   "xr_conditions.squad_in_zone_all",
@@ -648,7 +648,7 @@ extern(
  * Check whether any squad member has any enemy.
  *
  * Params:
- * - storyId - story ID of the squad to check
+ * - storyId - story ID of the squad to check.
  */
 extern("xr_conditions.squad_has_enemy", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]): boolean => {
   if (!storyId) {
@@ -674,7 +674,7 @@ extern("xr_conditions.squad_has_enemy", (_: GameObject, __: GameObject, [storyId
 });
 
 /**
- * todo;
+ * Todo;
  * todo: use generic condition?
  */
 extern("xr_conditions.squads_in_zone_b41", (): boolean => {
@@ -703,7 +703,7 @@ extern("xr_conditions.squads_in_zone_b41", (): boolean => {
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.target_squad_name", (_: GameObject, object: ServerCreatureObject, [name]: [TName]): boolean => {
   if (!object || !name) {
@@ -729,7 +729,7 @@ extern("xr_conditions.target_squad_name", (_: GameObject, object: ServerCreature
  * Check if object with provided story ID exists.
  *
  * Where:
- * - storyId - story ID to check
+ * - storyId - story ID to check.
  *
  * Throws, if parameters are not provided.
  */
@@ -740,14 +740,14 @@ extern("xr_conditions.squad_exist", (_: GameObject, __: GameObject, [storyId]: [
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.is_squad_commander", (_: GameObject, object: AnyGameObject): boolean => {
   return isObjectSquadCommander(object);
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.squad_npc_count_ge", (_: GameObject, __: GameObject, p: [string, string]): boolean => {
   const storyId: Optional<TStringId> = p[0];
@@ -766,7 +766,7 @@ extern("xr_conditions.squad_npc_count_ge", (_: GameObject, __: GameObject, p: [s
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.quest_npc_enemy_actor", (_: GameObject, __: GameObject, p: [string]): boolean => {
   if (p[0] === null) {
@@ -791,7 +791,7 @@ extern("xr_conditions.quest_npc_enemy_actor", (_: GameObject, __: GameObject, p:
  *
  * Where:
  * - storyId - story ID of object to check
- * - distance - number value representing distance to check
+ * - distance - number value representing distance to check.
  */
 extern(
   "xr_conditions.distance_to_obj_ge",
@@ -810,7 +810,7 @@ extern(
  *
  * Where:
  * - storyId - story ID of object to check
- * - distance - number value representing distance to check
+ * - distance - number value representing distance to check.
  */
 extern(
   "xr_conditions.distance_to_obj_le",
@@ -829,7 +829,7 @@ extern(
  *
  * Where:
  * - section - job section to check
- * - distance - number value to check as distance
+ * - distance - number value to check as distance.
  */
 extern(
   "xr_conditions.distance_to_obj_on_job_le",
@@ -851,7 +851,7 @@ extern(
  *
  * Where:
  * - storyId - story ID of the object to check
- * - distance - number value representing distance to check
+ * - distance - number value representing distance to check.
  */
 extern(
   "xr_conditions.dist_to_story_obj_ge",
@@ -869,7 +869,7 @@ extern(
  * Check if distance between actor and object greater or equal.
  *
  * Where:
- * - distance - number to check against
+ * - distance - number to check against.
  */
 extern("xr_conditions.fighting_dist_ge", (actor: GameObject, object: GameObject, [distance]: [TDistance]): boolean => {
   return isDistanceBetweenObjectsGreaterOrEqual(actor, object, distance);
@@ -879,7 +879,7 @@ extern("xr_conditions.fighting_dist_ge", (actor: GameObject, object: GameObject,
  * Check if distance between actor and object less or equal.
  *
  * Where:
- * - distance - number to check against
+ * - distance - number to check against.
  */
 extern("xr_conditions.fighting_dist_le", (actor: GameObject, object: GameObject, [distance]: [TDistance]): boolean => {
   return isDistanceBetweenObjectsLessOrEqual(actor, object, distance);
@@ -903,7 +903,7 @@ extern("xr_conditions.active_item", (actor: GameObject, __: GameObject, paramete
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern(
   "xr_conditions.check_bloodsucker_state",
@@ -963,7 +963,7 @@ extern("xr_conditions.see_actor", (actor: GameObject, object: GameObject): boole
  * Check if object with provided story ID exists.
  *
  * Where:
- * - storyId - story ID of object to check
+ * - storyId - story ID of object to check.
  */
 extern("xr_conditions.object_exist", (_: GameObject, __: GameObject, [storyId]: [TStringId]): boolean => {
   return getObjectByStoryId(storyId) !== null;
@@ -983,7 +983,7 @@ extern(
  * Check if object enemy is currently in smart terrain with provided name.
  *
  * Where:
- * - terrainName - smart terrain of enemy to expect with condition check
+ * - terrainName - smart terrain of enemy to expect with condition check.
  */
 extern("xr_conditions.check_enemy_smart", (_: GameObject, object: GameObject, [terrainName]: [TName]): boolean => {
   const enemyId: Optional<TNumberId> = registry.objects.get(object.id()).enemyId;
@@ -1020,7 +1020,7 @@ extern("xr_conditions.burer_anti_aim", (_: GameObject, object: GameObject): bool
 });
 
 /**
- * Check if object is playing any sound
+ * Check if object is playing any sound.
  */
 extern("xr_conditions.is_playing_sound", (_: GameObject, object: GameObject): boolean => {
   return isPlayingSound(object);
@@ -1038,7 +1038,7 @@ extern("xr_conditions.is_door_blocked_by_npc", (_: GameObject, object: GameObjec
  *
  * Params:
  * - bounds - deimos phase bounds
- * - direction - deimos phase direction
+ * - direction - deimos phase direction.
  */
 extern(
   "xr_conditions.check_deimos_phase",
@@ -1070,7 +1070,7 @@ extern("xr_conditions.animpoint_reached", (_: GameObject, object: GameObject): b
 });
 
 /**
- * todo;
+ * Todo.
  */
 extern("xr_conditions.upgrade_hint_kardan", (_: GameObject, __: GameObject, params: AnyArgs): boolean => {
   const itemUpgradeHints: LuaArray<TLabel> = new LuaTable();

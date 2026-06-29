@@ -20,21 +20,21 @@ export abstract class AbstractManager {
   public destroy(): void {}
 
   /**
-   * @param delta - delta time since previous update
+   * @param delta - Delta time since previous update.
    */
   public update(delta: TDuration): void {
     abort("Update method is not implemented.");
   }
 
   /**
-   * @param packet - net packet to write data
+   * @param packet - Net packet to write data.
    */
   public save(packet: NetPacket): void {
     abort("Save method is not implemented.");
   }
 
   /**
-   * @param reader - net processor to read data from
+   * @param reader - Net processor to read data from.
    */
   public load(reader: NetProcessor): void {
     abort("Load method is not implemented.");

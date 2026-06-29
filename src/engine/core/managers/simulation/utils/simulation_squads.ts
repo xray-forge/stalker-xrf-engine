@@ -41,7 +41,7 @@ const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation
 /**
  * Register squad in alife simulation.
  *
- * @param squad - target squad to register
+ * @param squad - Target squad to register.
  */
 export function registerSimulationSquad(squad: Squad): void {
   simulationConfig.SQUADS.set(squad.id, squad);
@@ -50,7 +50,7 @@ export function registerSimulationSquad(squad: Squad): void {
 /**
  * Unregister squad from simulation.
  *
- * @param squad - target squad to unregister
+ * @param squad - Target squad to unregister.
  */
 export function unRegisterSimulationSquad(squad: Squad): void {
   simulationConfig.SQUADS.delete(squad.id);
@@ -59,9 +59,9 @@ export function unRegisterSimulationSquad(squad: Squad): void {
 /**
  * Create squad in smart terrain.
  *
- * @param terrain - target terrain to create in
- * @param section - name of squad section to create
- * @returns newly created squad
+ * @param terrain - Target terrain to create in.
+ * @param section - Name of squad section to create.
+ * @returns Newly created squad.
  */
 export function createSimulationSquad(terrain: SmartTerrain, section: TSection): Squad {
   simulationLogger.info("Create squad: '%s' -> '%s'.", terrain.name(), section);
@@ -94,8 +94,8 @@ export function createSimulationSquad(terrain: SmartTerrain, section: TSection):
  *
  * Contains strictly defined objects for the squad and random sections with random count to fill the squad.
  *
- * @param squad - target squad to spawn members for
- * @param spawnTerrain - parent smart terrain assigned to squad
+ * @param squad - Target squad to spawn members for.
+ * @param spawnTerrain - Parent smart terrain assigned to squad.
  */
 export function createSimulationSquadMembers(squad: Squad, spawnTerrain: SmartTerrain): void {
   const squadSection: TSection = squad.section_name();
@@ -168,9 +168,9 @@ export function createSimulationSquadMembers(squad: Squad, spawnTerrain: SmartTe
  * Release squad and squad members.
  * Un-assigns squad from smart terrain and then releases all squad members.
  *
- * todo: part of smart terrain class?
+ * Todo: part of smart terrain class?
  *
- * @param squad - target squad object to remove with members including
+ * @param squad - Target squad object to remove with members including.
  */
 export function releaseSimulationSquad(squad: Squad): void {
   simulationLogger.info("Release squad: '%s'.", squad.name());
@@ -199,7 +199,7 @@ export function releaseSimulationSquad(squad: Squad): void {
 }
 
 /**
- * todo;
+ * Todo;
  * todo: Seems too complex.
  */
 export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject): void {
@@ -240,7 +240,7 @@ export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject)
 }
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Optional<TNumberId>): void {
   simulationLogger.info("Assign squad to smart terrain: '%s' -> '%s'.", squad.name(), terrainId);

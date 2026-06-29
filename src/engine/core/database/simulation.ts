@@ -18,7 +18,7 @@ export function registerSimulator(): void {
 /**
  * Register simulation object in registries for participation in game events.
  *
- * @param object - simulation object to register
+ * @param object - Simulation object to register.
  */
 export function registerSimulationObject(object: TSimulationObject): void {
   initializeSimulationObjectProperties(object);
@@ -28,7 +28,7 @@ export function registerSimulationObject(object: TSimulationObject): void {
 /**
  * Unregister object in simulation registries.
  *
- * @param object - simulation object to register
+ * @param object - Simulation object to register.
  */
 export function unregisterSimulationObject(object: TSimulationObject): void {
   registry.simulationObjects.delete(object.id);
@@ -38,7 +38,7 @@ export function unregisterSimulationObject(object: TSimulationObject): void {
  * Update simulation object participation.
  * If object can participate, store it in global registry.
  *
- * @param object - simulation object to update availability status
+ * @param object - Simulation object to update availability status.
  */
 export function updateSimulationObjectAvailability(object: TSimulationObject): void {
   if (object.isSimulationAvailable()) {
@@ -51,8 +51,8 @@ export function updateSimulationObjectAvailability(object: TSimulationObject): v
 /**
  * Initialize simulation object properties.
  *
- * @param object - simulation object to initialize simulation configuration
- * @param ini - ini configuration file to read properties from
+ * @param object - Simulation object to initialize simulation configuration.
+ * @param ini - Ini configuration file to read properties from.
  */
 export function initializeSimulationObjectProperties(
   object: TSimulationObject,

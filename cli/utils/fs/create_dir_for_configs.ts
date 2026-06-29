@@ -9,8 +9,8 @@ import { Optional, TFolderReplicationDescriptor } from "#/utils/types";
 /**
  * Sync way for folder creation when needed.
  *
- * @param configs - replication configs to create directory
- * @param log - optional log to print verbose information
+ * @param configs - Replication configs to create directory.
+ * @param log - Optional log to print verbose information.
  */
 export function createDirForConfigs(
   configs: Array<TFolderReplicationDescriptor>,

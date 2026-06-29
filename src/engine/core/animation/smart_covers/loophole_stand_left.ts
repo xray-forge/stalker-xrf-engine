@@ -3,7 +3,7 @@ import { createVector } from "@/engine/core/utils/vector";
 import { Optional, TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function getStandLeftLoophole(
   id: TStringId,

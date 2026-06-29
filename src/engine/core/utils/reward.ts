@@ -17,7 +17,7 @@ const logger: LuaLogger = new LuaLogger($filename);
 /**
  * Give provided amount of money to actor.
  *
- * @param amount - money to give to actor
+ * @param amount - Money to give to actor.
  */
 export function giveMoneyToActor(amount: TCount): void {
   logger.info("Award actor with money: %s", amount);
@@ -34,8 +34,8 @@ export function giveMoneyToActor(amount: TCount): void {
 /**
  * Transfer provided amount of money from actor to object.
  *
- * @param to - target object to transfer money from actor
- * @param amount - money to transfer
+ * @param to - Target object to transfer money from actor.
+ * @param amount - Money to transfer.
  */
 export function transferMoneyFromActor(to: GameObject, amount: TCount): void {
   assert(to, "Couldn't relocate money to 'nil'.");
@@ -52,9 +52,9 @@ export function transferMoneyFromActor(to: GameObject, amount: TCount): void {
 /**
  * Transfer item section with desired count from actor to provided object.
  *
- * @param to - target to transfer items from actor
- * @param itemSection - section of transferred items
- * @param count - count of items to transfer
+ * @param to - Target to transfer items from actor.
+ * @param itemSection - Section of transferred items.
+ * @param count - Count of items to transfer.
  */
 export function transferItemsFromActor(to: GameObject, itemSection: TSection, count: TCount | "all" = 1): void {
   logger.info("Transfer items from actor: %s %s %s", to.name(), itemSection, count);
@@ -113,9 +113,9 @@ export function transferItemsFromActor(to: GameObject, itemSection: TSection, co
  * Transfer items by section/count from object to actor.
  * If object is missing some of them, create new ones with server object utils.
  *
- * @param from - object to transfer items from
- * @param itemSection - section of items to transfer
- * @param count - count of items to transfer
+ * @param from - Object to transfer items from.
+ * @param itemSection - Section of items to transfer.
+ * @param count - Count of items to transfer.
  */
 export function transferItemsToActor(from: GameObject, itemSection: TSection, count: TCount = 1): void {
   const actor: GameObject = registry.actor;
@@ -170,8 +170,8 @@ export function transferItemsToActor(from: GameObject, itemSection: TSection, co
 /**
  * Create items by section/count for actor.
  *
- * @param itemSection - section of item to give to actor
- * @param count - count of items to give
+ * @param itemSection - Section of item to give to actor.
+ * @param count - Count of items to give.
  */
 export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void {
   const itemsSpawned: TCount = spawnItemsForObject(registry.actor, itemSection, count);
@@ -187,7 +187,7 @@ export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void
 /**
  * Delete items by section for actor.
  *
- * @param itemSection - section to take from actor
+ * @param itemSection - Section to take from actor.
  */
 export function takeItemFromActor(itemSection: TSection): void {
   const inventoryItem: Optional<GameObject> = registry.actor.object(itemSection);

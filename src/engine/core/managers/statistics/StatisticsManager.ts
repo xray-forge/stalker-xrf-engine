@@ -232,7 +232,7 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Get count of used anabiotics from pstore.
    *
-   * @returns count of used anabiotics
+   * @returns Count of used anabiotics.
    */
   public getUsedAnabioticsCount(): TCount {
     return getPortableStoreValue(ACTOR_ID, PS_ANABIOTICS_USED, 0);
@@ -250,7 +250,7 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle task completion by an actor.
    *
-   * @param task - completed task object
+   * @param task - Completed task object.
    */
   public onTaskCompleted(task: TaskObject): void {
     logger.info("Increment completed quests count");
@@ -260,7 +260,7 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle item pick up event.
    *
-   * @param item - game object picked up
+   * @param item - Game object picked up.
    */
   public onActorCollectedItem(item: GameObject): void {
     if (!isArtefact(item)) {
@@ -296,7 +296,7 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle actor found treasure.
    *
-   * @param treasure - found treasure secret
+   * @param treasure - Found treasure secret.
    */
   public onTreasureFound(treasure: ITreasureDescriptor): void {
     logger.info("Increment collected secrets count");
@@ -306,8 +306,8 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle stalker kill event and update stats.
    *
-   * @param object - object killed
-   * @param killer - object killer
+   * @param object - Object killed.
+   * @param killer - Object killer.
    */
   public onStalkerKilled(object: GameObject, killer: Optional<GameObject>): void {
     if (killer?.id() === ACTOR_ID) {
@@ -318,10 +318,10 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle object hit by an actor and collect statistics.
    *
-   * @param object - game object
-   * @param amount - amount of damage done
-   * @param direction - direction of object hit
-   * @param who - source object of hit
+   * @param object - Game object.
+   * @param amount - Amount of damage done.
+   * @param direction - Direction of object hit.
+   * @param who - Source object of hit.
    */
   public onObjectHit(object: GameObject, amount: TRate, direction: Vector, who: Optional<GameObject>): void {
     if (who?.id() !== ACTOR_ID) {
@@ -370,8 +370,8 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle monster kill event and update stats.
    *
-   * @param object - object killed
-   * @param who - object killer
+   * @param object - Object killed.
+   * @param who - Object killer.
    */
   public onMonsterKilled(object: GameObject, who: Optional<GameObject>): void {
     if (who?.id() !== ACTOR_ID) {
@@ -441,7 +441,7 @@ export class StatisticsManager extends AbstractManager {
   /**
    * Handle dump data event.
    *
-   * @param data - data to dump into file
+   * @param data - Data to dump into file.
    */
   public onDebugDump(data: AnyObject): AnyObject {
     data[this.constructor.name] = {

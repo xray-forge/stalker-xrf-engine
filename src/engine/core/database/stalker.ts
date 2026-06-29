@@ -16,8 +16,8 @@ import type { GameObject, Optional, TDuration } from "@/engine/lib/types";
 /**
  * Register stalker binder object.
  *
- * @param stalker - generic stalker binder to register
- * @returns object registry state
+ * @param stalker - Generic stalker binder to register.
+ * @returns Object registry state.
  */
 export function registerStalker(stalker: StalkerBinder): IRegistryObjectState {
   registry.stalkers.set(stalker.object.id(), true);
@@ -28,8 +28,8 @@ export function registerStalker(stalker: StalkerBinder): IRegistryObjectState {
 /**
  * Unregister stalker binder object.
  *
- * @param stalker - generic stalker binder to unregister
- * @param destroy - whether object registry state should be also destroyed
+ * @param stalker - Generic stalker binder to unregister.
+ * @param destroy - Whether object registry state should be also destroyed.
  */
 export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = true): void {
   registry.stalkers.delete(stalker.object.id());
@@ -42,12 +42,12 @@ export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = tru
 /**
  * Set stalker object state related to animation and object behaviour.
  *
- * @param object - game object
- * @param state - target animation state
- * @param callback - callback parameters to execute on animation / animation end
- * @param timeout - state execution timeout
- * @param target - animation direction target object / position parameters
- * @param extra - additional state configuration
+ * @param object - Game object.
+ * @param state - Target animation state.
+ * @param callback - Callback parameters to execute on animation / animation end.
+ * @param timeout - State execution timeout.
+ * @param target - Animation direction target object / position parameters.
+ * @param extra - Additional state configuration.
  */
 export function setStalkerState(
   object: GameObject,
@@ -71,8 +71,8 @@ export function setStalkerState(
 /**
  * Get current stalker object state.
  *
- * @param object - target stalker object to get state from
- * @returns target stalker object current state
+ * @param object - Target stalker object to get state from.
+ * @returns Target stalker object current state.
  */
 export function getStalkerState(object: GameObject): Optional<EStalkerState> {
   return registry.objects.get(object.id()).stateManager?.getState() as Optional<EStalkerState>;
@@ -81,7 +81,7 @@ export function getStalkerState(object: GameObject): Optional<EStalkerState> {
 /**
  * Reset object animation state to idle and stop performing previous animation.
  *
- * @param object - target stalker object to reset state
+ * @param object - Target stalker object to reset state.
  */
 export function resetStalkerState(object: GameObject): void {
   const stateManager: Optional<StalkerStateManager> = registry.objects.get(object.id()).stateManager;

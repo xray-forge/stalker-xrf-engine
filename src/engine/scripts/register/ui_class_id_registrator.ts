@@ -4,8 +4,8 @@ import { EGameType } from "@/engine/lib/constants/game_types";
 import type { Maybe } from "@/engine/lib/types";
 
 /**
- * @param gameType - type of the game
- * @returns mapped game class ID matching game type
+ * @param gameType - Type of the game.
+ * @returns Mapped game class ID matching game type.
  */
 export function getUiClassId(gameType: EGameType): Maybe<TGameClassId> {
   switch (gameType) {

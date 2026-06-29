@@ -56,7 +56,7 @@ extern("engine.is_task_failed", (taskId: TStringId): boolean => taskConfig.ACTIV
  * Callback of game effector.
  * When some camera effects from cutscene ends, handle it in scheme.
  *
- * todo: rename to camera_effector_callback?
+ * Todo: rename to camera_effector_callback?
  */
 extern("engine.effector_callback", () => emitCutsceneEndedEvent());
 

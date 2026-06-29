@@ -6,7 +6,7 @@ const BASE_WIDTH: number = SECTION_WIDTH;
 const BASE_HEIGHT: number = SECTION_HEIGHT;
 
 /**
- * todo;
+ * Todo.
  */
 export function create(): JSXNode {
   return (

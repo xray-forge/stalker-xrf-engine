@@ -72,7 +72,7 @@ async function verifyGameLink(): Promise<void> {
 }
 
 /**
- * Check if game assets are linked and extended
+ * Check if game assets are linked and extended.
  */
 async function verifyAssets(): Promise<void> {
   const baseResourcesPath: string = config.resources.mod_assets_base_folder;

@@ -96,14 +96,14 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
   }
 
   /**
-   * @returns generic simulation task based on current game graph IDs
+   * @returns Generic simulation task based on current game graph IDs.
    */
   public getSimulationTask(): ALifeSmartTerrainTask {
     return new CALifeSmartTerrainTask(this.m_game_vertex_id, this.m_level_vertex_id);
   }
 
   /**
-   * @returns whether squad completed assigned task to `kill?` actor
+   * @returns Whether squad completed assigned task to `kill?` actor.
    */
   public isReachedBySimulationObject(): boolean {
     return !registry.actor.alive();

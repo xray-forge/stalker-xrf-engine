@@ -98,7 +98,7 @@ extern("dialogs.has_2000_money", (actor: GameObject): boolean => {
 });
 
 /**
- * Transfer pistol from actor to object
+ * Transfer pistol from actor to object.
  */
 extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const pistol: Optional<GameObject> = getAnyObjectPistol(registry.actor);

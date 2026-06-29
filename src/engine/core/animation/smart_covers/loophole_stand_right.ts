@@ -3,7 +3,7 @@ import { MZ_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { Optional, TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * todo;
+ * Todo.
  */
 export function getStandRightLoophole(
   id: TStringId,

@@ -27,10 +27,10 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
  * Following types are created:
  * - Monster jobs
  * - Stalker jobs
- * - Exclusive jobs
+ * - Exclusive jobs.
  *
- * @param terrain - smart terrain to generate for
- * @returns array of job descriptors and ltx configuration text
+ * @param terrain - Smart terrain to generate for.
+ * @returns Array of job descriptors and ltx configuration text.
  */
 export function createTerrainJobs(terrain: SmartTerrain): LuaMultiReturn<[TSmartTerrainJobsList, IniFile, TName]> {
   logger.info("Create jobs for smart terrain: %s", terrain.name());

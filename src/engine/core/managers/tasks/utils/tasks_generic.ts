@@ -5,7 +5,7 @@ import { GUIDERS_BY_LEVEL } from "@/engine/core/managers/tasks/TaskConfig";
 import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function addGuiderSpot(from: TName, to: TName, isStoryline: boolean): void {
   const guiderStoryId: Optional<TStringId> = GUIDERS_BY_LEVEL.get(from)?.get(to);
@@ -28,7 +28,7 @@ export function addGuiderSpot(from: TName, to: TName, isStoryline: boolean): voi
 }
 
 /**
- * todo: Description.
+ * Todo: Description.
  */
 export function removeGuiderSpot(from: TName): void {
   const guidersByLevel: Optional<LuaTable<TName, TStringId>> = GUIDERS_BY_LEVEL.get(from);

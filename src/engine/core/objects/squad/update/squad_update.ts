@@ -8,8 +8,8 @@ import { isSquadAction } from "@/engine/core/utils/squad";
 import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * @param object - game object in squad to update actions for
- * @param squad - squad of the object to update
+ * @param object - Game object in squad to update actions for.
+ * @param squad - Squad of the object to update.
  */
 export function updateMonsterSquadAction(object: GameObject, squad: Squad): void {
   if (isSquadAction(squad, ESquadActionType.REACH_TARGET)) {

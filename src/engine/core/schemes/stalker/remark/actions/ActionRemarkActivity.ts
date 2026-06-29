@@ -26,7 +26,7 @@ const stateSound = 2;
 const stateFinish = 3;
 
 /**
- * todo;
+ * Todo.
  */
 @LuabindClass()
 export class ActionRemarkActivity extends action_base implements ISchemeEventHandler {
@@ -47,7 +47,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * todo
+   * Todo.
    */
   public override initialize(): void {
     super.initialize();
@@ -57,7 +57,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * todo
+   * Todo.
    */
   public override execute(): void {
     super.execute();
@@ -65,7 +65,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * todo
+   * Todo.
    */
   public override finalize(): void {
     if (this.tipsSound !== null) {
@@ -76,7 +76,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * todo
+   * Todo.
    */
   public activate(): void {
     this.st.signals = new LuaTable();
@@ -93,7 +93,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * todo
+   * Todo.
    */
   public getTarget(): Optional<ILookTargetDescriptor> {
     const lookTargetDescriptor: ILookTargetDescriptor = {
@@ -124,7 +124,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * todo
+   * Todo.
    */
   public onAnimationUpdate(): void {
     this.state = stateSound;
@@ -132,7 +132,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * todo
+   * Todo.
    */
   public update(): void {
     if (this.state === stateInitial) {
@@ -182,7 +182,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
 }
 
 /**
- * todo
+ * Todo.
  */
 export function initTarget(
   object: GameObject,
@@ -191,7 +191,7 @@ export function initTarget(
   // todo: Simplify.
 
   /**
-   * todo;
+   * Todo.
    */
   function parseTarget(targetStr: string): LuaMultiReturn<[Optional<string>, Optional<string>]> {
     const [pos] = string.find(targetStr, ",");
@@ -206,7 +206,7 @@ export function initTarget(
   // todo: Simplify.
 
   /**
-   * todo;
+   * Todo.
    */
   function parseType(targetStr: string): LuaMultiReturn<[string, string]> {
     const [pos] = string.find(targetStr, "|");
@@ -265,7 +265,7 @@ export function initTarget(
 }
 
 /**
- * todo
+ * Todo.
  */
 function instruction(object: GameObject, data: string): never {
   abort(

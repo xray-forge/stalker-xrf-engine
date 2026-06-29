@@ -46,7 +46,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Section name in ini file, contains configuration
+ * Section name in ini file, contains configuration.
  */
 const ANOMALY_ZONE_SECTION: TSection = "anomal_zone";
 const ANOMALY_ZONE_LAYER: TSection = "layer_";
@@ -399,7 +399,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public switchAnomalyFields(): void {
     if (!this.isCustomPlacement) {
@@ -457,7 +457,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * todo: Description.
+   * Todo: Description.
    */
   public respawnArtefactsAndChangeLayers(): void {
     logger.info("Surge spawn / layers change: %s", this.object.name());
@@ -558,7 +558,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * Finds random not used patrol or fallbacks to random duplicated path.
    *
-   * @returns patrol name to use for new artefact in anomaly zone
+   * @returns Patrol name to use for new artefact in anomaly zone.
    */
   public getNewArtefactPath(): TName {
     const paths: LuaArray<TName> = getAnomalyFreePaths(this);
@@ -574,7 +574,7 @@ export class AnomalyZoneBinder extends object_binder {
    * Turn on anomaly zone.
    * Switch on all layer fields if they are defined.
    *
-   * @param forceArtefactsRespawn - whether artefacts should be spawned on next update tick
+   * @param forceArtefactsRespawn - Whether artefacts should be spawned on next update tick.
    */
   public turnOn(forceArtefactsRespawn: Optional<boolean>): void {
     logger.info("Turn on zone: %s", this.object.name());
@@ -608,7 +608,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * @param section - artefact section to set as forced spawn
+   * @param section - Artefact section to set as forced spawn.
    */
   public setForcedSpawnOverride(section: TSection): void {
     logger.info("Set forced override for zone/artefact: %s %s", this.object.name(), section);
@@ -620,7 +620,7 @@ export class AnomalyZoneBinder extends object_binder {
   /**
    * Callback for artefact taking from current anomaly zone.
    *
-   * @param artefactId - object id of artefact taken from the anomaly zone
+   * @param artefactId - Object id of artefact taken from the anomaly zone.
    */
   public onArtefactTaken(artefactId: TNumberId): void {
     logger.info("On artefact take: %s", this.object.name());

@@ -9,7 +9,7 @@ import { LuaArray, Optional, TPath } from "@/engine/lib/types";
 /**
  * Create dynamic save of extensions order and other state preferences.
  *
- * @param extensions - list of extensions to save order
+ * @param extensions - List of extensions to save order.
  */
 export function saveExtensionsState(extensions: LuaArray<IExtensionsDescriptor>): void {
   const fs: FS = getFS();
@@ -25,7 +25,7 @@ export function saveExtensionsState(extensions: LuaArray<IExtensionsDescriptor>)
 /**
  * Load synchronized state of game extension modules.
  *
- * @returns order preferences
+ * @returns Order preferences.
  */
 export function loadExtensionsState(): LuaArray<IExtensionsDescriptor> {
   const orderFile: TPath = getFS().update_path(roots.gameSaves, forgeConfig.EXTENSIONS.ORDER_FILE);

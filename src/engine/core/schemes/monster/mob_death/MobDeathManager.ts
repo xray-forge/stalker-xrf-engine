@@ -12,8 +12,8 @@ export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState>
    * Handle monster death event.
    * Interop with scheme logics and memoize killer info.
    *
-   * @param victim - monster who has been killed
-   * @param killer - target who killed the monster
+   * @param victim - Monster who has been killed.
+   * @param killer - Target who killed the monster.
    */
   public override onDeath(victim: GameObject, killer: Optional<GameObject>): void {
     let deathState: Optional<ISchemeMobDeathState> = registry.objects.get(victim.id())[
