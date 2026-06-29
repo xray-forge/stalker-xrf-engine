@@ -25,7 +25,7 @@ import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import { Car, GameObject, Optional, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling minigun scheme behaviour for an object.
  */
 export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public mgun: Car;
@@ -207,14 +207,16 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
     this.checkFireTime();
   }
   /**
-   * Todo: Description.
+   * Toggle the minigun weapon fire action.
+   *
+   * @param shooting - Fire action flag passed to the car weapon, where non-zero enables firing.
    */
   public setShooting(shooting: number): void {
     this.mgun.Action(CCar.eWpnFire, shooting);
   }
 
   /**
-   * Todo: Description.
+   * Update the shooting and delaying timers that alternate between firing and pausing the minigun.
    */
   public checkFireTime(): void {
     if (this.state.fireRep === -1) {
@@ -239,12 +241,14 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * Todo: Description.
+   * Save the scheme state of the minigun manager.
    */
   public save(): void {}
 
   /**
-   * Todo: Description.
+   * Rotate the minigun cannon to aim at the provided direction.
+   *
+   * @param direction - Direction to aim the weapon at, or null to keep the current aim.
    */
   public rotToFiredir(direction: Optional<Vector>): void {
     if (direction) {
@@ -253,7 +257,9 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * Todo: Description.
+   * Rotate the minigun cannon to aim at the provided fire point.
+   *
+   * @param pt - Point to aim the weapon at, or null to keep the current aim.
    */
   public rotToFirepoint(pt: Optional<Vector>): void {
     if (pt) {
@@ -262,7 +268,9 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * Todo: Description.
+   * Handle the fastcall tick, stopping fire while the section is active and otherwise running the fast update logic.
+   *
+   * @returns Whether the fastcall should stop on this tick.
    */
   public fastcall(): boolean {
     if (isActiveSection(this.object, this.state.section)) {
@@ -275,7 +283,9 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * Todo: Description.
+   * Run the per-tick aiming and shooting logic, switching schemes on target visibility and firing when able.
+   *
+   * @returns Whether the fastcall should stop, which happens when the car is destroyed or capture is lost.
    */
   public fastUpdate(): boolean {
     if (this.mgun.GetfHealth() <= 0) {
@@ -428,7 +438,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * Todo: Description.
+   * Stop the minigun, release the monster script, grant the death info portion and mark the car as destroyed.
    */
   public destroyCar(): void {
     this.stateCannon = EMinigunCannonState.NONE;
@@ -447,7 +457,12 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * Todo: Description.
+   * Calculate the yaw angle in the XZ plane between the object direction and the direction towards a position.
+   *
+   * @param object - Object whose position is used as the origin of the target direction.
+   * @param position - Target position to measure the angle towards.
+   * @param direction - Reference direction to measure the angle from.
+   * @returns Yaw angle between the reference direction and the direction towards the position.
    */
   public getAngleXZ(object: GameObject, position: Vector, direction: Vector): number {
     const dir1: Vector = direction;

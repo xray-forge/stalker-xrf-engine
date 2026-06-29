@@ -16,7 +16,9 @@ export class EvaluatorCombatCamper extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Evaluate whether the object's active scripted combat type is camper combat for the planner.
+   *
+   * @returns Whether the camper combat type is active for the object.
    */
   public override evaluate(): boolean {
     // todo: Probably get from this.state? Maybe invalid.

@@ -3,7 +3,7 @@ import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import type { Optional, TCount, TDistance, TDuration, TName, TRate } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * State of the minigun scheme.
  */
 export interface ISchemeMinigunState extends IBaseSchemeState {
   pathFire: Optional<TName>;
@@ -21,7 +21,7 @@ export interface ISchemeMinigunState extends IBaseSchemeState {
 }
 
 /**
- * Todo.
+ * Enumeration of minigun cannon movement states.
  */
 export enum EMinigunCannonState {
   NONE = 0,
@@ -32,7 +32,7 @@ export enum EMinigunCannonState {
 }
 
 /**
- * Todo.
+ * Enumeration of minigun shooting states.
  */
 export enum EMinigunState {
   SHOOTING_ON = 1,
@@ -40,7 +40,7 @@ export enum EMinigunState {
 }
 
 /**
- * Todo.
+ * Enumeration of minigun fire target states.
  */
 export enum EMinigunFireTargetState {
   NONE = 0,

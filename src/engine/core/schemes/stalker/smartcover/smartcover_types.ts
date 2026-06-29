@@ -4,7 +4,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import { Optional, StringOptional, TDuration, TName, TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Mapping of smart cover substates to the stalker animation state used for each of them.
  */
 export const COVER_SUBSTATE_TABLE: Record<ESmartCoverState, EStalkerState> = {
   [ESmartCoverState.DEFAULT]: NIL as EStalkerState,
