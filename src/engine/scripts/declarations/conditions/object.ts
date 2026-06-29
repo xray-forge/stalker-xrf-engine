@@ -674,8 +674,11 @@ extern("xr_conditions.squad_has_enemy", (_: GameObject, __: GameObject, [storyId
 });
 
 /**
- * Todo;
- * todo: use generic condition?
+ * Check whether all squads assigned to the `jup_b41` smart terrain are located inside the `jup_b41_sr_light` zone.
+ *
+ * Todo: Use generic condition?
+ *
+ * @returns Whether every member of every squad assigned to the terrain is inside the zone.
  */
 extern("xr_conditions.squads_in_zone_b41", (): boolean => {
   const terrain: Optional<SmartTerrain> = getSimulationTerrainByName("jup_b41");
@@ -703,7 +706,12 @@ extern("xr_conditions.squads_in_zone_b41", (): boolean => {
 });
 
 /**
- * Todo.
+ * Check whether the squad of the object (or the object itself) matches the provided section name.
+ *
+ * @param _ - Actor game object, not used.
+ * @param object - Server creature object whose squad section or own section is checked.
+ * @param name - Section name to match against the squad section or the object section.
+ * @returns Whether the squad section contains the name or the object section equals the name.
  */
 extern("xr_conditions.target_squad_name", (_: GameObject, object: ServerCreatureObject, [name]: [TName]): boolean => {
   if (!object || !name) {
@@ -740,14 +748,23 @@ extern("xr_conditions.squad_exist", (_: GameObject, __: GameObject, [storyId]: [
 });
 
 /**
- * Todo.
+ * Check whether the object is the commander of its squad.
+ *
+ * @param _ - Actor game object, not used.
+ * @param object - Game object to check for squad commander status.
+ * @returns Whether the object is the commander of its squad.
  */
 extern("xr_conditions.is_squad_commander", (_: GameObject, object: AnyGameObject): boolean => {
   return isObjectSquadCommander(object);
 });
 
 /**
- * Todo.
+ * Check whether the squad identified by story id has more members than the provided count.
+ *
+ * @param _ - Actor game object, not used.
+ * @param __ - Target game object, not used.
+ * @param p - Tuple with the squad story id and the member count threshold to compare against.
+ * @returns Whether the squad member count is greater than the provided threshold.
  */
 extern("xr_conditions.squad_npc_count_ge", (_: GameObject, __: GameObject, p: [string, string]): boolean => {
   const storyId: Optional<TStringId> = p[0];
@@ -766,7 +783,12 @@ extern("xr_conditions.squad_npc_count_ge", (_: GameObject, __: GameObject, p: [s
 });
 
 /**
- * Todo.
+ * Check whether the stalker identified by story id is hostile to the actor.
+ *
+ * @param _ - Actor game object, not used.
+ * @param __ - Target game object, not used.
+ * @param p - Tuple with the story id of the stalker to check.
+ * @returns Whether the stalker exists and its goodwill towards the actor is at or below the hostile threshold.
  */
 extern("xr_conditions.quest_npc_enemy_actor", (_: GameObject, __: GameObject, p: [string]): boolean => {
   if (p[0] === null) {
@@ -903,7 +925,12 @@ extern("xr_conditions.active_item", (actor: GameObject, __: GameObject, paramete
 });
 
 /**
- * Todo.
+ * Check whether a bloodsucker object matches the requested visibility state.
+ *
+ * @param _ - Actor game object, not used.
+ * @param object - Bloodsucker game object to check, overridden when a story id is provided.
+ * @param p - Tuple with the expected visibility state and an optional story id of the object to resolve.
+ * @returns Whether the resolved object visibility state equals the requested state.
  */
 extern(
   "xr_conditions.check_bloodsucker_state",
@@ -1070,7 +1097,12 @@ extern("xr_conditions.animpoint_reached", (_: GameObject, object: GameObject): b
 });
 
 /**
- * Todo.
+ * Build the Kardan upgrade hint list based on brought tools and learned info portions, and report upgrade readiness.
+ *
+ * @param _ - Actor game object, not used.
+ * @param __ - Target game object, not used.
+ * @param params - Arguments where the first value is the count of tools brought to the technician.
+ * @returns Whether enough conditions are met for the upgrade to be available.
  */
 extern("xr_conditions.upgrade_hint_kardan", (_: GameObject, __: GameObject, params: AnyArgs): boolean => {
   const itemUpgradeHints: LuaArray<TLabel> = new LuaTable();

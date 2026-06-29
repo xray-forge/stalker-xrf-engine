@@ -101,7 +101,15 @@ export class StalkerPatrolManager {
   /**
    * Reset state for movement manager.
    *
-   * Todo.
+   * Re-initializes walk and look patrols, suggested states, team synchronization and callbacks, then re-runs setup.
+   *
+   * @param walkPathName - Name of the walk patrol path.
+   * @param walkPathWaypoints - Parsed waypoint descriptors of the walk patrol.
+   * @param lookPathName - Optional name of the look patrol path.
+   * @param lookPathWaypoints - Optional parsed waypoint descriptors of the look patrol.
+   * @param patrolTeam - Optional name of the patrol team used for synchronization.
+   * @param patrolSuggestedStates - Optional suggested standing and moving states for the patrol.
+   * @param patrolCallbackDescriptor - Optional descriptor of the callback fired on waypoint arrival.
    */
   public reset(
     walkPathName: TName,
@@ -240,7 +248,10 @@ export class StalkerPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Activate patrol path movement for the object and start moving from the current or nearest point.
+   *
+   * Switches the object to patrol path type and either notifies logics if already at a terminal point or applies the
+   * current moving state to continue patrolling.
    */
   public setup(): void {
     this.object.set_path_type(EGameObjectPath.PATROL_PATH);
@@ -415,7 +426,13 @@ export class StalkerPatrolManager {
 
   /**
    * Handle reaching `walk` waypoint of patrol.
-   * Todo: Description.
+   *
+   * Updates the current moving state, fires the arrival callback and emits configured signals, then either continues
+   * moving or delegates to the look waypoint handler depending on waypoint flags and stop probability.
+   *
+   * @param object - Game object reaching the waypoint.
+   * @param actionType - Type of the patrol action reported by the engine.
+   * @param index - Index of the reached walk waypoint.
    */
   public onWalkWaypoint(object: GameObject, actionType: Optional<number>, index: Optional<TIndex>): void {
     logger.info(
@@ -496,7 +513,14 @@ export class StalkerPatrolManager {
 
   /**
    * Handle reaching `look` waypoint of patrol.
-   * Todo: Description.
+   *
+   * Selects the matching look point by flags, applies the standing state, computes the wait time and rotation return
+   * value, then drives the object to stand and look at the chosen point.
+   *
+   * @param object - Game object reaching the waypoint.
+   * @param actionType - Type of the patrol action reported by the engine.
+   * @param index - Index of the corresponding walk waypoint.
+   * @param flags - Flags used to select the matching look point.
    */
   public onLookWaypoint(
     object: GameObject,

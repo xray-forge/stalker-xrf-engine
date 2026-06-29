@@ -29,7 +29,11 @@ export class DebugCommandsSection extends AbstractDebugSection {
   }
 
   /**
-   * Todo: Description.
+   * Initialize a single debug command entry with a label and check button bound to the console value.
+   *
+   * @param command - Console command to display and control.
+   * @param console - Game console used to read and write the command value.
+   * @param type - Whether the command is treated as a numeric or boolean toggle.
    */
   public initializeEntry(command: TConsoleCommand, console: CConsole, type: "numeric" | "boolean"): void {
     const item: CUIStatic = this.xml.InitStatic("command_item", this.uiCommandsList);

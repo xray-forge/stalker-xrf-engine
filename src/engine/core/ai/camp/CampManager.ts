@@ -173,7 +173,9 @@ export class CampManager {
   }
 
   /**
-   * Todo: Description.
+   * Pick the next camp activity based on transition probabilities and preconditions, then apply it to all objects.
+   *
+   * Also schedules the next activity switch and timeout timestamps.
    */
   public updateNextState(): void {
     const transitions: LuaTable<EObjectCampActivity, TProbability> = campConfig.CAMP_ACTIVITIES.get(
@@ -208,7 +210,9 @@ export class CampManager {
   }
 
   /**
-   * Todo: Description.
+   * Select the camp object that directs the current activity (such as a storyteller or guitar player).
+   *
+   * Falls back to idle activity when no eligible director is available.
    */
   public updateActivityDirector(): void {
     if (this.activity === EObjectCampActivity.IDLE) {

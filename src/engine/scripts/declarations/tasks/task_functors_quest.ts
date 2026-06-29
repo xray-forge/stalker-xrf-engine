@@ -64,7 +64,9 @@ extern("task_functors.zat_b29_adv_descr", (): Optional<TLabel> => {
 });
 
 /**
- * Todo.
+ * Resolve the current target object id for the `zat_b29` treasure hunters quest based on rival and artefact progress.
+ *
+ * @returns Object id of the current quest target, or null when no target applies.
  */
 extern("task_functors.zat_b29_adv_target", () => {
   const actor: GameObject = registry.actor;

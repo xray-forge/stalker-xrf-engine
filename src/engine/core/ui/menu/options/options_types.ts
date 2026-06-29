@@ -26,7 +26,7 @@ export enum EGameRenderer {
 }
 
 /**
- * Todo.
+ * Descriptor of message identifiers emitted by option groups in the options menu.
  */
 export const optionGroupsMessages = {
   set_default_value: "set_default_value",

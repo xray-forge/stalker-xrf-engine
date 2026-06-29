@@ -61,7 +61,12 @@ extern(
 );
 
 /**
- * Todo.
+ * Determine, for the `jup_b221` quest, whether a faction conversation theme is still reachable or which faction starts.
+ *
+ * @param _ - Actor game object, not used.
+ * @param __ - Target game object, not used.
+ * @param p - Tuple with the mode, either `ability` to check availability or `choose` to pick the starting faction.
+ * @returns Whether a theme is reachable in `ability` mode, or whether the chosen faction is duty in `choose` mode.
  */
 extern("xr_conditions.jup_b221_who_will_start", (_: GameObject, __: GameObject, p: [string]): boolean => {
   const reachableTheme: LuaArray<number> = new LuaTable();
@@ -119,7 +124,11 @@ extern("xr_conditions.jup_b221_who_will_start", (_: GameObject, __: GameObject, 
 });
 
 /**
- * Todo.
+ * Check whether the actor is far enough forward of the object and its squad during the `pas_b400` escort.
+ *
+ * @param actor - Actor game object whose distance is measured.
+ * @param object - Escorted game object whose position and squad members are compared against the actor.
+ * @returns Whether the actor is past the forward point and beyond the required distance from the object and squad.
  */
 extern("xr_conditions.pas_b400_actor_far_forward", (actor: GameObject, object: GameObject): boolean => {
   const forwardObject: Optional<GameObject> = getObjectByStoryId("pas_b400_fwd");
@@ -155,7 +164,11 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: GameObject, object: G
 });
 
 /**
- * Todo.
+ * Check whether the actor is far enough behind the object and its squad during the `pas_b400` escort.
+ *
+ * @param actor - Actor game object whose distance is measured.
+ * @param object - Escorted game object whose position and squad members are compared against the actor.
+ * @returns Whether the actor is past the backward point and beyond the required distance from the object and squad.
  */
 extern("xr_conditions.pas_b400_actor_far_backward", (actor: GameObject, object: GameObject): boolean => {
   const backwardObject: Optional<GameObject> = getObjectByStoryId("pas_b400_bwd");
@@ -209,7 +222,9 @@ extern("xr_conditions.pri_a28_actor_is_far", (actor: GameObject, object: GameObj
 });
 
 /**
- * Todo.
+ * Check whether the conditions to spawn Senya in the `jup_b25` quest are met.
+ *
+ * @returns Whether one of the required progress info portions and the Soroka search info portion are present.
  */
 extern("xr_conditions.jup_b25_senya_spawn_condition", (): boolean => {
   return (
@@ -233,7 +248,11 @@ extern("xr_conditions.jup_b25_flint_gone_condition", (): boolean => {
 });
 
 /**
- * Todo.
+ * Check whether the actor has the food needed for the `zat_b103` mercenary task or has already completed it.
+ *
+ * @param actor - Actor game object whose inventory is checked.
+ * @param object - NPC game object that requested the food.
+ * @returns Whether the actor carries the needed food or the mercenary task is already done.
  */
 extern("xr_conditions.zat_b103_actor_has_needed_food", (actor: GameObject, object: GameObject): boolean => {
   return (
@@ -243,7 +262,11 @@ extern("xr_conditions.zat_b103_actor_has_needed_food", (actor: GameObject, objec
 });
 
 /**
- * Todo.
+ * Check the precondition for the `zat_b29` rivals dialog: the object squad is a known rival squad inside a target zone.
+ *
+ * @param actor - Actor game object, not used directly.
+ * @param object - Game object whose squad and current zone are checked.
+ * @returns Whether the object belongs to a rival squad and is located inside one of the target zones.
  */
 extern("xr_conditions.zat_b29_rivals_dialog_precond", (actor: GameObject, object: GameObject): boolean => {
   const squadsList: LuaArray<TName> = $fromArray<TName>([

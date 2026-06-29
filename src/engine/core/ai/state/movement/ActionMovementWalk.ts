@@ -10,7 +10,9 @@ export class ActionMovementWalk extends action_base {
   private readonly stateManager: StalkerStateManager;
 
   /**
-   * Todo: Description.
+   * Create walk movement action bound to the provided state manager.
+   *
+   * @param stateManager - State manager owning this action.
    */
   public constructor(stateManager: StalkerStateManager) {
     super(null, ActionMovementWalk.__name);

@@ -151,7 +151,12 @@ extern("xr_effects.barrel_explode", (_: GameObject, __: GameObject, [storyId]: [
 });
 
 /**
- * Todo.
+ * Advance the in-game clock to the provided hours and minutes and force a weather change.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param hoursString - Target hour of day to set the game time to.
+ * @param minutesString - Target minute of the hour to set the game time to.
  */
 extern("xr_effects.set_game_time", (_: GameObject, __: GameObject, [hoursString, minutesString]: [string, string]) => {
   logger.info("Set game time: %s %s", hoursString, minutesString);
@@ -183,7 +188,12 @@ extern("xr_effects.set_game_time", (_: GameObject, __: GameObject, [hoursString,
 });
 
 /**
- * Todo.
+ * Forward the in-game clock by the provided hours and minutes and force a weather change.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param hoursString - Number of hours to advance the game time by.
+ * @param minutesString - Number of minutes to advance the game time by.
  */
 extern(
   "xr_effects.forward_game_time",
@@ -297,7 +307,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Turn off the hanging lamps of all predefined Pripyat underpass lamp objects.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.turn_off_underpass_lamps", (_: GameObject, __: GameObject): void => {
   const lampsList = {
@@ -437,7 +450,12 @@ extern("xr_effects.stop_surge", (): void => {
 });
 
 /**
- * Todo.
+ * Set the surge notification message and optionally the surge task.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param label - Label used as the surge notification message.
+ * @param task - Optional task section assigned for the surge.
  */
 extern(
   "xr_effects.set_surge_mess_and_task",
@@ -503,7 +521,15 @@ extern("xr_effects.launch_signal_rocket", (_: GameObject, __: GameObject, [name]
 });
 
 /**
- * Todo.
+ * Spawn a cutscene actor at a patrol path and equip it with a clone of the actor's active weapon.
+ *
+ * @param actor - Actor game object whose active weapon is cloned for the cutscene actor.
+ * @param object - Game object owning the logics scheme.
+ * @param spawnSection - Section of the cutscene actor to spawn.
+ * @param pathName - Patrol path used as the spawn location.
+ * @param index - Patrol point index used for positioning the spawned actor.
+ * @param yaw - Yaw angle in degrees applied to the spawned actor.
+ * @param slotOverride - Optional inventory slot used to pick the weapon instead of the active slot.
  */
 extern(
   "xr_effects.create_cutscene_actor_with_weapon",

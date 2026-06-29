@@ -7,7 +7,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Evaluator checking whether the object state machine is in idle-combat readiness for the planner.
  */
 @LuabindClass()
 export class EvaluatorStateIdleCombat extends property_evaluator {

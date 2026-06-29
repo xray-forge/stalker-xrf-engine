@@ -399,7 +399,9 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * Todo: Description.
+   * Enable anomaly fields and mines of the current zone layer and disable those belonging to other layers.
+   *
+   * Disables the binder entirely when the zone has no custom placement or no managed fields remain.
    */
   public switchAnomalyFields(): void {
     if (!this.isCustomPlacement) {
@@ -457,7 +459,7 @@ export class AnomalyZoneBinder extends object_binder {
   }
 
   /**
-   * Todo: Description.
+   * Switch the anomaly zone to a new random layer and flag artefacts for respawn, typically on surge events.
    */
   public respawnArtefactsAndChangeLayers(): void {
     logger.info("Surge spawn / layers change: %s", this.object.name());

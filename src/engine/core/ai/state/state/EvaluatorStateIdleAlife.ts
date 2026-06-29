@@ -7,7 +7,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Evaluator checking whether the object is idle and ready to run alife behaviour for the planner.
  */
 @LuabindClass()
 export class EvaluatorStateIdleAlife extends property_evaluator {
@@ -20,7 +20,9 @@ export class EvaluatorStateIdleAlife extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Evaluate whether the object reached a fully applied idle state allowing alife behaviour to run.
+   *
+   * @returns Whether the object is idle and ready for alife actions.
    */
   public override evaluate(): boolean {
     if (!this.object.alive()) {

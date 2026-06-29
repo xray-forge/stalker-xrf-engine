@@ -240,7 +240,9 @@ export class StalkerStateManager {
   }
 
   /**
-   * Todo.
+   * Check whether the current target state requires looking towards a directional object rather than a position.
+   *
+   * @returns Whether the target state uses object-based look direction.
    */
   public isLookObjectType(): boolean {
     if (LOOK_DIRECTION_STATES.get(this.targetState)) {
@@ -251,7 +253,9 @@ export class StalkerStateManager {
   }
 
   /**
-   * Todo.
+   * Resolve the sight look type to use for the object based on the target state, look position and movement planner.
+   *
+   * @returns Look type that should be applied to the object sight.
    */
   public getObjectLookPositionType(): TLookType {
     // Has animation defined look direction.
@@ -268,7 +272,7 @@ export class StalkerStateManager {
   }
 
   /**
-   * Todo.
+   * Apply the object sight towards the configured look object or look position for the current state.
    */
   public turn(): void {
     this.isObjectPointDirectionLook = this.isLookObjectType();

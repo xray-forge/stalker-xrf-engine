@@ -55,7 +55,11 @@ logger.info("Resolve and bind dialogs zaton");
 extern("dialogs_zaton", {});
 
 /**
- * Todo.
+ * Check whether the actor carries any quest item that the Owl trader is willing to buy.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor has at least one sellable quest item not yet discussed with the trader.
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_actor_has_item_to_sell",
@@ -120,7 +124,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether Owl still has undiscussed information about searched helicopters.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether at least one of the tracked helicopters is searched and not yet reported by Owl.
  */
 extern(
   "dialogs_zaton.zat_b30_owl_can_say_about_heli",
@@ -150,21 +158,33 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor has at least 1000 money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns 1000 money or more.
  */
 extern("dialogs_zaton.zat_b30_actor_has_1000", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.money() >= 1000;
 });
 
 /**
- * Todo.
+ * Check whether the actor has at least 200 money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns 200 money or more.
  */
 extern("dialogs_zaton.zat_b30_actor_has_200", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.money() >= 200;
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the Pripyat monolith hiding place PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the monolith hiding place PDA quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_pri_b36_monolith_hiding_place_pda",
@@ -174,7 +194,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the envoy PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the envoy PDA quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_pri_b306_envoy_pda",
@@ -184,7 +208,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the first part of Strelok notes.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the first Strelok notes quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_1",
@@ -194,7 +222,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the second part of Strelok notes.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the second Strelok notes quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_2",
@@ -204,7 +236,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the third part of Strelok notes.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the third Strelok notes quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_strelok_notes_3",
@@ -214,7 +250,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries a scientific detector.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the scientific detector.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_detector_scientific",
@@ -224,7 +264,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the flash drive quest item.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the flash drive quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_device_flash_snag",
@@ -234,7 +278,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the port bandit leader PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the port bandit leader PDA quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_device_pda_port_bandit_leader",
@@ -244,7 +292,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the UFO memory device.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the UFO memory quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b10_ufo_memory",
@@ -254,7 +306,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the bandit PDA from Jupiter.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the bandit PDA quest item.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_jup_b202_bandit_pda",
@@ -264,21 +320,30 @@ extern(
 );
 
 /**
- * Todo.
+ * Transfer 1000 money from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b30_transfer_1000", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
 });
 
 /**
- * Todo.
+ * Transfer 200 money from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b30_transfer_200", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 200);
 });
 
 /**
- * Todo.
+ * Sell the monolith hiding place PDA to the NPC and reward the actor with money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_sell_pri_b36_monolith_hiding_place_pda",
@@ -289,7 +354,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the envoy PDA to the NPC and reward the actor with money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b30_sell_pri_b306_envoy_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.pri_b306_envoy_pda);
@@ -297,7 +365,10 @@ extern("dialogs_zaton.zat_b30_sell_pri_b306_envoy_pda", (firstSpeaker: GameObjec
 });
 
 /**
- * Todo.
+ * Sell the mercenary contract PDA to the NPC, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_sell_jup_b207_merc_pda_with_contract",
@@ -309,7 +380,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the first Strelok notes to the NPC and reward the actor with money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_sell_jup_b10_strelok_notes_1",
@@ -320,7 +394,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the second Strelok notes to the NPC and reward the actor with money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_sell_jup_b10_strelok_notes_2",
@@ -331,7 +408,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the third Strelok notes to the NPC and reward the actor with money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_sell_jup_b10_strelok_notes_3",
@@ -342,7 +422,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the evacuation info to Owl, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.jup_a9_owl_stalker_trader_sell_jup_a9_evacuation_info",
@@ -354,7 +437,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the meeting info to Owl, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.jup_a9_owl_stalker_trader_sell_jup_a9_meeting_info",
@@ -366,7 +452,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the losses info to Owl, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.jup_a9_owl_stalker_trader_sell_jup_a9_losses_info",
@@ -378,7 +467,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the delivery info to Owl, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.jup_a9_owl_stalker_trader_sell_jup_a9_delivery_info",
@@ -390,7 +482,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the flash drive to Owl, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_sell_device_flash_snag",
@@ -402,7 +497,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the port bandit leader PDA to Owl, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_sell_device_pda_port_bandit_leader",
@@ -414,7 +512,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the UFO memory device to Owl, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_sell_jup_b10_ufo_memory",
@@ -426,7 +527,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Sell the bandit PDA to Owl and reward the actor with money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_owl_stalker_trader_sell_jup_b202_bandit_pda",
@@ -437,28 +541,42 @@ extern(
 );
 
 /**
- * Todo.
+ * Reward the actor with money for the bar quest line.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b14_bar_transfer_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(1000);
 });
 
 /**
- * Todo.
+ * Transfer the twisted quest artefact from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b14_transfer_artefact", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_quest_b14_twisted);
 });
 
 /**
- * Todo.
+ * Check whether the speaker carries the twisted quest artefact.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the first speaker owns the twisted quest artefact.
  */
 extern("dialogs_zaton.actor_has_artefact", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return firstSpeaker.object(artefacts.af_quest_b14_twisted) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the speaker does not carry the twisted quest artefact.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the first speaker lacks the twisted quest artefact.
  */
 extern("dialogs_zaton.actor_hasnt_artefact", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("actor_has_artefact", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker)(
@@ -468,7 +586,8 @@ extern("dialogs_zaton.actor_hasnt_artefact", (firstSpeaker: GameObject, secondSp
 });
 
 /**
- * Todo.
+ * Reward the actor with random money and treasure coordinates for the bandit outcome.
+ *
  */
 extern("dialogs_zaton.zat_b7_give_bandit_reward_to_actor", (): void => {
   giveMoneyToActor(math.random(15, 30) * 100);
@@ -476,7 +595,10 @@ extern("dialogs_zaton.zat_b7_give_bandit_reward_to_actor", (): void => {
 });
 
 /**
- * Todo.
+ * Reward the actor with a randomly chosen drug pack and treasure coordinates for the stalker outcome.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b7_give_stalker_reward_to_actor",
@@ -503,7 +625,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Reward the actor with a fixed drug pack for the second stalker outcome.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b7_give_stalker_reward_2_to_actor",
@@ -515,7 +640,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Rob the actor of a random share of their money in favor of the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b7_rob_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   let amount: TCount = math.floor((registry.actor.money() * math.random(75, 100)) / 100);
@@ -528,7 +656,11 @@ extern("dialogs_zaton.zat_b7_rob_actor", (firstSpeaker: GameObject, secondSpeake
 });
 
 /**
- * Todo.
+ * Check whether the self-kill dialog branch is still available for the stalkers victims squad.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the related info portions are unset and the victims squad story object no longer exists.
  */
 extern("dialogs_zaton.zat_b7_killed_self_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (
@@ -542,14 +674,21 @@ extern("dialogs_zaton.zat_b7_killed_self_precond", (firstSpeaker: GameObject, se
 });
 
 /**
- * Todo.
+ * Check whether the stalkers victims squad is still alive.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the victims squad story object still exists.
  */
 extern("dialogs_zaton.zat_b7_squad_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return isStoryObjectExisting("zat_b7_stalkers_victims_1");
 });
 
 /**
- * Todo.
+ * Transfer up to six food items from the actor to the NPC and notify about each relocation.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b103_transfer_merc_supplies", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
@@ -576,7 +715,10 @@ extern("dialogs_zaton.zat_b103_transfer_merc_supplies", (firstSpeaker: GameObjec
 });
 
 /**
- * Todo.
+ * Set the zat_b33 items counter for the actor to ten via the shared effects module.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b33_set_counter_10", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
@@ -585,28 +727,44 @@ extern("dialogs_zaton.zat_b33_set_counter_10", (firstSpeaker: GameObject, second
 });
 
 /**
- * Todo.
+ * Check whether the zat_b33 items counter is at least two.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the stored zat_b33 items counter is greater than or equal to two.
  */
 extern("dialogs_zaton.zat_b33_counter_ge_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 2;
 });
 
 /**
- * Todo.
+ * Check whether the zat_b33 items counter is at least four.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the stored zat_b33 items counter is greater than or equal to four.
  */
 extern("dialogs_zaton.zat_b33_counter_ge_4", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 4;
 });
 
 /**
- * Todo.
+ * Check whether the zat_b33 items counter is at least eight.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the stored zat_b33 items counter is greater than or equal to eight.
  */
 extern("dialogs_zaton.zat_b33_counter_ge_8", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) >= 8;
 });
 
 /**
- * Todo.
+ * Check whether the zat_b33 items counter is below two.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the zat_b33 items counter is less than two.
  */
 extern("dialogs_zaton.zat_b33_counter_le_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_counter_ge_2", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker)(
@@ -616,21 +774,33 @@ extern("dialogs_zaton.zat_b33_counter_le_2", (firstSpeaker: GameObject, secondSp
 });
 
 /**
- * Todo.
+ * Check whether the zat_b33 items counter is below four.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the zat_b33 items counter is less than four.
  */
 extern("dialogs_zaton.zat_b33_counter_le_4", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_counter_ge_4", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Check whether the zat_b33 items counter is below eight.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the zat_b33 items counter is less than eight.
  */
 extern("dialogs_zaton.zat_b33_counter_le_8", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_counter_ge_8", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Decrease the zat_b33 items counter for the actor by two via the shared effects module.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the underlying counter decrement effect reported success.
  */
 extern("dialogs_zaton.zat_b33_counter_de_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -639,7 +809,11 @@ extern("dialogs_zaton.zat_b33_counter_de_2", (firstSpeaker: GameObject, secondSp
 });
 
 /**
- * Todo.
+ * Decrease the zat_b33 items counter for the actor by four via the shared effects module.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the underlying counter decrement effect reported success.
  */
 extern("dialogs_zaton.zat_b33_counter_de_4", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -648,7 +822,11 @@ extern("dialogs_zaton.zat_b33_counter_de_4", (firstSpeaker: GameObject, secondSp
 });
 
 /**
- * Todo.
+ * Decrease the zat_b33 items counter for the actor by eight via the shared effects module.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the underlying counter decrement effect reported success.
  */
 extern("dialogs_zaton.zat_b33_counter_de_8", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -657,21 +835,32 @@ extern("dialogs_zaton.zat_b33_counter_de_8", (firstSpeaker: GameObject, secondSp
 });
 
 /**
- * Todo.
+ * Check whether the zat_b33 items counter equals ten.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the stored zat_b33 items counter is exactly ten.
  */
 extern("dialogs_zaton.zat_b33_counter_eq_10", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_b33_items", 0 as number) === 10;
 });
 
 /**
- * Todo.
+ * Check whether the zat_b33 items counter differs from ten.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the zat_b33 items counter is not equal to ten.
  */
 extern("dialogs_zaton.zat_b33_counter_ne_10", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_counter_eq_10", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Transfer the second mechanic toolkit from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b103_transfer_mechanic_toolkit_2",
@@ -681,7 +870,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the dialog partner is a generic stalker rather than a known mechanic-related NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the second speaker is a plain stalker and not a mechanic, lost merc, tech or Zulus.
  */
 extern("dialogs_zaton.check_npc_name_mechanics", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
@@ -694,14 +887,20 @@ extern("dialogs_zaton.check_npc_name_mechanics", (firstSpeaker: GameObject, seco
 });
 
 /**
- * Todo.
+ * Give the snag Fort pistol reward to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b33_transfer_first_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveItemsToActor(questItems.wpn_fort_snag);
 });
 
 /**
- * Todo.
+ * Give a pack of scientific medkits, antirads and bandages to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b33_transfer_second_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveItemsToActor(drugs.medkit_scientic, 3);
@@ -710,56 +909,82 @@ extern("dialogs_zaton.zat_b33_transfer_second_item", (firstSpeaker: GameObject, 
 });
 
 /**
- * Todo.
+ * Give the snag AK-74u reward to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b33_transfer_third_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveItemsToActor(questItems.wpn_ak74u_snag);
 });
 
 /**
- * Todo.
+ * Give the soul artefact reward to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b33_transfer_fourth_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveItemsToActor(artefacts.af_soul);
 });
 
 /**
- * Todo.
+ * Give the snag hardhat helmet reward to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b33_transfer_fifth_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveItemsToActor(questItems.helm_hardhat_snag);
 });
 
 /**
- * Todo.
+ * Transfer the zat_b33 safe container from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b33_transfer_safe_container", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b33_safe_container);
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the zat_b33 safe container loot.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the zat_b33 safe container.
  */
 extern("dialogs_zaton.zat_b33_aractor_has_habar", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b33_safe_container) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the actor does not carry the zat_b33 safe container loot.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor lacks the zat_b33 safe container.
  */
 extern("dialogs_zaton.zat_b33_actor_hasnt_habar", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b33_aractor_has_habar", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Check whether the actor has at least 500 money for the zat_b33 deal.
+ *
+ * @returns Whether the actor owns 500 money or more.
  */
 extern("dialogs_zaton.zat_b33_actor_has_needed_money", (): boolean => {
   return registry.actor.money() >= 500;
 });
 
 /**
- * Todo.
+ * Check whether the actor lacks the 500 money required for the zat_b33 deal.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns less than 500 money.
  */
 extern(
   "dialogs_zaton.zat_b33_actor_hasnt_needed_money",
@@ -772,7 +997,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Transfer 500 money from the actor to the dialog NPC when the actor can afford it.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b33_relocate_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (
@@ -783,7 +1011,7 @@ extern("dialogs_zaton.zat_b33_relocate_money", (firstSpeaker: GameObject, second
 });
 
 /**
- * Todo.
+ * Mapping of zat_b29 advanced task indices to their artefact sections.
  */
 export const zatB29AfTable: LuaTable<TIndex, string> = $fromObject<TIndex, TSection>({
   [16]: artefacts.af_gravi,
@@ -797,7 +1025,7 @@ export const zatB29AfTable: LuaTable<TIndex, string> = $fromObject<TIndex, TSect
 });
 
 /**
- * Todo.
+ * Mapping of zat_b29 advanced task indices to their localized artefact name keys.
  */
 export const zatB29AfNamesTable: LuaTable<TIndex, TName> = $fromObject<TIndex, TName>({
   [16]: "st_af_gravi_name",
@@ -811,7 +1039,7 @@ export const zatB29AfNamesTable: LuaTable<TIndex, TName> = $fromObject<TIndex, T
 });
 
 /**
- * Todo.
+ * Mapping of zat_b29 advanced task indices to their requested-artefact info portions.
  */
 export const zatB29InfopTable: LuaTable<TIndex, TName> = $fromObject<TIndex, TName>({
   [16]: infoPortions.zat_b29_af_16,
@@ -825,7 +1053,7 @@ export const zatB29InfopTable: LuaTable<TIndex, TName> = $fromObject<TIndex, TNa
 });
 
 /**
- * Todo.
+ * Mapping of zat_b29 advanced task indices to their bring-artefact info portion ids.
  */
 export const zatB29InfopBringTable: LuaTable<TIndex, TStringId> = $fromObject<TIndex, TStringId>({
   [16]: "zat_b29_bring_af_16",
@@ -839,7 +1067,8 @@ export const zatB29InfopBringTable: LuaTable<TIndex, TStringId> = $fromObject<TI
 });
 
 /**
- * Todo.
+ * Force-spawn the requested zat_b29 artefact in a randomly chosen anomaly zone of the matching type.
+ *
  */
 extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (): void => {
   const anomTbl: LuaArray<string> = {
@@ -892,7 +1121,11 @@ extern("dialogs_zaton.zat_b29_create_af_in_anomaly", (): void => {
 });
 
 /**
- * Todo.
+ * Build the comma-separated list of advanced zat_b29 artefacts the actor is asked to bring.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Translated, comma-separated list of requested artefact names ending with a period.
  */
 extern("dialogs_zaton.zat_b29_linker_give_adv_task", (firstSpeaker: GameObject, secondSpeaker: GameObject): string => {
   let result: string = "";
@@ -914,7 +1147,11 @@ extern("dialogs_zaton.zat_b29_linker_give_adv_task", (firstSpeaker: GameObject, 
 });
 
 /**
- * Todo.
+ * Check whether the actor is missing every requested advanced zat_b29 artefact.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor does not carry any of the currently requested advanced artefacts.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af",
@@ -930,7 +1167,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries any requested advanced zat_b29 artefact.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least one of the currently requested advanced artefacts.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af",
@@ -946,7 +1187,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Take the requested advanced zat_b29 artefact from the actor and pay the matching reward.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b29_linker_get_adv_task_af", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const i of $range(16, 23)) {
@@ -973,7 +1217,10 @@ extern("dialogs_zaton.zat_b29_linker_get_adv_task_af", (firstSpeaker: GameObject
 });
 
 /**
- * Todo.
+ * Collect the sections of valuable weapons present in the given object inventory.
+ *
+ * @param object - Game object whose inventory is scanned for valuable weapons.
+ * @returns Array of valuable weapon sections found in the inventory.
  */
 export function getGoodGunsInInventory(object: GameObject): LuaArray<TWeapon> {
   const actorWpnTable: LuaArray<TWeapon> = new LuaTable();
@@ -1001,7 +1248,9 @@ export function getGoodGunsInInventory(object: GameObject): LuaArray<TWeapon> {
 }
 
 /**
- * Todo.
+ * Pick a good gun from the actor inventory for the zat_b29 exchange and remember it on the actor.
+ *
+ * @returns Whether a suitable weapon for exchange was found on the actor.
  */
 extern("dialogs_zaton.zat_b29_actor_has_exchange_item", (): boolean => {
   const actor: GameObject = registry.actor;
@@ -1015,7 +1264,10 @@ extern("dialogs_zaton.zat_b29_actor_has_exchange_item", (): boolean => {
 });
 
 /**
- * Todo.
+ * Exchange the actor remembered good gun for the requested advanced zat_b29 artefact.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
@@ -1034,7 +1286,10 @@ extern("dialogs_zaton.zat_b29_actor_exchange", (firstSpeaker: GameObject, second
 });
 
 /**
- * Todo.
+ * Reward the actor with accumulated daily percent money and reset the day counter.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b30_transfer_percent", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const amount: TCount = math.random(5, 25) * 100;
@@ -1045,21 +1300,31 @@ extern("dialogs_zaton.zat_b30_transfer_percent", (firstSpeaker: GameObject, seco
 });
 
 /**
- * Todo.
+ * Check whether the dialog NPC carries a scientific detector.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the NPC speaker owns the scientific detector.
  */
 extern("dialogs_zaton.zat_b30_npc_has_detector", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return objectHasItem(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
 });
 
 /**
- * Todo.
+ * Give a scientific detector from the NPC to the actor as the second exchange step.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b30_actor_second_exchange", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), detectors.detector_scientific);
 });
 
 /**
- * Todo.
+ * Exchange the actor good gun for a scientific detector and mark the matching rival info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b30_actor_exchange", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
@@ -1078,7 +1343,11 @@ extern("dialogs_zaton.zat_b30_actor_exchange", (firstSpeaker: GameObject, second
 });
 
 /**
- * Todo.
+ * Check whether the actor carries more than one scientific detector.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least two scientific detectors.
  */
 extern(
   "dialogs_zaton.zat_b30_actor_has_two_detectors",
@@ -1097,7 +1366,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor owns at least one nimble weapon variant.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor carries any of the known nimble weapons.
  */
 extern("dialogs_zaton.actor_has_nimble_weapon", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return actorHasAtLeastOneItem([
@@ -1116,7 +1389,10 @@ extern("dialogs_zaton.actor_has_nimble_weapon", (firstSpeaker: GameObject, secon
 });
 
 /**
- * Todo.
+ * Rob the actor of a random money share and all listed weapons in favor of the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
@@ -1167,7 +1443,10 @@ extern("dialogs_zaton.zat_b51_robbery", (firstSpeaker: GameObject, secondSpeaker
 });
 
 /**
- * Todo.
+ * Take a nimble weapon from the actor, preferring an equipped slot then a random owned one.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   const actor: GameObject = registry.actor;
@@ -1209,7 +1488,10 @@ extern("dialogs_zaton.zat_b51_rob_nimble_weapon", (firstSpeaker: GameObject, sec
 });
 
 /**
- * Todo.
+ * Give the compass artefact from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_compass_to_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
@@ -1242,7 +1524,10 @@ const zatB51BuyItemTable = [
 ] as unknown as LuaArray<LuaArray<{ item: LuaArray<TWeapon> }>>;
 
 /**
- * Todo.
+ * For each processing category, randomly select one not yet ordered item and mark it as ordered.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
@@ -1266,7 +1551,10 @@ extern("dialogs_zaton.zat_b51_randomize_item", (firstSpeaker: GameObject, second
 });
 
 /**
- * Todo.
+ * Transfer the prepay amount for the active order category from the actor to the NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b51_give_prepay", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
@@ -1284,7 +1572,11 @@ extern("dialogs_zaton.zat_b51_give_prepay", (firstSpeaker: GameObject, secondSpe
 });
 
 /**
- * Todo.
+ * Check whether the actor can afford the prepay for the active order category.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor money is enough for the agreed or refused prepay of the active category.
  */
 extern("dialogs_zaton.zat_b51_has_prepay", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -1303,14 +1595,21 @@ extern("dialogs_zaton.zat_b51_has_prepay", (firstSpeaker: GameObject, secondSpea
 });
 
 /**
- * Todo.
+ * Check whether the actor cannot afford the prepay for the active order category.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor money is below the required prepay for the active category.
  */
 extern("dialogs_zaton.zat_b51_hasnt_prepay", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b51_has_prepay", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Complete the active order: give the ordered item, take its cost and update order info portions.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const it of $range(1, 7)) {
@@ -1348,7 +1647,10 @@ extern("dialogs_zaton.zat_b51_buy_item", (firstSpeaker: GameObject, secondSpeake
 });
 
 /**
- * Todo.
+ * Refuse the active ordered item and update the related order info portions.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   for (const i of $range(1, 7)) {
@@ -1381,7 +1683,11 @@ extern("dialogs_zaton.zat_b51_refuse_item", (firstSpeaker: GameObject, secondSpe
 });
 
 /**
- * Todo.
+ * Check whether the actor can afford the full cost of the active order category.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor money is enough to pay the cost of the active category.
  */
 extern("dialogs_zaton.zat_b51_has_item_cost", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -1396,21 +1702,33 @@ extern("dialogs_zaton.zat_b51_has_item_cost", (firstSpeaker: GameObject, secondS
 });
 
 /**
- * Todo.
+ * Check whether the actor cannot afford the full cost of the active order category.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor money is below the cost of the active category.
  */
 extern("dialogs_zaton.zat_b51_hasnt_item_cost", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b51_has_item_cost", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Check whether the actor carries any of the zat_b12 documents.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least one of the zat_b12 documents.
  */
 extern("dialogs_zaton.zat_b12_actor_have_documents", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return actorHasAtLeastOneItem([questItems.zat_b12_documents_1, questItems.zat_b12_documents_2]);
 });
 
 /**
- * Todo.
+ * Take the zat_b12 documents from the actor and pay a price based on the document types and count.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Always false so that the dialog phrase is not auto-closed by the condition.
  */
 extern(
   "dialogs_zaton.zat_b12_actor_transfer_documents",
@@ -1467,7 +1785,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Detect a not yet delivered toolkit in the actor inventory and remember it on the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor carries a toolkit that has not been brought to the tech yet.
  */
 extern("dialogs_zaton.zat_b3_actor_got_toolkit", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const actor: GameObject = registry.actor;
@@ -1490,7 +1812,10 @@ extern("dialogs_zaton.zat_b3_actor_got_toolkit", (firstSpeaker: GameObject, seco
 });
 
 /**
- * Todo.
+ * Take the third toolkit from the actor, clear the remembered toolkit and reward money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_toolkit_3", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_3);
@@ -1499,7 +1824,10 @@ extern("dialogs_zaton.give_toolkit_3", (firstSpeaker: GameObject, secondSpeaker:
 });
 
 /**
- * Todo.
+ * Take the first toolkit from the actor, clear the remembered toolkit and reward money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_toolkit_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_1);
@@ -1508,14 +1836,21 @@ extern("dialogs_zaton.give_toolkit_1", (firstSpeaker: GameObject, secondSpeaker:
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the first toolkit.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the first toolkit.
  */
 extern("dialogs_zaton.if_actor_has_toolkit_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(misc.toolkit_1) !== null;
 });
 
 /**
- * Todo.
+ * Take the second toolkit from the actor, clear the remembered toolkit and reward money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_toolkit_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), misc.toolkit_2);
@@ -1524,21 +1859,32 @@ extern("dialogs_zaton.give_toolkit_2", (firstSpeaker: GameObject, secondSpeaker:
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the second toolkit.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the second toolkit.
  */
 extern("dialogs_zaton.if_actor_has_toolkit_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(misc.toolkit_2) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the way-to-Pripyat counter exceeds three.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the stored way-to-Pripyat counter is greater than three.
  */
 extern("dialogs_zaton.zat_b215_counter_greater_3", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return getPortableStoreValue(ACTOR_ID, "zat_a9_way_to_pripyat_counter", 0 as number) > 3;
 });
 
 /**
- * Todo.
+ * Sell the zat_b40 notebook to the NPC, reward money and mark the sale info portion.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b40_transfer_notebook", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b40_notebook);
@@ -1547,7 +1893,10 @@ extern("dialogs_zaton.zat_b40_transfer_notebook", (firstSpeaker: GameObject, sec
 });
 
 /**
- * Todo.
+ * Sell the first zat_b40 mercenary PDA, reward money and mark completion if all items are sold.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b40_transfer_merc_pda_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b40_pda_1);
@@ -1564,7 +1913,10 @@ extern("dialogs_zaton.zat_b40_transfer_merc_pda_1", (firstSpeaker: GameObject, s
 });
 
 /**
- * Todo.
+ * Sell the second zat_b40 mercenary PDA, reward money and mark completion if all items are sold.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b40_transfer_merc_pda_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b40_pda_2);
@@ -1581,7 +1933,11 @@ extern("dialogs_zaton.zat_b40_transfer_merc_pda_2", (firstSpeaker: GameObject, s
 });
 
 /**
- * Todo.
+ * Check whether the first advanced artefact is requested but missing from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor lacks the first artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_1",
@@ -1591,7 +1947,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the second advanced artefact is requested but missing from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor lacks the second artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_2",
@@ -1601,7 +1961,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the third advanced artefact is requested but missing from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor lacks the third artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_3",
@@ -1611,7 +1975,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the fourth advanced artefact is requested but missing from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor lacks the fourth artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_4",
@@ -1621,7 +1989,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the fifth advanced artefact is requested but missing from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor lacks the fifth artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_5",
@@ -1631,7 +2003,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the sixth advanced artefact is requested but missing from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor lacks the sixth artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_6",
@@ -1641,7 +2017,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the seventh advanced artefact is requested but missing from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor lacks the seventh artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_7",
@@ -1651,7 +2031,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the eighth advanced artefact is requested but missing from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor lacks the eighth artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_do_not_has_adv_task_af_8",
@@ -1661,7 +2045,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the first advanced artefact is requested and carried by the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor owns the first artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_1",
@@ -1671,7 +2059,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the second advanced artefact is requested and carried by the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor owns the second artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_2",
@@ -1681,7 +2073,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the third advanced artefact is requested and carried by the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor owns the third artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_3",
@@ -1691,7 +2087,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the fourth advanced artefact is requested and carried by the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor owns the fourth artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_4",
@@ -1701,7 +2101,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the fifth advanced artefact is requested and carried by the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor owns the fifth artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_5",
@@ -1711,7 +2115,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the sixth advanced artefact is requested and carried by the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor owns the sixth artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_6",
@@ -1721,7 +2129,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the seventh advanced artefact is requested and carried by the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor owns the seventh artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_7",
@@ -1731,7 +2143,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the eighth advanced artefact is requested and carried by the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the corresponding info portion is set and the actor owns the eighth artefact.
  */
 extern(
   "dialogs_zaton.zat_b29_actor_has_adv_task_af_8",
@@ -1741,7 +2157,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Give a scientific detector from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_transfer_detector_to_actor",
@@ -1751,7 +2170,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Reward the actor with Owl's money share.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b30_give_owls_share_to_actor",
@@ -1761,14 +2183,21 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the compass artefact.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the compass artefact.
  */
 extern("dialogs_zaton.zat_b30_actor_has_compass", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(artefacts.af_compass) !== null;
 });
 
 /**
- * Todo.
+ * Take the compass artefact from the actor, reward money and reveal treasure coordinates.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b30_transfer_af_from_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), artefacts.af_compass);
@@ -1781,7 +2210,11 @@ extern("dialogs_zaton.zat_b30_transfer_af_from_actor", (firstSpeaker: GameObject
 });
 
 /**
- * Todo.
+ * Check whether the barman has accumulated daily percent owed to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the stored day counter is greater than zero.
  */
 extern("dialogs_zaton.zat_b30_barmen_has_percent", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   const count: TCount = getPortableStoreValue(ACTOR_ID, "zat_b30_days_cnt", 0);
@@ -1789,7 +2222,11 @@ extern("dialogs_zaton.zat_b30_barmen_has_percent", (firstSpeaker: GameObject, se
   return count > 0;
 });
 /**
- * Todo.
+ * Check whether the barman has no accumulated daily percent owed to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the stored day counter is below one.
  */
 extern(
   "dialogs_zaton.zat_b30_barmen_do_not_has_percent",
@@ -1801,14 +2238,21 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries Noah's PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns Noah's PDA quest item.
  */
 extern("dialogs_zaton.zat_b30_actor_has_noah_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b20_noah_pda) !== null;
 });
 
 /**
- * Todo.
+ * Sell Noah's PDA to the NPC and reward the actor with money.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b30_sell_noah_pda", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b20_noah_pda);
@@ -1816,49 +2260,76 @@ extern("dialogs_zaton.zat_b30_sell_noah_pda", (firstSpeaker: GameObject, secondS
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the zat_b40 notebook.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the zat_b40 notebook quest item.
  */
 extern("dialogs_zaton.zat_b40_actor_has_notebook", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b40_notebook) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the first zat_b40 mercenary PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the first zat_b40 mercenary PDA.
  */
 extern("dialogs_zaton.zat_b40_actor_has_merc_pda_1", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b40_pda_1) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the second zat_b40 mercenary PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the second zat_b40 mercenary PDA.
  */
 extern("dialogs_zaton.zat_b40_actor_has_merc_pda_2", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b40_pda_2) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the third toolkit.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the third toolkit.
  */
 extern("dialogs_zaton.if_actor_has_toolkit_3", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(misc.toolkit_3) !== null;
 });
 
 /**
- * Todo.
+ * Transfer a bottle of vodka from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_vodka", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), food.vodka);
 });
 
 /**
- * Todo.
+ * Check whether the actor carries vodka.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns a bottle of vodka.
  */
 extern("dialogs_zaton.if_actor_has_vodka", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(food.vodka) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the actor has enough money to buy the battery.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least 2000 money.
  */
 extern(
   "dialogs_zaton.actor_has_more_then_need_money_to_buy_battery",
@@ -1868,7 +2339,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor lacks the money to buy the battery.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns less than 2000 money.
  */
 extern(
   "dialogs_zaton.actor_has_less_then_need_money_to_buy_battery",
@@ -1878,7 +2353,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Transfer the 2000 money battery price from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.relocate_need_money_to_buy_battery",
@@ -1888,35 +2366,51 @@ extern(
 );
 
 /**
- * Todo.
+ * Give the gauss battery ammo from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_actor_battery", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), ammo.ammo_gauss_cardan);
 });
 
 /**
- * Todo.
+ * Give the zat_a23 access card from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_actor_zat_a23_access_card", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_access_card);
 });
 
 /**
- * Todo.
+ * Take the zat_a23 gauss rifle documents from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_zat_a23_gauss_rifle_docs", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_gauss_rifle_docs);
 });
 
 /**
- * Todo.
+ * Return the zat_a23 gauss rifle documents from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.return_zat_a23_gauss_rifle_docs", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_a23_gauss_rifle_docs);
 });
 
 /**
- * Todo.
+ * Check whether the speaker carries the zat_a23 gauss rifle documents.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the first speaker owns the zat_a23 gauss rifle documents.
  */
 extern(
   "dialogs_zaton.if_actor_has_zat_a23_gauss_rifle_docs",
@@ -1926,28 +2420,42 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the speaker carries the gauss rifle.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the first speaker owns the gauss rifle quest item.
  */
 extern("dialogs_zaton.if_actor_has_gauss_rifle", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return firstSpeaker.object(questItems.pri_a17_gauss_rifle) !== null;
 });
 
 /**
- * Todo.
+ * Take the gauss rifle from the actor for the tech to repair.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_tech_gauss_rifle", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.pri_a17_gauss_rifle);
 });
 
 /**
- * Todo.
+ * Give the repaired gauss rifle from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.give_actor_repaired_gauss_rifle", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_gauss);
 });
 
 /**
- * Todo.
+ * Check whether the poor actor has enough money for the cheaper Pripyat passage.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least 1000 money.
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_money_poor",
@@ -1957,7 +2465,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the poor actor lacks the money for the cheaper passage.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns less than 1000 money.
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_no_money_poor",
@@ -1967,7 +2479,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the poor actor has enough money for the Pripyat passage.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least 4000 money.
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_money_poor_pripyat",
@@ -1977,7 +2493,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the poor actor lacks the money for the Pripyat passage.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns less than 4000 money.
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_no_money_poor_pripyat",
@@ -1987,7 +2507,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the rich actor has enough money for the passage.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least 3000 money.
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_money_rich",
@@ -1997,7 +2521,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the rich actor lacks the money for the passage.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns less than 3000 money.
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_no_money_rich",
@@ -2007,7 +2535,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the rich actor has enough money for the Pripyat passage.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least 6000 money.
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_money_rich_pripyat",
@@ -2017,7 +2549,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the rich actor lacks the money for the Pripyat passage.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns less than 6000 money.
  */
 extern(
   "dialogs_zaton.zat_b215_actor_has_no_money_rich_pripyat",
@@ -2027,14 +2563,20 @@ extern(
 );
 
 /**
- * Todo.
+ * Transfer the 1000 money poor passage fee from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b215_relocate_money_poor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 1000);
 });
 
 /**
- * Todo.
+ * Transfer the 4000 money poor Pripyat passage fee from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b215_relocate_money_poor_pripyat",
@@ -2044,14 +2586,20 @@ extern(
 );
 
 /**
- * Todo.
+ * Transfer the 3000 money rich passage fee from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b215_relocate_money_rich", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 3000);
 });
 
 /**
- * Todo.
+ * Transfer the 6000 money rich Pripyat passage fee from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b215_relocate_money_rich_pripyat",
@@ -2061,7 +2609,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries either the Joker or the barge PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the Joker PDA or the barge PDA.
  */
 extern("dialogs_zaton.zat_b44_actor_has_pda_global", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
@@ -2071,7 +2623,11 @@ extern("dialogs_zaton.zat_b44_actor_has_pda_global", (firstSpeaker: GameObject, 
 });
 
 /**
- * Todo.
+ * Check whether the actor is missing at least one of the Joker and barge PDAs.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor lacks the Joker PDA or the barge PDA.
  */
 extern(
   "dialogs_zaton.zat_b44_actor_has_not_pda_global",
@@ -2084,21 +2640,33 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the barge PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the barge PDA quest item.
  */
 extern("dialogs_zaton.zat_b44_actor_has_pda_barge", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b44_barge_pda) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the Joker PDA.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the Joker PDA quest item.
  */
 extern("dialogs_zaton.zat_b44_actor_has_pda_joker", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b39_joker_pda) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the actor carries both the Joker and barge PDAs.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the Joker PDA and the barge PDA.
  */
 extern("dialogs_zaton.zat_b44_actor_has_pda_both", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
@@ -2108,21 +2676,30 @@ extern("dialogs_zaton.zat_b44_actor_has_pda_both", (firstSpeaker: GameObject, se
 });
 
 /**
- * Todo.
+ * Take the barge PDA from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b44_transfer_pda_barge", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b44_barge_pda);
 });
 
 /**
- * Todo.
+ * Take the Joker PDA from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b44_transfer_pda_joker", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b39_joker_pda);
 });
 
 /**
- * Todo.
+ * Take both the barge PDA and the Joker PDA from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b44_transfer_pda_both", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), questItems.zat_b44_barge_pda);
@@ -2130,7 +2707,11 @@ extern("dialogs_zaton.zat_b44_transfer_pda_both", (firstSpeaker: GameObject, sec
 });
 
 /**
- * Todo.
+ * Check whether the friendly tech dialog branch is enabled.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the tech discount info portions are set or the actor has none of the PDAs.
  */
 extern(
   "dialogs_zaton.zat_b44_frends_dialog_enabled",
@@ -2147,7 +2728,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries an advanced-grade detector.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns an advanced, elite or scientific detector.
  */
 extern(
   "dialogs_zaton.zat_b53_if_actor_has_detector_advanced",
@@ -2161,7 +2746,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Release one of the actor medkits to the NPC, notify the relocation and raise actor reputation.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b53_transfer_medkit_to_npc", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   let section: Optional<TDrugItem> = null;
@@ -2185,7 +2773,11 @@ extern("dialogs_zaton.zat_b53_transfer_medkit_to_npc", (firstSpeaker: GameObject
 });
 
 /**
- * Todo.
+ * Check whether the current in-game time falls within the zat_b106 hunting window.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the current time is at or after 02:45 and before 05:00.
  */
 extern("dialogs_zaton.is_zat_b106_hunting_time", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (level.get_time_hours() >= 2 && level.get_time_hours() < 5) {
@@ -2200,7 +2792,11 @@ extern("dialogs_zaton.is_zat_b106_hunting_time", (firstSpeaker: GameObject, seco
 });
 
 /**
- * Todo.
+ * Check whether the current in-game time is outside the zat_b106 hunting window.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the current time is not within the hunting window.
  */
 extern("dialogs_zaton.is_not_zat_b106_hunting_time", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (level.get_time_hours() >= 2 && level.get_time_hours() < 5) {
@@ -2215,7 +2811,11 @@ extern("dialogs_zaton.is_not_zat_b106_hunting_time", (firstSpeaker: GameObject, 
 });
 
 /**
- * Todo.
+ * Check whether the actor does not carry an advanced-grade detector.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor lacks an advanced, elite and scientific detector.
  */
 extern(
   "dialogs_zaton.zat_b53_if_actor_hasnt_detector_advanced",
@@ -2228,7 +2828,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Give an advanced detector from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b53_transfer_detector_advanced_to_actor",
@@ -2238,7 +2841,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Give the fireball artefact from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b53_transfer_fireball_to_actor",
@@ -2248,7 +2854,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Give a medkit from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_b53_transfer_medkit_to_actor",
@@ -2258,7 +2867,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Reward the actor with money for the Soroka task, reduced if Flint was blamed.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b106_soroka_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   if (
@@ -2272,7 +2884,11 @@ extern("dialogs_zaton.zat_b106_soroka_reward", (firstSpeaker: GameObject, second
 });
 
 /**
- * Todo.
+ * Check whether the actor carries at least six of the requested food items.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns six or more bread, kolbasa and conserva combined.
  */
 extern(
   "dialogs_zaton.zat_b103_actor_has_needed_food",
@@ -2295,21 +2911,31 @@ extern(
 );
 
 /**
- * Todo.
+ * Give a SPAS-12 shotgun from the NPC to the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b106_transfer_weap_to_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsToActor(getNpcSpeaker(firstSpeaker, secondSpeaker), weapons.wpn_spas12);
 });
 
 /**
- * Todo.
+ * Reveal the zat_b106 treasure coordinates as a reward.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b106_give_reward", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   TreasureManager.giveTreasureCoordinates("zat_hiding_place_50");
 });
 
 /**
- * Todo.
+ * Check whether the tech is still willing to drink with the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the gauss is repaired without a no-more flag or the tech has not yet seen produce 62.
  */
 extern("dialogs_zaton.zat_b3_tech_drinks_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.zat_b3_gauss_repaired) && !hasInfoPortion(infoPortions.zat_b3_tech_drink_no_more)) {
@@ -2322,7 +2948,11 @@ extern("dialogs_zaton.zat_b3_tech_drinks_precond", (firstSpeaker: GameObject, se
 });
 
 /**
- * Todo.
+ * Check whether Soroka has left because Flint was blamed.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether either Flint blame info portion is set.
  */
 extern("dialogs_zaton.zat_b106_soroka_gone", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return (
@@ -2332,28 +2962,42 @@ extern("dialogs_zaton.zat_b106_soroka_gone", (firstSpeaker: GameObject, secondSp
 });
 
 /**
- * Todo.
+ * Check whether Soroka has not left.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether neither Flint blame info portion is set.
  */
 extern("dialogs_zaton.zat_b106_soroka_not_gone", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b106_soroka_gone", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the medic PDA proof.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the zat_b22 medic PDA.
  */
 extern("dialogs_zaton.zat_b22_actor_has_proof", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return actorHasItem(infoPortions.zat_b22_medic_pda);
 });
 
 /**
- * Todo.
+ * Take the zat_b22 medic PDA proof from the actor.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b22_transfer_proof", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferItemsFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), infoPortions.zat_b22_medic_pda);
 });
 
 /**
- * Todo.
+ * Reward the actor with money and reveal treasure coordinates for the stalker outcome.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b5_stalker_transfer_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(2500);
@@ -2361,21 +3005,30 @@ extern("dialogs_zaton.zat_b5_stalker_transfer_money", (firstSpeaker: GameObject,
 });
 
 /**
- * Todo.
+ * Reward the actor with the full dealer payout.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b5_dealer_full_revard", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(6_000);
 });
 
 /**
- * Todo.
+ * Reward the actor with the reduced dealer payout.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b5_dealer_easy_revard", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(3_000);
 });
 
 /**
- * Todo.
+ * Reward the actor with money and reveal treasure coordinates for the bandit outcome.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b5_bandits_revard", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   giveMoneyToActor(5_000);
@@ -2383,7 +3036,11 @@ extern("dialogs_zaton.zat_b5_bandits_revard", (firstSpeaker: GameObject, secondS
 });
 
 /**
- * Todo.
+ * Check whether the actor carries the zat_a23 access card.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the zat_a23 access card.
  */
 extern(
   "dialogs_zaton.zat_a23_actor_has_access_card",
@@ -2393,7 +3050,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Take the zat_a23 access card from the actor and reward scientific medkits.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern(
   "dialogs_zaton.zat_a23_transfer_access_card_to_tech",
@@ -2404,7 +3064,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Give an elite detector from the NPC to the actor and reveal treasure coordinates.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 // --// --- b57 new // --// --
 extern(
@@ -2416,35 +3079,54 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the actor carries the zat_b57 gas canister.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns the zat_b57 gas quest item.
  */
 extern("dialogs_zaton.actor_has_gas", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.object(questItems.zat_b57_gas) !== null;
 });
 
 /**
- * Todo.
+ * Check whether the actor does not carry the zat_b57 gas canister.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor lacks the zat_b57 gas quest item.
  */
 extern("dialogs_zaton.actor_has_not_gas", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("actor_has_gas", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Check whether the actor has enough money for the zat_b57 deal.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns at least 2000 money.
  */
 extern("dialogs_zaton.zat_b57_actor_has_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return registry.actor.money() >= 2000;
 });
 
 /**
- * Todo.
+ * Check whether the actor lacks the money for the zat_b57 deal.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
+ * @returns Whether the actor owns less than 2000 money.
  */
 extern("dialogs_zaton.zat_b57_actor_hasnt_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   return !getExtern<AnyCallable>("zat_b57_actor_has_money", getExtern("dialogs_zaton"))(firstSpeaker, secondSpeaker);
 });
 
 /**
- * Todo.
+ * Transfer the 2000 money zat_b57 gas fee from the actor to the dialog NPC.
+ *
+ * @param firstSpeaker - First participant of the dialog (actor).
+ * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b57_transfer_gas_money", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
   transferMoneyFromActor(getNpcSpeaker(firstSpeaker, secondSpeaker), 2000);

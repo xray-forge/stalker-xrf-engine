@@ -1,5 +1,5 @@
 /**
- * Todo.
+ * Mock table mapping engine class identifier names to numeric ids for tests.
  */
 export const mockClsid = {
   actor: 90,

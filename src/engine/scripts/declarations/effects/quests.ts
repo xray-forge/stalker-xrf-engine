@@ -134,7 +134,7 @@ extern("xr_effects.pas_b400_switcher", (): void => {
 });
 
 /**
- * Todo.
+ * Place the Jupiter b209 mutant scanner when the actor is in the hypotheses zone and update quest state.
  */
 extern("xr_effects.jup_b209_place_scanner", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b209_hypotheses"))) {
@@ -146,7 +146,7 @@ extern("xr_effects.jup_b209_place_scanner", (): void => {
 });
 
 /**
- * Todo.
+ * Give the Jupiter b9 helicopter #1 searching info portion when the actor is in the related zone.
  */
 extern("xr_effects.jup_b9_heli_1_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b9_heli_1"))) {
@@ -155,7 +155,7 @@ extern("xr_effects.jup_b9_heli_1_searching", (): void => {
 });
 
 /**
- * Todo.
+ * Give the Pripyat a18 run camera info portion when the actor is in the idol restrictor zone.
  */
 extern("xr_effects.pri_a18_use_idol", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("pri_a18_use_idol_restrictor"))) {
@@ -164,7 +164,7 @@ extern("xr_effects.pri_a18_use_idol", (): void => {
 });
 
 /**
- * Todo.
+ * Give the Jupiter b8 helicopter #4 searching info portion when the actor is in the related zone.
  */
 extern("xr_effects.jup_b8_heli_4_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b8_heli_4"))) {
@@ -173,7 +173,7 @@ extern("xr_effects.jup_b8_heli_4_searching", (): void => {
 });
 
 /**
- * Todo.
+ * Start the Jupiter b10 UFO memory quest and give the memory item when the actor is in the related zone.
  */
 extern("xr_effects.jup_b10_ufo_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("jup_b10_ufo_restrictor"))) {
@@ -183,7 +183,7 @@ extern("xr_effects.jup_b10_ufo_searching", (): void => {
 });
 
 /**
- * Todo.
+ * Give the Zaton b101 helicopter #5 searching info portion when the actor is in the related zone.
  */
 extern("xr_effects.zat_b101_heli_5_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("zat_b101_heli_5"))) {
@@ -192,7 +192,7 @@ extern("xr_effects.zat_b101_heli_5_searching", (): void => {
 });
 
 /**
- * Todo.
+ * Give the Zaton b28 helicopter #3 searching info portion when the actor is in the related zone.
  */
 extern("xr_effects.zat_b28_heli_3_searching", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("zat_b28_heli_3"))) {
@@ -201,7 +201,7 @@ extern("xr_effects.zat_b28_heli_3_searching", (): void => {
 });
 
 /**
- * Todo.
+ * Give the Zaton b100 helicopter #2 searching info portion when the actor is in the related zone.
  */
 extern("xr_effects.zat_b100_heli_2_searching", (): void => {
   logger.info("Searching helicopter #2");
@@ -212,7 +212,10 @@ extern("xr_effects.zat_b100_heli_2_searching", (): void => {
 });
 
 /**
- * Todo.
+ * Teleport the actor across the Jupiter b16 teleport anomaly preserving the relative offset.
+ *
+ * @param actor - Actor game object that is teleported.
+ * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.jup_teleport_actor", (actor: GameObject, object: GameObject): void => {
   const pointIn: Vector = new patrol("jup_b16_teleport_in").point(0);
@@ -232,7 +235,7 @@ let jupB219LVId: Optional<number> = null;
 let jupB219GVId: Optional<number> = null;
 
 /**
- * Todo.
+ * Save the position of the Jupiter b219 gate object and release it from the simulation.
  */
 extern("xr_effects.jup_b219_save_pos", (): void => {
   const object: Optional<GameObject> = getObjectByStoryId("jup_b219_gate_id");
@@ -253,7 +256,7 @@ extern("xr_effects.jup_b219_save_pos", (): void => {
 });
 
 /**
- * Todo.
+ * Recreate the Jupiter b219 gate object at the previously saved position.
  */
 extern("xr_effects.jup_b219_restore_gate", () => {
   const yaw: TRate = 0;
@@ -274,7 +277,11 @@ extern("xr_effects.jup_b219_restore_gate", () => {
 let particlesList: Optional<LuaArray<{ particle: ParticlesObject; sound: SoundObject }>> = null;
 
 /**
- * Todo.
+ * Play the Jupiter b16 teleport particle effect at the object's particle patrol point by index.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object whose particle patrol path is used.
+ * @param p - Tuple containing the index of the particle and sound pair to play.
  */
 extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object: GameObject, p: [number]) => {
   if (particlesList === null) {
@@ -302,7 +309,11 @@ extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object:
 });
 
 /**
- * Todo.
+ * Disable the provided info portions and randomly give back the requested number of them.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param parameters - List whose first element is the amount needed and the rest are candidate info portions.
  */
 extern(
   "xr_effects.zat_b29_create_random_infop",
@@ -345,7 +356,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Pick the Zaton b29 artefact matching the active bring info portion from its assigned anomaly zone.
+ *
+ * @param actor - Actor game object that receives the artefact.
+ * @param object - Game object owning the logics scheme.
+ * @param p - Tuple containing the target story ID forwarded to the pick artefact effect.
  */
 extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [string]) => {
   // --	const story_object = p && getStoryObject(p[1])
@@ -380,7 +395,11 @@ extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [s
 });
 
 /**
- * Todo.
+ * Move the Zaton b29 artefact matching the active bring info portion from one story object to another.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param p - Tuple of source and destination story IDs for the relocated item.
  */
 extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p: [string, string]) => {
   let item: Optional<string> = null;
@@ -413,7 +432,10 @@ extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p
 });
 
 /**
- * Todo.
+ * Move all items from the Jupiter b202 actor treasure box into the snag treasure box.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object: GameObject): void => {
   const inventoryBoxOut: Optional<GameObject> = getObjectByStoryId("jup_b202_actor_treasure");
@@ -434,7 +456,11 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object:
 });
 
 /**
- * Todo.
+ * Spawn the Jupiter b10 drunk dead loot set, either into a target box by counter or onto the object.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object that receives the loot when no target story ID is provided.
+ * @param params - Tuple containing the optional target box story ID.
  */
 extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: GameObject, params: [string]): void => {
   const itemsAll = {
@@ -516,7 +542,11 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
 });
 
 /**
- * Todo.
+ * Spawn a randomized weighted set of loot items into the Zaton b202 snag treasure box.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param p - Unused parameters tuple.
  */
 extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: GameObject, p: []) => {
   const spawnItemsList = [
@@ -598,7 +628,11 @@ extern("xr_effects.zat_b202_spawn_random_loot", (actor: GameObject, object: Game
 });
 
 /**
- * Todo.
+ * Play the next available Jupiter b221 faction dialogue theme or its reply for the duty or freedom branch.
+ *
+ * @param actor - Actor game object that the played sound is bound to.
+ * @param object - Game object that the played sound is bound to.
+ * @param p - Tuple containing the faction branch, either duty or freedom.
  */
 extern("xr_effects.jup_b221_play_main", (actor: GameObject, object: GameObject, p: [string]) => {
   let infoPortionsList: LuaArray<TInfoPortion> = new LuaTable();
@@ -720,21 +754,27 @@ extern("xr_effects.oasis_heal", (): void => {
 });
 
 /**
- * Todo.
+ * Start the acidic zone idle particles on the actor's head.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.pas_b400_play_particle", (actor: GameObject, object: GameObject): void => {
   registry.actor.start_particles("zones\\zone_acidic_idle", "bip01_head");
 });
 
 /**
- * Todo.
+ * Stop the acidic zone idle particles on the actor's head.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.pas_b400_stop_particle", (actor: GameObject, object: GameObject): void => {
   registry.actor.stop_particles("zones\\zone_acidic_idle", "bip01_head");
 });
 
 /**
- * Todo.
+ * Set the condition of the Pripyat a17 gauss rifle to zero, breaking it.
  */
 extern("xr_effects.damage_pri_a17_gauss", (): void => {
   const object: Optional<GameObject> = getObjectByStoryId(questItems.pri_a17_gauss_rifle);
@@ -745,7 +785,10 @@ extern("xr_effects.damage_pri_a17_gauss", (): void => {
 });
 
 /**
- * Todo.
+ * Force-reset the object state and animation to the Pripyat a17 fall down state.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object whose state manager animation is reset.
  */
 extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
   const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
@@ -757,7 +800,10 @@ extern("xr_effects.pri_a17_hard_animation_reset", (actor: GameObject, object: Ga
 });
 
 /**
- * Todo.
+ * Force-reset the object state and animation to the Jupiter b217 nitro straight state.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object whose state manager animation is reset.
  */
 extern("xr_effects.jup_b217_hard_animation_reset", (actor: GameObject, object: GameObject): void => {
   const stateManager: StalkerStateManager = registry.objects.get(object.id()).stateManager!;
@@ -909,7 +955,7 @@ extern("xr_effects.pri_a28_talk_ssu_video_end", (_: GameObject, __: GameObject):
 });
 
 /**
- * Todo.
+ * Give the Zaton b33 safe container item and quest info portion when the actor is in the tutor zone.
  */
 extern("xr_effects.zat_b33_pic_snag_container", (): void => {
   if (isObjectInZone(registry.actor, registry.zones.get("zat_b33_tutor"))) {
@@ -928,7 +974,11 @@ extern("xr_effects.zat_b33_pic_snag_container", (): void => {
 });
 
 /**
- * Todo.
+ * Spawn the Zaton b33 reward items into their snag boxes for each reward not yet given to the actor.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param p - Unused parameters tuple.
  */
 extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObject, p: []) => {
   const infoPortionsList: LuaArray<TInfoPortion> = $fromArray<TInfoPortion>([
@@ -971,7 +1021,7 @@ extern("xr_effects.zat_b202_spawn_b33_loot", (actor: GameObject, object: GameObj
 });
 
 /**
- * Todo.
+ * Determine the farthest Pripyat a28 monolith zone, give its wave info portion and spawn the matching squad.
  */
 extern("xr_effects.pri_a28_check_zones", (): void => {
   const actor: GameObject = registry.actor;
@@ -1054,7 +1104,7 @@ const materialsTable: LuaArray<TStringId> = $fromArray([
 ]);
 
 /**
- * Todo.
+ * Count the Jupiter b200 tech materials carried by the actor and store the found counter value.
  */
 extern("xr_effects.jup_b200_count_found", (): void => {
   let count: TCount = 0;

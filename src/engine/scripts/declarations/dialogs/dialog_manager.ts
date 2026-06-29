@@ -170,7 +170,12 @@ extern(
 );
 
 /**
- * Todo.
+ * Apply the selected job phrase action and mark the job category as told for the object.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param id - Identifier of the selected phrase.
  */
 extern(
   "dialog_manager.action_job_dialogs",
@@ -190,7 +195,14 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the object has already told all anomaly phrases.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param parentId - Identifier of the parent phrase.
+ * @param id - Identifier of the current phrase.
+ * @returns Whether the anomaly phrase category is fully told for the object.
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_no_more",
@@ -200,7 +212,14 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the anomaly phrase category should be hidden for the object.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param parentId - Identifier of the parent phrase.
+ * @param id - Identifier of the current phrase.
+ * @returns Whether the anomaly phrase category should be hidden.
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs_do_not_know",
@@ -210,7 +229,14 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether an anomaly phrase should be shown, skipping it when it matches the object's terrain.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param parentId - Identifier of the parent phrase.
+ * @param phraseId - Identifier of the phrase being evaluated.
+ * @returns Whether the anomaly phrase should be shown.
  */
 extern(
   "dialog_manager.precondition_anomalies_dialogs",
@@ -239,7 +265,12 @@ extern(
 );
 
 /**
- * Todo.
+ * Apply the selected anomaly phrase action and mark the anomaly category as told for the object.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param id - Identifier of the selected phrase.
  */
 extern(
   "dialog_manager.action_anomalies_dialogs",
@@ -259,7 +290,14 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the object has already told all information phrases.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param parentId - Identifier of the parent phrase.
+ * @param id - Identifier of the current phrase.
+ * @returns Whether the information phrase category is fully told for the object.
  */
 extern(
   "dialog_manager.precondition_information_dialogs_no_more",
@@ -269,7 +307,14 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether the information phrase category should be hidden for the object.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param parentId - Identifier of the parent phrase.
+ * @param id - Identifier of the current phrase.
+ * @returns Whether the information phrase category should be hidden.
  */
 extern(
   "dialog_manager.precondition_information_dialogs_do_not_know",
@@ -279,7 +324,14 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether an information phrase should be shown to the actor.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param parentId - Identifier of the parent phrase.
+ * @param id - Identifier of the phrase being evaluated.
+ * @returns Whether the information phrase should be shown.
  */
 extern(
   "dialog_manager.precondition_information_dialogs",
@@ -294,7 +346,12 @@ extern(
 );
 
 /**
- * Todo.
+ * Apply the selected information phrase action and mark the information category as told for the object.
+ *
+ * @param object - Object participating in the dialog.
+ * @param actor - Actor participating in the dialog.
+ * @param dialogName - Name of the dialog being processed.
+ * @param id - Identifier of the selected phrase.
  */
 extern(
   "dialog_manager.action_information_dialogs",
@@ -314,7 +371,14 @@ extern(
 );
 
 /**
- * Todo.
+ * Check whether a phrase is still enabled for the speaking NPC, considering generic and quest disables.
+ *
+ * @param firstSpeaker - One of the dialog speakers, actor or NPC.
+ * @param secondSpeaker - One of the dialog speakers, actor or NPC.
+ * @param dialogName - Name of the dialog being processed.
+ * @param parentDialogId - Identifier of the parent dialog phrase.
+ * @param phraseId - Identifier of the phrase being evaluated.
+ * @returns Whether the phrase is not disabled for the speaking NPC.
  */
 extern(
   "dialog_manager.precondition_is_phrase_disabled",
@@ -354,7 +418,12 @@ extern(
 );
 
 /**
- * Todo.
+ * Disable a quest-related dialog phrase for the speaking NPC so it is excluded from the options list.
+ *
+ * @param firstSpeaker - One of the dialog speakers, actor or NPC.
+ * @param secondSpeaker - One of the dialog speakers, actor or NPC.
+ * @param dialogName - Name of the dialog being processed.
+ * @param phraseId - Identifier of the phrase to disable.
  */
 extern(
   "dialog_manager.action_disable_quest_phrase",
@@ -377,8 +446,11 @@ extern(
 let rnd: number = 0;
 
 /**
- * Todo;
- * todo: Just use 'pick random' from list.
+ * Pick a randomized localized phrase for the actor breaking off the dialog.
+ *
+ * @returns Translated farewell phrase string for ending the dialog.
+ *
+ * Todo: Just use 'pick random' from list.
  */
 extern("dialog_manager.create_bye_phrase", (): string => {
   logger.info("Create bye phrase");

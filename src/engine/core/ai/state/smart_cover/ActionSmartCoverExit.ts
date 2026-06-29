@@ -8,7 +8,7 @@ import { GameObject } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Action forcing the object to leave its current smart cover and move to the nearest accessible vertex.
  */
 @LuabindClass()
 export class ActionSmartCoverExit extends action_base {

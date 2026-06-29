@@ -6,7 +6,7 @@ import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover
 import { EScheme, Optional } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Evaluator checking whether the object smart cover state is locked and mismatched with the configured cover.
  */
 @LuabindClass()
 export class EvaluatorSmartCoverLocked extends property_evaluator {
@@ -18,7 +18,9 @@ export class EvaluatorSmartCoverLocked extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Evaluate whether the object presence in a smart cover is out of sync with the configured cover name.
+   *
+   * @returns Whether the smart cover state is locked and needs to be resolved.
    */
   public override evaluate(): boolean {
     const smartCoverState: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[

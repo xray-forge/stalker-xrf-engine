@@ -6,7 +6,7 @@ import { areSameVectorsByPrecision, subVectors } from "@/engine/core/utils/vecto
 import { AnyCallable, TSightType, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Evaluator checking whether the object is already looking in the direction required by the current target state.
  */
 @LuabindClass()
 export class EvaluatorDirectionSet extends property_evaluator {
@@ -18,7 +18,9 @@ export class EvaluatorDirectionSet extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Evaluate whether the object sight already matches the look object or position requested by the state manager.
+   *
+   * @returns Whether the desired look direction is already set.
    */
   public override evaluate(): boolean {
     const manager: StalkerStateManager = this.stateManager;
@@ -79,7 +81,7 @@ export class EvaluatorDirectionSet extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Invoke and clear the registered turn-end callback once the required look direction is reached.
    */
   public onTurnEnd(): void {
     if (this.stateManager.callback?.turnEndCallback) {

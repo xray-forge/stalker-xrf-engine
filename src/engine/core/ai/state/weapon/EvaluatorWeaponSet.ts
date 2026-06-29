@@ -20,7 +20,9 @@ export class EvaluatorWeaponSet extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Evaluate whether the active weapon already matches the weapon animation required by the target state.
+   *
+   * @returns Whether the correct weapon is equipped in the correct strapped or unstrapped mode.
    */
   public override evaluate(): boolean {
     const weaponAnimation: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;

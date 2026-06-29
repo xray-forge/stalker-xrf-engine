@@ -100,7 +100,11 @@ extern("xr_effects.anim_obj_stop", (_: GameObject, __: GameObject, doors: Array<
 });
 
 /**
- * Todo.
+ * Hit an object referenced by story ID with the provided bone, power, impulse and direction.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object used as the fallback hit source position and draftsman.
+ * @param params - Tuple of target story ID, bone name, power, impulse and optional direction patrol path.
  */
 extern(
   "xr_effects.hit_obj",
@@ -181,7 +185,11 @@ extern("xr_effects.sniper_fire_mode", (_: GameObject, object: GameObject, parame
 });
 
 /**
- * Todo.
+ * Kill the linked object or the object referenced by the provided story ID if it is alive.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object to kill when no story ID is provided.
+ * @param storyId - Optional story ID of the object to kill instead of the linked object.
  */
 extern("xr_effects.kill_npc", (_: GameObject, object: Optional<GameObject>, [storyId]: [Optional<TStringId>]): void => {
   if (storyId) {
@@ -194,7 +202,11 @@ extern("xr_effects.kill_npc", (_: GameObject, object: Optional<GameObject>, [sto
 });
 
 /**
- * Todo.
+ * Release the object referenced by the provided story ID from the simulation.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param storyId - Optional story ID of the object to release.
  */
 extern("xr_effects.remove_npc", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]): void => {
   let objectId: Optional<TNumberId> = null;
@@ -216,7 +228,10 @@ extern("xr_effects.clear_abuse", (_: GameObject, object: GameObject): void => {
 });
 
 /**
- * Todo.
+ * Disable the combat and monster combat schemes for the object.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object whose combat handlers are disabled.
  */
 extern("xr_effects.disable_combat_handler", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -231,7 +246,10 @@ extern("xr_effects.disable_combat_handler", (_: GameObject, object: GameObject):
 });
 
 /**
- * Todo.
+ * Disable the combat ignore scheme for the object.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object whose combat ignore handler is disabled.
  */
 extern("xr_effects.disable_combat_ignore_handler", (_: GameObject, object: GameObject): void => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
@@ -242,7 +260,11 @@ extern("xr_effects.disable_combat_ignore_handler", (_: GameObject, object: GameO
 });
 
 /**
- * Todo.
+ * Spawn an object of the provided section at the given patrol path point with the desired yaw.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param params - Tuple of section, patrol path name, point index and yaw to spawn the object with.
  */
 extern(
   "xr_effects.spawn_object",
@@ -296,7 +318,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Release the linked object or a target resolved from the provided story type and section parameters.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object released when no target parameters are provided.
+ * @param parameters - Tuple describing the target to release, as type, section and optional value.
  */
 extern(
   "xr_effects.destroy_object",
@@ -327,7 +353,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Spawn a squad of the provided section in the named smart terrain.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param params - Tuple of squad section and target smart terrain name.
  */
 extern(
   "xr_effects.create_squad",
@@ -337,8 +367,13 @@ extern(
 );
 
 /**
- * Todo;
- * todo: Move member creation to squad / squad util.
+ * Add a new member of the provided section to an existing squad referenced by story ID.
+ *
+ * Todo: Move member creation to squad / squad util.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object used when resolving the spawn point condition list.
+ * @param params - Tuple of member section, squad story ID and optional spawn point name.
  */
 extern(
   "xr_effects.create_squad_member",
@@ -404,7 +439,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Release the squad referenced by the provided story ID from the simulation.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param storyId - Story ID of the squad to release.
  */
 extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   if (!storyId) {
@@ -421,7 +460,11 @@ extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TS
 });
 
 /**
- * Todo.
+ * Kill every member of the squad referenced by the provided story ID.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param p - Tuple containing the story ID of the squad to kill.
  */
 extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Optional<TStringId>]): void => {
   const storyId: Optional<TStringId> = p[0];
@@ -454,7 +497,12 @@ extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Opti
 });
 
 /**
- * Todo.
+ * Restore health of every online member of the squad referenced by the provided story ID.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param storyId - Story ID of the squad to heal.
+ * @param healthModRaw - Optional health percentage applied to each squad member, defaults to full health.
  */
 extern(
   "xr_effects.heal_squad",
@@ -486,7 +534,12 @@ extern(
 );
 
 /**
- * Todo.
+ * Release squads assigned to the named smart terrain, optionally keeping story-bound squads.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param terrainName - Name of the smart terrain to clear.
+ * @param clearStory - When set to false, squads bound to a story ID are preserved.
  */
 extern(
   "xr_effects.clear_smart_terrain",
@@ -518,7 +571,11 @@ extern(
 );
 
 /**
- * Todo.
+ * Force a logic, action planner and state manager update for each stalker referenced by story ID.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param params - List of story IDs of stalkers whose logic should be updated.
  */
 extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: LuaArray<TStringId>): void => {
   for (const [, storyId] of params) {
@@ -548,7 +605,11 @@ extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: Lu
 });
 
 /**
- * Todo.
+ * Try to switch the active scheme to another section for each object referenced by story ID.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param params - List of story IDs of objects whose logic should be re-evaluated.
  */
 extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: LuaArray<TStringId>): void => {
   for (const [, storyId] of params) {
@@ -565,7 +626,11 @@ extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: Lu
 });
 
 /**
- * Todo.
+ * Hit the linked object from a source story object or patrol point, optionally reversing the direction.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object that receives the hit.
+ * @param params - Tuple of source story ID or self, patrol path, bone, power, impulse and reverse flag.
  */
 extern(
   "xr_effects.hit_npc",
@@ -608,14 +673,21 @@ extern(
 );
 
 /**
- * Todo.
+ * Restore the object health to full.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object whose health is restored.
  */
 extern("xr_effects.restore_health", (_: GameObject, object: GameObject): void => {
   object.health = 1;
 });
 
 /**
- * Todo.
+ * Apply a constant upward force to the object referenced by the provided story ID.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param p - Tuple of target story ID, optional force value and optional time interval.
  */
 extern(
   "xr_effects.force_obj",
@@ -684,7 +756,10 @@ extern(
 );
 
 /**
- * Todo.
+ * Disable memory of the object's current best enemy so it stops being remembered.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object whose best enemy memory is disabled.
  */
 extern("xr_effects.disable_memory_object", (_: GameObject, object: GameObject): void => {
   const bestEnemy: Optional<GameObject> = object.best_enemy();
@@ -695,7 +770,11 @@ extern("xr_effects.disable_memory_object", (_: GameObject, object: GameObject): 
 });
 
 /**
- * Todo.
+ * Force the object to play the stand sleep animation for the provided duration.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object that plays the sleep animation.
+ * @param duration - Duration of the forced sleep animation.
  */
 extern("xr_effects.set_force_sleep_animation", (_: GameObject, object: GameObject, [duration]: [TDuration]): void => {
   object.force_stand_sleep_animation(tonumber(duration) as TDuration);
@@ -709,7 +788,11 @@ extern("xr_effects.release_force_sleep_animation", (_: GameObject, object: GameO
 });
 
 /**
- * Todo.
+ * Toggle visual memory of the object based on the provided boolean-like value.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object whose visual memory is toggled.
+ * @param p - Tuple containing a value of 0 or 1 to disable or enable visual memory.
  */
 extern("xr_effects.set_visual_memory_enabled", (_: GameObject, object: GameObject, p: [number]): void => {
   if (p && p[0] && tonumber(p[0])! >= 0 && tonumber(p[0])! <= 1) {
@@ -718,7 +801,11 @@ extern("xr_effects.set_visual_memory_enabled", (_: GameObject, object: GameObjec
 });
 
 /**
- * Todo.
+ * Override the animation of a monster object with the provided animation name.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Monster game object whose animation is overridden.
+ * @param animation - Name of the override animation to apply.
  */
 extern(
   "xr_effects.set_monster_animation",
@@ -739,14 +826,21 @@ extern("xr_effects.clear_monster_animation", (_: GameObject, object: GameObject)
 });
 
 /**
- * Todo.
+ * Switch the object to its desired job within its current smart terrain.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object reassigned to its desired smart terrain job.
  */
 extern("xr_effects.switch_to_desired_job", (_: GameObject, object: GameObject): void => {
   switchTerrainObjectToDesiredJob(getObjectTerrain(object) as SmartTerrain, object.id());
 });
 
 /**
- * Todo.
+ * Spawn an item of the provided section directly into the object inventory.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object that receives the spawned item.
+ * @param section - Section of the item to spawn into the object inventory.
  */
 extern("xr_effects.spawn_item_to_npc", (_: GameObject, object: GameObject, [section]: [Optional<TSection>]): void => {
   if (section) {
@@ -761,7 +855,11 @@ extern("xr_effects.spawn_item_to_npc", (_: GameObject, object: GameObject, [sect
 });
 
 /**
- * Todo.
+ * Give the provided amount of money to the object.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object that receives the money.
+ * @param money - Amount of money to give to the object.
  */
 extern("xr_effects.give_money_to_npc", (_: GameObject, object: GameObject, [money]: [Optional<TCount>]): void => {
   if (money) {
@@ -770,7 +868,11 @@ extern("xr_effects.give_money_to_npc", (_: GameObject, object: GameObject, [mone
 });
 
 /**
- * Todo.
+ * Take the provided amount of money from the object.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object the money is taken from.
+ * @param p - Tuple containing the amount of money to seize from the object.
  */
 extern("xr_effects.seize_money_to_npc", (_: GameObject, object: GameObject, p: [Optional<number>]): void => {
   const money: Optional<TCount> = p[0];
@@ -781,14 +883,20 @@ extern("xr_effects.seize_money_to_npc", (_: GameObject, object: GameObject, p: [
 });
 
 /**
- * Todo.
+ * Start the flame effect on the helicopter bound to the object.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Helicopter game object that starts the flame effect.
  */
 extern("xr_effects.heli_start_flame", (_: GameObject, object: GameObject): void => {
   object.get_helicopter().StartFlame();
 });
 
 /**
- * Todo.
+ * Destroy the helicopter bound to the object and unregister it from the registry.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Helicopter game object that is destroyed.
  */
 extern("xr_effects.heli_die", (_: GameObject, object: GameObject): void => {
   object.get_helicopter().Die();
@@ -796,7 +904,11 @@ extern("xr_effects.heli_die", (_: GameObject, object: GameObject): void => {
 });
 
 /**
- * Todo.
+ * Force the visibility state of a bloodsucker object, optionally targeting one resolved by story ID.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Bloodsucker game object whose visibility state is forced.
+ * @param p - Tuple of the target visibility state and optional story ID of the bloodsucker.
  */
 extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Optional<GameObject>, p: [string, string]): void => {
   if ((p && p[0]) === null) {
@@ -820,7 +932,11 @@ extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Optional<Game
 });
 
 /**
- * Todo.
+ * Release all items contained in the inventory box referenced by the provided story ID.
+ *
+ * @param actor - Actor game object initiating the effect.
+ * @param object - Game object owning the logics scheme.
+ * @param storyId - Story ID of the inventory box to clear.
  */
 extern("xr_effects.clear_box", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   logger.info("Clear box");

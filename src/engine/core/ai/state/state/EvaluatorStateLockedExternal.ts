@@ -16,7 +16,9 @@ export class EvaluatorStateLockedExternal extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Evaluate whether the state manager is externally locked by ongoing combat or alife activity.
+   *
+   * @returns Whether the object state is controlled by an external activity.
    */
   public override evaluate(): boolean {
     return this.stateManager.isCombat || this.stateManager.isAlife;

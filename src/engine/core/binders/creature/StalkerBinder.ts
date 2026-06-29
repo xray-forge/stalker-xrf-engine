@@ -262,7 +262,9 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * Todo: Description.
+   * Update the stalker torch light state depending on the level, time of day and surrounding conditions.
+   *
+   * @param object - Game object whose torch light should be updated.
    */
   public updateLightState(object: GameObject): void {
     if (object === null) {
@@ -419,7 +421,10 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * Todo: Description.
+   * Handle stalker death event by emitting scheme events, cleaning up registries and updating ranking.
+   *
+   * @param victim - Game object that died.
+   * @param who - Source object that caused the death, if known.
    */
   public onDeath(victim: GameObject, who: Optional<GameObject>): void {
     const object: GameObject = this.object;
@@ -469,7 +474,10 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * Todo: Description.
+   * Handle stalker use event by triggering interaction, meeting and active scheme use logic.
+   *
+   * @param object - Game object being used.
+   * @param who - Game object performing the use action.
    */
   public onUse(object: GameObject, who: GameObject): void {
     logger.info("Stalker used: %s by %s", this.object.name(), who.name());
@@ -487,7 +495,10 @@ export class StalkerBinder extends object_binder {
   }
 
   /**
-   * Todo: Description.
+   * Handle patrol extrapolate event by forwarding it to the active scheme and patrol manager.
+   *
+   * @param pointIndex - Index of the patrol point being extrapolated.
+   * @returns Whether the patrol point has no flags set.
    */
   public onPatrolExtrapolate(pointIndex: TIndex): boolean {
     if (this.state.activeScheme) {
