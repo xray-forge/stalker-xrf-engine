@@ -1,7 +1,9 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the smart terrain map spots describing smart terrain presentation location markers.
+ *
+ * @returns Rendered smart terrain map spots component.
  */
 export function SmartTerrainSpots(): JSXNode {
   return (

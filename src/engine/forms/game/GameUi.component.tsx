@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the in-game HUD UI with status indicators, quick slots and weapon state widgets.
+ *
+ * @returns Rendered in-game HUD component.
  */
 export function GameUi(): JSXNode {
   return (

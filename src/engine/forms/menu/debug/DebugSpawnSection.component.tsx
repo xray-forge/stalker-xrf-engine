@@ -7,7 +7,9 @@ import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDi
 import { WHITE } from "@/engine/lib/constants/colors";
 
 /**
- * Todo.
+ * Create the debug spawn section UI for spawning creatures by category.
+ *
+ * @returns Rendered debug spawn section component.
  */
 export function create(): JSXNode {
   return (

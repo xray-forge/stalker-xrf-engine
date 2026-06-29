@@ -23,7 +23,10 @@ export interface IXrCheckBoxProps extends IBaseXmlNode {
 }
 
 /**
- * Todo.
+ * Create a reusable checkbox UI component with an optional texture and label.
+ *
+ * @param props - Configuration of the checkbox node, including position, texture, entry, group and label.
+ * @returns Rendered checkbox component.
  */
 export function XrCheckBox(props: IXrCheckBoxProps): JSXNode {
   const {

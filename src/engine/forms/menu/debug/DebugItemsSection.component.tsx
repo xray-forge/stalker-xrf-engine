@@ -7,7 +7,9 @@ import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDi
 import { WHITE } from "@/engine/lib/constants/colors";
 
 /**
- * Todo.
+ * Create the debug items section UI for browsing and spawning items by category.
+ *
+ * @returns Rendered debug items section component.
  */
 export function create(): JSXNode {
   return (

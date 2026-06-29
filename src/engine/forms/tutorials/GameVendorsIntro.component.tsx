@@ -3,7 +3,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { config as forgeConfig } from "@/engine/configs/forge";
 
 /**
- * Todo.
+ * Create the game vendors intro sequence UI playing the studio logo videos.
+ *
+ * @returns Rendered vendors intro component.
  */
 export function GameVendorsIntro(): JSXNode {
   if (forgeConfig.config.intro_videos_enabled) {

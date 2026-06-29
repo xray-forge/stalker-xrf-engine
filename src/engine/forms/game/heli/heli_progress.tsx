@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the helicopter health progress bar UI.
+ *
+ * @returns Rendered helicopter health progress bar component.
  */
 export function create(): JSXNode {
   return (

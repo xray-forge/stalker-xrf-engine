@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the save game menu screen UI.
+ *
+ * @returns Rendered save game menu component.
  */
 export function create(): JSXNode {
   return (

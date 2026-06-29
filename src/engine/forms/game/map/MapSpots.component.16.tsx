@@ -8,7 +8,9 @@ import { TaskSpots } from "@/engine/forms/game/map/spots/TaskSpots";
 import { TreasureSpots } from "@/engine/forms/game/map/spots/TreasureSpots";
 
 /**
- * Todo.
+ * Create the widescreen map spots definitions describing pointers, location markers and faction spots.
+ *
+ * @returns Rendered widescreen map spots component.
  */
 export function MapSpots(): JSXNode {
   return (

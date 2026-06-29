@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the multiplayer map description screen UI with preview, info and navigation buttons.
+ *
+ * @returns Rendered map description component.
  */
 export function MapDescription(): JSXNode {
   return (

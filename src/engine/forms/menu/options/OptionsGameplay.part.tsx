@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the gameplay options menu section UI.
+ *
+ * @returns Rendered gameplay options section component.
  */
 export function OptionsGameplay(): JSXNode {
   return (

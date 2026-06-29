@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the video options menu section UI.
+ *
+ * @returns Rendered video options section component.
  */
 export function OptionsVideo(): JSXNode {
   return (

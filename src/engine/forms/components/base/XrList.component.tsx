@@ -11,7 +11,10 @@ export interface IXrListComponentProps extends IBaseXmlNode {
   canSelect?: boolean;
 }
 /**
- * Todo.
+ * Create a reusable list UI component rendering a set of items with a configurable font.
+ *
+ * @param props - Configuration of the list node, including position, size, item height and font.
+ * @returns Rendered list component.
  */
 export function XrList(props: IXrListComponentProps): JSXNode {
   const {

@@ -1,7 +1,9 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the relation map spots describing enemy, neutral and friendly location markers.
+ *
+ * @returns Rendered relation map spots component.
  */
 export function MapRelationSpots(): JSXNode {
   return (

@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the controls options menu section UI.
+ *
+ * @returns Rendered controls options section component.
  */
 export function OptionsControls(): JSXNode {
   return (

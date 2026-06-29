@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the sleep dialog screen UI for the 4:3 (1.6) aspect ratio.
+ *
+ * @returns Rendered sleep dialog component.
  */
 export function create(): JSXNode {
   return (

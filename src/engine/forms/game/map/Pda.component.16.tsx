@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the widescreen PDA map screen UI with caption, clock, tabs and close button.
+ *
+ * @returns Rendered widescreen PDA map screen component.
  */
 export function Pda(): JSXNode {
   return (

@@ -5,7 +5,9 @@ import { XrScrollView } from "@/engine/forms/components/base/XrScrollView.compon
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 
 /**
- * Todo.
+ * Create the debug commands section UI for browsing and running console commands.
+ *
+ * @returns Rendered debug commands section component.
  */
 export function create(): JSXNode {
   return (

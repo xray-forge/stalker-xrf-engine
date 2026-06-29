@@ -7,7 +7,9 @@ import { OptionsVideo } from "@/engine/forms/menu/options/OptionsVideo.part";
 import { OptionsVideoAdvanced } from "@/engine/forms/menu/options/OptionsVideoAdvanced.part";
 
 /**
- * Todo.
+ * Create the options menu screen UI with its video, sound, gameplay and controls tabs.
+ *
+ * @returns Rendered options menu component.
  */
 export function create(): JSXNode {
   return (
@@ -34,7 +36,9 @@ export function create(): JSXNode {
 }
 
 /**
- * Todo.
+ * Render the options dialog body with apply and cancel buttons and the tab switcher.
+ *
+ * @returns Rendered options dialog body component.
  */
 function OptionsBody(): JSXNode {
   return (
@@ -112,7 +116,9 @@ function OptionsBody(): JSXNode {
 }
 
 /**
- * Todo.
+ * Render the background for the options menu screen.
+ *
+ * @returns Rendered options menu background component.
  */
 function OptionsBackground(): JSXNode {
   return (

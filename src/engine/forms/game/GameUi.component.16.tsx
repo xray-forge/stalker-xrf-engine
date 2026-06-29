@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the widescreen in-game HUD UI with status indicators, quick slots and weapon state widgets.
+ *
+ * @returns Rendered widescreen in-game HUD component.
  */
 export function GameUi(): JSXNode {
   return (

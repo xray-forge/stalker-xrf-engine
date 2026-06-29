@@ -9,7 +9,10 @@ export interface IXrBackgroundProps extends IBaseXmlNode {
 }
 
 /**
- * Todo.
+ * Create a reusable background UI component.
+ *
+ * @param props - Configuration of the background node, including position, size and stretch flag.
+ * @returns Rendered background component.
  */
 export function XrBackground(props: IXrBackgroundProps): JSXNode {
   const { x, y, width, height, stretch } = normalizeBaseNodeProps(props);

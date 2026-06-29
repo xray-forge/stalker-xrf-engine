@@ -17,7 +17,10 @@ export interface IXrEditBoxProps extends IBaseXmlNode {
 }
 
 /**
- * Todo.
+ * Create a reusable text edit box UI component with a texture and text.
+ *
+ * @param props - Configuration of the edit box node, including position, size, texture, font and color.
+ * @returns Rendered edit box component.
  */
 export function XrEditBox(props: IXrEditBoxProps): JSXNode {
   const {

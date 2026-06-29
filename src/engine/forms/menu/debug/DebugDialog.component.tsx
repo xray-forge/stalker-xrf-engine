@@ -18,7 +18,9 @@ export const SECTION_HEIGHT: number = BASE_HEIGHT - 16;
 const TEXT_COLOR_DARKER: IRgbColor = { r: 170, g: 170, b: 170 };
 
 /**
- * Todo.
+ * Create the debug dialog screen UI hosting the debug tool sections.
+ *
+ * @returns Rendered debug dialog component.
  */
 export function create(): JSXNode {
   return (

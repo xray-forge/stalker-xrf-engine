@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the sound options menu section UI.
+ *
+ * @returns Rendered sound options section component.
  */
 export function OptionsSounds(): JSXNode {
   return (

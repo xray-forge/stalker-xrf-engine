@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the load game menu screen UI.
+ *
+ * @returns Rendered load game menu component.
  */
 export function create(): JSXNode {
   return (

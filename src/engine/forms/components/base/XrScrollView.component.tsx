@@ -18,7 +18,10 @@ export interface IXrScrollViewProps extends IBaseXmlNode {
 }
 
 /**
- * Todo.
+ * Create a reusable scrollable view UI component.
+ *
+ * @param props - Configuration of the scroll view node, including position, size, indents and scroll options.
+ * @returns Rendered scroll view component.
  */
 export function XrScrollView(props: IXrScrollViewProps): JSXNode {
   const {

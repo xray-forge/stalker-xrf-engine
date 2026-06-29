@@ -12,7 +12,10 @@ export interface IXrTabButtonProps extends IBaseXmlNode {
 }
 
 /**
- * Todo.
+ * Create a reusable tab button UI component with a texture.
+ *
+ * @param props - Configuration of the tab button node, including position, size, id and texture.
+ * @returns Rendered tab button component.
  */
 export function XrTabButton(props: IXrTabButtonProps): JSXNode {
   const { x, y, width, height, children, texture, id, stretch } = normalizeBaseNodeProps(props);

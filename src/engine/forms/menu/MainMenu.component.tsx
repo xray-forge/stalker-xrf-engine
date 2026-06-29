@@ -3,7 +3,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
- * Todo.
+ * Create the main menu screen UI with its button sets for each game state.
+ *
+ * @returns Rendered main menu component.
  */
 export function create(): JSXNode {
   return (
@@ -100,7 +102,9 @@ export function create(): JSXNode {
 }
 
 /**
- * Todo.
+ * Render the animated background for the main menu screen.
+ *
+ * @returns Rendered main menu background component.
  */
 function MainMenuBackground(): JSXNode {
   return (

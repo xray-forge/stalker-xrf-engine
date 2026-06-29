@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the advanced video options menu section UI.
+ *
+ * @returns Rendered advanced video options section component.
  */
 export function OptionsVideoAdvanced(): JSXNode {
   return (

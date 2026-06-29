@@ -6,7 +6,9 @@ import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
- * Todo.
+ * Create the debug task section UI for giving and inspecting tasks.
+ *
+ * @returns Rendered debug task section component.
  */
 export function create(): JSXNode {
   return (

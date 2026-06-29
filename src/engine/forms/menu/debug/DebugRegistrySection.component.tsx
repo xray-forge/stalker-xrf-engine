@@ -6,7 +6,9 @@ import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
- * Todo.
+ * Create the debug registry section UI for logging runtime registry summaries.
+ *
+ * @returns Rendered debug registry section component.
  */
 export function create(): JSXNode {
   return (

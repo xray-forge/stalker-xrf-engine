@@ -1,7 +1,9 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the game credits sequence UI with timed name rollout.
+ *
+ * @returns Rendered credits component.
  */
 export function MenuCredits(): JSXNode {
   return (

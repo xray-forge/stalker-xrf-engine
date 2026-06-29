@@ -7,7 +7,10 @@ import { IBaseXmlNode } from "@/engine/lib/types";
 export interface IXrRootProps extends IBaseXmlNode {}
 
 /**
- * Todo.
+ * Create a reusable root window UI component wrapping its children.
+ *
+ * @param props - Configuration of the root node, including position, size and children.
+ * @returns Rendered root window component.
  */
 export function XrRoot(props: IXrRootProps): JSXNode {
   const { width, height, x, y } = normalizeBaseNodeProps(props);

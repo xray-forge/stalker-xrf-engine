@@ -5,7 +5,9 @@ import { WHITE } from "@/engine/lib/constants/colors";
 import { fonts } from "@/engine/lib/constants/fonts";
 
 /**
- * Todo.
+ * Create the debug object section UI for inspecting and controlling the targeted stalker.
+ *
+ * @returns Rendered debug object section component.
  */
 export function create(): JSXNode {
   return (
@@ -29,7 +31,9 @@ export function create(): JSXNode {
 }
 
 /**
- * Todo.
+ * Render the state logging buttons for the debug object section.
+ *
+ * @returns Rendered logging buttons component.
  */
 function renderLoggingButtons(): JSXNode {
   return (
@@ -93,7 +97,9 @@ function renderLoggingButtons(): JSXNode {
 }
 
 /**
- * Todo.
+ * Render the relation control buttons for the debug object section.
+ *
+ * @returns Rendered relation control buttons component.
  */
 function renderRelationButtons(): JSXNode {
   return (

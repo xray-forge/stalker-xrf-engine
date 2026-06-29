@@ -6,7 +6,9 @@ const BASE_WIDTH: number = SECTION_WIDTH;
 const BASE_HEIGHT: number = SECTION_HEIGHT;
 
 /**
- * Todo.
+ * Create the debug player section UI.
+ *
+ * @returns Rendered debug player section component.
  */
 export function create(): JSXNode {
   return (

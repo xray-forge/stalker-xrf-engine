@@ -1,7 +1,9 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the multiplayer map spots describing team base location markers.
+ *
+ * @returns Rendered multiplayer map spots component.
  */
 export function MapMultiplayerSpots(): JSXNode {
   return (

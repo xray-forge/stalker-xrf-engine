@@ -1,7 +1,9 @@
 import { JSXNode, JSXXML } from "jsx-xml";
 
 /**
- * Todo.
+ * Create the sleep dialog screen UI.
+ *
+ * @returns Rendered sleep dialog component.
  */
 export function create(): JSXNode {
   return (

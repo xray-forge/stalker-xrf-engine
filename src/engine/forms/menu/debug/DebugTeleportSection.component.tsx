@@ -7,7 +7,9 @@ import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDi
 import { WHITE } from "@/engine/lib/constants/colors";
 
 /**
- * Todo.
+ * Create the debug teleport section UI for moving the actor around levels.
+ *
+ * @returns Rendered debug teleport section component.
  */
 export function create(): JSXNode {
   return (

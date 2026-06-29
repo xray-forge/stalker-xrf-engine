@@ -3,7 +3,9 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { SECTION_HEIGHT, SECTION_WIDTH } from "@/engine/forms/menu/debug/DebugDialog.component";
 
 /**
- * Todo.
+ * Create the debug position section UI.
+ *
+ * @returns Rendered debug position section component.
  */
 export function create(): JSXNode {
   return (

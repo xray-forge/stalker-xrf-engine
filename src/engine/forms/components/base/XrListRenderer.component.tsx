@@ -8,7 +8,10 @@ import { IBaseXmlNode } from "@/engine/lib/types";
 export interface IXrComboBoxProps extends IBaseXmlNode {}
 
 /**
- * Todo.
+ * Create a reusable combo box list renderer UI component with default fonts and colors.
+ *
+ * @param props - Configuration of the combo box node, including position and size.
+ * @returns Rendered combo box list renderer component.
  */
 export function XrComboBox(props: IXrComboBoxProps): JSXNode {
   const { tag = "list_renderer", x, y, width, height, children = null } = normalizeBaseNodeProps(props);
