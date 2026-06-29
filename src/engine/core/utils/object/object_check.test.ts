@@ -140,6 +140,7 @@ describe("canActorSleep util", () => {
 
   it("canActorSleep should correctly check object", () => {
     mockRegisteredActor();
+
     const actor: MockGameObject = MockGameObject.asMock(registry.actor);
 
     expect(canActorSleep()).toBe(true);
