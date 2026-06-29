@@ -102,7 +102,7 @@ export enum EAnimationMarker {
 }
 
 /**
- * Todo.
+ * Runtime state of an animation manager instance.
  */
 export interface IAnimationManagerState {
   lastIndex: Optional<TIndex>;
@@ -122,6 +122,6 @@ export enum EAnimationType {
 }
 
 /**
- * Todo.
+ * Postfix added to animation names that depend on the equipped weapon.
  */
 export const WEAPON_POSTFIX: TLabel = "_weapon";

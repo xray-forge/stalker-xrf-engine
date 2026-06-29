@@ -17,7 +17,7 @@ import type {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Enumeration of smart cover behaviour states.
  */
 export enum ESmartCoverState {
   DEFAULT = "default_behaviour",
@@ -28,7 +28,7 @@ export enum ESmartCoverState {
 }
 
 /**
- * Todo.
+ * Enumeration of stalker animation and behaviour states.
  */
 export enum EStalkerState {
   ANIMPOINT_SIT_ASS = "animpoint_sit_ass",
@@ -210,7 +210,7 @@ export enum EStalkerState {
 }
 
 /**
- * Todo.
+ * Descriptor of a stalker animation state, combining weapon, movement, mental and animation parameters.
  */
 export interface IStateDescriptor {
   weapon: Optional<EWeaponAnimation>;
@@ -234,7 +234,7 @@ export interface ILookTargetDescriptor {
 }
 
 /**
- * Todo.
+ * Descriptor of a state manager callback with its context and timing parameters.
  */
 export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject> {
   begin?: Optional<TTimestamp>;
@@ -245,7 +245,7 @@ export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject
 }
 
 /**
- * Todo.
+ * Additional parameters describing a target state to apply.
  */
 export interface ITargetStateDescriptorExtras {
   isForced?: boolean;
@@ -255,7 +255,7 @@ export interface ITargetStateDescriptorExtras {
 }
 
 /**
- * Todo.
+ * Set of states that imply the stalker looks in a specific direction.
  */
 export const LOOK_DIRECTION_STATES: LuaTable<EStalkerState, boolean> = $fromObject({
   threat_na: true,

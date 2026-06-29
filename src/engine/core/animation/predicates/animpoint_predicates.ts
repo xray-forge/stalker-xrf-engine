@@ -7,14 +7,19 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { GameObject, LuaArray, Optional, TName } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Predicate allowing the animpoint action unconditionally.
+ *
+ * @returns Always true.
  */
 export function animpointPredicateAlways(): boolean {
   return true;
 }
 
 /**
- * Todo.
+ * Check whether bread eating animations can be used for object.
+ *
+ * @param object - Game object to check.
+ * @returns Whether bread animation can be used.
  */
 function animpointPredicateBread(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.bread)) {
@@ -25,7 +30,10 @@ function animpointPredicateBread(object: GameObject): boolean {
 }
 
 /**
- * Todo.
+ * Check whether kolbasa eating animations can be used for object.
+ *
+ * @param object - Game object to check.
+ * @returns Whether kolbasa animation can be used.
  */
 function animpointPredicateKolbasa(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.kolbasa)) {
@@ -50,7 +58,10 @@ function animpointPredicateVodka(object: GameObject): boolean {
 }
 
 /**
- * Todo.
+ * Check whether energy drink animations can be used for object.
+ *
+ * @param object - Game object to check.
+ * @returns Whether energy drink animation can be used.
  */
 function animpointPredicateEnergy(object: GameObject): boolean {
   if (eatableVisuals.get(object.get_visual_name()) && object.object(food.energy_drink)) {
@@ -61,7 +72,11 @@ function animpointPredicateEnergy(object: GameObject): boolean {
 }
 
 /**
- * Todo.
+ * Check whether guitar playing animations can be used for object.
+ *
+ * @param object - Game object to check.
+ * @param isInCamp - Whether the object is currently in a camp.
+ * @returns Whether guitar animation can be used.
  */
 function animpointPredicateGuitar(object: GameObject, isInCamp?: Optional<boolean>): boolean {
   if (isInCamp && object.object(misc.guitar_a)) {
@@ -72,7 +87,11 @@ function animpointPredicateGuitar(object: GameObject, isInCamp?: Optional<boolea
 }
 
 /**
- * Todo.
+ * Check whether harmonica playing animations can be used for object.
+ *
+ * @param object - Game object to check.
+ * @param isInCamp - Whether the object is currently in a camp.
+ * @returns Whether harmonica animation can be used.
  */
 function animpointPredicateHarmonica(object: GameObject, isInCamp?: Optional<boolean>): boolean {
   if (isInCamp === true && harmonicaVisuals.get(object.get_visual_name()) && object.object(misc.harmonica_a)) {
@@ -83,7 +102,10 @@ function animpointPredicateHarmonica(object: GameObject, isInCamp?: Optional<boo
 }
 
 /**
- * Todo.
+ * Check whether weapon animations can be used for object.
+ *
+ * @param object - Game object to check.
+ * @returns Whether weapon animation can be used.
  */
 function animpointPredicateWeapon(object: GameObject): boolean {
   const terrainName: Optional<TName> = getObjectTerrain(object)?.name() as Optional<TName>;

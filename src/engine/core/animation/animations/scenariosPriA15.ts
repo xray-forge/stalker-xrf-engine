@@ -22,7 +22,9 @@ const WEAPONS_TABLE_UNSTRAPPED: LuaArray<TName> = $fromArray([
 ]);
 
 /**
- * Todo.
+ * Switch the object's weapon from its strapped to its unstrapped animation variant.
+ *
+ * @param object - Game object whose weapon is unstrapped.
  */
 function unstrapWeapon(object: GameObject): void {
   let item: Optional<GameObject> = null;
@@ -44,7 +46,9 @@ function unstrapWeapon(object: GameObject): void {
 }
 
 /**
- * Todo.
+ * Switch the object's weapon from its unstrapped to its strapped animation variant.
+ *
+ * @param object - Game object whose weapon is strapped.
  */
 function strapWeapon(object: GameObject): void {
   let item: Optional<GameObject> = null;
@@ -709,7 +713,7 @@ function createSequenceForNpc(objectName: TName, existingObject: string): LuaArr
 }
 
 /**
- * Todo.
+ * Set of animation descriptors used in the pri_a15 scenario, keyed by animation name.
  */
 export const scenariosPriA15Animations: LuaTable<TName, IAnimationDescriptor> = $fromObject<
   TName,
