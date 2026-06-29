@@ -21,7 +21,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Descriptor of a single parsed scheme logic entry with its condition list and parameters.
  */
 export interface IBaseSchemeLogic {
   name: TName;
@@ -95,7 +95,7 @@ export interface IRegistryObjectStateLogic {
    */
   smartTerrainName: Optional<TName>;
   /**
-   * Todo.
+   * Overrides applied on top of the active logic section.
    */
   overrides: Optional<ILogicsOverrides>;
   /**
@@ -172,7 +172,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   restrictionsManager: Optional<ObjectRestrictionsManager>;
   /**
-   * Todo.
+   * State of the hear scheme handling object sound reactions.
    */
   hearInfo: Optional<IActionSchemeHearState>;
   /**
@@ -185,11 +185,11 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   immortal: Optional<boolean>;
   /**
-   * Todo.
+   * Whether object sounds are muted.
    */
   mute: Optional<boolean>;
   /**
-   * Todo.
+   * Timestamp of the previous object aim time.
    */
   old_aim_time: Optional<TTimestamp>;
   /**
@@ -201,7 +201,7 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
    */
   enemy: Optional<GameObject>;
   /**
-   * Todo.
+   * Combat type forced by script logic for the object.
    */
   scriptCombatType: Optional<TName>;
   /**

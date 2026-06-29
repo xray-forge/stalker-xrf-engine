@@ -88,7 +88,7 @@ export class GameOutroManager extends AbstractManager {
   }
 
   /**
-   * Todo.
+   * Stop game outro music, disconnect from the game and roll the game credits.
    */
   public stopBlackScreenAndSound(): void {
     this.stopSound();
@@ -98,14 +98,18 @@ export class GameOutroManager extends AbstractManager {
   }
 
   /**
-   * Todo.
+   * Update outro sound volume during the fade-in phase based on the provided progress factor.
+   *
+   * @param factor - Current fade progress factor.
    */
   public updateBlackScreenAndSoundFadeStart(factor: number): void {
     this.setSoundVolume(calculateSoundFade(factor, 0.6, 1.0, gameOutroConfig.VOLUME_MAX, gameOutroConfig.VOLUME_MIN));
   }
 
   /**
-   * Todo.
+   * Update outro sound volume during the fade-out phase based on the provided progress factor.
+   *
+   * @param factor - Current fade progress factor.
    */
   public updateBlackScreenAndSoundFadeStop(factor: number): void {
     this.setSoundVolume(

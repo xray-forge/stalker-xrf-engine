@@ -8,7 +8,7 @@ import { roots } from "@/engine/lib/constants/roots";
 import { GameObject, IniFile, Optional, TNumberId, TSection, TSoundObjectType } from "@/engine/lib/types";
 
 /**
- * Todo: Description.
+ * Playable sound that loops continuously at the position of a game object.
  */
 export class LoopedSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.LOOPED;
@@ -26,7 +26,10 @@ export class LoopedSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo: Description.
+   * Play the looped sound at the position of the target object.
+   *
+   * @param objectId - Identifier of the object to play the looped sound at.
+   * @returns Whether the looped sound started playing successfully.
    */
   public play(objectId: TNumberId): boolean {
     const object: Optional<GameObject> = registry.objects.get(objectId).object!;

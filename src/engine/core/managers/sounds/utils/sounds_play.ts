@@ -6,7 +6,9 @@ import { TCommunity } from "@/engine/lib/constants/communities";
 import { GameObject } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Initialize NPC sound themes for the object whose community matches the theme requirements.
+ *
+ * @param object - Game object to initialize matching sound themes for.
  */
 export function initializeObjectThemes(object: GameObject): void {
   const objectCommunity: TCommunity = getObjectCommunity(object);

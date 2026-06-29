@@ -258,7 +258,10 @@ export class TreasureManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Give the actor coordinates of a treasure, optionally spawning it, and show its map spot with a notification.
+   *
+   * @param treasureId - Identifier of the treasure to reveal to the actor.
+   * @param spawn - Whether the treasure items should be spawned before revealing the coordinates.
    */
   public giveActorTreasureCoordinates(treasureId: TStringId, spawn: boolean = false): void {
     logger.info("Give treasure: %s %s", treasureId, spawn);
@@ -331,7 +334,10 @@ export class TreasureManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Register a server item as belonging to a treasure based on its spawn ini secret section.
+   *
+   * @param object - Server object to register as a treasure item.
+   * @returns Whether the object was registered as part of a treasure.
    */
   public onRegisterItem(object: ServerObject): boolean {
     const spawnIni: Optional<IniFile> = object.spawn_ini();

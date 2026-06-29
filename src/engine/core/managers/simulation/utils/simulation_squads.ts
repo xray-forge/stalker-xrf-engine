@@ -199,8 +199,11 @@ export function releaseSimulationSquad(squad: Squad): void {
 }
 
 /**
- * Todo;
- * todo: Seems too complex.
+ * Set up team, squad and group identifiers for the simulation object based on its level and assigned terrain.
+ *
+ * Todo: Seems too complex.
+ *
+ * @param object - Server creature object to set up squad and group for.
  */
 export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject): void {
   const levelName: TLevel = level.name();
@@ -240,7 +243,10 @@ export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject)
 }
 
 /**
- * Todo: Description.
+ * Assign the squad to the smart terrain, queuing it as temporary when the terrain is not yet registered.
+ *
+ * @param squad - Squad to assign to the terrain.
+ * @param terrainId - Identifier of the target terrain, or null to unassign the squad.
  */
 export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Optional<TNumberId>): void {
   simulationLogger.info("Assign squad to smart terrain: '%s' -> '%s'.", squad.name(), terrainId);

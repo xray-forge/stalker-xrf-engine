@@ -1,7 +1,7 @@
 import { LuaArray, TStringId } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Item upgrade branch index identifying which of the upgrade branches an upgrade belongs to.
  */
 export type TItemUpgradeBranch = 0 | 1 | 2;
 

@@ -127,7 +127,11 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Resolve availability branch for an upgrade based on its condition list and the actor available money.
+   *
+   * @param name - Name of the upgrade being evaluated.
+   * @param section - Configuration section of the upgrade.
+   * @returns Upgrade branch index describing whether the upgrade is available, blocked or unaffordable.
    */
   public getPreconditionFunctorA(name: TName, section: TSection): TItemUpgradeBranch {
     if (STALKER_UPGRADE_INFO.line_exist(upgradesConfig.CURRENT_MECHANIC_NAME + "_upgr", section)) {
@@ -164,7 +168,11 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Build a label describing unmet pre-requirements for an upgrade, including possibilities and money shortage.
+   *
+   * @param name - Name of the upgrade being evaluated.
+   * @param section - Configuration section of the upgrade.
+   * @returns Label text describing the unmet requirements, or an empty label when there are none.
    */
   public getPreRequirementsFunctorA(name: TName, section: TSection): TLabel {
     const actor: GameObject = registry.actor;
@@ -206,7 +214,11 @@ export class UpgradesManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Build a localized property label for an upgrade by summing values of the listed sections and formatting them.
+   *
+   * @param data - List of upgrade sections to aggregate property values from.
+   * @param upgrade - Name of the upgrade property being formatted.
+   * @returns Localized property label including the aggregated value.
    */
   public getPropertyFunctorA(data: string, upgrade: TName): TLabel {
     const propertyName: TName = ITEM_UPGRADES.r_string(upgrade, "name");

@@ -17,7 +17,11 @@ import { GameObject, Optional, TName, TNumberId, TRate, TStringId } from "@/engi
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Set the priority of a phrase to the maximum value for the given object.
+ *
+ * @param priorities - Map of phrase priorities per object.
+ * @param objectId - Identifier of the object the phrase belongs to.
+ * @param phraseId - Identifier of the phrase to set the highest priority for.
  */
 export function setPhraseHighestPriority(
   priorities: TPhrasesPriorityMap,
@@ -32,7 +36,12 @@ export function setPhraseHighestPriority(
 }
 
 /**
- * Todo.
+ * Reset the priority of a phrase for the object, recalculating it when no priorities exist yet.
+ *
+ * @param phrases - Map of available phrases keyed by phrase id.
+ * @param priorities - Map of phrase priorities per object.
+ * @param object - Game object the phrase is evaluated for.
+ * @param phraseId - Identifier of the phrase to reset, may be null.
  */
 export function resetPhrasePriority(
   phrases: TPhrasesAvailableMap,
@@ -57,7 +66,12 @@ export function resetPhrasePriority(
 }
 
 /**
- * Todo.
+ * Find the phrase with the highest priority for the given object, ignoring meta keys.
+ *
+ * @param phrases - Map of available phrases keyed by phrase id.
+ * @param priorities - Map of phrase priorities per object.
+ * @param object - Game object to find the highest priority phrase for.
+ * @returns Tuple of the highest priority value and the matching phrase id, or zero when none found.
  */
 export function getHighestPriorityPhrase(
   phrases: TPhrasesAvailableMap,
@@ -88,7 +102,11 @@ export function getHighestPriorityPhrase(
 }
 
 /**
- * Todo.
+ * Calculate and store priorities for all available phrases of the given object.
+ *
+ * @param object - Game object to fill phrase priorities for.
+ * @param phrases - Map of available phrases keyed by phrase id.
+ * @param priorities - Map of phrase priorities per object.
  */
 export function fillPhrasesPriorities(
   object: GameObject,
@@ -108,7 +126,13 @@ export function fillPhrasesPriorities(
 }
 
 /**
- * Todo.
+ * Calculate the priority of a phrase from its community, level, wounded and info portion conditions.
+ *
+ * @param phraseDescriptor - Descriptor of the phrase to evaluate.
+ * @param phrasesPriorities - Map of phrase priorities per object.
+ * @param object - Game object the phrase is evaluated for.
+ * @param phraseId - Identifier of the phrase to calculate priority for.
+ * @returns Calculated priority value for the phrase.
  */
 export function calculatePhrasePriority(
   phraseDescriptor: IPhrasesDescriptor,

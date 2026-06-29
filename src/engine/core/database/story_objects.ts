@@ -178,8 +178,12 @@ export function getObjectByStoryId(storyId: TStringId): Optional<GameObject> {
 }
 
 /**
- * Todo;
- * todo: Probably remove, is it working at all? Used with heli only.
+ * Get runtime object identifier by its server story object SID.
+ *
+ * Todo: Probably remove, is it working at all? Used with heli only.
+ *
+ * @param sid - Server story object SID to resolve.
+ * @returns Runtime identifier of the matching object, or null when not found.
  */
 export function getIdBySid(sid: TNumberId): Optional<TNumberId> {
   const object: Optional<ServerObject> = registry.simulator.story_object(sid) as Optional<ServerObject>;

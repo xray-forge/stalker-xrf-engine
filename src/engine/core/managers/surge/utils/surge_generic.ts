@@ -4,7 +4,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { TName } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Start flying animation for all registered signal light rockets that are not already flying.
  */
 export function launchSurgeSignalRockets(): void {
   for (const [, signalLight] of registry.signalLights) {

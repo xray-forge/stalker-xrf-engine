@@ -33,8 +33,9 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo;
- * todo: Probably enums for playlist types.
+ * Playable sound played in 2D from the actor, used for actor voice lines and dialogue.
+ *
+ * Todo: Probably enums for playlist types.
  */
 export class ActorSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.ACTOR;
@@ -97,7 +98,13 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Start playing the next sound from the playlist as a 2D sound attached to the actor.
+   *
+   * @param object - Game object associated with the playback request.
+   * @param faction - Faction associated with the sound notification.
+   * @param point - Point label associated with the sound notification.
+   * @param message - Message associated with the sound notification.
+   * @returns Whether the sound playback was started.
    */
   public play(object: GameObject, faction: string, point: string, message: string): boolean {
     if (!this.canPlaySound) {
@@ -134,7 +141,9 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Handle end of sound playback by resetting state, scheduling idle time and emitting scheme end signals.
+   *
+   * @param objectId - Id of the game object whose sound finished playing.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
     logger.info(
@@ -169,7 +178,9 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Select the index of the next sound to play based on the configured playlist type.
+   *
+   * @returns Index of the next sound to play, -1 when the sequence is exhausted, or null when type is unknown.
    */
   public selectNextSound(): Optional<TIndex> {
     const soundsCount: TCount = this.soundPaths.length();
@@ -219,7 +230,7 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Reset playback state so the sound can be played again from the start.
    */
   public override reset(): void {
     this.playingStartedAt = null;
@@ -227,14 +238,18 @@ export class ActorSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Save the index of the last played sound to the save packet.
+   *
+   * @param packet - Net packet to write the sound state into.
    */
   public override save(packet: NetPacket): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
   }
 
   /**
-   * Todo.
+   * Load the index of the last played sound from the save reader.
+   *
+   * @param reader - Net processor to read the sound state from.
    */
   public override load(reader: NetProcessor): void {
     const id: StringOptional<TStringId> = reader.r_stringZ();

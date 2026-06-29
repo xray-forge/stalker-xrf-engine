@@ -4,7 +4,12 @@ import { TRUE } from "@/engine/lib/constants/words";
 import { TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Mark a phrase as told for the object, raising its priority to the highest when it is a once-only phrase.
+ *
+ * @param objectId - Identifier of the object the phrase belongs to.
+ * @param phrases - Map of available phrases keyed by phrase id.
+ * @param priorities - Map of phrase priorities per object.
+ * @param phraseId - Identifier of the phrase that was selected.
  */
 export function processPhraseAction(
   objectId: TNumberId,

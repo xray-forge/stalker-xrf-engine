@@ -28,14 +28,18 @@ export class StoryManager {
   }
 
   /**
-   * Todo: Description.
+   * Set the object acting as the storyteller for the current story.
+   *
+   * @param objectId - Id of the object to use as storyteller, or null to clear it.
    */
   public setStoryTeller(objectId: Optional<TNumberId>): void {
     this.storyteller = objectId;
   }
 
   /**
-   * Todo: Description.
+   * Register an object as a participant of the story.
+   *
+   * @param objectId - Id of the object to add as a story participant.
    */
   public registerObject(objectId: TNumberId): void {
     table.insert(this.objects, { objectId: objectId });
@@ -58,7 +62,9 @@ export class StoryManager {
   }
 
   /**
-   * Todo: Description.
+   * Remove an object from the story participants, stopping its sound and clearing storyteller role if needed.
+   *
+   * @param objectId - Id of the object to remove from the story.
    */
   public unregisterObject(objectId: TNumberId): void {
     if (this.lastPlayingObjectId === objectId && soundsConfig.playing.get(this.lastPlayingObjectId)) {
@@ -85,7 +91,7 @@ export class StoryManager {
   }
 
   /**
-   * Todo: Description.
+   * Advance the story on each tick by selecting the next speaker and playing the next phrase.
    */
   public update(): void {
     if (this.story === null) {

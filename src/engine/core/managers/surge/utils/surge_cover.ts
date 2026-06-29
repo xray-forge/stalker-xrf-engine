@@ -23,7 +23,10 @@ export function isActorInSurgeCover(): boolean {
 }
 
 /**
- * Todo.
+ * Check whether surge can kill members of the provided squad based on its assigned terrain.
+ *
+ * @param squad - Squad to check against surge protection of its assigned terrain.
+ * @returns Whether surge can kill members of the provided squad.
  */
 export function canSurgeKillSquad(squad: Squad): boolean {
   if (!squad.assignedTerrainId) {
@@ -37,7 +40,7 @@ export function canSurgeKillSquad(squad: Squad): boolean {
 }
 
 /**
- * Todo: Description.
+ * Read and initialize the list of possible surge covers for the current level from configuration.
  */
 export function initializeSurgeCovers(): void {
   const levelName: TLevel = level.name();
@@ -82,7 +85,10 @@ export function getOnlineSurgeCoversList(): LuaArray<GameObject> {
 }
 
 /**
- * Todo.
+ * Find nearest valid surge cover for the provided object, or the cover it is already inside.
+ *
+ * @param object - Game object to search the nearest available surge cover for.
+ * @returns Nearest available surge cover game object, or null if none is available.
  */
 export function getNearestAvailableSurgeCover(object: GameObject): Optional<GameObject> {
   let nearestCover: Optional<GameObject> = null;

@@ -2,7 +2,7 @@ import type { IConfigCondition } from "@/engine/core/utils/ini";
 import type { LuaArray, Optional, TName, TStringId, TStringifiedBoolean } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Descriptor of a single dialog phrase and the conditions controlling when it is available.
  */
 export interface IPhrasesDescriptor {
   id: TStringId;
@@ -24,7 +24,7 @@ export interface IPhrasesDescriptor {
 export type TPhrasesAvailableMap = LuaTable<TStringId, IPhrasesDescriptor>;
 
 /**
- * Todo.
+ * Map of phrase priorities per object, where key is object id and value holds per-phrase priority and meta flags.
  */
 export type TPhrasesPriorityMap = LuaTable<
   number,
@@ -32,7 +32,7 @@ export type TPhrasesPriorityMap = LuaTable<
 >;
 
 /**
- * Todo.
+ * Enumeration of generic phrase categories used in dialogs.
  */
 export enum EGenericPhraseCategory {
   ANOMALIES = "anomalies",

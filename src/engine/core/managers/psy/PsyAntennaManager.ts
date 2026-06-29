@@ -41,11 +41,13 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Manager handling psy antenna effects such as psy hits, mumbling sounds, post-process effectors and phantoms.
  */
 export class PsyAntennaManager extends AbstractManager {
   /**
-   * Todo: Description.
+   * Load the static psy antenna manager state from the save reader and restore the manager if it was active.
+   *
+   * @param reader - Net processor to read the manager state from.
    */
   public static load(reader: NetProcessor): void {
     openLoadMarker(reader, PsyAntennaManager.name + "_static");
@@ -62,7 +64,9 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Save the static psy antenna manager state to the save packet, marking whether an active manager exists.
+   *
+   * @param packet - Net packet to write the manager state to.
    */
   public static save(packet: NetPacket): void {
     openSaveMarker(packet, PsyAntennaManager.name + "_static");
@@ -150,7 +154,7 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Spawn phantoms around the actor based on the configured probability and spawn limits once the idle delay passes.
    */
   public generatePhantoms(): void {
     const now: TTimestamp = time_global();
@@ -177,7 +181,9 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Update psy antenna state on each game tick, advancing sound, post-process and psy hit intensities.
+   *
+   * @param delta - Time delta since the previous update in milliseconds.
    */
   public override update(delta: TDuration): void {
     // todo: Move to utility or separate method.
@@ -211,7 +217,7 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Update the looped psy voice sounds and global sound volume based on the current sound intensity.
    */
   public updateSound(): void {
     if (!this.soundInitialized) {
@@ -242,7 +248,10 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Apply or remove the post-process effector based on its current intensity.
+   *
+   * @param pp - Post-process effector descriptor to update.
+   * @returns Whether the effector is still active and should be kept.
    */
   public updatePostprocess(pp: IPsyPostProcessDescriptor): boolean {
     if (pp.intensity === 0) {
@@ -258,7 +267,9 @@ export class PsyAntennaManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Apply periodic psy hits to the actor and toggle the psy danger HUD indicator based on hit intensity.
+   *
+   * @param delta - Time delta since the previous update in milliseconds.
    */
   public updatePsyHit(delta: number): void {
     const hud: GameHud = get_hud();

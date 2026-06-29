@@ -174,35 +174,41 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * Todo.
+   * Reset the flag controlling whether the surge resurrect message is skipped.
    */
   public setSkipResurrectMessage(): void {
     this.isSkipMessageToggled = false;
   }
 
   /**
-   * Todo: Description.
+   * Set the task section given to the actor when the surge starts.
+   *
+   * @param task - Task section to assign for the next surge.
    */
   public setSurgeTask(task: TSection): void {
     this.surgeTaskSection = task;
   }
 
   /**
-   * Todo: Description.
+   * Set the message label displayed to the actor during the surge.
+   *
+   * @param message - Message label to display for the next surge.
    */
   public setSurgeMessage(message: TLabel): void {
     this.surgeMessage = message;
   }
 
   /**
-   * Todo: Description.
+   * Check whether the surge is in its lethal phase killing unhidden objects.
+   *
+   * @returns Whether the surge is started and currently killing all unhidden objects.
    */
   public isKillingAll(): boolean {
     return surgeConfig.IS_STARTED && this.isUiDisabled;
   }
 
   /**
-   * Todo: Description.
+   * Give the actor the task to hide from the surge unless the task section is disabled.
    */
   protected giveSurgeHideTask(): void {
     if (this.surgeTaskSection !== "empty") {
@@ -212,7 +218,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Request a forced surge start if surge covers are available on the current level.
    */
   public requestSurgeStart(): void {
     logger.info("Request surge start");
@@ -225,7 +231,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Request manual stop of the currently active surge.
    */
   public requestSurgeStop(): void {
     logger.info("Request surge stop");
@@ -278,7 +284,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Skip the current surge, reset its state, schedule the next one and respawn artefacts.
    */
   public skipSurge(): void {
     logger.info("Skipped surge");
@@ -313,7 +319,9 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * End the active surge, reset state, stop effects and sounds, kill unhidden objects and respawn artefacts.
+   *
+   * @param manual - Whether the surge is ended manually, forcing weather change.
    */
   public endSurge(manual?: boolean): void {
     logger.info("Ending surge: %s", manual);
@@ -369,7 +377,7 @@ export class SurgeManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Respawn artefacts and change layers in all anomaly zones, then refresh the map display.
    */
   public respawnArtefactsAndReplaceAnomalyZones(): void {
     const levelName: TLevel = level.name();

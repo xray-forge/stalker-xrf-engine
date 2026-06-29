@@ -9,7 +9,7 @@ export interface IDynamicMusicDescriptor {
 }
 
 /**
- * Todo.
+ * Enumeration of dynamic music playback states.
  */
 export enum EDynamicMusicState {
   IDLE,
@@ -40,7 +40,7 @@ export enum ESoundPlaylistType {
 }
 
 /**
- * Todo.
+ * Enumeration of participant roles in a sound story.
  */
 export enum ESoundStoryParticipant {
   TELLER = "teller",
@@ -49,7 +49,7 @@ export enum ESoundStoryParticipant {
 }
 
 /**
- * Todo: Description.
+ * Descriptor of a single replica (phrase) in a sound story.
  */
 export interface IReplicDescriptor {
   who: TName;

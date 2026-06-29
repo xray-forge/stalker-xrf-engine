@@ -10,7 +10,7 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { GameObject, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Spawn death loot items for the object corpse based on its community drop configuration.
  *
  * @param object - Target object to create release items.
  */
@@ -61,7 +61,11 @@ export function createCorpseReleaseItems(object: GameObject): void {
 }
 
 /**
- * Todo: Description.
+ * Check whether the dependencies for dropping the provided item section are satisfied for the object.
+ *
+ * @param object - Object to check the item dependencies for.
+ * @param section - Section of the item whose drop dependencies are checked.
+ * @returns Whether the item section is allowed to drop based on its dependencies.
  */
 export function checkItemDependentDrops(object: GameObject, section: TSection): boolean {
   if (!dropConfig.ITEMS_DEPENDENCIES.has(section)) {

@@ -202,7 +202,13 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Get a localized description of what the object's squad is currently doing.
+   *
+   * @param actor - Actor game object talking with the squad.
+   * @param object - Squad member game object being talked to.
+   * @param dialogId - Identifier of the active dialog.
+   * @param phraseId - Identifier of the active phrase.
+   * @returns Localized label describing the squad current action.
    */
   public getSquadCurrentActionDescription(
     actor: GameObject,
@@ -249,7 +255,13 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the actor can join and move with the object's squad.
+   *
+   * @param actor - Actor game object talking with the squad.
+   * @param object - Squad member game object being talked to.
+   * @param dialogId - Identifier of the active dialog.
+   * @param phraseId - Identifier of the active phrase.
+   * @returns Whether the squad is currently reaching a target and the actor can move with it.
    */
   public canActorMoveWithSquad(
     actor: GameObject,
@@ -261,7 +273,13 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the object's squad can take the actor along to its assigned smart terrain target.
+   *
+   * @param object - Squad member game object being talked to.
+   * @param actor - Actor game object talking with the squad.
+   * @param dialogId - Identifier of the active dialog.
+   * @param phraseId - Identifier of the active phrase.
+   * @returns Whether the squad target is a smart terrain and can take the actor.
    */
   public canSquadTakeActor(object: GameObject, actor: GameObject, dialogId?: TStringId, phraseId?: TStringId): boolean {
     const squad: Squad = getObjectSquad(object) as Squad;
@@ -270,7 +288,12 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the squad can reach the described smart terrain on the current level.
+   *
+   * @param terrainName - Name of the smart terrain to reach.
+   * @param descriptor - Travel route descriptor of the destination.
+   * @param squad - Squad that would travel to the terrain.
+   * @returns Whether the smart terrain is available for the squad to reach.
    */
   public isSmartAvailableToReach(terrainName: TName, descriptor: ITravelRouteDescriptor, squad: Squad): boolean {
     if (descriptor.level !== level.name()) {
@@ -294,7 +317,13 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the object's squad can travel to at least one available smart terrain.
+   *
+   * @param object - Squad member game object being talked to.
+   * @param actor - Actor game object talking with the squad.
+   * @param dialogId - Identifier of the active dialog.
+   * @param phraseId - Identifier of the active phrase.
+   * @returns Whether the squad has at least one reachable travel destination.
    */
   public canSquadTravel(object: GameObject, actor: GameObject, dialogId: TStringId, phraseId: TStringId): boolean {
     const squad: Squad = getObjectSquad(object)!;
@@ -310,7 +339,14 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the actor can negotiate traveling to the smart terrain tied to the phrase.
+   *
+   * @param actor - Actor game object talking with the squad.
+   * @param object - Squad member game object being talked to.
+   * @param dialogId - Identifier of the active dialog.
+   * @param prevPhraseId - Identifier of the previous phrase.
+   * @param phraseId - Identifier of the active phrase mapped to a smart terrain.
+   * @returns Whether the smart terrain tied to the phrase is available to reach.
    */
   public canNegotiateTravelToSmart(
     actor: GameObject,
@@ -343,7 +379,11 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Calculate the travel price from the object to the smart terrain tied to the provided phrase.
+   *
+   * @param object - Game object used as the travel origin point.
+   * @param phraseId - Identifier of the phrase mapped to a destination smart terrain.
+   * @returns Travel price based on the distance to the destination terrain.
    */
   public getTravelPriceByObjectPhrase(object: GameObject, phraseId: TStringId): TCount {
     const terrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(
@@ -356,7 +396,13 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Build a localized label describing the travel cost for the phrase destination.
+   *
+   * @param actor - Actor game object talking with the squad.
+   * @param object - Squad member game object being talked to.
+   * @param dialogId - Identifier of the active dialog.
+   * @param phraseId - Identifier of the phrase mapped to a destination smart terrain.
+   * @returns Localized label describing the travel cost.
    */
   public getTravelCostLabel(actor: GameObject, object: GameObject, dialogId: TStringId, phraseId: TStringId): TLabel {
     return string.format(
@@ -367,7 +413,13 @@ export class TravelManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the actor has enough money to pay for traveling to the phrase destination.
+   *
+   * @param actor - Actor game object talking with the squad.
+   * @param object - Squad member game object being talked to.
+   * @param dialogId - Identifier of the active dialog.
+   * @param phraseId - Identifier of the phrase mapped to a destination smart terrain.
+   * @returns Whether the actor has enough money to pay for the travel.
    */
   public isEnoughMoneyToTravel(
     actor: GameObject,
@@ -380,8 +432,8 @@ export class TravelManager extends AbstractManager {
 
   /**
    * Tick of active actor update when teleporting from one place to another.
-   * Todo;
-   * todo: Probably add some 'isTraveling' checker with assertion of types.
+   *
+   * Todo: Probably add some 'isTraveling' checker with assertion of types.
    */
   public override update(): void {
     if (!this.isTraveling) {
@@ -466,7 +518,11 @@ export class TravelManager extends AbstractManager {
 
   /**
    * Travel together with squad to selected squad, pay them and ask to take somewhere.
-   * Todo.
+   *
+   * @param actor - Actor game object initiating the travel.
+   * @param object - Squad member game object being talked to.
+   * @param dialogId - Identifier of the active dialog.
+   * @param phraseId - Identifier of the phrase mapped to a destination smart terrain.
    */
   public onTravelToSpecificSmartWithSquad(
     actor: GameObject,
@@ -512,7 +568,11 @@ export class TravelManager extends AbstractManager {
   /**
    * Travel together with squad to their assigned goal, just follow them.
    * Used when actor agrees to travel somewhere where squad heads.
-   * Todo.
+   *
+   * @param actor - Actor game object initiating the travel.
+   * @param object - Squad member game object being talked to.
+   * @param dialogId - Identifier of the active dialog.
+   * @param phraseId - Identifier of the active phrase.
    */
   public onTravelTogetherWithSquad(
     actor: GameObject,

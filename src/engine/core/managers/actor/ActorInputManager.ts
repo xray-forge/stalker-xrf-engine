@@ -161,7 +161,9 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Todo.
+   * Disable game UI, hide actor weapon, indicators and menus, and disable input.
+   *
+   * @param resetSlot - Whether currently active item slot should be memoized and deactivated.
    */
   public disableGameUi(resetSlot: boolean = false): void {
     logger.info("Disable game UI");
@@ -196,7 +198,9 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Todo.
+   * Enable game UI, show actor weapon and indicators, and enable input.
+   *
+   * @param restore - Whether previously memoized active item slot should be activated again.
    */
   public enableGameUi(restore: boolean = false): void {
     logger.info("Enable game UI");
@@ -221,7 +225,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Todo.
+   * Disable game UI by hiding actor weapon, indicators and menus without disabling night vision or torch.
    */
   public disableGameUiOnly(): void {
     logger.info("Disable game UI only");
@@ -345,7 +349,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Handle start of anabiotic sleep, apply wake-up camera effector, advance game time and end surge if active.
    */
   public onAnabioticSleep(): void {
     level.add_cam_effector(animations.camera_effects_surge_01, 10, false, "engine.on_anabiotic_wake_up");
@@ -372,7 +376,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Handle wake-up from anabiotic sleep, restore game UI and sound volumes, and clear the in-process info portion.
    */
   public onAnabioticWakeUp(): void {
     getManager(ActorInputManager).enableGameUi();
@@ -387,7 +391,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Handle start of surge survival by applying the sleep camera effector for the surge survive sequence.
    */
   public onSurgeSurviveStart(): void {
     level.add_cam_effector(
@@ -399,7 +403,7 @@ export class ActorInputManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Handle end of surge survival by re-enabling the game UI.
    */
   public onSurgeSurviveEnd(): void {
     this.enableGameUi();

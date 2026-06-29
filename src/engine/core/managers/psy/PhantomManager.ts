@@ -4,27 +4,29 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { TCount, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling phantom spawn count tracking in the game world.
  */
 export class PhantomManager extends AbstractManager {
   public phantomsCount: TCount = 0;
 
   /**
-   * Todo.
+   * Increment the count of currently active phantoms.
    */
   public addPhantom(): void {
     this.phantomsCount = this.phantomsCount + 1;
   }
 
   /**
-   * Todo.
+   * Decrement the count of currently active phantoms.
    */
   public removePhantom(): void {
     this.phantomsCount = this.phantomsCount - 1;
   }
 
   /**
-   * Todo.
+   * Spawn a phantom at the provided position in the game world.
+   *
+   * @param position - Vector position to spawn the phantom at.
    */
   public spawnPhantom(position: Vector): void {
     level.spawn_phantom(position);

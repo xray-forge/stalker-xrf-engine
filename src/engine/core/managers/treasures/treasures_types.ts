@@ -2,7 +2,7 @@ import { TConditionList } from "@/engine/core/utils/ini";
 import { LuaArray, Optional, TCount, TNumberId, TProbability, TSection } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Descriptor of a group of items contained in a treasure, including their count and spawn probability.
  */
 export interface ITreasureItemsDescriptor {
   count: TCount;
@@ -12,7 +12,7 @@ export interface ITreasureItemsDescriptor {
 }
 
 /**
- * Todo.
+ * Descriptor of a treasure (secret), including its state, type, refresh conditions and contained items.
  */
 export interface ITreasureDescriptor {
   given: boolean;

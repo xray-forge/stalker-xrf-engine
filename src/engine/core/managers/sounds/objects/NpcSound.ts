@@ -46,7 +46,7 @@ export interface INpcSoundDescriptor {
 }
 
 /**
- * Todo.
+ * Playable sound voiced by NPC game objects, supporting per-object and group playback.
  */
 export class NpcSound extends AbstractPlayableSound {
   public static readonly AVAILABLE_COMMUNITIES_ALL: string = string.format(
@@ -66,7 +66,9 @@ export class NpcSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound.NPC;
 
   /**
-   * Todo.
+   * Increment and return the next globally unique NPC sound index.
+   *
+   * @returns Next available NPC sound base index.
    */
   public static getNextId(): TIndex {
     NpcSound.baseIndex += 1;
@@ -131,7 +133,9 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Reset the sound playback state for the object and stop any active PDA sound.
+   *
+   * @param objectId - Identifier of the object to reset the sound state for.
    */
   public override reset(objectId: TNumberId): void {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object as Optional<GameObject>;
@@ -153,7 +157,10 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Check whether the object is currently voicing a sound or playing a PDA sound.
+   *
+   * @param objectId - Identifier of the object to check.
+   * @returns Whether the object has an active sound or a playing PDA sound.
    */
   public override isPlaying(objectId: TNumberId): boolean {
     const object: Optional<GameObject> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
@@ -166,7 +173,13 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo: Description.
+   * Select and play the next NPC sound for the object, optionally play a PDA sound and emit a notification.
+   *
+   * @param objectId - Identifier of the object to play the sound for.
+   * @param faction - Faction used for the sound notification.
+   * @param point - Optional point label describing the sound source.
+   * @param message - Message label associated with the sound.
+   * @returns Whether a sound started playing.
    */
   public play(objectId: TNumberId, faction: string, point: Optional<string>, message: TLabel): boolean {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
@@ -271,7 +284,9 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Stop the object sound and any active PDA sound.
+   *
+   * @param objectId - Identifier of the object to stop the sound for.
    */
   public override stop(objectId: TNumberId): void {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
@@ -288,7 +303,9 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo: Description.
+   * Handle the end of sound playback by scheduling the next idle delay and firing scheme signals.
+   *
+   * @param objectId - Identifier of the object whose sound playback ended.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
     logger.info(
@@ -333,7 +350,9 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Save the played sound index and group playback flag to the save packet.
+   *
+   * @param packet - Net packet to write the sound state into.
    */
   public override save(packet: NetPacket): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
@@ -344,7 +363,9 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Load the played sound index and group playback flag from the save reader.
+   *
+   * @param reader - Net processor to read the sound state from.
    */
   public override load(reader: NetProcessor): void {
     const id: string = reader.r_stringZ();
@@ -357,7 +378,10 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Save the per-object playback availability flag for non-group sounds.
+   *
+   * @param packet - Net packet to write the per-object sound state into.
+   * @param object - Game object whose sound state is being saved.
    */
   public override saveObject(packet: NetPacket, object: GameObject): void {
     if (!this.isGroupSound) {
@@ -366,7 +390,10 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Load the per-object playback availability flag for non-group sounds.
+   *
+   * @param reader - Net processor to read the per-object sound state from.
+   * @param object - Game object whose sound state is being loaded.
    */
   public override loadObject(reader: NetProcessor, object: GameObject): void {
     if (!this.isGroupSound) {
@@ -375,8 +402,11 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo;
+   * Register the sound files for the object and collect their playable paths and count.
+   *
    * Note: Performance heavy method, especially when sound files are not cached yet.
+   *
+   * @param object - Game object to initialize the NPC sound for.
    */
   public initializeObject(object: GameObject): void {
     const objectId: TNumberId = object.id();
@@ -441,7 +471,10 @@ export class NpcSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Select the index of the next sound to play according to the configured playlist type.
+   *
+   * @param objectId - Identifier of the object to select the next sound for.
+   * @returns Index of the next sound to play, or -1 when the sequence is exhausted.
    */
   public selectNextSound(objectId: TNumberId): TNumberId {
     const objectDescriptor: Optional<INpcSoundDescriptor> = this.objects.get(objectId);

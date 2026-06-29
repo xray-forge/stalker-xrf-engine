@@ -172,7 +172,9 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Compute current dynamic music state based on actor state, silence zones and nearest enemy distance.
+   *
+   * @returns Current dynamic music state, or null when no state change is required.
    */
   public getThemeState(): Optional<EDynamicMusicState> {
     const actor: GameObject = registry.actor;
@@ -254,7 +256,7 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Gradually adjust dynamic theme volume towards the target theme volume by one fade step.
    */
   public fadeTheme(): void {
     const now: TTimestamp = time_global();
@@ -287,7 +289,7 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Gradually adjust ambient music volume towards the target ambient volume by one fade step and apply it.
    */
   public fadeAmbient(): void {
     const now: TTimestamp = time_global();
@@ -321,7 +323,9 @@ export class MusicManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Handle actor update tick, update surge ambient fading and dynamic music themes and track switching.
+   *
+   * @param delta - Time passed since the previous update, in milliseconds.
    */
   public onActorUpdate(delta: TDuration): void {
     this.updateDelta += delta;

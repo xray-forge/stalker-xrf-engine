@@ -25,7 +25,7 @@ import { GameObject, Hit, LuaArray, Optional } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo: Description.
+ * Kill all squad members on the current level that are not hidden in a surge cover after actor death.
  */
 export function killAllSurgeUnhiddenAfterActorDeath(): void {
   const surgeCovers: LuaArray<GameObject> = getOnlineSurgeCoversList();
@@ -65,7 +65,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
 }
 
 /**
- * Todo: Description.
+ * Hit crows and kill all unprotected squad members not hidden in a surge cover, then handle actor survival.
  */
 export function killAllSurgeUnhidden(): void {
   logger.info("Kill all surge not unhidden");

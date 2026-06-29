@@ -34,7 +34,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Playable sound bound to a game object and emitted from its 3D world position.
  */
 export class ObjectSound extends AbstractPlayableSound {
   public static readonly type: EPlayableSound = EPlayableSound["3D"];
@@ -87,7 +87,13 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Start playing the next sound from the object position, optionally adding a PDA variant for distant actors.
+   *
+   * @param objectId - Id of the game object emitting the sound.
+   * @param faction - Faction associated with the sound notification.
+   * @param point - Point label associated with the sound notification.
+   * @param message - Message associated with the sound notification.
+   * @returns Whether the sound playback was started.
    */
   public play(objectId: TNumberId, faction: string, point: string, message: string): boolean {
     const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
@@ -139,7 +145,7 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Stop the active sound and also stop and release the PDA sound object if it is playing.
    */
   public override stop(): void {
     super.stop();
@@ -151,7 +157,9 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Select the index of the next sound to play based on the configured playlist type.
+   *
+   * @returns Index of the next sound to play, -1 when the sequence is exhausted, or null when type is unknown.
    */
   public selectNextSound(): Optional<TIndex> {
     const soundsCount: TCount = this.soundPaths.length();
@@ -198,7 +206,9 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Handle end of sound playback by resetting state, scheduling idle time and emitting scheme end signals.
+   *
+   * @param objectId - Id of the game object whose sound finished playing.
    */
   public override onSoundPlayEnded(objectId: TNumberId): void {
     logger.info(
@@ -238,14 +248,18 @@ export class ObjectSound extends AbstractPlayableSound {
   }
 
   /**
-   * Todo.
+   * Save the index of the last played sound to the save packet.
+   *
+   * @param packet - Net packet to write the sound state into.
    */
   public override save(packet: NetPacket): void {
     packet.w_stringZ(tostring(this.playedSoundIndex));
   }
 
   /**
-   * Todo.
+   * Load the index of the last played sound from the save reader.
+   *
+   * @param reader - Net processor to read the sound state from.
    */
   public override load(reader: NetProcessor): void {
     const id: StringOptional<TStringId> = reader.r_stringZ();

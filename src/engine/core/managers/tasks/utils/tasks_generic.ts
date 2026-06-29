@@ -5,7 +5,11 @@ import { GUIDERS_BY_LEVEL } from "@/engine/core/managers/tasks/TaskConfig";
 import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
- * Todo: Description.
+ * Add a map spot for the guider leading from one level to another, marking it as storyline or secondary.
+ *
+ * @param from - Name of the level the guider leads from.
+ * @param to - Name of the level the guider leads to.
+ * @param isStoryline - Whether the spot represents a storyline task instead of a secondary one.
  */
 export function addGuiderSpot(from: TName, to: TName, isStoryline: boolean): void {
   const guiderStoryId: Optional<TStringId> = GUIDERS_BY_LEVEL.get(from)?.get(to);
@@ -28,7 +32,9 @@ export function addGuiderSpot(from: TName, to: TName, isStoryline: boolean): voi
 }
 
 /**
- * Todo: Description.
+ * Remove all storyline and secondary guider map spots for the guiders of the provided level.
+ *
+ * @param from - Name of the level whose guider spots should be removed.
  */
 export function removeGuiderSpot(from: TName): void {
   const guidersByLevel: Optional<LuaTable<TName, TStringId>> = GUIDERS_BY_LEVEL.get(from);

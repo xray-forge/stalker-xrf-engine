@@ -119,9 +119,12 @@ export class TaskManager extends AbstractManager {
   }
 
   /**
-   * Todo: Description.
+   * Handle change of a task state, sending notifications and deactivating finished tasks.
    *
    * Fired from game callback event.
+   *
+   * @param taskObject - Game task that changed its state.
+   * @param state - New state of the task.
    */
   public onTaskStateUpdate(taskObject: GameTask, state: TTaskState): void {
     const taskId: TStringId = taskObject.get_id();

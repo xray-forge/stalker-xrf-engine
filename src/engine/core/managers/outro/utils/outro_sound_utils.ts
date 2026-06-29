@@ -1,7 +1,14 @@
 import { TRate } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Calculate interpolated sound fade volume for a progress factor, clamped between the two fade volumes.
+ *
+ * @param factor - Current fade progress factor.
+ * @param startPoint - Progress factor at which fading starts.
+ * @param stopPoint - Progress factor at which fading stops.
+ * @param fade1Volume - Volume at the start point of the fade.
+ * @param fade2Volume - Volume at the stop point of the fade.
+ * @returns Interpolated volume clamped to the range between the two fade volumes.
  */
 export function calculateSoundFade(
   factor: TRate,

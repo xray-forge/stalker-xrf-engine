@@ -1,5 +1,5 @@
 /**
- * Todo.
+ * Mapping of notification keys to their corresponding in-game UI icon texture names.
  */
 export const notificationsIcons = {
   pioneer: "ui_inGame2_PD_Pervootkrivatel",
@@ -40,16 +40,16 @@ export const notificationsIcons = {
 } as const;
 
 /**
- * Todo.
+ * Type describing the full set of available notification icons.
  */
 export type TNotificationIcons = typeof notificationsIcons;
 
 /**
- * Todo.
+ * Type describing a single notification icon texture name value.
  */
 export type TNotificationIcon = TNotificationIcons[keyof TNotificationIcons];
 
 /**
- * Todo.
+ * Type describing a single notification icon key.
  */
 export type TNotificationIconKey = keyof TNotificationIcons;

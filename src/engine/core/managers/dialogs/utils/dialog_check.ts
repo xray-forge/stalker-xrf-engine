@@ -14,7 +14,13 @@ import {
 import { GameObject, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Recalculate a phrase priority and check whether it should be shown for the given object.
+ *
+ * @param object - Game object the phrase is evaluated for.
+ * @param phrases - Map of available phrases keyed by phrase id.
+ * @param priorities - Map of phrase priorities per object.
+ * @param phraseId - Identifier of the phrase to check.
+ * @returns Whether the phrase should be shown to the object.
  */
 export function shouldShowPhrase(
   object: GameObject,
@@ -34,7 +40,11 @@ export function shouldShowPhrase(
 }
 
 /**
- * Todo.
+ * Check whether a whole phrase category should be hidden because it has no positively prioritized phrase.
+ *
+ * @param object - Game object the category is evaluated for.
+ * @param category - Generic phrase category to check.
+ * @returns Whether the phrase category should be hidden for the object.
  */
 export function shouldHidePhraseCategory(object: GameObject, category: EGenericPhraseCategory): boolean {
   const dialogManager: DialogManager = getManager(DialogManager);
@@ -49,7 +59,13 @@ export function shouldHidePhraseCategory(object: GameObject, category: EGenericP
 }
 
 /**
- * Todo.
+ * Check whether the given phrase has the highest priority among the object phrases, resetting it when unset.
+ *
+ * @param PTsubtable - Map of available phrases keyed by phrase id.
+ * @param PRTsubtable - Map of phrase priorities per object.
+ * @param object - Game object the phrase is evaluated for.
+ * @param phraseId - Identifier of the phrase to check.
+ * @returns Whether the phrase has the highest priority for the object.
  */
 export function isHighestPriorityPhrase(
   PTsubtable: TPhrasesAvailableMap,
