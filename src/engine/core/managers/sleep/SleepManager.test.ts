@@ -120,9 +120,7 @@ describe("SleepManager", () => {
   });
 
   it("should correctly handle sleeping callbacks start", () => {
-    const { actorGameObject } = mockRegisteredActor();
-
-    actorGameObject.power = 0.5;
+    const { actorGameObject } = mockRegisteredActor({ power: 0.5 });
 
     surgeConfig.IS_STARTED = true;
 

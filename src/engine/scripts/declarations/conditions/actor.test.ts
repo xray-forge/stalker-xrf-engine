@@ -197,9 +197,7 @@ describe("actor conditions implementation", () => {
   });
 
   it("actor_health_le should check actor health", () => {
-    const { actorGameObject } = mockRegisteredActor();
-
-    actorGameObject.health = 0.5;
+    const { actorGameObject } = mockRegisteredActor({ health: 0.5 });
 
     expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), null)).toBe(false);
     expect(callXrCondition("actor_health_le", actorGameObject, MockGameObject.mock(), 1)).toBe(true);

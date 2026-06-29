@@ -140,19 +140,20 @@ describe("canActorSleep util", () => {
 
   it("canActorSleep should correctly check object", () => {
     mockRegisteredActor();
+    const actor: MockGameObject = MockGameObject.asMock(registry.actor);
 
     expect(canActorSleep()).toBe(true);
 
-    registry.actor.radiation = 1;
+    actor.objectRadiation = 1;
     expect(canActorSleep()).toBe(false);
 
-    registry.actor.bleeding = 1;
+    actor.objectBleeding = 1;
     expect(canActorSleep()).toBe(false);
 
-    registry.actor.radiation = 0;
+    actor.objectRadiation = 0;
     expect(canActorSleep()).toBe(false);
 
-    registry.actor.bleeding = 0;
+    actor.objectBleeding = 0;
     expect(canActorSleep()).toBe(true);
   });
 });

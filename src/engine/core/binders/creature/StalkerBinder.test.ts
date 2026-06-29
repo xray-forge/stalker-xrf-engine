@@ -21,7 +21,16 @@ import {
 import { emitSchemeEvent, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { X_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { AnyObject, EScheme, ESchemeEvent, ESchemeType, GameObject, ServerHumanObject } from "@/engine/lib/types";
+import {
+  AnyObject,
+  EScheme,
+  ESchemeEvent,
+  ESchemeType,
+  GameObject,
+  NetPacket,
+  NetReader,
+  ServerHumanObject,
+} from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockAlifeHumanStalker, MockCTime, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
@@ -120,11 +129,13 @@ describe("StalkerBinder", () => {
     state.activeSection = "scheme@section";
     state.smartTerrainName = "some_smart";
 
-    binder.save(processor.asNetPacket());
+    const packet: NetPacket = processor.asNetPacket();
 
-    expect(tradeManager.saveObjectState).toHaveBeenCalledWith(object, processor);
-    expect(soundManager.saveObject).toHaveBeenCalledWith(object, processor);
-    expect(dialogManager.saveObjectDialogs).toHaveBeenCalledWith(object, processor);
+    binder.save(packet);
+
+    expect(tradeManager.saveObjectState).toHaveBeenCalledWith(object, packet);
+    expect(soundManager.saveObject).toHaveBeenCalledWith(object, packet);
+    expect(dialogManager.saveObjectDialogs).toHaveBeenCalledWith(object, packet);
 
     expect(processor.writeDataOrder).toEqual([
       EPacketDataType.STRING,
@@ -165,11 +176,13 @@ describe("StalkerBinder", () => {
       16,
     ]);
 
-    binder.load(processor.asNetReader());
+    const reader: NetReader = processor.asNetReader();
 
-    expect(tradeManager.loadObjectState).toHaveBeenCalledWith(object, processor);
-    expect(soundManager.loadObject).toHaveBeenCalledWith(object, processor);
-    expect(dialogManager.loadObjectDialogs).toHaveBeenCalledWith(object, processor);
+    binder.load(reader);
+
+    expect(tradeManager.loadObjectState).toHaveBeenCalledWith(object, reader);
+    expect(soundManager.loadObject).toHaveBeenCalledWith(object, reader);
+    expect(dialogManager.loadObjectDialogs).toHaveBeenCalledWith(object, reader);
 
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toHaveLength(0);
@@ -204,7 +217,7 @@ describe("StalkerBinder", () => {
 
   it("should correctly handle hit event", () => {
     const { actorGameObject } = mockRegisteredActor();
-    const object: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock({ health: 0.01 });
     const state: IRegistryObjectState = registerObject(object);
     const binder: StalkerBinder = new StalkerBinder(object);
     const manager: EventsManager = getManager(EventsManager);
@@ -225,7 +238,7 @@ describe("StalkerBinder", () => {
 
     binder.onHit(object, 1000, ZERO_VECTOR, actorGameObject, 10);
 
-    expect(object.health).toBe(0.15);
+    expect(object.health).toBeCloseTo(0.16);
 
     expect(syncObjectHitSmartTerrainAlert).toHaveBeenCalledWith(object);
 

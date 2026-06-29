@@ -216,7 +216,41 @@ describe("quests effects implementation", () => {
     expect(hasInfoPortion(infoPortions.zat_a1_tutorial_end)).toBe(true);
   });
 
-  it.todo("oasis_heal should heal in oasis");
+  it("oasis_heal should send vanilla condition deltas to xray actor properties", () => {
+    const { actorGameObject: actor } = mockRegisteredActor({
+      bleeding: 0.25,
+      health: 0.5,
+      power: 0.5,
+      radiation: 0.25,
+      satiety: 0.5,
+    });
+
+    callXrEffect("oasis_heal", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(actor.health).toBe(0.505);
+    expect(actor.power).toBe(0.51);
+    expect(actor.radiation).toBe(0.2);
+    expect(actor.bleeding).toBe(0.2);
+    expect(actor.satiety).toBe(0.51);
+  });
+
+  it("oasis_heal should not send health, power, radiation or bleeding deltas when thresholds are not met", () => {
+    const { actorGameObject: actor } = mockRegisteredActor({
+      bleeding: 0,
+      health: 1,
+      power: 1,
+      radiation: 0,
+      satiety: 0.5,
+    });
+
+    callXrEffect("oasis_heal", MockGameObject.mockActor(), MockGameObject.mock());
+
+    expect(actor.health).toBe(1);
+    expect(actor.power).toBe(1);
+    expect(actor.radiation).toBe(0);
+    expect(actor.bleeding).toBe(0);
+    expect(actor.satiety).toBe(0.51);
+  });
 
   it.todo("pas_b400_play_particle should play particles");
 

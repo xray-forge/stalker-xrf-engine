@@ -7,6 +7,7 @@ import { SleepDialog } from "@/engine/core/ui/game/sleep/SleepDialog";
 import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("SleepDialog ui component", () => {
   beforeEach(() => {
@@ -191,14 +192,15 @@ describe("SleepDialog ui component", () => {
 
   it("should correctly show warning when cannot sleep", () => {
     const { actorGameObject } = mockRegisteredActor();
+    const actorMock: MockGameObject = MockGameObject.asMock(actorGameObject);
 
     const manager: SleepManager = getManager(SleepManager);
     const dialog: SleepDialog = new SleepDialog(manager);
 
     jest.spyOn(dialog, "initializeDisplay").mockImplementation(jest.fn());
 
-    actorGameObject.bleeding = 1;
-    actorGameObject.radiation = 1;
+    actorMock.objectBleeding = 1;
+    actorMock.objectRadiation = 1;
 
     dialog.show();
 
@@ -207,8 +209,8 @@ describe("SleepDialog ui component", () => {
     expect(dialog.uiSleepMessageBox.SetText).toHaveBeenCalledWith("sleep_warning_all_pleasures");
     expect(dialog.uiSleepMessageBox.ShowDialog).toHaveBeenCalledWith(true);
 
-    actorGameObject.radiation = 0;
-    actorGameObject.bleeding = 1;
+    actorMock.objectBleeding = 1;
+    actorMock.objectRadiation = 0;
 
     dialog.show();
 
@@ -217,8 +219,8 @@ describe("SleepDialog ui component", () => {
     expect(dialog.uiSleepMessageBox.SetText).toHaveBeenCalledWith("sleep_warning_bleeding");
     expect(dialog.uiSleepMessageBox.ShowDialog).toHaveBeenCalledWith(true);
 
-    actorGameObject.bleeding = 0;
-    actorGameObject.radiation = 1;
+    actorMock.objectBleeding = 0;
+    actorMock.objectRadiation = 1;
 
     dialog.show();
 

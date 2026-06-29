@@ -43,13 +43,17 @@ export interface IMockGameObjectConfig {
   infoPortions?: Array<TName>;
   inventory?: Array<[TSection | TNumberId, GameObject]>;
   money?: TCount;
+  morale?: TRate;
   name?: TName;
   position?: Vector;
   levelVertexId?: TNumberId;
   gameVertexId?: TNumberId;
   outRestrictions?: string;
+  power?: TRate;
+  psyHealth?: TRate;
   radiation?: TRate;
   rank?: TCount;
+  satiety?: TRate;
   section?: TSection;
   spawnIni?: Optional<IniFile>;
   upgrades?: Array<TSection>;
@@ -116,32 +120,46 @@ export class MockGameObject {
     return object as unknown as MockGameObject;
   }
 
+  public static clamp(value: number, min: number, max: number): number {
+    if (value < min) {
+      return min;
+    } else if (value > max) {
+      return max;
+    } else {
+      return value;
+    }
+  }
+
   public isInvulnerable: boolean = false;
 
-  public bleeding: TRate;
   public callbacks: PartialRecord<TCallback, AnyCallable> = {};
-  public health: TRate;
-  public radiation: TRate;
   public sight: TSightType = MockSightParameters.eSightTypeDummy;
 
   public objectActionManager: MockActionPlanner = MockActionPlanner.mockDefault() as unknown as MockActionPlanner;
   public objectAlive: boolean;
+  public objectBleeding: TRate;
   public objectCenter: Vector = MockVector.mock(0.15, 0.15, 0.15);
   public objectCharacterRank: Optional<TCount>;
   public objectClsid: TClassId;
   public objectCommunity: string;
   public objectDirection: Vector = MockVector.mock(1, 1, 1);
   public objectGameVertexId: TNumberId;
+  public objectHealth: TRate;
   public objectId: TNumberId;
   public objectInRestrictions: Array<string>;
   public objectInfoPortions: Array<string>;
   public objectInventory: Map<string | number, GameObject>;
   public objectLevelVertexId: TNumberId;
   public objectMoney: TCount;
+  public objectMorale: TRate;
   public objectName: TName;
   public objectOutRestrictions: Array<string>;
   public objectPosition: Vector;
+  public objectPower: TRate;
+  public objectPsyHealth: TRate;
+  public objectRadiation: TRate;
   public objectRank: TCount;
+  public objectSatiety: TRate;
   public objectSection: TSection;
   public objectSpawnIni: Optional<IniFile>;
   public objectUpgradesSet: Set<string>;
@@ -166,14 +184,74 @@ export class MockGameObject {
 
     this.objectName = config.name ?? `${this.objectSection}_${this.objectId}`;
 
-    this.bleeding = config.bleeding ?? 0;
-    this.radiation = config.radiation ?? 0;
-    this.health = config.health ?? 1;
+    this.objectBleeding = MockGameObject.clamp(config.bleeding ?? 0, 0, 1) as TRate;
+    this.objectHealth = MockGameObject.clamp(config.health ?? 1, 0, 1) as TRate;
+    this.objectMorale = MockGameObject.clamp(config.morale ?? 1, 0, 1) as TRate;
+    this.objectPower = MockGameObject.clamp(config.power ?? 1, 0, 1) as TRate;
+    this.objectPsyHealth = MockGameObject.clamp(config.psyHealth ?? 1, 0, 1) as TRate;
+    this.objectRadiation = MockGameObject.clamp(config.radiation ?? 0, 0, 1) as TRate;
+    this.objectSatiety = MockGameObject.clamp(config.satiety ?? 1, 0, 1) as TRate;
 
     this.objectLevelVertexId = config.levelVertexId ?? 255;
     this.objectGameVertexId = config.gameVertexId ?? 512;
 
     MockGameObject.REGISTRY.set(this.id(), this.asGameObject());
+  }
+
+  public get bleeding(): TRate {
+    return this.objectBleeding;
+  }
+
+  public set bleeding(delta: TRate) {
+    this.objectBleeding = MockGameObject.clamp(this.objectBleeding - delta, 0, 1) as TRate;
+  }
+
+  public get health(): TRate {
+    return this.objectHealth;
+  }
+
+  public set health(delta: TRate) {
+    this.objectHealth = MockGameObject.clamp(this.objectHealth + delta, 0, 1) as TRate;
+  }
+
+  public get morale(): TRate {
+    return this.objectMorale;
+  }
+
+  public set morale(delta: TRate) {
+    this.objectMorale = MockGameObject.clamp(this.objectMorale + delta, 0, 1) as TRate;
+  }
+
+  public get power(): TRate {
+    return this.objectPower;
+  }
+
+  public set power(delta: TRate) {
+    this.objectPower = MockGameObject.clamp(this.objectPower + delta, 0, 1) as TRate;
+  }
+
+  public get psy_health(): TRate {
+    return this.objectPsyHealth;
+  }
+
+  public set psy_health(delta: TRate) {
+    this.objectPsyHealth = MockGameObject.clamp(this.objectPsyHealth + delta, 0, 1) as TRate;
+  }
+
+  public get radiation(): TRate {
+    return this.objectRadiation;
+  }
+
+  public set radiation(delta: TRate) {
+    this.objectRadiation = MockGameObject.clamp(this.objectRadiation + delta, 0, 1) as TRate;
+  }
+
+  public get satiety(): TRate {
+    return this.objectSatiety;
+  }
+
+  public set satiety(delta: TRate) {
+    this.objectSatiety = MockGameObject.clamp(this.objectSatiety + delta, 0, 1) as TRate;
   }
 
   public animation_count = jest.fn(() => 0);

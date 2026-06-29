@@ -408,9 +408,7 @@ describe("object conditions implementation", () => {
   });
 
   it("health_le should check object health", () => {
-    const object: GameObject = MockGameObject.mock();
-
-    object.health = 0.5;
+    const object: GameObject = MockGameObject.mock({ health: 0.5 });
 
     expect(callXrCondition("health_le", MockGameObject.mockActor(), object, 0.49)).toBe(false);
     expect(callXrCondition("health_le", MockGameObject.mockActor(), object, 0.5)).toBe(false);
