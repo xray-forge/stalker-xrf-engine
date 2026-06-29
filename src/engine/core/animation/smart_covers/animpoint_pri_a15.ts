@@ -5,7 +5,9 @@ import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/type
 import { Z_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * Todo.
+ * Create smart cover descriptor for the animpoint_pri_a15 animation set.
+ *
+ * @returns Smart cover descriptor for the animpoint_pri_a15 animation set.
  */
 export function getSmartCoverAnimpointPriA15(): ISmartCoverDescriptor {
   return {

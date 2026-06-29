@@ -15,7 +15,9 @@ import { createVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * Todo.
+ * Create smart cover descriptor for combat using crouch and stand loopholes.
+ *
+ * @returns Smart cover descriptor for combat using crouch and stand loopholes.
  */
 function getSmartCoverCombat(): ISmartCoverDescriptor {
   return {

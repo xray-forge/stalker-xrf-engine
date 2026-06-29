@@ -3,7 +3,13 @@ import { createVector } from "@/engine/core/utils/vector";
 import { Optional, TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Create smart cover loophole descriptor for the standing posture facing left.
+ *
+ * @param id - Identifier of the loophole.
+ * @param fovDirection - Field of view direction of the loophole.
+ * @param position - Position of the loophole relative to the smart cover.
+ * @param enterDirection - Direction to enter the loophole from.
+ * @returns Smart cover loophole descriptor for the standing posture facing left.
  */
 export function getStandLeftLoophole(
   id: TStringId,

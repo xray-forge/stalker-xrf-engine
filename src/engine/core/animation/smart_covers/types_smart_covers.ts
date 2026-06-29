@@ -1,7 +1,8 @@
 import { LuaArray, TMoveType, TName, TRate, TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * Todo;
+ * Descriptor of a smart cover composed of loopholes and transitions between them.
+ *
  * Note: Used by engine so types are not camelcase.
  */
 export interface ISmartCoverDescriptor {
@@ -30,7 +31,8 @@ export interface ISmartCoverDescriptor {
 }
 
 /**
- * Todo;
+ * Descriptor of a single smart cover loophole, a firing or observation position with its actions and transitions.
+ *
  * Note: Used by engine so types are not camelcase.
  */
 export interface ISmartCoverLoopholeDescriptor {

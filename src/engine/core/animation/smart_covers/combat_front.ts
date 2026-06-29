@@ -10,7 +10,9 @@ import { createVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * Todo.
+ * Create smart cover descriptor for front combat.
+ *
+ * @returns Smart cover descriptor for front combat.
  */
 export function getSmartCoverCombatFront(): ISmartCoverDescriptor {
   return {

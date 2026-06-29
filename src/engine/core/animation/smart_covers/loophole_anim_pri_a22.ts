@@ -3,7 +3,13 @@ import { MX_VECTOR } from "@/engine/lib/constants/vectors";
 import { TStringId, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Create smart cover loophole descriptor for the anim_pri_a22 scene.
+ *
+ * @param id - Identifier of the loophole.
+ * @param position - Position of the loophole relative to the smart cover.
+ * @param fovDirection - Field of view direction of the loophole.
+ * @param enterDirection - Direction to enter the loophole from.
+ * @returns Smart cover loophole descriptor for the anim_pri_a22 scene.
  */
 export function getAnimPriA22Loophole(
   id: TStringId,

@@ -5,7 +5,9 @@ import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/type
 import { MZ_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
- * Todo.
+ * Create smart cover descriptor for the animpoint_stay_wall animation set.
+ *
+ * @returns Smart cover descriptor for the animpoint_stay_wall animation set.
  */
 export function getSmartCoverAnimpointStayWall(): ISmartCoverDescriptor {
   return {
