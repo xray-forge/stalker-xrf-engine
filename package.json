@@ -16,6 +16,7 @@
     "watch:scripts-optimized": "npx cross-env XR_NO_LUA_LOGS=true tstl -P ./cli/build/tsconfig.scripts.json --watch",
     "watch:scripts-tracy-optimized": "npx cross-env XR_INJECT_TRACY_ZONES=true XR_NO_LUA_LOGS=true tstl -P ./cli/build/tsconfig.scripts.json --watch",
     "typecheck": "tstl -P ./cli/build/tsconfig.scripts.json --noEmit",
+    "typecheck:tests": "tsc -p ./cli/test/tsconfig.tests.json",
     "format": "prettier --write \"**/*.(js|ts|tsx|md)\" \"!cli/bin/**/*\" && npm run lint -- --fix && npm run cli format ltx",
     "lint": "eslint . --config cli/lint/eslint.config.mjs --cache --cache-location target/eslint/cache.json",
     "lint:strict": "eslint . --config cli/lint/eslint.config.strict.mjs",

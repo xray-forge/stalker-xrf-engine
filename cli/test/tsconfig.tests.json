@@ -1,0 +1,14 @@
+{
+  "extends": "../../src/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "xray16", "node"]
+  },
+  "include": [
+    "../../cli/**/*.test.ts",
+    "../../src/**/*.test.ts",
+    "../../src/fixtures/**/*.ts",
+    "../../src/typedefs/**/*.d.ts"
+  ]
+}

@@ -1,4 +1,4 @@
-import { Dirent } from "fs";
+import * as fs from "node:fs";
 import * as fsp from "node:fs/promises";
 
 import { describe, expect, it, jest } from "@jest/globals";
@@ -7,8 +7,8 @@ import { readDirContent } from "#/utils/fs/read_dir_content";
 
 import { normalizeOSPath } from "@/fixtures/cli";
 
-function mockDirent(base: Partial<Dirent> = {}): Dirent {
-  return { isDirectory: () => false, ...base } as Dirent;
+function mockDirent(base: Partial<fs.Dirent> = {}): fs.Dirent<Buffer<ArrayBuffer>> {
+  return { isDirectory: () => false, ...base } as unknown as fs.Dirent<Buffer<ArrayBuffer>>;
 }
 
 jest.mock("node:fs/promises");
