@@ -31,7 +31,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling monster walker scheme behaviour for an object.
  */
 export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerState> {
   public lastIndex: Optional<TIndex> = null;
@@ -202,7 +202,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * Todo: Description.
+   * Command the monster to move along the walk patrol using the running, crouching or walking movement type.
    */
   public updateMovementState(): void {
     scriptCaptureMonster(this.object, true);
@@ -235,7 +235,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * Todo: Description.
+   * Command the monster to play the current standing animation for the configured wait time.
    */
   public updateStandingState(): void {
     scriptCaptureMonster(this.object, true);
@@ -258,7 +258,9 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
   }
 
   /**
-   * Todo: Description.
+   * Command the monster to look towards the given look patrol waypoint.
+   *
+   * @param index - Index of the look patrol waypoint to face.
    */
   public lookAtWaypoint(index: TIndex): void {
     if (!this.patrolLook) {

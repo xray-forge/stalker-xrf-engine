@@ -35,7 +35,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
   }
 
   /**
-   * Todo: Description.
+   * Execute the action logic on planner update.
    *
    * Go to cover location if it is not reached.
    * In other cases sit in it and play desired animation.
@@ -66,7 +66,8 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
 
   /**
    * Handle scheme activation event.
-   * Todo: Description.
+   *
+   * Pick a random nearby cover point around the smart terrain and send the object toward it.
    */
   public activate(): void {
     this.state.signals = new LuaTable();

@@ -20,7 +20,8 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Action driving a zombied stalker to move towards its best perceived danger source.
+ * Reacts to hits and walks towards the danger object position, ignoring grenades.
  */
 @LuabindClass()
 export class ActionZombieGoToDanger extends action_base {
@@ -67,7 +68,11 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Apply an animation state to the object with the given look target, skipping redundant updates.
+   *
+   * @param state - Stalker animation state to apply.
+   * @param bestEnemy - Enemy game object to look at, if any.
+   * @param position - Position to look at.
    */
   public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
     if (state !== this.lastState) {
@@ -79,7 +84,7 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Execute the action logic on planner update, reacting to hits and moving towards the best danger source.
    */
   public override execute(): void {
     super.execute();
@@ -115,7 +120,13 @@ export class ActionZombieGoToDanger extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Handle a hit on the object, flagging a reaction and recording the danger source position when relevant.
+   *
+   * @param object - Object that received the hit.
+   * @param amount - Amount of damage dealt.
+   * @param direction - Direction the hit came from.
+   * @param who - Game object that caused the hit.
+   * @param boneId - Identifier of the bone that was hit.
    */
   public onHit(object: GameObject, amount: TRate, direction: Vector, who: GameObject, boneId: TIndex): void {
     if (who === null) {

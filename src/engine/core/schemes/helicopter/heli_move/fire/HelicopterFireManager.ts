@@ -32,7 +32,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling helicopter enemy targeting, firing and combat HUD for an object.
  */
 export class HelicopterFireManager {
   public readonly object: GameObject;
@@ -58,7 +58,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * Todo: Description.
+   * Refresh the current enemy state, re-selecting targets and visibility flags before applying the enemy.
    */
   public updateEnemyState(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
@@ -92,7 +92,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * Todo: Description.
+   * Create and show the helicopter combat health HUD if it is not already present.
    */
   public showHelicopterFightUI(): void {
     const hud: CUIGameCustom = get_hud();
@@ -110,7 +110,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * Todo: Description.
+   * Update the helicopter combat health HUD progress bar, hiding and removing it when health reaches zero.
    */
   public setHelicopterFightUIHealth(): void {
     const hud: CUIGameCustom = get_hud();
@@ -134,7 +134,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * Todo: Description.
+   * Remove the helicopter combat health HUD if it is currently shown.
    */
   public removeHelicopterFightUI(): void {
     const hud: CUIGameCustom = get_hud();
@@ -145,7 +145,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * Todo: Description.
+   * Resolve and apply the helicopter enemy based on the configured preference, falling back to the fire point.
    */
   public setEnemy(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
@@ -195,7 +195,7 @@ export class HelicopterFireManager {
   }
 
   /**
-   * Todo: Description.
+   * Select the closest visible enemy from the registered helicopter enemies, considering the actor as a candidate.
    */
   public updateEnemyArr(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();

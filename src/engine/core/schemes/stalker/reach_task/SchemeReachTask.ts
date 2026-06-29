@@ -37,8 +37,10 @@ export class SchemeReachTask extends AbstractScheme {
   }
 
   /**
-   * Todo: Description.
+   * Inject the reach task evaluator and action into the object alife action planner.
    * Todo: generic init method?
+   *
+   * @param object - Game object to set up the reach task planner nodes for.
    */
   public static setup(object: GameObject): void {
     const planner: ActionPlanner = object.motivation_action_manager();

@@ -25,7 +25,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Action implementing camper combat behaviour, patrolling cover points and firing at enemies from them.
  */
 @LuabindClass()
 export class ActionCombatCamping extends action_base implements ISchemeEventHandler {
@@ -70,7 +70,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   }
 
   /**
-   * Todo: Description.
+   * Reset the camper state, configuring walk and look patrols and the scan table for sniper or regular mode.
    */
   public reset(): void {
     setStalkerState(this.object, EStalkerState.PATROL);
@@ -287,7 +287,9 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   }
 
   /**
-   * Todo: Description.
+   * Determine whether the object is allowed to fire based on the configured shoot mode.
+   *
+   * @returns Whether the object may shoot at its current position.
    */
   public canShoot(): boolean {
     switch (this.state.shoot) {
@@ -354,7 +356,9 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   }
 
   /**
-   * Todo: Description.
+   * Sweep the object's aim across the look points associated with the given waypoint flag.
+   *
+   * @param flag - The waypoint flag whose scan points should be swept.
    */
   public scan(flag: number): void {
     if (this.state.scanTable!.get(flag) === null) {

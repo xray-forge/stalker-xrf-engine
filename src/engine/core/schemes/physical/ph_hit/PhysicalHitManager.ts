@@ -7,7 +7,7 @@ import { copyVector } from "@/engine/core/utils/vector";
 import { Hit, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling physical hit scheme behaviour for an object.
  */
 export class PhysicalHitManager extends AbstractSchemeManager<ISchemePhysicalHitState> {
   public override activate(): void {

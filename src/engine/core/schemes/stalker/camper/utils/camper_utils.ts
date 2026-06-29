@@ -34,7 +34,11 @@ export function isOnCampPatrolWalkPoint(object: GameObject, state: ISchemeCamper
 }
 
 /**
- * Todo: Description.
+ * Get the next camp look point to scan toward for the given waypoint flag, cycling through the scan table.
+ *
+ * @param flag - The waypoint flag whose scan points are iterated.
+ * @param state - State of camper scheme.
+ * @returns The next camp point to look at, or null when none are available.
  */
 export function getNextCampPatrolPoint(flag: number, state: ISchemeCamperState): Optional<ICampPoint> {
   let isNext: boolean = false;

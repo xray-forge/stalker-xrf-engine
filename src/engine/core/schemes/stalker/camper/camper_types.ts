@@ -14,7 +14,7 @@ import type {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Single look point used when scanning, pairing a waypoint key with its world position.
  */
 export interface ICampPoint {
   key: number;

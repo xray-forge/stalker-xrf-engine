@@ -29,7 +29,7 @@ const DIST_RUN = 20;
 const SOUND_WAIT = "weather,state";
 
 /**
- * Todo.
+ * Action implementing companion activity, making the object follow and assist the actor.
  */
 @LuabindClass()
 export class ActionCompanionActivity extends action_base {
@@ -45,7 +45,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Initialize the action when the planner selects it.
    */
   public override initialize(): void {
     super.initialize();
@@ -63,7 +63,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Move the object toward an assist point near the actor and pick a walking, running or assault state by distance.
    */
   public behWalkSimple(): void {
     const actor: Optional<GameObject> = registry.actor;
@@ -126,7 +126,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Keep the object standing and looking at the actor in a threat state while waiting.
    */
   public behWaitSimple(): void {
     const nextState: EStalkerState = EStalkerState.THREAT;
@@ -145,7 +145,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Execute the action logic on planner update.
    */
   public override execute(): void {
     super.execute();
@@ -158,7 +158,7 @@ export class ActionCompanionActivity extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Finalize the action when the planner switches away.
    */
   public override finalize(): void {
     super.finalize();
@@ -166,7 +166,10 @@ export class ActionCompanionActivity extends action_base {
 }
 
 /**
- * Todo.
+ * Select an accessible level vertex to the side of the actor for the object to move to.
+ *
+ * @param object - The game object to find an accessible assist position for.
+ * @returns The closest accessible level vertex id, or null when none is reachable.
  */
 function selectPosition(object: GameObject): Optional<TNumberId> {
   const actor: GameObject = registry.actor;

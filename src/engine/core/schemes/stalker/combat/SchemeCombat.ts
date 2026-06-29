@@ -88,7 +88,11 @@ export class SchemeCombat extends AbstractScheme {
   }
 
   /**
-   * Todo: Description.
+   * Resolve and store the scripted combat type for the object from the provided overrides condlist.
+   *
+   * @param object - Game object whose combat type is being set.
+   * @param actor - Actor used as context when resolving the combat type condlist.
+   * @param overrides - Logics or combat scheme state holding the combat type condlist, if any.
    */
   public static setCombatType(
     object: GameObject,

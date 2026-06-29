@@ -102,7 +102,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   }
 
   /**
-   * Todo: Description.
+   * Update object movement towards the squad assigned target on each planner update, throttled by a period.
    */
   public override execute(): void {
     const now: TTimestamp = time_global();
@@ -145,7 +145,10 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   }
 
   /**
-   * Todo: Description.
+   * Drive movement for the squad commander, heading towards the target and broadcasting orders to the patrol.
+   *
+   * @param squad - Squad the object commands.
+   * @param target - Simulation object the squad is reaching, if any.
    */
   public executeSquadCommander(squad: Squad, target: Optional<TSimulationObject>): void {
     if (target !== null && !this.object.is_talking()) {
@@ -183,7 +186,10 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
   }
 
   /**
-   * Todo: Description.
+   * Drive movement for a non-commander squad member, following the orders computed by the patrol manager.
+   *
+   * @param squad - Squad the object belongs to.
+   * @param target - Simulation object the squad is reaching, if any.
    */
   public executeSquadSoldier(squad: Squad, target: Optional<TSimulationObject>): void {
     const [lvi, direction, currentState] = reachTaskConfig.PATROLS.get(this.squadId).getObjectOrders(this.object);

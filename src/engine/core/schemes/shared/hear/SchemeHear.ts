@@ -62,7 +62,13 @@ export class SchemeHear extends AbstractScheme {
   }
 
   /**
-   * Todo: Description.
+   * Handle a heard sound by notifying the danger manager and switching the object scheme on a matching hear rule.
+   *
+   * @param object - Object that heard the sound.
+   * @param whoId - Identifier of the object that produced the sound.
+   * @param soundType - Type mask of the heard sound.
+   * @param soundPosition - World position where the sound originated.
+   * @param soundPower - Power of the heard sound.
    */
   public static onObjectHearSound(
     object: GameObject,

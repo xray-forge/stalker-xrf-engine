@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 
 /**
- * Todo.
+ * Evaluator checking whether scripted combat logic should take over the object's combat behaviour.
  */
 @LuabindClass()
 export class EvaluatorCheckCombat extends property_evaluator {
@@ -16,7 +16,9 @@ export class EvaluatorCheckCombat extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Evaluate whether a scripted combat type is active for the object with an enemy present, for the planner.
+   *
+   * @returns Whether scripted combat logic should be applied.
    */
   public override evaluate(): boolean {
     if (this.state.enabled && this.object.best_enemy()) {

@@ -26,7 +26,8 @@ const stateSound = 2;
 const stateFinish = 3;
 
 /**
- * Todo.
+ * Action playing the remark scheme activity for a stalker: an animation followed by an optional sound,
+ * emitting completion signals once both the animation and sound have finished.
  */
 @LuabindClass()
 export class ActionRemarkActivity extends action_base implements ISchemeEventHandler {
@@ -47,7 +48,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * Todo.
+   * Initialize the action when the planner selects it, fixing the object position and direction.
    */
   public override initialize(): void {
     super.initialize();
@@ -57,7 +58,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * Todo.
+   * Execute the action logic on planner update by advancing the remark state machine.
    */
   public override execute(): void {
     super.execute();
@@ -65,7 +66,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * Todo.
+   * Finalize the action when the planner switches away, stopping any playing tips sound.
    */
   public override finalize(): void {
     if (this.tipsSound !== null) {
@@ -76,7 +77,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * Todo.
+   * Reset the remark state machine and scheduling flags so the activity restarts from the beginning.
    */
   public activate(): void {
     this.st.signals = new LuaTable();
@@ -93,7 +94,9 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * Todo.
+   * Resolve the configured target into a look descriptor for the remark animation.
+   *
+   * @returns Look target descriptor with object id and/or position, or null when the target is not initialized.
    */
   public getTarget(): Optional<ILookTargetDescriptor> {
     const lookTargetDescriptor: ILookTargetDescriptor = {
@@ -124,7 +127,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * Todo.
+   * Handle the animation completion callback by advancing the state machine to the sound stage.
    */
   public onAnimationUpdate(): void {
     this.state = stateSound;
@@ -132,7 +135,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   }
 
   /**
-   * Todo.
+   * Advance the remark state machine, playing the animation, then the sound, and emitting completion signals.
    */
   public update(): void {
     if (this.state === stateInitial) {
@@ -182,7 +185,11 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
 }
 
 /**
- * Todo.
+ * Parse a remark target descriptor string into a position, object id and initialization flag.
+ *
+ * @param object - Game object the target is resolved for.
+ * @param targetString - Raw target field value, e.g. "story|story_id", "path|patrol,point" or "job|section,smart".
+ * @returns Resolved target position, target object id and whether the target was initialized.
  */
 export function initTarget(
   object: GameObject,
@@ -191,7 +198,10 @@ export function initTarget(
   // todo: Simplify.
 
   /**
-   * Todo.
+   * Split a target value into its two comma-separated parts.
+   *
+   * @param targetStr - Target value to split on the first comma.
+   * @returns The part before the comma and the part after it, or the whole string and null when absent.
    */
   function parseTarget(targetStr: string): LuaMultiReturn<[Optional<string>, Optional<string>]> {
     const [pos] = string.find(targetStr, ",");
@@ -206,7 +216,10 @@ export function initTarget(
   // todo: Simplify.
 
   /**
-   * Todo.
+   * Split a target value into its type and value parts around the pipe separator, aborting on malformed input.
+   *
+   * @param targetStr - Target value to split on the pipe character.
+   * @returns The target type and the target value.
    */
   function parseType(targetStr: string): LuaMultiReturn<[string, string]> {
     const [pos] = string.find(targetStr, "|");
@@ -265,7 +278,10 @@ export function initTarget(
 }
 
 /**
- * Todo.
+ * Abort with a descriptive error explaining the supported remark target field formats.
+ *
+ * @param object - Game object whose target field is invalid.
+ * @param data - Offending target field value to include in the error message.
  */
 function instruction(object: GameObject, data: string): never {
   abort(

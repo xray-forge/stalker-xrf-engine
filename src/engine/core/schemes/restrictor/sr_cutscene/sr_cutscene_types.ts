@@ -12,7 +12,7 @@ export enum EEffectorState {
 }
 
 /**
- * Todo.
+ * Enumeration of cutscene scene playback states.
  */
 export enum ESceneState {
   NONE = "",
@@ -46,6 +46,6 @@ export interface ICameraEffectorSetDescriptorItem {
 }
 
 /**
- * Todo.
+ * Descriptor mapping each effector state to its ordered list of camera effector items.
  */
 export type TCamEffectorSetDescriptor = Record<EEffectorState, LuaArray<ICameraEffectorSetDescriptorItem>>;

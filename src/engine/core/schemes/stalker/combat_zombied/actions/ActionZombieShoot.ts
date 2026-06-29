@@ -22,7 +22,8 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Action driving a zombied stalker to advance towards and shoot at its current enemy.
+ * Tracks the last seen enemy position, reacts to hits and alternates between raiding and threatening states.
  */
 @LuabindClass()
 export class ActionZombieShoot extends action_base {
@@ -52,7 +53,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Initialize the action when the planner selects it, capturing the current enemy position and resetting state.
    */
   public override initialize(): void {
     logger.info("Activate: %s", this.object.name());
@@ -79,7 +80,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Finalize the action when the planner switches away, clearing the current combat action.
    */
   public override finalize(): void {
     logger.info("Deactivate: %s", this.object.name());
@@ -89,7 +90,7 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Execute the action logic on planner update, moving towards the enemy and selecting fire or search states.
    */
   public override execute(): void {
     super.execute();
@@ -161,7 +162,11 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Apply an animation state to the object with the given look target object or position.
+   *
+   * @param state - Stalker animation state to apply.
+   * @param bestEnemy - Enemy game object to look at, if any.
+   * @param position - Position to look at when no enemy is provided.
    */
   public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
     this.targetStateDescriptor.lookObjectId = bestEnemy ? bestEnemy.id() : null;
@@ -173,7 +178,9 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Compute a random position around the object to look towards while searching for enemies.
+   *
+   * @returns Position offset from the object in a random direction.
    */
   public getRandomLookDirection(): Vector {
     const angle: TRate = math.pi * 2 * math.random();
@@ -186,7 +193,13 @@ export class ActionZombieShoot extends action_base {
   }
 
   /**
-   * Todo: Description.
+   * Handle a hit on the object, flagging a reaction and updating the last seen enemy position when hit by the enemy.
+   *
+   * @param object - Object that received the hit.
+   * @param amount - Amount of damage dealt.
+   * @param direction - Direction the hit came from.
+   * @param who - Game object that caused the hit, if any.
+   * @param boneId - Identifier of the bone that was hit.
    */
   public onHit(object: GameObject, amount: TRate, direction: Vector, who: Optional<GameObject>, boneId: TIndex): void {
     if (who === null) {

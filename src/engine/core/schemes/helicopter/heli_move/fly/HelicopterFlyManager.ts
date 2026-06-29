@@ -5,7 +5,7 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { GameObject, LuaArray, Optional, TDistance, TRate, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling helicopter flight movement towards destination points.
  */
 export class HelicopterFlyManager {
   public readonly object: GameObject;
@@ -23,7 +23,14 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * Todo: Description.
+   * Fly the helicopter towards a destination point along a desired direction and velocity.
+   *
+   * @param destPoint - Target position the helicopter should fly to.
+   * @param destDirection - Desired facing direction at the destination.
+   * @param destVelocity - Desired velocity at the destination, in km/h.
+   * @param flagToWpCallback - Whether the helicopter is already approaching the waypoint callback phase.
+   * @param flagByNullVelocity - Whether the helicopter should arrive at the destination with zero velocity.
+   * @returns Whether the waypoint callback phase has been reached.
    */
   public flyOnPointWithVector(
     destPoint: Vector,
@@ -89,7 +96,9 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * Todo: Description.
+   * Interpolate an intermediate point between the stored start and destination points.
+   *
+   * @returns Calculated intermediate point.
    */
   public calculatePoint(): Vector {
     const result: Vector = createEmptyVector();
@@ -130,7 +139,12 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * Todo: Description.
+   * Compute a Lagrange polynomial interpolation for the provided value and sample points.
+   *
+   * @param x - Value to interpolate at.
+   * @param xList - Sample input values.
+   * @param yList - Sample output values corresponding to the inputs.
+   * @returns Interpolated value at the given point.
    */
   public lagrange(x: number, xList: LuaArray<number>, yList: LuaArray<number>): TRate {
     let s: TRate = 0;
@@ -151,7 +165,7 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * Todo: Description.
+   * Adjust the helicopter maximum velocity based on distance to the destination, clamped to the configured limit.
    */
   public correctVelocity(): void {
     const helicopter: CHelicopter = this.object.get_helicopter();
@@ -169,7 +183,7 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * Todo: Description.
+   * Make the helicopter look at the configured look point when look blocking is enabled.
    */
   public lookAtPosition(): void {
     if (this.blockFlook) {
@@ -180,14 +194,18 @@ export class HelicopterFlyManager {
   }
 
   /**
-   * Todo: Description.
+   * Set whether the helicopter look direction is blocked to a fixed look point.
+   *
+   * @param isFlookBlocked - Whether the look direction should be blocked.
    */
   public setBlockFlook(isFlookBlocked: boolean): void {
     this.blockFlook = isFlookBlocked;
   }
 
   /**
-   * Todo: Description.
+   * Set the fixed point the helicopter should look at when look blocking is enabled.
+   *
+   * @param lPoint - Point to look at.
    */
   public setLookPoint(lPoint: Vector): void {
     this.pointByLook = lPoint;

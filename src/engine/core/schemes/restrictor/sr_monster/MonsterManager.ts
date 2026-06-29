@@ -24,7 +24,8 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling monster scheme behaviour for a restrictor zone.
+ * Moves a virtual sound source along a patrol path while the actor is inside the zone and spawns a monster at the end.
  */
 export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public isActorInside: Optional<boolean> = null;
@@ -138,7 +139,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * Todo: Description.
+   * Reset the patrol path and position the sound source when the actor enters the zone.
    */
   public onEnter(): void {
     this.resetPath();
@@ -146,7 +147,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * Todo: Description.
+   * Pick a patrol path from the configured path table and reset the current point to its start.
    */
   public resetPath(): void {
     this.curPoint = 0;
@@ -172,7 +173,9 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * Todo: Description.
+   * Get the index of the next point on the current patrol path, wrapping back to the start at the end.
+   *
+   * @returns Index of the next patrol point.
    */
   public getNextPoint(): TIndex {
     if (this.curPoint! + 1 < this.state.path.count()) {
@@ -183,7 +186,8 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   }
 
   /**
-   * Todo: Description.
+   * Update the current and target positions and movement direction.
+   * Spawns the monster and plays the appear sound when the path wraps.
    */
   public setPositions(): void {
     if (this.getNextPoint() === 0) {

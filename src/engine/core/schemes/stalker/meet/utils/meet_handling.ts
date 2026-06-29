@@ -14,7 +14,9 @@ import { EGameObjectRelation, EScheme, GameObject, Optional, TCount, TName } fro
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
 /**
- * Todo: Description.
+ * Enable or disable talking with the object based on its wounded state, relation to the actor and meet use flag.
+ *
+ * @param object - Game object whose talk availability is updated.
  */
 export function updateObjectMeetAvailability(object: GameObject): void {
   if (isObjectWounded(object.id())) {
@@ -56,7 +58,7 @@ export function updateObjectMeetAvailability(object: GameObject): void {
 /**
  * Handle meet interaction with object.
  *
- * Todo: Description.
+ * @param object - Game object the actor is interacting with.
  */
 export function activateMeetWithObject(object: GameObject): void {
   if (!object.alive()) {

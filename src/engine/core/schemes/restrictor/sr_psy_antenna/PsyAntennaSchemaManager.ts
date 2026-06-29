@@ -15,7 +15,7 @@ import { GameObject } from "@/engine/lib/types";
 const logger: LuaLogger = new LuaLogger($filename, { file: "psy" });
 
 /**
- * Todo.
+ * Manager handling psy antenna scheme behaviour for a restrictor zone, applying psy effects while the actor is inside.
  */
 export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAntennaState> {
   public antennaState: EAntennaState = EAntennaState.VOID;
@@ -54,7 +54,9 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * Todo: Description.
+   * Toggle the zone enter or leave handlers based on whether the actor is currently inside the zone.
+   *
+   * @param actor - Actor object whose position is checked against the zone.
    */
   public switchState(actor: GameObject): void {
     if (this.antennaState !== EAntennaState.INSIDE) {
@@ -69,7 +71,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * Todo: Description.
+   * Apply the psy antenna effects to the shared antenna manager and register post-process effectors on zone enter.
    */
   public onZoneEnter(): void {
     logger.info("Enter psy antenna zone");
@@ -113,7 +115,7 @@ export class PsyAntennaSchemaManager extends AbstractSchemeManager<ISchemePsyAnt
   }
 
   /**
-   * Todo: Description.
+   * Roll back the psy antenna effects applied to the shared antenna manager on zone leave.
    */
   public onZoneLeave(): void {
     logger.info("Leave psy antenna zone");

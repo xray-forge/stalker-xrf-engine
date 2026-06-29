@@ -24,7 +24,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Mapping of a movement state to its accelerated counterpart used when patrol members fall behind.
  */
 const accelerationByCurrentType: LuaTable<EStalkerState, EStalkerState> = $fromObject<EStalkerState, EStalkerState>({
   [EStalkerState.WALK]: EStalkerState.RUN,
@@ -35,7 +35,8 @@ const accelerationByCurrentType: LuaTable<EStalkerState, EStalkerState> = $fromO
 } as Record<EStalkerState, EStalkerState>);
 
 /**
- * Todo.
+ * Manager coordinating squad members moving together as a patrol towards a reach task target.
+ * Tracks formation, commander and per-object positions/orders.
  */
 export class ReachTaskPatrolManager {
   public objectsList: LuaTable<
@@ -56,7 +57,9 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Register an object as a member of the patrol and recalculate formation positions.
+   *
+   * @param object - Game object to add to the patrol.
    */
   public addObjectToPatrol(object: GameObject): void {
     if (!object.alive() || this.objectsList.has(object.id())) {
@@ -78,7 +81,9 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Remove an object from the patrol and reset positions if it was the commander.
+   *
+   * @param object - Game object to remove from the patrol.
    */
   public removeObjectFromPatrol(object: GameObject): void {
     logger.info("Remove object from patrol: %s %s", object.name(), this.targetId);
@@ -97,7 +102,7 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Recalculate each non-commander member direction and distance from the current formation template.
    */
   public resetPositions(): void {
     const form_ = reachTaskConfig.FORMATIONS[this.formation as "back"];
@@ -128,7 +133,9 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Set the patrol formation, validating the provided value, and recalculate positions.
+   *
+   * @param formation - Patrol formation to apply.
    */
   public setFormation(formation: EPatrolFormation): void {
     if (formation === null) {
@@ -144,7 +151,10 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Resolve the patrol commander game object for the provided member.
+   *
+   * @param object - Patrol member requesting its commander.
+   * @returns Game object that is the commander of the patrol.
    */
   public getCommander(object: GameObject): GameObject {
     if (object === null) {
@@ -169,7 +179,10 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Compute movement orders for a patrol member relative to the commander position and formation.
+   *
+   * @param object - Patrol member to compute orders for.
+   * @returns Target level vertex id, desired direction and movement state to apply.
    */
   public getObjectOrders(object: GameObject): LuaMultiReturn<[TNumberId, Vector, Optional<EStalkerState>]> {
     if (object === null) {
@@ -237,7 +250,11 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Apply the commander current movement state and formation to the patrol shared orders.
+   *
+   * @param object - Game object issuing the orders, must be the patrol commander.
+   * @param command - Movement state to broadcast to the patrol.
+   * @param formation - Patrol formation to apply.
    */
   public setObjectOrders(object: GameObject, command: EStalkerState, formation: EPatrolFormation): void {
     if (object === null || !object.alive()) {
@@ -260,7 +277,10 @@ export class ReachTaskPatrolManager {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the provided object id is the patrol commander.
+   *
+   * @param objectId - Identifier of the object to check.
+   * @returns Whether the object is the patrol commander.
    */
   public isCommander(objectId: TNumberId): boolean {
     return objectId === this.commanderId;

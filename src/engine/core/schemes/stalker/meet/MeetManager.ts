@@ -47,7 +47,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public isByePassed: boolean = false;
 
   /**
-   * Todo: Description.
+   * Initialize the meet state from the current distance and visibility of the actor.
    */
   public initialize(): void {
     const actor: Optional<GameObject> = registry.actor;
@@ -128,7 +128,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   }
 
   /**
-   * Todo: Description.
+   * Update the meet state on each game tick, handling greetings, dialog, interaction tips, abuse and trading.
    */
   public update(): void {
     const actor: GameObject = registry.actor;

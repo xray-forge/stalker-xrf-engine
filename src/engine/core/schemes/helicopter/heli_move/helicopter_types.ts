@@ -34,7 +34,7 @@ export enum EHelicopterCombatType {
 }
 
 /**
- * Todo.
+ * Enumeration of helicopter fly-by combat sub-states.
  */
 export enum EHelicopterFlyByState {
   TO_ATTACK_DIST = 0,

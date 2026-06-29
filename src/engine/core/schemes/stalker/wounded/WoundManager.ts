@@ -82,7 +82,7 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
   }
 
   /**
-   * Todo: Description.
+   * Make the wounded object eat and consume one medkit from its inventory and thank the healer if recently wounded.
    */
   public useMedkit(): void {
     if (this.canUseMedkit) {

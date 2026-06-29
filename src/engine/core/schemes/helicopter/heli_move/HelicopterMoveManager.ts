@@ -190,7 +190,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   /**
-   * Todo: Description.
+   * Advance the helicopter along its patrol move path, flying to the next waypoint or stop point.
    */
   public updateMovementState(): void {
     this.isHelicopterMoving = true;

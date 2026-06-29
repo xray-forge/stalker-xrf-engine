@@ -5,8 +5,8 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { GameObject } from "@/engine/lib/types";
 
 /**
- * Todo;
- * todo: Also unregister on deactivate?
+ * Manager handling light scheme behaviour for a restrictor zone, registering it as a light zone for stalker checks.
+ * Todo: Also unregister on deactivate?
  */
 export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   public active: boolean = false;
@@ -25,7 +25,10 @@ export class LightManager extends AbstractSchemeManager<ISchemeLightState> {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the given object is inside the active light zone and report the configured light state.
+   *
+   * @param object - Object whose position is checked against the zone.
+   * @returns Pair of the configured light flag and whether the object is inside an active zone.
    */
   public checkStalker(object: GameObject): LuaMultiReturn<[boolean, boolean]> {
     if (!this.active) {

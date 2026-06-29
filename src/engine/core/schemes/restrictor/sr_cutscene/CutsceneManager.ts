@@ -21,7 +21,8 @@ import { AnyCallablesModule, GameObject, Optional, TName, TNumberId } from "@/en
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Manager handling cutscene scheme behaviour for a restrictor zone.
+ * Teleports the actor and plays a sequence of camera effectors.
  */
 export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState> {
   public isUiDisabled: boolean = false;
@@ -54,7 +55,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   }
 
   /**
-   * Todo: Description.
+   * Start the cutscene on zone enter, teleporting the actor, disabling game UI and selecting the first camera motion.
    */
   public onZoneEnter(): void {
     logger.info("Zone enter: %s", this.object.name());
@@ -88,7 +89,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   }
 
   /**
-   * Todo.
+   * Build the camera effector set for the next configured motion and start its first effect.
    */
   public selectNextMotion(): void {
     logger.info("Select next cutscene motion");

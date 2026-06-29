@@ -10,7 +10,8 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { Color, GameObject, Hit, Noise, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling post-process scheme behaviour for a restrictor zone.
+ * Ramps a gray/noise effect and radiation/shock hits while the actor is inside.
  */
 export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcessState> {
   public isActorInside: boolean = false;
@@ -105,7 +106,9 @@ export class PostProcessManager extends AbstractSchemeManager<ISchemePostProcess
   }
 
   /**
-   * Todo: Description.
+   * Accumulate hit power while the actor is inside and apply radiation and shock hits to the actor once per second.
+   *
+   * @param delta - Time passed since the previous update, in milliseconds.
    */
   public updateHit(delta: number): void {
     if (!this.isActorInside) {

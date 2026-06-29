@@ -4,7 +4,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { TCount } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling idle scheme behaviour for an object, only switching to another section when conditions allow.
  */
 export class IdleManager extends AbstractSchemeManager<ISchemeIdleState> {
   public override activate(): void {

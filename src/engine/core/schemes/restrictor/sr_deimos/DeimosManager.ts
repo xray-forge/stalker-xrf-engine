@@ -13,7 +13,8 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { AnyObject, GameObject, Optional, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling deimos scheme behaviour for a restrictor zone.
+ * Drives intensity-based post-process, camera and sound effects on the actor.
  */
 export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   public phase: TIndex = 0;

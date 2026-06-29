@@ -6,7 +6,7 @@ import { isActiveSection } from "@/engine/core/utils/scheme";
 import { ActionPlanner, Optional, TTimestamp } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Evaluator checking whether the camper object should engage in close combat instead of campering.
  */
 @LuabindClass()
 export class EvaluatorCloseCombat extends property_evaluator {
@@ -20,7 +20,9 @@ export class EvaluatorCloseCombat extends property_evaluator {
   }
 
   /**
-   * Todo: Description.
+   * Evaluate whether the object is in close combat with its enemy for the planner.
+   *
+   * @returns Whether the object should switch to close combat behaviour.
    */
   public override evaluate(): boolean {
     if (!isActiveSection(this.object, this.state.section)) {

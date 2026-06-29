@@ -83,7 +83,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   }
 
   /**
-   * Todo: Description.
+   * Reset the sleeper state, building walk and look patrols from the main path and starting the patrol manager.
    */
   public reset(): void {
     this.timer = {
@@ -140,7 +140,9 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   }
 
   /**
-   * Todo: Description.
+   * Handle reaching the end of the patrol by putting the object into a sitting or sleeping state.
+   *
+   * @returns Whether the patrol point has been handled.
    */
   public onPatrolCallback(): boolean {
     this.sleepingState = ESleeperState.SLEEPING;

@@ -13,11 +13,17 @@ import { EGameObjectRelation, GameObject, Optional, TNumberId, TRate, TSoundType
  */
 export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
   /**
-   * Based on hearing enemies or different events turn on danger state.
+   * Enter the danger state when the object hears hostile weapon sounds within reaction range.
+   *
    * Todo: Warn squad?
    * Todo: If hear sound and already in danger just extend it?
-   * Todo: Adjust sound power to ignore silencers or weak sounds
-   * todo: Description.
+   * Todo: Adjust sound power to ignore silencers or weak sounds.
+   *
+   * @param object - Game object that heard the sound.
+   * @param whoId - Identifier of the object that produced the sound.
+   * @param soundType - Type of the sound that was heard.
+   * @param soundPosition - World position the sound originated from.
+   * @param soundPower - Power of the heard sound.
    */
   public onHear(
     object: GameObject,

@@ -23,7 +23,7 @@ import {
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
- * Todo.
+ * Manager handling physical door scheme behaviour for an object.
  */
 export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDoorState> {
   public isInitialized: boolean = false;
@@ -93,7 +93,9 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * Todo: Description.
+   * Handle the fastcall tick while the door is closing and finalize closing once the door reaches the closed position.
+   *
+   * @returns Whether the door has reached the closed position and the fastcall should stop.
    */
   public fastcall(): boolean {
     if (!this.isInitialized) {
@@ -111,7 +113,9 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * Todo: Description.
+   * Check whether the door joint angle is at its lower limit.
+   *
+   * @returns Whether the door is currently closed.
    */
   public isClosed(): boolean {
     const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
@@ -120,7 +124,9 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * Todo: Description.
+   * Check whether the door joint angle is at its upper limit.
+   *
+   * @returns Whether the door is currently open.
    */
   public isOpen(): boolean {
     const angle: TRate = this.state.slider ? -this.joint!.get_axis_angle(0) : this.joint!.get_axis_angle(90);
@@ -129,7 +135,9 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * Todo: Description.
+   * Handle the fastcall tick while the door is opening and finalize opening once the door reaches the open position.
+   *
+   * @returns Whether the door has reached the open position and the fastcall should stop.
    */
   public openFastcall(): boolean {
     if (!this.isInitialized) {
@@ -147,7 +155,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * Todo: Description.
+   * Apply the joint force that holds the door shut, fix the door element and play the close-stop sound.
    */
   public closeAction(): void {
     if (this.state.noForce) {
@@ -175,7 +183,9 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * Todo: Description.
+   * Open the door by releasing its fixed element, applying the opening joint force and showing the close tip.
+   *
+   * @param disableSound - Whether to suppress the open-start sound.
    */
   public openDoor(disableSound?: boolean): void {
     logger.info("Open door: %s %s", this.object.name(), this.state.section);
@@ -216,7 +226,9 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   }
 
   /**
-   * Todo: Description.
+   * Close the door by applying the closing joint force, marking it as blocked and showing the unlock or open tip.
+   *
+   * @param disableSound - Whether to suppress the close-start sound.
    */
   public closeDoor(disableSound: boolean): void {
     logger.info("Close door: %s %s", this.object.name(), this.state.section);

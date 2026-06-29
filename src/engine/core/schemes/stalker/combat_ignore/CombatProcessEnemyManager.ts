@@ -10,11 +10,15 @@ import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager deciding whether an object should accept a potential enemy when the combat ignore scheme is active.
  */
 export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeCombatIgnoreState> {
   /**
-   * Todo: Description.
+   * Decide whether the object may treat the given object as an enemy, raising smart terrain alarms when it can.
+   *
+   * @param object - Game object evaluating the potential enemy.
+   * @param enemy - Game object considered as an enemy.
+   * @returns Whether the enemy may be selected for combat.
    */
   public onObjectEnemy(object: GameObject, enemy: GameObject): boolean {
     if (enemy.id() === ACTOR_ID) {
@@ -53,7 +57,13 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
   }
 
   /**
-   * Todo: Description.
+   * Disable combat ignore when the object is hit by the actor unless overrides keep it active.
+   *
+   * @param object - Game object that was hit.
+   * @param amount - Amount of damage dealt by the hit.
+   * @param direction - Direction the hit came from.
+   * @param who - Game object that caused the hit.
+   * @param boneId - Identifier of the bone that was hit.
    */
   public override onHit(
     object: GameObject,

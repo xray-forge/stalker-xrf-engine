@@ -2,7 +2,7 @@ import type { TConditionList } from "@/engine/core/utils/ini";
 import type { Optional, TDistance, TName, TRate } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * State of the hear scheme.
  */
 export interface IActionSchemeHearState {
   [index: TName]: {

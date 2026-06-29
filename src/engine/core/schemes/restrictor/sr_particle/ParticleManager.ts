@@ -13,8 +13,9 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TName, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
- * Todo;
- * todo: Should be table insert + ipairs where possible instead of $range loops.
+ * Manager handling particle scheme behaviour for a restrictor zone.
+ * Plays particle effects in simple or complex (path-based) mode.
+ * Todo: Should be table insert + ipairs where possible instead of $range loops.
  */
 export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState> {
   public nextUpdateAt: TTimestamp = 0;

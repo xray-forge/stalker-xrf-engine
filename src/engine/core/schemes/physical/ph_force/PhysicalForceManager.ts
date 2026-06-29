@@ -6,7 +6,7 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_swi
 import { Vector } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling physical force scheme behaviour for an object.
  */
 export class PhysicalForceManager extends AbstractSchemeManager<ISchemePhysicalForceState> {
   public time: number = 0;

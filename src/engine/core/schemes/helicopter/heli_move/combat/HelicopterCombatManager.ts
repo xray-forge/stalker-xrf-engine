@@ -37,7 +37,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Manager handling helicopter combat behaviour, switching between fly-by, round, search and retreat tactics.
  */
 export class HelicopterCombatManager {
   public readonly object: GameObject;
@@ -133,7 +133,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Initialize combat state for the current enemy and start with the fly-by combat type.
    */
   public initialize(): void {
     this.enemyLastSeenPos = copyVector(this.enemy!.position());
@@ -156,7 +156,9 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Save the combat manager state into the network packet.
+   *
+   * @param packet - Network packet to write the combat state into.
    */
   public save(packet: NetPacket): void {
     openSaveMarker(packet, HelicopterCombatManager.name);
@@ -195,7 +197,9 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Load the combat manager state from the network reader.
+   *
+   * @param reader - Network reader to read the combat state from.
    */
   public load(reader: NetReader): void {
     openLoadMarker(reader, HelicopterCombatManager.name);
@@ -230,7 +234,9 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Check whether combat should be ignored based on the configured combat-ignore condition list.
+   *
+   * @returns Whether the helicopter should currently ignore combat.
    */
   public shouldCombatIgnore(): boolean {
     return (
@@ -239,7 +245,9 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Switch to a new combat type, resetting the per-type initialization flags when it changes.
+   *
+   * @param newCombatType - Combat type to switch the helicopter to.
    */
   public setCombatType(newCombatType: EHelicopterCombatType): void {
     if (newCombatType !== this.combatType) {
@@ -252,7 +260,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Apply weapon and velocity settings to the helicopter when the active section has changed.
    */
   public updateCustomDataSettings(): void {
     if (this.isSectionChanged) {
@@ -268,7 +276,9 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Update last-seen enemy position and time when visibility passes the threshold.
+   *
+   * @returns Whether the enemy is currently considered visible.
    */
   public updateEnemyVisibility(): boolean {
     if (this.visibility >= this.visibilityThreshold) {
@@ -282,7 +292,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Clear the current enemy and reset the combat manager to an uninitialized state.
    */
   public forgetEnemy(): void {
     this.isInitialized = false;
@@ -291,7 +301,7 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Forget the enemy when it has been out of sight past the forget timeout or is no longer alive.
    */
   public updateForgetting(): void {
     if (
@@ -303,7 +313,10 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Determine the combat type to use based on the current type, enemy visibility and helicopter health.
+   *
+   * @param seeEnemy - Whether the enemy is currently visible.
+   * @returns Combat type the helicopter should use.
    */
   public getCombatType(seeEnemy?: boolean): EHelicopterCombatType {
     let combatType: EHelicopterCombatType = this.combatType;
@@ -348,7 +361,9 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Accumulate or decay enemy visibility on the engine fast-call tick while combat is initialized.
+   *
+   * @returns Whether the fast-call should be removed because combat is no longer initialized.
    */
   public fastcall(): boolean {
     if (this.isInitialized) {
@@ -379,7 +394,9 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Update combat on each game tick, resolving the enemy and dispatching to the active combat type handler.
+   *
+   * @returns Whether combat is actively being handled this tick.
    */
   public update(): boolean {
     if (this.enemyId) {
@@ -432,7 +449,10 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Calculate a flight target position around the last seen enemy position at the given radius and safe altitude.
+   *
+   * @param radius - Radius around the enemy position to compute the target for.
+   * @returns Target position at the safe altitude.
    */
   public calculatePositionInRadius(radius: TDistance): Vector {
     const position: Vector = this.object.position();
@@ -452,7 +472,9 @@ export class HelicopterCombatManager {
   }
 
   /**
-   * Todo: Description.
+   * Handle a flight waypoint callback, marking that a callback occurred while combat is active.
+   *
+   * @returns Whether the waypoint callback was handled by combat.
    */
   public onWaypoint(): boolean {
     if (this.enemyId && !this.shouldCombatIgnore()) {
