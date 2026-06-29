@@ -627,7 +627,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * Todo: Description.
+   * Re-link arriving objects and job descriptors to their server objects after the save game has been loaded.
    */
   public initializeObjectsAfterLoad(): void {
     logger.info("Initialize objects after load: %s", this.name());
@@ -713,7 +713,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * Todo: Description.
+   * Check whether the smart terrain can currently participate in the simulation as a target.
+   *
+   * @returns Whether the configured condition list allows simulation and the terrain is not under alarm control.
    */
   public isSimulationAvailable(): boolean {
     if (pickSectionFromCondList(registry.actor, this, this.isSimulationAvailableConditionList) !== TRUE) {
@@ -789,14 +791,19 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * Todo: Description.
+   * Get the alife task used to direct squads to travel to this smart terrain.
+   *
+   * @returns Alife smart terrain task representing this terrain as a simulation target.
    */
   public getSimulationTask(): CALifeSmartTerrainTask {
     return this.smartTerrainAlifeTask;
   }
 
   /**
-   * Todo: Description.
+   * Check whether a squad is close enough to the smart terrain to be considered as having arrived.
+   *
+   * @param squad - Squad whose distance to the terrain is being evaluated.
+   * @returns Whether the squad is on the same level and within the arrival distance of the terrain.
    */
   public isReachedBySimulationObject(squad: Squad): boolean {
     if (!areObjectsOnSameLevel(squad, this)) {
@@ -814,7 +821,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * Todo: Description.
+   * Handle selection of the terrain as a simulation target by a squad, resetting members and assigning the squad to it.
+   *
+   * @param squad - Squad that selected this terrain as its simulation target.
    */
   public onSimulationTargetSelected(squad: Squad): void {
     squad.setLocationTypes(this.name());
@@ -827,7 +836,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   }
 
   /**
-   * Todo: Description.
+   * Handle deselection of the terrain as a simulation target, re-setting up simulation roles for the squad members.
+   *
+   * @param squad - Squad that stopped targeting this terrain.
    */
   public onSimulationTargetDeselected(squad: Squad): void {
     for (const squadMember of squad.squad_members()) {

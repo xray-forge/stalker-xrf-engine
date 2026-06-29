@@ -6,7 +6,9 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { ActionPlanner, GameObject, Optional } from "@/engine/lib/types";
 
 /**
- * Todo: Description.
+ * Update active logic of a stalker object, handling combat overrides and switching to another scheme section.
+ *
+ * @param object - Game object to update logic for.
  */
 export function updateStalkerLogic(object: GameObject): void {
   const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());

@@ -70,7 +70,10 @@ export function getObjectActiveWeaponSlot(object: GameObject): TIndex {
 }
 
 /**
- * Todo.
+ * Get the weapon action matching the provided animation state.
+ *
+ * @param targetState - Animation state to get the weapon action for.
+ * @returns Weapon action to use for the animation state.
  */
 export function getWeaponActionForAnimationState(targetState: EStalkerState): TXR_object_action {
   const stateDescriptor: IStateDescriptor = states.get(targetState);

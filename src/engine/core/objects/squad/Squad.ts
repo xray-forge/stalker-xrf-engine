@@ -184,7 +184,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo: Description.
+   * Update squad action when no scripted target is set, using generic priority-based simulation targeting.
    */
   public updateCurrentGenericAction(): void {
     const helpTargetId: Optional<TNumberId> = getSquadHelpActorTargetId(this);
@@ -236,7 +236,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo.
+   * Update squad action to follow a scripted target, selecting a new action when the current one finishes or differs.
+   *
+   * @param scriptTarget - ID of the scripted simulation target the squad should head to.
    */
   public updateCurrentScriptedAction(scriptTarget: TNumberId): void {
     let isNewActionNeeded: boolean = false;
@@ -351,7 +353,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo: Description.
+   * Resolve the alife smart terrain task for the squad, preferring the commander job task when assigned to a terrain.
+   *
+   * @returns Smart terrain task the squad should currently execute.
    */
   public override get_current_task(): CALifeSmartTerrainTask {
     const target: Optional<TSimulationObject> =
@@ -416,11 +420,14 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo: Description.
-   * Todo: has side effect.
+   * Check whether the squad reached its currently assigned terrain target and advance to the next target in the list.
+   *
+   * Todo: Has side effect.
    *
    * Check if currently assigned target is assigned as smart terrain.
    * If yes, switch to next smart terrain target in the list.
+   *
+   * @returns Whether the squad is on the assigned terrain target and a next target exists.
    */
   public isOnAssignedTarget(): boolean {
     if (this.parsedTargets === null) {
@@ -461,7 +468,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo: Description.
+   * Select and initialize a new squad action, staying on the target if reached or moving to reach it otherwise.
+   *
+   * @param isUnderSimulation - Whether the new action is initialized while the squad is under simulation.
    */
   public selectNewAction(isUnderSimulation: boolean): void {
     const squadTarget: Optional<TSimulationObject> = registry.simulator.object<TSimulationObject>(
@@ -495,7 +504,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo: Description.
+   * Move a squad member from its old smart terrain registration to the newly assigned terrain.
+   *
+   * @param memberId - ID of the squad member object to reassign.
+   * @param terrain - Smart terrain to register the member in, or null to leave it unregistered.
+   * @param oldTerrainId - ID of the terrain the member was previously registered in, if any.
    */
   public assignMemberToTerrain(
     memberId: TNumberId,
@@ -526,7 +539,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo: Description.
+   * Assign the squad and all of its members to a smart terrain, updating the previous terrain registration.
+   *
+   * @param terrain - Smart terrain to assign the squad to, or null to clear the assignment.
    */
   public assignToTerrain(terrain: Optional<SmartTerrain>): void {
     const oldTerrainId: TNumberId = this.assignedTerrainId!;
@@ -539,7 +554,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo: Description.
+   * Add a location type to the squad from the first line of the provided masks section, if the section exists.
+   *
+   * @param section - Smart terrain masks section to read the location type from.
    */
   public setLocationTypesMaskFromSection(section: TSection): void {
     if (SMART_TERRAIN_MASKS_LTX.section_exist(section)) {
@@ -550,7 +567,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   }
 
   /**
-   * Todo: Description.
+   * Reset and recompute the squad location type masks based on its assigned target terrain or all simulation terrains.
+   *
+   * @param newLocationSection - Optional extra masks section to apply when targeting a smart terrain.
    */
   public setLocationTypes(newLocationSection?: TSection): void {
     this.clear_location_types();

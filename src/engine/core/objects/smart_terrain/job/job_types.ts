@@ -17,7 +17,7 @@ import {
 } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * List of ini fields describing patrol paths and points used to define smart terrain jobs.
  */
 export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main", "path_home", "center_point"]);
 

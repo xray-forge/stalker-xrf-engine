@@ -249,7 +249,10 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
   let index: TIndex = 1;
 
   /**
-   * Todo.
+   * Scan section lines matching the condition prefix and append parsed condition logic to the list.
+   *
+   * @param func - Reader function parsing a matching line into base scheme logic descriptor.
+   * @param cond - Condition prefix to match section keys against.
    */
   function addConditions(
     func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,

@@ -12,7 +12,7 @@ export interface IWaypointData {
   b?: string;
   r?: string;
   /**
-   * Todo.
+   * Return value passed to the patrol callback when reaching the waypoint.
    */
   ret: Optional<string>;
   /**
@@ -49,7 +49,7 @@ export interface IWaypointData {
 }
 
 /**
- * Todo.
+ * Descriptor describing amount of objects to spawn and probability of the spawn.
  */
 export interface ISpawnDescriptor {
   count: TCount;
@@ -69,7 +69,7 @@ export interface IConfigCondition {
 }
 
 /**
- * Todo.
+ * Descriptor describing single switch condition with section to activate and info portions to check and set.
  */
 export interface IConfigSwitchCondition {
   readonly section: TSection;

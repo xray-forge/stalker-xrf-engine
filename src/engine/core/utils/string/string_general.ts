@@ -1,7 +1,6 @@
 /**
  * Trim provided string, remove spaces from start and end.
- * Todo: Description.
- * Todo: use from lua extensions string.trim.
+ * Todo: Use from lua extensions string.trim.
  *
  * @param target - String to trim.
  * @returns Trimmed string.

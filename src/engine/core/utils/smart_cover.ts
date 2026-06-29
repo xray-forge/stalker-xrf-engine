@@ -3,7 +3,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GameObject, LuaArray, TName, TTimestamp } from "@/engine/lib/types";
 
 /**
- * Todo.
+ * Mapping of smart cover animation names to their fire queue parameters (count, interval, aim time).
  */
 const stateQueueParameters: LuaTable<TName, LuaArray<number>> = $fromObject<TName, LuaArray<number>>({
   barricade_0_attack: $fromArray([5, 300, 0]),
@@ -17,7 +17,11 @@ const stateQueueParameters: LuaTable<TName, LuaArray<number>> = $fromObject<TNam
 });
 
 /**
- * Todo.
+ * Get the fire queue parameters for an object in a smart cover state, adjusting weapon aim time as needed.
+ *
+ * @param object - Game object to get the queue parameters for.
+ * @param descriptor - State descriptor providing the active animation name.
+ * @returns Queue size and shooting interval for the current smart cover animation.
  */
 export function getObjectSmartCoverStateQueueParams(
   object: GameObject,

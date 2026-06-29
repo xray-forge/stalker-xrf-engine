@@ -56,7 +56,7 @@ export class SmartTerrainControl {
   }
 
   /**
-   * Todo: Description.
+   * Update the control state, ending the alarm once its base duration has elapsed and refreshing the danger status.
    */
   public update(): void {
     if (this.status === ESmartTerrainStatus.ALARM) {
@@ -92,7 +92,9 @@ export class SmartTerrainControl {
   }
 
   /**
-   * Todo: Description.
+   * Check whether the actor is inside the no-weapon zone with an active weapon, marking the terrain as active.
+   *
+   * @returns Whether the actor stands inside the no-weapon zone while holding a weapon.
    */
   public getActorStatus(): boolean {
     const zoneObject: GameObject = registry.zones.get(this.noWeaponZone);
