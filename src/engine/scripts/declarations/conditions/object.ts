@@ -1043,7 +1043,7 @@ extern("xr_conditions.burer_gravi_attack", (_: GameObject, object: GameObject): 
  * Check if burer uses anti-aim force.
  */
 extern("xr_conditions.burer_anti_aim", (_: GameObject, object: GameObject): boolean => {
-  return object.burer_get_force_anti_aim();
+  return object.get_force_anti_aim();
 });
 
 /**

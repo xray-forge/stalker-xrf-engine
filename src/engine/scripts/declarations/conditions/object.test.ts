@@ -1148,10 +1148,10 @@ describe("object conditions implementation", () => {
   it("burer_anti_aim should check burer anti aim", () => {
     const object: GameObject = MockGameObject.mock();
 
-    jest.spyOn(object, "burer_get_force_anti_aim").mockImplementation(() => true);
+    jest.spyOn(object, "get_force_anti_aim").mockImplementation(() => true);
     expect(callXrCondition("burer_anti_aim", MockGameObject.mockActor(), object)).toBe(true);
 
-    jest.spyOn(object, "burer_get_force_anti_aim").mockImplementation(() => false);
+    jest.spyOn(object, "get_force_anti_aim").mockImplementation(() => false);
     expect(callXrCondition("burer_anti_aim", MockGameObject.mockActor(), object)).toBe(false);
   });
 

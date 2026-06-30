@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
+import { CGameTask } from "xray16";
 
-import { AnyObject, GameTask, Optional, TTaskState } from "@/engine/lib/types";
+import { AnyObject, GameTask, Optional, TCount, TIndex, TTaskState } from "@/engine/lib/types";
 
 /**
  * Mock x-ray task object.
@@ -16,6 +17,7 @@ export class MockCGameTask implements GameTask {
   public iconName: string = "test_icon";
   public id: string = "test_id";
   public state: TTaskState = 1;
+  public def_ml_enabled: boolean = false;
 
   public add_complete_func = jest.fn((): void => {});
 
@@ -102,6 +104,38 @@ export class MockCGameTask implements GameTask {
   });
 
   public create_map_location = jest.fn((): string => {
+    throw new Error("Method not implemented.");
+  });
+
+  public load = jest.fn((): void => {
+    throw new Error("Method not implemented.");
+  });
+
+  public add_objective = jest.fn((): void => {
+    throw new Error("Method not implemented.");
+  });
+
+  public get_objective = jest.fn((): CGameTask => {
+    throw new Error("Method not implemented.");
+  });
+
+  public get_objectives_cnt = jest.fn((): TCount => {
+    throw new Error("Method not implemented.");
+  });
+
+  public get_idx = jest.fn((): TIndex => {
+    throw new Error("Method not implemented.");
+  });
+
+  public set_article_id = jest.fn((): void => {
+    throw new Error("Method not implemented.");
+  });
+
+  public set_article_key = jest.fn((): void => {
+    throw new Error("Method not implemented.");
+  });
+
+  public set_object_id = jest.fn((): void => {
     throw new Error("Method not implemented.");
   });
 }

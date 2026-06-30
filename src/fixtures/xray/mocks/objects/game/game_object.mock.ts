@@ -768,7 +768,7 @@ export class MockGameObject {
 
   public is_door_blocked_by_npc = jest.fn(() => false);
 
-  public burer_get_force_anti_aim = jest.fn(() => false);
+  public get_force_anti_aim = jest.fn(() => false);
 
   public burer_get_force_gravi_attack = jest.fn(() => false);
 

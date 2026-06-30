@@ -6,7 +6,7 @@ import { jobPreconditionExclusive } from "@/engine/core/objects/smart_terrain/jo
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { IniFile } from "@/engine/lib/types";
-import { MockIniFile } from "@/fixtures/xray";
+import { MockFileStatus, MockIniFile } from "@/fixtures/xray";
 
 describe("createExclusiveJob util", () => {
   it("should correctly handle empty ini", () => {
@@ -22,7 +22,7 @@ describe("createExclusiveJob util", () => {
       },
     });
 
-    jest.spyOn(getFS(), "exist").mockImplementation(() => 0);
+    jest.spyOn(getFS(), "exist").mockImplementation(() => null);
     expect(() => createExclusiveJob(ini, "smart_terrain", "work1", new LuaTable())).toThrow();
   });
 
@@ -37,7 +37,7 @@ describe("createExclusiveJob util", () => {
 
     MockIniFile.registerIni(jobIni);
 
-    jest.spyOn(getFS(), "exist").mockImplementation(() => 1);
+    jest.spyOn(getFS(), "exist").mockImplementation(() => MockFileStatus.mock());
 
     expect(() => createExclusiveJob(ini, "smart_terrain", "work1", list)).not.toThrow();
     expect(list).toEqualLuaArrays([
@@ -73,7 +73,7 @@ describe("createExclusiveJob util", () => {
 
     MockIniFile.registerIni(jobIni);
 
-    jest.spyOn(getFS(), "exist").mockImplementation(() => 1);
+    jest.spyOn(getFS(), "exist").mockImplementation(() => MockFileStatus.mock());
     createExclusiveJob(ini, "smart_terrain", "work2", list);
 
     expect(list).toEqualLuaArrays([
@@ -110,7 +110,7 @@ describe("createExclusiveJob util", () => {
 
     MockIniFile.registerIni(jobIni);
 
-    jest.spyOn(getFS(), "exist").mockImplementation(() => 1);
+    jest.spyOn(getFS(), "exist").mockImplementation(() => MockFileStatus.mock());
     createExclusiveJob(ini, "smart_terrain", "work2", list);
 
     expect(list).toEqualLuaArrays([

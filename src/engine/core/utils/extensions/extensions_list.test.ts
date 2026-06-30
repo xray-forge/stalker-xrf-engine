@@ -2,6 +2,7 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { FS, getFS } from "xray16";
 
 import { getAvailableExtensions } from "@/engine/core/utils/extensions/extensions_list";
+import { MockFileStatus } from "@/fixtures/xray";
 
 jest.mock("extensions.a.main", () => ({ name: "custom name", register: () => {} }), { virtual: true });
 jest.mock("extensions.b.main", () => ({}), { virtual: true });
@@ -15,7 +16,7 @@ describe("getAvailableExtensions util", () => {
     expect(getAvailableExtensions()).toEqualLuaTables({});
     expect(getFS().exist).toHaveBeenCalledWith("$game_data$", "extensions", FS.FS_ListFolders);
 
-    jest.spyOn(getFS(), "exist").mockImplementation(() => 1);
+    jest.spyOn(getFS(), "exist").mockImplementation(() => MockFileStatus.mock());
     jest.spyOn(lfs, "attributes").mockImplementation(() => new LuaTable());
     jest.spyOn(lfs, "dir").mockImplementation(() => {
       const items = ["a", "b", "c", "d"];
