@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import type { CHelicopter } from "xray16";
+import { type CHelicopter } from "xray16";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
@@ -20,6 +20,7 @@ import {
   TRate,
   TSection,
   TSightType,
+  TTimestamp,
   Vector,
 } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua";
@@ -295,6 +296,8 @@ export class MockGameObject {
 
   public apply_loophole_direction_distance = jest.fn();
 
+  public aim_time = jest.fn((_weapon: GameObject, _aimTime?: TTimestamp) => 300);
+
   public best_enemy = jest.fn(() => null);
 
   public best_danger = jest.fn(() => null);
@@ -480,6 +483,8 @@ export class MockGameObject {
   public is_talk_enabled = jest.fn(() => false);
 
   public is_there_items_to_pickup = jest.fn(() => false);
+
+  public is_weapon_going_to_be_strapped = jest.fn(() => false);
 
   public jump = jest.fn();
 
