@@ -4,7 +4,7 @@ import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpo
 import { getObjectTerrain } from "@/engine/core/utils/position";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { GameObject, LuaArray, Optional, TName } from "@/engine/lib/types";
+import { GameObject, LuaArray, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Predicate allowing the animpoint action unconditionally.
@@ -78,7 +78,7 @@ function animpointPredicateEnergy(object: GameObject): boolean {
  * @param isInCamp - Whether the object is currently in a camp.
  * @returns Whether guitar animation can be used.
  */
-function animpointPredicateGuitar(object: GameObject, isInCamp?: Optional<boolean>): boolean {
+function animpointPredicateGuitar(object: GameObject, isInCamp?: Nillable<boolean>): boolean {
   if (isInCamp && object.object(misc.guitar_a)) {
     return true;
   }
@@ -93,7 +93,7 @@ function animpointPredicateGuitar(object: GameObject, isInCamp?: Optional<boolea
  * @param isInCamp - Whether the object is currently in a camp.
  * @returns Whether harmonica animation can be used.
  */
-function animpointPredicateHarmonica(object: GameObject, isInCamp?: Optional<boolean>): boolean {
+function animpointPredicateHarmonica(object: GameObject, isInCamp?: Nillable<boolean>): boolean {
   if (isInCamp === true && harmonicaVisuals.get(object.get_visual_name()) && object.object(misc.harmonica_a)) {
     return true;
   }
@@ -108,7 +108,7 @@ function animpointPredicateHarmonica(object: GameObject, isInCamp?: Optional<boo
  * @returns Whether weapon animation can be used.
  */
 function animpointPredicateWeapon(object: GameObject): boolean {
-  const terrainName: Optional<TName> = getObjectTerrain(object)?.name() as Optional<TName>;
+  const terrainName: Nillable<TName> = getObjectTerrain(object)?.name() as Nillable<TName>;
 
   if (terrainName && registry.noCombatSmartTerrains.get(terrainName)) {
     return false;

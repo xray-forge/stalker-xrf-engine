@@ -1,6 +1,6 @@
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
 import { MX_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { Optional, TStringId, Vector } from "@/engine/lib/types";
+import { Nillable, TStringId, Vector } from "@/engine/lib/types";
 
 /**
  * Create smart cover loophole descriptor for the crouching posture facing forward.
@@ -14,8 +14,8 @@ import { Optional, TStringId, Vector } from "@/engine/lib/types";
 export function getCrouchFrontLoophole(
   id: TStringId,
   fovDirection: Vector,
-  position?: Optional<Vector>,
-  enterDirection?: Optional<Vector>
+  position?: Nillable<Vector>,
+  enterDirection?: Nillable<Vector>
 ): ISmartCoverLoopholeDescriptor {
   const pos: Vector = position || ZERO_VECTOR;
   const enterDir: Vector = enterDirection || MX_VECTOR;

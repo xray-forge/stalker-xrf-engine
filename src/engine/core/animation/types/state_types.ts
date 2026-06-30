@@ -3,7 +3,7 @@ import type {
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
-  Optional,
+  Nillable,
   TAnimationType,
   TDuration,
   TIndex,
@@ -213,35 +213,35 @@ export enum EStalkerState {
  * Descriptor of a stalker animation state, combining weapon, movement, mental and animation parameters.
  */
 export interface IStateDescriptor {
-  weapon: Optional<EWeaponAnimation>;
-  movement: Optional<TMoveType>;
-  mental: Optional<TAnimationType>;
-  bodystate: Optional<TMoveType>;
-  animstate: Optional<TName>;
-  animation: Optional<TName>;
-  weaponSlot?: Optional<TIndex>;
+  weapon: Nillable<EWeaponAnimation>;
+  movement: Nillable<TMoveType>;
+  mental: Nillable<TAnimationType>;
+  bodystate: Nillable<TMoveType>;
+  animstate: Nillable<TName>;
+  animation: Nillable<TName>;
+  weaponSlot?: Nillable<TIndex>;
   direction?: TLookType | TSightType;
-  special_danger_move?: Optional<boolean>;
-  isForced?: Optional<boolean>;
+  special_danger_move?: Nillable<boolean>;
+  isForced?: Nillable<boolean>;
 }
 
 /**
  * Descriptor of loop position for state animation.
  */
 export interface ILookTargetDescriptor {
-  lookObjectId?: Optional<TNumberId>;
-  lookPosition?: Optional<Vector>;
+  lookObjectId?: Nillable<TNumberId>;
+  lookPosition?: Nillable<Vector>;
 }
 
 /**
  * Descriptor of a state manager callback with its context and timing parameters.
  */
 export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject> {
-  begin?: Optional<TTimestamp>;
-  timeout?: Optional<TDuration>;
+  begin?: Nillable<TTimestamp>;
+  timeout?: Nillable<TDuration>;
   context: T;
-  callback: Optional<AnyContextualCallable<T>>;
-  turnEndCallback?: Optional<AnyCallable>;
+  callback: Nillable<AnyContextualCallable<T>>;
+  turnEndCallback?: Nillable<AnyCallable>;
 }
 
 /**
@@ -250,8 +250,8 @@ export interface IStateManagerCallbackDescriptor<T extends AnyObject = AnyObject
 export interface ITargetStateDescriptorExtras {
   isForced?: boolean;
   animation?: boolean;
-  animationPosition?: Optional<Vector>;
-  animationDirection?: Optional<Vector>;
+  animationPosition?: Nillable<Vector>;
+  animationDirection?: Nillable<Vector>;
 }
 
 /**

@@ -3,7 +3,6 @@ import {
   AnyCallable,
   LuaArray,
   Nillable,
-  Optional,
   TDuration,
   TIndex,
   TLabel,
@@ -66,8 +65,8 @@ export type TAnimationSequenceElements = TAnimationSequenceElement | LuaArray<TA
 export interface IAnimationDescriptorProperties {
   maxidle: TDuration;
   sumidle: TDuration;
-  rnd: Optional<TRate>;
-  moving: Optional<boolean>;
+  rnd: Nillable<TRate>;
+  moving: Nillable<boolean>;
 }
 
 /**
@@ -75,10 +74,10 @@ export interface IAnimationDescriptorProperties {
  */
 export interface IAnimationDescriptor {
   prop: IAnimationDescriptorProperties;
-  into: Optional<LuaArray<TAnimationSequenceElements>>;
-  out: Optional<LuaArray<TAnimationSequenceElements>>;
-  idle: Optional<LuaArray<TAnimationSequenceElements>>;
-  rnd: Optional<LuaArray<TAnimationSequenceElements>>;
+  into: Nillable<LuaArray<TAnimationSequenceElements>>;
+  out: Nillable<LuaArray<TAnimationSequenceElements>>;
+  idle: Nillable<LuaArray<TAnimationSequenceElements>>;
+  rnd: Nillable<LuaArray<TAnimationSequenceElements>>;
 }
 
 /**
@@ -106,11 +105,11 @@ export enum EAnimationMarker {
  * Runtime state of an animation manager instance.
  */
 export interface IAnimationManagerState {
-  lastIndex: Optional<TIndex>;
+  lastIndex: Nillable<TIndex>;
   currentState: Nillable<EStalkerState>;
   targetState: Nillable<EStalkerState>;
-  animationMarker: Optional<EAnimationMarker>;
-  nextRandomAt: Optional<TTimestamp>;
+  animationMarker: Nillable<EAnimationMarker>;
+  nextRandomAt: Nillable<TTimestamp>;
   sequenceId: TNumberId;
 }
 

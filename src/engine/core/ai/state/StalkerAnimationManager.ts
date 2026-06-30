@@ -201,13 +201,13 @@ export class StalkerAnimationManager {
      */
     if (states.targetState !== states.currentState) {
       // Stopping all animations:
-      if (states.targetState === null) {
+      if (!states.targetState) {
         const animationDescriptor: IAnimationDescriptor = this.animations.get(states.currentState!);
 
         states.animationMarker = EAnimationMarker.OUT;
 
         // No way to transition out current animation, mark as executed and transition forward.
-        if (animationDescriptor.out === null) {
+        if (!animationDescriptor.out) {
           this.onAnimationCallback(true);
 
           return $multi(null, null);
@@ -241,13 +241,13 @@ export class StalkerAnimationManager {
       }
 
       // From idle (null) to new animation:
-      if (states.currentState === null) {
+      if (!states.currentState) {
         const state: IAnimationDescriptor = this.animations.get(states.targetState!);
 
         states.animationMarker = EAnimationMarker.IN;
 
         // No `into` animation, mark it as finished and proceed forward.
-        if (state.into === null) {
+        if (!state.into) {
           this.onAnimationCallback(true);
 
           return $multi(null, null);
@@ -289,7 +289,7 @@ export class StalkerAnimationManager {
       let animation = null;
 
       // Select random animation for idle state, if random list is defined.
-      if (state.rnd !== null) {
+      if (state.rnd) {
         animation = this.selectRandom(
           state as IAnimationDescriptor,
           activeWeaponSlot,
@@ -298,7 +298,7 @@ export class StalkerAnimationManager {
       }
 
       // No random animation and idle is defined.
-      if (animation === null && state.idle !== null) {
+      if (!animation && state.idle) {
         animation = this.getAnimationForWeaponSlot(activeWeaponSlot, state.idle as any);
       }
 
@@ -344,7 +344,7 @@ export class StalkerAnimationManager {
     let index: TIndex;
 
     if (animation.length() > 1) {
-      if (states.lastIndex === null) {
+      if ($isNil(states.lastIndex)) {
         index = math.random(animation.length());
       } else {
         index = math.random(animation.length() - 1);

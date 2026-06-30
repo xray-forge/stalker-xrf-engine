@@ -2,7 +2,7 @@ import { CampManager } from "@/engine/core/ai/camp";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, resetObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, Optional, Vector } from "@/engine/lib/types";
+import { GameObject, Nillable, Optional, Vector } from "@/engine/lib/types";
 
 /**
  * Register zone object.
@@ -33,8 +33,8 @@ export function unregisterZone(object: GameObject): void {
  * @param position - Current position to get manager for.
  * @returns Instance of manager for NPC position if camp exists.
  */
-export function getCampZoneForPosition(position: Optional<Vector>): Optional<CampManager> {
-  if (position === null) {
+export function getCampZoneForPosition(position: Nillable<Vector>): Nillable<CampManager> {
+  if (!position) {
     return null;
   }
 
@@ -54,7 +54,7 @@ export function getCampZoneForPosition(position: Optional<Vector>): Optional<Cam
  * @param object - Target camp game object to register.
  * @param manager - Linked manager to register.
  */
-export function registerCampZone(object: GameObject, manager: Optional<CampManager>): void {
+export function registerCampZone(object: GameObject, manager: Nillable<CampManager>): void {
   registerZone(object);
 
   if (manager) {

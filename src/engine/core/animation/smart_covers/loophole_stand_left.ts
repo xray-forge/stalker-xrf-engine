@@ -1,6 +1,6 @@
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
 import { createVector } from "@/engine/core/utils/vector";
-import { Optional, TStringId, Vector } from "@/engine/lib/types";
+import { Nillable, TStringId, Vector } from "@/engine/lib/types";
 
 /**
  * Create smart cover loophole descriptor for the standing posture facing left.
@@ -14,8 +14,8 @@ import { Optional, TStringId, Vector } from "@/engine/lib/types";
 export function getStandLeftLoophole(
   id: TStringId,
   fovDirection: Vector,
-  position?: Optional<Vector>,
-  enterDirection?: Optional<Vector>
+  position?: Nillable<Vector>,
+  enterDirection?: Nillable<Vector>
 ): ISmartCoverLoopholeDescriptor {
   const pos: Vector = position || createVector(0, 0, 0);
   const enterDir: Vector = enterDirection || createVector(-1, 0, 0);

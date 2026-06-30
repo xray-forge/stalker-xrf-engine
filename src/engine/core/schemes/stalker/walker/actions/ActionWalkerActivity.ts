@@ -10,7 +10,7 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { GameObject, ISchemeEventHandler, Optional } from "@/engine/lib/types";
+import { GameObject, ISchemeEventHandler, Nillable } from "@/engine/lib/types";
 
 /**
  * GOAP action implementing walker patrol logics.
@@ -23,7 +23,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
   public readonly availableActions: LuaTable<number, IAnimpointActionDescriptor>;
 
   public isInCamp: boolean = false;
-  public campStoryManager: Optional<CampManager> = null;
+  public campStoryManager: Nillable<CampManager> = null;
 
   public constructor(state: ISchemeWalkerState, object: GameObject) {
     super(null, ActionWalkerActivity.__name);
@@ -72,7 +72,7 @@ export class ActionWalkerActivity extends action_base implements ISchemeEventHan
 
     this.patrolManager.update();
 
-    const campManager: Optional<CampManager> = getCampZoneForPosition(this.object.position());
+    const campManager: Nillable<CampManager> = getCampZoneForPosition(this.object.position());
 
     if (campManager && this.state.useCamp) {
       this.isInCamp = true;

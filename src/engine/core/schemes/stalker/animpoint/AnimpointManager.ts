@@ -17,7 +17,7 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection, createVector } from "@/engine/core/utils/vector";
-import { GameObject, LuaArray, Optional, TIndex, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, LuaArray, Nillable, TIndex, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,17 +28,17 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointState> {
   public isStarted: boolean = false;
 
-  public currentAction: Optional<EStalkerState> = null;
-  public availableActions: Optional<LuaArray<IAnimpointActionDescriptor>> = null;
+  public currentAction: Nillable<EStalkerState> = null;
+  public availableActions: Nillable<LuaArray<IAnimpointActionDescriptor>> = null;
 
-  public campManager: Optional<CampManager> = null;
-  public coverName: Optional<TName> = null;
+  public campManager: Nillable<CampManager> = null;
+  public coverName: Nillable<TName> = null;
 
-  public position: Optional<Vector> = null;
-  public positionLevelVertexId: Optional<TNumberId> = null;
-  public vertexPosition: Optional<Vector> = null;
-  public smartCoverDirection: Optional<Vector> = null;
-  public lookPosition: Optional<Vector> = null;
+  public position: Nillable<Vector> = null;
+  public positionLevelVertexId: Nillable<TNumberId> = null;
+  public vertexPosition: Nillable<Vector> = null;
+  public smartCoverDirection: Nillable<Vector> = null;
+  public lookPosition: Nillable<Vector> = null;
 
   public override activate(object: GameObject): void {
     logger.info("Activate animpoint scheme: %s", object.name());
@@ -55,8 +55,8 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
           math.random(this.state.approvedActions.length())
         ).name;
 
-        const currentStateAnimstate: Optional<TName> = states.get(targetAction).animstate;
-        const targetStateAnimstate: Optional<TName> = states.get(this.currentAction as EStalkerState).animstate;
+        const currentStateAnimstate: Nillable<TName> = states.get(targetAction).animstate;
+        const targetStateAnimstate: Nillable<TName> = states.get(this.currentAction as EStalkerState).animstate;
 
         if (currentStateAnimstate === targetStateAnimstate) {
           if (targetAction !== this.currentAction) {
@@ -77,10 +77,10 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    */
   public update(): void {
     const actionsList: LuaArray<EStalkerState> = new LuaTable();
-    const description: Optional<EStalkerState> = this.state.description;
+    const description: Nillable<EStalkerState> = this.state.description;
 
     if (!this.state.useCamp) {
-      if (this.state.availableAnimations === null) {
+      if (!this.state.availableAnimations) {
         assert(
           this.state.approvedActions,
           "animpoint not in camp and approvedActions is null. Name [%s]",
@@ -144,7 +144,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * Calculate object positioning based on animpoint target smart cover position.
    */
   public calculatePosition(): void {
-    const smartCover: Optional<SmartCover> = registry.smartCovers.get(this.state.coverName);
+    const smartCover: Nillable<SmartCover> = registry.smartCovers.get(this.state.coverName);
 
     assert(smartCover, "There is no registered smart_cover with name '%s'.", this.state.coverName);
 
@@ -180,7 +180,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   /**
    * @returns Tuple with animpoint position and direction.
    */
-  public getAnimationParameters(): LuaMultiReturn<[Optional<Vector>, Optional<Vector>]> {
+  public getAnimationParameters(): LuaMultiReturn<[Nillable<Vector>, Nillable<Vector>]> {
     return $multi(this.position, this.smartCoverDirection);
   }
 
@@ -188,17 +188,17 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * @returns Whether object reached position where animpoint scheme should activate animations.
    */
   public isPositionReached(): boolean {
-    if (this.currentAction !== null) {
+    if (this.currentAction) {
       return true;
     }
 
-    if (this.position === null) {
+    if (!this.position) {
       return false;
     }
 
     const object: GameObject = registry.objects.get(this.object.id()).object;
 
-    if (object === null) {
+    if (!object) {
       return false;
     }
 
@@ -276,7 +276,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
   public stop(): void {
     logger.info("Stop: %s", this.object.name());
 
-    if (this.campManager !== null) {
+    if (this.campManager) {
       this.campManager.unregisterObject(this.object.id());
     }
 
