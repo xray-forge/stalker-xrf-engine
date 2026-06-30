@@ -3,7 +3,7 @@ import { CUIScriptWnd, CUIStatic, DIK_keys, LuabindClass, ui_events } from "xray
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
-import { Optional, TKeyCode, TLabel, TPath, TUIEvent, XmlInit } from "@/engine/lib/types";
+import { Nillable, TKeyCode, TLabel, TPath, TUIEvent, XmlInit } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "game\\NumPadWindow.component";
@@ -18,11 +18,11 @@ export interface INumPadWindowOwner {
  */
 @LuabindClass()
 export class NumPadWindow extends CUIScriptWnd {
-  public owner: Optional<INumPadWindowOwner>;
+  public owner: Nillable<INumPadWindowOwner>;
 
   public uiEditBox!: CUIStatic;
 
-  public constructor(owner: Optional<INumPadWindowOwner>) {
+  public constructor(owner: Nillable<INumPadWindowOwner>) {
     super();
 
     logger.info("Initialize new numpad");
@@ -109,7 +109,7 @@ export class NumPadWindow extends CUIScriptWnd {
    * Clear last input from end.
    */
   public onBackspaceButtonClicked(): void {
-    const text: Optional<TLabel> = this.uiEditBox.TextControl().GetText() as Optional<TLabel>;
+    const text: Nillable<TLabel> = this.uiEditBox.TextControl().GetText() as Nillable<TLabel>;
 
     if (!text) {
       return;

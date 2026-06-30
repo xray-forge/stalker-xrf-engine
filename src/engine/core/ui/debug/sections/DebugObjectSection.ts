@@ -23,7 +23,7 @@ import {
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
-import { GameObject, Optional, TPath } from "@/engine/lib/types";
+import { GameObject, Nillable, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugObjectSection.component";
@@ -128,9 +128,9 @@ export class DebugObjectSection extends AbstractDebugSection {
 
   public override initializeState(): void {
     if (isGameStarted()) {
-      const nearestStalker: Optional<GameObject> = getNearestGameObject();
-      const targetStalker: Optional<GameObject> = level.get_target_obj();
-      const squad: Optional<Squad> = targetStalker ? getObjectSquad(targetStalker) : null;
+      const nearestStalker: Nillable<GameObject> = getNearestGameObject();
+      const targetStalker: Nillable<GameObject> = level.get_target_obj();
+      const squad: Nillable<Squad> = targetStalker ? getObjectSquad(targetStalker) : null;
 
       this.uiNearestStalkerLabel.SetText("Nearest: " + (nearestStalker ? nearestStalker.name() : NIL));
       this.uiTargetStalkerLabel.SetText("Target: " + (targetStalker ? targetStalker.name() : NIL));
@@ -157,7 +157,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<GameObject> = this.getCurrentObject();
+    const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logObjectPlannerState(targetObject);
@@ -171,7 +171,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<GameObject> = this.getCurrentObject();
+    const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logObjectInventoryItems(targetObject);
@@ -185,7 +185,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<GameObject> = this.getCurrentObject();
+    const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logObjectState(targetObject);
@@ -199,7 +199,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<GameObject> = this.getCurrentObject();
+    const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logObjectRelations(targetObject);
@@ -213,7 +213,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot print while game is not started");
     }
 
-    const targetObject: Optional<GameObject> = this.getCurrentObject();
+    const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logObjectStateManager(targetObject);
@@ -227,7 +227,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot set relation while game is not started");
     }
 
-    const targetObject: Optional<GameObject> = this.getCurrentObject();
+    const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logger.info("Set actor relation for: %s %s", targetObject.name(), relation);
@@ -243,7 +243,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot kill object while game is not started");
     }
 
-    const targetObject: Optional<GameObject> = this.getCurrentObject();
+    const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logger.info("Kill object: %s", targetObject.name());
@@ -258,7 +258,7 @@ export class DebugObjectSection extends AbstractDebugSection {
       return logger.info("Cannot set wounded object while game is not started");
     }
 
-    const targetObject: Optional<GameObject> = this.getCurrentObject();
+    const targetObject: Nillable<GameObject> = this.getCurrentObject();
 
     if (targetObject) {
       logger.info("Set wounded object: %s", targetObject.name());
@@ -269,7 +269,7 @@ export class DebugObjectSection extends AbstractDebugSection {
     }
   }
 
-  public getCurrentObject(): Optional<GameObject> {
+  public getCurrentObject(): Nillable<GameObject> {
     return this.uiUseTargetCheck.GetCheck() ? level.get_target_obj() : getNearestGameObject();
   }
 }

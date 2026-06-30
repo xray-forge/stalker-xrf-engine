@@ -20,7 +20,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
-import { LuaArray, Optional, TIndex, TKeyCode, TPath, TUIEvent, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Nillable, TIndex, TKeyCode, TPath, TUIEvent, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\ExtensionsDialog.component";
@@ -148,7 +148,7 @@ export class ExtensionsDialog extends CUIScriptWnd {
    */
   public onActiveExtensionChange(): void {
     const activeIndex: TIndex = this.uiItemsList.GetSelectedIndex();
-    const extension: Optional<IExtensionsDescriptor> = this.extensions.get(activeIndex + 1);
+    const extension: Nillable<IExtensionsDescriptor> = this.extensions.get(activeIndex + 1);
 
     this.uiToggleButton.Enable(extension?.canToggle === true);
 
@@ -213,9 +213,9 @@ export class ExtensionsDialog extends CUIScriptWnd {
    */
   public onToggleButtonClick(): void {
     const activeIndex: TIndex = this.uiItemsList.GetSelectedIndex() + 1;
-    const extension: Optional<IExtensionsDescriptor> = this.extensions.get(
+    const extension: Nillable<IExtensionsDescriptor> = this.extensions.get(
       activeIndex
-    ) as Optional<IExtensionsDescriptor>;
+    ) as Nillable<IExtensionsDescriptor>;
 
     if (extension && extension.canToggle) {
       extension.isEnabled = !extension.isEnabled;

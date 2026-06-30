@@ -5,7 +5,7 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { onOffCommands, TConsoleCommand, zeroOneCommands } from "@/engine/lib/constants/console_commands";
-import { Optional, TPath } from "@/engine/lib/types";
+import { Nillable, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugCommandsSection.component";
@@ -40,7 +40,7 @@ export class DebugCommandsSection extends AbstractDebugSection {
     const caption: CUIStatic = this.xml.InitStatic("command_label", item);
     const check: CUICheckButton = this.xml.InitCheck("command_check", item);
 
-    const value: Optional<boolean> = console.get_bool(command);
+    const value: Nillable<boolean> = console.get_bool(command);
 
     check.SetCheck(value);
     caption.TextControl().SetText(command);

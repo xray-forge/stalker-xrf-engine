@@ -1,7 +1,7 @@
 import { FreeplayDialog } from "@/engine/core/ui/game/freeplay/FreeplayDialog";
-import { Optional, TLabel } from "@/engine/lib/types";
+import { Nillable, TLabel } from "@/engine/lib/types";
 
-let freeplayDialog: Optional<FreeplayDialog> = null;
+let freeplayDialog: Nillable<FreeplayDialog> = null;
 
 /**
  * Show dialog with game end dialogs.

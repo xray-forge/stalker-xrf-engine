@@ -13,7 +13,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { isGameStarted } from "@/engine/core/utils/game";
 import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
-import { Optional, ServerObject, TCount, TLabel, TNumberId, TPath, TSection, XmlInit } from "@/engine/lib/types";
+import { Nillable, ServerObject, TCount, TLabel, TNumberId, TPath, TSection, XmlInit } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugTreasuresSection.component";
 
@@ -36,7 +36,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
   public uiTreasuresListEditBox!: CUIEditBox;
 
   public currentFilter: string = "";
-  public currentSection: Optional<TSection> = null;
+  public currentSection: Nillable<TSection> = null;
 
   /**
    * Initialize UI control elements.
@@ -136,14 +136,14 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * @param section - Descriptor section to build label for.
    * @returns Label with debug information for the treasure.
    */
-  public getTreasureDescription(section: Optional<TSection>): TLabel {
+  public getTreasureDescription(section: Nillable<TSection>): TLabel {
     if (section) {
       const treasure: ITreasureDescriptor = treasureConfig.TREASURES.get(section);
 
       let totalItems: TCount = 0;
-      let base: TLabel = `given: ${treasure.given} | checked: ${treasure.checked} | refreshing: ${
-        treasure.refreshing !== null
-      } | empty: ${treasure.refreshing !== null} |\n items remain: ${treasure.itemsToFindRemain} | `;
+      let base: TLabel = `given: ${treasure.given} | checked: ${treasure.checked} | refreshing: ${$isNotNil(
+        treasure.refreshing
+      )} | empty: ${$isNotNil(treasure.empty)} |\n items remain: ${treasure.itemsToFindRemain} | `;
 
       if (table.size(treasure.items) > 0) {
         for (const [section, list] of treasure.items) {
@@ -167,7 +167,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * Changed active treasure in the list.
    */
   public onSelectedTreasureChange(): void {
-    this.currentSection = this.uiTreasuresList.GetSelectedItem()?.GetTextItem().GetText() as Optional<TLabel>;
+    this.currentSection = this.uiTreasuresList.GetSelectedItem()?.GetTextItem().GetText() as Nillable<TLabel>;
     this.uiTreasureInfoLabel.TextControl().SetText(this.getTreasureDescription(this.currentSection));
   }
 
@@ -184,13 +184,13 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * Clicked `teleport to treasure` control.
    */
   public onTeleportToTreasureClicked(): void {
-    if (!isGameStarted() || this.currentSection === null) {
+    if (!isGameStarted() || !this.currentSection) {
       return;
     }
 
     const treasureManager: TreasureManager = getManager(TreasureManager);
-    const restrictorId: Optional<TNumberId> = treasureManager.treasuresRestrictorByName.get(this.currentSection);
-    const object: Optional<ServerObject> = restrictorId === null ? null : registry.simulator.object(restrictorId);
+    const restrictorId: Nillable<TNumberId> = treasureManager.treasuresRestrictorByName.get(this.currentSection);
+    const object: Nillable<ServerObject> = restrictorId === null ? null : registry.simulator.object(restrictorId);
 
     if (!object) {
       return;
@@ -225,7 +225,7 @@ export class DebugTreasuresSection extends AbstractDebugSection {
    * Give specific treasures for the actor.
    */
   public onGiveSpecificTreasureButtonClicked(): void {
-    if (!isGameStarted() || this.currentSection === null) {
+    if (!isGameStarted() || !this.currentSection) {
       return;
     }
 

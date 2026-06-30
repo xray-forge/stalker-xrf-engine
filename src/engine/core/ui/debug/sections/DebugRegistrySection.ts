@@ -6,7 +6,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { NIL } from "@/engine/lib/constants/words";
-import { AlifeSimulator, Optional, TCount, TPath } from "@/engine/lib/types";
+import { AlifeSimulator, Nillable, TCount, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugRegistrySection.component";
@@ -54,11 +54,11 @@ export class DebugRegistrySection extends AbstractDebugSection {
   }
 
   public override initializeState(): void {
-    const simulator: Optional<AlifeSimulator> = registry.simulator;
+    const simulator: Nillable<AlifeSimulator> = registry.simulator;
 
     this.uiRegistryFilterOnline.SetCheck(this.filterIsOnline);
 
-    if (simulator !== null) {
+    if ($isNotNil(simulator)) {
       let total: TCount = 0;
 
       this.uiRegistryList.Clear();

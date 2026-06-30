@@ -36,7 +36,7 @@ import { gameTypes } from "@/engine/lib/constants/game_types";
 import {
   AccountManager,
   LoginManager,
-  Optional,
+  Nillable,
   Profile,
   ProfileStore,
   TKeyCode,
@@ -59,16 +59,16 @@ export class MainMenu extends CUIScriptWnd {
   public xrAccountManager: AccountManager;
   public xrProfileStore: ProfileStore;
   public xrLoginManager: LoginManager;
-  public xrGameSpyProfile: Optional<Profile>;
+  public xrGameSpyProfile: Nillable<Profile>;
 
   public uiModalBox!: CUIMessageBoxEx;
   public modalBoxMode: EMainMenuModalMode = EMainMenuModalMode.OFF;
 
-  public uiGameOptionsDialog: Optional<Options> = null;
-  public uiGameSavesSaveDialog: Optional<SaveDialog> = null;
-  public uiGameSavesLoadDialog: Optional<LoadDialog> = null;
-  public uiGameDebugDialog: Optional<DebugDialog> = null;
-  public uiGameExtensionsDialog: Optional<ExtensionsDialog> = null;
+  public uiGameOptionsDialog: Nillable<Options> = null;
+  public uiGameSavesSaveDialog: Nillable<SaveDialog> = null;
+  public uiGameSavesLoadDialog: Nillable<LoadDialog> = null;
+  public uiGameDebugDialog: Nillable<DebugDialog> = null;
+  public uiGameExtensionsDialog: Nillable<ExtensionsDialog> = null;
 
   public constructor() {
     super();
@@ -251,7 +251,7 @@ export class MainMenu extends CUIScriptWnd {
    * Clicked save game button.
    */
   public onSaveGameButtonClick(): void {
-    if (this.uiGameSavesSaveDialog === null) {
+    if (!this.uiGameSavesSaveDialog) {
       this.uiGameSavesSaveDialog = new SaveDialog(this);
     }
 
@@ -265,7 +265,7 @@ export class MainMenu extends CUIScriptWnd {
    * Clicked options button.
    */
   public onOptionsButtonClick(): void {
-    if (this.uiGameOptionsDialog === null) {
+    if (!this.uiGameOptionsDialog) {
       this.uiGameOptionsDialog = new Options(this);
     }
 

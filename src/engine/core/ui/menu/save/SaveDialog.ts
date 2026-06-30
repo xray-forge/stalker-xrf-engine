@@ -27,7 +27,7 @@ import {
   FSFileList,
   FSItem,
   LuaArray,
-  Optional,
+  Nillable,
   TKeyCode,
   TLabel,
   TName,
@@ -47,7 +47,7 @@ export class SaveDialog extends CUIScriptWnd {
   public owner: CUIScriptWnd;
 
   public modalBoxMode: number = 0;
-  public newSave: TName = "";
+  public newSave: Nillable<TName> = "";
 
   public fileItemMainSize!: Vector2D;
   public fileItemFnSize!: Vector2D;
@@ -174,7 +174,7 @@ export class SaveDialog extends CUIScriptWnd {
     logger.info("Message yes clicked: %s", this.modalBoxMode);
 
     if (this.modalBoxMode === 1) {
-      if (this.newSave !== null) {
+      if (this.newSave) {
         createGameSave(this.newSave);
       }
 
@@ -193,15 +193,13 @@ export class SaveDialog extends CUIScriptWnd {
       return;
     }
 
-    const item: Optional<SaveItem> = this.uiListBox.GetSelectedItem();
+    const item: Nillable<SaveItem> = this.uiListBox.GetSelectedItem();
 
-    if (item === null) {
-      return;
+    if (item) {
+      this.modalBoxMode = 2;
+      this.uiMessageBox.InitMessageBox("message_box_delete_file_name");
+      this.uiMessageBox.ShowDialog(true);
     }
-
-    this.modalBoxMode = 2;
-    this.uiMessageBox.InitMessageBox("message_box_delete_file_name");
-    this.uiMessageBox.ShowDialog(true);
   }
 
   public onDeleteSelectedFile(): void {
@@ -243,9 +241,9 @@ export class SaveDialog extends CUIScriptWnd {
 
     const fs: FS = getFS();
     const fileList: FSFileList = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
-    const fileExists: Optional<number> = fs.exist(roots.gameSaves, this.newSave + forgeConfig.SAVE.GAME_SAVE_EXTENSION);
+    const fileExists: Nillable<number> = fs.exist(roots.gameSaves, this.newSave + forgeConfig.SAVE.GAME_SAVE_EXTENSION);
 
-    if (fileExists !== null) {
+    if (fileExists) {
       logger.info("File already exists");
 
       this.modalBoxMode = 1;
@@ -259,7 +257,7 @@ export class SaveDialog extends CUIScriptWnd {
 
     fileList.Free();
 
-    if (this.newSave !== null) {
+    if ($isNotNil(this.newSave)) {
       createGameSave(this.newSave);
     }
 

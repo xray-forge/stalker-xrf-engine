@@ -32,7 +32,7 @@ import {
   FSItem,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   TIndex,
   TKeyCode,
   TLabel,
@@ -165,9 +165,9 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const item: Optional<LoadItem> = this.uiListBox.GetSelectedItem();
+    const item: Nillable<LoadItem> = this.uiListBox.GetSelectedItem();
 
-    if (item === null) {
+    if (!item) {
       this.uiFileCaption.SetText("");
       this.uiFileData.SetText("");
 
@@ -254,9 +254,9 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const item: Optional<LoadItem> = this.uiListBox.GetSelectedItem();
+    const item: Nillable<LoadItem> = this.uiListBox.GetSelectedItem();
 
-    if (item === null) {
+    if (!item) {
       return;
     }
 
@@ -276,7 +276,7 @@ export class LoadDialog extends CUIScriptWnd {
       return;
     }
 
-    const actor: Optional<GameObject> = registry.actor;
+    const actor: Nillable<GameObject> = registry.actor;
 
     if (actor && !actor.alive()) {
       this.loadGameInternal();

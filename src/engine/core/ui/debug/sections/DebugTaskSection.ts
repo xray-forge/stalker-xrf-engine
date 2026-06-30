@@ -17,7 +17,7 @@ import { isGameStarted } from "@/engine/core/utils/game";
 import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { Optional, TCount, TLabel, TName, TPath, TStringId } from "@/engine/lib/types";
+import { Nillable, TCount, TLabel, TName, TPath, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTaskSection.component";
@@ -32,7 +32,7 @@ export class DebugTaskSection extends AbstractDebugSection {
   public uiTaskFilterActive!: CUICheckButton;
   public uiTaskList!: CUIListBox;
 
-  public selectedTaskId: Optional<TStringId> = null;
+  public selectedTaskId: Nillable<TStringId> = null;
   public filterIsActive: boolean = false;
 
   public initializeControls(): void {
@@ -92,7 +92,7 @@ export class DebugTaskSection extends AbstractDebugSection {
   }
 
   public onSelectedObjectChange(): void {
-    const selected: Optional<CUIListBoxItem> = this.uiTaskList.GetSelectedItem();
+    const selected: Nillable<CUIListBoxItem> = this.uiTaskList.GetSelectedItem();
 
     if (selected) {
       this.selectedTaskId = string.trim(selected.GetTextItem().GetText().split("|")[0]);

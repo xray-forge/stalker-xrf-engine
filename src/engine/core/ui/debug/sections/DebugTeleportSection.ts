@@ -14,7 +14,7 @@ import { create2dVector, createEmpty2dVector, vectorToString } from "@/engine/co
 import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { LuaArray, Optional, TName, TPath, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Nillable, TName, TPath, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTeleportSection.component";
@@ -141,7 +141,7 @@ export class DebugTeleportSection extends AbstractDebugSection {
       return logger.info("Cannot teleport, game is not started");
     }
 
-    const itemSelected: Optional<DebugTeleportListEntry> = this.uiItemsList.GetSelectedItem();
+    const itemSelected: Nillable<DebugTeleportListEntry> = this.uiItemsList.GetSelectedItem();
 
     if (itemSelected) {
       logger.info(

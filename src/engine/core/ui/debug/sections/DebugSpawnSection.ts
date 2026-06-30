@@ -12,7 +12,7 @@ import { spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/s
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { LuaArray, Optional, ServerObject, TPath, TSection, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Nillable, ServerObject, TPath, TSection, Vector2D } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugSpawnSection.component";
@@ -139,8 +139,8 @@ export class DebugSpawnSection extends AbstractDebugSection {
     }
 
     const category: ESpawnCategory = this.uiCategoriesList.GetText() as ESpawnCategory;
-    const itemSelected: Optional<DebugItemListEntry> = this.uiItemsList.GetSelectedItem();
-    const section: Optional<TInventoryItem> = itemSelected?.uiInnerSectionText.GetText() as Optional<TInventoryItem>;
+    const itemSelected: Nillable<DebugItemListEntry> = this.uiItemsList.GetSelectedItem();
+    const section: Nillable<TInventoryItem> = itemSelected?.uiInnerSectionText.GetText() as Nillable<TInventoryItem>;
 
     if (section) {
       logger.info("Spawn: %s", section);
@@ -151,7 +151,7 @@ export class DebugSpawnSection extends AbstractDebugSection {
 
         logger.info("Spawned: %s", object.name());
       } else {
-        const nearestSmart: Optional<ServerObject> = getNearestServerObject(
+        const nearestSmart: Nillable<ServerObject> = getNearestServerObject(
           (it: ServerObject): boolean => it.section_name() === "smart_terrain",
           true
         );
