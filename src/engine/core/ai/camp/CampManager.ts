@@ -19,7 +19,7 @@ import {
   GameObject,
   IniFile,
   LuaArray,
-  Optional,
+  Nillable,
   TCount,
   TDuration,
   TName,
@@ -46,8 +46,8 @@ export class CampManager {
 
   // List of objects registered in camp.
   public objects: LuaTable<TNumberId, ICampStateDescriptor> = new LuaTable();
-  public directorId: Optional<TNumberId> = null;
-  public idleTalkerId: Optional<TNumberId> = null;
+  public directorId: Nillable<TNumberId> = null;
+  public idleTalkerId: Nillable<TNumberId> = null;
 
   public isStoryStarted: boolean = true;
 
@@ -90,8 +90,8 @@ export class CampManager {
    * @param objectId - Target object id to check and get action / state.
    * @returns Tuple with action name and whether object is director.
    */
-  public getObjectActivity(objectId: TNumberId): LuaMultiReturn<[Optional<EObjectCampActivity>, Optional<boolean>]> {
-    const descriptor: Optional<ICampStateDescriptor> = this.objects.get(objectId) as Optional<ICampStateDescriptor>;
+  public getObjectActivity(objectId: TNumberId): LuaMultiReturn<[Nillable<EObjectCampActivity>, Nillable<boolean>]> {
+    const descriptor: Nillable<ICampStateDescriptor> = this.objects.get(objectId) as Nillable<ICampStateDescriptor>;
 
     if (descriptor) {
       return $multi(descriptor.state, this.directorId === objectId);
@@ -132,15 +132,15 @@ export class CampManager {
       this.isStoryStarted = false;
 
       for (const [id] of this.objects) {
-        const state: Optional<IRegistryObjectState> = registry.objects.get(id) as Optional<IRegistryObjectState>;
+        const state: Nillable<IRegistryObjectState> = registry.objects.get(id) as Nillable<IRegistryObjectState>;
 
         if (state) {
           // Emit scheme logic update.
           emitSchemeEvent(state[state.activeScheme as EScheme] as IBaseSchemeState, ESchemeEvent.UPDATE);
         }
 
-        const meetManager: Optional<MeetManager> = (state?.[EScheme.MEET] as ISchemeMeetState)
-          ?.meetManager as Optional<MeetManager>;
+        const meetManager: Nillable<MeetManager> = (state?.[EScheme.MEET] as ISchemeMeetState)
+          ?.meetManager as Nillable<MeetManager>;
 
         // Mark as director to prevent object from speaking with actor.
         if (meetManager) {
@@ -227,11 +227,11 @@ export class CampManager {
     for (const [id, descriptor] of this.objects) {
       objectsCount += 1;
 
-      const state: Optional<IRegistryObjectState> = registry.objects.get(id);
+      const state: Nillable<IRegistryObjectState> = registry.objects.get(id);
 
       if (state && state.activeScheme) {
-        const schemeState: Optional<ISchemeAnimpointState> = state[state.activeScheme] as ISchemeAnimpointState;
-        const object: Optional<GameObject> = state.object;
+        const schemeState: Nillable<ISchemeAnimpointState> = state[state.activeScheme] as ISchemeAnimpointState;
+        const object: Nillable<GameObject> = state.object;
 
         if (
           schemeState !== null &&

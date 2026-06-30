@@ -4,7 +4,7 @@ import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
-import { GameObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import { GameObject, LuaArray, Nillable, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Start playing guitar for an object.
@@ -13,9 +13,9 @@ import { GameObject, LuaArray, Optional, TCount, TName, TNumberId } from "@/engi
  * @param object - Stalker game object to start playing guitar for.
  */
 export function startPlayingGuitar(object: GameObject): void {
-  const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
+  const campId: Nillable<TNumberId> = registry.objects.get(object.id()).camp;
 
-  if (!campId) {
+  if ($isNil(campId)) {
     return;
   }
 
@@ -34,9 +34,9 @@ export function startPlayingGuitar(object: GameObject): void {
  * @param object - Stalker game object to start playing harmonica for.
  */
 export function startPlayingHarmonica(object: GameObject): void {
-  const campId: Optional<TNumberId> = registry.objects.get(object.id()).camp;
+  const campId: Nillable<TNumberId> = registry.objects.get(object.id()).camp;
 
-  if (!campId) {
+  if ($isNil(campId)) {
     return;
   }
 
@@ -58,11 +58,11 @@ export function canPlayCampGuitar(manager: CampManager): boolean {
   }
 
   for (const [objectId, objectInfo] of manager.objects) {
-    const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
-    const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
+    const state: Nillable<IRegistryObjectState> = registry.objects.get(objectId);
+    const schemeState: Nillable<ISchemeAnimpointState> = state?.activeScheme
       ? (state[state.activeScheme] as ISchemeAnimpointState)
       : null;
-    const object: Optional<GameObject> = state?.object;
+    const object: Nillable<GameObject> = state?.object;
 
     if (
       object &&
@@ -89,11 +89,11 @@ export function canPlayCampHarmonica(manager: CampManager): boolean {
   }
 
   for (const [id, info] of manager.objects) {
-    const state: Optional<IRegistryObjectState> = registry.objects.get(id);
-    const schemeState: Optional<ISchemeAnimpointState> = state?.activeScheme
+    const state: Nillable<IRegistryObjectState> = registry.objects.get(id);
+    const schemeState: Nillable<ISchemeAnimpointState> = state?.activeScheme
       ? (state[state.activeScheme!] as ISchemeAnimpointState)
       : null;
-    const object: Optional<GameObject> = state?.object;
+    const object: Nillable<GameObject> = state?.object;
 
     if (
       object &&
@@ -124,7 +124,7 @@ export function canTellCampStory(manager: CampManager): boolean {
   let count: TCount = 0;
 
   for (const [id] of manager.objects) {
-    const object: Optional<GameObject> = registry.objects.get(id)?.object;
+    const object: Nillable<GameObject> = registry.objects.get(id)?.object;
 
     if (object && !isObjectMeeting(object)) {
       count += 1;
@@ -148,7 +148,7 @@ export function canTellCampStory(manager: CampManager): boolean {
  * @returns Whether object animpoint state is correct and what role can be used for it.
  */
 export function getObjectCampActivityRole(objectId: TNumberId, activity: EObjectCampActivity): EObjectCampRole {
-  const schemeState: Optional<ISchemeAnimpointState> = registry.objects.get(objectId)[
+  const schemeState: Nillable<ISchemeAnimpointState> = registry.objects.get(objectId)[
     registry.objects.get(objectId).activeScheme!
   ] as ISchemeAnimpointState;
 
@@ -158,7 +158,7 @@ export function getObjectCampActivityRole(objectId: TNumberId, activity: EObject
   }
 
   const objectActions: LuaArray<IAnimpointActionDescriptor> = schemeState.approvedActions;
-  let stalkerState: Optional<TName> = schemeState.description as TName;
+  let stalkerState: Nillable<TName> = schemeState.description as TName;
 
   switch (activity) {
     case EObjectCampActivity.HARMONICA:

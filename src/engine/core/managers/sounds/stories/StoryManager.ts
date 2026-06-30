@@ -6,7 +6,7 @@ import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/manager
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { SoundStory } from "@/engine/core/managers/sounds/stories/SoundStory";
 import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray, Optional, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Manager of object stories telling.
@@ -16,11 +16,11 @@ export class StoryManager {
   public readonly id: TStringId;
   public readonly objects: LuaArray<{ objectId: TNumberId }> = new LuaTable();
 
-  public storyteller: Optional<TNumberId> = null;
-  public story: Optional<SoundStory> = null;
+  public storyteller: Nillable<TNumberId> = null;
+  public story: Nillable<SoundStory> = null;
 
-  public lastPlayingObjectId: Optional<TNumberId> = null;
-  public phraseTimeout: Optional<TDuration> = null;
+  public lastPlayingObjectId: Nillable<TNumberId> = null;
+  public phraseTimeout: Nillable<TDuration> = null;
   public phraseIdle: TDuration = 0;
 
   public constructor(id: TStringId) {
@@ -32,7 +32,7 @@ export class StoryManager {
    *
    * @param objectId - Id of the object to use as storyteller, or null to clear it.
    */
-  public setStoryTeller(objectId: Optional<TNumberId>): void {
+  public setStoryTeller(objectId: Nillable<TNumberId>): void {
     this.storyteller = objectId;
   }
 
@@ -76,7 +76,7 @@ export class StoryManager {
       this.storyteller = null;
     }
 
-    let idToRemove: Optional<TNumberId> = null;
+    let idToRemove: Nillable<TNumberId> = null;
 
     for (const [id, descriptor] of this.objects) {
       if (descriptor.objectId === objectId) {
@@ -94,7 +94,7 @@ export class StoryManager {
    * Advance the story on each tick by selecting the next speaker and playing the next phrase.
    */
   public update(): void {
-    if (this.story === null) {
+    if ($isNil(this.story)) {
       return;
     }
 
@@ -109,7 +109,7 @@ export class StoryManager {
 
     const now: TTimestamp = time_global();
 
-    if (this.phraseTimeout === null) {
+    if ($isNil(this.phraseTimeout)) {
       this.phraseTimeout = now;
     }
 
@@ -117,13 +117,13 @@ export class StoryManager {
       return;
     }
 
-    const nextPhraseDescriptor: Optional<IReplicDescriptor> = this.story.getNextPhraseDescriptor();
+    const nextPhraseDescriptor: Nillable<IReplicDescriptor> = this.story.getNextPhraseDescriptor();
 
     if (nextPhraseDescriptor === null) {
       return;
     }
 
-    let nextSpeakerObjectId: Optional<TNumberId> = null;
+    let nextSpeakerObjectId: Nillable<TNumberId> = null;
     const participantsCount: TCount = this.objects.length();
 
     if (participantsCount === 0) {
@@ -158,7 +158,7 @@ export class StoryManager {
         nextSpeakerObjectId = this.objects.get(1).objectId;
       }
     } else if (nextPhraseDescriptor.who === ESoundStoryParticipant.REACTION_ALL) {
-      let objectId: Optional<TNumberId> = null;
+      let objectId: Nillable<TNumberId> = null;
 
       for (const [index, descriptor] of this.objects) {
         if (descriptor.objectId !== this.storyteller) {

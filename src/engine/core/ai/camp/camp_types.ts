@@ -1,5 +1,5 @@
 import type { CampManager } from "@/engine/core/ai/camp/CampManager";
-import type { LuaArray, Optional, TDuration, TName, TProbability } from "@/engine/lib/types";
+import type { LuaArray, Nillable, TDuration, TName, TProbability } from "@/engine/lib/types";
 
 /**
  * Role of object in camp stories.
@@ -25,7 +25,7 @@ export enum EObjectCampActivity {
  * Camp transition descriptor.
  */
 export interface ICampTransitionDescriptor {
-  directorState: Optional<TName>;
+  directorState: Nillable<TName>;
   generalState: TName;
   minTime: TDuration;
   maxTime: TDuration;
@@ -37,7 +37,7 @@ export interface ICampTransitionDescriptor {
 /**
  * Camp registered object state.
  */
-export interface ICampStateDescriptor extends Record<EObjectCampActivity, Optional<EObjectCampRole>> {
+export interface ICampStateDescriptor extends Record<EObjectCampActivity, Nillable<EObjectCampRole>> {
   state: EObjectCampActivity;
 }
 
