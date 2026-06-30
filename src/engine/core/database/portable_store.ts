@@ -1,12 +1,12 @@
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { abort } from "@/engine/core/utils/assertion";
-import { NetPacket, NetProcessor, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Nillable, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Valid type representation stored in portable store.
  */
-export type TPortableStoreValue = Optional<string | number | boolean>;
+export type TPortableStoreValue = Nillable<string | number | boolean>;
 
 /**
  * Check whether provided value is correct for saving in portable store.

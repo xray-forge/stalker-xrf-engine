@@ -12,6 +12,7 @@ import {
   resetObject,
   SYSTEM_INI,
   unregisterHelicopter,
+  unregisterHelicopterFromList,
 } from "@/engine/core/database";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
@@ -27,7 +28,7 @@ import {
   GameObject,
   NetPacket,
   NetReader,
-  Optional,
+  Nillable,
   ServerObject,
   TClassId,
   TDistance,
@@ -94,7 +95,7 @@ export class HelicopterBinder extends object_binder {
 
       if (health <= 0.005 && !this.state.immortal) {
         this.helicopter.Die();
-        unregisterHelicopter(this);
+        unregisterHelicopterFromList(this.object);
       }
     }
 
@@ -154,8 +155,8 @@ export class HelicopterBinder extends object_binder {
    * @param objectId - Object hitting helicopter.
    */
   public onHit(power: TRate, impulse: TRate, type: TNumberId, objectId: TNumberId): void {
-    const enemy: Optional<GameObject> = level.object_by_id(objectId);
-    const enemyClassId: Optional<TClassId> = enemy?.clsid() as Optional<TClassId>;
+    const enemy: Nillable<GameObject> = level.object_by_id(objectId);
+    const enemyClassId: Nillable<TClassId> = enemy?.clsid() as Nillable<TClassId>;
 
     this.helicopterFireManager.enemy = enemy;
     this.helicopterFireManager.onHit();

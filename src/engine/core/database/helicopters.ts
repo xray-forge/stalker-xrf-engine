@@ -36,6 +36,15 @@ export function unregisterHelicopterObject(object: GameObject): void {
 }
 
 /**
+ * Remove helicopter from the helicopters list, keeping the underlying object registered.
+ *
+ * @param object - Helicopter game object to remove from the helicopters list.
+ */
+export function unregisterHelicopterFromList(object: GameObject): void {
+  registry.helicopter.storage.delete(object.id());
+}
+
+/**
  * Register object as enemy for helicopters.
  *
  * @param object - Object to register as enemy.

@@ -13,7 +13,7 @@ import { ACTOR } from "@/engine/lib/constants/words";
 import {
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   Patrol,
   TCount,
   TIndex,
@@ -35,16 +35,16 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   public isHelicopterMoving: boolean = false;
   public isWaypointCallbackHandled: boolean = false;
 
-  public patrolMove: Optional<Patrol> = null;
-  public patrolMoveInfo: Optional<LuaArray<IWaypointData>> = null;
-  public patrolLook: Optional<Patrol> = null;
+  public patrolMove: Nillable<Patrol> = null;
+  public patrolMoveInfo: Nillable<LuaArray<IWaypointData>> = null;
+  public patrolLook: Nillable<Patrol> = null;
 
-  public lastIndex: Optional<TIndex> = null;
-  public nextIndex: Optional<TIndex> = null;
+  public lastIndex: Nillable<TIndex> = null;
+  public nextIndex: Nillable<TIndex> = null;
   public maxVelocity!: TRate;
-  public flagToWpCallback: Optional<boolean> = null;
-  public byStopFireFly: Optional<boolean> = null;
-  public stopPoint: Optional<Vector> = null;
+  public flagToWpCallback: Nillable<boolean> = null;
+  public byStopFireFly: Nillable<boolean> = null;
+  public stopPoint: Nillable<Vector> = null;
 
   public constructor(object: GameObject, state: ISchemeHelicopterMoveState) {
     super(object, state);
@@ -197,7 +197,7 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
 
     // Handle index processing.
     if (this.patrolMove) {
-      if (this.lastIndex === null) {
+      if ($isNil(this.lastIndex)) {
         this.lastIndex = 0;
         this.nextIndex = 1;
       } else {
@@ -245,10 +245,19 @@ export class HelicopterMoveManager extends AbstractSchemeManager<ISchemeHelicopt
   }
 
   public override onWaypoint(object: GameObject, actionType: TName, index: TIndex): void {
-    if (this.patrolMove && !this.flagToWpCallback && index !== this.lastIndex) {
+    if (this.flagToWpCallback) {
+      return;
+    }
+
+    if (this.patrolMove) {
+      // Repeated callback for the current waypoint - ignore without re-arming the movement update.
+      if (index === this.lastIndex) {
+        return;
+      }
+
       if (index === -1) {
         if (this.patrolMoveInfo!.has(this.lastIndex!)) {
-          const signal: Optional<TName> = this.patrolMoveInfo!.get(this.lastIndex!)["sig"];
+          const signal: Nillable<TName> = this.patrolMoveInfo!.get(this.lastIndex!)["sig"];
 
           if (signal) {
             this.state.signals!.set(signal, true);

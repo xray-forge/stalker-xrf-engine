@@ -2,7 +2,7 @@ import { CHelicopter } from "xray16";
 
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { GameObject, LuaArray, Optional, TDistance, TRate, Vector } from "@/engine/lib/types";
+import { GameObject, LuaArray, Nillable, TDistance, TRate, Vector } from "@/engine/lib/types";
 
 /**
  * Manager handling helicopter flight movement towards destination points.
@@ -15,7 +15,7 @@ export class HelicopterFlyManager {
   public heliLAccFW: number = 6;
   public heliLAccBW: number = 4;
   public maxVelocity: number = 0;
-  public destPoint: Optional<Vector> = null;
+  public destPoint: Nillable<Vector> = null;
   public pointArr: LuaTable<number, Vector> = new LuaTable();
 
   public constructor(object: GameObject) {
@@ -173,7 +173,7 @@ export class HelicopterFlyManager {
     const distance: TDistance = helicopter.GetDistanceToDestPosition();
     const acceleration: TRate = this.heliLAccFW;
 
-    let destVelocity: TRate = Math.pow((2 * acceleration * distance + velocity) ** 2 / 3, 1 / 2);
+    let destVelocity: TRate = Math.sqrt((2 * acceleration * distance + velocity ** 2) / 3);
 
     if ((this.maxVelocity * 1000) / 3600 < destVelocity) {
       destVelocity = (this.maxVelocity * 1000) / 3600;

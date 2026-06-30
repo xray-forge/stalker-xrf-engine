@@ -9,7 +9,7 @@ import {
   IRegistryObjectState,
   registry,
   SYSTEM_INI,
-  unregisterHelicopterObject,
+  unregisterHelicopterFromList,
 } from "@/engine/core/database";
 import {
   getSimulationTerrainByName,
@@ -893,14 +893,14 @@ extern("xr_effects.heli_start_flame", (_: GameObject, object: GameObject): void 
 });
 
 /**
- * Destroy the helicopter bound to the object and unregister it from the registry.
+ * Destroy the helicopter bound to the object and remove it from the helicopters list.
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Helicopter game object that is destroyed.
  */
 extern("xr_effects.heli_die", (_: GameObject, object: GameObject): void => {
   object.get_helicopter().Die();
-  unregisterHelicopterObject(object);
+  unregisterHelicopterFromList(object);
 });
 
 /**

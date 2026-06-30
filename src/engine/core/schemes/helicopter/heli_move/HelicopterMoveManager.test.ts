@@ -496,10 +496,12 @@ describe("HelicopterMoveManager", () => {
     manager.patrolMove = MockPatrol.mock("test-wp-sig");
     manager.patrolMoveInfo = parseWaypointsData("test-wp-sig");
 
+    // While a fly command is in progress (flagToWpCallback), the waypoint callback is ignored entirely and
+    // does not re-arm the movement update.
     manager.flagToWpCallback = true;
     manager.onWaypoint(object, "action-type", -1);
 
-    expect(manager.isWaypointCallbackHandled).toBe(true);
+    expect(manager.isWaypointCallbackHandled).toBe(false);
     expect(manager.state.signals).toEqualLuaTables({});
     expect(manager.lastIndex).toBe(1);
 
