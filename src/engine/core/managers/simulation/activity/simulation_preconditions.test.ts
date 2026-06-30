@@ -6,6 +6,7 @@ import {
   simulationPreconditionDay,
   simulationPreconditionNear,
   simulationPreconditionNearAndDay,
+  simulationPreconditionLateNight,
   simulationPreconditionNearAndNight,
   simulationPreconditionNight,
   simulationPreconditionNotSurge,
@@ -79,6 +80,28 @@ describe("simulationPreconditionNight", () => {
 
     jest.spyOn(level, "get_time_hours").mockImplementation(() => 24);
     expect(simulationPreconditionNight(MockSquad.mock(), MockSquad.mock())).toBe(true);
+  });
+});
+
+describe("simulationPreconditionLateNight", () => {
+  it("should check late night time starting at 21", () => {
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 5);
+    expect(simulationPreconditionLateNight(MockSquad.mock(), MockSquad.mock())).toBe(true);
+
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 6);
+    expect(simulationPreconditionLateNight(MockSquad.mock(), MockSquad.mock())).toBe(false);
+
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 19);
+    expect(simulationPreconditionLateNight(MockSquad.mock(), MockSquad.mock())).toBe(false);
+
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 20);
+    expect(simulationPreconditionLateNight(MockSquad.mock(), MockSquad.mock())).toBe(false);
+
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 21);
+    expect(simulationPreconditionLateNight(MockSquad.mock(), MockSquad.mock())).toBe(true);
+
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 24);
+    expect(simulationPreconditionLateNight(MockSquad.mock(), MockSquad.mock())).toBe(true);
   });
 });
 

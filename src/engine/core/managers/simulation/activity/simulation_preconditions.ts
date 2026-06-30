@@ -45,6 +45,18 @@ export function simulationPreconditionNight(squad: Squad, target: ServerObject):
 }
 
 /**
+ * Late-night window (from 21:00 to day start), distinct from the generic night that starts at day end (19:00).
+ * Used for predatory-night vegetarian hunting.
+ *
+ * @param squad - Target squad to check.
+ * @param target - Squad activity target.
+ * @returns Whether currently late night.
+ */
+export function simulationPreconditionLateNight(squad: Squad, target: ServerObject): boolean {
+  return isInTimeInterval(simulationConfig.ALIFE_LATE_NIGHT_HOUR, simulationConfig.ALIFE_DAY_START_HOUR);
+}
+
+/**
  * @param squad - Target squad to check.
  * @param target - Squad activity target.
  * @returns Whether target is near squad (based on object vertexes).

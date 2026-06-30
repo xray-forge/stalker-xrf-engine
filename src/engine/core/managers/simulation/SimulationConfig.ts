@@ -17,6 +17,7 @@ export const simulationConfig = {
   ALIFE_DISTANCE_NEAR: 150,
   ALIFE_DAY_START_HOUR: 6,
   ALIFE_DAY_END_HOUR: 19,
+  ALIFE_LATE_NIGHT_HOUR: 21,
   IS_SIMULATION_INITIALIZED: false,
   TERRAINS: new LuaTable<TName, SmartTerrain>(),
   TERRAIN_DESCRIPTORS: new LuaTable<TNumberId, ISmartTerrainDescriptor>(),

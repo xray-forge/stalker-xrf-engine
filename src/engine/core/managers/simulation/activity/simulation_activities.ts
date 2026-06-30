@@ -2,6 +2,7 @@ import { registry } from "@/engine/core/database";
 import {
   simulationPreconditionAlways,
   simulationPreconditionDay,
+  simulationPreconditionLateNight,
   simulationPreconditionNear,
   simulationPreconditionNearAndDay,
   simulationPreconditionNearAndNight,
@@ -157,7 +158,7 @@ export const simulationActivities: LuaTable<TCommunity, ISimulationActivityDescr
   },
   [communities.monster_predatory_night]: {
     [ESimulationRole.SQUAD]: {
-      monster_vegetarian: simulationPreconditionNight,
+      monster_vegetarian: simulationPreconditionLateNight,
       stalker: simulationPreconditionNearAndNight,
       bandit: simulationPreconditionNearAndNight,
       dolg: simulationPreconditionNearAndNight,
