@@ -2,6 +2,7 @@ import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import {
   AnyCallable,
   LuaArray,
+  Nillable,
   Optional,
   TDuration,
   TIndex,
@@ -106,8 +107,8 @@ export enum EAnimationMarker {
  */
 export interface IAnimationManagerState {
   lastIndex: Optional<TIndex>;
-  currentState: Optional<EStalkerState>;
-  targetState: Optional<EStalkerState>;
+  currentState: Nillable<EStalkerState>;
+  targetState: Nillable<EStalkerState>;
   animationMarker: Optional<EAnimationMarker>;
   nextRandomAt: Optional<TTimestamp>;
   sequenceId: TNumberId;

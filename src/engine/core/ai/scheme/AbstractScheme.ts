@@ -1,6 +1,6 @@
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
-import { AnyObject, GameObject, IniFile, ISchemeEventHandler, Optional, TName } from "@/engine/lib/types";
+import { AnyObject, GameObject, IniFile, ISchemeEventHandler, Nillable, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -32,7 +32,7 @@ export abstract class AbstractScheme {
     ini: IniFile,
     scheme: EScheme,
     section: TSection,
-    terrain?: Optional<TName>
+    terrain?: Nillable<TName>
   ): IBaseSchemeState {
     abort("Called not implemented 'activate' method: '%s', '%s', '%s'.", object.name(), scheme, section);
   }
@@ -51,10 +51,10 @@ export abstract class AbstractScheme {
     object: GameObject,
     ini: IniFile,
     scheme: EScheme,
-    section: Optional<TSection>
+    section: Nillable<TSection>
   ): T {
     const objectState: IRegistryObjectState = registry.objects.get(object.id());
-    let state: Optional<T> = objectState[scheme] as Optional<T>;
+    let state: Nillable<T> = objectState[scheme] as Nillable<T>;
 
     if (!state) {
       state = {} as T;

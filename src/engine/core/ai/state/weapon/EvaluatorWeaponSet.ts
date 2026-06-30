@@ -4,7 +4,7 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
 import { states } from "@/engine/core/animation/states";
 import { EWeaponAnimation } from "@/engine/core/animation/types";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
-import { GameObject, Optional } from "@/engine/lib/types";
+import { GameObject, Nillable } from "@/engine/lib/types";
 
 /**
  * Whether current active weapon matches required weapon.
@@ -25,16 +25,16 @@ export class EvaluatorWeaponSet extends property_evaluator {
    * @returns Whether the correct weapon is equipped in the correct strapped or unstrapped mode.
    */
   public override evaluate(): boolean {
-    const weaponAnimation: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
+    const weaponAnimation: Nillable<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
 
-    if (weaponAnimation === null) {
+    if (!weaponAnimation) {
       return true;
     }
 
-    const activeItem: Optional<GameObject> = this.object.active_item();
+    const activeItem: Nillable<GameObject> = this.object.active_item();
 
     if (
-      activeItem === null &&
+      !activeItem &&
       (weaponAnimation === EWeaponAnimation.NONE ||
         weaponAnimation === EWeaponAnimation.STRAPPED ||
         weaponAnimation === EWeaponAnimation.DROP)
@@ -42,9 +42,9 @@ export class EvaluatorWeaponSet extends property_evaluator {
       return true;
     }
 
-    const bestWeapon: Optional<GameObject> = this.object.best_weapon();
+    const bestWeapon: Nillable<GameObject> = this.object.best_weapon();
 
-    if (bestWeapon === null) {
+    if (!bestWeapon) {
       return false;
     }
 

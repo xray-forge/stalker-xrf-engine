@@ -2,7 +2,7 @@ import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { NIL } from "@/engine/lib/constants/words";
-import { GameObject, IniFile, LuaArray, Optional, TName, TSection } from "@/engine/lib/types";
+import { GameObject, IniFile, LuaArray, Nillable, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -14,7 +14,7 @@ export class ObjectRestrictionsManager {
    * Initialize restrictor manager for game object.
    */
   public static initializeForObject(object: GameObject): ObjectRestrictionsManager {
-    const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+    const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
     if (!state.restrictionsManager) {
       state.restrictionsManager = new ObjectRestrictionsManager(object);

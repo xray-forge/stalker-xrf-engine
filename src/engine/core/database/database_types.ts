@@ -10,6 +10,7 @@ import {
   GameObject,
   IniFile,
   LuaArray,
+  Nillable,
   Optional,
   TDuration,
   Time,
@@ -54,7 +55,7 @@ export interface IBaseSchemeState {
    */
   signals: Optional<TSchemeSignals>;
   scheme: EScheme;
-  section: Optional<TSection>;
+  section: Nillable<TSection>;
   actions?: LuaTable<AnyObject, boolean>;
   overrides: Optional<ILogicsOverrides>;
 }

@@ -1,6 +1,6 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import type { GameObject, ISchemeEventHandler, Optional, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
+import { GameObject, ISchemeEventHandler, Nillable, TCount, TIndex, TName, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,13 +37,13 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
     object: GameObject,
     amount: TCount,
     direction: Vector,
-    who: Optional<GameObject>,
+    who: Nillable<GameObject>,
     boneIndex: TIndex
   ): void {
     // logger.info("Hit: %s %s", this.state?.scheme, this.object.name());
   }
 
-  public onUse(object: GameObject, who: Optional<GameObject>): void {
+  public onUse(object: GameObject, who: Nillable<GameObject>): void {
     logger.info("Use: %s %s", this.state?.scheme, this.object.name());
   }
 
@@ -51,7 +51,7 @@ export abstract class AbstractSchemeManager<T extends IBaseSchemeState> implemen
     logger.info("Waypoint: %s %s", this.state?.scheme, this.object.name());
   }
 
-  public onDeath(victim: GameObject, who: Optional<GameObject>): void {
+  public onDeath(victim: GameObject, who: Nillable<GameObject>): void {
     logger.info("Death: %s %s", this.state?.scheme, this.object.name());
   }
 

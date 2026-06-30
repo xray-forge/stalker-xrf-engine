@@ -3,7 +3,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
 import { EWeaponAnimation } from "@/engine/core/animation/types";
-import { Optional } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Whether weapon should be in hands.
@@ -21,7 +21,7 @@ export class EvaluatorWeaponUnstrappedTarget extends property_evaluator {
    * Check if weapon target state is unstrapped state.
    */
   public override evaluate(): boolean {
-    const weapon: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
+    const weapon: Nillable<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
 
     return (
       weapon === EWeaponAnimation.UNSTRAPPED ||

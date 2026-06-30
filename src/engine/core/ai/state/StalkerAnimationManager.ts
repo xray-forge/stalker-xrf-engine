@@ -22,7 +22,7 @@ import {
   GameObject,
   Hit,
   LuaArray,
-  Optional,
+  Nillable,
   TIndex,
   TName,
   TRate,
@@ -85,7 +85,7 @@ export class StalkerAnimationManager {
    * @param state - Target state to set.
    * @param isForced - Whether state transition should be forced and skip all `out` animations.
    */
-  public setState(state: Optional<EStalkerState>, isForced?: Optional<boolean>): void {
+  public setState(state: Nillable<EStalkerState>, isForced?: Nillable<boolean>): void {
     const now: TTimestamp = time_global();
 
     if (state !== this.state.targetState) {
@@ -98,7 +98,7 @@ export class StalkerAnimationManager {
     if (isForced === true) {
       this.object.clear_animations();
 
-      const currentState: Optional<IAnimationDescriptor> =
+      const currentState: Nillable<IAnimationDescriptor> =
         this.state.animationMarker === EAnimationMarker.IN
           ? this.animations.get(this.state.targetState!)
           : this.animations.get(this.state.currentState!);
@@ -107,7 +107,7 @@ export class StalkerAnimationManager {
         const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
         const animationForWeaponSlot = this.getAnimationForWeaponSlot(weaponSlot, currentState.out);
 
-        if (animationForWeaponSlot !== null) {
+        if (animationForWeaponSlot) {
           for (const [, nextAnimation] of animationForWeaponSlot) {
             if (type(nextAnimation) === "table") {
               this.processSpecialAction(nextAnimation as any);
@@ -148,7 +148,7 @@ export class StalkerAnimationManager {
    */
   public addAnimation(animation: TName, animationDescriptor: IAnimationDescriptor): void {
     const object: GameObject = this.object;
-    const animationProperties: Optional<IAnimationDescriptorProperties> = animationDescriptor.prop;
+    const animationProperties: Nillable<IAnimationDescriptorProperties> = animationDescriptor.prop;
 
     if (
       this.stateManager.animationPosition &&
@@ -180,7 +180,7 @@ export class StalkerAnimationManager {
   public getAnimationForWeaponSlot(
     weaponSlot: TIndex,
     animationsList: LuaArray<TAnimationSequenceElements>
-  ): Optional<LuaArray<TAnimationSequenceElements>> {
+  ): Nillable<LuaArray<TAnimationSequenceElements>> {
     if (!animationsList.has(weaponSlot)) {
       weaponSlot = 0;
     }
@@ -214,13 +214,13 @@ export class StalkerAnimationManager {
         }
 
         const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
-        const animationForWeaponSlot: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
+        const animationForWeaponSlot: Nillable<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
           weaponSlot,
           animationDescriptor.out
         );
 
         // No animation for current / 0 slot, mark as executed and transition forward.
-        if (animationForWeaponSlot === null) {
+        if (!animationForWeaponSlot) {
           this.onAnimationCallback(true);
 
           return $multi(null, null);
@@ -254,13 +254,13 @@ export class StalkerAnimationManager {
         }
 
         const weaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
-        const animationForWeaponSlot: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
+        const animationForWeaponSlot: Nillable<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
           weaponSlot,
           state.into
         );
 
         // No animation for desired weapon slot, mark as executed and proceed forward.
-        if (animationForWeaponSlot === null) {
+        if (!animationForWeaponSlot) {
           this.onAnimationCallback(true);
 
           return $multi(null, null);
@@ -282,7 +282,7 @@ export class StalkerAnimationManager {
     }
 
     // Same non-null animation, processing idle state:
-    if (states.targetState === states.currentState && states.currentState !== null) {
+    if (states.targetState === states.currentState && states.currentState) {
       const activeWeaponSlot: TIndex = getObjectActiveWeaponSlot(this.object);
       const state: IAnimationDescriptor = this.animations.get(states.currentState);
 
@@ -326,17 +326,17 @@ export class StalkerAnimationManager {
     animationDescriptor: IAnimationDescriptor,
     weaponSlot: TIndex,
     shouldPlay: boolean
-  ): Optional<TAnimationSequenceElements> {
+  ): Nillable<TAnimationSequenceElements> {
     if (!shouldPlay && math.random(100) > (this.animations.get(this.state.currentState!).prop.rnd as TRate)) {
       return null;
     }
 
-    const animation: Optional<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
+    const animation: Nillable<LuaArray<TAnimationSequenceElements>> = this.getAnimationForWeaponSlot(
       weaponSlot,
       animationDescriptor.rnd as LuaArray<TAnimationSequenceElements>
     );
 
-    if (animation === null) {
+    if (!animation) {
       return null;
     }
 
@@ -370,30 +370,30 @@ export class StalkerAnimationManager {
    */
   public processSpecialAction(actionTable: LuaTable): void {
     // Attach item.
-    if (actionTable.get("a") !== null) {
-      const objectInventoryItem: Optional<GameObject> = this.object.object(actionTable.get("a"));
+    if (actionTable.get("a")) {
+      const objectInventoryItem: Nillable<GameObject> = this.object.object(actionTable.get("a"));
 
-      if (objectInventoryItem !== null) {
+      if (objectInventoryItem) {
         objectInventoryItem.enable_attachable_item(true);
       }
     }
 
     // Detach item.
-    if (actionTable.get("d") !== null) {
-      const objectInventoryItem: Optional<GameObject> = this.object.object(actionTable.get("d"));
+    if (actionTable.get("d")) {
+      const objectInventoryItem: Nillable<GameObject> = this.object.object(actionTable.get("d"));
 
-      if (objectInventoryItem !== null) {
+      if (objectInventoryItem) {
         objectInventoryItem.enable_attachable_item(false);
       }
     }
 
     // Play sound.
-    if (actionTable.get("s") !== null) {
+    if (actionTable.get("s")) {
       getManager(SoundManager).play(this.object.id(), actionTable.get("s"));
     }
 
     // Hit object.
-    if (actionTable.get("sh") !== null) {
+    if (actionTable.get("sh")) {
       const hitObject: Hit = new hit();
 
       hitObject.power = actionTable.get("sh");
@@ -406,9 +406,9 @@ export class StalkerAnimationManager {
     }
 
     // Custom callback.
-    const animationCallback: Optional<AnyCallable> = actionTable.get("f");
+    const animationCallback: Nillable<AnyCallable> = actionTable.get("f");
 
-    if (animationCallback !== null) {
+    if (animationCallback) {
       animationCallback(this.object);
     }
   }
@@ -420,7 +420,7 @@ export class StalkerAnimationManager {
    * @param skipMultiAnimationCheck - Skip multiple animations scenario and transfer to another marker.
    */
   public onAnimationCallback(skipMultiAnimationCheck?: boolean): void {
-    if (this.state.animationMarker === null || this.object.animation_count() > 0) {
+    if (!this.state.animationMarker || this.object.animation_count() > 0) {
       return;
     }
 
@@ -431,14 +431,14 @@ export class StalkerAnimationManager {
         states.animationMarker = null;
 
         if (skipMultiAnimationCheck !== true) {
-          let intoList: Optional<LuaArray<TAnimationSequenceElements>> = new LuaTable();
+          let intoList: Nillable<LuaArray<TAnimationSequenceElements>> = new LuaTable();
           const targetAnimations = this.animations.get(states.targetState!);
 
-          if (targetAnimations !== null && targetAnimations.into !== null) {
+          if (targetAnimations && targetAnimations.into) {
             intoList = this.getAnimationForWeaponSlot(getObjectActiveWeaponSlot(this.object), targetAnimations.into);
           }
 
-          if (intoList !== null && intoList.length() > states.sequenceId) {
+          if (intoList && intoList.length() > states.sequenceId) {
             states.sequenceId += 1;
             this.updateAnimation();
 
@@ -473,7 +473,7 @@ export class StalkerAnimationManager {
         states.animationMarker = null;
 
         if (skipMultiAnimationCheck !== true) {
-          let outAnimationList: Optional<LuaArray<TAnimationSequenceElements>> = new LuaTable();
+          let outAnimationList: Nillable<LuaArray<TAnimationSequenceElements>> = new LuaTable();
 
           if (this.animations.get(states.currentState as EStalkerState).out) {
             outAnimationList = this.getAnimationForWeaponSlot(
@@ -482,7 +482,7 @@ export class StalkerAnimationManager {
             );
           }
 
-          if (outAnimationList !== null && outAnimationList.length() > states.sequenceId) {
+          if (outAnimationList && outAnimationList.length() > states.sequenceId) {
             states.sequenceId += 1;
             this.updateAnimation();
 
