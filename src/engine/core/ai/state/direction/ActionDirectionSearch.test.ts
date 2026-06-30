@@ -26,7 +26,7 @@ describe("ActionDirectionSearch", () => {
     action.setup(stalker.object, new property_storage());
     action.initialize();
 
-    expect(stalker.object.set_sight).toHaveBeenCalledWith(undefined, null, 0);
+    expect(stalker.object.set_sight).toHaveBeenCalledWith(0, null, 0);
     resetFunctionMock(stalker.object.set_sight);
 
     setStalkerState(stalker.object, EStalkerState.SMART_COVER);
@@ -37,4 +37,6 @@ describe("ActionDirectionSearch", () => {
 
     unregisterStalker(stalker);
   });
+
+  // todo: Second case
 });

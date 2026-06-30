@@ -7,7 +7,7 @@ import { isStalker, isWeapon } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartCoverStateQueueParams } from "@/engine/core/utils/smart_cover";
 import { getWeaponActionForAnimationState } from "@/engine/core/utils/weapon";
-import { EGameObjectRelation, GameObject, Optional, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, Nillable, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -36,17 +36,17 @@ export class ActionStateEnd extends action_base {
     super.execute();
 
     // Handle callback execution of animation.
-    if (this.stateManager.callback !== null) {
+    if (this.stateManager.callback) {
       const now: TTimestamp = time_global();
 
       // Set start of animation timeout.
-      if (this.stateManager.callback.begin === null) {
+      if (!this.stateManager.callback.begin) {
         this.stateManager.callback.begin = now;
       }
 
       // Verify duration of timeout.
       if (now - (this.stateManager.callback.begin as TTimestamp) >= (this.stateManager.callback.timeout as TDuration)) {
-        if (this.stateManager.callback.callback !== null) {
+        if (this.stateManager.callback.callback) {
           logger.info("Animation ended with callback: %s %s", this.object.name(), this.stateManager.targetState);
           this.stateManager.callback.callback.call(this.stateManager.callback.context);
         }
@@ -60,22 +60,22 @@ export class ActionStateEnd extends action_base {
       return;
     }
 
-    const targetWeaponState: Optional<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
+    const targetWeaponState: Nillable<EWeaponAnimation> = states.get(this.stateManager.targetState).weapon;
 
     if (targetWeaponState === EWeaponAnimation.FIRE || targetWeaponState === EWeaponAnimation.SNIPER_FIRE) {
       let sniperAimDuration: TDuration = SNIPER_AIM_TIME;
 
-      if (this.stateManager.lookObjectId !== null) {
-        const lookObject: Optional<GameObject> = level.object_by_id(this.stateManager.lookObjectId);
+      if (this.stateManager.lookObjectId) {
+        const lookObject: Nillable<GameObject> = level.object_by_id(this.stateManager.lookObjectId);
 
-        if (lookObject === null) {
+        if (!lookObject) {
           this.stateManager.lookObjectId = null;
 
           return;
         }
 
         if (
-          this.object.see(lookObject) !== null &&
+          this.object.see(lookObject) &&
           (!isStalker(lookObject) || this.object.relation(lookObject) === EGameObjectRelation.ENEMY) &&
           lookObject.alive()
         ) {

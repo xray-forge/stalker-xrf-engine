@@ -21,7 +21,7 @@ import {
   ActionPlanner,
   AnyCallable,
   GameObject,
-  Optional,
+  Nillable,
   TDuration,
   TLookType,
   TNumberId,
@@ -39,7 +39,7 @@ export class StalkerStateManager {
   public readonly object: GameObject;
   public readonly planner: ActionPlanner;
 
-  public controller: Optional<EAnimationType> = null;
+  public controller: Nillable<EAnimationType> = null;
 
   public isAlife: boolean = true;
   public isCombat: boolean = false;
@@ -51,14 +51,14 @@ export class StalkerStateManager {
   public animation: StalkerAnimationManager;
   public animstate: StalkerAnimationManager;
 
-  public animationPosition: Optional<Vector> = null;
-  public animationDirection: Optional<Vector> = null;
+  public animationPosition: Nillable<Vector> = null;
+  public animationDirection: Nillable<Vector> = null;
 
   public targetState: EStalkerState = EStalkerState.IDLE;
-  public callback: Optional<IStateManagerCallbackDescriptor> = null;
+  public callback: Nillable<IStateManagerCallbackDescriptor> = null;
 
-  public lookPosition: Optional<Vector> = null;
-  public lookObjectId: Optional<TNumberId> = null;
+  public lookPosition: Nillable<Vector> = null;
+  public lookObjectId: Nillable<TNumberId> = null;
 
   public constructor(object: GameObject) {
     this.object = object;
@@ -73,7 +73,7 @@ export class StalkerStateManager {
    *
    * @returns Target state or null.
    */
-  public getState(): Optional<EStalkerState> {
+  public getState(): Nillable<EStalkerState> {
     return this.targetState;
   }
 
@@ -88,10 +88,10 @@ export class StalkerStateManager {
    */
   public setState(
     state: EStalkerState,
-    callback: Optional<IStateManagerCallbackDescriptor>,
-    timeout: Optional<TDuration>,
-    target: Optional<ILookTargetDescriptor>,
-    extra: Optional<ITargetStateDescriptorExtras>
+    callback: Nillable<IStateManagerCallbackDescriptor>,
+    timeout: Nillable<TDuration>,
+    target: Nillable<ILookTargetDescriptor>,
+    extra: Nillable<ITargetStateDescriptorExtras>
   ): void {
     assert(states.get(state), "Invalid set state called: '%s' fo '%s'.", state, this.object.name());
 
@@ -110,8 +110,8 @@ export class StalkerStateManager {
 
     logger.info("Set state: '%s', %s -> %s", this.object.name(), this.targetState, state);
 
-    const previousStateDescriptorWeapon: Optional<EWeaponAnimation> = states.get(this.targetState).weapon;
-    const nextStateDescriptorWeapon: Optional<EWeaponAnimation> = states.get(state).weapon;
+    const previousStateDescriptorWeapon: Nillable<EWeaponAnimation> = states.get(this.targetState).weapon;
+    const nextStateDescriptorWeapon: Nillable<EWeaponAnimation> = states.get(state).weapon;
 
     // Hide weapon if it is not needed for new animation.
     if (
@@ -140,18 +140,18 @@ export class StalkerStateManager {
 
       // If position or direction are changed, reset applied state.
       if (
-        (this.animationPosition !== null &&
-          extra.animationPosition !== null &&
+        (this.animationPosition &&
+          extra.animationPosition &&
           !areSameVectors(this.animationPosition, extra.animationPosition as Vector)) ||
-        (this.animationDirection !== null &&
-          extra.animationDirection !== null &&
+        (this.animationDirection &&
+          extra.animationDirection &&
           !areSameVectors(this.animationDirection, extra.animationDirection as Vector))
       ) {
         this.isAnimationDirectionApplied = false;
       }
 
-      this.animationPosition = extra.animationPosition as Optional<Vector>;
-      this.animationDirection = extra.animationDirection as Optional<Vector>;
+      this.animationPosition = extra.animationPosition as Nillable<Vector>;
+      this.animationDirection = extra.animationDirection as Nillable<Vector>;
     } else {
       this.isAnimationDirectionApplied = false;
       this.animationPosition = null;
@@ -163,7 +163,7 @@ export class StalkerStateManager {
     this.callback = callback;
 
     if (this.callback) {
-      if (timeout !== null && timeout >= 0) {
+      if ($isNotNil(timeout) && timeout >= 0) {
         this.callback.timeout = timeout;
         this.callback.begin = null;
       } else {
@@ -179,13 +179,13 @@ export class StalkerStateManager {
   public update(): void {
     // Notify set state callback if it is provided and desired state is set.
     if (
-      this.callback !== null &&
-      this.callback.callback !== null &&
+      this.callback &&
+      this.callback.callback &&
       this.animation.state.currentState === states.get(this.targetState).animation
     ) {
       const now: TTimestamp = time_global();
 
-      if (this.callback.begin === null) {
+      if ($isNil(this.callback.begin)) {
         this.callback.begin = now;
       } else {
         if (now - (this.callback.begin as TTimestamp) >= (this.callback.timeout as TDuration)) {
@@ -208,7 +208,7 @@ export class StalkerStateManager {
       return;
     }
 
-    let plannerPreviousActionId: Optional<TNumberId> = null;
+    let plannerPreviousActionId: Nillable<TNumberId> = null;
     let plannerCurrentActionId: TNumberId = this.planner.current_action_id();
 
     // Update planer till state is not set to end or locked.
@@ -249,7 +249,7 @@ export class StalkerStateManager {
       return true;
     }
 
-    return states.get(this.targetState).animation !== null;
+    return $isNotNil(states.get(this.targetState).animation);
   }
 
   /**
@@ -259,12 +259,12 @@ export class StalkerStateManager {
    */
   public getObjectLookPositionType(): TLookType {
     // Has animation defined look direction.
-    if (states.get(this.targetState).direction !== null) {
+    if ($isNotNil(states.get(this.targetState).direction)) {
       return states.get(this.targetState).direction as TLookType;
     }
 
     // Has look position defined.
-    if (this.lookPosition !== null) {
+    if (this.lookPosition) {
       return look.direction;
     }
 
@@ -277,9 +277,9 @@ export class StalkerStateManager {
   public turn(): void {
     this.isObjectPointDirectionLook = this.isLookObjectType();
 
-    if (this.lookObjectId !== null && level.object_by_id(this.lookObjectId) !== null) {
+    if ($isNotNil(this.lookObjectId) && level.object_by_id(this.lookObjectId)) {
       this.lookAtObject();
-    } else if (this.lookPosition !== null) {
+    } else if (this.lookPosition) {
       let sightDirection: Vector = subVectors(this.lookPosition!, this.object.position());
 
       if (this.isObjectPointDirectionLook) {

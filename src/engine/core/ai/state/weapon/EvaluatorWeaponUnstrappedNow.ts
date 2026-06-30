@@ -1,7 +1,7 @@
 import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { GameObject, Optional } from "@/engine/lib/types";
+import { GameObject, Nillable } from "@/engine/lib/types";
 
 /**
  * Whether weapon is not strapped and in hands right now.
@@ -19,12 +19,12 @@ export class EvaluatorWeaponUnstrappedNow extends property_evaluator {
    * Check if weapon currently unstrapped.
    */
   public override evaluate(): boolean {
-    const activeItem: Optional<GameObject> = this.object.active_item();
-    const bestWeapon: Optional<GameObject> = this.object.best_weapon();
+    const activeItem: Nillable<GameObject> = this.object.active_item();
+    const bestWeapon: Nillable<GameObject> = this.object.best_weapon();
 
     return (
-      activeItem !== null &&
-      bestWeapon !== null &&
+      $isNotNil(activeItem) &&
+      $isNotNil(bestWeapon) &&
       activeItem.id() === bestWeapon.id() &&
       !this.object.is_weapon_going_to_be_strapped(bestWeapon) &&
       this.object.weapon_unstrapped()
