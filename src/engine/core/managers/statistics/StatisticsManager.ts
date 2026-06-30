@@ -24,7 +24,7 @@ import {
   PartialRecord,
   ServerCreatureObject,
   ServerObject,
-  StringOptional,
+  StringNillable,
   TClassId,
   TCount,
   TName,
@@ -151,11 +151,11 @@ export class StatisticsManager extends AbstractManager {
     this.actorStatistics.collectedArtefactsCount = reader.r_u16();
     this.actorStatistics.bestKilledMonsterRank = reader.r_u32();
 
-    const bestMonster: StringOptional<TMonster> = reader.r_stringZ();
+    const bestMonster: StringNillable<TMonster> = reader.r_stringZ();
 
     this.actorStatistics.bestKilledMonster = bestMonster === NIL ? null : bestMonster;
 
-    const favoriteWeapon: StringOptional<TWeapon> = reader.r_stringZ();
+    const favoriteWeapon: StringNillable<TWeapon> = reader.r_stringZ();
 
     this.actorStatistics.favoriteWeapon = favoriteWeapon === NIL ? null : favoriteWeapon;
 

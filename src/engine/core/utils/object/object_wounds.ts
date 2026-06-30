@@ -10,7 +10,7 @@ import {
   EScheme,
   GameObject,
   Hit,
-  Maybe,
+  Nillable,
   Optional,
   TDistance,
   TName,
@@ -59,9 +59,9 @@ export function setObjectWounded(object: GameObject): void {
  * @param object - Game object to enable healing.
  */
 export function enableObjectWoundedHealing(object: GameObject): void {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
-  (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager.unlockMedkit();
+  (state?.wounded as Nillable<ISchemeWoundedState>)?.woundManager.unlockMedkit();
 }
 
 /**
@@ -69,11 +69,11 @@ export function enableObjectWoundedHealing(object: GameObject): void {
  * @returns Whether object is wounded with physical damage.
  */
 export function isObjectPsyWounded(object: GameObject): boolean {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (state.wounded) {
-    const woundState: Optional<TName> = (state?.wounded as Maybe<ISchemeWoundedState>)?.woundManager
-      .woundState as Optional<TName>;
+    const woundState: Nillable<TName> = (state?.wounded as Nillable<ISchemeWoundedState>)?.woundManager
+      .woundState as Nillable<TName>;
 
     return (
       woundState === "psy_pain" ||

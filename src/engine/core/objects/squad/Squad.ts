@@ -64,7 +64,7 @@ import {
   Optional,
   ServerCreatureObject,
   ServerObject,
-  StringOptional,
+  StringNillable,
   TCount,
   TIndex,
   TName,
@@ -295,11 +295,11 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
     openLoadMarker(packet, Squad.__name);
 
-    const currentTargetId: StringOptional = packet.r_stringZ();
+    const currentTargetId: StringNillable = packet.r_stringZ();
 
     this.currentTargetId = currentTargetId === NIL ? null : (tonumber(currentTargetId) as TNumberId);
 
-    const respawnPointId: StringOptional = packet.r_stringZ();
+    const respawnPointId: StringNillable = packet.r_stringZ();
 
     this.respawnPointId = respawnPointId === NIL ? null : (tonumber(respawnPointId) as TNumberId);
     this.respawnPointSection = packet.r_stringZ();
@@ -308,7 +308,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.respawnPointSection = null;
     }
 
-    const terrainId: StringOptional = packet.r_stringZ();
+    const terrainId: StringNillable = packet.r_stringZ();
 
     this.assignedTerrainId = terrainId === NIL ? null : (tonumber(terrainId) as TNumberId);
 
@@ -405,7 +405,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.nextTargetIndex = 1;
     }
 
-    let nextTargetName: StringOptional<TName> = this.parsedTargets.get(this.nextTargetIndex as TNumberId);
+    let nextTargetName: StringNillable<TName> = this.parsedTargets.get(this.nextTargetIndex as TNumberId);
 
     if (nextTargetName === NIL) {
       return null;

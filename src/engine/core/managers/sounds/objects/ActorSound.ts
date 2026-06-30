@@ -19,7 +19,7 @@ import {
   NetPacket,
   NetProcessor,
   Optional,
-  StringOptional,
+  StringNillable,
   TCount,
   TDuration,
   TIndex,
@@ -252,7 +252,7 @@ export class ActorSound extends AbstractPlayableSound {
    * @param reader - Net processor to read the sound state from.
    */
   public override load(reader: NetProcessor): void {
-    const id: StringOptional<TStringId> = reader.r_stringZ();
+    const id: StringNillable<TStringId> = reader.r_stringZ();
 
     this.playedSoundIndex = id === NIL ? null : tonumber(id)!;
   }

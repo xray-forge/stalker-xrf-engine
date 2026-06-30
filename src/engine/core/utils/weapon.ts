@@ -3,7 +3,7 @@ import { anim, move, object, TXR_object_action } from "xray16";
 import { states } from "@/engine/core/animation/states";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/animation/types";
 import { isWeapon } from "@/engine/core/utils/class_ids";
-import { GameObject, Optional, TIndex } from "@/engine/lib/types";
+import { GameObject, Nillable, TIndex } from "@/engine/lib/types";
 
 /**
  * Check whether object is strapping weapon.
@@ -20,9 +20,9 @@ export function isObjectStrappingWeapon(object: GameObject): boolean {
  * @returns Whether object is in locked state for the object.
  */
 export function isObjectWeaponLocked(object: GameObject): boolean {
-  const bestWeapon: Optional<GameObject> = object.best_weapon();
+  const bestWeapon: Nillable<GameObject> = object.best_weapon();
 
-  if (bestWeapon === null) {
+  if ($isNil(bestWeapon)) {
     return false;
   }
 
@@ -46,7 +46,7 @@ export function isObjectWeaponLocked(object: GameObject): boolean {
  * @param target - Game object to force getting best weapon.
  */
 export function setObjectBestWeapon(target: GameObject): void {
-  const bestWeapon: Optional<GameObject> = target.best_weapon();
+  const bestWeapon: Nillable<GameObject> = target.best_weapon();
 
   if (isWeapon(bestWeapon)) {
     target.set_item(object.idle, bestWeapon);
@@ -60,9 +60,9 @@ export function setObjectBestWeapon(target: GameObject): void {
  * @returns Active weapon slot index.
  */
 export function getObjectActiveWeaponSlot(object: GameObject): TIndex {
-  const weapon: Optional<GameObject> = object.active_item();
+  const weapon: Nillable<GameObject> = object.active_item();
 
-  if (weapon === null || object.weapon_strapped()) {
+  if ($isNil(weapon) || object.weapon_strapped()) {
     return 0;
   }
 
@@ -79,7 +79,7 @@ export function getWeaponActionForAnimationState(targetState: EStalkerState): TX
   const stateDescriptor: IStateDescriptor = states.get(targetState);
 
   if (
-    stateDescriptor.animation === null &&
+    $isNil(stateDescriptor.animation) &&
     stateDescriptor.mental === anim.danger &&
     stateDescriptor.movement === move.stand
   ) {
@@ -94,8 +94,8 @@ export function getWeaponActionForAnimationState(targetState: EStalkerState): TX
  * @param targetState - Animation state to get weapon for.
  * @returns Weapon matching desired animation state or null.
  */
-export function getObjectWeaponForAnimationState(object: GameObject, targetState: EStalkerState): Optional<GameObject> {
-  const weaponSlot: Optional<TIndex> = states.get(targetState).weaponSlot as Optional<TIndex>;
+export function getObjectWeaponForAnimationState(object: GameObject, targetState: EStalkerState): Nillable<GameObject> {
+  const weaponSlot: Nillable<TIndex> = states.get(targetState).weaponSlot as Nillable<TIndex>;
 
-  return weaponSlot === null ? object.best_weapon() : object.item_in_slot(weaponSlot);
+  return $isNil(weaponSlot) ? object.best_weapon() : object.item_in_slot(weaponSlot);
 }

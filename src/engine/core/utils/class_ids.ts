@@ -9,7 +9,7 @@ import { classIds } from "@/engine/lib/constants/class_ids";
 import type {
   AnyGameObject,
   GameObject,
-  Optional,
+  Nillable,
   ServerArtefactItemObject,
   ServerHumanObject,
   ServerMonsterAbstractObject,
@@ -71,8 +71,8 @@ export function isTrader(object: AnyGameObject, classId: TClassId = object.clsid
  * @param object - Any game object to check.
  * @returns Whether object class id is weapon.
  */
-export function isWeapon(object: Optional<AnyGameObject>): boolean {
-  return object !== null && classIds.weapon.has(object.clsid());
+export function isWeapon(object: Nillable<AnyGameObject>): boolean {
+  return $isNotNil(object) && classIds.weapon.has(object.clsid());
 }
 
 /**
@@ -81,8 +81,8 @@ export function isWeapon(object: Optional<AnyGameObject>): boolean {
  * @param object - Game object to check.
  * @returns Whether object class id matches grenade.
  */
-export function isGrenade(object: Optional<AnyGameObject>): boolean {
-  if (object === null) {
+export function isGrenade(object: Nillable<AnyGameObject>): boolean {
+  if ($isNil(object)) {
     return false;
   }
 
@@ -107,8 +107,8 @@ export function isArtefact(object: AnyGameObject): object is ServerArtefactItemO
  * @param object - Object to check.
  * @returns Whether strap animation is available for weapon.
  */
-export function isStrappableWeapon(object: Optional<GameObject>): object is GameObject {
-  return object === null ? false : SYSTEM_INI.line_exist(object.section(), "strap_bone0");
+export function isStrappableWeapon(object: Nillable<GameObject>): object is GameObject {
+  return $isNil(object) ? false : SYSTEM_INI.line_exist(object.section(), "strap_bone0");
 }
 
 /**
@@ -116,9 +116,9 @@ export function isStrappableWeapon(object: Optional<GameObject>): object is Game
  * @returns Whether provided id is squad object id.
  */
 export function isSquadId(objectId: TNumberId): boolean {
-  const serverObject: Optional<ServerObject> = registry.simulator.object(objectId);
+  const serverObject: Nillable<ServerObject> = registry.simulator.object(objectId);
 
-  return serverObject !== null && serverObject.clsid() === clsid.online_offline_group_s;
+  return $isNotNil(serverObject) && serverObject.clsid() === clsid.online_offline_group_s;
 }
 
 /**
@@ -150,9 +150,9 @@ export function isSmartTerrain(object: ServerObject): object is SmartTerrain {
  * @returns Whether provided squad is assigned with monsters.
  */
 export function isMonsterSquad(squad: Squad): boolean {
-  const commander: Optional<ServerObject> = registry.simulator.object(squad.commander_id());
+  const commander: Nillable<ServerObject> = registry.simulator.object(squad.commander_id());
 
-  return commander !== null && isMonster(commander);
+  return $isNotNil(commander) && isMonster(commander);
 }
 
 /**

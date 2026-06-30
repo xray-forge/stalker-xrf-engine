@@ -11,6 +11,20 @@ export function mockLuaExtensions(): void {
   globalThis.$dirname = "JEST_TEST";
 
   /*
+   * For jest env nil checks matching Lua nil semantics.
+   */
+  globalThis.$isNil = (value): value is null | undefined => {
+    return value === null || value === undefined;
+  };
+
+  /*
+   * For jest env non-nil checks matching Lua nil semantics.
+   */
+  globalThis.$isNotNil = <T>(value: T): value is NonNullable<T> => {
+    return value !== null && value !== undefined;
+  };
+
+  /*
    * For jest env mock casting.
    */
   globalThis.$fromArray = <T>(array: Array<T>): LuaArray<T> => {

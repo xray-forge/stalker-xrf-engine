@@ -13,7 +13,7 @@ import {
   NetPacket,
   NetProcessor,
   Optional,
-  StringOptional,
+  StringNillable,
   Time,
   TName,
   TPath,
@@ -62,7 +62,7 @@ export function loadObjectLogic(object: GameObject, reader: NetProcessor): void 
   const jobIni: Optional<TPath> = reader.r_stringZ();
   const iniFilename: Optional<TName> = reader.r_stringZ();
   const sectionLogic: Optional<TSection> = reader.r_stringZ();
-  const activeSection: StringOptional = reader.r_stringZ();
+  const activeSection: StringNillable = reader.r_stringZ();
   const smartTerrainName: TName = reader.r_stringZ();
 
   state.jobIni = jobIni === "" ? null : jobIni;

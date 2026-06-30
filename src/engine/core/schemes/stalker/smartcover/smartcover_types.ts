@@ -1,7 +1,7 @@
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringOptional, TDuration, TName, TStringId, Vector } from "@/engine/lib/types";
+import { Optional, StringNillable, TDuration, TName, TStringId, Vector } from "@/engine/lib/types";
 
 /**
  * Mapping of smart cover substates to the stalker animation state used for each of them.
@@ -22,7 +22,7 @@ export interface ISchemeSmartCoverState extends IBaseSchemeState {
   loopholeName: Optional<TName>;
   coverState: string;
   targetEnemy: Optional<TStringId>; // Story ID of target enemy.
-  targetPath: StringOptional;
+  targetPath: StringNillable;
   idleMinTime: TDuration;
   idleMaxTime: TDuration;
   lookoutMinTime: TDuration;

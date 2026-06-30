@@ -132,7 +132,7 @@ describe("getObjectWeaponForAnimationState", () => {
     expect(getObjectWeaponForAnimationState(object, EStalkerState.PSY_SHOOT)).toBe(slotWeapon);
     expect(object.item_in_slot).toHaveBeenCalledWith(1);
 
-    expect(getObjectWeaponForAnimationState(object, EStalkerState.IDLE)).toBeNull();
-    expect(object.item_in_slot).toHaveBeenCalledWith(undefined);
+    expect(getObjectWeaponForAnimationState(object, EStalkerState.IDLE)).toBe(bestWeapon);
+    expect(object.item_in_slot).toHaveBeenCalledWith(1);
   });
 });

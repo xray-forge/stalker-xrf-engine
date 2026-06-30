@@ -5,7 +5,7 @@ import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { setItemCondition } from "@/engine/core/utils/item";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
-import { GameObject, Optional } from "@/engine/lib/types";
+import { GameObject, Nillable } from "@/engine/lib/types";
 
 /**
  * Action to drop active item.
@@ -27,7 +27,7 @@ export class ActionWeaponDrop extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    const weapon: Optional<GameObject> = getObjectWeaponForAnimationState(this.object, this.stateManager.targetState);
+    const weapon: Nillable<GameObject> = getObjectWeaponForAnimationState(this.object, this.stateManager.targetState);
 
     if (isStrappableWeapon(weapon)) {
       this.object.set_item(object.drop, weapon);

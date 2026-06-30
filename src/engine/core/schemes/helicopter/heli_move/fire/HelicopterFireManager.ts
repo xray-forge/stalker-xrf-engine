@@ -19,7 +19,7 @@ import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import {
   GameObject,
   Optional,
-  StringOptional,
+  StringNillable,
   TCount,
   TDistance,
   TIndex,
@@ -39,7 +39,7 @@ export class HelicopterFireManager {
 
   public enemy: Optional<GameObject> = null;
   public enemyId: Optional<TNumberId> = null;
-  public enemyPreference: Optional<StringOptional<TName>> = NIL; // All, actor or nil.
+  public enemyPreference: Optional<StringNillable<TName>> = NIL; // All, actor or nil.
   public enemyDie: boolean = true;
   public enemyTime: TTimestamp = time_global();
 

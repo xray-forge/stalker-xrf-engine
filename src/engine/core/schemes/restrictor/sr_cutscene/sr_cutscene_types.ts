@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { LuaArray, StringOptional, TPath, TRate } from "@/engine/lib/types";
+import type { LuaArray, StringNillable, TPath, TRate } from "@/engine/lib/types";
 
 /**
  * State of effector set run with `level.add_effect` interface.
@@ -23,7 +23,7 @@ export enum ESceneState {
  * State of cutscene scheme.
  */
 export interface ISchemeCutsceneState extends IBaseSchemeState {
-  ppEffector: StringOptional;
+  ppEffector: StringNillable;
   cameraEffector: LuaArray<string>;
   fov: TRate;
   state: string;

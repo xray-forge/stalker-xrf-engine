@@ -17,9 +17,10 @@ import {
   EScheme,
   Flags32,
   LuaArray,
+  Nillable,
   Optional,
   Patrol,
-  StringOptional,
+  StringNillable,
   TCount,
   TIndex,
   TName,
@@ -106,9 +107,9 @@ export function parseSpawnDetails(data: string): LuaArray<ISpawnDescriptor> {
       spawn.probability = 1;
       index += 1;
     } else {
-      const probability: Optional<TProbability> = tonumber(parameters.get(index + 1)) as TProbability;
+      const probability: Nillable<TProbability> = tonumber(parameters.get(index + 1)) as TProbability;
 
-      if (probability === null) {
+      if ($isNil(probability)) {
         spawn.probability = 1;
         index += 1;
       } else {
@@ -470,7 +471,7 @@ export function parseBoneStateDescriptors(data: Optional<string>): LuaArray<IBon
  * @param value - Value to check.
  * @returns Value or null in case of `nil` string.
  */
-export function parseStringOptional<T extends StringOptional>(value: Optional<T>): Optional<T> {
+export function parseStringOptional<T extends StringNillable>(value: Optional<T>): Optional<T> {
   return value === NIL ? null : value;
 }
 
@@ -480,7 +481,7 @@ export function parseStringOptional<T extends StringOptional>(value: Optional<T>
  * @param value - Value to check.
  * @returns Parsed number value or null in case of `nil` string.
  */
-export function parseNumberOptional<T extends StringOptional>(value: T): Optional<number> {
+export function parseNumberOptional<T extends StringNillable>(value: T): Optional<number> {
   return value === NIL ? null : (tonumber(value) as number);
 }
 

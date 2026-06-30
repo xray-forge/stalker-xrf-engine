@@ -48,7 +48,7 @@ import {
   NetPacket,
   NetProcessor,
   Optional,
-  StringOptional,
+  StringNillable,
   TDuration,
   Time,
   TName,
@@ -136,7 +136,7 @@ export class WeatherManager extends AbstractManager {
 
     this.setStateAsString(stateString);
 
-    const weatherFx: StringOptional = reader.r_stringZ();
+    const weatherFx: StringNillable = reader.r_stringZ();
 
     if (weatherFx !== NIL) {
       this.weatherFx = weatherFx;

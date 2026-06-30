@@ -14,7 +14,7 @@ import {
   GameObject,
   ISchemeEventHandler,
   Optional,
-  StringOptional,
+  StringNillable,
   TName,
   TNumberId,
   Vector,
@@ -32,7 +32,7 @@ export class ActionSmartCoverUse extends action_base implements ISchemeEventHand
   public coverCondlist!: TConditionList;
   public targetPathCondlist!: TConditionList;
 
-  public coverState!: StringOptional<ESmartCoverState>;
+  public coverState!: StringNillable<ESmartCoverState>;
   public coverName!: TName;
 
   public targetPath!: TName;

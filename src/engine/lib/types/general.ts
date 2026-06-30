@@ -7,19 +7,20 @@ export type AnyObject = Record<string, any>;
 
 /**
  * Nullable value.
+ *
+ *  @deprecated In favor of `Nillable`.
  */
 export type Optional<T> = T | null;
 
 /**
- * Nullable value with support of undefined.
- * Not recommended to use with lua since null and undefined are same after transformation.
+ * Possible `nil` value in lua, both null and undefined in TS.
  */
-export type Maybe<T> = T | undefined | null;
+export type Nillable<T> = T | undefined | null;
 
 /**
  * Type-casted option that extends type with "nil" values.
  */
-export type StringOptional<T extends string = string> = T | "nil";
+export type StringNillable<T extends string = string> = T | "nil";
 
 /**
  * Record partial to support enum implementations with subsets of available keys.

@@ -1,6 +1,6 @@
 import { log, print_stack } from "xray16";
 
-import { AnyArgs, Maybe, Optional, TCount } from "@/engine/lib/types";
+import { AnyArgs, Nillable, TCount } from "@/engine/lib/types";
 
 /**
  * Call game abort and print reason.
@@ -40,7 +40,7 @@ export function assert<T = boolean>(condition: T, format: string, ...rest: AnyAr
  * @param rest - Rest parameters to interpolate into format string.
  */
 export function assertDefined<T>(
-  value: Maybe<T>,
+  value: Nillable<T>,
   format: string = "Type assertion failed, unexpected 'nil' value provided.",
   ...rest: AnyArgs
 ): asserts value is T {
@@ -57,7 +57,7 @@ export function assertDefined<T>(
  * @param rest - Rest parameters to interpolate into format string.
  */
 export function assertNonEmptyString(
-  value: Optional<string>,
+  value: Nillable<string>,
   format: string = "Type assertion failed, expected boolean value.",
   ...rest: AnyArgs
 ): asserts value is string {

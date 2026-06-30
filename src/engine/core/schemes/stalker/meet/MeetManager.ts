@@ -12,7 +12,7 @@ import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   GameObject,
   Optional,
-  StringOptional,
+  StringNillable,
   TDistance,
   TName,
   TNumberId,
@@ -229,7 +229,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     }
 
     // Handle interaction label.
-    const meetInteractionText: StringOptional<TSection> = pickSectionFromCondList(
+    const meetInteractionText: StringNillable<TSection> = pickSectionFromCondList(
       actor,
       this.object,
       this.state.useText
