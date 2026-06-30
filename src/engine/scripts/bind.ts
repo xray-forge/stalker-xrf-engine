@@ -21,7 +21,7 @@ import {
 } from "@/engine/core/binders/zones";
 import { isBoxObject } from "@/engine/core/managers/box/utils";
 import { extern } from "@/engine/core/utils/binding";
-import { GameObject, IniFile, Optional } from "@/engine/lib/types";
+import { GameObject, IniFile, Nillable } from "@/engine/lib/types";
 
 /**
  * Register binders of engine client side objects.
@@ -41,7 +41,7 @@ extern("bind", {
   crow: (object: GameObject) => object.bind_object(new CrowBinder(object)),
   door: (object: GameObject) => object.bind_object(new DoorBinder(object)),
   helicopter: (object: GameObject) => {
-    const ini: Optional<IniFile> = object.spawn_ini();
+    const ini: Nillable<IniFile> = object.spawn_ini();
 
     if (ini?.section_exist("logic")) {
       object.bind_object(new HelicopterBinder(object));

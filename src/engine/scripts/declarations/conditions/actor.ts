@@ -22,7 +22,7 @@ import {
   EScheme,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   TCount,
   TDistance,
   TName,
@@ -95,7 +95,7 @@ extern("xr_conditions.npc_in_actor_frustum", (_: GameObject, object: GameObject)
  */
 extern(
   "xr_conditions.dist_to_actor_le",
-  (actor: GameObject, object: GameObject, [distance]: [Optional<TDistance>]): boolean => {
+  (actor: GameObject, object: GameObject, [distance]: [Nillable<TDistance>]): boolean => {
     return distance
       ? object.position().distance_to_sqr(actor.position()) <= distance * distance
       : abort("Wrong parameter in 'dist_to_actor_le' function: '%s'.", distance);
@@ -110,7 +110,7 @@ extern(
  */
 extern(
   "xr_conditions.dist_to_actor_ge",
-  (actor: GameObject, object: GameObject, [distance]: [Optional<TDistance>]): boolean => {
+  (actor: GameObject, object: GameObject, [distance]: [Nillable<TDistance>]): boolean => {
     return distance
       ? object.position().distance_to_sqr(actor.position()) >= distance * distance
       : abort("Wrong parameter in 'dist_to_actor_ge' function: '%s'.", distance);
@@ -123,8 +123,8 @@ extern(
  * Where:
  * - health - number in from 0 to 1 to check.
  */
-extern("xr_conditions.actor_health_le", (actor: GameObject, __: GameObject, [health]: [Optional<TRate>]): boolean => {
-  return health !== null && actor.health < health;
+extern("xr_conditions.actor_health_le", (actor: GameObject, __: GameObject, [health]: [Nillable<TRate>]): boolean => {
+  return $isNotNil(health) && actor.health < health;
 });
 
 /**
@@ -152,8 +152,8 @@ extern("xr_conditions.heli_see_actor", (actor: GameObject, object: GameObject): 
  */
 extern(
   "xr_conditions.actor_has_item",
-  (actor: GameObject, __: GameObject, [section]: [Optional<TSection>]): boolean => {
-    return section !== null && actor !== null && actor.object(section) !== null;
+  (actor: GameObject, __: GameObject, [section]: [Nillable<TSection>]): boolean => {
+    return $isNotNil(section) && $isNotNil(actor) && actor.object(section) !== null;
   }
 );
 
@@ -175,7 +175,7 @@ extern(
  * Check if object is hit by actor.
  */
 extern("xr_conditions.hit_by_actor", (_: GameObject, object: GameObject): boolean => {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
   return (state?.[EScheme.HIT] as ISchemeHitState)?.who === ACTOR_ID;
 });
@@ -184,7 +184,7 @@ extern("xr_conditions.hit_by_actor", (_: GameObject, object: GameObject): boolea
  * Check if object is killed by actor.
  */
 extern("xr_conditions.killed_by_actor", (_: GameObject, object: GameObject): boolean => {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
   return (state?.[EScheme.DEATH] as ISchemeDeathState)?.killerId === ACTOR_ID;
 });
@@ -204,12 +204,12 @@ extern("xr_conditions.actor_has_weapon", (actor: GameObject): boolean => {
  */
 extern(
   "xr_conditions.actor_active_detector",
-  (actor: GameObject, _: GameObject, [section]: [Optional<TSection>]): boolean => {
+  (actor: GameObject, _: GameObject, [section]: [Nillable<TSection>]): boolean => {
     if (!section) {
       abort("Wrong parameters in condition 'actor_active_detector', detector section is expected.");
     }
 
-    const detector: Optional<GameObject> = actor.active_detector();
+    const detector: Nillable<GameObject> = actor.active_detector();
 
     return detector !== null && detector.section() === section;
   }
@@ -264,13 +264,13 @@ extern("xr_conditions.actor_has_nimble_weapon", (actor: GameObject): boolean => 
  * Check if nimble weapon is in one of active actor slots.
  */
 extern("xr_conditions.actor_has_active_nimble_weapon", (actor: GameObject): boolean => {
-  const first: Optional<GameObject> = actor.item_in_slot(2);
+  const first: Nillable<GameObject> = actor.item_in_slot(2);
 
   if (first && nimbleWeapons[first.section() as TWeapon]) {
     return true;
   }
 
-  const second: Optional<GameObject> = actor.item_in_slot(3);
+  const second: Nillable<GameObject> = actor.item_in_slot(3);
 
   if (second && nimbleWeapons[second.section()]) {
     return true;

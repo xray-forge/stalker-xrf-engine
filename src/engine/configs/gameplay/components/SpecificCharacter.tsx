@@ -7,7 +7,7 @@ import {
   ILoadoutItemDescriptor,
   ISpawnItemDescriptor,
 } from "@/engine/configs/gameplay/utils/create_loadout";
-import { Optional, TName } from "@/engine/lib/types";
+import { Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Typing for character descriptor.
@@ -30,7 +30,7 @@ export interface ICharacterDescriptionProps {
   moneyMax?: number;
   moneyInfinite?: boolean;
   crouchType?: number;
-  terrainSection?: Optional<string>;
+  terrainSection?: Nillable<string>;
   supplies?: Array<ISpawnItemDescriptor>;
   loadouts?: Array<Array<ILoadoutItemDescriptor>>;
   noRandom?: boolean;
@@ -72,7 +72,7 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
     children,
   } = props;
 
-  const characterVisual: Optional<TName> = visual ?? profileVisuals[icon as keyof typeof profileVisuals];
+  const characterVisual: Nillable<TName> = visual ?? profileVisuals[icon as keyof typeof profileVisuals];
 
   if (!characterVisual) {
     throw new Error(`Expected visual to be present for character profile with icon '${icon}'.`);
@@ -110,7 +110,9 @@ export function SpecificCharacter(props: ICharacterDescriptionProps): JSXNode {
       {typeof moneyMin === "number" ? (
         <money min={moneyMin} max={moneyMax ?? moneyMin} infinitive={moneyInfinite ? 1 : 0} />
       ) : null}
+
       {typeof crouchType === "number" ? <crouch_type>{crouchType}</crouch_type> : null}
+
       {typeof mechanicMode === "boolean" ? <mechanic_mode>{mechanicMode ? 1 : 0}</mechanic_mode> : null}
 
       {mapIcon}

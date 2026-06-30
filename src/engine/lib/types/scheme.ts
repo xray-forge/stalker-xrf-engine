@@ -1,5 +1,5 @@
 import type { TCount, TIndex, TName } from "@/engine/lib/types/alias";
-import type { Optional } from "@/engine/lib/types/general";
+import type { Nillable } from "@/engine/lib/types/general";
 import type { GameObject, Vector } from "@/engine/lib/types/xray";
 
 /**
@@ -191,14 +191,14 @@ export interface ISchemeEventHandler {
    * @param who - Game object which is source of hit.
    * @param boneIndex - Index of bone being hit.
    */
-  onHit?(object: GameObject, amount: TCount, direction: Vector, who: Optional<GameObject>, boneIndex: TIndex): void;
+  onHit?(object: GameObject, amount: TCount, direction: Vector, who: Nillable<GameObject>, boneIndex: TIndex): void;
   /**
    * Handle scheme use event.
    *
    * @param object - Game object being used.
    * @param who - Game object using target object.
    */
-  onUse?(object: GameObject, who: Optional<GameObject>): void;
+  onUse?(object: GameObject, who: Nillable<GameObject>): void;
   /**
    * Handle scheme waypoint moving event.
    *
@@ -214,7 +214,7 @@ export interface ISchemeEventHandler {
    * @param victim - Game object dying.
    * @param who - Game object who killed the object.
    */
-  onDeath?(victim: GameObject, who: Optional<GameObject>): void;
+  onDeath?(victim: GameObject, who: Nillable<GameObject>): void;
   /**
    * Handle scheme cutscene progression event.
    */

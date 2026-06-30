@@ -11,6 +11,7 @@ import {
   AnyGameObject,
   ESoundObjectType,
   GameObject,
+  Nillable,
   Optional,
   ServerCreatureObject,
   ServerObject,
@@ -62,8 +63,8 @@ export function isObjectInSmartTerrain(object: GameObject, terrainName: TName): 
  * @param zone - Target zone to check.
  * @returns Whether object is inside zone object.
  */
-export function isObjectInZone(object: Optional<GameObject>, zone: Optional<GameObject>): boolean {
-  return object !== null && zone !== null && zone.inside(object.position());
+export function isObjectInZone(object: Nillable<GameObject>, zone: Nillable<GameObject>): boolean {
+  return $isNotNil(object) && $isNotNil(zone) && zone.inside(object.position());
 }
 
 /**

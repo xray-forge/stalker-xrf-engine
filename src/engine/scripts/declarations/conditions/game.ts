@@ -5,7 +5,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, Optional, TCount, TName } from "@/engine/lib/types";
+import { GameObject, Nillable, TCount, TName } from "@/engine/lib/types";
 
 /**
  * Check if provided scheme signal is active.
@@ -15,7 +15,7 @@ import { GameObject, Optional, TCount, TName } from "@/engine/lib/types";
  */
 extern("xr_conditions.signal", (_: GameObject, object: GameObject, [name]: [TName]): boolean => {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const signals: Optional<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
+  const signals: Nillable<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
 
   return signals !== null && signals.get(name) === true;
 });
@@ -30,7 +30,7 @@ extern("xr_conditions.signal", (_: GameObject, object: GameObject, [name]: [TNam
  */
 extern(
   "xr_conditions.counter_greater",
-  (_: GameObject, __: GameObject, [key, count]: [Optional<TName>, Optional<TCount>]): boolean => {
+  (_: GameObject, __: GameObject, [key, count]: [Nillable<TName>, Nillable<TCount>]): boolean => {
     if (!key || !count) {
       abort("Invalid parameters supplied for condition 'counter_greater'.");
     }
@@ -49,7 +49,7 @@ extern(
  */
 extern(
   "xr_conditions.counter_equal",
-  (_: GameObject, __: GameObject, [key, count]: [Optional<TName>, Optional<TCount>]): boolean => {
+  (_: GameObject, __: GameObject, [key, count]: [Nillable<TName>, Nillable<TCount>]): boolean => {
     if (!key || !count) {
       abort("Invalid parameters supplied for condition 'counter_equal'.");
     }
