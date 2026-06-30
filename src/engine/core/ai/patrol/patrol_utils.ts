@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
-import { GameObject, Optional, TName, TNumberId } from "@/engine/lib/types";
+import { GameObject, Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check whether patrol team is synchronized.
@@ -12,12 +12,12 @@ import { GameObject, Optional, TName, TNumberId } from "@/engine/lib/types";
  * @param teamName - Optional team name to check for sync state.
  * @returns Whether all patrol team participants are synchronized.
  */
-export function isPatrolTeamSynchronized(teamName: Optional<TName>): boolean {
+export function isPatrolTeamSynchronized(teamName: Nillable<TName>): boolean {
   if (!teamName) {
     return true;
   }
 
-  const state: Optional<LuaTable<TNumberId, boolean>> = patrolConfig.PATROL_TEAMS.get(teamName);
+  const state: Nillable<LuaTable<TNumberId, boolean>> = patrolConfig.PATROL_TEAMS.get(teamName);
 
   if (!state) {
     return true;
@@ -25,7 +25,7 @@ export function isPatrolTeamSynchronized(teamName: Optional<TName>): boolean {
 
   for (const [id, isFlagged] of state) {
     // todo: Probably use registry to get object for checking without engine access.
-    const object: Optional<GameObject> = level.object_by_id(id);
+    const object: Nillable<GameObject> = level.object_by_id(id);
 
     // Check sync stat of the object if it is online and alive.
     if (object && object.alive()) {

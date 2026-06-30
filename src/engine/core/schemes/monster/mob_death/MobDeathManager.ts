@@ -2,7 +2,7 @@ import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { EScheme, GameObject, Optional } from "@/engine/lib/types";
+import { EScheme, GameObject, Nillable } from "@/engine/lib/types";
 
 /**
  * Handler to manage monster death events.
@@ -15,10 +15,10 @@ export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState>
    * @param victim - Monster who has been killed.
    * @param killer - Target who killed the monster.
    */
-  public override onDeath(victim: GameObject, killer: Optional<GameObject>): void {
-    let deathState: Optional<ISchemeMobDeathState> = registry.objects.get(victim.id())[
+  public override onDeath(victim: GameObject, killer: Nillable<GameObject>): void {
+    let deathState: Nillable<ISchemeMobDeathState> = registry.objects.get(victim.id())[
       EScheme.DEATH
-    ] as Optional<ISchemeMobDeathState>;
+    ] as Nillable<ISchemeMobDeathState>;
 
     // todo: Probably always true for monsters since we init different state in this scheme.
     if (!deathState) {
@@ -26,7 +26,7 @@ export class MobDeathManager extends AbstractSchemeManager<ISchemeMobDeathState>
       registry.objects.get(victim.id())[EScheme.DEATH] = deathState;
     }
 
-    deathState.killerId = killer === null ? -1 : killer.id();
+    deathState.killerId = killer ? killer.id() : -1;
 
     trySwitchToAnotherSection(victim, this.state);
   }

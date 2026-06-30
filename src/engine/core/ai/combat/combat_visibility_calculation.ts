@@ -1,5 +1,5 @@
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
-import { GameObject, Optional, TDistance, TDuration, TRate } from "@/engine/lib/types";
+import { GameObject, Nillable, TDistance, TDuration, TRate } from "@/engine/lib/types";
 
 /**
  * If value >= visiblity_threshold then object is considered visible.
@@ -18,8 +18,8 @@ import { GameObject, Optional, TDistance, TDuration, TRate } from "@/engine/lib/
  * @returns Visibility rate.
  */
 export function calculateObjectVisibility(
-  object: Optional<GameObject>,
-  target: Optional<GameObject>,
+  object: Nillable<GameObject>,
+  target: Nillable<GameObject>,
   timeDelta: TDuration,
   timeQuantity: TDuration,
   luminosity: TRate,

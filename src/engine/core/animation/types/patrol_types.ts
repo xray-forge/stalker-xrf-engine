@@ -1,5 +1,5 @@
 import type { EStalkerState } from "@/engine/core/animation/types/state_types";
-import type { AnyObject, Optional, TIndex } from "@/engine/lib/types";
+import type { AnyObject, Nillable, TIndex } from "@/engine/lib/types";
 
 /**
  * Waypoint arrival type.
@@ -13,11 +13,11 @@ export enum EWaypointArrivalType {
  * Suggested stalker states for the different phases of patrol behaviour.
  */
 export interface IPatrolSuggestedState {
-  standing: Optional<EStalkerState>;
-  moving: Optional<EStalkerState>;
-  movingFire: Optional<EStalkerState>;
-  campering: Optional<EStalkerState>;
-  camperingFire: Optional<EStalkerState>;
+  standing: Nillable<EStalkerState>;
+  moving: Nillable<EStalkerState>;
+  movingFire: Nillable<EStalkerState>;
+  campering: Nillable<EStalkerState>;
+  camperingFire: Nillable<EStalkerState>;
 }
 
 /**
@@ -28,5 +28,5 @@ export interface IPatrolCallbackDescriptor {
   context: AnyObject;
   // Callback to call when waypoint animation is processing.
   // May return `boolean` to indicate that `??? todo ???`.
-  callback: (mode: EWaypointArrivalType, patrolRetVal: Optional<number>, index: TIndex) => void | boolean;
+  callback: (mode: EWaypointArrivalType, patrolRetVal: Nillable<number>, index: TIndex) => void | boolean;
 }

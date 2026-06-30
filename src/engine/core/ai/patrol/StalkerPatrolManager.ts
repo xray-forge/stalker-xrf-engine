@@ -23,7 +23,7 @@ import {
   Flags32,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   Patrol,
   TDistance,
   TDuration,
@@ -43,38 +43,38 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
  */
 export class StalkerPatrolManager {
   public readonly object: GameObject;
-  public team: Optional<TName> = null;
+  public team: Nillable<TName> = null;
 
-  public suggestedStates: Optional<IPatrolSuggestedState> = null;
+  public suggestedStates: Nillable<IPatrolSuggestedState> = null;
   public currentStateMoving!: EStalkerState;
   public currentStateStanding!: EStalkerState;
 
   // Descriptor of callback to call on waypoint update emit.
-  public patrolCallbackDescriptor: Optional<IPatrolCallbackDescriptor> = null;
-  public retvalAfterRotation: Optional<number> = null;
+  public patrolCallbackDescriptor: Nillable<IPatrolCallbackDescriptor> = null;
+  public retvalAfterRotation: Nillable<number> = null;
 
   // Next timestamp to check synchronization of run-walk-sprint state.
   public keepStateUntil: TTimestamp = 0;
-  public patrolWaitTime: Optional<TDuration> = null;
+  public patrolWaitTime: Nillable<TDuration> = null;
 
-  public lastWalkPointIndex: Optional<TIndex> = null; // last active point of walk patrol
-  public lastLookPointIndex: Optional<TIndex> = null; // last active point of look patrol
-  public synchronizationSignal: Optional<TName> = null; // signal to set when team is synchronized
+  public lastWalkPointIndex: Nillable<TIndex> = null; // last active point of walk patrol
+  public lastLookPointIndex: Nillable<TIndex> = null; // last active point of look patrol
+  public synchronizationSignal: Nillable<TName> = null; // signal to set when team is synchronized
   public synchronizationSignalTimeout: TTimestamp = 0; // timestamp to block sync check for some time
 
   public canUseGetCurrentPointIndex: boolean = false;
   public currentPointInitAt: TTimestamp = 0;
-  public currentPointIndex: Optional<TIndex> = null;
+  public currentPointIndex: Nillable<TIndex> = null;
 
   public walkUntil: TTimestamp = 0; // Delay to switch patrols smoothly.
   public runUntil: TTimestamp = 0; // Delay to switch patrols smoothly.
 
-  public patrolWalk: Optional<Patrol> = null;
-  public patrolWalkName: Optional<TName> = null;
+  public patrolWalk: Nillable<Patrol> = null;
+  public patrolWalkName: Nillable<TName> = null;
   public patrolWalkWaypoints!: LuaArray<IWaypointData>;
-  public patrolLook: Optional<Patrol> = null;
-  public patrolLookName: Optional<TName> = null;
-  public patrolLookWaypoints: Optional<LuaArray<IWaypointData>> = null;
+  public patrolLook: Nillable<Patrol> = null;
+  public patrolLookName: Nillable<TName> = null;
+  public patrolLookWaypoints: Nillable<LuaArray<IWaypointData>> = null;
 
   public defaultStateStanding!: TConditionList;
   public defaultStateMoving1!: TConditionList;
@@ -114,11 +114,11 @@ export class StalkerPatrolManager {
   public reset(
     walkPathName: TName,
     walkPathWaypoints: LuaArray<IWaypointData>,
-    lookPathName: Optional<TName> = null,
-    lookPathWaypoints: Optional<LuaArray<IWaypointData>> = null,
-    patrolTeam: Optional<TName> = null,
-    patrolSuggestedStates: Optional<IPatrolSuggestedState>,
-    patrolCallbackDescriptor: Optional<IPatrolCallbackDescriptor> = null
+    lookPathName: Nillable<TName> = null,
+    lookPathWaypoints: Nillable<LuaArray<IWaypointData>> = null,
+    patrolTeam: Nillable<TName> = null,
+    patrolSuggestedStates: Nillable<IPatrolSuggestedState>,
+    patrolCallbackDescriptor: Nillable<IPatrolCallbackDescriptor> = null
   ): void {
     logger.info(
       "Reset patrol manager for: '%s', walk - '%s' look - '%s', team - '%s'",
@@ -156,7 +156,7 @@ export class StalkerPatrolManager {
       this.team = patrolTeam;
 
       if (this.team) {
-        let state: Optional<LuaTable<TNumberId, boolean>> = patrolConfig.PATROL_TEAMS.get(this.team);
+        let state: Nillable<LuaTable<TNumberId, boolean>> = patrolConfig.PATROL_TEAMS.get(this.team);
 
         if (!state) {
           state = new LuaTable();
@@ -317,8 +317,8 @@ export class StalkerPatrolManager {
       return;
     }
 
-    const signalOnTime: Optional<TName> = this.patrolLookWaypoints!.get(this.lastLookPointIndex!)
-      .sigtm as Optional<TName>;
+    const signalOnTime: Nillable<TName> = this.patrolLookWaypoints!.get(this.lastLookPointIndex!)
+      .sigtm as Nillable<TName>;
 
     // Animation is finished, have signal to set -> set it for activeScheme.
     if (signalOnTime) {
@@ -366,7 +366,7 @@ export class StalkerPatrolManager {
 
     // Sync is required, wait for others.
     if (waypoint.syn) {
-      this.synchronizationSignal = waypoint.sig as Optional<TName>;
+      this.synchronizationSignal = waypoint.sig as Nillable<TName>;
 
       // Assert that `syn` signal is set.
       assert(
@@ -434,7 +434,7 @@ export class StalkerPatrolManager {
    * @param actionType - Type of the patrol action reported by the engine.
    * @param index - Index of the reached walk waypoint.
    */
-  public onWalkWaypoint(object: GameObject, actionType: Optional<number>, index: Optional<TIndex>): void {
+  public onWalkWaypoint(object: GameObject, actionType: Nillable<number>, index: Nillable<TIndex>): void {
     logger.info(
       "Waypoint `walk`: '%s' action '%s', '%s' -> '%s'",
       this.object.name(),
@@ -444,7 +444,7 @@ export class StalkerPatrolManager {
     );
 
     // Patrol point is out of bounds.
-    if (index === -1 || index === null) {
+    if (index === -1 || $isNil(index)) {
       return;
     }
 
@@ -461,7 +461,7 @@ export class StalkerPatrolManager {
     const retv = this.patrolWalkWaypoints.get(index).ret;
 
     if (retv) {
-      const retvNum: Optional<number> = tonumber(retv) as Optional<number>;
+      const retvNum: Nillable<number> = tonumber(retv) as Nillable<number>;
 
       if (!this.patrolCallbackDescriptor) {
         abort(
@@ -483,7 +483,7 @@ export class StalkerPatrolManager {
       }
     }
 
-    const sig: Optional<TName> = this.patrolWalkWaypoints.get(index).sig;
+    const sig: Nillable<TName> = this.patrolWalkWaypoints.get(index).sig;
 
     // todo: Always set signal path end on terminal points?
     if (sig) {
@@ -524,8 +524,8 @@ export class StalkerPatrolManager {
    */
   public onLookWaypoint(
     object: GameObject,
-    actionType: Optional<number>,
-    index: Optional<TIndex>,
+    actionType: Nillable<number>,
+    index: Nillable<TIndex>,
     flags: Flags32
   ): void {
     const [lookPointIndex] = choosePatrolWaypointByFlags(this.patrolLook as Patrol, this.patrolLookWaypoints!, flags);
@@ -578,7 +578,7 @@ export class StalkerPatrolManager {
       this.patrolWaitTime = patrolConfig.DEFAULT_PATROL_WAIT_TIME;
     }
 
-    const retVal: Optional<string> = this.patrolLookWaypoints!.get(lookPointIndex).ret;
+    const retVal: Nillable<string> = this.patrolLookWaypoints!.get(lookPointIndex).ret;
 
     this.retvalAfterRotation = retVal ? (tonumber(retVal) as number) : null;
 

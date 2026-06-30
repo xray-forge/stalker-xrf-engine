@@ -7,7 +7,7 @@ import { getManager, getStalkerState, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { GameObject, ISchemeEventHandler, Optional } from "@/engine/lib/types";
+import { GameObject, ISchemeEventHandler, type Nillable, Optional } from "@/engine/lib/types";
 
 /**
  * Action to command patrol/group of stalker on way somewhere.
@@ -126,7 +126,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
    * @param mode - Waypoint arrival mode.
    * @param returnValue - Patrol waypoint processing result value.
    */
-  public onProcessWaypoint(mode: EWaypointArrivalType, returnValue: Optional<number>): void {
+  public onProcessWaypoint(mode: EWaypointArrivalType, returnValue: Nillable<number>): void {
     switch (returnValue) {
       case 0:
         this.state.formation = EPatrolFormation.LINE;
