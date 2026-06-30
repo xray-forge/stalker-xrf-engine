@@ -9,7 +9,7 @@ describe("schemes_registrator entry point", () => {
   it("registerSchemes should correctly register all schemes", () => {
     registerSchemes();
 
-    Object.entries(EScheme).forEach(([key, value]) => {
+    Object.entries(EScheme).forEach(([_, value]) => {
       if (value !== NIL && !registry.schemes.has(value)) {
         throw new Error(`Expected all schemes to be registered, but ${value} is not in registry.`);
       }

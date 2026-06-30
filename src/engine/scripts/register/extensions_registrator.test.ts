@@ -71,12 +71,12 @@ describe("extensions registrator", () => {
   });
 
   it("should correctly skip loading if LFS is not enabled", () => {
-    const previous: typeof lfs = global.lfs;
+    const previous: typeof lfs = globalThis.lfs;
 
-    global.lfs = null as unknown as typeof lfs;
+    globalThis.lfs = null as unknown as typeof lfs;
 
     registerExtensions(false);
 
-    global.lfs = previous;
+    globalThis.lfs = previous;
   });
 });

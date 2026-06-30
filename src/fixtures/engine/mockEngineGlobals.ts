@@ -18,8 +18,8 @@ export function mockEngineGlobals(): void {
   jest.mock("@/engine/core/utils/table", () => mockTableUtils);
 
   // @ts-ignore injection of marshal mocks
-  global.marshal = mockMarshal;
+  globalThis.marshal = mockMarshal;
 
   // @ts-ignore injection of lfs mocks
-  global.lfs = mockLfs;
+  globalThis.lfs = mockLfs;
 }

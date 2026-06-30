@@ -45,10 +45,10 @@ describe("toJSON util", () => {
   it("toJSON should correctly transform unusual non-table values", () => {
     expect(toJSON(() => {})).toBe(quoted("<function>"));
 
-    jest.spyOn(global, "type").mockReturnValueOnce("userdata");
+    jest.spyOn(globalThis, "type").mockReturnValueOnce("userdata");
     expect(toJSON({})).toBe(quoted("<userdata>"));
 
-    jest.spyOn(global, "type").mockReturnValueOnce("thread");
+    jest.spyOn(globalThis, "type").mockReturnValueOnce("thread");
     expect(toJSON({})).toBe(quoted("<unknown>"));
   });
 });
@@ -60,10 +60,10 @@ describe("stringifyKey util", () => {
     expect(stringifyKey(true)).toBe("<k_boolean>");
     expect(stringifyKey(() => {})).toBe("<k_function>");
 
-    jest.spyOn(global, "type").mockReturnValueOnce("userdata");
+    jest.spyOn(globalThis, "type").mockReturnValueOnce("userdata");
     expect(stringifyKey({})).toBe("<k_userdata>");
 
-    jest.spyOn(global, "type").mockReturnValueOnce("thread");
+    jest.spyOn(globalThis, "type").mockReturnValueOnce("thread");
     expect(stringifyKey({})).toBe("<k_thread>");
   });
 });

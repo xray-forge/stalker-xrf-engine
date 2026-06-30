@@ -9,13 +9,13 @@ jest.mock("@/engine/scripts/register/class_registrator");
 jest.mock("@/engine/scripts/register/game_class_id_registrator");
 jest.mock("@/engine/scripts/register/ui_class_id_registrator");
 
-function checkBinding(name: string, container: AnyObject = global): void {
+function checkBinding(name: string, container: AnyObject = globalThis): void {
   expect(container["register"]).toBeDefined();
   expect(typeof container["register"]).toBe("object");
   expect(typeof container["register"][name]).toBe("function");
 }
 
-function callBinding(name: string, container: AnyObject = global): void {
+function callBinding(name: string, container: AnyObject = globalThis): void {
   return container["register"][name]();
 }
 

@@ -12,7 +12,7 @@ describe("toLogValue util", () => {
     expect(toLogValue(false)).toBe("<boolean: false>");
     expect(toLogValue(Symbol.for("test"))).toBe("<object: Symbol(test)>");
 
-    jest.spyOn(global, "type").mockReturnValueOnce("userdata");
+    jest.spyOn(globalThis, "type").mockReturnValueOnce("userdata");
     expect(toLogValue("mock")).toBe("<userdata>");
   });
 });

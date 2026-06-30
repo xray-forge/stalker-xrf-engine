@@ -8,7 +8,7 @@ import { registerExtensions } from "@/engine/scripts/register/extensions_registr
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 import { registerSchemes } from "@/engine/scripts/register/schemes_registrator";
 
-function checkBinding(name: string, container: AnyObject = global): void {
+function checkBinding(name: string, container: AnyObject = globalThis): void {
   expect(container["start"]).toBeDefined();
   expect(typeof container["start"]).toBe("object");
   expect(typeof container["start"][name]).toBe("function");
@@ -30,7 +30,7 @@ describe("start entry point", () => {
   it("should correctly init methods on start", () => {
     require("@/engine/scripts/start");
 
-    (global as AnyObject).start.callback();
+    (globalThis as AnyObject).start.callback();
 
     expect(updateClassIds).toHaveBeenCalledTimes(1);
     expect(unlockSystemIniOverriding).toHaveBeenCalledTimes(1);

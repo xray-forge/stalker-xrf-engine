@@ -5,13 +5,13 @@ import { registerSimulator } from "@/engine/core/database";
 import { AnyObject, GameObject } from "@/engine/lib/types";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
-function checkBinding(name: string, container: AnyObject = global): void {
+function checkBinding(name: string, container: AnyObject = globalThis): void {
   expect(container["bind"]).toBeDefined();
   expect(typeof container["bind"]).toBe("object");
   expect(typeof container["bind"][name]).toBe("function");
 }
 
-function callBinding(name: string, object: GameObject, container: AnyObject = global): void {
+function callBinding(name: string, object: GameObject, container: AnyObject = globalThis): void {
   return container["bind"][name](object);
 }
 

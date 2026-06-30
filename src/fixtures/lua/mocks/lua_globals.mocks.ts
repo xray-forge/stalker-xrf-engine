@@ -16,27 +16,27 @@ import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
  */
 export function mockLuaGlobals(): void {
   // @ts-ignore
-  global._G = global;
+  globalThis._G = globalThis;
 
   // @ts-ignore
-  global._VERSION = "fengari-jest";
+  globalThis._VERSION = "fengari-jest";
   // @ts-ignore
-  global.LuaTable = MockLuaTable;
+  globalThis.LuaTable = MockLuaTable;
   // @ts-ignore
-  global.string = mockString;
+  globalThis.string = mockString;
   // @ts-ignore
-  global.table = mockTable;
+  globalThis.table = mockTable;
   // @ts-ignore
-  global.math = mockMath;
+  globalThis.math = mockMath;
   // @ts-ignore
-  global.debug = mockDebug;
+  globalThis.debug = mockDebug;
   // @ts-ignore
-  global.io = mockIo;
+  globalThis.io = mockIo;
   // @ts-ignore
-  global.jit = mockJit;
+  globalThis.jit = mockJit;
 
   // @ts-ignore
-  global.$range = (start: number, end: number) => {
+  globalThis.$range = (start: number, end: number) => {
     const data: Array<number> = [];
 
     for (let it = start; it <= end; it++) {
@@ -47,10 +47,10 @@ export function mockLuaGlobals(): void {
   };
 
   // @ts-ignore
-  global.$multi = (...args: AnyArgs) => [...args];
+  globalThis.$multi = (...args: AnyArgs) => [...args];
 
   // @ts-ignore
-  global.tonumber = (value: unknown) => {
+  globalThis.tonumber = (value: unknown) => {
     const L: ILuaState = lauxlib.luaL_newstate();
 
     lualib.luaL_openlibs(L);
@@ -65,17 +65,17 @@ export function mockLuaGlobals(): void {
     return Number.isNaN(parsed) ? null : parsed;
   };
   // @ts-ignore
-  global.tostring = jest.fn(mockToString);
+  globalThis.tostring = jest.fn(mockToString);
   // @ts-ignore
-  global.collectgarbage = jest.fn(() => 1024);
+  globalThis.collectgarbage = jest.fn(() => 1024);
   // @ts-ignore
-  global.type = jest.fn(mockType);
+  globalThis.type = jest.fn(mockType);
   // @ts-ignore
-  global.pairs = jest.fn((target: object) => Object.entries(target));
+  globalThis.pairs = jest.fn((target: object) => Object.entries(target));
   // @ts-ignore
-  global.ipairs = jest.fn((target: object) => Object.entries(target));
+  globalThis.ipairs = jest.fn((target: object) => Object.entries(target));
   // @ts-ignore
-  global.error = (message: string): string => {
+  globalThis.error = (message: string): string => {
     throw new Error(message);
   };
 }
