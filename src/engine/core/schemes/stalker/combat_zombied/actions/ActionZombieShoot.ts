@@ -143,9 +143,9 @@ export class ActionZombieShoot extends action_base {
 
       this.turnTime = 0;
     } else {
-      // Stank and looking.
+      // Stand and looking.
       if (isBestEnemyVisible) {
-        this.setState(EStalkerState.THREAT_FIRE, null, null);
+        this.setState(EStalkerState.THREAT_FIRE, bestEnemy, null);
         this.turnTime = 0;
       } else {
         // Randomly searching for enemies.

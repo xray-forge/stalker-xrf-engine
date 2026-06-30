@@ -138,6 +138,10 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
   objectState.enemyId = enemy.id();
   objectState.enemy = enemy;
 
+  if (object.critically_wounded()) {
+    return true;
+  }
+
   // Combat ignoring is explicitly disabled.
   if (combatIgnoreState?.enabled === false) {
     return true;
@@ -148,11 +152,6 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
 
   if (stateOverrides && stateOverrides.combatIgnore) {
     return pickSectionFromCondList(enemy, object, stateOverrides.combatIgnore.condlist) !== TRUE;
-  }
-
-  // When object is critically wounded, it should fight back.
-  if (object.critically_wounded()) {
-    return true;
   }
 
   if (objectState.enemyId !== ACTOR_ID) {

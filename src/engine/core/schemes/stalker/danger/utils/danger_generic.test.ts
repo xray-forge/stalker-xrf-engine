@@ -25,7 +25,7 @@ import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockAlifeSmartZone, MockDangerObject, MockGameObject } from "@/fixtures/xray";
 
-describe("isObjectFacingDanger util", () => {
+describe("isObjectFacingDanger", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -138,7 +138,7 @@ describe("isObjectFacingDanger util", () => {
   });
 });
 
-describe("canObjectSelectAsEnemy util", () => {
+describe("canObjectSelectAsEnemy", () => {
   beforeEach(() => {
     resetRegistry();
     registerSimulator();
@@ -178,6 +178,27 @@ describe("canObjectSelectAsEnemy util", () => {
     } as ILogicsOverrides;
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(true);
     expect(state.enemyId).toBe(enemy.id());
+  });
+
+  it("should prioritize critically wounded over combat ignore overrides", () => {
+    const object: GameObject = MockGameObject.mockStalker();
+    const enemy: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
+
+    state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
+    combatIgnoreState.overrides = {
+      combatIgnore: mockBaseSchemeLogic({
+        condlist: parseConditionsList(TRUE),
+      }),
+    } as ILogicsOverrides;
+
+    // With an active ignore override and not wounded - object ignores combat.
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
+
+    // Critically wounded takes priority over the ignore override - object fights back (matches original is_enemy).
+    jest.spyOn(object, "critically_wounded").mockImplementation(() => true);
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(true);
   });
 
   it("should correctly check enemies in no-combat zones", () => {
