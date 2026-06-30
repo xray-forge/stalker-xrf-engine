@@ -4,7 +4,7 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
-import { EScheme, Optional, TName } from "@/engine/lib/types";
+import { EScheme, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Checks if object is going to a desired smart cover.
@@ -26,15 +26,11 @@ export class EvaluatorSmartCover extends property_evaluator {
       return true;
     }
 
-    const stateDescription: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[
+    const stateDescription: Nillable<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[
       EScheme.SMARTCOVER
     ] as ISchemeSmartCoverState;
-    const destinationSmartCoverName: Optional<TName> = this.object.get_dest_smart_cover_name();
+    const destinationSmartCoverName: Nillable<TName> = this.object.get_dest_smart_cover_name();
 
-    if (stateDescription === null) {
-      return true;
-    }
-
-    return destinationSmartCoverName === (stateDescription.coverName || "");
+    return $isNil(stateDescription) ? true : destinationSmartCoverName === (stateDescription.coverName || "");
   }
 }

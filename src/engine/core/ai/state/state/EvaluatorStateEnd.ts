@@ -2,7 +2,7 @@ import { action_planner, LuabindClass, property_evaluator } from "xray16";
 
 import { COMBAT_ACTION_IDS, EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Evaluator to check when state end action is active.
@@ -12,7 +12,7 @@ import { Optional, TNumberId } from "@/engine/lib/types";
 export class EvaluatorStateEnd extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
 
-  private actionPlanner: Optional<action_planner> = null;
+  private actionPlanner: Nillable<action_planner> = null;
 
   public constructor(stateManager: StalkerStateManager) {
     super(null, EvaluatorStateEnd.__name);

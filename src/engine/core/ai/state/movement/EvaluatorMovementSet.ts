@@ -2,7 +2,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
-import { Optional, TMoveType } from "@/engine/lib/types";
+import { Nillable, TMoveType } from "@/engine/lib/types";
 
 /**
  * Evaluator to check if any movement set actions are needed.
@@ -20,8 +20,8 @@ export class EvaluatorMovementSet extends property_evaluator {
    * Evaluate whether stalker movement state is set.
    */
   public override evaluate(): boolean {
-    const targetStateMovement: Optional<TMoveType> = states.get(this.stateManager.targetState).movement;
+    const targetStateMovement: Nillable<TMoveType> = states.get(this.stateManager.targetState).movement;
 
-    return targetStateMovement === null || targetStateMovement === this.object.target_movement_type();
+    return $isNil(targetStateMovement) || targetStateMovement === this.object.target_movement_type();
   }
 }

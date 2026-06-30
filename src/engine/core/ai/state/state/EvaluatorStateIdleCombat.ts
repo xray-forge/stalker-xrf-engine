@@ -4,7 +4,7 @@ import { COMBAT_ACTION_IDS, EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Evaluator checking whether the object state machine is in idle-combat readiness for the planner.
@@ -12,7 +12,7 @@ import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 @LuabindClass()
 export class EvaluatorStateIdleCombat extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
-  private actionPlanner: Optional<ActionPlanner> = null;
+  private actionPlanner: Nillable<ActionPlanner> = null;
 
   public constructor(stateManager: StalkerStateManager) {
     super(null, EvaluatorStateIdleCombat.__name);

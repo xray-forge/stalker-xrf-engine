@@ -4,7 +4,7 @@ import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager"
 import { states } from "@/engine/core/animation/states";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TName } from "@/engine/lib/types";
+import { Nillable, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -26,7 +26,7 @@ export class ActionAnimstateStart extends action_base {
   public override initialize(): void {
     super.initialize();
 
-    const targetAnimationState: Optional<TName> = states.get(this.stateManager.targetState).animstate;
+    const targetAnimationState: Nillable<TName> = states.get(this.stateManager.targetState).animstate;
 
     logger.info("Start animstate for: %s %s", this.object.name(), targetAnimationState);
 

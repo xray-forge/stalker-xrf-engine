@@ -3,7 +3,7 @@ import { LuabindClass, property_evaluator } from "xray16";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
-import { EScheme, Optional } from "@/engine/lib/types";
+import { EScheme, Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator checking whether the object smart cover state is locked and mismatched with the configured cover.
@@ -23,18 +23,18 @@ export class EvaluatorSmartCoverLocked extends property_evaluator {
    * @returns Whether the smart cover state is locked and needs to be resolved.
    */
   public override evaluate(): boolean {
-    const smartCoverState: Optional<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[
+    const smartCoverState: Nillable<ISchemeSmartCoverState> = registry.objects.get(this.object.id())[
       EScheme.SMARTCOVER
     ] as ISchemeSmartCoverState;
 
-    if (smartCoverState === null) {
+    if (!smartCoverState) {
       return false;
     }
 
     const isSmartCover: boolean = this.object.in_smart_cover();
 
     return (
-      (isSmartCover && smartCoverState.coverName === null) || (!isSmartCover && smartCoverState.coverName !== null)
+      (isSmartCover && $isNil(smartCoverState.coverName)) || (!isSmartCover && $isNotNil(smartCoverState.coverName))
     );
   }
 }

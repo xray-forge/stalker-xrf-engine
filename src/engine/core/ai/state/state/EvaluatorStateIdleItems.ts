@@ -4,7 +4,7 @@ import { NO_IDLE_ALIFE_IDS } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Evaluator checking whether the object is idle and ready for item-related alife actions for the planner.
@@ -12,7 +12,7 @@ import { ActionPlanner, Optional, TNumberId } from "@/engine/lib/types";
 @LuabindClass()
 export class EvaluatorStateIdleItems extends property_evaluator {
   private readonly stateManager: StalkerStateManager;
-  private actionPlanner: Optional<ActionPlanner> = null;
+  private actionPlanner: Nillable<ActionPlanner> = null;
 
   public constructor(stateManager: StalkerStateManager) {
     super(null, EvaluatorStateIdleItems.__name);
