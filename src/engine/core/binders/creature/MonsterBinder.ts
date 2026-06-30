@@ -40,7 +40,7 @@ import {
   Hit,
   NetPacket,
   NetReader,
-  Optional,
+  Nillable,
   ServerCreatureObject,
   TCount,
   TDuration,
@@ -77,7 +77,7 @@ export class MonsterBinder extends object_binder {
 
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
-    const monster: Optional<ServerCreatureObject> = registry.simulator.object(objectId);
+    const monster: Nillable<ServerCreatureObject> = registry.simulator.object(objectId);
 
     if (!monster) {
       return false;
@@ -110,7 +110,7 @@ export class MonsterBinder extends object_binder {
       emitSchemeEvent(state[state.activeScheme] as IBaseSchemeState, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
-    const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
+    const onOfflineConditionList: Nillable<TConditionList> = state.overrides?.onOffline as Nillable<TConditionList>;
 
     if (onOfflineConditionList) {
       pickSectionFromCondList(registry.actor, object, onOfflineConditionList);
@@ -132,7 +132,7 @@ export class MonsterBinder extends object_binder {
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
     const state: IRegistryObjectState = this.state;
-    const squad: Optional<Squad> = getObjectSquad(object);
+    const squad: Nillable<Squad> = getObjectSquad(object);
     const isSquadCommander: boolean = squad?.commander_id() === objectId;
 
     // todo: Probably not needed, handle with death event.
@@ -271,7 +271,7 @@ export class MonsterBinder extends object_binder {
     if (object.clsid() === clsid.poltergeist_s) {
       logger.info("Releasing poltergeist_s: %s", object.name());
 
-      const targetServerObject: Optional<ServerCreatureObject> = registry.simulator.object(objectId);
+      const targetServerObject: Nillable<ServerCreatureObject> = registry.simulator.object(objectId);
 
       if (targetServerObject) {
         registry.simulator.release(targetServerObject, true);

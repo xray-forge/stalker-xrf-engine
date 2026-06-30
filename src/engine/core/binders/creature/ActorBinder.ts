@@ -30,7 +30,7 @@ import {
   GameTask,
   NetPacket,
   NetReader,
-  Optional,
+  Nillable,
   ServerActorObject,
   TCount,
   TDuration,
@@ -51,7 +51,7 @@ export class ActorBinder extends object_binder {
   public readonly eventsManager: EventsManager = getManager(EventsManager);
 
   // todo: Move out deimos related logic / data.
-  public deimosIntensity: Optional<number> = null;
+  public deimosIntensity: Nillable<number> = null;
 
   public isFirstUpdatePerformed: boolean = false;
 

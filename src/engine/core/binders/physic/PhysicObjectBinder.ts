@@ -27,7 +27,7 @@ import {
   IniFile,
   NetPacket,
   NetReader,
-  Optional,
+  Nillable,
   ServerObject,
   TCount,
   TDuration,
@@ -60,7 +60,7 @@ export class PhysicObjectBinder extends object_binder {
 
     logger.info("Go online: %s", object.name());
 
-    const ini: Optional<IniFile> = this.object.spawn_ini() as Optional<IniFile>;
+    const ini: Nillable<IniFile> = this.object.spawn_ini() as Nillable<IniFile>;
 
     if (ini && ini.section_exist("level_spot") && ini.line_exist("level_spot", "actor_box")) {
       level.map_add_object_spot(this.object.id(), "ui_pda2_actor_box_location", "st_ui_pda_actor_box");
@@ -89,7 +89,7 @@ export class PhysicObjectBinder extends object_binder {
       emitSchemeEvent(state[state.activeScheme]!, ESchemeEvent.SWITCH_OFFLINE, object);
     }
 
-    const onOfflineCondlist: Optional<TConditionList> = state?.overrides?.onOffline as Optional<TConditionList>;
+    const onOfflineCondlist: Nillable<TConditionList> = state?.overrides?.onOffline as Nillable<TConditionList>;
 
     if (onOfflineCondlist) {
       pickSectionFromCondList(registry.actor, object, onOfflineCondlist);
@@ -156,7 +156,7 @@ export class PhysicObjectBinder extends object_binder {
    * @param object - Game object being used.
    * @param who - Game object using it.
    */
-  public onUse(object: GameObject, who: Optional<GameObject>): void {
+  public onUse(object: GameObject, who: Nillable<GameObject>): void {
     logger.info("Object used: %s by %s", object.name(), object.section(), who?.name());
 
     if (this.state.activeScheme) {

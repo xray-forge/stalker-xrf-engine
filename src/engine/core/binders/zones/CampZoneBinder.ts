@@ -3,7 +3,7 @@ import { ini_file, LuabindClass, object_binder } from "xray16";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { registerCampZone, registry, resetCampZone, unregisterCampZone } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { IniFile, Optional, ServerObject, TDuration, TName } from "@/engine/lib/types";
+import { IniFile, Nillable, ServerObject, TDuration, TName } from "@/engine/lib/types";
 
 /**
  * Camp zone binder for game creatures.
@@ -23,11 +23,11 @@ export class CampZoneBinder extends object_binder {
       return false;
     }
 
-    const ini: Optional<IniFile> = this.object.spawn_ini();
+    const ini: Nillable<IniFile> = this.object.spawn_ini();
 
     // If camp logic description present, try to read it from spawn ini or from defined `cfg` file.
     if (ini?.section_exist("camp")) {
-      const filename: Optional<TName> = readIniString(ini, "camp", "cfg", false);
+      const filename: Nillable<TName> = readIniString(ini, "camp", "cfg", false);
       const manager: CampManager = new CampManager(this.object, filename ? new ini_file(filename) : ini);
 
       registerCampZone(this.object, manager);
@@ -47,7 +47,7 @@ export class CampZoneBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    const manager: Optional<CampManager> = registry.camps.get(this.object.id()) as Optional<CampManager>;
+    const manager: Nillable<CampManager> = registry.camps.get(this.object.id()) as Nillable<CampManager>;
 
     if (manager) {
       manager.update(delta);

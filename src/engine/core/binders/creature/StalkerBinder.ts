@@ -58,7 +58,7 @@ import {
   GameObject,
   NetPacket,
   NetReader,
-  Optional,
+  Nillable,
   ServerCreatureObject,
   ServerHumanObject,
   TCount,
@@ -86,7 +86,7 @@ export class StalkerBinder extends object_binder {
   public isLoaded: boolean = false;
 
   public state!: IRegistryObjectState;
-  public helicopterEnemyIndex: Optional<TIndex> = null; // todo: create binding somewhere in DB.
+  public helicopterEnemyIndex: Nillable<TIndex> = null; // todo: create binding somewhere in DB.
 
   public override reinit(): void {
     super.reinit();
@@ -111,7 +111,7 @@ export class StalkerBinder extends object_binder {
 
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
-    const stalker: Optional<ServerHumanObject> = registry.simulator.object(objectId);
+    const stalker: Nillable<ServerHumanObject> = registry.simulator.object(objectId);
 
     setupObjectStalkerVisual(object);
 
@@ -137,13 +137,13 @@ export class StalkerBinder extends object_binder {
       return true;
     }
 
-    const relation: Optional<ERelation> = registry.goodwill.relations.get(objectId) as Optional<ERelation>;
+    const relation: Nillable<ERelation> = registry.goodwill.relations.get(objectId) as Nillable<ERelation>;
 
     if (relation) {
       setGameObjectRelation(object, registry.actor, relation);
     }
 
-    const sympathy: Optional<TCount> = registry.goodwill.sympathy.get(objectId) as Optional<TCount>;
+    const sympathy: Nillable<TCount> = registry.goodwill.sympathy.get(objectId) as Nillable<TCount>;
 
     if (sympathy) {
       setObjectSympathy(object, sympathy);
@@ -186,7 +186,7 @@ export class StalkerBinder extends object_binder {
     }
 
     // Call logics on offline.
-    const onOfflineConditionList: Optional<TConditionList> = state.overrides?.onOffline as Optional<TConditionList>;
+    const onOfflineConditionList: Nillable<TConditionList> = state.overrides?.onOffline as Nillable<TConditionList>;
 
     if (onOfflineConditionList) {
       pickSectionFromCondList(registry.actor, object, onOfflineConditionList);
@@ -212,7 +212,7 @@ export class StalkerBinder extends object_binder {
     const now: TTimestamp = time_global();
     const object: GameObject = this.object;
     const objectId: TNumberId = object.id();
-    const squad: Optional<Squad> = getObjectSquad(this.object);
+    const squad: Nillable<Squad> = getObjectSquad(this.object);
     const isObjectAlive: boolean = object.alive();
     const isSquadCommander: boolean = squad?.commander_id() === objectId;
 
@@ -266,15 +266,15 @@ export class StalkerBinder extends object_binder {
    *
    * @param object - Game object whose torch light should be updated.
    */
-  public updateLightState(object: GameObject): void {
-    if (object === null) {
+  public updateLightState(object: Nillable<GameObject>): void {
+    if (!object) {
       return;
     }
 
-    const torch: Optional<GameObject> = object.object(misc.device_torch);
+    const torch: Nillable<GameObject> = object.object(misc.device_torch);
     const isCurrentlyIndoor: boolean = isUndergroundLevel(level.name());
 
-    if (torch === null) {
+    if (!torch) {
       return;
     }
 
@@ -332,7 +332,7 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    if (light !== null) {
+    if (light) {
       torch.enable_attachable_item(light);
     }
   }
@@ -426,7 +426,7 @@ export class StalkerBinder extends object_binder {
    * @param victim - Game object that died.
    * @param who - Source object that caused the death, if known.
    */
-  public onDeath(victim: GameObject, who: Optional<GameObject>): void {
+  public onDeath(victim: GameObject, who: Nillable<GameObject>): void {
     const object: GameObject = this.object;
     const state: IRegistryObjectState = this.state;
 
@@ -464,7 +464,7 @@ export class StalkerBinder extends object_binder {
     this.resetCallbacks();
 
     // todo: Is it still needed? Probably should be handled with some ranking manager after re-implementation.
-    if (actor_stats.remove_from_ranking !== null) {
+    if ($isNotNil(actor_stats.remove_from_ranking)) {
       const community: TCommunity = getObjectCommunity(object);
 
       if (community !== communities.zombied && community !== communities.monolith) {
@@ -522,7 +522,7 @@ export class StalkerBinder extends object_binder {
     object: GameObject,
     amount: TRate,
     direction: Vector,
-    who: Optional<GameObject>,
+    who: Nillable<GameObject>,
     boneIndex: TIndex
   ): void {
     const state: IRegistryObjectState = this.state;

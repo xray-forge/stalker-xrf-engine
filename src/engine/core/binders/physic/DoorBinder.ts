@@ -26,7 +26,7 @@ import {
   IniFile,
   NetPacket,
   NetReader,
-  Optional,
+  Nillable,
   PhysicObject,
   ServerObject,
   SoundObject,
@@ -50,16 +50,16 @@ export class DoorBinder extends object_binder {
   public isPlayingForward: boolean = false;
 
   // Used for sync of animation timing after game load.
-  public animationDuration: Optional<TDuration> = 0;
+  public animationDuration: Nillable<TDuration> = 0;
 
-  public idleSound: Optional<SoundObject> = null;
-  public startSound: Optional<SoundObject> = null;
-  public stopSound: Optional<SoundObject> = null;
+  public idleSound: Nillable<SoundObject> = null;
+  public startSound: Nillable<SoundObject> = null;
+  public stopSound: Nillable<SoundObject> = null;
 
   public onUseConditionList!: TConditionList;
   public onStopConditionList!: TConditionList;
   public onStartConditionList!: TConditionList;
-  public tipConditionList: Optional<TConditionList> = null;
+  public tipConditionList: Nillable<TConditionList> = null;
 
   public idleDelay!: TDuration;
   public startDelay!: TDuration;
@@ -75,19 +75,19 @@ export class DoorBinder extends object_binder {
       return;
     }
 
-    const filename: Optional<TName> = readIniString(ini, "animated_object", "cfg");
+    const filename: Nillable<TName> = readIniString(ini, "animated_object", "cfg");
 
     if (filename) {
       ini = new ini_file(filename);
     }
 
-    const idleSound: Optional<TPath> = parseStringOptional(
+    const idleSound: Nillable<TPath> = parseStringOptional(
       readIniString(ini, "animated_object", "idle_snd", false, null, "device\\airtight_door_idle")
     );
-    const startSound: Optional<TPath> = parseStringOptional(
+    const startSound: Nillable<TPath> = parseStringOptional(
       readIniString(ini, "animated_object", "start_snd", false, null, "device\\airtight_door_start")
     );
-    const stopSound: Optional<TPath> = parseStringOptional(
+    const stopSound: Nillable<TPath> = parseStringOptional(
       readIniString(ini, "animated_object", "stop_snd", false, null, "device\\airtight_door_stop")
     );
 
@@ -278,7 +278,7 @@ export class DoorBinder extends object_binder {
    *
    * @param isEnd - Whether it is end or start of the animation.
    */
-  public onAnimation(isEnd?: Optional<boolean>): void {
+  public onAnimation(isEnd?: Nillable<boolean>): void {
     if (isEnd) {
       const object: GameObject = this.object;
 

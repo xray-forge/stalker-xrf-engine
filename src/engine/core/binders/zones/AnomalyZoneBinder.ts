@@ -32,7 +32,7 @@ import {
   LuaArray,
   NetPacket,
   NetReader,
-  Optional,
+  Nillable,
   ServerObject,
   TCount,
   TDuration,
@@ -79,7 +79,7 @@ export class AnomalyZoneBinder extends object_binder {
 
   public hasForcedSpawnOverride: boolean = false; // todo: Use only one optional flag.
   public isForcedToSpawn: boolean = false;
-  public forcedArtefact: Optional<TSection> = null;
+  public forcedArtefact: Nillable<TSection> = null;
   public zoneLayersCount: TCount = -1;
   public currentZoneLayer: string = "";
 
@@ -111,9 +111,9 @@ export class AnomalyZoneBinder extends object_binder {
       return;
     }
 
-    const filename: Optional<string> = readIniString(this.ini, ANOMALY_ZONE_SECTION, "cfg", false);
+    const filename: Nillable<string> = readIniString(this.ini, ANOMALY_ZONE_SECTION, "cfg", false);
 
-    if (filename !== null) {
+    if (filename) {
       this.ini = new ini_file(filename);
     }
 
@@ -127,11 +127,11 @@ export class AnomalyZoneBinder extends object_binder {
     const defaultMaxArtefacts: TCount = readIniNumber(ini, ANOMALY_ZONE_SECTION, "max_artefacts", false, 3);
     const defaultForceXZ: TRate = readIniNumber(ini, ANOMALY_ZONE_SECTION, "applying_force_xz", false, 200);
     const defaultForceY: TRate = readIniNumber(ini, ANOMALY_ZONE_SECTION, "applying_force_y", false, 400);
-    const defaultArtefacts: Optional<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "artefacts", false);
-    const defaultSpawned: Optional<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "start_artefact", false);
-    const defaultWays: Optional<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "artefact_ways", false);
-    const defaultFieldName: Optional<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "field_name", false);
-    const defaultCoeffs: Optional<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "coeff", false);
+    const defaultArtefacts: Nillable<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "artefacts", false);
+    const defaultSpawned: Nillable<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "start_artefact", false);
+    const defaultWays: Nillable<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "artefact_ways", false);
+    const defaultFieldName: Nillable<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "field_name", false);
+    const defaultCoeffs: Nillable<string> = readIniString(ini, ANOMALY_ZONE_SECTION, "coeff", false);
     const defaultCoeffSectionName: string = readIniString(
       ini,
       ANOMALY_ZONE_SECTION,
@@ -174,7 +174,7 @@ export class AnomalyZoneBinder extends object_binder {
 
       this.artefactsSpawnList.set(layerSection, listOfLayerArtefacts);
 
-      const initialArtefacts: Optional<string> = readIniString(
+      const initialArtefacts: Nillable<string> = readIniString(
         ini,
         layerSection,
         "start_artefact",
@@ -198,11 +198,11 @@ export class AnomalyZoneBinder extends object_binder {
       );
       const conditionsList: TConditionList = parseConditionsList(coeffsSection);
       const coeffsSectionName: TSection = pickSectionFromCondList(registry.actor, null, conditionsList)!;
-      const coeffs: Optional<string> = readIniString(ini, layerSection, coeffsSectionName, false, null, defaultCoeffs);
+      const coeffs: Nillable<string> = readIniString(ini, layerSection, coeffsSectionName, false, null, defaultCoeffs);
 
       this.artefactsSpawnCoefficients.set(layerSection, coeffs === null ? new LuaTable() : parseNumbersList(coeffs));
 
-      const path: Optional<TName> = readIniString(ini, layerSection, "artefact_ways", false, null, defaultWays);
+      const path: Nillable<TName> = readIniString(ini, layerSection, "artefact_ways", false, null, defaultWays);
 
       if (!path) {
         abort("There is no field 'artefact_ways' in section '%s' in object '%s'.", layerSection, object.name());
@@ -211,11 +211,11 @@ export class AnomalyZoneBinder extends object_binder {
       this.artefactsPathsList.set(layerSection, parseStringsList(path));
 
       if (this.isCustomPlacement) {
-        const field: Optional<string> = readIniString(ini, layerSection, "field_name", false, null, defaultFieldName);
+        const field: Nillable<string> = readIniString(ini, layerSection, "field_name", false, null, defaultFieldName);
 
         this.layerFieldsTable.set(layerSection, field === null ? new LuaTable() : parseStringsList(field));
 
-        const minesSection: Optional<TSection> = readIniString(ini, layerSection, "mines_section", true);
+        const minesSection: Nillable<TSection> = readIniString(ini, layerSection, "mines_section", true);
 
         assert(
           minesSection,
@@ -283,7 +283,7 @@ export class AnomalyZoneBinder extends object_binder {
       }
 
       for (const _ of $range(1, respawnTries)) {
-        const section: Optional<TSection> = this.getArtefactSectionToSpawn();
+        const section: Nillable<TSection> = this.getArtefactSectionToSpawn();
 
         if (section) {
           logger.info("Spawn artefact: %s in %s", section, this.object.name());
@@ -343,11 +343,11 @@ export class AnomalyZoneBinder extends object_binder {
      */
 
     const [foundIndex] = string.find(this.currentZoneLayer, "_");
-    const layerNumber: Optional<TIndex> = tonumber(
+    const layerNumber: Nillable<TIndex> = tonumber(
       string.sub(this.currentZoneLayer, foundIndex + 1, string.len(this.currentZoneLayer))
-    ) as Optional<TIndex>;
+    ) as Nillable<TIndex>;
 
-    packet.w_u8(layerNumber === null ? MAX_U8 : layerNumber);
+    packet.w_u8($isNil(layerNumber) ? MAX_U8 : layerNumber);
 
     packet.w_bool(this.isTurnedOff);
 
@@ -505,7 +505,7 @@ export class AnomalyZoneBinder extends object_binder {
     }
   }
 
-  public getArtefactSectionToSpawn(): Optional<TSection> {
+  public getArtefactSectionToSpawn(): Nillable<TSection> {
     if (this.hasForcedSpawnOverride && this.forcedArtefact) {
       this.hasForcedSpawnOverride = false;
 
@@ -540,7 +540,7 @@ export class AnomalyZoneBinder extends object_binder {
       }
 
       // Decide which one to spawn from possible artefacts list.
-      let section: Optional<TSection> = null;
+      let section: Nillable<TSection> = null;
       let random: TRate = math.random(1, chance);
 
       for (const it of $range(1, artefactsList.length())) {
@@ -578,7 +578,7 @@ export class AnomalyZoneBinder extends object_binder {
    *
    * @param forceArtefactsRespawn - Whether artefacts should be spawned on next update tick.
    */
-  public turnOn(forceArtefactsRespawn: Optional<boolean>): void {
+  public turnOn(forceArtefactsRespawn: Nillable<boolean>): void {
     logger.info("Turn on zone: %s", this.object.name());
 
     this.isTurnedOff = false;

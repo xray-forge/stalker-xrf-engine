@@ -6,7 +6,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector } from "@/engine/core/utils/vector";
 import {
   IniFile,
-  Optional,
+  Nillable,
   PhysicsElement,
   PhysicsShell,
   ServerObject,
@@ -70,8 +70,8 @@ export class ArtefactBinder extends object_binder {
     if (this.isNetSpawnToggled) {
       this.isNetSpawnToggled = false;
 
-      const ini: Optional<IniFile> = this.object.spawn_ini();
-      const shell: Optional<PhysicsShell> =
+      const ini: Nillable<IniFile> = this.object.spawn_ini();
+      const shell: Nillable<PhysicsShell> =
         ini && ini.section_exist("fixed_bone") ? this.object.get_physics_shell() : null;
 
       if (shell) {

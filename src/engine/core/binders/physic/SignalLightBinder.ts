@@ -12,7 +12,7 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { Y_VECTOR } from "@/engine/lib/constants/vectors";
-import { NetPacket, NetReader, Optional, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, NetReader, Nillable, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -29,8 +29,8 @@ export class SignalLightBinder extends object_binder {
   public isSlowFlyStarted: boolean = false;
   public isHangingAnimationTurnedOn: boolean = false;
 
-  public loadedAt: Optional<TTimestamp> = null;
-  public startTime: Optional<TTimestamp> = null;
+  public loadedAt: Nillable<TTimestamp> = null;
+  public startTime: Nillable<TTimestamp> = null;
 
   public override reinit(): void {
     super.reinit();
@@ -127,7 +127,7 @@ export class SignalLightBinder extends object_binder {
 
     super.save(packet);
 
-    packet.w_u32(this.startTime === null ? -1 : time_global() - this.startTime);
+    packet.w_u32($isNil(this.startTime) ? -1 : time_global() - this.startTime);
     packet.w_bool(this.isSlowFlyStarted);
 
     closeSaveMarker(packet, SignalLightBinder.__name);
@@ -164,7 +164,7 @@ export class SignalLightBinder extends object_binder {
    * @returns Whether fly animation was started.
    */
   public startFly(): boolean {
-    if (this.startTime !== null || registry.actor === null) {
+    if ($isNotNil(this.startTime) || !registry.actor) {
       return false;
     }
 
