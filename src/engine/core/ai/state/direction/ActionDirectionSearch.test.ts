@@ -7,11 +7,11 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
-import { resetFunctionMock } from "@/fixtures/jest";
+import { TLookType } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionDirectionSearch", () => {
-  it("should correctly perform direction search action", () => {
+  it("should set animation direction sight for states with animation direction", () => {
     const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
 
     registerStalker(stalker);
@@ -21,22 +21,37 @@ describe("ActionDirectionSearch", () => {
     const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
     const action: ActionDirectionSearch = new ActionDirectionSearch(manager);
 
-    setStalkerState(stalker.object, EStalkerState.IDLE);
-
-    action.setup(stalker.object, new property_storage());
-    action.initialize();
-
-    expect(stalker.object.set_sight).toHaveBeenCalledWith(0, null, 0);
-    resetFunctionMock(stalker.object.set_sight);
-
     setStalkerState(stalker.object, EStalkerState.SMART_COVER);
+
     action.setup(stalker.object, new property_storage());
     action.initialize();
 
+    expect(stalker.object.set_sight).toHaveBeenCalledTimes(1);
     expect(stalker.object.set_sight).toHaveBeenCalledWith(CSightParams.eSightTypeAnimationDirection, false, false);
 
     unregisterStalker(stalker);
   });
 
-  // todo: Second case
+  it("should set resolved look position type sight for states without animation direction", () => {
+    const stalker: StalkerBinder = new StalkerBinder(MockGameObject.mock());
+
+    registerStalker(stalker);
+    stalker.reinit();
+
+    const manager: StalkerStateManager = registry.objects.get(stalker.object.id()).stateManager as StalkerStateManager;
+    const action: ActionDirectionSearch = new ActionDirectionSearch(manager);
+
+    setStalkerState(stalker.object, EStalkerState.IDLE);
+
+    action.setup(stalker.object, new property_storage());
+
+    const lookType: TLookType = manager.getObjectLookPositionType();
+
+    action.initialize();
+
+    expect(stalker.object.set_sight).toHaveBeenCalledTimes(1);
+    expect(stalker.object.set_sight).toHaveBeenCalledWith(lookType, null, 0);
+
+    unregisterStalker(stalker);
+  });
 });
