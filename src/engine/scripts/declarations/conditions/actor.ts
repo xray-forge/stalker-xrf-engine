@@ -5,7 +5,11 @@ import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit";
-import { hasAchievedInformationDealer, hasAchievedWealthy } from "@/engine/core/utils/achievements";
+import {
+  hasAchievedFriendOfStalkers,
+  hasAchievedInformationDealer,
+  hasAchievedWealthy,
+} from "@/engine/core/utils/achievements";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isWeapon } from "@/engine/core/utils/class_ids";
@@ -39,6 +43,13 @@ extern("xr_conditions.wealthy_functor", (): boolean => {
  */
 extern("xr_conditions.information_dealer_functor", (): boolean => {
   return hasAchievedInformationDealer();
+});
+
+/**
+ * Check whether `friend of stalkers` is achieved.
+ */
+extern("xr_conditions.friend_of_stalkers_functor", (): boolean => {
+  return hasAchievedFriendOfStalkers();
 });
 
 /**

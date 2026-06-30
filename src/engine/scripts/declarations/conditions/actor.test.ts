@@ -33,6 +33,7 @@ describe("actor conditions declaration", () => {
   it("should correctly inject external methods for game", () => {
     checkXrCondition("wealthy_functor");
     checkXrCondition("information_dealer_functor");
+    checkXrCondition("friend_of_stalkers_functor");
     checkXrCondition("actor_in_surge_cover");
     checkXrCondition("is_enemy_actor");
     checkXrCondition("actor_alive");
@@ -88,6 +89,16 @@ describe("actor conditions implementation", () => {
     giveInfoPortion("actor_information_dealer");
 
     expect(callXrCondition("information_dealer_functor", actorGameObject, MockGameObject.mock())).toBe(true);
+  });
+
+  it("friend_of_stalkers_functor should check friend of stalkers achievement", () => {
+    const { actorGameObject } = mockRegisteredActor();
+
+    expect(callXrCondition("friend_of_stalkers_functor", actorGameObject, MockGameObject.mock())).toBe(false);
+
+    giveInfoPortion("sim_stalker_help_harder");
+
+    expect(callXrCondition("friend_of_stalkers_functor", actorGameObject, MockGameObject.mock())).toBe(true);
   });
 
   it("actor_in_surge_cover should check if actor is in surge cover", () => {

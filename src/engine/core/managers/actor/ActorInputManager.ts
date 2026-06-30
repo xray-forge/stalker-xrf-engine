@@ -32,7 +32,7 @@ import {
   GameObject,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   TDuration,
   TIndex,
   TNumberId,
@@ -110,11 +110,12 @@ export class ActorInputManager extends AbstractManager {
   public enableActorNightVision(): void {
     logger.info("Enable actor night vision");
 
-    const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
+    const nightVision: Nillable<GameObject> = registry.actor.object(misc.device_torch);
 
-    if (nightVision && !nightVision.night_vision_enabled() && !actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED) {
+    // `IS_ACTOR_NIGHT_VISION_ENABLED` flags that this handler previously turned night vision off and owes a restore.
+    if (nightVision && !nightVision.night_vision_enabled() && actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED) {
       nightVision.enable_night_vision(true);
-      actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = true;
+      actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = false;
     }
   }
 
@@ -124,11 +125,11 @@ export class ActorInputManager extends AbstractManager {
   public disableActorNightVision(): void {
     logger.info("Disable actor night vision");
 
-    const nightVision: Optional<GameObject> = registry.actor.object(misc.device_torch);
+    const nightVision: Nillable<GameObject> = registry.actor.object(misc.device_torch);
 
     if (nightVision && nightVision.night_vision_enabled()) {
       nightVision.enable_night_vision(false);
-      actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = false;
+      actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED = true;
     }
   }
 
@@ -138,7 +139,7 @@ export class ActorInputManager extends AbstractManager {
   public enableActorTorch(): void {
     logger.info("Enable actor torch");
 
-    const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
+    const torch: Nillable<GameObject> = registry.actor.object(misc.device_torch);
 
     if (torch && !torch.torch_enabled() && !actorConfig.IS_ACTOR_TORCH_ENABLED) {
       torch.enable_torch(true);
@@ -152,7 +153,7 @@ export class ActorInputManager extends AbstractManager {
   public disableActorTorch(): void {
     logger.info("Disable actor torch");
 
-    const torch: Optional<GameObject> = registry.actor.object(misc.device_torch);
+    const torch: Nillable<GameObject> = registry.actor.object(misc.device_torch);
 
     if (torch && torch.torch_enabled()) {
       torch.enable_torch(false);
@@ -337,8 +338,8 @@ export class ActorInputManager extends AbstractManager {
    * Handle actor item use.
    * Mainly to intercept and properly handle anabiotic.
    */
-  public onActorUseItem(object: Optional<GameObject>): void {
-    if (object === null) {
+  public onActorUseItem(object: Nillable<GameObject>): void {
+    if (!object) {
       return;
     }
 

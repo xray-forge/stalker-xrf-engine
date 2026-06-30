@@ -13,7 +13,7 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EGameObjectRelation, GameObject, Optional, TCount, TStringId } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, Nillable, TCount, TStringId } from "@/engine/lib/types";
 
 /**
  * Set object goodwill as friendly to actor.
@@ -40,7 +40,7 @@ extern("xr_effects.actor_enemy", (actor: GameObject, object: GameObject): void =
  * Set squad relation to actor as neutral by story ID.
  */
 extern("xr_effects.set_squad_neutral_to_actor", (_: GameObject, __: GameObject, [squadStoryId]: [TStringId]): void => {
-  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+  const squad: Nillable<Squad> = getServerObjectByStoryId(squadStoryId);
 
   if (squad) {
     setSquadRelationToActor(squad, ERelation.NEUTRAL);
@@ -51,7 +51,7 @@ extern("xr_effects.set_squad_neutral_to_actor", (_: GameObject, __: GameObject, 
  * Set squad relation to actor as friendly by story ID.
  */
 extern("xr_effects.set_squad_friend_to_actor", (_: GameObject, __: GameObject, [squadStoryId]: [TStringId]): void => {
-  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+  const squad: Nillable<Squad> = getServerObjectByStoryId(squadStoryId);
 
   if (squad) {
     setSquadRelationToActor(squad, ERelation.FRIEND);
@@ -62,7 +62,7 @@ extern("xr_effects.set_squad_friend_to_actor", (_: GameObject, __: GameObject, [
  * Set squad relation to actor as enemy by story ID.
  */
 extern("xr_effects.set_squad_enemy_to_actor", (_: GameObject, __: GameObject, [squadStoryId]: [TStringId]): void => {
-  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+  const squad: Nillable<Squad> = getServerObjectByStoryId(squadStoryId);
 
   if (squad) {
     setSquadRelationToActor(squad, ERelation.ENEMY);
@@ -72,7 +72,7 @@ extern("xr_effects.set_squad_enemy_to_actor", (_: GameObject, __: GameObject, [s
 /**
  * Set object sympathy level based on provided `sympathy` parameter.
  */
-extern("xr_effects.set_npc_sympathy", (_: GameObject, object: GameObject, [sympathy]: [Optional<TCount>]): void => {
+extern("xr_effects.set_npc_sympathy", (_: GameObject, object: GameObject, [sympathy]: [Nillable<TCount>]): void => {
   if (sympathy) {
     setObjectSympathy(object, sympathy);
   }
@@ -83,7 +83,7 @@ extern("xr_effects.set_npc_sympathy", (_: GameObject, object: GameObject, [sympa
  */
 extern(
   "xr_effects.set_squad_goodwill",
-  (_: GameObject, __: GameObject, [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]): void => {
+  (_: GameObject, __: GameObject, [storyId, relation]: [Nillable<TStringId>, Nillable<ERelation>]): void => {
     if (storyId && relation) {
       updateSquadIdRelationToActor(storyId, relation);
     }
@@ -95,7 +95,7 @@ extern(
  */
 extern(
   "xr_effects.set_squad_goodwill_to_npc",
-  (_: GameObject, object: GameObject, [storyId, relation]: [Optional<TStringId>, Optional<ERelation>]): void => {
+  (_: GameObject, object: GameObject, [storyId, relation]: [Nillable<TStringId>, Nillable<ERelation>]): void => {
     if (storyId && relation) {
       setSquadRelationWithObject(storyId, object, relation);
     }
@@ -107,7 +107,7 @@ extern(
  */
 extern(
   "xr_effects.inc_faction_goodwill_to_actor",
-  (_: GameObject, __: GameObject, [community, delta]: [Optional<TCommunity>, Optional<TCount>]): void => {
+  (_: GameObject, __: GameObject, [community, delta]: [Nillable<TCommunity>, Nillable<TCount>]): void => {
     if (!delta || !community) {
       abort("Wrong parameters in effect 'inc_faction_goodwill_to_actor'.");
     }
@@ -121,7 +121,7 @@ extern(
  */
 extern(
   "xr_effects.dec_faction_goodwill_to_actor",
-  (_: GameObject, __: GameObject, [community, delta]: [Optional<TCommunity>, Optional<TCount>]): void => {
+  (_: GameObject, __: GameObject, [community, delta]: [Nillable<TCommunity>, Nillable<TCount>]): void => {
     if (!delta || !community) {
       abort("Wrong parameters in effect 'dec_faction_goodwill_to_actor'.");
     }
@@ -140,8 +140,8 @@ extern(
       return abort("Wrong parameters in effect set_squad_enemies.");
     }
 
-    const firstSquad: Optional<Squad> = getServerObjectByStoryId(firstStoryId);
-    const secondSquad: Optional<Squad> = getServerObjectByStoryId(secondStoryId);
+    const firstSquad: Nillable<Squad> = getServerObjectByStoryId(firstStoryId);
+    const secondSquad: Nillable<Squad> = getServerObjectByStoryId(secondStoryId);
 
     if (!firstSquad) {
       abort("There is no squad with story id '%s'.", firstStoryId);
@@ -150,13 +150,13 @@ extern(
     }
 
     for (const squadMemberDescriptor of firstSquad.squad_members()) {
-      const member: Optional<GameObject> = registry.objects.get(squadMemberDescriptor.id)
-        ?.object as Optional<GameObject>;
+      const member: Nillable<GameObject> = registry.objects.get(squadMemberDescriptor.id)
+        ?.object as Nillable<GameObject>;
 
       if (member) {
         for (const anotherSquadMemberDescriptor of secondSquad.squad_members()) {
-          const anotherMember: Optional<GameObject> = registry.objects.get(anotherSquadMemberDescriptor.id)
-            .object as Optional<GameObject>;
+          const anotherMember: Nillable<GameObject> = registry.objects.get(anotherSquadMemberDescriptor.id)
+            ?.object as Nillable<GameObject>;
 
           if (anotherMember) {
             member.set_relation(EGameObjectRelation.ENEMY, anotherMember);

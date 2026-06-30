@@ -95,20 +95,26 @@ describe("ActorInputManager", () => {
 
     inventory.set("device_torch", torch);
 
+    // Night vision is off and no restore is owed:
     manager.enableActorNightVision();
-    expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(true);
-    expect(torch.enable_night_vision).toHaveBeenCalledWith(true);
+    expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(false);
+    expect(torch.enable_night_vision).not.toHaveBeenCalled();
 
-    manager.enableActorNightVision();
-    expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(true);
-    expect(torch.enable_night_vision).toHaveBeenCalledTimes(1);
-
+    // Night vision is currently on -> disabling turns it off and records that a restore is owed:
     jest.spyOn(torch, "night_vision_enabled").mockImplementation(() => true);
 
     manager.disableActorNightVision();
+    expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(true);
+    expect(torch.enable_night_vision).toHaveBeenCalledTimes(1);
+    expect(torch.enable_night_vision).toHaveBeenNthCalledWith(1, false);
+
+    // Night vision is off again with a restore owed -> enabling restores it and clears the flag:
+    jest.spyOn(torch, "night_vision_enabled").mockImplementation(() => false);
+
+    manager.enableActorNightVision();
     expect(actorConfig.IS_ACTOR_NIGHT_VISION_ENABLED).toBe(false);
     expect(torch.enable_night_vision).toHaveBeenCalledTimes(2);
-    expect(torch.enable_night_vision).toHaveBeenNthCalledWith(2, false);
+    expect(torch.enable_night_vision).toHaveBeenNthCalledWith(2, true);
   });
 
   it("should correctly toggle torch state", () => {
