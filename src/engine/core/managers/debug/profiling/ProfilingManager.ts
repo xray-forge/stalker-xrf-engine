@@ -7,7 +7,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { AnyCallable, LuaArray, Optional, ProfileTimer, TCount, TDuration, TName } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, Nillable, ProfileTimer, TCount, TDuration, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, file: "profiling" });
 
@@ -178,7 +178,7 @@ export class ProfilingManager extends AbstractManager {
     const caller = debug.getinfo(3, "f")!;
     const functionInfo: debug.FunctionInfo = debug.getinfo(2)!;
     const functionRef: AnyCallable = functionInfo.func as AnyCallable;
-    const callerRef: Optional<AnyCallable> = caller === null ? null : (caller.func as AnyCallable);
+    const callerRef: Nillable<AnyCallable> = caller === null ? null : (caller.func as AnyCallable);
 
     switch (context) {
       case "return": {
@@ -274,7 +274,7 @@ export class ProfilingManager extends AbstractManager {
 
     for (const [func, funcDetails] of this.callsCountMap) {
       const name: TName = this.getFunctionName(funcDetails.info);
-      const count: Optional<TCount> = sortedStats.get(name);
+      const count: Nillable<TCount> = sortedStats.get(name);
 
       sortedStats.set(name, count === null ? funcDetails.count : count + funcDetails.count);
     }

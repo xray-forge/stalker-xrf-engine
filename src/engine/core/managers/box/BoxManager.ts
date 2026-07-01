@@ -21,7 +21,7 @@ import {
   AnyObject,
   GameObject,
   IniFile,
-  Optional,
+  Nillable,
   TCount,
   TDirection,
   TProbability,
@@ -55,8 +55,8 @@ export class BoxManager extends AbstractManager {
    * @param object - Game object to spawn box items for.
    */
   public spawnBoxObjectItems(object: GameObject): void {
-    const spawnIni: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;
-    const section: Optional<TSection> = spawnIni
+    const spawnIni: Nillable<IniFile> = object.spawn_ini() as Nillable<IniFile>;
+    const section: Nillable<TSection> = spawnIni
       ? readIniString(spawnIni, "drop_box", "community", false, null, BOX_DEFAULT)
       : null;
 

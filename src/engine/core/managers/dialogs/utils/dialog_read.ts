@@ -6,7 +6,7 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { IniFile, Optional, TName, TNumberId, TStringifiedBoolean } from "@/engine/lib/types";
+import { IniFile, Nillable, TName, TNumberId, TStringifiedBoolean } from "@/engine/lib/types";
 
 /**
  * @param ini - Target file to read descriptors from.
@@ -51,7 +51,7 @@ export function readIniGenericDialogs(
           wounded: ini.line_exist(id, "wounded") ? ini.r_string(id, "wounded") === TRUE : false,
           once: ini.line_exist(id, "once") ? (ini.r_string(id, "once") as TStringifiedBoolean) : "always",
           info: new LuaTable(),
-          smart: null as Optional<TName>,
+          smart: null as Nillable<TName>,
         };
 
         if (ini.line_exist(id, "info") && ini.r_string(id, "info") !== "") {

@@ -7,7 +7,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { GameObject, Optional, TCount, TProbability, TSection } from "@/engine/lib/types";
+import { GameObject, Nillable, TCount, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * Spawn death loot items for the object corpse based on its community drop configuration.
@@ -15,9 +15,9 @@ import { GameObject, Optional, TCount, TProbability, TSection } from "@/engine/l
  * @param object - Target object to create release items.
  */
 export function createCorpseReleaseItems(object: GameObject): void {
-  const stalker: Optional<Stalker> = registry.simulator.object<Stalker>(object.id());
+  const stalker: Nillable<Stalker> = registry.simulator.object<Stalker>(object.id());
 
-  if (stalker === null || stalker.isCorpseLootDropped) {
+  if (!stalker || stalker.isCorpseLootDropped) {
     return;
   }
 
@@ -29,13 +29,13 @@ export function createCorpseReleaseItems(object: GameObject): void {
     return;
   }
 
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
   if (state.ini?.line_exist(state.sectionLogic, dropConfig.DONT_SPAWN_LOOT_LTX_SECTION)) {
     return;
   }
 
-  const spawnItems: Optional<LuaTable<TInventoryItem, TProbability>> = dropConfig.ITEMS_BY_COMMUNITY.get(
+  const spawnItems: Nillable<LuaTable<TInventoryItem, TProbability>> = dropConfig.ITEMS_BY_COMMUNITY.get(
     getObjectCommunity(object)
   );
 
@@ -75,7 +75,7 @@ export function checkItemDependentDrops(object: GameObject, section: TSection): 
   let isDependent: boolean = true;
 
   for (const [dependentSection] of dropConfig.ITEMS_DEPENDENCIES.get(section)) {
-    const item: Optional<GameObject> = object.object(dependentSection);
+    const item: Nillable<GameObject> = object.object(dependentSection);
 
     if (item && !object.marked_dropped(item)) {
       return true;

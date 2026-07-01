@@ -5,7 +5,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseNumbersList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { LuaArray, Optional, TCount, TName, TRate, TSection } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TName, TRate, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -57,9 +57,9 @@ export function initializeDropBoxesLootTables(): void {
     }
 
     let min: TCount = nums.get(1);
-    let max: Optional<TCount> = nums.get(2);
+    let max: Nillable<TCount> = nums.get(2);
 
-    if (max === null) {
+    if ($isNil(max)) {
       max = min;
     }
 

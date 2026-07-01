@@ -1,4 +1,4 @@
-import { EActiveItemSlot, EActorMenuMode, Optional, TDuration, Time } from "@/engine/lib/types";
+import { EActiveItemSlot, EActorMenuMode, Nillable, TDuration, Time } from "@/engine/lib/types";
 
 export const actorConfig = {
   ACTOR_MENU_MODE: EActorMenuMode.UNDEFINED as EActorMenuMode,
@@ -9,6 +9,6 @@ export const actorConfig = {
   IS_ACTOR_TORCH_ENABLED: false,
   ACTIVE_ITEM_SLOT: EActiveItemSlot.PRIMARY,
   MEMOIZED_ITEM_SLOT: EActiveItemSlot.NONE,
-  DISABLED_INPUT_AT: null as Optional<Time>,
-  DISABLED_INPUT_DURATION: null as Optional<TDuration>,
+  DISABLED_INPUT_AT: null as Nillable<Time>,
+  DISABLED_INPUT_DURATION: null as Nillable<TDuration>,
 };

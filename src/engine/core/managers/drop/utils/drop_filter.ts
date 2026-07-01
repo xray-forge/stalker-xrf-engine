@@ -4,7 +4,7 @@ import { isArtefact, isGrenade, isWeapon } from "@/engine/core/utils/class_ids";
 import { setItemCondition } from "@/engine/core/utils/item";
 import { isAmmoSection, isExcludedFromLootDropItemSection, isLootableItemSection } from "@/engine/core/utils/section";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { AlifeSimulator, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { AlifeSimulator, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Iterate over object inventory and release items.
@@ -13,7 +13,7 @@ import { AlifeSimulator, GameObject, IniFile, Optional, TSection } from "@/engin
  */
 export function filterObjectDeathLoot(object: GameObject): void {
   const simulator: AlifeSimulator = registry.simulator;
-  const ini: Optional<IniFile> = object.spawn_ini();
+  const ini: Nillable<IniFile> = object.spawn_ini();
 
   // Object is marked as excluded from filtering.
   // todo: Check jub_b10_drunk and remove if it is not needed.

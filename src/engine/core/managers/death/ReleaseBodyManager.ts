@@ -21,7 +21,7 @@ import {
   GameObject,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   ServerObject,
   TCount,
   TNumberId,
@@ -137,7 +137,7 @@ export class ReleaseBodyManager extends AbstractManager {
         return;
       }
 
-      const object: Optional<ServerObject> = registry.simulator.object(descriptor.id);
+      const object: Nillable<ServerObject> = registry.simulator.object(descriptor.id);
 
       if (object && isCreature(object)) {
         logger.info("Releasing object: %s", object.name());

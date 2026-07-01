@@ -1,5 +1,5 @@
 import type { IConfigCondition } from "@/engine/core/utils/ini";
-import type { LuaArray, Optional, TName, TStringId, TStringifiedBoolean } from "@/engine/lib/types";
+import type { LuaArray, Nillable, TName, TStringId, TStringifiedBoolean } from "@/engine/lib/types";
 
 /**
  * Descriptor of a single dialog phrase and the conditions controlling when it is available.
@@ -13,7 +13,7 @@ export interface IPhrasesDescriptor {
   wounded: boolean;
   once: TStringifiedBoolean | "always";
   info: LuaArray<IConfigCondition>;
-  smart: Optional<string>;
+  smart: Nillable<string>;
   told?: boolean;
 }
 
@@ -28,7 +28,7 @@ export type TPhrasesAvailableMap = LuaTable<TStringId, IPhrasesDescriptor>;
  */
 export type TPhrasesPriorityMap = LuaTable<
   number,
-  LuaTable<string, number> & { told?: boolean; ignoreOnce?: Optional<boolean>; id?: -1 }
+  LuaTable<string, number> & { told?: boolean; ignoreOnce?: Nillable<boolean>; id?: -1 }
 >;
 
 /**

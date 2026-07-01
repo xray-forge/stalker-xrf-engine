@@ -12,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, Optional, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
+import { GameObject, Nillable, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -47,7 +47,7 @@ export function resetPhrasePriority(
   phrases: TPhrasesAvailableMap,
   priorities: TPhrasesPriorityMap,
   object: GameObject,
-  phraseId: Optional<TStringId>
+  phraseId: Nillable<TStringId>
 ): void {
   const objectId: TNumberId = object.id();
 

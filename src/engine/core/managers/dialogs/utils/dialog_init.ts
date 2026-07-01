@@ -5,7 +5,7 @@ import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isEmpty } from "@/engine/core/utils/table";
-import { Optional, Phrase, PhraseDialog, PhraseScript, TStringId } from "@/engine/lib/types";
+import { Nillable, Phrase, PhraseDialog, PhraseScript, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -99,12 +99,12 @@ export function initializeNewDialog(dialog: PhraseDialog): void {
       }
 
       for (const [, descriptor] of dialogConfig.PHRASES.get(category as EGenericPhraseCategory)) {
-        const phrase: Optional<Phrase> = dialog.AddPhrase(
+        const phrase: Nillable<Phrase> = dialog.AddPhrase(
           descriptor.name,
           descriptor.id,
           id,
           -10_000
-        ) as Optional<Phrase>;
+        ) as Nillable<Phrase>;
 
         // If phrase is not added, null is returned.
         if (phrase) {

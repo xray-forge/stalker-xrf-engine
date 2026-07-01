@@ -2,7 +2,7 @@ import { profile_timer } from "xray16";
 
 import { getManager } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling/ProfilingManager";
-import { AnyCallable, LuaArray, Optional, ProfileTimer, TDuration, TName } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, Nillable, ProfileTimer, TDuration, TName } from "@/engine/lib/types";
 
 /**
  * Portion of profiling metrics for isolated performance measuring of code execution.
@@ -11,11 +11,11 @@ export class ProfilingPortion {
   /**
    * Create profiling mark entry for precise measurement of execution duration.
    */
-  public static mark(name: Optional<TName | AnyCallable> = null): ProfilingPortion {
+  public static mark(name: Nillable<TName | AnyCallable> = null): ProfilingPortion {
     const manager: ProfilingManager = getManager(ProfilingManager);
     const key: AnyCallable | TName = name ?? (debug?.getinfo(2)?.func as AnyCallable) ?? "unknown";
 
-    let target: Optional<LuaArray<TDuration>> = manager.profilingPortions.get(key) as Optional<LuaArray<TDuration>>;
+    let target: Nillable<LuaArray<TDuration>> = manager.profilingPortions.get(key) as Nillable<LuaArray<TDuration>>;
 
     if (target) {
       return new ProfilingPortion(target);

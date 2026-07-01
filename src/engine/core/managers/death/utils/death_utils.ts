@@ -8,7 +8,7 @@ import { isObjectWithKnownInfo } from "@/engine/core/utils/object";
 import {
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   ServerObject,
   TDistance,
   TIndex,
@@ -48,12 +48,12 @@ export function getNearestCorpseToRelease(
   const now: TTimestamp = time_global();
   const position: Vector = registry.actor.position();
 
-  let releaseObjectIndex: Optional<TIndex> = null;
-  let releaseObjectDescriptor: Optional<IReleaseDescriptor> = null;
+  let releaseObjectIndex: Nillable<TIndex> = null;
+  let releaseObjectDescriptor: Nillable<IReleaseDescriptor> = null;
   let releaseObjectDistance: TDistance = deathConfig.MIN_DISTANCE_SQR;
 
   for (const [index, descriptor] of descriptors) {
-    const object: Optional<ServerObject> = registry.simulator.object(descriptor.id);
+    const object: Nillable<ServerObject> = registry.simulator.object(descriptor.id);
 
     // May also contain objects that are being registered after game load.
     if (object) {
@@ -61,7 +61,7 @@ export function getNearestCorpseToRelease(
       const distanceToCorpseSqr: TDistance = position.distance_to_sqr(object.position);
 
       if (
-        (descriptor.diedAt === null || now >= descriptor.diedAt + deathConfig.IDLE_AFTER_DEATH) &&
+        ($isNil(descriptor.diedAt) || now >= descriptor.diedAt + deathConfig.IDLE_AFTER_DEATH) &&
         distanceToCorpseSqr > releaseObjectDistance
       ) {
         releaseObjectDistance = distanceToCorpseSqr;
