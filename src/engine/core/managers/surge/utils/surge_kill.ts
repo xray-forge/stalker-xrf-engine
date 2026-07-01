@@ -84,7 +84,7 @@ export function killAllSurgeUnhidden(): void {
   for (const [, id] of registry.crows.storage) {
     const object: Nillable<GameObject> = registry.objects.get(id)?.object;
 
-    if (object.alive()) {
+    if (object && object.alive()) {
       object.hit(surgeHit);
     }
   }
