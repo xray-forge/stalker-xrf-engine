@@ -70,7 +70,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
       level.add_pp_effector(this.state.ppEffector, 234, false);
     }
 
-    getManager(ActorInputManager).disableGameUi(false);
+    getManager(ActorInputManager).disableGameUi(true);
     this.isUiDisabled = true;
 
     const timeHours: number = level.get_time_hours();
@@ -138,7 +138,8 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
 
         if (this.isUiDisabled) {
           if (!actor.is_talking() && this.state.shouldEnableUiOnEnd) {
-            getManager(ActorInputManager).enableGameUi(false);
+            // Restore the memoized weapon slot (matches sr_cutscene.script `enable_ui(actor, nil)`).
+            getManager(ActorInputManager).enableGameUi(true);
           } else if (this.state.shouldEnableUiOnEnd) {
             level.enable_input();
           }
