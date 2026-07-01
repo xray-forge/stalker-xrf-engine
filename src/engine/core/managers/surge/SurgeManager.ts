@@ -213,8 +213,11 @@ export class SurgeManager extends AbstractManager {
   protected giveSurgeHideTask(): void {
     if (this.surgeTaskSection !== "empty") {
       getManager(TaskManager).giveTask(this.surgeTaskSection === "" ? "hide_from_surge" : this.surgeTaskSection);
-      this.isTaskGiven = true;
     }
+
+    // Mark as given regardless of the task section.
+    // Prevents doubled alarms / sounds / weather effects etc.
+    this.isTaskGiven = true;
   }
 
   /**

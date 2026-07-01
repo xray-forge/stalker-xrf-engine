@@ -189,6 +189,15 @@ describe("SurgeManager", () => {
     surgeConfig.IS_STARTED = false;
   });
 
+  it("should mark the surge task as given even for an empty task section", () => {
+    const manager: SurgeManager = getManager(SurgeManager);
+
+    manager.surgeTaskSection = "empty";
+    (manager as AnyObject).giveSurgeHideTask();
+
+    expect(manager.isTaskGiven).toBe(true);
+  });
+
   it.todo("should correctly get nearest available cover");
 
   it.todo("should correctly set skip resurrect message");
