@@ -8,7 +8,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import {
   GameObject,
-  Optional,
+  Nillable,
   PhysicObject,
   PhysicsElement,
   PhysicsJoint,
@@ -30,7 +30,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
   public block: boolean = false;
   public soundlessBlock: boolean = false;
   public showTips: boolean = false;
-  public joint: Optional<PhysicsJoint> = null;
+  public joint: Nillable<PhysicsJoint> = null;
 
   public lowLimits: number = 0;
   public hiLimits: number = 0;
@@ -41,7 +41,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     this.state.signals = new LuaTable();
     this.isInitialized = false;
 
-    const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
+    const physicsShell: Nillable<PhysicsShell> = this.object.get_physics_shell();
 
     if (!physicsShell) {
       return;
@@ -163,7 +163,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     } else {
       this.joint!.set_max_force_and_velocity(10000, 1, 0);
 
-      const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
+      const physicsShell: Nillable<PhysicsShell> = this.object.get_physics_shell();
 
       if (physicsShell) {
         const physicsElement: PhysicsElement = physicsShell.get_element_by_bone_name("door");
@@ -198,7 +198,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
 
     this.object.set_fastcall(this.openFastcall, this);
 
-    const physicsShell: Optional<PhysicsShell> = this.object.get_physics_shell();
+    const physicsShell: Nillable<PhysicsShell> = this.object.get_physics_shell();
 
     if (physicsShell) {
       const physicsElement: PhysicsElement = physicsShell.get_element_by_bone_name("door");
@@ -267,7 +267,7 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     }
   }
 
-  public override onUse(object: GameObject, who: Optional<GameObject>): void {
+  public override onUse(object: GameObject, who: Nillable<GameObject>): void {
     logger.info("Use door: %s", object.name());
 
     if (this.state.locked && this.state.sndOpenStart) {
@@ -287,13 +287,13 @@ export class PhysicalDoorManager extends AbstractSchemeManager<ISchemePhysicalDo
     object: GameObject,
     amount: TCount,
     direction: Vector,
-    who: Optional<GameObject>,
+    who: Nillable<GameObject>,
     boneIndex: TIndex
   ): void {
     logger.info("Hit door: %s", object.name());
 
     if (this.state.hitOnBone.has(boneIndex)) {
-      const section: Optional<TSection> = pickSectionFromCondList(
+      const section: Nillable<TSection> = pickSectionFromCondList(
         registry.actor,
         this.object,
         this.state.hitOnBone.get(boneIndex).state!

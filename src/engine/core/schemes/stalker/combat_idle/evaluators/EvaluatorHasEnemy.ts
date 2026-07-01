@@ -5,7 +5,7 @@ import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig"
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, Optional, TDistance, TTimestamp } from "@/engine/lib/types";
+import { GameObject, Nillable, TDistance, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Evaluator to check whether any enemy exists.
@@ -29,7 +29,7 @@ export class EvaluatorHasEnemy extends property_evaluator {
     }
 
     const state: ISchemePostCombatIdleState = this.state;
-    const enemy: Optional<GameObject> = object.best_enemy();
+    const enemy: Nillable<GameObject> = object.best_enemy();
 
     if (enemy) {
       if (canObjectSelectAsEnemy(object, enemy)) {
@@ -53,7 +53,7 @@ export class EvaluatorHasEnemy extends property_evaluator {
       if (state.lastBestEnemyId === ACTOR_ID) {
         state.timer = now;
       } else {
-        const overrides: Optional<ILogicsOverrides> = registry.objects.get(object.id()).overrides;
+        const overrides: Nillable<ILogicsOverrides> = registry.objects.get(object.id()).overrides;
         const min: TDistance = (overrides?.minPostCombatTime ?? combatConfig.POST_COMBAT_IDLE.MIN) * 1_000;
         const max: TDistance = (overrides?.maxPostCombatTime ?? combatConfig.POST_COMBAT_IDLE.MAX) * 1_000;
 

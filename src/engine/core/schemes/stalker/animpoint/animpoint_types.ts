@@ -1,20 +1,20 @@
 import { EStalkerState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
-import { GameObject, LuaArray, Optional, TDistance, TName } from "@/engine/lib/types";
+import { GameObject, LuaArray, Nillable, TDistance, TName } from "@/engine/lib/types";
 
 /**
  * State of animpoint scheme.
  */
 export interface ISchemeAnimpointState extends IBaseSchemeState {
   animpointManager: AnimpointManager;
-  actionNameBase: Optional<TName>;
+  actionNameBase: Nillable<TName>;
   coverName: TName;
   useCamp: boolean;
   reachDistanceSqr: TDistance; // Already squared.
   reachMovement: EStalkerState;
-  description: Optional<EStalkerState>;
-  availableAnimations: Optional<LuaArray<EStalkerState>>;
+  description: Nillable<EStalkerState>;
+  availableAnimations: Nillable<LuaArray<EStalkerState>>;
   approvedActions: LuaArray<IAnimpointActionDescriptor>;
 }
 

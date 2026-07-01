@@ -6,7 +6,7 @@ import { ETeleportState, ISchemeTeleportState } from "@/engine/core/schemes/rest
 import { teleportActorWithEffects } from "@/engine/core/utils/position";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
-import { GameObject, Optional, TProbability, TTimestamp, Vector } from "@/engine/lib/types";
+import { GameObject, Nillable, TProbability, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * Implement smooth teleportation with sound/animation on contact with restrictor zones.
@@ -16,7 +16,7 @@ export class TeleportManager extends AbstractSchemeManager<ISchemeTeleportState>
   public timer: TTimestamp = 0;
 
   public update(): void {
-    const actor: Optional<GameObject> = registry.actor;
+    const actor: Nillable<GameObject> = registry.actor;
     const now: TTimestamp = time_global();
 
     if (!actor) {

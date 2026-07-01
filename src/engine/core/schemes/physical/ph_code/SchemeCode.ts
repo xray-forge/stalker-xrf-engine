@@ -9,7 +9,7 @@ import {
   readIniString,
   readIniStringAndCondList,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, Optional, TIndex, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TIndex, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme implementing code input for physical objects.
@@ -40,7 +40,7 @@ export class SchemeCode extends AbstractScheme {
       state.onCheckCode = new LuaTable();
 
       let it: TIndex = 1;
-      let cc: Optional<IBaseSchemeLogic> = readIniStringAndCondList(ini, section, "on_check_code" + it);
+      let cc: Nillable<IBaseSchemeLogic> = readIniStringAndCondList(ini, section, "on_check_code" + it);
 
       while (cc) {
         state.onCheckCode.set(cc.p1 as TName, cc.condlist);

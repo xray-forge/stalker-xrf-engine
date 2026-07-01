@@ -10,7 +10,7 @@ import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { readIniString } from "@/engine/core/utils/ini";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme describing logics of `meet` state.
@@ -77,7 +77,7 @@ export class SchemeMeet extends AbstractScheme {
 
   public static override reset(
     object: GameObject,
-    scheme: Optional<EScheme>,
+    scheme: Nillable<EScheme>,
     state: IRegistryObjectState,
     section: TSection
   ): void {

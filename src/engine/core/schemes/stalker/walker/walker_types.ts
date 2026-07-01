@@ -2,7 +2,7 @@ import type { EStalkerState, IPatrolSuggestedState } from "@/engine/core/animati
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
-import type { LuaArray, Optional, TName } from "@/engine/lib/types";
+import type { LuaArray, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Walker scheme state.
@@ -12,10 +12,10 @@ export interface ISchemeWalkerState extends IBaseSchemeState {
   pathWalk: TName;
   pathLook: TName;
   team: TName;
-  soundIdle: Optional<TName>;
+  soundIdle: Nillable<TName>;
   suggestedState: IPatrolSuggestedState;
-  pathWalkInfo: Optional<LuaArray<IWaypointData>>;
-  pathLookInfo: Optional<LuaArray<IWaypointData>>;
-  description: Optional<EStalkerState>;
+  pathWalkInfo: Nillable<LuaArray<IWaypointData>>;
+  pathLookInfo: Nillable<LuaArray<IWaypointData>>;
+  description: Nillable<EStalkerState>;
   approvedActions: LuaArray<IAnimpointActionDescriptor>;
 }

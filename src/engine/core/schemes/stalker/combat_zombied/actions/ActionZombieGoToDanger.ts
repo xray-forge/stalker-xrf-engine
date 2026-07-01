@@ -9,7 +9,7 @@ import {
   DangerObject,
   EGameObjectPath,
   GameObject,
-  Optional,
+  Nillable,
   TIndex,
   TNumberId,
   TRate,
@@ -31,13 +31,13 @@ export class ActionZombieGoToDanger extends action_base {
   public wasHit: boolean = false;
   public hitReactionEndTime: TTimestamp = 0;
 
-  public lastState: Optional<EStalkerState> = null;
-  public bestDangerObjectVertexId: Optional<TNumberId> = null;
-  public lastSentVertexId: Optional<TNumberId> = null;
-  public bestDangerObjectId: Optional<TNumberId> = null;
+  public lastState: Nillable<EStalkerState> = null;
+  public bestDangerObjectVertexId: Nillable<TNumberId> = null;
+  public lastSentVertexId: Nillable<TNumberId> = null;
+  public bestDangerObjectId: Nillable<TNumberId> = null;
 
-  public enemyLastSeenPos: Optional<Vector> = null;
-  public enemyLastSeenVid: Optional<TNumberId> = null;
+  public enemyLastSeenPos: Nillable<Vector> = null;
+  public enemyLastSeenVid: Nillable<TNumberId> = null;
 
   public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieGoToDanger.__name);
@@ -74,9 +74,9 @@ export class ActionZombieGoToDanger extends action_base {
    * @param bestEnemy - Enemy game object to look at, if any.
    * @param position - Position to look at.
    */
-  public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Nillable<GameObject>, position: Nillable<Vector>): void {
     if (state !== this.lastState) {
-      this.targetState.lookObjectId = bestEnemy?.id() as Optional<TNumberId>;
+      this.targetState.lookObjectId = bestEnemy?.id() as Nillable<TNumberId>;
       this.targetState.lookPosition = position;
       setStalkerState(this.object, state, null, null, this.targetState);
       this.lastState = state;
@@ -99,7 +99,7 @@ export class ActionZombieGoToDanger extends action_base {
       // -
     } else {
       const bestDanger: DangerObject = this.object.best_danger()!;
-      const object: Optional<GameObject> = bestDanger.object();
+      const object: Nillable<GameObject> = bestDanger.object();
 
       if (object && bestDanger.type() !== danger_object.grenade) {
         if (!this.bestDangerObjectId || this.bestDangerObjectId !== object.id()) {
@@ -134,10 +134,10 @@ export class ActionZombieGoToDanger extends action_base {
     }
 
     if (this.state.currentAction === EZombieCombatAction.DANGER) {
-      const bestDanger: Optional<DangerObject> = this.object.best_danger();
+      const bestDanger: Nillable<DangerObject> = this.object.best_danger();
 
       if (bestDanger) {
-        const bestDangerObject: Optional<GameObject> = bestDanger.object();
+        const bestDangerObject: Nillable<GameObject> = bestDanger.object();
 
         if (bestDangerObject !== null && (bestDanger.type() === danger_object.attacked || amount > 0)) {
           this.enemyLastSeenPos = bestDangerObject.position();

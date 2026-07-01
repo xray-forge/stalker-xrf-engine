@@ -3,7 +3,7 @@ import { time_global } from "xray16";
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { Optional, PhysicsJoint, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import { Nillable, PhysicsJoint, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * Manager to handle oscillation of objects with some time period.
@@ -12,7 +12,7 @@ export class OscillateManager extends AbstractSchemeManager<ISchemeOscillateStat
   public time: TTimestamp = 0;
   public coefficient: TRate = 0;
   public dir: Vector = createVector(math.random(), 0, math.random()).normalize();
-  public joint: Optional<PhysicsJoint> = null;
+  public joint: Nillable<PhysicsJoint> = null;
   public pause: boolean = false;
 
   public override activate(): void {

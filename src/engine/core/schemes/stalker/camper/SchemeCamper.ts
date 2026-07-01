@@ -17,7 +17,7 @@ import {
   ESchemeType,
   GameObject,
   IniFile,
-  Optional,
+  Nillable,
   TName,
   TSection,
 } from "@/engine/lib/types";
@@ -61,7 +61,7 @@ export class SchemeCamper extends AbstractScheme {
 
     state.radius = readIniNumber(ini, section, "radius", false, camperConfig.DEFAULT_CLOSE_RADIUS);
 
-    const campering: Optional<EStalkerState> = readIniString(
+    const campering: Nillable<EStalkerState> = readIniString(
       ini,
       section,
       "def_state_campering",

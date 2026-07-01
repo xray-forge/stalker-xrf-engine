@@ -10,7 +10,7 @@ import {
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { LuaArray, Optional, ParticlesObject, Patrol, TCount, TName, TTimestamp, Vector } from "@/engine/lib/types";
+import { LuaArray, Nillable, ParticlesObject, Patrol, TCount, TName, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * Manager handling particle scheme behaviour for a restrictor zone.
@@ -23,7 +23,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
   public isStarted: boolean = false;
   public isFirstPlayed: boolean = false;
   public particles: LuaArray<IParticleDescriptor> = new LuaTable();
-  public path: Optional<Patrol> = null;
+  public path: Nillable<Patrol> = null;
 
   public override activate(): void {
     const now: TTimestamp = time_global();
@@ -37,7 +37,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
       // Make sure order is maintained with range loop.
       for (const it of $range(1, path.count())) {
         const waypointData: IWaypointData = flags.get(it - 1);
-        const soundName: Optional<TName> = waypointData.s as Optional<TName>;
+        const soundName: Nillable<TName> = waypointData.s as Nillable<TName>;
         const delay: TCount = waypointData["d"] ? (tonumber(waypointData["d"]) ?? 0) : 0;
 
         /**

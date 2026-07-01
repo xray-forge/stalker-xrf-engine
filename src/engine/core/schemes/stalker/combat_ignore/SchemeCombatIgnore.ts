@@ -2,7 +2,7 @@ import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/combat_igore_types";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
-import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme describing stalker combat ignore state.
@@ -15,11 +15,11 @@ export class SchemeCombatIgnore extends AbstractScheme {
   public static override disable(object: GameObject, scheme: EScheme): void {
     object.set_enemy_callback(null);
 
-    const schemeState: Optional<ISchemeCombatIgnoreState> = registry.objects.get(object.id())[
+    const schemeState: Nillable<ISchemeCombatIgnoreState> = registry.objects.get(object.id())[
       scheme
-    ] as ISchemeCombatIgnoreState;
+    ] as Nillable<ISchemeCombatIgnoreState>;
 
-    if (schemeState !== null) {
+    if (schemeState) {
       AbstractScheme.unsubscribe(schemeState, schemeState.action);
     }
   }

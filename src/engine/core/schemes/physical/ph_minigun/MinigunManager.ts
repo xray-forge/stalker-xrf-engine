@@ -22,7 +22,7 @@ import {
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { Car, GameObject, Optional, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
+import { Car, GameObject, Nillable, TSection, TStringId, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * Manager handling minigun scheme behaviour for an object.
@@ -43,24 +43,24 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   public fcUpdAvg: number = 0;
   public fcLastUpdTm: number = 0;
 
-  public lastPosition: Optional<Vector> = null;
+  public lastPosition: Nillable<Vector> = null;
   public lastPositionTime: number = 0;
   public stateDelaying: boolean = false;
   public hasWeapon: boolean = false;
 
-  public targetObject: Optional<GameObject> = null;
-  public targetFirePt: Optional<Vector> = null;
+  public targetObject: Nillable<GameObject> = null;
+  public targetFirePt: Nillable<Vector> = null;
   public targetFirePtIdx: number = 0;
   public fireRangeSqr: number = 0;
   public defFireTime: number = 0;
   public defFireRep: number = 0;
   public fireRep: number = 0;
 
-  public fireTrackTarget: Optional<boolean> = null;
-  public pathFire: Optional<string> = null;
-  public pathFirePoint: Optional<Vector> = null;
-  public onTargetVis: Optional<IBaseSchemeLogic> = null;
-  public onTargetNvis: Optional<IBaseSchemeLogic> = null;
+  public fireTrackTarget: Nillable<boolean> = null;
+  public pathFire: Nillable<string> = null;
+  public pathFirePoint: Nillable<Vector> = null;
+  public onTargetVis: Nillable<IBaseSchemeLogic> = null;
+  public onTargetNvis: Nillable<IBaseSchemeLogic> = null;
 
   public constructor(object: GameObject, state: ISchemeMinigunState) {
     super(object, state);
@@ -137,7 +137,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       if (this.state.onTargetVis) {
         const vis = this.state.onTargetVis;
 
-        if (vis.p1 !== null) {
+        if ($isNotNil(vis.p1)) {
           const storyObject = getObjectByStoryId(vis.p1 as TStringId);
 
           if (storyObject && storyObject.alive()) {
@@ -150,7 +150,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       if (this.state.onTargetNvis) {
         const nvis = this.state.onTargetNvis;
 
-        if (nvis.p1 !== null) {
+        if ($isNotNil(nvis.p1)) {
           const storyObject = getObjectByStoryId(nvis.p1 as TStringId);
 
           if (storyObject && storyObject.alive()) {
@@ -163,7 +163,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
       this.pathFire = this.state.pathFire;
       this.pathFirePoint = null;
 
-      if (this.pathFire !== null) {
+      if ($isNotNil(this.pathFire)) {
         if (level.patrol_path_exists(this.pathFire)) {
           this.pathFirePoint = new patrol(this.pathFire).point(0);
         } else {
@@ -250,7 +250,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
    *
    * @param direction - Direction to aim the weapon at, or null to keep the current aim.
    */
-  public rotToFiredir(direction: Optional<Vector>): void {
+  public rotToFiredir(direction: Nillable<Vector>): void {
     if (direction) {
       this.mgun.SetParam(CCar.eWpnDesiredPos, direction);
     }
@@ -261,7 +261,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
    *
    * @param pt - Point to aim the weapon at, or null to keep the current aim.
    */
-  public rotToFirepoint(pt: Optional<Vector>): void {
+  public rotToFirepoint(pt: Nillable<Vector>): void {
     if (pt) {
       this.mgun.SetParam(CCar.eWpnDesiredPos, pt);
     }
@@ -329,7 +329,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         (this.onTargetVis.p1 as any).alive() &&
         this.mgun.IsObjectVisible(this.onTargetVis.p1 as any)
       ) {
-        const newSection: Optional<TSection> = pickSectionFromCondList(
+        const newSection: Nillable<TSection> = pickSectionFromCondList(
           registry.actor,
           this.object,
           this.onTargetVis.condlist
@@ -345,7 +345,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
         (this.onTargetNvis.p1 as any).alive() &&
         !this.mgun.IsObjectVisible(this.onTargetNvis.p1 as any)
       ) {
-        const newSection: Optional<TSection> = pickSectionFromCondList(
+        const newSection: Nillable<TSection> = pickSectionFromCondList(
           registry.actor,
           this.object,
           this.onTargetNvis.condlist
@@ -425,7 +425,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
             this.rotToFiredir(this.startLookPos);
           }
 
-          if (this.fireTrackTarget !== null) {
+          if ($isNotNil(this.fireTrackTarget)) {
             this.targetFirePt = this.targetObject!.position();
             this.targetFirePt.y = this.targetFirePt.y + 1.0;
             this.rotToFirepoint(this.targetFirePt);
@@ -449,7 +449,7 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
 
     scriptReleaseMonster(this.object);
 
-    if (this.state.onDeathInfo !== null) {
+    if ($isNotNil(this.state.onDeathInfo)) {
       registry.actor.give_info_portion(this.state.onDeathInfo);
     }
 

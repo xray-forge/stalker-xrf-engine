@@ -2,7 +2,7 @@ import { patrol } from "xray16";
 
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { getPatrolFlag, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
-import { GameObject, Optional, Patrol } from "@/engine/lib/types";
+import { GameObject, Nillable, Patrol } from "@/engine/lib/types";
 
 /**
  * @param object - Game object to check.
@@ -14,7 +14,7 @@ export function isOnCampPatrolWalkPoint(object: GameObject, state: ISchemeCamper
     return false;
   }
 
-  const walkPatrol: Optional<Patrol> = new patrol(state.pathWalk) as Optional<Patrol>;
+  const walkPatrol: Nillable<Patrol> = new patrol(state.pathWalk) as Nillable<Patrol>;
 
   if (!walkPatrol) {
     return false;
@@ -40,7 +40,7 @@ export function isOnCampPatrolWalkPoint(object: GameObject, state: ISchemeCamper
  * @param state - State of camper scheme.
  * @returns The next camp point to look at, or null when none are available.
  */
-export function getNextCampPatrolPoint(flag: number, state: ISchemeCamperState): Optional<ICampPoint> {
+export function getNextCampPatrolPoint(flag: number, state: ISchemeCamperState): Nillable<ICampPoint> {
   let isNext: boolean = false;
 
   if (!state.lastLookPoint) {

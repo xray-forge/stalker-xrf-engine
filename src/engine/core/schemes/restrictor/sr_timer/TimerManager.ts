@@ -7,7 +7,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { globalTimeToString } from "@/engine/core/utils/time";
-import { Optional, TSection, TTimestamp } from "@/engine/lib/types";
+import { Nillable, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,7 +37,7 @@ export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
 
     hud.RemoveCustomStatic(this.state.timerId);
 
-    if (this.state.string !== null) {
+    if ($isNotNil(this.state.string)) {
       hud.RemoveCustomStatic("hud_timer_text");
     }
   }
@@ -67,7 +67,7 @@ export class TimerManager extends AbstractSchemeManager<ISchemeTimerState> {
         (this.state.type === ETimerType.DECREMENT && valueTime <= expectedValue) ||
         (this.state.type === ETimerType.INCREMENT && valueTime >= expectedValue)
       ) {
-        const nextSection: Optional<TSection> = pickSectionFromCondList(
+        const nextSection: Nillable<TSection> = pickSectionFromCondList(
           registry.actor,
           this.object,
           this.state.onValue.condlist

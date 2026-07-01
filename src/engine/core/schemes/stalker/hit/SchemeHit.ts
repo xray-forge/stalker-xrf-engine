@@ -4,7 +4,7 @@ import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme describing how stalker object should handle being hit.
@@ -45,7 +45,7 @@ export class SchemeHit extends AbstractScheme {
   }
 
   public static override disable(object: GameObject, scheme: EScheme): void {
-    const state: Optional<ISchemeHitState> = registry.objects.get(object.id())[scheme] as Optional<ISchemeHitState>;
+    const state: Nillable<ISchemeHitState> = registry.objects.get(object.id())[scheme] as Nillable<ISchemeHitState>;
 
     if (state) {
       AbstractScheme.unsubscribe(state, state.action);

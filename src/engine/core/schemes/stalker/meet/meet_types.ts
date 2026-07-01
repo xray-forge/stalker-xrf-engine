@@ -1,7 +1,7 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import type { TConditionList } from "@/engine/core/utils/ini";
-import type { Optional, TDistance, TSection } from "@/engine/lib/types";
+import type { Nillable, TDistance, TSection } from "@/engine/lib/types";
 
 /**
  * Approximate meet distance to simplify logical checks.
@@ -17,7 +17,7 @@ export enum EMeetDistance {
 export interface ISchemeMeetState extends IBaseSchemeState {
   isMeetInitialized: boolean;
   meetManager: MeetManager;
-  meetSection: Optional<TSection>;
+  meetSection: Nillable<TSection>;
   abuse: TConditionList;
   use: TConditionList;
   useText: TConditionList;

@@ -10,7 +10,7 @@ import {
   GameObject,
   ISchemeEventHandler,
   LuaArray,
-  Optional,
+  Nillable,
   Patrol,
   TCount,
   TDuration,
@@ -28,8 +28,8 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
   public sleepingState: ESleeperState = ESleeperState.WALKING; // todo: use boolean?
 
   public timer!: {
-    begin: Optional<number>;
-    idle: Optional<number>;
+    begin: Nillable<number>;
+    idle: Nillable<number>;
     maxidle: TDuration;
     sumidle: TDuration;
     random: TDuration;
@@ -148,7 +148,7 @@ export class ActionSleeperActivity extends action_base implements ISchemeEventHa
     this.sleepingState = ESleeperState.SLEEPING;
 
     const sleepPatrol: Patrol = new patrol(this.state.pathMain);
-    const position: Optional<Vector> = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
+    const position: Nillable<Vector> = sleepPatrol.count() === 2 ? sleepPatrol.point(1) : null;
 
     setStalkerState(this.object, this.state.wakeable ? EStalkerState.SIT : EStalkerState.SLEEP, null, null, {
       lookPosition: position,

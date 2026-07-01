@@ -8,7 +8,7 @@ import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounde
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { readIniBoolean } from "@/engine/core/utils/ini";
-import { ActionPlanner, GameObject, IniFile, Optional } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, Nillable } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -23,7 +23,7 @@ export class SchemeHelpWounded extends AbstractScheme {
     object: GameObject,
     ini: IniFile,
     scheme: EScheme,
-    section: Optional<TSection>
+    section: Nillable<TSection>
   ): ISchemeWoundedState {
     return AbstractScheme.assign(object, ini, scheme, section);
   }

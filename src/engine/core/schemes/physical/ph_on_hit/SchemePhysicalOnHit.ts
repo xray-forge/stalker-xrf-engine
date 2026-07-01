@@ -3,7 +3,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
 import { PhysicalOnHitManager } from "@/engine/core/schemes/physical/ph_on_hit/PhysicalOnHitManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme defining logics of handling hits for physical objects.
@@ -40,9 +40,9 @@ export class SchemePhysicalOnHit extends AbstractScheme {
   }
 
   public static override disable(object: GameObject, scheme: EScheme): void {
-    const state: Optional<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[
+    const state: Nillable<ISchemePhysicalOnHitState> = registry.objects.get(object.id())[
       scheme
-    ] as Optional<ISchemePhysicalOnHitState>;
+    ] as Nillable<ISchemePhysicalOnHitState>;
 
     if (state) {
       AbstractScheme.unsubscribe(state, state.action);

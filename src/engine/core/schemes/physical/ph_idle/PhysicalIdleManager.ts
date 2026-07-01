@@ -4,7 +4,7 @@ import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { GameObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
+import { GameObject, Nillable, TCount, TIndex, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,7 +28,7 @@ export class PhysicalIdleManager extends AbstractSchemeManager<ISchemePhysicalId
     object: GameObject,
     amount: TCount,
     direction: Vector,
-    who: Optional<GameObject>,
+    who: Nillable<GameObject>,
     boneIndex: TIndex
   ): void {
     logger.info("Idle physical object hit: %s", this.object.name());

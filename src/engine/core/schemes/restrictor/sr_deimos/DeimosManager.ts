@@ -10,7 +10,7 @@ import { isBlackScreen } from "@/engine/core/utils/game";
 import { clamp } from "@/engine/core/utils/number";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AnyObject, GameObject, Optional, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
+import { AnyObject, GameObject, Nillable, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Manager handling deimos scheme behaviour for a restrictor zone.
@@ -21,7 +21,7 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
   public effectorActivatedAt: TTimestamp = 0;
 
   public update(): void {
-    const actor: Optional<GameObject> = registry.actor;
+    const actor: Nillable<GameObject> = registry.actor;
     const soundManager: SoundManager = getManager(SoundManager);
 
     if (!actor || isBlackScreen()) {

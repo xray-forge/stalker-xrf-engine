@@ -15,7 +15,6 @@ import {
   ESoundObjectType,
   GameObject,
   Nillable,
-  Optional,
   ServerMonsterAbstractObject,
   SoundObject,
   TCount,
@@ -29,17 +28,17 @@ import {
  * Moves a virtual sound source along a patrol path while the actor is inside the zone and spawns a monster at the end.
  */
 export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
-  public isActorInside: Optional<boolean> = null;
-  public finalAction: Optional<boolean> = null;
-  public idleState: Optional<boolean> = null;
-  public pathName: Optional<string> = null;
-  public curPoint: Optional<number> = null;
+  public isActorInside: Nillable<boolean> = null;
+  public finalAction: Nillable<boolean> = null;
+  public idleState: Nillable<boolean> = null;
+  public pathName: Nillable<string> = null;
+  public curPoint: Nillable<number> = null;
   public dir!: Vector;
   public current!: Vector;
   public target!: Vector;
 
-  public monster: Optional<ServerMonsterAbstractObject> = null;
-  public monsterObject: Optional<GameObject> = null;
+  public monster: Nillable<ServerMonsterAbstractObject> = null;
+  public monsterObject: Nillable<GameObject> = null;
 
   public soundObject: Nillable<SoundObject> = null;
   public appearSound!: SoundObject;
@@ -68,7 +67,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
       return;
     }
 
-    if (this.isActorInside === null && this.state.monster !== null) {
+    if ($isNil(this.isActorInside) && $isNotNil(this.state.monster)) {
       this.isActorInside = this.object.inside(actor.position());
 
       return;
@@ -83,7 +82,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
 
     if (
       this.finalAction &&
-      (registry.objects.get(this.monster!.id) === null ||
+      (!registry.objects.get(this.monster!.id) ||
         this.monsterObject!.position().distance_to(this.state.path.point(this.state.path.count() - 1)) <= 1)
     ) {
       if (registry.objects.has(this.monster!.id)) {
@@ -103,7 +102,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
       return;
     }
 
-    if (this.isActorInside === true && this.monster === null) {
+    if (this.isActorInside === true && !this.monster) {
       const targetPosition: Vector = copyVector(this.current);
 
       targetPosition.mad(this.dir, (this.state.soundSlideVel * delta) / 1000);
@@ -118,12 +117,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
       if (this.soundObject && this.soundObject.playing()) {
         this.soundObject.set_position(this.current);
       }
-    } else if (
-      this.monsterObject === null &&
-      this.monster !== null &&
-      registry.objects.get(this.monster.id) !== null &&
-      !this.finalAction
-    ) {
+    } else if (!this.monsterObject && this.monster && registry.objects.get(this.monster.id) && !this.finalAction) {
       this.monsterObject = registry.objects.get(this.monster.id).object!;
 
       scriptCaptureMonster(this.monsterObject, true);
@@ -162,7 +156,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
       return;
     }
 
-    let pathNameNew: Optional<TName> = this.pathName;
+    let pathNameNew: Nillable<TName> = this.pathName;
 
     // todo: WTF?
     while (this.pathName === pathNameNew) {

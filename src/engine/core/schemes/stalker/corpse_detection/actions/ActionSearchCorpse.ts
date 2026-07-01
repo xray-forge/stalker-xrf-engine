@@ -6,7 +6,7 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { freeSelectedLootedObjectSpot } from "@/engine/core/schemes/stalker/corpse_detection/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EGameObjectPath, Optional, TNumberId, Vector } from "@/engine/lib/types";
+import { EGameObjectPath, Nillable, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +18,7 @@ export class ActionSearchCorpse extends action_base {
   public readonly state: ISchemeCorpseDetectionState;
 
   public isLootingSoundPlayed: boolean = false;
-  public lootingObjectId: Optional<TNumberId> = null;
+  public lootingObjectId: Nillable<TNumberId> = null;
 
   public constructor(state: ISchemeCorpseDetectionState) {
     super(null, ActionSearchCorpse.__name);
@@ -43,7 +43,7 @@ export class ActionSearchCorpse extends action_base {
     logger.info("Stop search corpse: %s %s", this.object.name(), this.state.selectedCorpseId);
 
     // Unmark corpse as selected by an object, if any exist.
-    if (this.state.selectedCorpseId !== null) {
+    if ($isNotNil(this.state.selectedCorpseId)) {
       freeSelectedLootedObjectSpot(this.state.selectedCorpseId);
     }
 

@@ -1,6 +1,6 @@
 import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { TConditionList } from "@/engine/core/utils/ini";
-import { Optional, Vector } from "@/engine/lib/types";
+import { Nillable, Vector } from "@/engine/lib/types";
 
 /**
  * Type of combat used by game object.
@@ -27,9 +27,9 @@ export enum EZombieCombatAction {
  */
 export interface ISchemeCombatState extends IBaseSchemeState {
   enabled: boolean;
-  combatType: Optional<{ condlist: TConditionList }>;
-  isCamperCombatAction: Optional<boolean>;
-  lastSeenEnemyAtPosition: Optional<Vector>;
-  scriptCombatType: Optional<EScriptCombatType>;
-  currentAction: Optional<EZombieCombatAction>;
+  combatType: Nillable<{ condlist: TConditionList }>;
+  isCamperCombatAction: Nillable<boolean>;
+  lastSeenEnemyAtPosition: Nillable<Vector>;
+  scriptCombatType: Nillable<EScriptCombatType>;
+  currentAction: Nillable<EZombieCombatAction>;
 }

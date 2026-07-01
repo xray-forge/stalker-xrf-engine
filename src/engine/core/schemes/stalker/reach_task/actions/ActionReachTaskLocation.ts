@@ -20,7 +20,7 @@ import {
   EGameObjectPath,
   GameObject,
   ISchemeEventHandler,
-  Optional,
+  Nillable,
   TNumberId,
   TTimestamp,
   Vector,
@@ -119,7 +119,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
       this.reachTargetId = squad.assignedTargetId!;
     }
 
-    let target: Optional<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
+    let target: Nillable<TSimulationObject> = registry.simulationObjects.get(squad.assignedTargetId!);
 
     if (target === null && squad.getScriptedSimulationTarget() !== null) {
       target = registry.simulator.object(squad.assignedTargetId!);
@@ -150,8 +150,8 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * @param squad - Squad the object commands.
    * @param target - Simulation object the squad is reaching, if any.
    */
-  public executeSquadCommander(squad: Squad, target: Optional<TSimulationObject>): void {
-    if (target !== null && !this.object.is_talking()) {
+  public executeSquadCommander(squad: Squad, target: Nillable<TSimulationObject>): void {
+    if (target && !this.object.is_talking()) {
       const gvi: TNumberId = target.m_game_vertex_id;
       let lvi: TNumberId = target.m_level_vertex_id;
       let position: Vector = target.position;
@@ -191,7 +191,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
    * @param squad - Squad the object belongs to.
    * @param target - Simulation object the squad is reaching, if any.
    */
-  public executeSquadSoldier(squad: Squad, target: Optional<TSimulationObject>): void {
+  public executeSquadSoldier(squad: Squad, target: Nillable<TSimulationObject>): void {
     const [lvi, direction, currentState] = reachTaskConfig.PATROLS.get(this.squadId).getObjectOrders(this.object);
 
     this.direction = direction;
@@ -207,7 +207,7 @@ export class ActionReachTaskLocation extends action_base implements ISchemeEvent
 
     this.object.set_path_type(EGameObjectPath.LEVEL_PATH);
 
-    if (target === null || isSquad(target) || surgeConfig.IS_STARTED) {
+    if (!target || isSquad(target) || surgeConfig.IS_STARTED) {
       this.object.set_movement_type(level.object_by_id(squad.commander_id())!.movement_type());
       this.object.set_mental_state(level.object_by_id(squad.commander_id())!.mental_state());
 

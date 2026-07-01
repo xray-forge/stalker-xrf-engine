@@ -52,11 +52,11 @@ export class EvaluatorCorpseDetect extends property_evaluator {
   public hasCorpseToLoot(): boolean {
     const [corpseObject, corpseVertexId, corpsePosition] = getNearestCorpseToLoot(this.object);
 
-    if (corpseVertexId !== null) {
+    if (corpseVertexId) {
       const corpseId: TNumberId = corpseObject.id();
 
       // Looted corpse before, mark it as not selected.
-      if (this.state.selectedCorpseId !== null && this.state.selectedCorpseId !== corpseId) {
+      if ($isNotNil(this.state.selectedCorpseId) && this.state.selectedCorpseId !== corpseId) {
         freeSelectedLootedObjectSpot(this.state.selectedCorpseId);
       }
 

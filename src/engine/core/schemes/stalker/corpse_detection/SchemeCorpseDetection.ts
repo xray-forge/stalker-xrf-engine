@@ -7,7 +7,7 @@ import { ActionSearchCorpse } from "@/engine/core/schemes/stalker/corpse_detecti
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/stalker/corpse_detection/evaluators";
 import { readIniBoolean } from "@/engine/core/utils/ini";
-import { ActionPlanner, GameObject, IniFile, Optional } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, Nillable } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**
@@ -22,7 +22,7 @@ export class SchemeCorpseDetection extends AbstractScheme {
     object: GameObject,
     ini: IniFile,
     scheme: EScheme,
-    section: Optional<TSection>
+    section: Nillable<TSection>
   ): ISchemeCorpseDetectionState {
     return AbstractScheme.assign(object, ini, scheme, section);
   }

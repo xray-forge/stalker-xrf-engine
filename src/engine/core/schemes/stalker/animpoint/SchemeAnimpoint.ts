@@ -17,7 +17,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
-import { ActionPlanner, GameObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, Nillable, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -54,9 +54,9 @@ export class SchemeAnimpoint extends AbstractScheme {
 
     state.reachDistanceSqr = Math.pow(readIniNumber(ini, section, "reach_distance", false, 0.75), 2);
 
-    const rawAvailableAnimations: Optional<TName> = readIniString(ini, section, "avail_animations");
+    const rawAvailableAnimations: Nillable<TName> = readIniString(ini, section, "avail_animations");
 
-    state.availableAnimations = rawAvailableAnimations === null ? null : parseStringsList(rawAvailableAnimations);
+    state.availableAnimations = $isNotNil(rawAvailableAnimations) ? parseStringsList(rawAvailableAnimations) : null;
 
     return state;
   }

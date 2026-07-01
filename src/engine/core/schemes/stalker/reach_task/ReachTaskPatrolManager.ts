@@ -13,7 +13,6 @@ import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   GameObject,
   Nillable,
-  Optional,
   ServerCreatureObject,
   TCount,
   TDistance,
@@ -110,7 +109,7 @@ export class ReachTaskPatrolManager {
     let index = 1;
 
     for (const [key, data] of this.objectsList) {
-      const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(data.soldier)!;
+      const serverObject: Nillable<ServerCreatureObject> = registry.simulator.object(data.soldier)!;
       const squad: Nillable<Squad> = serverObject && getObjectSquad(serverObject);
 
       if (!squad) {
@@ -170,7 +169,7 @@ export class ReachTaskPatrolManager {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
 
-    const commander: Optional<number> = this.objectsList.get(this.commanderId).soldier;
+    const commander: Nillable<number> = this.objectsList.get(this.commanderId).soldier;
 
     if (commander === null) {
       abort("Patrol commander not present in PatrolManager[%s]", this.targetId);
@@ -185,7 +184,7 @@ export class ReachTaskPatrolManager {
    * @param object - Patrol member to compute orders for.
    * @returns Target level vertex id, desired direction and movement state to apply.
    */
-  public getObjectOrders(object: GameObject): LuaMultiReturn<[TNumberId, Vector, Optional<EStalkerState>]> {
+  public getObjectOrders(object: GameObject): LuaMultiReturn<[TNumberId, Vector, Nillable<EStalkerState>]> {
     if (object === null) {
       abort("Invalid NPC on call PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
@@ -200,7 +199,7 @@ export class ReachTaskPatrolManager {
       abort("Patrol commander called function PatrolManager:get_npc_command in PatrolManager[%s]", this.targetId);
     }
 
-    const commander: Optional<GameObject> = level.object_by_id(this.objectsList.get(this.commanderId).soldier);
+    const commander: Nillable<GameObject> = level.object_by_id(this.objectsList.get(this.commanderId).soldier);
 
     assertDefined(commander, "Commander is nil!");
 

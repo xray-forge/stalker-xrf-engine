@@ -12,7 +12,7 @@ import { isBlackScreen } from "@/engine/core/utils/game";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { FALSE } from "@/engine/lib/constants/words";
-import { Optional, TIndex, TNumberId } from "@/engine/lib/types";
+import { Nillable, TIndex, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -99,7 +99,7 @@ export class CameraEffectorSet {
       }
     } else {
       // Check effect to play and start it if not playing anything.
-      const effect: Optional<ICameraEffectorSetDescriptorItem> = this.getNextEffector();
+      const effect: Nillable<ICameraEffectorSetDescriptorItem> = this.getNextEffector();
 
       if (effect) {
         this.startEffect(effect);
@@ -108,9 +108,9 @@ export class CameraEffectorSet {
   }
 
   /**
-   * @returns Optional effector descriptor based on current state / effect index for further execution.
+   * @returns Nillable effector descriptor based on current state / effect index for further execution.
    */
-  public getNextEffector(): Optional<ICameraEffectorSetDescriptorItem> {
+  public getNextEffector(): Nillable<ICameraEffectorSetDescriptorItem> {
     if (this.isLooped) {
       return this.set[this.state].get(this.currentEffectIndex);
     }
@@ -120,7 +120,7 @@ export class CameraEffectorSet {
     switch (this.state) {
       // Starting effectors scenario and progress over list of descriptors or switch to idle state.
       case EEffectorState.START:
-        if (this.set.start.get(nextEffectIndex) as Optional<ICameraEffectorSetDescriptorItem>) {
+        if (this.set.start.get(nextEffectIndex) as Nillable<ICameraEffectorSetDescriptorItem>) {
           this.currentEffectIndex = nextEffectIndex;
 
           if (type(this.set.start.get(nextEffectIndex).enabled) === "string") {
@@ -148,7 +148,7 @@ export class CameraEffectorSet {
 
       // Handling idle state and progressing to finish animation.
       case EEffectorState.IDLE:
-        if (this.set.idle.get(nextEffectIndex) as Optional<ICameraEffectorSetDescriptorItem>) {
+        if (this.set.idle.get(nextEffectIndex) as Nillable<ICameraEffectorSetDescriptorItem>) {
           this.currentEffectIndex = nextEffectIndex;
 
           if (type(this.set.idle.get(nextEffectIndex).enabled) === "string") {
@@ -176,7 +176,7 @@ export class CameraEffectorSet {
 
       // Handling finish state and progressing to release state and callback emit.
       case EEffectorState.FINISH:
-        if (this.set.finish.get(nextEffectIndex) as Optional<ICameraEffectorSetDescriptorItem>) {
+        if (this.set.finish.get(nextEffectIndex) as Nillable<ICameraEffectorSetDescriptorItem>) {
           this.currentEffectIndex = nextEffectIndex;
 
           if (type(this.set.finish.get(nextEffectIndex).enabled) === "string") {

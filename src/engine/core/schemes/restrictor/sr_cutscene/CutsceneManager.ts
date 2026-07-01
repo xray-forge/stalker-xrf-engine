@@ -16,7 +16,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
-import { AnyCallablesModule, GameObject, Optional, TName, TNumberId } from "@/engine/lib/types";
+import { AnyCallablesModule, GameObject, Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -28,7 +28,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public isUiDisabled: boolean = false;
   public isPostprocess: boolean = false;
   public motionId: TNumberId = 1;
-  public motion: Optional<CameraEffectorSet> = null;
+  public motion: Nillable<CameraEffectorSet> = null;
   public sceneState: ESceneState = ESceneState.NONE;
 
   public override activate(): void {
@@ -60,7 +60,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
   public onZoneEnter(): void {
     logger.info("Zone enter: %s", this.object.name());
 
-    const actor: Optional<GameObject> = registry.actor;
+    const actor: Nillable<GameObject> = registry.actor;
 
     this.sceneState = ESceneState.RUN;
 
@@ -153,7 +153,7 @@ export class CutsceneManager extends AbstractSchemeManager<ISchemeCutsceneState>
     } else {
       this.motion!.isPlaying = false;
 
-      const effect: Optional<ICameraEffectorSetDescriptorItem> = this.motion!.getNextEffector();
+      const effect: Nillable<ICameraEffectorSetDescriptorItem> = this.motion!.getNextEffector();
 
       if (effect) {
         this.motion!.startEffect(effect);

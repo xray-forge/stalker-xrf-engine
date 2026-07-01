@@ -218,9 +218,9 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
    * Build the list of approved animation actions for the object from the available animations or actions.
    */
   public fillPossibleAnimationActions(): void {
-    const isInCamp: boolean = this.campManager !== null;
+    const isInCamp: boolean = $isNotNil(this.campManager);
 
-    if (this.state.availableAnimations !== null) {
+    if (this.state.availableAnimations) {
       for (const [, state] of this.state.availableAnimations) {
         table.insert(this.state.approvedActions, {
           predicate: animpointPredicateAlways,

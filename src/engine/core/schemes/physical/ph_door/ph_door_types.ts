@@ -1,6 +1,6 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IBoneStateDescriptor, IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini";
-import type { LuaArray, Optional, TLabel } from "@/engine/lib/types";
+import type { LuaArray, Nillable, TLabel } from "@/engine/lib/types";
 
 /**
  * State of door scheme.
@@ -11,14 +11,14 @@ export interface ISchemePhysicalDoorState extends IBaseSchemeState {
   noForce: boolean;
   notForNpc: boolean;
   showTips: boolean;
-  tipOpen: Optional<TLabel>;
+  tipOpen: Nillable<TLabel>;
   tipUnlock: TLabel;
   tipClose: TLabel;
   slider: boolean;
-  sndOpenStart: Optional<string>;
-  sndCloseStart: Optional<string>;
+  sndOpenStart: Nillable<string>;
+  sndCloseStart: Nillable<string>;
   sndCloseStop: string;
-  scriptUsedMoreThanOnce: Optional<boolean>;
-  onUse: Optional<IConfigSwitchConditionsDescriptor>;
+  scriptUsedMoreThanOnce: Nillable<boolean>;
+  onUse: Nillable<IConfigSwitchConditionsDescriptor>;
   hitOnBone: LuaArray<IBoneStateDescriptor>;
 }

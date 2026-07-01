@@ -5,7 +5,7 @@ import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -41,7 +41,7 @@ export class SchemeDeath extends AbstractScheme {
     objectState: IRegistryObjectState,
     section: TSection
   ): void {
-    const deathSection: Optional<TSection> = readIniString(objectState.ini, objectState.sectionLogic, "on_death");
+    const deathSection: Nillable<TSection> = readIniString(objectState.ini, objectState.sectionLogic, "on_death");
 
     if (deathSection) {
       logger.info("Reset death: %s", object.name());
@@ -51,13 +51,13 @@ export class SchemeDeath extends AbstractScheme {
       }
 
       const state: ISchemeDeathState = objectState[SchemeDeath.SCHEME_SECTION] as ISchemeDeathState;
-      const onInfo: Optional<string> = readIniString(objectState.ini, deathSection, "on_info");
+      const onInfo: Nillable<string> = readIniString(objectState.ini, deathSection, "on_info");
 
       if (onInfo) {
         state.info = parseConditionsList(onInfo);
       }
 
-      const onInfo2: Optional<string> = readIniString(objectState.ini, deathSection, "on_info2");
+      const onInfo2: Nillable<string> = readIniString(objectState.ini, deathSection, "on_info2");
 
       if (onInfo2) {
         state.info2 = parseConditionsList(onInfo2);

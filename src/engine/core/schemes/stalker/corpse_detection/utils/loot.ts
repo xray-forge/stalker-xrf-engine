@@ -6,7 +6,7 @@ import {
 } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { transferLoot } from "@/engine/core/utils/loot";
 import { chance } from "@/engine/core/utils/random";
-import { EScheme, GameObject, LuaArray, Optional, TNumberId } from "@/engine/lib/types";
+import { EScheme, GameObject, LuaArray, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Finish loot corpse action - transfer all the items from corpse and play sound notification about loot quality.
@@ -15,9 +15,9 @@ import { EScheme, GameObject, LuaArray, Optional, TNumberId } from "@/engine/lib
  */
 export function finishCorpseLooting(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const corpseObjectId: Optional<TNumberId> = (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState)
+  const corpseObjectId: Nillable<TNumberId> = (state[EScheme.CORPSE_DETECTION] as ISchemeCorpseDetectionState)
     .selectedCorpseId;
-  const corpseObject: Optional<GameObject> = corpseObjectId ? registry.objects.get(corpseObjectId)?.object : null;
+  const corpseObject: Nillable<GameObject> = corpseObjectId ? registry.objects.get(corpseObjectId)?.object : null;
 
   // If corpse exists online:
   if (corpseObject) {
@@ -38,9 +38,9 @@ export function finishCorpseLooting(object: GameObject): void {
  * @param lootedObjectId - Id of target game object being looted.
  */
 export function freeSelectedLootedObjectSpot(lootedObjectId: TNumberId): void {
-  const lootedObjectState: Optional<IRegistryObjectState> = registry.objects.get(
+  const lootedObjectState: Nillable<IRegistryObjectState> = registry.objects.get(
     lootedObjectId
-  ) as Optional<IRegistryObjectState>;
+  ) as Nillable<IRegistryObjectState>;
 
   if (lootedObjectState) {
     setPortableStoreValue(lootedObjectId, PS_LOOTING_DEAD_OBJECT, null);

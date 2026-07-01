@@ -1,12 +1,12 @@
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import type { Optional, TCount, TDistance, TDuration, TName, TRate } from "@/engine/lib/types";
+import type { Nillable, TCount, TDistance, TDuration, TName, TRate } from "@/engine/lib/types";
 
 /**
  * State of the minigun scheme.
  */
 export interface ISchemeMinigunState extends IBaseSchemeState {
-  pathFire: Optional<TName>;
+  pathFire: Nillable<TName>;
   autoFire: boolean;
   fireTime: TDuration;
   fireRep: TCount;
@@ -15,9 +15,9 @@ export interface ISchemeMinigunState extends IBaseSchemeState {
   fireTrackTarget: boolean;
   fireAngle: TRate;
   shootOnlyOnVisible: boolean;
-  onDeathInfo: Optional<TInfoPortion>;
-  onTargetVis: Optional<IBaseSchemeLogic>;
-  onTargetNvis: Optional<IBaseSchemeLogic>;
+  onDeathInfo: Nillable<TInfoPortion>;
+  onTargetVis: Nillable<IBaseSchemeLogic>;
+  onTargetNvis: Nillable<IBaseSchemeLogic>;
 }
 
 /**

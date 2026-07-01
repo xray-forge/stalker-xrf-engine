@@ -7,7 +7,7 @@ import { getManager, getStalkerState, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { GameObject, ISchemeEventHandler, type Nillable, Optional } from "@/engine/lib/types";
+import { GameObject, ISchemeEventHandler, Nillable } from "@/engine/lib/types";
 
 /**
  * Action to command patrol/group of stalker on way somewhere.
@@ -18,7 +18,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
   public readonly patrolManager: StalkerPatrolManager;
 
   public currentState: EStalkerState = EStalkerState.PATROL;
-  public previousState: Optional<EStalkerState> = null;
+  public previousState: Nillable<EStalkerState> = null;
 
   public constructor(state: ISchemePatrolState, object: GameObject) {
     super(null, ActionPatrolCommander.__name);
@@ -65,7 +65,7 @@ export class ActionPatrolCommander extends action_base implements ISchemeEventHa
 
     this.patrolManager.update();
 
-    const previousState: Optional<EStalkerState> = this.previousState;
+    const previousState: Nillable<EStalkerState> = this.previousState;
     const state: EStalkerState = getStalkerState(this.object) as EStalkerState;
 
     if (previousState !== state) {

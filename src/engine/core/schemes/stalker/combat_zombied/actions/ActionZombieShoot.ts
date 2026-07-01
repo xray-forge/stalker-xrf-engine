@@ -11,7 +11,7 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   EGameObjectPath,
   GameObject,
-  Optional,
+  Nillable,
   TIndex,
   TNumberId,
   TRate,
@@ -35,17 +35,17 @@ export class ActionZombieShoot extends action_base {
 
   public wasHit: boolean = false;
 
-  public enemyLastSeenVertexId: Optional<TNumberId> = null;
-  public enemyLastSeenPosition: Optional<Vector> = null;
-  public enemyLastVertexId: Optional<TNumberId> = null;
-  public enemyLastAccessibleVertexId: Optional<TNumberId> = null;
-  public enemyLastAccessiblePosition: Optional<Vector> = null;
+  public enemyLastSeenVertexId: Nillable<TNumberId> = null;
+  public enemyLastSeenPosition: Nillable<Vector> = null;
+  public enemyLastVertexId: Nillable<TNumberId> = null;
+  public enemyLastAccessibleVertexId: Nillable<TNumberId> = null;
+  public enemyLastAccessiblePosition: Nillable<Vector> = null;
 
   public hitReactionEndTime: TTimestamp = 0;
   public turnTime: TTimestamp = 0;
 
   public isValidPath: boolean = false;
-  public previousState: Optional<EStalkerState> = null;
+  public previousState: Nillable<EStalkerState> = null;
 
   public constructor(state: ISchemeCombatState) {
     super(null, ActionZombieShoot.__name);
@@ -95,7 +95,7 @@ export class ActionZombieShoot extends action_base {
   public override execute(): void {
     super.execute();
 
-    const bestEnemy: Optional<GameObject> = this.object.best_enemy()!;
+    const bestEnemy: Nillable<GameObject> = this.object.best_enemy()!;
     const isBestEnemyVisible: boolean = this.object.see(bestEnemy);
 
     if (isBestEnemyVisible) {
@@ -168,7 +168,7 @@ export class ActionZombieShoot extends action_base {
    * @param bestEnemy - Enemy game object to look at, if any.
    * @param position - Position to look at when no enemy is provided.
    */
-  public setState(state: EStalkerState, bestEnemy: Optional<GameObject>, position: Optional<Vector>): void {
+  public setState(state: EStalkerState, bestEnemy: Nillable<GameObject>, position: Nillable<Vector>): void {
     this.targetStateDescriptor.lookObjectId = bestEnemy ? bestEnemy.id() : null;
     this.targetStateDescriptor.lookPosition = bestEnemy ? this.enemyLastSeenPosition : position;
 
@@ -201,13 +201,13 @@ export class ActionZombieShoot extends action_base {
    * @param who - Game object that caused the hit, if any.
    * @param boneId - Identifier of the bone that was hit.
    */
-  public onHit(object: GameObject, amount: TRate, direction: Vector, who: Optional<GameObject>, boneId: TIndex): void {
-    if (who === null) {
+  public onHit(object: GameObject, amount: TRate, direction: Vector, who: Nillable<GameObject>, boneId: TIndex): void {
+    if (!who) {
       return;
     }
 
     if (this.state.currentAction === EZombieCombatAction.SHOOT) {
-      const bestEnemy: Optional<GameObject> = this.object?.best_enemy();
+      const bestEnemy: Nillable<GameObject> = this.object?.best_enemy();
 
       if (bestEnemy && bestEnemy.id() === who.id()) {
         this.wasHit = true;

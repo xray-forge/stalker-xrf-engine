@@ -1,16 +1,16 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { LuaArray, Optional, Patrol, TDuration, TName, TRate, TTimestamp } from "@/engine/lib/types";
+import type { LuaArray, Nillable, Patrol, TDuration, TName, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * State of the monster scheme.
  */
 export interface ISchemeMonsterState extends IBaseSchemeState {
-  soundObject: Optional<string>;
+  soundObject: Nillable<string>;
   delay: TDuration;
   idle: TDuration;
   idleEnd: TTimestamp;
   path: Patrol;
   pathTable: LuaArray<TName>;
-  monster: Optional<string>;
+  monster: Nillable<string>;
   soundSlideVel: TRate;
 }
