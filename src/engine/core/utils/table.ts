@@ -1,4 +1,4 @@
-import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Nillable } from "@/engine/lib/types";
 
 /**
  * Check if provided container is empty collection.
@@ -7,8 +7,8 @@ import { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
  * @param target - Object to check emptiness.
  * @returns Whether target table is empty.
  */
-export function isEmpty(target: Optional<LuaTable<any>>): target is LuaTable {
-  if (target === null) {
+export function isEmpty(target: Nillable<LuaTable<any>>): target is LuaTable {
+  if (!target) {
     return true;
   }
 

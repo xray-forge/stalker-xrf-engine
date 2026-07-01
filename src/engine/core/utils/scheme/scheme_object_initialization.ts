@@ -9,7 +9,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { EScheme, GameObject, IniFile, LuaArray, Optional, TDistance, TNumberId, TSection } from "@/engine/lib/types";
+import { EScheme, GameObject, IniFile, LuaArray, Nillable, TDistance, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * Synchronize object invulnerability state based.
@@ -18,12 +18,11 @@ import { EScheme, GameObject, IniFile, LuaArray, Optional, TDistance, TNumberId,
  */
 export function initializeObjectInvulnerability(object: GameObject): void {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const invulnerability: Optional<string> = readIniString(state.ini, state.activeSection, "invulnerable", false);
+  const invulnerability: Nillable<string> = readIniString(state.ini, state.activeSection, "invulnerable", false);
 
-  const nextInvulnerabilityState: boolean =
-    invulnerability === null
-      ? false
-      : pickSectionFromCondList(registry.actor, object, parseConditionsList(invulnerability)) === TRUE;
+  const nextInvulnerabilityState: boolean = $isNil(invulnerability)
+    ? false
+    : pickSectionFromCondList(registry.actor, object, parseConditionsList(invulnerability)) === TRUE;
 
   if (object.invulnerable() !== nextInvulnerabilityState) {
     object.invulnerable(nextInvulnerabilityState);
@@ -50,7 +49,7 @@ export function initializeObjectCanSelectWeaponState(
     data = readIniString(state.ini, state.sectionLogic, "can_select_weapon", false, null, TRUE);
   }
 
-  const canSelectSection: Optional<TSection> = pickSectionFromCondList(
+  const canSelectSection: Nillable<TSection> = pickSectionFromCondList(
     registry.actor,
     object,
     parseConditionsList(data)
@@ -135,17 +134,17 @@ export function initializeObjectInfo(object: GameObject, ini: IniFile, section: 
  */
 export function initializeObjectIgnoreThreshold(
   object: GameObject,
-  scheme: Optional<EScheme>,
+  scheme: Nillable<EScheme>,
   state: IRegistryObjectState,
   section: TSection
 ): void {
-  const thresholdSection: Optional<TSection> =
+  const thresholdSection: Nillable<TSection> =
     scheme === null || scheme === NIL
       ? readIniString(state.ini, state.sectionLogic, "threshold", false)
       : readIniString(state.ini, section, "threshold", false);
 
   if (thresholdSection) {
-    const maxIgnoreDistance: Optional<TDistance> = readIniNumber(
+    const maxIgnoreDistance: Nillable<TDistance> = readIniNumber(
       state.ini,
       thresholdSection,
       "max_ignore_distance",
@@ -159,7 +158,7 @@ export function initializeObjectIgnoreThreshold(
       object.max_ignore_monster_distance(maxIgnoreDistance);
     }
 
-    const ignoreMonster: Optional<TNumberId> = readIniNumber(
+    const ignoreMonster: Nillable<TNumberId> = readIniNumber(
       state.ini,
       thresholdSection,
       "ignore_monster",

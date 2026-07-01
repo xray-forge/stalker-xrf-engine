@@ -2,7 +2,7 @@ import { vector, vector2 } from "xray16";
 
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, TDistance, TRate, Vector, Vector2D } from "@/engine/lib/types";
+import { Nillable, TDistance, TRate, Vector, Vector2D } from "@/engine/lib/types";
 
 /**
  * Create empty vector filled with 0 values.
@@ -254,6 +254,6 @@ export function areSameVectorsByPrecision(first: Readonly<Vector>, second: Reado
  * @param target - Target vector to transform to string.
  * @returns Stringified vector.
  */
-export function vectorToString(target: Optional<Readonly<Vector>>): string {
-  return target === null ? NIL : string.format("[%s:%s:%s]", target.x, target.y, target.z);
+export function vectorToString(target: Nillable<Readonly<Vector>>): string {
+  return target ? string.format("[%s:%s:%s]", target.x, target.y, target.z) : NIL;
 }

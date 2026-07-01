@@ -4,7 +4,7 @@ import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/ut
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
-import { GameObject, Optional, ServerObject, TRate } from "@/engine/lib/types";
+import { GameObject, Nillable, ServerObject, TRate } from "@/engine/lib/types";
 
 /**
  * Checks online state of object relatively to no combat zones.
@@ -14,10 +14,10 @@ import { GameObject, Optional, ServerObject, TRate } from "@/engine/lib/types";
  */
 export function isInNoCombatZone(object: ServerObject): boolean {
   for (const [zoneName, terrainName] of registry.noCombatZones) {
-    const zone: Optional<GameObject> = registry.zones.get(zoneName);
+    const zone: Nillable<GameObject> = registry.zones.get(zoneName);
 
     if (zone && zone.inside(object.position)) {
-      const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
+      const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
       if (terrain && terrain.terrainControl && terrain.terrainControl.status !== ESmartTerrainStatus.ALARM) {
         return true;
@@ -41,8 +41,8 @@ export function isInNoWeaponBase(squad: Squad): boolean {
   }
 
   const assignedTerrain: SmartTerrain = registry.simulator.object(squad.assignedTerrainId) as SmartTerrain;
-  const terrainBaseProperties: Optional<TRate> = assignedTerrain.simulationProperties?.get(ESimulationTerrainRole.BASE);
+  const terrainBaseProperties: Nillable<TRate> = assignedTerrain.simulationProperties?.get(ESimulationTerrainRole.BASE);
 
   // Squad is in a base type terrain.
-  return terrainBaseProperties !== null && terrainBaseProperties > 0;
+  return $isNotNil(terrainBaseProperties) && terrainBaseProperties > 0;
 }

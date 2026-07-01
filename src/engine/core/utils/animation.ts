@@ -1,5 +1,5 @@
 import { TAnimationSequenceElement, TAnimationSequenceElements } from "@/engine/core/animation/types";
-import { LuaArray, Optional } from "@/engine/lib/types";
+import { LuaArray, Nillable } from "@/engine/lib/types";
 
 /**
  * Create animation sequence.
@@ -9,7 +9,7 @@ import { LuaArray, Optional } from "@/engine/lib/types";
  */
 export function createSequence(
   ...sequence: Array<
-    Optional<TAnimationSequenceElements | LuaArray<TAnimationSequenceElement>> | Array<TAnimationSequenceElements>
+    Nillable<TAnimationSequenceElements | LuaArray<TAnimationSequenceElement>> | Array<TAnimationSequenceElements>
   >
 ): LuaArray<TAnimationSequenceElements> {
   const list: LuaArray<TAnimationSequenceElements> = new LuaTable();

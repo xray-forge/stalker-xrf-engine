@@ -20,7 +20,7 @@ import {
   AnyGameObject,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   Patrol,
   ServerObject,
   ServerPhysicObject,
@@ -229,12 +229,12 @@ export function spawnItemsForObjectFromList<T extends TSection>(
  * @param terrainName - Name of smart terrain to spawn in.
  * @returns Spawned squad.
  */
-export function spawnSquadInSmart(section: Optional<TSection>, terrainName: Optional<TName>): Squad {
+export function spawnSquadInSmart(section: Nillable<TSection>, terrainName: Nillable<TName>): Squad {
   assert(section, "Wrong squad identifier in spawnSquad function.");
   assert(terrainName, "Wrong squad name in spawnSquad function.");
   assert(SYSTEM_INI.section_exist(section), "Wrong squad identifier '%s'. Squad doesnt exist in ini.", section);
 
-  const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
+  const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
   assert(terrain, "Wrong terrain name '%s' for faction in spawnSquadInSmart function.", tostring(terrainName));
 
@@ -259,8 +259,8 @@ export function spawnSquadInSmart(section: Optional<TSection>, terrainName: Opti
  * @param yaw - Spawned object yaw.
  */
 export function spawnObject<T extends ServerObject>(
-  section: Optional<TSection>,
-  pathName: Optional<TName>,
+  section: Nillable<TSection>,
+  pathName: Nillable<TName>,
   index: TIndex = 0,
   yaw: TRate = 0
 ): T {
@@ -296,8 +296,8 @@ export function spawnObject<T extends ServerObject>(
  * @returns Newly create server object.
  */
 export function spawnObjectInObject<T extends ServerObject>(
-  section: Optional<TSection>,
-  targetId: Optional<TNumberId>
+  section: Nillable<TSection>,
+  targetId: Nillable<TNumberId>
 ): T {
   // logger.format("Spawn in object: %s %s", section, targetId);
 
@@ -305,7 +305,7 @@ export function spawnObjectInObject<T extends ServerObject>(
     abort("Wrong spawn configuration for 'spawnObjectInObject', '%s' and '%s'.", section, targetId);
   }
 
-  const box: Optional<ServerObject> = registry.simulator.object(targetId);
+  const box: Nillable<ServerObject> = registry.simulator.object(targetId);
 
   if (!box) {
     abort("Wrong spawn target object for 'spawnObjectInObject' function '%s'.", section);
@@ -321,7 +321,7 @@ export function spawnObjectInObject<T extends ServerObject>(
  * @param objectId - Object id to release.
  */
 export function releaseObject(objectId: TNumberId): void {
-  const serverObject: Optional<ServerObject> = registry.simulator.object(objectId);
+  const serverObject: Nillable<ServerObject> = registry.simulator.object(objectId);
 
   logger.info("Destroying object: %s", objectId);
 

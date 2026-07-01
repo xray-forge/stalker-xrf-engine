@@ -10,7 +10,7 @@ import { abort, assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { ammo, TAmmoItem } from "@/engine/lib/constants/items/ammo";
-import { GameObject, Optional, TCount, TSection } from "@/engine/lib/types";
+import { GameObject, Nillable, TCount, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -190,7 +190,7 @@ export function giveItemsToActor(itemSection: TSection, count: TCount = 1): void
  * @param itemSection - Section to take from actor.
  */
 export function takeItemFromActor(itemSection: TSection): void {
-  const inventoryItem: Optional<GameObject> = registry.actor.object(itemSection);
+  const inventoryItem: Nillable<GameObject> = registry.actor.object(itemSection);
 
   assert(inventoryItem, "Actor has no item '%s' to take.", itemSection);
 

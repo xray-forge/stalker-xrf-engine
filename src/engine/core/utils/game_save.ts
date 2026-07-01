@@ -16,7 +16,6 @@ import {
   FSItem,
   LuaArray,
   Nillable,
-  Optional,
   SavedGameWrapper,
   TLabel,
   TName,
@@ -152,7 +151,7 @@ export function getFileDataForGameSave(name: TName): TLabel {
  * @param name - Name of the file / record to save.
  * @param translate - Whether name should be translated.
  */
-export function createGameAutoSave(name: Optional<TName>, translate: boolean = true): void {
+export function createGameAutoSave(name: Nillable<TName>, translate: boolean = true): void {
   assert(name, "You are trying to use scenario save without name.");
 
   if (IsImportantSave()) {
@@ -169,7 +168,7 @@ export function createGameAutoSave(name: Optional<TName>, translate: boolean = t
  *
  * @param name - Name of the file / record to save.
  */
-export function createGameSave(name: Optional<TName>): void {
+export function createGameSave(name: Nillable<TName>): void {
   assert(name, "You are trying to save without name.");
 
   logger.info("Performing save: %s", name);
@@ -191,7 +190,7 @@ export function loadLastGameSave(): void {
  *
  * @param name - Name of game save to load.
  */
-export function loadGameSave(name: Optional<TName>): void {
+export function loadGameSave(name: Nillable<TName>): void {
   assert(name, "You are trying to load without name.");
 
   if (registry.simulator === null) {
@@ -205,9 +204,9 @@ export function loadGameSave(name: Optional<TName>): void {
 /**
  * Starts new single game server/save.
  *
- * @param difficulty - Level of difficulty for new game, optional.
+ * @param difficulty - Level of difficulty for new game, Nillable.
  */
-export function startNewGame(difficulty: Optional<TGameDifficulty> = null): void {
+export function startNewGame(difficulty: Nillable<TGameDifficulty> = null): void {
   if (difficulty) {
     executeConsoleCommand(consoleCommands.g_game_difficulty, difficulty);
   }

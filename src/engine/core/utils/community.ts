@@ -6,7 +6,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import {
   AnyGameObject,
   GameObject,
-  Optional,
+  Nillable,
   ServerCreatureObject,
   ServerHumanObject,
   TNumberId,
@@ -50,7 +50,7 @@ export function setObjectTeamSquadGroup(
   squadId: TNumberId,
   groupId: TNumberId
 ): void {
-  const gameObject: Optional<GameObject> = registry.objects.get(object.id)?.object as Optional<GameObject>;
+  const gameObject: Nillable<GameObject> = registry.objects.get(object.id)?.object as Nillable<GameObject>;
 
   if (gameObject) {
     gameObject.change_team(teamId, squadId, groupId);

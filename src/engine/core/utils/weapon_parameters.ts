@@ -2,14 +2,14 @@ import { SYSTEM_INI } from "@/engine/core/database";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniNumber } from "@/engine/core/utils/ini";
 import { clamp } from "@/engine/core/utils/number";
-import { IniFile, Optional, TName, TRate, TSection } from "@/engine/lib/types";
+import { IniFile, Nillable, TName, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * @param section - Section of weapon to read stats.
  * @param upgradeSections - Serialized list of weapon upgrades.
  * @returns Weapon RPM stat.
  */
-export function readWeaponRPM(section: TSection, upgradeSections: Optional<string> = null): TRate {
+export function readWeaponRPM(section: TSection, upgradeSections: Nillable<string> = null): TRate {
   return normalizeWeaponParameter(readWeaponParameter(SYSTEM_INI, section, upgradeSections, "rpm"), 0, 1150);
 }
 
@@ -18,7 +18,7 @@ export function readWeaponRPM(section: TSection, upgradeSections: Optional<strin
  * @param upgradeSections - Serialized list of weapon upgrades.
  * @returns Weapon handling stat.
  */
-export function readWeaponHandling(section: TSection, upgradeSections: Optional<string> = null): TRate {
+export function readWeaponHandling(section: TSection, upgradeSections: Nillable<string> = null): TRate {
   const inertion: TRate = SYSTEM_INI.line_exist(section, "crosshair_inertion")
     ? readWeaponParameter(SYSTEM_INI, section, upgradeSections, "crosshair_inertion")
     : 1;
@@ -31,7 +31,7 @@ export function readWeaponHandling(section: TSection, upgradeSections: Optional<
  * @param upgradeSections - Serialized list of weapon upgrades.
  * @returns Weapon accuracy stat.
  */
-export function readWeaponAccuracy(section: TSection, upgradeSections: Optional<string> = null): TRate {
+export function readWeaponAccuracy(section: TSection, upgradeSections: Nillable<string> = null): TRate {
   return normalizeWeaponParameter(
     0.85 - readWeaponParameter(SYSTEM_INI, section, upgradeSections, "fire_dispersion_base"),
     0.375,
@@ -44,7 +44,7 @@ export function readWeaponAccuracy(section: TSection, upgradeSections: Optional<
  * @param upgradeSections - Serialized list of weapon upgrades.
  * @returns Weapon damage stat for single player game.
  */
-export function readWeaponDamage(section: TSection, upgradeSections: Optional<string> = null): TRate {
+export function readWeaponDamage(section: TSection, upgradeSections: Nillable<string> = null): TRate {
   return normalizeWeaponParameter(readWeaponParameter(SYSTEM_INI, section, upgradeSections, "hit_power"), 0, 0.9);
 }
 
@@ -53,7 +53,7 @@ export function readWeaponDamage(section: TSection, upgradeSections: Optional<st
  * @param upgradeSections - Serialized list of weapon upgrades.
  * @returns Weapon damage stat for multiplayer game.
  */
-export function readWeaponDamageMultiplayer(section: TSection, upgradeSections: Optional<string> = null): TRate {
+export function readWeaponDamageMultiplayer(section: TSection, upgradeSections: Nillable<string> = null): TRate {
   return normalizeWeaponParameterInMultiplayer(
     readWeaponParameter(SYSTEM_INI, section, upgradeSections, "hit_power") * 100
   );
@@ -69,7 +69,7 @@ export function readWeaponDamageMultiplayer(section: TSection, upgradeSections: 
 export function readWeaponParameter(
   ini: IniFile,
   section: TSection,
-  upgradeSections: Optional<string>,
+  upgradeSections: Nillable<string>,
   field: TName
 ): TRate {
   assert(
@@ -81,7 +81,7 @@ export function readWeaponParameter(
 
   let parameter: TRate = ini.r_float(section, field);
 
-  if (upgradeSections === null || upgradeSections === "") {
+  if ($isNil(upgradeSections) || upgradeSections === "") {
     return parameter;
   } else {
     for (const [, upgradeSection] of parseStringsList(upgradeSections)) {

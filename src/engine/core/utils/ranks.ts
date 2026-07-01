@@ -9,7 +9,7 @@ import {
   GameObject,
   IniFile,
   LuaArray,
-  Optional,
+  Nillable,
   ServerMonsterAbstractObject,
   TClassId,
   TIndex,
@@ -145,7 +145,7 @@ export function getNextMonsterRank(rank: TName): IRankDescriptor {
  *
  * @returns Game object rank descriptor.
  */
-export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor> {
+export function getGameObjectRank(object: GameObject): Nillable<IRankDescriptor> {
   const classId: TClassId = object.clsid();
   const objectRank: TRate = object.character_rank() ?? object.rank();
 
@@ -159,7 +159,7 @@ export function getGameObjectRank(object: GameObject): Optional<IRankDescriptor>
  *
  * @returns Server object rank descriptor.
  */
-export function getServerObjectRank(object: ServerMonsterAbstractObject): Optional<IRankDescriptor> {
+export function getServerObjectRank(object: ServerMonsterAbstractObject): Nillable<IRankDescriptor> {
   const classId: TClassId = object.clsid();
 
   return classIds.stalker.has(classId) || classId === clsid.trader

@@ -33,6 +33,7 @@ import {
   ESchemeType,
   GameObject,
   IniFile,
+  Nillable,
   Optional,
   TCount,
   TName,
@@ -90,7 +91,7 @@ export function configureObjectSchemes(
       return configureObjectSchemes(object, actualIni, actualIniFilename, schemeType, logicsSection, smartTerrainName);
     } else {
       if (schemeType === ESchemeType.STALKER || schemeType === ESchemeType.MONSTER) {
-        const currentSmart: Optional<SmartTerrain> = getObjectTerrain(object);
+        const currentSmart: Nillable<SmartTerrain> = getObjectTerrain(object);
 
         if (currentSmart) {
           state.jobIni = getTerrainJobByObjectId(currentSmart, object.id())?.iniPath as Optional<TPath>;

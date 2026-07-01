@@ -12,7 +12,6 @@ import {
   ESoundObjectType,
   GameObject,
   Nillable,
-  Optional,
   ServerCreatureObject,
   ServerObject,
   TDistance,
@@ -27,11 +26,11 @@ import {
  * @param object - Server or game object.
  * @returns Object smart terrain server object or null.
  */
-export function getObjectTerrain(object: GameObject | ServerCreatureObject): Optional<SmartTerrain> {
+export function getObjectTerrain(object: GameObject | ServerCreatureObject): Nillable<SmartTerrain> {
   const simulator: AlifeSimulator = registry.simulator;
 
   if (type(object.id) === "function") {
-    const serverObject: Optional<ServerCreatureObject> = simulator.object((object as GameObject).id());
+    const serverObject: Nillable<ServerCreatureObject> = simulator.object((object as GameObject).id());
 
     return serverObject === null || serverObject.m_smart_terrain_id === MAX_ALIFE_ID
       ? null
@@ -51,7 +50,7 @@ export function getObjectTerrain(object: GameObject | ServerCreatureObject): Opt
  * @returns Whether object is assigned to smart terrain with desired name.
  */
 export function isObjectInSmartTerrain(object: GameObject, terrainName: TName): boolean {
-  const terrain: Optional<SmartTerrain> = getObjectTerrain(object);
+  const terrain: Nillable<SmartTerrain> = getObjectTerrain(object);
 
   return terrain ? terrain.name() === terrainName : false;
 }
@@ -92,9 +91,9 @@ export function isObjectInSilenceZone(object: GameObject): boolean {
  * @param levelName - Target level name.
  * @returns Whether provided object is on a level.
  */
-export function isObjectOnLevel(object: Optional<ServerObject>, levelName: TName): boolean {
+export function isObjectOnLevel(object: Nillable<ServerObject>, levelName: TName): boolean {
   return (
-    object !== null &&
+    $isNotNil(object) &&
     registry.simulator.level_name(game_graph().vertex(object.m_game_vertex_id).level_id()) === levelName
   );
 }
@@ -189,8 +188,8 @@ export function getDistanceBetweenSqr(first: GameObject, second: GameObject): TD
  * @param vertexId - Destination vertex id.
  * @returns Actual vertex id to send object.
  */
-export function sendToNearestAccessibleVertex(object: GameObject, vertexId: Optional<TNumberId>): TNumberId {
-  if (vertexId === null || vertexId >= MAX_LEVEL_VERTEX_ID) {
+export function sendToNearestAccessibleVertex(object: GameObject, vertexId: Nillable<TNumberId>): TNumberId {
+  if ($isNil(vertexId) || vertexId >= MAX_LEVEL_VERTEX_ID) {
     object.set_dest_level_vertex_id(object.level_vertex_id());
 
     return object.level_vertex_id();

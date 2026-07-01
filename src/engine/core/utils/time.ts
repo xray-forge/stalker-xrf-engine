@@ -2,7 +2,7 @@ import { CTime, game, level } from "xray16";
 
 import { wait } from "@/engine/core/utils/game/game_wait";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { NetPacket, NetProcessor, Optional, Time, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Nillable, Optional, Time, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Add part of time digit to a data string.
@@ -110,8 +110,8 @@ export function setCurrentTime(hour: number, min: number, sec: number): void {
  * @param packet - Target packet to write data.
  * @param time - Time object to write.
  */
-export function writeTimeToPacket(packet: NetPacket, time: Optional<Time> = null): void {
-  if (time === null) {
+export function writeTimeToPacket(packet: NetPacket, time: Nillable<Time> = null): void {
+  if (!time) {
     return packet.w_u8(MAX_U8);
   }
 

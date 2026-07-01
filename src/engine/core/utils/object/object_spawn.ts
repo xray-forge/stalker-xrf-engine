@@ -4,7 +4,7 @@ import { registry } from "@/engine/core/database";
 import { ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { ALifeSmartTerrainTask, GameObject, Optional, TNumberId } from "@/engine/lib/types";
+import { ALifeSmartTerrainTask, GameObject, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Handle object position sync when net spawn event is happening.
@@ -12,7 +12,7 @@ import { ALifeSmartTerrainTask, GameObject, Optional, TNumberId } from "@/engine
  * @param object - Game object.
  * @param terrainId - Target object linked smart terrain id.
  */
-export function setupSpawnedObjectPosition(object: GameObject, terrainId: Optional<TNumberId> = null): void {
+export function setupSpawnedObjectPosition(object: GameObject, terrainId: Nillable<TNumberId> = null): void {
   const objectId: TNumberId = object.id();
 
   if (registry.spawnedVertexes.has(objectId)) {
@@ -24,7 +24,7 @@ export function setupSpawnedObjectPosition(object: GameObject, terrainId: Option
     const terrain: SmartTerrain = registry.simulator.object<SmartTerrain>(terrainId)!;
 
     if (!terrain.arrivingObjects.get(objectId)) {
-      const job: Optional<ISmartTerrainJobDescriptor> = terrain.objectJobDescriptors.get(objectId)?.job;
+      const job: Nillable<ISmartTerrainJobDescriptor> = terrain.objectJobDescriptors.get(objectId)?.job;
       const task: ALifeSmartTerrainTask = job?.alifeTask as ALifeSmartTerrainTask;
 
       assert(

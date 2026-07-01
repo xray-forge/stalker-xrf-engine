@@ -2,7 +2,7 @@ import { game_graph } from "xray16";
 
 import { registry } from "@/engine/core/database";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { GameObject, Optional, TDistance, TName, TNumberId } from "@/engine/lib/types";
+import { GameObject, Nillable, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check whether provided vertex ID is from level.
@@ -45,6 +45,6 @@ export function graphDistanceSqr(firstVertexId: TNumberId, secondVertexId: TNumb
  * @param vertexId - Vertex ID to check.
  * @returns Whether provided vertex is valid and can be accessed by the object.
  */
-export function isValidAccessibleVertex(object: GameObject, vertexId: Optional<TNumberId>): boolean {
-  return vertexId !== null && vertexId < MAX_U32 && object.accessible(vertexId);
+export function isValidAccessibleVertex(object: GameObject, vertexId: Nillable<TNumberId>): boolean {
+  return $isNotNil(vertexId) && vertexId < MAX_U32 && object.accessible(vertexId);
 }
