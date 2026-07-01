@@ -136,8 +136,8 @@ export class DeimosManager extends AbstractSchemeManager<ISchemeDeimosState> {
 
       if (this.phase > 1) {
         soundManager.stopLooped(ACTOR_ID, this.state.heartbeatSound);
-        level.remove_cam_effector(deimosConfig.POST_PROCESS_EFFECTOR_SECONDARY_ID);
-        level.remove_pp_effector(deimosConfig.CAMERA_EFFECTOR_ID);
+        level.remove_cam_effector(deimosConfig.CAMERA_EFFECTOR_ID);
+        level.remove_pp_effector(deimosConfig.POST_PROCESS_EFFECTOR_SECONDARY_ID);
       }
     }
   }

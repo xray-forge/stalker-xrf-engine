@@ -71,7 +71,7 @@ describe("DeimosManager", () => {
     expect(soundManager.stopLooped).toHaveBeenCalledWith(ACTOR_ID, manager.state.noiseSound);
     expect(soundManager.stopLooped).toHaveBeenCalledWith(ACTOR_ID, manager.state.heartbeatSound);
     expect(level.remove_pp_effector).toHaveBeenCalledWith(deimosConfig.POST_PROCESS_EFFECTOR_ID);
-    expect(level.remove_pp_effector).toHaveBeenCalledWith(deimosConfig.CAMERA_EFFECTOR_ID);
-    expect(level.remove_cam_effector).toHaveBeenCalledWith(deimosConfig.POST_PROCESS_EFFECTOR_SECONDARY_ID);
+    expect(level.remove_pp_effector).toHaveBeenCalledWith(deimosConfig.POST_PROCESS_EFFECTOR_SECONDARY_ID);
+    expect(level.remove_cam_effector).toHaveBeenCalledWith(deimosConfig.CAMERA_EFFECTOR_ID);
   });
 });
