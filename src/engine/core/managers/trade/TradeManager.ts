@@ -23,7 +23,7 @@ import {
   IniFile,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   TNumberId,
   TPath,
   TRate,
@@ -58,10 +58,10 @@ export class TradeManager extends AbstractManager {
 
     const iniFile: IniFile = loadIniFile(iniFilePath);
 
-    const sellCondlist: Optional<string> = readIniString(iniFile, "trader", "sell_condition", true);
-    const buyCondlist: Optional<string> = readIniString(iniFile, "trader", "buy_condition", true);
-    const buySuppliesCondlist: Optional<string> = readIniString(iniFile, "trader", "buy_supplies", false);
-    const buyItemFactorCondlist: Optional<string> = readIniString(
+    const sellCondlist: Nillable<string> = readIniString(iniFile, "trader", "sell_condition", true);
+    const buyCondlist: Nillable<string> = readIniString(iniFile, "trader", "buy_condition", true);
+    const buySuppliesCondlist: Nillable<string> = readIniString(iniFile, "trader", "buy_supplies", false);
+    const buyItemFactorCondlist: Nillable<string> = readIniString(
       iniFile,
       "trader",
       "buy_item_condition_factor",
@@ -70,7 +70,7 @@ export class TradeManager extends AbstractManager {
       "0.7"
     );
 
-    if (buyCondlist === null || sellCondlist === null) {
+    if ($isNil(buyCondlist) || $isNil(sellCondlist)) {
       abort("Wrong trade manager configuration used for game object: '%s'.", object.name());
     }
 
@@ -81,8 +81,8 @@ export class TradeManager extends AbstractManager {
       resupplyAt: -1,
       sellCondition: parseConditionsList(sellCondlist),
       buyCondition: parseConditionsList(buyCondlist),
-      buySupplies: buySuppliesCondlist === null ? null : parseConditionsList(buySuppliesCondlist),
-      buyItemFactorCondition: buyItemFactorCondlist === null ? null : parseConditionsList(buyItemFactorCondlist),
+      buySupplies: $isNil(buySuppliesCondlist) ? null : parseConditionsList(buySuppliesCondlist),
+      buyItemFactorCondition: $isNil(buyItemFactorCondlist) ? null : parseConditionsList(buyItemFactorCondlist),
       currentSellCondition: null,
       currentBuyCondition: null,
       currentBuySupplies: null,
@@ -95,7 +95,7 @@ export class TradeManager extends AbstractManager {
    * @param object - Game object to update trading state.
    */
   public updateForObject(object: GameObject): void {
-    const tradeDescriptor: Optional<ITradeManagerDescriptor> = registry.trade.get(object.id());
+    const tradeDescriptor: Nillable<ITradeManagerDescriptor> = registry.trade.get(object.id());
     const now: TTimestamp = time_global();
 
     // Nothing to update / not time yet:
@@ -107,7 +107,7 @@ export class TradeManager extends AbstractManager {
 
     logger.info("Updating trade state for: '%s', next at '%s'", object.name(), tradeDescriptor.updateAt);
 
-    const buyCondition: Optional<TAnimationSequenceElement> = pickSectionFromCondList(
+    const buyCondition: Nillable<TAnimationSequenceElement> = pickSectionFromCondList(
       registry.actor,
       object,
       tradeDescriptor.buyCondition
@@ -120,7 +120,7 @@ export class TradeManager extends AbstractManager {
       tradeDescriptor.currentBuyCondition = buyCondition;
     }
 
-    const sellCondition: Optional<TSection> = pickSectionFromCondList(
+    const sellCondition: Nillable<TSection> = pickSectionFromCondList(
       registry.actor,
       object,
       tradeDescriptor.sellCondition
@@ -149,7 +149,7 @@ export class TradeManager extends AbstractManager {
       return;
     }
 
-    const buySupplies: Optional<TSection> = pickSectionFromCondList(
+    const buySupplies: Nillable<TSection> = pickSectionFromCondList(
       registry.actor,
       object,
       tradeDescriptor.buySupplies

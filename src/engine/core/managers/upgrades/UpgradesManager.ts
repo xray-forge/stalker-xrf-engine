@@ -19,7 +19,6 @@ import {
   GameObject,
   LuaArray,
   Nillable,
-  Optional,
   TCount,
   TLabel,
   TName,
@@ -143,7 +142,7 @@ export class UpgradesManager extends AbstractManager {
           return 1;
         } else if (param !== TRUE) {
           const possibilitiesConditionList: TConditionList = parseConditionsList(param);
-          const possibility: Optional<TSection> = pickSectionFromCondList(
+          const possibility: Nillable<TSection> = pickSectionFromCondList(
             registry.actor,
             dialogConfig.ACTIVE_SPEAKER,
             possibilitiesConditionList
@@ -189,7 +188,7 @@ export class UpgradesManager extends AbstractManager {
           upgradesConfig.UPGRADES_HINTS = null;
 
           const possibilitiesConditionList: TConditionList = parseConditionsList(param);
-          const possibility: Optional<TSection> = pickSectionFromCondList(
+          const possibility: Nillable<TSection> = pickSectionFromCondList(
             actor,
             dialogConfig.ACTIVE_SPEAKER,
             possibilitiesConditionList

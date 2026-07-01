@@ -18,7 +18,7 @@ import {
   LuaArray,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   SoundObject,
   StringNillable,
   TCount,
@@ -41,7 +41,7 @@ export class ObjectSound extends AbstractPlayableSound {
 
   public readonly type: EPlayableSound = ObjectSound.type;
   public readonly soundPaths: LuaArray<TPath> = new LuaTable();
-  public pdaSoundObject: Optional<SoundObject> = null;
+  public pdaSoundObject: Nillable<SoundObject> = null;
 
   public shuffle: ESoundPlaylistType;
   public faction: string;
@@ -49,10 +49,10 @@ export class ObjectSound extends AbstractPlayableSound {
   public message: string;
 
   public canPlaySound: boolean = true;
-  public playingStartedAt: Optional<TTimestamp> = null;
-  public playedSoundIndex: Optional<TIndex> = null;
+  public playingStartedAt: Nillable<TTimestamp> = null;
+  public playedSoundIndex: Nillable<TIndex> = null;
 
-  public idleTime: Optional<TDuration> = null;
+  public idleTime: Nillable<TDuration> = null;
   public minIdle: TDuration;
   public maxIdle: TDuration;
   public rnd: number;
@@ -96,13 +96,13 @@ export class ObjectSound extends AbstractPlayableSound {
    * @returns Whether the sound playback was started.
    */
   public play(objectId: TNumberId, faction: string, point: string, message: string): boolean {
-    const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
+    const object: Nillable<GameObject> = registry.objects.get(objectId)?.object;
 
-    if (object === null) {
+    if (!object) {
       return false; // No object existing.
     } else if (!this.canPlaySound) {
       return false; // Cannot play.
-    } else if (this.playingStartedAt !== null && time_global() - this.playingStartedAt < (this.idleTime as TDuration)) {
+    } else if (this.playingStartedAt && time_global() - this.playingStartedAt < (this.idleTime as TDuration)) {
       return false; // Still playing.
     }
 
@@ -117,7 +117,7 @@ export class ObjectSound extends AbstractPlayableSound {
     logger.info("Play object sound: %s %s %s %s", object.name(), faction, point, message);
 
     const fs: FS = getFS();
-    const soundPath: Optional<TPath> = this.soundPaths.get(this.playedSoundIndex!);
+    const soundPath: Nillable<TPath> = this.soundPaths.get(this.playedSoundIndex!);
 
     // If actor is far from NPC, play pda sounds.
     if (
@@ -150,7 +150,7 @@ export class ObjectSound extends AbstractPlayableSound {
   public override stop(): void {
     super.stop();
 
-    if (this.pdaSoundObject !== null && this.pdaSoundObject.playing()) {
+    if (this.pdaSoundObject && this.pdaSoundObject.playing()) {
       this.pdaSoundObject.stop();
       this.pdaSoundObject = null;
     }
@@ -161,13 +161,13 @@ export class ObjectSound extends AbstractPlayableSound {
    *
    * @returns Index of the next sound to play, -1 when the sequence is exhausted, or null when type is unknown.
    */
-  public selectNextSound(): Optional<TIndex> {
+  public selectNextSound(): Nillable<TIndex> {
     const soundsCount: TCount = this.soundPaths.length();
 
     if (this.shuffle === ESoundPlaylistType.RANDOM) {
       if (soundsCount === 1) {
         return 1;
-      } else if (this.playedSoundIndex !== null) {
+      } else if ($isNotNil(this.playedSoundIndex)) {
         const playedId: TNumberId = math.random(1, soundsCount - 1);
 
         if (playedId === this.playedSoundIndex) {
@@ -183,7 +183,7 @@ export class ObjectSound extends AbstractPlayableSound {
     if (this.shuffle === ESoundPlaylistType.SEQUENCE) {
       if (this.playedSoundIndex === -1) {
         return -1;
-      } else if (this.playedSoundIndex === null) {
+      } else if ($isNil(this.playedSoundIndex)) {
         return 1;
       } else if (this.playedSoundIndex < soundsCount) {
         return this.playedSoundIndex + 1;
@@ -193,7 +193,7 @@ export class ObjectSound extends AbstractPlayableSound {
     }
 
     if (this.shuffle === ESoundPlaylistType.LOOP) {
-      if (this.playedSoundIndex === null) {
+      if ($isNil(this.playedSoundIndex)) {
         return 1;
       } else if (this.playedSoundIndex < soundsCount) {
         return this.playedSoundIndex + 1;

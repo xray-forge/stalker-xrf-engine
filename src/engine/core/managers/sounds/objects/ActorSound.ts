@@ -18,7 +18,7 @@ import {
   LuaArray,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   StringNillable,
   TCount,
   TDuration,
@@ -52,10 +52,10 @@ export class ActorSound extends AbstractPlayableSound {
   public message: string;
   public shuffle: ESoundPlaylistType;
 
-  public playedSoundIndex: Optional<TIndex> = null;
-  public playingStartedAt: Optional<TTimestamp> = null;
+  public playedSoundIndex: Nillable<TIndex> = null;
+  public playingStartedAt: Nillable<TTimestamp> = null;
 
-  public idleTime: Optional<TDuration> = null;
+  public idleTime: Nillable<TDuration> = null;
   public minIdle: TDuration;
   public maxIdle: TDuration;
   public random: number;
@@ -111,7 +111,7 @@ export class ActorSound extends AbstractPlayableSound {
       return false;
     }
 
-    if (this.playingStartedAt !== null && time_global() - this.playingStartedAt < this.idleTime!) {
+    if ($isNotNil(this.playingStartedAt) && time_global() - this.playingStartedAt < this.idleTime!) {
       return false;
     }
 
@@ -182,7 +182,7 @@ export class ActorSound extends AbstractPlayableSound {
    *
    * @returns Index of the next sound to play, -1 when the sequence is exhausted, or null when type is unknown.
    */
-  public selectNextSound(): Optional<TIndex> {
+  public selectNextSound(): Nillable<TIndex> {
     const soundsCount: TCount = this.soundPaths.length();
 
     // Play one from the list.
@@ -206,7 +206,7 @@ export class ActorSound extends AbstractPlayableSound {
     if (this.shuffle === ESoundPlaylistType.SEQUENCE) {
       if (this.playedSoundIndex === -1) {
         return -1;
-      } else if (this.playedSoundIndex === null) {
+      } else if ($isNil(this.playedSoundIndex)) {
         return 1;
       } else if (this.playedSoundIndex < soundsCount) {
         return this.playedSoundIndex + 1;
@@ -217,7 +217,7 @@ export class ActorSound extends AbstractPlayableSound {
 
     // Play sounds in a loop, from first to last.
     if (this.shuffle === ESoundPlaylistType.LOOP) {
-      if (this.playedSoundIndex === null) {
+      if ($isNil(this.playedSoundIndex)) {
         return 1;
       } else if (this.playedSoundIndex < soundsCount) {
         return this.playedSoundIndex + 1;

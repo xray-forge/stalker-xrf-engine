@@ -43,7 +43,7 @@ export class SleepManager extends AbstractManager {
   public showSleepDialog(): void {
     logger.info("Show sleep dialog");
 
-    if (sleepConfig.SLEEP_DIALOG === null) {
+    if (!sleepConfig.SLEEP_DIALOG) {
       sleepConfig.SLEEP_DIALOG = new SleepDialog(this);
     }
 
