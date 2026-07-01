@@ -268,12 +268,13 @@ export class MinigunManager extends AbstractSchemeManager<ISchemeMinigunState> {
   }
 
   /**
-   * Handle the fastcall tick, stopping fire while the section is active and otherwise running the fast update logic.
+   * Handle the fastcall tick: run the fast update (aim/fire) while the section is active, and stop firing once the
+   * scheme has switched away (matches ph_minigun.script `if active_scheme ~= "ph_minigun"`).
    *
    * @returns Whether the fastcall should stop on this tick.
    */
   public fastcall(): boolean {
-    if (isActiveSection(this.object, this.state.section)) {
+    if (!isActiveSection(this.object, this.state.section)) {
       this.setShooting(0);
 
       return true;

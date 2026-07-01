@@ -161,7 +161,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
 
     const [ptChosenIdx] = choosePatrolWaypointByFlags(this.patrolLook!, this.pathLookInfo!, searchForFlags);
 
-    if (ptChosenIdx) {
+    if ($isNotNil(ptChosenIdx)) {
       const suggestedWaitTime = this.pathLookInfo!.get(ptChosenIdx).t;
 
       if (suggestedWaitTime) {

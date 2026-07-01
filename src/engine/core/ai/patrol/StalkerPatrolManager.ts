@@ -539,7 +539,7 @@ export class StalkerPatrolManager {
       lookPointIndex
     );
 
-    if (!lookPointIndex) {
+    if ($isNil(lookPointIndex)) {
       abort(
         "Object '%s': path_walk '%s', index.ts %d: cannot find corresponding point(s) on path_look '%s'.",
         this.object.name(),
