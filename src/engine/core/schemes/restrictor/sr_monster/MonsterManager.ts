@@ -12,6 +12,7 @@ import {
 } from "@/engine/core/utils/scheme";
 import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import {
+  AnyObject,
   ESoundObjectType,
   GameObject,
   Nillable,
@@ -50,7 +51,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
     this.state.signals = new LuaTable();
     this.soundObject = null;
     this.finalAction = false;
-    this.appearSound = new sound_object("monsters_boar_boar_swamp_appear_1");
+    this.appearSound = new sound_object("monsters\\boar\\boar_swamp_appear_1");
     this.idleState = false;
     this.pathName = null;
     this.monsterObject = null;
