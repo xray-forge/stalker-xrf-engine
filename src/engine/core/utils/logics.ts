@@ -3,7 +3,7 @@ import { IBaseSchemeState, ILogicsOverrides, IRegistryObjectState, registry } fr
 import { ISchemeCombatState, SchemeCombat } from "@/engine/core/schemes/stalker/combat";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
-import { ActionPlanner, GameObject, Optional } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, Nillable } from "@/engine/lib/types";
 
 /**
  * Update active logic of a stalker object, handling combat overrides and switching to another scheme section.
@@ -11,7 +11,7 @@ import { ActionPlanner, GameObject, Optional } from "@/engine/lib/types";
  * @param object - Game object to update logic for.
  */
 export function updateStalkerLogic(object: GameObject): void {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
   const combatState: ISchemeCombatState = state.combat as ISchemeCombatState;
 
   if (state && state.activeScheme && object.alive()) {
@@ -21,7 +21,7 @@ export function updateStalkerLogic(object: GameObject): void {
     let switched: boolean = false;
 
     if (manager.initialized() && manager.current_action_id() === EActionId.COMBAT) {
-      const overrides: Optional<ILogicsOverrides> = state.overrides;
+      const overrides: Nillable<ILogicsOverrides> = state.overrides;
 
       if (overrides) {
         if (overrides.onCombat) {

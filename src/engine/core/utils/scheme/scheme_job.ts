@@ -6,7 +6,7 @@ import { getSchemeFromSection } from "@/engine/core/utils/ini";
 import { configureObjectSchemes, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme/scheme_initialization";
 import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/utils/scheme/scheme_logic";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { ESchemeType, GameObject, IniFile, Optional, ServerCreatureObject, TName, TSection } from "@/engine/lib/types";
+import { ESchemeType, GameObject, IniFile, Nillable, ServerCreatureObject, TName, TSection } from "@/engine/lib/types";
 
 /**
  * @param object - Game object to setup logic.
@@ -22,7 +22,7 @@ export function setupObjectLogicsOnSpawn(
 ): void {
   // logger.format("Setup smart terrain logic on spawn: %s %s", object.name(), schemeType);
 
-  const serverObject: Optional<ServerCreatureObject> = registry.simulator?.object(object.id());
+  const serverObject: Nillable<ServerCreatureObject> = registry.simulator?.object(object.id());
 
   if (!serverObject || !serverObject.m_smart_terrain_id || serverObject.m_smart_terrain_id === MAX_ALIFE_ID) {
     return initializeObjectSchemeLogic(object, state, isLoaded, schemeType);

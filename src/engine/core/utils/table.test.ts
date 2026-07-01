@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 
-import { AnyObject, LuaArray, Optional, TName } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Nillable, TName } from "@/engine/lib/types";
 
 const tableUtils: {
-  isEmpty: <T extends AnyNotNil>(target: Optional<LuaTable<T>>) => boolean;
+  isEmpty: <T extends AnyNotNil>(target: Nillable<LuaTable<T>>) => boolean;
   resetTable: <T extends AnyNotNil>(target: LuaTable<T>) => void;
   copyTable: (first: AnyObject, second: AnyObject) => AnyObject;
   mergeTables: <T extends AnyNotNil>(base: LuaTable<T>, ...rest: Array<LuaTable<T>>) => AnyObject;

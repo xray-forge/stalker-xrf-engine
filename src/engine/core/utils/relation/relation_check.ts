@@ -6,7 +6,7 @@ import { getSquadCommunityRelationToActor } from "@/engine/core/utils/relation/r
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, Optional, TCount, TRate, TStringId } from "@/engine/lib/types";
+import { GameObject, Nillable, TCount, TRate, TStringId } from "@/engine/lib/types";
 
 /**
  * Check whether is enemy with faction.
@@ -80,7 +80,7 @@ export function isSquadCommunityNeutralToActor(squadStoryId: TStringId): boolean
  * @param to - Community relation check to.
  * @returns Whether faction `from` considers `to` friend.
  */
-export function areCommunitiesFriendly(from: Optional<TCommunity>, to: TCommunity): boolean {
+export function areCommunitiesFriendly(from: Nillable<TCommunity>, to: TCommunity): boolean {
   if (from && from !== communities.none && to !== communities.none) {
     return relation_registry.community_relation(from, to) >= EGoodwill.FRIENDS;
   } else {
@@ -95,7 +95,7 @@ export function areCommunitiesFriendly(from: Optional<TCommunity>, to: TCommunit
  * @param to - Community relation check to.
  * @returns Whether faction `from` considers `to` neutral.
  */
-export function areCommunitiesNeutral(from: Optional<TCommunity>, to: TCommunity): boolean {
+export function areCommunitiesNeutral(from: Nillable<TCommunity>, to: TCommunity): boolean {
   if (from && from !== communities.none && to !== communities.none) {
     const relation: TRate = relation_registry.community_relation(from, to);
 
@@ -112,7 +112,7 @@ export function areCommunitiesNeutral(from: Optional<TCommunity>, to: TCommunity
  * @param to - Community relation check to.
  * @returns Whether faction `from` considers `to` enemy.
  */
-export function areCommunitiesEnemies(from: Optional<TCommunity>, to: TCommunity): boolean {
+export function areCommunitiesEnemies(from: Nillable<TCommunity>, to: TCommunity): boolean {
   if (from && from !== communities.none && to !== communities.none) {
     return relation_registry.community_relation(from, to) <= EGoodwill.ENEMIES;
   } else {

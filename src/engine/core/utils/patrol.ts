@@ -6,7 +6,7 @@ import type {
   Flags32,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   Patrol,
   TCount,
   TDistance,
@@ -41,7 +41,7 @@ export function isObjectAtWaypoint(object: GameObject, patrolPath: Patrol, patro
 export function isObjectAtTerminalWaypoint(
   object: GameObject,
   patrol: Patrol
-): LuaMultiReturn<[boolean, Optional<TIndex>]> {
+): LuaMultiReturn<[boolean, Nillable<TIndex>]> {
   for (const index of $range(0, patrol.count() - 1)) {
     // Check if point is terminal, then compare object position against it.
     if (patrol.terminal(index) && isObjectAtWaypoint(object, patrol, index)) {
@@ -61,12 +61,12 @@ export function isObjectAtTerminalWaypoint(
  * @param patrolName - Name of patrol to check.
  * @returns Whether all points of patrol are in restrictor zone.
  */
-export function isPatrolInRestrictor(restrictorName: Optional<TName>, patrolName: TName): Optional<boolean> {
-  if (restrictorName === null) {
+export function isPatrolInRestrictor(restrictorName: Nillable<TName>, patrolName: TName): Nillable<boolean> {
+  if ($isNil(restrictorName)) {
     return null;
   }
 
-  const restrictor: Optional<GameObject> = registry.zones.get(restrictorName);
+  const restrictor: Nillable<GameObject> = registry.zones.get(restrictorName);
 
   if (restrictor === null) {
     return null;
@@ -98,8 +98,8 @@ export function choosePatrolWaypointByFlags(
   patrol: Patrol,
   waypoints: LuaArray<IWaypointData>,
   flags: Flags32
-): LuaMultiReturn<[Optional<TIndex>, TCount]> {
-  let chosenPointIndex: Optional<TIndex> = null;
+): LuaMultiReturn<[Nillable<TIndex>, TCount]> {
+  let chosenPointIndex: Nillable<TIndex> = null;
   let countOfPossiblePoints: TCount = 0;
   let pointsTotalWeight: TCount = 0;
 
@@ -107,7 +107,7 @@ export function choosePatrolWaypointByFlags(
     if (waypoints.get(lookIndex).flags.equal(flags)) {
       countOfPossiblePoints += 1;
 
-      const probabilityRaw: Optional<string> = waypoints.get(lookIndex).p;
+      const probabilityRaw: Nillable<string> = waypoints.get(lookIndex).p;
       const pointLookWeight: TRate = probabilityRaw ? (tonumber(probabilityRaw) as TRate) : 100;
 
       // Sum up weight.
@@ -128,7 +128,7 @@ export function choosePatrolWaypointByFlags(
  * @param index - Point index of the patrol to check.
  * @returns Flag 32 bit index or null if patrol is not flagged at all.
  */
-export function getPatrolFlag(patrol: Patrol, index: TIndex): Optional<TIndex> {
+export function getPatrolFlag(patrol: Patrol, index: TIndex): Nillable<TIndex> {
   for (const flag of $range(0, 31)) {
     if (patrol.flag(index, flag)) {
       return flag;

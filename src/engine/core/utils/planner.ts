@@ -3,7 +3,7 @@ import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, EScheme, GameObject, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param objectId - Target object id to check state.
@@ -18,7 +18,7 @@ export function isObjectAsleep(objectId: TNumberId): boolean {
  * @returns Whether object is wounded.
  */
 export function isObjectWounded(objectId: TNumberId): boolean {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(objectId);
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(objectId);
 
   // Not registered / not correct game object provided.
   if (!state || !state[EScheme.WOUNDED]) {
@@ -51,7 +51,7 @@ export function isObjectInCombat(object: GameObject): boolean {
     return false;
   }
 
-  const currentActionId: Optional<TNumberId> = planner.current_action_id();
+  const currentActionId: Nillable<TNumberId> = planner.current_action_id();
 
   return currentActionId === EActionId.COMBAT || currentActionId === EActionId.POST_COMBAT_WAIT;
 }

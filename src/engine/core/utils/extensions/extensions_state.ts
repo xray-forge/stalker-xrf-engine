@@ -4,7 +4,7 @@ import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { roots } from "@/engine/lib/constants/roots";
-import { LuaArray, Nillable, Optional, TPath } from "@/engine/lib/types";
+import { LuaArray, Nillable, TPath } from "@/engine/lib/types";
 
 /**
  * Create dynamic save of extensions order and other state preferences.
@@ -46,9 +46,9 @@ export function syncExtensionsState(
 
   // Filter sorted first.
   for (const [, descriptor] of stored) {
-    const existing: Optional<IExtensionsDescriptor> = $fromLuaArray(extensions).find(
+    const existing: Nillable<IExtensionsDescriptor> = $fromLuaArray(extensions).find(
       (it) => it.name === descriptor.name
-    ) as Optional<IExtensionsDescriptor>;
+    ) as Nillable<IExtensionsDescriptor>;
 
     if (existing) {
       existing.isEnabled = descriptor.isEnabled;
@@ -58,9 +58,9 @@ export function syncExtensionsState(
 
   // Filter others as next step.
   for (const [, extension] of extensions) {
-    const existing: Optional<IExtensionsDescriptor> = $fromLuaArray(list).find(
+    const existing: Nillable<IExtensionsDescriptor> = $fromLuaArray(list).find(
       (it) => it.name === extension.name
-    ) as Optional<IExtensionsDescriptor>;
+    ) as Nillable<IExtensionsDescriptor>;
 
     if (!existing) {
       table.insert(unordered, extension);

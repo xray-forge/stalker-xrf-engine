@@ -4,7 +4,7 @@ import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { openLogFile } from "@/engine/core/utils/logging/logging_files";
 import { ELuaLoggerMode, ILuaLoggerConfig } from "@/engine/core/utils/logging/logging_types";
 import { toJSON } from "@/engine/core/utils/transform/json";
-import { AnyArgs, AnyObject, Optional, TLabel } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, Nillable, TLabel } from "@/engine/lib/types";
 
 /**
  * Lua logger class.
@@ -18,7 +18,7 @@ export class LuaLogger {
   public isEnabled: boolean;
   public mode: ELuaLoggerMode;
 
-  protected loggerFile: Optional<LuaFile>;
+  protected loggerFile: Nillable<LuaFile>;
   protected luaFile: LuaFile;
 
   public constructor(prefix: TLabel, { isEnabled = true, mode = ELuaLoggerMode.SINGLE, file }: ILuaLoggerConfig = {}) {

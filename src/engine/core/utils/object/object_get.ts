@@ -2,7 +2,7 @@ import { ini_file } from "xray16";
 
 import { DUMMY_LTX } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { AnyGameObject, GameObject, IniFile, Optional, ServerObject, TName, TNumberId } from "@/engine/lib/types";
+import { AnyGameObject, GameObject, IniFile, Nillable, ServerObject, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param object - Object to get ID from.
@@ -17,8 +17,8 @@ export function getObjectId(object: AnyGameObject): TNumberId {
  * @returns Spawn ini config of the object.
  */
 export function getObjectSpawnIni(object: GameObject): IniFile {
-  const ini: Optional<IniFile> = object.spawn_ini() as Optional<IniFile>;
-  const name: Optional<TName> = ini ? readIniString(ini, "logic", "cfg", false) : null;
+  const ini: Nillable<IniFile> = object.spawn_ini() as Nillable<IniFile>;
+  const name: Nillable<TName> = ini ? readIniString(ini, "logic", "cfg", false) : null;
 
   return (name ? new ini_file(name) : ini) ?? DUMMY_LTX;
 }

@@ -34,7 +34,6 @@ import {
   GameObject,
   IniFile,
   Nillable,
-  Optional,
   TCount,
   TName,
   TPath,
@@ -60,7 +59,7 @@ export function configureObjectSchemes(
   iniName: TName,
   schemeType: ESchemeType,
   logicsSection: TSection,
-  smartTerrainName: Optional<TName>
+  smartTerrainName: Nillable<TName>
 ): IniFile {
   const state: IRegistryObjectState = registry.objects.get(object.id());
 
@@ -74,7 +73,7 @@ export function configureObjectSchemes(
 
   if (ini.section_exist(logicsSection)) {
     // Read target configuration object in a recursive way and then `configureObjectSchemes` with final ini file.
-    const filename: Optional<TName> = readIniString(ini, logicsSection, "cfg", false);
+    const filename: Nillable<TName> = readIniString(ini, logicsSection, "cfg", false);
 
     // Read ini file if section `cfg` exists and load it.
     if (filename) {
@@ -94,7 +93,7 @@ export function configureObjectSchemes(
         const currentSmart: Nillable<SmartTerrain> = getObjectTerrain(object);
 
         if (currentSmart) {
-          state.jobIni = getTerrainJobByObjectId(currentSmart, object.id())?.iniPath as Optional<TPath>;
+          state.jobIni = getTerrainJobByObjectId(currentSmart, object.id())?.iniPath as Nillable<TPath>;
         }
       }
 
@@ -153,7 +152,7 @@ export function initializeObjectSchemeLogic(
   logger.info("Initialize object scheme logic: '%s' %s'", object.name(), isLoading);
 
   if (isLoading) {
-    const loadingIniFilename: Optional<TName> = state.loadedIniFilename;
+    const loadingIniFilename: Nillable<TName> = state.loadedIniFilename;
 
     if (loadingIniFilename) {
       const iniFile: IniFile = configureObjectSchemes(
@@ -187,7 +186,7 @@ export function initializeObjectSchemeLogic(
 
     activateSchemeBySection(object, iniFile, section, state.smartTerrainName, false);
 
-    const relation: Optional<ERelation> = readIniString(iniFile, "logic", "relation", false) as ERelation;
+    const relation: Nillable<ERelation> = readIniString(iniFile, "logic", "relation", false) as ERelation;
 
     switch (relation) {
       case ERelation.NEUTRAL:
@@ -201,9 +200,9 @@ export function initializeObjectSchemeLogic(
         break;
     }
 
-    const sympathy: Optional<TCount> = readIniNumber(iniFile, "logic", "sympathy", false);
+    const sympathy: Nillable<TCount> = readIniNumber(iniFile, "logic", "sympathy", false);
 
-    if (sympathy !== null) {
+    if ($isNotNil(sympathy)) {
       object.set_sympathy(sympathy);
     }
   }
@@ -217,9 +216,9 @@ export function initializeObjectSchemeLogic(
  * @param state - Object registry state.
  */
 export function initializeObjectSectionItems(object: GameObject, state: IRegistryObjectState): void {
-  const spawnItemsSection: Optional<TSection> = readIniString(state.ini, state.sectionLogic, "spawn", false);
+  const spawnItemsSection: Nillable<TSection> = readIniString(state.ini, state.sectionLogic, "spawn", false);
 
-  if (spawnItemsSection === null) {
+  if ($isNil(spawnItemsSection)) {
     return;
   }
 
@@ -236,7 +235,7 @@ export function initializeObjectSectionItems(object: GameObject, state: IRegistr
   }
 
   for (const [id, count] of itemsToSpawn) {
-    if (object.object(id) === null) {
+    if ($isNil(object.object(id))) {
       spawnItemsForObject(object, id, count);
     }
   }

@@ -5,7 +5,7 @@ import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { NO_MEET_SECTION } from "@/engine/lib/constants/sections";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { EGameObjectRelation, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, IniFile, Nillable, Optional, TSection } from "@/engine/lib/types";
 
 /**
  * Initialize meet scheme defaults based on object relations and current section logics preferences.
@@ -28,7 +28,7 @@ export function initializeMeetScheme(
 
   state.meetSection = tostring(section);
 
-  const relation: Optional<EGameObjectRelation> = getObjectsRelationSafe(object, registry.actor);
+  const relation: Nillable<EGameObjectRelation> = getObjectsRelationSafe(object, registry.actor);
 
   // Meet is disabled, mark sections as disabled.
   if (tostring(section) === NO_MEET_SECTION) {

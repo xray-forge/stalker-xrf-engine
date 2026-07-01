@@ -6,12 +6,12 @@ import { assert } from "@/engine/core/utils/assertion";
 import { getSquadCommunity } from "@/engine/core/utils/community";
 import { EGoodwill, ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { GameObject, Optional, TCount, TNumberId, TRelationType, TStringId } from "@/engine/lib/types";
+import { GameObject, Nillable, TCount, TNumberId, TRelationType, TStringId } from "@/engine/lib/types";
 
 /**
  * Get relation type between objects with safe null check.
  */
-export function getObjectsRelationSafe(from: Optional<GameObject>, to: Optional<GameObject>): Optional<TRelationType> {
+export function getObjectsRelationSafe(from: Nillable<GameObject>, to: Nillable<GameObject>): Nillable<TRelationType> {
   return from && to && from.relation(to);
 }
 
@@ -25,7 +25,7 @@ export function getObjectsRelationSafe(from: Optional<GameObject>, to: Optional<
  * @returns Relation of squad members to actor or squad community relation is squad is empty.
  */
 export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
-  const actor: Optional<GameObject> = registry.actor;
+  const actor: Nillable<GameObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
   if (actor === null) {
@@ -36,7 +36,7 @@ export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
   let squadMembersCount: TCount = 0;
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<GameObject> = registry.objects.get(squadMember.id)?.object as Optional<GameObject>;
+    const object: Nillable<GameObject> = registry.objects.get(squadMember.id)?.object as Nillable<GameObject>;
 
     if (object) {
       squadTotalGoodwill += object.general_goodwill(actor);
@@ -66,8 +66,8 @@ export function getSquadMembersRelationToActorSafe(squad: Squad): ERelation {
  *
  * @returns Average relation of squad members to actor, `null` if squad is empty.
  */
-export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation> {
-  const actor: Optional<GameObject> = registry.actor;
+export function getSquadMembersRelationToActor(squad: Squad): Nillable<ERelation> {
+  const actor: Nillable<GameObject> = registry.actor;
 
   // Actor may be registered after other alife objects.
   if (actor === null) {
@@ -78,7 +78,7 @@ export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation
   let squadMembersCount: TCount = 0;
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<GameObject> = registry.objects.get(squadMember.id)?.object as Optional<GameObject>;
+    const object: Nillable<GameObject> = registry.objects.get(squadMember.id)?.object as Nillable<GameObject>;
 
     if (object) {
       squadTotalGoodwill += object.general_goodwill(actor);
@@ -110,9 +110,9 @@ export function getSquadMembersRelationToActor(squad: Squad): Optional<ERelation
  * @returns Goodwill value from community to another one.
  */
 export function getNumberRelationBetweenCommunities(
-  from: Optional<TCommunity>,
-  to: Optional<TCommunity>
-): Optional<TCount> {
+  from: Nillable<TCommunity>,
+  to: Nillable<TCommunity>
+): Nillable<TCount> {
   if (!from || !to || from === communities.none || to === communities.none) {
     return null;
   }
@@ -127,7 +127,7 @@ export function getNumberRelationBetweenCommunities(
  * @returns Relation type of squad to actor.
  */
 export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERelation {
-  const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+  const squad: Nillable<Squad> = getServerObjectByStoryId(squadStoryId);
 
   assert(squad, "Squad with story id '%s' was not found.", squadStoryId);
 
@@ -157,7 +157,7 @@ export function getSquadCommunityRelationToActor(squadStoryId: TStringId): ERela
  * @returns Relation type of squad to actor based on community.
  */
 export function getSquadRelationToActorById(squadId: TNumberId): ERelation {
-  const squad: Optional<Squad> = registry.simulator.object<Squad>(squadId);
+  const squad: Nillable<Squad> = registry.simulator.object<Squad>(squadId);
 
   assert(squad, "Squad with id '%s' is not found.", squadId);
 

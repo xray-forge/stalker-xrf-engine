@@ -2,7 +2,7 @@ import { getFS } from "xray16";
 
 import { loggingRegistry } from "@/engine/core/utils/logging/logging_registry";
 import { roots } from "@/engine/lib/constants/roots";
-import { Optional, TName, TPath } from "@/engine/lib/types";
+import { Nillable, TName, TPath } from "@/engine/lib/types";
 
 /**
  * Open log file and reserve it for writing of logs.
@@ -11,7 +11,7 @@ import { Optional, TName, TPath } from "@/engine/lib/types";
  * @returns File reference for writing.
  */
 export function openLogFile(name: TName): LuaFile {
-  const file: Optional<LuaFile> = loggingRegistry.get(name) as Optional<LuaFile>;
+  const file: Nillable<LuaFile> = loggingRegistry.get(name) as Nillable<LuaFile>;
 
   if (file) {
     return file;

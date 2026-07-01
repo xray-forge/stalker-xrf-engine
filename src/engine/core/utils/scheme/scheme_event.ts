@@ -6,7 +6,7 @@ import type {
   EScheme,
   ESchemeEvent,
   GameObject,
-  Optional,
+  Nillable,
   TName,
 } from "@/engine/lib/types";
 
@@ -36,8 +36,8 @@ export function emitSchemeEvent(state: IBaseSchemeState, event: ESchemeEvent, ..
  * @param signal - Name of the signal to set.
  */
 export function setObjectActiveSchemeSignal(object: GameObject, signal: TName): void {
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id());
-  const signals: Optional<TSchemeSignals> = state?.[state.activeScheme as EScheme]?.signals as Optional<TSchemeSignals>;
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
+  const signals: Nillable<TSchemeSignals> = state?.[state.activeScheme as EScheme]?.signals as Nillable<TSchemeSignals>;
 
   if (signals) {
     signals.set(signal, true);

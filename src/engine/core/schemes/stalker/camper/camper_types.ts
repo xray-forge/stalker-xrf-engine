@@ -2,6 +2,7 @@ import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type {
   LuaArray,
+  Nillable,
   Optional,
   TCount,
   TDistance,
@@ -47,5 +48,5 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   lastLookPoint: Optional<ICampPoint>;
   scanBegin: Optional<TTimestamp>;
   memEnemy: Optional<TTimestamp>;
-  waypointFlag: Optional<number>;
+  waypointFlag: Nillable<number>;
 }

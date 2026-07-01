@@ -94,7 +94,7 @@ export interface IRegistryObjectStateLogic {
    * Used as base for schemes to pick up logic when smart terrains are capturing objects/squads.
    * Having smart terrain allows selecting generic schemes defined for smart terrain.
    */
-  smartTerrainName: Optional<TName>;
+  smartTerrainName: Nillable<TName>;
   /**
    * Overrides applied on top of the active logic section.
    */
@@ -110,7 +110,7 @@ export interface IRegistryObjectStateLogic {
   /**
    * Assigned job ini file from parent smart terrain object.
    */
-  jobIni: Optional<TName>;
+  jobIni: Nillable<TName>;
   /**
    * Describes last active logic file name when game was saved.
    */

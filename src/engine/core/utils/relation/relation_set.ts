@@ -8,7 +8,7 @@ import { clamp } from "@/engine/core/utils/number";
 import { EGoodwill, ERelation, mapRelationToGoodwill } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, TStringId } from "@/engine/lib/types";
+import { GameObject, Nillable, ServerCreatureObject, TCount, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param to - Game object to.
  * @param relation - Relation type to set.
  */
-export function setGameObjectRelation(from: Optional<GameObject>, to: Optional<GameObject>, relation: ERelation): void {
+export function setGameObjectRelation(from: Nillable<GameObject>, to: Nillable<GameObject>, relation: ERelation): void {
   assert(from && to, "One of objects is not set in c-goodwill function.");
   from.force_set_goodwill(mapRelationToGoodwill.get(relation), to);
 }
@@ -32,8 +32,8 @@ export function setGameObjectRelation(from: Optional<GameObject>, to: Optional<G
  * @param relation - Relation type to set.
  */
 export function setServerObjectRelation(
-  from: Optional<ServerCreatureObject>,
-  to: Optional<ServerCreatureObject>,
+  from: Nillable<ServerCreatureObject>,
+  to: Nillable<ServerCreatureObject>,
   relation: ERelation
 ): void {
   assert(from && to, "One of objects is not set in s-goodwill function.");
@@ -48,11 +48,11 @@ export function setServerObjectRelation(
  * @param goodwill - Value to set.
  */
 export function setGoodwillFromCommunityToCommunity(
-  from: Optional<TCommunity>,
+  from: Nillable<TCommunity>,
   to: TCommunity,
   goodwill: TCount | EGoodwill
 ): void {
-  if (from !== null && from !== communities.none && to !== communities.none) {
+  if ($isNotNil(from) && from !== communities.none && to !== communities.none) {
     relation_registry.set_community_relation(from, to, goodwill);
   } else {
     logger.info("No such community: %s", from);
@@ -67,11 +67,11 @@ export function setGoodwillFromCommunityToCommunity(
  * @param relation - New relation.
  */
 export function setRelationFromCommunityToCommunity(
-  from: Optional<TCommunity>,
+  from: Nillable<TCommunity>,
   to: TCommunity,
   relation: ERelation
 ): void {
-  if (from !== null && from !== communities.none && to !== communities.none) {
+  if ($isNotNil(from) && from !== communities.none && to !== communities.none) {
     relation_registry.set_community_relation(from, to, mapRelationToGoodwill.get(relation));
   } else {
     logger.info("No such community: %s", from);
@@ -88,11 +88,11 @@ export function setRelationFromCommunityToCommunity(
  * @param delta - Delta value to change from current state (+20, +1000, -50, -500 etc).
  */
 export function increaseCommunityGoodwillToId(
-  from: Optional<TCommunity>,
-  toId: Optional<TNumberId>,
+  from: Nillable<TCommunity>,
+  toId: Nillable<TNumberId>,
   delta: TCount
 ): void {
-  if (from !== null && from !== communities.none && toId !== null) {
+  if ($isNotNil(from) && from !== communities.none && $isNotNil(toId)) {
     relation_registry.change_community_goodwill(from, toId, delta);
   } else {
     logger.info("No such community: %s", from);
@@ -105,7 +105,7 @@ export function increaseCommunityGoodwillToId(
  * @param object - Object to set sympathy.
  * @param sympathy - Value to set.
  */
-export function setObjectSympathy(object: Optional<GameObject>, sympathy: TCount): void {
+export function setObjectSympathy(object: Nillable<GameObject>, sympathy: TCount): void {
   assert(object, "Object not set in sympathy function.");
   object.set_sympathy(clamp(sympathy, 0, 1));
 }
@@ -118,7 +118,7 @@ export function setObjectSympathy(object: Optional<GameObject>, sympathy: TCount
  * @param relation - Type of relations to set.
  */
 export function setSquadRelationToCommunity(squadId: TNumberId | TStringId, to: TCommunity, relation: ERelation): void {
-  const squad: Optional<Squad> =
+  const squad: Nillable<Squad> =
     type(squadId) === "string"
       ? getServerObjectByStoryId<Squad>(squadId as TStringId)
       : registry.simulator.object(squadId as TNumberId);
@@ -128,7 +128,7 @@ export function setSquadRelationToCommunity(squadId: TNumberId | TStringId, to: 
   const goodwill: EGoodwill = mapRelationToGoodwill.get(relation);
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<GameObject> = level.object_by_id(squadMember.id);
+    const object: Nillable<GameObject> = level.object_by_id(squadMember.id);
 
     if (object) {
       object.set_community_goodwill(to, goodwill);
@@ -151,7 +151,7 @@ export function setSquadRelationWithObject(
 ): void {
   logger.info("Applying new game relation between squad and object: %s %s %s", relation, squadId, object?.name());
 
-  const squad: Optional<Squad> =
+  const squad: Nillable<Squad> =
     type(squadId) === "string"
       ? getServerObjectByStoryId(squadId as TStringId)
       : registry.simulator.object(squadId as TNumberId);
@@ -176,16 +176,16 @@ export function setSquadRelationWithObject(
  */
 export function updateSquadIdRelationToActor(
   squadId: TStringId | TNumberId,
-  relation: Optional<ERelation> = null
+  relation: Nillable<ERelation> = null
 ): void {
-  const squad: Optional<Squad> =
+  const squad: Nillable<Squad> =
     type(squadId) === "string"
       ? getServerObjectByStoryId<Squad>(squadId as TStringId)
       : registry.simulator.object(squadId as TNumberId);
 
   assert(squad, "There is no squad with id '%s'.", squadId);
 
-  const nextRelation: Optional<ERelation> = relation || squad.relationship;
+  const nextRelation: Nillable<ERelation> = relation || squad.relationship;
 
   if (nextRelation) {
     setSquadRelationToActor(squad, nextRelation);
@@ -200,7 +200,7 @@ export function updateSquadIdRelationToActor(
  */
 export function setSquadRelationToActor(squad: Squad, relation: ERelation): void {
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<GameObject> = level.object_by_id(squadMember.id);
+    const object: Nillable<GameObject> = level.object_by_id(squadMember.id);
 
     // Handle both online and offline update.
     if (object) {

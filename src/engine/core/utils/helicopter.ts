@@ -1,14 +1,14 @@
 import { CHelicopter } from "xray16";
 
 import { registry } from "@/engine/core/database";
-import { GameObject, Optional, TRate } from "@/engine/lib/types";
+import { GameObject, Nillable, TRate } from "@/engine/lib/types";
 
 /**
  * @param helicopter - Helicopter object to check.
  * @param isInvulnerable - Whether object is invulnerable.
  * @returns Helicopter health.
  */
-export function getHelicopterHealth(helicopter: CHelicopter, isInvulnerable: Optional<boolean> = null): TRate {
+export function getHelicopterHealth(helicopter: CHelicopter, isInvulnerable: Nillable<boolean> = null): TRate {
   if (isInvulnerable) {
     helicopter.SetfHealth(1);
 

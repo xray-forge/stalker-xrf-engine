@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/utils/relation";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/section";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { Optional, TLabel, TNumberId } from "@/engine/lib/types";
+import { Nillable, Optional, TLabel, TNumberId } from "@/engine/lib/types";
 
 /**
  * Update map spot for squad.
@@ -73,7 +73,7 @@ export function updateSquadMapSpot(squad: Squad): void {
      * Do not display for offline objects.
      */
   } else if (!isSquadMonsterCommunity(squad.faction)) {
-    const relation: Optional<ERelation> = getSquadMembersRelationToActor(squad);
+    const relation: Nillable<ERelation> = getSquadMembersRelationToActor(squad);
 
     switch (relation) {
       case ERelation.FRIEND:

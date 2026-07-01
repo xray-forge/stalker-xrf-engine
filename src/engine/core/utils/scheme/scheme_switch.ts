@@ -16,7 +16,7 @@ import {
   GameObject,
   IniFile,
   LuaArray,
-  Optional,
+  Nillable,
   TDistance,
   TDuration,
   TName,
@@ -98,7 +98,7 @@ const SCHEME_LOGIC_SWITCH: Record<
  * @returns Whether switch to another section was successful.
  */
 export function trySwitchToAnotherSection(object: GameObject, state: IBaseSchemeState): boolean {
-  const logic: Optional<LuaArray<IBaseSchemeLogic>> = state.logic;
+  const logic: Nillable<LuaArray<IBaseSchemeLogic>> = state.logic;
 
   assert(logic, "Can't find `logic` in state, section '%s'.", state.section);
 
@@ -123,13 +123,13 @@ export function trySwitchToAnotherSection(object: GameObject, state: IBaseScheme
  * @param section - Next active section.
  * @returns Whether scheme switch happened.
  */
-export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, section: Optional<TSection>): boolean {
+export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, section: Nillable<TSection>): boolean {
   if (section === "" || section === null) {
     return false;
   }
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const activeSection: Optional<TSection> = state.activeSection;
+  const activeSection: Nillable<TSection> = state.activeSection;
 
   if (activeSection === section) {
     return false;

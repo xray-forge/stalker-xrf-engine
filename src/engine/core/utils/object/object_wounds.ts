@@ -11,7 +11,6 @@ import {
   GameObject,
   Hit,
   Nillable,
-  Optional,
   TDistance,
   TName,
   TNumberId,
@@ -91,7 +90,7 @@ export function isObjectPsyWounded(object: GameObject): boolean {
  * Find nearest wounded object asking for help relatively to provided object.
  *
  * @param object - Target object to search wounded from its perspective.
- * @returns Tuple of optional object, vertex id and position vector.
+ * @returns Tuple of Nillable object, vertex id and position vector.
  */
 export function getNearestWoundedToHelp(
   object: Readonly<GameObject>
@@ -100,14 +99,14 @@ export function getNearestWoundedToHelp(
   const currentObjectPosition: Vector = object.position();
 
   let nearestDistance: TDistance = helpWoundedConfig.DISTANCE_TO_HELP_SQR;
-  let nearestVertexId: Optional<TNumberId> = null;
-  let nearestPosition: Optional<Vector> = null;
-  let nearestObject: Optional<GameObject> = null;
+  let nearestVertexId: Nillable<TNumberId> = null;
+  let nearestPosition: Nillable<Vector> = null;
+  let nearestObject: Nillable<GameObject> = null;
 
   // Iterate all active wounded objects.
   for (const [, woundedObjectState] of registry.objectsWounded) {
-    const woundedObject: Optional<GameObject> = woundedObjectState.object;
-    const objectHealedBy: Optional<TNumberId> =
+    const woundedObject: Nillable<GameObject> = woundedObjectState.object;
+    const objectHealedBy: Nillable<TNumberId> =
       woundedObject && getPortableStoreValue(woundedObject.id(), helpWoundedConfig.HELPING_WOUNDED_OBJECT_KEY);
 
     if (

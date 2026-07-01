@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { isEmpty } from "@/engine/core/utils/table";
-import { Optional, TNumberId, ZoneCampfire } from "@/engine/lib/types";
+import { Nillable, TNumberId, ZoneCampfire } from "@/engine/lib/types";
 
 /**
  * Turn on smart terrain camp fires.
@@ -11,7 +11,7 @@ import { Optional, TNumberId, ZoneCampfire } from "@/engine/lib/types";
 export function turnOnTerrainCampfires(terrain: SmartTerrain): void {
   // logger.format("Turn on campfires for: %s", terrain.name());
 
-  const smartTerrainCampfires: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
+  const smartTerrainCampfires: Nillable<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
     terrain.name()
   );
 
@@ -34,7 +34,7 @@ export function turnOnTerrainCampfires(terrain: SmartTerrain): void {
 export function turnOffSmartTerrainCampfires(terrain: SmartTerrain): void {
   // logger.format("Turn off campfires for: %s", terrain.name());
 
-  const smartTerrainCampfires: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
+  const smartTerrainCampfires: Nillable<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(
     terrain.name()
   );
 
