@@ -5,7 +5,7 @@ import { getObjectSpawnIni } from "@/engine/core/utils/object/object_get";
 import {
   GameObject,
   IniFile,
-  Optional,
+  Nillable,
   ServerHumanObject,
   ServerObject,
   TNumberId,
@@ -28,7 +28,7 @@ export function canActorSleep(): boolean {
  * @returns Whether target stalker object is alive.
  */
 export function isStalkerAlive(targetObject: GameObject | ServerObject | TStringId): boolean {
-  let targetId: Optional<TNumberId>;
+  let targetId: Nillable<TNumberId>;
 
   if (type(targetObject) === "string") {
     targetId = getObjectIdByStoryId(targetObject as TStringId);
@@ -39,9 +39,9 @@ export function isStalkerAlive(targetObject: GameObject | ServerObject | TString
   }
 
   if (targetId) {
-    const object: Optional<ServerHumanObject> = registry.simulator.object(targetId);
+    const object: Nillable<ServerHumanObject> = registry.simulator.object(targetId);
 
-    return object !== null && isStalker(object) && object.alive();
+    return $isNotNil(object) && isStalker(object) && object.alive();
   } else {
     return false;
   }

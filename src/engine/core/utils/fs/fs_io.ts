@@ -1,5 +1,5 @@
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyObject, Optional, TPath } from "@/engine/lib/types";
+import { AnyObject, Nillable, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -37,7 +37,7 @@ export function saveTextToFile(dir: TPath, filename: TPath, data: string): void 
  * @param data - Target table data to save.
  */
 export function saveObjectToFile(dir: TPath, filename: TPath, data: AnyObject): void {
-  if (marshal === null) {
+  if ($isNil(marshal)) {
     return logger.info("Cannot save object to file,`marshal` lib is not available: '%s'", filename);
   } else {
     logger.info("Saving object data: '%s' - '%s'", dir, filename);
@@ -52,7 +52,7 @@ export function saveObjectToFile(dir: TPath, filename: TPath, data: AnyObject): 
  * @param path - Target path to read file.
  * @returns String data from the file or null.
  */
-export function loadTextFromFile(path: TPath): Optional<string> {
+export function loadTextFromFile(path: TPath): Nillable<string> {
   const [file] = io.open(path, "rb");
 
   if (!file || io.type(file) !== "file") {
@@ -63,7 +63,7 @@ export function loadTextFromFile(path: TPath): Optional<string> {
     logger.info("Loading text from file: '%s'", path);
   }
 
-  const data: Optional<string> = file.read("*all" as unknown as "*a") as Optional<string>;
+  const data: Nillable<string> = file.read("*all" as unknown as "*a") as Nillable<string>;
 
   file.close();
 
@@ -76,10 +76,10 @@ export function loadTextFromFile(path: TPath): Optional<string> {
  * @param path - Target path to read file.
  * @returns Optional deserialized object.
  */
-export function loadObjectFromFile<T extends AnyObject>(path: TPath): Optional<T> {
-  const data: Optional<string> = loadTextFromFile(path);
+export function loadObjectFromFile<T extends AnyObject>(path: TPath): Nillable<T> {
+  const data: Nillable<string> = loadTextFromFile(path);
 
-  if (marshal !== null && data !== null && data !== "") {
+  if ($isNotNil(marshal) && $isNotNil(data) && data !== "") {
     logger.info("Loading object data from file: '%s'", path);
 
     return marshal.decode(data) as T;

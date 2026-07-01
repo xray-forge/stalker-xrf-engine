@@ -4,7 +4,7 @@ import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { roots } from "@/engine/lib/constants/roots";
-import { LuaArray, Optional, TPath } from "@/engine/lib/types";
+import { LuaArray, Nillable, Optional, TPath } from "@/engine/lib/types";
 
 /**
  * Create dynamic save of extensions order and other state preferences.
@@ -29,7 +29,7 @@ export function saveExtensionsState(extensions: LuaArray<IExtensionsDescriptor>)
  */
 export function loadExtensionsState(): LuaArray<IExtensionsDescriptor> {
   const orderFile: TPath = getFS().update_path(roots.gameSaves, forgeConfig.EXTENSIONS.ORDER_FILE);
-  const order: Optional<LuaArray<IExtensionsDescriptor>> = loadObjectFromFile(orderFile);
+  const order: Nillable<LuaArray<IExtensionsDescriptor>> = loadObjectFromFile(orderFile);
 
   return order ? order : new LuaTable();
 }

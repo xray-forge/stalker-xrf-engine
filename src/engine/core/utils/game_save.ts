@@ -15,6 +15,7 @@ import {
   FSFileListEX,
   FSItem,
   LuaArray,
+  Nillable,
   Optional,
   SavedGameWrapper,
   TLabel,
@@ -104,7 +105,7 @@ export function saveDynamicGameSave(path: TName, data: AnyObject): void {
  * @param path - Generic save file name path.
  * @returns Stringified binary data or null.
  */
-export function loadDynamicGameSave<T extends AnyObject>(path: TPath): Optional<T> {
+export function loadDynamicGameSave<T extends AnyObject>(path: TPath): Nillable<T> {
   return loadObjectFromFile(string.sub(path, 0, -6) + forgeConfig.SAVE.GAME_SAVE_DYNAMIC_EXTENSION);
 }
 

@@ -2,7 +2,7 @@ import { patrol } from "xray16";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { registry } from "@/engine/core/database";
-import { LuaArray, Optional, Patrol, ServerObject, TIndex, TName, TSection } from "@/engine/lib/types";
+import { LuaArray, Nillable, Patrol, ServerObject, TIndex, TName, TSection } from "@/engine/lib/types";
 
 /**
  * @param name - Name of anomaly zone to check.
@@ -10,14 +10,14 @@ import { LuaArray, Optional, Patrol, ServerObject, TIndex, TName, TSection } fro
  * @returns Whether anomaly has artefact.
  */
 export function anomalyHasArtefact(name: TName, section: TSection): boolean {
-  const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(name);
+  const zone: Nillable<AnomalyZoneBinder> = registry.anomalyZones.get(name);
 
   if (!zone || zone.spawnedArtefactsCount < 1) {
     return false;
   }
 
   for (const [id] of zone.artefactPathsByArtefactId) {
-    const object: Optional<ServerObject> = registry.simulator.object(id);
+    const object: Nillable<ServerObject> = registry.simulator.object(id);
 
     if (object && object.section_name() === section) {
       return true;
@@ -32,7 +32,7 @@ export function anomalyHasArtefact(name: TName, section: TSection): boolean {
  * @returns List of artefacts in the anomaly.
  */
 export function getAnomalyArtefacts(name: TName): LuaArray<TSection> {
-  const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(name);
+  const zone: Nillable<AnomalyZoneBinder> = registry.anomalyZones.get(name);
   const artefacts: LuaArray<TName> = new LuaTable();
 
   if (!zone || zone.spawnedArtefactsCount < 1) {
@@ -40,7 +40,7 @@ export function getAnomalyArtefacts(name: TName): LuaArray<TSection> {
   }
 
   for (const [id] of zone.artefactPathsByArtefactId) {
-    const object: Optional<ServerObject> = registry.simulator.object(id);
+    const object: Nillable<ServerObject> = registry.simulator.object(id);
 
     if (object) {
       table.insert(artefacts, object.section_name());

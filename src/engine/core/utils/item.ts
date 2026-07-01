@@ -2,7 +2,7 @@ import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols } from "@/engine/lib/constants/items/weapons";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { GameObject, LuaArray, Optional, ServerObject, TCount, TNumberId, TRate, TSection } from "@/engine/lib/types";
+import { GameObject, LuaArray, Nillable, ServerObject, TCount, TNumberId, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * @param section - Item section to get cost for.
@@ -16,8 +16,8 @@ export function getItemPrice(section: TSection): TCount {
  * @param id - Item object id to get owner.
  * @returns Id of item owner or null.
  */
-export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
-  const serverObject: Optional<ServerObject> = registry.simulator.object(id);
+export function getItemOwnerId(id: TNumberId): Nillable<TNumberId> {
+  const serverObject: Nillable<ServerObject> = registry.simulator.object(id);
 
   if (serverObject && serverObject.parent_id !== MAX_ALIFE_ID) {
     return serverObject.parent_id;
@@ -30,8 +30,8 @@ export function getItemOwnerId(id: TNumberId): Optional<TNumberId> {
  * @param object - Target object to get pistol from.
  * @returns Pistol from object inventory.
  */
-export function getAnyObjectPistol(object: GameObject): Optional<GameObject> {
-  let pistol: Optional<GameObject> = null;
+export function getAnyObjectPistol(object: GameObject): Nillable<GameObject> {
+  let pistol: Nillable<GameObject> = null;
 
   object.iterate_inventory((owner, item) => {
     if (item.section() in pistols) {
@@ -54,9 +54,9 @@ export function getAnyObjectPistol(object: GameObject): Optional<GameObject> {
 export function getActorAvailableMedKit(
   list: LuaArray<TSection | TNumberId> = $fromObject(medkits) as unknown as LuaArray<TSection | TNumberId>,
   actor: GameObject = registry.actor
-): Optional<TMedkit> {
+): Nillable<TMedkit> {
   for (const [, medkit] of list) {
-    if (actor.object(medkit) !== null) {
+    if ($isNotNil(actor.object(medkit))) {
       return medkit as TMedkit;
     }
   }
@@ -96,7 +96,7 @@ export function actorHasMedKit(
  * @returns Whether actor has all of provided items.
  */
 export function actorHasItem(section: TSection | TNumberId, actor: GameObject = registry.actor): boolean {
-  return actor.object(section) !== null;
+  return $isNotNil(actor.object(section));
 }
 
 /**
@@ -111,7 +111,7 @@ export function actorHasItems(
   actor: GameObject = registry.actor
 ): boolean {
   for (const [, section] of sections as LuaArray<TSection | TNumberId>) {
-    if (actor.object(section) === null) {
+    if ($isNil(actor.object(section))) {
       return false;
     }
   }
@@ -155,7 +155,7 @@ export function actorHasAtLeastOneItem(
   actor: GameObject = registry.actor
 ): boolean {
   for (const [, section] of itemSections as LuaArray<TSection | TNumberId>) {
-    if (actor.object(section) !== null) {
+    if ($isNotNil(actor.object(section))) {
       return true;
     }
   }

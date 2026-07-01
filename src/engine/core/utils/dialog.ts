@@ -3,7 +3,7 @@ import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EScheme, GameObject, Optional, TName } from "@/engine/lib/types";
+import { EScheme, GameObject, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * From two possible speakers pick NPC one, omit actor.
@@ -24,9 +24,9 @@ export function getNpcSpeaker(first: GameObject, second: GameObject): GameObject
  * @returns Whether object name is matching provided string.
  */
 export function isObjectName(object: GameObject, name: TName): boolean {
-  const objectName: Optional<string> = object.name();
+  const objectName: Nillable<string> = object.name();
 
-  return objectName !== null && string.find(objectName, name)[0] !== null;
+  return $isNotNil(objectName) && $isNotNil(string.find(objectName, name)[0]);
 }
 
 /**

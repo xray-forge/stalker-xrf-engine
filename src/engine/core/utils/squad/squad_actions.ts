@@ -12,7 +12,7 @@ import {
   AlifeSimulator,
   AnyGameObject,
   GameObject,
-  Optional,
+  Nillable,
   ServerCreatureObject,
   ServerObject,
   TNumberId,
@@ -50,7 +50,7 @@ export function canSquadHelpActor(squad: Squad): boolean {
  *
  * @returns Optional help target id to start combat with.
  */
-export function getSquadHelpActorTargetId(squad: Squad): Optional<TNumberId> {
+export function getSquadHelpActorTargetId(squad: Squad): Nillable<TNumberId> {
   if (!canSquadHelpActor(squad)) {
     return null;
   }
@@ -59,11 +59,11 @@ export function getSquadHelpActorTargetId(squad: Squad): Optional<TNumberId> {
   const simulator: AlifeSimulator = registry.simulator;
 
   for (const [id] of registry.actorCombat) {
-    const enemySquadId: Optional<TNumberId> = simulator.object<ServerCreatureObject>(id)
-      ?.group_id as Optional<TNumberId>;
+    const enemySquadId: Nillable<TNumberId> = simulator.object<ServerCreatureObject>(id)
+      ?.group_id as Nillable<TNumberId>;
 
     if (enemySquadId) {
-      const targetSquad: Optional<Squad> = simulator.object<Squad>(enemySquadId);
+      const targetSquad: Nillable<Squad> = simulator.object<Squad>(enemySquadId);
 
       if (
         targetSquad &&
@@ -85,7 +85,7 @@ export function getSquadHelpActorTargetId(squad: Squad): Optional<TNumberId> {
  * @returns Whether object is commanding squad.
  */
 export function isObjectSquadCommander(object: AnyGameObject): boolean {
-  const squad: Optional<Squad> = getObjectSquad(object);
+  const squad: Nillable<Squad> = getObjectSquad(object);
 
   return squad
     ? squad.commander_id() ===
@@ -100,7 +100,7 @@ export function isObjectSquadCommander(object: AnyGameObject): boolean {
  * @returns Whether object is commanding squad.
  */
 export function isObjectSquadCommanderById(objectId: TNumberId): boolean {
-  const squad: Optional<Squad> = getObjectSquadByObjectId(objectId);
+  const squad: Nillable<Squad> = getObjectSquadByObjectId(objectId);
 
   return squad ? squad.commander_id() === objectId : false;
 }

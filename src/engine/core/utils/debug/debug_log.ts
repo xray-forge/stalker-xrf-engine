@@ -11,7 +11,7 @@ import { toJSON } from "@/engine/core/utils/transform";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ESchemeType, GameObject, Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
+import { ActionPlanner, ESchemeType, GameObject, Nillable, TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -44,13 +44,13 @@ export function logObjectPlannerState(object: GameObject): void {
   logger.info("Print object planner state report: %s", object.name());
 
   const plannerShowPrefix: TLabel = `${logger.getFullPrefix()} [${object.name()}]`;
-  const actionPlanner: Optional<ActionPlanner> = object.motivation_action_manager();
+  const actionPlanner: Nillable<ActionPlanner> = object.motivation_action_manager();
 
-  if (actionPlanner === null) {
+  if (!actionPlanner) {
     return logger.info("Object does not have action planner, `nil` received");
   }
 
-  const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
+  const currentActionId: Nillable<TNumberId> = actionPlanner.current_action_id();
 
   logger.info("Current best enemy: %s", object.best_enemy()?.name());
   logger.info("Current best danger: %s", object.best_danger()?.object()?.name());
@@ -84,12 +84,12 @@ export function logObjectPlannerState(object: GameObject): void {
 
     const state: IRegistryObjectState = registry.objects.get(object.id());
     const actionPlanner: ActionPlanner = state.stateManager!.planner;
-    const currentActionId: Optional<TNumberId> = actionPlanner.current_action_id();
+    const currentActionId: Nillable<TNumberId> = actionPlanner.current_action_id();
 
     logger.info("Current state planner initialized: %s", actionPlanner.initialized());
     logger.info("Current state action id: %s %s", currentActionId, EStateActionId[currentActionId]);
 
-    if (actionPlanner.show !== null) {
+    if ($isNotNil(actionPlanner.show)) {
       actionPlanner.show(plannerShowPrefix + "[planner] ");
     } else {
       logger.info("For more state details run game in mixed/debug mode");
@@ -205,7 +205,7 @@ export function logObjectState(object: GameObject): void {
   logger.info("Activation time: %s", state.activationTime);
   logger.info(
     "Activation game time: %s",
-    (state.activationGameTime as Optional<CTime>) ? gameTimeToString(state.activationGameTime) : NIL
+    (state.activationGameTime as Nillable<CTime>) ? gameTimeToString(state.activationGameTime) : NIL
   );
   logger.info("Portable store: %s", toJSON(state.portableStore));
   logger.info("State overrides: %s", toJSON(state.overrides));
