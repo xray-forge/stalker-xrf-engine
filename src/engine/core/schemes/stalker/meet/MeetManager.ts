@@ -11,6 +11,7 @@ import { isObjectInCombat, isObjectWounded } from "@/engine/core/utils/planner";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   GameObject,
+  Nillable,
   Optional,
   StringNillable,
   TDistance,
@@ -137,35 +138,38 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     // Handle greeting / bye.
     if (isActorVisible) {
-      if (
-        !this.isHelloPassed &&
-        distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeSoundDistance))!
-      ) {
-        const sound: Optional<TSection> = parseStringOptional(
-          pickSectionFromCondList(actor, this.object, this.state.closeSoundHello)
+      if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.closeSoundDistance))!) {
+        if (!this.isHelloPassed) {
+          const sound: Nillable<TSection> = parseStringOptional(
+            pickSectionFromCondList(actor, this.object, this.state.closeSoundHello)
+          );
+
+          if (sound && !isObjectInCombat(this.object)) {
+            logger.info("Execute play sound hello: '%s', '%s'", this.object.name(), sound);
+            getManager(SoundManager).play(this.object.id(), sound);
+          }
+
+          this.isHelloPassed = true;
+        }
+      } else if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.farSoundDistance))!) {
+        logger.info(
+          "XXXX: '%s', '%s'",
+          this.object.name(),
+          pickSectionFromCondList(actor, this.object, this.state.farSoundDistance)
         );
 
-        if (sound !== null && !isObjectInCombat(this.object)) {
-          logger.info("Execute play sound hello: '%s', '%s'", this.object.name(), sound);
-          getManager(SoundManager).play(this.object.id(), sound);
+        if (this.isHelloPassed && !this.isByePassed) {
+          const sound: Nillable<TSection> = parseStringOptional(
+            pickSectionFromCondList(actor, this.object, this.state.closeSoundBye)
+          );
+
+          if (sound && !isObjectInCombat(this.object)) {
+            logger.info("Execute play sound bye: '%s', '%s'", this.object.name(), sound);
+            getManager(SoundManager).play(this.object.id(), sound);
+          }
+
+          this.isByePassed = true;
         }
-
-        this.isHelloPassed = true;
-      } else if (
-        this.isHelloPassed &&
-        !this.isByePassed &&
-        distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.farSoundDistance))!
-      ) {
-        const sound: Optional<TSection> = parseStringOptional(
-          pickSectionFromCondList(actor, this.object, this.state.closeSoundBye)
-        );
-
-        if (sound !== null && !isObjectInCombat(this.object)) {
-          logger.info("Execute play sound bye: '%s', '%s'", this.object.name(), sound);
-          getManager(SoundManager).play(this.object.id(), sound);
-        }
-
-        this.isByePassed = true;
       }
     }
 

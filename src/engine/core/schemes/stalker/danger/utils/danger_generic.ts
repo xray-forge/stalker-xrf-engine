@@ -1,7 +1,6 @@
 import { danger_object } from "xray16";
 
-import { getManager, ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
-import { SimulationManager } from "@/engine/core/managers/simulation/SimulationManager";
+import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
@@ -147,16 +146,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
     return true;
   }
 
-  // Check if object have any state overrides that cause object to explicitly ignore combat.
-  const stateOverrides: Nillable<ILogicsOverrides> = combatIgnoreState?.overrides as Nillable<ILogicsOverrides>;
-
-  if (stateOverrides && stateOverrides.combatIgnore) {
-    return pickSectionFromCondList(enemy, object, stateOverrides.combatIgnore.condlist) !== TRUE;
-  }
-
   if (objectState.enemyId !== ACTOR_ID) {
-    const simulationManager: SimulationManager = getManager(SimulationManager);
-
     // If enemy of object is in no-combat zone.
     for (const [name, storyId] of registry.noCombatZones) {
       const zone: Nillable<GameObject> = registry.zones.get(name);
@@ -183,6 +173,13 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
     if (registry.noCombatSmartTerrains.get(enemySmartTerrain.name())) {
       return false;
     }
+  }
+
+  // A no-combat zone must be able to suppress combat even for an object that carries combat_ignore overrides.
+  const stateOverrides: Nillable<ILogicsOverrides> = combatIgnoreState?.overrides as Nillable<ILogicsOverrides>;
+
+  if (stateOverrides && stateOverrides.combatIgnore) {
+    return pickSectionFromCondList(enemy, object, stateOverrides.combatIgnore.condlist) !== TRUE;
   }
 
   return true;

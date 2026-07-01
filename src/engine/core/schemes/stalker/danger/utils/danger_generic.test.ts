@@ -97,11 +97,11 @@ describe("isObjectFacingDanger", () => {
     replaceFunctionMock(object.best_danger, () => bestDanger);
 
     bestDanger.dangerType = danger_object.entity_death;
-    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 100);
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 16);
     expect(isObjectFacingDanger(object)).toBe(true);
 
     bestDanger.dangerType = danger_object.entity_death;
-    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 101);
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 17);
     expect(isObjectFacingDanger(object)).toBe(false);
   });
 
@@ -243,5 +243,37 @@ describe("canObjectSelectAsEnemy", () => {
     state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
     expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
     expect(state.enemyId).toBe(enemy.id());
+  });
+
+  it("should evaluate no-combat zone before combat-ignore overrides (matches is_enemy ordering)", () => {
+    const object: GameObject = MockGameObject.mockStalker();
+    const enemy: GameObject = MockGameObject.mock();
+    const state: IRegistryObjectState = registerObject(object);
+    const combatIgnoreState: ISchemeCombatIgnoreState = mockSchemeState(EScheme.COMBAT_IGNORE);
+
+    const noCombatZone: GameObject = MockGameObject.mock();
+    const noCombatSmart: ServerSmartZoneObject = MockAlifeSmartZone.mock({
+      name: "zat_stalker_base_smart",
+    });
+
+    state[EScheme.COMBAT_IGNORE] = combatIgnoreState;
+
+    // An override that, evaluated on its own, would permit enemy selection (condlist != "true").
+    combatIgnoreState.overrides = {
+      combatIgnore: mockBaseSchemeLogic({
+        condlist: parseConditionsList(FALSE),
+      }),
+    } as ILogicsOverrides;
+
+    registry.zones.set("zat_a2_sr_no_assault", noCombatZone);
+    jest.spyOn(noCombatZone, "inside").mockImplementation(() => true);
+    registerSimulationTerrain(noCombatSmart as SmartTerrain);
+
+    (noCombatSmart as SmartTerrain).terrainControl = {
+      status: ESmartTerrainStatus.NORMAL,
+    } as SmartTerrainControl;
+
+    // The no-combat zone must still suppress combat even though the override alone would allow it.
+    expect(canObjectSelectAsEnemy(object, enemy)).toBe(false);
   });
 });

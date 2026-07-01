@@ -55,13 +55,13 @@ export class LuaLogger {
 
     // Write into shared game console if no file defined/dual mode enabled.
     if (this.loggerFile === null || this.mode === ELuaLoggerMode.DUAL) {
-      // Write into custom file if it is defined for current logger.
-      if (forgeConfig.DEBUG.IS_SEPARATE_LUA_LOG_ENABLED) {
-        this.luaFile.write(result);
-        this.luaFile.write("\n");
-      }
-
       log(result);
+    }
+
+    // Write into custom file if it is defined for current logger.
+    if (forgeConfig.DEBUG.IS_SEPARATE_LUA_LOG_ENABLED) {
+      this.luaFile.write(result);
+      this.luaFile.write("\n");
     }
   }
 

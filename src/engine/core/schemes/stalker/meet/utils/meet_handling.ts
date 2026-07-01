@@ -86,7 +86,7 @@ export function activateMeetWithObject(object: GameObject): void {
   if (
     meetManager.use === FALSE &&
     meetManager.isAbuseModeEnabled === TRUE &&
-    getObjectsRelationSafe(object, actor) !== EGameObjectRelation.ENEMY
+    getObjectsRelationSafe(object, actor) === EGameObjectRelation.FRIEND
   ) {
     addObjectAbuse(object, 1);
   }
