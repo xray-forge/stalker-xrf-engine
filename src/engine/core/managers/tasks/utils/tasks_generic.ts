@@ -2,7 +2,7 @@ import { level } from "xray16";
 
 import { getObjectIdByStoryId } from "@/engine/core/database";
 import { GUIDERS_BY_LEVEL } from "@/engine/core/managers/tasks/TaskConfig";
-import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import { Nillable, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Add a map spot for the guider leading from one level to another, marking it as storyline or secondary.
@@ -12,15 +12,15 @@ import { Optional, TName, TNumberId, TStringId } from "@/engine/lib/types";
  * @param isStoryline - Whether the spot represents a storyline task instead of a secondary one.
  */
 export function addGuiderSpot(from: TName, to: TName, isStoryline: boolean): void {
-  const guiderStoryId: Optional<TStringId> = GUIDERS_BY_LEVEL.get(from)?.get(to);
+  const guiderStoryId: Nillable<TStringId> = GUIDERS_BY_LEVEL.get(from)?.get(to);
 
-  if (!guiderStoryId) {
+  if ($isNil(guiderStoryId)) {
     return;
   }
 
-  const guiderId: Optional<TNumberId> = getObjectIdByStoryId(guiderStoryId);
+  const guiderId: Nillable<TNumberId> = getObjectIdByStoryId(guiderStoryId);
 
-  if (!guiderId) {
+  if ($isNil(guiderId)) {
     return;
   }
 
@@ -37,16 +37,16 @@ export function addGuiderSpot(from: TName, to: TName, isStoryline: boolean): voi
  * @param from - Name of the level whose guider spots should be removed.
  */
 export function removeGuiderSpot(from: TName): void {
-  const guidersByLevel: Optional<LuaTable<TName, TStringId>> = GUIDERS_BY_LEVEL.get(from);
+  const guidersByLevel: Nillable<LuaTable<TName, TStringId>> = GUIDERS_BY_LEVEL.get(from);
 
   if (!guidersByLevel) {
     return;
   }
 
   for (const [, storyId] of guidersByLevel) {
-    const guiderId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
+    const guiderId: Nillable<TNumberId> = getObjectIdByStoryId(storyId);
 
-    if (guiderId !== null) {
+    if ($isNotNil(guiderId)) {
       if (level.map_has_object_spot(guiderId, "storyline_task_on_guider") !== 0) {
         level.map_remove_object_spot(guiderId, "storyline_task_on_guider");
       }

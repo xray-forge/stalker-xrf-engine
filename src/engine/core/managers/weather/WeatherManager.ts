@@ -47,7 +47,7 @@ import {
   LuaArray,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   StringNillable,
   TDuration,
   Time,
@@ -73,7 +73,7 @@ export class WeatherManager extends AbstractManager {
   public isWeatherPeriodTransition: boolean = false;
   public isWeatherPeriodPreBlowout: boolean = false;
 
-  public weatherFx: Optional<TName> = null;
+  public weatherFx: Nillable<TName> = null;
   public weatherFxTime: TTimestamp = 0;
 
   public weatherSection: TSection = "";
@@ -87,14 +87,14 @@ export class WeatherManager extends AbstractManager {
   public weatherState: LuaTable<TName, IWeatherState> = new LuaTable();
   public weatherPeriod: EWeatherPeriodType = EWeatherPeriodType.GOOD;
 
-  public currentWeatherSection: Optional<TSection> = null;
-  public nextWeatherSection: Optional<TSection> = null;
+  public currentWeatherSection: Nillable<TSection> = null;
+  public nextWeatherSection: Nillable<TSection> = null;
 
   // Map of weathers change graphs for weather section, where key is name and value is probability.
   public graphs: LuaTable<TName, TWeatherGraph> = new LuaTable();
 
-  public weatherFxStartedAt: Optional<TTimestamp> = null;
-  public weatherFxEndedAt: Optional<TTimestamp> = null;
+  public weatherFxStartedAt: Nillable<TTimestamp> = null;
+  public weatherFxEndedAt: Nillable<TTimestamp> = null;
 
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
@@ -237,7 +237,7 @@ export class WeatherManager extends AbstractManager {
 
     logger.info("Current weather section is: %s", weatherSection);
 
-    const graph: Optional<TWeatherGraph> = this.getGraphBySection(weatherSection);
+    const graph: Nillable<TWeatherGraph> = this.getGraphBySection(weatherSection);
     let nextWeather: TName;
 
     if (graph) {
@@ -359,7 +359,7 @@ export class WeatherManager extends AbstractManager {
       );
 
       const graphName: TName = groupName as TName;
-      const graph: Optional<LuaTable<TName, TProbability>> = this.getGraphBySection(graphName);
+      const graph: Nillable<LuaTable<TName, TProbability>> = this.getGraphBySection(graphName);
 
       if (graph) {
         logger.info("Change weather graph: %s", stateString);
@@ -398,7 +398,7 @@ export class WeatherManager extends AbstractManager {
    * @param section - Name of the section to parse / read.
    * @returns Graph describing provided section.
    */
-  public getGraphBySection(section: TSection): Optional<TWeatherGraph> {
+  public getGraphBySection(section: TSection): Nillable<TWeatherGraph> {
     if (!this.graphs.has(section)) {
       this.graphs.set(section, readIniSectionAsNumberMap(DYNAMIC_WEATHER_GRAPHS_LTX, section));
     }

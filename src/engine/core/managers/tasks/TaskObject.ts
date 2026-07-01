@@ -35,7 +35,7 @@ import {
   LuaArray,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   ServerObject,
   Time,
   TIndex,
@@ -56,16 +56,16 @@ const logger: LuaLogger = new LuaLogger($filename);
 export class TaskObject {
   public readonly id: TStringId;
 
-  public task: Optional<GameTask> = null;
+  public task: Nillable<GameTask> = null;
   // Task state in list: selected or not.
   public status: ETaskStatus;
-  public state: Optional<ETaskState> = null;
+  public state: Nillable<ETaskState> = null;
 
-  public initializedAt: Optional<Time> = null;
+  public initializedAt: Nillable<Time> = null;
   public nextUpdateAt: TTimestamp = 0;
 
   public title: TLabel;
-  public currentTitle: Optional<TLabel> = null;
+  public currentTitle: Nillable<TLabel> = null;
   public titleGetterFunctorName: string;
 
   public description: TLabel;
@@ -77,7 +77,7 @@ export class TaskObject {
 
   public target: TName;
   public targetGetterFunctorName: TName;
-  public currentTargetId: Optional<TNumberId> = null;
+  public currentTargetId: Nillable<TNumberId> = null;
 
   public readonly isStorylineTask: boolean;
   public readonly isNotificationOnUpdateMuted: boolean;
@@ -173,14 +173,14 @@ export class TaskObject {
    * Update task state based on current game state.
    * Throttles it because game engine does a lot of calls for tasks.
    */
-  public update(): Optional<ETaskState> {
+  public update(): Nillable<ETaskState> {
     const now: TTimestamp = time_global();
 
     if (this.state && this.nextUpdateAt <= now) {
       return this.state;
     }
 
-    if (this.task === null) {
+    if (!this.task) {
       this.task = registry.actor.get_task(this.id, true) as GameTask;
 
       return this.state;
@@ -205,7 +205,7 @@ export class TaskObject {
     if (this.currentTargetId !== nextTargetId) {
       logger.info("Updated task due to target change: %s %s %s", this.id, this.currentTargetId, nextTargetId);
 
-      if (this.currentTargetId === null) {
+      if ($isNil(this.currentTargetId)) {
         isTaskUpdated = true;
         this.task.change_map_location(this.spot, nextTargetId);
         level.map_add_object_spot(
@@ -214,7 +214,7 @@ export class TaskObject {
           ""
         );
       } else {
-        if (nextTargetId === null) {
+        if ($isNil(nextTargetId)) {
           this.task.remove_map_locations(false);
           isTaskUpdated = true;
         } else {
@@ -237,13 +237,13 @@ export class TaskObject {
     }
 
     for (const [, conditionList] of this.conditionLists) {
-      const taskState: ETaskState = pickSectionFromCondList(
+      const taskState: Nillable<ETaskState> = pickSectionFromCondList(
         registry.actor,
         registry.actor,
         conditionList
-      ) as ETaskState;
+      ) as Nillable<ETaskState>;
 
-      if (taskState !== null) {
+      if (taskState) {
         assertDefined(POSSIBLE_STATES[taskState], "Invalid task status [%s] for task [%s]", taskState, this.title);
 
         this.state = taskState;
@@ -261,14 +261,14 @@ export class TaskObject {
    *
    * @param targetId - Task object target id, used for getting direction.
    */
-  public updateLevelDirection(targetId: Optional<TNumberId>): void {
+  public updateLevelDirection(targetId: Nillable<TNumberId>): void {
     if (!targetId || !registry.actor.is_active_task(this.task as GameTask)) {
       return;
     }
 
-    const alifeObject: Optional<ServerObject> = registry.simulator.object(targetId);
+    const alifeObject: Nillable<ServerObject> = registry.simulator.object(targetId);
 
-    if (alifeObject !== null) {
+    if (alifeObject) {
       const levelName: TLevel = level.name();
       const targetLevel: TLevel = registry.simulator.level_name(
         game_graph().vertex(alifeObject.m_game_vertex_id).level_id()
@@ -303,7 +303,7 @@ export class TaskObject {
     // Execute to generate side effects.
     pickSectionFromCondList(registry.actor, registry.actor, this.onInit);
 
-    if (this.currentTargetId !== null) {
+    if ($isNotNil(this.currentTargetId)) {
       gameTask.set_map_location(this.spot);
       gameTask.set_map_object_id(this.currentTargetId);
 

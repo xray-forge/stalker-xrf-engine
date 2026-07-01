@@ -1,10 +1,10 @@
-import { LuaArray, Optional, TDuration, TName, TPath } from "@/engine/lib/types";
+import { LuaArray, Nillable, TDuration, TName, TPath } from "@/engine/lib/types";
 
 /**
  * Dynamic theme playlist descriptor.
  */
 export interface IDynamicMusicDescriptor {
-  maps?: Optional<TName>;
+  maps?: Nillable<TName>;
   files: LuaArray<TName>;
 }
 

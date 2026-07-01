@@ -20,7 +20,7 @@ import {
   GameObject,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   PartialRecord,
   ServerCreatureObject,
   ServerObject,
@@ -276,7 +276,7 @@ export class StatisticsManager extends AbstractManager {
       this.takenArtefacts.set(artefactId, artefactId);
 
       // todo: Probably section vs section name should be checked and simplified.
-      const serverObject: Optional<ServerObject> = registry.simulator.object(artefactId);
+      const serverObject: Nillable<ServerObject> = registry.simulator.object(artefactId);
 
       if (serverObject && serverObject.section_name()) {
         this.actorStatistics.collectedArtefacts.set(serverObject.section_name(), true);
@@ -309,7 +309,7 @@ export class StatisticsManager extends AbstractManager {
    * @param object - Object killed.
    * @param killer - Object killer.
    */
-  public onStalkerKilled(object: GameObject, killer: Optional<GameObject>): void {
+  public onStalkerKilled(object: GameObject, killer: Nillable<GameObject>): void {
     if (killer?.id() === ACTOR_ID) {
       this.actorStatistics.killedStalkersCount += 1;
     }
@@ -323,23 +323,23 @@ export class StatisticsManager extends AbstractManager {
    * @param direction - Direction of object hit.
    * @param who - Source object of hit.
    */
-  public onObjectHit(object: GameObject, amount: TRate, direction: Vector, who: Optional<GameObject>): void {
+  public onObjectHit(object: GameObject, amount: TRate, direction: Vector, who: Nillable<GameObject>): void {
     if (who?.id() !== ACTOR_ID) {
       return;
     }
 
-    const activeActorItem: Optional<GameObject> = registry.actor.active_item();
+    const activeActorItem: Nillable<GameObject> = registry.actor.active_item();
 
     if (activeActorItem) {
-      const serverObject: Optional<ServerObject> = registry.simulator.object(activeActorItem.id());
+      const serverObject: Nillable<ServerObject> = registry.simulator.object(activeActorItem.id());
 
       if (serverObject) {
         const sectionName: TName = serverObject.section_name();
 
         for (const weapon of string.gfind(sectionName, "%w+")) {
-          const damage: Optional<TCount> = this.weaponsStatistics.get(weapon);
+          const damage: Nillable<TCount> = this.weaponsStatistics.get(weapon);
 
-          if (damage !== null) {
+          if ($isNotNil(damage)) {
             this.weaponsStatistics.set(weapon, damage + amount);
           }
         }
@@ -373,12 +373,12 @@ export class StatisticsManager extends AbstractManager {
    * @param object - Object killed.
    * @param who - Object killer.
    */
-  public onMonsterKilled(object: GameObject, who: Optional<GameObject>): void {
+  public onMonsterKilled(object: GameObject, who: Nillable<GameObject>): void {
     if (who?.id() !== ACTOR_ID) {
       return;
     }
 
-    let community: Optional<TName> = this.monsterClassesMap[object.clsid()] as Optional<TName>;
+    let community: Nillable<TName> = this.monsterClassesMap[object.clsid()] as Nillable<TName>;
 
     assert(
       community,
@@ -387,7 +387,7 @@ export class StatisticsManager extends AbstractManager {
       tostring(object.clsid())
     );
 
-    const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(object.id());
+    const serverObject: Nillable<ServerCreatureObject> = registry.simulator.object(object.id());
 
     // Increment count.
     this.actorStatistics.killedMonstersCount += 1;

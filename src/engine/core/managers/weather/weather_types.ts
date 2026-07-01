@@ -1,4 +1,4 @@
-import { Optional, TDuration, TName, TProbability, TSection } from "@/engine/lib/types";
+import { Nillable, TDuration, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * Name of atmosfear weather base.
@@ -80,8 +80,8 @@ export interface IAtmosfearLevelWeatherConfig {
  * State of weather manager describing current graph node.
  */
 export interface IWeatherState {
-  currentState: Optional<TSection>;
-  nextState: Optional<TSection>;
+  currentState: Nillable<TSection>;
+  nextState: Nillable<TSection>;
   weatherName: TName;
   weatherGraph: TWeatherGraph;
 }

@@ -46,7 +46,7 @@ import {
   Hit,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   TCount,
   TDuration,
   Time,
@@ -482,12 +482,12 @@ export class SurgeManager extends AbstractManager {
           soundManager.setLoopedSoundVolume(ACTOR_ID, "blowout_rumble", surgeDuration / 180);
         }
 
-        const coverObject: Optional<GameObject> = getNearestAvailableSurgeCover(registry.actor);
+        const coverObject: Nillable<GameObject> = getNearestAvailableSurgeCover(registry.actor);
 
         if (
           surgeDuration >= 140 &&
           !this.isUiDisabled &&
-          (coverObject === null || !coverObject.inside(registry.actor.position()))
+          (!coverObject || !coverObject.inside(registry.actor.position()))
         ) {
           let att: number = 1 - (185 - surgeDuration) / (185 - 140);
 
@@ -556,7 +556,7 @@ export class SurgeManager extends AbstractManager {
       logger.info("On artefact take: %s", object.name());
 
       const id: TNumberId = object.id();
-      const zone: Optional<AnomalyZoneBinder> = registry.artefacts.parentZones.get(id) as Optional<AnomalyZoneBinder>;
+      const zone: Nillable<AnomalyZoneBinder> = registry.artefacts.parentZones.get(id) as Nillable<AnomalyZoneBinder>;
 
       if (zone) {
         zone.onArtefactTaken(id);

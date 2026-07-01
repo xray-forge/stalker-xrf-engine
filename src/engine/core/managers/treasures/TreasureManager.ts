@@ -27,7 +27,7 @@ import {
   LuaArray,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   ServerObject,
   TCount,
   TName,
@@ -165,7 +165,7 @@ export class TreasureManager extends AbstractManager {
 
     for (const _ of $range(1, secretsCount)) {
       const restrictorId: TNumberId = reader.r_u16();
-      let restrictorName: Optional<TStringId> = null;
+      let restrictorName: Nillable<TStringId> = null;
 
       for (const [name, id] of this.treasuresRestrictorByName) {
         if (id === restrictorId) {
@@ -340,7 +340,7 @@ export class TreasureManager extends AbstractManager {
    * @returns Whether the object was registered as part of a treasure.
    */
   public onRegisterItem(object: ServerObject): boolean {
-    const spawnIni: Optional<IniFile> = object.spawn_ini();
+    const spawnIni: Nillable<IniFile> = object.spawn_ini();
 
     if (!spawnIni || !spawnIni.section_exist(SECRET_SECTION)) {
       return false;
@@ -401,9 +401,9 @@ export class TreasureManager extends AbstractManager {
    */
   public onActorItemTake(object: GameObject): void {
     const objectId: TNumberId = object.id();
-    const restrictorId: Optional<TNumberId> = this.treasuresRestrictorByItem.get(objectId);
+    const restrictorId: Nillable<TNumberId> = this.treasuresRestrictorByItem.get(objectId);
 
-    let treasureId: Optional<TStringId> = null;
+    let treasureId: Nillable<TStringId> = null;
 
     for (const [name, id] of this.treasuresRestrictorByName) {
       if (restrictorId === id) {
@@ -412,7 +412,7 @@ export class TreasureManager extends AbstractManager {
       }
     }
 
-    const treasure: Optional<ITreasureDescriptor> = treasureId ? treasureConfig.TREASURES.get(treasureId) : null;
+    const treasure: Nillable<ITreasureDescriptor> = treasureId ? treasureConfig.TREASURES.get(treasureId) : null;
 
     if (treasure) {
       logger.info("Treasure item taken:", objectId);

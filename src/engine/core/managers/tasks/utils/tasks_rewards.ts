@@ -4,7 +4,7 @@ import { TaskObject } from "@/engine/core/managers/tasks";
 import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/reward";
-import { GameObject, Optional, TCount, TName } from "@/engine/lib/types";
+import { GameObject, Nillable, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -16,12 +16,12 @@ const logger: LuaLogger = new LuaLogger($filename);
  * @param task - Task object to give rewards for.
  */
 export function giveTaskReward(task: TaskObject): void {
-  const money: Optional<string> = pickSectionFromCondList(
+  const money: Nillable<string> = pickSectionFromCondList(
     registry.actor,
     registry.actor,
     task.rewardMoneyConditionList
   );
-  const itemsList: Optional<string> = pickSectionFromCondList(
+  const itemsList: Nillable<string> = pickSectionFromCondList(
     registry.actor,
     registry.actor,
     task.rewardItemsConditionList

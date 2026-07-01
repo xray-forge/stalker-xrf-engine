@@ -6,7 +6,7 @@ import {
   IniFile,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   SoundObject,
   TNumberId,
   TPath,
@@ -22,7 +22,7 @@ export abstract class AbstractPlayableSound {
 
   public readonly section: TSection;
   public path: TPath;
-  public soundObject: Optional<SoundObject> = null;
+  public soundObject: Nillable<SoundObject> = null;
   public shouldPlayAlways: boolean = false;
 
   protected constructor(ini: IniFile, section: TSection) {
@@ -33,17 +33,17 @@ export abstract class AbstractPlayableSound {
   /**
    * Check whether the sound is currently playing.
    *
-   * @param args - Optional arguments passed by overriding implementations.
+   * @param args - Nillable arguments passed by overriding implementations.
    * @returns Whether the sound object exists and is playing.
    */
   public isPlaying(...args: AnyArgs): boolean {
-    return this.soundObject === null ? false : this.soundObject.playing();
+    return this.soundObject ? this.soundObject.playing() : false;
   }
 
   /**
    * Stop the sound if a sound object currently exists.
    *
-   * @param args - Optional arguments passed by overriding implementations.
+   * @param args - Nillable arguments passed by overriding implementations.
    */
   public stop(...args: AnyArgs): void {
     if (this.soundObject) {

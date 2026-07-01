@@ -1,7 +1,7 @@
 import { TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
-import { IniFile, LuaArray, Optional, TSection } from "@/engine/lib/types";
+import { IniFile, LuaArray, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Read upgrade group information from ini file / specific upgrade group section.
@@ -41,7 +41,7 @@ export function readAllObjectUpgrades(ini: IniFile, section: TSection): TUpgrade
     return upgradesConfig.UPGRADES_CACHE.get(section);
   }
 
-  const upgrades: Optional<string> = readIniString(ini, section, "upgrades", false);
+  const upgrades: Nillable<string> = readIniString(ini, section, "upgrades", false);
   const list: TUpgradesList = new LuaTable();
 
   if (upgrades) {

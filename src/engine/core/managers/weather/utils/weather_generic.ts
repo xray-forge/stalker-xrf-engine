@@ -8,7 +8,7 @@ import {
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { containsSubstring } from "@/engine/core/utils/string";
 import { roots } from "@/engine/lib/constants/roots";
-import { LuaArray, Optional, TDuration, TName, TPath, TRate, TTimestamp } from "@/engine/lib/types";
+import { LuaArray, Nillable, TDuration, TName, TPath, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Get list all possible weather configs to set.
@@ -24,7 +24,7 @@ export function getPossibleWeathersList(): LuaArray<TName> {
     const weathersFolder: TPath = fs.update_path(roots.gameConfig, "environment\\weathers");
 
     const [, directory] = lfs.dir(weathersFolder);
-    let directoryItem: Optional<TName> = directory.next();
+    let directoryItem: Nillable<TName> = directory.next();
 
     while (directoryItem) {
       if (string.sub(directoryItem, -4) === ".ltx") {
@@ -53,7 +53,7 @@ export function getNextWeatherFromGraph(graph: TWeatherGraph): TName {
   }
 
   let random: TRate = math.random() * totalProbability;
-  let next: Optional<TName> = null;
+  let next: Nillable<TName> = null;
 
   // Iterate over possible weathers and try to pick one of them based on their weight.
   for (const [weatherName, weatherProbability] of graph) {

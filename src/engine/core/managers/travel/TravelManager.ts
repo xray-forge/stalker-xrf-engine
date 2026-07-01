@@ -38,7 +38,6 @@ import {
   AnyObject,
   GameObject,
   Nillable,
-  Optional,
   Patrol,
   Phrase,
   PhraseDialog,
@@ -70,11 +69,11 @@ export class TravelManager extends AbstractManager {
   public isTravelTeleported: boolean = false;
   public travelingStartedAt: TTimestamp = 0;
 
-  private travelToSmartId: Optional<TNumberId> = null;
-  private travelDistance: Optional<TDuration> = null;
-  private travelActorPath: Optional<TName> = null;
-  private travelSquadPath: Optional<TName> = null;
-  private travelSquad: Optional<Squad> = null;
+  private travelToSmartId: Nillable<TNumberId> = null;
+  private travelDistance: Nillable<TDuration> = null;
+  private travelActorPath: Nillable<TName> = null;
+  private travelSquadPath: Nillable<TName> = null;
+  private travelSquad: Nillable<Squad> = null;
 
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);
@@ -218,13 +217,13 @@ export class TravelManager extends AbstractManager {
     phraseId?: TStringId
   ): TLabel {
     const squad: Squad = getObjectSquad(object)!;
-    const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
+    const squadTargetId: Nillable<TNumberId> = squad.assignedTargetId;
 
     if (squad.currentAction === null || squad.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
       return "dm_stalker_doing_nothing_" + tostring(math.random(1, 3)); // -- object:character_community()
     }
 
-    const targetSquadObject: Optional<TSimulationObject> = registry.simulator.object(squadTargetId!);
+    const targetSquadObject: Nillable<TSimulationObject> = registry.simulator.object(squadTargetId!);
 
     if (targetSquadObject === null) {
       abort("Simulation target not existing '%s', action_name '%s'.", squadTargetId, squad.currentAction.type);
@@ -356,7 +355,7 @@ export class TravelManager extends AbstractManager {
     prevPhraseId: TStringId,
     phraseId: TStringId
   ): boolean {
-    const terrainName: Optional<TName> = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(phraseId);
+    const terrainName: Nillable<TName> = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(phraseId);
 
     if (terrainName === null) {
       abort("Error in travel manager, not available smart name: '%s'.", tostring(phraseId));
@@ -461,7 +460,7 @@ export class TravelManager extends AbstractManager {
         }
       }
 
-      const currentSmartId: Optional<TNumberId> = this.travelSquad!.assignedTerrainId;
+      const currentSmartId: Nillable<TNumberId> = this.travelSquad!.assignedTerrainId;
 
       if (currentSmartId !== null) {
         logger.info("Leave smart on traveling: '%s' from '%s'", this.travelSquad!.name(), currentSmartId);
@@ -533,7 +532,7 @@ export class TravelManager extends AbstractManager {
   ): void {
     const travelPhraseId: TStringId = string.sub(phraseId, 1, string.len(phraseId) - 3);
     const terrainName: TName = travelConfig.TRAVEL_DESCRIPTORS_BY_PHRASE.get(travelPhraseId);
-    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName)!;
+    const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainName)!;
     const squad: Squad = getObjectSquad(object) as Squad;
 
     logger.info("Actor travel with squad: '%s' -> '%s'", squad.name(), terrainName);
@@ -584,7 +583,7 @@ export class TravelManager extends AbstractManager {
     createGameAutoSave("st_save_uni_travel_generic");
 
     const squad: Squad = getObjectSquad(object)!;
-    const squadTargetId: Optional<TNumberId> = squad.assignedTargetId;
+    const squadTargetId: Nillable<TNumberId> = squad.assignedTargetId;
     const terrain: SmartTerrain = registry.simulator.object<SmartTerrain>(squadTargetId!)!;
 
     object.stop_talk();

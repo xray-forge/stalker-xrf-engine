@@ -1,5 +1,5 @@
 import { TConditionList } from "@/engine/core/utils/ini";
-import { IniFile, Optional, TPath, TRate, TSection, TTimestamp } from "@/engine/lib/types";
+import { IniFile, Nillable, TPath, TRate, TSection, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Descriptor of current trading state of game objects.
@@ -16,8 +16,8 @@ export interface ITradeManagerDescriptor {
   updateAt: TTimestamp;
   resupplyAt: TTimestamp;
   // Currently used buy condition.
-  currentBuyCondition: Optional<TSection>;
-  currentSellCondition: Optional<TSection>;
+  currentBuyCondition: Nillable<TSection>;
+  currentSellCondition: Nillable<TSection>;
   currentBuyItemConditionFactor: TRate;
-  currentBuySupplies: Optional<TSection>;
+  currentBuySupplies: Nillable<TSection>;
 }

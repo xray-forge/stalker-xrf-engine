@@ -25,7 +25,7 @@ import {
   LuaArray,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   SoundObject,
   TCount,
   TDuration,
@@ -93,10 +93,10 @@ export class NpcSound extends AbstractPlayableSound {
   public readonly message: string;
 
   public canPlayGroupSound: boolean = true;
-  public pdaSoundObject: Optional<SoundObject> = null;
-  public playedSoundIndex: Optional<TIndex> = null;
-  public playingStartedAt: Optional<TTimestamp> = null;
-  public idleTime: Optional<TDuration> = null;
+  public pdaSoundObject: Nillable<SoundObject> = null;
+  public playedSoundIndex: Nillable<TIndex> = null;
+  public playingStartedAt: Nillable<TTimestamp> = null;
+  public idleTime: Nillable<TDuration> = null;
 
   public readonly minIdle: TDuration;
   public readonly maxIdle: TDuration;
@@ -138,7 +138,7 @@ export class NpcSound extends AbstractPlayableSound {
    * @param objectId - Identifier of the object to reset the sound state for.
    */
   public override reset(objectId: TNumberId): void {
-    const object: Optional<GameObject> = registry.objects.get(objectId)?.object as Optional<GameObject>;
+    const object: Nillable<GameObject> = registry.objects.get(objectId)?.object as Nillable<GameObject>;
 
     this.playingStartedAt = null;
     this.playedSoundIndex = null;
@@ -163,7 +163,7 @@ export class NpcSound extends AbstractPlayableSound {
    * @returns Whether the object has an active sound or a playing PDA sound.
    */
   public override isPlaying(objectId: TNumberId): boolean {
-    const object: Optional<GameObject> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
+    const object: Nillable<GameObject> = registry.objects.get(objectId) && registry.objects.get(objectId).object!;
 
     if (object === null) {
       return false;
@@ -181,10 +181,10 @@ export class NpcSound extends AbstractPlayableSound {
    * @param message - Message label associated with the sound.
    * @returns Whether a sound started playing.
    */
-  public play(objectId: TNumberId, faction: string, point: Optional<string>, message: TLabel): boolean {
-    const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
+  public play(objectId: TNumberId, faction: string, point: Nillable<string>, message: TLabel): boolean {
+    const object: Nillable<GameObject> = registry.objects.get(objectId)?.object;
 
-    if (object === null) {
+    if (!object) {
       return false;
     }
 
@@ -199,7 +199,7 @@ export class NpcSound extends AbstractPlayableSound {
     }
 
     // Wait for previous sound finish
-    if (this.playingStartedAt !== null && time_global() - this.playingStartedAt < this.idleTime!) {
+    if ($isNotNil(this.playingStartedAt) && time_global() - this.playingStartedAt < this.idleTime!) {
       return false;
     }
 
@@ -207,9 +207,9 @@ export class NpcSound extends AbstractPlayableSound {
 
     this.playingStartedAt = null;
 
-    const objectDescriptor: Optional<INpcSoundDescriptor> = this.objects.get(objectId);
+    const objectDescriptor: Nillable<INpcSoundDescriptor> = this.objects.get(objectId);
 
-    if (objectDescriptor === null) {
+    if (!objectDescriptor) {
       return false;
     }
 
@@ -227,10 +227,10 @@ export class NpcSound extends AbstractPlayableSound {
 
     if (
       soundPath &&
-      fs.exist(roots.gameSounds, soundPath + "_pda.ogg") !== null &&
+      fs.exist(roots.gameSounds, soundPath + "_pda.ogg") &&
       object.position().distance_to_sqr(registry.actor.position()) >= 100
     ) {
-      if (this.pdaSoundObject !== null && this.pdaSoundObject.playing()) {
+      if (this.pdaSoundObject && this.pdaSoundObject.playing()) {
         this.pdaSoundObject.stop();
       }
 
@@ -289,7 +289,7 @@ export class NpcSound extends AbstractPlayableSound {
    * @param objectId - Identifier of the object to stop the sound for.
    */
   public override stop(objectId: TNumberId): void {
-    const object: Optional<GameObject> = registry.objects.get(objectId)?.object;
+    const object: Nillable<GameObject> = registry.objects.get(objectId)?.object;
 
     if (object && object.alive()) {
       object.set_sound_mask(-1);
@@ -328,13 +328,13 @@ export class NpcSound extends AbstractPlayableSound {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (state.activeScheme === null) {
+    if ($isNil(state.activeScheme)) {
       return;
     }
 
-    const signals: Optional<LuaTable<TName, boolean>> = state[state.activeScheme]!.signals;
+    const signals: Nillable<LuaTable<TName, boolean>> = state[state.activeScheme]!.signals;
 
-    if (signals === null || this.objects.get(objectId) === null) {
+    if (!signals || !this.objects.get(objectId)) {
       return;
     }
 
@@ -477,7 +477,7 @@ export class NpcSound extends AbstractPlayableSound {
    * @returns Index of the next sound to play, or -1 when the sequence is exhausted.
    */
   public selectNextSound(objectId: TNumberId): TNumberId {
-    const objectDescriptor: Optional<INpcSoundDescriptor> = this.objects.get(objectId);
+    const objectDescriptor: Nillable<INpcSoundDescriptor> = this.objects.get(objectId);
 
     // Play random
     if (this.shuffle === ESoundPlaylistType.RANDOM) {
@@ -500,7 +500,7 @@ export class NpcSound extends AbstractPlayableSound {
     if (this.shuffle === ESoundPlaylistType.SEQUENCE) {
       if (this.playedSoundIndex === -1) {
         return -1;
-      } else if (this.playedSoundIndex === null) {
+      } else if ($isNil(this.playedSoundIndex)) {
         return 0;
       } else if (this.playedSoundIndex < objectDescriptor.max) {
         return this.playedSoundIndex + 1;
@@ -511,7 +511,7 @@ export class NpcSound extends AbstractPlayableSound {
 
     // Play in loop.
     if (this.shuffle === ESoundPlaylistType.LOOP) {
-      if (this.playedSoundIndex === null) {
+      if ($isNil(this.playedSoundIndex)) {
         return 0;
       } else if (this.playedSoundIndex < objectDescriptor.max) {
         return this.playedSoundIndex + 1;

@@ -3,7 +3,7 @@ import { sound_object, time_global } from "xray16";
 import { registry } from "@/engine/core/database/registry";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, SoundObject, TPath, TRate, TStringId, TTimestamp } from "@/engine/lib/types";
+import { Nillable, SoundObject, TPath, TRate, TStringId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -11,9 +11,9 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Stereo sound script object representation.
  */
 export class StereoSound {
-  public soundObject: Optional<SoundObject> = null;
-  public soundPath: Optional<TPath> = null;
-  public soundEndTime: Optional<TTimestamp> = null;
+  public soundObject: Nillable<SoundObject> = null;
+  public soundPath: Nillable<TPath> = null;
+  public soundEndTime: Nillable<TTimestamp> = null;
 
   /**
    * Initialize object instance.
@@ -61,7 +61,7 @@ export class StereoSound {
   /**
    * Play stereo sound at specified time.
    */
-  public playAtTime(time: TTimestamp, sound: TStringId, volume: Optional<TRate>): TTimestamp {
+  public playAtTime(time: TTimestamp, sound: TStringId, volume: Nillable<TRate>): TTimestamp {
     logger.info("Play stereo sound at time: %s %s %s", sound, time, volume);
 
     this.soundEndTime = null;
@@ -71,7 +71,7 @@ export class StereoSound {
       this.setVolume(volume);
     }
 
-    const nextSound: Optional<sound_object> = new sound_object(sound);
+    const nextSound: Nillable<sound_object> = new sound_object(sound);
 
     assert(nextSound, "StereoSound: cannot open sound file '%s'.", sound);
 

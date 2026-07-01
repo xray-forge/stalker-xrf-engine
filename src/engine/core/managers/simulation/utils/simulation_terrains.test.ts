@@ -18,7 +18,7 @@ import {
 } from "@/engine/core/managers/simulation/utils/simulation_terrains";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { LuaArray, Optional, TNumberId } from "@/engine/lib/types";
+import { LuaArray, Nillable, TNumberId } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("registerTerrain / unregisterTerrain util", () => {
@@ -43,7 +43,7 @@ describe("registerTerrain / unregisterTerrain util", () => {
     expect(getSimulationTerrains().length()).toBe(1);
     expect(getSimulationTerrainDescriptors().length()).toBe(1);
 
-    const descriptor: Optional<ISmartTerrainDescriptor> = getSimulationTerrainDescriptorById(terrain.id);
+    const descriptor: Nillable<ISmartTerrainDescriptor> = getSimulationTerrainDescriptorById(terrain.id);
 
     expect(descriptor?.assignedSquads).toEqualLuaTables({});
     expect(descriptor?.assignedSquadsCount).toBe(0);

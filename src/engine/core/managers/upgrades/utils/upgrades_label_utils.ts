@@ -5,7 +5,7 @@ import { ITEM_UPGRADES } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { getRepairPrice, getUpgradeCost } from "@/engine/core/managers/upgrades/utils/upgrades_price_utils";
 import { parseStringsList, readIniBoolean } from "@/engine/core/utils/ini";
 import { gameConfig } from "@/engine/lib/configs/GameConfig";
-import { LuaArray, Optional, TCount, TLabel, TName, TRate, TSection } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TLabel, TName, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * @param section - Item section to get upgrade cost.
@@ -67,7 +67,7 @@ export function getRepairItemAskReplicLabel(
 export function issueUpgradeProperty(data: string, upgrade: TName): TLabel {
   const propertyName: TLabel = game.translate_string(ITEM_UPGRADES.r_string(upgrade, "name"));
   const values: LuaArray<string> = parseStringsList(data);
-  const section: Optional<TSection> = values.get(1);
+  const section: Nillable<TSection> = values.get(1);
 
   if (section && ITEM_UPGRADES.line_exist(section, "value") && ITEM_UPGRADES.r_string(section, "value")) {
     return string.format("%s %s", propertyName, string.sub(ITEM_UPGRADES.r_string(section, "value"), 2, -2));

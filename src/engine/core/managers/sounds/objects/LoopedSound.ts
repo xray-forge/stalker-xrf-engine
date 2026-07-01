@@ -5,7 +5,7 @@ import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/Abs
 import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { roots } from "@/engine/lib/constants/roots";
-import { GameObject, IniFile, Optional, TNumberId, TSection, TSoundObjectType } from "@/engine/lib/types";
+import { GameObject, IniFile, Nillable, TNumberId, TSection, TSoundObjectType } from "@/engine/lib/types";
 
 /**
  * Playable sound that loops continuously at the position of a game object.
@@ -32,7 +32,7 @@ export class LoopedSound extends AbstractPlayableSound {
    * @returns Whether the looped sound started playing successfully.
    */
   public play(objectId: TNumberId): boolean {
-    const object: Optional<GameObject> = registry.objects.get(objectId).object!;
+    const object: Nillable<GameObject> = registry.objects.get(objectId).object!;
 
     if (object === null) {
       return false;

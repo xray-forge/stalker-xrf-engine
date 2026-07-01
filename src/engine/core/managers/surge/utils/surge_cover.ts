@@ -11,7 +11,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, LuaArray, Optional, TDistance } from "@/engine/lib/types";
+import { GameObject, LuaArray, Nillable, TDistance } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -33,10 +33,10 @@ export function canSurgeKillSquad(squad: Squad): boolean {
     return false;
   }
 
-  const terrain: Optional<SmartTerrain> = getSimulationTerrainDescriptorById(squad.assignedTerrainId)
-    ?.terrain as Optional<SmartTerrain>;
+  const terrain: Nillable<SmartTerrain> = getSimulationTerrainDescriptorById(squad.assignedTerrainId)
+    ?.terrain as Nillable<SmartTerrain>;
 
-  return terrain !== null && tonumber(terrain.simulationProperties.get(ESimulationTerrainRole.SURGE))! <= 0;
+  return $isNotNil(terrain) && tonumber(terrain.simulationProperties.get(ESimulationTerrainRole.SURGE))! <= 0;
 }
 
 /**
@@ -74,9 +74,9 @@ export function getOnlineSurgeCoversList(): LuaArray<GameObject> {
   const covers: LuaArray<GameObject> = new LuaTable();
 
   for (const [, descriptor] of surgeConfig.SURGE_COVERS) {
-    const object: Optional<GameObject> = registry.zones.get(descriptor.name);
+    const object: Nillable<GameObject> = registry.zones.get(descriptor.name);
 
-    if (object !== null) {
+    if ($isNotNil(object)) {
       table.insert(covers, object);
     }
   }
@@ -90,8 +90,8 @@ export function getOnlineSurgeCoversList(): LuaArray<GameObject> {
  * @param object - Game object to search the nearest available surge cover for.
  * @returns Nearest available surge cover game object, or null if none is available.
  */
-export function getNearestAvailableSurgeCover(object: GameObject): Optional<GameObject> {
-  let nearestCover: Optional<GameObject> = null;
+export function getNearestAvailableSurgeCover(object: GameObject): Nillable<GameObject> {
+  let nearestCover: Nillable<GameObject> = null;
   let nearestCoverDistance: TDistance = MAX_U32;
 
   /**
@@ -101,12 +101,11 @@ export function getNearestAvailableSurgeCover(object: GameObject): Optional<Game
    * - Blocked by different conditions.
    */
   for (const [, descriptor] of surgeConfig.SURGE_COVERS) {
-    const zone: Optional<GameObject> = registry.zones.get(descriptor.name);
+    const zone: Nillable<GameObject> = registry.zones.get(descriptor.name);
 
-    if (zone !== null) {
+    if ($isNotNil(zone)) {
       const isValidCover: boolean =
-        descriptor.conditionList === null ||
-        pickSectionFromCondList(registry.actor, object, descriptor.conditionList) === TRUE;
+        !descriptor.conditionList || pickSectionFromCondList(registry.actor, object, descriptor.conditionList) === TRUE;
 
       // If already somehow inside cover, mark as nearest and active.
       if (zone.inside(object.position())) {
@@ -133,11 +132,11 @@ export function getNearestAvailableSurgeCover(object: GameObject): Optional<Game
  *
  * @returns Nearest cover ID if it exists or null if none found / actor in one currently.
  */
-export function getActorTargetSurgeCover(): Optional<GameObject> {
-  const coverObject: Optional<GameObject> = getNearestAvailableSurgeCover(registry.actor);
+export function getActorTargetSurgeCover(): Nillable<GameObject> {
+  const coverObject: Nillable<GameObject> = getNearestAvailableSurgeCover(registry.actor);
 
   // No covers or already in cover -> nothing to do.
-  if (coverObject === null || coverObject.inside(registry.actor.position())) {
+  if (!coverObject || coverObject.inside(registry.actor.position())) {
     return null;
   } else {
     return coverObject;

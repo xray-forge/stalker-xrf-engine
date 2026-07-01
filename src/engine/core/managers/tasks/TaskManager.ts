@@ -14,7 +14,7 @@ import {
   GameTask,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   TCount,
   TStringId,
   TTaskState,
@@ -139,7 +139,7 @@ export class TaskManager extends AbstractManager {
     }
 
     if (state === task.fail || state === task.completed) {
-      const activeTask: Optional<TaskObject> = taskConfig.ACTIVE_TASKS.get(taskId) as Optional<TaskObject>;
+      const activeTask: Nillable<TaskObject> = taskConfig.ACTIVE_TASKS.get(taskId) as Nillable<TaskObject>;
 
       if (activeTask) {
         activeTask.onDeactivate(taskObject);

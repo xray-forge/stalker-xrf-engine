@@ -20,7 +20,7 @@ import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, Hit, LuaArray, Optional } from "@/engine/lib/types";
+import { GameObject, Hit, LuaArray, Nillable } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -50,7 +50,7 @@ export function killAllSurgeUnhiddenAfterActorDeath(): void {
             squad.name()
           );
 
-          const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
+          const object: Nillable<GameObject> = registry.objects.get(member.object.id)?.object;
 
           // todo: What is the difference here?
           if (object === null) {
@@ -82,7 +82,7 @@ export function killAllSurgeUnhidden(): void {
   logger.info("Kill crows");
 
   for (const [, id] of registry.crows.storage) {
-    const object: Optional<GameObject> = registry.objects.get(id)?.object;
+    const object: Nillable<GameObject> = registry.objects.get(id)?.object;
 
     if (object.alive()) {
       object.hit(surgeHit);
@@ -101,7 +101,7 @@ export function killAllSurgeUnhidden(): void {
           if (canSurgeKillSquad(squad)) {
             logger.info("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
 
-            const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
+            const object: Nillable<GameObject> = registry.objects.get(member.object.id)?.object;
 
             if (object === null) {
               member.object.kill();
@@ -122,7 +122,7 @@ export function killAllSurgeUnhidden(): void {
             if (release) {
               logger.info("Releasing object from squad because of surge: %s %s", member.object.name(), squad.name());
 
-              const object: Optional<GameObject> = registry.objects.get(member.object.id)?.object;
+              const object: Nillable<GameObject> = registry.objects.get(member.object.id)?.object;
 
               if (object !== null) {
                 object.kill(object);
@@ -137,7 +137,7 @@ export function killAllSurgeUnhidden(): void {
   }
 
   if (actor.alive()) {
-    const surgeCoverObject: Optional<GameObject> = getNearestAvailableSurgeCover(actor);
+    const surgeCoverObject: Nillable<GameObject> = getNearestAvailableSurgeCover(actor);
 
     if (!surgeCoverObject?.inside(actor.position())) {
       if (hasInfoPortion(infoPortions.anabiotic_in_process)) {
