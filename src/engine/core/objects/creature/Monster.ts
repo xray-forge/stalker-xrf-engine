@@ -14,7 +14,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { IniFile, NetPacket, Nillable, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
+import { IniFile, NetPacket, Nillable, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Server object representation of any monster.
@@ -45,7 +45,7 @@ export class Monster extends cse_alife_monster_base {
 
     this.brain().can_choose_alife_tasks(false);
 
-    const terrainName: Optional<TName> = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain");
+    const terrainName: Nillable<TName> = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain");
     const terrain: Nillable<SmartTerrain> = terrainName ? getSimulationTerrainByName(terrainName) : null;
 
     if (terrain) {
@@ -59,7 +59,7 @@ export class Monster extends cse_alife_monster_base {
     EventsManager.emitEvent(EGameEvent.MONSTER_UNREGISTER, this);
 
     const terrainId: TNumberId = this.smart_terrain_id();
-    const terrain: Optional<SmartTerrain> = terrainId === MAX_ALIFE_ID ? null : registry.simulator.object(terrainId);
+    const terrain: Nillable<SmartTerrain> = terrainId === MAX_ALIFE_ID ? null : registry.simulator.object(terrainId);
 
     if (terrain) {
       terrain.unregister_npc(this);

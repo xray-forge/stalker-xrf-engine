@@ -11,7 +11,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
 import { resetTable } from "@/engine/core/utils/table";
 import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray, NetPacket, Optional, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
+import { LuaArray, NetPacket, Nillable, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
 
 /**
  * Server representation of smart cover game object.
@@ -101,7 +101,7 @@ export class SmartCover extends cse_smart_cover {
     // todo: Handle `nil` values with string casting.
     this.lastDescription = packet.r_stringZ();
 
-    const smartCoverDescription: Optional<string> =
+    const smartCoverDescription: Nillable<string> =
       this.lastDescription !== "" ? this.lastDescription : this.description();
     const existingLoopholes: LuaTable<TStringId, boolean> = new LuaTable();
 

@@ -16,7 +16,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { IniFile, NetPacket, Nillable, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
+import { IniFile, NetPacket, Nillable, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -71,7 +71,7 @@ export class Stalker extends cse_alife_human_stalker {
     EventsManager.emitEvent(EGameEvent.STALKER_UNREGISTER, this);
 
     const terrainId: TNumberId = this.smart_terrain_id();
-    const terrain: Optional<SmartTerrain> = terrainId === MAX_ALIFE_ID ? null : registry.simulator.object(terrainId);
+    const terrain: Nillable<SmartTerrain> = terrainId === MAX_ALIFE_ID ? null : registry.simulator.object(terrainId);
 
     if (terrain) {
       terrain.unregister_npc(this);
@@ -92,7 +92,7 @@ export class Stalker extends cse_alife_human_stalker {
     const terrainId: TNumberId = this.smart_terrain_id();
 
     if (terrainId !== MAX_ALIFE_ID) {
-      const terrain: Optional<SmartTerrain> = registry.simulator.object(terrainId);
+      const terrain: Nillable<SmartTerrain> = registry.simulator.object(terrainId);
 
       assert(terrain, "Smart terrain with ID '%s' not found.", this.group_id);
 
@@ -101,7 +101,7 @@ export class Stalker extends cse_alife_human_stalker {
 
     // Notify assigned squad about abject death.
     if (this.group_id !== MAX_ALIFE_ID) {
-      const squad: Optional<Squad> = registry.simulator.object(this.group_id);
+      const squad: Nillable<Squad> = registry.simulator.object(this.group_id);
 
       assert(squad, "Squad with ID '%s' not found.", this.group_id);
 
@@ -130,7 +130,7 @@ export class Stalker extends cse_alife_human_stalker {
     super.STATE_Read(packet, size);
 
     const offlineObject: IRegistryOfflineState = registerOfflineObject(this.id);
-    const oldVertexId: Optional<TNumberId> = parseNumberOptional(packet.r_stringZ());
+    const oldVertexId: Nillable<TNumberId> = parseNumberOptional(packet.r_stringZ());
 
     offlineObject.activeSection = parseStringOptional(packet.r_stringZ());
     offlineObject.levelVertexId = oldVertexId ? oldVertexId : offlineObject.levelVertexId;

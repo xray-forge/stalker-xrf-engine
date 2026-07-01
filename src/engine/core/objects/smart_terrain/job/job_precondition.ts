@@ -7,7 +7,7 @@ import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { FALSE } from "@/engine/lib/constants/words";
-import { AnyObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
+import { AnyObject, Nillable, ServerCreatureObject } from "@/engine/lib/types";
 
 /**
  * Check if animpoint job is available.
@@ -43,7 +43,7 @@ export function jobPreconditionCollector(
     return false;
   }
 
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id);
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id);
 
   if (state === null || state.object === null) {
     return false;
@@ -191,7 +191,7 @@ export function jobPreconditionExclusive(
   terrain: SmartTerrain,
   parameters: AnyObject
 ): boolean {
-  const result: Optional<string> = pickSectionFromCondList(registry.actor, object, parameters.condlist);
+  const result: Nillable<string> = pickSectionFromCondList(registry.actor, object, parameters.condlist);
 
   return result !== FALSE && result !== null;
 }

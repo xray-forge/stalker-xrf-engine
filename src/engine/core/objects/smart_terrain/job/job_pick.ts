@@ -5,7 +5,7 @@ import {
   ISmartTerrainJobDescriptor,
   TSmartTerrainJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Select smart terrain job for an object.
@@ -19,7 +19,7 @@ export function selectTerrainJob(
   terrain: SmartTerrain,
   jobs: TSmartTerrainJobsList,
   objectJobDescriptor: IObjectJobState
-): LuaMultiReturn<[Optional<TNumberId>, Optional<ISmartTerrainJobDescriptor>]> {
+): LuaMultiReturn<[Nillable<TNumberId>, Nillable<ISmartTerrainJobDescriptor>]> {
   for (const [, it] of jobs) {
     // Verify if job is accessible by object and meets conditions.
     if (isJobAvailableToObject(objectJobDescriptor, it, terrain)) {
@@ -41,8 +41,8 @@ export function selectTerrainJob(
 export function getTerrainJobByObjectId(
   terrain: SmartTerrain,
   objectId: TNumberId
-): Optional<ISmartTerrainJobDescriptor> {
-  const descriptor: Optional<IObjectJobState> = terrain.objectJobDescriptors.get(objectId);
+): Nillable<ISmartTerrainJobDescriptor> {
+  const descriptor: Nillable<IObjectJobState> = terrain.objectJobDescriptors.get(objectId);
 
   return descriptor && terrain.jobs.get(descriptor.jobId);
 }

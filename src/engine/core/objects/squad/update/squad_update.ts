@@ -5,7 +5,7 @@ import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { isSquadAction } from "@/engine/core/utils/squad";
-import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
+import { GameObject, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param object - Game object in squad to update actions for.
@@ -13,9 +13,9 @@ import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
  */
 export function updateMonsterSquadAction(object: GameObject, squad: Squad): void {
   if (isSquadAction(squad, ESquadActionType.REACH_TARGET)) {
-    const target: Optional<TSimulationObject> = registry.simulationObjects.get(
+    const target: Nillable<TSimulationObject> = registry.simulationObjects.get(
       squad.assignedTargetId as TNumberId
-    ) as Optional<TSimulationObject>;
+    ) as Nillable<TSimulationObject>;
 
     if (target) {
       const commanderId: TNumberId = squad.commander_id();

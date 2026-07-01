@@ -1,9 +1,9 @@
 import { registry } from "@/engine/core/database";
-import type { TSimulationObject } from "@/engine/core/managers/simulation/types";
+import { type TSimulationObject } from "@/engine/core/managers/simulation/types";
 import { setupSimulationObjectSquadAndGroup } from "@/engine/core/managers/simulation/utils/simulation_squads";
-import type { Squad } from "@/engine/core/objects/squad/Squad";
+import { type Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Implement movement to target action.
@@ -24,7 +24,7 @@ export class SquadReachTargetAction implements ISquadAction {
    * @param isUnderSimulation - Whether squad initializing new action is under simulation.
    */
   public initialize(isUnderSimulation: boolean): void {
-    const target: Optional<TSimulationObject> = isUnderSimulation
+    const target: Nillable<TSimulationObject> = isUnderSimulation
       ? registry.simulationObjects.get(this.squad.assignedTargetId!)
       : registry.simulator.object(this.squad.assignedTargetId!);
 
@@ -49,7 +49,7 @@ export class SquadReachTargetAction implements ISquadAction {
    * @returns Whether task is finished.
    */
   public update(isUnderSimulation: boolean): boolean {
-    const target: Optional<TSimulationObject> = isUnderSimulation
+    const target: Nillable<TSimulationObject> = isUnderSimulation
       ? registry.simulationObjects.get(this.squad.assignedTargetId as TNumberId)
       : registry.simulator.object(this.squad.assignedTargetId as TNumberId);
 

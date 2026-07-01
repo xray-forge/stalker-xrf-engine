@@ -187,7 +187,7 @@ export function releaseSimulationSquad(squad: Squad): void {
   for (const [id] of squadMembers) {
     const object: Nillable<ServerObject> = registry.simulator.object(id);
 
-    if (object !== null) {
+    if (object) {
       squad.unregister_member(id);
       registry.simulator.release(object, true);
     }
@@ -223,9 +223,9 @@ export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject)
 
   let terrain: Nillable<SmartTerrain> = null;
 
-  if (squad.currentAction !== null && squad.currentAction.type === ESquadActionType.REACH_TARGET) {
+  if (squad.currentAction && squad.currentAction.type === ESquadActionType.REACH_TARGET) {
     terrain = registry.simulator.object<SmartTerrain>(squad.assignedTargetId!);
-  } else if (squad.assignedTerrainId !== null) {
+  } else if ($isNotNil(squad.assignedTerrainId)) {
     terrain = registry.simulator.object<SmartTerrain>(squad.assignedTerrainId);
   }
 

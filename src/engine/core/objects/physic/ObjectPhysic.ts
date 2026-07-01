@@ -3,7 +3,7 @@ import { cse_alife_object_physic, LuabindClass } from "xray16";
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import { Optional } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Generic physic object representation on server side.
@@ -17,7 +17,7 @@ import { Optional } from "@/engine/lib/types";
  */
 @LuabindClass()
 export class ObjectPhysic extends cse_alife_object_physic {
-  public isSecretItem: Optional<boolean> = false;
+  public isSecretItem: Nillable<boolean> = false;
 
   public override on_register(): void {
     super.on_register();

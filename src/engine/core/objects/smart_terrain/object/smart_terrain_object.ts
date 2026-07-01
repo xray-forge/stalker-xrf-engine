@@ -1,11 +1,11 @@
 import { CGameGraph, game_graph } from "xray16";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import type { TSimulationObject } from "@/engine/core/managers/simulation";
+import { type TSimulationObject } from "@/engine/core/managers/simulation";
 import { getSimulationSquads } from "@/engine/core/managers/simulation/utils";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { type SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
-import { GameGraphVertex, GameObject, Optional, ServerCreatureObject, Vector } from "@/engine/lib/types";
+import { GameGraphVertex, GameObject, Nillable, ServerCreatureObject, Vector } from "@/engine/lib/types";
 
 /**
  * @param object - Server object to check.
@@ -15,21 +15,21 @@ import { GameGraphVertex, GameObject, Optional, ServerCreatureObject, Vector } f
 export function isObjectArrivedToTerrain(object: ServerCreatureObject, terrain: SmartTerrain): boolean {
   // Do squad based checks for object if possible.
   // todo: Check max u16 instead?
-  const squad: Optional<Squad> = object.group_id === null ? null : getSimulationSquads().get(object.group_id);
+  const squad: Nillable<Squad> = $isNil(object.group_id) ? null : getSimulationSquads().get(object.group_id);
 
   if (squad) {
-    const isSquadArrived: Optional<boolean> = isSquadArrivedToTerrain(squad);
+    const isSquadArrived: Nillable<boolean> = isSquadArrivedToTerrain(squad);
 
     // When sure about squad status, return it.
     // Check object otherwise.
-    if (isSquadArrived !== null) {
+    if ($isNotNil(isSquadArrived)) {
       return isSquadArrived;
     }
   }
 
   const graph: CGameGraph = game_graph();
   const smartTerrainGameVertex: GameGraphVertex = graph.vertex(terrain.m_game_vertex_id);
-  const state: Optional<IRegistryObjectState> = registry.objects.get(object.id) as Optional<IRegistryObjectState>;
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id) as Nillable<IRegistryObjectState>;
 
   let objectGameVertex: GameGraphVertex;
   let objectPosition: Vector;
@@ -55,7 +55,7 @@ export function isObjectArrivedToTerrain(object: ServerCreatureObject, terrain: 
  * @param squad - Squad object to check.
  * @returns Whether object has arrived to the smart terrain.
  */
-export function isSquadArrivedToTerrain(squad: Squad): Optional<boolean> {
+export function isSquadArrivedToTerrain(squad: Squad): Nillable<boolean> {
   switch (squad.currentAction?.type) {
     case ESquadActionType.REACH_TARGET: {
       const squadTarget: TSimulationObject =

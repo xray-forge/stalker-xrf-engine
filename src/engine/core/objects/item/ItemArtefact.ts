@@ -8,7 +8,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
-import { Optional, ServerActorObject } from "@/engine/lib/types";
+import { Nillable, ServerActorObject } from "@/engine/lib/types";
 
 /**
  * Artefact item representation.
@@ -38,7 +38,7 @@ export class ItemArtefact extends cse_alife_item_artefact {
   }
 
   public override can_switch_offline(): boolean {
-    const actor: Optional<ServerActorObject> = registry.actorServer;
+    const actor: Nillable<ServerActorObject> = registry.actorServer;
 
     if (actor && actor.position.distance_to_sqr(this.position) <= alifeConfig.SWITCH_DISTANCE_SQR) {
       return false;

@@ -5,7 +5,7 @@ import { getManager } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
 import { achievementRewardsConfig } from "@/engine/extensions/achievements_rewards/AchievementRewardsConfig";
 import { load, register, save } from "@/engine/extensions/achievements_rewards/main";
-import { AnyObject, Optional } from "@/engine/lib/types";
+import { AnyObject, Nillable } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockCTime } from "@/fixtures/xray";
 
@@ -55,8 +55,8 @@ describe("achievement rewards extension", () => {
       lastMutantAchievementSpawnAt: "[2016,6,3,12,20,30,500]",
     });
 
-    achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = null as Optional<CTime>;
-    achievementRewardsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = null as Optional<CTime>;
+    achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = null as Nillable<CTime>;
+    achievementRewardsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = null as Nillable<CTime>;
 
     load(data);
 

@@ -23,7 +23,7 @@ import {
   IniFile,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   Time,
   TName,
   TSection,
@@ -41,7 +41,7 @@ export class SmartTerrainControl {
   public noWeaponZone: TName;
   public ignoreZone: TName;
 
-  public alarmStartedAt: Optional<Time> = null;
+  public alarmStartedAt: Nillable<Time> = null;
   public alarmStartSoundConditionList: TConditionList;
   public alarmStopSoundConditionList: TConditionList;
 
@@ -64,7 +64,7 @@ export class SmartTerrainControl {
         return;
       }
 
-      const sound: Optional<TName> = pickSectionFromCondList(
+      const sound: Nillable<TName> = pickSectionFromCondList(
         registry.actor,
         this.terrain,
         this.alarmStopSoundConditionList
@@ -126,7 +126,7 @@ export class SmartTerrainControl {
    */
   public onActorAttackSmartTerrain(): void {
     if (this.status !== ESmartTerrainStatus.ALARM) {
-      const sound: Optional<TStringId> = pickSectionFromCondList(
+      const sound: Nillable<TStringId> = pickSectionFromCondList(
         registry.actor,
         this.terrain,
         this.alarmStartSoundConditionList

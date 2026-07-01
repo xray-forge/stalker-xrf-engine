@@ -19,7 +19,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
-import { EScheme, IniFile, Optional, TCount, TIndex, TPath, TRate, TSection } from "@/engine/lib/types";
+import { EScheme, IniFile, Nillable, TCount, TIndex, TPath, TRate, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
 
@@ -77,7 +77,7 @@ export function createExclusiveJob(
 ): TSmartTerrainJobsList {
   logger.info("Add exclusive job: '%s' - '%s'", section, field);
 
-  const workScriptPath: Optional<TPath> = readIniString(ini, section, field, false);
+  const workScriptPath: Nillable<TPath> = readIniString(ini, section, field, false);
 
   // Field with work path does not exist, nothing to load.
   if (workScriptPath === null) {
@@ -88,22 +88,22 @@ export function createExclusiveJob(
 
   assert(getFS().exist(roots.gameConfig, iniPath), "There is no job configuration file '%s'.", iniPath);
 
-  const jobIniFile: Optional<IniFile> = new ini_file(iniPath);
-  const jobOnline: Optional<string> = readIniString(jobIniFile, "logic@" + field, "job_online", false);
+  const jobIniFile: Nillable<IniFile> = new ini_file(iniPath);
+  const jobOnline: Nillable<string> = readIniString(jobIniFile, "logic@" + field, "job_online", false);
   const jobPriority: TRate = readIniNumber(jobIniFile, "logic@" + field, "prior", false, 45);
-  const jobSuitableCondlist: Optional<string> = readIniString(jobIniFile, "logic@" + field, "suitable", false);
+  const jobSuitableCondlist: Nillable<string> = readIniString(jobIniFile, "logic@" + field, "suitable", false);
   const isMonster: boolean = readIniBoolean(jobIniFile, "logic@" + field, "monster_job", false, false);
   const activeSection: TSection = readIniString(jobIniFile, "logic@" + field, "active", false);
-  const scheme: Optional<EScheme> = getSchemeFromSection(activeSection) as EScheme;
+  const scheme: Nillable<EScheme> = getSchemeFromSection(activeSection) as EScheme;
 
-  let pathType: Optional<EJobPathType> = (JobPathTypeByScheme[scheme] as EJobPathType) || null;
+  let pathType: Nillable<EJobPathType> = (JobPathTypeByScheme[scheme] as EJobPathType) || null;
 
   if (scheme === EScheme.MOB_HOME && readIniBoolean(jobIniFile, activeSection, "gulag_point", false, false)) {
     pathType = EJobPathType.POINT;
   }
 
   // Add generic job placeholder if condlist is not defined, just combine ini parameters.
-  if (jobSuitableCondlist === null) {
+  if ($isNil(jobSuitableCondlist)) {
     table.insert(jobs, {
       type: EJobType.EXCLUSIVE,
       priority: jobPriority,

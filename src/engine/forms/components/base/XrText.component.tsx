@@ -3,11 +3,11 @@ import { JSXNode, JSXXML } from "jsx-xml";
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode, IRgbColor, Optional, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/lib/types";
+import { IBaseXmlNode, IRgbColor, Nullable, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/lib/types";
 
 export interface IXrTextProps extends IBaseXmlNode {
   tag?: string;
-  label?: Optional<string>;
+  label?: Nullable<string>;
   children?: string;
   complexMode?: boolean;
   color?: IRgbColor | string;

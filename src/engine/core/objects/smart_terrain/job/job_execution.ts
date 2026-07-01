@@ -9,7 +9,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
 import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, TNumberId, TSection } from "@/engine/lib/types";
+import { Nillable, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job_execution" });
 
@@ -69,7 +69,7 @@ export function switchTerrainObjectToDesiredJob(terrain: SmartTerrain, objectId:
   logger.info("Switch to desired job: %s %s", terrain.name(), objectId);
 
   const objectJobDescriptor: IObjectJobState = terrain.objectJobDescriptors.get(objectId);
-  const changingObjectId: Optional<TNumberId> = terrain.objectByJobSection.get(objectJobDescriptor.desiredJob);
+  const changingObjectId: Nillable<TNumberId> = terrain.objectByJobSection.get(objectJobDescriptor.desiredJob);
 
   // todo: What if desired job is NIL?
 
@@ -97,7 +97,7 @@ export function switchTerrainObjectToDesiredJob(terrain: SmartTerrain, objectId:
 
     terrain.objectByJobSection.set(terrain.jobs.get(selectedJob.id as TNumberId).section, selectedJob.objectId);
 
-    const state: Optional<IRegistryObjectState> = registry.objects.get(objectId) as Optional<IRegistryObjectState>;
+    const state: Nillable<IRegistryObjectState> = registry.objects.get(objectId) as Nillable<IRegistryObjectState>;
 
     if (state) {
       setupSmartTerrainObjectJobLogic(terrain, state.object!);
@@ -124,7 +124,7 @@ export function switchTerrainObjectToDesiredJob(terrain: SmartTerrain, objectId:
 export function selectTerrainObjectJob(
   terrain: SmartTerrain,
   objectJobDescriptor: IObjectJobState
-): LuaMultiReturn<[Optional<TNumberId>, Optional<ISmartTerrainJobDescriptor>]> {
+): LuaMultiReturn<[Nillable<TNumberId>, Nillable<ISmartTerrainJobDescriptor>]> {
   const [selectedJobId, selectedJob] = selectTerrainJob(terrain, terrain.jobs, objectJobDescriptor);
 
   if (selectedJobId === null) {
@@ -140,9 +140,9 @@ export function selectTerrainObjectJob(
     );
   }
 
-  const state: Optional<IRegistryObjectState> = registry.objects.get(
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(
     objectJobDescriptor.object.id
-  ) as Optional<IRegistryObjectState>;
+  ) as Nillable<IRegistryObjectState>;
 
   // Job changed and current job exists.
   if (selectedJob && selectedJobId !== objectJobDescriptor.jobId) {

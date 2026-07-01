@@ -3,11 +3,11 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { Optional, Time } from "@/engine/lib/types";
+import { Nillable, Time } from "@/engine/lib/types";
 
 export const achievementRewardsConfig = {
-  LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT: null as Optional<Time>,
-  LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT: null as Optional<Time>,
+  LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT: null as Nillable<Time>,
+  LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT: null as Nillable<Time>,
   ACHIEVEMENT_REWARD_SPAWN_PERIOD: 12 * 60 * 60,
   /**
    * For seeker require at least 22 unique artefacts to be found.

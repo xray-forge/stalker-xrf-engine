@@ -1,7 +1,7 @@
 import { level } from "xray16";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
-import type { Squad } from "@/engine/core/objects/squad";
+import { type Squad } from "@/engine/core/objects/squad";
 import { getSquadMapDisplayHint } from "@/engine/core/objects/squad/utils";
 import {
   ERelation,
@@ -18,9 +18,9 @@ import { Nillable, TLabel, TNumberId } from "@/engine/lib/types";
  * @param squad - Target squad server object.
  */
 export function updateSquadMapSpot(squad: Squad): void {
-  const commanderId: TNumberId = squad.commander_id();
+  const commanderId: Nillable<TNumberId> = squad.commander_id();
 
-  if (squad.isMapDisplayHidden || commanderId === null) {
+  if (squad.isMapDisplayHidden || $isNil(commanderId)) {
     return removeSquadMapSpot(squad);
   }
 
@@ -94,7 +94,7 @@ export function updateSquadMapSpot(squad: Squad): void {
       return level.map_change_spot_hint(squad.currentMapSpotId, spot, hint);
     }
 
-    if (squad.currentMapSpotSection === null || !hasMapSpot) {
+    if ($isNil(squad.currentMapSpotSection) || !hasMapSpot) {
       level.map_add_object_spot(squad.currentMapSpotId, spot, hint);
     } else {
       level.map_remove_object_spot(squad.currentMapSpotId, squad.currentMapSpotSection);
@@ -114,7 +114,7 @@ export function updateSquadMapSpot(squad: Squad): void {
  * @param squad - Target squad server object.
  */
 export function removeSquadMapSpot(squad: Squad): void {
-  if (squad.currentMapSpotId === null || squad.currentMapSpotSection === null) {
+  if ($isNil(squad.currentMapSpotId) || $isNil(squad.currentMapSpotSection)) {
     return;
   } else {
     level.map_remove_object_spot(squad.currentMapSpotId, squad.currentMapSpotSection);

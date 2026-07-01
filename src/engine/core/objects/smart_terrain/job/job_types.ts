@@ -6,7 +6,7 @@ import {
   ESchemeType,
   IniFile,
   LuaArray,
-  Optional,
+  Nillable,
   PartialRecord,
   ServerCreatureObject,
   TNumberId,
@@ -77,7 +77,7 @@ export interface IObjectJobState {
   desiredJob: TSection; // Section with needed job?
   jobPriority: TRate;
   jobId: TNumberId;
-  job: Optional<ISmartTerrainJobDescriptor>;
+  job: Nillable<ISmartTerrainJobDescriptor>;
   // Whether job is begun and logics for object schemes is set.
   isBegun: boolean;
   schemeType: ESchemeType;
@@ -89,19 +89,19 @@ export interface IObjectJobState {
 export interface ISmartTerrainJobDescriptor {
   iniPath?: TPath; // Used by exclusive jobs.
   iniFile?: IniFile; // Used by exclusive jobs.
-  isMonsterJob?: Optional<boolean>;
+  isMonsterJob?: Nillable<boolean>;
   id?: TNumberId;
   section: TSection;
   priority: TRate;
   type: EJobType;
   pathType: EJobPathType;
   // Currently working object ID.
-  objectId?: Optional<TNumberId>;
+  objectId?: Nillable<TNumberId>;
   alifeTask?: ALifeSmartTerrainTask;
   gameVertexId?: TNumberId;
   levelId?: TNumberId;
   position?: Vector;
-  online?: Optional<string>;
+  online?: Nillable<string>;
   // Execution preconditions.
   preconditionParameters?: AnyObject;
   preconditionFunction?: (

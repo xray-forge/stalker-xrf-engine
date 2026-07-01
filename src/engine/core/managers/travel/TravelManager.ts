@@ -219,7 +219,7 @@ export class TravelManager extends AbstractManager {
     const squad: Squad = getObjectSquad(object)!;
     const squadTargetId: Nillable<TNumberId> = squad.assignedTargetId;
 
-    if (squad.currentAction === null || squad.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
+    if (!squad.currentAction || squad.currentAction.type === ESquadActionType.STAY_ON_TARGET) {
       return "dm_stalker_doing_nothing_" + tostring(math.random(1, 3)); // -- object:character_community()
     }
 

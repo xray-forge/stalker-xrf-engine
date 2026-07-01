@@ -62,7 +62,6 @@ import {
   LuaArray,
   NetPacket,
   Nillable,
-  Optional,
   ServerCreatureObject,
   ServerObject,
   StringNillable,
@@ -89,7 +88,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public isMapDisplayHidden: boolean = false;
   public isAlwaysArrived: boolean = false;
   public isLocationMasksResetNeeded: boolean = true;
-  public isSpotVisible: Optional<TConditionList> = null;
+  public isSpotVisible: Nillable<TConditionList> = null;
 
   // Faction for simulation (behaviour community) like monster_day/night etc.
   public faction: TCommunity;
@@ -99,29 +98,29 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
 
   // Meta-info about spawn point of the squad.
   // Used to track each point spawning limits.
-  public respawnPointId: Optional<TNumberId> = null;
-  public respawnPointSection: Optional<TSection> = null;
+  public respawnPointId: Nillable<TNumberId> = null;
+  public respawnPointSection: Nillable<TSection> = null;
 
-  public currentMapSpotId: Optional<TNumberId> = null;
-  public currentMapSpotSection: Optional<TName> = null;
+  public currentMapSpotId: Nillable<TNumberId> = null;
+  public currentMapSpotSection: Nillable<TName> = null;
 
-  public currentAction: Optional<ISquadAction> = null;
-  public currentTargetId: Optional<TNumberId> = null; // Target squad currently stays on.
+  public currentAction: Nillable<ISquadAction> = null;
+  public currentTargetId: Nillable<TNumberId> = null; // Target squad currently stays on.
 
-  public assignedTerrainId: Optional<TNumberId> = null; // ID of linked smart terrain.
-  public assignedTargetId: Optional<TNumberId> = null; // Target squad should reach.
+  public assignedTerrainId: Nillable<TNumberId> = null; // ID of linked smart terrain.
+  public assignedTargetId: Nillable<TNumberId> = null; // Target squad should reach.
 
-  public nextTargetIndex: Optional<TIndex> = null;
-  public lastTarget: Optional<string> = null;
+  public nextTargetIndex: Nillable<TIndex> = null;
+  public lastTarget: Nillable<string> = null;
   public parsedTargets: LuaArray<TName> = new LuaTable();
 
-  public invulnerabilityConditionList: Optional<TConditionList> = null;
+  public invulnerabilityConditionList: Nillable<TConditionList> = null;
 
   public targetConditionList: TConditionList = new LuaTable();
-  public deathConditionList: Optional<TConditionList> = null;
+  public deathConditionList: Nillable<TConditionList> = null;
 
-  public sympathy: Optional<TCount> = null;
-  public relationship: Optional<ERelation> = null;
+  public sympathy: Nillable<TCount> = null;
+  public relationship: Nillable<ERelation> = null;
 
   public constructor(section: TSection) {
     super(section);
@@ -170,7 +169,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     updateSimulationObjectAvailability(this);
     updateSquadInvulnerabilityState(this);
 
-    const scriptTarget: Optional<TNumberId> = this.getScriptedSimulationTarget();
+    const scriptTarget: Nillable<TNumberId> = this.getScriptedSimulationTarget();
 
     if (scriptTarget) {
       this.updateCurrentScriptedAction(scriptTarget);
@@ -360,8 +359,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
     assignSimulationSquadToTerrain(this, null);
 
     // todo: Method for smart terrain onSpawnedSquadKilled.
-    if (this.respawnPointId !== null) {
-      const terrain: Optional<SmartTerrain> = registry.simulator.object(this.respawnPointId) as Optional<SmartTerrain>;
+    if ($isNotNil(this.respawnPointId)) {
+      const terrain: Nillable<SmartTerrain> = registry.simulator.object(this.respawnPointId) as Nillable<SmartTerrain>;
 
       if (terrain) {
         terrain.spawnedSquadsList.get(this.respawnPointSection!).num -= 1;
@@ -377,14 +376,15 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @returns Smart terrain task the squad should currently execute.
    */
   public override get_current_task(): CALifeSmartTerrainTask {
-    const target: Optional<TSimulationObject> =
-      this.assignedTargetId === null ? null : registry.simulator.object(this.assignedTargetId);
+    const target: Nillable<TSimulationObject> = $isNotNil(this.assignedTargetId)
+      ? registry.simulator.object(this.assignedTargetId)
+      : null;
 
     if (target && isSmartTerrain(target)) {
       const commanderId: TNumberId = this.commander_id();
 
       if (
-        target.arrivingObjects.get(commanderId) === null &&
+        !target.arrivingObjects.get(commanderId) &&
         target.objectJobDescriptors &&
         target.objectJobDescriptors.get(commanderId) &&
         target.objectJobDescriptors.get(commanderId).jobId &&
@@ -407,8 +407,8 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    *
    * @returns Target ID assigned for smart by condlists from ltx script configuration.
    */
-  public getScriptedSimulationTarget(): Optional<TNumberId> {
-    const newTarget: Optional<TSection> = pickSectionFromCondList(registry.actor, this, this.targetConditionList);
+  public getScriptedSimulationTarget(): Nillable<TNumberId> {
+    const newTarget: Nillable<TSection> = pickSectionFromCondList(registry.actor, this, this.targetConditionList);
 
     if (newTarget === null) {
       return null;
@@ -492,7 +492,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * @param isUnderSimulation - Whether the new action is initialized while the squad is under simulation.
    */
   public selectNewAction(isUnderSimulation: boolean): void {
-    const squadTarget: Optional<TSimulationObject> = registry.simulator.object<TSimulationObject>(
+    const squadTarget: Nillable<TSimulationObject> = registry.simulator.object<TSimulationObject>(
       this.assignedTargetId!
     );
 
@@ -531,10 +531,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    */
   public assignMemberToTerrain(
     memberId: TNumberId,
-    terrain: Optional<SmartTerrain>,
-    oldTerrainId: Optional<TNumberId>
+    terrain: Nillable<SmartTerrain>,
+    oldTerrainId: Nillable<TNumberId>
   ): void {
-    const object: Optional<ServerCreatureObject> = registry.simulator.object(memberId);
+    const object: Nillable<ServerCreatureObject> = registry.simulator.object(memberId);
 
     if (object !== null) {
       if (object.m_smart_terrain_id === this.assignedTerrainId) {
@@ -562,7 +562,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    *
    * @param terrain - Smart terrain to assign the squad to, or null to clear the assignment.
    */
-  public assignToTerrain(terrain: Optional<SmartTerrain>): void {
+  public assignToTerrain(terrain: Nillable<SmartTerrain>): void {
     const oldTerrainId: TNumberId = this.assignedTerrainId!;
 
     this.assignedTerrainId = terrain && terrain.id;
@@ -588,7 +588,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   /**
    * Reset and recompute the squad location type masks based on its assigned target terrain or all simulation terrains.
    *
-   * @param newLocationSection - Optional extra masks section to apply when targeting a smart terrain.
+   * @param newLocationSection - Nillable extra masks section to apply when targeting a smart terrain.
    */
   public setLocationTypes(newLocationSection?: TSection): void {
     this.clear_location_types();
@@ -597,7 +597,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       // Targeting a smart terrain: stalker terrain mask plus the old/new terrain sections.
       this.setLocationTypesMaskFromSection("stalker_terrain");
 
-      const oldTerrainName: Optional<TName> = this.assignedTerrainId
+      const oldTerrainName: Nillable<TName> = this.assignedTerrainId
         ? (registry.simulator.object(this.assignedTerrainId)?.name() as TName)
         : null;
 
@@ -613,7 +613,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.setLocationTypesMaskFromSection("squad_terrain");
 
       for (const [terrainName, terrain] of getSimulationTerrains()) {
-        const baseRate: Optional<TRate> = terrain.simulationProperties.get(ESimulationTerrainRole.BASE);
+        const baseRate: Nillable<TRate> = terrain.simulationProperties.get(ESimulationTerrainRole.BASE);
 
         if (baseRate && baseRate !== 0) {
           this.setLocationTypesMaskFromSection(terrainName);
@@ -673,13 +673,13 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    *
    * @param sympathy - Target sympathy level to set with between squad members.
    */
-  public updateSympathy(sympathy: Optional<TCount> = this.sympathy): void {
+  public updateSympathy(sympathy: Nillable<TCount> = this.sympathy): void {
     if (!sympathy) {
       return;
     }
 
     for (const member of this.squad_members()) {
-      const object: Optional<GameObject> = registry.objects.get(member.id)?.object as Optional<GameObject>;
+      const object: Nillable<GameObject> = registry.objects.get(member.id)?.object as Nillable<GameObject>;
 
       if (object) {
         setObjectSympathy(object, sympathy);

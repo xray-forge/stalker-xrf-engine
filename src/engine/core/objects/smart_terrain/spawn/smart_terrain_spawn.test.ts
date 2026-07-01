@@ -15,7 +15,7 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { Optional } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockCTime, MockIniFile } from "@/fixtures/xray";
 
@@ -217,7 +217,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
     expect(canRespawnSmartTerrainSquad(terrain)).toBe(false);
     expect(MockCTime.areEqual(terrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
 
-    terrain.lastRespawnUpdatedAt = null as Optional<CTime>;
+    terrain.lastRespawnUpdatedAt = null as Nillable<CTime>;
     terrain.isSimulationAvailableConditionList = parseConditionsList(TRUE);
 
     expect(canRespawnSmartTerrainSquad(terrain)).toBe(true);
@@ -249,7 +249,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
     expect(canRespawnSmartTerrainSquad(terrain)).toBe(false);
     expect(MockCTime.areEqual(terrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
 
-    terrain.lastRespawnUpdatedAt = null as Optional<CTime>;
+    terrain.lastRespawnUpdatedAt = null as Nillable<CTime>;
 
     assignSimulationSquadToTerrain(secondSquad, null);
 
@@ -276,7 +276,7 @@ describe("canRespawnSmartTerrainSquad util", () => {
     expect(canRespawnSmartTerrainSquad(terrain)).toBe(false);
     expect(MockCTime.areEqual(terrain.lastRespawnUpdatedAt as CTime, game.get_game_time())).toBe(true);
 
-    terrain.lastRespawnUpdatedAt = null as Optional<CTime>;
+    terrain.lastRespawnUpdatedAt = null as Nillable<CTime>;
     jest
       .spyOn(actorServerObject.position, "distance_to_sqr")
       .mockImplementation(() => smartTerrainConfig.RESPAWN_RADIUS_RESTRICTION_SQR + 1);

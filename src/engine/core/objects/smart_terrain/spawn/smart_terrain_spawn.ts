@@ -11,7 +11,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseStringsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Optional, TCount, Time, TSection } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, Time, TSection } from "@/engine/lib/types";
 
 /**
  * Apply respawn configuration for provided smart terrain.
@@ -47,17 +47,17 @@ export function applySmartTerrainRespawnSectionsConfig(terrain: SmartTerrain, se
       );
     }
 
-    const squadsCount: Optional<string> = readIniString(terrain.ini, sectionName, "spawn_num", false);
-    const squadsToSpawn: Optional<string> = readIniString(terrain.ini, sectionName, "spawn_squads", false);
+    const squadsCount: Nillable<string> = readIniString(terrain.ini, sectionName, "spawn_num", false);
+    const squadsToSpawn: Nillable<string> = readIniString(terrain.ini, sectionName, "spawn_squads", false);
 
     // Validate each line to be defined.
-    if (squadsToSpawn === null) {
+    if ($isNil(squadsToSpawn)) {
       abort(
         "Wrong smart terrain respawn configuration section '%s' line 'spawn_squads' in '%s' is not defined.",
         section,
         sectionName
       );
-    } else if (squadsCount === null) {
+    } else if ($isNil(squadsCount)) {
       abort(
         "Wrong smart terrain respawn configuration section '%s' line 'spawn_num' in '%s' is not defined.",
         section,
@@ -80,7 +80,7 @@ export function applySmartTerrainRespawnSectionsConfig(terrain: SmartTerrain, se
  * @param terrain - Target smart terrain to spawn squad in.
  * @returns Spawned squad or null if cannot spawn any.
  */
-export function respawnSmartTerrainSquad(terrain: SmartTerrain): Optional<Squad> {
+export function respawnSmartTerrainSquad(terrain: SmartTerrain): Nillable<Squad> {
   // logger.format("Respawn squad in smart: %s", this.name());
 
   const availableSections: LuaArray<TSection> = new LuaTable();
