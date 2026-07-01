@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { level } from "xray16";
 
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
@@ -188,7 +189,23 @@ describe("StalkerBinder", () => {
     expect(processor.dataList).toHaveLength(0);
   });
 
-  it.todo("should correctly update torch light state");
+  it("should correctly update torch light state", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: StalkerBinder = new StalkerBinder(object);
+    const torch: GameObject = MockGameObject.mock();
+
+    registerObject(object);
+    jest.spyOn(object, "object").mockImplementation(() => torch);
+
+    // Daytime, outdoors, no light zone, alive, no enemy => torch must be turned OFF (was never turned off before).
+    binder.updateLightState(object);
+    expect(torch.enable_attachable_item).toHaveBeenLastCalledWith(false);
+
+    // Night => torch must be turned ON.
+    jest.spyOn(level, "get_time_hours").mockImplementation(() => 23);
+    binder.updateLightState(object);
+    expect(torch.enable_attachable_item).toHaveBeenLastCalledWith(true);
+  });
 
   it.todo("should correctly handle death event");
 

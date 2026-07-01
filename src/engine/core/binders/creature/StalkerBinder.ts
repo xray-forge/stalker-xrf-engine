@@ -332,9 +332,7 @@ export class StalkerBinder extends object_binder {
       }
     }
 
-    if (light) {
-      torch.enable_attachable_item(light);
-    }
+    torch.enable_attachable_item(light);
   }
 
   public override net_save_relevant(): boolean {
