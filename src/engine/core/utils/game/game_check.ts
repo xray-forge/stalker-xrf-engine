@@ -12,10 +12,15 @@ export function isGameStarted(): boolean {
 }
 
 /**
+ * Whether the game is still precaching (black screen up, sound muted, scene not yet live).
+ *
+ * The engine treats any non-zero `precache_frame` as "not live yet",
+ * so the scene becomes live exactly when it reaches 0.
+ *
  * @returns Whether currently black screen is visible and rendering is paused.
  */
 export function isBlackScreen(): boolean {
-  return device().precache_frame > 1;
+  return device().precache_frame > 0;
 }
 
 /**

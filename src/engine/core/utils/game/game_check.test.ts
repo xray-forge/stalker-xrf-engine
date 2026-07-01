@@ -26,7 +26,7 @@ describe("isBlackScreen util", () => {
     device.precache_frame = 10;
     expect(isBlackScreen()).toBe(true);
     device.precache_frame = 1;
-    expect(isBlackScreen()).toBe(false);
+    expect(isBlackScreen()).toBe(true);
     device.precache_frame = 1000;
     expect(isBlackScreen()).toBe(true);
     device.precache_frame = 0;
