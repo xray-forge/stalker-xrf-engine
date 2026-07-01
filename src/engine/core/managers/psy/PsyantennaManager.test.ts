@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 
 import { getManager, isManagerInitialized, registry } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
-import { resetRegistry } from "@/fixtures/engine";
+import { ESoundObjectType } from "@/engine/lib/types";
+import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 
 describe("PsyAntennaManager", () => {
@@ -24,7 +25,29 @@ describe("PsyAntennaManager", () => {
 
   it.todo("should correctly handle post process effects");
 
-  it.todo("should correctly handle sounds");
+  it("should play both psy voice channels looped", () => {
+    mockRegisteredActor();
+
+    const psyAntennaManager: PsyAntennaManager = getManager(PsyAntennaManager);
+
+    psyAntennaManager.updateSound();
+
+    // Both channels must be looped (S2D + LOOPED).
+    const loopedFlags: number = ESoundObjectType.S2D + ESoundObjectType.LOOPED;
+
+    expect(psyAntennaManager.soundObjectLeft.play_at_pos).toHaveBeenCalledWith(
+      registry.actor,
+      expect.anything(),
+      0,
+      loopedFlags
+    );
+    expect(psyAntennaManager.soundObjectRight.play_at_pos).toHaveBeenCalledWith(
+      registry.actor,
+      expect.anything(),
+      0,
+      loopedFlags
+    );
+  });
 
   it("should correctly handle dispose", () => {
     const psyAntennaManager: PsyAntennaManager = getManager(PsyAntennaManager);

@@ -234,7 +234,7 @@ export class PsyAntennaManager extends AbstractManager {
         registry.actor,
         createVector(1, 0, 1),
         0,
-        (ESoundObjectType.S2D + ESoundObjectType.S3D) as TSoundObjectType
+        (ESoundObjectType.S2D + ESoundObjectType.LOOPED) as TSoundObjectType
       );
     }
 
