@@ -483,10 +483,10 @@ export class NpcSound extends AbstractPlayableSound {
     if (this.shuffle === ESoundPlaylistType.RANDOM) {
       if (objectDescriptor.max === 0) {
         return 0;
-      } else if (this.playedSoundIndex !== null) {
+      } else if ($isNotNil(this.playedSoundIndex)) {
         const nextPlayIndex: TIndex = math.random(0, objectDescriptor.max - 1);
 
-        if (nextPlayIndex === this.playedSoundIndex) {
+        if (nextPlayIndex >= this.playedSoundIndex) {
           return nextPlayIndex + 1;
         }
 

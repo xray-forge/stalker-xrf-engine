@@ -1,8 +1,8 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it, jest } from "@jest/globals";
 
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds";
 import { NpcSound } from "@/engine/core/managers/sounds/objects/NpcSound";
-import { IniFile } from "@/engine/lib/types";
+import { IniFile, TNumberId } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 describe("NpcSound", () => {
@@ -103,7 +103,36 @@ describe("NpcSound", () => {
     expect(sound.delay).toBe(400);
   });
 
-  it.todo("should correctly select next sounds");
+  it("should correctly select next random sound excluding the previously played index", () => {
+    const ini: IniFile = MockIniFile.mock("test.ltx", { test_npc_sound: { path: "some/path" } });
+    const sound: NpcSound = new NpcSound(ini, "test_npc_sound");
+    const objectId: TNumberId = 10;
+
+    sound.objects.set(objectId, { id: objectId, max: 5 });
+
+    const randomSpy = jest.spyOn(math, "random");
+
+    // First play (no previous index): uniform over the full inclusive range 0..max.
+    sound.playedSoundIndex = null;
+    randomSpy.mockReturnValueOnce(4);
+    expect(sound.selectNextSound(objectId)).toBe(4);
+
+    sound.playedSoundIndex = 2;
+
+    randomSpy.mockReturnValueOnce(0);
+    expect(sound.selectNextSound(objectId)).toBe(0); // 0 < 2 -> unchanged
+
+    randomSpy.mockReturnValueOnce(2);
+    expect(sound.selectNextSound(objectId)).toBe(3); // draw == previous -> shifted up (never repeats)
+
+    randomSpy.mockReturnValueOnce(3);
+    expect(sound.selectNextSound(objectId)).toBe(4);
+
+    randomSpy.mockReturnValueOnce(4);
+    expect(sound.selectNextSound(objectId)).toBe(5);
+
+    randomSpy.mockRestore();
+  });
 
   it.todo("should correctly handle sound play end");
 

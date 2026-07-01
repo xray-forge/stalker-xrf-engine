@@ -170,7 +170,7 @@ export class ObjectSound extends AbstractPlayableSound {
       } else if ($isNotNil(this.playedSoundIndex)) {
         const playedId: TNumberId = math.random(1, soundsCount - 1);
 
-        if (playedId === this.playedSoundIndex) {
+        if (playedId >= this.playedSoundIndex) {
           return playedId + 1;
         }
 

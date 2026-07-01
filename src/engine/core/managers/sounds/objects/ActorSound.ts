@@ -189,10 +189,10 @@ export class ActorSound extends AbstractPlayableSound {
     if (this.shuffle === ESoundPlaylistType.RANDOM) {
       if (soundsCount === 1) {
         return 1;
-      } else if (this.playedSoundIndex !== null) {
+      } else if ($isNotNil(this.playedSoundIndex)) {
         const playedSoundIndex: TIndex = math.random(1, soundsCount - 1);
 
-        if (playedSoundIndex === this.playedSoundIndex) {
+        if (playedSoundIndex >= this.playedSoundIndex) {
           return playedSoundIndex + 1;
         }
 
