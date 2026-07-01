@@ -11,7 +11,7 @@ import {
   AlifeSimulator,
   EScheme,
   GameObject,
-  Optional,
+  Nillable,
   ServerObject,
   TName,
   TNumberId,
@@ -36,13 +36,13 @@ export function updateObjectMapSpot(
   section: TSection
 ): void {
   const actor: GameObject = registry.actor;
-  const simulator: Optional<AlifeSimulator> = registry.simulator;
+  const simulator: Nillable<AlifeSimulator> = registry.simulator;
 
   if (!simulator) {
     return;
   }
 
-  const serverObject: Optional<ServerObject> = simulator.object(object.id());
+  const serverObject: Nillable<ServerObject> = simulator.object(object.id());
 
   if (serverObject?.online) {
     const objectId: TNumberId = object.id();
@@ -52,7 +52,7 @@ export function updateObjectMapSpot(
         : readIniString(state.ini, section, "show_spot")) ?? TRUE;
     const isSpotVisible: TSection = pickSectionFromCondList(actor, object, parseConditionsList(isSpotVisibleSection))!;
 
-    let mapSpot: Optional<TName> =
+    let mapSpot: Nillable<TName> =
       readIniString(state.ini, state.sectionLogic, "level_spot") ?? readIniString(state.ini, section, "level_spot");
 
     if (mapSpot) {
@@ -96,7 +96,7 @@ export function removeObjectMapSpot(object: GameObject): void {
   }
 
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const spot: Optional<TStringId> = pickSectionFromCondList(
+  const spot: Nillable<TStringId> = pickSectionFromCondList(
     registry.actor,
     object,
     parseConditionsList(

@@ -10,7 +10,7 @@ import {
 } from "@/engine/core/utils/relation";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/section";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { Nillable, Optional, TLabel, TNumberId } from "@/engine/lib/types";
+import { Nillable, TLabel, TNumberId } from "@/engine/lib/types";
 
 /**
  * Update map spot for squad.
@@ -45,7 +45,7 @@ export function updateSquadMapSpot(squad: Squad): void {
     return;
   }
 
-  let spot: Optional<TLabel> = null;
+  let spot: Nillable<TLabel> = null;
 
   /**
    * In case of debug use map display like in clear sky.

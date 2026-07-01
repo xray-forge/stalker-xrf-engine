@@ -29,6 +29,7 @@ import {
   ALifeSmartTerrainTask,
   GameObject,
   NetPacket,
+  Nillable,
   Optional,
   ServerObject,
   TName,
@@ -129,7 +130,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       const zone: Optional<GameObject> = registry.zones.get(zoneName);
 
       if (zone?.inside(this.position)) {
-        const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
+        const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
         if (terrain && terrain.terrainControl?.status !== ESmartTerrainStatus.ALARM) {
           return false;

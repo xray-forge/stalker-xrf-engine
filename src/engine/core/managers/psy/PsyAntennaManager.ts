@@ -26,7 +26,7 @@ import {
   Hit,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   SoundObject,
   TCount,
   TDistance,
@@ -71,7 +71,7 @@ export class PsyAntennaManager extends AbstractManager {
   public static save(packet: NetPacket): void {
     openSaveMarker(packet, PsyAntennaManager.name + "_static");
 
-    const manager: Optional<PsyAntennaManager> = getWeakManager(PsyAntennaManager);
+    const manager: Nillable<PsyAntennaManager> = getWeakManager(PsyAntennaManager);
 
     if (manager && !isGameLevelChanging()) {
       packet.w_bool(true);
@@ -273,7 +273,7 @@ export class PsyAntennaManager extends AbstractManager {
    */
   public updatePsyHit(delta: number): void {
     const hud: GameHud = get_hud();
-    const customStatic: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
+    const customStatic: Nillable<StaticDrawableWrapper> = hud.GetCustomStatic("cs_psy_danger");
 
     if (this.hitIntensity > 0.0001) {
       if (customStatic === null && !this.noStatic) {

@@ -6,7 +6,7 @@ import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { LuaArray, Optional, TLabel, TNumberId, TSection } from "@/engine/lib/types";
+import { LuaArray, Nillable, TLabel, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * Update hints display for anomaly zones.
@@ -33,7 +33,7 @@ export function updateAnomalyZonesDisplay(): void {
       continue;
     }
 
-    const objectId: Optional<TNumberId> = getObjectIdByStoryId(descriptor.target);
+    const objectId: Nillable<TNumberId> = getObjectIdByStoryId(descriptor.target);
 
     if (objectId && level.map_has_object_spot(objectId, mapMarks.primary_object) !== 0) {
       const anomalyArtefacts: LuaArray<TSection> = getAnomalyArtefacts(descriptor.zone);

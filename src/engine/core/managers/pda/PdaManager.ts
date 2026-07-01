@@ -6,7 +6,7 @@ import { EPdaStatSection, iconByKilledMonsters } from "@/engine/core/managers/pd
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { Optional, TLabel, TName, TSection } from "@/engine/lib/types";
+import { Nillable, TLabel, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Manager handling PDA ui / displayed information.
@@ -43,7 +43,7 @@ export class PdaManager extends AbstractManager {
    * @returns Best killed monster icon path.
    */
   public getMonsterBackground(): TName {
-    const bestKilledMonster: Optional<TMonster> = getManager(StatisticsManager).actorStatistics.bestKilledMonster;
+    const bestKilledMonster: Nillable<TMonster> = getManager(StatisticsManager).actorStatistics.bestKilledMonster;
 
     if (bestKilledMonster) {
       return iconByKilledMonsters[bestKilledMonster] ?? "";

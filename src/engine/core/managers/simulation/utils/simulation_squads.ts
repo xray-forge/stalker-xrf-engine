@@ -25,7 +25,7 @@ import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   LuaArray,
-  Optional,
+  Nillable,
   Patrol,
   ServerCreatureObject,
   ServerObject,
@@ -106,14 +106,14 @@ export function createSimulationSquadMembers(squad: Squad, spawnTerrain: SmartTe
     readIniString(SYSTEM_INI, squadSection, "spawn_point", false) ??
     readIniString(spawnTerrain.ini, SMART_TERRAIN_SECTION, "spawn_point", false) ??
     "self";
-  const spawnPoint: Optional<TName> = pickSectionFromCondList(
+  const spawnPoint: Nillable<TName> = pickSectionFromCondList(
     registry.actor,
     squad,
     parseConditionsList(spawnPointData)
   );
-  const spawnPointName: Optional<TName> =
+  const spawnPointName: Nillable<TName> =
     spawnPoint && spawnPoint !== NIL ? spawnPoint : (spawnTerrain.spawnPointName as TName);
-  const randomSpawnConfig: Optional<string> = readIniString(SYSTEM_INI, squadSection, "npc_random", false);
+  const randomSpawnConfig: Nillable<string> = readIniString(SYSTEM_INI, squadSection, "npc_random", false);
 
   if (!randomSpawnConfig && spawnSections.length() === 0) {
     abort("Unexpected attempt to spawn an empty squad '%s'.", squadSection);
@@ -185,7 +185,7 @@ export function releaseSimulationSquad(squad: Squad): void {
 
   // Second loop is to prevent iteration breaking when iterating + mutating?
   for (const [id] of squadMembers) {
-    const object: Optional<ServerObject> = registry.simulator.object(id);
+    const object: Nillable<ServerObject> = registry.simulator.object(id);
 
     if (object !== null) {
       squad.unregister_member(id);
@@ -215,13 +215,13 @@ export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject)
   // todo: Check, probably magic or unused code with duplicated changeTeam calls.
   setObjectTeamSquadGroup(object, object.team, object.squad, groupId);
 
-  const squad: Optional<Squad> = registry.simulator.object<Squad>(object.group_id);
+  const squad: Nillable<Squad> = registry.simulator.object<Squad>(object.group_id);
 
-  if (squad === null) {
+  if (!squad) {
     return setObjectTeamSquadGroup(object, object.team, 0, object.group);
   }
 
-  let terrain: Optional<SmartTerrain> = null;
+  let terrain: Nillable<SmartTerrain> = null;
 
   if (squad.currentAction !== null && squad.currentAction.type === ESquadActionType.REACH_TARGET) {
     terrain = registry.simulator.object<SmartTerrain>(squad.assignedTargetId!);
@@ -229,7 +229,7 @@ export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject)
     terrain = registry.simulator.object<SmartTerrain>(squad.assignedTerrainId);
   }
 
-  if (terrain === null) {
+  if (!terrain) {
     return setObjectTeamSquadGroup(object, object.team, 0, object.group);
   }
 
@@ -248,10 +248,10 @@ export function setupSimulationObjectSquadAndGroup(object: ServerCreatureObject)
  * @param squad - Squad to assign to the terrain.
  * @param terrainId - Identifier of the target terrain, or null to unassign the squad.
  */
-export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Optional<TNumberId>): void {
+export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Nillable<TNumberId>): void {
   simulationLogger.info("Assign squad to smart terrain: '%s' -> '%s'.", squad.name(), terrainId);
 
-  if (terrainId !== null && !simulationConfig.TERRAIN_DESCRIPTORS.has(terrainId)) {
+  if ($isNotNil(terrainId) && !simulationConfig.TERRAIN_DESCRIPTORS.has(terrainId)) {
     if (!simulationConfig.TEMPORARY_ASSIGNED_SQUADS.has(terrainId)) {
       simulationConfig.TEMPORARY_ASSIGNED_SQUADS.set(terrainId, new LuaTable());
     }
@@ -261,8 +261,8 @@ export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Optional
     return;
   }
 
-  const oldTerrainId: Optional<TNumberId> = squad.assignedTerrainId;
-  const oldTerrainDescriptor: Optional<ISmartTerrainDescriptor> = oldTerrainId
+  const oldTerrainId: Nillable<TNumberId> = squad.assignedTerrainId;
+  const oldTerrainDescriptor: Nillable<ISmartTerrainDescriptor> = oldTerrainId
     ? simulationConfig.TERRAIN_DESCRIPTORS.get(oldTerrainId)
     : null;
 
@@ -275,7 +275,7 @@ export function assignSimulationSquadToTerrain(squad: Squad, terrainId: Optional
     updateTerrainMapSpot(oldTerrain);
   }
 
-  if (terrainId === null) {
+  if ($isNil(terrainId)) {
     squad.assignToTerrain(null);
   } else {
     const newTerrainDescriptor: ISmartTerrainDescriptor = simulationConfig.TERRAIN_DESCRIPTORS.get(terrainId);

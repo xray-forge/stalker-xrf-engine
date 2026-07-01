@@ -3,7 +3,7 @@ import { ETaskState } from "@/engine/core/managers/tasks/types";
 import {
   GameObject,
   GameTask,
-  Optional,
+  Nillable,
   TCount,
   TDuration,
   TLabel,
@@ -87,20 +87,20 @@ export interface ITreasureNotification extends INotification {
  */
 export interface ITipNotification extends INotification {
   caption: TLabel;
-  delay?: Optional<TDuration>;
-  sender?: Optional<TNotificationIcon | GameObject>;
-  showtime?: Optional<TTimestamp>;
-  senderId?: Optional<TStringId>;
+  delay?: Nillable<TDuration>;
+  sender?: Nillable<TNotificationIcon | GameObject>;
+  showtime?: Nillable<TTimestamp>;
+  senderId?: Nillable<TStringId>;
 }
 
 /**
  * Sound play notification.
  */
 export interface ISoundNotification extends INotification {
-  object?: Optional<GameObject>;
+  object?: Nillable<GameObject>;
   faction: TName;
-  point: Optional<TName | TNumberId>;
+  point: Nillable<TName | TNumberId>;
   soundPath: TPath;
-  soundCaption?: Optional<TLabel>;
+  soundCaption?: Nillable<TLabel>;
   delay?: TDuration;
 }

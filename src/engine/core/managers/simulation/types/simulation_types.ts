@@ -4,7 +4,7 @@ import type { Squad } from "@/engine/core/objects/squad";
 import type { TCommunity } from "@/engine/lib/constants/communities";
 import type {
   ALifeSmartTerrainTask,
-  Optional,
+  Nillable,
   PartialRecord,
   TCount,
   TName,
@@ -92,9 +92,9 @@ export type TSimulationActivityPrecondition = (this: void, squad: Squad, target:
  * Generic faction activity description in terms of target selection.
  */
 export interface ISimulationActivityDescriptor {
-  squad: Optional<PartialRecord<TCommunity, Optional<TSimulationActivityPrecondition>>>;
-  smart: Optional<PartialRecord<ESimulationTerrainRole, Optional<TSimulationActivityPrecondition>>>;
-  actor: Optional<TSimulationActivityPrecondition>;
+  squad: Nillable<PartialRecord<TCommunity, Nillable<TSimulationActivityPrecondition>>>;
+  smart: Nillable<PartialRecord<ESimulationTerrainRole, Nillable<TSimulationActivityPrecondition>>>;
+  actor: Nillable<TSimulationActivityPrecondition>;
 }
 
 /**

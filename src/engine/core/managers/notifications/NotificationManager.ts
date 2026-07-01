@@ -37,7 +37,7 @@ import {
   AnyObject,
   GameObject,
   GameTask,
-  Optional,
+  Nillable,
   TCount,
   TDuration,
   TLabel,
@@ -238,22 +238,22 @@ export class NotificationManager extends AbstractManager {
    */
   public sendTipNotification(
     caption: TLabel,
-    sender: Optional<TNotificationIcon | TNotificationIconKey | GameObject> = null,
-    delay: Optional<TDuration> = 0,
-    showtime: Optional<TTimestamp> = notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
-    senderId: Optional<TStringId> = null
+    sender: Nillable<TNotificationIcon | TNotificationIconKey | GameObject> = null,
+    delay: Nillable<TDuration> = 0,
+    showtime: Nillable<TTimestamp> = notificationsConfig.DEFAULT_NOTIFICATION_SHOW_DURATION,
+    senderId: Nillable<TStringId> = null
   ): void {
     logger.info("Show tip notification: %s %s %s %s", caption, delay, showtime, senderId);
 
     // Verify whether sender can send notifications.
     // todo: Probably here check ID from sender object if it is provided?
-    if (senderId !== null) {
-      const simulator: Optional<AlifeSimulator> = registry.simulator;
+    if ($isNotNil(senderId)) {
+      const simulator: Nillable<AlifeSimulator> = registry.simulator;
 
-      if (simulator !== null) {
-        const serverObject: Optional<Stalker> = simulator.object(getObjectIdByStoryId(senderId)!) as Stalker;
+      if ($isNotNil(simulator)) {
+        const serverObject: Nillable<Stalker> = simulator.object(getObjectIdByStoryId(senderId)!) as Stalker;
 
-        if (serverObject !== null) {
+        if ($isNotNil(serverObject)) {
           // Check if sender is not wounded.
           if (serverObject.online && isObjectWounded(serverObject.id)) {
             return logger.info("Cannot send tip, object is wounded");
@@ -272,7 +272,7 @@ export class NotificationManager extends AbstractManager {
     let notificationIcon: TName = "ui_iconsTotal_grouping";
 
     // If sender is game object, check sender character icon to display instead of generic one.
-    if (sender !== null) {
+    if (sender) {
       // In case of string check if it is name of icon (original schemas use it) or fallback to just string.
       if (type(sender) === "string") {
         notificationIcon = notificationsIcons[sender as TNotificationIconKey] || (sender as TNotificationIcon);
@@ -297,11 +297,11 @@ export class NotificationManager extends AbstractManager {
    * Send generic sound notification to replicate what characters say.
    */
   public sendSoundNotification(
-    object: Optional<GameObject>,
+    object: Nillable<GameObject>,
     faction: TName,
-    point: Optional<TName | TNumberId>,
+    point: Nillable<TName | TNumberId>,
     soundPath: TPath,
-    soundCaption: Optional<TLabel> = null,
+    soundCaption: Nillable<TLabel> = null,
     delay: TDuration = 0
   ): void {
     // logger.format("Send sound notification: %s %s %s %s", object?.name(), soundPath, soundCaption, faction);
@@ -310,7 +310,7 @@ export class NotificationManager extends AbstractManager {
 
     // todo: Probably name and number id problem? Not real condition?
     if (point) {
-      const terrainDescriptor: Optional<ISmartTerrainDescriptor> = getSimulationTerrainDescriptorById(
+      const terrainDescriptor: Nillable<ISmartTerrainDescriptor> = getSimulationTerrainDescriptorById(
         point as TNumberId
       );
 
@@ -319,7 +319,7 @@ export class NotificationManager extends AbstractManager {
         : game.translate_string(point as TName);
     }
 
-    let soundCaptionText: Optional<TLabel> = soundCaption;
+    let soundCaptionText: Nillable<TLabel> = soundCaption;
 
     if (soundCaptionText === null) {
       [soundCaptionText] = string.gsub(soundPath, "(characters_voice\\human_..\\)([^\\]*)", "%2");
@@ -335,7 +335,7 @@ export class NotificationManager extends AbstractManager {
 
     let textureName: TName = "ui_iconsTotal_grouping";
 
-    if (object !== null && (object.clsid() === clsid.script_stalker || object.clsid() === clsid.stalker)) {
+    if (object && (object.clsid() === clsid.script_stalker || object.clsid() === clsid.stalker)) {
       textureName = object.character_icon();
     } else if (notificationsIcons[faction as TNotificationIconKey]) {
       textureName = notificationsIcons[faction as TNotificationIconKey];
@@ -386,7 +386,7 @@ export class NotificationManager extends AbstractManager {
     notificationIcon: TName,
     delay: TDuration,
     showTime: TDuration,
-    type: Optional<TNumberId> = null
+    type: Nillable<TNumberId> = null
   ): void {
     logger.info("Send generic notification: '%s', '%s', '%s'", notificationTitle, notificationText, notificationIcon);
 

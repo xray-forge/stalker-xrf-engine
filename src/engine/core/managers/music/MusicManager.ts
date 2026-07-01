@@ -20,7 +20,7 @@ import {
   AnyObject,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   TDistance,
   TDuration,
   TIndex,
@@ -39,7 +39,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 export class MusicManager extends AbstractManager {
   public themes: LuaArray<LuaArray<TName>> = new LuaTable();
-  public theme: Optional<StereoSound> = null;
+  public theme: Nillable<StereoSound> = null;
   public updateDelta: TDuration = 0;
 
   public previousFadeStepAppliedAt: TTimestamp = 0;
@@ -176,7 +176,7 @@ export class MusicManager extends AbstractManager {
    *
    * @returns Current dynamic music state, or null when no state change is required.
    */
-  public getThemeState(): Optional<EDynamicMusicState> {
+  public getThemeState(): Nillable<EDynamicMusicState> {
     const actor: GameObject = registry.actor;
 
     this.forceFade = false;
@@ -186,14 +186,14 @@ export class MusicManager extends AbstractManager {
         const actorPosition: Vector = actor.position();
         const actorId: TNumberId = actor.id();
 
-        let nearestEnemy: Optional<GameObject> = null;
+        let nearestEnemy: Nillable<GameObject> = null;
         let nearestEnemyDistanceSqr: TDistance = 10_000;
 
         // todo: No need to check every enemy, just find at least one who meets threshold and flag 'true'
         // todo: No need to check every enemy, just check same location.
         for (const [objectId] of registry.stalkers) {
-          const object: Optional<GameObject> = registry.objects.get(objectId).object;
-          const enemy: Optional<GameObject> = object.best_enemy();
+          const object: Nillable<GameObject> = registry.objects.get(objectId).object;
+          const enemy: Nillable<GameObject> = object.best_enemy();
 
           if (enemy && enemy.id() === actorId) {
             const dist: TDistance = actorPosition.distance_to_sqr(object.position());
@@ -336,7 +336,7 @@ export class MusicManager extends AbstractManager {
       return;
     }
 
-    const surgeManager: Optional<SurgeManager> = getManagerByName<SurgeManager>("SurgeManager");
+    const surgeManager: Nillable<SurgeManager> = getManagerByName<SurgeManager>("SurgeManager");
 
     if (surgeConfig.IS_STARTED && surgeManager?.isBlowoutSoundStarted) {
       if (surgeManager.isKillingAll()) {
@@ -359,7 +359,7 @@ export class MusicManager extends AbstractManager {
         this.theme.update(this.dynamicThemeVolume);
       }
 
-      const state: Optional<EDynamicMusicState> = this.getThemeState();
+      const state: Nillable<EDynamicMusicState> = this.getThemeState();
 
       if (state === EDynamicMusicState.START) {
         this.startTheme();

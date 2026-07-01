@@ -16,7 +16,7 @@ import { destroySimulationData } from "@/engine/core/managers/simulation/utils/s
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { Optional, TName, TNumberId } from "@/engine/lib/types";
+import { Nillable, TName, TNumberId } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 
 describe("getSimulationSquads util", () => {
@@ -208,8 +208,8 @@ describe("getSimulationTerrainDescriptorById util", () => {
     const first: SmartTerrain = MockSmartTerrain.mockRegistered();
     const second: SmartTerrain = MockSmartTerrain.mockRegistered();
 
-    const firstDescriptor: Optional<ISmartTerrainDescriptor> = getSimulationTerrainDescriptorById(first.id);
-    const secondDescriptor: Optional<ISmartTerrainDescriptor> = getSimulationTerrainDescriptorById(second.id);
+    const firstDescriptor: Nillable<ISmartTerrainDescriptor> = getSimulationTerrainDescriptorById(first.id);
+    const secondDescriptor: Nillable<ISmartTerrainDescriptor> = getSimulationTerrainDescriptorById(second.id);
 
     expect(firstDescriptor?.terrain).toBe(first);
     expect(firstDescriptor?.assignedSquadsCount).toBe(0);

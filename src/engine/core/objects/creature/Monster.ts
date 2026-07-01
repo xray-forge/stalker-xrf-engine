@@ -14,7 +14,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
+import { IniFile, NetPacket, Nillable, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Server object representation of any monster.
@@ -46,7 +46,7 @@ export class Monster extends cse_alife_monster_base {
     this.brain().can_choose_alife_tasks(false);
 
     const terrainName: Optional<TName> = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain");
-    const terrain: Optional<SmartTerrain> = terrainName ? getSimulationTerrainByName(terrainName) : null;
+    const terrain: Nillable<SmartTerrain> = terrainName ? getSimulationTerrainByName(terrainName) : null;
 
     if (terrain) {
       registry.simulator.object<SmartTerrain>(terrain.id)!.register_npc(this);

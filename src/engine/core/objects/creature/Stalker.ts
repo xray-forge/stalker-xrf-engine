@@ -16,7 +16,7 @@ import { assert } from "@/engine/core/utils/assertion";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { IniFile, NetPacket, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
+import { IniFile, NetPacket, Nillable, Optional, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -58,7 +58,7 @@ export class Stalker extends cse_alife_human_stalker {
     this.brain().can_choose_alife_tasks(false);
 
     const terrainName: TName = readIniString(this.spawn_ini() as IniFile, "logic", "smart_terrain", false, null, "");
-    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
+    const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
     if (terrain) {
       terrain.register_npc(this);

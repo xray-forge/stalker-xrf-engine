@@ -2,7 +2,7 @@ import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { LuaArray, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Get squads participating in simulation.
@@ -71,7 +71,7 @@ export function getSimulationTerrains(): LuaTable<TName, SmartTerrain> {
  * @param name - Smart terrain name to get server object for.
  * @returns Matching smart terrain server object or null.
  */
-export function getSimulationTerrainByName(name: TName): Optional<SmartTerrain> {
+export function getSimulationTerrainByName(name: TName): Nillable<SmartTerrain> {
   return simulationConfig.TERRAINS.get(name);
 }
 
@@ -81,6 +81,6 @@ export function getSimulationTerrainByName(name: TName): Optional<SmartTerrain> 
  * @param terrainId - Id of smart terrain to get descriptor for.
  * @returns Smart terrain descriptor if it participates in simulation.
  */
-export function getSimulationTerrainDescriptorById(terrainId: TNumberId): Optional<ISmartTerrainDescriptor> {
+export function getSimulationTerrainDescriptorById(terrainId: TNumberId): Nillable<ISmartTerrainDescriptor> {
   return simulationConfig.TERRAIN_DESCRIPTORS.get(terrainId);
 }

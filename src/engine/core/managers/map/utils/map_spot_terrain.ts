@@ -13,7 +13,7 @@ import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ERelation } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
 import { TRUE } from "@/engine/lib/constants/words";
-import { Optional, TLabel, TName, TNumberId } from "@/engine/lib/types";
+import { Nillable, TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Update display of global terrain spots.
@@ -25,7 +25,7 @@ export function updateTerrainsMapSpotDisplay(): void {
       !descriptor.isVisible &&
       (!mapDisplayConfig.REQUIRE_SMART_TERRAIN_VISIT || hasInfoPortion(string.format("%s_visited", descriptor.target)))
     ) {
-      const objectId: Optional<TNumberId> = getObjectIdByStoryId(descriptor.target);
+      const objectId: Nillable<TNumberId> = getObjectIdByStoryId(descriptor.target);
 
       if (objectId) {
         descriptor.isVisible = true;

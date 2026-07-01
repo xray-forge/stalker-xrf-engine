@@ -10,7 +10,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
-import { AnyCallablesModule, AnyObject, ESoundObjectType, Optional, SoundObject } from "@/engine/lib/types";
+import { AnyCallablesModule, AnyObject, ESoundObjectType, Nillable, SoundObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -18,7 +18,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  * Manager to handle audio during game outro scenes.
  */
 export class GameOutroManager extends AbstractManager {
-  public sound: Optional<SoundObject> = null;
+  public sound: Nillable<SoundObject> = null;
 
   public override initialize(): void {
     const eventsManager: EventsManager = getManager(EventsManager);

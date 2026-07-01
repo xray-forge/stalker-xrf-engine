@@ -305,9 +305,9 @@ export class TravelManager extends AbstractManager {
       return false;
     }
 
-    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainName);
+    const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainName);
 
-    if (terrain === null) {
+    if (!terrain) {
       abort("Error in travel manager. Smart terrain '%s' does not exist.", terrainName);
     }
 

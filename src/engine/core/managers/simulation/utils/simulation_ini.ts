@@ -4,7 +4,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableKeys } from "@/engine/core/utils/table";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { IniFile, LuaArray, Optional, TName, TNumberId } from "@/engine/lib/types";
+import { IniFile, LuaArray, Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 const log: LuaLogger = new LuaLogger($filename);
 
@@ -28,7 +28,7 @@ export function initializeLevelSimulationGroupIds(ini: IniFile): LuaTable<TName,
   table.sort(availableLevels, (left, right) => left < right);
 
   for (const [, level] of availableLevels) {
-    const simulationGroupId: Optional<TNumberId> = readIniNumber(ini, level, "simulation_group_id");
+    const simulationGroupId: Nillable<TNumberId> = readIniNumber(ini, level, "simulation_group_id");
     const nextId: TNumberId = typeof simulationGroupId === "number" ? simulationGroupId : ++freeGroupId;
 
     // Maintain u8 boundaries / overflow.

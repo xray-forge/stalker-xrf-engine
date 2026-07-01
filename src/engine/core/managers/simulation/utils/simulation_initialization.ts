@@ -11,7 +11,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { LuaArray, Optional, TCount, TName, TSection } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TName, TSection } from "@/engine/lib/types";
 
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });
 
@@ -45,7 +45,7 @@ export function initializeDefaultSimulationSquads(): void {
       const terrainsNames: LuaArray<TName> = parseStringsList(value);
 
       for (const [, name] of terrainsNames) {
-        const terrain: Optional<SmartTerrain> = terrains.get(name);
+        const terrain: Nillable<SmartTerrain> = terrains.get(name);
 
         assert(terrain, "Wrong smart name '%s' in start position spawning.", name);
 

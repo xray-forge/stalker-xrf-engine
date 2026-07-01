@@ -3,7 +3,7 @@ import { IAvailableSimulationTargetDescriptor, TSimulationObject } from "@/engin
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/position";
-import { LuaArray, Optional, ServerObject, TCount, TIndex, TNumberId, TRate } from "@/engine/lib/types";
+import { LuaArray, Nillable, ServerObject, TCount, TIndex, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * Evaluates simulation priority by distance.
@@ -89,7 +89,7 @@ export function getSlicedSimulationTargets(
 
   for (const [, target] of registry.simulationObjects) {
     const priority: TRate = target.id === squadId ? 0 : evaluateSimulationPriority(target, squad);
-    const existing: Optional<IAvailableSimulationTargetDescriptor> = availableTargets.get(index);
+    const existing: Nillable<IAvailableSimulationTargetDescriptor> = availableTargets.get(index);
 
     if (priority > 0) {
       if (existing && existing.priority < priority) {
@@ -118,7 +118,7 @@ export function getSlicedSimulationTargets(
  * @param squad - Squad to generate simulation target for.
  * @returns Simulation object to target or null based on priorities.
  */
-export function getSquadSimulationTarget(squad: Squad): Optional<TSimulationObject> {
+export function getSquadSimulationTarget(squad: Squad): Nillable<TSimulationObject> {
   const availableTargets: LuaArray<IAvailableSimulationTargetDescriptor> = getSlicedSimulationTargets(squad, 5);
   const availableTargetsCount: TCount = availableTargets.length();
 

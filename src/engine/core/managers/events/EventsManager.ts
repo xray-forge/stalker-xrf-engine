@@ -2,12 +2,12 @@ import { getManager } from "@/engine/core/database";
 import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTimersManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { assert } from "@/engine/core/utils/assertion";
-import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Optional, TCount } from "@/engine/lib/types";
+import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Nillable, TCount } from "@/engine/lib/types";
 
 /**
  * Descriptor of event subscriptions list.
  */
-type TEventSubscribersDescriptor = Record<EGameEvent, LuaTable<AnyCallable, { context: Optional<AnyObject> }>>;
+type TEventSubscribersDescriptor = Record<EGameEvent, LuaTable<AnyCallable, { context: Nillable<AnyObject> }>>;
 
 /**
  * Manager to dispatch and subscribe to custom global events.
@@ -47,7 +47,7 @@ export class EventsManager extends AbstractTimersManager {
   public registerCallback<T extends AnyObject>(
     event: EGameEvent,
     callback: AnyContextualCallable<T>,
-    context: Optional<T> = null
+    context: Nillable<T> = null
   ): void {
     this.assertEventIsDeclared(event);
     this.callbacks[event].set(callback as AnyContextualCallable, { context: context });
