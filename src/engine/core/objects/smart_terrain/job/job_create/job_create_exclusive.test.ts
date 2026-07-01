@@ -128,6 +128,14 @@ describe("createExclusiveJob util", () => {
         type: EJobType.EXCLUSIVE,
         priority: 105,
       },
+      {
+        isMonsterJob: false,
+        iniFile: expect.any(Object),
+        pathType: EJobPathType.PATH,
+        section: "logic@work2",
+        type: EJobType.EXCLUSIVE,
+        priority: -1,
+      },
     ]);
   });
 });

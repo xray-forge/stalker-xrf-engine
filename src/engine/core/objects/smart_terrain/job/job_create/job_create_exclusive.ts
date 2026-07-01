@@ -129,6 +129,17 @@ export function createExclusiveJob(
       preconditionParameters: { condlist: conditionsList },
       preconditionFunction: jobPreconditionExclusive,
     });
+
+    // Reserve an unconditional fallback slot (priority -1) for the same section so the smart terrain still has
+    // enough selectable jobs when the `suitable` condlist evaluates false.
+    table.insert(jobs, {
+      type: EJobType.EXCLUSIVE,
+      priority: -1,
+      isMonsterJob: isMonster,
+      section: "logic@" + field,
+      iniFile: jobIniFile,
+      pathType: pathType,
+    });
   }
 
   return jobs;
