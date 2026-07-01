@@ -3,7 +3,7 @@ import { jest } from "@jest/globals";
 import type { TConditionList } from "@/engine/core/utils/ini";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import {
-  Optional,
+  Nullable,
   ServerCreatureObject,
   ServerGroupObject,
   ServerSquadMemberDescriptor,
@@ -56,7 +56,7 @@ export class MockAlifeOnlineOfflineGroup extends MockAlifeDynamicObject {
 
   public force_change_position = jest.fn(() => {});
 
-  public commander_id(): Optional<TNumberId> {
+  public commander_id(): Nullable<TNumberId> {
     return null;
   }
 

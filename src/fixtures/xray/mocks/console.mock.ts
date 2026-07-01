@@ -1,12 +1,12 @@
 import { jest } from "@jest/globals";
 
-import { Console, Optional } from "@/engine/lib/types";
+import { Console, Nillable } from "@/engine/lib/types";
 
 /**
  * Mock xray game console class.
  */
-export class MockConsole {
-  public static instance: Optional<MockConsole> = null;
+export class MockConsole implements Console {
+  public static instance: Nillable<MockConsole> = null;
 
   public static getInstance(): MockConsole {
     if (!this.instance) {
@@ -23,6 +23,8 @@ export class MockConsole {
   public static reset(): void {
     this.instance = null;
   }
+
+  public readonly __name: string = "CConsole";
 
   public show = jest.fn();
   public hide = jest.fn();

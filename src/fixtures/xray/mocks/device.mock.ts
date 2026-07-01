@@ -1,13 +1,13 @@
 import { jest } from "@jest/globals";
 
-import { Optional, TCount, TRate, TSize } from "@/engine/lib/types";
+import { Nullable, TCount, TRate, TSize } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**
  * Mocked game device.
  */
 export class MockDevice {
-  protected static instance: Optional<MockDevice> = null;
+  protected static instance: Nullable<MockDevice> = null;
 
   public static getInstance(): MockDevice {
     if (!MockDevice.instance) {

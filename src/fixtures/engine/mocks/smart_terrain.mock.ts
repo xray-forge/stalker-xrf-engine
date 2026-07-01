@@ -1,14 +1,14 @@
 import { jest } from "@jest/globals";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { IniFile, Optional, TName, TSection } from "@/engine/lib/types";
+import { IniFile, Nillable, TName, TSection } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 /**
  * Smart terrain mocked server object.
  */
 export class MockSmartTerrain extends SmartTerrain {
-  public static mock(name: Optional<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
+  public static mock(name: Nillable<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
     const terrain: MockSmartTerrain = new MockSmartTerrain(section);
 
     terrain.ini = terrain.spawn_ini() as IniFile;
@@ -20,7 +20,7 @@ export class MockSmartTerrain extends SmartTerrain {
     return terrain;
   }
 
-  public static mockRegistered(name: Optional<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
+  public static mockRegistered(name: Nillable<TName> = null, section: TSection = "test_smart_section"): SmartTerrain {
     const terrain: MockSmartTerrain = MockSmartTerrain.mock(name, section);
 
     terrain.on_before_register();

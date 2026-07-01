@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { CGameTask } from "xray16";
 
-import { AnyObject, GameTask, Optional, TCount, TIndex, TTaskState } from "@/engine/lib/types";
+import { AnyObject, GameTask, Nullable, TCount, TIndex, TTaskState } from "@/engine/lib/types";
 
 /**
  * Mock x-ray task object.
@@ -41,9 +41,9 @@ export class MockCGameTask implements GameTask {
     return this.description;
   });
 
-  public get_icon_name = jest.fn(<T extends string>(): Optional<T> => {
+  public get_icon_name = jest.fn(<T extends string>(): Nullable<T> => {
     return this.iconName as T;
-  }) as <T extends string>() => Optional<T>;
+  }) as <T extends string>() => Nullable<T>;
 
   public get_id = jest.fn((): string => {
     return this.id;

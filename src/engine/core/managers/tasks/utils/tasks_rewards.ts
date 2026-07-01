@@ -29,11 +29,11 @@ export function giveTaskReward(task: TaskObject): void {
 
   logger.info("Give task rewards: %s %s %s", task.id, money, itemsList);
 
-  if (money !== null) {
+  if ($isNotNil(money)) {
     giveMoneyToActor(tonumber(money) as TCount);
   }
 
-  if (itemsList !== null) {
+  if ($isNotNil(itemsList)) {
     const rewards: LuaTable<TName, TCount> = new LuaTable();
 
     for (const [, name] of parseStringsList(itemsList)) {

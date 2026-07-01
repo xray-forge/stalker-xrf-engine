@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AlifeSimulator, Optional, ServerObject, TNumberId, Vector } from "@/engine/lib/types";
+import { AlifeSimulator, Nillable, ServerObject, TNumberId, Vector } from "@/engine/lib/types";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockAlifeHumanStalker } from "@/fixtures/xray/mocks/objects/server/cse_alife_human_stalker.mock";
 import { MockAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
@@ -12,7 +12,7 @@ import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
  * Mock alife simulator registry containing data with server objects.
  */
 export class MockAlifeSimulator {
-  public static simulator: Optional<MockAlifeSimulator> = null;
+  public static simulator: Nillable<MockAlifeSimulator> = null;
   public static registry: Record<number, ServerObject> = {};
 
   public static getInstance(): MockAlifeSimulator {
@@ -40,7 +40,7 @@ export class MockAlifeSimulator {
     delete MockAlifeSimulator.registry[id];
   }
 
-  public static getFromRegistry<T extends ServerObject = ServerObject>(id: number): Optional<T> {
+  public static getFromRegistry<T extends ServerObject = ServerObject>(id: number): Nillable<T> {
     return (MockAlifeSimulator.registry[id] as T) || null;
   }
 

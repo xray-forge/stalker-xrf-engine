@@ -1,7 +1,7 @@
 import { ILuaState, ILuaString, lauxlib, lua, lualib, to_jsstring, to_luastring } from "fengari";
 
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import type { Optional } from "@/engine/lib/types";
+import type { Nillable } from "@/engine/lib/types";
 
 /**
  * Mock lua global string methods.
@@ -34,7 +34,7 @@ export const mockString = {
 
     return to_jsstring(lauxlib.luaL_tolstring(L, -1));
   },
-  find: (target: string, pattern: string, startIndex?: number, plain?: boolean): Array<Optional<string | number>> => {
+  find: (target: string, pattern: string, startIndex?: number, plain?: boolean): Array<Nillable<string | number>> => {
     const L: ILuaState = lauxlib.luaL_newstate();
 
     lualib.luaL_openlibs(L);
@@ -58,7 +58,7 @@ export const mockString = {
     }
 
     const resultsCount: number = lua.lua_gettop(L) - 1;
-    const result: Array<Optional<string | number>> = [];
+    const result: Array<Nillable<string | number>> = [];
 
     for (let it = 0; it < resultsCount; it++) {
       const index: number = -(it + 1);
@@ -86,7 +86,7 @@ export const mockString = {
 
     return result;
   },
-  gsub: (target: string, pattern: string, selector: string): Array<Optional<string | number>> => {
+  gsub: (target: string, pattern: string, selector: string): Array<Nillable<string | number>> => {
     if (target === undefined || target === null) {
       return [null, null, null];
     }
@@ -104,7 +104,7 @@ export const mockString = {
 
     lua.lua_call(L, 3, MAX_RETURN_VALUES);
 
-    const stackValues: Array<Optional<string | number>> = [];
+    const stackValues: Array<Nillable<string | number>> = [];
 
     for (let it = 0; it < MAX_RETURN_VALUES; it++) {
       if (lua.lua_isnil(L, -1)) {
@@ -120,7 +120,7 @@ export const mockString = {
 
     stackValues.reverse();
 
-    const result: Array<Optional<string | number>> = [];
+    const result: Array<Nillable<string | number>> = [];
 
     for (let it = 0; it < stackValues.length; it++) {
       if (stackValues[it] === null) {
@@ -160,7 +160,7 @@ export const mockString = {
 
     return result;
   },
-  sub(target: string, start: number, end: number): Optional<string> {
+  sub(target: string, start: number, end: number): Nillable<string> {
     const L: ILuaState = lauxlib.luaL_newstate();
 
     lualib.luaL_openlibs(L);
@@ -178,7 +178,7 @@ export const mockString = {
 
     lua.lua_call(L, 3, 1);
 
-    const matchData: Optional<ILuaString> = lauxlib.luaL_tolstring(L, -1);
+    const matchData: Nillable<ILuaString> = lauxlib.luaL_tolstring(L, -1);
 
     return matchData ? to_jsstring(matchData) : null;
   },

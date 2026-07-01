@@ -151,12 +151,6 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
           this.isHelloPassed = true;
         }
       } else if (distance <= tonumber(pickSectionFromCondList(actor, this.object, this.state.farSoundDistance))!) {
-        logger.info(
-          "XXXX: '%s', '%s'",
-          this.object.name(),
-          pickSectionFromCondList(actor, this.object, this.state.farSoundDistance)
-        );
-
         if (this.isHelloPassed && !this.isByePassed) {
           const sound: Nillable<TSection> = parseStringOptional(
             pickSectionFromCondList(actor, this.object, this.state.closeSoundBye)
@@ -193,13 +187,13 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     this.isDialogBreakEnabled = pickSectionFromCondList(actor, this.object, this.state.isBreakAllowed) === TRUE;
 
-    if (this.state.meetDialog !== null) {
+    if ($isNotNil(this.state.meetDialog)) {
       const startingDialog: Nillable<TName> = pickSectionFromCondList(actor, this.object, this.state.meetDialog);
 
       if (this.startDialog !== startingDialog) {
         this.startDialog = startingDialog;
 
-        if (startingDialog === null || startingDialog === NIL) {
+        if ($isNil(startingDialog) || startingDialog === NIL) {
           this.object.restore_default_start_dialog();
         } else {
           this.object.set_start_dialog(startingDialog);

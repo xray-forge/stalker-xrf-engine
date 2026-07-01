@@ -410,7 +410,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public getScriptedSimulationTarget(): Nillable<TNumberId> {
     const newTarget: Nillable<TSection> = pickSectionFromCondList(registry.actor, this, this.targetConditionList);
 
-    if (newTarget === null) {
+    if ($isNil(newTarget)) {
       return null;
     }
 
@@ -420,7 +420,7 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.nextTargetIndex = 1;
     }
 
-    if (this.parsedTargets.get(this.nextTargetIndex as TNumberId) === null) {
+    if ($isNil(this.parsedTargets.get(this.nextTargetIndex as TNumberId))) {
       this.nextTargetIndex = 1;
     }
 

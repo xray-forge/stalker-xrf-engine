@@ -1,4 +1,4 @@
-import type { Flags32, LuaArray, Optional, TCount, TIndex, TName, TProbability, TSection } from "@/engine/lib/types";
+import type { Flags32, LuaArray, Nillable, TCount, TIndex, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * Data descriptor describing waypoint logics.
@@ -7,19 +7,19 @@ export interface IWaypointData {
   /**
    * Animation state when moving on waypoint.
    */
-  a: Optional<TConditionList>;
+  a: Nillable<TConditionList>;
   s?: string;
   b?: string;
   r?: string;
   /**
    * Return value passed to the patrol callback when reaching the waypoint.
    */
-  ret: Optional<string>;
+  ret: Nillable<string>;
   /**
    * Probability to stop on walk point when reaching it.
    * Expected number in range 0-100.
    */
-  p: Optional<string>;
+  p: Nillable<string>;
   d?: string;
   radius?: number;
   state?: string;
@@ -33,7 +33,7 @@ export interface IWaypointData {
   /**
    * Signal to set when reaching `walk` waypoint.
    */
-  sig: Optional<TName>;
+  sig: Nillable<TName>;
   /**
    * Whether patrol should synchronize on the waypoint.
    * Forces all patrol participants to come to the point before setting the flag.
@@ -44,7 +44,7 @@ export interface IWaypointData {
    * Timeout for `look_point` animation.
    * Describes time for stopping near `walk_point`.
    */
-  t: Optional<number | "*">;
+  t: Nillable<number | "*">;
   flags: Flags32;
 }
 
@@ -65,7 +65,7 @@ export interface IConfigCondition {
   required?: boolean;
   expected?: boolean;
   prob?: TProbability;
-  params?: Optional<LuaArray<string | number>>;
+  params?: Nillable<LuaArray<string | number>>;
 }
 
 /**
@@ -95,6 +95,6 @@ export interface IConfigSwitchConditionsDescriptor {
  * State descriptor describing bone state.
  */
 export interface IBoneStateDescriptor {
-  index: Optional<TIndex>; // Bone index.
-  state: Optional<TConditionList>; // Matching state.
+  index: Nillable<TIndex>; // Bone index.
+  state: Nillable<TConditionList>; // Matching state.
 }

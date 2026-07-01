@@ -1,14 +1,14 @@
 import { jest } from "@jest/globals";
 import type { CMainMenu } from "xray16";
 
-import { Optional } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 import { MockLoginManager } from "@/fixtures/xray/mocks/managers/LoginManager.mock";
 
 /**
  * Mocking internal C main menu manager.
  */
 export class MockCMainMenu {
-  protected static instance: Optional<MockCMainMenu> = null;
+  protected static instance: Nillable<MockCMainMenu> = null;
 
   public static getInstance(): MockCMainMenu {
     if (!this.instance) {

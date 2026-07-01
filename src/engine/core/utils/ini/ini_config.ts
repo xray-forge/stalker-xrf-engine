@@ -26,7 +26,6 @@ import {
   IniFile,
   LuaArray,
   Nillable,
-  Optional,
   ServerObject,
   TCount,
   TIndex,
@@ -77,7 +76,7 @@ export function pickSectionFromCondList<T extends TSection>(
   actor: GameObject,
   object: Nillable<GameObject | ServerObject>,
   condlist: TConditionList
-): Optional<T> {
+): Nillable<T> {
   for (const [, switchCondition] of condlist) {
     let areInfoPortionConditionsMet: boolean = true;
 
@@ -239,7 +238,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
  * @param section - Section in ini file to read.
  * @returns Nillable list of scheme logic switcher descriptors.
  */
-export function getConfigSwitchConditions(ini: IniFile, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
+export function getConfigSwitchConditions(ini: IniFile, section: TSection): Nillable<LuaArray<IBaseSchemeLogic>> {
   const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();
 
   if (!ini.section_exist(tostring(section))) {

@@ -1,10 +1,10 @@
-import type { AnyObject, LuaArray, Optional } from "@/engine/lib/types";
+import type { AnyObject, LuaArray, Nillable } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 /**
  * Transform lua table to array for easier testing with equals checks.
  */
-export function luaTableToArray<T = unknown>(value: Optional<LuaArray<T>>): Array<T> {
+export function luaTableToArray<T = unknown>(value: Nillable<LuaArray<T>>): Array<T> {
   if (value instanceof MockLuaTable) {
     return [...(value as unknown as Map<number, T>).values()].map((it) => {
       return mapFromLua<any>(it);

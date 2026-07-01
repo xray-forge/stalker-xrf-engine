@@ -7,7 +7,7 @@ import {
   parseStringsList,
   parseStringsSet,
 } from "@/engine/core/utils/ini/ini_parse";
-import { IniFile, LuaArray, Nillable, Optional, TCount, TName, TSection } from "@/engine/lib/types";
+import { IniFile, LuaArray, Nillable, TCount, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Read string field from provided ini file section.
@@ -265,7 +265,7 @@ export function readIniTwoNumbers(
  * @param field - Section field to read.
  * @returns Logics scheme object.
  */
-export function readIniConditionList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+export function readIniConditionList(ini: IniFile, section: TSection, field: TName): Nillable<IBaseSchemeLogic> {
   const data: Nillable<string> = readIniString(ini, section, field);
 
   if (!data) {
@@ -294,7 +294,7 @@ export function readIniConditionList(ini: IniFile, section: TSection, field: TNa
  * @param field - Section field to read.
  * @returns Logics scheme object.
  */
-export function readIniStringAndCondList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
+export function readIniStringAndCondList(ini: IniFile, section: TSection, field: TName): Nillable<IBaseSchemeLogic> {
   const data: string = readIniString(ini, section, field);
 
   if (!data) {
@@ -327,7 +327,7 @@ export function readIniNumberAndConditionList(
   ini: IniFile,
   section: TSection,
   field: TName
-): Optional<IBaseSchemeLogic> {
+): Nillable<IBaseSchemeLogic> {
   const data: Nillable<string> = readIniString(ini, section, field);
 
   if ($isNil(data)) {

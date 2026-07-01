@@ -18,7 +18,6 @@ import {
   Flags32,
   LuaArray,
   Nillable,
-  Optional,
   Patrol,
   StringNillable,
   TCount,
@@ -103,7 +102,7 @@ export function parseSpawnDetails(data: string): LuaArray<ISpawnDescriptor> {
       count: tonumber(parameters.get(index)) as TCount,
     } as ISpawnDescriptor;
 
-    if (parameters.get(index + 1) === null) {
+    if ($isNil(parameters.get(index + 1))) {
       spawn.probability = 1;
       index += 1;
     } else {
@@ -176,7 +175,7 @@ export function parseConditionsList(data: string): TConditionList {
       "{%s*(.*)%s*}"
     );
 
-    if (infoPortionsCheckList !== null) {
+    if ($isNotNil(infoPortionsCheckList)) {
       rest =
         string.sub(rest, 1, (infoPortionsCheckStart as number) - 1) +
         string.sub(rest, (infoPortionsCheckEnd as number) + 1);
@@ -184,7 +183,7 @@ export function parseConditionsList(data: string): TConditionList {
 
     const [infoPortionsSetStart, infoPortionsSetEnd, infoPortionsSetList] = string.find(rest, "%%%s*(.*)%s*%%");
 
-    if (infoPortionsSetList !== null) {
+    if ($isNotNil(infoPortionsSetList)) {
       rest =
         string.sub(rest, 1, (infoPortionsSetStart as number) - 1) +
         string.sub(rest, (infoPortionsSetEnd as number) + 1);
@@ -218,9 +217,9 @@ export function parseConditionsList(data: string): TConditionList {
  */
 export function parseInfoPortions(
   destination: LuaArray<IConfigCondition>,
-  data: Optional<string | number>
+  data: Nillable<string | number>
 ): LuaArray<IConfigCondition> {
-  if (data === null) {
+  if ($isNil(data)) {
     return destination;
   }
 
@@ -228,11 +227,11 @@ export function parseInfoPortions(
     const sign: string = string.sub(infoPortionRaw, 1, 1);
 
     let infoPortion: TInfoPortion = string.sub(infoPortionRaw, 2) as TInfoPortion;
-    let params: Optional<LuaArray<string | number>> = null;
+    let params: Nillable<LuaArray<string | number>> = null;
 
     const [at] = string.find(infoPortion, "%(");
 
-    if (at !== null) {
+    if ($isNotNil(at)) {
       if (string.sub(infoPortion, -1) !== ")") {
         abort("Wrong condition list '%s'.", data);
       }
@@ -300,9 +299,9 @@ export function parseFunctionParams(data: string): LuaArray<string | number> {
   const list: LuaArray<string | number> = new LuaTable();
 
   for (const parameter of string.gfind(data, "%s*([^:]+)%s*")) {
-    const parsed: Optional<number> = tonumber(parameter) as number;
+    const parsed: Nillable<number> = tonumber(parameter) as number;
 
-    table.insert(list, parsed === null ? parameter : parsed);
+    table.insert(list, $isNil(parsed) ? parameter : parsed);
   }
 
   return list;
@@ -326,7 +325,7 @@ export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, point
     flags: patrolFlags,
   };
 
-  if (string.find(pointName, "|", undefined, true) === null) {
+  if ($isNil(string.find(pointName, "|", undefined, true))) {
     return waypointData;
   }
 
@@ -374,7 +373,7 @@ export function parseWaypointData(patrolName: TPath, patrolFlags: Flags32, point
  */
 export function parseWaypointsData(patrolName: null): null;
 export function parseWaypointsData(patrolName: TPath): LuaTable<TIndex, IWaypointData>;
-export function parseWaypointsData(patrolName: Optional<TPath>): Optional<LuaTable<TIndex, IWaypointData>> {
+export function parseWaypointsData(patrolName: Nillable<TPath>): Nillable<LuaTable<TIndex, IWaypointData>> {
   if (!patrolName) {
     return null;
   }
@@ -384,7 +383,7 @@ export function parseWaypointsData(patrolName: Optional<TPath>): Optional<LuaTab
   const waypointsData: LuaArray<IWaypointData> = new LuaTable();
 
   for (const point of $range(0, count - 1)) {
-    const data: Optional<IWaypointData> = parseWaypointData(
+    const data: Nillable<IWaypointData> = parseWaypointData(
       patrolName,
       waypointPatrol.flags(point),
       waypointPatrol.name(point)
@@ -411,7 +410,7 @@ export function parseWaypointsDataFromList(
   patrolName: TName,
   pointsCount: TCount,
   ...args: Array<[TIndex, TName]>
-): Optional<LuaTable<TIndex, IWaypointData>> {
+): Nillable<LuaTable<TIndex, IWaypointData>> {
   const waypointPatrol: Patrol = new patrol(patrolName);
   const count: TCount = waypointPatrol.count();
   const list: LuaArray<IWaypointData> = new LuaTable();
@@ -446,18 +445,18 @@ export function parseWaypointsDataFromList(
  * @param data - Input string to parse.
  * @returns List of bone state descriptors.
  */
-export function parseBoneStateDescriptors(data: Optional<string>): LuaArray<IBoneStateDescriptor> {
+export function parseBoneStateDescriptors(data: Nillable<string>): LuaArray<IBoneStateDescriptor> {
   const target: LuaArray<IBoneStateDescriptor> = new LuaTable();
 
   if (data) {
     for (const name of string.gfind(data, "(%|*%d+%|[^%|]+)%p*")) {
       const [position] = string.find(name, "|", 1, true);
       const index: TIndex = tonumber(string.sub(name, 1, position - 1)) as TIndex;
-      const state: Optional<TName> = string.sub(name, position + 1);
+      const state: Nillable<TName> = string.sub(name, position + 1);
 
       target.set(index, {
         index: index,
-        state: state !== null ? parseConditionsList(state) : null,
+        state: $isNotNil(state) ? parseConditionsList(state) : null,
       });
     }
   }
@@ -471,7 +470,7 @@ export function parseBoneStateDescriptors(data: Optional<string>): LuaArray<IBon
  * @param value - Value to check.
  * @returns Value or null in case of `nil` string.
  */
-export function parseStringOptional<T extends StringNillable>(value: Optional<T>): Optional<T> {
+export function parseStringOptional<T extends StringNillable>(value: Nillable<T>): Nillable<T> {
   return value === NIL ? null : value;
 }
 
@@ -481,7 +480,7 @@ export function parseStringOptional<T extends StringNillable>(value: Optional<T>
  * @param value - Value to check.
  * @returns Parsed number value or null in case of `nil` string.
  */
-export function parseNumberOptional<T extends StringNillable>(value: T): Optional<number> {
+export function parseNumberOptional<T extends StringNillable>(value: T): Nillable<number> {
   return value === NIL ? null : (tonumber(value) as number);
 }
 
@@ -492,7 +491,7 @@ export function parseNumberOptional<T extends StringNillable>(value: T): Optiona
  * @returns Scheme name.
  * @example some_name@parameter -> some_name
  */
-export function getSchemeFromSection(section: TSection): Optional<EScheme> {
+export function getSchemeFromSection(section: TSection): Nillable<EScheme> {
   let [scheme] = string.gsub(section, "%d", "");
 
   // No match.
@@ -502,7 +501,7 @@ export function getSchemeFromSection(section: TSection): Optional<EScheme> {
 
   const [at, to] = string.find(scheme, "@", 1, true);
 
-  if (at !== null && to !== null) {
+  if ($isNotNil(at) && $isNotNil(to)) {
     scheme = string.sub(scheme, 1, at - 1) as EScheme;
   }
 

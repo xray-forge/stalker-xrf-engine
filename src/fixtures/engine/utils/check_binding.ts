@@ -1,4 +1,4 @@
-import { AnyArgs, AnyCallable, AnyObject, GameObject, Optional, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyCallable, AnyObject, GameObject, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Expect binding to be defined in global container.
@@ -76,7 +76,7 @@ export function checkXrCondition(name: TName, container: AnyObject = _G): void {
  * @returns Condition value.
  */
 export function callXrCondition(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): boolean {
-  const effects: Optional<AnyObject> = (_G as AnyObject)["xr_conditions"];
+  const effects: Nillable<AnyObject> = (_G as AnyObject)["xr_conditions"];
 
   if (!name) {
     throw new Error(`Unexpected condition name provided - '${name}'.`);
@@ -118,7 +118,7 @@ export function checkXrEffect(name: TName, container: AnyObject = _G): void {
  * @param parameters - List of parameters for the effect.
  */
 export function callXrEffect(name: TName, actor: GameObject, object: GameObject, ...parameters: AnyArgs): void {
-  const effects: Optional<AnyObject> = (_G as AnyObject)["xr_effects"];
+  const effects: Nillable<AnyObject> = (_G as AnyObject)["xr_effects"];
 
   if (!name) {
     throw new Error(`Unexpected condition name provided - '${name}'.`);

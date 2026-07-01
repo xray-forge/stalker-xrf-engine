@@ -1,13 +1,15 @@
 import { jest } from "@jest/globals";
 
-import { Optional, TDuration, TTimestamp } from "@/engine/lib/types";
+import { Nillable, ProfileTimer, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Mocking high-precision timer for debugging and profiling of functions.
  */
-export class MockProfileTimer {
-  public timestamp: Optional<TTimestamp> = null;
-  public duration: Optional<TDuration> = null;
+export class MockProfileTimer implements ProfileTimer {
+  public timestamp: Nillable<TTimestamp> = null;
+  public duration: Nillable<TDuration> = null;
+
+  public readonly __name: string = "profile_timer";
 
   public start = jest.fn(() => (this.timestamp = Date.now()));
   public stop = jest.fn(() => {
@@ -16,5 +18,5 @@ export class MockProfileTimer {
     }
   });
 
-  public time = jest.fn(() => this.duration);
+  public time = jest.fn(() => this.duration as number);
 }

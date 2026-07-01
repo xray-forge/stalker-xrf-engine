@@ -1,4 +1,4 @@
-import { Optional, PhraseScript, TName } from "@/engine/lib/types";
+import { Nullable, PhraseScript, TName } from "@/engine/lib/types";
 
 /**
  * Mock phrase script entry for game dialogs.
@@ -8,7 +8,7 @@ export class MockPhraseScript {
     return new MockPhraseScript() as unknown as PhraseScript;
   }
 
-  public text: Optional<string> = null;
+  public text: Nullable<string> = null;
   public actions: Array<TName> = [];
   public preconditions: Array<TName> = [];
 

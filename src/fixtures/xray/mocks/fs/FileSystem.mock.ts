@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { AnyObject, Optional, TPath } from "@/engine/lib/types";
+import { AnyObject, Nullable, TPath } from "@/engine/lib/types";
 import { MockFileSystemList } from "@/fixtures/xray/mocks/fs/FileSystemList.mock";
 import { FS_MOCKS } from "@/fixtures/xray/mocks/fs/fs.mock";
 
@@ -19,7 +19,7 @@ export class MockFileSystem {
   public static FS_sort_by_size_down: number = 3;
   public static FS_sort_by_size_up: number = 2;
 
-  private static instance: Optional<MockFileSystem> = null;
+  private static instance: Nullable<MockFileSystem> = null;
 
   public static getInstance(): MockFileSystem {
     if (!this.instance) {

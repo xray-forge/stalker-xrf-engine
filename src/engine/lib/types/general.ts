@@ -6,13 +6,6 @@ import { TIndex } from "@/engine/lib/types/alias";
 export type AnyObject = Record<string, any>;
 
 /**
- * Nullable value.
- *
- *  @deprecated In favor of `Nillable`.
- */
-export type Optional<T> = T | null;
-
-/**
  * Possible `nil` value in lua, both null and undefined in TS.
  */
 export type Nillable<T> = T | undefined | null;
