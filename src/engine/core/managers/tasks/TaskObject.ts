@@ -176,7 +176,7 @@ export class TaskObject {
   public update(): Nillable<ETaskState> {
     const now: TTimestamp = time_global();
 
-    if (this.state && this.nextUpdateAt <= now) {
+    if (this.state && now < this.nextUpdateAt) {
       return this.state;
     }
 
@@ -196,6 +196,14 @@ export class TaskObject {
       isTaskUpdated = true;
       this.currentTitle = nextTitle;
       this.task.set_title(game.translate_string(nextTitle));
+    }
+
+    const nextDescription: TLabel = taskFunctors[this.descriptionGetterFunctorName](this.id, "descr", this.description);
+
+    if (this.currentDescription !== nextDescription) {
+      isTaskUpdated = true;
+      this.currentDescription = nextDescription;
+      this.task.set_description(game.translate_string(nextDescription));
     }
 
     const nextTargetId: TNumberId = taskFunctors[this.targetGetterFunctorName](this.id, "target", this.target);

@@ -1,13 +1,14 @@
-import { beforeAll, describe, expect, it } from "@jest/globals";
-import { CTime } from "xray16";
+import { beforeAll, describe, expect, it, jest } from "@jest/globals";
+import { CTime, time_global } from "xray16";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
-import { TASK_MANAGER_CONFIG_LTX } from "@/engine/core/managers/tasks/TaskConfig";
+import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
 import { TaskManager } from "@/engine/core/managers/tasks/TaskManager";
 import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
-import { ETaskStatus } from "@/engine/core/managers/tasks/types";
+import { ETaskState, ETaskStatus } from "@/engine/core/managers/tasks/types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { NIL } from "@/engine/lib/constants/words";
+import { GameTask } from "@/engine/lib/types";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { MockGameObject } from "@/fixtures/xray";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
@@ -101,6 +102,44 @@ describe("TaskObject", () => {
 
     expect(processor.readDataOrder).toEqual(processor.writeDataOrder);
     expect(processor.dataList).toHaveLength(0);
+  });
+
+  it("should refresh the task description on update when the description functor value changes", () => {
+    const taskObject: TaskObject = new TaskObject("zat_b28_heli_3_crash", TASK_MANAGER_CONFIG_LTX);
+
+    taskObject.onActivate();
+
+    const task: GameTask = taskObject.task as GameTask;
+    const setDescriptionSpy = jest.spyOn(task, "set_description");
+
+    // Force a stale current description so update() recomputes and applies the fresh one.
+    taskObject.currentDescription = "stale_description";
+    setDescriptionSpy.mockClear();
+    taskObject.update();
+
+    expect(taskObject.currentDescription).not.toBe("stale_description");
+    expect(setDescriptionSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("should throttle updates while within the update window", () => {
+    const taskObject: TaskObject = new TaskObject("zat_b28_heli_3_crash", TASK_MANAGER_CONFIG_LTX);
+
+    taskObject.onActivate();
+
+    const task: GameTask = taskObject.task as GameTask;
+    const setTitleSpy = jest.spyOn(task, "set_title");
+
+    // A determined state with a future next-update timestamp: update() must skip the re-evaluation entirely.
+    const future: number = time_global() + taskConfig.UPDATE_CHECK_PERIOD;
+
+    taskObject.state = ETaskState.NEW;
+    taskObject.nextUpdateAt = future;
+    setTitleSpy.mockClear();
+
+    expect(taskObject.update()).toBe(ETaskState.NEW);
+    // Throttled: nextUpdateAt is left untouched (a non-throttled run would overwrite it with now + period).
+    expect(taskObject.nextUpdateAt).toBe(future);
+    expect(setTitleSpy).not.toHaveBeenCalled();
   });
 
   it.todo("should correctly give tasks");
