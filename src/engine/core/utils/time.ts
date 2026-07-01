@@ -2,7 +2,7 @@ import { CTime, game, level } from "xray16";
 
 import { wait } from "@/engine/core/utils/game/game_wait";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { NetPacket, NetProcessor, Nillable, Optional, Time, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Nillable, Time, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Add part of time digit to a data string.
@@ -132,7 +132,7 @@ export function writeTimeToPacket(packet: NetPacket, time: Nillable<Time> = null
  * @param reader - Target packet to read data.
  * @returns Time object or null.
  */
-export function readTimeFromPacket(reader: NetProcessor): Optional<Time> {
+export function readTimeFromPacket(reader: NetProcessor): Nillable<Time> {
   const Y: number = reader.r_u8();
 
   if (Y === MAX_U8 || Y === 0) {

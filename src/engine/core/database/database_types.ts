@@ -11,7 +11,6 @@ import {
   IniFile,
   LuaArray,
   Nillable,
-  Optional,
   TDuration,
   Time,
   TName,
@@ -27,9 +26,9 @@ import {
 export interface IBaseSchemeLogic {
   name: TName;
   condlist: TConditionList;
-  objectId: Optional<TNumberId>;
-  p1: Optional<string | number>;
-  p2: Optional<string | number>;
+  objectId: Nillable<TNumberId>;
+  p1: Nillable<string | number>;
+  p2: Nillable<string | number>;
 }
 
 /**
@@ -48,16 +47,16 @@ export interface IBaseSchemeState {
    * List of switch conditions.
    * Based on logic check one scheme section can be switched to another if condlists provide next section.
    */
-  logic: Optional<LuaArray<IBaseSchemeLogic>>;
+  logic: Nillable<LuaArray<IBaseSchemeLogic>>;
   /**
    * List of signals in active scheme state.
    * Signals are flags indicating whether some action/thing happened.
    */
-  signals: Optional<TSchemeSignals>;
+  signals: Nillable<TSchemeSignals>;
   scheme: EScheme;
   section: Nillable<TSection>;
   actions?: LuaTable<AnyObject, boolean>;
-  overrides: Optional<ILogicsOverrides>;
+  overrides: Nillable<ILogicsOverrides>;
 }
 
 /**
@@ -71,7 +70,7 @@ export interface IRegistryObjectStateLogic {
   /**
    * File name of state logic ini.
    */
-  iniFilename: Optional<TName>;
+  iniFilename: Nillable<TName>;
   /**
    * Based on object type, marks compatible scheme types.
    */
@@ -79,16 +78,16 @@ export interface IRegistryObjectStateLogic {
   /**
    * Currently active logic section of the object.
    */
-  activeSection: Optional<TSection>;
+  activeSection: Nillable<TSection>;
   /**
    * Currently active logic scheme of the object.
    */
-  activeScheme: Optional<EScheme>;
+  activeScheme: Nillable<EScheme>;
   /**
    * Describes INI file section with initial logic.
    * By default, it is `logic` or smart terrain job section name.
    */
-  sectionLogic: Optional<TName>;
+  sectionLogic: Nillable<TName>;
   /**
    * Object smart terrain name.
    * Used as base for schemes to pick up logic when smart terrains are capturing objects/squads.
@@ -98,7 +97,7 @@ export interface IRegistryObjectStateLogic {
   /**
    * Overrides applied on top of the active logic section.
    */
-  overrides: Optional<ILogicsOverrides>;
+  overrides: Nillable<ILogicsOverrides>;
   /**
    * Time of logics section activation - absolute.
    */
@@ -114,41 +113,41 @@ export interface IRegistryObjectStateLogic {
   /**
    * Describes last active logic file name when game was saved.
    */
-  loadedIniFilename: Optional<TName>;
+  loadedIniFilename: Nillable<TName>;
   /**
    * Describes last active section logic section, source of initial object logic when game was saved.
    */
-  loadedSectionLogic: Optional<TSection>;
+  loadedSectionLogic: Nillable<TSection>;
   /**
    * Describes last active logic section when game was saved.
    */
-  loadedActiveSection: Optional<TSection>;
+  loadedActiveSection: Nillable<TSection>;
   /**
    * Describes last active smart terrain name when game was saved.
    */
-  loadedSmartTerrainName: Optional<TName>;
+  loadedSmartTerrainName: Nillable<TName>;
 }
 
 /**
  * State logics overrides descriptor.
  */
 export interface ILogicsOverrides {
-  heliHunter: Optional<TConditionList>;
-  combatIgnore: Optional<IBaseSchemeLogic>;
-  combatIgnoreKeepWhenAttacked: Optional<boolean>;
-  combatType: Optional<IBaseSchemeLogic>;
-  scriptCombatType: Optional<TName>;
+  heliHunter: Nillable<TConditionList>;
+  combatIgnore: Nillable<IBaseSchemeLogic>;
+  combatIgnoreKeepWhenAttacked: Nillable<boolean>;
+  combatType: Nillable<IBaseSchemeLogic>;
+  scriptCombatType: Nillable<TName>;
   minPostCombatTime: TDuration;
   maxPostCombatTime: TDuration;
-  onCombat: Optional<IBaseSchemeLogic>;
-  onOffline: Optional<TConditionList>;
-  soundgroup: Optional<TName>;
+  onCombat: Nillable<IBaseSchemeLogic>;
+  onOffline: Nillable<TConditionList>;
+  soundgroup: Nillable<TName>;
 }
 
 /**
  * Client objects registry state describing logics and state.
  */
-export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSchemeState>>, IRegistryObjectStateLogic {
+export interface IRegistryObjectState extends Record<EScheme, Nillable<IBaseSchemeState>>, IRegistryObjectStateLogic {
   /**
    * Client object reference to owner of the registry state.
    */
@@ -156,59 +155,59 @@ export interface IRegistryObjectState extends Record<EScheme, Optional<IBaseSche
   /**
    * Dynamically stored flags / variables.
    */
-  portableStore: Optional<LuaTable<TName>>;
+  portableStore: Nillable<LuaTable<TName>>;
   /**
    * Patrol manager for stalker objects.
    * Handles patrol selection/logics/waypoints etc.
    */
-  patrolManager: Optional<StalkerPatrolManager>;
+  patrolManager: Nillable<StalkerPatrolManager>;
   /**
    * State manager class for stalker objects.
    * Handles current animation/animstate logics and adjust stalker object to match required logics.
    */
-  stateManager: Optional<StalkerStateManager>;
+  stateManager: Nillable<StalkerStateManager>;
   /**
    * Restrictions manager for game objects.
    * Handles current restrictions list depending on active logics.
    */
-  restrictionsManager: Optional<ObjectRestrictionsManager>;
+  restrictionsManager: Nillable<ObjectRestrictionsManager>;
   /**
    * State of the hear scheme handling object sound reactions.
    */
-  hearInfo: Optional<IActionSchemeHearState>;
+  hearInfo: Nillable<IActionSchemeHearState>;
   /**
    * Whether object is invulnerable to any damage.
    */
-  invulnerable: Optional<boolean>;
+  invulnerable: Nillable<boolean>;
   /**
    * Whether game object is immortal.
    * Todo: Applicable for heli only. Should be somewhere else?
    */
-  immortal: Optional<boolean>;
+  immortal: Nillable<boolean>;
   /**
    * Whether object sounds are muted.
    */
-  mute: Optional<boolean>;
+  mute: Nillable<boolean>;
   /**
    * Timestamp of the previous object aim time.
    */
-  old_aim_time: Optional<TTimestamp>;
+  old_aim_time: Nillable<TTimestamp>;
   /**
    * Current enemy ID of the object.
    */
-  enemyId: Optional<TNumberId>;
+  enemyId: Nillable<TNumberId>;
   /**
    * Current enemy of the object.
    */
-  enemy: Optional<GameObject>;
+  enemy: Nillable<GameObject>;
   /**
    * Combat type forced by script logic for the object.
    */
-  scriptCombatType: Optional<TName>;
+  scriptCombatType: Nillable<TName>;
   /**
-   * Optional ID of linked camp game object, if registered object is in it.
+   * Nillable ID of linked camp game object, if registered object is in it.
    */
-  camp: Optional<TNumberId>;
+  camp: Nillable<TNumberId>;
 }
 
 /**
@@ -223,8 +222,8 @@ export interface IDynamicObjectState {
  * Remember object active section when object switched offline.
  */
 export interface IRegistryOfflineState {
-  levelVertexId: Optional<TNumberId>;
-  activeSection: Optional<TSection>;
+  levelVertexId: Nillable<TNumberId>;
+  activeSection: Nillable<TSection>;
 }
 
 /**

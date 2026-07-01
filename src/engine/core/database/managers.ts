@@ -1,7 +1,7 @@
 import { registry } from "@/engine/core/database/registry";
 import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, TName } from "@/engine/lib/types";
+import { Nillable, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -25,8 +25,8 @@ export function getManager<T extends TAbstractCoreManagerConstructor>(ManagerCla
  * @param name - Manager class name to get.
  * @returns Manager instance singleton or null if it is not initialized.
  */
-export function getManagerByName<T extends AbstractManager>(name: TName): Optional<T> {
-  return registry.managersByName.get(name) as Optional<T>;
+export function getManagerByName<T extends AbstractManager>(name: TName): Nillable<T> {
+  return registry.managersByName.get(name) as Nillable<T>;
 }
 
 /**
@@ -35,7 +35,7 @@ export function getManagerByName<T extends AbstractManager>(name: TName): Option
  * @param ManagerClass - Manager class statics reference, used as key in registry to get singletons.
  * @returns Manager singleton if it is initialized, 'null' otherwise.
  */
-export function getWeakManager<T extends TAbstractCoreManagerConstructor>(ManagerClass: T): Optional<InstanceType<T>> {
+export function getWeakManager<T extends TAbstractCoreManagerConstructor>(ManagerClass: T): Nillable<InstanceType<T>> {
   return registry.managers.get(ManagerClass) as InstanceType<T>;
 }
 
@@ -57,7 +57,7 @@ export function isManagerInitialized<T extends TAbstractCoreManagerConstructor>(
 export function initializeManager<T extends TAbstractCoreManagerConstructor>(
   ManagerClass: TAbstractCoreManagerConstructor
 ): InstanceType<T> {
-  let manager: Optional<AbstractManager> = registry.managers.get(ManagerClass);
+  let manager: Nillable<AbstractManager> = registry.managers.get(ManagerClass);
 
   if (!manager) {
     logger.info("Initialize manager: %s", ManagerClass.name);
@@ -79,7 +79,7 @@ export function initializeManager<T extends TAbstractCoreManagerConstructor>(
  * @param ManagerClass - Manager class statics reference, used as key in registry to get singletons.
  */
 export function disposeManager<T extends TAbstractCoreManagerConstructor>(ManagerClass: T): void {
-  const manager: Optional<AbstractManager> = registry.managers.get(ManagerClass) as Optional<AbstractManager>;
+  const manager: Nillable<AbstractManager> = registry.managers.get(ManagerClass) as Nillable<AbstractManager>;
 
   if (manager) {
     logger.info("Dispose manager: %s", ManagerClass.name);

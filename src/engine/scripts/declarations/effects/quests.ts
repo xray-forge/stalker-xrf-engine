@@ -414,8 +414,8 @@ extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p
   const fromObject: Nillable<GameObject> = p && getObjectByStoryId(p[0]);
   const toObject: Nillable<GameObject> = p && getObjectByStoryId(p[1]);
 
-  if (toObject !== null) {
-    if (fromObject !== null && fromObject.object(item!) !== null) {
+  if (toObject) {
+    if (fromObject && fromObject.object(item!)) {
       fromObject.transfer_item(fromObject.object(item!)!, toObject);
     } else {
       registry.simulator.create(
@@ -508,7 +508,7 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
     },
   } as unknown as LuaArray<LuaTable<string, number>>;
 
-  if (params && params[0] !== null) {
+  if (params && $isNotNil(params[0])) {
     const cnt: TCount = getPortableStoreValue(ACTOR_ID, "jup_b10_ufo_counter", 0);
 
     if (cnt > 2) {
@@ -518,7 +518,7 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
     for (const [k, v] of items.get(cnt)) {
       const targetObjectId: Nillable<TNumberId> = getObjectIdByStoryId(params[0]);
 
-      if (targetObjectId !== null) {
+      if ($isNotNil(targetObjectId)) {
         const box: Nillable<ServerObject> = registry.simulator.object(targetObjectId);
 
         if (box === null) {
@@ -779,7 +779,7 @@ extern("xr_effects.pas_b400_stop_particle", (actor: GameObject, object: GameObje
 extern("xr_effects.damage_pri_a17_gauss", (): void => {
   const object: Nillable<GameObject> = getObjectByStoryId(questItems.pri_a17_gauss_rifle);
 
-  if (object !== null) {
+  if (object) {
     object.set_condition(0.0);
   }
 });
@@ -1112,10 +1112,10 @@ extern("xr_effects.jup_b200_count_found", (): void => {
   for (const [, materialId] of materialsTable) {
     const materialObject: Nillable<GameObject> = getObjectByStoryId(materialId);
 
-    if (materialObject !== null) {
-      const parent: GameObject = materialObject.parent();
+    if (materialObject) {
+      const parent: Nillable<GameObject> = materialObject.parent();
 
-      if (parent !== null) {
+      if ($isNotNil(parent)) {
         const parentId: TNumberId = parent.id();
 
         if (parentId !== MAX_ALIFE_ID && parentId === ACTOR_ID) {

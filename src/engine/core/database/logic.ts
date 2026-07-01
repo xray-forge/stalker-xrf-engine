@@ -12,7 +12,7 @@ import {
   GameObject,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   StringNillable,
   Time,
   TName,
@@ -59,9 +59,9 @@ export function loadObjectLogic(object: GameObject, reader: NetProcessor): void 
 
   openLoadMarker(reader, object.name());
 
-  const jobIni: Optional<TPath> = reader.r_stringZ();
-  const iniFilename: Optional<TName> = reader.r_stringZ();
-  const sectionLogic: Optional<TSection> = reader.r_stringZ();
+  const jobIni: Nillable<TPath> = reader.r_stringZ();
+  const iniFilename: Nillable<TName> = reader.r_stringZ();
+  const sectionLogic: Nillable<TSection> = reader.r_stringZ();
   const activeSection: StringNillable = reader.r_stringZ();
   const smartTerrainName: TName = reader.r_stringZ();
 

@@ -24,7 +24,7 @@ import type {
   EScheme,
   GameObject,
   IniFile,
-  Optional,
+  Nillable,
   TIndex,
   TName,
   TNumberId,
@@ -56,15 +56,15 @@ export const registry = {
    * Currently active smart terrain id.
    * If not null, assume actor is in it.
    */
-  activeSmartTerrainId: null as Optional<TNumberId>,
+  activeSmartTerrainId: null as Nillable<TNumberId>,
   /**
    * List of active game managers by base class reference.
    */
-  managers: new LuaTable<TAbstractCoreManagerConstructor, AbstractManager>(),
+  managers: new LuaMap<TAbstractCoreManagerConstructor, AbstractManager>(),
   /**
    * List of active game managers by base class name.
    */
-  managersByName: new LuaTable<TName, AbstractManager>(),
+  managersByName: new LuaMap<TName, AbstractManager>(),
   /**
    * List of activated schemes in game.
    */
@@ -124,8 +124,8 @@ export const registry = {
    * Story objects mapping to match currently spawned object IDs and unique story objects.
    */
   storyLink: {
-    sidById: new LuaTable<TNumberId, TStringId>(),
-    idBySid: new LuaTable<TStringId, TNumberId>(),
+    sidById: new LuaMap<TNumberId, TStringId>(),
+    idBySid: new LuaMap<TStringId, TNumberId>(),
   },
   /**
    * Set of alive stalker IDs for easy filtering and iteration.
@@ -198,7 +198,7 @@ export const registry = {
   /**
    * List of dynamically created ini files by name.
    */
-  ini: new LuaTable<TName, IniFile>(),
+  ini: new LuaMap<TName, IniFile>(),
   /**
    * List of active smart terrains.
    */
@@ -211,7 +211,7 @@ export const registry = {
    * Nearest to actor smart terrain.
    */
   smartTerrainNearest: {
-    id: null as Optional<TNumberId>,
+    id: null as Nillable<TNumberId>,
     distanceSqr: math.huge,
   },
   /**

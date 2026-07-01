@@ -227,7 +227,7 @@ extern(
     if (params && params[0]) {
       const objectId: Nillable<TNumberId> = getObjectIdByStoryId(params[0]);
 
-      if (objectId === null) {
+      if ($isNil(objectId)) {
         abort("Couldn't relocate item to NULL in function 'pick_artefact_from_anomaly!'");
       }
 

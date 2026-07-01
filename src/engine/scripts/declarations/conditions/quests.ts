@@ -173,7 +173,7 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: GameObject, object: G
 extern("xr_conditions.pas_b400_actor_far_backward", (actor: GameObject, object: GameObject): boolean => {
   const backwardObject: Nillable<GameObject> = getObjectByStoryId("pas_b400_bwd");
 
-  if (backwardObject !== null) {
+  if (backwardObject) {
     if (getDistanceBetween(backwardObject, registry.actor) > getDistanceBetween(backwardObject, object)) {
       return false;
     }

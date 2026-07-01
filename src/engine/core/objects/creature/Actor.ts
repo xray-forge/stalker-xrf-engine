@@ -137,7 +137,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
       }
     }
 
-    if (registry.activeSmartTerrainId === null) {
+    if ($isNil(registry.activeSmartTerrainId)) {
       return true;
     }
 

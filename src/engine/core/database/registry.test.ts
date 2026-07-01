@@ -14,8 +14,8 @@ describe("registry storage", () => {
     expect(registry.actorServer).toBeNull();
     expect(registry.actor).toBeNull();
     expect(registry.activeSmartTerrainId).toBeNull();
-    expect(registry.managers).toBeInstanceOf(LuaTable);
-    expect(registry.managersByName).toBeInstanceOf(LuaTable);
+    expect(registry.managers).toBeInstanceOf(LuaMap);
+    expect(registry.managersByName).toBeInstanceOf(LuaMap);
     expect(registry.schemes).toBeInstanceOf(LuaTable);
     expect(registry.cache.conditionLists).toBeInstanceOf(LuaTable);
     expect(registry.actorCombat).toBeInstanceOf(LuaTable);
@@ -23,8 +23,8 @@ describe("registry storage", () => {
     expect(registry.objectsWounded).toBeInstanceOf(LuaTable);
     expect(registry.offlineObjects).toBeInstanceOf(LuaTable);
     expect(registry.simulationObjects).toBeInstanceOf(LuaTable);
-    expect(registry.storyLink.sidById).toBeInstanceOf(LuaTable);
-    expect(registry.storyLink.idBySid).toBeInstanceOf(LuaTable);
+    expect(registry.storyLink.sidById).toBeInstanceOf(LuaMap);
+    expect(registry.storyLink.idBySid).toBeInstanceOf(LuaMap);
     expect(registry.stalkers).toBeInstanceOf(LuaTable);
     expect(registry.trade).toBeInstanceOf(LuaTable);
     expect(registry.camps).toBeInstanceOf(LuaTable);
@@ -44,7 +44,7 @@ describe("registry storage", () => {
     expect(registry.signalLights).toBeInstanceOf(LuaTable);
     expect(registry.noWeaponZones).toBeInstanceOf(LuaTable);
     expect(registry.lightZones).toBeInstanceOf(LuaTable);
-    expect(registry.ini).toBeInstanceOf(LuaTable);
+    expect(registry.ini).toBeInstanceOf(LuaMap);
     expect(registry.smartTerrains).toBeInstanceOf(LuaTable);
     expect(registry.smartTerrainsCampfires).toBeInstanceOf(LuaTable);
     expect(registry.smartTerrainNearest.id).toBeNull();

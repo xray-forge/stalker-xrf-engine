@@ -54,6 +54,7 @@ import {
   Hit,
   LuaArray,
   Nillable,
+  Nullable,
   Patrol,
   ServerCreatureObject,
   ServerHumanObject,
@@ -165,7 +166,7 @@ extern(
     const target: GameObject = to ? (getObjectByStoryId(to) as GameObject) : object;
     const hitObject: Hit = new hit();
 
-    hitObject.draftsman = getObjectByStoryId(from);
+    hitObject.draftsman = getObjectByStoryId(from) as Nullable<GameObject>;
 
     hitObject.type = hit.wound;
     hitObject.direction = hitObject.draftsman!.position().sub(target.position());
@@ -385,7 +386,7 @@ extern(
     let levelVertexId: Nillable<TNumberId> = null;
     let gameVertexId: Nillable<TNumberId> = null;
 
-    if (storyId === null) {
+    if ($isNil(storyId)) {
       abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
     }
 
@@ -452,7 +453,7 @@ extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TS
 
   const squad: Nillable<Squad> = getServerObjectByStoryId(storyId);
 
-  if (squad === null) {
+  if (!squad) {
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(storyId));
   }
 
@@ -615,7 +616,7 @@ extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: Lu
   for (const [, storyId] of params) {
     const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
-    if (storyObject !== null) {
+    if (storyObject) {
       logger.info("Update object logic: %s", storyObject.id());
 
       const state: IRegistryObjectState = registry.objects.get(storyObject.id());

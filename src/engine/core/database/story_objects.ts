@@ -8,7 +8,7 @@ import {
   AnyGameObject,
   GameObject,
   IniFile,
-  Optional,
+  Nillable,
   ServerObject,
   TName,
   TNumberId,
@@ -36,9 +36,9 @@ export function registerObjectStoryLinks(object: ServerObject): void {
   }
 
   const section: TSection = object.section_name();
-  const storyId: Optional<TStringId> = readIniString(SYSTEM_INI, section, "story_id", false);
+  const storyId: Nillable<TStringId> = readIniString(SYSTEM_INI, section, "story_id", false);
 
-  if (storyId !== null) {
+  if ($isNotNil(storyId)) {
     registerStoryLink(object.id, storyId);
   }
 }
@@ -50,11 +50,11 @@ export function registerObjectStoryLinks(object: ServerObject): void {
  * @param storyObjectId - Game object story ID.
  */
 export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId): void {
-  if (registry.storyLink.idBySid.get(storyObjectId) !== null) {
-    if (objectId !== registry.storyLink.idBySid.get(storyObjectId)) {
-      const existingObjectName: TName = registry.simulator
-        .object(registry.storyLink.idBySid.get(storyObjectId))
-        ?.name() as TName;
+  const linkId: Nillable<number> = registry.storyLink.idBySid.get(storyObjectId);
+
+  if ($isNotNil(linkId)) {
+    if (objectId !== linkId) {
+      const existingObjectName: TName = registry.simulator.object(linkId)?.name() as TName;
       const newObjectName: TName = registry.simulator.object(objectId)?.name() as TName;
 
       abort(
@@ -64,7 +64,7 @@ export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId)
         newObjectName
       );
     }
-  } else if (registry.storyLink.sidById.get(objectId) !== null) {
+  } else if ($isNotNil(registry.storyLink.sidById.get(objectId))) {
     if (registry.storyLink.sidById.get(objectId) !== storyObjectId) {
       abort("Object [%s] is already in registry with story id: [%s]", tostring(objectId), storyObjectId);
     }
@@ -80,8 +80,8 @@ export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId)
  * @param objectId - Game object ID to unregister story links.
  */
 export function unregisterStoryLinkByObjectId(objectId: TNumberId): void {
-  if (registry.storyLink.sidById.get(objectId) !== null) {
-    registry.storyLink.idBySid.delete(registry.storyLink.sidById.get(objectId));
+  if (registry.storyLink.sidById.get(objectId)) {
+    registry.storyLink.idBySid.delete(registry.storyLink.sidById.get(objectId) as TStringId);
     registry.storyLink.sidById.delete(objectId);
   }
 }
@@ -92,8 +92,8 @@ export function unregisterStoryLinkByObjectId(objectId: TNumberId): void {
  * @param storyId - Story object ID to unregister story links.
  */
 export function unregisterStoryLinkByStoryId(storyId: TStringId): void {
-  if (registry.storyLink.idBySid.get(storyId) !== null) {
-    registry.storyLink.sidById.delete(registry.storyLink.idBySid.get(storyId));
+  if (registry.storyLink.idBySid.get(storyId)) {
+    registry.storyLink.sidById.delete(registry.storyLink.idBySid.get(storyId) as TNumberId);
     registry.storyLink.idBySid.delete(storyId);
   }
 }
@@ -119,9 +119,9 @@ export function isStoryObject(object: AnyGameObject): boolean {
  * @returns Whether story object exists.
  */
 export function isStoryObjectExisting(storyId: TStringId): boolean {
-  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
+  const objectId: Nillable<TNumberId> = registry.storyLink.idBySid.get(storyId);
 
-  return objectId === null ? false : registry.simulator.object(objectId) !== null;
+  return $isNil(objectId) ? false : $isNotNil(registry.simulator.object(objectId));
 }
 
 /**
@@ -130,7 +130,7 @@ export function isStoryObjectExisting(storyId: TStringId): boolean {
  * @param objectId - Game object ID.
  * @returns Story object id.
  */
-export function getStoryIdByObjectId(objectId: TNumberId): Optional<TStringId> {
+export function getStoryIdByObjectId(objectId: TNumberId): Nillable<TStringId> {
   return registry.storyLink.sidById.get(objectId);
 }
 
@@ -140,7 +140,7 @@ export function getStoryIdByObjectId(objectId: TNumberId): Optional<TStringId> {
  * @param storyId - Story ID of the object.
  * @returns Game object ID.
  */
-export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
+export function getObjectIdByStoryId(storyId: TStringId): Nillable<TNumberId> {
   return registry.storyLink.idBySid.get(storyId);
 }
 
@@ -150,8 +150,8 @@ export function getObjectIdByStoryId(storyId: TStringId): Optional<TNumberId> {
  * @param storyId - Story id to search.
  * @returns Existing server object instance or null.
  */
-export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStringId): Optional<T> {
-  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId) as Optional<TNumberId>;
+export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStringId): Nillable<T> {
+  const objectId: Nillable<TNumberId> = registry.storyLink.idBySid.get(storyId) as Nillable<TNumberId>;
 
   return objectId ? registry.simulator.object<T>(objectId) : null;
 }
@@ -162,15 +162,15 @@ export function getServerObjectByStoryId<T extends ServerObject>(storyId: TStrin
  * @param storyId - Story id to search.
  * @returns Existing game object instance or null.
  */
-export function getObjectByStoryId(storyId: TStringId): Optional<GameObject> {
-  const objectId: Optional<TNumberId> = registry.storyLink.idBySid.get(storyId);
-  const possibleObject: Optional<GameObject> = (
-    objectId === null ? null : registry.objects.get(objectId)?.object
-  ) as Optional<GameObject>;
+export function getObjectByStoryId(storyId: TStringId): Nillable<GameObject> {
+  const objectId: Nillable<TNumberId> = registry.storyLink.idBySid.get(storyId);
+  const possibleObject: Nillable<GameObject> = (
+    $isNotNil(objectId) ? registry.objects.get(objectId)?.object : null
+  ) as Nillable<GameObject>;
 
   if (possibleObject) {
     return possibleObject;
-  } else if (level !== null && objectId) {
+  } else if ($isNotNil(level) && objectId) {
     return level.object_by_id(objectId);
   }
 
@@ -185,8 +185,8 @@ export function getObjectByStoryId(storyId: TStringId): Optional<GameObject> {
  * @param sid - Server story object SID to resolve.
  * @returns Runtime identifier of the matching object, or null when not found.
  */
-export function getIdBySid(sid: TNumberId): Optional<TNumberId> {
-  const object: Optional<ServerObject> = registry.simulator.story_object(sid) as Optional<ServerObject>;
+export function getIdBySid(sid: TNumberId): Nillable<TNumberId> {
+  const object: Nillable<ServerObject> = registry.simulator.story_object(sid) as Nillable<ServerObject>;
 
   return object ? object.id : null;
 }

@@ -227,23 +227,23 @@ export class ObjectSound extends AbstractPlayableSound {
 
     const state: IRegistryObjectState = registry.objects.get(objectId);
 
-    if (state.activeScheme === null) {
+    if ($isNil(state.activeScheme)) {
       return;
     }
 
     const schemeState: IBaseSchemeState = state[state.activeScheme] as IBaseSchemeState;
 
-    if (schemeState.signals === null) {
-      return;
-    } else if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== ESoundPlaylistType.RANDOM) {
-      logger.info("Emit sound end signal: %s", state.object.name());
+    if (schemeState.signals) {
+      if (this.playedSoundIndex === this.soundPaths.length() && this.shuffle !== ESoundPlaylistType.RANDOM) {
+        logger.info("Emit sound end signal: %s", state.object.name());
 
-      schemeState.signals.set("theme_end", true);
-      schemeState.signals.set("sound_end", true);
-    } else {
-      logger.info("Emit sound end signal: %s", state.object.name());
+        schemeState.signals.set("theme_end", true);
+        schemeState.signals.set("sound_end", true);
+      } else {
+        logger.info("Emit sound end signal: %s", state.object.name());
 
-      schemeState.signals.set("sound_end", true);
+        schemeState.signals.set("sound_end", true);
+      }
     }
   }
 

@@ -1,6 +1,6 @@
 import { IDynamicObjectState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
+import { GameObject, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Register game object in lua in-memory registry.
@@ -9,18 +9,18 @@ import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
  * @returns Registry object for provided game object.
  */
 export function registerObject(object: GameObject): IRegistryObjectState {
-  const stored: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const stored: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
-  if (stored === null) {
+  if (stored) {
+    stored.object = object;
+
+    return stored;
+  } else {
     const newRecord: IRegistryObjectState = { object: object } as IRegistryObjectState;
 
     registry.objects.set(object.id(), newRecord);
 
     return newRecord;
-  } else {
-    stored.object = object;
-
-    return stored;
   }
 }
 
@@ -38,7 +38,7 @@ export function unregisterObject(object: GameObject): void {
  * Supply partial to override empty state.
  *
  * @param object - Client game object to reset state.
- * @param state - Optional initial state to use for reset.
+ * @param state - Nillable initial state to use for reset.
  * @returns New game object state object.
  */
 export function resetObject(object: GameObject, state: Partial<IRegistryObjectState> = {}): IRegistryObjectState {
@@ -57,9 +57,9 @@ export function resetObject(object: GameObject, state: Partial<IRegistryObjectSt
  * @returns Dynamic state of the object.
  */
 export function getObjectDynamicState(objectId: TNumberId, initialize?: boolean): IDynamicObjectState {
-  let state: Optional<IDynamicObjectState> = registry.dynamicData.objects.get(objectId);
+  let state: Nillable<IDynamicObjectState> = registry.dynamicData.objects.get(objectId);
 
-  if (state === null && initialize) {
+  if (!state && initialize) {
     state = {} as IDynamicObjectState;
     registry.dynamicData.objects.set(objectId, state);
   }

@@ -1,7 +1,7 @@
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { abort } from "@/engine/core/utils/assertion";
-import { NetPacket, NetProcessor, Nillable, Optional, TCount, TName, TNumberId } from "@/engine/lib/types";
+import { NetPacket, NetProcessor, Nillable, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Valid type representation stored in portable store.
@@ -24,7 +24,7 @@ export enum EPortableStoreType {
  * @returns Whether value is valid to be stored in portable store.
  */
 export function isValidPortableStoreValue(value: unknown): boolean {
-  if (value === null) {
+  if ($isNil(value)) {
     return true;
   }
 
@@ -45,7 +45,7 @@ export function setPortableStoreValue<T extends TPortableStoreValue>(objectId: T
     abort("Portable store received not registered type to set: '%s' - '%s'.", key, type(value));
   }
 
-  let portableStore: Optional<LuaTable<TName>> = registry.objects.get(objectId).portableStore;
+  let portableStore: Nillable<LuaTable<TName>> = registry.objects.get(objectId).portableStore;
 
   if (!portableStore) {
     portableStore = new LuaTable();
@@ -61,7 +61,7 @@ export function setPortableStoreValue<T extends TPortableStoreValue>(objectId: T
  * @param objectId - Game object id to load portable store value from.
  * @param key - Portable store key to get value.
  */
-export function getPortableStoreValue<T extends TPortableStoreValue>(objectId: TNumberId, key: TName): Optional<T>;
+export function getPortableStoreValue<T extends TPortableStoreValue>(objectId: TNumberId, key: TName): Nillable<T>;
 export function getPortableStoreValue<T extends TPortableStoreValue>(
   objectId: TNumberId,
   key: TName,
@@ -70,12 +70,12 @@ export function getPortableStoreValue<T extends TPortableStoreValue>(
 export function getPortableStoreValue<T extends TPortableStoreValue>(
   objectId: TNumberId,
   key: TName,
-  defaultValue: Optional<T> = null
-): Optional<T> {
+  defaultValue: Nillable<T> = null
+): Nillable<T> {
   if (registry.objects.get(objectId).portableStore) {
-    const value: Optional<T> = registry.objects.get(objectId).portableStore!.get(key);
+    const value: Nillable<T> = registry.objects.get(objectId).portableStore!.get(key);
 
-    if (value !== null) {
+    if ($isNotNil(value)) {
       return value;
     }
   }
@@ -90,7 +90,7 @@ export function getPortableStoreValue<T extends TPortableStoreValue>(
  * @param packet - Net packet to save data in.
  */
 export function savePortableStore(objectId: TNumberId, packet: NetPacket): void {
-  let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
+  let portableStore: Nillable<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
   if (!portableStore) {
     portableStore = new LuaTable<string>();
@@ -133,7 +133,7 @@ export function savePortableStore(objectId: TNumberId, packet: NetPacket): void 
  * @param reader - Net processor to load data from.
  */
 export function loadPortableStore(objectId: TNumberId, reader: NetProcessor): void {
-  let portableStore: Optional<LuaTable<string>> = registry.objects.get(objectId).portableStore;
+  let portableStore: Nillable<LuaTable<string>> = registry.objects.get(objectId).portableStore;
 
   if (!portableStore) {
     portableStore = new LuaTable();

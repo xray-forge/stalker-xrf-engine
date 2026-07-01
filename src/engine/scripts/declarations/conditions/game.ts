@@ -17,7 +17,7 @@ extern("xr_conditions.signal", (_: GameObject, object: GameObject, [name]: [TNam
   const state: IRegistryObjectState = registry.objects.get(object.id());
   const signals: Nillable<LuaTable<TName, boolean>> = state[state.activeScheme!]!.signals;
 
-  return signals !== null && signals.get(name) === true;
+  return $isNotNil(signals) && signals.get(name) === true;
 });
 
 /**

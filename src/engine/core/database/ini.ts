@@ -4,7 +4,7 @@ import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { DUMMY_LTX, DYNAMIC_LTX_PREFIX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { GameObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { GameObject, IniFile, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Generic name of spawn ini configs flag.
@@ -21,11 +21,11 @@ export const CUSTOM_DATA: TName = "<customdata>";
  * @param content - Dynamic ini file content to initialize, if it does not exist.
  * @returns Multi return of file and filename.
  */
-export function loadDynamicIniFile(name: TName, content: Optional<string> = null): LuaMultiReturn<[IniFile, TName]> {
+export function loadDynamicIniFile(name: TName, content: Nillable<string> = null): LuaMultiReturn<[IniFile, TName]> {
   const nameKey: TName = DYNAMIC_LTX_PREFIX + name;
-  const existingIniFile: Optional<IniFile> = registry.ini.get(nameKey);
+  const existingIniFile: Nillable<IniFile> = registry.ini.get(nameKey);
 
-  if (existingIniFile !== null) {
+  if (existingIniFile) {
     return $multi(existingIniFile, nameKey);
   } else {
     assertDefined(content, "Unexpected, expected data to initialize in new dynamic ini file.");
@@ -46,9 +46,9 @@ export function loadDynamicIniFile(name: TName, content: Optional<string> = null
  * @returns Multi return of file.
  */
 export function loadIniFile(name: TName): IniFile {
-  const existingIniFile: Optional<IniFile> = registry.ini.get(name);
+  const existingIniFile: Nillable<IniFile> = registry.ini.get(name);
 
-  if (existingIniFile !== null) {
+  if (existingIniFile) {
     return existingIniFile;
   } else {
     const iniFile: IniFile = new ini_file(name);
@@ -71,9 +71,9 @@ export function loadIniFile(name: TName): IniFile {
  */
 export function getObjectLogicIniConfig(object: GameObject, filename: TName): IniFile {
   if (filename === CUSTOM_DATA) {
-    const ini: Optional<IniFile> = object.spawn_ini();
+    const ini: Nillable<IniFile> = object.spawn_ini();
 
-    return ini === null ? DUMMY_LTX : ini;
+    return $isNil(ini) ? DUMMY_LTX : ini;
   } else if (string.find(filename, DYNAMIC_LTX_PREFIX)[0] === 1) {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 

@@ -84,7 +84,7 @@ export class SchemeHear extends AbstractScheme {
       dangerState.dangerManager.onHear(object, whoId, soundType, soundPosition, soundPower);
     }
 
-    if (state.hearInfo === null) {
+    if (!state.hearInfo) {
       return;
     }
 
@@ -103,7 +103,7 @@ export class SchemeHear extends AbstractScheme {
           classTypeParameters.condlist
         );
 
-        if (nextSection !== null && nextSection !== "") {
+        if ($isNotNil(nextSection) && nextSection !== "") {
           switchObjectSchemeToSection(object, state.ini, nextSection);
         } else if (nextSection === "") {
           state.hearInfo[storyId][soundClassType] = null;

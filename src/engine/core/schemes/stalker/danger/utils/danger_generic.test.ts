@@ -95,6 +95,7 @@ describe("isObjectFacingDanger", () => {
 
     state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
     replaceFunctionMock(object.best_danger, () => bestDanger);
+    replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
 
     bestDanger.dangerType = danger_object.entity_death;
     jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 16);
@@ -103,6 +104,26 @@ describe("isObjectFacingDanger", () => {
     bestDanger.dangerType = danger_object.entity_death;
     jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 17);
     expect(isObjectFacingDanger(object)).toBe(false);
+  });
+
+  it("should ignore entity_death danger from non-enemy objects", () => {
+    const object: GameObject = MockGameObject.mock();
+    const bestDanger: MockDangerObject = new MockDangerObject();
+    const state: IRegistryObjectState = registerObject(object);
+
+    state[EScheme.COMBAT_IGNORE] = mockSchemeState(EScheme.COMBAT_IGNORE);
+    replaceFunctionMock(object.best_danger, () => bestDanger);
+
+    bestDanger.dangerType = danger_object.entity_death;
+    jest.spyOn(bestDanger.dangerPosition, "distance_to_sqr").mockImplementation(() => 1);
+
+    // A friendly/neutral death is ignored:
+    replaceFunctionMock(object.relation, () => EGameObjectRelation.FRIEND);
+    expect(isObjectFacingDanger(object)).toBe(false);
+
+    // An enemy death within range is still reacted to:
+    replaceFunctionMock(object.relation, () => EGameObjectRelation.ENEMY);
+    expect(isObjectFacingDanger(object)).toBe(true);
   });
 
   it("should correctly check grenades", () => {

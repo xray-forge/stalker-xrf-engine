@@ -20,10 +20,10 @@ import {
   Vector,
 } from "@/engine/lib/types";
 
-const stateInitial = 0;
-const stateAnimation = 1;
-const stateSound = 2;
-const stateFinish = 3;
+const STATE_INITIAL: number = 0;
+const STATE_ANIMATION: number = 1;
+const STATE_SOUND: number = 2;
+const STATE_FINISH: number = 3;
 
 /**
  * Action playing the remark scheme activity for a stalker: an animation followed by an optional sound,
@@ -32,7 +32,7 @@ const stateFinish = 3;
 @LuabindClass()
 export class ActionRemarkActivity extends action_base implements ISchemeEventHandler {
   public st: ISchemeRemarkState;
-  public state: number = stateInitial;
+  public state: number = STATE_INITIAL;
 
   public soundEndSignalled: boolean = false;
   public actionEndSignalled: boolean = false;
@@ -89,7 +89,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
     this.sndScheduled = !this.st.sndAnimSync && $isNotNil(this.st.snd);
     this.sndStarted = false;
 
-    this.state = stateInitial;
+    this.state = STATE_INITIAL;
     this.tipsSound = null;
   }
 
@@ -130,7 +130,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
    * Handle the animation completion callback by advancing the state machine to the sound stage.
    */
   public onAnimationUpdate(): void {
-    this.state = stateSound;
+    this.state = STATE_SOUND;
     this.update();
   }
 
@@ -138,7 +138,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
    * Advance the remark state machine, playing the animation, then the sound, and emitting completion signals.
    */
   public update(): void {
-    if (this.state === stateInitial) {
+    if (this.state === STATE_INITIAL) {
       const callbackDescriptor: IStateManagerCallbackDescriptor = { context: this, callback: this.onAnimationUpdate };
       const target = this.getTarget();
 
@@ -146,7 +146,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
         const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
         setStalkerState(this.object, anim, callbackDescriptor, 0);
-        this.state = stateAnimation;
+        this.state = STATE_ANIMATION;
 
         return;
       }
@@ -154,10 +154,10 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
       const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
       setStalkerState(this.object, anim, callbackDescriptor, 0, target);
-      this.state = stateAnimation;
-    } else if (this.state === stateAnimation) {
+      this.state = STATE_ANIMATION;
+    } else if (this.state === STATE_ANIMATION) {
       // Empty.
-    } else if (this.state === stateSound) {
+    } else if (this.state === STATE_SOUND) {
       if (this.sndScheduled === true) {
         this.sndStarted = true;
         getManager(SoundManager).play(this.object.id(), this.st.snd);

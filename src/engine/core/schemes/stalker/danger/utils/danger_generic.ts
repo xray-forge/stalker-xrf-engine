@@ -68,12 +68,8 @@ export function isObjectFacingDanger(object: GameObject): boolean {
     return false;
   }
 
-  // Verify relation of enemy object. Handle friendly grenades and death.
-  if (
-    bestDangerType !== danger_object.grenade &&
-    bestDangerType !== danger_object.entity_death &&
-    object.relation(bestDangerObject) !== EGameObjectRelation.ENEMY
-  ) {
+  // Skip the relation check only for grenades.
+  if (bestDangerType !== danger_object.grenade && object.relation(bestDangerObject) !== EGameObjectRelation.ENEMY) {
     return false;
   }
 

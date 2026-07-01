@@ -13,7 +13,7 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, Optional } from "@/engine/lib/types";
+import { GameObject, Nillable, Optional } from "@/engine/lib/types";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("portable_store functionality", () => {
@@ -26,11 +26,11 @@ describe("portable_store functionality", () => {
     expect(isValidPortableStoreValue("abc")).toBeTruthy();
     expect(isValidPortableStoreValue("abc-def-g")).toBeTruthy();
     expect(isValidPortableStoreValue(null)).toBeTruthy();
+    expect(isValidPortableStoreValue(undefined)).toBeTruthy();
 
     expect(isValidPortableStoreValue([])).toBeFalsy();
     expect(isValidPortableStoreValue({})).toBeFalsy();
     expect(isValidPortableStoreValue(new LuaTable())).toBeFalsy();
-    expect(isValidPortableStoreValue(undefined)).toBeFalsy();
   });
 
   it("should correctly initialize portable store", () => {
@@ -52,7 +52,7 @@ describe("portable_store functionality", () => {
 
     expect(registry.objects.get(object.id()).portableStore).toEqual(new LuaTable());
 
-    const previous: Optional<LuaTable<string>> = registry.objects.get(object.id()).portableStore;
+    const previous: Nillable<LuaTable<string>> = registry.objects.get(object.id()).portableStore;
 
     resetPortableStore(object.id());
 

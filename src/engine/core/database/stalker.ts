@@ -11,7 +11,7 @@ import type { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder
 import type { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import type { GameObject, Optional, TDuration } from "@/engine/lib/types";
+import type { GameObject, Nillable, TDuration } from "@/engine/lib/types";
 
 /**
  * Register stalker binder object.
@@ -52,19 +52,19 @@ export function unregisterStalker(stalker: StalkerBinder, destroy: boolean = tru
 export function setStalkerState(
   object: GameObject,
   state: EStalkerState,
-  callback: Optional<IStateManagerCallbackDescriptor> = null,
-  timeout: Optional<TDuration> = null,
-  target: Optional<ILookTargetDescriptor> = null,
-  extra: Optional<ITargetStateDescriptorExtras> = null
+  callback: Nillable<IStateManagerCallbackDescriptor> = null,
+  timeout: Nillable<TDuration> = null,
+  target: Nillable<ILookTargetDescriptor> = null,
+  extra: Nillable<ITargetStateDescriptorExtras> = null
 ): void {
   registry.objects
     .get(object.id())
     .stateManager?.setState(
       state,
-      callback as Optional<IStateManagerCallbackDescriptor>,
-      timeout as Optional<TDuration>,
-      target as Optional<ILookTargetDescriptor>,
-      extra as Optional<ITargetStateDescriptorExtras>
+      callback as Nillable<IStateManagerCallbackDescriptor>,
+      timeout as Nillable<TDuration>,
+      target as Nillable<ILookTargetDescriptor>,
+      extra as Nillable<ITargetStateDescriptorExtras>
     );
 }
 
@@ -74,8 +74,8 @@ export function setStalkerState(
  * @param object - Target stalker object to get state from.
  * @returns Target stalker object current state.
  */
-export function getStalkerState(object: GameObject): Optional<EStalkerState> {
-  return registry.objects.get(object.id()).stateManager?.getState() as Optional<EStalkerState>;
+export function getStalkerState(object: GameObject): Nillable<EStalkerState> {
+  return registry.objects.get(object.id()).stateManager?.getState() as Nillable<EStalkerState>;
 }
 
 /**
@@ -84,7 +84,7 @@ export function getStalkerState(object: GameObject): Optional<EStalkerState> {
  * @param object - Target stalker object to reset state.
  */
 export function resetStalkerState(object: GameObject): void {
-  const stateManager: Optional<StalkerStateManager> = registry.objects.get(object.id()).stateManager;
+  const stateManager: Nillable<StalkerStateManager> = registry.objects.get(object.id()).stateManager;
 
   if (!stateManager) {
     return;
