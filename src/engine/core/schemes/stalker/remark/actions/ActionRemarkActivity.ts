@@ -16,6 +16,7 @@ import {
   ISchemeEventHandler,
   Nillable,
   SoundObject,
+  TIndex,
   TNumberId,
   TStringId,
   Vector,
@@ -259,10 +260,10 @@ export function initTarget(
   } else if (targetType === "path") {
     const [path, point] = parseTarget(target);
 
-    const pointNumber = tonumber(point)!;
+    const pointIndex: Nillable<TIndex> = tonumber(point);
 
-    if (point) {
-      targetPosition = new patrol(path!).point(pointNumber);
+    if ($isNotNil(pointIndex)) {
+      targetPosition = new patrol(path!).point(pointIndex);
       isTargetInitialized = true;
     }
   } else if (targetType === "job") {
