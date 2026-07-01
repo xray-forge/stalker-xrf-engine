@@ -148,7 +148,7 @@ describe("ParticleManager", () => {
     manager.update();
 
     // Timed throttle.
-    expect(manager.nextUpdateAt).toBe(10_100);
+    expect(manager.nextUpdateAt).toBe(10_050);
     expect(manager.updateComplex).toHaveBeenCalledTimes(0);
     expect(manager.updateComplex).toHaveBeenCalledTimes(0);
 
@@ -330,6 +330,9 @@ describe("ParticleManager", () => {
     expect(manager.isEnded()).toBe(false);
 
     manager.activate();
+
+    jest.spyOn(Date, "now").mockImplementation(() => 10_050);
+
     manager.update();
 
     manager.nextUpdateAt = 0;

@@ -169,7 +169,7 @@ export class ParticleManager extends AbstractSchemeManager<ISchemeParticleState>
     for (const it of $range(1, this.particles.length())) {
       const descriptor: IParticleDescriptor = this.particles.get(it);
 
-      if (now - descriptor.time >= descriptor.delay && !descriptor.particle.playing()) {
+      if (now - descriptor.time > descriptor.delay && !descriptor.particle.playing()) {
         const position: Vector = this.path!.point(it - 1);
 
         // todo: Probably just one simple `or` check.

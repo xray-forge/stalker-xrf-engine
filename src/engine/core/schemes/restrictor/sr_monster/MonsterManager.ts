@@ -12,7 +12,6 @@ import {
 } from "@/engine/core/utils/scheme";
 import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import {
-  AnyObject,
   ESoundObjectType,
   GameObject,
   Nillable,
