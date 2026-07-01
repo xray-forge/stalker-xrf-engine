@@ -2,7 +2,7 @@ import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { EScheme, GameObject, Optional, TCount, TIndex, Vector } from "@/engine/lib/types";
+import { EScheme, GameObject, Nillable, TCount, TIndex, Vector } from "@/engine/lib/types";
 
 /**
  * Manager of object hit events.
@@ -12,7 +12,7 @@ export class HitManager extends AbstractSchemeManager<ISchemeHitState> {
     object: GameObject,
     amount: TCount,
     localDirection: Vector,
-    who: Optional<GameObject>,
+    who: Nillable<GameObject>,
     boneIndex: TIndex
   ): void {
     // todo: Probably play around with this and avoid this external refs. this.state?

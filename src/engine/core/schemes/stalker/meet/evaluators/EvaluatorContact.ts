@@ -5,7 +5,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { FALSE } from "@/engine/lib/constants/words";
-import { ActionPlanner, Optional } from "@/engine/lib/types";
+import { ActionPlanner, Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator to check if object is ready to communicate.
@@ -13,7 +13,7 @@ import { ActionPlanner, Optional } from "@/engine/lib/types";
 @LuabindClass()
 export class EvaluatorContact extends property_evaluator {
   public readonly state: ISchemeMeetState;
-  public actionPlanner: Optional<ActionPlanner> = null;
+  public actionPlanner: Nillable<ActionPlanner> = null;
 
   public constructor(state: ISchemeMeetState) {
     super(null, EvaluatorContact.__name);
@@ -41,7 +41,7 @@ export class EvaluatorContact extends property_evaluator {
       return false;
     }
 
-    if (this.actionPlanner === null) {
+    if (!this.actionPlanner) {
       this.actionPlanner = this.object.motivation_action_manager();
     }
 

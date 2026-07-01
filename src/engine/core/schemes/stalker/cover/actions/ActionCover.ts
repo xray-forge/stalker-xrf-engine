@@ -12,7 +12,7 @@ import {
   CoverPoint,
   EGameObjectPath,
   ISchemeEventHandler,
-  Optional,
+  Nillable,
   TDistance,
   TNumberId,
   Vector,
@@ -25,7 +25,7 @@ import {
 export class ActionCover extends action_base implements ISchemeEventHandler {
   public readonly state: ISchemeCoverState;
 
-  public enemyRandomPosition: Optional<Vector> = null;
+  public enemyRandomPosition: Nillable<Vector> = null;
   public coverVertexId!: TNumberId;
   public coverPosition!: Vector;
 
@@ -42,7 +42,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
    */
   public override execute(): void {
     if (this.coverPosition.distance_to_sqr(this.object.position()) <= 0.4) {
-      const targetState: Optional<EStalkerState> = pickSectionFromCondList(
+      const targetState: Nillable<EStalkerState> = pickSectionFromCondList(
         registry.actor,
         this.object,
         this.state.animationConditionList
@@ -84,20 +84,20 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
 
     this.enemyRandomPosition = thisRandomPosition;
 
-    let cover: Optional<CoverPoint> = null;
+    let cover: Nillable<CoverPoint> = null;
     let coverDistance: TDistance = 2;
 
-    while (cover === null && coverDistance <= 4) {
+    while ($isNil(cover) && coverDistance <= 4) {
       cover = this.object.best_cover(thisRandomPosition, this.enemyRandomPosition, coverDistance, 1, 150);
       coverDistance += 1;
     }
 
-    if (cover === null) {
-      this.coverVertexId = baseVertexId;
-      this.coverPosition = thisRandomPosition;
-    } else {
+    if (cover) {
       this.coverVertexId = cover.level_vertex_id();
       this.coverPosition = cover.position();
+    } else {
+      this.coverVertexId = baseVertexId;
+      this.coverPosition = thisRandomPosition;
     }
 
     if (!this.object.accessible(this.coverPosition)) {

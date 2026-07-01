@@ -2,7 +2,7 @@ import { time_global } from "xray16";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
-import { Optional, TCount, TRate, TTimestamp } from "@/engine/lib/types";
+import { Nillable, TCount, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Abuse manager to handle state for an object.
@@ -15,7 +15,7 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
   public abuseValue: TCount = 0;
   public abuseThreshold: TRate = 5;
 
-  public lastUpdatedAt: Optional<TTimestamp> = null;
+  public lastUpdatedAt: Nillable<TTimestamp> = null;
 
   /**
    * @returns Whether target is abused.
@@ -27,7 +27,7 @@ export class AbuseManager extends AbstractSchemeManager<ISchemeAbuseState> {
 
     const now: TTimestamp = time_global();
 
-    if (this.lastUpdatedAt === null) {
+    if ($isNil(this.lastUpdatedAt)) {
       this.lastUpdatedAt = now;
     }
 

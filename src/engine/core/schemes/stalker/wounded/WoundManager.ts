@@ -22,7 +22,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { FALSE, NIL } from "@/engine/lib/constants/words";
-import { AlifeSimulator, GameObject, Optional, TCount, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
+import { AlifeSimulator, GameObject, Nillable, TCount, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -108,9 +108,9 @@ export class WoundManager extends AbstractSchemeManager<ISchemeWoundedState> {
       }
 
       const now: TTimestamp = time_global();
-      const beginAt: Optional<TTimestamp> = getPortableStoreValue(object.id(), PS_BEGIN_WOUNDED);
+      const beginAt: Nillable<TTimestamp> = getPortableStoreValue(object.id(), PS_BEGIN_WOUNDED);
 
-      if (beginAt !== null && now - beginAt <= 60_000) {
+      if ($isNotNil(beginAt) && now - beginAt <= 60_000) {
         getManager(SoundManager).play(object.id(), "help_thanks");
       }
 

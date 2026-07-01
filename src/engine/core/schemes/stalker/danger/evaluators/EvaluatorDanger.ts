@@ -8,7 +8,7 @@ import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig"
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { ActionPlanner, DangerObject, GameObject, Optional, ServerCreatureObject } from "@/engine/lib/types";
+import { ActionPlanner, DangerObject, GameObject, Nillable, ServerCreatureObject } from "@/engine/lib/types";
 
 /**
  * Evaluator to check whether any danger is active.
@@ -17,7 +17,7 @@ import { ActionPlanner, DangerObject, GameObject, Optional, ServerCreatureObject
 export class EvaluatorDanger extends property_evaluator {
   private readonly state: ISchemeDangerState;
 
-  public planner: Optional<ActionPlanner> = null;
+  public planner: Nillable<ActionPlanner> = null;
 
   public constructor(state: ISchemeDangerState) {
     super(null, EvaluatorDanger.__name);
@@ -37,7 +37,7 @@ export class EvaluatorDanger extends property_evaluator {
         this.state.dangerTime = (object.best_danger() as DangerObject).time();
       }
 
-      const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(object.id());
+      const serverObject: Nillable<ServerCreatureObject> = registry.simulator.object(object.id());
 
       if (serverObject && serverObject.m_smart_terrain_id !== MAX_ALIFE_ID) {
         startTerrainAlarm(registry.simulator.object<SmartTerrain>(serverObject.m_smart_terrain_id) as SmartTerrain);
@@ -46,8 +46,8 @@ export class EvaluatorDanger extends property_evaluator {
       return true;
     } else {
       return (
-        object.best_danger() !== null &&
-        this.state.dangerTime !== null &&
+        $isNotNil(object.best_danger()) &&
+        $isNotNil(this.state.dangerTime) &&
         time_global() - this.state.dangerTime < dangerConfig.INERTIA_TIME
       );
     }

@@ -20,7 +20,7 @@ import {
   EGameObjectRelation,
   EScheme,
   GameObject,
-  Optional,
+  Nillable,
   ServerCreatureObject,
   TDangerType,
   TDistance,
@@ -33,7 +33,7 @@ import {
  * @returns Whether object is facing any danger right now.
  */
 export function isObjectFacingDanger(object: GameObject): boolean {
-  const bestDanger: Optional<DangerObject> = object.best_danger();
+  const bestDanger: Nillable<DangerObject> = object.best_danger();
 
   // No danger at all.
   if (bestDanger === null) {
@@ -41,13 +41,13 @@ export function isObjectFacingDanger(object: GameObject): boolean {
   }
 
   const bestDangerType: TDangerType = bestDanger.type();
-  const bestDangerObject: Optional<GameObject> =
+  const bestDangerObject: Nillable<GameObject> =
     bestDangerType !== danger_object.grenade && bestDanger.dependent_object() !== null
       ? bestDanger.dependent_object()
       : bestDanger.object();
 
   // No danger source object.
-  if (bestDangerObject === null) {
+  if (!bestDangerObject) {
     return false;
   }
 
@@ -84,7 +84,7 @@ export function isObjectFacingDanger(object: GameObject): boolean {
   }
 
   const dangerDistanceSqrt: TDistance = bestDanger.position().distance_to_sqr(object.position());
-  const ignoreDistanceByType: Optional<TDistance> = dangerConfig.IGNORE_DISTANCE_BY_TYPE[bestDangerType];
+  const ignoreDistanceByType: Nillable<TDistance> = dangerConfig.IGNORE_DISTANCE_BY_TYPE[bestDangerType];
   const ignoreDistance: TDistance =
     ignoreDistanceByType === null
       ? dangerConfig.IGNORE_DISTANCE_GENERAL_SQR
@@ -123,16 +123,16 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
     return false;
   }
 
-  const objectState: Optional<IRegistryObjectState> = registry.objects.get(object.id());
+  const objectState: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
   // No state configurations, can select.
   if (objectState === null) {
     return true;
   }
 
-  const combatIgnoreState: Optional<ISchemeCombatIgnoreState> = objectState[
+  const combatIgnoreState: Nillable<ISchemeCombatIgnoreState> = objectState[
     EScheme.COMBAT_IGNORE
-  ] as Optional<ISchemeCombatIgnoreState>;
+  ] as Nillable<ISchemeCombatIgnoreState>;
 
   // todo: Probably also clean it up? And set only when 'true'
   objectState.enemyId = enemy.id();
@@ -148,7 +148,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
   }
 
   // Check if object have any state overrides that cause object to explicitly ignore combat.
-  const stateOverrides: Optional<ILogicsOverrides> = combatIgnoreState?.overrides as Optional<ILogicsOverrides>;
+  const stateOverrides: Nillable<ILogicsOverrides> = combatIgnoreState?.overrides as Nillable<ILogicsOverrides>;
 
   if (stateOverrides && stateOverrides.combatIgnore) {
     return pickSectionFromCondList(enemy, object, stateOverrides.combatIgnore.condlist) !== TRUE;
@@ -159,10 +159,10 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
 
     // If enemy of object is in no-combat zone.
     for (const [name, storyId] of registry.noCombatZones) {
-      const zone: Optional<GameObject> = registry.zones.get(name);
+      const zone: Nillable<GameObject> = registry.zones.get(name);
 
       if (zone && (isObjectInZone(object, zone) || isObjectInZone(enemy, zone))) {
-        const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(storyId);
+        const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(storyId);
 
         // Still allow combat if zone is set to alarm.
         if (terrain && terrain.terrainControl !== null && terrain.terrainControl.status !== ESmartTerrainStatus.ALARM) {
@@ -172,7 +172,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
     }
   }
 
-  const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(enemy.id());
+  const serverObject: Nillable<ServerCreatureObject> = registry.simulator.object(enemy.id());
 
   // Check if server object is in no-combat zone.
   if (serverObject && serverObject.m_smart_terrain_id && serverObject.m_smart_terrain_id !== MAX_ALIFE_ID) {
