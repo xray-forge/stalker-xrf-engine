@@ -80,7 +80,7 @@ export function registerStoryLink(objectId: TNumberId, storyObjectId: TStringId)
  * @param objectId - Game object ID to unregister story links.
  */
 export function unregisterStoryLinkByObjectId(objectId: TNumberId): void {
-  if (registry.storyLink.sidById.get(objectId)) {
+  if ($isNotNil(registry.storyLink.sidById.get(objectId))) {
     registry.storyLink.idBySid.delete(registry.storyLink.sidById.get(objectId) as TStringId);
     registry.storyLink.sidById.delete(objectId);
   }
@@ -92,7 +92,7 @@ export function unregisterStoryLinkByObjectId(objectId: TNumberId): void {
  * @param storyId - Story object ID to unregister story links.
  */
 export function unregisterStoryLinkByStoryId(storyId: TStringId): void {
-  if (registry.storyLink.idBySid.get(storyId)) {
+  if ($isNotNil(registry.storyLink.idBySid.get(storyId))) {
     registry.storyLink.sidById.delete(registry.storyLink.idBySid.get(storyId) as TNumberId);
     registry.storyLink.idBySid.delete(storyId);
   }
