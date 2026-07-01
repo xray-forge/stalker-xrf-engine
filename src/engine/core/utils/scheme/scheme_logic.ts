@@ -33,17 +33,7 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { NIL } from "@/engine/lib/constants/words";
-import {
-  EScheme,
-  ESchemeEvent,
-  ESchemeType,
-  GameObject,
-  IniFile,
-  Nillable,
-  Optional,
-  TName,
-  TSection,
-} from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType, GameObject, IniFile, Nillable, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 
@@ -54,7 +44,7 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
  * @param section - Logic section to check.
  * @returns Whether object logics active section is same as provided.
  */
-export function isActiveSection(object: GameObject, section?: Optional<TSection>): boolean {
+export function isActiveSection(object: GameObject, section?: Nillable<TSection>): boolean {
   return section === registry.objects.get(object.id()).activeSection;
 }
 
@@ -73,7 +63,7 @@ export function getSectionToActivate(object: GameObject, ini: IniFile, section: 
     return NIL;
   }
 
-  const offlineObjectDescriptor: Optional<IRegistryOfflineState> = registry.offlineObjects.get(object.id());
+  const offlineObjectDescriptor: Nillable<IRegistryOfflineState> = registry.offlineObjects.get(object.id());
 
   /**
    * If offline object detected, try to continue previous jon on online switch.
@@ -88,10 +78,10 @@ export function getSectionToActivate(object: GameObject, ini: IniFile, section: 
     }
   }
 
-  const activeSectionCond: Optional<IBaseSchemeLogic> = readIniConditionList(ini, section, "active");
+  const activeSectionCond: Nillable<IBaseSchemeLogic> = readIniConditionList(ini, section, "active");
 
   if (activeSectionCond) {
-    const section: Optional<TSection> = pickSectionFromCondList(registry.actor, object, activeSectionCond.condlist);
+    const section: Nillable<TSection> = pickSectionFromCondList(registry.actor, object, activeSectionCond.condlist);
 
     // todo: Log also ini file path for simplicity of debug?
     assert(section, "'%s' => '%s', 'active' field has no conditionless else clause.", object.name(), section);
@@ -117,8 +107,8 @@ export function getSectionToActivate(object: GameObject, ini: IniFile, section: 
 export function activateSchemeBySection(
   object: GameObject,
   ini: IniFile,
-  section: Optional<TSection>,
-  smartTerrainName: Optional<TName>,
+  section: Nillable<TSection>,
+  smartTerrainName: Nillable<TName>,
   isLoading: boolean
 ): void {
   logger.info("Activate scheme: '%s' %s' %s'", object.name(), section, smartTerrainName);
@@ -152,7 +142,7 @@ export function activateSchemeBySection(
     section = getTerrainJobByObjectId(currentSmartTerrain, object.id())?.section as TSection;
   }
 
-  const scheme: Optional<EScheme> = getSchemeFromSection(section);
+  const scheme: Nillable<EScheme> = getSchemeFromSection(section);
 
   assert(scheme, "object '%s': unable to determine scheme name from section name '%s'", object.name(), section);
   assert(ini.section_exist(section), "'%s': activate_by_section section '%s' does not exist.", object.name(), section);
@@ -161,7 +151,7 @@ export function activateSchemeBySection(
 
   resetObjectGenericSchemesOnSectionSwitch(object, scheme, section);
 
-  const schemeImplementation: Optional<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
+  const schemeImplementation: Nillable<TAbstractSchemeConstructor> = registry.schemes.get(scheme);
 
   assert(schemeImplementation, "Scheme '%s' is not registered.", scheme);
 
@@ -204,15 +194,15 @@ export function enableObjectBaseSchemes(
 
       initializeObjectInvulnerability(object);
 
-      const infoSection: Optional<TSection> = readIniString(ini, logicsSection, "info", false);
+      const infoSection: Nillable<TSection> = readIniString(ini, logicsSection, "info", false);
 
-      if (infoSection !== null) {
+      if ($isNotNil(infoSection)) {
         initializeObjectInfo(object, ini, infoSection);
       }
 
-      const hitSection: Optional<string> = readIniString(ini, logicsSection, "on_hit", false);
+      const hitSection: Nillable<string> = readIniString(ini, logicsSection, "on_hit", false);
 
-      if (hitSection !== null) {
+      if ($isNotNil(hitSection)) {
         registry.schemes.get(EScheme.HIT).activate(object, ini, EScheme.HIT, hitSection);
       }
 
@@ -246,23 +236,23 @@ export function enableObjectBaseSchemes(
     }
 
     case ESchemeType.MONSTER: {
-      const combatSection: Optional<TSection> = readIniString(ini, logicsSection, "on_combat", false);
+      const combatSection: Nillable<TSection> = readIniString(ini, logicsSection, "on_combat", false);
 
-      if (combatSection !== null) {
+      if ($isNotNil(combatSection)) {
         registry.schemes.get(EScheme.MOB_COMBAT).activate(object, ini, EScheme.MOB_COMBAT, combatSection);
       }
 
-      const deathSection: Optional<TSection> = readIniString(ini, logicsSection, "on_death", false);
+      const deathSection: Nillable<TSection> = readIniString(ini, logicsSection, "on_death", false);
 
-      if (deathSection !== null) {
+      if ($isNotNil(deathSection)) {
         registry.schemes.get(EScheme.MOB_DEATH).activate(object, ini, EScheme.MOB_DEATH, deathSection);
       }
 
       initializeObjectInvulnerability(object);
 
-      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false);
+      const hitSection: Nillable<TSection> = readIniString(ini, logicsSection, "on_hit", false);
 
-      if (hitSection !== null) {
+      if ($isNotNil(hitSection)) {
         registry.schemes.get(EScheme.HIT).activate(object, ini, EScheme.HIT, hitSection);
       }
 
@@ -274,9 +264,9 @@ export function enableObjectBaseSchemes(
     }
 
     case ESchemeType.OBJECT: {
-      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false);
+      const hitSection: Nillable<TSection> = readIniString(ini, logicsSection, "on_hit", false);
 
-      if (hitSection !== null) {
+      if ($isNotNil(hitSection)) {
         registry.schemes.get(EScheme.PH_ON_HIT).activate(object, ini, EScheme.PH_ON_HIT, hitSection);
       }
 
@@ -284,9 +274,9 @@ export function enableObjectBaseSchemes(
     }
 
     case ESchemeType.HELICOPTER: {
-      const hitSection: Optional<TSection> = readIniString(ini, logicsSection, "on_hit", false);
+      const hitSection: Nillable<TSection> = readIniString(ini, logicsSection, "on_hit", false);
 
-      if (hitSection !== null) {
+      if ($isNotNil(hitSection)) {
         registry.schemes.get(EScheme.HIT).activate(object, ini, EScheme.HIT, hitSection);
       }
 

@@ -7,7 +7,7 @@ import {
   parseStringsList,
   parseStringsSet,
 } from "@/engine/core/utils/ini/ini_parse";
-import { IniFile, LuaArray, Optional, TCount, TName, TSection } from "@/engine/lib/types";
+import { IniFile, LuaArray, Nillable, Optional, TCount, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Read string field from provided ini file section.
@@ -22,10 +22,10 @@ import { IniFile, LuaArray, Optional, TCount, TName, TSection } from "@/engine/l
  */
 export function readIniString<D = string>(
   ini: IniFile,
-  section: Optional<TSection>,
+  section: Nillable<TSection>,
   field: TName,
   required?: boolean,
-  prefix: Optional<string> = null,
+  prefix: Nillable<string> = null,
   defaultValue: D = null as unknown as D
 ): D {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
@@ -58,10 +58,10 @@ export function readIniString<D = string>(
  */
 export function readIniStringWB<D = string>(
   ini: IniFile,
-  section: Optional<TSection>,
+  section: Nillable<TSection>,
   field: TName,
   required?: boolean,
-  prefix: Optional<string> = null,
+  prefix: Nillable<string> = null,
   defaultValue: D = null as unknown as D
 ): D {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
@@ -92,10 +92,10 @@ export function readIniStringWB<D = string>(
  */
 export function readIniStringList<D extends string = string>(
   ini: IniFile,
-  section: Optional<TSection>,
+  section: Nillable<TSection>,
   field: TName,
   required?: boolean,
-  defaultValue: Optional<string> = null
+  defaultValue: Nillable<string> = null
 ): LuaArray<D> {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return parseStringsList(ini.r_string(section, field) as string);
@@ -122,10 +122,10 @@ export function readIniStringList<D extends string = string>(
  */
 export function readIniStringSet<D extends string = string>(
   ini: IniFile,
-  section: Optional<TSection>,
+  section: Nillable<TSection>,
   field: TName,
   required?: boolean,
-  defaultValue: Optional<string> = null
+  defaultValue: Nillable<string> = null
 ): LuaTable<D, boolean> {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return parseStringsSet(ini.r_string(section, field) as string);
@@ -180,10 +180,10 @@ export function readIniNumber<D = number>(
  */
 export function readIniNumberList<D extends number = number>(
   ini: IniFile,
-  section: Optional<TSection>,
+  section: Nillable<TSection>,
   field: TName,
   required?: boolean,
-  defaultValue: Optional<string> = null
+  defaultValue: Nillable<string> = null
 ): LuaArray<D> {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return parseNumbersList(ini.r_string(section, field) as string);
@@ -210,10 +210,10 @@ export function readIniNumberList<D extends number = number>(
  */
 export function readIniBoolean(
   ini: IniFile,
-  section: Optional<TSection>,
+  section: Nillable<TSection>,
   field: TName,
   required?: boolean,
-  defaultValue: Optional<boolean> = null
+  defaultValue: Nillable<boolean> = null
 ): boolean {
   if (section && ini.section_exist(section) && ini.line_exist(section, field)) {
     return ini.r_bool(section, field);
@@ -242,7 +242,7 @@ export function readIniBoolean(
  */
 export function readIniTwoNumbers(
   ini: IniFile,
-  section: Optional<TName>,
+  section: Nillable<TName>,
   field: TName,
   default1: number,
   default2: number
@@ -266,7 +266,7 @@ export function readIniTwoNumbers(
  * @returns Logics scheme object.
  */
 export function readIniConditionList(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = readIniString(ini, section, field);
+  const data: Nillable<string> = readIniString(ini, section, field);
 
   if (!data) {
     return null;
@@ -328,9 +328,9 @@ export function readIniNumberAndConditionList(
   section: TSection,
   field: TName
 ): Optional<IBaseSchemeLogic> {
-  const data: Optional<string> = readIniString(ini, section, field);
+  const data: Nillable<string> = readIniString(ini, section, field);
 
-  if (!data) {
+  if ($isNil(data)) {
     return null;
   }
 
@@ -360,7 +360,7 @@ export function readIniTwoStringsAndConditionsList(
   ini: IniFile,
   section: TSection,
   field: TName
-): Optional<IBaseSchemeLogic> {
+): Nillable<IBaseSchemeLogic> {
   const data: string = readIniString(ini, section, field);
 
   if (!data) {

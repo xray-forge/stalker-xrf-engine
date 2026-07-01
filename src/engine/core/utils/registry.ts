@@ -8,7 +8,7 @@ import {
   AnyCallable,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   ServerObject,
   TClassId,
   TDistance,
@@ -24,17 +24,17 @@ import {
  * @returns List of matching client objects.
  */
 export function getNearestServerObject(
-  pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
+  pattern: Nillable<TName | TClassId | ((object: ServerObject) => boolean)> = null,
   searchOffline: boolean = true
-): Optional<ServerObject> {
-  const simulator: Optional<AlifeSimulator> = registry.simulator;
+): Nillable<ServerObject> {
+  const simulator: Nillable<AlifeSimulator> = registry.simulator;
   const actorPosition: Vector = registry.actor.position();
-  const hasFilter: boolean = pattern !== null;
+  const hasFilter: boolean = $isNotNil(pattern);
 
-  let nearestDistance: Optional<TDistance> = null;
-  let nearest: Optional<ServerObject> = null;
+  let nearestDistance: Nillable<TDistance> = null;
+  let nearest: Nillable<ServerObject> = null;
 
-  if (simulator === null) {
+  if ($isNil(simulator)) {
     return null;
   }
 
@@ -63,7 +63,7 @@ export function getNearestServerObject(
 
         // Validate offline check when searching objects.
         if (searchOffline || (distanceToSqr as unknown as TDistance) <= alifeSwitchDistanceSqr) {
-          if (nearestDistance === null) {
+          if ($isNil(nearestDistance)) {
             nearestDistance = distanceToSqr;
             nearest = serverObject;
           } else if (distanceToSqr < nearestDistance) {
@@ -86,13 +86,13 @@ export function getNearestServerObject(
  * @returns List of matching server objects.
  */
 export function getServerObjects<T extends ServerObject>(
-  pattern: Optional<TName | TClassId | ((object: ServerObject) => boolean)> = null,
+  pattern: Nillable<TName | TClassId | ((object: ServerObject) => boolean)> = null,
   searchOffline: boolean = true
 ): LuaArray<T> {
-  const simulator: Optional<AlifeSimulator> = registry.simulator;
+  const simulator: Nillable<AlifeSimulator> = registry.simulator;
   const list: LuaArray<T> = new LuaTable();
 
-  if (simulator === null) {
+  if ($isNil(simulator)) {
     return list;
   }
 
@@ -101,7 +101,7 @@ export function getServerObjects<T extends ServerObject>(
       let isMatch: boolean = false;
 
       // Filter objects if pattern is provided.
-      if (pattern !== null) {
+      if ($isNotNil(pattern)) {
         if (type(pattern) === "string" && string.find(serverObject.name(), pattern as string)[0]) {
           isMatch = true;
         } else if (type(pattern) === "number" && pattern === serverObject.clsid()) {
@@ -130,13 +130,13 @@ export function getServerObjects<T extends ServerObject>(
  * @returns List of matching client objects.
  */
 export function getNearestGameObject(
-  pattern: Optional<TName | TClassId | ((object: GameObject) => boolean)> = null
-): Optional<GameObject> {
+  pattern: Nillable<TName | TClassId | ((object: GameObject) => boolean)> = null
+): Nillable<GameObject> {
   const actorPosition: Vector = registry.actor.position();
-  const hasFilter: boolean = pattern !== null;
+  const hasFilter: boolean = $isNotNil(pattern);
 
-  let nearestDistance: Optional<TDistance> = null;
-  let nearest: Optional<GameObject> = null;
+  let nearestDistance: Nillable<TDistance> = null;
+  let nearest: Nillable<GameObject> = null;
 
   level.iterate_online_objects((object: GameObject): void => {
     if (object.id() !== ACTOR_ID && object.parent()?.id() !== ACTOR_ID) {
@@ -160,7 +160,7 @@ export function getNearestGameObject(
         const distanceToSqr: TDistance = object.position().distance_to_sqr(actorPosition);
 
         // Validate offline check when searching objects.
-        if (nearestDistance === null) {
+        if ($isNil(nearestDistance)) {
           nearestDistance = distanceToSqr;
           nearest = object;
         } else if (distanceToSqr < nearestDistance) {
@@ -181,7 +181,7 @@ export function getNearestGameObject(
  * @returns List of matching client objects.
  */
 export function getGameObjects(
-  pattern: Optional<TName | TClassId | ((object: GameObject) => boolean)> = null
+  pattern: Nillable<TName | TClassId | ((object: GameObject) => boolean)> = null
 ): LuaArray<GameObject> {
   const list: LuaArray<GameObject> = new LuaTable();
 
@@ -190,7 +190,7 @@ export function getGameObjects(
       let isMatch: boolean = false;
 
       // Filter objects if pattern is provided.
-      if (pattern !== null) {
+      if ($isNotNil(pattern)) {
         if (type(pattern) === "string" && string.find(object.name(), pattern as string)[0]) {
           isMatch = true;
         } else if (type(pattern) === "number" && pattern === object.clsid()) {

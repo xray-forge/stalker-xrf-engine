@@ -25,6 +25,7 @@ import {
   GameObject,
   IniFile,
   LuaArray,
+  Nillable,
   Optional,
   ServerObject,
   TCount,
@@ -43,14 +44,14 @@ import {
  * @param data - Target data list string to parse.
  * @returns Parsed list of sections from processed condition lists.
  */
-export function getSectionsFromConditionLists(object: GameObject, data: Optional<string>): LuaArray<TInfoPortion> {
+export function getSectionsFromConditionLists(object: GameObject, data: Nillable<string>): LuaArray<TInfoPortion> {
   const infos: LuaArray<TInfoPortion> = new LuaTable();
   const actor: GameObject = registry.actor;
 
-  if (data !== null) {
+  if ($isNotNil(data)) {
     // todo: Trim parsed.
     for (const name of string.gfind(data, "%s*([^|]+)%s*")) {
-      const conditionsList: Optional<TConditionList> = parseConditionsList(name);
+      const conditionsList: Nillable<TConditionList> = parseConditionsList(name);
 
       if (conditionsList !== null) {
         table.insert(infos, pickSectionFromCondList(actor, object, conditionsList) as TInfoPortion);
@@ -74,7 +75,7 @@ export function getSectionsFromConditionLists(object: GameObject, data: Optional
  */
 export function pickSectionFromCondList<T extends TSection>(
   actor: GameObject,
-  object: Optional<GameObject | ServerObject>,
+  object: Nillable<GameObject | ServerObject>,
   condlist: TConditionList
 ): Optional<T> {
   for (const [, switchCondition] of condlist) {
@@ -89,7 +90,7 @@ export function pickSectionFromCondList<T extends TSection>(
           break;
         }
       } else if (configCondition.func) {
-        const condition: Optional<AnyCallable> = (_G as AnyObject)["xr_conditions"][configCondition.func];
+        const condition: Nillable<AnyCallable> = (_G as AnyObject)["xr_conditions"][configCondition.func];
 
         if (!condition) {
           abort(
@@ -130,7 +131,7 @@ export function pickSectionFromCondList<T extends TSection>(
     if (areInfoPortionConditionsMet) {
       for (const [, configCondition] of switchCondition.infop_set) {
         if (configCondition.func) {
-          const effect: Optional<AnyCallable> = (_G as AnyObject)["xr_effects"][configCondition.func];
+          const effect: Nillable<AnyCallable> = (_G as AnyObject)["xr_effects"][configCondition.func];
 
           if (!effect) {
             abort(
@@ -168,12 +169,12 @@ export function pickSectionFromCondList<T extends TSection>(
  * @param field - Section field name to read.
  * @returns Parse scheme logic descriptor.
  */
-export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: TName): Optional<IBaseSchemeLogic> {
-  const target: Optional<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
+export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: TName): Nillable<IBaseSchemeLogic> {
+  const target: Nillable<IBaseSchemeLogic> = readIniTwoStringsAndConditionsList(ini, section, field);
 
   if (target) {
     if (registry.simulator !== null) {
-      const serverObject: Optional<ServerObject> = getServerObjectByStoryId(target.p1 as TStringId);
+      const serverObject: Nillable<ServerObject> = getServerObjectByStoryId(target.p1 as TStringId);
 
       if (serverObject) {
         target.objectId = serverObject.id;
@@ -198,7 +199,7 @@ export function getConfigObjectAndZone(ini: IniFile, section: TSection, field: T
  */
 export function getObjectConfigOverrides(ini: IniFile, section: TSection, object: GameObject): ILogicsOverrides {
   const state: IRegistryObjectState = registry.objects.get(object.id());
-  const heliHunter: Optional<string> = readIniString(ini, section, "heli_hunter", false);
+  const heliHunter: Nillable<string> = readIniString(ini, section, "heli_hunter", false);
   const [minPostCombatTime, maxPostCombatTime] = readIniTwoNumbers(
     ini,
     ini.line_exist(state.sectionLogic, "post_combat_time") ? state.sectionLogic : section,
@@ -236,7 +237,7 @@ export function getObjectConfigOverrides(ini: IniFile, section: TSection, object
  *
  * @param ini - Target ini config file.
  * @param section - Section in ini file to read.
- * @returns Optional list of scheme logic switcher descriptors.
+ * @returns Nillable list of scheme logic switcher descriptors.
  */
 export function getConfigSwitchConditions(ini: IniFile, section: TSection): Optional<LuaArray<IBaseSchemeLogic>> {
   const conditionsList: LuaArray<IBaseSchemeLogic> = new LuaTable();
@@ -255,7 +256,7 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
    * @param cond - Condition prefix to match section keys against.
    */
   function addConditions(
-    func: (ini: IniFile, section: TSection, id: TStringId) => Optional<IBaseSchemeLogic>,
+    func: (ini: IniFile, section: TSection, id: TStringId) => Nillable<IBaseSchemeLogic>,
     cond: ESchemeCondition
   ): void {
     const mask: string = "^" + cond + "%d*$";
@@ -300,7 +301,7 @@ export function getConfigSwitchConditions(ini: IniFile, section: TSection): Opti
 export function addConditionToList(
   conditionsList: LuaArray<IBaseSchemeLogic>,
   at: TIndex,
-  conditionScheme: Optional<IBaseSchemeLogic>
+  conditionScheme: Nillable<IBaseSchemeLogic>
 ): TIndex {
   if (conditionScheme) {
     conditionsList.set(at, conditionScheme);

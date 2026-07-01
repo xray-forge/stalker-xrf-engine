@@ -6,7 +6,7 @@ import { PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_det
 import { corpseDetectionConfig } from "@/engine/core/schemes/stalker/corpse_detection/CorpseDetectionConfig";
 import { isLootableItemSection } from "@/engine/core/utils/section";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
-import { GameObject, LuaArray, Optional, TDistance, TNumberId, Vector } from "@/engine/lib/types";
+import { GameObject, LuaArray, Nillable, TDistance, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
  * Check if object has valuable loot.
@@ -59,22 +59,22 @@ export function getNearestCorpseToLoot(
   object: GameObject
 ): LuaMultiReturn<[GameObject, TNumberId, Vector] | [null, null, null]> {
   let nearestCorpseDistSqr: TDistance = corpseDetectionConfig.DISTANCE_TO_SEARCH_SQR;
-  let nearestCorpseVertex: Optional<TNumberId> = null;
-  let nearestCorpsePosition: Optional<Vector> = null;
-  let nearestCorpseObject: Optional<GameObject> = null;
+  let nearestCorpseVertex: Nillable<TNumberId> = null;
+  let nearestCorpsePosition: Nillable<Vector> = null;
+  let nearestCorpseObject: Nillable<GameObject> = null;
 
   for (const [, descriptor] of deathConfig.RELEASE_OBJECTS_REGISTRY) {
     const id: TNumberId = descriptor.id;
-    const registryState: Optional<IRegistryObjectState> = registry.objects.get(id);
-    const corpseObject: Optional<GameObject> = registryState !== null ? registryState.object : null;
+    const registryState: Nillable<IRegistryObjectState> = registry.objects.get(id);
+    const corpseObject: Nillable<GameObject> = registryState !== null ? registryState.object : null;
 
     // Is registered in client side.
     if (corpseObject) {
-      const isLootedBy: Optional<TNumberId> = getPortableStoreValue(id, PS_LOOTING_DEAD_OBJECT);
+      const isLootedBy: Nillable<TNumberId> = getPortableStoreValue(id, PS_LOOTING_DEAD_OBJECT);
 
       if (
         // Is not looted by anyone or looted by current object.
-        (isLootedBy === null || isLootedBy === object.id()) &&
+        ($isNil(isLootedBy) || isLootedBy === object.id()) &&
         // Seen dead object recently.
         object.memory_position(corpseObject) !== null &&
         isObjectWithValuableLoot(corpseObject)

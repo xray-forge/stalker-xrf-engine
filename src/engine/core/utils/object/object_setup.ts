@@ -1,6 +1,6 @@
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { GameObject, IniFile, Optional, TCount, TName, TSection } from "@/engine/lib/types";
+import { GameObject, IniFile, Nillable, TCount, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Setup object visuals based on global section description.
@@ -9,7 +9,7 @@ import { GameObject, IniFile, Optional, TCount, TName, TSection } from "@/engine
  * @param object - Game object to initialize visuals for.
  */
 export function setupObjectStalkerVisual(object: GameObject): void {
-  const visual: Optional<TName> = readIniString(SYSTEM_INI, object.section(), "set_visual", false);
+  const visual: Nillable<TName> = readIniString(SYSTEM_INI, object.section(), "set_visual", false);
 
   if (visual && visual !== "") {
     object.set_visual_name(visual === "actor_visual" ? registry.actor.get_visual_name() : visual);
@@ -23,8 +23,8 @@ export function setupObjectStalkerVisual(object: GameObject): void {
  * @param ini - Ini file to read info from.
  * @param section - Ini file section to read info from.
  */
-export function setupObjectInfoPortions(object: GameObject, ini: IniFile, section: Optional<TSection> = null): void {
-  section = section === null ? "known_info" : section;
+export function setupObjectInfoPortions(object: GameObject, ini: IniFile, section: Nillable<TSection> = null): void {
+  section = $isNil(section) ? "known_info" : section;
 
   if (ini.section_exist(section)) {
     const knownInfosCount: TCount = ini.line_count(section);

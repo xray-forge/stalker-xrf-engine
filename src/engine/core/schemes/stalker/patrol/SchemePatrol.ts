@@ -15,7 +15,7 @@ import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engi
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { ActionPlanner, GameObject, IniFile, Optional, TName } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, Nillable, Optional, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -37,7 +37,7 @@ export class SchemePatrol extends AbstractScheme {
     logger.info("Activate scheme: %s %s %s", object.name(), scheme, section);
 
     const state: ISchemePatrolState = AbstractScheme.assign(object, ini, scheme, section);
-    const squad: Optional<Squad> = getObjectSquad(object);
+    const squad: Nillable<Squad> = getObjectSquad(object);
 
     state.logic = getConfigSwitchConditions(ini, section);
     state.pathName = readIniString(ini, section, "path_walk", true, smartTerrainName);

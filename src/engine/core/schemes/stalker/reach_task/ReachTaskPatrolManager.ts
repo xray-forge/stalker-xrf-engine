@@ -12,6 +12,7 @@ import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree 
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   GameObject,
+  Nillable,
   Optional,
   ServerCreatureObject,
   TCount,
@@ -110,9 +111,9 @@ export class ReachTaskPatrolManager {
 
     for (const [key, data] of this.objectsList) {
       const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(data.soldier)!;
-      const squad: Optional<Squad> = serverObject && getObjectSquad(serverObject);
+      const squad: Nillable<Squad> = serverObject && getObjectSquad(serverObject);
 
-      if (squad === null) {
+      if (!squad) {
         return;
       }
 

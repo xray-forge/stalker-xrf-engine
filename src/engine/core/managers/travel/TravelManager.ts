@@ -37,6 +37,7 @@ import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyObject,
   GameObject,
+  Nillable,
   Optional,
   Patrol,
   Phrase,
@@ -187,10 +188,10 @@ export class TravelManager extends AbstractManager {
    * @returns Whether object actor can discuss traveling with object.
    */
   public canStartTravelingDialogs(actor: GameObject, object: GameObject): boolean {
-    const squad: Optional<Squad> = getObjectSquad(object);
+    const squad: Nillable<Squad> = getObjectSquad(object);
     const objectCommunity: TCommunity = object.character_community();
 
-    if (squad !== null && squad.commander_id() !== object.id()) {
+    if (squad && squad.commander_id() !== object.id()) {
       return false;
     } else if (objectCommunity === communities.bandit || objectCommunity === communities.army) {
       return false;
