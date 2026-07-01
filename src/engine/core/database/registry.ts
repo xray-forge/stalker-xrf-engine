@@ -217,7 +217,7 @@ export const registry = {
   /**
    * List of active smart covers.
    */
-  smartCovers: new LuaTable<TName, SmartCover>(),
+  smartCovers: new LuaMap<TName, SmartCover>(),
   /**
    * List of active scripted doors.
    * Mainly used for scripted control of state and animation.

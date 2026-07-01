@@ -60,18 +60,18 @@ def_state_moving = patrol
       builder.append(string.format("path_look = walker_%s_look\n", index));
     }
 
-    if (terrain.safeRestrictor !== null && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
+    if ($isNotNil(terrain.safeRestrictor) && isPatrolInRestrictor(terrain.safeRestrictor, patrolName)) {
       // todo: Incorrect param, should be injected?
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
     if (
-      terrain.terrainControl !== null &&
-      terrain.terrainControl.ignoreZone !== null &&
+      terrain.terrainControl &&
+      $isNotNil(terrain.terrainControl.ignoreZone) &&
       isPatrolInRestrictor(terrain.terrainControl.ignoreZone, patrolName)
     ) {
       builder.append(

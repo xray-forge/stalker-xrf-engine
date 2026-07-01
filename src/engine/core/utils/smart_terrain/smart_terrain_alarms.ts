@@ -19,7 +19,7 @@ export function startTerrainAlarm(terrain: SmartTerrain): void {
  */
 export function updateTerrainAlarmStatus(terrain: SmartTerrain): void {
   if (
-    terrain.alarmStartedAt !== null &&
+    $isNotNil(terrain.alarmStartedAt) &&
     game.get_game_time().diffSec(terrain.alarmStartedAt) >= smartTerrainConfig.ALARM_SMART_TERRAIN_GENERIC
   ) {
     terrain.alarmStartedAt = null;

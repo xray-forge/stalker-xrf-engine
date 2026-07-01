@@ -18,6 +18,11 @@ export type Optional<T> = T | null;
 export type Nillable<T> = T | undefined | null;
 
 /**
+ * Possible `null` value.
+ */
+export type Nullable<T> = T | null;
+
+/**
  * Type-casted option that extends type with "nil" values.
  */
 export type StringNillable<T extends string = string> = T | "nil";

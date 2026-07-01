@@ -155,7 +155,7 @@ export function canObjectSelectAsEnemy(object: GameObject, enemy: GameObject): b
         const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(storyId);
 
         // Still allow combat if zone is set to alarm.
-        if (terrain && terrain.terrainControl !== null && terrain.terrainControl.status !== ESmartTerrainStatus.ALARM) {
+        if (terrain && terrain.terrainControl && terrain.terrainControl.status !== ESmartTerrainStatus.ALARM) {
           return false;
         }
       }

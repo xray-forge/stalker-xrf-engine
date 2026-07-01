@@ -4,7 +4,7 @@ import { registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorToString } from "@/engine/core/utils/vector";
-import { GameObject, Optional, Vector } from "@/engine/lib/types";
+import { GameObject, Nillable, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -23,7 +23,7 @@ export function setSquadPosition(squad: Squad, position: Vector): void {
   }
 
   for (const squadMember of squad.squad_members()) {
-    const object: Optional<GameObject> = registry.objects.get(squadMember.id)?.object as Optional<GameObject>;
+    const object: Nillable<GameObject> = registry.objects.get(squadMember.id)?.object as Nillable<GameObject>;
 
     registry.offlineObjects.get(squadMember.id).levelVertexId = level.vertex_id(position);
 

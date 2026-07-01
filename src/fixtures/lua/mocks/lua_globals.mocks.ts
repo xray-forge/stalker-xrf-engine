@@ -9,6 +9,7 @@ import { mockString } from "@/fixtures/lua/mocks/lua_string.mock";
 import { mockTable } from "@/fixtures/lua/mocks/lua_table.mock";
 import { mockToString } from "@/fixtures/lua/mocks/lua_tostring.mock";
 import { mockType } from "@/fixtures/lua/mocks/lua_type.mock";
+import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 /**
@@ -20,6 +21,8 @@ export function mockLuaGlobals(): void {
 
   // @ts-ignore
   globalThis._VERSION = "fengari-jest";
+  // @ts-ignore
+  globalThis.LuaMap = MockLuaMap;
   // @ts-ignore
   globalThis.LuaTable = MockLuaTable;
   // @ts-ignore

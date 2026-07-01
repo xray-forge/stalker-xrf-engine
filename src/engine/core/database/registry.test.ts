@@ -49,7 +49,7 @@ describe("registry storage", () => {
     expect(registry.smartTerrainsCampfires).toBeInstanceOf(LuaTable);
     expect(registry.smartTerrainNearest.id).toBeNull();
     expect(registry.smartTerrainNearest.distanceSqr).toBe(math.huge);
-    expect(registry.smartCovers).toBeInstanceOf(LuaTable);
+    expect(registry.smartCovers).toBeInstanceOf(LuaMap);
     expect(registry.doors).toBeInstanceOf(LuaTable);
     expect(registry.ranks.stalker).toBeInstanceOf(LuaTable);
     expect(registry.ranks.monster).toBeInstanceOf(LuaTable);

@@ -9,6 +9,7 @@ declare namespace table {
    * @returns Random value from table.
    */
   function random<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaMultiReturn<[K, V]>;
+
   /**
    * Get table size.
    * Provided by lua extensions lib in open-xray.
@@ -18,6 +19,8 @@ declare namespace table {
   function size<V>(list: Array<V>): number;
   function size<V extends string = string>(list: Record<V, unknown>): number;
   function size<K extends AnyNotNil, V>(list: LuaTable<K, V>): number;
+  function size<K extends AnyNotNil, V>(list: LuaMap<K, V>): number;
+
   /**
    * Get table keys.
    * Provided by lua extensions lib in open-xray.
@@ -25,6 +28,7 @@ declare namespace table {
    * @returns List of keys in an unordered way.
    */
   function keys<K extends AnyNotNil, V>(list: LuaTable<K, V>): LuaTable<number, K>;
+
   /**
    * Get table values.
    * Provided by lua extensions lib in open-xray.
@@ -42,14 +46,17 @@ declare namespace string {
    * Trim all spaces from both sides of string.
    */
   function trim(value: string): string;
+
   /**
    * Trim spaces from left side of string.
    */
   function trim_l(value: string): string;
+
   /**
    * Trim spaces from right side of string.
    */
   function trim_r(value: string): string;
+
   /**
    * Trim everything separated by spaces from first text entry.
    */

@@ -95,7 +95,8 @@ import {
   GameObject,
   IniFile,
   NetPacket,
-  Optional,
+  Nillable,
+  Nullable,
   ServerCreatureObject,
   TCount,
   TDistance,
@@ -125,8 +126,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public arrivalDistance: TNumberId = smartTerrainConfig.DEFAULT_ARRIVAL_DISTANCE;
   public simulationProperties!: LuaTable<TName, TRate>;
   public simulationRole: ESimulationTerrainRole = ESimulationTerrainRole.DEFAULT;
-  public mapSpot: Optional<TName> = null; // map spot of terrain to display on PDA map
-  public respawnSector: Optional<TConditionList> = null;
+  public mapSpot: Nillable<TName> = null; // map spot of terrain to display on PDA map
+  public respawnSector: Nillable<TConditionList> = null;
   public forbiddenPoint: string = "";
 
   public isOnLevel: boolean = false;
@@ -140,7 +141,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public areCampfiresOn: boolean = false;
 
   // If smart terrain is attacked, all active squads will react.
-  public alarmStartedAt: Optional<Time> = null;
+  public alarmStartedAt: Nillable<Time> = null;
 
   public stayingObjectsCount: TCount = 0; // Count of game object inside smart terrain.
   public maxStayingSquadsCount: TCount = 0; // Maximal count of staying squads.
@@ -150,12 +151,12 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public travelerActorPointName: TName = ""; // Patrol point name to arrive as actor.
   public travelerSquadPointName: TName = ""; // Patrol point name to arrive as squad.
 
-  public defendRestrictor: Optional<string> = null;
-  public attackRestrictor: Optional<TName> = null;
-  public safeRestrictor: Optional<TName> = null; // Name of restrictor where objects are considered safe.
-  public spawnPointName: Optional<TName> = null; // Name of patrol point override to spawn objects.
+  public defendRestrictor: Nillable<string> = null;
+  public attackRestrictor: Nillable<TName> = null;
+  public safeRestrictor: Nillable<TName> = null; // Name of restrictor where objects are considered safe.
+  public spawnPointName: Nillable<TName> = null; // Name of patrol point override to spawn objects.
 
-  public terrainControl: Optional<SmartTerrainControl> = null;
+  public terrainControl: Nillable<SmartTerrainControl> = null;
 
   // Stalkers that are entering smart, but still not in correct vertex
   public arrivingObjects: LuaTable<TNumberId, ServerCreatureObject> = new LuaTable();
@@ -170,7 +171,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
   public objectByJobSection: LuaTable<TSection, TNumberId> = new LuaTable();
 
   // Spawning configuration and state for the smart terrain.
-  public lastRespawnUpdatedAt: Optional<Time> = null;
+  public lastRespawnUpdatedAt: Nillable<Time> = null;
   public spawnSquadsConfiguration: LuaTable<TSection, ISmartTerrainSpawnConfiguration> = new LuaTable();
   public spawnedSquadsList: LuaTable<TSection, ISmartTerrainSpawnItemsDescriptor> = new LuaTable();
 
@@ -276,9 +277,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.stayingObjectsCount -= 1;
 
-    const objectJobDescriptor: Optional<IObjectJobState> = this.objectJobDescriptors.get(
+    const objectJobDescriptor: Nillable<IObjectJobState> = this.objectJobDescriptors.get(
       object.id
-    ) as Optional<IObjectJobState>;
+    ) as Nillable<IObjectJobState>;
 
     // If object had assigned job, unlink it.
     // If object was arriving, clear list.
@@ -301,7 +302,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
           isStalker(object) ? ESchemeType.STALKER : ESchemeType.MONSTER
         );
       }
-    } else if (this.arrivingObjects.get(object.id) as Optional<ServerCreatureObject>) {
+    } else if (this.arrivingObjects.get(object.id) as Nillable<ServerCreatureObject>) {
       this.arrivingObjects.delete(object.id);
       object.clear_smart_terrain();
     } else {
@@ -309,14 +310,14 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
   }
 
-  public override task(object: ServerCreatureObject): Optional<CALifeSmartTerrainTask> {
+  public override task(object: ServerCreatureObject): Nullable<CALifeSmartTerrainTask> {
     logger.info("Task: %s %s", this.name(), object.name());
 
-    if (this.arrivingObjects.get(object.id) as Optional<ServerCreatureObject>) {
+    if (this.arrivingObjects.get(object.id) as Nillable<ServerCreatureObject>) {
       return this.smartTerrainAlifeTask;
     }
 
-    return this.objectJobDescriptors.get(object.id).job?.alifeTask as Optional<CALifeSmartTerrainTask>;
+    return this.objectJobDescriptors.get(object.id).job?.alifeTask as Nullable<CALifeSmartTerrainTask>;
   }
 
   public override STATE_Write(packet: NetPacket): void {
@@ -491,7 +492,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       turnOnTerrainCampfires(this);
     }
 
-    if (registry.actor as Optional<GameObject>) {
+    if (registry.actor as Nillable<GameObject>) {
       const distance: TDistance = registry.actor.position().distance_to_sqr(this.position);
       const idleTime: TDuration = math.max(60, 0.003 * distance);
 
@@ -525,9 +526,9 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     assert(this.ini.section_exist(SMART_TERRAIN_SECTION), "Smart terrain '%s' no configuration.", smartTerrainName);
 
-    const filename: Optional<TName> = readIniString(this.ini, SMART_TERRAIN_SECTION, "cfg", false);
+    const filename: Nillable<TName> = readIniString(this.ini, SMART_TERRAIN_SECTION, "cfg", false);
 
-    if (filename !== null) {
+    if ($isNotNil(filename)) {
       if (getFS().exist(roots.gameConfig, filename)) {
         this.ini = new ini_file(filename);
       } else {
@@ -555,7 +556,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
 
     this.squadId = readIniNumber(this.ini, SMART_TERRAIN_SECTION, "squad_id", false, 0);
 
-    const respawnSectorData: Optional<string> = readIniString(this.ini, SMART_TERRAIN_SECTION, "respawn_sector", false);
+    const respawnSectorData: Nillable<string> = readIniString(this.ini, SMART_TERRAIN_SECTION, "respawn_sector", false);
 
     this.respawnSector = respawnSectorData
       ? parseConditionsList(respawnSectorData === "default" ? "all" : respawnSectorData)
@@ -595,8 +596,8 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     ) as TCount;
     this.isRespawnOnlySmart = readIniBoolean(this.ini, SMART_TERRAIN_SECTION, "respawn_only_smart", false, false);
 
-    const respawnSection: Optional<TSection> = readIniString(this.ini, SMART_TERRAIN_SECTION, "respawn_params", false);
-    const smartControlSection: Optional<TSection> = readIniString(
+    const respawnSection: Nillable<TSection> = readIniString(this.ini, SMART_TERRAIN_SECTION, "respawn_params", false);
+    const smartControlSection: Nillable<TSection> = readIniString(
       this.ini,
       SMART_TERRAIN_SECTION,
       "smart_control",
@@ -635,7 +636,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     const alifeSimulator: AlifeSimulator = registry.simulator;
 
     for (const [id] of this.arrivingObjects) {
-      const serverObject: Optional<ServerCreatureObject> = alifeSimulator.object(id);
+      const serverObject: Nillable<ServerCreatureObject> = alifeSimulator.object(id);
 
       if (serverObject) {
         this.arrivingObjects.set(id, serverObject);
@@ -645,7 +646,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     for (const [objectId, jobDescriptor] of this.objectJobDescriptors) {
-      const serverObject: Optional<ServerCreatureObject> = alifeSimulator.object(objectId);
+      const serverObject: Nillable<ServerCreatureObject> = alifeSimulator.object(objectId);
 
       if (serverObject) {
         logger.info("Re-init jobs for object: %s %s", this.name(), objectId);
@@ -689,7 +690,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     logger.info("Clear assigned object on death: %s %s", this.name(), object.name());
 
     // Object arrived and aws assigned to job.
-    if (this.objectJobDescriptors.get(object.id) as Optional<IObjectJobState>) {
+    if (this.objectJobDescriptors.get(object.id) as Nillable<IObjectJobState>) {
       this.jobDeadTimeById.set(this.objectJobDescriptors.get(object.id).jobId, game.get_game_time());
 
       this.objectJobDescriptors.get(object.id).job!.objectId = null;
@@ -701,7 +702,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
     }
 
     // Object was in process of arriving.
-    if (this.arrivingObjects.get(object.id) as Optional<ServerCreatureObject>) {
+    if (this.arrivingObjects.get(object.id) as Nillable<ServerCreatureObject>) {
       this.arrivingObjects.delete(object.id);
 
       object.clear_smart_terrain();
@@ -722,7 +723,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return false;
     }
 
-    return !(this.terrainControl !== null && this.terrainControl.status !== ESmartTerrainStatus.NORMAL);
+    return !(this.terrainControl && this.terrainControl.status !== ESmartTerrainStatus.NORMAL);
   }
 
   /**
@@ -746,7 +747,7 @@ export class SmartTerrain extends cse_alife_smart_zone implements ISimulationTar
       return false;
     }
 
-    const squadParameters: Optional<ISimulationActivityDescriptor> = simulationActivities.get(squad.faction);
+    const squadParameters: Nillable<ISimulationActivityDescriptor> = simulationActivities.get(squad.faction);
 
     if (!squadParameters || !squadParameters.smart) {
       return false;

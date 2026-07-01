@@ -137,8 +137,10 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   });
 
   public override has(key: K): boolean {
+    const value = this.get(key);
+
     // Lua compat -> checks if key is not null.
-    return this.get(key) !== null;
+    return value !== null && value !== undefined;
   }
 
   public length(): number {

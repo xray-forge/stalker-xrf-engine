@@ -30,7 +30,6 @@ import {
   GameObject,
   NetPacket,
   Nillable,
-  Optional,
   ServerObject,
   TName,
   TRate,
@@ -127,7 +126,7 @@ export class Actor extends cse_alife_creature_actor implements ISimulationTarget
     }
 
     for (const [zoneName, terrainName] of registry.noCombatZones) {
-      const zone: Optional<GameObject> = registry.zones.get(zoneName);
+      const zone: Nillable<GameObject> = registry.zones.get(zoneName);
 
       if (zone?.inside(this.position)) {
         const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainName);

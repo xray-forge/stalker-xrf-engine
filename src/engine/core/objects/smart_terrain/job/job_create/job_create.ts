@@ -16,7 +16,7 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerr
 import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { IniFile, Optional, TName, TNumberId, TSection } from "@/engine/lib/types";
+import { IniFile, Nillable, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
 
@@ -86,7 +86,7 @@ export function createTerrainJobs(terrain: SmartTerrain): LuaMultiReturn<[TSmart
 
       case EJobPathType.SMART_COVER: {
         const smartCoverName: TName = ltx.r_string(activeSection, "cover_name");
-        const smartCover: Optional<SmartCover> = registry.smartCovers.get(smartCoverName);
+        const smartCover: Nillable<SmartCover> = registry.smartCovers.get(smartCoverName);
 
         if (!smartCover) {
           abort(

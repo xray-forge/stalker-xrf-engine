@@ -51,11 +51,11 @@ anim = {!npc_community(zombied)} sit, guard
       )
     );
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
-    if (terrain.terrainControl !== null && terrain.terrainControl.ignoreZone !== null) {
+    if (terrain.terrainControl && $isNotNil(terrain.terrainControl.ignoreZone)) {
       // todo: Probably smart.base_on_actor_control.ignore_zone should be injected? Original issue.
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true

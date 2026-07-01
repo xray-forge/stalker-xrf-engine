@@ -24,7 +24,7 @@ export function createStalkerAnimpointJobs(
 
   let index: TIndex = 1;
 
-  while (registry.smartCovers.get(string.format("%s_animpoint_%s", smartTerrainName, index)) !== null) {
+  while (registry.smartCovers.get(string.format("%s_animpoint_%s", smartTerrainName, index))) {
     const smartCoverName: TName = string.format("%s_animpoint_%s", smartTerrainName, index);
 
     table.insert(jobs, {
@@ -52,16 +52,16 @@ cover_name = %s
       )
     );
 
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
     // todo: Bad path name as third parameter? Bad smart.safe_restr?
-    if (terrain.safeRestrictor !== null && isPatrolInRestrictor(terrain.safeRestrictor, null as any)) {
+    if ($isNotNil(terrain.safeRestrictor) && isPatrolInRestrictor(terrain.safeRestrictor, null as any)) {
       builder.append("invulnerable = {=npc_in_zone(smart.safe_restr)} true\n");
     }
 
-    if (terrain.terrainControl !== null && terrain.terrainControl.ignoreZone !== null) {
+    if (terrain.terrainControl && $isNotNil(terrain.terrainControl.ignoreZone)) {
       // todo: Bad smart.base_on_actor_control.ignore_zone?
       builder.append(
         `combat_ignore_cond = {=npc_in_zone(smart.base_on_actor_control.ignore_zone)} true

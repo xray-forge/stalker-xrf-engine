@@ -2,7 +2,7 @@ import { level } from "xray16";
 
 import { jobPreconditionSurge } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
+import { type SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
@@ -63,14 +63,14 @@ def_state_moving = patrol
     }
 
     // Check for defend position restrictions.
-    if (terrain.defendRestrictor !== null) {
+    if ($isNotNil(terrain.defendRestrictor)) {
       builder.append(string.format("out_restr = %s\n", terrain.defendRestrictor));
     }
 
     // Check for combat ignore restrictions.
     if (
-      terrain.terrainControl !== null &&
-      terrain.terrainControl.ignoreZone !== null &&
+      terrain.terrainControl &&
+      $isNotNil(terrain.terrainControl.ignoreZone) &&
       isPatrolInRestrictor(terrain.terrainControl.ignoreZone, patrolName)
     ) {
       builder.append(

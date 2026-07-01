@@ -7,7 +7,7 @@ import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/uti
 import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { GameObject, Optional, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
+import { GameObject, Nillable, ServerCreatureObject, TCount, TNumberId, Vector } from "@/engine/lib/types";
 
 /**
  * Manager deciding whether an object should accept a potential enemy when the combat ignore scheme is active.
@@ -28,7 +28,7 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
     const canSelectEnemy: boolean = canObjectSelectAsEnemy(object, enemy);
 
     if (canSelectEnemy) {
-      const serverObject: Optional<ServerCreatureObject> = registry.simulator.object(object.id());
+      const serverObject: Nillable<ServerCreatureObject> = registry.simulator.object(object.id());
 
       /**
        * Set alarm if object is in smart zone.
@@ -38,12 +38,12 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
 
         startTerrainAlarm(terrain);
 
-        if (enemy.id() === ACTOR_ID && terrain.terrainControl !== null) {
+        if (enemy.id() === ACTOR_ID && terrain.terrainControl) {
           terrain.terrainControl.onActorAttackSmartTerrain();
         }
       }
 
-      const serverEnemyObject: Optional<ServerCreatureObject> = registry.simulator.object(enemy.id());
+      const serverEnemyObject: Nillable<ServerCreatureObject> = registry.simulator.object(enemy.id());
 
       // todo: Do timer based.
       if (serverObject && serverEnemyObject) {
@@ -69,15 +69,15 @@ export class CombatProcessEnemyManager extends AbstractSchemeManager<ISchemeComb
     object: GameObject,
     amount: TCount,
     direction: Vector,
-    who: GameObject,
+    who: Nillable<GameObject>,
     boneId: TNumberId
   ): void {
-    if (who === null || amount === 0) {
+    if (!who || amount === 0) {
       return;
     }
 
     if (who.id() === ACTOR_ID) {
-      const overrides: Optional<ILogicsOverrides> = this.state.overrides;
+      const overrides: Nillable<ILogicsOverrides> = this.state.overrides;
 
       if (!overrides || !overrides.combatIgnoreKeepWhenAttacked) {
         this.state.enabled = false;

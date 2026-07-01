@@ -148,7 +148,7 @@ export class AnimpointManager extends AbstractSchemeManager<ISchemeAnimpointStat
 
     assert(smartCover, "There is no registered smart_cover with name '%s'.", this.state.coverName);
 
-    this.position = registry.smartCovers.get(this.state.coverName).position;
+    this.position = smartCover.position;
     this.positionLevelVertexId = level.vertex_id(this.position);
     this.vertexPosition = level.vertex_position(this.positionLevelVertexId);
     this.smartCoverDirection = angleToDirection(smartCover.angle);

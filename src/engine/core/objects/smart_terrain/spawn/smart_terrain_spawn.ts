@@ -122,10 +122,7 @@ export function canRespawnSmartTerrainSquad(terrain: SmartTerrain): boolean {
 
   // Throttle respawn attempts period.
   // Memoize `false` state for `idle` period of time.
-  if (
-    terrain.lastRespawnUpdatedAt !== null &&
-    now.diffSec(terrain.lastRespawnUpdatedAt) <= smartTerrainConfig.RESPAWN_IDLE
-  ) {
+  if (terrain.lastRespawnUpdatedAt && now.diffSec(terrain.lastRespawnUpdatedAt) <= smartTerrainConfig.RESPAWN_IDLE) {
     return false;
   } else {
     terrain.lastRespawnUpdatedAt = now;
