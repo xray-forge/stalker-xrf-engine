@@ -18,7 +18,7 @@ import { MAX_U16 } from "@/engine/lib/constants/memory";
 import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import {
   GameObject,
-  Optional,
+  Nillable,
   StringNillable,
   TCount,
   TDistance,
@@ -37,13 +37,13 @@ import {
 export class HelicopterFireManager {
   public readonly object: GameObject;
 
-  public enemy: Optional<GameObject> = null;
-  public enemyId: Optional<TNumberId> = null;
-  public enemyPreference: Optional<StringNillable<TName>> = NIL; // All, actor or nil.
+  public enemy: Nillable<GameObject> = null;
+  public enemyId: Nillable<TNumberId> = null;
+  public enemyPreference: Nillable<StringNillable<TName>> = NIL; // All, actor or nil.
   public enemyDie: boolean = true;
   public enemyTime: TTimestamp = time_global();
 
-  public firePoint: Optional<Vector> = null;
+  public firePoint: Nillable<Vector> = null;
   public fireId: any = null;
 
   public flagByEnemy: boolean = true;
@@ -51,7 +51,7 @@ export class HelicopterFireManager {
   public updateVisibility: number = 0;
   public showHealth: boolean = false;
 
-  public uiProgressBar: Optional<CUIProgressBar> = null;
+  public uiProgressBar: Nillable<CUIProgressBar> = null;
 
   public constructor(object: GameObject) {
     this.object = object;
@@ -96,7 +96,7 @@ export class HelicopterFireManager {
    */
   public showHelicopterFightUI(): void {
     const hud: CUIGameCustom = get_hud();
-    const uiHelicopterHealth: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
+    const uiHelicopterHealth: Nillable<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
     if (uiHelicopterHealth === null) {
       hud.AddCustomStatic("cs_heli_health", true);
@@ -114,7 +114,7 @@ export class HelicopterFireManager {
    */
   public setHelicopterFightUIHealth(): void {
     const hud: CUIGameCustom = get_hud();
-    const uiHelicopterHealth: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
+    const uiHelicopterHealth: Nillable<StaticDrawableWrapper> = hud.GetCustomStatic("cs_heli_health");
 
     if (uiHelicopterHealth) {
       hud.AddCustomStatic("cs_heli_health", true);
@@ -205,7 +205,7 @@ export class HelicopterFireManager {
     let minDist2D: TDistance = MAX_U16;
 
     while (index < registry.helicopter.enemyIndex) {
-      const enemy: Optional<GameObject> = registry.helicopter.enemies.get(index) as Optional<GameObject>;
+      const enemy: Nillable<GameObject> = registry.helicopter.enemies.get(index) as Nillable<GameObject>;
 
       if (enemy) {
         const enemyPosition: Vector = enemy.position();

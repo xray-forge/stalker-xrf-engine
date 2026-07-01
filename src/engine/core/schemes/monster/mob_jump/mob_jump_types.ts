@@ -1,5 +1,5 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { Optional, TName, TRate, Vector } from "@/engine/lib/types";
+import type { Nillable, TName, TRate, Vector } from "@/engine/lib/types";
 
 /**
  * Stage of jump action.
@@ -14,7 +14,7 @@ export enum EMobJumpState {
  * State of logics scheme forcing monsters to do `scary` jumps.
  */
 export interface ISchemeMobJumpState extends IBaseSchemeState {
-  jumpPathName: Optional<TName>;
+  jumpPathName: Nillable<TName>;
   phJumpFactor: TRate;
   offset: Vector;
 }

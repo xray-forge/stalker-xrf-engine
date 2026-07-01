@@ -1,18 +1,18 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
-import type { LuaArray, Optional, TName } from "@/engine/lib/types";
+import type { LuaArray, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * State of mob walker scheme state.
  */
 export interface ISchemeMobWalkerState extends IBaseSchemeState {
   pathWalk: TName;
-  pathLook: Optional<TName>;
-  state: Optional<EMonsterState>;
+  pathLook: Nillable<TName>;
+  state: Nillable<EMonsterState>;
   noReset: boolean;
-  pathWalkInfo: Optional<LuaArray<IWaypointData>>;
-  pathLookInfo: Optional<LuaArray<IWaypointData>>;
+  pathWalkInfo: Nillable<LuaArray<IWaypointData>>;
+  pathLookInfo: Nillable<LuaArray<IWaypointData>>;
 }
 
 /**

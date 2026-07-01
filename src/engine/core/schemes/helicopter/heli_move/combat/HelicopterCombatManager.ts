@@ -27,7 +27,7 @@ import {
   IniFile,
   NetPacket,
   NetReader,
-  Optional,
+  Nillable,
   TCount,
   TDistance,
   TNumberId,
@@ -81,20 +81,20 @@ export class HelicopterCombatManager {
   public canForgetEnemy!: boolean;
   public changeCombatTypeAllowed!: boolean;
   public flybyStatesForOnePass!: number;
-  public roundBeginShootTime: Optional<number> = null;
+  public roundBeginShootTime: Nillable<number> = null;
 
   public combatUseRocket!: boolean;
   public combatUseMgun!: boolean;
-  public combatIgnore!: Optional<TConditionList>;
+  public combatIgnore!: Nillable<TConditionList>;
 
-  public enemyId: Optional<TNumberId> = null;
-  public enemy: Optional<GameObject> = null;
-  public enemyLastSeenPos: Optional<Vector> = null;
-  public enemyLastSeenTime: Optional<TTimestamp> = null;
-  public enemyLastSpotTime: Optional<TTimestamp> = null;
+  public enemyId: Nillable<TNumberId> = null;
+  public enemy: Nillable<GameObject> = null;
+  public enemyLastSeenPos: Nillable<Vector> = null;
+  public enemyLastSeenTime: Nillable<TTimestamp> = null;
+  public enemyLastSpotTime: Nillable<TTimestamp> = null;
 
   public combatType!: EHelicopterCombatType;
-  public changeCombatTypeTime: Optional<number> = null;
+  public changeCombatTypeTime: Nillable<number> = null;
   public flightDirection!: boolean;
   public centerPos!: Vector;
   public speedIs0!: boolean;
@@ -103,7 +103,7 @@ export class HelicopterCombatManager {
   public changePosAt!: TTimestamp;
   public changeSpeedAt!: TTimestamp;
 
-  public searchBeginShootAt: Optional<TTimestamp> = null;
+  public searchBeginShootAt: Nillable<TTimestamp> = null;
 
   public flyByState!: EHelicopterFlyByState;
 
@@ -240,7 +240,7 @@ export class HelicopterCombatManager {
    */
   public shouldCombatIgnore(): boolean {
     return (
-      this.combatIgnore !== null && pickSectionFromCondList(registry.actor, this.object, this.combatIgnore) !== null
+      $isNotNil(this.combatIgnore) && $isNotNil(pickSectionFromCondList(registry.actor, this.object, this.combatIgnore))
     );
   }
 

@@ -16,7 +16,7 @@ import {
   Flags32,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   Patrol,
   TAnimationKey,
   TAnimationType,
@@ -34,20 +34,20 @@ import {
  * Manager handling monster walker scheme behaviour for an object.
  */
 export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerState> {
-  public lastIndex: Optional<TIndex> = null;
-  public patrolLook: Optional<Patrol> = null;
-  public patrolWalk: Optional<Patrol> = null;
-  public lastLookIndex: Optional<TIndex> = null;
-  public curAnimSet: Optional<TAnimationType> = null;
-  public scheduledSound: Optional<TSoundKey> = null;
-  public ptWaitTime: Optional<number> = null;
+  public lastIndex: Nillable<TIndex> = null;
+  public patrolLook: Nillable<Patrol> = null;
+  public patrolWalk: Nillable<Patrol> = null;
+  public lastLookIndex: Nillable<TIndex> = null;
+  public curAnimSet: Nillable<TAnimationType> = null;
+  public scheduledSound: Nillable<TSoundKey> = null;
+  public ptWaitTime: Nillable<number> = null;
 
-  public crouch: Optional<boolean> = null;
-  public running: Optional<boolean> = null;
-  public mobState: Optional<number> = null;
+  public crouch: Nillable<boolean> = null;
+  public running: Nillable<boolean> = null;
+  public mobState: Nillable<number> = null;
 
-  public pathWalkInfo!: Optional<LuaArray<IWaypointData>>;
-  public pathLookInfo: Optional<LuaArray<IWaypointData>> = null;
+  public pathWalkInfo!: Nillable<LuaArray<IWaypointData>>;
+  public pathLookInfo: Nillable<LuaArray<IWaypointData>> = null;
 
   public override activate(): void {
     setMonsterState(this.object, this.state.state);
@@ -122,14 +122,14 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     }
   }
 
-  public override onWaypoint(object: GameObject, actionType: Optional<TName>, index: Optional<TIndex>): void {
-    if (index === -1 || index === null) {
+  public override onWaypoint(object: GameObject, actionType: Nillable<TName>, index: Nillable<TIndex>): void {
+    if (index === -1 || $isNil(index)) {
       return;
     }
 
     this.lastIndex = index;
 
-    const suggestedSound: Optional<TSoundKey> = this.pathWalkInfo!.get(index).s as Optional<TSoundKey>;
+    const suggestedSound: Nillable<TSoundKey> = this.pathWalkInfo!.get(index).s as Nillable<TSoundKey>;
 
     if (suggestedSound) {
       this.scheduledSound = suggestedSound;
@@ -138,7 +138,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
     this.crouch = this.pathWalkInfo!.get(index).c === TRUE;
     this.running = this.pathWalkInfo!.get(index).r === TRUE;
 
-    const signal: Optional<TName> = this.pathWalkInfo!.get(index).sig as TName;
+    const signal: Nillable<TName> = this.pathWalkInfo!.get(index).sig as TName;
 
     if (signal !== null) {
       // -- HACK, fixme:
@@ -149,7 +149,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
       signals.set(signal, true);
     }
 
-    const beh: Optional<EMonsterState> = this.pathWalkInfo!.get(index).b as Optional<EMonsterState>;
+    const beh: Nillable<EMonsterState> = this.pathWalkInfo!.get(index).b as Nillable<EMonsterState>;
 
     setMonsterState(this.object, beh ? beh : this.state.state);
 
@@ -184,7 +184,7 @@ export class MobWalkerManager extends AbstractSchemeManager<ISchemeMobWalkerStat
         this.curAnimSet = mobWalkerConfig.DEFAULT_ANIM_STANDING;
       }
 
-      const beh: Optional<TName> = this.pathWalkInfo!.get(index).b as Optional<TName>;
+      const beh: Nillable<TName> = this.pathWalkInfo!.get(index).b as Nillable<TName>;
 
       setMonsterState(this.object, (beh ? beh : this.state.state) as EMonsterState);
 

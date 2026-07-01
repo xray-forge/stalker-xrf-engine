@@ -1,19 +1,19 @@
 import { IBaseSchemeState } from "@/engine/core/database";
-import { Optional, TCount, TDistance, TName, TRate } from "@/engine/lib/types";
+import { Nillable, TCount, TDistance, TName, TRate } from "@/engine/lib/types";
 
 /**
  * State of helicopter movement schema.
  */
 export interface ISchemeHelicopterMoveState extends IBaseSchemeState {
   pathMove: TName;
-  pathLook: Optional<TName>;
+  pathLook: Nillable<TName>;
   enemyPreference: string; // All, actor, nil.
-  firePoint: Optional<string>;
+  firePoint: Nillable<string>;
   maxVelocity: TRate;
-  maxMinigunDistance: Optional<TDistance>;
-  maxRocketDistance: Optional<TDistance>;
-  minMinigunDistance: Optional<TDistance>;
-  minRocketDistance: Optional<TDistance>;
+  maxMinigunDistance: Nillable<TDistance>;
+  maxRocketDistance: Nillable<TDistance>;
+  minMinigunDistance: Nillable<TDistance>;
+  minRocketDistance: Nillable<TDistance>;
   updVis: TCount;
   isRocketEnabled: boolean;
   isMinigunEnabled: boolean;

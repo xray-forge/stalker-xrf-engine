@@ -3,7 +3,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme describing how monsters should handle combat.
@@ -41,10 +41,10 @@ export class SchemeMobCombat extends AbstractScheme {
   }
 
   public static override disable(object: GameObject, scheme: EScheme): void {
-    const state: Optional<ISchemeMobCombatState> = registry.objects.get(object.id())[scheme] as ISchemeMobCombatState;
+    const state: Nillable<ISchemeMobCombatState> = registry.objects.get(object.id())[scheme] as ISchemeMobCombatState;
 
     // No guarantee that it was activated before so should be checked additionally.
-    if (state !== null) {
+    if ($isNotNil(state)) {
       state.enabled = false;
     }
   }

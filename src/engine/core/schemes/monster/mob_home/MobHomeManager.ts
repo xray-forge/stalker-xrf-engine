@@ -8,7 +8,7 @@ import { mobHomeConfig } from "@/engine/core/schemes/monster/mob_home/MobHomeCon
 import { assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Optional, Patrol, ServerCreatureObject, TDistance, TName, TNumberId } from "@/engine/lib/types";
+import { Nillable, Patrol, ServerCreatureObject, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -44,7 +44,7 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
     let waypointData: Partial<IWaypointData> = {};
     let radius: TDistance = 0;
 
-    if (this.state.homeWayPoint !== null) {
+    if ($isNotNil(this.state.homeWayPoint)) {
       const homePatrol: Patrol = new patrol(this.state.homeWayPoint);
 
       waypointData = parseWaypointData(this.state.homeWayPoint, homePatrol.flags(0), homePatrol.name(0));
@@ -53,10 +53,10 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
     // Assign min radius.
     if (this.state.homeMinRadius) {
       minRadius = this.state.homeMinRadius;
-    } else if (waypointData.minr !== null) {
+    } else if ($isNotNil(waypointData.minr)) {
       radius = tonumber(waypointData.minr) as TDistance;
 
-      if (radius !== null) {
+      if ($isNotNil(radius)) {
         minRadius = radius;
       }
     }
@@ -64,10 +64,10 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
     // Assign max radius.
     if (this.state.homeMaxRadius) {
       maxRadius = this.state.homeMaxRadius;
-    } else if (waypointData.maxr !== null) {
+    } else if ($isNotNil(waypointData.maxr)) {
       radius = tonumber(waypointData.maxr) as TDistance;
 
-      if (radius !== null) {
+      if ($isNotNil(radius)) {
         maxRadius = radius;
       }
     }
@@ -92,10 +92,10 @@ export class MobHomeManager extends AbstractSchemeManager<ISchemeMobHomeState> {
 
     // Assign mob home.
     if (this.state.isSmartTerrainPoint) {
-      const terrain: Optional<SmartTerrain> = registry.simulator.object(
+      const terrain: Nillable<SmartTerrain> = registry.simulator.object(
         registry.simulator.object<ServerCreatureObject>(this.object.id())!.m_smart_terrain_id
       );
-      const vertexId: Optional<TNumberId> = terrain ? terrain.m_level_vertex_id : null;
+      const vertexId: Nillable<TNumberId> = terrain ? terrain.m_level_vertex_id : null;
 
       return $multi(vertexId as TNumberId, minRadius, maxRadius, isAggressive, midRadius);
     }

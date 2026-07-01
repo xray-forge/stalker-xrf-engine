@@ -3,7 +3,7 @@ import { clsid } from "xray16";
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
+import { GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Read monster state from provided ini file.
@@ -12,7 +12,7 @@ import { GameObject, IniFile, Optional, TSection } from "@/engine/lib/types";
  * @param section - Ini file section to read state field from.
  * @returns Monster state from ini config or null.
  */
-export function getMonsterState(ini: IniFile, section: TSection): Optional<EMonsterState> {
+export function getMonsterState(ini: IniFile, section: TSection): Nillable<EMonsterState> {
   const state: EMonsterState = readIniString(ini, section, "state", false, null, "") as EMonsterState;
 
   return state === EMonsterState.NONE ? null : state;
@@ -24,8 +24,8 @@ export function getMonsterState(ini: IniFile, section: TSection): Optional<EMons
  * @param object - Client game object to set state.
  * @param state - Target state to set.
  */
-export function setMonsterState(object: GameObject, state: Optional<EMonsterState>): void {
-  if (state === null || state === EMonsterState.NONE) {
+export function setMonsterState(object: GameObject, state: Nillable<EMonsterState>): void {
+  if ($isNil(state) || state === EMonsterState.NONE) {
     return;
   }
 

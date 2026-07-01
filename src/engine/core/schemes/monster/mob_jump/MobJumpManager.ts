@@ -5,7 +5,7 @@ import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monste
 import { abort } from "@/engine/core/utils/assertion";
 import { scriptCaptureMonster, scriptCommandMonster, scriptReleaseMonster } from "@/engine/core/utils/scheme";
 import { addVectors } from "@/engine/core/utils/vector";
-import { Optional, Patrol, Vector } from "@/engine/lib/types";
+import { Nillable, Patrol, Vector } from "@/engine/lib/types";
 
 /**
  * Manager of jump logics.
@@ -13,9 +13,9 @@ import { Optional, Patrol, Vector } from "@/engine/lib/types";
  * After jumping, monster is free from any logics and just behave usually.
  */
 export class MobJumpManager extends AbstractSchemeManager<ISchemeMobJumpState> {
-  public jumpPath: Optional<Patrol> = null;
-  public point: Optional<Vector> = null;
-  public jumpState: Optional<EMobJumpState> = null;
+  public jumpPath: Nillable<Patrol> = null;
+  public point: Nillable<Vector> = null;
+  public jumpState: Nillable<EMobJumpState> = null;
 
   public override activate(): void {
     scriptCaptureMonster(this.object, true, MobJumpManager.name);
