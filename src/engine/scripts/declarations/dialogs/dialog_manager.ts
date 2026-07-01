@@ -250,7 +250,7 @@ extern(
       manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).has(objectId) &&
       terrain.name() === dialogConfig.PHRASES.get(EGenericPhraseCategory.ANOMALIES).get(phraseId).smart
     ) {
-      manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(objectId).id = -1;
+      manager.priorityTable.get(EGenericPhraseCategory.ANOMALIES).get(objectId).set(phraseId, -1);
 
       return false;
     }
