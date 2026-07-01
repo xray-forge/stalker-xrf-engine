@@ -188,10 +188,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
    * Update squad action when no scripted target is set, using generic priority-based simulation targeting.
    */
   public updateCurrentGenericAction(): void {
-    const helpTargetId: Optional<TNumberId> = getSquadHelpActorTargetId(this);
+    const helpTargetId: Nillable<TNumberId> = getSquadHelpActorTargetId(this);
 
     // Try to help actor if can.
-    if (helpTargetId && helpTargetId !== this.assignedTargetId) {
+    if ($isNotNil(helpTargetId) && helpTargetId !== this.assignedTargetId) {
       simulationLogger.info("Assign squad new help target id: %s %s", this.name(), helpTargetId);
 
       this.currentAction?.finalize();

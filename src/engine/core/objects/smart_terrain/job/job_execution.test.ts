@@ -197,14 +197,14 @@ describe("job_execution logic", () => {
         object: firstStalker,
         isBegun: true,
         isMonster: false,
-        jobId: 5,
+        jobId: 25,
         job: {
           preconditionFunction: expect.any(Function),
           isMonsterJob: false,
           preconditionParameters: {
             wayName: "test_smart_sniper_1_walk",
           },
-          id: 5,
+          id: 25,
           alifeTask: {
             gameVertexId: 20001,
             levelVertexId: 20002,
@@ -299,9 +299,9 @@ describe("job_execution logic", () => {
       object: monster,
       isBegun: true,
       isMonster: true,
-      jobId: 15,
+      jobId: 5,
       job: {
-        id: 15,
+        id: 5,
         isMonsterJob: true,
         alifeTask: {
           gameVertexId: 512,
@@ -320,12 +320,12 @@ describe("job_execution logic", () => {
           y: 2,
           z: 3,
         },
-        priority: 10,
+        priority: 40,
         type: EJobType.MONSTER_HOME,
         section: "logic@test_smart_home_1",
         objectId: monster.id,
       },
-      jobPriority: 10,
+      jobPriority: 40,
       desiredJob: "nil",
       schemeType: 2,
     });
@@ -414,9 +414,9 @@ describe("selectSmartTerrainObjectJob util", () => {
     const [thirdJobId, thirdJob] = selectTerrainObjectJob(terrain, terrain.objectJobDescriptors.get(secondStalker.id));
     const [fourthJobId, fourthJob] = selectTerrainObjectJob(terrain, terrain.objectJobDescriptors.get(firstStalker.id));
 
-    expect(firstJobId).toBe(5);
+    expect(firstJobId).toBe(25);
     expect(secondJobId).toBe(4);
-    expect(thirdJobId).toBe(5);
+    expect(thirdJobId).toBe(25);
     expect(fourthJobId).toBe(4);
 
     expect(firstJob).toBe(thirdJob);
@@ -472,14 +472,14 @@ describe("selectSmartTerrainObjectJob util", () => {
         object: secondStalker,
         isBegun: true,
         isMonster: false,
-        jobId: 5,
+        jobId: 25,
         job: {
           preconditionFunction: expect.any(Function),
           isMonsterJob: false,
           preconditionParameters: {
             wayName: "test_smart_sniper_1_walk",
           },
-          id: 5,
+          id: 25,
           alifeTask: {
             gameVertexId: 20001,
             levelVertexId: 20002,

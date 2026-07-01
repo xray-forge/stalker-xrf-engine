@@ -25,7 +25,7 @@ describe("jobs_general should correctly generate monster default jobs", () => {
         isMonsterJob: true,
         pathType: EJobPathType.POINT,
         section: "logic@test_smart_home_" + it,
-        priority: 10,
+        priority: 40,
       }))
     );
   });

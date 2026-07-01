@@ -71,7 +71,7 @@ describe("selectSmartTerrainJob util", () => {
 
     const [thirdId, thirdJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
-    expect(thirdId).toBe(5);
+    expect(thirdId).toBe(25);
     expect(thirdJob).toEqual({
       alifeTask: {
         gameVertexId: 20001,
@@ -83,7 +83,7 @@ describe("selectSmartTerrainJob util", () => {
         },
       },
       gameVertexId: 20001,
-      id: 5,
+      id: 25,
       isMonsterJob: false,
       levelId: 2,
       pathType: 1,
@@ -126,7 +126,7 @@ describe("selectSmartTerrainJob util", () => {
 
     const [secondId, secondJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
-    expect(secondId).toBe(15);
+    expect(secondId).toBe(5);
     expect(secondJob).toEqual({
       alifeTask: {
         gameVertexId: 512,
@@ -138,7 +138,7 @@ describe("selectSmartTerrainJob util", () => {
         },
       },
       gameVertexId: 512,
-      id: 15,
+      id: 5,
       isMonsterJob: true,
       levelId: 5,
       pathType: 2,
@@ -147,7 +147,7 @@ describe("selectSmartTerrainJob util", () => {
         y: 2,
         z: 3,
       },
-      priority: 10,
+      priority: 40,
       section: "logic@test_smart_home_1",
       type: EJobType.MONSTER_HOME,
     });
@@ -157,7 +157,7 @@ describe("selectSmartTerrainJob util", () => {
 
     const [thirdId, thirdJob] = selectTerrainJob(terrain, terrain.jobs, job);
 
-    expect(thirdId).toBe(16);
+    expect(thirdId).toBe(6);
     expect(thirdJob).toEqual({
       alifeTask: {
         gameVertexId: 512,
@@ -169,7 +169,7 @@ describe("selectSmartTerrainJob util", () => {
         },
       },
       gameVertexId: 512,
-      id: 16,
+      id: 6,
       isMonsterJob: true,
       levelId: 5,
       pathType: 2,
@@ -178,7 +178,7 @@ describe("selectSmartTerrainJob util", () => {
         y: 2,
         z: 3,
       },
-      priority: 10,
+      priority: 40,
       section: "logic@test_smart_home_2",
       type: EJobType.MONSTER_HOME,
     });

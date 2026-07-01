@@ -23,7 +23,7 @@ export const smartTerrainConfig = {
   // Configuration of possible smart terrain jobs.
   JOBS: {
     MOB_HOME: {
-      PRIORITY: 10,
+      PRIORITY: 40,
       COUNT: 20,
       MIN_RADIUS: 10,
       MID_RADIUS: 20,

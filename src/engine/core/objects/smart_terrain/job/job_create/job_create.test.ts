@@ -79,9 +79,18 @@ describe("jobs_create", () => {
         section: "logic@test_smart_camper_1_walk",
         priority: 45,
       },
+      ...range(20, 1).map((it) => ({
+        ...getSmartTerrainTaskDetails(),
+        id: 4 + it,
+        type: EJobType.MONSTER_HOME,
+        isMonsterJob: true,
+        pathType: EJobPathType.POINT,
+        section: "logic@test_smart_home_" + it,
+        priority: 40,
+      })),
       {
         ...getSmartTerrainTaskDetails(),
-        id: 5,
+        id: 25,
         type: EJobType.SNIPER,
         preconditionFunction: jobPreconditionSniper,
         preconditionParameters: {
@@ -94,7 +103,7 @@ describe("jobs_create", () => {
       },
       {
         ...getSmartTerrainTaskDetails(),
-        id: 6,
+        id: 26,
         type: EJobType.COLLECTOR,
         preconditionFunction: jobPreconditionCollector,
         preconditionParameters: {},
@@ -105,7 +114,7 @@ describe("jobs_create", () => {
       },
       {
         ...getSmartTerrainTaskDetails(),
-        id: 7,
+        id: 27,
         type: EJobType.GUARD,
         preconditionFunction: jobPreconditionGuard,
         preconditionParameters: {
@@ -118,7 +127,7 @@ describe("jobs_create", () => {
       },
       {
         ...getSmartTerrainTaskDetails(),
-        id: 8,
+        id: 28,
         type: EJobType.GUARD_FOLLOWER,
         preconditionFunction: jobPreconditionGuardFollower,
         preconditionParameters: {
@@ -131,7 +140,7 @@ describe("jobs_create", () => {
       },
       {
         ...getSmartTerrainTaskDetails(),
-        id: 9,
+        id: 29,
         type: EJobType.PATROL,
         preconditionFunction: jobPreconditionPatrol,
         preconditionParameters: {
@@ -144,7 +153,7 @@ describe("jobs_create", () => {
       },
       {
         ...getSmartTerrainTaskDetails(),
-        id: 10,
+        id: 30,
         type: EJobType.PATROL,
         preconditionFunction: jobPreconditionPatrol,
         preconditionParameters: {
@@ -157,7 +166,7 @@ describe("jobs_create", () => {
       },
       {
         ...getSmartTerrainTaskDetails(),
-        id: 11,
+        id: 31,
         type: EJobType.PATROL,
         preconditionFunction: jobPreconditionPatrol,
         preconditionParameters: {
@@ -170,7 +179,7 @@ describe("jobs_create", () => {
       },
       {
         ...getSmartTerrainTaskDetails(),
-        id: 12,
+        id: 32,
         type: EJobType.WALKER,
         preconditionFunction: jobPreconditionWalker,
         preconditionParameters: {
@@ -183,7 +192,7 @@ describe("jobs_create", () => {
       },
       {
         ...getSmartTerrainTaskDetails(),
-        id: 13,
+        id: 33,
         type: EJobType.ANIMPOINT,
         preconditionFunction: jobPreconditionAnimpoint,
         preconditionParameters: {},
@@ -194,7 +203,7 @@ describe("jobs_create", () => {
       },
       ...range(2, 1).map((it) => ({
         ...getSmartTerrainTaskDetails(),
-        id: 13 + it,
+        id: 33 + it,
         type: EJobType.SLEEP,
         preconditionFunction: jobPreconditionSleep,
         preconditionParameters: {
@@ -203,15 +212,6 @@ describe("jobs_create", () => {
         isMonsterJob: false,
         pathType: EJobPathType.PATH,
         section: `logic@test_smart_sleep_${it}`,
-        priority: 10,
-      })),
-      ...range(20, 1).map((it) => ({
-        ...getSmartTerrainTaskDetails(),
-        id: 15 + it,
-        type: EJobType.MONSTER_HOME,
-        isMonsterJob: true,
-        pathType: EJobPathType.POINT,
-        section: "logic@test_smart_home_" + it,
         priority: 10,
       })),
       ...range(20, 1).map((it) => ({
@@ -244,7 +244,7 @@ describe("jobs_create", () => {
         pathType: EJobPathType.POINT,
         isMonsterJob: true,
         section: "logic@test_smart_empty_home_" + it,
-        priority: 10,
+        priority: 40,
       })),
       ...range(20, 1).map((it) => ({
         ...getSmartTerrainTaskDetails(),
