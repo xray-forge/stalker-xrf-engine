@@ -14,6 +14,7 @@ import { copyVector, subVectors } from "@/engine/core/utils/vector";
 import {
   ESoundObjectType,
   GameObject,
+  Nillable,
   Optional,
   ServerMonsterAbstractObject,
   SoundObject,
@@ -40,7 +41,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
   public monster: Optional<ServerMonsterAbstractObject> = null;
   public monsterObject: Optional<GameObject> = null;
 
-  public soundObject: Optional<SoundObject> = null;
+  public soundObject: Nillable<SoundObject> = null;
   public appearSound!: SoundObject;
 
   public override activate(): void {
@@ -191,7 +192,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
    */
   public setPositions(): void {
     if (this.getNextPoint() === 0) {
-      if (this.monster === null && this.state.monster !== null) {
+      if (!this.monster && this.state.monster) {
         this.monster = registry.simulator.create<ServerMonsterAbstractObject>(
           this.state.monster,
           this.current,
@@ -202,7 +203,7 @@ export class MonsterManager extends AbstractSchemeManager<ISchemeMonsterState> {
 
       this.appearSound.play_at_pos(registry.actor, this.current, 0, ESoundObjectType.S3D);
 
-      if (this.soundObject !== null) {
+      if (this.soundObject) {
         this.soundObject.stop();
       }
 

@@ -8,7 +8,7 @@ import { extern } from "@/engine/core/utils/binding";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import {
   GameObject,
-  Optional,
+  Nillable,
   ParticlesObject,
   Patrol,
   TIndex,
@@ -42,20 +42,20 @@ extern(
   (
     _: GameObject,
     __: GameObject,
-    [storyId, patrolName, patrolIndex = 0]: [Optional<TStringId>, Optional<TName>, TIndex]
+    [storyId, patrolName, patrolIndex = 0]: [Nillable<TStringId>, Nillable<TName>, TIndex]
   ) => {
     if (!storyId || !patrolName) {
       abort("Wrong parameters in 'teleport_npc_by_story_id' function.");
     }
 
-    const objectId: Optional<TNumberId> = getObjectIdByStoryId(storyId);
+    const objectId: Nillable<TNumberId> = getObjectIdByStoryId(storyId);
 
     if (!objectId) {
       abort("There is no story object with id '%s'.", storyId);
     }
 
     const position: Vector = new patrol(patrolName).point(patrolIndex);
-    const target: Optional<GameObject> = level.object_by_id(objectId);
+    const target: Nillable<GameObject> = level.object_by_id(objectId);
 
     if (target) {
       resetStalkerState(target);
@@ -76,7 +76,7 @@ extern(
       abort("Wrong parameters in 'teleport_squad' effect.");
     }
 
-    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+    const squad: Nillable<Squad> = getServerObjectByStoryId(storyId);
 
     assert(squad, "There is no squad with story id '%s'.", storyId);
     setSquadPosition(squad, new patrol(patrolName).point(patrolIndex));
@@ -88,7 +88,7 @@ extern(
  */
 extern(
   "xr_effects.teleport_actor",
-  (_: GameObject, __: GameObject, [positionPatrolName, lookPatrolName]: [Optional<TName>, Optional<TName>]): void => {
+  (_: GameObject, __: GameObject, [positionPatrolName, lookPatrolName]: [Nillable<TName>, Nillable<TName>]): void => {
     assert(positionPatrolName, "Wrong parameters in 'teleport_actor' effect.");
 
     const point: Patrol = new patrol(positionPatrolName);

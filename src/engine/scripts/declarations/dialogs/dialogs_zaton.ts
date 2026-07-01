@@ -37,7 +37,7 @@ import {
   AnyObject,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   TCount,
   TIndex,
   TName,
@@ -2752,7 +2752,7 @@ extern(
  * @param secondSpeaker - Second participant of the dialog (NPC).
  */
 extern("dialogs_zaton.zat_b53_transfer_medkit_to_npc", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
-  let section: Optional<TDrugItem> = null;
+  let section: Nillable<TDrugItem> = null;
   const actor: GameObject = registry.actor;
 
   if (actorHasItem(drugs.medkit)) {

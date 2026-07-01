@@ -1,13 +1,13 @@
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { GameObject, Optional, TLabel, TSection, TStringId } from "@/engine/lib/types";
+import { GameObject, Nillable, TLabel, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**
  * Get correct title for zat_b29 treasure hunters quest.
  */
-extern("task_functors.zat_b29_adv_title", (): Optional<TLabel> => {
+extern("task_functors.zat_b29_adv_title", (): Nillable<TLabel> => {
   for (const it of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
       return registry.actor.object(zatB29AfTable.get(it))
@@ -22,7 +22,7 @@ extern("task_functors.zat_b29_adv_title", (): Optional<TLabel> => {
 /**
  * Get correct description for zat_b29 treasure hunters quest.
  */
-extern("task_functors.zat_b29_adv_descr", (): Optional<TLabel> => {
+extern("task_functors.zat_b29_adv_descr", (): Nillable<TLabel> => {
   for (const it of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
       if (registry.actor.object(zatB29AfTable.get(it))) {
@@ -72,7 +72,7 @@ extern("task_functors.zat_b29_adv_target", () => {
   const actor: GameObject = registry.actor;
 
   let targetObjectId: TStringId = "zat_a2_stalker_barmen";
-  let artefact: Optional<TSection> = null;
+  let artefact: Nillable<TSection> = null;
 
   // Get available search artefact.
   for (const it of $range(16, 23)) {

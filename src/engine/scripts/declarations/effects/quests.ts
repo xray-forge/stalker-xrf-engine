@@ -36,7 +36,7 @@ import {
   AnyCallable,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   ParticlesObject,
   ServerObject,
   ServerPhysicObject,
@@ -66,7 +66,7 @@ const logger: LuaLogger = new LuaLogger($filename);
  */
 extern(
   "xr_effects.show_freeplay_dialog",
-  (_: GameObject, __: GameObject, [text, canLeave]: [Optional<TLabel>, Optional<TStringifiedBoolean>]) => {
+  (_: GameObject, __: GameObject, [text, canLeave]: [Nillable<TLabel>, Nillable<TStringifiedBoolean>]) => {
     assert(text, "Expected text message to be provided for 'show_freeplay_dialog' effect.");
     showFreeplayDialog(canLeave === TRUE ? "message_box_yes_no" : "message_box_ok", text);
   }
@@ -230,15 +230,15 @@ extern("xr_effects.jup_teleport_actor", (actor: GameObject, object: GameObject):
   actor.set_actor_position(outPosition);
 });
 
-let jupB219Position: Optional<Vector> = null;
-let jupB219LVId: Optional<number> = null;
-let jupB219GVId: Optional<number> = null;
+let jupB219Position: Nillable<Vector> = null;
+let jupB219LVId: Nillable<number> = null;
+let jupB219GVId: Nillable<number> = null;
 
 /**
  * Save the position of the Jupiter b219 gate object and release it from the simulation.
  */
 extern("xr_effects.jup_b219_save_pos", (): void => {
-  const object: Optional<GameObject> = getObjectByStoryId("jup_b219_gate_id");
+  const object: Nillable<GameObject> = getObjectByStoryId("jup_b219_gate_id");
 
   if (object && object.position()) {
     jupB219Position = object.position();
@@ -248,7 +248,7 @@ extern("xr_effects.jup_b219_save_pos", (): void => {
     return;
   }
 
-  const serverObject: Optional<ServerObject> = registry.simulator.object(object.id());
+  const serverObject: Nillable<ServerObject> = registry.simulator.object(object.id());
 
   if (serverObject) {
     registry.simulator.release(serverObject, true);
@@ -274,7 +274,7 @@ extern("xr_effects.jup_b219_restore_gate", () => {
   }
 });
 
-let particlesList: Optional<LuaArray<{ particle: ParticlesObject; sound: SoundObject }>> = null;
+let particlesList: Nillable<LuaArray<{ particle: ParticlesObject; sound: SoundObject }>> = null;
 
 /**
  * Play the Jupiter b16 teleport particle effect at the object's particle patrol point by index.
@@ -284,7 +284,7 @@ let particlesList: Optional<LuaArray<{ particle: ParticlesObject; sound: SoundOb
  * @param p - Tuple containing the index of the particle and sound pair to play.
  */
 extern("xr_effects.jup_b16_play_particle_and_sound", (actor: GameObject, object: GameObject, p: [number]) => {
-  if (particlesList === null) {
+  if (!particlesList) {
     particlesList = [
       {
         particle: new particles_object("anomaly2\\teleport_out_00"),
@@ -374,7 +374,7 @@ extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [s
 
   for (const it of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
-      let anomalyZoneName: Optional<TName> = null;
+      let anomalyZoneName: Nillable<TName> = null;
 
       for (const [index, name] of anomalyZonesList) {
         if (hasInfoPortion(name as TInfoPortion)) {
@@ -402,7 +402,7 @@ extern("xr_effects.give_item_b29", (actor: GameObject, object: GameObject, p: [s
  * @param p - Tuple of source and destination story IDs for the relocated item.
  */
 extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p: [string, string]) => {
-  let item: Optional<string> = null;
+  let item: Nillable<string> = null;
 
   for (const it of $range(16, 23)) {
     if (hasInfoPortion(zatB29InfopBringTable.get(it))) {
@@ -411,8 +411,8 @@ extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p
     }
   }
 
-  const fromObject: Optional<GameObject> = p && getObjectByStoryId(p[0]);
-  const toObject: Optional<GameObject> = p && getObjectByStoryId(p[1]);
+  const fromObject: Nillable<GameObject> = p && getObjectByStoryId(p[0]);
+  const toObject: Nillable<GameObject> = p && getObjectByStoryId(p[1]);
 
   if (toObject !== null) {
     if (fromObject !== null && fromObject.object(item!) !== null) {
@@ -438,8 +438,8 @@ extern("xr_effects.relocate_item_b29", (actor: GameObject, object: GameObject, p
  * @param object - Game object owning the logics scheme.
  */
 extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object: GameObject): void => {
-  const inventoryBoxOut: Optional<GameObject> = getObjectByStoryId("jup_b202_actor_treasure");
-  const inventoryBoxIn: Optional<GameObject> = getObjectByStoryId("jup_b202_snag_treasure");
+  const inventoryBoxOut: Nillable<GameObject> = getObjectByStoryId("jup_b202_actor_treasure");
+  const inventoryBoxIn: Nillable<GameObject> = getObjectByStoryId("jup_b202_snag_treasure");
   const itemsToRelocate: LuaArray<GameObject> = new LuaTable();
 
   if (!inventoryBoxIn || !inventoryBoxOut) {
@@ -460,7 +460,7 @@ extern("xr_effects.jup_b202_inventory_box_relocate", (actor: GameObject, object:
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object that receives the loot when no target story ID is provided.
- * @param params - Tuple containing the optional target box story ID.
+ * @param params - Tuple containing the Nillable target box story ID.
  */
 extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: GameObject, params: [string]): void => {
   const itemsAll = {
@@ -516,10 +516,10 @@ extern("xr_effects.jup_b10_spawn_drunk_dead_items", (actor: GameObject, object: 
     }
 
     for (const [k, v] of items.get(cnt)) {
-      const targetObjectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
+      const targetObjectId: Nillable<TNumberId> = getObjectIdByStoryId(params[0]);
 
       if (targetObjectId !== null) {
-        const box: Optional<ServerObject> = registry.simulator.object(targetObjectId);
+        const box: Nillable<ServerObject> = registry.simulator.object(targetObjectId);
 
         if (box === null) {
           abort("There is no such object %s", params[0]);
@@ -777,7 +777,7 @@ extern("xr_effects.pas_b400_stop_particle", (actor: GameObject, object: GameObje
  * Set the condition of the Pripyat a17 gauss rifle to zero, breaking it.
  */
 extern("xr_effects.damage_pri_a17_gauss", (): void => {
-  const object: Optional<GameObject> = getObjectByStoryId(questItems.pri_a17_gauss_rifle);
+  const object: Nillable<GameObject> = getObjectByStoryId(questItems.pri_a17_gauss_rifle);
 
   if (object !== null) {
     object.set_condition(0.0);
@@ -1047,10 +1047,10 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
   ]);
 
   for (const [itIndex, it] of zonesList) {
-    const storyObjectId: Optional<TNumberId> = getObjectIdByStoryId(it);
+    const storyObjectId: Nillable<TNumberId> = getObjectIdByStoryId(it);
 
     if (storyObjectId) {
-      const serverObject: Optional<ServerObject> = registry.simulator.object(storyObjectId)!;
+      const serverObject: Nillable<ServerObject> = registry.simulator.object(storyObjectId)!;
       const distance: TDistance = serverObject.position.distance_to(actor.position());
 
       if (index === 0) {
@@ -1084,7 +1084,7 @@ extern("xr_effects.pri_a28_check_zones", (): void => {
  * Handle consuming vodka by script scenario.
  */
 extern("xr_effects.eat_vodka_script", (actor: GameObject): void => {
-  const item: Optional<GameObject> = actor.object("vodka_script");
+  const item: Nillable<GameObject> = actor.object("vodka_script");
 
   if (item) {
     actor.eat(item);
@@ -1110,7 +1110,7 @@ extern("xr_effects.jup_b200_count_found", (): void => {
   let count: TCount = 0;
 
   for (const [, materialId] of materialsTable) {
-    const materialObject: Optional<GameObject> = getObjectByStoryId(materialId);
+    const materialObject: Nillable<GameObject> = getObjectByStoryId(materialId);
 
     if (materialObject !== null) {
       const parent: GameObject = materialObject.parent();

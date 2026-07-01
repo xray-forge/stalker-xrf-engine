@@ -10,7 +10,7 @@ import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_t
 import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
-import { GameObject, Optional, TName, TSection, TTimestamp } from "@/engine/lib/types";
+import { GameObject, Nillable, TName, TSection, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Check whether it is rainy in the game at the moment.
@@ -53,7 +53,7 @@ extern("xr_conditions.is_dark_night", (): boolean => {
  */
 extern(
   "xr_conditions.time_period",
-  (_: GameObject, __: GameObject, [shift, period]: [Optional<number>, Optional<number>]): boolean => {
+  (_: GameObject, __: GameObject, [shift, period]: [Nillable<number>, Nillable<number>]): boolean => {
     if (shift && period && registry.actor !== null) {
       return shift > period && level.get_time_minutes() % shift <= period;
     }
@@ -106,7 +106,7 @@ extern("xr_conditions.surge_kill_all", (): boolean => {
  * Throws, if signal rocket is not found.
  */
 extern("xr_conditions.signal_rocket_flying", (_: GameObject, __: GameObject, [name]: [TName]): boolean => {
-  const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name) as Optional<SignalLightBinder>;
+  const rocket: Nillable<SignalLightBinder> = registry.signalLights.get(name) as Nillable<SignalLightBinder>;
 
   if (!rocket) {
     abort("No such signal rocket: '%s' on the level.", name);
@@ -127,14 +127,14 @@ extern("xr_conditions.signal_rocket_flying", (_: GameObject, __: GameObject, [na
 extern(
   "xr_conditions.check_smart_alarm_status",
   (_: GameObject, __: GameObject, [terrainName, alarmStatus]: [TName, keyof typeof ALARM_STATUSES]): boolean => {
-    const status: Optional<ESmartTerrainStatus> = ALARM_STATUSES[alarmStatus];
+    const status: Nillable<ESmartTerrainStatus> = ALARM_STATUSES[alarmStatus];
 
     if (!status) {
       return abort("Wrong status '%s' in 'check_smart_alarm_status' condition.", status);
     }
 
-    const terrainControl: Optional<SmartTerrainControl> = getSimulationTerrainByName(terrainName)
-      ?.terrainControl as Optional<SmartTerrainControl>;
+    const terrainControl: Nillable<SmartTerrainControl> = getSimulationTerrainByName(terrainName)
+      ?.terrainControl as Nillable<SmartTerrainControl>;
 
     if (!terrainControl) {
       return abort("Cannot calculate 'check_smart_alarm_status' for terrain '%s'.", terrainName);

@@ -29,7 +29,7 @@ import { Y_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   GameObject,
-  Optional,
+  Nillable,
   Patrol,
   ServerArtefactItemObject,
   ServerHumanObject,
@@ -61,9 +61,9 @@ extern(
   (
     _: GameObject,
     object: GameObject,
-    [theme, faction, terrainNameOrId]: [Optional<TName>, Optional<TCommunity>, Optional<TName | TNumberId>]
+    [theme, faction, terrainNameOrId]: [Nillable<TName>, Nillable<TCommunity>, Nillable<TName | TNumberId>]
   ): void => {
-    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainNameOrId as TName);
+    const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainNameOrId as TName);
     const terrainId: TNumberId = terrain ? terrain.id : (terrainNameOrId as TNumberId);
 
     if (object && isStalker(object) && !object.alive()) {
@@ -116,7 +116,7 @@ extern(
     __: GameObject,
     [storyId, theme, faction, terrainNameOrId]: [TStringId, TName, TName, TName | TNumberId]
   ): void => {
-    const terrain: Optional<SmartTerrain> = getSimulationTerrainByName(terrainNameOrId as TName);
+    const terrain: Nillable<SmartTerrain> = getSimulationTerrainByName(terrainNameOrId as TName);
     const terrainId: TNumberId = terrain ? terrain.id : (terrainNameOrId as TNumberId);
 
     getManager(SoundManager).play(getObjectIdByStoryId(storyId) as TNumberId, theme, faction, terrainId);
@@ -128,7 +128,7 @@ extern(
  */
 extern("xr_effects.reset_sound_npc", (_: GameObject, object: GameObject): void => {
   const objectId: TNumberId = object.id();
-  const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId) as Optional<AbstractPlayableSound>;
+  const sound: Nillable<AbstractPlayableSound> = soundsConfig.playing.get(objectId) as Nillable<AbstractPlayableSound>;
 
   // todo: Move to sound manager methods.
   if (sound) {
@@ -143,7 +143,7 @@ extern("xr_effects.reset_sound_npc", (_: GameObject, object: GameObject): void =
  * - storyId - story ID of object to explode.
  */
 extern("xr_effects.barrel_explode", (_: GameObject, __: GameObject, [storyId]: [TStringId]) => {
-  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+  const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   if (storyObject) {
     storyObject.explode(0);
@@ -214,18 +214,18 @@ extern(
   "xr_effects.pick_artefact_from_anomaly",
   (
     _: GameObject,
-    object: Optional<GameObject | ServerHumanObject>,
-    params: [Optional<TStringId>, Optional<TName>, TName]
+    object: Nillable<GameObject | ServerHumanObject>,
+    params: [Nillable<TStringId>, Nillable<TName>, TName]
   ): void => {
     logger.info("Pick artefact from anomaly");
 
-    const anomalyZoneName: Optional<TName> = params && params[1];
+    const anomalyZoneName: Nillable<TName> = params && params[1];
     let artefactSection: TSection = params && params[2];
 
     const anomalyZone: AnomalyZoneBinder = registry.anomalyZones.get(anomalyZoneName as TName);
 
     if (params && params[0]) {
-      const objectId: Optional<TNumberId> = getObjectIdByStoryId(params[0]);
+      const objectId: Nillable<TNumberId> = getObjectIdByStoryId(params[0]);
 
       if (objectId === null) {
         abort("Couldn't relocate item to NULL in function 'pick_artefact_from_anomaly!'");
@@ -246,7 +246,7 @@ extern(
       return;
     }
 
-    let artefactObject: Optional<ServerArtefactItemObject> = null;
+    let artefactObject: Nillable<ServerArtefactItemObject> = null;
 
     for (const [artefactId] of anomalyZone.artefactPathsByArtefactId) {
       if (
@@ -281,7 +281,7 @@ extern(
  * - zoneName - name of anomaly binding object to turn off.
  */
 extern("xr_effects.anomaly_turn_off", (_: GameObject, __: GameObject, [zoneName]: [TName]): void => {
-  const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
+  const zone: Nillable<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
 
   assert(zone, "No anomaly zone with name '%s' defined.", zoneName);
 
@@ -297,8 +297,8 @@ extern("xr_effects.anomaly_turn_off", (_: GameObject, __: GameObject, [zoneName]
  */
 extern(
   "xr_effects.anomaly_turn_on",
-  (_: GameObject, __: GameObject, [zoneName, isForced]: [TName, Optional<TStringifiedBoolean>]): void => {
-    const zone: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
+  (_: GameObject, __: GameObject, [zoneName, isForced]: [TName, Nillable<TStringifiedBoolean>]): void => {
+    const zone: Nillable<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName);
 
     assert(zone, "No anomaly zone with name '%s' defined.", zoneName);
 
@@ -339,7 +339,7 @@ extern("xr_effects.turn_off_underpass_lamps", (_: GameObject, __: GameObject): v
   } as unknown as LuaTable<string, boolean>;
 
   for (const [storyId] of lampsList) {
-    const object: Optional<GameObject> = getObjectByStoryId(storyId);
+    const object: Nillable<GameObject> = getObjectByStoryId(storyId);
 
     if (object) {
       object.get_hanging_lamp().turn_off();
@@ -354,7 +354,7 @@ extern("xr_effects.turn_off_underpass_lamps", (_: GameObject, __: GameObject): v
  */
 extern("xr_effects.turn_off", (_: GameObject, __: GameObject, parameters: Array<TStringId>): void => {
   for (const storyId of parameters) {
-    const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+    const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
     assert(storyObject, "Object with story id '%s' does not exist.", storyId);
 
@@ -377,9 +377,9 @@ extern(
   (
     _: GameObject,
     __: GameObject,
-    [storyId, power, interval]: [TStringId, Optional<TRate>, Optional<TDuration>]
+    [storyId, power, interval]: [TStringId, Nillable<TRate>, Nillable<TDuration>]
   ): void => {
-    const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+    const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
     assert(storyObject, "Object with story id '%s' does not exist.", storyId);
 
@@ -393,7 +393,7 @@ extern(
  * Stop hanging lamp object and stop playback particles.
  */
 extern("xr_effects.turn_off_and_force", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
-  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+  const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   assert(storyObject, "Object with story id '%s' does not exist.", storyId);
 
@@ -413,7 +413,7 @@ extern("xr_effects.turn_on_object", (_: GameObject, object: GameObject): void =>
  */
 extern("xr_effects.turn_on", (_: GameObject, __: GameObject, parameters: Array<TStringId>) => {
   for (const storyId of parameters) {
-    const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+    const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
     assert(storyObject, "Object with story id '%s' does not exist.", storyId);
 
@@ -426,7 +426,7 @@ extern("xr_effects.turn_on", (_: GameObject, __: GameObject, parameters: Array<T
  */
 extern(
   "xr_effects.set_weather",
-  (_: GameObject, __: GameObject, [weatherName, isForced]: [Optional<TName>, Optional<TStringifiedBoolean>]): void => {
+  (_: GameObject, __: GameObject, [weatherName, isForced]: [Nillable<TName>, Nillable<TStringifiedBoolean>]): void => {
     logger.info("Set weather: %s", weatherName);
 
     if (weatherName) {
@@ -450,16 +450,16 @@ extern("xr_effects.stop_surge", (): void => {
 });
 
 /**
- * Set the surge notification message and optionally the surge task.
+ * Set the surge notification message and Nillablely the surge task.
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object owning the logics scheme.
  * @param label - Label used as the surge notification message.
- * @param task - Optional task section assigned for the surge.
+ * @param task - Nillable task section assigned for the surge.
  */
 extern(
   "xr_effects.set_surge_mess_and_task",
-  (_: GameObject, __: GameObject, [label, task]: [TLabel, Optional<TSection>]): void => {
+  (_: GameObject, __: GameObject, [label, task]: [TLabel, Nillable<TSection>]): void => {
     const surgeManager: SurgeManager = getManager(SurgeManager);
 
     surgeManager.setSurgeMessage(label);
@@ -476,10 +476,10 @@ extern(
  * Where:
  * - storyId - story ID of anomaly object to enable.
  */
-extern("xr_effects.enable_anomaly", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]) => {
+extern("xr_effects.enable_anomaly", (_: GameObject, __: GameObject, [storyId]: [Nillable<TStringId>]) => {
   assert(storyId, "Story id for 'enable_anomaly' effect is not provided.");
 
-  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+  const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   assert(storyObject, "There is no anomaly with story id '%s'.", storyId);
 
@@ -495,7 +495,7 @@ extern("xr_effects.enable_anomaly", (_: GameObject, __: GameObject, [storyId]: [
 extern("xr_effects.disable_anomaly", (_: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
   assert(storyId, "Story id for 'disable_anomaly' effect is not provided.");
 
-  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+  const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   if (storyObject) {
     storyObject.disable_anomaly();
@@ -511,7 +511,7 @@ extern("xr_effects.disable_anomaly", (_: GameObject, __: GameObject, [storyId]: 
  * - name - name of signal light rocket object.
  */
 extern("xr_effects.launch_signal_rocket", (_: GameObject, __: GameObject, [name]: [TName]): void => {
-  const rocket: Optional<SignalLightBinder> = registry.signalLights.get(name) as Optional<SignalLightBinder>;
+  const rocket: Nillable<SignalLightBinder> = registry.signalLights.get(name) as Nillable<SignalLightBinder>;
 
   if (rocket) {
     rocket.startFly();
@@ -529,7 +529,7 @@ extern("xr_effects.launch_signal_rocket", (_: GameObject, __: GameObject, [name]
  * @param pathName - Patrol path used as the spawn location.
  * @param index - Patrol point index used for positioning the spawned actor.
  * @param yaw - Yaw angle in degrees applied to the spawned actor.
- * @param slotOverride - Optional inventory slot used to pick the weapon instead of the active slot.
+ * @param slotOverride - Nillable inventory slot used to pick the weapon instead of the active slot.
  */
 extern(
   "xr_effects.create_cutscene_actor_with_weapon",
@@ -537,8 +537,8 @@ extern(
     actor: GameObject,
     object: GameObject,
     [spawnSection, pathName, index = 0, yaw = 0, slotOverride = 0]: [
-      Optional<TSection>,
-      Optional<TName>,
+      Nillable<TSection>,
+      Nillable<TName>,
       TIndex,
       TRate,
       TIndex,
@@ -546,11 +546,11 @@ extern(
   ): void => {
     logger.info("Create cutscene actor with weapon");
 
-    if (spawnSection === null) {
+    if (!spawnSection) {
       abort("Wrong spawn section for 'spawn_object' function %s. For object %s", spawnSection, object.name());
     }
 
-    if (pathName === null) {
+    if (!pathName) {
       abort("Wrong path_name for 'spawn_object' function %s. For object %s", pathName, object.name());
     }
 
@@ -574,7 +574,7 @@ extern(
     }
 
     let slot: TIndex;
-    let activeItem: Optional<GameObject> = null;
+    let activeItem: Nillable<GameObject> = null;
 
     if (slotOverride === 0) {
       slot = actor.active_slot();

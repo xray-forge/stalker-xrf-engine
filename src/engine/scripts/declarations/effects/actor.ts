@@ -21,7 +21,7 @@ import {
   GameObject,
   GameTask,
   LuaArray,
-  Optional,
+  Nillable,
   TLabel,
   TName,
   TSection,
@@ -95,7 +95,7 @@ extern("xr_effects.run_tutorial", (_: GameObject, __: GameObject, [tutorialName]
  * Give items of provided section to actor.
  * Expects variadic list of sections to give for the actor.
  */
-extern("xr_effects.give_actor", (_: GameObject, __: Optional<GameObject>, sections: Array<TSection>): void => {
+extern("xr_effects.give_actor", (_: GameObject, __: Nillable<GameObject>, sections: Array<TSection>): void => {
   for (const section of sections) {
     giveItemsToActor(section);
   }
@@ -104,12 +104,12 @@ extern("xr_effects.give_actor", (_: GameObject, __: Optional<GameObject>, sectio
 /**
  * Remove item from actor inventory based on provided section parameter.
  */
-extern("xr_effects.remove_item", (actor: GameObject, __: GameObject, [section]: [Optional<TSection>]): void => {
+extern("xr_effects.remove_item", (actor: GameObject, __: GameObject, [section]: [Nillable<TSection>]): void => {
   logger.info("Remove item");
 
   assert(section, "Wrong parameters in function 'remove_item'.");
 
-  const inventoryItem: Optional<GameObject> = actor.object(section);
+  const inventoryItem: Nillable<GameObject> = actor.object(section);
 
   if (inventoryItem) {
     registry.simulator.release(registry.simulator.object(inventoryItem.id()), true);
@@ -125,7 +125,7 @@ extern("xr_effects.remove_item", (actor: GameObject, __: GameObject, [section]: 
 extern(
   "xr_effects.drop_object_item_on_point",
   (actor: GameObject, __: GameObject, [section, pathName]: [TSection, TName]): void => {
-    const inventoryItem: Optional<GameObject> = actor.object(section);
+    const inventoryItem: Nillable<GameObject> = actor.object(section);
 
     if (inventoryItem) {
       actor.drop_item_and_teleport(actor.object(section) as GameObject, new patrol(pathName).point(0));
@@ -143,12 +143,12 @@ extern(
   (_: GameObject, __: GameObject, [itemSection, fromStoryId, toStoryId]: [TSection, TStringId, TStringId]) => {
     logger.info("Relocate item: '%s', '%s' -> '%s'", itemSection, fromStoryId, toStoryId);
 
-    const fromObject: Optional<GameObject> = getObjectByStoryId(fromStoryId);
-    const toObject: Optional<GameObject> = getObjectByStoryId(toStoryId);
+    const fromObject: Nillable<GameObject> = getObjectByStoryId(fromStoryId);
+    const toObject: Nillable<GameObject> = getObjectByStoryId(toStoryId);
 
     assert(toObject, "Couldn't relocate item to not existing object '%s' in 'relocate_item' effect.", toStoryId);
 
-    const item: Optional<GameObject> = fromObject && fromObject.object(itemSection);
+    const item: Nillable<GameObject> = fromObject && fromObject.object(itemSection);
 
     if (item) {
       (fromObject as GameObject).transfer_item(item, toObject);
@@ -169,14 +169,14 @@ extern(
  */
 extern(
   "xr_effects.activate_weapon_slot",
-  (actor: GameObject, __: GameObject, [slot]: [Optional<EActiveItemSlot>]): void => {
+  (actor: GameObject, __: GameObject, [slot]: [Nillable<EActiveItemSlot>]): void => {
     assert(slot, "Expected weapon slot to be provided as parameter in effect 'activate_weapon_slot'.");
     actor.activate_slot(slot);
   }
 );
 
 // todo: Move to input manager or effects state.
-let actorPositionForRestore: Optional<Vector> = null;
+let actorPositionForRestore: Nillable<Vector> = null;
 
 /**
  * Set current actor position based on previously saved one (with save effect).
@@ -214,7 +214,7 @@ extern(
 /**
  * Give new task for actor.
  */
-extern("xr_effects.give_task", (_: GameObject, __: GameObject, [taskId]: [Optional<TStringId>]): void => {
+extern("xr_effects.give_task", (_: GameObject, __: GameObject, [taskId]: [Nillable<TStringId>]): void => {
   assert(taskId, "No task id parameter in give_task effect.");
   getManager(TaskManager).giveTask(taskId);
 });
@@ -222,10 +222,10 @@ extern("xr_effects.give_task", (_: GameObject, __: GameObject, [taskId]: [Option
 /**
  * Set one of active actor tasks as current one.
  */
-extern("xr_effects.set_active_task", (actor: GameObject, __: GameObject, [taskId]: [Optional<TStringId>]): void => {
+extern("xr_effects.set_active_task", (actor: GameObject, __: GameObject, [taskId]: [Nillable<TStringId>]): void => {
   logger.info("Set active task: %s", taskId);
 
-  const task: Optional<GameTask> = taskId ? actor.get_task(tostring(taskId), true) : null;
+  const task: Nillable<GameTask> = taskId ? actor.get_task(tostring(taskId), true) : null;
 
   if (task) {
     actor.set_active_task(task);
@@ -245,13 +245,13 @@ extern("xr_effects.kill_actor", (actor: GameObject): void => {
  * Expects squad story ID as parameter.
  */
 extern("xr_effects.make_actor_visible_to_squad", (actor: GameObject, __: GameObject, [storyId]: [TStringId]): void => {
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+  const squad: Nillable<Squad> = getServerObjectByStoryId(storyId);
 
   assert(squad, "There is no squad with story id - '%s'.", storyId);
 
   for (const squadMember of squad.squad_members()) {
-    const gameObject: Optional<GameObject> = (registry.objects.get(squadMember.id)?.object ??
-      level.object_by_id(squadMember.id)) as Optional<GameObject>;
+    const gameObject: Nillable<GameObject> = (registry.objects.get(squadMember.id)?.object ??
+      level.object_by_id(squadMember.id)) as Nillable<GameObject>;
 
     if (gameObject) {
       gameObject.make_object_visible_somewhen(actor);
@@ -284,7 +284,7 @@ extern("xr_effects.sleep", (): void => {
  * Throws if item is not present.
  */
 extern("xr_effects.activate_weapon", (actor: GameObject, __: GameObject, [section]: [TSection]) => {
-  const item: Optional<GameObject> = actor.object(section);
+  const item: Nillable<GameObject> = actor.object(section);
 
   assert(item, "Actor has no such item to activate - '%s'.", section);
 
@@ -310,7 +310,7 @@ extern("xr_effects.give_treasure", (_: GameObject, __: GameObject, treasures: Lu
  */
 extern("xr_effects.get_best_detector", (actor: GameObject): void => {
   for (const [, detector] of ipairs(detectorsOrder)) {
-    const item: Optional<GameObject> = actor.object(detector);
+    const item: Nillable<GameObject> = actor.object(detector);
 
     if (item) {
       item.enable_attachable_item(true);
@@ -325,7 +325,7 @@ extern("xr_effects.get_best_detector", (actor: GameObject): void => {
  */
 extern("xr_effects.hide_best_detector", (actor: GameObject): void => {
   for (const [, detector] of ipairs(detectorsOrder)) {
-    const item: Optional<GameObject> = actor.object(detector);
+    const item: Nillable<GameObject> = actor.object(detector);
 
     if (item) {
       item.enable_attachable_item(false);

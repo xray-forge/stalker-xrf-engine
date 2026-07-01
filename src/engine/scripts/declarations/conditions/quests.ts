@@ -14,7 +14,7 @@ import {
   AnyCallablesModule,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   ServerCreatureObject,
   ServerObject,
   TDistance,
@@ -30,14 +30,14 @@ import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarati
  */
 extern(
   "xr_conditions.zat_b29_anomaly_has_af",
-  (_: GameObject, __: GameObject, [zoneName]: [Optional<TName>]): boolean => {
-    const anomaly: Optional<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName as TName);
+  (_: GameObject, __: GameObject, [zoneName]: [Nillable<TName>]): boolean => {
+    const anomaly: Nillable<AnomalyZoneBinder> = registry.anomalyZones.get(zoneName as TName);
 
     if (!zoneName || !anomaly || anomaly.spawnedArtefactsCount < 1) {
       return false;
     }
 
-    let artefactName: Optional<TSection> = null;
+    let artefactName: Nillable<TSection> = null;
 
     for (const index of $range(16, 23)) {
       if (hasInfoPortion(zatB29InfopBringTable.get(index))) {
@@ -47,7 +47,7 @@ extern(
     }
 
     for (const [artefactId] of registry.artefacts.ways) {
-      const artefact: Optional<ServerObject> = registry.simulator.object(tonumber(artefactId) as TNumberId);
+      const artefact: Nillable<ServerObject> = registry.simulator.object(tonumber(artefactId) as TNumberId);
 
       if (artefact && artefact.section_name() === artefactName) {
         giveInfoPortion(zoneName);
@@ -131,7 +131,7 @@ extern("xr_conditions.jup_b221_who_will_start", (_: GameObject, __: GameObject, 
  * @returns Whether the actor is past the forward point and beyond the required distance from the object and squad.
  */
 extern("xr_conditions.pas_b400_actor_far_forward", (actor: GameObject, object: GameObject): boolean => {
-  const forwardObject: Optional<GameObject> = getObjectByStoryId("pas_b400_fwd");
+  const forwardObject: Nillable<GameObject> = getObjectByStoryId("pas_b400_fwd");
 
   if (forwardObject) {
     if (getDistanceBetween(forwardObject, registry.actor) > getDistanceBetween(forwardObject, object)) {
@@ -171,7 +171,7 @@ extern("xr_conditions.pas_b400_actor_far_forward", (actor: GameObject, object: G
  * @returns Whether the actor is past the backward point and beyond the required distance from the object and squad.
  */
 extern("xr_conditions.pas_b400_actor_far_backward", (actor: GameObject, object: GameObject): boolean => {
-  const backwardObject: Optional<GameObject> = getObjectByStoryId("pas_b400_bwd");
+  const backwardObject: Nillable<GameObject> = getObjectByStoryId("pas_b400_bwd");
 
   if (backwardObject !== null) {
     if (getDistanceBetween(backwardObject, registry.actor) > getDistanceBetween(backwardObject, object)) {
@@ -206,7 +206,7 @@ extern("xr_conditions.pas_b400_actor_far_backward", (actor: GameObject, object: 
  * Check if actor is far from military squad.
  */
 extern("xr_conditions.pri_a28_actor_is_far", (actor: GameObject, object: GameObject): boolean => {
-  const squad: Optional<Squad> = getServerObjectByStoryId("pri_a16_military_squad")!;
+  const squad: Nillable<Squad> = getServerObjectByStoryId("pri_a16_military_squad")!;
 
   if (!squad) {
     abort("Unexpected actor distance check - no squad existing.");
@@ -327,7 +327,7 @@ extern("xr_conditions.jup_b202_actor_treasure_not_in_steal", (_: GameObject, __:
  * Check if object with story ID exists.
  */
 extern("xr_conditions.jup_b47_npc_online", (_: GameObject, __: GameObject, [storyId]: [TStringId]) => {
-  const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+  const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   if (storyObject) {
     return registry.simulator.object(storyObject.id()) !== null;

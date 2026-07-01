@@ -4,12 +4,12 @@ import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { getActorTargetSurgeCover, isActorInSurgeCover } from "@/engine/core/managers/surge/utils/surge_cover";
 import { extern } from "@/engine/core/utils/binding";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { GameObject, Optional, TLabel, TNumberId, TSection, TStringId } from "@/engine/lib/types";
+import { GameObject, Nillable, TLabel, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 /**
  * Check condlist as part of condition functor.
  */
-extern("task_functors.condlist", (id: TStringId, field: string, condlist: string): Optional<TSection> => {
+extern("task_functors.condlist", (id: TStringId, field: string, condlist: string): Nillable<TSection> => {
   return pickSectionFromCondList(registry.actor, null, parseConditionsList(condlist));
 });
 
@@ -31,7 +31,7 @@ extern("task_functors.surge_task_descr", (): TLabel => {
  * Get target object id based on condlist returning story id.
  */
 extern("task_functors.target_condlist", (id: TStringId, field: string, condlist: string) => {
-  const value: Optional<TSection> = pickSectionFromCondList(registry.actor, null, parseConditionsList(condlist));
+  const value: Nillable<TSection> = pickSectionFromCondList(registry.actor, null, parseConditionsList(condlist));
 
   return value ? getObjectIdByStoryId(value) : null;
 });
@@ -40,8 +40,8 @@ extern("task_functors.target_condlist", (id: TStringId, field: string, condlist:
  * Get target surge cover ID for actor to navigate to.
  * Returns nearest cover id if it exists or null if none found / actor in one currently.
  */
-extern("task_functors.surge_task_target", (): Optional<TNumberId> => {
-  const surgeCover: Optional<GameObject> = getActorTargetSurgeCover();
+extern("task_functors.surge_task_target", (): Nillable<TNumberId> => {
+  const surgeCover: Nillable<GameObject> = getActorTargetSurgeCover();
 
   return surgeCover ? surgeCover.id() : null;
 });

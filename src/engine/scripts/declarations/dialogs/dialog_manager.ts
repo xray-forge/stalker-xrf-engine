@@ -12,7 +12,7 @@ import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain } from "@/engine/core/utils/position";
-import { GameObject, Optional, PhraseDialog, TName, TNumberId, TStringId } from "@/engine/lib/types";
+import { GameObject, Nillable, PhraseDialog, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -242,7 +242,7 @@ extern(
   "dialog_manager.precondition_anomalies_dialogs",
   (object: GameObject, actor: GameObject, dialogName: TName, parentId: TStringId, phraseId: TStringId): boolean => {
     const manager: DialogManager = getManager(DialogManager);
-    const terrain: Optional<SmartTerrain> = getObjectTerrain(object);
+    const terrain: Nillable<SmartTerrain> = getObjectTerrain(object);
     const objectId: TNumberId = object.id();
 
     if (

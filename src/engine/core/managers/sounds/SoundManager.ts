@@ -12,7 +12,7 @@ import {
   GameObject,
   NetPacket,
   NetProcessor,
-  Optional,
+  Nillable,
   SoundObject,
   TCount,
   TName,
@@ -46,7 +46,7 @@ export class SoundManager extends AbstractManager {
   }
 
   public override update(objectId: TNumberId): void {
-    const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(objectId);
+    const sound: Nillable<AbstractPlayableSound> = soundsConfig.playing.get(objectId);
 
     if (sound && !sound.isPlaying(objectId)) {
       sound.onSoundPlayEnded(objectId);
@@ -167,18 +167,18 @@ export class SoundManager extends AbstractManager {
    */
   public play(
     objectId: TNumberId,
-    name: Optional<TStringId>,
-    faction: Optional<TName> = null,
-    point: Optional<TNumberId> = null
-  ): Optional<SoundObject> {
+    name: Nillable<TStringId>,
+    faction: Nillable<TName> = null,
+    point: Nillable<TNumberId> = null
+  ): Nillable<SoundObject> {
     if (!name) {
       return null;
     }
 
-    const theme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(name);
-    const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(
+    const theme: Nillable<AbstractPlayableSound> = soundsConfig.themes.get(name);
+    const sound: Nillable<AbstractPlayableSound> = soundsConfig.playing.get(
       objectId
-    ) as Optional<AbstractPlayableSound>;
+    ) as Nillable<AbstractPlayableSound>;
 
     assert(theme, "Not existing sound theme '%s' provided for playing with object '%s'.", name, objectId);
     assert(theme.type !== LoopedSound.type, "Trying to start sound '%s' with incorrect play method.", name);
@@ -209,16 +209,16 @@ export class SoundManager extends AbstractManager {
    * @param objectId - Target object ID to stop all sounds for.
    */
   public stop(objectId: TNumberId): void {
-    const sound: Optional<AbstractPlayableSound> = soundsConfig.playing.get(
+    const sound: Nillable<AbstractPlayableSound> = soundsConfig.playing.get(
       objectId
-    ) as Optional<AbstractPlayableSound>;
+    ) as Nillable<AbstractPlayableSound>;
 
     if (sound) {
       logger.info("Stop sound play: %s %s", objectId, sound.section);
       sound.stop(objectId);
     }
 
-    const looped: Optional<LuaTable<TName, AbstractPlayableSound>> = soundsConfig.looped.get(objectId) as Optional<
+    const looped: Nillable<LuaTable<TName, AbstractPlayableSound>> = soundsConfig.looped.get(objectId) as Nillable<
       LuaTable<TName, AbstractPlayableSound>
     >;
 
@@ -239,19 +239,19 @@ export class SoundManager extends AbstractManager {
    * @param name - Name of the looped sound to start.
    */
   public playLooped(objectId: TNumberId, name: TName): void {
-    const looped: Optional<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(objectId);
+    const looped: Nillable<LuaTable<TStringId, AbstractPlayableSound>> = soundsConfig.looped.get(objectId);
 
     if (looped && looped.get(name)?.isPlaying(objectId)) {
       return;
     }
 
-    const theme: Optional<AbstractPlayableSound> = soundsConfig.themes.get(name);
+    const theme: Nillable<AbstractPlayableSound> = soundsConfig.themes.get(name);
 
     assert(theme, "Not existing sound theme '%s' provided for loop playing with object '%s'.", name, objectId);
     assert(theme.type === LoopedSound.type, "Trying to start sound '%s' with incorrect play looped method.", name);
 
     if (theme.play(objectId)) {
-      let collection: Optional<LuaTable<TStringId, AbstractPlayableSound>> = looped;
+      let collection: Nillable<LuaTable<TStringId, AbstractPlayableSound>> = looped;
 
       if (!collection) {
         collection = new LuaTable();
@@ -270,7 +270,7 @@ export class SoundManager extends AbstractManager {
    */
   public stopLooped(objectId: TNumberId, name: TName): void {
     const collection: LuaTable<TStringId, AbstractPlayableSound> = soundsConfig.looped.get(objectId);
-    const sound: Optional<AbstractPlayableSound> = collection?.get(name);
+    const sound: Nillable<AbstractPlayableSound> = collection?.get(name);
 
     if (!sound) {
       return;
@@ -308,7 +308,7 @@ export class SoundManager extends AbstractManager {
    * @param volume - Value of volume to set.
    */
   public setLoopedSoundVolume(objectId: TNumberId, name: TName, volume: TRate): void {
-    const sound: Optional<AbstractPlayableSound> = soundsConfig.looped.get(objectId)?.get(name);
+    const sound: Nillable<AbstractPlayableSound> = soundsConfig.looped.get(objectId)?.get(name);
 
     if (sound && sound.isPlaying(objectId)) {
       sound.setVolume(volume);

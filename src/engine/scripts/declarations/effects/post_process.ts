@@ -5,11 +5,11 @@ import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, Optional, TName, TNumberId, TRate, TStringifiedBoolean } from "@/engine/lib/types";
+import { GameObject, Nillable, TName, TNumberId, TRate, TStringifiedBoolean } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
-let camEffectorPlayingObjectId: Optional<TNumberId> = null;
+let camEffectorPlayingObjectId: Nillable<TNumberId> = null;
 
 /**
  * Run camera effector by provided name/id/loop.
@@ -20,7 +20,7 @@ extern(
   (
     _: GameObject,
     object: GameObject,
-    [name, idParameter, loopParameter]: [Optional<TName>, Optional<TNumberId>, Optional<TStringifiedBoolean>]
+    [name, idParameter, loopParameter]: [Nillable<TName>, Nillable<TNumberId>, Nillable<TStringifiedBoolean>]
   ): void => {
     logger.info("Run cam effector");
 
@@ -42,7 +42,7 @@ extern(
 /**
  * Remove camera effector by provided effector ID.
  */
-extern("xr_effects.stop_cam_effector", (_: GameObject, __: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
+extern("xr_effects.stop_cam_effector", (_: GameObject, __: GameObject, [effectorId]: [Nillable<TNumberId>]): void => {
   logger.info("Stop cam effector: %s", effectorId);
 
   if (effectorId && type(effectorId) === "number" && effectorId > 0) {
@@ -55,7 +55,7 @@ extern("xr_effects.stop_cam_effector", (_: GameObject, __: GameObject, [effector
  */
 extern(
   "xr_effects.run_cam_effector_global",
-  (_: GameObject, object: GameObject, [name, id, fov]: [TName, Optional<TNumberId>, Optional<TRate>]): void => {
+  (_: GameObject, object: GameObject, [name, id, fov]: [TName, Nillable<TNumberId>, Nillable<TRate>]): void => {
     logger.info("Run cam effector global");
 
     level.add_cam_effector2(
@@ -93,11 +93,11 @@ extern("xr_effects.cam_effector_callback", (): void => {
 });
 
 /**
- * Run complex effector by name (section) and optional ID override parameter.
+ * Run complex effector by name (section) and Nillable ID override parameter.
  */
 extern(
   "xr_effects.run_postprocess",
-  (_: GameObject, __: GameObject, [name, id]: [Optional<TName>, Optional<TNumberId>]): void => {
+  (_: GameObject, __: GameObject, [name, id]: [Nillable<TName>, Nillable<TNumberId>]): void => {
     logger.info("Run postprocess");
 
     if (!name) {
@@ -115,7 +115,7 @@ extern(
 /**
  * Stop complex effector by provided ID.
  */
-extern("xr_effects.stop_postprocess", (_: GameObject, __: GameObject, [effectorId]: [Optional<TNumberId>]): void => {
+extern("xr_effects.stop_postprocess", (_: GameObject, __: GameObject, [effectorId]: [Nillable<TNumberId>]): void => {
   logger.info("Stop postprocess: %s", effectorId);
 
   if (effectorId && type(effectorId) === "number" && effectorId > 0) {

@@ -15,7 +15,7 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AnyGameObject, EGameObjectRelation, EScheme, GameObject, Optional, TStringId } from "@/engine/lib/types";
+import { AnyGameObject, EGameObjectRelation, EScheme, GameObject, Nillable, TStringId } from "@/engine/lib/types";
 
 /**
  * Check whether actor faction is enemy with provided parameter community.
@@ -25,7 +25,7 @@ import { AnyGameObject, EGameObjectRelation, EScheme, GameObject, Optional, TStr
  */
 extern(
   "xr_conditions.is_factions_enemies",
-  (_: GameObject, __: GameObject, [community]: [Optional<TCommunity>]): boolean => {
+  (_: GameObject, __: GameObject, [community]: [Nillable<TCommunity>]): boolean => {
     return community ? areCommunitiesEnemies(getObjectCommunity(registry.actorServer), community) : false;
   }
 );
@@ -38,7 +38,7 @@ extern(
  */
 extern(
   "xr_conditions.is_factions_neutrals",
-  (_: GameObject, __: GameObject, [community]: [Optional<TCommunity>]): boolean => {
+  (_: GameObject, __: GameObject, [community]: [Nillable<TCommunity>]): boolean => {
     if (!community) {
       return true;
     }
@@ -58,7 +58,7 @@ extern(
  */
 extern(
   "xr_conditions.is_factions_friends",
-  (_: GameObject, __: GameObject, [community]: [Optional<TCommunity>]): boolean => {
+  (_: GameObject, __: GameObject, [community]: [Nillable<TCommunity>]): boolean => {
     return community ? areCommunitiesFriendly(getObjectCommunity(registry.actorServer), community) : false;
   }
 );
@@ -71,7 +71,7 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_enemy_to_actor",
-  (_: GameObject, __: GameObject, [community]: [Optional<TCommunity>]): boolean => {
+  (_: GameObject, __: GameObject, [community]: [Nillable<TCommunity>]): boolean => {
     return community ? isActorEnemyWithFaction(community) : false;
   }
 );
@@ -84,7 +84,7 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_friend_to_actor",
-  (_: GameObject, __: GameObject, [community]: [Optional<TCommunity>]): boolean => {
+  (_: GameObject, __: GameObject, [community]: [Nillable<TCommunity>]): boolean => {
     return community ? isActorFriendWithFaction(community) : false;
   }
 );
@@ -97,7 +97,7 @@ extern(
  */
 extern(
   "xr_conditions.is_faction_neutral_to_actor",
-  (actor: GameObject, object: GameObject, [community]: [Optional<TCommunity>]): boolean => {
+  (actor: GameObject, object: GameObject, [community]: [Nillable<TCommunity>]): boolean => {
     return community ? isActorNeutralWithFaction(community) : false;
   }
 );
@@ -111,7 +111,7 @@ extern(
  */
 extern("xr_conditions.is_squad_friend_to_actor", (_: GameObject, __: GameObject, params: Array<TStringId>): boolean => {
   for (const [, squadStoryId] of ipairs(params)) {
-    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+    const squad: Nillable<Squad> = getServerObjectByStoryId(squadStoryId);
 
     if (squad && isAnySquadMemberFriendToActor(squad)) {
       return true;
@@ -130,7 +130,7 @@ extern("xr_conditions.is_squad_friend_to_actor", (_: GameObject, __: GameObject,
  */
 extern("xr_conditions.is_squad_enemy_to_actor", (_: GameObject, __: GameObject, params: Array<TStringId>): boolean => {
   for (const [, squadStoryId] of ipairs(params)) {
-    const squad: Optional<Squad> = getServerObjectByStoryId(squadStoryId);
+    const squad: Nillable<Squad> = getServerObjectByStoryId(squadStoryId);
 
     if (squad && isAnySquadMemberEnemyToActor(squad)) {
       return true;
@@ -151,7 +151,7 @@ extern("xr_conditions.fighting_actor", (_: GameObject, object: GameObject): bool
  * Check whether object has enemy relations with actor.
  */
 extern("xr_conditions.actor_enemy", (actor: GameObject, object: GameObject): boolean => {
-  const state: Optional<ISchemeDeathState> = registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState;
+  const state: Nillable<ISchemeDeathState> = registry.objects.get(object.id())[EScheme.DEATH] as ISchemeDeathState;
 
   return object.relation(actor) === EGameObjectRelation.ENEMY || state?.killerId === ACTOR_ID;
 });
@@ -175,7 +175,7 @@ extern("xr_conditions.actor_neutral", (actor: GameObject, object: GameObject): b
  */
 extern(
   "xr_conditions.npc_community",
-  (_: GameObject, object: AnyGameObject, [community]: [Optional<TCommunity>]): boolean => {
+  (_: GameObject, object: AnyGameObject, [community]: [Nillable<TCommunity>]): boolean => {
     if (!community) {
       abort("Condition 'npc_community' requires community name as parameter.");
     }

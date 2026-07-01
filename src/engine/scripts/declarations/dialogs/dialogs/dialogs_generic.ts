@@ -9,7 +9,7 @@ import { enableObjectWoundedHealing } from "@/engine/core/utils/object";
 import { transferItemsFromActor } from "@/engine/core/utils/reward";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { EGameObjectRelation, GameObject, Optional } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, Nillable } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -45,9 +45,9 @@ extern("dialogs.actor_hasnt_medkit", (): boolean => {
  * Transfer medkit for NPC from actor.
  */
 extern("dialogs.transfer_medkit", (actor: GameObject, object: GameObject): void => {
-  const availableMedkit: Optional<TMedkit> = getActorAvailableMedKit();
+  const availableMedkit: Nillable<TMedkit> = getActorAvailableMedKit();
 
-  if (availableMedkit !== null) {
+  if (availableMedkit) {
     transferItemsFromActor(getNpcSpeaker(actor, object), availableMedkit);
   }
 
@@ -72,7 +72,7 @@ extern("dialogs.transfer_medkit", (actor: GameObject, object: GameObject): void 
  * Check whether actor has at least one bandage.
  */
 extern("dialogs.actor_have_bandage", (): boolean => {
-  return registry.actor.object(drugs.bandage) !== null;
+  return $isNotNil(registry.actor.object(drugs.bandage));
 });
 
 /**
@@ -101,7 +101,7 @@ extern("dialogs.has_2000_money", (actor: GameObject): boolean => {
  * Transfer pistol from actor to object.
  */
 extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: GameObject, secondSpeaker: GameObject): void => {
-  const pistol: Optional<GameObject> = getAnyObjectPistol(registry.actor);
+  const pistol: Nillable<GameObject> = getAnyObjectPistol(registry.actor);
 
   if (pistol) {
     registry.actor.transfer_item(pistol, getNpcSpeaker(firstSpeaker, secondSpeaker));
@@ -113,7 +113,7 @@ extern("dialogs.transfer_any_pistol_from_actor", (firstSpeaker: GameObject, seco
  * Checks if actor has any pistol item.
  */
 extern("dialogs.have_actor_any_pistol", (): boolean => {
-  return getAnyObjectPistol(registry.actor) !== null;
+  return $isNotNil(getAnyObjectPistol(registry.actor));
 });
 
 /**
