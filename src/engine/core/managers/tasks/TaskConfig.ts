@@ -15,8 +15,8 @@ export const GUIDERS_BY_LEVEL: LuaTable<TName, LuaTable<TName, TStringId>> = $fr
     [levels.pripyat]: storyNames.zat_b215_stalker_guide_zaton,
   }),
   [levels.jupiter]: $fromObject({
-    [levels.zaton]: storyNames.zat_b215_stalker_guide_zaton,
-    [levels.pripyat]: storyNames.jup_b43_stalker_assistant_pri,
+    [levels.zaton]: storyNames.zat_b215_stalker_guide_jupiter,
+    [levels.pripyat]: storyNames.jup_b43_stalker_assistant,
   }),
   [levels.pripyat]: $fromObject({
     [levels.zaton]: storyNames.jup_b43_stalker_assistant_pri,
