@@ -3,7 +3,7 @@ import { LuabindClass, property_evaluator, time_global } from "xray16";
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { isActiveSection } from "@/engine/core/utils/scheme";
-import { ActionPlanner, Optional, TTimestamp } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, Nillable, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Evaluator checking whether the camper object should engage in close combat instead of campering.
@@ -11,7 +11,7 @@ import { ActionPlanner, Optional, TTimestamp } from "@/engine/lib/types";
 @LuabindClass()
 export class EvaluatorCloseCombat extends property_evaluator {
   public readonly state: ISchemeCamperState;
-  public actionPlanner: Optional<ActionPlanner> = null;
+  public actionPlanner: Nillable<ActionPlanner> = null;
   public isCloseCombat: boolean = false;
 
   public constructor(state: ISchemeCamperState) {
@@ -25,12 +25,14 @@ export class EvaluatorCloseCombat extends property_evaluator {
    * @returns Whether the object should switch to close combat behaviour.
    */
   public override evaluate(): boolean {
-    if (!isActiveSection(this.object, this.state.section)) {
+    const object: GameObject = this.object;
+
+    if (!isActiveSection(object, this.state.section)) {
       return true;
     }
 
-    if (this.actionPlanner === null) {
-      this.actionPlanner = this.object.motivation_action_manager();
+    if (!this.actionPlanner) {
+      this.actionPlanner = object.motivation_action_manager();
     }
 
     if (!this.actionPlanner.evaluator(EEvaluatorId.ENEMY).evaluate()) {
@@ -45,23 +47,26 @@ export class EvaluatorCloseCombat extends property_evaluator {
       return true;
     }
 
-    if (this.object.best_enemy() === null) {
+    const bestEnemy = object.best_enemy();
+
+    if (!bestEnemy) {
       return this.isCloseCombat;
     }
 
-    if (this.isCloseCombat) {
-      const memoryTime: TTimestamp = this.object.memory_time(this.object.best_enemy()!);
+    // Two sequential checks to let logics pass in a one go without waiting for next tick:
 
-      if (memoryTime !== null) {
-        if (time_global() - memoryTime > 20_000) {
-          this.isCloseCombat = false;
-        }
-      } else {
+    if (!this.isCloseCombat) {
+      this.isCloseCombat = object.position().distance_to(object.memory_position(bestEnemy)) < this.state.radius;
+    }
+
+    if (this.isCloseCombat) {
+      const memoryTime: TTimestamp = object.memory_time(bestEnemy);
+
+      if ($isNil(memoryTime)) {
+        this.isCloseCombat = false;
+      } else if (time_global() - memoryTime > 20_000) {
         this.isCloseCombat = false;
       }
-    } else {
-      this.isCloseCombat =
-        this.object.position().distance_to(this.object.memory_position(this.object.best_enemy()!)) < this.state.radius;
     }
 
     return this.isCloseCombat;

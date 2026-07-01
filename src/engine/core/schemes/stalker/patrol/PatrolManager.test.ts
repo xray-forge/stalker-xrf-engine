@@ -28,10 +28,13 @@ describe("PatrolManager", () => {
   it("should handle objects registration limits", () => {
     const manager: PatrolManager = new PatrolManager("test");
 
-    range(6).forEach(() => manager.registerObject(MockGameObject.mock()));
+    range(7).forEach(() => manager.registerObject(MockGameObject.mock()));
+    expect(manager.objects.length()).toBe(7);
 
-    expect(() => manager.registerObject(MockGameObject.mock())).toThrow(
-      "Attempt to add more than 7 objects in patrol manager, 'section_1006' in 'test'."
+    const extra: GameObject = MockGameObject.mock();
+
+    expect(() => manager.registerObject(extra)).toThrow(
+      `Attempt to add more than 7 objects in patrol manager, '${extra.name()}' in 'test'.`
     );
   });
 

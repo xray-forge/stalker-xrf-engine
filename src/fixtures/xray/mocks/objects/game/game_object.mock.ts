@@ -9,6 +9,7 @@ import {
   AnyObject,
   GameObject,
   IniFile,
+  Nillable,
   Optional,
   PartialRecord,
   TCallback,
@@ -355,6 +356,10 @@ export class MockGameObject {
   public direction = jest.fn(() => this.objectDirection);
 
   public disable_anomaly = jest.fn();
+
+  public memory_time = jest.fn(() => 0 as Nillable<number>);
+
+  public memory_position = jest.fn(() => MockVector.mock());
 
   public disable_hit_marks = jest.fn();
 

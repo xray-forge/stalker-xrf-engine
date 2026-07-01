@@ -45,7 +45,7 @@ export class PatrolManager {
 
     const objectsCount: TCount = table.size(this.objects) + 1;
 
-    if (objectsCount >= 7) {
+    if (objectsCount > 7) {
       abort("Attempt to add more than 7 objects in patrol manager, '%s' in '%s'.", object.name(), this.name);
     }
 
