@@ -5,7 +5,7 @@ import { registerZone, unregisterZone } from "@/engine/core/database/zones";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { isEmpty } from "@/engine/core/utils/table";
-import { GameObject, Optional, TName, TNumberId, ZoneCampfire } from "@/engine/lib/types";
+import { GameObject, Nillable, TName, TNumberId, ZoneCampfire } from "@/engine/lib/types";
 
 /**
  * Register smart terrain object.
@@ -78,7 +78,7 @@ export function registerSmartTerrainCampfire(terrain: SmartTerrain, object: Game
  */
 export function unRegisterSmartTerrainCampfire(terrain: SmartTerrain, object: GameObject): void {
   const terrainName: TName = terrain.name();
-  const terrainList: Optional<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(terrainName);
+  const terrainList: Nillable<LuaTable<TNumberId, ZoneCampfire>> = registry.smartTerrainsCampfires.get(terrainName);
 
   if (terrainList !== null) {
     terrainList.delete(object.id());

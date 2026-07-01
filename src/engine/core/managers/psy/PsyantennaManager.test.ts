@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from "@jest/globals";
 import { getManager, isManagerInitialized, registry } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
 import { resetRegistry } from "@/fixtures/engine";
+import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 
 describe("PsyAntennaManager", () => {
   beforeEach(() => {
@@ -28,12 +29,12 @@ describe("PsyAntennaManager", () => {
   it("should correctly handle dispose", () => {
     const psyAntennaManager: PsyAntennaManager = getManager(PsyAntennaManager);
 
-    expect(registry.managers.length()).toBe(2);
+    expect(MockLuaMap.getSizeOf(registry.managers)).toBe(2);
     expect(isManagerInitialized(PsyAntennaManager)).toBe(true);
 
     psyAntennaManager.dispose();
 
-    expect(registry.managers.length()).toBe(1);
+    expect(MockLuaMap.getSizeOf(registry.managers)).toBe(1);
     expect(isManagerInitialized(PsyAntennaManager)).toBe(false);
   });
 });

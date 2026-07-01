@@ -27,7 +27,7 @@ describe("TaskManager", () => {
     const manager: TaskManager = getManager(TaskManager);
     const eventsManager: EventsManager = getManager(EventsManager);
 
-    expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(0);
+    expect(MockLuaTable.getSizeOf(taskConfig.ACTIVE_TASKS)).toBe(0);
     expect(eventsManager.getSubscribersCount()).toBe(2);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.DUMP_LUA_DATA)).toBe(1);
     expect(eventsManager.getEventSubscribersCount(EGameEvent.TASK_STATE_UPDATE)).toBe(1);
@@ -35,7 +35,7 @@ describe("TaskManager", () => {
     disposeManager(TaskManager);
 
     expect(eventsManager.getSubscribersCount()).toBe(0);
-    expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(0);
+    expect(MockLuaTable.getSizeOf(taskConfig.ACTIVE_TASKS)).toBe(0);
   });
 
   it("should correctly save and load empty list data", () => {
@@ -113,7 +113,7 @@ describe("TaskManager", () => {
     expect(processor.dataList).toHaveLength(0);
 
     expect(newManager).not.toBe(manager);
-    expect(MockLuaTable.getMockSize(taskConfig.ACTIVE_TASKS)).toBe(1);
+    expect(MockLuaTable.getSizeOf(taskConfig.ACTIVE_TASKS)).toBe(1);
   });
 
   it.todo("should correctly give tasks");

@@ -65,7 +65,7 @@ describe("WeatherManager", () => {
 
     manager.setStateAsString("dynamic_default=clear,cloudy");
 
-    expect(MockLuaTable.getMockSize(manager.weatherState)).toBe(1);
+    expect(MockLuaTable.getSizeOf(manager.weatherState)).toBe(1);
     expect(manager.weatherState).toEqualLuaTables(
       MockLuaTable.mock<string, IWeatherState>([
         [

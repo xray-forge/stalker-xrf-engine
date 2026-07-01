@@ -624,9 +624,9 @@ extern(
  * Stop object camera effector.
  */
 extern("xr_effects.stop_sr_cutscene", (_: GameObject, object: GameObject): void => {
-  const state: IRegistryObjectState = registry.objects.get(object.id());
+  const state: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
 
-  if (state.activeScheme) {
+  if (state?.activeScheme) {
     state[state.activeScheme]!.signals!.set("cam_effector_stop", true);
   }
 });

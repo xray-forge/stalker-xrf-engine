@@ -13,7 +13,7 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, Nillable, Optional } from "@/engine/lib/types";
+import { GameObject, Nillable } from "@/engine/lib/types";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("portable_store functionality", () => {

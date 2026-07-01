@@ -23,8 +23,8 @@ describe("registry storage", () => {
     expect(registry.objectsWounded).toBeInstanceOf(LuaTable);
     expect(registry.offlineObjects).toBeInstanceOf(LuaTable);
     expect(registry.simulationObjects).toBeInstanceOf(LuaTable);
-    expect(registry.storyLink.sidById).toBeInstanceOf(LuaMap);
-    expect(registry.storyLink.idBySid).toBeInstanceOf(LuaMap);
+    expect(registry.storyLink.sidById).toBeInstanceOf(LuaTable);
+    expect(registry.storyLink.idBySid).toBeInstanceOf(LuaTable);
     expect(registry.stalkers).toBeInstanceOf(LuaTable);
     expect(registry.trade).toBeInstanceOf(LuaTable);
     expect(registry.camps).toBeInstanceOf(LuaTable);

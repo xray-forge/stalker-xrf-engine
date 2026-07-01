@@ -43,7 +43,7 @@ describe("TaskObject", () => {
     expect(taskObject.rewardItemsConditionList).toEqual(parseConditionsList(""));
     expect(taskObject.rewardMoneyConditionList).toEqual(parseConditionsList(""));
 
-    expect(MockLuaTable.getMockSize(taskObject.conditionLists)).toBe(1);
+    expect(MockLuaTable.getSizeOf(taskObject.conditionLists)).toBe(1);
     expect(taskObject.conditionLists.get(0)).toEqual(parseConditionsList("{+zat_b28_heli_3_searched} complete"));
 
     expect(taskObject.task).toBeDefined();

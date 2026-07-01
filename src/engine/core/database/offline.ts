@@ -1,6 +1,6 @@
 import { IRegistryOfflineState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Register offline object representation in database.
@@ -16,7 +16,7 @@ export function registerOfflineObject(
     activeSection: null,
   }
 ): IRegistryOfflineState {
-  let offlineRecord: Optional<IRegistryOfflineState> = registry.offlineObjects.get(objectId);
+  let offlineRecord: Nillable<IRegistryOfflineState> = registry.offlineObjects.get(objectId);
 
   if (!offlineRecord) {
     offlineRecord = state;

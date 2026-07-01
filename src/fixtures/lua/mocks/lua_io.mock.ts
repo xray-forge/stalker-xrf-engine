@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { Optional } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Mock generic io file.
@@ -13,7 +13,7 @@ export class MockIoFile {
   public path: string;
   public mode: string;
   public isOpen: boolean;
-  public content: Optional<string> = "";
+  public content: Nillable<string> = "";
 
   public constructor(path: string, mode: string, isOpen: boolean = true) {
     this.path = path;
@@ -33,7 +33,7 @@ export class MockIoFile {
     this.isOpen = false;
   });
 
-  public read = jest.fn((): Optional<string> => {
+  public read = jest.fn((): Nillable<string> => {
     return this.content;
   });
 

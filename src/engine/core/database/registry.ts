@@ -124,8 +124,8 @@ export const registry = {
    * Story objects mapping to match currently spawned object IDs and unique story objects.
    */
   storyLink: {
-    sidById: new LuaMap<TNumberId, TStringId>(),
-    idBySid: new LuaMap<TStringId, TNumberId>(),
+    sidById: new LuaTable<TNumberId, TStringId>(),
+    idBySid: new LuaTable<TStringId, TNumberId>(),
   },
   /**
    * Set of alive stalker IDs for easy filtering and iteration.

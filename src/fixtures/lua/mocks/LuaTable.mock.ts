@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
 
 import type { AnyObject, LuaArray, TIndex } from "@/engine/lib/types";
+import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 
 /**
  * Mock `tstl` table data structure.
@@ -18,8 +19,8 @@ export class MockLuaTable<K = unknown, V = unknown> extends Map<K, V> {
   /**
    * Get mock size in unified way.
    */
-  public static getMockSize(table: LuaTable<any> | AnyObject): number {
-    if (table instanceof MockLuaTable) {
+  public static getSizeOf(table: LuaTable<any> | AnyObject): number {
+    if (table instanceof MockLuaTable || table instanceof MockLuaMap) {
       return (table as unknown as MockLuaTable).size;
     }
 

@@ -1,4 +1,4 @@
-import { DangerObject, GameObject, Optional, TDangerType, TTimestamp } from "@/engine/lib/types";
+import { DangerObject, GameObject, Nillable, TDangerType, TTimestamp } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
@@ -28,7 +28,7 @@ export class MockDangerObject {
 
   public dangerType: TDangerType = 6;
   public dangerObject: GameObject = MockGameObject.mock();
-  public dangerDependentObject: Optional<GameObject> = null;
+  public dangerDependentObject: Nillable<GameObject> = null;
   public dangerPosition: MockVector = MockVector.create(1.5, -0.5, 1);
   public dangerTime: TTimestamp = -1;
 
@@ -48,7 +48,7 @@ export class MockDangerObject {
     return this.dangerObject;
   }
 
-  public dependent_object(): Optional<GameObject> {
+  public dependent_object(): Nillable<GameObject> {
     return this.dangerDependentObject;
   }
 

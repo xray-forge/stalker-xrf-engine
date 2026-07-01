@@ -4,7 +4,7 @@ import {
   ActionBase,
   ActionPlanner,
   GameObject,
-  Optional,
+  Nillable,
   PropertyEvaluator,
   PropertyStorage,
   TNumberId,
@@ -39,8 +39,8 @@ export class MockActionPlanner extends MockLuabindClass {
 
   public evaluators: Record<TNumberId, PropertyEvaluator> = {};
   public actions: Record<TNumberId, ActionBase> = {};
-  public goalWorldState: Optional<WorldState> = null;
-  public currentActionId: Optional<TNumberId> = null;
+  public goalWorldState: Nillable<WorldState> = null;
+  public currentActionId: Nillable<TNumberId> = null;
 
   public isInitialized: boolean = false;
 
@@ -78,7 +78,7 @@ export class MockActionPlanner extends MockLuabindClass {
     delete this.actions[id];
   });
 
-  public current_action_id(): Optional<TNumberId> {
+  public current_action_id(): Nillable<TNumberId> {
     return this.currentActionId;
   }
 
@@ -94,11 +94,11 @@ export class MockActionPlanner extends MockLuabindClass {
     delete this.evaluators[id];
   });
 
-  public action = jest.fn((id: TNumberId): Optional<MockActionBase> => {
+  public action = jest.fn((id: TNumberId): Nillable<MockActionBase> => {
     return (this.actions[id] as unknown as MockActionBase) || null;
   });
 
-  public evaluator = jest.fn((id: TNumberId): Optional<MockPropertyEvaluator> => {
+  public evaluator = jest.fn((id: TNumberId): Nillable<MockPropertyEvaluator> => {
     return (this.evaluators[id] as unknown as MockPropertyEvaluator) || null;
   });
 

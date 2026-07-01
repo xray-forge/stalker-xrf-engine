@@ -6,6 +6,7 @@ import { SmartCover } from "@/engine/core/objects/smart_cover/SmartCover";
 import { LuaArray, TStringId } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockLuaTable } from "@/fixtures/lua";
+import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SmartCover server object", () => {
@@ -45,13 +46,13 @@ describe("SmartCover server object", () => {
       })
     );
 
-    expect(registry.smartCovers.length()).toBe(0);
+    expect(MockLuaMap.getSizeOf(registry.smartCovers)).toBe(0);
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
 
     cover.on_before_register();
 
-    expect(registry.smartCovers.length()).toBe(1);
+    expect(MockLuaMap.getSizeOf(registry.smartCovers)).toBe(1);
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
     expect(registry.smartCovers.get(cover.name())).toBe(cover);
@@ -63,7 +64,7 @@ describe("SmartCover server object", () => {
 
     cover.on_unregister();
 
-    expect(registry.smartCovers.length()).toBe(0);
+    expect(MockLuaMap.getSizeOf(registry.smartCovers)).toBe(0);
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
   });

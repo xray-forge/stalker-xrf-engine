@@ -3,7 +3,7 @@ import { jest } from "@jest/globals";
 import {
   IniFile,
   NetPacket,
-  Optional,
+  Nillable,
   ServerObject,
   TClassId,
   TName,
@@ -71,7 +71,7 @@ export class MockAlifeObject extends MockLuabindClass {
   public objectAlive: boolean;
   public objectName: TName;
   public objectCommunity: TName;
-  public spawnIni: Optional<IniFile>;
+  public spawnIni: Nillable<IniFile>;
 
   public constructor(config: IMockAlifeObjectConfig | TSection = {}) {
     super();

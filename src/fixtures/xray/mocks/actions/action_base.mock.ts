@@ -1,4 +1,4 @@
-import { ActionBase, GameObject, Optional } from "@/engine/lib/types";
+import { ActionBase, GameObject, Nillable } from "@/engine/lib/types";
 import { MockWorldProperty } from "@/fixtures/xray/mocks/actions/world_property.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 
@@ -6,17 +6,17 @@ import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
  * Mock action base class for handling with GOAP planner.
  */
 export class MockActionBase extends MockLuabindClass {
-  public static mock(object: Optional<GameObject> = null, name?: string): ActionBase {
+  public static mock(object: Nillable<GameObject> = null, name?: string): ActionBase {
     return new MockActionBase(object, name) as unknown as ActionBase;
   }
 
-  public object: Optional<GameObject>;
+  public object: Nillable<GameObject>;
   public name: string;
 
   public preconditions: Array<MockWorldProperty> = [];
   public effects: Array<MockWorldProperty> = [];
 
-  public constructor(object: Optional<GameObject> = null, name?: string) {
+  public constructor(object: Nillable<GameObject> = null, name?: string) {
     super();
 
     this.object = object;
@@ -41,11 +41,11 @@ export class MockActionBase extends MockLuabindClass {
     this.effects.push(property);
   }
 
-  public getPrecondition(id: number): Optional<MockWorldProperty> {
+  public getPrecondition(id: number): Nillable<MockWorldProperty> {
     return this.preconditions.find((it) => it.condition() === id) ?? null;
   }
 
-  public getEffect(id: number): Optional<MockWorldProperty> {
+  public getEffect(id: number): Nillable<MockWorldProperty> {
     return this.effects.find((it) => it.condition() === id) ?? null;
   }
 }
@@ -53,6 +53,6 @@ export class MockActionBase extends MockLuabindClass {
 /**
  * Mock action base method.
  */
-export function mockActionBase(object: Optional<GameObject> = null, name: string = "generic"): ActionBase {
+export function mockActionBase(object: Nillable<GameObject> = null, name: string = "generic"): ActionBase {
   return new MockActionBase(object, name) as unknown as ActionBase;
 }

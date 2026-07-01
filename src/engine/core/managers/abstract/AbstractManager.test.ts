@@ -18,11 +18,11 @@ describe("AbstractCoreManager", () => {
 
   it("should correctly have lifecycle and method placeholders that throw", () => {
     expect(isManagerInitialized(ExampleManager)).toBe(false);
-    expect(MockLuaTable.getMockSize(registry.managers)).toBe(0);
+    expect(MockLuaTable.getSizeOf(registry.managers)).toBe(0);
 
     const manager: ExampleManager = getManager(ExampleManager);
 
-    expect(MockLuaTable.getMockSize(registry.managers)).toBe(1);
+    expect(MockLuaTable.getSizeOf(registry.managers)).toBe(1);
 
     expect(manager.isDestroyed).toBeFalsy();
     expect(manager.initialize).toHaveBeenCalledTimes(1);

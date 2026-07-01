@@ -10,7 +10,6 @@ import {
   GameObject,
   IniFile,
   Nillable,
-  Optional,
   PartialRecord,
   TCallback,
   TClassId,
@@ -57,7 +56,7 @@ export interface IMockGameObjectConfig {
   rank?: TCount;
   satiety?: TRate;
   section?: TSection;
-  spawnIni?: Optional<IniFile>;
+  spawnIni?: Nillable<IniFile>;
   upgrades?: Array<TSection>;
 }
 
@@ -141,7 +140,7 @@ export class MockGameObject {
   public objectAlive: boolean;
   public objectBleeding: TRate;
   public objectCenter: Vector = MockVector.mock(0.15, 0.15, 0.15);
-  public objectCharacterRank: Optional<TCount>;
+  public objectCharacterRank: Nillable<TCount>;
   public objectClsid: TClassId;
   public objectCommunity: string;
   public objectDirection: Vector = MockVector.mock(1, 1, 1);
@@ -163,7 +162,7 @@ export class MockGameObject {
   public objectRank: TCount;
   public objectSatiety: TRate;
   public objectSection: TSection;
-  public objectSpawnIni: Optional<IniFile>;
+  public objectSpawnIni: Nillable<IniFile>;
   public objectUpgradesSet: Set<string>;
   public objectVisual: TSection = "object_visual_name";
 
@@ -435,7 +434,7 @@ export class MockGameObject {
 
   public get_movement_speed = jest.fn(() => MockVector.mock(0, 0, 0));
 
-  public get_helicopter = jest.fn(() => null as Optional<CHelicopter>);
+  public get_helicopter = jest.fn(() => null as Nillable<CHelicopter>);
 
   public get_physics_object = jest.fn(() => null);
 

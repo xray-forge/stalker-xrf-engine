@@ -1,13 +1,13 @@
 import { jest } from "@jest/globals";
 
-import { Optional, TNumberId } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 import { MockCVertex } from "@/fixtures/xray/mocks/CVertex.mock";
 
 /**
  * Mock game graph singleton.
  */
 export class MockCGameGraph {
-  public static instance: Optional<MockCGameGraph> = null;
+  public static instance: Nillable<MockCGameGraph> = null;
   public static registry: Record<TNumberId, MockCVertex> = {};
 
   public static getInstance(): MockCGameGraph {

@@ -15,8 +15,8 @@ describe("EventsManager", () => {
   it("should correctly initialize", () => {
     const manager: TimersManager = getManager(TimersManager);
 
-    expect(MockLuaTable.getMockSize(manager.intervals)).toBe(0);
-    expect(MockLuaTable.getMockSize(manager.timeouts)).toBe(0);
+    expect(MockLuaTable.getSizeOf(manager.intervals)).toBe(0);
+    expect(MockLuaTable.getSizeOf(manager.timeouts)).toBe(0);
 
     expect(manager.getIntervalsCount()).toBe(0);
     expect(manager.getTimeoutsCount()).toBe(0);

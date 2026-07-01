@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import type { CUIWindow } from "xray16";
 
-import { Optional, TName } from "@/engine/lib/types";
+import { Nillable, TName } from "@/engine/lib/types";
 import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { MockVector2D } from "@/fixtures/xray/mocks/vector2.mock";
@@ -20,10 +20,10 @@ export class MockCUIWindow extends MockLuabindClass {
 
   public children: Array<MockCUIWindow> = [];
 
-  public windowName: Optional<TName> = null;
-  public windowRect: Optional<MockFrect> = null;
-  public windowPosition: Optional<MockVector2D> = MockVector2D.create();
-  public windowSize: Optional<MockVector2D> = null;
+  public windowName: Nillable<TName> = null;
+  public windowRect: Nillable<MockFrect> = null;
+  public windowPosition: Nillable<MockVector2D> = MockVector2D.create();
+  public windowSize: Nillable<MockVector2D> = null;
 
   public Enable = jest.fn((isEnabled: boolean) => {
     this.isEnabled = isEnabled;

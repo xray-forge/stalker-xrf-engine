@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 
-import { Optional, SoundObject, TDuration, TRate } from "@/engine/lib/types";
+import { Nillable, SoundObject, TDuration, TRate } from "@/engine/lib/types";
 
 /**
  * Mock generic engine sound object.
@@ -16,7 +16,7 @@ export class MockSoundObject {
     return new MockSoundObject(path) as unknown as SoundObject;
   }
 
-  public static asObject(sound: Optional<SoundObject>): MockSoundObject {
+  public static asObject(sound: Nillable<SoundObject>): MockSoundObject {
     if (!sound) {
       throw new Error("Unexpected null provided for type assertion of sound object.");
     }

@@ -2,7 +2,7 @@ import { CampManager } from "@/engine/core/ai/camp";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, resetObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, Nillable, Optional, Vector } from "@/engine/lib/types";
+import { GameObject, Nillable, Vector } from "@/engine/lib/types";
 
 /**
  * Register zone object.
@@ -82,7 +82,7 @@ export function resetCampZone(object: GameObject): void {
   resetObject(object);
   registry.zones.set(object.name(), object);
 
-  const manager: Optional<CampManager> = registry.camps.get(object.id()) as Optional<CampManager>;
+  const manager: Nillable<CampManager> = registry.camps.get(object.id()) as Nillable<CampManager>;
 
   if (manager) {
     manager.object = object;

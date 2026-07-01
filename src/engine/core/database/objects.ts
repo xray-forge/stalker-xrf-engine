@@ -9,7 +9,7 @@ import { GameObject, Nillable, TNumberId } from "@/engine/lib/types";
  * @returns Registry object for provided game object.
  */
 export function registerObject(object: GameObject): IRegistryObjectState {
-  const stored: Nillable<IRegistryObjectState> = registry.objects.get(object.id());
+  const stored: Nillable<IRegistryObjectState> = registry.objects.get(object.id()) as Nillable<IRegistryObjectState>;
 
   if (stored) {
     stored.object = object;

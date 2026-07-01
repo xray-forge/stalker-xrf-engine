@@ -14,10 +14,10 @@ describe("EventsManager", () => {
   it("should correctly initialize", () => {
     const manager: EventsManager = getManager(EventsManager);
 
-    expect(MockLuaTable.getMockSize(manager.callbacks)).toBe(126);
+    expect(MockLuaTable.getSizeOf(manager.callbacks)).toBe(126);
 
     Object.keys(manager.callbacks).forEach((it) => {
-      expect(MockLuaTable.getMockSize(manager.callbacks[it as unknown as EGameEvent])).toBe(0);
+      expect(MockLuaTable.getSizeOf(manager.callbacks[it as unknown as EGameEvent])).toBe(0);
     });
 
     expect(manager.getSubscribersCount()).toBe(0);
@@ -38,14 +38,14 @@ describe("EventsManager", () => {
     manager.emitEvent(EGameEvent.ACTOR_UPDATE, 255);
 
     expect(mockFn).toHaveBeenCalledTimes(2);
-    expect(MockLuaTable.getMockSize(manager.callbacks[EGameEvent.ACTOR_UPDATE])).toBe(1);
+    expect(MockLuaTable.getSizeOf(manager.callbacks[EGameEvent.ACTOR_UPDATE])).toBe(1);
     expect(manager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(1);
 
     manager.unregisterCallback(EGameEvent.ACTOR_UPDATE, mockFn);
     EventsManager.emitEvent(EGameEvent.ACTOR_UPDATE, 255);
 
     expect(mockFn).toHaveBeenCalledTimes(2);
-    expect(MockLuaTable.getMockSize(manager.callbacks[EGameEvent.ACTOR_UPDATE])).toBe(0);
+    expect(MockLuaTable.getSizeOf(manager.callbacks[EGameEvent.ACTOR_UPDATE])).toBe(0);
     expect(manager.getEventSubscribersCount(EGameEvent.ACTOR_UPDATE)).toBe(0);
   });
 });

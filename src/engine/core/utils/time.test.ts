@@ -13,7 +13,7 @@ import {
   writeTimeToPacket,
 } from "@/engine/core/utils/time";
 import { MAX_I32, MAX_U8, MIN_I32 } from "@/engine/lib/constants/memory";
-import { Optional, Time } from "@/engine/lib/types";
+import { Nillable, Time } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
@@ -40,7 +40,7 @@ describe("writeTimeToPacket and readTimeFromPacket utils", () => {
       EPacketDataType.U16,
     ]);
 
-    const timeToRead: Optional<Time> = readTimeFromPacket(processor.asNetReader());
+    const timeToRead: Nillable<Time> = readTimeFromPacket(processor.asNetReader());
 
     expect(timeToRead).not.toBeNull();
     expect(timeToRead?.toString()).toBe("y:2012, m:6, d:12, h:3, min:6, sec:12, ms:500");

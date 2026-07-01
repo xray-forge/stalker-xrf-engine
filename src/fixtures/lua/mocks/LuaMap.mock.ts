@@ -1,4 +1,5 @@
 import type { AnyObject, TIndex } from "@/engine/lib/types";
+import { MockLuaTable } from "@/fixtures/lua";
 
 /**
  * Mock `tstl` map data structure.
@@ -16,9 +17,9 @@ export class MockLuaMap<K = unknown, V = unknown> extends Map<K, V> {
   /**
    * Get mock size in unified way.
    */
-  public static getMockSize(table: LuaTable<any> | AnyObject): number {
-    if (table instanceof MockLuaMap) {
-      return (table as unknown as MockLuaMap).size;
+  public static getSizeOf(table: LuaTable<any> | AnyObject): number {
+    if (table instanceof MockLuaMap || table instanceof MockLuaTable) {
+      return (table as unknown as MockLuaMap).length();
     }
 
     return Object.keys(table).length;
