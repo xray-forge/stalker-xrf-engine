@@ -4,9 +4,9 @@ import { game_graph, level } from "xray16";
 import {
   simulationPreconditionAlways,
   simulationPreconditionDay,
+  simulationPreconditionLateNight,
   simulationPreconditionNear,
   simulationPreconditionNearAndDay,
-  simulationPreconditionLateNight,
   simulationPreconditionNearAndNight,
   simulationPreconditionNight,
   simulationPreconditionNotSurge,
