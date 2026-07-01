@@ -36,16 +36,20 @@ describe("SquadStayOnTargetAction", () => {
 
     action.initialize();
 
-    expect(action.update()).toBe(false);
+    // Not under simulation (online): finishes immediately, ignoring the idle timer.
+    expect(action.update(false)).toBe(true);
+
+    // Under simulation: compares elapsed time against the idle time.
+    expect(action.update(true)).toBe(false);
 
     jest.spyOn(action.actionStartTime as CTime, "diffSec").mockImplementation(() => 0);
-    expect(action.update()).toBe(false);
+    expect(action.update(true)).toBe(false);
 
     jest.spyOn(action.actionStartTime as CTime, "diffSec").mockImplementation(() => action.actionIdleTime);
-    expect(action.update()).toBe(false);
+    expect(action.update(true)).toBe(false);
 
     jest.spyOn(action.actionStartTime as CTime, "diffSec").mockImplementation(() => action.actionIdleTime + 1);
-    expect(action.update()).toBe(true);
+    expect(action.update(true)).toBe(true);
   });
 
   it("should correctly calculate stay idle duration", () => {

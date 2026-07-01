@@ -38,7 +38,7 @@ import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/o
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { SQUAD_BEHAVIOURS_LTX } from "@/engine/core/objects/squad/SquadConfig";
 import { abort } from "@/engine/core/utils/assertion";
-import { isSmartTerrain } from "@/engine/core/utils/class_ids";
+import { isSmartTerrain, isSquad } from "@/engine/core/utils/class_ids";
 import {
   parseConditionsList,
   parseStringsList,
@@ -61,6 +61,7 @@ import {
   GameObject,
   LuaArray,
   NetPacket,
+  Nillable,
   Optional,
   ServerCreatureObject,
   ServerObject,
@@ -199,6 +200,24 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
       this.selectNewAction(false);
 
       return;
+    }
+
+    // If currently assigned to a non-squad target but priority selection now yields a squad target,
+    // switch to it immediately instead of waiting for the current action to finish.
+    if ($isNotNil(this.assignedTargetId)) {
+      const assignedTarget: Nillable<ServerObject> = registry.simulator.object(this.assignedTargetId);
+
+      if (assignedTarget && !isSquad(assignedTarget)) {
+        const squadTarget: Nillable<TSimulationObject> = getSquadSimulationTarget(this);
+
+        if (squadTarget && isSquad(squadTarget as ServerObject)) {
+          this.assignedTargetId = squadTarget.id;
+          this.currentAction = null;
+          this.selectNewAction(true);
+
+          return;
+        }
+      }
     }
 
     // Have target and action, update it until it is finished.
@@ -574,10 +593,10 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
   public setLocationTypes(newLocationSection?: TSection): void {
     this.clear_location_types();
 
-    this.setLocationTypesMaskFromSection("stalker_terrain");
-    this.setLocationTypesMaskFromSection("squad_terrain");
-
     if (isSmartTerrain(registry.simulator.object(this.assignedTargetId as TNumberId) as ServerObject)) {
+      // Targeting a smart terrain: stalker terrain mask plus the old/new terrain sections.
+      this.setLocationTypesMaskFromSection("stalker_terrain");
+
       const oldTerrainName: Optional<TName> = this.assignedTerrainId
         ? (registry.simulator.object(this.assignedTerrainId)?.name() as TName)
         : null;
@@ -590,6 +609,9 @@ export class Squad extends cse_alife_online_offline_group implements ISimulation
         this.setLocationTypesMaskFromSection(newLocationSection);
       }
     } else {
+      // Targeting a squad or actor: squad terrain mask plus all base smart terrains.
+      this.setLocationTypesMaskFromSection("squad_terrain");
+
       for (const [terrainName, terrain] of getSimulationTerrains()) {
         const baseRate: Optional<TRate> = terrain.simulationProperties.get(ESimulationTerrainRole.BASE);
 
