@@ -6,7 +6,7 @@ import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameHud, Optional } from "@/engine/lib/types";
+import { GameHud, Nillable } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockStaticDrawableWrapper } from "@/fixtures/xray";
@@ -262,10 +262,10 @@ describe("game effects implementation", () => {
     expect(hud.AddCustomStatic).toHaveBeenCalledTimes(1);
     expect(hud.AddCustomStatic).toHaveBeenCalledWith("text_on_screen_center", true);
 
-    const textControl: Optional<CUILines> = hud
+    const textControl: Nillable<CUILines> = hud
       .GetCustomStatic("text_on_screen_center")
       ?.wnd()
-      .TextControl() as Optional<CUILines>;
+      .TextControl() as Nillable<CUILines>;
 
     expect(textControl?.SetText).toHaveBeenCalledTimes(1);
     expect(textControl?.SetText).toHaveBeenCalledWith("translated_custom_label");
@@ -275,14 +275,14 @@ describe("game effects implementation", () => {
     callXrEffect("del_cs_text", MockGameObject.mockActor(), MockGameObject.mock());
 
     const hud: GameHud = get_hud();
-    const csText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
+    const csText: Nillable<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
 
     expect(csText).toBeNull();
 
     callXrEffect("del_cs_text", MockGameObject.mockActor(), MockGameObject.mock());
     callXrEffect("add_cs_text", MockGameObject.mockActor(), MockGameObject.mock(), "custom");
 
-    const newCsText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
+    const newCsText: Nillable<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
 
     expect(newCsText).not.toBeNull();
 

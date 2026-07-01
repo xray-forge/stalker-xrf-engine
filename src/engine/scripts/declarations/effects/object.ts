@@ -53,7 +53,7 @@ import {
   GameObject,
   Hit,
   LuaArray,
-  Optional,
+  Nillable,
   Patrol,
   ServerCreatureObject,
   ServerHumanObject,
@@ -104,13 +104,13 @@ extern("xr_effects.anim_obj_stop", (_: GameObject, __: GameObject, doors: Array<
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object used as the fallback hit source position and draftsman.
- * @param params - Tuple of target story ID, bone name, power, impulse and optional direction patrol path.
+ * @param params - Tuple of target story ID, bone name, power, impulse and Nillable direction patrol path.
  */
 extern(
   "xr_effects.hit_obj",
   (_: GameObject, object: GameObject, params: [string, string, number, number, string, string]): void => {
     const h: hit = new hit();
-    const storyObject: Optional<GameObject> = getObjectByStoryId(params[0]);
+    const storyObject: Nillable<GameObject> = getObjectByStoryId(params[0]);
 
     if (!storyObject) {
       return;
@@ -140,7 +140,7 @@ extern(
  */
 extern(
   "xr_effects.hit_npc_from_actor",
-  (actor: GameObject, object: GameObject, [storyId]: [Optional<TStringId>] = [null]): void => {
+  (actor: GameObject, object: GameObject, [storyId]: [Nillable<TStringId>] = [null]): void => {
     const hitObject: Hit = new hit();
     const target: GameObject = storyId ? (getObjectByStoryId(storyId) as GameObject) : object;
 
@@ -161,7 +161,7 @@ extern(
  */
 extern(
   "xr_effects.make_enemy",
-  (_: GameObject, object: GameObject, [from, to]: [TStringId, Optional<TStringId>]): void => {
+  (_: GameObject, object: GameObject, [from, to]: [TStringId, Nillable<TStringId>]): void => {
     const target: GameObject = to ? (getObjectByStoryId(to) as GameObject) : object;
     const hitObject: Hit = new hit();
 
@@ -189,9 +189,9 @@ extern("xr_effects.sniper_fire_mode", (_: GameObject, object: GameObject, parame
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object to kill when no story ID is provided.
- * @param storyId - Optional story ID of the object to kill instead of the linked object.
+ * @param storyId - Nillable story ID of the object to kill instead of the linked object.
  */
-extern("xr_effects.kill_npc", (_: GameObject, object: Optional<GameObject>, [storyId]: [Optional<TStringId>]): void => {
+extern("xr_effects.kill_npc", (_: GameObject, object: Nillable<GameObject>, [storyId]: [Nillable<TStringId>]): void => {
   if (storyId) {
     object = getObjectByStoryId(storyId);
   }
@@ -206,10 +206,10 @@ extern("xr_effects.kill_npc", (_: GameObject, object: Optional<GameObject>, [sto
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object owning the logics scheme.
- * @param storyId - Optional story ID of the object to release.
+ * @param storyId - Nillable story ID of the object to release.
  */
-extern("xr_effects.remove_npc", (_: GameObject, __: GameObject, [storyId]: [Optional<TStringId>]): void => {
-  let objectId: Optional<TNumberId> = null;
+extern("xr_effects.remove_npc", (_: GameObject, __: GameObject, [storyId]: [Nillable<TStringId>]): void => {
+  let objectId: Nillable<TNumberId> = null;
 
   if (storyId) {
     objectId = getObjectIdByStoryId(storyId);
@@ -289,7 +289,7 @@ extern(
  */
 extern(
   "xr_effects.spawn_corpse",
-  (_: GameObject, object: GameObject, [spawnSection, pathName, index]: [TSection, TName, Optional<TIndex>]): void => {
+  (_: GameObject, object: GameObject, [spawnSection, pathName, index]: [TSection, TName, Nillable<TIndex>]): void => {
     // logger.format("Spawn corpse: %s", params[0]);
 
     if (spawnSection === null) {
@@ -322,11 +322,11 @@ extern(
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object released when no target parameters are provided.
- * @param parameters - Tuple describing the target to release, as type, section and optional value.
+ * @param parameters - Tuple describing the target to release, as type, section and Nillable value.
  */
 extern(
   "xr_effects.destroy_object",
-  (_: GameObject, object: GameObject, parameters: [Optional<string>, Optional<string>, Optional<string>]): void => {
+  (_: GameObject, object: GameObject, parameters: [Nillable<string>, Nillable<string>, Nillable<string>]): void => {
     if (!parameters[0] && !parameters[1]) {
       return releaseObject(object.id());
     }
@@ -361,7 +361,7 @@ extern(
  */
 extern(
   "xr_effects.create_squad",
-  (_: GameObject, __: Optional<GameObject>, [section, terrainName]: [TSection, TName]): void => {
+  (_: GameObject, __: Nillable<GameObject>, [section, terrainName]: [TSection, TName]): void => {
     spawnSquadInSmart(section, terrainName);
   }
 );
@@ -373,24 +373,24 @@ extern(
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object used when resolving the spawn point condition list.
- * @param params - Tuple of member section, squad story ID and optional spawn point name.
+ * @param params - Tuple of member section, squad story ID and Nillable spawn point name.
  */
 extern(
   "xr_effects.create_squad_member",
   (actor: GameObject, object: GameObject, params: [TSection, TStringId, string]): void => {
     const squadMemberSection: TSection = params[0];
-    const storyId: Optional<TStringId> = params[1];
+    const storyId: Nillable<TStringId> = params[1];
 
-    let position: Optional<Vector> = null;
-    let levelVertexId: Optional<TNumberId> = null;
-    let gameVertexId: Optional<TNumberId> = null;
+    let position: Nillable<Vector> = null;
+    let levelVertexId: Nillable<TNumberId> = null;
+    let gameVertexId: Nillable<TNumberId> = null;
 
     if (storyId === null) {
       abort("Wrong squad identificator [NIL] in 'create_squad_member' function");
     }
 
     const squad: Squad = getServerObjectByStoryId(storyId) as Squad;
-    const squadTerrain: Optional<SmartTerrain> = getSimulationTerrainDescriptorById(
+    const squadTerrain: Nillable<SmartTerrain> = getSimulationTerrainDescriptorById(
       squad.assignedTerrainId as TNumberId
     )!.terrain;
 
@@ -450,7 +450,7 @@ extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TS
     abort("Wrong squad identificator [NIL] in remove_squad function");
   }
 
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+  const squad: Nillable<Squad> = getServerObjectByStoryId(storyId);
 
   if (squad === null) {
     abort("Wrong squad identificator [%s]. squad doesnt exist", tostring(storyId));
@@ -466,16 +466,16 @@ extern("xr_effects.remove_squad", (_: GameObject, __: GameObject, [storyId]: [TS
  * @param object - Game object owning the logics scheme.
  * @param p - Tuple containing the story ID of the squad to kill.
  */
-extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Optional<TStringId>]): void => {
-  const storyId: Optional<TStringId> = p[0];
+extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Nillable<TStringId>]): void => {
+  const storyId: Nillable<TStringId> = p[0];
 
-  if (storyId === null) {
+  if (!storyId) {
     abort("Wrong squad identificator [NIL] in kill_squad function");
   }
 
-  const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+  const squad: Nillable<Squad> = getServerObjectByStoryId(storyId);
 
-  if (squad === null) {
+  if (!squad) {
     return;
   }
 
@@ -486,7 +486,7 @@ extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Opti
   }
 
   for (const [k] of squadObjects) {
-    const gameObject: Optional<GameObject> = registry.objects.get(k)?.object;
+    const gameObject: Nillable<GameObject> = registry.objects.get(k)?.object;
 
     if (gameObject === null) {
       registry.simulator.object<ServerHumanObject>(tonumber(k)!)!.kill();
@@ -502,11 +502,11 @@ extern("xr_effects.kill_squad", (actor: GameObject, object: GameObject, p: [Opti
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object owning the logics scheme.
  * @param storyId - Story ID of the squad to heal.
- * @param healthModRaw - Optional health percentage applied to each squad member, defaults to full health.
+ * @param healthModRaw - Nillable health percentage applied to each squad member, defaults to full health.
  */
 extern(
   "xr_effects.heal_squad",
-  (_: GameObject, __: GameObject, [storyId, healthModRaw]: [TStringId, Optional<number>]): void => {
+  (_: GameObject, __: GameObject, [storyId, healthModRaw]: [TStringId, Nillable<number>]): void => {
     let healthMod: TRate = 1;
 
     if (healthModRaw) {
@@ -517,16 +517,16 @@ extern(
       abort("Wrong squad identifier 'nil' in heal_squad effect");
     }
 
-    const squad: Optional<Squad> = getServerObjectByStoryId(storyId);
+    const squad: Nillable<Squad> = getServerObjectByStoryId(storyId);
 
     if (!squad) {
       return;
     }
 
     for (const squadMember of squad.squad_members()) {
-      const gameObject: Optional<GameObject> = registry.objects.get(squadMember.id)?.object as Optional<GameObject>;
+      const gameObject: Nillable<GameObject> = registry.objects.get(squadMember.id)?.object as Nillable<GameObject>;
 
-      if (gameObject !== null) {
+      if (gameObject) {
         gameObject.health = healthMod;
       }
     }
@@ -534,7 +534,7 @@ extern(
 );
 
 /**
- * Release squads assigned to the named smart terrain, optionally keeping story-bound squads.
+ * Release squads assigned to the named smart terrain, Nillablely keeping story-bound squads.
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object owning the logics scheme.
@@ -546,7 +546,7 @@ extern(
   (
     _: GameObject,
     __: GameObject,
-    [terrainName, clearStory]: [Optional<TName>, Optional<TStringifiedBoolean>]
+    [terrainName, clearStory]: [Nillable<TName>, Nillable<TStringifiedBoolean>]
   ): void => {
     logger.info("Clear smart terrain: '%s', '%s'", terrainName, clearStory);
 
@@ -579,7 +579,7 @@ extern(
  */
 extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: LuaArray<TStringId>): void => {
   for (const [, storyId] of params) {
-    const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+    const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
     if (storyObject) {
       updateStalkerLogic(storyObject);
@@ -613,7 +613,7 @@ extern("xr_effects.update_npc_logic", (_: GameObject, __: GameObject, params: Lu
  */
 extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: LuaArray<TStringId>): void => {
   for (const [, storyId] of params) {
-    const storyObject: Optional<GameObject> = getObjectByStoryId(storyId);
+    const storyObject: Nillable<GameObject> = getObjectByStoryId(storyId);
 
     if (storyObject !== null) {
       logger.info("Update object logic: %s", storyObject.id());
@@ -626,7 +626,7 @@ extern("xr_effects.update_obj_logic", (_: GameObject, __: GameObject, params: Lu
 });
 
 /**
- * Hit the linked object from a source story object or patrol point, optionally reversing the direction.
+ * Hit the linked object from a source story object or patrol point, Nillablely reversing the direction.
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object that receives the hit.
@@ -643,7 +643,7 @@ extern(
     targetHit.draftsman = object;
     targetHit.type = hit.wound;
     if (params[0] !== "self") {
-      const hitter: Optional<GameObject> = getObjectByStoryId(params[0]);
+      const hitter: Nillable<GameObject> = getObjectByStoryId(params[0]);
 
       if (!hitter) {
         return;
@@ -687,24 +687,24 @@ extern("xr_effects.restore_health", (_: GameObject, object: GameObject): void =>
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Game object owning the logics scheme.
- * @param p - Tuple of target story ID, optional force value and optional time interval.
+ * @param p - Tuple of target story ID, Nillable force value and Nillable time interval.
  */
 extern(
   "xr_effects.force_obj",
-  (_: GameObject, __: GameObject, p: [string, Optional<number>, Optional<number>]): void => {
+  (_: GameObject, __: GameObject, p: [string, Nillable<number>, Nillable<number>]): void => {
     logger.info("Force object");
 
-    const storyObject: Optional<GameObject> = getObjectByStoryId(p[0]);
+    const storyObject: Nillable<GameObject> = getObjectByStoryId(p[0]);
 
     if (!storyObject) {
       abort("Effect 'force_obj' target object does not exist.");
     }
 
-    if (p[1] === null) {
+    if (!p[1]) {
       p[1] = 20;
     }
 
-    if (p[2] === null) {
+    if (!p[2]) {
       p[2] = 100;
     }
 
@@ -743,11 +743,12 @@ extern(
   "xr_effects.give_item",
   (
     _: GameObject,
-    object: Optional<GameObject> | ServerHumanObject,
-    [section, objectStoryId]: [TSection, Optional<TStringId>]
+    object: Nillable<GameObject> | ServerHumanObject,
+    [section, objectStoryId]: [TSection, Nillable<TStringId>]
   ): void => {
-    const objectId: TNumberId =
-      objectStoryId === null ? (object as GameObject).id() : (getObjectIdByStoryId(objectStoryId) as TNumberId);
+    const objectId: TNumberId = objectStoryId
+      ? (getObjectIdByStoryId(objectStoryId) as TNumberId)
+      : (object as GameObject).id();
 
     logger.info("Give item to object: %s %s", objectId, section);
 
@@ -762,7 +763,7 @@ extern(
  * @param object - Game object whose best enemy memory is disabled.
  */
 extern("xr_effects.disable_memory_object", (_: GameObject, object: GameObject): void => {
-  const bestEnemy: Optional<GameObject> = object.best_enemy();
+  const bestEnemy: Nillable<GameObject> = object.best_enemy();
 
   if (bestEnemy) {
     object.enable_memory_object(bestEnemy, false);
@@ -809,7 +810,7 @@ extern("xr_effects.set_visual_memory_enabled", (_: GameObject, object: GameObjec
  */
 extern(
   "xr_effects.set_monster_animation",
-  (_: GameObject, object: GameObject, [animation]: [Optional<TName>]): void => {
+  (_: GameObject, object: GameObject, [animation]: [Nillable<TName>]): void => {
     if (animation) {
       object.set_override_animation(animation);
     } else {
@@ -842,7 +843,7 @@ extern("xr_effects.switch_to_desired_job", (_: GameObject, object: GameObject): 
  * @param object - Game object that receives the spawned item.
  * @param section - Section of the item to spawn into the object inventory.
  */
-extern("xr_effects.spawn_item_to_npc", (_: GameObject, object: GameObject, [section]: [Optional<TSection>]): void => {
+extern("xr_effects.spawn_item_to_npc", (_: GameObject, object: GameObject, [section]: [Nillable<TSection>]): void => {
   if (section) {
     registry.simulator.create(
       section,
@@ -861,7 +862,7 @@ extern("xr_effects.spawn_item_to_npc", (_: GameObject, object: GameObject, [sect
  * @param object - Game object that receives the money.
  * @param money - Amount of money to give to the object.
  */
-extern("xr_effects.give_money_to_npc", (_: GameObject, object: GameObject, [money]: [Optional<TCount>]): void => {
+extern("xr_effects.give_money_to_npc", (_: GameObject, object: GameObject, [money]: [Nillable<TCount>]): void => {
   if (money) {
     object.give_money(money);
   }
@@ -874,8 +875,8 @@ extern("xr_effects.give_money_to_npc", (_: GameObject, object: GameObject, [mone
  * @param object - Game object the money is taken from.
  * @param p - Tuple containing the amount of money to seize from the object.
  */
-extern("xr_effects.seize_money_to_npc", (_: GameObject, object: GameObject, p: [Optional<number>]): void => {
-  const money: Optional<TCount> = p[0];
+extern("xr_effects.seize_money_to_npc", (_: GameObject, object: GameObject, p: [Nillable<number>]): void => {
+  const money: Nillable<TCount> = p[0];
 
   if (money) {
     object.give_money(-money);
@@ -904,13 +905,13 @@ extern("xr_effects.heli_die", (_: GameObject, object: GameObject): void => {
 });
 
 /**
- * Force the visibility state of a bloodsucker object, optionally targeting one resolved by story ID.
+ * Force the visibility state of a bloodsucker object, Nillablely targeting one resolved by story ID.
  *
  * @param actor - Actor game object initiating the effect.
  * @param object - Bloodsucker game object whose visibility state is forced.
- * @param p - Tuple of the target visibility state and optional story ID of the bloodsucker.
+ * @param p - Tuple of the target visibility state and Nillable story ID of the bloodsucker.
  */
-extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Optional<GameObject>, p: [string, string]): void => {
+extern("xr_effects.set_bloodsucker_state", (_: GameObject, object: Nillable<GameObject>, p: [string, string]): void => {
   if ((p && p[0]) === null) {
     abort("Wrong parameters in function 'set_bloodsucker_state'!!!");
   }
@@ -945,7 +946,7 @@ extern("xr_effects.clear_box", (_: GameObject, __: GameObject, [storyId]: [TStri
     abort("Wrong parameters in function 'clear_box'!!!");
   }
 
-  const inventoryBox: Optional<GameObject> = getObjectByStoryId(storyId);
+  const inventoryBox: Nillable<GameObject> = getObjectByStoryId(storyId);
 
   assert(inventoryBox, "There is no object with storyId '%s'.", storyId);
 
@@ -977,12 +978,12 @@ extern("xr_effects.polter_actor_ignore", (_: GameObject, object: GameObject, [ig
  */
 extern(
   "xr_effects.set_torch_state",
-  (_: GameObject, __: GameObject, [storyId, state]: [TStringId, Optional<string>]): void => {
+  (_: GameObject, __: GameObject, [storyId, state]: [TStringId, Nillable<string>]): void => {
     if (!state) {
       abort("Not enough parameters in 'set_torch_state' function effect.");
     }
 
-    const torch: Optional<GameObject> = getObjectByStoryId(storyId)?.object(misc.device_torch) as Optional<GameObject>;
+    const torch: Nillable<GameObject> = getObjectByStoryId(storyId)?.object(misc.device_torch) as Nillable<GameObject>;
 
     if (torch) {
       torch.enable_attachable_item(state === "on");

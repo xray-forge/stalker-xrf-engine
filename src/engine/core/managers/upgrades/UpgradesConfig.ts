@@ -2,7 +2,7 @@ import { ini_file } from "xray16";
 
 import { TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { readIniNumber } from "@/engine/core/utils/ini";
-import { IniFile, LuaArray, Optional, TLabel, TSection } from "@/engine/lib/types";
+import { IniFile, LuaArray, Nillable, TLabel, TSection } from "@/engine/lib/types";
 
 export const UPGRADES_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\upgrades_manager.ltx");
 export const STALKER_UPGRADE_INFO: IniFile = new ini_file("managers\\upgrades\\stalkers_upgrade_info.ltx");
@@ -20,6 +20,6 @@ export const upgradesConfig = {
     "item_repair_price_coefficient",
     true
   ),
-  UPGRADES_HINTS: null as Optional<LuaArray<TLabel>>,
+  UPGRADES_HINTS: null as Nillable<LuaArray<TLabel>>,
   UPGRADES_CACHE: new LuaTable<TSection, TUpgradesList>(),
 };

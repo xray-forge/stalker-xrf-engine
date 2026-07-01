@@ -11,7 +11,7 @@ import {
   shouldHidePhraseCategory,
   shouldShowPhrase,
 } from "@/engine/core/managers/dialogs/utils";
-import { AnyArgs, AnyObject, GameObject, Optional, PhraseDialog, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, GameObject, Nillable, PhraseDialog, TName } from "@/engine/lib/types";
 import { checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockPhraseDialog } from "@/fixtures/xray";
@@ -60,7 +60,7 @@ describe("dialogs external callbacks declaration", () => {
 
 describe("dialogs external callbacks implementation", () => {
   function callDialogBinding<T = void>(name: TName, ...parameters: AnyArgs): T {
-    const effects: Optional<AnyObject> = (_G as AnyObject)["dialog_manager"];
+    const effects: Nillable<AnyObject> = (_G as AnyObject)["dialog_manager"];
 
     if (effects && name in effects) {
       return (_G as AnyObject)["dialog_manager"][name](...parameters);

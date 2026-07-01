@@ -37,7 +37,7 @@ import {
   EGameObjectRelation,
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   PartialRecord,
   ServerCreatureObject,
   TCount,
@@ -1755,7 +1755,7 @@ extern(
   "dialogs_jupiter.jup_b6_stalker_dialog_precond",
   (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
     const object: GameObject = getNpcSpeaker(firstSpeaker, secondSpeaker);
-    const npcAlife: Optional<ServerCreatureObject> = registry.simulator.object(object.id());
+    const npcAlife: Nillable<ServerCreatureObject> = registry.simulator.object(object.id());
 
     if (!npcAlife) {
       return false;

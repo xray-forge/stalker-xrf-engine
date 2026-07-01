@@ -18,6 +18,7 @@ import {
   AnyObject,
   GameObject,
   LuaArray,
+  Nillable,
   Optional,
   TCount,
   TLabel,
@@ -46,7 +47,7 @@ export class UpgradesManager extends AbstractManager {
   /**
    * @param hints - List of hints to set as current upgrading values.
    */
-  public setCurrentHints(hints: Optional<LuaArray<TLabel>>): void {
+  public setCurrentHints(hints: Nillable<LuaArray<TLabel>>): void {
     upgradesConfig.UPGRADES_HINTS = hints;
   }
 

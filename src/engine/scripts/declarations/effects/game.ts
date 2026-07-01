@@ -9,15 +9,15 @@ import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameHud, GameObject, LuaArray, Optional, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
+import { GameHud, GameObject, LuaArray, Nillable, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
 /**
  * Increment counter in pstore for actor object.
- * Key is provided, count is optional and fallbacks to 1.
+ * Key is provided, count is Nillable and fallbacks to 1.
  */
-extern("xr_effects.inc_counter", (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
+extern("xr_effects.inc_counter", (_: GameObject, __: GameObject, [name, count]: [Nillable<TName>, TCount]): void => {
   if (!name) {
     return;
   }
@@ -27,9 +27,9 @@ extern("xr_effects.inc_counter", (_: GameObject, __: GameObject, [name, count]: 
 
 /**
  * Decrement counter in pstore for actor object.
- * Key is provided, count is optional and fallbacks to 1.
+ * Key is provided, count is Nillable and fallbacks to 1.
  */
-extern("xr_effects.dec_counter", (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
+extern("xr_effects.dec_counter", (_: GameObject, __: GameObject, [name, count]: [Nillable<TName>, TCount]): void => {
   if (!name) {
     return;
   }
@@ -41,9 +41,9 @@ extern("xr_effects.dec_counter", (_: GameObject, __: GameObject, [name, count]: 
 
 /**
  * Set counter value in pstore for actor object.
- * Key is provided, count is optional and fallbacks to 1.
+ * Key is provided, count is Nillable and fallbacks to 1.
  */
-extern("xr_effects.set_counter", (_: GameObject, __: GameObject, [name, count]: [Optional<TName>, TCount]): void => {
+extern("xr_effects.set_counter", (_: GameObject, __: GameObject, [name, count]: [Nillable<TName>, TCount]): void => {
   if (!name) {
     return;
   }
@@ -128,8 +128,8 @@ extern("xr_effects.scenario_autosave", (_: GameObject, __: GameObject, [name]: [
 /**
  * Set current discount value for mechanic based on parameter.
  */
-extern("xr_effects.mech_discount", (_: GameObject, __: GameObject, [discount]: [Optional<string>]): void => {
-  const discountPercent: Optional<number> = (discount && tonumber(discount)) as Optional<TRate>;
+extern("xr_effects.mech_discount", (_: GameObject, __: GameObject, [discount]: [Nillable<string>]): void => {
+  const discountPercent: Nillable<number> = (discount && tonumber(discount)) as Nillable<TRate>;
 
   if (discountPercent) {
     getManager(UpgradesManager).setCurrentPriceDiscount(discountPercent);
@@ -139,20 +139,20 @@ extern("xr_effects.mech_discount", (_: GameObject, __: GameObject, [discount]: [
 /**
  * Set current mechanic upgrade hints based on list of parameters.
  */
-extern("xr_effects.upgrade_hint", (_: GameObject, __: GameObject, parameters: Optional<LuaArray<TLabel>>): void => {
+extern("xr_effects.upgrade_hint", (_: GameObject, __: GameObject, parameters: Nillable<LuaArray<TLabel>>): void => {
   getManager(UpgradesManager).setCurrentHints(parameters);
 });
 
 /**
  * Add custom test on in-game screen.
  */
-extern("xr_effects.add_cs_text", (_: GameObject, __: GameObject, [label]: [Optional<TLabel>]): void => {
+extern("xr_effects.add_cs_text", (_: GameObject, __: GameObject, [label]: [Nillable<TLabel>]): void => {
   if (!label) {
     return;
   }
 
   const hud: GameHud = get_hud();
-  let customText: Optional<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
+  let customText: Nillable<StaticDrawableWrapper> = hud.GetCustomStatic("text_on_screen_center");
 
   if (customText) {
     hud.RemoveCustomStatic("text_on_screen_center");
@@ -170,7 +170,7 @@ extern("xr_effects.add_cs_text", (_: GameObject, __: GameObject, [label]: [Optio
  */
 extern("xr_effects.del_cs_text", (): void => {
   const gameHud: GameHud = get_hud();
-  const csText: Optional<StaticDrawableWrapper> = gameHud.GetCustomStatic("text_on_screen_center");
+  const csText: Nillable<StaticDrawableWrapper> = gameHud.GetCustomStatic("text_on_screen_center");
 
   if (csText) {
     gameHud.RemoveCustomStatic("text_on_screen_center");
