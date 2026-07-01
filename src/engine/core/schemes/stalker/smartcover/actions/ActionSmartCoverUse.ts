@@ -13,7 +13,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import {
   GameObject,
   ISchemeEventHandler,
-  Optional,
+  Nillable,
   StringNillable,
   TName,
   TNumberId,
@@ -36,8 +36,8 @@ export class ActionSmartCoverUse extends action_base implements ISchemeEventHand
   public coverName!: TName;
 
   public targetPath!: TName;
-  public targetEnemyId: Optional<TNumberId> = null;
-  public firePosition: Optional<Vector> = null;
+  public targetEnemyId: Nillable<TNumberId> = null;
+  public firePosition: Nillable<Vector> = null;
 
   public constructor(state: ISchemeSmartCoverState) {
     super(null, ActionSmartCoverUse.__name);
@@ -103,7 +103,7 @@ export class ActionSmartCoverUse extends action_base implements ISchemeEventHand
     const object: GameObject = this.object;
 
     if (this.targetEnemyId && object.in_smart_cover()) {
-      const enemy: Optional<GameObject> = level.object_by_id(this.targetEnemyId);
+      const enemy: Nillable<GameObject> = level.object_by_id(this.targetEnemyId);
 
       if (enemy && enemy.in_current_loophole_fov(enemy.position())) {
         state.signals!.set("enemy_in_fov", true);
@@ -186,7 +186,7 @@ export class ActionSmartCoverUse extends action_base implements ISchemeEventHand
    * Checks current conditions and updates smart cover target.
    */
   public updateSmartCoverTarget(): boolean {
-    const pathName: Optional<TName> = pickSectionFromCondList(registry.actor, this.object, this.targetPathCondlist);
+    const pathName: Nillable<TName> = pickSectionFromCondList(registry.actor, this.object, this.targetPathCondlist);
 
     // Has target path.
     if (pathName && pathName !== NIL) {
@@ -201,8 +201,8 @@ export class ActionSmartCoverUse extends action_base implements ISchemeEventHand
 
       // Has target enemy.
     } else if (this.state.targetEnemy) {
-      const objectId: Optional<TNumberId> = getObjectIdByStoryId(this.state.targetEnemy);
-      const object: Optional<GameObject> = objectId ? level.object_by_id(objectId) : null;
+      const objectId: Nillable<TNumberId> = getObjectIdByStoryId(this.state.targetEnemy);
+      const object: Nillable<GameObject> = objectId ? level.object_by_id(objectId) : null;
 
       this.targetEnemyId = objectId;
 

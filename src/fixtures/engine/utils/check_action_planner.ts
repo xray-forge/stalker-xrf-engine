@@ -1,6 +1,6 @@
 import { expect } from "@jest/globals";
 
-import { ActionBase, AnyArgs, Optional } from "@/engine/lib/types";
+import { ActionBase, AnyArgs, Nillable } from "@/engine/lib/types";
 import { MockActionBase } from "@/fixtures/xray";
 
 /**
@@ -12,7 +12,7 @@ import { MockActionBase } from "@/fixtures/xray";
  * @param effects - Expected effects of provided action.
  */
 export function checkPlannerAction(
-  action: Optional<MockActionBase | ActionBase>,
+  action: Nillable<MockActionBase | ActionBase>,
   target: string | { new (...args: AnyArgs): ActionBase },
   properties: Array<[number, boolean]>,
   effects: Array<[number, boolean]>

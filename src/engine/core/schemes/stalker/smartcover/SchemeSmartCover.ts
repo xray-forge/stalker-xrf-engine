@@ -76,8 +76,28 @@ export class SchemeSmartCover extends AbstractScheme {
 
     actionSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, false));
     actionSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
-    // --new_action.add_effect (new world_property(EEvaluatorId.DANGER, false))
     planner.add_action(EActionId.SMART_COVER_USE, actionSmartCoverActivity);
+
+    // Action to hold the smart cover while fighting (used when `use_in_combat` is enabled).
+    // The object stays in cover instead of the combat planner being suppressed with nothing to run in its place.
+    const actionCombatSmartCoverActivity: ActionSmartCoverUse = new ActionSmartCoverUse(state);
+
+    actionCombatSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.ALIVE, true));
+    actionCombatSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.ANOMALY, false));
+    actionCombatSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, true));
+    actionCombatSmartCoverActivity.add_precondition(
+      new world_property(EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, true)
+    );
+
+    actionCombatSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.IS_MEET_CONTACT, false));
+    actionCombatSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.IS_WOUNDED, false));
+    actionCombatSmartCoverActivity.add_precondition(new world_property(EEvaluatorId.IS_ABUSED, false));
+
+    actionCombatSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, false));
+    actionCombatSmartCoverActivity.add_effect(new world_property(EEvaluatorId.ENEMY, false));
+    actionCombatSmartCoverActivity.add_effect(new world_property(EEvaluatorId.DANGER, false));
+    actionCombatSmartCoverActivity.add_effect(new world_property(EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false));
+    planner.add_action(EActionId.SMART_COVER_USE_COMBAT, actionCombatSmartCoverActivity);
 
     // Cannot continue alife when smart cover is needed.
     planner.action(EActionId.ALIFE).add_precondition(new world_property(EEvaluatorId.IS_SMART_COVER_NEEDED, false));
@@ -88,5 +108,6 @@ export class SchemeSmartCover extends AbstractScheme {
 
     // Subscribe to scheme events.
     AbstractScheme.subscribe(state, actionSmartCoverActivity);
+    AbstractScheme.subscribe(state, actionCombatSmartCoverActivity);
   }
 }

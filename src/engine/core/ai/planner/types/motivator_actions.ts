@@ -73,6 +73,8 @@ export enum EActionId {
   STATE_TO_IDLE_ALIFE = 194, // 194
   STATE_TO_IDLE_ITEMS = 195, // 195
   SMART_COVER_USE = 307, // 307
+  // Hold the smart cover while in combat.
+  SMART_COVER_USE_COMBAT = 309, // 309
   MEET_WAITING_ACTIVITY = 343, // 343
   // Object is staying is smart cover point.
   COVER_ACTIVITY = 393, // 393

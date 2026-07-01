@@ -131,6 +131,26 @@ describe("SchemeSmartCover", () => {
       ]
     );
 
+    checkPlannerAction(
+      planner.action(EActionId.SMART_COVER_USE_COMBAT),
+      ActionSmartCoverUse,
+      [
+        [EEvaluatorId.ALIVE, true],
+        [EEvaluatorId.ANOMALY, false],
+        [EEvaluatorId.IS_SMART_COVER_NEEDED, true],
+        [EEvaluatorId.CAN_USE_SMART_COVER_IN_COMBAT, true],
+        [EEvaluatorId.IS_MEET_CONTACT, false],
+        [EEvaluatorId.IS_WOUNDED, false],
+        [EEvaluatorId.IS_ABUSED, false],
+      ],
+      [
+        [EEvaluatorId.IS_SMART_COVER_NEEDED, false],
+        [EEvaluatorId.ENEMY, false],
+        [EEvaluatorId.DANGER, false],
+        [EEvaluatorId.IS_STATE_LOGIC_ACTIVE, false],
+      ]
+    );
+
     checkPlannerAction(planner.action(EActionId.ALIFE), "generic", [[EEvaluatorId.IS_SMART_COVER_NEEDED, false]], []);
     checkPlannerAction(
       planner.action(EActionId.COMBAT),
