@@ -9,6 +9,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
+import { getObjectTerrain } from "@/engine/core/utils/position";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   GameObject,
@@ -142,7 +143,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
       const callbackDescriptor: IStateManagerCallbackDescriptor = { context: this, callback: this.onAnimationUpdate };
       const target = this.getTarget();
 
-      if (target === null) {
+      if (!target) {
         const anim: EStalkerState = pickSectionFromCondList(registry.actor, this.object, this.st.anim)!;
 
         setStalkerState(this.object, anim, callbackDescriptor, 0);
@@ -206,7 +207,7 @@ export function initTarget(
   function parseTarget(targetStr: string): LuaMultiReturn<[Nillable<string>, Nillable<string>]> {
     const [pos] = string.find(targetStr, ",");
 
-    if (pos !== null) {
+    if ($isNotNil(pos)) {
       return $multi(string.sub(targetStr, 1, pos - 1), string.sub(targetStr, pos + 1));
     } else {
       return $multi(targetStr, null);
@@ -224,14 +225,14 @@ export function initTarget(
   function parseType(targetStr: string): LuaMultiReturn<[string, string]> {
     const [pos] = string.find(targetStr, "|");
 
-    if (pos === null) {
+    if ($isNil(pos)) {
       instruction(object, targetStr);
     }
 
     const targetType = string.sub(targetStr, 1, pos - 1);
     const target = string.sub(targetStr, pos + 1);
 
-    if (target === null || target === "" || targetType === null || targetType === "") {
+    if ($isNil(target) || target === "" || $isNil(targetType) || targetType === "") {
       instruction(object, targetStr);
     }
 
@@ -244,7 +245,7 @@ export function initTarget(
 
   if (targetString === NIL) {
     return $multi(targetPosition, targetId, isTargetInitialized);
-  } else if (targetString === null) {
+  } else if ($isNil(targetString)) {
     instruction(object, "");
   }
 
@@ -266,10 +267,12 @@ export function initTarget(
     }
   } else if (targetType === "job") {
     const [job, terrainName] = parseTarget(target);
-    const terrain: SmartTerrain = getSimulationTerrainByName(terrainName!)!;
+    const terrain: Nillable<SmartTerrain> = $isNotNil(terrainName)
+      ? getSimulationTerrainByName(terrainName)
+      : getObjectTerrain(object);
 
-    targetId = getTerrainObjectIdByJobSection(terrain, job as TStringId);
-    isTargetInitialized = targetId !== null;
+    targetId = getTerrainObjectIdByJobSection(terrain as SmartTerrain, job as TStringId);
+    isTargetInitialized = $isNotNil(targetId);
   } else {
     instruction(object, targetString);
   }

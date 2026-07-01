@@ -51,14 +51,15 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
       setStalkerState(this.object, targetState!, null, null, {
         lookPosition: this.enemyRandomPosition,
       });
-
-      // Play idle state sounds from stalkers like complaining etc.
-      if (this.state.soundIdle !== null) {
-        getManager(SoundManager).play(this.object.id(), this.state.soundIdle);
-      }
     } else {
       this.object.set_dest_level_vertex_id(this.coverVertexId);
       setStalkerState(this.object, EStalkerState.ASSAULT);
+    }
+
+    // Play idle state sounds from stalkers like complaining etc.
+    // While in cover or while approaching.
+    if ($isNotNil(this.state.soundIdle)) {
+      getManager(SoundManager).play(this.object.id(), this.state.soundIdle);
     }
 
     super.execute();
@@ -106,7 +107,7 @@ export class ActionCover extends action_base implements ISchemeEventHandler {
 
     const desiredDirection: Vector = subVectors(this.coverPosition, this.enemyRandomPosition);
 
-    if (desiredDirection !== null && !areSameVectors(desiredDirection, ZERO_VECTOR)) {
+    if (desiredDirection && !areSameVectors(desiredDirection, ZERO_VECTOR)) {
       desiredDirection.normalize();
       this.object.set_desired_direction(desiredDirection);
     }
