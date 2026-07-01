@@ -10,7 +10,7 @@ import { X_VECTOR, Z_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors"
 import {
   GameObject,
   LuaArray,
-  Optional,
+  Nillable,
   TCount,
   TDistance,
   TIndex,
@@ -27,7 +27,7 @@ export class PatrolManager {
   public name: TName;
   public state: EStalkerState = EStalkerState.PATROL;
   public formation: EPatrolFormation = EPatrolFormation.BACK;
-  public commanderId: Optional<TNumberId> = null;
+  public commanderId: Nillable<TNumberId> = null;
   public objects: LuaTable<TNumberId, IPatrolObjectDescriptor> = new LuaTable();
 
   public constructor(name: TName) {
@@ -38,7 +38,7 @@ export class PatrolManager {
    * @param object - Object to register in patrol.
    * @param isCommander - Whether object should become patrol commander.
    */
-  public registerObject(object: GameObject, isCommander: Optional<boolean> = null): void {
+  public registerObject(object: GameObject, isCommander: Nillable<boolean> = null): void {
     if (!object.alive() || this.objects.has(object.id())) {
       return;
     }
@@ -134,7 +134,7 @@ export class PatrolManager {
 
     if (this.commanderId === objectId) {
       abort("Patrol method 'getFollowerTarget' failed in '%s', tried to get commander target.", this.name);
-    } else if (this.commanderId === null) {
+    } else if ($isNil(this.commanderId)) {
       abort("Patrol method 'getFollowerTarget' failed without commander, '%s'.", this.name);
     }
 
@@ -168,7 +168,7 @@ export class PatrolManager {
 
     // Try to accelerate in patrol, too far from leader.
     if (distance > descriptor.distance + 2) {
-      const acceleratedState: Optional<EStalkerState> = patrolConfig.ACCELERATION_BY_STATE.get(this.state);
+      const acceleratedState: Nillable<EStalkerState> = patrolConfig.ACCELERATION_BY_STATE.get(this.state);
 
       if (acceleratedState) {
         return $multi(targetVertexId, direction, acceleratedState);

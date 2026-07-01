@@ -1,7 +1,7 @@
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { NIL } from "@/engine/lib/constants/words";
-import { Optional, StringNillable, TDuration, TName, TStringId, Vector } from "@/engine/lib/types";
+import { Nillable, StringNillable, TDuration, TName, TStringId, Vector } from "@/engine/lib/types";
 
 /**
  * Mapping of smart cover substates to the stalker animation state used for each of them.
@@ -18,10 +18,10 @@ export const COVER_SUBSTATE_TABLE: Record<ESmartCoverState, EStalkerState> = {
  * Smart cover scheme state.
  */
 export interface ISchemeSmartCoverState extends IBaseSchemeState {
-  coverName: Optional<TName>;
-  loopholeName: Optional<TName>;
+  coverName: Nillable<TName>;
+  loopholeName: Nillable<TName>;
   coverState: string;
-  targetEnemy: Optional<TStringId>; // Story ID of target enemy.
+  targetEnemy: Nillable<TStringId>; // Story ID of target enemy.
   targetPath: StringNillable;
   idleMinTime: TDuration;
   idleMaxTime: TDuration;
@@ -32,6 +32,6 @@ export interface ISchemeSmartCoverState extends IBaseSchemeState {
   useInCombat: boolean;
   weaponType: string;
   moving: string;
-  soundIdle: Optional<string>;
-  targetPosition: Optional<Vector>; // todo: Probably unused and not needed, commented logic originally.
+  soundIdle: Nillable<string>;
+  targetPosition: Nillable<Vector>; // todo: Probably unused and not needed, commented logic originally.
 }

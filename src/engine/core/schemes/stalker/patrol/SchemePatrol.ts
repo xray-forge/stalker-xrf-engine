@@ -15,7 +15,7 @@ import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engi
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { ActionPlanner, GameObject, IniFile, Nillable, Optional, TName } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, IniFile, Nillable, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -75,7 +75,7 @@ export class SchemePatrol extends AbstractScheme {
       movingFire: null,
     };
 
-    let manager: Optional<PatrolManager> = patrolConfig.PATROLS.get(state.patrolKey);
+    let manager: Nillable<PatrolManager> = patrolConfig.PATROLS.get(state.patrolKey);
 
     if (!manager) {
       manager = new PatrolManager(state.pathName);

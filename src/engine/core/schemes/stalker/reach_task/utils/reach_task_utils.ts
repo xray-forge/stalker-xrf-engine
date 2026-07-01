@@ -3,7 +3,7 @@ import { anim, move } from "xray16";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { isSquad } from "@/engine/core/utils/class_ids";
-import { GameObject, Optional } from "@/engine/lib/types";
+import { GameObject, Nillable } from "@/engine/lib/types";
 
 /**
  * Handle object reach target movement type and animation psychic state.
@@ -11,8 +11,8 @@ import { GameObject, Optional } from "@/engine/lib/types";
  * @param object - Game object to handle state for.
  * @param target - Object we are trying to reach.
  */
-export function updateObjectReachTaskMovement(object: GameObject, target: Optional<TSimulationObject>): void {
-  if (target !== null && !object.is_talking()) {
+export function updateObjectReachTaskMovement(object: GameObject, target: Nillable<TSimulationObject>): void {
+  if (target && !object.is_talking()) {
     if (surgeConfig.IS_STARTED) {
       object.set_movement_type(move.run);
       object.set_mental_state(anim.free);

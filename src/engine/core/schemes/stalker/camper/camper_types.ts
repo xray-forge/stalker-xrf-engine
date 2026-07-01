@@ -3,7 +3,6 @@ import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type {
   LuaArray,
   Nillable,
-  Optional,
   TCount,
   TDistance,
   TDuration,
@@ -35,7 +34,7 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   sniper: boolean;
   noRetreat: boolean;
   scantimeFree: TDuration;
-  attackSound: Optional<TName>;
+  attackSound: Nillable<TName>;
   idle: TDuration;
   postEnemyWait: TDuration;
   enemyDisp: TRate;
@@ -44,9 +43,9 @@ export interface ISchemeCamperState extends IBaseSchemeState {
   timeScanDelta: TCount;
   suggestedState: IPatrolSuggestedState;
   scanTable: LuaTable<any, LuaArray<ICampPoint>>;
-  curLookPoint: Optional<TIndex>;
-  lastLookPoint: Optional<ICampPoint>;
-  scanBegin: Optional<TTimestamp>;
-  memEnemy: Optional<TTimestamp>;
+  curLookPoint: Nillable<TIndex>;
+  lastLookPoint: Nillable<ICampPoint>;
+  scanBegin: Nillable<TTimestamp>;
+  memEnemy: Nillable<TTimestamp>;
   waypointFlag: Nillable<number>;
 }

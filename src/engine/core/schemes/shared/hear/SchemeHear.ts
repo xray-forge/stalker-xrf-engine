@@ -12,7 +12,7 @@ import {
   GameObject,
   IniFile,
   LuaArray,
-  Optional,
+  Nillable,
   TCount,
   TDistance,
   TName,
@@ -78,7 +78,7 @@ export class SchemeHear extends AbstractScheme {
     soundPower: TRate
   ): void {
     const state: IRegistryObjectState = registry.objects.get(object.id());
-    const dangerState: Optional<ISchemeDangerState> = state[EScheme.DANGER] as Optional<ISchemeDangerState>;
+    const dangerState: Nillable<ISchemeDangerState> = state[EScheme.DANGER] as Nillable<ISchemeDangerState>;
 
     if (dangerState) {
       dangerState.dangerManager.onHear(object, whoId, soundType, soundPosition, soundPower);
@@ -97,7 +97,7 @@ export class SchemeHear extends AbstractScheme {
         classTypeParameters.dist >= soundPosition.distance_to(object.position()) &&
         soundPower >= classTypeParameters.power
       ) {
-        const nextSection: Optional<TSection> = pickSectionFromCondList(
+        const nextSection: Nillable<TSection> = pickSectionFromCondList(
           registry.actor,
           object,
           classTypeParameters.condlist

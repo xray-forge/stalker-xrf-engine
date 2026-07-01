@@ -1,7 +1,7 @@
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import type { TConditionList } from "@/engine/core/utils/ini";
-import type { LuaArray, Optional, TDistance, TSection, TStringId } from "@/engine/lib/types";
+import type { LuaArray, Nillable, TDistance, TSection, TStringId } from "@/engine/lib/types";
 
 export const PS_BEGIN_WOUNDED: TStringId = "begin_wounded";
 
@@ -18,9 +18,9 @@ export const PS_WOUNDED_VICTIM: TStringId = "wounded_victim";
  */
 export interface IWoundedStateDescriptor {
   // Health breakpoint to apply state descriptor.
-  hp: Optional<TDistance>;
-  state: Optional<TConditionList>;
-  sound: Optional<TConditionList>;
+  hp: Nillable<TDistance>;
+  state: Nillable<TConditionList>;
+  sound: Nillable<TConditionList>;
 }
 
 /**
@@ -30,13 +30,13 @@ export interface IWoundedStateDescriptor {
 export interface ISchemeWoundedState extends IBaseSchemeState {
   woundManager: WoundManager;
   woundedSection: TSection;
-  helpStartDialog: Optional<string>;
-  helpDialog: Optional<TStringId>;
-  canUseMedkit: Optional<boolean>;
+  helpStartDialog: Nillable<string>;
+  helpDialog: Nillable<TStringId>;
+  canUseMedkit: Nillable<boolean>;
   isWoundedInitialized: boolean;
   isTalkEnabled: boolean;
   // Whether object should not be helped by other stalkers.
-  isNotForHelp: Optional<boolean>;
+  isNotForHelp: Nillable<boolean>;
   // Whether object can auto-heal after certain timeout.
   isAutoHealing: boolean;
   // States and sounds for wound handling.

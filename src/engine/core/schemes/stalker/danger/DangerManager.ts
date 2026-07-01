@@ -6,7 +6,7 @@ import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig"
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { isSoundType } from "@/engine/core/utils/sound";
-import { EGameObjectRelation, GameObject, Optional, TNumberId, TRate, TSoundType, Vector } from "@/engine/lib/types";
+import { EGameObjectRelation, GameObject, Nillable, TNumberId, TRate, TSoundType, Vector } from "@/engine/lib/types";
 
 /**
  * Manage danger events.
@@ -32,7 +32,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
     soundPosition: Vector,
     soundPower: TRate
   ): void {
-    const who: Optional<GameObject> = registry.objects.get(whoId)?.object;
+    const who: Nillable<GameObject> = registry.objects.get(whoId)?.object;
 
     // If already in combat or no game object 'who'.
     if (!who || object.best_enemy()) {
@@ -58,7 +58,7 @@ export class DangerManager extends AbstractSchemeManager<ISchemeDangerState> {
         object.set_dest_level_vertex_id(who.level_vertex_id());
       }
     } else if (isSoundType(soundType, snd_type.weapon)) {
-      const shootingAt: Optional<GameObject> = who.best_enemy();
+      const shootingAt: Nillable<GameObject> = who.best_enemy();
 
       // If hear others shooting at enemy OR enemy shooting in range, try to help
       if (

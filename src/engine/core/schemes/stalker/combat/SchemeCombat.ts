@@ -17,7 +17,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities } from "@/engine/lib/constants/communities";
-import { ActionBase, ActionPlanner, GameObject, IniFile, Optional } from "@/engine/lib/types";
+import { ActionBase, ActionPlanner, GameObject, IniFile, Nillable } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
@@ -30,7 +30,7 @@ export class SchemeCombat extends AbstractScheme {
   public static override readonly SCHEME_TYPE: ESchemeType = ESchemeType.STALKER;
 
   public static override disable(object: GameObject, scheme: EScheme): void {
-    const state: Optional<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
+    const state: Nillable<ISchemeCombatState> = registry.objects.get(object.id())[scheme] as ISchemeCombatState;
 
     if (state !== null) {
       state.enabled = false;
@@ -97,7 +97,7 @@ export class SchemeCombat extends AbstractScheme {
   public static setCombatType(
     object: GameObject,
     actor: GameObject,
-    overrides: Optional<ILogicsOverrides | ISchemeCombatState>
+    overrides: Nillable<ILogicsOverrides | ISchemeCombatState>
   ): void {
     if (!overrides) {
       return;
@@ -107,7 +107,7 @@ export class SchemeCombat extends AbstractScheme {
 
     state.enemy = object.best_enemy();
 
-    let scriptCombatType: Optional<EScriptCombatType> = null;
+    let scriptCombatType: Nillable<EScriptCombatType> = null;
 
     if (overrides.combatType) {
       scriptCombatType = parseStringOptional(pickSectionFromCondList(actor, object, overrides.combatType.condlist));

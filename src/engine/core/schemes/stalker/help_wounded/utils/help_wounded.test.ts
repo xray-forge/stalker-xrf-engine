@@ -15,7 +15,7 @@ import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/He
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
-import { EScheme, GameObject, Optional } from "@/engine/lib/types";
+import { EScheme, GameObject, Nillable } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
@@ -39,7 +39,7 @@ describe("finishObjectHelpWounded", () => {
 
     expect(giveWoundedObjectMedkit).toHaveBeenCalledWith(second);
     expect(
-      (secondState[EScheme.WOUNDED] as Optional<ISchemeWoundedState>)?.woundManager.unlockMedkit
+      (secondState[EScheme.WOUNDED] as Nillable<ISchemeWoundedState>)?.woundManager.unlockMedkit
     ).toHaveBeenCalled();
   });
 });

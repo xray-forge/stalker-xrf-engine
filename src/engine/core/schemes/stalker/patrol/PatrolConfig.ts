@@ -3,7 +3,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { IFormationObjectDescriptor } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { createVector } from "@/engine/core/utils/vector";
-import { LuaArray, Optional, TStringId } from "@/engine/lib/types";
+import { LuaArray, Nillable, TStringId } from "@/engine/lib/types";
 
 export const patrolConfig = {
   /**
@@ -45,5 +45,5 @@ export const patrolConfig = {
     [EStalkerState.RAID]: EStalkerState.ASSAULT,
     [EStalkerState.SNEAK]: EStalkerState.SNEAK_RUN,
     [EStalkerState.SNEAK_RUN]: EStalkerState.ASSAULT,
-  } as Record<EStalkerState, Optional<EStalkerState>>),
+  } as Record<EStalkerState, Nillable<EStalkerState>>),
 };

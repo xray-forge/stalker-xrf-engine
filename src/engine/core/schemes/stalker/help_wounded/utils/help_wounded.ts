@@ -3,7 +3,7 @@ import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_woun
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
-import { EScheme, GameObject, Optional, TNumberId } from "@/engine/lib/types";
+import { EScheme, GameObject, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Finish helping wounded on successful healing animation.
@@ -16,21 +16,21 @@ export function finishObjectHelpWounded(object: GameObject): void {
 
   const selectedObjectId: TNumberId = (state[EScheme.HELP_WOUNDED] as ISchemeHelpWoundedState)
     .selectedWoundedId as TNumberId;
-  const selectedObjectState: Optional<IRegistryObjectState> = registry.objects.get(
+  const selectedObjectState: Nillable<IRegistryObjectState> = registry.objects.get(
     selectedObjectId
-  ) as Optional<IRegistryObjectState>;
+  ) as Nillable<IRegistryObjectState>;
 
   if (selectedObjectState) {
     giveWoundedObjectMedkit(selectedObjectState.object);
-    (selectedObjectState[EScheme.WOUNDED] as Optional<ISchemeWoundedState>)?.woundManager.unlockMedkit();
+    (selectedObjectState[EScheme.WOUNDED] as Nillable<ISchemeWoundedState>)?.woundManager.unlockMedkit();
   }
 }
 
 /**
  * @param helpingId - Target object to free helping spot.
  */
-export function freeSelectedWoundedStalkerSpot(helpingId: Optional<TNumberId>): void {
-  if (helpingId) {
+export function freeSelectedWoundedStalkerSpot(helpingId: Nillable<TNumberId>): void {
+  if ($isNotNil(helpingId)) {
     setPortableStoreValue(helpingId, helpWoundedConfig.HELPING_WOUNDED_OBJECT_KEY, null);
   }
 }

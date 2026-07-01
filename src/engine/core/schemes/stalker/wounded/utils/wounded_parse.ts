@@ -1,6 +1,6 @@
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { LuaArray, Optional, TDistance, TIndex, TRate } from "@/engine/lib/types";
+import { LuaArray, Nillable, TDistance, TIndex, TRate } from "@/engine/lib/types";
 
 /**
  * Parse serialized string as wounded state descriptors list.
@@ -8,7 +8,7 @@ import { LuaArray, Optional, TDistance, TIndex, TRate } from "@/engine/lib/types
  * @param serialized - Serialized wounded state description.
  * @returns List of parsed wounded state descriptors.
  */
-export function parseWoundedData(serialized: Optional<string>): LuaArray<IWoundedStateDescriptor> {
+export function parseWoundedData(serialized: Nillable<string>): LuaArray<IWoundedStateDescriptor> {
   const collection: LuaArray<IWoundedStateDescriptor> = new LuaTable();
 
   if (serialized) {
@@ -18,8 +18,8 @@ export function parseWoundedData(serialized: Optional<string>): LuaArray<IWounde
 
       const hp = string.sub(name, 1, tPosition - 1);
 
-      let state: Optional<string> = null;
-      let sound: Optional<string> = null;
+      let state: Nillable<string> = null;
+      let sound: Nillable<string> = null;
 
       if (sPosition !== null) {
         state = string.sub(name, tPosition + 1, sPosition - 1);
@@ -47,10 +47,10 @@ export function parseWoundedData(serialized: Optional<string>): LuaArray<IWounde
  *
  * @param descriptors - List of descriptors to search.
  * @param hp - Hp breakpoint to match in searched descriptors list based on [0-100] current hp value.
- * @returns Optional index of descriptor matching provided distance requirement.
+ * @returns Nillable index of descriptor matching provided distance requirement.
  */
-export function getStateIndexByHp(descriptors: LuaArray<IWoundedStateDescriptor>, hp: TRate): Optional<TIndex> {
-  let result: Optional<TIndex> = null;
+export function getStateIndexByHp(descriptors: LuaArray<IWoundedStateDescriptor>, hp: TRate): Nillable<TIndex> {
+  let result: Nillable<TIndex> = null;
 
   for (const [index, value] of descriptors) {
     if ((value.hp as TDistance) >= hp) {

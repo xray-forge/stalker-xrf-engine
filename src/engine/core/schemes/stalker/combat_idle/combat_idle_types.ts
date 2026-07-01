@@ -1,15 +1,15 @@
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { IBaseSchemeState } from "@/engine/core/database";
-import { Optional, TDuration, TName, TNumberId } from "@/engine/lib/types";
+import { Nillable, TDuration, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Logics configuration for post-combat idle state.
  */
 export interface ISchemePostCombatIdleState extends IBaseSchemeState {
-  timer: Optional<TDuration>;
-  animation: Optional<StalkerAnimationManager>;
-  lastBestEnemyId: Optional<TNumberId>;
-  lastBestEnemyName: Optional<TName>;
+  timer: Nillable<TDuration>;
+  animation: Nillable<StalkerAnimationManager>;
+  lastBestEnemyId: Nillable<TNumberId>;
+  lastBestEnemyName: Nillable<TName>;
 }
 
 /**

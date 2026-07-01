@@ -8,7 +8,7 @@ import {
   PS_WOUNDED_STATE,
 } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { ActionPlanner, GameObject, Optional } from "@/engine/lib/types";
+import { ActionPlanner, GameObject, Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator to check if object is wounded critically.
@@ -16,7 +16,7 @@ import { ActionPlanner, GameObject, Optional } from "@/engine/lib/types";
 @LuabindClass()
 export class EvaluatorWounded extends property_evaluator {
   public readonly state: ISchemeWoundedState;
-  public actionPlanner: Optional<ActionPlanner> = null;
+  public actionPlanner: Nillable<ActionPlanner> = null;
 
   public constructor(state: ISchemeWoundedState) {
     super(null, EvaluatorWounded.__name);
@@ -40,7 +40,7 @@ export class EvaluatorWounded extends property_evaluator {
       return false;
     }
 
-    if (this.actionPlanner === null) {
+    if (!this.actionPlanner) {
       this.actionPlanner = object.motivation_action_manager();
     }
 

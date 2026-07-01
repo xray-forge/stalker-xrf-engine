@@ -12,7 +12,6 @@ import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   GameObject,
   Nillable,
-  Optional,
   StringNillable,
   TDistance,
   TName,
@@ -31,19 +30,19 @@ const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
  * - hello / goodbye when moving around.
  */
 export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
-  public startDialog: Optional<TName> = null;
+  public startDialog: Nillable<TName> = null;
   // Condlist result from abuse mode enabled check.
-  public isAbuseModeEnabled: Optional<TName> = null;
-  public currentDistanceToSpeaker: Optional<EMeetDistance> = null;
-  public use: Optional<TSection> = null;
+  public isAbuseModeEnabled: Nillable<TName> = null;
+  public currentDistanceToSpeaker: Nillable<EMeetDistance> = null;
+  public use: Nillable<TSection> = null;
 
-  public isTradingEnabled: Optional<boolean> = null;
+  public isTradingEnabled: Nillable<boolean> = null;
 
   /**
    * If object is telling story, do not interact with actor until it is finished.
    */
   public isCampStoryDirector: boolean = false;
-  public isDialogBreakEnabled: Optional<boolean> = null;
+  public isDialogBreakEnabled: Nillable<boolean> = null;
   public isHelloPassed: boolean = false;
   public isByePassed: boolean = false;
 
@@ -51,7 +50,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
    * Initialize the meet state from the current distance and visibility of the actor.
    */
   public initialize(): void {
-    const actor: Optional<GameObject> = registry.actor;
+    const actor: Nillable<GameObject> = registry.actor;
 
     if (actor === null || !this.object.alive()) {
       this.isHelloPassed = false;
@@ -93,9 +92,9 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
   public execute(): void {
     const actor: GameObject = registry.actor;
 
-    let state: Optional<EStalkerState> = null;
-    let victim: Optional<GameObject> = null;
-    let victimStoryId: Optional<TStringId> = null;
+    let state: Nillable<EStalkerState> = null;
+    let victim: Nillable<GameObject> = null;
+    let victimStoryId: Nillable<TStringId> = null;
 
     if (this.currentDistanceToSpeaker === EMeetDistance.CLOSE) {
       state = parseStringOptional(pickSectionFromCondList(actor, this.object, this.state.closeAnimation));
@@ -111,18 +110,18 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     }
 
     // Use animation if it is defined.
-    if (state !== null) {
+    if ($isNotNil(state)) {
       setStalkerState(this.object, state, null, null, {
-        lookObjectId: victim?.id() as Optional<TNumberId>,
+        lookObjectId: victim?.id() as Nillable<TNumberId>,
         lookPosition: null,
       });
     }
 
-    const optionalSound: Optional<TSection> = parseStringOptional(
+    const optionalSound: Nillable<TSection> = parseStringOptional(
       pickSectionFromCondList(actor, this.object, this.state.farSound)
     );
 
-    if (optionalSound !== null) {
+    if ($isNotNil(optionalSound)) {
       logger.info("Execute play sound: '%s', '%s'", this.object.name(), optionalSound);
       getManager(SoundManager).play(this.object.id(), optionalSound);
     }
@@ -195,7 +194,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     this.isDialogBreakEnabled = pickSectionFromCondList(actor, this.object, this.state.isBreakAllowed) === TRUE;
 
     if (this.state.meetDialog !== null) {
-      const startingDialog: Optional<TName> = pickSectionFromCondList(actor, this.object, this.state.meetDialog);
+      const startingDialog: Nillable<TName> = pickSectionFromCondList(actor, this.object, this.state.meetDialog);
 
       if (this.startDialog !== startingDialog) {
         this.startDialog = startingDialog;
@@ -214,7 +213,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
 
     // Handle use condlist.
     const isObjectTalking: boolean = this.object.is_talking();
-    const use: Optional<TSection> = this.isCampStoryDirector
+    const use: Nillable<TSection> = this.isCampStoryDirector
       ? FALSE
       : pickSectionFromCondList(actor, this.object, this.state.use);
 
@@ -248,7 +247,7 @@ export class MeetManager extends AbstractSchemeManager<ISchemeMeetState> {
     this.object.allow_break_talk_dialog(this.isDialogBreakEnabled);
 
     // Handle interaction abusing logics.
-    const abuse: Optional<TSection> = pickSectionFromCondList(actor, this.object, this.state.abuse);
+    const abuse: Nillable<TSection> = pickSectionFromCondList(actor, this.object, this.state.abuse);
 
     if (this.isAbuseModeEnabled !== abuse) {
       setObjectAbuseState(this.object, abuse === TRUE);

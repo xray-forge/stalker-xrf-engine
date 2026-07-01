@@ -9,7 +9,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectHelpingWounded, isObjectSearchingCorpse, isObjectWounded } from "@/engine/core/utils/planner";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { EGameObjectRelation, EScheme, GameObject, Optional, TCount, TName } from "@/engine/lib/types";
+import { EGameObjectRelation, EScheme, GameObject, Nillable, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 
@@ -23,7 +23,7 @@ export function updateObjectMeetAvailability(object: GameObject): void {
     if (object.relation(registry.actor) === EGameObjectRelation.ENEMY) {
       object.disable_talk();
     } else {
-      const state: Optional<ISchemeWoundedState> = registry.objects.get(object.id())[
+      const state: Nillable<ISchemeWoundedState> = registry.objects.get(object.id())[
         EScheme.WOUNDED
       ] as ISchemeWoundedState;
 
@@ -38,7 +38,7 @@ export function updateObjectMeetAvailability(object: GameObject): void {
   }
 
   const state: ISchemeMeetState = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
-  const use: Optional<string> = state.meetManager.use;
+  const use: Nillable<string> = state.meetManager.use;
 
   if (use === TRUE) {
     if (isObjectSearchingCorpse(object) || isObjectHelpingWounded(object)) {
@@ -65,16 +65,16 @@ export function activateMeetWithObject(object: GameObject): void {
     return;
   }
 
-  const state: Optional<ISchemeMeetState> = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
+  const state: Nillable<ISchemeMeetState> = registry.objects.get(object.id())[EScheme.MEET] as ISchemeMeetState;
 
-  if (state === null) {
+  if (!state) {
     return;
   }
 
   logger.info("Activate meet interaction: '%s'", object.name());
 
   const actor: GameObject = registry.actor;
-  const sound: Optional<TName> = pickSectionFromCondList(actor, object, state.useSound);
+  const sound: Nillable<TName> = pickSectionFromCondList(actor, object, state.useSound);
 
   if (tostring(sound) !== NIL) {
     logger.info("Play meet sound: '%s' - '%s'", object.name(), sound);
@@ -99,7 +99,7 @@ export function activateMeetWithObject(object: GameObject): void {
  * @param value - Count of abuse to add.
  */
 export function addObjectAbuse(object: GameObject, value: TCount): void {
-  const abuseState: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
+  const abuseState: Nillable<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
 
   abuseState?.abuseManager.addAbuse(value);
 }
@@ -110,7 +110,7 @@ export function addObjectAbuse(object: GameObject, value: TCount): void {
  * @param object - Game object.
  */
 export function clearObjectAbuse(object: GameObject): void {
-  const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
+  const state: Nillable<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
 
   state?.abuseManager.clearAbuse();
 }
@@ -122,7 +122,7 @@ export function clearObjectAbuse(object: GameObject): void {
  * @param isEnabled - Whether object abuse state should be enabled.
  */
 export function setObjectAbuseState(object: GameObject, isEnabled: boolean): void {
-  const state: Optional<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
+  const state: Nillable<ISchemeAbuseState> = registry.objects.get(object.id())[EScheme.ABUSE] as ISchemeAbuseState;
 
   if (isEnabled) {
     state?.abuseManager.enableAbuse();

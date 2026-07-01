@@ -7,7 +7,7 @@ import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_woun
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import { EGameObjectPath, Optional, TNumberId, Vector } from "@/engine/lib/types";
+import { EGameObjectPath, Nillable, TNumberId, Vector } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -19,7 +19,7 @@ export class ActionHelpWounded extends action_base {
   public readonly state: ISchemeHelpWoundedState;
 
   public isHelpingSoundPlayed: boolean = false;
-  public helpingTargetId: Optional<TNumberId> = null;
+  public helpingTargetId: Nillable<TNumberId> = null;
 
   public constructor(state: ISchemeHelpWoundedState) {
     super(null, ActionHelpWounded.__name);

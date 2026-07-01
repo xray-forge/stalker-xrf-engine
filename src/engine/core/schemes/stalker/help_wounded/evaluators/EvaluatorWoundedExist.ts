@@ -8,7 +8,7 @@ import { getNearestWoundedToHelp } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
-import { GameObject, Optional, TNumberId } from "@/engine/lib/types";
+import { GameObject, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check if any wounded stalker to help exists nearby.
@@ -54,14 +54,14 @@ export class EvaluatorWoundedExist extends property_evaluator {
     const [nearestObject, nearestVertexId, nearestPosition] = getNearestWoundedToHelp(this.object);
 
     // No active objects to help.
-    if (nearestObject === null) {
+    if (!nearestObject) {
       return false;
     }
 
-    const nearestObjectId: Optional<TNumberId> = nearestObject.id();
+    const nearestObjectId: Nillable<TNumberId> = nearestObject.id();
 
     // Changed priority and now will try to heal someone else, unblock previous one.
-    if (this.state.selectedWoundedId !== null && this.state.selectedWoundedId !== nearestObjectId) {
+    if ($isNotNil(this.state.selectedWoundedId) && this.state.selectedWoundedId !== nearestObjectId) {
       freeSelectedWoundedStalkerSpot(this.state.selectedWoundedId);
     }
 

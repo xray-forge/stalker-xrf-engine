@@ -13,7 +13,7 @@ import { NIL } from "@/engine/lib/constants/words";
 import {
   GameObject,
   ISchemeEventHandler,
-  Optional,
+  Nillable,
   SoundObject,
   TNumberId,
   TStringId,
@@ -40,7 +40,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
   public animScheduled: boolean = false;
   public sndScheduled: boolean = false;
   public sndStarted: boolean = false;
-  public tipsSound: Optional<SoundObject> = null;
+  public tipsSound: Nillable<SoundObject> = null;
 
   public constructor(state: ISchemeRemarkState) {
     super(null, ActionRemarkActivity.__name);
@@ -69,7 +69,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
    * Finalize the action when the planner switches away, stopping any playing tips sound.
    */
   public override finalize(): void {
-    if (this.tipsSound !== null) {
+    if (this.tipsSound) {
       this.tipsSound.stop();
     }
 
@@ -86,7 +86,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
     this.animEndSignalled = false;
     this.animScheduled = true;
 
-    this.sndScheduled = !this.st.sndAnimSync && this.st.snd !== null;
+    this.sndScheduled = !this.st.sndAnimSync && $isNotNil(this.st.snd);
     this.sndStarted = false;
 
     this.state = stateInitial;
@@ -98,7 +98,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
    *
    * @returns Look target descriptor with object id and/or position, or null when the target is not initialized.
    */
-  public getTarget(): Optional<ILookTargetDescriptor> {
+  public getTarget(): Nillable<ILookTargetDescriptor> {
     const lookTargetDescriptor: ILookTargetDescriptor = {
       lookObjectId: null,
       lookPosition: null,
@@ -116,7 +116,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
     }
 
     if (this.st.targetId) {
-      lookTargetDescriptor.lookObjectId = level.object_by_id(this.st.targetId)?.id() as Optional<TNumberId>;
+      lookTargetDescriptor.lookObjectId = level.object_by_id(this.st.targetId)?.id() as Nillable<TNumberId>;
     }
 
     if (this.st.targetPosition) {
@@ -194,7 +194,7 @@ export class ActionRemarkActivity extends action_base implements ISchemeEventHan
 export function initTarget(
   object: GameObject,
   targetString: string
-): LuaMultiReturn<[Optional<Vector>, Optional<number>, Optional<boolean>]> {
+): LuaMultiReturn<[Nillable<Vector>, Nillable<number>, Nillable<boolean>]> {
   // todo: Simplify.
 
   /**
@@ -203,7 +203,7 @@ export function initTarget(
    * @param targetStr - Target value to split on the first comma.
    * @returns The part before the comma and the part after it, or the whole string and null when absent.
    */
-  function parseTarget(targetStr: string): LuaMultiReturn<[Optional<string>, Optional<string>]> {
+  function parseTarget(targetStr: string): LuaMultiReturn<[Nillable<string>, Nillable<string>]> {
     const [pos] = string.find(targetStr, ",");
 
     if (pos !== null) {
@@ -238,8 +238,8 @@ export function initTarget(
     return $multi(targetType, target);
   }
 
-  let targetPosition: Optional<Vector> = null;
-  let targetId: Optional<TNumberId> = null;
+  let targetPosition: Nillable<Vector> = null;
+  let targetId: Nillable<TNumberId> = null;
   let isTargetInitialized: boolean = false;
 
   if (targetString === NIL) {

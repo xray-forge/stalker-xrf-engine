@@ -3,7 +3,7 @@ import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import type { IWaypointData } from "@/engine/core/utils/ini";
-import type { GameObject, LuaArray, Optional, TDistance, TName, TStringId, Vector } from "@/engine/lib/types";
+import type { GameObject, LuaArray, Nillable, TDistance, TName, TStringId, Vector } from "@/engine/lib/types";
 
 /**
  * Descriptor of patrol captured object state.
@@ -33,9 +33,9 @@ export interface ISchemePatrolState extends IBaseSchemeState {
   silent: boolean;
   moveType: string;
   suggestedState: IPatrolSuggestedState;
-  team: Optional<string>;
-  pathWalkInfo: Optional<LuaArray<IWaypointData>>;
-  pathLookInfo: Optional<LuaArray<IWaypointData>>;
+  team: Nillable<string>;
+  pathWalkInfo: Nillable<LuaArray<IWaypointData>>;
+  pathLookInfo: Nillable<LuaArray<IWaypointData>>;
   patrolKey: TStringId;
   patrolManager: PatrolManager;
   commander: boolean;

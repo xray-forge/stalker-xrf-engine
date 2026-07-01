@@ -3,7 +3,7 @@ import { getStateIndexByHp } from "@/engine/core/schemes/stalker/wounded/utils/w
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { GameObject, type LuaArray, Optional, TCount, TIndex, TRate, TSection } from "@/engine/lib/types";
+import { GameObject, type LuaArray, Nillable, TCount, TIndex, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * Process object wounded condition lists for HP based on whether actor sees object or not.
@@ -22,16 +22,16 @@ export function processHPWound(
 ): LuaMultiReturn<[TSection, TSection]> {
   // todo: Probably key should be taken from states or states see based on *.see() condition.
   // todo: Potential crash if visible/not visible keys are different.
-  const key: Optional<TIndex> = getStateIndexByHp(states, hp);
+  const key: Nillable<TIndex> = getStateIndexByHp(states, hp);
 
-  if (key === null) {
+  if ($isNil(key)) {
     return $multi(NIL, NIL);
   }
 
   const descriptor: IWoundedStateDescriptor = object.see(registry.actor) ? statesSee.get(key) : states.get(key);
 
-  let stateResult: Optional<TSection> = null;
-  let soundResult: Optional<TSection> = null;
+  let stateResult: Nillable<TSection> = null;
+  let soundResult: Nillable<TSection> = null;
 
   if (descriptor.state) {
     stateResult = pickSectionFromCondList(registry.actor, object, descriptor.state as TConditionList);
@@ -57,16 +57,16 @@ export function processPsyWound(
   states: LuaArray<IWoundedStateDescriptor>,
   hp: TCount
 ): LuaMultiReturn<[TSection, TSection]> {
-  const key: Optional<TIndex> = getStateIndexByHp(states, hp);
+  const key: Nillable<TIndex> = getStateIndexByHp(states, hp);
 
-  if (key === null) {
+  if ($isNil(key)) {
     return $multi(NIL, NIL);
   }
 
   const descriptor: IWoundedStateDescriptor = states.get(key);
 
-  let stateResult: Optional<TSection> = null;
-  let soundResult: Optional<TSection> = null;
+  let stateResult: Nillable<TSection> = null;
+  let soundResult: Nillable<TSection> = null;
 
   if (descriptor.state) {
     stateResult = pickSectionFromCondList(registry.actor, object, descriptor.state as TConditionList);
@@ -88,9 +88,9 @@ export function processPsyWound(
  * @returns Result of victim condition list based on current HP breakpoint.
  */
 export function processVictim(object: GameObject, states: LuaArray<IWoundedStateDescriptor>, hp: TRate): string {
-  const key: Optional<TIndex> = getStateIndexByHp(states, hp);
+  const key: Nillable<TIndex> = getStateIndexByHp(states, hp);
 
-  if (key === null) {
+  if ($isNil(key)) {
     return NIL;
   }
 
@@ -110,9 +110,9 @@ export function processVictim(object: GameObject, states: LuaArray<IWoundedState
  * @returns Result of fight condition list based on current HP breakpoint.
  */
 export function processFight(object: GameObject, states: LuaArray<IWoundedStateDescriptor>, hp: TRate): string {
-  const key: Optional<TIndex> = getStateIndexByHp(states, hp);
+  const key: Nillable<TIndex> = getStateIndexByHp(states, hp);
 
-  if (key === null) {
+  if ($isNil(key)) {
     return TRUE;
   }
 

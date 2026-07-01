@@ -18,7 +18,7 @@ import {
   DangerObject,
   GameObject,
   ISchemeEventHandler,
-  Optional,
+  Nillable,
   Patrol,
   TTimestamp,
   Vector,
@@ -32,19 +32,19 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
   public state: ISchemeCamperState;
   public patrolManager: StalkerPatrolManager;
 
-  public flag: Optional<number> = null;
+  public flag: Nillable<number> = null;
   public danger: boolean = false;
-  public nextPoint: Optional<ICampPoint> = null;
-  public scantime: Optional<TTimestamp> = null;
-  public direction: Optional<Vector> = null;
-  public position: Optional<Vector> = null;
-  public lookPosition: Optional<Vector> = null;
-  public destPosition: Optional<Vector> = null;
-  public lookPoint: Optional<Vector> = null;
-  public point0: Optional<Vector> = null;
-  public point2: Optional<Vector> = null;
-  public enemy: Optional<GameObject> = null;
-  public enemyPosition: Optional<Vector> = null;
+  public nextPoint: Nillable<ICampPoint> = null;
+  public scantime: Nillable<TTimestamp> = null;
+  public direction: Nillable<Vector> = null;
+  public position: Nillable<Vector> = null;
+  public lookPosition: Nillable<Vector> = null;
+  public destPosition: Nillable<Vector> = null;
+  public lookPoint: Nillable<Vector> = null;
+  public point0: Nillable<Vector> = null;
+  public point2: Nillable<Vector> = null;
+  public enemy: Nillable<GameObject> = null;
+  public enemyPosition: Nillable<Vector> = null;
 
   public constructor(state: ISchemeCamperState, object: GameObject) {
     super(null, ActionCombatCamping.__name);
@@ -91,7 +91,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
 
       const lookPatrol: Patrol = new patrol(this.state.pathLook);
 
-      if (lookPatrol !== null) {
+      if ($isNotNil(lookPatrol)) {
         for (const k of $range(0, lookPatrol.count() - 1)) {
           for (const i of $range(0, 31)) {
             if (lookPatrol.flag(k, i)) {
@@ -138,16 +138,16 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
     super.execute();
     this.enemy = this.object.best_enemy();
 
-    if (this.enemy !== null) {
+    if (this.enemy) {
       this.state.memEnemy = this.object.memory_time(this.enemy);
 
-      if (this.state.memEnemy === null || time_global() - this.state.memEnemy > this.state.idle) {
+      if ($isNil(this.state.memEnemy) || time_global() - this.state.memEnemy > this.state.idle) {
         this.enemy = null;
         this.state.memEnemy = null;
         this.patrolManager.setup();
       }
     } else {
-      if (this.state.memEnemy !== null) {
+      if ($isNotNil(this.state.memEnemy)) {
         this.state.memEnemy = null;
         this.patrolManager.setup();
       }
@@ -170,7 +170,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
         const memoryPosition: Vector = this.object.memory_position(this.enemy);
 
         if (
-          this.enemyPosition === null ||
+          !this.enemyPosition ||
           this.enemyPosition.x !== memoryPosition.x ||
           this.enemyPosition.y !== memoryPosition.y ||
           this.enemyPosition.z !== memoryPosition.z
@@ -211,8 +211,9 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
 
         if (this.state.sniper) {
           if (time_global() - this.state.memEnemy! < this.state.postEnemyWait) {
-            const position: Optional<ILookTargetDescriptor> =
-              this.enemyPosition !== null ? { lookPosition: this.enemyPosition } : null;
+            const position: Nillable<ILookTargetDescriptor> = $isNotNil(this.enemyPosition)
+              ? { lookPosition: this.enemyPosition }
+              : null;
 
             setStalkerState(
               this.object,
@@ -226,7 +227,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
           }
         } else {
           if (isOnCampPatrolWalkPoint(this.object, this.state)) {
-            const position: Optional<ILookTargetDescriptor> =
+            const position: Nillable<ILookTargetDescriptor> =
               this.enemyPosition !== null ? { lookPosition: this.enemyPosition, lookObjectId: null } : null;
 
             setStalkerState(
@@ -259,7 +260,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
 
     if (this.state.sniper) {
       if (isOnCampPatrolWalkPoint(this.object, this.state)) {
-        if (this.scantime === null) {
+        if ($isNil(this.scantime)) {
           this.scantime = time_global();
         }
 
@@ -274,7 +275,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
           return;
         }
 
-        if (this.scantime !== null && time_global() - this.scantime >= this.state.scantimeFree) {
+        if ($isNotNil(this.scantime) && time_global() - this.scantime >= this.state.scantimeFree) {
           this.patrolManager.setup();
         }
       } else {
@@ -326,13 +327,13 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
       return false;
     }
 
-    const danger: Optional<DangerObject> = this.object.best_danger();
+    const danger: Nillable<DangerObject> = this.object.best_danger();
 
     if (!danger) {
       return false;
     }
 
-    const dangerObject: Optional<GameObject> = danger.object();
+    const dangerObject: Nillable<GameObject> = danger.object();
 
     if (!this.danger) {
       this.object.play_sound(stalker_ids.sound_alarm, 1, 0, 1, 0);
@@ -361,7 +362,7 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
    * @param flag - The waypoint flag whose scan points should be swept.
    */
   public scan(flag: number): void {
-    if (this.state.scanTable!.get(flag) === null) {
+    if ($isNil(this.state.scanTable!.get(flag))) {
       return;
     }
 
@@ -374,14 +375,14 @@ export class ActionCombatCamping extends action_base implements ISchemeEventHand
       this.state.lastLookPoint = null;
     }
 
-    if (this.state.scanBegin === null || now - this.state.scanBegin > this.state.timeScanDelta) {
+    if ($isNil(this.state.scanBegin) || now - this.state.scanBegin > this.state.timeScanDelta) {
       this.nextPoint = getNextCampPatrolPoint(flag, this.state) as ICampPoint;
 
-      if (this.state.curLookPoint === null) {
+      if ($isNil(this.state.curLookPoint)) {
         this.state.curLookPoint = 1;
       }
 
-      if (this.state.lastLookPoint === null) {
+      if (!this.state.lastLookPoint) {
         this.state.lastLookPoint = this.nextPoint;
       }
 

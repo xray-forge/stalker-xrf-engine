@@ -3,7 +3,7 @@ import { registry } from "@/engine/core/database";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { NumPadWindow } from "@/engine/core/ui/game/numpad";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { Optional, TLabel } from "@/engine/lib/types";
+import { Nillable, TLabel } from "@/engine/lib/types";
 
 /**
  * Manager of prompting and checking logics.
@@ -34,7 +34,7 @@ export class CodeManager extends AbstractSchemeManager<ISchemeCodeState> {
         pickSectionFromCondList(registry.actor, this.object, this.state.onCode.condlist);
       }
     } else {
-      const condlist: Optional<TConditionList> = this.state.onCheckCode.get(text) as Optional<TConditionList>;
+      const condlist: Nillable<TConditionList> = this.state.onCheckCode.get(text) as Nillable<TConditionList>;
 
       if (condlist) {
         pickSectionFromCondList(registry.actor, this.object, condlist);
