@@ -2,22 +2,17 @@ declare module "fengari" {
   /**
    * Interface describing lua string.
    */
-  interface ILuaString {
-
-  }
+  interface ILuaString {}
 
   /**
    * Interface describing current lua VM state.
    */
-  interface ILuaState {
-
-  }
+  interface ILuaState {}
 
   /**
    * Interface describing lua VM config.
    */
-  interface ILuaConf {
-  }
+  interface ILuaConf {}
 
   /**
    * Interface describing methods available in fengari VM.
@@ -30,10 +25,10 @@ declare module "fengari" {
     lua_pushvalue(state: ILuaState, index: number): unknown;
     lua_pushinteger(state: ILuaState, number: number): unknown;
     lua_pushnumber(state: ILuaState, number: number): unknown;
-    lua_pushnil(state: ILuaState,): unknown;
+    lua_pushnil(state: ILuaState): unknown;
     lua_pop(state: ILuaState, count: number): unknown;
-    lua_isnil(state: ILuaState, index: number): boolean
-    lua_isnumber(state: ILuaState, index: number): boolean
+    lua_isnil(state: ILuaState, index: number): boolean;
+    lua_isnumber(state: ILuaState, index: number): boolean;
     lua_tostring(state: ILuaState, index: number): ILuaString;
     lua_tonumber(state: ILuaState, index: number): number;
     lua_gettop(state: ILuaState): number;
