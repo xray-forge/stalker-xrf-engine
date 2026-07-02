@@ -2,6 +2,8 @@
 
 /**
  * List of monster sections participating in the game.
+ *
+ * @inline
  */
 export const monsters = {
   bloodsucker_normal: "bloodsucker_normal",
@@ -41,7 +43,7 @@ export type TMonster = TMonsters[keyof TMonsters];
  * Enumeration describing possible monster states.
  * Applicable for bloodsuckers for script control of invisibility.
  */
-export enum EMonsterState {
+export const enum EMonsterState {
   NONE = "",
   INVISIBLE = "invis",
   VISIBLE = "vis",

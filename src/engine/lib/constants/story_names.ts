@@ -2,6 +2,8 @@
 
 /**
  * Lust of story names declared in configs for simpler usage.
+ *
+ * @inline
  */
 export const storyNames = {
   actor_surge_hide_2: "actor_surge_hide_2",

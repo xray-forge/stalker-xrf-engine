@@ -2,6 +2,8 @@
  * List of alias normally configured in fsgame.ltx file.
  * Used in game engine to calculate paths for files access.
  * Part of filesystem protection mechanism.
+ *
+ * @inline
  */
 export const roots = {
   appDataRoot: "$app_data_root$", // _appdata_\
