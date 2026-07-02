@@ -130,7 +130,7 @@ describe("TaskObject", () => {
     const setTitleSpy = jest.spyOn(task, "set_title");
 
     // A determined state with a future next-update timestamp: update() must skip the re-evaluation entirely.
-    const future: number = time_global() + taskConfig.UPDATE_CHECK_PERIOD;
+    const future: number = time_global() + taskConfig.UPDATE_CHECK_PERIOD_MIN;
 
     taskObject.state = ETaskState.NEW;
     taskObject.nextUpdateAt = future;
@@ -140,6 +140,38 @@ describe("TaskObject", () => {
     // Throttled: nextUpdateAt is left untouched (a non-throttled run would overwrite it with now + period).
     expect(taskObject.nextUpdateAt).toBe(future);
     expect(setTitleSpy).not.toHaveBeenCalled();
+  });
+
+  it("should throttle updates for in-progress tasks without determined state", () => {
+    const taskObject: TaskObject = new TaskObject("zat_b28_heli_3_crash", TASK_MANAGER_CONFIG_LTX);
+
+    taskObject.onActivate();
+
+    const task: GameTask = taskObject.task as GameTask;
+    const setTitleSpy = jest.spyOn(task, "set_title");
+    const future: number = time_global() + taskConfig.UPDATE_CHECK_PERIOD_MIN;
+
+    taskObject.state = null;
+    taskObject.nextUpdateAt = future;
+    setTitleSpy.mockClear();
+
+    expect(taskObject.update()).toBeNull();
+    expect(taskObject.nextUpdateAt).toBe(future);
+    expect(setTitleSpy).not.toHaveBeenCalled();
+  });
+
+  it("should schedule next update with randomized period after re-evaluation", () => {
+    const taskObject: TaskObject = new TaskObject("zat_b28_heli_3_crash", TASK_MANAGER_CONFIG_LTX);
+
+    taskObject.onActivate();
+
+    const now: number = time_global();
+
+    taskObject.nextUpdateAt = 0;
+    taskObject.update();
+
+    expect(taskObject.nextUpdateAt).toBeGreaterThanOrEqual(now + taskConfig.UPDATE_CHECK_PERIOD_MIN);
+    expect(taskObject.nextUpdateAt).toBeLessThanOrEqual(now + taskConfig.UPDATE_CHECK_PERIOD_MAX);
   });
 
   it.todo("should correctly give tasks");

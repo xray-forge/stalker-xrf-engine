@@ -176,7 +176,8 @@ export class TaskObject {
   public update(): Nillable<ETaskState> {
     const now: TTimestamp = time_global();
 
-    if (this.state && now < this.nextUpdateAt) {
+    // Throttle for any state - `null` state of in-progress tasks is the most common polling case:
+    if (now < this.nextUpdateAt) {
       return this.state;
     }
 
@@ -186,7 +187,7 @@ export class TaskObject {
       return this.state;
     }
 
-    this.nextUpdateAt = now + taskConfig.UPDATE_CHECK_PERIOD;
+    this.nextUpdateAt = now + math.random(taskConfig.UPDATE_CHECK_PERIOD_MIN, taskConfig.UPDATE_CHECK_PERIOD_MAX);
 
     const taskFunctors: AnyCallablesModule = getExtern<AnyCallablesModule>("task_functors");
     const nextTitle: TLabel = taskFunctors[this.titleGetterFunctorName](this.id, "title", this.title);

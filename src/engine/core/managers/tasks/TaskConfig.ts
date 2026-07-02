@@ -25,7 +25,9 @@ export const GUIDERS_BY_LEVEL: LuaTable<TName, LuaTable<TName, TStringId>> = $fr
 } as Record<TName, LuaTable<TName, TName>>);
 
 export const taskConfig = {
-  UPDATE_CHECK_PERIOD: 500,
+  // Update period is randomized in min-max range to spread active tasks re-checks across frames.
+  UPDATE_CHECK_PERIOD_MIN: 500,
+  UPDATE_CHECK_PERIOD_MAX: 1000,
   AVAILABLE_TASKS: readIniSectionsAsSet(TASK_MANAGER_CONFIG_LTX),
   ACTIVE_TASKS: new LuaTable<TStringId, TaskObject>(),
 };
