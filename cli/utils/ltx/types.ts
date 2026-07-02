@@ -49,10 +49,7 @@ export interface ILtxConfigDescriptor extends Record<
   | undefined
 > {
   [index: symbol]:
-    | Record<string, ILtxFieldDescriptor<unknown> | TPrimitive | null | undefined>
-    | TPrimitive
-    | null
-    | undefined;
+    Record<string, ILtxFieldDescriptor<unknown> | TPrimitive | null | undefined> | TPrimitive | null | undefined;
 }
 
 /**
