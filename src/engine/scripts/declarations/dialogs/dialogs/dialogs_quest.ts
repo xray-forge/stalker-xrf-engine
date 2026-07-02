@@ -40,9 +40,9 @@ extern("dialogs.quest_dialog_heli_precond", (firstSpeaker: GameObject, secondSpe
  */
 extern("dialogs.quest_dialog_military_precond", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
   if (hasInfoPortion(infoPortions.zat_b28_heli_3_searched) || hasInfoPortion(infoPortions.jup_b9_blackbox_decrypted)) {
-    if (
-      !(hasInfoPortion(infoPortions.zat_b28_heli_3_searched) && hasInfoPortion(infoPortions.jup_b9_blackbox_decrypted))
-    ) {
+    if (!(
+      hasInfoPortion(infoPortions.zat_b28_heli_3_searched) && hasInfoPortion(infoPortions.jup_b9_blackbox_decrypted)
+    )) {
       return true;
     }
   }
@@ -93,12 +93,10 @@ extern("dialogs.quest_dialog_toolkits_precond", (firstSpeaker: GameObject, secon
  * @returns Whether the Monolith squad leader is alive.
  */
 extern("dialogs.monolith_leader_is_alive", (firstSpeaker: GameObject, secondSpeaker: GameObject): boolean => {
-  if (
-    !(
-      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
-    )
-  ) {
+  if (!(
+    hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+    hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
+  )) {
     return isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
@@ -123,12 +121,10 @@ extern("dialogs.monolith_leader_dead_or_hired", (firstSpeaker: GameObject, secon
     return true;
   }
 
-  if (
-    !(
-      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
-    )
-  ) {
+  if (!(
+    hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+    hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
+  )) {
     return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
@@ -153,12 +149,10 @@ extern("dialogs.monolith_leader_dead_or_dolg", (firstSpeaker: GameObject, second
     return true;
   }
 
-  if (
-    !(
-      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
-    )
-  ) {
+  if (!(
+    hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+    hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
+  )) {
     return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
@@ -437,12 +431,10 @@ extern("dialogs.monolith_leader_dead_or_freedom", (firstSpeaker: GameObject, sec
     return true;
   }
 
-  if (
-    !(
-      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
-      hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
-    )
-  ) {
+  if (!(
+    hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_freedom) ||
+    hasInfoPortion(infoPortions.jup_b4_monolith_squad_in_duty)
+  )) {
     return !isStalkerAlive("jup_b4_monolith_squad_leader_monolith_skin");
   }
 
