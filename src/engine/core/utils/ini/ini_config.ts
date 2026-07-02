@@ -14,7 +14,7 @@ import {
   readIniTwoNumbers,
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
-import { TConditionList } from "@/engine/core/utils/ini/ini_types";
+import { IConfigCondition, IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NEVER, NIL } from "@/engine/lib/constants/words";
@@ -77,10 +77,16 @@ export function pickSectionFromCondList<T extends TSection>(
   object: Nillable<GameObject | ServerObject>,
   condlist: TConditionList
 ): Nillable<T> {
-  for (const [, switchCondition] of condlist) {
+  // Iterate numerically instead of generic for-of to avoid `pairs` overhead in the hottest util.
+  for (const index of $range(1, condlist.length())) {
+    const switchCondition: IConfigSwitchCondition = condlist.get(index);
+    const infoPortionsCheckList: LuaArray<IConfigCondition> = switchCondition.infop_check;
+
     let areInfoPortionConditionsMet: boolean = true;
 
-    for (const [, configCondition] of switchCondition.infop_check) {
+    for (const checkIndex of $range(1, infoPortionsCheckList.length())) {
+      const configCondition: IConfigCondition = infoPortionsCheckList.get(checkIndex);
+
       if (configCondition.prob) {
         const randomValue: TProbability = math.random(100);
 
@@ -128,7 +134,11 @@ export function pickSectionFromCondList<T extends TSection>(
     }
 
     if (areInfoPortionConditionsMet) {
-      for (const [, configCondition] of switchCondition.infop_set) {
+      const infoPortionsSetList: LuaArray<IConfigCondition> = switchCondition.infop_set;
+
+      for (const setIndex of $range(1, infoPortionsSetList.length())) {
+        const configCondition: IConfigCondition = infoPortionsSetList.get(setIndex);
+
         if (configCondition.func) {
           const effect: Nillable<AnyCallable> = (_G as AnyObject)["xr_effects"][configCondition.func];
 
