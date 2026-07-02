@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * @inline
+ * @virtual
  */
 export const zatonInfoPortions = {
   zat_a1_tutorial_end: "zat_a1_tutorial_end",

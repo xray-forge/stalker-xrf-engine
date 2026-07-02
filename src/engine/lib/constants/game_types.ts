@@ -1,7 +1,7 @@
 /**
  * List of available game modes based on bit masks.
  *
- * @inline
+ * @virtual
  */
 export const gameTypes = {
   // -- game internal types, do not change
@@ -31,6 +31,8 @@ export const gameTypes = {
 
 /**
  * Possible game types supported by engine.
+ *
+ * @virtual
  */
 export const enum EGameType {
   SINGLE = "single",

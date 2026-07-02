@@ -130,7 +130,7 @@ export function trySwitchToAnotherSection(object: GameObject, state: IBaseScheme
  * @returns Whether scheme switch happened.
  */
 export function switchObjectSchemeToSection(object: GameObject, ini: IniFile, section: Nillable<TSection>): boolean {
-  if (section === "" || section === null) {
+  if (section === "" || $isNil(section)) {
     return false;
   }
 

@@ -2,6 +2,8 @@ import { stalker_ids } from "xray16";
 
 /**
  * Evaluators IDs of GOAP motivation planner.
+ *
+ * @virtual
  */
 export enum EEvaluatorId {
   /**

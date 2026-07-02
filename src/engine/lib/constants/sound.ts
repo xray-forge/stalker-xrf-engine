@@ -3,6 +3,8 @@
 /**
  * Enumeration describing sound type that can be heard by game objects.
  * Usually provided in `hear` callbacks.
+ *
+ * @virtual
  */
 export const enum ESoundType {
   ITM = "ITM",

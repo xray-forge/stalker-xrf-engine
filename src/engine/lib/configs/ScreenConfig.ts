@@ -1,3 +1,6 @@
+/**
+ * @virtual
+ */
 export const screenConfig = {
   BASE_WIDTH: 1024,
   BASE_WIDTH_WIDE: 1280,

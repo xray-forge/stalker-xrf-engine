@@ -3,27 +3,27 @@ import { TName } from "@/engine/lib/types";
 /**
  * Section with smart terrain configuration in ini files.
  *
- * @inline
+ * @virtual
  */
 export const SMART_TERRAIN_SECTION: TName = "smart_terrain";
 
 /**
  * Section representing stalkers that are used only for cutscenes / scenarios.
  *
- * @inline
+ * @virtual
  */
 export const ACTOR_VISUAL_STALKER: TName = "actor_visual_stalker";
 
 /**
  * Section to disable meet scheme.
  *
- * @inline
+ * @virtual
  */
 export const NO_MEET_SECTION: TName = "no_meet";
 
 /**
  * Section to describe loot secrets.
  *
- * @inline
+ * @virtual
  */
 export const SECRET_SECTION: TName = "secret";

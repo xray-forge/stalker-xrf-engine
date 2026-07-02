@@ -3,7 +3,7 @@
 /**
  * List of available game tutorials to activate.
  *
- * @inline
+ * @virtual
  */
 export const gameTutorials = {
   credits_seq: "credits_seq",

@@ -4,7 +4,7 @@ import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_m
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { pickRandom } from "@/engine/core/utils/random";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
-import { TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import { GameObject, TRate, TTimestamp, Vector } from "@/engine/lib/types";
 
 /**
  * @param manager - Instance to initialize.
@@ -53,7 +53,7 @@ export function updateHelicopterCombatSearchShooting(manager: HelicopterCombatMa
 
     if (manager.searchBeginShootAt) {
       if (manager.searchBeginShootAt < now) {
-        manager.helicopter.SetEnemy(manager.enemy);
+        manager.helicopter.SetEnemy(manager.enemy as GameObject);
       }
     } else {
       manager.searchBeginShootAt = now + helicopterConfig.SEARCH_SHOOT_DELAY;

@@ -27,6 +27,11 @@ export default [
       },
     },
     settings: {
+      jsdoc: {
+        tagNamePreference: {
+          virtual: "virtual",
+        },
+      },
       react: { version: "18" },
     },
     plugins: {
@@ -45,7 +50,7 @@ export default [
       "@typescript-eslint/no-inferrable-types": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/no-unused-vars": "off",
-      "jsdoc/check-tag-names": ["warn", { definedTags: ["inline"] }],
+      "jsdoc/check-tag-names": ["warn", { definedTags: ["inline", "virtual"] }],
       "jsdoc/tag-lines": [
         "error",
         "any",

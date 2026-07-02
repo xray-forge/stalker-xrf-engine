@@ -4,7 +4,7 @@ import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
 import { pickRandom } from "@/engine/core/utils/random";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
-import { TTimestamp } from "@/engine/lib/types";
+import { GameObject, TTimestamp } from "@/engine/lib/types";
 
 /**
  * @param manager - Instance to initialize.
@@ -48,7 +48,7 @@ export function updateHelicopterCombatRoundShooting(manager: HelicopterCombatMan
 
     if (manager.roundBeginShootTime) {
       if (manager.roundBeginShootTime < now) {
-        manager.helicopter.SetEnemy(manager.enemy);
+        manager.helicopter.SetEnemy(manager.enemy as GameObject);
       }
     } else {
       manager.roundBeginShootTime = now + helicopterConfig.ROUND_SHOOT_DELAY;

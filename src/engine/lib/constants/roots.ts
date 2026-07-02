@@ -3,7 +3,7 @@
  * Used in game engine to calculate paths for files access.
  * Part of filesystem protection mechanism.
  *
- * @inline
+ * @virtual
  */
 export const roots = {
   appDataRoot: "$app_data_root$", // _appdata_\

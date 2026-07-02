@@ -54,7 +54,7 @@ export function logObjectPlannerState(object: GameObject): void {
   logger.info("Current best enemy: %s", object.best_enemy()?.name());
   logger.info("Current best danger: %s", object.best_danger()?.object()?.name());
   logger.info("Current planner initialized: %s", actionPlanner.initialized());
-  logger.info("Current planner action id: %s %s", currentActionId, EActionId[currentActionId]);
+  logger.info("Current planner action id: %s %s", currentActionId);
 
   // Detect specifically which action is played.
   if (

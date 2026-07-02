@@ -2,7 +2,7 @@ import { EHelicopterFlyByState } from "@/engine/core/schemes/helicopter/heli_mov
 import type { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { Vector } from "@/engine/lib/types";
+import { GameObject, Vector } from "@/engine/lib/types";
 
 /**
  * @param manager - Instance to initialize.
@@ -58,7 +58,7 @@ export function updateHelicopterCombatFlyByFlight(manager: HelicopterCombatManag
 
     case EHelicopterFlyByState.TO_ENEMY: {
       if (!manager.isStateInitialized) {
-        manager.helicopter.SetEnemy(manager.enemy);
+        manager.helicopter.SetEnemy(manager.enemy as GameObject);
         manager.helicopter.UseFireTrail(true);
 
         manager.flybyStatesForOnePass = manager.flybyStatesForOnePass - 1;

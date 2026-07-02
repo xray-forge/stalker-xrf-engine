@@ -3,7 +3,7 @@
 /**
  * List of available animation objects.
  *
- * @inline
+ * @virtual
  */
 export const animations = {
   artefact_test_fireball_1_cam: "artefact_test_fireball_1_cam.anm",

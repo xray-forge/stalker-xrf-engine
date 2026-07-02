@@ -1,7 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
 /**
- * @inline
+ * @virtual
  */
 export const jupiterInfoPortions = {
   /**
