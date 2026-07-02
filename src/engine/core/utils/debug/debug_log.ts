@@ -2,7 +2,6 @@ import { cast_planner, CTime, relation_registry } from "xray16";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state";
-import { EStateActionId } from "@/engine/core/ai/state/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
@@ -87,7 +86,7 @@ export function logObjectPlannerState(object: GameObject): void {
     const currentActionId: Nillable<TNumberId> = actionPlanner.current_action_id();
 
     logger.info("Current state planner initialized: %s", actionPlanner.initialized());
-    logger.info("Current state action id: %s %s", currentActionId, EStateActionId[currentActionId]);
+    logger.info("Current state action id: %s %s", currentActionId);
 
     if ($isNotNil(actionPlanner.show)) {
       actionPlanner.show(plannerShowPrefix + "[planner] ");

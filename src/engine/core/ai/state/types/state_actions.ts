@@ -1,7 +1,7 @@
 /**
  * Action IDs of state manager actions.
  */
-export enum EStateActionId {
+export const enum EStateActionId {
   END = 1,
   LOCKED = 2,
   LOCKED_EXTERNAL = 3,

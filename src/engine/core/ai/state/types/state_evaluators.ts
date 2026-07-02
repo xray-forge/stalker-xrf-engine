@@ -1,7 +1,7 @@
 /**
  * IDs of state planner evaluators.
  */
-export enum EStateEvaluatorId {
+export const enum EStateEvaluatorId {
   END = 1,
   // Whether state is locked and cannot be changed (weapon animation happening, turning body)
   LOCKED = 2,

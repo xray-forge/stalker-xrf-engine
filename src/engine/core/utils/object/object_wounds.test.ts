@@ -10,7 +10,7 @@ import {
   isObjectPsyWounded,
   setObjectWounded,
 } from "@/engine/core/utils/object/object_wounds";
-import { EScheme, GameObject, Hit, Optional } from "@/engine/lib/types";
+import { EScheme, GameObject, Hit, Nillable } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
@@ -41,7 +41,7 @@ describe("setObjectWounded util", () => {
   });
 
   it("should correctly set objects as wounded", () => {
-    let objectHit: Optional<Hit> = null as Optional<Hit>;
+    let objectHit: Nillable<Hit> = null as Nillable<Hit>;
     const object: GameObject = MockGameObject.mock();
 
     jest.spyOn(object, "hit").mockImplementation((it: Hit) => {
