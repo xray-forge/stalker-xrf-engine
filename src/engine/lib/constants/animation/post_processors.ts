@@ -2,6 +2,8 @@
 
 /**
  * List of available post processors.
+ *
+ * @inline
  */
 export const postProcessors = {
   acidic: "acidic.ppe",

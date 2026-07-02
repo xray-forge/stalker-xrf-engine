@@ -2,6 +2,8 @@
 
 /**
  * List of available stalkers game communities.
+ *
+ * @inline
  */
 export const stalkerCommunities = {
   army: "army",
@@ -17,6 +19,8 @@ export const stalkerCommunities = {
 
 /**
  * List of available monsters game communities.
+ *
+ * @inline
  */
 export const monsterCommunities = {
   monster: "monster",
@@ -30,6 +34,8 @@ export const monsterCommunities = {
 
 /**
  * List of all available game communities.
+ *
+ * @inline
  */
 export const communities = {
   ...stalkerCommunities,
