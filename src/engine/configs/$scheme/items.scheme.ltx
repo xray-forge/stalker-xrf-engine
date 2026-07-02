@@ -304,8 +304,8 @@ snd_explode = string
 trail_light_color = ?f32[]
 trail_light_range = ?f32
 up_throw_factor = f32
-wm_size = f32
 wallmark_section = section
+wm_size = f32
 
 [$artefact_spawn_zones]
 strict = true
@@ -322,37 +322,37 @@ spawning = tuple:f32,string,f32,f32,f32,f32,string,string
 [$artefact_absorbation]
 strict = true
 burn_immunity = f32
-strike_immunity = f32
-shock_immunity = f32
-wound_immunity = f32
-radiation_immunity = f32
-telepatic_immunity = f32
 chemical_burn_immunity = f32
 explosion_immunity = f32
 fire_wound_immunity = f32
+radiation_immunity = f32
+shock_immunity = f32
+strike_immunity = f32
+telepatic_immunity = f32
+wound_immunity = f32
 
 [$artefact_params]
+bleeding_restore_speed = ?f32
 health_restore_speed = ?f32
+power_restore_speed = ?f32
 radiation_restore_speed = ?f32
 satiety_restore_speed = ?f32
-power_restore_speed = ?f32
-bleeding_restore_speed = ?f32
 
 [$artefact_hud]:$hud_base
 strict = true
-item_visual = string
-attach_place_idx = u32
-hands_position = vector
-hands_orientation = vector
-hands_position_16x9 = vector
-hands_orientation_16x9 = vector
-item_position = vector
-item_orientation = vector
+anm_activate = string
+anm_hide = string
 anm_idle = string
 anm_idle_sprint = string
-anm_hide = string
 anm_show = string
-anm_activate = string
+attach_place_idx = u32
+hands_orientation = vector
+hands_orientation_16x9 = vector
+hands_position = vector
+hands_position_16x9 = vector
+item_orientation = vector
+item_position = vector
+item_visual = string
 
 [$artefact_base]:$identity_immunities
 actor_properties = enum:on,off
@@ -368,6 +368,8 @@ det_hide_snd = string
 det_show_particles = string
 det_show_snd = string
 idle_light_shadow = bool
+inv_grid_x = u32
+inv_grid_y = u32
 particles_bone = string
 
 [$item_artefact]:$item,$artefact_base,$artefact_params
@@ -427,17 +429,17 @@ wounds_heal_perc = f32
 
 [$item_booster]:$booster
 strict = true
-use_sound = string
-bone_name = ?string
-position_offset = ?vector
 angle_offset = ?vector
+bone_name = ?string
 break_particles = ?string
 break_sound = ?string
+position_offset = ?vector
+use_sound = string
 
 [$action_fuse]
 condition_to_explode = f32
-time_to_explode = f32
 set_timer_particles = string
+time_to_explode = f32
 
 [$item_explosive]:$item,$action_fuse,$default_weapon_params
 strict = true
@@ -463,13 +465,13 @@ wm_size = f32
 
 [$inventory_box]
 strict = true
-GroupControlSection = string
-discovery_dependency = ?string
 $spawn = string
-class = string
+GroupControlSection = string
 cform = string
-visual = string
+class = string
+discovery_dependency = ?string
 script_binding = string
+visual = string
 
 [$flare]:$item
 strict = true
