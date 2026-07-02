@@ -12,5 +12,6 @@ declare module "expect" {
     toStrictEqualLuaTables(expected: Record<string, any> | LuaTable | null | undefined): ExpectationResult;
     toEqualLuaArrays(expected: Array<unknown> | LuaTable<number, unknown> | null | undefined): ExpectationResult;
     toStrictEqualLuaArrays(expected: Array<unknown> | LuaTable<number, unknown> | null | undefined): ExpectationResult;
+    toBeNil(): ExpectationResult;
   }
 }

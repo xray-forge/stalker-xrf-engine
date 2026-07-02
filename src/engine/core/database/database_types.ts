@@ -6,6 +6,7 @@ import { TConditionList } from "@/engine/core/utils/ini";
 import {
   AnyObject,
   EScheme,
+  ESchemeCondition,
   ESchemeType,
   GameObject,
   IniFile,
@@ -17,6 +18,7 @@ import {
   TNumberId,
   TRate,
   TSection,
+  TStringifiedNil,
   TTimestamp,
 } from "@/engine/lib/types";
 
@@ -24,6 +26,11 @@ import {
  * Descriptor of a single parsed scheme logic entry with its condition list and parameters.
  */
 export interface IBaseSchemeLogic {
+  /**
+   * Internal field, not for direct access.
+   * Scheme condition type memoized on first switch evaluation, `name` field without numeric suffix.
+   */
+  $condition?: Nillable<ESchemeCondition | TStringifiedNil>;
   name: TName;
   condlist: TConditionList;
   objectId: Nillable<TNumberId>;

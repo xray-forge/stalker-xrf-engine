@@ -24,14 +24,14 @@ import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 // todo: Complex logic switch
-describe("trySwitchToAnotherSection util", () => {
+describe("trySwitchToAnotherSection", () => {
   const originalTime: MockCTime = MockCTime.nowTime.copy();
 
   afterAll(() => {
     MockCTime.nowTime = originalTime;
   });
 
-  it("trySwitchToAnotherSection should throw if no logic present / logic is not expected", () => {
+  it("should throw if no logic present / logic is not expected", () => {
     const object: GameObject = MockGameObject.mock();
 
     const firstState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
@@ -56,7 +56,91 @@ describe("trySwitchToAnotherSection util", () => {
     expect(() => trySwitchToAnotherSection(object, thirdState)).toThrow();
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_LESS_THAN", () => {
+  it("should memoize condition name without numeric suffix", () => {
+    const actor: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock();
+    const objectState: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
+      "sr_idle@default": {},
+      "sr_idle@next": {},
+    });
+    const condition: IBaseSchemeLogic = mockBaseSchemeLogic({
+      name: "on_info2",
+      condlist: parseConditionsList("{+expected_info} sr_idle@next, sr_idle@default"),
+    });
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
+      ini,
+      logic: $fromArray([condition]),
+    });
+
+    registerActor(actor);
+    loadSchemeImplementation(SchemeIdle);
+
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
+
+    expect(condition.$condition).toBeNil();
+
+    trySwitchToAnotherSection(object, schemeState);
+
+    expect(condition.$condition).toBe(ESchemeCondition.ON_INFO);
+    expect(objectState.activeSection).toBe("sr_idle@default");
+  });
+
+  it("should reuse memoized condition name on next checks", () => {
+    const actor: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock();
+    const objectState: IRegistryObjectState = registerObject(object);
+    const ini: IniFile = MockIniFile.mock("test.ltx", {
+      "sr_idle@default": {},
+      "sr_idle@next": {},
+    });
+    const condition: IBaseSchemeLogic = mockBaseSchemeLogic({
+      name: "on_info2",
+      condlist: parseConditionsList("{+expected_cached_info} sr_idle@next, sr_idle@default"),
+    });
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
+      ini,
+      logic: $fromArray([condition]),
+    });
+
+    registerActor(actor);
+    loadSchemeImplementation(SchemeIdle);
+
+    objectState.activeScheme = EScheme.SR_IDLE;
+    objectState.activeSection = "sr_idle@default";
+
+    expect(condition.$condition).toBeNil();
+
+    trySwitchToAnotherSection(object, schemeState);
+
+    expect(condition.$condition).toBe(ESchemeCondition.ON_INFO);
+
+    // Still will use cached info, ignoring this name set:
+    condition.name = "on_unexpected";
+
+    giveInfoPortion("expected_cached_info");
+    trySwitchToAnotherSection(object, schemeState);
+
+    expect(condition.$condition).toBe(ESchemeCondition.ON_INFO);
+    expect(objectState.activeSection).toBe("sr_idle@next");
+  });
+
+  it("should memoize NIL for unknown condition names before throwing", () => {
+    const actor: GameObject = MockGameObject.mock();
+    const object: GameObject = MockGameObject.mock();
+    const condition: IBaseSchemeLogic = mockBaseSchemeLogic({ name: "123" });
+    const schemeState: IBaseSchemeState = mockSchemeState(EScheme.SR_IDLE, {
+      logic: $fromArray([condition]),
+    });
+
+    registerActor(actor);
+
+    expect(() => trySwitchToAnotherSection(object, schemeState)).toThrow();
+    expect(condition.$condition).toBe(NIL);
+  });
+
+  it("should correctly check ON_ACTOR_DISTANCE_LESS_THAN", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -100,7 +184,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE", () => {
+  it("should correctly check ON_ACTOR_DISTANCE_LESS_THAN_NOT_VISIBLE", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -136,7 +220,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_GREATER_THAN", () => {
+  it("should correctly check ON_ACTOR_DISTANCE_GREATER_THAN", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -180,7 +264,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE", () => {
+  it("should correctly check ON_ACTOR_DISTANCE_GREATER_THAN_NOT_VISIBLE", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -216,7 +300,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_ACTOR_INSIDE", () => {
+  it("should correctly check ON_ACTOR_INSIDE", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -249,7 +333,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_ACTOR_OUTSIDE", () => {
+  it("should correctly check ON_ACTOR_OUTSIDE", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -283,7 +367,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_SIGNAL", () => {
+  it("should correctly check ON_SIGNAL", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -321,7 +405,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_INFO", () => {
+  it("should correctly check ON_INFO", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -356,7 +440,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_TIMER", () => {
+  it("should correctly check ON_TIMER", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -395,7 +479,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_GAME_TIMER", () => {
+  it("should correctly check ON_GAME_TIMER", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -434,7 +518,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_ACTOR_IN_ZONE", () => {
+  it("should correctly check ON_ACTOR_IN_ZONE", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -472,7 +556,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_ACTOR_NOT_IN_ZONE", () => {
+  it("should correctly check ON_ACTOR_NOT_IN_ZONE", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -511,7 +595,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_NPC_IN_ZONE", () => {
+  it("should correctly check ON_NPC_IN_ZONE", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -553,7 +637,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly check ON_NPC_NOT_IN_ZONE", () => {
+  it("should correctly check ON_NPC_NOT_IN_ZONE", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -595,7 +679,7 @@ describe("trySwitchToAnotherSection util", () => {
     expect(objectState.activeSection).toBe("sr_idle@next");
   });
 
-  it("trySwitchToAnotherSection should correctly handle multiple conditions", () => {
+  it("should correctly handle multiple conditions", () => {
     const actor: GameObject = MockGameObject.mock();
     const object: GameObject = MockGameObject.mock();
     const objectState: IRegistryObjectState = registerObject(object);
@@ -639,7 +723,7 @@ describe("trySwitchToAnotherSection util", () => {
   });
 });
 
-describe("switchObjectSchemeToSection util", () => {
+describe("switchObjectSchemeToSection", () => {
   const originalTime: MockCTime = MockCTime.nowTime.copy();
 
   afterAll(() => {

@@ -1,6 +1,7 @@
 import { expect } from "@jest/globals";
 
 import {
+  toBeNil,
   toEqualLuaArrays,
   toEqualLuaTables,
   toStrictEqualLuaArrays,
@@ -12,6 +13,7 @@ import {
  */
 export function extendJest(): void {
   expect.extend({
+    toBeNil,
     toEqualLuaArrays,
     toEqualLuaTables,
     toStrictEqualLuaArrays,

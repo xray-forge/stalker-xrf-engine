@@ -103,7 +103,13 @@ export function trySwitchToAnotherSection(object: GameObject, state: IBaseScheme
   assert(logic, "Can't find `logic` in state, section '%s'.", state.section);
 
   for (const [, condition] of logic) {
-    const conditionName: ESchemeCondition = (string.match(condition.name, "([%a_]*)")[0] as ESchemeCondition) || NIL;
+    // Memoize condition type on first evaluation - lua pattern matching is too costly for every tick:
+    let conditionName: Nillable<ESchemeCondition | typeof NIL> = condition.$condition;
+
+    if (!conditionName) {
+      conditionName = (string.match(condition.name, "([%a_]*)")[0] as ESchemeCondition) || NIL;
+      condition.$condition = conditionName;
+    }
 
     if (SCHEME_LOGIC_SWITCH[conditionName](registry.actor, object, state, condition)) {
       return true;

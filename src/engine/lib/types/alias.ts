@@ -84,3 +84,8 @@ export type TNotCastedBoolean = 0 | 1;
  * Boolean value cast to string.
  */
 export type TStringifiedBoolean = "true" | "false";
+
+/**
+ * Nil value represented as string.
+ */
+export type TStringifiedNil = "nil";
