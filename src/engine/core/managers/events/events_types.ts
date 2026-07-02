@@ -2,6 +2,8 @@ import { AnyCallable, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
  * List of event to emit across the core.
+ *
+ * @inline
  */
 export enum EGameEvent {
   /**

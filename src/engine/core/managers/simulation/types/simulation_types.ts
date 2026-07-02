@@ -23,6 +23,8 @@ export const enum ESimulationRole {
 
 /**
  * Type of smart terrain simulation role.
+ *
+ * @inline
  */
 export enum ESimulationTerrainRole {
   DEFAULT = "default",

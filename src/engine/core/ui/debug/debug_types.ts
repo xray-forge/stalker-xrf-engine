@@ -15,6 +15,8 @@ import { DebugTreasuresSection } from "@/engine/core/ui/debug/sections/DebugTrea
 
 /**
  * Possible debug sections to attach and edit game functionality.
+ *
+ * @inline
  */
 export enum EDebugSection {
   COMMANDS = "commands",
