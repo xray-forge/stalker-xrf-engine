@@ -166,6 +166,10 @@ describe("TreasureManager", () => {
     expect(descriptor.empty).not.toBeNull();
     expect(descriptor.checked).toBe(false);
 
+    const eventsManager: EventsManager = getManager(EventsManager);
+
+    jest.spyOn(eventsManager, "emitEvent").mockImplementation(jest.fn());
+
     manager.lastUpdatedAt = -1000;
     descriptor.given = true;
     manager.update();
@@ -173,6 +177,8 @@ describe("TreasureManager", () => {
     expect(removeTreasureMapSpot).toHaveBeenCalledWith(1501, descriptor);
     expect(descriptor.empty).toBeNull();
     expect(descriptor.checked).toBe(true);
+    // Emptying via the `empty` condlist still counts toward the found-treasures statistic.
+    expect(eventsManager.emitEvent).toHaveBeenCalledWith(EGameEvent.TREASURE_FOUND, descriptor);
   });
 
   it("should correctly handle refresh state in updates", () => {

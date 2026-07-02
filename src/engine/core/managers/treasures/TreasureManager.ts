@@ -106,6 +106,8 @@ export class TreasureManager extends AbstractManager {
           descriptor.checked = true;
 
           removeTreasureMapSpot(this.treasuresRestrictorByName.get(section), descriptor);
+
+          EventsManager.emitEvent(EGameEvent.TREASURE_FOUND, descriptor);
         } else if (
           descriptor.refreshing &&
           descriptor.checked &&
