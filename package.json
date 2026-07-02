@@ -25,7 +25,7 @@
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "dependencies": {
-    "xray16": "1.6.1"
+    "xray16": "1.6.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
