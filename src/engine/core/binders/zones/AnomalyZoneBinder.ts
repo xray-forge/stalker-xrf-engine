@@ -269,11 +269,11 @@ export class AnomalyZoneBinder extends object_binder {
   public override update(delta: TDuration): void {
     super.update(delta);
 
-    if (this.isTurnedOff) {
-      return;
-    }
-
-    if (this.spawnedArtefactsCount < this.maxArtefactsInZone && this.shouldRespawnArtefactsIfPossible) {
+    if (
+      !this.isTurnedOff &&
+      this.spawnedArtefactsCount < this.maxArtefactsInZone &&
+      this.shouldRespawnArtefactsIfPossible
+    ) {
       const availableArtefactSpots: number = this.maxArtefactsInZone - this.spawnedArtefactsCount;
       let respawnTries: TCount = this.respawnTries;
 
@@ -292,7 +292,11 @@ export class AnomalyZoneBinder extends object_binder {
       }
 
       this.shouldRespawnArtefactsIfPossible = false;
-    } else if (this.spawnedArtefactsCount >= this.maxArtefactsInZone && this.shouldRespawnArtefactsIfPossible) {
+    } else if (
+      !this.isTurnedOff &&
+      this.spawnedArtefactsCount >= this.maxArtefactsInZone &&
+      this.shouldRespawnArtefactsIfPossible
+    ) {
       this.shouldRespawnArtefactsIfPossible = false;
     }
 
@@ -548,6 +552,8 @@ export class AnomalyZoneBinder extends object_binder {
 
         if (random <= spawnRate) {
           section = artefactsList.get(it);
+
+          break;
         }
 
         random -= spawnRate;

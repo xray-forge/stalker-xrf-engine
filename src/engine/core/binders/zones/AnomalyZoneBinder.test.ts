@@ -87,11 +87,54 @@ describe("AnomalyZoneBinder", () => {
 
   it.todo("should correctly handle respawn artefacts and changing anomalies layouts");
 
-  it.todo("should correctly spawn random artefacts");
+  it("should correctly spawn random artefacts", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
+
+    binder.currentZoneLayer = "layer-1";
+    binder.artefactsSpawnList.set("layer-1", $fromArray(["art_a", "art_b", "art_c"]));
+    binder.artefactsSpawnCoefficients.set("layer-1", $fromArray([2, 3, 5]));
+
+    const randomSpy = jest.spyOn(math, "random");
+
+    randomSpy.mockReturnValueOnce(1).mockReturnValueOnce(1);
+    expect(binder.getArtefactSectionToSpawn()).toBe("art_a");
+
+    randomSpy.mockReturnValueOnce(1).mockReturnValueOnce(4);
+    expect(binder.getArtefactSectionToSpawn()).toBe("art_b");
+
+    randomSpy.mockReturnValueOnce(1).mockReturnValueOnce(10);
+    expect(binder.getArtefactSectionToSpawn()).toBe("art_c");
+
+    // Spawn-chance gate: a roll above ARTEFACT_SPAWN_CHANCE (17) yields no spawn.
+    randomSpy.mockReturnValueOnce(100);
+    expect(binder.getArtefactSectionToSpawn()).toBeNull();
+
+    randomSpy.mockRestore();
+  });
 
   it.todo("should correctly handle artefact paths");
 
-  it.todo("should correctly handle update event");
+  it("should still switch anomaly fields on update while turned off", () => {
+    const object: GameObject = MockGameObject.mock();
+    const binder: AnomalyZoneBinder = new AnomalyZoneBinder(object);
+
+    jest.spyOn(binder, "switchAnomalyFields").mockImplementation(jest.fn());
+    jest.spyOn(binder, "getArtefactSectionToSpawn").mockImplementation(jest.fn(() => null));
+
+    // Turned-off zone: spawning is skipped, but the per-tick field switch must still run:
+    binder.isTurnedOff = true;
+    binder.isDisabled = false;
+    binder.shouldRespawnArtefactsIfPossible = true;
+    binder.maxArtefactsInZone = 5;
+    binder.spawnedArtefactsCount = 0;
+
+    binder.update(1);
+
+    expect(binder.getArtefactSectionToSpawn).not.toHaveBeenCalled();
+    expect(binder.shouldRespawnArtefactsIfPossible).toBe(true);
+    expect(binder.switchAnomalyFields).toHaveBeenCalledTimes(1);
+  });
 
   it.todo("should correctly handle artefact taking");
 
