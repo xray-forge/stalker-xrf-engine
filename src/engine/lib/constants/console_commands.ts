@@ -334,6 +334,8 @@
  * CMD3(CCC_Mask, "rs_clear_bb", &psDeviceFlags, rsClearBB);
  * #endif
  * }.
+ *
+ * @inline
  */
 export const consoleCommands = {
   ai_dbg_alife: "ai_dbg_alife",

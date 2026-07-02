@@ -25,12 +25,12 @@ export const iconByKilledMonsters: PartialRecord<TMonster, TName> = {
   [monsters.pseudodog_strong]: "ui_inGame2_PseudoDog",
   [monsters.snork]: "ui_inGame2_Snork",
   [monsters.tushkano]: "ui_inGame2_Tushkan",
-};
+} as const;
 
 /**
  * Section of PDA statistics layout.
  */
-export enum EPdaStatSection {
+export const enum EPdaStatSection {
   UNKNOWN,
   SURGES,
   COMPLETED_QUESTS,

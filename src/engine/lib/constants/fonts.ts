@@ -2,6 +2,8 @@
 
 /**
  * Declaration of fonts available for in-game usage.
+ *
+ * @inline
  */
 export const fonts = {
   graffiti19: "graffiti19",

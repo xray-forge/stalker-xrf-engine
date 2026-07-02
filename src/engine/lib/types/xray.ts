@@ -232,27 +232,29 @@ export type WorldState = world_state;
 export type XmlInit = CScriptXmlInit;
 export type ZoneCampfire = CZoneCampfire;
 
-export enum EGameObjectPath {
-  GAME_PATH = game_object?.game_path || 0,
-  LEVEL_PATH = game_object?.level_path || 1,
-  PATROL_PATH = game_object?.patrol_path || 2,
+export const enum EGameObjectPath {
+  GAME_PATH = 0,
+  LEVEL_PATH = 1,
+  PATROL_PATH = 2,
 }
 
-export enum EGameObjectRelation {
-  FRIEND = game_object?.friend || 0,
-  NEUTRAL = game_object?.neutral || 1,
-  ENEMY = game_object?.enemy || 2,
+export const enum EGameObjectRelation {
+  DUMMY = -1,
+  FRIEND = 0,
+  NEUTRAL = 1,
+  ENEMY = 2,
+  WORST_ENEMY = 3,
 }
 
-export enum EGameObjectMovementType {
-  MASK = game_object?.alifeMovementTypeMask || 0,
-  RANDOM = game_object?.alifeMovementTypeRandom || 1,
+export const enum EGameObjectMovementType {
+  MASK = 0,
+  RANDOM = 1,
 }
 
-export enum ESoundObjectType {
-  S3D = sound_object.s3d || 0,
-  LOOPED = sound_object.looped || 1,
-  S2D = sound_object.s2d || 2,
+export const enum ESoundObjectType {
+  S3D = 0,
+  LOOPED = 1,
+  S2D = 2,
 }
 
 /**
@@ -272,7 +274,7 @@ export enum EActorMenuMode {
 /**
  * Type of actor UI window to drag drop items.
  */
-export enum EActorMenuType {
+export const enum EActorMenuType {
   INVALID = 0,
   ACTOR_SLOT,
   ACTOR_BAG,

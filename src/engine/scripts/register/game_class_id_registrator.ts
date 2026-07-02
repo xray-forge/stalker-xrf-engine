@@ -32,6 +32,6 @@ export function getGameClassId(gameType: EGameType, isServer: boolean): TGameCla
       return isServer ? gameClassId.SV_CTA : gameClassId.CL_CTA;
 
     default:
-      abort("Unknown game type provided: '%s'.", gameType);
+      return abort("Unknown game type provided: '%s'.", gameType);
   }
 }

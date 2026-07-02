@@ -2,6 +2,8 @@
 
 /**
  * List of possible map marks types to display in map / minimap.
+ *
+ * @inline
  */
 export const mapMarks = {
   alife_presentation_squad_enemy: "alife_presentation_squad_enemy",

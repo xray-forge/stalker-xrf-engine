@@ -1,5 +1,7 @@
 /**
  * List of available game modes based on bit masks.
+ *
+ * @inline
  */
 export const gameTypes = {
   // -- game internal types, do not change
@@ -30,7 +32,7 @@ export const gameTypes = {
 /**
  * Possible game types supported by engine.
  */
-export enum EGameType {
+export const enum EGameType {
   SINGLE = "single",
   DEATH_MATCH = "deathmatch",
   TEAM_DEATH_MATCH = "teamdeathmatch",

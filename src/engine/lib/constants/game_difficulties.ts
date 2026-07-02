@@ -2,6 +2,8 @@
 
 /**
  * List of possible game difficulties.
+ *
+ * @inline
  */
 export const gameDifficulties = {
   gd_master: "gd_master",
@@ -23,7 +25,7 @@ export type TGameDifficulty = TGameDifficulties[keyof TGameDifficulties];
 /**
  * Enum with number representation of game difficulties.
  */
-export enum EGameDifficulty {
+export const enum EGameDifficulty {
   NOVICE = 0,
   STALKER = 1,
   VETERAN = 2,

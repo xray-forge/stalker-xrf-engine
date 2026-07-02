@@ -2,6 +2,8 @@
 
 /**
  * List of available levels.
+ *
+ * @inline
  */
 export const levels = {
   agroprom: "agroprom",
