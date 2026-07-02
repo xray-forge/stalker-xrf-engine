@@ -6,7 +6,7 @@ import type { Nillable, TDistance, TSection } from "@/engine/lib/types";
 /**
  * Approximate meet distance to simplify logical checks.
  */
-export enum EMeetDistance {
+export const enum EMeetDistance {
   CLOSE = 1,
   FAR = 2,
 }

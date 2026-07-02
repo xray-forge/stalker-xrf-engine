@@ -4,7 +4,7 @@
  * Enumeration describing sound type that can be heard by game objects.
  * Usually provided in `hear` callbacks.
  */
-export enum ESoundType {
+export const enum ESoundType {
   ITM = "ITM",
   ITM_drop = "ITM_drop",
   ITM_hide = "ITM_hide",

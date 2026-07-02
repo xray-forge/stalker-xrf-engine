@@ -24,7 +24,7 @@ export const PATH_FIELDS: LuaArray<string> = $fromArray(["path_walk", "path_main
 /**
  * Enumeration describing smart terrains jobs.
  */
-export enum EJobPathType {
+export const enum EJobPathType {
   PATH = 1,
   POINT = 2,
   SMART_COVER = 3,
@@ -33,7 +33,7 @@ export enum EJobPathType {
 /**
  * Enumeration describing smart terrains jobs.
  */
-export enum EJobType {
+export const enum EJobType {
   EXCLUSIVE = 1,
   MONSTER_HOME,
   ANIMPOINT,

@@ -24,7 +24,7 @@ export function loadSchemeImplementation(
 ): void {
   const targetSchemeName: EScheme = schemeNameOverride || schemeImplementation.SCHEME_SECTION;
 
-  logger.info("Loading scheme implementation: %s %s", targetSchemeName, ESchemeType[schemeImplementation.SCHEME_TYPE]);
+  logger.info("Loading scheme implementation: %s", targetSchemeName);
 
   assert(targetSchemeName, "Invalid scheme name provided: '%s'.", schemeImplementation.SCHEME_SECTION);
   assert(schemeImplementation.SCHEME_TYPE, "Invalid scheme type: '%s'.", schemeImplementation.SCHEME_TYPE);

@@ -23,7 +23,7 @@ export interface ISchemeMinigunState extends IBaseSchemeState {
 /**
  * Enumeration of minigun cannon movement states.
  */
-export enum EMinigunCannonState {
+export const enum EMinigunCannonState {
   NONE = 0,
   ROTATE = 1,
   FOLLOW = 2,
@@ -34,7 +34,7 @@ export enum EMinigunCannonState {
 /**
  * Enumeration of minigun shooting states.
  */
-export enum EMinigunState {
+export const enum EMinigunState {
   SHOOTING_ON = 1,
   NONE = 0,
 }
@@ -42,7 +42,7 @@ export enum EMinigunState {
 /**
  * Enumeration of minigun fire target states.
  */
-export enum EMinigunFireTargetState {
+export const enum EMinigunFireTargetState {
   NONE = 0,
   POINTS = 1,
   ENEMY = 2,

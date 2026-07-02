@@ -2,6 +2,8 @@ import { Nillable, TDuration, TName, TProbability, TSection } from "@/engine/lib
 
 /**
  * Name of atmosfear weather base.
+ *
+ * @inline
  */
 export const ATMOSFEAR_WEATHER: TName = "atmosfear";
 
@@ -9,7 +11,7 @@ export const ATMOSFEAR_WEATHER: TName = "atmosfear";
  * Type of active period.
  * Where good weather is clear and shiny, bad - storms, rain, fog.
  */
-export enum EWeatherPeriodType {
+export const enum EWeatherPeriodType {
   GOOD = "good",
   BAD = "bad",
 }
@@ -17,7 +19,7 @@ export enum EWeatherPeriodType {
 /**
  * Actual weather period.
  */
-export enum EWeatherPeriod {
+export const enum EWeatherPeriod {
   CLEAR = "clear",
   CLEAR_FOGGY = "clear_foggy",
   FOGGY = "foggy",
@@ -30,7 +32,7 @@ export enum EWeatherPeriod {
 /**
  * Variant of night brightness.
  */
-export enum EWeatherNightBrightness {
+export const enum EWeatherNightBrightness {
   DARK = "dark",
   SLIGHT = "slight",
   MEDIUM = "medium",
@@ -40,7 +42,7 @@ export enum EWeatherNightBrightness {
 /**
  * Period of moons rotation.
  */
-export enum EWeatherMoonPeriod {
+export const enum EWeatherMoonPeriod {
   DAYS_28 = "d28",
   DAYS_8 = "d8",
   ALWAYS_0 = "a0",

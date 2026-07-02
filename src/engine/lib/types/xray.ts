@@ -260,7 +260,7 @@ export const enum ESoundObjectType {
 /**
  * Current state of actor menu interaction.
  */
-export enum EActorMenuMode {
+export const enum EActorMenuMode {
   UNDEFINED = 0,
   INVENTORY = 1,
   TRADE = 2,

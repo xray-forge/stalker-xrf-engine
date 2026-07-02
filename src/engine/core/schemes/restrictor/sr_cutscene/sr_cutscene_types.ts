@@ -4,7 +4,7 @@ import type { LuaArray, StringNillable, TPath, TRate } from "@/engine/lib/types"
 /**
  * State of effector set run with `level.add_effect` interface.
  */
-export enum EEffectorState {
+export const enum EEffectorState {
   START = "start",
   RELEASE = "release",
   FINISH = "finish",
@@ -14,7 +14,7 @@ export enum EEffectorState {
 /**
  * Enumeration of cutscene scene playback states.
  */
-export enum ESceneState {
+export const enum ESceneState {
   NONE = "",
   RUN = "run",
 }

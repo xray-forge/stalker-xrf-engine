@@ -26,7 +26,7 @@ export interface ISchemeHelicopterMoveState extends IBaseSchemeState {
 /**
  * Type of helicopter behaviour in combat.
  */
-export enum EHelicopterCombatType {
+export const enum EHelicopterCombatType {
   FLY_BY = 0,
   ROUND = 1,
   SEARCH = 2,
@@ -36,7 +36,7 @@ export enum EHelicopterCombatType {
 /**
  * Enumeration of helicopter fly-by combat sub-states.
  */
-export enum EHelicopterFlyByState {
+export const enum EHelicopterFlyByState {
   TO_ATTACK_DIST = 0,
   TO_ENEMY = 1,
 }

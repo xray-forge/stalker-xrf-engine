@@ -11,7 +11,7 @@ export interface IDynamicMusicDescriptor {
 /**
  * Enumeration of dynamic music playback states.
  */
-export enum EDynamicMusicState {
+export const enum EDynamicMusicState {
   IDLE,
   START,
   FINISH,
@@ -20,7 +20,7 @@ export enum EDynamicMusicState {
 /**
  * Enumeration of possible playable sounds types.
  */
-export enum EPlayableSound {
+export const enum EPlayableSound {
   ACTOR = "actor",
   NPC = "npc",
   "3D" = "3d",
@@ -33,7 +33,7 @@ export enum EPlayableSound {
  * - Play in loop whole playlist
  * - Play once in sequence.
  */
-export enum ESoundPlaylistType {
+export const enum ESoundPlaylistType {
   RANDOM = "rnd",
   SEQUENCE = "seq",
   LOOP = "loop",
@@ -42,7 +42,7 @@ export enum ESoundPlaylistType {
 /**
  * Enumeration of participant roles in a sound story.
  */
-export enum ESoundStoryParticipant {
+export const enum ESoundStoryParticipant {
   TELLER = "teller",
   REACTION = "reaction",
   REACTION_ALL = "reaction_all",

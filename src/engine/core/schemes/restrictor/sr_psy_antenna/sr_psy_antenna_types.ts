@@ -19,7 +19,7 @@ export interface ISchemePsyAntennaState extends IBaseSchemeState {
 /**
  * Possible states of psy antenna.
  */
-export enum EAntennaState {
+export const enum EAntennaState {
   OUTSIDE = 0,
   INSIDE = 1,
   VOID = 2,

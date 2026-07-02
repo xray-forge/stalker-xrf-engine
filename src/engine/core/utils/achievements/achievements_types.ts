@@ -1,7 +1,7 @@
 /**
  * Enumeration of possible in-game achievements.
  */
-export enum EAchievement {
+export const enum EAchievement {
   PIONEER = "pioneer",
   MUTANT_HUNTER = "mutant_hunter",
   DETECTIVE = "detective",

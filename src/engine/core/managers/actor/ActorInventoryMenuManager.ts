@@ -112,13 +112,13 @@ export class ActorInventoryMenuManager extends AbstractManager {
    * @param mode - Type of actor menu open.
    */
   public onWindowOpen(mode: EActorMenuMode): void {
-    logger.info("Actor menu open: %s", EActorMenuMode[mode]);
+    logger.info("Actor menu open: %s", mode);
   }
 
   /**
    * @param mode - Type of actor menu closed.
    */
   public onWindowClosed(mode: EActorMenuMode): void {
-    logger.info("Actor menu close: %s", EActorMenuMode[mode]);
+    logger.info("Actor menu close: %s", mode);
   }
 }

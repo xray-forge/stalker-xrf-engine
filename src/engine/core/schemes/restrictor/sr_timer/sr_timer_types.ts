@@ -6,7 +6,7 @@ import type { Nillable, TCount, TLabel, TStringId } from "@/engine/lib/types";
 /**
  * Timer behaviour mode.
  */
-export enum ETimerType {
+export const enum ETimerType {
   INCREMENT = "inc",
   DECREMENT = "dec",
 }

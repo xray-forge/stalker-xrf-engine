@@ -18,7 +18,7 @@ import {
 /**
  * Generic notification type.
  */
-export enum ENotificationType {
+export const enum ENotificationType {
   ITEM = 1,
   MONEY,
   SOUND,
@@ -30,7 +30,7 @@ export enum ENotificationType {
 /**
  * With items / notification transfer divide directions.
  */
-export enum ENotificationDirection {
+export const enum ENotificationDirection {
   OUT = 1,
   IN = 2,
 }
@@ -38,7 +38,7 @@ export enum ENotificationDirection {
 /**
  * Notifications related to treasure separation.
  */
-export enum ETreasureState {
+export const enum ETreasureState {
   NEW_TREASURE_COORDINATES,
   FOUND_TREASURE,
   LOOTED_TREASURE_COORDINATES,

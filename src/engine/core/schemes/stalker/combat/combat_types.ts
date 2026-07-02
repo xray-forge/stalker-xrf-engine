@@ -6,7 +6,7 @@ import { Nillable, Vector } from "@/engine/lib/types";
  * Type of combat used by game object.
  * Each type overrides default behaviour and forces specific logics.
  */
-export enum EScriptCombatType {
+export const enum EScriptCombatType {
   CAMPER = "camper",
   ZOMBIED = "zombied",
   MONOLITH = "monolith",
@@ -16,7 +16,7 @@ export enum EScriptCombatType {
  * Current action type for zombie combat.
  * Since zombies can do only few things, it includes related definitions.
  */
-export enum EZombieCombatAction {
+export const enum EZombieCombatAction {
   SHOOT = 1,
   DANGER = 2,
 }

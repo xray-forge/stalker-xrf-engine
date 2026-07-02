@@ -1,7 +1,7 @@
 /**
  * Squad action type within alife simulation.
  */
-export enum ESquadActionType {
+export const enum ESquadActionType {
   STAY_ON_TARGET = "stay_on_target",
   REACH_TARGET = "reach_target",
 }

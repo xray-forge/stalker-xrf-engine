@@ -34,7 +34,7 @@ export type TPhrasesPriorityMap = LuaTable<
 /**
  * Enumeration of generic phrase categories used in dialogs.
  */
-export enum EGenericPhraseCategory {
+export const enum EGenericPhraseCategory {
   ANOMALIES = "anomalies",
   HELLO = "hello",
   INFORMATION = "information",

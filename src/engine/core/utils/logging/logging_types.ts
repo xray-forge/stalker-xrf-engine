@@ -4,7 +4,7 @@ import { TPath } from "@/engine/lib/types";
  * Type of logging format.
  * Whether data should be written into single direction or to all possible types.
  */
-export enum ELuaLoggerMode {
+export const enum ELuaLoggerMode {
   SINGLE,
   DUAL,
 }

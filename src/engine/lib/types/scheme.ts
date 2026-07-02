@@ -11,7 +11,7 @@ export type TSection = string;
  * Enumeration describing possible game logics schemes.
  * Scheme allows to handle scripted behaviour with sharable logics components.
  */
-export enum EScheme {
+export const enum EScheme {
   ABUSE = "abuse",
   ANIMPOINT = "animpoint",
   CAMPER = "camper",
@@ -74,7 +74,7 @@ export enum EScheme {
  * Applied scheme type.
  * Describes with what object type scheme logic works.
  */
-export enum ESchemeType {
+export const enum ESchemeType {
   // Stalker object scheme.
   STALKER = 1,
   // Monster object scheme.
@@ -90,7 +90,7 @@ export enum ESchemeType {
 /**
  * Scheme conditions enum for active section toggling.
  */
-export enum ESchemeCondition {
+export const enum ESchemeCondition {
   // Check whether some scheme signal is received and activated.
   ON_SIGNAL = "on_signal",
   // Check whether info portions are matching in condlist (executes section pick from condlist).
@@ -124,7 +124,7 @@ export enum ESchemeCondition {
 /**
  * Generic scheme logics events to get callbacks from schemeManager subscribers.
  */
-export enum ESchemeEvent {
+export const enum ESchemeEvent {
   ACTIVATE = "activate",
   DEACTIVATE = "deactivate",
   SAVE = "save",

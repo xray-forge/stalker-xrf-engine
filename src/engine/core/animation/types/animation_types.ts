@@ -83,7 +83,7 @@ export interface IAnimationDescriptor {
 /**
  * Type of possible weapon animation.
  */
-export enum EWeaponAnimation {
+export const enum EWeaponAnimation {
   NONE = "none",
   DROP = "drop",
   FIRE = "fire",
@@ -95,7 +95,7 @@ export enum EWeaponAnimation {
 /**
  * Animation lifecycle marker state.
  */
-export enum EAnimationMarker {
+export const enum EAnimationMarker {
   IN = 1,
   OUT = 2,
   IDLE = 3,
@@ -116,7 +116,7 @@ export interface IAnimationManagerState {
 /**
  * Type of animation used in manager.
  */
-export enum EAnimationType {
+export const enum EAnimationType {
   ANIMATION = "animation",
   ANIMSTATE = "animstate",
 }

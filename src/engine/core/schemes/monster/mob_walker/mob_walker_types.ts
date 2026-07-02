@@ -18,7 +18,7 @@ export interface ISchemeMobWalkerState extends IBaseSchemeState {
 /**
  * Mob walker object state.
  */
-export enum EMobWalkerState {
+export const enum EMobWalkerState {
   MOVING = 0,
   STANDING = 1,
 }

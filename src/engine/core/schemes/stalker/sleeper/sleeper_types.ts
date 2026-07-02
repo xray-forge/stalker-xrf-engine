@@ -14,7 +14,7 @@ export interface ISchemeSleeperState extends IBaseSchemeState {
 /**
  * State of stalker with active sleeper scheme.
  */
-export enum ESleeperState {
+export const enum ESleeperState {
   WALKING = 0,
   SLEEPING = 1,
 }

@@ -1,7 +1,7 @@
 /**
  * Relation type between two game objects.
  */
-export enum ERelation {
+export const enum ERelation {
   ENEMY = "enemy",
   NEUTRAL = "neutral",
   FRIEND = "friend",
@@ -10,7 +10,7 @@ export enum ERelation {
 /**
  * Goodwill breakpoints for relation points between game objects.
  */
-export enum EGoodwill {
+export const enum EGoodwill {
   BEST_FRIENDS = 5000,
   FRIENDS = 1000,
   NEUTRALS = 0,

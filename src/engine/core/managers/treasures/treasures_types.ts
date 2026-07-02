@@ -28,7 +28,7 @@ export interface ITreasureDescriptor {
 /**
  * Enumeration with possible treasure type.
  */
-export enum ETreasureType {
+export const enum ETreasureType {
   COMMON = "common",
   EPIC = "epic",
   RARE = "rare",
@@ -38,13 +38,9 @@ export enum ETreasureType {
 /**
  * Allowed types for treasures.
  */
-export const ALLOWED_TREASURE_TYPES: LuaTable<ETreasureType, boolean> = $fromObject(
-  Object.values(ETreasureType).reduce(
-    (acc, it) => {
-      acc[it] = true;
-
-      return acc;
-    },
-    {} as Record<ETreasureType, boolean>
-  )
-);
+export const ALLOWED_TREASURE_TYPES: LuaTable<ETreasureType, boolean> = $fromObject({
+  [ETreasureType.COMMON]: true,
+  [ETreasureType.EPIC]: true,
+  [ETreasureType.RARE]: true,
+  [ETreasureType.UNIQUE]: true,
+});

@@ -19,7 +19,7 @@ import type {
 /**
  * Enumeration of smart cover behaviour states.
  */
-export enum ESmartCoverState {
+export const enum ESmartCoverState {
   DEFAULT = "default_behaviour",
   FIRE_TARGET = "fire_target",
   FIRE_NO_LOOKOUT_TARGET = "fire_no_lookout_target",
@@ -30,7 +30,7 @@ export enum ESmartCoverState {
 /**
  * Enumeration of stalker animation and behaviour states.
  */
-export enum EStalkerState {
+export const enum EStalkerState {
   ANIMPOINT_SIT_ASS = "animpoint_sit_ass",
   ANIMPOINT_SIT_ASS_DRINK_ENERGY = "animpoint_sit_ass_drink_energy",
   ANIMPOINT_SIT_ASS_DRINK_VODKA = "animpoint_sit_ass_drink_vodka",

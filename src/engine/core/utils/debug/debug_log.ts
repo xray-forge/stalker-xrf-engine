@@ -197,7 +197,7 @@ export function logObjectState(object: GameObject): void {
   logger.info("Object section: %s", object.section());
   logger.info("Ini file name: %s", state.iniFilename);
   logger.info("Section logic: %s", state.sectionLogic);
-  logger.info("Scheme type: %s", ESchemeType[state.schemeType]);
+  logger.info("Scheme type: %s", state.schemeType);
   logger.info("Active scheme: %s", state.activeScheme);
   logger.info("Active section: %s", state.activeSection);
   logger.info("Smart terrain name: %s", state.smartTerrainName);

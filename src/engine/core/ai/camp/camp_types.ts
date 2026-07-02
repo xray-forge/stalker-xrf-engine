@@ -5,7 +5,7 @@ import type { LuaArray, Nillable, TDuration, TName, TProbability } from "@/engin
  * Role of object in camp stories.
  * Whether it is participating in some story/playing guitar or so.
  */
-export enum EObjectCampRole {
+export const enum EObjectCampRole {
   NONE = 0,
   LISTENER = 1,
   DIRECTOR = 2,
@@ -14,7 +14,7 @@ export enum EObjectCampRole {
 /**
  * Activity of object in camp logic.
  */
-export enum EObjectCampActivity {
+export const enum EObjectCampActivity {
   IDLE = "idle",
   STORY = "story",
   GUITAR = "guitar",

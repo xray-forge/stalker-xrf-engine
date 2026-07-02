@@ -4,9 +4,9 @@ import type { AnyObject, Nillable, TIndex } from "@/engine/lib/types";
 /**
  * Waypoint arrival type.
  */
-export enum EWaypointArrivalType {
+export const enum EWaypointArrivalType {
   BEFORE_ANIMATION_TURN = 1,
-  AFTER_ANIMATION_TURN,
+  AFTER_ANIMATION_TURN = 2,
 }
 
 /**

@@ -1,7 +1,7 @@
 /**
  * Data types that can be saved in net packets (game save files).
  */
-export enum EPacketDataType {
+export const enum EPacketDataType {
   STRING = "string",
   BOOLEAN = "boolean",
   F32 = "f32",

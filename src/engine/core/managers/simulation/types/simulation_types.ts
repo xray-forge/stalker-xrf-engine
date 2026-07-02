@@ -15,7 +15,7 @@ import type {
 /**
  * Type of smart terrain simulation role.
  */
-export enum ESimulationRole {
+export const enum ESimulationRole {
   ACTOR = "actor",
   SQUAD = "squad",
   SMART_TERRAIN = "smart",

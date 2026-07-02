@@ -1,7 +1,7 @@
 /**
  * Type of UI element to handle with utility helpers.
  */
-export enum EElementType {
+export const enum EElementType {
   BUTTON,
   CD_KEY,
   CHECK_BUTTON,

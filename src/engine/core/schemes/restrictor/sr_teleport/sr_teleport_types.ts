@@ -5,7 +5,7 @@ import type { LuaArray, TDuration, TName, TProbability } from "@/engine/lib/type
  * Teleport state.
  * Allows handling active/inactive state for restrictor.
  */
-export enum ETeleportState {
+export const enum ETeleportState {
   IDLE,
   ACTIVATED,
 }

@@ -3,7 +3,7 @@
 /**
  * Available option groups for toggling in game settings menu.
  */
-export enum EOptionGroup {
+export const enum EOptionGroup {
   KEY_BINDINGS = "key_binding",
   MULTIPLAYER_CLIENT = "mm_mp_client",
   MULTIPLAYER_SERVER = "mm_mp_server",
@@ -16,7 +16,7 @@ export enum EOptionGroup {
   OPTIONS_VIDEO_PRESET = "mm_opt_video_preset",
 }
 
-export enum EGameRenderer {
+export const enum EGameRenderer {
   R1 = 0,
   R2A = 1,
   R2 = 2,
@@ -27,6 +27,8 @@ export enum EGameRenderer {
 
 /**
  * Descriptor of message identifiers emitted by option groups in the options menu.
+ *
+ * @inline
  */
 export const optionGroupsMessages = {
   set_default_value: "set_default_value",

@@ -4,7 +4,7 @@ import type { LuaArray, TCount, TName, TSection } from "@/engine/lib/types";
 /**
  * Smart terrain active status.
  */
-export enum ESmartTerrainStatus {
+export const enum ESmartTerrainStatus {
   NORMAL = 1,
   DANGER,
   ALARM,

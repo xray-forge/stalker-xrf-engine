@@ -4,7 +4,7 @@ import type { Nillable, TName, TRate, Vector } from "@/engine/lib/types";
 /**
  * Stage of jump action.
  */
-export enum EMobJumpState {
+export const enum EMobJumpState {
   START_LOOK = 1,
   WAIT_LOOK_END = 2,
   JUMP = 3,

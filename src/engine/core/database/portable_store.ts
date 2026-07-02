@@ -11,7 +11,7 @@ export type TPortableStoreValue = Nillable<string | number | boolean>;
 /**
  * Check whether provided value is correct for saving in portable store.
  */
-export enum EPortableStoreType {
+export const enum EPortableStoreType {
   NUMBER = 0,
   STRING = 1,
   BOOLEAN = 2,

@@ -25,7 +25,7 @@ export interface IParticleDescriptor {
 /**
  * Mode of particle behaviour.
  */
-export enum EParticleBehaviour {
+export const enum EParticleBehaviour {
   SIMPLE = 1, // Single particle based on path.
   COMPLEX = 2, // Scenario based particles, multiple particles on different positions.
 }
