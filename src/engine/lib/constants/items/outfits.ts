@@ -1,5 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * @inline
+ */
 export const outfits = {
   cs_heavy_outfit: "cs_heavy_outfit",
   dolg_heavy_outfit: "dolg_heavy_outfit",

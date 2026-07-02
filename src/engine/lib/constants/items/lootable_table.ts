@@ -9,6 +9,8 @@ import { weaponAddons, weapons } from "@/engine/lib/constants/items/weapons";
 
 /**
  * List of items that can be looted by stalkers from corpses.
+ *
+ * @inline
  */
 export const lootableTable = {
   ...ammo,

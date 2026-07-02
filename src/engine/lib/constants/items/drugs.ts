@@ -2,6 +2,8 @@
 
 /**
  * List of medkits sections.
+ *
+ * @inline
  */
 export const medkits = {
   medkit: "medkit",
@@ -21,6 +23,8 @@ export type TMedkit = TMedkits[keyof TMedkits];
 
 /**
  * List of drug sections available in the game.
+ *
+ * @inline
  */
 export const drugs = {
   ...medkits,

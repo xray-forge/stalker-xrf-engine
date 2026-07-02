@@ -1,5 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * @inline
+ */
 export const questItems = {
   device_flash_snag: "device_flash_snag",
   device_pda_port_bandit_leader: "device_pda_port_bandit_leader",

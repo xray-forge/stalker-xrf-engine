@@ -12,13 +12,4 @@ import { TWeapon, TWeaponAddon } from "@/engine/lib/constants/items/weapons";
  * Type definition of possible item section.
  */
 export type TInventoryItem =
-  | TAmmoItem
-  | TArtefact
-  | TDetector
-  | TDrugItem
-  | TFoodItem
-  | THelmet
-  | TOutfit
-  | TWeaponAddon
-  | TWeapon
-  | TQuestItem;
+  TAmmoItem | TArtefact | TDetector | TDrugItem | TFoodItem | THelmet | TOutfit | TWeaponAddon | TWeapon | TQuestItem;

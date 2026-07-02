@@ -2,6 +2,8 @@
 
 /**
  * List of available artefact sections.
+ *
+ * @inline
  */
 export const artefacts = {
   af_baloon: "af_baloon",

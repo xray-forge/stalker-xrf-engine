@@ -4,6 +4,8 @@ import type { TName } from "@/engine/lib/types";
 
 /**
  * List of available pistol sections.
+ *
+ * @inline
  */
 export const pistols = {
   wpn_beretta: "wpn_beretta",
@@ -25,6 +27,8 @@ export const pistols = {
 
 /**
  * List of available rifle sections.
+ *
+ * @inline
  */
 export const shotguns = {
   wpn_bm16: "wpn_bm16",
@@ -39,6 +43,8 @@ export const shotguns = {
 
 /**
  * List of available rifle sections.
+ *
+ * @inline
  */
 export const rifles = {
   wpn_abakan: "wpn_abakan",
@@ -64,6 +70,8 @@ export const rifles = {
 
 /**
  * List of all game weapon sections available.
+ *
+ * @inline
  */
 export const weapons = {
   ...pistols,
@@ -112,6 +120,9 @@ export const nimbleWeapons = {
   [weapons.wpn_vintorez_nimble]: true,
 } as Record<TName, boolean>;
 
+/**
+ * @inline
+ */
 export const weaponAddons = {
   wpn_addon_grenade_launcher: "wpn_addon_grenade_launcher",
   wpn_addon_grenade_launcher_m203: "wpn_addon_grenade_launcher_m203",

@@ -2,6 +2,8 @@
 
 /**
  * List of available helmets items sections.
+ *
+ * @inline
  */
 export const helmets = {
   helm_battle: "helm_battle",

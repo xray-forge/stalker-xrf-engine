@@ -1,5 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * @inline
+ */
 export const misc = {
   bolt: "bolt",
   device_pda: "device_pda",

@@ -2,6 +2,8 @@
 
 /**
  * List of available ammo.
+ *
+ * @inline
  */
 export const ammo = {
   "ammo_11.43x23_fmj": "ammo_11.43x23_fmj",

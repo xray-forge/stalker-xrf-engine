@@ -2,6 +2,8 @@
 
 /**
  * Game detector items sections.
+ *
+ * @inline
  */
 export const detectors = {
   detector_advanced: "detector_advanced",
