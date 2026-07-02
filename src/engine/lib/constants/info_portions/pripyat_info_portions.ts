@@ -1,5 +1,8 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+/**
+ * @inline
+ */
 export const pripyatInfoPortions = {
   pri_a12_stalker_prisoner_free: "pri_a12_stalker_prisoner_free",
   pri_a15_cutscene_end: "pri_a15_cutscene_end",

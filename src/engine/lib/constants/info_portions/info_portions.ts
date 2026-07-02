@@ -9,12 +9,13 @@ import { zatonInfoPortions } from "@/engine/lib/constants/info_portions/zaton_in
 
 /**
  * List of in-game infos set/checked with game logic.
+ *
+ * @inline
  */
 export const infoPortions = {
   ...jupiterInfoPortions,
   ...pripyatInfoPortions,
   ...zatonInfoPortions,
-
   actor_information_dealer: "actor_information_dealer",
   actor_is_sleeping: "actor_is_sleeping",
   actor_marked_by_zone_3_times: "actor_marked_by_zone_3_times",

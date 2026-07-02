@@ -20,6 +20,8 @@ export const classIds: IClassIdsGrouped = createClassIds();
 
 /**
  * List of possible game type class IDs.
+ *
+ * @inline
  */
 export const gameClassId = {
   CL_AHUNT: "CL_AHUNT",
@@ -48,7 +50,7 @@ export type TGameClassId = (typeof gameClassId)[keyof typeof gameClassId];
  * C++ declared class identifiers from client side.
  * Matches class names in C++ counterpart.
  */
-export enum EGameObjectClass {
+export const enum EGameObjectClass {
   CAI_Bloodsucker = "CAI_Bloodsucker",
   CAI_Boar = "CAI_Boar",
   CAI_Dog = "CAI_Dog",
@@ -124,7 +126,7 @@ export enum EGameObjectClass {
 /**
  * Enumeration of class identifiers used in LTX configurations linking.
  */
-export enum EConfigClassId {
+export const enum EConfigClassId {
   AI_STL_S = "AI_STL_S",
   AMMO_S = "AMMO_S",
   ARTEFACT = "ARTEFACT",
@@ -210,7 +212,7 @@ export enum EConfigClassId {
  * Script class IDs for linking of serve-client side implementation.
  * Later can be got from game object.
  */
-export enum EScriptClassId {
+export const enum EScriptClassId {
   ARTEFACT_S = "artefact_s",
   BLOODSUCKER_S = "bloodsucker_s",
   BOAR_S = "boar_s",
