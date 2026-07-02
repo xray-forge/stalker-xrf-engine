@@ -37,11 +37,6 @@ describe("HelmetBinder", () => {
 
     expect(registry.objects.length()).toBe(0);
     expect(registry.dynamicData.objects.length()).toBe(1);
-
-    binder.net_Relcase(binder.object);
-
-    expect(registry.objects.length()).toBe(0);
-    expect(registry.dynamicData.objects.length()).toBe(0);
   });
 
   it("should correctly handle going online/offline when check to spawn is falsy", () => {

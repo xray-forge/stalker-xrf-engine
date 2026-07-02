@@ -14,6 +14,7 @@ import {
   resetPortableStore,
   savePortableStore,
   unregisterActor,
+  unregisterObjectDynamicState,
 } from "@/engine/core/database";
 import { updateSimulationObjectAvailability } from "@/engine/core/database/simulation";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
@@ -95,6 +96,17 @@ export class ActorBinder extends object_binder {
     unregisterActor();
 
     super.net_destroy();
+  }
+
+  /**
+   * Handle release of any game object while actor is online.
+   *
+   * @param object - The object being released (destroyed completely).
+   */
+  public override net_Relcase(object: GameObject): void {
+    super.net_Relcase(object);
+
+    unregisterObjectDynamicState(object.id());
   }
 
   public override reinit(): void {

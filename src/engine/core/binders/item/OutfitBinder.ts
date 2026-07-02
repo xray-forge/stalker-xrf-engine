@@ -6,11 +6,9 @@ import {
   registerObject,
   resetObject,
   unregisterObject,
-  unregisterObjectDynamicState,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemOutfit } from "@/engine/core/objects/item/ItemOutfit";
-import { GameObject } from "@/engine/lib/types";
 
 /**
  * Binder for outfit client objects.
@@ -48,11 +46,5 @@ export class OutfitBinder extends object_binder {
     super.reinit();
 
     resetObject(this.object);
-  }
-
-  public override net_Relcase(object: GameObject): void {
-    super.net_Relcase(object);
-
-    unregisterObjectDynamicState(object.id());
   }
 }

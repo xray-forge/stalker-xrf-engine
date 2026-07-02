@@ -4,6 +4,7 @@ import { callback, CGameTask, level, time_global } from "xray16";
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
   getManager,
+  getObjectDynamicState,
   IRegistryObjectState,
   registerSimulator,
   registerZone,
@@ -43,6 +44,20 @@ describe("ActorBinder", () => {
     expect(binder.isFirstUpdatePerformed).toBe(false);
     expect(binder.deimosIntensity).toBeNull();
     expect(binder.eventsManager).toBe(getManager(EventsManager));
+  });
+
+  it("should unregister dynamic state of released objects", () => {
+    const actor: GameObject = MockGameObject.mockActor();
+    const binder: ActorBinder = new ActorBinder(actor);
+    const released: GameObject = MockGameObject.mock();
+
+    getObjectDynamicState(released.id(), true);
+
+    expect(registry.dynamicData.objects.length()).toBe(1);
+
+    binder.net_Relcase(released);
+
+    expect(registry.dynamicData.objects.length()).toBe(0);
   });
 
   it("should correctly handle net spawn / destroy", () => {

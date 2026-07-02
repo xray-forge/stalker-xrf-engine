@@ -1,4 +1,4 @@
-import { game_object, LuabindClass, object_binder } from "xray16";
+import { LuabindClass, object_binder } from "xray16";
 
 import {
   getObjectDynamicState,
@@ -6,7 +6,6 @@ import {
   registerObject,
   resetObject,
   unregisterObject,
-  unregisterObjectDynamicState,
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeapon } from "@/engine/core/objects/item/ItemWeapon";
@@ -47,11 +46,5 @@ export class WeaponBinder extends object_binder {
     super.reinit();
 
     resetObject(this.object);
-  }
-
-  public override net_Relcase(object: game_object): void {
-    super.net_Relcase(object);
-
-    unregisterObjectDynamicState(object.id());
   }
 }
