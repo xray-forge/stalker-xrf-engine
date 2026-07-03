@@ -9,7 +9,6 @@ import {
   CUITrackBar,
   CUIWindow,
   DIK_keys,
-  is_enough_address_space_available,
   LuabindClass,
   ui_events,
 } from "xray16";
@@ -183,17 +182,7 @@ export class Options extends CUIScriptWnd {
       value(key, currentRenderer);
     }
 
-    const maxTextureLod: number = 4;
-    let minTextureLod: number = 0;
-
-    if (currentRenderer !== 0) {
-      if (!is_enough_address_space_available()) {
-        logger.info("Detected not enough address space, reduce lod");
-        minTextureLod = 1;
-      }
-    }
-
-    this.uiTextureLodTrackBar.SetOptIBounds(minTextureLod, maxTextureLod);
+    this.uiTextureLodTrackBar.SetOptIBounds(0, 4);
   }
 
   public onDefaultKeybindsButtonClicked(): void {
