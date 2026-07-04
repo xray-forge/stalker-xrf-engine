@@ -108,18 +108,14 @@ describe("interface external callbacks", () => {
   it("should correctly get tips from manager", () => {
     checkBinding("loadscreen");
     checkNestedBinding("loadscreen", "get_tip_number");
-    checkNestedBinding("loadscreen", "get_mp_tip_number");
 
     const loadScreenManager: LoadScreenManager = getManager(LoadScreenManager);
 
-    jest.spyOn(loadScreenManager, "getRandomMultiplayerTipIndex");
     jest.spyOn(loadScreenManager, "getRandomTipIndex");
 
     expect(typeof getExtern<AnyCallablesModule>("loadscreen").get_tip_number()).toBe("number");
-    expect(typeof getExtern<AnyCallablesModule>("loadscreen").get_mp_tip_number()).toBe("number");
 
     expect(loadScreenManager.getRandomTipIndex).toHaveBeenCalledTimes(1);
-    expect(loadScreenManager.getRandomMultiplayerTipIndex).toHaveBeenCalledTimes(1);
   });
 
   it("should correctly handle inventory upgrades callbacks", () => {

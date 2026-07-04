@@ -5,9 +5,6 @@
  */
 export const enum EOptionGroup {
   KEY_BINDINGS = "key_binding",
-  MULTIPLAYER_CLIENT = "mm_mp_client",
-  MULTIPLAYER_SERVER = "mm_mp_server",
-  MULTIPLAYER_SERVER_FILTER = "mm_mp_srv_filter",
   OPTIONS_CONTROLS = "mm_opt_controls",
   OPTIONS_GAMEPLAY = "mm_opt_gameplay",
   OPTIONS_SOUND = "mm_opt_sound",

@@ -16,13 +16,4 @@ export class LoadScreenManager extends AbstractManager {
 
     return math.random(1, 100);
   }
-
-  /**
-   * @returns Random tip index for multiplayer game.
-   */
-  public getRandomMultiplayerTipIndex(): TIndex {
-    logger.info("Get tip for multiplayer game");
-
-    return math.random(1, 55);
-  }
 }

@@ -44,7 +44,6 @@ logger.info("Resolve and bind interface externals");
  */
 extern("loadscreen", {
   get_tip_number: () => getManager(LoadScreenManager).getRandomTipIndex(),
-  get_mp_tip_number: () => getManager(LoadScreenManager).getRandomMultiplayerTipIndex(),
 });
 
 /**

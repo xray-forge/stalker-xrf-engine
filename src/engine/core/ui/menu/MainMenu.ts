@@ -28,21 +28,12 @@ import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { loadLastGameSave, startNewGame } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
-import { resolveXmlFile, resolveXmlFormPath } from "@/engine/core/utils/ui";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { gameTypes } from "@/engine/lib/constants/game_types";
-import {
-  AccountManager,
-  LoginManager,
-  Nillable,
-  Profile,
-  ProfileStore,
-  TKeyCode,
-  TPath,
-  TUIEvent,
-} from "@/engine/lib/types";
+import { Nillable, TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 
@@ -56,11 +47,6 @@ export class MainMenu extends CUIScriptWnd {
   public readonly xrMenuController: CMainMenu = main_menu.get_main_menu();
   public xrMenuPageController!: CUIMMShniaga;
 
-  public xrAccountManager: AccountManager;
-  public xrProfileStore: ProfileStore;
-  public xrLoginManager: LoginManager;
-  public xrGameSpyProfile: Nillable<Profile>;
-
   public uiModalBox!: CUIMessageBoxEx;
   public modalBoxMode: EMainMenuModalMode = EMainMenuModalMode.OFF;
 
@@ -72,11 +58,6 @@ export class MainMenu extends CUIScriptWnd {
 
   public constructor() {
     super();
-
-    this.xrLoginManager = this.xrMenuController.GetLoginMngr();
-    this.xrAccountManager = this.xrMenuController.GetAccountMngr();
-    this.xrProfileStore = this.xrMenuController.GetProfileStore();
-    this.xrGameSpyProfile = this.xrLoginManager.get_current_profile();
 
     this.initializeControls();
     this.initializeCallBacks();
@@ -102,13 +83,6 @@ export class MainMenu extends CUIScriptWnd {
     const versionLabel: CUIStatic = xml.InitStatic("static_version", this);
 
     versionLabel.TextControl().SetText(string.format(forgeConfig.VERSION, this.xrMenuController.GetGSVer()));
-
-    // Reset magnifier mode.
-    if (this.xrGameSpyProfile && !level.present()) {
-      this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_new_network_game); // --fake
-      this.xrMenuPageController.SetPage(CUIMMShniaga.epi_main, resolveXmlFormPath(base), "menu_main_logout");
-      this.xrMenuPageController.ShowPage(CUIMMShniaga.epi_main);
-    }
   }
 
   /**
