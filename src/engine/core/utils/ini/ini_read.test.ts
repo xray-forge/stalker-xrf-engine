@@ -23,7 +23,7 @@ import {
   readIniTwoNumbers,
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
-import { IniFile, Optional } from "@/engine/lib/types";
+import { IniFile, Nillable } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("readIniString util", () => {
@@ -250,7 +250,7 @@ describe("readIniConditionList util", () => {
       },
     });
 
-    const firstScheme: Optional<IBaseSchemeLogic> = readIniConditionList(ini, "section1", "a");
+    const firstScheme: Nillable<IBaseSchemeLogic> = readIniConditionList(ini, "section1", "a");
 
     expect(firstScheme).toEqualLuaTables({
       name: "a",
@@ -263,7 +263,7 @@ describe("readIniConditionList util", () => {
       p2: null,
     });
 
-    const secondScheme: Optional<IBaseSchemeLogic> = readIniConditionList(ini, "section1", "b");
+    const secondScheme: Nillable<IBaseSchemeLogic> = readIniConditionList(ini, "section1", "b");
 
     expect(secondScheme).toEqualLuaTables({
       name: "b",

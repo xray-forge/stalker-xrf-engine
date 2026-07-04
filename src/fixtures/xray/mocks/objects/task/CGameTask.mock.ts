@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { CGameTask } from "xray16";
+import { CGameTask, TXR_TaskType } from "xray16";
 
 import { AnyObject, GameTask, Nullable, TCount, TIndex, TTaskState } from "@/engine/lib/types";
 
@@ -61,7 +61,7 @@ export class MockCGameTask implements GameTask {
     return this.title;
   });
 
-  public get_type = jest.fn((): number => {
+  public get_type = jest.fn((): TXR_TaskType => {
     return 0;
   });
 

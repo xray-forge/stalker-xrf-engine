@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { getFS } from "xray16";
+import { FileStatus, getFS } from "xray16";
 
 import { createExclusiveJob } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_exclusive";
 import { jobPreconditionExclusive } from "@/engine/core/objects/smart_terrain/job/job_precondition";
@@ -22,7 +22,8 @@ describe("createExclusiveJob util", () => {
       },
     });
 
-    jest.spyOn(getFS(), "exist").mockImplementation(() => null);
+    jest.spyOn(getFS(), "exist").mockImplementation(() => null as unknown as FileStatus);
+
     expect(() => createExclusiveJob(ini, "smart_terrain", "work1", new LuaTable())).toThrow();
   });
 

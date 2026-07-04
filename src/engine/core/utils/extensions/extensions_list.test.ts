@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { FS, getFS } from "xray16";
+import { FileStatus, FS, getFS } from "xray16";
 
 import { getAvailableExtensions } from "@/engine/core/utils/extensions/extensions_list";
 import { MockFileStatus } from "@/fixtures/xray";
@@ -11,7 +11,7 @@ jest.mock("extensions.d.main", () => ({ canToggle: false, register: () => {} }),
 
 describe("getAvailableExtensions util", () => {
   it("should correctly return list of available extensions", () => {
-    jest.spyOn(getFS(), "exist").mockImplementation(() => null);
+    jest.spyOn(getFS(), "exist").mockImplementation(() => null as unknown as FileStatus);
 
     expect(getAvailableExtensions()).toEqualLuaTables({});
     expect(getFS().exist).toHaveBeenCalledWith("$game_data$", "extensions", FS.FS_ListFolders);
