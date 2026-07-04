@@ -24,6 +24,7 @@ import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/u
 import { create2dVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
 import {
+  FSFile,
   FSFileList,
   FSItem,
   LuaArray,
@@ -241,9 +242,9 @@ export class SaveDialog extends CUIScriptWnd {
 
     const fs: FS = getFS();
     const fileList: FSFileList = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
-    const fileExists: Nillable<number> = fs.exist(roots.gameSaves, this.newSave + forgeConfig.SAVE.GAME_SAVE_EXTENSION);
+    const file: Nillable<FSFile> = fs.exist(roots.gameSaves, this.newSave + forgeConfig.SAVE.GAME_SAVE_EXTENSION);
 
-    if (fileExists) {
+    if (file) {
       logger.info("File already exists");
 
       this.modalBoxMode = 1;

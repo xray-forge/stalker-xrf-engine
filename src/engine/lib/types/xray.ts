@@ -58,6 +58,7 @@ import {
   effector_params,
   entity_action,
   flags32,
+  fs_file,
   FS_file_list,
   FS_file_list_ex,
   FS_item,
@@ -128,6 +129,7 @@ export type CoverPoint = cover_point;
 export type DangerObject = danger_object;
 export type EffectorParams = effector_params;
 export type EntityAction = entity_action;
+export type FSFile = fs_file;
 export type FSFileList = FS_file_list;
 export type FSFileListEX = FS_file_list_ex;
 export type FSItem = FS_item;
