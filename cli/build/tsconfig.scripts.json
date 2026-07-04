@@ -17,15 +17,12 @@
     "noImplicitSelf": true,
     "noResolvePaths": ["xray16"],
     "luaPlugins": [
-      { "name": "xray16/plugins/transform_luabind_class/plugin" },
-      { "name": "xray16/plugins/global_declarations_transform" },
-      { "name": "xray16/plugins/built_at_info" },
-      { "name": "xray16/plugins/strip_lua_logger" },
-      { "name": "xray16/plugins/inject_file_meta" },
-      { "name": "xray16/plugins/from_cast_utils" },
-      { "name": "xray16/plugins/optimize_return_ternary" },
-      { "name": "xray16/plugins/inline_constants/plugin" },
-      { "name": "xray16/plugins/inject_tracy_zones" }
+      { "name": "xray16/plugins/inline" },
+      { "name": "xray16/plugins/luabind" },
+      { "name": "xray16/plugins/macros" },
+      { "name": "xray16/plugins/optimize" },
+      { "name": "xray16/plugins/strip" },
+      { "name": "xray16/plugins/tracy" }
     ]
   }
 }

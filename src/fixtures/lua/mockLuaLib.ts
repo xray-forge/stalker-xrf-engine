@@ -1,4 +1,3 @@
-import { mockLuaExtensions } from "@/fixtures/lua/mocks/lua_extensions.mocks";
 import { mockLuaGlobals } from "@/fixtures/lua/mocks/lua_globals.mocks";
 
 /**
@@ -6,5 +5,4 @@ import { mockLuaGlobals } from "@/fixtures/lua/mocks/lua_globals.mocks";
  */
 export function mockLuaLib(): void {
   mockLuaGlobals();
-  mockLuaExtensions();
 }
