@@ -87,7 +87,7 @@ describe("initializeLevelSimulationGroupIds util", () => {
           },
         })
       );
-    }).toThrow("[JEST_TEST] Failed to assign level 'agroprom' group id '-100', it is not in range [1:255].");
+    }).toThrow("[$filename] Failed to assign level 'agroprom' group id '-100', it is not in range [1:255].");
 
     expect(() => {
       initializeLevelSimulationGroupIds(
@@ -97,7 +97,7 @@ describe("initializeLevelSimulationGroupIds util", () => {
           },
         })
       );
-    }).toThrow("[JEST_TEST] Failed to assign level 'agroprom' group id '-1', it is not in range [1:255].");
+    }).toThrow("[$filename] Failed to assign level 'agroprom' group id '-1', it is not in range [1:255].");
 
     expect(() => {
       initializeLevelSimulationGroupIds(
@@ -107,7 +107,7 @@ describe("initializeLevelSimulationGroupIds util", () => {
           },
         })
       );
-    }).toThrow("[JEST_TEST] Failed to assign level 'agroprom' group id '0', it is not in range [1:255].");
+    }).toThrow("[$filename] Failed to assign level 'agroprom' group id '0', it is not in range [1:255].");
 
     expect(() => {
       initializeLevelSimulationGroupIds(
@@ -117,7 +117,7 @@ describe("initializeLevelSimulationGroupIds util", () => {
           },
         })
       );
-    }).toThrow("[JEST_TEST] Failed to assign level 'agroprom' group id '255', it is not in range [1:255].");
+    }).toThrow("[$filename] Failed to assign level 'agroprom' group id '255', it is not in range [1:255].");
 
     expect(() => {
       initializeLevelSimulationGroupIds(
@@ -127,7 +127,7 @@ describe("initializeLevelSimulationGroupIds util", () => {
           },
         })
       );
-    }).toThrow("[JEST_TEST] Failed to assign level 'agroprom' group id '1000', it is not in range [1:255].");
+    }).toThrow("[$filename] Failed to assign level 'agroprom' group id '1000', it is not in range [1:255].");
   });
 
   it("should throw exception on duplicate IDs", () => {
@@ -143,7 +143,7 @@ describe("initializeLevelSimulationGroupIds util", () => {
         })
       );
     }).toThrow(
-      "[JEST_TEST] Found duplicate group id '10' usage for level 'agroprom_underground', 'agroprom' already using it"
+      "[$filename] Found duplicate group id '10' usage for level 'agroprom_underground', 'agroprom' already using it"
     );
   });
 });
