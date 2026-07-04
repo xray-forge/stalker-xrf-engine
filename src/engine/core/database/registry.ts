@@ -1,3 +1,5 @@
+import { $fromObject } from "xray16/macros";
+
 import type { CampManager } from "@/engine/core/ai/camp";
 import type { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import type { DoorBinder, SignalLightBinder } from "@/engine/core/binders/physic";

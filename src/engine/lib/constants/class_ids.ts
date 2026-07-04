@@ -1,5 +1,7 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
+import { $fromObject } from "xray16/macros";
+
 import { createClassIds } from "@/engine/core/utils/class_ids_list";
 import { TClassId } from "@/engine/lib/types";
 

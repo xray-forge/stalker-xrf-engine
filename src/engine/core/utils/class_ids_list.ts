@@ -1,4 +1,5 @@
 import { clsid } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { IClassIdsGrouped } from "@/engine/lib/constants/class_ids";
 import type { TClassId } from "@/engine/lib/types";

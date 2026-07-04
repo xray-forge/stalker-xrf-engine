@@ -14,6 +14,7 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";

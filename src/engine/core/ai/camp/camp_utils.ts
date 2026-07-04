@@ -1,3 +1,5 @@
+import { $isNil } from "xray16/macros";
+
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
 import type { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
