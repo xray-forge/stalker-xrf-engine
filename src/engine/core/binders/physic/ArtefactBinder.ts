@@ -1,4 +1,5 @@
 import { CArtefact, LuabindClass, object_binder } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { registerObject, registry, unregisterObject } from "@/engine/core/database";

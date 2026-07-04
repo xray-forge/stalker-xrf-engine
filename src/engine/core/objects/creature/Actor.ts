@@ -1,4 +1,5 @@
 import { CALifeSmartTerrainTask, cse_alife_creature_actor, LuabindClass } from "xray16";
+import { $filename, $isNil } from "xray16/macros";
 
 import {
   closeLoadMarker,

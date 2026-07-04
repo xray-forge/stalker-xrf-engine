@@ -1,4 +1,5 @@
 import { CUI3tButton, CUICheckButton, CUIListBox, CUIStatic, LuabindClass, ui_events } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";

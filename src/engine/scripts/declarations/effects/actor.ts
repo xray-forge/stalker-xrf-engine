@@ -1,4 +1,5 @@
 import { game, level, patrol } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { getManager, getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";

@@ -1,4 +1,5 @@
 import { CUIScriptWnd, CUIStatic, DIK_keys, LuabindClass, ui_events } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";

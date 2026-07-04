@@ -1,4 +1,5 @@
 import { clsid, level, patrol } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import {

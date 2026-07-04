@@ -1,3 +1,5 @@
+import { $isNil } from "xray16/macros";
+
 import { SYSTEM_INI } from "@/engine/core/database";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniNumber } from "@/engine/core/utils/ini";

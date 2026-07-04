@@ -1,4 +1,5 @@
 import { particles_object, patrol, sound_object } from "xray16";
+import { $filename, $fromArray, $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";

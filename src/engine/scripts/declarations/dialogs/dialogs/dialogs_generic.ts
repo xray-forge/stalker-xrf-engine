@@ -1,3 +1,5 @@
+import { $filename, $isNotNil } from "xray16/macros";
+
 import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";

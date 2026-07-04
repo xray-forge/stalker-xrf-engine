@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";

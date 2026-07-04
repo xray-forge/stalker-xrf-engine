@@ -1,4 +1,5 @@
 import { CHelicopter, level, patrol } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";

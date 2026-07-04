@@ -1,3 +1,5 @@
+import { $fromArray } from "xray16/macros";
+
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
   ALifeSmartTerrainTask,

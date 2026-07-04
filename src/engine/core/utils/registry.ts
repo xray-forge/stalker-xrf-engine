@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";

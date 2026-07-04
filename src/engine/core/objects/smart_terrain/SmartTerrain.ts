@@ -8,6 +8,7 @@ import {
   LuabindClass,
   time_global,
 } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,

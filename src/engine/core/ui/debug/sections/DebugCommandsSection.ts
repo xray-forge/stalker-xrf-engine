@@ -1,4 +1,5 @@
 import { CConsole, CUICheckButton, CUIScrollView, CUIStatic, get_console, LuabindClass, ui_events } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { executeConsoleCommand } from "@/engine/core/utils/console";

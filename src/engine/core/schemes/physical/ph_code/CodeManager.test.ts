@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { $fromObject } from "xray16/macros";
 
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";

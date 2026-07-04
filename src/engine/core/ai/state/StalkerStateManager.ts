@@ -1,4 +1,5 @@
 import { action_planner, level, look, object, time_global } from "xray16";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";

@@ -1,4 +1,5 @@
 import { callback, hit, time_global } from "xray16";
+import { $filename, $fromArray, $isNil } from "xray16/macros";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { animations } from "@/engine/core/animation/animations";

@@ -1,4 +1,5 @@
 import { get_hud, level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";

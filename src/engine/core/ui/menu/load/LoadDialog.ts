@@ -13,6 +13,7 @@ import {
   ui_events,
   valid_saved_game,
 } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";

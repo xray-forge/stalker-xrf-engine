@@ -1,4 +1,5 @@
 import { clsid } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";

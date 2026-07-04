@@ -1,3 +1,5 @@
+import { $fromObject, $isNil, $isNotNil } from "xray16/macros";
+
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { medkits, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { pistols } from "@/engine/lib/constants/items/weapons";

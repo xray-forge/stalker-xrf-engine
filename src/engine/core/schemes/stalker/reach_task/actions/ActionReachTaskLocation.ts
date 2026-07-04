@@ -1,4 +1,5 @@
 import { action_base, anim, level, look, LuabindClass, move, object, time_global } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";

@@ -1,4 +1,5 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindClass, ui_events } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";

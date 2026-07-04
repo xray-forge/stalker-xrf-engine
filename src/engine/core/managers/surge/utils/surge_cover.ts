@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";

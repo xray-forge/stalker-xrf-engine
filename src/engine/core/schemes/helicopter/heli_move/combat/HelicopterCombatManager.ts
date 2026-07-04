@@ -1,4 +1,5 @@
 import { CHelicopter, level, time_global } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,

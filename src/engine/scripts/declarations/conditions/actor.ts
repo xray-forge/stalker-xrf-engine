@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";

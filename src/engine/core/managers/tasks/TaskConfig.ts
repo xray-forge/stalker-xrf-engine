@@ -1,4 +1,5 @@
 import { ini_file } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import type { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { readIniSectionsAsSet } from "@/engine/core/utils/ini";

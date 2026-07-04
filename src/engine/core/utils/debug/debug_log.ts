@@ -1,4 +1,5 @@
 import { cast_planner, CTime, relation_registry } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state";

@@ -1,4 +1,5 @@
 import { move } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import { getAnimPriA22Loophole } from "@/engine/core/animation/smart_covers/loophole_anim_pri_a22";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";

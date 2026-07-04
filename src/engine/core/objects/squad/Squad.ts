@@ -1,4 +1,5 @@
 import { CALifeSmartTerrainTask, cse_alife_online_offline_group, LuabindClass } from "xray16";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,

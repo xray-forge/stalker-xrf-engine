@@ -1,4 +1,5 @@
 import { cse_alife_human_stalker, level, LuabindClass } from "xray16";
+import { $filename } from "xray16/macros";
 
 import {
   IRegistryOfflineState,

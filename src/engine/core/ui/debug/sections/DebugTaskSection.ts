@@ -8,6 +8,7 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { TaskManager } from "@/engine/core/managers/tasks";

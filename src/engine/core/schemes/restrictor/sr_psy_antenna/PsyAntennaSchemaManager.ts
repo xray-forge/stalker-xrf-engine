@@ -1,4 +1,5 @@
 import { get_hud, level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";

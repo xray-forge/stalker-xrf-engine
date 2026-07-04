@@ -1,4 +1,5 @@
 import { game } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/dialogs";

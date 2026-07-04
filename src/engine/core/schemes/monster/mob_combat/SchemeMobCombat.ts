@@ -1,3 +1,5 @@
+import { $isNotNil } from "xray16/macros";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";

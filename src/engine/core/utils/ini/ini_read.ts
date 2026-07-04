@@ -1,3 +1,5 @@
+import { $isNil } from "xray16/macros";
+
 import type { IBaseSchemeLogic } from "@/engine/core/database/database_types";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import {

@@ -1,4 +1,5 @@
 import { log, print_stack } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { AnyArgs, Nillable, TCount } from "@/engine/lib/types";
 

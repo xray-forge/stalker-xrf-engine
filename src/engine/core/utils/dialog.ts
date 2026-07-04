@@ -1,3 +1,5 @@
+import { $isNotNil } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";

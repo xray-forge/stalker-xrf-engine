@@ -1,5 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter, clsid } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import {
   IRegistryObjectState,

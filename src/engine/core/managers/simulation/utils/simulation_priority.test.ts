@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { $fromObject } from "xray16/macros";
 
 import { registerSimulator } from "@/engine/core/database";
 import {

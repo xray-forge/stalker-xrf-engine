@@ -1,4 +1,5 @@
 import { action_base, LuabindClass } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, getStalkerState, setStalkerState } from "@/engine/core/database";

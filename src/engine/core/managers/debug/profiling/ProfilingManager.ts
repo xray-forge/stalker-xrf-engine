@@ -1,4 +1,5 @@
 import { profile_timer } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";

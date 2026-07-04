@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { $fromObject } from "xray16/macros";
 
 import { RestrictorBinder } from "@/engine/core/binders/zones/RestrictorBinder";
 import { getManager, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";

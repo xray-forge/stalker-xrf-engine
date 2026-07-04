@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";

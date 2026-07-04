@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";

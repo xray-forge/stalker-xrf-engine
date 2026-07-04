@@ -1,4 +1,5 @@
 import { CGameGraph, game_graph } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { type TSimulationObject } from "@/engine/core/managers/simulation";

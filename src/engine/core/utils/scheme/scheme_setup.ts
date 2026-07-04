@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";

@@ -1,3 +1,5 @@
+import { $isNil, $isNotNil } from "xray16/macros";
+
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { abort } from "@/engine/core/utils/assertion";

@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";

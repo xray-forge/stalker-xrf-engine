@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { $fromArray } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";

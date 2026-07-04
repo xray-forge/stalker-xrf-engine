@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";

@@ -1,4 +1,5 @@
 import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global } from "xray16";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,

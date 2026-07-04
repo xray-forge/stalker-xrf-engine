@@ -1,4 +1,5 @@
 import { anim, move, object, TXR_object_action } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { states } from "@/engine/core/animation/states";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/animation/types";

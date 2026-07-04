@@ -1,4 +1,5 @@
 import { bit_or, CSavedGameWrapper, device, FS, game, getFS, IsImportantSave, user_name } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";

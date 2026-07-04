@@ -1,4 +1,5 @@
 import { level, patrol } from "xray16";
+import { $filename, $isNil } from "xray16/macros";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";

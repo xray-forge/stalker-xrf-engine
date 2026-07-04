@@ -1,4 +1,5 @@
 import { hit, level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { getManagerByName, isStoryObject, registry } from "@/engine/core/database";
 import type { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";

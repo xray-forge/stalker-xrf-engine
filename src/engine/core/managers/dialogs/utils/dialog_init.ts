@@ -1,4 +1,5 @@
 import { CPhraseScript } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";

@@ -1,3 +1,5 @@
+import { $fromArray, $fromObject } from "xray16/macros";
+
 import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { createSequence } from "@/engine/core/utils/animation";

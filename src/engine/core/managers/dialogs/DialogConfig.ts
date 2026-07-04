@@ -1,4 +1,5 @@
 import { ini_file } from "xray16";
+import { $fromArray, $fromObject } from "xray16/macros";
 
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
 import { readIniGenericDialogs } from "@/engine/core/managers/dialogs/utils/dialog_read";

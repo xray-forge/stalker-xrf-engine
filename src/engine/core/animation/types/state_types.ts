@@ -1,3 +1,5 @@
+import { $fromObject } from "xray16/macros";
+
 import type { EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
 import type {
   AnyCallable,

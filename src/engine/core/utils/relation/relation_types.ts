@@ -1,3 +1,4 @@
+import { $fromObject } from "xray16/macros";
 /**
  * Relation type between two game objects.
  */

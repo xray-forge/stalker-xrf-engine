@@ -1,4 +1,5 @@
 import { anim, cond, look, move, patrol, sound } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry, setMonsterState } from "@/engine/core/database";

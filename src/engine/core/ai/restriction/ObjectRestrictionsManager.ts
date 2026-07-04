@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

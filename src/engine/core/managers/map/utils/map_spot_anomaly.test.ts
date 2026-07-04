@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import { registerStoryLink } from "@/engine/core/database";
 import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils/map_spot_anomaly";

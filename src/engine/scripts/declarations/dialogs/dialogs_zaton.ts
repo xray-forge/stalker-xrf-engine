@@ -1,6 +1,5 @@
-/* eslint @typescript-eslint/explicit-function-return-type: "error" */
-
 import { game, level } from "xray16";
+import { $filename, $fromArray, $fromObject } from "xray16/macros";
 
 import { getManager, isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";

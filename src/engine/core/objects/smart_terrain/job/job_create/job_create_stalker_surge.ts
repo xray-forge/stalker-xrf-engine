@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { jobPreconditionSurge } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";

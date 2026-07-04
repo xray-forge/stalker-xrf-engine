@@ -1,4 +1,5 @@
 import { game } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";

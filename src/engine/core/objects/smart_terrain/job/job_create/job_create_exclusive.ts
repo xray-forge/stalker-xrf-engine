@@ -1,4 +1,5 @@
 import { getFS, ini_file } from "xray16";
+import { $filename, $isNil } from "xray16/macros";
 
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { jobPreconditionExclusive } from "@/engine/core/objects/smart_terrain/job/job_precondition";

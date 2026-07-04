@@ -1,3 +1,5 @@
+import { $fromObject } from "xray16/macros";
+
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/ai/camp/camp_utils";
 import { IAnimationDescriptor } from "@/engine/core/animation/types/animation_types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";

@@ -1,4 +1,5 @@
 import { callback, clsid, game, time_global } from "xray16";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";

@@ -12,6 +12,7 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { EGameRenderer, EOptionGroup, optionGroupsMessages } from "@/engine/core/ui/menu/options/options_types";
 import { OptionsControls } from "@/engine/core/ui/menu/options/OptionsControls";

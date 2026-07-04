@@ -1,3 +1,5 @@
+import { $isNotNil } from "xray16/macros";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { getStoryIdByObjectId, IRegistryObjectState, registry } from "@/engine/core/database";
 import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear/hear_types";

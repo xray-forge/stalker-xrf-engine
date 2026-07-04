@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
 import { ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";

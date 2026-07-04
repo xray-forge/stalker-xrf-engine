@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { campConfig, CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";

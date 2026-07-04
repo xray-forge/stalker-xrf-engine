@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { game } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { areNoStalkersWorkingOnJobs, isJobAvailableToObject } from "@/engine/core/objects/smart_terrain/job/job_check";

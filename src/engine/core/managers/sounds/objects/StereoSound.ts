@@ -1,4 +1,5 @@
 import { sound_object, time_global } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 import { assert } from "@/engine/core/utils/assertion";

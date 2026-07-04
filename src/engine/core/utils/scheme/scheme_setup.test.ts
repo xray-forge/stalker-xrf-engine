@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { $fromArray } from "xray16/macros";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";

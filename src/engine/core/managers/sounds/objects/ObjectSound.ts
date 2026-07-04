@@ -1,4 +1,5 @@
 import { FS, get_hud, getFS, sound_object, time_global } from "xray16";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";

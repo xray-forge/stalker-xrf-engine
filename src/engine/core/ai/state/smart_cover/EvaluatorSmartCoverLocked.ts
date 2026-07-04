@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { registry } from "@/engine/core/database";

@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import {
   AbstractPlayableSound,
   ActorSound,

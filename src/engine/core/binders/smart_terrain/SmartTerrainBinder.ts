@@ -1,4 +1,5 @@
 import { LuabindClass, object_binder } from "xray16";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,

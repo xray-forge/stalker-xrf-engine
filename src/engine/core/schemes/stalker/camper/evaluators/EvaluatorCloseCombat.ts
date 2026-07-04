@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";

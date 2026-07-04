@@ -1,4 +1,5 @@
 import { flags32, patrol } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 import { abort, assert, assertDefined } from "@/engine/core/utils/assertion";

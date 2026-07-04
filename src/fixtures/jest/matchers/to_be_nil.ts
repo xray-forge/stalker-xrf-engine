@@ -1,5 +1,6 @@
 import { expect } from "@jest/globals";
 import { ExpectationResult } from "expect";
+import { $isNil } from "xray16/macros";
 
 /**
  * Assert value matching LUA nil - null or undefined.

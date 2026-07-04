@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";

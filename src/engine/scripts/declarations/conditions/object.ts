@@ -1,4 +1,5 @@
 import { level, MonsterHitInfo } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import {
   getManager,

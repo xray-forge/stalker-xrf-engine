@@ -1,4 +1,5 @@
 import { CALifeSmartTerrainTask, game_graph, level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { loadDynamicIniFile } from "@/engine/core/database/ini";
 import { registry } from "@/engine/core/database/registry";

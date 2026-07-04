@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { getManager } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { SleepManager } from "@/engine/core/managers/sleep";

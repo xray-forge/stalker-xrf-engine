@@ -1,4 +1,5 @@
 import { action_base, LuabindClass, move } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { registry } from "@/engine/core/database";

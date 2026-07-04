@@ -1,4 +1,5 @@
 import { action_base, danger_object, LuabindClass, patrol, stalker_ids, time_global } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";

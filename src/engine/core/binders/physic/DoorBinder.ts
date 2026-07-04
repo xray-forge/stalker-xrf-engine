@@ -1,4 +1,5 @@
 import { callback, CPhysicObject, ini_file, LuabindClass, object_binder, sound_object } from "xray16";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,

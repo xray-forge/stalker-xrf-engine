@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { $fromArray, $fromObject } from "xray16/macros";
 
 import { AnyObject, LuaArray, Nillable, TName } from "@/engine/lib/types";
 

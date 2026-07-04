@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { SYSTEM_INI } from "@/engine/core/database";
 import {
   ALLOWED_TREASURE_TYPES,

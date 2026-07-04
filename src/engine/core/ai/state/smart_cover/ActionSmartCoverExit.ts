@@ -1,4 +1,5 @@
 import { action_base, LuabindClass } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { LuaLogger } from "@/engine/core/utils/logging";

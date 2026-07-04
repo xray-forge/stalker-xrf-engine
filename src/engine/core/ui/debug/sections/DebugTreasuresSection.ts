@@ -1,4 +1,5 @@
 import { CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindClass, ui_events } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { StatisticsManager } from "@/engine/core/managers/statistics";

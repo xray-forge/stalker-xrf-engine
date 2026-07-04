@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,

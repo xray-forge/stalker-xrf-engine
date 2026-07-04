@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";

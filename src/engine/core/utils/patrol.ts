@@ -1,4 +1,5 @@
 import { patrol } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 import type { IWaypointData } from "@/engine/core/utils/ini";

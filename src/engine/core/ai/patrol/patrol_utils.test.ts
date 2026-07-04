@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { $fromObject } from "xray16/macros";
 
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";

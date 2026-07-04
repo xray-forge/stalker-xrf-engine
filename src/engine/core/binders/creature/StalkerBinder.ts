@@ -1,4 +1,5 @@
 import { actor_stats, callback, level, LuabindClass, object_binder, patrol, time_global } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { setupStalkerMotivationPlanner, setupStalkerStatePlanner } from "@/engine/core/ai/planner/setup";

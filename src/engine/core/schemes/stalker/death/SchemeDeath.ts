@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { IRegistryObjectState } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";

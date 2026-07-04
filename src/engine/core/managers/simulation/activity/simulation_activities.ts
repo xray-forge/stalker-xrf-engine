@@ -1,3 +1,5 @@
+import { $fromObject } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import {
   simulationPreconditionAlways,

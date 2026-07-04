@@ -1,3 +1,5 @@
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
+
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";

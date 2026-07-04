@@ -1,3 +1,5 @@
+import { $fromArray } from "xray16/macros";
+
 import { assert } from "@/engine/core/utils/assertion";
 
 /**

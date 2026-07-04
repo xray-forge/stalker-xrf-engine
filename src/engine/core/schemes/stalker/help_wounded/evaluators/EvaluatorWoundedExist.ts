@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";

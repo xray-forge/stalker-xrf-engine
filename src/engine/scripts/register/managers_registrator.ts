@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { initializeManager } from "@/engine/core/database";
 import { TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { ActorInputManager, ActorInventoryMenuManager } from "@/engine/core/managers/actor";

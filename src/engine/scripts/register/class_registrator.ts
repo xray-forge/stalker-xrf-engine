@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { Actor, Monster, Stalker } from "@/engine/core/objects/creature";
 import { Helicopter } from "@/engine/core/objects/helicopter";
 import {

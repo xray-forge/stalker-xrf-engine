@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";

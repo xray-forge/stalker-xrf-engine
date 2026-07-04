@@ -1,4 +1,5 @@
 import { game, level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,

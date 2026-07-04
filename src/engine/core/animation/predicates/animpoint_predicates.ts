@@ -1,3 +1,5 @@
+import { $fromArray, $fromObject } from "xray16/macros";
+
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";

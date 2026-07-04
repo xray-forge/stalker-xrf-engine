@@ -1,4 +1,5 @@
 import { action_base, LuabindClass } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { setStalkerState } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";

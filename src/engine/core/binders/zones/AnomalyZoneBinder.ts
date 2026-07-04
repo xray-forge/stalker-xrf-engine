@@ -1,4 +1,5 @@
 import { ini_file, LuabindClass, object_binder } from "xray16";
+import { $filename, $isNil } from "xray16/macros";
 
 import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
 import {

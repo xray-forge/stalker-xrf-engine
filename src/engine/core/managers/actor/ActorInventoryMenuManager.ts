@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { SYSTEM_INI } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";

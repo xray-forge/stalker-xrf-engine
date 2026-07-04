@@ -1,4 +1,5 @@
 import { clsid } from "xray16";
+import { $filename, $fromObject, $isNotNil } from "xray16/macros";
 
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";

@@ -1,4 +1,5 @@
 import { move } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import { getCrouchFrontLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_front";
 import { getCrouchFrontLeftLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_front_left";

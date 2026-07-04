@@ -1,4 +1,5 @@
 import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIStatic, CUIWindow } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { EElementType } from "@/engine/core/utils/ui/forms/forms_types";

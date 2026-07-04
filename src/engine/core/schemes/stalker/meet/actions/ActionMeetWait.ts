@@ -1,4 +1,5 @@
 import { action_base, LuabindClass } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { LuaLogger } from "@/engine/core/utils/logging";

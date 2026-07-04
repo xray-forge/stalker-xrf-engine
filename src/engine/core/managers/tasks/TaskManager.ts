@@ -1,4 +1,5 @@
 import { task } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";

@@ -1,4 +1,5 @@
 import { callback, move, patrol, time_global } from "xray16";
+import { $filename, $isNil } from "xray16/macros";
 
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";

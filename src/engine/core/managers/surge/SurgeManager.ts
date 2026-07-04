@@ -1,4 +1,5 @@
 import { game, hit, level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {

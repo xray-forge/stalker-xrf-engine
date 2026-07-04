@@ -1,4 +1,5 @@
 import { action_base, danger_object, LuabindClass, move, time_global } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { setStalkerState } from "@/engine/core/database";

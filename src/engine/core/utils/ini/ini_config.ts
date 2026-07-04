@@ -1,3 +1,5 @@
+import { $isNotNil } from "xray16/macros";
+
 import { IBaseSchemeLogic, ILogicsOverrides, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
 import { getServerObjectByStoryId } from "@/engine/core/database/story_objects";

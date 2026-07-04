@@ -1,4 +1,5 @@
 import { game, get_hud, StaticDrawableWrapper } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { getManager, getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";

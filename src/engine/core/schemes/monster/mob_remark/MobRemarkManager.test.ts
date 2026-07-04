@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { NotificationManager } from "@/engine/core/managers/notifications";

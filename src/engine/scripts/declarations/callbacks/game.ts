@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
 import { getManager } from "@/engine/core/database";

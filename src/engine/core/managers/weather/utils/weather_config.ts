@@ -1,4 +1,5 @@
 import { ini_file } from "xray16";
+import { $filename } from "xray16/macros";
 
 import {
   EWeatherMoonPeriod,

@@ -1,4 +1,5 @@
 import { clsid, game } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";

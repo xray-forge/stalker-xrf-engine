@@ -1,4 +1,5 @@
 import { ini_file } from "xray16";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   CUSTOM_DATA,

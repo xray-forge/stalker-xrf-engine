@@ -1,5 +1,6 @@
 import { afterAll, describe, expect, it, jest } from "@jest/globals";
 import { game } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import {
   IBaseSchemeLogic,

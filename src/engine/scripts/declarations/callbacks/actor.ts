@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { getManager } from "@/engine/core/database";
 import { TravelManager } from "@/engine/core/managers/travel";
 import { extern } from "@/engine/core/utils/binding";

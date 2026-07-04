@@ -1,4 +1,5 @@
 import { device, level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";

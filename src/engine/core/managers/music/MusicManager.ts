@@ -1,4 +1,5 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { getManager, getManagerByName, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";

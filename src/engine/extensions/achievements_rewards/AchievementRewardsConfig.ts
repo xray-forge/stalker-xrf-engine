@@ -1,3 +1,5 @@
+import { $fromArray } from "xray16/macros";
+
 import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
 import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";

@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import {

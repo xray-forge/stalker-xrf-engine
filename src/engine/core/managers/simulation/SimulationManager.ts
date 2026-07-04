@@ -1,4 +1,5 @@
 import { actor_stats } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";

@@ -1,4 +1,5 @@
 import { patrol } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry, setMonsterState } from "@/engine/core/database";

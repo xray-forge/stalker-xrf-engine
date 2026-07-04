@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { $fromArray } from "xray16/macros";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { getSimulationTerrainAssignedSquadsCount } from "@/engine/core/managers/simulation/utils";

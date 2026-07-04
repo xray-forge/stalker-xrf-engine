@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { clsid, patrol } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { EMobWalkerState, ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/mob_walker_types";
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";

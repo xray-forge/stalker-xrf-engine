@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { getObjectIdByStoryId } from "@/engine/core/database";
 import { GUIDERS_BY_LEVEL } from "@/engine/core/managers/tasks/TaskConfig";

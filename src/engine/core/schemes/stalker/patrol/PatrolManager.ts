@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";

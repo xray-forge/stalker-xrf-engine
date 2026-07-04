@@ -1,3 +1,5 @@
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
+
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { AnyObject, Nillable, TPath } from "@/engine/lib/types";
 

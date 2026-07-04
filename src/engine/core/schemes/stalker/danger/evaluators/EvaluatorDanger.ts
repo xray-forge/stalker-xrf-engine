@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { registry } from "@/engine/core/database";

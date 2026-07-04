@@ -1,4 +1,5 @@
 import { action_base, anim, look, LuabindClass, move } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";

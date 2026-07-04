@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { IReleaseDescriptor } from "@/engine/core/managers/death";

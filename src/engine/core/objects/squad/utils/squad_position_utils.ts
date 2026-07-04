@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";

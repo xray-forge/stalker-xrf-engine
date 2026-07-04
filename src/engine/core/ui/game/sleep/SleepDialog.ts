@@ -10,6 +10,7 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";

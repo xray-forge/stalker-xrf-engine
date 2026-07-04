@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";

@@ -1,3 +1,5 @@
+import { $fromObject } from "xray16/macros";
+
 import { getSmartCoverAnimPriA22 } from "@/engine/core/animation/smart_covers/anim_pri_a22";
 import { getSmartCoverAnimpointPriA15 } from "@/engine/core/animation/smart_covers/animpoint_pri_a15";
 import { getSmartCoverAnimpointSitAss } from "@/engine/core/animation/smart_covers/animpoint_sit_ass";

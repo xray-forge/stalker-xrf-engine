@@ -1,3 +1,5 @@
+import { $isNotNil } from "xray16/macros";
+
 import { isObjectTrader } from "@/engine/core/managers/trade/utils";
 import { addRandomUpgrades } from "@/engine/core/managers/upgrades";
 import { getItemOwnerId } from "@/engine/core/utils/item";

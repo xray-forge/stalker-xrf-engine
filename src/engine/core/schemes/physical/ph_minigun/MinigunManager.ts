@@ -1,4 +1,5 @@
 import { CCar, level, move, patrol, time_global } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getObjectByStoryId, IBaseSchemeLogic, registry } from "@/engine/core/database";

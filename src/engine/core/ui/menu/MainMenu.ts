@@ -13,6 +13,7 @@ import {
   main_menu,
   ui_events,
 } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";

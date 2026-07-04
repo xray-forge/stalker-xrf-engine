@@ -1,4 +1,5 @@
 import { anim, CSightParams, look, move } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/animation/types/state_types";

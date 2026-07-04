@@ -1,4 +1,5 @@
 import { FS, game, get_hud, getFS, snd_type, sound_object, stalker_ids, time_global } from "xray16";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";

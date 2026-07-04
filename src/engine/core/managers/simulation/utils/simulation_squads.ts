@@ -1,4 +1,5 @@
 import { clsid, level, patrol } from "xray16";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { removeSquadMapSpot, updateSquadMapSpot } from "@/engine/core/managers/map/utils/map_spot_squad";

@@ -1,3 +1,5 @@
+import { $filename, $fromObject } from "xray16/macros";
+
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniNumber } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";

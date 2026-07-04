@@ -1,4 +1,5 @@
 import { level, patrol } from "xray16";
+import { $filename, $fromArray } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";

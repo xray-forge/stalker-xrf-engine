@@ -1,3 +1,5 @@
+import { $isNil } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import { getStateIndexByHp } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";

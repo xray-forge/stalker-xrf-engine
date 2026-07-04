@@ -1,4 +1,5 @@
 import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad";

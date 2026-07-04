@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { registry } from "@/engine/core/database";
 import { LightManager } from "@/engine/core/schemes/restrictor/sr_light/LightManager";

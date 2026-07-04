@@ -1,4 +1,5 @@
 import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,

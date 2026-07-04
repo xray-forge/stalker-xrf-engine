@@ -1,4 +1,5 @@
 import { action_base, level, LuabindClass, patrol } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
 import { getManager, getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";

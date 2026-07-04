@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { getManager } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";

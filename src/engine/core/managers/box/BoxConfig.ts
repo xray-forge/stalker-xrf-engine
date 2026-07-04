@@ -1,4 +1,5 @@
 import { ini_file } from "xray16";
+import { $fromArray, $fromObject } from "xray16/macros";
 
 import { IniFile, TCount, TName, TRate, TSection } from "@/engine/lib/types";
 

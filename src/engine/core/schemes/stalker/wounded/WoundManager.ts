@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";

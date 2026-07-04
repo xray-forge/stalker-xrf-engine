@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { disposeManager, getManager, registerActor, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";

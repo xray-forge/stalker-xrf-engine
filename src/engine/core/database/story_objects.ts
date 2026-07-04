@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";

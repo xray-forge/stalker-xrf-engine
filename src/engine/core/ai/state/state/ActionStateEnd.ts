@@ -1,4 +1,5 @@
 import { action_base, level, LuabindClass, object, time_global } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";

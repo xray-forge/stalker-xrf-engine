@@ -1,4 +1,5 @@
 import { level, relation_registry } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad/Squad";

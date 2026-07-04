@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";

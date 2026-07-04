@@ -1,3 +1,5 @@
+import { $isNotNil } from "xray16/macros";
+
 import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";

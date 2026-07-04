@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { registerStoryLink } from "@/engine/core/database";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";

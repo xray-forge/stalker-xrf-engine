@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";

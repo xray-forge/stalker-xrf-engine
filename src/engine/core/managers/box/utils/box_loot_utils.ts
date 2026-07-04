@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $filename, $isNil } from "xray16/macros";
 
 import { boxConfig, PH_BOX_GENERIC_LTX } from "@/engine/core/managers/box/BoxConfig";
 import { abort } from "@/engine/core/utils/assertion";

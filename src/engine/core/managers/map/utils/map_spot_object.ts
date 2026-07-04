@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IMapMarkDescriptor } from "@/engine/core/managers/map";

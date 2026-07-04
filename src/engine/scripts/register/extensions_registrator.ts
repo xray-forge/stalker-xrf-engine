@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { registerExtension } from "@/engine/core/database";
 import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import {

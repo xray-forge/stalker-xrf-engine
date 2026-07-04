@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { type Squad } from "@/engine/core/objects/squad";

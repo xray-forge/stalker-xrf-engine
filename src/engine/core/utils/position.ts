@@ -1,4 +1,5 @@
 import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";

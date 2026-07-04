@@ -8,6 +8,7 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { ExtensionItemListEntry } from "@/engine/core/ui/menu/extensions/ExtensionItemListEntry";
 import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";

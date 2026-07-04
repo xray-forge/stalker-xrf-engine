@@ -1,3 +1,5 @@
+import { $fromArray, $fromObject, $isNotNil } from "xray16/macros";
+
 import { IStateDescriptor } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { GameObject, LuaArray, Nillable, TName, TTimestamp } from "@/engine/lib/types";

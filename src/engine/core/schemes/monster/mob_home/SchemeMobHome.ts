@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { getMonsterState } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";

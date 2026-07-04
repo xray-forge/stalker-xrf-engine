@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { getManager, initializeManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { ActorInputManager } from "@/engine/core/managers/actor";
