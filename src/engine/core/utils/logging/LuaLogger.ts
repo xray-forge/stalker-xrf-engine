@@ -7,6 +7,11 @@ import { toJSON } from "@/engine/core/utils/transform/json";
 import { AnyArgs, AnyObject, Nillable, TLabel } from "@/engine/lib/types";
 
 /**
+ * Localised engine console log, cached from `_G.log` at module load.
+ */
+const luaLog: Nillable<(message: string) => void> = log;
+
+/**
  * Lua logger class.
  * Stores prefix, enabled-disabled flags and uses shared statics to print data.
  *
@@ -55,7 +60,9 @@ export class LuaLogger {
 
     // Write into shared game console if no file defined/dual mode enabled.
     if (this.loggerFile === null || this.mode === ELuaLoggerMode.DUAL) {
-      log(result);
+      if (luaLog) {
+        luaLog(result);
+      }
     }
 
     // Write into custom file if it is defined for current logger.

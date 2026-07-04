@@ -72,7 +72,7 @@ export function assertNonEmptyString(
  * @param level - Stack levels to print in trace logs.
  */
 export function callstack(level: TCount = 5): void {
-  if (debug !== null) {
+  if ($isNotNil(debug) && $isNotNil(log)) {
     log("[callstack][traceback]" + debug.traceback(level));
   }
 }
