@@ -8,7 +8,15 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "isolatedModules": true,
-    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "xray16"],
+    "types": [
+      "@typescript-to-lua/language-extensions",
+      "lua-types/jit",
+      "xray16",
+      "xray16/typedefs/extensions",
+      "xray16/typedefs/luajit",
+      "xray16/typedefs/lfs",
+      "xray16/typedefs/marshal"
+    ],
     "jsx": "preserve",
     "jsxFactory": "JSXXML",
     "strict": true,

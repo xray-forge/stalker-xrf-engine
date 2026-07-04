@@ -6,7 +6,7 @@
     "outDir": "../../target/gamedata",
     "ignoreDeprecations": "6.0"
   },
-  "include": ["../../src/typedefs", "../../src/engine/lib", "../../src/engine/scripts", "../../src/engine/extensions"],
+  "include": ["../../src/engine/lib", "../../src/engine/scripts", "../../src/engine/extensions"],
   "exclude": ["../../**/*.test.ts"],
   "tstl": {
     "buildMode": "default",
