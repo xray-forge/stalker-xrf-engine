@@ -15,7 +15,7 @@
     "luaTarget": "JIT",
     "noImplicitGlobalVariables": true,
     "noImplicitSelf": true,
-    "noResolvePaths": ["xray16", "xray16/macros"],
+    "noResolvePaths": ["xray16", "xray16/macros", "xray16/alias"],
     "luaPlugins": [
       { "name": "xray16/plugins/inline" },
       { "name": "xray16/plugins/luabind" },
