@@ -10,8 +10,10 @@ export type TSection = string;
 /**
  * Enumeration describing possible game logics schemes.
  * Scheme allows to handle scripted behaviour with sharable logics components.
+ *
+ * @virtual
  */
-export const enum EScheme {
+export enum EScheme {
   ABUSE = "abuse",
   ANIMPOINT = "animpoint",
   CAMPER = "camper",

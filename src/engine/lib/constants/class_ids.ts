@@ -49,8 +49,10 @@ export type TGameClassId = (typeof gameClassId)[keyof typeof gameClassId];
 /**
  * C++ declared class identifiers from client side.
  * Matches class names in C++ counterpart.
+ *
+ * @virtual
  */
-export const enum EGameObjectClass {
+export enum EGameObjectClass {
   CAI_Bloodsucker = "CAI_Bloodsucker",
   CAI_Boar = "CAI_Boar",
   CAI_Dog = "CAI_Dog",
