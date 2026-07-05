@@ -1,4 +1,5 @@
 import { FS, getFS } from "xray16";
+import { $fromArray, $fromLuaArray } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";

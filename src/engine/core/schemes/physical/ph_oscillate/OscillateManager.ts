@@ -1,9 +1,10 @@
 import { time_global } from "xray16";
+import { PhysicsJoint, Vector } from "xray16/alias";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { Nillable, PhysicsJoint, TRate, TTimestamp, Vector } from "@/engine/lib/types";
+import { Nillable, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Manager to handle oscillation of objects with some time period.

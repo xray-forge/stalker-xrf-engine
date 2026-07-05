@@ -1,3 +1,5 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
 import {
@@ -6,7 +8,7 @@ import {
 } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme controlling restrictor zone particle effect behaviour.

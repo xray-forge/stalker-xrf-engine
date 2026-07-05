@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, ServerGroupObject } from "xray16/alias";
 
 import {
   registerActor,
@@ -19,7 +20,6 @@ import {
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, ServerGroupObject } from "@/engine/lib/types";
 import { mockRelationsSquads, resetRegistry } from "@/fixtures/engine";
 import {
   MockAlifeCreatureActor,

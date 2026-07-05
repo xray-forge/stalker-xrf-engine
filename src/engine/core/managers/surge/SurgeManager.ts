@@ -1,4 +1,6 @@
 import { game, hit, level } from "xray16";
+import { GameObject, Hit, NetPacket, NetProcessor, Time } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
@@ -42,14 +44,9 @@ import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyObject,
-  GameObject,
-  Hit,
-  NetPacket,
-  NetProcessor,
   Nillable,
   TCount,
   TDuration,
-  Time,
   TLabel,
   TName,
   TNumberId,

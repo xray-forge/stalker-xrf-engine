@@ -1,7 +1,7 @@
 import { ini_file } from "xray16";
+import { IniFile } from "xray16/alias";
 
 import { readIniNumber } from "@/engine/core/utils/ini";
-import { IniFile } from "@/engine/lib/types";
 
 export const WOUNDED_SCHEME_CONFIG_LTX: IniFile = new ini_file("schemes\\wounded.ltx");
 

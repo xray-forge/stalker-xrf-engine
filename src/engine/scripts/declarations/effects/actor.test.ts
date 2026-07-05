@@ -1,5 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, patrol } from "xray16";
+import { GameObject, GameTask, ServerObject, Vector } from "xray16/alias";
 
 import {
   getManager,
@@ -20,7 +21,7 @@ import { detectors } from "@/engine/lib/constants/items/detectors";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import { TRUE } from "@/engine/lib/constants/words";
-import { EActiveItemSlot, GameObject, GameTask, ServerObject, Vector } from "@/engine/lib/types";
+import { EActiveItemSlot } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockAlifeObject, MockCGameTask, MockGameObject } from "@/fixtures/xray";

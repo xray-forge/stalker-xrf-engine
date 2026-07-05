@@ -10,6 +10,8 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { GameObject, Vector2D } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { SleepManager } from "@/engine/core/managers/sleep";
@@ -27,7 +29,7 @@ import {
 import { create2dVector } from "@/engine/core/utils/vector";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
-import { GameObject, TDuration, TNumberId, TPath, TTimestamp, Vector2D } from "@/engine/lib/types";
+import { TDuration, TNumberId, TPath, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "interaction\\SleepDialog.component";

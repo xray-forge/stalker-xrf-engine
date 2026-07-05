@@ -1,17 +1,8 @@
+import { GameObject, IniFile, NetPacket, NetProcessor, SoundObject } from "xray16/alias";
+
 import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { readIniString } from "@/engine/core/utils/ini";
-import {
-  AnyArgs,
-  GameObject,
-  IniFile,
-  NetPacket,
-  NetProcessor,
-  Nillable,
-  SoundObject,
-  TNumberId,
-  TPath,
-  TRate,
-} from "@/engine/lib/types";
+import { AnyArgs, Nillable, TNumberId, TPath, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 /**

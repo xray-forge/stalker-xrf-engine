@@ -1,4 +1,6 @@
 import { profile_timer } from "xray16";
+import { ProfileTimer } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { IProfileSnapshotDescriptor } from "@/engine/core/managers/debug/debug_types";
@@ -7,7 +9,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { executeConsoleCommand } from "@/engine/core/utils/console";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { AnyCallable, LuaArray, Nillable, ProfileTimer, TCount, TDuration, TName } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, Nillable, TCount, TDuration, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { mode: ELuaLoggerMode.DUAL, file: "profiling" });
 

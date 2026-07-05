@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { addRandomUpgrade, addRandomUpgrades } from "@/engine/core/managers/upgrades";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 

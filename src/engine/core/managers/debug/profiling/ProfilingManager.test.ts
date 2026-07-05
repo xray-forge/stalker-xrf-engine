@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { ProfileTimer } from "xray16/alias";
 
 import { getManager } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling/ProfilingManager";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
-import { ProfileTimer } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";

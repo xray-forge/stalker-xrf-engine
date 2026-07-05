@@ -1,6 +1,9 @@
+import { GameObject, IniFile } from "xray16/alias";
+import { $isNil } from "xray16/macros";
+
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { GameObject, IniFile, Nillable, TCount, TName, TSection } from "@/engine/lib/types";
+import { Nillable, TCount, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Setup object visuals based on global section description.

@@ -1,9 +1,10 @@
 import { action_base, LuabindClass, object } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
-import { GameObject, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Strap active weapon item if it is stapable.

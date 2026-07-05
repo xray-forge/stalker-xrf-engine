@@ -1,4 +1,6 @@
 import { time_global } from "xray16";
+import { GameObject, IniFile, NetPacket, NetProcessor } from "xray16/alias";
+import { $filename, $isNil } from "xray16/macros";
 
 import { TAnimationSequenceElement } from "@/engine/core/animation/types";
 import {
@@ -17,19 +19,7 @@ import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { abort, assertNonEmptyString } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  AnyObject,
-  GameObject,
-  IniFile,
-  NetPacket,
-  NetProcessor,
-  Nillable,
-  TNumberId,
-  TPath,
-  TRate,
-  TSection,
-  TTimestamp,
-} from "@/engine/lib/types";
+import { AnyObject, Nillable, TNumberId, TPath, TRate, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "trade" });
 

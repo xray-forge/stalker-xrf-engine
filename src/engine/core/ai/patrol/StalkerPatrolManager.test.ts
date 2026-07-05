@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { callback } from "xray16";
+import { EGameObjectPath, GameObject } from "xray16/alias";
 
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
-import { EGameObjectPath, GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("StalkerPatrolManager", () => {

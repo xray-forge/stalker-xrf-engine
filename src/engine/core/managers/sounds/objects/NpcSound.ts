@@ -1,4 +1,6 @@
 import { FS, game, get_hud, getFS, snd_type, sound_object, stalker_ids, time_global } from "xray16";
+import { GameObject, IniFile, NetPacket, NetProcessor, SoundObject } from "xray16/alias";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -20,13 +22,8 @@ import { roots } from "@/engine/lib/constants/roots";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { NIL } from "@/engine/lib/constants/words";
 import {
-  GameObject,
-  IniFile,
   LuaArray,
-  NetPacket,
-  NetProcessor,
   Nillable,
-  SoundObject,
   TCount,
   TDuration,
   TIndex,

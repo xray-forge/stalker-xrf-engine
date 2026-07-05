@@ -1,4 +1,5 @@
-import { Phrase } from "@/engine/lib/types";
+import { Phrase } from "xray16/alias";
+
 import { MockPhraseScript } from "@/fixtures/xray/mocks/dialogs/PhraseScript.mock";
 
 /**

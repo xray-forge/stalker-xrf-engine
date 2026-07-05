@@ -1,3 +1,5 @@
+import { $fromArray, $fromObject } from "xray16/macros";
+
 import {
   EObjectCampActivity,
   ICampTransitionDescriptor,

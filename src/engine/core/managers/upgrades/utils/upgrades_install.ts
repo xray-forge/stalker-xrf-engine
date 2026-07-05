@@ -1,8 +1,10 @@
+import { GameObject } from "xray16/alias";
+
 import { SYSTEM_INI } from "@/engine/core/database";
 import { IUpgradeDescriptor, TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { readAllObjectUpgrades } from "@/engine/core/managers/upgrades/utils/upgrades_get";
 import { getItemInstalledUpgradesSet } from "@/engine/core/utils/item";
-import { GameObject, LuaArray, TCount, TSection } from "@/engine/lib/types";
+import { LuaArray, TCount, TSection } from "@/engine/lib/types";
 
 /**
  * Add single random update for item object.

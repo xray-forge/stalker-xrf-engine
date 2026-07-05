@@ -1,4 +1,6 @@
 import { game, level } from "xray16";
+import { NetPacket, NetProcessor, Time } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -45,12 +47,9 @@ import { NIL } from "@/engine/lib/constants/words";
 import {
   AnyObject,
   LuaArray,
-  NetPacket,
-  NetProcessor,
   Nillable,
   StringNillable,
   TDuration,
-  Time,
   TName,
   TProbability,
   TSection,

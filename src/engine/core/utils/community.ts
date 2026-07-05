@@ -1,16 +1,11 @@
+import { AnyGameObject, GameObject, ServerCreatureObject, ServerHumanObject } from "xray16/alias";
+
 import { registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { squadCommunityByBehaviour } from "@/engine/lib/constants/behaviours";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import {
-  AnyGameObject,
-  GameObject,
-  Nillable,
-  ServerCreatureObject,
-  ServerHumanObject,
-  TNumberId,
-} from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param squad - Target squad to get community for.

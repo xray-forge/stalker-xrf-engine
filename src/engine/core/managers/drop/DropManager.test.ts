@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { DROP_MANAGER_CONFIG_LTX } from "@/engine/core/managers/drop/DropConfig";
 import { DropManager } from "@/engine/core/managers/drop/DropManager";
 import { createCorpseReleaseItems, readIniDropCountByLevel } from "@/engine/core/managers/drop/utils";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { AnyObject, GameObject } from "@/engine/lib/types";
+import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

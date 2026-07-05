@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { ActionPlanner, DangerObject, GameObject, ServerHumanObject } from "xray16/alias";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { registerSimulator } from "@/engine/core/database";
@@ -8,7 +9,7 @@ import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig"
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators/EvaluatorDanger";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
-import { ActionPlanner, DangerObject, EScheme, GameObject, ServerHumanObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockDangerObject, MockGameObject, MockPropertyStorage } from "@/fixtures/xray";

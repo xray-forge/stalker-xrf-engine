@@ -1,8 +1,8 @@
+import { GameObject, GameTask } from "xray16/alias";
+
 import { TNotificationIcon } from "@/engine/core/managers/notifications/index";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import {
-  GameObject,
-  GameTask,
   Nillable,
   TCount,
   TDuration,

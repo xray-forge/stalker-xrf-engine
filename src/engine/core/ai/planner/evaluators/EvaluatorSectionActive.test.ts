@@ -1,10 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
 import { property_storage } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

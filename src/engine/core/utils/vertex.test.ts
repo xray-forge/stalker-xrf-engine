@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game_graph } from "xray16";
+import { GameObject, Vertex } from "xray16/alias";
 
 import { registerSimulator } from "@/engine/core/database";
 import {
@@ -9,7 +10,6 @@ import {
   isValidAccessibleVertex,
 } from "@/engine/core/utils/vertex";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { GameObject, Vertex } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("isGameVertexFromLevel util", () => {

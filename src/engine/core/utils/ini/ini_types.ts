@@ -1,4 +1,6 @@
-import type { Flags32, LuaArray, Nillable, TCount, TIndex, TName, TProbability, TSection } from "@/engine/lib/types";
+import type { Flags32 } from "xray16/alias";
+
+import type { LuaArray, Nillable, TCount, TIndex, TName, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * Data descriptor describing waypoint logics.

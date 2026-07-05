@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
+import { IniFile } from "xray16/alias";
 
 import { EPlayableSound } from "@/engine/core/managers/sounds";
 import { ActorSound, LoopedSound, NpcSound, ObjectSound } from "@/engine/core/managers/sounds/objects";
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils/sounds_init";
-import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 describe("readIniThemesList util", () => {

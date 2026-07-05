@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { EvaluatorDirectionSearch } from "@/engine/core/ai/state/direction/EvaluatorDirectionSearch";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -7,7 +8,6 @@ import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { createEmptyVector } from "@/engine/core/utils/vector";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorDirectionSearch", () => {

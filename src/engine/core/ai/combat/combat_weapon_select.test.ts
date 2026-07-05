@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { selectBestStalkerWeapon } from "@/engine/core/ai/combat/combat_weapon_select";
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { AnyObject, GameObject } from "@/engine/lib/types";
+import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 

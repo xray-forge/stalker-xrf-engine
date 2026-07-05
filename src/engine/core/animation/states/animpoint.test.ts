@@ -3,13 +3,12 @@ import { describe, expect, it } from "@jest/globals";
 import { animpointStates } from "@/engine/core/animation/states/animpoint";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { assertArraysIntersecting } from "@/fixtures/engine";
-import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("animpoint states list", () => {
   it("should list all needed animations", () => {
     expect(animpointStates.length()).toBe(59);
 
-    assertArraysIntersecting(mockFromLuaTable(animpointStates).getKeysArray(), [
+    assertArraysIntersecting(Array.from((animpointStates as unknown as Map<string, unknown>).keys()), [
       EStalkerState.ANIMPOINT_STAY_WALL,
       EStalkerState.ANIMPOINT_STAY_TABLE,
       EStalkerState.ANIMPOINT_SIT_HIGH,

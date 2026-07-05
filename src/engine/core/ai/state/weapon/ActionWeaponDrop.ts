@@ -1,11 +1,12 @@
 import { action_base, LuabindClass, object } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
 import { setItemCondition } from "@/engine/core/utils/item";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
-import { GameObject, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Action to drop active item.

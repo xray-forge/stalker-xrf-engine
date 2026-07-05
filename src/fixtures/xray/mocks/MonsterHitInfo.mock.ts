@@ -1,6 +1,7 @@
 import { MonsterHitInfo } from "xray16";
+import { GameObject, Vector } from "xray16/alias";
 
-import { GameObject, Nillable, TTimestamp, Vector } from "@/engine/lib/types";
+import { Nillable, TTimestamp } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 

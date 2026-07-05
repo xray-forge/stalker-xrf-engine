@@ -1,3 +1,5 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { IBaseSchemeLogic } from "@/engine/core/database";
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
@@ -9,7 +11,7 @@ import {
   readIniString,
   readIniStringAndCondList,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TIndex, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, Nillable, TIndex, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme implementing code input for physical objects.

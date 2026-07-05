@@ -1,4 +1,6 @@
 import { ini_file } from "xray16";
+import { EGameObjectRelation, GameObject, IniFile } from "xray16/alias";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   CUSTOM_DATA,
@@ -26,19 +28,7 @@ import {
 import { disableObjectBaseSchemes } from "@/engine/core/utils/scheme/scheme_setup";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import {
-  EGameObjectRelation,
-  EScheme,
-  ESchemeEvent,
-  ESchemeType,
-  GameObject,
-  IniFile,
-  Nillable,
-  TCount,
-  TName,
-  TPath,
-  TSection,
-} from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType, Nillable, TCount, TName, TPath, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 

@@ -1,9 +1,12 @@
+import { GameObject } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
+
 import { IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
-import { EScheme, GameObject, Nillable, TNumberId } from "@/engine/lib/types";
+import { EScheme, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Finish helping wounded on successful healing animation.

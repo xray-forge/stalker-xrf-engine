@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { hardResetOfflineObject, IRegistryObjectState, registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";

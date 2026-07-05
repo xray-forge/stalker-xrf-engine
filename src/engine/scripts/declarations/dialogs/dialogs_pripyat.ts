@@ -1,3 +1,6 @@
+import { GameObject } from "xray16/alias";
+import { $filename, $fromArray } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import { extern, getExtern } from "@/engine/core/utils/binding";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
@@ -19,7 +22,7 @@ import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { AnyCallable, GameObject, LuaArray, TCount } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

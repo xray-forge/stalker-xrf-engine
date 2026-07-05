@@ -1,9 +1,11 @@
 import { anim, move, object, TXR_object_action } from "xray16";
+import { GameObject } from "xray16/alias";
+import { $isNil } from "xray16/macros";
 
 import { states } from "@/engine/core/animation/states";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/animation/types";
 import { isWeapon } from "@/engine/core/utils/class_ids";
-import { GameObject, Nillable, TIndex } from "@/engine/lib/types";
+import { Nillable, TIndex } from "@/engine/lib/types";
 
 /**
  * Check whether object is strapping weapon.

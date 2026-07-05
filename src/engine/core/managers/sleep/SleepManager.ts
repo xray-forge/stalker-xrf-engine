@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";

@@ -1,8 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { MockIoFile } from "xray16/mocks";
 
 import { loadObjectFromFile, loadTextFromFile, saveObjectToFile, saveTextToFile } from "@/engine/core/utils/fs/fs_io";
 import { AnyObject } from "@/engine/lib/types";
-import { MockIoFile } from "@/fixtures/lua";
 
 describe("saveTextToFile util", () => {
   it("should correctly save data", () => {

@@ -1,5 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
+import { $fromArray } from "xray16/macros";
 
+import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded";
 import { parseWoundedData } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
 import {
   processFight,
@@ -8,30 +11,25 @@ import {
   processVictim,
 } from "@/engine/core/schemes/stalker/wounded/utils/wounded_process";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { GameObject } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("processHPWound util", () => {
   it("should correctly process null values with and without breakpoints", () => {
     const object: GameObject = MockGameObject.mock();
 
-    expect(processHPWound(object, MockLuaTable.mockFromArray([]), MockLuaTable.mockFromArray([]), 100)).toEqual([
-      NIL,
-      NIL,
-    ]);
+    expect(
+      processHPWound(object, $fromArray<IWoundedStateDescriptor>([]), $fromArray<IWoundedStateDescriptor>([]), 100)
+    ).toEqual([NIL, NIL]);
     expect(object.see).toHaveBeenCalledTimes(0);
 
-    expect(processHPWound(object, parseWoundedData("100|example"), MockLuaTable.mockFromArray([]), 100)).toEqual([
-      "example",
-      NIL,
-    ]);
+    expect(
+      processHPWound(object, parseWoundedData("100|example"), $fromArray<IWoundedStateDescriptor>([]), 100)
+    ).toEqual(["example", NIL]);
     expect(object.see).toHaveBeenCalledTimes(1);
 
-    expect(processHPWound(object, parseWoundedData("100|example@test"), MockLuaTable.mockFromArray([]), 100)).toEqual([
-      "example",
-      "test",
-    ]);
+    expect(
+      processHPWound(object, parseWoundedData("100|example@test"), $fromArray<IWoundedStateDescriptor>([]), 100)
+    ).toEqual(["example", "test"]);
     expect(object.see).toHaveBeenCalledTimes(2);
   });
 
@@ -108,7 +106,7 @@ describe("processPsyWound util", () => {
   it("should correctly process null values with and without breakpoints", () => {
     const object: GameObject = MockGameObject.mock();
 
-    expect(processPsyWound(object, MockLuaTable.mockFromArray([]), 100)).toEqual([NIL, NIL]);
+    expect(processPsyWound(object, $fromArray<IWoundedStateDescriptor>([]), 100)).toEqual([NIL, NIL]);
     expect(processPsyWound(object, parseWoundedData("100|example"), 100)).toEqual(["example", NIL]);
     expect(processPsyWound(object, parseWoundedData("100|example@test"), 100)).toEqual(["example", "test"]);
   });
@@ -129,7 +127,7 @@ describe("processVictim util", () => {
   it("should correctly process null values with and without breakpoints", () => {
     const object: GameObject = MockGameObject.mock();
 
-    expect(processVictim(object, MockLuaTable.mockFromArray([]), 100)).toBe(NIL);
+    expect(processVictim(object, $fromArray<IWoundedStateDescriptor>([]), 100)).toBe(NIL);
     expect(processVictim(object, parseWoundedData("100|example"), 100)).toBe("example");
     expect(processVictim(object, parseWoundedData("100|example"), 100)).toBe("example");
   });
@@ -150,7 +148,7 @@ describe("processFight util", () => {
   it("should correctly process null values with and without breakpoints", () => {
     const object: GameObject = MockGameObject.mock();
 
-    expect(processFight(object, MockLuaTable.mockFromArray([]), 100)).toBe(TRUE);
+    expect(processFight(object, $fromArray<IWoundedStateDescriptor>([]), 100)).toBe(TRUE);
     expect(processFight(object, parseWoundedData("75|example"), 100)).toBe(TRUE);
     expect(processFight(object, parseWoundedData("75|example"), 50)).toBe("example");
   });

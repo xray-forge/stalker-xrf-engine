@@ -1,3 +1,5 @@
+import type { Vector } from "xray16/alias";
+
 import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type {
@@ -10,7 +12,6 @@ import type {
   TName,
   TRate,
   TTimestamp,
-  Vector,
 } from "@/engine/lib/types";
 
 /**

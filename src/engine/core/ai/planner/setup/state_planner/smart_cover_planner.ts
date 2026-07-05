@@ -1,10 +1,10 @@
 import { world_property } from "xray16";
+import { ActionPlanner } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionSmartCoverEnter, ActionSmartCoverExit } from "@/engine/core/ai/state/smart_cover";
 import { ActionStateLocked } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
-import { ActionPlanner } from "@/engine/lib/types";
 
 /**
  * Setup GOAP logics related to smart cover entering/leaving changes of stalkers.

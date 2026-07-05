@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { BOX_METAL_01, BOX_WOOD_01, BOX_WOOD_02, isBoxObject } from "@/engine/core/managers/box";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("isBoxObject util", () => {

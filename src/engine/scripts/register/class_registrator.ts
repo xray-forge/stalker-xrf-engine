@@ -1,3 +1,6 @@
+import { ObjectFactory, TClassKey } from "xray16/alias";
+import { $filename } from "xray16/macros";
+
 import { Actor, Monster, Stalker } from "@/engine/core/objects/creature";
 import { Helicopter } from "@/engine/core/objects/helicopter";
 import {
@@ -28,7 +31,6 @@ import { ZoneAnomalous, ZoneRestrictor, ZoneTorrid, ZoneVisual } from "@/engine/
 import { MainMenu } from "@/engine/core/ui/menu";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EConfigClassId, EGameObjectClass, EScriptClassId } from "@/engine/lib/constants/class_ids";
-import { ObjectFactory, TClassKey } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

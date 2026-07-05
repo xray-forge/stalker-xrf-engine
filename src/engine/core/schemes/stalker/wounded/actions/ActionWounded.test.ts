@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
@@ -22,7 +23,7 @@ import {
 import { ActionWounded } from "@/engine/core/schemes/stalker/wounded/actions/ActionWounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { TRUE } from "@/engine/lib/constants/words";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce } from "@/fixtures/jest";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";

@@ -1,11 +1,13 @@
 import { CPhraseScript } from "xray16";
+import { Phrase, PhraseDialog, PhraseScript } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isEmpty } from "@/engine/core/utils/table";
-import { Nillable, Phrase, PhraseDialog, PhraseScript, TStringId } from "@/engine/lib/types";
+import { Nillable, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

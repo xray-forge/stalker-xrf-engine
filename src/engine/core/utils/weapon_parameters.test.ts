@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { IniFile } from "xray16/alias";
 
 import {
   normalizeWeaponParameter,
@@ -10,7 +11,6 @@ import {
   readWeaponParameter,
   readWeaponRPM,
 } from "@/engine/core/utils/weapon_parameters";
-import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 describe("normalizeWeaponParameterInMultiplayer util", () => {

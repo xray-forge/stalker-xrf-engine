@@ -1,4 +1,6 @@
 import { action_base, level, LuabindClass, move, time_global } from "xray16";
+import { EGameObjectPath, GameObject, Vector } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { getManager, setStalkerState } from "@/engine/core/database";
@@ -8,16 +10,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { chance } from "@/engine/core/utils/random";
 import { copyVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  EGameObjectPath,
-  GameObject,
-  Nillable,
-  TIndex,
-  TNumberId,
-  TRate,
-  TTimestamp,
-  Vector,
-} from "@/engine/lib/types";
+import { Nillable, TIndex, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

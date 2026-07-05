@@ -1,4 +1,6 @@
 import { CUI3tButton, CUIEditBox, CUIListBox, CUIStatic, game, level, LuabindClass, ui_events } from "xray16";
+import { ServerObject, XmlInit } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
@@ -13,7 +15,7 @@ import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDe
 import { isGameStarted } from "@/engine/core/utils/game";
 import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
-import { Nillable, ServerObject, TCount, TLabel, TNumberId, TPath, TSection, XmlInit } from "@/engine/lib/types";
+import { Nillable, TCount, TLabel, TNumberId, TPath, TSection } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugTreasuresSection.component";
 

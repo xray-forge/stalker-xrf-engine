@@ -1,4 +1,6 @@
-import { DangerObject, GameObject, Nillable, TDangerType, TTimestamp } from "@/engine/lib/types";
+import { DangerObject, GameObject, TDangerType } from "xray16/alias";
+
+import { Nillable, TTimestamp } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 

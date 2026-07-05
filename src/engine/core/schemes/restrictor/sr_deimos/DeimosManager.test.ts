@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { getManager } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { deimosConfig } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosConfig";
 import { DeimosManager } from "@/engine/core/schemes/restrictor/sr_deimos/DeimosManager";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

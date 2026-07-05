@@ -1,5 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
+import { GameObject, Patrol, ServerObject } from "xray16/alias";
 
 import {
   registerObject,
@@ -10,7 +11,7 @@ import {
 } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
-import { GameObject, Patrol, ServerObject } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockParticleObject, MockPatrol } from "@/fixtures/xray";
 
@@ -169,13 +170,13 @@ describe("position effects implementation", () => {
       10
     );
 
-    expect(MockParticleObject.REGISTRY.length()).toBe(1);
+    expect(MockParticleObject.REGISTRY.size).toBe(1);
     expect(MockParticleObject.REGISTRY.get("test-particle")).not.toBeNull();
 
-    const first: MockParticleObject = MockParticleObject.REGISTRY.get("test-particle");
+    const first: Nillable<MockParticleObject> = MockParticleObject.REGISTRY.get("test-particle");
     const path: Patrol = MockPatrol.mock("test-wp");
 
-    expect(first.play_at_pos).toHaveBeenCalledTimes(0);
+    expect(first?.play_at_pos).toHaveBeenCalledTimes(0);
 
     callXrEffect(
       "play_particle_on_path",
@@ -186,14 +187,14 @@ describe("position effects implementation", () => {
       20
     );
 
-    expect(MockParticleObject.REGISTRY.length()).toBe(1);
+    expect(MockParticleObject.REGISTRY.size).toBe(1);
     expect(MockParticleObject.REGISTRY.get("test-particle")).not.toBeNull();
 
-    const second: MockParticleObject = MockParticleObject.REGISTRY.get("test-particle");
+    const second: Nillable<MockParticleObject> = MockParticleObject.REGISTRY.get("test-particle");
 
-    expect(second.play_at_pos).toHaveBeenCalledTimes(3);
-    expect(second.play_at_pos).toHaveBeenCalledWith(path.point(0));
-    expect(second.play_at_pos).toHaveBeenCalledWith(path.point(1));
-    expect(second.play_at_pos).toHaveBeenCalledWith(path.point(2));
+    expect(second?.play_at_pos).toHaveBeenCalledTimes(3);
+    expect(second?.play_at_pos).toHaveBeenCalledWith(path.point(0));
+    expect(second?.play_at_pos).toHaveBeenCalledWith(path.point(1));
+    expect(second?.play_at_pos).toHaveBeenCalledWith(path.point(2));
   });
 });

@@ -1,4 +1,6 @@
 import { command_line, CUI3tButton, CUIStatic, LuabindClass, ui_events } from "xray16";
+import { XmlInit } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug";
@@ -7,7 +9,7 @@ import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { TPath, XmlInit } from "@/engine/lib/types";
+import { TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugGeneralSection.component";

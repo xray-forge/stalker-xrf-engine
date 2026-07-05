@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { registerRanks } from "@/engine/core/database/ranks";
 import { registerSimulator } from "@/engine/core/database/simulation";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";

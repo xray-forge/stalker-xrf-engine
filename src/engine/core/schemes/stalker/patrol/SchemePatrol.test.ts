@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { ActionPlanner, GameObject, IniFile, ServerHumanObject } from "xray16/alias";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
@@ -13,7 +14,7 @@ import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManage
 import { SchemePatrol } from "@/engine/core/schemes/stalker/patrol/SchemePatrol";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, ServerHumanObject } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import {
   assertSchemeSubscribedToManager,
   checkPlannerAction,

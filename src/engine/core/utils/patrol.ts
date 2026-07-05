@@ -1,20 +1,10 @@
 import { patrol } from "xray16";
+import type { Flags32, GameObject, Patrol, Vector } from "xray16/alias";
+import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 import type { IWaypointData } from "@/engine/core/utils/ini";
-import type {
-  Flags32,
-  GameObject,
-  LuaArray,
-  Nillable,
-  Patrol,
-  TCount,
-  TDistance,
-  TIndex,
-  TName,
-  TRate,
-  Vector,
-} from "@/engine/lib/types";
+import type { LuaArray, Nillable, TCount, TDistance, TIndex, TName, TRate } from "@/engine/lib/types";
 
 /**
  *

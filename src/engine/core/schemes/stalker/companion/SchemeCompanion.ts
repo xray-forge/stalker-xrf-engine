@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -7,7 +8,7 @@ import { ActionCompanionActivity } from "@/engine/core/schemes/stalker/companion
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/companion_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of companion follower for stalkers.

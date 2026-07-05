@@ -1,4 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
+import { $fromArray } from "xray16/macros";
 
 import { registerActor, registerSimulator } from "@/engine/core/database";
 import {
@@ -20,9 +22,8 @@ import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { pistols, weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { GameObject } from "@/engine/lib/types";
+import { TNumberId, TSection } from "@/engine/lib/types";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
 describe("getItemPrice util", () => {
@@ -115,21 +116,24 @@ describe("actorHasAtLeastOneItem util", () => {
     registerActor(createObjectWithItems());
 
     expect(
-      actorHasAtLeastOneItem(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army, medkits.medkit_scientic]))
+      actorHasAtLeastOneItem(
+        $fromArray<TSection | TNumberId>([medkits.medkit, medkits.medkit_army, medkits.medkit_scientic])
+      )
     ).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit_scientic]))).toBeFalsy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([ammo.ammo_gauss, medkits.medkit]))).toBeTruthy();
+    expect(
+      actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([ammo.ammo_gauss, medkits.medkit_scientic]))
+    ).toBeFalsy();
 
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([1, 2, 50, 100]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([100, 101, 102, 50]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([100, 101, 102]))).toBeFalsy();
-
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_gauss, 500]))).toBeFalsy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([weapons.wpn_val, 400]))).toBeFalsy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_gauss, 50]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([weapons.wpn_val, 40]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, 500]))).toBeTruthy();
-    expect(actorHasAtLeastOneItem(MockLuaTable.mockFromArray([weapons.wpn_svd, 400]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([1, 2, 50, 100]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([100, 101, 102, 50]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([100, 101, 102]))).toBeFalsy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([ammo.ammo_gauss, 500]))).toBeFalsy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([weapons.wpn_val, 400]))).toBeFalsy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([ammo.ammo_gauss, 50]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([weapons.wpn_val, 40]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([ammo.ammo_9x18_pmm, 500]))).toBeTruthy();
+    expect(actorHasAtLeastOneItem($fromArray<TSection | TNumberId>([weapons.wpn_svd, 400]))).toBeTruthy();
   });
 });
 
@@ -143,25 +147,25 @@ describe("actorHasItems util", () => {
     registerActor(createObjectWithItems());
 
     expect(
-      actorHasItems(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army, medkits.medkit_scientic]))
+      actorHasItems($fromArray<TSection | TNumberId>([medkits.medkit, medkits.medkit_army, medkits.medkit_scientic]))
     ).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, medkits.medkit_scientic]))).toBeFalsy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([ammo.ammo_gauss, medkits.medkit]))).toBeFalsy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([ammo.ammo_gauss, medkits.medkit_scientic]))).toBeFalsy();
 
-    expect(actorHasItems(MockLuaTable.mockFromArray([medkits.medkit, medkits.medkit_army]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, medkits.medkit]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([medkits.medkit_army, weapons.wpn_svd]))).toBeTruthy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([medkits.medkit, medkits.medkit_army]))).toBeTruthy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([ammo.ammo_9x18_pmm, medkits.medkit]))).toBeTruthy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([medkits.medkit_army, weapons.wpn_svd]))).toBeTruthy();
 
-    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, 40, 50]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([1, 2, 3, 4]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([40, 41, 50, 51]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([100, 101, 102, 50]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([100, 101, 102]))).toBeFalsy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([1, 2, 40, 50]))).toBeTruthy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([1, 2, 3, 4]))).toBeTruthy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([40, 41, 50, 51]))).toBeTruthy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([100, 101, 102, 50]))).toBeFalsy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([100, 101, 102]))).toBeFalsy();
 
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_gauss, 500]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_val, 40]))).toBeFalsy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([ammo.ammo_9x18_pmm, 50]))).toBeTruthy();
-    expect(actorHasItems(MockLuaTable.mockFromArray([weapons.wpn_svd, 40]))).toBeTruthy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([ammo.ammo_gauss, 500]))).toBeFalsy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([weapons.wpn_val, 40]))).toBeFalsy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([ammo.ammo_9x18_pmm, 50]))).toBeTruthy();
+    expect(actorHasItems($fromArray<TSection | TNumberId>([weapons.wpn_svd, 40]))).toBeTruthy();
   });
 });
 
@@ -226,14 +230,14 @@ describe("actorHasMedKit util", () => {
   it("should correctly check if object has any medkit", () => {
     registerActor(createObjectWithItems());
 
-    expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBeTruthy();
-    expect(actorHasMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), MockGameObject.mock())).toBeFalsy();
+    expect(actorHasMedKit($fromArray<TSection | TNumberId>(Object.values(medkits)))).toBeTruthy();
+    expect(actorHasMedKit($fromArray<TSection | TNumberId>(Object.values(medkits)), MockGameObject.mock())).toBeFalsy();
 
-    expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBeTruthy();
-    expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBeTruthy();
-    expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeFalsy();
+    expect(actorHasMedKit($fromArray<TSection | TNumberId>([medkits.medkit]))).toBeTruthy();
+    expect(actorHasMedKit($fromArray<TSection | TNumberId>([medkits.medkit_army]))).toBeTruthy();
+    expect(actorHasMedKit($fromArray<TSection | TNumberId>([medkits.medkit_scientic]))).toBeFalsy();
 
-    expect(actorHasMedKit(MockLuaTable.mockFromArray([medkits.medkit]), MockGameObject.mock())).toBeFalsy();
+    expect(actorHasMedKit($fromArray<TSection | TNumberId>([medkits.medkit]), MockGameObject.mock())).toBeFalsy();
   });
 });
 
@@ -315,15 +319,17 @@ describe("getActorAvailableMedKit util", () => {
   it("should correctly check medkit", () => {
     registerActor(createObjectWithItems());
 
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)))).toBe(medkits.medkit);
+    expect(getActorAvailableMedKit($fromArray<TSection | TNumberId>(Object.values(medkits)))).toBe(medkits.medkit);
     expect(
-      getActorAvailableMedKit(MockLuaTable.mockFromArray(Object.values(medkits)), MockGameObject.mock())
+      getActorAvailableMedKit($fromArray<TSection | TNumberId>(Object.values(medkits)), MockGameObject.mock())
     ).toBeNull();
 
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]))).toBe(medkits.medkit);
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_army]))).toBe(medkits.medkit_army);
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit_scientic]))).toBeNull();
+    expect(getActorAvailableMedKit($fromArray<TSection | TNumberId>([medkits.medkit]))).toBe(medkits.medkit);
+    expect(getActorAvailableMedKit($fromArray<TSection | TNumberId>([medkits.medkit_army]))).toBe(medkits.medkit_army);
+    expect(getActorAvailableMedKit($fromArray<TSection | TNumberId>([medkits.medkit_scientic]))).toBeNull();
 
-    expect(getActorAvailableMedKit(MockLuaTable.mockFromArray([medkits.medkit]), MockGameObject.mock())).toBeNull();
+    expect(
+      getActorAvailableMedKit($fromArray<TSection | TNumberId>([medkits.medkit]), MockGameObject.mock())
+    ).toBeNull();
   });
 });

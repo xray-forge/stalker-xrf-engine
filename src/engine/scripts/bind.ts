@@ -1,3 +1,5 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { ActorBinder, CrowBinder, MonsterBinder, StalkerBinder } from "@/engine/core/binders/creature";
 import { HelicopterBinder } from "@/engine/core/binders/helicopter";
 import { HelmetBinder, OutfitBinder, WeaponBinder } from "@/engine/core/binders/item";
@@ -21,7 +23,7 @@ import {
 } from "@/engine/core/binders/zones";
 import { isBoxObject } from "@/engine/core/managers/box/utils";
 import { extern } from "@/engine/core/utils/binding";
-import { GameObject, IniFile, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Register binders of engine client side objects.

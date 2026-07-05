@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { GameObject, ServerObject } from "xray16/alias";
 
 import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
 import { registry } from "@/engine/core/database";
-import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 

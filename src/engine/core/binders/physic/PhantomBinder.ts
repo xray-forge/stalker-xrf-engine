@@ -1,8 +1,8 @@
 import { LuabindClass, object_binder } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { getManager } from "@/engine/core/database";
 import { PhantomManager } from "@/engine/core/managers/psy/PhantomManager";
-import { GameObject } from "@/engine/lib/types";
 
 /**
  * Binder for phantom game objects created by psy antenna.

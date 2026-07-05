@@ -1,10 +1,13 @@
+import { GameObject, ServerObject } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import type { Squad } from "@/engine/core/objects/squad/Squad";
-import { GameObject, Nillable, ServerObject, TRate } from "@/engine/lib/types";
+import { Nillable, TRate } from "@/engine/lib/types";
 
 /**
  * Checks online state of object relatively to no combat zones.

@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { Flags32, GameObject } from "xray16/alias";
 
 import { registerActor } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
@@ -24,7 +25,7 @@ import {
 import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
 import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 import { NIL } from "@/engine/lib/constants/words";
-import { Flags32, GameObject, LuaArray } from "@/engine/lib/types";
+import { LuaArray } from "@/engine/lib/types";
 import { MockFlags32, MockGameObject } from "@/fixtures/xray";
 
 describe("parseStringsList util", () => {

@@ -1,5 +1,7 @@
+import type { Patrol } from "xray16/alias";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { LuaArray, Nillable, Patrol, TDuration, TName, TRate, TTimestamp } from "@/engine/lib/types";
+import type { LuaArray, Nillable, TDuration, TName, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * State of the monster scheme.

@@ -1,5 +1,6 @@
+import { Vector } from "xray16/alias";
+
 import { createVector } from "@/engine/core/utils/vector";
-import { Vector } from "@/engine/lib/types";
 
 export const ZERO_VECTOR: Readonly<Vector> = createVector(0, 0, 0);
 export const ONE_VECTOR: Readonly<Vector> = createVector(1, 1, 1);

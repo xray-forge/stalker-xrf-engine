@@ -1,4 +1,5 @@
 import { game } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -14,17 +15,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import {
-  AnyObject,
-  GameObject,
-  LuaArray,
-  Nillable,
-  TCount,
-  TLabel,
-  TName,
-  TNotCastedBoolean,
-  TRate,
-} from "@/engine/lib/types";
+import { AnyObject, LuaArray, Nillable, TCount, TLabel, TName, TNotCastedBoolean, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 /**

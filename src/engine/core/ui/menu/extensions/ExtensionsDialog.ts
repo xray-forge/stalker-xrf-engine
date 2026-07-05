@@ -8,6 +8,8 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { TKeyCode, TUIEvent, Vector2D } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { ExtensionItemListEntry } from "@/engine/core/ui/menu/extensions/ExtensionItemListEntry";
 import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
@@ -20,7 +22,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
-import { LuaArray, Nillable, TIndex, TKeyCode, TPath, TUIEvent, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Nillable, TIndex, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\ExtensionsDialog.component";

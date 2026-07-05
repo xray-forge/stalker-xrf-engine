@@ -1,4 +1,6 @@
 import { level, patrol } from "xray16";
+import { GameObject } from "xray16/alias";
+import { $filename, $fromArray } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { getManager, registry } from "@/engine/core/database";
@@ -16,7 +18,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
-import { AnyCallablesModule, GameObject, Nillable, TName, TNumberId } from "@/engine/lib/types";
+import { AnyCallablesModule, Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

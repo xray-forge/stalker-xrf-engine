@@ -1,3 +1,5 @@
+import { $dirname } from "xray16/macros";
+
 import { treasureConfig } from "@/engine/core/managers/treasures";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName } from "@/engine/lib/types";

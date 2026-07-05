@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
+import { GameObject, ServerHumanObject } from "xray16/alias";
 
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { getObjectCommunity, getSquadCommunity, setObjectTeamSquadGroup } from "@/engine/core/utils/community";
-import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";

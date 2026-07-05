@@ -1,6 +1,8 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
-import { AnyObject, GameObject, IniFile, ISchemeEventHandler, Nillable, TName } from "@/engine/lib/types";
+import { AnyObject, ISchemeEventHandler, Nillable, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**

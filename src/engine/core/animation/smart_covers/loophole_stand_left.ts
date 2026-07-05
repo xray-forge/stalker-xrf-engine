@@ -1,6 +1,8 @@
+import { Vector } from "xray16/alias";
+
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
 import { createVector } from "@/engine/core/utils/vector";
-import { Nillable, TStringId, Vector } from "@/engine/lib/types";
+import { Nillable, TStringId } from "@/engine/lib/types";
 
 /**
  * Create smart cover loophole descriptor for the standing posture facing left.

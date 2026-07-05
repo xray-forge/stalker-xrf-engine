@@ -1,14 +1,15 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
+import { GameObject } from "xray16/alias";
+import { $fromObject } from "xray16/macros";
 
 import { disposeManager, getManager, registerActor, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { AnyObject, GameObject, TName } from "@/engine/lib/types";
+import { AnyObject, TName } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockLuaTable } from "@/fixtures/lua";
 import {
   EPacketDataType,
   MockAlifeMonsterBase,
@@ -167,7 +168,7 @@ describe("StatisticsManager", () => {
     EventsManager.emitEvent(EGameEvent.MONSTER_HIT, target, 100, MockVector.mock(), MockGameObject.mock());
 
     expect(manager.weaponsStatistics.length()).toBe(36);
-    (manager.weaponsStatistics as unknown as MockLuaTable).forEach((value, key) => {
+    (manager.weaponsStatistics as unknown as Map<string, number>).forEach((value, _) => {
       expect(value).toBe(0);
     });
     expect(manager.actorStatistics.favoriteWeapon).toBeNull();

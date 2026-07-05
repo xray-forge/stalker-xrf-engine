@@ -1,4 +1,5 @@
-import { GameObject, ObjectBinder } from "@/engine/lib/types";
+import { GameObject, ObjectBinder } from "xray16/alias";
+
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { MockNetProcessor } from "@/fixtures/xray/mocks/save";
 

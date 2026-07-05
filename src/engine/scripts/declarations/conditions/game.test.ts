@@ -1,10 +1,11 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { IBaseSchemeState, IRegistryObjectState, registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,

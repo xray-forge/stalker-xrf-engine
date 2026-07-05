@@ -1,4 +1,5 @@
 import { CUIGameCustom, get_hud, time_global } from "xray16";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";

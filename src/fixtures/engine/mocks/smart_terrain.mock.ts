@@ -1,7 +1,8 @@
 import { jest } from "@jest/globals";
+import { IniFile } from "xray16/alias";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { IniFile, Nillable, TName, TSection } from "@/engine/lib/types";
+import { Nillable, TName, TSection } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 /**

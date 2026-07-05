@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { $fromObject } from "xray16/macros";
 
 import { registerSimulator } from "@/engine/core/database";
 import {
@@ -8,7 +9,6 @@ import {
 import { Squad } from "@/engine/core/objects/squad";
 import { TName, TRate } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockAlifeObject, MockVector } from "@/fixtures/xray";
 
 describe("evaluateSimulationPriorityByDistance util", () => {
@@ -39,7 +39,7 @@ describe("evaluateSimulationPriority util", () => {
     const first: Squad = MockSquad.mock();
     const second: Squad = MockSquad.mock();
     const third: Squad = MockSquad.mock({
-      behaviour: MockLuaTable.mock([["a", "5"]]),
+      behaviour: $fromObject<string, string>({ a: "5" }),
       simulationProperties: $fromObject<TName, TRate>({ a: 6 }),
     });
     const fourth: Squad = MockSquad.mock();

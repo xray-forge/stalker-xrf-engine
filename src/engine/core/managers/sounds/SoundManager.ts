@@ -1,3 +1,6 @@
+import { GameObject, NetPacket, NetProcessor, SoundObject } from "xray16/alias";
+import { $filename } from "xray16/macros";
+
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -7,19 +10,7 @@ import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import {
-  AnyObject,
-  GameObject,
-  NetPacket,
-  NetProcessor,
-  Nillable,
-  SoundObject,
-  TCount,
-  TName,
-  TNumberId,
-  TRate,
-  TStringId,
-} from "@/engine/lib/types";
+import { AnyObject, Nillable, TCount, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

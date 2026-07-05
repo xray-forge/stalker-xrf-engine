@@ -1,9 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback } from "xray16";
+import { GameObject, ServerObject } from "xray16/alias";
 
 import { CrowBinder } from "@/engine/core/binders/creature/CrowBinder";
 import { IRegistryObjectState, registerCrow, registerSimulator, registry } from "@/engine/core/database";
-import { EScheme, ESchemeType, GameObject, ServerObject } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 

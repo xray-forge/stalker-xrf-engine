@@ -1,9 +1,9 @@
 import { world_property } from "xray16";
+import { ActionPlanner } from "xray16/alias";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionMentalDanger, ActionMentalFree, ActionMentalPanic } from "@/engine/core/ai/state/mental";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
-import { ActionPlanner } from "@/engine/lib/types";
 
 /**
  * Setup GOAP logics related to mental state changes of stalkers.

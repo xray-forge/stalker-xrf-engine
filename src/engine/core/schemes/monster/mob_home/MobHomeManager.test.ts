@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, ServerCreatureObject, ServerSmartZoneObject } from "xray16/alias";
 
 import { registerSimulator } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { EScheme, GameObject, ServerCreatureObject, ServerSmartZoneObject, TDistance, TName } from "@/engine/lib/types";
+import { EScheme, TDistance, TName } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine/mocks";
 import {
   MockAlifeSimulator,

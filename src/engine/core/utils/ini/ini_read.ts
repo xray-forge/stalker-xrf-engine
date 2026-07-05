@@ -1,3 +1,6 @@
+import { IniFile } from "xray16/alias";
+import { $isNil } from "xray16/macros";
+
 import type { IBaseSchemeLogic } from "@/engine/core/database/database_types";
 import { abort, assert } from "@/engine/core/utils/assertion";
 import {
@@ -7,7 +10,7 @@ import {
   parseStringsList,
   parseStringsSet,
 } from "@/engine/core/utils/ini/ini_parse";
-import { IniFile, LuaArray, Nillable, TCount, TName, TSection } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Read string field from provided ini file section.

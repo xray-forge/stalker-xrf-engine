@@ -1,3 +1,6 @@
+import { EGameObjectRelation, GameObject } from "xray16/alias";
+import { $filename, $isNotNil } from "xray16/macros";
+
 import { getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
 import { ENotificationDirection, NotificationManager } from "@/engine/core/managers/notifications";
@@ -9,7 +12,7 @@ import { enableObjectWoundedHealing } from "@/engine/core/utils/object";
 import { transferItemsFromActor } from "@/engine/core/utils/reward";
 import { drugs, TMedkit } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { EGameObjectRelation, GameObject, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

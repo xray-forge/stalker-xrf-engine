@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { GameObject, NetPacket, NetProcessor, Time } from "xray16/alias";
 
 import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
@@ -7,18 +8,7 @@ import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { NIL } from "@/engine/lib/constants/words";
-import {
-  ESchemeEvent,
-  GameObject,
-  NetPacket,
-  NetProcessor,
-  Nillable,
-  StringNillable,
-  Time,
-  TName,
-  TPath,
-  TSection,
-} from "@/engine/lib/types";
+import { ESchemeEvent, Nillable, StringNillable, TName, TPath, TSection } from "@/engine/lib/types";
 
 /**
  * Save game object schemes/logic details.

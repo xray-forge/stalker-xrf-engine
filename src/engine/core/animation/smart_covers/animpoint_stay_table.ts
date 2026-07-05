@@ -1,4 +1,5 @@
 import { move } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import { getAnimpointStayTableLoophole } from "@/engine/core/animation/smart_covers/loophole_animpoint_stay_table";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";

@@ -1,8 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
+import { ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
 
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job";
 import { NIL } from "@/engine/lib/constants/words";
-import { ESchemeType, ServerHumanObject, ServerMonsterBaseObject } from "@/engine/lib/types";
+import { ESchemeType } from "@/engine/lib/types";
 import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
 
 describe("createObjectJobDescriptor util", () => {

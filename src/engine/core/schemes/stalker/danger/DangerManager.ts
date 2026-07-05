@@ -1,4 +1,5 @@
 import { snd_type, time_global } from "xray16";
+import { EGameObjectRelation, GameObject, TSoundType, Vector } from "xray16/alias";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
@@ -6,7 +7,7 @@ import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig"
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { isSoundType } from "@/engine/core/utils/sound";
-import { EGameObjectRelation, GameObject, Nillable, TNumberId, TRate, TSoundType, Vector } from "@/engine/lib/types";
+import { Nillable, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * Manage danger events.

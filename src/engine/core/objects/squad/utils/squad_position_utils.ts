@@ -1,10 +1,12 @@
 import { level } from "xray16";
+import { GameObject, Vector } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { registry, resetStalkerState } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { vectorToString } from "@/engine/core/utils/vector";
-import { GameObject, Nillable, Vector } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

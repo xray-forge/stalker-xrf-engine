@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, ServerDynamicObject, ZoneCampfire } from "xray16/alias";
 
 import { CampfireBinder } from "@/engine/core/binders/physic/CampfireBinder";
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { GameObject, ServerDynamicObject, ZoneCampfire } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeDynamicObject, MockCZoneCampfire, MockGameObject, MockObjectBinder } from "@/fixtures/xray";
 

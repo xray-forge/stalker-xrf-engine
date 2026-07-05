@@ -1,3 +1,6 @@
+import { GameObject, IniFile } from "xray16/alias";
+import { $isNil } from "xray16/macros";
+
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import {
   getSectionsFromConditionLists,
@@ -9,7 +12,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { EScheme, GameObject, IniFile, LuaArray, Nillable, TDistance, TNumberId, TSection } from "@/engine/lib/types";
+import { EScheme, LuaArray, Nillable, TDistance, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * Synchronize object invulnerability state based.

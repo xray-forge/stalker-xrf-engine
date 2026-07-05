@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MockIoFile } from "xray16/mocks";
 
 import {
   disposeManager,
@@ -26,7 +27,6 @@ import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import { AnyObject, TName } from "@/engine/lib/types";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockIoFile } from "@/fixtures/lua";
 import { MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 function mockLifecycleMethods(): [Array<TAbstractCoreManagerConstructor>, Array<TAbstractCoreManagerConstructor>] {

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game_graph } from "xray16";
+import { GameObject, ServerCreatureObject } from "xray16/alias";
 
 import { registerObject, updateSimulationObjectAvailability } from "@/engine/core/database";
 import { registerSimulationTerrain } from "@/engine/core/managers/simulation/utils";
@@ -10,7 +11,7 @@ import {
 } from "@/engine/core/objects/smart_terrain/object/smart_terrain_object";
 import { SquadReachTargetAction, SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
-import { AnyObject, GameObject, ServerCreatureObject } from "@/engine/lib/types";
+import { AnyObject } from "@/engine/lib/types";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 

@@ -1,4 +1,6 @@
-import { PhysicsJoint, TName, TRate } from "@/engine/lib/types";
+import { PhysicsJoint } from "xray16/alias";
+
+import { TName, TRate } from "@/engine/lib/types";
 
 export class MockPhysicsJoint {
   public static mock(name: TName): PhysicsJoint {

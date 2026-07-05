@@ -1,19 +1,17 @@
+import type { TAnimationType, TLookType, TMoveType, TSightType, Vector } from "xray16/alias";
+import { $fromObject } from "xray16/macros";
+
 import type { EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
 import type {
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
   Nillable,
-  TAnimationType,
   TDuration,
   TIndex,
-  TLookType,
-  TMoveType,
   TName,
   TNumberId,
-  TSightType,
   TTimestamp,
-  Vector,
 } from "@/engine/lib/types";
 
 /**

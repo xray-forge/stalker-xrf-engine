@@ -1,13 +1,12 @@
 import { jest } from "@jest/globals";
 
 import { TName } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
 
 /**
  * Mock of particles handling objects.
  */
 export class MockParticleObject {
-  public static REGISTRY: LuaTable<TName, MockParticleObject> = MockLuaTable.mock();
+  public static REGISTRY: Map<TName, MockParticleObject> = new Map();
 
   public name: string;
   public isPlaying: boolean = false;

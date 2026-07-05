@@ -1,3 +1,5 @@
+import { $fromArray } from "xray16/macros";
+
 import { TAnimationSequenceElement, TAnimationSequenceElements } from "@/engine/core/animation/types";
 import { LuaArray, Nillable } from "@/engine/lib/types";
 

@@ -1,6 +1,7 @@
+import type { GameObject, Vector } from "xray16/alias";
+
 import type { TCount, TIndex, TName } from "@/engine/lib/types/alias";
 import type { Nillable } from "@/engine/lib/types/general";
-import type { GameObject, Vector } from "@/engine/lib/types/xray";
 
 /**
  * Section name string, representing string256 in c++.
@@ -10,8 +11,10 @@ export type TSection = string;
 /**
  * Enumeration describing possible game logics schemes.
  * Scheme allows to handle scripted behaviour with sharable logics components.
+ *
+ * @virtual
  */
-export const enum EScheme {
+export enum EScheme {
   ABUSE = "abuse",
   ANIMPOINT = "animpoint",
   CAMPER = "camper",

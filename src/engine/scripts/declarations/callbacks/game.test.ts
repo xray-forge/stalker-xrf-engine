@@ -1,4 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, NetPacket } from "xray16/alias";
 
 import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
 import { smartCoversList } from "@/engine/core/animation/smart_covers";
@@ -9,7 +10,7 @@ import { LoadoutManager } from "@/engine/core/managers/loadout";
 import { gameOutroConfig, GameOutroManager } from "@/engine/core/managers/outro";
 import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
-import { AnyObject, GameObject, NetPacket } from "@/engine/lib/types";
+import { AnyObject } from "@/engine/lib/types";
 import { callBinding, callNestedBinding, checkBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 

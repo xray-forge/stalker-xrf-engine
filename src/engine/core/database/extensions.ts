@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { registry } from "@/engine/core/database/registry";
 import { assert } from "@/engine/core/utils/assertion";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";

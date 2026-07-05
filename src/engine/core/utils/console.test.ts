@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { Console } from "xray16/alias";
 
 import {
   executeConsoleCommand,
@@ -7,7 +8,6 @@ import {
 } from "@/engine/core/utils/console";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
-import { Console } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockConsole, MockIniFile } from "@/fixtures/xray";
 

@@ -2,13 +2,12 @@ import { describe, expect, it } from "@jest/globals";
 
 import { scenariosPriA15Animations } from "@/engine/core/animation/animations/scenariosPriA15";
 import { assertArraysIntersecting } from "@/fixtures/engine";
-import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("scenario priA15 animations list", () => {
   it("should list all needed animations", () => {
     expect(scenariosPriA15Animations.length()).toBe(114);
 
-    assertArraysIntersecting(mockFromLuaTable(scenariosPriA15Animations).getKeysArray(), [
+    assertArraysIntersecting(Array.from((scenariosPriA15Animations as unknown as Map<string, unknown>).keys()), [
       "pri_a15_idle_none",
       "pri_a15_idle_unstrap",
       "pri_a15_vano_all",

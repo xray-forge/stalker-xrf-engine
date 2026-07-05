@@ -1,11 +1,12 @@
 import { action_base, level, LuabindClass, time_global } from "xray16";
+import { EGameObjectPath, GameObject, Vector } from "xray16/alias";
 
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { registry, setStalkerState } from "@/engine/core/database";
 import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion";
 import { vectorRotateY } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EGameObjectPath, GameObject, Nillable, TNumberId, Vector } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 const BEH_WALK_SIMPLE = 0;
 const BEH_WALK_NEAR = 1;

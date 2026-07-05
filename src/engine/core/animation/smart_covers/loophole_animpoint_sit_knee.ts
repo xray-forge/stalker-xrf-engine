@@ -1,6 +1,8 @@
+import { Vector } from "xray16/alias";
+
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
 import { MX_VECTOR } from "@/engine/lib/constants/vectors";
-import { TStringId, Vector } from "@/engine/lib/types";
+import { TStringId } from "@/engine/lib/types";
 
 /**
  * Create smart cover loophole descriptor for the animpoint_sit_knee pose.

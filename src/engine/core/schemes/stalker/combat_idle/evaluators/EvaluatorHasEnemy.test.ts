@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
@@ -9,7 +10,7 @@ import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators/EvaluatorHasEnemy";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";

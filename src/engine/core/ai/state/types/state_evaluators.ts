@@ -1,7 +1,9 @@
 /**
  * IDs of state planner evaluators.
+ *
+ * @virtual
  */
-export const enum EStateEvaluatorId {
+export enum EStateEvaluatorId {
   END = 1,
   // Whether state is locked and cannot be changed (weapon animation happening, turning body)
   LOCKED = 2,

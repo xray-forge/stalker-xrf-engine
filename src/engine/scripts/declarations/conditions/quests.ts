@@ -1,4 +1,6 @@
 import { level } from "xray16";
+import { AlifeSimulator, GameObject, ServerCreatureObject, ServerObject } from "xray16/alias";
+import { $fromArray } from "xray16/macros";
 
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
@@ -10,13 +12,9 @@ import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/position
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
 import {
-  AlifeSimulator,
   AnyCallablesModule,
-  GameObject,
   LuaArray,
   Nillable,
-  ServerCreatureObject,
-  ServerObject,
   TDistance,
   TName,
   TNumberId,

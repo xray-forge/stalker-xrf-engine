@@ -1,5 +1,6 @@
+import { NetPacket, NetProcessor, NetReader } from "xray16/alias";
+
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { NetPacket, NetProcessor, NetReader } from "@/engine/lib/types";
 import { EPacketDataType } from "@/fixtures/xray/mocks/save/types";
 
 /**

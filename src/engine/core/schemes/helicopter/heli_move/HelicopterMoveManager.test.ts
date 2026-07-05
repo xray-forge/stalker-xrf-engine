@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter, patrol } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { getPortableStoreValue, registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
@@ -10,7 +11,7 @@ import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move
 import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { createVector } from "@/engine/core/utils/vector";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockCHelicopter, MockGameObject, MockIniFile, MockPatrol } from "@/fixtures/xray";
 

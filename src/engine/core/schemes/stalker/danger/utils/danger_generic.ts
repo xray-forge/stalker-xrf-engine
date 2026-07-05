@@ -1,4 +1,5 @@
 import { danger_object } from "xray16";
+import { DangerObject, EGameObjectRelation, GameObject, ServerCreatureObject, TDangerType } from "xray16/alias";
 
 import { ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { getSimulationTerrainByName } from "@/engine/core/managers/simulation/utils";
@@ -14,16 +15,7 @@ import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
-import {
-  DangerObject,
-  EGameObjectRelation,
-  EScheme,
-  GameObject,
-  Nillable,
-  ServerCreatureObject,
-  TDangerType,
-  TDistance,
-} from "@/engine/lib/types";
+import { EScheme, Nillable, TDistance } from "@/engine/lib/types";
 
 /**
  * Check whether object is facing any danger.

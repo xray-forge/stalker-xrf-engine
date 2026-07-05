@@ -1,4 +1,5 @@
 import { action_base, LuabindClass, time_global } from "xray16";
+import { EGameObjectPath, GameObject } from "xray16/alias";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { registry, setStalkerState } from "@/engine/core/database";
@@ -7,7 +8,7 @@ import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { areSameVectors, copyVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { EGameObjectPath, GameObject, ISchemeEventHandler, TTimestamp } from "@/engine/lib/types";
+import { ISchemeEventHandler, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Action patrol when objects should go to some specific place.

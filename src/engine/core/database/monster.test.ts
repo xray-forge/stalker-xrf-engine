@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { getMonsterState, setMonsterState } from "@/engine/core/database/monster";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

@@ -1,4 +1,14 @@
 import { clsid } from "xray16";
+import {
+  GameObject,
+  NetPacket,
+  NetProcessor,
+  ServerCreatureObject,
+  ServerObject,
+  TClassId,
+  Vector,
+} from "xray16/alias";
+import { $filename, $fromObject, $isNotNil } from "xray16/macros";
 
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -17,20 +27,13 @@ import { TMonster } from "@/engine/lib/constants/monsters";
 import { NIL } from "@/engine/lib/constants/words";
 import {
   AnyObject,
-  GameObject,
-  NetPacket,
-  NetProcessor,
   Nillable,
   PartialRecord,
-  ServerCreatureObject,
-  ServerObject,
   StringNillable,
-  TClassId,
   TCount,
   TName,
   TNumberId,
   TRate,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

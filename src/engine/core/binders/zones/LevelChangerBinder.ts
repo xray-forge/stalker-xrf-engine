@@ -1,4 +1,6 @@
 import { LuabindClass, object_binder } from "xray16";
+import { NetPacket, NetReader, ServerObject } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -13,7 +15,6 @@ import {
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
 import { LevelChanger } from "@/engine/core/objects/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, NetReader, ServerObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

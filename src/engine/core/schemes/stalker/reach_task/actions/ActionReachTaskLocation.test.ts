@@ -1,5 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { anim, look, move, property_storage } from "xray16";
+import {
+  EGameObjectMovementType,
+  EGameObjectPath,
+  GameObject,
+  ServerCreatureObject,
+  ServerGroupObject,
+} from "xray16/alias";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -9,13 +16,6 @@ import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task
 import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_task/actions/ActionReachTaskLocation";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  EGameObjectMovementType,
-  EGameObjectPath,
-  GameObject,
-  ServerCreatureObject,
-  ServerGroupObject,
-} from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {

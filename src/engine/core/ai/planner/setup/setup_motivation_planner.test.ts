@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { ActionPlanner, GameObject } from "xray16/alias";
 
 import { setupStalkerMotivationPlanner } from "@/engine/core/ai/planner/setup/setup_motivation_planner";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -9,7 +10,6 @@ import { EvaluatorStateIdleCombat } from "@/engine/core/ai/state/state/Evaluator
 import { EvaluatorStateIdleItems } from "@/engine/core/ai/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/ai/state/state/EvaluatorStateLogicActive";
 import { EAnimationType } from "@/engine/core/animation/types/animation_types";
-import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/constants";

@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";

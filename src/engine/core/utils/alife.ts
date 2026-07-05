@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";

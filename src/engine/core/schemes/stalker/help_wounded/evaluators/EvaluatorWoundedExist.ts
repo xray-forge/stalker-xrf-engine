@@ -1,4 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { GameObject } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
 
 import { setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
@@ -8,7 +10,7 @@ import { getNearestWoundedToHelp } from "@/engine/core/utils/object";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
-import { GameObject, Nillable, TNumberId } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check if any wounded stalker to help exists nearby.

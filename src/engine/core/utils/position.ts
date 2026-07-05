@@ -1,4 +1,14 @@
 import { CGameGraph, device, game_graph, level, sound_object } from "xray16";
+import {
+  AlifeSimulator,
+  AnyGameObject,
+  ESoundObjectType,
+  GameObject,
+  ServerCreatureObject,
+  ServerObject,
+  Vector,
+} from "xray16/alias";
+import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -6,19 +16,7 @@ import { yawDegree3d } from "@/engine/core/utils/vector";
 import { graphDistance } from "@/engine/core/utils/vertex";
 import { MAX_ALIFE_ID, MAX_LEVEL_VERTEX_ID } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  AlifeSimulator,
-  AnyGameObject,
-  ESoundObjectType,
-  GameObject,
-  Nillable,
-  ServerCreatureObject,
-  ServerObject,
-  TDistance,
-  TName,
-  TNumberId,
-  Vector,
-} from "@/engine/lib/types";
+import { Nillable, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Get smart terrain linked to object.

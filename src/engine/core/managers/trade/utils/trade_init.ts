@@ -1,6 +1,8 @@
+import { IniFile } from "xray16/alias";
+
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { readIniString } from "@/engine/core/utils/ini";
-import { IniFile, TPath, TSection } from "@/engine/lib/types";
+import { TPath, TSection } from "@/engine/lib/types";
 
 /**
  * @param ini - Target file to read data from.

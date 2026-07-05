@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { danger_object, stalker_ids, time_global } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
 import { StalkerStateManager } from "@/engine/core/ai/state";
@@ -9,7 +10,7 @@ import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper";
 import { ActionCombatCamping } from "@/engine/core/schemes/stalker/camper/actions/ActionCombatCamping";
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockDangerObject, MockGameObject, MockPropertyStorage } from "@/fixtures/xray";

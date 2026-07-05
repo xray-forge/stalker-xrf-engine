@@ -1,4 +1,6 @@
 import { getFS, ini_file } from "xray16";
+import { IniFile } from "xray16/alias";
+import { $filename, $isNil } from "xray16/macros";
 
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { jobPreconditionExclusive } from "@/engine/core/objects/smart_terrain/job/job_precondition";
@@ -19,7 +21,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { roots } from "@/engine/lib/constants/roots";
-import { EScheme, IniFile, Nillable, TCount, TIndex, TPath, TRate, TSection } from "@/engine/lib/types";
+import { EScheme, Nillable, TCount, TIndex, TPath, TRate, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job" });
 

@@ -25,7 +25,7 @@
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "dependencies": {
-    "xray16": "1.6.4"
+    "xray16": "2.0.0-experimental.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
@@ -44,7 +44,6 @@
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-unused-imports": "^4.4.1",
     "fast-xml-parser": "^5.9.3",
-    "fengari": "0.1.5",
     "globals": "^15.0.0",
     "iconv-lite": "^0.7.2",
     "ini": "^5.0.0",

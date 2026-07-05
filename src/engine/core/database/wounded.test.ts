@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { registerWoundedObject, unRegisterWoundedObject } from "@/engine/core/database/wounded";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("database objects utilities", () => {

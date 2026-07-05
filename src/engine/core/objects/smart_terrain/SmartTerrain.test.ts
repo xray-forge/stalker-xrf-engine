@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, fit, it, jest } from "@jest/globals";
 import { game, time_global } from "xray16";
+import { GameObject, IniFile, ServerCreatureObject, ServerHumanObject, ServerObject } from "xray16/alias";
 
 import { getManager, registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -14,7 +15,6 @@ import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/j
 import { ESmartTerrainStatus } from "@/engine/core/objects/smart_terrain/smart_terrain_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, IniFile, ServerCreatureObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import {

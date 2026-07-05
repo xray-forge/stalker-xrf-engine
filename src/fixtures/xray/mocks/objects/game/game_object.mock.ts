@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 import { type CHelicopter } from "xray16";
+import { GameObject, IniFile, TCallback, TClassId, TSightType, Vector } from "xray16/alias";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
@@ -7,23 +8,16 @@ import {
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
-  GameObject,
-  IniFile,
   Nillable,
   PartialRecord,
-  TCallback,
-  TClassId,
   TCount,
   TIndex,
   TName,
   TNumberId,
   TRate,
   TSection,
-  TSightType,
   TTimestamp,
-  Vector,
 } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockActionPlanner, MockAnim, MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -64,7 +58,7 @@ export interface IMockGameObjectConfig {
  * Abstract game object mock.
  */
 export class MockGameObject {
-  public static REGISTRY: MockLuaTable<TNumberId, GameObject> = MockLuaTable.create();
+  public static REGISTRY: Map<TNumberId, GameObject> = new Map();
 
   public static mock(config: IMockGameObjectConfig = {}): GameObject {
     return new MockGameObject(config).asGameObject();

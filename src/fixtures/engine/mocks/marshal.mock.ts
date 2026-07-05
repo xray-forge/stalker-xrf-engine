@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { $fromLuaTable } from "xray16/macros";
 
 export const mockMarshal = {
   encode: jest.fn((data) => {

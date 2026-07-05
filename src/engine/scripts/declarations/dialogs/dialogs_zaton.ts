@@ -1,6 +1,6 @@
-/* eslint @typescript-eslint/explicit-function-return-type: "error" */
-
 import { game, level } from "xray16";
+import { GameObject } from "xray16/alias";
+import { $filename, $fromArray, $fromObject } from "xray16/macros";
 
 import { getManager, isStoryObjectExisting, registry } from "@/engine/core/database";
 import { getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -35,7 +35,6 @@ import {
   AnyCallable,
   AnyCallablesModule,
   AnyObject,
-  GameObject,
   LuaArray,
   Nillable,
   TCount,

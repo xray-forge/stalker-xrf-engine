@@ -1,9 +1,11 @@
+import { GameObject } from "xray16/alias";
+
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { DROP_MANAGER_CONFIG_LTX, dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { createCorpseReleaseItems, readIniDropCountByLevel } from "@/engine/core/managers/drop/utils";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { AnyObject, GameObject } from "@/engine/lib/types";
+import { AnyObject } from "@/engine/lib/types";
 
 /**
  * Manage objects loot after death.

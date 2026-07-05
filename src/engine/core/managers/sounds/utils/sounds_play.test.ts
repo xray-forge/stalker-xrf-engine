@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { NpcSound } from "@/engine/core/managers/sounds/objects";
 import { SCRIPT_SOUND_LTX, soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils/sounds_init";
 import { initializeObjectThemes } from "@/engine/core/managers/sounds/utils/sounds_play";
-import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

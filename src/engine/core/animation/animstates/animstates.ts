@@ -1,3 +1,5 @@
+import { $fromObject } from "xray16/macros";
+
 import { IAnimationDescriptor } from "@/engine/core/animation/types/animation_types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { createSequence } from "@/engine/core/utils/animation";

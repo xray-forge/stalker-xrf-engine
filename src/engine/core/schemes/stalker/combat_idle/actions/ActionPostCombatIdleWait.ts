@@ -1,4 +1,6 @@
 import { action_base, anim, look, LuabindClass, move } from "xray16";
+import { GameObject } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -11,7 +13,6 @@ import {
 } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWeaponLocked, setObjectBestWeapon } from "@/engine/core/utils/weapon";
-import { GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

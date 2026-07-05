@@ -1,3 +1,5 @@
+import { $fromObject } from "xray16/macros";
+
 import { TConditionList } from "@/engine/core/utils/ini";
 import { LuaArray, Nillable, TCount, TNumberId, TProbability, TSection } from "@/engine/lib/types";
 

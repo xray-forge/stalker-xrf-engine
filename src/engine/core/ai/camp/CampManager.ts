@@ -1,4 +1,6 @@
 import { time_global } from "xray16";
+import { GameObject, IniFile } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
 import { getObjectCampActivityRole } from "@/engine/core/ai/camp/camp_utils";
@@ -16,8 +18,6 @@ import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import {
   EScheme,
   ESchemeEvent,
-  GameObject,
-  IniFile,
   LuaArray,
   Nillable,
   TCount,

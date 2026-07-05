@@ -1,8 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper";
 import { isOnCampPatrolWalkPoint } from "@/engine/core/schemes/stalker/camper/utils/camper_utils";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("isOnCampPatrolWalkPoint util", () => {

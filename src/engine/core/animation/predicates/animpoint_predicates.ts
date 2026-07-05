@@ -1,10 +1,13 @@
+import { GameObject } from "xray16/alias";
+import { $fromArray, $fromObject } from "xray16/macros";
+
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { getObjectTerrain } from "@/engine/core/utils/position";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { GameObject, LuaArray, Nillable, TName } from "@/engine/lib/types";
+import { LuaArray, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Predicate allowing the animpoint action unconditionally.

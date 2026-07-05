@@ -1,11 +1,13 @@
 import { game } from "xray16";
+import { GameObject } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, Nillable, TCount, TName } from "@/engine/lib/types";
+import { Nillable, TCount, TName } from "@/engine/lib/types";
 
 /**
  * Check if provided scheme signal is active.

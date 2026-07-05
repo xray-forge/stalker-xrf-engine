@@ -1,6 +1,7 @@
 import { ini_file, system_ini } from "xray16";
+import { IniFile } from "xray16/alias";
 
-import { IniFile, TLabel } from "@/engine/lib/types";
+import { TLabel } from "@/engine/lib/types";
 
 /**
  * Prefix to mark ini files stored in RAM.

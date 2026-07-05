@@ -1,4 +1,16 @@
 import { get_hud, hit, level, sound_object, StaticDrawableWrapper, time_global } from "xray16";
+import {
+  ESoundObjectType,
+  GameHud,
+  GameObject,
+  Hit,
+  NetPacket,
+  NetProcessor,
+  SoundObject,
+  TSoundObjectType,
+  Vector,
+} from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -19,24 +31,7 @@ import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { clamp } from "@/engine/core/utils/number";
 import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/utils/vector";
-import {
-  ESoundObjectType,
-  GameHud,
-  GameObject,
-  Hit,
-  NetPacket,
-  NetProcessor,
-  Nillable,
-  SoundObject,
-  TCount,
-  TDistance,
-  TDuration,
-  TProbability,
-  TRate,
-  TSoundObjectType,
-  TTimestamp,
-  Vector,
-} from "@/engine/lib/types";
+import { Nillable, TCount, TDistance, TDuration, TProbability, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

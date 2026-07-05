@@ -1,3 +1,5 @@
+import { $fromArray, $fromObject } from "xray16/macros";
+
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { IFormationObjectDescriptor } from "@/engine/core/schemes/stalker/patrol/patrol_types";

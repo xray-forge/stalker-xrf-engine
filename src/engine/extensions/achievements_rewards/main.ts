@@ -1,3 +1,5 @@
+import { $dirname } from "xray16/macros";
+
 import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";

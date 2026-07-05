@@ -2,7 +2,6 @@ import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database";
 import { IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 /**
@@ -82,5 +81,5 @@ export function mockBaseSchemeLogic(base: Partial<IBaseSchemeLogic> = {}): IBase
  * Get generic subscriber to scheme actions.
  */
 export function getSchemeAction<S extends IBaseSchemeState, T extends AbstractSchemeManager<S>>(state: S): T {
-  return (state.actions as unknown as MockLuaTable<T, boolean>).getKeysArray()[0];
+  return new Array(...(state.actions as unknown as Map<T, boolean>).keys())[0];
 }

@@ -1,3 +1,5 @@
+import { ActionPlanner } from "xray16/alias";
+
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
   EvaluatorAnimation,
@@ -54,7 +56,6 @@ import {
   EvaluatorWeaponUnstrappedNow,
   EvaluatorWeaponUnstrappedTarget,
 } from "@/engine/core/ai/state/weapon";
-import { ActionPlanner } from "@/engine/lib/types";
 
 /**
  * Setup GOAP evaluators related to state changes of stalkers.

@@ -1,4 +1,6 @@
 import { game, get_hud, StaticDrawableWrapper } from "xray16";
+import { GameHud, GameObject } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { getManager, getPortableStoreValue, setPortableStoreValue } from "@/engine/core/database";
 import { UpgradesManager } from "@/engine/core/managers/upgrades/UpgradesManager";
@@ -9,7 +11,7 @@ import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameHud, GameObject, LuaArray, Nillable, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TLabel, TName, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

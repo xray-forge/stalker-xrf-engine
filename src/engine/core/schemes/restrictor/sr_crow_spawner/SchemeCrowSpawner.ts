@@ -1,8 +1,10 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { getConfigSwitchConditions, parseStringsList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of crow spawning for restrictors.

@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/managers/sounds/sounds_types";
 import { SOUND_STORIES_LTX } from "@/engine/core/managers/sounds/SoundsConfig";
 import { abort } from "@/engine/core/utils/assertion";

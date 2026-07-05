@@ -1,9 +1,11 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
+import { ActionPlanner, GameObject } from "xray16/alias";
+import { $isNil } from "xray16/macros";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { isActiveSection } from "@/engine/core/utils/scheme";
-import { ActionPlanner, GameObject, Nillable, TTimestamp } from "@/engine/lib/types";
+import { Nillable, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Evaluator checking whether the camper object should engage in close combat instead of campering.

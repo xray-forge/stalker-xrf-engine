@@ -1,3 +1,5 @@
+import { $filename } from "xray16/macros";
+
 import { registry } from "@/engine/core/database/registry";
 import type { AbstractManager, TAbstractCoreManagerConstructor } from "@/engine/core/managers/abstract";
 import { LuaLogger } from "@/engine/core/utils/logging";

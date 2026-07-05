@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { EWeatherPeriodType, TWeatherGraph } from "@/engine/core/managers/weather";
 import {

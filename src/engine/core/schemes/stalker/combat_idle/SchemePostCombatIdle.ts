@@ -1,4 +1,5 @@
 import { cast_planner, world_property } from "xray16";
+import { ActionPlanner, GameObject } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -8,7 +9,7 @@ import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { communities } from "@/engine/lib/constants/communities";
-import { ActionPlanner, EScheme, ESchemeType, GameObject } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Post combat idle scheme manager.

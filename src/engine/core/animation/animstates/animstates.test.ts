@@ -3,13 +3,12 @@ import { describe, expect, it } from "@jest/globals";
 import { animationAnimstates } from "@/engine/core/animation/animstates/animstates";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { assertArraysIntersecting } from "@/fixtures/engine";
-import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("base animstates list", () => {
   it("should list all needed animations", () => {
     expect(animationAnimstates.length()).toBe(21);
 
-    assertArraysIntersecting(mockFromLuaTable(animationAnimstates).getKeysArray(), [
+    assertArraysIntersecting(Array.from((animationAnimstates as unknown as Map<string, unknown>).keys()), [
       EStalkerState.ANIMPOINT_STAY_WALL,
       EStalkerState.ANIMPOINT_STAY_TABLE,
       EStalkerState.ANIMPOINT_SIT_HIGH,

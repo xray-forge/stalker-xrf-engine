@@ -1,10 +1,13 @@
+import { GameObject, Vector } from "xray16/alias";
+import { $filename } from "xray16/macros";
+
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { GameObject, Nillable, TCount, TIndex, Vector } from "@/engine/lib/types";
+import { Nillable, TCount, TIndex } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

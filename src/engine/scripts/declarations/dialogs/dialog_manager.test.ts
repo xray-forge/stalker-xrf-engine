@@ -1,4 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, PhraseDialog } from "xray16/alias";
 
 import { getManager } from "@/engine/core/database";
 import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
@@ -11,7 +12,7 @@ import {
   shouldHidePhraseCategory,
   shouldShowPhrase,
 } from "@/engine/core/managers/dialogs/utils";
-import { AnyArgs, AnyObject, GameObject, Nillable, PhraseDialog, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, Nillable, TName } from "@/engine/lib/types";
 import { checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockPhraseDialog } from "@/fixtures/xray";

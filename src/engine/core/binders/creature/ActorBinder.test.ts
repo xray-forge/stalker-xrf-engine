@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, CGameTask, level, time_global } from "xray16";
+import { GameObject, ServerActorObject } from "xray16/alias";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
@@ -17,7 +18,7 @@ import { TSimulationObject } from "@/engine/core/managers/simulation/types";
 import { ISchemeDeimosState, SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { setStableAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { EScheme, GameObject, ServerActorObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
 import {

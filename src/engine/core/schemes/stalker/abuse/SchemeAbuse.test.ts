@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registerObject } from "@/engine/core/database";
@@ -8,7 +9,7 @@ import { ActionAbuseHit } from "@/engine/core/schemes/stalker/abuse/actions";
 import { EvaluatorAbuse } from "@/engine/core/schemes/stalker/abuse/evaluators";
 import { SchemeAbuse } from "@/engine/core/schemes/stalker/abuse/SchemeAbuse";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeNotToBeSubscribed, checkPlannerAction } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

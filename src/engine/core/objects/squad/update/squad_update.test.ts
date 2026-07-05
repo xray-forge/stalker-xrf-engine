@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { cond, move } from "xray16";
+import { GameObject, ServerHumanObject } from "xray16/alias";
 
 import { registerSimulationObject, registerSimulator } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { SquadReachTargetAction } from "@/engine/core/objects/squad/action";
 import { updateMonsterSquadAction } from "@/engine/core/objects/squad/update/squad_update";
 import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
-import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";

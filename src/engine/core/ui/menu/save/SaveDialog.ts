@@ -14,6 +14,8 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { FSFile, FSFileList, FSItem, TKeyCode, TUIEvent, Vector2D } from "xray16/alias";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { SaveItem } from "@/engine/core/ui/menu/save/SaveItem";
@@ -23,18 +25,7 @@ import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
-import {
-  FSFileList,
-  FSItem,
-  LuaArray,
-  Nillable,
-  TKeyCode,
-  TLabel,
-  TName,
-  TPath,
-  TUIEvent,
-  Vector2D,
-} from "@/engine/lib/types";
+import { LuaArray, Nillable, TLabel, TName, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\SaveDialog.component";
@@ -241,9 +232,9 @@ export class SaveDialog extends CUIScriptWnd {
 
     const fs: FS = getFS();
     const fileList: FSFileList = fs.file_list_open(roots.gameSaves, FS.FS_ListFiles);
-    const fileExists: Nillable<number> = fs.exist(roots.gameSaves, this.newSave + forgeConfig.SAVE.GAME_SAVE_EXTENSION);
+    const file: Nillable<FSFile> = fs.exist(roots.gameSaves, this.newSave + forgeConfig.SAVE.GAME_SAVE_EXTENSION);
 
-    if (fileExists) {
+    if (file) {
       logger.info("File already exists");
 
       this.modalBoxMode = 1;

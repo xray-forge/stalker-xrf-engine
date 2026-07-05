@@ -1,9 +1,12 @@
+import { GameObject, IniFile } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
 import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCombatManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme describing how monsters should handle combat.

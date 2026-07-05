@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { get_console, snd_type } from "xray16";
+import { Console, GameObject } from "xray16/alias";
 
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
@@ -14,7 +15,6 @@ import {
   stopPlayingObjectSound,
 } from "@/engine/core/utils/sound";
 import { ESoundType } from "@/engine/lib/constants/sound";
-import { Console, GameObject } from "@/engine/lib/types";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

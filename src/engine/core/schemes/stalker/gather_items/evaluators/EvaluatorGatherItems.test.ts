@@ -1,8 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators/EvaluatorGatherItems";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 

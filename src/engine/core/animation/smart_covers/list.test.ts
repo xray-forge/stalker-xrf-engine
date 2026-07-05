@@ -2,13 +2,12 @@ import { describe, expect, it } from "@jest/globals";
 
 import { smartCoversList } from "@/engine/core/animation/smart_covers/list";
 import { assertArraysIntersecting } from "@/fixtures/engine";
-import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("smart covers animations list", () => {
   it("should include all needed smar covers in list", () => {
     expect(smartCoversList.length()).toBe(11);
 
-    assertArraysIntersecting(mockFromLuaTable(smartCoversList).getKeysArray(), [
+    assertArraysIntersecting(Array.from((smartCoversList as unknown as Map<string, unknown>).keys()), [
       "combat_prone",
       "combat_front",
       "animpoint_stay_wall",

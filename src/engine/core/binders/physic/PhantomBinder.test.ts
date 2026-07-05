@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { PhantomBinder } from "@/engine/core/binders/physic/PhantomBinder";
 import { getManager } from "@/engine/core/database";
 import { PhantomManager } from "@/engine/core/managers/psy";
-import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

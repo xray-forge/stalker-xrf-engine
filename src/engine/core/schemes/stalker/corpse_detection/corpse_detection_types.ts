@@ -1,5 +1,7 @@
+import { Vector } from "xray16/alias";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import { Nillable, TNumberId, TStringId, Vector } from "@/engine/lib/types";
+import { Nillable, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Key in portable store indicating who is looting corpse.

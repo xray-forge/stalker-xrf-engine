@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
+import { GameObject, ServerObject, TClassId } from "xray16/alias";
+import { $fromLuaArray } from "xray16/macros";
 
 import { registerActor, registerSimulator } from "@/engine/core/database";
 import {
@@ -8,13 +10,12 @@ import {
   getNearestServerObject,
   getServerObjects,
 } from "@/engine/core/utils/registry";
-import { AnyObject, GameObject, ServerObject, TClassId, TIndex } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
+import { AnyObject } from "@/engine/lib/types";
 import { MockAlifeCreatureActor, MockAlifeObject, MockAlifeSimulator, MockGameObject } from "@/fixtures/xray";
 
 describe("getNearestServerObject util", () => {
   beforeEach(() => {
-    MockGameObject.REGISTRY.reset();
+    MockGameObject.REGISTRY.clear();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
@@ -66,7 +67,7 @@ describe("getNearestServerObject util", () => {
 
 describe("getServerObjects util", () => {
   beforeEach(() => {
-    MockGameObject.REGISTRY.reset();
+    MockGameObject.REGISTRY.clear();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
@@ -90,71 +91,55 @@ describe("getServerObjects util", () => {
     MockGameObject.mock({ id: actor.id });
     MockGameObject.mock({ id: first.id });
 
-    expect((getServerObjects() as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => it.id)).toEqual([
+    expect($fromLuaArray(getServerObjects()).map((it) => it.id)).toEqual([first.id, second.id, third.id]);
+    expect($fromLuaArray(getServerObjects(null, false)).map((it) => it.id)).toEqual([first.id]);
+
+    expect($fromLuaArray(getServerObjects(clsid.script_stalker as TClassId)).map((it) => it.id)).toEqual([first.id]);
+    expect($fromLuaArray(getServerObjects(clsid.script_stalker as TClassId, false)).map((it) => it.id)).toEqual([
       first.id,
-      second.id,
-      third.id,
     ]);
-    expect((getServerObjects(null, false) as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => it.id)).toEqual(
-      [first.id]
-    );
-
     expect(
-      (getServerObjects(clsid.script_stalker as TClassId) as unknown as MockLuaTable<TIndex, ServerObject>).map(
-        (it) => it.id
-      )
-    ).toEqual([first.id]);
-    expect(
-      (getServerObjects(clsid.script_stalker as TClassId, false) as unknown as MockLuaTable<TIndex, ServerObject>).map(
-        (it) => it.id
-      )
-    ).toEqual([first.id]);
-    expect(
-      (getServerObjects(clsid.pseudodog_s as TClassId) as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => {
+      $fromLuaArray(getServerObjects(clsid.pseudodog_s as TClassId)).map((it) => {
         return it.id;
       })
     ).toEqual([second.id]);
     expect(
-      (getServerObjects(clsid.pseudodog_s as TClassId, false) as unknown as MockLuaTable<TIndex, ServerObject>).map(
-        (it) => {
-          return it.id;
-        }
-      )
+      $fromLuaArray(getServerObjects(clsid.pseudodog_s as TClassId, false)).map((it) => {
+        return it.id;
+      })
     ).toEqual([]);
 
     expect(
-      (getServerObjects("dog") as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => {
+      $fromLuaArray(getServerObjects("dog")).map((it) => {
         return it.id;
       })
     ).toEqual([second.id]);
     expect(
-      (getServerObjects("dog_name") as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => {
+      $fromLuaArray(getServerObjects("dog_name")).map((it) => {
         return it.id;
       })
     ).toEqual([second.id]);
     expect(
-      (getServerObjects("dog", false) as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => {
+      $fromLuaArray(getServerObjects("dog", false)).map((it) => {
         return it.id;
       })
     ).toEqual([]);
     expect(
-      (getServerObjects("dog", false) as unknown as MockLuaTable<TIndex, ServerObject>).map((it) => {
+      $fromLuaArray(getServerObjects("dog", false)).map((it) => {
         return it.id;
       })
     ).toEqual([]);
     expect(
-      (getServerObjects((it) => it.name().endsWith("_name")) as unknown as MockLuaTable<TIndex, ServerObject>).map(
-        (it) => {
-          return it.id;
-        }
-      )
+      $fromLuaArray(getServerObjects((it) => it.name().endsWith("_name"))).map((it) => {
+        return it.id;
+      })
     ).toEqual([first.id, second.id]);
   });
 });
 
 describe("getNearestGameObject util", () => {
   beforeEach(() => {
-    MockGameObject.REGISTRY.reset();
+    MockGameObject.REGISTRY.clear();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
@@ -198,7 +183,7 @@ describe("getNearestGameObject util", () => {
 
 describe("getGameObjects util", () => {
   beforeEach(() => {
-    MockGameObject.REGISTRY.reset();
+    MockGameObject.REGISTRY.clear();
     MockAlifeSimulator.reset();
     registerSimulator();
   });
@@ -224,38 +209,31 @@ describe("getGameObjects util", () => {
 
     registerActor(actor);
 
-    const firstList: MockLuaTable<TIndex, GameObject> = getGameObjects() as unknown as MockLuaTable<TIndex, GameObject>;
-
-    expect(firstList.map((it) => it.id())).toEqual([first.id(), second.id(), third.id()]);
+    expect($fromLuaArray(getGameObjects()).map((it) => it.id())).toEqual([first.id(), second.id(), third.id()]);
 
     expect(
-      (getGameObjects(clsid.script_stalker as TClassId) as unknown as MockLuaTable<TIndex, GameObject>).map((it) => {
+      $fromLuaArray(getGameObjects(clsid.script_stalker as TClassId)).map((it) => {
         return it.id();
       })
     ).toEqual([first.id()]);
     expect(
-      (getGameObjects(clsid.pseudodog_s as TClassId) as unknown as MockLuaTable<TIndex, GameObject>).map((it) => {
+      $fromLuaArray(getGameObjects(clsid.pseudodog_s as TClassId)).map((it) => {
         return it.id();
       })
     ).toEqual([second.id()]);
 
     expect(
-      (getGameObjects("dog") as unknown as MockLuaTable<TIndex, GameObject>).map((it) => {
+      $fromLuaArray(getGameObjects("dog")).map((it) => {
         return it.id();
       })
     ).toEqual([second.id()]);
     expect(
-      (getGameObjects("dog_name") as unknown as MockLuaTable<TIndex, GameObject>).map((it) => {
+      $fromLuaArray(getGameObjects("dog_name")).map((it) => {
         return it.id();
       })
     ).toEqual([second.id()]);
     expect(
-      (
-        getGameObjects((it) => it.name() === "dog_name" && it.clsid() === clsid.pseudodog_s) as unknown as MockLuaTable<
-          TIndex,
-          GameObject
-        >
-      ).map((it) => {
+      $fromLuaArray(getGameObjects((it) => it.name() === "dog_name" && it.clsid() === clsid.pseudodog_s)).map((it) => {
         return it.id();
       })
     ).toEqual([second.id()]);

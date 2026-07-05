@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { isObjectTrader } from "@/engine/core/managers/trade/utils/trade_check";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("isObjectTrader util", () => {

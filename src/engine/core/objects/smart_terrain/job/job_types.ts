@@ -1,19 +1,18 @@
+import { ALifeSmartTerrainTask, IniFile, ServerCreatureObject, Vector } from "xray16/alias";
+import { $fromArray } from "xray16/macros";
+
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import {
-  ALifeSmartTerrainTask,
   AnyObject,
   EScheme,
   ESchemeType,
-  IniFile,
   LuaArray,
   Nillable,
   PartialRecord,
-  ServerCreatureObject,
   TNumberId,
   TPath,
   TRate,
   TSection,
-  Vector,
 } from "@/engine/lib/types";
 
 /**

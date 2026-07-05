@@ -1,4 +1,6 @@
 import { game, level, patrol, time_global } from "xray16";
+import { GameObject, Patrol, Phrase, PhraseDialog, PhraseScript, ServerObject, TClassId, Vector } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { getManager, getStoryIdByObjectId, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -36,14 +38,7 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyObject,
-  GameObject,
   Nillable,
-  Patrol,
-  Phrase,
-  PhraseDialog,
-  PhraseScript,
-  ServerObject,
-  TClassId,
   TCount,
   TDirection,
   TDistance,
@@ -53,7 +48,6 @@ import {
   TNumberId,
   TStringId,
   TTimestamp,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "travel", mode: ELuaLoggerMode.DUAL });

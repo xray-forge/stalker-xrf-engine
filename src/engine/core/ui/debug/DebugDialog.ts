@@ -8,11 +8,12 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { TKeyCode, TUIEvent } from "xray16/alias";
 
 import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/debug_types";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
+import { TPath } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugDialog.component";
 

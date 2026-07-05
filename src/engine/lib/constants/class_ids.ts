@@ -1,7 +1,7 @@
-/* eslint sort-keys-fix/sort-keys-fix: "error" */
+import { TClassId } from "xray16/alias";
+import { $fromObject } from "xray16/macros";
 
 import { createClassIds } from "@/engine/core/utils/class_ids_list";
-import { TClassId } from "@/engine/lib/types";
 
 /**
  * Definition of grouped class IDs used in the xray engine for object checks / comparison.
@@ -49,8 +49,10 @@ export type TGameClassId = (typeof gameClassId)[keyof typeof gameClassId];
 /**
  * C++ declared class identifiers from client side.
  * Matches class names in C++ counterpart.
+ *
+ * @inline
  */
-export const enum EGameObjectClass {
+export enum EGameObjectClass {
   CAI_Bloodsucker = "CAI_Bloodsucker",
   CAI_Boar = "CAI_Boar",
   CAI_Dog = "CAI_Dog",

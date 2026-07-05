@@ -1,3 +1,6 @@
+import { EActorMenuMode, EActorMenuType, GameObject, IniFile } from "xray16/alias";
+import { $filename } from "xray16/macros";
+
 import { SYSTEM_INI } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
@@ -6,7 +9,6 @@ import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ACTOR } from "@/engine/lib/constants/words";
-import { EActorMenuMode, EActorMenuType, GameObject, IniFile } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

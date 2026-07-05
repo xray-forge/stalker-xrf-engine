@@ -1,16 +1,11 @@
+import { GameObject, IniFile, ServerHumanObject, ServerObject } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
+
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { isStalker } from "@/engine/core/utils/class_ids";
 import { readIniString } from "@/engine/core/utils/ini";
 import { getObjectSpawnIni } from "@/engine/core/utils/object/object_get";
-import {
-  GameObject,
-  IniFile,
-  Nillable,
-  ServerHumanObject,
-  ServerObject,
-  TNumberId,
-  TStringId,
-} from "@/engine/lib/types";
+import { Nillable, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * @returns Whether actor can start sleeping.

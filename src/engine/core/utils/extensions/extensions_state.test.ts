@@ -1,4 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { $fromArray } from "xray16/macros";
+import { MockIoFile } from "xray16/mocks";
 
 import {
   loadExtensionsState,
@@ -8,7 +10,6 @@ import {
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { TName } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockIoFile } from "@/fixtures/lua";
 
 function mockExtension(name: TName): IExtensionsDescriptor {
   return { name, module: {} } as IExtensionsDescriptor;

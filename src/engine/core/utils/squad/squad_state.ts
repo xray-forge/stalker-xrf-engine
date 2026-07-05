@@ -1,8 +1,11 @@
+import { GameObject } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
+
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { pickSectionFromCondList, readIniString, TConditionList } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Updates squad members invulnerability state based on defined logics condlist.

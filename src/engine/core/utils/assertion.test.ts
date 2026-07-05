@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
 import { print_stack } from "xray16";
+import { mockDebug } from "xray16/mocks";
 
 import { abort, assert, assertDefined, assertNonEmptyString, callstack } from "@/engine/core/utils/assertion";
-import { mockDebug } from "@/fixtures/lua/mocks/lua_debug.mock";
 
 describe("abort util", () => {
   it("abort should correctly throw exceptions", () => {

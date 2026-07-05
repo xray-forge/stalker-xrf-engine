@@ -1,7 +1,8 @@
 import { jest } from "@jest/globals";
+import { ServerCreatureObject } from "xray16/alias";
 
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { AnyObject, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
+import { AnyObject, TNumberId } from "@/engine/lib/types";
 import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 

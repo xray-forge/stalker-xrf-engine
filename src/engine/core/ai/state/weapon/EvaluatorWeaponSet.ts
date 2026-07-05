@@ -1,10 +1,11 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
 import { EWeaponAnimation } from "@/engine/core/animation/types";
 import { isStrappableWeapon } from "@/engine/core/utils/class_ids";
-import { GameObject, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Whether current active weapon matches required weapon.

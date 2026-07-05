@@ -1,4 +1,5 @@
-/* eslint @typescript-eslint/explicit-function-return-type: "error" */
+import { EGameObjectRelation, GameObject, ServerCreatureObject } from "xray16/alias";
+import { $filename, $fromArray, $fromObject } from "xray16/macros";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { getManager, registry } from "@/engine/core/database";
@@ -34,12 +35,9 @@ import {
   AnyCallable,
   AnyCallablesModule,
   AnyObject,
-  EGameObjectRelation,
-  GameObject,
   LuaArray,
   Nillable,
   PartialRecord,
-  ServerCreatureObject,
   TCount,
   TIndex,
   TName,

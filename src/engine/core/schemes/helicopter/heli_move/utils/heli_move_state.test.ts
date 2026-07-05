@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
@@ -7,7 +8,6 @@ import {
   getHelicopterFireManager,
   getHelicopterFlyManager,
 } from "@/engine/core/schemes/helicopter/heli_move/utils/heli_move_state";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("getHelicopterFireManager", () => {

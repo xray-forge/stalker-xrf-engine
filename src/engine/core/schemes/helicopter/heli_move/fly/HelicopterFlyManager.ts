@@ -1,8 +1,9 @@
 import { CHelicopter } from "xray16";
+import { GameObject, Vector } from "xray16/alias";
 
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { GameObject, LuaArray, Nillable, TDistance, TRate, Vector } from "@/engine/lib/types";
+import { LuaArray, Nillable, TDistance, TRate } from "@/engine/lib/types";
 
 /**
  * Manager handling helicopter flight movement towards destination points.

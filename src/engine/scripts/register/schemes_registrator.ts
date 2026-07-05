@@ -1,3 +1,5 @@
+import { $filename, $fromArray } from "xray16/macros";
+
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import { SchemeHelicopterMove } from "@/engine/core/schemes/helicopter/heli_move";
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat";

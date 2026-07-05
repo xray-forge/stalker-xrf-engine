@@ -1,4 +1,6 @@
 import { callback, level, LuabindClass, object_binder, time_global } from "xray16";
+import { GameObject, GameTask, NetPacket, NetReader, ServerActorObject, TTaskState } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -26,20 +28,7 @@ import { SchemeDeimos } from "@/engine/core/schemes/restrictor/sr_deimos/SchemeD
 import { setStableAlifeObjectsUpdate, setUnlimitedAlifeObjectsUpdate } from "@/engine/core/utils/alife";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import {
-  GameObject,
-  GameTask,
-  NetPacket,
-  NetReader,
-  Nillable,
-  ServerActorObject,
-  TCount,
-  TDuration,
-  TName,
-  TSection,
-  TTaskState,
-  TTimestamp,
-} from "@/engine/lib/types";
+import { Nillable, TCount, TDuration, TName, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

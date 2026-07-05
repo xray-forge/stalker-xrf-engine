@@ -1,8 +1,9 @@
 import { profile_timer } from "xray16";
+import { ProfileTimer } from "xray16/alias";
 
 import { getManager } from "@/engine/core/database";
 import { ProfilingManager } from "@/engine/core/managers/debug/profiling/ProfilingManager";
-import { AnyCallable, LuaArray, Nillable, ProfileTimer, TDuration, TName } from "@/engine/lib/types";
+import { AnyCallable, LuaArray, Nillable, TDuration, TName } from "@/engine/lib/types";
 
 /**
  * Portion of profiling metrics for isolated performance measuring of code execution.

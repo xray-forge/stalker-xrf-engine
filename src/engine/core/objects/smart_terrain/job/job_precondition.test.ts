@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { GameObject, ServerHumanObject } from "xray16/alias";
 
 import { registerObject, registerSmartCover, registerZone } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -29,7 +30,7 @@ import {
 import { IObjectJobState } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { AnyObject, GameObject, ServerHumanObject, TNumberId, TSection } from "@/engine/lib/types";
+import { AnyObject, TNumberId, TSection } from "@/engine/lib/types";
 import { MockSmartCover, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockCTime, MockGameObject } from "@/fixtures/xray";
 

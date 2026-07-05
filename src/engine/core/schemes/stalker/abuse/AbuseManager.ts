@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { $isNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";

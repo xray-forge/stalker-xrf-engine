@@ -1,4 +1,6 @@
 import { CHelicopter, level, time_global } from "xray16";
+import { GameObject, IniFile, NetPacket, NetReader, Vector } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -22,19 +24,7 @@ import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import { pickSectionFromCondList, readIniNumber, TConditionList } from "@/engine/core/utils/ini";
 import { copyVector, createEmptyVector, distanceBetween2d } from "@/engine/core/utils/vector";
-import {
-  GameObject,
-  IniFile,
-  NetPacket,
-  NetReader,
-  Nillable,
-  TCount,
-  TDistance,
-  TNumberId,
-  TRate,
-  TTimestamp,
-  Vector,
-} from "@/engine/lib/types";
+import { Nillable, TCount, TDistance, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Manager handling helicopter combat behaviour, switching between fly-by, round, search and retreat tactics.

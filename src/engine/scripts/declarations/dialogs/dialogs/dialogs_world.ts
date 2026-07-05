@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { $filename } from "xray16/macros";
 
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { extern } from "@/engine/core/utils/binding";

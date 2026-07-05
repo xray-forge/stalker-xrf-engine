@@ -1,9 +1,10 @@
+import { ServerObject } from "xray16/alias";
+
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { Squad } from "@/engine/core/objects/squad";
 import { getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isInTimeInterval } from "@/engine/core/utils/time";
-import { ServerObject } from "@/engine/lib/types";
 
 /**
  * @returns Always true.

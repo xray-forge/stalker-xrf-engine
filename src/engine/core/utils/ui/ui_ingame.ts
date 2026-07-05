@@ -1,8 +1,9 @@
 import { get_hud, level } from "xray16";
+import { GameHud, GameObject } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { GameHud, GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

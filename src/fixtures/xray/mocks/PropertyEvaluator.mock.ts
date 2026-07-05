@@ -1,4 +1,6 @@
-import { GameObject, Nullable, TName } from "@/engine/lib/types";
+import { GameObject } from "xray16/alias";
+
+import { Nullable, TName } from "@/engine/lib/types";
 import { MockPropertyStorage } from "@/fixtures/xray/mocks/actions/property_storage.mock";
 
 /**

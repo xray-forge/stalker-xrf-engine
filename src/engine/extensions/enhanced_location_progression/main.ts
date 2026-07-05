@@ -1,3 +1,5 @@
+import { $dirname } from "xray16/macros";
+
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TName } from "@/engine/lib/types";

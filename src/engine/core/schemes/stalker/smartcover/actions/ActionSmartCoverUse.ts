@@ -1,4 +1,5 @@
 import { action_base, level, LuabindClass, patrol } from "xray16";
+import { GameObject, Vector } from "xray16/alias";
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
 import { getManager, getObjectIdByStoryId, registry, setStalkerState } from "@/engine/core/database";
@@ -10,15 +11,7 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { NIL } from "@/engine/lib/constants/words";
-import {
-  GameObject,
-  ISchemeEventHandler,
-  Nillable,
-  StringNillable,
-  TName,
-  TNumberId,
-  Vector,
-} from "@/engine/lib/types";
+import { ISchemeEventHandler, Nillable, StringNillable, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Action to handle hiding in smart covers.

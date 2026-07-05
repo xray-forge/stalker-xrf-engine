@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { GameObject, IniFile } from "xray16/alias";
 
 import { IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
 import {
@@ -10,7 +11,7 @@ import {
 } from "@/engine/core/schemes/restrictor/sr_teleport";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { getSchemeAction } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile, patrols } from "@/fixtures/xray";

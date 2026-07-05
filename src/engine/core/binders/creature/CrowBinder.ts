@@ -1,4 +1,6 @@
 import { callback, LuabindClass, object_binder, time_global } from "xray16";
+import { NetPacket, NetReader, ServerObject } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -14,7 +16,7 @@ import {
 } from "@/engine/core/database";
 import { crowSpawnerConfig } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerConfig";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, NetReader, ServerObject, TDuration, TTimestamp } from "@/engine/lib/types";
+import { TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

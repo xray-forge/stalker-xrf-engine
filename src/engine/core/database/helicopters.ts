@@ -1,8 +1,10 @@
+import { GameObject } from "xray16/alias";
+
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, TIndex } from "@/engine/lib/types";
+import { TIndex } from "@/engine/lib/types";
 
 /**
  * Register helicopter binder object.

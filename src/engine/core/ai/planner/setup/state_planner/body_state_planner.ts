@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { ActionPlanner } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
@@ -8,7 +9,6 @@ import {
   ActionBodyStateStandingFree,
 } from "@/engine/core/ai/state/body_state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
-import { ActionPlanner } from "@/engine/lib/types";
 
 /**
  * Setup GOAP logics related to body state changes of stalkers.

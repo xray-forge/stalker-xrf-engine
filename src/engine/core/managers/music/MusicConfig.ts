@@ -1,3 +1,5 @@
+import { $fromArray } from "xray16/macros";
+
 import { IDynamicMusicDescriptor } from "@/engine/core/managers/sounds";
 
 export const musicConfig = {

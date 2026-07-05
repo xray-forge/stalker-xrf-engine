@@ -1,21 +1,13 @@
 import { action_base, danger_object, LuabindClass, move, time_global } from "xray16";
+import { DangerObject, EGameObjectPath, GameObject, Vector } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { EStalkerState, ILookTargetDescriptor } from "@/engine/core/animation/types";
 import { setStalkerState } from "@/engine/core/database";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat/combat_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import {
-  DangerObject,
-  EGameObjectPath,
-  GameObject,
-  Nillable,
-  TIndex,
-  TNumberId,
-  TRate,
-  TTimestamp,
-  Vector,
-} from "@/engine/lib/types";
+import { Nillable, TIndex, TNumberId, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,10 +1,11 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject, Vector } from "xray16/alias";
 
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
 import { parseBoneStateDescriptors, parseConditionsList } from "@/engine/core/utils/ini";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
-import { EScheme, GameObject, Vector } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

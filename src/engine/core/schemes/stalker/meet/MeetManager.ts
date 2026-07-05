@@ -1,3 +1,6 @@
+import { GameObject } from "xray16/alias";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
+
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, getObjectByStoryId, registry, setStalkerState } from "@/engine/core/database";
@@ -9,16 +12,7 @@ import { parseStringOptional, pickSectionFromCondList } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInCombat, isObjectWounded } from "@/engine/core/utils/planner";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import {
-  GameObject,
-  Nillable,
-  StringNillable,
-  TDistance,
-  TName,
-  TNumberId,
-  TSection,
-  TStringId,
-} from "@/engine/lib/types";
+import { Nillable, StringNillable, TDistance, TName, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 

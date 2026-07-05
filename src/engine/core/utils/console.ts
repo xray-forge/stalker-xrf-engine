@@ -1,7 +1,8 @@
 import { CConsole, get_console } from "xray16";
+import { IniFile } from "xray16/alias";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
-import { AnyArgs, IniFile, TCount, TName, TSection } from "@/engine/lib/types";
+import { AnyArgs, TCount, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Execute console command and concatenate provided parameters for propagation.

@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
+import { AlifeSimulator } from "xray16/alias";
 
 import { registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { Actor } from "@/engine/core/objects/creature";
 import { isBlackScreen, isGameLevelChanging, isGameStarted } from "@/engine/core/utils/game/game_check";
-import { AlifeSimulator } from "@/engine/lib/types";
 import { MockAlifeCreatureActor, MockDevice } from "@/fixtures/xray";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 

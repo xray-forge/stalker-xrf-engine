@@ -1,8 +1,9 @@
 import { patrol } from "xray16";
+import { GameObject, Patrol } from "xray16/alias";
 
 import { ICampPoint, ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { getPatrolFlag, isObjectAtWaypoint } from "@/engine/core/utils/patrol";
-import { GameObject, Nillable, Patrol } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * @param object - Game object to check.

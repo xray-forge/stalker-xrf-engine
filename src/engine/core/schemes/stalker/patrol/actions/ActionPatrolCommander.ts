@@ -1,4 +1,5 @@
 import { action_base, LuabindClass } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
@@ -7,7 +8,7 @@ import { getManager, getStalkerState, registry } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ISchemePatrolState } from "@/engine/core/schemes/stalker/patrol";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { GameObject, ISchemeEventHandler, Nillable } from "@/engine/lib/types";
+import { ISchemeEventHandler, Nillable } from "@/engine/lib/types";
 
 /**
  * Action to command patrol/group of stalker on way somewhere.

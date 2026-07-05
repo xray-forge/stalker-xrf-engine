@@ -1,4 +1,6 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindClass, ui_events } from "xray16";
+import { Vector2D } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -14,7 +16,7 @@ import { create2dVector, createEmpty2dVector, vectorToString } from "@/engine/co
 import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { LuaArray, Nillable, TName, TPath, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Nillable, TName, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTeleportSection.component";

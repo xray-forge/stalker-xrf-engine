@@ -1,3 +1,5 @@
+import { GameObject } from "xray16/alias";
+
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IItemDropAmountDescriptor } from "@/engine/core/managers/drop";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
@@ -7,7 +9,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { GameObject, Nillable, TCount, TProbability, TSection } from "@/engine/lib/types";
+import { Nillable, TCount, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * Spawn death loot items for the object corpse based on its community drop configuration.

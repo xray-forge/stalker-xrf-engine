@@ -1,5 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { getManager } from "@/engine/core/database";
@@ -8,7 +9,6 @@ import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { ESmartTerrainStatus, SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { anomalyHasArtefact } from "@/engine/core/utils/anomaly";
-import { GameObject } from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,

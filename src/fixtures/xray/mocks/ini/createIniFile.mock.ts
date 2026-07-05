@@ -1,6 +1,6 @@
 import { parse } from "ini";
+import { IniFile } from "xray16/alias";
 
-import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini/IniFile.mock";
 
 /**

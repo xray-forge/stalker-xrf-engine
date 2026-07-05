@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { type TSimulationObject } from "@/engine/core/managers/simulation";

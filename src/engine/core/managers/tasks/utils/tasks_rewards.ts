@@ -1,10 +1,13 @@
+import { GameObject } from "xray16/alias";
+import { $filename, $isNotNil } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { TaskObject } from "@/engine/core/managers/tasks";
 import { parseStringsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveMoneyToActor, transferItemsToActor } from "@/engine/core/utils/reward";
-import { GameObject, Nillable, TCount, TName } from "@/engine/lib/types";
+import { Nillable, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

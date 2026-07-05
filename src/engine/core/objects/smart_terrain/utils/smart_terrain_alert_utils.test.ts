@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { EGameObjectRelation, GameObject, TRelationType } from "xray16/alias";
 
 import {
   ESmartTerrainStatus,
@@ -6,7 +7,6 @@ import {
   SmartTerrainControl,
   syncObjectHitSmartTerrainAlert,
 } from "@/engine/core/objects/smart_terrain";
-import { EGameObjectRelation, GameObject, TRelationType } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

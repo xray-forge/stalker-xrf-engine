@@ -1,7 +1,8 @@
 import { jest } from "@jest/globals";
 import { CPhraseDialog } from "xray16";
+import { PhraseDialog } from "xray16/alias";
 
-import { PhraseDialog, TRate, TStringId } from "@/engine/lib/types";
+import { TRate, TStringId } from "@/engine/lib/types";
 import { MockPhrase } from "@/fixtures/xray/mocks/dialogs/Phrase.mock";
 
 /**

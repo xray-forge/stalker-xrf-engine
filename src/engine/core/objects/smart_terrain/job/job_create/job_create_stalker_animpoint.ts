@@ -1,3 +1,5 @@
+import { $isNotNil } from "xray16/macros";
+
 import { registry } from "@/engine/core/database";
 import { jobPreconditionAnimpoint } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";

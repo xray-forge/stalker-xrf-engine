@@ -1,5 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid, level } from "xray16";
+import { EActorMenuMode, GameObject } from "xray16/alias";
 
 import { IRegistryObjectState, registerObject, registerZone } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
@@ -11,7 +12,7 @@ import { isObjectInActorFrustum, isObjectInZone } from "@/engine/core/utils/posi
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { EActorMenuMode, EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import {
   callXrCondition,
   checkXrCondition,

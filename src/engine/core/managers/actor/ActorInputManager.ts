@@ -1,4 +1,6 @@
 import { game, get_hud, level } from "xray16";
+import { GameHud, GameObject, NetPacket, NetProcessor } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -25,19 +27,7 @@ import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
-import {
-  AnyObject,
-  EActiveItemSlot,
-  GameHud,
-  GameObject,
-  NetPacket,
-  NetProcessor,
-  Nillable,
-  TDuration,
-  TIndex,
-  TNumberId,
-  TRate,
-} from "@/engine/lib/types";
+import { AnyObject, EActiveItemSlot, Nillable, TDuration, TIndex, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

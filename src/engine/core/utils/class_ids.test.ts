@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
+import { ServerActorObject, ServerHumanObject, ServerObject } from "xray16/alias";
 
 import { registerSimulator } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -28,7 +29,6 @@ import {
   isWeapon,
 } from "@/engine/core/utils/class_ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { ServerActorObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { MockAlifeCreatureActor, MockAlifeHumanStalker, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 

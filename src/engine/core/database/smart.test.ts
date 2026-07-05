@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, ZoneCampfire } from "xray16/alias";
 
 import { registry } from "@/engine/core/database/registry";
 import {
@@ -11,9 +12,7 @@ import {
 } from "@/engine/core/database/smart";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { GameObject, ZoneCampfire } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
-import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 import { MockCZoneCampfire, MockGameObject } from "@/fixtures/xray";
 
 describe("smart module of the database", () => {
@@ -47,11 +46,11 @@ describe("smart module of the database", () => {
     registerSmartCover(cover);
 
     expect(registry.smartCovers.get(cover.name())).toBe(cover);
-    expect(MockLuaMap.getSizeOf(registry.smartCovers)).toBe(1);
+    expect(table.size(registry.smartCovers)).toBe(1);
 
     unregisterSmartCover(cover);
 
-    expect(MockLuaMap.getSizeOf(registry.smartCovers)).toBe(0);
+    expect(table.size(registry.smartCovers)).toBe(0);
   });
 
   it("should correctly register smart terrains campfires", () => {

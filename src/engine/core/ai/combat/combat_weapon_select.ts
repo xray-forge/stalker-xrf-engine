@@ -1,9 +1,10 @@
 import { level } from "xray16";
+import { GameObject, ServerObject } from "xray16/alias";
 
 import { registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { isWeapon } from "@/engine/core/utils/class_ids";
-import { GameObject, Nillable, ServerObject, TNumberId, TStringId } from "@/engine/lib/types";
+import { Nillable, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Try to pick the best weapon to kill enemy based on situation.

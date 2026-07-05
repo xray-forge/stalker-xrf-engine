@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { ServerObject } from "xray16/alias";
 
 import { getManager } from "@/engine/core/database";
 import { LoadoutManager } from "@/engine/core/managers/loadout/LoadoutManager";
-import { ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject } from "@/fixtures/xray";
 

@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction/index";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("ObjectRestrictionsManager", () => {

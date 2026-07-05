@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
+import { IniFile } from "xray16/alias";
 
 import { DUMMY_LTX, DYNAMIC_LTX_PREFIX, GAME_LTX, SYSTEM_INI } from "@/engine/core/database/ini_registry";
-import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 describe("ini_registry database module", () => {

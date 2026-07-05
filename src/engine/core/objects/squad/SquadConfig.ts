@@ -1,6 +1,5 @@
 import { ini_file } from "xray16";
-
-import { IniFile } from "@/engine/lib/types";
+import { IniFile } from "xray16/alias";
 
 export const SQUAD_BEHAVIOURS_LTX: IniFile = new ini_file("managers\\simulation\\squad_behaviours.ltx");
 

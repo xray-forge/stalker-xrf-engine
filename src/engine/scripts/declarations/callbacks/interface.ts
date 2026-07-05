@@ -1,3 +1,6 @@
+import { EActorMenuMode, EActorMenuType, GameObject } from "xray16/alias";
+import { $filename } from "xray16/macros";
+
 import { getManager } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
 import { LoadScreenManager } from "@/engine/core/managers/interface/LoadScreenManager";
@@ -22,9 +25,6 @@ import {
 import {
   AnyArgs,
   AnyObject,
-  EActorMenuMode,
-  EActorMenuType,
-  GameObject,
   TCount,
   TIndex,
   TLabel,

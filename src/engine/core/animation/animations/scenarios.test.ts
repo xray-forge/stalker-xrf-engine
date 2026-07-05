@@ -2,13 +2,12 @@ import { describe, expect, it } from "@jest/globals";
 
 import { scenarioAnimations } from "@/engine/core/animation/animations/scenarios";
 import { assertArraysIntersecting } from "@/fixtures/engine";
-import { mockFromLuaTable } from "@/fixtures/lua";
 
 describe("scenario animations list", () => {
   it("should list all needed animations", () => {
     expect(scenarioAnimations.length()).toBe(88);
 
-    assertArraysIntersecting(mockFromLuaTable(scenarioAnimations).getKeysArray(), [
+    assertArraysIntersecting(Array.from((scenarioAnimations as unknown as Map<string, unknown>).keys()), [
       "zat_b14_give_artefact_idle",
       "zat_b14_give_artefact_act",
       "zat_b14_stay_wall",

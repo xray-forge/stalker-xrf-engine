@@ -1,8 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { IniFile } from "xray16/alias";
 
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds";
 import { NpcSound } from "@/engine/core/managers/sounds/objects/NpcSound";
-import { IniFile, TNumberId } from "@/engine/lib/types";
+import { TNumberId } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 describe("NpcSound", () => {

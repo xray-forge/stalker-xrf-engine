@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -8,7 +9,7 @@ import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounde
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { readIniBoolean } from "@/engine/core/utils/ini";
-import { ActionPlanner, GameObject, IniFile, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**

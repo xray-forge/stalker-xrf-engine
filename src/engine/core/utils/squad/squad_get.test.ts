@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { GameObject, ServerHumanObject } from "xray16/alias";
 
 import { registerSimulator } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { getObjectSquad, getObjectSquadByObjectId } from "@/engine/core/utils/squad/squad_get";
-import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { MockSquad } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 

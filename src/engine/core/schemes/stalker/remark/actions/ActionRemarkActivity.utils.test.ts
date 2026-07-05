@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { initTarget } from "@/engine/core/schemes/stalker/remark/actions";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("initTarget", () => {

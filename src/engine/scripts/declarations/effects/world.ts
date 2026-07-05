@@ -1,4 +1,13 @@
 import { level, patrol } from "xray16";
+import {
+  GameObject,
+  Patrol,
+  ServerArtefactItemObject,
+  ServerHumanObject,
+  ServerObject,
+  ServerWeaponObject,
+} from "xray16/alias";
+import { $filename, $isNil } from "xray16/macros";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -28,13 +37,7 @@ import { weapons } from "@/engine/lib/constants/items/weapons";
 import { Y_VECTOR } from "@/engine/lib/constants/vectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  GameObject,
   Nillable,
-  Patrol,
-  ServerArtefactItemObject,
-  ServerHumanObject,
-  ServerObject,
-  ServerWeaponObject,
   TDuration,
   TIndex,
   TLabel,

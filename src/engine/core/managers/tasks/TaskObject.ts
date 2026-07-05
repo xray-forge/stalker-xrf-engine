@@ -1,4 +1,6 @@
 import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
+import { GameTask, IniFile, NetPacket, NetProcessor, ServerObject, Time } from "xray16/alias";
+import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
   closeLoadMarker,
@@ -30,14 +32,8 @@ import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time"
 import { TLevel } from "@/engine/lib/constants/levels";
 import {
   AnyCallablesModule,
-  GameTask,
-  IniFile,
   LuaArray,
-  NetPacket,
-  NetProcessor,
   Nillable,
-  ServerObject,
-  Time,
   TIndex,
   TLabel,
   TName,

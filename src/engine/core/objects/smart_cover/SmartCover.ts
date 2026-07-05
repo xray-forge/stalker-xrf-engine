@@ -1,4 +1,5 @@
 import { cse_smart_cover, LuabindClass, properties_helper } from "xray16";
+import { NetPacket } from "xray16/alias";
 
 import { smartCoversList } from "@/engine/core/animation/smart_covers/list";
 import {
@@ -11,7 +12,7 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { assert } from "@/engine/core/utils/assertion";
 import { resetTable } from "@/engine/core/utils/table";
 import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray, NetPacket, Nillable, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TLabel, TSection, TStringId } from "@/engine/lib/types";
 
 /**
  * Server representation of smart cover game object.

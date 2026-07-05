@@ -1,11 +1,13 @@
 import { device, level } from "xray16";
+import { GameObject } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { IRegistryObjectState, registry, SYSTEM_INI } from "@/engine/core/database";
 import { abort } from "@/engine/core/utils/assertion";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, Nillable, TName, TNumberId, TRate, TStringifiedBoolean } from "@/engine/lib/types";
+import { Nillable, TName, TNumberId, TRate, TStringifiedBoolean } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

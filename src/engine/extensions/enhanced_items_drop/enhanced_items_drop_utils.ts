@@ -1,9 +1,12 @@
+import { GameObject } from "xray16/alias";
+import { $isNotNil } from "xray16/macros";
+
 import { isObjectTrader } from "@/engine/core/managers/trade/utils";
 import { addRandomUpgrades } from "@/engine/core/managers/upgrades";
 import { getItemOwnerId } from "@/engine/core/utils/item";
 import { enhancedDropConfig } from "@/engine/extensions/enhanced_items_drop/EnhancedDropConfig";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, Nillable, TCount, TNumberId, TRate } from "@/engine/lib/types";
+import { Nillable, TCount, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * Handle item going online (spawning) first time.

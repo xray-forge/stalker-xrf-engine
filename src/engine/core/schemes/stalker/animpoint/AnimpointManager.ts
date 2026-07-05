@@ -1,4 +1,6 @@
 import { level } from "xray16";
+import { GameObject, Vector } from "xray16/alias";
+import { $filename, $isNotNil } from "xray16/macros";
 
 import { campConfig, CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -17,7 +19,7 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { angleToDirection, createVector } from "@/engine/core/utils/vector";
-import { GameObject, LuaArray, Nillable, TIndex, TName, TNumberId, TRate, Vector } from "@/engine/lib/types";
+import { LuaArray, Nillable, TIndex, TName, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

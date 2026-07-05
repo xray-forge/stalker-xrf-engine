@@ -12,6 +12,8 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { TKeyCode, TUIEvent } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { EGameRenderer, EOptionGroup, optionGroupsMessages } from "@/engine/core/ui/menu/options/options_types";
 import { OptionsControls } from "@/engine/core/ui/menu/options/OptionsControls";
@@ -24,7 +26,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import { TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
+import { TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\OptionsDialog.component";

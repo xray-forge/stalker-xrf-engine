@@ -1,5 +1,6 @@
+import { $fromArray } from "xray16/macros";
+
 import { AnyObject } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 /**
  * Mock table utils for correct interoperation with typescript.
@@ -10,14 +11,14 @@ export const mockTableUtils = {
       return true;
     }
 
-    if (target instanceof MockLuaTable) {
-      return target.length() === 0;
+    if (target instanceof Map) {
+      return target.size === 0;
     } else {
       return Object.keys(target).length === 0;
     }
   },
   copyTable: (target: AnyObject, source: AnyObject) => {
-    if (target instanceof MockLuaTable && source instanceof MockLuaTable) {
+    if (target instanceof LuaTable && source instanceof LuaTable) {
       for (const [k, v] of source) {
         target.set(k, v);
       }
@@ -33,9 +34,9 @@ export const mockTableUtils = {
     }
   },
   mergeTables: (destination: LuaTable | AnyObject, ...rest: Array<AnyObject | LuaTable>) => {
-    if (destination instanceof MockLuaTable) {
+    if (destination instanceof Map) {
       for (const it of rest) {
-        if (it instanceof MockLuaTable) {
+        if (it instanceof Map) {
           for (const [k, v] of it.entries()) {
             destination.set(k, v);
           }
@@ -45,22 +46,22 @@ export const mockTableUtils = {
       }
     } else {
       for (const it of rest) {
-        Object.assign(destination, it instanceof MockLuaTable ? it.values() : it);
+        Object.assign(destination, it instanceof Map ? it.values() : it);
       }
     }
 
     return destination;
   },
   getTableKeys: (from: LuaTable | AnyObject) => {
-    if (from instanceof MockLuaTable) {
-      return MockLuaTable.fromArray([...from.keys()]);
+    if (from instanceof Map) {
+      return $fromArray([...from.keys()]);
     } else {
-      return MockLuaTable.fromArray(Object.keys(from));
+      return $fromArray(Object.keys(from));
     }
   },
   getTableValuesAsSet: (from: LuaTable | AnyObject) => {
-    if (from instanceof MockLuaTable) {
-      const result = MockLuaTable.mock();
+    if (from instanceof Map) {
+      const result = new LuaTable();
 
       for (const [, value] of from) {
         result.set(value, true);
@@ -68,7 +69,7 @@ export const mockTableUtils = {
 
       return result;
     } else {
-      const result = MockLuaTable.mock();
+      const result = new LuaTable();
 
       for (const value of Object.values(from)) {
         result.set(value, true);

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { EGameObjectPath, GameObject } from "xray16/alias";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
 import { StalkerStateManager } from "@/engine/core/ai/state";
@@ -7,7 +8,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
 import { ActionPatrolFollower } from "@/engine/core/schemes/stalker/patrol/actions/ActionPatrolFollower";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { EGameObjectPath, EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockPropertyStorage, MockVector } from "@/fixtures/xray";
 

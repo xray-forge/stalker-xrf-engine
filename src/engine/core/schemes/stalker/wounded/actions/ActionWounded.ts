@@ -1,4 +1,6 @@
 import { action_base, hit, LuabindClass, time_global } from "xray16";
+import { GameObject, Hit } from "xray16/alias";
+import { $filename } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
@@ -22,7 +24,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { GameObject, Hit, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
+import { TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

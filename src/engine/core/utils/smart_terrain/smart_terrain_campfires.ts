@@ -1,7 +1,9 @@
+import { ZoneCampfire } from "xray16/alias";
+
 import { registry } from "@/engine/core/database";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { isEmpty } from "@/engine/core/utils/table";
-import { Nillable, TNumberId, ZoneCampfire } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Turn on smart terrain camp fires.

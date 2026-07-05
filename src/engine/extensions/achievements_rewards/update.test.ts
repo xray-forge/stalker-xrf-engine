@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
+import { ServerObject } from "xray16/alias";
 
 import { getManager, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -8,7 +9,6 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { achievementRewardsConfig } from "@/engine/extensions/achievements_rewards/AchievementRewardsConfig";
 import { update } from "@/engine/extensions/achievements_rewards/update";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { ServerObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeObject, MockCTime } from "@/fixtures/xray";

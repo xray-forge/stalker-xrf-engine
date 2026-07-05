@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_types";
 import { EvaluatorCloseCombat } from "@/engine/core/schemes/stalker/camper/evaluators/EvaluatorCloseCombat";
-import { EScheme, GameObject, Nillable, TSection } from "@/engine/lib/types";
+import { EScheme, Nillable, TSection } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockActionPlanner, MockGameObject, MockPropertyStorage, MockVector } from "@/fixtures/xray";
 import { MockPropertyEvaluatorConst } from "@/fixtures/xray/mocks/PropertyEvaluatorConst.mock";

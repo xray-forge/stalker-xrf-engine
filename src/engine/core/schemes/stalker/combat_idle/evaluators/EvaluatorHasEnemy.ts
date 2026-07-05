@@ -1,11 +1,12 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { ILogicsOverrides, registry } from "@/engine/core/database";
 import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig";
 import { ISchemePostCombatIdleState } from "@/engine/core/schemes/stalker/combat_idle/combat_idle_types";
 import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { GameObject, Nillable, TDistance, TTimestamp } from "@/engine/lib/types";
+import { Nillable, TDistance, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Evaluator to check whether any enemy exists.

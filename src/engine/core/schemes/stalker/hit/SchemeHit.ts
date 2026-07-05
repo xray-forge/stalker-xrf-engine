@@ -1,10 +1,12 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { HitManager } from "@/engine/core/schemes/stalker/hit/HitManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, Nillable, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme describing how stalker object should handle being hit.
