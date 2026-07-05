@@ -2,6 +2,7 @@ import { IsDynamicMusic, level, time_global } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
 import {
   AnyObject,
+  clamp,
   LuaArray,
   Nillable,
   TDistance,
@@ -26,7 +27,6 @@ import type { SurgeManager } from "@/engine/core/managers/surge/SurgeManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConsoleFloatCommand } from "@/engine/core/utils/console";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { clamp } from "@/engine/core/utils/number";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { setMusicVolume } from "@/engine/core/utils/sound";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";

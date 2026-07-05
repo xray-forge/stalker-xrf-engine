@@ -10,7 +10,7 @@ import {
   TSoundObjectType,
   Vector,
 } from "xray16/alias";
-import { Nillable, TCount, TDistance, TDuration, TProbability, TRate, TTimestamp } from "xray16/lib";
+import { clamp, Nillable, TCount, TDistance, TDuration, TProbability, TRate, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -30,7 +30,6 @@ import { IPsyPostProcessDescriptor } from "@/engine/core/managers/psy/psy_antenn
 import { abort } from "@/engine/core/utils/assertion";
 import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { clamp } from "@/engine/core/utils/number";
 import { createEmptyVector, createVector, vectorRotateY } from "@/engine/core/utils/vector";
 
 const logger: LuaLogger = new LuaLogger($filename);

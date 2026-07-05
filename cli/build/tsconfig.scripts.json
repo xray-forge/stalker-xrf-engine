@@ -4,7 +4,12 @@
     "jsx": "react",
     "rootDir": "../../src/engine",
     "outDir": "../../target/gamedata",
-    "ignoreDeprecations": "6.0"
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "#/*": ["../../cli/*"],
+      "@/*": ["../*"],
+      "xray16/lib": ["../../node_modules/xray16/lib/index"]
+    }
   },
   "include": ["../../src/engine/lib", "../../src/engine/scripts", "../../src/engine/extensions"],
   "exclude": ["../../**/*.test.ts"],
@@ -22,7 +27,8 @@
       { "name": "xray16/plugins/macros" },
       { "name": "xray16/plugins/optimize" },
       { "name": "xray16/plugins/strip" },
-      { "name": "xray16/plugins/tracy" }
+      { "name": "xray16/plugins/tracy" },
+      { "name": "xray16/plugins/libcompile" }
     ]
   }
 }

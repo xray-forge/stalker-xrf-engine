@@ -1,11 +1,11 @@
 import * as path from "node:path";
 
 import { describe, expect, it } from "@jest/globals";
+import { range } from "xray16/lib";
 
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job";
 import { createStalkerPointJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_point";
-import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 

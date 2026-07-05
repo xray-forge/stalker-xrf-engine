@@ -1,6 +1,7 @@
 import * as path from "node:path";
 
 import { describe, expect, it } from "@jest/globals";
+import { range } from "xray16/lib";
 
 import { registerSmartCover } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
@@ -19,7 +20,6 @@ import {
   jobPreconditionSurge,
   jobPreconditionWalker,
 } from "@/engine/core/objects/smart_terrain/job/job_precondition";
-import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
 import { MockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 

@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
+import { range } from "xray16/lib";
 
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { initializeCategoryDialogs, initializeNewDialog } from "@/engine/core/managers/dialogs/utils/dialog_init";
-import { range } from "@/engine/core/utils/number";
 import { MockPhraseDialog } from "@/fixtures/xray";
 
 describe("initializeCategoryDialogs util", () => {
