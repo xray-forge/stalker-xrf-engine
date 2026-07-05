@@ -1,5 +1,6 @@
+import { TNumberId } from "xray16/lib";
+
 import { EActionId } from "@/engine/core/ai/planner/types/motivator_actions";
-import { TNumberId } from "@/engine/lib/types";
 
 /**
  * Map of actions linked to combat.

@@ -1,8 +1,8 @@
 import { CScriptXmlInit, LuabindClass } from "xray16";
+import { TPath } from "xray16/lib";
 
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { resolveXmlFormPath } from "@/engine/core/utils/ui";
-import { TPath } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugPlayerSection.component";
 

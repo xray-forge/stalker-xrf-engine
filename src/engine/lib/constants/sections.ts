@@ -1,4 +1,4 @@
-import { TName } from "@/engine/lib/types";
+import { TName } from "xray16/lib";
 
 /**
  * Section with smart terrain configuration in ini files.

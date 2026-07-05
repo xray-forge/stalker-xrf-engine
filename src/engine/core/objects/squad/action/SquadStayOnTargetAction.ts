@@ -1,10 +1,10 @@
 import { game } from "xray16";
 import { Time } from "xray16/alias";
+import { Nillable, TDuration } from "xray16/lib";
 
 import type { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType, ISquadAction } from "@/engine/core/objects/squad/squad_types";
 import { squadConfig } from "@/engine/core/objects/squad/SquadConfig";
-import { Nillable, TDuration } from "@/engine/lib/types";
 
 /**
  * Implement alife action to stay on target.

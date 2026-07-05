@@ -1,10 +1,10 @@
+import { TName } from "xray16/lib";
 import { $dirname } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { onItemGoOnlineFirstTime } from "@/engine/extensions/enhanced_items_drop/enhanced_items_drop_utils";
-import { TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($dirname);
 

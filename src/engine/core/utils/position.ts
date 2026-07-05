@@ -8,6 +8,7 @@ import {
   ServerObject,
   Vector,
 } from "xray16/alias";
+import { Nillable, TDistance, TName, TNumberId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -16,7 +17,6 @@ import { yawDegree3d } from "@/engine/core/utils/vector";
 import { graphDistance } from "@/engine/core/utils/vertex";
 import { MAX_ALIFE_ID, MAX_LEVEL_VERTEX_ID } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { Nillable, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Get smart terrain linked to object.

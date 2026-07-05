@@ -1,10 +1,11 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { TName, TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { OscillateManager } from "@/engine/core/schemes/physical/ph_oscillate/OscillateManager";
 import { ISchemeOscillateState } from "@/engine/core/schemes/physical/ph_oscillate/ph_oscillate_types";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of oscillation of physical objects with some period of time.

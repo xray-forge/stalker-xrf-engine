@@ -1,8 +1,9 @@
+import { TName } from "xray16/lib";
+
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { TName } from "@/engine/lib/types";
 
 /**
  * Create list of default smart terrain jobs for monsters.

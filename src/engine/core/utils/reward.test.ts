@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { TCount, TSection } from "xray16/lib";
 
 import { getManager, registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -20,7 +21,6 @@ import {
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { TCount, TSection } from "@/engine/lib/types";
 import { createObjectWithItems, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockAlifeSimulator, MockGameObject } from "@/fixtures/xray";
 

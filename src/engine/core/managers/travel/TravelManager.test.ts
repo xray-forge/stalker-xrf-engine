@@ -1,13 +1,12 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "xray16/alias";
+import { AnyObject, TRUE } from "xray16/lib";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { travelConfig } from "@/engine/core/managers/travel/TravelConfig";
 import { TravelManager } from "@/engine/core/managers/travel/TravelManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { TRUE } from "@/engine/lib/constants/words";
-import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import {
   MockAlifeHumanStalker,

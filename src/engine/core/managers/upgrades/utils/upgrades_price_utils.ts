@@ -1,8 +1,9 @@
+import { TCount, TName, TRate, TSection } from "xray16/lib";
+
 import { registry, SYSTEM_INI } from "@/engine/core/database";
 import { ITEM_UPGRADES, upgradesConfig } from "@/engine/core/managers/upgrades/UpgradesConfig";
 import { readIniBoolean } from "@/engine/core/utils/ini";
 import { getItemPrice } from "@/engine/core/utils/item";
-import { TCount, TName, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * @param section - Item section.

@@ -1,5 +1,6 @@
 import { callback, move, patrol, time_global } from "xray16";
 import { EGameObjectPath, Flags32, GameObject, Patrol } from "xray16/alias";
+import { LuaArray, Nillable, TDistance, TDuration, TIndex, TName, TNumberId, TTimestamp } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
@@ -20,7 +21,6 @@ import {
   isObjectAtWaypoint,
 } from "@/engine/core/utils/patrol";
 import { setObjectActiveSchemeSignal } from "@/engine/core/utils/scheme";
-import { LuaArray, Nillable, TDistance, TDuration, TIndex, TName, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 

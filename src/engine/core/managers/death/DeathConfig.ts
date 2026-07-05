@@ -1,9 +1,9 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
+import { TIndex } from "xray16/lib";
 
 import { IReleaseDescriptor } from "@/engine/core/managers/death/death_types";
 import { readIniNumber } from "@/engine/core/utils/ini";
-import { TIndex } from "@/engine/lib/types";
 
 const RELEASE_BODY_MANAGER_LTX: IniFile = new ini_file("managers\\release_body_manager.ltx");
 

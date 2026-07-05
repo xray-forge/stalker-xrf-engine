@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { TIndex } from "xray16/lib";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import {
@@ -9,7 +10,6 @@ import {
   unregisterHelicopterEnemy,
 } from "@/engine/core/database/helicopters";
 import { registry } from "@/engine/core/database/registry";
-import { TIndex } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("helicopters module of the database", () => {

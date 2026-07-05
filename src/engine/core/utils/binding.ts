@@ -1,4 +1,4 @@
-import { AnyObject } from "@/engine/lib/types";
+import { AnyObject } from "xray16/lib";
 
 /**
  * Utility to declare global variables and extern them for game engine usage.

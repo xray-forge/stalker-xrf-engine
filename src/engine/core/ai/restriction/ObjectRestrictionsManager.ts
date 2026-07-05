@@ -1,11 +1,10 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { LuaArray, NIL, Nillable, TName, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { parseStringsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray, Nillable, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

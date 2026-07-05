@@ -1,5 +1,17 @@
 import { IsDynamicMusic, level, time_global } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
+import {
+  AnyObject,
+  LuaArray,
+  Nillable,
+  TDistance,
+  TDuration,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager, getManagerByName, registry } from "@/engine/core/database";
@@ -18,18 +30,6 @@ import { clamp } from "@/engine/core/utils/number";
 import { isObjectInSilenceZone } from "@/engine/core/utils/position";
 import { setMusicVolume } from "@/engine/core/utils/sound";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
-import {
-  AnyObject,
-  LuaArray,
-  Nillable,
-  TDistance,
-  TDuration,
-  TIndex,
-  TName,
-  TNumberId,
-  TRate,
-  TTimestamp,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

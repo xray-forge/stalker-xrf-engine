@@ -1,5 +1,17 @@
 import { game, level } from "xray16";
 import { GameObject } from "xray16/alias";
+import {
+  AnyCallable,
+  AnyCallablesModule,
+  AnyObject,
+  LuaArray,
+  Nillable,
+  TCount,
+  TIndex,
+  TName,
+  TSection,
+  TStringId,
+} from "xray16/lib";
 import { $filename, $fromArray, $fromObject } from "xray16/macros";
 
 import { getManager, isStoryObjectExisting, registry } from "@/engine/core/database";
@@ -31,18 +43,6 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
-import {
-  AnyCallable,
-  AnyCallablesModule,
-  AnyObject,
-  LuaArray,
-  Nillable,
-  TCount,
-  TIndex,
-  TName,
-  TSection,
-  TStringId,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

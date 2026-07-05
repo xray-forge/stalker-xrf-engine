@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MAX_I32 } from "xray16/lib";
 
 import {
   hardResetOfflineObject,
@@ -8,7 +9,6 @@ import {
   unregisterOfflineObject,
 } from "@/engine/core/database/offline";
 import { registry } from "@/engine/core/database/registry";
-import { MAX_I32 } from "@/engine/lib/constants/memory";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("offline database module", () => {

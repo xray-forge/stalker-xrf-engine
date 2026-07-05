@@ -1,5 +1,6 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { NIL, Nillable, TRUE } from "xray16/lib";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
@@ -8,8 +9,6 @@ import {
   PS_WOUNDED_FIGHT,
   PS_WOUNDED_STATE,
 } from "@/engine/core/schemes/stalker/wounded/wounded_types";
-import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator to check if object is wounded critically.

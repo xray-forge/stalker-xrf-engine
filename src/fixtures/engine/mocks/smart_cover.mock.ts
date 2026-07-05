@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
+import { TName, TSection } from "xray16/lib";
 
 import { SmartCover } from "@/engine/core/objects/smart_cover/SmartCover";
-import { TName, TSection } from "@/engine/lib/types";
 
 /**
  * Smart cover mocked server object.

@@ -1,5 +1,6 @@
 import { hit, level } from "xray16";
 import { GameObject, Hit } from "xray16/alias";
+import { LuaArray, Nillable, TRUE } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManagerByName, isStoryObject, registry } from "@/engine/core/database";
@@ -21,8 +22,6 @@ import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
-import { TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Nillable } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

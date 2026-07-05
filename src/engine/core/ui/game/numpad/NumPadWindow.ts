@@ -1,11 +1,11 @@
 import { CUIScriptWnd, CUIStatic, DIK_keys, LuabindClass, ui_events } from "xray16";
 import { TKeyCode, TUIEvent, XmlInit } from "xray16/alias";
+import { Nillable, TLabel, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
-import { Nillable, TLabel, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "game\\NumPadWindow.component";

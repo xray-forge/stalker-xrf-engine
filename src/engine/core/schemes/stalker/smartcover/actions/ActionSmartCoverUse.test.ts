@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { NIL } from "xray16/lib";
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types";
 import { getManager, registerSmartCover, registerStoryLink } from "@/engine/core/database";
@@ -9,7 +10,6 @@ import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { ActionSmartCoverUse } from "@/engine/core/schemes/stalker/smartcover/actions/ActionSmartCoverUse";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { NIL } from "@/engine/lib/constants/words";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";

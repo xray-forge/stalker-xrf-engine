@@ -1,4 +1,5 @@
 import { GameObject } from "xray16/alias";
+import { LuaArray, Nillable, TIndex, TName } from "xray16/lib";
 import { $fromArray, $fromObject } from "xray16/macros";
 
 import { IAnimationDescriptor, TAnimationSequenceElements } from "@/engine/core/animation/types";
@@ -8,7 +9,6 @@ import { abort } from "@/engine/core/utils/assertion";
 import { parseStringsList } from "@/engine/core/utils/ini";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { LuaArray, Nillable, TIndex, TName } from "@/engine/lib/types";
 
 const WEAPONS_TABLE_STRAPPED: LuaArray<TName> = $fromArray([
   "pri_a15_wpn_svu",

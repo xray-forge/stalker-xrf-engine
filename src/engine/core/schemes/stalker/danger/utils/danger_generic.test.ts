@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { danger_object } from "xray16";
 import { EGameObjectRelation, GameObject, ServerHumanObject, ServerSmartZoneObject } from "xray16/alias";
+import { FALSE, TRUE } from "xray16/lib";
 
 import {
   ILogicsOverrides,
@@ -20,7 +21,6 @@ import {
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { EScheme } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";

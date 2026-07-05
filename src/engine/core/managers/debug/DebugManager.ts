@@ -1,4 +1,5 @@
 import { getFS } from "xray16";
+import { AnyObject, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
@@ -8,7 +9,6 @@ import { saveTextToFile } from "@/engine/core/utils/fs";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { toJSON } from "@/engine/core/utils/transform";
 import { roots } from "@/engine/lib/constants/roots";
-import { AnyObject, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

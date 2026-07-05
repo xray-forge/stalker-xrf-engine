@@ -1,18 +1,8 @@
 import type { Vector } from "xray16/alias";
+import type { LuaArray, Nillable, TCount, TDistance, TDuration, TIndex, TName, TRate, TTimestamp } from "xray16/lib";
 
 import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type {
-  LuaArray,
-  Nillable,
-  TCount,
-  TDistance,
-  TDuration,
-  TIndex,
-  TName,
-  TRate,
-  TTimestamp,
-} from "@/engine/lib/types";
 
 /**
  * Single look point used when scanning, pairing a waypoint key with its world position.

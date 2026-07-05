@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CALifeSmartTerrainTask, level } from "xray16";
 import { GameObject, ServerHumanObject } from "xray16/alias";
+import { FALSE, TRUE } from "xray16/lib";
 
 import { registerOfflineObject, registerSimulator, registerZone, registry } from "@/engine/core/database";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
@@ -8,7 +9,6 @@ import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulatio
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { communities } from "@/engine/lib/constants/communities";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 

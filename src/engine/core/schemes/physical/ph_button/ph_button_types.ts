@@ -1,6 +1,7 @@
+import { Nillable, TLabel } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini";
-import { Nillable, TLabel } from "@/engine/lib/types";
 
 /**
  * State of button logics implementing scheme.

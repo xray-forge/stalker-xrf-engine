@@ -1,8 +1,8 @@
 import { ServerCreatureObject } from "xray16/alias";
+import { NIL } from "xray16/lib";
 
 import { IObjectJobState } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { isStalker } from "@/engine/core/utils/class_ids";
-import { NIL } from "@/engine/lib/constants/words";
 import { ESchemeType } from "@/engine/lib/types";
 
 /**

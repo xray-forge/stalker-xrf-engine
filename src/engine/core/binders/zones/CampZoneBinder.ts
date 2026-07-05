@@ -1,10 +1,10 @@
 import { ini_file, LuabindClass, object_binder } from "xray16";
 import { IniFile, ServerObject } from "xray16/alias";
+import { Nillable, TDuration, TName } from "xray16/lib";
 
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { registerCampZone, registry, resetCampZone, unregisterCampZone } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { Nillable, TDuration, TName } from "@/engine/lib/types";
 
 /**
  * Camp zone binder for game creatures.

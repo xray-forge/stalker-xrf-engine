@@ -1,7 +1,8 @@
+import { TName } from "xray16/lib";
+
 import { registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { Squad } from "@/engine/core/objects/squad";
-import { TName } from "@/engine/lib/types";
 
 /**
  * Start flying animation for all registered signal light rockets that are not already flying.

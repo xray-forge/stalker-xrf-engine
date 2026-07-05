@@ -1,5 +1,6 @@
 import { callback, hit, time_global } from "xray16";
 import { GameObject, Hit, Vector } from "xray16/alias";
+import { AnyCallable, LuaArray, Nillable, TIndex, TName, TRate, TTimestamp } from "xray16/lib";
 import { $filename, $fromArray, $isNil } from "xray16/macros";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -19,7 +20,6 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createVector, vectorRotateY } from "@/engine/core/utils/vector";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
-import { AnyCallable, LuaArray, Nillable, TIndex, TName, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 

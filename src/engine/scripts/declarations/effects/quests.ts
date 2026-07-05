@@ -1,5 +1,21 @@
 import { particles_object, patrol, sound_object } from "xray16";
 import { GameObject, ParticlesObject, ServerObject, ServerPhysicObject, SoundObject, Vector } from "xray16/alias";
+import {
+  AnyCallable,
+  LuaArray,
+  Nillable,
+  TCount,
+  TDistance,
+  TIndex,
+  TLabel,
+  TName,
+  TNumberId,
+  TRate,
+  TRUE,
+  TSection,
+  TStringId,
+  TStringifiedBoolean,
+} from "xray16/lib";
 import { $filename, $fromArray, $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
@@ -33,22 +49,6 @@ import { helmets } from "@/engine/lib/constants/items/helmets";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { TRUE } from "@/engine/lib/constants/words";
-import {
-  AnyCallable,
-  LuaArray,
-  Nillable,
-  TCount,
-  TDistance,
-  TIndex,
-  TLabel,
-  TName,
-  TNumberId,
-  TRate,
-  TSection,
-  TStringId,
-  TStringifiedBoolean,
-} from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 const logger: LuaLogger = new LuaLogger($filename);

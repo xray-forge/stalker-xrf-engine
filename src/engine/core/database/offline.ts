@@ -1,6 +1,7 @@
+import { Nillable, TNumberId } from "xray16/lib";
+
 import { IRegistryOfflineState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Register offline object representation in database.

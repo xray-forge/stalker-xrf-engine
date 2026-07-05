@@ -1,9 +1,9 @@
 import { anim, CSightParams, move } from "xray16";
+import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
 import { IStateDescriptor } from "@/engine/core/animation/types/state_types";
-import { TName } from "@/engine/lib/types";
 
 /**
  * List of priA15 states.

@@ -1,6 +1,7 @@
 import { afterAll, describe, expect, it, jest } from "@jest/globals";
 import { game } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
+import { LuaArray, NIL } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import {
@@ -18,8 +19,7 @@ import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { addConditionToList, parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeCondition, LuaArray } from "@/engine/lib/types";
+import { EScheme, ESchemeCondition } from "@/engine/lib/types";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";

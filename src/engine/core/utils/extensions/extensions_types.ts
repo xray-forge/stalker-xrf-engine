@@ -1,4 +1,4 @@
-import { AnyObject, TName, TPath } from "@/engine/lib/types";
+import { AnyObject, TName, TPath } from "xray16/lib";
 
 /**
  * Descriptor of possible extension to work with.

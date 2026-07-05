@@ -1,6 +1,5 @@
 import { GameObject } from "xray16/alias";
-
-import { AnyArgs, AnyCallable, AnyObject, Nillable, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyCallable, AnyObject, Nillable, TName } from "xray16/lib";
 
 /**
  * Expect binding to be defined in global container.

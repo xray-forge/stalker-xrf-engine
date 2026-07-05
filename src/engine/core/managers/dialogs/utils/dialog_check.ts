@@ -1,4 +1,5 @@
 import { GameObject } from "xray16/alias";
+import { TNumberId, TRate, TStringId } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import {
@@ -13,7 +14,6 @@ import {
   getHighestPriorityPhrase,
   resetPhrasePriority,
 } from "@/engine/core/managers/dialogs/utils/dialog_priority";
-import { TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 /**
  * Recalculate a phrase priority and check whether it should be shown for the given object.

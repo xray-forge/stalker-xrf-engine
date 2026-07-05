@@ -1,4 +1,4 @@
-import { AnyCallable, TDuration, TTimestamp } from "@/engine/lib/types";
+import { AnyCallable, TDuration, TTimestamp } from "xray16/lib";
 
 /**
  * List of event to emit across the core.

@@ -1,9 +1,10 @@
+import { Nillable, TLabel } from "xray16/lib";
+
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { NumPadWindow } from "@/engine/core/ui/game/numpad";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { Nillable, TLabel } from "@/engine/lib/types";
 
 /**
  * Manager of prompting and checking logics.

@@ -1,5 +1,6 @@
+import type { LuaArray, TCount, TName } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { LuaArray, TCount, TName } from "@/engine/lib/types";
 
 /**
  * Crow spawner scheme state configured from ini files.

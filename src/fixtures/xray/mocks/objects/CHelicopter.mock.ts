@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { CHelicopter } from "xray16";
+import { TRate } from "xray16/lib";
 
-import { TRate } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 export class MockCHelicopter {

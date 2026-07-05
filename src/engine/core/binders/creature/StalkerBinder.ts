@@ -8,6 +8,7 @@ import {
   TSoundType,
   Vector,
 } from "xray16/alias";
+import { Nillable, TCount, TDuration, TIndex, TName, TNumberId, TRate, TTimestamp } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
@@ -62,18 +63,7 @@ import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  EScheme,
-  ESchemeEvent,
-  Nillable,
-  TCount,
-  TDuration,
-  TIndex,
-  TName,
-  TNumberId,
-  TRate,
-  TTimestamp,
-} from "@/engine/lib/types";
+import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);

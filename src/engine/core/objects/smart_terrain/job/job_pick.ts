@@ -1,3 +1,5 @@
+import { Nillable, TNumberId } from "xray16/lib";
+
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { isJobAvailableToObject } from "@/engine/core/objects/smart_terrain/job/job_check";
 import {
@@ -5,7 +7,6 @@ import {
   ISmartTerrainJobDescriptor,
   TSmartTerrainJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
-import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Select smart terrain job for an object.

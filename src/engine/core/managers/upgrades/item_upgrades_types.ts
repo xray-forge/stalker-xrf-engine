@@ -1,4 +1,4 @@
-import { LuaArray, TStringId } from "@/engine/lib/types";
+import { LuaArray, TStringId } from "xray16/lib";
 
 /**
  * Item upgrade branch index identifying which of the upgrade branches an upgrade belongs to.

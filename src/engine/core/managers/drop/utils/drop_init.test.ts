@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
+import { AnyObject, TName } from "xray16/lib";
 
 import { DROP_MANAGER_CONFIG_LTX } from "@/engine/core/managers/drop/DropConfig";
 import {
@@ -8,7 +9,6 @@ import {
   readIniDropDependentItems,
 } from "@/engine/core/managers/drop/utils/drop_init";
 import { communities } from "@/engine/lib/constants/communities";
-import { AnyObject, TName } from "@/engine/lib/types";
 
 describe("readIniDropByCommunity util", () => {
   it("should correctly read data", () => {

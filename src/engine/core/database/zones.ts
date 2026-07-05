@@ -1,10 +1,10 @@
 import { GameObject, Vector } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import { CampManager } from "@/engine/core/ai/camp";
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, resetObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Register zone object.

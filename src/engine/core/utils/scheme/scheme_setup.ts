@@ -1,5 +1,6 @@
 import { world_property } from "xray16";
 import { ActionBase, GameObject } from "xray16/alias";
+import { LuaArray } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -7,7 +8,7 @@ import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, LuaArray } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,5 +1,6 @@
+import type { TRate } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { TRate } from "@/engine/lib/types";
 
 /**
  * State of post-processing scheme logics.

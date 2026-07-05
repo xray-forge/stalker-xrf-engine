@@ -1,5 +1,6 @@
 import { time_global } from "xray16";
 import { AlifeSimulator, GameObject } from "xray16/alias";
+import { FALSE, NIL, Nillable, TCount, TNumberId, TSection, TTimestamp } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -23,8 +24,6 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { FALSE, NIL } from "@/engine/lib/constants/words";
-import { Nillable, TCount, TNumberId, TSection, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

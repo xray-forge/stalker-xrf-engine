@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { AnyObject } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { updateClassIds } from "@/engine/core/utils/class_ids_list";
 import { unlockSystemIniOverriding } from "@/engine/core/utils/ini";
-import { AnyObject } from "@/engine/lib/types";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 import { registerSchemes } from "@/engine/scripts/register/schemes_registrator";

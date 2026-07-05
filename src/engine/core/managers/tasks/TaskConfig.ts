@@ -1,12 +1,12 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
+import { TName, TStringId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import type { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { readIniSectionsAsSet } from "@/engine/core/utils/ini";
 import { levels } from "@/engine/lib/constants/levels";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { TName, TStringId } from "@/engine/lib/types";
 
 export const TASK_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\task_manager.ltx");
 

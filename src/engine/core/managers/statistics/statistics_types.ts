@@ -1,6 +1,7 @@
+import { Nillable, TCount, TName, TStringId } from "xray16/lib";
+
 import { TWeapon } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { Nillable, TCount, TName, TStringId } from "@/engine/lib/types";
 
 /**
  * Key in portable store indicating count of used anabiotics.

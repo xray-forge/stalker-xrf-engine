@@ -1,5 +1,6 @@
 import { CCar, level, move, patrol, time_global } from "xray16";
 import { Car, GameObject, Vector } from "xray16/alias";
+import { NIL, Nillable, TSection, TStringId, TTimestamp } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -23,8 +24,7 @@ import {
 } from "@/engine/core/utils/scheme";
 import { createEmptyVector, createVector, yaw } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ACTOR, NIL } from "@/engine/lib/constants/words";
-import { Nillable, TSection, TStringId, TTimestamp } from "@/engine/lib/types";
+import { ACTOR } from "@/engine/lib/constants/words";
 
 /**
  * Manager handling minigun scheme behaviour for an object.

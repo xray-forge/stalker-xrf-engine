@@ -1,5 +1,6 @@
 import { world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
+import { NIL, TSection } from "xray16/lib";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -8,8 +9,7 @@ import { ActionSmartCoverUse } from "@/engine/core/schemes/stalker/smartcover/ac
 import { EvaluatorUseSmartCoverInCombat } from "@/engine/core/schemes/stalker/smartcover/evaluators";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover/smartcover_types";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of staying in smart cover for stalkers.

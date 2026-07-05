@@ -1,8 +1,8 @@
 import { GameObject } from "xray16/alias";
+import { Nillable, TNumberId } from "xray16/lib";
 
 import { IDynamicObjectState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Register game object in lua in-memory registry.

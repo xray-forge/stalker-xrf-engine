@@ -17,6 +17,20 @@ import {
   ServerCreatureObject,
   Time,
 } from "xray16/alias";
+import {
+  MAX_U8,
+  Nillable,
+  Nullable,
+  TCount,
+  TDistance,
+  TDuration,
+  TName,
+  TNumberId,
+  TRate,
+  TRUE,
+  TSection,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import {
@@ -94,23 +108,9 @@ import {
   updateTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
-import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
-import { TRUE } from "@/engine/lib/constants/words";
-import {
-  ESchemeType,
-  Nillable,
-  Nullable,
-  TCount,
-  TDistance,
-  TDuration,
-  TName,
-  TNumberId,
-  TRate,
-  TSection,
-  TTimestamp,
-} from "@/engine/lib/types";
+import { ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "smart_terrain", mode: ELuaLoggerMode.DUAL });
 

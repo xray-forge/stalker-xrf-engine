@@ -1,3 +1,4 @@
+import { AnyCallablesModule, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { startPlayingGuitar, startPlayingHarmonica } from "@/engine/core/ai/camp/camp_utils";
@@ -10,7 +11,6 @@ import { objectPunchActor } from "@/engine/core/utils/action";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { AnyCallablesModule, TName } from "@/engine/lib/types";
 
 /**
  * List of base animations for usage in stalkers logic.

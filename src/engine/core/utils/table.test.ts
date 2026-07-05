@@ -1,7 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { AnyObject, LuaArray, Nillable, TName } from "xray16/lib";
 import { $fromArray, $fromObject } from "xray16/macros";
-
-import { AnyObject, LuaArray, Nillable, TName } from "@/engine/lib/types";
 
 const tableUtils: {
   isEmpty: <T extends AnyNotNil>(target: Nillable<LuaTable<T>>) => boolean;

@@ -1,7 +1,8 @@
+import { Nillable, TNumberId } from "xray16/lib";
+
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
-import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param id - Target object id to check.

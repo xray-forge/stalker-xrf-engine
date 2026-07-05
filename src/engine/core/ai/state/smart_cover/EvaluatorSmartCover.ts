@@ -1,11 +1,12 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { Nillable, TName } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
-import { EScheme, Nillable, TName } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Checks if object is going to a desired smart cover.

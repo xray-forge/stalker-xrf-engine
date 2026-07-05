@@ -1,5 +1,6 @@
 import { callback, CHelicopter, clsid, level, LuabindClass, object_binder } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerObject, TClassId, Vector } from "xray16/alias";
+import { Nillable, TDistance, TDuration, TIndex, TNumberId, TRate } from "xray16/lib";
 
 import {
   closeLoadMarker,
@@ -23,16 +24,7 @@ import { getHelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import { readIniNumber } from "@/engine/core/utils/ini";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
-import {
-  ESchemeEvent,
-  ESchemeType,
-  Nillable,
-  TDistance,
-  TDuration,
-  TIndex,
-  TNumberId,
-  TRate,
-} from "@/engine/lib/types";
+import { ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Binder for helicopter game object events and logics.

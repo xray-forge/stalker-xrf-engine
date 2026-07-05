@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
+import { Nillable, TNumberId } from "xray16/lib";
 
-import { Nillable, TNumberId } from "@/engine/lib/types";
 import { MockCVertex } from "@/fixtures/xray/mocks/CVertex.mock";
 
 /**

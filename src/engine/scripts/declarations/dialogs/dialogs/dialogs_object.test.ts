@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { EGameObjectRelation, GameObject, TRelationType } from "xray16/alias";
+import { AnyArgs, AnyObject, TName } from "xray16/lib";
 
 import { updateObjectDialog } from "@/engine/core/utils/dialog";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, mockRegisteredActor } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

@@ -1,9 +1,9 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { FALSE, TRUE } from "xray16/lib";
 
 import { registerStoryLink } from "@/engine/core/database";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { callXrEffect, checkXrEffect, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

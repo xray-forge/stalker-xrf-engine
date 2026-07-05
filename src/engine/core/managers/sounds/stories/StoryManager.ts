@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { LuaArray, NIL, Nillable, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
@@ -6,8 +7,6 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { ESoundStoryParticipant, IReplicDescriptor } from "@/engine/core/managers/sounds/sounds_types";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { SoundStory } from "@/engine/core/managers/sounds/stories/SoundStory";
-import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray, Nillable, TCount, TDuration, TNumberId, TStringId, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Manager of object stories telling.

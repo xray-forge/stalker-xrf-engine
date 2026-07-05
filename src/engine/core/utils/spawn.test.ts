@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { AlifeSimulator, GameObject, ServerActorObject, ServerHumanObject, ServerSmartZoneObject } from "xray16/alias";
+import { TSection } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
@@ -19,7 +20,6 @@ import {
 } from "@/engine/core/utils/spawn";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { TSection } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeCreatureActor, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 

@@ -1,9 +1,9 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
+import { LuaArray, Nillable, TLabel, TSection } from "xray16/lib";
 
 import { TUpgradesList } from "@/engine/core/managers/upgrades/item_upgrades_types";
 import { readIniNumber } from "@/engine/core/utils/ini";
-import { LuaArray, Nillable, TLabel, TSection } from "@/engine/lib/types";
 
 export const UPGRADES_MANAGER_CONFIG_LTX: IniFile = new ini_file("managers\\upgrades_manager.ltx");
 export const STALKER_UPGRADE_INFO: IniFile = new ini_file("managers\\upgrades\\stalkers_upgrade_info.ltx");

@@ -1,5 +1,6 @@
 import { action_base, LuabindClass, patrol } from "xray16";
 import { GameObject, Patrol, Vector } from "xray16/alias";
+import { LuaArray, Nillable, TCount, TDuration } from "xray16/lib";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -7,7 +8,7 @@ import { registry, setStalkerState } from "@/engine/core/database";
 import { ESleeperState, ISchemeSleeperState } from "@/engine/core/schemes/stalker/sleeper/sleeper_types";
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsDataFromList } from "@/engine/core/utils/ini";
-import { ISchemeEventHandler, LuaArray, Nillable, TCount, TDuration } from "@/engine/lib/types";
+import { ISchemeEventHandler } from "@/engine/lib/types";
 
 /**
  * Action to handle sleeping state of stalkers.

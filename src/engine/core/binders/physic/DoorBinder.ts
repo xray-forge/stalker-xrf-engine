@@ -10,6 +10,7 @@ import {
   SoundObject,
   TSoundObjectType,
 } from "xray16/alias";
+import { Nillable, TDuration, TLabel, TName, TPath, TRUE } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -31,8 +32,6 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TRUE } from "@/engine/lib/constants/words";
-import { Nillable, TDuration, TLabel, TName, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

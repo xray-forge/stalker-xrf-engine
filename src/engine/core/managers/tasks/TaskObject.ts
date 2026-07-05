@@ -1,5 +1,17 @@
 import { CGameTask, game, game_graph, level, task, time_global } from "xray16";
 import { GameTask, IniFile, NetPacket, NetProcessor, ServerObject, Time } from "xray16/alias";
+import {
+  AnyCallablesModule,
+  LuaArray,
+  Nillable,
+  TIndex,
+  TLabel,
+  TName,
+  TNumberId,
+  TRate,
+  TStringId,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
@@ -30,18 +42,6 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { TLevel } from "@/engine/lib/constants/levels";
-import {
-  AnyCallablesModule,
-  LuaArray,
-  Nillable,
-  TIndex,
-  TLabel,
-  TName,
-  TNumberId,
-  TRate,
-  TStringId,
-  TTimestamp,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,7 +1,6 @@
 import { log, print_stack } from "xray16";
+import { AnyArgs, Nillable, TCount } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
-
-import { AnyArgs, Nillable, TCount } from "@/engine/lib/types";
 
 /**
  * Call game abort and print reason.

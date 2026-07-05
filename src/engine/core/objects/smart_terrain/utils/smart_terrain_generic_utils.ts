@@ -1,5 +1,6 @@
+import { TLabel } from "xray16/lib";
+
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { TLabel } from "@/engine/lib/types";
 
 /**
  * Get smart terrain name label.

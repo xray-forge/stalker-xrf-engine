@@ -1,4 +1,5 @@
 import { EGameObjectRelation, GameObject, IniFile } from "xray16/alias";
+import { FALSE, NIL, Nillable, TRUE, TSection } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
@@ -6,8 +7,6 @@ import { meetConfig } from "@/engine/core/schemes/stalker/meet/MeetConfig";
 import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { NO_MEET_SECTION } from "@/engine/lib/constants/sections";
-import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Initialize meet scheme defaults based on object relations and current section logics preferences.

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { setStalkerState } from "@/engine/core/database/stalker";
@@ -7,7 +8,7 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
 import { ActionCover } from "@/engine/core/schemes/stalker/cover/actions/ActionCover";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { EScheme, Nillable } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockPropertyStorage, MockVector } from "@/fixtures/xray";

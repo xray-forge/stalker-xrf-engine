@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
+import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
-import { TName } from "@/engine/lib/types";
 
 describe("isUndergroundLevel util", () => {
   it("should correctly check if level is underground", () => {

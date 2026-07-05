@@ -1,8 +1,8 @@
+import { Nillable, TName } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { SleepDialog } from "@/engine/core/ui/game/sleep";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { Nillable, TName } from "@/engine/lib/types";
 
 export const sleepConfig = {
   SLEEP_DIALOG: null as Nillable<SleepDialog>,

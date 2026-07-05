@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { AnyObject } from "xray16/lib";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -8,7 +9,6 @@ import {
   updateSleepZonesDisplay,
   updateTerrainsMapSpotDisplay,
 } from "@/engine/core/managers/map/utils";
-import { AnyObject } from "@/engine/lib/types";
 
 jest.mock("@/engine/core/managers/map/utils");
 

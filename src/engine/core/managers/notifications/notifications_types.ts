@@ -1,7 +1,4 @@
 import { GameObject, GameTask } from "xray16/alias";
-
-import { TNotificationIcon } from "@/engine/core/managers/notifications/index";
-import { ETaskState } from "@/engine/core/managers/tasks/types";
 import {
   Nillable,
   TCount,
@@ -13,7 +10,10 @@ import {
   TSection,
   TStringId,
   TTimestamp,
-} from "@/engine/lib/types";
+} from "xray16/lib";
+
+import { TNotificationIcon } from "@/engine/core/managers/notifications/index";
+import { ETaskState } from "@/engine/core/managers/tasks/types";
 
 /**
  * Generic notification type.

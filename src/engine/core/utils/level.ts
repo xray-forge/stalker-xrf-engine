@@ -1,5 +1,6 @@
+import { TName } from "xray16/lib";
+
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { TName } from "@/engine/lib/types";
 
 /**
  * Check whether level is underground.

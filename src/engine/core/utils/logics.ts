@@ -1,11 +1,11 @@
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import { EActionId } from "@/engine/core/ai/planner/types/motivator_actions";
 import { IBaseSchemeState, ILogicsOverrides, IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeCombatState, SchemeCombat } from "@/engine/core/schemes/stalker/combat";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Update active logic of a stalker object, handling combat overrides and switching to another scheme section.

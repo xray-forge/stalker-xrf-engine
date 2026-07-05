@@ -1,5 +1,17 @@
 import { game, hit, level } from "xray16";
 import { GameObject, Hit, NetPacket, NetProcessor, Time } from "xray16/alias";
+import {
+  AnyObject,
+  Nillable,
+  TCount,
+  TDuration,
+  TLabel,
+  TName,
+  TNumberId,
+  TRUE,
+  TSection,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import type { AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -41,18 +53,6 @@ import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
-import { TRUE } from "@/engine/lib/constants/words";
-import {
-  AnyObject,
-  Nillable,
-  TCount,
-  TDuration,
-  TLabel,
-  TName,
-  TNumberId,
-  TSection,
-  TTimestamp,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

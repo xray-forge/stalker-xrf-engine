@@ -1,7 +1,7 @@
 import { expect } from "@jest/globals";
 import { ActionBase } from "xray16/alias";
+import { AnyArgs, Nillable } from "xray16/lib";
 
-import { AnyArgs, Nillable } from "@/engine/lib/types";
 import { MockActionBase } from "@/fixtures/xray";
 
 /**

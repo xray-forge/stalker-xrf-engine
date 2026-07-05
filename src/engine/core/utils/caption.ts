@@ -1,7 +1,7 @@
 import { game } from "xray16";
+import { Nillable, TLabel, TSection } from "xray16/lib";
 
 import { SYSTEM_INI } from "@/engine/core/database";
-import { Nillable, TLabel, TSection } from "@/engine/lib/types";
 
 /**
  * Get matching translation for section if it exists.

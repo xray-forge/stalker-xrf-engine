@@ -1,6 +1,7 @@
+import type { Nillable, TCount, TDistance, TDuration, TName, TRate } from "xray16/lib";
+
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import type { Nillable, TCount, TDistance, TDuration, TName, TRate } from "@/engine/lib/types";
 
 /**
  * State of the minigun scheme.

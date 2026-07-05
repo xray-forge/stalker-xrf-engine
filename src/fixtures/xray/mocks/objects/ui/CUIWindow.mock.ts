@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import type { CUIWindow } from "xray16";
+import { Nillable, TName } from "xray16/lib";
 
-import { Nillable, TName } from "@/engine/lib/types";
 import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { MockVector2D } from "@/fixtures/xray/mocks/vector2.mock";

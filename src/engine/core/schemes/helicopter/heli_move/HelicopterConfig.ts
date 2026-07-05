@@ -1,6 +1,7 @@
+import type { TNumberId } from "xray16/lib";
+
 import type { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import type { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
-import type { TNumberId } from "@/engine/lib/types";
 
 export const helicopterConfig = {
   HELICOPTER_FIRE_MANAGERS: new LuaTable<TNumberId, HelicopterFireManager>(),

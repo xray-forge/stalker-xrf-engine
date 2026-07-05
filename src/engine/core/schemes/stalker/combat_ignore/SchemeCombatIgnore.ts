@@ -1,10 +1,11 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { Nillable, TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeCombatIgnoreState } from "@/engine/core/schemes/stalker/combat_ignore/combat_igore_types";
 import { CombatProcessEnemyManager } from "@/engine/core/schemes/stalker/combat_ignore/CombatProcessEnemyManager";
-import { EScheme, ESchemeType, Nillable, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme describing stalker combat ignore state.

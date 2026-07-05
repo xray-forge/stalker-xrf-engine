@@ -1,8 +1,8 @@
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
+import { Nillable, TName, TNumberId } from "xray16/lib";
 
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
-import { Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check whether patrol team is synchronized.

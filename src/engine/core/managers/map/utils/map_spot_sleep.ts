@@ -1,10 +1,10 @@
 import { level } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
+import { Nillable, TDistance, TNumberId } from "xray16/lib";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { Nillable, TDistance, TNumberId } from "@/engine/lib/types";
 
 /**
  * Update display of sleep zones.

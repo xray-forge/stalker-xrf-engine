@@ -1,5 +1,6 @@
+import type { Nillable, TNumberId } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * State of monster death scheme.

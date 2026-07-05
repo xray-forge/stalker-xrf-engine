@@ -1,5 +1,6 @@
+import type { TDuration, TRate, TStringId } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { TDuration, TRate, TStringId } from "@/engine/lib/types";
 
 /**
  * Oscillation scheme logics state.

@@ -1,4 +1,5 @@
 import { AnyGameObject, EGameObjectRelation, GameObject } from "xray16/alias";
+import { Nillable, TStringId } from "xray16/lib";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -17,7 +18,7 @@ import {
 } from "@/engine/core/utils/relation";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EScheme, Nillable, TStringId } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Check whether actor faction is enemy with provided parameter community.

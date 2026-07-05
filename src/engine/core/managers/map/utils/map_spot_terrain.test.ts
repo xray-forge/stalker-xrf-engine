@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
+import { AnyObject, FALSE, TName, TRate } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { registerStoryLink } from "@/engine/core/database";
@@ -19,8 +20,6 @@ import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/j
 import { Squad } from "@/engine/core/objects/squad";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { FALSE } from "@/engine/lib/constants/words";
-import { AnyObject, TName, TRate } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockCTime, MockGameObject } from "@/fixtures/xray";

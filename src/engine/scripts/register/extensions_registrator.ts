@@ -1,3 +1,4 @@
+import { AnyCallablesModule, LuaArray } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registerExtension } from "@/engine/core/database";
@@ -8,7 +9,6 @@ import {
   syncExtensionsState,
 } from "@/engine/core/utils/extensions/extensions_state";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyCallablesModule, LuaArray } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

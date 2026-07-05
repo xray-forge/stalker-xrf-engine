@@ -1,4 +1,4 @@
-import { LuaArray, Nillable, TDuration, TName, TPath } from "@/engine/lib/types";
+import { LuaArray, Nillable, TDuration, TName, TPath } from "xray16/lib";
 
 /**
  * Dynamic theme playlist descriptor.

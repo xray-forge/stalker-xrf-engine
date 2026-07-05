@@ -1,5 +1,6 @@
 import { alife, level } from "xray16";
 import type { IniFile } from "xray16/alias";
+import type { LuaArray, TCount, TName, TProbability, TSection, TStringId } from "xray16/lib";
 
 import type { IItemDropAmountDescriptor } from "@/engine/core/managers/drop/drop_types";
 import { abort } from "@/engine/core/utils/assertion";
@@ -7,7 +8,6 @@ import { parseNumbersList, parseStringsList } from "@/engine/core/utils/ini";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import type { TInventoryItem } from "@/engine/lib/constants/items";
 import type { TLevel } from "@/engine/lib/constants/levels";
-import type { LuaArray, TCount, TName, TProbability, TSection, TStringId } from "@/engine/lib/types";
 
 /**
  * @param ini - Target ini file to read data from.

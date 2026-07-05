@@ -1,10 +1,10 @@
 import { action_base, LuabindClass } from "xray16";
 import { EGameObjectPath } from "xray16/alias";
+import { TName } from "xray16/lib";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import { TName } from "@/engine/lib/types";
 
 /**
  * Switch current state to idle when need cleanup for alife/combat/items loot activity etc.

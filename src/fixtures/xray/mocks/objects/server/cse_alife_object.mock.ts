@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { IniFile, NetPacket, ServerObject, TClassId, Vector } from "xray16/alias";
+import { Nillable, TName, TNumberId, TRate, TSection } from "xray16/lib";
 
-import { Nillable, TName, TNumberId, TRate, TSection } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini/IniFile.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 import { mockConfig } from "@/fixtures/xray/mocks/MockConfig";

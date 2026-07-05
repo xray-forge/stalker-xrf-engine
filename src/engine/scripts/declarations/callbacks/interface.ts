@@ -1,4 +1,16 @@
 import { EActorMenuMode, EActorMenuType, GameObject } from "xray16/alias";
+import {
+  AnyArgs,
+  AnyObject,
+  TCount,
+  TIndex,
+  TLabel,
+  TName,
+  TNotCastedBoolean,
+  TNumberId,
+  TRate,
+  TSection,
+} from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -22,18 +34,6 @@ import {
   readWeaponHandling,
   readWeaponRPM,
 } from "@/engine/core/utils/weapon_parameters";
-import {
-  AnyArgs,
-  AnyObject,
-  TCount,
-  TIndex,
-  TLabel,
-  TName,
-  TNotCastedBoolean,
-  TNumberId,
-  TRate,
-  TSection,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

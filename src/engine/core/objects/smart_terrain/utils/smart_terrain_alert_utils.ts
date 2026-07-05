@@ -1,10 +1,10 @@
 import { CGameGraph, game_graph } from "xray16";
 import { EGameObjectRelation, GameObject } from "xray16/alias";
+import { TNumberId } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { getSimulationTerrainDescriptors } from "@/engine/core/managers/simulation/utils";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { TNumberId } from "@/engine/lib/types";
 
 /**
  * Handle object hit event and verify nearest bases to alert.

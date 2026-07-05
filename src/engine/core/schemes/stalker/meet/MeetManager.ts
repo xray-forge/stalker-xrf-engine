@@ -1,4 +1,16 @@
 import { GameObject } from "xray16/alias";
+import {
+  FALSE,
+  NIL,
+  Nillable,
+  StringNillable,
+  TDistance,
+  TName,
+  TNumberId,
+  TRUE,
+  TSection,
+  TStringId,
+} from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -11,8 +23,6 @@ import { isBlackScreen } from "@/engine/core/utils/game";
 import { parseStringOptional, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInCombat, isObjectWounded } from "@/engine/core/utils/planner";
-import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { Nillable, StringNillable, TDistance, TName, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 

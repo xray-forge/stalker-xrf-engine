@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { CUITabControl } from "xray16";
+import { Nullable } from "xray16/lib";
 
-import { Nullable } from "@/engine/lib/types";
 import { MockCUI3tButton } from "@/fixtures/xray/mocks/objects/ui/CUI3tButton.mock";
 import { MockCUIWindow } from "@/fixtures/xray/mocks/objects/ui/CUIWindow.mock";
 

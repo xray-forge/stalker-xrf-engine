@@ -1,5 +1,6 @@
 import { level, patrol, time_global } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
+import { Nillable, TProbability, TTimestamp } from "xray16/lib";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
@@ -7,7 +8,6 @@ import { ETeleportState, ISchemeTeleportState } from "@/engine/core/schemes/rest
 import { teleportActorWithEffects } from "@/engine/core/utils/position";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { postProcessors } from "@/engine/lib/constants/animation";
-import { Nillable, TProbability, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Implement smooth teleportation with sound/animation on contact with restrictor zones.

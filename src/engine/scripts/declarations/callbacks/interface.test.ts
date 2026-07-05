@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { EActorMenuMode, EActorMenuType, GameObject } from "xray16/alias";
+import { AnyArgs, AnyCallablesModule, AnyObject, TName } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor";
@@ -22,7 +23,6 @@ import {
   readWeaponHandling,
   readWeaponRPM,
 } from "@/engine/core/utils/weapon_parameters";
-import { AnyArgs, AnyCallablesModule, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding, checkNestedBinding } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

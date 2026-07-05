@@ -1,4 +1,3 @@
-import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import {
   AnyCallable,
   LuaArray,
@@ -11,7 +10,9 @@ import {
   TRate,
   TStringId,
   TTimestamp,
-} from "@/engine/lib/types";
+} from "xray16/lib";
+
+import { EStalkerState } from "@/engine/core/animation/types/state_types";
 
 /**
  * Attach item as element of sequence.

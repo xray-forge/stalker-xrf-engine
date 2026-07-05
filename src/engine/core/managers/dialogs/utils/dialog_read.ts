@@ -1,4 +1,5 @@
 import { IniFile } from "xray16/alias";
+import { Nillable, TName, TNumberId, TRUE, TStringifiedBoolean } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import {
@@ -8,8 +9,6 @@ import {
 } from "@/engine/core/managers/dialogs/dialog_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseInfoPortions, parseStringsList } from "@/engine/core/utils/ini";
-import { TRUE } from "@/engine/lib/constants/words";
-import { Nillable, TName, TNumberId, TStringifiedBoolean } from "@/engine/lib/types";
 
 /**
  * @param ini - Target file to read descriptors from.

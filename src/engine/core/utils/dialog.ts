@@ -1,4 +1,5 @@
 import { GameObject } from "xray16/alias";
+import { Nillable, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -6,7 +7,7 @@ import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { updateObjectMeetAvailability } from "@/engine/core/schemes/stalker/meet/utils";
 import { updateStalkerLogic } from "@/engine/core/utils/logics";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { EScheme, Nillable, TName } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * From two possible speakers pick NPC one, omit actor.

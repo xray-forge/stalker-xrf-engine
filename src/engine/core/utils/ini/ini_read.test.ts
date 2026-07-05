@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { IniFile } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import { IBaseSchemeLogic } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
@@ -24,7 +25,6 @@ import {
   readIniTwoNumbers,
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
-import { Nillable } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("readIniString util", () => {

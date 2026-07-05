@@ -1,11 +1,11 @@
 import { IniFile } from "xray16/alias";
+import { Nillable, TName, TRate, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
 import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniNumber } from "@/engine/core/utils/ini";
 import { clamp } from "@/engine/core/utils/number";
-import { Nillable, TName, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * @param section - Section of weapon to read stats.

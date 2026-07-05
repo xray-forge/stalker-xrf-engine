@@ -8,6 +8,7 @@ import {
   TClassId,
   Vector,
 } from "xray16/alias";
+import { AnyObject, NIL, Nillable, PartialRecord, StringNillable, TCount, TName, TNumberId, TRate } from "xray16/lib";
 import { $filename, $fromObject, $isNotNil } from "xray16/macros";
 
 import { getManager, getPortableStoreValue, registry, setPortableStoreValue } from "@/engine/core/database";
@@ -24,17 +25,6 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { TArtefact } from "@/engine/lib/constants/items/artefacts";
 import { TWeapon, weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { NIL } from "@/engine/lib/constants/words";
-import {
-  AnyObject,
-  Nillable,
-  PartialRecord,
-  StringNillable,
-  TCount,
-  TName,
-  TNumberId,
-  TRate,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

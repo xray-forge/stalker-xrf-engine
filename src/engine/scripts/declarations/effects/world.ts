@@ -7,6 +7,19 @@ import {
   ServerObject,
   ServerWeaponObject,
 } from "xray16/alias";
+import {
+  Nillable,
+  TDuration,
+  TIndex,
+  TLabel,
+  TName,
+  TNumberId,
+  TRate,
+  TRUE,
+  TSection,
+  TStringId,
+  TStringifiedBoolean,
+} from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
@@ -35,19 +48,6 @@ import { TCommunity } from "@/engine/lib/constants/communities";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { Y_VECTOR } from "@/engine/lib/constants/vectors";
-import { TRUE } from "@/engine/lib/constants/words";
-import {
-  Nillable,
-  TDuration,
-  TIndex,
-  TLabel,
-  TName,
-  TNumberId,
-  TRate,
-  TSection,
-  TStringId,
-  TStringifiedBoolean,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

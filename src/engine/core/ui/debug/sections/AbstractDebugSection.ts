@@ -1,7 +1,6 @@
 import { CScriptXmlInit, CUIScriptWnd, CUIWindow, LuabindClass } from "xray16";
 import { XmlInit } from "xray16/alias";
-
-import { TName } from "@/engine/lib/types";
+import { TName } from "xray16/lib";
 
 /**
  * Abstract debug section to display in debug settings.

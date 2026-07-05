@@ -1,9 +1,9 @@
 import { GameObject } from "xray16/alias";
+import { LuaArray, Nillable, TName, TTimestamp } from "xray16/lib";
 import { $fromArray, $fromObject, $isNotNil } from "xray16/macros";
 
 import { IStateDescriptor } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
-import { LuaArray, Nillable, TName, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Mapping of smart cover animation names to their fire queue parameters (count, interval, aim time).

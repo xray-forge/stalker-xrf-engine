@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level, relation_registry } from "xray16";
 import { GameObject, ServerCreatureObject, ServerHumanObject } from "xray16/alias";
+import { TIndex } from "xray16/lib";
 
 import { registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import {
@@ -17,7 +18,6 @@ import {
 } from "@/engine/core/utils/relation/relation_set";
 import { ERelation } from "@/engine/core/utils/relation/relation_types";
 import { communities } from "@/engine/lib/constants/communities";
-import { TIndex } from "@/engine/lib/types";
 import { mockRegisteredActor, mockRelationsSquads } from "@/fixtures/engine";
 import { MockGameObject, MockServerAlifeCreatureAbstract } from "@/fixtures/xray";
 

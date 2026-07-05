@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { Console } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 
 import { disposeManager, getManager, registry } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
@@ -13,7 +14,6 @@ import { giveInfoPortion, hasInfoPortion } from "@/engine/core/utils/info_portio
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { AnyObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockConsole, MockCUITrackBar } from "@/fixtures/xray";
 

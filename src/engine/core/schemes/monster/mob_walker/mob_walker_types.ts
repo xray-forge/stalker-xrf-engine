@@ -1,7 +1,8 @@
+import type { LuaArray, Nillable, TName } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IWaypointData } from "@/engine/core/utils/ini";
 import type { EMonsterState } from "@/engine/lib/constants/monsters";
-import type { LuaArray, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * State of mob walker scheme state.

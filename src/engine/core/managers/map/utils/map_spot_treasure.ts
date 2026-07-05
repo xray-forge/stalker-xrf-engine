@@ -1,9 +1,9 @@
 import { level } from "xray16";
+import { TLabel, TName, TNumberId } from "xray16/lib";
 
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
 import { ETreasureType, ITreasureDescriptor } from "@/engine/core/managers/treasures/treasures_types";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Display map spot for treasure.

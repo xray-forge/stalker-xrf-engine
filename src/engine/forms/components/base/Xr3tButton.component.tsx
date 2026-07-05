@@ -1,4 +1,5 @@
 import { JSXNode, JSXXML } from "jsx-xml";
+import { TName } from "xray16/lib";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
@@ -6,7 +7,7 @@ import { XrTextColor } from "@/engine/forms/components/base/XrTextColor.componen
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { BLACK } from "@/engine/lib/constants/colors";
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode, IRgbColor, THorizontalTextAlign, TName } from "@/engine/lib/types";
+import { IBaseXmlNode, IRgbColor, THorizontalTextAlign } from "@/engine/lib/types";
 
 export interface IXrButtonProps extends IBaseXmlNode {
   id?: string;

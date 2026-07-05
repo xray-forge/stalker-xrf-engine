@@ -1,9 +1,8 @@
 import { vector, vector2 } from "xray16";
 import { Vector, Vector2D } from "xray16/alias";
+import { NIL, Nillable, TDistance, TRate } from "xray16/lib";
 
 import { PI_DEGREE, RADIAN } from "@/engine/lib/constants/math";
-import { NIL } from "@/engine/lib/constants/words";
-import { Nillable, TDistance, TRate } from "@/engine/lib/types";
 
 /**
  * Create empty vector filled with 0 values.

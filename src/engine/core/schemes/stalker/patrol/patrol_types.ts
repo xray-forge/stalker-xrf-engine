@@ -1,11 +1,11 @@
 import type { GameObject, Vector } from "xray16/alias";
+import type { LuaArray, Nillable, TDistance, TName, TStringId } from "xray16/lib";
 
 import type { EPatrolFormation } from "@/engine/core/ai/patrol";
 import type { IPatrolSuggestedState } from "@/engine/core/animation/types";
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import type { IWaypointData } from "@/engine/core/utils/ini";
-import type { LuaArray, Nillable, TDistance, TName, TStringId } from "@/engine/lib/types";
 
 /**
  * Descriptor of patrol captured object state.

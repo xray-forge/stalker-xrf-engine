@@ -1,5 +1,6 @@
 import { callback, clsid, LuabindClass, object_binder } from "xray16";
 import { AlifeSimulator, GameObject, NetPacket, NetReader, ServerObject, TClassId } from "xray16/alias";
+import { TCount, TNumberId } from "xray16/lib";
 
 import {
   closeLoadMarker,
@@ -11,7 +12,6 @@ import {
   unregisterZone,
 } from "@/engine/core/database";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { TCount, TNumberId } from "@/engine/lib/types";
 
 /**
  * Binder for arena zone restrictor game object.

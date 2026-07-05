@@ -1,3 +1,4 @@
+import { TProbability } from "xray16/lib";
 import { $fromArray, $fromObject } from "xray16/macros";
 
 import {
@@ -8,7 +9,6 @@ import {
 import { canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory } from "@/engine/core/ai/camp/camp_utils";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
 import { EStalkerState, WEAPON_POSTFIX } from "@/engine/core/animation/types";
-import { TProbability } from "@/engine/lib/types";
 
 export const campConfig = {
   CAMP_ACTIVITIES: $fromObject<EObjectCampActivity, ICampTransitionDescriptor>({

@@ -1,5 +1,6 @@
 import { anim, cond, look, move, patrol, sound } from "xray16";
 import { Flags32, GameObject, Patrol, TAnimationKey, TAnimationType, TMoveType, TSoundKey, Vector } from "xray16/alias";
+import { LuaArray, Nillable, TCount, TDuration, TIndex, TName, TNumberId, TRUE } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -12,8 +13,7 @@ import { choosePatrolWaypointByFlags, isObjectAtWaypoint } from "@/engine/core/u
 import { isMonsterScriptCaptured, scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { copyVector } from "@/engine/core/utils/vector";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { TRUE } from "@/engine/lib/constants/words";
-import { EScheme, LuaArray, Nillable, TCount, TDuration, TIndex, TName, TNumberId } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Manager handling monster walker scheme behaviour for an object.

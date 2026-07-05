@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { AnyArgs, AnyObject, TName } from "xray16/lib";
 
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
-import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding } from "@/fixtures/engine";
 
 function checkDialogsBinding(name: TName): void {

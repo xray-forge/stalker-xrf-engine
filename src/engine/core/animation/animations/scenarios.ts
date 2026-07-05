@@ -1,9 +1,9 @@
+import { AnyCallablesModule, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { IAnimationDescriptor } from "@/engine/core/animation/types";
 import { createSequence } from "@/engine/core/utils/animation";
 import { getExtern } from "@/engine/core/utils/binding";
-import { AnyCallablesModule, TName } from "@/engine/lib/types";
 
 /**
  * List of scenario animations.

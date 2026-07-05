@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { PhysicsShell } from "xray16/alias";
+import { TName } from "xray16/lib";
 
-import { TName } from "@/engine/lib/types";
 import { MockPhysicsJoint } from "@/fixtures/xray/mocks/objects/game/physics_joint.mock";
 
 export class MockPhysicsShell {

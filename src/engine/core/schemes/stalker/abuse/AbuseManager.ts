@@ -1,9 +1,9 @@
 import { time_global } from "xray16";
+import { Nillable, TCount, TRate, TTimestamp } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemeAbuseState } from "@/engine/core/schemes/stalker/abuse/abuse_types";
-import { Nillable, TCount, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Abuse manager to handle state for an object.

@@ -1,5 +1,6 @@
 import { world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
+import { NIL, Nillable, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -10,8 +11,7 @@ import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet/meet_types"
 import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { readIniString } from "@/engine/core/utils/ini";
-import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeType, Nillable, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme describing logics of `meet` state.

@@ -1,9 +1,8 @@
 import { Vector } from "xray16/alias";
+import { NIL, Nillable, StringNillable, TDuration, TName, TStringId } from "xray16/lib";
 
 import { ESmartCoverState, EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IBaseSchemeState } from "@/engine/core/database/database_types";
-import { NIL } from "@/engine/lib/constants/words";
-import { Nillable, StringNillable, TDuration, TName, TStringId } from "@/engine/lib/types";
 
 /**
  * Mapping of smart cover substates to the stalker animation state used for each of them.

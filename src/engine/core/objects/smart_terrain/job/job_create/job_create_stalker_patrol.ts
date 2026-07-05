@@ -1,5 +1,6 @@
 import { level, patrol } from "xray16";
 import { Patrol } from "xray16/alias";
+import { TCount, TIndex, TName } from "xray16/lib";
 
 import { jobPreconditionPatrol } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
@@ -8,7 +9,6 @@ import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTer
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { TCount, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create patrol jobs for stalkers in smart terrain.

@@ -1,4 +1,5 @@
 import { game } from "xray16";
+import { Nillable, TLabel, TName, TSection } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -6,7 +7,6 @@ import { EPdaStatSection, iconByKilledMonsters } from "@/engine/core/managers/pd
 import { StatisticsManager } from "@/engine/core/managers/statistics";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { TMonster } from "@/engine/lib/constants/monsters";
-import { Nillable, TLabel, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Manager handling PDA ui / displayed information.

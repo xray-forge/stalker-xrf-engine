@@ -1,5 +1,6 @@
 import { action_base, level, LuabindClass, patrol } from "xray16";
 import { GameObject, SoundObject, Vector } from "xray16/alias";
+import { NIL, Nillable, TIndex, TNumberId, TStringId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EStalkerState, ILookTargetDescriptor, IStateManagerCallbackDescriptor } from "@/engine/core/animation/types";
@@ -12,8 +13,7 @@ import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark";
 import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { getObjectTerrain } from "@/engine/core/utils/position";
-import { NIL } from "@/engine/lib/constants/words";
-import { ISchemeEventHandler, Nillable, TIndex, TNumberId, TStringId } from "@/engine/lib/types";
+import { ISchemeEventHandler } from "@/engine/lib/types";
 
 const STATE_INITIAL: number = 0;
 const STATE_ANIMATION: number = 1;

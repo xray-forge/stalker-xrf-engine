@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
 import { GameObject, IniFile, ServerHumanObject } from "xray16/alias";
+import { NIL } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
@@ -47,7 +48,6 @@ import {
   resetObjectGenericSchemesOnSectionSwitch,
 } from "@/engine/core/utils/scheme/scheme_logic";
 import { loadSchemeImplementation, loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
-import { NIL } from "@/engine/lib/constants/words";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";

@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { AnyObject } from "xray16/lib";
 
 import { disposeManager, getManager, registerObject, registerSimulationObject } from "@/engine/core/database";
 import { DatabaseManager } from "@/engine/core/managers/database/DatabaseManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { AnyObject } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

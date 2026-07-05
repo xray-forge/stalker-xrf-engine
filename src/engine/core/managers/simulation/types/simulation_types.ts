@@ -1,10 +1,10 @@
 import type { ALifeSmartTerrainTask } from "xray16/alias";
+import type { Nillable, PartialRecord, TCount, TName, TNumberId, TRate } from "xray16/lib";
 
 import type { Actor } from "@/engine/core/objects/creature/Actor";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import type { TCommunity } from "@/engine/lib/constants/communities";
-import type { Nillable, PartialRecord, TCount, TName, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * Type of smart terrain simulation role.

@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import {
@@ -7,7 +8,7 @@ import {
   clearObjectAbuse,
   setObjectAbuseState,
 } from "@/engine/core/schemes/stalker/meet/utils/meet_handling";
-import { AnyObject, EScheme } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

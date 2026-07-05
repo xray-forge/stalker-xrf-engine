@@ -1,6 +1,5 @@
+import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
-
-import { AnyObject } from "@/engine/lib/types";
 
 /**
  * Mock table utils for correct interoperation with typescript.

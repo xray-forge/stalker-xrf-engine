@@ -1,12 +1,12 @@
 import { getFS, sound_object } from "xray16";
 import { GameObject, IniFile, TSoundObjectType } from "xray16/alias";
+import { Nillable, TNumberId, TSection } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects/AbstractPlayableSound";
 import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { roots } from "@/engine/lib/constants/roots";
-import { Nillable, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * Playable sound that loops continuously at the position of a game object.

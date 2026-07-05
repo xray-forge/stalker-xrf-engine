@@ -1,19 +1,9 @@
 import { ALifeSmartTerrainTask, IniFile, ServerCreatureObject, Vector } from "xray16/alias";
+import { AnyObject, LuaArray, Nillable, PartialRecord, TNumberId, TPath, TRate, TSection } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import {
-  AnyObject,
-  EScheme,
-  ESchemeType,
-  LuaArray,
-  Nillable,
-  PartialRecord,
-  TNumberId,
-  TPath,
-  TRate,
-  TSection,
-} from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * List of ini fields describing patrol paths and points used to define smart terrain jobs.

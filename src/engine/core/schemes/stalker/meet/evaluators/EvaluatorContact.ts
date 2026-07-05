@@ -1,12 +1,11 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { ActionPlanner } from "xray16/alias";
+import { FALSE, Nillable } from "xray16/lib";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { registry } from "@/engine/core/database";
 import { ISchemeMeetState } from "@/engine/core/schemes/stalker/meet";
 import { isObjectWounded } from "@/engine/core/utils/planner";
-import { FALSE } from "@/engine/lib/constants/words";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator to check if object is ready to communicate.

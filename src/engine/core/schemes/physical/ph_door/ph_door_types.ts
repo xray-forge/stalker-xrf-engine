@@ -1,6 +1,7 @@
+import type { LuaArray, Nillable, TLabel } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IBoneStateDescriptor, IConfigSwitchConditionsDescriptor } from "@/engine/core/utils/ini";
-import type { LuaArray, Nillable, TLabel } from "@/engine/lib/types";
 
 /**
  * State of door scheme.

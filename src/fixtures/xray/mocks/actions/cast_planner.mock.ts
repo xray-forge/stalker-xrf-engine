@@ -1,6 +1,6 @@
 import type { ActionBase, ActionPlanner } from "xray16/alias";
+import type { AnyObject } from "xray16/lib";
 
-import type { AnyObject } from "@/engine/lib/types";
 import { MockActionPlanner } from "@/fixtures/xray/mocks/actions/action_planner.mock";
 
 /**

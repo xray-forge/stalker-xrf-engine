@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
+import { LuaArray } from "xray16/lib";
 
 import { IRankDescriptor, SYSTEM_INI } from "@/engine/core/database";
 import {
@@ -14,7 +15,6 @@ import {
   readRanksList,
 } from "@/engine/core/utils/ranks";
 import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
-import { LuaArray } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeMonsterBase, MockGameObject } from "@/fixtures/xray";
 

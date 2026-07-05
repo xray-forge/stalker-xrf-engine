@@ -1,4 +1,5 @@
 import { IniFile } from "xray16/alias";
+import { LuaArray, TCount, TName } from "xray16/lib";
 
 import {
   IMapAnomalyScanDescriptor,
@@ -9,7 +10,6 @@ import {
 import { assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { LuaArray, TCount, TName } from "@/engine/lib/types";
 
 /**
  * Read list of map spots from manager config.

@@ -1,4 +1,4 @@
-import { Nillable, TDuration, TName, TProbability, TSection } from "@/engine/lib/types";
+import { Nillable, TDuration, TName, TProbability, TSection } from "xray16/lib";
 
 /**
  * Name of atmosfear weather base.

@@ -1,5 +1,6 @@
 import { LuabindClass, object_binder } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerObject } from "xray16/alias";
+import { TDuration } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -18,7 +19,6 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

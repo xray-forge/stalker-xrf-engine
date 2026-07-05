@@ -1,7 +1,7 @@
 import { Vector } from "xray16/alias";
+import { Nillable, TNumberId } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * State of helping wounded scheme.

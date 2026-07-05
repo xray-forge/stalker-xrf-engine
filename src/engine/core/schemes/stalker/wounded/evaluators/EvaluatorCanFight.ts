@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { FALSE } from "xray16/lib";
 
 import { getPortableStoreValue } from "@/engine/core/database/portable_store";
 import { ISchemeWoundedState, PS_WOUNDED_FIGHT } from "@/engine/core/schemes/stalker/wounded/wounded_types";
-import { FALSE } from "@/engine/lib/constants/words";
 
 /**
  * Evaluator to check whether object is wounded and cannot fight.

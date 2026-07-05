@@ -1,7 +1,7 @@
 import { ObjectFactory } from "xray16/alias";
+import { AnyCallable } from "xray16/lib";
 
 import { extern } from "@/engine/core/utils/binding";
-import { AnyCallable } from "@/engine/lib/types";
 
 /* eslint @typescript-eslint/no-var-requires: 0 */
 

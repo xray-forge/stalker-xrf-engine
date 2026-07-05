@@ -1,5 +1,6 @@
 import { CUI3tButton, CUICheckButton, CUIListBox, CUIStatic, LuabindClass, ui_events } from "xray16";
 import { AlifeSimulator } from "xray16/alias";
+import { NIL, Nillable, TCount, TPath } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
@@ -7,8 +8,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { AbstractDebugSection } from "@/engine/core/ui/debug/sections/AbstractDebugSection";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { NIL } from "@/engine/lib/constants/words";
-import { Nillable, TCount, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugRegistrySection.component";

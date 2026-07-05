@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
 import { GameObject, Patrol, ServerObject } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import {
   registerObject,
@@ -11,7 +12,6 @@ import {
 } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { setSquadPosition } from "@/engine/core/objects/squad/utils";
-import { Nillable } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockParticleObject, MockPatrol } from "@/fixtures/xray";
 

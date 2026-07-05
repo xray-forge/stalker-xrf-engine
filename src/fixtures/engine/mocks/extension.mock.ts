@@ -1,5 +1,6 @@
+import { TName } from "xray16/lib";
+
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
-import { TName } from "@/engine/lib/types";
 
 /**
  * @param base - Optional extension configuration.

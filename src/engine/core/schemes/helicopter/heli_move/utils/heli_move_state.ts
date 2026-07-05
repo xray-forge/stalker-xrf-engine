@@ -1,9 +1,9 @@
 import type { GameObject } from "xray16/alias";
+import type { TNumberId } from "xray16/lib";
 
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { HelicopterFlyManager } from "@/engine/core/schemes/helicopter/heli_move/fly";
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
-import type { TNumberId } from "@/engine/lib/types";
 
 /**
  * @param object - Target game object representing helicopter.

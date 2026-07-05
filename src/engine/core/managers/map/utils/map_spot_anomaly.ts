@@ -1,4 +1,5 @@
 import { game, level } from "xray16";
+import { LuaArray, Nillable, TLabel, TNumberId, TSection } from "xray16/lib";
 
 import { getObjectIdByStoryId } from "@/engine/core/database";
 import { mapDisplayConfig } from "@/engine/core/managers/map/MapDisplayConfig";
@@ -6,7 +7,6 @@ import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { LuaArray, Nillable, TLabel, TNumberId, TSection } from "@/engine/lib/types";
 
 /**
  * Update hints display for anomaly zones.

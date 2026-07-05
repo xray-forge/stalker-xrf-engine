@@ -1,9 +1,9 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { GameObject } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Whether weapon is not strapped and in hands right now.

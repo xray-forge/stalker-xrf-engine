@@ -1,12 +1,12 @@
 import { create_ini_file, ini_file } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
+import { Nillable, TName } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { DUMMY_LTX, DYNAMIC_LTX_PREFIX } from "@/engine/core/database/ini_registry";
 import { registry } from "@/engine/core/database/registry";
 import { assertDefined } from "@/engine/core/utils/assertion";
-import { Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Generic name of spawn ini configs flag.

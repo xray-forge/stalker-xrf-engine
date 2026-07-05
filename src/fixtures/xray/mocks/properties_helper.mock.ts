@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
-
-import { AnyArgs } from "@/engine/lib/types";
+import { AnyArgs } from "xray16/lib";
 
 /**
  * C++ properties_helper class mock.

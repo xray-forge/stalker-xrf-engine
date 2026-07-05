@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { TIndex, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { jobPreconditionCollector } from "@/engine/core/objects/smart_terrain/job/job_precondition";
@@ -7,7 +8,6 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerr
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create collector jobs for stalkers in smart terrain.

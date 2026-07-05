@@ -1,6 +1,6 @@
 import { StaticDrawableWrapper } from "xray16";
+import { TStringId } from "xray16/lib";
 
-import { TStringId } from "@/engine/lib/types";
 import { MockCUIStatic } from "@/fixtures/xray/mocks/objects/ui/CUIStatic.mock";
 
 /**

@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import {
   getPortableStoreValue,
@@ -16,7 +17,7 @@ import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/He
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager";
 import { giveWoundedObjectMedkit } from "@/engine/core/utils/object";
-import { EScheme, Nillable } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

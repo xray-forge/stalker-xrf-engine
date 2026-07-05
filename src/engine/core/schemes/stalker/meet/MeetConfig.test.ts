@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
+import { FALSE, NIL, TRUE } from "xray16/lib";
 
 import { meetConfig } from "@/engine/core/schemes/stalker/meet/MeetConfig";
-import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
 
 describe("meet scheme config", () => {
   it("should have correct defaults fields for enemies", () => {

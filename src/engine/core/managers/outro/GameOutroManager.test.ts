@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { game, sound_object } from "xray16";
 import { ESoundObjectType, SoundObject } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameOutroManager } from "@/engine/core/managers/outro/GameOutroManager";
-import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockSoundObject } from "@/fixtures/xray";
 

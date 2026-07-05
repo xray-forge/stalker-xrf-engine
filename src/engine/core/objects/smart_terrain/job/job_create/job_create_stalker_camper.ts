@@ -1,5 +1,6 @@
 import { level, patrol } from "xray16";
 import { Patrol } from "xray16/alias";
+import { TDistance, TIndex, TName } from "xray16/lib";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { jobPreconditionCamper } from "@/engine/core/objects/smart_terrain/job/job_precondition";
@@ -8,7 +9,6 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerr
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { TDistance, TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create camper jobs for stalkers in smart terrain.

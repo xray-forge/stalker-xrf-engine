@@ -1,8 +1,8 @@
 import type { Vector } from "xray16/alias";
+import type { LuaArray, Nillable, StringNillable, TName, TNumberId, TStringId } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IConfigSwitchCondition } from "@/engine/core/utils/ini";
-import type { LuaArray, Nillable, StringNillable, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Remark scheme state.

@@ -1,4 +1,5 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { Nillable, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -8,7 +9,7 @@ import { DeathManager } from "@/engine/core/schemes/stalker/death/DeathManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, Nillable, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

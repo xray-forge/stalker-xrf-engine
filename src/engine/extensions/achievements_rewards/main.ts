@@ -1,3 +1,4 @@
+import { AnyObject, TName } from "xray16/lib";
 import { $dirname } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -6,7 +7,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { deserializeTime, serializeTime } from "@/engine/core/utils/time";
 import { achievementRewardsConfig } from "@/engine/extensions/achievements_rewards/AchievementRewardsConfig";
 import { update } from "@/engine/extensions/achievements_rewards/update";
-import { AnyObject, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($dirname);
 

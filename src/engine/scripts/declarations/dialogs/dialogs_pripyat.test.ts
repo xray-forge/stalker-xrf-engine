@@ -1,6 +1,6 @@
 import { beforeAll, describe, it } from "@jest/globals";
+import { TName } from "xray16/lib";
 
-import { TName } from "@/engine/lib/types";
 import { checkNestedBinding } from "@/fixtures/engine";
 
 function checkDialogsBinding(name: TName): void {

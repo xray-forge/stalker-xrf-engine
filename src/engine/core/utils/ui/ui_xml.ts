@@ -1,11 +1,11 @@
 import { CScriptXmlInit, getFS } from "xray16";
 import { XmlInit } from "xray16/alias";
+import { TPath } from "xray16/lib";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { isWideScreen } from "@/engine/core/utils/ui/ui_screen";
 import { roots } from "@/engine/lib/constants/roots";
-import { TPath } from "@/engine/lib/types";
 
 /**
  * Util to get XML file for current screen resolution.

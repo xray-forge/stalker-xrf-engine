@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
+import { AnyObject } from "xray16/lib";
 
 import { extern, getExtern } from "@/engine/core/utils/binding";
-import { AnyObject } from "@/engine/lib/types";
 
 describe("extern/getExtern utils", () => {
   it("binding utils should correctly work in pair with simple examples", () => {

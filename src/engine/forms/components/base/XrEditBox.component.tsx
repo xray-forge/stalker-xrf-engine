@@ -1,11 +1,12 @@
 import { JSXNode, JSXXML } from "jsx-xml";
+import { TName } from "xray16/lib";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
 import { XrText } from "@/engine/forms/components/base/XrText.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode, IRgbColor, THorizontalTextAlign, TName, TVerticalTextAlign } from "@/engine/lib/types";
+import { IBaseXmlNode, IRgbColor, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/lib/types";
 
 export interface IXrEditBoxProps extends IBaseXmlNode {
   texture?: TName;

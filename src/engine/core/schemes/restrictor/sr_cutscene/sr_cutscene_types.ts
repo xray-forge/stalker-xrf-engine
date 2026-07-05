@@ -1,5 +1,6 @@
+import type { LuaArray, StringNillable, TPath, TRate } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { LuaArray, StringNillable, TPath, TRate } from "@/engine/lib/types";
 
 /**
  * State of effector set run with `level.add_effect` interface.

@@ -8,6 +8,7 @@ import {
   ServerSmartZoneObject,
   Vector,
 } from "xray16/alias";
+import { MAX_U32 } from "xray16/lib";
 
 import { registerSimulator, registerZone, registry } from "@/engine/core/database";
 import {
@@ -28,7 +29,6 @@ import {
   sendToNearestAccessibleVertex,
   teleportActorWithEffects,
 } from "@/engine/core/utils/position";
-import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {

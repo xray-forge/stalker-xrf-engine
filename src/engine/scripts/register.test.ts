@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
+import { AnyObject } from "xray16/lib";
 
-import { AnyObject } from "@/engine/lib/types";
 import { registerGameClasses } from "@/engine/scripts/register/class_registrator";
 import { getGameClassId } from "@/engine/scripts/register/game_class_id_registrator";
 import { getUiClassId } from "@/engine/scripts/register/ui_class_id_registrator";

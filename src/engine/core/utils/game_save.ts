@@ -1,5 +1,6 @@
 import { bit_or, CSavedGameWrapper, device, FS, game, getFS, IsImportantSave, user_name } from "xray16";
 import { FSFileListEX, FSItem, SavedGameWrapper } from "xray16/alias";
+import { AnyObject, LuaArray, Nillable, TLabel, TName, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
@@ -12,7 +13,6 @@ import { gameTimeToString } from "@/engine/core/utils/time";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { TGameDifficulty } from "@/engine/lib/constants/game_difficulties";
 import { roots } from "@/engine/lib/constants/roots";
-import { AnyObject, LuaArray, Nillable, TLabel, TName, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

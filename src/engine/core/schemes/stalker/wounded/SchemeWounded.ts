@@ -1,5 +1,6 @@
 import { world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
+import { LuaArray, NIL, TName, TSection } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -13,9 +14,7 @@ import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray, TName } from "@/engine/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
+import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme to capture stalker logic and lay wounded / call for help.

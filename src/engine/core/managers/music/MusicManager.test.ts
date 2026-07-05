@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { get_console, IsDynamicMusic, level } from "xray16";
 import { Console } from "xray16/alias";
+import { AnyObject, LuaArray } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { disposeManager, getManager } from "@/engine/core/database";
@@ -9,7 +10,6 @@ import { musicConfig } from "@/engine/core/managers/music/MusicConfig";
 import { MusicManager } from "@/engine/core/managers/music/MusicManager";
 import { IDynamicMusicDescriptor } from "@/engine/core/managers/sounds";
 import { StereoSound } from "@/engine/core/managers/sounds/objects";
-import { AnyObject, LuaArray } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 

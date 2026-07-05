@@ -1,8 +1,8 @@
 import { Fragment, JSXNode, JSXXML } from "jsx-xml";
+import { TName, TStringId } from "xray16/lib";
 
 import { XrElement } from "@/engine/forms/components/base/XrElement.component";
 import { XrTexture } from "@/engine/forms/components/base/XrTexture.component";
-import { TName, TStringId } from "@/engine/lib/types";
 
 /**
  * Build treasure spots marks for minimap/map.

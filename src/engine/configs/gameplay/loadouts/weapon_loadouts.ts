@@ -1,7 +1,8 @@
+import { TCount } from "xray16/lib";
+
 import { ISpawnItemDescriptor } from "@/engine/configs/gameplay/utils/create_loadout";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { TCount } from "@/engine/lib/types";
 
 export function loadoutWincheaster1300(ap: boolean = false): Array<ISpawnItemDescriptor> {
   return [{ section: weapons.wpn_wincheaster1300 }, { section: ap ? ammo.ammo_12x70_buck : ammo.ammo_12x76_zhekan }];

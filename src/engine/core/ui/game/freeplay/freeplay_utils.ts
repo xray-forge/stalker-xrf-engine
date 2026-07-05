@@ -1,5 +1,6 @@
+import { Nillable, TLabel } from "xray16/lib";
+
 import { FreeplayDialog } from "@/engine/core/ui/game/freeplay/FreeplayDialog";
-import { Nillable, TLabel } from "@/engine/lib/types";
 
 let freeplayDialog: Nillable<FreeplayDialog> = null;
 

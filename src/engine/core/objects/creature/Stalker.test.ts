@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { AnyObject, NIL } from "xray16/lib";
 
 import { getManager, IRegistryOfflineState, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -7,8 +8,6 @@ import { Stalker } from "@/engine/core/objects/creature/Stalker";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { NIL } from "@/engine/lib/constants/words";
-import { AnyObject } from "@/engine/lib/types";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeHumanStalker, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 

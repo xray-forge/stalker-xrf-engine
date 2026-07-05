@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile, ServerCreatureObject } from "xray16/alias";
+import { TNumberId } from "xray16/lib";
 
 import { IRegistryObjectState, registerObject, registerSimulator } from "@/engine/core/database";
 import { IObjectJobState, ISmartTerrainJobDescriptor, SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -7,7 +8,7 @@ import { configureObjectSchemes, initializeObjectSchemeLogic } from "@/engine/co
 import { setupObjectLogicsOnSpawn, setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
 import { activateSchemeBySection, getSectionToActivate } from "@/engine/core/utils/scheme/scheme_logic";
 import { MAX_ALIFE_RANK } from "@/engine/lib/constants/memory";
-import { ESchemeType, TNumberId } from "@/engine/lib/types";
+import { ESchemeType } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile, MockServerAlifeCreatureAbstract } from "@/fixtures/xray";

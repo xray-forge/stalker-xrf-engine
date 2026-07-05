@@ -1,6 +1,7 @@
+import { Nillable, TDuration, TName, TNumberId } from "xray16/lib";
+
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
 import { IBaseSchemeState } from "@/engine/core/database";
-import { Nillable, TDuration, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Logics configuration for post-combat idle state.

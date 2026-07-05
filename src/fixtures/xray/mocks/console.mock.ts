@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { Console } from "xray16/alias";
-
-import { Nillable } from "@/engine/lib/types";
+import { Nillable } from "xray16/lib";
 
 /**
  * Mock xray game console class.

@@ -1,8 +1,8 @@
 import { jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { TName, TNumberId } from "xray16/lib";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { TName, TNumberId } from "@/engine/lib/types";
 import { MockFbox } from "@/fixtures/xray/mocks/FBox.mock";
 import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { patrols } from "@/fixtures/xray/mocks/objects/path";

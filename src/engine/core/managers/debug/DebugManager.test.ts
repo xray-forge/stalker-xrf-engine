@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { AnyObject } from "xray16/lib";
 
 import { getManager, SYSTEM_INI } from "@/engine/core/database";
 import { DebugManager } from "@/engine/core/managers/debug/DebugManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { saveTextToFile } from "@/engine/core/utils/fs";
 import { toJSON } from "@/engine/core/utils/transform";
-import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 

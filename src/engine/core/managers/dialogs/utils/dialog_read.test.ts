@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
+import { TNumberId } from "xray16/lib";
 
 import { DIALOG_MANAGER_CONFIG_LTX } from "@/engine/core/managers/dialogs/DialogConfig";
 import { readIniGenericDialogs } from "@/engine/core/managers/dialogs/utils/dialog_read";
-import { TNumberId } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 describe("readIniGenericDialogs util", () => {

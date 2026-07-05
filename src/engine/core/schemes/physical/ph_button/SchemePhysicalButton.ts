@@ -1,4 +1,5 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ISchemePhysicalButtonState } from "@/engine/core/schemes/physical/ph_button/ph_button_types";
@@ -9,7 +10,7 @@ import {
   readIniConditionList,
   readIniString,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of button toggling for physical objects.

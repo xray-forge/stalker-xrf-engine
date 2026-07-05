@@ -1,5 +1,17 @@
 import { game, level } from "xray16";
 import { NetPacket, NetProcessor, Time } from "xray16/alias";
+import {
+  AnyObject,
+  LuaArray,
+  NIL,
+  Nillable,
+  StringNillable,
+  TDuration,
+  TName,
+  TProbability,
+  TSection,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -43,18 +55,6 @@ import {
 } from "@/engine/core/utils/ini";
 import { isUndergroundLevel } from "@/engine/core/utils/level";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NIL } from "@/engine/lib/constants/words";
-import {
-  AnyObject,
-  LuaArray,
-  Nillable,
-  StringNillable,
-  TDuration,
-  TName,
-  TProbability,
-  TSection,
-  TTimestamp,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

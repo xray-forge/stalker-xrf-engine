@@ -1,11 +1,11 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { ActionPlanner } from "xray16/alias";
+import { Nillable, TNumberId } from "xray16/lib";
 
 import { EActionId, NO_IDLE_ALIFE_IDS } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStateEvaluatorId } from "@/engine/core/ai/state/types";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Evaluator checking whether the object is idle and ready to run alife behaviour for the planner.

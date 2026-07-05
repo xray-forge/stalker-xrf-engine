@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
+import { LuaArray, NIL, TIndex } from "xray16/lib";
 
 import {
   IBaseSchemeLogic,
@@ -18,8 +19,6 @@ import {
   getSectionsFromConditionLists,
   parseConditionsList,
 } from "@/engine/core/utils/ini";
-import { NIL } from "@/engine/lib/constants/words";
-import { LuaArray, TIndex } from "@/engine/lib/types";
 import { mockBaseSchemeLogic } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockIniFile } from "@/fixtures/xray";
 

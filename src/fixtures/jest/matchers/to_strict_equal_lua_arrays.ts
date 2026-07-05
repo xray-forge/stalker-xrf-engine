@@ -1,8 +1,7 @@
 import { expect } from "@jest/globals";
 import { ExpectationResult } from "expect";
+import { LuaArray } from "xray16/lib";
 import { luaTableToArray } from "xray16/mocks";
-
-import { LuaArray } from "@/engine/lib/types";
 
 /**
  * Compare two lua array tables.

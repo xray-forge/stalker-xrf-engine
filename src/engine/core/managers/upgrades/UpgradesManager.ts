@@ -1,5 +1,18 @@
 import { game } from "xray16";
 import { GameObject } from "xray16/alias";
+import {
+  AnyObject,
+  FALSE,
+  LuaArray,
+  Nillable,
+  TCount,
+  TLabel,
+  TName,
+  TNotCastedBoolean,
+  TRate,
+  TRUE,
+  TSection,
+} from "xray16/lib";
 
 import { getManager, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -14,9 +27,6 @@ import {
   pickSectionFromCondList,
   TConditionList,
 } from "@/engine/core/utils/ini";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { AnyObject, LuaArray, Nillable, TCount, TLabel, TName, TNotCastedBoolean, TRate } from "@/engine/lib/types";
-import { TSection } from "@/engine/lib/types/scheme";
 
 /**
  * Manager to handle upgrading of items with mechanics logics.

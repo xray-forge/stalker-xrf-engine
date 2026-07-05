@@ -1,4 +1,4 @@
-import { TCount } from "@/engine/lib/types";
+import { TCount } from "xray16/lib";
 
 /**
  * List of files mocked.

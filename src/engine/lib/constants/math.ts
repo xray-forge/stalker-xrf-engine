@@ -1,4 +1,4 @@
-import { TRate } from "@/engine/lib/types";
+import { TRate } from "xray16/lib";
 
 /**
  * Degree value constant based on PI.

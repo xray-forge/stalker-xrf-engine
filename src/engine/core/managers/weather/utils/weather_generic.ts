@@ -1,4 +1,5 @@
 import { FS, getFS, level } from "xray16";
+import { LuaArray, Nillable, TDuration, TName, TPath, TRate, TTimestamp } from "xray16/lib";
 
 import {
   EWeatherPeriodType,
@@ -8,7 +9,6 @@ import {
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { containsSubstring } from "@/engine/core/utils/string";
 import { roots } from "@/engine/lib/constants/roots";
-import { LuaArray, Nillable, TDuration, TName, TPath, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Get list all possible weather configs to set.

@@ -9,15 +9,9 @@ import {
   time_global,
 } from "xray16";
 import { GameObject, Vector, XmlInit } from "xray16/alias";
-
-import { getIdBySid, registry } from "@/engine/core/database";
-import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
-import { pickRandom } from "@/engine/core/utils/random";
-import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { distanceBetween2d } from "@/engine/core/utils/vector";
-import { MAX_U16 } from "@/engine/lib/constants/memory";
-import { ACTOR, NIL } from "@/engine/lib/constants/words";
 import {
+  MAX_U16,
+  NIL,
   Nillable,
   StringNillable,
   TCount,
@@ -27,7 +21,14 @@ import {
   TNumberId,
   TRate,
   TTimestamp,
-} from "@/engine/lib/types";
+} from "xray16/lib";
+
+import { getIdBySid, registry } from "@/engine/core/database";
+import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
+import { pickRandom } from "@/engine/core/utils/random";
+import { resolveXmlFile } from "@/engine/core/utils/ui";
+import { distanceBetween2d } from "@/engine/core/utils/vector";
+import { ACTOR } from "@/engine/lib/constants/words";
 
 /**
  * Manager handling helicopter enemy targeting, firing and combat HUD for an object.

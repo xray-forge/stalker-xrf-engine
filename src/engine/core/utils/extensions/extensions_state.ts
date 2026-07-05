@@ -1,11 +1,11 @@
 import { FS, getFS } from "xray16";
+import { LuaArray, Nillable, TPath } from "xray16/lib";
 import { $fromArray, $fromLuaArray } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { loadObjectFromFile, saveObjectToFile } from "@/engine/core/utils/fs";
 import { roots } from "@/engine/lib/constants/roots";
-import { LuaArray, Nillable, TPath } from "@/engine/lib/types";
 
 /**
  * Create dynamic save of extensions order and other state preferences.

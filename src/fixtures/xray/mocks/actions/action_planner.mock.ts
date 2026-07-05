@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { ActionBase, ActionPlanner, GameObject, PropertyEvaluator, PropertyStorage, WorldState } from "xray16/alias";
+import { Nillable, TNumberId } from "xray16/lib";
 
-import { Nillable, TNumberId } from "@/engine/lib/types";
 import { MockActionBase, mockActionBase } from "@/fixtures/xray/mocks/actions/action_base.mock";
 import { mockStalkerIds } from "@/fixtures/xray/mocks/constants/stalker_ids.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";

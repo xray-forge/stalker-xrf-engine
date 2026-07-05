@@ -1,10 +1,10 @@
+import { TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { TName } from "@/engine/lib/types";
 
 /**
  * Create point jobs for stalkers in smart terrain.

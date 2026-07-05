@@ -1,5 +1,6 @@
 import { action_base, level, LuabindClass } from "xray16";
 import { CoverPoint, EGameObjectPath, Vector } from "xray16/alias";
+import { Nillable, TDistance, TNumberId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -10,7 +11,7 @@ import { ISchemeCoverState } from "@/engine/core/schemes/stalker/cover";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { ISchemeEventHandler, Nillable, TDistance, TNumberId } from "@/engine/lib/types";
+import { ISchemeEventHandler } from "@/engine/lib/types";
 
 /**
  * Find cover and hide action.

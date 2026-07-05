@@ -1,11 +1,11 @@
 import { ini_file } from "xray16";
 import type { GameObject, IniFile } from "xray16/alias";
+import type { Nillable, TName, TNumberId } from "xray16/lib";
 import { $fromArray, $fromObject } from "xray16/macros";
 
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs/dialog_types";
 import { readIniGenericDialogs } from "@/engine/core/managers/dialogs/utils/dialog_read";
 import { communities } from "@/engine/lib/constants/communities";
-import type { Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 let GENERIC_PHRASE_ID_COUNTER: TNumberId = 5;
 

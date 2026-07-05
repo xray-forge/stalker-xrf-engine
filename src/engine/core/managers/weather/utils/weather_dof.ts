@@ -1,11 +1,11 @@
 import { CConsole, get_console, level } from "xray16";
+import { TDistance, TRate, TSection, TTimestamp } from "xray16/lib";
 
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { abort } from "@/engine/core/utils/assertion";
 import { roundWithPrecision } from "@/engine/core/utils/number";
 import { hoursToWeatherPeriod } from "@/engine/core/utils/time";
-import { TDistance, TRate, TSection, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Reset DOF value to use defaults.

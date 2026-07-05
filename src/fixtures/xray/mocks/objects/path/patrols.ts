@@ -1,4 +1,5 @@
-import { TName, TNumberId } from "@/engine/lib/types";
+import { TName, TNumberId } from "xray16/lib";
+
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**

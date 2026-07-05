@@ -1,5 +1,6 @@
 import { action_base, level, LuabindClass, object, time_global } from "xray16";
 import { EGameObjectRelation, GameObject } from "xray16/alias";
+import { Nillable, TDuration, TRate, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -9,7 +10,6 @@ import { isStalker, isWeapon } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSmartCoverStateQueueParams } from "@/engine/core/utils/smart_cover";
 import { getWeaponActionForAnimationState } from "@/engine/core/utils/weapon";
-import { Nillable, TDuration, TRate, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

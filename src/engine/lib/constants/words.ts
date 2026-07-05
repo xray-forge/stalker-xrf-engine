@@ -3,28 +3,7 @@
  *
  * @virtual
  */
-export const NIL: "nil" = "nil" as const;
-
-/**
- * Null stringified by lua.
- *
- * @virtual
- */
 export const NEVER: "never" = "never" as const;
-
-/**
- * True stringified by lua.
- *
- * @virtual
- */
-export const TRUE: "true" = "true" as const;
-
-/**
- * False stringified by lua.
- *
- * @virtual
- */
-export const FALSE: "false" = "false" as const;
 
 /**
  * Constant string for options / configurations.

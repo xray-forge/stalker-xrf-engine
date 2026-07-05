@@ -1,13 +1,13 @@
 import { describe, expect, it } from "@jest/globals";
 import { game } from "xray16";
 import { ServerCreatureObject, ServerMonsterBaseObject } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { areNoStalkersWorkingOnJobs, isJobAvailableToObject } from "@/engine/core/objects/smart_terrain/job/job_check";
 import { createObjectJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_create";
 import { IObjectJobState, ISmartTerrainJobDescriptor } from "@/engine/core/objects/smart_terrain/job/job_types";
-import { AnyObject } from "@/engine/lib/types";
 import { MockSmartTerrain } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockAlifeMonsterBase } from "@/fixtures/xray";
 

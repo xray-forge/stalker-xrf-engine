@@ -8,6 +8,7 @@ import type {
   ServerObject,
   TClassId,
 } from "xray16/alias";
+import type { Nillable, TNumberId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
@@ -16,7 +17,6 @@ import type { Stalker } from "@/engine/core/objects/creature";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { classIds } from "@/engine/lib/constants/class_ids";
-import type { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check whether object class id matches monster.

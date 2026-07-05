@@ -1,7 +1,7 @@
 import type { CUIStatic } from "xray16";
+import type { Nillable, TCount, TLabel, TStringId } from "xray16/lib";
 
 import type { IBaseSchemeLogic, IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { Nillable, TCount, TLabel, TStringId } from "@/engine/lib/types";
 
 /**
  * Timer behaviour mode.

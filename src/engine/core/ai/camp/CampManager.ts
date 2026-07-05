@@ -1,5 +1,6 @@
 import { time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
+import { LuaArray, Nillable, TCount, TDuration, TName, TNumberId, TProbability, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole, ICampStateDescriptor } from "@/engine/core/ai/camp/camp_types";
@@ -15,18 +16,7 @@ import { readIniStringList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
-import {
-  EScheme,
-  ESchemeEvent,
-  LuaArray,
-  Nillable,
-  TCount,
-  TDuration,
-  TName,
-  TNumberId,
-  TProbability,
-  TTimestamp,
-} from "@/engine/lib/types";
+import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

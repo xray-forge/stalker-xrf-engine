@@ -1,3 +1,4 @@
+import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { getSmartCoverAnimPriA22 } from "@/engine/core/animation/smart_covers/anim_pri_a22";
@@ -12,7 +13,6 @@ import { getSmartCoverAnimpointStayWall } from "@/engine/core/animation/smart_co
 import { getSmartCoverCombatFront } from "@/engine/core/animation/smart_covers/combat_front";
 import { getSmartCoverCombatProne } from "@/engine/core/animation/smart_covers/combat_prone";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
-import { TName } from "@/engine/lib/types";
 
 export const smartCoversList: LuaTable<TName, ISmartCoverDescriptor> = $fromObject<TName, ISmartCoverDescriptor>({
   /* --[[duplo: {

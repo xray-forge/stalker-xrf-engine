@@ -1,5 +1,6 @@
 import { world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
+import { TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -9,7 +10,7 @@ import { ActionZombieGoToDanger, ActionZombieShoot } from "@/engine/core/schemes
 import { EvaluatorCombatZombied } from "@/engine/core/schemes/stalker/combat_zombied/evaluators";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
+import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
+import { Nullable, TCount, TRate, TSize } from "xray16/lib";
 
-import { Nullable, TCount, TRate, TSize } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**

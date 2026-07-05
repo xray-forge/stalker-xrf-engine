@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, GameTask } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 
 import {
   disposeManager,
@@ -30,7 +31,6 @@ import { ActorSound } from "@/engine/core/managers/sounds/objects/ActorSound";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { ETaskState } from "@/engine/core/managers/tasks";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
-import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";

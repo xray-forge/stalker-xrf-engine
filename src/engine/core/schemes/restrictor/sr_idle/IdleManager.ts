@@ -1,7 +1,8 @@
+import { TCount } from "xray16/lib";
+
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemeIdleState } from "@/engine/core/schemes/restrictor/sr_idle/sr_idle_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { TCount } from "@/engine/lib/types";
 
 /**
  * Manager handling idle scheme behaviour for an object, only switching to another section when conditions allow.

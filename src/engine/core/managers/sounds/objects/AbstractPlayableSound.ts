@@ -1,9 +1,8 @@
 import { GameObject, IniFile, NetPacket, NetProcessor, SoundObject } from "xray16/alias";
+import { AnyArgs, Nillable, TNumberId, TPath, TRate, TSection } from "xray16/lib";
 
 import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { readIniString } from "@/engine/core/utils/ini";
-import { AnyArgs, Nillable, TNumberId, TPath, TRate } from "@/engine/lib/types";
-import { TSection } from "@/engine/lib/types/scheme";
 
 /**
  * Abstract base class representing a playable sound type loaded from an ini section.

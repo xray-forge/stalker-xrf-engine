@@ -1,10 +1,9 @@
 import { game_graph } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MAX_U32, Nillable, TDistance, TName, TNumberId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
-import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { Nillable, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check whether provided vertex ID is from level.

@@ -1,4 +1,5 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { TName, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
@@ -7,7 +8,7 @@ import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_
 import { MobHomeManager } from "@/engine/core/schemes/monster/mob_home/MobHomeManager";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, ESchemeType, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

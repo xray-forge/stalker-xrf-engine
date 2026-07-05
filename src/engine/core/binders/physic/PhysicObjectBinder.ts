@@ -1,5 +1,6 @@
 import { callback, level, LuabindClass, object_binder } from "xray16";
 import { GameObject, IniFile, NetPacket, NetReader, ServerObject, Vector } from "xray16/alias";
+import { Nillable, TCount, TDuration, TIndex, TNumberId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -21,7 +22,7 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
-import { EScheme, ESchemeEvent, ESchemeType, Nillable, TCount, TDuration, TIndex, TNumberId } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

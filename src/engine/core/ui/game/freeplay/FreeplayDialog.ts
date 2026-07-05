@@ -1,11 +1,11 @@
 import { CUIMessageBoxEx, CUIScriptWnd, LuabindClass, ui_events } from "xray16";
 import { XmlInit } from "xray16/alias";
+import { TLabel } from "xray16/lib";
 
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement } from "@/engine/core/utils/ui";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { TLabel } from "@/engine/lib/types";
 
 /**
  * Class describing dialog shown in the end of game.

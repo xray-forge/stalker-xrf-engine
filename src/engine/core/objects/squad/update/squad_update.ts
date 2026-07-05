@@ -1,12 +1,12 @@
 import { cond, move } from "xray16";
 import { GameObject } from "xray16/alias";
+import { Nillable, TNumberId } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
 import { scriptCaptureMonster, scriptCommandMonster } from "@/engine/core/utils/scheme";
 import { isSquadAction } from "@/engine/core/utils/squad";
-import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param object - Game object in squad to update actions for.

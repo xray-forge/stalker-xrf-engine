@@ -1,7 +1,7 @@
 import { NetPacket, NetProcessor } from "xray16/alias";
+import { IConstructor, TDuration } from "xray16/lib";
 
 import { abort } from "@/engine/core/utils/assertion";
-import { IConstructor, TDuration } from "@/engine/lib/types";
 
 /**
  * Abstract class for core manager implementation.

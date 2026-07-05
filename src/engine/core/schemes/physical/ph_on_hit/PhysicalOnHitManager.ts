@@ -1,4 +1,5 @@
 import { GameObject, Vector } from "xray16/alias";
+import { Nillable, TCount, TIndex } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -6,7 +7,6 @@ import { registry } from "@/engine/core/database";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { Nillable, TCount, TIndex } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

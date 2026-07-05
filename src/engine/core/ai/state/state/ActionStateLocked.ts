@@ -1,7 +1,7 @@
 import { action_base, LuabindClass } from "xray16";
+import { TName } from "xray16/lib";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { TName } from "@/engine/lib/types";
 
 /**
  * Do nothing.

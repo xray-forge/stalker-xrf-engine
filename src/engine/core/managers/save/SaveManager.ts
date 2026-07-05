@@ -1,4 +1,5 @@
 import { NetPacket, NetProcessor } from "xray16/alias";
+import { TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager, initializeManager, registry } from "@/engine/core/database";
@@ -18,7 +19,6 @@ import { WeatherManager } from "@/engine/core/managers/weather";
 import { loadExtension, saveExtension } from "@/engine/core/utils/extensions";
 import { loadDynamicGameSave, saveDynamicGameSave } from "@/engine/core/utils/game_save";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

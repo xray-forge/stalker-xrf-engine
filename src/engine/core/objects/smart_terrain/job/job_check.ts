@@ -1,10 +1,11 @@
+import { AnyObject, TNumberId } from "xray16/lib";
+
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type {
   IObjectJobState,
   ISmartTerrainJobDescriptor,
   TObjectJobsList,
 } from "@/engine/core/objects/smart_terrain/job/job_types";
-import { AnyObject, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check if object can use job.

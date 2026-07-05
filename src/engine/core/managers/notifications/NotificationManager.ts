@@ -1,5 +1,18 @@
 import { clsid, game } from "xray16";
 import { AlifeSimulator, GameObject, GameTask } from "xray16/alias";
+import {
+  AnyObject,
+  Nillable,
+  TCount,
+  TDuration,
+  TLabel,
+  TName,
+  TNumberId,
+  TPath,
+  TSection,
+  TStringId,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
@@ -34,19 +47,6 @@ import { getInventoryNameForItemSectionSafely } from "@/engine/core/utils/captio
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import {
-  AnyObject,
-  Nillable,
-  TCount,
-  TDuration,
-  TLabel,
-  TName,
-  TNumberId,
-  TPath,
-  TSection,
-  TStringId,
-  TTimestamp,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

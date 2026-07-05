@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { hit } from "xray16";
 import { GameObject, Hit } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
@@ -11,7 +12,7 @@ import {
   isObjectPsyWounded,
   setObjectWounded,
 } from "@/engine/core/utils/object/object_wounds";
-import { EScheme, Nillable } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";

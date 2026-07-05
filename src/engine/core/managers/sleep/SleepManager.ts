@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { AnyObject, TDuration } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
@@ -16,7 +17,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { AnyObject, TDuration } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

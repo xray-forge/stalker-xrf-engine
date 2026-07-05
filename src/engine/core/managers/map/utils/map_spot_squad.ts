@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { Nillable, TLabel, TNumberId } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
@@ -11,7 +12,6 @@ import {
 } from "@/engine/core/utils/relation";
 import { isSquadMonsterCommunity } from "@/engine/core/utils/section";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
-import { Nillable, TLabel, TNumberId } from "@/engine/lib/types";
 
 /**
  * Update map spot for squad.

@@ -1,5 +1,6 @@
+import { TLabel, TName } from "xray16/lib";
+
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { TLabel, TName } from "@/engine/lib/types";
 
 /**
  * Descriptor of map marks.

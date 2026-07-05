@@ -1,10 +1,11 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { Nillable } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
-import { EScheme, Nillable } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Evaluator checking whether the object smart cover state is locked and mismatched with the configured cover.

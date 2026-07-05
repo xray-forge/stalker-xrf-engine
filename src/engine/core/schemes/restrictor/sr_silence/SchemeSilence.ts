@@ -1,11 +1,12 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { registry } from "@/engine/core/database";
 import { SilenceManager } from "@/engine/core/schemes/restrictor/sr_silence/SilenceManager";
 import { ISchemeSilenceState } from "@/engine/core/schemes/restrictor/sr_silence/sr_silence_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
+import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme to implement zones where playing dynamic music is restricted.

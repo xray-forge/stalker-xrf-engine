@@ -1,5 +1,6 @@
 import { game_graph, time_global } from "xray16";
 import { GameObject, NetPacket, NetProcessor, ServerObject } from "xray16/alias";
+import { AnyObject, Nillable, TCount, TNumberId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -18,7 +19,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { isCreature } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
-import { AnyObject, Nillable, TCount, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

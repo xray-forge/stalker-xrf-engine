@@ -8,6 +8,18 @@ import {
   ServerPhysicObject,
   Vector,
 } from "xray16/alias";
+import {
+  LuaArray,
+  Nillable,
+  TCount,
+  TDistance,
+  TIndex,
+  TName,
+  TNumberId,
+  TProbability,
+  TRate,
+  TSection,
+} from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
@@ -25,18 +37,6 @@ import { getObjectPositioning } from "@/engine/core/utils/position";
 import { isAmmoSection } from "@/engine/core/utils/section";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import {
-  LuaArray,
-  Nillable,
-  TCount,
-  TDistance,
-  TIndex,
-  TName,
-  TNumberId,
-  TProbability,
-  TRate,
-  TSection,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

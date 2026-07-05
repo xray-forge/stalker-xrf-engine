@@ -1,3 +1,4 @@
+import { LuaArray, Nillable, TStringId } from "xray16/lib";
 import { $fromArray, $fromObject } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
@@ -5,7 +6,6 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { IFormationObjectDescriptor } from "@/engine/core/schemes/stalker/patrol/patrol_types";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { createVector } from "@/engine/core/utils/vector";
-import { LuaArray, Nillable, TStringId } from "@/engine/lib/types";
 
 export const patrolConfig = {
   /**

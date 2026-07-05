@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { AnyCallable, AnyObject } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { AnyCallable, AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 
 describe("EventsManager", () => {

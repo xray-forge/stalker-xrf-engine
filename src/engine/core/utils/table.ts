@@ -1,4 +1,4 @@
-import { AnyObject, LuaArray, Nillable } from "@/engine/lib/types";
+import { AnyObject, LuaArray, Nillable } from "xray16/lib";
 
 /**
  * Check if provided container is empty collection.

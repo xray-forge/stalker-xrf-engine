@@ -6,8 +6,7 @@ import {
   GetFontLetterica18Russian,
   LuabindClass,
 } from "xray16";
-
-import { TLabel, TSize } from "@/engine/lib/types";
+import { TLabel, TSize } from "xray16/lib";
 
 /**
  * Load dialog list item entry.

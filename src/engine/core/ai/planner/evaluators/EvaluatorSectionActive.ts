@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { TName } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { type IBaseSchemeState } from "@/engine/core/database/database_types";
-import { TName } from "@/engine/lib/types";
 
 /**
  * Check whether logics scheme is active.

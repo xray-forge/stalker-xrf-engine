@@ -1,5 +1,6 @@
 import { anim, move } from "xray16";
 import type { GameObject } from "xray16/alias";
+import type { Nillable, TDuration } from "xray16/lib";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import {
@@ -12,7 +13,6 @@ import type { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder
 import type { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import type { Nillable, TDuration } from "@/engine/lib/types";
 
 /**
  * Register stalker binder object.

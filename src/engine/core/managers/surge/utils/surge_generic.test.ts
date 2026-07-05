@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic/SignalLightBinder";
@@ -10,7 +11,6 @@ import {
 } from "@/engine/core/managers/surge/utils/surge_generic";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
-import { TName } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

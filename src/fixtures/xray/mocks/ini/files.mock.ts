@@ -1,6 +1,7 @@
+import { AnyObject, TPath } from "xray16/lib";
+
 import { config as alifeConfig } from "@/engine/configs/alife";
 import { config as forgeConfig } from "@/engine/configs/forge";
-import { AnyObject, TPath } from "@/engine/lib/types";
 import { mockDialogManager } from "@/fixtures/xray/mocks/ini/files/dialog_manager.ltx.mock";
 import { mockDropManager } from "@/fixtures/xray/mocks/ini/files/drop_manager.ltx.mock";
 import { mockGameMapsSingle } from "@/fixtures/xray/mocks/ini/files/game_maps_single.ltx.mock";

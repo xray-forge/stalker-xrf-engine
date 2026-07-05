@@ -1,5 +1,19 @@
 import { flags32, patrol } from "xray16";
 import { Flags32, Patrol } from "xray16/alias";
+import {
+  AnyObject,
+  LuaArray,
+  NIL,
+  Nillable,
+  StringNillable,
+  TCount,
+  TIndex,
+  TName,
+  TPath,
+  TProbability,
+  TRUE,
+  TSection,
+} from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
@@ -13,20 +27,7 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini/ini_types";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { NIL, TRUE } from "@/engine/lib/constants/words";
-import {
-  AnyObject,
-  EScheme,
-  LuaArray,
-  Nillable,
-  StringNillable,
-  TCount,
-  TIndex,
-  TName,
-  TPath,
-  TProbability,
-  TSection,
-} from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Parse list of strings separated by commas and whitespaces.

@@ -1,4 +1,5 @@
 import { game, level } from "xray16";
+import { Nillable, TLabel, TName, TNumberId, TRUE } from "xray16/lib";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
@@ -12,8 +13,6 @@ import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { ERelation } from "@/engine/core/utils/relation";
 import { isEmpty } from "@/engine/core/utils/table";
-import { TRUE } from "@/engine/lib/constants/words";
-import { Nillable, TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Update display of global terrain spots.

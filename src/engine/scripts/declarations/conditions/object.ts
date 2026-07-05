@@ -1,5 +1,18 @@
 import { level, MonsterHitInfo } from "xray16";
 import { AlifeSimulator, AnyGameObject, GameObject, ServerCreatureObject, ServerObject } from "xray16/alias";
+import {
+  AnyArgs,
+  LuaArray,
+  Nillable,
+  TCount,
+  TDistance,
+  TLabel,
+  TName,
+  TNumberId,
+  TRate,
+  TSection,
+  TStringId,
+} from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import {
@@ -50,20 +63,7 @@ import { isPlayingSound } from "@/engine/core/utils/sound";
 import { getObjectSquad, isObjectSquadCommander } from "@/engine/core/utils/squad";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import {
-  AnyArgs,
-  EScheme,
-  LuaArray,
-  Nillable,
-  TCount,
-  TDistance,
-  TLabel,
-  TName,
-  TNumberId,
-  TRate,
-  TSection,
-  TStringId,
-} from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Check if object is snork.

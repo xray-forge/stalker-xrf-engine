@@ -1,4 +1,5 @@
 import { GameObject } from "xray16/alias";
+import { AnyCallable, LuaArray, TCount } from "xray16/lib";
 import { $filename, $fromArray } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -22,7 +23,6 @@ import { helmets } from "@/engine/lib/constants/items/helmets";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { AnyCallable, LuaArray, TCount } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

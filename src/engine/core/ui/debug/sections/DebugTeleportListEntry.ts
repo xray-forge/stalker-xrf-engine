@@ -7,8 +7,7 @@ import {
   LuabindClass,
 } from "xray16";
 import { Vector } from "xray16/alias";
-
-import { TLabel, TNumberId } from "@/engine/lib/types";
+import { TLabel, TNumberId } from "xray16/lib";
 
 /**
  * List entry of teleport options in debug menu.

@@ -1,4 +1,5 @@
 import { GameObject, ServerCreatureObject, Vector } from "xray16/alias";
+import { Nillable, TCount, TNumberId } from "xray16/lib";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ILogicsOverrides, registry } from "@/engine/core/database";
@@ -9,7 +10,6 @@ import { canObjectSelectAsEnemy } from "@/engine/core/schemes/stalker/danger/uti
 import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { Nillable, TCount, TNumberId } from "@/engine/lib/types";
 
 /**
  * Manager deciding whether an object should accept a potential enemy when the combat ignore scheme is active.

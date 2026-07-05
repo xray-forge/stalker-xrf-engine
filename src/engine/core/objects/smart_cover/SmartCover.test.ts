@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { LuaArray, TStringId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SmartCover } from "@/engine/core/objects/smart_cover/SmartCover";
-import { LuaArray, TStringId } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 

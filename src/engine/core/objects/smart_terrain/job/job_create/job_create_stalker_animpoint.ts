@@ -1,3 +1,4 @@
+import { TIndex, TName } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -7,7 +8,6 @@ import type { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerr
 import { smartTerrainConfig } from "@/engine/core/objects/smart_terrain/SmartTerrainConfig";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { TIndex, TName } from "@/engine/lib/types";
 
 /**
  * Create animpoint jobs for stalkers in smart terrain.

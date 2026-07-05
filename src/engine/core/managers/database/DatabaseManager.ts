@@ -1,8 +1,9 @@
+import { AnyObject, LuaArray, TName, TNumberId } from "xray16/lib";
+
 import { getManager, IRegistryObjectState, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getSmartTerrainNameCaption } from "@/engine/core/objects/smart_terrain";
-import { AnyObject, LuaArray, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Manager to handle events related to database/registry storage.

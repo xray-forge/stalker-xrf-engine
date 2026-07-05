@@ -1,5 +1,6 @@
 import { world_property } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
+import { Nillable, TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -8,8 +9,7 @@ import { ActionSearchCorpse } from "@/engine/core/schemes/stalker/corpse_detecti
 import { ISchemeCorpseDetectionState } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { EvaluatorCorpseDetect } from "@/engine/core/schemes/stalker/corpse_detection/evaluators";
 import { readIniBoolean } from "@/engine/core/utils/ini";
-import { Nillable } from "@/engine/lib/types";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
+import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme describing object logics for looting of corpses.

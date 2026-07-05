@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Console, EActorMenuMode, EActorMenuType } from "xray16/alias";
+import { AnyCallable } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
 import { ActorInventoryMenuManager } from "@/engine/core/managers/actor/ActorInventoryMenuManager";
-import { AnyCallable } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockConsole, MockGameObject } from "@/fixtures/xray";
 

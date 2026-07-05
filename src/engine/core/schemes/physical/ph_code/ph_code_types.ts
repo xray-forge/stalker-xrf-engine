@@ -1,6 +1,7 @@
+import type { Nillable, TLabel, TName } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import type { IConfigSwitchConditionsDescriptor, TConditionList } from "@/engine/core/utils/ini";
-import type { Nillable, TLabel, TName } from "@/engine/lib/types";
 
 /**
  * State of code implementing scheme.

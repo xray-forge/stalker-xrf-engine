@@ -1,4 +1,4 @@
-import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
+import { FALSE, NIL, TRUE } from "xray16/lib";
 
 export const meetConfig = {
   /**

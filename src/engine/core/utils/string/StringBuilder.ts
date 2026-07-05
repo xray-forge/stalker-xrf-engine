@@ -1,4 +1,4 @@
-import { LuaArray } from "@/engine/lib/types";
+import { LuaArray } from "xray16/lib";
 
 /**
  * Class to handle large strings building.

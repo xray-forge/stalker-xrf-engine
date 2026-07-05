@@ -1,5 +1,6 @@
+import { Nillable, TCount, TDistance, TName, TRate } from "xray16/lib";
+
 import { IBaseSchemeState } from "@/engine/core/database";
-import { Nillable, TCount, TDistance, TName, TRate } from "@/engine/lib/types";
 
 /**
  * State of helicopter movement schema.

@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { SoundObject } from "xray16/alias";
-
-import { Nillable, TDuration, TRate } from "@/engine/lib/types";
+import { Nillable, TDuration, TRate } from "xray16/lib";
 
 /**
  * Mock generic engine sound object.

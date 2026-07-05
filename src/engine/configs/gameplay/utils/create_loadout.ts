@@ -1,4 +1,4 @@
-import { TCount, TName, TRate, TSection } from "@/engine/lib/types";
+import { TCount, TName, TRate, TSection } from "xray16/lib";
 
 /**
  * Descriptor of generic loadout item.

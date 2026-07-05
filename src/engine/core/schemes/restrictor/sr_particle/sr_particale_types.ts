@@ -1,7 +1,7 @@
 import type { ParticlesObject, SoundObject } from "xray16/alias";
+import type { Nillable, TDuration, TName, TTimestamp } from "xray16/lib";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { Nillable, TDuration, TName, TTimestamp } from "@/engine/lib/types";
 
 /**
  * State describing particles scheme configuration.

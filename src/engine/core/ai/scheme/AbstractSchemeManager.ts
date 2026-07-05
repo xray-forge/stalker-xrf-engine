@@ -1,9 +1,10 @@
 import { GameObject, Vector } from "xray16/alias";
+import { Nillable, TCount, TIndex, TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { ISchemeEventHandler, Nillable, TCount, TIndex, TName } from "@/engine/lib/types";
+import { ISchemeEventHandler } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

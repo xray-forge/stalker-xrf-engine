@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { LuaArray } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { getAvailableExtensions, IExtensionsDescriptor } from "@/engine/core/utils/extensions";
@@ -7,7 +8,6 @@ import {
   saveExtensionsState,
   syncExtensionsState,
 } from "@/engine/core/utils/extensions/extensions_state";
-import { LuaArray } from "@/engine/lib/types";
 import { registerExtensions } from "@/engine/scripts/register/extensions_registrator";
 import { replaceFunctionMockOnce } from "@/fixtures/jest";
 

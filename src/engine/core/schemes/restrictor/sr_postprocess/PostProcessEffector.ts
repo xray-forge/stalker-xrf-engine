@@ -1,7 +1,6 @@
 import { effector, effector_params, LuabindClass } from "xray16";
 import { EffectorParams } from "xray16/alias";
-
-import { TNumberId } from "@/engine/lib/types";
+import { TNumberId } from "xray16/lib";
 
 /**
  * Custom post process effector to intercept and customize parameters from scripts.

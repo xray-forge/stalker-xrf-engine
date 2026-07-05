@@ -1,8 +1,8 @@
 import { LuabindClass, property_evaluator } from "xray16";
 import { GameObject } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator to verify whether object sees enemy.

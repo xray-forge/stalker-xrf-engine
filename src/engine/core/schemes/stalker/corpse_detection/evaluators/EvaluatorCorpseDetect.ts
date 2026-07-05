@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { TNumberId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { setPortableStoreValue } from "@/engine/core/database";
@@ -11,7 +12,6 @@ import { getNearestCorpseToLoot } from "@/engine/core/utils/loot";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_VISUAL_STALKER } from "@/engine/lib/constants/sections";
-import { TNumberId } from "@/engine/lib/types";
 
 /**
  * Evaluator to check whether object can find some corpse to loot and pick items from it.

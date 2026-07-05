@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { LuaArray, TSection } from "xray16/lib";
 
 import {
   getAmmoSections,
@@ -13,7 +14,6 @@ import {
   getWeaponAddonsSections,
   getWeaponSections,
 } from "@/engine/core/utils/ini/ini_sections";
-import { LuaArray, TSection } from "@/engine/lib/types";
 
 describe("getSectionsWithoutStoryIDs util", () => {
   it("should get list of sections without story IDs", () => {

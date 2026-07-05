@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { AnyObject, TName } from "xray16/lib";
 import { MockIoFile } from "xray16/mocks";
 
 import {
@@ -24,7 +25,6 @@ import { TaskManager } from "@/engine/core/managers/tasks";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
-import { AnyObject, TName } from "@/engine/lib/types";
 import { mockExtension, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockNetProcessor } from "@/fixtures/xray";

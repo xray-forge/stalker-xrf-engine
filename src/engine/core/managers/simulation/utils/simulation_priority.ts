@@ -1,11 +1,11 @@
 import { ServerObject } from "xray16/alias";
+import { LuaArray, Nillable, TCount, TIndex, TNumberId, TRate } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { IAvailableSimulationTargetDescriptor, TSimulationObject } from "@/engine/core/managers/simulation";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { areObjectsOnSameLevel, getServerDistanceBetween } from "@/engine/core/utils/position";
-import { LuaArray, Nillable, TCount, TIndex, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * Evaluates simulation priority by distance.

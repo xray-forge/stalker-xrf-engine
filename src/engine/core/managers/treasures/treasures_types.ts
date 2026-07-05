@@ -1,7 +1,7 @@
+import { LuaArray, Nillable, TCount, TNumberId, TProbability, TSection } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { TConditionList } from "@/engine/core/utils/ini";
-import { LuaArray, Nillable, TCount, TNumberId, TProbability, TSection } from "@/engine/lib/types";
 
 /**
  * Descriptor of a group of items contained in a treasure, including their count and spawn probability.

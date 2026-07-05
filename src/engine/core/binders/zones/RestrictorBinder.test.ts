@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, ServerObject } from "xray16/alias";
+import { AnyObject, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { RestrictorBinder } from "@/engine/core/binders/zones/RestrictorBinder";
@@ -10,7 +11,7 @@ import { AbstractPlayableSound } from "@/engine/core/managers/sounds/objects";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
-import { AnyObject, EScheme, ESchemeEvent, ESchemeType, TName } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";

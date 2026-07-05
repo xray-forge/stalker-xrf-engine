@@ -1,15 +1,6 @@
 import { GameObject, IniFile, Time } from "xray16/alias";
-
-import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
-import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
-import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear";
-import { TConditionList } from "@/engine/core/utils/ini";
 import {
   AnyObject,
-  EScheme,
-  ESchemeCondition,
-  ESchemeType,
   LuaArray,
   Nillable,
   TDuration,
@@ -19,7 +10,14 @@ import {
   TSection,
   TStringifiedNil,
   TTimestamp,
-} from "@/engine/lib/types";
+} from "xray16/lib";
+
+import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
+import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
+import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
+import { IActionSchemeHearState } from "@/engine/core/schemes/shared/hear";
+import { TConditionList } from "@/engine/core/utils/ini";
+import { EScheme, ESchemeCondition, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Descriptor of a single parsed scheme logic entry with its condition list and parameters.

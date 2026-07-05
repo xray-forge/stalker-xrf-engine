@@ -1,6 +1,7 @@
 import * as path from "node:path";
 
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { AnyObject } from "xray16/lib";
 
 import { registerActorServer, registerSimulator, registerSmartCover } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
@@ -20,7 +21,6 @@ import {
 } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { range } from "@/engine/core/utils/number";
-import { AnyObject } from "@/engine/lib/types";
 import { MockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { MockAlifeCreatureActor, MockIniFile } from "@/fixtures/xray";
 

@@ -1,4 +1,5 @@
 import { JSXNode, JSXXML } from "jsx-xml";
+import { Nillable, TName } from "xray16/lib";
 
 import { profileVisuals } from "@/engine/configs/gameplay/loadouts/profile_presets";
 import {
@@ -7,7 +8,6 @@ import {
   ILoadoutItemDescriptor,
   ISpawnItemDescriptor,
 } from "@/engine/configs/gameplay/utils/create_loadout";
-import { Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Typing for character descriptor.

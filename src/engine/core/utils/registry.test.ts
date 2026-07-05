@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 import { GameObject, ServerObject, TClassId } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 import { $fromLuaArray } from "xray16/macros";
 
 import { registerActor, registerSimulator } from "@/engine/core/database";
@@ -10,7 +11,6 @@ import {
   getNearestServerObject,
   getServerObjects,
 } from "@/engine/core/utils/registry";
-import { AnyObject } from "@/engine/lib/types";
 import { MockAlifeCreatureActor, MockAlifeObject, MockAlifeSimulator, MockGameObject } from "@/fixtures/xray";
 
 describe("getNearestServerObject util", () => {

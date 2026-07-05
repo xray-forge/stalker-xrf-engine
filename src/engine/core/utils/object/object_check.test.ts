@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 import { GameObject, ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 
 import {
   IRegistryObjectState,
@@ -18,7 +19,6 @@ import {
   isObjectWithKnownInfo,
   isStalkerAlive,
 } from "@/engine/core/utils/object/object_check";
-import { AnyObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockGameObject, MockIniFile } from "@/fixtures/xray";
 

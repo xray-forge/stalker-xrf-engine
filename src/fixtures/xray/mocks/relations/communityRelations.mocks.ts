@@ -1,5 +1,6 @@
+import { TCount, TName, TNumberId } from "xray16/lib";
+
 import { communities } from "@/engine/lib/constants/communities";
-import { TCount, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Mocked community relations registry.

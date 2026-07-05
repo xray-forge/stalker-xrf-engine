@@ -1,9 +1,9 @@
 import { anim, CSightParams, look, move } from "xray16";
+import { TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
 import { EStalkerState, IStateDescriptor } from "@/engine/core/animation/types/state_types";
-import { TName } from "@/engine/lib/types";
 
 /**
  * List of default state descriptors to use in scripts.

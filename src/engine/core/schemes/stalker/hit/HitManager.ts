@@ -1,10 +1,11 @@
 import { GameObject, Vector } from "xray16/alias";
+import { Nillable, TCount, TIndex } from "xray16/lib";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeHitState } from "@/engine/core/schemes/stalker/hit/hit_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { EScheme, Nillable, TCount, TIndex } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Manager of object hit events.

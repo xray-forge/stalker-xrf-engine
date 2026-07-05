@@ -1,5 +1,4 @@
-import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { TLabel, TName } from "@/engine/lib/types";
+import { FALSE, NIL, TLabel, TName, TRUE } from "xray16/lib";
 
 /**
  * @param value - Any data to cast for lua logging.

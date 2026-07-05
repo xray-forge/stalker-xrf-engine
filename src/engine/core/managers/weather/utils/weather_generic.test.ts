@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { TName, TProbability, TSection } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { EWeatherPeriodType, TWeatherGraph } from "@/engine/core/managers/weather";
@@ -12,7 +13,6 @@ import {
   isPreBlowoutWeather,
   isTransitionWeather,
 } from "@/engine/core/managers/weather/utils/weather_generic";
-import { TName, TProbability, TSection } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 
 describe("getPossibleWeathersList util", () => {

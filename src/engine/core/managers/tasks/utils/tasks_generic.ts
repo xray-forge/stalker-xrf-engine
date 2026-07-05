@@ -1,9 +1,9 @@
 import { level } from "xray16";
+import { Nillable, TName, TNumberId, TStringId } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { getObjectIdByStoryId } from "@/engine/core/database";
 import { GUIDERS_BY_LEVEL } from "@/engine/core/managers/tasks/TaskConfig";
-import { Nillable, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Add a map spot for the guider leading from one level to another, marking it as storyline or secondary.

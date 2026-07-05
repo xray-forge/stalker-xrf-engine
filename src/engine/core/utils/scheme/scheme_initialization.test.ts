@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { EGameObjectRelation, GameObject, IniFile, ServerHumanObject } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
@@ -34,7 +35,7 @@ import {
   initializeObjectSectionItems,
 } from "@/engine/core/utils/scheme/scheme_initialization";
 import { loadSchemeImplementations } from "@/engine/core/utils/scheme/scheme_setup";
-import { AnyObject, EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { FILES_MOCKS, MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";

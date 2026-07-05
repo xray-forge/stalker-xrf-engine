@@ -1,4 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { AnyArgs, AnyObject, TName } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { ActorInputManager } from "@/engine/core/managers/actor";
@@ -6,7 +7,6 @@ import { SleepManager } from "@/engine/core/managers/sleep";
 import { taskConfig, TaskObject } from "@/engine/core/managers/tasks";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils";
 import { achievementsPreconditionsMap, EAchievement } from "@/engine/core/utils/achievements";
-import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkNestedBinding, resetRegistry } from "@/fixtures/engine";
 
 function callEngineBinding(name: TName, args: AnyArgs = []): unknown {

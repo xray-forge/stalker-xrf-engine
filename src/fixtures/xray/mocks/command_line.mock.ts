@@ -1,4 +1,4 @@
-import { TLabel } from "@/engine/lib/types";
+import { TLabel } from "xray16/lib";
 
 export function mockCommandLine(): TLabel {
   return "--arg-example";

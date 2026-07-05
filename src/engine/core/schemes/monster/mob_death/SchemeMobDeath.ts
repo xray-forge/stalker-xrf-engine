@@ -1,10 +1,11 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
 import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeathManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme defining logics of how to handle monster death and record information about who killed them.

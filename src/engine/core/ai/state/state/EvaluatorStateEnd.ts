@@ -1,8 +1,8 @@
 import { action_planner, LuabindClass, property_evaluator } from "xray16";
+import { Nillable, TNumberId } from "xray16/lib";
 
 import { COMBAT_ACTION_IDS, EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Evaluator to check when state end action is active.

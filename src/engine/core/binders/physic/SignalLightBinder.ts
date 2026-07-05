@@ -1,5 +1,6 @@
 import { LuabindClass, object_binder, time_global } from "xray16";
 import { NetPacket, NetReader, ServerObject } from "xray16/alias";
+import { MAX_U32, Nillable, TDuration, TTimestamp } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
@@ -12,9 +13,7 @@ import {
   unregisterSignalLight,
 } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { Y_VECTOR } from "@/engine/lib/constants/vectors";
-import { Nillable, TDuration, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

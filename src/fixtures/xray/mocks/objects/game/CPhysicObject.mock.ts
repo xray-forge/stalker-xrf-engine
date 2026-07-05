@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { CPhysicObject } from "xray16";
-
-import { TDuration } from "@/engine/lib/types";
+import { TDuration } from "xray16/lib";
 
 export class MockPhysicObject {
   public static mock(): CPhysicObject {

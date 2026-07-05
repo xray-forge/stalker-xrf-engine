@@ -1,13 +1,13 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CConsole, CUILines, game, get_console, get_hud, StaticDrawableWrapper } from "xray16";
 import { GameHud } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import { getManager, getPortableStoreValue } from "@/engine/core/database";
 import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { createGameAutoSave } from "@/engine/core/utils/game_save";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { Nillable } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockStaticDrawableWrapper } from "@/fixtures/xray";

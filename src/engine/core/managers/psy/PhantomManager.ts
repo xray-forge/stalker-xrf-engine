@@ -1,8 +1,8 @@
 import { level } from "xray16";
 import { Vector } from "xray16/alias";
+import { TCount } from "xray16/lib";
 
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import { TCount } from "@/engine/lib/types";
 
 /**
  * Manager handling phantom spawn count tracking in the game world.

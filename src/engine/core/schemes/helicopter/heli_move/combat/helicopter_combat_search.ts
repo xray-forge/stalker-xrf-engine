@@ -1,11 +1,11 @@
 import { time_global } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
+import { TRate, TTimestamp } from "xray16/lib";
 
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { pickRandom } from "@/engine/core/utils/random";
 import { distanceBetween2d } from "@/engine/core/utils/vector";
-import { TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * @param manager - Instance to initialize.

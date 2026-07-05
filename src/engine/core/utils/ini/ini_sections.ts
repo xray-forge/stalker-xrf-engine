@@ -1,3 +1,5 @@
+import { LuaArray, TSection } from "xray16/lib";
+
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
 import { readIniString } from "@/engine/core/utils/ini/ini_read";
 import {
@@ -8,7 +10,6 @@ import {
   WEAPON_ADDONS_CONFIG_CLASSES,
   WEAPON_CONFIG_CLASSES,
 } from "@/engine/lib/constants/class_ids";
-import { LuaArray, TSection } from "@/engine/lib/types";
 
 /**
  * @param sections - List of sections to check and filter.

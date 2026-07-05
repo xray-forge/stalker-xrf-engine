@@ -1,5 +1,6 @@
 import { get_hud, level } from "xray16";
 import { GameObject } from "xray16/alias";
+import { NIL } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -11,7 +12,6 @@ import {
 } from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { NIL } from "@/engine/lib/constants/words";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "psy" });
 

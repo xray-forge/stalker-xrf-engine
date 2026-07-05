@@ -1,11 +1,11 @@
 import { clsid } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
+import { Nillable, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { Nillable, TSection } from "@/engine/lib/types";
 
 /**
  * Read monster state from provided ini file.

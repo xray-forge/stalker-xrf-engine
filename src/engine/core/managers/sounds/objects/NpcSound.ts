@@ -1,5 +1,19 @@
 import { FS, game, get_hud, getFS, snd_type, sound_object, stalker_ids, time_global } from "xray16";
 import { GameObject, IniFile, NetPacket, NetProcessor, SoundObject } from "xray16/alias";
+import {
+  LuaArray,
+  NIL,
+  Nillable,
+  TCount,
+  TDuration,
+  TIndex,
+  TLabel,
+  TName,
+  TNumberId,
+  TPath,
+  TSection,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -20,20 +34,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { NIL } from "@/engine/lib/constants/words";
-import {
-  LuaArray,
-  Nillable,
-  TCount,
-  TDuration,
-  TIndex,
-  TLabel,
-  TName,
-  TNumberId,
-  TPath,
-  TSection,
-  TTimestamp,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

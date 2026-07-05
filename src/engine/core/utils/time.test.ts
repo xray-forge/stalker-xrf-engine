@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { game, level } from "xray16";
 import { Time } from "xray16/alias";
+import { MAX_I32, MAX_U8, MIN_I32, Nillable } from "xray16/lib";
 
 import {
   deserializeTime,
@@ -13,8 +14,6 @@ import {
   toTimeDigit,
   writeTimeToPacket,
 } from "@/engine/core/utils/time";
-import { MAX_I32, MAX_U8, MIN_I32 } from "@/engine/lib/constants/memory";
-import { Nillable } from "@/engine/lib/types";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";

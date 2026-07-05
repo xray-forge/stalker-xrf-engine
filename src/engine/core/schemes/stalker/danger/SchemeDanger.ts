@@ -1,5 +1,6 @@
 import { cast_planner } from "xray16";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
+import { TSection } from "xray16/lib";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -7,7 +8,7 @@ import { IRegistryObjectState } from "@/engine/core/database";
 import { ISchemeDangerState } from "@/engine/core/schemes/stalker/danger/danger_types";
 import { DangerManager } from "@/engine/core/schemes/stalker/danger/DangerManager";
 import { EvaluatorDanger } from "@/engine/core/schemes/stalker/danger/evaluators";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of handling / checking danger for stalkers.

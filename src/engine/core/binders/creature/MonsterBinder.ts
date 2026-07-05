@@ -1,5 +1,6 @@
 import { callback, clsid, hit, LuabindClass, object_binder } from "xray16";
 import { GameObject, Hit, NetPacket, NetReader, ServerCreatureObject, TSoundType, Vector } from "xray16/alias";
+import { Nillable, TCount, TDuration, TIndex, TLabel, TNumberId, TRate } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -34,18 +35,7 @@ import {
 } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  EScheme,
-  ESchemeEvent,
-  ESchemeType,
-  Nillable,
-  TCount,
-  TDuration,
-  TIndex,
-  TLabel,
-  TNumberId,
-  TRate,
-} from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

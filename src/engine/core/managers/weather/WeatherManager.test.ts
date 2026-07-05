@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { AnyObject, NIL, TName, TProbability } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { disposeManager, getManager } from "@/engine/core/database";
@@ -7,8 +8,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { EWeatherPeriodType, IWeatherState } from "@/engine/core/managers/weather/weather_types";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
-import { NIL } from "@/engine/lib/constants/words";
-import { AnyObject, TName, TProbability } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { getFunctionMock } from "@/fixtures/jest";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";

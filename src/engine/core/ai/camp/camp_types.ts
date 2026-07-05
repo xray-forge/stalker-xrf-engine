@@ -1,5 +1,6 @@
+import type { LuaArray, Nillable, TDuration, TName, TProbability } from "xray16/lib";
+
 import type { CampManager } from "@/engine/core/ai/camp/CampManager";
-import type { LuaArray, Nillable, TDuration, TName, TProbability } from "@/engine/lib/types";
 
 /**
  * Role of object in camp stories.

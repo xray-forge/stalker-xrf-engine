@@ -1,5 +1,6 @@
+import { TName, TNumberId } from "xray16/lib";
+
 import { EStalkerState } from "@/engine/core/animation/types";
-import { TName, TNumberId } from "@/engine/lib/types";
 
 export const patrolConfig = {
   DEFAULT_PATROL_WAIT_TIME: 10_000,

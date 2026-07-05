@@ -1,5 +1,6 @@
 import { action_base, LuabindClass, time_global } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
+import { Nillable, TCount, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -9,7 +10,6 @@ import { combatConfig } from "@/engine/core/schemes/stalker/combat/CombatConfig"
 import { assertDefined } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyVector, vectorRotateY } from "@/engine/core/utils/vector";
-import { Nillable, TCount, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

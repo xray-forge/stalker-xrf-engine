@@ -1,3 +1,4 @@
+import { NIL, Nillable, TNumberId, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { hardResetOfflineObject, IRegistryObjectState, registry } from "@/engine/core/database";
@@ -10,8 +11,6 @@ import { abort } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { setupSmartTerrainObjectJobLogic } from "@/engine/core/utils/scheme/scheme_job";
 import { switchObjectSchemeToSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { NIL } from "@/engine/lib/constants/words";
-import { Nillable, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "job_execution" });
 

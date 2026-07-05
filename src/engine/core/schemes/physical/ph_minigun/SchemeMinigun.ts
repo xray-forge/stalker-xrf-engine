@@ -1,4 +1,5 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { TName, TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { minigunConfig } from "@/engine/core/schemes/physical/ph_minigun/MinigunConfig";
@@ -11,7 +12,7 @@ import {
   readIniString,
   readIniStringAndCondList,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme for physical objects defining minigun.

@@ -1,8 +1,8 @@
+import { TIndex } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TIndex } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

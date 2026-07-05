@@ -1,4 +1,4 @@
-import { Nillable, TNumberId, TTimestamp } from "@/engine/lib/types";
+import { Nillable, TNumberId, TTimestamp } from "xray16/lib";
 
 /**
  * Descriptor of object corpse stored for delayed releasing.

@@ -9,11 +9,11 @@ import {
   ui_events,
 } from "xray16";
 import { TKeyCode, TUIEvent } from "xray16/alias";
+import { TPath } from "xray16/lib";
 
 import { EDebugSection, sectionsMap } from "@/engine/core/ui/debug/debug_types";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { TPath } from "@/engine/lib/types";
 
 const base: TPath = "menu\\debug\\DebugDialog.component";
 

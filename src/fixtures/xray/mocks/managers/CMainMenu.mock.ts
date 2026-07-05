@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import type { CMainMenu } from "xray16";
+import { Nillable } from "xray16/lib";
 
-import { Nillable } from "@/engine/lib/types";
 import { MockLoginManager } from "@/fixtures/xray/mocks/managers/LoginManager.mock";
 
 /**

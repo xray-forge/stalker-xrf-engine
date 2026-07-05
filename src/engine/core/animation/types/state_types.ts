@@ -1,7 +1,4 @@
 import type { TAnimationType, TLookType, TMoveType, TSightType, Vector } from "xray16/alias";
-import { $fromObject } from "xray16/macros";
-
-import type { EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
 import type {
   AnyCallable,
   AnyContextualCallable,
@@ -12,7 +9,10 @@ import type {
   TName,
   TNumberId,
   TTimestamp,
-} from "@/engine/lib/types";
+} from "xray16/lib";
+import { $fromObject } from "xray16/macros";
+
+import type { EWeaponAnimation } from "@/engine/core/animation/types/animation_types";
 
 /**
  * Enumeration of smart cover behaviour states.

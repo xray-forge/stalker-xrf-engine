@@ -1,9 +1,10 @@
 import { JSXNode, JSXXML } from "jsx-xml";
+import { Nullable } from "xray16/lib";
 
 import { normalizeBaseNodeProps } from "#/utils/xml";
 
 import { fonts, TFontId } from "@/engine/lib/constants/fonts";
-import { IBaseXmlNode, IRgbColor, Nullable, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/lib/types";
+import { IBaseXmlNode, IRgbColor, THorizontalTextAlign, TVerticalTextAlign } from "@/engine/lib/types";
 
 export interface IXrTextProps extends IBaseXmlNode {
   tag?: string;

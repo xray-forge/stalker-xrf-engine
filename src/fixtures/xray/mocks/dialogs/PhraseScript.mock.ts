@@ -1,6 +1,5 @@
 import { PhraseScript } from "xray16/alias";
-
-import { Nullable, TName } from "@/engine/lib/types";
+import { Nullable, TName } from "xray16/lib";
 
 /**
  * Mock phrase script entry for game dialogs.

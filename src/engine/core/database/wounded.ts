@@ -1,9 +1,9 @@
 import { GameObject } from "xray16/alias";
+import { TNumberId } from "xray16/lib";
 
 import { setPortableStoreValue } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
-import { TNumberId } from "@/engine/lib/types";
 
 /**
  * Register object as wounded so others can detect it for searching and helping.

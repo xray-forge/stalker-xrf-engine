@@ -1,6 +1,7 @@
 import { EActorMenuMode, Time } from "xray16/alias";
+import { Nillable, TDuration } from "xray16/lib";
 
-import { EActiveItemSlot, Nillable, TDuration } from "@/engine/lib/types";
+import { EActiveItemSlot } from "@/engine/lib/types";
 
 export const actorConfig = {
   ACTOR_MENU_MODE: EActorMenuMode.UNDEFINED as EActorMenuMode,

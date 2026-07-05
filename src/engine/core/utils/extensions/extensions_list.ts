@@ -1,8 +1,8 @@
 import { FS, getFS } from "xray16";
+import { AnyObject, LuaArray, Nillable, TName, TPath } from "xray16/lib";
 
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { roots } from "@/engine/lib/constants/roots";
-import { AnyObject, LuaArray, Nillable, TName, TPath } from "@/engine/lib/types";
 
 /**
  * Get list of possible extension modules.

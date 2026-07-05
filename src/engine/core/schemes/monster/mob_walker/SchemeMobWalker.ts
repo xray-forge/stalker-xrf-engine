@@ -1,4 +1,5 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { TName, TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { getMonsterState } from "@/engine/core/database";
@@ -6,7 +7,7 @@ import { ISchemeMobWalkerState } from "@/engine/core/schemes/monster/mob_walker/
 import { MobWalkerManager } from "@/engine/core/schemes/monster/mob_walker/MobWalkerManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 
 /**
  * Scheme describing simple patrolling over defined paths for monsters.

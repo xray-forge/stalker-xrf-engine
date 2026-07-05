@@ -1,4 +1,17 @@
 import { GameObject, IniFile, ServerObject } from "xray16/alias";
+import {
+  AnyCallable,
+  AnyObject,
+  LuaArray,
+  NIL,
+  Nillable,
+  TCount,
+  TIndex,
+  TName,
+  TProbability,
+  TSection,
+  TStringId,
+} from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { IBaseSchemeLogic, ILogicsOverrides, IRegistryObjectState } from "@/engine/core/database/database_types";
@@ -20,20 +33,8 @@ import {
 import { IConfigCondition, IConfigSwitchCondition, TConditionList } from "@/engine/core/utils/ini/ini_types";
 import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions";
-import { NEVER, NIL } from "@/engine/lib/constants/words";
-import {
-  AnyCallable,
-  AnyObject,
-  ESchemeCondition,
-  LuaArray,
-  Nillable,
-  TCount,
-  TIndex,
-  TName,
-  TProbability,
-  TSection,
-  TStringId,
-} from "@/engine/lib/types";
+import { NEVER } from "@/engine/lib/constants/words";
+import { ESchemeCondition } from "@/engine/lib/types";
 
 /**
  * Parse array of `|` separated condition lists.

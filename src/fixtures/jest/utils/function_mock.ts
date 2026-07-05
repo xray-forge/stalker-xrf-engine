@@ -1,7 +1,6 @@
 import { expect, jest } from "@jest/globals";
 import { Mock } from "jest-mock";
-
-import { AnyCallable } from "@/engine/lib/types";
+import { AnyCallable } from "xray16/lib";
 
 /**
  * Reset hidden mock functions.

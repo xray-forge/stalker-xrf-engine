@@ -9,6 +9,22 @@ import {
   TBloodsuckerVisibilityState,
   Vector,
 } from "xray16/alias";
+import {
+  FALSE,
+  LuaArray,
+  Nillable,
+  Nullable,
+  TCount,
+  TDuration,
+  TIndex,
+  TName,
+  TNumberId,
+  TRate,
+  TRUE,
+  TSection,
+  TStringId,
+  TStringifiedBoolean,
+} from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import {
@@ -57,22 +73,7 @@ import {
 } from "@/engine/core/utils/spawn";
 import { createVector, subVectors } from "@/engine/core/utils/vector";
 import { misc } from "@/engine/lib/constants/items/misc";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import {
-  EScheme,
-  LuaArray,
-  Nillable,
-  Nullable,
-  TCount,
-  TDuration,
-  TIndex,
-  TName,
-  TNumberId,
-  TRate,
-  TSection,
-  TStringId,
-  TStringifiedBoolean,
-} from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

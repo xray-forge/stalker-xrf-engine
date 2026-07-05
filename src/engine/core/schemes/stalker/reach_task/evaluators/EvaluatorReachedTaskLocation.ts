@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { Nillable } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -6,7 +7,6 @@ import { type TSimulationObject } from "@/engine/core/managers/simulation";
 import { type Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator to check whether object has reached task location.

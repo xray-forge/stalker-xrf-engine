@@ -1,9 +1,9 @@
+import { TCount, TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
 import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { TInfoPortion } from "@/engine/lib/constants/info_portions/info_portions";
-import { TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "info_portions", mode: ELuaLoggerMode.DUAL });
 

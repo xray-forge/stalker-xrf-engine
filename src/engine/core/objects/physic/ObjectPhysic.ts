@@ -1,9 +1,9 @@
 import { cse_alife_object_physic, LuabindClass } from "xray16";
+import { Nillable } from "xray16/lib";
 
 import { registerObjectStoryLinks, unregisterStoryLinkByObjectId } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { TreasureManager } from "@/engine/core/managers/treasures";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Generic physic object representation on server side.

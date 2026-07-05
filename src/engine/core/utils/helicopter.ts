@@ -1,8 +1,8 @@
 import { CHelicopter } from "xray16";
 import { GameObject } from "xray16/alias";
+import { Nillable, TRate } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-import { Nillable, TRate } from "@/engine/lib/types";
 
 /**
  * @param helicopter - Helicopter object to check.

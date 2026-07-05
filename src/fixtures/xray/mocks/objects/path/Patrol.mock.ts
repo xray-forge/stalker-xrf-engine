@@ -1,6 +1,6 @@
 import { Flags32, Patrol, Vector } from "xray16/alias";
+import { TCount, TIndex, TName, TNumberId } from "xray16/lib";
 
-import { TCount, TIndex, TName, TNumberId } from "@/engine/lib/types";
 import { MockFlags32 } from "@/fixtures/xray/mocks/objects/Flags32.mock";
 import { IPatrolMock, patrols } from "@/fixtures/xray/mocks/objects/path/patrols";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";

@@ -1,12 +1,13 @@
 import { hit, level } from "xray16";
 import { EGameObjectRelation, GameObject, Hit, Vector } from "xray16/alias";
+import { Nillable, TDistance, TName, TNumberId } from "xray16/lib";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
 import { helpWoundedConfig } from "@/engine/core/schemes/stalker/help_wounded/HelpWoundedConfig";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { MZ_VECTOR } from "@/engine/lib/constants/vectors";
-import { EScheme, Nillable, TDistance, TName, TNumberId } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 /**
  * Gives wounds medication for target object to heal up.

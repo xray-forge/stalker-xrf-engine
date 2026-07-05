@@ -1,5 +1,6 @@
+import type { AnyObject, Nillable, TIndex } from "xray16/lib";
+
 import type { EStalkerState } from "@/engine/core/animation/types/state_types";
-import type { AnyObject, Nillable, TIndex } from "@/engine/lib/types";
 
 /**
  * Waypoint arrival type.

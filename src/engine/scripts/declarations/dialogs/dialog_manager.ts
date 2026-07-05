@@ -1,5 +1,6 @@
 import { game } from "xray16";
 import { GameObject, PhraseDialog } from "xray16/alias";
+import { Nillable, TName, TNumberId, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -14,7 +15,6 @@ import { getObjectCommunity } from "@/engine/core/utils/community";
 import { getNpcSpeaker } from "@/engine/core/utils/dialog";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain } from "@/engine/core/utils/position";
-import { Nillable, TName, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

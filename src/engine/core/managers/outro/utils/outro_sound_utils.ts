@@ -1,4 +1,4 @@
-import { TRate } from "@/engine/lib/types";
+import { TRate } from "xray16/lib";
 
 /**
  * Calculate interpolated sound fade volume for a progress factor, clamped between the two fade volumes.

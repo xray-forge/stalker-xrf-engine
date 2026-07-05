@@ -1,5 +1,6 @@
 import { particles_object, patrol, time_global } from "xray16";
 import { ParticlesObject, Patrol, Vector } from "xray16/alias";
+import { LuaArray, Nillable, TCount, TName, TTimestamp } from "xray16/lib";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { particleConfig } from "@/engine/core/schemes/restrictor/sr_particle/ParticleConfig";
@@ -11,7 +12,6 @@ import {
 import { abort } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointsData } from "@/engine/core/utils/ini";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { LuaArray, Nillable, TCount, TName, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Manager handling particle scheme behaviour for a restrictor zone.

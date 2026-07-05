@@ -1,4 +1,5 @@
 import { GameObject, ZoneCampfire } from "xray16/alias";
+import { Nillable, TName, TNumberId } from "xray16/lib";
 
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
@@ -7,7 +8,6 @@ import { registerZone, unregisterZone } from "@/engine/core/database/zones";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { isEmpty } from "@/engine/core/utils/table";
-import { Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Register smart terrain object.

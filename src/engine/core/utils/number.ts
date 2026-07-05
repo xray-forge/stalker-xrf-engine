@@ -1,4 +1,4 @@
-import { TIndex } from "@/engine/lib/types";
+import { TIndex } from "xray16/lib";
 
 /**
  * Clamp number to limits.

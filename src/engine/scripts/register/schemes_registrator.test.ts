@@ -1,7 +1,7 @@
 import { describe, it } from "@jest/globals";
+import { NIL } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
-import { NIL } from "@/engine/lib/constants/words";
 import { EScheme } from "@/engine/lib/types";
 import { registerSchemes } from "@/engine/scripts/register/schemes_registrator";
 

@@ -1,4 +1,5 @@
 import { GameObject, IniFile } from "xray16/alias";
+import { TSection } from "xray16/lib";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
@@ -10,7 +11,7 @@ import {
   readIniConditionList,
   readIniString,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
+import { EScheme, ESchemeType } from "@/engine/lib/types/scheme";
 
 /**
  * Scheme implementing door logics for physical objects.

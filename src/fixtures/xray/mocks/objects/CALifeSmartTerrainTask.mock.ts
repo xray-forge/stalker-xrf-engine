@@ -1,6 +1,6 @@
 import type { Vector } from "xray16/alias";
+import type { TName, TNumberId } from "xray16/lib";
 
-import type { TName, TNumberId } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**

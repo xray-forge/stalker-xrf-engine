@@ -1,6 +1,6 @@
 /* eslint sort-keys-fix/sort-keys-fix: "error" */
 
-import type { TName } from "@/engine/lib/types";
+import type { TName } from "xray16/lib";
 
 /**
  * List of available pistol sections.

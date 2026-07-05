@@ -6,8 +6,7 @@ import {
   GetFontLetterica18Russian,
   LuabindClass,
 } from "xray16";
-
-import { TSection } from "@/engine/lib/types";
+import { TSection } from "xray16/lib";
 
 /**
  * List item describing game item in items debugging section.

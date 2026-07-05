@@ -1,5 +1,6 @@
 import { CUI3tButton, CUICheckButton, CUIStatic, level, LuabindClass, ui_events } from "xray16";
 import { GameObject } from "xray16/alias";
+import { NIL, Nillable, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -24,8 +25,6 @@ import {
 } from "@/engine/core/utils/relation";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { NIL } from "@/engine/lib/constants/words";
-import { Nillable, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugObjectSection.component";

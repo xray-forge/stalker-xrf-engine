@@ -1,5 +1,17 @@
 import { time_global } from "xray16";
 import { AlifeSimulator, GameObject, IniFile, NetPacket, NetProcessor, ServerObject } from "xray16/alias";
+import {
+  AnyObject,
+  LuaArray,
+  Nillable,
+  TCount,
+  TName,
+  TNumberId,
+  TProbability,
+  TRUE,
+  TStringId,
+  TTimestamp,
+} from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -20,18 +32,6 @@ import { assert } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { SECRET_SECTION } from "@/engine/lib/constants/sections";
-import { TRUE } from "@/engine/lib/constants/words";
-import {
-  AnyObject,
-  LuaArray,
-  Nillable,
-  TCount,
-  TName,
-  TNumberId,
-  TProbability,
-  TStringId,
-  TTimestamp,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

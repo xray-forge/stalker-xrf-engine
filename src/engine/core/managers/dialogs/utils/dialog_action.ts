@@ -1,7 +1,7 @@
+import { TNumberId, TRUE, TStringId } from "xray16/lib";
+
 import { TPhrasesAvailableMap, TPhrasesPriorityMap } from "@/engine/core/managers/dialogs";
 import { setPhraseHighestPriority } from "@/engine/core/managers/dialogs/utils/dialog_priority";
-import { TRUE } from "@/engine/lib/constants/words";
-import { TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Mark a phrase as told for the object, raising its priority to the highest when it is a once-only phrase.

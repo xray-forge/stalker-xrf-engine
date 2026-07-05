@@ -1,12 +1,11 @@
 import { GameObject } from "xray16/alias";
+import { LuaArray, NIL, Nillable, TCount, TIndex, TRate, TRUE, TSection } from "xray16/lib";
 import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { getStateIndexByHp } from "@/engine/core/schemes/stalker/wounded/utils/wounded_parse";
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
-import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { type LuaArray, Nillable, TCount, TIndex, TRate, TSection } from "@/engine/lib/types";
 
 /**
  * Process object wounded condition lists for HP based on whether actor sees object or not.

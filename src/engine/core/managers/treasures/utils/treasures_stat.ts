@@ -1,5 +1,6 @@
+import { TCount } from "xray16/lib";
+
 import { treasureConfig } from "@/engine/core/managers/treasures/TreasureConfig";
-import { TCount } from "@/engine/lib/types";
 
 /**
  * @returns Count of all in-game treasures.

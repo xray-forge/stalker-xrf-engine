@@ -1,5 +1,6 @@
 import { game, level, time_global } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
+import { LuaArray, NIL, Nillable, TDistance, TDuration, TName, TNumberId, TSection, TTimestamp } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
 import { IBaseSchemeLogic, IBaseSchemeState, IRegistryObjectState, registry } from "@/engine/core/database";
@@ -10,20 +11,7 @@ import { isActorSeenByObject } from "@/engine/core/utils/object/object_check";
 import { getDistanceBetween, isObjectInZone } from "@/engine/core/utils/position";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
 import { activateSchemeBySection } from "@/engine/core/utils/scheme/scheme_logic";
-import { NIL } from "@/engine/lib/constants/words";
-import {
-  EScheme,
-  ESchemeCondition,
-  ESchemeEvent,
-  LuaArray,
-  Nillable,
-  TDistance,
-  TDuration,
-  TName,
-  TNumberId,
-  TSection,
-  TTimestamp,
-} from "@/engine/lib/types";
+import { EScheme, ESchemeCondition, ESchemeEvent } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 

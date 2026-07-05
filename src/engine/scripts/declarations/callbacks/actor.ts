@@ -1,11 +1,11 @@
 import { GameObject, PhraseDialog } from "xray16/alias";
+import { TLabel, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { TravelManager } from "@/engine/core/managers/travel";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TLabel, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,5 +1,6 @@
 import { level, relation_registry } from "xray16";
 import { GameObject, ServerCreatureObject } from "xray16/alias";
+import { Nillable, TCount, TNumberId, TStringId } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { getServerObjectByStoryId, registry } from "@/engine/core/database";
@@ -10,7 +11,6 @@ import { clamp } from "@/engine/core/utils/number";
 import { EGoodwill, ERelation, mapRelationToGoodwill } from "@/engine/core/utils/relation/relation_types";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { Nillable, TCount, TNumberId, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

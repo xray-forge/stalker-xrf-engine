@@ -1,6 +1,5 @@
 import { task } from "xray16";
-
-import { MAX_U16 } from "@/engine/lib/constants/memory";
+import { MAX_U16 } from "xray16/lib";
 
 /**
  * Task state enumeration mock.

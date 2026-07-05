@@ -1,6 +1,7 @@
+import { LuaArray, Nillable, TDistance, TIndex, TRate } from "xray16/lib";
+
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded/wounded_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { LuaArray, Nillable, TDistance, TIndex, TRate } from "@/engine/lib/types";
 
 /**
  * Parse serialized string as wounded state descriptors list.

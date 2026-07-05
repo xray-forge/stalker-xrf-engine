@@ -1,6 +1,7 @@
+import { Nillable, TStringId } from "xray16/lib";
+
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { StoryManager } from "@/engine/core/managers/sounds/stories";
-import { Nillable, TStringId } from "@/engine/lib/types";
 
 /**
  * @returns Manager singleton for provided identifier (camp, squad, object etc).

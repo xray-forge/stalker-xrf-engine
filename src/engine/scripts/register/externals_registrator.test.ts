@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
+import { AnyCallable } from "xray16/lib";
 
 import { getExtern } from "@/engine/core/utils/binding";
-import { AnyCallable } from "@/engine/lib/types";
 import { registerExternals } from "@/engine/scripts/register/externals_registrator";
 
 describe("extrnals_registrator entry point", () => {

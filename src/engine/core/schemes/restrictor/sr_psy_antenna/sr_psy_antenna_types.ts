@@ -1,5 +1,6 @@
+import type { TName, TProbability, TRate } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { TName, TProbability, TRate } from "@/engine/lib/types";
 
 /**
  * State of psy antenna scheme.

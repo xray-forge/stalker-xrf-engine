@@ -1,9 +1,9 @@
 import { jest } from "@jest/globals";
 import { ServerCreatureObject, ServerGroupObject, ServerSquadMemberDescriptor } from "xray16/alias";
+import { Nullable, TCount, TIndex, TNumberId } from "xray16/lib";
 
 import type { TConditionList } from "@/engine/core/utils/ini";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { Nullable, TCount, TIndex, TNumberId } from "@/engine/lib/types";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { MockAlifeDynamicObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object.mock";

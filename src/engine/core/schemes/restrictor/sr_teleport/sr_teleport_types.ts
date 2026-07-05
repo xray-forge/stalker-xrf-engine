@@ -1,5 +1,6 @@
+import type { LuaArray, TDuration, TName, TProbability } from "xray16/lib";
+
 import type { IBaseSchemeState } from "@/engine/core/database/database_types";
-import type { LuaArray, TDuration, TName, TProbability } from "@/engine/lib/types";
 
 /**
  * Teleport state.

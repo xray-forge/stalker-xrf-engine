@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { FALSE, Nillable, TIndex, TNumberId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -12,8 +13,6 @@ import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cuts
 import { isBlackScreen } from "@/engine/core/utils/game";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { FALSE } from "@/engine/lib/constants/words";
-import { Nillable, TIndex, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

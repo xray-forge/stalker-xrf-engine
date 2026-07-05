@@ -1,8 +1,7 @@
 import { jest } from "@jest/globals";
 import { CTime } from "xray16";
 import { Time } from "xray16/alias";
-
-import { TTimestamp } from "@/engine/lib/types";
+import { TTimestamp } from "xray16/lib";
 
 /**
  * Mock CTime object.

@@ -1,4 +1,16 @@
 import { EGameObjectRelation, GameObject, ServerCreatureObject } from "xray16/alias";
+import {
+  AnyCallable,
+  AnyCallablesModule,
+  AnyObject,
+  LuaArray,
+  Nillable,
+  PartialRecord,
+  TCount,
+  TIndex,
+  TName,
+  TSection,
+} from "xray16/lib";
 import { $filename, $fromArray, $fromObject } from "xray16/macros";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
@@ -31,18 +43,6 @@ import { misc } from "@/engine/lib/constants/items/misc";
 import { outfits } from "@/engine/lib/constants/items/outfits";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import {
-  AnyCallable,
-  AnyCallablesModule,
-  AnyObject,
-  LuaArray,
-  Nillable,
-  PartialRecord,
-  TCount,
-  TIndex,
-  TName,
-  TSection,
-} from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

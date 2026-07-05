@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
-
-import { TName } from "@/engine/lib/types";
+import { TName } from "xray16/lib";
 
 /**
  * Mock of particles handling objects.

@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
+import { TNumberId } from "xray16/lib";
 
-import { TNumberId } from "@/engine/lib/types";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 /**

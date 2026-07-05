@@ -1,7 +1,7 @@
 import { GameObject } from "xray16/alias";
+import { Nillable, TDistance, TDuration, TRate } from "xray16/lib";
 
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
-import { Nillable, TDistance, TDuration, TRate } from "@/engine/lib/types";
 
 /**
  * If value >= visiblity_threshold then object is considered visible.

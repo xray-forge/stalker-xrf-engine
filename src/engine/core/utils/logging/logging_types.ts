@@ -1,4 +1,4 @@
-import { TPath } from "@/engine/lib/types";
+import { TPath } from "xray16/lib";
 
 /**
  * Type of logging format.

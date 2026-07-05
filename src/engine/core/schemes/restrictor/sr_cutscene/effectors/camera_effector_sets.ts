@@ -1,11 +1,10 @@
+import { FALSE, TName } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import {
   ICameraEffectorSetDescriptorItem,
   TCamEffectorSetDescriptor,
 } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
-import { FALSE } from "@/engine/lib/constants/words";
-import { TName } from "@/engine/lib/types";
 
 export const pri_a15_cameffector: TCamEffectorSetDescriptor = {
   start: new LuaTable(),

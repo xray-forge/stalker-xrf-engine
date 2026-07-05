@@ -1,6 +1,5 @@
 import type { ProfileTimer } from "xray16/alias";
-
-import type { TCount } from "@/engine/lib/types";
+import type { TCount } from "xray16/lib";
 
 export interface IProfileSnapshotDescriptor {
   count: TCount;

@@ -1,9 +1,9 @@
 import { patrol } from "xray16";
 import { Patrol, ServerObject } from "xray16/alias";
+import { LuaArray, Nillable, TIndex, TName, TSection } from "xray16/lib";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { registry } from "@/engine/core/database";
-import { LuaArray, Nillable, TIndex, TName, TSection } from "@/engine/lib/types";
 
 /**
  * @param name - Name of anomaly zone to check.

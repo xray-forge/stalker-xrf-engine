@@ -1,10 +1,10 @@
 import { anim, move } from "xray16";
 import { GameObject } from "xray16/alias";
+import { Nillable } from "xray16/lib";
 
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { isSquad } from "@/engine/core/utils/class_ids";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Handle object reach target movement type and animation psychic state.

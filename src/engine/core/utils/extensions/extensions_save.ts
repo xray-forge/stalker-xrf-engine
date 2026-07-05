@@ -1,9 +1,9 @@
+import { AnyObject } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { AnyObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,5 +1,6 @@
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
+import { LuaArray, MAX_U32, Nillable, TDistance, TRUE } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -11,9 +12,6 @@ import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Nillable, TDistance } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

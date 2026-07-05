@@ -4,11 +4,11 @@ import * as path from "node:path";
 import { jest } from "@jest/globals";
 import { parse } from "ini";
 import { IniFile } from "xray16/alias";
+import { AnyObject, TName, TNumberId, TPath, TSection } from "xray16/lib";
 
 import { GAME_DATA_LTX_CONFIGS_DIR } from "#/globals";
 import { normalizeParameterPath } from "#/utils/fs/normalize_parameter_path";
 
-import { AnyObject, TName, TNumberId, TPath, TSection } from "@/engine/lib/types";
 import { FILES_MOCKS } from "@/fixtures/xray/mocks/ini/files.mock";
 
 /**

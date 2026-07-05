@@ -1,11 +1,12 @@
 import { action_base, LuabindClass, move } from "xray16";
+import { TName } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { registry } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EScheme, TName } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

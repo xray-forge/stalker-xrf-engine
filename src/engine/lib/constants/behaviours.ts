@@ -1,7 +1,7 @@
+import { PartialRecord } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
-import { PartialRecord } from "@/engine/lib/types";
 
 /**
  * Communities behaviour aggregation based on faction.

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { AnyObject } from "xray16/lib";
 
 import { registry } from "@/engine/core/database";
 import { ActorInputManager, ActorInventoryMenuManager } from "@/engine/core/managers/actor";
@@ -27,7 +28,6 @@ import { TravelManager } from "@/engine/core/managers/travel";
 import { TreasureManager } from "@/engine/core/managers/treasures";
 import { UpgradesManager } from "@/engine/core/managers/upgrades";
 import { WeatherManager } from "@/engine/core/managers/weather";
-import { AnyObject } from "@/engine/lib/types";
 import { registerManagers } from "@/engine/scripts/register/managers_registrator";
 import { resetRegistry } from "@/fixtures/engine";
 

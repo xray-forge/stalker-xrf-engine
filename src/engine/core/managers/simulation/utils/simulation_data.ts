@@ -1,8 +1,9 @@
+import { LuaArray, Nillable, TCount, TName, TNumberId } from "xray16/lib";
+
 import { ISmartTerrainDescriptor } from "@/engine/core/managers/simulation";
 import { simulationConfig } from "@/engine/core/managers/simulation/SimulationConfig";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
-import { LuaArray, Nillable, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Get squads participating in simulation.

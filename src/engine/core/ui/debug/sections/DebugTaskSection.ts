@@ -8,6 +8,7 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { Nillable, TCount, TLabel, TName, TPath, TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
@@ -18,7 +19,6 @@ import { isGameStarted } from "@/engine/core/utils/game";
 import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { Nillable, TCount, TLabel, TName, TPath, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugTaskSection.component";

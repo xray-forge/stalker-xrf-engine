@@ -1,9 +1,9 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { Nillable } from "xray16/lib";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
 import { EWeaponAnimation } from "@/engine/core/animation/types";
-import { Nillable } from "@/engine/lib/types";
 
 /**
  * Whether weapon should be in hands.

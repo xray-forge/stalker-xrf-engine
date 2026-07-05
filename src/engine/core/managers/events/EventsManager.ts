@@ -1,8 +1,9 @@
+import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Nillable, TCount } from "xray16/lib";
+
 import { getManager } from "@/engine/core/database";
 import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTimersManager";
 import { EGameEvent } from "@/engine/core/managers/events/events_types";
 import { assert } from "@/engine/core/utils/assertion";
-import { AnyArgs, AnyCallable, AnyContextualCallable, AnyObject, Nillable, TCount } from "@/engine/lib/types";
 
 /**
  * Descriptor of event subscriptions list.

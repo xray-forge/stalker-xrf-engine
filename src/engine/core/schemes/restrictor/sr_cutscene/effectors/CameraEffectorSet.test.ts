@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { FALSE, TRUE } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import {
@@ -11,7 +12,6 @@ import {
 import { CameraEffectorSet } from "@/engine/core/schemes/restrictor/sr_cutscene/effectors/CameraEffectorSet";
 import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cutscene/utils/cutscene_utils";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";

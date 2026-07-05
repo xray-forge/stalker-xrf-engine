@@ -1,11 +1,11 @@
 import { action_base, LuabindClass } from "xray16";
+import { TNumberId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { setStalkerState } from "@/engine/core/database";
 import { ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

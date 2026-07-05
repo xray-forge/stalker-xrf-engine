@@ -1,4 +1,5 @@
 import { GameObject } from "xray16/alias";
+import { AnyObject } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
@@ -10,7 +11,6 @@ import {
   updateSleepZonesDisplay,
   updateTerrainsMapSpotDisplay,
 } from "@/engine/core/managers/map/utils";
-import { AnyObject } from "@/engine/lib/types";
 
 /**
  * Manager handling display of objects on game map in PDA.

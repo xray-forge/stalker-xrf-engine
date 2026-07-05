@@ -1,3 +1,4 @@
+import { TStringId } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -8,7 +9,6 @@ import { emitCutsceneEndedEvent } from "@/engine/core/schemes/restrictor/sr_cuts
 import { achievementsPreconditionsMap } from "@/engine/core/utils/achievements";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

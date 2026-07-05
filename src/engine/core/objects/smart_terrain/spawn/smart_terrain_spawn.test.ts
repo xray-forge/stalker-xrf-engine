@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
+import { FALSE, Nillable, TRUE } from "xray16/lib";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import {
@@ -14,8 +15,6 @@ import {
 } from "@/engine/core/objects/smart_terrain/spawn/smart_terrain_spawn";
 import { Squad } from "@/engine/core/objects/squad";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { FALSE, TRUE } from "@/engine/lib/constants/words";
-import { Nillable } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockCTime, MockIniFile } from "@/fixtures/xray";
 
