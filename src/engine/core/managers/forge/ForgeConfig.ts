@@ -26,7 +26,7 @@ export const forgeConfig = {
     IS_LOG_ENABLED: readIniBoolean(FORGE_CONFIG_LTX, "debug", "log_enabled", true),
     IS_PROFILING_ENABLED: readIniBoolean(FORGE_CONFIG_LTX, "debug", "profiling_enabled", true),
     IS_SIMULATION_ENABLED: readIniBoolean(FORGE_CONFIG_LTX, "debug", "simulation_enabled", true),
-    IS_RESOLVE_LOG_ENABLED: true,
+    IS_RESOLVE_LOG_ENABLED: readIniBoolean(FORGE_CONFIG_LTX, "debug", "resolve_log_enabled", true),
     IS_SEPARATE_LUA_LOG_ENABLED: readIniBoolean(FORGE_CONFIG_LTX, "debug", "separate_lua_log_enabled", true),
   },
 };
