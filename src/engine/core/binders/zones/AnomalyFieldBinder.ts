@@ -1,7 +1,7 @@
 import { LuabindClass, object_binder } from "xray16";
+import { ServerObject } from "xray16/alias";
 
 import { registerAnomalyField, resetObject, unregisterAnomalyField } from "@/engine/core/database";
-import { ServerObject } from "@/engine/lib/types";
 
 /**
  * Binder of anomaly field game object.

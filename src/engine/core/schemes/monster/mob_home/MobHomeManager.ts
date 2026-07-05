@@ -1,4 +1,5 @@
 import { patrol } from "xray16";
+import { Patrol, ServerCreatureObject } from "xray16/alias";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -9,7 +10,7 @@ import { mobHomeConfig } from "@/engine/core/schemes/monster/mob_home/MobHomeCon
 import { assert } from "@/engine/core/utils/assertion";
 import { IWaypointData, parseWaypointData } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { Nillable, Patrol, ServerCreatureObject, TDistance, TName, TNumberId } from "@/engine/lib/types";
+import { Nillable, TDistance, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

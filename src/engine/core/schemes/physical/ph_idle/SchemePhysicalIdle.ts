@@ -1,3 +1,5 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalIdleState } from "@/engine/core/schemes/physical/ph_idle/ph_idle_types";
 import { PhysicalIdleManager } from "@/engine/core/schemes/physical/ph_idle/PhysicalIdleManager";
@@ -8,7 +10,7 @@ import {
   readIniConditionList,
   readIniString,
 } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme to manage idle state of items.

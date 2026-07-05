@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { ActionPlanner, GameObject } from "xray16/alias";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
@@ -15,7 +16,7 @@ import {
   isObjectSearchingCorpse,
   isObjectWounded,
 } from "@/engine/core/utils/planner";
-import { ActionPlanner, EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";

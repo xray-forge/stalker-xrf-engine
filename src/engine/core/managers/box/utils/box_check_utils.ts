@@ -1,5 +1,6 @@
+import { GameObject } from "xray16/alias";
+
 import { boxConfig } from "@/engine/core/managers/box/BoxConfig";
-import { GameObject } from "@/engine/lib/types";
 
 /**
  * @param object - Game object to check.

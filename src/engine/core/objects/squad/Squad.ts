@@ -1,4 +1,5 @@
 import { CALifeSmartTerrainTask, cse_alife_online_offline_group, LuabindClass } from "xray16";
+import { ALifeSmartTerrainTask, GameObject, NetPacket, ServerCreatureObject, ServerObject, Vector } from "xray16/alias";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import {
@@ -57,22 +58,7 @@ import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import {
-  ALifeSmartTerrainTask,
-  GameObject,
-  LuaArray,
-  NetPacket,
-  Nillable,
-  ServerCreatureObject,
-  ServerObject,
-  StringNillable,
-  TCount,
-  TIndex,
-  TName,
-  TNumberId,
-  TRate,
-  Vector,
-} from "@/engine/lib/types";
+import { LuaArray, Nillable, StringNillable, TCount, TIndex, TName, TNumberId, TRate } from "@/engine/lib/types";
 import { TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);

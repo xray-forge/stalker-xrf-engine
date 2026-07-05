@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { vector, vector2 } from "xray16";
+import { Vector } from "xray16/alias";
 
 import {
   addVectors,
@@ -24,7 +25,6 @@ import {
   yawDegree,
   yawDegree3d,
 } from "@/engine/core/utils/vector";
-import { Vector } from "@/engine/lib/types";
 import { MockVector, MockVector2D } from "@/fixtures/xray";
 
 describe("createEmptyVector util", () => {

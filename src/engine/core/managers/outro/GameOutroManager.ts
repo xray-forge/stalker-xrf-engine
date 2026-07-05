@@ -1,4 +1,5 @@
 import { game, get_hud, sound_object } from "xray16";
+import { ESoundObjectType, SoundObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -11,7 +12,7 @@ import { getExtern } from "@/engine/core/utils/binding";
 import { disconnectFromGame } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
-import { AnyCallablesModule, AnyObject, ESoundObjectType, Nillable, SoundObject } from "@/engine/lib/types";
+import { AnyCallablesModule, AnyObject, Nillable } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

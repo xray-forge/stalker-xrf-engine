@@ -1,9 +1,11 @@
+import { ActionPlanner, GameObject } from "xray16/alias";
+
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, EScheme, GameObject, Nillable, TNumberId } from "@/engine/lib/types";
+import { EScheme, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param objectId - Target object id to check state.

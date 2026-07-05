@@ -1,3 +1,4 @@
+import { NetPacket, ServerObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { calculateObjectVisibility, selectBestStalkerWeapon } from "@/engine/core/ai/combat";
@@ -12,7 +13,7 @@ import { SaveManager } from "@/engine/core/managers/save";
 import { TradeManager } from "@/engine/core/managers/trade";
 import { extern } from "@/engine/core/utils/binding";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { NetPacket, ServerObject, TName, TNumberId } from "@/engine/lib/types";
+import { TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

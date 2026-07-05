@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { registerObject, registerStoryLink } from "@/engine/core/database";
 import { updateSleepZonesDisplay } from "@/engine/core/managers/map/utils/map_spot_sleep";
-import { GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

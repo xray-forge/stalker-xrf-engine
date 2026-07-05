@@ -1,4 +1,5 @@
 import { callback, clsid, game, time_global } from "xray16";
+import { GameObject, IniFile } from "xray16/alias";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
@@ -34,7 +35,7 @@ import {
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
 import { NIL } from "@/engine/lib/constants/words";
-import { EScheme, ESchemeEvent, ESchemeType, GameObject, IniFile, Nillable, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent, ESchemeType, Nillable, TName, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "scheme" });
 

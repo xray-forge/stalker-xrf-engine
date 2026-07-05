@@ -1,4 +1,5 @@
 import { actor_stats } from "xray16";
+import { NetPacket, NetProcessor } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -8,7 +9,7 @@ import { simulationConfig } from "@/engine/core/managers/simulation/SimulationCo
 import { destroySimulationData, initializeDefaultSimulationSquads } from "@/engine/core/managers/simulation/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AnyObject, NetPacket, NetProcessor } from "@/engine/lib/types";
+import { AnyObject } from "@/engine/lib/types";
 
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });
 

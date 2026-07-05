@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject, IniFile } from "xray16/alias";
 
 import { registerObject } from "@/engine/core/database";
 import { MinigunManager } from "@/engine/core/schemes/physical/ph_minigun/MinigunManager";
@@ -6,7 +7,6 @@ import { ISchemeMinigunState } from "@/engine/core/schemes/physical/ph_minigun/p
 import { SchemeMinigun } from "@/engine/core/schemes/physical/ph_minigun/SchemeMinigun";
 import { getConfigSwitchConditions, parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { GameObject, IniFile } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, mockBaseSchemeLogic } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

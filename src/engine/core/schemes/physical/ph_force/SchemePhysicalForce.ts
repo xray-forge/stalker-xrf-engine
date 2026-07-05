@@ -1,11 +1,12 @@
 import { patrol } from "xray16";
+import { GameObject, IniFile, Patrol } from "xray16/alias";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalForceState } from "@/engine/core/schemes/physical/ph_force/ph_force_types";
 import { PhysicalForceManager } from "@/engine/core/schemes/physical/ph_force/PhysicalForceManager";
 import { abort } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, readIniNumber, readIniString } from "@/engine/core/utils/ini";
-import { EScheme, ESchemeType, GameObject, IniFile, Patrol, TIndex, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TIndex, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme implementing logics of scripted for usage to physical objects.

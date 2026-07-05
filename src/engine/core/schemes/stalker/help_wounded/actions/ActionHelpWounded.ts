@@ -1,4 +1,5 @@
 import { action_base, LuabindClass } from "xray16";
+import { EGameObjectPath, Vector } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -8,7 +9,7 @@ import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_woun
 import { freeSelectedWoundedStalkerSpot } from "@/engine/core/schemes/stalker/help_wounded/utils";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
-import { EGameObjectPath, Nillable, TNumberId, Vector } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

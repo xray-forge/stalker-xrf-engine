@@ -1,3 +1,4 @@
+import { IniFile } from "xray16/alias";
 import { $filename, $fromObject } from "xray16/macros";
 
 import { assert } from "@/engine/core/utils/assertion";
@@ -6,7 +7,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getTableKeys } from "@/engine/core/utils/table";
 import { levels, TLevel } from "@/engine/lib/constants/levels";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { IniFile, LuaArray, Nillable, TName, TNumberId } from "@/engine/lib/types";
+import { LuaArray, Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 const log: LuaLogger = new LuaLogger($filename);
 

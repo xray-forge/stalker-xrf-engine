@@ -1,3 +1,5 @@
+import { GameObject, IniFile, Time } from "xray16/alias";
+
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -8,12 +10,9 @@ import {
   EScheme,
   ESchemeCondition,
   ESchemeType,
-  GameObject,
-  IniFile,
   LuaArray,
   Nillable,
   TDuration,
-  Time,
   TName,
   TNumberId,
   TRate,

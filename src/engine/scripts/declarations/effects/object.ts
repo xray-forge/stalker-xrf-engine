@@ -1,4 +1,14 @@
 import { hit, level, patrol } from "xray16";
+import {
+  ActionPlanner,
+  GameObject,
+  Hit,
+  Patrol,
+  ServerCreatureObject,
+  ServerHumanObject,
+  TBloodsuckerVisibilityState,
+  Vector,
+} from "xray16/alias";
 import { $filename, $isNil } from "xray16/macros";
 
 import {
@@ -49,17 +59,10 @@ import { createVector, subVectors } from "@/engine/core/utils/vector";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { FALSE, TRUE } from "@/engine/lib/constants/words";
 import {
-  ActionPlanner,
   EScheme,
-  GameObject,
-  Hit,
   LuaArray,
   Nillable,
   Nullable,
-  Patrol,
-  ServerCreatureObject,
-  ServerHumanObject,
-  TBloodsuckerVisibilityState,
   TCount,
   TDuration,
   TIndex,
@@ -69,7 +72,6 @@ import {
   TSection,
   TStringId,
   TStringifiedBoolean,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

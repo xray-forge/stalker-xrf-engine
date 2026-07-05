@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
 import { range } from "@/engine/core/utils/number";
 import { X_VECTOR, Y_VECTOR, Z_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockVector } from "@/fixtures/xray";
 

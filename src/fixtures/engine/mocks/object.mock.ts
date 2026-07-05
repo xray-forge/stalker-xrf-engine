@@ -1,7 +1,8 @@
+import { GameObject, ServerObject } from "xray16/alias";
+
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { medkits } from "@/engine/lib/constants/items/drugs";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GameObject, ServerObject } from "@/engine/lib/types";
 import { IMockGameObjectConfig, MockGameObject } from "@/fixtures/xray/mocks/objects/game";
 import { MockAlifeObject } from "@/fixtures/xray/mocks/objects/server";
 

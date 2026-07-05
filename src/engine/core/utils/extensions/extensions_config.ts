@@ -1,8 +1,9 @@
 import { ini_file } from "xray16";
+import { IniFile } from "xray16/alias";
 
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions/extensions_types";
 import { roots } from "@/engine/lib/constants/roots";
-import { IniFile, TPath } from "@/engine/lib/types";
+import { TPath } from "@/engine/lib/types";
 
 /**
  * Open ltx file based on extension configuration files.

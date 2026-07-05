@@ -1,4 +1,5 @@
-import { GameObject, PropertyEvaluator } from "@/engine/lib/types";
+import { GameObject, PropertyEvaluator } from "xray16/alias";
+
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 
 /**

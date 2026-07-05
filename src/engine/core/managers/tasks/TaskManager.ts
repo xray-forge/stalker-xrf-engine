@@ -1,4 +1,5 @@
 import { task } from "xray16";
+import { GameTask, NetPacket, NetProcessor, TTaskState } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
@@ -10,16 +11,7 @@ import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState } from "@/engine/core/managers/tasks/types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import {
-  AnyObject,
-  GameTask,
-  NetPacket,
-  NetProcessor,
-  Nillable,
-  TCount,
-  TStringId,
-  TTaskState,
-} from "@/engine/lib/types";
+import { AnyObject, Nillable, TCount, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

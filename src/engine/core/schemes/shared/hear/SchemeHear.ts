@@ -1,3 +1,4 @@
+import { GameObject, IniFile, TSoundType, Vector } from "xray16/alias";
 import { $isNotNil } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme";
@@ -11,8 +12,6 @@ import { ESoundType } from "@/engine/lib/constants/sound";
 import {
   EScheme,
   ESchemeType,
-  GameObject,
-  IniFile,
   LuaArray,
   Nillable,
   TCount,
@@ -21,9 +20,7 @@ import {
   TNumberId,
   TRate,
   TSection,
-  TSoundType,
   TStringId,
-  Vector,
 } from "@/engine/lib/types";
 
 // Todo: move to scheme.

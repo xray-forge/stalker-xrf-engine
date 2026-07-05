@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
+import { AlifeSimulator, GameObject, Patrol } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
@@ -7,7 +8,7 @@ import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spa
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { range } from "@/engine/core/utils/number";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
-import { AlifeSimulator, EScheme, GameObject, Patrol } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 import { MockVector } from "@/fixtures/xray/mocks/vector.mock";

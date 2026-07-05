@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import { IWoundedStateDescriptor } from "@/engine/core/schemes/stalker/wounded";
@@ -10,7 +11,6 @@ import {
   processVictim,
 } from "@/engine/core/schemes/stalker/wounded/utils/wounded_process";
 import { NIL, TRUE } from "@/engine/lib/constants/words";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("processHPWound util", () => {

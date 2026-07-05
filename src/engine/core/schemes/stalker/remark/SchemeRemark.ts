@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -8,7 +9,7 @@ import { ISchemeRemarkState } from "@/engine/core/schemes/stalker/remark/remark_
 import { getConfigSwitchConditions, parseConditionsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme/scheme_setup";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme implementing remark logics of transitions between scenarios.

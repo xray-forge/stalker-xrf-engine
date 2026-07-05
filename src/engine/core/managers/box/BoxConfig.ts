@@ -1,7 +1,8 @@
 import { ini_file } from "xray16";
+import { IniFile } from "xray16/alias";
 import { $fromArray, $fromObject } from "xray16/macros";
 
-import { IniFile, TCount, TName, TRate, TSection } from "@/engine/lib/types";
+import { TCount, TName, TRate, TSection } from "@/engine/lib/types";
 
 export const BOX_METAL_01: TName = "dynamics\\box\\box_metall_01";
 export const BOX_WOOD_01: TName = "dynamics\\box\\box_wood_01";

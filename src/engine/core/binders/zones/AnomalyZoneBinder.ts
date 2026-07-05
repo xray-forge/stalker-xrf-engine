@@ -1,4 +1,5 @@
 import { ini_file, LuabindClass, object_binder } from "xray16";
+import { GameObject, IniFile, NetPacket, NetReader, ServerObject } from "xray16/alias";
 import { $filename, $isNil } from "xray16/macros";
 
 import { AnomalyFieldBinder } from "@/engine/core/binders/zones/AnomalyFieldBinder";
@@ -27,22 +28,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import {
-  GameObject,
-  IniFile,
-  LuaArray,
-  NetPacket,
-  NetReader,
-  Nillable,
-  ServerObject,
-  TCount,
-  TDuration,
-  TIndex,
-  TName,
-  TNumberId,
-  TRate,
-  TSection,
-} from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TDuration, TIndex, TName, TNumberId, TRate, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

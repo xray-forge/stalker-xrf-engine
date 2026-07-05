@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
+import { Console } from "xray16/alias";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { GameSettingsManager } from "@/engine/core/managers/settings/GameSettingsManager";
 import { EGameDifficulty, gameDifficulties } from "@/engine/lib/constants/game_difficulties";
-import { AnyObject, Console } from "@/engine/lib/types";
+import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockConsole } from "@/fixtures/xray";

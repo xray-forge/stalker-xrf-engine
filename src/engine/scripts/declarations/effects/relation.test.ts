@@ -1,4 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { EGameObjectRelation, GameObject, ServerHumanObject } from "xray16/alias";
 
 import { IRegistryObjectState, registerObject, registerSimulator, registerStoryLink } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -11,7 +12,6 @@ import {
   setSquadRelationWithObject,
   updateSquadIdRelationToActor,
 } from "@/engine/core/utils/relation";
-import { EGameObjectRelation, GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";

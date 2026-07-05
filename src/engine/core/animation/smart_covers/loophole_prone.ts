@@ -1,6 +1,8 @@
+import { Vector } from "xray16/alias";
+
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
 import { MX_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { Nillable, TStringId, Vector } from "@/engine/lib/types";
+import { Nillable, TStringId } from "@/engine/lib/types";
 
 /**
  * Create smart cover loophole descriptor for the prone posture.

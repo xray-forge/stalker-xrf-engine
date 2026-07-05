@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
-
-import { Profile } from "@/engine/lib/types";
+import { Profile } from "xray16/alias";
 
 export class MockProfile {
   public static mock(name: string = ""): Profile {

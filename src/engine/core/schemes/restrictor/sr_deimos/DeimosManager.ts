@@ -1,4 +1,5 @@
 import { level, time_global } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
@@ -10,7 +11,7 @@ import { isBlackScreen } from "@/engine/core/utils/game";
 import { clamp } from "@/engine/core/utils/number";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { AnyObject, GameObject, Nillable, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
+import { AnyObject, Nillable, TIndex, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Manager handling deimos scheme behaviour for a restrictor zone.

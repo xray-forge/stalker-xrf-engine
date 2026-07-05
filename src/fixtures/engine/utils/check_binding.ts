@@ -1,4 +1,6 @@
-import { AnyArgs, AnyCallable, AnyObject, GameObject, Nillable, TName } from "@/engine/lib/types";
+import { GameObject } from "xray16/alias";
+
+import { AnyArgs, AnyCallable, AnyObject, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Expect binding to be defined in global container.

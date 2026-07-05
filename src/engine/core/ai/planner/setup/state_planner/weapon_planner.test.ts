@@ -1,4 +1,5 @@
 import { describe, it } from "@jest/globals";
+import { ActionPlanner, GameObject } from "xray16/alias";
 
 import { setupStalkerWeaponStatePlanner } from "@/engine/core/ai/planner/setup/state_planner/weapon_planner";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -9,7 +10,6 @@ import {
   ActionWeaponStrap,
   ActionWeaponUnstrap,
 } from "@/engine/core/ai/state/weapon";
-import { ActionPlanner, GameObject } from "@/engine/lib/types";
 import { checkPlannerAction } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

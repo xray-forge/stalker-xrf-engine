@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { ActionPlanner } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { StalkerStateManager } from "@/engine/core/ai/state";
@@ -7,7 +8,6 @@ import { EvaluatorStateIdleAlife } from "@/engine/core/ai/state/state/EvaluatorS
 import { EvaluatorStateIdleCombat } from "@/engine/core/ai/state/state/EvaluatorStateIdleCombat";
 import { EvaluatorStateIdleItems } from "@/engine/core/ai/state/state/EvaluatorStateIdleItems";
 import { EvaluatorStateLogicActive } from "@/engine/core/ai/state/state/EvaluatorStateLogicActive";
-import { ActionPlanner } from "@/engine/lib/types";
 
 /**
  * Setup GOAP planner of stalker motivation.

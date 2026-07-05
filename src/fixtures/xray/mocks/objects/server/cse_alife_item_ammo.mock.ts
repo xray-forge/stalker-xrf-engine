@@ -1,4 +1,5 @@
-import { ServerItemAmmoObject } from "@/engine/lib/types";
+import { ServerItemAmmoObject } from "xray16/alias";
+
 import { MockAlifeItem } from "@/fixtures/xray/mocks/objects/server/cse_alife_item.mock";
 import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 

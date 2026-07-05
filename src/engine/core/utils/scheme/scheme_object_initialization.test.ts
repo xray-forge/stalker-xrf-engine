@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import {
@@ -9,7 +10,7 @@ import {
   initializeObjectInvulnerability,
   initializeObjectTakeItemsEnabledState,
 } from "@/engine/core/utils/scheme/scheme_object_initialization";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("initializeObjectInvulnerability util", () => {

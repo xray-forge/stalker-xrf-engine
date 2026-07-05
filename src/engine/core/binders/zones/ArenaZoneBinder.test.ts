@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { callback, clsid } from "xray16";
+import { GameObject, ServerHumanObject, ServerObject } from "xray16/alias";
 
 import { ArenaZoneBinder } from "@/engine/core/binders/zones/ArenaZoneBinder";
 import { registerSimulator, registry } from "@/engine/core/database";
-import { GameObject, ServerHumanObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,

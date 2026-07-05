@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { EGameObjectPath, GameObject } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -7,7 +8,7 @@ import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { ActionReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/actions/ActionReachAnimpoint";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { MY_VECTOR, MZ_VECTOR, X_VECTOR } from "@/engine/lib/constants/vectors";
-import { EGameObjectPath, EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 

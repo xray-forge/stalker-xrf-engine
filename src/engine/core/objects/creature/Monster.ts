@@ -1,4 +1,5 @@
 import { cse_alife_monster_base, level, LuabindClass } from "xray16";
+import { IniFile, NetPacket, ServerCreatureObject } from "xray16/alias";
 
 import {
   IRegistryOfflineState,
@@ -14,7 +15,7 @@ import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { parseNumberOptional, parseStringOptional, readIniString } from "@/engine/core/utils/ini";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { IniFile, NetPacket, Nillable, ServerCreatureObject, TName, TNumberId } from "@/engine/lib/types";
+import { Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Server object representation of any monster.

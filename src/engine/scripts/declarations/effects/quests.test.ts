@@ -1,4 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { getManager, registerZone } from "@/engine/core/database";
 import { MapDisplayManager } from "@/engine/core/managers/map";
@@ -10,7 +11,6 @@ import { spawnObject } from "@/engine/core/utils/spawn";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

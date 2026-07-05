@@ -1,8 +1,9 @@
 import { beforeAll, beforeEach, describe, expect, it } from "@jest/globals";
 import { level } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { callXrEffect, checkXrEffect, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

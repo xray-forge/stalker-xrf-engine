@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { GameObject, ServerObject, Vector } from "xray16/alias";
 import { $isNil } from "xray16/macros";
 
 import { getStoryIdByObjectId, registry } from "@/engine/core/database";
@@ -6,16 +7,7 @@ import { IReleaseDescriptor } from "@/engine/core/managers/death";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
 import { isObjectWithKnownInfo } from "@/engine/core/utils/object";
-import {
-  GameObject,
-  LuaArray,
-  Nillable,
-  ServerObject,
-  TDistance,
-  TIndex,
-  TTimestamp,
-  Vector,
-} from "@/engine/lib/types";
+import { LuaArray, Nillable, TDistance, TIndex, TTimestamp } from "@/engine/lib/types";
 
 /**
  * @param object - Game object to check.

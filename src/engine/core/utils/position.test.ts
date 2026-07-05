@@ -1,5 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game_graph, sound_object } from "xray16";
+import {
+  ESoundObjectType,
+  GameObject,
+  ServerHumanObject,
+  ServerObject,
+  ServerSmartZoneObject,
+  Vector,
+} from "xray16/alias";
 
 import { registerSimulator, registerZone, registry } from "@/engine/core/database";
 import {
@@ -22,14 +30,6 @@ import {
 } from "@/engine/core/utils/position";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
 import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  ESoundObjectType,
-  GameObject,
-  ServerHumanObject,
-  ServerObject,
-  ServerSmartZoneObject,
-  Vector,
-} from "@/engine/lib/types";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
   MockAlifeHumanStalker,

@@ -1,3 +1,4 @@
+import { IniFile } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import {
@@ -11,7 +12,7 @@ import type { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types"
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { IniFile, TCount, TName } from "@/engine/lib/types";
+import { TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

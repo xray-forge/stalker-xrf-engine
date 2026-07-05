@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject, IniFile } from "xray16/alias";
 
 import { registerObject } from "@/engine/core/database";
 import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
@@ -6,7 +7,7 @@ import { SchemeNoWeapon } from "@/engine/core/schemes/restrictor/sr_no_weapon/Sc
 import { ISchemeNoWeaponState } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

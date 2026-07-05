@@ -1,8 +1,8 @@
 import { clsid } from "xray16";
+import type { TClassId } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import { IClassIdsGrouped } from "@/engine/lib/constants/class_ids";
-import type { TClassId } from "@/engine/lib/types";
 
 /**
  * Create and synchronize list of class identifiers in game engine.

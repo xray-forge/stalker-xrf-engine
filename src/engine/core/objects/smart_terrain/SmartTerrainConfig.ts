@@ -1,6 +1,5 @@
 import { ini_file } from "xray16";
-
-import { IniFile } from "@/engine/lib/types";
+import { IniFile } from "xray16/alias";
 
 export const SMART_TERRAIN_MASKS_LTX: IniFile = new ini_file("managers\\simulation\\smart_terrain_masks.ltx");
 

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { ActionPlanner, GameObject } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -7,7 +8,7 @@ import { EvaluatorWoundedExist } from "@/engine/core/schemes/stalker/help_wounde
 import { ISchemeHelpWoundedState } from "@/engine/core/schemes/stalker/help_wounded/help_wounded_types";
 import { SchemeHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/SchemeHelpWounded";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, EScheme, ESchemeType, GameObject } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockActionBase, MockGameObject, MockIniFile } from "@/fixtures/xray";
 

@@ -1,10 +1,10 @@
 import { level } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { getManager } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
 import { ActorInputManager } from "@/engine/core/managers/actor/ActorInputManager";
 import { animations } from "@/engine/lib/constants/animation";
-import { GameObject } from "@/engine/lib/types";
 
 /**
  * Punch actor as object.

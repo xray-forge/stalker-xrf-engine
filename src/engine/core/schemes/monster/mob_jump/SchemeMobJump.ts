@@ -1,10 +1,12 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { assert } from "@/engine/core/utils/assertion";
 import { getConfigSwitchConditions, parseStringsList, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { createVector } from "@/engine/core/utils/vector";
-import { EScheme, ESchemeType, GameObject, IniFile, LuaArray, TName, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, LuaArray, TName, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme to force monsters jumping.

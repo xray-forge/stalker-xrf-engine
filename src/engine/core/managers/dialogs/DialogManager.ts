@@ -1,3 +1,4 @@
+import { GameObject, NetPacket, NetProcessor } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import { closeLoadMarker, closeSaveMarker, getManager, openLoadMarker, openSaveMarker } from "@/engine/core/database";
@@ -5,7 +6,7 @@ import { AbstractManager } from "@/engine/core/managers/abstract";
 import { EGenericPhraseCategory, TPhrasesPriorityMap } from "@/engine/core/managers/dialogs/dialog_types";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { AnyObject, GameObject, NetPacket, NetProcessor, TNumberId, TStringId } from "@/engine/lib/types";
+import { AnyObject, TNumberId, TStringId } from "@/engine/lib/types";
 
 /**
  * Manager of dialogs interaction / scripting when actor is speaking to stalker objects.

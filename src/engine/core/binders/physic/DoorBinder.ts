@@ -1,4 +1,15 @@
 import { callback, CPhysicObject, ini_file, LuabindClass, object_binder, sound_object } from "xray16";
+import {
+  ESoundObjectType,
+  GameObject,
+  IniFile,
+  NetPacket,
+  NetReader,
+  PhysicObject,
+  ServerObject,
+  SoundObject,
+  TSoundObjectType,
+} from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import {
@@ -21,22 +32,7 @@ import {
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { TRUE } from "@/engine/lib/constants/words";
-import {
-  ESoundObjectType,
-  GameObject,
-  IniFile,
-  NetPacket,
-  NetReader,
-  Nillable,
-  PhysicObject,
-  ServerObject,
-  SoundObject,
-  TDuration,
-  TLabel,
-  TName,
-  TPath,
-  TSoundObjectType,
-} from "@/engine/lib/types";
+import { Nillable, TDuration, TLabel, TName, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

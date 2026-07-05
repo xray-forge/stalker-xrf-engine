@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject, IniFile } from "xray16/alias";
 
 import { registerObject } from "@/engine/core/database";
 import { ISchemeMobCombatState } from "@/engine/core/schemes/monster/mob_combat/mob_combat_types";
@@ -6,7 +7,7 @@ import { MobCombatManager } from "@/engine/core/schemes/monster/mob_combat/MobCo
 import { SchemeMobCombat } from "@/engine/core/schemes/monster/mob_combat/SchemeMobCombat";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

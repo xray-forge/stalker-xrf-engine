@@ -1,4 +1,5 @@
 import { CGameGraph, game_graph } from "xray16";
+import { GameGraphVertex, GameObject, ServerCreatureObject, Vector } from "xray16/alias";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -6,7 +7,7 @@ import { type TSimulationObject } from "@/engine/core/managers/simulation";
 import { getSimulationSquads } from "@/engine/core/managers/simulation/utils";
 import { type SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
 import { ESquadActionType, Squad } from "@/engine/core/objects/squad";
-import { GameGraphVertex, GameObject, Nillable, ServerCreatureObject, Vector } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * @param object - Server object to check.

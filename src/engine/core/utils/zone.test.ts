@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, ServerHumanObject } from "xray16/alias";
 
 import { registerSimulator, registerZone } from "@/engine/core/database";
 import { ESimulationTerrainRole } from "@/engine/core/managers/simulation/types";
 import { assignSimulationSquadToTerrain } from "@/engine/core/managers/simulation/utils";
 import { ESmartTerrainStatus, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
 import { isInNoCombatZone, isInNoWeaponBase } from "@/engine/core/utils/zone";
-import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 

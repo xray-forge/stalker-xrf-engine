@@ -1,11 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
+import { GameObject } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import { EMobJumpState, ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
 import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpManager";
 import { createVector } from "@/engine/core/utils/vector";
-import { EScheme, GameObject, TName } from "@/engine/lib/types";
+import { EScheme, TName } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

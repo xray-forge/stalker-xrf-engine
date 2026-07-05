@@ -1,4 +1,13 @@
 import { actor_stats, callback, level, LuabindClass, object_binder, patrol, time_global } from "xray16";
+import {
+  GameObject,
+  NetPacket,
+  NetReader,
+  ServerCreatureObject,
+  ServerHumanObject,
+  TSoundType,
+  Vector,
+} from "xray16/alias";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol/StalkerPatrolManager";
@@ -56,21 +65,14 @@ import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import {
   EScheme,
   ESchemeEvent,
-  GameObject,
-  NetPacket,
-  NetReader,
   Nillable,
-  ServerCreatureObject,
-  ServerHumanObject,
   TCount,
   TDuration,
   TIndex,
   TName,
   TNumberId,
   TRate,
-  TSoundType,
   TTimestamp,
-  Vector,
 } from "@/engine/lib/types";
 import { ESchemeType } from "@/engine/lib/types/scheme";
 

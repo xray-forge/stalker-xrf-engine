@@ -1,9 +1,10 @@
 import { CUIMessageBox, CUIMessageBoxEx, CUIScriptWnd, CUIStatic, CUIWindow } from "xray16";
+import { TUIEvent, XmlInit } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import { abort } from "@/engine/core/utils/assertion";
 import { EElementType } from "@/engine/core/utils/ui/forms/forms_types";
-import { AnyCallable, PartialRecord, TStringId, TUIEvent, XmlInit } from "@/engine/lib/types";
+import { AnyCallable, PartialRecord, TStringId } from "@/engine/lib/types";
 
 /**
  * Initialize UI element and add callback handlers for it.

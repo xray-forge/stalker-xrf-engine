@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { move, property_storage } from "xray16";
+import { GameObject, Vector } from "xray16/alias";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import { getManager, setStalkerState } from "@/engine/core/database";
@@ -7,7 +8,7 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { EZombieCombatAction, ISchemeCombatState } from "@/engine/core/schemes/stalker/combat";
 import { ActionZombieShoot } from "@/engine/core/schemes/stalker/combat_zombied/actions/ActionZombieShoot";
 import { MX_VECTOR, ONE_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import { EScheme, GameObject, Vector } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

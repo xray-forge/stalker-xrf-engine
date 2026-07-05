@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -9,7 +10,7 @@ import { MeetManager } from "@/engine/core/schemes/stalker/meet/MeetManager";
 import { SchemeMeet } from "@/engine/core/schemes/stalker/meet/SchemeMeet";
 import { initializeMeetScheme } from "@/engine/core/schemes/stalker/meet/utils";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";

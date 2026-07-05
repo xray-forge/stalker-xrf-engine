@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { getManager } from "@/engine/core/database";
 import { TravelManager } from "@/engine/core/managers/travel";
-import { AnyArgs, AnyObject, GameObject, TName } from "@/engine/lib/types";
+import { AnyArgs, AnyObject, TName } from "@/engine/lib/types";
 import { callBinding, checkBinding } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

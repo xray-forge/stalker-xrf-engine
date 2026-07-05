@@ -1,9 +1,10 @@
 import { LuabindClass, property_evaluator } from "xray16";
+import { TAnimationType } from "xray16/alias";
 import { $isNil } from "xray16/macros";
 
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
-import { Nillable, TAnimationType } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator to check if target mental state is achieved.

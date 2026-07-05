@@ -1,9 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { AnimpointManager } from "@/engine/core/schemes/stalker/animpoint/AnimpointManager";
 import { EvaluatorReachAnimpoint } from "@/engine/core/schemes/stalker/animpoint/evaluators/EvaluatorReachAnimpoint";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -8,7 +9,7 @@ import { SCRIPT_SOUND_LTX, soundsConfig } from "@/engine/core/managers/sounds/So
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { NIL } from "@/engine/lib/constants/words";
-import { AnyObject, GameObject } from "@/engine/lib/types";
+import { AnyObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 

@@ -1,4 +1,5 @@
 import { LuabindClass, property_evaluator, time_global } from "xray16";
+import { ActionPlanner, DangerObject, GameObject, ServerCreatureObject } from "xray16/alias";
 import { $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
@@ -9,7 +10,7 @@ import { dangerConfig } from "@/engine/core/schemes/stalker/danger/DangerConfig"
 import { isObjectFacingDanger } from "@/engine/core/schemes/stalker/danger/utils";
 import { startTerrainAlarm } from "@/engine/core/utils/smart_terrain";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { ActionPlanner, DangerObject, GameObject, Nillable, ServerCreatureObject } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Evaluator to check whether any danger is active.

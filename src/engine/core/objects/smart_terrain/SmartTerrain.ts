@@ -8,6 +8,15 @@ import {
   LuabindClass,
   time_global,
 } from "xray16";
+import {
+  AlifeSimulator,
+  ALifeSmartTerrainTask,
+  GameObject,
+  IniFile,
+  NetPacket,
+  ServerCreatureObject,
+  Time,
+} from "xray16/alias";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import {
@@ -90,19 +99,12 @@ import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  AlifeSimulator,
-  ALifeSmartTerrainTask,
   ESchemeType,
-  GameObject,
-  IniFile,
-  NetPacket,
   Nillable,
   Nullable,
-  ServerCreatureObject,
   TCount,
   TDistance,
   TDuration,
-  Time,
   TName,
   TNumberId,
   TRate,

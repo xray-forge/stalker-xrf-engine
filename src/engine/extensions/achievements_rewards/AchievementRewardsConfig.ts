@@ -1,3 +1,4 @@
+import { Time } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import { EAchievement } from "@/engine/core/utils/achievements/achievements_types";
@@ -5,7 +6,7 @@ import { TInventoryItem } from "@/engine/lib/constants/items";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { drugs } from "@/engine/lib/constants/items/drugs";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { Nillable, Time } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 export const achievementRewardsConfig = {
   LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT: null as Nillable<Time>,

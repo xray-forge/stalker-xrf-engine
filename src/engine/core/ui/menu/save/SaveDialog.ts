@@ -14,6 +14,7 @@ import {
   LuabindClass,
   ui_events,
 } from "xray16";
+import { FSFile, FSFileList, FSItem, TKeyCode, TUIEvent, Vector2D } from "xray16/alias";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
@@ -24,19 +25,7 @@ import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
-import {
-  FSFile,
-  FSFileList,
-  FSItem,
-  LuaArray,
-  Nillable,
-  TKeyCode,
-  TLabel,
-  TName,
-  TPath,
-  TUIEvent,
-  Vector2D,
-} from "@/engine/lib/types";
+import { LuaArray, Nillable, TLabel, TName, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\SaveDialog.component";

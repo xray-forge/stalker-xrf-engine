@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
+import { GameObject } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -8,7 +9,7 @@ import { ISchemeMobRemarkState } from "@/engine/core/schemes/monster/mob_remark/
 import { MobRemarkManager } from "@/engine/core/schemes/monster/mob_remark/MobRemarkManager";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EMonsterState } from "@/engine/lib/constants/monsters";
-import { EScheme, GameObject, TName } from "@/engine/lib/types";
+import { EScheme, TName } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

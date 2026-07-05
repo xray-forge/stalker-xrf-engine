@@ -1,4 +1,5 @@
 import { world_property, world_state } from "xray16";
+import { ActionPlanner, WorldState } from "xray16/alias";
 
 import {
   setupStalkerAnimationStatePlanner,
@@ -15,7 +16,6 @@ import {
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionStateEnd } from "@/engine/core/ai/state/state";
 import { EStateActionId, EStateEvaluatorId } from "@/engine/core/ai/state/types";
-import { ActionPlanner, WorldState } from "@/engine/lib/types";
 
 /**
  * Add basic GOAP graphs to state manager planner evaluators / actions.

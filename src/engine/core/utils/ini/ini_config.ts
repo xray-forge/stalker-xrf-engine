@@ -1,3 +1,4 @@
+import { GameObject, IniFile, ServerObject } from "xray16/alias";
 import { $isNotNil } from "xray16/macros";
 
 import { IBaseSchemeLogic, ILogicsOverrides, IRegistryObjectState } from "@/engine/core/database/database_types";
@@ -24,11 +25,8 @@ import {
   AnyCallable,
   AnyObject,
   ESchemeCondition,
-  GameObject,
-  IniFile,
   LuaArray,
   Nillable,
-  ServerObject,
   TCount,
   TIndex,
   TName,

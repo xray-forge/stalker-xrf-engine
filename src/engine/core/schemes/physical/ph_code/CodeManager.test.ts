@@ -1,11 +1,12 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import { CodeManager } from "@/engine/core/schemes/physical/ph_code/CodeManager";
 import { ISchemeCodeState } from "@/engine/core/schemes/physical/ph_code/ph_code_types";
 import { extern } from "@/engine/core/utils/binding";
 import { parseConditionsList, TConditionList } from "@/engine/core/utils/ini";
-import { EScheme, GameObject, TName } from "@/engine/lib/types";
+import { EScheme, TName } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

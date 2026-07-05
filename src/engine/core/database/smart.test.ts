@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, ZoneCampfire } from "xray16/alias";
 
 import { registry } from "@/engine/core/database/registry";
 import {
@@ -11,7 +12,6 @@ import {
 } from "@/engine/core/database/smart";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import { GameObject, ZoneCampfire } from "@/engine/lib/types";
 import { MockSmartTerrain, resetRegistry } from "@/fixtures/engine";
 import { MockCZoneCampfire, MockGameObject } from "@/fixtures/xray";
 

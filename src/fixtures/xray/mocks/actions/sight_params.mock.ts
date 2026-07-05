@@ -1,4 +1,4 @@
-import { GameObject, TSightType, Vector } from "@/engine/lib/types";
+import { GameObject, TSightType, Vector } from "xray16/alias";
 
 export class MockSightParameters {
   public static readonly eSightTypeDummy: -1;

@@ -1,11 +1,11 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { FileStatus, getFS } from "xray16";
+import { IniFile } from "xray16/alias";
 
 import { createExclusiveJob } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_exclusive";
 import { jobPreconditionExclusive } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType, TSmartTerrainJobsList } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { IniFile } from "@/engine/lib/types";
 import { MockFileStatus, MockIniFile } from "@/fixtures/xray";
 
 describe("createExclusiveJob util", () => {

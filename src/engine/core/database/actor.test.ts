@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import {
   registerActor,
@@ -8,7 +9,6 @@ import {
 } from "@/engine/core/database/actor";
 import { registry } from "@/engine/core/database/registry";
 import { Actor } from "@/engine/core/objects/creature";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("actor module of the database", () => {

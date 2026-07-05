@@ -1,8 +1,8 @@
 import { jest } from "@jest/globals";
+import { ServerActorObject } from "xray16/alias";
 
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { ServerActorObject } from "@/engine/lib/types";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockAlifeDynamicObjectVisual } from "@/fixtures/xray/mocks/objects/server/cse_alife_dynamic_object_visual.mock";
 import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";

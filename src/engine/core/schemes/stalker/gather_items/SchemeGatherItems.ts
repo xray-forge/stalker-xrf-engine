@@ -1,10 +1,12 @@
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
+
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { AbstractScheme } from "@/engine/core/ai/scheme";
 import { IRegistryObjectState } from "@/engine/core/database";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
 import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_items/gather_items_types";
 import { readIniBoolean } from "@/engine/core/utils/ini";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 /**
  * Generic scheme to change object state and mark whether object has valuable items and can be looted.

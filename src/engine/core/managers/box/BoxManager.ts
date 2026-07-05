@@ -1,3 +1,4 @@
+import { GameObject, IniFile, Vector } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -19,17 +20,7 @@ import { getObjectPositioning } from "@/engine/core/utils/position";
 import { chance } from "@/engine/core/utils/random";
 import { spawnItemsAtPosition } from "@/engine/core/utils/spawn";
 import { copyVector } from "@/engine/core/utils/vector";
-import {
-  AnyObject,
-  GameObject,
-  IniFile,
-  Nillable,
-  TCount,
-  TDirection,
-  TProbability,
-  TSection,
-  Vector,
-} from "@/engine/lib/types";
+import { AnyObject, Nillable, TCount, TDirection, TProbability, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

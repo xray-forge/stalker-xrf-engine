@@ -1,8 +1,9 @@
 import { CTime, game, level } from "xray16";
+import { NetPacket, NetProcessor, Time } from "xray16/alias";
 
 import { wait } from "@/engine/core/utils/game/game_wait";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
-import { NetPacket, NetProcessor, Nillable, Time, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
+import { Nillable, TLabel, TRate, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Add part of time digit to a data string.

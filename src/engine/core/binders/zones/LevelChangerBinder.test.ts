@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { LevelChangerBinder } from "@/engine/core/binders/zones/LevelChangerBinder";
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { LevelChanger } from "@/engine/core/objects/level";
-import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 

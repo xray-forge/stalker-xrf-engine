@@ -1,4 +1,5 @@
 import { game } from "xray16";
+import { ServerObject } from "xray16/alias";
 
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -8,7 +9,7 @@ import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { spawnItemsForObjectFromList } from "@/engine/core/utils/spawn";
 import { achievementRewardsConfig } from "@/engine/extensions/achievements_rewards/AchievementRewardsConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { ServerObject, TNumberId } from "@/engine/lib/types";
+import { TNumberId } from "@/engine/lib/types";
 
 /**
  * Handle generic actor update tick.

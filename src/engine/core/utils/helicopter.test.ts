@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { getHelicopterHealth, isHelicopterAlive } from "@/engine/core/utils/helicopter";
-import { GameObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockCHelicopter, MockGameObject } from "@/fixtures/xray";
 

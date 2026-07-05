@@ -1,8 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { CutsceneManager } from "@/engine/core/schemes/restrictor/sr_cutscene/CutsceneManager";
 import { ESceneState, ISchemeCutsceneState } from "@/engine/core/schemes/restrictor/sr_cutscene/sr_cutscene_types";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

@@ -1,4 +1,5 @@
 import { cast_planner, CTime, relation_registry } from "xray16";
+import { ActionPlanner, GameObject } from "xray16/alias";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
@@ -11,7 +12,7 @@ import { toJSON } from "@/engine/core/utils/transform";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, ESchemeType, GameObject, Nillable, TLabel, TName, TNumberId } from "@/engine/lib/types";
+import { ESchemeType, Nillable, TLabel, TName, TNumberId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

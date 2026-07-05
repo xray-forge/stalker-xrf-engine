@@ -1,3 +1,4 @@
+import { ServerObject } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -22,7 +23,7 @@ import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";
-import { ServerObject, TName } from "@/engine/lib/types";
+import { TName } from "@/engine/lib/types";
 
 /**
  * Descriptor of faction activities based on simulation role.

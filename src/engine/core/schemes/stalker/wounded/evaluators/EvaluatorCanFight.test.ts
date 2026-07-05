@@ -1,9 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { ISchemeWoundedState, PS_WOUNDED_FIGHT } from "@/engine/core/schemes/stalker/wounded";
 import { EvaluatorCanFight } from "@/engine/core/schemes/stalker/wounded/evaluators/EvaluatorCanFight";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 

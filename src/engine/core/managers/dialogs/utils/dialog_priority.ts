@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -13,7 +14,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { MAX_U8 } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
-import { GameObject, Nillable, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
+import { Nillable, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

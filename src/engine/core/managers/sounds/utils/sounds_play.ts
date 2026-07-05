@@ -1,9 +1,10 @@
+import { GameObject } from "xray16/alias";
+
 import { NpcSound } from "@/engine/core/managers/sounds/objects";
 import { EPlayableSound } from "@/engine/core/managers/sounds/sounds_types";
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { getObjectCommunity } from "@/engine/core/utils/community";
 import { TCommunity } from "@/engine/lib/constants/communities";
-import { GameObject } from "@/engine/lib/types";
 
 /**
  * Initialize NPC sound themes for the object whose community matches the theme requirements.

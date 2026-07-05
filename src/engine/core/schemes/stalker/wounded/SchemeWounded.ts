@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -13,7 +14,7 @@ import { getObjectCommunity } from "@/engine/core/utils/community";
 import { readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { NIL } from "@/engine/lib/constants/words";
-import { ActionPlanner, GameObject, IniFile, LuaArray, TName } from "@/engine/lib/types";
+import { LuaArray, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**

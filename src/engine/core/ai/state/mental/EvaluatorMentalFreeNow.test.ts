@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { anim, property_storage } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { EvaluatorMentalFreeNow } from "@/engine/core/ai/state/mental/EvaluatorMentalFreeNow";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorMentalFreeNow", () => {

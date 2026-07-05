@@ -1,3 +1,4 @@
+import { EGameObjectRelation, GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
@@ -11,7 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectHelpingWounded, isObjectSearchingCorpse, isObjectWounded } from "@/engine/core/utils/planner";
 import { getObjectsRelationSafe } from "@/engine/core/utils/relation";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import { EGameObjectRelation, EScheme, GameObject, Nillable, TCount, TName } from "@/engine/lib/types";
+import { EScheme, Nillable, TCount, TName } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "meet" });
 

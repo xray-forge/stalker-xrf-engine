@@ -6,8 +6,9 @@ import {
   GetFontLetterica18Russian,
   LuabindClass,
 } from "xray16";
+import { Vector } from "xray16/alias";
 
-import { TLabel, TNumberId, Vector } from "@/engine/lib/types";
+import { TLabel, TNumberId } from "@/engine/lib/types";
 
 /**
  * List entry of teleport options in debug menu.

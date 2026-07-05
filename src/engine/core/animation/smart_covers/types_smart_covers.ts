@@ -1,4 +1,6 @@
-import { LuaArray, TMoveType, TName, TRate, TStringId, Vector } from "@/engine/lib/types";
+import { TMoveType, Vector } from "xray16/alias";
+
+import { LuaArray, TName, TRate, TStringId } from "@/engine/lib/types";
 
 /**
  * Descriptor of a smart cover composed of loopholes and transitions between them.

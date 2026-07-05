@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject, IniFile } from "xray16/alias";
 
 import { registerObject, registry } from "@/engine/core/database";
 import { SchemeSilence } from "@/engine/core/schemes/restrictor/sr_silence/SchemeSilence";
@@ -6,7 +7,7 @@ import { SilenceManager } from "@/engine/core/schemes/restrictor/sr_silence/Sile
 import { ISchemeSilenceState } from "@/engine/core/schemes/restrictor/sr_silence/sr_silence_types";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

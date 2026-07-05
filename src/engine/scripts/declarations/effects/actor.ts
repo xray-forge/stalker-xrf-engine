@@ -1,4 +1,5 @@
 import { game, level, patrol } from "xray16";
+import { GameObject, GameTask, Vector } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { getManager, getObjectByStoryId, getServerObjectByStoryId, registry } from "@/engine/core/database";
@@ -19,8 +20,6 @@ import { detectorsOrder } from "@/engine/lib/constants/items/detectors";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   EActiveItemSlot,
-  GameObject,
-  GameTask,
   LuaArray,
   Nillable,
   TLabel,
@@ -28,7 +27,6 @@ import {
   TSection,
   TStringId,
   TStringifiedBoolean,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

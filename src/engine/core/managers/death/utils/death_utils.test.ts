@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, ServerHumanObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import {
@@ -12,7 +13,6 @@ import { IReleaseDescriptor } from "@/engine/core/managers/death";
 import { deathConfig } from "@/engine/core/managers/death/DeathConfig";
 import { canReleaseObjectCorpse, getNearestCorpseToRelease } from "@/engine/core/managers/death/utils/death_utils";
 import { MAX_U32 } from "@/engine/lib/constants/memory";
-import { GameObject, ServerHumanObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
 

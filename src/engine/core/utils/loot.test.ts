@@ -1,9 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { isObjectWithValuableLoot, transferLoot } from "@/engine/core/utils/loot";
 import { ammo } from "@/engine/lib/constants/items/ammo";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GameObject, LuaArray } from "@/engine/lib/types";
+import { LuaArray } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("isObjectWithValuableLoot util", () => {

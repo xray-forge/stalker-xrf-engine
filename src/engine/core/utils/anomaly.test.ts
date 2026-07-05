@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { GameObject, ServerObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
@@ -9,7 +10,6 @@ import {
   getAnomalyFreePaths,
   spawnArtefactInAnomaly,
 } from "@/engine/core/utils/anomaly";
-import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockAlifeObject, MockGameObject, MockPatrol } from "@/fixtures/xray";
 

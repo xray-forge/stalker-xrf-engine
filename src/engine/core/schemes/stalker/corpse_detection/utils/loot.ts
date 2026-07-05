@@ -1,3 +1,5 @@
+import { GameObject } from "xray16/alias";
+
 import { getManager, IRegistryObjectState, registry, setPortableStoreValue } from "@/engine/core/database";
 import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import {
@@ -6,7 +8,7 @@ import {
 } from "@/engine/core/schemes/stalker/corpse_detection/corpse_detection_types";
 import { transferLoot } from "@/engine/core/utils/loot";
 import { chance } from "@/engine/core/utils/random";
-import { EScheme, GameObject, LuaArray, Nillable, TNumberId } from "@/engine/lib/types";
+import { EScheme, LuaArray, Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Finish loot corpse action - transfer all the items from corpse and play sound notification about loot quality.

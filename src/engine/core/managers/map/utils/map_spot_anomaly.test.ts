@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { GameObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import { registerStoryLink } from "@/engine/core/database";
@@ -7,7 +8,6 @@ import { updateAnomalyZonesDisplay } from "@/engine/core/managers/map/utils/map_
 import { getAnomalyArtefacts } from "@/engine/core/utils/anomaly";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, replaceFunctionMockOnce } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

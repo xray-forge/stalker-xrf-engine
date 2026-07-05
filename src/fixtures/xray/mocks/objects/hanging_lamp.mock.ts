@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
-
-import { HangingLamp } from "@/engine/lib/types";
+import { HangingLamp } from "xray16/alias";
 
 /**
  * Hanging lamp object with mocked methods.

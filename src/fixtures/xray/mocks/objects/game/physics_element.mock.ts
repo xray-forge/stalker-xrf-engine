@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
-
-import { PhysicsElement } from "@/engine/lib/types";
+import { PhysicsElement } from "xray16/alias";
 
 /**
  * Physic element implementation mock.

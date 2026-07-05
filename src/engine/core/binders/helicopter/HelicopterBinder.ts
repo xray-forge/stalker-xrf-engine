@@ -1,4 +1,5 @@
 import { callback, CHelicopter, clsid, level, LuabindClass, object_binder } from "xray16";
+import { GameObject, NetPacket, NetReader, ServerObject, TClassId, Vector } from "xray16/alias";
 
 import {
   closeLoadMarker,
@@ -25,18 +26,12 @@ import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/util
 import {
   ESchemeEvent,
   ESchemeType,
-  GameObject,
-  NetPacket,
-  NetReader,
   Nillable,
-  ServerObject,
-  TClassId,
   TDistance,
   TDuration,
   TIndex,
   TNumberId,
   TRate,
-  Vector,
 } from "@/engine/lib/types";
 
 /**

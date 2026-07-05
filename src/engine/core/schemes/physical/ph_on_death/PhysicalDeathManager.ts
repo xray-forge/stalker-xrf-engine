@@ -1,8 +1,10 @@
+import { GameObject } from "xray16/alias";
+
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { GameObject, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Manager to handle death events for physical objects.

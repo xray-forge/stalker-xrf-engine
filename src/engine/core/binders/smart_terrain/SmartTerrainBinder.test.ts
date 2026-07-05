@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { ServerObject } from "xray16/alias";
 
 import { SmartTerrainBinder } from "@/engine/core/binders/smart_terrain/index";
 import { getManager, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { ServerObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 

@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { GameObject, Vector } from "xray16/alias";
 import { $isNil } from "xray16/macros";
 
 import { getPortableStoreValue, IRegistryObjectState, registry } from "@/engine/core/database";
@@ -7,7 +8,7 @@ import { PS_LOOTING_DEAD_OBJECT } from "@/engine/core/schemes/stalker/corpse_det
 import { corpseDetectionConfig } from "@/engine/core/schemes/stalker/corpse_detection/CorpseDetectionConfig";
 import { isLootableItemSection } from "@/engine/core/utils/section";
 import { lootableTable } from "@/engine/lib/constants/items/lootable_table";
-import { GameObject, LuaArray, Nillable, TDistance, TNumberId, Vector } from "@/engine/lib/types";
+import { LuaArray, Nillable, TDistance, TNumberId } from "@/engine/lib/types";
 
 /**
  * Check if object has valuable loot.

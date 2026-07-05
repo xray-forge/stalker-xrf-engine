@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 import { move, property_storage } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { ActionMovementStand } from "@/engine/core/ai/state/movement/ActionMovementStand";
 import type { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionMovementStand", () => {

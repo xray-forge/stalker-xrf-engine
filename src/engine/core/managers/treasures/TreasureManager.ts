@@ -1,4 +1,5 @@
 import { time_global } from "xray16";
+import { AlifeSimulator, GameObject, IniFile, NetPacket, NetProcessor, ServerObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import {
@@ -21,15 +22,9 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { SECRET_SECTION } from "@/engine/lib/constants/sections";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
-  AlifeSimulator,
   AnyObject,
-  GameObject,
-  IniFile,
   LuaArray,
-  NetPacket,
-  NetProcessor,
   Nillable,
-  ServerObject,
   TCount,
   TName,
   TNumberId,

@@ -1,4 +1,5 @@
 import { particles_object, patrol, sound_object } from "xray16";
+import { GameObject, ParticlesObject, ServerObject, ServerPhysicObject, SoundObject, Vector } from "xray16/alias";
 import { $filename, $fromArray, $isNotNil } from "xray16/macros";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
@@ -35,13 +36,8 @@ import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { TRUE } from "@/engine/lib/constants/words";
 import {
   AnyCallable,
-  GameObject,
   LuaArray,
   Nillable,
-  ParticlesObject,
-  ServerObject,
-  ServerPhysicObject,
-  SoundObject,
   TCount,
   TDistance,
   TIndex,
@@ -52,7 +48,6 @@ import {
   TSection,
   TStringId,
   TStringifiedBoolean,
-  Vector,
 } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 

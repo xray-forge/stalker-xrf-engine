@@ -1,6 +1,8 @@
+import { Vector } from "xray16/alias";
+
 import { IBaseSchemeState } from "@/engine/core/database/database_types";
 import { TConditionList } from "@/engine/core/utils/ini";
-import { Nillable, Vector } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Type of combat used by game object.

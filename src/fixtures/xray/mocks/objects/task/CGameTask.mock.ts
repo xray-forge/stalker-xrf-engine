@@ -1,7 +1,8 @@
 import { jest } from "@jest/globals";
 import { CGameTask, TXR_TaskType } from "xray16";
+import { GameTask, TTaskState } from "xray16/alias";
 
-import { AnyObject, GameTask, Nullable, TCount, TIndex, TTaskState } from "@/engine/lib/types";
+import { AnyObject, Nullable, TCount, TIndex } from "@/engine/lib/types";
 
 /**
  * Mock x-ray task object.

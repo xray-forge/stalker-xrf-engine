@@ -1,6 +1,7 @@
+import type { GameObject, Vector } from "xray16/alias";
+
 import type { TCount, TIndex, TName } from "@/engine/lib/types/alias";
 import type { Nillable } from "@/engine/lib/types/general";
-import type { GameObject, Vector } from "@/engine/lib/types/xray";
 
 /**
  * Section name string, representing string256 in c++.

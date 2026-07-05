@@ -1,8 +1,10 @@
+import { GameObject } from "xray16/alias";
+
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
 import { ISchemeDeathState } from "@/engine/core/schemes/stalker/death/death_types";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { EScheme, GameObject, Nillable } from "@/engine/lib/types";
+import { EScheme, Nillable } from "@/engine/lib/types";
 
 /**
  * Handle death event and interop with scheme logics on stalker dying.

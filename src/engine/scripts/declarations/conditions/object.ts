@@ -1,4 +1,5 @@
 import { level, MonsterHitInfo } from "xray16";
+import { AlifeSimulator, AnyGameObject, GameObject, ServerCreatureObject, ServerObject } from "xray16/alias";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import {
@@ -50,15 +51,10 @@ import { getObjectSquad, isObjectSquadCommander } from "@/engine/core/utils/squa
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import {
-  AlifeSimulator,
   AnyArgs,
-  AnyGameObject,
   EScheme,
-  GameObject,
   LuaArray,
   Nillable,
-  ServerCreatureObject,
-  ServerObject,
   TCount,
   TDistance,
   TLabel,

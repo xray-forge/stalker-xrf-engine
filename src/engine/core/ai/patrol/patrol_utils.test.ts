@@ -1,9 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import { isPatrolTeamSynchronized } from "@/engine/core/ai/patrol/patrol_utils";
 import { patrolConfig } from "@/engine/core/ai/patrol/PatrolConfig";
-import { GameObject, TNumberId } from "@/engine/lib/types";
+import { TNumberId } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("isPatrolTeamSynchronized util", () => {

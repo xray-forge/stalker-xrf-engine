@@ -1,4 +1,5 @@
 import { cse_alife_item_artefact, LuabindClass } from "xray16";
+import { ServerActorObject } from "xray16/alias";
 
 import {
   registerObjectDynamicState,
@@ -8,7 +9,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
-import { Nillable, ServerActorObject } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 
 /**
  * Artefact item representation.

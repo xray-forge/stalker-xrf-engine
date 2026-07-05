@@ -1,8 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIScriptWnd, CUIStatic, CUIWindow, ui_events } from "xray16";
+import { XmlInit } from "xray16/alias";
 
 import { EElementType, initializeElement, initializeStatic, initializeStatics } from "@/engine/core/utils/ui/forms";
-import { XmlInit } from "@/engine/lib/types";
 import { MockCScriptXmlInit, MockCUIScriptWnd, MockCUIWindow } from "@/fixtures/xray";
 
 describe("initializeStatic util", () => {

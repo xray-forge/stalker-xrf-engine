@@ -1,7 +1,9 @@
+import { GameObject } from "xray16/alias";
+
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, TNumberId } from "@/engine/lib/types";
+import { TNumberId } from "@/engine/lib/types";
 
 /**
  * Register crow game object in lua in-memory registry.

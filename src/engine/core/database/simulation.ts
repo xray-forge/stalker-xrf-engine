@@ -1,4 +1,5 @@
 import { alife, clsid } from "xray16";
+import { IniFile } from "xray16/alias";
 
 import { registry } from "@/engine/core/database/registry";
 import { TSimulationObject } from "@/engine/core/managers/simulation";
@@ -6,7 +7,7 @@ import { SIMULATION_OBJECTS_PROPERTIES_LTX } from "@/engine/core/managers/simula
 import { isSquad } from "@/engine/core/utils/class_ids";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { ACTOR, DEFAULT, DEFAULT_SQUAD } from "@/engine/lib/constants/words";
-import { IniFile, TCount, TSection } from "@/engine/lib/types";
+import { TCount, TSection } from "@/engine/lib/types";
 
 /**
  * Register simulator instance in the registry.

@@ -1,7 +1,9 @@
+import { AnyGameObject, GameObject, ServerCreatureObject } from "xray16/alias";
+
 import { registry } from "@/engine/core/database";
 import type { Squad } from "@/engine/core/objects/squad";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { AnyGameObject, GameObject, Nillable, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
+import { Nillable, TNumberId } from "@/engine/lib/types";
 
 /**
  * Get squad of provided object.

@@ -1,21 +1,11 @@
 import { level } from "xray16";
+import { AlifeSimulator, GameObject, ServerObject, TClassId, Vector } from "xray16/alias";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
 import { areObjectsOnSameLevel } from "@/engine/core/utils/position";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import {
-  AlifeSimulator,
-  AnyCallable,
-  GameObject,
-  LuaArray,
-  Nillable,
-  ServerObject,
-  TClassId,
-  TDistance,
-  TName,
-  Vector,
-} from "@/engine/lib/types";
+import { AnyCallable, LuaArray, Nillable, TDistance, TName } from "@/engine/lib/types";
 
 /**
  * Get nearest to actor server object.

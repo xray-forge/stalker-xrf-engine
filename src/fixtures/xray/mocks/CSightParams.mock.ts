@@ -1,4 +1,4 @@
-import { TSightType } from "@/engine/lib/types";
+import { TSightType } from "xray16/alias";
 
 /**
  * Mock sight parameters enumeration class.

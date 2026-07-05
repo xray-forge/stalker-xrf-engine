@@ -1,6 +1,7 @@
 import * as path from "node:path";
 
 import { describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { registerZone } from "@/engine/core/database";
 import { SmartTerrain, SmartTerrainControl } from "@/engine/core/objects/smart_terrain";
@@ -8,7 +9,6 @@ import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job"
 import { createStalkerSleepJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create_stalker_sleep";
 import { range } from "@/engine/core/utils/number";
 import { StringBuilder } from "@/engine/core/utils/string";
-import { GameObject } from "@/engine/lib/types";
 import { MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

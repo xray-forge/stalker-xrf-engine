@@ -1,3 +1,4 @@
+import { EActorMenuMode, EActorMenuType, GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
@@ -24,9 +25,6 @@ import {
 import {
   AnyArgs,
   AnyObject,
-  EActorMenuMode,
-  EActorMenuType,
-  GameObject,
   TCount,
   TIndex,
   TLabel,

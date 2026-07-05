@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { registerObject } from "@/engine/core/database/objects";
 import {
@@ -13,7 +14,7 @@ import {
   setPortableStoreValue,
 } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
-import { GameObject, Nillable } from "@/engine/lib/types";
+import { Nillable } from "@/engine/lib/types";
 import { EPacketDataType, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 describe("portable_store functionality", () => {

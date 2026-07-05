@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { ActionBase } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -15,7 +16,7 @@ import {
   loadSchemeImplementation,
   loadSchemeImplementations,
 } from "@/engine/core/utils/scheme/scheme_setup";
-import { ActionBase, EScheme, ESchemeType } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { MockActionBase, MockGameObject } from "@/fixtures/xray";
 

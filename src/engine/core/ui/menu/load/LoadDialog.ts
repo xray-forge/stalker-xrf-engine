@@ -13,6 +13,7 @@ import {
   ui_events,
   valid_saved_game,
 } from "xray16";
+import { FSItem, GameObject, TKeyCode, TUIEvent, Vector2D } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -29,19 +30,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { copyRectangle, createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, initializeStatics, resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector } from "@/engine/core/utils/vector";
-import {
-  FSItem,
-  GameObject,
-  LuaArray,
-  Nillable,
-  TIndex,
-  TKeyCode,
-  TLabel,
-  TName,
-  TPath,
-  TUIEvent,
-  Vector2D,
-} from "@/engine/lib/types";
+import { LuaArray, Nillable, TIndex, TLabel, TName, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\LoadDialog.component";

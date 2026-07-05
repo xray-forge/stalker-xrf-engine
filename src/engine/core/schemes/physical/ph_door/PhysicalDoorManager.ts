@@ -1,3 +1,4 @@
+import { GameObject, PhysicObject, PhysicsElement, PhysicsJoint, PhysicsShell, Vector } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -8,19 +9,7 @@ import { abort } from "@/engine/core/utils/assertion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import {
-  GameObject,
-  Nillable,
-  PhysicObject,
-  PhysicsElement,
-  PhysicsJoint,
-  PhysicsShell,
-  TCount,
-  TIndex,
-  TRate,
-  TSection,
-  Vector,
-} from "@/engine/lib/types";
+import { Nillable, TCount, TIndex, TRate, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

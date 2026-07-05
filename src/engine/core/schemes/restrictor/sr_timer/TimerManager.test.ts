@@ -1,12 +1,13 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIGameCustom, get_hud } from "xray16";
+import { GameObject, IniFile } from "xray16/alias";
 
 import { IRegistryObjectState, registerActor, registerObject } from "@/engine/core/database";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer/SchemeTimer";
 import { ETimerType, ISchemeTimerState } from "@/engine/core/schemes/restrictor/sr_timer/sr_timer_types";
 import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerManager";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { EScheme, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

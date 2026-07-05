@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, ServerObject } from "xray16/alias";
 
 import { registerObject, unregisterObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
@@ -16,7 +17,6 @@ import {
   unregisterStoryLinkByObjectId,
   unregisterStoryLinkByStoryId,
 } from "@/engine/core/database/story_objects";
-import { GameObject, ServerObject } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { FILES_MOCKS, MockAlifeObject, MockGameObject, MockIniFile } from "@/fixtures/xray";
 

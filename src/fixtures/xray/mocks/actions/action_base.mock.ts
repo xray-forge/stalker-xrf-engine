@@ -1,4 +1,6 @@
-import { ActionBase, GameObject, Nillable } from "@/engine/lib/types";
+import { ActionBase, GameObject } from "xray16/alias";
+
+import { Nillable } from "@/engine/lib/types";
 import { MockWorldProperty } from "@/fixtures/xray/mocks/actions/world_property.mock";
 import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
 

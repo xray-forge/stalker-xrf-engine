@@ -1,4 +1,4 @@
-import { Vector } from "@/engine/lib/types";
+import { Vector } from "xray16/alias";
 
 /**
  * Mock of xray engine 3D vector.

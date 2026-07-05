@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -9,7 +10,6 @@ import {
   logObjectState,
   logObjectStateManager,
 } from "@/engine/core/utils/debug/debug_log";
-import { GameObject } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 

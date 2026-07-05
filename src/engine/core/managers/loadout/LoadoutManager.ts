@@ -1,5 +1,7 @@
+import { ServerObject } from "xray16/alias";
+
 import { AbstractManager } from "@/engine/core/managers/abstract";
-import { ServerObject, TNumberId } from "@/engine/lib/types";
+import { TNumberId } from "@/engine/lib/types";
 
 /**
  * Manager handling stalkers loadouts.

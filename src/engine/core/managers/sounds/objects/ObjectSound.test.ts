@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { IniFile } from "xray16/alias";
 
 import { ObjectSound } from "@/engine/core/managers/sounds/objects/ObjectSound";
-import { IniFile } from "@/engine/lib/types";
 import { MockIniFile } from "@/fixtures/xray";
 
 describe("ObjectSound", () => {

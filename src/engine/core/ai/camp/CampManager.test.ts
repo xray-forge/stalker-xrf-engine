@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject, IniFile } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
@@ -9,7 +10,7 @@ import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { getStoryManager } from "@/engine/core/managers/sounds/utils";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
-import { EScheme, ESchemeEvent, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { get_hud, level } from "xray16";
+import { GameHud, GameObject } from "xray16/alias";
 
 import { registerActor, registry } from "@/engine/core/database";
 import { setUiVisibility } from "@/engine/core/utils/ui/ui_ingame";
-import { GameHud, GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("setUiVisibility util", () => {

@@ -1,4 +1,5 @@
 import { action_base, LuabindClass } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { campConfig, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
@@ -10,7 +11,7 @@ import { SoundManager } from "@/engine/core/managers/sounds/SoundManager";
 import { IAnimpointActionDescriptor } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { GameObject, ISchemeEventHandler, Nillable } from "@/engine/lib/types";
+import { ISchemeEventHandler, Nillable } from "@/engine/lib/types";
 
 /**
  * GOAP action implementing walker patrol logics.

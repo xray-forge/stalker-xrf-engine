@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import {
   getManager,
@@ -12,7 +13,6 @@ import { Monster } from "@/engine/core/objects/creature/Monster";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { Squad } from "@/engine/core/objects/squad";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { GameObject } from "@/engine/lib/types";
 import { MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { EPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 

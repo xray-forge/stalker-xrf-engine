@@ -1,3 +1,4 @@
+import type { AlifeSimulator, GameObject, IniFile, ZoneCampfire } from "xray16/alias";
 import { $fromObject } from "xray16/macros";
 
 import type { CampManager } from "@/engine/core/ai/camp";
@@ -21,19 +22,7 @@ import type { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import type { TConditionList } from "@/engine/core/utils/ini";
 import type { ERelation } from "@/engine/core/utils/relation";
 import { storyNames, TStoryName } from "@/engine/lib/constants/story_names";
-import type {
-  AlifeSimulator,
-  EScheme,
-  GameObject,
-  IniFile,
-  Nillable,
-  TIndex,
-  TName,
-  TNumberId,
-  TRate,
-  TStringId,
-  ZoneCampfire,
-} from "@/engine/lib/types";
+import type { EScheme, Nillable, TIndex, TName, TNumberId, TRate, TStringId } from "@/engine/lib/types";
 
 /**
  * Global-level registry of objects and references.

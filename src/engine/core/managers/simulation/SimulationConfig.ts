@@ -1,11 +1,12 @@
 import { ini_file } from "xray16";
+import type { IniFile } from "xray16/alias";
 
 import { ESimulationTerrainRole, ISmartTerrainDescriptor } from "@/engine/core/managers/simulation/types";
 import { initializeLevelSimulationGroupIds } from "@/engine/core/managers/simulation/utils/simulation_ini";
 import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import type { Squad } from "@/engine/core/objects/squad";
 import { getTableValuesAsSet } from "@/engine/core/utils/table";
-import type { IniFile, LuaArray, TName, TNumberId } from "@/engine/lib/types";
+import type { LuaArray, TName, TNumberId } from "@/engine/lib/types";
 
 export const SIMULATION_LTX: IniFile = new ini_file("managers\\simulation\\simulation.ltx");
 export const GAME_MAPS_SINGLE_LTX: IniFile = new ini_file("game\\game_maps_single.ltx");

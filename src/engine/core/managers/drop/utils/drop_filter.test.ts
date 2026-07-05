@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
@@ -10,7 +11,6 @@ import { drugs, medkits } from "@/engine/lib/constants/items/drugs";
 import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { GameObject } from "@/engine/lib/types";
 import { mockInSimulator, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

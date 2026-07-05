@@ -1,9 +1,10 @@
 import { bit_and, get_console, snd_type } from "xray16";
+import { GameObject, TSoundType } from "xray16/alias";
 
 import { soundsConfig } from "@/engine/core/managers/sounds/SoundsConfig";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { ESoundType } from "@/engine/lib/constants/sound";
-import { GameObject, TRate, TSoundType } from "@/engine/lib/types";
+import { TRate } from "@/engine/lib/types";
 
 /**
  * @returns Currently set music volume.

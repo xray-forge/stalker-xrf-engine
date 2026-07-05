@@ -1,4 +1,13 @@
 import { clsid, level, patrol } from "xray16";
+import {
+  AlifeSimulator,
+  AnyGameObject,
+  GameObject,
+  Patrol,
+  ServerObject,
+  ServerPhysicObject,
+  Vector,
+} from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
@@ -17,14 +26,8 @@ import { isAmmoSection } from "@/engine/core/utils/section";
 import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import {
-  AlifeSimulator,
-  AnyGameObject,
-  GameObject,
   LuaArray,
   Nillable,
-  Patrol,
-  ServerObject,
-  ServerPhysicObject,
   TCount,
   TDistance,
   TIndex,
@@ -33,7 +36,6 @@ import {
   TProbability,
   TRate,
   TSection,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

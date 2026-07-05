@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { CSightParams, property_storage } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { ActionDirectionTurn } from "@/engine/core/ai/state/direction/ActionDirectionTurn";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -9,7 +10,6 @@ import { registerObject } from "@/engine/core/database";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
 import { createEmptyVector, createVector } from "@/engine/core/utils/vector";
-import { GameObject } from "@/engine/lib/types";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
 

@@ -1,4 +1,5 @@
 import { clsid, level, patrol } from "xray16";
+import { Patrol, ServerCreatureObject, ServerObject, Vector } from "xray16/alias";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { registry, SYSTEM_INI } from "@/engine/core/database";
@@ -24,17 +25,7 @@ import { setSquadRelationToActor } from "@/engine/core/utils/relation";
 import { TLevel } from "@/engine/lib/constants/levels";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { NIL } from "@/engine/lib/constants/words";
-import {
-  LuaArray,
-  Nillable,
-  Patrol,
-  ServerCreatureObject,
-  ServerObject,
-  TName,
-  TNumberId,
-  TSection,
-  Vector,
-} from "@/engine/lib/types";
+import { LuaArray, Nillable, TName, TNumberId, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const simulationLogger: LuaLogger = new LuaLogger($filename, { file: "simulation" });

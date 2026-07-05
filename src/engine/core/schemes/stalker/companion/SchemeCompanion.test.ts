@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -8,7 +9,7 @@ import { ISchemeCompanionState } from "@/engine/core/schemes/stalker/companion/c
 import { SchemeCompanion } from "@/engine/core/schemes/stalker/companion/SchemeCompanion";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

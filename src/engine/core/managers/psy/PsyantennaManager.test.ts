@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { ESoundObjectType } from "xray16/alias";
 
 import { getManager, isManagerInitialized, registry } from "@/engine/core/database";
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
-import { ESoundObjectType } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 
 describe("PsyAntennaManager", () => {

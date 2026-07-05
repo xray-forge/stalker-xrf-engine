@@ -1,4 +1,4 @@
-import { Flags32 } from "@/engine/lib/types";
+import { Flags32 } from "xray16/alias";
 
 /**
  * Mock flags object.

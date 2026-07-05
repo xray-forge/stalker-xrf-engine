@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { device, IsImportantSave } from "xray16";
+import { AlifeSimulator, Console } from "xray16/alias";
 import { MockIoFile } from "xray16/mocks";
 
 import { registerSimulator, registry } from "@/engine/core/database";
@@ -16,7 +17,6 @@ import {
   startNewGame,
 } from "@/engine/core/utils/game_save";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
-import { AlifeSimulator, Console } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockConsole, MockFileSystem, MockFileSystemList } from "@/fixtures/xray";

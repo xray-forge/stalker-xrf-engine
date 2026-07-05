@@ -13,6 +13,7 @@ import {
   main_menu,
   ui_events,
 } from "xray16";
+import { TKeyCode, TUIEvent } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -34,7 +35,7 @@ import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { gameTutorials } from "@/engine/lib/constants/game_tutorials";
 import { gameTypes } from "@/engine/lib/constants/game_types";
-import { Nillable, TKeyCode, TPath, TUIEvent } from "@/engine/lib/types";
+import { Nillable, TPath } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

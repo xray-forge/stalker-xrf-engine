@@ -1,4 +1,5 @@
 import { flags32, patrol } from "xray16";
+import { Flags32, Patrol } from "xray16/alias";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database/registry";
@@ -16,10 +17,8 @@ import { NIL, TRUE } from "@/engine/lib/constants/words";
 import {
   AnyObject,
   EScheme,
-  Flags32,
   LuaArray,
   Nillable,
-  Patrol,
   StringNillable,
   TCount,
   TIndex,

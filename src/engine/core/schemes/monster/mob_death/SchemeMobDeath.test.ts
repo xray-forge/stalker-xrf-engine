@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { GameObject, IniFile } from "xray16/alias";
 
 import { registerObject } from "@/engine/core/database";
 import { ISchemeMobDeathState } from "@/engine/core/schemes/monster/mob_death/mob_death_types";
@@ -6,7 +7,7 @@ import { MobDeathManager } from "@/engine/core/schemes/monster/mob_death/MobDeat
 import { SchemeMobDeath } from "@/engine/core/schemes/monster/mob_death/SchemeMobDeath";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { EScheme, ESchemeType, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

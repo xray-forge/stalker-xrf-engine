@@ -1,6 +1,8 @@
+import { Time } from "xray16/alias";
+
 import { EWeatherMoonPeriod } from "@/engine/core/managers/weather/weather_types";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
-import { Time, TIndex, TLabel } from "@/engine/lib/types";
+import { TIndex, TLabel } from "@/engine/lib/types";
 
 /**
  * Calculate current moon phase based on game date time.

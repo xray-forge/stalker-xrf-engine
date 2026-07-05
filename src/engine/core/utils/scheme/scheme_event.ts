@@ -1,14 +1,8 @@
+import type { GameObject } from "xray16/alias";
+
 import type { IBaseSchemeState, IRegistryObjectState, TSchemeSignals } from "@/engine/core/database/database_types";
 import { registry } from "@/engine/core/database/registry";
-import type {
-  AnyArgs,
-  AnyContextualCallable,
-  EScheme,
-  ESchemeEvent,
-  GameObject,
-  Nillable,
-  TName,
-} from "@/engine/lib/types";
+import type { AnyArgs, AnyContextualCallable, EScheme, ESchemeEvent, Nillable, TName } from "@/engine/lib/types";
 
 /**
  * Emit scheme event for active `actions` list in scheme state.

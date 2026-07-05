@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { clsid, object as xrayObject } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { EStalkerState } from "@/engine/core/animation/types";
 import {
@@ -10,7 +11,6 @@ import {
   isObjectWeaponLocked,
   setObjectBestWeapon,
 } from "@/engine/core/utils/weapon";
-import { GameObject } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("getObjectActiveWeaponSlot", () => {

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
+import { GameObject } from "xray16/alias";
 
 import { ParticleManager } from "@/engine/core/schemes/restrictor/sr_particle/ParticleManager";
 import {
@@ -8,7 +9,7 @@ import {
   ISchemeParticleState,
 } from "@/engine/core/schemes/restrictor/sr_particle/sr_particale_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";

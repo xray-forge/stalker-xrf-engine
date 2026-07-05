@@ -1,4 +1,5 @@
 import { CALifeSmartTerrainTask, cse_alife_creature_actor, LuabindClass } from "xray16";
+import { ALifeSmartTerrainTask, GameObject, NetPacket, ServerObject } from "xray16/alias";
 import { $filename, $isNil } from "xray16/macros";
 
 import {
@@ -26,16 +27,7 @@ import { Squad } from "@/engine/core/objects/squad/Squad";
 import { parseConditionsList, pickSectionFromCondList, TConditionList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { ACTOR, TRUE } from "@/engine/lib/constants/words";
-import {
-  ALifeSmartTerrainTask,
-  GameObject,
-  NetPacket,
-  Nillable,
-  ServerObject,
-  TName,
-  TRate,
-  TSize,
-} from "@/engine/lib/types";
+import { Nillable, TName, TRate, TSize } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

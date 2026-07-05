@@ -1,7 +1,8 @@
 import { entity_action } from "xray16";
+import { EntityAction, GameObject, TEntityActionType } from "xray16/alias";
 
 import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
-import { EntityAction, GameObject, TEntityActionType, TName } from "@/engine/lib/types";
+import { TName } from "@/engine/lib/types";
 
 /**
  * Check whether monster is currently captured by script logic.

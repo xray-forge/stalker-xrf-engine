@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 
 import { EvaluatorSectionActive } from "@/engine/core/ai/planner/evaluators/EvaluatorSectionActive";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -7,7 +8,7 @@ import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actio
 import { SchemeWalker } from "@/engine/core/schemes/stalker/walker/SchemeWalker";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker/walker_types";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ActionPlanner, EScheme, GameObject, IniFile } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 

@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
-
-import { LoginManager } from "@/engine/lib/types";
+import { LoginManager } from "xray16/alias";
 
 /**
  * Mocking internals working with multiplayer login management.

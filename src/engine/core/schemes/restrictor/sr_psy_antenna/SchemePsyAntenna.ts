@@ -1,9 +1,11 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { PsyAntennaSchemaManager } from "@/engine/core/schemes/restrictor/sr_psy_antenna/PsyAntennaSchemaManager";
 import { ISchemePsyAntennaState } from "@/engine/core/schemes/restrictor/sr_psy_antenna/sr_psy_antenna_types";
 import { getConfigSwitchConditions, readIniBoolean, readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { postProcessors } from "@/engine/lib/constants/animation";
-import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 /**
  * Scheme implementing psy antenna restrictor logics.

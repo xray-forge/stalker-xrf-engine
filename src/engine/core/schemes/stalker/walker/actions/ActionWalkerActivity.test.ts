@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import { CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
@@ -10,7 +11,7 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { ISchemeWalkerState } from "@/engine/core/schemes/stalker/walker";
 import { ActionWalkerActivity } from "@/engine/core/schemes/stalker/walker/actions/ActionWalkerActivity";
 import { parseWaypointsData } from "@/engine/core/utils/ini";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile, MockPropertyStorage } from "@/fixtures/xray";
 

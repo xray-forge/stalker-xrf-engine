@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { GameObject, Vector } from "xray16/alias";
 import { $isNil } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
@@ -8,18 +9,7 @@ import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig"
 import { abort } from "@/engine/core/utils/assertion";
 import { copyVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import { X_VECTOR, Z_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  GameObject,
-  LuaArray,
-  Nillable,
-  TCount,
-  TDistance,
-  TIndex,
-  TName,
-  TNumberId,
-  TRate,
-  Vector,
-} from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TDistance, TIndex, TName, TNumberId, TRate } from "@/engine/lib/types";
 
 /**
  * Manager for generic patrol scheme objects.

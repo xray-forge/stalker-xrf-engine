@@ -1,4 +1,5 @@
 import { world_property } from "xray16";
+import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
@@ -16,7 +17,7 @@ import { getConfigSwitchConditions, readIniBoolean, readIniString } from "@/engi
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { addCommonActionPreconditions } from "@/engine/core/utils/scheme";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { ActionPlanner, GameObject, IniFile, Nillable, TName } from "@/engine/lib/types";
+import { Nillable, TName } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 const logger: LuaLogger = new LuaLogger($filename);

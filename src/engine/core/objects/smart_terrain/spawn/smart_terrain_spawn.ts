@@ -1,4 +1,5 @@
 import { game } from "xray16";
+import { Time } from "xray16/alias";
 import { $isNil } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -12,7 +13,7 @@ import { Squad } from "@/engine/core/objects/squad";
 import { abort } from "@/engine/core/utils/assertion";
 import { parseConditionsList, parseStringsList, pickSectionFromCondList, readIniString } from "@/engine/core/utils/ini";
 import { TRUE } from "@/engine/lib/constants/words";
-import { LuaArray, Nillable, TCount, Time, TSection } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TSection } from "@/engine/lib/types";
 
 /**
  * Apply respawn configuration for provided smart terrain.

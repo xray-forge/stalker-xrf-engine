@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { GameObject, ServerCreatureObject, Vector } from "xray16/alias";
 import { $filename, $fromObject } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
@@ -11,16 +12,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectSquad } from "@/engine/core/utils/squad";
 import { createEmptyVector, createVector, vectorCross, vectorRotateY, yawDegree } from "@/engine/core/utils/vector";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  GameObject,
-  Nillable,
-  ServerCreatureObject,
-  TCount,
-  TDistance,
-  TNumberId,
-  TRate,
-  Vector,
-} from "@/engine/lib/types";
+import { Nillable, TCount, TDistance, TNumberId, TRate } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

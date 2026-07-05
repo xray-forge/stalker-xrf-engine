@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { patrol } from "xray16";
+import { Patrol, ServerCreatureObject } from "xray16/alias";
 
 import { registerSimulator, SYSTEM_INI } from "@/engine/core/database";
 import { updateSquadMapSpot } from "@/engine/core/managers/map/utils";
@@ -12,7 +13,7 @@ import {
 } from "@/engine/core/managers/simulation/utils/simulation_squads";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
-import { Patrol, ServerCreatureObject, TNumberId } from "@/engine/lib/types";
+import { TNumberId } from "@/engine/lib/types";
 import { mockRegisteredActor, MockSmartTerrain, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockIniFile } from "@/fixtures/xray";

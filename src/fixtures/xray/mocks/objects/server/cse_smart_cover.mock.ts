@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
+import { ServerSmartCoverObject } from "xray16/alias";
 
-import { ServerSmartCoverObject } from "@/engine/lib/types";
 import { IMockAlifeObjectConfig, MockAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 
 /**

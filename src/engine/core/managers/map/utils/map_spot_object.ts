@@ -1,4 +1,5 @@
 import { level } from "xray16";
+import { AlifeSimulator, GameObject, ServerObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
@@ -8,17 +9,7 @@ import { parseConditionsList, pickSectionFromCondList, readIniString } from "@/e
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { mapMarks } from "@/engine/lib/constants/map_marks";
 import { FALSE, NIL, TRUE } from "@/engine/lib/constants/words";
-import {
-  AlifeSimulator,
-  EScheme,
-  GameObject,
-  Nillable,
-  ServerObject,
-  TName,
-  TNumberId,
-  TSection,
-  TStringId,
-} from "@/engine/lib/types";
+import { EScheme, Nillable, TName, TNumberId, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

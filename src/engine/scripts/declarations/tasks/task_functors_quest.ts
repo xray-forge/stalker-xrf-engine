@@ -1,7 +1,9 @@
+import { GameObject } from "xray16/alias";
+
 import { getObjectIdByStoryId, registry } from "@/engine/core/database";
 import { extern } from "@/engine/core/utils/binding";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
-import { GameObject, Nillable, TLabel, TSection, TStringId } from "@/engine/lib/types";
+import { Nillable, TLabel, TSection, TStringId } from "@/engine/lib/types";
 import { zatB29AfTable, zatB29InfopBringTable } from "@/engine/scripts/declarations/dialogs/dialogs_zaton";
 
 /**

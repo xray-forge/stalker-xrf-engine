@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { GameObject } from "xray16/alias";
 
 import {
   getManager,
@@ -17,7 +18,7 @@ import {
 } from "@/engine/core/schemes/stalker/corpse_detection";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { EScheme, GameObject } from "@/engine/lib/types";
+import { EScheme } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";

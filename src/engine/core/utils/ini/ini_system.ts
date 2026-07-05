@@ -1,5 +1,6 @@
+import { IniFile } from "xray16/alias";
+
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
-import { IniFile } from "@/engine/lib/types";
 
 /**
  * Unlocks overriding of system ini configuration file in runtime.

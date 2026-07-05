@@ -1,4 +1,5 @@
 import { clsid, game } from "xray16";
+import { AlifeSimulator, GameObject, GameTask } from "xray16/alias";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { getManager, getObjectIdByStoryId, registry } from "@/engine/core/database";
@@ -34,10 +35,7 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectWounded } from "@/engine/core/utils/planner";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
-  AlifeSimulator,
   AnyObject,
-  GameObject,
-  GameTask,
   Nillable,
   TCount,
   TDuration,

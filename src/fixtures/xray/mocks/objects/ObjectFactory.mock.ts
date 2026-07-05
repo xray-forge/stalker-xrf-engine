@@ -1,4 +1,4 @@
-import { ObjectFactory, TClassKey } from "@/engine/lib/types";
+import { ObjectFactory, TClassKey } from "xray16/alias";
 
 /**
  * Mock implementation of game objects factory.

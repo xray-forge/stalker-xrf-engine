@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { cond, move, vector } from "xray16";
+import { Cond, GameObject, Move } from "xray16/alias";
 
 import {
   isMonsterScriptCaptured,
@@ -8,7 +9,6 @@ import {
   scriptCommandMonster,
   scriptReleaseMonster,
 } from "@/engine/core/utils/scheme/scheme_monster";
-import { Cond, GameObject, Move } from "@/engine/lib/types";
 import { getFunctionMock, replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockEntityAction, MockGameObject } from "@/fixtures/xray";
 

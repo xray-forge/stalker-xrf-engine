@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
+import { ProfileTimer } from "xray16/alias";
 
-import { Nillable, ProfileTimer, TDuration, TTimestamp } from "@/engine/lib/types";
+import { Nillable, TDuration, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Mocking high-precision timer for debugging and profiling of functions.

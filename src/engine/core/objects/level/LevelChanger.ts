@@ -1,4 +1,5 @@
 import { cse_alife_level_changer, LuabindClass } from "xray16";
+import { NetPacket } from "xray16/alias";
 
 import {
   closeLoadMarker,
@@ -9,7 +10,7 @@ import {
 } from "@/engine/core/database";
 import { openLoadMarker } from "@/engine/core/database/save_markers";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
-import { NetPacket, TLabel } from "@/engine/lib/types";
+import { TLabel } from "@/engine/lib/types";
 
 /**
  * Level changer space restrictor.

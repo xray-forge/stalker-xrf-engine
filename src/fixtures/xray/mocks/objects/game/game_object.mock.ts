@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 import { type CHelicopter } from "xray16";
+import { GameObject, IniFile, TCallback, TClassId, TSightType, Vector } from "xray16/alias";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import {
@@ -7,21 +8,15 @@ import {
   AnyCallable,
   AnyContextualCallable,
   AnyObject,
-  GameObject,
-  IniFile,
   Nillable,
   PartialRecord,
-  TCallback,
-  TClassId,
   TCount,
   TIndex,
   TName,
   TNumberId,
   TRate,
   TSection,
-  TSightType,
   TTimestamp,
-  Vector,
 } from "@/engine/lib/types";
 import { MockActionPlanner, MockAnim, MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";

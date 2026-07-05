@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { CTime, time_global } from "xray16";
+import { GameTask } from "xray16/alias";
 
 import { disposeManager, registerActor, registry } from "@/engine/core/database";
 import { TASK_MANAGER_CONFIG_LTX, taskConfig } from "@/engine/core/managers/tasks/TaskConfig";
@@ -8,7 +9,6 @@ import { TaskObject } from "@/engine/core/managers/tasks/TaskObject";
 import { ETaskState, ETaskStatus } from "@/engine/core/managers/tasks/types";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { NIL } from "@/engine/lib/constants/words";
-import { GameTask } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 

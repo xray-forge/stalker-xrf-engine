@@ -1,3 +1,5 @@
+import { ServerCreatureObject } from "xray16/alias";
+
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { IObjectJobState, SmartTerrain } from "@/engine/core/objects/smart_terrain";
@@ -7,7 +9,7 @@ import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 import { FALSE } from "@/engine/lib/constants/words";
-import { AnyObject, Nillable, ServerCreatureObject } from "@/engine/lib/types";
+import { AnyObject, Nillable } from "@/engine/lib/types";
 
 /**
  * Check if animpoint job is available.

@@ -1,4 +1,5 @@
 import { patrol, time_global } from "xray16";
+import { AlifeSimulator, Patrol, Vector } from "xray16/alias";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { registry } from "@/engine/core/database";
@@ -6,7 +7,7 @@ import { crowSpawnerConfig } from "@/engine/core/schemes/restrictor/sr_crow_spaw
 import { ISchemeCrowSpawnerState } from "@/engine/core/schemes/restrictor/sr_crow_spawner/sr_crow_spawner_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
 import { copyTable } from "@/engine/core/utils/table";
-import { AlifeSimulator, LuaArray, Patrol, TIndex, TName, TTimestamp, Vector } from "@/engine/lib/types";
+import { LuaArray, TIndex, TName, TTimestamp } from "@/engine/lib/types";
 
 /**
  * Manager of crow spawning.

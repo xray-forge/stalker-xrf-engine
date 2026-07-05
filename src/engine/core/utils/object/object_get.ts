@@ -1,8 +1,9 @@
 import { ini_file } from "xray16";
+import { AnyGameObject, GameObject, IniFile, ServerObject } from "xray16/alias";
 
 import { DUMMY_LTX } from "@/engine/core/database";
 import { readIniString } from "@/engine/core/utils/ini";
-import { AnyGameObject, GameObject, IniFile, Nillable, ServerObject, TName, TNumberId } from "@/engine/lib/types";
+import { Nillable, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * @param object - Object to get ID from.

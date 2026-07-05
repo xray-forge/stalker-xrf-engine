@@ -1,3 +1,4 @@
+import { GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -9,7 +10,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInjured, isStalkerAlive } from "@/engine/core/utils/object";
 import { isObjectInSmartTerrain } from "@/engine/core/utils/position";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
-import { GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

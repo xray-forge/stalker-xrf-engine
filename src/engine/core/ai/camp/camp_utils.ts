@@ -1,3 +1,4 @@
+import { GameObject } from "xray16/alias";
 import { $isNil } from "xray16/macros";
 
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
@@ -6,7 +7,7 @@ import { WEAPON_POSTFIX } from "@/engine/core/animation/types";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { isObjectMeeting } from "@/engine/core/utils/planner";
-import { GameObject, LuaArray, Nillable, TCount, TName, TNumberId } from "@/engine/lib/types";
+import { LuaArray, Nillable, TCount, TName, TNumberId } from "@/engine/lib/types";
 
 /**
  * Start playing guitar for an object.

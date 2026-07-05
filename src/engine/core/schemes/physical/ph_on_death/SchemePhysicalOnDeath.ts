@@ -1,8 +1,9 @@
+import { GameObject, IniFile } from "xray16/alias";
+
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
 import { ISchemePhysicalOnDeathState } from "@/engine/core/schemes/physical/ph_on_death/ph_on_death_types";
 import { PhysicalDeathManager } from "@/engine/core/schemes/physical/ph_on_death/PhysicalDeathManager";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
-import { GameObject, IniFile } from "@/engine/lib/types";
 import { EScheme, ESchemeType, TSection } from "@/engine/lib/types/scheme";
 
 /**

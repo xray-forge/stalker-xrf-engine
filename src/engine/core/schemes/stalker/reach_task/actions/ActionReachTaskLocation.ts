@@ -1,4 +1,5 @@
 import { action_base, anim, level, look, LuabindClass, move, object, time_global } from "xray16";
+import { EGameObjectMovementType, EGameObjectPath, GameObject, Vector } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
@@ -16,16 +17,7 @@ import { sendToNearestAccessibleVertex } from "@/engine/core/utils/position";
 import { getObjectSquad } from "@/engine/core/utils/squad/squad_get";
 import { areSameVectors, createEmptyVector } from "@/engine/core/utils/vector";
 import { Z_VECTOR } from "@/engine/lib/constants/vectors";
-import {
-  EGameObjectMovementType,
-  EGameObjectPath,
-  GameObject,
-  ISchemeEventHandler,
-  Nillable,
-  TNumberId,
-  TTimestamp,
-  Vector,
-} from "@/engine/lib/types";
+import { ISchemeEventHandler, Nillable, TNumberId, TTimestamp } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

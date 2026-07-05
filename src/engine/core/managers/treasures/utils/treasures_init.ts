@@ -1,3 +1,4 @@
+import { IniFile } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database";
@@ -9,7 +10,7 @@ import {
 import { abort, assert } from "@/engine/core/utils/assertion";
 import { ISpawnDescriptor, parseConditionsList, parseSpawnDetails, readIniNumber } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { IniFile, LuaArray, TCount, TSection, TStringId } from "@/engine/lib/types";
+import { LuaArray, TCount, TSection, TStringId } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

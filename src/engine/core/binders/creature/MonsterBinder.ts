@@ -1,4 +1,5 @@
 import { callback, clsid, hit, LuabindClass, object_binder } from "xray16";
+import { GameObject, Hit, NetPacket, NetReader, ServerCreatureObject, TSoundType, Vector } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import {
@@ -37,20 +38,13 @@ import {
   EScheme,
   ESchemeEvent,
   ESchemeType,
-  GameObject,
-  Hit,
-  NetPacket,
-  NetReader,
   Nillable,
-  ServerCreatureObject,
   TCount,
   TDuration,
   TIndex,
   TLabel,
   TNumberId,
   TRate,
-  TSoundType,
-  Vector,
 } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);

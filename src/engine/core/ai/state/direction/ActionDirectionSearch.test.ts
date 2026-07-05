@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { CSightParams, property_storage } from "xray16";
+import { TLookType } from "xray16/alias";
 
 import { ActionDirectionSearch } from "@/engine/core/ai/state/direction/ActionDirectionSearch";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -7,7 +8,6 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
-import { TLookType } from "@/engine/lib/types";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionDirectionSearch", () => {

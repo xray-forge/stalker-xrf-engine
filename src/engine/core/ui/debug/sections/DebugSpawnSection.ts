@@ -1,4 +1,5 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, LuabindClass, ui_events } from "xray16";
+import { ServerObject, Vector2D } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { Squad } from "@/engine/core/objects/squad";
@@ -13,7 +14,7 @@ import { spawnCreatureNearActor, spawnSquadInSmart } from "@/engine/core/utils/s
 import { resolveXmlFile } from "@/engine/core/utils/ui";
 import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
 import { TInventoryItem } from "@/engine/lib/constants/items";
-import { LuaArray, Nillable, ServerObject, TPath, TSection, Vector2D } from "@/engine/lib/types";
+import { LuaArray, Nillable, TPath, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\debug\\DebugSpawnSection.component";

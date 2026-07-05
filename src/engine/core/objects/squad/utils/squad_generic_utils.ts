@@ -1,10 +1,12 @@
+import { AlifeSimulator } from "xray16/alias";
+
 import { registry } from "@/engine/core/database";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
 import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { getSquadCommunity } from "@/engine/core/utils/community";
-import { AlifeSimulator, TLabel } from "@/engine/lib/types";
+import { TLabel } from "@/engine/lib/types";
 
 /**
  * Get map display hint for debugging and display in game UI map.

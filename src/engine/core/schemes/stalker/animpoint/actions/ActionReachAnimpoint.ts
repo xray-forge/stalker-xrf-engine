@@ -1,10 +1,10 @@
 import { action_base, LuabindClass } from "xray16";
+import { EGameObjectPath, GameObject } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { setStalkerState } from "@/engine/core/database";
 import { ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { EGameObjectPath, GameObject } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

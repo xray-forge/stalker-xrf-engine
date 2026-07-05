@@ -1,3 +1,4 @@
+import { GameObject, IniFile } from "xray16/alias";
 import { $filename } from "xray16/macros";
 
 import { AbstractScheme } from "@/engine/core/ai/scheme/AbstractScheme";
@@ -7,7 +8,7 @@ import { ISchemeLightState } from "@/engine/core/schemes/restrictor/sr_light/sr_
 import { getConfigSwitchConditions, readIniBoolean } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { resetTable } from "@/engine/core/utils/table";
-import { EScheme, ESchemeType, GameObject, IniFile, TSection } from "@/engine/lib/types";
+import { EScheme, ESchemeType, TSection } from "@/engine/lib/types";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

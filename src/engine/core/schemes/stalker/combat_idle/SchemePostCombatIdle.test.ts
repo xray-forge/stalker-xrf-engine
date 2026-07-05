@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { cast_planner } from "xray16";
+import { ActionPlanner, GameObject } from "xray16/alias";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ActionPostCombatIdleWait } from "@/engine/core/schemes/stalker/combat_idle/actions";
 import { EvaluatorHasEnemy } from "@/engine/core/schemes/stalker/combat_idle/evaluators";
 import { SchemePostCombatIdle } from "@/engine/core/schemes/stalker/combat_idle/SchemePostCombatIdle";
-import { ActionPlanner, EScheme, ESchemeType, GameObject } from "@/engine/lib/types";
+import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, resetRegistry } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
 
