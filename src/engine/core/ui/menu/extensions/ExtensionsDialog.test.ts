@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIScriptWnd } from "xray16";
+import { $fromArray } from "xray16/macros";
 
 import { ExtensionsDialog } from "@/engine/core/ui/menu/extensions/ExtensionsDialog";
 import { IExtensionsDescriptor } from "@/engine/core/utils/extensions";
 import { mockExtension } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockCUIScriptWnd } from "@/fixtures/xray";
 
 describe("ExtensionsDialog component", () => {
@@ -29,7 +29,7 @@ describe("ExtensionsDialog component", () => {
     const first: IExtensionsDescriptor = mockExtension();
     const second: IExtensionsDescriptor = mockExtension();
 
-    dialog.extensions = MockLuaTable.mockFromArray([first, second]);
+    dialog.extensions = $fromArray([first, second]);
 
     jest.spyOn(dialog.uiItemsList, "GetSelectedIndex").mockImplementation(() => 10);
     jest.spyOn(dialog, "fillItemsList").mockImplementation(jest.fn());

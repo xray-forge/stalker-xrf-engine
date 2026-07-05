@@ -6,7 +6,6 @@ import { DUMMY_LTX } from "@/engine/core/database/ini_registry";
 import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
 import { GameObject, IniFile } from "@/engine/lib/types";
-import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("ini module of database", () => {
@@ -40,16 +39,16 @@ describe("ini module of database", () => {
     expect(first).toBe(second);
     expect(firstName).toBe(secondName);
 
-    expect(MockLuaMap.getSizeOf(registry.ini)).toBe(1);
+    expect(table.size(registry.ini)).toBe(1);
   });
 
   it("should correctly open static ini files", () => {
-    expect(MockLuaMap.getSizeOf(registry.ini)).toBe(0);
+    expect(table.size(registry.ini)).toBe(0);
 
     expect(() => loadIniFile("test1.ltx")).not.toThrow();
     expect(() => loadIniFile("test2.ltx")).not.toThrow();
 
-    expect(MockLuaMap.getSizeOf(registry.ini)).toBe(2);
+    expect(table.size(registry.ini)).toBe(2);
     expect(loadIniFile("test1.ltx")).toBe(loadIniFile("test1.ltx"));
     expect(loadIniFile("test2.ltx")).toBe(loadIniFile("test2.ltx"));
     expect(loadIniFile("test1.ltx")).not.toBe(loadIniFile("test2.ltx"));
@@ -59,7 +58,7 @@ describe("ini module of database", () => {
     expect(iniFile instanceof MockIniFile).toBeTruthy();
     expect(iniFile.fname()).toBe("test3.ltx");
 
-    expect(MockLuaMap.getSizeOf(registry.ini)).toBe(3);
+    expect(table.size(registry.ini)).toBe(3);
   });
 
   it("should correctly load object logic ini file", () => {

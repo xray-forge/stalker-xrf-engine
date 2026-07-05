@@ -23,7 +23,6 @@ import {
   TTimestamp,
   Vector,
 } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockActionPlanner, MockAnim, MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -64,7 +63,7 @@ export interface IMockGameObjectConfig {
  * Abstract game object mock.
  */
 export class MockGameObject {
-  public static REGISTRY: MockLuaTable<TNumberId, GameObject> = MockLuaTable.create();
+  public static REGISTRY: Map<TNumberId, GameObject> = new Map();
 
   public static mock(config: IMockGameObjectConfig = {}): GameObject {
     return new MockGameObject(config).asGameObject();

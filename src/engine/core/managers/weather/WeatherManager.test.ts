@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -7,10 +8,9 @@ import { EWeatherPeriodType, IWeatherState } from "@/engine/core/managers/weathe
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";
 import { WeatherManager } from "@/engine/core/managers/weather/WeatherManager";
 import { NIL } from "@/engine/lib/constants/words";
-import { AnyObject } from "@/engine/lib/types";
+import { AnyObject, TName, TProbability } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { getFunctionMock } from "@/fixtures/jest";
-import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray/mocks/save";
 
 describe("WeatherManager", () => {
@@ -65,27 +65,24 @@ describe("WeatherManager", () => {
 
     manager.setStateAsString("dynamic_default=clear,cloudy");
 
-    expect(MockLuaTable.getSizeOf(manager.weatherState)).toBe(1);
+    expect(table.size(manager.weatherState)).toBe(1);
     expect(manager.weatherState).toEqualLuaTables(
-      MockLuaTable.mock<string, IWeatherState>([
-        [
-          "dynamic_default",
-          {
-            currentState: "clear",
-            weatherGraph: MockLuaTable.mock([
-              ["clear", 0.2],
-              ["cloudy", 0.2],
-              ["foggy", 0.1],
-              ["partly", 0.2],
-              ["rain", 0.1],
-              ["thunder", 0.1],
-              ["veryfoggy", 0.1],
-            ]),
-            weatherName: "dynamic_default",
-            nextState: "cloudy",
-          },
-        ],
-      ])
+      $fromObject<string, IWeatherState>({
+        dynamic_default: {
+          currentState: "clear",
+          weatherGraph: $fromObject<TName, TProbability>({
+            clear: 0.2,
+            cloudy: 0.2,
+            foggy: 0.1,
+            partly: 0.2,
+            rain: 0.1,
+            thunder: 0.1,
+            veryfoggy: 0.1,
+          }),
+          weatherName: "dynamic_default",
+          nextState: "cloudy",
+        },
+      })
     );
   });
 

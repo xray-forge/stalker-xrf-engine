@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { $fromObject } from "xray16/macros";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic/SignalLightBinder";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -11,7 +12,6 @@ import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { TName } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("launchSurgeSignalRockets util", () => {
@@ -55,7 +55,7 @@ describe("isSurgeEnabledOnLevel util", () => {
   });
 
   it("should correctly check if surge is enabled for level", () => {
-    surgeConfig.SURGE_DISABLED_LEVELS = MockLuaTable.mockFromObject<TName, boolean>({
+    surgeConfig.SURGE_DISABLED_LEVELS = $fromObject<TName, boolean>({
       labx8: true,
       jupiter_underground: true,
     });
@@ -74,7 +74,7 @@ describe("isImmuneToSurgeObject util", () => {
   });
 
   it("should correctly check that objects are immune to surge", () => {
-    surgeConfig.IMMUNE_SQUAD_COMMUNITIES = MockLuaTable.mockFromObject<TName, boolean>({
+    surgeConfig.IMMUNE_SQUAD_COMMUNITIES = $fromObject<TName, boolean>({
       [communities.monster_predatory_day]: true,
       [communities.monster_predatory_night]: true,
       [communities.monster_vegetarian]: true,

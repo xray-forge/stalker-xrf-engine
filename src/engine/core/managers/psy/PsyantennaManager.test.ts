@@ -4,7 +4,6 @@ import { getManager, isManagerInitialized, registry } from "@/engine/core/databa
 import { PsyAntennaManager } from "@/engine/core/managers/psy/PsyAntennaManager";
 import { ESoundObjectType } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 
 describe("PsyAntennaManager", () => {
   beforeEach(() => {
@@ -52,12 +51,12 @@ describe("PsyAntennaManager", () => {
   it("should correctly handle dispose", () => {
     const psyAntennaManager: PsyAntennaManager = getManager(PsyAntennaManager);
 
-    expect(MockLuaMap.getSizeOf(registry.managers)).toBe(2);
+    expect(table.size(registry.managers)).toBe(2);
     expect(isManagerInitialized(PsyAntennaManager)).toBe(true);
 
     psyAntennaManager.dispose();
 
-    expect(MockLuaMap.getSizeOf(registry.managers)).toBe(1);
+    expect(table.size(registry.managers)).toBe(1);
     expect(isManagerInitialized(PsyAntennaManager)).toBe(false);
   });
 });

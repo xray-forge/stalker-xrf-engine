@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { disposeManager, getManager, isManagerInitialized, registry } from "@/engine/core/database";
 import { AbstractManager } from "@/engine/core/managers/abstract";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockNetProcessor } from "@/fixtures/xray";
 
 describe("AbstractCoreManager", () => {
@@ -18,11 +17,11 @@ describe("AbstractCoreManager", () => {
 
   it("should correctly have lifecycle and method placeholders that throw", () => {
     expect(isManagerInitialized(ExampleManager)).toBe(false);
-    expect(MockLuaTable.getSizeOf(registry.managers)).toBe(0);
+    expect(table.size(registry.managers)).toBe(0);
 
     const manager: ExampleManager = getManager(ExampleManager);
 
-    expect(MockLuaTable.getSizeOf(registry.managers)).toBe(1);
+    expect(table.size(registry.managers)).toBe(1);
 
     expect(manager.isDestroyed).toBeFalsy();
     expect(manager.initialize).toHaveBeenCalledTimes(1);

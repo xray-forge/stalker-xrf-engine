@@ -1,4 +1,4 @@
-import { mockLuaGlobals } from "@/fixtures/lua/mocks/lua_globals.mocks";
+import { mockLuaGlobals } from "xray16/mocks";
 
 /**
  * Mock global lua libs.

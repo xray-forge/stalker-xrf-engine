@@ -3,7 +3,16 @@
   "compilerOptions": {
     "noEmit": true,
     "skipLibCheck": true,
-    "types": ["@typescript-to-lua/language-extensions", "lua-types/jit", "xray16", "node"]
+    "types": [
+      "@typescript-to-lua/language-extensions",
+      "lua-types/jit",
+      "node",
+      "xray16",
+      "xray16/typedefs/extensions",
+      "xray16/typedefs/luajit",
+      "xray16/typedefs/lfs",
+      "xray16/typedefs/marshal"
+    ]
   },
   "include": ["./**/*.ts", "../typedefs/**/*.d.ts"]
 }

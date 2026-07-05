@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { device, IsImportantSave } from "xray16";
+import { MockIoFile } from "xray16/mocks";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import {
@@ -18,7 +19,6 @@ import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { AlifeSimulator, Console } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { MockIoFile } from "@/fixtures/lua";
 import { MockConsole, MockFileSystem, MockFileSystemList } from "@/fixtures/xray";
 
 describe("getFileDataForGameSave util", () => {

@@ -11,7 +11,6 @@ import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent, GameObject, IniFile } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_event");
@@ -92,7 +91,7 @@ describe("CampManager", () => {
 
     participantState.activeScheme = EScheme.ANIMPOINT;
     participantState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: MockLuaTable.mock(),
+      approvedActions: new LuaTable(),
     });
 
     manager.registerObject(participant.id());
@@ -126,11 +125,11 @@ describe("CampManager", () => {
 
     firstState.activeScheme = EScheme.ANIMPOINT;
     firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: MockLuaTable.mock(),
+      approvedActions: new LuaTable(),
     });
     secondState.activeScheme = EScheme.PATROL;
     secondState[EScheme.PATROL] = mockSchemeState<ISchemeAnimpointState>(EScheme.PATROL, {
-      approvedActions: MockLuaTable.mock(),
+      approvedActions: new LuaTable(),
     });
 
     expect(manager.activity).toBe(EObjectCampActivity.IDLE);
@@ -203,7 +202,7 @@ describe("CampManager", () => {
 
     firstState.activeScheme = EScheme.ANIMPOINT;
     firstState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {
-      approvedActions: MockLuaTable.mock(),
+      approvedActions: new LuaTable(),
     });
     secondState.activeScheme = EScheme.ANIMPOINT;
     secondState[EScheme.ANIMPOINT] = mockSchemeState<ISchemeAnimpointState>(EScheme.ANIMPOINT, {

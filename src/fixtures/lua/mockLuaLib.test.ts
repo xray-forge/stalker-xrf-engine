@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockLuaTable } from "xray16/mocks";
 
 import { LuaArray } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 describe("lua VM mocks to test libraries", () => {
   it("string gmatch mock should be applied", () => {

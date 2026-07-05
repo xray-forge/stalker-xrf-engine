@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { relation_registry } from "xray16";
+import { $fromObject } from "xray16/macros";
 
 import { getManager, registerActor, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -37,7 +38,6 @@ import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions
 import { artefacts } from "@/engine/lib/constants/items/artefacts";
 import { TName } from "@/engine/lib/types";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua";
 import { MockGameObject } from "@/fixtures/xray";
 
 function mockNotificationListener(caption: string, senderId: string): (notification: ITipNotification) => void {
@@ -536,10 +536,10 @@ describe("hasAchievedSeeker precondition", () => {
 
     disableInfoPortion(infoPortions.sim_bandit_attack_harder);
 
-    getManager(StatisticsManager).actorStatistics.collectedArtefacts = MockLuaTable.mockFromObject({
+    getManager(StatisticsManager).actorStatistics.collectedArtefacts = $fromObject<TName, boolean>({
       [artefacts.af_baloon]: true,
       [artefacts.af_blood]: false,
-    } as Record<TName, boolean>);
+    });
 
     expect(hasAchievedSeeker()).toBeFalsy();
 

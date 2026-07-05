@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { $fromObject } from "xray16/macros";
 
 import { getManager, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { SmartCover } from "@/engine/core/objects/smart_cover/SmartCover";
 import { LuaArray, TStringId } from "@/engine/lib/types";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua";
-import { MockLuaMap } from "@/fixtures/lua/mocks/LuaMap.mock";
 import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 describe("SmartCover server object", () => {
@@ -46,13 +45,13 @@ describe("SmartCover server object", () => {
       })
     );
 
-    expect(MockLuaMap.getSizeOf(registry.smartCovers)).toBe(0);
+    expect(table.size(registry.smartCovers)).toBe(0);
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
 
     cover.on_before_register();
 
-    expect(MockLuaMap.getSizeOf(registry.smartCovers)).toBe(1);
+    expect(table.size(registry.smartCovers)).toBe(1);
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
     expect(registry.smartCovers.get(cover.name())).toBe(cover);
@@ -64,7 +63,7 @@ describe("SmartCover server object", () => {
 
     cover.on_unregister();
 
-    expect(MockLuaMap.getSizeOf(registry.smartCovers)).toBe(0);
+    expect(table.size(registry.smartCovers)).toBe(0);
     expect(registry.storyLink.idBySid.length()).toBe(0);
     expect(registry.storyLink.sidById.length()).toBe(0);
   });
@@ -137,7 +136,7 @@ describe("SmartCover server object", () => {
     const processor: MockNetProcessor = new MockNetProcessor();
 
     cover.lastDescription = "combat_front";
-    cover.loopholes = MockLuaTable.mockFromObject<TStringId, boolean>({
+    cover.loopholes = $fromObject<TStringId, boolean>({
       crouch_front: true,
       crouch_front_left: false,
       crouch_front_right: true,

@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { getManager } from "@/engine/core/database";
 import { AbstractTimersManager } from "@/engine/core/managers/events/AbstractTimersManager";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockLuaTable } from "@/fixtures/lua/mocks/LuaTable.mock";
 
 describe("EventsManager", () => {
   class TimersManager extends AbstractTimersManager {}
@@ -15,8 +14,8 @@ describe("EventsManager", () => {
   it("should correctly initialize", () => {
     const manager: TimersManager = getManager(TimersManager);
 
-    expect(MockLuaTable.getSizeOf(manager.intervals)).toBe(0);
-    expect(MockLuaTable.getSizeOf(manager.timeouts)).toBe(0);
+    expect(table.size(manager.intervals)).toBe(0);
+    expect(table.size(manager.timeouts)).toBe(0);
 
     expect(manager.getIntervalsCount()).toBe(0);
     expect(manager.getTimeoutsCount()).toBe(0);

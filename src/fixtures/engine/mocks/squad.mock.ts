@@ -1,10 +1,11 @@
+import { $fromObject } from "xray16/macros";
+
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { ServerCreatureObject, TClassId, TName, TNumberId, TRate, TSection } from "@/engine/lib/types";
-import { MockLuaTable } from "@/fixtures/lua";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { MockServerAlifeCreatureAbstract } from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_abstract.mock";
@@ -58,18 +59,8 @@ export class MockSquad extends Squad {
     object.position = config.position ?? MockVector.mock(0, 0, 0);
     object.section = section;
 
-    this.behaviour =
-      config.behaviour ??
-      MockLuaTable.mock([
-        ["a", "4"],
-        ["c", "3"],
-      ]);
-    this.simulationProperties =
-      config.simulationProperties ??
-      MockLuaTable.mock([
-        ["a", 1],
-        ["c", 2],
-      ]);
+    this.behaviour = config.behaviour ?? $fromObject<string, string>({ a: "4", c: "3" });
+    this.simulationProperties = config.simulationProperties ?? $fromObject<string, number>({ a: 1, c: 2 });
   }
 
   public mockAddMember(object: ServerCreatureObject | MockServerAlifeCreatureAbstract): void {
