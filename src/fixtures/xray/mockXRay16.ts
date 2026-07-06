@@ -8,6 +8,7 @@ import {
   mockCallbacks,
   mockCastPlanner,
   MockCGameFont,
+  MockCGameGraph,
   MockCHelicopter,
   mockClsid,
   MockColor,
@@ -51,11 +52,9 @@ import {
   MockVector,
   MockVector2D,
   MockWorldProperty,
-  MockWorldState,
-} from "xray16/mocks";
+ MockWorldState } from "xray16/mocks";
 
 import { MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
-import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";
