@@ -1,3 +1,3 @@
-export * from "@/fixtures/xray/mocks/ini/createIniFile.mock";
+export { mockCreateIniFile } from "xray16/mocks";
 export * from "@/fixtures/xray/mocks/ini/files.mock";
-export * from "@/fixtures/xray/mocks/ini/IniFile.mock";
+export { MockIniFile } from "xray16/mocks";
