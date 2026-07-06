@@ -1,6 +1,6 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
-import { hoursToWeatherPeriod, TCount, TDistance, TName , TSection } from "xray16/lib";
+import { hoursToWeatherPeriod, TCount, TDistance, TName, TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {

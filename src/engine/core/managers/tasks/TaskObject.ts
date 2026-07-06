@@ -11,7 +11,8 @@ import {
   TNumberId,
   TRate,
   TStringId,
-  TTimestamp, writeTimeToPacket,
+  TTimestamp,
+  writeTimeToPacket,
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 

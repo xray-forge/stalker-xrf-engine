@@ -1,5 +1,5 @@
 import { ServerCreatureObject } from "xray16/alias";
-import { AnyObject, FALSE, isInTimeInterval , Nillable } from "xray16/lib";
+import { AnyObject, FALSE, isInTimeInterval, Nillable } from "xray16/lib";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";

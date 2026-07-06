@@ -30,7 +30,8 @@ import {
   TRate,
   TRUE,
   TSection,
-  TTimestamp, writeTimeToPacket,
+  TTimestamp,
+  writeTimeToPacket,
 } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 

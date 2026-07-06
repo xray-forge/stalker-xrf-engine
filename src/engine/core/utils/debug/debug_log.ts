@@ -1,6 +1,6 @@
 import { cast_planner, CTime, relation_registry } from "xray16";
 import { ActionPlanner, GameObject } from "xray16/alias";
-import { gameTimeToString, NIL, Nillable, TLabel, TName , TNumberId } from "xray16/lib";
+import { gameTimeToString, NIL, Nillable, TLabel, TName, TNumberId } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";

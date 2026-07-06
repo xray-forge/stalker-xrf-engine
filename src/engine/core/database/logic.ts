@@ -1,6 +1,15 @@
 import { time_global } from "xray16";
 import { GameObject, NetPacket, NetProcessor, Time } from "xray16/alias";
-import { NIL, Nillable, readTimeFromPacket, StringNillable, TName, TPath , TSection, writeTimeToPacket } from "xray16/lib";
+import {
+  NIL,
+  Nillable,
+  readTimeFromPacket,
+  StringNillable,
+  TName,
+  TPath,
+  TSection,
+  writeTimeToPacket,
+} from "xray16/lib";
 
 import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";

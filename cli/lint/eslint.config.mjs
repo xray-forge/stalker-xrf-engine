@@ -1,4 +1,5 @@
 import jsPlugin from "@eslint/js";
+import eslintConfigPrettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import jestPlugin from "eslint-plugin-jest";
 import jsdocPlugin from "eslint-plugin-jsdoc";
@@ -153,4 +154,5 @@ export default [
       "react/react-in-jsx-scope": "off",
     },
   },
+  eslintConfigPrettier,
 ];

@@ -13,7 +13,8 @@ import {
   TRUE,
   TSection,
   TTimestamp,
-  writeTimeToPacket, Z_VECTOR,
+  writeTimeToPacket,
+  Z_VECTOR,
 } from "xray16/lib";
 import { $filename } from "xray16/macros";
 

@@ -1,5 +1,5 @@
 import { CConsole, get_console, level } from "xray16";
-import { hoursToWeatherPeriod, roundWithPrecision, TDistance, TRate, TSection , TTimestamp } from "xray16/lib";
+import { hoursToWeatherPeriod, roundWithPrecision, TDistance, TRate, TSection, TTimestamp } from "xray16/lib";
 
 import { WeatherManager } from "@/engine/core/managers/weather";
 import { weatherConfig } from "@/engine/core/managers/weather/WeatherConfig";

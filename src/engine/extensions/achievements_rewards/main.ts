@@ -1,4 +1,4 @@
-import { AnyObject, deserializeTime , serializeTime, TName } from "xray16/lib";
+import { AnyObject, deserializeTime, serializeTime, TName } from "xray16/lib";
 import { $dirname } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";

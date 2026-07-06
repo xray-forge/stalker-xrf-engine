@@ -1,6 +1,15 @@
 import { game, get_hud, level } from "xray16";
 import { GameHud, GameObject, NetPacket, NetProcessor } from "xray16/alias";
-import { AnyObject, Nillable, readTimeFromPacket, TDuration, TIndex, TNumberId , TRate, writeTimeToPacket } from "xray16/lib";
+import {
+  AnyObject,
+  Nillable,
+  readTimeFromPacket,
+  TDuration,
+  TIndex,
+  TNumberId,
+  TRate,
+  writeTimeToPacket,
+} from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {

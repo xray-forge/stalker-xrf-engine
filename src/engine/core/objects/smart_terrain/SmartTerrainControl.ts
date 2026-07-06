@@ -1,6 +1,6 @@
 import { game } from "xray16";
 import { GameObject, IniFile, NetPacket, NetProcessor, Time } from "xray16/alias";
-import { Nillable, readTimeFromPacket, TName, TSection , TStringId, writeTimeToPacket } from "xray16/lib";
+import { Nillable, readTimeFromPacket, TName, TSection, TStringId, writeTimeToPacket } from "xray16/lib";
 
 import {
   closeLoadMarker,

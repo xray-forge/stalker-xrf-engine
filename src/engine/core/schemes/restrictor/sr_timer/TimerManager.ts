@@ -1,5 +1,5 @@
 import { CUIGameCustom, get_hud, time_global } from "xray16";
-import { globalTimeToString, Nillable, TSection , TTimestamp } from "xray16/lib";
+import { globalTimeToString, Nillable, TSection, TTimestamp } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";

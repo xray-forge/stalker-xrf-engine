@@ -1,5 +1,5 @@
 import { ServerObject } from "xray16/alias";
-import { isInTimeInterval , TName } from "xray16/lib";
+import { isInTimeInterval, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
