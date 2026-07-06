@@ -1,5 +1,5 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
-import { level } from "xray16";
+import { hanging_lamp, level } from "xray16";
 import { GameObject, HangingLamp, SoundObject } from "xray16/alias";
 import { TRUE, Y_VECTOR } from "xray16/lib";
 
@@ -25,7 +25,7 @@ import {
   MockSmartTerrain,
   resetRegistry,
 } from "@/fixtures/engine";
-import { MockGameObject, MockHangingLamp, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("world effects declaration", () => {
   beforeAll(() => {
@@ -234,8 +234,8 @@ describe("world effects implementation", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
-    const firstLamp: HangingLamp = MockHangingLamp.mock();
-    const secondLamp: HangingLamp = MockHangingLamp.mock();
+    const firstLamp: HangingLamp = new hanging_lamp();
+    const secondLamp: HangingLamp = new hanging_lamp();
 
     jest.spyOn(first, "get_hanging_lamp").mockImplementation(() => firstLamp);
     jest.spyOn(second, "get_hanging_lamp").mockImplementation(() => secondLamp);
@@ -255,7 +255,7 @@ describe("world effects implementation", () => {
 
   it("turn_off_object should turn off lamps", () => {
     const object: GameObject = MockGameObject.mock();
-    const lamp: HangingLamp = MockHangingLamp.mock();
+    const lamp: HangingLamp = new hanging_lamp();
 
     jest.spyOn(object, "get_hanging_lamp").mockImplementation(() => lamp);
 
@@ -266,7 +266,7 @@ describe("world effects implementation", () => {
 
   it("turn_on_and_force should turn on lamps and set force", () => {
     const object: GameObject = MockGameObject.mock();
-    const lamp: HangingLamp = MockHangingLamp.mock();
+    const lamp: HangingLamp = new hanging_lamp();
 
     jest.spyOn(object, "get_hanging_lamp").mockImplementation(() => lamp);
 
@@ -290,7 +290,7 @@ describe("world effects implementation", () => {
 
   it("turn_off_and_force should turn off lamps and set force", () => {
     const object: GameObject = MockGameObject.mock();
-    const lamp: HangingLamp = MockHangingLamp.mock();
+    const lamp: HangingLamp = new hanging_lamp();
 
     jest.spyOn(object, "get_hanging_lamp").mockImplementation(() => lamp);
 
@@ -308,7 +308,7 @@ describe("world effects implementation", () => {
 
   it("turn_on_object should turn on lamps", () => {
     const object: GameObject = MockGameObject.mock();
-    const lamp: HangingLamp = MockHangingLamp.mock();
+    const lamp: HangingLamp = new hanging_lamp();
 
     jest.spyOn(object, "get_hanging_lamp").mockImplementation(() => lamp);
 
@@ -321,8 +321,8 @@ describe("world effects implementation", () => {
     const first: GameObject = MockGameObject.mock();
     const second: GameObject = MockGameObject.mock();
 
-    const firstLamp: HangingLamp = MockHangingLamp.mock();
-    const secondLamp: HangingLamp = MockHangingLamp.mock();
+    const firstLamp: HangingLamp = new hanging_lamp();
+    const secondLamp: HangingLamp = new hanging_lamp();
 
     jest.spyOn(first, "get_hanging_lamp").mockImplementation(() => firstLamp);
     jest.spyOn(second, "get_hanging_lamp").mockImplementation(() => secondLamp);

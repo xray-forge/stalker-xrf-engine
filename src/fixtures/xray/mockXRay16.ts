@@ -1,27 +1,36 @@
 import { jest } from "@jest/globals";
 import {
+  MockCALifeSmartTerrainTask,
   mockCallbacks,
   MockCGameFont,
+  MockCHelicopter,
   mockClsid,
   MockColor,
   mockCommandLine,
+  MockConsole,
   MockCSightParams,
   MockCTime,
+  MockCZoneCampfire,
   MockDevice,
   mockDikKeys,
   MockEffector,
   MockEntityAction,
   MockFbox,
+  MockFlags32,
   MockFrect,
   MockGameType,
   mockGetARGB,
+  MockHangingLamp,
   MockHit,
   MockNoise,
   MockObject,
+  MockParticleObject,
   MockPropertiesHelper,
   mockSndType,
   MockSound,
+  MockSoundObject,
   mockStalkerIds,
+  MockTask,
   mockUiEvents,
   MockVector,
   MockVector2D,
@@ -41,7 +50,6 @@ import {
   MockWorldState,
 } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
-import { MockConsole } from "@/fixtures/xray/mocks/console.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -84,9 +92,7 @@ import {
   MockAlifeSmartCover,
   MockAlifeSmartZone,
   MockAnomalousZone,
-  MockCALifeSmartTerrainTask,
   MockCGameTask,
-  MockCHelicopter,
   MockConnectErrorCb,
   MockCScriptXmlInit,
   MockCServerList,
@@ -112,9 +118,7 @@ import {
   MockCUITextWnd,
   MockCUITrackBar,
   MockCUIWindow,
-  MockCZoneCampfire,
   MockDangerObject,
-  MockFlags32,
   MockLoginOperationCb,
   MockObjectBinder,
   MockPatrol,
@@ -122,13 +126,10 @@ import {
   MockPhysicsJoint,
   MockPhysicsShell,
   MockProfile,
-  MockSoundObject,
   MockSpaceRestrictor,
-  MockTask,
   MockTorridZone,
   MockZoneVisual,
 } from "@/fixtures/xray/mocks/objects";
-import { MockParticleObject } from "@/fixtures/xray/mocks/particle_object.mock";
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 
@@ -238,6 +239,7 @@ export function mockXRay16({
   getFS = () => MockFileSystem.getInstance(),
   get_console = () => MockConsole.getInstance(),
   get_hud = mockGetGameHud,
+  hanging_lamp = MockHangingLamp,
   hit = MockHit,
   ini_file = MockIniFile,
   level = mockLevelInterface,
@@ -381,6 +383,7 @@ export function mockXRay16({
     getFS,
     get_console,
     get_hud,
+    hanging_lamp,
     hit,
     ini_file,
     level,

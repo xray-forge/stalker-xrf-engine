@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, fit, it, jest } from "@jest/globals";
 import { game, time_global } from "xray16";
 import { GameObject, IniFile, ServerCreatureObject, ServerHumanObject } from "xray16/alias";
 import { createTime, TRUE } from "xray16/lib";
-import { MockCTime } from "xray16/mocks";
+import { MockCALifeSmartTerrainTask, MockCTime } from "xray16/mocks";
 
 import { getManager, registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -22,7 +22,6 @@ import {
   EPacketDataType,
   MockAlifeCreatureActor,
   MockAlifeHumanStalker,
-  MockCALifeSmartTerrainTask,
   MockGameObject,
   MockIniFile,
   MockNetProcessor,

@@ -1,18 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { HangingLamp, ServerObject } from "xray16/alias";
 import { MAX_U32, Y_VECTOR } from "xray16/lib";
+import { MockHangingLamp } from "xray16/mocks";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic/SignalLightBinder";
 import { registry } from "@/engine/core/database";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import {
-  EPacketDataType,
-  MockAlifeObject,
-  MockGameObject,
-  MockHangingLamp,
-  MockNetProcessor,
-  MockObjectBinder,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor, MockObjectBinder } from "@/fixtures/xray";
 
 describe("SignalLightBinder", () => {
   beforeEach(() => {

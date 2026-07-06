@@ -9,7 +9,7 @@ import {
   Vector,
 } from "xray16/alias";
 import { MAX_U32, ZERO_VECTOR } from "xray16/lib";
-import { MockVector } from "xray16/mocks";
+import { MockSoundObject, MockVector } from "xray16/mocks";
 
 import { registerSimulator, registerZone, registry } from "@/engine/core/database";
 import {
@@ -31,13 +31,7 @@ import {
   teleportActorWithEffects,
 } from "@/engine/core/utils/position";
 import { mockRegisteredActor } from "@/fixtures/engine";
-import {
-  MockAlifeHumanStalker,
-  MockAlifeObject,
-  MockAlifeSmartZone,
-  MockGameObject,
-  MockSoundObject,
-} from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeObject, MockAlifeSmartZone, MockGameObject } from "@/fixtures/xray";
 
 describe("isObjectInSmartTerrain util", () => {
   beforeEach(() => {

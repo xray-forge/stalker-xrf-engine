@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { flags32 } from "xray16";
 import { Flags32, GameObject } from "xray16/alias";
 import { LuaArray, NIL } from "xray16/lib";
 
@@ -25,7 +26,7 @@ import {
 } from "@/engine/core/utils/ini/ini_parse";
 import { IConfigCondition } from "@/engine/core/utils/ini/ini_types";
 import { EMPTY_LUA_ARRAY } from "@/engine/lib/constants/data";
-import { MockFlags32, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("parseStringsList util", () => {
   it("should correctly parse names array", () => {
@@ -263,7 +264,7 @@ describe("parseFunctionParams util", () => {
 
 describe("parseWaypointData util", () => {
   it("should correctly parse generic paths to waypoint data", () => {
-    const flags: Flags32 = MockFlags32.mock();
+    const flags: Flags32 = new flags32();
 
     expect(parseWaypointData("zat_b53_particle_play_point_5", flags, "wp00")).toEqualLuaTables({
       flags,
@@ -320,7 +321,7 @@ describe("parseWaypointData util", () => {
   });
 
   it("should correctly parse generic paths to waypoint data", () => {
-    const flags: Flags32 = MockFlags32.mock();
+    const flags: Flags32 = new flags32();
 
     expect(parseWaypointsData(null)).toBeNull();
     expect(parseWaypointsData("zat_b40_smart_terrain_zat_b40_merc_01_walk")).toEqualLuaTables({
@@ -421,7 +422,7 @@ describe("parseWaypointData util", () => {
 
 describe("parseWaypointsDataFromList util", () => {
   it("should correctly parse generic paths to waypoint data", () => {
-    const flags: Flags32 = MockFlags32.mock();
+    const flags: Flags32 = new flags32();
 
     expect(
       parseWaypointsDataFromList(

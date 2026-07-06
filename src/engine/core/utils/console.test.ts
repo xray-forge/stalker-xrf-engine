@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { Console } from "xray16/alias";
+import { MockConsole } from "xray16/mocks";
 
 import {
   executeConsoleCommand,
@@ -9,7 +10,7 @@ import {
 import { consoleCommands } from "@/engine/lib/constants/console_commands";
 import { gameDifficulties } from "@/engine/lib/constants/game_difficulties";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockConsole, MockIniFile } from "@/fixtures/xray";
+import { MockIniFile } from "@/fixtures/xray";
 
 describe("executeConsoleCommand util", () => {
   const gameConsole: Console = MockConsole.getInstanceMock();

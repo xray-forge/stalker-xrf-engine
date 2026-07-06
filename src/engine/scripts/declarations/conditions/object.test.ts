@@ -2,6 +2,7 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { CHelicopter, clsid } from "xray16";
 import { GameObject, ServerCreatureObject, ServerHumanObject, ServerMonsterBaseObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
+import { MockCHelicopter } from "xray16/mocks";
 
 import {
   IRegistryObjectState,
@@ -38,13 +39,7 @@ import {
   resetRegistry,
 } from "@/fixtures/engine";
 import { replaceFunctionMock, replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
-import {
-  MockAlifeHumanStalker,
-  MockAlifeMonsterBase,
-  MockCHelicopter,
-  MockGameObject,
-  MockMonsterHitInfo,
-} from "@/fixtures/xray";
+import { MockAlifeHumanStalker, MockAlifeMonsterBase, MockGameObject, MockMonsterHitInfo } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/schemes/restrictor/sr_deimos");
 jest.mock("@/engine/core/utils/planner");
