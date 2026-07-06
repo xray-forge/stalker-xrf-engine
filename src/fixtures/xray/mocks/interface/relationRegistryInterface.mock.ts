@@ -2,8 +2,8 @@ import { jest } from "@jest/globals";
 import type { IXR_relation_registry } from "xray16";
 import { ServerHumanObject } from "xray16/alias";
 import { Nillable, TName, TNumberId } from "xray16/lib";
+import { MockAlifeSimulator } from "xray16/mocks";
 
-import { MockAlifeSimulator } from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 import { charactersGoodwill, communityGoodwill } from "@/fixtures/xray/mocks/relations";
 
 /**
