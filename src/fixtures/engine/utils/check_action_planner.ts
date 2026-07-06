@@ -1,8 +1,7 @@
 import { expect } from "@jest/globals";
 import { ActionBase } from "xray16/alias";
 import { AnyArgs, Nillable } from "xray16/lib";
-
-import { MockActionBase } from "@/fixtures/xray";
+import { MockActionBase } from "xray16/mocks";
 
 /**
  * Util to check GOAP action setup in graph.

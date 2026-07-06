@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { callback, clsid } from "xray16";
 import { GameObject, ServerHumanObject, ServerObject } from "xray16/alias";
+import { MockObjectBinder } from "xray16/mocks";
 
 import { ArenaZoneBinder } from "@/engine/core/binders/zones/ArenaZoneBinder";
 import { registerSimulator, registry } from "@/engine/core/database";
@@ -11,7 +12,6 @@ import {
   MockAlifeObject,
   MockGameObject,
   MockNetProcessor,
-  MockObjectBinder,
 } from "@/fixtures/xray";
 
 describe("CampZoneBinder", () => {

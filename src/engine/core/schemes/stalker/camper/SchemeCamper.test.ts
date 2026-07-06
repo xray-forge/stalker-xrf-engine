@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
+import { MockActionBase } from "xray16/mocks";
 
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -12,7 +13,7 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager, checkPlannerAction } from "@/fixtures/engine";
-import { MockActionBase, MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 describe("SchemeCamper", () => {
   it("should fail if look and walk patrols are same", () => {

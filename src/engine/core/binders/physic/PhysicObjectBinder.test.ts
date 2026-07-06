@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, level } from "xray16";
 import { GameObject } from "xray16/alias";
 import { ZERO_VECTOR } from "xray16/lib";
+import { MockObjectBinder } from "xray16/mocks";
 
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
 import { getManager, ILogicsOverrides, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -13,14 +14,7 @@ import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/util
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import {
-  EPacketDataType,
-  MockAlifeObject,
-  MockGameObject,
-  MockIniFile,
-  MockNetProcessor,
-  MockObjectBinder,
-} from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme");
 

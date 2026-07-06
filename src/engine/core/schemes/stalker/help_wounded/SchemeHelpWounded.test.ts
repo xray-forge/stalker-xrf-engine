@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { MockActionBase } from "xray16/mocks";
 
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -10,7 +11,7 @@ import { SchemeHelpWounded } from "@/engine/core/schemes/stalker/help_wounded/Sc
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { checkPlannerAction, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockActionBase, MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject, MockIniFile } from "@/fixtures/xray";
 
 function prepareActionPlanner(planner: ActionPlanner): ActionPlanner {
   planner.add_action(EActionId.STATE_TO_IDLE_ITEMS, MockActionBase.mock(null, "ActionStateToIdleItems"));

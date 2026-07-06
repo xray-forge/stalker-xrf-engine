@@ -1,9 +1,12 @@
 import { jest } from "@jest/globals";
 import {
+  MockActionBase,
+  MockActionPlanner,
   mockActorStatsInterface,
   MockAnim,
   MockCALifeSmartTerrainTask,
   mockCallbacks,
+  mockCastPlanner,
   MockCGameFont,
   MockCHelicopter,
   mockClsid,
@@ -30,6 +33,7 @@ import {
   mockMainMenuInterface,
   MockNoise,
   MockObject,
+  MockObjectBinder,
   MockParticleObject,
   MockPhysicObject,
   MockPhysicsJoint,
@@ -50,13 +54,7 @@ import {
   MockWorldState,
 } from "xray16/mocks";
 
-import {
-  MockActionBase,
-  MockActionPlanner,
-  mockCastPlanner,
-  MockMove,
-  MockSightParameters,
-} from "@/fixtures/xray/mocks/actions";
+import { MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs";
@@ -126,7 +124,6 @@ import {
   MockCUIWindow,
   MockDangerObject,
   MockLoginOperationCb,
-  MockObjectBinder,
   MockPatrol,
   MockProfile,
   MockSpaceRestrictor,

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, CGameTask, level, time_global } from "xray16";
 import { GameObject, ServerActorObject } from "xray16/alias";
+import { MockObjectBinder } from "xray16/mocks";
 
 import { ActorBinder } from "@/engine/core/binders/creature/ActorBinder";
 import {
@@ -27,7 +28,6 @@ import {
   MockCGameTask,
   MockGameObject,
   MockNetProcessor,
-  MockObjectBinder,
 } from "@/fixtures/xray";
 
 describe("ActorBinder", () => {

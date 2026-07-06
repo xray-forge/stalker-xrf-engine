@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
+import { MockActionPlanner } from "xray16/mocks";
 
 import { setupStalkerStateEvaluators } from "@/engine/core/ai/planner/setup/state_planner/state_evaluators";
 import {
@@ -58,7 +59,7 @@ import {
   EvaluatorWeaponUnstrappedNow,
   EvaluatorWeaponUnstrappedTarget,
 } from "@/engine/core/ai/state/weapon";
-import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("state_evaluator util", () => {
   it("should correctly setup state planner evaluators", () => {

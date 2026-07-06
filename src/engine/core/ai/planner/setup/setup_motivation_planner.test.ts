@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject } from "xray16/alias";
-import { mockStalkerIds } from "xray16/mocks";
+import { MockActionPlanner, mockStalkerIds } from "xray16/mocks";
 
 import { setupStalkerMotivationPlanner } from "@/engine/core/ai/planner/setup/setup_motivation_planner";
 import { EActionId, EEvaluatorId } from "@/engine/core/ai/planner/types";
@@ -12,7 +12,7 @@ import { EvaluatorStateIdleItems } from "@/engine/core/ai/state/state/EvaluatorS
 import { EvaluatorStateLogicActive } from "@/engine/core/ai/state/state/EvaluatorStateLogicActive";
 import { EAnimationType } from "@/engine/core/animation/types/animation_types";
 import { checkPlannerAction } from "@/fixtures/engine";
-import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("motivation_planner setup util", () => {
   it("should correctly setup object motivation planner evaluators", () => {
