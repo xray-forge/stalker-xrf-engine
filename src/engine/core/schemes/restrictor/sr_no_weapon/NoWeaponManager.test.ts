@@ -1,21 +1,20 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
+import { MockIniFile } from "xray16/mocks";
 
 import { getManager, registerActor, registerObject, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { NoWeaponManager } from "@/engine/core/schemes/restrictor/sr_no_weapon/NoWeaponManager";
 import { SchemeNoWeapon } from "@/engine/core/schemes/restrictor/sr_no_weapon/SchemeNoWeapon";
 import {
-  EActorZoneState,
-  ISchemeNoWeaponState,
-} from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
+  EActorZoneState, ISchemeNoWeaponState, } from "@/engine/core/schemes/restrictor/sr_no_weapon/sr_no_weapon_types";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeCondition } from "@/engine/lib/types";
 import { mockBaseSchemeLogic, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("NoWeaponManager", () => {
   beforeEach(() => {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { ISchemeMobHomeState } from "@/engine/core/schemes/monster/mob_home/mob_home_types";
@@ -8,7 +9,7 @@ import { SchemeMobHome } from "@/engine/core/schemes/monster/mob_home/SchemeMobH
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemeMobHome functionality", () => {
   it("should be correctly defined", () => {

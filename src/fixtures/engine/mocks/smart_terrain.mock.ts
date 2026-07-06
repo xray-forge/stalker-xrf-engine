@@ -1,9 +1,9 @@
 import { jest } from "@jest/globals";
 import { IniFile } from "xray16/alias";
 import { Nillable, TName, TSection } from "xray16/lib";
+import { MockIniFile } from "xray16/mocks";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain/SmartTerrain";
-import { MockIniFile } from "@/fixtures/xray";
 
 /**
  * Smart terrain mocked server object.

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import {
   getManager,
@@ -10,7 +11,7 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LevelChanger } from "@/engine/core/objects/level/LevelChanger";
-import { EPacketDataType, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockNetProcessor } from "@/fixtures/xray";
 
 describe("LevelChanger", () => {
   beforeEach(() => registerSimulator());

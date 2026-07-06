@@ -2,9 +2,10 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject } from "xray16/lib";
+import { MockIniFile } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 function checkBinding(name: string, container: AnyObject = globalThis): void {
   expect(container["bind"]).toBeDefined();

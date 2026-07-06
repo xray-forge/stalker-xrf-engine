@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import {
   readIniMapMarks,
@@ -6,7 +7,6 @@ import {
   readIniMapSpots,
   readIniSleepSpots,
 } from "@/engine/core/managers/map/utils/map_init";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("readIniTravelDialogs util", () => {
   it("should correctly read locations", () => {

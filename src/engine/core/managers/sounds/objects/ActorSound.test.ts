@@ -1,8 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { ActorSound } from "@/engine/core/managers/sounds/objects/ActorSound";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("ActorSound", () => {
   it.todo("should correctly initialize");

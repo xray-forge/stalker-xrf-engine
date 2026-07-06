@@ -2,26 +2,17 @@ import * as path from "node:path";
 
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { AnyObject, range } from "xray16/lib";
+import { MockIniFile } from "xray16/mocks";
 
 import { registerActorServer, registerSimulator, registerSmartCover } from "@/engine/core/database";
 import { SmartCover } from "@/engine/core/objects/smart_cover";
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { createTerrainJobs } from "@/engine/core/objects/smart_terrain/job/job_create/job_create";
 import {
-  jobPreconditionAnimpoint,
-  jobPreconditionCamper,
-  jobPreconditionCollector,
-  jobPreconditionGuard,
-  jobPreconditionGuardFollower,
-  jobPreconditionPatrol,
-  jobPreconditionSleep,
-  jobPreconditionSniper,
-  jobPreconditionSurge,
-  jobPreconditionWalker,
-} from "@/engine/core/objects/smart_terrain/job/job_precondition";
+  jobPreconditionAnimpoint, jobPreconditionCamper, jobPreconditionCollector, jobPreconditionGuard, jobPreconditionGuardFollower, jobPreconditionPatrol, jobPreconditionSleep, jobPreconditionSniper, jobPreconditionSurge, jobPreconditionWalker, } from "@/engine/core/objects/smart_terrain/job/job_precondition";
 import { EJobPathType, EJobType } from "@/engine/core/objects/smart_terrain/job/job_types";
 import { MockSmartCover, MockSmartTerrain, readInGameTestLtx } from "@/fixtures/engine";
-import { MockAlifeCreatureActor, MockIniFile } from "@/fixtures/xray";
+import { MockAlifeCreatureActor } from "@/fixtures/xray";
 
 function getSmartTerrainTaskDetails(): AnyObject {
   return {

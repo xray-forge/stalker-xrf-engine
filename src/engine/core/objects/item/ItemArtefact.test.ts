@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import {
   getManager,
@@ -14,7 +15,6 @@ import { alifeConfig } from "@/engine/core/managers/simulation/AlifeConfig";
 import { Actor } from "@/engine/core/objects/creature";
 import { ItemArtefact } from "@/engine/core/objects/item/ItemArtefact";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
-import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ItemArtefact ", () => {
   beforeEach(() => {

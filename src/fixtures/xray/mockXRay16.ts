@@ -15,6 +15,7 @@ import {
   mockCommandLine,
   MockCond,
   MockConsole,
+  mockCreateIniFile,
   MockCSavedGameWrapper,
   MockCSightParams,
   MockCTime,
@@ -30,6 +31,7 @@ import {
   mockGetARGB,
   MockHangingLamp,
   MockHit,
+  MockIniFile,
   MockLook,
   mockMainMenuInterface,
   MockNoise,
@@ -58,7 +60,6 @@ import {
 import { MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs";
-import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";
 import {
   mockGameInterface,
   mockGetGameHud,

@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import { registerSimulator } from "@/engine/core/database";
 import { GAME_MAPS_SINGLE_LTX } from "@/engine/core/managers/simulation/SimulationConfig";
 import { initializeLevelSimulationGroupIds } from "@/engine/core/managers/simulation/utils/simulation_ini";
 import { destroySimulationData } from "@/engine/core/managers/simulation/utils/simulation_initialization";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("initializeLevelSimulationGroupIds util", () => {
   beforeEach(() => {

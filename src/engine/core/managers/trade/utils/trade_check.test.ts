@@ -1,10 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { isObjectTrader } from "@/engine/core/managers/trade/utils/trade_check";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("isObjectTrader util", () => {
   it("should correctly check if object trade config is customized", () => {

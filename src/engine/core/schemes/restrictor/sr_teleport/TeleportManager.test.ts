@@ -1,20 +1,17 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { IRegistryObjectState, registerActor, registerObject, registry } from "@/engine/core/database";
 import {
-  ETeleportState,
-  ISchemeTeleportState,
-  SchemeTeleport,
-  TeleportManager,
-} from "@/engine/core/schemes/restrictor/sr_teleport";
+  ETeleportState, ISchemeTeleportState, SchemeTeleport, TeleportManager, } from "@/engine/core/schemes/restrictor/sr_teleport";
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { getSchemeAction } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, MockIniFile, patrols } from "@/fixtures/xray";
+import { MockGameObject, patrols } from "@/fixtures/xray";
 
 describe("TeleportManager", () => {
   it("should correctly call updates, teleport and react to generic logic", () => {

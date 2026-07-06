@@ -3,6 +3,7 @@ import { level } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
 import { AnyObject, TName, TNumberId } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockIniFile } from "xray16/mocks";
 
 import { disposeManager, getManager, registerActor } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -15,7 +16,7 @@ import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/tre
 import { giveInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { resetRegistry } from "@/fixtures/engine";
-import { EPacketDataType, MockAlifeObject, MockGameObject, MockIniFile, MockNetProcessor } from "@/fixtures/xray";
+import { EPacketDataType, MockAlifeObject, MockGameObject, MockNetProcessor } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/managers/map/utils");
 

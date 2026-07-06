@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { IniFile } from "xray16/alias";
 import { TNumberId } from "xray16/lib";
+import { MockIniFile } from "xray16/mocks";
 
 import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sounds";
 import { NpcSound } from "@/engine/core/managers/sounds/objects/NpcSound";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("NpcSound", () => {
   it("should fail init on missing data", () => {

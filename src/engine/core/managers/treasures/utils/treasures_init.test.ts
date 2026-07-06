@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import { ETreasureType } from "@/engine/core/managers/treasures";
 import { readIniTreasuresList } from "@/engine/core/managers/treasures/utils/treasures_init";
 import { parseConditionsList } from "@/engine/core/utils/ini";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("readIniTreasuresList util", () => {
   it("should correctly read", () => {

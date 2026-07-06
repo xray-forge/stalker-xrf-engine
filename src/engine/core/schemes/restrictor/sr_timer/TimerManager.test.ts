@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CUIGameCustom, get_hud } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { IRegistryObjectState, registerActor, registerObject } from "@/engine/core/database";
 import { SchemeTimer } from "@/engine/core/schemes/restrictor/sr_timer/SchemeTimer";
@@ -9,7 +10,7 @@ import { TimerManager } from "@/engine/core/schemes/restrictor/sr_timer/TimerMan
 import { activateSchemeBySection, loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState } from "@/fixtures/engine/mocks";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("TimerManager", () => {
   it("should correctly activate and deactivate with label and timer id", () => {

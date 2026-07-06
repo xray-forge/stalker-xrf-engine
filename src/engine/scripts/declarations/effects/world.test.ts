@@ -2,30 +2,19 @@ import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals
 import { hanging_lamp, level } from "xray16";
 import { GameObject, HangingLamp, SoundObject } from "xray16/alias";
 import { TRUE, Y_VECTOR } from "xray16/lib";
+import { MockIniFile } from "xray16/mocks";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import {
-  getManager,
-  IRegistryObjectState,
-  registerAnomalyZone,
-  registerObject,
-  registerSignalLight,
-  registerStoryLink,
-} from "@/engine/core/database";
+  getManager, IRegistryObjectState, registerAnomalyZone, registerObject, registerSignalLight, registerStoryLink, } from "@/engine/core/database";
 import { SoundManager, soundsConfig } from "@/engine/core/managers/sounds";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { SurgeManager } from "@/engine/core/managers/surge";
 import { EScheme } from "@/engine/lib/types";
 import {
-  callXrEffect,
-  checkXrEffect,
-  mockRegisteredActor,
-  mockSchemeState,
-  MockSmartTerrain,
-  resetRegistry,
-} from "@/fixtures/engine";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+  callXrEffect, checkXrEffect, mockRegisteredActor, mockSchemeState, MockSmartTerrain, resetRegistry, } from "@/fixtures/engine";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("world effects declaration", () => {
   beforeAll(() => {

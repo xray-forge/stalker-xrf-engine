@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { EPlayableSound } from "@/engine/core/managers/sounds";
 import { ActorSound, LoopedSound, NpcSound, ObjectSound } from "@/engine/core/managers/sounds/objects";
 import { readIniThemesList } from "@/engine/core/managers/sounds/utils/sounds_init";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("readIniThemesList util", () => {
   it("should handle exceptional cases", () => {

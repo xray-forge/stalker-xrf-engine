@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { ISchemePhysicalOnHitState } from "@/engine/core/schemes/physical/ph_on_hit/ph_on_hit_types";
@@ -8,7 +9,7 @@ import { SchemePhysicalOnHit } from "@/engine/core/schemes/physical/ph_on_hit/Sc
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemePhysicalOnHit", () => {
   it("should correctly activate", () => {

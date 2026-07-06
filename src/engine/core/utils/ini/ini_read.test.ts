@@ -1,6 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { IniFile } from "xray16/alias";
 import { Nillable } from "xray16/lib";
+import { MockIniFile } from "xray16/mocks";
 
 import { IBaseSchemeLogic } from "@/engine/core/database";
 import { parseConditionsList } from "@/engine/core/utils/ini/ini_parse";
@@ -25,7 +26,6 @@ import {
   readIniTwoNumbers,
   readIniTwoStringsAndConditionsList,
 } from "@/engine/core/utils/ini/ini_read";
-import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("readIniString util", () => {
   it("utils should correctly get data from ini files", () => {

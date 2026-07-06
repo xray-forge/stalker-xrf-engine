@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter, patrol } from "xray16";
 import { GameObject } from "xray16/alias";
 import { createVector } from "xray16/lib";
-import { MockCHelicopter } from "xray16/mocks";
+import { MockCHelicopter, MockIniFile } from "xray16/mocks";
 
 import { getPortableStoreValue, registerObject, setPortableStoreValue } from "@/engine/core/database";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
@@ -14,7 +14,7 @@ import { parseWaypointsData } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile, MockPatrol } from "@/fixtures/xray";
+import { MockGameObject, MockPatrol } from "@/fixtures/xray";
 
 describe("HelicopterMoveManager", () => {
   beforeEach(() => {

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import {
   getManager,
@@ -11,7 +12,6 @@ import {
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ItemWeaponMagazined } from "@/engine/core/objects/item/ItemWeaponMagazined";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("ItemWeaponMagazined ", () => {
   beforeEach(() => {

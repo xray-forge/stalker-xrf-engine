@@ -1,4 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import { EWeatherMoonPeriod, EWeatherNightBrightness } from "@/engine/core/managers/weather";
 import {
@@ -7,7 +8,6 @@ import {
   readLevelWeathersConfiguration,
 } from "@/engine/core/managers/weather/utils/weather_config";
 import { WEATHER_MANAGER_LEVELS_LTX, WEATHER_MANAGER_LTX } from "@/engine/core/managers/weather/WeatherConfig";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("readAtmosfearConfig util", () => {
   it("should correctly read values", () => {

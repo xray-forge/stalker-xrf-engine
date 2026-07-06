@@ -1,22 +1,17 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
 import { AnyObject, copyVector } from "xray16/lib";
+import { MockIniFile } from "xray16/mocks";
 
 import { disposeManager, getManager } from "@/engine/core/database";
 import {
-  BOX_METAL_01,
-  BOX_SCIENCE,
-  BOX_SMALL_GENERIC,
-  BOX_WOOD_01,
-  BOX_WOOD_02,
-  boxConfig,
-} from "@/engine/core/managers/box/BoxConfig";
+  BOX_METAL_01, BOX_SCIENCE, BOX_SMALL_GENERIC, BOX_WOOD_01, BOX_WOOD_02, boxConfig, } from "@/engine/core/managers/box/BoxConfig";
 import { BoxManager } from "@/engine/core/managers/box/BoxManager";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { spawnItemsAtPosition } from "@/engine/core/utils/spawn";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/spawn");
 

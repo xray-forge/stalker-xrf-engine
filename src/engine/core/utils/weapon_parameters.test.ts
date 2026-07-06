@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import {
   normalizeWeaponParameter,
@@ -11,7 +12,6 @@ import {
   readWeaponParameter,
   readWeaponRPM,
 } from "@/engine/core/utils/weapon_parameters";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("normalizeWeaponParameterInMultiplayer util", () => {
   it("should correctly clamp values", () => {

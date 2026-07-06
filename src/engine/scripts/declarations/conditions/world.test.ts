@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { getManager } from "@/engine/core/database";
@@ -17,7 +18,7 @@ import {
   resetRegistry,
 } from "@/fixtures/engine";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/anomaly");
 

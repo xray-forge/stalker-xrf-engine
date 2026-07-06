@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile } from "xray16/alias";
-import { mockStalkerIds } from "xray16/mocks";
+import { MockIniFile, mockStalkerIds } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { EvaluatorGatherItems } from "@/engine/core/schemes/stalker/gather_items/evaluators";
@@ -8,7 +8,7 @@ import { ISchemeGatherItemsState } from "@/engine/core/schemes/stalker/gather_it
 import { SchemeGatherItems } from "@/engine/core/schemes/stalker/gather_items/SchemeGatherItems";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme/scheme_setup";
 import { EScheme } from "@/engine/lib/types";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("SchemeGatherItems", () => {
   it("should correctly activate schemes", () => {

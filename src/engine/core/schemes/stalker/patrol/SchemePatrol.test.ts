@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { ActionPlanner, GameObject, IniFile, ServerHumanObject } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { StalkerPatrolManager } from "@/engine/core/ai/patrol";
 import { EvaluatorSectionEnded } from "@/engine/core/ai/planner/evaluators";
@@ -16,13 +17,8 @@ import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeType } from "@/engine/lib/types";
 import {
-  assertSchemeSubscribedToManager,
-  checkPlannerAction,
-  mockSchemeState,
-  MockSquad,
-  resetRegistry,
-} from "@/fixtures/engine";
-import { MockAlifeHumanStalker, MockGameObject, MockIniFile } from "@/fixtures/xray";
+  assertSchemeSubscribedToManager, checkPlannerAction, mockSchemeState, MockSquad, resetRegistry, } from "@/fixtures/engine";
+import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";
 
 describe("SchemePatrol", () => {
   beforeEach(() => {

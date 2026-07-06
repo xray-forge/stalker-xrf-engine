@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { IRegistryObjectState } from "@/engine/core/database/database_types";
 import { getObjectLogicIniConfig, loadDynamicIniFile, loadIniFile } from "@/engine/core/database/ini";
 import { DUMMY_LTX } from "@/engine/core/database/ini_registry";
 import { registerObject } from "@/engine/core/database/objects";
 import { registry } from "@/engine/core/database/registry";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("ini module of database", () => {
   beforeEach(() => {

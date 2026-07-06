@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import {
   getManager,
@@ -10,7 +11,6 @@ import {
 } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { ZoneAnomalous } from "@/engine/core/objects/zone/index";
-import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("ZoneAnomalous ", () => {
   beforeEach(() => registerSimulator());

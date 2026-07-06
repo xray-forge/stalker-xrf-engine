@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 import { IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { SYSTEM_INI } from "@/engine/core/database";
 import { overrideSystemIni, unlockSystemIniOverriding } from "@/engine/core/utils/ini";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("unlockSystemIniOverriding util", () => {
   it("should allow overriding of system ini", () => {

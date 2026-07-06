@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { MockIniFile } from "xray16/mocks";
 
 import {
   getManager,
@@ -12,7 +13,6 @@ import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { InventoryBox } from "@/engine/core/objects/item/InventoryBox";
 import { Item } from "@/engine/core/objects/item/Item";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 
 describe("Item", () => {
   beforeEach(() => {

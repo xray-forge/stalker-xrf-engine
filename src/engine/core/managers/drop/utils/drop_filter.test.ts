@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { clsid } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { registerSimulator, registry } from "@/engine/core/database";
 import { dropConfig } from "@/engine/core/managers/drop/DropConfig";
@@ -12,7 +13,7 @@ import { food } from "@/engine/lib/constants/items/food";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { weapons } from "@/engine/lib/constants/items/weapons";
 import { mockInSimulator, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("filterObjectDeathLoot", () => {
   beforeEach(() => {

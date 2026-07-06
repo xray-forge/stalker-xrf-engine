@@ -1,15 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
+import { MockIniFile } from "xray16/mocks";
 
 import {
-  canPlayCampGuitar,
-  canPlayCampHarmonica,
-  canTellCampStory,
-  getObjectCampActivityRole,
-  startPlayingGuitar,
-  startPlayingHarmonica,
-} from "@/engine/core/ai/camp/camp_utils";
+  canPlayCampGuitar, canPlayCampHarmonica, canTellCampStory, getObjectCampActivityRole, startPlayingGuitar, startPlayingHarmonica, } from "@/engine/core/ai/camp/camp_utils";
 import { CampManager, EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/index";
 import { EActionId } from "@/engine/core/ai/planner/types";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -17,7 +12,7 @@ import { IRegistryObjectState, registerCampZone, registerObject, registry } from
 import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core/schemes/stalker/animpoint";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("startPlayingGuitar util", () => {
   it("should correctly start playing without camp", () => {

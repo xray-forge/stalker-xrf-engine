@@ -1,9 +1,9 @@
 import { describe, expect, it } from "@jest/globals";
 import { IniFile } from "xray16/alias";
+import { MockIniFile } from "xray16/mocks";
 
 import { tradeConfig } from "@/engine/core/managers/trade/TradeConfig";
 import { readObjectTradeIniPath } from "@/engine/core/managers/trade/utils/trade_init";
-import { MockIniFile } from "@/fixtures/xray";
 
 describe("readObjectTradeIniPath util", () => {
   it("should correctly read object ini", () => {

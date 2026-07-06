@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
 import { $fromArray } from "xray16/macros";
+import { MockIniFile } from "xray16/mocks";
 
 import { EObjectCampActivity, EObjectCampRole } from "@/engine/core/ai/camp/camp_types";
 import { CampManager } from "@/engine/core/ai/camp/CampManager";
@@ -12,7 +13,7 @@ import { IAnimpointActionDescriptor, ISchemeAnimpointState } from "@/engine/core
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockIniFile } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 jest.mock("@/engine/core/utils/scheme/scheme_event");
 
