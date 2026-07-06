@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { GameObject, ServerCreatureObject, ServerGroupObject, ServerSmartZoneObject } from "xray16/alias";
 import { AnyObject, TRUE } from "xray16/lib";
+import { MockPhraseDialog } from "xray16/mocks";
 
 import { getManager, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -13,7 +14,6 @@ import {
   MockAlifeOnlineOfflineGroup,
   MockAlifeSmartZone,
   MockGameObject,
-  MockPhraseDialog,
 } from "@/fixtures/xray";
 
 describe("TravelManager", () => {

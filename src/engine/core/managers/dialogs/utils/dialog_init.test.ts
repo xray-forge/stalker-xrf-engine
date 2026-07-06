@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { range } from "xray16/lib";
+import { MockPhraseDialog } from "xray16/mocks";
 
 import { EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
 import { dialogConfig } from "@/engine/core/managers/dialogs/DialogConfig";
 import { initializeCategoryDialogs, initializeNewDialog } from "@/engine/core/managers/dialogs/utils/dialog_init";
-import { MockPhraseDialog } from "@/fixtures/xray";
 
 describe("initializeCategoryDialogs util", () => {
   it("should correctly generate phrases and scripts for generic categories", () => {

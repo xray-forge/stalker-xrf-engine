@@ -2,12 +2,16 @@ import { jest } from "@jest/globals";
 import { AnyObject, Nullable, TPath } from "xray16/lib";
 import { MockFileSystemList } from "xray16/mocks";
 
-import { FS_MOCKS } from "@/fixtures/xray/mocks/fs/fs.mock";
-
 /**
  * Mock engine FS manager.
  */
 export class MockFileSystem {
+  public static MOCKS = {
+    ["$game_sounds$"]: {
+      "device\\pda\\pda_objective.ogg": true,
+    },
+  };
+
   public static FS_ClampExt: number = 4;
   public static FS_ListFiles: number = 1;
   public static FS_ListFolders: number = 2;
@@ -31,7 +35,7 @@ export class MockFileSystem {
 
   public mocks: AnyObject;
 
-  public constructor(mocks: AnyObject = FS_MOCKS) {
+  public constructor(mocks: AnyObject = MockFileSystem.MOCKS) {
     this.mocks = mocks;
   }
 

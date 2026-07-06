@@ -1,6 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject, PhraseDialog } from "xray16/alias";
 import { AnyArgs, AnyObject, Nillable, TName } from "xray16/lib";
+import { MockPhraseDialog } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { DialogManager, EGenericPhraseCategory } from "@/engine/core/managers/dialogs";
@@ -15,7 +16,7 @@ import {
 } from "@/engine/core/managers/dialogs/utils";
 import { checkNestedBinding, mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce, resetFunctionMock } from "@/fixtures/jest";
-import { MockGameObject, MockPhraseDialog } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 function checkManagerBinding(name: TName): void {
   return checkNestedBinding("dialog_manager", name);

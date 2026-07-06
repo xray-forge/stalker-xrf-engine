@@ -1,6 +1,5 @@
 export * from "@/fixtures/xray/mocks/MonsterHitInfo.mock";
 export * from "@/fixtures/xray/mocks/actions";
-export * from "@/fixtures/xray/mocks/dialogs";
 export * from "@/fixtures/xray/mocks/fs";
 export * from "@/fixtures/xray/mocks/ini";
 export * from "@/fixtures/xray/mocks/interface";

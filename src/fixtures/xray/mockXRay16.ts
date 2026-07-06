@@ -38,6 +38,7 @@ import {
   MockObject,
   MockObjectBinder,
   MockParticleObject,
+  MockPhraseDialog,
   MockPhysicObject,
   MockPhysicsJoint,
   MockPhysicsShell,
@@ -58,7 +59,6 @@ import {
 } from "xray16/mocks";
 
 import { MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
-import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import {
   mockGameInterface,
