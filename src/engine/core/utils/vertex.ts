@@ -1,9 +1,7 @@
-import { game_graph } from "xray16";
+import { alife, game_graph } from "xray16";
 import { GameObject } from "xray16/alias";
 import { MAX_U32, Nillable, TDistance, TName, TNumberId } from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
-
-import { registry } from "@/engine/core/database";
 
 /**
  * Check whether provided vertex ID is from level.
@@ -13,7 +11,7 @@ import { registry } from "@/engine/core/database";
  * @returns Whether gameVertexId is part of level with name `levelName`.
  */
 export function isGameVertexFromLevel(levelName: TName, gameVertexId: TNumberId): boolean {
-  return levelName === registry.simulator.level_name(game_graph().vertex(gameVertexId).level_id());
+  return levelName === alife().level_name(game_graph().vertex(gameVertexId).level_id());
 }
 
 /**
