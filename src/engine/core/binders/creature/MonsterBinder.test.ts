@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
 import { GameObject, ServerMonsterBaseObject } from "xray16/alias";
+import { X_VECTOR, ZERO_VECTOR } from "xray16/lib";
 
 import { MonsterBinder } from "@/engine/core/binders/creature/MonsterBinder";
 import {
@@ -28,7 +29,6 @@ import {
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { X_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";

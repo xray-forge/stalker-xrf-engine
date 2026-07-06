@@ -13,6 +13,7 @@ import {
   TPath,
   TSection,
   TTimestamp,
+  ZERO_VECTOR,
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
@@ -33,7 +34,6 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { roots } from "@/engine/lib/constants/roots";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

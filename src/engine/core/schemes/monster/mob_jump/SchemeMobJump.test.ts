@@ -1,5 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject, IniFile } from "xray16/alias";
+import { ZERO_VECTOR } from "xray16/lib";
+import { MockVector } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { ISchemeMobJumpState } from "@/engine/core/schemes/monster/mob_jump/mob_jump_types";
@@ -7,11 +9,9 @@ import { MobJumpManager } from "@/engine/core/schemes/monster/mob_jump/MobJumpMa
 import { SchemeMobJump } from "@/engine/core/schemes/monster/mob_jump/SchemeMobJump";
 import { getConfigSwitchConditions } from "@/engine/core/utils/ini";
 import { loadSchemeImplementation } from "@/engine/core/utils/scheme";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme } from "@/engine/lib/types";
 import { assertSchemeSubscribedToManager } from "@/fixtures/engine";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("SchemeMobJump", () => {
   it("should correctly activate scheme with default values", () => {

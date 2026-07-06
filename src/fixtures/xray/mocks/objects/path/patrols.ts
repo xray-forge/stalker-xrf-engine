@@ -1,6 +1,5 @@
 import { TName, TNumberId } from "xray16/lib";
-
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+import { MockVector } from "xray16/mocks";
 
 /**
  * Generic patrol mock.

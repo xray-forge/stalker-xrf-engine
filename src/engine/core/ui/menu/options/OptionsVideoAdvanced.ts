@@ -9,7 +9,7 @@ import {
   CUIWindow,
   LuabindClass,
 } from "xray16";
-import { TCoordinate, TName } from "xray16/lib";
+import { create2dVector, TCoordinate, TName } from "xray16/lib";
 
 import { Options } from "@/engine/core/ui/menu/options/Options";
 import {
@@ -22,7 +22,6 @@ import {
   preconditionOnly3andMoreModeVisible,
   preconditionOnly4andMoreMode,
 } from "@/engine/core/ui/menu/options/options_preconditions";
-import { create2dVector } from "@/engine/core/utils/vector";
 
 /**
  * Advanced section from video option menu.

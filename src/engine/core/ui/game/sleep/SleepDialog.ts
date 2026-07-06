@@ -11,7 +11,7 @@ import {
   ui_events,
 } from "xray16";
 import { GameObject, Vector2D } from "xray16/alias";
-import { TDuration, TNumberId, TPath, TTimestamp } from "xray16/lib";
+import { create2dVector, TDuration, TNumberId, TPath, TTimestamp } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -27,7 +27,6 @@ import {
   isWideScreen,
   resolveXmlFile,
 } from "@/engine/core/utils/ui";
-import { create2dVector } from "@/engine/core/utils/vector";
 import { screenConfig } from "@/engine/lib/configs/ScreenConfig";
 import { infoPortions } from "@/engine/lib/constants/info_portions/info_portions";
 

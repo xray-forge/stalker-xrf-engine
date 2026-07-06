@@ -10,10 +10,12 @@ import {
   Vector,
 } from "xray16/alias";
 import {
+  createVector,
   FALSE,
   LuaArray,
   Nillable,
   Nullable,
+  subVectors,
   TCount,
   TDuration,
   TIndex,
@@ -71,7 +73,6 @@ import {
   spawnObjectInObject,
   spawnSquadInSmart,
 } from "@/engine/core/utils/spawn";
-import { createVector, subVectors } from "@/engine/core/utils/vector";
 import { misc } from "@/engine/lib/constants/items/misc";
 import { EScheme } from "@/engine/lib/types";
 

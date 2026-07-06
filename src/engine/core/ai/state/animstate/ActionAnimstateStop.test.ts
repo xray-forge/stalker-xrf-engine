@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
+import { createEmptyVector } from "xray16/lib";
 
 import { ActionAnimstateStop } from "@/engine/core/ai/state/animstate/ActionAnimstateStop";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -6,7 +7,6 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
-import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
 
 describe("ActionAnimstateStop", () => {

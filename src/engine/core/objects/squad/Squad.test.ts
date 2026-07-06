@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CALifeSmartTerrainTask } from "xray16";
 import { GameObject, ServerHumanObject } from "xray16/alias";
-import { TRUE } from "xray16/lib";
+import { TRUE, X_VECTOR, Y_VECTOR } from "xray16/lib";
 
 import { getManager, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -9,7 +9,6 @@ import { assignSimulationSquadToTerrain, releaseSimulationSquad } from "@/engine
 import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action";
 import { Squad } from "@/engine/core/objects/squad/Squad";
 import { parseConditionsList, pickSectionFromCondList } from "@/engine/core/utils/ini";
-import { X_VECTOR, Y_VECTOR } from "@/engine/lib/constants/vectors";
 import { mockRegisteredActor, MockSquad, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockGameObject } from "@/fixtures/xray";

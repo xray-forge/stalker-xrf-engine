@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, NetPacket, NetReader, ServerHumanObject } from "xray16/alias";
-import { AnyObject } from "xray16/lib";
+import { AnyObject, X_VECTOR, ZERO_VECTOR } from "xray16/lib";
 
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { getManager, IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
@@ -23,7 +23,6 @@ import {
 } from "@/engine/core/utils/object";
 import { emitSchemeEvent, setupObjectLogicsOnSpawn } from "@/engine/core/utils/scheme";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { X_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";

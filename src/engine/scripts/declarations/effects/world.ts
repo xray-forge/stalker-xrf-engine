@@ -19,6 +19,7 @@ import {
   TSection,
   TStringId,
   TStringifiedBoolean,
+  Y_VECTOR,
 } from "xray16/lib";
 import { $filename, $isNil } from "xray16/macros";
 
@@ -47,7 +48,6 @@ import { spawnItemsForObject } from "@/engine/core/utils/spawn";
 import { TCommunity } from "@/engine/lib/constants/communities";
 import { questItems } from "@/engine/lib/constants/items/quest_items";
 import { weapons } from "@/engine/lib/constants/items/weapons";
-import { Y_VECTOR } from "@/engine/lib/constants/vectors";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

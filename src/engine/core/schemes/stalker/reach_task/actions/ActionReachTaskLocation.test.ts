@@ -7,6 +7,7 @@ import {
   ServerCreatureObject,
   ServerGroupObject,
 } from "xray16/alias";
+import { Z_VECTOR } from "xray16/lib";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
@@ -15,7 +16,6 @@ import { Squad } from "@/engine/core/objects/squad";
 import { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task";
 import { ActionReachTaskLocation } from "@/engine/core/schemes/stalker/reach_task/actions/ActionReachTaskLocation";
 import { reachTaskConfig } from "@/engine/core/schemes/stalker/reach_task/ReachTaskConfig";
-import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 import { MockSquad } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
 import {

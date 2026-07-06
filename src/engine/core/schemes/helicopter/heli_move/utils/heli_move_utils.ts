@@ -1,7 +1,5 @@
 import { Vector } from "xray16/alias";
-import { TDistance, TRate } from "xray16/lib";
-
-import { copyVector, createVector } from "@/engine/core/utils/vector";
+import { copyVector, createVector, TDistance, TRate } from "xray16/lib";
 
 /**
  * @param position - Object position.

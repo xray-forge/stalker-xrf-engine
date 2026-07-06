@@ -3,6 +3,7 @@ import { patrol } from "xray16";
 import { AlifeSimulator, GameObject, Patrol } from "xray16/alias";
 import { range } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockVector } from "xray16/mocks";
 
 import { registerActor, registerSimulator, registry } from "@/engine/core/database";
 import { CrowSpawnerManager } from "@/engine/core/schemes/restrictor/sr_crow_spawner/CrowSpawnerManager";
@@ -11,7 +12,6 @@ import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 jest.mock("@/engine/core/utils/scheme/scheme_switch", () => ({ trySwitchToAnotherSection: jest.fn() }));
 

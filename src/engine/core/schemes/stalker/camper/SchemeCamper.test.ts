@@ -94,7 +94,7 @@ describe("SchemeCamper", () => {
     expect(state.attackSound).toBe("fight_attack");
     expect(state.idle).toBe(60_000);
     expect(state.postEnemyWait).toBe(5000);
-    expect(state.enemyDisp).toBe(0.1221732171873282);
+    expect(state.enemyDisp).toBe(0.12217304763960307);
     expect(state.scandelta).toBe(30);
     expect(state.timedelta).toBe(4000);
     expect(state.timeScanDelta).toBe(state.timedelta / state.scandelta);
@@ -152,7 +152,7 @@ describe("SchemeCamper", () => {
     expect(state.attackSound).toBe("test_attack");
     expect(state.idle).toBe(231);
     expect(state.postEnemyWait).toBe(5000);
-    expect(state.enemyDisp).toBe(0.1221732171873282);
+    expect(state.enemyDisp).toBe(0.12217304763960307);
     expect(state.scandelta).toBe(30);
     expect(state.timedelta).toBe(4000);
     expect(state.timeScanDelta).toBe(state.timedelta / state.scandelta);

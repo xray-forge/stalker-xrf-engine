@@ -1,9 +1,9 @@
 import { move } from "xray16";
+import { MX_VECTOR, ZERO_VECTOR } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { getProneLoophole } from "@/engine/core/animation/smart_covers/loophole_prone";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
-import { MX_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * @returns Descriptor of combat prone smart covers.

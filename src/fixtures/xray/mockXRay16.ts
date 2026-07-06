@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { MockVector, MockVector2D } from "xray16/mocks";
 
 import {
   MockActionBase,
@@ -128,8 +129,6 @@ import { MockParticleObject } from "@/fixtures/xray/mocks/particle_object.mock";
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
 import { MockPropertiesHelper } from "@/fixtures/xray/mocks/properties_helper.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
-import { MockVector2D } from "@/fixtures/xray/mocks/vector2.mock";
 
 /**
  * Mock whole xray16 game libraries for testing environment and replace with testable mocks.

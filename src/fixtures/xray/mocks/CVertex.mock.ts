@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { TNumberId } from "xray16/lib";
-
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
+import { MockVector } from "xray16/mocks";
 
 /**
  * Mock generic game level vertex object.

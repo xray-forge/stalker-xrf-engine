@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockVector } from "xray16/mocks";
 
 import { calculatePositionInRadius } from "@/engine/core/schemes/helicopter/heli_move/utils/heli_move_utils";
-import { MockVector } from "@/fixtures/xray";
 
 describe("calculatePositionInRadius", () => {
   it("should correctly calculate point in radius by single axis", () => {

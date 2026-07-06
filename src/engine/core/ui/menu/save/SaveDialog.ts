@@ -15,7 +15,7 @@ import {
   ui_events,
 } from "xray16";
 import { FSFile, FSFileList, FSItem, TKeyCode, TUIEvent, Vector2D } from "xray16/alias";
-import { LuaArray, Nillable, TLabel, TName, TPath } from "xray16/lib";
+import { create2dVector, LuaArray, Nillable, TLabel, TName, TPath } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
@@ -24,7 +24,6 @@ import { createGameSave, deleteGameSave, getGameSaves } from "@/engine/core/util
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { create2dVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
 
 const logger: LuaLogger = new LuaLogger($filename);

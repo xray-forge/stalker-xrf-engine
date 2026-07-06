@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { hit } from "xray16";
 import { GameObject, Hit } from "xray16/alias";
 import { Nillable } from "xray16/lib";
+import { MockVector } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject, registerSimulator, registry } from "@/engine/core/database";
 import { ISchemeWoundedState } from "@/engine/core/schemes/stalker/wounded";
@@ -15,7 +16,6 @@ import {
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { MockGameObject } from "@/fixtures/xray";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("giveWoundedObjectMedkit util", () => {
   beforeEach(() => {

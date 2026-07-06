@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockVector } from "xray16/mocks";
 
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeDeimosState, isDeimosPhaseActive } from "@/engine/core/schemes/restrictor/sr_deimos";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockVector } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("isDeimosPhase util", () => {
   beforeEach(() => {

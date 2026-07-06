@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CHelicopter } from "xray16";
 import { GameObject, ServerObject } from "xray16/alias";
+import { ZERO_VECTOR } from "xray16/lib";
 
 import { HelicopterBinder } from "@/engine/core/binders/helicopter/HelicopterBinder";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -8,7 +9,6 @@ import { ISchemeHelicopterMoveState } from "@/engine/core/schemes/helicopter/hel
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat";
 import { HelicopterFireManager } from "@/engine/core/schemes/helicopter/heli_move/fire";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, ESchemeEvent } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";

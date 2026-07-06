@@ -13,6 +13,7 @@ import {
   TRUE,
   TStringId,
   TTimestamp,
+  vectorToString,
 } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
@@ -45,7 +46,6 @@ import { ELuaLoggerMode, LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectTerrain, getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
 import { getObjectSquad } from "@/engine/core/utils/squad";
-import { vectorToString } from "@/engine/core/utils/vector";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";

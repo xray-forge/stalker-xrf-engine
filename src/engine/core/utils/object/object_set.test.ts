@@ -1,10 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockVector } from "xray16/mocks";
 
 import { setObjectLookAtAnotherObject } from "@/engine/core/utils/object/object_set";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject } from "@/fixtures/xray";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("setObjectLookAtAnotherObject util", () => {
   it("should correctly look at another object", () => {

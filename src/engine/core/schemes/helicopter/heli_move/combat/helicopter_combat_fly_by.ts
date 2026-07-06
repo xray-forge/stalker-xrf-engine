@@ -1,9 +1,8 @@
 import { GameObject, Vector } from "xray16/alias";
+import { distanceBetween2d, ZERO_VECTOR } from "xray16/lib";
 
 import { EHelicopterFlyByState } from "@/engine/core/schemes/helicopter/heli_move";
 import type { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
-import { distanceBetween2d } from "@/engine/core/utils/vector";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * @param manager - Instance to initialize.

@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, HangingLamp, SoundObject } from "xray16/alias";
-import { TRUE } from "xray16/lib";
+import { TRUE, Y_VECTOR } from "xray16/lib";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
@@ -16,7 +16,6 @@ import {
 import { SoundManager, soundsConfig } from "@/engine/core/managers/sounds";
 import { LoopedSound } from "@/engine/core/managers/sounds/objects";
 import { SurgeManager } from "@/engine/core/managers/surge";
-import { Y_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme } from "@/engine/lib/types";
 import {
   callXrEffect,

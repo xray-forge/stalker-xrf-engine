@@ -1,4 +1,4 @@
-import { RADIAN } from "@/engine/lib/constants/math";
+import { RADIAN } from "xray16/lib";
 
 export const camperConfig = {
   SCAN_FREE_TIME: 60_000,

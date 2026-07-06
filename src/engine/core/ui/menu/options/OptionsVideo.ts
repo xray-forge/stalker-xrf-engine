@@ -1,7 +1,7 @@
 import { CScriptXmlInit, CUIWindow, LuabindClass } from "xray16";
+import { create2dVector } from "xray16/lib";
 
 import { Options } from "@/engine/core/ui/menu/options/Options";
-import { create2dVector } from "@/engine/core/utils/vector";
 
 /**
  * UI component of video settings tab in options.

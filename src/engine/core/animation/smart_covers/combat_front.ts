@@ -1,4 +1,5 @@
 import { move } from "xray16";
+import { createVector, ZERO_VECTOR } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { getCrouchFrontLoophole } from "@/engine/core/animation/smart_covers/loophole_crouch_front";
@@ -7,8 +8,6 @@ import { getCrouchFrontRightLoophole } from "@/engine/core/animation/smart_cover
 import { getStandFrontLeftLoophole } from "@/engine/core/animation/smart_covers/loophole_stand_front_left";
 import { getStandFrontRightLoophole } from "@/engine/core/animation/smart_covers/loophole_stand_front_right";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
-import { createVector } from "@/engine/core/utils/vector";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * Create smart cover descriptor for front combat.

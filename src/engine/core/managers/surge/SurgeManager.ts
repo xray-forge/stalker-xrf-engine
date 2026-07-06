@@ -2,6 +2,7 @@ import { game, hit, level } from "xray16";
 import { GameObject, Hit, NetPacket, NetProcessor, Time } from "xray16/alias";
 import {
   AnyObject,
+  createVector,
   Nillable,
   TCount,
   TDuration,
@@ -11,6 +12,7 @@ import {
   TRUE,
   TSection,
   TTimestamp,
+  Z_VECTOR,
 } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
@@ -47,12 +49,10 @@ import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
-import { createVector } from "@/engine/core/utils/vector";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { TLevel } from "@/engine/lib/constants/levels";
-import { Z_VECTOR } from "@/engine/lib/constants/vectors";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

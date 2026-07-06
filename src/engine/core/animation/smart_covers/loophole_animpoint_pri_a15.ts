@@ -1,8 +1,7 @@
 import { Vector } from "xray16/alias";
-import { TStringId } from "xray16/lib";
+import { MX_VECTOR, TStringId } from "xray16/lib";
 
 import { ISmartCoverLoopholeDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
-import { MX_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * Create smart cover loophole descriptor for the animpoint_pri_a15 scene.

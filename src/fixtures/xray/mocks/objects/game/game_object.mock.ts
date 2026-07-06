@@ -16,6 +16,7 @@ import {
   TSection,
   TTimestamp,
 } from "xray16/lib";
+import { MockVector } from "xray16/mocks";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MockActionPlanner, MockAnim, MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
@@ -24,7 +25,6 @@ import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";
 import { mockConfig } from "@/fixtures/xray/mocks/MockConfig";
 import { MockCHelicopter } from "@/fixtures/xray/mocks/objects/CHelicopter.mock";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 export interface IMockGameObjectConfig {
   alive?: boolean;

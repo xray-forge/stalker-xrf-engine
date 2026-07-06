@@ -1,8 +1,8 @@
 import { move } from "xray16";
+import { MZ_VECTOR, ZERO_VECTOR } from "xray16/lib";
 
 import { getAnimpointSitHighLoophole } from "@/engine/core/animation/smart_covers/loophole_animpoint_sit_high";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
-import { MZ_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * Create smart cover descriptor for the animpoint_sit_high animation set.

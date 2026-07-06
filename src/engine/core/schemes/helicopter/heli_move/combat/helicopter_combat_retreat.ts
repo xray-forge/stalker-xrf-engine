@@ -1,5 +1,6 @@
+import { ZERO_VECTOR } from "xray16/lib";
+
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * @param manager - Instance to update.

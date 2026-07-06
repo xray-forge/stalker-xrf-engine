@@ -1,14 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { physics_joint } from "xray16";
 import { GameObject } from "xray16/alias";
-import { TIndex } from "xray16/lib";
+import { TIndex, ZERO_VECTOR } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { ISchemePhysicalDoorState } from "@/engine/core/schemes/physical/ph_door/ph_door_types";
 import { PhysicalDoorManager } from "@/engine/core/schemes/physical/ph_door/PhysicalDoorManager";
 import { IBoneStateDescriptor, parseConditionsList } from "@/engine/core/utils/ini";
 import { switchObjectSchemeToSection, trySwitchToAnotherSection } from "@/engine/core/utils/scheme";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";

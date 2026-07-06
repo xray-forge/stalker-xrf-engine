@@ -1,7 +1,7 @@
 import { CScriptXmlInit, CUIScrollView, CUIStatic, CUIWindow, LuabindClass } from "xray16";
+import { create2dVector } from "xray16/lib";
 
 import { Options } from "@/engine/core/ui/menu/options/Options";
-import { create2dVector } from "@/engine/core/utils/vector";
 
 /**
  * Gameplay section from option menu.

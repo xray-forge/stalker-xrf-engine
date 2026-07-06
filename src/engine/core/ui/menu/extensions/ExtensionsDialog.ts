@@ -9,7 +9,7 @@ import {
   ui_events,
 } from "xray16";
 import { TKeyCode, TUIEvent, Vector2D } from "xray16/alias";
-import { LuaArray, Nillable, TIndex, TPath } from "xray16/lib";
+import { create2dVector, createEmpty2dVector, LuaArray, Nillable, TIndex, TPath } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { ExtensionItemListEntry } from "@/engine/core/ui/menu/extensions/ExtensionItemListEntry";
@@ -22,7 +22,6 @@ import {
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { createScreenRectangle } from "@/engine/core/utils/rectangle";
 import { EElementType, initializeElement, resolveXmlFile } from "@/engine/core/utils/ui";
-import { create2dVector, createEmpty2dVector } from "@/engine/core/utils/vector";
 
 const logger: LuaLogger = new LuaLogger($filename);
 const base: TPath = "menu\\ExtensionsDialog.component";

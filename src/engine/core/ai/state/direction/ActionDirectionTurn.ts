@@ -1,11 +1,10 @@
 import { action_base, CSightParams, look, LuabindClass } from "xray16";
 import { Vector } from "xray16/alias";
+import { areSameVectors, createVector, subVectors, ZERO_VECTOR } from "xray16/lib";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { states } from "@/engine/core/animation/states";
 import { registry } from "@/engine/core/database";
-import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * Action to change object direction based on state manager.

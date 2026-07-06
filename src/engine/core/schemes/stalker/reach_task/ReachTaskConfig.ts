@@ -1,7 +1,6 @@
-import { TNumberId } from "xray16/lib";
+import { createVector, TNumberId } from "xray16/lib";
 
 import type { ReachTaskPatrolManager } from "@/engine/core/schemes/stalker/reach_task/ReachTaskPatrolManager";
-import { createVector } from "@/engine/core/utils/vector";
 
 export const reachTaskConfig = {
   // Period of reach task update throttling.

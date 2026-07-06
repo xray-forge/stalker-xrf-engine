@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { HangingLamp, ServerObject } from "xray16/alias";
-import { MAX_U32 } from "xray16/lib";
+import { MAX_U32, Y_VECTOR } from "xray16/lib";
 
 import { SignalLightBinder } from "@/engine/core/binders/physic/SignalLightBinder";
 import { registry } from "@/engine/core/database";
-import { Y_VECTOR } from "@/engine/lib/constants/vectors";
 import { mockRegisteredActor, resetRegistry } from "@/fixtures/engine";
 import {
   EPacketDataType,

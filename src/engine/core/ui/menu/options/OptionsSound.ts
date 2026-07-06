@@ -1,6 +1,5 @@
 import { CScriptXmlInit, CUIWindow, LuabindClass } from "xray16";
-
-import { create2dVector } from "@/engine/core/utils/vector";
+import { create2dVector } from "xray16/lib";
 
 /**
  * Sound section from option menu.

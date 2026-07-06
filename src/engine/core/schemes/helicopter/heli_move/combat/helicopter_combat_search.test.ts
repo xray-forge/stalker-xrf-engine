@@ -1,5 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { copyVector } from "xray16/lib";
+import { MockVector } from "xray16/mocks";
 
 import {
   initializeHelicopterCombatSearch,
@@ -9,8 +11,7 @@ import {
   updateHelicopterCombatSearchShooting,
 } from "@/engine/core/schemes/helicopter/heli_move/combat/helicopter_combat_search";
 import { HelicopterCombatManager } from "@/engine/core/schemes/helicopter/heli_move/combat/HelicopterCombatManager";
-import { copyVector } from "@/engine/core/utils/vector";
-import { MockGameObject, MockVector } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("initializeHelicopterCombatSearch", () => {
   it("should correctly initialize", () => {

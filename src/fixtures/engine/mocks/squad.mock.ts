@@ -1,6 +1,7 @@
 import { ServerCreatureObject, TClassId } from "xray16/alias";
 import { TName, TNumberId, TRate, TSection } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockVector } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
@@ -14,7 +15,6 @@ import { MockAlifeHumanStalker } from "@/fixtures/xray/mocks/objects/server/cse_
 import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 import { MockAlifeOnlineOfflineGroup } from "@/fixtures/xray/mocks/objects/server/cse_alife_online_offline_group.mock";
 import { mockCharactersGoodwill } from "@/fixtures/xray/mocks/relations";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 interface IMockSquadConfig extends IMockAlifeObjectConfig {
   behaviour?: LuaTable<string, string>;

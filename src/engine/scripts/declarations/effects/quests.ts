@@ -2,6 +2,9 @@ import { particles_object, patrol, sound_object } from "xray16";
 import { GameObject, ParticlesObject, ServerObject, ServerPhysicObject, SoundObject, Vector } from "xray16/alias";
 import {
   AnyCallable,
+  copyVector,
+  createEmptyVector,
+  createVector,
   LuaArray,
   Nillable,
   TCount,
@@ -37,7 +40,6 @@ import { LuaLogger } from "@/engine/core/utils/logging";
 import { isObjectInZone } from "@/engine/core/utils/position";
 import { giveItemsToActor, takeItemFromActor } from "@/engine/core/utils/reward";
 import { spawnObject, spawnObjectInObject, spawnSquadInSmart } from "@/engine/core/utils/spawn";
-import { copyVector, createEmptyVector, createVector } from "@/engine/core/utils/vector";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { infoPortions, TInfoPortion } from "@/engine/lib/constants/info_portions";
 import { TInventoryItem } from "@/engine/lib/constants/items";

@@ -1,6 +1,6 @@
 import { level } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
-import { LuaArray, Nillable, TIndex, TName, TNumberId, TRate } from "xray16/lib";
+import { angleToDirection, createVector, LuaArray, Nillable, TIndex, TName, TNumberId, TRate } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { campConfig, CampManager, EObjectCampActivity } from "@/engine/core/ai/camp";
@@ -19,7 +19,6 @@ import {
 } from "@/engine/core/schemes/stalker/animpoint/animpoint_types";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { angleToDirection, createVector } from "@/engine/core/utils/vector";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

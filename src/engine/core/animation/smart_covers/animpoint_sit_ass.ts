@@ -1,9 +1,9 @@
 import { move } from "xray16";
+import { MZ_VECTOR, ZERO_VECTOR } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { getAnimpointSitAssLoophole } from "@/engine/core/animation/smart_covers/loophole_animpoint_sit_ass";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
-import { MZ_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * Create smart cover descriptor for the animpoint_sit_ass animation set.

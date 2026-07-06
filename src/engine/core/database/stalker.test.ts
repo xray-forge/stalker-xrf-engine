@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { anim, move } from "xray16";
+import { createEmptyVector } from "xray16/lib";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/animation/types/state_types";
@@ -12,7 +13,6 @@ import {
   setStalkerState,
   unregisterStalker,
 } from "@/engine/core/database/stalker";
-import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MockGameObject } from "@/fixtures/xray";
 
 describe("stalker module of the database", () => {

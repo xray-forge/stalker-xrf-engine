@@ -1,6 +1,7 @@
 import { FS, get_hud, getFS, sound_object, time_global } from "xray16";
 import { GameObject, IniFile, NetPacket, NetProcessor } from "xray16/alias";
 import {
+  createEmptyVector,
   LuaArray,
   NIL,
   Nillable,
@@ -25,7 +26,6 @@ import { EPlayableSound, ESoundPlaylistType } from "@/engine/core/managers/sound
 import { assert } from "@/engine/core/utils/assertion";
 import { parseStringsList, readIniBoolean, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createEmptyVector } from "@/engine/core/utils/vector";
 import { roots } from "@/engine/lib/constants/roots";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -1,9 +1,8 @@
 import { set_start_game_vertex_id, set_start_position } from "xray16";
-import { TName } from "xray16/lib";
+import { createVector, TName } from "xray16/lib";
 import { $dirname } from "xray16/macros";
 
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createVector } from "@/engine/core/utils/vector";
 
 const logger: LuaLogger = new LuaLogger($dirname);
 

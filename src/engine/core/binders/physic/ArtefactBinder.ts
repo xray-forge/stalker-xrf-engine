@@ -1,12 +1,11 @@
 import { CArtefact, LuabindClass, object_binder } from "xray16";
 import { IniFile, PhysicsElement, PhysicsShell, ServerObject } from "xray16/alias";
-import { Nillable, TDuration, TNumberId, TRate } from "xray16/lib";
+import { createVector, Nillable, TDuration, TNumberId, TRate } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones/AnomalyZoneBinder";
 import { registerObject, registry, unregisterObject } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { createVector } from "@/engine/core/utils/vector";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

@@ -1,6 +1,16 @@
 import { action_planner, level, look, object, time_global } from "xray16";
 import { ActionPlanner, GameObject, TLookType, Vector } from "xray16/alias";
-import { AnyCallable, Nillable, TDuration, TNumberId, TTimestamp } from "xray16/lib";
+import {
+  AnyCallable,
+  areSameVectors,
+  createVector,
+  Nillable,
+  subVectors,
+  TDuration,
+  TNumberId,
+  TTimestamp,
+  ZERO_VECTOR,
+} from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
 import { StalkerAnimationManager } from "@/engine/core/ai/state/StalkerAnimationManager";
@@ -17,9 +27,7 @@ import {
 import { registry } from "@/engine/core/database";
 import { assert } from "@/engine/core/utils/assertion";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { areSameVectors, createVector, subVectors } from "@/engine/core/utils/vector";
 import { getObjectWeaponForAnimationState } from "@/engine/core/utils/weapon";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 const logger: LuaLogger = new LuaLogger($filename, { file: "ai_state" });
 

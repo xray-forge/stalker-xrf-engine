@@ -1,6 +1,6 @@
 import { cond, game, move, patrol, sound_object } from "xray16";
 import { ESoundObjectType, GameObject, ServerMonsterAbstractObject, SoundObject, Vector } from "xray16/alias";
-import { Nillable, TCount, TIndex, TName } from "xray16/lib";
+import { copyVector, Nillable, subVectors, TCount, TIndex, TName } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
@@ -13,7 +13,6 @@ import {
   scriptReleaseMonster,
   trySwitchToAnotherSection,
 } from "@/engine/core/utils/scheme";
-import { copyVector, subVectors } from "@/engine/core/utils/vector";
 
 /**
  * Manager handling monster scheme behaviour for a restrictor zone.

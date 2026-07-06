@@ -1,9 +1,9 @@
 import { move } from "xray16";
+import { MZ_VECTOR, ZERO_VECTOR } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 
 import { getAnimPriA22Loophole } from "@/engine/core/animation/smart_covers/loophole_anim_pri_a22";
 import { ISmartCoverDescriptor } from "@/engine/core/animation/smart_covers/types_smart_covers";
-import { MZ_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 
 /**
  * Create smart cover descriptor for the anim_pri_a22 animation set.

@@ -1,10 +1,10 @@
 import { hit, patrol } from "xray16";
 import { Hit, Vector } from "xray16/alias";
+import { copyVector } from "xray16/lib";
 
 import { AbstractSchemeManager } from "@/engine/core/ai/scheme";
 import { ISchemePhysicalHitState } from "@/engine/core/schemes/physical/ph_hit/ph_hit_types";
 import { trySwitchToAnotherSection } from "@/engine/core/utils/scheme/scheme_switch";
-import { copyVector } from "@/engine/core/utils/vector";
 
 /**
  * Manager handling physical hit scheme behaviour for an object.

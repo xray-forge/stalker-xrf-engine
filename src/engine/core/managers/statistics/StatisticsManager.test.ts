@@ -3,6 +3,7 @@ import { clsid } from "xray16";
 import { GameObject } from "xray16/alias";
 import { AnyObject, TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
+import { MockVector } from "xray16/mocks";
 
 import { disposeManager, getManager, registerActor, registerSimulator } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -16,7 +17,6 @@ import {
   MockAlifeObject,
   MockGameObject,
   MockNetProcessor,
-  MockVector,
 } from "@/fixtures/xray";
 
 describe("StatisticsManager", () => {

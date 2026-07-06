@@ -1,11 +1,12 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { anim, clsid, move } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
+import { MockVector } from "xray16/mocks";
 
 import { TSimulationObject } from "@/engine/core/managers/simulation";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import { updateObjectReachTaskMovement } from "@/engine/core/schemes/stalker/reach_task/utils/reach_task_utils";
-import { MockGameObject, MockVector } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("updateObjectReachTaskMovement util", () => {
   beforeEach(() => {

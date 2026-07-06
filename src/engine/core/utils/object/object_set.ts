@@ -1,7 +1,6 @@
 import { CSightParams } from "xray16";
 import { GameObject, Vector } from "xray16/alias";
-
-import { copyVector } from "@/engine/core/utils/vector";
+import { copyVector } from "xray16/lib";
 
 /**
  * Force object to look at another object.

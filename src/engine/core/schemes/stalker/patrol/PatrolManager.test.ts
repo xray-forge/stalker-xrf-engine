@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
-import { range } from "xray16/lib";
+import { range, X_VECTOR, Y_VECTOR, Z_VECTOR, ZERO_VECTOR } from "xray16/lib";
+import { MockVector } from "xray16/mocks";
 
 import { EPatrolFormation } from "@/engine/core/ai/patrol";
 import { EStalkerState } from "@/engine/core/animation/types";
 import { PatrolManager } from "@/engine/core/schemes/stalker/patrol/PatrolManager";
-import { X_VECTOR, Y_VECTOR, Z_VECTOR, ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockVector } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("PatrolManager", () => {
   beforeEach(() => {
@@ -205,7 +205,7 @@ describe("PatrolManager", () => {
     expect(level.vertex_in_direction).toHaveBeenCalledTimes(2);
     expect(level.vertex_in_direction).toHaveBeenCalledWith(
       255,
-      MockVector.mock(-0.4740963404872094, 0, -0.8804729751313416),
+      MockVector.mock(-0.4740998230350173, 0, -0.8804710999221754),
       1.2
     );
     expect(level.vertex_in_direction).toHaveBeenCalledWith(
@@ -219,7 +219,7 @@ describe("PatrolManager", () => {
     expect(state).toBe(EStalkerState.PATROL);
   });
 
-  it("should correctly get followers targets when far from commander", () => {
+  it("should correctly get followers targets when far from commander (further)", () => {
     const manager: PatrolManager = new PatrolManager("test");
     const commander: GameObject = MockGameObject.mock();
     const follower: GameObject = MockGameObject.mock();
@@ -238,7 +238,7 @@ describe("PatrolManager", () => {
     expect(level.vertex_in_direction).toHaveBeenCalledTimes(2);
     expect(level.vertex_in_direction).toHaveBeenCalledWith(
       255,
-      MockVector.mock(-0.4740963404872094, 0, -0.8804729751313416),
+      MockVector.mock(-0.4740998230350173, 0, -0.8804710999221754),
       1.2
     );
     expect(level.vertex_in_direction).toHaveBeenCalledWith(

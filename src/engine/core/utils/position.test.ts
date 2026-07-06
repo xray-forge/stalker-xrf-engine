@@ -8,7 +8,8 @@ import {
   ServerSmartZoneObject,
   Vector,
 } from "xray16/alias";
-import { MAX_U32 } from "xray16/lib";
+import { MAX_U32, ZERO_VECTOR } from "xray16/lib";
+import { MockVector } from "xray16/mocks";
 
 import { registerSimulator, registerZone, registry } from "@/engine/core/database";
 import {
@@ -29,7 +30,6 @@ import {
   sendToNearestAccessibleVertex,
   teleportActorWithEffects,
 } from "@/engine/core/utils/position";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { mockRegisteredActor } from "@/fixtures/engine";
 import {
   MockAlifeHumanStalker,
@@ -38,7 +38,6 @@ import {
   MockGameObject,
   MockSoundObject,
 } from "@/fixtures/xray";
-import { MockVector } from "@/fixtures/xray/mocks/vector.mock";
 
 describe("isObjectInSmartTerrain util", () => {
   beforeEach(() => {

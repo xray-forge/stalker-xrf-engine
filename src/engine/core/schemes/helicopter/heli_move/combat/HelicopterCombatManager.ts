@@ -1,6 +1,16 @@
 import { CHelicopter, level, time_global } from "xray16";
 import { GameObject, IniFile, NetPacket, NetReader, Vector } from "xray16/alias";
-import { Nillable, TCount, TDistance, TNumberId, TRate, TTimestamp } from "xray16/lib";
+import {
+  copyVector,
+  createEmptyVector,
+  distanceBetween2d,
+  Nillable,
+  TCount,
+  TDistance,
+  TNumberId,
+  TRate,
+  TTimestamp,
+} from "xray16/lib";
 import { $isNotNil } from "xray16/macros";
 
 import {
@@ -24,7 +34,6 @@ import { calculatePositionInRadius } from "@/engine/core/schemes/helicopter/heli
 import { isGameLevelChanging } from "@/engine/core/utils/game";
 import { getHelicopterHealth } from "@/engine/core/utils/helicopter";
 import { pickSectionFromCondList, readIniNumber, TConditionList } from "@/engine/core/utils/ini";
-import { copyVector, createEmptyVector, distanceBetween2d } from "@/engine/core/utils/vector";
 
 /**
  * Manager handling helicopter combat behaviour, switching between fly-by, round, search and retreat tactics.

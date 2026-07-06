@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, level } from "xray16";
 import { GameObject } from "xray16/alias";
+import { ZERO_VECTOR } from "xray16/lib";
 
 import { PhysicObjectBinder } from "@/engine/core/binders/physic/PhysicObjectBinder";
 import { getManager, ILogicsOverrides, IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -9,7 +10,6 @@ import { SoundManager } from "@/engine/core/managers/sounds";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { parseConditionsList } from "@/engine/core/utils/ini";
 import { emitSchemeEvent, initializeObjectSchemeLogic } from "@/engine/core/utils/scheme";
-import { ZERO_VECTOR } from "@/engine/lib/constants/vectors";
 import { EScheme, ESchemeEvent, ESchemeType } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";

@@ -1,6 +1,6 @@
 import { CUI3tButton, CUIComboBox, CUIListBox, CUIWindow, game, level, LuabindClass, ui_events } from "xray16";
 import { Vector2D } from "xray16/alias";
-import { LuaArray, Nillable, TName, TPath } from "xray16/lib";
+import { create2dVector, createEmpty2dVector, LuaArray, Nillable, TName, TPath, vectorToString } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -13,7 +13,6 @@ import { isGameStarted } from "@/engine/core/utils/game";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getServerObjects } from "@/engine/core/utils/registry";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { create2dVector, createEmpty2dVector, vectorToString } from "@/engine/core/utils/vector";
 import { isGameVertexFromLevel } from "@/engine/core/utils/vertex";
 import { postProcessors } from "@/engine/lib/constants/animation";
 import { consoleCommands } from "@/engine/lib/constants/console_commands";

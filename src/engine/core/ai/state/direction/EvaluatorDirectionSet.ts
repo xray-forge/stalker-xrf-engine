@@ -1,10 +1,9 @@
 import { CSightParams, LuabindClass, property_evaluator } from "xray16";
 import { TSightType, Vector } from "xray16/alias";
-import { AnyCallable } from "xray16/lib";
+import { AnyCallable, areSameVectorsByPrecision, subVectors } from "xray16/lib";
 
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
 import { EStalkerState } from "@/engine/core/animation/types";
-import { areSameVectorsByPrecision, subVectors } from "@/engine/core/utils/vector";
 
 /**
  * Evaluator checking whether the object is already looking in the direction required by the current target state.

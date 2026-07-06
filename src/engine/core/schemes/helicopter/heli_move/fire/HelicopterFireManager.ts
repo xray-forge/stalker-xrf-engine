@@ -10,6 +10,7 @@ import {
 } from "xray16";
 import { GameObject, Vector, XmlInit } from "xray16/alias";
 import {
+  distanceBetween2d,
   MAX_U16,
   NIL,
   Nillable,
@@ -27,7 +28,6 @@ import { getIdBySid, registry } from "@/engine/core/database";
 import { helicopterConfig } from "@/engine/core/schemes/helicopter/heli_move/HelicopterConfig";
 import { pickRandom } from "@/engine/core/utils/random";
 import { resolveXmlFile } from "@/engine/core/utils/ui";
-import { distanceBetween2d } from "@/engine/core/utils/vector";
 import { ACTOR } from "@/engine/lib/constants/words";
 
 /**

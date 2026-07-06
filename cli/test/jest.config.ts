@@ -13,6 +13,7 @@ module.exports = {
   moduleNameMapper: {
     "^#/(.*)": "<rootDir>/cli/$1",
     "^@/(.*)": "<rootDir>/src/$1",
+    "^xray16$": "<rootDir>/src/fixtures/xray/mockXRay16Runtime.ts",
   },
   preset: "ts-jest",
   rootDir: ROOT_DIR,

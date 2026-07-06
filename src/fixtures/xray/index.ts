@@ -14,5 +14,4 @@ export * from "@/fixtures/xray/mocks/objects";
 export * from "@/fixtures/xray/mocks/particle_object.mock";
 export * from "@/fixtures/xray/mocks/relations";
 export * from "@/fixtures/xray/mocks/save";
-export * from "@/fixtures/xray/mocks/vector.mock";
-export * from "@/fixtures/xray/mocks/vector2.mock";
+export { MockVector, MockVector2D } from "xray16/mocks";

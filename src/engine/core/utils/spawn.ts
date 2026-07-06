@@ -9,6 +9,7 @@ import {
   Vector,
 } from "xray16/alias";
 import {
+  createEmptyVector,
   LuaArray,
   Nillable,
   TCount,
@@ -35,7 +36,6 @@ import { isStalker } from "@/engine/core/utils/class_ids";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getObjectPositioning } from "@/engine/core/utils/position";
 import { isAmmoSection } from "@/engine/core/utils/section";
-import { createEmptyVector } from "@/engine/core/utils/vector";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 
 const logger: LuaLogger = new LuaLogger($filename);
