@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { AnyObject, Nullable, TPath } from "xray16/lib";
+import { MockFileSystemList } from "xray16/mocks";
 
-import { MockFileSystemList } from "@/fixtures/xray/mocks/fs/FileSystemList.mock";
 import { FS_MOCKS } from "@/fixtures/xray/mocks/fs/fs.mock";
 
 /**

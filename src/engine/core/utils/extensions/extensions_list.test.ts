@@ -1,8 +1,8 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { FileStatus, FS, getFS } from "xray16";
+import { MockFileStatus } from "xray16/mocks";
 
 import { getAvailableExtensions } from "@/engine/core/utils/extensions/extensions_list";
-import { MockFileStatus } from "@/fixtures/xray";
 
 jest.mock("extensions.a.main", () => ({ name: "custom name", register: () => {} }), { virtual: true });
 jest.mock("extensions.b.main", () => ({}), { virtual: true });

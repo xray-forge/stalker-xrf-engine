@@ -1,8 +1,7 @@
 import { jest } from "@jest/globals";
 import { PhysicsShell } from "xray16/alias";
 import { TName } from "xray16/lib";
-
-import { MockPhysicsJoint } from "@/fixtures/xray/mocks/objects/game/physics_joint.mock";
+import { MockPhysicsJoint } from "xray16/mocks";
 
 export class MockPhysicsShell {
   public static mock(): PhysicsShell {

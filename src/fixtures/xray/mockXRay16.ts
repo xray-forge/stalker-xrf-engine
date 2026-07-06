@@ -8,6 +8,7 @@ import {
   MockColor,
   mockCommandLine,
   MockConsole,
+  MockCSavedGameWrapper,
   MockCSightParams,
   MockCTime,
   MockCZoneCampfire,
@@ -25,6 +26,9 @@ import {
   MockNoise,
   MockObject,
   MockParticleObject,
+  MockPhysicObject,
+  MockPhysicsJoint,
+  MockProfileTimer,
   MockPropertiesHelper,
   mockSndType,
   MockSound,
@@ -51,7 +55,7 @@ import {
 } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
-import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
+import { MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";
 import {
   mockActorStatsInterface,
@@ -122,15 +126,12 @@ import {
   MockLoginOperationCb,
   MockObjectBinder,
   MockPatrol,
-  MockPhysicObject,
-  MockPhysicsJoint,
   MockPhysicsShell,
   MockProfile,
   MockSpaceRestrictor,
   MockTorridZone,
   MockZoneVisual,
 } from "@/fixtures/xray/mocks/objects";
-import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 
 /**

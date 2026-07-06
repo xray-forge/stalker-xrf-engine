@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, sound_object } from "xray16";
 import { ESoundObjectType, GameObject, IniFile, PhysicObject, ServerObject } from "xray16/alias";
 import { TRUE } from "xray16/lib";
-import { MockSoundObject } from "xray16/mocks";
+import { MockPhysicObject, MockSoundObject } from "xray16/mocks";
 
 import { DoorBinder } from "@/engine/core/binders/physic/DoorBinder";
 import { IRegistryObjectState, registerObject, registry } from "@/engine/core/database";
@@ -16,7 +16,6 @@ import {
   MockIniFile,
   MockNetProcessor,
   MockObjectBinder,
-  MockPhysicObject,
 } from "@/fixtures/xray";
 
 describe("DoorBinder", () => {
