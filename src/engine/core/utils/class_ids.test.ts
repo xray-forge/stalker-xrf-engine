@@ -21,7 +21,6 @@ import {
   isSmartTerrain,
   isSnork,
   isSquad,
-  isSquadId,
   isStalker,
   isStrappableWeapon,
   isTrader,
@@ -30,7 +29,7 @@ import {
 } from "@/engine/core/utils/class_ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { MockSquad } from "@/fixtures/engine";
-import { MockAlifeCreatureActor, MockAlifeHumanStalker, MockAlifeObject, MockGameObject } from "@/fixtures/xray";
+import { MockAlifeObject, MockGameObject } from "@/fixtures/xray";
 
 describe("isArtefact util", () => {
   beforeEach(() => registerSimulator());
@@ -85,20 +84,6 @@ describe("isSquad util", () => {
     expect(isSquad(MockAlifeObject.mockWithClassId(clsid.wpn_ak74_s))).toBe(false);
     expect(isSquad(MockAlifeObject.mockWithClassId(clsid.script_actor))).toBe(false);
     expect(isSquad(MockAlifeObject.mockWithClassId(clsid.script_stalker))).toBe(false);
-  });
-});
-
-describe("isSquadId util", () => {
-  beforeEach(() => registerSimulator());
-
-  it("correctly check if id is a squad object", () => {
-    const squad: Squad = MockSquad.mock();
-    const actor: ServerActorObject = MockAlifeCreatureActor.mock();
-    const stalker: ServerHumanObject = MockAlifeHumanStalker.mock();
-
-    expect(isSquadId(squad.id)).toBe(true);
-    expect(isSquadId(actor.id)).toBe(false);
-    expect(isSquadId(stalker.id)).toBe(false);
   });
 });
 

@@ -1,21 +1,20 @@
-import { clsid } from "xray16";
+import { alife, clsid } from "xray16";
 import type {
   AnyGameObject,
   GameObject,
   ServerArtefactItemObject,
+  ServerGroupObject,
   ServerHumanObject,
   ServerMonsterAbstractObject,
   ServerObject,
+  ServerSmartZoneObject,
   TClassId,
 } from "xray16/alias";
-import type { Nillable, TNumberId } from "xray16/lib";
+import type { Nillable } from "xray16/lib";
 import { $isNil, $isNotNil } from "xray16/macros";
 
 import { SYSTEM_INI } from "@/engine/core/database/ini_registry";
-import { registry } from "@/engine/core/database/registry";
 import type { Stalker } from "@/engine/core/objects/creature";
-import type { SmartTerrain } from "@/engine/core/objects/smart_terrain";
-import type { Squad } from "@/engine/core/objects/squad";
 import { classIds } from "@/engine/lib/constants/class_ids";
 
 /**
@@ -112,20 +111,10 @@ export function isStrappableWeapon(object: Nillable<GameObject>): object is Game
 }
 
 /**
- * @param objectId - Object id to check.
- * @returns Whether provided id is squad object id.
- */
-export function isSquadId(objectId: TNumberId): boolean {
-  const serverObject: Nillable<ServerObject> = registry.simulator.object(objectId);
-
-  return $isNotNil(serverObject) && serverObject.clsid() === clsid.online_offline_group_s;
-}
-
-/**
  * @param object - Object to check.
  * @returns Whether provided object is actor class.
  */
-export function isActor(object: ServerObject): object is Squad {
+export function isActor<T extends ServerGroupObject>(object: ServerObject): object is T {
   return object.clsid() === clsid.script_actor;
 }
 
@@ -133,7 +122,7 @@ export function isActor(object: ServerObject): object is Squad {
  * @param object - Object to check.
  * @returns Whether provided object is squad class.
  */
-export function isSquad(object: ServerObject): object is Squad {
+export function isSquad<T extends ServerGroupObject>(object: ServerObject): object is T {
   return object.clsid() === clsid.online_offline_group_s;
 }
 
@@ -141,7 +130,7 @@ export function isSquad(object: ServerObject): object is Squad {
  * @param object - Object to check.
  * @returns Whether provided object is smart terrain class.
  */
-export function isSmartTerrain(object: ServerObject): object is SmartTerrain {
+export function isSmartTerrain<T extends ServerSmartZoneObject>(object: ServerObject): object is T {
   return object.clsid() === clsid.smart_terrain;
 }
 
@@ -149,8 +138,8 @@ export function isSmartTerrain(object: ServerObject): object is SmartTerrain {
  * @param squad - Squad object to check.
  * @returns Whether provided squad is assigned with monsters.
  */
-export function isMonsterSquad(squad: Squad): boolean {
-  const commander: Nillable<ServerObject> = registry.simulator.object(squad.commander_id());
+export function isMonsterSquad<T extends ServerGroupObject>(squad: T): boolean {
+  const commander: Nillable<ServerObject> = alife().object(squad.commander_id());
 
   return $isNotNil(commander) && isMonster(commander);
 }
