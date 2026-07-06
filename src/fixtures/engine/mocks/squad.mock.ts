@@ -1,14 +1,13 @@
 import { ServerCreatureObject, TClassId } from "xray16/alias";
 import { TName, TNumberId, TRate, TSection } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockVector } from "xray16/mocks";
+import { mockClsid , MockVector } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
 import { communities } from "@/engine/lib/constants/communities";
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
-import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockGameObject } from "@/fixtures/xray/mocks/objects/game/game_object.mock";
 import { MockServerAlifeCreatureAbstract } from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_abstract.mock";
 import { MockAlifeHumanStalker } from "@/fixtures/xray/mocks/objects/server/cse_alife_human_stalker.mock";

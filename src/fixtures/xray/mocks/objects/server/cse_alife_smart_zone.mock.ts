@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { ServerSmartZoneObject } from "xray16/alias";
+import { mockClsid } from "xray16/mocks";
 
-import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { IMockAlifeObjectConfig, MockAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 
 /**

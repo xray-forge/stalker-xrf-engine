@@ -2,9 +2,8 @@ import { jest } from "@jest/globals";
 import type { CALifeMonsterBrain } from "xray16";
 import { ServerMonsterBaseObject } from "xray16/alias";
 import { TNumberId, TRate } from "xray16/lib";
-import { MockCAlifeMonsterBrain } from "xray16/mocks";
+import { MockCAlifeMonsterBrain, mockClsid } from "xray16/mocks";
 
-import { mockClsid } from "@/fixtures/xray/mocks/constants";
 import { MockServerAlifeCreatureAbstract } from "@/fixtures/xray/mocks/objects/server/cse_alife_creature_abstract.mock";
 import { IMockAlifeObjectConfig } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 

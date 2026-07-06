@@ -1,21 +1,28 @@
 import { jest } from "@jest/globals";
 import {
+  mockCallbacks,
   MockCGameFont,
+  mockClsid,
   MockColor,
   mockCommandLine,
   MockCSightParams,
   MockCTime,
   MockDevice,
+  mockDikKeys,
   MockEffector,
   MockEntityAction,
   MockFbox,
   MockFrect,
+  MockGameType,
   mockGetARGB,
   MockHit,
   MockNoise,
   MockObject,
   MockPropertiesHelper,
+  mockSndType,
   MockSound,
+  mockStalkerIds,
+  mockUiEvents,
   MockVector,
   MockVector2D,
 } from "xray16/mocks";
@@ -35,15 +42,6 @@ import {
 } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockConsole } from "@/fixtures/xray/mocks/console.mock";
-import {
-  mockCallbacks,
-  mockClsid,
-  mockDikKeys,
-  MockGameType,
-  mockSndType,
-  mockStalkerIds,
-  mockUiEvents,
-} from "@/fixtures/xray/mocks/constants";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";

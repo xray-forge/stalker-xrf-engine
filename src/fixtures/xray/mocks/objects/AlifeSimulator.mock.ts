@@ -1,10 +1,9 @@
 import { jest } from "@jest/globals";
 import { AlifeSimulator, ServerObject, Vector } from "xray16/alias";
 import { Nillable, TNumberId } from "xray16/lib";
-import { MockVector } from "xray16/mocks";
+import { mockClsid , MockVector } from "xray16/mocks";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockAlifeHumanStalker } from "@/fixtures/xray/mocks/objects/server/cse_alife_human_stalker.mock";
 import { MockAlifeObject } from "@/fixtures/xray/mocks/objects/server/cse_alife_object.mock";
 import { MockAlifeOnlineOfflineGroup } from "@/fixtures/xray/mocks/objects/server/cse_alife_online_offline_group.mock";
