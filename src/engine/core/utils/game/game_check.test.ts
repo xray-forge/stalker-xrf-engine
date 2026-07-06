@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { AlifeSimulator } from "xray16/alias";
-import { MockCGameGraph , MockDevice } from "xray16/mocks";
+import { MockCGameGraph, MockDevice } from "xray16/mocks";
 
 import { registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { Actor } from "@/engine/core/objects/creature";

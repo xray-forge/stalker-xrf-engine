@@ -52,7 +52,8 @@ import {
   MockVector,
   MockVector2D,
   MockWorldProperty,
- MockWorldState } from "xray16/mocks";
+  MockWorldState,
+} from "xray16/mocks";
 
 import { MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";

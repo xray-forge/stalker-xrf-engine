@@ -1,7 +1,7 @@
 import { ServerCreatureObject, TClassId } from "xray16/alias";
 import { TName, TNumberId, TRate, TSection } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { mockClsid , MockVector } from "xray16/mocks";
+import { mockClsid, MockVector } from "xray16/mocks";
 
 import { registerObject } from "@/engine/core/database";
 import { Squad } from "@/engine/core/objects/squad";
