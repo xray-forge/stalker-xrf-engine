@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, fit, it, jest } from "@jest/globals";
 import { game, time_global } from "xray16";
-import { GameObject, IniFile, ServerCreatureObject, ServerHumanObject, ServerObject } from "xray16/alias";
-import { TRUE } from "xray16/lib";
+import { GameObject, IniFile, ServerCreatureObject, ServerHumanObject } from "xray16/alias";
+import { createTime, TRUE } from "xray16/lib";
 import { MockCTime } from "xray16/mocks";
 
 import { getManager, registerActorServer, registerSimulator, registry } from "@/engine/core/database";
@@ -211,7 +211,7 @@ describe("SmartTerrain generic logic", () => {
     thirdJob.isBegun = true;
     thirdJob.desiredJob = "another_job_section";
 
-    terrain.jobDeadTimeById.set(50, MockCTime.mock(2004, 7, 19, 13, 30, 10, 200));
+    terrain.jobDeadTimeById.set(50, createTime(2004, 7, 19, 13, 30, 10, 200));
 
     terrain.terrainControl = new SmartTerrainControl(
       terrain,
@@ -231,7 +231,7 @@ describe("SmartTerrain generic logic", () => {
     terrain.spawnedSquadsList.set("test_squad_novice", { num: 3 });
     terrain.spawnedSquadsList.set("test_squad_master", { num: 1 });
 
-    terrain.lastRespawnUpdatedAt = MockCTime.mock(2005, 8, 20, 13, 31, 11, 201);
+    terrain.lastRespawnUpdatedAt = createTime(2005, 8, 20, 13, 31, 11, 201);
     terrain.stayingObjectsCount = 4;
 
     terrain.STATE_Write(processor.asNetPacket());
@@ -336,9 +336,7 @@ describe("SmartTerrain generic logic", () => {
       },
     });
     expect(anotherTerrain.jobDeadTimeById.length()).toBe(1);
-    expect(anotherTerrain.jobDeadTimeById.get(50).toString()).toBe(
-      MockCTime.mock(2004, 7, 19, 13, 30, 10, 200).toString()
-    );
+    expect(anotherTerrain.jobDeadTimeById.get(50).toString()).toBe(createTime(2004, 7, 19, 13, 30, 10, 200).toString());
 
     expect(anotherTerrain.terrainControl).toBeDefined();
     expect(anotherTerrain.terrainControl?.status).toBe(ESmartTerrainStatus.NORMAL);
@@ -353,9 +351,7 @@ describe("SmartTerrain generic logic", () => {
       },
     });
 
-    expect(anotherTerrain.lastRespawnUpdatedAt?.toString()).toBe(
-      MockCTime.mock(2005, 8, 20, 13, 31, 11, 201).toString()
-    );
+    expect(anotherTerrain.lastRespawnUpdatedAt?.toString()).toBe(createTime(2005, 8, 20, 13, 31, 11, 201).toString());
     expect(anotherTerrain.stayingObjectsCount).toBe(4);
   });
 

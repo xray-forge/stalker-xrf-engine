@@ -1,9 +1,8 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject } from "xray16/alias";
-import { AnyObject, FALSE, TName, TRate } from "xray16/lib";
+import { AnyObject, createTime, FALSE, TName, TRate } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
-import { MockCTime } from "xray16/mocks";
 
 import { registerStoryLink } from "@/engine/core/database";
 import { forgeConfig } from "@/engine/core/managers/forge/ForgeConfig";
@@ -242,7 +241,7 @@ working = 0
     terrain.maxStayingSquadsCount = 10;
     terrain.stayingObjectsCount = 3;
 
-    terrain.lastRespawnUpdatedAt = MockCTime.mock(2015, 2, 14, 14, 25, 30, 100);
+    terrain.lastRespawnUpdatedAt = createTime(2015, 2, 14, 14, 25, 30, 100);
     terrain.spawnedSquadsList.set("test-1", { num: 3 });
     terrain.spawnedSquadsList.set("test-2", { num: 3 });
 

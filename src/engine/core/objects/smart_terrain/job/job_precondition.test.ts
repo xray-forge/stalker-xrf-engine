@@ -1,8 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { GameObject, ServerHumanObject } from "xray16/alias";
-import { AnyObject, TNumberId, TSection } from "xray16/lib";
-import { MockCTime } from "xray16/mocks";
+import { AnyObject, createTime, TNumberId, TSection } from "xray16/lib";
 
 import { registerObject, registerSmartCover, registerZone } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
@@ -53,7 +52,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionWalker(stalker, terrain, parameters)).toBe(true);
 
     jest.spyOn(stalker, "community").mockImplementation(() => "stalker");
-    terrain.alarmStartedAt = MockCTime.mock(1, 2, 3, 4, 5, 6, 7);
+    terrain.alarmStartedAt = createTime(1, 2, 3, 4, 5, 6, 7);
     expect(jobPreconditionWalker(stalker, terrain, parameters)).toBe(true);
 
     terrain.safeRestrictor = "safe_restrictor_test";
@@ -168,7 +167,7 @@ describe("job_precondition utilities", () => {
 
     expect(jobPreconditionGuard(stalker, terrain, parameters)).toBe(true);
 
-    terrain.alarmStartedAt = MockCTime.mock(1, 2, 3, 4, 5, 6, 7);
+    terrain.alarmStartedAt = createTime(1, 2, 3, 4, 5, 6, 7);
     expect(jobPreconditionGuard(stalker, terrain, parameters)).toBe(true);
 
     terrain.safeRestrictor = "safe_restrictor_test";
@@ -227,7 +226,7 @@ describe("job_precondition utilities", () => {
 
     expect(jobPreconditionPatrol(stalker, terrain, {})).toBe(true);
 
-    terrain.alarmStartedAt = MockCTime.mock(1, 2, 3, 4, 5, 6, 7);
+    terrain.alarmStartedAt = createTime(1, 2, 3, 4, 5, 6, 7);
     expect(jobPreconditionPatrol(stalker, terrain, parameters)).toBe(true);
 
     terrain.safeRestrictor = "safe_restrictor_test";
@@ -265,7 +264,7 @@ describe("job_precondition utilities", () => {
     expect(jobPreconditionSleep(stalker, terrain, { ...parameters, isSafeJob: true })).toBe(false);
 
     jest.spyOn(stalker, "community").mockImplementation(() => "stalker");
-    terrain.alarmStartedAt = MockCTime.mock(2014, 2, 3, 4, 20, 30, 400);
+    terrain.alarmStartedAt = createTime(2014, 2, 3, 4, 20, 30, 400);
     expect(jobPreconditionSleep(stalker, terrain, { ...parameters, isSafeJob: null })).toBe(true);
 
     terrain.safeRestrictor = "sleep_test_restrictor";

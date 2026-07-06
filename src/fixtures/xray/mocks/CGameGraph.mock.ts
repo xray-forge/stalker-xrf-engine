@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { Nillable, TNumberId } from "xray16/lib";
-
-import { MockCVertex } from "@/fixtures/xray/mocks/CVertex.mock";
+import { MockCVertex } from "xray16/mocks";
 
 /**
  * Mock game graph singleton.

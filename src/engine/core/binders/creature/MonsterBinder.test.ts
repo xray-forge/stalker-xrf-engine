@@ -1,8 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
 import { GameObject, ServerMonsterBaseObject } from "xray16/alias";
-import { X_VECTOR, ZERO_VECTOR } from "xray16/lib";
-import { MockCTime } from "xray16/mocks";
+import { createTime, X_VECTOR, ZERO_VECTOR } from "xray16/lib";
 
 import { MonsterBinder } from "@/engine/core/binders/creature/MonsterBinder";
 import {
@@ -323,7 +322,7 @@ describe("MonsterBinder", () => {
     const state: IRegistryObjectState = registry.objects.get(object.id());
 
     state.activationTime = 5000;
-    state.activationGameTime = MockCTime.mock(2012, 6, 12, 20, 15, 30, 500);
+    state.activationGameTime = createTime(2012, 6, 12, 20, 15, 30, 500);
     state.jobIni = "job_ini.ltx";
     state.iniFilename = "ini.ltx";
     state.sectionLogic = "logic";

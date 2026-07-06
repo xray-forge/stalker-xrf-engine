@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { level } from "xray16";
 import { FALSE, TRUE } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockDevice } from "xray16/mocks";
 
 import {
   EEffectorState,
@@ -15,7 +16,6 @@ import { parseConditionsList } from "@/engine/core/utils/ini";
 import { EScheme } from "@/engine/lib/types";
 import { mockRegisteredActor, mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { resetFunctionMock } from "@/fixtures/jest";
-import { MockDevice } from "@/fixtures/xray";
 
 function mockEffectorDescriptor(
   base: Partial<ICameraEffectorSetDescriptorItem> = {}

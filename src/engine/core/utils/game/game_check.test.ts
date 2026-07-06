@@ -1,10 +1,11 @@
 import { describe, expect, it } from "@jest/globals";
 import { AlifeSimulator } from "xray16/alias";
+import { MockDevice } from "xray16/mocks";
 
 import { registerActorServer, registerSimulator, registry } from "@/engine/core/database";
 import { Actor } from "@/engine/core/objects/creature";
 import { isBlackScreen, isGameLevelChanging, isGameStarted } from "@/engine/core/utils/game/game_check";
-import { MockAlifeCreatureActor, MockDevice } from "@/fixtures/xray";
+import { MockAlifeCreatureActor } from "@/fixtures/xray";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 
 describe("isGameStarted util", () => {

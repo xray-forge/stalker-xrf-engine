@@ -1,7 +1,7 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockDevice } from "xray16/mocks";
 
 import { isWideScreen } from "@/engine/core/utils/ui/ui_screen";
-import { MockDevice } from "@/fixtures/xray";
 
 describe("isWideScreen util", () => {
   it("should correctly check whether game is in wide screen mode", () => {

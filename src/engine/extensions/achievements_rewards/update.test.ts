@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
 import { ServerObject } from "xray16/alias";
-import { MockCTime } from "xray16/mocks";
+import { createTime } from "xray16/lib";
 
 import { getManager, registerSimulator, registerStoryLink, registry } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
@@ -54,7 +54,7 @@ describe("achievement rewards extension", () => {
 
     resetFunctionMock(registry.simulator.create);
     resetFunctionMock(registry.simulator.create_ammo);
-    replaceFunctionMock(game.get_game_time, () => MockCTime.mock(2012, 6, 25, 12, 35, 30, 500));
+    replaceFunctionMock(game.get_game_time, () => createTime(2012, 6, 25, 12, 35, 30, 500));
 
     registerStoryLink(box.id, achievementRewardsConfig.REWARD_BOXES.ZATON);
     giveInfoPortion(infoPortions.detective_achievement_gained);
@@ -65,7 +65,7 @@ describe("achievement rewards extension", () => {
     expect(registry.simulator.create).not.toHaveBeenCalled();
     expect(registry.simulator.create_ammo).not.toHaveBeenCalled();
 
-    const newTime: CTime = MockCTime.mock(2020, 6, 25, 12, 35, 30, 500);
+    const newTime: CTime = createTime(2020, 6, 25, 12, 35, 30, 500);
 
     replaceFunctionMock(game.get_game_time, () => newTime);
 
@@ -89,7 +89,7 @@ describe("achievement rewards extension", () => {
 
     resetFunctionMock(registry.simulator.create);
     resetFunctionMock(registry.simulator.create_ammo);
-    replaceFunctionMock(game.get_game_time, () => MockCTime.mock(2012, 6, 25, 12, 35, 30, 500));
+    replaceFunctionMock(game.get_game_time, () => createTime(2012, 6, 25, 12, 35, 30, 500));
 
     registerStoryLink(box.id, achievementRewardsConfig.REWARD_BOXES.JUPITER);
     giveInfoPortion(infoPortions.mutant_hunter_achievement_gained);
@@ -99,7 +99,7 @@ describe("achievement rewards extension", () => {
     expect(String(achievementRewardsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT)).toBe(String(game.get_game_time()));
     expect(registry.simulator.create).not.toHaveBeenCalled();
 
-    const newTime: CTime = MockCTime.mock(2020, 6, 25, 12, 35, 30, 500);
+    const newTime: CTime = createTime(2020, 6, 25, 12, 35, 30, 500);
 
     replaceFunctionMock(game.get_game_time, () => newTime);
 

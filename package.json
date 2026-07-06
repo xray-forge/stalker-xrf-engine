@@ -25,7 +25,7 @@
     "help": "ts-node -P ./cli/tsconfig.json cli/run.ts -h"
   },
   "dependencies": {
-    "xray16": "^2.0.0-experimental.4"
+    "xray16": "^2.0.0-experimental.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
@@ -37,6 +37,7 @@
     "chalk": "4.1.2",
     "commander": "^13.1.0",
     "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jest": "^29.15.2",
     "eslint-plugin-jsdoc": "^63.0.10",

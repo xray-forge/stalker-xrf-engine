@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 import { GameObject } from "xray16/alias";
-import { MockCTime } from "xray16/mocks";
+import { createTime } from "xray16/lib";
 
 import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadObjectLogic, saveObjectLogic } from "@/engine/core/database/logic";
@@ -23,7 +23,7 @@ describe("logic database module", () => {
 
     const cb = jest.fn();
     const actions = new LuaTable();
-    const time = MockCTime.mock(2015, 5, 4, 12, 25, 30, 200);
+    const time = createTime(2015, 5, 4, 12, 25, 30, 200);
 
     actions.set({ save: cb }, true);
 

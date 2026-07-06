@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { CTime } from "xray16";
-import { AnyObject, Nillable } from "xray16/lib";
-import { MockCTime } from "xray16/mocks";
+import { AnyObject, createTime, Nillable } from "xray16/lib";
 
 import { getManager } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
@@ -37,16 +36,16 @@ describe("achievement rewards extension", () => {
       lastMutantAchievementSpawnAt: null,
     });
 
-    achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2012, 6, 3, 12, 20, 30, 500);
-    achievementRewardsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2012, 6, 3, 12, 20, 30, 500);
+    achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = createTime(2012, 6, 3, 12, 20, 30, 500);
+    achievementRewardsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = createTime(2012, 6, 3, 12, 20, 30, 500);
 
     load(data);
 
     expect(achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT).toBeNull();
     expect(achievementRewardsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT).toBeNull();
 
-    achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2012, 6, 3, 12, 20, 30, 500);
-    achievementRewardsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = MockCTime.mock(2016, 6, 3, 12, 20, 30, 500);
+    achievementRewardsConfig.LAST_DETECTIVE_ACHIEVEMENT_SPAWN_AT = createTime(2012, 6, 3, 12, 20, 30, 500);
+    achievementRewardsConfig.LAST_MUTANT_HUNTER_ACHIEVEMENT_SPAWN_AT = createTime(2016, 6, 3, 12, 20, 30, 500);
 
     save(data);
 

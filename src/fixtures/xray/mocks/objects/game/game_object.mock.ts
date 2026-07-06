@@ -16,10 +16,10 @@ import {
   TSection,
   TTimestamp,
 } from "xray16/lib";
-import { MockVector } from "xray16/mocks";
+import { MockAnim, MockVector } from "xray16/mocks";
 
 import { ACTOR_ID } from "@/engine/lib/constants/ids";
-import { MockActionPlanner, MockAnim, MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
+import { MockActionPlanner, MockMove, MockSightParameters } from "@/fixtures/xray/mocks/actions";
 import { mockClsid } from "@/fixtures/xray/mocks/constants/clsid.mock";
 import { MockIniFile } from "@/fixtures/xray/mocks/ini";
 import { mockRelationRegistryInterface } from "@/fixtures/xray/mocks/interface";

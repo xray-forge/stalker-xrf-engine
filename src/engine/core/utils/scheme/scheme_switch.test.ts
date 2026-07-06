@@ -1,7 +1,7 @@
 import { afterAll, describe, expect, it, jest } from "@jest/globals";
 import { game } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
-import { LuaArray, NIL } from "xray16/lib";
+import { createTime, LuaArray, NIL } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
 import { MockCTime } from "xray16/mocks";
 
@@ -502,7 +502,7 @@ describe("trySwitchToAnotherSection", () => {
     registerActor(actor);
     loadSchemeImplementation(SchemeIdle);
 
-    jest.spyOn(game, "get_game_time").mockImplementation(() => MockCTime.mock(1, 1, 1, 1, 30, 60, 500));
+    jest.spyOn(game, "get_game_time").mockImplementation(() => createTime(1, 1, 1, 1, 30, 60, 500));
 
     objectState.activationGameTime = game.get_game_time();
     objectState.activeScheme = EScheme.SR_IDLE;
@@ -511,11 +511,11 @@ describe("trySwitchToAnotherSection", () => {
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@default");
 
-    jest.spyOn(game, "get_game_time").mockImplementation(() => MockCTime.mock(1, 1, 1, 1, 33, 60, 500));
+    jest.spyOn(game, "get_game_time").mockImplementation(() => createTime(1, 1, 1, 1, 33, 60, 500));
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@default");
 
-    jest.spyOn(game, "get_game_time").mockImplementation(() => MockCTime.mock(1, 1, 1, 1, 35, 60, 500));
+    jest.spyOn(game, "get_game_time").mockImplementation(() => createTime(1, 1, 1, 1, 35, 60, 500));
     trySwitchToAnotherSection(object, schemeState);
     expect(objectState.activeSection).toBe("sr_idle@next");
   });

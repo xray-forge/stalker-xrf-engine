@@ -1,6 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
-import { MockCTime } from "xray16/mocks";
+import { createTime } from "xray16/lib";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { startTerrainAlarm, updateTerrainAlarmStatus } from "@/engine/core/utils/smart_terrain/smart_terrain_alarms";
@@ -9,8 +9,8 @@ import { MockSmartTerrain } from "@/fixtures/engine";
 describe("startSmartTerrainAlarm util", () => {
   it("should correctly start alarm", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
-    const nowTime: CTime = MockCTime.mock(2015, 6, 14, 13, 25, 30, 500);
-    const laterTime: CTime = MockCTime.mock(2015, 6, 15, 13, 25, 30, 500);
+    const nowTime: CTime = createTime(2015, 6, 14, 13, 25, 30, 500);
+    const laterTime: CTime = createTime(2015, 6, 15, 13, 25, 30, 500);
 
     expect(terrain.alarmStartedAt).toBeNull();
 
@@ -27,9 +27,9 @@ describe("startSmartTerrainAlarm util", () => {
 describe("updateSmartTerrainAlarmStatus util", () => {
   it("should correctly handle alarm", () => {
     const terrain: SmartTerrain = MockSmartTerrain.mock();
-    const startTime: CTime = MockCTime.mock(2015, 6, 14, 12, 25, 30, 500);
-    const laterTime: CTime = MockCTime.mock(2015, 6, 14, 15, 25, 30, 500);
-    const endedTime: CTime = MockCTime.mock(2015, 6, 14, 18, 25, 30, 500); // Exactly 6 hours.
+    const startTime: CTime = createTime(2015, 6, 14, 12, 25, 30, 500);
+    const laterTime: CTime = createTime(2015, 6, 14, 15, 25, 30, 500);
+    const endedTime: CTime = createTime(2015, 6, 14, 18, 25, 30, 500); // Exactly 6 hours.
 
     expect(terrain.alarmStartedAt).toBeNull();
 

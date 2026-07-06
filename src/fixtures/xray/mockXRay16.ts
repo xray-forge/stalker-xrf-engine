@@ -5,13 +5,17 @@ import {
   mockCommandLine,
   MockCSightParams,
   MockCTime,
+  MockDevice,
   MockEffector,
+  MockEntityAction,
   MockFbox,
   MockFrect,
   mockGetARGB,
   MockHit,
   MockNoise,
+  MockObject,
   MockPropertiesHelper,
+  MockSound,
   MockVector,
   MockVector2D,
 } from "xray16/mocks";
@@ -29,8 +33,6 @@ import {
   MockWorldProperty,
   MockWorldState,
 } from "@/fixtures/xray/mocks/actions";
-import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mock";
-import { MockSound } from "@/fixtures/xray/mocks/actions/sound.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockConsole } from "@/fixtures/xray/mocks/console.mock";
 import {
@@ -42,7 +44,6 @@ import {
   mockStalkerIds,
   mockUiEvents,
 } from "@/fixtures/xray/mocks/constants";
-import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";
@@ -54,7 +55,6 @@ import {
   mockMainMenuInterface,
   mockRelationRegistryInterface,
 } from "@/fixtures/xray/mocks/interface";
-import { MockObject } from "@/fixtures/xray/mocks/object.mock";
 import {
   MockAlifeCreatureActor,
   MockAlifeDynamicObject,

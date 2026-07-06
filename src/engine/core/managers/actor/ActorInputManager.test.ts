@@ -1,8 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { game, get_console, level } from "xray16";
 import { Console, GameObject } from "xray16/alias";
-import { AnyObject } from "xray16/lib";
-import { MockCTime } from "xray16/mocks";
+import { AnyObject, createTime } from "xray16/lib";
 
 import { disposeManager, getManager, registerActor, registry } from "@/engine/core/database";
 import { actorConfig } from "@/engine/core/managers/actor/ActorConfig";
@@ -200,7 +199,7 @@ describe("ActorInputManager", () => {
   it("should correctly handle network spawn event", () => {
     const manager: ActorInputManager = getManager(ActorInputManager);
 
-    actorConfig.DISABLED_INPUT_AT = MockCTime.mock(2012, 12, 1, 12, 30, 5, 500);
+    actorConfig.DISABLED_INPUT_AT = createTime(2012, 12, 1, 12, 30, 5, 500);
     manager.onActorGoOnline();
     expect(level.enable_input).toHaveBeenCalledTimes(0);
 

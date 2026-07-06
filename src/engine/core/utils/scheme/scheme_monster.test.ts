@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { cond, move, vector } from "xray16";
 import { Cond, GameObject, Move } from "xray16/alias";
+import { MockEntityAction } from "xray16/mocks";
 
 import {
   isMonsterScriptCaptured,
@@ -10,7 +11,7 @@ import {
   scriptReleaseMonster,
 } from "@/engine/core/utils/scheme/scheme_monster";
 import { getFunctionMock, replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
-import { MockEntityAction, MockGameObject } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("isMonsterScriptCaptured util", () => {
   it("should correctly check if monster object is captured", () => {
