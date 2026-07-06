@@ -1,2 +1,2 @@
-export * from "@/fixtures/xray/mocks/dialogs/Phrase.mock";
-export * from "@/fixtures/xray/mocks/dialogs/PhraseDialog.mock";
+export { MockPhrase } from "xray16/mocks";
+export { MockPhraseDialog } from "xray16/mocks";

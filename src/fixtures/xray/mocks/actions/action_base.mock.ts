@@ -1,8 +1,6 @@
 import { ActionBase, GameObject } from "xray16/alias";
 import { Nillable } from "xray16/lib";
-import { MockLuabindClass } from "xray16/mocks";
-
-import { MockWorldProperty } from "@/fixtures/xray/mocks/actions/world_property.mock";
+import { MockLuabindClass, MockWorldProperty } from "xray16/mocks";
 
 /**
  * Mock action base class for handling with GOAP planner.

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { GameObject } from "xray16/alias";
 import { Nillable, TSection } from "xray16/lib";
-import { MockVector } from "xray16/mocks";
+import { MockPropertyEvaluatorConst, MockPropertyStorage, MockVector } from "xray16/mocks";
 
 import { EEvaluatorId } from "@/engine/core/ai/planner/types";
 import { IRegistryObjectState, registerObject } from "@/engine/core/database";
@@ -9,8 +9,7 @@ import { ISchemeCamperState } from "@/engine/core/schemes/stalker/camper/camper_
 import { EvaluatorCloseCombat } from "@/engine/core/schemes/stalker/camper/evaluators/EvaluatorCloseCombat";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockActionPlanner, MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
-import { MockPropertyEvaluatorConst } from "@/fixtures/xray/mocks/PropertyEvaluatorConst.mock";
+import { MockActionPlanner, MockGameObject } from "@/fixtures/xray";
 
 interface ISetupResult {
   evaluator: EvaluatorCloseCombat;

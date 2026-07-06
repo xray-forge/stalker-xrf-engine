@@ -1,5 +1,6 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { createEmptyVector } from "xray16/lib";
+import { MockPropertyStorage } from "xray16/mocks";
 
 import { ActionAnimationStart } from "@/engine/core/ai/state/animation/ActionAnimationStart";
 import { StalkerStateManager } from "@/engine/core/ai/state/StalkerStateManager";
@@ -7,7 +8,7 @@ import { EStalkerState } from "@/engine/core/animation/types";
 import { StalkerBinder } from "@/engine/core/binders/creature/StalkerBinder";
 import { registry } from "@/engine/core/database/registry";
 import { registerStalker, setStalkerState, unregisterStalker } from "@/engine/core/database/stalker";
-import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionAnimationStart", () => {
   it("should correctly perform start action", () => {

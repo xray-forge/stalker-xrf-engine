@@ -1,5 +1,7 @@
 import { jest } from "@jest/globals";
 import {
+  mockActorStatsInterface,
+  MockAnim,
   MockCALifeSmartTerrainTask,
   mockCallbacks,
   MockCGameFont,
@@ -7,6 +9,7 @@ import {
   mockClsid,
   MockColor,
   mockCommandLine,
+  MockCond,
   MockConsole,
   MockCSavedGameWrapper,
   MockCSightParams,
@@ -23,13 +26,18 @@ import {
   mockGetARGB,
   MockHangingLamp,
   MockHit,
+  MockLook,
+  mockMainMenuInterface,
   MockNoise,
   MockObject,
   MockParticleObject,
   MockPhysicObject,
   MockPhysicsJoint,
+  MockPhysicsShell,
   MockProfileTimer,
   MockPropertiesHelper,
+  MockPropertyEvaluator,
+  MockPropertyStorage,
   mockSndType,
   MockSound,
   MockSoundObject,
@@ -38,31 +46,25 @@ import {
   mockUiEvents,
   MockVector,
   MockVector2D,
+  MockWorldProperty,
+  MockWorldState,
 } from "xray16/mocks";
 
 import {
   MockActionBase,
   MockActionPlanner,
-  MockAnim,
   mockCastPlanner,
-  MockCond,
-  MockLook,
   MockMove,
-  MockPropertyStorage,
   MockSightParameters,
-  MockWorldProperty,
-  MockWorldState,
 } from "@/fixtures/xray/mocks/actions";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
 import { MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";
 import {
-  mockActorStatsInterface,
   mockGameInterface,
   mockGetGameHud,
   mockLevelInterface,
-  mockMainMenuInterface,
   mockRelationRegistryInterface,
 } from "@/fixtures/xray/mocks/interface";
 import {
@@ -126,13 +128,11 @@ import {
   MockLoginOperationCb,
   MockObjectBinder,
   MockPatrol,
-  MockPhysicsShell,
   MockProfile,
   MockSpaceRestrictor,
   MockTorridZone,
   MockZoneVisual,
 } from "@/fixtures/xray/mocks/objects";
-import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 
 /**
  * Mock whole xray16 game libraries for testing environment and replace with testable mocks.

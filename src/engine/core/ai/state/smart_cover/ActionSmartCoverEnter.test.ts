@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { move } from "xray16";
 import { GameObject } from "xray16/alias";
+import { MockPropertyStorage } from "xray16/mocks";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import { ActionSmartCoverEnter } from "@/engine/core/ai/state/smart_cover/ActionSmartCoverEnter";
@@ -8,7 +9,7 @@ import { IRegistryObjectState, registerObject } from "@/engine/core/database";
 import { ISchemeSmartCoverState } from "@/engine/core/schemes/stalker/smartcover";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
-import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionSmartCoverEnter", () => {
   beforeEach(() => {

@@ -2,19 +2,13 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { CArtefact } from "xray16";
 import { GameObject, PhysicsElement, PhysicsShell, ServerObject } from "xray16/alias";
 import { createVector } from "xray16/lib";
-import { MockCArtefact, MockPhysicsElement } from "xray16/mocks";
+import { MockCArtefact, MockPhysicsElement, MockPhysicsShell } from "xray16/mocks";
 
 import { ArtefactBinder } from "@/engine/core/binders/physic/ArtefactBinder";
 import { AnomalyZoneBinder } from "@/engine/core/binders/zones";
 import { registry } from "@/engine/core/database";
 import { resetRegistry } from "@/fixtures/engine";
-import {
-  MockGameObject,
-  MockIniFile,
-  MockObjectBinder,
-  MockPhysicsShell,
-  MockServerAlifeCreatureAbstract,
-} from "@/fixtures/xray";
+import { MockGameObject, MockIniFile, MockObjectBinder, MockServerAlifeCreatureAbstract } from "@/fixtures/xray";
 
 describe("ArtefactBinder", () => {
   beforeEach(() => {

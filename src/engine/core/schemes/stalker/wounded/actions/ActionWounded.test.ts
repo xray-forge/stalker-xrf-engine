@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { time_global } from "xray16";
 import { GameObject } from "xray16/alias";
 import { TRUE } from "xray16/lib";
+import { MockPropertyStorage } from "xray16/mocks";
 
 import { StalkerStateManager } from "@/engine/core/ai/state";
 import {
@@ -26,7 +27,7 @@ import { WoundManager } from "@/engine/core/schemes/stalker/wounded/WoundManager
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState, resetRegistry } from "@/fixtures/engine";
 import { replaceFunctionMockOnce } from "@/fixtures/jest";
-import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("ActionWounded", () => {
   beforeEach(() => {

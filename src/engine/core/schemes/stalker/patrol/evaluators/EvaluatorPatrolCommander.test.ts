@@ -1,5 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 import { GameObject } from "xray16/alias";
+import { MockPropertyStorage } from "xray16/mocks";
 
 import { ISchemePatrolState, PatrolManager } from "@/engine/core/schemes/stalker/patrol";
 import { EvaluatorPatrolCommander } from "@/engine/core/schemes/stalker/patrol/evaluators/EvaluatorPatrolCommander";
@@ -7,7 +8,7 @@ import { patrolConfig } from "@/engine/core/schemes/stalker/patrol/PatrolConfig"
 import { MAX_ALIFE_ID } from "@/engine/lib/constants/memory";
 import { EScheme } from "@/engine/lib/types";
 import { mockSchemeState } from "@/fixtures/engine";
-import { MockGameObject, MockPropertyStorage } from "@/fixtures/xray";
+import { MockGameObject } from "@/fixtures/xray";
 
 describe("EvaluatorPatrolCommander", () => {
   it("should correctly check if patrol commander", () => {
