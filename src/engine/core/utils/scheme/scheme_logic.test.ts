@@ -3,6 +3,7 @@ import { callback, clsid } from "xray16";
 import { GameObject, IniFile, ServerHumanObject } from "xray16/alias";
 import { NIL } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockCTime } from "xray16/mocks";
 
 import { ObjectRestrictionsManager } from "@/engine/core/ai/restriction";
 import { TAbstractSchemeConstructor } from "@/engine/core/ai/scheme";
@@ -52,7 +53,6 @@ import { EScheme, ESchemeType } from "@/engine/lib/types";
 import { getSchemeAction, mockSchemeState, resetRegistry } from "@/fixtures/engine/mocks";
 import { replaceFunctionMock, resetFunctionMock } from "@/fixtures/jest";
 import { MockAlifeHumanStalker, MockAlifeSimulator, MockGameObject, MockIniFile } from "@/fixtures/xray";
-import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 function loadGenericSchemes(): Array<TAbstractSchemeConstructor> {
   const schemes: Array<TAbstractSchemeConstructor> = [

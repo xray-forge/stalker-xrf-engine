@@ -21,6 +21,7 @@ import {
   MAX_U8,
   Nillable,
   Nullable,
+  readTimeFromPacket,
   TCount,
   TDistance,
   TDuration,
@@ -29,7 +30,7 @@ import {
   TRate,
   TRUE,
   TSection,
-  TTimestamp,
+  TTimestamp, writeTimeToPacket,
 } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
@@ -107,7 +108,6 @@ import {
   turnOnTerrainCampfires,
   updateTerrainAlarmStatus,
 } from "@/engine/core/utils/smart_terrain";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { roots } from "@/engine/lib/constants/roots";
 import { SMART_TERRAIN_SECTION } from "@/engine/lib/constants/sections";
 import { ESchemeType } from "@/engine/lib/types";

@@ -1,5 +1,3 @@
-export * from "@/fixtures/xray/mocks/CTime.mock";
-export * from "@/fixtures/xray/mocks/FBox.mock";
 export * from "@/fixtures/xray/mocks/MonsterHitInfo.mock";
 export * from "@/fixtures/xray/mocks/actions";
 export * from "@/fixtures/xray/mocks/console.mock";
@@ -14,4 +12,3 @@ export * from "@/fixtures/xray/mocks/objects";
 export * from "@/fixtures/xray/mocks/particle_object.mock";
 export * from "@/fixtures/xray/mocks/relations";
 export * from "@/fixtures/xray/mocks/save";
-export { MockVector, MockVector2D } from "xray16/mocks";

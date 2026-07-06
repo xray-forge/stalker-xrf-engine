@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
-
-import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
+import { MockCTime } from "xray16/mocks";
 
 /**
  * Mock xray game method table interface.

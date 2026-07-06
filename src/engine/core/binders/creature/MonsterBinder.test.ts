@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { callback, clsid } from "xray16";
 import { GameObject, ServerMonsterBaseObject } from "xray16/alias";
 import { X_VECTOR, ZERO_VECTOR } from "xray16/lib";
+import { MockCTime } from "xray16/mocks";
 
 import { MonsterBinder } from "@/engine/core/binders/creature/MonsterBinder";
 import {
@@ -35,7 +36,6 @@ import { resetFunctionMock } from "@/fixtures/jest";
 import {
   EPacketDataType,
   MockAlifeMonsterBase,
-  MockCTime,
   MockGameObject,
   MockNetProcessor,
   MockObjectBinder,

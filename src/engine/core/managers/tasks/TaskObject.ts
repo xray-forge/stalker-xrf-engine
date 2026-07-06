@@ -4,13 +4,14 @@ import {
   AnyCallablesModule,
   LuaArray,
   Nillable,
+  readTimeFromPacket,
   TIndex,
   TLabel,
   TName,
   TNumberId,
   TRate,
   TStringId,
-  TTimestamp,
+  TTimestamp, writeTimeToPacket,
 } from "xray16/lib";
 import { $filename, $isNil, $isNotNil } from "xray16/macros";
 
@@ -40,7 +41,6 @@ import {
   TConditionList,
 } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { TLevel } from "@/engine/lib/constants/levels";
 
 const logger: LuaLogger = new LuaLogger($filename);

@@ -1,4 +1,4 @@
-import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
+import { MockCTime } from "xray16/mocks";
 
 export class MockCSavedGameWrapper {
   public game_time(): MockCTime {

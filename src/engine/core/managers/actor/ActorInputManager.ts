@@ -1,6 +1,6 @@
 import { game, get_hud, level } from "xray16";
 import { GameHud, GameObject, NetPacket, NetProcessor } from "xray16/alias";
-import { AnyObject, Nillable, TDuration, TIndex, TNumberId, TRate } from "xray16/lib";
+import { AnyObject, Nillable, readTimeFromPacket, TDuration, TIndex, TNumberId , TRate, writeTimeToPacket } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -23,7 +23,6 @@ import { disableInfoPortion, giveInfoPortion } from "@/engine/core/utils/info_po
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { isActorInNoWeaponZone } from "@/engine/core/utils/position";
 import { getEffectsVolume, getMusicVolume, setEffectsVolume, setMusicVolume } from "@/engine/core/utils/sound";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { animations, postProcessors } from "@/engine/lib/constants/animation";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { drugs } from "@/engine/lib/constants/items/drugs";

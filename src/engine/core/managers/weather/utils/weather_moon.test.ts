@@ -1,8 +1,8 @@
 import { describe, expect, it } from "@jest/globals";
+import { MockCTime } from "xray16/mocks";
 
 import { EWeatherMoonPeriod } from "@/engine/core/managers/weather";
 import { getMoonPhase } from "@/engine/core/managers/weather/utils/weather_moon";
-import { MockCTime } from "@/fixtures/xray";
 
 describe("getMoonPhase util", () => {
   it("should correctly calculate phase for 8 days duration", () => {

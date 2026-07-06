@@ -1,10 +1,9 @@
-import { AnyObject, TName } from "xray16/lib";
+import { AnyObject, deserializeTime , serializeTime, TName } from "xray16/lib";
 import { $dirname } from "xray16/macros";
 
 import { getManager } from "@/engine/core/database";
 import { EGameEvent, EventsManager } from "@/engine/core/managers/events";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { deserializeTime, serializeTime } from "@/engine/core/utils/time";
 import { achievementRewardsConfig } from "@/engine/extensions/achievements_rewards/AchievementRewardsConfig";
 import { update } from "@/engine/extensions/achievements_rewards/update";
 

@@ -1,13 +1,12 @@
 import { time_global } from "xray16";
 import { GameObject, NetPacket, NetProcessor, Time } from "xray16/alias";
-import { NIL, Nillable, StringNillable, TName, TPath, TSection } from "xray16/lib";
+import { NIL, Nillable, readTimeFromPacket, StringNillable, TName, TPath , TSection, writeTimeToPacket } from "xray16/lib";
 
 import { IBaseSchemeState, IRegistryObjectState } from "@/engine/core/database/database_types";
 import { loadPortableStore, savePortableStore } from "@/engine/core/database/portable_store";
 import { registry } from "@/engine/core/database/registry";
 import { closeLoadMarker, closeSaveMarker, openLoadMarker, openSaveMarker } from "@/engine/core/database/save_markers";
 import { emitSchemeEvent } from "@/engine/core/utils/scheme/scheme_event";
-import { readTimeFromPacket, writeTimeToPacket } from "@/engine/core/utils/time";
 import { ESchemeEvent } from "@/engine/lib/types";
 
 /**

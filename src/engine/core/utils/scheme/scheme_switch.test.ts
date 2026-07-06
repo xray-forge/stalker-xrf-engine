@@ -3,6 +3,7 @@ import { game } from "xray16";
 import { GameObject, IniFile } from "xray16/alias";
 import { LuaArray, NIL } from "xray16/lib";
 import { $fromArray } from "xray16/macros";
+import { MockCTime } from "xray16/mocks";
 
 import {
   IBaseSchemeLogic,
@@ -23,7 +24,6 @@ import { EScheme, ESchemeCondition } from "@/engine/lib/types";
 import { getSchemeAction, mockBaseSchemeLogic, mockSchemeState } from "@/fixtures/engine";
 import { replaceFunctionMock } from "@/fixtures/jest";
 import { MockGameObject, MockIniFile } from "@/fixtures/xray";
-import { MockCTime } from "@/fixtures/xray/mocks/CTime.mock";
 
 // todo: Complex logic switch
 describe("trySwitchToAnotherSection", () => {

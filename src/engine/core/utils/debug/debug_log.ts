@@ -1,6 +1,6 @@
 import { cast_planner, CTime, relation_registry } from "xray16";
 import { ActionPlanner, GameObject } from "xray16/alias";
-import { NIL, Nillable, TLabel, TName, TNumberId } from "xray16/lib";
+import { gameTimeToString, NIL, Nillable, TLabel, TName , TNumberId } from "xray16/lib";
 import { $filename, $isNotNil } from "xray16/macros";
 
 import { EActionId } from "@/engine/core/ai/planner/types";
@@ -8,7 +8,6 @@ import { StalkerStateManager } from "@/engine/core/ai/state";
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { LuaLogger } from "@/engine/core/utils/logging";
 import { getNumberRelationBetweenCommunities } from "@/engine/core/utils/relation";
-import { gameTimeToString } from "@/engine/core/utils/time";
 import { toJSON } from "@/engine/core/utils/transform";
 import { getObjectActiveWeaponSlot } from "@/engine/core/utils/weapon";
 import { stalkerCommunities, TCommunity } from "@/engine/lib/constants/communities";

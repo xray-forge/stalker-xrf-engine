@@ -1,6 +1,6 @@
 import { ini_file } from "xray16";
 import { IniFile } from "xray16/alias";
-import { TCount, TDistance, TName, TSection } from "xray16/lib";
+import { hoursToWeatherPeriod, TCount, TDistance, TName , TSection } from "xray16/lib";
 import { $filename } from "xray16/macros";
 
 import {
@@ -12,7 +12,6 @@ import {
 } from "@/engine/core/managers/weather/weather_types";
 import { readIniNumber, readIniString } from "@/engine/core/utils/ini";
 import { LuaLogger } from "@/engine/core/utils/logging";
-import { hoursToWeatherPeriod } from "@/engine/core/utils/time";
 
 const logger: LuaLogger = new LuaLogger($filename);
 

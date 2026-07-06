@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
+import { MockCTime } from "xray16/mocks";
 
 import { SquadStayOnTargetAction } from "@/engine/core/objects/squad/action/SquadStayOnTargetAction";
 import { ESquadActionType } from "@/engine/core/objects/squad/squad_types";
 import { MockSquad } from "@/fixtures/engine";
-import { MockCTime } from "@/fixtures/xray";
 
 describe("SquadStayOnTargetAction", () => {
   it("should correctly initialize", () => {

@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it } from "@jest/globals";
 import { CTime } from "xray16";
 import { AnyObject, Nillable } from "xray16/lib";
+import { MockCTime } from "xray16/mocks";
 
 import { getManager } from "@/engine/core/database";
 import { EventsManager } from "@/engine/core/managers/events";
 import { achievementRewardsConfig } from "@/engine/extensions/achievements_rewards/AchievementRewardsConfig";
 import { load, register, save } from "@/engine/extensions/achievements_rewards/main";
 import { resetRegistry } from "@/fixtures/engine";
-import { MockCTime } from "@/fixtures/xray";
 
 describe("achievement rewards extension", () => {
   beforeEach(() => {

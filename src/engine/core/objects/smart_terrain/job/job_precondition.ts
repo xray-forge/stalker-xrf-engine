@@ -1,12 +1,11 @@
 import { ServerCreatureObject } from "xray16/alias";
-import { AnyObject, FALSE, Nillable } from "xray16/lib";
+import { AnyObject, FALSE, isInTimeInterval , Nillable } from "xray16/lib";
 
 import { IRegistryObjectState, registry } from "@/engine/core/database";
 import { surgeConfig } from "@/engine/core/managers/surge/SurgeConfig";
 import type { IObjectJobState, SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { pickSectionFromCondList } from "@/engine/core/utils/ini";
 import { isPatrolInRestrictor } from "@/engine/core/utils/patrol";
-import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities } from "@/engine/lib/constants/communities";
 import { detectors } from "@/engine/lib/constants/items/detectors";
 

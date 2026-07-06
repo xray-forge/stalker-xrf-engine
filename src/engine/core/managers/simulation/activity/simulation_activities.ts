@@ -1,5 +1,5 @@
 import { ServerObject } from "xray16/alias";
-import { TName } from "xray16/lib";
+import { isInTimeInterval , TName } from "xray16/lib";
 import { $fromObject } from "xray16/macros";
 
 import { registry } from "@/engine/core/database";
@@ -20,7 +20,6 @@ import { Squad } from "@/engine/core/objects/squad/Squad";
 import { hasInfoPortion } from "@/engine/core/utils/info_portion";
 import { getServerDistanceBetween } from "@/engine/core/utils/position";
 import { isAnySquadMemberEnemyToActor } from "@/engine/core/utils/relation";
-import { isInTimeInterval } from "@/engine/core/utils/time";
 import { communities, TCommunity } from "@/engine/lib/constants/communities";
 import { infoPortions } from "@/engine/lib/constants/info_portions";
 import { storyNames } from "@/engine/lib/constants/story_names";

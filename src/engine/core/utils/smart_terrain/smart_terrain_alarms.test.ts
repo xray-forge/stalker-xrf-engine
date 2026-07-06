@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { CTime, game } from "xray16";
+import { MockCTime } from "xray16/mocks";
 
 import { SmartTerrain } from "@/engine/core/objects/smart_terrain";
 import { startTerrainAlarm, updateTerrainAlarmStatus } from "@/engine/core/utils/smart_terrain/smart_terrain_alarms";
 import { MockSmartTerrain } from "@/fixtures/engine";
-import { MockCTime } from "@/fixtures/xray";
 
 describe("startSmartTerrainAlarm util", () => {
   it("should correctly start alarm", () => {
