@@ -1,4 +1,4 @@
-import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
+import { MockLuabindClass } from "xray16/mocks";
 
 /**
  * Mock xray logics world property.

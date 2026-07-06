@@ -1,8 +1,7 @@
-export * from "@/fixtures/xray/mocks/objects/Flags32.mock";
+export { MockCAlifeMonsterBrain, MockFlags32 } from "xray16/mocks";
 
 export * from "@/fixtures/xray/mocks/objects/AlifeSimulator.mock";
 export * from "@/fixtures/xray/mocks/objects/CALifeSmartTerrainTask.mock";
-export * from "@/fixtures/xray/mocks/objects/CAlifeMonsterBrain.mock";
 export * from "@/fixtures/xray/mocks/objects/CArtefact.mock";
 export * from "@/fixtures/xray/mocks/objects/CHelicopter.mock";
 export * from "@/fixtures/xray/mocks/objects/CZoneCampfire.mock";

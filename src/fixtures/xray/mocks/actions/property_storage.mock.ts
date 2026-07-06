@@ -1,6 +1,5 @@
 import type { PropertyStorage } from "xray16/alias";
-
-import { MockLuabindClass } from "@/fixtures/xray/mocks/luabind.mock";
+import { MockLuabindClass } from "xray16/mocks";
 
 /**
  * Mock property storage instance.

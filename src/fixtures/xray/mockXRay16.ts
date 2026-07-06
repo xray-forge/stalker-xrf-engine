@@ -2,12 +2,16 @@ import { jest } from "@jest/globals";
 import {
   MockCGameFont,
   MockColor,
+  mockCommandLine,
+  MockCSightParams,
   MockCTime,
   MockEffector,
   MockFbox,
+  MockFrect,
   mockGetARGB,
   MockHit,
   MockNoise,
+  MockPropertiesHelper,
   MockVector,
   MockVector2D,
 } from "xray16/mocks";
@@ -28,7 +32,6 @@ import {
 import { MockEntityAction } from "@/fixtures/xray/mocks/actions/entity_action.mock";
 import { MockSound } from "@/fixtures/xray/mocks/actions/sound.mock";
 import { MockCGameGraph } from "@/fixtures/xray/mocks/CGameGraph.mock";
-import { mockCommandLine } from "@/fixtures/xray/mocks/command_line.mock";
 import { MockConsole } from "@/fixtures/xray/mocks/console.mock";
 import {
   mockCallbacks,
@@ -39,10 +42,8 @@ import {
   mockStalkerIds,
   mockUiEvents,
 } from "@/fixtures/xray/mocks/constants";
-import { MockCSightParams } from "@/fixtures/xray/mocks/CSightParams.mock";
 import { MockDevice } from "@/fixtures/xray/mocks/device.mock";
 import { MockPhraseDialog } from "@/fixtures/xray/mocks/dialogs";
-import { MockFrect } from "@/fixtures/xray/mocks/frect.mock";
 import { MockCSavedGameWrapper, MockFileSystem } from "@/fixtures/xray/mocks/fs";
 import { mockCreateIniFile, MockIniFile } from "@/fixtures/xray/mocks/ini";
 import {
@@ -131,7 +132,6 @@ import {
 } from "@/fixtures/xray/mocks/objects";
 import { MockParticleObject } from "@/fixtures/xray/mocks/particle_object.mock";
 import { MockProfileTimer } from "@/fixtures/xray/mocks/ProfileTimer.mock";
-import { MockPropertiesHelper } from "@/fixtures/xray/mocks/properties_helper.mock";
 import { MockPropertyEvaluator } from "@/fixtures/xray/mocks/PropertyEvaluator.mock";
 
 /**
